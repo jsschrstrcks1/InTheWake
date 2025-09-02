@@ -1,193 +1,48 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>In the Wake — Master Index (v2.036)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <header class="site-header">
-  <div class="hero">
-    <div class="latlon-grid">
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
-        <!-- verticals -->
-        <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="40" y1="0" x2="40" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="60" y1="0" x2="60" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <!-- horizontals -->
-        <line x1="0" y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0" y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0" y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-      </svg>
-    </div>
-    <img class="compass-corner" src="assets/compass_rose.svg" alt="Compass" loading="lazy">
-    <div class="hero-title">
-      <img class="logo" src="assets/logo/logo_teal_white.svg" alt="In the Wake">
-      <p class="subtitle">A Cruise Traveler’s Logbook</p>
-    </div>
-    <nav class="hero-nav">
-      <a href="ships.html">Ships</a>
-      <a href="restaurants.html">Restaurants</a>
-      <a href="ports.html">Ports</a>
-      <a href="drinks.html">Drinks</a>
-      <a href="packing.html">Packing</a>
-      <a href="disability.html">Disability</a>
-    </nav>
-  </div>
-</header>
-  <style>
-:root {
-  --sea: #285a82;
-  --foam: #e6f4f8;
-  --rope: #d9b382;
-  --ink: #083041;
-  --sky: #f7fdff;
-  --accent: #285a82;
-  --nav-outline: #d9b382;
-}
-body {
-  margin: 0;
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color: var(--ink);
-  background: var(--sky);
-}
-.header-banner {
-  position: relative;
-  height: 220px;
-  background: linear-gradient(180deg, #f7fdff 0%, #e6f4f8 75%, #dde7f0 100%);
-  border-bottom: 5px solid var(--rope);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-.header-logo-wrapper {
-  position: relative;
-  height: 170px;
-  width: 430px;
-  margin-left: 0;
-  display: flex;
-  align-items: center;
-  z-index: 3;
-}
-.header-logo {
-  width: 420px;
-  height: 160px;
-  display: block;
-  object-fit: contain;
-}
-.header-title {
-  position: absolute;
-  left: 40px;
-  top: 80px;
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: var(--sea);
-  letter-spacing: 1px;
-  z-index: 4;
-  text-shadow: 0 1px 6px rgba(40,90,130,0.12);
-  font-family: 'Merriweather', serif;
-}
-.header-compass {
-  position: absolute;
-  left: 24px;
-  top: 16px;
-  width: 95px;
-  height: 95px;
-  opacity: 0.12;
-  z-index: 2;
-  pointer-events: none;
-}
-.header-coords {
-  position: absolute;
-  left: 128px;
-  top: 32px;
-  font-size: 1.08rem;
-  color: #295a82c8;
-  font-family: 'ui-monospace', 'Menlo', monospace;
-  letter-spacing: .02em;
-  z-index: 3;
-}
-.header-version {
-  position: absolute;
-  right: 34px;
-  bottom: 16px;
-  font-size: 1.07rem;
-  color: var(--sea);
-  background: #fff;
-  border: 1px solid var(--rope);
-  border-radius: 9px;
-  padding: .26em .85em;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(40,90,130,.06);
-  z-index: 3;
-}
-.header-nav {
-  position: absolute;
-  left: 180px;
-  bottom: 24px;
-  z-index: 5;
-  display: flex;
-  gap: 0.8rem;
-}
-.header-nav a {
-  color: var(--sea);
-  background: #fff;
-  border: 2px solid var(--nav-outline);
-  border-radius: 999px;
-  padding: .43em 1.2em;
-  font-size: 1.05rem;
-  font-weight: 500;
-  text-decoration: none;
-  box-shadow: 0 1px 4px rgba(40,90,130,0.07);
-  transition: border-color .14s, box-shadow .14s;
-  font-family: inherit;
-}
-.header-nav a:hover, .header-nav a:focus {
-  border-color: var(--sea);
-  box-shadow: 0 2px 8px rgba(40,90,130,0.12);
-  background: var(--foam);
-}
-@media (max-width: 900px) {
-  .header-banner { height: 170px; }
-  .header-logo-wrapper { width: 250px; height: 105px; }
-  .header-logo { width: 200px; height: 90px; }
-  .header-title { font-size: 1.65rem; left: 26px; top: 51px; }
-  .header-compass { left: 8px; top: 8px; width: 62px; height: 62px; }
-  .header-coords { left: 68px; top: 20px; font-size: .94rem; }
-  .header-version { right: 13px; bottom: 8px; font-size: .93rem; }
-  .header-nav { left: 115px; bottom: 9px; gap: 0.4rem; }
-  .header-nav a { font-size: .95rem; padding: .3em .8em; }
-}
-</style>
+  <meta charset="utf-8">
+  <title>In the Wake — Master Index (v2.036)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Styles are loaded from assets/styles.css -->
 </head>
 <body>
-<div class="header-banner">
-  <div class="header-logo-wrapper">
-    <!-- Ship Logo SVG (left-aligned, color-matched) -->
-    <svg class="header-logo" viewBox="0 0 900 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g>
-        <path d="M60,240 Q110,100 300,80 Q600,40 820,120 Q860,140 850,180 Q840,220 700,230 Q450,250 220,240 Z" fill="#285a82" stroke="#fff" stroke-width="7"/>
-        <text x="150" y="205" font-family="Merriweather, serif" font-size="105" font-weight="bold" fill="#fff" stroke="#285a82" stroke-width="4">IN THE WAKE</text>
-        <path d="M680,250 Q630,270 510,265 Q410,260 270,255" stroke="#fff" stroke-width="13" fill="none"/>
-        <path d="M610,290 Q480,315 210,300" stroke="#fff" stroke-width="9" fill="none"/>
-      </g>
-    </svg>
-  </div>
-  <!-- Compass Rose SVG -->
-  <svg class="header-compass" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50" cy="50" r="45" stroke="#285a82" stroke-width="2"/>
-    <polygon points="50,13 53,50 50,87 47,50" fill="#285a82" />
-    <polygon points="13,50 50,47 87,50 50,53" fill="#285a82" />
-  </svg>
-  <!-- Coordinates (top left) -->
-  <div class="header-coords">25° 46′ N · 80° 08′ W</div>
-  <!-- Navigation Bar (pill style) -->
-  <nav class="header-nav">
-    <a href="ships.html">Ships</a>
-    <a href="restaurants.html">Restaurants</a>
-    <a href="ports.html">Ports</a>
-    <a href="drinks.html">Drinks</a>
-    <a href="packing.html">Packing</a>
-    <a href="disability.html">Disability</a>
-  </nav>
-  <!-- Version Badge -->
-  <div class="header-version">v2.036</div>
-</div>
-<!-- Rest of page content here -->
+  <header class="site-header">
+    <div class="hero">
+      <div class="latlon-grid">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
+          <!-- verticals -->
+          <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="40" y1="0" x2="40" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="60" y1="0" x2="60" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <!-- horizontals -->
+          <line x1="0" y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="0" y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="0" y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="0" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        </svg>
+      </div>
+      <img class="compass-corner" src="assets/compass_rose.svg" alt="Compass" loading="lazy">
+      <div class="hero-title">
+        <img class="logo" src="assets/logo/logo_teal_white.svg" alt="In the Wake">
+        <p class="subtitle">A Cruise Traveler’s Logbook</p>
+      </div>
+      <nav class="hero-nav">
+        <a href="ships.html">Ships</a>
+        <a href="restaurants.html">Restaurants</a>
+        <a href="ports.html">Ports</a>
+        <a href="drinks.html">Drinks</a>
+        <a href="packing.html">Packing</a>
+        <a href="disability.html">Disability</a>
+      </nav>
+    </div>
+  </header>
+  <!-- Rest of page content here -->
 </body>
 </html>
