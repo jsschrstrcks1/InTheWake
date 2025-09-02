@@ -9,3 +9,23 @@ header img.iw-logo, header img[alt*="In the Wake"]{filter:sepia(1) saturate(5000
 .compass-mark img{width:100%;height:100%;object-fit:contain;display:block}
 .hero-fallback{width:100%;height:380px;position:relative;overflow:hidden;background:#eaf6f6}
 .hero-fallback img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+
+/* v2.035: Hero is CSS-only (no <img> in HTML). JPG if present; falls back to SVG. */
+.hero{
+  width:100%;
+  height:380px;
+  position:relative;
+  overflow:hidden;
+  background:
+    image-set(
+      url('assets/index_hero.jpg') type('image/jpeg') 1x,
+      url('assets/index_hero.svg') type('image/svg+xml') 1x
+    );
+  background-size:cover;
+  background-position:center center;
+}
+.hero .overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%, rgba(234,246,246,.55) 100%);
+}
