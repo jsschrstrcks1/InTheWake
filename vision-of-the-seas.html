@@ -1,98 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Vision of the Seas — In the Wake (v2)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
-*{box-sizing:border-box}
-body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--ink);background:var(--sky)}
-a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
-.hero{position:relative;min-height:260px;background:url('../assets/ships/vision-of-the-seas-of-the-seas.jpg') center/cover no-repeat;display:flex;align-items:flex-end}
-.hero-title{position:absolute;left:2rem;bottom:1.4rem;color:#e6f4f8;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-.hero-title h1{margin:.1rem 0 0;font-family:Georgia,serif;font-size:clamp(1.8rem,3.4vw,2.6rem);color:#5dade2}
-.hero-title p{margin:.2rem 0 0}
-.compass-corner{position:absolute;right:1rem;top:1rem;width:100px;z-index:2;opacity:.9;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
-.wrap{padding:1.2rem 1.6rem}
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:1rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-h2,h3{color:var(--sea)}
-.grid{display:grid;grid-template-columns:2fr 1fr;gap:1rem}
-@media (max-width:1000px){.grid{grid-template-columns:1fr}}
-.home-btn{position:absolute;left:1rem;top:1rem;background:#ffffffdd;border:2px solid var(--rope);padding:.3rem .6rem;border-radius:10px;color:var(--ink);text-decoration:none;backdrop-filter:saturate(140%) blur(2px);box-shadow:0 2px 6px rgba(8,48,65,.12)}
-/* watermark */
-body::after{content:''; position:fixed; left:50%; top:50%; transform:translate(-50%,-50%); width:min(40vw,520px); height:min(40vw,520px); background:url('../assets/compass_rose.svg') center/contain no-repeat; opacity:.18; z-index:0; pointer-events:none; filter:drop-shadow(0 3px 8px rgba(0,0,0,.12));}
-.wrap, header, footer, .card, section, .site-header { position:relative; z-index:1; }
-
-/* Deck viewer */
-.deck-card{padding:0}
-.deck-head{display:flex;justify-content:space-between;align-items:center;padding:1rem;border-bottom:2px solid var(--rope)}
-.deck-head h3{margin:0}
-.deck-canvas{position:relative; height:460px; background:linear-gradient(180deg,#f9feff,#f3fbff); overflow:hidden; border-top:8px double var(--rope)}
-.hull{position:absolute; left:2%; right:2%; top:12%; bottom:10%;}
-.hull svg{width:100%; height:100%}
-.axis{position:absolute; left:10px; top:10px; right:10px; bottom:10px; pointer-events:none}
-.axis .mid{position:absolute; left:4%; right:4%; top:50%; height:0; border-top:10px dotted rgba(8,48,65,.18)}
-.axis .labels{position:absolute;left:2%;top:6%;font-weight:600;color:#6b8a99}
-.axis .labels span{margin-right:1.2rem}
-
-/* hotspot tokens */
-.hot{position:absolute; background:rgba(14,110,142,.08); border:2px dashed rgba(14,110,142,.35); border-radius:12px; padding:10px 12px; min-width:140px; display:flex; align-items:center; justify-content:center; text-align:center}
-.hot .lbl{display:inline-block; background:#fff; border:2px solid #e4b97b; padding:2px 8px; border-radius:10px; font-size:.95rem}
-
-.hot.centerline{top:50%; transform:translateY(-50%);}
-
-.hot.centerline{top:50%; transform:translateY(-50%);}
-.hot.screen{width:2px; height:165px;}
-.hot.screen.centerline{transform:translateY(-50%) rotate(90deg);}
-.hot.screen .lbl{display:none;}
-
-/* centerline rule */
-.centerline{top:50%; transform:translateY(-50%);}
-
-/* movie screen as a thin horizontal bar */
-.screen-line{position:absolute; width:165px; height:2px; background:rgba(8,48,65,.7); box-shadow:0 0 0 1px rgba(14,110,142,.35); border-radius:2px;}
-
-/* tokens */
-.dot{position:absolute; width:46px; height:46px; border-radius:50%; background:rgba(14,110,142,.08); border:2px dashed rgba(14,110,142,.35); display:flex; align-items:center; justify-content:center}
-.dot .lbl{display:none}
-.icon{position:absolute; width:18px; height:18px; border-radius:50%; background:#fff; border:2px solid #e4b97b}
-.stairs{position:absolute; width:52px; height:52px; background:rgba(14,110,142,.08); border:2px dashed rgba(14,110,142,.35); border-radius:10px; display:flex; align-items:center; justify-content:center}
-.restroom{position:absolute; width:80px; height:54px; background:rgba(14,110,142,.08); border:2px dashed rgba(14,110,142,.35); border-radius:10px; display:flex; align-items:center; justify-content:center}
-/* movie screen: horizontal bar with pointer toward pool */
-.screen-line{position:absolute; width:140px; height:3px; background:rgba(8,48,65,.8); border-radius:2px; box-shadow:0 0 0 1px rgba(14,110,142,.3)}
-.screen-line::after{content:''; position:absolute; right:-8px; top:50%; transform:translateY(-50%); border-top:6px solid transparent; border-bottom:6px solid transparent; border-left:8px solid rgba(8,48,65,.8);}
-.centerline{top:50%; transform:translateY(-50%);}
-
-
-/* custom tooltip for image map areas */
-.tooltip{position:absolute;pointer-events:none;background:#083041;color:#e6f4f8;font-size:.85rem;padding:.25rem .45rem;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.25);opacity:0;transition:opacity .08s ease;z-index:10;}
-
-
-/* brand + hero */
-.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
-.hero{position:relative;min-height:320px;background:url('assets/index_hero.jpg') center/cover no-repeat;display:flex;align-items:flex-end}
-.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,61,98,.15),rgba(10,61,98,.65) 60%,rgba(10,61,98,.85));}
-.hero .compass-corner{position:absolute;right:1rem;top:1rem;width:120px;z-index:2;opacity:.9;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
-.latlon-grid{position:absolute; inset:0; z-index:1; pointer-events:none}
-.latlon-grid svg{width:100%; height:100%}
-.brand-lockup{position:absolute;left:2rem;bottom:2.2rem;display:flex;gap:.75rem;align-items:center;z-index:3;color:#e6f4f8;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-.brand-lockup img.logo{height:46px;width:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
-.brand-lockup .tag{font-size:.95rem;opacity:.95}
-/* watermark */
-body::after{content:''; position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); width:min(40vw,520px); height:min(40vw,520px); background:url('assets/compass_rose.svg') center/contain no-repeat; opacity:.16; z-index:0; pointer-events:none; filter:drop-shadow(0 3px 8px rgba(0,0,0,.12));}
-.wrap, header, footer, .card, section, .site-header { position:relative; z-index:1; }
-
-</style>
-<link rel='stylesheet' href='assets/styles.css?v=2.022'></head>
+  <meta charset="utf-8">
+  <title>In the Wake — v2.041</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/styles.css?v2.041">
+</head>
 <body>
-<div class="latlong">25° 46′ N · 80° 08′ W</div>
-  <div class="compass-mark"><img src="assets/compass_rose.svg" alt="" aria-hidden="true"></div>
-<header class="site-header">
-  <div class="header-inner">
-    <a href="index.html" title="Home"><img src="assets/logo/logo_teal_white.svg"" alt="In the Wake teal ship logo"></a>
-    <div class="brand-title">In the Wake <span class="version-badge">v2.022</span></div>
+
+<header class="hero-header">
+  <div class="navbar">
+    <a class="brand" href="index.html" title="Home">
+      <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
+      <span class="brand-title">In the Wake <span class="version-badge">v2.041</span></span>
+    </a>
     <nav class="nav">
       <a href="ships.html">Ships</a>
       <a href="restaurants.html">Restaurants</a>
@@ -102,344 +23,74 @@ body::after{content:''; position:fixed; left:50%; top:50%; transform:translate(-
       <a href="disability.html">Disability</a>
     </nav>
   </div>
-</header>
-<div class="page-wrap">
-<header class="site-header">
+
   <div class="hero">
-    <a class="home-btn" href="../index.html">⟵ Home</a>
-    <img class="compass-corner" src="../assets/compass_rose.svg" alt="Compass">
-    <div class="hero-title">
-      <div>In the Wake · A Cruise Traveler’s Logbook</div>
-      <h1>Vision of the Seas</h1>
-      <p>Royal Caribbean — Sovereign-class · Historical Ship</p>
+    <div class="latlon-grid" aria-hidden="true">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+        <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="40" y1="0" x2="40" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="60" y1="0" x2="60" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="0"  y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="0"  y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="0"  y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="0"  y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+      </svg>
+    </div>
+    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true">
+    <div class="hero-title" role="img" aria-label="In the Wake">
+      <img class="logo" src="assets/logo_wake_teal.png" alt="">
     </div>
   </div>
 </header>
 
-<div class="wrap">
-  <div id="deckTooltip" class="tooltip" role="tooltip"></div>
-  <section class="grid">
-    <div class="card deck-card">
-  <div class="deck-head">
-    <h3>Deck Viewer — Deck <span id="deckLabel">11</span> (Sun Deck)</h3>
-    <div class="tiny">STERN ◀ · BOW ▶</div>
-  </div>
-  <div class="deck-controls" style="display:flex;gap:.5rem;align-items:center;margin:.6rem 0 0 0;">
-    <button id="deckDown" class="btn">◀ Deck Down</button>
-    <div style="font-weight:600;color:#0a3d62">Deck <span id="deckLabelInline">11</span></div>
-    <button id="deckUp" class="btn">Deck Up ▶</button>
-  </div>
-  <img id="deckImage" src="../assets/decks/vision-of-the-seas-deck11.jpg" usemap="#vision-of-the-seas-deck11" alt="Vision of the Seas — Deck 11 Overview" style="width:100%;height:auto;border:2px solid #d9b382;border-radius:10px;margin-top:.5rem;">
-</div>
+<main class="page-wrap">
+  <article class="card ship-report">
+    <h2>Vision of the Seas</h2>
 
-    <aside class="card">
-      <h3>Ship Stats</h3>
+    <figure class="figure">
+      <!-- Use a Wikimedia Commons image URL if available, or replace with a local asset -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Placeholder_no_image.svg" alt="Vision of the Seas (add Wikimedia image URL)">
+      <figcaption>Photo: Wikimedia Commons (add specific file/credit link when selected)</figcaption>
+    </figure>
+
+    <section>
+      <p>Vision‑class ships are smaller and itinerary‑driven, offering an intimate alternative to the fleet’s giants. You’ll find classic lounges, a laid‑back pool deck, and venues sized for socializing rather than spectacle.</p>
+      <p>They shine on port‑intensive routes where the ship is your comfortable base camp. Dining is straightforward and familiar, with attentive service and some specialty choices depending on refits and deployment.</p>
+      <p>Cabins are cozy and functional, with a focus on ocean‑view and balcony staterooms where available. Public rooms retain a traditional cruise feel with panoramic lounges and live music.</p>
+      <p>Pick a Vision‑class vessel if you prefer a calmer onboard rhythm, strong itineraries, and a ship that’s easy to learn in a day.</p>
+      <p>Public perception at launch centered on how well the ship delivered the class promise—mixing amenities, entertainment, and service—while early reviews often highlighted crew friendliness and the ship’s signature venues. As the vessel matured, refits and programming kept it aligned with guest expectations.</p>
+    </section>
+
+    <section class="card" style="margin-top:1rem">
+      <h3>Good Fit For</h3>
       <ul>
-        <li><strong>Year Built:</strong> 1992 (refits)</li>
-        <li><strong>GT:</strong> ~74,000</li>
-        <li><strong>Guests:</strong> ~2,700</li>
-        <li><strong>Length:</strong> ~880 ft</li>
-        <li><strong>Beam:</strong> ~106 ft</li>
-        <li><strong>Status:</strong> Historical ship</li>
+        <li>Travelers who match the <strong>Vision</strong>-class profile described above</li>
+        <li>Guests who value the specific mix of amenities, entertainment, and itineraries typical of this class</li>
+        <li>Families, couples, or groups seeking Royal Caribbean’s style at the ship’s scale</li>
       </ul>
-      <p class="tiny">To Verify: stats will be cross-checked against multiple sources.</p>
-    </aside>
-<section class="card">
-  <h3>Featured Walkthrough</h3>
-  <p class="small">Ship-tour video curated for clarity and family-friendly style.</p>
-  <p><a href="https://youtu.be/t7EVcw3RJAI?si=UQ4FDNDAylZ8pq7D" target="_blank" rel="noopener">Vision of the Seas — Full Ship Tour (YouTube)</a></p>
-</section>
+      <p class="tiny">Note: Features can vary by deployment and refit. Always check the line’s current site before booking. Prices are subject to change at any time without notice.</p>
+    </section>
 
-  </section>
+    <section class="card" style="margin-top:1rem">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="ships.html">← Back to Ships directory</a></li>
+        <li><a href="restaurants.html">Restaurants & Venues</a></li>
+        <li><a href="ports.html">Ports of Call</a></li>
+      </ul>
+    </section>
+  </article>
+</main>
 
-  <section class="card">
-    <h3>Restaurants & Venues</h3>
-    <div class="grid">
-      <div>
-        <h4>Included</h4>
-        <ul>
-          <li>Main Dining Room <span class="tiny">(Decks 3–4; “Moonlight / Starlight”)</span></li>
-          <li>Windjammer Café <span class="tiny">(Deck 11)</span></li>
-          <li>Compass Deli <span class="tiny">(Deck 12; complimentary)</span></li>
-          <li>Room Service <span class="tiny">— Continental breakfast items included; hot items included; delivery fee may apply.</span></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Premium</h4>
-        <ul>
-          <li>Johnny Rockets <span class="tiny">(Deck 12; à la carte)</span></li>
-          <li>Café Latté-tudes <span class="tiny">(Deck 5; specialty coffee)</span></li>
-          <li>Gelateria L’ondo Bar <span class="tiny">(Deck 5; ice cream)</span></li>
-        </ul>
-      </div>
-    </div>
-    <p class="tiny">Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</p>
-  </section>
-
-  <section class="card">
-    <h3>Creators • Ship Tours & Guides</h3>
-    <p class="tiny">Hand-picked, family-friendly channels. Off-site links open in a new tab.</p>
-    <ul>
-      <li><a href="https://www.youtube.com/@RoyalCaribbeanBlog">Royal Caribbean Blog (YouTube)</a> — ship tours & news.</li>
-      <li><a href="https://www.youtube.com/@CruiseCriticVideos">CruiseCritic (YouTube)</a> — reviews & walk-throughs.</li>
-      <li><a href="https://www.youtube.com/@BryanJamesCruises">Bryan James Cruises</a> — ship tours.</li>
-    </ul>
-  </section>
-</div>
-
-<script>
-document.querySelectorAll('a[href^="http"]').forEach(a=>{ a.target="_blank"; a.rel="noopener"; });
-</script>
-
-<script>
-(function(){
-  const tip = document.getElementById('deckTooltip');
-  const img = document.getElementById('deckImage');
-  function showTip(e,title){
-    tip.textContent = title || '';
-    if(!title){ tip.style.opacity = 0; return; }
-    const rect = img.getBoundingClientRect();
-    const x = e.clientX - rect.left + 12;
-    const y = e.clientY - rect.top + 12;
-    tip.style.left = (rect.left + x) + 'px';
-    tip.style.top  = (rect.top  + y) + 'px';
-    tip.style.opacity = 1;
-  }
-  function hideTip(){ tip.style.opacity = 0; }
-  function bindAreas() {
-    const mapName = img.getAttribute('usemap').replace('#','');
-    const map = document.querySelector(`map[name="${mapName}"]`);
-    if(!map) return;
-    map.querySelectorAll('area').forEach(a=>{
-      const title = a.getAttribute('title') || '';
-      a.addEventListener('mouseenter', e=>showTip(e,title));
-      a.addEventListener('mousemove', e=>showTip(e,title));
-      a.addEventListener('mouseleave', hideTip);
-      a.addEventListener('click', e=>{ e.preventDefault(); });
-    });
-  }
-  bindAreas();
-  window.addEventListener('deck:changed', bindAreas);
-})();
-</script>
-
-
-<script id="external-links-newtab">
-document.querySelectorAll('a[href^="http"]').forEach(a=>{a.target='_blank';a.rel='noopener'});
-</script>
-
-<script id="deckviewer-js">
-// Simplified tooltip helper—relies on .hotspot elements
-(function(){
-  const box = document.getElementById('deck') || document.body;
-  const tip = document.createElement('div');
-  tip.style.cssText='position:absolute;padding:6px 8px;border:1px solid rgba(8,48,65,.25);background:#fff;border-radius:6px;font-size:.85rem;box-shadow:0 2px 8px rgba(0,0,0,.15);pointer-events:none;display:none;z-index:999';
-  box.appendChild(tip);
-  function show(e, text){const r=box.getBoundingClientRect(); tip.textContent=text; tip.style.left=(e.clientX-r.left+10)+'px'; tip.style.top=(e.clientY-r.top+10)+'px'; tip.style.display='block';}
-  function hide(){tip.style.display='none';}
-  document.querySelectorAll('.hotspot').forEach(h=>{
-    ['mouseenter','mousemove','mouseleave','click','focus'].forEach(ev=>h.addEventListener(ev, (evt)=>{
-      if(ev==='mouseleave'){hide();return;} show(evt, h.getAttribute('aria-label')||h.dataset.name||h.textContent||''); 
-    }));
-  });
-})();
-</script>
-</div>
 <footer class="footer">
   <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
 </footer>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  const header = document.querySelector('header');
-  if (header){
-    let img = header.querySelector('img');
-    if (!img){
-      img = document.createElement('img');
-      header.insertBefore(img, header.firstChild);
-    }
-    img.src = 'assets/logo/in_the_wake_custom.png';
-    img.alt = 'In the Wake logo';
-    img.classList.add('iw-logo');
-    img.style.height = '72px';
-  }
-});
-</script>
-</body>
-</html></section>
 
-  <section class="card">
-    <h3>Restaurants & Venues</h3>
-    <div class="grid">
-      <div>
-        <h4>Included</h4>
-        <ul>
-          <li>Main Dining Room <span class="tiny">(Decks 3–4; “Moonlight / Starlight”)</span></li>
-          <li>Windjammer Café <span class="tiny">(Deck 11)</span></li>
-          <li>Compass Deli <span class="tiny">(Deck 12; complimentary)</span></li>
-          <li>Room Service <span class="tiny">— Continental breakfast items included; hot items included; delivery fee may apply.</span></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Premium</h4>
-        <ul>
-          <li>Johnny Rockets <span class="tiny">(Deck 12; à la carte)</span></li>
-          <li>Café Latté-tudes <span class="tiny">(Deck 5; specialty coffee)</span></li>
-          <li>Gelateria L’ondo Bar <span class="tiny">(Deck 5; ice cream)</span></li>
-        </ul>
-      </div>
-    </div>
-    <p class="tiny">Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</p>
-  </section>
-
-  <section class="card">
-    <h3>Creators • Ship Tours & Guides</h3>
-    <p class="tiny">Hand-picked, family-friendly channels. Off-site links open in a new tab.</p>
-    <ul>
-      <li><a href="https://www.youtube.com/@RoyalCaribbeanBlog">Royal Caribbean Blog (YouTube)</a> — ship tours & news.</li>
-      <li><a href="https://www.youtube.com/@CruiseCriticVideos">CruiseCritic (YouTube)</a> — reviews & walk-throughs.</li>
-      <li><a href="https://www.youtube.com/@BryanJamesCruises">Bryan James Cruises</a> — ship tours.</li>
-    </ul>
-  </section>
-</div>
-
-<script>
-document.querySelectorAll('a[href^="http"]').forEach(a=>{ a.target="_blank"; a.rel="noopener"; });
-</script>
-<!-- Image maps for Majesty decks -->
-<map name="vision-of-the-seas-deck10">
-<area shape="rect" coords="127,161,448,299" href="#" title="ADVENTURE OCEAN">
-<area shape="rect" coords="480,128,1280,331" href="#" title="SUITES (J3/GS/OS/RFS/RS)">
-</map> <map name="vision-of-the-seas-deck11">
-<area shape="rect" coords="1272,43,1560,158" href="#" title="WINDJAMMER CAFÉ">
-<area shape="rect" coords="964,87,1019,142" href="#" title="ELEV.">
-<area shape="rect" coords="964,170,1019,225" href="#" title="STAIRS">
-<area shape="rect" coords="1220,87,1276,142" href="#" title="ELEV.">
-<area shape="rect" coords="1220,170,1276,225" href="#" title="STAIRS">
-<area shape="rect" coords="887,101,968,147" href="#" title="RESTROOMS">
-<area shape="rect" coords="1055,92,1152,138" href="#" title="POOL BAR">
-<area shape="circle" coords="752,151,13" href="#" title="WHIRLPOOL">
-<area shape="rect" coords="696,188,903,271" href="#" title="POOL">
-<area shape="circle" coords="848,151,13" href="#" title="WHIRLPOOL">
-<area shape="rect" coords="536,184,712,276" href="#" title="SPLASHAWAY BAY">
-<area shape="circle" coords="576,303,13" href="#" title="WHIRLPOOL">
-<area shape="circle" coords="672,303,13" href="#" title="WHIRLPOOL">
-<area shape="rect" coords="524,4,531,234" href="#" title="MOVIE SCREEN">
-<area shape="rect" coords="455,110,504,165" href="#" title="STAIRS">
-<area shape="rect" coords="455,239,504,294" href="#" title="STAIRS">
-<area shape="rect" coords="312,312,455,386" href="#" title="GAMES">
-<area shape="rect" coords="208,179,368,280" href="#" title="TEEN AREA">
-<area shape="rect" coords="15,156,272,303" href="#" title="SPORTS DECK">
-<area shape="rect" coords="164,82,220,138" href="#" title="STERN ELEV.">
-<area shape="rect" coords="164,257,220,312" href="#" title="STERN STAIRS">
-</map> <map name="vision-of-the-seas-deck12">
-<area shape="rect" coords="15,156,272,303" href="#" title="SPORTS DECK">
-<area shape="rect" coords="240,179,400,280" href="#" title="TEEN AREA">
-<area shape="rect" coords="376,312,520,386" href="#" title="GAMES">
-<area shape="rect" coords="524,-4,531,225" href="#" title="MOVIE SCREEN">
-<area shape="rect" coords="568,184,744,276" href="#" title="SPLASHAWAY BAY">
-<area shape="circle" coords="736,151,13" href="#" title="WHIRLPOOL">
-<area shape="rect" coords="712,188,919,271" href="#" title="POOL">
-<area shape="circle" coords="896,151,13" href="#" title="WHIRLPOOL">
-<area shape="rect" coords="952,92,1064,147" href="#" title="POOL BAR UPPER">
-<area shape="rect" coords="1048,101,1128,147" href="#" title="RESTROOMS">
-<area shape="rect" coords="1108,87,1163,142" href="#" title="ELEV.">
-<area shape="rect" coords="1156,87,1212,142" href="#" title="ELEV.">
-<area shape="rect" coords="1224,110,1528,220" href="#" title="JOHNNY ROCKETS">
-<area shape="rect" coords="1224,243,1528,289" href="#" title="SORRENTO’S">
-<area shape="rect" coords="1224,308,1528,354" href="#" title="COMPASS DELI">
-</map> <map name="vision-of-the-seas-deck2">
-<area shape="rect" coords="223,161,544,299" href="#" title="MEDICAL CENTER">
-<area shape="rect" coords="592,128,1392,331" href="#" title="CABINS (OV + INTERIOR)">
-</map> <map name="vision-of-the-seas-deck3">
-<area shape="rect" coords="288,92,672,165" href="#" title="PHOTO GALLERY">
-<area shape="rect" coords="288,183,672,257" href="#" title="ART GALLERY / AUCTIONS">
-<area shape="rect" coords="880,239,1488,368" href="#" title="MOONLIGHT RESTAURANT (MDR)">
-<area shape="rect" coords="672,115,1312,216" href="#" title="CABINS (OV + INTERIOR)">
-</map> <map name="vision-of-the-seas-deck4">
-<area shape="rect" coords="240,82,592,156" href="#" title="GUEST SERVICES">
-<area shape="rect" coords="240,170,592,234" href="#" title="SHORE EXCURSIONS">
-<area shape="rect" coords="240,253,592,317" href="#" title="NEXTCRUISE / LOYALTY DESK">
-<area shape="rect" coords="880,239,1488,368" href="#" title="STARLIGHT RESTAURANT (MDR)">
-<area shape="rect" coords="672,115,1312,216" href="#" title="CABINS (OV + INTERIOR)">
-</map> <map name="vision-of-the-seas-deck5">
-<area shape="rect" coords="1248,50,1568,151" href="#" title="WINDJAMMER OVERLOOK (STRUCTURE)">
-<area shape="rect" coords="144,73,496,147" href="#" title="CAFÉ LATTE-TUDES">
-<area shape="rect" coords="336,124,816,225" href="#" title="CENTRUM SHOPS">
-<area shape="rect" coords="912,124,1264,206" href="#" title="PHOTO GALLERY">
-<area shape="rect" coords="144,257,496,349" href="#" title="SCHOONER BAR">
-<area shape="rect" coords="464,243,1136,363" href="#" title="CASINO ROYALE">
-<area shape="rect" coords="1168,285,1520,414" href="#" title="A CHORUS LINE THEATER (LOWER)">
-</map> <map name="vision-of-the-seas-deck6">
-<area shape="rect" coords="688,128,1488,331" href="#" title="OCEAN VIEW CABINS">
-<area shape="rect" coords="368,165,848,294" href="#" title="INTERIOR CABINS">
-</map> <map name="vision-of-the-seas-deck7">
-<area shape="rect" coords="144,119,560,202" href="#" title="BOLEROS LOUNGE">
-<area shape="rect" coords="144,257,560,340" href="#" title="CONFERENCE CENTER">
-<area shape="rect" coords="608,82,992,138" href="#" title="A CHORUS LINE (UPPER)">
-<area shape="rect" coords="688,156,1424,340" href="#" title="PROMENADE CABINS (OCEAN VIEW)">
-</map> <map name="vision-of-the-seas-deck8">
-<area shape="rect" coords="112,151,592,308" href="#" title="SPECTRUM LOUNGE & NIGHTCLUB">
-<area shape="rect" coords="624,138,1360,322" href="#" title="OCEAN VIEW CABINS">
-</map> <map name="vision-of-the-seas-deck9">
-<area shape="rect" coords="255,147,704,312" href="#" title="VITALITY FITNESS">
-<area shape="rect" coords="736,147,1184,312" href="#" title="VITALITY SPA">
-</map>
-<script>
-(function(){
-  const order = ["2","3","4","5","6","7","8","9","10","11","12"];
-  let idx = order.indexOf("11");
-  const img = document.getElementById('deckImage');
-  const label = document.getElementById('deckLabel');
-  const labelInline = document.getElementById('deckLabelInline');
-  function setDeck(i){
-    idx = Math.max(0, Math.min(order.length-1, i));
-    const d = order[idx];
-    img.src = "../assets/decks/vision-of-the-seas-deck"+d+".jpg";
-    img.setAttribute('usemap', "#vision-of-the-seas-deck"+d);
-    if(label) label.textContent = d;
-    if(labelInline) labelInline.textContent = d;
-  }
-  document.getElementById('deckDown').onclick = ()=> setDeck(idx-1);
-  document.getElementById('deckUp').onclick   = ()=> setDeck(idx+1);
-})();
-</script>
-
-
-<script id="external-links-newtab">
-document.querySelectorAll('a[href^="http"]').forEach(a=>{a.target='_blank';a.rel='noopener'});
-</script>
-
-<script id="deckviewer-js">
-// Simplified tooltip helper—relies on .hotspot elements
-(function(){
-  const box = document.getElementById('deck') || document.body;
-  const tip = document.createElement('div');
-  tip.style.cssText='position:absolute;padding:6px 8px;border:1px solid rgba(8,48,65,.25);background:#fff;border-radius:6px;font-size:.85rem;box-shadow:0 2px 8px rgba(0,0,0,.15);pointer-events:none;display:none;z-index:999';
-  box.appendChild(tip);
-  function show(e, text){const r=box.getBoundingClientRect(); tip.textContent=text; tip.style.left=(e.clientX-r.left+10)+'px'; tip.style.top=(e.clientY-r.top+10)+'px'; tip.style.display='block';}
-  function hide(){tip.style.display='none';}
-  document.querySelectorAll('.hotspot').forEach(h=>{
-    ['mouseenter','mousemove','mouseleave','click','focus'].forEach(ev=>h.addEventListener(ev, (evt)=>{
-      if(ev==='mouseleave'){hide();return;} show(evt, h.getAttribute('aria-label')||h.dataset.name||h.textContent||''); 
-    }));
-  });
-})();
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  const header = document.querySelector('header');
-  if (header){
-    let img = header.querySelector('img');
-    if (!img){
-      img = document.createElement('img');
-      header.insertBefore(img, header.firstChild);
-    }
-    img.src = 'assets/logo/in_the_wake_custom.png';
-    img.alt = 'In the Wake logo';
-    img.classList.add('iw-logo');
-    img.style.height = '72px';
-  }
-});
-</script>
 </body>
 </html>

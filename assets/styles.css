@@ -1,5 +1,5 @@
 
-/* ===== In the Wake — 2.x core (v2.040) ===== */
+/* ===== In the Wake — 2.x core (v2.041) ===== */
 :root{ --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e; }
 
 /* Base */
@@ -24,12 +24,11 @@ img{ max-width:100%; height:auto; display:block }
 /* HERO — keep the whole ship visible and vibrant */
 .hero{
   position:relative;
-  min-height:260px;                                   /* ~20% smaller header */
-  background: url('index_hero.jpg') center bottom / contain no-repeat; /* CSS-relative path */
+  min-height:260px;
+  background: url('index_hero.jpg') center bottom / contain no-repeat;
   display:flex; align-items:flex-end; overflow:hidden;
 }
-/* remove dark wash overlay to restore vibrancy */
-.hero::before{ content:none }
+.hero::before{ content:none } /* no dark wash */
 
 /* grid overlay */
 .latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none }
@@ -49,6 +48,7 @@ img{ max-width:100%; height:auto; display:block }
 .card{ background:#fff; border:2px solid var(--rope); border-radius:14px; padding:1rem; margin:.8rem 0;
        box-shadow:0 2px 6px rgba(8,48,65,.08) }
 h2,h3{ color:var(--sea) }
+.grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem }
 .index-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; margin:1rem 0 2rem }
 .index-card{ background:#fff; border:2px solid var(--rope); border-radius:14px;
   box-shadow:0 2px 6px rgba(8,48,65,.08); padding:1rem }
@@ -60,11 +60,15 @@ h2,h3{ color:var(--sea) }
 .feature-ship{ display:grid; grid-template-columns:1fr 1fr; gap:1rem }
 .feature-ship .card{ margin:0 }
 
+.figure{ margin:0; }
+.figure img{ border-radius:12px; border:1px solid #dfe7ea }
+.figure figcaption{ font-size:.85rem; color:#476; margin-top:.35rem }
+
 .footer{ padding:16px; text-align:center; color:#345 }
 
 /* Kill legacy regressions */
-body::after{ content:none !important }       /* giant left compass */
-.hero::after{ content:none !important }      /* hockey-stick underline */
+body::after{ content:none !important }
+.hero::after{ content:none !important }
 header.site-header,.site-header{ background:none; border-bottom:none }
 .header-inner{ all:unset }
 
