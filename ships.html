@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>In the Wake — v2.048</title>
+  <title>Ships Directory — In the Wake v2.048</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/styles.css?v2.048">
+  <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
       <span class="brand-title">In the Wake <span class="version-badge">v2.048</span></span>
     </a>
     <nav class="nav">
-      <a href="ships.html">Ships</a>
+      <a href="ships.html" aria-current="page">Ships</a>
       <a href="restaurants.html">Restaurants</a>
       <a href="ports.html">Ports</a>
       <a href="drinks.html">Drinks</a>
@@ -23,6 +23,8 @@
       <a href="disability.html">Disability</a>
     </nav>
   </div>
+
+  <!-- shared hero -->
   <div class="hero">
     <div class="latlon-grid" aria-hidden="true">
       <svg viewBox="0 0 100 60" preserveAspectRatio="none">
@@ -42,17 +44,225 @@
       </svg>
     </div>
     <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true">
-    <div class="hero-title" role="img" aria-label="In the Wake">
+    <div class="hero-title" role="img" aria-label="Ships Directory">
       <img class="logo" src="assets/logo_wake_teal.png" alt="">
     </div>
   </div>
 </header>
-<main class='page-wrap'><section class='card'><h2>Ships Directory</h2></section><section class='grid'><div class='card'><h3><a href='vision-of-the-seas.html'>Vision of the Seas</a></h3></div>
-<div class='card'><h3><a href='rhapsody-of-the-seas.html'>Rhapsody of the Seas</a></h3></div>
-<div class='card'><h3><a href='grandeur-of-the-seas.html'>Grandeur of the Seas</a></h3></div>
-<div class='card'><h3><a href='enchantment-of-the-seas.html'>Enchantment of the Seas</a></h3></div></section></main>
+
+<!-- Ships page subnav: Cruise Line → Classes (hover menus) -->
+<nav class="ships-subnav" aria-label="Ships quick navigation">
+  <ul class="ships-subnav__list">
+    <!-- Royal Caribbean -->
+    <li class="ships-subnav__item">
+      <a href="#rc" class="ships-subnav__brand">Royal Caribbean</a>
+      <ul class="ships-subnav__submenu">
+        <li><a href="#rc-vision">Vision class</a></li>
+        <li><a href="#rc-radiance">Radiance class</a></li>
+        <li><a href="#rc-voyager">Voyager class</a></li>
+        <li><a href="#rc-freedom">Freedom class</a></li>
+        <li><a href="#rc-oasis">Oasis class</a></li>
+        <li><a href="#rc-quantum">Quantum class</a></li>
+        <li><a href="#rc-icon">Icon class</a></li>
+      </ul>
+    </li>
+
+    <!-- Norwegian -->
+    <li class="ships-subnav__item">
+      <a href="#ncl" class="ships-subnav__brand">Norwegian Cruise Line</a>
+      <ul class="ships-subnav__submenu">
+        <li><a href="#ncl-sun">Sun class</a></li>
+        <li><a href="#ncl-dawn">Dawn class</a></li>
+        <li><a href="#ncl-jewel">Jewel class</a></li>
+        <li><a href="#ncl-breakaway">Breakaway class</a></li>
+        <li><a href="#ncl-breakaway-plus">Breakaway Plus class</a></li>
+        <li><a href="#ncl-prima">Prima class</a></li>
+      </ul>
+    </li>
+
+    <!-- MSC -->
+    <li class="ships-subnav__item">
+      <a href="#msc" class="ships-subnav__brand">MSC Cruises</a>
+      <ul class="ships-subnav__submenu">
+        <li><a href="#msc-musica">Musica class</a></li>
+        <li><a href="#msc-fantasia">Fantasia class</a></li>
+        <li><a href="#msc-meraviglia">Meraviglia class</a></li>
+        <li><a href="#msc-seaside">Seaside class</a></li>
+        <li><a href="#msc-world">World class</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<main class="page-wrap">
+
+  <!-- ===== Royal Caribbean ===== -->
+  <section id="rc" class="card">
+    <h2>Royal Caribbean</h2>
+
+    <!-- Vision class -->
+    <h3 id="rc-vision">Vision class</h3>
+    <div class="grid">
+      <div class="card"><h4><a href="vision-of-the-seas.html">Vision of the Seas</a></h4></div>
+      <div class="card"><h4><a href="rhapsody-of-the-seas.html">Rhapsody of the Seas</a></h4></div>
+      <div class="card"><h4><a href="grandeur-of-the-seas.html">Grandeur of the Seas</a></h4></div>
+      <div class="card"><h4><a href="enchantment-of-the-seas.html">Enchantment of the Seas</a></h4></div>
+    </div>
+
+    <!-- Radiance class -->
+    <h3 id="rc-radiance">Radiance class</h3>
+    <div class="grid">
+      <div class="card"><h4>Radiance of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Brilliance of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Serenade of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Jewel of the Seas <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <!-- Voyager class -->
+    <h3 id="rc-voyager">Voyager class</h3>
+    <div class="grid">
+      <div class="card"><h4>Voyager of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Explorer of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Adventure of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Navigator of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Mariner of the Seas <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <!-- Freedom class -->
+    <h3 id="rc-freedom">Freedom class</h3>
+    <div class="grid">
+      <div class="card"><h4>Freedom of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Liberty of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Independence of the Seas <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <!-- Oasis class -->
+    <h3 id="rc-oasis">Oasis class</h3>
+    <div class="grid">
+      <div class="card"><h4>Oasis of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Allure of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Harmony of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Symphony of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Utopia of the Seas <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <!-- Quantum class -->
+    <h3 id="rc-quantum">Quantum class</h3>
+    <div class="grid">
+      <div class="card"><h4>Quantum of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Anthem of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Ovation of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Spectrum of the Seas <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Odyssey of the Seas <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <!-- Icon class -->
+    <h3 id="rc-icon">Icon class</h3>
+    <div class="grid">
+      <div class="card"><h4>Icon of the Seas <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <p class="tiny"><a href="#top">Back to top</a></p>
+  </section>
+
+  <!-- ===== Norwegian Cruise Line ===== -->
+  <section id="ncl" class="card">
+    <h2>Norwegian Cruise Line</h2>
+
+    <h3 id="ncl-sun">Sun class</h3>
+    <div class="grid">
+      <div class="card"><h4>Norwegian Sun <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Norwegian Sky <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <h3 id="ncl-dawn">Dawn class</h3>
+    <div class="grid">
+      <div class="card"><h4>Norwegian Star <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Norwegian Dawn <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <h3 id="ncl-jewel">Jewel class</h3>
+    <div class="grid">
+      <div class="card"><h4>Norwegian Jewel <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Norwegian Jade <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Norwegian Pearl <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Norwegian Gem <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <h3 id="ncl-breakaway">Breakaway class</h3>
+    <div class="grid">
+      <div class="card"><h4>Norwegian Breakaway <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Norwegian Getaway <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <h3 id="ncl-breakaway-plus">Breakaway Plus class</h3>
+    <div class="grid">
+      <div class="card"><h4>Norwegian Escape <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Norwegian Joy <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Norwegian Bliss <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Norwegian Encore <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <h3 id="ncl-prima">Prima class</h3>
+    <div class="grid">
+      <div class="card"><h4>Norwegian Prima <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>Norwegian Viva <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <p class="tiny"><a href="#top">Back to top</a></p>
+  </section>
+
+  <!-- ===== MSC Cruises ===== -->
+  <section id="msc" class="card">
+    <h2>MSC Cruises</h2>
+
+    <h3 id="msc-musica">Musica class</h3>
+    <div class="grid">
+      <div class="card"><h4>MSC Musica <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Orchestra <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Poesia <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Magnifica <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <h3 id="msc-fantasia">Fantasia class</h3>
+    <div class="grid">
+      <div class="card"><h4>MSC Fantasia <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Splendida <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Divina <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Preziosa <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <h3 id="msc-meraviglia">Meraviglia class</h3>
+    <div class="grid">
+      <div class="card"><h4>MSC Meraviglia <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Bellissima <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Grandiosa <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Virtuosa <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Euribia <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <h3 id="msc-seaside">Seaside class</h3>
+    <div class="grid">
+      <div class="card"><h4>MSC Seaside <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Seaview <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Seashore <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC Seascape <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <h3 id="msc-world">World class</h3>
+    <div class="grid">
+      <div class="card"><h4>MSC World Europa <span class="tiny">(coming)</span></h4></div>
+      <div class="card"><h4>MSC World America <span class="tiny">(coming)</span></h4></div>
+    </div>
+
+    <p class="tiny"><a href="#top">Back to top</a></p>
+  </section>
+
+</main>
+
 <footer class="footer">
   <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
 </footer>
+
 </body>
 </html>
