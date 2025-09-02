@@ -1,47 +1,51 @@
 
-/* ===== In the Wake — Unified Styles (v2.046) ===== */
+/* ===== In the Wake — Unified Styles (v2.048) ===== */
 :root{ --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e; }
-
 *{ box-sizing:border-box } html,body{ margin:0; padding:0 }
 body{ font-family: ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;
       color:var(--ink); background:var(--sky); line-height:1.55 }
 a{ color:var(--accent); text-decoration:none } a:hover{text-decoration:underline}
 img{ max-width:100%; height:auto; display:block }
 
-/* Header + Nav (smaller banner) */
+/* Header + Nav (compact) */
 .hero-header{ position:relative; border-bottom:6px double var(--rope); background:#eaf6f6 }
 .navbar{ max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:8px; padding:6px 12px }
 .brand{ display:flex; align-items:center; gap:8px }
-.brand img{ height:32px; width:auto } /* smaller logo */
+.brand img{ height:32px; width:auto }
 .brand-title{ font-weight:700; color:var(--ink); font-size:.95rem }
 .version-badge{ font-size:.72rem; opacity:.8; margin-left:.35rem }
 .nav{ margin-left:auto; display:flex; gap:8px; flex-wrap:wrap }
 .nav a{ padding:4px 8px; border-radius:10px; border:1px dashed var(--rope); background:#fff; font-size:.9rem }
 
-/* FULL-BLEED HERO (edge-to-edge) — centered horizon, slimmer */
+/* Full-bleed hero with centered horizon */
 .hero{
   position:relative;
   width:100vw;
   margin-left:calc(50% - 50vw);
-  min-height:clamp(150px, 20vw, 320px); /* slimmer band */
+  min-height:clamp(150px, 20vw, 320px);
   background:url('./index_hero.jpg') 50% 50% / cover no-repeat;
   display:flex; align-items:flex-end; overflow:hidden; isolation:isolate;
 }
-/* remove overlays / hockey stick */
-.hero::before, .hero::after { content:none !important; }
 
-/* Grid overlay + compass watermark */
+/* Remove legacy overlays ("hockey stick") & duplicate watermarks */
+.hero::before,
+.hero::after,
+.hero-overlay,
+.page-watermark,
+body::after{ content:none !important; display:none !important; background:none !important; }
+
+/* Grid overlay + compass watermark (single source) */
 .latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none }
 .latlon-grid svg{ width:100%; height:100% }
 .hero-compass{ position:absolute; right:min(3vw,1.2rem); top:.6rem; width:88px; opacity:.9; z-index:2;
   filter: drop-shadow(0 2px 6px rgba(0,0,0,.25)) }
 
-/* Teal ship + white text lockup (smaller) */
+/* Teal ship + white text lockup */
 .hero-title{ position:absolute; left:min(3vw,1.2rem); bottom:.6rem; z-index:3;
   text-shadow:0 2px 6px rgba(0,0,0,.45); display:flex; align-items:flex-end; gap:.6rem }
 .hero-title .logo{ width:clamp(180px, 18vw, 420px); filter:drop-shadow(0 3px 8px rgba(0,0,0,.45)) }
 
-/* Content + cards */
+/* Content */
 .page-wrap{ max-width:1100px; margin:0 auto; padding:20px 14px 36px }
 .card{ background:#fff; border:2px solid var(--rope); border-radius:14px; padding:1rem; margin:.8rem 0;
        box-shadow:0 2px 6px rgba(8,48,65,.08) }
@@ -60,11 +64,9 @@ h2,h3{ color:var(--sea); margin:.2rem 0 .6rem }
 
 .figure img{ border-radius:12px; border:1px solid #dfe7ea }
 .figure figcaption{ font-size:.85rem; color:#476; margin-top:.35rem }
-
 .footer{ padding:14px; text-align:center; color:#345 }
 
-/* Kill legacy site-header and artifacts */
-body::after{ content:none !important }
+/* Kill legacy containers */
 header.site-header,.site-header{ background:none; border-bottom:none }
 .header-inner{ all:unset }
 
