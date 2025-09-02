@@ -1,5 +1,4 @@
-/* ===== In the Wake — 2.x core (v2.036) ===== */
-/* Color tokens */
+/* ===== In the Wake — 2.x core (v2.037) ===== */
 :root{
   --sea:#0a3d62;   /* headings, accents */
   --foam:#e6f4f8;  /* light panels */
@@ -22,85 +21,97 @@ a{ color: var(--accent); text-decoration:none; }
 a:hover{ text-decoration:underline; }
 img{ max-width:100%; height:auto; display:block; }
 
-/* Header */
-.site-header{
-  position:relative; overflow:hidden;
+/* ===== Header + Nav + Hero (single block) ===== */
+.hero-header{
+  position:relative;
   border-bottom:8px double var(--rope);
-  background: linear-gradient(180deg,#eaf6f6, rgba(234,246,246,.9));
+  background: #eaf6f6;           /* fallback while hero loads */
 }
-.header-inner{
+
+/* Top navigation bar */
+.navbar{
   max-width:1100px; margin:0 auto;
-  display:flex; align-items:center; gap:12px;
+  display:flex; align-items:center; gap:14px;
   padding:10px 16px;
 }
-.header-inner img{ height:64px; width:auto; display:block; }
-.brand-title{ font-weight:700; color:var(--ink); }
-.version-badge{ font-size:.85rem; opacity:.8; margin-left:.35rem; }
-.nav{ margin-left:auto; display:flex; gap:12px; flex-wrap:wrap; }
-.nav a{ padding:6px 10px; border-radius:10px; border:1px dashed var(--rope); background:#fff; }
+.brand{display:flex; align-items:center; gap:10px}
+.brand img{ height:48px; width:auto }
+.brand-title{ font-weight:700; color:var(--ink) }
+.version-badge{ font-size:.85rem; opacity:.8; margin-left:.35rem }
+.nav{ margin-left:auto; display:flex; gap:12px; flex-wrap:wrap }
+.nav a{ padding:6px 10px; border-radius:10px; border:1px dashed var(--rope); background:#fff }
 
-/* Page container */
-.page-wrap{ position:relative; max-width:1100px; margin:0 auto; padding:0 16px 40px; }
-
-/* Hero — CSS background only (no <img> hero) */
+/* HERO background (no <img> element) */
 .hero{
-  position:relative; min-height:320px;
-  /* If your file is PNG, change the extension to .png */
+  position:relative;
+  min-height:320px;           /* feel free to adjust */
   background: url('assets/index_hero.jpg') center/cover no-repeat;
   display:flex; align-items:flex-end;
+  overflow:hidden;
 }
+/* If your file is PNG, use this instead:
+   background: url('assets/index_hero.png') center/cover no-repeat; */
+
 .hero::before{
-  content:''; position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(10,61,98,.15), rgba(10,61,98,.65) 60%, rgba(10,61,98,.85));
+  content:'';
+  position:absolute; inset:0;
+  background: linear-gradient(180deg,
+    rgba(10,61,98,.10),
+    rgba(10,61,98,.55) 60%,
+    rgba(10,61,98,.80));
 }
-/* elements inside the hero */
+
+/* the grid overlay */
+.latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none }
+.latlon-grid svg{ width:100%; height:100% }
+
+/* compass watermark ON THE RIGHT of the header */
+.hero-compass{
+  position:absolute; right:1.5rem; top:1.2rem;
+  width:120px; opacity:.9; z-index:2;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
+}
+
+/* hero title lockup (teal ship + white text) */
 .hero-title{
-  position:absolute; left:2rem; bottom:2.2rem;
-  color:#e6f4f8; z-index:3;
+  position:absolute; left:2rem; bottom:2.2rem; z-index:3;
   text-shadow:0 2px 6px rgba(0,0,0,.45);
   display:flex; align-items:flex-end; gap:.8rem;
 }
-.hero-title img.logo{
-  width:clamp(360px,38vw,740px); height:auto;
+.hero-title .logo{
+  width:clamp(360px,38vw,740px);
   filter: drop-shadow(0 3px 8px rgba(0,0,0,.45));
 }
-.hero .compass-corner{
-  position:absolute; right:1rem; top:1rem; width:120px; z-index:2; opacity:.9;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
-}
-.latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none; }
-.latlon-grid svg{ width:100%; height:100%; }
 
-/* Content blocks */
-.wrap{ padding:1.2rem 0; }
+/* ===== Content cards ===== */
+.page-wrap{ position:relative; max-width:1100px; margin:0 auto; padding:24px 16px 40px }
 .card{
   background:#fff; border:2px solid var(--rope); border-radius:14px; padding:1rem; margin:.8rem 0;
   box-shadow:0 2px 6px rgba(8,48,65,.08);
 }
-h2,h3{ color:var(--sea); }
-.index-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1rem; margin:1rem 0 2rem; }
+h2,h3{ color:var(--sea) }
+.index-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; margin:1rem 0 2rem }
 .index-card{
   background:#fff; border:2px solid var(--rope); border-radius:14px;
   box-shadow:0 2px 6px rgba(8,48,65,.08); padding:1rem;
 }
-.index-card h3{ margin-top:0; color:var(--sea); }
-.index-card ul{ list-style:none; margin:.5rem 0 0; padding:0; }
-.index-card li{ margin:.35rem 0; }
+.index-card h3{ margin-top:0; color:var(--sea) }
+.index-card ul{ list-style:none; margin:.5rem 0 0; padding:0 }
+.index-card li{ margin:.35rem 0 }
 .index-pill{ display:inline-block; background:#e6f4f8; border:1px solid var(--rope);
-  padding:.2rem .55rem; border-radius:999px; font-size:.85rem; margin:.2rem .2rem 0 0; }
-.tiny{ font-size:.85rem; color:#2a5b6e; }
-.feature-ship{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-.feature-ship .card{ margin:0; }
+  padding:.2rem .55rem; border-radius:999px; font-size:.85rem; margin:.2rem .2rem 0 0 }
+.tiny{ font-size:.85rem; color:#2a5b6e }
+.feature-ship{ display:grid; grid-template-columns:1fr 1fr; gap:1rem }
+.feature-ship .card{ margin:0 }
 
-/* Watermark */
-body::after{
-  content:''; position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
-  width:min(40vw,520px); height:min(40vw,520px);
-  background:url('assets/compass_rose.svg') center/contain no-repeat; opacity:.25; z-index:0; pointer-events:none;
-  filter: drop-shadow(0 3px 8px rgba(0,0,0,.12));
-}
-.wrap, header, footer, .card, section, .site-header{ position:relative; z-index:1; }
+/* Footer */
+.footer{ padding:16px; text-align:center; color:#345 }
 
-/* Responsive */
-@media (max-width:900px){ .feature-ship{ grid-template-columns:1fr; } }
-@media (max-width:600px){ .hero{ min-height:260px; } }
+/* ===== Remove legacy sources of regressions ===== */
+/* 1) Kill the old page-wide watermark that drew a giant compass on the left */
+body::after{ content:none !important }
+/* 2) Make sure any old hockey-stick underline is gone */
+.hero::after{ content:none !important }
+/* 3) Prevent duplicate hero rules from older sheets taking over */
+header.site-header,.site-header{ background:none; border-bottom:none }
+.header-inner{ all:unset } /* ensure old header block can’t re-assert */
