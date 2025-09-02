@@ -1,5 +1,4 @@
-# In the Wake — v2.024 (GitHub Pages Ready)
+# In the Wake — v2.025 (GitHub Pages Ready)
 
-Upload everything in this folder to your repo root.  
-Then Settings → Pages → Source: **Deploy from a branch** → Branch **main** → Folder **/(root)** → Save.
+Upload everything in this folder to your repo root, then enable **Settings → Pages → Deploy from a branch**, Branch **main**, Folder **/(root)**.
 

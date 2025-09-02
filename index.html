@@ -4,12 +4,41 @@
 <meta charset="utf-8">
 <title>In the Wake — Master Index (v2.019)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<style>
+:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--ink);background:var(--sky)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
+.hero{position:relative;min-height:320px;background:url('assets/index_hero.jpg') center/cover no-repeat;display:flex;align-items:flex-end}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,61,98,.15),rgba(10,61,98,.65) 60%,rgba(10,61,98,.85));}
+.hero-title{position:absolute;left:2rem;bottom:2.2rem;color:#e6f4f8;z-index:3;text-shadow:0 2px 6px rgba(0,0,0,.45);display:flex;align-items:flex-end;gap:.8rem}
+.hero-title img.logo{width:clamp(360px,38vw,740px);height:auto;display:block;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));}
+.hero .compass-corner{position:absolute;right:1rem;top:1rem;width:120px;z-index:2;opacity:.9;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
+.latlon-grid{position:absolute;inset:0;z-index:1;pointer-events:none}
+.latlon-grid svg{width:100%;height:100%}
+.wrap{padding:1.2rem 1.6rem}
+.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
+h2,h3{color:var(--sea)}
+.index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin:1rem 0 2rem}
+.index-card{background:#fff;border:2px solid var(--rope);border-radius:14px;box-shadow:0 2px 6px rgba(8,48,65,.08);padding:1rem}
+.index-card h3{margin-top:0;color:var(--sea)}
+.index-card ul{list-style:none;margin:.5rem 0 0;padding:0}
+.index-card li{margin:.35rem 0}
+.index-pill{display:inline-block;background:#e6f4f8;border:1px solid var(--rope);padding:.2rem .55rem;border-radius:999px;font-size:.85rem;margin:.2rem .2rem 0 0}
+.tiny{font-size:.85rem;color:#2a5b6e}
+.feature-ship{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.feature-ship .card{margin:0}
+/* watermark */
+body::after{content:'';position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(40vw,520px);height:min(40vw,520px);background:url('assets/compass_rose.svg') center/contain no-repeat;opacity:.25;z-index:0;pointer-events:none;filter:drop-shadow(0 3px 8px rgba(0,0,0,.12));}
+.wrap, header, footer, .card, section, .site-header{position:relative;z-index:1}
+@media (max-width:900px){.feature-ship{grid-template-columns:1fr}}
+</style>
 <link rel='stylesheet' href='assets/styles.css?v=2.022'></head>
 <body><header class="site-header">
   <div class="header-inner">
     <a href="index.html" title="Home"><img class="logo-img" src="assets/logo/in_the_wake_teal.svg" alt="In the Wake teal ship logo"></a>
-    <div class="brand-title">In the Wake <span class="version-badge">v2.024</span></div>
+    <div class="brand-title">In the Wake <span class="version-badge">v2.025</span></div>
     <nav class="nav">
       <a href="ships.html">Ships</a>
       <a href="restaurants.html">Restaurants</a>
