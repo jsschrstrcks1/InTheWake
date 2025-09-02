@@ -35,10 +35,20 @@ body::after{content:'';position:fixed;left:50%;top:50%;transform:translate(-50%,
 @media (max-width:900px){.feature-ship{grid-template-columns:1fr}}
 </style>
 <link rel='stylesheet' href='assets/styles.css?v=2.022'></head>
-<body><header class="site-header">
+<body>
+<section class="hero-fallback">
+  <picture>
+    <source srcset="assets/index_hero.jpg" type="image/jpeg">
+    <img src="assets/index_hero.svg" alt="Ocean wake hero image">
+  </picture>
+</section>
+
+<div class="latlong">25° 46′ N · 80° 08′ W</div>
+  <div class="compass-mark"><img src="assets/compass_rose.svg" alt="" aria-hidden="true"></div>
+<header class="site-header">
   <div class="header-inner">
     <a href="index.html" title="Home"><img class="logo-img" src="assets/logo/in_the_wake_teal.svg" alt="In the Wake teal ship logo"></a>
-    <div class="brand-title">In the Wake <span class="version-badge">v2.026</span></div>
+    <div class="brand-title">In the Wake <span class="version-badge">v2.022</span></div>
     <nav class="nav">
       <a href="ships.html">Ships</a>
       <a href="restaurants.html">Restaurants</a>
@@ -49,7 +59,7 @@ body::after{content:'';position:fixed;left:50%;top:50%;transform:translate(-50%,
     </nav>
   </div>
 </header>
-<div class="page-wrap watermark-compass">
+<div class="page-wrap">
 <header class="site-header">
   <div class="hero">
     <div class="latlon-grid">
@@ -73,8 +83,8 @@ body::after{content:'';position:fixed;left:50%;top:50%;transform:translate(-50%,
       <h3>Ships</h3>
       <ul>
         <li><a href="ships.html"><strong>All Ships</strong> — Royal Caribbean, Norwegian Cruise Line, MSC Cruises</a></li>
-        <li><a href="enchantment.html.html">Enchantment of the Seas</a></li>
-        <li><a href="majesty.html.html">Majesty of the Seas <span class="tiny">(Historical)</span></a></li>
+        <li><a href="enchantment-of-the-seas.html">Enchantment of the Seas</a></li>
+        <li><a href="majesty-of-the-seas.html">Majesty of the Seas <span class="tiny">(Historical)</span></a></li>
       </ul>
       <p class="tiny">Royal Caribbean listed first, then NCL and MSC (alphabetical within each).</p>
     </div>
@@ -110,7 +120,7 @@ body::after{content:'';position:fixed;left:50%;top:50%;transform:translate(-50%,
       <h3>Featured Ship</h3>
       <p class="tiny">A rotating highlight with quick access to tours, restaurants, and deck viewer.</p>
       <ul>
-        <li><a href="enchantment.html.html">Enchantment of the Seas</a></li>
+        <li><a href="enchantment-of-the-seas.html">Enchantment of the Seas</a></li>
       </ul>
     </div>
     <div class="card">
@@ -122,11 +132,25 @@ body::after{content:'';position:fixed;left:50%;top:50%;transform:translate(-50%,
   </section>
 </div>
 
-
-
 </div>
 <footer class="footer">
   <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
 </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const header = document.querySelector('header');
+  if (header){
+    let img = header.querySelector('img');
+    if (!img){
+      img = document.createElement('img');
+      header.insertBefore(img, header.firstChild);
+    }
+    img.src = 'assets/logo/in_the_wake_custom.png';
+    img.alt = 'In the Wake logo';
+    img.classList.add('iw-logo');
+    img.style.height = '72px';
+  }
+});
+</script>
 </body>
 </html>

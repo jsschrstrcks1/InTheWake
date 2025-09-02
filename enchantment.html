@@ -4,10 +4,13 @@
 <title>Enchantment of the Seas — In the Wake</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel='stylesheet' href='assets/styles.css?v=2.022'></head>
-<body><header class="site-header">
+<body>
+<div class="latlong">25° 46′ N · 80° 08′ W</div>
+  <div class="compass-mark"><img src="assets/compass_rose.svg" alt="" aria-hidden="true"></div>
+<header class="site-header">
   <div class="header-inner">
-    <a href="index.html" title="Home"><img class="logo-img logo-teal" src="assets/logo/in_the_wake_custom.png" onerror="this.onerror=null;this.src='assets/logo/in_the_wake_teal.svg';" alt="In the Wake logo"></a>
-    <div class="brand-title">In the Wake <span class="version-badge">v2.027</span></div>
+    <a href="index.html" title="Home"><img class="logo-img" src="assets/logo/in_the_wake_teal.svg" alt="In the Wake teal ship logo"></a>
+    <div class="brand-title">In the Wake <span class="version-badge">v2.022</span></div>
     <nav class="nav">
       <a href="ships.html">Ships</a>
       <a href="restaurants.html">Restaurants</a>
@@ -19,22 +22,6 @@
   </div>
 </header>
 <div class="page-wrap">
-  <div class="latlong">25° 46′ N · 80° 08′ W</div>
-  <div class="compass-mark" aria-hidden="true"></div><header class="site-header">
-  <div class="header-inner">
-    <a href="index.html" title="Home"><img class="logo-img" src="assets/logo/in_the_wake_teal.svg" alt="In the Wake teal ship logo"></a>
-    <div class="brand-title">In the Wake <span class="version-badge">v2.026</span></div>
-    <nav class="nav">
-      <a href="ships.html">Ships</a>
-      <a href="restaurants.html">Restaurants</a>
-      <a href="ports.html">Ports</a>
-      <a href="drinks.html">Drinks</a>
-      <a href="packing.html">Packing</a>
-      <a href="disability.html">Disability</a>
-    </nav>
-  </div>
-</header>
-<div class="page-wrap watermark-compass">
 <header class="site-header">
   <div class="hero overlay" style="background-image:url('../assets/index_hero.jpg')">
     <a class="home-btn" href="../index.html">⟵ Home</a>
@@ -90,11 +77,24 @@ document.querySelectorAll('a[href^="http"]').forEach(a=>{a.target="_blank";a.rel
 document.querySelectorAll('.hotspot').forEach(h=>h.addEventListener('click',e=>e.preventDefault()));
 </script>
 <footer>© 2025 In the Wake — Compiled by Ken</footer>
-
-
-
 </div>
 <footer class="footer">
   <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
 </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const header = document.querySelector('header');
+  if (header){
+    let img = header.querySelector('img');
+    if (!img){
+      img = document.createElement('img');
+      header.insertBefore(img, header.firstChild);
+    }
+    img.src = 'assets/logo/in_the_wake_custom.png';
+    img.alt = 'In the Wake logo';
+    img.classList.add('iw-logo');
+    img.style.height = '72px';
+  }
+});
+</script>
 </body></html>
