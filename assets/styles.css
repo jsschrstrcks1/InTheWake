@@ -1,17 +1,25 @@
 
-/* In the Wake — 2.x shared styles v2.025 */
+/* In the Wake — 2.x shared styles v2.026 */
 :root{
   --ink:#0a2a43;--sea:#0b5fb3;--teal:#17b1b1;--teal-dark:#0a7a7a;--foam:#eaf6f6;--rope:#87b5c9;
 }
 html,body{margin:0;padding:0;color:var(--ink);font-family:Georgia,'Times New Roman',serif;background:white}
 a{color:var(--sea);text-decoration:none} a:hover{text-decoration:underline}
-/* Keep page-specific backgrounds from original files intact. Our shell avoids overriding them. */
-.site-header{position:sticky;top:0;z-index:1000;background:linear-gradient(180deg,var(--foam),rgba(234,246,246,.9));border-bottom:6px solid var(--rope);box-shadow:0 2px 6px rgba(0,0,0,.06)}
+
+/* Header now flows with the page (not sticky) */
+.site-header{position:relative;top:auto;background:linear-gradient(180deg,var(--foam),rgba(234,246,246,.9));border-bottom:6px solid var(--rope)}
 .header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:10px 16px}
 .logo-img{height:56px;width:auto;filter:drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff)}
 .brand-title{font-size:22px;color:var(--ink);font-weight:700;letter-spacing:.5px}
 .version-badge{font-size:12px;opacity:.8;margin-left:6px}
 .nav{margin-left:auto;display:flex;gap:12px;flex-wrap:wrap}
 .nav a{padding:8px 10px;border-radius:8px;border:1px dashed var(--rope)}
-.page-wrap{max-width:1100px;margin:24px auto;padding:0 16px 48px;border:10px solid transparent;background-image:linear-gradient(white,white),radial-gradient(circle at top left,#cfe3ef,transparent 70%);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 8px 18px rgba(0,0,0,.05)}
+
+.page-wrap{max-width:1100px;margin:0 auto;padding:0 16px 48px;border:10px solid transparent;background-image:linear-gradient(white,white),radial-gradient(circle at top left,#cfe3ef,transparent 70%);background-origin:border-box;background-clip:padding-box,border-box}
+
+.hero{width:100%;min-height:320px;background-image:url('assets/index_hero.jpg');background-size:cover;background-position:center center}
+.hero .overlay{background:linear-gradient(0deg,rgba(255,255,255,.0),rgba(234,246,246,.55));min-height:320px}
+
+.watermark-compass{background-image:url('assets/compass_rose.svg');background-repeat:no-repeat;background-position:right 32px bottom 32px;background-size:160px auto;opacity:.9}
+
 .footer{border-top:6px solid var(--rope);padding:20px 16px;text-align:center;color:#2e5d7b;background:linear-gradient(0deg,var(--foam),rgba(234,246,246,.8))}
