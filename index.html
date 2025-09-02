@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>In the Wake — Master Index (v2.037)</title>
+  <title>In the Wake — Master Index (v2.038)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- IMPORTANT: project-relative path (no leading slash) -->
-  <link rel="stylesheet" href="assets/styles.css?v=2.037">
+  <!-- project-relative (no leading slash) -->
+  <link rel="stylesheet" href="assets/styles.css?v=2.038">
 </head>
 <body>
 
-  <!-- Single combined header + hero -->
+  <!-- One combined header + hero -->
   <header class="hero-header">
     <div class="navbar">
       <a class="brand" href="index.html" title="Home">
         <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-        <span class="brand-title">In the Wake <span class="version-badge">v2.037</span></span>
+        <span class="brand-title">In the Wake <span class="version-badge">v2.038</span></span>
       </a>
       <nav class="nav">
         <a href="ships.html">Ships</a>
@@ -26,11 +26,10 @@
       </nav>
     </div>
 
-    <!-- HERO: background image only (no <img> tag), grid overlay, watermark compass at right -->
+    <!-- HERO: background image (from CSS), grid overlay, compass on the right, teal/white logo lockup -->
     <div class="hero">
       <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-          <!-- verticals -->
           <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
           <line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
           <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
@@ -40,25 +39,19 @@
           <line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
           <line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
           <line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-          <!-- horizontals -->
-          <line x1="0" y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-          <line x1="0" y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-          <line x1="0" y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-          <line x1="0" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="0"  y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="0"  y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="0"  y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+          <line x1="0"  y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
         </svg>
       </div>
-
-      <!-- Compass watermark on the RIGHT of the hero -->
       <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true">
-
-      <!-- Title overlay (teal ship/white text lockup) -->
       <div class="hero-title" role="img" aria-label="In the Wake">
         <img class="logo" src="assets/logo_wake_teal.png" alt="">
       </div>
     </div>
   </header>
 
-  <!-- Content -->
   <main class="page-wrap">
     <section class="index-grid" id="master-index">
       <div class="index-card">
@@ -110,7 +103,7 @@
       <div class="card">
         <h3>Change Log</h3>
         <ul>
-          <li><strong>v2.037</strong> — Restored hero background; moved compass to header watermark (right); removed hockey-stick bar; removed body watermark; single header height.</li>
+          <li><strong>v2.038</strong> — Fixed CSS-relative image paths; restored single-height header; compass watermark on right; no hockey-stick bar.</li>
         </ul>
       </div>
     </section>
@@ -118,6 +111,7 @@
     <section>
       <h2>Royal Caribbean — Ships</h2>
       <div class="grid">
+        <!-- (unchanged ship links) -->
         <div class="card"><h3><a href="adventure-of-the-seas.html">Adventure of the Seas</a></h3></div>
         <div class="card"><h3><a href="allure-of-the-seas.html">Allure of the Seas</a></h3></div>
         <div class="card"><h3><a href="anthem-of-the-seas.html">Anthem of the Seas</a></h3></div>
