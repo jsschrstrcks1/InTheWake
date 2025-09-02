@@ -1,193 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>In the Wake — Master Index (v2.036)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <header class="site-header">
+  <div class="hero">
+    <div class="latlon-grid">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
+        <!-- verticals -->
+        <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="40" y1="0" x2="40" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="60" y1="0" x2="60" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <!-- horizontals -->
+        <line x1="0" y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0" y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0" y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+      </svg>
+    </div>
+    <img class="compass-corner" src="assets/compass_rose.svg" alt="Compass" loading="lazy">
+    <div class="hero-title">
+      <img class="logo" src="assets/logo/logo_teal_white.svg" alt="In the Wake">
+      <p class="subtitle">A Cruise Traveler’s Logbook</p>
+    </div>
+    <nav class="hero-nav">
+      <a href="ships.html">Ships</a>
+      <a href="restaurants.html">Restaurants</a>
+      <a href="ports.html">Ports</a>
+      <a href="drinks.html">Drinks</a>
+      <a href="packing.html">Packing</a>
+      <a href="disability.html">Disability</a>
+    </nav>
+  </div>
+</header>
+  <style>
 :root {
-  --sea: #0a3d62;
+  --sea: #285a82;
   --foam: #e6f4f8;
   --rope: #d9b382;
   --ink: #083041;
   --sky: #f7fdff;
-  --accent: #0e6e8e;
+  --accent: #285a82;
+  --nav-outline: #d9b382;
 }
-
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   color: var(--ink);
   background: var(--sky);
 }
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.site-header {
+.header-banner {
   position: relative;
+  height: 220px;
+  background: linear-gradient(180deg, #f7fdff 0%, #e6f4f8 75%, #dde7f0 100%);
+  border-bottom: 5px solid var(--rope);
   overflow: hidden;
-  border-bottom: 8px double var(--rope);
-}
-
-.hero {
-  position: relative;
-  min-height: 320px;
-  background: url('index_hero.jpg') center/cover no-repeat;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 }
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(10,61,98,.15), rgba(10,61,98,.65) 60%, rgba(10,61,98,.85));
-}
-
-.hero-title {
-  position: absolute;
-  left: 2rem;
-  bottom: 2.2rem;
+.header-logo-wrapper {
+  position: relative;
+  height: 170px;
+  width: 430px;
+  margin-left: 0;
+  display: flex;
+  align-items: center;
   z-index: 3;
-  text-shadow: 0 2px 6px rgba(0,0,0,.45);
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
 }
-
-.hero-title h1 {
-  margin: 0;
-  color: var(--sea);
-  font-size: clamp(3rem, 10vw, 5rem);
-  font-weight: bold;
-  line-height: 1;
+.header-logo {
+  width: 420px;
+  height: 160px;
+  display: block;
+  object-fit: contain;
 }
-
-.hero-title p.subtitle {
-  margin: 0;
-  color: var(--accent);
-  font-size: clamp(1rem, 3vw, 1.5rem);
-}
-
-.hero .compass-corner {
+.header-title {
   position: absolute;
-  right: 1rem;
-  top: 1rem;
-  width: 120px;
+  left: 40px;
+  top: 80px;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--sea);
+  letter-spacing: 1px;
+  z-index: 4;
+  text-shadow: 0 1px 6px rgba(40,90,130,0.12);
+  font-family: 'Merriweather', serif;
+}
+.header-compass {
+  position: absolute;
+  left: 24px;
+  top: 16px;
+  width: 95px;
+  height: 95px;
+  opacity: 0.12;
   z-index: 2;
-  opacity: .9;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
+  pointer-events: none;
 }
-
-.latlon-grid {
+.header-coords {
   position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
+  left: 128px;
+  top: 32px;
+  font-size: 1.08rem;
+  color: #295a82c8;
+  font-family: 'ui-monospace', 'Menlo', monospace;
+  letter-spacing: .02em;
+  z-index: 3;
 }
-
-.latlon-grid svg {
-  width: 100%;
-  height: 100%;
-}
-
-.wrap {
-  padding: 1.2rem 1.6rem;
-}
-
-.card, .index-card {
+.header-version {
+  position: absolute;
+  right: 34px;
+  bottom: 16px;
+  font-size: 1.07rem;
+  color: var(--sea);
   background: #fff;
-  border: 2px solid var(--rope);
-  border-radius: 14px;
-  padding: 1rem;
-  margin: .8rem 0;
-  box-shadow: 0 2px 6px rgba(8,48,65,.08);
-}
-
-h2, h3 {
-  color: var(--sea);
-}
-
-.index-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-  margin: 1rem 0 2rem;
-}
-
-.index-card h3 {
-  margin-top: 0;
-  color: var(--sea);
-}
-
-.index-card ul {
-  list-style: none;
-  margin: .5rem 0 0;
-  padding: 0;
-}
-
-.index-card li {
-  margin: .35rem 0;
-}
-
-.index-pill {
-  display: inline-block;
-  background: #e6f4f8;
   border: 1px solid var(--rope);
-  padding: .2rem .55rem;
+  border-radius: 9px;
+  padding: .26em .85em;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(40,90,130,.06);
+  z-index: 3;
+}
+.header-nav {
+  position: absolute;
+  left: 180px;
+  bottom: 24px;
+  z-index: 5;
+  display: flex;
+  gap: 0.8rem;
+}
+.header-nav a {
+  color: var(--sea);
+  background: #fff;
+  border: 2px solid var(--nav-outline);
   border-radius: 999px;
-  font-size: .85rem;
-  margin: .2rem .2rem 0 0;
+  padding: .43em 1.2em;
+  font-size: 1.05rem;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 1px 4px rgba(40,90,130,0.07);
+  transition: border-color .14s, box-shadow .14s;
+  font-family: inherit;
 }
-
-.tiny {
-  font-size: .85rem;
-  color: #2a5b6e;
+.header-nav a:hover, .header-nav a:focus {
+  border-color: var(--sea);
+  box-shadow: 0 2px 8px rgba(40,90,130,0.12);
+  background: var(--foam);
 }
-
-.feature-ship {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.feature-ship .card {
-  margin: 0;
-}
-
-/* watermark */
-body::after {
-  content: '';
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(40vw, 520px);
-  height: min(40vw, 520px);
-  background: url('compass_rose.svg') center/contain no-repeat;
-  opacity: .25;
-  z-index: 0;
-  pointer-events: none;
-  filter: drop-shadow(0 3px 8px rgba(0,0,0,.12));
-}
-
-.wrap, header, footer, .card, section, .site-header {
-  position: relative;
-  z-index: 1;
-}
-
 @media (max-width: 900px) {
-  .feature-ship {
-    grid-template-columns: 1fr;
-  }
+  .header-banner { height: 170px; }
+  .header-logo-wrapper { width: 250px; height: 105px; }
+  .header-logo { width: 200px; height: 90px; }
+  .header-title { font-size: 1.65rem; left: 26px; top: 51px; }
+  .header-compass { left: 8px; top: 8px; width: 62px; height: 62px; }
+  .header-coords { left: 68px; top: 20px; font-size: .94rem; }
+  .header-version { right: 13px; bottom: 8px; font-size: .93rem; }
+  .header-nav { left: 115px; bottom: 9px; gap: 0.4rem; }
+  .header-nav a { font-size: .95rem; padding: .3em .8em; }
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.2rem;
-}
+</style>
+</head>
+<body>
+<div class="header-banner">
+  <div class="header-logo-wrapper">
+    <!-- Ship Logo SVG (left-aligned, color-matched) -->
+    <svg class="header-logo" viewBox="0 0 900 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <path d="M60,240 Q110,100 300,80 Q600,40 820,120 Q860,140 850,180 Q840,220 700,230 Q450,250 220,240 Z" fill="#285a82" stroke="#fff" stroke-width="7"/>
+        <text x="150" y="205" font-family="Merriweather, serif" font-size="105" font-weight="bold" fill="#fff" stroke="#285a82" stroke-width="4">IN THE WAKE</text>
+        <path d="M680,250 Q630,270 510,265 Q410,260 270,255" stroke="#fff" stroke-width="13" fill="none"/>
+        <path d="M610,290 Q480,315 210,300" stroke="#fff" stroke-width="9" fill="none"/>
+      </g>
+    </svg>
+  </div>
+  <!-- Compass Rose SVG -->
+  <svg class="header-compass" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="45" stroke="#285a82" stroke-width="2"/>
+    <polygon points="50,13 53,50 50,87 47,50" fill="#285a82" />
+    <polygon points="13,50 50,47 87,50 50,53" fill="#285a82" />
+  </svg>
+  <!-- Coordinates (top left) -->
+  <div class="header-coords">25° 46′ N · 80° 08′ W</div>
+  <!-- Navigation Bar (pill style) -->
+  <nav class="header-nav">
+    <a href="ships.html">Ships</a>
+    <a href="restaurants.html">Restaurants</a>
+    <a href="ports.html">Ports</a>
+    <a href="drinks.html">Drinks</a>
+    <a href="packing.html">Packing</a>
+    <a href="disability.html">Disability</a>
+  </nav>
+  <!-- Version Badge -->
+  <div class="header-version">v2.036</div>
+</div>
+<!-- Rest of page content here -->
+</body>
+</html>
