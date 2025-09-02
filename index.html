@@ -4,51 +4,14 @@
 <meta charset="utf-8">
 <title>In the Wake — Master Index (v2.019)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
-*{box-sizing:border-box}
-body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--ink);background:var(--sky)}
-a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
-.hero{position:relative;min-height:320px;background:url('assets/index_hero.jpg') center/cover no-repeat;display:flex;align-items:flex-end}
-.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,61,98,.15),rgba(10,61,98,.65) 60%,rgba(10,61,98,.85));}
-.hero-title{position:absolute;left:2rem;bottom:2.2rem;color:#e6f4f8;z-index:3;text-shadow:0 2px 6px rgba(0,0,0,.45);display:flex;align-items:flex-end;gap:.8rem}
-.hero-title img.logo{width:clamp(360px,38vw,740px);height:auto;display:block;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));}
-.hero .compass-corner{position:absolute;right:1rem;top:1rem;width:120px;z-index:2;opacity:.9;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
-.latlon-grid{position:absolute;inset:0;z-index:1;pointer-events:none}
-.latlon-grid svg{width:100%;height:100%}
-.wrap{padding:1.2rem 1.6rem}
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-h2,h3{color:var(--sea)}
-.index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin:1rem 0 2rem}
-.index-card{background:#fff;border:2px solid var(--rope);border-radius:14px;box-shadow:0 2px 6px rgba(8,48,65,.08);padding:1rem}
-.index-card h3{margin-top:0;color:var(--sea)}
-.index-card ul{list-style:none;margin:.5rem 0 0;padding:0}
-.index-card li{margin:.35rem 0}
-.index-pill{display:inline-block;background:#e6f4f8;border:1px solid var(--rope);padding:.2rem .55rem;border-radius:999px;font-size:.85rem;margin:.2rem .2rem 0 0}
-.tiny{font-size:.85rem;color:#2a5b6e}
-.feature-ship{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.feature-ship .card{margin:0}
-/* watermark */
-body::after{content:'';position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(40vw,520px);height:min(40vw,520px);background:url('assets/compass_rose.svg') center/contain no-repeat;opacity:.25;z-index:0;pointer-events:none;filter:drop-shadow(0 3px 8px rgba(0,0,0,.12));}
-.wrap, header, footer, .card, section, .site-header{position:relative;z-index:1}
-@media (max-width:900px){.feature-ship{grid-template-columns:1fr}}
-</style>
-<link rel='stylesheet' href='assets/styles.css?v=2.022'></head>
-<body>
-<section class="hero-fallback">
-  <picture>
-    <source srcset="assets/index_hero.jpg" type="image/jpeg">
-    <img src="assets/index_hero.svg" alt="Ocean wake hero image">
-  </picture>
-</section>
 
-<div class="latlong">25° 46′ N · 80° 08′ W</div>
-  <div class="compass-mark"><img src="assets/compass_rose.svg" alt="" aria-hidden="true"></div>
-<header class="site-header">
+<link rel='stylesheet' href='assets/styles.css?v=2.022'></head>
+<body><header class="site-header">
   <div class="header-inner">
-    <a href="index.html" title="Home"><img class="logo-img" src="assets/logo/in_the_wake_teal.svg" alt="In the Wake teal ship logo"></a>
-    <div class="brand-title">In the Wake <span class="version-badge">v2.022</span></div>
+    <a href="index.html" title="Home">
+      <img class="logo-img" src="assets/logo/logo_teal_white.svg" alt="In the Wake logo (teal ship, white wordmark)">
+    </a>
+    <div class="brand-title">In the Wake <span class="version-badge">v2.032</span></div>
     <nav class="nav">
       <a href="ships.html">Ships</a>
       <a href="restaurants.html">Restaurants</a>
@@ -60,22 +23,28 @@ body::after{content:'';position:fixed;left:50%;top:50%;transform:translate(-50%,
   </div>
 </header>
 <div class="page-wrap">
-<header class="site-header">
-  <div class="hero">
-    <div class="latlon-grid">
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
-        <!-- verticals -->
-        <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="40" y1="0" x2="40" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="60" y1="0" x2="60" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <!-- horizontals -->
-        <line x1="0" y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0" y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0" y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0" y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-      </svg>
-    </div>
-    <img class="compass-corner" src="assets/compass_rose.svg" alt="Compass">
-    <div class="hero-title">
-      <img class="logo" src="assets/logo_wake_teal.png" alt="In the Wake">
-    </div>
-  </div>
-</header>
+<section class="hero">
+  <picture>
+    <source srcset="assets/index_hero.jpg" type="image/jpeg">
+    <img class="hero-img" src="assets/index_hero.svg" alt="Ocean wake hero">
+  </picture>
+  <div class="overlay"></div>
+</section>
+
+  <div class="latlong">25° 46′ N · 80° 08′ W</div>
+  <div class="compass-mark"><img src="assets/compass_rose.svg" alt="" aria-hidden="true"></div>
+<section class="hero-fallback">
+  <picture>
+    <source srcset="assets/index_hero.jpg" type="image/jpeg">
+    <img src="assets/index_hero.svg" alt="Ocean wake hero image">
+  </picture>
+</section>
+
+<div class="latlong">25° 46′ N · 80° 08′ W</div>
+  <div class="compass-mark"><img src="assets/compass_rose.svg" alt="" aria-hidden="true"></div>
+
+
+
 
 <div class="wrap">
   <section class="index-grid" id="master-index">
@@ -132,10 +101,7 @@ body::after{content:'';position:fixed;left:50%;top:50%;transform:translate(-50%,
   </section>
 </div>
 
-</div>
-<footer class="footer">
-  <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
-</footer>
+
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const header = document.querySelector('header');
@@ -152,5 +118,68 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 </script>
+<section><h2>Royal Caribbean — Ships</h2>
+<div class='grid'>
+<div class='card'><h3><a href='._adventure-of-the-seas.html'>._Adventure Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._allure-of-the-seas.html'>._Allure Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._anthem-of-the-seas.html'>._Anthem Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._brilliance-of-the-seas.html'>._Brilliance Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._enchantment-of-the-seas.html'>._Enchantment Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._explorer-of-the-seas.html'>._Explorer Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._freedom-of-the-seas.html'>._Freedom Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._grandeur-of-the-seas.html'>._Grandeur Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._harmony-of-the-seas.html'>._Harmony Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._icon-of-the-seas.html'>._Icon Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._independence-of-the-seas.html'>._Independence Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._jewel-of-the-seas.html'>._Jewel Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._liberty-of-the-seas.html'>._Liberty Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._mariner-of-the-seas.html'>._Mariner Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._navigator-of-the-seas.html'>._Navigator Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._oasis-of-the-seas.html'>._Oasis Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._odyssey-of-the-seas.html'>._Odyssey Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._ovation-of-the-seas.html'>._Ovation Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._quantum-of-the-seas.html'>._Quantum Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._radiance-of-the-seas.html'>._Radiance Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._rhapsody-of-the-seas.html'>._Rhapsody Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._serenade-of-the-seas.html'>._Serenade Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._spectrum-of-the-seas.html'>._Spectrum Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._symphony-of-the-seas.html'>._Symphony Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._utopia-of-the-seas.html'>._Utopia Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._vision-of-the-seas.html'>._Vision Of The Seas</a></h3></div>
+<div class='card'><h3><a href='._voyager-of-the-seas.html'>._Voyager Of The Seas</a></h3></div>
+<div class='card'><h3><a href='adventure-of-the-seas.html'>Adventure Of The Seas</a></h3></div>
+<div class='card'><h3><a href='allure-of-the-seas.html'>Allure Of The Seas</a></h3></div>
+<div class='card'><h3><a href='anthem-of-the-seas.html'>Anthem Of The Seas</a></h3></div>
+<div class='card'><h3><a href='brilliance-of-the-seas.html'>Brilliance Of The Seas</a></h3></div>
+<div class='card'><h3><a href='enchantment-of-the-seas.html'>Enchantment Of The Seas</a></h3></div>
+<div class='card'><h3><a href='explorer-of-the-seas.html'>Explorer Of The Seas</a></h3></div>
+<div class='card'><h3><a href='freedom-of-the-seas.html'>Freedom Of The Seas</a></h3></div>
+<div class='card'><h3><a href='grandeur-of-the-seas.html'>Grandeur Of The Seas</a></h3></div>
+<div class='card'><h3><a href='harmony-of-the-seas.html'>Harmony Of The Seas</a></h3></div>
+<div class='card'><h3><a href='icon-of-the-seas.html'>Icon Of The Seas</a></h3></div>
+<div class='card'><h3><a href='independence-of-the-seas.html'>Independence Of The Seas</a></h3></div>
+<div class='card'><h3><a href='jewel-of-the-seas.html'>Jewel Of The Seas</a></h3></div>
+<div class='card'><h3><a href='liberty-of-the-seas.html'>Liberty Of The Seas</a></h3></div>
+<div class='card'><h3><a href='mariner-of-the-seas.html'>Mariner Of The Seas</a></h3></div>
+<div class='card'><h3><a href='navigator-of-the-seas.html'>Navigator Of The Seas</a></h3></div>
+<div class='card'><h3><a href='oasis-of-the-seas.html'>Oasis Of The Seas</a></h3></div>
+<div class='card'><h3><a href='odyssey-of-the-seas.html'>Odyssey Of The Seas</a></h3></div>
+<div class='card'><h3><a href='ovation-of-the-seas.html'>Ovation Of The Seas</a></h3></div>
+<div class='card'><h3><a href='quantum-of-the-seas.html'>Quantum Of The Seas</a></h3></div>
+<div class='card'><h3><a href='radiance-of-the-seas.html'>Radiance Of The Seas</a></h3></div>
+<div class='card'><h3><a href='rhapsody-of-the-seas.html'>Rhapsody Of The Seas</a></h3></div>
+<div class='card'><h3><a href='serenade-of-the-seas.html'>Serenade Of The Seas</a></h3></div>
+<div class='card'><h3><a href='spectrum-of-the-seas.html'>Spectrum Of The Seas</a></h3></div>
+<div class='card'><h3><a href='symphony-of-the-seas.html'>Symphony Of The Seas</a></h3></div>
+<div class='card'><h3><a href='utopia-of-the-seas.html'>Utopia Of The Seas</a></h3></div>
+<div class='card'><h3><a href='vision-of-the-seas.html'>Vision Of The Seas</a></h3></div>
+<div class='card'><h3><a href='voyager-of-the-seas.html'>Voyager Of The Seas</a></h3></div>
+</div>
+</section>
+
+</div>
+<footer class="footer">
+  <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
+</footer>
 </body>
 </html>

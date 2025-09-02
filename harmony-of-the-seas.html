@@ -4,95 +4,14 @@
 <meta charset="utf-8">
 <title>Harmony of the Seas — In the Wake (v2)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
-*{box-sizing:border-box}
-body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--ink);background:var(--sky)}
-a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
-.hero{position:relative;min-height:260px;background:url('../assets/ships/harmony-of-the-seas-of-the-seas.jpg') center/cover no-repeat;display:flex;align-items:flex-end}
-.hero-title{position:absolute;left:2rem;bottom:1.4rem;color:#e6f4f8;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-.hero-title h1{margin:.1rem 0 0;font-family:Georgia,serif;font-size:clamp(1.8rem,3.4vw,2.6rem);color:#5dade2}
-.hero-title p{margin:.2rem 0 0}
-.compass-corner{position:absolute;right:1rem;top:1rem;width:100px;z-index:2;opacity:.9;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
-.wrap{padding:1.2rem 1.6rem}
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:1rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-h2,h3{color:var(--sea)}
-.grid{display:grid;grid-template-columns:2fr 1fr;gap:1rem}
-@media (max-width:1000px){.grid{grid-template-columns:1fr}}
-.home-btn{position:absolute;left:1rem;top:1rem;background:#ffffffdd;border:2px solid var(--rope);padding:.3rem .6rem;border-radius:10px;color:var(--ink);text-decoration:none;backdrop-filter:saturate(140%) blur(2px);box-shadow:0 2px 6px rgba(8,48,65,.12)}
-/* watermark */
-body::after{content:''; position:fixed; left:50%; top:50%; transform:translate(-50%,-50%); width:min(40vw,520px); height:min(40vw,520px); background:url('../assets/compass_rose.svg') center/contain no-repeat; opacity:.18; z-index:0; pointer-events:none; filter:drop-shadow(0 3px 8px rgba(0,0,0,.12));}
-.wrap, header, footer, .card, section, .site-header { position:relative; z-index:1; }
 
-/* Deck viewer */
-.deck-card{padding:0}
-.deck-head{display:flex;justify-content:space-between;align-items:center;padding:1rem;border-bottom:2px solid var(--rope)}
-.deck-head h3{margin:0}
-.deck-canvas{position:relative; height:460px; background:linear-gradient(180deg,#f9feff,#f3fbff); overflow:hidden; border-top:8px double var(--rope)}
-.hull{position:absolute; left:2%; right:2%; top:12%; bottom:10%;}
-.hull svg{width:100%; height:100%}
-.axis{position:absolute; left:10px; top:10px; right:10px; bottom:10px; pointer-events:none}
-.axis .mid{position:absolute; left:4%; right:4%; top:50%; height:0; border-top:10px dotted rgba(8,48,65,.18)}
-.axis .labels{position:absolute;left:2%;top:6%;font-weight:600;color:#6b8a99}
-.axis .labels span{margin-right:1.2rem}
-
-/* hotspot tokens */
-.hot{position:absolute; background:rgba(14,110,142,.08); border:2px dashed rgba(14,110,142,.35); border-radius:12px; padding:10px 12px; min-width:140px; display:flex; align-items:center; justify-content:center; text-align:center}
-.hot .lbl{display:inline-block; background:#fff; border:2px solid #e4b97b; padding:2px 8px; border-radius:10px; font-size:.95rem}
-
-.hot.centerline{top:50%; transform:translateY(-50%);}
-
-.hot.centerline{top:50%; transform:translateY(-50%);}
-.hot.screen{width:2px; height:165px;}
-.hot.screen.centerline{transform:translateY(-50%) rotate(90deg);}
-.hot.screen .lbl{display:none;}
-
-/* centerline rule */
-.centerline{top:50%; transform:translateY(-50%);}
-
-/* movie screen as a thin horizontal bar */
-.screen-line{position:absolute; width:165px; height:2px; background:rgba(8,48,65,.7); box-shadow:0 0 0 1px rgba(14,110,142,.35); border-radius:2px;}
-
-/* tokens */
-.dot{position:absolute; width:46px; height:46px; border-radius:50%; background:rgba(14,110,142,.08); border:2px dashed rgba(14,110,142,.35); display:flex; align-items:center; justify-content:center}
-.dot .lbl{display:none}
-.icon{position:absolute; width:18px; height:18px; border-radius:50%; background:#fff; border:2px solid #e4b97b}
-.stairs{position:absolute; width:52px; height:52px; background:rgba(14,110,142,.08); border:2px dashed rgba(14,110,142,.35); border-radius:10px; display:flex; align-items:center; justify-content:center}
-.restroom{position:absolute; width:80px; height:54px; background:rgba(14,110,142,.08); border:2px dashed rgba(14,110,142,.35); border-radius:10px; display:flex; align-items:center; justify-content:center}
-/* movie screen: horizontal bar with pointer toward pool */
-.screen-line{position:absolute; width:140px; height:3px; background:rgba(8,48,65,.8); border-radius:2px; box-shadow:0 0 0 1px rgba(14,110,142,.3)}
-.screen-line::after{content:''; position:absolute; right:-8px; top:50%; transform:translateY(-50%); border-top:6px solid transparent; border-bottom:6px solid transparent; border-left:8px solid rgba(8,48,65,.8);}
-.centerline{top:50%; transform:translateY(-50%);}
-
-
-/* custom tooltip for image map areas */
-.tooltip{position:absolute;pointer-events:none;background:#083041;color:#e6f4f8;font-size:.85rem;padding:.25rem .45rem;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.25);opacity:0;transition:opacity .08s ease;z-index:10;}
-
-
-/* brand + hero */
-.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
-.hero{position:relative;min-height:320px;background:url('assets/index_hero.jpg') center/cover no-repeat;display:flex;align-items:flex-end}
-.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,61,98,.15),rgba(10,61,98,.65) 60%,rgba(10,61,98,.85));}
-.hero .compass-corner{position:absolute;right:1rem;top:1rem;width:120px;z-index:2;opacity:.9;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
-.latlon-grid{position:absolute; inset:0; z-index:1; pointer-events:none}
-.latlon-grid svg{width:100%; height:100%}
-.brand-lockup{position:absolute;left:2rem;bottom:2.2rem;display:flex;gap:.75rem;align-items:center;z-index:3;color:#e6f4f8;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-.brand-lockup img.logo{height:46px;width:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
-.brand-lockup .tag{font-size:.95rem;opacity:.95}
-/* watermark */
-body::after{content:''; position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); width:min(40vw,520px); height:min(40vw,520px); background:url('assets/compass_rose.svg') center/contain no-repeat; opacity:.16; z-index:0; pointer-events:none; filter:drop-shadow(0 3px 8px rgba(0,0,0,.12));}
-.wrap, header, footer, .card, section, .site-header { position:relative; z-index:1; }
-
-</style>
 <link rel='stylesheet' href='assets/styles.css?v=2.022'></head>
-<body>
-<div class="latlong">25° 46′ N · 80° 08′ W</div>
-  <div class="compass-mark"><img src="assets/compass_rose.svg" alt="" aria-hidden="true"></div>
-<header class="site-header">
+<body><header class="site-header">
   <div class="header-inner">
-    <a href="index.html" title="Home"><img class="logo-img" src="assets/logo/in_the_wake_teal.svg" alt="In the Wake teal ship logo"></a>
-    <div class="brand-title">In the Wake <span class="version-badge">v2.022</span></div>
+    <a href="index.html" title="Home">
+      <img class="logo-img" src="assets/logo/logo_teal_white.svg" alt="In the Wake logo (teal ship, white wordmark)">
+    </a>
+    <div class="brand-title">In the Wake <span class="version-badge">v2.032</span></div>
     <nav class="nav">
       <a href="ships.html">Ships</a>
       <a href="restaurants.html">Restaurants</a>
@@ -104,17 +23,13 @@ body::after{content:''; position:fixed; left:50%; top:50%; transform:translate(-
   </div>
 </header>
 <div class="page-wrap">
-<header class="site-header">
-  <div class="hero">
-    <a class="home-btn" href="../index.html">⟵ Home</a>
-    <img class="compass-corner" src="../assets/compass_rose.svg" alt="Compass">
-    <div class="hero-title">
-      <div>In the Wake · A Cruise Traveler’s Logbook</div>
-      <h1>Harmony of the Seas</h1>
-      <p>Royal Caribbean — Sovereign-class · Historical Ship</p>
-    </div>
-  </div>
-</header>
+  <div class="latlong">25° 46′ N · 80° 08′ W</div>
+  <div class="compass-mark"><img src="assets/compass_rose.svg" alt="" aria-hidden="true"></div>
+<div class="latlong">25° 46′ N · 80° 08′ W</div>
+  <div class="compass-mark"><img src="assets/compass_rose.svg" alt="" aria-hidden="true"></div>
+
+
+
 
 <div class="wrap">
   <div id="deckTooltip" class="tooltip" role="tooltip"></div>
@@ -244,10 +159,7 @@ document.querySelectorAll('a[href^="http"]').forEach(a=>{a.target='_blank';a.rel
   });
 })();
 </script>
-</div>
-<footer class="footer">
-  <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
-</footer>
+
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const header = document.querySelector('header');
@@ -264,6 +176,10 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 </script>
+</div>
+<footer class="footer">
+  <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
+</footer>
 </body>
 </html></section>
 
