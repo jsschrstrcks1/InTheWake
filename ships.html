@@ -2,16 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Ships Directory — In the Wake v2.058</title>
+  <title>Ships Directory — In the Wake v2.060</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
+  <style>
+  /* === Inline subnav styles (scoped) === */
+  .ships-tiered { position:relative; margin:0 0 12px; background:#fff; border:2px solid var(--rope); border-radius:14px; }
+  .ships-tiered__bar { display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding:8px 10px; }
+  .ships-tiered__item { position:relative; }
+  .ships-tiered__btn { display:inline-block; padding:6px 10px; border:1px dashed var(--rope); border-radius:10px; background:#fdfdfd; color:var(--ink); cursor:pointer; }
+  .ships-tiered__btn:focus { outline:2px solid var(--accent); outline-offset:2px; }
+  .ships-tiered__menu { position:absolute; top:calc(100% + 6px); left:0; background:#fff; border:1px solid var(--rope); border-radius:10px; box-shadow:0 6px 18px rgba(8,48,65,.12); padding:6px; min-width:220px; display:none; z-index:50; }
+  .ships-tiered__item:hover .ships-tiered__menu, .ships-tiered__item:focus-within .ships-tiered__menu { display:block; }
+  .ships-tiered__menu a { display:block; padding:6px 8px; border-radius:8px; }
+  .ships-tiered__menu a:hover { background:var(--foam); text-decoration:none; }
+  .ships-subnote { padding:0 12px 10px; color:#456; font-size:.88rem }
+  .coming-card { background:#f8fbfc; border:2px dashed var(--rope); border-radius:14px; padding:16px; text-align:center; color:#567; }
+  @media (max-width:720px){ .ships-tiered__menu { position:static; display:block; box-shadow:none; border:none; padding:0 } }
+  </style>
 </head>
 <body>
 <header class="hero-header">
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.058</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.060</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -25,56 +40,56 @@
   <div class="hero">
     <div class="latlon-grid" aria-hidden="true">
       <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-        <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="40" y1="0" x2="40" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="60" y1="0" x2="60" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="40" y1="0" x2="40" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="60" y1="0" x2="60" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <line x1="0"  y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0"  y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0"  y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/><line x1="0"  y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
       </svg>
     </div>
     <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true">
-    <div class="hero-title" role="img" aria-label="In the Wake">
+    <div class="hero-title" role="img" aria-label="Ships Directory">
       <img class="logo" src="assets/logo_wake_teal.png" alt="">
     </div>
   </div>
 </header>
 
 <main class="page-wrap">
-  <nav class="ships-subnav" aria-label="Ships quick navigation">
-    <ul class="ships-subnav__list">
-      <li class="ships-subnav__item">
-        <a href="#rc-vision" class="ships-subnav__brand">Royal Caribbean — Vision</a>
-        <ul class="ships-subnav__submenu">
-          <li><a href="#rc-vision">All Vision class</a></li>
-          <li><a href="vision-of-the-seas.html">Vision of the Seas</a></li>
-          <li><a href="rhapsody-of-the-seas.html">Rhapsody of the Seas</a></li>
-          <li><a href="grandeur-of-the-seas.html">Grandeur of the Seas</a></li>
-          <li><a href="enchantment-of-the-seas.html">Enchantment of the Seas</a></li>
-        </ul>
-      </li>
-      <li class="ships-subnav__item">
-        <a href="#rc-radiance" class="ships-subnav__brand">Royal Caribbean — Radiance</a>
-        <ul class="ships-subnav__submenu">
-          <li><a href="#rc-radiance">All Radiance class</a></li>
-          <li><a href="radiance-of-the-seas.html">Radiance of the Seas</a></li>
-          <li><a href="brilliance-of-the-seas.html">Brilliance of the Seas</a></li>
-          <li><a href="serenade-of-the-seas.html">Serenade of the Seas</a></li>
-          <li><a href="jewel-of-the-seas.html">Jewel of the Seas</a></li>
-        </ul>
-      </li>
-    </ul>
+  <nav class="ships-tiered" aria-label="Cruise lines and ship classes">
+    <div class="ships-tiered__bar">
+      
+  <div class="ships-tiered__item">
+    <button class="ships-tiered__btn" aria-haspopup="true" aria-expanded="false">Royal Caribbean</button>
+    <div class="ships-tiered__menu" role="menu">
+      <a href="#rc-vision">Vision Class</a><a href="#rc-radiance">Radiance Class</a>
+    </div>
+  </div>
+
+  <div class="ships-tiered__item">
+    <button class="ships-tiered__btn" aria-haspopup="true" aria-expanded="false">Norwegian Cruise Line</button>
+    <div class="ships-tiered__menu" role="menu">
+      <a href="#ncl-breakaway">Breakaway/Plus</a><a href="#ncl-spirit">Spirit/Jewel</a>
+    </div>
+  </div>
+
+  <div class="ships-tiered__item">
+    <button class="ships-tiered__btn" aria-haspopup="true" aria-expanded="false">MSC Cruises</button>
+    <div class="ships-tiered__menu" role="menu">
+      <a href="#msc-world">World</a><a href="#msc-meraviglia">Meraviglia</a>
+    </div>
+  </div>
+
+  <div class="ships-tiered__item">
+    <button class="ships-tiered__btn" aria-haspopup="true" aria-expanded="false">Virgin Voyages</button>
+    <div class="ships-tiered__menu" role="menu">
+      <a href="#vv-lady">Lady Class</a>
+    </div>
+  </div>
+
+    </div>
+    <div class="ships-subnote tiny">Tip: hover or tap a cruise line to pick a class; the page jumps to that section. (Mobile opens the list inline.)</div>
   </nav>
 
+  
   <section class="card" id="rc-vision">
-    <h2>Royal Caribbean — Vision class</h2>
+    <h2>Royal Caribbean — Vision Class</h2>
     <div class="grid">
       
       <div class="card">
@@ -117,7 +132,7 @@
   </section>
 
   <section class="card" id="rc-radiance">
-    <h2>Royal Caribbean — Radiance class</h2>
+    <h2>Royal Caribbean — Radiance Class</h2>
     <div class="grid">
       
       <div class="card">
@@ -158,7 +173,61 @@
       </div>
     </div>
   </section>
+
+  <section class="card" id="ncl-breakaway">
+    <h2>Norwegian Cruise Line — Breakaway/Plus</h2>
+    <div class="grid">
+      <div class="coming-card">Class directory coming soon. This anchor is wired for your menu now.</div>
+    </div>
+  </section>
+
+  <section class="card" id="ncl-spirit">
+    <h2>Norwegian Cruise Line — Spirit/Jewel</h2>
+    <div class="grid">
+      <div class="coming-card">Class directory coming soon. This anchor is wired for your menu now.</div>
+    </div>
+  </section>
+
+  <section class="card" id="msc-world">
+    <h2>MSC Cruises — World</h2>
+    <div class="grid">
+      <div class="coming-card">Class directory coming soon. This anchor is wired for your menu now.</div>
+    </div>
+  </section>
+
+  <section class="card" id="msc-meraviglia">
+    <h2>MSC Cruises — Meraviglia</h2>
+    <div class="grid">
+      <div class="coming-card">Class directory coming soon. This anchor is wired for your menu now.</div>
+    </div>
+  </section>
+
+  <section class="card" id="vv-lady">
+    <h2>Virgin Voyages — Lady Class</h2>
+    <div class="grid">
+      <div class="coming-card">Class directory coming soon. This anchor is wired for your menu now.</div>
+    </div>
+  </section>
+
 </main>
+
+<script>
+// Enable keyboard/touch toggling for dropdowns
+document.querySelectorAll('.ships-tiered__item').forEach(function(item) {
+  var btn = item.querySelector('.ships-tiered__btn');
+  var menu = item.querySelector('.ships-tiered__menu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function(e) {
+    var shown = menu.style.display === 'block';
+    document.querySelectorAll('.ships-tiered__menu').forEach(function(m){ m.style.display='none'; });
+    menu.style.display = shown ? 'none' : 'block';
+    btn.setAttribute('aria-expanded', (!shown).toString());
+  });
+  document.addEventListener('click', function(e) {
+    if (!item.contains(e.target)) { menu.style.display='none'; btn.setAttribute('aria-expanded','false'); }
+  });
+});
+</script>
 
 <footer class="footer">
   <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>

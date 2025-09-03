@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Vision of the Seas — In the Wake v2.058</title>
+  <title>Vision of the Seas — In the Wake v2.060</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
@@ -11,7 +11,7 @@
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.058</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.060</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -50,14 +50,11 @@
 <main class="page-wrap">
   <article class="card ship-report">
     <h2>Vision of the Seas</h2>
-
     <figure class="figure">
       <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Vision_of_the_Seas_and_Emerald_Princess.jpg/1600px-Vision_of_the_Seas_and_Emerald_Princess.jpg" alt="Vision of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
       <figcaption>Hero image via Wikimedia thumbnail. Local images will automatically be used when present.</figcaption>
     </figure>
-
     <p>Vision is the namesake of a class built for scenery: walls of glass, a serene adults‑only Solarium, and evenings that glow in the Viking Crown Lounge.</p><p>Guests love the friendly scale and classic rhythm — itinerary‑first days and music‑rich nights.</p>
-
     <section class="card" style="margin-top:1rem">
       <h3>Creator Walkthroughs (YouTube)</h3>
       <p class="tiny">Independent ship tours and cabin walk‑throughs.</p>
@@ -67,7 +64,6 @@
         <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Vision%20of%20the%20Seas%20dining%2Bvenues%20tour">Search: Vision of the Seas dining & venues</a></li>
       </ul>
     </section>
-
     <section class="card" style="margin-top:1rem">
       <h3>Links</h3>
       <ul>
@@ -82,15 +78,14 @@
 <script>
 (function() {
   var target = document.getElementById('ship-photo');
-  var candidates = ['assets/ships/vision-of-the-seas.jpg', 'assets/ships/vision-of-the-seas.jpeg', 'assets/ships/vision-of-the-seas.png', 'assets/vision-of-the-seas.jpg', 'assets/vision-of-the-seas.jpeg', 'assets/vision-of-the-seas.png'];
-  var i = 0;
-  function tryNext() {
-    if (i >= candidates.length) return;
-    var test = new Image();
-    var src = candidates[i++];
-    test.onload = function(){ if (target) target.src = encodeURI(src) + '?v=v2.058'; };
-    test.onerror = tryNext;
-    test.src = encodeURI(src) + '?v=v2.058';
+  var candidates = ["assets/ships/vision-of-the-seas.jpg", "assets/ships/vision-of-the-seas.jpeg", "assets/ships/vision-of-the-seas.png", "assets/vision-of-the-seas.jpg", "assets/vision-of-the-seas.jpeg", "assets/vision-of-the-seas.png"];
+  var i=0;
+  function tryNext(){
+    if(i>=candidates.length) return;
+    var t=new Image(), src=candidates[i++];
+    t.onload=function(){ if(target) target.src=encodeURI(src)+"?v=v2.060"; };
+    t.onerror=tryNext;
+    t.src=encodeURI(src)+"?v=v2.060";
   }
   tryNext();
 })();
