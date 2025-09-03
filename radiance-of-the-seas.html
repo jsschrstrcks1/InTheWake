@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Radiance of the Seas — In the Wake v2.060</title>
+  <title>Radiance of the Seas — In the Wake v2.061</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
@@ -11,7 +11,7 @@
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.060</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.061</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -55,15 +55,7 @@
       <figcaption>Hero image via Wikimedia thumbnail. Local images will automatically be used when present.</figcaption>
     </figure>
     <p>Radiance sails smooth and quiet with her hybrid power, wrapped in glassy lounges built for Alaska mornings and sunset departures.</p><p>Balanced days, polished evenings — scenic first, ship second.</p>
-    <section class="card" style="margin-top:1rem">
-      <h3>Creator Walkthroughs (YouTube)</h3>
-      <p class="tiny">Independent ship tours and cabin walk‑throughs.</p>
-      <ul>
-        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Radiance%20of%20the%20Seas%20full%20ship%20tour">Search: Radiance of the Seas full ship tour</a></li>
-        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Radiance%20of%20the%20Seas%20cabin%20tour">Search: Radiance of the Seas cabin tour</a></li>
-        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Radiance%20of%20the%20Seas%20dining%2Bvenues%20tour">Search: Radiance of the Seas dining & venues</a></li>
-      </ul>
-    </section>
+    
     <section class="card" style="margin-top:1rem">
       <h3>Links</h3>
       <ul>
@@ -79,15 +71,8 @@
 (function() {
   var target = document.getElementById('ship-photo');
   var candidates = ["assets/ships/radiance-of-the-seas.jpg", "assets/ships/radiance-of-the-seas.jpeg", "assets/ships/radiance-of-the-seas.png", "assets/radiance-of-the-seas.jpg", "assets/radiance-of-the-seas.jpeg", "assets/radiance-of-the-seas.png"];
-  var i=0;
-  function tryNext(){
-    if(i>=candidates.length) return;
-    var t=new Image(), src=candidates[i++];
-    t.onload=function(){ if(target) target.src=encodeURI(src)+"?v=v2.060"; };
-    t.onerror=tryNext;
-    t.src=encodeURI(src)+"?v=v2.060";
-  }
-  tryNext();
+  var i=0; function next(){ if(i>=candidates.length) return; var t=new Image(), src=candidates[i++]; t.onload=function(){target && (target.src=encodeURI(src)+"?v=v2.061")}; t.onerror=next; t.src=encodeURI(src)+"?v=v2.061"; }
+  next();
 })();
 </script>
 

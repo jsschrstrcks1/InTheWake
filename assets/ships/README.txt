@@ -1,15 +1,15 @@
-Local ship images
-Drop 1600x900 JPGs here with these exact names to override Wikimedia thumbnails on each ship page:
-vision-of-the-seas.jpg
-rhapsody-of-the-seas.jpg
-grandeur-of-the-seas.jpg (+ optional rotation files below)
-enchantment-of-the-seas.jpg
-radiance-of-the-seas.jpg
-brilliance-of-the-seas.jpg
-serenade-of-the-seas.jpg
-jewel-of-the-seas.jpg
+Local ship images & thumbs
+For each ship page, you can drop a 1600x900 JPG at:
+  assets/ships/<slug>.jpg   (preferred)  or  assets/<slug>.jpg
 
-Grandeur rotation (optional):
-assets/ships/grandeur-of-the-seas - 1.jpeg
-assets/ships/grandeur-of-the-seas - 2.jpeg
-assets/ships/grandeur-of-the-seas - 3.jpeg
+Grandeur rotation (used on the page and its card thumbnail if available):
+  assets/grandeur-of-the-seas.jpg
+  assets/ships/grandeur-of-the-seas - 1.jpeg
+  assets/ships/grandeur-of-the-seas - 2.jpeg
+  assets/ships/grandeur-of-the-seas - 3.jpeg
+
+Ship listing thumbnails (cards) will prefer a local file in this order:
+  assets/ships/thumbs/<slug>.jpg
+  assets/<slug>.jpg
+  assets/ships/<slug>.jpg
+If none are present, a Wikimedia thumbnail will be used automatically.
