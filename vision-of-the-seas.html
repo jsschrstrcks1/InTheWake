@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Vision of the Seas — In the Wake v2.054</title>
+  <title>Vision of the Seas — In the Wake v2.058</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
@@ -11,7 +11,7 @@
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.054</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.058</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -52,15 +52,21 @@
     <h2>Vision of the Seas</h2>
 
     <figure class="figure">
-      <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Vision_of_the_Seas_and_Emerald_Princess.jpg/1200px-Vision_of_the_Seas_and_Emerald_Princess.jpg" alt="Vision of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-      <figcaption>Photo: <a href="https://commons.wikimedia.org/wiki/File:Vision_of_the_Seas_and_Emerald_Princess.jpg">Wikimedia Commons</a> (CC BY-SA 3.0)</figcaption>
+      <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Vision_of_the_Seas_and_Emerald_Princess.jpg/1600px-Vision_of_the_Seas_and_Emerald_Princess.jpg" alt="Vision of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+      <figcaption>Hero image via Wikimedia thumbnail. Local images will automatically be used when present.</figcaption>
     </figure>
 
-    <p>The Vision Class is Royal Caribbean at its most human scale — floor‑to‑ceiling glass, a sun‑splashed Solarium, and a sweeping, light‑filled Centrum that feels like an atrium hotel at sea. These ships trade mega‑park thrills for classic ocean time: coffee with a view, string‑quartet sunsets, and promenades that smell like salt and teak.</p>
-    <p>Days naturally bend around the sea — lazy lunches at Windjammer, unhurried dinners in the Main Dining Room, live music drifting from the lounges. If you want boutique‑hotel‑at‑sea energy and itinerary‑first cruising, this class is your sweet spot.</p>
-    <p>Launched in 1998 and built at Chantiers de l’Atlantique, Vision of the Seas is the namesake and finale of her class — compact enough to feel friendly, yet big on glassy views. A significant revitalization brought contemporary venues, tech upgrades, and refreshed lounges, keeping her quietly stylish for port‑intense itineraries.</p>
-    <p>Travelers love Vision’s laid‑back rhythm: a serene adults‑only Solarium, the soaring Viking Crown Lounge for late‑night panoramas, and a music‑first evening scene that feels like a city of cozy venues rather than one giant show. She’s a wonderful match for Bermuda getaways, Caribbean warm‑ups, and European summers when deployed there.</p>
-    <p>Why book Vision? Because you want the journey to be as restorative as the destinations — sunlit spaces, attentive service that still remembers your name, and evenings that end with ocean instead of spectacle.</p>
+    <p>Vision is the namesake of a class built for scenery: walls of glass, a serene adults‑only Solarium, and evenings that glow in the Viking Crown Lounge.</p><p>Guests love the friendly scale and classic rhythm — itinerary‑first days and music‑rich nights.</p>
+
+    <section class="card" style="margin-top:1rem">
+      <h3>Creator Walkthroughs (YouTube)</h3>
+      <p class="tiny">Independent ship tours and cabin walk‑throughs.</p>
+      <ul>
+        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Vision%20of%20the%20Seas%20full%20ship%20tour">Search: Vision of the Seas full ship tour</a></li>
+        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Vision%20of%20the%20Seas%20cabin%20tour">Search: Vision of the Seas cabin tour</a></li>
+        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Vision%20of%20the%20Seas%20dining%2Bvenues%20tour">Search: Vision of the Seas dining & venues</a></li>
+      </ul>
+    </section>
 
     <section class="card" style="margin-top:1rem">
       <h3>Links</h3>
@@ -74,16 +80,19 @@
 </main>
 
 <script>
-// Prefer local image if present; otherwise keep the Wikimedia thumbnail
 (function() {
-  var localSrc = "assets/ships/vision-of-the-seas.jpg";
-  var img = new Image();
-  img.onload = function() {
-    var el = document.getElementById('ship-photo');
-    if (el) el.src = localSrc;
-  };
-  img.onerror = function(){ /* no local image found; keep remote */ };
-  img.src = localSrc;
+  var target = document.getElementById('ship-photo');
+  var candidates = ['assets/ships/vision-of-the-seas.jpg', 'assets/ships/vision-of-the-seas.jpeg', 'assets/ships/vision-of-the-seas.png', 'assets/vision-of-the-seas.jpg', 'assets/vision-of-the-seas.jpeg', 'assets/vision-of-the-seas.png'];
+  var i = 0;
+  function tryNext() {
+    if (i >= candidates.length) return;
+    var test = new Image();
+    var src = candidates[i++];
+    test.onload = function(){ if (target) target.src = encodeURI(src) + '?v=v2.058'; };
+    test.onerror = tryNext;
+    test.src = encodeURI(src) + '?v=v2.058';
+  }
+  tryNext();
 })();
 </script>
 

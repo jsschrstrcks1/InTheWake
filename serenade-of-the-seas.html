@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Serenade of the Seas — In the Wake v2.054</title>
+  <title>Serenade of the Seas — In the Wake v2.058</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
@@ -11,7 +11,7 @@
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.054</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.058</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -52,15 +52,21 @@
     <h2>Serenade of the Seas</h2>
 
     <figure class="figure">
-      <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Serenade_of_the_Seas_in_Sydney.jpg/1200px-Serenade_of_the_Seas_in_Sydney.jpg" alt="Serenade of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-      <figcaption>Photo: <a href="https://commons.wikimedia.org/wiki/File:Serenade_of_the_Seas_in_Sydney.jpg">Wikimedia Commons</a> (CC BY 2.0)</figcaption>
+      <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Serenade_of_the_Seas_in_Sydney.jpg/1600px-Serenade_of_the_Seas_in_Sydney.jpg" alt="Serenade of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+      <figcaption>Hero image via Wikimedia thumbnail. Local images will automatically be used when present.</figcaption>
     </figure>
 
-    <p>Radiance Class blends big‑ship polish with small‑ship sightlines. Designed with extensive glass and wide ocean views, these ships sail beautifully in scenic regions — think fjords, Alaska, and Mediterranean coastlines where ‘outside’ is the headliner.</p>
-    <p>Onboard you’ll find a relaxed rhythm: sun‑splashed Solariums, a bright atrium for evening music, and dining that feels curated rather than crowded. It’s an itinerary‑first style of sailing — with just enough sparkle to feel special after sunset.</p>
-    <p>Serenade (2003) brings a slightly sportier personality — light‑filled lounges by day, a theater that still feels intimate by night. Refurbishments have kept venues fresh while preserving the class’s hallmark: walls of glass that frame the sea from nearly everywhere.</p>
-    <p>What people love most is her ‘right‑sized’ energy: never sleepy, never frenetic. Pool movies, piano bars, ballroom‑glow production shows — enough variety for couples and friend groups without becoming a theme park.</p>
-    <p>Book Serenade for itineraries where you want to actually see the world roll by, and finish each day with a well‑made nightcap under the Viking Crown.</p>
+    <p>Serenade blends light‑filled lounges by day with intimate theater nights and right‑sized energy throughout.</p><p>You’ll actually see the world roll by — then toast it in the Viking Crown.</p>
+
+    <section class="card" style="margin-top:1rem">
+      <h3>Creator Walkthroughs (YouTube)</h3>
+      <p class="tiny">Independent ship tours and cabin walk‑throughs.</p>
+      <ul>
+        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Serenade%20of%20the%20Seas%20full%20ship%20tour">Search: Serenade of the Seas full ship tour</a></li>
+        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Serenade%20of%20the%20Seas%20cabin%20tour">Search: Serenade of the Seas cabin tour</a></li>
+        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Serenade%20of%20the%20Seas%20dining%2Bvenues%20tour">Search: Serenade of the Seas dining & venues</a></li>
+      </ul>
+    </section>
 
     <section class="card" style="margin-top:1rem">
       <h3>Links</h3>
@@ -74,16 +80,19 @@
 </main>
 
 <script>
-// Prefer local image if present; otherwise keep the Wikimedia thumbnail
 (function() {
-  var localSrc = "assets/ships/serenade-of-the-seas.jpg";
-  var img = new Image();
-  img.onload = function() {
-    var el = document.getElementById('ship-photo');
-    if (el) el.src = localSrc;
-  };
-  img.onerror = function(){ /* no local image found; keep remote */ };
-  img.src = localSrc;
+  var target = document.getElementById('ship-photo');
+  var candidates = ['assets/ships/serenade-of-the-seas.jpg', 'assets/ships/serenade-of-the-seas.jpeg', 'assets/ships/serenade-of-the-seas.png', 'assets/serenade-of-the-seas.jpg', 'assets/serenade-of-the-seas.jpeg', 'assets/serenade-of-the-seas.png'];
+  var i = 0;
+  function tryNext() {
+    if (i >= candidates.length) return;
+    var test = new Image();
+    var src = candidates[i++];
+    test.onload = function(){ if (target) target.src = encodeURI(src) + '?v=v2.058'; };
+    test.onerror = tryNext;
+    test.src = encodeURI(src) + '?v=v2.058';
+  }
+  tryNext();
 })();
 </script>
 

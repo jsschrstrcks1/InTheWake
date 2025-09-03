@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Rhapsody of the Seas — In the Wake v2.054</title>
+  <title>Rhapsody of the Seas — In the Wake v2.058</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
@@ -11,7 +11,7 @@
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.054</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.058</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -52,15 +52,21 @@
     <h2>Rhapsody of the Seas</h2>
 
     <figure class="figure">
-      <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Ocean_Liner_MS_%22Rhapsody_of_the_Seas%22_%2812865387674%29.jpg/1200px-Ocean_Liner_MS_%22Rhapsody_of_the_Seas%22_%2812865387674%29.jpg" alt="Rhapsody of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-      <figcaption>Photo: <a href="https://commons.wikimedia.org/wiki/File:Ocean_Liner_MS_%22Rhapsody_of_the_Seas%22_%2812865387674%29.jpg">Wikimedia Commons</a> (CC BY 2.0)</figcaption>
+      <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Ocean_Liner_MS_%22Rhapsody_of_the_Seas%22_%2812865387674%29.jpg/1600px-Ocean_Liner_MS_%22Rhapsody_of_the_Seas%22_%2812865387674%29.jpg" alt="Rhapsody of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+      <figcaption>Hero image via Wikimedia thumbnail. Local images will automatically be used when present.</figcaption>
     </figure>
 
-    <p>The Vision Class is Royal Caribbean at its most human scale — floor‑to‑ceiling glass, a sun‑splashed Solarium, and a sweeping, light‑filled Centrum that feels like an atrium hotel at sea. These ships trade mega‑park thrills for classic ocean time: coffee with a view, string‑quartet sunsets, and promenades that smell like salt and teak.</p>
-    <p>Days naturally bend around the sea — lazy lunches at Windjammer, unhurried dinners in the Main Dining Room, live music drifting from the lounges. If you want boutique‑hotel‑at‑sea energy and itinerary‑first cruising, this class is your sweet spot.</p>
-    <p>Rhapsody made her debut in 1997 and, after a US$54M bow‑to‑stern refit in 2012, emerged with modern comforts — poolside movie screen, refreshed dining like Giovanni’s Table and Izumi, upgraded lounges, and ship‑wide tech improvements.</p>
-    <p>She leans into the intimate side of cruising: a lively but not overwhelming pool deck, a glass‑lined Centrum where evening music pulls people together, and thoughtful bar programs that pair perfectly with sail‑away views. On port‑rich routes — Greek Isles, the Adriatic, Caribbean — she feels purpose‑built for days that start early and end well.</p>
-    <p>Choose Rhapsody if you want the classic cruise vibe done right — polished but friendly, compact but complete, with just enough nightlife to keep you out under the stars.</p>
+    <p>Rhapsody’s refits brought modern comforts without losing intimacy: a lively but manageable Centrum and refreshed dining like Giovanni’s and Izumi.</p><p>Pick her for Greek Isles, Adriatic, or Caribbean routes heavy on ports and sunsets.</p>
+
+    <section class="card" style="margin-top:1rem">
+      <h3>Creator Walkthroughs (YouTube)</h3>
+      <p class="tiny">Independent ship tours and cabin walk‑throughs.</p>
+      <ul>
+        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Rhapsody%20of%20the%20Seas%20full%20ship%20tour">Search: Rhapsody of the Seas full ship tour</a></li>
+        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Rhapsody%20of%20the%20Seas%20cabin%20tour">Search: Rhapsody of the Seas cabin tour</a></li>
+        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Rhapsody%20of%20the%20Seas%20dining%2Bvenues%20tour">Search: Rhapsody of the Seas dining & venues</a></li>
+      </ul>
+    </section>
 
     <section class="card" style="margin-top:1rem">
       <h3>Links</h3>
@@ -74,16 +80,19 @@
 </main>
 
 <script>
-// Prefer local image if present; otherwise keep the Wikimedia thumbnail
 (function() {
-  var localSrc = "assets/ships/rhapsody-of-the-seas.jpg";
-  var img = new Image();
-  img.onload = function() {
-    var el = document.getElementById('ship-photo');
-    if (el) el.src = localSrc;
-  };
-  img.onerror = function(){ /* no local image found; keep remote */ };
-  img.src = localSrc;
+  var target = document.getElementById('ship-photo');
+  var candidates = ['assets/ships/rhapsody-of-the-seas.jpg', 'assets/ships/rhapsody-of-the-seas.jpeg', 'assets/ships/rhapsody-of-the-seas.png', 'assets/rhapsody-of-the-seas.jpg', 'assets/rhapsody-of-the-seas.jpeg', 'assets/rhapsody-of-the-seas.png'];
+  var i = 0;
+  function tryNext() {
+    if (i >= candidates.length) return;
+    var test = new Image();
+    var src = candidates[i++];
+    test.onload = function(){ if (target) target.src = encodeURI(src) + '?v=v2.058'; };
+    test.onerror = tryNext;
+    test.src = encodeURI(src) + '?v=v2.058';
+  }
+  tryNext();
 })();
 </script>
 
