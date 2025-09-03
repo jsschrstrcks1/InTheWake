@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Grandeur of the Seas — In the Wake v2.061</title>
+  <title>Grandeur of the Seas — In the Wake v2.071</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
@@ -11,7 +11,7 @@
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.061</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.071</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -52,7 +52,7 @@
     <h2>Grandeur of the Seas</h2>
     <figure class="figure">
       <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Grandeur_of_the_Seas_%28cropped%29_%28cropped%29.jpg/1600px-Grandeur_of_the_Seas_%28cropped%29_%28cropped%29.jpg" alt="Grandeur of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-      <figcaption>Hero image via Wikimedia thumbnail. Local images will automatically be used when present.</figcaption>
+      <figcaption class="tiny">Hero/thumbnail rotate among your local photos. Wikimedia fallback where needed.</figcaption>
     </figure>
     <p>Grandeur (1996) carries a loyal following for good reason. A five‑week, $48M revitalization added concierge and Diamond lounges, refreshed staterooms, and a transformed Viking Crown Lounge — the glass‑crowned perch guests remember long after disembarkation.</p><p>She’s cozy‑elegant: warm woods, spacious ocean views, and service that feels personal. Evenings bring classic production shows and live bands that fit the ship’s scale — more ballroom glow than stadium roar.</p><p>On itinerary, Grandeur shines where days are port‑rich and distances are sensible: Bermuda warm‑ups, Caribbean samplers, and shoulder‑season escapes where sea days feel like spa days.</p><p>What people love most is her rhythm. There’s time to read on deck without a soundtrack, time to linger over MDR classics, time to watch sail‑away from the Viking Crown like a chapter break between ports.</p><p>Pick Grandeur when you want a welcoming ship that still sails like a ship — you’ll spend more time near the rail, and less time in a line.</p>
     
@@ -111,12 +111,17 @@
 </main>
 
 <script>
-(function() {
+(function(){
   var target = document.getElementById('ship-photo');
-  var picks = ["assets/grandeur-of-the-seas.jpg", "assets/ships/grandeur-of-the-seas - 1.jpeg", "assets/ships/grandeur-of-the-seas - 2.jpeg", "assets/ships/grandeur-of-the-seas - 3.jpeg"];
-  var have = []; var pending = picks.length;
-  function done() { if(!have.length) return; var pick = have[Math.floor(Math.random()*have.length)]; target && (target.src = encodeURI(pick) + "?v=v2.061"); }
-  picks.forEach(function(src){ var i=new Image(); i.onload=function(){have.push(src); if(--pending===0) done();}; i.onerror=function(){if(--pending===0) done();}; i.src=encodeURI(src)+"?v=v2.061"; });
+  var picks = ["assets/grandeur-of-the-seas.jpg", "assets/ships/grandeur-of-the-seas - 1.jpeg", "assets/ships/grandeur-of-the-seas - 2.jpeg", "assets/ships/grandeur-of-the-seas - 3.jpeg", "assets/ships/grandeur-of-the-seas-1.jpg", "assets/ships/grandeur-of-the-seas-2.jpg", "assets/ships/grandeur-of-the-seas-3.jpg", "assets/ships/grandeur-of-the-seas-4.jpg"];
+  var have=[], pending=picks.length;
+  function finish(){ if(!have.length) return; var pick=have[Math.floor(Math.random()*have.length)]; target && (target.src = encodeURI(pick) + "?v=v2.071"); }
+  picks.forEach(function(src){
+    var i=new Image();
+    i.onload=function(){have.push(src); if(--pending===0) finish();};
+    i.onerror=function(){if(--pending===0) finish();};
+    i.src = encodeURI(src) + "?v=v2.071";
+  });
 })();
 </script>
 

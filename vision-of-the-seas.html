@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Vision of the Seas — In the Wake v2.061</title>
+  <title>Vision of the Seas — In the Wake v2.071</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
@@ -11,7 +11,7 @@
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.061</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.071</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -52,10 +52,29 @@
     <h2>Vision of the Seas</h2>
     <figure class="figure">
       <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Vision_of_the_Seas_and_Emerald_Princess.jpg/1600px-Vision_of_the_Seas_and_Emerald_Princess.jpg" alt="Vision of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-      <figcaption>Hero image via Wikimedia thumbnail. Local images will automatically be used when present.</figcaption>
+      <figcaption class="tiny">Photo via Flickr user <a href="https://www.flickr.com/people/25733107@N04">25733107@N04</a> (attribution as provided by user).</figcaption>
     </figure>
-    <p>Vision is the namesake of a class built for scenery: walls of glass, a serene adults‑only Solarium, and evenings that glow in the Viking Crown Lounge.</p><p>Guests love the friendly scale and classic rhythm — itinerary‑first days and music‑rich nights.</p>
+    <p>Vision is the namesake of a class built for scenery: walls of glass, a tranquil adults‑only Solarium, and evenings that glow in the Viking Crown Lounge.</p><p>Her itineraries favor destinations over sea‑day spectacles; the ship becomes your floating picture window between ports.</p><p>People love the balance: unhurried mornings, port‑first afternoons, and music‑rich nights in cozy venues.</p><p>Dining leans familiar and well‑executed, with the Main Dining Room anchoring each evening.</p><p>Choose Vision when you want the world outside to be the headliner.</p>
     
+<style>
+.video-carousel{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.5rem 0 1rem}
+.video-frame{flex:0 0 320px;scroll-snap-align:start;background:#fff;border:2px solid var(--rope);border-radius:12px;padding:.5rem}
+.video-frame iframe{width:100%;height:180px;border-radius:8px}
+.video-frame p{font-size:.85rem;margin:.35rem 0 0;text-align:center}
+@media (min-width:1100px){.video-frame{flex-basis:420px}.video-frame iframe{height:236px}}
+</style>
+
+<section class="card">
+  <h3>Video Tours</h3>
+  <p class="tiny">Family‑friendly creators embedded here so you can watch without leaving the site.</p>
+  <div class="video-carousel">
+    <div class="video-frame">
+  <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" title="Placeholder — Replace with creator walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <p>Placeholder — Replace with creator walkthrough</p>
+</div>
+  </div>
+</section>
+
     <section class="card" style="margin-top:1rem">
       <h3>Links</h3>
       <ul>
@@ -68,11 +87,17 @@
 </main>
 
 <script>
-(function() {
+(function(){
   var target = document.getElementById('ship-photo');
-  var candidates = ["assets/ships/vision-of-the-seas.jpg", "assets/ships/vision-of-the-seas.jpeg", "assets/ships/vision-of-the-seas.png", "assets/vision-of-the-seas.jpg", "assets/vision-of-the-seas.jpeg", "assets/vision-of-the-seas.png"];
-  var i=0; function next(){ if(i>=candidates.length) return; var t=new Image(), src=candidates[i++]; t.onload=function(){target && (target.src=encodeURI(src)+"?v=v2.061")}; t.onerror=next; t.src=encodeURI(src)+"?v=v2.061"; }
-  next();
+  var picks = ["assets/ships/vision-of-the-seas.jpg", "assets/ships/vision-of-the-seas-1.jpg", "assets/ships/vision-of-the-seas-2.jpg", "assets/ships/vision-of-the-seas-3.jpg", "assets/ships/vision-of-the-seas-4.jpg"];
+  var have=[], pending=picks.length;
+  function finish(){ if(!have.length) return; var pick=have[Math.floor(Math.random()*have.length)]; target && (target.src = encodeURI(pick) + "?v=v2.071"); }
+  picks.forEach(function(src){
+    var i=new Image();
+    i.onload=function(){have.push(src); if(--pending===0) finish();};
+    i.onerror=function(){if(--pending===0) finish();};
+    i.src = encodeURI(src) + "?v=v2.071";
+  });
 })();
 </script>
 
