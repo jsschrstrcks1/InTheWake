@@ -1,67 +1,119 @@
-/* ===== In the Wake — Unified Styles (v2.073) ===== */
-:root{ --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e; }
-*{box-sizing:border-box} html,body{margin:0;padding:0}
-body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--ink);background:var(--sky);line-height:1.55}
-a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-img{max-width:100%;height:auto;display:block}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>In the Wake — Master Index (v2.074)</title>
+  <link rel="stylesheet" href="assets/styles.css?v=2.073"/>
+</head>
+<body>
+<header class="hero-header">
+  <div class="navbar">
+    <div class="brand">
+      <img src="assets/logo/logo_teal_white.svg" alt="In the Wake logo"/>
+      <div class="brand-title">In the Wake <span class="version-badge">v2.073</span></div>
+    </div>
+    <nav class="nav">
+      <a href="ships.html">Ships</a>
+      <a href="restaurants.html">Restaurants</a>
+      <a href="ports.html">Ports</a>
+      <a href="drinks.html">Drinks</a>
+      <a href="packing.html">Packing</a>
+      <a href="disability.html">Disability</a>
+    </nav>
+  </div>
 
-/* Header + Nav */
-.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-.navbar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:6px 12px}
-.brand{display:flex;align-items:center;gap:8px}
-.brand img{height:28px;width:auto}
-.brand-title{font-weight:700;color:var(--ink);font-size:.95rem}
-.version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-.nav{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
-.nav a{padding:4px 8px;border-radius:10px;border:1px dashed var(--rope);background:#fff;font-size:.9rem}
+  <!-- Full-bleed hero; horizon centered -->
+  <div class="hero" role="img" aria-label="Ship wake at sunset">
+    <div class="latlon-grid" aria-hidden="true">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+        <g stroke="rgba(255,255,255,.24)" stroke-width="0.3">
+          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+          <line x1="90" y1="0" x2="90" y2="60"/>
+          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+        </g>
+      </svg>
+    </div>
+    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
+    <div class="hero-title">
+      <img class="logo" src="assets/logo/logo_teal_white.svg" alt="In the Wake"/>
+    </div>
+  </div>
+</header>
 
-/* Full-bleed hero band (no hockey stick) */
-.hero{
-  position:relative;
-  width:100vw;
-  margin-left:calc(50% - 50vw); /* extend to edges */
-  min-height:clamp(160px, 22vw, 340px); /* slim band, responsive */
-  background:url('assets/index_hero.jpg') 50% 50% / cover no-repeat;
-  display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;
-}
-.hero::before,.hero::after{content:none!important} /* legacy overlay/hockey-stick guard */
-.hero-compass{position:absolute;right:min(3vw,1.2rem);top:.6rem;width:80px;opacity:.9;z-index:2;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
-.hero-title{position:absolute;left:min(3vw,1.2rem);bottom:.6rem;z-index:3;text-shadow:0 2px 6px rgba(0,0,0,.45);display:flex;align-items:flex-end;gap:.6rem}
-.hero-title .logo{width:clamp(180px,18vw,360px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+<main class="page-wrap">
+  <section class="index-grid" id="master-index">
+    <div class="index-card">
+      <h3>Ships</h3>
+      <ul>
+        <li><a href="ships.html"><strong>All Ships</strong> — Royal Caribbean, Norwegian Cruise Line, MSC Cruises</a></li>
+        <li><a href="enchantment-of-the-seas.html">Enchantment of the Seas</a></li>
+        <li><a href="majesty-of-the-seas.html">Majesty of the Seas <span class="tiny">(Historical)</span></a></li>
+      </ul>
+    </div>
 
-/* Grid overlay inside hero */
-.latlon-grid{position:absolute;inset:0;z-index:1;pointer-events:none}
-.latlon-grid svg{width:100%;height:100%}
+    <div class="index-card">
+      <h3>Restaurants</h3>
+      <p><a href="restaurants.html"><strong>Explore Venues</strong></a></p>
+      <div>
+        <span class="index-pill">Included</span>
+        <span class="index-pill">Premium</span>
+        <span class="index-pill">MDR Themes</span>
+      </div>
+    </div>
 
-/* Content + cards */
-.page-wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-h2,h3{color:var(--sea);margin:.2rem 0 .6rem}
-.index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin:1rem 0 2rem}
-.index-card{background:#fff;border:2px solid var(--rope);border-radius:14px;box-shadow:0 2px 6px rgba(8,48,65,.08);padding:1rem}
-.index-card h3{margin-top:0;color:var(--sea)}
-.index-card ul{list-style:none;margin:.5rem 0 0;padding:0}
-.index-card li{margin:.35rem 0}
-.index-pill{display:inline-block;background:#e6f4f8;border:1px solid var(--rope);padding:.2rem .55rem;border-radius:999px;font-size:.85rem;margin:.2rem .2rem 0 0}
-.tiny{font-size:.85rem;color:#2a5b6e}
-.feature-ship{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.feature-ship .card{margin:0}
+    <div class="index-card">
+      <h3>Ports of Call</h3>
+      <p><a href="ports.html"><strong>Browse Ports</strong></a></p>
+    </div>
 
-/* Featured ship card layout */
-#featured-slot .ship{display:grid;grid-template-columns:120px 1fr;gap:.75rem;align-items:center;text-decoration:none;border:1px solid #d9e5e9;border-radius:12px;padding:.5rem;background:#f8fcfd}
-#featured-slot .thumb{width:120px;height:80px;overflow:hidden;border-radius:10px}
-#featured-slot .thumb img{width:100%;height:100%;object-fit:cover}
-#featured-slot .body{color:var(--ink)}
+    <div class="index-card">
+      <h3>Pages</h3>
+      <ul>
+        <li><a href="packing.html">Packing</a></li>
+        <li><a href="drinks.html">Drink Packages</a></li>
+        <li><a href="disability.html">Disability at Sea</a></li>
+      </ul>
+    </div>
+  </section>
 
-/* Footer */
-.footer{padding:14px;text-align:center;color:#345}
+  <section class="feature-ship">
+    <div class="card">
+      <h3>Featured Ship</h3>
+      <p class="tiny">Randomized on each load from a curated list.</p>
+      <div id="featured-slot"></div>
+    </div>
+    <div class="card">
+      <h3>Change Log</h3>
+      <ul>
+        <li><strong>v2.073</strong> — Restored 2.x layout, fixed hero, removed “hockey stick,” repaired cards & featured ship.</li>
+      </ul>
+    </div>
+  </section>
+</main>
 
-/* Neutralize any legacy masthead artifacts globally */
-.hockey-stick,.masthead-stripe,.header-stripe, header.site-header::before, header.site-header::after, .site-header{display:none!important}
+<footer class="footer">
+  <div>In the Wake — A Cruise Traveler’s Logbook</div>
+</footer>
 
-/* Responsive tweaks */
-@media (max-width:900px){.feature-ship{grid-template-columns:1fr}}
-@media (max-width:600px){
-  .hero{min-height:clamp(140px,28vw,260px)}
-  .hero-title .logo{width:clamp(170px,36vw,320px)}
-}
+<script>
+const featured = [
+  { name:'Enchantment of the Seas', link:'enchantment-of-the-seas.html', img:'assets/enchantment-of-the-seas-1.jpg' },
+  { name:'Vision of the Seas',       link:'vision-of-the-seas.html',       img:'assets/vision-of-the-seas-1.jpg' },
+  { name:'Rhapsody of the Seas',     link:'rhapsody-of-the-seas.html',     img:'assets/rhapsody-of-the-seas.jpg' },
+  { name:'Radiance of the Seas',     link:'radiance-of-the-seas.html',     img:'assets/radiance-of-the-seas.jpg' },
+  { name:'Brilliance of the Seas',   link:'brilliance-of-the-seas.html',   img:'assets/brilliance-of-the-seas.jpg' }
+];
+const pick = featured[Math.floor(Math.random()*featured.length)];
+document.getElementById('featured-slot').innerHTML = `
+  <a class="ship" href="${pick.link}">
+    <div class="thumb"><img src="${pick.img}" alt="${pick.name} thumbnail" loading="lazy"></div>
+    <div class="body"><strong>${pick.name}</strong></div>
+  </a>`;
+</script>
+</body>
+</html>
