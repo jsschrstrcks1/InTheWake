@@ -1,178 +1,79 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Ships Directory — In the Wake v2.071</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/styles.css?v=2.048">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ships — In the Wake</title>
+<link rel="stylesheet" href="assets/styles.css?v=2.072">
 </head>
 <body>
 <header class="hero-header">
   <div class="navbar">
-    <a class="brand" href="index.html" title="Home">
-      <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.071</span></span>
-    </a>
+    <div class="brand"><a href="index.html"><img src="assets/logo/logo_teal_white.svg" alt="In the Wake"></a><div class="brand-title">In the Wake <span class="version-badge">v2.072</span></div></div>
     <nav class="nav">
-      <a href="ships.html" aria-current="page">Ships</a>
-      <a href="restaurants.html">Restaurants</a>
-      <a href="ports.html">Ports</a>
-      <a href="drinks.html">Drinks</a>
-      <a href="packing.html">Packing</a>
-      <a href="disability.html">Disability</a>
+      <a href="ships.html">Ships</a><a href="restaurants.html">Restaurants</a><a href="ports.html">Ports</a><a href="drinks.html">Drinks</a><a href="packing.html">Packing</a><a href="disability.html">Disability</a>
     </nav>
-  </div>
-  <div class="hero">
-    <div class="latlon-grid" aria-hidden="true">
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-        <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="40" y1="0" x2="40" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="60" y1="0" x2="60" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-      </svg>
-    </div>
-    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true">
-    <div class="hero-title" role="img" aria-label="In the Wake">
-      <img class="logo" src="assets/logo_wake_teal.png" alt="">
-    </div>
   </div>
 </header>
 
-<style>
-.ship-card img{aspect-ratio:16/9;object-fit:cover;width:100%;border-radius:8px;border:1px solid #dfe7ea;margin-bottom:.5rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
-.ships-tiered{position:relative;margin:0 0 12px;background:#fff;border:2px solid var(--rope);border-radius:14px}
-.ships-tiered__bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px 10px}
-.ships-tiered__item{position:relative}
-.ships-tiered__btn{display:inline-block;padding:6px 10px;border:1px dashed var(--rope);border-radius:10px;background:#fdfdfd;color:var(--ink);cursor:pointer}
-.ships-tiered__menu{position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid var(--rope);border-radius:10px;box-shadow:0 6px 18px rgba(8,48,65,.12);padding:6px;min-width:220px;display:none;z-index:50}
-.ships-tiered__item:hover .ships-tiered__menu,.ships-tiered__item:focus-within .ships-tiered__menu{display:block}
-.ships-subnote{padding:0 12px 10px;color:#456;font-size:.88rem}
-@media (max-width:720px){.ships-tiered__menu{position:static;display:block;box-shadow:none;border:none;padding:0}}
-</style>
-
 <main class="page-wrap">
-  <nav class="ships-tiered" aria-label="Cruise lines and ship classes">
-    <div class="ships-tiered__bar">
-      <div class="ships-tiered__item">
-        <button class="ships-tiered__btn" aria-haspopup="true" aria-expanded="false">Royal Caribbean</button>
-        <div class="ships-tiered__menu" role="menu">
-          <a href="#rc-vision">Vision Class</a>
-          <a href="#rc-radiance">Radiance Class</a>
-        </div>
-      </div>
-      <div class="ships-tiered__item"><button class="ships-tiered__btn">Norwegian (coming)</button></div>
-      <div class="ships-tiered__item"><button class="ships-tiered__btn">MSC (coming)</button></div>
-      <div class="ships-tiered__item"><button class="ships-tiered__btn">Virgin (coming)</button></div>
-    </div>
-    <div class="ships-subnote tiny">Hover or tap a line to choose a class. Click to jump to that section.</div>
+  <nav class="card">
+    <strong>Jump to:</strong>
+    <a href="#royal-caribbean">Royal Caribbean</a> •
+    <a href="#msc">MSC</a>
   </nav>
 
-  <section class="card" id="rc-vision">
-    <h2>Royal Caribbean — Vision Class</h2>
-    <div class="grid">
-      
-  <div class="card ship-card">
-    <img data-candidates='[&quot;assets/ships/thumbs/vision-of-the-seas.jpg&quot;, &quot;assets/vision-of-the-seas.jpg&quot;, &quot;assets/ships/vision-of-the-seas.jpg&quot;]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Vision_of_the_Seas_and_Emerald_Princess.jpg/600px-Vision_of_the_Seas_and_Emerald_Princess.jpg" alt="Vision of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <h4><a href="vision-of-the-seas.html">Vision of the Seas</a></h4>
-  </div>
-
-  <div class="card ship-card">
-    <img data-candidates='[&quot;assets/ships/thumbs/rhapsody-of-the-seas.jpg&quot;, &quot;assets/rhapsody-of-the-seas.jpg&quot;, &quot;assets/ships/rhapsody-of-the-seas.jpg&quot;]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Ocean_Liner_MS_%22Rhapsody_of_the_Seas%22_%2812865387674%29.jpg/600px-Ocean_Liner_MS_%22Rhapsody_of_the_Seas%22_%2812865387674%29.jpg" alt="Rhapsody of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <h4><a href="rhapsody-of-the-seas.html">Rhapsody of the Seas</a></h4>
-  </div>
-
-  <div class="card ship-card">
-    <img data-candidates='[&quot;assets/ships/thumbs/grandeur-of-the-seas.jpg&quot;, &quot;assets/grandeur-of-the-seas.jpg&quot;, &quot;assets/ships/grandeur-of-the-seas - 1.jpeg&quot;, &quot;assets/ships/grandeur-of-the-seas - 2.jpeg&quot;, &quot;assets/ships/grandeur-of-the-seas - 3.jpeg&quot;, &quot;assets/ships/grandeur-of-the-seas-1.jpg&quot;, &quot;assets/ships/grandeur-of-the-seas-2.jpg&quot;, &quot;assets/ships/grandeur-of-the-seas-3.jpg&quot;, &quot;assets/ships/grandeur-of-the-seas-4.jpg&quot;]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Grandeur_of_the_Seas_%28cropped%29_%28cropped%29.jpg/600px-Grandeur_of_the_Seas_%28cropped%29_%28cropped%29.jpg" alt="Grandeur of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <h4><a href="grandeur-of-the-seas.html">Grandeur of the Seas</a></h4>
-  </div>
-
-  <div class="card ship-card">
-    <img data-candidates='[&quot;assets/ships/thumbs/enchantment-of-the-seas.jpg&quot;, &quot;assets/enchantment-of-the-seas.jpg&quot;, &quot;assets/ships/enchantment-of-the-seas.jpg&quot;]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Enchantment_of_the_Seas.jpg/600px-Enchantment_of_the_Seas.jpg" alt="Enchantment of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <h4><a href="enchantment-of-the-seas.html">Enchantment of the Seas</a></h4>
-  </div>
+  <section id="royal-caribbean" class="card">
+    <h2>Royal Caribbean</h2>
+    <h3 id="vision-class">Vision Class</h3>
+    <div class="ship-thumbs">
+      <a class="card" href="enchantment-of-the-seas.html">
+  <img src="assets/ships/thumbs/enchantment-of-the-seas.jpg" alt="Enchantment of the Seas" loading="lazy">
+  <div><strong>Enchantment of the Seas</strong></div>
+</a>
+      <a class="card" href="vision-of-the-seas.html">
+  <img src="assets/ships/thumbs/vision-of-the-seas.jpg" alt="Vision of the Seas" loading="lazy">
+  <div><strong>Vision of the Seas</strong></div>
+</a>
+      <a class="card" href="rhapsody-of-the-seas.html">
+  <img src="assets/ships/thumbs/rhapsody-of-the-seas.jpg" alt="Rhapsody of the Seas" loading="lazy">
+  <div><strong>Rhapsody of the Seas</strong></div>
+</a>
+      <a class="card" href="grandeur-of-the-seas.html">
+  <img src="assets/ships/thumbs/grandeur-of-the-seas.jpg" alt="Grandeur of the Seas" loading="lazy">
+  <div><strong>Grandeur of the Seas</strong></div>
+</a>
+    </div>
+    <h3 id="radiance-class">Radiance Class</h3>
+    <div class="ship-thumbs">
+      <a class="card" href="radiance-of-the-seas.html">
+  <img src="assets/ships/thumbs/radiance-of-the-seas.jpg" alt="Radiance of the Seas" loading="lazy">
+  <div><strong>Radiance of the Seas</strong></div>
+</a>
+      <a class="card" href="brilliance-of-the-seas.html">
+  <img src="assets/ships/thumbs/brilliance-of-the-seas.jpg" alt="Brilliance of the Seas" loading="lazy">
+  <div><strong>Brilliance of the Seas</strong></div>
+</a>
+      <a class="card" href="serenade-of-the-seas.html">
+  <img src="assets/ships/thumbs/serenade-of-the-seas.jpg" alt="Serenade of the Seas" loading="lazy">
+  <div><strong>Serenade of the Seas</strong></div>
+</a>
+      <a class="card" href="jewel-of-the-seas.html">
+  <img src="assets/ships/thumbs/jewel-of-the-seas.jpg" alt="Jewel of the Seas" loading="lazy">
+  <div><strong>Jewel of the Seas</strong></div>
+</a>
     </div>
   </section>
 
-  <section class="card" id="rc-radiance">
-    <h2>Royal Caribbean — Radiance Class</h2>
-    <div class="grid">
-      
-  <div class="card ship-card">
-    <img data-candidates='[&quot;assets/ships/thumbs/radiance-of-the-seas.jpg&quot;, &quot;assets/radiance-of-the-seas.jpg&quot;, &quot;assets/ships/radiance-of-the-seas.jpg&quot;]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Vision_of_the_Seas_and_Emerald_Princess.jpg/600px-Vision_of_the_Seas_and_Emerald_Princess.jpg" alt="Radiance of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <h4><a href="radiance-of-the-seas.html">Radiance of the Seas</a></h4>
-  </div>
-
-  <div class="card ship-card">
-    <img data-candidates='[&quot;assets/ships/thumbs/brilliance-of-the-seas.jpg&quot;, &quot;assets/brilliance-of-the-seas.jpg&quot;, &quot;assets/ships/brilliance-of-the-seas.jpg&quot;]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Vision_of_the_Seas_and_Emerald_Princess.jpg/600px-Vision_of_the_Seas_and_Emerald_Princess.jpg" alt="Brilliance of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <h4><a href="brilliance-of-the-seas.html">Brilliance of the Seas</a></h4>
-  </div>
-
-  <div class="card ship-card">
-    <img data-candidates='[&quot;assets/ships/thumbs/serenade-of-the-seas.jpg&quot;, &quot;assets/serenade-of-the-seas.jpg&quot;, &quot;assets/ships/serenade-of-the-seas.jpg&quot;]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Vision_of_the_Seas_and_Emerald_Princess.jpg/600px-Vision_of_the_Seas_and_Emerald_Princess.jpg" alt="Serenade of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <h4><a href="serenade-of-the-seas.html">Serenade of the Seas</a></h4>
-  </div>
-
-  <div class="card ship-card">
-    <img data-candidates='[&quot;assets/ships/thumbs/jewel-of-the-seas.jpg&quot;, &quot;assets/jewel-of-the-seas.jpg&quot;, &quot;assets/ships/jewel-of-the-seas.jpg&quot;]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Vision_of_the_Seas_and_Emerald_Princess.jpg/600px-Vision_of_the_Seas_and_Emerald_Princess.jpg" alt="Jewel of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-    <h4><a href="jewel-of-the-seas.html">Jewel of the Seas</a></h4>
-  </div>
+  <section id="msc" class="card">
+    <h2>MSC Cruises</h2>
+    <h3 id="world-class">World Class</h3>
+    <div class="ship-thumbs">
+      <a class="card" href="msc-world-america.html">
+  <img src="assets/ships/thumbs/msc-world-america.jpg" alt="MSC World America" loading="lazy">
+  <div><strong>MSC World America</strong></div>
+</a>
     </div>
   </section>
 </main>
-
-<script>
-// Swap thumbnails to local candidates if they load; rotate when multiple are valid
-(function(){
-  var imgs = document.querySelectorAll('.ship-card img[data-candidates]');
-  imgs.forEach(function(img){
-    try {
-      var candidates = JSON.parse(img.getAttribute('data-candidates'));
-      if (!Array.isArray(candidates) || !candidates.length) return;
-      var available = []; var pending = candidates.length;
-      function finish() {
-        if (!available.length) return;
-        var pick = available[Math.floor(Math.random()*available.length)];
-        img.src = encodeURI(pick) + '?v=v2.071';
-      }
-      candidates.forEach(function(src){
-        var t = new Image();
-        t.onload = function(){ available.push(src); if(--pending===0) finish(); };
-        t.onerror = function(){ if(--pending===0) finish(); };
-        t.src = encodeURI(src) + '?v=v2.071';
-      });
-    } catch(e) {}
-  });
-})();
-
-// Dropdown behavior for keyboard/touch
-document.querySelectorAll('.ships-tiered__item').forEach(function(item) {
-  var btn = item.querySelector('.ships-tiered__btn');
-  var menu = item.querySelector('.ships-tiered__menu');
-  if (!btn || !menu) return;
-  btn.addEventListener('click', function(e) {
-    var open = menu.style.display === 'block';
-    document.querySelectorAll('.ships-tiered__menu').forEach(function(m){m.style.display='none';});
-    menu.style.display = open ? 'none' : 'block';
-    btn.setAttribute('aria-expanded', (!open).toString());
-  });
-  document.addEventListener('click', function(e) {
-    if (!item.contains(e.target)) { menu.style.display='none'; btn.setAttribute('aria-expanded','false'); }
-  });
-});
-</script>
-
-<footer class="footer">
-  <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
-</footer>
 </body>
 </html>
