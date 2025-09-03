@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Grandeur of the Seas — In the Wake v2.050</title>
+  <title>Grandeur of the Seas — In the Wake v2.053</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
@@ -11,7 +11,7 @@
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.050</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.053</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -46,18 +46,30 @@
     </div>
   </div>
 </header>
-<main class='page-wrap'>
-  <article class='card ship-report'>
+
+<main class="page-wrap">
+  <article class="card ship-report">
     <h2>Grandeur of the Seas</h2>
+
     <figure class="figure">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Grandeur_of_the_Seas_%28cropped%29_%28cropped%29.jpg" alt="Grandeur of the Seas (Wikimedia Commons)">
-      <figcaption>Photo: <a href="https://en.wikipedia.org/wiki/File:Grandeur_of_the_Seas_(cropped)_(cropped).jpg">Wikimedia Commons</a> (CC BY 2.0)</figcaption>
+      <!-- Start with remote, upgrade to local if it exists -->
+      <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Grandeur_of_the_Seas_%28cropped%29_%28cropped%29.jpg/1200px-Grandeur_of_the_Seas_%28cropped%29_%28cropped%29.jpg" alt="Grandeur of the Seas">
+      <figcaption>Primary image: Wikimedia thumbnail (fast, cached). If you add a local photo at <code>assets/ships/grandeur-of-the-seas.jpg</code>, the page will auto‑use it.</figcaption>
     </figure>
-    <p>The Vision Class is Royal Caribbean at its most human scale — floor‑to‑ceiling glass, a sun‑splashed Solarium, and a sweeping, light‑filled Centrum that feels like an atrium hotel at sea. These ships trade mega‑park thrills for classic ocean time: coffee with a view, string‑quartet sunsets, and promenades that smell like salt and teak.</p>
-    <p>Days naturally bend around the sea — lazy lunches at Windjammer, unhurried dinners in the Main Dining Room, live music drifting from the lounges. If you want boutique‑hotel‑at‑sea energy and itinerary‑first cruising, this class is your sweet spot.</p>
-    <p>Grandeur (1996) carries a loyal following for good reason. A five‑week, $48M revitalization added concierge and Diamond lounges, refreshed staterooms, and a transformed Viking Crown Lounge — the glass‑crowned perch guests remember long after disembarkation.</p>
-    <p>She’s the definition of cozy‑elegant: warm woods, spacious ocean views, and service that feels personal. Evenings bring classic production shows and live bands that fit the ship’s scale — more ballroom glow than stadium roar.</p>
-    <p>Pick Grandeur when you want a welcoming ship that still sails like a ship — you’ll spend more time near the rail, and less time in a line.</p>
+
+    <script>
+    (function(){ // try to load local photo and swap in if available
+      var localSrc = "assets/ships/grandeur-of-the-seas.jpg";
+      var img = new Image();
+      img.onload = function(){ 
+        var target = document.getElementById('ship-photo');
+        if (target) target.src = localSrc;
+      };
+      img.onerror = function(){ /* keep remote */ };
+      img.src = localSrc;
+    })();
+    </script>
+
     <section class="card" style="margin-top:1rem">
       <h3>Links</h3>
       <ul>

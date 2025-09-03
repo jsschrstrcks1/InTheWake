@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Jewel of the Seas — In the Wake v2.051</title>
+  <title>Jewel of the Seas — In the Wake v2.053</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
@@ -11,7 +11,7 @@
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.051</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.053</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -46,18 +46,30 @@
     </div>
   </div>
 </header>
-<main class='page-wrap'>
-  <article class='card ship-report'>
+
+<main class="page-wrap">
+  <article class="card ship-report">
     <h2>Jewel of the Seas</h2>
+
     <figure class="figure">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Jewel_of_the_Seas_at_Dubrovnik.jpg" alt="Jewel of the Seas (Wikimedia Commons)">
-      <figcaption>Photo: <a href="https://commons.wikimedia.org/wiki/File:Jewel_of_the_Seas_at_Dubrovnik.jpg">Wikimedia Commons</a> (CC BY 2.0)</figcaption>
+      <!-- Start with remote, upgrade to local if it exists -->
+      <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Jewel_of_the_Seas_at_Dubrovnik.jpg/1200px-Jewel_of_the_Seas_at_Dubrovnik.jpg" alt="Jewel of the Seas">
+      <figcaption>Primary image: Wikimedia thumbnail (fast, cached). If you add a local photo at <code>assets/ships/jewel-of-the-seas.jpg</code>, the page will auto‑use it.</figcaption>
     </figure>
-    <p>Radiance Class blends big‑ship polish with small‑ship sightlines. Designed with extensive glass and wide ocean views, these ships sail beautifully in scenic regions — think fjords, Alaska, and Mediterranean coastlines where ‘outside’ is the headliner.</p>
-    <p>Onboard you’ll find a relaxed rhythm: sun‑splashed Solariums, a bright atrium for evening music, and dining that feels curated rather than crowded. It’s an itinerary‑first style of sailing — with just enough sparkle to feel special after sunset.</p>
-    <p>The youngest of the quartet (2004), Jewel feels crisp and airy — a favorite for European summers and Caribbean winters. Her glass‑flanked lounges and teak‑trimmed open decks make sea days fly by, and her crew earns consistent praise for warm, personal service.</p>
-    <p>Dining hits the sweet spot: reliable MDR classics, Windjammer comfort, and select specialties that feel like little celebrations mid‑cruise. Evenings bring singers, bands, and the pleasant hum of a ship that prefers conversation to carnival.</p>
-    <p>Pick Jewel for destination‑rich routes when you want the ship to be the calm, stylish interlude between adventures ashore.</p>
+
+    <script>
+    (function(){ // try to load local photo and swap in if available
+      var localSrc = "assets/ships/jewel-of-the-seas.jpg";
+      var img = new Image();
+      img.onload = function(){ 
+        var target = document.getElementById('ship-photo');
+        if (target) target.src = localSrc;
+      };
+      img.onerror = function(){ /* keep remote */ };
+      img.src = localSrc;
+    })();
+    </script>
+
     <section class="card" style="margin-top:1rem">
       <h3>Links</h3>
       <ul>
