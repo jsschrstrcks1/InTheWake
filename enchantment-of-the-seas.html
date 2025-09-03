@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Enchantment of the Seas — In the Wake v2.053</title>
+  <title>Enchantment of the Seas — In the Wake v2.054</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/styles.css?v=2.048">
 </head>
@@ -11,7 +11,7 @@
   <div class="navbar">
     <a class="brand" href="index.html" title="Home">
       <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.053</span></span>
+      <span class="brand-title">In the Wake <span class="version-badge">v2.054</span></span>
     </a>
     <nav class="nav">
       <a href="ships.html" aria-current="page">Ships</a>
@@ -52,23 +52,15 @@
     <h2>Enchantment of the Seas</h2>
 
     <figure class="figure">
-      <!-- Start with remote, upgrade to local if it exists -->
-      <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Enchantment_of_the_Seas.jpg/1200px-Enchantment_of_the_Seas.jpg" alt="Enchantment of the Seas">
-      <figcaption>Primary image: Wikimedia thumbnail (fast, cached). If you add a local photo at <code>assets/ships/enchantment-of-the-seas.jpg</code>, the page will auto‑use it.</figcaption>
+      <img id="ship-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Enchantment_of_the_Seas.jpg/1200px-Enchantment_of_the_Seas.jpg" alt="Enchantment of the Seas" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+      <figcaption>Photo: <a href="https://en.m.wikipedia.org/wiki/File:Enchantment_of_the_Seas.jpg">Wikimedia Commons</a> (Public domain)</figcaption>
     </figure>
 
-    <script>
-    (function(){ // try to load local photo and swap in if available
-      var localSrc = "assets/ships/enchantment-of-the-seas.jpg";
-      var img = new Image();
-      img.onload = function(){ 
-        var target = document.getElementById('ship-photo');
-        if (target) target.src = localSrc;
-      };
-      img.onerror = function(){ /* keep remote */ };
-      img.src = localSrc;
-    })();
-    </script>
+    <p>The Vision Class is Royal Caribbean at its most human scale — floor‑to‑ceiling glass, a sun‑splashed Solarium, and a sweeping, light‑filled Centrum that feels like an atrium hotel at sea. These ships trade mega‑park thrills for classic ocean time: coffee with a view, string‑quartet sunsets, and promenades that smell like salt and teak.</p>
+    <p>Days naturally bend around the sea — lazy lunches at Windjammer, unhurried dinners in the Main Dining Room, live music drifting from the lounges. If you want boutique‑hotel‑at‑sea energy and itinerary‑first cruising, this class is your sweet spot.</p>
+    <p>In 2005, Enchantment literally grew up — the ship was cut in two and a 73‑foot (22 m) mid‑section was added, expanding public spaces and creating a larger pool deck with signature suspension bridges. A 2012 dry‑dock brought further refreshes across bars, lounges, and cabins.</p>
+    <p>The result is the peppiest of the Vision quartet: bright pool days, easygoing nightlife, and a Centrum that’s lively without being chaotic. She’s a favorite for short getaways and just‑add‑ocean vacations where the ship is your sunny base camp.</p>
+    <p>Sail Enchantment if you want compact done energetic — more elbow room on deck, a breezy resort feel, and itineraries that make weekend escapes feel like real vacations.</p>
 
     <section class="card" style="margin-top:1rem">
       <h3>Links</h3>
@@ -80,6 +72,20 @@
     </section>
   </article>
 </main>
+
+<script>
+// Prefer local image if present; otherwise keep the Wikimedia thumbnail
+(function() {
+  var localSrc = "assets/ships/enchantment-of-the-seas.jpg";
+  var img = new Image();
+  img.onload = function() {
+    var el = document.getElementById('ship-photo');
+    if (el) el.src = localSrc;
+  };
+  img.onerror = function(){ /* no local image found; keep remote */ };
+  img.src = localSrc;
+})();
+</script>
 
 <footer class="footer">
   <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
