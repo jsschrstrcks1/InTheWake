@@ -1,4 +1,4 @@
-/* ===== In the Wake — Unified Styles (v2.073) ===== */
+/* ===== In the Wake — Unified Styles (v2.074) ===== */
 :root{ --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e; }
 *{box-sizing:border-box} html,body{margin:0;padding:0}
 body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--ink);background:var(--sky);line-height:1.55}
@@ -19,19 +19,17 @@ img{max-width:100%;height:auto;display:block}
 .hero{
   position:relative;
   width:100vw;
-  margin-left:calc(50% - 50vw); /* extend to edges */
-  min-height:clamp(160px, 22vw, 340px); /* slim band, responsive */
+  margin-left:calc(50% - 50vw);           /* edge to edge */
+  min-height:clamp(160px, 22vw, 340px);   /* slim band */
   background:url('assets/index_hero.jpg') 50% 50% / cover no-repeat;
   display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;
 }
-.hero::before,.hero::after{content:none!important} /* legacy overlay/hockey-stick guard */
+.hero::before,.hero::after{content:none!important}
+.latlon-grid{position:absolute;inset:0;z-index:1;pointer-events:none}
+.latlon-grid svg{width:100%;height:100%}
 .hero-compass{position:absolute;right:min(3vw,1.2rem);top:.6rem;width:80px;opacity:.9;z-index:2;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
 .hero-title{position:absolute;left:min(3vw,1.2rem);bottom:.6rem;z-index:3;text-shadow:0 2px 6px rgba(0,0,0,.45);display:flex;align-items:flex-end;gap:.6rem}
 .hero-title .logo{width:clamp(180px,18vw,360px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
-
-/* Grid overlay inside hero */
-.latlon-grid{position:absolute;inset:0;z-index:1;pointer-events:none}
-.latlon-grid svg{width:100%;height:100%}
 
 /* Content + cards */
 .page-wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
@@ -47,7 +45,7 @@ h2,h3{color:var(--sea);margin:.2rem 0 .6rem}
 .feature-ship{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .feature-ship .card{margin:0}
 
-/* Featured ship card layout */
+/* Featured ship card styles */
 #featured-slot .ship{display:grid;grid-template-columns:120px 1fr;gap:.75rem;align-items:center;text-decoration:none;border:1px solid #d9e5e9;border-radius:12px;padding:.5rem;background:#f8fcfd}
 #featured-slot .thumb{width:120px;height:80px;overflow:hidden;border-radius:10px}
 #featured-slot .thumb img{width:100%;height:100%;object-fit:cover}
