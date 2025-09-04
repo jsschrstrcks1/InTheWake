@@ -5,6 +5,41 @@ body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Robot
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 img{max-width:100%;height:auto;display:block}
 
+/* --- v2.085 index refinements --- */
+
+/* Compass tint to match reference (blue-gray) */
+.hero-compass{
+  filter: hue-rotate(185deg) saturate(60%) brightness(0.95) drop-shadow(0 2px 6px rgba(0,0,0,.25));
+}
+
+/* SVG grid & label tuning (works with your inline <style>, but lets you tweak site-wide) */
+.hero .latlon-grid .grid-lines{
+  stroke: rgba(255,255,255,.24);
+}
+
+.hero .latlon-grid .grid-labels text{
+  fill: rgba(255,255,255,.85);
+  paint-order: stroke;
+  stroke: rgba(8,48,65,.35);
+  stroke-width: .4px;
+  vector-effect: non-scaling-stroke;
+  letter-spacing: .2px;
+}
+
+/* Keep labels appropriately small across widths */
+@media (max-width: 1200px){
+  .hero .latlon-grid .grid-labels text{ font-size: 2.8px; }
+}
+@media (max-width: 900px){
+  .hero .latlon-grid .grid-labels text{ font-size: 2.6px; }
+}
+@media (max-width: 700px){
+  .hero .latlon-grid .grid-labels text{ font-size: 2.4px; }
+}
+@media (max-width: 520px){
+  .hero .latlon-grid .grid-labels text{ font-size: 2.2px; }
+}
+
 /* Header + Nav */
 .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
 .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:.6rem;padding:.5rem .9rem}
