@@ -3,22 +3,24 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>In the Wake — Master Index (v2.074)</title>
-  <link rel="stylesheet" href="/assets/styles.css?v=2.074"/>
+  <title>In the Wake — Master Index (v2.085)</title>
+  <link rel="stylesheet" href="assets/styles.css?v=2.085"/>
 </head>
 <body>
 <header class="hero-header">
   <div class="navbar">
     <div class="brand">
-      <div class="brand-title">In the Wake <span class="version-badge">v2.074</span></div>
+      <!-- Uses your existing /assets/brand/logo.png -->
+      <img src="assets/brand/logo.png" alt="In the Wake wordmark"/>
+      <div class="brand-title">In the Wake <span class="version-badge">v2.085</span></div>
     </div>
     <nav class="nav">
-      <a href="/ships.html">Ships</a>
-      <a href="/restaurants.html">Restaurants</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/drinks.html">Drinks</a>
-      <a href="/packing.html">Packing</a>
-      <a href="/disability.html">Disability</a>
+      <a href="ships.html">Ships</a>
+      <a href="restaurants.html">Restaurants</a>
+      <a href="ports.html">Ports</a>
+      <a href="drinks.html">Drinks</a>
+      <a href="packing.html">Packing</a>
+      <a href="disability.html">Disability</a>
     </nav>
   </div>
 
@@ -39,8 +41,9 @@
         </g>
       </svg>
     </div>
-    <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
     <div class="hero-title">
+      <img class="logo" src="assets/brand/logo.png" alt="In the Wake"/>
     </div>
   </div>
 </header>
@@ -50,15 +53,15 @@
     <div class="index-card">
       <h3>Ships</h3>
       <ul>
-        <li><a href="/ships.html"><strong>All Ships</strong> — Royal Caribbean, Norwegian Cruise Line, MSC Cruises</a></li>
-        <li><a href="/enchantment-of-the-seas.html">Enchantment of the Seas</a></li>
-        <li><a href="/majesty-of-the-seas.html">Majesty of the Seas <span class="tiny">(Historical)</span></a></li>
+        <li><a href="ships.html"><strong>All Ships</strong> — Royal Caribbean, Norwegian, MSC, Virgin</a></li>
+        <li><a href="enchantment-of-the-seas.html">Enchantment of the Seas</a></li>
+        <li><a href="majesty-of-the-seas.html">Majesty of the Seas <span class="tiny">(Historical)</span></a></li>
       </ul>
     </div>
 
     <div class="index-card">
       <h3>Restaurants</h3>
-      <p><a href="/restaurants.html"><strong>Explore Venues</strong></a></p>
+      <p><a href="restaurants.html"><strong>Explore Venues</strong></a></p>
       <div>
         <span class="index-pill">Included</span>
         <span class="index-pill">Premium</span>
@@ -68,15 +71,15 @@
 
     <div class="index-card">
       <h3>Ports of Call</h3>
-      <p><a href="/ports.html"><strong>Browse Ports</strong></a></p>
+      <p><a href="ports.html"><strong>Browse Ports</strong></a></p>
     </div>
 
     <div class="index-card">
       <h3>Pages</h3>
       <ul>
-        <li><a href="/packing.html">Packing</a></li>
-        <li><a href="/drinks.html">Drink Packages</a></li>
-        <li><a href="/disability.html">Disability at Sea</a></li>
+        <li><a href="packing.html">Packing</a></li>
+        <li><a href="drinks.html">Drink Packages</a></li>
+        <li><a href="disability.html">Disability at Sea</a></li>
       </ul>
     </div>
   </section>
@@ -84,13 +87,13 @@
   <section class="feature-ship">
     <div class="card">
       <h3>Featured Ship</h3>
-      <p class="tiny">Randomized on each load from a curated list.</p>
+      <p class="tiny">Randomized on each load from all ship pages.</p>
       <div id="featured-slot"></div>
     </div>
     <div class="card">
       <h3>Change Log</h3>
       <ul>
-        <li><strong>v2.074</strong> — Restored 2.x layout, fixed hero sizing & grid, killed hockey stick with specificity, and repaired featured ship logic.</li>
+        <li><strong>v2.085</strong> — Index restored to 2.x, single stylesheet, hero fixed, “featured” covers all ships.</li>
       </ul>
     </div>
   </section>
@@ -101,20 +104,42 @@
 </footer>
 
 <script>
-/* Random featured ship (works if images exist) */
-const featured = [
-  { name:'Enchantment of the Seas', link:'/enchantment-of-the-seas.html', img:'/assets/enchantment-of-the-seas-1.jpg' },
-  { name:'Vision of the Seas',       link:'/vision-of-the-seas.html',       img:'/assets/vision-of-the-seas-1.jpg' },
-  { name:'Rhapsody of the Seas',     link:'/rhapsody-of-the-seas.html',     img:'/assets/rhapsody-of-the-seas.jpg' },
-  { name:'Radiance of the Seas',     link:'/radiance-of-the-seas.html',     img:'/assets/radiance-of-the-seas.jpg' },
-  { name:'Brilliance of the Seas',   link:'/brilliance-of-the-seas.html',   img:'/assets/brilliance-of-the-seas.jpg' }
+/* Pool of ship pages (derived from your repo list) */
+const ships = [
+  {n:'Adventure of the Seas', f:'adventure-of-the-seas.html'},
+  {n:'Allure of the Seas', f:'allure-of-the-seas.html'},
+  {n:'Anthem of the Seas', f:'anthem-of-the-seas.html'},
+  {n:'Brilliance of the Seas', f:'brilliance-of-the-seas.html'},
+  {n:'Enchantment of the Seas', f:'enchantment-of-the-seas.html'},
+  // 'enchantment.html' exists but is duplicate; excluded to avoid confusion
+  {n:'Explorer of the Seas', f:'explorer-of-the-seas.html'},
+  {n:'Freedom of the Seas', f:'freedom-of-the-seas.html'},
+  {n:'Grandeur of the Seas', f:'grandeur-of-the-seas.html'},
+  {n:'Harmony of the Seas', f:'harmony-of-the-seas.html'},
+  {n:'Icon of the Seas', f:'icon-of-the-seas.html'},
+  {n:'Independence of the Seas', f:'independence-of-the-seas.html'},
+  {n:'Jewel of the Seas', f:'jewel-of-the-seas.html'},
+  {n:'Liberty of the Seas', f:'liberty-of-the-seas.html'},
+  {n:'Majesty of the Seas', f:'majesty-of-the-seas.html'},
+  {n:'Mariner of the Seas', f:'mariner-of-the-seas.html'},
+  {n:'MSC World America', f:'msc-world-america.html'},
+  {n:'Navigator of the Seas', f:'navigator-of-the-seas.html'},
+  {n:'Oasis of the Seas', f:'oasis-of-the-seas.html'},
+  {n:'Odyssey of the Seas', f:'odyssey-of-the-seas.html'},
+  {n:'Ovation of the Seas', f:'ovation-of-the-seas.html'},
+  {n:'Quantum of the Seas', f:'quantum-of-the-seas.html'},
+  {n:'Radiance of the Seas', f:'radiance-of-the-seas.html'},
+  {n:'Rhapsody of the Seas', f:'rhapsody-of-the-seas.html'},
+  {n:'Serenade of the Seas', f:'serenade-of-the-seas.html'},
+  {n:'Spectrum of the Seas', f:'spectrum-of-the-seas.html'},
+  {n:'Symphony of the Seas', f:'symphony-of-the-seas.html'},
+  {n:'Utopia of the Seas', f:'utopia-of-the-seas.html'},
+  {n:'Vision of the Seas', f:'vision-of-the-seas.html'},
+  {n:'Voyager of the Seas', f:'voyager-of-the-seas.html'}
 ];
-const pick = featured[Math.floor(Math.random()*featured.length)];
-document.getElementById('featured-slot').innerHTML = `
-  <a class="ship" href="${pick.link}">
-    <div class="thumb"><img src="${pick.img}" alt="${pick.name} thumbnail" loading="lazy"></div>
-    <div class="body"><strong>${pick.name}</strong></div>
-  </a>`;
+const pick = ships[Math.floor(Math.random()*ships.length)];
+document.getElementById('featured-slot').innerHTML =
+  `<a class="index-pill" href="${pick.f}">${pick.n}</a>`;
 </script>
 </body>
 </html>
