@@ -1,6 +1,58 @@
 /* assets/js/mega-nav.js — unified mega menu + brand/class/ship helpers
    Depends on: assets/data/fleets.json
 */
+
+// === Hover Intent (drop near the top of nav-mega.merged.js) ===
+function attachHoverIntent(root, { openDelay = 120, closeDelay = 220 } = {}) {
+  // Any <li> that can open a flyout (has a .flyout child)
+  const items = root.querySelectorAll('li:has(.flyout), li.has-flyout');
+
+  items.forEach(li => {
+    let openTimer = null;
+    let closeTimer = null;
+
+    const open = () => {
+      li.classList.add('open');
+      const fly = li.querySelector(':scope > .flyout');
+      if (fly) fly.setAttribute('data-open', 'true');
+    };
+    const close = () => {
+      li.classList.remove('open');
+      const fly = li.querySelector(':scope > .flyout');
+      if (fly) fly.removeAttribute('data-open');
+    };
+
+    const clearTimers = () => {
+      if (openTimer) { clearTimeout(openTimer); openTimer = null; }
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+    };
+
+    li.addEventListener('mouseenter', () => {
+      clearTimeout(closeTimer);
+      openTimer = setTimeout(open, openDelay);
+    });
+
+    li.addEventListener('mouseleave', () => {
+      clearTimeout(openTimer);
+      closeTimer = setTimeout(close, closeDelay);
+    });
+
+    // Don’t delay for keyboard users—open immediately on focus
+    const trigger = li.querySelector(':scope > a, :scope > button');
+    if (trigger) {
+      trigger.addEventListener('focus', () => { clearTimers(); open(); });
+      trigger.addEventListener('blur',  () => { clearTimers(); close(); });
+      // Optional: expand/collapse with keyboard
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); clearTimers(); open();
+        }
+        if (e.key === 'Escape') { clearTimers(); close(); trigger.blur(); }
+      });
+    }
+  });
+}
+
 (() => {
   const DATA_URL = 'assets/data/fleets.json';
 
