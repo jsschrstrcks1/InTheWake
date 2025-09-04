@@ -3,16 +3,15 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>In the Wake — Master Index (v2.085)</title>
-  <link rel="stylesheet" href="assets/styles.css?v=2.085"/>
+  <title>In the Wake — Master Index (v2.086)</title>
+  <link rel="stylesheet" href="assets/styles.css?v=2.086"/>
 </head>
 <body>
 <header class="hero-header">
   <div class="navbar">
     <div class="brand">
-      <!-- Uses your existing /assets/brand/logo.png -->
       <img src="assets/brand/logo.png" alt="In the Wake wordmark"/>
-      <div class="brand-title">In the Wake <span class="version-badge">v2.085</span></div>
+      <div class="brand-title">In the Wake <span class="version-badge">v2.086</span></div>
     </div>
     <nav class="nav">
       <a href="ships.html">Ships</a>
@@ -24,74 +23,32 @@
     </nav>
   </div>
 
-  <!-- Full-bleed hero; horizon centered -->
+  <!-- Hero (grid lines only; no degree labels) -->
   <div class="hero" role="img" aria-label="Ship wake at sunset">
-  <!-- GRID with degree tick labels -->
-  <div class="latlon-grid" aria-hidden="true">
-    <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-      <defs>
-        <!-- Keep strokes and label outlines consistent as the SVG scales -->
-        <style>
-          .grid-lines { stroke: rgba(255,255,255,.24); vector-effect: non-scaling-stroke; }
-          .grid-labels text {
-            fill: rgba(255,255,255,.85);
-            font: 600 3px/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            paint-order: stroke;
-            stroke: rgba(8,48,65,.35);
-            stroke-width: .4px;
-            vector-effect: non-scaling-stroke;
-            letter-spacing: .2px;
-          }
-        </style>
-      </defs>
+    <div class="latlon-grid" aria-hidden="true">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+        <g class="grid-lines" stroke-width="0.35">
+          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+          <line x1="90" y1="0" x2="90" y2="60"/>
+          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+        </g>
+      </svg>
+    </div>
 
-      <!-- grid lines -->
-      <g class="grid-lines" stroke-width="0.35">
-        <!-- verticals 10..90 -->
-        <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-        <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-        <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-        <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
-        <line x1="90" y1="0" x2="90" y2="60"/>
-        <!-- horizontals 10..40 -->
-        <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
-        <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
-      </g>
+    <!-- Compass -->
+    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
 
-      <!-- tick labels (top for longitude, left for latitude) -->
-      <g class="grid-labels">
-        <!-- longitudes -->
-        <text x="10" y="5.5" textLength="6">10°</text>
-        <text x="20" y="5.5" textLength="6">20°</text>
-        <text x="30" y="5.5" textLength="6">30°</text>
-        <text x="40" y="5.5" textLength="6">40°</text>
-        <text x="50" y="5.5" textLength="6">50°</text>
-        <text x="60" y="5.5" textLength="6">60°</text>
-        <text x="70" y="5.5" textLength="6">70°</text>
-        <text x="80" y="5.5" textLength="6">80°</text>
-        <text x="90" y="5.5" textLength="6">90°</text>
-
-        <!-- latitudes -->
-        <text x="2" y="10" textLength="6">10°</text>
-        <text x="2" y="20" textLength="6">20°</text>
-        <text x="2" y="30" textLength="6">30°</text>
-        <text x="2" y="40" textLength="6">40°</text>
-      </g>
-    </svg>
+    <!-- Logo + tagline -->
+    <div class="hero-title">
+      <img class="logo" src="assets/logo_wake.png" alt="In the Wake">
+      <div class="tagline">A Cruise Traveler’s Logbook</div>
+    </div>
   </div>
-
-  <!-- compass (tinted to blue-grey to match reference) -->
-  <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
-
-  <!-- site lockup -->
-  <div class="hero-title">
-    <img class="logo" src="assets/logo_wake.png" alt="In the Wake">
-    <div class="tagline">A Cruise Traveler’s Logbook</div>
-  </div>
-
-  <!-- current lat/long readout -->
-  <div class="latlong">25° 46′ N · 80° 08′ W</div>
-</div></header>
+</header>
 
 <main class="page-wrap">
   <section class="index-grid" id="master-index">
@@ -138,7 +95,7 @@
     <div class="card">
       <h3>Change Log</h3>
       <ul>
-        <li><strong>v2.085</strong> — Index restored to 2.x, single stylesheet, hero fixed, “featured” covers all ships.</li>
+        <li><strong>v2.086</strong> — Index: grid-only labels removed, tagline centered, compass color fixed.</li>
       </ul>
     </div>
   </section>
@@ -149,14 +106,12 @@
 </footer>
 
 <script>
-/* Pool of ship pages (derived from your repo list) */
 const ships = [
   {n:'Adventure of the Seas', f:'adventure-of-the-seas.html'},
   {n:'Allure of the Seas', f:'allure-of-the-seas.html'},
   {n:'Anthem of the Seas', f:'anthem-of-the-seas.html'},
   {n:'Brilliance of the Seas', f:'brilliance-of-the-seas.html'},
   {n:'Enchantment of the Seas', f:'enchantment-of-the-seas.html'},
-  // 'enchantment.html' exists but is duplicate; excluded to avoid confusion
   {n:'Explorer of the Seas', f:'explorer-of-the-seas.html'},
   {n:'Freedom of the Seas', f:'freedom-of-the-seas.html'},
   {n:'Grandeur of the Seas', f:'grandeur-of-the-seas.html'},
