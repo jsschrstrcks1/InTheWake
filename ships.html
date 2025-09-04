@@ -1,79 +1,363 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ships — In the Wake</title>
-<link rel="stylesheet" href="assets/styles.css?v=2.072">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>In the Wake — Ships (v2.086)</title>
+  <link rel="stylesheet" href="assets/styles.css?v=2.086"/>
 </head>
 <body>
 <header class="hero-header">
   <div class="navbar">
-    <div class="brand"><a href="index.html"><img src="assets/logo/logo_teal_white.svg" alt="In the Wake"></a><div class="brand-title">In the Wake <span class="version-badge">v2.072</span></div></div>
+    <div class="brand">
+      <img src="assets/brand/logo.png" alt="In the Wake wordmark"/>
+      <div class="brand-title">In the Wake <span class="version-badge">v2.086</span></div>
+    </div>
     <nav class="nav">
-      <a href="ships.html">Ships</a><a href="restaurants.html">Restaurants</a><a href="ports.html">Ports</a><a href="drinks.html">Drinks</a><a href="packing.html">Packing</a><a href="disability.html">Disability</a>
+      <a href="index.html">Home</a>
+      <a href="restaurants.html">Restaurants</a>
+      <a href="ports.html">Ports</a>
+      <a href="drinks.html">Drinks</a>
+      <a href="packing.html">Packing</a>
+      <a href="disability.html">Disability</a>
     </nav>
+  </div>
+
+  <!-- Full-bleed hero; horizon centered; lines only -->
+  <div class="hero" role="img" aria-label="Ship wake at sunset">
+    <div class="latlon-grid" aria-hidden="true">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+        <g class="grid-lines" stroke-width="0.35">
+          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+          <line x1="90" y1="0" x2="90" y2="60"/>
+          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+        </g>
+      </svg>
+    </div>
+    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
+    <div class="hero-title">
+      <img class="logo" src="assets/logo_wake.png" alt="In the Wake">
+      <div class="tagline">A Cruise Traveler’s Logbook</div>
+    </div>
   </div>
 </header>
 
 <main class="page-wrap">
-  <nav class="card">
-    <strong>Jump to:</strong>
-    <a href="#royal-caribbean">Royal Caribbean</a> •
-    <a href="#msc">MSC</a>
+  <!-- Jump menu: Cruise line → Classes -->
+  <nav class="jump-menu" aria-label="Jump to cruise line">
+    <div class="jump-line">
+      <a href="#royal-caribbean" class="pill">Royal Caribbean</a>
+      <a href="#msc-cruises" class="pill">MSC Cruises</a>
+      <a href="#norwegian-cruise-line" class="pill">Norwegian</a>
+      <a href="#virgin-voyages" class="pill">Virgin Voyages</a>
+      <!-- Stubs for additional lines (anchors exist below) -->
+      <details class="more-lines">
+        <summary>More cruise lines</summary>
+        <div class="more-wrap">
+          <a href="#celebrity-cruises">Celebrity</a>
+          <a href="#carnival-cruise-line">Carnival</a>
+          <a href="#disney-cruise-line">Disney</a>
+          <a href="#princess-cruises">Princess</a>
+          <a href="#holland-america-line">Holland America</a>
+          <a href="#cunard-line">Cunard</a>
+          <a href="#viking">Viking</a>
+          <a href="#seabourn">Seabourn</a>
+          <a href="#silversea-cruises">Silversea</a>
+          <a href="#azamara">Azamara</a>
+          <a href="#oceania-cruises">Oceania</a>
+          <a href="#ritz-carlton-yacht-collection">Ritz-Carlton Yacht</a>
+          <a href="#windstar-cruises">Windstar</a>
+          <a href="#star-clippers">Star Clippers</a>
+          <a href="#paul-gauguin-cruises">Paul Gauguin</a>
+          <a href="#ponant">Ponant</a>
+          <a href="#scenic">Scenic</a>
+          <a href="#emerald-cruises">Emerald</a>
+          <a href="#explora-journeys">Explora Journeys</a>
+          <a href="#celestyal-cruises">Celestyal</a>
+          <a href="#costa-cruises">Costa</a>
+          <a href="#crystal-cruises">Crystal</a>
+          <a href="#hurtigruten">Hurtigruten</a>
+          <a href="#hx">HX</a>
+          <a href="#national-geographic-lindblad">NatGeo-Lindblad</a>
+          <a href="#p-and-o-cruises">P&amp;O</a>
+          <a href="#quark-expeditions">Quark Expeditions</a>
+          <a href="#regent-seven-seas">Regent Seven Seas</a>
+          <a href="#seadream-yacht-club">SeaDream</a>
+          <a href="#victory-cruise-lines">Victory</a>
+          <a href="#atlas-ocean-voyages">Atlas</a>
+          <a href="#american-cruise-lines">American Cruise Lines</a>
+        </div>
+      </details>
+    </div>
   </nav>
 
-  <section id="royal-caribbean" class="card">
-    <h2>Royal Caribbean</h2>
-    <h3 id="vision-class">Vision Class</h3>
-    <div class="ship-thumbs">
-      <a class="card" href="enchantment-of-the-seas.html">
-  <img src="assets/ships/thumbs/enchantment-of-the-seas.jpg" alt="Enchantment of the Seas" loading="lazy">
-  <div><strong>Enchantment of the Seas</strong></div>
-</a>
-      <a class="card" href="vision-of-the-seas.html">
-  <img src="assets/ships/thumbs/vision-of-the-seas.jpg" alt="Vision of the Seas" loading="lazy">
-  <div><strong>Vision of the Seas</strong></div>
-</a>
-      <a class="card" href="rhapsody-of-the-seas.html">
-  <img src="assets/ships/thumbs/rhapsody-of-the-seas.jpg" alt="Rhapsody of the Seas" loading="lazy">
-  <div><strong>Rhapsody of the Seas</strong></div>
-</a>
-      <a class="card" href="grandeur-of-the-seas.html">
-  <img src="assets/ships/thumbs/grandeur-of-the-seas.jpg" alt="Grandeur of the Seas" loading="lazy">
-  <div><strong>Grandeur of the Seas</strong></div>
-</a>
-    </div>
-    <h3 id="radiance-class">Radiance Class</h3>
-    <div class="ship-thumbs">
-      <a class="card" href="radiance-of-the-seas.html">
-  <img src="assets/ships/thumbs/radiance-of-the-seas.jpg" alt="Radiance of the Seas" loading="lazy">
-  <div><strong>Radiance of the Seas</strong></div>
-</a>
-      <a class="card" href="brilliance-of-the-seas.html">
-  <img src="assets/ships/thumbs/brilliance-of-the-seas.jpg" alt="Brilliance of the Seas" loading="lazy">
-  <div><strong>Brilliance of the Seas</strong></div>
-</a>
-      <a class="card" href="serenade-of-the-seas.html">
-  <img src="assets/ships/thumbs/serenade-of-the-seas.jpg" alt="Serenade of the Seas" loading="lazy">
-  <div><strong>Serenade of the Seas</strong></div>
-</a>
-      <a class="card" href="jewel-of-the-seas.html">
-  <img src="assets/ships/thumbs/jewel-of-the-seas.jpg" alt="Jewel of the Seas" loading="lazy">
-  <div><strong>Jewel of the Seas</strong></div>
-</a>
-    </div>
-  </section>
+  <!-- Render target -->
+  <section id="fleet-root" class="fleet-root" aria-live="polite"></section>
 
-  <section id="msc" class="card">
-    <h2>MSC Cruises</h2>
-    <h3 id="world-class">World Class</h3>
-    <div class="ship-thumbs">
-      <a class="card" href="msc-world-america.html">
-  <img src="assets/ships/thumbs/msc-world-america.jpg" alt="MSC World America" loading="lazy">
-  <div><strong>MSC World America</strong></div>
-</a>
-    </div>
+  <!-- Former Royal Caribbean -->
+  <section class="card collapsible">
+    <details>
+      <summary id="former-royal">Historical — Former Royal Caribbean Ships</summary>
+      <div class="grid" id="former-royal-grid"></div>
+    </details>
   </section>
 </main>
+
+<footer class="footer">
+  <div>In the Wake — A Cruise Traveler’s Logbook • Historical ships are labeled clearly.</div>
+</footer>
+
+<script>
+// Known pages in your repo (so we don’t link to 404s)
+const availablePages = new Set([
+  'adventure-of-the-seas.html','allure-of-the-seas.html','anthem-of-the-seas.html',
+  'brilliance-of-the-seas.html','disability.html','drinks.html','enchantment-of-the-seas.html',
+  'explorer-of-the-seas.html','freedom-of-the-seas.html','grandeur-of-the-seas.html',
+  'harmony-of-the-seas.html','icon-of-the-seas.html','independence-of-the-seas.html',
+  'index.html','jewel-of-the-seas.html','liberty-of-the-seas.html','majesty-of-the-seas.html',
+  'mariner-of-the-seas.html','msc-world-america.html','navigator-of-the-seas.html',
+  'oasis-of-the-seas.html','odyssey-of-the-seas.html','ovation-of-the-seas.html','packing.html',
+  'planning.html','ports.html','quantum-of-the-seas.html','radiance-of-the-seas.html',
+  'restaurants.html','rhapsody-of-the-seas.html','rooms.html','serenade-of-the-seas.html',
+  'ships.html','solo.html','spectrum-of-the-seas.html','symphony-of-the-seas.html',
+  'travel.html','utopia-of-the-seas.html','vision-of-the-seas.html','voyager-of-the-seas.html'
+]);
+
+// Helper: slug to page filename
+const toSlug = name => name.toLowerCase()
+  .replace(/’/g,"").replace(/&/g,"and").replace(/[^\w\s-]/g,"")
+  .trim().replace(/\s+/g,"-") + ".html";
+
+// Fleet data (RC fully from your list; MSC/NCL/Virgin populated by major classes)
+const FLEET = [
+  {
+    line: 'Royal Caribbean International',
+    id: 'royal-caribbean',
+    classes: [
+      { name:'Icon Class', ships:[
+        'Icon of the Seas','Star of the Seas'
+      ]},
+      { name:'Oasis Class', ships:[
+        'Utopia of the Seas','Wonder of the Seas','Symphony of the Seas',
+        'Harmony of the Seas','Allure of the Seas','Oasis of the Seas'
+      ]},
+      { name:'Quantum Class', ships:[
+        'Odyssey of the Seas','Spectrum of the Seas','Ovation of the Seas',
+        'Anthem of the Seas','Quantum of the Seas'
+      ]},
+      { name:'Freedom Class', ships:[
+        'Independence of the Seas','Liberty of the Seas','Freedom of the Seas'
+      ]},
+      { name:'Radiance Class', ships:[
+        'Jewel of the Seas','Serenade of the Seas','Brilliance of the Seas','Radiance of the Seas'
+      ]},
+      { name:'Voyager Class', ships:[
+        'Mariner of the Seas','Navigator of the Seas','Adventure of the Seas',
+        'Explorer of the Seas','Voyager of the Seas'
+      ]},
+      { name:'Vision Class', ships:[
+        'Vision of the Seas','Rhapsody of the Seas','Enchantment of the Seas','Grandeur of the Seas'
+      ]}
+    ]
+  },
+  {
+    line: 'MSC Cruises',
+    id: 'msc-cruises',
+    classes: [
+      { name:'World Class', ships:[
+        'MSC World Europa','MSC World America'
+      ]},
+      { name:'Meraviglia Class', ships:[
+        'MSC Meraviglia','MSC Bellissima','MSC Grandiosa','MSC Virtuosa','MSC Euribia'
+      ]},
+      { name:'Seaside / EVO Class', ships:[
+        'MSC Seaside','MSC Seaview','MSC Seashore','MSC Seascape'
+      ]},
+      { name:'Fantasia Class', ships:[
+        'MSC Fantasia','MSC Splendida','MSC Divina','MSC Preziosa'
+      ]},
+      { name:'Musica Class', ships:[
+        'MSC Musica','MSC Orchestra','MSC Poesia','MSC Magnifica'
+      ]},
+      { name:'Lirica Class', ships:[
+        'MSC Lirica','MSC Opera','MSC Armonia','MSC Sinfonia'
+      ]}
+    ]
+  },
+  {
+    line: 'Norwegian Cruise Line',
+    id: 'norwegian-cruise-line',
+    classes: [
+      { name:'Prima Class', ships:[
+        'Norwegian Prima','Norwegian Viva','Norwegian Aqua'
+      ]},
+      { name:'Breakaway Plus', ships:[
+        'Norwegian Escape','Norwegian Bliss','Norwegian Encore','Norwegian Joy'
+      ]},
+      { name:'Breakaway Class', ships:[
+        'Norwegian Breakaway','Norwegian Getaway'
+      ]},
+      { name:'Jewel Class', ships:[
+        'Norwegian Jewel','Norwegian Jade','Norwegian Pearl','Norwegian Gem'
+      ]},
+      { name:'Dawn Class', ships:[
+        'Norwegian Dawn','Norwegian Star'
+      ]},
+      { name:'Sun Class', ships:[
+        'Norwegian Sun','Norwegian Sky'
+      ]},
+      { name:'Spirit Class', ships:[
+        'Norwegian Spirit'
+      ]}
+    ]
+  },
+  {
+    line: 'Virgin Voyages',
+    id: 'virgin-voyages',
+    classes: [
+      { name:'Lady Class', ships:[
+        'Scarlet Lady','Valiant Lady','Resilient Lady','Brilliant Lady'
+      ]}
+    ]
+  },
+
+  // Stubs for other lines (anchors only; content to be filled in later passes)
+  { line:'Celebrity Cruises', id:'celebrity-cruises', classes:[] },
+  { line:'Carnival Cruise Line', id:'carnival-cruise-line', classes:[] },
+  { line:'Disney Cruise Line', id:'disney-cruise-line', classes:[] },
+  { line:'Princess Cruises', id:'princess-cruises', classes:[] },
+  { line:'Holland America Line', id:'holland-america-line', classes:[] },
+  { line:'Cunard Line', id:'cunard-line', classes:[] },
+  { line:'Viking', id:'viking', classes:[] },
+  { line:'Seabourn', id:'seabourn', classes:[] },
+  { line:'Silversea Cruises', id:'silversea-cruises', classes:[] },
+  { line:'Azamara', id:'azamara', classes:[] },
+  { line:'Oceania Cruises', id:'oceania-cruises', classes:[] },
+  { line:'Ritz-Carlton Yacht Collection', id:'ritz-carlton-yacht-collection', classes:[] },
+  { line:'Windstar Cruises', id:'windstar-cruises', classes:[] },
+  { line:'Star Clippers', id:'star-clippers', classes:[] },
+  { line:'Paul Gauguin Cruises', id:'paul-gauguin-cruises', classes:[] },
+  { line:'Ponant', id:'ponant', classes:[] },
+  { line:'Scenic Luxury Cruises & Tours', id:'scenic', classes:[] },
+  { line:'Emerald Cruises', id:'emerald-cruises', classes:[] },
+  { line:'Explora Journeys', id:'explora-journeys', classes:[] },
+  { line:'Celestyal Cruises', id:'celestyal-cruises', classes:[] },
+  { line:'Costa Cruises', id:'costa-cruises', classes:[] },
+  { line:'Crystal Cruises', id:'crystal-cruises', classes:[] },
+  { line:'Hurtigruten', id:'hurtigruten', classes:[] },
+  { line:'HX', id:'hx', classes:[] },
+  { line:'National Geographic-Lindblad', id:'national-geographic-lindblad', classes:[] },
+  { line:'P&O Cruises', id:'p-and-o-cruises', classes:[] },
+  { line:'Quark Expeditions', id:'quark-expeditions', classes:[] },
+  { line:'Regent Seven Seas Cruises', id:'regent-seven-seas', classes:[] },
+  { line:'SeaDream Yacht Club', id:'seadream-yacht-club', classes:[] },
+  { line:'Victory Cruise Lines', id:'victory-cruise-lines', classes:[] },
+  { line:'Atlas Ocean Voyages', id:'atlas-ocean-voyages', classes:[] },
+  { line:'American Cruise Lines', id:'american-cruise-lines', classes:[] }
+];
+
+// Former Royal Caribbean (Historical)
+const FORMER_ROYAL = [
+  { class:'Sovereign Class', ships:[
+    { n:'Sovereign of the Seas', years:'1988–2008', note:'Flagship at launch; later Pullmantur, scrapped 2020.' },
+    { n:'Monarch of the Seas', years:'1991–2013', note:'Transferred to Pullmantur; scrapped 2021.' },
+    { n:'Majesty of the Seas', years:'1992–2020', note:'Renamed Majesty of the Oceans; laid up.' , page:'majesty-of-the-seas.html' }
+  ]},
+  { class:'Vision Class', ships:[
+    { n:'Legend of the Seas', years:'1995–2017', note:'Now Marella Discovery 2.' },
+    { n:'Splendour of the Seas', years:'1996–2016', note:'Now Marella Discovery.' }
+  ]},
+  { class:'Empress Class', ships:[
+    { n:'Empress of the Seas', years:'1990–2008, 2016–2020', note:'Now with Cordelia Cruises.' }
+  ]},
+  { class:'Other/Legacy', ships:[
+    { n:'Song of Norway', years:'1970–1997', note:'Stretched 1978; later sold/scrapped.' },
+    { n:'Nordic Prince', years:'1971–1995', note:'Lengthened 1980; later sold/scrapped.' },
+    { n:'Sun Viking', years:'1972–1998', note:'Sold; eventually scrapped.' },
+    { n:'Song of America', years:'1982–1999', note:'Reported scrapped 2025.' },
+    { n:'Viking Serenade', years:'1990–2002', note:'Sold; scrapped 2018.' }
+  ]}
+];
+
+// Renderers
+function shipCard(name){
+  const file = toSlug(name);
+  const exists = availablePages.has(file);
+  const href = exists ? file : '#';
+  const cls = 'ship-card' + (exists ? '' : ' is-disabled');
+  const badge = exists ? '' : '<span class="badge">coming&nbsp;soon</span>';
+  return `<a class="${cls}" href="${href}" aria-disabled="${exists? 'false':'true'}">
+    <div class="thumb">
+      <img loading="lazy" alt="${name}"
+           src="assets/${file.replace('.html','.jpg')}"
+           onerror="this.src='assets/logo_wake_teal.png'; this.classList.add('thumb-fallback')">
+    </div>
+    <div class="body">
+      <strong>${name}</strong>
+      ${badge}
+    </div>
+  </a>`;
+}
+
+function classSection(lineId, cls){
+  const anchor = `${lineId}-${cls.name.toLowerCase().replace(/\s+/g,'-')}`;
+  const cards = cls.ships.map(shipCard).join('');
+  return `<section class="card">
+    <h2 id="${anchor}">${cls.name}</h2>
+    <div class="grid">${cards}</div>
+  </section>`;
+}
+
+function lineBlock(block){
+  const classesHtml = block.classes.map(c => classSection(block.id, c)).join('') ||
+    `<div class="card"><p class="tiny">Class breakdown coming soon for ${block.line}.</p></div>`;
+  // Local “Jump to class” row for this line
+  const classPills = block.classes.length ? `
+    <div class="class-pills">
+      ${block.classes.map(c => {
+        const anchor = `${block.id}-${c.name.toLowerCase().replace(/\s+/g,'-')}`;
+        return `<a class="pill" href="#${anchor}">${c.name}</a>`;
+      }).join('')}
+    </div>` : '';
+  return `<section id="${block.id}" class="card">
+    <h1>${block.line}</h1>
+    ${classPills}
+    ${classesHtml}
+  </section>`;
+}
+
+// Paint page
+const root = document.getElementById('fleet-root');
+root.innerHTML = FLEET.map(lineBlock).join('');
+
+// Former RC (Historical cards)
+const formerGrid = document.getElementById('former-royal-grid');
+formerGrid.innerHTML = FORMER_ROYAL.map(group => {
+  const cards = group.ships.map(s => {
+    const file = s.page || '';
+    const exists = file && availablePages.has(file);
+    const href = exists ? file : '#';
+    const cls = 'ship-card historical' + (exists ? '' : ' is-disabled');
+    const badge = `<span class="badge hist">Historical</span>`;
+    return `<a class="${cls}" href="${href}" aria-disabled="${exists? 'false':'true'}" title="${s.note || ''}">
+      <div class="thumb">
+        <img loading="lazy" alt="${s.n}"
+             src="assets/${(file? file.replace('.html','.jpg') : 'majesty-of-the-seas.jpg')}"
+             onerror="this.src='assets/logo_wake_teal.png'; this.classList.add('thumb-fallback')">
+      </div>
+      <div class="body">
+        <strong>${s.n}</strong>
+        <div class="tiny">${s.years}</div>
+        ${badge}
+      </div>
+    </a>`;
+  }).join('');
+  return `<div class="card"><h3>${group.class}</h3><div class="grid">${cards}</div></div>`;
+}).join('');
+</script>
 </body>
 </html>
