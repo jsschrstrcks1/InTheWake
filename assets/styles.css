@@ -127,3 +127,52 @@ header.site-header::before, header.site-header::after{ display:none !important }
   .hero{ min-height:clamp(170px, 30vw, 300px) }
   .hero-title .logo{ width:clamp(170px, 36vw, 320px) }
 }
+
+/* ===== v2.085.1 – Index hero refinements ===== */
+
+/* 1) Compass tint & subtle outline */
+.hero-compass{
+  filter: hue-rotate(185deg) saturate(60%) brightness(0.95)
+          drop-shadow(0 2px 6px rgba(0,0,0,.25));
+  opacity: .95;
+}
+
+/* 2) Ship lockup: nudge down +5% size, always contained */
+.hero-title{
+  position:absolute; left: min(3vw,1rem); bottom: clamp(.6rem, 2vw, 1.4rem);
+  z-index:3; display:flex; align-items:flex-end; gap:.6rem;
+}
+.hero-title .logo{
+  /* +5% vs prior */
+  width: clamp(189px, 23.1vw, 378px);
+  max-width: min(45vw, 520px);
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,.45));
+}
+
+/* Keep the lockup inside the hero at all sizes */
+.hero{ overflow: hidden }
+
+/* 3) Lat/long tick label size: slightly smaller again */
+.hero .latlon-grid .grid-labels text{ font-size: 2.2px; }
+@media (max-width: 900px){ .hero .latlon-grid .grid-labels text{ font-size: 2.0px } }
+@media (max-width: 700px){ .hero .latlon-grid .grid-labels text{ font-size: 1.9px } }
+@media (max-width: 520px){ .hero .latlon-grid .grid-labels text{ font-size: 1.8px } }
+
+/* 4) Tagline: 1.5x bigger & centered along bottom */
+.hero .tagline{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: clamp(.55rem, 1.6vw, 1.1rem);
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: #e6f4f8;
+  text-shadow: 0 2px 6px rgba(0,0,0,.45);
+  font-size: clamp(0.9rem, 1.5vw, 1.35rem); /* ~1.5x vs prior */
+  white-space: nowrap;
+  z-index: 3;
+}
+
+/* Optional: slightly lighter grid so numbers read but don’t dominate */
+/*.hero .latlon-grid .grid-lines{ stroke: rgba(255,255,255,.22) }*/
+
