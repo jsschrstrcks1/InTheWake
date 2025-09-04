@@ -485,3 +485,26 @@ function attachHoverIntent(root, { openDelay = 120, closeDelay = 220 } = {}) {
     ? init()
     : document.addEventListener('DOMContentLoaded', init);
 })();
+
+function attachHoverIntent(root, delay = 200) {
+  root.querySelectorAll('li').forEach(li => {
+    const flyout = li.querySelector('.flyout');
+    if (!flyout) return;
+
+    let timer;
+    li.addEventListener('mouseenter', () => {
+      timer = setTimeout(() => li.classList.add('open'), delay);
+    });
+    li.addEventListener('mouseleave', () => {
+      clearTimeout(timer);
+      li.classList.remove('open');
+    });
+  });
+}
+
+// after build() finishes
+document.readyState !== 'loading'
+  ? attachHoverIntent(document.getElementById('megaNav'))
+  : document.addEventListener('DOMContentLoaded', () =>
+      attachHoverIntent(document.getElementById('megaNav'))
+    );
