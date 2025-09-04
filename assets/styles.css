@@ -242,3 +242,17 @@ header.site-header::before, header.site-header::after{ display:none !important }
 /* Filter/search toolbar */
 .toolbar{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:.6rem 0 1rem }
 .toolbar input[type="search"], .toolbar select{ padding:.5
+
+/* Only display flyouts when parent <li> is .open */
+#megaNav .flyout { display: none; }
+#megaNav li.open > .flyout { display: block; }
+
+/* Optional: a tiny transition so it feels smooth */
+#megaNav .flyout {
+  opacity: 0; transform: translateY(4px);
+  transition: opacity .12s ease, transform .12s ease;
+}
+#megaNav li.open > .flyout {
+  opacity: 1; transform: translateY(0);
+}
+
