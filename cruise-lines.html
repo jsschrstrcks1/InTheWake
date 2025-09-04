@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Cruise Lines — In the Wake</title>
+  <link rel="stylesheet" href="assets/styles.css?v=2.086"/>
+</head>
+<body>
+<header class="hero-header">
+  <div class="navbar">
+    <div class="brand">
+      <img src="assets/brand/logo.png" alt="In the Wake"/>
+      <div class="brand-title">In the Wake <span class="version-badge">v2.086</span></div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="cruise-lines.html" aria-current="page">Cruise Lines</a>
+      <a href="ports.html">Ports</a>
+      <a href="restaurants.html">Restaurants</a>
+      <a href="drinks.html">Drinks</a>
+      <a href="packing.html">Packing</a>
+      <a href="disability.html">Disability</a>
+    </nav>
+  </div>
+
+  <div class="hero" role="img" aria-label="Wake at sea">
+    <div class="latlon-grid" aria-hidden="true">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+        <g class="grid-lines" stroke-width="0.35">
+          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+          <line x1="90" y1="0" x2="90" y2="60"/>
+          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+        </g>
+      </svg>
+    </div>
+    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
+    <div class="hero-title">
+      <img class="logo" src="assets/logo_wake.png" alt="In the Wake">
+      <div class="tagline">Browse Cruise Lines & Fleets</div>
+    </div>
+  </div>
+
+  <!-- Mega nav goes here, below the hero -->
+  <nav id="megaNav" class="mega-nav" aria-label="Cruise lines navigation">
+    <ul class="lvl-1" role="menubar"></ul>
+  </nav>
+</header>
+
+<main class="page-wrap">
+  <!-- Section A: Browse by Group -->
+  <section id="by-group" class="card">
+    <h2>Browse by Cruise Group</h2>
+    <div id="group-grid" class="index-grid"></div>
+  </section>
+
+  <!-- Section B: Browse by Class (populated when a brand is selected) -->
+  <section id="by-class" class="card">
+    <h2>Browse by Ship Class</h2>
+    <div id="class-grid" class="index-grid"></div>
+  </section>
+
+  <!-- Section C: All Ships (A–Z) -->
+  <section id="all-ships" class="card">
+    <h2>All Ships (A–Z)</h2>
+    <div style="display:flex; gap:.5rem; flex-wrap:wrap; margin:.5rem 0">
+      <input id="shipSearch" type="search" placeholder="Search ships…" class="index-pill" style="flex:1; min-width:200px">
+      <select id="filterBrand" class="index-pill"></select>
+      <select id="filterClass" class="index-pill"></select>
+      <select id="filterYear" class="index-pill">
+        <option value="">Year (any)</option>
+      </select>
+    </div>
+    <div id="ship-list" class="index-grid"></div>
+  </section>
+
+  <!-- Section D: Featured -->
+  <section id="featured" class="card">
+    <h2>Featured Today</h2>
+    <div id="featured-rows" class="index-grid"></div>
+  </section>
+
+  <!-- Section E: Former/Heritage (collapsed) -->
+  <section id="heritage" class="card">
+    <details>
+      <summary><strong>Former / Heritage Fleets</strong></summary>
+      <div id="heritage-list" class="index-grid" style="margin-top:.6rem"></div>
+    </details>
+  </section>
+</main>
+
+<footer class="footer">
+  <div>In the Wake — A Cruise Traveler’s Logbook</div>
+</footer>
+
+<script type="module" src="assets/js/mega-nav.js"></script>
+<script type="module">
+// cruise-lines page wiring (reads the same fleets.json)
+const DATA_URL = 'assets/data/fleets.json';
+const q = s => document.querySelector(s);
+
+function cardLink(title, href, tiny) {
+  const d = document.createElement('div'); d.className='index-card';
+  d.innerHTML = `<h3>${title}</h3>${tiny?`<p class="tiny">${tiny}</p>`:''}<p><a href="${href}"><strong>Open</strong></a></p>`;
+  return d;
+}
+
+fetch(DATA_URL).then(r=>r.json()).then(data=>{
+  // Section A: Groups grid
+  const ggrid = q('#group-grid');
+  data.groups.forEach(g=>{
+    ggrid.appendChild(cardLink(g.name, `cruise-lines.html#${g.slug}`, `${g.brands.length} brands`));
+  });
+
+  // Search filters (brands/classes)
+  const selBrand = q('#filterBrand'); const selClass = q('#filterClass');
+  selBrand.innerHTML = `<option value="">Brand (any)</option>` + data.groups.flatMap(g=>g.brands).map(b=>`<option value="${b.slug}">${b.name}</option>`).join('');
+  const allClasses = data.groups.flatMap(g=>g.brands.flatMap(b=> (b.classes||[]).map(c=>({brand:b.slug, name:c.name}))));
+  selClass.innerHTML = `<option value="">Class (any)</option>` + allClasses.map(c=>`<option data-brand="${c.brand}" value="${c.name}">${c.name}</option>`).join('');
+  // (Optional) populate years if you add year metadata later
+
+  // Section C: All ships list (lazy-ish)
+  const shipCards = q('#ship-list');
+  const allShips = [];
+
+  data.groups.forEach(g=>{
+    g.brands.forEach(b=>{
+      const brandName = b.name, brandSlug = b.slug;
+      if (b.classes?.length){
+        b.classes.forEach(cls=>{
+          (cls.ships||[]).forEach(s=>{
+            allShips.push({name:s, brand:brandName, brandSlug, className:cls.name});
+          });
+        });
+      } else if (b.ships?.length){
+        b.ships.forEach(s=> allShips.push({name:s, brand:brandName, brandSlug, className:''}));
+      }
+    });
+  });
+
+  function drawList(list){
+    shipCards.innerHTML = '';
+    list.sort((a,b)=>a.name.localeCompare(b.name)).forEach(s=>{
+      const d = document.createElement('div'); d.className='index-card';
+      d.innerHTML = `<h3>${s.name}</h3><p class="tiny">${s.brand}${s.className?` • ${s.className}`:''}</p><p><a href="ship.html?ship=${encodeURIComponent(s.name)}"><strong>Open ship page</strong></a></p>`;
+      shipCards.appendChild(d);
+    });
+  }
+  drawList(allShips);
+
+  // Filters
+  function applyFilters(){
+    const b = selBrand.value;
+    const c = selClass.value;
+    const term = q('#shipSearch').value.trim().toLowerCase();
+    let filtered = allShips.filter(s=>{
+      const okB = !b || s.brandSlug===b;
+      const okC = !c || s.className===c;
+      const okT = !term || s.name.toLowerCase().includes(term);
+      return okB && okC && okT;
+    });
+    drawList(filtered);
+  }
+  ['change','input'].forEach(evt=>{
+    selBrand.addEventListener(evt, applyFilters);
+    selClass.addEventListener(evt, applyFilters);
+    q('#shipSearch').addEventListener(evt, applyFilters);
+  });
+
+  // Section D: Featured
+  const featured = [];
+  for (let i=0;i<4 && i<allShips.length;i++){
+    featured.push(allShips[Math.floor(Math.random()*allShips.length)]);
+  }
+  const frows = q('#featured-rows');
+  featured.forEach(s=>{
+    const d = document.createElement('div'); d.className='index-card';
+    d.innerHTML = `<h3>${s.name}</h3><p class="tiny">${s.brand}${s.className?` • ${s.className}`:''}</p><a class="index-pill" href="ship.html?ship=${encodeURIComponent(s.name)}">View</a>`;
+    frows.appendChild(d);
+  });
+
+  // Section E: Heritage (former fleets where provided)
+  const h = q('#heritage-list');
+  data.groups.forEach(g=>{
+    g.brands.forEach(b=>{
+      if (Array.isArray(b.former) && b.former.length){
+        const d = document.createElement('div'); d.className='index-card';
+        d.innerHTML = `<h3>${b.name} — Former/Heritage</h3><ul style="margin:.5rem 0 0; padding-left:1rem"></ul>`;
+        const ul = d.querySelector('ul');
+        b.former.forEach(f=>{ const li = document.createElement('li'); li.textContent = f.name + (f.note?` — ${f.note}`:''); ul.appendChild(li); });
+        h.appendChild(d);
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
