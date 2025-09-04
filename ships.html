@@ -7,14 +7,63 @@
   <link rel="stylesheet" href="assets/styles.css?v=2.090"/>
 </head>
 <body>
+
+<!-- Header + full-bleed hero (matches index 2.x) -->
 <header class="hero-header">
   <div class="navbar">
     <div class="brand">
       <img src="assets/brand/logo.png" alt="In the Wake wordmark"/>
       <div class="brand-title">In the Wake <span class="version-badge">v2.090</span></div>
     </div>
+
+    <!-- Primary nav + MEGA MENU trigger -->
     <nav class="nav">
       <a href="index.html">Home</a>
+      <div class="nav-group">
+        <button class="nav-trigger" aria-haspopup="true" aria-expanded="false">Cruise Lines ▾</button>
+        <!-- MEGA MENU -->
+        <div class="mega" role="menu" aria-label="Cruise line index">
+          <div class="mega-col">
+            <h4>Major Lines</h4>
+            <a href="#royal-caribbean">Royal Caribbean</a>
+            <a href="#norwegian">Norwegian</a>
+            <a href="#msc">MSC Cruises</a>
+            <a href="#virgin">Virgin Voyages</a>
+            <a href="#carnival">Carnival</a>
+            <a href="#disney">Disney</a>
+            <a href="#celebrity">Celebrity</a>
+            <a href="#princess">Princess</a>
+            <a href="#holland-america">Holland America</a>
+            <a href="#cunard">Cunard</a>
+          </div>
+          <div class="mega-col">
+            <h4>Premium & Luxury</h4>
+            <a href="#azamara">Azamara</a>
+            <a href="#oceania">Oceania</a>
+            <a href="#seabourn">Seabourn</a>
+            <a href="#silversea">Silversea</a>
+            <a href="#ritz-carlton">Ritz-Carlton</a>
+            <a href="#viking">Viking</a>
+            <a href="#ponant">Ponant</a>
+            <a href="#scenic">Scenic</a>
+            <a href="#emerald">Emerald</a>
+          </div>
+          <div class="mega-col">
+            <h4>Expedition / Specialty</h4>
+            <a href="#paul-gauguin">Paul Gauguin</a>
+            <a href="#star-clippers">Star Clippers</a>
+            <a href="#atlas">Atlas Ocean Voyages</a>
+            <a href="#celestyal">Celestyal</a>
+            <a href="#costacruises">Costa</a>
+            <a href="#crystal">Crystal</a>
+            <a href="#lindblad">NatGeo-Lindblad</a>
+            <a href="#pando">P&amp;O Cruises</a>
+            <a href="#victory">Victory</a>
+            <a href="#windstar">Windstar</a>
+          </div>
+        </div>
+      </div>
+
       <a href="restaurants.html">Restaurants</a>
       <a href="ports.html">Ports</a>
       <a href="drinks.html">Drinks</a>
@@ -23,8 +72,8 @@
     </nav>
   </div>
 
-  <!-- Hero band (same pattern as index) -->
-  <div class="hero" role="img" aria-label="Ship wake at sunset">
+  <!-- Hero -->
+  <div class="hero" role="img" aria-label="Ships fleet hero">
     <div class="latlon-grid" aria-hidden="true">
       <svg viewBox="0 0 100 60" preserveAspectRatio="none">
         <g class="grid-lines" stroke-width="0.35">
@@ -41,318 +90,173 @@
     <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
     <div class="hero-title">
       <img class="logo" src="assets/logo_wake.png" alt="In the Wake">
-      <div class="tagline">A Cruise Traveler’s Logbook</div>
+      <div class="tagline">Fleet Guide</div>
     </div>
   </div>
 </header>
 
-<main class="page-wrap" id="top">
-  <section class="grid" style="grid-template-columns: 280px 1fr; gap: 1rem;">
-    <!-- Sticky Jump Nav -->
-    <aside class="card" style="position:sticky; top:12px; align-self:start">
-      <h3>Cruise Lines</h3>
-      <ul style="list-style:none; padding:0; margin:0">
-        <li><a href="#rci">Royal Caribbean International</a></li>
-        <li><a href="#azamara">Azamara</a></li>
-        <li><a href="#carnival">Carnival Cruise Line</a></li>
-        <li><a href="#disney">Disney Cruise Line</a></li>
-        <li><a href="#celebrity">Celebrity Cruises</a></li>
-        <!-- Scaffold for future brands (coming soon) -->
-        <li><span class="tiny">+ More lines coming (MSC, NCL, Virgin, etc.)</span></li>
-      </ul>
-    </aside>
+<main class="page-wrap">
 
-    <section>
-      <!-- Royal Caribbean -->
-      <div class="card" id="rci">
-        <h2>Royal Caribbean International</h2>
-        <p class="tiny">Organized by class, newest → oldest. Former vessels are flagged as <strong>Historical Ship</strong>.</p>
+  <!-- ROYAL CARIBBEAN — fully grouped by class with anchors -->
+  <section id="royal-caribbean">
+    <h2>Royal Caribbean International</h2>
 
-        <!-- Icon Class -->
-        <h3>Icon Class</h3>
-        <div class="grid">
-          <div class="card"><h3><a href="icon-of-the-seas.html">Icon of the Seas</a></h3></div>
-          <div class="card"><h3><a href="star-of-the-seas.html">Star of the Seas</a></h3></div>
-        </div>
+    <!-- Class quick jump -->
+    <div class="class-pills">
+      <a href="#rc-icon"   class="pill">Icon Class</a>
+      <a href="#rc-oasis"  class="pill">Oasis Class</a>
+      <a href="#rc-quantum"class="pill">Quantum Class</a>
+      <a href="#rc-freedom"class="pill">Freedom Class</a>
+      <a href="#rc-radiance"class="pill">Radiance Class</a>
+      <a href="#rc-voyager"class="pill">Voyager Class</a>
+      <a href="#rc-vision" class="pill">Vision Class</a>
+      <a href="#rc-historical" class="pill outline">Historical</a>
+    </div>
 
-        <!-- Oasis Class -->
-        <h3>Oasis Class</h3>
-        <div class="grid">
-          <div class="card"><h3><a href="utopia-of-the-seas.html">Utopia of the Seas</a></h3></div>
-          <div class="card"><h3><a href="wonder-of-the-seas.html">Wonder of the Seas</a></h3></div>
-          <div class="card"><h3><a href="symphony-of-the-seas.html">Symphony of the Seas</a></h3></div>
-          <div class="card"><h3><a href="harmony-of-the-seas.html">Harmony of the Seas</a></h3></div>
-          <div class="card"><h3><a href="allure-of-the-seas.html">Allure of the Seas</a></h3></div>
-          <div class="card"><h3><a href="oasis-of-the-seas.html">Oasis of the Seas</a></h3></div>
-        </div>
+    <!-- ICON -->
+    <h3 id="rc-icon">Icon Class</h3>
+    <div class="grid">
+      <div class="card"><h4><a href="icon-of-the-seas.html">Icon of the Seas</a></h4></div>
+      <div class="card"><h4><span class="to-verify">Star of the Seas</span></h4><p class="tiny">Coming soon</p></div>
+    </div>
 
-        <!-- Quantum Class -->
-        <h3>Quantum Class</h3>
-        <div class="grid">
-          <div class="card"><h3><a href="odyssey-of-the-seas.html">Odyssey of the Seas</a></h3></div>
-          <div class="card"><h3><a href="spectrum-of-the-seas.html">Spectrum of the Seas</a></h3></div>
-          <div class="card"><h3><a href="ovation-of-the-seas.html">Ovation of the Seas</a></h3></div>
-          <div class="card"><h3><a href="anthem-of-the-seas.html">Anthem of the Seas</a></h3></div>
-          <div class="card"><h3><a href="quantum-of-the-seas.html">Quantum of the Seas</a></h3></div>
-        </div>
+    <!-- OASIS -->
+    <h3 id="rc-oasis">Oasis Class</h3>
+    <div class="grid">
+      <div class="card"><h4><a href="utopia-of-the-seas.html">Utopia of the Seas</a></h4></div>
+      <div class="card"><h4><span class="to-verify">Wonder of the Seas</span></h4></div>
+      <div class="card"><h4><a href="symphony-of-the-seas.html">Symphony of the Seas</a></h4></div>
+      <div class="card"><h4><a href="harmony-of-the-seas.html">Harmony of the Seas</a></h4></div>
+      <div class="card"><h4><a href="allure-of-the-seas.html">Allure of the Seas</a></h4></div>
+      <div class="card"><h4><a href="oasis-of-the-seas.html">Oasis of the Seas</a></h4></div>
+    </div>
 
-        <!-- Freedom Class -->
-        <h3>Freedom Class</h3>
-        <div class="grid">
-          <div class="card"><h3><a href="independence-of-the-seas.html">Independence of the Seas</a></h3></div>
-          <div class="card"><h3><a href="liberty-of-the-seas.html">Liberty of the Seas</a></h3></div>
-          <div class="card"><h3><a href="freedom-of-the-seas.html">Freedom of the Seas</a></h3></div>
-        </div>
+    <!-- QUANTUM -->
+    <h3 id="rc-quantum">Quantum Class</h3>
+    <div class="grid">
+      <div class="card"><h4><a href="odyssey-of-the-seas.html">Odyssey of the Seas</a></h4></div>
+      <div class="card"><h4><a href="spectrum-of-the-seas.html">Spectrum of the Seas</a></h4></div>
+      <div class="card"><h4><a href="ovation-of-the-seas.html">Ovation of the Seas</a></h4></div>
+      <div class="card"><h4><a href="anthem-of-the-seas.html">Anthem of the Seas</a></h4></div>
+      <div class="card"><h4><a href="quantum-of-the-seas.html">Quantum of the Seas</a></h4></div>
+    </div>
 
-        <!-- Radiance Class -->
-        <h3>Radiance Class</h3>
-        <div class="grid">
-          <div class="card"><h3><a href="jewel-of-the-seas.html">Jewel of the Seas</a></h3></div>
-          <div class="card"><h3><a href="serenade-of-the-seas.html">Serenade of the Seas</a></h3></div>
-          <div class="card"><h3><a href="brilliance-of-the-seas.html">Brilliance of the Seas</a></h3></div>
-          <div class="card"><h3><a href="radiance-of-the-seas.html">Radiance of the Seas</a></h3></div>
-        </div>
+    <!-- FREEDOM -->
+    <h3 id="rc-freedom">Freedom Class</h3>
+    <div class="grid">
+      <div class="card"><h4><a href="independence-of-the-seas.html">Independence of the Seas</a></h4></div>
+      <div class="card"><h4><a href="liberty-of-the-seas.html">Liberty of the Seas</a></h4></div>
+      <div class="card"><h4><a href="freedom-of-the-seas.html">Freedom of the Seas</a></h4></div>
+    </div>
 
-        <!-- Voyager Class -->
-        <h3>Voyager Class</h3>
-        <div class="grid">
-          <div class="card"><h3><a href="mariner-of-the-seas.html">Mariner of the Seas</a></h3></div>
-          <div class="card"><h3><a href="navigator-of-the-seas.html">Navigator of the Seas</a></h3></div>
-          <div class="card"><h3><a href="adventure-of-the-seas.html">Adventure of the Seas</a></h3></div>
-          <div class="card"><h3><a href="explorer-of-the-seas.html">Explorer of the Seas</a></h3></div>
-          <div class="card"><h3><a href="voyager-of-the-seas.html">Voyager of the Seas</a></h3></div>
-        </div>
+    <!-- RADIANCE -->
+    <h3 id="rc-radiance">Radiance Class</h3>
+    <div class="grid">
+      <div class="card"><h4><a href="jewel-of-the-seas.html">Jewel of the Seas</a></h4></div>
+      <div class="card"><h4><a href="serenade-of-the-seas.html">Serenade of the Seas</a></h4></div>
+      <div class="card"><h4><a href="brilliance-of-the-seas.html">Brilliance of the Seas</a></h4></div>
+      <div class="card"><h4><a href="radiance-of-the-seas.html">Radiance of the Seas</a></h4></div>
+    </div>
 
-        <!-- Vision Class -->
-        <h3>Vision Class</h3>
-        <div class="grid">
-          <div class="card"><h3><a href="vision-of-the-seas.html">Vision of the Seas</a></h3></div>
-          <div class="card"><h3><a href="rhapsody-of-the-seas.html">Rhapsody of the Seas</a></h3></div>
-          <div class="card"><h3><a href="enchantment-of-the-seas.html">Enchantment of the Seas</a></h3></div>
-          <div class="card"><h3><a href="grandeur-of-the-seas.html">Grandeur of the Seas</a></h3></div>
-        </div>
+    <!-- VOYAGER -->
+    <h3 id="rc-voyager">Voyager Class</h3>
+    <div class="grid">
+      <div class="card"><h4><a href="mariner-of-the-seas.html">Mariner of the Seas</a></h4></div>
+      <div class="card"><h4><a href="navigator-of-the-seas.html">Navigator of the Seas</a></h4></div>
+      <div class="card"><h4><a href="adventure-of-the-seas.html">Adventure of the Seas</a></h4></div>
+      <div class="card"><h4><a href="explorer-of-the-seas.html">Explorer of the Seas</a></h4></div>
+      <div class="card"><h4><a href="voyager-of-the-seas.html">Voyager of the Seas</a></h4></div>
+    </div>
 
-        <!-- Former / Historical -->
-        <h3>Historical Royal Caribbean Ships</h3>
-        <div class="grid">
-          <!-- Sovereign Class -->
-          <div class="card"><h3>Sovereign of the Seas <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Monarch of the Seas <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3><a href="majesty-of-the-seas.html">Majesty of the Seas</a> <span class="tiny">(Historical Ship)</span></h3></div>
-          <!-- Vision class sold -->
-          <div class="card"><h3>Legend of the Seas <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Splendour of the Seas <span class="tiny">(Historical Ship)</span></h3></div>
-          <!-- Empress -->
-          <div class="card"><h3>Empress of the Seas <span class="tiny">(Historical Ship)</span></h3></div>
-          <!-- Early fleet -->
-          <div class="card"><h3>Song of Norway <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Nordic Prince <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Sun Viking <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Song of America <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Viking Serenade <span class="tiny">(Historical Ship)</span></h3></div>
-        </div>
-        <p class="tiny"><a href="#top">Back to top</a></p>
-      </div>
+    <!-- VISION -->
+    <h3 id="rc-vision">Vision Class</h3>
+    <div class="grid">
+      <div class="card"><h4><a href="vision-of-the-seas.html">Vision of the Seas</a></h4></div>
+      <div class="card"><h4><a href="rhapsody-of-the-seas.html">Rhapsody of the Seas</a></h4></div>
+      <div class="card"><h4><a href="enchantment-of-the-seas.html">Enchantment of the Seas</a></h4></div>
+      <div class="card"><h4><a href="grandeur-of-the-seas.html">Grandeur of the Seas</a></h4></div>
+    </div>
 
-      <!-- Azamara -->
-      <div class="card" id="azamara">
-        <h2>Azamara</h2>
-        <h3>R-class</h3>
-        <div class="grid">
-          <div class="card"><h3>Azamara Journey</h3><p class="tiny">Built 2000 (ex R Six / Blue Dream). Joined Azamara 2007.</p></div>
-          <div class="card"><h3>Azamara Quest</h3><p class="tiny">Built 2000 (ex R Seven / Blue Moon). Joined Azamara 2007.</p></div>
-          <div class="card"><h3>Azamara Pursuit</h3><p class="tiny">Built 2001 (ex R Eight / Adonia). Joined Azamara 2018.</p></div>
-          <div class="card"><h3>Azamara Onward</h3><p class="tiny">Built 1999 (ex R Three / Pacific Princess). Joined 2022.</p></div>
-        </div>
-        <p class="tiny"><a href="#top">Back to top</a></p>
-      </div>
-
-      <!-- Carnival -->
-      <div class="card" id="carnival">
-        <h2>Carnival Cruise Line</h2>
-
-        <h3>Excel Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Carnival Jubilee (2023)</h3></div>
-          <div class="card"><h3>Carnival Celebration (2022)</h3></div>
-          <div class="card"><h3>Mardi Gras (2021)</h3></div>
-        </div>
-
-        <h3>Venice Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Carnival Firenze (2024)</h3></div>
-          <div class="card"><h3>Carnival Venezia (2023)</h3></div>
-        </div>
-
-        <h3>Vista Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Carnival Panorama (2019)</h3></div>
-          <div class="card"><h3>Carnival Horizon (2018)</h3></div>
-          <div class="card"><h3>Carnival Vista (2016)</h3></div>
-        </div>
-
-        <h3>Dream Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Carnival Breeze (2012)</h3></div>
-          <div class="card"><h3>Carnival Magic (2011)</h3></div>
-          <div class="card"><h3>Carnival Dream (2009)</h3></div>
-        </div>
-
-        <h3>Splendor Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Carnival Splendor (2008)</h3></div>
-        </div>
-
-        <h3>Conquest Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Carnival Freedom (2007)</h3></div>
-          <div class="card"><h3>Carnival Liberty (2005)</h3></div>
-          <div class="card"><h3>Carnival Valor (2004)</h3></div>
-          <div class="card"><h3>Carnival Glory (2003)</h3></div>
-          <div class="card"><h3>Carnival Conquest (2002)</h3></div>
-        </div>
-
-        <h3>Spirit Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Carnival Luminosa (2022)</h3><p class="tiny">ex-Costa Luminosa</p></div>
-          <div class="card"><h3>Carnival Miracle (2004)</h3></div>
-          <div class="card"><h3>Carnival Legend (2002)</h3></div>
-          <div class="card"><h3>Carnival Pride (2002)</h3></div>
-          <div class="card"><h3>Carnival Spirit (2001)</h3></div>
-        </div>
-
-        <h3>Sunshine Class (refits)</h3>
-        <div class="grid">
-          <div class="card"><h3>Carnival Radiance (2021)</h3><p class="tiny">rebuilt from Carnival Victory</p></div>
-          <div class="card"><h3>Carnival Sunrise (2019)</h3><p class="tiny">rebuilt from Carnival Triumph</p></div>
-          <div class="card"><h3>Carnival Sunshine (2013)</h3><p class="tiny">rebuilt from Carnival Destiny</p></div>
-        </div>
-
-        <h3>Fantasy Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Carnival Paradise (1998)</h3></div>
-          <div class="card"><h3>Carnival Elation (1998)</h3></div>
-        </div>
-
-        <h3>Future</h3>
-        <div class="grid">
-          <div class="card"><h3>Carnival Adventure (2025)</h3><p class="tiny">Coming Soon</p></div>
-          <div class="card"><h3>Carnival Encounter (2025)</h3><p class="tiny">Coming Soon</p></div>
-          <div class="card"><h3>Carnival Festivale (2027)</h3><p class="tiny">Coming Soon</p></div>
-          <div class="card"><h3>Carnival Tropicale (2028)</h3><p class="tiny">Coming Soon</p></div>
-        </div>
-
-        <h3>Historical Carnival Ships</h3>
-        <div class="grid">
-          <div class="card"><h3>Celebration <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Jubilee <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Holiday <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Carnival Ecstasy <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Carnival Sensation <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Carnival Fascination <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Carnival Imagination <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Carnival Inspiration <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Carnival Fantasy <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Mardi Gras (1972) <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Carnivale <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Festivale <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Tropicale (1982) <span class="tiny">(Historical Ship)</span></h3></div>
-        </div>
-        <p class="tiny"><a href="#top">Back to top</a></p>
-      </div>
-
-      <!-- Disney -->
-      <div class="card" id="disney">
-        <h2>Disney Cruise Line</h2>
-
-        <h3>Wish Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Disney Treasure (2024)</h3></div>
-          <div class="card"><h3>Disney Wish (2022)</h3></div>
-        </div>
-
-        <h3>Dream Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Disney Fantasy (2012)</h3></div>
-          <div class="card"><h3>Disney Dream (2011)</h3></div>
-        </div>
-
-        <h3>Magic Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Disney Wonder (1999)</h3></div>
-          <div class="card"><h3>Disney Magic (1998)</h3></div>
-        </div>
-
-        <h3>Upcoming</h3>
-        <div class="grid">
-          <div class="card"><h3>Disney Destiny (2025)</h3><p class="tiny">Scheduled Nov 2025</p></div>
-          <div class="card"><h3>Disney Adventure (2025)</h3><p class="tiny">Singapore, Dec 2025</p></div>
-        </div>
-        <p class="tiny"><a href="#top">Back to top</a></p>
-      </div>
-
-      <!-- Celebrity -->
-      <div class="card" id="celebrity">
-        <h2>Celebrity Cruises</h2>
-
-        <h3>Edge Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Celebrity Xcel (2025)</h3></div>
-          <div class="card"><h3>Celebrity Ascent (2023)</h3></div>
-          <div class="card"><h3>Celebrity Beyond (2022)</h3></div>
-          <div class="card"><h3>Celebrity Apex (2020)</h3></div>
-          <div class="card"><h3>Celebrity Edge (2018)</h3></div>
-        </div>
-
-        <h3>Solstice Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Celebrity Reflection (2012)</h3></div>
-          <div class="card"><h3>Celebrity Silhouette (2011)</h3></div>
-          <div class="card"><h3>Celebrity Eclipse (2010)</h3></div>
-          <div class="card"><h3>Celebrity Equinox (2009)</h3></div>
-          <div class="card"><h3>Celebrity Solstice (2008)</h3></div>
-        </div>
-
-        <h3>Millennium Class</h3>
-        <div class="grid">
-          <div class="card"><h3>Celebrity Constellation (2002)</h3></div>
-          <div class="card"><h3>Celebrity Summit (2001)</h3></div>
-          <div class="card"><h3>Celebrity Infinity (2001)</h3></div>
-          <div class="card"><h3>Celebrity Millennium (2000)</h3></div>
-        </div>
-
-        <h3>Expedition (Galápagos)</h3>
-        <div class="grid">
-          <div class="card"><h3>Celebrity Flora (2019)</h3></div>
-        </div>
-
-        <h3>Historical Celebrity Ships</h3>
-        <div class="grid">
-          <div class="card"><h3>Celebrity Xpedition <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Celebrity Xploration <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Celebrity Xperience <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Celebrity Century <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Celebrity Mercury <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Celebrity Galaxy <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Zenith <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Horizon <span class="tiny">(Historical Ship)</span></h3></div>
-          <div class="card"><h3>Meridian <span class="tiny">(Historical Ship)</span></h3></div>
-        </div>
-        <p class="tiny"><a href="#top">Back to top</a></p>
-      </div>
-
-      <!-- Coming soon scaffold for the rest -->
-      <div class="card">
-        <h2>More Cruise Lines</h2>
-        <p class="tiny">Placeholders created for: American Cruise Lines, Atlas Ocean Voyages, Celestyal, Costa, Crystal, Cunard, Emerald, Explora, Holland America, Hurtigruten, HX, MSC, National Geographic–Lindblad, Norwegian, Oceania, P&O, Paul Gauguin, Ponant, Princess, Quark, Regent, Ritz-Carlton, Scenic, Seabourn, SeaDream, Silversea, Star Clippers, Victory, Viking, Virgin Voyages, Windstar.</p>
-        <p class="tiny">We’ll populate these in the next passes with class groupings, links, and Historical flags as applicable.</p>
-      </div>
-    </section>
+    <!-- HISTORICAL -->
+    <h3 id="rc-historical">Historical</h3>
+    <div class="grid">
+      <div class="card"><h4><a href="majesty-of-the-seas.html">Majesty of the Seas</a> <span class="tiny">(Historical)</span></h4></div>
+      <div class="card"><h4><span class="historical">Sovereign of the Seas</span></h4></div>
+      <div class="card"><h4><span class="historical">Monarch of the Seas</span></h4></div>
+      <div class="card"><h4><span class="historical">Legend of the Seas</span></h4></div>
+      <div class="card"><h4><span class="historical">Splendour of the Seas</span></h4></div>
+      <div class="card"><h4><span class="historical">Empress of the Seas</span></h4></div>
+      <div class="card"><h4><span class="historical">Song of Norway</span></h4></div>
+      <div class="card"><h4><span class="historical">Nordic Prince</span></h4></div>
+      <div class="card"><h4><span class="historical">Sun Viking</span></h4></div>
+      <div class="card"><h4><span class="historical">Song of America</span></h4></div>
+      <div class="card"><h4><span class="historical">Viking Serenade</span></h4></div>
+    </div>
   </section>
+
+  <!-- NCL / MSC / Virgin — section headers (we’ll populate ship lists next pass) -->
+  <section id="norwegian"><h2>Norwegian Cruise Line</h2><p class="tiny">Classes & ships coming online here next.</p></section>
+  <section id="msc"><h2>MSC Cruises</h2><p class="tiny">Classes & ships coming online here next.</p></section>
+  <section id="virgin"><h2>Virgin Voyages</h2><p class="tiny">Classes & ships coming online here next.</p></section>
+
+  <!-- The rest of your requested cruise lines (scaffolded) -->
+  <section id="american-cruise-lines"><h2>American Cruise Lines</h2></section>
+  <section id="atlas"><h2>Atlas Ocean Voyages</h2></section>
+  <section id="azamara"><h2>Azamara</h2></section>
+  <section id="carnival"><h2>Carnival Cruise Line</h2></section>
+  <section id="celebrity"><h2>Celebrity Cruises</h2></section>
+  <section id="celestyal"><h2>Celestyal Cruises</h2></section>
+  <section id="costacruises"><h2>Costa Cruises</h2></section>
+  <section id="crystal"><h2>Crystal Cruises</h2></section>
+  <section id="cunard"><h2>Cunard Line</h2></section>
+  <section id="disney"><h2>Disney Cruise Line</h2></section>
+  <section id="emerald"><h2>Emerald Cruises</h2></section>
+  <section id="explora"><h2>Explora Journeys</h2></section>
+  <section id="holland-america"><h2>Holland America Line</h2></section>
+  <section id="hurtigruten"><h2>Hurtigruten</h2></section>
+  <section id="hx"><h2>HX</h2></section>
+  <section id="lindblad"><h2>National Geographic–Lindblad</h2></section>
+  <section id="oceania"><h2>Oceania Cruises</h2></section>
+  <section id="pando"><h2>P&amp;O Cruises</h2></section>
+  <section id="paul-gauguin"><h2>Paul Gauguin Cruises</h2></section>
+  <section id="ponant"><h2>Ponant</h2></section>
+  <section id="princess"><h2>Princess Cruises</h2></section>
+  <section id="quark"><h2>Quark Expeditions</h2></section>
+  <section id="regent"><h2>Regent Seven Seas Cruises</h2></section>
+  <section id="ritz-carlton"><h2>Ritz-Carlton Yacht Collection</h2></section>
+  <section id="scenic"><h2>Scenic Luxury Cruises &amp; Tours</h2></section>
+  <section id="seabourn"><h2>Seabourn</h2></section>
+  <section id="seadream"><h2>SeaDream Yacht Club</h2></section>
+  <section id="silversea"><h2>Silversea Cruises</h2></section>
+  <section id="star-clippers"><h2>Star Clippers</h2></section>
+  <section id="victory"><h2>Victory Cruise Lines</h2></section>
+  <section id="viking"><h2>Viking</h2></section>
+  <section id="windstar"><h2>Windstar Cruises</h2></section>
+
 </main>
 
 <footer class="footer">
   <div>In the Wake — A Cruise Traveler’s Logbook</div>
 </footer>
+
+<script>
+/* Mega menu: open on hover/focus, close on leave/blur */
+(function(){
+  const trigger = document.querySelector('.nav-trigger');
+  const mega = document.querySelector('.mega');
+  if (!trigger || !mega) return;
+
+  const open = () => { mega.classList.add('open'); trigger.setAttribute('aria-expanded','true'); };
+  const close = () => { mega.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); };
+
+  trigger.addEventListener('mouseenter', open);
+  trigger.addEventListener('focus', open);
+  trigger.addEventListener('click', (e)=>{ e.preventDefault(); mega.classList.toggle('open'); });
+
+  mega.addEventListener('mouseleave', close);
+  trigger.addEventListener('blur', close);
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
+})();
+</script>
 </body>
 </html>
