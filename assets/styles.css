@@ -1,7 +1,6 @@
-/* ===== In the Wake — Unified Styles (v2.086) ===== */
+/* ===== In the Wake — Unified Styles (v2.086.1) ===== */
 :root{
   --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-
   /* Grid / compass tuning */
   --grid-stroke: rgba(255,255,255,.24);
   --grid-label: rgba(255,255,255,.85);
@@ -19,14 +18,32 @@ a{ color:var(--accent); text-decoration:none }
 a:hover{ text-decoration:underline }
 img{ max-width:100%; height:auto; display:block }
 
-/* --- v2.085 index refinements that remain relevant --- */
-.hero-compass{
-  /* blue-gray tint + drop shadow */
-  filter: hue-rotate(185deg) saturate(60%) brightness(0.95) drop-shadow(0 2px 6px rgba(0,0,0,.25));
-}
+/* Header + Nav */
+.hero-header{ position:relative; border-bottom:6px double var(--rope); background:#eaf6f6 }
+.navbar{ max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:.6rem; padding:.5rem .9rem }
+.brand{ display:flex; align-items:center; gap:.6rem }
+.brand img{ height:28px; width:auto }
+.brand-title{ font-weight:700; color:var(--ink); font-size:.95rem }
+.version-badge{ font-size:.72rem; opacity:.8; margin-left:.35rem }
+.nav{ margin-left:auto; display:flex; gap:.5rem; flex-wrap:wrap }
+.nav a{ padding:.35rem .7rem; border-radius:10px; border:1px dashed var(--rope); background:#fff; font-size:.9rem }
 
-/* SVG grid & label tuning (works with inline <style> in HTML) */
-.hero .latlon-grid .grid-lines{ stroke: var(--grid-stroke); }
+/* Full-bleed hero (no hockey stick overlays) */
+.hero{
+  position:relative;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  min-height:clamp(200px, 24vw, 340px); /* slimmer band, horizon centered */
+  background:url('index_hero.jpg') 50% 50% / cover no-repeat; /* CSS file is /assets/styles.css */
+  display:flex; align-items:flex-end;
+  overflow:hidden; isolation:isolate;
+}
+.hero::before,.hero::after{ content:none !important }
+
+/* Grid container & labels */
+.latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none }
+.latlon-grid svg{ width:100%; height:100% }
+.hero .latlon-grid .grid-lines{ stroke: var(--grid-stroke); vector-effect:non-scaling-stroke }
 .hero .latlon-grid .grid-labels text{
   fill: var(--grid-label);
   paint-order: stroke;
@@ -34,84 +51,48 @@ img{ max-width:100%; height:auto; display:block }
   stroke-width: .4px;
   vector-effect: non-scaling-stroke;
   letter-spacing: .2px;
+  font-size: 2.2px; /* base size */
 }
+@media (max-width:900px){ .hero .latlon-grid .grid-labels text{ font-size: 2.0px } }
+@media (max-width:700px){ .hero .latlon-grid .grid-labels text{ font-size: 1.9px } }
+@media (max-width:520px){ .hero .latlon-grid .grid-labels text{ font-size: 1.7px } }
 
-/* Keep labels appropriately small across widths */
-@media (max-width:1200px){ .hero .latlon-grid .grid-labels text{ font-size:2.8px } }
-@media (max-width: 900px){ .hero .latlon-grid .grid-labels text{ font-size:2.6px } }
-@media (max-width: 700px){ .hero .latlon-grid .grid-labels text{ font-size:2.4px } }
-@media (max-width: 520px){ .hero .latlon-grid .grid-labels text{ font-size:2.2px } }
-
-/* Header + Nav */
-.hero-header{
-  position:relative; border-bottom:6px double var(--rope); background:#eaf6f6;
-}
-.navbar{
-  max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:.6rem; padding:.5rem .9rem;
-}
-.brand{ display:flex; align-items:center; gap:.6rem }
-.brand img{ height:28px; width:auto }
-.brand-title{ font-weight:700; color:var(--ink); font-size:.95rem }
-.version-badge{ font-size:.72rem; opacity:.8; margin-left:.35rem }
-.nav{ margin-left:auto; display:flex; gap:.5rem; flex-wrap:wrap }
-.nav a{
-  padding:.35rem .7rem; border-radius:10px; border:1px dashed var(--rope); background:#fff; font-size:.9rem;
-}
-
-/* Full-bleed hero (no hockey stick overlays) — single, correct definition */
-.hero{
-  position:relative;
-  width:100vw;
-  margin-left:calc(50% - 50vw);
-  min-height:clamp(200px, 24vw, 340px); /* slimmer band, horizon centered */
-  background:url('index_hero.jpg') 50% 50%/cover no-repeat; /* correct path from /assets/styles.css */
-  display:flex; align-items:flex-end;
-  overflow:hidden; isolation:isolate;
-}
-.hero::before,.hero::after{ content:none !important }
-
-.latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none }
-.latlon-grid svg{ width:100%; height:100% }
-
+/* Compass (tinted to reference blue/gray) */
 .hero-compass{
   position:absolute; right:min(3vw,1rem); top:.5rem;
   width:86px; opacity:.95; z-index:2;
-  /* keep previous visual tint too */
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.25)) var(--compass-tint);
+  filter: var(--compass-tint) drop-shadow(0 2px 6px rgba(0,0,0,.25));
 }
 
+/* Ship lockup + tagline */
 .hero-title{
-  position:absolute; left:min(3vw,1rem); bottom:.8rem; z-index:3;
-  display:flex; align-items:flex-end; gap:.6rem;
+  position:absolute; left:min(3vw,1rem); bottom:clamp(.6rem,2vw,1.4rem);
+  z-index:3; display:flex; align-items:flex-end; gap:.6rem;
   text-shadow:0 2px 6px rgba(0,0,0,.45);
 }
-.hero-title .logo{ width:clamp(180px,18vw,360px); filter:drop-shadow(0 3px 8px rgba(0,0,0,.45)) }
-.hero-title .tagline{ color:#e6f4f8; font-weight:600; opacity:.95 }
-
-/* Optional lat/long readout (if present) */
-.latlong{
-  position:absolute; left:min(3vw,1.2rem); top:.5rem; color:#e6f4f8; opacity:.9;
-  font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,.35); z-index:3;
+.hero-title .logo{
+  width:clamp(189px, 23.1vw, 378px); /* ~+5% */
+  max-width:min(45vw, 520px);
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));
+}
+.hero .tagline{
+  position:absolute; left:50%; transform:translateX(-50%);
+  bottom:clamp(.55rem,1.6vw,1.1rem);
+  font-weight:700; letter-spacing:.2px; color:#e6f4f8;
+  text-shadow:0 2px 6px rgba(0,0,0,.45);
+  font-size:clamp(.9rem,1.5vw,1.35rem); white-space:nowrap; z-index:3;
 }
 
 /* Content + cards */
 .page-wrap{ max-width:1100px; margin:0 auto; padding:20px 14px 36px }
-.card{
-  background:#fff; border:2px solid var(--rope); border-radius:14px; padding:1rem; margin:.8rem 0;
-  box-shadow:0 2px 6px rgba(8,48,65,.08);
-}
+.card{ background:#fff; border:2px solid var(--rope); border-radius:14px; padding:1rem; margin:.8rem 0; box-shadow:0 2px 6px rgba(8,48,65,.08) }
 h1,h2,h3{ color:var(--sea) }
 .index-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; margin:1rem 0 2rem }
-.index-card{
-  background:#fff; border:2px solid var(--rope); border-radius:14px; box-shadow:0 2px 6px rgba(8,48,65,.08); padding:1rem;
-}
+.index-card{ background:#fff; border:2px solid var(--rope); border-radius:14px; box-shadow:0 2px 6px rgba(8,48,65,.08); padding:1rem }
 .index-card h3{ margin-top:0; color:var(--sea) }
 .index-card ul{ list-style:none; margin:.5rem 0 0; padding:0 }
 .index-card li{ margin:.35rem 0 }
-.index-pill{
-  display:inline-block; background:#e6f4f8; border:1px solid var(--rope); padding:.2rem .55rem;
-  border-radius:999px; font-size:.85rem; margin:.2rem .2rem 0 0;
-}
+.index-pill{ display:inline-block; background:#e6f4f8; border:1px solid var(--rope); padding:.2rem .55rem; border-radius:999px; font-size:.85rem; margin:.2rem .2rem 0 0 }
 .tiny{ font-size:.85rem; color:#2a5b6e }
 .feature-ship{ display:grid; grid-template-columns:1fr 1fr; gap:1rem }
 .feature-ship .card{ margin:0 }
@@ -121,58 +102,9 @@ h1,h2,h3{ color:var(--sea) }
 .hockey-stick,.masthead-stripe,.header-stripe,
 header.site-header::before, header.site-header::after{ display:none !important }
 
-/* Responsive tweaks */
+/* Responsive tweak */
 @media (max-width:900px){ .feature-ship{ grid-template-columns:1fr } }
 @media (max-width:600px){
-  .hero{ min-height:clamp(170px, 30vw, 300px) }
-  .hero-title .logo{ width:clamp(170px, 36vw, 320px) }
+  .hero{ min-height:clamp(170px,30vw,300px) }
+  .hero-title .logo{ width:clamp(170px,36vw,320px) }
 }
-
-/* ===== v2.085.1 – Index hero refinements ===== */
-
-/* 1) Compass tint & subtle outline */
-.hero-compass{
-  filter: hue-rotate(185deg) saturate(60%) brightness(0.95)
-          drop-shadow(0 2px 6px rgba(0,0,0,.25));
-  opacity: .95;
-}
-
-/* 2) Ship lockup: nudge down +5% size, always contained */
-.hero-title{
-  position:absolute; left: min(3vw,1rem); bottom: clamp(.6rem, 2vw, 1.4rem);
-  z-index:3; display:flex; align-items:flex-end; gap:.6rem;
-}
-.hero-title .logo{
-  /* +5% vs prior */
-  width: clamp(189px, 23.1vw, 378px);
-  max-width: min(45vw, 520px);
-  filter: drop-shadow(0 3px 8px rgba(0,0,0,.45));
-}
-
-/* Keep the lockup inside the hero at all sizes */
-.hero{ overflow: hidden }
-
-/* 3) Lat/long tick label size: slightly smaller again */
-.hero .latlon-grid .grid-labels text{ font-size: 2.2px; }
-@media (max-width: 900px){ .hero .latlon-grid .grid-labels text{ font-size: 2.0px } }
-@media (max-width: 700px){ .hero .latlon-grid .grid-labels text{ font-size: 1.9px } }
-@media (max-width: 520px){ .hero .latlon-grid .grid-labels text{ font-size: 1.8px } }
-
-/* 4) Tagline: 1.5x bigger & centered along bottom */
-.hero .tagline{
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: clamp(.55rem, 1.6vw, 1.1rem);
-  font-weight: 700;
-  letter-spacing: .2px;
-  color: #e6f4f8;
-  text-shadow: 0 2px 6px rgba(0,0,0,.45);
-  font-size: clamp(0.9rem, 1.5vw, 1.35rem); /* ~1.5x vs prior */
-  white-space: nowrap;
-  z-index: 3;
-}
-
-/* Optional: slightly lighter grid so numbers read but don’t dominate */
-/*.hero .latlon-grid .grid-lines{ stroke: rgba(255,255,255,.22) }*/
-
