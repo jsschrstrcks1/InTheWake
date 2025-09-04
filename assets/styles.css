@@ -184,3 +184,61 @@ header.site-header::before, header.site-header::after{ display:none !important }
   .mega-nav li.open > .flyout{ display:block }
   .mega-nav a{ border-radius:12px }
 }
+
+/* ===== Multi-level hover nav ===== */
+:root{
+  --nav-bg:#0b3f56; --nav-item:#0e6e8e; --nav-text:#f7fdff; --nav-border:rgba(255,255,255,.18);
+}
+
+.site-nav{ position:relative; background:var(--nav-bg); border-top:6px double var(--rope); border-bottom:2px solid var(--rope); }
+.site-nav .navwrap{ max-width:1100px; margin:0 auto; padding:.35rem .9rem; color:var(--nav-text); display:flex; align-items:center; gap:.6rem }
+.site-nav a{ color:var(--nav-text); text-decoration:none }
+
+/* Level 1: Groups */
+.nav-mega{ display:flex; gap:.4rem; flex-wrap:wrap; position:relative; }
+.nav-item{ position:relative; }
+.nav-btn{ display:inline-flex; align-items:center; gap:.4rem; padding:.45rem .65rem; border:1px dashed var(--nav-border); border-radius:10px; background:rgba(255,255,255,.06); font-weight:600; font-size:.92rem }
+.nav-btn:hover,.nav-item:focus-within .nav-btn{ background:rgba(255,255,255,.12) }
+
+/* common dropdown frame */
+.dropdown{ position:absolute; left:0; top:calc(100% + 6px); min-width:280px; background:#083041; border:1px solid var(--nav-border); border-radius:12px; box-shadow:0 10px 24px rgba(0,0,0,.28); padding:.4rem; z-index:30; display:none }
+.nav-item:hover > .dropdown,.nav-item:focus-within > .dropdown{ display:block }
+
+/* Level 2: Brands grid */
+.brands-grid{ display:grid; grid-template-columns:repeat(3,minmax(140px,1fr)); gap:.35rem }
+.brand-link{ display:flex; align-items:center; justify-content:space-between; padding:.5rem .55rem; border-radius:8px; background:rgba(255,255,255,.04); border:1px dashed var(--nav-border); font-weight:600 }
+.brand-link:hover{ background:rgba(255,255,255,.12) }
+.brand-link .count{ opacity:.75; font-size:.8rem }
+
+/* Level 3 & 4: flyouts */
+.fly{ position:absolute; left:100%; top:0; margin-left:.5rem; min-width:260px }
+.class-list, .ship-list{ list-style:none; margin:0; padding:0 }
+.class-item>a, .ship-item>a{ display:flex; justify-content:space-between; align-items:center; padding:.5rem .6rem; border-radius:8px; border:1px dashed var(--nav-border); background:rgba(255,255,255,.04); margin:.25rem 0 }
+.class-item>a:hover, .ship-item>a:hover{ background:rgba(255,255,255,.12) }
+
+/* Keep flyouts visible when hovering descendants */
+.brand-item{ position:relative }
+.brand-item:hover > .fly, .brand-item:focus-within > .fly,
+.class-item:hover > .fly, .class-item:focus-within > .fly{ display:block }
+
+/* Mobile: convert to tap-to-open accordions */
+@media (max-width:900px){
+  .nav-mega{ overflow-x:auto; white-space:nowrap }
+  .dropdown, .fly{ position:static; display:none; margin:0; box-shadow:none }
+  .nav-item.open > .dropdown{ display:block }
+  .class-item.open > .fly, .brand-item.open > .fly{ display:block }
+}
+
+/* ===== Cruise Lines hub cards ===== */
+.lines-hero{ background:#eaf6f6; border-bottom:6px double var(--rope) }
+.lines-wrap{ max-width:1100px; margin:0 auto; padding:18px 14px 26px }
+.group-block{ background:#fff; border:2px solid var(--rope); border-radius:14px; padding:1rem; margin:1rem 0; box-shadow:0 2px 6px rgba(8,48,65,.08) }
+.group-title{ display:flex; align-items:center; justify-content:space-between; gap:.6rem }
+.group-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:.75rem; margin-top:.6rem }
+.brand-card{ border:1px solid var(--rope); border-radius:12px; padding:.8rem; background:#fff }
+.brand-card h4{ margin:.2rem 0 .3rem; color:var(--sea) }
+.brand-card p{ margin:0; font-size:.9rem; color:#2a5b6e }
+
+/* Filter/search toolbar */
+.toolbar{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:.6rem 0 1rem }
+.toolbar input[type="search"], .toolbar select{ padding:.5
