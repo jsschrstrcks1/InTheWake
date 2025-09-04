@@ -27,6 +27,63 @@ img{max-width:100%;height:auto;display:block}
 .hero-title{position:absolute;left:min(3vw,1rem);bottom:.8rem;z-index:3;display:flex;align-items:flex-end;gap:.6rem}
 .hero-title .logo{width:clamp(180px,18vw,360px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
 
+/* --- Hero grid & labels (non-scaling) --- */
+:root{
+  --grid-stroke: rgba(255,255,255,.24);
+  --grid-label: rgba(255,255,255,.85);
+  --grid-outline: rgba(8,48,65,.35);
+  --compass-tint: invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);
+}
+
+/* keep full-bleed hero and centered horizon */
+.hero{
+  position:relative;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  min-height:clamp(180px, 24vw, 360px);
+  background:url('assets/index_hero.jpg') 50% 50% / cover no-repeat;
+  display:flex; align-items:flex-end; overflow:hidden; isolation:isolate;
+}
+
+/* grid container */
+.latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none }
+.latlon-grid svg{ width:100%; height:100% }
+
+/* compass tint to match reference blue/gray */
+.hero-compass{
+  position:absolute; right:min(3vw,1.2rem); top:.6rem; width:92px; z-index:2; opacity:.95;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.25)) var(--compass-tint);
+}
+
+/* title lockup */
+.hero-title{
+  position:absolute; left:min(3vw,1.2rem); bottom:.9rem; z-index:3;
+  text-shadow:0 2px 6px rgba(0,0,0,.45); display:flex; gap:.6rem; align-items:flex-end;
+}
+.hero-title .logo{ width:clamp(200px, 22vw, 420px); filter:drop-shadow(0 3px 8px rgba(0,0,0,.45)) }
+.hero-title .tagline{ color:#e6f4f8; font-weight:600; opacity:.95 }
+
+/* lat/long readout */
+.latlong{
+  position:absolute; left:min(3vw,1.2rem); top:.5rem; color:#e6f4f8; opacity:.9;
+  font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,.35); z-index:3;
+}
+
+/* ensure SVG label strokes don’t balloon on zoom */
+.latlon-grid .grid-lines,
+.latlon-grid .grid-labels text{ vector-effect: non-scaling-stroke; }
+
+/* optional: darker grid if hero is very bright */
+@media (prefers-color-scheme: light){
+  .latlon-grid .grid-lines{ stroke: var(--grid-stroke); }
+  .latlon-grid .grid-labels text{ fill: var(--grid-label); stroke: var(--grid-outline); }
+}
+
+@media (max-width:600px){
+  .hero{ min-height:clamp(160px, 32vw, 300px) }
+  .hero-title .logo{ width:clamp(180px, 36vw, 360px) }
+}
+
 /* Content + cards */
 .page-wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
 .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
