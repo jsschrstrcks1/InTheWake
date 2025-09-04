@@ -188,16 +188,6 @@ function attachHoverIntent(root, { openDelay = 120, closeDelay = 220 } = {}) {
       $$('#megaNav ' + levelSel + ' > li.open').forEach(li => li.classList.remove('open'));
     };
 
-    // Pointer hover open (desktop)
-    on(root, 'pointerover', e => {
-      const li = e.target.closest('.lvl-1 > li, .lvl-2 > li, .lvl-3 > li');
-      if (!li) return;
-      const ul = li.parentElement;
-      // close siblings at this level
-      Array.from(ul.children).forEach(sib => { if (sib !== li) sib.classList.remove('open'); });
-      li.classList.add('open');
-    });
-
     // Leave to close (desktop)
     on(root, 'pointerleave', () => {
       closeAllAtLevel('.lvl-1');
@@ -468,7 +458,16 @@ function attachHoverIntent(root, { openDelay = 120, closeDelay = 220 } = {}) {
     fetch(DATA_URL)
       .then(r => r.json())
       .then(json => {
-        buildMega(json);
+       buildMega(json);
+
+// NEW: delayed hover open/close for desktop
+attachHoverIntent(document.getElementById('megaNav'), {
+  openDelay: 150,
+  closeDelay: 250
+});
+
+// Optional: you can also keep the brand grid / class accordion / ships list
+renderBrandGrid(json);
 
         // Optional page helpers (execute only if mount points exist)
         renderBrandGrid(json);
@@ -502,9 +501,4 @@ function attachHoverIntent(root, delay = 200) {
   });
 }
 
-// after build() finishes
-document.readyState !== 'loading'
-  ? attachHoverIntent(document.getElementById('megaNav'))
-  : document.addEventListener('DOMContentLoaded', () =>
-      attachHoverIntent(document.getElementById('megaNav'))
-    );
+
