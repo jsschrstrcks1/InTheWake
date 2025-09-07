@@ -3,36 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Grandeur of the Seas — Guide, Videos & Why Book</title>
+  <title>Grandeur of the Seas — Videos, Highlights & Why Book</title>
   <link rel="stylesheet" href="assets/styles.css?v=2.086">
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css">
   <style>
-  .page-hero { margin-top: 1rem; }
-  .page-hero .hero-rotator { display:grid; grid-template-columns:1fr; gap:.75rem; }
-  .page-hero img { width:100%; height:clamp(180px,38vw,360px); object-fit:cover; border-radius:14px; }
-  .deck-link { display:inline-block; margin: .5rem 0 1rem; padding:.65rem 1rem; border-radius:12px; border:2px solid var(--rope,#d9b382); background:#fff; font-weight:600; }
-  .deck-link:hover { background:#fff8ef; text-decoration:none; }
-  .lang-switch { display:flex; gap:.5rem; justify-content:flex-end; align-items:center; margin: .75rem 0; }
-  .lang-switch select { padding:.35rem .6rem; border:1px solid var(--rope,#d9b382); border-radius:8px; background:#fff; }
-  .video-section h2, .why-section h2 { color: var(--sea,#0a3d62); }
-  .swiper { border-radius:14px; overflow:hidden; border:2px solid var(--rope,#d9b382); background:#000; }
-  .swiper-slide iframe { width:100%; height: clamp(220px, 52vw, 420px); }
-  .video-cards { display:grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: .9rem; }
-  .video-card { border:2px solid var(--rope,#d9b382); border-radius:12px; overflow:hidden; background:#fff; display:flex; flex-direction:column; }
-  .video-card a { text-decoration:none; color:inherit; }
-  .video-card img { width:100%; aspect-ratio:16/9; object-fit:cover; }
-  .video-card .vc-body { padding:.65rem .75rem; }
-  .video-card .vc-title { font-weight:600; line-height:1.2; }
-  .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px;}
-  @media (prefers-reduced-motion: reduce) { .swiper, .swiper * { transition:none !important; animation:none !important; } }
+    .site-header .brandbar{display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;}
+    .site-header .brandbar img.logo{width:clamp(120px,24vw,220px);height:auto;object-fit:contain;}
+    .site-header .brandbar .subhead{display:flex;flex-direction:column;}
+    .site-header .brandbar .subhead h1{margin:.1rem 0 0 0;font-size:clamp(1.35rem,3.2vw,2rem);color:#5DADE2;line-height:1.1;}
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;}
+    .card{height:100%;}
+    .video-section{margin-top:1.25rem;}
+    header,.wrap,footer,section,.card{position:relative;z-index:1;}
   </style>
 </head>
 <body>
   <header class="site-header">
-    <div class="hero">
-      <div class="hero-overlay"></div>
-      <div class="hero-title"><h1 style="color:#5DADE2">Grandeur of the Seas</h1><p>Royal Caribbean — Classic Adventure, Big Value</p></div>
-      <img class="compass" src="assets/compass_rose.svg" alt="Compass rose decorative">
+    <div class="brandbar wrap">
+      <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/itw-ship-logo.png" alt="In the Wake ship logo" onerror="this.style.display='none'">
+      <div class="subhead">
+        <div class="small dim">Royal Caribbean</div>
+        <h1>Grandeur of the Seas</h1>
+      </div>
     </div>
     <div class="navbar">
       <nav aria-label="Primary">
@@ -49,7 +41,7 @@
   </header>
 
   <main class="wrap" id="content">
-    <div class="lang-switch">
+    <div class="lang-switch" style="display:flex;gap:.5rem;justify-content:flex-end;align-items:center;margin:.5rem 0 1rem;">
       <label for="langSel" class="small">Language:</label>
       <select id="langSel" aria-label="Language selector">
         <option value="en">English</option>
@@ -61,12 +53,73 @@
       </select>
     </div>
 
-    <section class="page-hero card">
-      <h2 data-i18n="hero_title">A First Look</h2>
-      <a class="deck-link" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener" data-i18n="deck_plans">View Official Deck Plans →</a>
-      <div class="hero-rotator" id="heroRotator" aria-live="polite"></div>
-      <p class="small dim" data-i18n="verify_note">To Verify: Replace any hero photos with your preferred licensed or public‑domain images. Links are set to absolute GitHub Pages URLs and will skip broken files.</p>
-    </section>
+    <div class="cards-grid">
+      <section class="page-hero card">
+        <h2 data-i18n="hero_title">A First Look</h2>
+        <a class="button deck-link" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener" data-i18n="deck_plans">View Official Deck Plans →</a>
+        <div class="hero-rotator" id="heroRotator" aria-live="polite"></div>
+        <p class="small dim" data-i18n="verify_note">To Verify: Replace any hero photos with your preferred licensed or public‑domain images. Links use absolute GitHub Pages URLs and skip broken files.</p>
+      </section>
+
+      <section class="why-section card" aria-labelledby="whyHeading">
+        <h2 id="whyHeading" data-i18n="why_title">Why book Grandeur of the Seas?</h2>
+        <div id="whyCopy">
+          <p data-i18n="why_p1">Grandeur of the Seas is a beloved, human‑scale Royal Caribbean ship that puts classic cruise pleasures front and center: ocean views everywhere, friendly service, and an easy layout that’s simple to explore.</p>
+          <ul>
+            <li data-i18n="why_b1"><strong>Signature Royal fun:</strong> Conquer the <em>Rock Climbing Wall</em>, relax by the pool, and catch live music and shows every night.</li>
+            <li data-i18n="why_b2"><strong>Specialty dining you’ll crave:</strong> <em>Chops Grille</em> (hand‑cut steaks & decadent sides), <em>Izumi</em> (fresh sushi & sizzling hot rocks), <em>Chef’s Table</em> (multi‑course, wine‑paired experience).</li>
+            <li data-i18n="why_b3"><strong>Great for families:</strong> Kids and teens love <em>Adventure Ocean</em> activities, the arcade, and poolside fun — while grown‑ups unwind in the adults‑only <em>Solarium</em>.</li>
+            <li data-i18n="why_b4"><strong>Cozy & personable:</strong> A mid‑size ship means shorter walks, easier embarkations, and more time enjoying your vacation.</li>
+            <li data-i18n="why_b5"><strong>Value‑forward itineraries:</strong> Caribbean and seasonal getaways that maximize days at sea and time in port.</li>
+          </ul>
+          <p class="small dim" data-i18n="why_note">Note: Grandeur focuses on classic Royal experiences. It does not feature large water slides or skydiving tunnels; choose it for friendly vibes, live entertainment, and relaxing sea days.</p>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="moreVideosHeading">
+        <h2 id="moreVideosHeading" data-i18n="more_videos_title">More from trusted creators</h2>
+        <p class="small" data-i18n="more_videos_desc">Hand-picked from our green‑tier creators; titles must mention “Grandeur of the Seas.” We avoid newsy or scary topics.</p>
+        <div class="video-cards" id="moreVideos"></div>
+      </section>
+
+      <section class="card" aria-labelledby="rcMarketingHeading">
+        <h2 id="rcMarketingHeading">Highlights from Royal Caribbean</h2>
+        <div class="grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.8rem;">
+          <div>
+            <h3 class="small">Classic Royal Thrills</h3>
+            <p>Scale the signature <strong>Rock Climbing Wall</strong>, take in sea views from the open decks, and unwind under the glass‑covered <strong>Solarium</strong> (adults‑only).</p>
+          </div>
+          <div>
+            <h3 class="small">Dining You’ll Crave</h3>
+            <p>From the <strong>Main Dining Room</strong> and <strong>Windjammer</strong> buffet to specialties like <strong>Chops Grille</strong> and <strong>Chef’s Table</strong> (availability varies by sailing), meals feel like an event.</p>
+          </div>
+          <div>
+            <h3 class="small">Evenings to Remember</h3>
+            <p>Live music, lounges, and production shows keep nights buzzing — or find a quiet nook for sunset cocktails.</p>
+          </div>
+          <div>
+            <h3 class="small">Families Welcome</h3>
+            <p>Kids and teens get age‑tailored fun with <strong>Adventure Ocean</strong>, an arcade, and poolside activities while parents recharge.</p>
+          </div>
+        </div>
+        <p class="small dim">To Verify: Replace any text or images here with the official materials you’re licensed to use from Royal Caribbean’s marketing page for Grandeur of the Seas.</p>
+        <div id="marketingGallery" class="hero-rotator" aria-live="polite" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem;">
+          <figure style="border:2px solid var(--rope,#d9b382);border-radius:12px;overflow:hidden;margin:0;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Steak_Dinner_%28Unsplash%29.jpg" alt="Steak dinner representing Chops Grille" loading="lazy">
+            <figcaption class="small dim" style="padding:.4rem .6rem;">Public domain (CC0) — Unsplash via Wikimedia Commons.</figcaption>
+          </figure>
+          <figure style="border:2px solid var(--rope,#d9b382);border-radius:12px;overflow:hidden;margin:0;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Sushi_plate.JPG" alt="Sushi plate representing Izumi" loading="lazy">
+            <figcaption class="small dim" style="padding:.4rem .6rem;">Public domain (PD) — Wikimedia Commons.</figcaption>
+          </figure>
+          <figure style="border:2px solid var(--rope,#d9b382);border-radius:12px;overflow:hidden;margin:0;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Model_T_Casino_interior.jpg" alt="Casino interior representing Casino Royale" loading="lazy">
+            <figcaption class="small dim" style="padding:.4rem .6rem;">Public domain (CC0) — Wikimedia Commons.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+    </div> <!-- /cards-grid -->
 
     <section class="video-section card" aria-labelledby="videosHeading">
       <h2 id="videosHeading" data-i18n="videos_title">Watch: Grandeur Highlights</h2>
@@ -78,97 +131,90 @@
         <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
     </section>
-
-    <section class="card" aria-labelledby="moreVideosHeading">
-      <h2 id="moreVideosHeading" data-i18n="more_videos_title">More from trusted creators</h2>
-      <p class="small" data-i18n="more_videos_desc">Hand-picked from our green‑tier creators; titles must mention “Grandeur of the Seas.” We avoid newsy or scary topics.</p>
-      <div class="video-cards" id="moreVideos"></div>
-    </section>
-
-    <section class="why-section card" aria-labelledby="whyHeading">
-      <h2 id="whyHeading" data-i18n="why_title">Why book Grandeur of the Seas?</h2>
-      <div id="whyCopy">
-        <p data-i18n="why_p1">Grandeur of the Seas is a beloved, human‑scale Royal Caribbean ship that puts classic cruise pleasures front and center: ocean views everywhere, friendly service, and an easy layout that’s simple to explore.</p>
-        <ul>
-          <li data-i18n="why_b1"><strong>Signature Royal fun:</strong> Conquer the <em>Rock Climbing Wall</em>, relax by the pool, and catch live music and shows every night.</li>
-          <li data-i18n="why_b2"><strong>Specialty dining (select venues):</strong> Savor prime cuts at <em>Chops Grille</em>, rustic Italian at <em>Giovanni’s Table</em>, or Asian‑inspired bites at <em>Izumi</em> (offerings vary by sailing).</li>
-          <li data-i18n="why_b3"><strong>Great for families:</strong> Kids and teens love <em>Adventure Ocean</em> activities, the arcade, and poolside fun — while grown‑ups unwind in the adults‑only <em>Solarium</em>.</li>
-          <li data-i18n="why_b4"><strong>Cozy & personable:</strong> A mid‑size ship means shorter walks, easier embarkations, and more time enjoying your vacation.</li>
-          <li data-i18n="why_b5"><strong>Value‑forward itineraries:</strong> Caribbean and seasonal getaways that maximize days at sea and time in port.</li>
-        </ul>
-        <p class="small dim" data-i18n="why_note">Note: Grandeur focuses on classic Royal experiences. It does not feature large water slides or skydiving tunnels; choose it for friendly vibes, live entertainment, and relaxing sea days.</p>
-      </div>
-    </section>
   </main>
 
   <footer>© 2025 In the Wake — Compiled by Ken</footer>
 
   <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
   <script>
-  const i18n = {{ /* same as previous block but shortened for this write */ }};
-  // Minimal language application to avoid bloating inline
-  function applyLang(lang) {{ document.documentElement.setAttribute('lang', lang); }}
-  document.getElementById('langSel').addEventListener('change', e => applyLang(e.target.value));
+  const i18n = {
+    en:{hero_title:"A First Look",deck_plans:"View Official Deck Plans →",verify_note:"To Verify: Replace any hero photos with your preferred licensed or public‑domain images. Links use absolute GitHub Pages URLs and skip broken files.",videos_title:"Watch: Grandeur Highlights",videos_desc:"Start with our pre‑screened, family‑friendly picks. Swipe to explore without leaving this page.",more_videos_title:"More from trusted creators",more_videos_desc:"Hand-picked from our green‑tier creators; titles must mention “Grandeur of the Seas.” We avoid newsy or scary topics.",why_title:"Why book Grandeur of the Seas?",why_p1:"Grandeur of the Seas is a beloved, human‑scale Royal Caribbean ship that puts classic cruise pleasures front and center: ocean views everywhere, friendly service, and an easy layout that’s simple to explore.",why_note:"Note: Grandeur focuses on classic Royal experiences. It does not feature large water slides or skydiving tunnels; choose it for friendly vibes, live entertainment, and relaxing sea days."},
+  };
+  function applyLang(lang){
+    const table = i18n[lang] || i18n.en;
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const k = el.getAttribute('data-i18n');
+      if(table[k]) el.textContent = table[k];
+    });
+  }
+  const sel=document.getElementById('langSel'); sel.addEventListener('change',()=>applyLang(sel.value)); applyLang('en');
 
   // Photos (absolute URLs; hide broken)
-  const HERO_PHOTOS = [
-    "https://jsschrstrcks1.github.io/InTheWake/assets/photos/grandeur-01.jpg",
-    "https://jsschrstrcks1.github.io/InTheWake/assets/photos/grandeur-02.jpg",
-    "https://jsschrstrcks1.github.io/InTheWake/assets/photos/grandeur-03.jpg",
-    "https://jsschrstrcks1.github.io/InTheWake/assets/photos/grandeur-04.jpg"
+  const HERO_PHOTOS=[
+    "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%201.jpg",
+    "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%202.jpg",
+    "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%203.jpg"
   ];
-  (function initHero(){{
+  (function initHero(){
     const rot = document.getElementById('heroRotator');
-    HERO_PHOTOS.sort(() => Math.random()-0.5).forEach(src => {{
-      const img = new Image();
-      img.alt = "Grandeur of the Seas";
-      img.loading = "lazy";
-      img.src = src; img.onerror = () => img.remove(); 
-      rot.appendChild(img);
-    }});
-  }})();
+    const want = 3; let shown = 0, idx = 0, guard = 0;
+    function tryNext(){
+      if (shown >= want || guard > HERO_PHOTOS.length*3) return;
+      const src = HERO_PHOTOS[idx % HERO_PHOTOS.length]; idx++; guard++;
+      const img = new Image(); img.alt="Grandeur of the Seas"; img.loading="lazy"; img.src=src;
+      img.onload=()=>{ rot.appendChild(img); shown++; tryNext(); };
+      img.onerror=()=>{ tryNext(); };
+    }
+    tryNext(); tryNext(); tryNext();
+  })();
 
-  // Featured videos (placeholders - replace with your IDs)
-  const FEATURED = [
-    {{ id: "dQw4w9WgXcQ", title: "Grandeur of the Seas: Official Tour" }},
-    {{ id: "2vjPBrBU-TM", title: "Life on Board: Grandeur Vibes" }}
+  // Positive-only filter
+  const BAN_WORDS=["crash","storm","rough","accident","sinking","bar crawl","drunk","sexy","strip","lesbian","sex","gay"];
+  const isPositive=t=>!BAN_WORDS.some(w=>(t||'').toLowerCase().includes(w));
+
+  // Replace with your screened picks
+  const FEATURED=[
+    {id:"dQw4w9WgXcQ", title:"Grandeur of the Seas: Official Tour"},
+    {id:"2vjPBrBU-TM", title:"Life on Board: Grandeur Vibes"}
   ];
 
-  const BAN_WORDS = ["crash","storm","rough","accident","sinking","bar crawl","drunk","sexy","strip","lesbian","sex","gay"];
-  function isPositive(title) {{ const t=(title||"").toLowerCase(); return !BAN_WORDS.some(w=>t.includes(w)); }}
+  // Green picks that must include "Grandeur of the Seas"
+  const GREEN_PICKS=[
+    {id:"QH2-TGUlwu4", title:"Top 10 Tips on Grandeur of the Seas — CruiseTipsTV"},
+    {id:"9bZkp7q19f0", title:"Grandeur of the Seas Cabin Tour — Harr Travel"},
+    {id:"oHg5SJYRHA0", title:"Grandeur of the Seas Food Tour — EatSleepCruise"}
+  ].filter(v=>/grandeur of the seas/i.test(v.title) && isPositive(v.title));
 
-  const GREEN_PICKS = [
-    {{ id: "QH2-TGUlwu4", title: "Top 10 Tips on Grandeur of the Seas — CruiseTipsTV", creator:"CruiseTipsTV" }},
-    {{ id: "9bZkp7q19f0", title: "Grandeur of the Seas Cabin Tour — Harr Travel", creator:"HarrTravel" }},
-    {{ id: "oHg5SJYRHA0", title: "Grandeur of the Seas Food Tour — EatSleepCruise", creator:"EatSleepCruise" }}
-  ].filter(v => /grandeur of the seas/i.test(v.title) && isPositive(v.title));
+  document.addEventListener('DOMContentLoaded', function(){
+    // Build Swiper slides after DOM ready
+    const wrap=document.getElementById('featuredVideos');
+    FEATURED.forEach(v=>{
+      const slide=document.createElement('div'); slide.className='swiper-slide';
+      slide.innerHTML=`<iframe title="${v.title}" src="https://www.youtube.com/embed/${v.id}" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen loading="lazy"></iframe>`;
+      wrap.appendChild(slide);
+    });
 
-  const wrap = document.getElementById('featuredVideos');
-  FEATURED.forEach(v => {{
-    const slide = document.createElement('div');
-    slide.className = 'swiper-slide';
-    slide.innerHTML = `<iframe title="${{v.title}}"
-      src="https://www.youtube.com/embed/${{v.id}}"
-      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen loading="lazy"></iframe>`;
-    wrap.appendChild(slide);
-  }});
+    // More cards
+    const more=document.getElementById('moreVideos');
+    GREEN_PICKS.forEach(v=>{
+      const a=document.createElement('a'); a.href=`https://www.youtube.com/watch?v=${v.id}`; a.target="_blank"; a.rel="noopener"; a.className="video-card";
+      a.innerHTML=`<img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="${v.title} thumbnail"><div class="vc-body"><div class="vc-title">${v.title}</div></div>`;
+      more.appendChild(a);
+    });
 
-  const more = document.getElementById('moreVideos');
-  GREEN_PICKS.forEach(v => {{
-    const a = document.createElement('a');
-    a.href = `https://www.youtube.com/watch?v=${{v.id}}`;
-    a.target="_blank"; a.rel="noopener"; a.className="video-card";
-    a.innerHTML = `<img src="https://img.youtube.com/vi/${{v.id}}/hqdefault.jpg" alt="${{v.title}} thumbnail">
-                   <div class="vc-body"><div class="vc-title">${{v.title}}</div></div>`;
-    more.appendChild(a);
-  }});
-
-  const swiper = new Swiper('.swiper', {{ lazy:true, loop:false,
-    pagination: {{ el: '.swiper-pagination', clickable:true }},
-    navigation: {{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }},
-    a11y: {{ enabled:true }}
-  }});
+    // Init Swiper once
+    try{
+      new Swiper('.swiper',{
+        lazy:true, loop:false,
+        pagination:{el:'.swiper-pagination', clickable:true},
+        navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'},
+        a11y:{enabled:true}
+      });
+    }catch(e){ console.warn('Swiper init error', e); }
+  });
   </script>
 </body>
 </html>
