@@ -9,12 +9,12 @@
 <body>
 <header class="hero-header">
   <div class="navbar">
-    <a class="brand" href="index.html" title="Home">
-      <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.071</span></span>
-    </a>
+    <div class="brand">
+      <img src="assets/brand/logo.png" alt="In the Wake wordmark"/>
+      <div class="brand-title">In the Wake <span class="version-badge">v2.086</span></div>
+    </div>
     <nav class="nav">
-      <a href="ships.html" aria-current="page">Ships</a>
+      <a href="cruise-lines.html">Cruise Lines</a>
       <a href="restaurants.html">Restaurants</a>
       <a href="ports.html">Ports</a>
       <a href="drinks.html">Drinks</a>
@@ -22,27 +22,30 @@
       <a href="disability.html">Disability</a>
     </nav>
   </div>
-  <div class="hero">
+
+  <!-- Hero (grid lines only; no degree labels) -->
+  <div class="hero" role="img" aria-label="Ship wake at sunset">
     <div class="latlon-grid" aria-hidden="true">
       <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-        <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="40" y1="0" x2="40" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="60" y1="0" x2="60" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <g class="grid-lines" stroke-width="0.35">
+          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+          <line x1="90" y1="0" x2="90" y2="60"/>
+          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+        </g>
       </svg>
     </div>
-    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true">
-    <div class="hero-title" role="img" aria-label="In the Wake">
-      <img class="logo" src="assets/logo_wake_teal.png" alt="">
+
+    <!-- Compass -->
+    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
+
+    <!-- Logo + tagline -->
+    <div class="hero-title">
+      <img class="logo" src="assets/logo_wake.png" alt="In the Wake">
+      <div class="tagline">A Cruise Traveler’s Logbook</div>
     </div>
   </div>
 </header>
@@ -56,14 +59,6 @@
     </figure>
     <p>Enchantment’s dramatic mid‑body stretch added airy deck space and glass‑lined lounges, making her the peppiest of the Vision quartet.</p><p>She excels at short, sun‑forward getaways where the ship is your bright, easy home base between ports.</p><p>Guests praise her friendly crew and just‑right size: big enough for choice, small enough to find your people by day two.</p><p>Evenings feel classic — music in the Centrum, al fresco strolls on teak, a sunset drink that doesn’t require a reservation.</p><p>Choose Enchantment when you want a lively, compact Royal Caribbean experience with plenty of ocean in view.</p>
     
-<style>
-.video-carousel{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.5rem 0 1rem}
-.video-frame{flex:0 0 320px;scroll-snap-align:start;background:#fff;border:2px solid var(--rope);border-radius:12px;padding:.5rem}
-.video-frame iframe{width:100%;height:180px;border-radius:8px}
-.video-frame p{font-size:.85rem;margin:.35rem 0 0;text-align:center}
-@media (min-width:1100px){.video-frame{flex-basis:420px}.video-frame iframe{height:236px}}
-</style>
-
 <section class="card">
   <h3>Video Tours</h3>
   <p class="tiny">Family‑friendly creators embedded here so you can watch without leaving the site.</p>
