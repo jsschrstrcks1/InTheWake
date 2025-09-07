@@ -74,12 +74,8 @@ body::after{
 
   <!-- Site-wide nav -->
   <nav class="top-nav" aria-label="Primary">
-    <div class="menu-wrap" id="megaWrap">
-      <button class="menu-trigger" aria-haspopup="true" aria-expanded="false">Cruise Lines ▾</button>
-      <div class="mega" id="megaMenu" role="menu" aria-label="Cruise Lines Explorer">
-        <div class="menu-col">
-          <div class="menu-level" id="lvl-groups" aria-label="Groups"></div>
-          <div class="menu-level" id="lvl-lines" aria-label="Cruise Lines"></div>
+    <a href="cruise-lines.html">Cruise Lines</a>
+    <div class="menu-level" id="lvl-lines" aria-label="Cruise Lines"></div>
           <div class="menu-level" id="lvl-classes" aria-label="Ship Classes"></div>
           <div class="menu-level" id="lvl-ships" aria-label="Ships"></div>
         </div>
@@ -93,6 +89,23 @@ body::after{
     <a href="packing.html">Packing</a>
     <a href="disability.html">Disability</a>
   </nav>
+
+  <section class="card" id="explore-fleets">
+    <h3>Explore Cruise Lines</h3>
+    <p class="small">Click a group, then a cruise line, then ship class → ships. Hover has a slight delay to feel natural. Ship names link to any local pages we have (e.g., “Anthem of the Seas”).</p>
+    <div class="menu-wrap" id="megaWrap">
+      <button class="menu-trigger" aria-haspopup="true" aria-expanded="true">Open Fleet Explorer ▾</button>
+      <div class="mega visible" id="megaMenu" role="menu" aria-label="Cruise Lines Explorer">
+        <div class="menu-col">
+          <div class="menu-level" id="lvl-groups" aria-label="Groups"></div>
+          <div class="menu-level" id="lvl-lines" aria-label="Cruise Lines"></div>
+          <div class="menu-level" id="lvl-classes" aria-label="Ship Classes"></div>
+          <div class="menu-level" id="lvl-ships" aria-label="Ships"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+    
 
   <div class="lang-switch">
     <label for="langSel" class="small" data-i18n="choose_lang_label">Language:</label>
