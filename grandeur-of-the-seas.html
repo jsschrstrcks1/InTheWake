@@ -9,21 +9,15 @@
   <link rel="preconnect" href="https://i.ytimg.com">
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css">
   <style>
-    /* Keep watermark behind */
     header, .wrap, footer, section, .card { position:relative; z-index:1; }
-    /* Header alignment (as index.html look) */
     .brandbar { display:flex; align-items:center; gap:1rem; padding:.75rem 1rem; }
-    .brandbar img.logo { width:clamp(120px,22vw,220px); height:auto; object-fit:contain; }
-    .brandbar .subhead h1 { margin:.1rem 0 0; font-size:clamp(1.35rem,3.2vw,2rem); }
+    .brandbar .logo { width:clamp(120px,22vw,220px); height:auto; object-fit:contain; display:none; }
     .brandbar .wordmark { font-weight:800; font-size:clamp(1.6rem,3.6vw,2.4rem); color:var(--brand-deep, #0a4c6a); display:none; }
-    /* Nav stays above cards */
+    .brandbar .subhead h1 { margin:.1rem 0 0; font-size:clamp(1.35rem,3.2vw,2rem); }
     .navbar, .dropdown, .site-header { z-index: 20; }
-    /* Two-column marketing row */
     .grid-2 { display:grid; gap:1rem; }
     @media (min-width: 980px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
-    /* Hero rotator */
     .hero-rotator img { width:100%; height:auto; display:block; border-radius:12px; }
-    /* Swiper embed + thumbnails */
     .video-section iframe { width:100%; height:56.25vw; max-height:420px; border:0; border-radius:12px; }
     @media (min-width: 900px) { .video-section iframe { max-height:480px; } }
     .video-card { display:block; border:1px solid var(--rope,#d9b382); border-radius:12px; overflow:hidden; text-decoration:none; }
@@ -33,17 +27,14 @@
   </style>
 </head>
 <body>
-  <!-- Header cloned from index.html aesthetic; absolute paths + graceful fallback -->
   <header class="site-header">
     <div class="brandbar wrap">
-      <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/itw-ship-logo.png"
-           alt="In the Wake logo"
-           onerror="this.remove(); document.getElementById('itwWordmark').style.display='block';">
+      <img id="itwLogo" class="logo" alt="In The Wake logo">
+      <span id="itwWordmark" class="wordmark">In The Wake</span>
       <div class="subhead">
         <div class="small dim">Royal Caribbean</div>
         <h1>Grandeur of the Seas</h1>
       </div>
-      <span id="itwWordmark" class="wordmark">In The Wake</span>
     </div>
     <div class="navbar">
       <nav aria-label="Primary">
@@ -72,7 +63,6 @@
       </select>
     </div>
 
-    <!-- Featured video carousel at the top -->
     <section class="video-section card" aria-labelledby="videosHeading">
       <h2 id="videosHeading">Watch: Grandeur Highlights</h2>
       <p class="small">Start with our pre‑screened, family‑friendly picks. Swipe to explore without leaving this page.</p>
@@ -84,7 +74,6 @@
       </div>
     </section>
 
-    <!-- Marketing (left) + Highlights from Royal (right) -->
     <section class="grid-2">
       <section class="why-section card" aria-labelledby="whyHeading">
         <h2 id="whyHeading">Why book Grandeur of the Seas?</h2>
@@ -125,14 +114,12 @@
       </section>
     </section>
 
-    <!-- Photo hero rotation -->
     <section class="page-hero card">
       <h2>A First Look</h2>
       <div class="hero-rotator" id="heroRotator" aria-live="polite"></div>
-      <p class="small dim">To Verify: Replace any hero photos with your preferred licensed or public‑domain images. Links use absolute GitHub Pages URLs and skip broken files.</p>
+      <p class="small dim">Hero images try a ship still and three gallery frames. If one fails, we automatically skip it.</p>
     </section>
 
-    <!-- More creator videos -->
     <section class="card" aria-labelledby="moreVideosHeading">
       <h2 id="moreVideosHeading">More from trusted creators</h2>
       <p class="small">Hand‑picked from positive, family‑friendly creators. Titles must mention “Grandeur of the Seas.”</p>
@@ -144,51 +131,67 @@
 
   <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
   <script>
+    const LOGO_CANDIDATES = ["https://jsschrstrcks1.github.io/InTheWake/assets/brand/itw-ship-logo.png", "https://jsschrstrcks1.github.io/InTheWake/assets/brand/ITW-ship-logo.png", "https://jsschrstrcks1.github.io/InTheWake/assets/brand/in-the-wake-logo.png", "https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png"];
+    const HERO_IMGS = ["https://jsschrstrcks1.github.io/InTheWake/assets/grandeur-of-the-seas.jpg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%201.jpg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%202.jpg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%203.jpg"];
     const VIDEOS = [{"id": "-NS3BhWqzD4", "title": "Full Ship Walkthrough \u2014 Grandeur of the Seas (4K)"}, {"id": "iIo4HNqNzbs", "title": "Is This Ship Kid Friendly? \u2014 Family POV"}, {"id": "0YONwODd98c", "title": "Quick Tour: Balcony & Interior on Grandeur"}, {"id": "kYAwcRPmH5c", "title": "Interior Room 3519 \u2014 Walkthrough"}, {"id": "1PgDMCgw6uI", "title": "Ocean View Room Tour \u2014 Grandeur"}, {"id": "HAxiXR-IMmk", "title": "Junior Suite 7650 \u2014 Aft Balcony Tour"}, {"id": "KXCJePjqEY4", "title": "Grand Suite (1-Bedroom) Tour \u2014 2025"}, {"id": "ZEz-jOvRq7c", "title": "Grand Suite (2-Bedroom) 8084 \u2014 Tour"}, {"id": "GByj5lFpAPU", "title": "Owner\u2019s Suite 8502 \u2014 Cabin Tour"}, {"id": "Z70a-ViIjTc", "title": "Royal Suite 8500 \u2014 Tour & Review"}, {"id": "tXQ8hic0O_U", "title": "Accessible Stateroom / Wheelchair Walkthrough"}];
-    const HERO_IMGS = ["https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%201.jpg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%202.jpg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%203.jpg"];
 
-    // Build carousel once DOM is parsed
-    document.addEventListener('DOMContentLoaded', () => {{
+    // Try multiple absolute logo paths; fall back to wordmark if all fail
+    (function loadLogo(){
+      const img = document.getElementById('itwLogo');
+      const word = document.getElementById('itwWordmark');
+      let i = 0;
+      function tryNext(){
+        if (i >= LOGO_CANDIDATES.length){ word.style.display='block'; return; }
+        const src = LOGO_CANDIDATES[i++];
+        const test = new Image();
+        test.onload = ()=>{ img.src = src; img.style.display='block'; };
+        test.onerror = tryNext;
+        test.src = src + (src.includes('?') ? '&' : '?') + 'v=1'; // short cache-bust
+      }
+      tryNext();
+    })();
+
+    // Build video carousel and cards
+    document.addEventListener('DOMContentLoaded', () => {
       const wrap = document.getElementById('featuredVideos');
-      VIDEOS.forEach(v => {{
+      VIDEOS.forEach(v => {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
-        slide.innerHTML = `<iframe title="${{v.title}}" src="https://www.youtube.com/embed/${{v.id}}"
+        slide.innerHTML = `<iframe title="${v.title}" src="https://www.youtube.com/embed/${v.id}"
            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
            allowfullscreen loading="lazy"></iframe>`;
         wrap.appendChild(slide);
-      }});
-      new Swiper('.swiper', {{
+      });
+      new Swiper('.swiper', {
         lazy:true, loop:false,
-        pagination:{{el:'.swiper-pagination',clickable:true}},
-        navigation:{{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'}},
-        a11y:{{enabled:true}}
-      }});
+        pagination:{el:'.swiper-pagination',clickable:true},
+        navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'},
+        a11y:{enabled:true}
+      });
 
-      // More cards (subset)
       const more = document.getElementById('moreVideos');
-      VIDEOS.slice(3, 9).forEach(v => {{
+      VIDEOS.slice(3, 9).forEach(v => {
         const a = document.createElement('a');
-        a.href = `https://www.youtube.com/watch?v=${{v.id}}`;
+        a.href = `https://www.youtube.com/watch?v=${v.id}`;
         a.target = "_blank"; a.rel="noopener"; a.className="video-card";
-        a.innerHTML = `<img src="https://img.youtube.com/vi/${{v.id}}/hqdefault.jpg" alt="${{v.title}} thumbnail">
-                       <div class="vc-body"><div class="vc-title">${{v.title}}</div></div>`;
+        a.innerHTML = `<img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="${v.title} thumbnail">
+                       <div class="vc-body"><div class="vc-title">${v.title}</div></div>`;
         more.appendChild(a);
-      }});
+      });
 
-      // Hero images; skip broken and move on
-      (function initHero(){{
+      // Hero images with auto-skip
+      (function initHero(){
         const rot = document.getElementById('heroRotator'); let shown=0, idx=0, guard=0;
-        function tryNext(){{
+        function tryNext(){
           if (shown >= 3 || guard > HERO_IMGS.length*3) return;
           const src = HERO_IMGS[idx % HERO_IMGS.length]; idx++; guard++;
           const img = new Image(); img.alt="Grandeur of the Seas"; img.loading="lazy"; img.src=src;
-          img.onload = ()=>{{ rot.appendChild(img); shown++; tryNext(); }};
+          img.onload = ()=>{ rot.appendChild(img); shown++; tryNext(); };
           img.onerror = ()=> tryNext();
-        }}
+        }
         tryNext(); tryNext(); tryNext();
-      }})();
-    }});
+      })();
+    });
   </script>
 </body>
 </html>
