@@ -1,63 +1,115 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>In the Wake — Cruise Lines</title>
-  <link rel="stylesheet" href="assets/styles.css?v=2.086"/>
-  <style>
-    /* Page-specific light styles that complement assets/styles.css */
-    .lang-switch { display:flex; gap:.5rem; align-items:center; justify-content:flex-end; padding:.5rem 1rem; }
-    .lang-switch select { padding:.35rem .6rem; border:1px solid #d9b382; border-radius:8px; background:#fff; }
-    .card .small { color:var(--muted, #2a5b6e); }
-    .note.verify { background:#fff7ea; border:1px solid #d9b382; padding:.6rem .8rem; border-radius:8px; }
-  </style>
+<html lang="en"><head><meta charset="utf-8">
+<title>Cruise Lines — Brand Fit & Localized Copy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",Ubuntu,Cantarell,"Apple Color Emoji","Segoe UI Emoji";color:var(--ink);background:var(--sky)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
+.hero{position:relative;min-height:340px;background-image:url('assets/hero.jpg');background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:flex-start}
+.hero::before{content:'';position:absolute;inset:0;background-image:url('assets/grid.png');background-size:cover;opacity:.4}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,61,98,.15) 0%, rgba(10,61,98,.65) 65%, rgba(10,61,98,.85) 100%)}
+.hero-title{position:absolute;left:2rem;bottom:2.5rem;color:#e6f4f8;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px;text-shadow:0 3px 6px rgba(0,0,0,.55);}
+.hero-title h1{margin:0;font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;color:#5dade2}
+.hero-title p{margin:.35rem 0 0;font-size:clamp(1.05rem,2vw,1.35rem);opacity:.97}
+.compass{position:absolute;right:1rem;bottom:1rem;width:140px;opacity:.85;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
+.wrap{padding:1.5rem 2rem}
+h1,h2,h3{color:var(--sea)}
+.card{border:2px solid var(--rope);border-radius:14px;padding:1rem;background:linear-gradient(180deg,#ffffff 0%,#fcf9f3 100%);box-shadow:0 2px 6px rgba(8,48,65,.08);margin-bottom:1rem}
+.small{font-size:.9rem;color:#2a5b6e}
+hr{border:none;height:10px;background-image:repeating-linear-gradient(90deg,var(--rope),var(--rope) 14px,transparent 14px,transparent 20px);opacity:.45;margin:1.25rem 0}
+.note{background:#fff7ea;border:1px solid var(--rope);padding:.6rem .8rem;border-radius:8px}
+/* page watermark */
+.page-watermark{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(34vw,440px);opacity:.25;z-index:0;pointer-events:none;user-select:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15))}
+.wrap, header, footer, .card, section, .site-header {position:relative;z-index:1}
+@media (max-width:640px){.page-watermark{opacity:.18;width:min(48vw,360px)}}
+
+/* Primary nav and mega menu */
+.top-nav{display:flex;flex-wrap:wrap;gap:.75rem;margin:1rem 0 0}
+.top-nav a, .menu-trigger{display:inline-block;padding:.45rem .7rem;border:1px solid var(--rope);border-radius:10px;background:#fffdf8}
+.top-nav a:hover, .menu-trigger:hover{background:#fff2e0}
+.menu-wrap{position:relative;display:inline-block}
+.mega{position:absolute;left:0;top:calc(100% + 8px);background:#ffffff;border:2px solid var(--rope);border-radius:14px;box-shadow:0 8px 24px rgba(8,48,65,.18);padding:.6rem;display:none;min-width:340px;z-index:1000}
+.mega.visible{display:block}
+.menu-col{display:flex;gap:.75rem;align-items:flex-start}
+.menu-level{min-width:220px;max-height:60vh;overflow:auto;border-right:1px dashed rgba(8,48,65,.2);padding:.4rem}
+.menu-level:last-child{border-right:none}
+.menu-level h4{margin:.25rem .25rem .4rem;font-size:.95rem;color:var(--sea)}
+.menu-level ul{list-style:none;margin:0;padding:0}
+.menu-level li{margin:0}
+.menu-level button{display:block;width:100%;text-align:left;background:transparent;border:none;padding:.38rem .5rem;border-radius:8px;cursor:pointer}
+.menu-level button:hover, .menu-level button:focus{background:#fff2e0;outline:none}
+.badge{font-size:.8rem;padding:.1rem .35rem;border:1px solid var(--rope);border-radius:6px;margin-left:.35rem;color:#2a5b6e}
+.dim{opacity:.8}
+
+/* Language switcher */
+.lang-switch{display:flex;gap:.5rem;align-items:center;justify-content:flex-end;margin:1rem 0}
+.lang-switch select{padding:.35rem .6rem;border:1px solid var(--rope);border-radius:8px;background:#fff}
+</style>
+<style>
+/* Compass watermark (v1.022) */
+body::after{
+  content:''; position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(40vw,520px); height:min(40vw,520px);
+  background:url('assets/compass_rose.svg') center/contain no-repeat;
+  opacity:.25; z-index:0; pointer-events:none; filter:drop-shadow(0 3px 8px rgba(0,0,0,.15));
+}
+.wrap, header, footer, .card, section, .site-header { position:relative; z-index:1; }
+@media (max-width:640px){ body::after{ opacity:.18; width:min(52vw,420px); height:min(52vw,420px);}}
+</style>
 </head>
 <body>
-<header class="hero-header small-hero">
-  <div class="navbar">
-    <div class="brand">
-      <img src="assets/brand/logo.png" alt="In the Wake wordmark"/>
-      <div class="brand-title">In the Wake</div>
-    </div>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="ships.html">Ships</a>
-      <a href="restaurants.html">Restaurants</a>
-      <a href="ports.html">Ports</a>
-      <a href="drinks.html">Drinks</a>
-      <a href="packing.html">Packing</a>
-      <a href="disability.html">Disability</a>
-    </nav>
-  </div>
-  <div class="hero-art">
-    <img class="hero-photo" src="assets/hero.jpg" alt="" aria-hidden="true"/>
-    <div class="hero-grid" aria-hidden="true"></div>
-    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
-    <div class="hero-title">
-      <img class="logo" src="assets/logo_wake.png" alt="In the Wake">
-      <div class="tagline" data-i18n="page_title">Cruise Lines & Brand Fit</div>
-    </div>
+<img class="page-watermark" src="assets/compass_rose.svg" alt="Compass watermark">
+<header class="site-header">
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-title"><h1>In The Wake</h1><p data-i18n="page_title_sub">Cruise Lines & Brand Fit</p></div>
+    <img class="compass" src="assets/compass_rose.svg" alt="Compass rose">
   </div>
 </header>
 
-<div class="lang-switch">
-  <label for="langSel" class="small" data-i18n="choose_lang_label">Language:</label>
-  <select id="langSel" aria-label="Language selector">
-    <option value="en">English</option>
-    <option value="de">Deutsch</option>
-    <option value="es">Español</option>
-  </select>
-</div>
+<div class="wrap">
 
-<main class="wrap">
-  <section class="card note verify">
+  <!-- Site-wide nav -->
+  <nav class="top-nav" aria-label="Primary">
+    <div class="menu-wrap" id="megaWrap">
+      <button class="menu-trigger" aria-haspopup="true" aria-expanded="false">Cruise Lines ▾</button>
+      <div class="mega" id="megaMenu" role="menu" aria-label="Cruise Lines Explorer">
+        <div class="menu-col">
+          <div class="menu-level" id="lvl-groups" aria-label="Groups"></div>
+          <div class="menu-level" id="lvl-lines" aria-label="Cruise Lines"></div>
+          <div class="menu-level" id="lvl-classes" aria-label="Ship Classes"></div>
+          <div class="menu-level" id="lvl-ships" aria-label="Ships"></div>
+        </div>
+      </div>
+    </div>
+    <a href="index.html">Home</a>
+    <a href="restaurants.html">Restaurants</a>
+    <a href="ships.html">Ships</a>
+    <a href="ports.html">Ports</a>
+    <a href="drinks.html">Drinks</a>
+    <a href="packing.html">Packing</a>
+    <a href="disability.html">Disability</a>
+  </nav>
+
+  <div class="lang-switch">
+    <label for="langSel" class="small" data-i18n="choose_lang_label">Language:</label>
+    <select id="langSel" aria-label="Language selector">
+      <option value="en">English</option>
+      <option value="de">Deutsch</option>
+      <option value="es">Español</option>
+    </select>
+  </div>
+
+  <section class="card note">
     <p class="small" data-i18n="verify_note">
-      To Verify: Availability and targeting notes reflect general positioning. Always confirm ship/venue specifics on the official line website before booking.
+      To Verify: Groupings, classes, and ship lists are provided for navigation and may change. Confirm details on official sites, and mark inactive vessels as Historical Ship.
     </p>
   </section>
 
-  <!-- Royal Caribbean -->
+  <!-- Content sections (unchanged marketing copy below) -->
   <section id="royal-caribbean" class="card">
     <h3><span data-i18n="rcl_h">Royal Caribbean International</span> <span class="small">— <span data-i18n="rcl_tag">Thrills & Innovation</span></span></h3>
     <p data-i18n="rcl_p1">Royal Caribbean is the brand for travelers who crave big, bold vacations. Its ships are floating cities filled with surf simulators, skydiving tunnels, zip lines, and Broadway-style productions. Every sailing is designed to wow you with something new.</p>
@@ -65,7 +117,6 @@
     <p data-i18n="rcl_p3">If you want a high-energy vacation where variety and adventure are always within reach, Royal Caribbean is your match. It’s about non-stop fun, global flavors, and unforgettable memories at sea.</p>
   </section>
 
-  <!-- Celebrity -->
   <section id="celebrity-cruises" class="card">
     <h3><span data-i18n="cel_h">Celebrity Cruises</span> <span class="small">— <span data-i18n="cel_tag">Modern Luxury</span></span></h3>
     <p data-i18n="cel_p1">Celebrity Cruises blends stylish design, cutting-edge cuisine, and attentive service into a sophisticated cruising experience. Their ships are sleek and modern, with spaces created by world-class architects and designers.</p>
@@ -73,7 +124,6 @@
     <p data-i18n="cel_p3">Celebrity is perfect if you want to slow down, indulge, and savor life at sea while still enjoying the occasional splash of entertainment and adventure.</p>
   </section>
 
-  <!-- Silversea -->
   <section id="silversea" class="card">
     <h3><span data-i18n="sil_h">Silversea Cruises</span> <span class="small">— <span data-i18n="sil_tag">Ultra-Luxury Exploration</span></span></h3>
     <p data-i18n="sil_p1">Silversea specializes in all-inclusive, ultra-luxury cruising to some of the most exclusive and remote corners of the world. With intimate ships and nearly one-to-one crew-to-guest ratios, every detail is handled with care.</p>
@@ -81,7 +131,6 @@
     <p data-i18n="sil_p3">If you dream of Antarctica, the Galápagos, or simply sipping champagne on a private veranda, Silversea offers a world-class way to do it.</p>
   </section>
 
-  <!-- MSC -->
   <section id="msc-cruises" class="card">
     <h3><span data-i18n="msc_h">MSC Cruises</span> <span class="small">— <span data-i18n="msc_tag">International Style & Value</span></span></h3>
     <p data-i18n="msc_p1">MSC brings a distinctly European flair with globally-minded itineraries and strong value pricing. Expect elegant ships, family-friendly programming, and late-night dining that mirrors Mediterranean habits.</p>
@@ -89,7 +138,6 @@
     <p data-i18n="msc_p3">If you want cosmopolitan vibes at a sensible price — with plenty of kids’ options and nightlife — MSC is worth a close look.</p>
   </section>
 
-  <!-- Norwegian -->
   <section id="ncl" class="card">
     <h3><span data-i18n="ncl_h">Norwegian Cruise Line</span> <span class="small">— <span data-i18n="ncl_tag">Freestyle Cruising</span></span></h3>
     <p data-i18n="ncl_p1">NCL popularized “Freestyle Cruising” with flexible dining and a come-as-you-are approach. Entertainment-forward ships feature big theaters, comedy clubs, and activity spaces that keep nights lively.</p>
@@ -97,7 +145,6 @@
     <p data-i18n="ncl_p3">Choose NCL if you want a laid-back vibe with strong entertainment, many specialty restaurants, and casual dress codes.</p>
   </section>
 
-  <!-- AIDA (Germany) -->
   <section id="aida" class="card">
     <h3><span data-i18n="aida_h">AIDA Cruises</span> <span class="small">— <span data-i18n="aida_tag">Deutschsprachige Wohlfühlflotte</span></span></h3>
     <p data-i18n="aida_p1">AIDA targets primarily German-speaking guests with a casual, lively atmosphere. Expect announcements and entertainment in German, with buffet-forward dining and family-friendly pricing.</p>
@@ -105,28 +152,210 @@
     <p data-i18n="aida_p3">If your priority is a German-language environment at sea, AIDA delivers comfort and community.</p>
   </section>
 
-  <!-- TUI Cruises (Germany) -->
   <section id="tui" class="card">
     <h3><span data-i18n="tui_h">TUI Cruises — Mein Schiff</span> <span class="small">— <span data-i18n="tui_tag">Premium Alles Inklusive</span></span></h3>
     <p data-i18n="tui_p1">TUI serves German-speaking travelers with a calmer, more premium style and many inclusions. Onboard language is primarily German, with a focus on wellness, good food, and comfortable sea days.</p>
     <p data-i18n="tui_p2">A strong fit for couples and mature travelers who value quiet sophistication over thrills, and appreciate transparent pricing.</p>
     <p data-i18n="tui_p3">Choose TUI if you want a premium German-language product with fewer crowds and a slower pace.</p>
   </section>
-</main>
 
-<footer class="site-footer">
-  <div class="wrap">
-    © 2025 In the Wake — Compiled by Ken
-  </div>
-</footer>
+</div>
+<footer>© 2025 In the Wake — Compiled by Ken</footer>
 
 <script>
-// Lightweight i18n
+// ---- Data Model (To Verify: keep brand/class/ship lists current) ----
+const GROUPS = [
+  { name: "Royal Caribbean Group", popularity: 1, lines: [
+    { name: "Royal Caribbean International", classes: [
+      { name: "Icon", ships: ["Icon of the Seas","Star of the Seas"] },
+      { name: "Oasis", ships: ["Oasis of the Seas","Allure of the Seas","Harmony of the Seas","Symphony of the Seas","Wonder of the Seas","Utopia of the Seas"] },
+      { name: "Quantum", ships: ["Quantum of the Seas","Anthem of the Seas","Ovation of the Seas","Spectrum of the Seas","Odyssey of the Seas"] },
+      { name: "Freedom", ships: ["Freedom of the Seas","Liberty of the Seas","Independence of the Seas"] },
+      { name: "Voyager", ships: ["Voyager of the Seas","Explorer of the Seas","Adventure of the Seas","Navigator of the Seas","Mariner of the Seas"] },
+      { name: "Radiance", ships: ["Radiance of the Seas","Brilliance of the Seas","Serenade of the Seas","Jewel of the Seas"] },
+      { name: "Vision", ships: ["Vision of the Seas","Enchantment of the Seas","Grandeur of the Seas","Rhapsody of the Seas"] }
+    ]},
+    { name: "Celebrity Cruises", classes: [
+      { name: "Edge", ships: ["Celebrity Edge","Celebrity Apex","Celebrity Beyond","Celebrity Ascent"] },
+      { name: "Solstice", ships: ["Celebrity Solstice","Celebrity Eclipse","Celebrity Equinox","Celebrity Silhouette","Celebrity Reflection"] },
+      { name: "Millennium", ships: ["Celebrity Millennium","Celebrity Infinity","Celebrity Summit","Celebrity Constellation"] }
+    ]},
+    { name: "Silversea Cruises", classes: [
+      { name: "Classic", ships: ["Silver Muse","Silver Moon","Silver Dawn","Silver Spirit","Silver Whisper","Silver Shadow"] },
+      { name: "Expedition", ships: ["Silver Origin","Silver Endeavour","Silver Cloud","Silver Wind"] }
+    ]},
+    { name: "TUI Cruises (JV)", classes: [
+      { name: "Mein Schiff", ships: ["Mein Schiff 1","Mein Schiff 2","Mein Schiff 3","Mein Schiff 4","Mein Schiff 5","Mein Schiff 6","Mein Schiff 7"] }
+    ]}
+  ]},
+
+  { name: "Carnival Corporation & plc", popularity: 2, lines: [
+    { name: "Carnival Cruise Line", classes: [
+      { name: "Excel", ships: ["Mardi Gras","Carnival Celebration","Carnival Jubilee"] },
+      { name: "Vista", ships: ["Carnival Vista","Carnival Horizon","Carnival Panorama"] },
+      { name: "Dream", ships: ["Carnival Dream","Carnival Magic","Carnival Breeze"] },
+      { name: "Conquest", ships: ["Carnival Conquest","Carnival Glory","Carnival Valor","Carnival Liberty","Carnival Freedom"] },
+      { name: "Spirit", ships: ["Carnival Spirit","Carnival Legend","Carnival Pride","Carnival Miracle"] }
+    ]},
+    { name: "Princess Cruises", classes: [
+      { name: "Sphere", ships: ["Sun Princess","Star Princess"] },
+      { name: "Royal", ships: ["Royal Princess","Regal Princess","Majestic Princess","Sky Princess","Enchanted Princess","Discovery Princess"] }
+    ]},
+    { name: "Holland America Line", classes: [
+      { name: "Pinnacle", ships: ["Koningsdam","Nieuw Statendam","Rotterdam"] },
+      { name: "Signature", ships: ["Eurodam","Nieuw Amsterdam"] },
+      { name: "Vista", ships: ["Zuiderdam","Westerdam","Oosterdam"] }
+    ]},
+    { name: "Cunard Line", classes: [
+      { name: "Queens", ships: ["Queen Mary 2","Queen Victoria","Queen Elizabeth","Queen Anne"] }
+    ]},
+    { name: "AIDA Cruises", classes: [
+      { name: "Helios", ships: ["AIDAnova","AIDAcosma"] },
+      { name: "Sphinx/Other", ships: ["AIDAperla","AIDAprima","AIDAsol","AIDAstella","AIDAmar"] }
+    ]},
+    { name: "Costa Cruises", classes: [
+      { name: "Excel/Helios", ships: ["Costa Smeralda","Costa Toscana"] },
+      { name: "Other", ships: ["Costa Fascinosa","Costa Favolosa","Costa Deliziosa","Costa Diadema","Costa Firenze"] }
+    ]},
+    { name: "P&O Cruises (UK)", classes: [
+      { name: "Excel", ships: ["Iona","Arvia"] },
+      { name: "Other", ships: ["Britannia","Ventura","Azura","Aurora","Arcadia"] }
+    ]},
+    { name: "Seabourn", classes: [
+      { name: "Classic", ships: ["Seabourn Encore","Seabourn Ovation","Seabourn Sojourn","Seabourn Odyssey"] },
+      { name: "Expedition", ships: ["Seabourn Venture","Seabourn Pursuit"] }
+    ]}
+  ]},
+
+  { name: "Norwegian Cruise Line Holdings", popularity: 3, lines: [
+    { name: "Norwegian Cruise Line", classes: [
+      { name: "Prima", ships: ["Norwegian Prima","Norwegian Viva"] },
+      { name: "Breakaway Plus", ships: ["Norwegian Escape","Norwegian Joy","Norwegian Bliss","Norwegian Encore"] },
+      { name: "Breakaway", ships: ["Norwegian Breakaway","Norwegian Getaway"] }
+    ]},
+    { name: "Oceania Cruises", classes: [
+      { name: "Allura", ships: ["Vista","Allura"] },
+      { name: "O", ships: ["Marina","Riviera"] },
+      { name: "R", ships: ["Regatta","Insignia","Nautica","Sirena"] }
+    ]},
+    { name: "Regent Seven Seas", classes: [
+      { name: "Luxury", ships: ["Seven Seas Explorer","Seven Seas Splendor","Seven Seas Grandeur","Seven Seas Voyager","Seven Seas Mariner","Seven Seas Navigator"] }
+    ]}
+  ]},
+
+  { name: "MSC Group", popularity: 4, lines: [
+    { name: "MSC Cruises", classes: [
+      { name: "World", ships: ["MSC World Europa","MSC World America"] },
+      { name: "Meraviglia", ships: ["MSC Meraviglia","MSC Bellissima","MSC Grandiosa","MSC Virtuosa","MSC Euribia"] },
+      { name: "Seaside", ships: ["MSC Seaside","MSC Seaview","MSC Seashore","MSC Seascape"] }
+    ]},
+    { name: "Explora Journeys", classes: [
+      { name: "Explora", ships: ["EXPLORA I","EXPLORA II","EXPLORA III","EXPLORA IV"] }
+    ]}
+  ]}
+];
+
+// ---- Sorting helpers ----
+function byName(a,b){ return a.name.localeCompare(b.name); }
+function sortModel(model){
+  model.forEach(g=>{
+    g.lines.sort(byName);
+    g.lines.forEach(l=>{
+      l.classes?.sort(byName);
+      l.classes?.forEach(c=>{
+        c.ships?.sort((a,b)=>a.localeCompare(b));
+      });
+    });
+  });
+  model.sort((a,b)=>a.popularity - b.popularity);
+}
+sortModel(GROUPS);
+
+// ---- Mega menu rendering ----
+const mega = document.getElementById('megaMenu');
+const btn = document.querySelector('.menu-trigger');
+const lvlGroups = document.getElementById('lvl-groups');
+const lvlLines = document.getElementById('lvl-lines');
+const lvlClasses = document.getElementById('lvl-classes');
+const lvlShips = document.getElementById('lvl-ships');
+
+let hoverTimer = null;
+let current = { group:null, line:null, cls:null };
+
+function renderList(target, items, onPick, title){
+  target.innerHTML = '';
+  const h = document.createElement('h4'); h.textContent = title; target.appendChild(h);
+  const ul = document.createElement('ul'); target.appendChild(ul);
+  items.forEach(item=>{
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = item.name || item;
+    btn.addEventListener('mouseenter', ()=> delayed(()=> onPick(item), 110)); // natural delay
+    btn.addEventListener('focus', ()=> onPick(item));
+    li.appendChild(btn);
+    ul.appendChild(li);
+  });
+}
+
+function delayed(fn, ms){
+  clearTimeout(hoverTimer);
+  hoverTimer = setTimeout(fn, ms);
+}
+
+function openMenu(show){
+  btn.setAttribute('aria-expanded', show);
+  mega.classList.toggle('visible', show);
+}
+
+btn.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  openMenu(!mega.classList.contains('visible'));
+});
+
+document.addEventListener('click', (e)=>{
+  if (!mega.contains(e.target) && e.target !== btn) openMenu(false);
+});
+
+// Hover intent on wrapper
+const wrap = document.getElementById('megaWrap');
+let leaveTimer=null;
+wrap.addEventListener('mouseenter', ()=>{ clearTimeout(leaveTimer); openMenu(true); });
+wrap.addEventListener('mouseleave', ()=>{ leaveTimer = setTimeout(()=> openMenu(false), 220); });
+
+// Initial render
+renderList(lvlGroups, GROUPS, pickGroup, 'Cruise Line Groups');
+
+function pickGroup(group){
+  current.group = group; current.line = null; current.cls = null;
+  renderList(lvlLines, group.lines, pickLine, 'Cruise Lines');
+  lvlClasses.innerHTML = '<h4>Ship Classes</h4>';
+  lvlShips.innerHTML = '<h4>Ships</h4>';
+}
+
+function pickLine(line){
+  current.line = line; current.cls = null;
+  const classes = line.classes && line.classes.length ? line.classes : [{name:'— All Ships —', ships:[]}];
+  renderList(lvlClasses, classes, pickClass, 'Ship Classes');
+  // If no classes, jump straight to ships (none listed here; could deep link later)
+  lvlShips.innerHTML = '<h4>Ships</h4>';
+  if (!line.classes || !line.classes.length){
+    // If you prefer: populate ships directly when classes absent (requires line.ships array)
+  }
+}
+
+function pickClass(cls){
+  current.cls = cls;
+  const ships = (cls.ships||[]).map(n=>({name:n}));
+  renderList(lvlShips, ships, ()=>{}, 'Ships');
+}
+
+// ---- Lightweight i18n (same as before) ----
 const dict = {
   en: {
-    page_title: "Cruise Lines & Brand Fit",
+    page_title_sub: "Cruise Lines & Brand Fit",
     choose_lang_label: "Language:",
-    verify_note: "To Verify: Availability and targeting notes reflect general positioning. Always confirm ship/venue specifics on the official line website before booking.",
+    verify_note: "To Verify: Groupings, classes, and ship lists are provided for navigation and may change. Confirm details on official sites, and mark inactive vessels as Historical Ship.",
     rcl_h: "Royal Caribbean International", rcl_tag: "Thrills & Innovation",
     rcl_p1: "Royal Caribbean is the brand for travelers who crave big, bold vacations. Its ships are floating cities filled with surf simulators, skydiving tunnels, zip lines, and Broadway-style productions. Every sailing is designed to wow you with something new.",
     rcl_p2: "Families, couples, and groups of friends will all find their fit: kids’ clubs, teen hangouts, adults-only Solariums, and nightlife that runs late. Dining runs the gamut from quick bites to celebrity-chef experiences, while wellness seekers enjoy spas, gyms, and tranquil retreats.",
@@ -157,9 +386,9 @@ const dict = {
     tui_p3: "Choose TUI if you want a premium German-language product with fewer crowds and a slower pace."
   },
   de: {
-    page_title: "Reedereien & Markenpassung",
+    page_title_sub: "Reedereien & Markenpassung",
     choose_lang_label: "Sprache:",
-    verify_note: "Zu prüfen: Verfügbarkeits- und Zielgruppenhinweise spiegeln die allgemeine Positionierung wider. Details immer auf der offiziellen Website der Reederei vor der Buchung prüfen.",
+    verify_note: "Zu prüfen: Gruppierungen, Klassen und Schiffslisten dienen der Navigation und können sich ändern. Details auf offiziellen Websites prüfen; inaktive Schiffe als Historical Ship markieren.",
     rcl_h: "Royal Caribbean International", rcl_tag: "Action & Innovation",
     rcl_p1: "Royal Caribbean ist die Marke für Reisende, die große, mutige Urlaube lieben. Die Schiffe sind schwimmende Städte mit Surfsimulatoren, Fallschirmtunneln, Zip-Lines und Broadway-Produktionen. Jede Reise überrascht mit Neuem.",
     rcl_p2: "Familien, Paare und Freunde finden alle ihr Plätzchen: Kinder- und Jugendbereiche, Adults-Only-Solariums und Nachtleben bis spät. Kulinarik von schnellen Snacks bis zu Promi‑Köchen; Wellness mit Spa, Fitness und ruhigen Rückzugsorten.",
@@ -190,9 +419,9 @@ const dict = {
     tui_p3: "TUI ist die Wahl für ein Premium‑Produkt auf Deutsch – mit weniger Trubel und ruhigerem Tempo."
   },
   es: {
-    page_title: "Navieras y Ajuste de Marca",
+    page_title_sub: "Navieras y Ajuste de Marca",
     choose_lang_label: "Idioma:",
-    verify_note: "Para verificar: Las notas de disponibilidad y enfoque reflejan una posición general. Confirma siempre los detalles en el sitio oficial antes de reservar.",
+    verify_note: "Para verificar: Las agrupaciones, clases y listas de barcos se ofrecen para navegación y pueden cambiar. Confirma en sitios oficiales; marca barcos inactivos como Historical Ship.",
     rcl_h: "Royal Caribbean International", rcl_tag: "Emoción e Innovación",
     rcl_p1: "Royal Caribbean es para viajeros que buscan vacaciones grandes y audaces. Sus barcos son ciudades flotantes con simuladores de surf, túneles de paracaidismo, tirolinas y espectáculos al estilo Broadway.",
     rcl_p2: "Familias, parejas y amigos encontrarán su espacio: clubes para niños y teens, soláriums solo para adultos y vida nocturna hasta tarde. Gastronomía desde opciones rápidas hasta experiencias de chefs famosos.",
@@ -224,7 +453,7 @@ const dict = {
   }
 };
 
-function applyLang(lang) {
+function applyLang(lang){
   const table = dict[lang] || dict.en;
   document.documentElement.setAttribute('lang', lang);
   document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -232,14 +461,10 @@ function applyLang(lang) {
     if (table[key]) el.textContent = table[key];
   });
 }
-
 const sel = document.getElementById("langSel");
 sel.addEventListener("change", () => applyLang(sel.value));
-
-// Initialize with English, or try browser language
 const browser = (navigator.language || "en").slice(0,2);
 applyLang(["en","de","es"].includes(browser) ? browser : "en");
 sel.value = document.documentElement.getAttribute('lang');
 </script>
-</body>
-</html>
+</body></html>
