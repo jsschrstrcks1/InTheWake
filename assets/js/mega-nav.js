@@ -1,4 +1,29 @@
 /* assets/js/mega-nav.js — unified mega menu + brand/class/ship helpers
+
+// --- Ship page linker (local HTML mapping) ---
+let SHIP_PAGE_MAP = null;
+async function loadShipPages(){
+  if (SHIP_PAGE_MAP) return SHIP_PAGE_MAP;
+  try{
+    const res = await fetch('assets/data/ship_pages.json', {cache:'no-store'});
+    if(res.ok){ SHIP_PAGE_MAP = await res.json(); }
+    else { SHIP_PAGE_MAP = {}; }
+  }catch(e){ SHIP_PAGE_MAP = {}; }
+  return SHIP_PAGE_MAP;
+}
+
+function shipHref(name){
+  if (!SHIP_PAGE_MAP) return null;
+  // Exact match first
+  if (SHIP_PAGE_MAP[name]) return SHIP_PAGE_MAP[name];
+  // Fuzzy: collapse spaces/dashes
+  const key = name.replace(/\s+/g,' ').trim().toLowerCase();
+  for (const [n, fp] of Object.entries(SHIP_PAGE_MAP)){
+    if (n.toLowerCase() === key) return fp;
+  }
+  return null;
+}
+
    Depends on: assets/data/fleets.json
 */
 
@@ -501,4 +526,20 @@ function attachHoverIntent(root, delay = 200) {
   });
 }
 
+
+
+
+// Wrap a label in anchor if we have a page URL
+function labelWithLink(label){
+  const href = shipHref(label);
+  if (href){
+    const a = document.createElement('a');
+    a.href = href;
+    a.textContent = label;
+    return a;
+  }
+  const span = document.createElement('span');
+  span.textContent = label;
+  return span;
+}
 

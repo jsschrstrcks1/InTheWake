@@ -10,12 +10,12 @@
 
 <header class="hero-header">
   <div class="navbar">
-    <a class="brand" href="index.html" title="Home">
-      <img src="assets/logo/logo_teal_white.svg" alt="In the Wake teal ship logo">
-      <span class="brand-title">In the Wake <span class="version-badge">v2.048</span></span>
-    </a>
+    <div class="brand">
+      <img src="assets/brand/logo.png" alt="In the Wake wordmark"/>
+      <div class="brand-title">In the Wake <span class="version-badge">v2.086</span></div>
+    </div>
     <nav class="nav">
-      <a href="ships.html">Ships</a>
+      <a href="cruise-lines.html">Cruise Lines</a>
       <a href="restaurants.html">Restaurants</a>
       <a href="ports.html">Ports</a>
       <a href="drinks.html">Drinks</a>
@@ -23,27 +23,30 @@
       <a href="disability.html">Disability</a>
     </nav>
   </div>
-  <div class="hero">
+
+  <!-- Hero (grid lines only; no degree labels) -->
+  <div class="hero" role="img" aria-label="Ship wake at sunset">
     <div class="latlon-grid" aria-hidden="true">
       <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-        <line x1="10" y1="0" x2="10" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="20" y1="0" x2="20" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="30" y1="0" x2="30" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="40" y1="0" x2="40" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="50" y1="0" x2="50" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="60" y1="0" x2="60" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="70" y1="0" x2="70" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="80" y1="0" x2="80" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="90" y1="0" x2="90" y2="60" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="10" x2="100" y2="10" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="20" x2="100" y2="20" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="30" x2="100" y2="30" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
-        <line x1="0"  y1="40" x2="100" y2="40" stroke="rgba(255,255,255,.24)" stroke-width="0.3"/>
+        <g class="grid-lines" stroke-width="0.35">
+          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+          <line x1="90" y1="0" x2="90" y2="60"/>
+          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+        </g>
       </svg>
     </div>
-    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true">
-    <div class="hero-title" role="img" aria-label="In the Wake">
-      <img class="logo" src="assets/logo_wake_teal.png" alt="">
+
+    <!-- Compass -->
+    <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
+
+    <!-- Logo + tagline -->
+    <div class="hero-title">
+      <img class="logo" src="assets/logo_wake.png" alt="In the Wake">
+      <div class="tagline">A Cruise Traveler’s Logbook</div>
     </div>
   </div>
 </header>

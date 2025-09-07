@@ -256,3 +256,22 @@ header.site-header::before, header.site-header::after{ display:none !important }
   opacity: 1; transform: translateY(0);
 }
 
+
+
+/* --- Mega menu (global) --- */
+.menu-wrap{position:relative;z-index:1010}
+.mega{position:absolute;left:0;top:calc(100% + 8px);background:#ffffff;border:2px solid var(--rope, #d9b382);
+  border-radius:14px;box-shadow:0 8px 24px rgba(8,48,65,.18);padding:.6rem;display:none;min-width:340px;z-index:1050}
+.mega.visible{display:block}
+.menu-col{display:flex;gap:.75rem;align-items:flex-start}
+.menu-level{min-width:220px;max-height:60vh;overflow:auto;border-right:1px dashed rgba(8,48,65,.2);padding:.4rem}
+.menu-level:last-child{border-right:none}
+.menu-level h4{margin:.25rem .25rem .4rem;font-size:.95rem;color:var(--sea, #0a3d62)}
+.menu-level ul{list-style:none;margin:0;padding:0}
+.menu-level li{margin:0}
+.menu-level button{display:block;width:100%;text-align:left;background:transparent;border:none;padding:.38rem .5rem;
+  border-radius:8px;cursor:pointer}
+.menu-level button:hover,.menu-level button:focus{background:#fff2e0;outline:none}
+.badge{font-size:.8rem;padding:.1rem .35rem;border:1px solid var(--rope, #d9b382);border-radius:6px;margin-left:.35rem;color:#2a5b6e}
+/* Make sure hero overlays and watermarks don't cover menus */
+.hero-grid, .hero-photo, .hero-compass { pointer-events:none; }
