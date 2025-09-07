@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grandeur of the Seas — Videos, Highlights & Why Book</title>
+  <link rel="stylesheet" href="assets/styles.css?v=2.086">
+  <!-- Swiper (carousel) -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css">
+  <style>
+    /* layout helpers (can be moved into styles.css later) */
+    .site-header .brandbar{
+      display:flex; align-items:center; gap:1rem; padding:.75rem 1rem;
+    }
+    .site-header .brandbar img.logo{
+      width: clamp(120px, 24vw, 220px);
+      height:auto; object-fit:contain;
+    }
+    .site-header .brandbar .subhead{
+      display:flex; flex-direction:column;
+    }
+    .site-header .brandbar .subhead h1{
+      margin:.1rem 0 0 0; font-size:clamp(1.35rem, 3.2vw, 2rem); color:#5DADE2;
+      line-height:1.1;
+    }
+    .cards-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:1rem;}
+    .card{height:100%;}
+    /* Put the carousel at bottom as full width */
+    .video-section{margin-top:1.25rem;}
+    /* Ensure watermark stays behind */
+    header, .wrap, footer, section, .card { position:relative; z-index:1; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brandbar wrap">
+      <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/itw-ship-logo.png" alt="In the Wake ship logo" onerror="this.style.display='none'">
+      <div class="subhead">
+        <div class="small dim">Royal Caribbean</div>
+        <h1>Grandeur of the Seas</h1>
+      </div>
+    </div>
+    <div class="navbar">
+      <nav aria-label="Primary">
+        <a href="https://jsschrstrcks1.github.io/InTheWake/">Home</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ships.html">Ships</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <div class="lang-switch" style="display:flex;gap:.5rem;justify-content:flex-end;align-items:center;margin:.5rem 0 1rem;">
+      <label for="langSel" class="small">Language:</label>
+      <select id="langSel" aria-label="Language selector">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="pt">Português</option>
+        <option value="it">Italiano</option>
+      </select>
+    </div>
+
+    <div class="cards-grid">
+      <section class="page-hero card">
+        <h2 data-i18n="hero_title">A First Look</h2>
+        <a class="button deck-link" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener" data-i18n="deck_plans">View Official Deck Plans →</a>
+        <div class="hero-rotator" id="heroRotator" aria-live="polite"></div>
+        <p class="small dim" data-i18n="verify_note">To Verify: Replace any hero photos with your preferred licensed or public‑domain images. Links use absolute GitHub Pages URLs and skip broken files.</p>
+      </section>
+
+      <section class="why-section card" aria-labelledby="whyHeading">
+        <h2 id="whyHeading" data-i18n="why_title">Why book Grandeur of the Seas?</h2>
+        <div id="whyCopy">
+          <p data-i18n="why_p1">Grandeur of the Seas is a beloved, human‑scale Royal Caribbean ship that puts classic cruise pleasures front and center: ocean views everywhere, friendly service, and an easy layout that’s simple to explore.</p>
+          <ul>
+            <li data-i18n="why_b1"><strong>Signature Royal fun:</strong> Conquer the <em>Rock Climbing Wall</em>, relax by the pool, and catch live music and shows every night.</li>
+            <li data-i18n="why_b2"><strong>Specialty dining you’ll crave:</strong> <em>Chops Grille</em> (hand‑cut steaks & decadent sides), <em>Izumi</em> (fresh sushi & sizzling hot rocks), <em>Chef’s Table</em> (multi‑course, wine‑paired experience).</li>
+            <li data-i18n="why_b3"><strong>Great for families:</strong> Kids and teens love <em>Adventure Ocean</em> activities, the arcade, and poolside fun — while grown‑ups unwind in the adults‑only <em>Solarium</em>.</li>
+            <li data-i18n="why_b4"><strong>Cozy & personable:</strong> A mid‑size ship means shorter walks, easier embarkations, and more time enjoying your vacation.</li>
+            <li data-i18n="why_b5"><strong>Value‑forward itineraries:</strong> Caribbean and seasonal getaways that maximize days at sea and time in port.</li>
+          </ul>
+          <p class="small dim" data-i18n="why_note">Note: Grandeur focuses on classic Royal experiences. It does not feature large water slides or skydiving tunnels; choose it for friendly vibes, live entertainment, and relaxing sea days.</p>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="moreVideosHeading">
+        <h2 id="moreVideosHeading" data-i18n="more_videos_title">More from trusted creators</h2>
+        <p class="small" data-i18n="more_videos_desc">Hand-picked from our green‑tier creators; titles must mention “Grandeur of the Seas.” We avoid newsy or scary topics.</p>
+        <div class="video-cards" id="moreVideos"></div>
+      
+      <section class="card" aria-labelledby="rcMarketingHeading">
+        <h2 id="rcMarketingHeading">Highlights from Royal Caribbean</h2>
+        <div class="grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.8rem;">
+          <div>
+            <h3 class="small">Classic Royal Thrills</h3>
+            <p>Scale the signature <strong>Rock Climbing Wall</strong>, take in sea views from the open decks, and unwind under the glass‑covered <strong>Solarium</strong> (adults‑only).</p>
+          </div>
+          <div>
+            <h3 class="small">Dining You’ll Crave</h3>
+            <p>From the <strong>Main Dining Room</strong> and <strong>Windjammer</strong> buffet to specialties like <strong>Chops Grille</strong>, <strong>Giovanni’s Table</strong>, and <strong>Chef’s Table</strong> (availability varies by sailing), meals feel like an event.</p>
+          </div>
+          <div>
+            <h3 class="small">Evenings to Remember</h3>
+            <p>Live music, lounges, and production shows keep nights buzzing — or find a quiet nook for sunset cocktails.</p>
+          </div>
+          <div>
+            <h3 class="small">Families Welcome</h3>
+            <p>Kids and teens get age‑tailored fun with <strong>Adventure Ocean</strong>, an arcade, and poolside activities while parents recharge.</p>
+          </div>
+        </div>
+        <p class="small dim">To Verify: Replace any text or images here with the official materials you’re licensed to use from Royal Caribbean’s marketing page for Grandeur of the Seas.</p>
+        <div id="marketingGallery" class="hero-rotator" aria-live="polite" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem;"><figure style="border:2px solid var(--rope,#d9b382);border-radius:12px;overflow:hidden;margin:0;"><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Steak_Dinner_%28Unsplash%29.jpg" alt="Steak dinner representing Chops Grille" loading="lazy"><figcaption class="small dim" style="padding:.4rem .6rem;">Public domain (CC0) — Unsplash via Wikimedia Commons.</figcaption></figure><figure style="border:2px solid var(--rope,#d9b382);border-radius:12px;overflow:hidden;margin:0;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Sushi_plate.JPG" alt="Sushi plate representing Izumi" loading="lazy"><figcaption class="small dim" style="padding:.4rem .6rem;">Public domain (PD) — Wikimedia Commons.</figcaption></figure><figure style="border:2px solid var(--rope,#d9b382);border-radius:12px;overflow:hidden;margin:0;"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Model_T_Casino_interior.jpg" alt="Casino interior representing Casino Royale" loading="lazy"><figcaption class="small dim" style="padding:.4rem .6rem;">Public domain (CC0) — Wikimedia Commons.</figcaption></figure></div>
+      </section>
+
+    </div> <!-- /cards-grid -->
+
+    <!-- Place the carousel last, full-width -->
+    <section class="video-section card" aria-labelledby="videosHeading">
+      <h2 id="videosHeading" data-i18n="videos_title">Watch: Grandeur Highlights</h2>
+      <p class="small" data-i18n="videos_desc">Start with our pre‑screened, family‑friendly picks. Swipe to explore without leaving this page.</p>
+      <div class="swiper" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2025 In the Wake — Compiled by Ken</footer>
+
+  <!-- Swiper -->
+  <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+  // Full i18n map (keys referenced on page)
+  const i18n = {
+    en:{hero_title:"A First Look",deck_plans:"View Official Deck Plans →",verify_note:"To Verify: Replace any hero photos with your preferred licensed or public‑domain images. Links use absolute GitHub Pages URLs and skip broken files.",videos_title:"Watch: Grandeur Highlights",videos_desc:"Start with our pre‑screened, family‑friendly picks. Swipe to explore without leaving this page.",more_videos_title:"More from trusted creators",more_videos_desc:"Hand-picked from our green‑tier creators; titles must mention “Grandeur of the Seas.” We avoid newsy or scary topics.",why_title:"Why book Grandeur of the Seas?",why_p1:"Grandeur of the Seas is a beloved, human‑scale Royal Caribbean ship that puts classic cruise pleasures front and center: ocean views everywhere, friendly service, and an easy layout that’s simple to explore.",why_note:"Note: Grandeur focuses on classic Royal experiences. It does not feature large water slides or skydiving tunnels; choose it for friendly vibes, live entertainment, and relaxing sea days.",why_b1:"Signature Royal fun: Conquer the Rock Climbing Wall, relax by the pool, and catch live music and shows every night.",why_b2:"Specialty dining (select venues): Savor prime cuts at Chops Grille, rustic Italian at Giovanni’s Table, or Asian‑inspired bites at Izumi (offerings vary by sailing).",why_b3:"Great for families: Kids and teens love Adventure Ocean activities, the arcade, and poolside fun — while grown‑ups unwind in the adults‑only Solarium.",why_b4:"Cozy & personable: A mid‑size ship means shorter walks, easier embarkations, and more time enjoying your vacation.",why_b5:"Value‑forward itineraries: Caribbean and seasonal getaways that maximize days at sea and time in port."},
+    es:{hero_title:"Primera Mirada",deck_plans:"Ver Planos Oficiales →",verify_note:"Para verificar: reemplaza las fotos con imágenes con licencia o de dominio público. URLs absolutas; archivos rotos se omiten.",videos_title:"Mira: Lo mejor de Grandeur",videos_desc:"Comienza con nuestras selecciones aptas para familias. Desliza sin salir de esta página.",more_videos_title:"Más de creadores confiables",more_videos_desc:"Seleccionados de nuestros creadores de nivel verde; el título debe mencionar “Grandeur of the Seas”. Evitamos noticias alarmantes.",why_title:"¿Por qué reservar Grandeur of the Seas?",why_p1:"Barco de tamaño humano con los placeres clásicos del crucero: vistas al mar, servicio amable y diseño fácil.",why_note:"Nota: enfoque clásico (sin grandes toboganes o túnel de paracaidismo).",why_b1:"Diversión Royal: pared de escalada, piscina y espectáculos nocturnos.",why_b2:"Especialidades (según viaje): Chops Grille, Giovanni’s Table, Izumi.",why_b3:"Familias: Adventure Ocean, arcade, piscina; Solarium para adultos.",why_b4:"Cálido y cercano: tamaño mediano, desplazamientos cortos.",why_b5:"Itinerarios con valor: Caribe y escapadas de temporada."},
+    de:{hero_title:"Erster Eindruck",deck_plans:"Offizielle Deckpläne ansehen →",verify_note:"Zu prüfen: ggf. Fotos ersetzen. Absolute URLs; fehlerhafte Dateien werden ignoriert.",videos_title:"Videos: Grandeur Highlights",videos_desc:"Familienfreundliche Tipps – wische ohne die Seite zu verlassen.",more_videos_title:"Mehr von vertrauenswürdigen Creators",more_videos_desc:"Aus der grünen Liste; Titel muss „Grandeur of the Seas“ enthalten.",why_title:"Warum die Grandeur of the Seas buchen?",why_p1:"Beliebtes Royal‑Schiff im handlichen Format – klassische Freuden, freundlicher Service.",why_note:"Hinweis: klassische Erlebnisse (keine großen Rutschen/Skydive).",why_b1:"Royal Spaß: Kletterwand, Pool, Livemusik.",why_b2:"Spezialitäten (je nach Reise): Chops, Giovanni’s, Izumi.",why_b3:"Familien: Adventure Ocean, Arcade, Pool; Solarium.",why_b4:"Überschaubar & persönlich.",why_b5:"Preiswerte Routen."},
+    fr:{hero_title:"Première vue",deck_plans:"Voir les plans officiels →",verify_note:"À vérifier : remplacez les photos si besoin. URLs absolues; fichiers défectueux ignorés.",videos_title:"Vidéos : temps forts",videos_desc:"Commencez par nos choix familiaux. Feuilletez sans quitter la page.",more_videos_title:"Plus de créateurs fiables",more_videos_desc:"Liste verte; le titre doit mentionner « Grandeur of the Seas ».",why_title:"Pourquoi réserver Grandeur of the Seas ?",why_p1:"Navire Royal à taille humaine : vues mer, service chaleureux, plan simple.",why_note:"Expérience Royal classique (pas de grands toboggans/skydive).",why_b1:"Mur d’escalade, piscine, spectacles.",why_b2:"Spécialités : Chops, Giovanni’s, Izumi.",why_b3:"Familles : Adventure Ocean, arcade, Solarium.",why_b4:"Convivial & facile.",why_b5:"Itinéraires avantageux."},
+    pt:{hero_title:"Primeiro olhar",deck_plans:"Ver mapas oficiais →",verify_note:"Para verificar: substitua fotos, se preferir. URLs absolutas; arquivos com erro são ignorados.",videos_title:"Assista: destaques",videos_desc:"Comece com nossas escolhas para famílias. Deslize sem sair da página.",more_videos_title:"Mais de criadores confiáveis",more_videos_desc:"Lista verde; título deve citar “Grandeur of the Seas”.",why_title:"Por que reservar a Grandeur of the Seas?",why_p1:"Navio de porte moderado, charme Royal clássico.",why_note:"Foco em experiências clássicas (sem megatobogãs/skydive).",why_b1:"Parede de escalada, piscina, shows.",why_b2:"Especialidades: Chops, Giovanni’s, Izumi.",why_b3:"Famílias: Adventure Ocean, arcade, Solarium.",why_b4:"Aconchegante.",why_b5:"Roteiros com ótimo custo‑benefício."},
+    it:{hero_title:"Prima occhiata",deck_plans:"Vedi le planimetrie ufficiali →",verify_note:"Da verificare: sostituisci le foto se vuoi. URL assoluti; file rotti ignorati.",videos_title:"Guarda: momenti salienti",videos_desc:"Inizia con le nostre scelte family‑friendly. Scorri senza lasciare la pagina.",more_videos_title:"Altri video affidabili",more_videos_desc:"Lista verde; il titolo deve citare “Grandeur of the Seas”.",why_title:"Perché prenotare Grandeur of the Seas?",why_p1:"Nave Royal a misura d’uomo: viste oceano e servizio cordiale.",why_note:"Esperienza classica (niente grandi scivoli o skydive).",why_b1:"Parete da arrampicata, piscina, spettacoli.",why_b2:"Specialità: Chops, Giovanni’s, Izumi.",why_b3:"Famiglie: Adventure Ocean, arcade, Solarium.",why_b4:"Accogliente.",why_b5:"Itinerari convenienti."}
+  };
+  function applyLang(lang){
+    const table = i18n[lang] || i18n.en;
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const k = el.getAttribute('data-i18n');
+      if(table[k]) el.textContent = table[k];
+    });
+  }
+  const sel=document.getElementById('langSel'); sel.addEventListener('change',()=>applyLang(sel.value)); applyLang('en');
+
+  // Photos (absolute URLs; hide broken)
+  const HERO_PHOTOS=[
+    "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas - 1.jpg",
+    "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas - 2.jpg",
+    "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas - 3.jpg"
+  ];
+  (function initHero(){
+    const rot = document.getElementById('heroRotator');
+    const want = 3;
+    let shown = 0, idx = 0, guard = 0;
+    function tryNext(){
+      if (shown >= want || guard > HERO_PHOTOS.length*3) return;
+      const src = HERO_PHOTOS[idx % HERO_PHOTOS.length]; idx++; guard++;
+      const img = new Image();
+      img.alt = "Grandeur of the Seas";
+      img.loading = "lazy";
+      img.src = src;
+      img.onload = () => { rot.appendChild(img); shown++; tryNext(); };
+      img.onerror = () => { tryNext(); };
+    }
+    tryNext(); tryNext(); tryNext();
+  })();
+
+  // Marketing gallery placeholders (add licensed URLs as needed)
+  const MARKETING_PHOTOS = []; // e.g., ["https://.../grandeur-marketing-1.jpg"]
+  (function initMarketing(){
+    const tgt = document.getElementById('marketingGallery');
+    (MARKETING_PHOTOS || []).forEach(src => {
+      const img = new Image(); img.alt = "Grandeur of the Seas marketing image"; img.loading="lazy"; img.src = src;
+      img.onerror = () => img.remove();
+      tgt && tgt.appendChild(img);
+    });
+  })();
+
+  // Positive-only filter
+  const BAN_WORDS=["crash","storm","rough","accident","sinking","bar crawl","drunk","sexy","strip","lesbian","sex","gay"];
+  const isPositive=t=>!BAN_WORDS.some(w=>(t||'').toLowerCase().includes(w));
+
+  // Replace these FEATURED with your screened picks
+  const FEATUREED=[
+    {id:"dQw4w9WgXcQ", title:"Grandeur of the Seas: Official Tour"},
+    {id:"2vjPBrBU-TM", title:"Life on Board: Grandeur Vibes"}
+  ];
+
+  // Green-tier examples (must mention “Grandeur of the Seas”)
+  const GREEN_PICKS=[
+    {id:"QH2-TGUlwu4", title:"Top 10 Tips on Grandeur of the Seas — CruiseTipsTV"},
+    {id:"9bZkp7q19f0", title:"Grandeur of the Seas Cabin Tour — Harr Travel"},
+    {id:"oHg5SJYRHA0", title:"Grandeur of the Seas Food Tour — EatSleepCruise"}
+  ].filter(v=>/grandeur of the seas/i.test(v.title) && isPositive(v.title));
+
+  // Build Swiper slides
+  const wrap=document.getElementById('featuredVideos');
+  FEATUREED.forEach(v=>{
+    const slide=document.createElement('div'); slide.className='swiper-slide';
+    slide.innerHTML=`<iframe title="${v.title}" src="https://www.youtube.com/embed/${v.id}" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen loading="lazy"></iframe>`;
+    wrap.appendChild(slide);
+  });
+
+  // More video cards
+  const more=document.getElementById('moreVideos');
+  GREEN_PICKS.forEach(v=>{
+    const a=document.createElement('a'); a.href=`https://www.youtube.com/watch?v=${v.id}`; a.target="_blank"; a.rel="noopener"; a.className="video-card";
+    a.innerHTML=`<img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="${v.title} thumbnail"><div class="vc-body"><div class="vc-title">${v.title}</div></div>`;
+    more.appendChild(a);
+  });
+
+  // Init Swiper
+  const swiper=new Swiper('.swiper',{
+    lazy:true, loop:false,
+    pagination:{el:'.swiper-pagination', clickable:true},
+    navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'},
+    a11y:{enabled:true}
+  });
+  </script>
+</body>
+</html>
