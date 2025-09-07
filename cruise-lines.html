@@ -3,223 +3,243 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Cruise Lines — In the Wake</title>
+  <title>In the Wake — Cruise Lines</title>
   <link rel="stylesheet" href="assets/styles.css?v=2.086"/>
+  <style>
+    /* Page-specific light styles that complement assets/styles.css */
+    .lang-switch { display:flex; gap:.5rem; align-items:center; justify-content:flex-end; padding:.5rem 1rem; }
+    .lang-switch select { padding:.35rem .6rem; border:1px solid #d9b382; border-radius:8px; background:#fff; }
+    .card .small { color:var(--muted, #2a5b6e); }
+    .note.verify { background:#fff7ea; border:1px solid #d9b382; padding:.6rem .8rem; border-radius:8px; }
+  </style>
 </head>
 <body>
-<header class="hero-header">
+<header class="hero-header small-hero">
   <div class="navbar">
     <div class="brand">
-      <img src="assets/brand/logo.png" alt="In the Wake"/>
-      <div class="brand-title">In the Wake <span class="version-badge">v2.086</span></div>
+      <img src="assets/brand/logo.png" alt="In the Wake wordmark"/>
+      <div class="brand-title">In the Wake</div>
     </div>
     <nav class="nav">
       <a href="index.html">Home</a>
-      <a href="cruise-lines.html" aria-current="page">Cruise Lines</a>
-      <a href="ports.html">Ports</a>
+      <a href="ships.html">Ships</a>
       <a href="restaurants.html">Restaurants</a>
+      <a href="ports.html">Ports</a>
       <a href="drinks.html">Drinks</a>
       <a href="packing.html">Packing</a>
       <a href="disability.html">Disability</a>
     </nav>
   </div>
-
-  <div class="hero" role="img" aria-label="Wake at sea">
-    <div class="latlon-grid" aria-hidden="true">
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-        <g class="grid-lines" stroke-width="0.35">
-          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
-          <line x1="90" y1="0" x2="90" y2="60"/>
-          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
-          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
-        </g>
-      </svg>
-    </div>
+  <div class="hero-art">
+    <img class="hero-photo" src="assets/hero.jpg" alt="" aria-hidden="true"/>
+    <div class="hero-grid" aria-hidden="true"></div>
     <img class="hero-compass" src="assets/compass_rose.svg" alt="" aria-hidden="true"/>
     <div class="hero-title">
       <img class="logo" src="assets/logo_wake.png" alt="In the Wake">
-      <div class="tagline">Browse Cruise Lines & Fleets</div>
-
+      <div class="tagline" data-i18n="page_title">Cruise Lines & Brand Fit</div>
     </div>
   </div>
-
-  <!-- Mega nav goes here, below the hero -->
-  <nav id="megaNav" class="mega-nav" aria-label="Cruise lines navigation">
-    <ul class="lvl-1" role="menubar"></ul>
-  </nav>
 </header>
 
-<main class="page-wrap">
-  <!-- Section A: Browse by Group -->
-  <section id="by-group" class="card">
-    <h2>Browse by Cruise Group</h2>
+<div class="lang-switch">
+  <label for="langSel" class="small" data-i18n="choose_lang_label">Language:</label>
+  <select id="langSel" aria-label="Language selector">
+    <option value="en">English</option>
+    <option value="de">Deutsch</option>
+    <option value="es">Español</option>
+  </select>
+</div>
 
-    <div id="group-grid" class="index-grid"></div>
-<section id="royal-caribbean" class="card">
-  <h3>Royal Caribbean International <span class="small">— Thrills & Innovation</span></h3>
-  <p>Royal Caribbean is the brand for travelers who crave big, bold vacations. Its ships are floating cities filled with surf simulators, skydiving tunnels, zip lines, and Broadway-style productions. Every sailing is designed to wow you with something new.</p>
-  <p>Families, couples, and groups of friends will all find their fit: kids’ clubs, teen hangouts, adults-only Solariums, and nightlife that runs late. Dining runs the gamut from quick bites to celebrity-chef experiences, while wellness seekers enjoy spas, gyms, and tranquil retreats.</p>
-  <p>If you want a high-energy vacation where variety and adventure are always within reach, Royal Caribbean is your match. It’s about non-stop fun, global flavors, and unforgettable memories at sea.</p>
-</section>
-
-<section id="celebrity-cruises" class="card">
-  <h3>Celebrity Cruises <span class="small">— Modern Luxury</span></h3>
-  <p>Celebrity Cruises blends stylish design, cutting-edge cuisine, and attentive service into a sophisticated cruising experience. Their ships are sleek and modern, with spaces created by world-class architects and designers.</p>
-  <p>This is the line for couples, foodies, and travelers who want a more upscale environment without losing the warmth of great service. Think rooftop gardens, Michelin-inspired menus, and a refined but relaxed atmosphere.</p>
-  <p>Celebrity is perfect if you want to slow down, indulge, and savor life at sea while still enjoying the occasional splash of entertainment and adventure.</p>
-</section>
-
-<section id="silversea" class="card">
-  <h3>Silversea Cruises <span class="small">— Ultra-Luxury Exploration</span></h3>
-  <p>Silversea specializes in all-inclusive, ultra-luxury cruising to some of the most exclusive and remote corners of the world. With intimate ships and nearly one-to-one crew-to-guest ratios, every detail is handled with care.</p>
-  <p>Travelers who choose Silversea tend to be seasoned cruisers, couples, and explorers who appreciate gourmet dining, elegant suites, and expedition-style itineraries — all wrapped in five-star service.</p>
-  <p>If you dream of Antarctica, the Galápagos, or simply sipping champagne on a private veranda, Silversea offers a world-class way to do it.</p>
-</section>
-
+<main class="wrap">
+  <section class="card note verify">
+    <p class="small" data-i18n="verify_note">
+      To Verify: Availability and targeting notes reflect general positioning. Always confirm ship/venue specifics on the official line website before booking.
+    </p>
   </section>
 
-  <!-- Section B: Browse by Class (populated when a brand is selected) -->
-  <section id="by-class" class="card">
-    <h2>Browse by Ship Class</h2>
-    <div id="class-grid" class="index-grid"></div>
+  <!-- Royal Caribbean -->
+  <section id="royal-caribbean" class="card">
+    <h3><span data-i18n="rcl_h">Royal Caribbean International</span> <span class="small">— <span data-i18n="rcl_tag">Thrills & Innovation</span></span></h3>
+    <p data-i18n="rcl_p1">Royal Caribbean is the brand for travelers who crave big, bold vacations. Its ships are floating cities filled with surf simulators, skydiving tunnels, zip lines, and Broadway-style productions. Every sailing is designed to wow you with something new.</p>
+    <p data-i18n="rcl_p2">Families, couples, and groups of friends will all find their fit: kids’ clubs, teen hangouts, adults-only Solariums, and nightlife that runs late. Dining runs the gamut from quick bites to celebrity-chef experiences, while wellness seekers enjoy spas, gyms, and tranquil retreats.</p>
+    <p data-i18n="rcl_p3">If you want a high-energy vacation where variety and adventure are always within reach, Royal Caribbean is your match. It’s about non-stop fun, global flavors, and unforgettable memories at sea.</p>
   </section>
 
-  <!-- Section C: All Ships (A–Z) -->
-  <section id="all-ships" class="card">
-    <h2>All Ships (A–Z)</h2>
-    <div style="display:flex; gap:.5rem; flex-wrap:wrap; margin:.5rem 0">
-      <input id="shipSearch" type="search" placeholder="Search ships…" class="index-pill" style="flex:1; min-width:200px">
-      <select id="filterBrand" class="index-pill"></select>
-      <select id="filterClass" class="index-pill"></select>
-      <select id="filterYear" class="index-pill">
-        <option value="">Year (any)</option>
-      </select>
-    </div>
-    <div id="ship-list" class="index-grid"></div>
+  <!-- Celebrity -->
+  <section id="celebrity-cruises" class="card">
+    <h3><span data-i18n="cel_h">Celebrity Cruises</span> <span class="small">— <span data-i18n="cel_tag">Modern Luxury</span></span></h3>
+    <p data-i18n="cel_p1">Celebrity Cruises blends stylish design, cutting-edge cuisine, and attentive service into a sophisticated cruising experience. Their ships are sleek and modern, with spaces created by world-class architects and designers.</p>
+    <p data-i18n="cel_p2">This is the line for couples, foodies, and travelers who want a more upscale environment without losing the warmth of great service. Think rooftop gardens, Michelin-inspired menus, and a refined but relaxed atmosphere.</p>
+    <p data-i18n="cel_p3">Celebrity is perfect if you want to slow down, indulge, and savor life at sea while still enjoying the occasional splash of entertainment and adventure.</p>
   </section>
 
-  <!-- Section D: Featured -->
-  <section id="featured" class="card">
-    <h2>Featured Today</h2>
-    <div id="featured-rows" class="index-grid"></div>
+  <!-- Silversea -->
+  <section id="silversea" class="card">
+    <h3><span data-i18n="sil_h">Silversea Cruises</span> <span class="small">— <span data-i18n="sil_tag">Ultra-Luxury Exploration</span></span></h3>
+    <p data-i18n="sil_p1">Silversea specializes in all-inclusive, ultra-luxury cruising to some of the most exclusive and remote corners of the world. With intimate ships and nearly one-to-one crew-to-guest ratios, every detail is handled with care.</p>
+    <p data-i18n="sil_p2">Travelers who choose Silversea tend to be seasoned cruisers, couples, and explorers who appreciate gourmet dining, elegant suites, and expedition-style itineraries — all wrapped in five-star service.</p>
+    <p data-i18n="sil_p3">If you dream of Antarctica, the Galápagos, or simply sipping champagne on a private veranda, Silversea offers a world-class way to do it.</p>
   </section>
 
-  <!-- Section E: Former/Heritage (collapsed) -->
-  <section id="heritage" class="card">
-    <details>
-      <summary><strong>Former / Heritage Fleets</strong></summary>
-      <div id="heritage-list" class="index-grid" style="margin-top:.6rem"></div>
-    </details>
+  <!-- MSC -->
+  <section id="msc-cruises" class="card">
+    <h3><span data-i18n="msc_h">MSC Cruises</span> <span class="small">— <span data-i18n="msc_tag">International Style & Value</span></span></h3>
+    <p data-i18n="msc_p1">MSC brings a distinctly European flair with globally-minded itineraries and strong value pricing. Expect elegant ships, family-friendly programming, and late-night dining that mirrors Mediterranean habits.</p>
+    <p data-i18n="msc_p2">Great for multi-generational groups and travelers who enjoy an international crowd, varied cuisines, and stylish interiors. The line is expanding rapidly in North America while retaining its European roots.</p>
+    <p data-i18n="msc_p3">If you want cosmopolitan vibes at a sensible price — with plenty of kids’ options and nightlife — MSC is worth a close look.</p>
+  </section>
+
+  <!-- Norwegian -->
+  <section id="ncl" class="card">
+    <h3><span data-i18n="ncl_h">Norwegian Cruise Line</span> <span class="small">— <span data-i18n="ncl_tag">Freestyle Cruising</span></span></h3>
+    <p data-i18n="ncl_p1">NCL popularized “Freestyle Cruising” with flexible dining and a come-as-you-are approach. Entertainment-forward ships feature big theaters, comedy clubs, and activity spaces that keep nights lively.</p>
+    <p data-i18n="ncl_p2">Ideal for travelers who prefer flexibility over formality — families, friend groups, and couples who like lots of options without strict schedules.</p>
+    <p data-i18n="ncl_p3">Choose NCL if you want a laid-back vibe with strong entertainment, many specialty restaurants, and casual dress codes.</p>
+  </section>
+
+  <!-- AIDA (Germany) -->
+  <section id="aida" class="card">
+    <h3><span data-i18n="aida_h">AIDA Cruises</span> <span class="small">— <span data-i18n="aida_tag">Deutschsprachige Wohlfühlflotte</span></span></h3>
+    <p data-i18n="aida_p1">AIDA targets primarily German-speaking guests with a casual, lively atmosphere. Expect announcements and entertainment in German, with buffet-forward dining and family-friendly pricing.</p>
+    <p data-i18n="aida_p2">Great for German families and couples who want a relaxed feel, familiar cuisine, and itineraries across Europe and beyond.</p>
+    <p data-i18n="aida_p3">If your priority is a German-language environment at sea, AIDA delivers comfort and community.</p>
+  </section>
+
+  <!-- TUI Cruises (Germany) -->
+  <section id="tui" class="card">
+    <h3><span data-i18n="tui_h">TUI Cruises — Mein Schiff</span> <span class="small">— <span data-i18n="tui_tag">Premium Alles Inklusive</span></span></h3>
+    <p data-i18n="tui_p1">TUI serves German-speaking travelers with a calmer, more premium style and many inclusions. Onboard language is primarily German, with a focus on wellness, good food, and comfortable sea days.</p>
+    <p data-i18n="tui_p2">A strong fit for couples and mature travelers who value quiet sophistication over thrills, and appreciate transparent pricing.</p>
+    <p data-i18n="tui_p3">Choose TUI if you want a premium German-language product with fewer crowds and a slower pace.</p>
   </section>
 </main>
 
-<footer class="footer">
-  <div>In the Wake — A Cruise Traveler’s Logbook</div>
+<footer class="site-footer">
+  <div class="wrap">
+    © 2025 In the Wake — Compiled by Ken
+  </div>
 </footer>
 
-<script type="module" src="assets/js/mega-nav.js"></script>
-<script type="module">
-// cruise-lines page wiring (reads the same fleets.json)
-const DATA_URL = 'assets/data/fleets.json';
-const q = s => document.querySelector(s);
+<script>
+// Lightweight i18n
+const dict = {
+  en: {
+    page_title: "Cruise Lines & Brand Fit",
+    choose_lang_label: "Language:",
+    verify_note: "To Verify: Availability and targeting notes reflect general positioning. Always confirm ship/venue specifics on the official line website before booking.",
+    rcl_h: "Royal Caribbean International", rcl_tag: "Thrills & Innovation",
+    rcl_p1: "Royal Caribbean is the brand for travelers who crave big, bold vacations. Its ships are floating cities filled with surf simulators, skydiving tunnels, zip lines, and Broadway-style productions. Every sailing is designed to wow you with something new.",
+    rcl_p2: "Families, couples, and groups of friends will all find their fit: kids’ clubs, teen hangouts, adults-only Solariums, and nightlife that runs late. Dining runs the gamut from quick bites to celebrity-chef experiences, while wellness seekers enjoy spas, gyms, and tranquil retreats.",
+    rcl_p3: "If you want a high-energy vacation where variety and adventure are always within reach, Royal Caribbean is your match. It’s about non-stop fun, global flavors, and unforgettable memories at sea.",
+    cel_h: "Celebrity Cruises", cel_tag: "Modern Luxury",
+    cel_p1: "Celebrity Cruises blends stylish design, cutting-edge cuisine, and attentive service into a sophisticated cruising experience. Their ships are sleek and modern, with spaces created by world-class architects and designers.",
+    cel_p2: "This is the line for couples, foodies, and travelers who want a more upscale environment without losing the warmth of great service. Think rooftop gardens, Michelin-inspired menus, and a refined but relaxed atmosphere.",
+    cel_p3: "Celebrity is perfect if you want to slow down, indulge, and savor life at sea while still enjoying the occasional splash of entertainment and adventure.",
+    sil_h: "Silversea Cruises", sil_tag: "Ultra-Luxury Exploration",
+    sil_p1: "Silversea specializes in all-inclusive, ultra-luxury cruising to some of the most exclusive and remote corners of the world. With intimate ships and nearly one-to-one crew-to-guest ratios, every detail is handled with care.",
+    sil_p2: "Travelers who choose Silversea tend to be seasoned cruisers, couples, and explorers who appreciate gourmet dining, elegant suites, and expedition-style itineraries — all wrapped in five-star service.",
+    sil_p3: "If you dream of Antarctica, the Galápagos, or simply sipping champagne on a private veranda, Silversea offers a world-class way to do it.",
+    msc_h: "MSC Cruises", msc_tag: "International Style & Value",
+    msc_p1: "MSC brings a distinctly European flair with globally-minded itineraries and strong value pricing. Expect elegant ships, family-friendly programming, and late-night dining that mirrors Mediterranean habits.",
+    msc_p2: "Great for multi-generational groups and travelers who enjoy an international crowd, varied cuisines, and stylish interiors. The line is expanding rapidly in North America while retaining its European roots.",
+    msc_p3: "If you want cosmopolitan vibes at a sensible price — with plenty of kids’ options and nightlife — MSC is worth a close look.",
+    ncl_h: "Norwegian Cruise Line", ncl_tag: "Freestyle Cruising",
+    ncl_p1: "NCL popularized “Freestyle Cruising” with flexible dining and a come-as-you-are approach. Entertainment-forward ships feature big theaters, comedy clubs, and activity spaces that keep nights lively.",
+    ncl_p2: "Ideal for travelers who prefer flexibility over formality — families, friend groups, and couples who like lots of options without strict schedules.",
+    ncl_p3: "Choose NCL if you want a laid-back vibe with strong entertainment, many specialty restaurants, and casual dress codes.",
+    aida_h: "AIDA Cruises", aida_tag: "German-Speaking Feel-Good Fleet",
+    aida_p1: "AIDA targets primarily German-speaking guests with a casual, lively atmosphere. Expect announcements and entertainment in German, with buffet-forward dining and family-friendly pricing.",
+    aida_p2: "Great for German families and couples who want a relaxed feel, familiar cuisine, and itineraries across Europe and beyond.",
+    aida_p3: "If your priority is a German-language environment at sea, AIDA delivers comfort and community.",
+    tui_h: "TUI Cruises — Mein Schiff", tui_tag: "Premium All Inclusive",
+    tui_p1: "TUI serves German-speaking travelers with a calmer, more premium style and many inclusions. Onboard language is primarily German, with a focus on wellness, good food, and comfortable sea days.",
+    tui_p2: "A strong fit for couples and mature travelers who value quiet sophistication over thrills, and appreciate transparent pricing.",
+    tui_p3: "Choose TUI if you want a premium German-language product with fewer crowds and a slower pace."
+  },
+  de: {
+    page_title: "Reedereien & Markenpassung",
+    choose_lang_label: "Sprache:",
+    verify_note: "Zu prüfen: Verfügbarkeits- und Zielgruppenhinweise spiegeln die allgemeine Positionierung wider. Details immer auf der offiziellen Website der Reederei vor der Buchung prüfen.",
+    rcl_h: "Royal Caribbean International", rcl_tag: "Action & Innovation",
+    rcl_p1: "Royal Caribbean ist die Marke für Reisende, die große, mutige Urlaube lieben. Die Schiffe sind schwimmende Städte mit Surfsimulatoren, Fallschirmtunneln, Zip-Lines und Broadway-Produktionen. Jede Reise überrascht mit Neuem.",
+    rcl_p2: "Familien, Paare und Freunde finden alle ihr Plätzchen: Kinder- und Jugendbereiche, Adults-Only-Solariums und Nachtleben bis spät. Kulinarik von schnellen Snacks bis zu Promi‑Köchen; Wellness mit Spa, Fitness und ruhigen Rückzugsorten.",
+    rcl_p3: "Wer eine energiegeladene Reise mit viel Abwechslung sucht, ist bei Royal Caribbean richtig: Nonstop-Spaß, internationale Küche und unvergessliche Momente auf See.",
+    cel_h: "Celebrity Cruises", cel_tag: "Moderne Eleganz",
+    cel_p1: "Celebrity verbindet stilvolles Design, kreative Küche und aufmerksamen Service zu einem gehobenen Kreuzfahrterlebnis. Die Schiffe sind modern, mit Räumen von Top‑Architekten gestaltet.",
+    cel_p2: "Ideal für Paare, Feinschmecker und Reisende, die ein gehobenes Umfeld mit herzlichem Service schätzen. Dachgärten, Michelin‑inspirierte Menüs und eine entspannte, edle Atmosphäre.",
+    cel_p3: "Perfekt zum Entschleunigen, Genießen und Schwelgen – mit gelegentlichen Akzenten aus Entertainment und Abenteuer.",
+    sil_h: "Silversea Cruises", sil_tag: "Ultra‑Luxuriöse Expeditionen",
+    sil_p1: "Silversea steht für All‑Inclusive‑Luxus in exklusiven, teils entlegenen Regionen. Kleine Schiffe, fast 1:1 Betreuung – jedes Detail wird mit Sorgfalt bedacht.",
+    sil_p2: "Gäste sind oft erfahrene Kreuzfahrer, Paare und Entdecker, die Gourmetküche, elegante Suiten und Expeditions‑Itineraries mit Fünf‑Sterne‑Service schätzen.",
+    sil_p3: "Ob Antarktis, Galápagos oder Champagner auf der privaten Veranda – Silversea liefert Weltklasse.",
+    msc_h: "MSC Cruises", msc_tag: "Internationaler Stil & Wert",
+    msc_p1: "MSC bringt europäisches Flair mit globalem Blick und starkem Preis‑Leistungs‑Verhältnis. Elegante Schiffe, familienfreundliche Programme und späte Essenszeiten wie am Mittelmeer.",
+    msc_p2: "Gut für Mehrgenerationsreisen und alle, die internationales Publikum, vielfältige Küche und stilvolle Innenräume mögen. Rasches Wachstum in Nordamerika bei europäischen Wurzeln.",
+    msc_p3: "Wer kosmopolitisches Ambiente zum fairen Preis sucht – mit vielen Kinderangeboten und Nachtleben – sollte MSC prüfen.",
+    ncl_h: "Norwegian Cruise Line", ncl_tag: "Freestyle Cruising",
+    ncl_p1: "NCL populärte „Freestyle Cruising“ mit flexiblen Essenszeiten und lockerer Kleiderordnung. Entertainment‑starke Schiffe mit großen Theatern, Comedy‑Clubs und Aktivbereichen.",
+    ncl_p2: "Ideal für Reisende, die Flexibilität statt Formalität bevorzugen – Familien, Freundesgruppen und Paare ohne strenge Zeitpläne.",
+    ncl_p3: "Wähle NCL für entspannte Atmosphäre, starkes Show‑Programm, viele Spezialitätenrestaurants und lässige Dresscodes.",
+    aida_h: "AIDA Cruises", aida_tag: "Deutschsprachige Wohlfühlflotte",
+    aida_p1: "AIDA richtet sich überwiegend an deutschsprachige Gäste in lockerer, lebhafter Atmosphäre. Deutschsprachige Ansagen und Entertainment, buffettbetonte Gastronomie, familienfreundliche Preise.",
+    aida_p2: "Gut für Familien und Paare, die Vertrautes wollen – mit Reisen durch Europa und darüber hinaus.",
+    aida_p3: "Wer eine deutschsprachige Umgebung auf See bevorzugt, findet bei AIDA Gemeinschaft und Komfort.",
+    tui_h: "TUI Cruises — Mein Schiff", tui_tag: "Premium Alles Inklusive",
+    tui_p1: "TUI bietet deutschsprachigen Gästen einen ruhigeren, gehobenen Stil mit vielen Inklusivleistungen. Bordsprache überwiegend Deutsch; Fokus auf Wellness, gutes Essen und entspannte Seetage.",
+    tui_p2: "Passend für Paare und reifere Reisende, die leise Eleganz statt Nervenkitzel und transparente Preise schätzen.",
+    tui_p3: "TUI ist die Wahl für ein Premium‑Produkt auf Deutsch – mit weniger Trubel und ruhigerem Tempo."
+  },
+  es: {
+    page_title: "Navieras y Ajuste de Marca",
+    choose_lang_label: "Idioma:",
+    verify_note: "Para verificar: Las notas de disponibilidad y enfoque reflejan una posición general. Confirma siempre los detalles en el sitio oficial antes de reservar.",
+    rcl_h: "Royal Caribbean International", rcl_tag: "Emoción e Innovación",
+    rcl_p1: "Royal Caribbean es para viajeros que buscan vacaciones grandes y audaces. Sus barcos son ciudades flotantes con simuladores de surf, túneles de paracaidismo, tirolinas y espectáculos al estilo Broadway.",
+    rcl_p2: "Familias, parejas y amigos encontrarán su espacio: clubes para niños y teens, soláriums solo para adultos y vida nocturna hasta tarde. Gastronomía desde opciones rápidas hasta experiencias de chefs famosos.",
+    rcl_p3: "Si quieres energía alta y variedad a cada paso, Royal Caribbean es tu pareja ideal: diversión sin parar y sabores del mundo.",
+    cel_h: "Celebrity Cruises", cel_tag: "Lujo Moderno",
+    cel_p1: "Celebrity combina diseño elegante, cocina innovadora y servicio atento para una experiencia sofisticada.",
+    cel_p2: "Ideal para parejas y amantes de la gastronomía que desean un ambiente refinado pero relajado.",
+    cel_p3: "Perfecto para desacelerar, disfrutar y saborear la vida en el mar.",
+    sil_h: "Silversea Cruises", sil_tag: "Exploración Ultra Lujo",
+    sil_p1: "Silversea ofrece lujo todo incluido hacia rincones exclusivos del mundo, con barcos íntimos y servicio de primer nivel.",
+    sil_p2: "Para cruceristas experimentados que valoran alta cocina, suites elegantes e itinerarios de expedición.",
+    sil_p3: "Si sueñas con Antártida o Galápagos, Silversea lo hace posible con estilo.",
+    msc_h: "MSC Cruises", msc_tag: "Estilo Internacional y Valor",
+    msc_p1: "MSC aporta un toque europeo con itinerarios globales y gran relación calidad‑precio.",
+    msc_p2: "Excelente para familias y grupos multigeneracionales que disfrutan un público internacional.",
+    msc_p3: "Si buscas ambiente cosmopolita a buen precio, considera MSC.",
+    ncl_h: "Norwegian Cruise Line", ncl_tag: "Crucero Freestyle",
+    ncl_p1: "NCL popularizó el “Freestyle” con cenas flexibles y ambiente informal.",
+    ncl_p2: "Ideal para quienes priorizan la flexibilidad sobre la formalidad.",
+    ncl_p3: "Elige NCL para entretenimiento fuerte y códigos de vestimenta relajados.",
+    aida_h: "AIDA Cruises", aida_tag: "Flota de Bienestar en Alemán",
+    aida_p1: "AIDA se orienta a huéspedes germanoparlantes con ambiente casual y animado.",
+    aida_p2: "Buena opción para familias y parejas que desean un entorno en alemán.",
+    aida_p3: "Si buscas un producto en alemán, AIDA cumple.",
+    tui_h: "TUI Cruises — Mein Schiff", tui_tag: "Premium Todo Incluido",
+    tui_p1: "TUI atiende a viajeros germanoparlantes con estilo sereno y muchas inclusiones.",
+    tui_p2: "Apropiado para parejas y viajeros maduros que valoran la calma.",
+    tui_p3: "Elige TUI si quieres un producto premium en alemán con menos multitudes."
+  }
+};
 
-function cardLink(title, href, tiny) {
-  const d = document.createElement('div'); d.className='index-card';
-  d.innerHTML = `<h3>${title}</h3>${tiny?`<p class="tiny">${tiny}</p>`:''}<p><a href="${href}"><strong>Open</strong></a></p>`;
-  return d;
+function applyLang(lang) {
+  const table = dict[lang] || dict.en;
+  document.documentElement.setAttribute('lang', lang);
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (table[key]) el.textContent = table[key];
+  });
 }
 
-fetch(DATA_URL).then(r=>r.json()).then(data=>{
-  // Section A: Groups grid
-  const ggrid = q('#group-grid');
-  data.groups.forEach(g=>{
-    ggrid.appendChild(cardLink(g.name, `cruise-lines.html#${g.slug}`, `${g.brands.length} brands`));
-  });
+const sel = document.getElementById("langSel");
+sel.addEventListener("change", () => applyLang(sel.value));
 
-  // Search filters (brands/classes)
-  const selBrand = q('#filterBrand'); const selClass = q('#filterClass');
-  selBrand.innerHTML = `<option value="">Brand (any)</option>` + data.groups.flatMap(g=>g.brands).map(b=>`<option value="${b.slug}">${b.name}</option>`).join('');
-  const allClasses = data.groups.flatMap(g=>g.brands.flatMap(b=> (b.classes||[]).map(c=>({brand:b.slug, name:c.name}))));
-  selClass.innerHTML = `<option value="">Class (any)</option>` + allClasses.map(c=>`<option data-brand="${c.brand}" value="${c.name}">${c.name}</option>`).join('');
-  // (Optional) populate years if you add year metadata later
-
-  // Section C: All ships list (lazy-ish)
-  const shipCards = q('#ship-list');
-  const allShips = [];
-
-  data.groups.forEach(g=>{
-    g.brands.forEach(b=>{
-      const brandName = b.name, brandSlug = b.slug;
-      if (b.classes?.length){
-        b.classes.forEach(cls=>{
-          (cls.ships||[]).forEach(s=>{
-            allShips.push({name:s, brand:brandName, brandSlug, className:cls.name});
-          });
-        });
-      } else if (b.ships?.length){
-        b.ships.forEach(s=> allShips.push({name:s, brand:brandName, brandSlug, className:''}));
-      }
-    });
-  });
-
-  function drawList(list){
-    shipCards.innerHTML = '';
-    list.sort((a,b)=>a.name.localeCompare(b.name)).forEach(s=>{
-      const d = document.createElement('div'); d.className='index-card';
-      d.innerHTML = `<h3>${s.name}</h3><p class="tiny">${s.brand}${s.className?` • ${s.className}`:''}</p><p><a href="ship.html?ship=${encodeURIComponent(s.name)}"><strong>Open ship page</strong></a></p>`;
-      shipCards.appendChild(d);
-    });
-  }
-  drawList(allShips);
-
-  // Filters
-  function applyFilters(){
-    const b = selBrand.value;
-    const c = selClass.value;
-    const term = q('#shipSearch').value.trim().toLowerCase();
-    let filtered = allShips.filter(s=>{
-      const okB = !b || s.brandSlug===b;
-      const okC = !c || s.className===c;
-      const okT = !term || s.name.toLowerCase().includes(term);
-      return okB && okC && okT;
-    });
-    drawList(filtered);
-  }
-  ['change','input'].forEach(evt=>{
-    selBrand.addEventListener(evt, applyFilters);
-    selClass.addEventListener(evt, applyFilters);
-    q('#shipSearch').addEventListener(evt, applyFilters);
-  });
-
-  // Section D: Featured
-  const featured = [];
-  for (let i=0;i<4 && i<allShips.length;i++){
-    featured.push(allShips[Math.floor(Math.random()*allShips.length)]);
-  }
-  const frows = q('#featured-rows');
-  featured.forEach(s=>{
-    const d = document.createElement('div'); d.className='index-card';
-    d.innerHTML = `<h3>${s.name}</h3><p class="tiny">${s.brand}${s.className?` • ${s.className}`:''}</p><a class="index-pill" href="ship.html?ship=${encodeURIComponent(s.name)}">View</a>`;
-    frows.appendChild(d);
-  });
-
-  // Section E: Heritage (former fleets where provided)
-  const h = q('#heritage-list');
-  data.groups.forEach(g=>{
-    g.brands.forEach(b=>{
-      if (Array.isArray(b.former) && b.former.length){
-        const d = document.createElement('div'); d.className='index-card';
-        d.innerHTML = `<h3>${b.name} — Former/Heritage</h3><ul style="margin:.5rem 0 0; padding-left:1rem"></ul>`;
-        const ul = d.querySelector('ul');
-        b.former.forEach(f=>{ const li = document.createElement('li'); li.textContent = f.name + (f.note?` — ${f.note}`:''); ul.appendChild(li); });
-        h.appendChild(d);
-      }
-    });
-  });
-});
+// Initialize with English, or try browser language
+const browser = (navigator.language || "en").slice(0,2);
+applyLang(["en","de","es"].includes(browser) ? browser : "en");
+sel.value = document.documentElement.getAttribute('lang');
 </script>
 </body>
 </html>
