@@ -1,34 +1,54 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Grandeur of the Seas — In The Wake</title>
-  <style>
-    :root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
-    body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;color:var(--ink);background:var(--sky)}
-    .site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
-    .hero{position:relative;min-height:340px;background-image:url('https://jsschrstrcks1.github.io/InTheWake/assets/index_hero.jpg');background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:flex-start}
-    .hero::before{content:'';position:absolute;inset:0;background-image:url('https://jsschrstrcks1.github.io/InTheWake/assets/grid.png');background-size:cover;opacity:.35}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(10,61,98,.15) 0%, rgba(10,61,98,.6) 55%, rgba(10,61,98,.85) 100%)}
-    .hero-title{position:absolute;left:2rem;bottom:2.2rem;color:#e6f4f8;font-weight:700;letter-spacing:.5px;text-shadow:0 3px 6px rgba(0,0,0,.55)}
-    .hero-title h1{margin:0;font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;color:#5dade2}
-    .hero-title p{margin:.35rem 0 0;font-size:clamp(1.05rem,2vw,1.35rem);opacity:.97}
-    .compass{position:absolute;right:1rem;bottom:1rem;width:140px;opacity:.85;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
-    .wrap{padding:1.5rem 2rem} h1,h2,h3{color:var(--sea)}
-    .card{border:2px solid var(--rope);border-radius:14px;padding:1rem;background:#fff;box-shadow:0 2px 6px rgba(8,48,65,.08);margin-bottom:1rem}
-    .small{font-size:.9rem;color:#2a5b6e}
-    .grid-2{display:grid;gap:1rem} @media (min-width:980px){.grid-2{grid-template-columns:1fr 1fr}}
-    .video-section iframe{width:100%;height:56.25vw;max-height:480px;border:0;border-radius:12px}
-    .video-card{display:block;border:1px solid var(--rope);border-radius:12px;overflow:hidden;text-decoration:none}
-    .video-card img{width:100%;display:block}
-    .vc-body{padding:.6rem .8rem} .vc-title{font-weight:600}
-    .hero-rotator img{width:100%;height:auto;display:block;border-radius:12px}
-  </style>
-  <link rel="preconnect" href="https://www.youtube.com">
-  <link rel="preconnect" href="https://i.ytimg.com">
-  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>In the Wake — Home (v2.086)</title>
+  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.086"/>
 </head>
+<body>
+<header class="hero-header">
+  <div class="navbar">
+    <div class="brand">
+      <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png" alt="In the Wake wordmark"/>
+      <div class="brand-title">In the Wake <span class="version-badge">v2.086</span></div>
+    </div>
+    <nav class="nav">
+      <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
+      <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants</a>
+      <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
+      <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks</a>
+      <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a>
+      <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability</a>
+    </nav>
+  </div>
+
+  <!-- Hero (grid lines only; no degree labels) -->
+  <div class="hero" role="img" aria-label="Ship wake at sunset">
+    <div class="latlon-grid" aria-hidden="true">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+        <g class="grid-lines" stroke-width="0.35">
+          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+          <line x1="90" y1="0" x2="90" y2="60"/>
+          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Compass -->
+    <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+
+    <!-- Logo + tagline -->
+    <div class="hero-title">
+      <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo_wake.png" alt="In the Wake">
+      <div class="tagline">A Cruise Traveler’s Logbook</div>
+    </div>
+  </div>
+</header>
 <body>
   <header class="site-header">
     <div class="hero">
