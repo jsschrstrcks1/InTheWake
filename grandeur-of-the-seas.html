@@ -3,37 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Grandeur of the Seas — Videos, Highlights & Why Book</title>
+  <title>Grandeur of the Seas — In The Wake</title>
   <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.086">
-  <link rel="preconnect" href="https://www.youtube.com">
-  <link rel="preconnect" href="https://i.ytimg.com">
-  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css">
-  <style>
-    header, .wrap, footer, section, .card { position:relative; z-index:1; }
-    .brandbar { display:flex; align-items:center; gap:1rem; padding:.75rem 1rem; }
-    .brandbar .logo { width:clamp(120px,22vw,220px); height:auto; object-fit:contain; display:none; }
-    .brandbar .wordmark { font-weight:800; font-size:clamp(1.6rem,3.6vw,2.4rem); color:var(--brand-deep, #0a4c6a); display:none; }
-    .brandbar .subhead h1 { margin:.1rem 0 0; font-size:clamp(1.35rem,3.2vw,2rem); }
-    .navbar, .dropdown, .site-header { z-index: 20; }
-    .grid-2 { display:grid; gap:1rem; }
-    @media (min-width: 980px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
-    .hero-rotator img { width:100%; height:auto; display:block; border-radius:12px; }
-    .video-section iframe { width:100%; height:56.25vw; max-height:420px; border:0; border-radius:12px; }
-    @media (min-width: 900px) { .video-section iframe { max-height:480px; } }
-    .video-card { display:block; border:1px solid var(--rope,#d9b382); border-radius:12px; overflow:hidden; text-decoration:none; }
-    .video-card img { width:100%; display:block; }
-    .vc-body { padding:.6rem .8rem; }
-    .vc-title { font-weight:600; }
-  </style>
 </head>
 <body>
   <header class="site-header">
-    <div class="brandbar wrap">
-      <img id="itwLogo" class="logo" alt="In The Wake logo">
-      <span id="itwWordmark" class="wordmark">In The Wake</span>
-      <div class="subhead">
-        <div class="small dim">Royal Caribbean</div>
-        <h1>Grandeur of the Seas</h1>
+    <div class="mast-hero" role="img" aria-label="Grandeur of the Seas"
+         style="background-image:url('https://jsschrstrcks1.github.io/InTheWake/assets/grandeur-of-the-seas.jpg');">
+      <div class="wrap hero-inner">
+        <img class="logo"
+             src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/itw-ship-logo.png"
+             alt="In the Wake logo" width="220" height="80"
+             onerror="this.style.display='none'">
+        <div class="subhead">
+          <div class="small dim">Royal Caribbean</div>
+          <h1>Grandeur of the Seas</h1>
+        </div>
       </div>
     </div>
     <div class="navbar">
@@ -50,148 +35,11 @@
     </div>
   </header>
 
-  <main class="wrap" id="content">
-    <div style="display:flex;gap:.5rem;justify-content:flex-end;align-items:center;margin:.5rem 0 1rem;">
-      <label for="langSel" class="small">Language:</label>
-      <select id="langSel" aria-label="Language selector">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="de">Deutsch</option>
-        <option value="fr">Français</option>
-        <option value="pt">Português</option>
-        <option value="it">Italiano</option>
-      </select>
-    </div>
-
-    <section class="video-section card" aria-labelledby="videosHeading">
-      <h2 id="videosHeading">Watch: Grandeur Highlights</h2>
-      <p class="small">Start with our pre‑screened, family‑friendly picks. Swipe to explore without leaving this page.</p>
-      <div class="swiper" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
-        <div class="swiper-pagination" aria-hidden="true"></div>
-        <div class="swiper-button-prev" aria-label="Previous slide"></div>
-        <div class="swiper-button-next" aria-label="Next slide"></div>
-      </div>
-    </section>
-
-    <section class="grid-2">
-      <section class="why-section card" aria-labelledby="whyHeading">
-        <h2 id="whyHeading">Why book Grandeur of the Seas?</h2>
-        <div id="whyCopy">
-          <p>Grandeur of the Seas is a beloved, human‑scale Royal Caribbean ship that puts classic cruise pleasures front and center: ocean views everywhere, friendly service, and an easy layout that’s simple to explore.</p>
-          <ul>
-            <li><strong>Signature Royal fun:</strong> Conquer the <em>Rock Climbing Wall</em>, relax by the pool, and catch live music and shows every night.</li>
-            <li><strong>Dining you’ll crave:</strong> <em>Main Dining Room</em>, <em>Windjammer</em>, plus specialties like <em>Chops Grille</em>, <em>Izumi</em> and <em>Chef’s Table</em> (availability varies by sailing).</li>
-            <li><strong>Great for families:</strong> Kids and teens love <em>Adventure Ocean</em>, the arcade, and poolside fun — while grown‑ups unwind in the adults‑only <em>Solarium</em>.</li>
-            <li><strong>Cozy & personable:</strong> A mid‑size ship means shorter walks, easier embarkations, and more time enjoying your vacation.</li>
-            <li><strong>Value‑forward itineraries:</strong> Caribbean and seasonal getaways that maximize days at sea and time in port.</li>
-          </ul>
-          <p class="small dim">Note: Grandeur focuses on classic Royal experiences. It does not feature large water slides or skydiving tunnels; choose it for friendly vibes, live entertainment, and relaxing sea days.</p>
-          <p><a class="button" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener">View Official Deck Plans →</a></p>
-        </div>
-      </section>
-
-      <section class="card" aria-labelledby="rcMarketingHeading">
-        <h2 id="rcMarketingHeading">Highlights from Royal Caribbean</h2>
-        <div class="grid-2" style="--min:260px; grid-template-columns:repeat(auto-fit,minmax(var(--min,260px),1fr));">
-          <div>
-            <h3 class="small">Classic Royal Thrills</h3>
-            <p>Scale the <strong>Rock Climbing Wall</strong>, take in sea views from the open decks, and unwind under the glass‑covered <strong>Solarium</strong> (adults‑only).</p>
-          </div>
-          <div>
-            <h3 class="small">Dining You’ll Crave</h3>
-            <p>From complimentary favorites to <strong>Chops Grille</strong>, <strong>Izumi</strong>, and <strong>Chef’s Table</strong>, meals feel like an event.</p>
-          </div>
-          <div>
-            <h3 class="small">Evenings to Remember</h3>
-            <p>Live music, lounges, and production shows keep nights buzzing — or find a quiet nook for sunset cocktails.</p>
-          </div>
-          <div>
-            <h3 class="small">Families Welcome</h3>
-            <p><strong>Adventure Ocean</strong> for kids and teens, an arcade, and plenty of poolside fun — while parents recharge.</p>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <section class="page-hero card">
-      <h2>A First Look</h2>
-      <div class="hero-rotator" id="heroRotator" aria-live="polite"></div>
-      <p class="small dim">Hero images try a ship still and three gallery frames. If one fails, we automatically skip it.</p>
-    </section>
-
-    <section class="card" aria-labelledby="moreVideosHeading">
-      <h2 id="moreVideosHeading">More from trusted creators</h2>
-      <p class="small">Hand‑picked from positive, family‑friendly creators. Titles must mention “Grandeur of the Seas.”</p>
-      <div class="video-cards" id="moreVideos" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.8rem;"></div>
-    </section>
+  <main class="wrap">
+    <h2>Grandeur of the Seas Page Placeholder</h2>
+    <p>This page now uses the same header/hero structure as index.html with absolute asset paths.</p>
   </main>
 
   <footer>© 2025 In the Wake — Compiled by Ken</footer>
-
-  <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
-  <script>
-    const LOGO_CANDIDATES = ["https://jsschrstrcks1.github.io/InTheWake/assets/brand/itw-ship-logo.png", "https://jsschrstrcks1.github.io/InTheWake/assets/brand/ITW-ship-logo.png", "https://jsschrstrcks1.github.io/InTheWake/assets/brand/in-the-wake-logo.png", "https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png"];
-    const HERO_IMGS = ["https://jsschrstrcks1.github.io/InTheWake/assets/grandeur-of-the-seas.jpg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%201.jpg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%202.jpg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%203.jpg"];
-    const VIDEOS = [{"id": "-NS3BhWqzD4", "title": "Full Ship Walkthrough \u2014 Grandeur of the Seas (4K)"}, {"id": "iIo4HNqNzbs", "title": "Is This Ship Kid Friendly? \u2014 Family POV"}, {"id": "0YONwODd98c", "title": "Quick Tour: Balcony & Interior on Grandeur"}, {"id": "kYAwcRPmH5c", "title": "Interior Room 3519 \u2014 Walkthrough"}, {"id": "1PgDMCgw6uI", "title": "Ocean View Room Tour \u2014 Grandeur"}, {"id": "HAxiXR-IMmk", "title": "Junior Suite 7650 \u2014 Aft Balcony Tour"}, {"id": "KXCJePjqEY4", "title": "Grand Suite (1-Bedroom) Tour \u2014 2025"}, {"id": "ZEz-jOvRq7c", "title": "Grand Suite (2-Bedroom) 8084 \u2014 Tour"}, {"id": "GByj5lFpAPU", "title": "Owner\u2019s Suite 8502 \u2014 Cabin Tour"}, {"id": "Z70a-ViIjTc", "title": "Royal Suite 8500 \u2014 Tour & Review"}, {"id": "tXQ8hic0O_U", "title": "Accessible Stateroom / Wheelchair Walkthrough"}];
-
-    // Try multiple absolute logo paths; fall back to wordmark if all fail
-    (function loadLogo(){
-      const img = document.getElementById('itwLogo');
-      const word = document.getElementById('itwWordmark');
-      let i = 0;
-      function tryNext(){
-        if (i >= LOGO_CANDIDATES.length){ word.style.display='block'; return; }
-        const src = LOGO_CANDIDATES[i++];
-        const test = new Image();
-        test.onload = ()=>{ img.src = src; img.style.display='block'; };
-        test.onerror = tryNext;
-        test.src = src + (src.includes('?') ? '&' : '?') + 'v=1'; // short cache-bust
-      }
-      tryNext();
-    })();
-
-    // Build video carousel and cards
-    document.addEventListener('DOMContentLoaded', () => {
-      const wrap = document.getElementById('featuredVideos');
-      VIDEOS.forEach(v => {
-        const slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        slide.innerHTML = `<iframe title="${v.title}" src="https://www.youtube.com/embed/${v.id}"
-           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-           allowfullscreen loading="lazy"></iframe>`;
-        wrap.appendChild(slide);
-      });
-      new Swiper('.swiper', {
-        lazy:true, loop:false,
-        pagination:{el:'.swiper-pagination',clickable:true},
-        navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'},
-        a11y:{enabled:true}
-      });
-
-      const more = document.getElementById('moreVideos');
-      VIDEOS.slice(3, 9).forEach(v => {
-        const a = document.createElement('a');
-        a.href = `https://www.youtube.com/watch?v=${v.id}`;
-        a.target = "_blank"; a.rel="noopener"; a.className="video-card";
-        a.innerHTML = `<img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="${v.title} thumbnail">
-                       <div class="vc-body"><div class="vc-title">${v.title}</div></div>`;
-        more.appendChild(a);
-      });
-
-      // Hero images with auto-skip
-      (function initHero(){
-        const rot = document.getElementById('heroRotator'); let shown=0, idx=0, guard=0;
-        function tryNext(){
-          if (shown >= 3 || guard > HERO_IMGS.length*3) return;
-          const src = HERO_IMGS[idx % HERO_IMGS.length]; idx++; guard++;
-          const img = new Image(); img.alt="Grandeur of the Seas"; img.loading="lazy"; img.src=src;
-          img.onload = ()=>{ rot.appendChild(img); shown++; tryNext(); };
-          img.onerror = ()=> tryNext();
-        }
-        tryNext(); tryNext(); tryNext();
-      })();
-    });
-  </script>
 </body>
 </html>
