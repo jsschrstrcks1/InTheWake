@@ -5,92 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Grandeur of the Seas — In the Wake</title>
 
-  <!-- Global CSS (index look/feel) -->
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.101"/>
+  <!-- Shared site styles (match index) -->
+  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.102"/>
 
   <!-- Swiper for the video carousel -->
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
 
   <style>
-    /* ---- Page-scoped fixes & layout guards -------------------------------- */
-
-    /* Keep content centered and clamped like index */
-    .wrap { max-width: 1100px; margin-inline: auto; padding-inline: 1rem; }
-
-    /* Card boxes never exceed viewport width and don’t “grow to infinity” */
-    .card {
-      max-width: 100%;
-      overflow: hidden;          /* guard against accidental overflow */
-      box-sizing: border-box;
-    }
-
-    /* Make long links/captions wrap instead of stretching the layout */
-    .small, figcaption, .attr, .caption, .tiny {
-      overflow-wrap: anywhere;
-      word-break: break-word;
-    }
-
-    /* Photo grid (first section) */
-    .photo-grid {
-      display: grid;
-      gap: .9rem;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      align-items: center;
-    }
-    .photo-grid figure {
-      margin: 0;
-      background: #fff;
-      border: 2px solid #d9b382;
-      border-radius: 12px;
-      padding: .6rem;
-      box-shadow: 0 2px 6px rgba(8,48,65,.08);
-    }
-    .photo-grid img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 8px;
-    }
-    .photo-grid figcaption {
-      font-size: .82rem;
-      color: #255;
-      opacity: .9;
-      margin-top: .5rem;
-    }
-    .photo-grid figcaption a { color: #0b6fa0; text-decoration: none; }
-    .photo-grid figcaption a:hover { text-decoration: underline; }
-
-    /* Section stack spacing */
-    main.wrap > section { margin-block: 1.25rem; }
-
-    /* Swiper (videos) – make sure it never bleeds horizontally */
-    .swiper { width: 100%; overflow: hidden; }
-    .swiper-slide iframe {
-      width: 100%;
-      aspect-ratio: 16/9;
-      border: 0;
-      border-radius: 12px;
-      display: block;
-    }
-
-    /* Header parity with index (reuse classes index already styles) */
-    .hero-header { position: relative; }
-    .hero { background-image: url('https://jsschrstrcks1.github.io/InTheWake/assets/index_hero.jpg'); }
+    /* --- Page-local light helpers (kept minimal) --- */
+    .page-wrap { position: relative; z-index: 1; }
+    .grid-photos { display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
+    figure.ship-photo { margin:0; }
+    figure.ship-photo img { width:100%; height:auto; display:block; border-radius:12px; }
+    figure.ship-photo figcaption { font-size:.8rem; color:#3a4a56; margin-top:.35rem; line-height:1.35; }
+    .card { background:#fff; border:2px solid #d9b382; border-radius:14px; padding:1rem; box-shadow:0 2px 6px rgba(8,48,65,.08); }
+    .stack { display:grid; gap:1rem; }
+    @media (min-width: 1024px){ .stack { gap:1.2rem; } }
+    .lead { font-size:1.05rem; line-height:1.6; }
+    .tiny { font-size:.8rem; opacity:.8; }
+    .button { display:inline-block; padding:.55rem .9rem; border:1px solid #0e6e8e; border-radius:999px; color:#0e6e8e; text-decoration:none; }
+    .button:hover { background:#0e6e8e; color:#fff; }
+    /* keep Swiper minimal; rely on its CSS */
+    .swiper { width:100%; }
+    .swiper-slide iframe { width:100%; aspect-ratio:16/9; border:0; border-radius:12px; }
   </style>
 </head>
 
 <body>
-  <!-- === UNIVERSAL HEADER (same markup as index) ========================== -->
+  <!-- === Universal Header (matches index) === -->
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
         <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png" alt="In the Wake wordmark"/>
         <div class="brand-title">
           In the Wake
-          <span class="version-badge">v2.101</span>
+          <span class="version-badge">v2.102</span>
         </div>
       </div>
-      <nav class="nav" aria-label="Primary">
+      <nav class="nav">
         <a href="https://jsschrstrcks1.github.io/InTheWake/">Home</a>
         <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
         <a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">Ships</a>
@@ -102,7 +54,7 @@
       </nav>
     </div>
 
-    <!-- Hero (grid lines + compass at right, same as index) -->
+    <!-- Hero (vibrant image, grid, compass on right, logo + tagline) -->
     <div class="hero" role="img" aria-label="Ship wake at sunset">
       <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
@@ -117,109 +69,114 @@
           </g>
         </svg>
       </div>
+
       <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+
       <div class="hero-title">
         <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
     </div>
   </header>
-  <!-- ===================================================================== -->
+  <!-- === /Universal Header === -->
 
-  <main class="wrap">
-
-    <!-- === 1) SHIP PHOTOS (with attributions under images) ================ -->
+  <main class="page-wrap wrap">
+    <!-- A. SHIP PHOTOS (with per-image attribution below each image) -->
     <section class="card" aria-labelledby="photosHeading">
-      <h2 id="photosHeading">A First Look at <span class="nowrap">Grandeur of the Seas</span></h2>
-
-      <div class="photo-grid">
-        <figure>
-          <img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%203.jpeg"
-               alt="Grandeur of the Seas at sea" loading="lazy"/>
-          <figcaption>
-            © Flickers of Majesty — Ken.
-            <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">Website</a> ·
-            <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Instagram</a>
-          </figcaption>
-        </figure>
-
-        <figure>
+      <h2 id="photosHeading">A First Look at Grandeur of the Seas</h2>
+      <div class="grid-photos">
+        <!-- Photo 1 (your image) -->
+        <figure class="ship-photo">
           <img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%201.jpeg"
-               alt="Grandeur of the Seas – exterior profile" loading="lazy"/>
+               alt="Grandeur of the Seas — exterior profile at sea" loading="lazy"/>
           <figcaption>
-            © Flickers of Majesty — Ken. 
-            <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">Website</a>
-          </figcaption>
-        </figure>
-
-        <figure>
-          <img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%202.jpeg"
-               alt="Grandeur of the Seas – pool deck" loading="lazy"/>
-          <figcaption>
-            © Flickers of Majesty — Ken. 
+            © <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">Flickers of Majesty</a> ·
             <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Instagram</a>
           </figcaption>
         </figure>
+
+        <!-- Photo 2 (your image) -->
+        <figure class="ship-photo">
+          <img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%202.jpeg"
+               alt="Grandeur of the Seas — pool deck" loading="lazy"/>
+          <figcaption>
+            © <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+            <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Instagram</a>
+          </figcaption>
+        </figure>
+
+        <!-- Photo 3 (your image) -->
+        <figure class="ship-photo">
+          <img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%203.jpeg"
+               alt="Grandeur of the Seas — evening at sea" loading="lazy"/>
+          <figcaption>
+            © <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+            <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Instagram</a>
+          </figcaption>
+        </figure>
+
+        <!-- Photo 4 (Commons) -->
+        <figure class="ship-photo">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Grandeur_of_the_Seas_%28ship%2C_1996%29_001.jpg"
+               alt="Grandeur of the Seas — Wikimedia Commons image" loading="lazy"/>
+          <figcaption>
+            <a href="https://commons.wikimedia.org/wiki/File:Grandeur_of_the_Seas_(ship,_1996)_001.jpg" target="_blank" rel="noopener">
+              Wikimedia Commons</a> · License: CC BY-SA (attribution on source page)
           </figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- === 2) WHY BOOK (merged, <600 words) — above videos ================= -->
-    <section class="card" aria-labelledby="whyHeading">
-      <h2 id="whyHeading">Why book <span class="nowrap">Grandeur of the Seas</span>?</h2>
-
+    <!-- B. WHY BOOK (merged copy, above video) -->
+    <section class="card stack" aria-labelledby="whyHeading">
+      <h2 id="whyHeading">Why book <em>Grandeur of the Seas</em>?</h2>
+      <p class="lead">
+        Imagine drifting into a world where every sunrise promises a fresh adventure, and the ocean’s rhythm syncs with your own.
+        That’s the subtle magic of <strong>Grandeur of the Seas</strong>—Royal Caribbean’s intimate Vision-class gem—blending
+        timeless charm with modern touches so every moment feels tailor-made. Picture yourself on deck, gazing toward tropical
+        horizons as a classic ship feels vibrantly alive. (See a reference photo
+        <a href="https://commons.wikimedia.org/wiki/File:Grandeur_of_the_Seas_(ship,_1996)_001.jpg" target="_blank" rel="noopener">here</a>.)
+      </p>
       <p>
-        Imagine drifting into a world where every sunrise promises a fresh adventure and the ocean’s rhythm
-        syncs with your own. That’s the quiet magic of <em>Grandeur of the Seas</em>, Royal Caribbean’s intimate
-        Vision-class gem. Classic in scale yet vibrantly alive, she blends timeless charm with modern touches
-        that make days effortless and evenings memorable.
+        For families, Grandeur shines with multi-generational spaces where memories click into place—kids conquering the
+        <em>Rock Climbing Wall</em> for panoramic views (<a href="https://commons.wikimedia.org/wiki/File:Rock_climbing_wall_on_cruise_ship.jpg" target="_blank" rel="noopener">example</a>),
+        friendly match-ups in the arcade, and easy days that flow from pool time to live music at night. Couples can slip into
+        starlit evenings over five courses at <em>Chef’s Table</em> or sip cocktails in the serene <em>Solarium Bar</em>. Younger
+        explorers will find bold vibes—from poolside DJ sets to a Vegas-style casino
+        (<a href="https://commons.wikimedia.org/wiki/File:Casino_on_cruise_ship.jpg" target="_blank" rel="noopener">example</a>) that adds just the right hint of sparkle.
+        First-time cruisers and solo travelers love the ship’s welcoming scale—easy to navigate, big on ocean views, never
+        overwhelming.
       </p>
-
-      <ul>
-        <li><strong>Approachable and friendly:</strong> A human-scale layout makes it easy to get around,
-          meet up with family, and soak in ocean views without feeling overwhelmed.</li>
-        <li><strong>Family moments that stick:</strong> Kids race to the Rock Climbing Wall and arcade,
-          while grandparents enjoy shows and sea-day strolls. Multi-generational trips feel natural here.</li>
-        <li><strong>Couples’ nights to remember:</strong> Think starlit strolls, Solarium cocktails,
-          or an elevated dinner at <em>Chef’s Table</em> (by availability).</li>
-        <li><strong>Balanced vibe for first-timers & solos:</strong> Plenty of activity when you want it,
-          serene corners when you don’t—an easy on-ramp to cruising without the crowds.</li>
-        <li><strong>Dining you’ll actually crave:</strong> Casual variety at <em>Windjammer</em> and classics in the
-          Main Dining Room, plus specialty favorites like <em>Chops Grille</em> and <em>Izumi</em> (availability varies).</li>
-        <li><strong>Evenings that hum:</strong> Live bands, original productions, comedians, and poolside movies
-          under the stars keep the energy up long after sunset.</li>
-        <li><strong>Itineraries that refresh:</strong> From Tampa to the Western Caribbean and the Bahamas, expect
-          clear-water snorkeling, easy beach days, and ports perfect for relaxed discovery.</li>
-        <li><strong>Great value without fuss:</strong> Fans love the personalized touches and easy rhythm—proof that
-          intimate adventures can deliver big memories.</li>
-      </ul>
-
-      <p class="small">
-        Tip: <em>Grandeur</em> favors classic Royal experiences over the latest mega-ship thrills. No skydiving tunnels
-        here—choose it for cozy spaces, live music, friendly service, and sunsets that seem to last a little longer.
-      </p>
-
       <p>
-        <a class="button" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans"
-           target="_blank" rel="noopener">View Official Deck Plans →</a>
+        Dining flows as freely as the sea: casual global bites at <em>Windjammer</em>, sushi artistry at <em>Izumi</em>, and
+        classic comfort in the <em>Main Dining Room</em>—plus occasional special experiences like <em>Chef’s Table</em>.
+        Evenings deliver Broadway-style energy in the main theater, movies under the stars, comedy, and live bands that keep
+        the night humming. It’s that sweet spot smart travelers love: <strong>adrenaline by day, serenity by night</strong>.
       </p>
-
-      <hr class="soft"/>
-
-      <p class="small">
-        Ready to check dates and pricing?
-        <a href="https://example.com/aff1" target="_blank" rel="noopener">Book Your Grandeur of the Seas Cruise</a> ·
-        <a href="https://example.com/aff2" target="_blank" rel="noopener">Explore Royal Caribbean Deals</a>
-        <span class="tiny">More Links Coming Soon</span>
+      <p>
+        Sailings from Tampa unlock Western Caribbean highlights—snorkel reefs in Cozumel, unwind on Roatán’s beaches, and chase
+        aquamarine blues in the Bahamas. Grandeur turns a short getaway into a reset you’ll still be thinking about next week.
+        With so many headline-grabbing megaships launching, this beloved classic remains a <strong>value-rich</strong> favorite:
+        accessible thrills, personable service, and itineraries that let the ocean do the work.
       </p>
+      <div>
+        <a class="button" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas?ecid=ps_mdt_lfbrnd_goo_12397&gclsrc=aw.ds&gad_source=1&gad_campaignid=10439537201&gbraid=0AAAAADhYZLRWA93ioCdIZC7FnbgHqx78l&gclid=Cj0KCQjwoP_FBhDFARIsANPG24MjNpwcFOeKH6AKQKKQcGjANIfHZhMWuXbuq31fl1KRH8yRswTCRroaApliEALw_wcB"
+           target="_blank" rel="noopener">
+          Book Your Grandeur Cruise →
+        </a>
+        <a class="button" href="https://www.royalcaribbean.com" target="_blank" rel="noopener" style="margin-left:.5rem;">
+          Explore Royal Caribbean Deals →
+        </a>
+        <a class="button" href="https://www.vacationstogo.com" target="_blank" rel="noopener" style="margin-left:.5rem;">
+          Solo Deals (Account Required) →
+        </a>
+      </div>
     </section>
 
-    <!-- === 3) VIDEO CAROUSEL ============================================== -->
+    <!-- C. VIDEO CAROUSEL -->
     <section class="card" aria-labelledby="videosHeading">
       <h2 id="videosHeading">Watch: Grandeur Highlights</h2>
-      <p class="small">Swipe through for videos of the Grandeur - from ship walkthroughs, to room walk throughs, Top Ten things on the ship, and even the perspective of the disabled, (where available). </p>
-
+      <p class="tiny">Swipe through pre-screened, upbeat videos — no leaving the page.</p>
       <div class="swiper" aria-label="Featured video carousel">
         <div class="swiper-wrapper" id="featuredVideos"></div>
         <div class="swiper-pagination" aria-hidden="true"></div>
@@ -227,43 +184,43 @@
         <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
     </section>
-
   </main>
 
-  <footer class="wrap">© 2025 In the Wake.</footer>
+  <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
-  <!-- JS: Swiper + page scripts -->
+  <!-- Swiper JS -->
   <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
+
   <script>
-    // Build videos (same safe list you had earlier)
+    // Build video slides (restored set; feel free to expand)
     (function initCarousel() {
       const DATA = [
-        {"id": "-NS3BhWqzD4", "title": "Grandeur of the Seas — Full Ship Walkthrough (4K)"},
-        {"id": "iIo4HNqNzbs", "title": "Top Things To Do on Grandeur of the Seas"},
-        {"id": "tXQ8hic0O_U", "title": "Accessible Stateroom & Wheelchair Walkthrough"},
-        {"id": "kYAwcRPmH5c", "title": "Interior Room Tour — Grandeur"},
-        {"id": "1PgDMCgw6uI", "title": "Ocean View Stateroom Tour — Grandeur"},
-        {"id": "0YONwODd98c", "title": "Balcony & Interior Quick Tour — Grandeur"},
-        {"id": "HAxiXR-IMmk", "title": "Junior Suite 7650 — Aft Balcony Tour"},
-        {"id": "KXCJePjqEY4", "title": "Grand Suite (1-Bedroom) Tour — 2025"},
-        {"id": "ZEz-jOvRq7c", "title": "Grand Suite (2-Bedroom) 8084 — Tour"},
-        {"id": "GByj5lFpAPU", "title": "Owner’s Suite 8502 — Cabin Tour"},
-        {"id": "Z70a-ViIjTc", "title": "Royal Suite 8500 — Tour & Review"}
+        { id: "-NS3BhWqzD4", title: "Grandeur of the Seas — Full Ship Walkthrough (4K)" },
+        { id: "iIo4HNqNzbs", title: "Top Things To Do on Grandeur of the Seas" },
+        { id: "tXQ8hic0O_U", title: "Accessible Stateroom & Wheelchair Walkthrough" },
+        { id: "kYAwcRPmH5c", title: "Interior Room Tour — Grandeur" },
+        { id: "1PgDMCgw6uI", title: "Ocean View Stateroom Tour — Grandeur" },
+        { id: "0YONwODd98c", title: "Balcony & Interior Quick Tour — Grandeur" },
+        { id: "HAxiXR-IMmk", title: "Junior Suite 7650 — Aft Balcony Tour" },
+        { id: "KXCJePjqEY4", title: "Grand Suite (1-Bedroom) Tour — 2025" },
+        { id: "ZEz-jOvRq7c", title: "Grand Suite (2-Bedroom) 8084 — Tour" },
+        { id: "GByj5lFpAPU", title: "Owner’s Suite 8502 — Cabin Tour" },
+        { id: "Z70a-ViIjTc", title: "Royal Suite 8500 — Tour & Review" }
       ];
-
       const wrap = document.getElementById('featuredVideos');
       DATA.forEach(v => {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
-        slide.innerHTML = `<iframe title="${v.title}"
-                               src="https://www.youtube.com/embed/${v.id}"
-                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                               allowfullscreen loading="lazy"></iframe>`;
+        slide.innerHTML =
+          `<iframe title="${v.title}"
+                   src="https://www.youtube.com/embed/${v.id}"
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                   allowfullscreen loading="lazy"></iframe>`;
         wrap.appendChild(slide);
       });
-
       new Swiper('.swiper', {
-        lazy: true, loop: false,
+        lazy: true,
+        loop: false,
         pagination: { el: '.swiper-pagination', clickable: true },
         navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         a11y: { enabled: true }
