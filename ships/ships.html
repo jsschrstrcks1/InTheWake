@@ -1,222 +1,85 @@
+
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>In the Wake — Ships (v2.090)</title>
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.091"/>
+<html lang="en"><head><meta charset="utf-8">
+<title>All Ships Across All Lines</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--ink);background:var(--sky)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
+.hero{position:relative;min-height:300px;background-image:url('../assets/hero.jpg');background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:flex-start}
+.hero::before{content:'';position:absolute;inset:0;background-image:url('../assets/grid.png');background-size:cover;opacity:.4}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,61,98,.15) 0%, rgba(10,61,98,.65) 65%, rgba(10,61,98,.85) 100%)}
+.hero-title{position:absolute;left:2rem;bottom:2.5rem;color:#e6f4f8;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px;text-shadow:0 3px 6px rgba(0,0,0,.55);}
+.hero-title h1{margin:0;font-size:clamp(2rem,4vw,3rem);line-height:1.1;color:#5dade2}
+.wrap{padding:1.5rem 2rem}
+.card{border:2px solid var(--rope);border-radius:14px;padding:1rem;background:linear-gradient(180deg,#ffffff 0%,#fcf9f3 100%);box-shadow:0 2px 6px rgba(8,48,65,.08);margin-bottom:1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+</style>
 </head>
 <body>
-
-<!-- Header + full-bleed hero (matches index 2.x) -->
-<header class="hero-header">
-  <div class="navbar">
-    <div class="brand">
-      <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png" alt="In the Wake wordmark"/>
-      <div class="brand-title">In the Wake <span class="version-badge">v2.086</span></div>
-    </div>
-    <nav class="nav">
-      <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability</a>
-    </nav>
-  </div>
-
-  <!-- Hero (grid lines only; no degree labels) -->
-  <div class="hero" role="img" aria-label="Ship wake at sunset">
-    <div class="latlon-grid" aria-hidden="true">
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-        <g class="grid-lines" stroke-width="0.35">
-          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
-          <line x1="90" y1="0" x2="90" y2="60"/>
-          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
-          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
-        </g>
-      </svg>
-    </div>
-
-    <!-- Compass -->
-    <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
-
-    <!-- Logo + tagline -->
-    <div class="hero-title">
-      <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo_wake.png" alt="In the Wake">
-      <div class="tagline">A Cruise Traveler’s Logbook</div>
-    </div>
+<header class="site-header">
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-title"><h1>All Ships Across All Lines</h1><p>Browse or jump into a cruise line</p></div>
   </div>
 </header>
+<div class="wrap">
+  <section class="grid">
 
-<main class="page-wrap">
-
-  <!-- ROYAL CARIBBEAN — fully grouped by class with anchors -->
-  <section id="royal-caribbean">
-    <h2>Royal Caribbean International</h2>
-
-    <!-- Class quick jump -->
-    <div class="class-pills">
-      <a href="#rc-icon"   class="pill">Icon Class</a>
-      <a href="#rc-oasis"  class="pill">Oasis Class</a>
-      <a href="#rc-quantum"class="pill">Quantum Class</a>
-      <a href="#rc-freedom"class="pill">Freedom Class</a>
-      <a href="#rc-radiance"class="pill">Radiance Class</a>
-      <a href="#rc-voyager"class="pill">Voyager Class</a>
-      <a href="#rc-vision" class="pill">Vision Class</a>
-      <a href="#rc-historical" class="pill outline">Historical</a>
+    <div class="card">
+      <h3>Royal Caribbean</h3>
+      <p><a href="../cruise-lines/royal-caribbean.html">Open Royal Caribbean →</a></p>
     </div>
-
-    <!-- ICON -->
-    <h3 id="rc-icon">Icon Class</h3>
-    <div class="grid">
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/icon-of-the-seas.html">Icon of the Seas</a></h4></div>
-      <div class="card"><h4><span class="to-verify">Star of the Seas</span></h4><p class="tiny">Coming soon</p></div>
+    
+    <div class="card">
+      <h3>Norwegian Cruise Line</h3>
+      <p><a href="../cruise-lines/norwegian.html">Open Norwegian Cruise Line →</a></p>
     </div>
-
-    <!-- OASIS -->
-    <h3 id="rc-oasis">Oasis Class</h3>
-    <div class="grid">
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/utopia-of-the-seas.html">Utopia of the Seas</a></h4></div>
-      <div class="card"><h4><span class="to-verify">Wonder of the Seas</span></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/symphony-of-the-seas.html">Symphony of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/harmony-of-the-seas.html">Harmony of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/allure-of-the-seas.html">Allure of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/oasis-of-the-seas.html">Oasis of the Seas</a></h4></div>
+    
+    <div class="card">
+      <h3>MSC Cruises</h3>
+      <p><a href="../cruise-lines/msc.html">Open MSC Cruises →</a></p>
     </div>
-
-    <!-- QUANTUM -->
-    <h3 id="rc-quantum">Quantum Class</h3>
-    <div class="grid">
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/odyssey-of-the-seas.html">Odyssey of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/spectrum-of-the-seas.html">Spectrum of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/ovation-of-the-seas.html">Ovation of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/anthem-of-the-seas.html">Anthem of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/quantum-of-the-seas.html">Quantum of the Seas</a></h4></div>
+    
+    <div class="card">
+      <h3>Virgin Voyages</h3>
+      <p><a href="../cruise-lines/virgin.html">Open Virgin Voyages →</a></p>
     </div>
-
-    <!-- FREEDOM -->
-    <h3 id="rc-freedom">Freedom Class</h3>
-    <div class="grid">
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/independence-of-the-seas.html">Independence of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/liberty-of-the-seas.html">Liberty of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/freedom-of-the-seas.html">Freedom of the Seas</a></h4></div>
+    
+    <div class="card">
+      <h3>Viking</h3>
+      <p><a href="../cruise-lines/viking.html">Open Viking →</a></p>
     </div>
-
-    <!-- RADIANCE -->
-    <h3 id="rc-radiance">Radiance Class</h3>
-    <div class="grid">
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/jewel-of-the-seas.html">Jewel of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/serenade-of-the-seas.html">Serenade of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/brilliance-of-the-seas.html">Brilliance of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/radiance-of-the-seas.html">Radiance of the Seas</a></h4></div>
+    
+    <div class="card">
+      <h3>Carnival Cruise Line</h3>
+      <p><a href="../cruise-lines/carnival.html">Open Carnival Cruise Line →</a></p>
     </div>
-
-    <!-- VOYAGER -->
-    <h3 id="rc-voyager">Voyager Class</h3>
-    <div class="grid">
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/mariner-of-the-seas.html">Mariner of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/navigator-of-the-seas.html">Navigator of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/adventure-of-the-seas.html">Adventure of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/explorer-of-the-seas.html">Explorer of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/voyager-of-the-seas.html">Voyager of the Seas</a></h4></div>
+    
+    <div class="card">
+      <h3>Disney Cruise Line</h3>
+      <p><a href="../cruise-lines/disney.html">Open Disney Cruise Line →</a></p>
     </div>
-
-    <!-- VISION -->
-    <h3 id="rc-vision">Vision Class</h3>
-    <div class="grid">
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/vision-of-the-seas.html">Vision of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/rhapsody-of-the-seas.html">Rhapsody of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/enchantment-of-the-seas.html">Enchantment of the Seas</a></h4></div>
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/grandeur-of-the-seas.html">Grandeur of the Seas</a></h4></div>
+    
+    <div class="card">
+      <h3>Celebrity Cruises</h3>
+      <p><a href="../cruise-lines/celebrity.html">Open Celebrity Cruises →</a></p>
     </div>
-
-    <!-- HISTORICAL -->
-    <h3 id="rc-historical">Historical</h3>
-    <div class="grid">
-      <div class="card"><h4><a href="https://jsschrstrcks1.github.io/InTheWake/majesty-of-the-seas.html">Majesty of the Seas</a> <span class="tiny">(Historical)</span></h4></div>
-      <div class="card"><h4><span class="historical">Sovereign of the Seas</span></h4></div>
-      <div class="card"><h4><span class="historical">Monarch of the Seas</span></h4></div>
-      <div class="card"><h4><span class="historical">Legend of the Seas</span></h4></div>
-      <div class="card"><h4><span class="historical">Splendour of the Seas</span></h4></div>
-      <div class="card"><h4><span class="historical">Empress of the Seas</span></h4></div>
-      <div class="card"><h4><span class="historical">Song of Norway</span></h4></div>
-      <div class="card"><h4><span class="historical">Nordic Prince</span></h4></div>
-      <div class="card"><h4><span class="historical">Sun Viking</span></h4></div>
-      <div class="card"><h4><span class="historical">Song of America</span></h4></div>
-      <div class="card"><h4><span class="historical">Viking Serenade</span></h4></div>
+    
+    <div class="card">
+      <h3>Holland America Line</h3>
+      <p><a href="../cruise-lines/holland-america.html">Open Holland America Line →</a></p>
     </div>
+    
+    <div class="card">
+      <h3>Princess Cruises</h3>
+      <p><a href="../cruise-lines/princess.html">Open Princess Cruises →</a></p>
+    </div>
+    
   </section>
-
-  <!-- NCL / MSC / Virgin — section headers (we’ll populate ship lists next pass) -->
-  <section id="norwegian"><h2>Norwegian Cruise Line</h2><p class="tiny">Classes & ships coming online here next.</p></section>
-  <section id="msc"><h2>MSC Cruises</h2><p class="tiny">Classes & ships coming online here next.</p></section>
-  <section id="virgin"><h2>Virgin Voyages</h2><p class="tiny">Classes & ships coming online here next.</p></section>
-
-  <!-- The rest of your requested cruise lines (scaffolded) -->
-  <section id="american-cruise-lines"><h2>American Cruise Lines</h2></section>
-  <section id="atlas"><h2>Atlas Ocean Voyages</h2></section>
-  <section id="azamara"><h2>Azamara</h2></section>
-  <section id="carnival"><h2>Carnival Cruise Line</h2></section>
-  <section id="celebrity"><h2>Celebrity Cruises</h2></section>
-  <section id="celestyal"><h2>Celestyal Cruises</h2></section>
-  <section id="costacruises"><h2>Costa Cruises</h2></section>
-  <section id="crystal"><h2>Crystal Cruises</h2></section>
-  <section id="cunard"><h2>Cunard Line</h2></section>
-  <section id="disney"><h2>Disney Cruise Line</h2></section>
-  <section id="emerald"><h2>Emerald Cruises</h2></section>
-  <section id="explora"><h2>Explora Journeys</h2></section>
-  <section id="holland-america"><h2>Holland America Line</h2></section>
-  <section id="hurtigruten"><h2>Hurtigruten</h2></section>
-  <section id="hx"><h2>HX</h2></section>
-  <section id="lindblad"><h2>National Geographic–Lindblad</h2></section>
-  <section id="oceania"><h2>Oceania Cruises</h2></section>
-  <section id="pando"><h2>P&amp;O Cruises</h2></section>
-  <section id="paul-gauguin"><h2>Paul Gauguin Cruises</h2></section>
-  <section id="ponant"><h2>Ponant</h2></section>
-  <section id="princess"><h2>Princess Cruises</h2></section>
-  <section id="quark"><h2>Quark Expeditions</h2></section>
-  <section id="regent"><h2>Regent Seven Seas Cruises</h2></section>
-  <section id="ritz-carlton"><h2>Ritz-Carlton Yacht Collection</h2></section>
-  <section id="scenic"><h2>Scenic Luxury Cruises &amp; Tours</h2></section>
-  <section id="seabourn"><h2>Seabourn</h2></section>
-  <section id="seadream"><h2>SeaDream Yacht Club</h2></section>
-  <section id="silversea"><h2>Silversea Cruises</h2></section>
-  <section id="star-clippers"><h2>Star Clippers</h2></section>
-  <section id="victory"><h2>Victory Cruise Lines</h2></section>
-  <section id="viking"><h2>Viking</h2></section>
-  <section id="windstar"><h2>Windstar Cruises</h2></section>
-
-</main>
-
-<footer class="footer">
-  <div>In the Wake — A Cruise Traveler’s Logbook</div>
-</footer>
-
-<script>
-/* Mega menu: open on hover/focus, close on leave/blur */
-(function(){
-  const trigger = document.querySelector('.nav-trigger');
-  const mega = document.querySelector('.mega');
-  if (!trigger || !mega) return;
-
-  const open = () => { mega.classList.add('open'); trigger.setAttribute('aria-expanded','true'); };
-  const close = () => { mega.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); };
-
-  trigger.addEventListener('mouseenter', open);
-  trigger.addEventListener('focus', open);
-  trigger.addEventListener('click', (e)=>{ e.preventDefault(); mega.classList.toggle('open'); });
-
-  mega.addEventListener('mouseleave', close);
-  trigger.addEventListener('blur', close);
-  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
-})();
-</script>
-<!-- include at end of body on every page that shows the mega-nav -->
-<script type="module" src="https://jsschrstrcks1.github.io/InTheWake/js/mega-nav1.js"></script>
-
-</body>
-</html>
+</div>
+<footer>© 2025 In the Wake — Compiled by Ken</footer>
+</body></html>

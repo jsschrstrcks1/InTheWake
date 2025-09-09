@@ -1,0 +1,154 @@
+
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disney Cruise Line — Cruise Line Overview</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",Ubuntu,Cantarell,"Apple Color Emoji","Segoe UI Emoji";color:var(--ink);background:var(--sky)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
+.hero{position:relative;min-height:340px;background-image:url('../assets/hero.jpg');background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:flex-start}
+.hero::before{content:'';position:absolute;inset:0;background-image:url('../assets/grid.png');background-size:cover;opacity:.4}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,61,98,.15) 0%, rgba(10,61,98,.65) 65%, rgba(10,61,98,.85) 100%)}
+.hero-title{position:absolute;left:2rem;bottom:2.5rem;color:#e6f4f8;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px;text-shadow:0 3px 6px rgba(0,0,0,.55);}
+.hero-title h1{margin:0;font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;color:#5dade2}
+.hero-title p{margin:.35rem 0 0;font-size:clamp(1.05rem,2vw,1.35rem);opacity:.97}
+.compass{position:absolute;right:1rem;bottom:1rem;width:140px;opacity:.85;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
+.wrap{padding:1.5rem 2rem}
+h1,h2,h3{color:var(--sea)}
+.card{border:2px solid var(--rope);border-radius:14px;padding:1rem;background:linear-gradient(180deg,#ffffff 0%,#fcf9f3 100%);box-shadow:0 2px 6px rgba(8,48,65,.08);margin-bottom:1rem}
+.small{font-size:.9rem;color:#2a5b6e}
+hr{border:none;height:10px;background-image:repeating-linear-gradient(90deg,var(--rope),var(--rope) 14px,transparent 14px,transparent 20px);opacity:.45;margin:1.25rem 0}
+.table{border-collapse:collapse;width:100%}.table th,.table td{border-bottom:1px dashed rgba(8,48,65,.2);padding:.6rem .5rem;text-align:left}
+.figure img{max-width:100%;height:auto;border:2px solid var(--rope);border-radius:12px}
+.note{background:#fff7ea;border:1px solid var(--rope);padding:.6rem .8rem;border-radius:8px}
+.pills{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
+.pills a{display:inline-block;padding:.5rem .8rem;border:1px solid var(--rope);border-radius:999px;background:#fff7ea}
+.pills a.active{background:var(--foam);font-weight:600}
+.search{display:flex;gap:.5rem;align-items:center;margin:.75rem 0}
+.search input{flex:1;padding:.6rem .8rem;border-radius:10px;border:1px solid #bcd;box-shadow:inset 0 1px 2px rgba(0,0,0,.05)}
+.badge{display:inline-block;padding:.25rem .5rem;border-radius:999px;border:1px solid #bcd;background:#eef7fb;margin-left:.5rem;font-size:.8rem}
+.lang{margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px,1fr));gap:1rem}
+figure{margin:0}
+figcaption{font-size:.85rem;color:#2a5b6e;margin-top:.4rem}
+/* watermark */
+.page-watermark{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(34vw,440px);opacity:.25;z-index:0;pointer-events:none;user-select:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15))}
+.wrap, header, footer, .card, section, .site-header {position:relative;z-index:1}
+@media (max-width:640px){.page-watermark{opacity:.18;width:min(48vw,360px)}}
+/* compass bg */
+body::after{
+  content:''; position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(40vw,520px); height:min(40vw,520px);
+  background:url('../assets/compass_rose.svg') center/contain no-repeat;
+  opacity:.25; z-index:0; pointer-events:none; filter:drop-shadow(0 3px 8px rgba(0,0,0,.15));
+}
+@media (max-width:640px){ body::after{ opacity:.18; width:min(52vw,420px); height:min(52vw,420px);}}
+</style>
+<script src="../js/lang-toggle.js" defer></script>
+<script src="../js/search.js" defer></script>
+</head>
+
+<body>
+<img class="page-watermark" src="../assets/compass_rose.svg" alt="Compass watermark">
+<header class="site-header">
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-title"><h1>In The Wake</h1><p>A Practical Cruise Companion</p></div>
+    <img class="compass" src="../assets/compass_rose.svg" alt="Compass rose">
+  </div>
+</header>
+<div class="wrap">
+  <nav class="pills" role="navigation" aria-label="Primary">
+    <a href="../index.html">Home</a>
+    <a href="#classes">Ship Classes</a>
+    <a href="#ships">Ships A–Z</a>
+    <a href="#search">Search Ships</a>
+    <a href="../ships/ships.html">All Ships Across All Lines</a>
+    <span class="lang">
+      <label for="langSelect" class="small">Language: </label>
+      <select id="langSelect" data-default="en"></select>
+    </span>
+  </nav>
+<section class="card i18n" data-lang="en"><h2>MAGIC AT SEA. BOOK DISNEY.</h2><p>Beloved characters, Broadway-caliber shows, and immersive dining your kids will never forget.</p><p>Private island days and impeccable service make every moment feel storybook-perfect.</p><p>These sailings sell quickly — capture the magic now.</p></section><section class="card i18n" data-lang="fr"><h2>MAGIE EN MER. DISNEY.</h2><p>Personnages adorés, spectacles dignes de Broadway et restaurants immersifs pour toute la famille.</p><p>Île privée et service irréprochable — des souvenirs inoubliables.</p><p>Ces croisières partent vite — réservez la magie maintenant.</p></section><section class="card i18n" data-lang="ja"><h2>海の魔法。ディズニーを今すぐ予約。</h2><p>大人気キャラクター、ブロードウェイクラスのショー、家族で楽しめる没入型ダイニング。</p><p>プライベートアイランドと行き届いたサービスで物語のような体験を。</p><p>販売は早期に終了します。今すぐ予約を。</p></section>
+<section class="card">
+  <h2>Gallery</h2>
+  <div class="grid">
+    <figure>
+      <img src="../assets/cruise-lines/disney-hero-1.jpg" alt="Disney Cruise Line ship at sea">
+      <figcaption>Image: Wikimedia Commons — add specific attribution here.</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cruise-lines/disney-hero-2.jpg" alt="Disney Cruise Line deck view">
+      <figcaption>Image: Wikimedia Commons — add specific attribution here.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="classes">
+  <h2>Ship Classes</h2>
+  <div class="grid">
+    
+        <div class="card">
+          <h3>Triton Class <span class="badge">launched 2022</span></h3>
+          <ul><li><a href="../ships/disney-destiny.html">Disney Destiny</a></li><li><a href="../ships/disney-treasure.html">Disney Treasure</a></li><li><a href="../ships/disney-wish.html">Disney Wish</a></li></ul>
+        </div>
+  </div>
+</section>
+
+<section id="ships">
+  <h2>Ships A–Z</h2>
+  <ul>
+    <li><a href="../ships/disney-destiny.html">Disney Destiny</a></li><li><a href="../ships/disney-treasure.html">Disney Treasure</a></li><li><a href="../ships/disney-wish.html">Disney Wish</a></li>
+  </ul>
+</section>
+
+<section id="search" class="card">
+  <h2>Search Ships</h2>
+  <div class="search">
+    <input id="shipSearch" type="search" placeholder="Type a ship name… (tolerates typos)">
+    <button id="btnSearch">Search</button>
+  </div>
+  <div id="searchResults" class="grid" aria-live="polite"></div>
+</section>
+
+<script>
+window.SHIP_DATA = [
+  {
+    "name": "Disney Wish",
+    "url": "disney-wish.html",
+    "aliases": [
+      "Disny Wish",
+      "Diznee Wish"
+    ]
+  },
+  {
+    "name": "Disney Treasure",
+    "url": "disney-treasure.html",
+    "aliases": [
+      "Disny Treasure",
+      "Disney Tresure"
+    ]
+  },
+  {
+    "name": "Disney Destiny",
+    "url": "disney-destiny.html",
+    "aliases": [
+      "Disny Destiny",
+      "Disney Destiney"
+    ]
+  }
+];
+document.addEventListener('DOMContentLoaded', ()=>{ setupShipSearch(window.SHIP_DATA); });
+</script>
+
+<section class="card">
+  <h3>Image Credits</h3>
+  <p class="small">Hero and supplemental images sourced from Wikimedia Commons. Replace placeholders with final credited media.</p>
+</section>
+</div>
+<footer>© 2025 In the Wake — Compiled by Ken</footer>
+</body></html>
