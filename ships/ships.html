@@ -1,21 +1,85 @@
+
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
+<title>All Ships Across All Lines</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Royal Caribbean — All Ships</title>
-<link rel="preload" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css" as="style">
-<link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css">
+<style>
+:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--ink);background:var(--sky)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
+.hero{position:relative;min-height:300px;background-image:url('../assets/hero.jpg');background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:flex-start}
+.hero::before{content:'';position:absolute;inset:0;background-image:url('../assets/grid.png');background-size:cover;opacity:.4}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,61,98,.15) 0%, rgba(10,61,98,.65) 65%, rgba(10,61,98,.85) 100%)}
+.hero-title{position:absolute;left:2rem;bottom:2.5rem;color:#e6f4f8;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px;text-shadow:0 3px 6px rgba(0,0,0,.55);}
+.hero-title h1{margin:0;font-size:clamp(2rem,4vw,3rem);line-height:1.1;color:#5dade2}
+.wrap{padding:1.5rem 2rem}
+.card{border:2px solid var(--rope);border-radius:14px;padding:1rem;background:linear-gradient(180deg,#ffffff 0%,#fcf9f3 100%);box-shadow:0 2px 6px rgba(8,48,65,.08);margin-bottom:1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+</style>
 </head>
 <body>
-<img class="page-watermark" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="Compass watermark">
 <header class="site-header">
-  <div class="hero" style="background-image:url('https://jsschrstrcks1.github.io/InTheWake/assets/hero.jpg')">
+  <div class="hero">
     <div class="hero-overlay"></div>
-    <div class="hero-title"><h1>In The Wake</h1><p>A Practical Cruise Companion</p></div>
-    <img class="compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="Compass rose">
+    <div class="hero-title"><h1>All Ships Across All Lines</h1><p>Browse or jump into a cruise line</p></div>
   </div>
 </header>
 <div class="wrap">
-<section class="card"><h2>Royal Caribbean Fleet</h2><p>Linked stubs for every Royal Caribbean ship, organized by class. All pages share the Grandeur styling and absolute links.</p></section><section class="card"><h2>Icon Class</h2><ul><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/icon-of-the-seas.html">Icon of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/star-of-the-seas.html">Star of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/star-of-the-seas-aug-2025-debut.html">Star of the Seas (Aug 2025 debut)</a></li></ul></section><section class="card"><h2>Oasis Class</h2><ul><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/oasis-of-the-seas.html">Oasis of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/allure-of-the-seas.html">Allure of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/harmony-of-the-seas.html">Harmony of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/symphony-of-the-seas.html">Symphony of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/wonder-of-the-seas.html">Wonder of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/utopia-of-the-seas.html">Utopia of the Seas</a></li></ul></section><section class="card"><h2>Freedom Class</h2><ul><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/freedom-of-the-seas.html">Freedom of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/liberty-of-the-seas.html">Liberty of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/independence-of-the-seas.html">Independence of the Seas</a></li></ul></section><section class="card"><h2>Voyager Class</h2><ul><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/voyager-of-the-seas.html">Voyager of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/explorer-of-the-seas.html">Explorer of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/adventure-of-the-seas.html">Adventure of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/navigator-of-the-seas.html">Navigator of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/mariner-of-the-seas.html">Mariner of the Seas</a></li></ul></section><section class="card"><h2>Radiance Class</h2><ul><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/radiance-of-the-seas.html">Radiance of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/brilliance-of-the-seas.html">Brilliance of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/serenade-of-the-seas.html">Serenade of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/jewel-of-the-seas.html">Jewel of the Seas</a></li></ul></section><section class="card"><h2>Vision Class</h2><ul><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/vision-of-the-seas.html">Vision of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/rhapsody-of-the-seas.html">Rhapsody of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/enchantment-of-the-seas.html">Enchantment of the Seas</a></li><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/grandeur-of-the-seas.html">Grandeur of the Seas</a></li></ul></section><section class="card"><h2>Sovereign (Historical) Class</h2><ul><li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/majesty-of-the-seas.html">Majesty of the Seas — Historical Ship</a></li></ul></section>
+  <section class="grid">
+
+    <div class="card">
+      <h3>Royal Caribbean</h3>
+      <p><a href="../cruise-lines/royal-caribbean.html">Open Royal Caribbean →</a></p>
+    </div>
+    
+    <div class="card">
+      <h3>Norwegian Cruise Line</h3>
+      <p><a href="../cruise-lines/norwegian.html">Open Norwegian Cruise Line →</a></p>
+    </div>
+    
+    <div class="card">
+      <h3>MSC Cruises</h3>
+      <p><a href="../cruise-lines/msc.html">Open MSC Cruises →</a></p>
+    </div>
+    
+    <div class="card">
+      <h3>Virgin Voyages</h3>
+      <p><a href="../cruise-lines/virgin.html">Open Virgin Voyages →</a></p>
+    </div>
+    
+    <div class="card">
+      <h3>Viking</h3>
+      <p><a href="../cruise-lines/viking.html">Open Viking →</a></p>
+    </div>
+    
+    <div class="card">
+      <h3>Carnival Cruise Line</h3>
+      <p><a href="../cruise-lines/carnival.html">Open Carnival Cruise Line →</a></p>
+    </div>
+    
+    <div class="card">
+      <h3>Disney Cruise Line</h3>
+      <p><a href="../cruise-lines/disney.html">Open Disney Cruise Line →</a></p>
+    </div>
+    
+    <div class="card">
+      <h3>Celebrity Cruises</h3>
+      <p><a href="../cruise-lines/celebrity.html">Open Celebrity Cruises →</a></p>
+    </div>
+    
+    <div class="card">
+      <h3>Holland America Line</h3>
+      <p><a href="../cruise-lines/holland-america.html">Open Holland America Line →</a></p>
+    </div>
+    
+    <div class="card">
+      <h3>Princess Cruises</h3>
+      <p><a href="../cruise-lines/princess.html">Open Princess Cruises →</a></p>
+    </div>
+    
+  </section>
 </div>
 <footer>© 2025 In the Wake — Compiled by Ken</footer>
 </body></html>
