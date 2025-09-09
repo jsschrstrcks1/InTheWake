@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>In the Wake v1.021 — Master Index</title>
+  <title>In the Wake v2.087 — Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Use the canonical site stylesheet (no inline CSS to avoid regressions) -->
+  <!-- All styling flows from your canonical stylesheet -->
   <link rel="stylesheet" href="assets/styles.css">
   <meta name="theme-color" content="#0a3d62">
 </head>
 <body class="page-index">
-
-  <!-- Header / Brand / Hero are controlled by assets/styles.css -->
+  <!-- Header/Brand/Hero entirely styled via assets/styles.css -->
   <header class="site-header">
     <div class="brand">
       <a class="brand-home" href="index.html" aria-label="In the Wake — Home">
@@ -19,9 +17,9 @@
         <span class="brand-title">In the Wake</span>
       </a>
 
-      <!-- Pill/top navigation (kept minimal; hero provides primary identity) -->
+      <!-- Keep your pill/top navigation exactly as v2 uses it -->
       <nav class="top-nav" aria-label="Primary">
-        <a href="ships/ships.html">Ships</a>
+        <a href="cruise-lines.html">Cruise Lines</a>
         <a href="restaurants.html">Restaurants</a>
         <a href="ports.html">Ports</a>
         <a href="drinks.html">Drinks</a>
@@ -30,62 +28,47 @@
       </nav>
     </div>
 
-    <!-- Hero: background, overlay, typography driven by assets/styles.css -->
     <div class="hero hero-index">
       <div class="hero-overlay">
         <h1>In The Wake</h1>
         <p class="subtitle">A Practical Cruise Companion</p>
       </div>
-      <!-- If your v2 theme includes a compass image in the hero, leave this element for CSS positioning -->
       <img class="compass" src="assets/compass_rose.svg" alt="Compass rose">
     </div>
   </header>
 
   <main class="wrap">
+    <!-- Full-width Welcome card (outside grid to span 100%) -->
+    <section class="card welcome">
+      <h2>Welcome</h2>
+      <p>In the Wake is a practical guide to cruising. We’re building a trustworthy, go-to resource you can actually use — from choosing a line and ship class to picking a stateroom, planning sea days, and navigating ports. Our approach is simple: clear explanations, real-world tips, and personal experiences where available.</p>
+      <p>Browse cruise lines by brand and ship class, compare ships at a glance, and dive into focused pages for cabins, dining, accessibility, and families — without the fluff.</p>
+    </section>
 
-    <!-- Card grid (your CSS ensures ≥2 cards per row at standard viewports) -->
+    <!-- Grid: your styles.css controls column count (≤ 3 per row at standard widths) -->
     <section class="grid">
-    
-
-       <div class="card">
-        <h3>Welcome</h3>
-        <p>In the Wake is a practical guide to cruising. We’re building a trustworthy, go-to resource you can actually use—from choosing a line and ship class to picking a stateroom, planning sea days, and navigating ports. Our approach is simple: clear explanations, real-world tips, and Personal experiences where available.
-Browse cruise lines by brand and ship class, compare ships at a glance, and dive into focused pages for cabins, dining, accessibility, and families—without the fluff. We curate video and article creators with a family-friendly lens and label everything, so you know what’s opinion, what’s experience, and what’s fact.
-We’re not claiming to be the authority; we’re working toward it—by shipping improvements, correcting fast, and working with the community to be better. Whether you’re a first-timer planning your first balcony or a seasoned cruiser tracking refits and fleet moves, a solo traveler or planning a trip for your group our goal is the same: make your next sailing smoother, smarter, and more memorable.
-Come aboard, explore the fleets, and plan with confidence—one well-organized page at a time.
-</p>
-    
-  </div>
-  <!-- NEW: Cruise Lines card -->
       <div class="card">
         <h3>Cruise Lines</h3>
         <p>Why each line is amazing — find your match.</p>
-        <p><a href="cruise-lines/royal-caribbean.html">Explore Cruise Lines →</a></p>
+        <!-- Link to your central cruise-lines page to match your current site nav -->
+        <p><a href="cruise-lines.html">All Cruise Lines — Royal Caribbean, Norwegian, MSC, Virgin, etc. →</a></p>
       </div>
-      
+
       <div class="card">
         <h3>Restaurants at Sea</h3>
         <p>Polished reviews with scores, “At a Glance” boxes, and embedded menus.</p>
-        <p><a href="restaurants.html">Open Restaurants &amp; Menus →</a></p>
+        <p><a href="restaurants.html">Explore Venues →</a></p>
       </div>
 
       <div class="card">
-        <h3>Ships &amp; Venues</h3>
-        <p>Class overviews, global and per-class ratings, cross-links to restaurants.</p>
-        <!-- Route to the new all-ships hub -->
-        <p><a href="ships/ships.html">Open Ships &amp; Ratings →</a></p>
-      </div>
-
-      <div class="card">
-        <h3>Ports</h3>
-        <p>Starter stubs to expand with excursions and access notes.</p>
-        <p><a href="ports.html">Open Ports →</a></p>
+        <h3>Ports of Call</h3>
+        <p>Browse ports, excursions, and practical access notes.</p>
+        <p><a href="ports.html">Browse Ports →</a></p>
       </div>
 
       <div class="card">
         <h3>Drinks &amp; Packages</h3>
         <p>Package summaries and à la carte notes.</p>
-        <!-- “Module” wording removed -->
         <p><a href="drinks.html">Open Drinks →</a></p>
       </div>
 
@@ -98,30 +81,27 @@ Come aboard, explore the fleets, and plan with confidence—one well-organized p
       <div class="card">
         <h3>Disability &amp; Cruising</h3>
         <p>Ship/port access notes and practical tips.</p>
-        <!-- “Module” wording removed -->
         <p><a href="disability.html">Open Disability →</a></p>
       </div>
     </section>
 
-    <!-- Optional: featured block (kept to align with v2 layout if you use it) -->
+    <!-- Optional featured block, kept consistent with your v2 layout -->
     <section class="card featured">
       <h3>Featured Ship</h3>
       <p class="small">Randomized on each load from a curated list.</p>
     </section>
 
-    <section>
+    <section class="card">
       <h2>Change Log</h2>
       <ul>
-        <li><strong>v1.021</strong> — Added Cruise Lines card; generated 10 cruise line pages with localization, class→ship stubs, and typo-tolerant search; added “All Ships Across All Lines”.</li>
-        <li><strong>v1.020</strong> — Compass watermark on all pages; updated paragraphs in Restaurants (Chops, 150 CP, Jamie’s).</li>
-        <li><strong>v1.019</strong> — Stronger grid/compass and hero title overlay.</li>
-        <li><strong>v1.018</strong> — New hero motif, cross-linking, ship ratings both global &amp; per-class.</li>
+        <li><strong>v2.087</strong> — Preserved v2 header/logo/hero &amp; external CSS; added full-width Welcome card; ensured max three cards per row; linked Cruise Lines to central <code>cruise-lines.html</code>; removed “Module” wording on links.</li>
+        <li><strong>v2.086</strong> — Index: grid-only labels removed, tagline centered, compass color fixed.</li>
       </ul>
     </section>
   </main>
 
   <footer class="site-footer">
-    <small>© 2025 In the Wake — Compiled by Ken</small>
+    <small>© 2025 In the Wake — A Cruise Traveler’s Logbook</small>
   </footer>
 </body>
 </html>
