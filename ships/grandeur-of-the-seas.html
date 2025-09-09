@@ -116,16 +116,12 @@
     });
 
     // Robust hero image loader
-    (function initHero() {
-      const bases = [
-        "https://jsschrstrcks1.github.io/InTheWake/assets/grandeur-of-the-seas",
-        "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas - 1",
-        "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas - 2",
-        "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas - 3",
-        "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas-1",
-        "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas-2",
-        "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas-3"
-      ];
+   const HERO_PHOTOS = [
+  "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas.jpg",
+  "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%201.jpeg",
+  "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%202.jpeg",
+  "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%203.jpeg"
+];
       const exts = [".jpeg",".jpg",".JPG",".JPEG"];
       const candidates = [];
       bases.forEach(b => exts.forEach(ext => candidates.push(encodeURI(b + ext))));
