@@ -13,44 +13,21 @@
 
   <style>
     /* Ensure no double hero: we render a single mast hero like index */
-    .mast-hero {
-      position: relative;
-      min-height: 340px;
-      background-image: url('https://jsschrstrcks1.github.io/InTheWake/assets/index_hero.jpg');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: flex-end;
-      border-bottom: 8px double #d9b382;
-      overflow: hidden;
-    }
-    .mast-hero::before{
-      content: "";
-      position: absolute; inset: 0;
-      background-image: url('https://jsschrstrcks1.github.io/InTheWake/assets/grid.png');
-      background-size: cover; opacity: .35;
-    }
-    .mast-hero::after{
-      content: "";
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(10,61,98,.15) 0%, rgba(10,61,98,.6) 55%, rgba(10,61,98,.85) 100%);
-    }
+    
+    
+    
     .hero-inner{
       position: relative; z-index: 1;
       display: flex; gap: 1rem; align-items: center;
       padding: 1rem 0; color: #e6f4f8;
     }
     .hero-title h1{ margin: 0; font-size: clamp(2rem,4vw,3.2rem); color: #5dade2; }
-    .hero-title .tagline{ margin: .25rem 0 0; opacity: .95; }
-    .compass{ position: absolute; right: 1rem; bottom: 1rem; width: 140px; opacity: .85; filter: drop-shadow(0 2px 6px rgba(0,0,0,.45)); z-index: 1; }
+    .hero-title .tagline{ margin: .25rem 0 0;  }
+    .compass{ position: absolute; right: 1rem; bottom: 1rem; width: 140px;   z-index: 1; }
 
     /* Watermark behind the page body */
     .watermark-wrap{ position: relative; }
-    .watermark-wrap::before{
-      content:""; position: fixed; inset: 0; pointer-events:none;
-      background: url('https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg') no-repeat center 20%;
-      background-size: 420px 420px; opacity:.08; z-index: 0;
-    }
+    
     header, nav, main, footer, .card, section, .wrap{ position: relative; z-index: 1; }
 
     /* Nav z-index so mega menus overlay correctly */
