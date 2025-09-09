@@ -1,98 +1,145 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Majesty of the Seas — In the Wake (v2.019)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
-*{box-sizing:border-box}
-body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--ink);background:var(--sky)}
-.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
-
-
-.hero-title{position:absolute;left:2rem;bottom:2.2rem;z-index:3}
-.hero-title img.logo{width:clamp(320px,36vw,680px);height:auto;display:block;}
-.wrap{padding:1.2rem 1.6rem}
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-h2,h3{color:var(--sea)}
-</style>
-<link rel='stylesheet' href='https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.091'></head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Majesty — In the Wake</title>
+  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css">
+  <link rel="icon" href="https://jsschrstrcks1.github.io/InTheWake/assets/favicon.ico">
+</head>
 <body>
 <header class="hero-header">
-  <div class="navbar">
-    <div class="brand">
-      <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png" alt="In the Wake wordmark"/>
-      <div class="brand-title">In the Wake <span class="version-badge">v2.086</span></div>
-    </div>
-    <nav class="nav">
-      <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability</a>
-    </nav>
-  </div>
-
-  <!-- Hero (grid lines only; no degree labels) -->
-  <div class="hero" role="img" aria-label="Ship wake at sunset">
-    <div class="latlon-grid" aria-hidden="true">
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-        <g class="grid-lines" stroke-width="0.35">
-          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
-          <line x1="90" y1="0" x2="90" y2="60"/>
-          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
-          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
-        </g>
-      </svg>
+    <div class="navbar">
+      <div class="brand">
+        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png" alt="In the Wake wordmark"/>
+        <div class="brand-title">
+          In the Wake
+          <span class="version-badge">v2.103</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="https://jsschrstrcks1.github.io/InTheWake/">Home</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">Ships</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability</a>
+      </nav>
     </div>
 
-    <!-- Compass -->
-    <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+    <!-- Hero (vibrant background + grid + compass on right) -->
+    <div class="hero" role="img" aria-label="Ship wake at sunset">
+      <div class="latlon-grid" aria-hidden="true">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+          <g class="grid-lines" stroke-width="0.35">
+            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+            <line x1="90" y1="0" x2="90" y2="60"/>
+            <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+          </g>
+        </svg>
+      </div>
 
-    <!-- Logo + tagline -->
-    <div class="hero-title">
-      <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo_wake.png" alt="In the Wake">
-      <div class="tagline">A Cruise Traveler’s Logbook</div>
+      <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+
+      <div class="hero-title">
+        <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo_wake.png" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
     </div>
-  </div>
-</header>
-
-<div class="latlong">25° 46′ N · 80° 08′ W</div>
-  <div class="compass-mark"><img src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"></div>
-<div class="page-wrap">
+  </header>
 <div class="wrap">
-  <section class="card">
-    <h2>Majesty of the Seas</h2>
-    <p class="tiny">Royal Caribbean — Sovereign-class • Historical Ship</p>
-    <h3>Brief History</h3>
-    <p>Launched in 1992 as the final Sovereign‑class ship, Majesty of the Seas sailed short Bahamas and Caribbean itineraries from Florida for decades. A popular choice for first‑time cruisers, she was known for her lively pool deck, Viking Crown Lounge views, and efficient layout. After her 2016 refresh she carried updated dining and family areas. In 2021 she left the Royal Caribbean fleet; after a lay‑up period she was acquired by Seajets as Majesty, later renamed Majesty of the Oceans. Public operations remain limited as the ship awaits future deployment. (Historical listing.)</p>
-  </section>
+<section class="card">
+  <h1>Majesty</h1>
+  <p class="small">Royal Caribbean</p>
+</section>
+<section>
+  <h2>A First Look</h2>
+  <div class="gallery three-up">
+    <figure class="figure"><img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/majesty1.jpg" alt="Majesty image"></figure>
+<figure class="figure"><img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/majesty2.jpg" alt="Majesty image"></figure>
+<figure class="figure"><img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/majesty3.jpg" alt="Majesty image"></figure>
+  </div>
+</section>
+<section class="card">
+  <h2>Ship Walkthroughs</h2>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="card">(To Verify) No green-list videos found for Majesty — Ship Walkthroughs.</div></div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+<section class="card">
+  <h2>Top 10 Things To Do</h2>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="card">(To Verify) No green-list videos found for Majesty — Top 10 Things To Do.</div></div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+<section class="card">
+  <h2>Stateroom &amp; Suite Tours</h2>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="card">(To Verify) No green-list videos found for Majesty — Stateroom &amp; Suite Tours.</div></div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+<section class="card">
+  <h2>Accessibility / Disabled-Creator Perspective</h2>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="card">(To Verify) No green-list videos found for Majesty — Accessibility / Disabled-Creator Perspective.</div></div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+<section class="card">
+  <h2>Overview</h2>
+  <p class="tiny">Royal Caribbean — Sovereign-class • Historical Ship</p>
+<p>Launched in 1992 as the final Sovereign‑class ship, Majesty of the Seas sailed short Bahamas and Caribbean itineraries from Florida for decades. A popular choice for first‑time cruisers, she was known for her lively pool deck, Viking Crown Lounge views, and efficient layout. After her 2016 refresh she carried updated dining and family areas. In 2021 she left the Royal Caribbean fleet; after a lay‑up period she was acquired by Seajets as Majesty, later renamed Majesty of the Oceans. Public operations remain limited as the ship awaits future deployment. (Historical listing.)</p>
+  <p class="small">Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</p>
+</section>
+<section class="card">
+  <h2>Ship Layout (Deck Plans)</h2>
+  <p><a class="button" href="https://www.royalcaribbean.com/search?q=Majesty%20deck%20plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+</section>
+<section class="card">
+  <h2>Where Is Majesty Right Now?</h2>
+  <p><a class="button" href="https://www.cruisemapper.com/?search=Majesty" target="_blank" rel="noopener">Open Cruise Tracker</a></p>
+</section>
+<section class="card">
+  <h2>Cross-Links</h2>
+  <ul>
+    <li><a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants & Menus</a></li>
+    <li><a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a></li>
+    <li><a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks & Packages</a></li>
+    <li><a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing Lists</a></li>
+    <li><a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability at Sea</a></li>
+  </ul>
+</section>
+<section class="card" style="display:none">
+  <h2>Ken’s Logbook (Hidden)</h2>
+  <div class="small">(Reserved for future notes.)</div>
+</section>
+<p><a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">← Back to All Royal Caribbean Ships</a></p>
 </div>
-
-</div>
-<footer class="footer">
-  <div>In the Wake — A Cruise Traveler’s Logbook • Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</div>
-</footer>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  const header = document.querySelector('header');
-  if (header){
-    let img = header.querySelector('img');
-    if (!img){
-      img = document.createElement('img');
-      header.insertBefore(img, header.firstChild);
-    }
-    img.src = 'https://jsschrstrcks1.github.io/InTheWake/assets/logo/in_the_wake_custom.png';
-    img.alt = 'In the Wake logo';
-    img.classList.add('iw-logo');
-    img.style.height = '72px';
-  }
-});
-</script>
+<footer class="site-footer">In the Wake — A Cruise Traveler’s Logbook</footer>
 </body>
 </html>

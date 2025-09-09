@@ -1,84 +1,149 @@
-
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<title>All Ships Across All Lines</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
-*{box-sizing:border-box}
-body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--ink);background:var(--sky)}
-a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
-
-
-.hero-overlay{position:absolute;inset:0;left:2rem;bottom:2.5rem;color:#e6f4f8;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px;text-shadow:0 3px 6px rgba(0,0,0,.55);}
-.hero-title h1{margin:0;font-size:clamp(2rem,4vw,3rem);line-height:1.1;color:#5dade2}
-.wrap{padding:1.5rem 2rem}
-.card{border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:0 2px 6px rgba(8,48,65,.08);margin-bottom:1rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-</style>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ships — In the Wake</title>
+  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css">
+  <link rel="icon" href="https://jsschrstrcks1.github.io/InTheWake/assets/favicon.ico">
 </head>
 <body>
-<header class="site-header">
-  <div class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-title"><h1>All Ships Across All Lines</h1><p>Browse or jump into a cruise line</p></div>
-  </div>
-</header>
-<div class="wrap">
-  <section class="grid">
+<header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png" alt="In the Wake wordmark"/>
+        <div class="brand-title">
+          In the Wake
+          <span class="version-badge">v2.103</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="https://jsschrstrcks1.github.io/InTheWake/">Home</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">Ships</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability</a>
+      </nav>
+    </div>
 
-    <div class="card">
-      <h3>Royal Caribbean</h3>
-      <p><a href="../cruise-lines/royal-caribbean.html">Open Royal Caribbean →</a></p>
+    <!-- Hero (vibrant background + grid + compass on right) -->
+    <div class="hero" role="img" aria-label="Ship wake at sunset">
+      <div class="latlon-grid" aria-hidden="true">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+          <g class="grid-lines" stroke-width="0.35">
+            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+            <line x1="90" y1="0" x2="90" y2="60"/>
+            <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+          </g>
+        </svg>
+      </div>
+
+      <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+
+      <div class="hero-title">
+        <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo_wake.png" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
     </div>
-    
-    <div class="card">
-      <h3>Norwegian Cruise Line</h3>
-      <p><a href="../cruise-lines/norwegian.html">Open Norwegian Cruise Line →</a></p>
+  </header>
+<div class="wrap">
+<section class="card">
+  <h1>Ships</h1>
+  <p class="small">Royal Caribbean</p>
+</section>
+<section>
+  <h2>A First Look</h2>
+  <div class="gallery three-up">
+    <figure class="figure"><img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/ships1.jpg" alt="Ships image"></figure>
+<figure class="figure"><img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/ships2.jpg" alt="Ships image"></figure>
+<figure class="figure"><img src="https://jsschrstrcks1.github.io/InTheWake/assets/ships/ships3.jpg" alt="Ships image"></figure>
+  </div>
+</section>
+<section class="card">
+  <h2>Ship Walkthroughs</h2>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="card">(To Verify) No green-list videos found for Ships — Ship Walkthroughs.</div></div>
     </div>
-    
-    <div class="card">
-      <h3>MSC Cruises</h3>
-      <p><a href="../cruise-lines/msc.html">Open MSC Cruises →</a></p>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+<section class="card">
+  <h2>Top 10 Things To Do</h2>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="card">(To Verify) No green-list videos found for Ships — Top 10 Things To Do.</div></div>
     </div>
-    
-    <div class="card">
-      <h3>Virgin Voyages</h3>
-      <p><a href="../cruise-lines/virgin.html">Open Virgin Voyages →</a></p>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+<section class="card">
+  <h2>Stateroom &amp; Suite Tours</h2>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="card">(To Verify) No green-list videos found for Ships — Stateroom &amp; Suite Tours.</div></div>
     </div>
-    
-    <div class="card">
-      <h3>Viking</h3>
-      <p><a href="../cruise-lines/viking.html">Open Viking →</a></p>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+<section class="card">
+  <h2>Accessibility / Disabled-Creator Perspective</h2>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="card">(To Verify) No green-list videos found for Ships — Accessibility / Disabled-Creator Perspective.</div></div>
     </div>
-    
-    <div class="card">
-      <h3>Carnival Cruise Line</h3>
-      <p><a href="../cruise-lines/carnival.html">Open Carnival Cruise Line →</a></p>
-    </div>
-    
-    <div class="card">
-      <h3>Disney Cruise Line</h3>
-      <p><a href="../cruise-lines/disney.html">Open Disney Cruise Line →</a></p>
-    </div>
-    
-    <div class="card">
-      <h3>Celebrity Cruises</h3>
-      <p><a href="../cruise-lines/celebrity.html">Open Celebrity Cruises →</a></p>
-    </div>
-    
-    <div class="card">
-      <h3>Holland America Line</h3>
-      <p><a href="../cruise-lines/holland-america.html">Open Holland America Line →</a></p>
-    </div>
-    
-    <div class="card">
-      <h3>Princess Cruises</h3>
-      <p><a href="../cruise-lines/princess.html">Open Princess Cruises →</a></p>
-    </div>
-    
-  </section>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+<section class="card">
+  <h2>Overview</h2>
+  <p><a href="../cruise-lines/royal-caribbean.html">Open Royal Caribbean →</a></p>
+<p><a href="../cruise-lines/norwegian.html">Open Norwegian Cruise Line →</a></p>
+<p><a href="../cruise-lines/msc.html">Open MSC Cruises →</a></p>
+<p><a href="../cruise-lines/virgin.html">Open Virgin Voyages →</a></p>
+<p><a href="../cruise-lines/viking.html">Open Viking →</a></p>
+<p><a href="../cruise-lines/carnival.html">Open Carnival Cruise Line →</a></p>
+  <p class="small">Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</p>
+</section>
+<section class="card">
+  <h2>Ship Layout (Deck Plans)</h2>
+  <p><a class="button" href="https://www.royalcaribbean.com/search?q=Ships%20deck%20plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+</section>
+<section class="card">
+  <h2>Where Is Ships Right Now?</h2>
+  <p><a class="button" href="https://www.cruisemapper.com/?search=Ships" target="_blank" rel="noopener">Open Cruise Tracker</a></p>
+</section>
+<section class="card">
+  <h2>Cross-Links</h2>
+  <ul>
+    <li><a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants & Menus</a></li>
+    <li><a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a></li>
+    <li><a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks & Packages</a></li>
+    <li><a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing Lists</a></li>
+    <li><a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability at Sea</a></li>
+  </ul>
+</section>
+<section class="card" style="display:none">
+  <h2>Ken’s Logbook (Hidden)</h2>
+  <div class="small">(Reserved for future notes.)</div>
+</section>
+<p><a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">← Back to All Royal Caribbean Ships</a></p>
 </div>
-<footer>© 2025 In the Wake — Compiled by Ken</footer>
-</body></html>
+<footer class="site-footer">In the Wake — A Cruise Traveler’s Logbook</footer>
+</body>
+</html>
