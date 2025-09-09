@@ -1,145 +1,116 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>In the Wake — Home (v2.086)</title>
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.091"/>
+  <meta charset="utf-8">
+  <title>In the Wake v1.021 — Master Index</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Use the canonical site stylesheet (no inline CSS to avoid regressions) -->
+  <link rel="stylesheet" href="assets/styles.css">
+  <meta name="theme-color" content="#0a3d62">
 </head>
-<body>
-<header class="hero-header">
-  <div class="navbar">
+<body class="page-index">
+
+  <!-- Header / Brand / Hero are controlled by assets/styles.css -->
+  <header class="site-header">
     <div class="brand">
-      <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png" alt="In the Wake wordmark"/>
-      <div class="brand-title">In the Wake <span class="version-badge">v2.086</span></div>
-    </div>
-    <nav class="nav">
-      <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a>
-      <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability</a>
-    </nav>
-  </div>
+      <a class="brand-home" href="index.html" aria-label="In the Wake — Home">
+        <img class="brand-logo" src="assets/logo_wake.png" alt="In the Wake logo">
+        <span class="brand-title">In the Wake</span>
+      </a>
 
-  <!-- Hero (grid lines only; no degree labels) -->
-  <div class="hero" role="img" aria-label="Ship wake at sunset">
-    <div class="latlon-grid" aria-hidden="true">
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-        <g class="grid-lines" stroke-width="0.35">
-          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
-          <line x1="90" y1="0" x2="90" y2="60"/>
-          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
-          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
-        </g>
-      </svg>
+      <!-- Pill/top navigation (kept minimal; hero provides primary identity) -->
+      <nav class="top-nav" aria-label="Primary">
+        <a href="ships/ships.html">Ships</a>
+        <a href="restaurants.html">Restaurants</a>
+        <a href="ports.html">Ports</a>
+        <a href="drinks.html">Drinks</a>
+        <a href="packing.html">Packing</a>
+        <a href="disability.html">Disability</a>
+      </nav>
     </div>
 
-    <!-- Compass -->
-    <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
-
-    <!-- Logo + tagline -->
-    <div class="hero-title">
-      <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo_wake.png" alt="In the Wake">
-      <div class="tagline">A Cruise Traveler’s Logbook</div>
-    </div>
-  </div>
-</header>
-
-<main class="page-wrap">
-  <section class="index-grid" id="master-index">
-    <div class="index-card">
-      <h3>Cruise Lines</h3>
-      <ul>
-        <li><a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html"><strong>All Cruise Lines</strong> — Royal Caribbean, Norwegian, MSC, Virgin, etc.</a></li>
-        <li><a href="https://jsschrstrcks1.github.io/InTheWake/enchantment-of-the-seas.html">Enchantment of the Seas</a></li>
-        <li><a href="https://jsschrstrcks1.github.io/InTheWake/majesty.html">Majesty of the Seas <span class="tiny">(Historical)</span></a></li>
-      </ul>
-    </div>
-
-    <div class="index-card">
-      <h3>Restaurants</h3>
-      <p><a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html"><strong>Explore Venues</strong></a></p>
-      <div>
-        <span class="index-pill">Included</span>
-        <span class="index-pill">Premium</span>
-        <span class="index-pill">MDR Themes</span>
+    <!-- Hero: background, overlay, typography driven by assets/styles.css -->
+    <div class="hero hero-index">
+      <div class="hero-overlay">
+        <h1>In The Wake</h1>
+        <p class="subtitle">A Practical Cruise Companion</p>
       </div>
+      <!-- If your v2 theme includes a compass image in the hero, leave this element for CSS positioning -->
+      <img class="compass" src="assets/compass_rose.svg" alt="Compass rose">
     </div>
+  </header>
 
-    <div class="index-card">
-      <h3>Ports of Call</h3>
-      <p><a href="https://jsschrstrcks1.github.io/InTheWake/ports.html"><strong>Browse Ports</strong></a></p>
-    </div>
+  <main class="wrap">
 
-    <div class="index-card">
-      <h3>Pages</h3>
-      <ul>
-        <li><a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a></li>
-        <li><a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drink Packages</a></li>
-        <li><a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability at Sea</a></li>
-      </ul>
-    </div>
-  </section>
+    <!-- Card grid (your CSS ensures ≥2 cards per row at standard viewports) -->
+    <section class="grid">
+      <!-- NEW: Cruise Lines card -->
+      <div class="card">
+        <h3>Cruise Lines</h3>
+        <p>Why each line is amazing — find your match.</p>
+        <p><a href="cruise-lines/royal-caribbean.html">Explore Cruise Lines →</a></p>
+      </div>
 
-  <section class="feature-ship">
-    <div class="card">
+      <div class="card">
+        <h3>Restaurants at Sea</h3>
+        <p>Polished reviews with scores, “At a Glance” boxes, and embedded menus.</p>
+        <p><a href="restaurants.html">Open Restaurants &amp; Menus →</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Ships &amp; Venues</h3>
+        <p>Class overviews, global and per-class ratings, cross-links to restaurants.</p>
+        <!-- Route to the new all-ships hub -->
+        <p><a href="ships/ships.html">Open Ships &amp; Ratings →</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Ports</h3>
+        <p>Starter stubs to expand with excursions and access notes.</p>
+        <p><a href="ports.html">Open Ports →</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Drinks &amp; Packages</h3>
+        <p>Package summaries and à la carte notes.</p>
+        <!-- “Module” wording removed -->
+        <p><a href="drinks.html">Open Drinks →</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Packing</h3>
+        <p>Organized lists ready for customization.</p>
+        <p><a href="packing.html">Open Packing Lists →</a></p>
+      </div>
+
+      <div class="card">
+        <h3>Disability &amp; Cruising</h3>
+        <p>Ship/port access notes and practical tips.</p>
+        <!-- “Module” wording removed -->
+        <p><a href="disability.html">Open Disability →</a></p>
+      </div>
+    </section>
+
+    <!-- Optional: featured block (kept to align with v2 layout if you use it) -->
+    <section class="card featured">
       <h3>Featured Ship</h3>
-      <p class="tiny">Our Featured Ship</p>
-      <div id="featured-slot"></div>
-    </div>
-    <div class="card">
-      <h3>Change Log</h3>
+      <p class="small">Randomized on each load from a curated list.</p>
+    </section>
+
+    <section>
+      <h2>Change Log</h2>
       <ul>
-        <li><strong>v2.086</strong> — Index: grid-only labels removed, tagline centered, compass color fixed.</li>
+        <li><strong>v1.021</strong> — Added Cruise Lines card; generated 10 cruise line pages with localization, class→ship stubs, and typo-tolerant search; added “All Ships Across All Lines”.</li>
+        <li><strong>v1.020</strong> — Compass watermark on all pages; updated paragraphs in Restaurants (Chops, 150 CP, Jamie’s).</li>
+        <li><strong>v1.019</strong> — Stronger grid/compass and hero title overlay.</li>
+        <li><strong>v1.018</strong> — New hero motif, cross-linking, ship ratings both global &amp; per-class.</li>
       </ul>
-    </div>
-  </section>
-</main>
+    </section>
+  </main>
 
-<footer class="footer">
-  <div>In the Wake — A Cruise Traveler’s Logbook</div>
-</footer>
-
-<script>
-const ships = [
-  {n:'Adventure of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/adventure-of-the-seas.html'},
-  {n:'Allure of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/allure-of-the-seas.html'},
-  {n:'Anthem of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/anthem-of-the-seas.html'},
-  {n:'Brilliance of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/brilliance-of-the-seas.html'},
-  {n:'Enchantment of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/enchantment-of-the-seas.html'},
-  {n:'Explorer of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/explorer-of-the-seas.html'},
-  {n:'Freedom of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/freedom-of-the-seas.html'},
-  {n:'Grandeur of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/grandeur-of-the-seas.html'},
-  {n:'Harmony of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/harmony-of-the-seas.html'},
-  {n:'Icon of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/icon-of-the-seas.html'},
-  {n:'Independence of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/independence-of-the-seas.html'},
-  {n:'Jewel of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/jewel-of-the-seas.html'},
-  {n:'Liberty of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/liberty-of-the-seas.html'},
-  {n:'Majesty of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/majesty-of-the-seas.html'},
-  {n:'Mariner of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/mariner-of-the-seas.html'},
-  {n:'MSC World America', f:'https://jsschrstrcks1.github.io/InTheWake/ships/msc-world-america.html'},
-  {n:'Navigator of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/navigator-of-the-seas.html'},
-  {n:'Oasis of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/oasis-of-the-seas.html'},
-  {n:'Odyssey of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/odyssey-of-the-seas.html'},
-  {n:'Ovation of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/ovation-of-the-seas.html'},
-  {n:'Quantum of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/quantum-of-the-seas.html'},
-  {n:'Radiance of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/radiance-of-the-seas.html'},
-  {n:'Rhapsody of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/rhapsody-of-the-seas.html'},
-  {n:'Serenade of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/serenade-of-the-seas.html'},
-  {n:'Spectrum of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/spectrum-of-the-seas.html'},
-  {n:'Symphony of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/symphony-of-the-seas.html'},
-  {n:'Utopia of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/utopia-of-the-seas.html'},
-  {n:'Vision of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/vision-of-the-seas.html'},
-  {n:'Voyager of the Seas', f:'https://jsschrstrcks1.github.io/InTheWake/ships/voyager-of-the-seas.html'}
-];
-const pick = ships[Math.floor(Math.random()*ships.length)];
-document.getElementById('featured-slot').innerHTML =
-  `<a class="index-pill" href="https://jsschrstrcks1.github.io/InTheWake/ships/${pick.f}">${pick.n}</a>`;
-</script>
+  <footer class="site-footer">
+    <small>© 2025 In the Wake — Compiled by Ken</small>
+  </footer>
 </body>
 </html>
