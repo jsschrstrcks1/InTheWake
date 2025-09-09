@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grandeur of the Seas — In The Wake</title>
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css">
+
+  <!-- Swiper for video carousel -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css">
+
+  <style>
+    /* Ensure no double hero: we render a single mast hero like index */
+    .mast-hero {
+      position: relative;
+      min-height: 340px;
+      background-image: url('https://jsschrstrcks1.github.io/InTheWake/assets/index_hero.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      border-bottom: 8px double #d9b382;
+      overflow: hidden;
+    }
+    .mast-hero::before{
+      content: "";
+      position: absolute; inset: 0;
+      background-image: url('https://jsschrstrcks1.github.io/InTheWake/assets/grid.png');
+      background-size: cover; opacity: .35;
+    }
+    .mast-hero::after{
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(10,61,98,.15) 0%, rgba(10,61,98,.6) 55%, rgba(10,61,98,.85) 100%);
+    }
+    .hero-inner{
+      position: relative; z-index: 1;
+      display: flex; gap: 1rem; align-items: center;
+      padding: 1rem 0; color: #e6f4f8;
+    }
+    .hero-title h1{ margin: 0; font-size: clamp(2rem,4vw,3.2rem); color: #5dade2; }
+    .hero-title .tagline{ margin: .25rem 0 0; opacity: .95; }
+    .compass{ position: absolute; right: 1rem; bottom: 1rem; width: 140px; opacity: .85; filter: drop-shadow(0 2px 6px rgba(0,0,0,.45)); z-index: 1; }
+
+    /* Watermark behind the page body */
+    .watermark-wrap{ position: relative; }
+    .watermark-wrap::before{
+      content:""; position: fixed; inset: 0; pointer-events:none;
+      background: url('https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg') no-repeat center 20%;
+      background-size: 420px 420px; opacity:.08; z-index: 0;
+    }
+    header, nav, main, footer, .card, section, .wrap{ position: relative; z-index: 1; }
+
+    /* Nav z-index so mega menus overlay correctly */
+    .navbar{ position: relative; z-index: 20; }
+
+    /* Cards & grid */
+    .grid-2{ display: grid; gap: 1rem; }
+    @media(min-width: 980px){ .grid-2{ grid-template-columns: 1fr 1fr; } }
+
+    .card{ background: #fff; border: 2px solid #d9b382; border-radius: 14px; padding: 1rem; box-shadow: 0 2px 6px rgba(8,48,65,.08); }
+
+    /* Swiper */
+    .swiper{ width: 100%; }
+    .swiper-slide iframe{ width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 12px; }
+    .swiper-button-prev, .swiper-button-next{ color: #0e6e8e; }
+    .swiper-pagination-bullet-active{ background: #0e6e8e; }
+
+    /* Photo strip */
+    .hero-rotator img{ width: 100%; height: auto; border-radius: 12px; display: block; }
+    .photo-grid{ display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); }
+    .photo-grid img{ width:100%; border-radius: 12px; display:block; }
+  </style>
+
+  <!-- Mega nav (renamed path) -->
+  <script defer src="https://jsschrstrcks1.github.io/InTheWake/js/mega-nav1.js"></script>
+</head>
+<body class="watermark-wrap">
+
+  <!-- Header hero (single) -->
+  <header class="site-header">
+    <div class="mast-hero" role="img" aria-label="Open ocean">
+      <div class="wrap hero-inner">
+        <div class="hero-title">
+          <h1>In The Wake</h1>
+          <div class="tagline">A Practical Cruise Companion</div>
+          <div class="small" style="margin-top:.25rem;">Royal Caribbean · Grandeur of the Seas</div>
+        </div>
+      </div>
+      <img class="compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="Compass rose">
+    </div>
+
+    <!-- Primary nav (links absolute) -->
+    <div class="navbar wrap small">
+      <nav aria-label="Primary">
+        <a href="https://jsschrstrcks1.github.io/InTheWake/">Home</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ships.html">Ships</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- VIDEO CAROUSEL (restored) -->
+    <section class="card" aria-labelledby="videosHeading">
+      <h2 id="videosHeading">Watch: Grandeur Highlights</h2>
+      <p class="small">Swipe through pre‑screened, upbeat videos — no leaving the page.</p>
+      <div class="swiper" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+    </section>
+
+    <!-- MARKETING + HIGHLIGHTS (restored) -->
+    <section class="grid-2">
+      <section class="card" aria-labelledby="whyHeading">
+        <h2 id="whyHeading">Why book Grandeur of the Seas?</h2>
+        <p>Grandeur of the Seas is a beloved, human‑scale Royal Caribbean classic — easy to navigate, big on ocean views, and packed with live music and friendly service. It’s a cozy ship with a lively heart.</p>
+        <ul>
+          <li><strong>Signature Royal fun:</strong> Conquer the <em>Rock Climbing Wall</em>, enjoy pool days, and unwind in the adults‑only <em>Solarium</em>.</li>
+          <li><strong>Dining you’ll crave:</strong> <em>Main Dining Room</em>, <em>Windjammer</em>, plus specialties like <em>Chops Grille</em>, <em>Izumi</em>, and <em>Chef’s Table</em> (availability can vary by sailing).</li>
+          <li><strong>Great for families:</strong> <em>Adventure Ocean</em> for kids & teens, an arcade, and lots of evening entertainment.</li>
+          <li><strong>Less walking, more relaxing:</strong> The ship’s size makes embarkation smooth and getting around a breeze.</li>
+          <li><strong>Value‑forward itineraries:</strong> Caribbean getaways that maximize sea days and port time.</li>
+        </ul>
+        <p class="small">Note: Grandeur focuses on classic Royal experiences. No giant water slides or skydiving tunnels — choose it for intimate vibes, live shows, and sunsets at sea.</p>
+        <p><a class="button" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener">View Official Deck Plans →</a></p>
+      </section>
+
+      <section class="card" aria-labelledby="rcMarketingHeading">
+        <h2 id="rcMarketingHeading">Highlights from Royal Caribbean</h2>
+        <ul>
+          <li><strong>Classic Royal Thrills:</strong> Rock Climbing Wall, open decks, and the glass‑covered Solarium.</li>
+          <li><strong>Delicious Dining:</strong> Complimentary favorites plus <em>Chops Grille</em>, <em>Izumi</em>, <em>Chef’s Table</em>.</li>
+          <li><strong>Evenings to Remember:</strong> Live bands, original productions, comedians, and game shows.</li>
+          <li><strong>Families Welcome:</strong> <em>Adventure Ocean</em>, arcade, and plenty of poolside fun.</li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- SHIP PHOTOS (restored, absolute URLs) -->
+    <section class="card" aria-labelledby="photosHeading">
+      <h2 id="photosHeading">A First Look</h2>
+      <div class="photo-grid" id="heroRotator"></div>
+      <p class="small">We load multiple verified image paths and show what’s available.</p>
+    </section>
+  </main>
+
+  <footer class="wrap">© 2025 In the Wake — Compiled by Ken</footer>
+
+  <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    // Build videos
+    (function initCarousel() {
+      const DATA = [{"id": "-NS3BhWqzD4", "title": "Grandeur of the Seas \u2014 Full Ship Walkthrough (4K)"}, {"id": "iIo4HNqNzbs", "title": "Top Things To Do on Grandeur of the Seas"}, {"id": "tXQ8hic0O_U", "title": "Grandeur \u2014 Accessible Stateroom & Wheelchair Walkthrough"}, {"id": "kYAwcRPmH5c", "title": "Interior Room Tour \u2014 Grandeur"}, {"id": "1PgDMCgw6uI", "title": "Ocean View Stateroom Tour \u2014 Grandeur"}, {"id": "0YONwODd98c", "title": "Balcony & Interior Quick Tour \u2014 Grandeur"}, {"id": "HAxiXR-IMmk", "title": "Junior Suite 7650 \u2014 Aft Balcony Tour"}, {"id": "KXCJePjqEY4", "title": "Grand Suite (1-Bedroom) Tour \u2014 2025"}, {"id": "ZEz-jOvRq7c", "title": "Grand Suite (2-Bedroom) 8084 \u2014 Tour"}, {"id": "GByj5lFpAPU", "title": "Owner\u2019s Suite 8502 \u2014 Cabin Tour"}, {"id": "Z70a-ViIjTc", "title": "Royal Suite 8500 \u2014 Tour & Review"}];
+      const wrap = document.getElementById('featuredVideos');
+      DATA.forEach(v => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = `<iframe title="${v.title}"
+                               src="https://www.youtube.com/embed/${v.id}"
+                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                               allowfullscreen loading="lazy"></iframe>`;
+        wrap.appendChild(slide);
+      });
+      new Swiper('.swiper', {
+        lazy:true, loop:false,
+        pagination:{el:'.swiper-pagination',clickable:true},
+        navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'},
+        a11y:{enabled:true}
+      });
+    })();
+
+    // Load ship photos (absolute URLs only)
+    (function initPhotos(){
+      const PICS = ["https://jsschrstrcks1.github.io/InTheWake/assets/grandeur-of-the-seas.jpg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%201.jpeg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%202.jpeg", "https://jsschrstrcks1.github.io/InTheWake/assets/ships/grandeur-of-the-seas%20-%203.jpeg"];
+      const grid = document.getElementById('heroRotator');
+      PICS.forEach(src=>{
+        const img = new Image();
+        img.alt = "Grandeur of the Seas";
+        img.loading = "lazy";
+        img.src = src;
+        img.onerror = () => img.remove();
+        grid.appendChild(img);
+      });
+    })();
+  </script>
+</body>
+</html>
