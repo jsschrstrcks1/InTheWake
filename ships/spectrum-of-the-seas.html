@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spectrum of the Seas — In The Wake</title>
+<html lang="en"><head>
+  <link rel="stylesheet" href="../styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spectrum of the Seas — In The Wake</title>
 <style>
 body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f7fbff;color:#0b2a3f;margin:0}
 header{background:#0e3a5f;color:#fff;padding:24px;border-bottom:8px solid #a3c7df}
@@ -18,4 +20,74 @@ figcaption{font-size:.85rem;color:#3c5c70}
 <section class="about"><p><em>Overview coming soon.</em></p></section>
 <section class="videos"><h2>Videos</h2><p><em>Videos coming soon.</em></p><p class="last-updated">Auto‑wired on 2025-09-10 03:28.</p></section>
 </main>
+
+
+
+<section id="videos" class="video-section">
+  <h2>Videos</h2>
+  <div id="video-grid" data-ship-slug="spectrum-of-the-seas"></div>
+</section>
+<script>
+(async function(){
+  try {
+    const grid = document.querySelector('#video-grid');
+    if(!grid) return;
+    const slug = grid.dataset.shipSlug;
+    const resp = await fetch('../ships/rc_ship_videos.json', {cache:'no-cache'});
+    if(!resp.ok) { grid.innerHTML = '<p class="note">Videos coming soon.</p>'; return; }
+    const data = await resp.json();
+    const entry = data[slug] || {};
+    const sections = [
+      ["overview","Overview & Full Ship Tours"],
+      ["top10","Top 10 / Favorites"],
+      ["staterooms","Staterooms"],
+      ["accessible","Accessibility"]
+    ];
+    function ytEmbed(url){
+      try{
+        const u=new URL(url);
+        let id=u.searchParams.get('v');
+        if(!id && u.hostname.includes('youtu.be')) id=u.pathname.slice(1);
+        if(!id && u.pathname.includes('/shorts/')) id=u.pathname.split('/shorts/')[1];
+        return id?`https://www.youtube.com/embed/${id}`:null;
+      }catch(e){return null;}
+    }
+    function card(v){
+      const embed=ytEmbed(v.url);
+      const iframe = embed ? `<iframe width="560" height="315" src="${embed}" title="${(v.title||'').replace(/"/g,'&quot;')}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+                           : `<a href="${v.url}" target="_blank" rel="noopener">${v.title||v.url}</a>`;
+      const meta=[v.creator,v.category].filter(Boolean).join(" • ");
+      return `<div class="video-card">
+        <div class="video-embed">${iframe}</div>
+        <div class="video-meta"><strong>${v.title||''}</strong>${meta?`<div class="muted">${meta}</div>`:""}</div>
+      </div>`;
+    }
+    let html = "";
+    for (const [key,label] of sections){
+      const arr = (entry[key]||[]);
+      html += `<h3 class="video-h">${label}</h3>`;
+      if(arr.length){
+        html += `<div class="video-grid">` + arr.map(card).join('') + "</div>";
+      } else {
+        html += `<p class="note">Coming soon.</p>`;
+      }
+    }
+    grid.innerHTML = html;
+  } catch(e){ console.warn(e); }
+})();
+</script>
+<style>
+.video-section{border-top:1px solid #c7d2fe;padding-top:1rem;margin-top:2rem}
+.video-h{margin:.5rem 0 1rem 0}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.video-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px}
+.video-embed{aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden}
+.video-meta{margin-top:.5rem}
+.muted{color:#64748b;font-size:.9em}
+.note{color:#475569}
+</style>
+
+
+
+
 </body></html>
