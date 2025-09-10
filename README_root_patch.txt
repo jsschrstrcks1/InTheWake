@@ -1,6 +1,5 @@
-Drop-in root patch (fresh pass)
-- Absolute styles.css
-- Wikipedia-style crosslinks (Royal Caribbean, ships, restaurants)
-- ships.html -> redirects to /ships/ships.html
-- Swiper CDN auto-injected only if a .swiper container is present
-- No <style> blocks remain in these files
+Root files patched to v2.104.
+CSS path fixed to /assets/styles.css (absolute).
+Welcome card restored.
+Version tag embedded.
+Ships root redirect fixed.
