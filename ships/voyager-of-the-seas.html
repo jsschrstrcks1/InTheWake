@@ -2,6 +2,8 @@
 <html lang="en"><head>
   <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css">
 
+  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/styles.css">
+
   <link rel="stylesheet" href="../styles.css">
 
   <link rel="stylesheet" href="../styles.css">
@@ -38,7 +40,7 @@ figcaption{font-size:.85rem;color:#3c5c70}
     const grid = document.querySelector('#video-grid');
     if(!grid) return;
     const slug = grid.dataset.shipSlug;
-    const resp = await fetch('../ships/rc_ship_videos.json', {cache:'no-cache'});
+    const resp = await fetch('https://jsschrstrcks1.github.io/InTheWake/ships/rc_ship_videos.json', {cache:'no-cache'});
     if(!resp.ok) { grid.innerHTML = '<p class="note">Videos coming soon.</p>'; return; }
     const data = await resp.json();
     const entry = data[slug] || {};
