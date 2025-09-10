@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="en"><head>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css">
+
   <link rel="stylesheet" href="../styles.css">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Anthem of the Seas — In The Wake</title>
 <style>
@@ -67,7 +69,7 @@ figcaption{font-size:.85rem;color:#3c5c70}
       const arr = (entry[key]||[]);
       html += `<h3 class="video-h">${label}</h3>`;
       if(arr.length){
-        html += `<div class="video-grid">` + arr.map(card).join('') + "</div>";
+        html += `<div class="swiper video-swiper"><div class="swiper-wrapper"><div class="swiper-slide">` + arr.map(card).join('') + "</div></div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div></div>";
       } else {
         html += `<p class="note">Coming soon.</p>`;
       }
@@ -90,4 +92,30 @@ figcaption{font-size:.85rem;color:#3c5c70}
 
 
 
+<script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+
+<!-- Swiper JS (init) -->
+<script>
+(function(){
+  if (window.__ITW_swiper_init_done__) return;
+  window.__ITW_swiper_init_done__ = true;
+  var tryInit = function(){
+    if (typeof Swiper === 'undefined') return setTimeout(tryInit, 150);
+    document.querySelectorAll('.video-swiper').forEach(function(el){
+      new Swiper(el, {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+        navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
+        breakpoints: {
+          640: { slidesPerView: 1.1 },
+          768: { slidesPerView: 2 },
+          1024:{ slidesPerView: 3 }
+        }
+      });
+    });
+  };
+  tryInit();
+})();
+</script>
 </body></html>
