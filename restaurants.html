@@ -1,107 +1,59 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<title>Restaurants at Sea — Reviews & Menus</title>
-<style>
-:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
-*{box-sizing:border-box}
-body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",Ubuntu,Cantarell,"Apple Color Emoji","Segoe UI Emoji";color:var(--ink);background:var(--sky)}
-a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
-.hero{position:relative;min-height:340px;background-image:url('assets/hero.jpg');background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:flex-start}
-.hero::before{content:'';position:absolute;inset:0;background-image:url('assets/grid.png');background-size:cover;opacity:.4}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,61,98,.15) 0%, rgba(10,61,98,.65) 65%, rgba(10,61,98,.85) 100%)}
-.hero-title{position:absolute;left:2rem;bottom:2.5rem;color:#e6f4f8;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px;text-shadow:0 3px 6px rgba(0,0,0,.55);}
-.hero-title h1{margin:0;font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;color:#5dade2}
-.hero-title p{margin:.35rem 0 0;font-size:clamp(1.05rem,2vw,1.35rem);opacity:.97}
-.compass{position:absolute;right:1rem;bottom:1rem;width:140px;opacity:.85;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
-.wrap{padding:1.5rem 2rem}
-h1,h2,h3{color:var(--sea)}
-.card{border:2px solid var(--rope);border-radius:14px;padding:1rem;background:linear-gradient(180deg,#ffffff 0%,#fcf9f3 100%);box-shadow:0 2px 6px rgba(8,48,65,.08);margin-bottom:1rem}
-.small{font-size:.9rem;color:#2a5b6e}
-hr{border:none;height:10px;background-image:repeating-linear-gradient(90deg,var(--rope),var(--rope) 14px,transparent 14px,transparent 20px);opacity:.45;margin:1.25rem 0}
-.table{border-collapse:collapse;width:100%}.table th,.table td{border-bottom:1px dashed rgba(8,48,65,.2);padding:.6rem .5rem;text-align:left}
-.figure img{max-width:100%;height:auto;border:2px solid var(--rope);border-radius:12px}
-.note{background:#fff7ea;border:1px solid var(--rope);padding:.6rem .8rem;border-radius:8px}
+<!doctype html><html><head><meta charset='utf-8'><title>Restaurants</title></head><body>
+<a id="bionic-bar"></a>
 
-/* page watermark */
-.page-watermark{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(34vw,440px);opacity:.25;z-index:0;pointer-events:none;user-select:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15))}
-.wrap, header, footer, .card, section, .site-header {position:relative;z-index:1}
-@media (max-width:640px){.page-watermark{opacity:.18;width:min(48vw,360px)}}
-</style>
-<style>
-/* Compass watermark (v1.022) */
-body::after{
-  content:''; position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
-  width:min(40vw,520px); height:min(40vw,520px);
-  background:url('assets/compass_rose.svg') center/contain no-repeat;
-  opacity:.25; z-index:0; pointer-events:none; filter:drop-shadow(0 3px 8px rgba(0,0,0,.15));
-}
-.wrap, header, footer, .card, section, .site-header { position:relative; z-index:1; }
-@media (max-width:640px){ body::after{ opacity:.18; width:min(52vw,420px); height:min(52vw,420px);}}
-</style>
+<a id="starbucks"></a>
 
-</head>
-<body>
-<img class="page-watermark" src="assets/compass_rose.svg" alt="Compass watermark">
-<header class="site-header">
-  <div class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-title"><h1>In The Wake</h1><p>A Practical Cruise Companion</p></div>
-    <img class="compass" src="assets/compass_rose.svg" alt="Compass rose">
-  </div>
-</header>
-<div class="wrap">
+<a id="sugar-beach"></a>
 
-<section class="card">
-  <h2>Top Restaurants Ranked</h2>
-  <p class="small">Overall scores (out of 100). See ship availability in each header.</p>
-</section>
+<a id="vitality-cafe"></a>
 
-<hr>
+<a id="portside-bbq"></a>
 
-<section id="chops" class="card">
-  <h3>Chops Grille <span class="small">— Royal Caribbean Steakhouse</span></h3>
-  <p class="small"><strong>Availability:</strong> Oasis, Quantum, Freedom/Voyager — see Ships module.</p>
-  <p><strong>At a Glance:</strong> Food 4.5 | Menu 4 | Service 4.5 | Ambiance 4 | Value 4 | Uniqueness 3.5 — <strong>Overall: 84/100</strong></p>
+<a id="fish-and-ships"></a>
 
-  <h4>Verdict</h4>
-  <p>Chops is my reliable go-to when I want an elevated steakhouse night at sea. It isn’t flawless, but it consistently delivers satisfying cuts, polished service, and a sense of occasion.</p>
+<a id="boardwalk-dog-house"></a>
 
-  <h4>Full Review</h4>
-  <p>Every visit to Chops feels like stepping into Royal Caribbean’s signature steakhouse — dark wood, golden lighting, and white-linen tables. My meal always begins with the <em>Crispy Goat Cheese Salad</em>, a dish I think about long after the cruise is over: tangy cheese, green apples, candied walnuts, cranberries, and balsamic. From there, the bone-in ribeye is my entrée of choice — perfectly medium-rare, moist, and tender every time. On the side, I never skip asparagus and creamed spinach, which balance richness with freshness.</p>
-  <p>Desserts are consistently strong; I’ve yet to find one that misses. Service at Chops is professional but also personal — the staff are willing to bring extra appetizers just to make sure you don’t miss anything. The restaurant does get busy, and at peak times on some ships the ambiance can lean more lively than intimate. Pricing is actually a bargain compared to similar-quality land-based steakhouses, making it worthwhile for a special night out onboard. It’s less unique than Royal’s more experimental venues, but as a classic steakhouse at sea, Chops remains one of my favorites across the fleet.</p>
-</section>
+<a id="solarium-bistro"></a>
 
-<section id="cp150" class="card">
-  <h3>150 Central Park <span class="small">— Fine Dining</span></h3>
-  <p class="small"><strong>Availability:</strong> Oasis-class Central Park — see Ships module.</p>
-  <p><strong>At a Glance:</strong> Food 4.75 | Menu 5 | Service 5 | Ambiance 4.5 | Value 4.5 | Uniqueness 5 — <strong>Overall: 96/100</strong></p>
+<a id="cafe-promenade"></a>
 
-  <h4>Verdict</h4>
-  <p>Verdict: 150 Central Park is one of the very best dining experiences Royal Caribbean offers. From presentation to flavor, it consistently hits all the high marks.</p>
+<a id="park-cafe"></a>
 
-  <h4>Full Review</h4>
-  <p>Set within the serene Central Park neighborhood, 150 Central Park is elegant, romantic, and refined. Every course feels carefully designed. My meal began with pork belly and seared scallops — both balanced and memorable. For mains, the Lobster Thermidor stood out as rich, indulgent, and flawlessly cooked. Dessert is where this restaurant truly shines; the fried cheesecake with ice cream is one of the best sweets I’ve had at sea.</p>
-  <p>Ambiance is tasteful and romantic, though seating location matters if you want a view of either the sea or Central Park. Pricing is premium but justified. This has consistently been one of my family’s favorites — everyone leaves satisfied.</p>
-</section>
+<a id="hooked-seafood"></a>
 
-<section id="jamies" class="card">
-  <h3>Jamie’s Italian <span class="small">— Casual Italian</span></h3>
-  <p class="small"><strong>Availability:</strong> Primarily Quantum & select Oasis — see Ships module.</p>
-  <p><strong>At a Glance:</strong> Food 3.75 | Menu 4 | Service 3 | Ambiance 4 | Value 4 | Uniqueness 4 — <strong>Overall: 75/100</strong></p>
+<a id="coastal-kitchen"></a>
 
-  <h4>Verdict</h4>
-  <p>Jamie’s Italian is warm, casual, and family-friendly, with comforting Italian classics. The food can be uneven, but it’s approachable and satisfying at the right price point.</p>
+<a id="main-dining-room"></a>
 
-  <h4>Full Review</h4>
-  <p>Jamie’s Italian brings a rustic trattoria feel to Royal’s fleet. Starters like truffle arancini and garlic buns always hit the mark, while mains are more variable. My favorites have been the Truffle Tagliatelle, the Meat Plank, and the Salmon. For a side, the “posh fries” with parmesan and truffle are a must.</p>
-  <p>That said, as with all restaurants, consistency varies from ship to ship — pasta can be overcooked, or portions feel undersized at dinner. Desserts like the brownie and pavlova are sweet finishes, though not especially inventive. Service is friendly, but on my last few visits the wait staff seemed hurried. Ambiance is relaxed and inviting, with Central Park locations adding charm. Pricing is best at lunch. Jamie’s is American-Italian comfort food at sea. What’s not to like?</p>
-</section>
+<a id="windjammer"></a>
 
-<section class="card">
-  <h2>Menus</h2>
-  <p class="small">Embed MDR and specialty menus here when available.</p>
-</section>
-</div>
-<footer>© 2025 In the Wake — Compiled by Ken</footer>
-</body></html>
+<a id="sorrentos"></a>
+
+<a id="izumi"></a>
+
+<a id="johnny-rockets"></a>
+
+<a id="samba-grill"></a>
+
+<a id="boleros"></a>
+
+<a id="vintages"></a>
+
+<a id="playmakers"></a>
+
+<a id="el-loco-fresh"></a>
+
+<a id="the-mason-jar"></a>
+
+<a id="150-central-park"></a>
+
+<a id="wonderland"></a>
+
+<a id="giovannis-italian-kitchen"></a>
+
+<a id="giovannis-table"></a>
+
+<a id="jamies-italian"></a>
+
+<a id="chops-grille"></a>
+<h1>Restaurants</h1></body></html>
