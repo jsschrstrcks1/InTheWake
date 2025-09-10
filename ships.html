@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Ships & Venues — Cross-Links & Ratings</title>
+<style>
+:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",Ubuntu,Cantarell,"Apple Color Emoji","Segoe UI Emoji";color:var(--ink);background:var(--sky)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.site-header{position:relative;overflow:hidden;border-bottom:8px double var(--rope)}
+.hero{position:relative;min-height:340px;background-image:url('assets/hero.jpg');background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:flex-start}
+.hero::before{content:'';position:absolute;inset:0;background-image:url('assets/grid.png');background-size:cover;opacity:.4}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,61,98,.15) 0%, rgba(10,61,98,.65) 65%, rgba(10,61,98,.85) 100%)}
+.hero-title{position:absolute;left:2rem;bottom:2.5rem;color:#e6f4f8;font-family:Georgia,'Times New Roman',serif;letter-spacing:.5px;text-shadow:0 3px 6px rgba(0,0,0,.55);}
+.hero-title h1{margin:0;font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;color:#5dade2}
+.hero-title p{margin:.35rem 0 0;font-size:clamp(1.05rem,2vw,1.35rem);opacity:.97}
+.compass{position:absolute;right:1rem;bottom:1rem;width:140px;opacity:.85;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
+.wrap{padding:1.5rem 2rem}
+h1,h2,h3{color:var(--sea)}
+.card{border:2px solid var(--rope);border-radius:14px;padding:1rem;background:linear-gradient(180deg,#ffffff 0%,#fcf9f3 100%);box-shadow:0 2px 6px rgba(8,48,65,.08);margin-bottom:1rem}
+.small{font-size:.9rem;color:#2a5b6e}
+hr{border:none;height:10px;background-image:repeating-linear-gradient(90deg,var(--rope),var(--rope) 14px,transparent 14px,transparent 20px);opacity:.45;margin:1.25rem 0}
+.table{border-collapse:collapse;width:100%}.table th,.table td{border-bottom:1px dashed rgba(8,48,65,.2);padding:.6rem .5rem;text-align:left}
+.figure img{max-width:100%;height:auto;border:2px solid var(--rope);border-radius:12px}
+.note{background:#fff7ea;border:1px solid var(--rope);padding:.6rem .8rem;border-radius:8px}
+
+/* page watermark */
+.page-watermark{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(34vw,440px);opacity:.25;z-index:0;pointer-events:none;user-select:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15))}
+.wrap, header, footer, .card, section, .site-header {position:relative;z-index:1}
+@media (max-width:640px){.page-watermark{opacity:.18;width:min(48vw,360px)}}
+</style>
+<style>
+/* Compass watermark (v1.022) */
+body::after{
+  content:''; position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(40vw,520px); height:min(40vw,520px);
+  background:url('assets/compass_rose.svg') center/contain no-repeat;
+  opacity:.25; z-index:0; pointer-events:none; filter:drop-shadow(0 3px 8px rgba(0,0,0,.15));
+}
+.wrap, header, footer, .card, section, .site-header { position:relative; z-index:1; }
+@media (max-width:640px){ body::after{ opacity:.18; width:min(52vw,420px); height:min(52vw,420px);}}
+</style>
+
+</head>
+<body>
+<img class="page-watermark" src="assets/compass_rose.svg" alt="Compass watermark">
+<header class="site-header">
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-title"><h1>In The Wake</h1><p>A Practical Cruise Companion</p></div>
+    <img class="compass" src="assets/compass_rose.svg" alt="Compass rose">
+  </div>
+</header>
+<div class="wrap">
+<section class='card'><p>Global and per-class ship ratings templates live here. Cross-link back to Restaurants.</p></section><section class='card'><h2>Newly Wired Videos</h2><ul>
+<li><strong>Enchantment of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=PjXqCIcPlJ4' target='_blank' rel='noopener'>Enchantment of the Seas | Grand Suite (1BR) Tour</a> <em>(GREEN (assumed))</em></li>
+<li><strong>Enchantment of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=Z0LFpYlmD2A' target='_blank' rel='noopener'>Enchantment of the Seas | Owner’s Suite 8522 Tour</a> <em>(GREEN (assumed))</em></li>
+<li><strong>Legend of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=6AsbolSY3SM' target='_blank' rel='noopener'>Legend of the Seas | Aft Balcony Cabin Tour & Review</a> <em>(GREEN (assumed))</em></li>
+<li><strong>Radiance of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=wtOGMPA5WLo' target='_blank' rel='noopener'>Radiance of the Seas | Owner’s Suite Tour & Review (4K)</a> <em>(GREEN (vetted))</em></li>
+<li><strong>Radiance of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=Hpiuc7jzXbM' target='_blank' rel='noopener'>Radiance of the Seas | Grand Suite 1060 Tour</a> <em>(GREEN (vetted))</em></li>
+<li><strong>Radiance of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=NI661Lv8_TU' target='_blank' rel='noopener'>Radiance of the Seas | Every Suite Category Overview</a> <em>(GREEN (vetted))</em></li>
+<li><strong>Rhapsody of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=f0yKvxWrjW8' target='_blank' rel='noopener'>Rhapsody of the Seas | 1 Bedroom Grand Suite — Full Tour</a> <em>(GREEN (assumed))</em></li>
+<li><strong>Rhapsody of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=VuQ2Hb1aOt4' target='_blank' rel='noopener'>Rhapsody of the Seas | Owner’s Suite — Full Tour</a> <em>(GREEN (assumed))</em></li>
+<li><strong>Rhapsody of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=OBcjn6DJ9Eo' target='_blank' rel='noopener'>Rhapsody of the Seas | Royal Suite — Full Walkthrough (4K)</a> <em>(Harr Travel)</em></li>
+<li><strong>Serenade of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=_hK7qpAenFc' target='_blank' rel='noopener'>Serenade of the Seas | Junior Suite Tour & Review (4K)</a> <em>(GREEN (vetted))</em></li>
+<li><strong>Star of the Seas</strong> — ship walkthroughs: <a href='https://www.youtube.com/watch?v=hw6k8EYsn1Y' target='_blank' rel='noopener'>Star of the Seas — Full Walkthrough (Royal Caribbean Blog)</a> <em>(Royal Caribbean Blog)</em></li>
+<li><strong>Star of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=aNLJCiKajJc' target='_blank' rel='noopener'>Star of the Seas | Interior Stateroom Walkthrough 2025 (4K)</a> <em>(Harr Travel)</em></li>
+<li><strong>Vision of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=8u0b_JhWgGw' target='_blank' rel='noopener'>Vision of the Seas | Junior Suite Room 8070 Tour</a> <em>(GREEN (assumed))</em></li>
+<li><strong>Vision of the Seas</strong> — stateroom & suite tours: <a href='https://www.youtube.com/watch?v=DerdiswLHYk' target='_blank' rel='noopener'>Vision of the Seas | Accessible Junior Suite Cabin 8042 Tour</a> <em>(GREEN (assumed))</em></li>
+</ul></section>
+</div>
+<footer>© 2025 In the Wake — Compiled by Ken</footer>
+<!-- BEGIN: AUTO-WIRED VIDEOS (In The Wake) -->
+<section id="wired-videos"><h2>Newly Wired Videos</h2><p>Auto-wired on 2025-09-10 02:17.</p>
+<article class="ship-videos" id="enchantment-of-the-seas">
+  <h3>Enchantment of the Seas</h3>
+
+      <div class="video-card" data-ship="Enchantment of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Enchantment of the Seas | Grand Suite (1BR) Tour</h4>
+          <p><strong>Creator:</strong> GREEN (assumed) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/PjXqCIcPlJ4" 
+                  title="Enchantment of the Seas | Grand Suite (1BR) Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+      <div class="video-card" data-ship="Enchantment of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Enchantment of the Seas | Owner’s Suite 8522 Tour</h4>
+          <p><strong>Creator:</strong> GREEN (assumed) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/Z0LFpYlmD2A" 
+                  title="Enchantment of the Seas | Owner’s Suite 8522 Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+    <!-- BEGIN: VIDEOS for Enchantment of the Seas (auto) -->
+    <div class="ship-videos">
+      <h3>Videos</h3>
+      
+            <section class="ship-videos-group">
+              <h4>Stateroom & Suite Tours</h4>
+              <ul class="video-list">
+                
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Enchantment of the Seas | Grand Suite (1BR) Tour <em>by GREEN (assumed)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/PjXqCIcPlJ4" 
+                        title="Enchantment of the Seas | Grand Suite (1BR) Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Enchantment of the Seas | Owner’s Suite 8522 Tour <em>by GREEN (assumed)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Z0LFpYlmD2A" 
+                        title="Enchantment of the Seas | Owner’s Suite 8522 Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+              </ul>
+            </section>
+            
+      <p class="last-updated">Auto-wired on 2025-09-10 02:21.</p>
+    </div>
+    <!-- END: VIDEOS for Enchantment of the Seas (auto) -->
+    </article>
+<article class="ship-videos" id="legend-of-the-seas">
+  <h3>Legend of the Seas</h3>
+
+      <div class="video-card" data-ship="Legend of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Legend of the Seas | Aft Balcony Cabin Tour & Review</h4>
+          <p><strong>Creator:</strong> GREEN (assumed) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/6AsbolSY3SM" 
+                  title="Legend of the Seas | Aft Balcony Cabin Tour & Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+    <!-- BEGIN: VIDEOS for Legend of the Seas (auto) -->
+    <div class="ship-videos">
+      <h3>Videos</h3>
+      
+            <section class="ship-videos-group">
+              <h4>Stateroom & Suite Tours</h4>
+              <ul class="video-list">
+                
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Legend of the Seas | Aft Balcony Cabin Tour & Review <em>by GREEN (assumed)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/6AsbolSY3SM" 
+                        title="Legend of the Seas | Aft Balcony Cabin Tour & Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+              </ul>
+            </section>
+            
+      <p class="last-updated">Auto-wired on 2025-09-10 02:21.</p>
+    </div>
+    <!-- END: VIDEOS for Legend of the Seas (auto) -->
+    </article>
+<article class="ship-videos" id="radiance-of-the-seas">
+  <h3>Radiance of the Seas</h3>
+
+      <div class="video-card" data-ship="Radiance of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Radiance of the Seas | Owner’s Suite Tour & Review (4K)</h4>
+          <p><strong>Creator:</strong> GREEN (vetted) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/wtOGMPA5WLo" 
+                  title="Radiance of the Seas | Owner’s Suite Tour & Review (4K)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+      <div class="video-card" data-ship="Radiance of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Radiance of the Seas | Grand Suite 1060 Tour</h4>
+          <p><strong>Creator:</strong> GREEN (vetted) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/Hpiuc7jzXbM" 
+                  title="Radiance of the Seas | Grand Suite 1060 Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+      <div class="video-card" data-ship="Radiance of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Radiance of the Seas | Every Suite Category Overview</h4>
+          <p><strong>Creator:</strong> GREEN (vetted) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/NI661Lv8_TU" 
+                  title="Radiance of the Seas | Every Suite Category Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+    <!-- BEGIN: VIDEOS for Radiance of the Seas (auto) -->
+    <div class="ship-videos">
+      <h3>Videos</h3>
+      
+            <section class="ship-videos-group">
+              <h4>Stateroom & Suite Tours</h4>
+              <ul class="video-list">
+                
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Radiance of the Seas | Owner’s Suite Tour & Review (4K) <em>by GREEN (vetted)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/wtOGMPA5WLo" 
+                        title="Radiance of the Seas | Owner’s Suite Tour & Review (4K)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Radiance of the Seas | Grand Suite 1060 Tour <em>by GREEN (vetted)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Hpiuc7jzXbM" 
+                        title="Radiance of the Seas | Grand Suite 1060 Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Radiance of the Seas | Every Suite Category Overview <em>by GREEN (vetted)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/NI661Lv8_TU" 
+                        title="Radiance of the Seas | Every Suite Category Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+              </ul>
+            </section>
+            
+      <p class="last-updated">Auto-wired on 2025-09-10 02:21.</p>
+    </div>
+    <!-- END: VIDEOS for Radiance of the Seas (auto) -->
+    </article>
+<article class="ship-videos" id="rhapsody-of-the-seas">
+  <h3>Rhapsody of the Seas</h3>
+
+      <div class="video-card" data-ship="Rhapsody of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Rhapsody of the Seas | 1 Bedroom Grand Suite — Full Tour</h4>
+          <p><strong>Creator:</strong> GREEN (assumed) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/f0yKvxWrjW8" 
+                  title="Rhapsody of the Seas | 1 Bedroom Grand Suite — Full Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+      <div class="video-card" data-ship="Rhapsody of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Rhapsody of the Seas | Owner’s Suite — Full Tour</h4>
+          <p><strong>Creator:</strong> GREEN (assumed) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/VuQ2Hb1aOt4" 
+                  title="Rhapsody of the Seas | Owner’s Suite — Full Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+      <div class="video-card" data-ship="Rhapsody of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Rhapsody of the Seas | Royal Suite — Full Walkthrough (4K)</h4>
+          <p><strong>Creator:</strong> Harr Travel &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/OBcjn6DJ9Eo" 
+                  title="Rhapsody of the Seas | Royal Suite — Full Walkthrough (4K)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+    <!-- BEGIN: VIDEOS for Rhapsody of the Seas (auto) -->
+    <div class="ship-videos">
+      <h3>Videos</h3>
+      
+            <section class="ship-videos-group">
+              <h4>Stateroom & Suite Tours</h4>
+              <ul class="video-list">
+                
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Rhapsody of the Seas | 1 Bedroom Grand Suite — Full Tour <em>by GREEN (assumed)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/f0yKvxWrjW8" 
+                        title="Rhapsody of the Seas | 1 Bedroom Grand Suite — Full Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Rhapsody of the Seas | Owner’s Suite — Full Tour <em>by GREEN (assumed)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/VuQ2Hb1aOt4" 
+                        title="Rhapsody of the Seas | Owner’s Suite — Full Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Rhapsody of the Seas | Royal Suite — Full Walkthrough (4K) <em>by Harr Travel</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/OBcjn6DJ9Eo" 
+                        title="Rhapsody of the Seas | Royal Suite — Full Walkthrough (4K)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+              </ul>
+            </section>
+            
+      <p class="last-updated">Auto-wired on 2025-09-10 02:21.</p>
+    </div>
+    <!-- END: VIDEOS for Rhapsody of the Seas (auto) -->
+    </article>
+<article class="ship-videos" id="serenade-of-the-seas">
+  <h3>Serenade of the Seas</h3>
+
+      <div class="video-card" data-ship="Serenade of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Serenade of the Seas | Junior Suite Tour & Review (4K)</h4>
+          <p><strong>Creator:</strong> GREEN (vetted) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/_hK7qpAenFc" 
+                  title="Serenade of the Seas | Junior Suite Tour & Review (4K)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+    <!-- BEGIN: VIDEOS for Serenade of the Seas (auto) -->
+    <div class="ship-videos">
+      <h3>Videos</h3>
+      
+            <section class="ship-videos-group">
+              <h4>Stateroom & Suite Tours</h4>
+              <ul class="video-list">
+                
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Serenade of the Seas | Junior Suite Tour & Review (4K) <em>by GREEN (vetted)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/_hK7qpAenFc" 
+                        title="Serenade of the Seas | Junior Suite Tour & Review (4K)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+              </ul>
+            </section>
+            
+      <p class="last-updated">Auto-wired on 2025-09-10 02:21.</p>
+    </div>
+    <!-- END: VIDEOS for Serenade of the Seas (auto) -->
+    </article>
+<article class="ship-videos" id="star-of-the-seas">
+  <h3>Star of the Seas</h3>
+
+      <div class="video-card" data-ship="Star of the Seas" data-category="ship walkthroughs">
+        <div class="video-meta">
+          <h4>Star of the Seas — Full Walkthrough (Royal Caribbean Blog)</h4>
+          <p><strong>Creator:</strong> Royal Caribbean Blog &nbsp;|&nbsp; <strong>Category:</strong> ship walkthroughs</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/hw6k8EYsn1Y" 
+                  title="Star of the Seas — Full Walkthrough (Royal Caribbean Blog)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+      <div class="video-card" data-ship="Star of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Star of the Seas | Interior Stateroom Walkthrough 2025 (4K)</h4>
+          <p><strong>Creator:</strong> Harr Travel &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/aNLJCiKajJc" 
+                  title="Star of the Seas | Interior Stateroom Walkthrough 2025 (4K)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+    <!-- BEGIN: VIDEOS for Star of the Seas (auto) -->
+    <div class="ship-videos">
+      <h3>Videos</h3>
+      
+            <section class="ship-videos-group">
+              <h4>Ship Walkthroughs</h4>
+              <ul class="video-list">
+                
+            <li class="video-item">
+              <div class="meta"><strong>Ship Walkthroughs:</strong> Star of the Seas — Full Walkthrough (Royal Caribbean Blog) <em>by Royal Caribbean Blog</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/hw6k8EYsn1Y" 
+                        title="Star of the Seas — Full Walkthrough (Royal Caribbean Blog)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+              </ul>
+            </section>
+            
+            <section class="ship-videos-group">
+              <h4>Stateroom & Suite Tours</h4>
+              <ul class="video-list">
+                
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Star of the Seas | Interior Stateroom Walkthrough 2025 (4K) <em>by Harr Travel</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/aNLJCiKajJc" 
+                        title="Star of the Seas | Interior Stateroom Walkthrough 2025 (4K)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+              </ul>
+            </section>
+            
+      <p class="last-updated">Auto-wired on 2025-09-10 02:21.</p>
+    </div>
+    <!-- END: VIDEOS for Star of the Seas (auto) -->
+    </article>
+<article class="ship-videos" id="vision-of-the-seas">
+  <h3>Vision of the Seas</h3>
+
+      <div class="video-card" data-ship="Vision of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Vision of the Seas | Junior Suite Room 8070 Tour</h4>
+          <p><strong>Creator:</strong> GREEN (assumed) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/8u0b_JhWgGw" 
+                  title="Vision of the Seas | Junior Suite Room 8070 Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+      <div class="video-card" data-ship="Vision of the Seas" data-category="stateroom & suite tours">
+        <div class="video-meta">
+          <h4>Vision of the Seas | Accessible Junior Suite Cabin 8042 Tour</h4>
+          <p><strong>Creator:</strong> GREEN (assumed) &nbsp;|&nbsp; <strong>Category:</strong> stateroom & suite tours</p>
+        </div>
+        <div class="video-embed">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/DerdiswLHYk" 
+                  title="Vision of the Seas | Accessible Junior Suite Cabin 8042 Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    
+
+    <!-- BEGIN: VIDEOS for Vision of the Seas (auto) -->
+    <div class="ship-videos">
+      <h3>Videos</h3>
+      
+            <section class="ship-videos-group">
+              <h4>Stateroom & Suite Tours</h4>
+              <ul class="video-list">
+                
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Vision of the Seas | Junior Suite Room 8070 Tour <em>by GREEN (assumed)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/8u0b_JhWgGw" 
+                        title="Vision of the Seas | Junior Suite Room 8070 Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+            <li class="video-item">
+              <div class="meta"><strong>Stateroom & Suite Tours:</strong> Vision of the Seas | Accessible Junior Suite Cabin 8042 Tour <em>by GREEN (assumed)</em></div>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/DerdiswLHYk" 
+                        title="Vision of the Seas | Accessible Junior Suite Cabin 8042 Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </li>
+            
+              </ul>
+            </section>
+            
+      <p class="last-updated">Auto-wired on 2025-09-10 02:21.</p>
+    </div>
+    <!-- END: VIDEOS for Vision of the Seas (auto) -->
+    </article>
+</section>
+<!-- END: AUTO-WIRED VIDEOS (In The Wake) -->
+</body></html>
