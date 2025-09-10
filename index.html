@@ -1,145 +1,63 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Grandeur of the Seas — In the Wake (v2.103)</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home — In the Wake (v2.104)</title>
+    <link rel="preload" as="image" href="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png"/>
+    <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css"/>
+  </head>
+  <body class="page page-v2">
+    <header class="site-header v2">
+      <div class="brand-bar">
+        <a class="brand" href="https://jsschrstrcks1.github.io/InTheWake/index.html" aria-label="In the Wake — Home">
+          <img class="brand-mark" src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png" alt="In the Wake" />
+        </a>
+        <img class="compass-rose" src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/compass_rose.svg" alt="" />
+      </div>
+      <div class="hero">
+        <img class="hero-img" src="https://jsschrstrcks1.github.io/InTheWake/assets/hero/sea.jpg" alt="Open ocean at sunrise" />
+      </div>
+    </header>
+    <main class="site-main">
 
-  <!-- Global styles (cache-busted) -->
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.103"/>
+      <section class="cards stack">
+        <article class="card card-welcome">
+          <h2>Welcome Aboard</h2>
+          <p>In the Wake is a practical cruise companion built from real sailings. Use it to compare ships, scan menus, and plan ports without losing your bearings. We favor family‑friendly sources and surface accessibility notes where helpful. Treat numbers as snapshots in time and lean on cross‑links to double‑check the latest details. When it’s time to book, the goal is that you’ll feel confident—and feel like it was your idea all along. Fair winds and following seas.</p>
+        </article>
+      </section>
 
-  <!-- Swiper for video carousel -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
+      <section class="card-grid">
+        <a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">
+              <h3>Restaurants & Menus →</h3>
+              <p>Polished reviews, images, prices (when available), and ‘At a Glance’ boxes.</p>
+            </a>
+<a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">
+              <h3>Ships & Venues →</h3>
+              <p>Class overviews, per‑ship pages, and cross‑links to restaurants.</p>
+            </a>
+<a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/ports.html">
+              <h3>Ports →</h3>
+              <p>Region‑organized port notes with accessibility call‑outs.</p>
+            </a>
+<a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/packing.html">
+              <h3>Packing →</h3>
+              <p>Raw list + polished checklist you can print.</p>
+            </a>
+<a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/disability.html">
+              <h3>Disability at Sea →</h3>
+              <p>Mobility and sensory notes gathered from experience and creators.</p>
+            </a>
+<a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">
+              <h3>Drinks & Packages →</h3>
+              <p>What’s included, a‑la‑carte prices, and package breakdowns.</p>
+            </a>
+      </section>
 
-  <style>
-    /* ---- Layout helpers to prevent overflow "into infinity" ---- */
-    :root { --wrap-max: 1100px; }
-    .wrap { max-width: var(--wrap-max); margin-inline: auto; padding-inline: 1rem; }
-    .page {
-      position: relative;
-      display: block;
-      width: 100%;
-      min-height: 100%;
-      overflow-x: hidden; /* stop horizontal creep */
-    }
-
-    /* Cards & grids */
-    .grid-2 { display: grid; gap: 1rem; }
-    @media (min-width: 980px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
-
-    .card {
-      background: #fff;
-      border: 2px solid #d9b382;
-      border-radius: 14px;
-      padding: 1rem;
-      box-shadow: 0 2px 6px rgba(8,48,65,.08);
-    }
-    .card h2 { margin-top: 0; }
-
-    /* Button pills */
-    .btn {
-      display: inline-block;
-      padding: .5rem .8rem;
-      border-radius: 999px;
-      border: 1px solid #0e6e8e;
-      color: #0e6e8e;
-      text-decoration: none;
-      font-size: .95rem;
-      line-height: 1;
-      white-space: nowrap;
-    }
-    .btn:hover { background: #0e6e8e; color: #fff; }
-
-    /* Photo grid (hero gallery) */
-    .photo-grid { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
-    .photo-grid figure { margin: 0; }
-    .photo-grid img { width: 100%; height: auto; border-radius: 12px; display: block; }
-    .photo-grid figcaption { font-size: 0.8rem; color: #546; margin-top: .35rem; }
-
-    /* Swiper carousel */
-    .swiper { width: 100%; }
-    .swiper-slide iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 12px; }
-    .swiper-button-prev, .swiper-button-next { color: #0e6e8e; }
-    .swiper-pagination-bullet-active { background: #0e6e8e; }
-
-    /* Ken’s Logbook */
-    .note-kens-logbook h2 { margin-bottom: .5rem; }
-
-    /* Ensure hero/header matches index (structure provided by global CSS) */
-    
-  </style>
-
-</head>
-<body>
-<header class="site-header">
-  <section class="hero">
-    <div class="hero-title">
-      <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo.png" alt="In The Wake">
-    </div>
-    <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="">
-    <div class="latlon-grid"></div>
-  </section>
-\1
-\1
-<section class="index-card" id="welcome">
-  <h3>Welcome Aboard</h3>
-  <p><em>In the Wake</em> is a practical cruise companion built from real sailings. 
-  Use it to compare ships, scan restaurant menus, and map ports—fast. Each page follows the same, clean layout so you can jump from a ship to its dining and back again without losing your bearings. We favor family‑friendly sources, surface accessibility notes wherever possible, and mark anything uncertain as <strong>To Verify</strong> so you’re never surprised onboard. Prices change and itineraries shift, so treat numbers as snapshots in time and lean on cross‑links to double‑check the latest details. Whether you’re picking a cabin, planning a sea day, or deciding if a specialty venue is worth it, the goal is simple: empower you to make confident choices—and feel like it was your idea all along. Fair winds and following seas.</p>
-</section>
-
-
-<img class="page-watermark" src="assets/compass_rose.svg" alt="Compass watermark">
-<header class="site-header">
-  <div class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-title"><p>A Practical Cruise Companion</p></div>
-    <img class="compass" src="assets/compass_rose.svg" alt="Compass rose">
-  </div>
-\1
-<main class="page">
-<div class="wrap">
-
-<section class="grid">
-  <div class="card"><h3>Restaurants at Sea</h3><p>Polished reviews with scores, “At a Glance” boxes, and embedded Menus subsection.</p><p><a href="restaurants.html">Open Restaurants & Menus →</a></p></div>
-  <div class="card"><h3>Ships & Venues</h3><p>Class overviews, global and per-class Ship Ratings, and cross-links to restaurants.</p><p><a href="ships.html">Open Ships & Ratings →</a></p></div>
-  <div class="card"><h3>Ports</h3><p>Starter stubs to expand with excursions and access notes.</p><p><a href="ports.html">Open Ports →</a></p></div>
-  <div class="card"><h3>Drinks & Packages</h3><p>Package summaries and à la carte notes.</p><p><a href="drinks.html">Open Drinks Module →</a></p></div>
-  <div class="card"><h3>Packing</h3><p>Organized lists ready for customization.</p><p><a href="packing.html">Open Packing Lists →</a></p></div>
-  <div class="card"><h3>Disability & Cruising</h3><p>Ship/port access notes and tips.</p><p><a href="disability.html">Open Disability Module →</a></p></div>
-</section>
-
-<section>
-  </body></html>
-<section class="index-grid">
-  <article class="index-card">
-    <h3>Restaurants & Menus</h3>
-    <p>Polished reviews with embedded menus and ship cross‑links.</p>
-    <p><a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Open Restaurants →</a></p>
-  </article>
-  <article class="index-card">
-    <h3>Ships & Venues</h3>
-    <p>Class overviews, per‑ship stubs, and video galleries.</p>
-    <p><a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">Open Ships →</a></p>
-  </article>
-  <article class="index-card">
-    <h3>Ports</h3>
-    <p>Port stubs grouped by region with accessibility notes.</p>
-    <p><a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Open Ports →</a></p>
-  </article>
-  <article class="index-card">
-    <h3>Drinks</h3>
-    <p>Packages, inclusions, and à la carte reference.</p>
-    <p><a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Open Drinks →</a></p>
-  </article>
-  <article class="index-card">
-    <h3>Packing</h3>
-    <p>Raw list plus polished pack‑ready version.</p>
-    <p><a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Open Packing →</a></p>
-  </article>
-  <article class="index-card">
-    <h3>Disability at Sea</h3>
-    <p>Ship and port accessibility commentary and tips.</p>
-    <p><a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Open Accessibility →</a></p>
-  </article>
-</section>
-</main>
+    </main>
+    <footer class="site-footer">
+      <p>© In the Wake • A Practical Cruise Companion</p>
+    </footer>
+  </body>
+</html>
