@@ -1,5 +1,74 @@
 <!doctype html>
-<html lang="en"><head>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Grandeur of the Seas — In the Wake (v2.103)</title>
+
+  <!-- Global styles (cache-busted) -->
+  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.103"/>
+
+  <!-- Swiper for video carousel -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
+
+  <style>
+    /* ---- Layout helpers to prevent overflow "into infinity" ---- */
+    :root { --wrap-max: 1100px; }
+    .wrap { max-width: var(--wrap-max); margin-inline: auto; padding-inline: 1rem; }
+    .page {
+      position: relative;
+      display: block;
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden; /* stop horizontal creep */
+    }
+
+    /* Cards & grids */
+    .grid-2 { display: grid; gap: 1rem; }
+    @media (min-width: 980px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+    .card {
+      background: #fff;
+      border: 2px solid #d9b382;
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(8,48,65,.08);
+    }
+    .card h2 { margin-top: 0; }
+
+    /* Button pills */
+    .btn {
+      display: inline-block;
+      padding: .5rem .8rem;
+      border-radius: 999px;
+      border: 1px solid #0e6e8e;
+      color: #0e6e8e;
+      text-decoration: none;
+      font-size: .95rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .btn:hover { background: #0e6e8e; color: #fff; }
+
+    /* Photo grid (hero gallery) */
+    .photo-grid { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
+    .photo-grid figure { margin: 0; }
+    .photo-grid img { width: 100%; height: auto; border-radius: 12px; display: block; }
+    .photo-grid figcaption { font-size: 0.8rem; color: #546; margin-top: .35rem; }
+
+    /* Swiper carousel */
+    .swiper { width: 100%; }
+    .swiper-slide iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 12px; }
+    .swiper-button-prev, .swiper-button-next { color: #0e6e8e; }
+    .swiper-pagination-bullet-active { background: #0e6e8e; }
+
+    /* Ken’s Logbook */
+    .note-kens-logbook h2 { margin-bottom: .5rem; }
+
+    /* Ensure hero/header matches index (structure provided by global CSS) */
+    
+  </style>
+
 </head>
 <body>
 <header class="site-header">
