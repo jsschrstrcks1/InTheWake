@@ -3,13 +3,10 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>In the Wake — Home (v2.110)</title>
+  <title>Home — In the Wake (v2.110)</title>
 
-  <!-- Global styles (absolute + cache-busted) -->
+  <!-- Global styles (cache-busted) -->
   <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.110"/>
-
-  <!-- Swiper CSS (kept for consistency with ship pages if you add a carousel here later) -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
 </head>
 <body class="page">
 
@@ -23,37 +20,24 @@
           <span class="version-badge">v2.110</span>
         </div>
       </div>
+
+      <!-- Pill navigation (absolute URLs) -->
       <nav class="nav">
-        <!-- Absolute links only -->
         <a href="https://jsschrstrcks1.github.io/InTheWake/">Home</a>
-        <a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">Ships</a>
-        <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">Ships & Venues</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants & Menus</a>
         <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
-        <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks</a>
-        <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a>
-        <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability at Sea</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drink Packages</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing Lists</a>
         <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
       </nav>
     </div>
 
-    <!-- Hero with lat/long grid + compass at right, same as Grandeur -->
-    <div class="hero" role="img" aria-label="Open ocean at sunrise">
-      <div class="latlon-grid" aria-hidden="true">
-        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-          <g class="grid-lines" stroke-width="0.35">
-            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
-            <line x1="90" y1="0" x2="90" y2="60"/>
-            <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
-            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
-          </g>
-        </svg>
-      </div>
-
+    <!-- Hero: lat/long grid + hero image + compass at right + logo lockup -->
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <div class="latlon-grid" aria-hidden="true"></div>
       <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
-
       <div class="hero-title">
         <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
@@ -61,66 +45,49 @@
     </div>
   </header>
 
-  <!-- Pill nav (consistent styling from styles.css) -->
-  <nav class="pill-nav wrap" aria-label="Sections">
-    <a class="pill" href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants &amp; Menus</a>
-    <a class="pill" href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">Ships &amp; Venues</a>
-    <a class="pill" href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
-    <a class="pill" href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability at Sea</a>
-    <a class="pill" href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drink Packages</a>
-    <a class="pill" href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing Lists</a>
-    <a class="pill" href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
-  </nav>
-
   <main class="wrap" id="content">
-    <!-- Welcome blurb as FIRST card -->
+    <!-- Welcome card (kept intact) -->
     <section class="card" aria-labelledby="welcome">
       <h2 id="welcome">Welcome Aboard</h2>
       <p><em>In the Wake</em> is a practical cruise companion shaped by real sailings and careful curation. Use it to compare ships, scan menus, scout cabins, and sanity-check tips without losing your bearings. We prioritize family-friendly creators, surface accessibility notes wherever possible, and treat numbers as snapshots in time. Cross-links connect ships, restaurants, and ports so you can verify details from more than one angle. The goal isn’t to sell you on anything—it’s to keep you oriented, remove friction, and help you make confident choices that feel like your idea all along. Fair winds and following seas.</p>
     </section>
 
-    <!-- Home cards, 2–3 across via CSS grid -->
-    <section class="card-grid">
-      <a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">
-        <h3>Ships &amp; Venues →</h3>
+    <!-- Three core cards in a responsive two-up grid (consistent with Grandeur’s card styles) -->
+    <section class="grid-2">
+      <section class="card">
+        <h3>Ships & Venues →</h3>
         <p>Class overviews, per-ship pages, and cross-links to restaurants.</p>
-      </a>
+      </section>
 
-      <a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">
-        <h3>Restaurants &amp; Menus →</h3>
+      <section class="card">
+        <h3>Restaurants & Menus →</h3>
         <p>Polished reviews, images, prices (when available), and “At a Glance” boxes.</p>
-      </a>
+      </section>
 
-      <a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/ports.html">
+      <section class="card">
         <h3>Ports →</h3>
         <p>Quick snapshots, local tips, and links out for deep dives.</p>
-      </a>
+      </section>
 
-      <a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/disability.html">
+      <section class="card">
         <h3>Disability at Sea →</h3>
         <p>Practical notes gathered from first-hand sources.</p>
-      </a>
+      </section>
 
-      <a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">
+      <section class="card">
         <h3>Drink Packages →</h3>
-        <p>What’s included, price watch notes, and sample menus.</p>
-      </a>
+        <p>What’s included, where to save, and how to plan your budget.</p>
+      </section>
 
-      <a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/packing.html">
+      <section class="card">
         <h3>Packing Lists →</h3>
-        <p>Carry-on checklists and “don’t forget” items that really help onboard.</p>
-      </a>
-
-      <a class="card card-link" href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">
-        <h3>Cruise Lines →</h3>
-        <p>Line overviews and links to each brand’s ships.</p>
-      </a>
+        <p>Dialed-in, trip-tested checklists for different routes and seasons.</p>
+      </section>
     </section>
   </main>
 
-  <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
-
-  <!-- (Optional) Swiper JS -->
-  <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
+  <footer class="wrap">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook
+  </footer>
 </body>
 </html>
