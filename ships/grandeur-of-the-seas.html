@@ -1,32 +1,179 @@
+
+<section class="card" aria-labelledby="personal-review">
+  <h2 id="personal-review">Ken’s Logbook — A Personal Review</h2>
+  <p class="muted">Captain’s log pending: once Ken sails Grandeur of the Seas, we’ll chart these waters with tales from the helm. ⚓️</p>
+</section>
 <!doctype html>
 <html lang="en">
 <head>
+<!-- Canonical -->
+<link rel="canonical" href="https://jsschrstrcks1.github.io/InTheWake/ships/grandeur-of-the-seas.html"/>
+
+<!-- Primary Meta -->
+<meta name="title" content="Grandeur of the Seas — In the Wake"/>
+<meta name="description" content="A practical, creator-curated look at Royal Caribbean’s Grandeur of the Seas: venues, dining, cabins, accessibility notes, tips, photos, and cross-links to ports and restaurants."/>
+<meta name="theme-color" content="#0a3d62"/>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="In the Wake"/>
+<meta property="og:url" content="https://jsschrstrcks1.github.io/InTheWake/ships/grandeur-of-the-seas.html"/>
+<meta property="og:title" content="Grandeur of the Seas — In the Wake"/>
+<meta property="og:description" content="Royal Caribbean’s Grandeur of the Seas, presented in our ‘gold standard’ layout: quick facts, venues, menus, photos, accessibility notes, and smart cross-links."/>
+<meta property="og:image" content="https://jsschrstrcks1.github.io/InTheWake/ships/assets/grandeur-of-the-seas1.jpg"/>
+<meta property="og:image:alt" content="Grandeur of the Seas underway at sea"/>
+<meta property="og:image:width" content="1600"/>
+<meta property="og:image:height" content="900"/>
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Grandeur of the Seas — In the Wake"/>
+<meta name="twitter:description" content="Royal Caribbean’s Grandeur of the Seas, with venues, menus, cabins, tips, photos, and cross-links to ports & restaurants."/>
+<meta name="twitter:image" content="https://jsschrstrcks1.github.io/InTheWake/ships/assets/grandeur-of-the-seas1.jpg"/>
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Grandeur of the Seas — In the Wake",
+  "url": "https://jsschrstrcks1.github.io/InTheWake/ships/grandeur-of-the-seas.html",
+  "description": "A practical, creator-curated look at Royal Caribbean’s Grandeur of the Seas: venues, dining, cabins, accessibility notes, tips, photos, and cross-links to ports and restaurants.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "In the Wake",
+    "url": "https://jsschrstrcks1.github.io/InTheWake/"
+  },
+  "image": "https://jsschrstrcks1.github.io/InTheWake/ships/assets/grandeur-of-the-seas1.jpg",
+  "publisher": {
+    "@type": "Organization",
+    "name": "In the Wake",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png"
+    }
+  }
+}
+</script>
+
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Grandeur Of The Seas — In the Wake (v2.217)</title>
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.217"/>
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/vendor/swiper/swiper-bundle.min.css"/>
-  <script defer src="https://jsschrstrcks1.github.io/InTheWake/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <style id="watermark-style">
-    html, body { position: relative; }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(60vw, 900px);
-      height: min(60vh, 900px);
-      background: url('/assets/watermark.png') no-repeat center / contain;
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: 0;
+  <title>Grandeur of the Seas — In the Wake (v2.104)</title>
+
+  <!-- Global styles (cache-busted) -->
+  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.103"/>
+
+  <!-- Swiper for video carousel -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
+
+  <style>
+    /* ---- Layout helpers to prevent overflow "into infinity" ---- */
+    :root { --wrap-max: 1100px; }
+    .wrap { max-width: var(--wrap-max); margin-inline: auto; padding-inline: 1rem; }
+    .page {
+      position: relative;
+      display: block;
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden; /* stop horizontal creep */
     }
-    main, header, footer, section, nav { position: relative; z-index: 1; }
+
+    /* Cards & grids */
+    .grid-2 { display: grid; gap: 1rem; }
+    @media (min-width: 980px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+    .card {
+      background: #fff;
+      border: 2px solid #d9b382;
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(8,48,65,.08);
+    }
+    .card h2 { margin-top: 0; }
+
+    /* Button pills */
+    .btn {
+      display: inline-block;
+      padding: .5rem .8rem;
+      border-radius: 999px;
+      border: 1px solid #0e6e8e;
+      color: #0e6e8e;
+      text-decoration: none;
+      font-size: .95rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .btn:hover { background: #0e6e8e; color: #fff; }
+
+    /* Photo grid (hero gallery) */
+    .photo-grid { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
+    .photo-grid figure { margin: 0; }
+    .photo-grid img { width: 100%; height: auto; border-radius: 12px; display: block; }
+    .photo-grid figcaption { font-size: 0.8rem; color: #546; margin-top: .35rem; }
+
+    /* Swiper carousel */
+    .swiper { width: 100%; }
+    .swiper-slide iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 12px; }
+    .swiper-button-prev, .swiper-button-next { color: #0e6e8e; }
+    .swiper-pagination-bullet-active { background: #0e6e8e; }
+
+    /* Ken’s Logbook */
+    .note-kens-logbook h2 { margin-bottom: .5rem; }
+
+    /* Ensure hero/header matches index (structure provided by global CSS) */
+    
   </style>
 </head>
 <body class="page">
-<main class="wrap" id="content">
+
+  <!-- Header identical to index.html (with Home button) -->
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png" alt="In the Wake wordmark"/>
+        <div class="brand-title">
+          In the Wake
+          <span class="version-badge">v2.103</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="https://jsschrstrcks1.github.io/InTheWake/">Home</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">Ships</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drinks</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability</a>
+      </nav>
+    </div>
+
+    <!-- Hero (vibrant background + grid + compass on right) -->
+    <div class="hero" role="img" aria-label="Ship wake at sunset">
+      <div class="latlon-grid" aria-hidden="true">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+          <g class="grid-lines" stroke-width="0.35">
+            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+            <line x1="90" y1="0" x2="90" y2="60"/>
+            <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+          </g>
+        </svg>
+      </div>
+
+      <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+
+      <div class="hero-title">
+        <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo_wake.png" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
     <!-- PHOTOS first (with attributions) -->
     <section class="card" aria-labelledby="photosHeading">
       <h2 id="photosHeading">A First Look</h2>
@@ -119,15 +266,51 @@
 
    
   </main>
-<footer class="wrap">
-    In the Wake — A Cruise Traveler’s Logbook<br/>
+
+  <footer class="wrap">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
   </footer>
+
+  <!-- JS: Swiper + Videos -->
+  <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    // ---- Videos ----
+    (function initCarousel() {
+      const DATA = [
+        {"id": "-NS3BhWqzD4", "title": "Grandeur of the Seas — Full Ship Walkthrough (4K)"},
+        {"id": "iIo4HNqNzbs", "title": "Top Things To Do on Grandeur of the Seas"},
+        {"id": "tXQ8hic0O_U", "title": "Grandeur — Accessible Stateroom & Wheelchair Walkthrough"},
+        {"id": "kYAwcRPmH5c", "title": "Interior Room Tour — Grandeur"},
+        {"id": "1PgDMCgw6uI", "title": "Ocean View Stateroom Tour — Grandeur"},
+        {"id": "0YONwODd98c", "title": "Balcony & Interior Quick Tour — Grandeur"},
+        {"id": "HAxiXR-IMmk", "title": "Junior Suite 7650 — Aft Balcony Tour"},
+        {"id": "KXCJePjqEY4", "title": "Grand Suite (1-Bedroom) Tour — 2025"},
+        {"id": "ZEz-jOvRq7c", "title": "Grand Suite (2-Bedroom) 8084 — Tour"},
+        {"id": "GByj5lFpAPU", "title": "Owner’s Suite 8502 — Cabin Tour"},
+        {"id": "Z70a-ViIjTc", "title": "Royal Suite 8500 — Tour & Review"}
+      ];
+      const wrap = document.getElementById('featuredVideos');
+      DATA.forEach(v => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = `<iframe title="${v.title}"
+                               src="https://www.youtube.com/embed/${v.id}"
+                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                               allowfullscreen loading="lazy"></iframe>`;
+        wrap.appendChild(slide);
+      });
+      new Swiper('.swiper', {
+        lazy: true, loop: false,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        a11y: { enabled: true }
+      });
+    })();
+  </script>
 </body>
 </html>
-<footer class="wrap">
-    In the Wake — A Cruise Traveler’s Logbook<br/>
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
-  </footer>
-</body>
-</html>
+
+<section class="card" aria-labelledby="video-highlights">
+  <h2 id="video-highlights">Video Highlights</h2>
+  <p class="muted">Videos coming aboard soon.</p>
+</section>
