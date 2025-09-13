@@ -1,8 +1,5 @@
 
-<section class="card" aria-labelledby="personal-review">
-  <h2 id="personal-review">Ken’s Logbook — A Personal Review</h2>
-  <p class="muted">Captain’s log pending: once Ken sails Grandeur of the Seas, we’ll chart these waters with tales from the helm. ⚓️</p>
-</section>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -123,6 +120,24 @@
     /* Ensure hero/header matches index (structure provided by global CSS) */
     
   </style>
+
+  <style id="watermark-style">
+    html, body { position: relative; }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(60vw, 900px);
+      height: min(60vh, 900px);
+      background: url('assets/watermark.png') no-repeat center / contain;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+    main, header, footer, section, nav { position: relative; z-index: 1; }
+  </style>
+
 </head>
 <body class="page">
 
@@ -307,6 +322,58 @@
       });
     })();
   </script>
+
+
+
+
+
+
+<section class="grid-2">
+  
+  
+</section>
+
+<section class="card" aria-labelledby="first-look">
+  <h2 id="first-look">A First Look</h2>
+  
+<div class="grid-3">
+  <div class="photo" aria-label="First look photo 1"></div>
+  <div class="photo" aria-label="First look photo 2"></div>
+  <div class="photo" aria-label="First look photo 3"></div>
+</div>
+<p class="muted">Gallery coming soon.</p>
+
+</section>
+<section class="card" aria-labelledby="why-book">
+  <h2 id="why-book">Why book Grandeur of the Seas?</h2>
+  <p class="muted">Why book Grandeur of the Seas? Marketing highlights coming soon.</p>
+</section>
+<section class="card" aria-labelledby="personal-review">
+  <h2 id="personal-review">Ken’s Logbook — A Personal Review</h2>
+  <p class="muted">Captain’s log pending: once Ken sails Grandeur of the Seas, we’ll chart these waters with tales from the helm. ⚓️</p>
+</section>
+<section class="card" aria-labelledby="video-highlights">
+  <h2 id="video-highlights">Video Highlights</h2>
+  <p class="muted">Videos coming aboard soon.</p>
+</section>
+
+<section class="grid-2">
+<section class="card" aria-labelledby="deck-plans">
+    <h2 id="deck-plans">Ship Layout (Deck Plans)</h2>
+    <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener noreferrer">Open Official Deck Plans →</a></p>
+  </section>
+<section class="card" aria-labelledby="live-tracker">
+    <h2 id="live-tracker">Where Is Grandeur of the Seas Right Now?</h2>
+    <p><a class="btn" href="#" target="_blank" rel="noopener noreferrer">Open Live Ship Tracker →</a></p>
+  </section>
+</section>
+
+
+<footer id="site-footer" class="muted" style="margin-top:2rem; padding:1rem 0; border-top:1px solid #e5e7eb; font-size:.9rem;">
+  <div>In the Wake — A Cruise Traveler’s Logbook</div>
+  <div>© 2025 In the Wake — A Cruise Traveler’s Logbook</div>
+</footer>
+
 </body>
 </html>
 
