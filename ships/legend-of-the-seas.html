@@ -17,7 +17,7 @@
       transform: translate(-50%, -50%);
       width: min(60vw, 900px);
       height: min(60vh, 900px);
-      background: url('assets/watermark.png') no-repeat center / contain;
+      background: url('/assets/watermark.png') no-repeat center / contain;
       opacity: 0.08;
       pointer-events: none;
       z-index: 0;
@@ -40,6 +40,12 @@
     .video iframe { width:100%; height: 205px; }
     footer { margin: 3rem 0; }
   </style>
+
+  <style id="itw-grid-fix">
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+
 </head>
 <body>
 <main>
@@ -65,7 +71,7 @@
   <div class="swiper-container">
     <div class="swiper-wrapper">
 
-    </div>
+</div>
   </div>
 </section>
 <section class="grid-2">
