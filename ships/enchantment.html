@@ -19,6 +19,24 @@
     });
   </script>
 
+
+<style id="watermark-style">
+  html, body { position: relative; }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(60vw, 900px);
+    height: min(60vh, 900px);
+    background: url('assets/watermark.png') no-repeat center / contain;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+  }
+  main, header, footer, section, nav { position: relative; z-index: 1; }
+</style>
 </head>
 <body class="page">
   <header class="hero-header">
@@ -56,6 +74,16 @@
     </div>
   </header>
   <main class="wrap" id="content">
+<section class="card" aria-labelledby="watch-highlights">
+  <h2 id="watch-highlights">Watch: Enchantment Highlights</h2>
+  <p class="muted">Video highlights coming soon.</p>
+</section>
+<!-- END: watch-highlights -->
+
+<section class="card" aria-labelledby="video-highlights">
+  <h2 id="video-highlights">Video Highlights</h2>
+  <p class="muted">Videos coming aboard soon.</p>
+</section>
 <section class="grid-2">
 
   <section class="card" aria-labelledby="deck-plans">
@@ -75,7 +103,29 @@
 
 
 
+
+
   
+</section>
+
+
+
+  
+</section>
+
+<section class="card" aria-labelledby="personal-review">
+  <h2 id="personal-review">Ken’s Logbook — A Personal Review</h2>
+  <p><em>Personal notes from recent sailings will appear here. This section is intentionally subjective and complements (not replaces) the objective overview.</em></p>
+</section>
+
+<section class="card" aria-labelledby="first-look">
+  <h2 id="first-look">A First Look</h2>
+  <div class="grid-3"><div class="photo ph-placeholder"></div><div class="photo ph-placeholder"></div><div class="photo ph-placeholder"></div></div><p class="muted">Gallery coming soon.</p>
+</section>
+
+<section class="card" aria-labelledby="credits">
+  <h2 id="credits">Attribution & Credits</h2>
+  <ul><li>Photos & videos credited where applicable.</li></ul>
 </section>
 <footer class="site-footer">In the Wake — A Cruise Traveler’s Logbook</footer>
   </main>
