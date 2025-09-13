@@ -41,158 +41,7 @@
   </header>
 
   <main class="wrap" id="content">
-    <section class="card">
-      <h1>Vision of the Seas</h1>
-      <p class="tiny">Vision Class • Royal Caribbean</p>
-      <p>Classic Royal Caribbean with big-ship heart and small-ship footprints. Vision’s public spaces are cozy, the centrum hosts aerial shows, and the vibe is relaxed—an easy fit for port-heavy itineraries and first-time cruisers who want simple, sunny fun.</p>
-    </section>
-
-    <!-- Photo strip -->
-    <section class="card">
-      <h2>Photo Highlights</h2>
-      <div class="index-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-        <img alt="Vision of the Seas exterior" loading="lazy"
-             src="/InTheWake/ships/assets/vision-of-the-seas1.jpg"
-             onerror="this.onerror=null;this.src='/InTheWake/ships/assets/vision-of-the-seas1.jpeg';this.onerror=function(){this.src='/InTheWake/ships/assets/vision-of-the-seas1.png'}">
-        <img alt="Vision of the Seas deck" loading="lazy"
-             src="/InTheWake/ships/assets/vision-of-the-seas2.jpg"
-             onerror="this.onerror=null;this.src='/InTheWake/ships/assets/vision-of-the-seas2.jpeg';this.onerror=function(){this.src='/InTheWake/ships/assets/vision-of-the-seas2.png'}">
-        <img alt="Vision of the Seas interior" loading="lazy"
-             src="/InTheWake/ships/assets/vision-of-the-seas3.jpg"
-             onerror="this.onerror=null;this.src='/InTheWake/ships/assets/vision-of-the-seas3.jpeg';this.onerror=function(){this.src='/InTheWake/ships/assets/vision-of-the-seas3.png'}">
-      </div>
-    </section>
-
-    <!-- Video carousels (auto-built from JSON) -->
-    <section class="card">
-      <h2>Videos</h2>
-
-      <div class="video-block" data-category="overview">
-        <h3>Tours & Overviews</h3>
-        <div class="swiper" id="swp-overview"><div class="track"></div></div>
-      </div>
-
-      <div class="video-block" data-category="dining">
-        <h3>Dining & Bars</h3>
-        <div class="swiper" id="swp-dining"><div class="track"></div></div>
-      </div>
-
-      <div class="video-block" data-category="cabins">
-        <h3>Cabins & Suites</h3>
-        <div class="swiper" id="swp-cabins"><div class="track"></div></div>
-      </div>
-
-      <div class="video-block" data-category="activities">
-        <h3>Entertainment & Activities</h3>
-        <div class="swiper" id="swp-activities"><div class="track"></div></div>
-      </div>
-
-      <div class="video-block" data-category="tips">
-        <h3>Tips & Walk-throughs</h3>
-        <div class="swiper" id="swp-tips"><div class="track"></div></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>At-a-Glance</h2>
-      <ul>
-        <li>Guest capacity: ~2,400 • Built 1998 (refits since)</li>
-        <li>Best for: budget-friendly getaways, port-intense routes, chill sea days</li>
-        <li>Don’t miss: Centrum shows, Park Café kummelweck, panoramic Viking Crown</li>
-      </ul>
-    </section>
-  </main>
-
-  
-<section class="grid-2">
-
-
-  <section class="card" aria-labelledby="live-tracker">
-    <h2 id="live-tracker">Where Is Vision of the Seas Right Now?</h2>
-    <p>See the ship’s current geographic position, speed, and next port on a live tracker.</p>
-    <p><a class="btn" href="https://www.cruisemapper.com/?live" target="_blank" rel="noopener noreferrer">Open CruiseMapper Live Tracker →</a></p>
-    <p class="tip">Tip: Keep this page open while you check the tracker; it opens in a new tab.</p>
-  </section>
-
-</section>
-<footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
-
-  <!-- Minimal swiper styles -->
-  <style>
-    .swiper{ overflow:auto; scroll-snap-type:x mandatory; display:flex; gap:.6rem; padding:.4rem .1rem }
-    .swiper .track{ display:flex; gap:.6rem }
-    .slide{ flex:0 0 320px; scroll-snap-align:start; border:1px solid var(--rope); border-radius:12px; overflow:hidden; background:#fff }
-    .slide iframe{ width:100%; height:180px; border:0; display:block }
-    .slide .caption{ padding:.5rem .6rem; font-size:.9rem }
-    .video-block{ margin-bottom:1rem }
-  </style>
-
-  <!-- Robust video loader (reads both JSON files, supports aliases, honors green list) -->
-  <script>
-  const SHIP_SLUG = 'vision-of-the-seas';
-  const SOURCES = [
-    'https://jsschrstrcks1.github.io/InTheWake/ships/video_sources.json',
-    'https://jsschrstrcks1.github.io/InTheWake/rc_ship_videos.json'
-  ];
-
-  const slugify = s => (s||'')
-    .toLowerCase()
-    .replace(/&/g,'and')
-    .replace(/[^a-z0-9]+/g,'-')
-    .replace(/^-+|-+$/g,'');
-
-  const catAlias = c => {
-    c = (c||'').toLowerCase();
-    if (/(overview|tour|walkthrough)/.test(c)) return 'overview';
-    if (/(dining|food|restaurant|bar)/.test(c)) return 'dining';
-    if (/(cabin|room|suite)/.test(c)) return 'cabins';
-    if (/(activity|entertainment|show|pool|slide)/.test(c)) return 'activities';
-    if (/(tip|guide|faq|advice)/.test(c)) return 'tips';
-    return '';
-  };
-
-  async function loadVideos(){
-    let all = [];
-    for (const url of SOURCES){
-      try{
-        const r = await fetch(url, {cache:'no-store'});
-        if (r.ok){
-          const json = await r.json();
-          // Support array or {videos:[...]}
-          const arr = Array.isArray(json) ? json : (json.videos || json.items || []);
-          all = all.concat(arr);
-        }
-      }catch(e){}
-    }
-    // Normalize + filter for this ship
-    const want = all.map(v => {
-      const ship = slugify(v.ship || v.shipName || v.vessel);
-      const cat  = catAlias(v.category || v.type || v.group);
-      const embed = v.embed || v.url || v.src || '';
-      return {ship, cat, title: v.title || v.name || '', embed, green: !!(v.green || v.approved)};
-    }).filter(v => v.embed && v.cat && v.ship === SHIP_SLUG);
-
-    const cats = ['overview','dining','cabins','activities','tips'];
-    cats.forEach(cat=>{
-      const target = document.querySelector('#swp-'+cat+' .track');
-      if(!target) return;
-      const list = want.filter(v=>v.cat===cat);
-      const greenFirst = list.filter(v=>v.green);
-      const final = greenFirst.length ? greenFirst : list;
-      target.innerHTML = final.length
-        ? final.map(v=>`<article class="slide"><iframe loading="lazy" allowfullscreen src="${v.embed}"></iframe><div class="caption">${v.title||''}</div></article>`).join('')
-        : '<div class="tiny" style="padding:.4rem .2rem;">No videos yet for '+cat+'.</div>';
-    });
-  }
-  loadVideos();
-  </script>
-
-<section class="card" aria-labelledby="live-tracker">
-  <h2 id="live-tracker">Where Is Vision of the Seas Right Now?</h2>
-  <p>See the ship’s current geographic position, speed, and next port on a live tracker.</p>
-  <p><a class="btn" href="https://www.cruisemapper.com/?live" target="_blank" rel="noopener noreferrer">Open CruiseMapper Live Tracker →</a></p>
-  <p class="tip">Tip: Keep this page open while you check the tracker; it opens in a new tab.</p>
-</section>
+    
 
 <section class="card" aria-labelledby="personal-review">
   <h2 id="personal-review">Ken’s Logbook — A Personal Review</h2>
@@ -212,6 +61,25 @@
 <section class="card" aria-labelledby="why-book">
   <h2 id="why-book">Why book Vision of the Seas?</h2>
   <p><em>Overview coming soon.</em> Summarize top reasons to book — dining standouts, entertainment, itineraries, and who this ship fits best.</p>
+</section>
+
+<section class="grid-2">
+
+  <section class="card" aria-labelledby="deck-plans">
+    <h2 id="deck-plans">Ship Layout (Deck Plans)</h2>
+  <p>Study the ship’s layout—pin your stateroom, elevators, dining, and venues before you sail.</p>
+  <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/vision-of-the-seas/deck-plans" target="_blank" rel="noopener noreferrer">Open Official Deck Plans →</a></p>
+
+  </section>
+
+
+  <section class="card" aria-labelledby="live-tracker">
+    <h2 id="live-tracker">Where Is Vision of the Seas Right Now?</h2>
+    <p>See the ship’s current geographic position, speed, and next port on a live tracker.</p>
+    <p><a class="btn" href="https://www.cruisemapper.com/?live" target="_blank" rel="noopener noreferrer">Open CruiseMapper Live Tracker →</a></p>
+    <p class="tip">Tip: Keep this page open while you check the tracker; it opens in a new tab.</p>
+  </section>
+
 </section>
 </body>
 </html>
