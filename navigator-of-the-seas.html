@@ -3,59 +3,158 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Navigator Of The Seas — In the Wake (v2.219)</title>
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.219"/>
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/vendor/swiper/swiper-bundle.min.css"/>
-  <script defer src="https://jsschrstrcks1.github.io/InTheWake/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <style id="watermark-style">
-    html, body { position: relative; }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(60vw, 900px);
-      height: min(60vh, 900px);
-      background: url('/assets/watermark.png') no-repeat center / contain;
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: 0;
-    }
-    main, header, footer, section, nav { position: relative; z-index: 1; }
+  <title>Navigator Of The Seas — In the Wake (v2.212)</title>
+  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.201"/>
+  
+  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/vendor/swiper-bundle.min.css?v=2.201"/>
+  <script defer src="https://jsschrstrcks1.github.io/InTheWake/assets/vendor/swiper-bundle.min.js?v=2.201"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      if (window.Swiper && document.querySelector('.swiper')) {
+        document.querySelectorAll('.swiper').forEach(function(el){
+          new Swiper(el, { slidesPerView: 1, spaceBetween: 16, loop: false });
+        });
+      }
+    });
+  </script>
+
+
+<style id="watermark-style">
+  html, body { position: relative; }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(60vw, 900px);
+    height: min(60vh, 900px);
+    background: url('/assets/watermark.png') no-repeat center / contain;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+  }
+  main, header, footer, section, nav { position: relative; z-index: 1; }
+</style>
+
+  <style id="itw-grid-fix">
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
   </style>
+
 </head>
 <body class="page">
-<main class="wrap" id="content">
-<section class="card" aria-labelledby="first-look">
-      <h2 id="first-look">A First Look</h2>
-      <div class="grid-3"></div>
-    </section><section class="card" aria-labelledby="why-book">
-      <h2 id="why-book">Why book Navigator of The Seas?</h2>
-      <p class="muted">Overview coming soon.</p>
-    </section><section class="card" aria-labelledby="personal-review">
-      <h2 id="personal-review">Ken’s Logbook — A Personal Review</h2>
-      <p class="muted">Entry coming soon.</p>
-    </section><section class="card" aria-labelledby="video-highlights">
-<div class="swiper">
-        <div class="swiper-wrapper"></div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-prev" aria-label="Previous"></div>
-        <div class="swiper-button-next" aria-label="Next"></div>
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/logo.png" alt="In the Wake wordmark"/>
+        <div class="brand-title">
+          In the Wake
+          <span class="version-badge">v2.212</span>
+        </div>
       </div>
+      
+      <nav class="nav">
+        <a href="https://jsschrstrcks1.github.io/InTheWake/">Home</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">Ships</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/ports.html">Ports</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/disability.html">Disability at Sea</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/drinks.html">Drink Packages</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/packing.html">Packing Lists</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/planning.html">Planning</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/solo.html">Solo Travel</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/travel.html">Travel Tips</a>
+        <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines.html">Cruise Lines</a>
+      </nav>
+    
+    </div>
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <div class="hero-title">
+        <img class="logo" src="https://jsschrstrcks1.github.io/InTheWake/assets/logo_wake.png" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+    </div>
+  </header>
+  <main class="wrap" id="content">
+<section class="card" aria-labelledby="first-look">
+  <h2 id="first-look">A First Look</h2>
+  <div class="grid-3">
+    <div class="photo" aria-label="First look photo 1"></div>
+    <div class="photo" aria-label="First look photo 2"></div>
+    <div class="photo" aria-label="First look photo 3"></div>
+  </div>
+  <p class="muted">Gallery coming soon.</p>
 </section>
-<section class="card" aria-labelledby="credits">
-      <h2 id="credits">Attribution & Credits</h2>
-      <ul></ul>
-    </section></main>
+<section class="card" aria-labelledby="why-book">
+  <h2 id="why-book">Why book Navigator of the Seas?</h2>
+  <p class="muted">Overview coming soon. Summarize top reasons to book — dining standouts, entertainment, itineraries, and who this ship fits best.</p>
+</section>
+<section class="card" aria-labelledby="personal-review">
+  <h2 id="personal-review">Ken’s Logbook — A Personal Review</h2>
+  <p class="muted">Captain’s log pending: once Ken sails Navigator of the Seas, we’ll chart these waters with tales from the helm. ⚓️</p>
+</section>
+<section class="card" aria-labelledby="video-highlights">
+  <h2 id="video-highlights">Watch: Navigator of the Seas Highlights</h2>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
 
-</body>
-</html>
+</div>
+  </div>
+</section>
+<section class="grid-2">
+  <section class="card" aria-labelledby="deck-plans">
+    <h2 id="deck-plans">Ship Layout (Deck Plans)</h2>
+    <p><a class="btn" href="#" target="_blank" rel="noopener noreferrer">Open Official Deck Plans →</a></p>
+  </section>
+  <section class="card" aria-labelledby="live-tracker">
+    <h2 id="live-tracker">Where Is Navigator of the Seas Right Now?</h2>
+    <p><a class="btn" href="#" target="_blank" rel="noopener noreferrer">Open Live Ship Tracker →</a></p>
+    <p class="muted">Tip: Keep this page open while you check the tracker; it opens in a new tab.</p>
+  </section>
+</section>
+<section class="card" aria-labelledby="attribution">
+  <h2 id="attribution">Attribution & Credits</h2>
+  <ul>
+    <li>Photos &amp; videos credited where applicable.</li>
+  </ul>
+</section>
+</main>
+  
 
 
-<footer class="wrap">
-    In the Wake — A Cruise Traveler’s Logbook<br/>
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
-  </footer>
-</body>
-</html>
+
+
+<!-- END: watch-highlights -->
+
+
+
+
+
+<section class="grid-2">
+
+  
+
+  
+</section>
+
+
+
+
+
+<section class="grid-2">
+
+
+</section>
+
+
+
+
+<footer id="site-footer" class="muted" style="margin-top:2rem; padding:1rem 0; border-top:1px solid #e5e7eb; font-size:.9rem;">
+  <div>In the Wake — A Cruise Traveler’s Logbook</div>
+  <div>© 2025 In the Wake — A Cruise Traveler’s Logbook</div>
+</footer>
+</body></html>
