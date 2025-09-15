@@ -3,44 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>In the Wake — A Cruise Traveler’s Logbook (v2.233c)</title>
+  <title>In the Wake — A Cruise Traveler’s Logbook (v2.233)</title>
   <meta name="description" content="In the Wake: a nautically-styled cruise logbook covering ships, restaurants, ports, packing, and accessibility.">
-  <link rel="canonical" href="https://cruisinginthewake.com/index.html">
-
-  <!-- Social images now point at cruisinginthewake.com -->
-  <meta property="og:title" content="In the Wake — A Cruise Traveler’s Logbook (v2.233c)">
+  <link rel="canonical" href="https://cruisinginthewake.com/">
+  <meta property="og:title" content="In the Wake — A Cruise Traveler’s Logbook (v2.233)">
   <meta property="og:description" content="Explore ships, ports, menus, and accessibility insights — all styled like a nautical logbook.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cruisinginthewake.com/index.html">
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/index_hero.jpg">
+  <meta property="og:url" content="https://cruisinginthewake.com/">
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/og/hero-wake-16x9.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="In the Wake — A Cruise Traveler’s Logbook (v2.233c)">
+  <meta name="twitter:title" content="In the Wake — A Cruise Traveler’s Logbook (v2.233)">
   <meta name="twitter:description" content="Explore ships, ports, menus, and accessibility insights — all styled like a nautical logbook.">
-  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/index_hero.jpg">
-
-  <!-- Keep CSS pointing to GitHub repo for now; add local fallback -->
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.233">
-  <link rel="stylesheet" href="/InTheWake/assets/styles.css?v=2.233" media="print" onload="this.media='all'">
-
-  <!-- Minimal critical CSS -->
-  <style>
-    :root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e;--compass-tint: invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
-    body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial;background:var(--sky);color:var(--ink);margin:0;line-height:1.5}
-    .site-header{padding:12px 16px;border-bottom:1px solid rgba(0,0,0,.06)}
-    .brand{display:flex;align-items:center;gap:.5rem}
-    .brand .version-badge{background:var(--sea);color:white;font-size:.75rem;border-radius:999px;padding:.1rem .5rem}
-    .nav.pills{display:flex;flex-wrap:wrap;gap:.5rem;padding:8px 16px}
-    .nav.pills a{display:inline-block;padding:.4rem .7rem;border:1px solid var(--sea);border-radius:999px;text-decoration:none;color:var(--sea)}
-    .hero{position:relative;padding:28px 16px;background:url('https://cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat;min-height:220px}
-    .hero .compass{position:absolute;right:16px;top:16px;width:56px;opacity:.6;filter:var(--compass-tint)}
-    main{padding:16px}
-    .card{background:white;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:16px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-    .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media (max-width:900px){.card-grid{grid-template-columns:1fr}}
-    .button{display:inline-block;padding:.5rem .8rem;border-radius:10px;background:var(--sea);color:white;text-decoration:none}
-  </style>
-
-  <!-- Fouled Anchor Watermark (absolute path). Use your domain first, GH fallback second -->
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/og/hero-wake-16x9.jpg">
+  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.233">
   <style id="watermark-style">
     html, body { position: relative; }
     body::before {
@@ -61,15 +36,13 @@
 <body>
   <header class="site-header">
     <div class="brand">
-      <!-- Prefer domain SVG, fall back to PNG, then GH -->
-      <img src="https://cruisinginthewake.com/assets/brand/wordmark.svg"
-           onerror="this.onerror=null;this.src='https://cruisinginthewake.com/assets/brand/wordmark.png'; if(this.naturalWidth===0){ this.src='https://jsschrstrcks1.github.io/InTheWake/assets/brand/wordmark.png'; }"
-           alt="In the Wake wordmark" height="28" />
+      <a class="logo" href="https://cruisinginthewake.com/" aria-label="In the Wake home">
+        <img src="https://cruisinginthewake.com/assets/brand/wordmark.svg" alt="In the Wake Logo" onerror="this.src='https://cruisinginthewake.com/assets/brand/fallback-logo.svg';">
+      </a>
       <span class="version-badge">v2.233</span>
     </div>
-
     <nav class="nav pills" aria-label="Primary">
-      <a href="https://cruisinginthewake.com/index.html">Home</a>
+      <a href="https://cruisinginthewake.com/">Home</a>
       <a href="https://cruisinginthewake.com/ships/ships.html">Ships</a>
       <a href="https://cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
       <a href="https://cruisinginthewake.com/ports.html">Ports</a>
@@ -80,76 +53,60 @@
       <a href="https://cruisinginthewake.com/solo.html">Solo</a>
       <a href="https://cruisinginthewake.com/travel.html">Travel</a>
     </nav>
-
-    <div class="hero" role="img" aria-label="Stylized ship wake hero image">
-      <img class="compass" src="https://cruisinginthewake.com/assets/brand/compass-rose.svg"
-           onerror="this.onerror=null;this.src='https://jsschrstrcks1.github.io/InTheWake/assets/brand/compass-rose.svg'"
-           alt="" loading="eager" decoding="async">
+    <div class="hero" role="img" aria-label="Stylized ship wake over ocean grid">
+      <img class="compass" src="https://cruisinginthewake.com/assets/brand/compass-rose.svg" alt="" loading="eager" decoding="async">
       <div class="lockup">
-        <h1>In the Wake</h1>
         <p class="tagline">A Cruise Traveler’s Logbook</p>
       </div>
     </div>
   </header>
-
   <main id="content">
     <section class="card welcome" aria-labelledby="welcome">
       <h2 id="welcome">Welcome Aboard</h2>
       <p>Chart your course through ships, restaurants, ports of call, packing lists, accessibility notes, and more — all organized with nautical precision. Start with the <a href="https://cruisinginthewake.com/ships/ships.html">Ships Index</a> or dive into <a href="https://cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>.</p>
     </section>
-
     <div class="card-grid">
       <section class="card" aria-labelledby="shipsCard">
         <h3 id="shipsCard">Ships</h3>
         <p>Royal Caribbean first, then others — with deck plans, videos, and accessibility notes.</p>
         <p><a class="button" href="https://cruisinginthewake.com/ships/ships.html">Browse Ships</a></p>
       </section>
-
       <section class="card" aria-labelledby="menusCard">
         <h3 id="menusCard">Restaurants &amp; Menus</h3>
         <p>Main Dining Room theme nights, specialty venues, menus, and prices.</p>
         <p><a class="button" href="https://cruisinginthewake.com/restaurants.html">Explore Dining</a></p>
       </section>
-
       <section class="card" aria-labelledby="portsCard">
         <h3 id="portsCard">Ports of Call</h3>
         <p>Organized by region, then alphabetically — with excursions and accessibility notes.</p>
         <p><a class="button" href="https://cruisinginthewake.com/ports.html">Discover Ports</a></p>
       </section>
-    </div>
-
-    <div class="card-grid">
       <section class="card" aria-labelledby="disabilityCard">
         <h3 id="disabilityCard">Disability at Sea</h3>
         <p>Wheelchair/mobility insights gathered across ships and ports.</p>
         <p><a class="button" href="https://cruisinginthewake.com/disability-at-sea.html">View Guide</a></p>
       </section>
-
       <section class="card" aria-labelledby="drinksCard">
         <h3 id="drinksCard">Drink Packages</h3>
         <p>What’s included, a la carte pricing, and mocktails.</p>
         <p><a class="button" href="https://cruisinginthewake.com/drink-packages.html">See Packages</a></p>
       </section>
-
       <section class="card" aria-labelledby="packingCard">
         <h3 id="packingCard">Packing Lists</h3>
         <p>Carry-on to family checklists, with printable summaries.</p>
         <p><a class="button" href="https://cruisinginthewake.com/packing-lists.html">Pack Smart</a></p>
       </section>
+      <section class="card" aria-labelledby="linesCard">
+        <h3 id="linesCard">Cruise Lines</h3>
+        <p>Start with Royal Caribbean, then explore NCL, MSC, and more.</p>
+        <p><a class="button" href="https://cruisinginthewake.com/cruise-lines/royal-caribbean.html">Cruise Lines Hub</a></p>
+      </section>
     </div>
-
-    <section class="card" aria-labelledby="linesCard">
-      <h3 id="linesCard">Cruise Lines</h3>
-      <p>Start with Royal Caribbean, then explore NCL, MSC, and more.</p>
-      <p><a class="button" href="https://cruisinginthewake.com/cruise-lines/royal-caribbean.html">Cruise Lines Hub</a></p>
-    </section>
   </main>
-
   <footer class="site-footer">
     <p>&copy; <span id="year"></span> In the Wake. All rights reserved.</p>
     <p class="prices-note">Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</p>
   </footer>
-
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
