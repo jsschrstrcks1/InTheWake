@@ -44,7 +44,7 @@
     :root { --wrap-max: 1100px; }
     .wrap { max-width: var(--wrap-max); margin-inline: auto; padding-inline: 1rem; }
     .page { position: relative; display: block; width: 100%; min-height: 100%; overflow-x: hidden; }
-    .card { background: #fff; border: 2px solid #d9b382; border-radius: 14px; padding: 1rem; box-shadow: 0 2px 6px rgba(8,48,65,.08); }
+    .card { background: #fff; border: 2px solid var(--rope); border-radius: 14px; padding: 1rem; margin: .8rem 0; box-shadow: 0 2px 6px rgba(8,48,65,.08); }
     .card h2 { margin-top: 0; }
     .btn { display: inline-block; padding: .5rem .8rem; border-radius: 999px; border: 1px solid #0e6e8e; color: #0e6e8e; text-decoration: none; font-size: .95rem; line-height: 1; white-space: nowrap; }
     .btn:hover { background: #0e6e8e; color: #fff; }
@@ -58,6 +58,10 @@
     .swiper-pagination-bullet-active { background: #0e6e8e; }
     .compass { position: absolute; top: 10px; right: 10px; }
     .pills a { display: inline-block; padding: 5px 10px; margin: 0 5px; background: #f0f0f0; border-radius: 20px; text-decoration: none; }
+    .grid-2 { display: grid; gap: 1rem; }
+    @media (min-width: 980px) {
+      .grid-2 { grid-template-columns: 1fr 1fr !important; }
+    }
   </style>
 </head>
 <body class="page">
@@ -188,6 +192,20 @@
         </p>
       </section>
     </section>
+    <section class="card" aria-labelledby="attribution">
+      <h2 id="attribution">Attribution & Credits</h2>
+      <ul>
+        <li>Photo 1 via Wikimedia Commons — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_Wade_2012.JPG" target="_blank" rel="noopener">Matt H. Wade</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
+        <li>Photo 2 via Wikimedia Commons — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_CocoCay_Bahamas_2024.jpg" target="_blank" rel="noopener">Larry D. Moore</a>, <a href="https://creativecommons.org/licenses/by/4.0/deed.en" target="_blank" rel="noopener">CC BY 4.0</a></li>
+        <li>Photo 3 via Wikimedia Commons — <a href="https://commons.wikimedia.org/wiki/File:Cruise_Ships_CocoCay_Bahamas_2024.jpg" target="_blank" rel="noopener">Larry D. Moore</a>, <a href="https://creativecommons.org/licenses/by/4.0/deed.en" target="_blank" rel="noopener">CC BY 4.0</a></li>
+        <li>Video: <a href="https://www.youtube.com/watch?v=jRF5foycMNk">“Inside Royal Caribbean's Adventure of the Seas: Full Tour for 2025”</a> — <a href="https://www.youtube.com/channel/Unknown">Unknown Channel</a></li>
+        <li>Video: <a href="https://www.youtube.com/watch?v=sdroCfQ_ZNg">“Adventure of the Seas: 10 MUST-DO Onboard Activities INCLUDED”</a> — <a href="https://www.youtube.com/channel/TheKennaFamilyAdventures">The Kenna Family Adventures</a></li>
+        <li>Video: <a href="https://www.youtube.com/watch?v=iW49OIu_6y0">“♿ Special Accessibility Features on the Royal Caribbean Adventure of the Seas”</a> — <a href="https://www.youtube.com/channel/Travelingwithachair">Traveling with a chair</a></li>
+        <li>Video: <a href="https://www.youtube.com/watch?v=-ymDgcuKZms">“Oceanview Balcony Room Tour | Adventure of the Seas | Royal Caribbean”</a> — <a href="https://www.youtube.com/channel/CruisingWithJT">Cruising With JT</a></li>
+        <li>Video: <a href="https://www.youtube.com/watch?v=e0BvJ1XUnMQ">“Adventure of the Seas FREE Food & Restaurants Review”</a> — <a href="https://www.youtube.com/channel/NorthernVikingExplorer">Northern Viking Explorer</a></li>
+      </ul>
+      <p>All rights reserved.</p>
+    </section>
   </main>
   <footer class="wrap">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
@@ -215,7 +233,7 @@
       new Swiper('.swiper', {
         lazy: true, loop: false,
         pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-next' },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         a11y: { enabled: true }
       });
     })();
