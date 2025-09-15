@@ -15,100 +15,26 @@
   <meta name="twitter:title" content="In the Wake — A Cruise Traveler’s Logbook (v2.233)">
   <meta name="twitter:description" content="Explore ships, ports, menus, and accessibility insights — all styled like a nautical logbook.">
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/og/hero-wake-16x9.jpg">
-  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.233">
+  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.233" onload="this.rel='stylesheet'">
   <style id="watermark-style">
     html, body { position: relative; }
     body::before {
-      content: "";
-      position: fixed;
-      top: 50%; left: 50%;
+      content: ""; position: fixed; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: min(60vw, 900px);
-      height: min(60vh, 900px);
+      width: min(60vw, 900px); height: min(60vh, 900px);
       background: url('https://cruisinginthewake.com/assets/watermark.png') no-repeat center / contain;
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: 0;
+      opacity: 0.08; pointer-events: none; z-index: 0;
     }
     main, header, footer, section, nav { position: relative; z-index: 1; }
   </style>
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-header" role="banner">
     <div class="brand">
-      <a class="logo" href="https://cruisinginthewake.com/" aria-label="In the Wake home">
-        <img src="https://cruisinginthewake.com/assets/brand/wordmark.svg" alt="In the Wake Logo" onerror="this.src='https://cruisinginthewake.com/assets/brand/fallback-logo.svg';">
+      <a class="logo" href="https://cruisinginthewake.com/" aria-label="In the Wake Home">
+        <img src="https://cruisinginthewake.com/assets/brand/wordmark.svg" alt="In the Wake Logo" width="200" height="28" onerror="this.src='https://cruisinginthewake.com/assets/brand/fallback-logo.svg';">
       </a>
       <span class="version-badge">v2.233</span>
     </div>
     <nav class="nav pills" aria-label="Primary">
-      <a href="https://cruisinginthewake.com/">Home</a>
-      <a href="https://cruisinginthewake.com/ships/ships.html">Ships</a>
-      <a href="https://cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="https://cruisinginthewake.com/ports.html">Ports</a>
-      <a href="https://cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-      <a href="https://cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-      <a href="https://cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-      <a href="https://cruisinginthewake.com/cruise-lines/royal-caribbean.html">Cruise Lines</a>
-      <a href="https://cruisinginthewake.com/solo.html">Solo</a>
-      <a href="https://cruisinginthewake.com/travel.html">Travel</a>
-    </nav>
-    <div class="hero" role="img" aria-label="Stylized ship wake over ocean grid">
-      <img class="compass" src="https://cruisinginthewake.com/assets/brand/compass-rose.svg" alt="" loading="eager" decoding="async">
-      <div class="lockup">
-        <p class="tagline">A Cruise Traveler’s Logbook</p>
-      </div>
-    </div>
-  </header>
-  <main id="content">
-    <section class="card welcome" aria-labelledby="welcome">
-      <h2 id="welcome">Welcome Aboard</h2>
-      <p>Chart your course through ships, restaurants, ports of call, packing lists, accessibility notes, and more — all organized with nautical precision. Start with the <a href="https://cruisinginthewake.com/ships/ships.html">Ships Index</a> or dive into <a href="https://cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>.</p>
-    </section>
-    <div class="card-grid">
-      <section class="card" aria-labelledby="shipsCard">
-        <h3 id="shipsCard">Ships</h3>
-        <p>Royal Caribbean first, then others — with deck plans, videos, and accessibility notes.</p>
-        <p><a class="button" href="https://cruisinginthewake.com/ships/ships.html">Browse Ships</a></p>
-      </section>
-      <section class="card" aria-labelledby="menusCard">
-        <h3 id="menusCard">Restaurants &amp; Menus</h3>
-        <p>Main Dining Room theme nights, specialty venues, menus, and prices.</p>
-        <p><a class="button" href="https://cruisinginthewake.com/restaurants.html">Explore Dining</a></p>
-      </section>
-      <section class="card" aria-labelledby="portsCard">
-        <h3 id="portsCard">Ports of Call</h3>
-        <p>Organized by region, then alphabetically — with excursions and accessibility notes.</p>
-        <p><a class="button" href="https://cruisinginthewake.com/ports.html">Discover Ports</a></p>
-      </section>
-      <section class="card" aria-labelledby="disabilityCard">
-        <h3 id="disabilityCard">Disability at Sea</h3>
-        <p>Wheelchair/mobility insights gathered across ships and ports.</p>
-        <p><a class="button" href="https://cruisinginthewake.com/disability-at-sea.html">View Guide</a></p>
-      </section>
-      <section class="card" aria-labelledby="drinksCard">
-        <h3 id="drinksCard">Drink Packages</h3>
-        <p>What’s included, a la carte pricing, and mocktails.</p>
-        <p><a class="button" href="https://cruisinginthewake.com/drink-packages.html">See Packages</a></p>
-      </section>
-      <section class="card" aria-labelledby="packingCard">
-        <h3 id="packingCard">Packing Lists</h3>
-        <p>Carry-on to family checklists, with printable summaries.</p>
-        <p><a class="button" href="https://cruisinginthewake.com/packing-lists.html">Pack Smart</a></p>
-      </section>
-      <section class="card" aria-labelledby="linesCard">
-        <h3 id="linesCard">Cruise Lines</h3>
-        <p>Start with Royal Caribbean, then explore NCL, MSC, and more.</p>
-        <p><a class="button" href="https://cruisinginthewake.com/cruise-lines/royal-caribbean.html">Cruise Lines Hub</a></p>
-      </section>
-    </div>
-  </main>
-  <footer class="site-footer">
-    <p>&copy; <span id="year"></span> In the Wake. All rights reserved.</p>
-    <p class="prices-note">Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</p>
-  </footer>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+      <a href="https://cruisingint
