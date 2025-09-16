@@ -44,39 +44,42 @@
   </style>
 
 
-  <style id="itw-hero-fx">
-    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat !important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05); }
-    .hero::before,.hero::after{ content:none !important; }
+  <style id="brand-title-hide">.brand-title{display:none!important}</style>
+
+
+  <style id="hero-vibrancy">
+    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat!important;
+           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
+    .hero::before,.hero::after{ content:none!important }
   </style>
 
 
-  <style id="itw-card-watermark">
-    .card{ position:relative; overflow:hidden; }
+  <style id="card-watermark">
+    .card{ position:relative; overflow:hidden }
     .card::after{
-      content:"";
-      position:absolute; inset:12% 4% auto auto;
-      width:min(44%, 220px); aspect-ratio:1/1;
-      background:url('https://www.cruisinginthewake.com/assets/logo_wake.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none; transform:rotate(-6deg);
-    }
-    /* larger cards get a bit bigger watermark */
-    @container style(--cw: var(--cw)) {
-      .card::after{ width:min(50%, 280px); }
+      content:""; position:absolute; inset:0; margin:auto;
+      width:min(60%, 360px); height:min(60%, 360px);
+      background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
+      opacity:.06; pointer-events:none;
     }
   </style>
 
 
   <style id="hero-credit-css">
-    .hero{ position:relative; }
-    .hero-credit{ position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem; box-shadow:0 2px 6px rgba(0,0,0,.12); }
+    .hero{ position:relative }
+    .hero-credit{
+      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
+      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
+      box-shadow:0 2px 6px rgba(0,0,0,.12);
+    }
   </style>
 
+
   <style id="itw-grid-3">
-    .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
-    @media (max-width: 900px){ .grid-3{ grid-template-columns:1fr; } }
+    .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem }
+    @media (max-width:900px){ .grid-3{ grid-template-columns:1fr } }
   </style>
+
 </head>
 <body class="page">
   <header class="hero-header">
