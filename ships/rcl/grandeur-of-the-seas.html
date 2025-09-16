@@ -5,131 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Grandeur of the Seas — In the Wake (v2.237)</title>
 
-  <!-- Canonical -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
+  <meta name="description" content="Royal Caribbean’s Grandeur of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
 
-  <!-- Primary Meta -->
-  <meta name="title" content="Grandeur of the Seas — In the Wake"/>
-  <meta name="description" content="Creator-curated look at Royal Caribbean’s Grandeur of the Seas: photos, dining, cabins, accessibility notes, tips, videos, and cross-links to ports and restaurants."/>
-  <meta name="theme-color" content="#0a3d62"/>
-
-  <!-- Open Graph -->
+  <!-- SEO / Social -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
   <meta property="og:title" content="Grandeur of the Seas — In the Wake"/>
-  <meta property="og:description" content="Royal Caribbean’s Grandeur of the Seas, presented in our gold-standard layout: quick facts, venues, menus, photos, accessibility notes, and smart cross-links."/>
+  <meta property="og:description" content="Photos, dining, cabins, videos, and tips for Grandeur of the Seas."/>
   <meta property="og:image" content="https://www.cruisinginthewake.com/ships/assets/grandeur-of-the-seas1.jpg"/>
-  <meta property="og:image:alt" content="Grandeur of the Seas underway at sea"/>
-  <meta property="og:image:width" content="1600"/>
-  <meta property="og:image:height" content="900"/>
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Grandeur of the Seas — In the Wake"/>
-  <meta name="twitter:description" content="Royal Caribbean’s Grandeur of the Seas, with venues, menus, cabins, tips, photos, and cross-links to ports & restaurants."/>
-  <meta name="twitter:image" content="https://www.cruisinginthewake.com/ships/assets/grandeur-of-the-seas1.jpg"/>
 
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Grandeur of the Seas — In the Wake",
-    "url": "https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html",
-    "description": "Creator-curated look at Royal Caribbean’s Grandeur of the Seas: photos, dining, cabins, accessibility notes, tips, videos, and cross-links to ports and restaurants.",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "In the Wake",
-      "url": "https://www.cruisinginthewake.com/"
-    },
-    "image": "https://www.cruisinginthewake.com/ships/assets/grandeur-of-the-seas1.jpg",
-    "publisher": {
-      "@type": "Organization",
-      "name": "In the Wake",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.cruisinginthewake.com/assets/brand/logo.png"
-      }
-    }
-  }
-  </script>
+  <!-- Global CSS: single source of truth -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.237"/>
 
-  <!-- Global styles (cache-busted) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
-
-  <!-- Swiper for video carousel -->
+  <!-- Swiper (videos) -->
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
-
-  <style>
-    :root { --wrap-max: 1100px; }
-    .wrap { max-width: var(--wrap-max); margin-inline: auto; padding-inline: 1rem; }
-    .page { position: relative; display: block; width: 100%; min-height: 100%; overflow-x: hidden; }
-
-    /* Cards & grids */
-    .grid-2 { display: grid; gap: 1rem; }
-    @media (min-width: 980px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
-
-    .card {
-      position: relative;
-      background: #fff;
-      border: 2px solid var(--rope);
-      border-radius: 14px;
-      padding: 1rem;
-      box-shadow: 0 2px 6px rgba(8,48,65,.08);
-      overflow: hidden;
-    }
-    .card h2 { margin-top: 0; }
-
-    /* Button pills */
-    .btn {
-      display: inline-block;
-      padding: .5rem .8rem;
-      border-radius: 999px;
-      border: 1px solid #0e6e8e;
-      color: #0e6e8e;
-      text-decoration: none;
-      font-size: .95rem;
-      line-height: 1;
-      white-space: nowrap;
-    }
-    .btn:hover { background: #0e6e8e; color: #fff; }
-
-    /* Photo grid */
-    .photo-grid { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
-    .photo-grid figure { margin: 0; }
-    .photo-grid img { width: 100%; height: auto; border-radius: 12px; display: block; }
-    .photo-grid figcaption { font-size: 0.8rem; color: #546; margin-top: .35rem; }
-
-    /* Swiper */
-    .swiper { width: 100%; }
-    .swiper-slide iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 12px; }
-    .swiper-button-prev, .swiper-button-next { color: #0e6e8e; }
-    .swiper-pagination-bullet-active { background: #0e6e8e; }
-
-    /* Watermark centered on cards */
-    .card::after{
-      content:"";
-      position:absolute; inset:0; margin:auto;
-      width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none;
-    }
-
-    /* Hero vibrancy + compass */
-    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat !important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
-    .hero::before,.hero::after{ content:none !important }
-    .hero-credit{
-      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.12);
-    }
-    .brand-title{display:none!important}
-  </style>
 </head>
 <body class="page">
-  <!-- Header (global) -->
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
@@ -144,8 +38,6 @@
         <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
         <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
         <a href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html">Cruise Lines</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
       </nav>
     </div>
     <div class="hero" role="img" aria-label="Grandeur of the Seas hero image">
@@ -178,56 +70,69 @@
   </header>
 
   <main class="wrap" id="content">
-    <!-- Disclosure (Own Wake — Firsthand) -->
-    <section class="card" aria-labelledby="disclosureHeading">
-      <h2 id="disclosureHeading">Full Disclosure</h2>
-      <p><em>Full disclosure: I have stood the watch on Grandeur of the Seas, for 9 days logged in her logbook and mine. This is no tide of borrowed winds, but depth soundings taken in my own wake.</em></p>
+    <!-- top row: left = dining card, right = lead gallery -->
+    <section class="grid-2" style="align-items:start">
+      <section id="dining-card" class="card" data-ship="Grandeur of the Seas" aria-labelledby="diningHeading">
+        <!-- Filled by dining-card.js from fleet_index.json -->
+      </section>
+
+      <section class="card" aria-labelledby="photosHeading">
+        <h2 id="photosHeading">A First Look</h2>
+        <div class="photo-grid">
+          <figure>
+            <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%203.jpeg" alt="Grandeur — at Labadee Haiti in the rain"/>
+            <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
+          </figure>
+          <figure>
+            <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%201.jpeg" alt="Grandeur — through the trees"/>
+            <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
+          </figure>
+          <figure>
+            <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%202.jpeg" alt="Grandeur — in the fog"/>
+            <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
+          </figure>
+        </div>
+      </section>
     </section>
 
-    <!-- Photos -->
-    <section class="card" aria-labelledby="photosHeading">
-      <h2 id="photosHeading">A First Look</h2>
-      <div class="photo-grid">
-        <figure>
-          <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%203.jpeg" alt="Grandeur — at Labadee, Haiti in the rain">
-          <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
-        </figure>
-        <figure>
-          <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%201.jpeg" alt="Grandeur — through the trees">
-          <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
-        </figure>
-        <figure>
-          <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%202.jpeg" alt="Grandeur — in the fog">
-          <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
-        </figure>
+    <section class="card note-kens-logbook" aria-labelledby="logbookHeading">
+      <h2 id="logbookHeading">A Note from Ken’s Logbook — A Personal Review</h2>
+      <div class="prose">
+        A Note from Ken’s Logbook — A Personal Review
+
+        Full disclosure: I have stood the watch on Grandeur of the Seas, for nine days logged in her logbook and mine. This is no tide of borrowed winds, but depth soundings taken in my own wake.
+
+        We sailed in an ocean-view stateroom, where every sunrise framed the horizon like a painting—coffee in hand, it was the best way to start the day. Grandeur is the cozy heart of Royal’s Vision-class: small enough to feel familiar, big enough to keep you entertained. On our 9-night Eastern Caribbean run to Aruba, Curaçao, Bonaire, and Labadee, she showed why smaller ships often win hearts — warmth, intimacy, and crew who treat you like family.
+
+        The Crew and Staff
+        The crew was the soul of this sailing. Our stateroom attendant kept everything shipshape, towel animals included. Vincent at Guest Services handled requests with a smile and speed that felt like chatting with an old friend. And in Windjammer, Vergel spotted that we’d left without our eggs; before we could even circle back, he brought them fresh to our table — a small kindness that said everything about Grandeur’s crew.
+
+        Shows and Entertainment
+        The Palladium Theatre might be intimate, but the energy was anything but small. Tango Buenos Aires lit up the stage with world-class dancing and passionate vocals. Broadway Rhythm & Rhyme leaned on nostalgia, and though some costumes looked ready for retirement, the music carried the night. Around the ship, live bands, poolside calypso, and Schooner Bar sing-alongs made evenings feel alive — less like staged events, more like a floating neighborhood gathering.
+
+        Dining
+        Windjammer became our casual harbor, with omelet stations, jerk chicken, and a bagel breakfast (lox, cream cheese, bacon) that hit all the right notes. The Great Gatsby Dining Room set a more formal table, where our waiter’s recommendations (herb-crusted salmon, a chocolate torte) were perfect. And we made time for splurges:
+        • Chops Grille: A filet so good it nearly had its own standing ovation, with truffle fries that disappeared almost instantly. Miguel, our waiter, had the timing of a captain easing into port.
+        • Taste of Royal: The tuna tartare was bright and lively, the shrimp needed more kick, but the fried cheesecake? Worth writing home about. Reviews often call Chops the safe bet, Taste the creative wildcard — our experience matched that.
+
+        Embarkation & Disembarkation
+        Fort Lauderdale was smooth sailing: on board before lunch, off with bags in hand by breakfast on the last day. Port parking is expensive; off-site plus a taxi saved us money without hassle.
+
+        The Real Talk
+        Grandeur’s age shows here and there — carpets with stories, deck furniture a little sun-tired. Wi-Fi is leisurely unless you pay for the upgrade. The pool deck has the classic “chair hog” problem, but Royal now posts signs: after 30 minutes unattended, crew will clear belongings if you ask. Our workaround? One family chair, everyone’s stuff piled there, with a rotation of sitters. It kept us fair, light-footed, and out of trouble with the towel station.
+
+        A Woman’s Perspective (My Mother’s Notes)
+        “I felt safe and comfortable wandering Grandeur solo, whether grabbing coffee at sunrise or snacks late at night. The crew’s watchful care made it feel like home. Tango Buenos Aires thrilled me, but I’ll warn: the theater gets chilly — bring a shawl. Chops Grille served a petit filet that was small but flawless, and Miguel’s warmth made the night. Smaller ships like Grandeur are my favorites; you get real connection, not just service.”
+
+        Closing Thoughts
+        Grandeur doesn’t try to be the flashiest ship in the fleet — she doesn’t need to. She wins by being personal: crew who know your name, spaces that feel welcoming, and sunrises that remind you why you came to sea in the first place. For us, she delivered connection, care, and adventure. And yes, we’re already planning to sail her again.
+
       </div>
     </section>
 
-    <!-- Why Book -->
-    <section class="card" aria-labelledby="whyHeading">
-      <h2 id="whyHeading">Why Book Grandeur of the Seas?</h2>
-      <p>Grandeur is Royal Caribbean’s Vision-class sweetheart—small enough to feel neighborly, big enough for real variety. Ocean views are everywhere, venues are easy to reach, and crew say hello like they mean it.</p>
-      <p>Families get easy wins: <strong>Rock Climbing Wall</strong> bragging rights, arcade downtime, and poolside movies under the stars. Couples lean into slow sunsets and unhurried dinners—maybe <strong>Chef’s Table</strong> for a splurge, or a quiet evening in the glass-covered <strong>Solarium</strong>. First-timers and solo travelers appreciate the scale: less walking, more doing.</p>
-      <p>Dining runs from easy bites at <strong>Windjammer</strong> to sushi at <strong>Izumi</strong>, with the <strong>Main Dining Room</strong> anchoring each evening. After dinner, it’s shows like <em>Broadway Rhythm & Rhyme</em>, comedians, game shows, and live music. It’s the daytime-energy / nighttime-unwind balance Royal does best.</p>
-      <p class="small">Sailings from Tampa keep itineraries sunny and simple—Western Caribbean hops and relaxed Bahamas loops—plus sea days for recharging.</p>
-    </section>
-
-    <!-- Ken's Logbook -->
-    <section class="card note-kens-logbook" aria-labelledby="logbookHeading">
-      <h2 id="logbookHeading">Ken’s Logbook — A Personal Review</h2>
-      <p>We booked an ocean-view stateroom and woke to wide-water sunrises and the kind of quiet that pairs well with coffee. Service was the standout: Miguel at <strong>Chops Grille</strong> paced the meal like a pro; Vincent D’Cruz at Guest Services solved problems before they grew legs; and in <strong>Windjammer</strong>, Vergel noticed our morning routine and brought fresh eggs without us asking—a small gesture that says everything about this crew.</p>
-      <ul>
-        <li><strong>Chops Grille:</strong> A filet so good it nearly had its own standing ovation, with sides like truffle fries that vanished faster than they arrived. Miguel had the timing of a captain easing into a smooth docking.</li>
-        <li><strong>Taste of Royal:</strong> Tuna tartare was bright and lively; shrimp could use more spice; fried cheesecake? Worth writing home about.</li>
-      </ul>
-      <p>Our Eastern Caribbean run hit Aruba, Curaçao, Bonaire, and Labadee. Highlights: snorkeling in Aruba’s bathtub-clear water; Curaçao’s distillery (and a sun-warmed cave); and in Bonaire, a quick taxi to <a href="https://buddydive.com/" target="_blank" rel="noopener">Buddy Dive Center</a> for great-value rentals and a drop-off reef that rewards confident snorkelers and divers. Labadee still delivered a good beach day despite weather canceling our dive.</p>
-      <p class="tiny"><em>Chair policy note:</em> Royal is actively posting “no chair saving” signs fleet-wide. Enforcement varies by sailing, but staff respond well if you flag an obviously held chair. Our family uses one “base” chair—shared, with our things stowed neatly—so we’re present often enough that nothing gets re-homed to the towel station.</p>
-    </section>
-
-    <!-- Videos -->
     <section class="card" aria-labelledby="videosHeading">
       <h2 id="videosHeading">Watch: Grandeur Highlights</h2>
-      <p class="small">Swipe through videos to explore the ship, top things to do, and staterooms by type. Includes accessibility where available.</p>
+      <p class="small">Swipe through videos to explore the ship, its top features, and staterooms by type. Includes a disabled perspective when available.</p>
       <div class="swiper" aria-label="Featured video carousel">
         <div class="swiper-wrapper" id="featuredVideos"></div>
         <div class="swiper-pagination" aria-hidden="true"></div>
@@ -236,40 +141,36 @@
       </div>
     </section>
 
-    <!-- Two-up: Deck plans & live tracker -->
     <section class="grid-2">
       <section class="card" aria-labelledby="deckPlansHeading">
         <h2 id="deckPlansHeading">Ship Layout (Deck Plans)</h2>
-        <p>Pin your stateroom, elevators, dining, and venues before you sail.</p>
+        <p>Study the ship’s layout—pin your stateroom, elevators, dining, and venues before you sail.</p>
         <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
       </section>
       <section class="card" aria-labelledby="liveTrackHeading">
         <h2 id="liveTrackHeading">Where Is Grandeur Right Now?</h2>
-        <p>See the ship’s current position, speed, and next port on a live tracker.</p>
+        <p>See the ship’s current geographic position, speed, and next port on a live tracker.</p>
         <div class="map-actions">
           <a class="btn" href="https://www.cruisemapper.com/ships/Grandeur-Of-The-Seas-598" target="_blank" rel="noopener">Open CruiseMapper Live Tracker</a>
         </div>
-        <p class="tiny" style="margin-top:.35rem;">Tip: Keep this page open; the tracker opens in a new tab.</p>
+        <p class="tiny" style="margin-top:.35rem;">Tip: Keep this page open while you check the tracker; it opens in a new tab.</p>
       </section>
     </section>
 
-    <!-- Attribution -->
     <section class="card" aria-labelledby="attribution">
       <h2 id="attribution">Attribution & Credits</h2>
       <ul>
-        <li>Photography: <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></li>
-        <li>Video sources are embedded from YouTube creators as titled in-frame.</li>
+        <li>Hero/Photos: © Flickers of Majesty — used with attribution</li>
+        <li>Videos: curated from public sources (YouTube); titles inside embeds</li>
       </ul>
-      <p>All rights reserved.</p>
+      <p class="tiny">Watermark applied via global styles.css to all .card blocks.</p>
     </section>
   </main>
 
-  <footer class="wrap">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
-  </footer>
+  <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
-  <!-- JS: Swiper + Videos -->
   <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
+  <script src="/assets/js/dining-card.js" defer></script>
   <script>
     (function initCarousel() {
       const DATA = [
@@ -278,12 +179,7 @@
         {"id": "tXQ8hic0O_U", "title": "Grandeur — Accessible Stateroom & Wheelchair Walkthrough"},
         {"id": "kYAwcRPmH5c", "title": "Interior Room Tour — Grandeur"},
         {"id": "1PgDMCgw6uI", "title": "Ocean View Stateroom Tour — Grandeur"},
-        {"id": "0YONwODd98c", "title": "Balcony & Interior Quick Tour — Grandeur"},
-        {"id": "HAxiXR-IMmk", "title": "Junior Suite 7650 — Aft Balcony Tour"},
-        {"id": "KXCJePjqEY4", "title": "Grand Suite (1-Bedroom) Tour — 2025"},
-        {"id": "ZEz-jOvRq7c", "title": "Grand Suite (2-Bedroom) 8084 — Tour"},
-        {"id": "GByj5lFpAPU", "title": "Owner’s Suite 8502 — Cabin Tour"},
-        {"id": "Z70a-ViIjTc", "title": "Royal Suite 8500 — Tour & Review"}
+        {"id": "0YONwODd98c", "title": "Balcony & Interior Quick Tour — Grandeur"}
       ];
       const wrap = document.getElementById('featuredVideos');
       DATA.forEach(v => {
