@@ -4,15 +4,53 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Ports — In the Wake (v2.202)</title>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.201"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
   
+
+  <style id="itw-inline-overrides">
+    :root{
+      --sea:#064a76; --foam:#e9f7fb; --rope:#cfa56f;
+      --ink:#052433; --accent:#0da0c5; --sky:#f7fdff;
+      --compass-tint: invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);
+    }
+    .hero .hero-compass{ position:absolute; right:16px; top:16px; width:64px; opacity:.9; filter:var(--compass-tint); }
+  </style>
+
+
+<style id="watermark-style">
+  html, body { position: relative; }
+  body::before {
+    content: "";
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: min(60vw, 900px); height: min(60vh, 900px);
+    background: url('https://www.cruisinginthewake.com/assets/watermark.png') no-repeat center / contain;
+    opacity: .08; pointer-events: none; z-index: 0;
+  }
+  main, header, footer, section, nav { position: relative; z-index: 1; }
+</style>
+
   <link rel="canonical" href="https://www.cruisinginthewake.com/ports.html"/>
+
+  <style id="hero-bg">
+    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat; min-height:240px; }
+  </style>
+
+
+  <style id="hero-credit-css">
+    .hero{ position:relative; }
+    .hero-credit{
+      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
+      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
+      box-shadow:0 2px 8px rgba(0,0,0,.12);
+    }
+  </style>
+
 </head>
 <body class="page">
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/brand/logo.png" alt="In the Wake wordmark"/>
+        <img src="https://www.cruisinginthewake.com/assets/brand/wordmark.png" alt="In the Wake wordmark"/>
         <div class="brand-title">
           In the Wake
           <span class="version-badge">v2.202</span>
@@ -36,12 +74,13 @@
     </div>
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/brand/compass-rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+        <img class="logo" src="https://www.cruisinginthewake.com/assets/brand/wordmark.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-    </div>
+    
+<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div></div>
   </header>
   <main class="wrap" id="content">
     
