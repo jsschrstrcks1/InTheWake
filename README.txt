@@ -1,0 +1,1 @@
+Place ship images here using the pattern: <slug>1.jpg, <slug>2.jpg etc. E.g., wonder-of-the-seas1.jpg
