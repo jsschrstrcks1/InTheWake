@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Grandeur of the Seas — In the Wake (v2.238)</title>
+  <title>Grandeur of the Seas — In the Wake (v2.239)</title>
 
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean’s Grandeur of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
@@ -17,10 +17,10 @@
   <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%201.jpeg"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.238"/>
+  <!-- Global CSS (single source of truth) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.239"/>
 
-  <!-- Swiper (videos) -->
+  <!-- Swiper -->
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
 </head>
 <body class="page no-hero-filter">
@@ -29,7 +29,7 @@
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
       </div>
-      <nav class="pills">
+      <nav class="pills" aria-label="Site">
         <a href="https://www.cruisinginthewake.com/index.html">Home</a>
         <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
         <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants & Menus</a>
@@ -66,36 +66,54 @@
         <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div>
+      <div class="hero-credit">
+        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+        <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Instagram</a>
+      </div>
     </div>
   </header>
 
   <main class="wrap" id="content">
-    <!-- top row: left = dining card, right = lead gallery -->
+    <!-- Row 1: First Look (left) + Dining card (right) -->
     <section class="grid-2" style="align-items:start">
-      <section id="dining-card" class="card" data-ship="Grandeur of the Seas" aria-labelledby="diningHeading">
-        <!-- Filled by dining-card.js from fleet_index.json -->
-      </section>
-
+      <!-- A First Look: Swiper carousel -->
       <section class="card" aria-labelledby="photosHeading">
         <h2 id="photosHeading">A First Look</h2>
-        <div class="photo-grid">
-          <figure>
-            <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%203.jpeg" alt="Grandeur — at Labadee Haiti in the rain" loading="lazy"/>
-            <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://www.flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
-          </figure>
-          <figure>
-            <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%201.jpeg" alt="Grandeur — through the trees" loading="lazy"/>
-            <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://www.flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
-          </figure>
-          <figure>
-            <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%202.jpeg" alt="Grandeur — in the fog" loading="lazy"/>
-            <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://www.flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
-          </figure>
+
+        <div class="swiper firstlook" aria-label="Grandeur photo carousel">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <figure>
+                <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%203.jpeg" alt="Grandeur — at Labadee, Haiti in the rain" loading="lazy"/>
+                <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://www.flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%201.jpeg" alt="Grandeur — through the trees" loading="lazy"/>
+                <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://www.flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%202.jpeg" alt="Grandeur — in the fog" loading="lazy"/>
+                <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://www.flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="swiper-pagination" aria-hidden="true"></div>
+          <div class="swiper-button-prev" aria-label="Previous image"></div>
+          <div class="swiper-button-next" aria-label="Next image"></div>
         </div>
+      </section>
+
+      <!-- Dining venues (populated from fleet_index.json) -->
+      <section id="dining-card" class="card" data-ship="Grandeur of the Seas" aria-labelledby="diningHeading">
+        <!-- Filled by /assets/js/dining-card.js -->
       </section>
     </section>
 
+    <!-- Ken’s Logbook -->
     <section class="card note-kens-logbook" aria-labelledby="logbookHeading">
       <h2 id="logbookHeading">A Note from Ken’s Logbook — A Personal Review</h2>
       <p class="pill">Own Wake — Full disclosure: I have stood the watch on Grandeur of the Seas, for nine days logged in her logbook and mine. This is no tide of borrowed winds, but depth soundings taken in my own wake.</p>
@@ -130,10 +148,11 @@
       </div>
     </section>
 
+    <!-- Videos -->
     <section class="card" aria-labelledby="videosHeading">
       <h2 id="videosHeading">Watch: Grandeur Highlights</h2>
       <p class="small">Swipe through videos to explore the ship, its top features, and staterooms by type. Includes a disabled perspective when available.</p>
-      <div class="swiper" aria-label="Featured video carousel">
+      <div class="swiper videos" aria-label="Featured video carousel">
         <div class="swiper-wrapper" id="featuredVideos"></div>
         <div class="swiper-pagination" aria-hidden="true"></div>
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
@@ -141,6 +160,7 @@
       </div>
     </section>
 
+    <!-- Row 2: Deck plans + Live tracker -->
     <section class="grid-2">
       <section class="card" aria-labelledby="deckPlansHeading">
         <h2 id="deckPlansHeading">Ship Layout (Deck Plans)</h2>
@@ -172,7 +192,16 @@
   <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
   <script src="/assets/js/dining-card.js" defer></script>
   <script>
-    (function initCarousel() {
+    // First Look images (already in DOM) — just initialize Swiper
+    new Swiper('.swiper.firstlook', {
+      loop:false, lazy:true,
+      pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
+      navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
+      a11y:{ enabled:true }
+    });
+
+    // Videos carousel
+    (function initVideos(){
       const DATA = [
         {"id": "-NS3BhWqzD4", "title": "Grandeur of the Seas — Full Ship Walkthrough (4K)"},
         {"id": "iIo4HNqNzbs", "title": "Top Things To Do on Grandeur of the Seas"},
@@ -191,11 +220,11 @@
                                allowfullscreen loading="lazy"></iframe>`;
         wrap.appendChild(slide);
       });
-      new Swiper('.swiper', {
-        lazy: true, loop: false,
-        pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        a11y: { enabled: true }
+      new Swiper('.swiper.videos', {
+        loop:false, lazy:true,
+        pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
+        navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+        a11y:{ enabled:true }
       });
     })();
   </script>
