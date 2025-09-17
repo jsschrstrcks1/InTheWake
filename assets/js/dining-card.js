@@ -1,111 +1,287 @@
-// assets/js/dining-card.js
-(function () {
-  function byLower(a) { return (a || '').toLowerCase(); }
-  function el(tag, opts = {}) {
-    const n = document.createElement(tag);
-    if (opts.className) n.className = opts.className;
-    if (opts.text) n.textContent = opts.text;
-    if (opts.html) n.innerHTML = opts.html;
-    if (opts.attrs) Object.entries(opts.attrs).forEach(([k,v]) => n.setAttribute(k,v));
-    return n;
-  }
+/* ===== In the Wake — Unified Styles (v2.239) ===== */
+:root{
+  --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
+  /* Grid / compass tuning */
+  --grid-stroke: rgba(255,255,255,.24);
+  --grid-label: rgba(255,255,255,.85);
+  --grid-outline: rgba(8,48,65,.35);
+  --compass-tint: invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);
+}
 
-  async function fetchFleet() {
-    const paths = [
-      '/assets/data/fleet_index.json',
-      '/assets/fleet_index.json',
-      '/fleet_index.json'
-    ];
-    for (const p of paths) {
-      try {
-        const r = await fetch(p, { credentials: 'same-origin' });
-        if (r.ok) return await r.json();
-      } catch (e) { /* try next */ }
-    }
-    throw new Error('fleet_index.json not found at expected paths');
-  }
+*{ box-sizing:border-box }
+html,body{ margin:0; padding:0 }
+body{
+  font-family: ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+  color:var(--ink); background:var(--sky); line-height:1.55;
+}
+a{ color:var(--accent); text-decoration:none }
+a:hover{ text-decoration:underline }
+img{ max-width:100%; height:auto; display:block }
 
-  function findShip(data, shipName) {
-    const datasets = Array.isArray(data) ? data : (data.ships || data.data || []);
-    const lname = byLower(shipName);
-    return (datasets || []).find(s => byLower(s.name || s.ship || s.title) === lname) || null;
-  }
+/* Header + Nav */
+.hero-header{ position:relative; border-bottom:6px double var(--rope); background:#eaf6f6 }
+.navbar{ max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:.6rem; padding:.5rem .9rem }
+.brand{ display:flex; align-items:center; gap:.6rem }
+.brand img{ height:28px; width:auto }
+.brand-title{ font-weight:700; color:var(--ink); font-size:.95rem }
+.version-badge{ font-size:.72rem; opacity:.8; margin-left:.35rem }
 
-  function getVenues(ship) {
-    // Support multiple shapes of data gracefully
-    const dining = ship.restaurants || ship.dining || {};
-    const included = dining.included || dining.free || dining.complimentary || [];
-    const premium  = dining.premium || dining.extraFee || dining.specialty || [];
-    return { included, premium };
-  }
+/* Pills nav variant used on ship pages */
+.pills { margin-left:auto; display:flex; gap:.5rem; flex-wrap:wrap; }
+.pills a{
+  padding:.35rem .7rem; border-radius:10px; border:1px dashed var(--rope);
+  background:#fff; font-size:.9rem; color:var(--accent); text-decoration:none;
+}
+.pills a:hover{ text-decoration:none; background:#f9fdfd; }
 
-  function renderList(list) {
-    const ul = document.createElement('ul');
-    list.forEach(item => {
-      if (typeof item === 'string') {
-        const li = document.createElement('li');
-        li.textContent = item;
-        ul.appendChild(li);
-      } else if (item && typeof item === 'object') {
-        const li = document.createElement('li');
-        const name = item.name || item.title || 'Restaurant';
-        if (item.url) {
-          const a = document.createElement('a');
-          a.textContent = name;
-          a.href = item.url;
-          a.rel = 'noopener';
-          a.target = '_blank';
-          li.appendChild(a);
-        } else {
-          li.textContent = name;
-        }
-        ul.appendChild(li);
-      }
-    });
-    return ul;
-  }
+/* Full-bleed hero (no legacy hockey-stick overlays) */
+.hero{
+  position:relative;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  min-height:clamp(200px, 24vw, 340px);
+  background:url('index_hero.jpg') 50% 50% / cover no-repeat;
+  display:flex; align-items:flex-end;
+  overflow:hidden; isolation:isolate;
+}
+.hero::before,.hero::after{ content:none !important }
 
-  async function initCard(card) {
-    const shipName = card.getAttribute('data-ship');
-    if (!shipName) return;
-    try {
-      const data = await fetchFleet();
-      const ship = findShip(data, shipName);
-      card.innerHTML = '';
-      const h2 = document.createElement('h2');
-      h2.id = 'diningHeading';
-      h2.textContent = 'Dining on Board';
-      card.appendChild(h2);
+/* Kill any filters/overlays when .no-hero-filter is on <body> */
+body.no-hero-filter .hero::before,
+body.no-hero-filter .hero::after { content:none !important; }
+body.no-hero-filter .hero{ filter:none !important; }
 
-      if (!ship) {
-        const p = document.createElement('p');
-        p.textContent = 'Dining data not found for this ship.';
-        card.appendChild(p);
-        return;
-      }
-      const { included, premium } = getVenues(ship);
+/* Grid container & labels */
+.latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none }
+.latlon-grid svg{ width:100%; height:100% }
+.hero .latlon-grid .grid-lines{ stroke: var(--grid-stroke); vector-effect:non-scaling-stroke }
+.hero .latlon-grid .grid-labels text{
+  fill: var(--grid-label);
+  paint-order: stroke;
+  stroke: var(--grid-outline);
+  stroke-width: .4px;
+  vector-effect: non-scaling-stroke;
+  letter-spacing: .2px;
+  font-size: 2.2px;
+}
+@media (max-width:900px){ .hero .latlon-grid .grid-labels text{ font-size: 2.0px } }
+@media (max-width:700px){ .hero .latlon-grid .grid-labels text{ font-size: 1.9px } }
+@media (max-width:520px){ .hero .latlon-grid .grid-labels text{ font-size: 1.7px } }
 
-      const inc = document.createElement('section');
-      const incH = document.createElement('h3');
-      incH.textContent = 'Included';
-      inc.appendChild(incH);
-      inc.appendChild(renderList(included));
+/* Compass (tinted to reference blue/gray) */
+.hero-compass{
+  position:absolute; right:min(3vw,1rem); top:.5rem;
+  width:86px; opacity:.95; z-index:2;
+  filter: var(--compass-tint) drop-shadow(0 2px 6px rgba(0,0,0,.25));
+  pointer-events:none;
+}
 
-      const prem = document.createElement('section');
-      const premH = document.createElement('h3');
-      premH.textContent = 'Premium';
-      prem.appendChild(premH);
-      prem.appendChild(renderList(premium));
+/* Ship lockup + tagline */
+.hero-title{
+  position:absolute; left:min(3vw,1rem); bottom:clamp(.6rem,2vw,1.4rem);
+  z-index:3; display:flex; align-items:flex-end; gap:.6rem;
+  text-shadow:0 2px 6px rgba(0,0,0,.45);
+}
+.hero-title .logo{
+  width:clamp(189px, 23.1vw, 378px);
+  max-width:min(45vw, 520px);
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));
+}
+.hero .tagline{
+  position:absolute; left:50%; transform:translateX(-50%);
+  bottom:clamp(.55rem,1.6vw,1.1rem);
+  font-weight:700; letter-spacing:.2px; color:#e6f4f8;
+  text-shadow:0 2px 6px rgba(0,0,0,.45);
+  font-size:clamp(.9rem,1.5vw,1.35rem); white-space:nowrap; z-index:3;
+}
 
-      card.appendChild(inc);
-      card.appendChild(prem);
-    } catch (err) {
-      card.innerHTML = '<p class="tiny">Could not load dining venues. Check fleet_index.json path.</p>';
-      console.error(err);
-    }
-  }
+/* Content + cards (centered, not edge-to-edge) */
+.wrap { max-width:1100px; margin:0 auto; padding:20px 14px 36px; }  /* matches your HTML */
+.card{
+  background:#fff; border:2px solid var(--rope); border-radius:14px;
+  padding:1rem; margin:.8rem 0; box-shadow:0 2px 6px rgba(8,48,65,.08);
+  position:relative; overflow:hidden;
+}
+h1,h2,h3{ color:var(--sea) }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('#dining-card').forEach(initCard);
-  });
-})();
+/* Optional global watermark for .card (per standards) */
+.card::after{
+  content:""; position:absolute; inset:0; margin:auto;
+  width:min(60%, 360px); height:min(60%, 360px);
+  background:url('/assets/watermark.png') center/contain no-repeat;
+  opacity:.06; pointer-events:none;
+}
+/* Turn off watermark on media-heavy cards if desired */
+.no-watermark::after{ display:none; }
+
+/* Reusable two-up grid */
+.grid-2 { display:grid; gap:1rem; }
+@media (min-width:980px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+/* Place Dining card on the RIGHT on desktop, first on mobile */
+#dining-card { order:1; }
+@media (min-width:980px){ #dining-card { order:2; } }
+
+/* “A First Look” gallery — horizontal, not stacked */
+.photo-grid{
+  display:grid; gap:.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.photo-grid figure{ margin:0; }
+.photo-grid img{ width:100%; height:auto; display:block; border-radius:12px; }
+.photo-grid figcaption{ font-size:.8rem; color:#546; margin-top:.35rem; }
+
+/* Ken’s Logbook — pill disclosure + readable prose */
+.note-kens-logbook .pill{
+  display:inline-block; padding:.45rem .7rem; border-radius:999px;
+  background:#e6f4f8; border:1px solid var(--rope); font-weight:600;
+  color:#0a3d62; margin:.2rem 0 .8rem;
+}
+.note-kens-logbook .prose{ line-height:1.65; font-size:1rem; color:var(--ink); }
+.note-kens-logbook .prose h3{ margin:1.1rem 0 .4rem; color:var(--sea); }
+.note-kens-logbook .prose p{ margin:.65rem 0; }
+.note-kens-logbook .prose ul{ padding-left:1.1rem; margin:.5rem 0; }
+.note-kens-logbook .prose li{ margin:.35rem 0; }
+
+/* Video carousel centered at ~1/2–2/3 page */
+.swiper{ width:100%; max-width:820px; margin:0 auto; }
+.swiper-slide iframe{
+  width:100%; aspect-ratio:16/9; display:block; border:0; border-radius:12px;
+}
+/* Keep controls above watermark */
+.swiper .swiper-button-prev,
+.swiper .swiper-button-next,
+.swiper .swiper-pagination{ z-index:4; }
+
+/* Deck plans + Live tracker side-by-side via .grid-2 (above) */
+
+/* Kill any legacy stripes */
+.hockey-stick,.masthead-stripe,.header-stripe,
+header.site-header::before, header.site-header::after{ display:none !important }
+
+/* Responsive tweak */
+@media (max-width:900px){ .feature-ship{ grid-template-columns:1fr } }
+@media (max-width:600px){
+  .hero{ min-height:clamp(170px,30vw,300px) }
+  .hero-title .logo{ width:clamp(170px,36vw,320px) }
+}
+
+/* ===== ships.html additions (carried over) ===== */
+.jump-menu { margin: 0 0 12px }
+.jump-line { display:flex; gap:.4rem; flex-wrap:wrap }
+.pill {
+  display:inline-block; padding:.35rem .6rem; border:1px dashed var(--rope);
+  border-radius:999px; background:#fff; font-size:.9rem;
+}
+.more-lines summary { cursor:pointer; padding:.35rem .6rem; border:1px dashed var(--rope); border-radius:999px; background:#fff }
+.more-lines .more-wrap { margin-top:.5rem; display:flex; flex-wrap:wrap; gap:.4rem }
+.more-lines a { padding:.25rem .55rem; border:1px solid var(--rope); border-radius:999px; background:#fff; font-size:.85rem }
+
+.fleet-root > .card { margin-bottom: 1rem }
+.class-pills { display:flex; gap:.4rem; flex-wrap:wrap; margin:.2rem 0 .6rem }
+
+.ship-card {
+  display:grid; grid-template-columns: 96px 1fr; gap:.6rem;
+  align-items:center; padding:.6rem; border:2px solid var(--rope);
+  border-radius:14px; background:#fff; text-decoration:none; color:inherit;
+  box-shadow:0 2px 6px rgba(8,48,65,.08);
+}
+.ship-card .thumb { width:96px; height:64px; overflow:hidden; border-radius:10px; background:#eef4f6; border:1px solid #dfe7ea }
+.ship-card .thumb img { width:100%; height:100%; object-fit:cover }
+.ship-card .thumb img.thumb-fallback { object-fit:contain; padding:6px; background:#fff }
+.ship-card .body { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap }
+.ship-card .badge {
+  font-size:.72rem; background:#e6f4f8; border:1px solid var(--rope);
+  border-radius:999px; padding:.1rem .5rem;
+}
+.ship-card.historical .badge.hist { background:#fff4f1; border-color:#e2a58b }
+.ship-card.is-disabled { opacity:.7; pointer-events:none }
+
+/* Collapsible */
+.collapsible > details > summary { cursor:pointer; font-weight:700; }
+.collapsible > details[open] { scroll-margin-top: 90px; }
+
+/* Ensure anchor targets sit below sticky header */
+[id]{ scroll-margin-top: 90px }
+
+/* === Mega-Nav (multi-level hover) === */
+.mega-nav{ position:relative; background:#fff; border-top:6px double var(--rope); border-bottom:2px solid var(--rope); }
+.mega-nav .lvl-1, .mega-nav .lvl-2, .mega-nav .lvl-3, .mega-nav .lvl-4{ list-style:none; margin:0; padding:0; }
+.mega-nav .lvl-1{
+  max-width:1100px; margin:0 auto; display:flex; gap:.4rem; padding:.55rem .9rem; flex-wrap:wrap;
+}
+.mega-nav a{ display:block; padding:.4rem .6rem; border:1px dashed var(--rope); border-radius:10px; background:#f9fdfd; color:var(--ink); font-weight:600; font-size:.92rem; }
+.mega-nav a:focus, .mega-nav a:hover{ outline:none; text-decoration:none; background:#fff; box-shadow:0 1px 4px rgba(8,48,65,.12); }
+.mega-nav li{ position:relative }
+.mega-nav .flyout{ position:absolute; left:0; top:calc(100% + 2px); background:#fff; border:2px solid var(--rope); border-radius:12px; box-shadow:0 6px 20px rgba(8,48,65,.15); padding:.5rem; display:none; z-index:30; min-width:280px }
+.mega-nav .cols{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.25rem .5rem; }
+.mega-nav li:hover > .flyout, .mega-nav li:focus-within > .flyout{ display:block }
+.mega-nav .pill{ display:inline-block; padding:.3rem .55rem; border:1px solid var(--rope); border-radius:999px; background:#fff; font-size:.9rem; margin:.15rem .25rem .15rem 0 }
+.mega-nav .badge{ font-size:.72rem; opacity:.7; margin-left:.35rem }
+.mega-nav .hd{ font-weight:800; color:var(--sea); margin:.2rem 0 .35rem; }
+.mega-nav .flyout{ inset-inline-start:auto }
+.mega-nav li:hover .flyout{ transform-origin:top left }
+.mega-nav li:last-child .flyout{ right:0; left:auto }
+@media (max-width:900px){
+  .mega-nav .lvl-1{ justify-content:flex-start; gap:.35rem }
+  .mega-nav .flyout{ position:static; display:none; box-shadow:none; border:0; padding:.25rem 0; border-radius:0; }
+  .mega-nav li.open > .flyout{ display:block }
+  .mega-nav a{ border-radius:12px }
+}
+
+/* ===== Alternate multi-level nav ===== */
+:root{ --nav-bg:#0b3f56; --nav-item:#0e6e8e; --nav-text:#f7fdff; --nav-border:rgba(255,255,255,.18); }
+.site-nav{ position:relative; background:var(--nav-bg); border-top:6px double var(--rope); border-bottom:2px solid var(--rope); }
+.site-nav .navwrap{ max-width:1100px; margin:0 auto; padding:.35rem .9rem; color:var(--nav-text); display:flex; align-items:center; gap:.6rem }
+.site-nav a{ color:var(--nav-text); text-decoration:none }
+.nav-mega{ display:flex; gap:.4rem; flex-wrap:wrap; position:relative; }
+.nav-item{ position:relative; }
+.nav-btn{ display:inline-flex; align-items:center; gap:.4rem; padding:.45rem .65rem; border:1px dashed var(--nav-border); border-radius:10px; background:rgba(255,255,255,.06); font-weight:600; font-size:.92rem }
+.nav-btn:hover,.nav-item:focus-within .nav-btn{ background:rgba(255,255,255,.12) }
+.dropdown{ position:absolute; left:0; top:calc(100% + 6px); min-width:280px; background:#083041; border:1px solid var(--nav-border); border-radius:12px; box-shadow:0 10px 24px rgba(0,0,0,.28); padding:.4rem; z-index:30; display:none }
+.nav-item:hover > .dropdown,.nav-item:focus-within > .dropdown{ display:block }
+.brands-grid{ display:grid; grid-template-columns:repeat(3,minmax(140px,1fr)); gap:.35rem }
+.brand-link{ display:flex; align-items:center; justify-content:space-between; padding:.5rem .55rem; border-radius:8px; background:rgba(255,255,255,.04); border:1px dashed var(--nav-border); font-weight:600 }
+.brand-link:hover{ background:rgba(255,255,255,.12) }
+.brand-link .count{ opacity:.75; font-size:.8rem }
+.fly{ position:absolute; left:100%; top:0; margin-left:.5rem; min-width:260px }
+.class-list, .ship-list{ list-style:none; margin:0; padding:0 }
+.class-item>a, .ship-item>a{ display:flex; justify-content:space-between; align-items:center; padding:.5rem .6rem; border-radius:8px; border:1px dashed var(--nav-border); background:rgba(255,255,255,.04); margin:.25rem 0 }
+.class-item>a:hover, .ship-item>a:hover{ background:rgba(255,255,255,.12) }
+.brand-item{ position:relative }
+.brand-item:hover > .fly, .brand-item:focus-within > .fly,
+.class-item:hover > .fly, .class-item:focus-within > .fly{ display:block }
+@media (max-width:900px){
+  .nav-mega{ overflow-x:auto; white-space:nowrap }
+  .dropdown, .fly{ position:static; display:none; margin:0; box-shadow:none }
+  .nav-item.open > .dropdown{ display:block }
+  .class-item.open > .fly, .brand-item.open > .fly{ display:block }
+}
+
+/* Mega menu (global) – ensure overlays don’t block */
+.menu-wrap{position:relative;z-index:1010}
+.mega{position:absolute;left:0;top:calc(100% + 8px);background:#ffffff;border:2px solid var(--rope);
+  border-radius:14px;box-shadow:0 8px 24px rgba(8,48,65,.18);padding:.6rem;display:none;min-width:340px;z-index:1050}
+.mega.visible{display:block}
+.menu-col{display:flex;gap:.75rem;align-items:flex-start}
+.menu-level{min-width:220px;max-height:60vh;overflow:auto;border-right:1px dashed rgba(8,48,65,.2);padding:.4rem}
+.menu-level:last-child{border-right:none}
+.menu-level h4{margin:.25rem .25rem .4rem;font-size:.95rem;color:var(--sea)}
+.menu-level ul{list-style:none;margin:0;padding:0}
+.menu-level li{margin:0}
+.menu-level button{display:block;width:100%;text-align:left;background:transparent;border:none;padding:.38rem .5rem;border-radius:8px;cursor:pointer}
+.menu-level button:hover,.menu-level button:focus{background:#fff2e0;outline:none}
+.badge{font-size:.8rem;padding:.1rem .35rem;border:1px solid var(--rope);border-radius:6px;margin-left:.35rem;color:#2a5b6e}
+.hero-grid, .hero-photo, .hero-compass { pointer-events:none; }
+
+/* Buttons */
+.btn{
+  display:inline-block; padding:.5rem .8rem; border-radius:999px;
+  border:1px solid var(--accent); color:var(--accent);
+  text-decoration:none; font-size:.95rem; line-height:1;
+}
+.btn:hover{ background:var(--accent); color:#fff; }
+
+/* Toolbar (fix truncated rule) */
+.toolbar{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:.6rem 0 1rem }
+.toolbar input[type="search"], .toolbar select{ padding:.5rem; }
