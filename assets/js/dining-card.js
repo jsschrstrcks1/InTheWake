@@ -53,19 +53,12 @@
   }
 
   // 3) Walk a very flexible schema to find the ship record
-  // Acceptable shapes include:
-  //  a) { ships:[{name:'Grandeur of the Seas', dining:{included:[], premium:[]}}] }
-  //  b) [{name:'Grandeur of the Seas', ...}, ...]
-  //  c) { rcl:{ ships:[...] }, carnival:{...}, ...}
-  //  d) { "Grandeur of the Seas": { dining:{...} }, ... }
   function* iterateShipCandidates(root){
     if (!root) return;
-    // direct array
     if (Array.isArray(root)){
       for (const it of root) yield it;
       return;
     }
-    // object with ships array or object
     if (root.ships){
       const s = root.ships;
       if (Array.isArray(s)){
@@ -74,7 +67,6 @@
         for (const k of Object.keys(s)) yield s[k];
       }
     }
-    // nested brands/classes
     for (const key of Object.keys(root)){
       if (key === 'ships') continue;
       const v = root[key];
@@ -82,7 +74,6 @@
       if (Array.isArray(v)){
         for (const it of v) yield it;
       }else if (typeof v === 'object'){
-        // dive 1 level
         if (v.ships){
           const s = v.ships;
           if (Array.isArray(s)){
@@ -91,7 +82,6 @@
             for (const k of Object.keys(s)) yield s[k];
           }
         }
-        // yield nested plain ship-like objects as well
         for (const k of Object.keys(v)){
           const vv = v[k];
           if (vv && typeof vv === 'object' && (vv.name || vv.ship || vv.title || vv.dining)){
@@ -100,11 +90,9 @@
         }
       }
     }
-    // object keyed by ship name
     for (const k of Object.keys(root)){
       const v = root[k];
       if (v && typeof v === 'object' && (v.dining || v.venues)){
-        // attach key as a name if missing
         yield Object.assign({ name: k }, v);
       }
     }
@@ -113,7 +101,7 @@
   function normalizeName(x){
     return (x || '').toString().trim().toLowerCase()
       .replace(/\s+/g,' ')
-      .replace(/ of the seas$/,'') // allow matching without suffix too
+      .replace(/ of the seas$/,'')
       .replace(/’/g,"'");
   }
 
@@ -122,12 +110,9 @@
   }
 
   function pickDining(obj){
-    // Look for obj.dining.included/premium or obj.venues.{included,premium}
     const d = obj?.dining || obj?.venues || {};
-    // some sources may use 'complimentary' instead of 'included'
     const included = d.included || d.complimentary || [];
     const premium  = d.premium || d.specialty || d.extra || [];
-    // sometimes venues is a flat array of {name, type:'included'|'premium'}
     if (!included.length && !premium.length && Array.isArray(d)){
       const inc = [], pre = [];
       d.forEach(v => {
@@ -144,7 +129,6 @@
   }
 
   function cleanList(arr){
-    // flatten, to strings, trim, dedupe, sort
     const out = [];
     (arr || []).forEach(v => {
       if (v == null) return;
@@ -186,7 +170,6 @@
     $card.setAttribute('aria-busy','false');
   }
 
-  // 4) Boot
   (async function init(){
     try{
       $card.setAttribute('aria-busy','true');
@@ -195,8 +178,6 @@
         renderError('Ship name not detected on the page.');
         return;
       }
-
-      // find matching record(s)
       const target = normalizeName(SHIP_NAME);
       let best = null;
 
@@ -204,11 +185,9 @@
         const nm = candidateName(cand);
         if (!nm) continue;
         const norm = normalizeName(nm);
-        // Exact match or forgiving match without "of the seas"
         if (norm === target || norm.replace(/\s* of the seas$/,'') === target.replace(/\s* of the seas$/,'')){
           best = cand; break;
         }
-        // soft match: one contains the other
         if (!best && (norm.includes(target) || target.includes(norm))) best = cand;
       }
 
