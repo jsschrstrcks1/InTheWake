@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Grandeur of the Seas — In the Wake (v2.241)</title>
+  <title>Grandeur of the Seas — In the Wake (v2.242)</title>
 
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean’s Grandeur of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
@@ -22,6 +22,54 @@
 
   <!-- Swiper -->
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
+
+  <!-- Local fixes: hero unmute + pill nav bottom-right + stats styles -->
+  <style>
+    /* Make hero 100% unfiltered everywhere on this page */
+    body.page.no-hero-filter .hero,
+    .hero-header .hero { filter:none !important; }
+    .hero-header .hero::before,
+    .hero-header .hero::after { content:none !important; }
+    .hero-header .latlon-grid { mix-blend-mode:normal !important; }
+
+    /* Navbar: pin the pill nav to the bottom-right, no logo overlap */
+    .hero-header .navbar{
+      max-width:1100px; margin:0 auto;
+      display:flex; flex-wrap:nowrap;
+      align-items:flex-end;               /* bottom align inside the bar */
+      justify-content:flex-start;
+      gap:.6rem; padding:.5rem .9rem .35rem;
+      position:relative; z-index:5;
+    }
+    .hero-header .brand{ align-self:flex-end; display:flex; align-items:flex-end; }
+    .hero-header .brand img{ height:28px; width:auto; display:block; }
+    .hero-header nav.pills{
+      margin-left:auto; align-self:flex-end;
+      display:flex; flex-wrap:wrap; justify-content:flex-end;
+      gap:.5rem; padding-bottom:.05rem;   /* visually bottoms the row */
+      max-width:min(78vw, 860px);         /* keep from running under logo */
+    }
+
+    /* One long attribution pill */
+    .hero-credit{
+      position:absolute; right:min(1rem,3vw); bottom:.8rem; z-index:4;
+    }
+    .hero-credit .pill.long{
+      display:inline-block; padding:.45rem .7rem; border-radius:999px;
+      background:#fff; border:1px solid var(--rope); font-weight:600;
+      color:#0a3d62; text-decoration:none; white-space:nowrap;
+      box-shadow:0 2px 6px rgba(8,48,65,.08);
+    }
+    .hero-credit .pill.long:hover{ background:#f9fdfd; text-decoration:none; }
+
+    /* Stats block */
+    .ship-stats.card.mini{ margin-top:1rem; }
+    .stats-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:.4rem .75rem; }
+    .stat-line{ display:flex; justify-content:space-between; gap:.75rem; border-bottom:1px dashed #e4e9ec; padding:.2rem 0; }
+    .stat-key{ font-weight:600; color:var(--sea); }
+    .stat-val{ color:var(--ink); }
+    @media (max-width:640px){ .stats-grid{ grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body class="page no-hero-filter">
   <header class="hero-header">
@@ -223,7 +271,7 @@
   <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
   <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
-  <script src="/assets/js/dining-card.js?v=2.241" defer></script>
+  <script src="/assets/js/dining-card.js?v=2.242" defer></script>
   <script>
     // First Look images — initialize Swiper
     new Swiper('.swiper.firstlook', {
@@ -280,43 +328,43 @@
       const data = await fetchFirst(SOURCES);
       if (!data) return;
 
-      // find by slug or relaxed name
       const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
       const nslug = norm(slug);
       let ship = null;
 
-      const tryList = Array.isArray(data) ? data : (
-        data.ships || data.rcl || data.royal || data.lines || data
-      );
-      const scan = (obj) => {
-        if (!obj) return [];
-        if (Array.isArray(obj)) return obj;
-        return Object.values(obj);
-      };
+      // Accept several container shapes
+      const buckets = Array.isArray(data) ? [data] :
+        [data.ships, data.rcl, data.royal, data.lines, data.royal_caribbean, data];
 
-      for (const s of scan(tryList)){
-        if (!s) continue;
-        const sslug = norm(s.slug || s.id || '');
-        const sname = norm(s.name || s.title || s.ship || '');
-        if ((nslug && sslug===nslug) || sname.includes('grandeur of the seas')) { ship = s; break; }
+      const flatten = (x) => Array.isArray(x) ? x : (x ? Object.values(x) : []);
+      for (const bucket of buckets){
+        for (const s of flatten(bucket)){
+          if (!s) continue;
+          const sslug = norm(s.slug || s.id || s.attributes?.slug || '');
+          const sname = norm(s.name || s.title || s.ship || s.attributes?.name || '');
+          if ((nslug && sslug===nslug) || sname==='grandeur of the seas'){
+            ship = s; break;
+          }
+        }
+        if (ship) break;
       }
       if (!ship) return;
 
-      const candidates = {
-        Class: ship.class || ship.ship_class,
-        "Entered Service": ship.entered_service || ship.launched || ship.inaugural || ship.first_sailing,
-        "Gross Tonnage": ship.tonnage || ship.gross_tonnage,
-        Length: ship.length || ship.length_overall,
-        Beam: ship.beam || ship.width,
-        Guests: ship.passengers || ship.capacity || ship.guests,
-        Crew: ship.crew,
-        Registry: ship.flag || ship.registry
-      };
+      // Support attributes nested object (your sample shows attributes.{...})
+      const a = ship.attributes || ship;
 
-      const rows = Object.entries(candidates)
-        .filter(([,v]) => v!=null && v!=='')
-        .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`)
-        .join('');
+      const rows = [
+        ['Class', a.class || a.ship_class || 'Vision-class'],
+        ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
+        ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
+        ['Guests', a.capacity || a.passengers || a.guests],
+        ['Crew', a.crew],
+        ['Length', a.length || a.length_overall],
+        ['Beam', a.beam || a.width],
+        ['Registry', a.flag || a.registry]
+      ].filter(([,v]) => v != null && String(v).trim() !== '')
+       .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`).join('');
+
       el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
     })();
   </script>
