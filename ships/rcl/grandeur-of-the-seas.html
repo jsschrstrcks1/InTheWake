@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Grandeur of the Seas — In the Wake (v2.242)</title>
+  <title>Grandeur of the Seas — In the Wake (v2.243)</title>
 
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean’s Grandeur of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
@@ -18,7 +18,7 @@
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Global CSS -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.242"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.243"/>
 
   <!-- Swiper -->
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
@@ -67,7 +67,7 @@
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
 
-      <!-- One long attribution pill (bottom-right) -->
+      <!-- One long attribution pill -->
       <div class="hero-credit">
         <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
           Photo © Flickers of Majesty — Instagram
@@ -120,15 +120,12 @@
       <section id="dining-card" class="card" data-ship="Grandeur of the Seas" aria-labelledby="diningHeading">
         <h2 id="diningHeading">Dining Venues on Grandeur of the Seas</h2>
 
-        <!-- Required image at the top of the dining card -->
         <img class="card-hero"
              src="https://upload.wikimedia.org/wikipedia/commons/1/11/Cordelia_Empress_Food_Court.jpg"
              alt="Food court seating with ocean view" loading="lazy"/>
 
-        <!-- JS writes below so the hero image persists -->
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
-        <!-- Inline hook for dining loader -->
         <script type="application/json" id="dining-data-source">
           {
             "provider": "rcl",
@@ -146,7 +143,7 @@
       <p class="pill">Own Wake — Full disclosure: I have stood the watch on Grandeur of the Seas, for nine days logged in her logbook and mine. This is no tide of borrowed winds, but depth soundings taken in my own wake.</p>
 
       <div class="prose">
-        <!-- (unchanged prose) -->
+        <!-- (content unchanged) -->
         <p>We sailed in an ocean-view stateroom, where every sunrise framed the horizon like a painting—coffee in hand, it was the best way to start the day. Grandeur is the cozy heart of Royal’s Vision-class: small enough to feel familiar, big enough to keep you entertained. On our 9-night Eastern Caribbean run to Aruba, Curaçao, Bonaire, and Labadee, she showed why smaller ships often win hearts — warmth, intimacy, and crew who treat you like family.</p>
         <h3>The Crew and Staff</h3>
         <p>The crew was the soul of this sailing. Our stateroom attendant kept everything shipshape, towel animals included. Vincent at Guest Services handled requests with a smile and speed that felt like chatting with an old friend. And in Windjammer, Vergel spotted that we’d left without our eggs; before we could even circle back, he brought them fresh to our table — a small kindness that said everything about Grandeur’s crew.</p>
@@ -187,23 +184,6 @@
       </div>
     </section>
 
-    <!-- Row 2: Deck plans + Live tracker -->
-    <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Ship Layout (Deck Plans)</h2>
-        <p>Study the ship’s layout—pin your stateroom, elevators, dining, and venues before you sail.</p>
-        <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
-      </section>
-      <section class="card" aria-labelledby="liveTrackHeading">
-        <h2 id="liveTrackHeading">Where Is Grandeur Right Now?</h2>
-        <p>See the ship’s current geographic position, speed, and next port on a live tracker.</p>
-        <div class="map-actions">
-          <a class="btn" href="https://www.cruisemapper.com/ships/Grandeur-Of-The-Seas-598" target="_blank" rel="noopener">Open CruiseMapper Live Tracker</a>
-        </div>
-        <p class="tiny" style="margin-top:.35rem;">Tip: Keep this page open while you check the tracker; it opens in a new tab.</p>
-      </section>
-    </section>
-
     <section class="card" aria-labelledby="attribution">
       <h2 id="attribution">Attribution & Credits</h2>
       <ul>
@@ -217,9 +197,9 @@
   <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
   <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
-  <script src="/assets/js/dining-card.js?v=2.242" defer></script>
+  <script src="/assets/js/dining-card.js?v=2.243" defer></script>
   <script>
-    // First Look images — initialize Swiper
+    /* First Look */
     new Swiper('.swiper.firstlook', {
       loop:false, lazy:true,
       pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
@@ -227,7 +207,7 @@
       a11y:{ enabled:true }
     });
 
-    // Videos carousel
+    /* Videos */
     (function initVideos(){
       const DATA = [
         {"id": "-NS3BhWqzD4", "title": "Grandeur of the Seas — Full Ship Walkthrough (4K)"},
@@ -255,48 +235,52 @@
       });
     })();
 
-    // Ship stats loader (fleet_index.json)
+    /* Ship stats loader (deep-scan; matches your fleet_index.json) */
     (async function loadShipStats(){
       const el = document.getElementById('ship-stats');
       if (!el) return;
-      const slug = el.getAttribute('data-slug') || '';
+      const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
+
       const SOURCES = [
         'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
         '/assets/data/fleet_index.json',
         '/data/fleet_index.json'
       ];
       async function fetchFirst(list){
-        for (const u of list){
-          try{ const r = await fetch(u); if(r.ok) return r.json(); }catch{}
-        }
+        for (const u of list){ try{ const r = await fetch(u); if(r.ok) return r.json(); }catch{} }
         return null;
       }
       const data = await fetchFirst(SOURCES);
       if (!data) return;
 
       const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
-      const nslug = norm(slug);
-      let ship = null;
 
-      // Accept several container shapes
-      const buckets = Array.isArray(data) ? [data] :
-        [data.ships, data.rcl, data.royal, data.lines, data.royal_caribbean, data];
-
-      const flatten = (x) => Array.isArray(x) ? x : (x ? Object.values(x) : []);
-      for (const bucket of buckets){
-        for (const s of flatten(bucket)){
-          if (!s) continue;
-          const sslug = norm(s.slug || s.id || s.attributes?.slug || '');
-          const sname = norm(s.name || s.title || s.ship || s.attributes?.name || '');
-          if ((nslug && sslug===nslug) || sname==='grandeur of the seas'){ ship = s; break; }
+      // Deep recursive scan: finds any object with a matching slug, regardless of nesting.
+      function* walk(node){
+        if (!node) return;
+        if (Array.isArray(node)){ for (const it of node) yield* walk(it); return; }
+        if (typeof node === 'object'){
+          yield node;
+          for (const v of Object.values(node)) yield* walk(v);
         }
-        if (ship) break;
       }
-      if (!ship) return;
 
-      const a = ship.attributes || ship;
+      let ship = null;
+      for (const obj of walk(data)){
+        if (obj && typeof obj === 'object'){
+          const rawSlug = obj.slug || obj.id || obj.attributes?.slug;
+          const nslug = norm(rawSlug);
+          const nname = norm(obj.name || obj.title || obj.ship || obj.attributes?.name);
+          if ((targetSlug && nslug === targetSlug) || nname === 'grandeur of the seas'){
+            ship = obj; break;
+          }
+        }
+      }
+      if (!ship) { el.innerHTML = '<p class="tiny">Stats coming soon.</p>'; return; }
+
+      const a = ship.attributes || ship; // support both flat and attributes.{}
       const rows = [
-        ['Class', a.class || a.ship_class || 'Vision-class'],
+        ['Class', a.class || a.ship_class || (a.notes && /vision/i.test(a.notes) ? 'Vision-class' : '')],
         ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
         ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
         ['Guests', a.capacity || a.passengers || a.guests],
