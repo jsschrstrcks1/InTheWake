@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <!-- ===== SEO Meta Polish (canon) ===== -->
+  <title>{{SHIP_NAME}} — Royal Caribbean Review & Guide (v2.245)</title>
+  <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/{{SHIP_SLUG}}.html"/>
+  <meta name="description" content="Discover {{SHIP_NAME}}: {{CLASS_BLURB}} — dining highlights, crew warmth, live tracking, and planning tips inside."/>
+
+  <!-- OpenGraph / Twitter -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/{{SHIP_SLUG}}.html"/>
+  <meta property="og:title" content="{{SHIP_NAME}} — Royal Caribbean Review & Guide"/>
+  <meta property="og:description" content="Explore {{SHIP_NAME}} with expert insights, dining highlights, accessibility notes, and live tracking."/>
+  <meta property="og:image" content="{{HERO_IMAGE_URL}}?v=2.245"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="{{SHIP_NAME}} — Royal Caribbean Review & Guide"/>
+  <meta name="twitter:description" content="Sail into {{SHIP_SHORT}}’s appeal — venues, staterooms, crew stories, and more."/>
+  <meta name="twitter:image" content="{{HERO_IMAGE_URL}}?v=2.245"/>
+
+  <!-- JSON-LD (CruiseShip schema) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CruiseShip",
+    "name": "{{SHIP_NAME}}",
+    "url": "https://www.cruisinginthewake.com/ships/rcl/{{SHIP_SLUG}}.html",
+    "image": "{{HERO_IMAGE_URL}}?v=2.245",
+    "brand": {
+      "@type": "Organization",
+      "name": "Royal Caribbean International",
+      "url": "https://www.royalcaribbean.com/"
+    }
+  }
+  </script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.245"/>
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
+</head>
+<body class="page no-hero-filter">
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
+      </div>
+      <nav class="pills" aria-label="Site">
+        <a href="https://www.cruisinginthewake.com/index.html">Home</a>
+        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
+        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants & Menus</a>
+        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+        <a href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html">Cruise Lines</a>
+      </nav>
+    </div>
+
+    <div class="hero" role="img" aria-label="{{SHIP_NAME}} hero image">
+      <div class="latlon-grid" aria-hidden="true">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+          <g class="grid-lines" stroke-width="0.35">
+            <line x1="10" y1="0" x2="10" y2="60"/>
+            <line x1="20" y1="0" x2="20" y2="60"/>
+            <line x1="30" y1="0" x2="30" y2="60"/>
+            <line x1="40" y1="0" x2="40" y2="60"/>
+            <line x1="50" y1="0" x2="50" y2="60"/>
+            <line x1="60" y1="0" x2="60" y2="60"/>
+            <line x1="70" y1="0" x2="70" y2="60"/>
+            <line x1="80" y1="0" x2="80" y2="60"/>
+            <line x1="90" y1="0" x2="90" y2="60"/>
+            <line x1="0" y1="10" x2="100" y2="10"/>
+            <line x1="0" y1="20" x2="100" y2="20"/>
+            <line x1="0" y1="30" x2="100" y2="30"/>
+            <line x1="0" y1="40" x2="100" y2="40"/>
+          </g>
+        </svg>
+      </div>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <div class="hero-title">
+        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+
+      <!-- One long attribution pill -->
+      <div class="hero-credit">
+        <a class="pill long" href="{{HERO_CREDIT_URL}}" target="_blank" rel="noopener">
+          Photo © {{HERO_CREDIT_LABEL}}
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <!-- Row 1: First Look (left) + Dining card (right) -->
+    <section class="grid-2">
+      <!-- A First Look + Ship stats -->
+      <section class="card" aria-labelledby="photosHeading">
+        <h2 id="photosHeading">A First Look</h2>
+
+        <div class="swiper firstlook" aria-label="{{SHIP_NAME}} photo carousel">
+          <div class="swiper-wrapper" id="firstlookSlides">
+            <!-- Supply up to three figures via JS or static HTML -->
+          </div>
+          <div class="swiper-pagination" aria-hidden="true"></div>
+          <div class="swiper-button-prev" aria-label="Previous image"></div>
+          <div class="swiper-button-next" aria-label="Next image"></div>
+        </div>
+
+        <!-- Ship stats (auto) -->
+        <section class="ship-stats card mini" aria-labelledby="statsHeading">
+          <h3 id="statsHeading">{{SHIP_SHORT}} at a Glance</h3>
+          <div id="ship-stats" class="stats-grid" data-slug="{{SHIP_SLUG}}"></div>
+        </section>
+      </section>
+
+      <!-- Dining venues (JSON-driven) -->
+      <section id="dining-card" class="card" data-ship="{{SHIP_NAME}}" aria-labelledby="diningHeading">
+        <h2 id="diningHeading">Dining Venues on {{SHIP_NAME}}</h2>
+
+        <img class="card-hero"
+             src="https://upload.wikimedia.org/wikipedia/commons/1/11/Cordelia_Empress_Food_Court.jpg"
+             alt="Food court seating with ocean view" loading="lazy"/>
+
+        <div class="dining-content" id="dining-content" aria-live="polite"></div>
+
+        <script type="application/json" id="dining-data-source">
+          {
+            "provider": "rcl",
+            "json": "https://www.cruisinginthewake.com/assets/data/rc-restaurants.json",
+            "ship_slug": "{{SHIP_SLUG}}",
+            "aliases": ["{{SHIP_NAME}}", "{{SHIP_SHORT}}"]
+          }
+        </script>
+      </section>
+    </section>
+
+    <!-- Ken’s Logbook -->
+    <section class="card note-kens-logbook" aria-labelledby="logbookHeading">
+      <h2 id="logbookHeading">A Note from Ken’s Logbook — A Personal Review</h2>
+      <p class="pill">{{DISCLOSURE_PILL}}</p>
+
+      <div class="prose">
+        <!-- Your narrative sections here -->
+        <h3>Shows and Entertainment</h3>
+        <p>{{LOGBOOK_SHOWS}}</p>
+
+        <h3>Dining</h3>
+        <p>{{LOGBOOK_DINING}}</p>
+
+        <h3>Embarkation &amp; Disembarkation</h3>
+        <p>{{LOGBOOK_EMBARK}}</p>
+
+        <h3>The Real Talk</h3>
+        <p>{{LOGBOOK_REAL_TALK}}</p>
+
+        <!-- ===== NEW: Accessibility subsection (canon) ===== -->
+        <h3>Accessible Seas on {{SHIP_SHORT}}</h3>
+        <div class="card accessibility" role="region" aria-label="Accessibility features on {{SHIP_SHORT}}">
+          <ul>
+            <li>Elevator access to all public decks</li>
+            <li>Pool lifts for mobility assistance</li>
+            <li>Accessible staterooms with roll-in showers</li>
+            <li>Priority tendering for shore excursions</li>
+          </ul>
+          <p><a href="https://www.cruisinginthewake.com/disability-at-sea.html" class="btn">Learn More Accessibility Tips</a></p>
+        </div>
+
+        <!-- Canon label -->
+        <h3>A Female Crewmate’s Perspective</h3>
+        <p>{{FEMALE_CREWMATE_P}}</p>
+
+        <h3>Closing Thoughts</h3>
+        <p>{{LOGBOOK_CLOSING}}</p>
+      </div>
+
+      <p class="sail-deals">
+        <a class="btn ghost" href="https://www.vacationstogo.com/ticker.cfm?incCT=y&s=86&sort=pdm" target="_blank" rel="noopener">
+          Plot your next sailing → (Vacations To Go)
+        </a>
+      </p>
+    </section>
+
+    <!-- ===== NEW: Fuel Your Voyage (canon) ===== -->
+    <div class="card voyage-tips" aria-label="Voyage planning tips">
+      <h2 class="card-title">Fuel Your Voyage</h2>
+      <div class="card-content">
+        <h3>Drink Packages</h3>
+        <ul>
+          <li>Deluxe Beverage Package: ~${{DRINK_DELUXE_PRICE}}/day for premium drinks</li>
+          <li>Refreshment Package: Non-alcoholic options</li>
+        </ul>
+        <h3>Pack Like a Pro</h3>
+        <ul>
+          <li>Shawl for chilly theater nights</li>
+          <li>Swimwear for pool deck</li>
+          <li>Comfortable shoes for shore tours</li>
+        </ul>
+        <p>
+          <a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn">View Drink Options</a>
+          |
+          <a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn">Packing Guide</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Videos -->
+    <section class="card" aria-labelledby="videosHeading">
+      <h2 id="videosHeading">Watch: {{SHIP_SHORT}} Highlights</h2>
+      <p class="small">Walkthrough, top things to do, then stateroom tours by type; plus any green-list videos from our source of truth.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <!-- Optional inline config for videos -->
+      <script type="application/json" id="video-data-source">
+        {
+          "order": ["walkthrough","top-things","stateroom-interior","stateroom-oceanview","stateroom-balcony","stateroom-suite","accessibility","extras"],
+          "fallback": [
+            {"id": "dQw4w9WgXcQ", "title": "{{SHIP_SHORT}} — Overview"}
+          ]
+        }
+      </script>
+    </section>
+
+    <!-- ===== NEW: Related Ships (canon) ===== -->
+    <div class="card carousel related-ships">
+      <h2 class="card-title">Related Ships</h2>
+      <div class="swiper-container" aria-label="Related Royal Caribbean ships">
+        <div class="swiper-wrapper" id="relatedShips"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+      <p><a href="https://www.cruisinginthewake.com/ships/ships.html" class="btn">See All Ships</a></p>
+    </div>
+
+    <!-- ===== NEW: Explore by Class (canon) ===== -->
+    <div class="card carousel related-classes">
+      <h2 class="card-title">Explore by Class</h2>
+      <div class="swiper-container" aria-label="Royal Caribbean ship classes">
+        <div class="swiper-wrapper" id="relatedClasses"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+      <p><a href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html" class="btn">Royal Caribbean Overview</a></p>
+    </div>
+
+    <!-- Row 2: Deck plans + Live tracker -->
+    <section class="grid-2">
+      <section class="card" aria-labelledby="deckPlansHeading">
+        <h2 id="deckPlansHeading">Ship Map (Deck Plans)</h2>
+        <p>Study the layout—pin your stateroom, elevators, dining, and venues before you sail.</p>
+        <p><a class="btn" href="{{DECK_PLANS_URL}}" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+      </section>
+      <section class="card" aria-labelledby="liveTrackHeading">
+        <h2 id="liveTrackHeading">Where Is {{SHIP_SHORT}} Right Now?</h2>
+        <p>See the ship’s current position, speed, and next port on a live tracker.</p>
+
+        <!-- ===== NEW: Live Itinerary widget (canon) ===== -->
+        <div class="card itinerary">
+          <h3>Live Itinerary</h3>
+          <iframe src="https://www.vesselfinder.com/vessels/{{VF_NAME_OR_IMO}}" width="100%" height="300" frameborder="0" allowfullscreen loading="lazy" aria-label="Live ship tracker for {{SHIP_SHORT}}"></iframe>
+          <p class="tiny">Sample Route: {{SAMPLE_ITINERARY}}</p>
+        </div>
+
+        <p class="tiny" style="margin-top:.35rem;">Tip: Keep this page open while you check the tracker; it opens in a new tab. Explore ports: <a href="https://www.cruisinginthewake.com/ports.html">ports guide</a>.</p>
+        <div class="map-actions">
+          <a class="btn" href="{{LIVETRACK_URL}}" target="_blank" rel="noopener">Open CruiseMapper Live Tracker</a>
+        </div>
+      </section>
+    </section>
+
+    <section class="card" aria-labelledby="attribution">
+      <h2 id="attribution">Attribution & Credits</h2>
+      <ul>
+        <li>Hero/Photos: © <a href="{{HERO_CREDIT_URL}}" target="_blank" rel="noopener">{{HERO_CREDIT_LABEL}}</a> — used with attribution</li>
+        <li>Videos: curated from public sources (YouTube); titles inside embeds</li>
+      </ul>
+      <p class="tiny">All rights reserved.</p>
+    </section>
+  </main>
+
+  <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
+
+  <!-- JS -->
+  <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
+  <script src="/assets/js/dining-card.js?v=2.244" defer></script>
+
+  <script>
+    /* ---------- Helpers ---------- */
+    const SHIP_NAME = "{{SHIP_NAME}}";
+    const SHIP_SLUG = "{{SHIP_SLUG}}";
+    const SHIP_CLASS = "{{SHIP_CLASS}}"; // e.g., Vision, Voyager, Oasis, etc.
+    const LINE_KEY = "rcl"; // Royal Caribbean
+
+    /* First Look (supply figures here if not inlined) */
+    (function initFirstLook(){
+      const wrap = document.getElementById('firstlookSlides');
+      if (!wrap) return;
+      const imgs = (window.FIRSTLOOK_IMAGES || [
+        {src:"{{HERO_IMAGE_URL}}?v=2.245", alt: `${SHIP_NAME} — exterior view`, credit:"Wikimedia Commons", href:"{{HERO_CREDIT_URL}}"}
+      ]).slice(0,3);
+      imgs.forEach(i => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = `
+          <figure>
+            <img src="${i.src}" alt="${i.alt}" loading="lazy"/>
+            <figcaption class="tiny">Photo © <a href="${i.href||'#'}" target="_blank" rel="noopener">${i.credit||''}</a></figcaption>
+          </figure>`;
+        wrap.appendChild(slide);
+      });
+      new Swiper('.swiper.firstlook', {
+        loop:false, lazy:true,
+        pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
+        navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
+        a11y:{ enabled:true }
+      });
+    })();
+
+    /* Videos — preferred: provide structured JSON in #video-data-source */
+    (function initVideos(){
+      const cfgHook = document.getElementById('video-data-source');
+      let CFG = {};
+      try { CFG = JSON.parse(cfgHook?.textContent||'{}'); } catch {}
+      const ORDER = CFG.order || ["walkthrough","top-things","stateroom-interior","stateroom-oceanview","stateroom-balcony","stateroom-suite","accessibility","extras"];
+      // TODO: Pull from /assets/data/trusted_channels.json when present; for now use fallback
+      const LIST = CFG.fallback || [];
+      const wrap = document.getElementById('featuredVideos');
+      LIST.forEach(v => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = `<iframe title="${v.title}"
+                               src="https://www.youtube.com/embed/${v.id}"
+                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                               allowfullscreen loading="lazy"></iframe>`;
+        wrap.appendChild(slide);
+      });
+      new Swiper('.swiper.videos', {
+        loop:false, lazy:true,
+        pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
+        navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+        a11y:{ enabled:true }
+      });
+    })();
+
+    /* Ship stats loader (fleet_index.json tolerant) */
+    (async function loadShipStats(){
+      const el = document.getElementById('ship-stats');
+      if (!el) return;
+      const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
+      const SOURCES = [
+        'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
+        '/assets/data/fleet_index.json',
+        '/data/fleet_index.json'
+      ];
+      async function tryFetch(u){
+        const url = u + (u.includes('?') ? '&' : '?') + 'v=' + Date.now();
+        const res = await fetch(url, { cache:'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      }
+      let data = null;
+      for (const u of SOURCES){ try { data = await tryFetch(u); break; } catch(e){} }
+      if (!data){ el.innerHTML = '<p class="tiny">Stats coming soon.</p>'; return; }
+
+      const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
+      function* walk(n){ if(!n) return; if(Array.isArray(n)){for(const it of n) yield* walk(it); return;}
+        if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
+
+      let ship = null;
+      for (const obj of walk(data)){
+        if (!obj || typeof obj!=='object') continue;
+        const rawSlug = obj.slug || obj.id || obj.attributes?.slug;
+        const nslug = norm(rawSlug);
+        const nname = norm(obj.name || obj.title || obj.ship || obj.attributes?.name);
+        if ((targetSlug && nslug === targetSlug) || nname === norm(SHIP_NAME)){ ship = obj; break; }
+      }
+      if (!ship){ el.innerHTML = '<p class="tiny">Stats coming soon.</p>'; return; }
+
+      const a = ship.attributes || ship;
+      const rows = [
+        ['Class', a.class || a.ship_class || ''],
+        ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
+        ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
+        ['Guests', a.capacity || a.passengers || a.guests],
+        ['Crew', a.crew],
+        ['Length', a.length || a.length_overall],
+        ['Beam', a.beam || a.width],
+        ['Registry', a.flag || a.registry]
+      ].filter(([,v]) => v != null && String(v).trim() !== '')
+       .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`)
+       .join('');
+      el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
+
+      // seed globals for related sections
+      window.__SHIP_CLASS = a.class || a.ship_class || SHIP_CLASS || '';
+      window.__LINE = (a.line || a.brand || 'Royal Caribbean');
+    })();
+
+    /* Related Ships (same line + class) & Explore by Class (other classes in same line) */
+    (async function relatedCarousels(){
+      const shipWrap = document.getElementById('relatedShips');
+      const classWrap = document.getElementById('relatedClasses');
+      if (!shipWrap && !classWrap) return;
+
+      const urlList = [
+        'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
+        '/assets/data/fleet_index.json','/data/fleet_index.json'
+      ];
+      async function fetchFirst(list){ for (const u of list){ try{ const r=await fetch(u); if(r.ok) return r.json(); }catch{} } return null; }
+      const data = await fetchFirst(urlList);
+      if (!data) return;
+
+      const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
+      function* walk(n){ if(!n) return; if(Array.isArray(n)){for(const it of n) yield* walk(it); return;}
+        if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
+
+      const items = [];
+      for (const o of walk(data)){
+        if (o && (o.name||o.title) && (o.slug||o.id) && (o.brand||o.line||o.operator||o.class||o.ship_class)){
+          items.push({
+            name:o.name||o.title, slug:o.slug||o.id, line:o.brand||o.line||o.operator||'',
+            cls:o.class||o.ship_class||'', href:`/ships/rcl/${(o.slug||'').toLowerCase()}.html`
+          });
+        }
+      }
+
+      const myClass = (window.__SHIP_CLASS||'').toString();
+      const myLine = 'Royal Caribbean';
+      const related = items.filter(i => norm(i.line).includes('royal') && norm(i.cls)===norm(myClass) && norm(i.name)!==norm(SHIP_NAME));
+      const classes = Array.from(new Map(
+        items.filter(i => norm(i.line).includes('royal'))
+             .map(i => [norm(i.cls||'other'), i.cls||'Other'])
+      ).values());
+
+      if (shipWrap){
+        (related.length?related.slice(0,12):[]).forEach(i=>{
+          const slide = document.createElement('div');
+          slide.className='swiper-slide';
+          slide.innerHTML = `<a href="${i.href}">${i.name}</a>`;
+          shipWrap.appendChild(slide);
+        });
+        new Swiper('.related-ships .swiper-container', {
+          slidesPerView: 1.2, spaceBetween: 10,
+          breakpoints:{ 680:{slidesPerView:2.2}, 980:{slidesPerView:3.2}},
+          navigation:{ nextEl:'.related-ships .swiper-button-next', prevEl:'.related-ships .swiper-button-prev' },
+          a11y:{ enabled:true }
+        });
+      }
+
+      if (classWrap){
+        classes.forEach(cn=>{
+          const slide = document.createElement('div'); slide.className='swiper-slide';
+          const clsSlug = cn.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+          slide.innerHTML = `<a href="/ships/ships.html#rcl-${clsSlug}">${cn || 'Other Class'}</a>`;
+          classWrap.appendChild(slide);
+        });
+        new Swiper('.related-classes .swiper-container', {
+          slidesPerView: 2.2, spaceBetween: 10,
+          breakpoints:{ 680:{slidesPerView:3.2}, 980:{slidesPerView:4.2}},
+          navigation:{ nextEl:'.related-classes .swiper-button-next', prevEl:'.related-classes .swiper-button-prev' },
+          a11y:{ enabled:true }
+        });
+      }
+    })();
+
+    /* Live tracker link (CruiseMapper search fallback) */
+    (function liveLinks(){
+      const href = `https://www.cruisemapper.com/?search=${encodeURIComponent(SHIP_NAME)}`;
+      const btn = document.querySelector('.map-actions a.btn');
+      if (btn && !btn.getAttribute('href')) btn.setAttribute('href', href);
+    })();
+  </script>
+</body>
+</html>
