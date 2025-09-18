@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Grandeur of the Seas — In the Wake (v2.239)</title>
+  <title>Grandeur of the Seas — In the Wake (v2.241)</title>
 
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean’s Grandeur of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
@@ -17,59 +17,11 @@
   <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%201.jpeg"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Global CSS (single source of truth) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.239"/>
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.241"/>
 
   <!-- Swiper -->
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
-
-  <!-- Local overrides: hero filter off, attribution pill visible, dining hero image style -->
-  <style>
-    /* HERO — keep image clean (no dim/overlay) */
-    .hero-header .hero img {
-      filter: none !important;
-      opacity: 1 !important;
-      mix-blend-mode: normal !important;
-    }
-    .hero-header .hero::before,
-    .hero-header .hero::after {
-      content: none !important;
-    }
-
-    /* Attribution pill — ensure visibility above hero */
-    .hero-credit {
-      position: absolute;
-      bottom: 0.85rem;
-      right: 0.85rem;
-      z-index: 5;
-      font-size: .9rem;
-      line-height: 1;
-      display: flex;
-      gap: .35rem;
-      align-items: center;
-      white-space: nowrap;
-    }
-    .hero-credit a {
-      display: inline-block;
-      background: rgba(255,255,255,0.95);
-      color: #0b2545;
-      padding: .35rem .6rem;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 1px 2px rgba(0,0,0,.08);
-    }
-    .hero-credit a:hover { background: #fff; }
-
-    /* Dining card: top image */
-    #dining-card .card-hero {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      display: block;
-    }
-  </style>
 </head>
 <body class="page no-hero-filter">
   <header class="hero-header">
@@ -115,18 +67,19 @@
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
 
-      <!-- Visible attribution pill (moved to top of hero visually) -->
+      <!-- One long attribution pill -->
       <div class="hero-credit">
-        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Instagram</a>
+        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
+          Photo © Flickers of Majesty — Instagram
+        </a>
       </div>
     </div>
   </header>
 
   <main class="wrap" id="content">
     <!-- Row 1: First Look (left) + Dining card (right) -->
-    <section class="grid-2" style="align-items:start">
-      <!-- A First Look: Swiper carousel -->
+    <section class="grid-2">
+      <!-- A First Look + Ship stats -->
       <section class="card" aria-labelledby="photosHeading">
         <h2 id="photosHeading">A First Look</h2>
 
@@ -155,31 +108,35 @@
           <div class="swiper-button-prev" aria-label="Previous image"></div>
           <div class="swiper-button-next" aria-label="Next image"></div>
         </div>
+
+        <!-- Ship stats (auto) -->
+        <section class="ship-stats card mini" aria-labelledby="statsHeading">
+          <h3 id="statsHeading">Grandeur at a Glance</h3>
+          <div id="ship-stats" class="stats-grid" data-slug="grandeur-of-the-seas"></div>
+        </section>
       </section>
 
-      <!-- Dining venues -->
+      <!-- Dining venues (JSON-driven) -->
       <section id="dining-card" class="card" data-ship="Grandeur of the Seas" aria-labelledby="diningHeading">
-        <h2 id="diningHeading">Dining Venues</h2>
+        <h2 id="diningHeading">Dining Venues on Grandeur of the Seas</h2>
 
         <!-- Required image at the top of the dining card -->
         <img class="card-hero"
              src="https://upload.wikimedia.org/wikipedia/commons/1/11/Cordelia_Empress_Food_Court.jpg"
              alt="Food court seating with ocean view" loading="lazy"/>
 
-        <!-- Robust JSON hook; loader should prefer ship_slug if present -->
+        <!-- JS writes below so the hero image persists -->
+        <div class="dining-content" id="dining-content" aria-live="polite"></div>
+
+        <!-- Inline hook -->
         <script type="application/json" id="dining-data-source">
           {
             "provider": "rcl",
-            "json": "/assets/data/rc-restaurants.json",
+            "json": "https://www.cruisinginthewake.com/assets/data/rc-restaurants.json",
             "ship_slug": "grandeur-of-the-seas",
             "aliases": ["Grandeur of the Seas", "Grandeur Of The Seas"]
           }
         </script>
-
-        <!-- Filled by /assets/js/dining-card.js -->
-        <noscript>
-          <p class="tiny">Dining data requires JavaScript. View the full list in <a href="/assets/data/rc-restaurants.json">rc-restaurants.json</a>.</p>
-        </noscript>
       </section>
     </section>
 
@@ -216,6 +173,12 @@
         <h3>Closing Thoughts</h3>
         <p>Grandeur doesn’t try to be the flashiest ship in the fleet — she doesn’t need to. She wins by being personal: crew who know your name, spaces that feel welcoming, and sunrises that remind you why you came to sea in the first place. For us, she delivered connection, care, and adventure. And yes, we’re already planning to sail her again.</p>
       </div>
+
+      <p class="sail-deals">
+        <a class="btn ghost" href="https://www.vacationstogo.com/ticker.cfm?incCT=y&s=86&sort=pdm" target="_blank" rel="noopener">
+          Plot your next sailing → (Vacations To Go)
+        </a>
+      </p>
     </section>
 
     <!-- Videos -->
@@ -260,7 +223,7 @@
   <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
   <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
-  <script src="/assets/js/dining-card.js" defer></script>
+  <script src="/assets/js/dining-card.js?v=2.241" defer></script>
   <script>
     // First Look images — initialize Swiper
     new Swiper('.swiper.firstlook', {
@@ -284,10 +247,10 @@
       DATA.forEach(v => {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
-        slide.innerHTML = `<iframe title="${v.title}"`
-          + ` src="https://www.youtube.com/embed/${v.id}"`
-          + ` allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"`
-          + ` allowfullscreen loading="lazy"></iframe>`;
+        slide.innerHTML = `<iframe title="${v.title}"
+                               src="https://www.youtube.com/embed/${v.id}"
+                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                               allowfullscreen loading="lazy"></iframe>`;
         wrap.appendChild(slide);
       });
       new Swiper('.swiper.videos', {
@@ -296,6 +259,65 @@
         navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
         a11y:{ enabled:true }
       });
+    })();
+
+    // Ship stats loader (fleet_index.json)
+    (async function loadShipStats(){
+      const el = document.getElementById('ship-stats');
+      if (!el) return;
+      const slug = el.getAttribute('data-slug') || '';
+      const SOURCES = [
+        'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
+        '/assets/data/fleet_index.json',
+        '/data/fleet_index.json'
+      ];
+      async function fetchFirst(list){
+        for (const u of list){
+          try{ const r = await fetch(u); if(r.ok) return r.json(); }catch{}
+        }
+        return null;
+      }
+      const data = await fetchFirst(SOURCES);
+      if (!data) return;
+
+      // find by slug or relaxed name
+      const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
+      const nslug = norm(slug);
+      let ship = null;
+
+      const tryList = Array.isArray(data) ? data : (
+        data.ships || data.rcl || data.royal || data.lines || data
+      );
+      const scan = (obj) => {
+        if (!obj) return [];
+        if (Array.isArray(obj)) return obj;
+        return Object.values(obj);
+      };
+
+      for (const s of scan(tryList)){
+        if (!s) continue;
+        const sslug = norm(s.slug || s.id || '');
+        const sname = norm(s.name || s.title || s.ship || '');
+        if ((nslug && sslug===nslug) || sname.includes('grandeur of the seas')) { ship = s; break; }
+      }
+      if (!ship) return;
+
+      const candidates = {
+        Class: ship.class || ship.ship_class,
+        "Entered Service": ship.entered_service || ship.launched || ship.inaugural || ship.first_sailing,
+        "Gross Tonnage": ship.tonnage || ship.gross_tonnage,
+        Length: ship.length || ship.length_overall,
+        Beam: ship.beam || ship.width,
+        Guests: ship.passengers || ship.capacity || ship.guests,
+        Crew: ship.crew,
+        Registry: ship.flag || ship.registry
+      };
+
+      const rows = Object.entries(candidates)
+        .filter(([,v]) => v!=null && v!=='')
+        .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`)
+        .join('');
+      el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
     })();
   </script>
 </body>
