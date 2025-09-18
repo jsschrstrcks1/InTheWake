@@ -1,4 +1,4 @@
-/* ===== In the Wake — Unified Styles (v2.242) ===== */
+/* ===== In the Wake — Unified Styles (v2.243) ===== */
 :root{
   --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
   /* Grid / compass tuning */
@@ -21,19 +21,19 @@ img{ max-width:100%; height:auto; display:block }
 /* Header + Nav */
 .hero-header{ position:relative; border-bottom:6px double var(--rope); background:#eaf6f6 }
 .navbar{
-  max-width:1100px; margin:0 auto; display:flex; flex-wrap:nowrap;
-  align-items:flex-end; gap:.6rem; padding:.5rem .9rem .35rem;
+  max-width:1100px; margin:0 auto; display:flex; gap:.6rem; padding:.5rem .9rem .35rem;
+  align-items:flex-end; /* ⬅ pins items to bottom edge of the bar */
 }
 .brand{ display:flex; align-items:flex-end; gap:.6rem }
-.brand img{ height:28px; width:auto }
+.brand img{ height:28px; width:auto; display:block }
 .brand-title{ font-weight:700; color:var(--ink); font-size:.95rem }
 .version-badge{ font-size:.72rem; opacity:.8; margin-left:.35rem }
 
-/* Pills nav variant used on ship pages — bottom-right, no logo overlap */
-.pills {
+/* Pills nav — right, bottom-aligned, no overlap with logo */
+.pills{
   margin-left:auto; display:flex; gap:.5rem; flex-wrap:wrap;
   align-self:flex-end; justify-content:flex-end; padding-bottom:.05rem;
-  max-width:min(78vw,860px);
+  max-width:min(78vw, 860px);
 }
 .pills a{
   padding:.35rem .7rem; border-radius:10px; border:1px dashed var(--rope);
@@ -43,20 +43,21 @@ img{ max-width:100%; height:auto; display:block }
 
 /* Full-bleed hero (no legacy overlays) */
 .hero{
-  position:relative;
-  width:100vw;
-  margin-left:calc(50% - 50vw);
+  position:relative; width:100vw; margin-left:calc(50% - 50vw);
   min-height:clamp(200px, 24vw, 340px);
   background:url('index_hero.jpg') 50% 50% / cover no-repeat;
-  display:flex; align-items:flex-end;
-  overflow:hidden; isolation:isolate;
+  display:flex; align-items:flex-end; overflow:hidden; isolation:isolate;
 }
 .hero::before,.hero::after{ content:none !important }
 
-/* Kill any filters/overlays when .no-hero-filter is on <body> */
-body.no-hero-filter .hero::before,
-body.no-hero-filter .hero::after { content:none !important; }
-body.no-hero-filter .hero{ filter:none !important; }
+/* Cross-browser “unmute” of the hero */
+body.no-hero-filter .hero,
+.hero-header .hero,
+.hero-header .hero *{
+  filter:none !important;
+  mix-blend-mode:normal !important;
+  opacity:1 !important;
+}
 
 /* Grid container & labels */
 .latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none }
@@ -102,14 +103,14 @@ body.no-hero-filter .hero{ filter:none !important; }
   font-size:clamp(.9rem,1.5vw,1.35rem); white-space:nowrap; z-index:3;
 }
 
-/* One long hero credit pill — bottom-right */
-.hero-credit { position:absolute; right:.85rem; bottom:.85rem; z-index:5 }
+/* One long hero credit pill — always bottom-right */
+.hero-credit{ position:absolute; right:.85rem; bottom:.85rem; z-index:4 }
 .hero-credit .pill.long{
   display:inline-block; padding:.45rem .7rem; border-radius:999px;
   background:#fff; border:1px solid var(--rope); font-weight:600; color:#0a3d62;
-  box-shadow:0 1.5px 6px rgba(8,48,65,.15);
+  box-shadow:0 1.5px 6px rgba(8,48,65,.15); text-decoration:none;
 }
-.hero-credit .pill.long:hover{ background:#fff; text-decoration:none }
+.hero-credit .pill.long:hover{ background:#f9fdfd; text-decoration:none }
 
 /* Content + cards */
 .wrap { max-width:1100px; margin:0 auto; padding:20px 14px 36px; }
@@ -120,9 +121,7 @@ body.no-hero-filter .hero{ filter:none !important; }
 }
 h1,h2,h3{ color:var(--sea) }
 
-/* Watermark — OFF globally, ON only for Ken’s */
-.card::after{ display:none; content:"" }
-.note-kens-logbook{ position:relative }
+/* Watermark — ONLY on Ken’s Logbook, slightly stronger */
 .note-kens-logbook::after{
   content:""; position:absolute; inset:0; margin:auto;
   width:min(60%, 360px); height:min(60%, 360px);
@@ -131,7 +130,7 @@ h1,h2,h3{ color:var(--sea) }
 }
 
 /* Reusable two-up grid (equal height) */
-.grid-2{ display:grid; gap:1rem; align-items:stretch }
+.grid-2{ display:grid; gap:1rem; align-items:stretch; }
 .grid-2 > .card{ display:flex; flex-direction:column }
 @media (min-width:980px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
 
@@ -140,16 +139,26 @@ h1,h2,h3{ color:var(--sea) }
 @media (min-width:980px){ #dining-card { order:2; } }
 
 /* Dining card: top image stays visible */
-#dining-card .card-hero{ width:100%; border-radius:12px; margin-bottom:12px }
+#dining-card .card-hero{ width:100%; border-radius:12px; margin-bottom:12px; }
 
 /* Dining content */
 .venues.two-col{ display:grid; gap:1rem }
 @media (min-width:760px){ .venues.two-col{ grid-template-columns:1fr 1fr } }
 .venue-list{ margin:.25rem 0 0 1.1rem }
-.venue-list a{ text-decoration:none }
-.venue-list a:hover{ text-decoration:underline }
+.venue-list a{ color:inherit; text-decoration:none; border-bottom:1px dotted #c9d7de }
+.venue-list a:hover{ text-decoration:none; border-bottom-color:#7ba0b2 }
 
-/* Photo grid (when used) */
+/* Ship stats under First Look */
+.ship-stats.card.mini{ margin-top:.6rem }
+.stats-grid{
+  display:grid; grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:.4rem .8rem; font-size:.95rem;
+}
+.stat-line{ display:flex; gap:.35rem; justify-content:space-between; border-bottom:1px dashed #e4e9ec; padding:.2rem 0; }
+.stat-key{ color:#355; font-weight:600 }
+.stat-val{ color:#024 }
+
+/* Photo grid (optional) */
 .photo-grid{
   display:grid; gap:.75rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -158,23 +167,13 @@ h1,h2,h3{ color:var(--sea) }
 .photo-grid img{ width:100%; height:auto; display:block; border-radius:12px; }
 .photo-grid figcaption{ font-size:.8rem; color:#546; margin-top:.35rem; }
 
-/* Ship stats under First Look */
-.ship-stats.card.mini{ margin-top:.6rem }
-.stats-grid{
-  display:grid; grid-template-columns: repeat(2, minmax(0,1fr));
-  gap:.4rem .8rem; font-size:.95rem;
-}
-.stat-line{ display:flex; gap:.35rem; border-bottom:1px dashed #e4e9ec; padding:.2rem 0 }
-.stat-key{ color:#355; font-weight:600 }
-.stat-val{ color:#024 }
-
-/* Ken’s Logbook */
+/* Ken’s Logbook prose */
 .note-kens-logbook .pill{
   display:inline-block; padding:.45rem .7rem; border-radius:999px;
   background:#e6f4f8; border:1px solid var(--rope); font-weight:600;
   color:#0a3d62; margin:.2rem 0 .8rem;
 }
-.note-kens-logbook .prose{ line-height:1.65; font-size:1rem; color:var(--ink); }
+.note-kens-logbook .prose{ line-height:1.65; font-size:1rem; color:var(--ink); position:relative; z-index:1; }
 .note-kens-logbook .prose h3{ margin:1.1rem 0 .4rem; color:var(--sea); }
 .note-kens-logbook .prose p{ margin:.65rem 0; }
 .note-kens-logbook .prose ul{ padding-left:1.1rem; margin:.5rem 0; }
@@ -193,11 +192,11 @@ h1,h2,h3{ color:var(--sea) }
 /* Buttons */
 .btn{
   display:inline-block; padding:.5rem .8rem; border-radius:999px;
-  border:1px solid var(--accent); color:#fff; background:var(--accent);
+  border:1px solid var(--accent); color:var(--accent);
   text-decoration:none; font-size:.95rem; line-height:1;
 }
-.btn:hover{ filter:brightness(0.95) }
-.btn.ghost{ background:#fff; color:var(--accent) }
+.btn:hover{ background:var(--accent); color:#fff; }
+.btn.ghost{ background:#fff }
 .btn.ghost:hover{ background:#f2fbff }
 
 /* Kill legacy stripes */
@@ -241,12 +240,9 @@ header.site-header::before, header.site-header::after{ display:none !important }
 .ship-card.historical .badge.hist { background:#fff4f1; border-color:#e2a58b }
 .ship-card.is-disabled { opacity:.7; pointer-events:none }
 
-/* === Hero hard reset (belt & suspenders) === */
-.hero-header,
-.hero-header *, 
-.hero-header *::before, 
-.hero-header *::after{
-  filter:none !important;
-  mix-blend-mode:normal !important;
-  opacity:1 !important;
-}
+/* Collapsible */
+.collapsible > details > summary { cursor:pointer; font-weight:700; }
+.collapsible > details[open] { scroll-margin-top: 90px; }
+
+/* Anchor targets */
+[id]{ scroll-margin-top: 90px }
