@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Grandeur of the Seas — In the Wake (v2.243)</title>
+  <title>Grandeur of the Seas — In the Wake (v2.244)</title>
 
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean’s Grandeur of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
@@ -143,7 +143,7 @@
       <p class="pill">Own Wake — Full disclosure: I have stood the watch on Grandeur of the Seas, for nine days logged in her logbook and mine. This is no tide of borrowed winds, but depth soundings taken in my own wake.</p>
 
       <div class="prose">
-        <!-- (content unchanged) -->
+        <!-- content unchanged -->
         <p>We sailed in an ocean-view stateroom, where every sunrise framed the horizon like a painting—coffee in hand, it was the best way to start the day. Grandeur is the cozy heart of Royal’s Vision-class: small enough to feel familiar, big enough to keep you entertained. On our 9-night Eastern Caribbean run to Aruba, Curaçao, Bonaire, and Labadee, she showed why smaller ships often win hearts — warmth, intimacy, and crew who treat you like family.</p>
         <h3>The Crew and Staff</h3>
         <p>The crew was the soul of this sailing. Our stateroom attendant kept everything shipshape, towel animals included. Vincent at Guest Services handled requests with a smile and speed that felt like chatting with an old friend. And in Windjammer, Vergel spotted that we’d left without our eggs; before we could even circle back, he brought them fresh to our table — a small kindness that said everything about Grandeur’s crew.</p>
@@ -184,6 +184,23 @@
       </div>
     </section>
 
+    <!-- Row 2: Deck plans + Live tracker (restored) -->
+    <section class="grid-2">
+      <section class="card" aria-labelledby="deckPlansHeading">
+        <h2 id="deckPlansHeading">Ship Map (Deck Plans)</h2>
+        <p>Study the layout—pin your stateroom, elevators, dining, and venues before you sail.</p>
+        <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+      </section>
+      <section class="card" aria-labelledby="liveTrackHeading">
+        <h2 id="liveTrackHeading">Where Is Grandeur Right Now?</h2>
+        <p>See the ship’s current position, speed, and next port on a live tracker.</p>
+        <div class="map-actions">
+          <a class="btn" href="https://www.cruisemapper.com/ships/Grandeur-Of-The-Seas-598" target="_blank" rel="noopener">Open CruiseMapper Live Tracker</a>
+        </div>
+        <p class="tiny" style="margin-top:.35rem;">Tip: Keep this page open while you check the tracker; it opens in a new tab.</p>
+      </section>
+    </section>
+
     <section class="card" aria-labelledby="attribution">
       <h2 id="attribution">Attribution & Credits</h2>
       <ul>
@@ -197,7 +214,9 @@
   <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
   <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
-  <script src="/assets/js/dining-card.js?v=2.243" defer></script>
+  <!-- IMPORTANT: bump to v2.244 so the new dining JS is guaranteed to load -->
+  <script src="/assets/js/dining-card.js?v=2.244" defer></script>
+
   <script>
     /* First Look */
     new Swiper('.swiper.firstlook', {
@@ -235,7 +254,7 @@
       });
     })();
 
-    /* Ship stats loader (deep-scan; matches your fleet_index.json) */
+    /* Ship stats loader (more robust + cache-bust + logging) */
     (async function loadShipStats(){
       const el = document.getElementById('ship-stats');
       if (!el) return;
@@ -246,16 +265,23 @@
         '/assets/data/fleet_index.json',
         '/data/fleet_index.json'
       ];
-      async function fetchFirst(list){
-        for (const u of list){ try{ const r = await fetch(u); if(r.ok) return r.json(); }catch{} }
-        return null;
+
+      async function tryFetch(u){
+        const url = u + (u.includes('?') ? '&' : '?') + 'v=' + Date.now(); // bust caches
+        const res = await fetch(url, { cache:'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
       }
-      const data = await fetchFirst(SOURCES);
-      if (!data) return;
+
+      let data = null;
+      for (const u of SOURCES){
+        try { data = await tryFetch(u); break; } catch(e){ /* continue */ }
+      }
+      if (!data){ el.innerHTML = '<p class="tiny">Stats coming soon.</p>'; return; }
 
       const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
 
-      // Deep recursive scan: finds any object with a matching slug, regardless of nesting.
+      // Deep walk to tolerate any nesting
       function* walk(node){
         if (!node) return;
         if (Array.isArray(node)){ for (const it of node) yield* walk(it); return; }
@@ -267,18 +293,18 @@
 
       let ship = null;
       for (const obj of walk(data)){
-        if (obj && typeof obj === 'object'){
-          const rawSlug = obj.slug || obj.id || obj.attributes?.slug;
-          const nslug = norm(rawSlug);
-          const nname = norm(obj.name || obj.title || obj.ship || obj.attributes?.name);
-          if ((targetSlug && nslug === targetSlug) || nname === 'grandeur of the seas'){
-            ship = obj; break;
-          }
+        if (!obj || typeof obj !== 'object') continue;
+        const rawSlug = obj.slug || obj.id || obj.attributes?.slug;
+        const nslug = norm(rawSlug);
+        const nname = norm(obj.name || obj.title || obj.ship || obj.attributes?.name);
+        if ((targetSlug && nslug === targetSlug) || nname === 'grandeur of the seas'){
+          ship = obj; break;
         }
       }
-      if (!ship) { el.innerHTML = '<p class="tiny">Stats coming soon.</p>'; return; }
 
-      const a = ship.attributes || ship; // support both flat and attributes.{}
+      if (!ship){ el.innerHTML = '<p class="tiny">Stats coming soon.</p>'; return; }
+
+      const a = ship.attributes || ship;
       const rows = [
         ['Class', a.class || a.ship_class || (a.notes && /vision/i.test(a.notes) ? 'Vision-class' : '')],
         ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
@@ -289,7 +315,8 @@
         ['Beam', a.beam || a.width],
         ['Registry', a.flag || a.registry]
       ].filter(([,v]) => v != null && String(v).trim() !== '')
-       .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`).join('');
+       .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`)
+       .join('');
 
       el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
     })();
