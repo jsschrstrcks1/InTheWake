@@ -1,169 +1,146 @@
-/* dining-card.js — robust Dining Venues card (v2.243)
-   - Canonical RC JSON first; graceful fallbacks
-   - Keeps the top hero image by writing into #dining-content
-   - Links each venue to /restaurants.html#<venue-slug>
-   - Ship detection: slug (preferred) or relaxed name
+/* dining-card.js — Dining Venues card (v2.244)
+   - Canonical-first JSON fetch
+   - Robust ship matching
+   - Replaces intro copy
+   - Venue names link to restaurants page anchors: /restaurants.html#<provider>-<slug>
 */
 (() => {
   const CARD = document.querySelector('#dining-card');
   if (!CARD) return;
 
-  const CONTENT = CARD.querySelector('#dining-content') || CARD;
-
   const SOURCES = [
     'https://www.cruisinginthewake.com/assets/data/rc-restaurants.json',
-    'http://cruisinginthewake.com/assets/data/rc-restaurants.json',
-    '/assets/data/rc-restaurants.json'
+    'https://www.cruisinginthewake.com/assets/data/ccl-restaurants.json',
+    'https://www.cruisinginthewake.com/assets/data/msc-restaurants.json',
+    '/assets/data/rc-restaurants.json','/assets/data/ccl-restaurants.json','/assets/data/msc-restaurants.json'
   ];
 
-  // Inline config hook (prefers slug)
-  let shipSlug = '', aliases = [];
+  // Inline config (provider, json, ship_slug, aliases)
   const cfgHook = document.getElementById('dining-data-source');
-  if (cfgHook) {
-    try {
-      const cfg = JSON.parse(cfgHook.textContent || '{}');
-      shipSlug = (cfg.ship_slug || '').trim();
-      aliases = Array.isArray(cfg.aliases) ? cfg.aliases : [];
-    } catch {}
-  }
+  const CFG = (() => { try { return JSON.parse(cfgHook?.textContent||'{}'); } catch { return {}; } })();
+  const provider = (CFG.provider || 'rcl').toLowerCase();
+  const customJson = CFG.json || '';
+  const shipSlug = (CFG.ship_slug || '').toLowerCase();
+  const aliases = (CFG.aliases || []).map(s => (s||'').toLowerCase());
 
-  // Detect display name (fallbacks)
-  function detectDisplayName(){
-    const ds = (CARD.getAttribute('data-ship') || '').trim();
-    if (ds) return ds;
-    const titleName = (document.title || '').replace(/—.*/, '').trim();
-    if (titleName) return titleName;
-    const h = document.querySelector('h1,header h1,main h1,h2,header h2,main h2');
-    return h ? (h.textContent || '').trim() : '';
-  }
-  const DISPLAY_NAME = detectDisplayName();
+  const DISPLAY = (CARD.getAttribute('data-ship') || document.title.replace(/—.*/, '') || '').trim();
+  const DISPLAY_N = DISPLAY.toLowerCase();
 
-  // Normalizers
   const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
-  const normShip = s => norm(s).replace(/\s+of the seas$/,'');
-  const targetKey = shipSlug ? norm(shipSlug) : '';
-  const targetName = DISPLAY_NAME ? normShip(DISPLAY_NAME) : '';
+  const normShip = s => norm(s).replace(/\s+of the seas$/,''); // RC tolerance
 
   async function fetchFirst(urls){
     let lastErr;
-    for (const url of urls){
+    const list = customJson ? [customJson, ...urls] : urls;
+    for (const url of list){
       try{
-        const res = await fetch(url, { credentials:'omit', cache:'default' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
+        const r = await fetch(url, { credentials:'omit', cache:'no-store' });
+        if (!r.ok) throw new Error(r.status);
+        const json = await r.json();
         return { json, url };
       }catch(e){ lastErr = e; }
     }
-    throw lastErr || new Error('All dining data sources failed');
+    throw lastErr || new Error('All data sources failed');
   }
 
   function* iterShips(root){
     if (!root) return;
     if (Array.isArray(root)) { for (const it of root) yield it; return; }
-    const buckets = [root.ships, root.brands, root.lines, root.royal, root.rcl, root.royal_caribbean, root];
+    const buckets = [root.ships, root.brands, root.lines, root.royal, root.rcl, root[provider]];
     for (const b of buckets){
-      const list = Array.isArray(b) ? b : (b && typeof b==='object' ? Object.values(b) : []);
-      for (const v of list){
-        if (!v) continue;
-        if (v && (v.name||v.title||v.ship||v.slug||v.id||v.dining||v.Included||v.Premium)) yield v;
-      }
+      if (!b) continue;
+      if (Array.isArray(b)) { for (const it of b) yield it; }
+      else if (typeof b === 'object'){ for (const k of Object.keys(b)){ const v=b[k]; if (v) yield v; } }
+    }
+    for (const k of Object.keys(root)){
+      const v = root[k];
+      if (v && typeof v === 'object' && (v.name||v.title||v.ship||v.dining||v.Included||v.Premium)) yield v;
     }
   }
 
-  const idFrom = (o) => ({
-    name: o?.name || o?.title || o?.ship || o?.displayName || '',
-    slug: o?.slug || o?.id || ''
-  });
+  const idFrom = o => ({ name:o?.name||o?.title||o?.ship||'', slug:o?.slug||o?.id||o?.key||'' });
 
   function pullDining(obj){
     const d = obj?.dining || obj?.venues || obj || {};
     const inc = d.included || d.complimentary || d.Included || d.Complimentary || [];
-    const pre = d.premium || d.specialty || d.Premium || d.Specialty || d.extra || d.Extra || [];
+    const pre = d.premium || d.specialty || d.Premium || d.Specialty || d['Extra'] || d.extra || [];
     if (!inc.length && !pre.length && Array.isArray(d)){
       const INC=[], PRE=[];
       d.forEach(v=>{
-        if (!v) return;
-        const label = (typeof v==='string' ? v : (v.name||v.title||v.label||'')).trim();
-        const t = (typeof v==='string' ? '' : (v.type||'')).toLowerCase();
+        const label = (typeof v === 'string') ? v.trim() : (v?.name || v?.title || '').trim();
+        const t = (typeof v === 'string') ? '' : (v.type||'').toLowerCase();
         if (!label) return;
         if (t.includes('prem') || t.includes('spec') || v.fee===true) PRE.push(label); else INC.push(label);
       });
       return { inc:INC, pre:PRE };
     }
-    return { inc: inc.slice?.()||[], pre: pre.slice?.()||[] };
+    return { inc:[...inc], pre:[...pre] };
   }
 
-  function uniqSort(list){
-    const seen=new Set();
+  function uniqueSorted(list){
+    const seen = new Set();
     return (list||[])
-      .map(v => typeof v==='string' ? v.trim() : (v?.name||v?.title||'').trim())
+      .map(v => typeof v === 'string' ? v.trim() : (v?.name || v?.title || '').trim())
       .filter(Boolean)
-      .filter(v=>{const k=norm(v); if(seen.has(k)) return false; seen.add(k); return true;})
-      .sort((a,b)=>a.localeCompare(b,undefined,{sensitivity:'base'}));
+      .filter(v => { const k = norm(v); if (seen.has(k)) return false; seen.add(k); return true; })
+      .sort((a,b)=> a.localeCompare(b, undefined, { sensitivity:'base' }));
   }
 
-  const slugify = (s) => norm(s).replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  function slugify(s){ return String(s||'').toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
+
+  function linkify(arr){
+    const base = `/restaurants.html#${provider}-`;
+    return arr.map(v => `<a href="${base}${slugify(v)}">${v}</a>`);
+  }
 
   function renderOK(shipLabel, inc, pre){
     const intro = `
-      <p class="small">Set sail through a world of flavors on board, where complimentary main dining and casual bites keep your voyage fueled, while premium specialty restaurants offer exclusive culinary adventures worth charting a course for.</p>
+      <p class="tiny" style="margin-top:.25rem">
+        Set sail through a world of flavors on board, where complimentary main dining and casual bites keep your voyage fueled,
+        while premium specialty restaurants offer exclusive culinary adventures worth charting a course for.
+      </p>
     `;
+    const block = (title, arr, id) => `
+      <section class="venue-block" aria-labelledby="${id}">
+        <h3 id="${id}">${title} <span class="count" aria-hidden="true">(${arr.length})</span></h3>
+        ${arr.length ? `<ul class="venue-list">${linkify(arr).map(a=>`<li>${a}</li>`).join('')}</ul>` : `<p class="tiny">No ${title.toLowerCase()} listed yet.</p>`}
+      </section>`;
 
-    const toList = (arr) => arr.length
-      ? `<ul class="venue-list">${arr.map(v=>{
-           const id=slugify(v);
-           const href=`/restaurants.html#${id}`;
-           return `<li><a href="${href}">${v}</a></li>`;
-         }).join('')}</ul>`
-      : `<p class="tiny">No venues listed yet.</p>`;
-
-    const html = `
-      ${intro}
-      <div class="venues two-col">
-        <section class="venue-block" aria-labelledby="incHeading">
-          <h3 id="incHeading">Included (Complimentary) <span class="count" aria-hidden="true">(${inc.length})</span></h3>
-          ${toList(inc)}
-        </section>
-        <section class="venue-block" aria-labelledby="preHeading">
-          <h3 id="preHeading">Premium (Specialty / Extra Charge) <span class="count" aria-hidden="true">(${pre.length})</span></h3>
-          ${toList(pre)}
-        </section>
-      </div>`;
-    CONTENT.innerHTML = html;
+    const mount = document.getElementById('dining-content');
+    if (mount) {
+      mount.innerHTML = intro + `<div class="venues two-col">${block('Included (Complimentary)', inc, 'incHeading')}${block('Premium (Specialty / Extra Charge)', pre, 'preHeading')}</div>`;
+    }
     CARD.removeAttribute('aria-busy');
   }
 
   function renderError(msg){
-    CONTENT.innerHTML = `<p class="tiny" role="alert">${msg}</p>`;
+    const mount = document.getElementById('dining-content');
+    if (mount) mount.innerHTML = `<p class="tiny" role="alert">${msg}</p>`;
     CARD.removeAttribute('aria-busy');
   }
 
   (async function init(){
     CARD.setAttribute('aria-busy','true');
-    if (!targetKey && !targetName) { renderError('Ship name not detected.'); return; }
-
     try{
       const { json } = await fetchFirst(SOURCES);
-      let best=null, score=-1;
-
+      let best=null, bestScore=-1;
       for (const cand of iterShips(json)){
         const { name, slug } = idFrom(cand);
         const nName = normShip(name);
         const nSlug = norm(slug);
-        let s=0;
-        if (targetKey && nSlug && nSlug===targetKey) s=4;
-        else if (targetName && nName && nName===targetName) s=3;
-        else if (aliases.length && aliases.map(normShip).includes(nName)) s=2;
-        else if (targetName && nName && (nName.includes(targetName)||targetName.includes(nName))) s=1;
-        if (s>score){ best=cand; score=s; if (s===4) break; }
+        const score =
+          (shipSlug && nSlug && nSlug===shipSlug) ? 3 :
+          (DISPLAY_N && nName && (nName===normShip(DISPLAY_N) || aliases.includes(nName))) ? 2 : 0;
+        if (score>bestScore){ best=cand; bestScore=score; if (score===3) break; }
       }
+      if (!best){ renderError(`No dining record found for “${DISPLAY}”.`); return; }
 
-      if (!best){ renderError(`No dining record found for “${DISPLAY_NAME}”.`); return; }
-
-      const { inc, pre } = pullDining(best);
-      renderOK(DISPLAY_NAME || idFrom(best).name || 'This Ship', uniqSort(inc), uniqSort(pre));
+      const pulled = pullDining(best);
+      const inc = uniqueSorted(pulled.inc);
+      const pre = uniqueSorted(pulled.pre);
+      renderOK(DISPLAY, inc, pre);
     }catch(err){
-      renderError(`Could not load dining data (${err?.message||err}).`);
+      renderError(`Could not load dining data (${err?.message || err}).`);
     }
   })();
 })();
