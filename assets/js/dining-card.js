@@ -1,171 +1,150 @@
-/* dining-card.js — builds the Dining Venues card from JSON
-   v2.240 — canonical RC path first, with fleet fallback
-   - Primary: http://cruisinginthewake.com/assets/data/rc-restaurants.json
-   - Fallback: http://cruisinginthewake.com/assets/data/fleet_index.json
-   - Final fallbacks: /assets/data/fleet_index.json, /data/fleet_index.json
-   - Expects: <section id="dining-card" class="card" data-ship="..."></section>
+<script>
+/* dining-card.js — RCL restaurants source of truth (rc-restaurants.json)
+   - Canonical first: http://cruisinginthewake.com/assets/data/rc-restaurants.json
+   - Fallbacks: /assets/data/rc-restaurants.json, /data/rc-restaurants.json
+   - <section id="dining-card" class="card" data-ship="..."></section>
+   - Looks up by slug (preferred) or name.
 */
 
-(function(){
-  const CARD_SELECTOR = '#dining-card';
+(() => {
+  const CARD_SEL = '#dining-card';
+  const CANON = 'http://cruisinginthewake.com/assets/data/rc-restaurants.json';
+  const SOURCES = [CANON, '/assets/data/rc-restaurants.json', '/data/rc-restaurants.json'];
+  const DINING_IMG = 'https://upload.wikimedia.org/wikipedia/commons/1/11/Cordelia_Empress_Food_Court.jpg';
 
-  // Absolute-first sources per standards
-  const SOURCES = [
-    'http://cruisinginthewake.com/assets/data/rc-restaurants.json',
-    'http://cruisinginthewake.com/assets/data/fleet_index.json',
-    '/assets/data/fleet_index.json',
-    '/data/fleet_index.json'
-  ];
-
-  const $card = document.querySelector(CARD_SELECTOR);
+  const $card = document.querySelector(CARD_SEL);
   if (!$card) return;
 
-  // ——— Ship identity (prefer slug passed via JSON script hook)
-  let shipName = ($card.getAttribute('data-ship') || '').trim();
-  let shipSlug = '';
-  const hook = document.getElementById('dining-data-source');
-  if (hook) {
-    try {
-      const cfg = JSON.parse(hook.textContent || '{}');
-      shipSlug = (cfg.ship_slug || '').trim();
-      window.__DINING_SOURCE__ = cfg; // optional debug
-    } catch(e){}
+  // --- Ship identity (prefer slug; fallback to data-ship then <title>) ---
+  function getSlugFromPath() {
+    // e.g. /ships/rcl/grandeur-of-the-seas.html -> grandeur-of-the-seas
+    const m = location.pathname.match(/\/ships\/[^/]+\/([^/.]+)\.html$/i);
+    return m ? m[1] : '';
   }
-  const KEY = shipSlug || shipName || detectShipName();
-
-  function detectShipName(){
+  function getShipSlug() {
+    // allow explicit override via <script id="dining-data-source">{ "ship_slug": "..." }</script>
+    const hook = document.getElementById('dining-data-source');
+    if (hook) {
+      try {
+        const cfg = JSON.parse(hook.textContent || '{}');
+        if (cfg.ship_slug) return String(cfg.ship_slug).trim();
+      } catch {}
+    }
+    const fromAttr = ($card.getAttribute('data-slug') || '').trim();
+    return fromAttr || getSlugFromPath();
+  }
+  function getShipName() {
+    const fromAttr = ($card.getAttribute('data-ship') || '').trim();
+    if (fromAttr) return fromAttr;
     const t = (document.title || '').replace(/—.*$/, '').trim();
-    if (t) return t;
-    const h = document.querySelector('h1, header h1, main h1, h2, header h2, main h2');
-    return h ? (h.textContent || '').trim() : '';
+    return t || '';
   }
 
-  // ——— utils
-  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const norm = s => String(s||'').trim().toLowerCase().replace(/\s+/g,' ')
-                     .replace(/’/g,"'").replace(/\s+of the seas$/,'');
+  const TARGET_SLUG = getShipSlug().toLowerCase();
+  const TARGET_NAME = getShipName();
 
-  async function fetchFirst(urls){
+  const norm = s => String(s || '').toLowerCase().trim()
+    .replace(/\s+/g, ' ')
+    .replace(/[’']/g, "'");
+
+  async function fetchFirst(urls) {
     let lastErr;
-    for (const url of urls){
-      try{
-        const res = await fetch(url, { credentials:'omit', cache:'default' });
+    for (const url of urls) {
+      try {
+        const res = await fetch(url, { credentials: 'omit', cache: 'default' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return { json: await res.json(), url };
-      }catch(e){ lastErr=e; }
+        return { url, json: await res.json() };
+      } catch (e) { lastErr = e; }
     }
     throw lastErr || new Error('No data sources reachable');
   }
 
-  // iterate flexible shapes (array, {ships:{}}, brand buckets, etc.)
-  function* iterCandidates(root){
-    if (!root) return;
-    if (Array.isArray(root)) { for (const it of root) yield it; return; }
-    if (root.ships){
-      const s = root.ships;
-      if (Array.isArray(s)) for (const it of s) yield it;
-      else if (s && typeof s==='object') for (const k of Object.keys(s)) yield s[k];
+  function pickShipRecord(root) {
+    // expected: { ships: [ { name, slug, included, suite_included, premium }, ... ] }
+    const list = Array.isArray(root?.ships) ? root.ships : [];
+    if (!list.length) return null;
+
+    // 1) slug match
+    if (TARGET_SLUG) {
+      const s = list.find(x => norm(x.slug) === TARGET_SLUG);
+      if (s) return s;
     }
-    for (const k of Object.keys(root)){
-      if (k==='ships') continue;
-      const v = root[k];
-      if (!v) continue;
-      if (Array.isArray(v)) for (const it of v) yield it;
-      else if (typeof v==='object'){
-        if (v.ships){
-          const s = v.ships;
-          if (Array.isArray(s)) for (const it of s) yield it;
-          else if (s && typeof s==='object') for (const kk of Object.keys(s)) yield s[kk];
-        }
-        for (const kk of Object.keys(v)){
-          const vv = v[kk];
-          if (vv && typeof vv==='object' && (vv.name||vv.ship||vv.title||vv.dining)) yield vv;
-        }
+    // 2) name match
+    if (TARGET_NAME) {
+      const tn = norm(TARGET_NAME).replace(/\s+of the seas$/, ''); // be forgiving
+      let best = null;
+      for (const x of list) {
+        const n = norm(x.name).replace(/\s+of the seas$/, '');
+        if (n === tn) return x;
+        if (!best && (n.includes(tn) || tn.includes(n))) best = x;
       }
+      if (best) return best;
     }
-    // also allow { "Ship Name": { dining:{...} } } style objects
-    for (const k of Object.keys(root)){
-      const v = root[k];
-      if (v && typeof v==='object' && (v.dining || v.venues)) yield Object.assign({ name:k }, v);
-    }
+    return null;
   }
 
-  const candidateName = o => o?.slug || o?.ship_slug || o?.name || o?.ship || o?.title || '';
-  function pickDining(o){
-    // support both rc-restaurants.json and fleet_index shapes
-    const d = o?.dining || o?.venues || {};
-    const included = d.included || d.complimentary || d.free || [];
-    const premium  = d.premium || d.specialty || d.extra || [];
-    if (!included.length && !premium.length && Array.isArray(d)){
-      const inc=[], pre=[];
-      d.forEach(v=>{
-        if (!v) return;
-        const name = (typeof v==='string') ? v : (v.name||v.title||'');
-        const isPrem = (v.type||'').toLowerCase().includes('prem') || v.fee===true || v.price || v.charge;
-        (isPrem?pre:inc).push(name);
-      });
-      return { included:inc, premium:pre };
-    }
-    return { included, premium };
-  }
-  function uniqSort(arr){
-    const out=[]; (arr||[]).forEach(v=>{
-      const s = (typeof v==='string'?v:(v.name||v.title||v.label||'')).trim();
-      if (s) out.push(s);
+  function cleanList(arr) {
+    const out = [];
+    (arr || []).forEach(v => {
+      if (!v) return;
+      const label = (typeof v === 'string' ? v : (v.name || v.title || v.label || '')).toString().trim();
+      if (label) out.push(label);
     });
-    const seen=new Set();
-    const u=out.filter(x=>{const k=x.toLowerCase(); if(seen.has(k))return false; seen.add(k); return true;});
-    return u.sort((a,b)=>a.localeCompare(b,undefined,{sensitivity:'base'}));
+    // unique + alpha
+    const seen = new Set();
+    return out.filter(x => { const k = x.toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; })
+              .sort((a,b)=>a.localeCompare(b));
   }
 
-  function renderList(title, items, id){
-    const n = items.length;
-    return `<section class="venue-block" aria-labelledby="${id}">
-      <h3 id="${id}">${esc(title)} <span class="count" aria-hidden="true">(${n})</span></h3>
-      ${n?`<ul class="venue-list">${items.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`:
-          `<p class="tiny" role="note">No ${esc(title).toLowerCase()} listed yet.</p>`}
-    </section>`;
+  function section(title, items, id) {
+    const count = items.length;
+    return `
+      <section class="venue-block" aria-labelledby="${id}">
+        <h3 id="${id}">${title} <span class="count" aria-hidden="true">(${count})</span></h3>
+        ${count ? `<ul class="venue-list">${items.map(v=>`<li>${v}</li>`).join('')}</ul>` :
+                  `<p class="tiny" role="note">No ${title.toLowerCase()} listed yet.</p>`}
+      </section>`;
   }
 
-  function renderCard(ship, srcUrl, inc, pre){
-    const head = `<h2 id="diningHeading">Dining Venues on ${esc(ship)}</h2>
-      <p class="small">Source of truth: <code>${esc(srcUrl)}</code>.
-         Update that JSON to change this list.</p>`;
-    $card.innerHTML = head + `<div class="venues two-col">${renderList('Included (Complimentary)', inc,'inc')}
-      ${renderList('Premium (Specialty / Extra Charge)', pre,'pre')}</div>`;
-    $card.removeAttribute('aria-busy');
+  function render(ship, dataUrl) {
+    const included = cleanList(ship.included);
+    const suiteInc = cleanList(ship.suite_included);
+    const premium  = cleanList(ship.premium);
+
+    $card.innerHTML = `
+      <h2 id="diningHeading">Dining Venues on ${ship.name}</h2>
+      <figure class="dining-hero"><img src="${DINING_IMG}" alt="Dining area view from the ship" loading="lazy"/></figure>
+      <p class="tiny">This list is generated from <code>rc-restaurants.json</code> <span class="src">(${dataUrl})</span>.</p>
+      <div class="venues two-col">
+        ${section('Included (Complimentary)', included, 'incHeading')}
+        ${suiteInc.length ? section('Included (Suites / Perks)', suiteInc, 'suiteHeading') : ''}
+        ${section('Premium (Specialty / Extra Charge)', premium, 'preHeading')}
+      </div>
+    `;
+    // match card heights without cropping photos
+    $card.style.alignSelf = 'stretch';
   }
-  function renderError(msg){
-    $card.innerHTML = `<h2 id="diningHeading">Dining Venues</h2>
-      <p class="tiny" role="alert">Could not load dining data: ${esc(msg)}</p>`;
-    $card.removeAttribute('aria-busy');
+
+  function renderError(msg) {
+    $card.innerHTML = `
+      <h2 id="diningHeading">Dining Venues</h2>
+      <figure class="dining-hero"><img src="${DINING_IMG}" alt="Dining area view" loading="lazy"/></figure>
+      <p class="tiny" role="alert">Could not load dining data: ${String(msg)}</p>
+    `;
   }
 
   (async function init(){
-    $card.setAttribute('aria-busy','true');
-
-    const targetKey = KEY || detectShipName();
-    if (!targetKey){ renderError('Ship name not detected on the page.'); return; }
-    const target = norm(targetKey);
-
-    try{
-      const { json, url } = await fetchFirst(SOURCES);
-
-      let match=null;
-      for (const c of iterCandidates(json)){
-        const name = candidateName(c);
-        if (!name) continue;
-        const n = norm(name);
-        if (n === target || n.replace(/\s*of the seas$/,'') === target) { match=c; break; }
-        if (!match && (n.includes(target) || target.includes(n))) match=c;
+    try {
+      const { url, json } = await fetchFirst(SOURCES);
+      const ship = pickShipRecord(json);
+      if (!ship) {
+        renderError(`No dining record found for “${TARGET_NAME || TARGET_SLUG || 'this ship'}”.`);
+        return;
       }
-
-      if (!match){ renderError(`No dining record found for “${targetKey}”.`); return; }
-
-      const { included, premium } = pickDining(match);
-      renderCard(targetKey, url, uniqSort(included), uniqSort(premium));
-    }catch(err){
-      renderError(err?.message || String(err));
+      render(ship, url);
+    } catch (e) {
+      renderError(e?.message || e);
     }
   })();
 })();
+</script>
