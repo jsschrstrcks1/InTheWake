@@ -240,3 +240,28 @@ header.site-header::before, header.site-header::after{ display:none !important }
 
 /* Anchor targets */
 [id]{ scroll-margin-top: 90px }
+
+/* === Hero hard reset & long-pill (v2.242) === */
+body.no-hero-filter .hero,
+.hero-header .hero,
+.hero-header .hero * {
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+/* if any pseudo overlays existed, nuke them with specificity */
+.hero-header .hero::before,
+.hero-header .hero::after {
+  content: none !important;
+}
+
+/* one long attribution pill styling */
+.hero-credit { position:absolute; right:0.85rem; bottom:0.85rem; z-index:5; }
+.hero-credit .pill.long{
+  display:inline-block; background:rgba(255,255,255,.97);
+  color:#0b2545; padding:.45rem .75rem; border-radius:999px;
+  border:1px solid var(--rope); font-weight:600; text-decoration:none;
+  box-shadow:0 1px 2px rgba(0,0,0,.08);
+}
+.hero-credit .pill.long:hover{ background:#fff; text-decoration:none; }
