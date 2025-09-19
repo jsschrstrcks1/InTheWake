@@ -244,3 +244,67 @@ header.site-header::before, header.site-header::after{ display:none !important }
 
 /* Anchor targets */
 [id]{ scroll-margin-top: 90px }
+
+/* Center the voyage tips card */
+.note-kens-logbook .prose .card.voyage-tips {
+  max-width: 800px;
+  width: 100%;
+  margin: 2rem auto 1rem; /* Top/bottom margins, auto left/right for centering */
+}
+
+/* Ensure the card content doesn't stretch too wide */
+.card.voyage-tips .card-content {
+  max-width: 100%;
+}
+
+/* Center the button group */
+.card.voyage-tips .button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.card.voyage-tips .button-group .btn {
+  flex: 1;
+  min-width: 160px;
+  max-width: 200px;
+  text-align: center;
+}
+
+/* Responsive: Stack buttons on mobile */
+@media (max-width: 768px) {
+  .card.voyage-tips .button-group {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card.voyage-tips .button-group .btn {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+/* Nuclear option: Force center regardless of parent */
+.card.voyage-tips {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 800px !important;
+  width: calc(100% - 2rem) !important; /* Account for padding */
+}
+
+/* Ensure the prose container doesn't interfere */
+.note-kens-logbook .prose {
+  position: relative;
+}
+
+/* Wrap the card in a centering container if needed */
+.voyage-tips-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+
