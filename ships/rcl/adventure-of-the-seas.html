@@ -564,5 +564,74 @@
     new Swiper('.swiper.related',{ slidesPerView:1.1, spaceBetween:10, breakpoints:{640:{slidesPerView:2},980:{slidesPerView:3}}, navigation:{ nextEl:'.related .swiper-button-next', prevEl:'.related .swiper-button-prev' }});
   })();
   </script>
+  <script>
+(function initHybridVesselFinder(){
+  const wrap = document.querySelector('.card.itinerary[data-imo]');
+  if(!wrap) return;
+
+  const imo   = (wrap.getAttribute('data-imo')||'').trim();     // 9167225 (Adventure)
+  const name  = (wrap.getAttribute('data-name')||'').trim();    // ADVENTURE-OF-THE-SEAS
+  const mapEl = document.getElementById('vf-map-adventure');
+  const iFr   = wrap.querySelector('iframe.live-map');
+
+  // Build a known-good fallback URL (details/IMO — avoids 404)
+  const fallbackURL = `https://www.vesselfinder.com/vessels/details/${imo}`;
+
+  function useIframe(){
+    if(!iFr) return;
+    iFr.src = fallbackURL;
+    iFr.classList.remove('hidden');
+    if(mapEl) mapEl.style.display = 'none';
+  }
+
+  // 1) Try the official VF widget (lighter; shows map first)
+  const s = document.createElement('script');
+  s.src = "https://www.vesselfinder.com/aismap.js";
+  s.async = true;
+
+  // If the widget stalls, bail out to iframe
+  const stallTimer = setTimeout(useIframe, 4500);
+
+  s.onload = function(){
+    try{
+      clearTimeout(stallTimer);
+
+      // Prefer global AISMap if provided; fall back to vf.map.embed-like API if exposed
+      const opts = {
+        width: "100%", height: 300, zoom: 8, names: true,
+        show_track: 1, track_days: 1,
+        vessel: `IMO:${imo}`  // focus the map on Adventure
+      };
+
+      let initialized = false;
+
+      if (window.AISMap && mapEl){
+        new AISMap(mapEl, opts);
+        initialized = true;
+      } else if (window.vf && window.vf.map && typeof vf.map.embed === 'function' && mapEl){
+        vf.map.embed(mapEl, opts);
+        initialized = true;
+      }
+
+      // Watchdog: if map canvas/SVG never appears, fallback to iframe
+      setTimeout(function(){
+        const hasCanvas = mapEl && (mapEl.querySelector('canvas,svg,iframe'));
+        if(!hasCanvas) useIframe();
+      }, 3000);
+
+      if(!initialized) useIframe();
+    }catch(e){
+      useIframe();
+    }
+  };
+
+  s.onerror = function(){
+    clearTimeout(stallTimer);
+    useIframe();
+  };
+
+  document.head.appendChild(s);
+})();
+</script>
 </body>
 </html>
