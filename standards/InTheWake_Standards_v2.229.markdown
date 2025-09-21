@@ -22,13 +22,13 @@ This document defines **all rules** for building, editing, and maintaining the *
 1. **Absolute URLs only**
    - **Scope**: All HTML files (root, `/cruise-lines/`, `/ships/`, `/ships/ships.html`).
    - All href/src must be absolute, pointing at the GitHub Pages host.
-   - ✅ `https://jsschrstrcks1.github.io/InTheWake/ships/rcl/icon-of-the-seas.html`
+   - ✅ `https://www.cruisinginthewake.com/ships/rcl/icon-of-the-seas.html`
    - ❌ `../ships/rcl/icon-of-the-seas.html`, `/ships/rcl/icon-of-the-seas.html`
 
 2. **Single global stylesheet**
    - **Scope**: All HTML files.
    - Use exactly one CSS file for all layout/design:  
-     `https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.229`
+     `https://www.cruisinginthewake.com/InTheWake/assets/styles.css?v=2.229`
    - **Never** inline or page-level CSS into HTML documents. All styling flows from `styles.css`.
    - When updating site styling, only change `styles.css` and bump the version query.
 
@@ -37,25 +37,25 @@ This document defines **all rules** for building, editing, and maintaining the *
    - Components present in header: brand wordmark (left), version badge (v2.229), pill nav, hero area with lat/long grid, logo lockup + tagline (center-bottom), compass rose (top-right).
    - The compass appears **once** (right side). No duplicates.
    - No legacy “In the Wake” text banners.
-   - The hero grid labels show ticks without numeric degrees, matching `/ships/rcl/grandeur-of-the-seas.html`.
+   - The hero grid labels show ticks without numeric degrees, matching `https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html`.
 
 4. **Primary pill navigation**
    - **Scope**: All HTML files.
    - Present on all pages with absolute links in this order:
      - Home • Ships • Restaurants & Menus • Ports • Disability at Sea • Drink Packages • Packing Lists • Cruise Lines • Solo • Travel
    - Class names and structure must match `styles.css` (e.g., `.nav a` pills).
-   - Nav links point to canonical absolute URLs (e.g., `/ships/ships.html`, `/cruise-lines/royal-caribbean.html`).
+   - Nav links point to canonical absolute URLs (e.g., `https://www.cruisinginthewake.com/ships/ships.html`, `https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html`).
 
 5. **Sticky secondary nav (when used)**
-   - **Scope**: All HTML files with multiple sections (e.g., `/packing-lists.html`, `/ships/ships.html`).
+   - **Scope**: All HTML files with multiple sections (e.g., `https://www.cruisinginthewake.com/packing-lists.html`, `https://www.cruisinginthewake.com/ships/ships.html`).
    - Pages with many sections include a sticky, pill-based section nav placed directly below the header.
    - Each section must have a stable `id` anchor. Use `scroll-margin-top` in CSS to avoid overlap.
 
 6. **Versioning**
-   - **Scope**: All HTML files except `/ships/rcl/grandeur-of-the-seas.html`.
+   - **Scope**: All HTML files except `https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html`.
    - Every updated page (except Grandeur) shows version v2.229 in `<title>` and a badge in the brand block.
    - Current version: v2.229. Increment in steps of **+0.001** for any shipped change affecting multiple pages or templates.
-   - `/ships/rcl/grandeur-of-the-seas.html` retains its current version unless deliberately updated.
+   - `https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html` retains its current version unless deliberately updated.
    - When a file is updated, increment the version site-wide as directed by the owner.
 
 7. **Accessibility (a11y)**
