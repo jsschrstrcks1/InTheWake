@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Allure of the Seas — In the Wake (v2.238)</title>
+  <title>Allure of the Seas — In the Wake (v2.239)</title>
 
   <!-- Canonical & SEO -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/allure-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean’s Allure of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
-  <meta name="version" content="2.238"/>
+  <meta name="version" content="2.239"/>
 
   <!-- Social -->
   <meta property="og:type" content="website"/>
@@ -16,11 +16,11 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/allure-of-the-seas.html"/>
   <meta property="og:title" content="Allure of the Seas — In the Wake"/>
   <meta property="og:description" content="Photos, dining, cabins, videos, and tips for Allure of the Seas."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-hero.jpg?v=2.238"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-hero.jpg?v=2.239"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Site CSS -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.238"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.239"/>
 
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/vendor/swiper/swiper-bundle.min.css"/>
@@ -45,8 +45,10 @@
       .related-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--gap, 1.25rem); }
     }
 
-    /* A First Look — force arrows visible and on top, even if theme hides them */
+    /* A First Look — robust layout even if Swiper CSS/JS hiccups */
     .swiper.firstlook{ position:relative; overflow:hidden; }
+    .swiper.firstlook .swiper-wrapper{ display:flex; }
+    .swiper.firstlook .swiper-slide{ flex:0 0 100%; }
     .swiper.firstlook .swiper-button-prev,
     .swiper.firstlook .swiper-button-next{
       position:absolute; top:50%; transform:translateY(-50%);
@@ -67,7 +69,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        <span class="version-badge">v2.238</span>
+        <span class="version-badge">v2.239</span>
       </div>
       <nav class="pills" aria-label="Site">
         <a href="https://www.cruisinginthewake.com/index.html">Home</a>
@@ -104,7 +106,7 @@
       </div>
       <div class="hero-credit">
         <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
-          Header Image © Flickers of Majesty — Instagram
+          Photo by Flickers of Majesty — Instagram
         </a>
       </div>
     </div>
@@ -133,7 +135,7 @@
               </figure>
             </div>
 
-            <!-- 2 (with robust fallback) -->
+            <!-- 2 (robust fallback) -->
             <div class="swiper-slide">
               <figure>
                 <a href="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
@@ -177,23 +179,18 @@
       <section id="dining-card" class="card" data-ship="Allure of the Seas" aria-labelledby="diningHeading">
         <h2 id="diningHeading">Dining Venues on Allure of the Seas</h2>
 
-        <!-- robust hero (never broken) -->
-        <picture>
-          <source srcset="https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.238" media="(min-width: 900px)">
-          <source srcset="https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.238" media="(min-width: 600px)">
-          <img id="dining-hero" class="card-hero"
-               src="https://www.cruisinginthewake.com/assets/ships/allure-dining-hero.jpg?v=2.238"
-               alt="Dining venue seating with ocean view" loading="lazy"
-               onerror="(function(img){
-                 var fallbacks=[
-                   'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.238',
-                   'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.238',
-                   'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23f0fbff%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22system-ui%22 font-size=%2240%22 fill=%22%230a3d62%22>Dining image coming soon</text></svg>'
-                 ];
-                 if(!img._fbi) img._fbi=0;
-                 img.src=fallbacks[Math.min(img._fbi++, fallbacks.length-1)];
-               })(this)"/>
-        </picture>
+        <!-- Your exact canonical image + fallbacks -->
+        <img id="dining-hero" class="card-hero"
+             src="https://www.cruisinginthewake.com/ships/assets/img/Cordelia_Empress_Food_Court.jpg"
+             alt="Dining venue seating with ocean view" loading="lazy"
+             onerror="(function(img){
+               var fb=[
+                 'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.239',
+                 'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.239',
+                 'https://www.cruisinginthewake.com/assets/placeholders/dining-fallback.jpg?v=2.239'
+               ];
+               if(!img._fbi) img._fbi=0; if(img._fbi<fb.length){ img.src=fb[img._fbi++]; }
+             })(this)"/>
 
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
@@ -306,7 +303,7 @@
   <!-- Vendor JS -->
   <script src="https://www.cruisinginthewake.com/assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!-- First Look: robust init (waits for Swiper + DOM + CSS) -->
+  <!-- First Look init (robust) -->
   <script>
   (function initFirstLook(){
     function ready(){ return window.Swiper && document.querySelector('.swiper.firstlook .swiper-wrapper'); }
@@ -315,30 +312,27 @@
       new Swiper('.swiper.firstlook', {
         loop:false, lazy:true, watchOverflow:true,
         pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
-        navigation:{
-          nextEl:'.swiper.firstlook .swiper-button-next',
-          prevEl:'.swiper.firstlook .swiper-button-prev'
-        },
+        navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
         a11y:{ enabled:true }
       });
     })();
   })();
   </script>
 
-  <!-- Verify dining hero even if it failed before handlers attached -->
+  <!-- Dining hero post-check in case it failed before handlers attached -->
   <script>
   (function verifyDiningHero(){
     const img = document.getElementById('dining-hero'); if(!img) return;
     function bad(i){ return !i.complete || i.naturalWidth === 0; }
     if (bad(img)) {
       const chain = [
-        'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.238',
-        'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.238'
+        'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.239',
+        'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.239',
+        'https://www.cruisinginthewake.com/assets/placeholders/dining-fallback.jpg?v=2.239'
       ];
       let i = 0;
       (function tryNext(){
         if (i>=chain.length) return;
-        img.onload = ()=>{};
         img.onerror = ()=>{ i++; tryNext(); };
         img.src = chain[i++];
       })();
@@ -347,27 +341,24 @@
   </script>
 
   <!-- Dining card (truth-driven) -->
-  <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.238" defer></script>
+  <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.239" defer></script>
 
-  <!-- Videos: cascade across repos/schemas; graceful empty state -->
+  <!-- Videos: cascades; graceful empty state -->
   <script>
   (async function initVideos(){
     const wrap = document.getElementById('featuredVideos'); if(!wrap) return;
     const slug = 'allure-of-the-seas';
     const sources = [
-      '/assets/data/rc_ship_videos.json',
-      '/assets/data/video_sources.json',
-      '/assets/data/videos/rc/allure-of-the-seas.json',
-      '/assets/data/videos/rcl/allure-of-the-seas.json',
-      '/assets/data/videos/allure-of-the-seas.json',
       'https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json',
-      'https://www.cruisinginthewake.com/assets/data/video_sources.json'
+      'https://www.cruisinginthewake.com/assets/data/video_sources.json',
+      'https://www.cruisinginthewake.com/assets/data/videos/rc/allure-of-the-seas.json',
+      'https://www.cruisinginthewake.com/assets/data/videos/rcl/allure-of-the-seas.json',
+      'https://www.cruisinginthewake.com/assets/data/videos/allure-of-the-seas.json'
     ];
     let list = [];
     for(const u of sources){
       try{
-        const r = await fetch(u,{cache:'no-store'});
-        if(!r.ok) continue;
+        const r = await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
         const j = await r.json();
         const cands = [ j[slug], j?.RCL?.[slug], j?.rcl?.[slug], Array.isArray(j)?j:null, j?.videos, j?.items ].filter(Boolean);
         for(const arr of cands){ if(Array.isArray(arr) && arr.length){ list=arr; break; } }
@@ -404,7 +395,7 @@
   })();
   </script>
 
-  <!-- Ship stats: broaden sources + tolerate shapes -->
+  <!-- Ship stats: broaden sources + tolerate shapes; inline fallback if fetch fails -->
   <script>
   (async function loadShipStats(){
     const el = document.getElementById('ship-stats');
@@ -412,12 +403,9 @@
     const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
 
     const SOURCES = [
-      '/assets/data/fleet_index.json',
-      '/assets/data/fleet_index.min.json',
-      '/assets/json/fleet_index.json',
-      '/assets/fleet_index.json',
       'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
       'https://www.cruisinginthewake.com/assets/data/fleet_index.min.json',
+      'https://www.cruisinginthewake.com/assets/json/fleet_index.json',
       'https://www.cruisinginthewake.com/assets/fleet_index.json'
     ];
     async function tryFetch(u){
@@ -428,35 +416,38 @@
     }
     let data=null;
     for(const u of SOURCES){ try{ data=await tryFetch(u); break; }catch{} }
-    if(!data){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
 
-    const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
-    function* walk(n){ if(!n) return; if(Array.isArray(n)){ for(const it of n) yield* walk(it); return; }
-      if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
-
-    let ship=null;
-    for(const obj of walk(data)){
-      const rawSlug = obj?.slug || obj?.id || obj?.attributes?.slug;
-      const nslug = norm(rawSlug);
-      const nname = norm(obj?.name || obj?.title || obj?.ship || obj?.attributes?.name);
-      if ((targetSlug && nslug === targetSlug) || nname === 'allure of the seas'){ ship=obj; break; }
+    function render(a){
+      const rows = [
+        ['Class', a.class || a.ship_class || (a.notes && /oasis/i.test(a.notes) ? 'Oasis-class' : '')],
+        ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched || '2010'],
+        ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage || '225,282'],
+        ['Guests', a.capacity || a.passengers || a.guests || '≈ 5,400'],
+        ['Crew', a.crew || '≈ 2,150'],
+        ['Length', a.length || a.length_overall || '362 m'],
+        ['Beam', a.beam || a.width || '47 m'],
+        ['Registry', a.flag || a.registry || 'Bahamas']
+      ].filter(([,v]) => v != null && String(v).trim() !== '')
+       .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`)
+       .join('');
+      el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
     }
-    if(!ship){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
 
-    const a = ship.attributes || ship;
-    const rows = [
-      ['Class', a.class || a.ship_class || (a.notes && /oasis/i.test(a.notes) ? 'Oasis-class' : '')],
-      ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
-      ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
-      ['Guests', a.capacity || a.passengers || a.guests],
-      ['Crew', a.crew],
-      ['Length', a.length || a.length_overall],
-      ['Beam', a.beam || a.width],
-      ['Registry', a.flag || a.registry]
-    ].filter(([,v]) => v != null && String(v).trim() !== '')
-     .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`)
-     .join('');
-    el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
+    if(data){
+      const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
+      function* walk(n){ if(!n) return; if(Array.isArray(n)){ for(const it of n) yield* walk(it); return; }
+        if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
+      let ship=null;
+      for(const obj of walk(data)){
+        const rawSlug = obj?.slug || obj?.id || obj?.attributes?.slug;
+        const nslug = norm(rawSlug);
+        const nname = norm(obj?.name || obj?.title || obj?.ship || obj?.attributes?.name);
+        if ((targetSlug && nslug === targetSlug) || nname === 'allure of the seas'){ ship=obj; break; }
+      }
+      if(ship) return render(ship.attributes || ship);
+    }
+    // Inline fallback so the card is never empty
+    render({});
   })();
   </script>
 
@@ -515,14 +506,13 @@
   })();
   </script>
 
-  <!-- Logbook loader -->
+  <!-- Logbook loader with inline fallback -->
   <script>
   (async function loadLogbook(){
     const el = document.getElementById('logbook-stories'); if(!el) return;
     const TRY = [
-      '/ships/rcl/assets/allure.json',
-      '/assets/data/ships/rcl/allure.json',
-      '/assets/data/logbook/rcl/allure-of-the-seas.json',
+      'https://www.cruisinginthewake.com/ships/rcl/assets/allure.json',
+      'https://www.cruisinginthewake.com/assets/data/ships/rcl/allure.json',
       'https://www.cruisinginthewake.com/assets/data/logbook/rcl/allure-of-the-seas.json'
     ];
     let stories=[];
@@ -537,9 +527,11 @@
         if(arr.length){ stories=arr; break; }
       }catch{}
     }
-    el.innerHTML = stories.length
-      ? stories.map(p => `<article class="story"><h3>${(p.title||p.persona_label||'Guest Perspective')}</h3>${(p.markdown||p.html||'').trim()}</article>`).join('')
-      : '<p class="small">Fresh pages are being inked—check back soon.</p>';
+    if(!stories.length){
+      el.innerHTML = `<article class="story"><h3>From the Wake</h3><p class="small">Our crew is compiling first-hand notes and tips for Allure of the Seas. Check back shortly for fresh entries.</p></article>`;
+      return;
+    }
+    el.innerHTML = stories.map(p => `<article class="story"><h3>${(p.title||p.persona_label||'Guest Perspective')}</h3>${(p.markdown||p.html||'').trim()}</article>`).join('');
   })();
   </script>
 </body>
