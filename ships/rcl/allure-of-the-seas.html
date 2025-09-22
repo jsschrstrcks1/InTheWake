@@ -1,83 +1,57 @@
-<!-- First Look (Wikimedia Commons images; click opens full size in new tab) -->
-<div class="swiper firstlook" aria-label="Allure of the Seas photo carousel">
-  <div class="swiper-wrapper">
-
-    <!-- 1) Allure_of_the_Seas_(8615703241).jpg — Jonathan Palombo — CC BY 2.0 -->
-    <div class="swiper-slide">
-      <figure>
-        <a href="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg"
-           target="_blank" rel="noopener"
-           referrerpolicy="no-referrer" aria-label="Open full-size photo in a new tab">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg"
-            alt="Allure of the Seas at sea"
-            loading="lazy" referrerpolicy="no-referrer"/>
-        </a>
-      </figure>
-    </div>
-
-    <!-- 2) Allure_of_the_Seas.jpg — Jonathan Palombo — CC BY 2.0 -->
-    <div class="swiper-slide">
-      <figure>
-        <a href="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
-           target="_blank" rel="noopener"
-           referrerpolicy="no-referrer" aria-label="Open full-size photo in a new tab">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
-            alt="Allure of the Seas broadside view"
-            loading="lazy" referrerpolicy="no-referrer"/>
-        </a>
-      </figure>
-    </div>
-
-    <!-- 3) Moll_Adossat_(Port_of_Barcelona)_Allure_of_the_Seas.JPG — Jordiferrer — CC BY-SA 4.0 -->
-    <div class="swiper-slide">
-      <figure>
-        <a href="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG"
-           target="_blank" rel="noopener"
-           referrerpolicy="no-referrer" aria-label="Open full-size photo in a new tab">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG"
-            alt="Allure of the Seas docked at Barcelona's Moll Adossat"
-            loading="lazy" referrerpolicy="no-referrer"/>
-        </a>
-      </figure>
-    </div>
-
-  </div>
-  <div class="swiper-pagination" aria-hidden="true"></div>
-  <div class="swiper-button-prev" aria-label="Previous image"></div>
-  <div class="swiper-button-next" aria-label="Next image"></div>
-</div><!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Allure of the Seas — In the Wake (v2.235)</title>
+  <title>Allure of the Seas — In the Wake (v2.236)</title>
 
+  <!-- Canonical & SEO -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/allure-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean’s Allure of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
+  <meta name="version" content="2.236"/>
 
-  <!-- SEO / Social -->
+  <!-- Social -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/allure-of-the-seas.html"/>
   <meta property="og:title" content="Allure of the Seas — In the Wake"/>
   <meta property="og:description" content="Photos, dining, cabins, videos, and tips for Allure of the Seas."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-hero.jpg?v=2.235"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-hero.jpg?v=2.236"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Unified CSS -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.235"/>
+  <!-- Unified CSS (absolute path, per standards) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.236"/>
 
-  <!-- Swiper CSS (canonical) -->
+  <!-- Vendor: Swiper (canonical) -->
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/vendor/swiper/swiper-bundle.min.css"/>
 
-  <!-- Optional: page-scoped micro-tweaks allowed by standards -->
+  <!-- Page-scoped micro-tweaks allowed by standards -->
   <style>
+    /* --- Compliance: minimal page-local styles only --- */
     .hidden{display:none!important}
     .pills, .class-pills, .related-pills, .button-group { justify-content:center; text-align:center }
     .pills, .class-pills, .related-pills { display:flex; gap:.5rem; flex-wrap:wrap }
+
+    /* Watermark (fouled anchor), absolute path per standards */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background: url("https://www.cruisinginthewake.com/assets/watermark.png") center right / 420px auto no-repeat;
+      opacity:.06;           /* visible across browsers; not “muted to invisibility” */
+      pointer-events:none;
+      z-index:0;
+    }
+    /* Keep content above watermark */
+    body > * { position:relative; z-index:1; }
+
+    /* Ensure last two related cards are side-by-side on desktop */
+    @media (min-width: 861px){
+      .related-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--gap, 1.25rem); }
+    }
+
+    /* First Look carousel image containment */
+    .swiper.firstlook img{ display:block; width:100%; height:auto; border-radius:10px }
   </style>
 </head>
 <body class="page no-hero-filter">
@@ -85,12 +59,12 @@
     <div class="navbar">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        <span class="version-badge">v2.235</span>
+        <span class="version-badge">v2.236</span>
       </div>
       <nav class="pills" aria-label="Site">
         <a href="https://www.cruisinginthewake.com/index.html">Home</a>
         <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants & Menus</a>
+        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
         <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
         <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
         <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
@@ -101,6 +75,7 @@
       </nav>
     </div>
 
+    <!-- Hero with compass on the RIGHT (compliant) -->
     <div class="hero" role="img" aria-label="Allure of the Seas hero image">
       <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
@@ -117,7 +92,7 @@
       </div>
       <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
@@ -136,72 +111,48 @@
         <h2 id="first-look">A First Look</h2>
 
         <!-- First Look (Wikimedia Commons images; click opens full size in new tab) -->
-<div class="swiper firstlook" aria-label="Allure of the Seas photo carousel">
-  <div class="swiper-wrapper">
+        <div class="swiper firstlook" aria-label="Allure of the Seas photo carousel">
+          <div class="swiper-wrapper">
 
-    <!-- 1) Allure_of_the_Seas_(8615703241).jpg — Jonathan Palombo — CC BY 2.0 -->
-    <div class="swiper-slide">
-      <figure>
-        <a href="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg"
-           target="_blank" rel="noopener"
-           referrerpolicy="no-referrer" aria-label="Open full-size photo in a new tab">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg"
-            alt="Allure of the Seas at sea"
-            loading="lazy" referrerpolicy="no-referrer"/>
-        </a>
-      </figure>
-    </div>
-
-    <!-- 2) Allure_of_the_Seas.jpg — Jonathan Palombo — CC BY 2.0 -->
-    <div class="swiper-slide">
-      <figure>
-        <a href="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
-           target="_blank" rel="noopener"
-           referrerpolicy="no-referrer" aria-label="Open full-size photo in a new tab">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
-            alt="Allure of the Seas broadside view"
-            loading="lazy" referrerpolicy="no-referrer"/>
-        </a>
-      </figure>
-    </div>
-
-    <!-- 3) Moll_Adossat_(Port_of_Barcelona)_Allure_of_the_Seas.JPG — Jordiferrer — CC BY-SA 4.0 -->
-    <div class="swiper-slide">
-      <figure>
-        <a href="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG"
-           target="_blank" rel="noopener"
-           referrerpolicy="no-referrer" aria-label="Open full-size photo in a new tab">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG"
-            alt="Allure of the Seas docked at Barcelona's Moll Adossat"
-            loading="lazy" referrerpolicy="no-referrer"/>
-        </a>
-      </figure>
-    </div>
-
-  </div>
-  <div class="swiper-pagination" aria-hidden="true"></div>
-  <div class="swiper-button-prev" aria-label="Previous image"></div>
-  <div class="swiper-button-next" aria-label="Next image"></div>
-</div>
+            <!-- 1) Allure_of_the_Seas_(8615703241).jpg — Jonathan Palombo — CC BY 2.0 -->
             <div class="swiper-slide">
               <figure>
-                <a href="<!-- TODO: FULL Commons file URL #2 -->" target="_blank" rel="noopener">
-                  <img src="<!-- TODO -->" alt="Allure of the Seas — view 2" loading="lazy"/>
+                <a href="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg"
+                   target="_blank" rel="noopener" referrerpolicy="no-referrer"
+                   aria-label="Open full-size photo in a new tab">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg"
+                    alt="Allure of the Seas at sea" loading="lazy" referrerpolicy="no-referrer"/>
                 </a>
-                <figcaption class="tiny">Header image attribution in footer.</figcaption>
               </figure>
             </div>
+
+            <!-- 2) Allure_of_the_Seas.jpg — Jonathan Palombo — CC BY 2.0 -->
             <div class="swiper-slide">
               <figure>
-                <a href="<!-- TODO: FULL Commons file URL #3 -->" target="_blank" rel="noopener">
-                  <img src="<!-- TODO -->" alt="Allure of the Seas — view 3" loading="lazy"/>
+                <a href="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
+                   target="_blank" rel="noopener" referrerpolicy="no-referrer"
+                   aria-label="Open full-size photo in a new tab">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
+                    alt="Allure of the Seas broadside view" loading="lazy" referrerpolicy="no-referrer"/>
                 </a>
-                <figcaption class="tiny">Header image attribution in footer.</figcaption>
               </figure>
             </div>
+
+            <!-- 3) Moll_Adossat_(Port_of_Barcelona)_Allure_of_the_Seas.JPG — Jordiferrer — CC BY-SA 4.0 -->
+            <div class="swiper-slide">
+              <figure>
+                <a href="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG"
+                   target="_blank" rel="noopener" referrerpolicy="no-referrer"
+                   aria-label="Open full-size photo in a new tab">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG"
+                    alt="Allure of the Seas docked at Barcelona's Moll Adossat" loading="lazy" referrerpolicy="no-referrer"/>
+                </a>
+              </figure>
+            </div>
+
           </div>
           <div class="swiper-pagination" aria-hidden="true"></div>
           <div class="swiper-button-prev" aria-label="Previous image"></div>
@@ -220,11 +171,12 @@
         <h2 id="diningHeading">Dining Venues on Allure of the Seas</h2>
 
         <img class="card-hero"
-             src="https://www.cruisinginthewake.com/assets/ships/allure-dining-hero.jpg?v=2.235"
+             src="https://www.cruisinginthewake.com/assets/ships/allure-dining-hero.jpg?v=2.236"
              alt="Dining venue seating with ocean view" loading="lazy"/>
 
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
+        <!-- Data source declaration (loader uses this) -->
         <script type="application/json" id="dining-data-source">
           {
             "provider":"rcl",
@@ -233,7 +185,14 @@
             "aliases":["Allure of the Seas","Allure Of The Seas"]
           }
         </script>
+        <p class="tiny">Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</p>
       </section>
+    </section>
+
+    <!-- Marketing Blurb (compliant stub; truth-driven source, safe fallback) -->
+    <section class="card" aria-labelledby="marketing">
+      <h2 id="marketing">Why Sail Allure?</h2>
+      <div id="marketing-blurb" class="prose small">Loading highlights…</div>
     </section>
 
     <!-- Logbook (Real Guest Stories) -->
@@ -263,31 +222,26 @@
         <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/allure-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
       </section>
 
-      <section class="card" aria-labelledby="liveTrackHeading">
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9383948" data-name="ALLURE-OF-THE-SEAS">
         <h2 id="liveTrackHeading">Where Is Allure Right Now?</h2>
         <p>See the ship’s current position, speed, and next port on a live tracker.</p>
 
-        <div class="card itinerary" data-imo="9383948" data-name="ALLURE-OF-THE-SEAS">
-          <h3>Live Itinerary</h3>
+        <div id="vf-map-allure" class="vf-map" role="region"
+             aria-label="Live ship map for Allure of the Seas"
+             style="width:100%;height:300px;background:var(--sky)"></div>
 
-          <!-- Primary (lightweight) -->
-          <div id="vf-map-allure" class="vf-map" role="region"
-               aria-label="Live ship map for Allure of the Seas"
-               style="width:100%;height:300px;background:var(--sky)"></div>
+        <!-- Fallback -->
+        <iframe class="live-map hidden"
+                title="Live ship tracker for Allure of the Seas"
+                width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen
+                aria-label="Live ship tracker for Allure of the Seas"></iframe>
 
-          <!-- Fallback (non-404) -->
-          <iframe class="live-map hidden"
-                  title="Live ship tracker for Allure of the Seas"
-                  width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen
-                  aria-label="Live ship tracker for Allure of the Seas"></iframe>
-
-          <p class="tiny">Sample route subject to change — see <a href="https://www.cruisinginthewake.com/ports.html">ports</a> for more.</p>
-        </div>
+        <p class="tiny">Sample route subject to change — see <a href="https://www.cruisinginthewake.com/ports.html">ports</a> for more.</p>
       </section>
     </section>
 
-    <!-- Related & Attribution -->
-    <section class="grid-2">
+    <!-- Related (side-by-side) -->
+    <section class="related-row">
       <section class="card carousel related-ships" aria-labelledby="related-ships">
         <h2 id="related-ships" class="card-title">Oasis Class — Sister Ships</h2>
         <div class="related-pills" aria-label="Oasis-class ships">
@@ -315,14 +269,15 @@
       </section>
     </section>
 
+    <!-- Attribution (kept separate to avoid breaking the “two-card” layout above) -->
     <section class="card" aria-labelledby="attribution">
-      <h2 id="attribution">Attribution & Credits</h2>
+      <h2 id="attribution">Attribution &amp; Credits</h2>
       <ul>
-        <li>Photos (First Look): 
+        <li>Photos (First Look):
           <ul>
-            <li><!-- TODO: Commons #1 --> — creator, <em>license</em> (link)</li>
-            <li><!-- TODO: Commons #2 --> — creator, <em>license</em> (link)</li>
-            <li><!-- TODO: Commons #3 --> — creator, <em>license</em> (link)</li>
+            <li><a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_(8615703241).jpg" target="_blank" rel="noopener">Allure_of_the_Seas_(8615703241).jpg</a> — Jonathan Palombo — <em><a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a></em></li>
+            <li><a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas.jpg" target="_blank" rel="noopener">Allure_of_the_Seas.jpg</a> — Jonathan Palombo — <em><a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a></em></li>
+            <li><a href="https://commons.wikimedia.org/wiki/File:Moll_Adossat_(Port_of_Barcelona)_Allure_of_the_Seas.JPG" target="_blank" rel="noopener">Moll_Adossat_(Port_of_Barcelona)_Allure_of_the_Seas.JPG</a> — Jordiferrer — <em><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></em></li>
           </ul>
         </li>
         <li>Videos: curated from green-list sources (YouTube); titles inside embeds.</li>
@@ -335,10 +290,10 @@
 
   <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
-  <!-- JS: Swiper / Dining / Loaders -->
+  <!-- JS: Swiper / Dining / Loaders (absolute paths) -->
   <script src="https://www.cruisinginthewake.com/assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script>
-    /* First Look Swiper */
+    /* First Look Swiper (a11y on; loop off; lazy on) */
     (function initFirstLook(){
       function go(){
         if(!window.Swiper) return setTimeout(go,120);
@@ -354,7 +309,7 @@
   </script>
 
   <!-- Dining card (truth-driven) -->
-  <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.235" defer></script>
+  <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.236" defer></script>
 
   <!-- Videos: rc_ship_videos.json -->
   <script>
@@ -378,7 +333,7 @@
 
     list.forEach(v=>{
       const id = v.id||v.youtubeId||v.yt||'';
-      const title = v.title || 'Ship video';
+      const title = (v.title||'Ship video').replace(/"/g,'&quot;');
       if(!id) return;
       const slide=document.createElement('div'); slide.className='swiper-slide';
       slide.innerHTML = `<iframe title="${title}" src="https://www.youtube.com/embed/${id}"
@@ -449,7 +404,7 @@
   })();
   </script>
 
-  <!-- Live Itinerary: hybrid -->
+  <!-- Live Itinerary: hybrid embed (VesselFinder) -->
   <script>
   (function initHybridVesselFinder(){
     const wrap = document.querySelector('.card.itinerary[data-imo]');
@@ -519,6 +474,23 @@
     }catch(e){
       const el = document.getElementById('logbook-stories'); if(el) el.innerHTML = '<p class="small">Stories will cast off shortly.</p>';
     }
+  })();
+  </script>
+
+  <!-- Marketing Blurb loader (truth-driven; safe fallback) -->
+  <script>
+  (async function loadMarketing(){
+    const el = document.getElementById('marketing-blurb'); if(!el) return;
+    const TRY = [
+      'https://www.cruisinginthewake.com/assets/data/marketing/rcl/allure.json',
+      'https://www.cruisinginthewake.com/assets/data/marketing/rcl/_common.json'
+    ];
+    let j=null;
+    for(const u of TRY){
+      try{ const r=await fetch(u,{cache:'no-store'}); if(r.ok){ j = await r.json(); break; } }catch{}
+    }
+    const text = j?.blurb || j?.html || j?.text;
+    el.innerHTML = text ? String(text) : 'Oasis-class energy without the newest-ship price tag. Central Park calm, AquaTheater thrills, and plenty of family space make Allure a reliable crowd-pleaser.';
   })();
   </script>
 </body>
