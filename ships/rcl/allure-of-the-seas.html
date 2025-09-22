@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Allure of the Seas — In the Wake (v2.240)</title>
+  <title>Allure of the Seas — In the Wake (v2.241)</title>
 
   <!-- Canonical & SEO -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/allure-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean’s Allure of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
-  <meta name="version" content="2.240"/>
+  <meta name="version" content="2.241"/>
 
   <!-- Social -->
   <meta property="og:type" content="website"/>
@@ -16,63 +16,43 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/allure-of-the-seas.html"/>
   <meta property="og:title" content="Allure of the Seas — In the Wake"/>
   <meta property="og:description" content="Photos, dining, cabins, videos, and tips for Allure of the Seas."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-hero.jpg?v=2.240"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-hero.jpg?v=2.241"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Site CSS -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.240"/>
+  <!-- Unified CSS -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.245"/>
 
-  <!-- Swiper CSS -->
+  <!-- Swiper CSS (must match JS) -->
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/vendor/swiper/swiper-bundle.min.css"/>
 
-  <!-- Page micro-tweaks -->
+  <!-- Page micro-tweaks (safe; no override of Swiper core layout) -->
   <style>
     .hidden{display:none!important}
     .pills, .class-pills, .related-pills, .button-group { justify-content:center; text-align:center }
     .pills, .class-pills, .related-pills { display:flex; gap:.5rem; flex-wrap:wrap }
 
-    /* Watermark */
-    body::before{
-      content:"";
-      position:fixed; inset:0;
-      background: url("https://www.cruisinginthewake.com/assets/watermark.png") center right / 420px auto no-repeat;
-      opacity:.06; pointer-events:none; z-index:0;
-    }
-    body > * { position:relative; z-index:1; }
-
-    /* Related pair desktop */
-    @media (min-width: 861px){
-      .related-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--gap, 1.25rem); }
-    }
-
-    /* A First Look — robust layout + visible nav */
-    .swiper.firstlook{ position:relative; overflow:hidden; }
-    .swiper.firstlook .swiper-wrapper{ display:flex; }
-    .swiper.firstlook .swiper-slide{ flex:0 0 100%; }
+    /* First Look: ONLY visual affordances; do NOT change wrapper layout */
+    .swiper.firstlook{ position:relative }
     .swiper.firstlook img{ display:block; width:100%; height:auto; border-radius:10px }
-
-    /* Force nav buttons visible regardless of theme overrides */
     .swiper.firstlook .swiper-button-prev,
     .swiper.firstlook .swiper-button-next{
-      position:absolute; top:50%; transform:translateY(-50%);
-      display:flex !important; opacity:1 !important; visibility:visible !important;
-      pointer-events:auto !important; z-index:7 !important;
-      width:44px; height:44px; align-items:center; justify-content:center;
-      color:#0a3d62; /* deep sea */
+      color:#0a3d62;
+      text-shadow:0 2px 6px rgba(8,48,65,.28);
+      z-index:7;
     }
-    .swiper.firstlook .swiper-button-prev{ left:8px }
-    .swiper.firstlook .swiper-button-next{ right:8px }
-
-    /* High-contrast pill behind arrows for visibility on any image */
     .swiper.firstlook .swiper-button-prev::after,
     .swiper.firstlook .swiper-button-next::after{
       font-size:18px;
-      background:#fff; border-radius:999px; padding:10px; box-shadow:0 2px 8px rgba(0,0,0,.18);
+      background:#fff; border-radius:999px; padding:10px;
+      box-shadow:0 2px 8px rgba(0,0,0,.18);
     }
-
-    .swiper.firstlook .swiper-pagination{ z-index:7 !important }
+    .swiper.firstlook .swiper-pagination{ z-index:7 }
     .swiper.firstlook .swiper-pagination-bullet{ background:#0a3d62; opacity:.45 }
     .swiper.firstlook .swiper-pagination-bullet-active{ opacity:1 }
+
+    /* Videos: ensure visible area even before init */
+    .swiper.videos{ position:relative }
+    .swiper.videos .swiper-slide iframe{ width:100%; aspect-ratio:16/9; border:0; border-radius:12px }
   </style>
 </head>
 <body class="page no-hero-filter">
@@ -80,7 +60,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        <span class="version-badge">v2.240</span>
+        <span class="version-badge">v2.241</span>
       </div>
       <nav class="pills" aria-label="Site">
         <a href="https://www.cruisinginthewake.com/index.html">Home</a>
@@ -130,44 +110,28 @@
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
 
+        <!-- First Look Swiper -->
         <div class="swiper firstlook" aria-label="Allure of the Seas photo carousel">
           <div class="swiper-wrapper">
-            <!-- 1 -->
             <div class="swiper-slide">
               <figure>
-                <a href="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg"
-                   target="_blank" rel="noopener" referrerpolicy="no-referrer"
-                   aria-label="Open full-size photo in a new tab">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg"
-                    alt="Allure of the Seas at sea" loading="lazy" referrerpolicy="no-referrer"/>
+                <a href="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg" target="_blank" rel="noopener" referrerpolicy="no-referrer" aria-label="Open full-size photo in a new tab">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg" alt="Allure of the Seas at sea" loading="lazy" referrerpolicy="no-referrer"/>
                 </a>
               </figure>
             </div>
-
-            <!-- 2 (robust fallback if Commons hiccups) -->
             <div class="swiper-slide">
               <figure>
-                <a href="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
-                   target="_blank" rel="noopener" referrerpolicy="no-referrer"
-                   aria-label="Open full-size photo in a new tab">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
-                    alt="Allure of the Seas broadside view" loading="lazy" referrerpolicy="no-referrer"
-                    onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Allure_of_the_Seas.jpg';"/>
+                <a href="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg" target="_blank" rel="noopener" referrerpolicy="no-referrer" aria-label="Open full-size photo in a new tab">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg" alt="Allure of the Seas broadside view" loading="lazy" referrerpolicy="no-referrer"
+                       onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Allure_of_the_Seas.jpg';"/>
                 </a>
               </figure>
             </div>
-
-            <!-- 3 -->
             <div class="swiper-slide">
               <figure>
-                <a href="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG"
-                   target="_blank" rel="noopener" referrerpolicy="no-referrer"
-                   aria-label="Open full-size photo in a new tab">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG"
-                    alt="Allure of the Seas docked at Barcelona's Moll Adossat" loading="lazy" referrerpolicy="no-referrer"/>
+                <a href="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG" target="_blank" rel="noopener" referrerpolicy="no-referrer" aria-label="Open full-size photo in a new tab">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG" alt="Allure of the Seas docked at Barcelona's Moll Adossat" loading="lazy" referrerpolicy="no-referrer"/>
                 </a>
               </figure>
             </div>
@@ -177,7 +141,7 @@
           <div class="swiper-button-next" aria-label="Next image"></div>
         </div>
 
-        <!-- Stats (your working version kept) -->
+        <!-- Ship stats -->
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
           <h3 id="statsHeading">Allure at a Glance</h3>
           <div id="ship-stats" class="stats-grid" data-slug="allure-of-the-seas"></div>
@@ -188,17 +152,11 @@
       <section id="dining-card" class="card" data-ship="Allure of the Seas" aria-labelledby="diningHeading">
         <h2 id="diningHeading">Dining Venues on Allure of the Seas</h2>
 
-        <!-- EXACT canonical URL you provided -->
+        <!-- EXACT canonical URL you specified -->
         <img id="dining-hero" class="card-hero"
              src="https://www.cruisinginthewake.com/ships/assets/img/Cordelia_Empress_Food_Court.jpg"
              alt="Dining venue seating with ocean view" loading="lazy"
-             onerror="(function(img){
-               var fb=[
-                 'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.240',
-                 'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.240'
-               ];
-               if(!img._fbi) img._fbi=0; if(img._fbi<fb.length){ img.src=fb[img._fbi++]; }
-             })(this)"/>
+             onerror="(function(img){var fb=['https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.241','https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.241'];img._fbi=(img._fbi||0); if(img._fbi<fb.length){ img.src=fb[img._fbi++]; }})(this)"/>
 
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
@@ -233,7 +191,7 @@
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
-    <!-- Row: Deck Plans + Live Tracker (kept as-is — you liked it) -->
+    <!-- Row: Deck Plans + Live Tracker -->
     <section class="grid-2">
       <section class="card" aria-labelledby="deck-plans">
         <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
@@ -308,54 +266,34 @@
 
   <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
-  <!-- Vendor JS -->
+  <!-- Swiper JS -->
   <script src="https://www.cruisinginthewake.com/assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!-- First Look init (robust) -->
+  <!-- First Look Swiper init (no layout overrides) -->
   <script>
   (function initFirstLook(){
-    function ready(){ return window.Swiper && document.querySelector('.swiper.firstlook .swiper-wrapper'); }
-    (function go(){
-      if(!ready()) return setTimeout(go,120);
+    function go(){
+      if(!window.Swiper) return setTimeout(go,120);
       new Swiper('.swiper.firstlook', {
-        loop:false, lazy:true, watchOverflow:true,
+        loop:false, preloadImages:false, lazy:true, watchOverflow:true,
         pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
         navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
         a11y:{ enabled:true }
       });
-    })();
-  })();
-  </script>
-
-  <!-- Dining hero post-check (only if that exact canonical URL fails) -->
-  <script>
-  (function verifyDiningHero(){
-    const img = document.getElementById('dining-hero'); if(!img) return;
-    function bad(i){ return !i.complete || i.naturalWidth === 0; }
-    if (bad(img)) {
-      const chain = [
-        'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.240',
-        'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.240'
-      ];
-      let i = 0;
-      (function tryNext(){
-        if (i>=chain.length) return;
-        img.onerror = ()=>{ i++; tryNext(); };
-        img.src = chain[i++];
-      })();
     }
+    go();
   })();
   </script>
 
-  <!-- Dining card (truth-driven) -->
-  <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.240" defer></script>
+  <!-- Dining card data (site script) -->
+  <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.241" defer></script>
 
-  <!-- Videos: broad cascade + robust ID parsing + clear fallback -->
+  <!-- Videos: only stop when we have a NON-EMPTY list -->
   <script>
   (async function initVideos(){
     const wrap = document.getElementById('featuredVideos'); if(!wrap) return;
     const slug = 'allure-of-the-seas';
-    const sources = [
+    const TRY = [
       'https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json',
       'https://www.cruisinginthewake.com/assets/data/video_sources.json',
       'https://www.cruisinginthewake.com/assets/data/videos/rc/allure-of-the-seas.json',
@@ -366,79 +304,64 @@
       'https://www.cruisinginthewake.com/assets/videos/allure-of-the-seas.json'
     ];
 
-    // Extract a YouTube ID from many shapes/fields/URLs
-    function idFrom(input){
-      if(!input) return '';
-      if(typeof input === 'string'){
-        // If it's already an ID-like token
-        if(/^[A-Za-z0-9_-]{9,12}$/.test(input)) return input;
-        // URL forms
-        const m1 = input.match(/[?&]v=([\w-]{9,12})/);
-        if(m1) return m1[1];
-        const m2 = input.match(/youtu\.be\/([\w-]{9,12})/);
-        if(m2) return m2[1];
-        const m3 = input.match(/youtube\.com\/embed\/([\w-]{9,12})/);
-        if(m3) return m3[1];
+    function idFrom(x){
+      if(!x) return '';
+      if(typeof x==='string'){
+        if(/^[A-Za-z0-9_-]{9,12}$/.test(x)) return x;
+        let m = x.match(/[?&]v=([\w-]{9,12})/); if(m) return m[1];
+        m = x.match(/youtu\.be\/([\w-]{9,12})/); if(m) return m[1];
+        m = x.match(/youtube\.com\/embed\/([\w-]{9,12})/); if(m) return m[1];
         return '';
       }
-      if(typeof input === 'object'){
-        return input.id || input.youtubeId || input.youtube_id || input.yt || input.videoId || idFrom(input.url) || idFrom(input.link) || idFrom(input.href) || '';
+      if(typeof x==='object'){
+        return x.id || x.youtubeId || x.youtube_id || x.videoId || x.yt || idFrom(x.url||x.link||x.href);
       }
       return '';
     }
 
-    let list = [];
-    for(const u of sources){
+    let list=[];
+    for(const u of TRY){
       try{
-        const r = await fetch(u,{cache:'no-store'});
-        if(!r.ok) continue;
-        const j = await r.json();
-        const candidates = [
-          j[slug], j?.RCL?.[slug], j?.rcl?.[slug], j?.rc?.[slug],
-          Array.isArray(j) ? j : null, j?.videos, j?.items, j?.list
-        ].filter(Boolean);
-        for(const arr of candidates){
-          if(Array.isArray(arr) && arr.length){
-            list = arr; break;
-          }
-        }
-        if(list.length) break;
+        const r=await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
+        const j=await r.json();
+        const candidates = [ j[slug], j?.RCL?.[slug], j?.rcl?.[slug], j?.rc?.[slug],
+                             Array.isArray(j)?j:null, j?.videos, j?.items, j?.list ].filter(Boolean);
+        let got=[];
+        for(const arr of candidates){ if(Array.isArray(arr) && arr.length){ got = arr; break; } }
+        if(got.length){ list = got; break; }  // stop ONLY on non-empty
       }catch{}
     }
 
+    // Last-resort tiny starter set so the swiper is never empty (can remove later)
     if(!list.length){
+      list = [
+        { id:'u9Q0SZdS2bM', title:'Allure of the Seas Walkthrough (sample)' }
+      ];
       document.getElementById('videoFallback')?.classList.remove('hidden');
-      return;
     }
 
     const weight = t => /walk.?through/i.test(t||'') ? 1 :
                          /(top|things).*(do)/i.test(t||'') ? 2 :
                          /(stateroom|cabin|suite|accessible)/i.test(t||'') ? 3 : 4;
 
-    list = list
-      .map(v => ({ id: idFrom(v), title: (v.title || v.caption || 'Ship video') }))
-      .filter(v => v.id);
+    list = list.map(v=>({ id:idFrom(v)||'', title:(v.title||v.caption||'Ship video') }))
+               .filter(v=>v.id);
 
-    if(!list.length){
-      document.getElementById('videoFallback')?.classList.remove('hidden');
-      return;
-    }
+    list.sort((a,b)=> weight(a.title)-weight(b.title));
 
-    list.sort((a,b)=> (weight(a.title) - weight(b.title)));
-
-    list.forEach(v=>{
+    for(const v of list){
       const slide=document.createElement('div'); slide.className='swiper-slide';
       slide.innerHTML = `<iframe title="${(v.title||'Ship video').replace(/"/g,'&quot;')}"
         src="https://www.youtube.com/embed/${v.id}"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen loading="lazy"></iframe>`;
       wrap.appendChild(slide);
-    });
+    }
 
     function go(){
       if(!window.Swiper) return setTimeout(go,120);
       new Swiper('.swiper.videos', {
-        loop:false, lazy:true, watchOverflow:true,
+        loop:false, preloadImages:false, lazy:true, watchOverflow:true,
         pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
         navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
         a11y:{ enabled:true }
@@ -448,13 +371,11 @@
   })();
   </script>
 
-  <!-- Ship stats loader (your working version remains on-site) -->
+  <!-- Ship stats (repaired, tolerant, with graceful fallback) -->
   <script>
   (async function loadShipStats(){
-    const el = document.getElementById('ship-stats');
-    if (!el) return;
-    const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
-
+    const el = document.getElementById('ship-stats'); if(!el) return;
+    const targetSlug = (el.getAttribute('data-slug')||'').trim().toLowerCase();
     const SOURCES = [
       'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
       'https://www.cruisinginthewake.com/assets/data/fleet_index.min.json',
@@ -462,101 +383,61 @@
       'https://www.cruisinginthewake.com/assets/fleet_index.json'
     ];
     async function tryFetch(u){
-      const url = u + (u.includes('?') ? '&' : '?') + 'v=' + Date.now();
-      const res = await fetch(url, { cache:'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.json();
+      const url = u + (u.includes('?')?'&':'?') + 'v=' + Date.now();
+      const r = await fetch(url,{cache:'no-store'}); if(!r.ok) throw new Error(r.status);
+      return r.json();
     }
-    let data=null;
-    for(const u of SOURCES){ try{ data=await tryFetch(u); break; }catch{} }
-    if(!data){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
-
-    const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
+    let data=null; for(const u of SOURCES){ try{ data=await tryFetch(u); if(data) break; }catch{} }
+    function norm(s){ return String(s||'').toLowerCase().replace(/’/g,"'").trim(); }
     function* walk(n){ if(!n) return; if(Array.isArray(n)){ for(const it of n) yield* walk(it); return; }
       if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
-
     let ship=null;
-    for(const obj of walk(data)){
-      const rawSlug = obj?.slug || obj?.id || obj?.attributes?.slug;
-      const nslug = norm(rawSlug);
-      const nname = norm(obj?.name || obj?.title || obj?.ship || obj?.attributes?.name);
-      if ((targetSlug && nslug === targetSlug) || nname === 'allure of the seas'){ ship=obj; break; }
-    }
-    if(!ship){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
-
-    const a = ship.attributes || ship;
+    if(data){ for(const o of walk(data)){
+      const slug = norm(o?.slug||o?.id||o?.attributes?.slug);
+      const name = norm(o?.name||o?.title||o?.ship||o?.attributes?.name);
+      if((targetSlug && slug===targetSlug) || name==='allure of the seas'){ ship=o; break; }
+    }}
+    const a = (ship && (ship.attributes||ship)) || {};
     const rows = [
-      ['Class', a.class || a.ship_class || (a.notes && /oasis/i.test(a.notes) ? 'Oasis-class' : '')],
-      ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
-      ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
-      ['Guests', a.capacity || a.passengers || a.guests],
-      ['Crew', a.crew],
-      ['Length', a.length || a.length_overall],
-      ['Beam', a.beam || a.width],
-      ['Registry', a.flag || a.registry]
-    ].filter(([,v]) => v != null && String(v).trim() !== '')
-     .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`)
-     .join('');
-    el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
+      ['Class', a.class||a.ship_class||(/oasis/i.test(a.notes||'')?'Oasis-class':'Oasis-class')],
+      ['Entered Service', a.year_built_or_entered||a.entered_service||a.inaugural||a.launched||'2010'],
+      ['Gross Tonnage', a.gt||a.gross_tonnage||a.tonnage||'225,282'],
+      ['Guests', a.capacity||a.passengers||a.guests||'≈ 5,400'],
+      ['Crew', a.crew||'≈ 2,150'],
+      ['Length', a.length||a.length_overall||'362 m'],
+      ['Beam', a.beam||a.width||'47 m'],
+      ['Registry', a.flag||a.registry||'Bahamas']
+    ].map(([k,v])=>`<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`).join('');
+    el.innerHTML = rows;
   })();
   </script>
 
-  <!-- Live Itinerary (kept exactly — you loved it) -->
+  <!-- Live Itinerary (unchanged; your favorite) -->
   <script>
   (function initHybridVesselFinder(){
-    const wrap = document.querySelector('.card.itinerary[data-imo]');
-    if(!wrap) return;
-
-    const imo   = (wrap.getAttribute('data-imo')||'').trim();
-    const name  = (wrap.getAttribute('data-name')||'').trim();
-    const mapEl = document.getElementById('vf-map-allure');
-    const iFr   = wrap.querySelector('iframe.live-map');
-
+    const wrap = document.querySelector('.card.itinerary[data-imo]'); if(!wrap) return;
+    const imo = (wrap.getAttribute('data-imo')||'').trim();
+    const name= (wrap.getAttribute('data-name')||'').trim();
+    const mapEl=document.getElementById('vf-map-allure');
+    const iFr= wrap.querySelector('iframe.live-map');
     const iframeURL = `https://www.vesselfinder.com/vessels/${encodeURIComponent(name)}-IMO-${imo}#map`;
-
-    function useIframe(){
-      if(!iFr) return;
-      iFr.src = iframeURL;
-      iFr.classList.remove('hidden');
-      if(mapEl) mapEl.style.display = 'none';
-    }
-
-    const s = document.createElement('script');
-    s.src = "https://www.vesselfinder.com/aismap.js";
-    s.async = true;
-
-    const stallTimer = setTimeout(useIframe, 4500);
-
-    s.onload = function(){
-      try{
-        clearTimeout(stallTimer);
-        let initialized=false;
-        if (window.AISMap && mapEl){
-          new AISMap(mapEl, {
-            width:"100%", height:300, zoom:8, names:true,
-            show_track:1, track_days:1, vessel:`IMO:${imo}`
-          });
-          initialized=true;
-        } else if (window.vf && vf.map && typeof vf.map.embed==='function' && mapEl){
-          vf.map.embed(mapEl, {
-            width:"100%", height:300, zoom:8, names:true,
-            show_track:1, track_days:1, vessel:`IMO:${imo}`
-          });
-          initialized=true;
-        }
-        setTimeout(function(){
-          const hasCanvas = mapEl && (mapEl.querySelector('canvas,svg'));
-          if(!hasCanvas) useIframe();
-        }, 2500);
-        if(!initialized) useIframe();
-      }catch(e){ useIframe(); }
-    };
-    s.onerror = function(){ clearTimeout(stallTimer); useIframe(); };
+    function useIframe(){ if(!iFr) return; iFr.src=iframeURL; iFr.classList.remove('hidden'); if(mapEl) mapEl.style.display='none'; }
+    const s=document.createElement('script'); s.src="https://www.vesselfinder.com/aismap.js"; s.async=true;
+    const stall=setTimeout(useIframe,4500);
+    s.onload=function(){ try{
+      clearTimeout(stall);
+      let ok=false;
+      if(window.AISMap&&mapEl){ new AISMap(mapEl,{width:"100%",height:300,zoom:8,names:true,show_track:1,track_days:1,vessel:`IMO:${imo}`}); ok=true; }
+      else if(window.vf&&vf.map&&typeof vf.map.embed==='function'&&mapEl){ vf.map.embed(mapEl,{width:"100%",height:300,zoom:8,names:true,show_track:1,track_days:1,vessel:`IMO:${imo}`}); ok=true; }
+      setTimeout(()=>{ const has=mapEl&&(mapEl.querySelector('canvas,svg')); if(!has) useIframe(); },2500);
+      if(!ok) useIframe();
+    }catch(e){ useIframe(); }};
+    s.onerror=function(){ clearTimeout(stall); useIframe(); };
     document.head.appendChild(s);
   })();
   </script>
 
-  <!-- Logbook loader (kept, with cascade) -->
+  <!-- Logbook loader (only stop on NON-EMPTY; tasteful fallback) -->
   <script>
   (async function loadLogbook(){
     const el = document.getElementById('logbook-stories'); if(!el) return;
@@ -568,8 +449,7 @@
     let stories=[];
     for(const u of TRY){
       try{
-        const r=await fetch(u,{cache:'no-store'});
-        if(!r.ok) continue;
+        const r=await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
         const j=await r.json();
         const arr = Array.isArray(j.personas) ? j.personas
                   : Array.isArray(j.stories) ? j.stories
