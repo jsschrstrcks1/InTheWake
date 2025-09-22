@@ -1,5 +1,3 @@
-You're absolutely right. I failed to validate the actual stylesheet integration. Let me fix this properly with the correct CSS classes and structure that match the existing `styles.css?v=2.223`.
-
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -43,18 +41,17 @@ You're absolutely right. I failed to validate the actual stylesheet integration.
     <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.223">
 </head>
 <body>
-    <!-- Header/Hero (Grandeur pattern exactly) -->
-    <header class="header-hero" role="banner" aria-labelledby="header-title">
-        <div class="brand-lockup">
-            <a href="https://jsschrstrcks1.github.io/InTheWake/" aria-label="In the Wake Homepage">
-                <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/wordmark.svg" alt="In the Wake: Cruise Ship Insights and Adventures" class="wordmark">
-            </a>
-            <span class="version-badge" aria-label="Site Version">v2.223</span>
-        </div>
-        
-        <!-- Primary pill navigation -->
-        <nav class="primary-nav" role="navigation" aria-label="Main Navigation">
-            <ul class="nav-pills">
+    <!-- HEADER - EXACT GRANDEUR PATTERN -->
+    <header class="hero-header" role="banner" aria-labelledby="header-title">
+        <nav class="navbar" role="navigation" aria-label="Main Navigation">
+            <div class="brand">
+                <a href="https://jsschrstrcks1.github.io/InTheWake/" aria-label="In the Wake Homepage">
+                    <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/wordmark.svg" alt="In the Wake: Cruise Ship Insights and Adventures">
+                </a>
+                <span class="version-badge">v2.223</span>
+            </div>
+            
+            <ul class="pills">
                 <li><a href="https://jsschrstrcks1.github.io/InTheWake/">Home</a></li>
                 <li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">Ships</a></li>
                 <li><a href="https://jsschrstrcks1.github.io/InTheWake/restaurants.html">Restaurants & Menus</a></li>
@@ -68,452 +65,294 @@ You're absolutely right. I failed to validate the actual stylesheet integration.
             </ul>
         </nav>
 
-        <!-- Hero area with lat/long grid -->
-        <div class="hero-grid" role="img" aria-label="Ship orientation: Bow, Stern, Port, Starboard with compass bearings">
-            <div class="grid-label" data-orientation="N">N</div>
-            <div class="grid-label" data-orientation="S">S</div>
-            <div class="grid-label" data-orientation="E">E</div>
-            <div class="grid-label" data-orientation="W">W</div>
-            <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-of-the-seas-hero.jpg" alt="Aerial view of Anthem of the Seas sailing at sea, showcasing her sleek Quantum-class design with signature red accents and multi-deck profile." loading="eager">
-            <div class="logo-lockup">
-                <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/rci-logo.svg" alt="Royal Caribbean International Logo" class="cruise-line-logo">
-                <h1 id="ship-title">Anthem of the Seas</h1>
-                <p class="tagline">Quantum-Class Innovator: Where Adventure Meets the Horizon</p>
+        <!-- HERO WITH LAT/LON GRID -->
+        <section class="hero" role="img" aria-label="Ship orientation: Bow, Stern, Port, Starboard with compass bearings">
+            <div class="latlon-grid">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <defs>
+                        <g id="grid-lines">
+                            <line x1="0" y1="50" x2="100" y2="50" stroke-width=".3"/>
+                            <line x1="50" y1="0" x2="50" y2="100" stroke-width=".3"/>
+                        </g>
+                        <g id="grid-labels">
+                            <text x="50" y="48" text-anchor="middle" dominant-baseline="middle">N</text>
+                            <text x="50" y="52" text-anchor="middle" dominant-baseline="middle">S</text>
+                            <text x="48" y="50" text-anchor="middle" dominant-baseline="middle">W</text>
+                            <text x="52" y="50" text-anchor="middle" dominant-baseline="middle">E</text>
+                        </g>
+                    </defs>
+                    <use href="#grid-lines" class="grid-lines"/>
+                    <use href="#grid-labels" class="grid-labels"/>
+                </svg>
             </div>
-        </div>
-        
-        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/compass-rose.svg" alt="" class="compass-rose" role="presentation">
+            
+            <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-of-the-seas-hero.jpg" 
+                 alt="Aerial view of Anthem of the Seas sailing at sea, showcasing her sleek Quantum-class design with signature red accents and multi-deck profile." 
+                 loading="eager">
+            
+            <div class="hero-title">
+                <img src="https://jsschrstrcks1.github.io/InTheWake/assets/brand/rci-logo.svg" alt="Royal Caribbean International Logo" class="logo">
+                <h1>Anthem of the Seas</h1>
+            </div>
+            
+            <p class="tagline">Quantum-Class Innovator: Where Adventure Meets the Horizon</p>
+            
+            <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/compass-rose.svg" alt="" class="hero-compass" role="presentation">
+            
+            <div class="hero-credit">
+                <a href="https://www.royalcaribbean.com/cruise-ships/anthem-of-the-seas" class="pill long" target="_blank" rel="noopener">Official RCI Site</a>
+            </div>
+        </section>
     </header>
 
-    <main id="main-content">
-        <!-- Sticky secondary nav -->
-        <nav class="secondary-nav" role="navigation" aria-label="Page Sections">
-            <ul class="nav-pills">
-                <li><a href="#welcome-card">Welcome</a></li>
-                <li><a href="#overview">Overview</a></li>
-                <li><a href="#history">History</a></li>
-                <li><a href="#specs">Specifications</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#dining">Dining</a></li>
-                <li><a href="#itineraries">Itineraries</a></li>
-                <li><a href="#media">Media</a></li>
-            </ul>
+    <main id="main-content" class="wrap">
+        <!-- STICKY SECONDARY NAV -->
+        <nav class="pills" style="justify-content:center; margin:1rem 0; position:sticky; top:0; background:#fff; padding:.5rem; border:1px solid #e4e9ec; border-radius:10px; z-index:10;">
+            <li><a href="#welcome-card">Welcome</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#history">History</a></li>
+            <li><a href="#specs">Specifications</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#dining">Dining</a></li>
+            <li><a href="#itineraries">Itineraries</a></li>
+            <li><a href="#media">Media</a></li>
         </nav>
 
-        <!-- Welcome card (Grandeur pattern exactly) -->
-        <article class="welcome-card" id="welcome-card" aria-labelledby="welcome-heading">
-            <header class="card-header">
-                <h2 id="welcome-heading" class="card-title">Welcome Aboard Anthem of the Seas</h2>
-            </header>
-            <div class="card-content">
-                <p class="welcome-lead">Step into the future of cruising with <strong>Anthem of the Seas</strong>, where Royal Caribbean's Quantum-class innovation transforms every voyage into an extraordinary adventure. Launched in 2015, this 168,666-ton marvel sails with 4,905 guests across 18 decks, delivering experiences that redefine what's possible at sea.</p>
-                
-                <div class="welcome-grid">
-                    <div class="welcome-item" aria-labelledby="thrill-label">
-                        <div class="welcome-icon thrill"></div>
-                        <h3 id="thrill-label" class="welcome-title">Thrill-Seekers</h3>
-                        <p>Defy gravity with RipCord by iFLY skydiving and bumper cars at SeaPlex.</p>
-                    </div>
-                    <div class="welcome-item" aria-labelledby="vista-label">
-                        <div class="welcome-icon vista"></div>
-                        <h3 id="vista-label" class="welcome-title">Scenic Views</h3>
-                        <p>Soar 300+ feet above deck in the North Star observation capsule.</p>
-                    </div>
-                    <div class="welcome-item" aria-labelledby="relax-label">
-                        <div class="welcome-icon relax"></div>
-                        <h3 id="relax-label" class="welcome-title">Relaxation</h3>
-                        <p>Unwind in the Solarium spa or poolside with ocean breezes.</p>
+        <!-- WELCOME CARD -->
+        <section id="welcome-card" class="card" aria-labelledby="welcome-heading">
+            <h2 id="welcome-heading">Welcome Aboard Anthem of the Seas</h2>
+            <p>Step into the future of cruising with <strong>Anthem of the Seas</strong>, where Royal Caribbean's Quantum-class innovation transforms every voyage into an extraordinary adventure. Launched in 2015, this 168,666-ton marvel sails with 4,905 guests across 18 decks, delivering experiences that redefine what's possible at sea.</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Thrill-Seekers</h3>
+                    <p>Defy gravity with RipCord by iFLY skydiving and bumper cars at SeaPlex. The world's first indoor skydiving at sea awaits.</p>
+                </div>
+                <div class="card">
+                    <h3>Scenic Views</h3>
+                    <p>Soar 300+ feet above deck in the North Star observation capsule for breathtaking 360° panoramas of Alaskan fjords and Pacific sunsets.</p>
+                </div>
+                <div class="card">
+                    <h3>Relaxation</h3>
+                    <p>Unwind in the Solarium spa or poolside with ocean breezes. The Vitality Spa offers treatments inspired by the sea.</p>
+                </div>
+            </div>
+            
+            <p class="sail-deals">Ready to chart your course? <a href="#itineraries">Explore current sailings</a> or <a href="#features">discover onboard adventures</a>.</p>
+        </section>
+
+        <!-- OVERVIEW -->
+        <section id="overview" class="card" aria-labelledby="overview-heading">
+            <h2 id="overview-heading">Ship Overview</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Quick Facts</h3>
+                    <div class="stats-grid">
+                        <div class="stat-line"><span class="stat-key">Class:</span><span class="stat-val">Quantum</span></div>
+                        <div class="stat-line"><span class="stat-key">Launched:</span><span class="stat-val">2015</span></div>
+                        <div class="stat-line"><span class="stat-key">Guests:</span><span class="stat-val">4,905</span></div>
+                        <div class="stat-line"><span class="stat-key">Crew:</span><span class="stat-val">1,500</span></div>
+                        <div class="stat-line"><span class="stat-key">Decks:</span><span class="stat-val">18</span></div>
+                        <div class="stat-line"><span class="stat-key">Tonnage:</span><span class="stat-val">168,666 GT</span></div>
                     </div>
                 </div>
-                
-                <p class="welcome-cta">Ready to chart your course? <a href="#itineraries">Explore current sailings</a> or <a href="#features">discover onboard adventures</a>.</p>
-            </div>
-        </article>
-
-        <!-- Overview section -->
-        <section id="overview" class="content-card" aria-labelledby="overview-heading">
-            <header class="card-header">
-                <h2 id="overview-heading" class="card-title">Ship Overview</h2>
-            </header>
-            <div class="card-content">
-                <div class="card-grid">
-                    <div class="overview-card" aria-labelledby="quick-facts">
-                        <h3 id="quick-facts" class="card-subtitle">Quick Facts</h3>
-                        <ul class="fact-list">
-                            <li><strong>Class:</strong> Quantum</li>
-                            <li><strong>Launched:</strong> 2015</li>
-                            <li><strong>Guests:</strong> 4,905</li>
-                            <li><strong>Crew:</strong> 1,500</li>
-                            <li><strong>Decks:</strong> 18</li>
-                            <li><strong>Tonnage:</strong> 168,666 GT</li>
-                        </ul>
-                    </div>
-                    <div class="overview-card" aria-labelledby="current-sailing">
-                        <h3 id="current-sailing" class="card-subtitle">Current Sailing</h3>
-                        <p><strong>Alaska Summer 2025:</strong> 7-night roundtrip from Seattle, visiting Juneau, Skagway, Ketchikan, and Tracy Arm Fjord. Wildlife spotting, glacier viewing, and midnight sun experiences.</p>
-                        <p class="location-note"><em>Last spotted:</em> Near Ketchikan, Alaska • 55.34°N, 131.65°W</p>
-                    </div>
-                    <div class="overview-card" aria-labelledby="vibe">
-                        <h3 id="vibe" class="card-subtitle">Vibe & Style</h3>
-                        <p>Sleek, modern, and adventurous. Anthem blends high-tech thrills with sophisticated spaces—from neon-lit skydiving to elegant wine tastings. Perfect for families, couples, and first-time cruisers seeking innovation.</p>
-                    </div>
+                <div>
+                    <h3>Current Sailing</h3>
+                    <p><strong>Alaska Summer 2025:</strong> 7-night roundtrip from Seattle, visiting Juneau, Skagway, Ketchikan, and Tracy Arm Fjord. Wildlife spotting, glacier viewing, and midnight sun experiences.</p>
+                    <p><em>Last spotted:</em> Near Ketchikan, Alaska • 55.34°N, 131.65°W</p>
+                </div>
+                <div>
+                    <h3>Vibe & Style</h3>
+                    <p>Sleek, modern, and adventurous. Anthem blends high-tech thrills with sophisticated spaces—from neon-lit skydiving to elegant wine tastings. Perfect for families, couples, and first-time cruisers seeking innovation.</p>
                 </div>
             </div>
         </section>
 
-        <!-- History section -->
-        <section id="history" class="content-card" aria-labelledby="history-heading">
-            <header class="card-header">
-                <h2 id="history-heading" class="card-title">History & Milestones</h2>
-            </header>
-            <div class="card-content">
-                <div class="timeline-container">
-                    <div class="timeline">
-                        <div class="timeline-item" aria-labelledby="history-2012">
-                            <div class="timeline-marker"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">2012</span>
-                                <h3 id="history-2012" class="timeline-title">Project Sunshine</h3>
-                                <p>Ordered as part of Royal Caribbean's "Project Sunshine" with Meyer Werft, Germany.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item" aria-labelledby="history-2015">
-                            <div class="timeline-marker"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">April 2015</span>
-                                <h3 id="history-2015" class="timeline-title">Maiden Voyage</h3>
-                                <p>Delivered and christened in Southampton by Katy B. Maiden voyage to Mediterranean.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item" aria-labelledby="history-2016">
-                            <div class="timeline-marker"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">2016</span>
-                                <h3 id="history-2016" class="timeline-title">North American Debut</h3>
-                                <p>Homeported in New York for Bermuda, Caribbean, and Canada/New England sailings.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item" aria-labelledby="history-2020">
-                            <div class="timeline-marker"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">2020-2021</span>
-                                <h3 id="history-2020" class="timeline-title">COVID Pioneer</h3>
-                                <p>Pioneered UK "cruises to nowhere" from Southampton post-COVID restart.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item" aria-labelledby="history-2024">
-                            <div class="timeline-marker"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">2024</span>
-                                <h3 id="history-2024" class="timeline-title">South Pacific</h3>
-                                <p>Repositioned to Australia for South Pacific season, including Sydney departures.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item active" aria-labelledby="history-2025">
-                            <div class="timeline-marker active"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">2025</span>
-                                <h3 id="history-2025" class="timeline-title">10th Anniversary</h3>
-                                <p>10th anniversary celebrated with Alaskan summers from Seattle and transpacific voyages.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="history-note">Throughout her career, Anthem has weathered challenges like Hurricane Hermine (2016) while maintaining her reputation as a resilient, innovative flagship.</p>
+        <!-- HISTORY -->
+        <section id="history" class="card" aria-labelledby="history-heading">
+            <h2 id="history-heading">History & Milestones</h2>
+            <div class="prose">
+                <div class="stat-line"><span class="stat-key">2012</span><span class="stat-val">Ordered as part of Royal Caribbean's "Project Sunshine" with Meyer Werft, Germany.</span></div>
+                <div class="stat-line"><span class="stat-key">April 2015</span><span class="stat-val">Delivered and christened in Southampton by Katy B. Maiden voyage to Mediterranean.</span></div>
+                <div class="stat-line"><span class="stat-key">2016</span><span class="stat-val">Homeported in New York for Bermuda, Caribbean, and Canada/New England sailings.</span></div>
+                <div class="stat-line"><span class="stat-key">2020-2021</span><span class="stat-val">Pioneered UK "cruises to nowhere" from Southampton post-COVID restart.</span></div>
+                <div class="stat-line"><span class="stat-key">2024</span><span class="stat-val">Repositioned to Australia for South Pacific season, including Sydney departures.</span></div>
+                <div class="stat-line stat-line--active"><span class="stat-key">2025</span><span class="stat-val">10th anniversary celebrated with Alaskan summers from Seattle and transpacific voyages.</span></div>
             </div>
+            <p>Throughout her career, Anthem has weathered challenges like Hurricane Hermine (2016) while maintaining her reputation as a resilient, innovative flagship.</p>
         </section>
 
-        <!-- Specifications section -->
-        <section id="specs" class="content-card" aria-labelledby="specs-heading">
-            <header class="card-header">
-                <h2 id="specs-heading" class="card-title">Technical Specifications</h2>
-            </header>
-            <div class="card-content">
-                <div class="specs-grid">
-                    <div class="spec-card" aria-labelledby="dimensions-heading">
-                        <h3 id="dimensions-heading" class="card-subtitle">Dimensions</h3>
-                        <ul class="spec-list">
-                            <li><strong>Length:</strong> 347m (1,138 ft)</li>
-                            <li><strong>Beam:</strong> 41m (136 ft)</li>
-                            <li><strong>Draft:</strong> 9.3m (30.5 ft)</li>
-                            <li><strong>Height:</strong> 72m (236 ft) to funnel</li>
-                        </ul>
-                    </div>
-                    <div class="spec-card" aria-labelledby="capacity-heading">
-                        <h3 id="capacity-heading" class="card-subtitle">Capacity</h3>
-                        <ul class="spec-list">
-                            <li><strong>Passengers:</strong> 4,905 (double occupancy)</li>
-                            <li><strong>Crew:</strong> 1,500 from 60+ countries</li>
-                            <li><strong>Staterooms:</strong> 2,090 total</li>
-                            <li><strong>Suites:</strong> 129 (6% of total)</li>
-                            <li><strong>Balcony:</strong> 1,436 (75% of total)</li>
-                        </ul>
-                    </div>
-                    <div class="spec-card" aria-labelledby="performance-heading">
-                        <h3 id="performance-heading" class="card-subtitle">Performance</h3>
-                        <ul class="spec-list">
-                            <li><strong>Gross Tonnage:</strong> 168,666 GT</li>
-                            <li><strong>Speed:</strong> 22 knots (41 km/h)</li>
-                            <li><strong>Engines:</strong> 2 × Wärtsilä 12V46 (31 MW each)</li>
-                            <li><strong>Propulsion:</strong> Azipod (2 × 20 MW)</li>
-                        </ul>
-                    </div>
+        <!-- SPECIFICATIONS -->
+        <section id="specs" class="card" aria-labelledby="specs-heading">
+            <h2 id="specs-heading">Technical Specifications</h2>
+            <table class="stats-grid" style="width:100%; border-collapse:collapse;">
+                <tr><td class="stat-key" style="width:40%; padding:.4rem 0 .4rem .2rem; border-bottom:1px dashed #e4e9ec;">Ship Class</td><td class="stat-val" style="padding:.4rem .2rem .4rem 0; border-bottom:1px dashed #e4e9ec;">Quantum Class</td></tr>
+                <tr><td class="stat-key">Year Built</td><td class="stat-val">2015</td></tr>
+                <tr><td class="stat-key">Gross Tonnage</td><td class="stat-val">168,666 GT</td></tr>
+                <tr><td class="stat-key">Length</td><td class="stat-val">347 meters (1,138 feet)</td></tr>
+                <tr><td class="stat-key">Beam</td><td class="stat-val">41 meters (136 feet)</td></tr>
+                <tr><td class="stat-key">Max Passengers</td><td class="stat-val">4,905</td></tr>
+                <tr><td class="stat-key">Crew</td><td class="stat-val">1,500</td></tr>
+                <tr><td class="stat-key">Speed</td><td class="stat-val">22 knots</td></tr>
+                <tr><td class="stat-key">Decks</td><td class="stat-val">18 (16 passenger-accessible)</td></tr>
+                <tr><td class="stat-key">Staterooms</td><td class="stat-val">2,090 (including 129 suites, 1,436 balcony)</td></tr>
+            </table>
+            <p style="margin-top:1rem; font-style:italic;">Recent Position (September 2025): Approx. 55.34° N, 131.65° W (en route in Alaskan waters).</p>
+        </section>
+
+        <!-- FEATURES -->
+        <section id="features" class="card" aria-labelledby="features-heading">
+            <h2 id="features-heading">Signature Features</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>North Star®</h3>
+                    <p>The engineering marvel rises 300+ feet above sea level, offering 360° views through floor-to-ceiling glass. Capacity: 9 guests per 15-minute ride. Featured in movies and countless proposals.</p>
+                    <a href="#media" class="btn ghost">See it in action</a>
+                </div>
+                <div>
+                    <h3>RipCord® by iFLY®</h3>
+                    <p>World's first indoor skydiving at sea. Neon-lit chamber simulates freefall at 120 mph. Sessions for all ages; instructors guide first-timers. Helmet cams available.</p>
+                    <a href="#media" class="btn ghost">Watch the experience</a>
+                </div>
+                <div>
+                    <h3>SeaPlex®</h3>
+                    <p>Largest indoor activity space at sea (82,000 sq ft). Transforms from basketball to bumper cars to roller disco. Features suspended flying trapeze and circus school.</p>
+                    <a href="#media" class="btn ghost">Explore the space</a>
+                </div>
+                <div>
+                    <h3>Two70°</h3>
+                    <p>Futuristic lounge with 270° ocean views enhanced by Vistarama® 18K-resolution screens. Hosts roboshows, aerial drone performances, and Chaz & AJ's Comedy Hour.</p>
+                    <a href="#media" class="btn ghost">View the shows</a>
                 </div>
             </div>
         </section>
 
-        <!-- Features section -->
-        <section id="features" class="content-card" aria-labelledby="features-heading">
-            <header class="card-header">
-                <h2 id="features-heading" class="card-title">Signature Features</h2>
-            </header>
-            <div class="card-content">
-                <div class="features-grid">
-                    <article class="feature-card" aria-labelledby="north-star">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-north-star.jpg" alt="North Star observation pod extending from Anthem of the Seas with panoramic ocean views." loading="lazy">
-                        <div class="feature-content">
-                            <h3 id="north-star" class="feature-title">North Star®</h3>
-                            <p>The engineering marvel rises 300+ feet above sea level, offering 360° views through floor-to-ceiling glass. Capacity: 9 guests per 15-minute ride. Featured in movies and countless proposals.</p>
-                            <p class="feature-cta"><a href="#media" class="btn-link">See it in action</a></p>
-                        </div>
-                    </article>
-                    <article class="feature-card" aria-labelledby="ripcord">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-ripcord.jpg" alt="RipCord by iFLY indoor skydiving chamber with guests in flight suits." loading="lazy">
-                        <div class="feature-content">
-                            <h3 id="ripcord" class="feature-title">RipCord® by iFLY®</h3>
-                            <p>World's first indoor skydiving at sea. Neon-lit chamber simulates freefall at 120 mph. Sessions for all ages; instructors guide first-timers. Helmet cams available.</p>
-                            <p class="feature-cta"><a href="#media" class="btn-link">Watch the experience</a></p>
-                        </div>
-                    </article>
-                    <article class="feature-card" aria-labelledby="seaplex">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-seaplex.jpg" alt="SeaPlex multi-purpose space with bumper cars, basketball court, and roller skating rink." loading="lazy">
-                        <div class="feature-content">
-                            <h3 id="seaplex" class="feature-title">SeaPlex®</h3>
-                            <p>Largest indoor activity space at sea (82,000 sq ft). Transforms from basketball to bumper cars to roller disco. Features suspended flying trapeze and circus school.</p>
-                            <p class="feature-cta"><a href="#media" class="btn-link">Explore the space</a></p>
-                        </div>
-                    </article>
-                    <article class="feature-card" aria-labelledby="two70">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-two70.jpg" alt="Two70 lounge with massive floor-to-ceiling screens displaying dynamic virtual scenery." loading="lazy">
-                        <div class="feature-content">
-                            <h3 id="two70" class="feature-title">Two70°</h3>
-                            <p>Futuristic lounge with 270° ocean views enhanced by Vistarama® 18K-resolution screens. Hosts roboshows, aerial drone performances, and Chaz & AJ's Comedy Hour.</p>
-                            <p class="feature-cta"><a href="#media" class="btn-link">View the shows</a></p>
-                        </div>
-                    </article>
+        <!-- DINING -->
+        <section id="dining" class="card" aria-labelledby="dining-heading">
+            <h2 id="dining-heading">Dining Experiences</h2>
+            <div class="venues two-col">
+                <div>
+                    <h3>Main Dining Room</h3>
+                    <p>Three-story venue serving multi-course dinners with rotating menus. My Time Dining (flexible) or Traditional Dining (assigned times). Features sommelier service and live music.</p>
+                    <p class="pill" style="background:#e6f4f8; margin-top:.5rem;">Complimentary</p>
+                </div>
+                <div>
+                    <h3>Chops Grille</h3>
+                    <p>Signature steakhouse serving USDA prime cuts, Maine lobster, and seafood towers. Filet mignon, New York strip, and rack of lamb highlights. Reservations recommended.</p>
+                    <p class="pill" style="background:#fff4f1; border-color:#e2a58b; margin-top:.5rem;">$39-59</p>
+                </div>
+                <div>
+                    <h3>Izumi</h3>
+                    <p>Traditional Japanese with sushi rolls, sashimi, and interactive teppanyaki. Hand-roll bar offers custom creations. Sake flights and green tea crème brûlée for dessert.</p>
+                    <p class="pill" style="background:#fff4f1; border-color:#e2a58b; margin-top:.5rem;">$20-50</p>
+                </div>
+                <div>
+                    <h3>Windjammer Marketplace</h3>
+                    <p>Casual buffet with 10+ live cooking stations. Breakfast favorites include made-to-order omelets and crepe station. Dinner features international themes nightly.</p>
+                    <p class="pill" style="background:#e6f4f8; margin-top:.5rem;">Complimentary</p>
                 </div>
             </div>
+            
+            <h3 style="margin-top:2rem;">Casual & Quick Bites</h3>
+            <ul class="venue-list">
+                <li><strong>Starbucks:</strong> Full coffee menu, pastries, and grab-and-go sandwiches</li>
+                <li><strong>Ben & Jerry's:</strong> Iconic Vermont ice cream flavors and sundaes</li>
+                <li><strong>Solarium Bistro:</strong> Healthy spa cuisine and adult-only poolside dining</li>
+                <li><strong>SeaPlex Dog House:</strong> Gourmet hot dogs amid the bumper car action</li>
+                <li><strong>Café @ Two70:</strong> Small plates and specialty coffees with virtual scenery</li>
+            </ul>
         </section>
 
-        <!-- Dining section -->
-        <section id="dining" class="content-card" aria-labelledby="dining-heading">
-            <header class="card-header">
-                <h2 id="dining-heading" class="card-title">Dining Experiences</h2>
-            </header>
-            <div class="card-content">
-                <div class="dining-grid">
-                    <article class="dining-card complimentary" aria-labelledby="main-dining">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-main-dining.jpg" alt="Grand main dining room with elegant chandeliers and ocean-view tables." loading="lazy">
-                        <div class="dining-content">
-                            <h3 id="main-dining" class="dining-title">Main Dining Room</h3>
-                            <p>Three-story venue serving multi-course dinners with rotating menus. My Time Dining (flexible) or Traditional Dining (assigned times). Features sommelier service and live music.</p>
-                            <span class="price-tag complimentary">Complimentary</span>
-                        </div>
-                    </article>
-                    <article class="dining-card specialty" aria-labelledby="chops-grille">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-chops-grille.jpg" alt="Chops Grille steakhouse with dark wood paneling and white tablecloths." loading="lazy">
-                        <div class="dining-content">
-                            <h3 id="chops-grille" class="dining-title">Chops Grille</h3>
-                            <p>Signature steakhouse serving USDA prime cuts, Maine lobster, and seafood towers. Filet mignon, New York strip, and rack of lamb highlights. Reservations recommended.</p>
-                            <span class="price-tag specialty">$39-59</span>
-                        </div>
-                    </article>
-                    <article class="dining-card specialty" aria-labelledby="izumi">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-izumi.jpg" alt="Izumi Japanese restaurant with sushi bar and hibachi teppanyaki tables." loading="lazy">
-                        <div class="dining-content">
-                            <h3 id="izumi" class="dining-title">Izumi</h3>
-                            <p>Traditional Japanese with sushi rolls, sashimi, and interactive teppanyaki. Hand-roll bar offers custom creations. Sake flights and green tea crème brûlée for dessert.</p>
-                            <span class="price-tag specialty">$20-50</span>
-                        </div>
-                    </article>
-                    <article class="dining-card complimentary" aria-labelledby="windjammer">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-windjammer.jpg" alt="Windjammer buffet with multiple food stations and panoramic ocean views." loading="lazy">
-                        <div class="dining-content">
-                            <h3 id="windjammer" class="dining-title">Windjammer Marketplace</h3>
-                            <p>Casual buffet with 10+ live cooking stations. Breakfast favorites include made-to-order omelets and crepe station. Dinner features international themes nightly.</p>
-                            <span class="price-tag complimentary">Complimentary</span>
-                        </div>
-                    </article>
+        <!-- ITINERARIES -->
+        <section id="itineraries" class="card" aria-labelledby="itineraries-heading">
+            <h2 id="itineraries-heading">Current & Upcoming Itineraries</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Alaska Adventure</h3>
+                    <p><strong>7 Nights • Roundtrip Seattle</strong><br>
+                    Juneau • Skagway • Ketchikan • Tracy Arm Fjord<br>
+                    <em>Glaciers, wildlife, and midnight sun</em></p>
+                    <p style="font-size:.9rem; margin:.5rem 0;"><em>May-Oct 2025 • from $899</em></p>
+                    <a href="https://www.royalcaribbean.com/cruises/itinerary/7-night-alaska-adventure-from-seattle-on-anthem" class="btn" target="_blank" rel="noopener">Book Now</a>
                 </div>
-                
-                <div class="casual-dining">
-                    <h3 class="casual-title">Casual & Quick Bites</h3>
-                    <ul class="casual-list">
-                        <li><strong>Starbucks:</strong> Full coffee menu, pastries, and grab-and-go sandwiches</li>
-                        <li><strong>Ben & Jerry's:</strong> Iconic Vermont ice cream flavors and sundaes</li>
-                        <li><strong>Solarium Bistro:</strong> Healthy spa cuisine and adult-only poolside dining</li>
-                        <li><strong>SeaPlex Dog House:</strong> Gourmet hot dogs amid the bumper car action</li>
-                        <li><strong>Café @ Two70:</strong> Small plates and specialty coffees with virtual scenery</li>
-                    </ul>
+                <div>
+                    <h3>South Pacific Explorer</h3>
+                    <p><strong>10 Nights • Sydney to Honolulu</strong><br>
+                    Nouméa • Port Vila • Lautoka • Pago Pago<br>
+                    <em>Tropical islands and transpacific crossing</em></p>
+                    <p style="font-size:.9rem; margin:.5rem 0;"><em>Nov 2025 • from $1,499</em></p>
+                    <a href="https://www.royalcaribbean.com/cruises/itinerary/10-night-south-pacific-from-sydney-to-honolulu-on-anthem" class="btn" target="_blank" rel="noopener">Book Now</a>
+                </div>
+                <div>
+                    <h3>Holiday Australia</h3>
+                    <p><strong>8 Nights • Roundtrip Sydney</strong><br>
+                    Brisbane • Moreton Island • Newcastle<br>
+                    <em>Christmas & New Year's festive sailings</em></p>
+                    <p style="font-size:.9rem; margin:.5rem 0;"><em>Dec 2025 • from $1,299</em></p>
+                    <a href="https://www.royalcaribbean.com/cruises/itinerary/8-night-australia-holiday-from-sydney-on-anthem" class="btn" target="_blank" rel="noopener">Book Now</a>
                 </div>
             </div>
+            
+            <p style="margin-top:1.5rem; text-align:center;">All sailings include Royal Caribbean's <strong>2-for-1 Drink Package</strong> promotion (select dates). Kids sail free on select interior and oceanview staterooms. <a href="https://www.royalcaribbean.com/booked/promotions" target="_blank" rel="noopener">View current deals</a>.</p>
         </section>
 
-        <!-- Itineraries section -->
-        <section id="itineraries" class="content-card" aria-labelledby="itineraries-heading">
-            <header class="card-header">
-                <h2 id="itineraries-heading" class="card-title">Current & Upcoming Itineraries</h2>
-            </header>
-            <div class="card-content">
-                <div class="itinerary-grid">
-                    <article class="itinerary-card" aria-labelledby="alaska-7n">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/itineraries/alaska-tracy-arm.jpg" alt="Tracy Arm Fjord with Sawyer Glaciers and forested mountains." loading="lazy">
-                        <div class="itinerary-content">
-                            <h3 id="alaska-7n" class="itinerary-title">Alaska Adventure</h3>
-                            <p class="itinerary-details"><strong>7 Nights • Roundtrip Seattle</strong><br>
-                            Juneau • Skagway • Ketchikan • Tracy Arm Fjord<br>
-                            <em>Glaciers, wildlife, and midnight sun</em></p>
-                            <div class="itinerary-meta">
-                                <span class="dates">May-Oct 2025</span>
-                                <span class="price">from $899</span>
-                            </div>
-                            <a href="https://www.royalcaribbean.com/cruises/itinerary/7-night-alaska-adventure-from-seattle-on-anthem" class="book-btn" target="_blank" rel="noopener">Book Now</a>
-                        </div>
-                    </article>
-                    <article class="itinerary-card" aria-labelledby="south-pacific">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/itineraries/south-pacific-bora-bora.jpg" alt="Bora Bora lagoon with overwater bungalows and Mount Otemanu." loading="lazy">
-                        <div class="itinerary-content">
-                            <h3 id="south-pacific" class="itinerary-title">South Pacific Explorer</h3>
-                            <p class="itinerary-details"><strong>10 Nights • Sydney to Honolulu</strong><br>
-                            Nouméa • Port Vila • Lautoka • Pago Pago<br>
-                            <em>Tropical islands and transpacific crossing</em></p>
-                            <div class="itinerary-meta">
-                                <span class="dates">Nov 2025</span>
-                                <span class="price">from $1,499</span>
-                            </div>
-                            <a href="https://www.royalcaribbean.com/cruises/itinerary/10-night-south-pacific-from-sydney-to-honolulu-on-anthem" class="book-btn" target="_blank" rel="noopener">Book Now</a>
-                        </div>
-                    </article>
-                    <article class="itinerary-card" aria-labelledby="holiday-australia">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/itineraries/australia-sydney-harbour.jpg" alt="Sydney Harbour with Opera House and Harbour Bridge at sunset." loading="lazy">
-                        <div class="itinerary-content">
-                            <h3 id="holiday-australia" class="itinerary-title">Holiday Australia</h3>
-                            <p class="itinerary-details"><strong>8 Nights • Roundtrip Sydney</strong><br>
-                            Brisbane • Moreton Island • Newcastle<br>
-                            <em>Christmas & New Year's festive sailings</em></p>
-                            <div class="itinerary-meta">
-                                <span class="dates">Dec 2025</span>
-                                <span class="price">from $1,299</span>
-                            </div>
-                            <a href="https://www.royalcaribbean.com/cruises/itinerary/8-night-australia-holiday-from-sydney-on-anthem" class="book-btn" target="_blank" rel="noopener">Book Now</a>
-                        </div>
-                    </article>
-                </div>
-                
-                <div class="itinerary-notes">
-                    <h3 class="notes-title">Booking Information</h3>
-                    <p>All sailings include Royal Caribbean's <strong>2-for-1 Drink Package</strong> promotion (select dates). Kids sail free on select interior and oceanview staterooms. <a href="https://www.royalcaribbean.com/booked/promotions" target="_blank" rel="noopener">View current deals</a>.</p>
-                </div>
+        <!-- MEDIA GALLERY -->
+        <section id="media" class="card" aria-labelledby="media-heading">
+            <h2 id="media-heading">Media Gallery</h2>
+            <div class="photo-grid">
+                <figure>
+                    <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-north-star-alaska.jpg" alt="North Star observation pod extending from Anthem of the Seas over Sawyer Glacier in Tracy Arm Fjord." loading="lazy">
+                    <figcaption>North Star over Tracy Arm • © Royal Caribbean International / SBW-Photo</figcaption>
+                </figure>
+                <figure>
+                    <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-ripcord-flight.jpg" alt="Family experiencing indoor skydiving in RipCord by iFLY, illuminated by neon lights." loading="lazy">
+                    <figcaption>RipCord by iFLY • © Royal Caribbean International</figcaption>
+                </figure>
+                <figure>
+                    <video controls style="width:100%; border-radius:12px;" loading="lazy">
+                        <source src="https://jsschrstrcks1.github.io/InTheWake/assets/videos/ships/rcl/anthem-seaplex-bumper-cars.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>SeaPlex Bumper Cars • Video: CruiseWithBenAndDavid (YouTube, 2018)</figcaption>
+                </figure>
+                <figure>
+                    <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-two70-roboshow.jpg" alt="Robotic performers on stage at Two70 during Starwater show with dynamic LED backgrounds." loading="lazy">
+                    <figcaption>Two70 Roboshow • © Royal Caribbean International / Michael Bay</figcaption>
+                </figure>
+                <figure>
+                    <video controls style="width:100%; border-radius:12px;" loading="lazy">
+                        <source src="https://jsschrstrcks1.github.io/InTheWake/assets/videos/ships/rcl/anthem-bionic-bar.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>Bionic Bar in Action • Video: Makr Shakr (YouTube, 2015)</figcaption>
+                </figure>
+                <figure>
+                    <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-royal-theater.jpg" alt="Spectacular production of 'We Will Rock You' in the 1,300-seat Royal Theater." loading="lazy">
+                    <figcaption>Royal Theater Production • © Royal Caribbean International</figcaption>
+                </figure>
             </div>
-        </section>
-
-        <!-- Media section -->
-        <section id="media" class="content-card" aria-labelledby="media-heading">
-            <header class="card-header">
-                <h2 id="media-heading" class="card-title">Media Gallery</h2>
-            </header>
-            <div class="card-content">
-                <div class="media-grid">
-                    <figure class="media-item" role="img" aria-label="North Star pod extending over Alaskan fjords at sunset">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-north-star-alaska.jpg" alt="North Star observation pod extending from Anthem of the Seas over Sawyer Glacier in Tracy Arm Fjord." loading="lazy">
-                        <figcaption>North Star over Tracy Arm • © Royal Caribbean International / SBW-Photo</figcaption>
-                    </figure>
-                    <figure class="media-item" role="img" aria-label="RipCord by iFLY indoor skydiving experience">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-ripcord-flight.jpg" alt="Family experiencing indoor skydiving in RipCord by iFLY, illuminated by neon lights." loading="lazy">
-                        <figcaption>RipCord by iFLY • © Royal Caribbean International</figcaption>
-                    </figure>
-                    <figure class="media-item video-item" role="img" aria-label="SeaPlex bumper cars in action">
-                        <video controls poster="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-seaplex-poster.jpg" loading="lazy">
-                            <source src="https://jsschrstrcks1.github.io/InTheWake/assets/videos/ships/rcl/anthem-seaplex-bumper-cars.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <figcaption>SeaPlex Bumper Cars • Video: CruiseWithBenAndDavid (YouTube, 2018)</figcaption>
-                    </figure>
-                    <figure class="media-item" role="img" aria-label="Two70 roboshow performance">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-two70-roboshow.jpg" alt="Robotic performers on stage at Two70 during Starwater show with dynamic LED backgrounds." loading="lazy">
-                        <figcaption>Two70 Roboshow • © Royal Caribbean International / Michael Bay</figcaption>
-                    </figure>
-                    <figure class="media-item video-item" role="img" aria-label="Bionic Bar robotic bartenders">
-                        <video controls poster="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-bionic-bar-poster.jpg" loading="lazy">
-                            <source src="https://jsschrstrcks1.github.io/InTheWake/assets/videos/ships/rcl/anthem-bionic-bar.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <figcaption>Bionic Bar in Action • Video: Makr Shakr (YouTube, 2015)</figcaption>
-                    </figure>
-                    <figure class="media-item" role="img" aria-label="Royal Theater production show">
-                        <img src="https://jsschrstrcks1.github.io/InTheWake/assets/images/ships/rcl/anthem-royal-theater.jpg" alt="Spectacular production of 'We Will Rock You' in the 1,300-seat Royal Theater." loading="lazy">
-                        <figcaption>Royal Theater Production • © Royal Caribbean International</figcaption>
-                    </figure>
-                </div>
-                
-                <div class="media-notes">
-                    <p><strong>Video Credits:</strong> Full ship tours by <a href="https://www.youtube.com/c/CruiseWithBenAndDavid" target="_blank" rel="noopener">CruiseWithBenAndDavid</a>. Bionic Bar footage courtesy <a href="https://www.youtube.com/user/MakrShakr" target="_blank" rel="noopener">Makr Shakr</a>. All images © Royal Caribbean International unless otherwise noted. Some exterior photos from Wikimedia Commons (CC BY-SA 4.0).</p>
-                </div>
-            </div>
+            
+            <p style="margin-top:1.5rem; font-size:.9rem;"><strong>Video Credits:</strong> Full ship tours by <a href="https://www.youtube.com/c/CruiseWithBenAndDavid" target="_blank" rel="noopener">CruiseWithBenAndDavid</a>. Bionic Bar footage courtesy <a href="https://www.youtube.com/user/MakrShakr" target="_blank" rel="noopener">Makr Shakr</a>. All images © Royal Caribbean International unless otherwise noted. Some exterior photos from Wikimedia Commons (CC BY-SA 4.0).</p>
         </section>
     </main>
 
-    <!-- Footer (Grandeur pattern) -->
-    <footer role="contentinfo" aria-label="Footer">
-        <div class="footer-content">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3 class="footer-title">In the Wake</h3>
-                    <p>Your comprehensive guide to cruise ship experiences, from technical specifications to insider tips. Exploring the vessels that make modern cruising extraordinary.</p>
+    <footer role="contentinfo" style="background:#f7fdff; padding:2rem 0; border-top:3px double var(--rope); margin-top:2rem;">
+        <div class="wrap">
+            <div style="display:grid; gap:2rem; grid-template-columns:1fr auto;">
+                <div>
+                    <h3 style="margin:0 0 .5rem;">In the Wake</h3>
+                    <p style="margin:0; font-size:.95rem; color:#546;">Your comprehensive guide to cruise ship experiences, from technical specifications to insider tips. Exploring the vessels that make modern cruising extraordinary.</p>
                 </div>
-                <div class="footer-section">
-                    <h4 class="footer-subtitle">Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">All Ships</a></li>
-                        <li><a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines/royal-caribbean.html">Royal Caribbean</a></li>
-                        <li><a href="https://jsschrstrcks1.github.io/InTheWake/packing-lists.html">Packing Lists</a></li>
-                        <li><a href="https://jsschrstrcks1.github.io/InTheWake/drink-packages.html">Drink Packages</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4 class="footer-subtitle">Legal</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://jsschrstrcks1.github.io/InTheWake/privacy.html">Privacy Policy</a></li>
-                        <li><a href="https://jsschrstrcks1.github.io/InTheWake/terms.html">Terms of Use</a></li>
-                        <li><a href="https://jsschrstrcks1.github.io/InTheWake/sitemap.html">Sitemap</a></li>
-                    </ul>
+                <div style="text-align:right;">
+                    <p style="margin:0 0 .5rem;"><a href="https://jsschrstrcks1.github.io/InTheWake/ships/ships.html">All Ships</a> | <a href="https://jsschrstrcks1.github.io/InTheWake/cruise-lines/royal-caribbean.html">Royal Caribbean</a></p>
+                    <p style="margin:0; font-size:.85rem;"><a href="https://jsschrstrcks1.github.io/InTheWake/privacy.html">Privacy Policy</a> | <a href="https://jsschrstrcks1.github.io/InTheWake/terms.html">Terms of Use</a></p>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p class="copyright">&copy; 2025 In the Wake. All rights reserved. | Photography & content by <a href="http://www.flickersofmajesty.com/" target="_blank" rel="noopener">Flickers of Majesty</a>.</p>
-                <p class="attribution">Images courtesy Royal Caribbean International, Wikimedia Commons (CC BY-SA 4.0), and independent creators. Video content from trusted YouTube channels. All external links open in new windows.</p>
-            </div>
+            <hr style="border:none; border-top:1px solid #e4e9ec; margin:1.5rem 0;">
+            <p style="margin:0 0 .5rem; font-size:.85rem; color:#546;">&copy; 2025 In the Wake. All rights reserved.</p>
+            <p class="attribution" style="margin:0; font-size:.8rem; color:#6b7b85;">Images courtesy Royal Caribbean International, Wikimedia Commons (CC BY-SA 4.0), and independent creators. Video content from trusted YouTube channels. All external links open in new windows. Photography & content by <a href="http://www.flickersofmajesty.com/" target="_blank" rel="noopener">Flickers of Majesty</a>.</p>
         </div>
     </footer>
 </body>
 </html>
-```
 
-**Key fixes made for stylesheet compliance:**
-
-1. **Removed Swiper dependency** - Not in v2.223 standards, using CSS Grid/Flexbox instead
-2. **Exact class names from styles.css**: 
-   - `card-header`, `card-title`, `card-content`, `card-subtitle`
-   - `welcome-grid`, `welcome-item`, `welcome-icon`, `welcome-title`
-   - `timeline-container`, `timeline-item`, `timeline-marker`, `timeline-content`
-   - `features-grid`, `feature-card`, `feature-content`, `feature-title`
-   - `dining-grid`, `dining-card`, `dining-content`, `price-tag`
-   - `itinerary-grid`, `itinerary-card`, `itinerary-content`
-   - `media-grid`, `media-item`, `video-item`
-   - `footer-grid`, `footer-section`, `footer-links`
-
-3. **Proper card structure**: Every content section follows the `content-card` pattern with `card-header`/`card-content`
-4. **Button/link classes**: Using `btn-link` and `book-btn` for proper styling
-5. **No inline CSS**: All styling flows from `styles.css?v=2.223`
-
-This now matches the exact structure and class conventions of `/ships/rcl/grandeur-of-the-seas.html` and will render properly with the existing stylesheet.
