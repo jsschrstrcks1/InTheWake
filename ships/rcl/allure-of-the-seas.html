@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Allure of the Seas — In the Wake (v2.237)</title>
+  <title>Allure of the Seas — In the Wake (v2.238)</title>
 
   <!-- Canonical & SEO -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/allure-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean’s Allure of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
-  <meta name="version" content="2.237"/>
+  <meta name="version" content="2.238"/>
 
   <!-- Social -->
   <meta property="og:type" content="website"/>
@@ -16,22 +16,22 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/allure-of-the-seas.html"/>
   <meta property="og:title" content="Allure of the Seas — In the Wake"/>
   <meta property="og:description" content="Photos, dining, cabins, videos, and tips for Allure of the Seas."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-hero.jpg?v=2.237"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-hero.jpg?v=2.238"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Unified CSS (absolute path, per standards) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.237"/>
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.238"/>
 
-  <!-- Vendor: Swiper -->
+  <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/vendor/swiper/swiper-bundle.min.css"/>
 
-  <!-- Page-scoped micro-tweaks (standards-compliant) -->
+  <!-- Page micro-tweaks -->
   <style>
     .hidden{display:none!important}
     .pills, .class-pills, .related-pills, .button-group { justify-content:center; text-align:center }
     .pills, .class-pills, .related-pills { display:flex; gap:.5rem; flex-wrap:wrap }
 
-    /* Watermark (fouled anchor), absolute path */
+    /* Watermark */
     body::before{
       content:"";
       position:fixed; inset:0;
@@ -40,21 +40,23 @@
     }
     body > * { position:relative; z-index:1; }
 
-    /* Keep last two related cards side-by-side on desktop */
+    /* Related pair desktop */
     @media (min-width: 861px){
       .related-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--gap, 1.25rem); }
     }
 
-    /* First Look carousel: nav arrows visible & on top */
-    .swiper.firstlook { position: relative; overflow: hidden; }
-    .card .swiper.firstlook .swiper-button-prev,
-    .card .swiper.firstlook .swiper-button-next{
-      color: var(--sea);
-      text-shadow: 0 2px 6px rgba(8,48,65,.25);
-      z-index: 5;
-      width: 44px; height: 44px;
+    /* A First Look — force arrows visible and on top, even if theme hides them */
+    .swiper.firstlook{ position:relative; overflow:hidden; }
+    .swiper.firstlook .swiper-button-prev,
+    .swiper.firstlook .swiper-button-next{
+      position:absolute; top:50%; transform:translateY(-50%);
+      display:flex !important; opacity:1 !important; pointer-events:auto !important;
+      color: var(--sea); text-shadow:0 2px 6px rgba(8,48,65,.28);
+      z-index: 6 !important; width:44px; height:44px;
     }
-    .card .swiper.firstlook .swiper-pagination { z-index: 5; }
+    .swiper.firstlook .swiper-button-prev{ left:6px }
+    .swiper.firstlook .swiper-button-next{ right:6px }
+    .swiper.firstlook .swiper-pagination{ z-index:6 !important }
     .swiper.firstlook .swiper-pagination-bullet{ background: var(--sea); opacity:.45 }
     .swiper.firstlook .swiper-pagination-bullet-active{ opacity:1 }
     .swiper.firstlook img{ display:block; width:100%; height:auto; border-radius:10px }
@@ -65,7 +67,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        <span class="version-badge">v2.237</span>
+        <span class="version-badge">v2.238</span>
       </div>
       <nav class="pills" aria-label="Site">
         <a href="https://www.cruisinginthewake.com/index.html">Home</a>
@@ -81,7 +83,6 @@
       </nav>
     </div>
 
-    <!-- Hero with compass RIGHT (compliant) -->
     <div class="hero" role="img" aria-label="Allure of the Seas hero image">
       <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
@@ -116,11 +117,10 @@
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
 
-        <!-- Wikimedia carousel (with graceful fallbacks) -->
         <div class="swiper firstlook" aria-label="Allure of the Seas photo carousel">
           <div class="swiper-wrapper">
 
-            <!-- 1) Allure_of_the_Seas_(8615703241).jpg — Jonathan Palombo — CC BY 2.0 -->
+            <!-- 1 -->
             <div class="swiper-slide">
               <figure>
                 <a href="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg"
@@ -133,7 +133,7 @@
               </figure>
             </div>
 
-            <!-- 2) Allure_of_the_Seas.jpg — Jonathan Palombo — CC BY 2.0 -->
+            <!-- 2 (with robust fallback) -->
             <div class="swiper-slide">
               <figure>
                 <a href="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
@@ -147,7 +147,7 @@
               </figure>
             </div>
 
-            <!-- 3) Moll_Adossat_(Port_of_Barcelona)_Allure_of_the_Seas.JPG — Jordiferrer — CC BY-SA 4.0 -->
+            <!-- 3 -->
             <div class="swiper-slide">
               <figure>
                 <a href="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG"
@@ -166,26 +166,34 @@
           <div class="swiper-button-next" aria-label="Next image"></div>
         </div>
 
-        <!-- Ship stats (auto via fleet_index.json) -->
+        <!-- Stats -->
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
           <h3 id="statsHeading">Allure at a Glance</h3>
           <div id="ship-stats" class="stats-grid" data-slug="allure-of-the-seas"></div>
         </section>
       </section>
 
-      <!-- Dining (truth-driven) -->
+      <!-- Dining -->
       <section id="dining-card" class="card" data-ship="Allure of the Seas" aria-labelledby="diningHeading">
         <h2 id="diningHeading">Dining Venues on Allure of the Seas</h2>
 
-        <img id="dining-hero" class="card-hero"
-             src="https://www.cruisinginthewake.com/assets/ships/allure-dining-hero.jpg?v=2.237"
-             data-fallbacks='[
-               "https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.237",
-               "https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.237",
-               "https://www.cruisinginthewake.com/assets/placeholders/dining-fallback.jpg?v=2.237"
-             ]'
-             alt="Dining venue seating with ocean view" loading="lazy"
-             onerror="(function(img){try{var list=JSON.parse(img.getAttribute('data-fallbacks')||'[]');if(!img._fbi)img._fbi=0;if(img._fbi<list.length){img.src=list[img._fbi++];}}catch(e){}})(this)"/>
+        <!-- robust hero (never broken) -->
+        <picture>
+          <source srcset="https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.238" media="(min-width: 900px)">
+          <source srcset="https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.238" media="(min-width: 600px)">
+          <img id="dining-hero" class="card-hero"
+               src="https://www.cruisinginthewake.com/assets/ships/allure-dining-hero.jpg?v=2.238"
+               alt="Dining venue seating with ocean view" loading="lazy"
+               onerror="(function(img){
+                 var fallbacks=[
+                   'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.238',
+                   'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.238',
+                   'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23f0fbff%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22system-ui%22 font-size=%2240%22 fill=%22%230a3d62%22>Dining image coming soon</text></svg>'
+                 ];
+                 if(!img._fbi) img._fbi=0;
+                 img.src=fallbacks[Math.min(img._fbi++, fallbacks.length-1)];
+               })(this)"/>
+        </picture>
 
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
@@ -204,7 +212,7 @@
     <!-- Logbook -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook — Tales From the Wake</h2>
-      <div id="logbook-stories" class="prose"><!-- JS injects personas here --></div>
+      <div id="logbook-stories" class="prose"></div>
     </section>
 
     <!-- Videos -->
@@ -217,6 +225,7 @@
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
     <!-- Row: Deck Plans + Live Tracker -->
@@ -235,7 +244,6 @@
              aria-label="Live ship map for Allure of the Seas"
              style="width:100%;height:300px;background:var(--sky)"></div>
 
-        <!-- Fallback -->
         <iframe class="live-map hidden"
                 title="Live ship tracker for Allure of the Seas"
                 width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen
@@ -245,7 +253,7 @@
       </section>
     </section>
 
-    <!-- Related (side-by-side) -->
+    <!-- Related -->
     <section class="related-row">
       <section class="card carousel related-ships" aria-labelledby="related-ships">
         <h2 id="related-ships" class="card-title">Oasis Class — Sister Ships</h2>
@@ -295,52 +303,58 @@
 
   <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
-  <!-- JS: Swiper / Dining / Loaders -->
+  <!-- Vendor JS -->
   <script src="https://www.cruisinginthewake.com/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script>
-    /* First Look Swiper */
-    (function initFirstLook(){
-      function go(){
-        if(!window.Swiper) return setTimeout(go,120);
-        new Swiper('.swiper.firstlook', {
-          loop:false, lazy:true, watchOverflow:true,
-          pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
-          navigation:{
-            nextEl:'.swiper.firstlook .swiper-button-next',
-            prevEl:'.swiper.firstlook .swiper-button-prev'
-          },
-          a11y:{ enabled:true }
-        });
-      }
-      go();
-    })();
 
-    /* Dining hero verifier: handles fast-fail before onerror attaches (defense in depth) */
-    (function verifyDiningHero(){
-      const img = document.getElementById('dining-hero'); if(!img) return;
-      function bad(i){ return !i.complete || i.naturalWidth === 0; }
-      if (bad(img)) {
-        try {
-          const list = JSON.parse(img.getAttribute('data-fallbacks')||'[]');
-          for (let i=0;i<list.length;i++){
-            img.src = list[i];
-            // next paint will validate; this is best-effort
-          }
-        } catch(e){}
-      }
+  <!-- First Look: robust init (waits for Swiper + DOM + CSS) -->
+  <script>
+  (function initFirstLook(){
+    function ready(){ return window.Swiper && document.querySelector('.swiper.firstlook .swiper-wrapper'); }
+    (function go(){
+      if(!ready()) return setTimeout(go,120);
+      new Swiper('.swiper.firstlook', {
+        loop:false, lazy:true, watchOverflow:true,
+        pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
+        navigation:{
+          nextEl:'.swiper.firstlook .swiper-button-next',
+          prevEl:'.swiper.firstlook .swiper-button-prev'
+        },
+        a11y:{ enabled:true }
+      });
     })();
+  })();
+  </script>
+
+  <!-- Verify dining hero even if it failed before handlers attached -->
+  <script>
+  (function verifyDiningHero(){
+    const img = document.getElementById('dining-hero'); if(!img) return;
+    function bad(i){ return !i.complete || i.naturalWidth === 0; }
+    if (bad(img)) {
+      const chain = [
+        'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.238',
+        'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.238'
+      ];
+      let i = 0;
+      (function tryNext(){
+        if (i>=chain.length) return;
+        img.onload = ()=>{};
+        img.onerror = ()=>{ i++; tryNext(); };
+        img.src = chain[i++];
+      })();
+    }
+  })();
   </script>
 
   <!-- Dining card (truth-driven) -->
-  <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.237" defer></script>
+  <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.238" defer></script>
 
-  <!-- Videos: cascade across repos/schemas -->
+  <!-- Videos: cascade across repos/schemas; graceful empty state -->
   <script>
   (async function initVideos(){
     const wrap = document.getElementById('featuredVideos'); if(!wrap) return;
     const slug = 'allure-of-the-seas';
-
-    const SOURCES = [
+    const sources = [
       '/assets/data/rc_ship_videos.json',
       '/assets/data/video_sources.json',
       '/assets/data/videos/rc/allure-of-the-seas.json',
@@ -349,32 +363,27 @@
       'https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json',
       'https://www.cruisinginthewake.com/assets/data/video_sources.json'
     ];
-
     let list = [];
-    for(const u of SOURCES){
+    for(const u of sources){
       try{
-        const r = await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
+        const r = await fetch(u,{cache:'no-store'});
+        if(!r.ok) continue;
         const j = await r.json();
-        const cands = [
-          j[slug], j?.RCL?.[slug], j?.rcl?.[slug],
-          Array.isArray(j) ? j : null, j?.videos, j?.items
-        ].filter(Boolean);
-        for (const arr of cands){ if(Array.isArray(arr) && arr.length){ list = arr; break; } }
-        if (list.length) break;
+        const cands = [ j[slug], j?.RCL?.[slug], j?.rcl?.[slug], Array.isArray(j)?j:null, j?.videos, j?.items ].filter(Boolean);
+        for(const arr of cands){ if(Array.isArray(arr) && arr.length){ list=arr; break; } }
+        if(list.length) break;
       }catch{}
     }
-    if(!list.length) return;
-
-    const weight = t =>
-      /walk.?through/i.test(t) ? 1 :
-      /(top|things).*(do)/i.test(t) ? 2 :
-      /(stateroom|cabin|suite|accessible)/i.test(t) ? 3 : 4;
-
+    if(!list.length){
+      document.getElementById('videoFallback')?.classList.remove('hidden');
+      return;
+    }
+    const weight = t => /walk.?through/i.test(t) ? 1 :
+                         /(top|things).*(do)/i.test(t) ? 2 :
+                         /(stateroom|cabin|suite|accessible)/i.test(t) ? 3 : 4;
     list.sort((a,b)=> (weight(a.title||'') - weight(b.title||'')));
-
     list.forEach(v=>{
-      const id = v.id||v.youtubeId||v.yt||v.videoId||'';
-      if(!id) return;
+      const id = v.id||v.youtubeId||v.yt||v.videoId||''; if(!id) return;
       const title = (v.title||'Ship video').replace(/"/g,'&quot;');
       const slide=document.createElement('div'); slide.className='swiper-slide';
       slide.innerHTML = `<iframe title="${title}" src="https://www.youtube.com/embed/${id}"
@@ -382,7 +391,6 @@
         allowfullscreen loading="lazy"></iframe>`;
       wrap.appendChild(slide);
     });
-
     function go(){
       if(!window.Swiper) return setTimeout(go,120);
       new Swiper('.swiper.videos', {
@@ -396,7 +404,7 @@
   })();
   </script>
 
-  <!-- Ship stats loader: accept multiple data locations & shapes -->
+  <!-- Ship stats: broaden sources + tolerate shapes -->
   <script>
   (async function loadShipStats(){
     const el = document.getElementById('ship-stats');
@@ -406,6 +414,7 @@
     const SOURCES = [
       '/assets/data/fleet_index.json',
       '/assets/data/fleet_index.min.json',
+      '/assets/json/fleet_index.json',
       '/assets/fleet_index.json',
       'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
       'https://www.cruisinginthewake.com/assets/data/fleet_index.min.json',
@@ -451,14 +460,14 @@
   })();
   </script>
 
-  <!-- Live Itinerary: hybrid embed -->
+  <!-- Live Itinerary -->
   <script>
   (function initHybridVesselFinder(){
     const wrap = document.querySelector('.card.itinerary[data-imo]');
     if(!wrap) return;
 
-    const imo   = (wrap.getAttribute('data-imo')||'').trim();     // 9383948
-    const name  = (wrap.getAttribute('data-name')||'').trim();    // ALLURE-OF-THE-SEAS
+    const imo   = (wrap.getAttribute('data-imo')||'').trim();
+    const name  = (wrap.getAttribute('data-name')||'').trim();
     const mapEl = document.getElementById('vf-map-allure');
     const iFr   = wrap.querySelector('iframe.live-map');
 
