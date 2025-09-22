@@ -1,12 +1,7 @@
-Understood. **Permanent domain switch to `https://www.cruisinginthewake.com`**. Swiper from CDN. Here's the corrected, deploy-ready Anthem page:
-
-```html:disable-run
-<!doctype html>
-<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Anthem of the Seas — In the Wake (v2.223)</title>
+  <title>Anthem of the Seas — In the Wake v2.223</title>
   <!-- Canonical & SEO -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/anthem-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean's Anthem of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
@@ -15,7 +10,7 @@ Understood. **Permanent domain switch to `https://www.cruisinginthewake.com`**. 
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/anthem-of-the-seas.html"/>
-  <meta property="og:title" content="Anthem of the Seas — In the Wake"/>
+  <meta property="og:title" content="Anthem of the Seas — In the Wake v2.223"/>
   <meta property="og:description" content="Photos, dining, cabins, videos, and tips for Anthem of the Seas."/>
   <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/anthem-of-the-seas-hero.jpg?v=2.223"/>
   <meta name="twitter:card" content="summary_large_image"/>
@@ -25,64 +20,7 @@ Understood. **Permanent domain switch to `https://www.cruisinginthewake.com`**. 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <!-- Page micro-tweaks -->
   <style>
-    .hidden{display:none!important}
-    .pills, .class-pills, .related-pills, .button-group { justify-content:center; text-align:center }
-    .pills, .class-pills, .related-pills { display:flex; gap:.5rem; flex-wrap:wrap }
-    /* Watermark */
-    body::before{
-      content:"";
-      position:fixed; inset:0;
-      background: url("https://www.cruisinginthewake.com/assets/watermark.png") center right / 420px auto no-repeat;
-      opacity:.06; pointer-events:none; z-index:0;
-    }
-    body > * { position:relative; z-index:1; }
-    /* Related pair desktop */
-    @media (min-width: 861px){
-      .related-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--gap, 1.25rem); }
-    }
-    /* A First Look — force arrows visible and on top, even if theme hides them */
-    .swiper.firstlook{ position:relative; overflow:hidden; }
-    .swiper.firstlook .swiper-button-prev,
-    .swiper.firstlook .swiper-button-next{
-      position:absolute; top:50%; transform:translateY(-50%);
-      display:flex !important; opacity:1 !important; pointer-events:auto !important;
-      color: var(--sea); text-shadow:0 2px 6px rgba(8,48,65,.28);
-      z-index: 6 !important; width:44px; height:44px;
-    }
-    .swiper.firstlook .swiper-button-prev{ left:6px }
-    .swiper.firstlook .swiper-button-next{ right:6px }
-    .swiper.firstlook .swiper-pagination{ z-index:6 !important }
-    .swiper.firstlook .swiper-pagination-bullet{ background: var(--sea); opacity:.45 }
-    .swiper.firstlook .swiper-pagination-bullet-active{ opacity:1 }
-    .swiper.firstlook img{ display:block; width:100%; height:auto; border-radius:10px }
+    .hero-grid .grid-labels text{ font-size: clamp(1.8px, 2.2vw, 2.4px); }
+    .hero-grid .grid-labels text{ fill: rgba(255,255,255,.85); paint-order: stroke; stroke: rgba(8,48,65,.35); stroke-width:.4px; }
   </style>
 </head>
-<body class="page no-hero-filter">
-  <header class="hero-header">
-    <div class="navbar">
-      <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        <span class="version-badge">v2.223</span>
-      </div>
-      <nav class="pills" aria-label="Site">
-        <a href="https://www.cruisinginthewake.com/index.html">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html">Cruise Lines</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
-      </nav>
-    </div>
-    <div class="hero" role="img" aria-label="Anthem of the Seas hero image">
-      <div class="latlon-grid" aria-hidden="true">
-        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-          <g class="grid-lines" stroke-width="0.35">
-            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80"
-```
