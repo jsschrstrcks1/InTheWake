@@ -40,18 +40,21 @@
     }
     body > * { position:relative; z-index:1; }
 
-    /* Ensure related pair sits side-by-side on desktop */
+    /* Keep last two related cards side-by-side on desktop */
     @media (min-width: 861px){
       .related-row { display:grid; grid-template-columns: 1fr 1fr; gap: var(--gap, 1.25rem); }
     }
 
-    /* First Look carousel: make nav arrows visible & on top */
-    .swiper.firstlook .swiper-button-prev,
-    .swiper.firstlook .swiper-button-next{
+    /* First Look carousel: nav arrows visible & on top */
+    .swiper.firstlook { position: relative; overflow: hidden; }
+    .card .swiper.firstlook .swiper-button-prev,
+    .card .swiper.firstlook .swiper-button-next{
       color: var(--sea);
       text-shadow: 0 2px 6px rgba(8,48,65,.25);
-      z-index: 5; /* above images */
+      z-index: 5;
+      width: 44px; height: 44px;
     }
+    .card .swiper.firstlook .swiper-pagination { z-index: 5; }
     .swiper.firstlook .swiper-pagination-bullet{ background: var(--sea); opacity:.45 }
     .swiper.firstlook .swiper-pagination-bullet-active{ opacity:1 }
     .swiper.firstlook img{ display:block; width:100%; height:auto; border-radius:10px }
@@ -125,8 +128,7 @@
                    aria-label="Open full-size photo in a new tab">
                   <img
                     src="https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg"
-                    alt="Allure of the Seas at sea" loading="lazy" referrerpolicy="no-referrer"
-                    onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg';"/>
+                    alt="Allure of the Seas at sea" loading="lazy" referrerpolicy="no-referrer"/>
                 </a>
               </figure>
             </div>
@@ -140,7 +142,7 @@
                   <img
                     src="https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg"
                     alt="Allure of the Seas broadside view" loading="lazy" referrerpolicy="no-referrer"
-                    onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/4/42/Allure_of_the_Seas_%288615703241%29.jpg';"/>
+                    onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Allure_of_the_Seas.jpg';"/>
                 </a>
               </figure>
             </div>
@@ -153,8 +155,7 @@
                    aria-label="Open full-size photo in a new tab">
                   <img
                     src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Moll_Adossat_%28Port_of_Barcelona%29_Allure_of_the_Seas.JPG"
-                    alt="Allure of the Seas docked at Barcelona's Moll Adossat" loading="lazy" referrerpolicy="no-referrer"
-                    onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/52/Allure_of_the_Seas.jpg';"/>
+                    alt="Allure of the Seas docked at Barcelona's Moll Adossat" loading="lazy" referrerpolicy="no-referrer"/>
                 </a>
               </figure>
             </div>
@@ -178,7 +179,13 @@
 
         <img id="dining-hero" class="card-hero"
              src="https://www.cruisinginthewake.com/assets/ships/allure-dining-hero.jpg?v=2.237"
-             alt="Dining venue seating with ocean view" loading="lazy"/>
+             data-fallbacks='[
+               "https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.237",
+               "https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.237",
+               "https://www.cruisinginthewake.com/assets/placeholders/dining-fallback.jpg?v=2.237"
+             ]'
+             alt="Dining venue seating with ocean view" loading="lazy"
+             onerror="(function(img){try{var list=JSON.parse(img.getAttribute('data-fallbacks')||'[]');if(!img._fbi)img._fbi=0;if(img._fbi<list.length){img.src=list[img._fbi++];}}catch(e){}})(this)"/>
 
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
@@ -308,19 +315,19 @@
       go();
     })();
 
-    /* Dining hero: robust fallbacks if primary asset 404s */
-    (function diningHeroFallback(){
+    /* Dining hero verifier: handles fast-fail before onerror attaches (defense in depth) */
+    (function verifyDiningHero(){
       const img = document.getElementById('dining-hero'); if(!img) return;
-      const FALLBACKS = [
-        'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.237',
-        'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.237',
-        'https://www.cruisinginthewake.com/assets/placeholders/dining-fallback.jpg?v=2.237'
-      ];
-      let i=0;
-      img.addEventListener('error', function onErr(){
-        if(i>=FALLBACKS.length){ img.removeEventListener('error', onErr); return; }
-        img.src = FALLBACKS[i++]; // try next
-      });
+      function bad(i){ return !i.complete || i.naturalWidth === 0; }
+      if (bad(img)) {
+        try {
+          const list = JSON.parse(img.getAttribute('data-fallbacks')||'[]');
+          for (let i=0;i<list.length;i++){
+            img.src = list[i];
+            // next paint will validate; this is best-effort
+          }
+        } catch(e){}
+      }
     })();
   </script>
 
@@ -334,39 +341,28 @@
     const slug = 'allure-of-the-seas';
 
     const SOURCES = [
+      '/assets/data/rc_ship_videos.json',
+      '/assets/data/video_sources.json',
+      '/assets/data/videos/rc/allure-of-the-seas.json',
+      '/assets/data/videos/rcl/allure-of-the-seas.json',
+      '/assets/data/videos/allure-of-the-seas.json',
       'https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json',
-      'https://www.cruisinginthewake.com/assets/data/video_sources.json',
-      'https://www.cruisinginthewake.com/assets/data/videos/rc/allure-of-the-seas.json',
-      'https://www.cruisinginthewake.com/assets/data/videos/rcl/allure-of-the-seas.json',
-      'https://www.cruisinginthewake.com/assets/data/videos/allure-of-the-seas.json'
+      'https://www.cruisinginthewake.com/assets/data/video_sources.json'
     ];
 
     let list = [];
     for(const u of SOURCES){
       try{
-        const r = await fetch(u,{cache:'no-store'});
-        if(!r.ok) continue;
+        const r = await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
         const j = await r.json();
-
-        // accept several shapes
-        const tryLists = [
-          j[slug],
-          j?.RCL?.[slug],
-          j?.rcl?.[slug],
-          Array.isArray(j) ? j : null,
-          j?.videos,
-          j?.items
+        const cands = [
+          j[slug], j?.RCL?.[slug], j?.rcl?.[slug],
+          Array.isArray(j) ? j : null, j?.videos, j?.items
         ].filter(Boolean);
-
-        for(const arr of tryLists){
-          if(Array.isArray(arr) && arr.length){
-            list = arr; break;
-          }
-        }
-        if(list.length) break;
+        for (const arr of cands){ if(Array.isArray(arr) && arr.length){ list = arr; break; } }
+        if (list.length) break;
       }catch{}
     }
-
     if(!list.length) return;
 
     const weight = t =>
@@ -400,7 +396,7 @@
   })();
   </script>
 
-  <!-- Ship stats loader: accept multiple data locations -->
+  <!-- Ship stats loader: accept multiple data locations & shapes -->
   <script>
   (async function loadShipStats(){
     const el = document.getElementById('ship-stats');
@@ -408,6 +404,9 @@
     const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
 
     const SOURCES = [
+      '/assets/data/fleet_index.json',
+      '/assets/data/fleet_index.min.json',
+      '/assets/fleet_index.json',
       'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
       'https://www.cruisinginthewake.com/assets/data/fleet_index.min.json',
       'https://www.cruisinginthewake.com/assets/fleet_index.json'
@@ -507,13 +506,14 @@
   })();
   </script>
 
-  <!-- Logbook loader (personas JSON) -->
+  <!-- Logbook loader -->
   <script>
   (async function loadLogbook(){
     const el = document.getElementById('logbook-stories'); if(!el) return;
     const TRY = [
-      'https://www.cruisinginthewake.com/ships/rcl/assets/allure.json',
-      'https://www.cruisinginthewake.com/assets/data/ships/rcl/allure.json',
+      '/ships/rcl/assets/allure.json',
+      '/assets/data/ships/rcl/allure.json',
+      '/assets/data/logbook/rcl/allure-of-the-seas.json',
       'https://www.cruisinginthewake.com/assets/data/logbook/rcl/allure-of-the-seas.json'
     ];
     let stories=[];
@@ -530,7 +530,7 @@
     }
     el.innerHTML = stories.length
       ? stories.map(p => `<article class="story"><h3>${(p.title||p.persona_label||'Guest Perspective')}</h3>${(p.markdown||p.html||'').trim()}</article>`).join('')
-      : '<p class="small">Entries are being penned now. Check back soon.</p>';
+      : '<p class="small">Fresh pages are being inked—check back soon.</p>';
   })();
   </script>
 </body>
