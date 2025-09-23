@@ -378,91 +378,93 @@
   <!-- Dining card (truth-driven) -->
   <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.241" defer></script>
 
-  <!-- Videos: cascade loaders -->
+  <!-- ✅ Videos: single-source loader using rc_ship_videos.json -->
   <script>
   (async function initVideos(){
     const wrap = document.getElementById('featuredVideos'); if(!wrap) return;
+
+    // Ship slug for this page
     const slug = 'allure-of-the-seas';
-    const sources = [
-      'https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json',
-      'https://www.cruisinginthewake.com/assets/data/video_sources.json',
-      'https://www.cruisinginthewake.com/assets/data/videos/rc/allure-of-the-seas.json',
-      'https://www.cruisinginthewake.com/assets/data/videos/rcl/allure-of-the-seas.json',
-      'https://www.cruisinginthewake.com/assets/data/videos/allure-of-the-seas.json',
-      'https://www.cruisinginthewake.com/ships/rcl/assets/allure_videos.json',
-      'https://www.cruisinginthewake.com/assets/data/youtube/rcl/allure-of-the-seas.json',
-      'https://www.cruisinginthewake.com/assets/videos/allure-of-the-seas.json'
-    ];
 
-    function idFrom(input){
-      if(!input) return '';
-      if(typeof input === 'string'){
-        if(/^[A-Za-z0-9_-]{9,12}$/.test(input)) return input;
-        const m1 = input.match(/[?&]v=([\w-]{9,12})/); if(m1) return m1[1];
-        const m2 = input.match(/youtu\.be\/([\w-]{9,12})/); if(m2) return m2[1];
-        const m3 = input.match(/youtube\.com\/embed\/([\w-]{9,12})/); if(m3) return m3[1];
-        return '';
-      }
-      if(typeof input === 'object'){
-        return input.id || input.youtubeId || input.youtube_id || input.yt || input.videoId
-            || idFrom(input.url) || idFrom(input.link) || idFrom(input.href) || '';
-      }
-      return '';
+    // Fetch the master videos dataset
+    let data = null;
+    try{
+      const res = await fetch('https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json', { cache:'no-store' });
+      if(res.ok){ data = await res.json(); }
+    }catch(e){
+      console.warn('[Videos] Failed to fetch rc_ship_videos.json', e);
     }
 
-    let list = [];
-    for(const u of sources){
-      try{
-        const r = await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
-        const j = await r.json();
-        const candidates = [
-          j[slug], j?.RCL?.[slug], j?.rcl?.[slug], j?.rc?.[slug],
-          Array.isArray(j) ? j : null, j?.videos, j?.items, j?.list
-        ].filter(Boolean);
-        for(const arr of candidates){
-          if(Array.isArray(arr) && arr.length){ list = arr; break; }
-        }
-        if(list.length) break;
-      }catch{}
+    if(!data || !data.ships){
+      document.getElementById('videoFallback')?.classList.remove('hidden');
+      return;
     }
+
+    // Pull the ship node
+    const ship = data.ships[slug];
+    if(!ship || !ship.videos){
+      document.getElementById('videoFallback')?.classList.remove('hidden');
+      return;
+    }
+
+    // Preferred category order: overview → signature_features → staterooms → accessible
+    const categoryOrder = ['overview','signature_features','staterooms','accessible'];
+
+    // Flatten to a single ordered list of slides
+    const list = [];
+    categoryOrder.forEach(cat=>{
+      const arr = ship.videos[cat];
+      if(Array.isArray(arr)){
+        arr.forEach(v=>{
+          if(v && v.swiper_slide && (v.embed_url || v.youtube_id)){
+            list.push({
+              title: v.title || 'Ship video',
+              embed: v.embed_url || (v.youtube_id ? `https://www.youtube.com/embed/${v.youtube_id}` : ''),
+              priority: Number.isFinite(v.priority) ? v.priority : 99
+            });
+          }
+        });
+      }
+    });
 
     if(!list.length){
       document.getElementById('videoFallback')?.classList.remove('hidden');
       return;
     }
 
-    const weight = t => /walk.?through/i.test(t||'') ? 1 :
-                         /(top|things).*(do)/i.test(t||'') ? 2 :
-                         /(stateroom|cabin|suite|accessible)/i.test(t||'') ? 3 : 4;
+    // Sort inside the overall list by priority (lower = higher priority), stable by original order
+    list.sort((a,b)=> (a.priority - b.priority));
 
-    list = list
-      .map(v => ({ id: idFrom(v), title: (v.title || v.caption || 'Ship video') }))
-      .filter(v => v.id);
-
-    if(!list.length){
-      document.getElementById('videoFallback')?.classList.remove('hidden');
-      return;
-    }
-
-    list.sort((a,b)=> (weight(a.title) - weight(b.title)));
-
+    // Render slides
     list.forEach(v=>{
-      const slide=document.createElement('div'); slide.className='swiper-slide';
-      slide.innerHTML = `<iframe title="${(v.title||'Ship video').replace(/"/g,'&quot;')}"
-        src="https://www.youtube.com/embed/${v.id}"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen loading="lazy"></iframe>`;
+      if(!v.embed) return;
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+      slide.innerHTML = `
+        <iframe title="${(v.title||'Ship video').replace(/"/g,'&quot;')}"
+          src="${v.embed}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen loading="lazy"></iframe>`;
       wrap.appendChild(slide);
     });
 
+    // Build Swiper config from meta, but scope selectors to the .swiper.videos instance
+    const metaCfg = (data.meta && data.meta.swiper_config) ? JSON.parse(JSON.stringify(data.meta.swiper_config)) : {};
+    // Ensure selectors point inside .swiper.videos
+    if(metaCfg.pagination && metaCfg.pagination.el){
+      metaCfg.pagination.el = '.swiper.videos .swiper-pagination';
+    }
+    if(metaCfg.navigation){
+      if(metaCfg.navigation.nextEl) metaCfg.navigation.nextEl = '.swiper.videos .swiper-button-next';
+      if(metaCfg.navigation.prevEl) metaCfg.navigation.prevEl = '.swiper.videos .swiper-button-prev';
+    }
+    // Always keep these safe defaults:
+    metaCfg.watchOverflow = true;
+    metaCfg.lazy = true;
+
     function go(){
-      if(!window.Swiper) return setTimeout(go,120);
-      new Swiper('.swiper.videos', {
-        loop:false, lazy:true, watchOverflow:true,
-        pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
-        navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
-        a11y:{ enabled:true }
-      });
+      if(!window.Swiper) return setTimeout(go, 120);
+      new Swiper('.swiper.videos', metaCfg);
     }
     go();
   })();
