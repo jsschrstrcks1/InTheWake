@@ -1,57 +1,136 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Enchantment Of The Seas • Royal Caribbean International • In The Wake</title>
-<link rel="canonical" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html"/>
-<style>
-  :root { --ink:#0b2545; --sea:#1d3557; --wake:#a8dadc; --sand:#f1faee; --rope:#c6a26b; }
-  body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; margin:0; color:var(--ink); }
-  header { background:linear-gradient(90deg, var(--sea), #274b7a); color:white; padding:24px 20px; }
-  header .meta { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
-  .version { background:#0b2545; color:#fff; padding:.25rem .5rem; border-radius:.5rem; font-weight:700; font-size:.8rem }
-  .badge { color:#fff; padding:.25rem .5rem; border-radius:.5rem; font-weight:700; font-size:.8rem }
-  nav.pills { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
-  nav.pills .pill { background:#ffffff20; color:#fff; padding:.4rem .7rem; border-radius:999px; text-decoration:none; border:1px solid #ffffff55; }
-  main { padding:24px 20px; max-width:1100px; margin:0 auto; }
-  section.card { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; margin:16px 0; }
-  section.card h2 { margin-top:0; }
-  .small { color:#475569; font-size:.9rem; }
-</style>
-</head>
-<body>
-<header>
-  <h1>Enchantment Of The Seas <span class="badge" style="background:#6b7280">Unknown</span></h1>
-  <div class="meta">
-    <span class="version">v2.233+</span>
-    <a href="http://cruisinginthewake.com/index.html" style="color:#e7f1ff;text-decoration:none">Home</a>
-    <a href="http://cruisinginthewake.com/ships/index.html" style="color:#e7f1ff;text-decoration:none">Ships</a>
-    <a href="http://cruisinginthewake.com/cruise-lines/rcl.html" style="color:#e7f1ff;text-decoration:none">Royal Caribbean</a>
-  </div>
-  <nav class="pills"><a class="pill" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html#first-look">First look</a><a class="pill" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html#why-book">Why book</a><a class="pill" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html#personal-review">Personal review</a><a class="pill" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html#video-highlights">Video highlights</a><a class="pill" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html#dining">Dining</a><a class="pill" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html#deck-plans">Deck plans</a><a class="pill" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html#live-tracker">Live tracker</a><a class="pill" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html#restaurants">Restaurants</a><a class="pill" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html#ports">Ports</a><a class="pill" href="http://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html#attribution">Attribution</a></nav>
-</header>
-<main>
-<section id="first-look" class="card"><h2>First look</h2><figure><img src="http://cruisinginthewake.com/assets/img/Cordelia_Empress_Food_Court.jpg" alt="Enchantment Of The Seas photo 1" /><figcaption>Image 1 — To Verify</figcaption></figure><figure><img src="http://cruisinginthewake.com/assets/img/Cordelia_Empress_Food_Court.jpg" alt="Enchantment Of The Seas photo 2" /><figcaption>Image 2 — To Verify</figcaption></figure><figure><img src="http://cruisinginthewake.com/assets/img/Cordelia_Empress_Food_Court.jpg" alt="Enchantment Of The Seas photo 3" /><figcaption>Image 3 — To Verify</figcaption></figure></section>
-<section id="why-book" class="card"><h2>Why book</h2><p class="small">To Verify — curated reasons coming soon.</p></section>
-<section id="personal-review" class="card"><h2>Personal review</h2><p class="small">To Verify — field notes to be added.</p></section>
-<section id="video-highlights" class="card"><h2>Video highlights</h2><p class="small">Video highlights coming soon.</p></section>
+<script>
+(async function initVideos(){
+  const wrap = document.getElementById('featuredVideos'); if(!wrap) return;
 
-<section id="dining" class="card">
-  <h2>Dining</h2>
-  <img src="http://cruisinginthewake.com/assets/img/Cordelia_Empress_Food_Court.jpg" alt="Dining area" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;"/>
-  <script type="application/json" id="dining-data-source">{"provider": "rcl", "json": "assets/data/rc-restaurants.json", "ship_slug": "enchantment-of-the-seas"}</script>
-  <p class="small">Dining venues for this ship are sourced from <code>assets/data/rc-restaurants.json</code>.</p>
-</section>
+  // 👇 set the page slug
+  const slug = 'enchantment-of-the-seas';
 
-<section id="deck-plans" class="card"><h2>Deck plans</h2><p class="small">Map placeholder — embed to follow.</p></section>
-<section id="live-tracker" class="card"><h2>Live tracker</h2><p class="small">AIS link placeholder.</p></section>
-<section id="restaurants" class="card"><h2>Restaurants</h2><p class="small">Cross-links from dining data will appear here.</p></section>
-<section id="ports" class="card"><h2>Ports</h2><p class="small">Ports visited list placeholder.</p></section>
-<section id="attribution" class="card">
-  <h2>Attribution</h2>
-  <p class="small">© In The Wake. Some imagery © respective owners (used under license or public domain). All rights reserved.</p>
-</section>
-</main>
-</body>
-</html>
+  // 1) Put the ship-specific JSON FIRST so it wins.
+  const sources = [
+    `/assets/data/videos/rcl/${slug}.json?v=${Date.now()}`,          // <- our per-ship canonical
+    'https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json',
+    'https://www.cruisinginthewake.com/assets/data/video_sources.json',
+    `https://www.cruisinginthewake.com/assets/data/videos/rcl/${slug}.json`,
+    `https://www.cruisinginthewake.com/assets/data/videos/${slug}.json`,
+    `https://www.cruisinginthewake.com/ships/rcl/assets/${slug.replace(/-of-the-seas$/,'')}_videos.json`
+  ];
+
+  // Accept both our master schema + your legacy arrays
+  const CATEGORY_ORDER = ['top ten','ship walk through','suite','accessible','balcony','oceanview','interior'];
+
+  function normCat(s){
+    s = String(s||'').toLowerCase();
+    if(/top\s*10|top\s*ten/.test(s)) return 'top ten';
+    if(/walk.?through|tour/.test(s)) return 'ship walk through';
+    if(/access/.test(s)) return 'accessible';
+    return s.replace(/\s+/g,' ').trim();
+  }
+
+  function idFrom(v){
+    if(!v) return '';
+    if(typeof v === 'string'){
+      if(/^[A-Za-z0-9_-]{9,12}$/.test(v)) return v;
+      const m1 = v.match(/[?&]v=([\w-]{9,12})/); if(m1) return m1[1];
+      const m2 = v.match(/youtu\.be\/([\w-]{9,12})/); if(m2) return m2[1];
+      const m3 = v.match(/youtube\.com\/embed\/([\w-]{9,12})/); if(m3) return m3[1];
+      return '';
+    }
+    if(typeof v === 'object'){
+      return v.videoId || v.id || v.youtubeId || v.youtube_id || v.yt || v.video_id
+          || idFrom(v.url) || idFrom(v.link) || idFrom(v.href) || '';
+    }
+    return '';
+  }
+
+  // Flatten our category-keyed schema into a single, ordered list
+  function flattenFromSchema(json){
+    if(!json) return [];
+    const videosObj = json.videos || json[slug]?.videos || null;
+    if(!videosObj) {
+      // maybe it's already a flat list somewhere
+      const arr = Array.isArray(json) ? json : (json.items || json.list || json[slug] || []);
+      return Array.isArray(arr) ? arr : [];
+    }
+
+    // Round-robin ordering if present
+    if (Array.isArray(json.ordered_round_robin) && json.ordered_round_robin.length){
+      const index = new Map();
+      // build a quick lookup across all categories
+      for(const [cat, list] of Object.entries(videosObj)){
+        (list||[]).forEach(v => { const vid=idFrom(v); if(vid) index.set(vid, v); });
+      }
+      return json.ordered_round_robin
+        .map(vid => index.get(vid))
+        .filter(Boolean);
+    }
+
+    // Otherwise: build grouped lists per category, then do round-robin by rank
+    const buckets = CATEGORY_ORDER.map(c => ({
+      cat: c, list: (videosObj[c] || videosObj[normCat(c)] || []).slice()
+                   .filter(v => idFrom(v)) // require a valid YouTube id
+                   .sort((a,b)=> (b.priority||0) - (a.priority||0))
+    }));
+    // Round-robin
+    const out = [];
+    let i = 0, added = true;
+    while(added){
+      added = false;
+      for(const b of buckets){
+        if(b.list[i]){ out.push(b.list[i]); added = true; }
+      }
+      i++;
+    }
+    // append anything in videosObj that didn't map (misc)
+    for(const [cat, list] of Object.entries(videosObj)){
+      if(!CATEGORY_ORDER.includes(cat)){
+        (list||[]).forEach(v=>{ if(idFrom(v)) out.push(v); });
+      }
+    }
+    return out;
+  }
+
+  let list = [];
+  for(const u of sources){
+    try{
+      const r = await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
+      const j = await r.json();
+      let arr = flattenFromSchema(j);
+      // If not found at root, try nested keys
+      if(!arr.length && j && typeof j==='object'){
+        const guess = j[slug] || j.RCL?.[slug] || j.rcl?.[slug] || j.rc?.[slug];
+        if(guess) arr = flattenFromSchema(guess);
+      }
+      arr = (arr||[]).map(v => ({ id:idFrom(v), title: v.title || v.caption || 'Ship video' }))
+                     .filter(v => v.id);
+      if(arr.length){ list = arr; break; }
+    }catch(e){}
+  }
+
+  if(!list.length){
+    document.getElementById('videoFallback')?.classList.remove('hidden');
+    return;
+  }
+
+  // Render
+  list.forEach(v=>{
+    const slide=document.createElement('div'); slide.className='swiper-slide';
+    slide.innerHTML = `<iframe title="${(v.title||'Ship video').replace(/"/g,'&quot;')}"
+      src="https://www.youtube.com/embed/${v.id}"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen loading="lazy"></iframe>`;
+    wrap.appendChild(slide);
+  });
+
+  // Boot Swiper (videos only – First Look stays images-only)
+  function go(){
+    if(!window.Swiper) return setTimeout(go,120);
+    new Swiper('.swiper.videos', {
+      loop:false, lazy:true, watchOverflow:true,
+      pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
+      navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+      a11y:{ enabled:true }
+    });
+  }
+  go();
+})();
+</script>
