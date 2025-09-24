@@ -55,7 +55,6 @@
     /* Center "Fuel Your Voyage" properly inside Logbook content */
     .voyage-tips-wrapper { display:flex; justify-content:center; margin: 1.5rem 0; }
     .card.voyage-tips { max-width:800px; width:100%; }
-
   </style>
 </head>
 <body class="page no-hero-filter">
@@ -310,32 +309,128 @@
     })();
   </script>
 
-  <!-- Videos: inline source list (you provided links) -->
+  <!-- Videos: JSON-driven (replaces old inline list) -->
   <script>
-    (function initVideosFromList(){
-      const wrap = document.getElementById('featuredVideos'); if(!wrap) return;
+  (function initVideosFromPerShipJSON(){
+    const WRAP = document.getElementById('featuredVideos'); if(!WRAP) return;
 
-      // Your provided list (order-weighted: walk-through, top things, staterooms, dining)
-      const raw = [
-        { id:"MmEtsOSotVg", title:"Full Walk Through" },
-        { id:"x27KADQt_e0", title:"Top Things To Do" },
-        { id:"DJ2wHlB19Y4", title:"Interior Stateroom" },
-        { id:"lv4d5xuAAxw", title:"Oceanview Stateroom" },
-        { id:"e_YN-sAED60", title:"Balcony Stateroom" },
-        { id:"PmasAWDbouU", title:"Junior Suite" },
-        { id:"CX1rBDwTG0Y", title:"Accessible Junior Suite" },
-        { id:"1CBDw5O0TGU", title:"Grand Suite" },
-        { id:"tN7_zEs2shk", title:"Dining Options" }
-      ];
+    const VIDEO_JSON_URL = 'https://www.cruisinginthewake.com/ships/rcl/assets/videos/adventure-of-the-seas.json';
+    const CATEGORY_ORDER = ['top ten','ship walk through','suite','accessible','balcony','oceanview','interior'];
+    const norm = s => String(s||'').toLowerCase().replace(/\s+/g,' ').trim();
 
-      raw.forEach(v=>{
-        const slide=document.createElement('div'); slide.className='swiper-slide';
-        slide.innerHTML = `<iframe title="${v.title}" src="https://www.youtube.com/embed/${v.id}"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen loading="lazy"></iframe>`;
-        wrap.appendChild(slide);
+    function getId(v){
+      if (v.videoId) return v.videoId;
+      const url = v.embed_url || v.url || v.youtube || v.src || '';
+      const m = String(url).match(/(?:v=|\/embed\/|\.be\/)([A-Za-z0-9_-]{6,})/);
+      return m ? m[1] : null;
+    }
+
+    function normalizeCategory(v){
+      const title = norm(v.title);
+      const desc  = norm(v.description);
+      const bag = [
+        v.category, v.cat, v.type, v.section, v.cabin_type,
+        ...(Array.isArray(v.tags) ? v.tags : [])
+      ].map(norm).concat([title, desc]).join(' ');
+
+      if (/\b(top\s?10|top ten|best|things to do)\b/.test(bag)) return 'top ten';
+      if (/\b(walk ?through|full ship tour|ship tour|deck by deck)\b/.test(bag)) return 'ship walk through';
+      if (/\b(accessible|wheelchair|ada|handicap)\b/.test(bag)) return 'accessible';
+      if (/\b(junior suite|grand suite|owner.?s suite|royal suite|\bsuite\b)\b/.test(bag)) return 'suite';
+      if (/\b(balcony|veranda|verandah|vtl)\b/.test(bag)) return 'balcony';
+      if (/\b(ocean ?view|ov)\b/.test(bag)) return 'oceanview';
+      if (/\b(interior|inside|ix|studio interior)\b/.test(bag)) return 'interior';
+
+      const raw = norm(v.category || v.type || '');
+      if (raw && CATEGORY_ORDER.includes(raw)) return raw;
+      return 'ship walk through';
+    }
+
+    function scoreOf(v){
+      const p = Number(v.priority ?? v.rank ?? v.weight ?? 0);
+      if (!isNaN(p) && p !== 0) return p;
+      let s = 0;
+      const bag = norm([v.title, v.description, v.channel, v.source].filter(Boolean).join(' '));
+      if (/official|royal caribbean/.test(bag)) s += 2;
+      if (/\b4k\b/.test(bag)) s += 1;
+      if (/202[3-5]/.test(bag)) s += 1;
+      return s;
+    }
+
+    function slideHTML(v){
+      const id = getId(v); if(!id) return '';
+      const title = (v.title || 'Video').replace(/"/g,'&quot;');
+      const category = normalizeCategory(v);
+      return (
+        '<div class="swiper-slide" data-category="'+category+'">'+
+          '<iframe title="'+title+'" src="https://www.youtube.com/embed/'+id+'" '+
+          'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '+
+          'allowfullscreen loading="lazy"></iframe>'+
+        '</div>'
+      );
+    }
+
+    function roundRobinByCategory(items){
+      const buckets = Object.fromEntries(CATEGORY_ORDER.map(c => [c, []]));
+      items.forEach(v=>{
+        const c = normalizeCategory(v);
+        (buckets[c] || (buckets[c]=[])).push(v);
       });
+      for (const c of Object.keys(buckets)){
+        buckets[c].sort((a,b)=>(scoreOf(b)-scoreOf(a)) || String(a.title||'').localeCompare(String(b.title||'')));
+      }
+      const L = Math.max(0, ...Object.values(buckets).map(b=>b.length||0));
+      const out = [];
+      for (let i=0;i<L;i++){
+        for (const c of CATEGORY_ORDER){
+          if (buckets[c][i]) out.push(buckets[c][i]);
+        }
+      }
+      return out;
+    }
 
+    async function load(){
+      let json=null;
+      try{
+        const r = await fetch(VIDEO_JSON_URL, { cache:'no-store' });
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        json = await r.json();
+      }catch(e){
+        WRAP.innerHTML = '<div class="swiper-slide"><div class="note tiny">Videos will cast off shortly (data source unreachable).</div></div>';
+        startSwiper();
+        return;
+      }
+
+      let list = [];
+      if (Array.isArray(json?.videos)) {
+        list = json.videos;
+      } else if (json?.categories && typeof json.categories === 'object') {
+        for (const arr of Object.values(json.categories)) if (Array.isArray(arr)) list.push(...arr);
+      } else if (json?.byShip && json.byShip['adventure-of-the-seas']) {
+        const node = json.byShip['adventure-of-the-seas'];
+        if (Array.isArray(node?.videos)) list = node.videos;
+        if (node?.categories && typeof node.categories === 'object') {
+          for (const arr of Object.values(node.categories)) if (Array.isArray(arr)) list.push(...arr);
+        }
+      }
+
+      const seen = new Set();
+      const deduped = [];
+      for (const v of list){
+        const id = getId(v);
+        if (!id) continue;
+        if (seen.has(id)) continue;
+        seen.add(id);
+        deduped.push(v);
+      }
+
+      const ordered = roundRobinByCategory(deduped);
+      const html = ordered.map(slideHTML).filter(Boolean).join('');
+      WRAP.innerHTML = html || '<div class="swiper-slide"><div class="note tiny">No videos found.</div></div>';
+      startSwiper();
+    }
+
+    function startSwiper(){
       function go(){
         if(!window.Swiper) return setTimeout(go,120);
         new Swiper('.swiper.videos', {
@@ -346,7 +441,10 @@
         });
       }
       go();
-    })();
+    }
+
+    load();
+  })();
   </script>
 
   <!-- Ship stats loader -->
@@ -393,18 +491,17 @@
   })();
   </script>
 
-  <!-- Live Itinerary: hybrid (widget → iframe), iframe uses non-404 pattern and sets direct link -->
+  <!-- Live Itinerary: hybrid (widget → iframe) -->
   <script>
   (function initHybridVesselFinder(){
     const wrap = document.querySelector('.card.itinerary[data-imo]');
     if(!wrap) return;
-    const imo   = (wrap.getAttribute('data-imo')||'').trim();     // 9167225
-    const name  = (wrap.getAttribute('data-name')||'').trim();    // ADVENTURE-OF-THE-SEAS
+    const imo   = (wrap.getAttribute('data-imo')||'').trim();
+    const name  = (wrap.getAttribute('data-name')||'').trim();
     const mapEl = document.getElementById('vf-map-adventure');
     const iFr   = wrap.querySelector('iframe.live-map');
     const direct = document.getElementById('vf-direct');
 
-    // Known-good URL (avoids 404) + #map to bias area
     const iframeURL = `https://www.vesselfinder.com/vessels/${encodeURIComponent(name)}-IMO-${imo}#map`;
     if (direct) direct.href = iframeURL;
 
@@ -415,12 +512,10 @@
       if(mapEl) mapEl.style.display = 'none';
     }
 
-    // Try official widget first (lighter)
     const s = document.createElement('script');
+    const stallTimer = setTimeout(useIframe, 3500);
     s.src = "https://www.vesselfinder.com/aismap.js";
     s.async = true;
-
-    const stallTimer = setTimeout(useIframe, 3500); // faster failover
 
     s.onload = function(){
       try{
@@ -441,7 +536,6 @@
           initialized=true;
         }
 
-        // Watchdog: if nothing rendered, fall back
         setTimeout(function(){
           const hasCanvas = mapEl && (mapEl.querySelector('canvas,svg'));
           if(!hasCanvas) useIframe();
@@ -455,7 +549,7 @@
   })();
   </script>
 
-  <!-- Logbook: load personas JSON + render + nav -->
+  <!-- Logbook -->
   <script>
   (async function initLogbook(){
     const mount = document.getElementById('logbook'); if(!mount) return;
@@ -477,14 +571,12 @@
       return;
     }
 
-    // Pick persona from ?id=... or default to first
     const params = new URLSearchParams(location.search);
     const selId = params.get('id');
     let idx = Math.max(0, personas.findIndex(p => (p.id||'') === selId));
     if (idx === -1) idx = 0;
 
     function md(html){
-      // very light markdown -> HTML (headings, bold, italics, links, line breaks)
       return (html||'')
         .replace(/^###?\s+(.+)$/gm, (m, t)=> `<h3>${t}</h3>`)
         .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
@@ -505,7 +597,6 @@
         <p class="tiny"><strong>${p.persona_label||''}</strong></p>
       `;
 
-      // Insert Fuel Your Voyage block roughly mid-way (after "Dining" if present)
       const fuelCard = `
         <div class="voyage-tips-wrapper">
           <div class="card voyage-tips center" aria-label="Voyage planning tips">
@@ -536,14 +627,12 @@
           </div>
         </div>`;
 
-      // Place Fuel card after Dining section if "## Dining" exists in markdown
       const mdRaw = p.markdown || '';
       const parts = mdRaw.split(/\n##\s+Dining\s*\n/i);
       let html;
       if (parts.length > 1){
         html = md(parts[0]) + '<h3>Dining</h3>' + md(parts[1]) + fuelCard;
       } else {
-        // fallback: append mid-content
         const cut = Math.floor(mdRaw.length * 0.55);
         html = md(mdRaw.slice(0, cut)) + fuelCard + md(mdRaw.slice(cut));
       }
@@ -555,7 +644,6 @@
         </div>`;
 
       mount.innerHTML = header + '<p class="tiny" style="margin-top:.2rem">Use the Port/Starboard buttons to sail between perspectives.</p><div class="story-body">' + html + '</div>' + nav;
-      // Update URL param without reload when nav clicked (client-side enhancement)
       Array.from(mount.querySelectorAll('.button-group a')).forEach(a=>{
         const u = new URL(a.href, location.href);
         if(u.origin===location.origin && u.pathname===location.pathname && u.searchParams.get('id')){
