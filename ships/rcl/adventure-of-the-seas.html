@@ -14,13 +14,13 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html"/>
   <meta property="og:title" content="Adventure of the Seas — In the Wake"/>
   <meta property="og:description" content="Photos, dining, cabins, videos, and tips for Adventure of the Seas."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/adventure-of-the-seas-hero.jpg?v=2.248"/>
+  <meta property="og:image" content="/assets/ships/adventure-of-the-seas-hero.jpg?v=2.248"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Global CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=2.248"/>
 
-  <!-- Swiper CSS (local first, then 2 CDNs). If all fail, our inline fallback CSS (below) keeps the carousel working. -->
+  <!-- Swiper CSS (local → 2 CDNs) -->
   <link id="swiper-css" rel="stylesheet" href="/assets/vendor/swiper@10/swiper-bundle.min.css"/>
   <script>
     (function ensureSwiperCSS(){
@@ -32,7 +32,6 @@
     })();
   </script>
 
-  <!-- Page-scoped helpers -->
   <style>
     .pills, .class-pills, .related-pills, .button-group { justify-content:center; text-align:center }
     .pills, .class-pills, .related-pills { display:flex; gap:.5rem; flex-wrap:wrap }
@@ -48,32 +47,35 @@
     .hidden{display:none !important}
     .firstlook a { cursor: zoom-in; }
 
-    /* Keep videos swiper controls visible above iframes */
+    /* Keep videos controls above iframes */
     .swiper.videos .swiper-button-prev,
     .swiper.videos .swiper-button-next,
     .swiper.videos .swiper-pagination{ z-index:6; }
 
-    /* Video iframe sizing (works for both Swiper and fallback) */
+    /* 16:9 lock for video iframes */
     .swiper.videos iframe { width:100%; aspect-ratio:16/9; height:auto; border:0; display:block; }
 
-    /* Fallback carousel styles (used when Swiper CSS/JS isn’t available) */
+    /* ---- Fallback carousel (used ONLY if Swiper unavailable) ---- */
     .carousel-fallback { position:relative; }
     .carousel-fallback .swiper-wrapper {
       display:flex; flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch; gap:0; scroll-behavior:smooth;
     }
-    .carousel-fallback .swiper-slide {
-      flex:0 0 100%; max-width:100%; scroll-snap-align:start;
-    }
+    .carousel-fallback .swiper-slide { flex:0 0 100%; max-width:100%; scroll-snap-align:start; }
+
+    /* Use one set of arrows only. In fallback mode, hide Swiper's default arrows visuals
+       and restyle the same elements to our blue buttons. */
+    .carousel-fallback .swiper-button-prev::after,
+    .carousel-fallback .swiper-button-next::after { display:none; }
     .carousel-fallback .swiper-button-prev,
     .carousel-fallback .swiper-button-next {
       position:absolute; top:50%; transform:translateY(-50%);
-      background:rgba(0,0,0,.4); color:#fff; padding:.4rem .6rem; border-radius:.4rem; cursor:pointer;
-      user-select:none; z-index:7;
+      background:rgba(0,64,160,.15); border:2px solid #1e66ff; color:#1e66ff;
+      padding:.4rem .55rem; border-radius:.5rem; cursor:pointer; user-select:none; z-index:7;
+      width:auto; height:auto; margin:0;
     }
     .carousel-fallback .swiper-button-prev { left:.5rem; }
     .carousel-fallback .swiper-button-next { right:.5rem; }
-    .carousel-fallback .swiper-pagination { display:none; } /* hide bullets in fallback */
 
     /* Center "Fuel Your Voyage" properly inside Logbook content */
     .voyage-tips-wrapper { display:flex; justify-content:center; margin: 1.5rem 0; }
@@ -138,7 +140,7 @@
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
 
-        <!-- Photo Swiper: each slide links to the full-size Commons file in a new tab -->
+        <!-- Photo Swiper -->
         <div class="swiper firstlook" aria-label="Adventure photo carousel">
           <div class="swiper-wrapper" id="adventurePhotos">
             <div class="swiper-slide">
@@ -174,14 +176,14 @@
           <div class="swiper-button-next" aria-label="Next image"></div>
         </div>
 
-        <!-- Ship stats (auto) -->
+        <!-- Ship stats -->
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
           <h3 id="statsHeading">Adventure at a Glance</h3>
           <div id="ship-stats" class="stats-grid" data-slug="adventure-of-the-seas"></div>
         </section>
       </section>
 
-      <!-- Dining Venues (truth) -->
+      <!-- Dining Venues -->
       <section id="dining-card" class="card" data-ship="Adventure of the Seas" aria-labelledby="diningHeading">
         <h2 id="diningHeading">Dining Venues on Adventure of the Seas</h2>
 
@@ -202,7 +204,7 @@
       </section>
     </section>
 
-    <!-- Moved Up: Deck Plans + Live Tracker -->
+    <!-- Deck Plans + Live Tracker -->
     <section class="grid-2">
       <section class="card" aria-labelledby="deck-plans">
         <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
@@ -217,12 +219,10 @@
         <div class="card itinerary" data-imo="9167225" data-name="ADVENTURE-OF-THE-SEAS">
           <h3>Live Itinerary</h3>
 
-          <!-- Primary (lightweight) -->
           <div id="vf-map-adventure" class="vf-map" role="region"
                aria-label="Live ship map for Adventure of the Seas"
                style="width:100%;height:300px;background:var(--sky)"></div>
 
-          <!-- Fallback (full page, known-good pattern — avoids 404) -->
           <iframe class="live-map hidden"
                   title="Live ship tracker for Adventure of the Seas"
                   width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen
@@ -233,7 +233,7 @@
       </section>
     </section>
 
-    <!-- The Logbook (real guest stories from JSON) -->
+    <!-- The Logbook -->
     <section class="card note-kens-logbook" aria-labelledby="personal-review">
       <h2 id="personal-review">The Logbook — Real Guest Stories</h2>
       <p class="pill">Stories aggregated from recent guest perspectives; lightly edited for clarity and length.</p>
@@ -243,7 +243,7 @@
       </div>
     </section>
 
-    <!-- Videos (truth-driven) -->
+    <!-- Videos -->
     <section class="card" aria-labelledby="video-highlights" data-line="rcl" data-ship-slug="adventure-of-the-seas">
       <h2 id="video-highlights">Watch: Adventure Highlights</h2>
       <p class="small">Swipe or use the arrow buttons to explore the ship, top features, and staterooms by type. Includes a disabled perspective when available.</p>
@@ -255,7 +255,7 @@
       </div>
     </section>
 
-    <!-- Related moved down below -->
+    <!-- Related -->
     <section class="grid-2">
       <section class="card carousel related-ships" aria-labelledby="related-ships">
         <h2 id="related-ships" class="card-title">Voyager Class — Sister Ships</h2>
@@ -303,7 +303,7 @@
 
   <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
-  <!-- Swiper JS (local first, then 2 CDNs) -->
+  <!-- Swiper JS (local → 2 CDNs) -->
   <script id="swiper-js" src="/assets/vendor/swiper@10/swiper-bundle.min.js"></script>
   <script>
     (function ensureSwiperJS(){
@@ -315,7 +315,7 @@
     })();
   </script>
 
-  <!-- Dining card (canonical) -->
+  <!-- Dining card -->
   <script id="dining-js" src="/assets/js/dining-card.js?v=2.248" defer></script>
 
   <script>
@@ -334,34 +334,40 @@
     })();
   </script>
 
-  <!-- Videos: JSON-driven (with Swiper-or-fallback carousel) -->
+  <!-- Videos: strict ship filter + single-mode carousel -->
   <script>
   (function initVideosFromPerShipJSON(){
     const sec  = document.querySelector('[aria-labelledby="video-highlights"]');
     if(!sec) return;
+
     const line = (sec.getAttribute('data-line') || 'rcl').trim();
     const slug = (sec.getAttribute('data-ship-slug') || 'adventure-of-the-seas').trim();
+    const SHIP_NAME = 'Adventure of the Seas';
     const WRAP = document.getElementById('featuredVideos'); if(!WRAP) return;
     const CONTAINER = sec.querySelector('.swiper.videos');
 
-    // Same-origin URL to avoid CORS on subdomain redirects
     const VIDEO_JSON_URL = `/ships/${line}/assets/videos/${slug}.json`;
 
     const CORE_ORDER = ['top ten','ship walk through','suite','accessible','balcony','oceanview','interior'];
-    const KEY_MAP = {'top-ten':'top ten','ship-walkthrough':'ship walk through','ship-overview':'ship walk through','kids-family':'kids & family','pool-spa':'pool & spa','bars-lounges':'bars & lounges','private-island':'private island'};
+    const KEY_MAP = {'top-ten':'top ten','ship-walkthrough':'ship walk through','ship-overview':'ship walk through',
+                     'kids-family':'kids & family','pool-spa':'pool & spa','bars-lounges':'bars & lounges','private-island':'private island'};
     const canonCat = k => KEY_MAP[String(k||'').toLowerCase()] || String(k||'').toLowerCase().replace(/[-_]+/g,' ').trim();
+
     const ytIdFromUrl = u => u ? (u.match(/\/embed\/([A-Za-z0-9_-]{6,})/)||u.match(/[?&]v=([A-Za-z0-9_-]{6,})/)||u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/)||[])[1] || '' : '';
     const getId = v => v.videoId || ytIdFromUrl(v.embed_url || v.url || v.youtube || v.src || '');
 
-    const slideHTML = (v,category) => {
-      const id=getId(v); if(!id) return '';
-      const title = String(v.title||'Video').replace(/"/g,'&quot;');
-      return `<div class="swiper-slide" data-category="${(category||'').replace(/"/g,'&quot;')}">
-        <iframe title="${title}" src="https://www.youtube-nocookie.com/embed/${id}"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          loading="lazy" allowfullscreen></iframe>
-      </div>`;
-    };
+    // --- Ship filters ---
+    const mustInclude = new RegExp('\\bAdventure of the Seas\\b','i');
+    const hardExclude = /\b(Utopia|Icon|Odyssey|Symphony|Wonder|MSC|Carnival|Princess|Celebrity|Divina|World America)\b/i;
+    function isForThisShip(v){
+      const shipSlug = (v.ship_slug || v.ship?.slug || '').toLowerCase();
+      if (shipSlug === slug) return true;
+      const shipName = (v.ship_name || v.ship?.name || '');
+      if (shipName && mustInclude.test(shipName)) return true;
+      const text = `${v.title||''} ${v.description||''} ${v.tags?String(v.tags):''}`;
+      if (hardExclude.test(text)) return false;
+      return mustInclude.test(text);
+    }
 
     const rankScore = v => (Number(v.priority ?? v.rank ?? v.weight ?? 0) || 0)
       + (/royal caribbean|official/i.test(`${v.title} ${v.description} ${v.creator} ${v.channel}`)?2:0)
@@ -371,37 +377,54 @@
     function roundRobinOrder(buckets, core){
       const names=[...core, ...Object.keys(buckets).filter(n=>!core.includes(n))];
       const max=Math.max(...names.map(n=>buckets[n]?.length||0)); const out=[];
-      for(let i=0;i<max;i++){ for(const n of names){ const it=buckets[n]?.[i]; if(it) out.push(it); } }
+      for(let i=0;i<max;i++){ for (const n of names){ const it=buckets[n]?.[i]; if(it) out.push(it); } }
       return out;
     }
 
+    // Single-mode guard
+    let mode='pending'; // 'swiper' | 'fallback'
     function enableFallback(){
-      // Add fallback class & wire buttons to scroll the wrapper by one viewport width
+      if(mode!=='pending') return;
+      mode='fallback';
       CONTAINER.classList.add('carousel-fallback');
       const prev = CONTAINER.querySelector('.swiper-button-prev');
       const next = CONTAINER.querySelector('.swiper-button-next');
       const wrap = CONTAINER.querySelector('.swiper-wrapper');
-
-      function pageWidth(){ return CONTAINER.getBoundingClientRect().width || 1; }
-      prev?.addEventListener('click', ()=> wrap.scrollBy({left:-pageWidth(), behavior:'smooth'}));
-      next?.addEventListener('click', ()=> wrap.scrollBy({left: pageWidth(), behavior:'smooth'}));
+      const pageWidth = () => CONTAINER.getBoundingClientRect().width || 1;
+      prev?.addEventListener('click', prev._fallbackHandler = ()=> wrap.scrollBy({left:-pageWidth(), behavior:'smooth'}));
+      next?.addEventListener('click', next._fallbackHandler = ()=> wrap.scrollBy({left: pageWidth(), behavior:'smooth'}));
+    }
+    function enableSwiper(){
+      if(mode!=='pending') return;
+      mode='swiper';
+      CONTAINER.classList.remove('carousel-fallback');
+      new Swiper('.swiper.videos', {
+        loop:false, lazy:true,
+        pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
+        navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+        a11y:{ enabled:true }
+      });
     }
 
-    function initSwiper(){
-      function go(){
-        if(window.Swiper){ 
-          new Swiper('.swiper.videos', {
-            loop:false, lazy:true,
-            pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
-            navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
-            a11y:{ enabled:true }
-          });
-        } else {
-          enableFallback();
-        }
-      }
-      // Small delay: let any CDN fallback for Swiper JS/CSS load; then decide.
-      setTimeout(go, 180);
+    function decideMode(){
+      // Wait a moment for Swiper to appear; if not, lock into fallback.
+      const deadline = 500; // ms
+      const started = Date.now();
+      (function wait(){
+        if (window.Swiper) return enableSwiper();
+        if (Date.now()-started >= deadline) return enableFallback();
+        setTimeout(wait, 60);
+      })();
+    }
+
+    function slideHTML(v,category){
+      const id=getId(v); if(!id) return '';
+      const title = String(v.title||'Video').replace(/"/g,'&quot;');
+      return `<div class="swiper-slide" data-category="${(category||'').replace(/"/g,'&quot;')}">
+        <iframe title="${title}" src="https://www.youtube-nocookie.com/embed/${id}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          loading="lazy" allowfullscreen></iframe>
+      </div>`;
     }
 
     async function load(){
@@ -412,32 +435,39 @@
         json = await r.json();
       }catch(e){
         WRAP.innerHTML = '<div class="swiper-slide"><div class="note tiny">Videos will cast off shortly (data source unreachable).</div></div>';
-        return initSwiper();
+        return decideMode();
       }
 
-      let buckets={};
+      // Collect items
+      let items=[];
       if (Array.isArray(json?.videos)){
-        json.videos.forEach(v=>{ const cat=canonCat(v.category||'ship walk through'); (buckets[cat] ||= []).push(v); });
+        items = json.videos.slice();
       } else if (json?.videos && typeof json.videos==='object'){
-        for (const [k,arr] of Object.entries(json.videos)){ if(Array.isArray(arr)) (buckets[canonCat(k)] ||= []).push(...arr); }
+        for (const arr of Object.values(json.videos)) if(Array.isArray(arr)) items.push(...arr);
       } else if (json?.categories && typeof json.categories==='object'){
-        for (const [k,arr] of Object.entries(json.categories)){ if(Array.isArray(arr)) (buckets[canonCat(k)] ||= []).push(...arr); }
+        for (const arr of Object.values(json.categories)) if(Array.isArray(arr)) items.push(...arr);
       }
 
-      for (const k of Object.keys(buckets)){
-        buckets[k] = buckets[k].filter(v=>!!getId(v)).sort((a,b)=>rankScore(b)-rankScore(a));
-      }
+      // Strict filtering + de-dupe
       const seen=new Set();
-      for (const k of Object.keys(buckets)){
-        buckets[k] = buckets[k].filter(v=>{ const id=getId(v); if(seen.has(id)) return false; seen.add(id); return true; });
-      }
+      const filtered = items.filter(v=>{
+        const id=getId(v); if(!id || seen.has(id)) return false;
+        if(!isForThisShip(v)) return false;
+        seen.add(id); return true;
+      });
+
+      // Bucket, rank, interleave
+      const buckets={};
+      for (const v of filtered){ const cat=canonCat(v.category||'ship walk through'); (buckets[cat] ||= []).push(v); }
+      for (const k of Object.keys(buckets)){ buckets[k].sort((a,b)=>rankScore(b)-rankScore(a)); }
 
       const ordered = roundRobinOrder(buckets, CORE_ORDER);
+
       WRAP.innerHTML = ordered.length
         ? ordered.map(v=>slideHTML(v, canonCat(v.category))).join('')
         : '<div class="swiper-slide"><div class="note tiny">No videos matched this ship (yet).</div></div>';
 
-      initSwiper();
+      decideMode();
     }
 
     load();
@@ -485,7 +515,7 @@
   })();
   </script>
 
-  <!-- Live Itinerary: hybrid (widget → iframe) -->
+  <!-- Live Itinerary -->
   <script>
   (function initHybridVesselFinder(){
     const wrap = document.querySelector('.card.itinerary[data-imo]');
@@ -517,16 +547,10 @@
         let initialized=false;
 
         if (window.AISMap && mapEl){
-          new AISMap(mapEl, {
-            width:"100%", height:300, zoom:8, names:true,
-            show_track:1, track_days:1, vessel:`IMO:${imo}`
-          });
+          new AISMap(mapEl, { width:"100%", height:300, zoom:8, names:true, show_track:1, track_days:1, vessel:`IMO:${imo}` });
           initialized=true;
         } else if (window.vf && vf.map && typeof vf.map.embed==='function' && mapEl){
-          vf.map.embed(mapEl, {
-            width:"100%", height:300, zoom:8, names:true,
-            show_track:1, track_days:1, vessel:`IMO:${imo}`
-          });
+          vf.map.embed(mapEl, { width:"100%", height:300, zoom:8, names:true, show_track:1, track_days:1, vessel:`IMO:${imo}` });
           initialized=true;
         }
 
