@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Adventure of the Seas — In the Wake (v2.248)</title>
+  <title>Adventure of the Seas — In the Wake (v2.249)</title>
 
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html"/>
   <meta name="description" content="Royal Caribbean’s Adventure of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
@@ -14,11 +14,11 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html"/>
   <meta property="og:title" content="Adventure of the Seas — In the Wake"/>
   <meta property="og:description" content="Photos, dining, cabins, videos, and tips for Adventure of the Seas."/>
-  <meta property="og:image" content="/assets/ships/adventure-of-the-seas-hero.jpg?v=2.248"/>
+  <meta property="og:image" content="/assets/ships/adventure-of-the-seas-hero.jpg?v=2.249"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Global CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=2.248"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=2.249"/>
 
   <!-- Swiper CSS (local → 2 CDNs) -->
   <link id="swiper-css" rel="stylesheet" href="/assets/vendor/swiper@10/swiper-bundle.min.css"/>
@@ -51,20 +51,15 @@
     .swiper.videos .swiper-button-prev,
     .swiper.videos .swiper-button-next,
     .swiper.videos .swiper-pagination{ z-index:6; }
-
-    /* 16:9 lock for video iframes */
     .swiper.videos iframe { width:100%; aspect-ratio:16/9; height:auto; border:0; display:block; }
 
-    /* ---- Fallback carousel (used ONLY if Swiper unavailable) ---- */
+    /* Fallback scroller (only if Swiper is unavailable) */
     .carousel-fallback { position:relative; }
     .carousel-fallback .swiper-wrapper {
       display:flex; flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch; gap:0; scroll-behavior:smooth;
     }
     .carousel-fallback .swiper-slide { flex:0 0 100%; max-width:100%; scroll-snap-align:start; }
-
-    /* Use one set of arrows only. In fallback mode, hide Swiper's default arrows visuals
-       and restyle the same elements to our blue buttons. */
     .carousel-fallback .swiper-button-prev::after,
     .carousel-fallback .swiper-button-next::after { display:none; }
     .carousel-fallback .swiper-button-prev,
@@ -140,14 +135,14 @@
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
 
-        <!-- Photo Swiper -->
+        <!-- Photo Swiper: use Special:FilePath with width (avoids brittle thumbs) -->
         <div class="swiper firstlook" aria-label="Adventure photo carousel">
           <div class="swiper-wrapper" id="adventurePhotos">
             <div class="swiper-slide">
               <figure>
                 <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_docked_in_Aruba_2024.jpg" target="_blank" rel="noopener">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg/1280px-Adventure_of_the_Seas_docked_in_Aruba_2024.jpg"
-                       alt="Adventure of the Seas docked in Aruba (2024)" loading="lazy"/>
+                  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg?width=1280"
+                       alt="Adventure of the Seas docked in Aruba (2024)" loading="lazy" referrerpolicy="no-referrer"/>
                 </a>
                 <figcaption class="tiny">Wikimedia Commons (Aruba, 2024)</figcaption>
               </figure>
@@ -155,8 +150,8 @@
             <div class="swiper-slide">
               <figure>
                 <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_pool_area.jpg" target="_blank" rel="noopener">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Adventure_of_the_Seas_pool_area.jpg/1280px-Adventure_of_the_Seas_pool_area.jpg"
-                       alt="Adventure of the Seas pool area" loading="lazy"/>
+                  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Adventure_of_the_Seas_pool_area.jpg?width=1280"
+                       alt="Adventure of the Seas pool area" loading="lazy" referrerpolicy="no-referrer"/>
                 </a>
                 <figcaption class="tiny">Wikimedia Commons (Pool area)</figcaption>
               </figure>
@@ -164,8 +159,8 @@
             <div class="swiper-slide">
               <figure>
                 <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_seas_in_Willemstad.jpg" target="_blank" rel="noopener">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Adventure_of_the_seas_in_Willemstad.jpg/1280px-Adventure_of_the_seas_in_Willemstad.jpg"
-                       alt="Adventure of the Seas in Willemstad" loading="lazy"/>
+                  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Adventure_of_the_seas_in_Willemstad.jpg?width=1280"
+                       alt="Adventure of the Seas in Willemstad" loading="lazy" referrerpolicy="no-referrer"/>
                 </a>
                 <figcaption class="tiny">Wikimedia Commons (Willemstad)</figcaption>
               </figure>
@@ -176,14 +171,28 @@
           <div class="swiper-button-next" aria-label="Next image"></div>
         </div>
 
-        <!-- Ship stats -->
+        <!-- Ship stats (auto, with inline fallback) -->
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
           <h3 id="statsHeading">Adventure at a Glance</h3>
           <div id="ship-stats" class="stats-grid" data-slug="adventure-of-the-seas"></div>
+          <script type="application/json" id="ship-stats-fallback">
+            {
+              "slug": "adventure-of-the-seas",
+              "name": "Adventure of the Seas",
+              "class": "Voyager Class",
+              "entered_service": 2001,
+              "gt": "138,193 GT",
+              "guests": "3,807 (max)",
+              "crew": "1,185",
+              "length": "1,020 ft (311 m)",
+              "beam": "157.5 ft (48 m)",
+              "registry": "Bahamas"
+            }
+          </script>
         </section>
       </section>
 
-      <!-- Dining Venues -->
+      <!-- Dining Venues (truth) -->
       <section id="dining-card" class="card" data-ship="Adventure of the Seas" aria-labelledby="diningHeading">
         <h2 id="diningHeading">Dining Venues on Adventure of the Seas</h2>
 
@@ -204,7 +213,7 @@
       </section>
     </section>
 
-    <!-- Deck Plans + Live Tracker -->
+    <!-- Moved Up: Deck Plans + Live Tracker -->
     <section class="grid-2">
       <section class="card" aria-labelledby="deck-plans">
         <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
@@ -219,10 +228,12 @@
         <div class="card itinerary" data-imo="9167225" data-name="ADVENTURE-OF-THE-SEAS">
           <h3>Live Itinerary</h3>
 
+          <!-- Primary (lightweight) -->
           <div id="vf-map-adventure" class="vf-map" role="region"
                aria-label="Live ship map for Adventure of the Seas"
                style="width:100%;height:300px;background:var(--sky)"></div>
 
+          <!-- Fallback (details URL is 404-proof) -->
           <iframe class="live-map hidden"
                   title="Live ship tracker for Adventure of the Seas"
                   width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen
@@ -243,7 +254,7 @@
       </div>
     </section>
 
-    <!-- Videos -->
+    <!-- Videos (truth-driven) -->
     <section class="card" aria-labelledby="video-highlights" data-line="rcl" data-ship-slug="adventure-of-the-seas">
       <h2 id="video-highlights">Watch: Adventure Highlights</h2>
       <p class="small">Swipe or use the arrow buttons to explore the ship, top features, and staterooms by type. Includes a disabled perspective when available.</p>
@@ -287,13 +298,7 @@
     <section class="card" aria-labelledby="attribution">
       <h2 id="attribution">Attribution & Credits</h2>
       <ul>
-        <li>Photos (First Look):
-          <ul>
-            <li>“Adventure of the Seas docked in Aruba 2024” — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_docked_in_Aruba_2024.jpg" target="_blank" rel="noopener">Wikimedia Commons file</a> (CC BY-SA 4.0).</li>
-            <li>“Adventure of the Seas pool area” — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_pool_area.jpg" target="_blank" rel="noopener">Wikimedia Commons file</a> (CC BY-SA 4.0).</li>
-            <li>“Adventure of the Seas in Willemstad” — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_seas_in_Willemstad.jpg" target="_blank" rel="noopener">Wikimedia Commons file</a> (CC BY-SA; see file page for details).</li>
-          </ul>
-        </li>
+        <li>Photos (First Look): Wikimedia Commons (see links in captions)</li>
         <li>Videos: curated from green-list sources (YouTube); titles inside embeds</li>
         <li>Map: © VesselFinder — embedded per their widget documentation</li>
       </ul>
@@ -315,8 +320,8 @@
     })();
   </script>
 
-  <!-- Dining card -->
-  <script id="dining-js" src="/assets/js/dining-card.js?v=2.248" defer></script>
+  <!-- Dining card (canonical) -->
+  <script id="dining-js" src="/assets/js/dining-card.js?v=2.249" defer></script>
 
   <script>
     /* First Look Swiper */
@@ -334,7 +339,7 @@
     })();
   </script>
 
-  <!-- Videos: strict ship filter + single-mode carousel -->
+  <!-- Videos: JSON-driven + strict Adventure-only filter -->
   <script>
   (function initVideosFromPerShipJSON(){
     const sec  = document.querySelector('[aria-labelledby="video-highlights"]');
@@ -342,7 +347,6 @@
 
     const line = (sec.getAttribute('data-line') || 'rcl').trim();
     const slug = (sec.getAttribute('data-ship-slug') || 'adventure-of-the-seas').trim();
-    const SHIP_NAME = 'Adventure of the Seas';
     const WRAP = document.getElementById('featuredVideos'); if(!WRAP) return;
     const CONTAINER = sec.querySelector('.swiper.videos');
 
@@ -356,17 +360,26 @@
     const ytIdFromUrl = u => u ? (u.match(/\/embed\/([A-Za-z0-9_-]{6,})/)||u.match(/[?&]v=([A-Za-z0-9_-]{6,})/)||u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/)||[])[1] || '' : '';
     const getId = v => v.videoId || ytIdFromUrl(v.embed_url || v.url || v.youtube || v.src || '');
 
-    // --- Ship filters ---
-    const mustInclude = new RegExp('\\bAdventure of the Seas\\b','i');
-    const hardExclude = /\b(Utopia|Icon|Odyssey|Symphony|Wonder|MSC|Carnival|Princess|Celebrity|Divina|World America)\b/i;
-    function isForThisShip(v){
+    // ---- STRICT SHIP FILTERS ----
+    // Positive (fuzzy) matches for Adventure of the Seas
+    const POS = [
+      /\bAdventure of the Seas\b/i,
+      /\bAdventure\s*OTS\b/i,
+      /\bRCL\s*Adventure\b/i,
+      /\bRCI\s*Adventure\b/i,
+      /\bVoyager[-\s]?class\b/i // only helps when combined context exists
+    ];
+    // Hard exclude obvious other ships/lines
+    const NEG = /\b(Utopia|Icon|Wonder|Symphony|Harmony|Oasis|Quantum|Odyssey|Anthem|Spectrum|MSC|Carnival|Princess|Celebrity|Divina|World America|Edge|Utopia OTS|Icon OTS|Star of the Seas|Jubilee)\b/i;
+
+    function isAdventure(v){
       const shipSlug = (v.ship_slug || v.ship?.slug || '').toLowerCase();
-      if (shipSlug === slug) return true;
+      if (shipSlug === 'adventure-of-the-seas') return true;
+
       const shipName = (v.ship_name || v.ship?.name || '');
-      if (shipName && mustInclude.test(shipName)) return true;
-      const text = `${v.title||''} ${v.description||''} ${v.tags?String(v.tags):''}`;
-      if (hardExclude.test(text)) return false;
-      return mustInclude.test(text);
+      const blob = `${v.title||''}\n${v.description||''}\n${(v.tags||[]).join(' ')}\n${shipName}`;
+      if (NEG.test(blob)) return false;
+      return POS.some(rx => rx.test(blob));
     }
 
     const rankScore = v => (Number(v.priority ?? v.rank ?? v.weight ?? 0) || 0)
@@ -382,7 +395,7 @@
     }
 
     // Single-mode guard
-    let mode='pending'; // 'swiper' | 'fallback'
+    let mode='pending';
     function enableFallback(){
       if(mode!=='pending') return;
       mode='fallback';
@@ -405,15 +418,13 @@
         a11y:{ enabled:true }
       });
     }
-
     function decideMode(){
-      // Wait a moment for Swiper to appear; if not, lock into fallback.
-      const deadline = 500; // ms
-      const started = Date.now();
+      const deadline = 600;
+      const start = Date.now();
       (function wait(){
         if (window.Swiper) return enableSwiper();
-        if (Date.now()-started >= deadline) return enableFallback();
-        setTimeout(wait, 60);
+        if (Date.now()-start >= deadline) return enableFallback();
+        setTimeout(wait, 70);
       })();
     }
 
@@ -438,25 +449,25 @@
         return decideMode();
       }
 
-      // Collect items
+      // Accept the schema you provided (categories object keyed by slug)
       let items=[];
-      if (Array.isArray(json?.videos)){
-        items = json.videos.slice();
-      } else if (json?.videos && typeof json.videos==='object'){
+      if (json?.videos && typeof json.videos==='object'){
         for (const arr of Object.values(json.videos)) if(Array.isArray(arr)) items.push(...arr);
       } else if (json?.categories && typeof json.categories==='object'){
         for (const arr of Object.values(json.categories)) if(Array.isArray(arr)) items.push(...arr);
+      } else if (Array.isArray(json?.videos)){
+        items = json.videos.slice();
       }
 
-      // Strict filtering + de-dupe
+      // Filter to Adventure only; remove dupes by videoId
       const seen=new Set();
       const filtered = items.filter(v=>{
         const id=getId(v); if(!id || seen.has(id)) return false;
-        if(!isForThisShip(v)) return false;
+        if(!isAdventure(v)) return false;
         seen.add(id); return true;
       });
 
-      // Bucket, rank, interleave
+      // Bucket + order
       const buckets={};
       for (const v of filtered){ const cat=canonCat(v.category||'ship walk through'); (buckets[cat] ||= []).push(v); }
       for (const k of Object.keys(buckets)){ buckets[k].sort((a,b)=>rankScore(b)-rankScore(a)); }
@@ -465,7 +476,7 @@
 
       WRAP.innerHTML = ordered.length
         ? ordered.map(v=>slideHTML(v, canonCat(v.category))).join('')
-        : '<div class="swiper-slide"><div class="note tiny">No videos matched this ship (yet).</div></div>';
+        : '<div class="swiper-slide"><div class="note tiny">No Adventure of the Seas videos matched (yet).</div></div>';
 
       decideMode();
     }
@@ -474,15 +485,26 @@
   })();
   </script>
 
-  <!-- Ship stats loader -->
+  <!-- Ship stats loader (same-origin; with inline fallback) -->
   <script>
   (async function loadShipStats(){
     const el = document.getElementById('ship-stats');
     if (!el) return;
     const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
-    const SOURCES = ['/assets/data/fleet_index.json','/assets/data/fleet_index.json?v=' + Date.now()];
+    const SOURCES = [
+      '/assets/data/fleet_index.json',
+      '/assets/data/fleet-index.json',
+      '/assets/data/fleet.json'
+    ];
     async function tryFetch(u){ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw new Error(r.status); return r.json(); }
     let data=null; for(const u of SOURCES){ try{ data=await tryFetch(u); break; }catch{} }
+    if(!data){
+      // Inline fallback
+      try{
+        const fallback = JSON.parse(document.getElementById('ship-stats-fallback').textContent||'{}');
+        data = { ships:[fallback] };
+      }catch{}
+    }
     if(!data){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
 
     const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
@@ -500,7 +522,7 @@
 
     const a = ship.attributes || ship;
     const rows = [
-      ['Class', a.class || a.ship_class || (a.notes && /voyager/i.test(a.notes) ? 'Voyager-class' : '')],
+      ['Class', a.class || a.ship_class || (a.notes && /voyager/i.test(a.notes) ? 'Voyager Class' : '')],
       ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
       ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
       ['Guests', a.capacity || a.passengers || a.guests],
@@ -515,18 +537,19 @@
   })();
   </script>
 
-  <!-- Live Itinerary -->
+  <!-- Live Itinerary: hybrid (widget → iframe/details) -->
   <script>
   (function initHybridVesselFinder(){
     const wrap = document.querySelector('.card.itinerary[data-imo]');
     if(!wrap) return;
-    const imo   = (wrap.getAttribute('data-imo')||'').trim();
-    const name  = (wrap.getAttribute('data-name')||'').trim();
+    const imo   = (wrap.getAttribute('data-imo')||'').trim();     // 9167225
+    const name  = (wrap.getAttribute('data-name')||'').trim();    // ADVENTURE-OF-THE-SEAS
     const mapEl = document.getElementById('vf-map-adventure');
     const iFr   = wrap.querySelector('iframe.live-map');
     const direct = document.getElementById('vf-direct');
 
-    const iframeURL = `https://www.vesselfinder.com/vessels/${encodeURIComponent(name)}-IMO-${imo}#map`;
+    // Known-good details URL + #map
+    const iframeURL = `https://www.vesselfinder.com/vessels/details/${encodeURIComponent(imo)}#map`;
     if (direct) direct.href = iframeURL;
 
     function useIframe(){
@@ -536,10 +559,11 @@
       if(mapEl) mapEl.style.display = 'none';
     }
 
+    // Try official widget first (lighter), fail over fast
     const s = document.createElement('script');
-    const stallTimer = setTimeout(useIframe, 3500);
     s.src = "https://www.vesselfinder.com/aismap.js";
     s.async = true;
+    const stallTimer = setTimeout(useIframe, 2000);
 
     s.onload = function(){
       try{
@@ -547,17 +571,23 @@
         let initialized=false;
 
         if (window.AISMap && mapEl){
-          new AISMap(mapEl, { width:"100%", height:300, zoom:8, names:true, show_track:1, track_days:1, vessel:`IMO:${imo}` });
+          new AISMap(mapEl, {
+            width:"100%", height:300, zoom:8, names:true,
+            show_track:1, track_days:1, vessel:`IMO:${imo}`
+          });
           initialized=true;
         } else if (window.vf && vf.map && typeof vf.map.embed==='function' && mapEl){
-          vf.map.embed(mapEl, { width:"100%", height:300, zoom:8, names:true, show_track:1, track_days:1, vessel:`IMO:${imo}` });
+          vf.map.embed(mapEl, {
+            width:"100%", height:300, zoom:8, names:true,
+            show_track:1, track_days:1, vessel:`IMO:${imo}`
+          });
           initialized=true;
         }
 
         setTimeout(function(){
           const hasCanvas = mapEl && (mapEl.querySelector('canvas,svg'));
           if(!hasCanvas) useIframe();
-        }, 2000);
+        }, 1200);
 
         if(!initialized) useIframe();
       }catch(e){ useIframe(); }
