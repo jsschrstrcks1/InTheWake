@@ -20,12 +20,11 @@
   <!-- Global CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=2.248"/>
 
-  <!-- Swiper CSS (local first, then 2 CDNs) -->
+  <!-- Swiper CSS (local first, then 2 CDNs). If all fail, our inline fallback CSS (below) keeps the carousel working. -->
   <link id="swiper-css" rel="stylesheet" href="/assets/vendor/swiper@10/swiper-bundle.min.css"/>
   <script>
     (function ensureSwiperCSS(){
-      const l=document.getElementById('swiper-css');
-      let step=0;
+      const l=document.getElementById('swiper-css'); let step=0;
       l.addEventListener('error', ()=> {
         if(step===0){ step=1; l.href='https://unpkg.com/swiper@10/swiper-bundle.min.css'; }
         else if(step===1){ step=2; l.href='https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css'; }
@@ -53,6 +52,28 @@
     .swiper.videos .swiper-button-prev,
     .swiper.videos .swiper-button-next,
     .swiper.videos .swiper-pagination{ z-index:6; }
+
+    /* Video iframe sizing (works for both Swiper and fallback) */
+    .swiper.videos iframe { width:100%; aspect-ratio:16/9; height:auto; border:0; display:block; }
+
+    /* Fallback carousel styles (used when Swiper CSS/JS isn’t available) */
+    .carousel-fallback { position:relative; }
+    .carousel-fallback .swiper-wrapper {
+      display:flex; flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch; gap:0; scroll-behavior:smooth;
+    }
+    .carousel-fallback .swiper-slide {
+      flex:0 0 100%; max-width:100%; scroll-snap-align:start;
+    }
+    .carousel-fallback .swiper-button-prev,
+    .carousel-fallback .swiper-button-next {
+      position:absolute; top:50%; transform:translateY(-50%);
+      background:rgba(0,0,0,.4); color:#fff; padding:.4rem .6rem; border-radius:.4rem; cursor:pointer;
+      user-select:none; z-index:7;
+    }
+    .carousel-fallback .swiper-button-prev { left:.5rem; }
+    .carousel-fallback .swiper-button-next { right:.5rem; }
+    .carousel-fallback .swiper-pagination { display:none; } /* hide bullets in fallback */
 
     /* Center "Fuel Your Voyage" properly inside Logbook content */
     .voyage-tips-wrapper { display:flex; justify-content:center; margin: 1.5rem 0; }
@@ -286,8 +307,7 @@
   <script id="swiper-js" src="/assets/vendor/swiper@10/swiper-bundle.min.js"></script>
   <script>
     (function ensureSwiperJS(){
-      const s=document.getElementById('swiper-js');
-      let step=0;
+      const s=document.getElementById('swiper-js'); let step=0;
       s.onerror=()=> {
         if(step===0){ step=1; const cdn=document.createElement('script'); cdn.src='https://unpkg.com/swiper@10/swiper-bundle.min.js'; cdn.onerror=s.onerror; document.head.appendChild(cdn); }
         else if(step===1){ step=2; const cdn2=document.createElement('script'); cdn2.src='https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js'; document.head.appendChild(cdn2); }
@@ -314,32 +334,25 @@
     })();
   </script>
 
-  <!-- Videos: JSON-driven -->
+  <!-- Videos: JSON-driven (with Swiper-or-fallback carousel) -->
   <script>
   (function initVideosFromPerShipJSON(){
     const sec  = document.querySelector('[aria-labelledby="video-highlights"]');
     if(!sec) return;
     const line = (sec.getAttribute('data-line') || 'rcl').trim();
     const slug = (sec.getAttribute('data-ship-slug') || 'adventure-of-the-seas').trim();
+    const WRAP = document.getElementById('featuredVideos'); if(!WRAP) return;
+    const CONTAINER = sec.querySelector('.swiper.videos');
 
     // Same-origin URL to avoid CORS on subdomain redirects
     const VIDEO_JSON_URL = `/ships/${line}/assets/videos/${slug}.json`;
 
-    const WRAP = document.getElementById('featuredVideos'); if(!WRAP) return;
-
     const CORE_ORDER = ['top ten','ship walk through','suite','accessible','balcony','oceanview','interior'];
-    const KEY_MAP = {
-      'top-ten':'top ten',
-      'ship-walkthrough':'ship walk through',
-      'ship-overview':'ship walk through',
-      'kids-family':'kids & family',
-      'pool-spa':'pool & spa',
-      'bars-lounges':'bars & lounges',
-      'private-island':'private island'
-    };
+    const KEY_MAP = {'top-ten':'top ten','ship-walkthrough':'ship walk through','ship-overview':'ship walk through','kids-family':'kids & family','pool-spa':'pool & spa','bars-lounges':'bars & lounges','private-island':'private island'};
     const canonCat = k => KEY_MAP[String(k||'').toLowerCase()] || String(k||'').toLowerCase().replace(/[-_]+/g,' ').trim();
     const ytIdFromUrl = u => u ? (u.match(/\/embed\/([A-Za-z0-9_-]{6,})/)||u.match(/[?&]v=([A-Za-z0-9_-]{6,})/)||u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/)||[])[1] || '' : '';
     const getId = v => v.videoId || ytIdFromUrl(v.embed_url || v.url || v.youtube || v.src || '');
+
     const slideHTML = (v,category) => {
       const id=getId(v); if(!id) return '';
       const title = String(v.title||'Video').replace(/"/g,'&quot;');
@@ -349,6 +362,7 @@
           loading="lazy" allowfullscreen></iframe>
       </div>`;
     };
+
     const rankScore = v => (Number(v.priority ?? v.rank ?? v.weight ?? 0) || 0)
       + (/royal caribbean|official/i.test(`${v.title} ${v.description} ${v.creator} ${v.channel}`)?2:0)
       + (/\b4k\b/i.test(`${v.title}`)?1:0)
@@ -359,6 +373,35 @@
       const max=Math.max(...names.map(n=>buckets[n]?.length||0)); const out=[];
       for(let i=0;i<max;i++){ for(const n of names){ const it=buckets[n]?.[i]; if(it) out.push(it); } }
       return out;
+    }
+
+    function enableFallback(){
+      // Add fallback class & wire buttons to scroll the wrapper by one viewport width
+      CONTAINER.classList.add('carousel-fallback');
+      const prev = CONTAINER.querySelector('.swiper-button-prev');
+      const next = CONTAINER.querySelector('.swiper-button-next');
+      const wrap = CONTAINER.querySelector('.swiper-wrapper');
+
+      function pageWidth(){ return CONTAINER.getBoundingClientRect().width || 1; }
+      prev?.addEventListener('click', ()=> wrap.scrollBy({left:-pageWidth(), behavior:'smooth'}));
+      next?.addEventListener('click', ()=> wrap.scrollBy({left: pageWidth(), behavior:'smooth'}));
+    }
+
+    function initSwiper(){
+      function go(){
+        if(window.Swiper){ 
+          new Swiper('.swiper.videos', {
+            loop:false, lazy:true,
+            pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
+            navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+            a11y:{ enabled:true }
+          });
+        } else {
+          enableFallback();
+        }
+      }
+      // Small delay: let any CDN fallback for Swiper JS/CSS load; then decide.
+      setTimeout(go, 180);
     }
 
     async function load(){
@@ -390,26 +433,11 @@
       }
 
       const ordered = roundRobinOrder(buckets, CORE_ORDER);
-      if(!ordered.length){
-        WRAP.innerHTML = '<div class="swiper-slide"><div class="note tiny">No videos matched this ship (yet).</div></div>';
-        return initSwiper();
-      }
+      WRAP.innerHTML = ordered.length
+        ? ordered.map(v=>slideHTML(v, canonCat(v.category))).join('')
+        : '<div class="swiper-slide"><div class="note tiny">No videos matched this ship (yet).</div></div>';
 
-      WRAP.innerHTML = ordered.map(v=>slideHTML(v, canonCat(v.category))).join('');
       initSwiper();
-    }
-
-    function initSwiper(){
-      function go(){
-        if(!window.Swiper) return setTimeout(go,120);
-        new Swiper('.swiper.videos', {
-          loop:false, lazy:true,
-          pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
-          navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
-          a11y:{ enabled:true }
-        });
-      }
-      go();
     }
 
     load();
@@ -422,10 +450,7 @@
     const el = document.getElementById('ship-stats');
     if (!el) return;
     const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
-    const SOURCES = [
-      '/assets/data/fleet_index.json',
-      '/assets/data/fleet_index.json?v=' + Date.now()
-    ];
+    const SOURCES = ['/assets/data/fleet_index.json','/assets/data/fleet_index.json?v=' + Date.now()];
     async function tryFetch(u){ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw new Error(r.status); return r.json(); }
     let data=null; for(const u of SOURCES){ try{ data=await tryFetch(u); break; }catch{} }
     if(!data){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
