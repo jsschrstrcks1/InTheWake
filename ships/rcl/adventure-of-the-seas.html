@@ -18,19 +18,36 @@
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Global CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=2.249"/>
+<link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.249"/>
 
-  <!-- Swiper CSS (local → 2 CDNs) -->
-  <link id="swiper-css" rel="stylesheet" href="/assets/vendor/swiper@10/swiper-bundle.min.css"/>
-  <script>
-    (function ensureSwiperCSS(){
-      const l=document.getElementById('swiper-css'); let step=0;
-      l.addEventListener('error', ()=> {
-        if(step===0){ step=1; l.href='https://unpkg.com/swiper@10/swiper-bundle.min.css'; }
-        else if(step===1){ step=2; l.href='https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css'; }
-      });
-    })();
-  </script>
+<!-- Swiper CSS (local → 2 CDNs) -->
+<link id="swiper-css" rel="stylesheet" href="https://www.cruisinginthewake.com/assets/vendor/swiper@10/swiper-bundle.min.css"/>
+<script>
+  (function ensureSwiperCSS(){
+    const l=document.getElementById('swiper-css'); let step=0;
+    l.addEventListener('error', ()=> {
+      if(step===0){ step=1; l.href='https://unpkg.com/swiper@10/swiper-bundle.min.css'; }
+      else if(step===1){ step=2; l.href='https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css'; }
+    });
+  })();
+</script>
+
+<!-- First Look CSS fixes -->
+<style>
+/* First Look: hide stacking before Swiper initializes */
+.swiper.firstlook:not(.swiper-initialized) { overflow: hidden; }
+.swiper.firstlook:not(.swiper-initialized) .swiper-wrapper { display:block; }
+.swiper.firstlook:not(.swiper-initialized) .swiper-slide { display:none; }
+.swiper.firstlook:not(.swiper-initialized) .swiper-slide:first-child { display:block; }
+
+/* Hide controls before init */
+.swiper.firstlook:not(.swiper-initialized) .swiper-button-prev,
+.swiper.firstlook:not(.swiper-initialized) .swiper-button-next,
+.swiper.firstlook:not(.swiper-initialized) .swiper-pagination { display:none; }
+
+/* Images: fill slide cleanly */
+.swiper.firstlook img { width:100%; height:auto; display:block; }
+</style>
 
   <style>
     .pills, .class-pills, .related-pills, .button-group { justify-content:center; text-align:center }
