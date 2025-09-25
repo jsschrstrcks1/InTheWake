@@ -24,6 +24,7 @@
 
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/vendor/swiper/swiper-bundle.min.css"/>
+/* Prevent duplicate grid overlays if a template double-inserts */
 
   <!-- Page micro-tweaks -->
   <style>
@@ -101,6 +102,7 @@
     .swiper .swiper-button-prev,
     .swiper .swiper-button-next,
     .swiper .swiper-pagination{ z-index:4; }
+    .hero .latlon-grid + .latlon-grid{ display:none; }
   </style>
 </head>
 <body class="page no-hero-filter">
@@ -209,6 +211,24 @@
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
           <h3 id="statsHeading">Allure at a Glance</h3>
           <div id="ship-stats" class="stats-grid" data-slug="allure-of-the-seas"></div>
+
+
+<script type="application/json" id="ship-stats-fallback">
+  {
+    "slug": "allure-of-the-seas",
+    "name": "Allure of the Seas",
+    "class": "Oasis Class",
+    "entered_service": 2010,
+    "gt": "225,282 GT",
+    "guests": "6,780 (max)",
+    "crew": "2,200",
+    "length": "1,187 ft (362 m)",
+    "beam": "215 ft (66 m)",
+    "registry": "Bahamas"
+  }
+</script>
+
+          
         </section>
       </section>
 
@@ -217,17 +237,16 @@
         <h2 id="diningHeading">Dining Venues on Allure of the Seas</h2>
 
         <!-- EXACT canonical URL you specified -->
-        <img id="dining-hero" class="card-hero"
-             src="https://cruisinginthewake.com/assets/img/Cordelia_Empress_Food_Court.jpg"
-             alt="Dining venue seating with ocean view" loading="lazy"
-             onerror="(function(img){
-               var fb=[
-                 'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.241',
-                 'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.241'
-               ];
-               if(!img._fbi) img._fbi=0; if(img._fbi<fb.length){ img.src=fb[img._fbi++]; }
-             })(this)"/>
-
+       <img id="dining-hero" class="card-hero"
+     src="https://www.cruisinginthewake.com/assets/img/Cordelia_Empress_Food_Court.jpg"
+     alt="Dining venue seating with ocean view" loading="lazy"
+     onerror="(function(img){
+       var fb=[
+         'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.245',
+         'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.245'
+       ];
+       img._fbi = (img._fbi||0); if(img._fbi<fb.length){ img.src=fb[img._fbi++]; }
+     })(this)"/>
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
         <script type="application/json" id="dining-data-source">
@@ -265,7 +284,7 @@
     <section class="grid-2">
       <section class="card" aria-labelledby="deck-plans">
         <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
-        <p>Study the layout—pin your stateroom, elevators, dining, and venues before you sail.</p>
+        <p><p>From sea days to disembarkation, let this be your compass to Allure—charting decks, wonders, and waypoints at sea.</p></p>
         <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/allure-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
       </section>
 
@@ -379,149 +398,132 @@
   <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.241" defer></script>
 
   <!-- ✅ Videos: single-source loader using rc_ship_videos.json -->
-  <script>
-  (async function initVideos(){
-    const wrap = document.getElementById('featuredVideos'); if(!wrap) return;
+ <script>
+(function initVideos(){
+  var sec  = document.querySelector('[aria-labelledby="video-highlights"]');
+  if(!sec) return;
 
-    // Ship slug for this page
-    const slug = 'allure-of-the-seas';
+  var slug = 'allure-of-the-seas';
+  var WRAP = document.getElementById('featuredVideos'); if(!WRAP) return;
+  var CONTAINER = sec.querySelector('.swiper.videos');
 
-    // Fetch the master videos dataset
-    let data = null;
-    try{
-      const res = await fetch('https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json', { cache:'no-store' });
-      if(res.ok){ data = await res.json(); }
-    }catch(e){
-      console.warn('[Videos] Failed to fetch rc_ship_videos.json', e);
+  var VIDEO_JSON_URLS = [
+    'https://www.cruisinginthewake.com/ships/rcl/assets/videos/' + slug + '.json',
+    '/ships/rcl/assets/videos/' + slug + '.json',
+    'https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json'
+  ];
+
+  function fetchChain(urls, i){
+    i = i||0;
+    if (i>=urls.length) return Promise.resolve(null);
+    return fetch(urls[i], {cache:'no-store'})
+      .then(function(r){ return r.ok ? r.json() : fetchChain(urls, i+1); })
+      .catch(function(){ return fetchChain(urls, i+1); });
+  }
+  function getVideosFrom(data){
+    if(!data) return [];
+    // ship-specific file shape
+    if (Array.isArray(data.videos)) return data.videos;
+    if (data.videos && typeof data.videos==='object'){
+      return Object.values(data.videos).flat();
     }
+    // master shape
+    if (data.ships && data.ships[slug] && data.ships[slug].videos){
+      var ship = data.ships[slug].videos;
+      return ['overview','signature_features','staterooms','accessible']
+        .flatMap(k => Array.isArray(ship[k]) ? ship[k] : []);
+    }
+    return [];
+  }
+  function ytId(v){
+    return v.youtube_id || (function(u){
+      if(!u) return '';
+      var m = u.match(/\/embed\/([A-Za-z0-9_-]{6,})/) ||
+              u.match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
+              u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/);
+      return m ? m[1] : '';
+    })(v.embed_url || v.url || '');
+  }
 
-    if(!data || !data.ships){
+  fetchChain(VIDEO_JSON_URLS).then(function(json){
+    var items = getVideosFrom(json).filter(Boolean);
+    if (!items.length){
       document.getElementById('videoFallback')?.classList.remove('hidden');
+      CONTAINER.classList.add('carousel-fallback');
       return;
     }
+    var seen = {};
+    var slides = [];
+    items.forEach(function(v){
+      var id = ytId(v);
+      if(!id || seen[id]) return; seen[id]=1;
+      var title = String(v.title||'Ship video').replace(/"/g,'&quot;');
+      slides.push('<div class="swiper-slide"><iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>');
+    });
+    WRAP.innerHTML = slides.join('') || '<div class="swiper-slide"><div class="note tiny">No videos yet.</div></div>';
 
-    // Pull the ship node
-    const ship = data.ships[slug];
-    if(!ship || !ship.videos){
-      document.getElementById('videoFallback')?.classList.remove('hidden');
-      return;
-    }
-
-    // Preferred category order: overview → signature_features → staterooms → accessible
-    const categoryOrder = ['overview','signature_features','staterooms','accessible'];
-
-    // Flatten to a single ordered list of slides
-    const list = [];
-    categoryOrder.forEach(cat=>{
-      const arr = ship.videos[cat];
-      if(Array.isArray(arr)){
-        arr.forEach(v=>{
-          if(v && v.swiper_slide && (v.embed_url || v.youtube_id)){
-            list.push({
-              title: v.title || 'Ship video',
-              embed: v.embed_url || (v.youtube_id ? `https://www.youtube.com/embed/${v.youtube_id}` : ''),
-              priority: Number.isFinite(v.priority) ? v.priority : 99
-            });
-          }
+    function start(){
+      if (window.Swiper){
+        new Swiper('.swiper.videos', {
+          loop:false, lazy:true, watchOverflow:true,
+          pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
+          navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+          a11y:{ enabled:true }
         });
+      }else{
+        CONTAINER.classList.add('carousel-fallback');
       }
-    });
-
-    if(!list.length){
-      document.getElementById('videoFallback')?.classList.remove('hidden');
-      return;
     }
-
-    // Sort inside the overall list by priority (lower = higher priority), stable by original order
-    list.sort((a,b)=> (a.priority - b.priority));
-
-    // Render slides
-    list.forEach(v=>{
-      if(!v.embed) return;
-      const slide = document.createElement('div');
-      slide.className = 'swiper-slide';
-      slide.innerHTML = `
-        <iframe title="${(v.title||'Ship video').replace(/"/g,'&quot;')}"
-          src="${v.embed}"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen loading="lazy"></iframe>`;
-      wrap.appendChild(slide);
-    });
-
-    // Build Swiper config from meta, but scope selectors to the .swiper.videos instance
-    const metaCfg = (data.meta && data.meta.swiper_config) ? JSON.parse(JSON.stringify(data.meta.swiper_config)) : {};
-    // Ensure selectors point inside .swiper.videos
-    if(metaCfg.pagination && metaCfg.pagination.el){
-      metaCfg.pagination.el = '.swiper.videos .swiper-pagination';
-    }
-    if(metaCfg.navigation){
-      if(metaCfg.navigation.nextEl) metaCfg.navigation.nextEl = '.swiper.videos .swiper-button-next';
-      if(metaCfg.navigation.prevEl) metaCfg.navigation.prevEl = '.swiper.videos .swiper-button-prev';
-    }
-    // Always keep these safe defaults:
-    metaCfg.watchOverflow = true;
-    metaCfg.lazy = true;
-
-    function go(){
-      if(!window.Swiper) return setTimeout(go, 120);
-      new Swiper('.swiper.videos', metaCfg);
-    }
-    go();
-  })();
-  </script>
+    start();
+  });
+})();
+</script>
 
   <!-- Ship stats loader -->
   <script>
-  (async function loadShipStats(){
-    const el = document.getElementById('ship-stats');
-    if (!el) return;
-    const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
+(async function loadShipStats(){
+  var el = document.getElementById('ship-stats'); if(!el) return;
+  var SOURCES = [
+    'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
+    'https://www.cruisinginthewake.com/assets/data/fleet-index.json',
+    'https://www.cruisinginthewake.com/assets/data/fleet.json'
+  ];
+  async function tryFetch(u){ try{ var r=await fetch(u,{cache:'no-store'}); if(r.ok) return await r.json(); }catch(e){} return null; }
+  var data=null; for (var i=0;i<SOURCES.length;i++){ data = await tryFetch(SOURCES[i]); if(data) break; }
+  if(!data){
+    try{ var fb = JSON.parse(document.getElementById('ship-stats-fallback').textContent||'{}'); data={ships:[fb]}; }
+    catch(e){}
+  }
+  if(!data){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
 
-    const SOURCES = [
-      'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
-      'https://www.cruisinginthewake.com/assets/data/fleet_index.min.json',
-      'https://www.cruisinginthewake.com/assets/json/fleet_index.json',
-      'https://www.cruisinginthewake.com/assets/fleet_index.json'
-    ];
-    async function tryFetch(u){
-      const url = u + (u.includes('?') ? '&' : '?') + 'v=' + Date.now();
-      const res = await fetch(url, { cache:'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.json();
-    }
-    let data=null;
-    for(const u of SOURCES){ try{ data=await tryFetch(u); break; }catch{} }
-    if(!data){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
-
-    const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
-    function* walk(n){ if(!n) return; if(Array.isArray(n)){ for(const it of n) yield* walk(it); return; }
-      if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
-
-    let ship=null;
-    for(const obj of walk(data)){
-      const rawSlug = obj?.slug || obj?.id || obj?.attributes?.slug;
-      const nslug = norm(rawSlug);
-      const nname = norm(obj?.name || obj?.title || obj?.ship || obj?.attributes?.name);
-      if ((targetSlug && nslug === targetSlug) || nname === 'allure of the seas'){ ship=obj; break; }
-    }
-    if(!ship){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
-
-    const a = ship.attributes || ship;
-    const rows = [
-      ['Class', a.class || a.ship_class || (a.notes && /oasis/i.test(a.notes) ? 'Oasis-class' : '')],
-      ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
-      ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
-      ['Guests', a.capacity || a.passengers || a.guests],
-      ['Crew', a.crew],
-      ['Length', a.length || a.length_overall],
-      ['Beam', a.beam || a.width],
-      ['Registry', a.flag || a.registry]
-    ].filter(([,v]) => v != null && String(v).trim() !== '')
-     .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`)
-     .join('');
-    el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
-  })();
-  </script>
+  function norm(s){ return String(s||'').toLowerCase().replace(/’/g,"'").trim(); }
+  function* walk(n){ if(!n) return; if(Array.isArray(n)){ for(const it of n) yield* walk(it); return; }
+    if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
+  var targetSlug = norm(el.getAttribute('data-slug')||'');
+  var ship=null;
+  for (const obj of walk(data)){
+    var rawSlug = obj && (obj.slug || obj.id || (obj.attributes && obj.attributes.slug));
+    var nslug = norm(rawSlug);
+    var nname = norm((obj && (obj.name || obj.title || obj.ship)) || (obj && obj.attributes && obj.attributes.name));
+    if ((targetSlug && nslug===targetSlug) || nname==='allure of the seas'){ ship=obj; break; }
+  }
+  if(!ship){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
+  var a = ship.attributes || ship;
+  var rows = [
+    ['Class', a.class || a.ship_class || (a.notes && /oasis/i.test(a.notes) ? 'Oasis Class' : '')],
+    ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
+    ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
+    ['Guests', a.capacity || a.passengers || a.guests],
+    ['Crew', a.crew],
+    ['Length', a.length || a.length_overall],
+    ['Beam', a.beam || a.width],
+    ['Registry', a.flag || a.registry]
+  ].filter(function(p){ return p[1]!=null && String(p[1]).trim()!==''; })
+   .map(function(p){ return '<div class="stat-line"><span class="stat-key">'+p[0]+':</span><span class="stat-val">'+p[1]+'</span></div>'; })
+   .join('');
+  el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
+})();
+</script>
 
   <!-- Live Itinerary -->
   <script>
@@ -579,86 +581,109 @@
   </script>
 
   <!-- Logbook loader (canonical-first, hardened) -->
-  <script>
-  (function(){
-    var pageSlug = 'allure-of-the-seas';
-    var mountId  = 'logbook-stories';
+ <script>
+(function initLogbook(){
+  var mount = document.getElementById('logbook-stories'); if(!mount) return;
+  var pageSlug = 'allure-of-the-seas';
 
-    function shipKeyFromSlug(slug){
-      if(!slug) return '';
-      var m = slug.match(/^([a-z0-9-]+?)-of-the-(sea|seas)$/i);
-      if(m) return m[1].replace(/-/g,'');
-      return (slug.split('-')[0] || '').replace(/-/g,'');
+  function fetchFirst(urls, i){
+    i = i || 0;
+    if (i >= urls.length) return Promise.resolve(null);
+    return fetch(urls[i], { cache:'no-store' })
+      .then(function(r){ return r.ok ? r.json() : fetchFirst(urls, i+1); })
+      .catch(function(){ return fetchFirst(urls, i+1); });
+  }
+  function clean(s){
+    s = String(s||'');
+    s = s.replace(/<\/script/gi,'<\\/script');
+    s = s.replace(/\son\w+="[^"]*"/gi,'');
+    return s;
+  }
+  function mdToHtml(src){
+    var html = String(src||'');
+    html = html.replace(/^###?\s+(.+)$/gm, '<h3>$1</h3>');
+    html = html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    html = html.replace(/\*(.+?)\*/g,'<em>$1</em>');
+    html = html.replace(/\n{2,}/g,'</p><p>');
+    html = html.replace(/\n/g,'<br/>');
+    html = html.replace(/(https?:\/\/[^\s)]+)(?=\s|$)/g,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    html = html.replace(/^<p><\/p>/,'');
+    return html;
+  }
+
+  var SOURCES = [
+    'https://www.cruisinginthewake.com/ships/rcl/assets/allure.json',
+    'https://www.cruisinginthewake.com/assets/data/allure.json',
+    'https://www.cruisinginthewake.com/assets/data/ships/rcl/'+pageSlug+'.json',
+    'https://www.cruisinginthewake.com/assets/data/logbook/rcl/'+pageSlug+'.json'
+  ];
+
+  fetchFirst(SOURCES).then(function(data){
+    var stories = [];
+    if (data){
+      if (Array.isArray(data.personas)) stories = data.personas;
+      else if (Array.isArray(data.stories)) stories = data.stories;
+      else if (Array.isArray(data)) stories = data;
     }
-    var shipKey = shipKeyFromSlug(pageSlug);
-
-    function ready(fn){
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fn, {once:true});
-      } else { fn(); }
+    if (!stories.length){
+      mount.innerHTML = '<article class="story"><h3>The Logbook — Tales From the Wake</h3><p class="small">Our crew is compiling first-hand notes and tips for this ship. Check back shortly for fresh entries.</p></article>';
+      return;
     }
 
-    function clean(s){
-      s = String(s || '');
-      s = s.replace(/<\/script/gi, '<\\/script');
-      s = s.replace(/\son\w+="[^"]*"/gi, '');
-      return s;
+    function fuelCard(){
+      return [
+        '<div class="voyage-tips-wrapper">',
+          '<div class="card voyage-tips center" aria-label="Voyage planning tips">',
+            '<h2 class="card-title">Fuel Your Voyage</h2>',
+            '<div class="card-content">',
+              '<h3><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Drink Packages</a></h3>',
+              '<ul>',
+                '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Deluxe Beverage Package</a></li>',
+                '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#refreshment" target="_blank" rel="noopener noreferrer">Refreshment Package</a></li>',
+                '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#soda" target="_blank" rel="noopener noreferrer">Soda Package</a></li>',
+              '</ul>',
+              '<h3><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Premium & Specialty Dining</a></h3>',
+              '<ul>',
+                '<li><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Unlimited Dining Package</a></li>',
+                '<li><a href="https://www.royalcaribbean.com/experience/cruise-dining/specialty-restaurants" target="_blank" rel="noopener noreferrer">Royal Caribbean Premium Dining</a></li>',
+              '</ul>',
+              '<h3><a href="https://www.cruisinginthewake.com/packing-lists.html" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>',
+              '<ul>',
+                '<li>Shawl for chilly theater nights</li>',
+                '<li>Swimwear for pool deck</li>',
+                '<li>Comfortable shoes for shore tours</li>',
+              '</ul>',
+              '<div class="button-group" aria-label="Voyage planning links">',
+                '<a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>',
+                '<a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>',
+              '</div>',
+            '</div>',
+          '</div>',
+        '</div>'
+      ].join('');
     }
 
-    async function fetchJSON(url){
-      try{
-        var r = await fetch(url, {cache:'no-store'});
-        if(!r.ok) throw new Error('HTTP '+r.status);
-        return await r.json();
-      }catch(e){
-        console.warn('[Logbook] fetch failed:', url, e);
-        return null;
+    function renderOne(p){
+      var title = clean(p.title || p.persona_label || 'Guest Perspective');
+      var raw   = String(p.markdown || p.body || p.content || p.html || '');
+      var html  = '';
+
+      // Insert Fuel card either after "## Dining" or at 55% mark
+      var parts = raw.split(/\n##\s+Dining\s*\n/i);
+      if (parts.length > 1){
+        html = mdToHtml(parts[0]) + '<h3>Dining</h3>' + mdToHtml(parts[1]) + fuelCard();
+      }else{
+        var cut = Math.floor(raw.length * 0.55);
+        html = mdToHtml(raw.slice(0, cut)) + fuelCard() + mdToHtml(raw.slice(cut));
       }
+
+      return '<article class="story"><h3>'+title+'</h3><div class="story-body">'+html+'</div></article>';
     }
 
-    function chooseArray(j){
-      if (!j) return [];
-      if (Array.isArray(j.personas)) return j.personas;
-      if (Array.isArray(j.stories))  return j.stories;
-      if (Array.isArray(j))          return j;
-      return [];
-    }
-
-    async function load(){
-      var el = document.getElementById(mountId);
-      if(!el){ console.warn('[Logbook] mount not found:', mountId); return; }
-
-      var sources = [
-        'https://www.cruisinginthewake.com/ships/rcl/assets/logbook/'+shipKey+'.json',
-        'https://www.cruisinginthewake.com/ships/rcl/assets/'+shipKey+'.json',
-        'https://www.cruisinginthewake.com/assets/data/ships/rcl/'+pageSlug+'.json',
-        'https://www.cruisinginthewake.com/assets/data/logbook/rcl/'+pageSlug+'.json'
-      ];
-
-      var stories = [];
-      for (var i=0; i<sources.length; i++){
-        var j = await fetchJSON(sources[i]);
-        var arr = chooseArray(j);
-        if (arr && arr.length){ stories = arr; break; }
-      }
-
-      if (!stories.length){
-        el.innerHTML = '<article class="story"><h3>The Logbook — Tales From the Wake</h3><p class="small">Our crew is compiling first-hand notes and tips for this ship. Check back shortly for fresh entries.</p></article>';
-        return;
-      }
-
-      var html = stories.map(function(p){
-        var title = p.title || p.persona_label || 'Guest Perspective';
-        var body  = clean(p.markdown || p.html || '');
-        return '<article class="story"><h3>'+clean(title)+'</h3>'+body+'</article>';
-      }).join('');
-
-      el.innerHTML = html;
-    }
-
-    ready(load);
-  })();
-  </script>
+    mount.innerHTML = stories.map(renderOne).join('');
+  });
+})();
+</script>
 
   <!-- 🔹 Reorder Royal Caribbean class pills by booking/buzz rank -->
   <script>
