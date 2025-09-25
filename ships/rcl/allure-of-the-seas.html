@@ -265,128 +265,196 @@
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook — Tales From the Wake</h2>
       <div id="logbook-stories" class="prose"><!-- Logbook loader (canonical-first, hardened for Allure) -->
-<!-- Logbook loader (Allure-only, hardened) -->
+<!-- Logbook loader (single-persona viewer with nav + deep links) -->
 <script>
-(function initLogbook(){
-  const mount = document.getElementById('logbook-stories');
-  if (!mount) return;
+(function initLogbookSingle(){
+  const MOUNT_ID = 'logbook-stories';
+  const mount = document.getElementById(MOUNT_ID);
+  if(!mount) return;
 
   const pageSlug = 'allure-of-the-seas';
 
-  // 1) canonical-first, with sane fallbacks
-  const SOURCES = [
-    'https://www.cruisinginthewake.com/ships/rcl/assets/allure.json',
-    '/ships/rcl/assets/allure.json',
-    'https://www.cruisinginthewake.com/assets/data/ships/rcl/'+pageSlug+'.json',
-    'https://www.cruisinginthewake.com/assets/data/logbook/rcl/'+pageSlug+'.json'
-  ];
+  // ---------- tiny helpers ----------
+  const qs = new URLSearchParams(location.search);
+  const START_ID = (qs.get('id') || '').trim();
+  const VIEW = (qs.get('view') || '').trim().toLowerCase(); // e.g., persona
+  const isPersonaView = VIEW === 'persona' || START_ID;
 
-  function fetchFirst(urls, i=0){
-    if (i >= urls.length) return Promise.resolve(null);
-    return fetch(urls[i], { cache:'no-store' })
-      .then(r => r.ok ? r.json() : fetchFirst(urls, i+1))
-      .catch(() => fetchFirst(urls, i+1));
-  }
-
-  // small sanitizer
   function clean(s){
-    return String(s||'')
-      .replace(/<\/script/gi,'<\\/script')
-      .replace(/\son\w+="[^"]*"/gi,'');
+    s = String(s||'');
+    s = s.replace(/<\/script/gi,'<\\/script');
+    s = s.replace(/\son\w+="[^"]*"/gi,''); // strip inline handlers
+    return s;
   }
-
-  // lightweight MD → HTML (headings, emphasis, links, paras)
   function mdToHtml(src){
-    let h = String(src||'').trim();
-    if (!h) return '';
-    // headings (## and ###)
-    h = h.replace(/^###?\s+(.+)$/gm, '<h3>$1</h3>');
-    // bold / italic
-    h = h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-    h = h.replace(/\*(.+?)\*/g,'<em>$1</em>');
-    // links (plain)
-    h = h.replace(/(https?:\/\/[^\s)]+)(?=\s|$)/g,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
-    // paragraphs
-    const parts = h.split(/\n{2,}/);
-    h = '<p>' + parts.map(p => p.replace(/\n/g,'<br/>')).join('</p><p>') + '</p>';
-    return h.replace(/^<p><\/p>/,''); // tidy
+    let html = String(src||'');
+    html = html.replace(/^###?\s+(.+)$/gm, '<h3>$1</h3>');
+    html = html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    html = html.replace(/\*(.+?)\*/g,'<em>$1</em>');
+    html = html.replace(/^- (.+)$/gm,'<li>$1</li>');
+    html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>'); // simple list wrap
+    html = html.replace(/\n{2,}/g,'</p><p>');
+    html = html.replace(/\n/g,'<br/>');
+    html = html.replace(/(https?:\/\/[^\s)]+)(?=\s|$)/g,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    html = html.replace(/^<p><\/p>/,'');
+    return html;
   }
-
   function fuelCard(){
-    return `
-      <div class="voyage-tips-wrapper">
-        <div class="card voyage-tips center" aria-label="Voyage planning tips">
-          <h2 class="card-title">Fuel Your Voyage</h2>
-          <div class="card-content">
-            <h3><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Drink Packages</a></h3>
-            <ul>
-              <li><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Deluxe Beverage Package</a></li>
-              <li><a href="https://www.cruisinginthewake.com/drink-packages.html#refreshment" target="_blank" rel="noopener noreferrer">Refreshment Package</a></li>
-              <li><a href="https://www.cruisinginthewake.com/drink-packages.html#soda" target="_blank" rel="noopener noreferrer">Soda Package</a></li>
-            </ul>
-            <h3><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Premium & Specialty Dining</a></h3>
-            <ul>
-              <li><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Unlimited Dining Package</a></li>
-              <li><a href="https://www.royalcaribbean.com/experience/cruise-dining/specialty-restaurants" target="_blank" rel="noopener noreferrer">Royal Caribbean Premium Dining</a></li>
-            </ul>
-            <h3><a href="https://www.cruisinginthewake.com/packing-lists.html" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>
-            <ul>
-              <li>Shawl for chilly theater nights</li>
-              <li>Swimwear for pool deck</li>
-              <li>Comfortable shoes for shore tours</li>
-            </ul>
-            <div class="button-group" aria-label="Voyage planning links">
-              <a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>
-              <a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>
-            </div>
-          </div>
-        </div>
-      </div>`;
+    return [
+      '<div class="voyage-tips-wrapper">',
+        '<div class="card voyage-tips center" aria-label="Voyage planning tips">',
+          '<h2 class="card-title">Fuel Your Voyage</h2>',
+          '<div class="card-content">',
+            '<h3><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Drink Packages</a></h3>',
+            '<ul>',
+              '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Deluxe Beverage Package</a></li>',
+              '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#refreshment" target="_blank" rel="noopener noreferrer">Refreshment Package</a></li>',
+              '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#soda" target="_blank" rel="noopener noreferrer">Soda Package</a></li>',
+            '</ul>',
+            '<h3><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Premium & Specialty Dining</a></h3>',
+            '<ul>',
+              '<li><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Unlimited Dining Package</a></li>',
+              '<li><a href="https://www.royalcaribbean.com/experience/cruise-dining/specialty-restaurants" target="_blank" rel="noopener noreferrer">Royal Caribbean Premium Dining</a></li>',
+            '</ul>',
+            '<h3><a href="https://www.cruisinginthewake.com/packing-lists.html" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>',
+            '<ul>',
+              '<li>Shawl for chilly theater nights</li>',
+              '<li>Swimwear for pool deck</li>',
+              '<li>Comfortable shoes for shore tours</li>',
+            '</ul>',
+            '<div class="button-group" aria-label="Voyage planning links">',
+              '<a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>',
+              '<a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>',
+            '</div>',
+          '</div>',
+        '</div>',
+      '</div>'
+    ].join('');
   }
 
-  function renderOne(p){
+  // ---------- fetch chain (prefer Allure file) ----------
+  const SOURCES = [
+    'https://www.cruisinginthewake.com/ships/rcl/assets/allure.json', // ⛵ Allure-first
+    'https://www.cruisinginthewake.com/assets/data/allure.json',
+    `https://www.cruisinginthewake.com/assets/data/ships/rcl/${pageSlug}.json`,
+    `https://www.cruisinginthewake.com/assets/data/logbook/rcl/${pageSlug}.json`
+  ];
+  function fetchFirst(urls, i){
+    i = i || 0;
+    if(i >= urls.length) return Promise.resolve(null);
+    return fetch(urls[i], {cache:'no-store'})
+      .then(r => r.ok ? r.json() : fetchFirst(urls, i+1))
+      .catch(()=> fetchFirst(urls, i+1));
+  }
+
+  // ---------- nav UI ----------
+  function navTemplate(left, right){
+    const L = left  ? `<a class="btn nav port" href="${clean(left.url||'#')}" data-target="${clean(left.target_persona_id||'')}" aria-label="${clean(left.label||'Previous')}">← ${clean(left.label||'Previous')}</a>` : '';
+    const R = right ? `<a class="btn nav starboard" href="${clean(right.url||'#')}" data-target="${clean(right.target_persona_id||'')}" aria-label="${clean(right.label||'Next')}">${clean(right.label||'Next')} →</a>` : '';
+    return `<div class="button-group logbook-nav" role="navigation" aria-label="Logbook navigation">${L}${R}</div>`;
+  }
+
+  // ---------- render one persona ----------
+  function renderPersona(p){
     const title = clean(p.title || p.persona_label || 'Guest Perspective');
     const raw   = String(p.markdown || p.body || p.content || p.html || '');
+    // Insert Fuel card either after "## Dining" or at 55% mark
     const parts = raw.split(/\n##\s+Dining\s*\n/i);
-    let html    = '';
-
+    let html = '';
     if (parts.length > 1){
       html = mdToHtml(parts[0]) + '<h3>Dining</h3>' + mdToHtml(parts[1]) + fuelCard();
     } else {
       const cut = Math.floor(raw.length * 0.55);
       html = mdToHtml(raw.slice(0, cut)) + fuelCard() + mdToHtml(raw.slice(cut));
     }
-
-    return `<article class="story"><h3>${title}</h3><div class="story-body">${html}</div></article>`;
+    const navHTML = navTemplate(p.nav_port, p.nav_starboard);
+    mount.innerHTML = `<article class="story"><h3>${title}</h3><div class="story-body">${html}</div>${navHTML}</article>`;
   }
 
-  fetchFirst(SOURCES).then((data)=>{
-    let stories = [];
+  // ---------- wire nav (delegation) ----------
+  function wireNav(personaIndex, byId, list){
+    mount.addEventListener('click', function(e){
+      const a = e.target.closest('a.btn.nav'); if(!a) return;
+      const target = a.getAttribute('data-target') || '';
+      e.preventDefault();
+      let nextPersona = null;
+
+      if (target && byId[target]) {
+        nextPersona = byId[target];
+      } else {
+        // Fallback: simple previous/next in the array
+        const idx = list.indexOf(personaIndex.current);
+        if (a.classList.contains('port')) personaIndex.current = list[Math.max(0, idx-1)];
+        else personaIndex.current = list[Math.min(list.length-1, idx+1)];
+        nextPersona = personaIndex.current;
+      }
+
+      // Update URL (preserving other params) for deep-link
+      const u = new URL(location.href);
+      u.searchParams.set('view','persona');
+      if (nextPersona.id) u.searchParams.set('id', nextPersona.id);
+      history.pushState({pid: nextPersona.id||''}, '', u.toString());
+
+      // Render & focus
+      renderPersona(nextPersona);
+      mount.querySelector('.story h3')?.focus?.();
+      window.scrollTo({ top: mount.getBoundingClientRect().top + window.scrollY - 20, behavior:'smooth' });
+    });
+
+    // Keyboard: ← / → to move port/starboard
+    window.addEventListener('keydown', (ev)=>{
+      if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
+      const linkSel = ev.key === 'ArrowLeft' ? '.btn.nav.port' : '.btn.nav.starboard';
+      const link = mount.querySelector(linkSel);
+      if(link){ ev.preventDefault(); link.click(); }
+    });
+
+    // Handle back/forward
+    window.addEventListener('popstate', ()=>{
+      const pid = (new URL(location.href)).searchParams.get('id') || '';
+      if(pid && byId[pid]){ personaIndex.current = byId[pid]; renderPersona(byId[pid]); }
+      else { renderPersona(personaIndex.current); }
+    });
+  }
+
+  // ---------- go ----------
+  fetchFirst(SOURCES).then(function(data){
+    let personas = [];
     if (data){
-      if (Array.isArray(data.personas)) stories = data.personas;
-      else if (Array.isArray(data.stories)) stories = data.stories;
-      else if (Array.isArray(data)) stories = data;
+      if (Array.isArray(data.personas)) personas = data.personas;
+      else if (Array.isArray(data.stories)) personas = data.stories; // support alt key
+      else if (Array.isArray(data)) personas = data;
     }
-
-    // filter only items with real content
-    stories = (stories||[]).filter(p => p && (p.markdown || p.body || p.content || p.html));
-
-    if (!stories.length){
-      mount.innerHTML =
-        '<article class="story"><h3>The Logbook — Tales From the Wake</h3>' +
-        '<p class="small">Our crew is compiling first-hand notes and tips for this ship. Check back shortly for fresh entries.</p></article>';
+    if (!personas.length){
+      mount.innerHTML = '<article class="story"><h3>The Logbook — Tales From the Wake</h3><p class="small">Our crew is compiling first-hand notes and tips for this ship. Check back shortly for fresh entries.</p></article>';
       return;
     }
 
-    mount.setAttribute('data-count', String(stories.length)); // small debug aid
-    mount.innerHTML = stories.map(renderOne).join('');
-  }).catch(()=>{
-    mount.innerHTML =
-      '<article class="story"><h3>The Logbook — Tales From the Wake</h3>' +
-      '<p class="small">We hit a squall fetching entries. Try a quick refresh.</p></article>';
+    // Index by id + choose start persona
+    const byId = {};
+    personas.forEach(p => { if(p && p.id) byId[p.id] = p; });
+
+    let start = personas[0];
+    if (isPersonaView && START_ID && byId[START_ID]) start = byId[START_ID];
+
+    const personaIndex = { current: start };
+    const list = personas.slice(); // keep order
+
+    // First render
+    renderPersona(start);
+    wireNav(personaIndex, byId, list);
   });
 })();
-</script></div>
+</script>
+
+<!-- Optional tiny styles for the nav buttons -->
+<style>
+  .logbook-nav{ margin-top: .75rem; justify-content:space-between; gap:.5rem }
+  .logbook-nav .btn.nav{ white-space:nowrap }
+  .logbook-nav .btn.port{ align-self:flex-start }
+  .logbook-nav .btn.starboard{ align-self:flex-end }
+  .story h3 { outline:none }
+</style></div>
     </section>
 
     <!-- Videos -->
