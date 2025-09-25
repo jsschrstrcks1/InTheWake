@@ -267,60 +267,21 @@
       <div id="logbook-stories" class="prose">
 <script>
 (function initLogbook(){
-  const mount = document.getElementById('logbook-stories');
-  if(!mount) return;
-
-  // Use the meta version as a cache-buster so JSON edits show up immediately
-  const metaVer = (document.querySelector('meta[name="version"]')?.getAttribute('content') || '').trim() || 'v0';
+  const mount = document.getElementById('logbook-stories'); if(!mount) return;
   const pageSlug = 'allure-of-the-seas';
 
-  function setStatus(html){
-    mount.innerHTML =
-      '<article class="story"><h3>The Logbook — Tales From the Wake</h3><p class="small">'+html+'</p></article>';
-  }
+  // 1) Sources (Allure-first)
+  const SOURCES = [
+    'https://www.cruisinginthewake.com/ships/rcl/assets/allure.json',
+    'https://www.cruisinginthewake.com/assets/data/allure.json',
+    `https://www.cruisinginthewake.com/assets/data/ships/rcl/${pageSlug}.json`,
+    `https://www.cruisinginthewake.com/assets/data/logbook/rcl/${pageSlug}.json`
+  ];
 
-  // Very visible inline error for JSON parsing/HTTP issues
-  function showDebug(title, detail){
-    setStatus(
-      title + (detail ? '<br><span class="tiny" style="display:block;margin-top:.35rem;color:#567">'
-      + detail.replace(/[<>&]/g, s => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[s])) + '</span>' : '')
-    );
-  }
-
-  async function fetchFirst(urls){
-    for (const base of urls){
-      const url = base + (base.includes('?') ? '&' : '?') + 'v=' + encodeURIComponent(metaVer);
-      try{
-        const r = await fetch(url, {cache:'no-store'});
-        if(!r.ok) throw new Error('HTTP ' + r.status);
-        const text = await r.text();
-
-        // Try to parse; if it fails, surface a preview of the payload
-        try{
-          const json = JSON.parse(text.replace(/^\uFEFF/, '')); // strip BOM if present
-          console.debug('[logbook] loaded', url, json);
-          return {url, json};
-        }catch(parseErr){
-          console.error('[logbook] JSON parse failed', url, parseErr);
-          showDebug('We found the logbook file but it didn’t parse as valid JSON.',
-            'Source: ' + url + '\nError: ' + parseErr.message +
-            '\nPreview (first 300 chars):\n' + text.slice(0,300));
-          return null; // stop: show the parse error from the first found file
-        }
-      }catch(e){
-        console.warn('[logbook] source failed', url, e);
-        // try next source
-      }
-    }
-    return null;
-  }
-
-  function clean(s){
-    s = String(s||'');
-    s = s.replace(/<\/script/gi,'<\\/script');
-    s = s.replace(/\son\w+="[^"]*"/gi,'');
-    return s;
-  }
+  // --- helpers ---
+  const clean = (s) => String(s||'')
+    .replace(/<\/script/gi,'<\\/script')
+    .replace(/\son\w+="[^"]*"/gi,'');
   function mdToHtml(src){
     let html = String(src||'');
     html = html.replace(/^###?\s+(.+)$/gm, '<h3>$1</h3>');
@@ -332,7 +293,6 @@
     html = html.replace(/^<p><\/p>/,'');
     return html;
   }
-
   function fuelCard(){
     return [
       '<div class="voyage-tips-wrapper">',
@@ -342,110 +302,7 @@
             '<h3><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Drink Packages</a></h3>',
             '<ul>',
               '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Deluxe Beverage Package</a></li>',
-              '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#refreshment" target="_blank" rel="noopener noreferrer">Refreshment Package</a></li>',
-              '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#soda" target="_blank" rel="noopener noreferrer">Soda Package</a></li>',
-            '</ul>',
-            '<h3><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Premium & Specialty Dining</a></h3>',
-            '<ul>',
-              '<li><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Unlimited Dining Package</a></li>',
-              '<li><a href="https://www.royalcaribbean.com/experience/cruise-dining/specialty-restaurants" target="_blank" rel="noopener noreferrer">Royal Caribbean Premium Dining</a></li>',
-            '</ul>',
-            '<h3><a href="https://www.cruisinginthewake.com/packing-lists.html" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>',
-            '<ul>',
-              '<li>Shawl for chilly theater nights</li>',
-              '<li>Swimwear for pool deck</li>',
-              '<li>Comfortable shoes for shore tours</li>',
-            '</ul>',
-            '<div class="button-group" aria-label="Voyage planning links">',
-              '<a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>',
-              '<a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>',
-            '</div>',
-          '</div>',
-        '</div>',
-      '</div>'
-    ].join('');
-  }
-
-  function renderOne(p){
-    const title = clean(p.title || p.persona_label || 'Guest Perspective');
-    const raw   = String(p.markdown || p.body || p.content || p.html || '');
-    let html    = '';
-
-    const parts = raw.split(/\n##\s+Dining\s*\n/i);
-    if (parts.length > 1){
-      html = mdToHtml(parts[0]) + '<h3>Dining</h3>' + mdToHtml(parts[1]) + fuelCard();
-    }else{
-      const cut = Math.floor(raw.length * 0.55);
-      html = mdToHtml(raw.slice(0, cut)) + fuelCard() + mdToHtml(raw.slice(cut));
-    }
-    const card = document.createElement('article');
-    card.className = 'story';
-    card.innerHTML = '<h3>'+title+'</h3><div class="story-body">'+html+'</div>';
-    return card;
-  }
-
-  function pickFromQuery(list){
-    const qs = new URLSearchParams(location.search);
-    const view = (qs.get('view')||'').toLowerCase();
-    const id   = (qs.get('id')||'').toLowerCase();
-    if(view==='persona' && id){
-      const found = list.find(p => (p.id||'').toLowerCase() === id);
-      return found ? [found] : list;
-    }
-    return list;
-  }
-
-  (async function go(){
-    setStatus('Casting lines… fetching logbook data.');
-    const SOURCES = [
-      // Your canonical file first
-      'https://www.cruisinginthewake.com/ships/rcl/assets/allure.json',
-      // fallbacks
-      'https://www.cruisinginthewake.com/assets/data/allure.json',
-      'https://www.cruisinginthewake.com/assets/data/ships/rcl/'+pageSlug+'.json',
-      'https://www.cruisinginthewake.com/assets/data/logbook/rcl/'+pageSlug+'.json'
-    ];
-
-    const got = await fetchFirst(SOURCES);
-    if(!got){
-      // A parse/HTTP error has already been shown; just stop
-      return;
-    }
-
-    let stories = [];
-    const data = got.json;
-    if (Array.isArray(data?.personas)) stories = data.personas;
-    else if (Array.isArray(data?.stories)) stories = data.stories;
-    else if (Array.isArray(data))          stories = data;
-
-    if (!stories.length){
-      console.warn('[logbook] json loaded but no stories/personas array found', got.url, data);
-      setStatus('Our crew is compiling first-hand notes and tips for this ship. Check back shortly for fresh entries.');
-      return;
-    }
-
-    // Replace placeholder and append incrementally
-    mount.innerHTML = '';
-    const list = pickFromQuery(stories);
-
-    // First card immediately
-    mount.appendChild(renderOne(list[0]));
-
-    // Stream the rest
-    let i = 1;
-    function pump(){
-      const start = performance.now();
-      while(i < list.length && (performance.now() - start) < 12){
-        mount.appendChild(renderOne(list[i++]));
-      }
-      if(i < list.length) requestAnimationFrame(pump);
-    }
-    requestAnimationFrame(pump);
-
-    console.info('[logbook] using', got.url, 'rendered', list.length, 'entries');
-  })();
-})();
-</script>
+              '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#refreshment" target="_blank"
 
 <!-- Optional tiny styles for the nav buttons -->
 <style>
