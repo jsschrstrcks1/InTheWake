@@ -374,25 +374,8 @@
   })();
   </script>
 
-  <!-- Dining hero fallback chain (only if canonical fails) -->
-  <script>
-  (function verifyDiningHero(){
-    const img = document.getElementById('dining-hero'); if(!img) return;
-    function bad(i){ return !i.complete || i.naturalWidth === 0; }
-    if (bad(img)) {
-      const chain = [
-        'https://www.cruisinginthewake.com/assets/ships/allure-of-the-seas-dining.jpg?v=2.241',
-        'https://www.cruisinginthewake.com/assets/ships/rcl/allure-of-the-seas/dining-hero.jpg?v=2.241'
-      ];
-      let i = 0;
-      (function tryNext(){
-        if (i>=chain.length) return;
-        img.onerror = ()=>{ i++; tryNext(); };
-        img.src = chain[i++];
-      })();
-    }
-  })();
-  </script>
+
+
 
   <!-- Dining card (truth-driven) -->
   <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.241" defer></script>
