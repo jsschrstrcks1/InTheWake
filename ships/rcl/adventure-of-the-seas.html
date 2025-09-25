@@ -232,7 +232,8 @@
         <iframe class="live-map hidden"
                 title="Live ship tracker for Adventure of the Seas"
                 width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen
-                aria-label="Live ship tracker for Adventure of the Seas"></iframe>
+                aria-label="Live ship tracker for Adventure of the Seas">
+                data-slug="ADVENTURE-OF-THE-SEAS"></iframe>
 
         <p class="tiny">If the embedded map doesn’t load, <a id="vf-direct" href="#" target="_blank" rel="noopener">open the live tracker on VesselFinder →</a></p>
       </div>
@@ -558,71 +559,50 @@
 <!-- Live Itinerary: widget → iframe(details) -->
 <script>
 (function initHybridVesselFinder(){
-  var wrap = document.querySelector('.card.itinerary[data-imo]');
+  const wrap = document.querySelector('.card.itinerary[data-imo]');
   if(!wrap) return;
 
-  var imo   = (wrap.getAttribute('data-imo')||'').trim();      // 9167225
-  var name  = (wrap.getAttribute('data-name')||'').trim();     // ADVENTURE-OF-THE-SEAS
-  var mapEl = document.getElementById('vf-map-adventure');
-  var iFr   = wrap.querySelector('iframe.live-map');
-  var direct = document.getElementById('vf-direct');
+  const imo   = (wrap.getAttribute('data-imo')||'').trim();       // e.g. 9167225
+  const name  = (wrap.getAttribute('data-name')||'').trim();      // e.g. ADVENTURE-OF-THE-SEAS
+  const mapEl = document.getElementById('vf-map-adventure');
+  const iFr   = wrap.querySelector('iframe.live-map');
+  const direct = document.getElementById('vf-direct');
 
-  // Turn the ship name into a slug like ADVENTURE-OF-THE-SEAS
+  // Normalize name to uppercase slug with dashes
   function toSlug(n){
     return String(n||'').toUpperCase()
       .replace(/[^A-Z0-9]+/g,'-').replace(/^-+|-+$/g,'');
   }
-  var slug = toSlug(name) || 'ADVENTURE-OF-THE-SEAS';
+  const slug = iFr?.getAttribute('data-slug') || toSlug(name);
 
-  // Try URLs in order: slug form → details form → query form
-  var vfURLs = [
-    'https://www.vesselfinder.com/vessels/' + slug + '-IMO-' + encodeURIComponent(imo) + '#map',
-    'https://www.vesselfinder.com/vessels/details/' + encodeURIComponent(imo) + '#map',
-    'https://www.vesselfinder.com/vessels?imo=' + encodeURIComponent(imo) + '#map'
-  ];
+  // Build proper VesselFinder URL
+  const vfURL = `https://www.vesselfinder.com/vessels/${slug}-IMO-${imo}#map`;
+  if (direct) direct.href = vfURL;
 
-  if (direct) direct.href = vfURLs[0]; // direct link always points to the slug URL
-
-  var current = 0;
+  // Fall back to iframe if widget fails
   function useIframe(){
     if(!iFr) return;
-    iFr.onload = null;
-    iFr.onerror = function(){
-      current++;
-      if (current < vfURLs.length){
-        iFr.src = vfURLs[current]; // try next fallback
-      }
-    };
-    iFr.src = vfURLs[current];
+    iFr.src = vfURL;
     iFr.classList.remove('hidden');
     if(mapEl) mapEl.style.display = 'none';
   }
 
-  // Try the lightweight widget first
-  var s = document.createElement('script');
-  s.src = 'https://www.vesselfinder.com/aismap.js';
+  // Try widget first
+  const s = document.createElement('script');
+  s.src = "https://www.vesselfinder.com/aismap.js";
   s.async = true;
 
-  var stalled = setTimeout(useIframe, 1500);
+  const stall = setTimeout(useIframe, 2000);
   s.onload = function(){
     try{
-      clearTimeout(stalled);
-      var ok = false;
+      clearTimeout(stall);
       if (window.AISMap && mapEl){
-        new AISMap(mapEl, { width:'100%', height:300, zoom:8, names:true, show_track:1, track_days:1, vessel:'IMO:'+imo });
-        ok = true;
-      } else if (window.vf && vf.map && typeof vf.map.embed==='function' && mapEl){
-        vf.map.embed(mapEl, { width:'100%', height:300, zoom:8, names:true, show_track:1, track_days:1, vessel:'IMO:'+imo });
-        ok = true;
-      }
-      setTimeout(function(){
-        var hasCanvas = mapEl && mapEl.querySelector && mapEl.querySelector('canvas,svg');
-        if(!hasCanvas) useIframe();
-      }, 1200);
-      if(!ok) useIframe();
+        new AISMap(mapEl, { width:"100%", height:300, zoom:8, names:true,
+          show_track:1, track_days:1, vessel:`IMO:${imo}` });
+      } else { useIframe(); }
     }catch(e){ useIframe(); }
   };
-  s.onerror = function(){ clearTimeout(stalled); useIframe(); };
+  s.onerror = function(){ clearTimeout(stall); useIframe(); };
   document.head.appendChild(s);
 })();
 </script>
