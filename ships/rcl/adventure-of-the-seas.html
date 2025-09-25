@@ -142,7 +142,7 @@
                 <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg?width=1280"
                      alt="Adventure of the Seas docked in Aruba (2024)" loading="lazy" referrerpolicy="no-referrer"/>
               </a>
-              <figcaption class="tiny">Wikimedia Commons (Aruba, 2024)</figcaption>
+        
             </figure>
           </div>
           <div class="swiper-slide">
@@ -151,7 +151,7 @@
                 <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Adventure_of_the_Seas_pool_area.jpg?width=1280"
                      alt="Adventure of the Seas pool area" loading="lazy" referrerpolicy="no-referrer"/>
               </a>
-              <figcaption class="tiny">Wikimedia Commons (Pool area)</figcaption>
+    
             </figure>
           </div>
           <div class="swiper-slide">
@@ -160,7 +160,7 @@
                 <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Adventure_of_the_seas_in_Willemstad.jpg?width=1280"
                      alt="Adventure of the Seas in Willemstad" loading="lazy" referrerpolicy="no-referrer"/>
               </a>
-              <figcaption class="tiny">Wikimedia Commons (Willemstad)</figcaption>
+       
             </figure>
           </div>
         </div>
@@ -235,7 +235,7 @@
         aria-label="Live ship tracker for Adventure of the Seas"
         data-slug="ADVENTURE-OF-THE-SEAS"></iframe>
 
-        <p class="tiny">If the embedded map doesn’t load, <a id="vf-direct" href="#" target="_blank" rel="noopener">open the live tracker on VesselFinder →</a></p>
+        <p class="tiny">If the embedded map doesn’t load, <a id="vf-direct" href="#" target="_blank" rel="noopener noreferrer">open the live tracker on VesselFinder →</a></p>
       </div>
     </section>
   </section>
@@ -488,7 +488,7 @@
     var ordered = roundRobin(buckets, CORE);
 
     if (!ordered.length){
-      WRAP.innerHTML = '<div class="swiper-slide"><div class="note tiny">No Adventure of the Seas videos matched (yet).</div></div>';
+      WRAP.innerHTML = '<div class="swiper-slide"><div class="note tiny">Bear with us as we chart these stars.</div></div>';
       return maybeInitSwiper();
     }
 
@@ -639,7 +639,7 @@
     html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
     html = html.replace(/\n{2,}/g, '</p><p>');
     html = html.replace(/\n/g, '<br/>');
-    html = html.replace(/(https?:\/\/[^\s)]+)(?=\s|$)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+    html = html.replace(/(https?:\/\/[^\s)]+)(?=\s|$)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
     html = html.replace(/^<p><\/p>/,'');
     return html;
   }
@@ -666,8 +666,8 @@
             '</ul>',
             '<h3><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener">Premium & Specialty Dining</a></h3>',
             '<ul>',
-              '<li><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener">Unlimited Dining Package</a></li>',
-              '<li><a href="https://www.royalcaribbean.com/experience/cruise-dining/specialty-restaurants" target="_blank" rel="noopener">Royal Caribbean Premium Dining</a></li>',
+              '<li><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Unlimited Dining Package</a></li>',
+              '<li><a href="https://www.royalcaribbean.com/experience/cruise-dining/specialty-restaurants" target="_blank" rel="noopener noreferrer">Royal Caribbean Premium Dining</a></li>',
             '</ul>',
             '<h3><a href="https://www.cruisinginthewake.com/packing-lists.html">Pack Like a Pro</a></h3>',
             '<ul>',
