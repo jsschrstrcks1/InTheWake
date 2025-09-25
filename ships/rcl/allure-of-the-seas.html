@@ -270,28 +270,46 @@
   const mount = document.getElementById('logbook-stories');
   if(!mount) return;
 
+  // Use the meta version as a cache-buster so JSON edits show up immediately
+  const metaVer = (document.querySelector('meta[name="version"]')?.getAttribute('content') || '').trim() || 'v0';
   const pageSlug = 'allure-of-the-seas';
 
-  // small status helper
-  function setStatus(msg){
-    mount.innerHTML = '<article class="story"><h3>The Logbook — Tales From the Wake</h3><p class="small">'+msg+'</p></article>';
+  function setStatus(html){
+    mount.innerHTML =
+      '<article class="story"><h3>The Logbook — Tales From the Wake</h3><p class="small">'+html+'</p></article>';
   }
 
-  // fetch first working source (and return both url + json)
+  // Very visible inline error for JSON parsing/HTTP issues
+  function showDebug(title, detail){
+    setStatus(
+      title + (detail ? '<br><span class="tiny" style="display:block;margin-top:.35rem;color:#567">'
+      + detail.replace(/[<>&]/g, s => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[s])) + '</span>' : '')
+    );
+  }
+
   async function fetchFirst(urls){
-    for (const u of urls){
+    for (const base of urls){
+      const url = base + (base.includes('?') ? '&' : '?') + 'v=' + encodeURIComponent(metaVer);
       try{
-        const r = await fetch(u, {cache:'no-store'});
-        if(!r.ok) throw new Error('HTTP '+r.status);
+        const r = await fetch(url, {cache:'no-store'});
+        if(!r.ok) throw new Error('HTTP ' + r.status);
         const text = await r.text();
 
-        // Defensive: strip any BOM; fail loudly on JSON issues so we can see the bad URL
-        const cleanText = text.replace(/^\uFEFF/, '');
-        const json = JSON.parse(cleanText);
-        console.debug('[logbook] loaded', u, json);
-        return {url:u, json};
+        // Try to parse; if it fails, surface a preview of the payload
+        try{
+          const json = JSON.parse(text.replace(/^\uFEFF/, '')); // strip BOM if present
+          console.debug('[logbook] loaded', url, json);
+          return {url, json};
+        }catch(parseErr){
+          console.error('[logbook] JSON parse failed', url, parseErr);
+          showDebug('We found the logbook file but it didn’t parse as valid JSON.',
+            'Source: ' + url + '\nError: ' + parseErr.message +
+            '\nPreview (first 300 chars):\n' + text.slice(0,300));
+          return null; // stop: show the parse error from the first found file
+        }
       }catch(e){
-        console.warn('[logbook] source failed', u, e);
+        console.warn('[logbook] source failed', url, e);
+        // try next source
       }
     }
     return null;
@@ -366,7 +384,6 @@
     return card;
   }
 
-  // Allow deep-linking: ?view=persona&id=...
   function pickFromQuery(list){
     const qs = new URLSearchParams(location.search);
     const view = (qs.get('view')||'').toLowerCase();
@@ -381,7 +398,9 @@
   (async function go(){
     setStatus('Casting lines… fetching logbook data.');
     const SOURCES = [
+      // Your canonical file first
       'https://www.cruisinginthewake.com/ships/rcl/assets/allure.json',
+      // fallbacks
       'https://www.cruisinginthewake.com/assets/data/allure.json',
       'https://www.cruisinginthewake.com/assets/data/ships/rcl/'+pageSlug+'.json',
       'https://www.cruisinginthewake.com/assets/data/logbook/rcl/'+pageSlug+'.json'
@@ -389,8 +408,7 @@
 
     const got = await fetchFirst(SOURCES);
     if(!got){
-      console.error('[logbook] all sources failed');
-      setStatus('Our crew is compiling first-hand notes and tips for this ship. Check back shortly for fresh entries.');
+      // A parse/HTTP error has already been shown; just stop
       return;
     }
 
@@ -410,14 +428,14 @@
     mount.innerHTML = '';
     const list = pickFromQuery(stories);
 
-    // Render the first item immediately for perceived speed
-    const first = renderOne(list[0]); mount.appendChild(first);
+    // First card immediately
+    mount.appendChild(renderOne(list[0]));
 
-    // Then schedule the rest in small chunks to keep the UI responsive
+    // Stream the rest
     let i = 1;
     function pump(){
       const start = performance.now();
-      while(i < list.length && (performance.now() - start) < 12){ // ~12ms budget
+      while(i < list.length && (performance.now() - start) < 12){
         mount.appendChild(renderOne(list[i++]));
       }
       if(i < list.length) requestAnimationFrame(pump);
