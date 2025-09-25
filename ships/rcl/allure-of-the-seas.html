@@ -264,7 +264,129 @@
     <!-- Logbook -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook — Tales From the Wake</h2>
-      <div id="logbook-stories" class="prose"></div>
+      <div id="logbook-stories" class="prose"><!-- Logbook loader (canonical-first, hardened for Allure) -->
+<!-- Logbook loader (Allure-only, hardened) -->
+<script>
+(function initLogbook(){
+  const mount = document.getElementById('logbook-stories');
+  if (!mount) return;
+
+  const pageSlug = 'allure-of-the-seas';
+
+  // 1) canonical-first, with sane fallbacks
+  const SOURCES = [
+    'https://www.cruisinginthewake.com/ships/rcl/assets/allure.json',
+    '/ships/rcl/assets/allure.json',
+    'https://www.cruisinginthewake.com/assets/data/ships/rcl/'+pageSlug+'.json',
+    'https://www.cruisinginthewake.com/assets/data/logbook/rcl/'+pageSlug+'.json'
+  ];
+
+  function fetchFirst(urls, i=0){
+    if (i >= urls.length) return Promise.resolve(null);
+    return fetch(urls[i], { cache:'no-store' })
+      .then(r => r.ok ? r.json() : fetchFirst(urls, i+1))
+      .catch(() => fetchFirst(urls, i+1));
+  }
+
+  // small sanitizer
+  function clean(s){
+    return String(s||'')
+      .replace(/<\/script/gi,'<\\/script')
+      .replace(/\son\w+="[^"]*"/gi,'');
+  }
+
+  // lightweight MD → HTML (headings, emphasis, links, paras)
+  function mdToHtml(src){
+    let h = String(src||'').trim();
+    if (!h) return '';
+    // headings (## and ###)
+    h = h.replace(/^###?\s+(.+)$/gm, '<h3>$1</h3>');
+    // bold / italic
+    h = h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    h = h.replace(/\*(.+?)\*/g,'<em>$1</em>');
+    // links (plain)
+    h = h.replace(/(https?:\/\/[^\s)]+)(?=\s|$)/g,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    // paragraphs
+    const parts = h.split(/\n{2,}/);
+    h = '<p>' + parts.map(p => p.replace(/\n/g,'<br/>')).join('</p><p>') + '</p>';
+    return h.replace(/^<p><\/p>/,''); // tidy
+  }
+
+  function fuelCard(){
+    return `
+      <div class="voyage-tips-wrapper">
+        <div class="card voyage-tips center" aria-label="Voyage planning tips">
+          <h2 class="card-title">Fuel Your Voyage</h2>
+          <div class="card-content">
+            <h3><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Drink Packages</a></h3>
+            <ul>
+              <li><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Deluxe Beverage Package</a></li>
+              <li><a href="https://www.cruisinginthewake.com/drink-packages.html#refreshment" target="_blank" rel="noopener noreferrer">Refreshment Package</a></li>
+              <li><a href="https://www.cruisinginthewake.com/drink-packages.html#soda" target="_blank" rel="noopener noreferrer">Soda Package</a></li>
+            </ul>
+            <h3><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Premium & Specialty Dining</a></h3>
+            <ul>
+              <li><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Unlimited Dining Package</a></li>
+              <li><a href="https://www.royalcaribbean.com/experience/cruise-dining/specialty-restaurants" target="_blank" rel="noopener noreferrer">Royal Caribbean Premium Dining</a></li>
+            </ul>
+            <h3><a href="https://www.cruisinginthewake.com/packing-lists.html" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>
+            <ul>
+              <li>Shawl for chilly theater nights</li>
+              <li>Swimwear for pool deck</li>
+              <li>Comfortable shoes for shore tours</li>
+            </ul>
+            <div class="button-group" aria-label="Voyage planning links">
+              <a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>
+              <a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function renderOne(p){
+    const title = clean(p.title || p.persona_label || 'Guest Perspective');
+    const raw   = String(p.markdown || p.body || p.content || p.html || '');
+    const parts = raw.split(/\n##\s+Dining\s*\n/i);
+    let html    = '';
+
+    if (parts.length > 1){
+      html = mdToHtml(parts[0]) + '<h3>Dining</h3>' + mdToHtml(parts[1]) + fuelCard();
+    } else {
+      const cut = Math.floor(raw.length * 0.55);
+      html = mdToHtml(raw.slice(0, cut)) + fuelCard() + mdToHtml(raw.slice(cut));
+    }
+
+    return `<article class="story"><h3>${title}</h3><div class="story-body">${html}</div></article>`;
+  }
+
+  fetchFirst(SOURCES).then((data)=>{
+    let stories = [];
+    if (data){
+      if (Array.isArray(data.personas)) stories = data.personas;
+      else if (Array.isArray(data.stories)) stories = data.stories;
+      else if (Array.isArray(data)) stories = data;
+    }
+
+    // filter only items with real content
+    stories = (stories||[]).filter(p => p && (p.markdown || p.body || p.content || p.html));
+
+    if (!stories.length){
+      mount.innerHTML =
+        '<article class="story"><h3>The Logbook — Tales From the Wake</h3>' +
+        '<p class="small">Our crew is compiling first-hand notes and tips for this ship. Check back shortly for fresh entries.</p></article>';
+      return;
+    }
+
+    mount.setAttribute('data-count', String(stories.length)); // small debug aid
+    mount.innerHTML = stories.map(renderOne).join('');
+  }).catch(()=>{
+    mount.innerHTML =
+      '<article class="story"><h3>The Logbook — Tales From the Wake</h3>' +
+      '<p class="small">We hit a squall fetching entries. Try a quick refresh.</p></article>';
+  });
+})();
+</script></div>
     </section>
 
     <!-- Videos -->
