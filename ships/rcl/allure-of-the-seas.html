@@ -104,6 +104,11 @@
 
     /* Hide accidental duplicate grid (defense-in-depth) */
     .hero .latlon-grid + .latlon-grid{ display:none; }
+
+    /* Videos: make wrapper behave like a swiper even before JS */
+.swiper.videos{ position:relative; overflow:hidden; }
+.swiper.videos .swiper-wrapper{ display:flex; }
+.swiper.videos .swiper-slide{ flex:0 0 100%; }
   </style>
 </head>
 <body class="page no-hero-filter">
