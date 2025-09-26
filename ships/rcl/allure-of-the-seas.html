@@ -594,6 +594,8 @@
 (function initLogbook(){
   var mount = document.getElementById('logbook-stories'); if(!mount) return;
   var pageSlug = 'allure-of-the-seas';
+  var stories = [];          // will hold normalized story objects
+  var idx = 0;               // current index
 
   function fetchFirst(urls, i){
     i = i || 0;
@@ -601,11 +603,26 @@
     return fetch(urls[i], { cache:'no-store' })
       .then(async function(r){
         if (!r.ok) return fetchFirst(urls, i+1);
-        // lenient JSON parse (handles text/plain)
         var txt = await r.text();
-        try { return JSON.parse(txt); } catch(e){ return null; }
+        try { return JSON.parse(txt); } catch{ return fetchFirst(urls, i+1); }
       })
       .catch(function(){ return fetchFirst(urls, i+1); });
+  }
+
+  function pickStories(data){
+    if (!data) return [];
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data.personas)) return data.personas;       // ✅ your current shape
+    if (Array.isArray(data.stories))  return data.stories;
+    if (data.logbook && Array.isArray(data.logbook.stories)) return data.logbook.stories;
+    if (data[pageSlug]){
+      var s = data[pageSlug];
+      if (Array.isArray(s)) return s;
+      if (Array.isArray(s.personas)) return s.personas;
+      if (Array.isArray(s.stories))  return s.stories;
+      if (s.logbook && Array.isArray(s.logbook.stories)) return s.logbook.stories;
+    }
+    return [];
   }
 
   function clean(s){
@@ -622,23 +639,6 @@
                .replace(/^<p>\s*<\/p>/,'');
     return html;
   }
-
-  function pickStories(data){
-    if (!data) return [];
-    if (Array.isArray(data)) return data;
-    if (Array.isArray(data.personas)) return data.personas;   // your current shape ✅
-    if (Array.isArray(data.stories))  return data.stories;
-    if (data.logbook && Array.isArray(data.logbook.stories)) return data.logbook.stories;
-    if (data[pageSlug]){
-      var s = data[pageSlug];
-      if (Array.isArray(s)) return s;
-      if (Array.isArray(s.personas)) return s.personas;
-      if (Array.isArray(s.stories))  return s.stories;
-      if (s.logbook && Array.isArray(s.logbook.stories)) return s.logbook.stories;
-    }
-    return [];
-  }
-
   function fuelCard(){
     return [
       '<div class="voyage-tips-wrapper">',
@@ -657,51 +657,70 @@
     ].join('');
   }
 
-  function renderOne(p){
+  function renderStory(p){
     var title = clean(p.title || p.persona_label || p.heading || 'Guest Perspective');
     var raw   = String(p.markdown || p.body || p.content || p.html || p.text || p.story || p.notes || '');
     if (!raw.trim()) return '';
-    var html  = '';
-
+    // Insert Fuel card after a Dining header, else ~55%
     var parts = raw.split(/\n##\s*Dining[^\n]*\n/i);
-    if (parts.length > 1){
-      html = mdToHtml(parts[0]) + '<h3>Dining</h3>' + mdToHtml(parts[1]) + fuelCard();
-    }else{
-      var cut = Math.floor(raw.length * 0.55);
-      html = mdToHtml(raw.slice(0, cut)) + fuelCard() + mdToHtml(raw.slice(cut));
-    }
+    var html = (parts.length > 1)
+      ? mdToHtml(parts[0]) + '<h3>Dining</h3>' + mdToHtml(parts[1]) + fuelCard()
+      : (function(){ var cut=Math.floor(raw.length*0.55);
+          return mdToHtml(raw.slice(0,cut)) + fuelCard() + mdToHtml(raw.slice(cut)); })();
+
     return '<article class="story"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+html+'</div></article>';
   }
 
+  function paint(){
+    if (!stories.length){
+      mount.innerHTML =
+        '<article class="story"><h3>The Logbook — Tales From the Wake</h3><p class="small">No entries available yet.</p></article>';
+      return;
+    }
+    // clamp
+    if (idx < 0) idx = stories.length - 1;
+    if (idx >= stories.length) idx = 0;
+
+    var body = renderStory(stories[idx]) || '<article class="story"><p class="small">Unable to render entry.</p></article>';
+
+    var nav =
+      '<div class="pills logbook-nav" role="navigation" aria-label="Logbook navigation">'+
+        '<button class="btn nav port"      type="button" aria-label="Previous (Port)">◀ Port</button>'+
+        '<span class="tiny" aria-live="polite">'+(idx+1)+' / '+stories.length+'</span>'+
+        '<button class="btn nav starboard" type="button" aria-label="Next (Starboard)">Starboard ▶</button>'+
+      '</div>';
+
+    mount.innerHTML = body + nav;
+
+    // wire buttons
+    var prev = mount.querySelector('.btn.port');
+    var next = mount.querySelector('.btn.starboard');
+    prev.onclick = function(){ idx--; paint(); };
+    next.onclick = function(){ idx++; paint(); };
+
+    // keyboard arrows
+    document.addEventListener('keydown', function onKey(e){
+      if (e.key === 'ArrowLeft'){ idx--; paint(); }
+      else if (e.key === 'ArrowRight'){ idx++; paint(); }
+      // remove & re-add each paint keeps one handler active
+      document.removeEventListener('keydown', onKey);
+    }, {once:true});
+  }
+
   var SOURCES = [
-    // both hosts, with cache-bust
     'https://www.cruisinginthewake.com/ships/rcl/assets/allure.json?v=2.245',
     'https://cruisinginthewake.com/ships/rcl/assets/allure.json?v=2.245',
-    // generic fallbacks
     'https://www.cruisinginthewake.com/assets/data/allure.json?v=2.245',
     'https://www.cruisinginthewake.com/assets/data/ships/rcl/'+pageSlug+'.json?v=2.245',
     'https://www.cruisinginthewake.com/assets/data/logbook/rcl/'+pageSlug+'.json?v=2.245'
   ];
 
   fetchFirst(SOURCES).then(function(data){
-    var stories = pickStories(data);
-
-    if (!stories || !stories.length){
-      mount.innerHTML =
-        '<article class="story">' +
-          '<h3>The Logbook — Tales From the Wake</h3>' +
-          '<p class="small">No entries found at the configured sources. If you just uploaded the JSON, the CDN may still be warming — the script is trying both hosts with a cache-bust.</p>' +
-        '</article>';
-      return;
-    }
-
-    var html = stories.map(renderOne).filter(Boolean).join('') ||
-               '<article class="story"><p class="small">Entries found, but none were renderable.</p></article>';
-    mount.innerHTML = html;
-  }).catch(function(err){
-    mount.innerHTML =
-      '<article class="story"><h3>The Logbook — Tales From the Wake</h3>' +
-      '<p class="small">Error loading entries.</p></article>';
+    stories = pickStories(data).filter(Boolean);
+    paint();
+  }).catch(function(){
+    stories = [];
+    paint();
   });
 })();
 </script>
