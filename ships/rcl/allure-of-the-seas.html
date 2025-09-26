@@ -383,39 +383,41 @@
   if(!sec) return;
 
   var slug = 'allure-of-the-seas';
-  var WRAP = document.getElementById('featuredVideos'); if(!WRAP) return; // must be .swiper-wrapper
   var CONTAINER = sec.querySelector('.swiper.videos');
+  var WRAP = document.getElementById('featuredVideos'); if(!WRAP || !CONTAINER) return;
+
+  // Make sure it really is a swiper wrapper
+  if (!WRAP.classList.contains('swiper-wrapper')) WRAP.classList.add('swiper-wrapper');
 
   var VIDEO_JSON_URLS = [
-    // your known-good, canonical first
-    'https://cruisinginthewake.com/ships/rcl/assets/videos/' + slug + '.json',
-    // local relative (just in case of CDN mismatch)
-    '/ships/rcl/assets/videos/' + slug + '.json',
-    // master fallback (last resort)
-    'https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json'
+    // canonical first (cache-bust to dodge CDN stickiness)
+    'https://cruisinginthewake.com/ships/rcl/assets/videos/' + slug + '.json?v=2.245',
+    // same host, with www (some CDNs split caches)
+    'https://www.cruisinginthewake.com/ships/rcl/assets/videos/' + slug + '.json?v=2.245',
+    // local relative
+    '/ships/rcl/assets/videos/' + slug + '.json?v=2.245',
+    // master fallback
+    'https://www.cruisinginthewake.com/assets/data/rc_ship_videos.json?v=2.245'
   ];
 
   function fetchChain(urls, i){
     i = i||0;
     if (i>=urls.length) return Promise.resolve(null);
     return fetch(urls[i], {cache:'no-store'})
-      .then(function(r){ return r.ok ? r.json() : fetchChain(urls, i+1); })
+      .then(function(r){ return r.ok ? r.json().catch(function(){return null;}) : fetchChain(urls, i+1); })
       .catch(function(){ return fetchChain(urls, i+1); });
   }
 
-  // Accepts both per-ship file and master file shapes
   function getVideosFrom(data){
     if(!data) return [];
-    // ship-specific file (preferred)
+    // per-ship file (preferred)
     if (Array.isArray(data.videos)) return data.videos;
-    if (data.videos && typeof data.videos==='object'){
-      return Object.values(data.videos).flat();
-    }
-    // master file fallback
+    if (data.videos && typeof data.videos==='object') return Object.values(data.videos).flat();
+    // master fallback
     if (data.ships && data.ships[slug] && data.ships[slug].videos){
       var ship = data.ships[slug].videos;
-      return ['overview','signature_features','staterooms','accessible','dining','other']
-        .flatMap(function(k){ return Array.isArray(ship[k]) ? ship[k] : []; });
+      var order = ['overview','signature_features','staterooms','accessible','dining','other','vlogs'];
+      return order.flatMap(function(k){ return Array.isArray(ship[k]) ? ship[k] : []; });
     }
     return [];
   }
@@ -431,8 +433,7 @@
   }
 
   function whenSwiperReady(cb){
-    if (window.Swiper) cb();
-    else setTimeout(function(){ whenSwiperReady(cb); }, 100);
+    if (window.Swiper) cb(); else setTimeout(function(){ whenSwiperReady(cb); }, 80);
   }
 
   fetchChain(VIDEO_JSON_URLS).then(function(json){
@@ -449,25 +450,32 @@
       var id = ytId(v);
       if(!id || seen[id]) return; seen[id]=1;
       var title = String(v.title||'Ship video').replace(/"/g,'&quot;');
-      slides.push('<div class="swiper-slide"><iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>');
+      slides.push(
+        '<div class="swiper-slide">'+
+          '<iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" '+
+          'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '+
+          'allowfullscreen loading="lazy"></iframe>'+
+        '</div>'
+      );
     });
 
     WRAP.innerHTML = slides.join('') || '<div class="swiper-slide"><div class="note tiny">No videos yet.</div></div>';
 
-    // If we previously fell back, remove that styling now
-    CONTAINER.classList.remove('carousel-fallback');
+    // De-dupe init if hot-reloaded
+    if (CONTAINER._swiper) { try{ CONTAINER._swiper.destroy(true,true); }catch(e){} }
 
-    // 🔁 Wait for Swiper to exist, then init (prevents vertical stacking)
     whenSwiperReady(function(){
       try{
-        new Swiper('.swiper.videos', {
+        CONTAINER._swiper = new Swiper(CONTAINER, {
           loop:false, lazy:true, watchOverflow:true,
-          pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
-          navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+          pagination:{ el: CONTAINER.querySelector('.swiper-pagination'), clickable:true },
+          navigation:{
+            nextEl: CONTAINER.querySelector('.swiper-button-next'),
+            prevEl: CONTAINER.querySelector('.swiper-button-prev')
+          },
           a11y:{ enabled:true }
         });
       }catch(e){
-        // Last resort: show a single column rather than a broken UI
         CONTAINER.classList.add('carousel-fallback');
       }
     });
