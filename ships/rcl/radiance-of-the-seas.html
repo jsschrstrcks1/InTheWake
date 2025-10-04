@@ -133,6 +133,23 @@
         <span class="version-badge">v2.245</span>
       </div>
       <nav class="pills" aria-label="Site">
+        <css>
+          pills{
+  display:flex;
+  flex-wrap:nowrap;          /* was: wrap */
+  gap:.6rem;                 /* tweak as you like */
+  white-space:nowrap;
+  overflow-x:auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;     /* hide scrollbar (Firefox) */
+}
+.pills::-webkit-scrollbar{ display:none; }  /* hide scrollbar (WebKit) */
+.pills a{ flex:0 0 auto; }                  /* prevent shrinking to line-break */
+
+/* On wider screens, center and remove scroll */
+@media (min-width: 980px){
+  .pills{ justify-content:center; overflow:visible; }
+}</css>
         <a href="https://www.cruisinginthewake.com/index.html">Home</a>
         <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
         <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
