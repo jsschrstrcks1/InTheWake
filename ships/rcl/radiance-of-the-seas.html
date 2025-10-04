@@ -1,7 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-<script>
+
+  <script>
+  (function forceWWW(){
+    var h = location.hostname;
+    if (h === 'cruisinginthewake.com') {
+      location.replace('https://www.'+h+location.pathname+location.search+location.hash);
+    }
+  })();
+</script>
+  <script>
   // Standards-friendly absolute URL builder (no relative paths, no CORS)
   (function(){
     var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/, '');
