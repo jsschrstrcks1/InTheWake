@@ -362,49 +362,211 @@
       <div id="logbook-stories" class="prose"></div>
     </section>
 <script>
-(function initRadianceLogbook(){
-  var mount = document.getElementById('logbook-stories'); if(!mount) return;
+/* In the Wake — Logbook Loader (v2)
+   - Same-origin absolute fetches via _abs()
+   - Auto ship detection
+   - Personas carousel with Port/Starboard controls
+   - A11y + keyboard nav
+*/
+(function initShipLogbook(){
+  var mount = document.getElementById('logbook-stories');
+  if (!mount) return;
 
+  // --- Helpers --------------------------------------------------------------
+  function norm(s){ return String(s||'').toLowerCase().replace(/’/g,"'").trim(); }
+  function abs(path){ return (window._abs ? window._abs(path) : path); }
+  function getMetaVersion(){
+    var m = document.querySelector('meta[name="version"]');
+    return (m && m.getAttribute('content')) || '2.x';
+  }
+  function getShipContext(){
+    // First, try the stats node (explicit)
+    var stats = document.getElementById('ship-stats');
+    var slug  = (stats && stats.getAttribute('data-slug')) || '';
+    // Try to infer cruise line + slug from path: /ships/<line>/<slug>.html
+    var m = location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)/i);
+    var line = (m && m[1]) || 'rcl';
+    var inferredSlug = (m && m[2]) || '';
+    if (!slug) slug = inferredSlug || 'radiance-of-the-seas';
+    return { line: line.toLowerCase(), slug: slug.toLowerCase() };
+  }
+  function mdToHtml(src){
+    var html = String(src||'').trim(); if (!html) return '';
+    // Headings (#, ##, ###)
+    html = html.replace(/^###?\s+(.+)$/gm, '<h3>$1</h3>');
+    // Bold/italic
+    html = html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+               .replace(/\*(.+?)\*/g,'<em>$1</em>');
+    // Paragraphs/line breaks
+    html = '<p>' + html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>') + '</p>';
+    return html.replace(/^<p>\s*<\/p>/,'');
+  }
+  function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+
+  // --- Source resolution ----------------------------------------------------
+  var v = encodeURIComponent(getMetaVersion());
+  var ctx = getShipContext();
   var SOURCES = [
-    _abs('/ships/rcl/assets/radiance.json?v=2.245'),
-    _abs('/assets/data/logbook/rcl/radiance-of-the-seas.json?v=2.245'),
-    _abs('/assets/data/ships/rcl/radiance-of-the-seas.json?v=2.245')
+    abs('/ships/'+ctx.line+'/assets/'+ctx.slug+'.json?v='+v),
+    abs('/assets/data/logbook/'+ctx.line+'/'+ctx.slug+'.json?v='+v),
+    abs('/assets/data/ships/'+ctx.line+'/'+ctx.slug+'.json?v='+v)
   ];
 
   function fetchFirst(i){
-    i = i || 0; if (i >= SOURCES.length) return Promise.resolve(null);
+    i = i || 0;
+    if (i >= SOURCES.length) return Promise.resolve(null);
     return fetch(SOURCES[i], { cache:'no-store' })
       .then(function(r){ return r.ok ? r.json() : fetchFirst(i+1); })
       .catch(function(){ return fetchFirst(i+1); });
   }
-  function mdToHtml(src){
-    var html = String(src||'').trim(); if (!html) return '';
-    html = html.replace(/^###?\s+(.+)$/gm, '<h3>$1</h3>')
-               .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-               .replace(/\*(.+?)\*/g,'<em>$1</em>');
-    html = '<p>' + html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>') + '</p>';
-    return html.replace(/^<p>\s*<\/p>/,'');
-  }
-  function renderOne(p){
-    var title = String(p.title || p.persona_label || p.heading || 'Guest Perspective').replace(/</g,'&lt;');
-    var body  = String(p.markdown || p.body || p.content || p.html || p.text || p.story || p.notes || '');
-    if (!body.trim()) return '';
-    return '<article class="story"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';
+
+  // --- Normalization --------------------------------------------------------
+  function normalizePayload(data){
+    if (!data) return [];
+    // If already an array of personas/stories
+    if (Array.isArray(data)) return data;
+
+    // If object with direct arrays
+    if (Array.isArray(data.personas)) return data.personas;
+    if (Array.isArray(data.stories))  return data.stories;
+
+    // If nested under a key matching slug
+    if (data[ctx.slug]){
+      var d = data[ctx.slug];
+      if (Array.isArray(d.personas)) return d.personas;
+      if (Array.isArray(d.stories))  return d.stories;
+    }
+
+    // If nested under "logbook"
+    if (data.logbook){
+      if (Array.isArray(data.logbook.personas)) return data.logbook.personas;
+      if (Array.isArray(data.logbook.stories))  return data.logbook.stories;
+    }
+
+    // If { ships: { [slug]: { personas|stories } } } or similar
+    if (data.ships && data.ships[ctx.slug]){
+      var b = data.ships[ctx.slug];
+      if (Array.isArray(b.personas)) return b.personas;
+      if (Array.isArray(b.stories))  return b.stories;
+    }
+
+    // Last try: flatten any array-like values on known keys
+    var merged=[];
+    Object.keys(data||{}).forEach(function(k){
+      var v = data[k];
+      if (Array.isArray(v)) merged = merged.concat(v);
+    });
+    return merged;
   }
 
-  fetchFirst().then(function(data){
-    var stories=[];
-    if (Array.isArray(data)) stories=data;
-    else if (data){
-      stories = data.stories || data.personas || (data.logbook && data.logbook.stories) || [];
-      if (!stories.length && data['radiance-of-the-seas']){
-        var s = data['radiance-of-the-seas'];
-        stories = s.stories || s.personas || (s.logbook && s.logbook.stories) || [];
-      }
+  // --- Rendering (carousel) -------------------------------------------------
+  var state = { i: 0, items: [] };
+
+  function renderOne(p){
+    var title = String(p.title || p.persona_label || p.heading || 'Guest Perspective').replace(/</g,'&lt;');
+    var body  = String(p.markdown || p.body || p.content || p.html || p.text || p.story || p.notes || '').trim();
+    if (!body) return '';
+    var html  = '<article class="story" aria-live="polite">'
+      + '<h3 tabindex="0">'+title+'</h3>'
+      + '<div class="story-body">'+ mdToHtml(body) +'</div>'
+      + '</article>';
+    return html;
+  }
+
+  function ensureNav(){
+    // Build nav (Port / Starboard + position) just once
+    if (document.getElementById('logbook-nav')) return;
+    var nav = document.createElement('div');
+    nav.id = 'logbook-nav';
+    nav.className = 'button-group';
+    nav.setAttribute('role','group');
+    nav.setAttribute('aria-label','Logbook navigation');
+
+    var btnPrev = document.createElement('button');
+    btnPrev.type = 'button';
+    btnPrev.className = 'pill';
+    btnPrev.id = 'logbook-prev';
+    btnPrev.textContent = '◀ Port';
+    btnPrev.setAttribute('aria-label','Previous story');
+    btnPrev.onclick = function(){ go(state.i - 1, true); };
+
+    var pos = document.createElement('span');
+    pos.id = 'logbook-pos';
+    pos.className = 'tiny';
+    pos.style.minWidth = '8ch';
+    pos.style.textAlign = 'center';
+
+    var btnNext = document.createElement('button');
+    btnNext.type = 'button';
+    btnNext.className = 'pill';
+    btnNext.id = 'logbook-next';
+    btnNext.textContent = 'Starboard ▶';
+    btnNext.setAttribute('aria-label','Next story');
+    btnNext.onclick = function(){ go(state.i + 1, true); };
+
+    nav.appendChild(btnPrev); nav.appendChild(pos); nav.appendChild(btnNext);
+    // Insert nav after the article area
+    mount.parentNode.insertBefore(nav, mount.nextSibling);
+
+    // Keyboard support
+    window.addEventListener('keydown', function(e){
+      if (!state.items.length) return;
+      if (e.key === 'ArrowLeft')  go(state.i - 1, true);
+      if (e.key === 'ArrowRight') go(state.i + 1, true);
+    });
+  }
+
+  function updatePos(){
+    var pos = document.getElementById('logbook-pos');
+    if (!pos) return;
+    var total = state.items.length || 0;
+    pos.textContent = total ? ( (state.i+1) + ' / ' + total ) : '';
+    var prev = document.getElementById('logbook-prev');
+    var next = document.getElementById('logbook-next');
+    if (prev) prev.disabled = (state.i <= 0);
+    if (next) next.disabled = (state.i >= total-1);
+  }
+
+  function go(idx, focusHeading){
+    if (!state.items.length) return;
+    state.i = clamp(idx, 0, state.items.length - 1);
+    mount.innerHTML = renderOne(state.items[state.i]) || '<article class="story"><p class="small">Story unavailable.</p></article>';
+    updatePos();
+    if (focusHeading){
+      var h = mount.querySelector('h3'); if (h) h.focus();
     }
-    mount.innerHTML = (stories && stories.length)
-      ? stories.map(renderOne).filter(Boolean).join('')
-      : '<article class="story"><p class="small">Stories coming soon.</p></article>';
+    // Persist position in hash (idempotent, no scroll jump)
+    var base = location.href.split('#')[0];
+    history.replaceState(null, '', base + '#logbook-' + (state.i+1));
+  }
+
+  function restoreFromHash(){
+    var m = (location.hash || '').match(/logbook-(\d+)/i);
+    if (!m) return 0;
+    var n = parseInt(m[1],10);
+    return isFinite(n) ? (n-1) : 0;
+  }
+
+  // --- Boot ---------------------------------------------------------------
+  fetchFirst().then(function(data){
+    var items = normalizePayload(data).filter(Boolean);
+    // Coerce to {title, markdown} shape
+    items = items.map(function(p){
+      return {
+        title:   p.title || p.persona_label || p.heading || p.name || 'Guest Perspective',
+        markdown: p.markdown || p.body || p.content || p.html || p.text || p.story || p.notes || ''
+      };
+    }).filter(function(p){ return String(p.markdown||'').trim().length; });
+
+    if (!items.length){
+      mount.innerHTML = '<article class="story"><p class="small">Stories coming soon.</p></article>';
+      return;
+    }
+
+    state.items = items;
+    ensureNav();
+    var start = clamp(restoreFromHash(), 0, items.length-1);
+    go(start, false);
   }).catch(function(){
     mount.innerHTML = '<article class="story"><p class="small">We hit a snag loading entries. Try a hard refresh.</p></article>';
   });
