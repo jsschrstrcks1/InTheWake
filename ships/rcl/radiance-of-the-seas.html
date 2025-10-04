@@ -12,6 +12,23 @@
     };
   })();
 </script>
+  <script>
+(function normalizeToCurrentOrigin(){
+  var ORIGIN = (location.origin || (location.protocol + '//' + location.host));
+  var SEL = [
+    'a[href^="https://www.cruisinginthewake.com/"]',
+    'img[src^="https://www.cruisinginthewake.com/"]',
+    'link[href^="https://www.cruisinginthewake.com/"]',
+    'script[src^="https://www.cruisinginthewake.com/"]'
+  ].join(',');
+  document.querySelectorAll(SEL).forEach(function(el){
+    var attr = el.hasAttribute('href') ? 'href' : 'src';
+    var u = new URL(el.getAttribute(attr), ORIGIN);
+    u.host = location.host; u.protocol = location.protocol; // pin to current origin
+    el.setAttribute(attr, u.toString());
+  });
+})();
+</script>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Radiance of the Seas — In the Wake (v2.245)</title>
@@ -318,6 +335,23 @@
             "aliases":["Radiance of the Seas","Radiance Of The Seas","Radiance"]
           }
         </script>
+        <script>
+(function fixDiningJSON(){
+  function run(){
+    var el = document.getElementById('dining-data-source'); if(!el) return;
+    try{
+      var obj = JSON.parse(el.textContent||'{}');
+      if (obj && obj.json) {
+        obj.json = _abs('/assets/data/rc-restaurants.json');
+        el.textContent = JSON.stringify(obj);
+      }
+    }catch(e){}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run, {once:true});
+  } else { run(); }
+})();
+</script>
         <p class="tiny">Prices are subject to change at any time without notice. These represent what they were the last time I sailed.</p>
       </section>
     </section>
@@ -566,7 +600,7 @@ function ytId(v){
   <script>
   (async function loadShipStats(){
     var el = document.getElementById('ship-stats'); if(!el) return;
-    var SOURCE = 'https://cruisinginthewake.com/assets/data/fleet_index.json';
+    var SOURCE = _abs('/assets/data/fleet_index.json');
     async function tryFetch(u){ try{ var r=await fetch(u,{cache:'no-store'}); if(r.ok) return await r.json(); }catch(e){} return null; }
     var data = await tryFetch(SOURCE);
     if(!data){
