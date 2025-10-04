@@ -395,13 +395,22 @@
       .catch(function(){ return fetchFirst(i+1); });
   }
 
-  function ytId(v){
-    var u = (v.youtube_id && ('https://youtu.be/' + v.youtube_id)) || v.embed_url || v.url || '';
-    var m = u.match(/\/embed\/([A-Za-z0-9_-]{6,})/) ||
-            u.match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
-            u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/);
-    return m ? m[1] : '';
+// drop-in replacement inside initRadianceVideos
+function ytId(v){
+  // prefer explicit IDs on the object
+  if (v && typeof v === 'object') {
+    if (v.video_id)   return String(v.video_id);
+    if (v.youtube_id) return String(v.youtube_id);
+    if (v.id && /^[A-Za-z0-9_-]{6,}$/.test(v.id)) return String(v.id);
   }
+  // otherwise parse from any url-ish field
+  var u = String((v && (v.video_url || v.url || v.embed_url)) || '');
+  var m =
+    u.match(/(?:\?|&)v=([A-Za-z0-9_-]{6,})/) ||
+    u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/) ||
+    u.match(/\/embed\/([A-Za-z0-9_-]{6,})/);
+  return m ? m[1] : '';
+}
   function normalize(data){
     if(!data) return [];
     if (Array.isArray(data)) return data;
