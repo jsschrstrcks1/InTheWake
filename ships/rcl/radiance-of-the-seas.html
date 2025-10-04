@@ -390,82 +390,96 @@
   <!-- Dining card (truth-driven) -->
   <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.245" defer></script>
 
-  <!-- Videos: absolute-only, no relative fallbacks -->
-  <script>
-  (function initVideos(){
-    var sec  = document.querySelector('[aria-labelledby="video-highlights"]');
-    if(!sec) return;
-    var WRAP = document.getElementById('featuredVideos'); if(!WRAP) return;
-    var CONTAINER = sec.querySelector('.swiper.videos');
+ <script>
+(function initVideos(){
+  var sec = document.querySelector('[aria-labelledby="video-highlights"]');
+  if(!sec) return;
 
-    var VIDEO_JSON_URLS = [
-      'https://www.cruisinginthewake.com/ships/rcl/assets/videos/radiance.json',
-      'https://www.cruisinginthewake.com/videos/radiance.json'
-    ];
+  var slug = 'radiance-of-the-seas';
+  var wrap = document.getElementById('featuredVideos');
+  var container = sec.querySelector('.swiper.videos');
+  var fallback = document.getElementById('videoFallback');
 
-    function fetchChain(urls, i){
-      i=i||0;
-      if(i>=urls.length) return Promise.resolve(null);
-      return fetch(urls[i], {cache:'no-store'})
-        .then(function(r){ return r.ok ? r.json() : fetchChain(urls, i+1); })
-        .catch(function(){ return fetchChain(urls, i+1); });
+  // Standards: ONLY these two, in this order.
+  var SOURCES = [
+    'https://www.cruisinginthewake.com/ships/rcl/assets/videos/radiance.json?v=2.245',
+    'https://www.cruisinginthewake.com/videos/radiance.json?v=2.245'
+  ];
+
+  function fetchFirst(i){
+    i=i||0;
+    if(i>=SOURCES.length) return Promise.resolve(null);
+    return fetch(SOURCES[i], { cache:'no-store', redirect:'follow', mode:'cors' })
+      .then(function(r){ return r.ok ? r.json() : fetchFirst(i+1); })
+      .catch(function(){ return fetchFirst(i+1); });
+  }
+
+  function ytId(v){
+    var u = (v.youtube_id && ('https://youtu.be/' + v.youtube_id)) || v.embed_url || v.url || '';
+    var m = u.match(/\/embed\/([A-Za-z0-9_-]{6,})/) ||
+            u.match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
+            u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/);
+    return m ? m[1] : '';
+  }
+
+  function normalize(data){
+    if(!data) return [];
+    // Accept array of videos, or {videos:{overview:[], ...}}, or ships[slug].videos shape.
+    if (Array.isArray(data)) return data;
+    if (data.videos && Array.isArray(data.videos)) return data.videos;
+    if (data.videos && typeof data.videos==='object') return Object.values(data.videos).flat();
+    if (data.ships && data.ships[slug] && data.ships[slug].videos){
+      var buckets = data.ships[slug].videos;
+      return ['overview','signature_features','staterooms','accessible','dining','other']
+        .reduce(function(acc,k){ return acc.concat(Array.isArray(buckets[k])?buckets[k]:[]); },[]);
     }
+    return [];
+  }
 
-    function getVideosFrom(data){
-      if(!data) return [];
-      if (Array.isArray(data.videos)) return data.videos;
-      if (data.videos && typeof data.videos==='object'){
-        return Object.values(data.videos).flat();
-      }
-      return [];
-    }
+  function ensureSwiper(cb){
+    (function poll(){
+      if (window.__swiperReady && window.Swiper) return cb();
+      setTimeout(poll, 100);
+    })();
+  }
 
-    function ytId(v){
-      var u = v.youtube_id || v.embed_url || v.url || '';
-      var m = u.match(/\/embed\/([A-Za-z0-9_-]{6,})/) ||
-              u.match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
-              u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/);
-      return m ? m[1] : '';
-    }
+  fetchFirst().then(function(json){
+    var items = normalize(json).filter(Boolean);
+    var dedup = Object.create(null);
+    var slides = [];
 
-    function whenSwiperReady(cb){
-      if (window.__swiperReady && window.Swiper) cb(); else setTimeout(function(){ whenSwiperReady(cb); }, 120);
-    }
-
-    fetchChain(VIDEO_JSON_URLS).then(function(json){
-      var items = getVideosFrom(json).filter(Boolean);
-      if (!items.length){
-        document.getElementById('videoFallback')?.classList.remove('hidden');
-        CONTAINER.classList.add('carousel-fallback');
-        return;
-      }
-
-      var seen = Object.create(null);
-      var slides = [];
-      items.forEach(function(v){
-        var id = ytId(v); if(!id || seen[id]) return; seen[id]=1;
-        var title = String(v.title||'Ship video').replace(/"/g,'&quot;');
-        slides.push('<div class="swiper-slide"><iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>');
-      });
-
-      WRAP.innerHTML = slides.join('') || '<div class="swiper-slide"><div class="note tiny">No videos yet.</div></div>';
-      CONTAINER.classList.remove('carousel-fallback');
-
-      whenSwiperReady(function(){
-        try{
-          new Swiper('.swiper.videos', {
-            loop:false, lazy:true, watchOverflow:true,
-            pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
-            navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
-            a11y:{ enabled:true }
-          });
-        }catch(e){
-          CONTAINER.classList.add('carousel-fallback');
-        }
-      });
+    items.forEach(function(v){
+      var id = ytId(v);
+      if(!id || dedup[id]) return;
+      dedup[id]=1;
+      var title = String(v.title||'Ship video').replace(/"/g,'&quot;');
+      slides.push('<div class="swiper-slide"><iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>');
     });
-  })();
-  </script>
+
+    if (!slides.length){
+      fallback && fallback.classList.remove('hidden');
+      container.classList.add('carousel-fallback');
+      return;
+    }
+
+    wrap.innerHTML = slides.join('');
+    container.classList.remove('carousel-fallback');
+
+    ensureSwiper(function(){
+      try{
+        new Swiper('.swiper.videos', {
+          loop:false, lazy:true, watchOverflow:true,
+          pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
+          navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+          a11y:{ enabled:true }
+        });
+      }catch(e){
+        container.classList.add('carousel-fallback');
+      }
+    });
+  });
+})();
+</script>
 
   <!-- Ship stats loader (absolute, canonical) -->
   <script>
