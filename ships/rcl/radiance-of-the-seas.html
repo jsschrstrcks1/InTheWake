@@ -288,7 +288,71 @@
       <h2 id="logbook">The Logbook — Tales From the Wake</h2>
       <div id="logbook-stories" class="prose"></div>
     </section>
+<script>
+(function initRadianceLogbook(){
+  var mount = document.getElementById('logbook-stories');
+  if(!mount) return;
 
+  // Absolute, canonical sources (no relative paths)
+  var SOURCES = [
+    // ship-specific content file you control
+    'https://www.cruisinginthewake.com/ships/rcl/assets/radiance.json',
+    // site-wide logbook fallback
+    'https://www.cruisinginthewake.com/assets/data/logbook/rcl/radiance-of-the-seas.json'
+  ];
+
+  function fetchFirst(i){
+    i = i || 0;
+    if (i >= SOURCES.length) return Promise.resolve(null);
+    return fetch(SOURCES[i], { cache:'no-store', mode:'cors' })
+      .then(function(r){ return r.ok ? r.json() : fetchFirst(i+1); })
+      .catch(function(){ return fetchFirst(i+1); });
+  }
+
+  function mdToHtml(src){
+    var html = String(src||'').trim();
+    if (!html) return '';
+    html = html.replace(/^###?\s+(.+)$/gm, '<h3>$1</h3>')
+               .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+               .replace(/\*(.+?)\*/g,'<em>$1</em>');
+    html = '<p>' + html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>') + '</p>';
+    html = html.replace(/^<p>\s*<\/p>/,'');
+    return html;
+  }
+
+  function renderOne(p){
+    var title = String(p.title || p.persona_label || p.heading || 'Guest Perspective');
+    var body  = String(p.markdown || p.body || p.content || p.html || p.text || p.story || p.notes || '');
+    if (!body.trim()) return '';
+    return '<article class="story"><h3 tabindex="0">'+title.replace(/</g,'&lt;')+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';
+  }
+
+  fetchFirst().then(function(data){
+    var stories = [];
+    if (!data){ mount.innerHTML = '<article class="story"><p class="small">Stories coming soon.</p></article>'; return; }
+
+    if (Array.isArray(data)) stories = data;
+    else {
+      stories = data.stories || data.personas || (data.logbook && data.logbook.stories) || [];
+      // Also allow { radiance-of-the-seas: { stories: [...] } }
+      if (!stories.length && data['radiance-of-the-seas']){
+        var s = data['radiance-of-the-seas'];
+        stories = s.stories || s.personas || (s.logbook && s.logbook.stories) || [];
+      }
+    }
+
+    if (!stories || !stories.length){
+      mount.innerHTML = '<article class="story"><p class="small">Stories coming soon.</p></article>';
+      return;
+    }
+
+    mount.innerHTML = stories.map(renderOne).filter(Boolean).join('') ||
+                      '<article class="story"><p class="small">Entries found, but none were renderable.</p></article>';
+  }).catch(function(){
+    mount.innerHTML = '<article class="story"><p class="small">We hit a snag loading entries. Try a hard refresh.</p></article>';
+  });
+})();
+</script>
     <!-- Videos -->
     <section class="card" aria-labelledby="video-highlights">
       <h2 id="video-highlights">Watch: Radiance Highlights</h2>
