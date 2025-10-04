@@ -32,18 +32,6 @@
 
   <!-- Site CSS -->
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.245"/>
-<script>
-  (function ensureSwiper(){
-    function addCSS(h){ var l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-    function addJS(s, ok, fail){ var el=document.createElement('script'); el.src=s; el.onload=ok; el.onerror=fail||function(){}; document.head.appendChild(el); }
-    var primaryCSS="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-    var primaryJS ="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-    var cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    var cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    addCSS(primaryCSS);
-    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
-  })();
-</script>
   <!-- Swiper loader (absolute primary + CDN fallback) -->
   <script>
     (function ensureSwiper(){
