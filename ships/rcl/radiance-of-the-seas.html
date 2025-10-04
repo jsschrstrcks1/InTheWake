@@ -260,6 +260,18 @@
             "registry": "Bahamas"
           }
           </script>
+          <script>
+  (function fixDiningJSON(){
+    var el = document.getElementById('dining-data-source'); if(!el) return;
+    try{
+      var obj = JSON.parse(el.textContent||'{}');
+      if (obj && obj.json) {
+        obj.json = _abs('/assets/data/rc-restaurants.json');
+        el.textContent = JSON.stringify(obj);
+      }
+    }catch(e){}
+  })();
+</script>
         </section>
       </section>
 
@@ -521,102 +533,11 @@
   <!-- Dining card (truth-driven) -->
   <script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.245" defer></script>
 
- <script>
-(function initVideos(){
-  var sec = document.querySelector('[aria-labelledby="video-highlights"]');
-  if(!sec) return;
-
-  var slug = 'radiance-of-the-seas';
-  var wrap = document.getElementById('featuredVideos');
-  var container = sec.querySelector('.swiper.videos');
-  var fallback = document.getElementById('videoFallback');
-
-  // Standards: ONLY these two, in this order.
-  var SOURCES = [
-    'https://www.cruisinginthewake.com/ships/rcl/assets/videos/radiance.json?v=2.245',
-    'https://www.cruisinginthewake.com/videos/radiance.json?v=2.245'
-  ];
-
-  function fetchFirst(i){
-    i=i||0;
-    if(i>=SOURCES.length) return Promise.resolve(null);
-    return fetch(SOURCES[i], { cache:'no-store', redirect:'follow', mode:'cors' })
-      .then(function(r){ return r.ok ? r.json() : fetchFirst(i+1); })
-      .catch(function(){ return fetchFirst(i+1); });
-  }
-
-  function ytId(v){
-    var u = (v.youtube_id && ('https://youtu.be/' + v.youtube_id)) || v.embed_url || v.url || '';
-    var m = u.match(/\/embed\/([A-Za-z0-9_-]{6,})/) ||
-            u.match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
-            u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/);
-    return m ? m[1] : '';
-  }
-
-  function normalize(data){
-    if(!data) return [];
-    // Accept array of videos, or {videos:{overview:[], ...}}, or ships[slug].videos shape.
-    if (Array.isArray(data)) return data;
-    if (data.videos && Array.isArray(data.videos)) return data.videos;
-    if (data.videos && typeof data.videos==='object') return Object.values(data.videos).flat();
-    if (data.ships && data.ships[slug] && data.ships[slug].videos){
-      var buckets = data.ships[slug].videos;
-      return ['overview','signature_features','staterooms','accessible','dining','other']
-        .reduce(function(acc,k){ return acc.concat(Array.isArray(buckets[k])?buckets[k]:[]); },[]);
-    }
-    return [];
-  }
-
-  function ensureSwiper(cb){
-    (function poll(){
-      if (window.__swiperReady && window.Swiper) return cb();
-      setTimeout(poll, 100);
-    })();
-  }
-
-  fetchFirst().then(function(json){
-    var items = normalize(json).filter(Boolean);
-    var dedup = Object.create(null);
-    var slides = [];
-
-    items.forEach(function(v){
-      var id = ytId(v);
-      if(!id || dedup[id]) return;
-      dedup[id]=1;
-      var title = String(v.title||'Ship video').replace(/"/g,'&quot;');
-      slides.push('<div class="swiper-slide"><iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>');
-    });
-
-    if (!slides.length){
-      fallback && fallback.classList.remove('hidden');
-      container.classList.add('carousel-fallback');
-      return;
-    }
-
-    wrap.innerHTML = slides.join('');
-    container.classList.remove('carousel-fallback');
-
-    ensureSwiper(function(){
-      try{
-        new Swiper('.swiper.videos', {
-          loop:false, lazy:true, watchOverflow:true,
-          pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
-          navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
-          a11y:{ enabled:true }
-        });
-      }catch(e){
-        container.classList.add('carousel-fallback');
-      }
-    });
-  });
-})();
-</script>
-
   <!-- Ship stats loader (absolute, canonical) -->
   <script>
   (async function loadShipStats(){
     var el = document.getElementById('ship-stats'); if(!el) return;
-    var SOURCE = 'https://www.cruisinginthewake.com/assets/data/fleet_index.json';
+    var SOURCE = 'https://cruisinginthewake.com/assets/data/fleet_index.json';
     async function tryFetch(u){ try{ var r=await fetch(u,{cache:'no-store'}); if(r.ok) return await r.json(); }catch(e){} return null; }
     var data = await tryFetch(SOURCE);
     if(!data){
@@ -703,118 +624,7 @@
   })();
   </script>
 
-  <!-- Logbook loader (absolute, hardened) -->
-  <script>
-  (function initLogbook(){
-    var mount = document.getElementById('logbook-stories'); if(!mount) return;
-    var pageSlug = 'radiance-of-the-seas';
 
-    function fetchFirst(urls, i){
-      i = i || 0;
-      if (i >= urls.length) return Promise.resolve(null);
-      return fetch(urls[i], { cache:'no-store' })
-        .then(function(r){ return r.ok ? r.json() : fetchFirst(urls, i+1); })
-        .catch(function(){ return fetchFirst(urls, i+1); });
-    }
-
-    function clean(s){
-      s = String(s||'');
-      s = s.replace(/<\/script/gi,'<\\/script');
-      s = s.replace(/\son\w+="[^"]*"/gi,'');
-      return s;
-    }
-
-    function mdToHtml(src){
-      var html = String(src||'').trim();
-      if (!html) return '';
-      html = html.replace(/^###?\s+(.+)$/gm, '<h3>$1</h3>')
-                 .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-                 .replace(/\*(.+?)\*/g,'<em>$1</em>');
-      html = '<p>' + html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>') + '</p>';
-      html = html.replace(/^<p>\s*<\/p>/,'');
-      return html;
-    }
-
-    function fuelCard(){
-      return [
-        '<div class="voyage-tips-wrapper">',
-          '<div class="card voyage-tips center" aria-label="Voyage planning tips">',
-            '<h2 class="card-title">Fuel Your Voyage</h2>',
-            '<div class="card-content">',
-              '<h3><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Drink Packages</a></h3>',
-              '<ul>',
-                '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Deluxe Beverage Package</a></li>',
-                '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#refreshment" target="_blank" rel="noopener noreferrer">Refreshment Package</a></li>',
-                '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#soda" target="_blank" rel="noopener noreferrer">Soda Package</a></li>',
-              '</ul>',
-              '<h3><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Premium & Specialty Dining</a></h3>',
-              '<ul>',
-                '<li><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Unlimited Dining Package</a></li>',
-                '<li><a href="https://www.cruisinginthewake.com/restaurants.html" target="_blank" rel="noopener noreferrer">All Restaurants & Menus</a></li>',
-              '</ul>',
-              '<h3><a href="https://www.cruisinginthewake.com/packing-lists.html" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>',
-              '<ul>',
-                '<li>Shawl for chilly theater nights</li>',
-                '<li>Swimwear for pool deck</li>',
-                '<li>Comfortable shoes for shore tours</li>',
-              '</ul>',
-              '<div class="button-group" aria-label="Voyage planning links">',
-                '<a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>',
-                '<a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>',
-              '</div>',
-            '</div>',
-          '</div>',
-        '</div>'
-      ].join('');
-    }
-
-    function renderOne(p){
-      var title = clean(p.title || p.persona_label || p.heading || 'Guest Perspective');
-      var raw   = String(p.markdown || p.body || p.content || p.html || p.text || p.story || p.notes || '');
-      if (!raw.trim()) return '';
-      var parts = raw.split(/\n##\s*Dining[^\n]*\n/i);
-      var html;
-      if (parts.length > 1){
-        html = mdToHtml(parts[0]) + '<h3>Dining</h3>' + mdToHtml(parts[1]) + fuelCard();
-      } else {
-        var target = Math.floor(raw.length * 0.45);
-        var before = raw.lastIndexOf('\n\n', target);
-        var after  = raw.indexOf('\n\n', target);
-        var cut = (before !== -1 && (after === -1 || target - before <= after - target)) ? before : (after !== -1 ? after : target);
-        var head = raw.slice(0, cut).trimEnd();
-        var tail = raw.slice(cut).trimStart();
-        html = mdToHtml(head) + fuelCard() + mdToHtml(tail);
-      }
-      return '<article class="story"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+html+'</div></article>';
-    }
-
-    var SOURCES = [
-      'https://www.cruisinginthewake.com/ships/rcl/assets/radiance.json',
-      'https://www.cruisinginthewake.com/assets/data/logbook/rcl/radiance-of-the-seas.json',
-      'https://www.cruisinginthewake.com/assets/data/ships/rcl/radiance-of-the-seas.json'
-    ];
-
-    fetchFirst(SOURCES).then(function(data){
-      var stories=[];
-      if (Array.isArray(data)) stories=data;
-      else if (data){
-        stories = data.personas || data.stories || (data.logbook && data.logbook.stories) || [];
-        if (!stories.length && data['radiance-of-the-seas']){
-          var s = data['radiance-of-the-seas'];
-          stories = s.stories || s.personas || (s.logbook && s.logbook.stories) || [];
-        }
-      }
-
-      if (!stories || !stories.length){
-        mount.innerHTML = '<article class="story"><h3>The Logbook — Tales From the Wake</h3><p class="small">Our crew is compiling first-hand notes and tips for this ship. Check back shortly for fresh entries.</p></article>';
-        return;
-      }
-      mount.innerHTML = stories.map(renderOne).filter(Boolean).join('') || '<article class="story"><p class="small">Entries found, but none were renderable.</p></article>';
-    }).catch(function(){
-      mount.innerHTML = '<article class="story"><h3>The Logbook — Tales From the Wake</h3><p class="small">We hit a snag loading entries. Try a hard refresh; if it persists, we’ll add a JSON shape shim here.</p></article>';
-    });
-  })();
-  </script>
 
   <!-- Reorder class pills by booking/buzz rank -->
   <script>
