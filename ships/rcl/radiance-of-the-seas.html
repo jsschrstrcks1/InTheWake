@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script>
+  (function enforceWWW(){
+    try{
+      if (location.protocol==="https:" && location.hostname==="cruisinginthewake.com"){
+        location.replace(location.href.replace("https://cruisinginthewake.com","https://www.cruisinginthewake.com"));
+      }
+    }catch(e){}
+  })();
+</script>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Radiance of the Seas — In the Wake (v2.245)</title>
