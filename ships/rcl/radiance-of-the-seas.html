@@ -1,13 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <script>
-  (function enforceWWW(){
-    try{
-      if (location.protocol==="https:" && location.hostname==="cruisinginthewake.com"){
-        location.replace(location.href.replace("https://cruisinginthewake.com","https://www.cruisinginthewake.com"));
-      }
-    }catch(e){}
+<script>
+  // Standards-friendly absolute URL builder (no relative paths, no CORS)
+  (function(){
+    var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/, '');
+    window._abs = function(path){ 
+      path = String(path||'');
+      if (!path.startsWith('/')) path = '/' + path;
+      return ORIGIN + path;
+    };
   })();
 </script>
   <meta charset="utf-8"/>
