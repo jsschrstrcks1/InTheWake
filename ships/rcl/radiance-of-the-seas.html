@@ -312,64 +312,48 @@
     </section>
 <script>
 (function initRadianceLogbook(){
-  var mount = document.getElementById('logbook-stories');
-  if(!mount) return;
+  var mount = document.getElementById('logbook-stories'); if(!mount) return;
 
-  // Absolute, canonical sources (no relative paths)
   var SOURCES = [
-    // ship-specific content file you control
-    'https://www.cruisinginthewake.com/ships/rcl/assets/radiance.json',
-    // site-wide logbook fallback
-    'https://www.cruisinginthewake.com/assets/data/logbook/rcl/radiance-of-the-seas.json'
+    _abs('/ships/rcl/assets/radiance.json?v=2.245'),
+    _abs('/assets/data/logbook/rcl/radiance-of-the-seas.json?v=2.245'),
+    _abs('/assets/data/ships/rcl/radiance-of-the-seas.json?v=2.245')
   ];
 
   function fetchFirst(i){
-    i = i || 0;
-    if (i >= SOURCES.length) return Promise.resolve(null);
-    return fetch(SOURCES[i], { cache:'no-store', mode:'cors' })
+    i = i || 0; if (i >= SOURCES.length) return Promise.resolve(null);
+    return fetch(SOURCES[i], { cache:'no-store' })
       .then(function(r){ return r.ok ? r.json() : fetchFirst(i+1); })
       .catch(function(){ return fetchFirst(i+1); });
   }
-
   function mdToHtml(src){
-    var html = String(src||'').trim();
-    if (!html) return '';
+    var html = String(src||'').trim(); if (!html) return '';
     html = html.replace(/^###?\s+(.+)$/gm, '<h3>$1</h3>')
                .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
                .replace(/\*(.+?)\*/g,'<em>$1</em>');
     html = '<p>' + html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>') + '</p>';
-    html = html.replace(/^<p>\s*<\/p>/,'');
-    return html;
+    return html.replace(/^<p>\s*<\/p>/,'');
   }
-
   function renderOne(p){
-    var title = String(p.title || p.persona_label || p.heading || 'Guest Perspective');
+    var title = String(p.title || p.persona_label || p.heading || 'Guest Perspective').replace(/</g,'&lt;');
     var body  = String(p.markdown || p.body || p.content || p.html || p.text || p.story || p.notes || '');
     if (!body.trim()) return '';
-    return '<article class="story"><h3 tabindex="0">'+title.replace(/</g,'&lt;')+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';
+    return '<article class="story"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';
   }
 
   fetchFirst().then(function(data){
-    var stories = [];
-    if (!data){ mount.innerHTML = '<article class="story"><p class="small">Stories coming soon.</p></article>'; return; }
-
-    if (Array.isArray(data)) stories = data;
-    else {
+    var stories=[];
+    if (Array.isArray(data)) stories=data;
+    else if (data){
       stories = data.stories || data.personas || (data.logbook && data.logbook.stories) || [];
-      // Also allow { radiance-of-the-seas: { stories: [...] } }
       if (!stories.length && data['radiance-of-the-seas']){
         var s = data['radiance-of-the-seas'];
         stories = s.stories || s.personas || (s.logbook && s.logbook.stories) || [];
       }
     }
-
-    if (!stories || !stories.length){
-      mount.innerHTML = '<article class="story"><p class="small">Stories coming soon.</p></article>';
-      return;
-    }
-
-    mount.innerHTML = stories.map(renderOne).filter(Boolean).join('') ||
-                      '<article class="story"><p class="small">Entries found, but none were renderable.</p></article>';
+    mount.innerHTML = (stories && stories.length)
+      ? stories.map(renderOne).filter(Boolean).join('')
+      : '<article class="story"><p class="small">Stories coming soon.</p></article>';
   }).catch(function(){
     mount.innerHTML = '<article class="story"><p class="small">We hit a snag loading entries. Try a hard refresh.</p></article>';
   });
@@ -387,70 +371,64 @@
       </div>
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
-    <script>
+  <script>
 (function initRadianceVideos(){
   var sec  = document.querySelector('[aria-labelledby="video-highlights"]');
   if(!sec) return;
 
-  var slug    = 'radiance-of-the-seas';
-  var WRAP    = document.getElementById('featuredVideos'); if(!WRAP) return;
+  var slug = 'radiance-of-the-seas';
+  var WRAP = document.getElementById('featuredVideos'); if(!WRAP) return;
   var CONTAINER = sec.querySelector('.swiper.videos');
+  var fallback = document.getElementById('videoFallback');
 
-  var VIDEO_JSON_URLS = [
-    'https://www.cruisinginthewake.com/ships/rcl/assets/videos/radiance.json?v=2.245',
-    'https://www.cruisinginthewake.com/videos/radiance.json?v=2.245'
+  // SAME-ORIGIN absolute URLs (no CORS/301)
+  var SOURCES = [
+    _abs('/ships/rcl/assets/videos/radiance.json?v=2.245'),
+    _abs('/videos/radiance.json?v=2.245')
   ];
 
-  function fetchChain(urls, i){
-    i = i||0;
-    if (i>=urls.length) return Promise.resolve(null);
-    return fetch(urls[i], {cache:'no-store', mode:'cors'})
-      .then(function(r){ return r.ok ? r.json() : fetchChain(urls, i+1); })
-      .catch(function(){ return fetchChain(urls, i+1); });
-  }
-
-  function flattenVideos(data){
-    if(!data) return [];
-    // allow either flat array or keyed buckets
-    if (Array.isArray(data)) return data;
-    if (Array.isArray(data.videos)) return data.videos;
-    if (data.videos && typeof data.videos==='object'){
-      return Object.values(data.videos).flatMap(function(v){ return Array.isArray(v)?v:[]; });
-    }
-    return [];
+  function fetchFirst(i){
+    i=i||0;
+    if(i>=SOURCES.length) return Promise.resolve(null);
+    return fetch(SOURCES[i], { cache:'no-store' })
+      .then(function(r){ return r.ok ? r.json() : fetchFirst(i+1); })
+      .catch(function(){ return fetchFirst(i+1); });
   }
 
   function ytId(v){
-    var u = v.youtube_id || v.id || v.embed_url || v.url || '';
-    var m = String(u).match(/\/embed\/([A-Za-z0-9_-]{6,})/) ||
-            String(u).match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
-            String(u).match(/youtu\.be\/([A-Za-z0-9_-]{6,})/);
+    var u = (v.youtube_id && ('https://youtu.be/' + v.youtube_id)) || v.embed_url || v.url || '';
+    var m = u.match(/\/embed\/([A-Za-z0-9_-]{6,})/) ||
+            u.match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
+            u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/);
     return m ? m[1] : '';
   }
-
+  function normalize(data){
+    if(!data) return [];
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data.videos)) return data.videos;
+    if (data.videos && typeof data.videos==='object') return Object.values(data.videos).flat();
+    if (data.ships && data.ships[slug] && data.ships[slug].videos){
+      var b = data.ships[slug].videos;
+      return ['overview','signature_features','staterooms','accessible','dining','other']
+        .reduce(function(acc,k){ return acc.concat(Array.isArray(b[k])?b[k]:[]); },[]);
+    }
+    return [];
+  }
   function whenSwiperReady(cb){
-    if (window.__swiperReady && window.Swiper) cb();
-    else setTimeout(function(){ whenSwiperReady(cb); }, 80);
+    (function poll(){ if (window.__swiperReady && window.Swiper) cb(); else setTimeout(poll, 80); })();
   }
 
-  fetchChain(VIDEO_JSON_URLS).then(function(json){
-    var items = flattenVideos(json).filter(Boolean);
-    if (!items.length){
-      document.getElementById('videoFallback')?.classList.remove('hidden');
-      CONTAINER.classList.add('carousel-fallback');
-      return;
-    }
-
-    var seen = Object.create(null);
-    var slides = [];
+  fetchFirst().then(function(json){
+    var items = normalize(json).filter(Boolean);
+    var seen = Object.create(null), slides=[];
     items.forEach(function(v){
-      var id = ytId(v);
-      if(!id || seen[id]) return; seen[id]=1;
+      var id = ytId(v); if(!id || seen[id]) return; seen[id]=1;
       var title = String(v.title||'Ship video').replace(/"/g,'&quot;');
       slides.push('<div class="swiper-slide"><iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>');
     });
 
-    WRAP.innerHTML = slides.join('') || '<div class="swiper-slide"><div class="note tiny">No videos yet.</div></div>';
+    if (!slides.length){ fallback && fallback.classList.remove('hidden'); CONTAINER.classList.add('carousel-fallback'); return; }
+    WRAP.innerHTML = slides.join('');
     CONTAINER.classList.remove('carousel-fallback');
 
     whenSwiperReady(function(){
@@ -461,9 +439,7 @@
           navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
           a11y:{ enabled:true }
         });
-      }catch(e){
-        CONTAINER.classList.add('carousel-fallback');
-      }
+      }catch(e){ CONTAINER.classList.add('carousel-fallback'); }
     });
   });
 })();
