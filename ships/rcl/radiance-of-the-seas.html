@@ -385,6 +385,87 @@
       </div>
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
+    <script>
+(function initRadianceVideos(){
+  var sec  = document.querySelector('[aria-labelledby="video-highlights"]');
+  if(!sec) return;
+
+  var slug    = 'radiance-of-the-seas';
+  var WRAP    = document.getElementById('featuredVideos'); if(!WRAP) return;
+  var CONTAINER = sec.querySelector('.swiper.videos');
+
+  var VIDEO_JSON_URLS = [
+    'https://www.cruisinginthewake.com/ships/rcl/assets/videos/radiance.json?v=2.245',
+    'https://www.cruisinginthewake.com/videos/radiance.json?v=2.245'
+  ];
+
+  function fetchChain(urls, i){
+    i = i||0;
+    if (i>=urls.length) return Promise.resolve(null);
+    return fetch(urls[i], {cache:'no-store', mode:'cors'})
+      .then(function(r){ return r.ok ? r.json() : fetchChain(urls, i+1); })
+      .catch(function(){ return fetchChain(urls, i+1); });
+  }
+
+  function flattenVideos(data){
+    if(!data) return [];
+    // allow either flat array or keyed buckets
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data.videos)) return data.videos;
+    if (data.videos && typeof data.videos==='object'){
+      return Object.values(data.videos).flatMap(function(v){ return Array.isArray(v)?v:[]; });
+    }
+    return [];
+  }
+
+  function ytId(v){
+    var u = v.youtube_id || v.id || v.embed_url || v.url || '';
+    var m = String(u).match(/\/embed\/([A-Za-z0-9_-]{6,})/) ||
+            String(u).match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
+            String(u).match(/youtu\.be\/([A-Za-z0-9_-]{6,})/);
+    return m ? m[1] : '';
+  }
+
+  function whenSwiperReady(cb){
+    if (window.__swiperReady && window.Swiper) cb();
+    else setTimeout(function(){ whenSwiperReady(cb); }, 80);
+  }
+
+  fetchChain(VIDEO_JSON_URLS).then(function(json){
+    var items = flattenVideos(json).filter(Boolean);
+    if (!items.length){
+      document.getElementById('videoFallback')?.classList.remove('hidden');
+      CONTAINER.classList.add('carousel-fallback');
+      return;
+    }
+
+    var seen = Object.create(null);
+    var slides = [];
+    items.forEach(function(v){
+      var id = ytId(v);
+      if(!id || seen[id]) return; seen[id]=1;
+      var title = String(v.title||'Ship video').replace(/"/g,'&quot;');
+      slides.push('<div class="swiper-slide"><iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>');
+    });
+
+    WRAP.innerHTML = slides.join('') || '<div class="swiper-slide"><div class="note tiny">No videos yet.</div></div>';
+    CONTAINER.classList.remove('carousel-fallback');
+
+    whenSwiperReady(function(){
+      try{
+        new Swiper('.swiper.videos', {
+          loop:false, lazy:true, watchOverflow:true,
+          pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
+          navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+          a11y:{ enabled:true }
+        });
+      }catch(e){
+        CONTAINER.classList.add('carousel-fallback');
+      }
+    });
+  });
+})();
+</script>
 
     <!-- Row: Deck Plans + Live Tracker -->
     <section class="grid-2">
