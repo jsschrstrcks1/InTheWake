@@ -1,10 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
 <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html"/>
 <meta name="description" content="Royal Caribbean’s Adventure of the Seas — photos, dining, cabins, accessibility notes, videos, tips, and cross-links to ports & restaurants."/>
 
@@ -24,68 +22,96 @@
   <meta name="twitter:description" content="Explore Adventure of the Seas: Live tracker, deck plans, and video tours from real sailings. Plan your perfect cruise with In the Wake’s tools.">
   <meta name="twitter:image" content="https://cruisinginthewake.com/images/adventure-of-the-seas-hero.jpg">
 
-<!-- Global CSS -->
-<link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.250"/>
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-<!-- Swiper CSS (local primary; JS-injected fallbacks added later if needed) -->
-<link id="swiper-css" rel="stylesheet" href="https://www.cruisinginthewake.com/assets/vendor/swiper@10/swiper-bundle.min.css"/>
+  <!-- Standards-friendly absolute URL builder + same-origin normalizer -->
+  <script>
+  (function(){
+    var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+    window._abs = function(path){
+      path = String(path||'');
+      if (!path.startsWith('/')) path = '/' + path;
+      return ORIGIN + path;
+    };
+    // Normalize any hardcoded "www." hosts to the current origin to avoid 301→CORS
+    function pinToCurrentOrigin(){
+      var SEL = [
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(SEL).forEach(function(el){
+        var attr = el.hasAttribute('href') ? 'href' : 'src';
+        try{
+          var u = new URL(el.getAttribute(attr), ORIGIN);
+          u.host = location.host; u.protocol = location.protocol;
+          el.setAttribute(attr, u.toString());
+        }catch(e){}
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', pinToCurrentOrigin, {once:true});
+    } else { pinToCurrentOrigin(); }
+  })();
+  </script>
 
-<style>
-/* --- First Look pre-init: prevent horizontal stacking --- */
-.swiper.firstlook:not(.swiper-initialized){ overflow:hidden; }
-.swiper.firstlook:not(.swiper-initialized) .swiper-wrapper{ display:block; }
-.swiper.firstlook:not(.swiper-initialized) .swiper-slide{ display:none; }
-.swiper.firstlook:not(.swiper-initialized) .swiper-slide:first-child{ display:block; }
-.swiper.firstlook img{ width:100%; height:auto; display:block; }
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.256"/>
 
-/* Show navigation arrows (ensure visible even if theme misses them) */
-.swiper .swiper-button-prev, .swiper .swiper-button-next{
-  display:flex; align-items:center; justify-content:center;
-}
-.swiper .swiper-button-prev::after, .swiper .swiper-button-next::after{
-  font-size:22px; /* ensure visible */
-}
+  <!-- (No static Swiper link here; loader below injects local + CDN fallbacks) -->
 
-/* Videos: controls above iframes; solid aspect ratio */
-.swiper.videos .swiper-button-prev,
-.swiper.videos .swiper-button-next,
-.swiper.videos .swiper-pagination{ z-index:6; }
-.swiper.videos iframe{ width:100%; aspect-ratio:16/9; height:auto; border:0; display:block; }
+  <style>
+  /* --- First Look pre-init: prevent horizontal stacking --- */
+  .swiper.firstlook:not(.swiper-initialized){ overflow:hidden; }
+  .swiper.firstlook:not(.swiper-initialized) .swiper-wrapper{ display:block; }
+  .swiper.firstlook:not(.swiper-initialized) .swiper-slide{ display:none; }
+  .swiper.firstlook:not(.swiper-initialized) .swiper-slide:first-child{ display:block; }
+  .swiper.firstlook img{ width:100%; height:auto; display:block; }
 
-/* Fallback carousel when Swiper JS is unavailable */
-.carousel-fallback{ position:relative; }
-.carousel-fallback .swiper-wrapper{
-  display:flex; flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch; gap:0; scroll-behavior:smooth;
-}
-.carousel-fallback .swiper-slide{ flex:0 0 100%; max-width:100%; scroll-snap-align:start; }
-.carousel-fallback .swiper-button-prev::after, .carousel-fallback .swiper-button-next::after{ display:none; }
-.carousel-fallback .swiper-button-prev, .carousel-fallback .swiper-button-next{
-  position:absolute; top:50%; transform:translateY(-50%);
-  background:rgba(0,64,160,.15); border:2px solid #1e66ff; color:#1e66ff;
-  padding:.4rem .55rem; border-radius:.5rem; cursor:pointer; user-select:none; z-index:7;
-  width:auto; height:auto; margin:0;
-}
-.carousel-fallback .swiper-button-prev{ left:.5rem; }
-.carousel-fallback .swiper-button-next{ right:.5rem; }
+  /* Show navigation arrows */
+  .swiper .swiper-button-prev, .swiper .swiper-button-next{
+    display:flex; align-items:center; justify-content:center;
+  }
+  .swiper .swiper-button-prev::after, .swiper .swiper-button-next::after{ font-size:22px; }
 
-/* Center the "Fuel Your Voyage" card inside Logbook */
-.voyage-tips-wrapper{ display:flex; justify-content:center; margin:1.5rem 0; }
-.card.voyage-tips{ max-width:800px; width:100%; }
+  /* Videos */
+  .swiper.videos .swiper-button-prev,
+  .swiper.videos .swiper-button-next,
+  .swiper.videos .swiper-pagination{ z-index:6; }
+  .swiper.videos iframe{ width:100%; aspect-ratio:16/9; height:auto; border:0; display:block; }
 
-/* Utility */
-.hidden{ display:none !important; }
-.firstlook a{ cursor:zoom-in; }
-.pills, .class-pills, .related-pills, .button-group{ justify-content:center; text-align:center }
-.pills, .class-pills, .related-pills{ display:flex; gap:.5rem; flex-wrap:wrap }
-.accessibility.center{ text-align:center }
-.accessibility.center ul.two-col{
-  list-style:disc inside; margin:0 auto; padding:0;
-  display:grid; gap:.35rem 1.25rem; grid-template-columns:repeat(2,minmax(0,1fr));
-  max-width:680px; text-align:left;
-}
-@media (max-width:640px){ .accessibility.center ul.two-col{ grid-template-columns:1fr } }
-</style>
+  /* Fallback carousel when Swiper JS is unavailable */
+  .carousel-fallback{ position:relative; }
+  .carousel-fallback .swiper-wrapper{
+    display:flex; flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch; gap:0; scroll-behavior:smooth;
+  }
+  .carousel-fallback .swiper-slide{ flex:0 0 100%; max-width:100%; scroll-snap-align:start; }
+  .carousel-fallback .swiper-button-prev::after, .carousel-fallback .swiper-button-next::after{ display:none; }
+  .carousel-fallback .swiper-button-prev, .carousel-fallback .swiper-button-next{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(0,64,160,.15); border:2px solid #1e66ff; color:#1e66ff;
+    padding:.4rem .55rem; border-radius:.5rem; cursor:pointer; user-select:none; z-index:7;
+    width:auto; height:auto; margin:0;
+  }
+  .carousel-fallback .swiper-button-prev{ left:.5rem; }
+  .carousel-fallback .swiper-button-next{ right:.5rem; }
+
+  /* Logbook utility */
+  .voyage-tips-wrapper{ display:flex; justify-content:center; margin:1.5rem 0; }
+  .card.voyage-tips{ max-width:800px; width:100%; }
+
+  /* Misc utility */
+  .hidden{ display:none !important; }
+  .pills, .class-pills, .related-pills, .button-group{ justify-content:center; text-align:center }
+  .pills, .class-pills, .related-pills{ display:flex; gap:.5rem; flex-wrap:wrap }
+  .firstlook a{ cursor:zoom-in; }
+  </style>
 </head>
 
 <body class="page no-hero-filter">
@@ -97,7 +123,7 @@
     <nav class="pills" aria-label="Site">
       <a href="https://www.cruisinginthewake.com/index.html">Home</a>
       <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-      <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants & Menus</a>
+      <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
       <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
       <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
       <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
@@ -209,6 +235,19 @@
           "aliases":["Adventure of the Seas","Adventure Of The Seas"]
         }
       </script>
+      <script>
+      // Rewrite dining JSON to same-origin absolute
+      (function fixDiningJSON(){
+        function run(){
+          var el = document.getElementById('dining-data-source'); if(!el) return;
+          try{
+            var obj = JSON.parse(el.textContent||'{}');
+            if (obj && obj.json) { obj.json = _abs('/assets/data/rc-restaurants.json'); el.textContent = JSON.stringify(obj); }
+          }catch(e){}
+        }
+        if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', run, {once:true}); } else { run(); }
+      })();
+      </script>
     </section>
   </section>
 
@@ -224,36 +263,32 @@
       </p>
     </section>
 
-    <section class="card" aria-labelledby="liveTrackHeading">
+    <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9167227" data-name="ADVENTURE-OF-THE-SEAS">
       <h2 id="liveTrackHeading">Where Is Adventure Right Now?</h2>
       <p>See the ship’s current position, speed, and next port on a live tracker. If the map doesn’t render, the fallback link opens the live vessel page.</p>
 
-      <div class="card itinerary" data-imo="9167227" data-name="ADVENTURE-OF-THE-SEAS">
-        <h3>Live Itinerary</h3>
+      <!-- Primary (try widget) -->
+      <div id="vf-map-adventure" class="vf-map" role="region"
+           aria-label="Live ship map for Adventure of the Seas"
+           style="width:100%;height:300px;background:var(--sky)"></div>
 
-        <!-- Primary (try widget) -->
-        <div id="vf-map-adventure" class="vf-map" role="region"
-             aria-label="Live ship map for Adventure of the Seas"
-             style="width:100%;height:300px;background:var(--sky)"></div>
+      <!-- Fallback (details URL) -->
+      <iframe class="live-map hidden"
+        title="Live ship tracker for Adventure of the Seas"
+        width="100%" height="300" loading="lazy" allowfullscreen
+        aria-label="Live ship tracker for Adventure of the Seas"
+        data-slug="ADVENTURE-OF-THE-SEAS"></iframe>
 
-        <!-- Fallback (404-proof details URL) -->
-        <iframe class="live-map hidden"
-          title="Live ship tracker for Adventure of the Seas"
-          width="100%" height="300" loading="lazy" allowfullscreen
-          aria-label="Live ship tracker for Adventure of the Seas"
-          data-slug="ADVENTURE-OF-THE-SEAS"></iframe>
-
-        <p class="tiny">If the embedded map doesn’t load,
-          <a id="vf-direct" href="#" target="_blank" rel="noopener noreferrer">open the live tracker on VesselFinder →</a>
-        </p>
-      </div>
+      <p class="tiny">If the embedded map doesn’t load,
+        <a id="vf-direct" href="#" target="_blank" rel="noopener noreferrer">open the live tracker on VesselFinder →</a>
+      </p>
     </section>
   </section>
 
   <!-- Logbook -->
   <section class="card note-kens-logbook" aria-labelledby="personal-review">
     <h2 id="personal-review">The Logbook — Real Guest Stories</h2>
-    <p class="pill">Stories aggregated from recent guest perspectives; lightly edited for clarity and length.</p>
+    <p class="pill">Full disclosure: I haven’t sailed Adventure of the Seas yet. Until I do, this section is an aggregate of vetted guest perspectives, edited to our standards.</p>
     <div id="logbook" class="prose" aria-live="polite"><p class="small">Loading stories…</p></div>
   </section>
 
@@ -300,13 +335,13 @@
 
   <!-- Attribution -->
   <section class="card" aria-labelledby="attribution">
-    <h2 id="attribution">Attribution & Credits</h2>
+    <h2 id="attribution">Attribution &amp; Credits</h2>
     <ul>
       <li>Photos (First Look):
         <ul>
-          <li>“Adventure of the Seas docked in Aruba 2024” — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_docked_in_Aruba_2024.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons file</a> (CC BY-SA 4.0).</li>
-          <li>“Adventure of the Seas pool area” — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_pool_area.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons file</a> (CC BY-SA 4.0).</li>
-          <li>“Adventure of the seas in Willemstad” — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_seas_in_Willemstad.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons file</a> (CC BY-SA; see file page for details).</li>
+          <li>“Adventure of the Seas docked in Aruba 2024” — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_docked_in_Aruba_2024.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> (CC BY-SA 4.0).</li>
+          <li>“Adventure of the Seas pool area” — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_pool_area.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> (CC BY-SA 4.0).</li>
+          <li>“Adventure of the seas in Willemstad” — <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_seas_in_Willemstad.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> (CC BY-SA; see file page for details).</li>
         </ul>
       </li>
       <li>Videos: curated from green-list sources (YouTube); titles inside embeds.</li>
@@ -318,70 +353,65 @@
 
 <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
-<!-- Swiper JS (local primary) -->
-<script id="swiper-js" src="https://www.cruisinginthewake.com/assets/vendor/swiper@10/swiper-bundle.min.js"></script>
-
-<!-- Swiper robust fallback loader (CSS + JS) -->
+<!-- Swiper robust loader: local /vendor/swiper + CDN fallbacks -->
 <script>
 (function ensureSwiper(){
-  var tried = 0;
-  function injectCSS(href){
-    var link = document.createElement('link');
-    link.rel='stylesheet'; link.href=href; link.crossOrigin='anonymous';
-    document.head.appendChild(link);
-  }
-  function injectJS(src, cb){
-    var s = document.createElement('script');
-    s.src = src; s.async = true; s.onload = cb;
-    document.head.appendChild(s);
-  }
+  function addCSS(h){ var l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(s, cb){ var el=document.createElement('script'); el.src=s; el.async=true; el.onload=cb; el.onerror=function(){}; document.head.appendChild(el); }
   function ready(){ return !!window.Swiper; }
-  function tryCDN(){
-    if (ready()) return;
-    if (tried === 0){
-      tried = 1;
-      injectCSS('https://unpkg.com/swiper@10/swiper-bundle.min.css');
-      injectJS('https://unpkg.com/swiper@10/swiper-bundle.min.js', initSwipers);
-      setTimeout(tryCDN, 800);
-    }else if(tried === 1){
-      tried = 2;
-      injectCSS('https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css');
-      injectJS('https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js', initSwipers);
-    }
-  }
-  function initSwipers(){
+  function init(){
     if (!ready()) return;
-    // First Look
-    new Swiper('.swiper.firstlook', {
-      loop:false, lazy:true,
-      pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
-      navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
-      a11y:{ enabled:true }
-    });
-    // Videos (if already populated)
+    if (document.querySelector('.swiper.firstlook')){
+      new Swiper('.swiper.firstlook', {
+        loop:false, lazy:true, watchOverflow:true,
+        pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
+        navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
+        a11y:{ enabled:true }
+      });
+    }
     if (document.querySelector('.swiper.videos .swiper-slide')){
       new Swiper('.swiper.videos', {
-        loop:false, lazy:true,
+        loop:false, lazy:true, watchOverflow:true,
         pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
         navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
         a11y:{ enabled:true }
       });
     }
   }
-  // If local Swiper fails, try CDNs
-  var t0 = Date.now();
+
+  /* ✅ Local paths */
+  var localCSS = _abs('/vendor/swiper/swiper-bundle.min.css');
+  var localJS  = _abs('/vendor/swiper/swiper-bundle.min.js');
+
+  /* ✅ CDN fallbacks */
+  var cdnCSS1='https://unpkg.com/swiper@11/swiper-bundle.min.css';
+  var cdnJS1 ='https://unpkg.com/swiper@11/swiper-bundle.min.js';
+  var cdnCSS2='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
+  var cdnJS2 ='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+
+  // Start local
+  addCSS(localCSS); addJS(localJS, init);
+
+  // If not ready quickly, try CDNs (in order)
+  var t0=Date.now();
   (function wait(){
-    if (ready()) return initSwipers();
-    if (Date.now() - t0 > 600) return tryCDN();
+    if (ready()) return init();
+    if (Date.now()-t0 > 700){
+      addCSS(cdnCSS1); addJS(cdnJS1, init);
+      setTimeout(function(){
+        if (!ready()){ addCSS(cdnCSS2); addJS(cdnJS2, init); }
+      }, 900);
+      return;
+    }
     setTimeout(wait, 70);
   })();
 })();
 </script>
 
 <!-- Dining card (canonical) -->
-<script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.250" defer></script>
+<script src="https://www.cruisinginthewake.com/assets/js/dining-card.js?v=2.256" defer></script>
 
-<!-- Videos: JSON-driven + strict Adventure-only filter -->
+<!-- Videos: JSON-driven + strict Adventure-only filter (same-origin absolute) -->
 <script>
 (function initVideos(){
   var sec  = document.querySelector('[aria-labelledby="video-highlights"]');
@@ -393,8 +423,8 @@
   var CONTAINER = sec.querySelector('.swiper.videos');
 
   var VIDEO_JSON_URLS = [
-    'https://www.cruisinginthewake.com/ships/' + line + '/assets/videos/' + slug + '.json',
-    '/ships/' + line + '/assets/videos/' + slug + '.json'
+    _abs('/ships/' + line + '/assets/videos/' + slug + '.json'),
+    _abs('/videos/' + slug + '.json') // optional second location
   ];
 
   function fetchFirst(urls, i){
@@ -420,7 +450,7 @@
   }
   function getId(v){ return v.videoId || ytIdFromUrl(v.embed_url || v.url || v.youtube || v.src || ''); }
 
-  // strict ship filter
+  // strict ship filter (exclude other classes/lines)
   var POS = [/\bAdventure of the Seas\b/i, /\bAdventure\s*OTS\b/i, /\bRCL\s*Adventure\b/i, /\bRCI\s*Adventure\b/i, /\bVoyager[-\s]?class\b/i];
   var NEG = /\b(Utopia|Icon|Wonder|Symphony|Harmony|Oasis|Quantum|Odyssey|Anthem|Spectrum|MSC|Carnival|Princess|Celebrity|Divina|World America|Edge|Utopia OTS|Icon OTS|Star of the Seas|Jubilee)\b/i;
   function isAdventure(v){
@@ -463,7 +493,7 @@
   function maybeInitSwiper(){
     if (window.Swiper){
       new Swiper('.swiper.videos', {
-        loop:false, lazy:true,
+        loop:false, lazy:true, watchOverflow:true,
         pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
         navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
         a11y:{ enabled:true }
@@ -521,14 +551,14 @@
 })();
 </script>
 
-<!-- Ship stats loader (with inline fallback) -->
+<!-- Ship stats loader (same-origin SOURCES + inline fallback) -->
 <script>
 (async function loadShipStats(){
   var el = document.getElementById('ship-stats'); if(!el) return;
   var SOURCES = [
-    'https://www.cruisinginthewake.com/assets/data/fleet_index.json',
-    'https://www.cruisinginthewake.com/assets/data/fleet-index.json',
-    'https://www.cruisinginthewake.com/assets/data/fleet.json'
+    _abs('/assets/data/fleet_index.json'),
+    _abs('/assets/data/fleet-index.json'),
+    _abs('/assets/data/fleet.json')
   ];
   async function tryFetch(u){ try{ var r=await fetch(u,{cache:'no-store'}); if(r.ok) return await r.json(); }catch(e){} return null; }
   var data=null; for (var i=0;i<SOURCES.length;i++){ data = await tryFetch(SOURCES[i]); if(data) break; }
@@ -572,24 +602,17 @@
   const wrap = document.querySelector('.card.itinerary[data-imo]');
   if(!wrap) return;
 
-  const imo   = (wrap.getAttribute('data-imo')||'').trim();       // 9167227 (working)
-  const name  = (wrap.getAttribute('data-name')||'').trim();      // e.g. ADVENTURE-OF-THE-SEAS
+  const imo   = (wrap.getAttribute('data-imo')||'').trim();       // 9167227
+  const name  = (wrap.getAttribute('data-name')||'').trim();      // ADVENTURE-OF-THE-SEAS
   const mapEl = document.getElementById('vf-map-adventure');
   const iFr   = wrap.querySelector('iframe.live-map');
   const direct = document.getElementById('vf-direct');
 
-  // Normalize name to uppercase slug with dashes
-  function toSlug(n){
-    return String(n||'').toUpperCase()
-      .replace(/[^A-Z0-9]+/g,'-').replace(/^-+|-+$/g,'');
-  }
+  function toSlug(n){ return String(n||'').toUpperCase().replace(/[^A-Z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
   const slug = iFr?.getAttribute('data-slug') || toSlug(name);
-
-  // Build proper VesselFinder URL
-  const vfURL = `https://www.vesselfinder.com/vessels/${slug}-IMO-${imo}#map`;
+  const vfURL = 'https://www.vesselfinder.com/vessels/'+encodeURIComponent(slug)+'-IMO-'+imo+'#map';
   if (direct) direct.href = vfURL;
 
-  // Fall back to iframe if widget fails
   function useIframe(){
     if(!iFr) return;
     iFr.src = vfURL;
@@ -597,19 +620,21 @@
     if(mapEl) mapEl.style.display = 'none';
   }
 
-  // Try widget first
   const s = document.createElement('script');
   s.src = "https://www.vesselfinder.com/aismap.js";
   s.async = true;
 
-  const stall = setTimeout(useIframe, 2000);
+  const stall = setTimeout(useIframe, 2500);
   s.onload = function(){
     try{
       clearTimeout(stall);
       if (window.AISMap && mapEl){
-        new AISMap(mapEl, { width:"100%", height:300, zoom:8, names:true,
-          show_track:1, track_days:1, vessel:`IMO:${imo}` });
+        new AISMap(mapEl, { width:"100%", height:300, zoom:8, names:true, show_track:1, track_days:1, vessel:"IMO:"+imo });
       } else { useIframe(); }
+      // After a moment, if no canvas rendered, fall back
+      setTimeout(function(){
+        if (!mapEl.querySelector('canvas,svg')) useIframe();
+      }, 2000);
     }catch(e){ useIframe(); }
   };
   s.onerror = function(){ clearTimeout(stall); useIframe(); };
@@ -617,16 +642,14 @@
 })();
 </script>
 
-<!-- Logbook (backtick-free, robust) -->
+<!-- Logbook (same-origin fetch + robust rendering) -->
 <script>
 (function initLogbook(){
   var mount = document.getElementById('logbook'); if(!mount) return;
 
   var JSON_URLS = [
-    'https://www.cruisinginthewake.com/ships/rcl/assets/adventure.json',
-    '/ships/rcl/assets/adventure.json',
-    'https://www.cruisinginthewake.com/assets/data/adventure.json',
-    '/assets/data/adventure.json'
+    _abs('/ships/rcl/assets/adventure.json'),
+    _abs('/assets/data/adventure.json')
   ];
 
   function fetchFirst(urls, i){
@@ -637,18 +660,14 @@
       .catch(function(){ return fetchFirst(urls, i+1); });
   }
 
-  function escapeHTML(s){
-    return String(s || '')
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
   function md(src){
     var html = String(src || '');
-    html = html.replace(/^###?\s+(.+)$/gm, function(_,t){ return '<h3>' + escapeHTML(t) + '</h3>'; });
+    html = html.replace(/^###?\s+(.+)$/gm, function(_,t){ return '<h3>' + esc(t) + '</h3>'; });
     html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-    html = html.replace(/\n{2,}/g, '</p><p>');
-    html = html.replace(/\n/g, '<br/>');
+    html = html.replace(/\n{2,}/g, '</p><p>').replace(/\n/g, '<br/>');
     html = html.replace(/(https?:\/\/[^\s)]+)(?=\s|$)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
     html = html.replace(/^<p><\/p>/,'');
     return html;
@@ -660,34 +679,34 @@
     var star = p.nav_starboard || {};
 
     var header =
-      '<h3 class="persona-title">' + escapeHTML(p.title || p.name || 'Guest Story') + '</h3>' +
-      '<p class="tiny"><strong>' + escapeHTML(p.persona_label || p.role || '') + '</strong></p>';
+      '<h3 class="persona-title">' + esc(p.title || p.name || 'Guest Story') + '</h3>' +
+      '<p class="tiny"><strong>' + esc(p.persona_label || p.role || '') + '</strong></p>';
 
     var fuelCard = [
       '<div class="voyage-tips-wrapper">',
         '<div class="card voyage-tips center" aria-label="Voyage planning tips">',
           '<h2 class="card-title">Fuel Your Voyage</h2>',
           '<div class="card-content">',
-            '<h3><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Drink Packages</a></h3>',
+            '<h3><a href="'+_abs('/drink-packages.html#deluxe')+'" target="_blank" rel="noopener noreferrer">Drink Packages</a></h3>',
             '<ul>',
-              '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Deluxe Beverage Package</a></li>',
-              '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#refreshment" target="_blank" rel="noopener noreferrer">Refreshment Package</a></li>',
-              '<li><a href="https://www.cruisinginthewake.com/drink-packages.html#soda" target="_blank" rel="noopener noreferrer">Soda Package</a></li>',
+              '<li><a href="'+_abs('/drink-packages.html#deluxe')+'" target="_blank" rel="noopener noreferrer">Deluxe Beverage Package</a></li>',
+              '<li><a href="'+_abs('/drink-packages.html#refreshment')+'" target="_blank" rel="noopener noreferrer">Refreshment Package</a></li>',
+              '<li><a href="'+_abs('/drink-packages.html#soda')+'" target="_blank" rel="noopener noreferrer">Soda Package</a></li>',
             '</ul>',
-            '<h3><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Premium & Specialty Dining</a></h3>',
+            '<h3><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Premium &amp; Specialty Dining</a></h3>',
             '<ul>',
               '<li><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Unlimited Dining Package</a></li>',
               '<li><a href="https://www.royalcaribbean.com/experience/cruise-dining/specialty-restaurants" target="_blank" rel="noopener noreferrer">Royal Caribbean Premium Dining</a></li>',
             '</ul>',
-            '<h3><a href="https://www.cruisinginthewake.com/packing-lists.html" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>',
+            '<h3><a href="'+_abs('/packing-lists.html')+'" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>',
             '<ul>',
               '<li>Shawl for chilly theater nights</li>',
               '<li>Swimwear for pool deck</li>',
               '<li>Comfortable shoes for shore tours</li>',
             '</ul>',
             '<div class="button-group" aria-label="Voyage planning links">',
-              '<a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>',
-              '<a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>',
+              '<a href="'+_abs('/drink-packages.html')+'" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>',
+              '<a href="'+_abs('/packing-lists.html')+'" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>',
             '</div>',
           '</div>',
         '</div>',
@@ -702,8 +721,8 @@
 
     var nav =
       '<div class="button-group" style="justify-content:space-between; margin-top:1rem">' +
-        '<a class="btn" href="' + escapeHTML(port.url || '#') + '" aria-label="Previous perspective (port side)">' + escapeHTML(port.label || '⟵ Previous perspective') + '</a>' +
-        '<a class="btn" href="' + escapeHTML(star.url || '#') + '" aria-label="Next perspective (starboard side)">' + escapeHTML(star.label || 'Next perspective ⟶') + '</a>' +
+        '<a class="btn" href="' + esc(port.url || '#') + '" aria-label="Previous perspective (port side)">' + esc(port.label || '⟵ Previous perspective') + '</a>' +
+        '<a class="btn" href="' + esc(star.url || '#') + '" aria-label="Next perspective (starboard side)">' + esc(star.label || 'Next perspective ⟶') + '</a>' +
       '</div>';
 
     mount.innerHTML =
@@ -712,17 +731,20 @@
       '<div class="story-body">' + storyHTML + '</div>' +
       nav;
 
+    // Wire in-page persona switching without reload
     Array.prototype.forEach.call(mount.querySelectorAll('.button-group a'), function(a){
-      var u = new URL(a.href, location.href);
-      if(u.origin===location.origin && u.pathname===location.pathname && u.searchParams.get('id')){
-        a.addEventListener('click', function(ev){
-          ev.preventDefault();
-          var id=u.searchParams.get('id');
-          history.replaceState(null,'',u.toString());
-          var idx2 = Math.max(0, personas.findIndex(function(pp){ return String(pp.id||'')===String(id); }));
-          render(personas, idx2);
-        });
-      }
+      try{
+        var u = new URL(a.href, location.href);
+        if(u.origin===location.origin && u.pathname===location.pathname && u.searchParams.get('id')){
+          a.addEventListener('click', function(ev){
+            ev.preventDefault();
+            var id=u.searchParams.get('id');
+            history.replaceState(null,'',u.toString());
+            var idx2 = Math.max(0, personas.findIndex(function(pp){ return String(pp.id||'')===String(id); }));
+            render(personas, idx2);
+          });
+        }
+      }catch(e){}
     });
   }
 
@@ -742,11 +764,11 @@
 })();
 </script>
 
-<!-- Global external-link upgrader: open off-site links in a new tab -->
+<!-- External links: open off-site in new tab -->
 <script>
 (function externalLinksNewTab(){
   var here = location.hostname.replace(/^www\./,'');
-  document.addEventListener('DOMContentLoaded', function(){
+  function upgrade(){
     document.querySelectorAll('a[href]').forEach(function(a){
       var href = a.getAttribute('href') || '';
       if (/^(#|mailto:|tel:)/i.test(href)) return;
@@ -755,12 +777,13 @@
         var host = u.hostname.replace(/^www\./,'');
         if (host !== here || a.rel === 'external' || a.dataset.newtab === 'true'){
           a.target = '_blank';
-          if (!/noopener/i.test(a.rel)) a.rel = (a.rel ? a.rel + ' ' : '') + 'noopener';
-          if (!/noreferrer/i.test(a.rel)) a.rel = (a.rel ? a.rel + ' ' : '') + 'noreferrer';
+          if (!/noopener/i.test(a.rel||'')) a.rel = (a.rel ? a.rel + ' ' : '') + 'noopener';
+          if (!/noreferrer/i.test(a.rel||'')) a.rel = (a.rel ? a.rel + ' ' : '') + 'noreferrer';
         }
       }catch(e){}
     });
-  });
+  }
+  if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', upgrade, {once:true}); } else { upgrade(); }
 })();
 </script>
 </body>
