@@ -698,13 +698,15 @@
 <script>
 (function initLogbook(){
   var mount = document.getElementById('logbook'); if(!mount) return;
-
-  // Use the two URLs you said both work
-  var JSON_URLS = [
-    'https://cruisinginthewake.com/ships/rcl/assets/adventure.json',
-    'https://www.cruisinginthewake.com/ships/rcl/assets/adventure.json'
-  ];
-
+// Before (cross-origin risk)
+var JSON_URLS = [
+  'https://cruisinginthewake.com/ships/rcl/assets/adventure.json',
+  'https://www.cruisinginthewake.com/ships/rcl/assets/adventure.json'
+];
+  // After (zero CORS risk)
+var JSON_URLS = [
+  _abs('/ships/rcl/assets/adventure.json')
+];
   function fetchFirst(urls, i){
     i = i || 0;
     if (i >= urls.length) return Promise.resolve(null);
