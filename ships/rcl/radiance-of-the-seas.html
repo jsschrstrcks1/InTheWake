@@ -1,6 +1,35 @@
 <!doctype html>
 <html lang="en">
 <head>
+
+  <script>
+/* Current-origin absolute URL builder + fix any hard-coded www. links */
+(function(){
+  var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/, '');
+  window._abs = function(path){
+    path = String(path||'');
+    if (!path.startsWith('/')) path = '/' + path;
+    return ORIGIN + path;
+  };
+  // Rewrite any hard-coded absolute links to this origin (avoids 301→CORS)
+  document.addEventListener('DOMContentLoaded', function(){
+    var sel = [
+      'a[href^="https://www.cruisinginthewake.com/"]',
+      'img[src^="https://www.cruisinginthewake.com/"]',
+      'link[href^="https://www.cruisinginthewake.com/"]',
+      'script[src^="https://www.cruisinginthewake.com/"]'
+    ].join(',');
+    document.querySelectorAll(sel).forEach(function(el){
+      var attr = el.hasAttribute('href') ? 'href' : 'src';
+      try{
+        var u = new URL(el.getAttribute(attr));
+        // replace origin, keep path/query/hash
+        el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
+      }catch(e){}
+    });
+  }, {once:true});
+})();
+</script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <script>
   // Standards-friendly absolute URL builder (no relative paths, no CORS)
