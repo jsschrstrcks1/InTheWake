@@ -647,21 +647,31 @@
 (function initLogbook(){
   var mount = document.getElementById('logbook'); if(!mount) return;
 
+  // ✅ Use the canonical file, same-origin, absolute
   var JSON_URLS = [
     _abs('/ships/rcl/assets/adventure.json'),
-    _abs('/assets/data/adventure.json')
+    _abs('/assets/data/adventure.json') // fallback if you mirror later
   ];
 
   function fetchFirst(urls, i){
     i = i || 0;
     if (i >= urls.length) return Promise.resolve(null);
-    return fetch(urls[i], { cache:'no-store' })
-      .then(function(r){ return r.ok ? r.json() : fetchFirst(urls, i+1); })
-      .catch(function(){ return fetchFirst(urls, i+1); });
+    var url = urls[i];
+    return fetch(url, { cache:'no-store' })
+      .then(function(r){
+        if (!r.ok) {
+          console.warn('[Logbook] Fetch failed', url, r.status, r.statusText);
+          return fetchFirst(urls, i+1);
+        }
+        return r.json();
+      })
+      .catch(function(err){
+        console.warn('[Logbook] Fetch error', url, err && err.message);
+        return fetchFirst(urls, i+1);
+      });
   }
 
   function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
   function md(src){
     var html = String(src || '');
     html = html.replace(/^###?\s+(.+)$/gm, function(_,t){ return '<h3>' + esc(t) + '</h3>'; });
@@ -675,8 +685,7 @@
 
   function render(personas, idx){
     var p = personas[idx]; if(!p) return;
-    var port = p.nav_port || {};
-    var star = p.nav_starboard || {};
+    var port = p.nav_port || {}, star = p.nav_starboard || {};
 
     var header =
       '<h3 class="persona-title">' + esc(p.title || p.name || 'Guest Story') + '</h3>' +
@@ -699,11 +708,7 @@
               '<li><a href="https://www.royalcaribbean.com/experience/cruise-dining/specialty-restaurants" target="_blank" rel="noopener noreferrer">Royal Caribbean Premium Dining</a></li>',
             '</ul>',
             '<h3><a href="'+_abs('/packing-lists.html')+'" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>',
-            '<ul>',
-              '<li>Shawl for chilly theater nights</li>',
-              '<li>Swimwear for pool deck</li>',
-              '<li>Comfortable shoes for shore tours</li>',
-            '</ul>',
+            '<ul><li>Shawl for chilly theater nights</li><li>Swimwear for pool deck</li><li>Comfortable shoes for shore tours</li></ul>',
             '<div class="button-group" aria-label="Voyage planning links">',
               '<a href="'+_abs('/drink-packages.html')+'" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>',
               '<a href="'+_abs('/packing-lists.html')+'" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>',
@@ -730,26 +735,15 @@
       '<p class="tiny" style="margin-top:.2rem">Use the Port/Starboard buttons to sail between perspectives.</p>' +
       '<div class="story-body">' + storyHTML + '</div>' +
       nav;
-
-    // Wire in-page persona switching without reload
-    Array.prototype.forEach.call(mount.querySelectorAll('.button-group a'), function(a){
-      try{
-        var u = new URL(a.href, location.href);
-        if(u.origin===location.origin && u.pathname===location.pathname && u.searchParams.get('id')){
-          a.addEventListener('click', function(ev){
-            ev.preventDefault();
-            var id=u.searchParams.get('id');
-            history.replaceState(null,'',u.toString());
-            var idx2 = Math.max(0, personas.findIndex(function(pp){ return String(pp.id||'')===String(id); }));
-            render(personas, idx2);
-          });
-        }
-      }catch(e){}
-    });
   }
 
   fetchFirst(JSON_URLS).then(function(data){
-    if(!data){ mount.innerHTML = '<p class="small">Stories will cast off shortly (data source unreachable).</p>'; return; }
+    if(!data){
+      // Helpful inline hint with the exact paths we tried
+      mount.innerHTML = '<p class="small">Stories will cast off shortly (data source unreachable). '
+        + 'We tried: <code>'+JSON_URLS.join('</code>, <code>')+'</code>.</p>';
+      return;
+    }
     var personas = Array.isArray(data.personas) ? data.personas
                   : Array.isArray(data.items)    ? data.items
                   : Array.isArray(data.stories)  ? data.stories
