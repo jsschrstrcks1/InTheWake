@@ -699,10 +699,10 @@
 (function initLogbook(){
   var mount = document.getElementById('logbook'); if(!mount) return;
 
-  // ✅ Use the canonical file, same-origin, absolute
+  // Use the two URLs you said both work
   var JSON_URLS = [
-    _abs('https://www.crusinginthewake.com/ships/rcl/assets/adventure.json'),
-    _abs('/assets/data/adventure.json') // fallback if you mirror later
+    'https://cruisinginthewake.com/ships/rcl/assets/adventure.json',
+    'https://www.cruisinginthewake.com/ships/rcl/assets/adventure.json'
   ];
 
   function fetchFirst(urls, i){
@@ -710,21 +710,69 @@
     if (i >= urls.length) return Promise.resolve(null);
     var url = urls[i];
     return fetch(url, { cache:'no-store' })
-      .then(function(r){
-        if (!r.ok) {
-          console.warn('[Logbook] Fetch failed', url, r.status, r.statusText);
-          return fetchFirst(urls, i+1);
+      .then(function(r){ if(!r.ok) throw new Error(r.status+' '+r.statusText); return r.json(); })
+      .catch(function(){ return fetchFirst(urls, i+1); });
+  }
+
+  // Walk the object and return the first array of objects that looks "entry-ish"
+  function findEntries(root){
+    if (!root || typeof root !== 'object') return null;
+
+    // 1) Known containers
+    var known = ['personas','entries','stories','items','logs','posts'];
+    for (var k of known){
+      if (Array.isArray(root[k]) && root[k].length) return root[k];
+      if (root.logbook && Array.isArray(root.logbook[k]) && root.logbook[k].length) return root.logbook[k];
+    }
+
+    // 2) Any array of objects with likely fields
+    var stack = [root];
+    var seen = new Set([root]);
+    while (stack.length){
+      var cur = stack.pop();
+      if (Array.isArray(cur) && cur.length && typeof cur[0] === 'object'){
+        var sample = cur[0];
+        var hasText = ('markdown' in sample) || ('body' in sample) || ('content' in sample) || ('text' in sample);
+        if (hasText || ('title' in sample) || ('name' in sample)) return cur;
+      }
+      if (cur && typeof cur === 'object'){
+        for (var v of Object.values(cur)){
+          if (v && typeof v === 'object' && !seen.has(v)){ seen.add(v); stack.push(v); }
         }
-        return r.json();
-      })
-      .catch(function(err){
-        console.warn('[Logbook] Fetch error', url, err && err.message);
-        return fetchFirst(urls, i+1);
-      });
+      }
+    }
+    return null;
+  }
+
+  // Normalize one entry to the fields our renderer uses
+  function normalizeEntry(e){
+    var title = e.title || e.name || e.heading || 'Guest Story';
+    var persona = e.persona_label || e.role || e.type || e.archetype || '';
+    var md = e.markdown || e.body || e.content || e.text || '';
+
+    // nav variants
+    var port = e.nav_port || e.prev || e.previous || {};
+    var star = e.nav_starboard || e.next || {};
+    function normNav(n){
+      if (!n || typeof n !== 'object') return {};
+      return {
+        label: n.label || n.text || n.title || '',
+        url: n.url || n.href || ''
+      };
+    }
+
+    return {
+      id: String(e.id || e.slug || e.key || Math.random().toString(36).slice(2)),
+      title: String(title),
+      persona_label: String(persona),
+      markdown: String(md),
+      nav_port: normNav(port),
+      nav_starboard: normNav(star)
+    };
   }
 
   function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-  function md(src){
+  function mdToHTML(src){
     var html = String(src || '');
     html = html.replace(/^###?\s+(.+)$/gm, function(_,t){ return '<h3>' + esc(t) + '</h3>'; });
     html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
@@ -737,49 +785,47 @@
 
   function render(personas, idx){
     var p = personas[idx]; if(!p) return;
-    var port = p.nav_port || {}, star = p.nav_starboard || {};
-
     var header =
-      '<h3 class="persona-title">' + esc(p.title || p.name || 'Guest Story') + '</h3>' +
-      '<p class="tiny"><strong>' + esc(p.persona_label || p.role || '') + '</strong></p>';
+      '<h3 class="persona-title">' + esc(p.title) + '</h3>' +
+      '<p class="tiny"><strong>' + esc(p.persona_label) + '</strong></p>';
 
     var fuelCard = [
       '<div class="voyage-tips-wrapper">',
         '<div class="card voyage-tips center" aria-label="Voyage planning tips">',
           '<h2 class="card-title">Fuel Your Voyage</h2>',
           '<div class="card-content">',
-            '<h3><a href="'+_abs('/drink-packages.html#deluxe')+'" target="_blank" rel="noopener noreferrer">Drink Packages</a></h3>',
+            '<h3><a href="/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Drink Packages</a></h3>',
             '<ul>',
-              '<li><a href="'+_abs('/drink-packages.html#deluxe')+'" target="_blank" rel="noopener noreferrer">Deluxe Beverage Package</a></li>',
-              '<li><a href="'+_abs('/drink-packages.html#refreshment')+'" target="_blank" rel="noopener noreferrer">Refreshment Package</a></li>',
-              '<li><a href="'+_abs('/drink-packages.html#soda')+'" target="_blank" rel="noopener noreferrer">Soda Package</a></li>',
+              '<li><a href="/drink-packages.html#deluxe" target="_blank" rel="noopener noreferrer">Deluxe Beverage Package</a></li>',
+              '<li><a href="/drink-packages.html#refreshment" target="_blank" rel="noopener noreferrer">Refreshment Package</a></li>',
+              '<li><a href="/drink-packages.html#soda" target="_blank" rel="noopener noreferrer">Soda Package</a></li>',
             '</ul>',
             '<h3><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Premium &amp; Specialty Dining</a></h3>',
             '<ul>',
               '<li><a href="https://www.royalcaribbean.com/faq/questions/unlimited-dining-package" target="_blank" rel="noopener noreferrer">Unlimited Dining Package</a></li>',
               '<li><a href="https://www.royalcaribbean.com/experience/cruise-dining/specialty-restaurants" target="_blank" rel="noopener noreferrer">Royal Caribbean Premium Dining</a></li>',
             '</ul>',
-            '<h3><a href="'+_abs('/packing-lists.html')+'" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>',
+            '<h3><a href="/packing-lists.html" target="_blank" rel="noopener noreferrer">Pack Like a Pro</a></h3>',
             '<ul><li>Shawl for chilly theater nights</li><li>Swimwear for pool deck</li><li>Comfortable shoes for shore tours</li></ul>',
             '<div class="button-group" aria-label="Voyage planning links">',
-              '<a href="'+_abs('/drink-packages.html')+'" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>',
-              '<a href="'+_abs('/packing-lists.html')+'" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>',
+              '<a href="/drink-packages.html" class="btn" target="_blank" rel="noopener noreferrer">View Drink Options</a>',
+              '<a href="/packing-lists.html" class="btn" target="_blank" rel="noopener noreferrer">Packing Guide</a>',
             '</div>',
           '</div>',
         '</div>',
       '</div>'
     ].join('');
 
-    var mdRaw = String(p.markdown || p.body || p.content || '');
+    var mdRaw = String(p.markdown || '');
     var parts = mdRaw.split(/\n##\s+Dining\s*\n/i);
     var storyHTML = parts.length > 1
-      ? md(parts[0]) + '<h3>Dining</h3>' + md(parts[1]) + fuelCard
-      : (function(){ var cut = Math.floor(mdRaw.length * 0.55); return md(mdRaw.slice(0, cut)) + fuelCard + md(mdRaw.slice(cut)); })();
+      ? mdToHTML(parts[0]) + '<h3>Dining</h3>' + mdToHTML(parts[1]) + fuelCard
+      : (function(){ var cut = Math.floor(mdRaw.length * 0.55); return mdToHTML(mdRaw.slice(0, cut)) + fuelCard + mdToHTML(mdRaw.slice(cut)); })();
 
     var nav =
       '<div class="button-group" style="justify-content:space-between; margin-top:1rem">' +
-        '<a class="btn" href="' + esc(port.url || '#') + '" aria-label="Previous perspective (port side)">' + esc(port.label || '⟵ Previous perspective') + '</a>' +
-        '<a class="btn" href="' + esc(star.url || '#') + '" aria-label="Next perspective (starboard side)">' + esc(star.label || 'Next perspective ⟶') + '</a>' +
+        '<a class="btn" href="' + esc((p.nav_port && p.nav_port.url) || '#') + '" aria-label="Previous perspective (port side)">' + esc((p.nav_port && p.nav_port.label) || '⟵ Previous perspective') + '</a>' +
+        '<a class="btn" href="' + esc((p.nav_starboard && p.nav_starboard.url) || '#') + '" aria-label="Next perspective (starboard side)">' + esc((p.nav_starboard && p.nav_starboard.label) || 'Next perspective ⟶') + '</a>' +
       '</div>';
 
     mount.innerHTML =
@@ -790,22 +836,34 @@
   }
 
   fetchFirst(JSON_URLS).then(function(data){
-    if(!data){
-      // Helpful inline hint with the exact paths we tried
-      mount.innerHTML = '<p class="small">Stories will cast off shortly (data source unreachable). '
-        + 'We tried: <code>'+JSON_URLS.join('</code>, <code>')+'</code>.</p>';
+    if(!data){ mount.innerHTML = '<p class="small">Stories will cast off shortly (no data found).</p>'; return; }
+
+    var entries = findEntries(data);
+    if (!entries || !entries.length){
+      console.warn('[Logbook] No suitable array found. Top-level keys:', Object.keys(data||{}));
+      mount.innerHTML = '<p class="small">Stories will cast off shortly (no stories found in JSON).</p>';
       return;
     }
-    var personas = Array.isArray(data.personas) ? data.personas
-                  : Array.isArray(data.items)    ? data.items
-                  : Array.isArray(data.stories)  ? data.stories
-                  : [];
-    if(!personas.length){ mount.innerHTML = '<p class="small">Stories will cast off shortly (no stories found).</p>'; return; }
+
+    // Normalize and render
+    var personas = entries.map(normalizeEntry).filter(function(p){ return p.markdown && p.markdown.trim(); });
+    console.info('[Logbook] Using entries:', personas.length, { sample: personas[0] });
+
+    if (!personas.length){
+      mount.innerHTML = '<p class="small">Stories will cast off shortly (entries empty after normalization).</p>';
+      return;
+    }
+
+    // Optional: allow ?id=… selection if your JSON has stable ids
     var params = new URLSearchParams(location.search);
     var selId = params.get('id');
     var idx = personas.findIndex(function(p){ return String(p.id||'') === String(selId||''); });
     if (idx < 0) idx = 0;
+
     render(personas, idx);
+  }).catch(function(err){
+    console.warn('[Logbook] Fatal fetch error:', err && err.message);
+    mount.innerHTML = '<p class="small">Stories will cast off shortly (data source unreachable).</p>';
   });
 })();
 </script>
