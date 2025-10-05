@@ -1,6 +1,56 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script>
+/* Normalize to same-origin & de-www everything (requests and attributes) */
+(function () {
+  var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+  function sameOrigin(u){
+    try{
+      var a = document.createElement('a'); a.href = u;
+      var host = (a.protocol + '//' + a.host).replace(/^https?:\/\/www\./, 'https://');
+      var me   = ORIGIN.replace(/^https?:\/\/www\./, 'https://');
+      if (host !== me && /^https?:\/\/(www\.)?cruisinginthewake\.com/i.test(a.href)) {
+        a.protocol = location.protocol; a.host = location.host;
+        return a.href;
+      }
+    }catch(e){}
+    return u;
+  }
+
+  /* 1) Rewrite any hardcoded attributes to same-origin */
+  function pin(){
+    var SEL = [
+      'a[href^="http"]','img[src^="http"]','link[href^="http"]','script[src^="http"]','source[src^="http"]'
+    ].join(',');
+    document.querySelectorAll(SEL).forEach(function(el){
+      var attr = el.hasAttribute('href') ? 'href' : 'src';
+      var v = el.getAttribute(attr);
+      if (!v) return;
+      el.setAttribute(attr, sameOrigin(v).replace(/^http:\/\//,'https://')); // also kill http:
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', pin, {once:true});
+  } else { pin(); }
+
+  /* 2) Intercept fetch() that points at https://www.cruisinginthewake.com/... */
+  var _fetch = window.fetch;
+  window.fetch = function(resource, init){
+    try{
+      if (typeof resource === 'string') {
+        resource = sameOrigin(resource);
+      } else if (resource && resource.url) {
+        resource = sameOrigin(resource.url);
+      }
+    }catch(e){}
+    return _fetch.apply(this, arguments.length ? [resource, init] : arguments);
+  };
+
+  /* 3) Tiny helper for building absolute same-origin paths */
+  window._abs = function(p){ p = String(p||''); if (!p.startsWith('/')) p = '/' + p; return ORIGIN + p; };
+})();
+</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html"/>
