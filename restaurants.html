@@ -22,58 +22,11 @@
   .topbar .ver{color:#355;opacity:.65;font-weight:600;font-size:.95rem}
   .site-header .pill-nav{margin-left:auto;display:flex;gap:.5rem;flex-wrap:wrap;position:relative;z-index:15}
 
- /* ===== HERO (Radiance-matched) ===== */
-body.restaurants-page .hero--wake{
-  position:relative; isolation:isolate;
-  /* shorter like Radiance */
-  min-height:clamp(240px,28vw,360px);
-  background:var(--restaurants-hero) center top / cover no-repeat;
-  margin-left:calc(50% - 50vw); width:100vw; color:#fff;
-  display:flex; align-items:flex-end;
-}
-body.restaurants-page .hero--wake .latlon-grid{
-  position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.30;
-}
-body.restaurants-page .hero--wake .latlon-grid .grid-lines{
-  stroke:rgba(255,255,255,.30); vector-effect:non-scaling-stroke;
-}
-
-/* compass in the upper-right, like ships page */
-body.restaurants-page .hero--wake .compass-rose{
-  position:absolute; right:min(2.4vw,26px); top:min(2.1vw,22px);
-  width:clamp(84px,7.4vw,118px); height:auto; z-index:2; pointer-events:none;
-  filter:drop-shadow(0 1px 2px rgba(0,0,0,.25)); opacity:.9;
-}
-
-/* tighter inner padding (Radiance rhythm) */
-body.restaurants-page .hero-inner{
-  position:relative; z-index:3; width:100%;
-  max-width:1160px; margin:0 auto; padding:min(4vw,40px) 16px 12px;
-  text-shadow:0 2px 4px rgba(0,0,0,.35);
-}
-
-/* bigger + higher logo to match ships page proportions */
-.hero-logo{
-  position:absolute;
-  left:clamp(16px,5vw,96px);
-  top:clamp(6px,3.6vw,58px);
-  width:clamp(260px,30vw,520px);
-  height:auto;
-  filter:drop-shadow(0 4px 6px rgba(0,0,0,.35));
-}
-
-/* the only text that lives in the hero is the global subtitle */
-body.restaurants-page .hero--wake .subtitle{
-  margin:clamp(150px,20vw,220px) 0 0;
-  color:#fff; opacity:.98; font-size:clamp(.95rem,1.45vw,1.15rem);
-}
-
-/* version pill when used next to headings outside hero */
-body.restaurants-page .version-badge{
-  display:inline-block; margin-left:.5rem; background:rgba(0,0,0,.45);
-  border:1px solid rgba(255,255,255,.45); color:#fff;
-  padding:.2rem .55rem; border-radius:8px; font-size:.78rem;
-}
+/* Restaurants page: no hero overrides — use global .hero styles from styles.css */
+/* Optional: page title spacing just below hero */
+.page-header .section{ max-width:1160px; margin:0 auto; padding:12px 16px 0; }
+.page-header h1{ margin:.25rem 0 .35rem; }
+.page-header .page-sub{ margin:0 0 .75rem; color:#355; opacity:.9; }
 </style>
 </head>
 
@@ -101,20 +54,40 @@ body.restaurants-page .version-badge{
   </div>
 
   <!-- Full-width hero -->
-  <div class="hero hero--wake" role="img" aria-label="Sunset wake hero image">
-    <div class="latlon-grid" aria-hidden="true">
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-        <g class="grid-lines" stroke-width="0.35">
-          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
-          <line x1="90" y1="0" x2="90" y2="60"/>
-          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
-          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
-        </g>
-      </svg>
-    </div>
+ <!-- Full-bleed hero (use global classes) -->
+<div class="hero" role="img" aria-label="Sunset wake hero image">
+  <div class="latlon-grid" aria-hidden="true">
+    <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+      <g class="grid-lines" stroke-width="0.35">
+        <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+        <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+        <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+        <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+        <line x1="90" y1="0" x2="90" y2="60"/>
+        <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+        <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Compass -->
+  <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass-rose.svg" alt="" aria-hidden="true"/>
+
+  <!-- Logo lockup (bottom-left) -->
+  <div class="hero-title">
+    <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+  </div>
+
+  <!-- Center-bottom tagline -->
+  <p class="tagline">A Cruise Traveler’s Logbook</p>
+
+  <!-- Credit pill (bottom-right) -->
+  <div class="hero-credit">
+    <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">
+      Photo by Flickers of Majesty — Instagram
+    </a>
+  </div>
+</div>
 
     <img class="compass-rose" src="https://www.cruisinginthewake.com/assets/compass-rose.svg" alt="" aria-hidden="true"/>
 
