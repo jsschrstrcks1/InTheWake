@@ -1,34 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<script>
-/* Current-origin absolute URL builder + fix any hard-coded www. links */
-(function(){
-  var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/, '');
-  window._abs = function(path){
-    path = String(path||'');
-    if (!path.startsWith('/')) path = '/' + path;
-    return ORIGIN + path;
-  };
-  // Rewrite any hard-coded absolute links to this origin (avoids 301→CORS)
-  document.addEventListener('DOMContentLoaded', function(){
-    var sel = [
-      'a[href^="https://www.cruisinginthewake.com/"]',
-      'img[src^="https://www.cruisinginthewake.com/"]',
-      'link[href^="https://www.cruisinginthewake.com/"]',
-      'script[src^="https://www.cruisinginthewake.com/"]'
-    ].join(',');
-    document.querySelectorAll(sel).forEach(function(el){
-      var attr = el.hasAttribute('href') ? 'href' : 'src';
-      try{
-        var u = new URL(el.getAttribute(attr));
-        // replace origin, keep path/query/hash
-        el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
-      }catch(e){}
-    });
-  }, {once:true});
-})();
-  </script>  <meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chops Grille — Royal Caribbean | In the Wake</title>
   <meta name="referrer" content="no-referrer">
@@ -40,7 +13,41 @@
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/chops-grille.html">
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.235">
 
+<!-- Absolute URL helper + normalize hard-coded www. links to current origin -->
+<script>
+(function(){
+  // 1) Helper: build absolute URLs from site-root paths
+  var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/, '');
+  window._abs = function(path){
+    path = String(path||'');
+    if (!path.startsWith('/')) path = '/' + path;
+    return ORIGIN + path;
+  };
 
+  // 2) Normalizer: rewrite any hard-coded www. URLs to this current origin
+  function normalizeToCurrentOrigin(){
+    var sel = [
+      'a[href^="https://www.cruisinginthewake.com/"]',
+      'img[src^="https://www.cruisinginthewake.com/"]',
+      'link[href^="https://www.cruisinginthewake.com/"]',
+      'script[src^="https://www.cruisinginthewake.com/"]'
+    ].join(',');
+    document.querySelectorAll(sel).forEach(function(el){
+      var attr = el.hasAttribute('href') ? 'href' : 'src';
+      try{
+        var u = new URL(el.getAttribute(attr));
+        el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
+      }catch(e){}
+    });
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', normalizeToCurrentOrigin, {once:true});
+  } else {
+    normalizeToCurrentOrigin();
+  }
+})();
+</script>
 </head>
 <body>
 <header class="site-header">
