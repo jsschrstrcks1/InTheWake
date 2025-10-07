@@ -10,13 +10,14 @@
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.245"/>
 
   <!-- ===== Page patch (scoped to Restaurants page) ===== -->
+<!-- ===== Page patch (scoped to Restaurants page) ===== -->
 <style id="restaurants-v2_256_022">
   :root{
     --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e;
     --restaurants-hero:url("https://www.cruisinginthewake.com/assets/index_hero.jpg");
   }
 
-  /* ===== Top bar (tiny wordmark + version + pills right) ===== */
+  /* ===== Top bar ===== */
   .topbar{
     display:flex; align-items:center; gap:.6rem;
     padding:.35rem .75rem;
@@ -28,47 +29,48 @@
     position:relative; z-index:15;
   }
 
-  /* ===== Hero (photo only, no dim) ===== */
+  /* ===== Hero (Radiance-matched, H1 inside) ===== */
   body.restaurants-page .hero--wake{
     position:relative; isolation:isolate;
-    min-height:clamp(300px,38vw,520px);
-    background: var(--restaurants-hero) center/cover no-repeat;
+    min-height:clamp(230px,26vw,340px);
+    background:var(--restaurants-hero) center top/cover no-repeat;
     margin-left:calc(50% - 50vw); width:100vw; color:#fff;
     display:flex; align-items:flex-end;
   }
+
+  /* Grid + Compass */
   body.restaurants-page .hero--wake .latlon-grid{
-    position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.28;
+    position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.32;
   }
   body.restaurants-page .hero--wake .latlon-grid .grid-lines{
     stroke:rgba(255,255,255,.30); vector-effect:non-scaling-stroke;
   }
-
-  /* Compass (upper-right) */
   body.restaurants-page .hero--wake .compass-rose{
-    position:absolute; right:min(2.6vw,28px); top:min(2.2vw,22px);
-    width:clamp(84px,7.5vw,120px); height:auto; z-index:2; pointer-events:none;
-    filter:drop-shadow(0 1px 2px rgba(0,0,0,.25)); opacity:.9;
+    position:absolute; right:min(2.5vw,24px); top:min(2.2vw,22px);
+    width:clamp(80px,7vw,108px); height:auto; z-index:2;
+    filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));
+    opacity:.9; pointer-events:none;
   }
 
-  /* Content & medium wordmark overlay */
+  /* Inner: tighter padding for shorter stack */
   body.restaurants-page .hero-inner{
-    position:relative; z-index:3; width:100%;
-    max-width:1160px; margin:0 auto; padding:min(8vw,80px) 16px 1.4rem;
+    position:relative; z-index:3; width:100%; max-width:1160px;
+    margin:0 auto; padding:min(4vw,40px) 16px min(1vw,12px);
     text-shadow:0 2px 4px rgba(0,0,0,.35);
   }
+
+  /* Logo raised higher to match Radiance */
   .hero-logo{
-    position:absolute;
-    left:clamp(16px,6vw,100px);
-    top:clamp(10px,5.5vw,90px);
-    width:clamp(220px,28vw,520px);
-    height:auto;
+    position:absolute; left:clamp(14px,5vw,90px); top:clamp(2px,3.2vw,54px);
+    width:clamp(200px,26vw,420px); height:auto;
     filter:drop-shadow(0 4px 6px rgba(0,0,0,.35));
   }
-  /* Push headings below the logo, similar to Radiance */
+
+  /* H1 and subtitle tightened */
   body.restaurants-page .hero--wake h1{
     margin:0;
-    padding-top:clamp(130px,27vw,270px);
-    font-weight:800; font-size:clamp(1.9rem,3.2vw,2.6rem); color:#fff;
+    padding-top:clamp(92px,21vw,180px);
+    font-weight:800; font-size:clamp(1.8rem,3vw,2.4rem); color:#fff;
   }
   body.restaurants-page .version-badge{
     display:inline-block; margin-left:.5rem; background:rgba(0,0,0,.45);
@@ -76,20 +78,25 @@
     padding:.2rem .55rem; border-radius:8px; font-size:.78rem;
   }
   body.restaurants-page .hero--wake .subtitle{
-    margin:.35rem 0 0; color:#fff; opacity:.98; font-size:clamp(.95rem,1.45vw,1.15rem);
+    margin:.25rem 0 0; font-size:clamp(.9rem,1.4vw,1.1rem); color:#fff; opacity:.96;
   }
 
-  /* Credit chip */
+  /* Credit chip (optional) */
   .hero-credit{
-    position:absolute; right:min(1.2vw,16px); bottom:min(1.2vw,16px);
-    background:rgba(255,255,255,.92); color:#163042; text-decoration:none;
-    border:2px solid var(--rope); border-radius:18px; padding:.4rem .75rem;
-    font-weight:700; font-size:.95rem; box-shadow:0 2px 8px rgba(0,0,0,.08);
+    position:absolute; right:min(1.2vw,16px); bottom:min(1vw,12px);
+    background:rgba(255,255,255,.92); color:#163042; border:2px solid var(--rope);
+    border-radius:18px; padding:.35rem .7rem; font-weight:700; font-size:.9rem;
+    text-decoration:none; box-shadow:0 2px 8px rgba(0,0,0,.08);
   }
 
   /* ===== Layout & content ===== */
-  body.restaurants-page{ background:linear-gradient(var(--foam),#fff 240px); color:var(--ink); }
-  body.restaurants-page .section{ position:relative; margin:0 auto; max-width:1160px; padding:0 16px 1rem; }
+  body.restaurants-page{
+    background:linear-gradient(var(--foam),#fff 240px);
+    color:var(--ink);
+  }
+  body.restaurants-page .section{
+    position:relative; margin:0 auto; max-width:1160px; padding:0 16px 1rem;
+  }
   body.restaurants-page .section::before{
     content:""; position:absolute; inset:auto 0 0 0; margin:auto; height:420px; max-width:980px;
     background:url("https://www.cruisinginthewake.com/assets/watermark.png") no-repeat center bottom/420px auto;
@@ -103,38 +110,41 @@
   }
 
   /* Cards */
-  .card{ border-radius:18px; box-shadow:0 2px 8px rgba(0,0,0,.06), inset 0 0 0 1px rgba(255,255,255,.7);
-         background:#fff; border:2px solid var(--rope); padding:.9rem; }
-  .card a{ display:block; color:inherit; text-decoration:none; }
-  .card a strong{ color:#0a3d62; }
-  .is-hidden{ display:none!important; }
-  .section.is-hidden{ display:none!important; }
+  .card{
+    border-radius:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06), inset 0 0 0 1px rgba(255,255,255,.7);
+    background:#fff; border:2px solid var(--rope); padding:.9rem;
+  }
+  .card a{display:block; color:inherit; text-decoration:none;}
+  .card a strong{color:#0a3d62;}
+  .is-hidden{display:none!important;}
+  .section.is-hidden{display:none!important;}
 
   /* Search + chips */
-  #search-wrap{ max-width:1160px; margin:.75rem auto 0; padding:0 16px; }
-  #q{ width:100%; padding:.65rem .85rem; border-radius:12px; border:1px solid #cfe1ea; font-size:1rem; }
-  #q:focus{ border-color:#0e6e8e; box-shadow:0 0 0 3px rgba(14,110,142,.15); }
-  #search-meta{ margin:.4rem 0 0; color:#355; font-size:.9rem; }
-  .filters{ margin:.4rem auto 0; max-width:1160px; padding:0 16px; }
-  .filters .filter-row{ display:flex; gap:.4rem; flex-wrap:wrap; align-items:center; margin:.35rem 0; }
-  .chip{ padding:.35rem .6rem; border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.85rem; cursor:pointer; user-select:none; }
-  .chip[aria-pressed="true"]{ background:#0e6e8e; color:#fff; border-color:#0e6e8e; box-shadow:0 1px 6px rgba(0,0,0,.12); }
-  .pill{ background:rgba(230,244,248,.75); border-left:4px solid var(--rope); border:1px solid rgba(13,59,102,.06);
-         color:var(--ink); padding:.5rem .75rem; border-radius:.5rem; }
+  #search-wrap{max-width:1160px; margin:.75rem auto 0; padding:0 16px;}
+  #q{width:100%; padding:.65rem .85rem; border-radius:12px; border:1px solid #cfe1ea; font-size:1rem;}
+  #q:focus{border-color:#0e6e8e; box-shadow:0 0 0 3px rgba(14,110,142,.15);}
+  #search-meta{margin:.4rem 0 0; color:#355; font-size:.9rem;}
+  .filters{margin:.4rem auto 0; max-width:1160px; padding:0 16px;}
+  .filters .filter-row{display:flex; gap:.4rem; flex-wrap:wrap; align-items:center; margin:.35rem 0;}
+  .chip{padding:.35rem .6rem; border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.85rem; cursor:pointer; user-select:none;}
+  .chip[aria-pressed="true"]{background:#0e6e8e; color:#fff; border-color:#0e6e8e; box-shadow:0 1px 6px rgba(0,0,0,.12);}
+  .pill{background:rgba(230,244,248,.75); border-left:4px solid var(--rope); border:1px solid rgba(13,59,102,.06);
+        color:var(--ink); padding:.5rem .75rem; border-radius:.5rem;}
 
-  /* Brand/Class/Ship/Venue pills + trays */
-  #brandbar{ position:relative; z-index:60; max-width:1160px; margin:.35rem auto 0; padding:0 16px; }
-  #brandbar .row{ display:flex; gap:.4rem; flex-wrap:wrap; align-items:center; }
-  #brandbar .pillbtn{ padding:.38rem .65rem; border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.9rem; cursor:pointer; }
-  #brandbar .pillbtn[aria-pressed="true"]{ background:#0e6e8e; color:#fff; border-color:#0e6e8e; }
-  #brandbar .tray{ position:absolute; top:100%; left:16px; right:16px; display:none; background:#fff; border:2px solid var(--rope);
-                   border-radius:14px; padding:.6rem; margin-top:.35rem; box-shadow:0 8px 28px rgba(8,48,65,.18); }
-  #brandbar .tray.on{ display:block; }
-  #brandbar .tray .group{ display:flex; gap:.4rem; flex-wrap:wrap; }
+  /* Brand/Class/Ship/Venue pills */
+  #brandbar{position:relative; z-index:60; max-width:1160px; margin:.35rem auto 0; padding:0 16px;}
+  #brandbar .row{display:flex; gap:.4rem; flex-wrap:wrap; align-items:center;}
+  #brandbar .pillbtn{padding:.38rem .65rem; border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.9rem; cursor:pointer;}
+  #brandbar .pillbtn[aria-pressed="true"]{background:#0e6e8e; color:#fff; border-color:#0e6e8e;}
+  #brandbar .tray{position:absolute; top:100%; left:16px; right:16px; display:none; background:#fff; border:2px solid var(--rope);
+                 border-radius:14px; padding:.6rem; margin-top:.35rem; box-shadow:0 8px 28px rgba(8,48,65,.18);}
+  #brandbar .tray.on{display:block;}
+  #brandbar .tray .group{display:flex; gap:.4rem; flex-wrap:wrap;}
 
   /* Ship pills inside cards */
-  .ship-pills{ margin-top:.5rem; display:flex; flex-wrap:wrap; gap:.35rem; }
-  .ship-pills .chip{ font-size:.75rem; padding:.25rem .5rem; border-style:solid; }
+  .ship-pills{margin-top:.5rem; display:flex; flex-wrap:wrap; gap:.35rem;}
+  .ship-pills .chip{font-size:.75rem; padding:.25rem .5rem; border-style:solid;}
 </style>
 </head>
 
