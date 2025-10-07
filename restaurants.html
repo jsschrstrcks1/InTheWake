@@ -4,16 +4,16 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Restaurants &amp; Menus | In the Wake</title>
-  <meta name="version" content="v2.256.019"/>
+  <meta name="version" content="v2.256.021"/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta name="description" content="Premium & complimentary dining across the fleet — menus, prices, accessibility notes."/>
   <link rel="stylesheet" href="/assets/styles.css?v=2.245"/>
 
   <!-- Page patch (scoped) -->
-  <style id="restaurants-v2_256_019">
+  <style id="restaurants-v2_256_021">
     :root{
       --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e;
-      /* set the hero safely via CSS var; keeps gradient fallback if 404s */
+      /* Use image path that exists on your site; gradient remains if image fails */
       --restaurants-hero:url('/assets/img/wake-hero.jpg');
     }
 
@@ -125,7 +125,7 @@
         </svg>
       </div>
       <div class="hero-inner">
-        <h1>Restaurants &amp; Menus <span class="version-badge">v2.256.019</span></h1>
+        <h1>Restaurants &amp; Menus <span class="version-badge">v2.256.021</span></h1>
         <p class="subtitle">Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes.</p>
       </div>
     </div>
@@ -200,7 +200,7 @@
     <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
   </footer>
 
-  <!-- ============ JS: render + fuzzy filter + trays ============ -->
+  <!-- ============ JS: render + fuzzy filter + trays (self-contained) ============ -->
   <script>
   (function(){
     const $ = s => document.querySelector(s);
@@ -213,7 +213,7 @@
       return String(s||'')
         .toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-        .replace(/[’‘']/g,"'")
+        .replace(/[’‘’]/g,"'")
         .replace(/[-_/]/g,' ')
         .replace(/\s+/g,' ')
         .trim();
@@ -227,7 +227,6 @@
         let d=0; for(let i=0;i<a.length;i++) if(a[i]!==b[i]) d++;
         return d<=1;
       }
-      // ensure a is shorter
       if (a.length>b.length) [a,b]=[b,a];
       for(let i=0,j=0;i<a.length && j<b.length;){
         if (a[i]===b[j]){i++;j++;} else { j++; return a.slice(i)===b.slice(j) || a.slice(i+1)===b.slice(j); }
@@ -271,8 +270,8 @@
       "chefs-table":"Hosted tasting dinner with wine pairings.",
       "samba-grill":"Brazilian churrascaria served rodizio-style.",
       "johnny-rockets":"American diner classics and milkshakes.",
-      "cafe-promenade":"24-hour light bites and coffee on many ships.",
-      "vintages":"Wine bar flights, small plates on select ships.",
+      "cafe-promenade":"Light bites and coffee many hours a day.",
+      "vintages":"Wine bar flights; small plates on select ships.",
       "playmakers":"Wings, sliders, and big-screen sports.",
       "dog-house":"Gourmet hot dogs with regional toppings.",
       "solarium-bistro":"Lighter Mediterranean-style buffet.",
@@ -280,14 +279,14 @@
       "vitality-cafe":"Smoothies and light, health-forward bites.",
       "el-loco-fresh":"Casual tacos, nachos, and burritos.",
       "aquadome-market":"Icon-class food hall with global stalls.",
-      "pearl-cafe":"Anytime snacks and views off the Promenade.",
+      "pearl-cafe":"Anytime snacks off the Promenade.",
       "surfside-eatery":"Family-friendly buffet in Surfside.",
       "the-grove":"Suite-only alfresco venue on Icon class.",
       "basecamp":"Quick bites steps from the action.",
-      "celebration-table":"Private dining experience for your crew.",
+      "celebration-table":"Private dining for your crew.",
       "pier-7":"All-day breakfast and fresh coastal plates.",
       "izumi-in-the-park":"Walk-up sushi & sweets in the open air.",
-      "starbucks":"The Starbucks favorites you know, at sea.",
+      "starbucks":"Espresso drinks and pastries.",
       "wonderland":"A whimsical, multi-sensory dining adventure.",
       "hooked":"New-England-style seafood and raw bar.",
       "jamies-italian":"Jamie Oliver’s rustic pastas and plates.",
@@ -312,9 +311,10 @@
       const cat  = (v.category || 'complimentary').toLowerCase();
       const blurb = v.blurb || BLURB[slug] || 'Details vary by ship; see venue page.';
 
-      const tags = norm([name,(v.aliases||[]).join(' '),blurb,(v.access||[]).join(' '),(v.audience||[]).join(' '),slug].join(' '));
+      const join = arr => (Array.isArray(arr)?arr:[]).join(' ');
+      const tags = norm([name, join(v.aliases), blurb, join(v.access), join(v.audience), slug].join(' '));
 
-      // helper tags so “diamond / suite / pinnacle” match
+      // helper tags so “diamond / suite / pinnacle” match even if access tokens differ
       const extra = [];
       if (slug==='diamond-lounge'){ extra.push('diamond lounge','diamond and above','diamond plus','crown & anchor diamond'); }
       if (slug==='suite-lounge'){ extra.push('suite lounge','pinnacle','suites'); }
@@ -348,215 +348,170 @@
 
     function reindex(){
       CARDS = $$('.grid .card a').map(a=>{
-        const cat    = (a.getAttribute('data-cat')||'').toLowerCase();
-        const brand  = (a.getAttribute('data-brand')||'rccl').toLowerCase();
-        const text   = norm(a.textContent + ' ' + (a.getAttribute('data-tags')||'') + ' ' + (a.getAttribute('data-access')||''));
-        const ships  = new Set((a.getAttribute('data-ships')||'').toLowerCase().split(/\s+/).filter(Boolean));
-        const klass  = new Set((a.getAttribute('data-classes')||'').toLowerCase().split(/\s+/).filter(Boolean));
-        return { el:a.closest('.card'), cat, brand, text, ships, classes:klass };
+        const cat  = (a.getAttribute('data-cat')||'').toLowerCase();
+        const brand = (a.getAttribute('data-brand')||'rccl').toLowerCase();
+        const ships = new Set((a.getAttribute('data-ships')||'').toLowerCase().split(/\s+/).filter(Boolean));
+        const klass = new Set((a.getAttribute('data-classes')||'').toLowerCase().split(/\s+/).filter(Boolean));
+        const text = norm(a.textContent + ' ' + (a.getAttribute('data-tags')||'') + ' ' + (a.getAttribute('data-access')||''));
+        return { el:a.closest('.card'), cat, brand, ships, classes:klass, text };
       });
     }
 
     function apply(){
-      const toks = STATE.query ? norm(STATE.query).split(' ') : [];
+      const q = norm(STATE.query);
+      const toks = q ? q.split(' ') : [];
       let shown = 0;
+
       CARDS.forEach(c=>{
         const tHit = tokenMatch(c.text, toks);
         const cHit = !STATE.cats.size || STATE.cats.has(c.cat);
         const bHit = !STATE.brand || c.brand===STATE.brand;
         const kHit = !STATE.klass || c.classes.has(STATE.klass);
         const sHit = !STATE.ship  || c.ships.has(STATE.ship);
-        const hit = tHit && cHit && bHit && kHit && sHit;
+        const hit  = tHit && cHit && bHit && kHit && sHit;
         c.el.classList.toggle('is-hidden', !hit);
         if (hit) shown++;
       });
+
       hideEmptySections();
-      $meta.textContent = (STATE.query || STATE.cats.size || STATE.klass || STATE.ship)
-        ? `Showing ${shown} of ${CARDS.length}`
-        : `Showing all ${CARDS.length} venues & activities`;
+      const total = CARDS.length;
+      $meta.textContent = (q || STATE.cats.size || STATE.klass || STATE.ship)
+        ? `Showing ${shown} of ${total}`
+        : `Showing all venues & activities`;
     }
 
-    function readURL(){
-      const sp = new URLSearchParams(location.search);
-      STATE.query = sp.get('q') || '';
-      const cats = (sp.get('cats')||'').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
-      STATE.cats = new Set(cats);
-      STATE.brand = sp.get('brand') || 'rccl';
-      STATE.klass = (sp.get('class')||'').toLowerCase();
-      STATE.ship  = (sp.get('ship')||'').toLowerCase();
-      if ($q && STATE.query) $q.value = STATE.query;
-      // reflect chip states
-      $$('#filters .chip').forEach(c=>{
-        const on = STATE.cats.has((c.getAttribute('data-val')||'').toLowerCase());
-        c.setAttribute('aria-pressed', on?'true':'false');
-      });
-    }
-    function writeURL(){
-      const sp = new URLSearchParams();
-      if (STATE.query) sp.set('q', STATE.query);
-      if (STATE.cats.size) sp.set('cats', Array.from(STATE.cats).join(','));
-      if (STATE.brand && STATE.brand!=='rccl') sp.set('brand', STATE.brand);
-      if (STATE.klass) sp.set('class', STATE.klass);
-      if (STATE.ship)  sp.set('ship', STATE.ship);
-      history.replaceState(null,'', location.pathname + (sp.toString()?('?'+sp.toString()):''));
-    }
-
-    // input + chips
-    function wireBasics(){
-      if ($q){ $q.addEventListener('input', ()=>{ STATE.query=$q.value||''; writeURL(); apply(); }); }
+    function wireChips(){
       $$('#filters .chip').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const val = (btn.getAttribute('data-val')||'').toLowerCase();
           const on  = btn.getAttribute('aria-pressed')==='true';
           if (on) STATE.cats.delete(val); else STATE.cats.add(val);
           btn.setAttribute('aria-pressed', on?'false':'true');
-          writeURL(); apply();
+          apply();
         });
       });
-      // keyboard quick focus
-      window.addEventListener('keydown', e=>{ if(e.key==='/' && document.activeElement!==$q){ e.preventDefault(); $q.focus(); }});
     }
 
-    /* ---------- trays (brand / class / ship) ---------- */
-    (function trays(){
-      const brandBtn = $('#brandBtn'), classBtn=$('#classBtn'), shipBtn=$('#shipBtn'), clearBtn=$('#clearBtn');
-      const tBrand = $('#tray-brand'), tClass=$('#tray-class'), tShip=$('#tray-ship');
+    function wireBrandBar(db){
+      const bBtn = $('#brandBtn'), cBtn=$('#classBtn'), sBtn=$('#shipBtn'), clr=$('#clearBtn');
+      const tB = $('#tray-brand'), tC=$('#tray-class'), tS=$('#tray-ship');
+      const $brands = $('#brands'), $classes = $('#classes'), $ships = $('#ships');
 
-      function toggle(btn, tray){
-        const on = tray.classList.contains('on');
-        [tBrand,tClass,tShip].forEach(x=>x.classList.remove('on'));
-        [brandBtn,classBtn,shipBtn].forEach(b=>b.setAttribute('aria-expanded','false'));
-        if (!on){ tray.classList.add('on'); btn.setAttribute('aria-expanded','true'); }
+      function closeAll(){
+        [tB,tC,tS].forEach(x=>x.classList.remove('on'));
+        [bBtn,cBtn,sBtn].forEach(b=>b.setAttribute('aria-expanded','false'));
       }
-      brandBtn.addEventListener('click', ()=>toggle(brandBtn,tBrand));
-      classBtn.addEventListener('click', ()=>toggle(classBtn,tClass));
-      shipBtn .addEventListener('click', ()=>toggle(shipBtn,tShip));
-      [tBrand,tClass,tShip].forEach(tray=>{
-        tray.addEventListener('mouseleave', ()=>setTimeout(()=>tray.classList.remove('on'),220));
-        tray.addEventListener('focusout', e=>{ if(!tray.contains(e.relatedTarget)) setTimeout(()=>tray.classList.remove('on'),220); });
-      });
-      clearBtn.addEventListener('click', ()=>{
-        STATE.klass=''; STATE.ship=''; writeURL(); apply();
-        [tBrand,tClass,tShip].forEach(x=>x.classList.remove('on'));
-      });
-      // expose for renderer
-      window.__brandbar = {
-        setClass: k => { STATE.klass=k||''; STATE.ship=''; writeURL(); apply(); },
-        setShip:  s => { STATE.ship=s||''; writeURL(); apply(); },
-        setBrand: b => { STATE.brand=b||'rccl'; writeURL(); apply(); },
-        close: () => [tBrand,tClass,tShip].forEach(x=>x.classList.remove('on'))
-      };
-    })();
-
-    /* ---------- fetch + build ---------- */
-    async function loadDB(){
-      try{
-        const res = await fetch('/assets/data/venues.json',{cache:'no-store'});
-        if(!res.ok) throw new Error(res.status);
-        return await res.json();
-      }catch(e){
-        $meta.textContent = 'Could not load venues data.';
-        return null;
+      function toggle(btn,tray){
+        const open = tray.classList.contains('on');
+        closeAll();
+        if (!open){ tray.classList.add('on'); btn.setAttribute('aria-expanded','true'); }
       }
-    }
+      bBtn.addEventListener('click', ()=>toggle(bBtn,tB));
+      cBtn.addEventListener('click', ()=>toggle(cBtn,tC));
+      sBtn.addEventListener('click', ()=>toggle(sBtn,tS));
+      [tB,tC,tS].forEach(tr=>{ tr.addEventListener('mouseleave', ()=>setTimeout(closeAll,220)); tr.addEventListener('focusout', e=>{ if(!tr.contains(e.relatedTarget)) setTimeout(closeAll,220); }); });
+      clr.addEventListener('click', ()=>{ STATE.klass=''; STATE.ship=''; apply(); closeAll(); });
 
-    function buildReverseIndexes(db){
-      const shipsByVenue = new Map();
-      const classByShip  = {};
-      Object.entries(db.ships||{}).forEach(([slug, p])=>{
-        classByShip[slug] = (p.class||'').toLowerCase();
-        (p.venues||[]).forEach(v=>{
-          if(!shipsByVenue.has(v)) shipsByVenue.set(v, new Set());
-          shipsByVenue.get(v).add(slug);
-        });
-      });
-      return {shipsByVenue, classByShip};
-    }
-
-    function paintVenues(db){
-      const {shipsByVenue, classByShip} = buildReverseIndexes(db);
-      // clear grids
-      Object.values(roots).forEach(r=>r.innerHTML='');
-
-      const allVenues = (db.venues||[]).slice().sort((a,b)=> (a.name||a.slug).localeCompare(b.name||b.slug));
-      allVenues.forEach(v=>{
-        const shipList = Array.from( (shipsByVenue.get(v.slug)||new Set()).values() );
-        const classList = Array.from( new Set(shipList.map(s=>classByShip[s]).filter(Boolean)) );
-        const access = (Array.isArray(v.access)?v.access:[]).map(s=>String(s).toLowerCase().replace(/\+/g,' plus').replace(/-/g,' '));
-        const root = roots[(v.category||'complimentary').toLowerCase()] || roots.complimentary;
-        root.insertAdjacentHTML('beforeend', cardHTML(v, shipList, classList, access));
-      });
-    }
-
-    function buildTrays(db){
-      const $brands  = $('#brands');
-      const $classes = $('#classes');
-      const $ships   = $('#ships');
-
-      // brands: RC only for now
-      $brands.innerHTML = `<button class="pillbtn" role="menuitem" data-brand="rccl">Royal Caribbean</button>`;
+      // brands (single for now)
+      $brands.innerHTML = `<button class="pillbtn" data-brand="rccl" role="menuitem">Royal Caribbean</button>`;
       $brands.querySelectorAll('button').forEach(b=>{
-        b.addEventListener('click',()=>{ window.__brandbar.setBrand(b.getAttribute('data-brand')); window.__brandbar.close(); });
+        b.addEventListener('click', ()=>{ STATE.brand = b.getAttribute('data-brand'); apply(); closeAll(); });
       });
 
       // classes
-      const classes = Array.from(new Set(Object.values(db.ships||{}).map(p=>String(p.class||'').toLowerCase()).filter(Boolean))).sort();
-      $classes.innerHTML = classes.map(k=>`<button class="pillbtn" role="menuitem" data-class="${k}">${k.replace(/\b\w/g,m=>m.toUpperCase())} Class</button>`).join('');
-      $classes.querySelectorAll('button').forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          const k = btn.getAttribute('data-class');
-          window.__brandbar.setClass(k);
-          fillShips(k);
-          window.__brandbar.close();
+      const classes = Array.from(new Set(Object.values(db.ships||{}).map(s=>String(s.class||'').toLowerCase()).filter(Boolean))).sort();
+      $classes.innerHTML = classes.map(k=>`<button class="pillbtn" data-class="${k}" role="menuitem">${k.replace(/\b\w/g,m=>m.toUpperCase())} Class</button>`).join('');
+      $classes.querySelectorAll('button').forEach(b=>{
+        b.addEventListener('click', ()=>{
+          STATE.klass = b.getAttribute('data-class')||'';
+          STATE.ship = '';
+          apply(); closeAll();
+          fillShips(STATE.klass);
+          toggle(sBtn, tS); // nudge to ships after class pick
         });
       });
 
-      function fillShips(k){
-        const list = Object.entries(db.ships||{}).filter(([slug,p])=>!k || String(p.class||'').toLowerCase()===k)
-                     .sort((a,b)=>(a[1].name||a[0]).localeCompare(b[1].name||b[0]));
-        $ships.innerHTML = list.map(([slug,p])=>`<button class="pillbtn" role="menuitem" data-ship="${slug}">${p.name}</button>`).join('');
-        $ships.querySelectorAll('button').forEach(btn=>{
-          btn.addEventListener('click',()=>{ window.__brandbar.setShip(btn.getAttribute('data-ship')); window.__brandbar.close(); });
+      // ships
+      function fillShips(klass){
+        const items = Object.entries(db.ships||{}).filter(([slug,p])=> !klass || String(p.class||'').toLowerCase()===klass)
+                          .sort((a,b)=> (a[1].name||a[0]).localeCompare(b[1].name||b[0]));
+        $ships.innerHTML = items.map(([slug,p])=>`<button class="pillbtn" data-ship="${slug}" role="menuitem" title="Filter to ${p.name}">${p.name}</button>`).join('');
+        $ships.querySelectorAll('button').forEach(b=>{
+          b.addEventListener('click', ()=>{
+            STATE.ship = b.getAttribute('data-ship')||'';
+            apply(); closeAll();
+            window.scrollTo({top: $('#q').offsetTop - 80, behavior:'smooth'});
+          });
         });
       }
       fillShips('');
     }
 
-    function buildQuickLinks(db){
-      const host = $('#ship-links');
-      if(!host) return;
-      const items = Object.entries(db.ships||{}).sort((a,b)=>(a[1].name||a[0]).localeCompare(b[1].name||b[0]));
-      host.innerHTML = items.map(([slug,p])=>`<button class="pillbtn" data-ship="${slug}" title="Show restaurants on ${p.name}">${p.name}</button>`).join('');
-      host.querySelectorAll('button').forEach(b=>{
-        b.addEventListener('click',()=>{
-          window.__brandbar.setShip(b.getAttribute('data-ship'));
-          window.scrollTo({top: document.getElementById('search-wrap').offsetTop - 80, behavior:'smooth'});
+    // input + keyboard focus
+    $q && $q.addEventListener('input', ()=>{ STATE.query = $q.value || ''; apply(); });
+    window.addEventListener('keydown', e=>{ if(e.key==='/' && document.activeElement!==$q){ e.preventDefault(); $q.focus(); }});
+
+    // fail-safe meta text
+    if ($meta) $meta.textContent = 'Loading venues…';
+
+    /* ---------- load JSON and render ---------- */
+    (async function boot(){
+      let db=null;
+      try{
+        const res = await fetch('/assets/data/venues.json', {cache:'no-store'});
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        db = await res.json();
+      }catch(e){
+        $meta && ($meta.textContent = 'Could not load venues. Showing static shell.');
+        // leave empty grids; no hard failure
+        wireChips();
+        return;
+      }
+
+      // reverse maps
+      const shipsByVenue = new Map();     // slug -> Set(ship)
+      const classesByShip = {};           // ship -> class(lower)
+      Object.entries(db.ships||{}).forEach(([ship, payload])=>{
+        classesByShip[ship] = String(payload.class||'').toLowerCase();
+        (payload.venues||[]).forEach(slug=>{
+          if(!shipsByVenue.has(slug)) shipsByVenue.set(slug, new Set());
+          shipsByVenue.get(slug).add(ship);
         });
       });
-    }
+      const classesByVenue = new Map();   // slug -> Set(class)
+      shipsByVenue.forEach((set, slug)=>{
+        const ks = new Set();
+        set.forEach(ship=>{ const k = classesByShip[ship]; if(k) ks.add(k); });
+        classesByVenue.set(slug, ks);
+      });
 
-    /* ---------- boot ---------- */
-    (async function(){
-      wireBasics();
-      readURL();
-      const db = await loadDB();
-      if (!db || !Array.isArray(db.venues)){ hideEmptySections(); return; }
+      // paint all cards (every venue in db.venues)
+      (db.venues||[]).forEach(v=>{
+        const slug = v.slug;
+        const shipList  = Array.from((shipsByVenue.get(slug)||new Set()).values());
+        const classList = Array.from((classesByVenue.get(slug)||new Set()).values());
+        const access    = (Array.isArray(v.access)?v.access:[]).map(x=>norm(x));
+        const root = roots[(v.category||'complimentary').toLowerCase()] || roots.complimentary;
+        root.insertAdjacentHTML('beforeend', cardHTML(v, shipList, classList, access));
+      });
 
-      // ensure lounges exist in catalog if not already in db.venues (won't change ship mapping)
-      const have = new Set((db.venues||[]).map(v=>v.slug));
-      if (!have.has('suite-lounge'))   db.venues.push({slug:'suite-lounge',name:'Suite Lounge',category:'complimentary',blurb:BLURB['suite-lounge']});
-      if (!have.has('diamond-lounge')) db.venues.push({slug:'diamond-lounge',name:'Diamond Lounge',category:'complimentary',blurb:BLURB['diamond-lounge']});
+      // quick ship links (filter pills)
+      const host = $('#ship-links');
+      if (host){
+        const items = Object.entries(db.ships||{}).sort((a,b)=> (a[1].name||a[0]).localeCompare(b[1].name||b[0]));
+        host.innerHTML = items.map(([slug,p])=>`<button class="chip" data-ship="${slug}" title="Show ${p.name} venues">${p.name}</button>`).join('');
+        host.querySelectorAll('button').forEach(b=>{
+          b.addEventListener('click', ()=>{ STATE.ship = b.getAttribute('data-ship'); apply(); window.scrollTo({top: $('#q').offsetTop - 80, behavior:'smooth'}); });
+        });
+      }
 
-      paintVenues(db);
-      buildTrays(db);
-      buildQuickLinks(db);
-
+      // index & wire UI
       reindex();
+      wireChips();
+      wireBrandBar(db);
       apply();
-
-      $meta.textContent = `Showing all ${CARDS.length} venues & activities`;
+      $meta && ($meta.textContent = 'Showing all venues & activities');
     })();
-
   })();
   </script>
 </body>
