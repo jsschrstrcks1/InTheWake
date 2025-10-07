@@ -1,7 +1,34 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+<script>
+/* Current-origin absolute URL builder + fix any hard-coded www. links */
+(function(){
+  var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/, '');
+  window._abs = function(path){
+    path = String(path||'');
+    if (!path.startsWith('/')) path = '/' + path;
+    return ORIGIN + path;
+  };
+  // Rewrite any hard-coded absolute links to this origin (avoids 301→CORS)
+  document.addEventListener('DOMContentLoaded', function(){
+    var sel = [
+      'a[href^="https://www.cruisinginthewake.com/"]',
+      'img[src^="https://www.cruisinginthewake.com/"]',
+      'link[href^="https://www.cruisinginthewake.com/"]',
+      'script[src^="https://www.cruisinginthewake.com/"]'
+    ].join(',');
+    document.querySelectorAll(sel).forEach(function(el){
+      var attr = el.hasAttribute('href') ? 'href' : 'src';
+      try{
+        var u = new URL(el.getAttribute(attr));
+        // replace origin, keep path/query/hash
+        el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
+      }catch(e){}
+    });
+  }, {once:true});
+})();
+  </script>  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chops Grille — Royal Caribbean | In the Wake</title>
   <meta name="referrer" content="no-referrer">
@@ -12,6 +39,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/chops-grille.html">
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.235">
+
+
 </head>
 <body>
 <header class="site-header">
