@@ -110,34 +110,102 @@
 
     /* Keep nav above hero */
     .site-header .pill-nav{position:relative;z-index:15;justify-content:center;flex-wrap:wrap;padding:.5rem 1rem}
+  /* ===== Top bar ===== */
+.topbar{
+  display:flex; align-items:center; gap:.6rem;
+  padding:.35rem .75rem;
+}
+.topbar .logo-sm img{ height:24px; width:auto; display:block; }
+.topbar .ver{ color:#355; opacity:.65; font-weight:600; font-size:.95rem; }
+.site-header .pill-nav{ margin-left:auto; display:flex; gap:.5rem; flex-wrap:wrap; position:relative; z-index:15; }
+
+/* ===== Hero (photo only – no dark overlay) ===== */
+body.restaurants-page .hero--wake{
+  position:relative; isolation:isolate;
+  min-height:clamp(300px,38vw,520px);
+  background: var(--restaurants-hero) center/cover no-repeat;
+  margin-left:calc(50% - 50vw); width:100vw; color:#fff;
+  display:flex; align-items:flex-end;
+}
+body.restaurants-page .hero--wake .latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.28; }
+body.restaurants-page .hero--wake .latlon-grid .grid-lines{ stroke:rgba(255,255,255,.30); vector-effect:non-scaling-stroke; }
+
+/* Compass positioning (upper-right) */
+body.restaurants-page .hero--wake .compass-rose{
+  position:absolute; right:min(2.6vw,28px); top:min(2.2vw,22px);
+  width:clamp(84px,7.5vw,120px); height:auto; z-index:2; pointer-events:none;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));
+  opacity:.9;
+}
+
+/* Content & medium logo overlay */
+body.restaurants-page .hero-inner{
+  position:relative; z-index:3; width:100%;
+  max-width:1160px; margin:0 auto; padding:min(8vw,80px) 16px 1.4rem;
+  text-shadow:0 2px 4px rgba(0,0,0,.35);
+}
+.hero-logo{
+  position:absolute;
+  left:clamp(16px,6vw,100px);
+  top:clamp(10px,5.5vw,90px);
+  width:clamp(220px,28vw,520px);
+  height:auto;
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,.35));
+}
+
+/* Push headings below the logo, like Radiance */
+body.restaurants-page .hero--wake h1{
+  margin:0;
+  padding-top:clamp(130px,27vw,270px);
+  font-weight:800; font-size:clamp(1.9rem,3.2vw,2.6rem); color:#fff;
+}
+body.restaurants-page .version-badge{
+  display:inline-block; margin-left:.5rem; background:rgba(0,0,0,.45);
+  border:1px solid rgba(255,255,255,.45); color:#fff;
+  padding:.2rem .55rem; border-radius:8px; font-size:.78rem;
+}
+body.restaurants-page .hero--wake .subtitle{
+  margin:.35rem 0 0; color:#fff; opacity:.98; font-size:clamp(.95rem,1.45vw,1.15rem);
+}
+
+/* Credit badge (bottom-right) */
+.hero-credit{
+  position:absolute; right:min(1.2vw,16px); bottom:min(1.2vw,16px);
+  background:rgba(255,255,255,.92); color:#163042; text-decoration:none;
+  border:2px solid var(--rope); border-radius:18px; padding:.4rem .75rem;
+  font-weight:700; font-size:.95rem; box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+/* Keep trays above content when opened */
+#brandbar{ position:relative; z-index:60; }
+  
   </style>
 </head>
 
 <body class="restaurants-page">
  <header class="site-header">
-  <!-- tiny wordmark (top strip) -->
-  <div class="site-logo-sm">
-    <a href="https://www.cruisinginthewake.com/">
-      <img src="https://www.cruisinginthewake.com/assets/logo_wake.png"
-           alt="In the Wake wordmark (small)"/>
+  <!-- Top bar: tiny logo + version + pills aligned right (Radiance style) -->
+  <div class="topbar">
+    <a class="logo-sm" href="https://www.cruisinginthewake.com/">
+      <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake" />
     </a>
+    <span class="ver">v2.256.022</span>
+
+    <nav class="pill-nav" aria-label="Primary">
+      <a class="chip" href="https://www.cruisinginthewake.com/">Home</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/ships/">Ships</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/restaurants.html" aria-current="page">Restaurants &amp; Menus</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/cruise-lines/">Cruise Lines</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+    </nav>
   </div>
 
-  <!-- primary nav (pills) -->
-  <nav class="pill-nav" aria-label="Primary" style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;padding:.5rem 1rem">
-    <a class="chip" href="https://www.cruisinginthewake.com/">Home</a>
-    <a class="chip" href="https://www.cruisinginthewake.com/ships/">Ships</a>
-    <a class="chip" href="https://www.cruisinginthewake.com/restaurants.html" aria-current="page">Restaurants &amp; Menus</a>
-    <a class="chip" href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-    <a class="chip" href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-    <a class="chip" href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-    <a class="chip" href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-    <a class="chip" href="https://www.cruisinginthewake.com/cruise-lines/">Cruise Lines</a>
-    <a class="chip" href="https://www.cruisinginthewake.com/solo.html">Solo</a>
-    <a class="chip" href="https://www.cruisinginthewake.com/travel.html">Travel</a>
-  </nav>
-
-  <!-- full-width hero with medium wordmark in front of photo -->
+  <!-- Full-width hero -->
   <div class="hero hero--wake" role="img" aria-label="Sunset wake hero image">
     <div class="latlon-grid" aria-hidden="true">
       <svg viewBox="0 0 100 60" preserveAspectRatio="none">
@@ -156,14 +224,18 @@
     <img class="compass-rose" src="https://www.cruisinginthewake.com/assets/compass-rose.svg" alt="" aria-hidden="true"/>
 
     <div class="hero-inner">
-      <!-- medium wordmark in front of the hero image -->
+      <!-- Medium wordmark in front of the photo (like Radiance) -->
       <img class="hero-logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
+
       <h1>Restaurants &amp; Menus <span class="version-badge">v2.256.022</span></h1>
       <p class="subtitle">Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes.</p>
+
+      <!-- optional photographer credit badge -->
+      <a class="hero-credit" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Photo by Flickers of Majesty — Instagram</a>
     </div>
   </div>
 
-  <!-- Brand → Class → Ship → Venue pill bar -->
+  <!-- Brand/Class/Ship/Venue pill bar (unchanged) -->
   <nav id="brandbar" aria-label="Filter by brand, class, ship, or venue">
     <div class="row">
       <span class="label tiny">Show only:</span>
