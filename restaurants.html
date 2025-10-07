@@ -354,66 +354,80 @@
   </script>
 
   <!-- Bind venue JSON → set data-ships, category, and access badges -->
-  <script>
-  (async function applyVenueMatrix(){
-    try{
-      const res = await fetch('/assets/data/venues.json', {cache:'no-store'});
-      if(!res.ok) return;
-      const db = await res.json();
+<script>
+(async function applyVenueMatrix(){
+  try{
+    const res = await fetch('/assets/data/venues.json', {cache:'no-store'});
+    if(!res.ok) return;
+    const db = await res.json();
 
-      const canon = Object.fromEntries((db.venues||[]).map(v=>[v.slug, v]));
-      // reverse index: venue → ships
-      const shipMap = new Map();
-      Object.entries(db.ships||{}).forEach(([ship, payload])=>{
-        (payload.venues||[]).forEach(v=>{
-          if(!shipMap.has(v)) shipMap.set(v, new Set());
-          shipMap.get(v).add(ship);
-        });
+    // Build quick lookups
+    const VEN = Object.create(null);
+    (db.venues||[]).forEach(v => { VEN[v.slug] = v; });
+
+    // reverse index: venue → ships
+    const map = new Map();
+    Object.entries(db.ships||{}).forEach(([ship, payload])=>{
+      (payload.venues||[]).forEach(slug=>{
+        if(!map.has(slug)) map.set(slug, new Set());
+        map.get(slug).add(ship);
       });
+    });
 
-      function accessLabel(access){
-        if(!Array.isArray(access) || !access.length) return '';
-        const hasSuites   = access.includes('suites') || access.includes('suite-guests');
-        const hasDiamond  = access.includes('diamond-or-above');
-        const hasPinnacle = access.includes('pinnacle');
-        const parts=[];
-        if (hasSuites) parts.push('Suites');
-        if (hasDiamond && hasPinnacle) parts.push('Diamond & above');
-        else if (hasDiamond) parts.push('Diamond & above');
-        else if (hasPinnacle) parts.push('Pinnacle');
-        return parts.join(' • ');
-      }
+    // Util: human label for access array
+    function accessLabelFor(slug){
+      const v = VEN[slug];
+      const rules = (v && v.access) || [];
+      if (!rules.length) return '';
+      // Friendly collations (keep these words so “diamond/suite/pinnacle” are searchable)
+      const pretty = rules.map(r=>{
+        if (r === 'suites') return 'suites';
+        if (r === 'pinnacle') return 'pinnacle';
+        if (r === 'diamond-or-above') return 'diamond and above';
+        if (r === 'diamond') return 'diamond';
+        return String(r).replace(/[-_]/g,' ');
+      });
+      // De-dup + stable order
+      return Array.from(new Set(pretty)).join(' • ');
+    }
 
-      document.querySelectorAll('.grid .card a[href*="/restaurants/"]').forEach(a=>{
-        const href = a.getAttribute('href') || '';
-        const slug = href.replace(/\/restaurants\/|\.html/g,'').replace(/\/+$/,'');
-        const v = canon[slug]; if(!v) return;
-
-        // normalize category from source of truth
-        if (v.category) a.setAttribute('data-cat', v.category);
-
-        // stamp ships list
-        const ships = Array.from((shipMap.get(slug)||new Set()).values());
-        if (ships.length) a.setAttribute('data-ships', ships.join(' '));
-
-        // access badges
-        const label = accessLabel(v.access);
-        if (label){
-          a.setAttribute('data-access', label.toLowerCase());
-          const wrap = a.querySelector('.badges');
-          if (wrap){
-            const b = document.createElement('span');
-            b.className = 'badge access';
-            b.textContent = label;
-            wrap.prepend(b);
-          }
+    // Stamp each card link with canonical data
+    document.querySelectorAll('.grid .card a[href*="/restaurants/"]').forEach(a=>{
+      const href = a.getAttribute('href') || '';
+      const slug = href.replace(/\/restaurants\/|\.html/g,'').replace(/\/+$/,'');
+      // category
+      if (VEN[slug] && VEN[slug].category) a.setAttribute('data-cat', VEN[slug].category);
+      // ships
+      const ships = Array.from((map.get(slug)||new Set()).values());
+      if (ships.length) a.setAttribute('data-ships', ships.join(' '));
+      // access
+      const acc = accessLabelFor(slug);
+      if (acc){
+        a.setAttribute('data-access', acc.toLowerCase());
+        // add a small badge if one isn’t present yet
+        if (!a.querySelector('.access-badge')){
+          const b = document.createElement('span');
+          b.className = 'access-badge tiny';
+          b.textContent = acc; // visible friendly form
+          // put the badge on its own line after the <small> if present
+          const s = a.querySelector('small');
+          if (s) s.insertAdjacentElement('afterend', b); else a.appendChild(b);
         }
-      });
+      }
+    });
 
-      // Notify filter to reindex with access text included
-      window.dispatchEvent(new Event('venues-ready'));
-    }catch(e){}
-  })();
-  </script>
+    // Tell the filter to re-index with the new attributes
+    window.dispatchEvent(new Event('venues-ready'));
+  }catch(e){}
+})();
+</script>
+<style>
+/* tiny, unobtrusive badge */
+.access-badge{
+  display:inline-block; margin-top:.25rem; padding:.15rem .45rem;
+  border-radius:999px; border:1px solid rgba(14,110,142,.3);
+  background:#f0fbff; color:#0a3d62;
+}
+</style>
 </body>
 </html>
