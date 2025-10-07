@@ -1,50 +1,109 @@
 {
   "venues": [
-    { "slug":"mdr", "name":"Main Dining Room", "category":"complimentary", "aliases":["MDR"] },
-    { "slug":"windjammer", "name":"Windjammer Marketplace", "category":"complimentary" },
-    { "slug":"park-cafe", "name":"Park Café", "category":"complimentary" },
-    { "slug":"latte-tudes", "name":"Café Latte-tudes", "category":"complimentary", "aliases":["Cafe Latte-tudes"] },
+    { "slug":"mdr",              "name":"Main Dining Room",                                 "category":"complimentary", "aliases":["MDR","Main Dining Room (MDR)"] },
+    { "slug":"windjammer",       "name":"Windjammer Marketplace",                           "category":"complimentary" },
+    { "slug":"park-cafe",        "name":"Park Café",                                        "category":"complimentary" },
+    { "slug":"latte-tudes",      "name":"Café Latte-tudes",                                 "category":"complimentary", "aliases":["Cafe Latte-tudes","Latte-tudes"] },
+    { "slug":"room-service",     "name":"Room Service",                                     "category":"complimentary" },
 
-    { "slug":"chops", "name":"Chops Grille", "category":"premium" },
-    { "slug":"giovannis", "name":"Giovanni’s (Table / Italian Kitchen)", "category":"premium" },
-    { "slug":"izumi", "name":"Izumi", "category":"premium" },
-    { "slug":"chefs-table", "name":"Chef’s Table", "category":"premium" },
-    { "slug":"samba-grill", "name":"Samba Grill", "category":"premium" },
-    { "slug":"johnny-rockets", "name":"Johnny Rockets", "category":"premium" },
-    { "slug":"sorrentos", "name":"Sorrento’s", "category":"complimentary" },
+    { "slug":"chops",            "name":"Chops Grille",                                     "category":"premium" },
+    { "slug":"giovannis",        "name":"Giovanni’s (Table / Italian Kitchen)",             "category":"premium",       "aliases":["Giovanni’s Table","Giovanni’s Italian Kitchen"] },
+    { "slug":"izumi",            "name":"Izumi",                                            "category":"premium" },
+    { "slug":"chefs-table",      "name":"Chef’s Table",                                     "category":"premium" },
+    { "slug":"samba-grill",      "name":"Samba Grill",                                      "category":"premium" },
+    { "slug":"johnny-rockets",   "name":"Johnny Rockets",                                   "category":"premium" },
+    { "slug":"sorrentos",        "name":"Sorrento’s",                                       "category":"complimentary" },
 
-    { "slug":"dining-activities", "name":"Dining Activities & Classes (All)", "category":"activity" }
+    { "slug":"dining-activities","name":"Dining Activities & Classes (All)",                "category":"activity" }
   ],
 
   "ships": {
-    "radiance-of-the-seas": {
-      "venues": [
-        "mdr","windjammer","park-cafe","chops","giovannis","izumi","samba-grill","chefs-table","dining-activities"
-      ],
-      "src":["https://www.royalcaribbeanincentives.com/ship/radiance-of-the-seas/dining/"],
-      "notes":[],
-      "to_verify":["chefs-table","park-cafe"]
-    },
+    /* =========================
+       VISION CLASS (confirmed)
+       ========================= */
     "enchantment-of-the-seas": {
+      "name": "Enchantment of the Seas",
+      "class": "Vision",
       "venues": [
-        "mdr","windjammer","park-cafe","latte-tudes","chops","giovannis","chefs-table","dining-activities"
+        "mdr","windjammer","park-cafe","latte-tudes","room-service",
+        "chops","chefs-table","dining-activities"
       ],
-      "src":["https://www.royalcaribbeanincentives.com/ship/enchantment-of-the-seas/dining/"],
-      "to_verify":["park-cafe","giovannis","chefs-table","latte-tudes"]
+      "src": ["https://www.royalcaribbeanincentives.com/ship/enchantment-of-the-seas/dining/"],
+      "notes": []
     },
     "grandeur-of-the-seas": {
+      "name": "Grandeur of the Seas",
+      "class": "Vision",
       "venues": [
-        "mdr","windjammer","park-cafe","latte-tudes","chops","giovannis","chefs-table","dining-activities"
+        "mdr","windjammer","park-cafe","latte-tudes","room-service",
+        "chops","giovannis","izumi","chefs-table","dining-activities"
       ],
-      "src":["https://www.royalcaribbeanincentives.com/ship/grandeur-of-the-seas/dining/"],
-      "to_verify":["park-cafe","giovannis","chefs-table","latte-tudes"]
+      "src": ["https://www.royalcaribbeanincentives.com/ship/grandeur-of-the-seas/dining/"],
+      "notes": []
     },
-    "adventure-of-the-seas": {
+    "rhapsody-of-the-seas": {
+      "name": "Rhapsody of the Seas",
+      "class": "Vision",
       "venues": [
-        "mdr","windjammer","sorrentos","johnny-rockets","chops","izumi","giovannis","chefs-table","dining-activities"
+        "mdr","windjammer","park-cafe","latte-tudes","room-service",
+        "chops","giovannis","izumi","chefs-table","dining-activities"
       ],
-      "src":["https://www.royalcaribbeanincentives.com/ship/adventure-of-the-seas/dining/"],
-      "to_verify":["giovannis","chefs-table"]
+      "src": ["https://www.royalcaribbeanincentives.com/ship/rhapsody-of-the-seas/dining/"],
+      "notes": []
+    },
+    "vision-of-the-seas": {
+      "name": "Vision of the Seas",
+      "class": "Vision",
+      "venues": [
+        "mdr","windjammer","park-cafe","latte-tudes","room-service",
+        "chops","giovannis","izumi","chefs-table","dining-activities"
+      ],
+      "src": ["https://www.royalcaribbeanincentives.com/ship/vision-of-the-seas/dining/"],
+      "notes": []
+    },
+
+    /* =========================
+       RADIANCE CLASS (confirmed)
+       ========================= */
+    "radiance-of-the-seas": {
+      "name": "Radiance of the Seas",
+      "class": "Radiance",
+      "venues": [
+        "mdr","windjammer","park-cafe","latte-tudes","room-service",
+        "chops","giovannis","izumi","samba-grill","chefs-table","dining-activities"
+      ],
+      "src": ["https://www.royalcaribbeanincentives.com/ship/radiance-of-the-seas/dining/"],
+      "notes": []
+    },
+    "brilliance-of-the-seas": {
+      "name": "Brilliance of the Seas",
+      "class": "Radiance",
+      "venues": [
+        "mdr","windjammer","park-cafe","latte-tudes","room-service",
+        "chops","giovannis","izumi","chefs-table","dining-activities"
+      ],
+      "src": ["https://www.royalcaribbeanincentives.com/ship/brilliance-of-the-seas/dining/"],
+      "notes": []
+    },
+    "serenade-of-the-seas": {
+      "name": "Serenade of the Seas",
+      "class": "Radiance",
+      "venues": [
+        "mdr","windjammer","park-cafe","latte-tudes","room-service",
+        "chops","giovannis","izumi","chefs-table","dining-activities"
+      ],
+      "src": ["https://www.royalcaribbeanincentives.com/ship/serenade-of-the-seas/dining/"],
+      "notes": []
+    },
+    "jewel-of-the-seas": {
+      "name": "Jewel of the Seas",
+      "class": "Radiance",
+      "venues": [
+        "mdr","windjammer","latte-tudes","room-service",
+        "chops","giovannis","izumi","chefs-table","dining-activities"
+      ],
+      "src": ["https://www.royalcaribbeanincentives.com/ship/jewel-of-the-seas/dining/"],
+      "notes": []
     }
   }
 }
