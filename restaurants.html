@@ -4,17 +4,16 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Restaurants &amp; Menus | In the Wake</title>
-  <meta name="version" content="v2.256.021"/>
+  <meta name="version" content="v2.256.022"/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta name="description" content="Premium & complimentary dining across the fleet — menus, prices, accessibility notes."/>
-  <link rel="stylesheet" href="/assets/styles.css?v=2.245"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.245"/>
 
   <!-- Page patch (scoped) -->
-  <style id="restaurants-v2_256_021">
+  <style id="restaurants-v2_256_022">
     :root{
       --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e;
-      /* Use image path that exists on your site; gradient remains if image fails */
-      --restaurants-hero:url('/assets/img/wake-hero.jpg');
+      --restaurants-hero:url("https://www.cruisinginthewake.com/assets/img/wake-hero.jpg");
     }
 
     /* ===== HERO (Radiance look) ===== */
@@ -22,9 +21,6 @@
       position:relative; isolation:isolate;
       min-height:clamp(220px,30vw,380px);
       background:
-        linear-gradient(180deg, rgba(0,18,28,.25), rgba(0,18,28,.65) 78%, rgba(0,18,28,.82)),
-        #0b2634;
-      background-image:
         linear-gradient(180deg, rgba(0,18,28,.25), rgba(0,18,28,.65) 78%, rgba(0,18,28,.82)),
         var(--restaurants-hero);
       background-size:cover; background-position:center; background-repeat:no-repeat;
@@ -54,7 +50,7 @@
     body.restaurants-page .section{ position:relative; margin:0 auto; max-width:1160px; padding:0 16px 1rem; }
     body.restaurants-page .section::before{
       content:""; position:absolute; inset:auto 0 0 0; margin:auto;
-      height:420px; max-width:980px; background:url('/assets/watermark.png') no-repeat center bottom/420px auto;
+      height:420px; max-width:980px; background:url("https://www.cruisinginthewake.com/assets/watermark.png") no-repeat center bottom/420px auto;
       opacity:.07; pointer-events:none; transform:translateY(60px);
     }
     body.restaurants-page .divider{
@@ -82,12 +78,12 @@
     #search-meta{margin:.4rem 0 0;color:#355;font-size:.9rem}
     .filters{margin:.4rem auto 0;max-width:1160px;padding:0 16px}
     .filters .filter-row{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:.35rem 0}
-    .chip{padding:.35rem .6rem;border:1px dashed var(--rope);border-radius:999px;background:#fff;font-size:.9rem;cursor:pointer;user-select:none}
+    .chip{padding:.35rem .6rem;border:1px dashed var(--rope);border-radius:999px;background:#fff;font-size:.85rem;cursor:pointer;user-select:none}
     .chip[aria-pressed="true"]{background:#0e6e8e;color:#fff;border-color:#0e6e8e;box-shadow:0 1px 6px rgba(0,0,0,.12)}
     .pill{background:rgba(230,244,248,.75);border-left:4px solid var(--rope);border:1px solid rgba(13,59,102,.06);
       color:var(--ink);padding:.5rem .75rem;border-radius:.5rem;}
 
-    /* Brand/Class/Ship pills */
+    /* Brand/Class/Ship/Venue pills */
     #brandbar{position:relative;z-index:60;max-width:1160px;margin:.35rem auto 0;padding:0 16px}
     #brandbar .row{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
     #brandbar .pillbtn{padding:.38rem .65rem;border:1px dashed var(--rope);border-radius:999px;background:#fff;font-size:.9rem;cursor:pointer}
@@ -96,17 +92,26 @@
       border-radius:14px;padding:.6rem;margin-top:.35rem;box-shadow:0 8px 28px rgba(8,48,65,.18)}
     #brandbar .tray.on{display:block}
     #brandbar .tray .group{display:flex;gap:.4rem;flex-wrap:wrap}
+
+    /* Ship pills inside cards */
+    .ship-pills{margin-top:.5rem; display:flex; flex-wrap:wrap; gap:.35rem}
+    .ship-pills .chip{font-size:.75rem; padding:.25rem .5rem; border-style:solid}
   </style>
 </head>
 
 <body class="restaurants-page">
   <header class="site-header">
-    <nav class="pill-nav" aria-label="Primary" style="display:flex;gap:.75rem;flex-wrap:wrap;padding:.75rem 1rem">
-      <a href="/">Home</a><a href="/ships/">Ships</a>
-      <a class="active" href="/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="/ports.html">Ports</a><a href="/disability-at-sea.html">Disability at Sea</a>
-      <a href="/drink-packages.html">Drink Packages</a><a href="/packing-lists.html">Packing Lists</a>
-      <a href="/cruise-lines/">Cruise Lines</a><a href="/solo.html">Solo</a><a href="/travel.html">Travel</a>
+    <nav class="pill-nav" aria-label="Primary" style="display:flex;gap:.5rem;flex-wrap:wrap;padding:.75rem 1rem">
+      <a class="chip" href="https://www.cruisinginthewake.com/">Home</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/ships/">Ships</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/restaurants.html" aria-current="page">Restaurants &amp; Menus</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/cruise-lines/">Cruise Lines</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+      <a class="chip" href="https://www.cruisinginthewake.com/travel.html">Travel</a>
     </nav>
 
     <!-- 100% width hero, Radiance-style -->
@@ -125,7 +130,7 @@
         </svg>
       </div>
       <div class="hero-inner">
-        <h1>Restaurants &amp; Menus <span class="version-badge">v2.256.021</span></h1>
+        <h1>Restaurants &amp; Menus <span class="version-badge">v2.256.022</span></h1>
         <p class="subtitle">Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes.</p>
       </div>
     </div>
@@ -147,24 +152,24 @@
     </div>
   </div>
 
-  <!-- Brand → Class → Ship pill bar -->
-  <nav id="brandbar" aria-label="Filter by brand, class, or ship">
+  <!-- Brand → Class → Ship → Venue pill bar -->
+  <nav id="brandbar" aria-label="Filter by brand, class, ship, or venue">
     <div class="row">
       <span class="label tiny">Show only:</span>
-      <button class="pillbtn" id="brandBtn" aria-expanded="false" aria-controls="tray-brand">Royal Caribbean</button>
+      <button class="pillbtn" id="brandBtn" aria-expanded="false" aria-controls="tray-brand">Cruise Line</button>
       <button class="pillbtn" id="classBtn" aria-expanded="false" aria-controls="tray-class">Ship Class</button>
       <button class="pillbtn" id="shipBtn"  aria-expanded="false" aria-controls="tray-ship">Ship</button>
-      <button class="pillbtn" id="clearBtn" title="Clear brand/class/ship filters">Clear</button>
+      <button class="pillbtn" id="venueBtn" aria-expanded="false" aria-controls="tray-venue">Venue</button>
+      <button class="pillbtn" id="clearBtn" title="Clear filters">Clear</button>
     </div>
     <div id="tray-brand" class="tray" role="menu"><div class="group" id="brands"></div></div>
     <div id="tray-class" class="tray" role="menu"><div class="group" id="classes"></div></div>
     <div id="tray-ship"  class="tray" role="menu"><div class="group" id="ships"></div></div>
+    <div id="tray-venue" class="tray" role="menu"><div class="group" id="venues"></div></div>
   </nav>
 
   <main>
-    <section class="section">
-      <p class="pill"><strong>Note:</strong> Prices change by ship and sailing; some venues unavailable on select itineraries.</p>
-    </section>
+    <section class="section"><p class="pill"><strong>Note:</strong> Prices change by ship and sailing; some venues unavailable on select itineraries.</p></section>
 
     <!-- Auto-rendered sections -->
     <section class="section" id="complimentary">
@@ -192,7 +197,7 @@
     </section>
 
     <section class="section">
-      <p class="pill"><strong>Accessibility:</strong> See each venue page and <a href="/disability-at-sea.html">Disability at Sea</a> for ship notes.</p>
+      <p class="pill"><strong>Accessibility:</strong> See each venue page and <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a> for ship notes.</p>
     </section>
   </main>
 
@@ -200,7 +205,7 @@
     <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
   </footer>
 
-  <!-- ============ JS: render + fuzzy filter + trays (self-contained) ============ -->
+  <!-- ============ JS: render + fuzzy filter + trays + ship pills ============ -->
   <script>
   (function(){
     const $ = s => document.querySelector(s);
@@ -210,23 +215,19 @@
 
     /* ---------- helpers ---------- */
     function norm(s){
-      return String(s||'')
-        .toLowerCase()
+      return String(s||'').toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
         .replace(/[’‘’]/g,"'")
         .replace(/[-_/]/g,' ')
         .replace(/\s+/g,' ')
         .trim();
     }
-    // small, fast edit-distance<=1
+    // tiny edit-distance<=1
     function near(a,b){
       if (a===b) return true;
       if (!a||!b) return false;
       if (Math.abs(a.length-b.length)>1) return false;
-      if (a.length===b.length){
-        let d=0; for(let i=0;i<a.length;i++) if(a[i]!==b[i]) d++;
-        return d<=1;
-      }
+      if (a.length===b.length){ let d=0; for(let i=0;i<a.length;i++) if(a[i]!==b[i]) d++; return d<=1; }
       if (a.length>b.length) [a,b]=[b,a];
       for(let i=0,j=0;i<a.length && j<b.length;){
         if (a[i]===b[j]){i++;j++;} else { j++; return a.slice(i)===b.slice(j) || a.slice(i+1)===b.slice(j); }
@@ -235,28 +236,25 @@
     }
 
     const SYN = {
-      diamond: ['diamond','diamond lounge','diamond and above','diamond plus','crown and anchor diamond','crown & anchor diamond'],
-      suite:   ['suite','suites','suite lounge','pinnacle','coastal kitchen','the grove'],
+      diamond:['diamond','diamond lounge','diamond and above','diamond plus','crown and anchor diamond','crown & anchor diamond'],
+      suite:['suite','suites','suite lounge','pinnacle','coastal kitchen','the grove'],
       pinnacle:['pinnacle','suite','suite lounge','coastal kitchen','the grove'],
       complimentary:['complimentary','included','free'],
       premium:['premium','specialty','extra fee']
     };
-
     function tokenMatch(text, tokens){
       if (!tokens.length) return true;
       const words = text.split(/\s+/);
       return tokens.every(tok=>{
         if (!tok) return true;
         if (text.includes(tok)) return true;
-        if (SYN[tok]) {
-          for (const s of SYN[tok]) if (text.includes(norm(s))) return true;
-        }
+        if (SYN[tok]) for (const s of SYN[tok]) if (text.includes(norm(s))) return true;
         for (const w of words){ if (w.startsWith(tok) || near(tok,w)) return true; }
         return false;
       });
     }
 
-    /* ---------- render from JSON ---------- */
+    /* ---------- blurbs fallback ---------- */
     const BLURB = {
       "mdr":"Rotating menus, themed nights; classic cruise dining.",
       "windjammer":"Casual buffet for breakfast, lunch, and dinner.",
@@ -304,25 +302,54 @@
       activity:      $('#grid-activity')
     };
 
-    function cardHTML(v, shipList, classList, access){
+    /* ---------- state ---------- */
+    let CARDS = []; // {el, slug, cat, brand, text, ships:Set, classes:Set}
+    const STATE = { cats:new Set(), query:'', brand:'rccl', klass:'', ship:'', venue:'' };
+
+    /* ---------- ship chips update per filter ---------- */
+    function updateShipChips(card){
+      const box = card.el.querySelector('.ship-pills');
+      if (!box) return;
+      const spans = box.querySelectorAll('[data-ship]');
+      spans.forEach(sp=>{
+        const ship = sp.getAttribute('data-ship');
+        const cls  = sp.getAttribute('data-class')||'';
+        const showByShip = !STATE.ship || STATE.ship===ship;
+        const showByClass= !STATE.klass || STATE.klass===cls;
+        sp.classList.toggle('is-hidden', !(showByShip && showByClass));
+      });
+      // hide chip row if all hidden
+      const anyVisible = box.querySelectorAll('.chip:not(.is-hidden)').length>0;
+      box.classList.toggle('is-hidden', !anyVisible);
+    }
+
+    /* ---------- render ---------- */
+    function cardHTML(v, shipList, classList, access, shipsDict){
       const slug = v.slug;
       const name = v.name || slug;
-      const href = `/restaurants/${slug}.html`;
+      const href = `https://www.cruisinginthewake.com/restaurants/${slug}.html`;
       const cat  = (v.category || 'complimentary').toLowerCase();
       const blurb = v.blurb || BLURB[slug] || 'Details vary by ship; see venue page.';
 
       const join = arr => (Array.isArray(arr)?arr:[]).join(' ');
       const tags = norm([name, join(v.aliases), blurb, join(v.access), join(v.audience), slug].join(' '));
 
-      // helper tags so “diamond / suite / pinnacle” match even if access tokens differ
       const extra = [];
       if (slug==='diamond-lounge'){ extra.push('diamond lounge','diamond and above','diamond plus','crown & anchor diamond'); }
       if (slug==='suite-lounge'){ extra.push('suite lounge','pinnacle','suites'); }
       if (slug==='coastal-kitchen' || slug==='the-grove'){ extra.push('suite','pinnacle','suite restaurant'); }
 
+      // build ship chips now (filtered live later)
+      const chips = shipList.map(s=>{
+        const nm = shipsDict[s]?.name || s;
+        const cls= (shipsDict[s]?.class||'').toLowerCase();
+        return `<span class="chip" data-ship="${s}" data-class="${norm(cls)}" title="${nm}">${nm}</span>`;
+      }).join('');
+
       return `
         <div class="card">
           <a href="${href}"
+             data-slug="${slug}"
              data-cat="${cat}"
              data-brand="rccl"
              ${shipList.length?'data-ships="'+shipList.join(' ')+'"':''}
@@ -331,6 +358,7 @@
              data-tags="${tags} ${norm(extra.join(' '))}">
             <strong>${name}</strong><br><small>${blurb}</small>
           </a>
+          <div class="ship-pills">${chips}</div>
         </div>`;
     }
 
@@ -342,18 +370,15 @@
       });
     }
 
-    /* ---------- state + filter ---------- */
-    let CARDS = []; // {el, cat, brand, text, ships:Set, classes:Set}
-    const STATE = { cats:new Set(), query:'', brand:'rccl', klass:'', ship:'' };
-
     function reindex(){
       CARDS = $$('.grid .card a').map(a=>{
+        const slug = a.getAttribute('data-slug')||'';
         const cat  = (a.getAttribute('data-cat')||'').toLowerCase();
         const brand = (a.getAttribute('data-brand')||'rccl').toLowerCase();
         const ships = new Set((a.getAttribute('data-ships')||'').toLowerCase().split(/\s+/).filter(Boolean));
         const klass = new Set((a.getAttribute('data-classes')||'').toLowerCase().split(/\s+/).filter(Boolean));
         const text = norm(a.textContent + ' ' + (a.getAttribute('data-tags')||'') + ' ' + (a.getAttribute('data-access')||''));
-        return { el:a.closest('.card'), cat, brand, ships, classes:klass, text };
+        return { el:a.closest('.card'), slug, cat, brand, ships, classes:klass, text };
       });
     }
 
@@ -368,14 +393,19 @@
         const bHit = !STATE.brand || c.brand===STATE.brand;
         const kHit = !STATE.klass || c.classes.has(STATE.klass);
         const sHit = !STATE.ship  || c.ships.has(STATE.ship);
-        const hit  = tHit && cHit && bHit && kHit && sHit;
+        const vHit = !STATE.venue || c.slug===STATE.venue;
+        const hit  = tHit && cHit && bHit && kHit && sHit && vHit;
+
         c.el.classList.toggle('is-hidden', !hit);
         if (hit) shown++;
+
+        // keep ship chips in sync even if the card is hidden/shown
+        updateShipChips(c);
       });
 
       hideEmptySections();
       const total = CARDS.length;
-      $meta.textContent = (q || STATE.cats.size || STATE.klass || STATE.ship)
+      $meta.textContent = (q || STATE.cats.size || STATE.klass || STATE.ship || STATE.venue)
         ? `Showing ${shown} of ${total}`
         : `Showing all venues & activities`;
     }
@@ -393,13 +423,13 @@
     }
 
     function wireBrandBar(db){
-      const bBtn = $('#brandBtn'), cBtn=$('#classBtn'), sBtn=$('#shipBtn'), clr=$('#clearBtn');
-      const tB = $('#tray-brand'), tC=$('#tray-class'), tS=$('#tray-ship');
-      const $brands = $('#brands'), $classes = $('#classes'), $ships = $('#ships');
+      const bBtn=$('#brandBtn'), cBtn=$('#classBtn'), sBtn=$('#shipBtn'), vBtn=$('#venueBtn'), clr=$('#clearBtn');
+      const tB=$('#tray-brand'), tC=$('#tray-class'), tS=$('#tray-ship'), tV=$('#tray-venue');
+      const $brands=$('#brands'), $classes=$('#classes'), $ships=$('#ships'), $venues=$('#venues');
 
       function closeAll(){
-        [tB,tC,tS].forEach(x=>x.classList.remove('on'));
-        [bBtn,cBtn,sBtn].forEach(b=>b.setAttribute('aria-expanded','false'));
+        [tB,tC,tS,tV].forEach(x=>x.classList.remove('on'));
+        [bBtn,cBtn,sBtn,vBtn].forEach(b=>b.setAttribute('aria-expanded','false'));
       }
       function toggle(btn,tray){
         const open = tray.classList.contains('on');
@@ -409,8 +439,13 @@
       bBtn.addEventListener('click', ()=>toggle(bBtn,tB));
       cBtn.addEventListener('click', ()=>toggle(cBtn,tC));
       sBtn.addEventListener('click', ()=>toggle(sBtn,tS));
-      [tB,tC,tS].forEach(tr=>{ tr.addEventListener('mouseleave', ()=>setTimeout(closeAll,220)); tr.addEventListener('focusout', e=>{ if(!tr.contains(e.relatedTarget)) setTimeout(closeAll,220); }); });
-      clr.addEventListener('click', ()=>{ STATE.klass=''; STATE.ship=''; apply(); closeAll(); });
+      vBtn.addEventListener('click', ()=>toggle(vBtn,tV));
+      [tB,tC,tS,tV].forEach(tr=>{ tr.addEventListener('mouseleave', ()=>setTimeout(closeAll,220)); tr.addEventListener('focusout', e=>{ if(!tr.contains(e.relatedTarget)) setTimeout(closeAll,220); }); });
+      clr.addEventListener('click', ()=>{
+        STATE.klass=''; STATE.ship=''; STATE.venue=''; STATE.query=''; $q.value=''; STATE.cats.clear();
+        $$('#filters .chip[aria-pressed="true"]').forEach(x=>x.setAttribute('aria-pressed','false'));
+        apply(); closeAll();
+      });
 
       // brands (single for now)
       $brands.innerHTML = `<button class="pillbtn" data-brand="rccl" role="menuitem">Royal Caribbean</button>`;
@@ -427,7 +462,7 @@
           STATE.ship = '';
           apply(); closeAll();
           fillShips(STATE.klass);
-          toggle(sBtn, tS); // nudge to ships after class pick
+          toggle(sBtn, tS);
         });
       });
 
@@ -445,6 +480,17 @@
         });
       }
       fillShips('');
+
+      // venues (by name)
+      const venues = (db.venues||[]).slice().sort((a,b)=> (a.name||a.slug).localeCompare(b.name||b.slug));
+      $venues.innerHTML = venues.map(v=>`<button class="pillbtn" data-venue="${v.slug}" role="menuitem">${v.name}</button>`).join('');
+      $venues.querySelectorAll('button').forEach(b=>{
+        b.addEventListener('click', ()=>{
+          STATE.venue = b.getAttribute('data-venue')||'';
+          apply(); closeAll();
+          window.scrollTo({top: $('#q').offsetTop - 80, behavior:'smooth'});
+        });
+      });
     }
 
     // input + keyboard focus
@@ -458,14 +504,11 @@
     (async function boot(){
       let db=null;
       try{
-        const res = await fetch('/assets/data/venues.json', {cache:'no-store'});
+        const res = await fetch('https://www.cruisinginthewake.com/assets/data/venues.json', {cache:'no-store'});
         if(!res.ok) throw new Error('HTTP '+res.status);
         db = await res.json();
       }catch(e){
-        $meta && ($meta.textContent = 'Could not load venues. Showing static shell.');
-        // leave empty grids; no hard failure
-        wireChips();
-        return;
+        $meta && ($meta.textContent = 'Could not load venues.'); return;
       }
 
       // reverse maps
@@ -485,14 +528,14 @@
         classesByVenue.set(slug, ks);
       });
 
-      // paint all cards (every venue in db.venues)
+      // paint all cards
       (db.venues||[]).forEach(v=>{
         const slug = v.slug;
         const shipList  = Array.from((shipsByVenue.get(slug)||new Set()).values());
         const classList = Array.from((classesByVenue.get(slug)||new Set()).values());
         const access    = (Array.isArray(v.access)?v.access:[]).map(x=>norm(x));
         const root = roots[(v.category||'complimentary').toLowerCase()] || roots.complimentary;
-        root.insertAdjacentHTML('beforeend', cardHTML(v, shipList, classList, access));
+        root.insertAdjacentHTML('beforeend', cardHTML(v, shipList, classList, access, db.ships||{}));
       });
 
       // quick ship links (filter pills)
