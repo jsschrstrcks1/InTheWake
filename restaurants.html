@@ -8,7 +8,68 @@
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta name="description" content="Premium & complimentary dining across the fleet — menus, prices, accessibility notes."/>
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.245"/>
+<header class="site-header">
+  <!-- site logo -->
+  <div class="site-logo" style="text-align:center; margin-top:.5rem;">
+    <a href="https://www.cruisinginthewake.com/">
+      <img src="https://www.cruisinginthewake.com/assets/logo_wake.png"
+           alt="In the Wake wordmark"
+           style="max-width:240px; height:auto; filter:drop-shadow(0 2px 3px rgba(0,0,0,.25));"/>
+    </a>
+  </div>
 
+  <!-- primary nav (pills) -->
+  <nav class="pill-nav" aria-label="Primary" style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;padding:.5rem 1rem">
+    <a class="chip" href="https://www.cruisinginthewake.com/">Home</a>
+    <a class="chip" href="https://www.cruisinginthewake.com/ships/">Ships</a>
+    <a class="chip" href="https://www.cruisinginthewake.com/restaurants.html" aria-current="page">Restaurants &amp; Menus</a>
+    <a class="chip" href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+    <a class="chip" href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+    <a class="chip" href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+    <a class="chip" href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+    <a class="chip" href="https://www.cruisinginthewake.com/cruise-lines/">Cruise Lines</a>
+    <a class="chip" href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+    <a class="chip" href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+  </nav>
+
+  <!-- full-width hero (photo only, grid overlay, compass) -->
+  <div class="hero hero--wake" role="img" aria-label="Sunset wake hero image">
+    <div class="latlon-grid" aria-hidden="true">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+        <g class="grid-lines" stroke-width="0.35">
+          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+          <line x1="90" y1="0" x2="90" y2="60"/>
+          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+        </g>
+      </svg>
+    </div>
+    <img class="compass-rose" src="https://www.cruisinginthewake.com/assets/compass-rose.svg" alt="" aria-hidden="true"/>
+    <div class="hero-inner">
+      <h1>Restaurants &amp; Menus <span class="version-badge">v2.256.022</span></h1>
+      <p class="subtitle">Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes.</p>
+    </div>
+  </div>
+
+  <!-- Brand → Class → Ship → Venue pill bar -->
+  <nav id="brandbar" aria-label="Filter by brand, class, ship, or venue">
+    <div class="row">
+      <span class="label tiny">Show only:</span>
+      <button class="pillbtn" id="brandBtn" aria-expanded="false" aria-controls="tray-brand">Cruise Line</button>
+      <button class="pillbtn" id="classBtn" aria-expanded="false" aria-controls="tray-class">Ship Class</button>
+      <button class="pillbtn" id="shipBtn"  aria-expanded="false" aria-controls="tray-ship">Ship</button>
+      <button class="pillbtn" id="venueBtn" aria-expanded="false" aria-controls="tray-venue">Venue</button>
+      <button class="pillbtn" id="clearBtn" title="Clear filters">Clear</button>
+    </div>
+    <div id="tray-brand" class="tray" role="menu"><div class="group" id="brands"></div></div>
+    <div id="tray-class" class="tray" role="menu"><div class="group" id="classes"></div></div>
+    <div id="tray-ship"  class="tray" role="menu"><div class="group" id="ships"></div></div>
+    <div id="tray-venue" class="tray" role="menu"><div class="group" id="venues"></div></div>
+  </nav>
+</header>
   <!-- Page patch (scoped) -->
 <style id="restaurants-v2_256_022">
 :root{
@@ -133,22 +194,6 @@ body.restaurants-page .grid-3{ grid-template-columns:repeat(3,minmax(0,1fr)) }
       <button type="button" class="chip" data-kind="cat" data-val="activity" aria-pressed="false">Activities</button>
     </div>
   </div>
-
-  <!-- Brand → Class → Ship → Venue pill bar -->
-  <nav id="brandbar" aria-label="Filter by brand, class, ship, or venue">
-    <div class="row">
-      <span class="label tiny">Show only:</span>
-      <button class="pillbtn" id="brandBtn" aria-expanded="false" aria-controls="tray-brand">Cruise Line</button>
-      <button class="pillbtn" id="classBtn" aria-expanded="false" aria-controls="tray-class">Ship Class</button>
-      <button class="pillbtn" id="shipBtn"  aria-expanded="false" aria-controls="tray-ship">Ship</button>
-      <button class="pillbtn" id="venueBtn" aria-expanded="false" aria-controls="tray-venue">Venue</button>
-      <button class="pillbtn" id="clearBtn" title="Clear filters">Clear</button>
-    </div>
-    <div id="tray-brand" class="tray" role="menu"><div class="group" id="brands"></div></div>
-    <div id="tray-class" class="tray" role="menu"><div class="group" id="classes"></div></div>
-    <div id="tray-ship"  class="tray" role="menu"><div class="group" id="ships"></div></div>
-    <div id="tray-venue" class="tray" role="menu"><div class="group" id="venues"></div></div>
-  </nav>
 
   <main>
     <section class="section"><p class="pill"><strong>Note:</strong> Prices change by ship and sailing; some venues unavailable on select itineraries.</p></section>
