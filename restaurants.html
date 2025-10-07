@@ -9,12 +9,13 @@
   <link rel="stylesheet" href="/assets/styles.css?v=2.235">
   <style>
   /* Rope divider — add Safari support */
-.divider{
-  height:14px;
+    .divider {
+  height: 12px;
   background: var(--rope);
-  -webkit-mask: linear-gradient(90deg,#000 60%,transparent 60%) 0/22px 100%;
-          mask: linear-gradient(90deg,#000 60%,transparent 60%) 0/22px 100%;
-  border-radius:2px;
+  -webkit-mask: linear-gradient(90deg,#000 60%,transparent 60%) repeat-x;
+  mask: linear-gradient(90deg,#000 60%,transparent 60%) repeat-x;
+  background-repeat: repeat-x;
+  border-radius: 0;
 }
 
 /* Pill cleanup — remove accidental debug outline, keep accessible focus */
@@ -32,6 +33,10 @@
   </style>
 </head>
 <body>
+  <style>body {
+  background:linear-gradient(var(--foam),#fff 220px);
+  color:var(--ink);
+}</style>
 <header class="site-header">
   <nav class="pill-nav" aria-label="Primary" style="display:flex;gap:.75rem;flex-wrap:wrap;padding:.75rem 1rem">
     <a href="/">Home</a>
@@ -56,6 +61,15 @@
 
   <!-- Intro/notice -->
   <section class="section">
+ <style> .section {
+  position:relative;
+  background-image:url('/assets/watermark.png');
+  background-repeat:no-repeat;
+  background-position:center 60%;
+  background-size:420px auto;
+  background-blend-mode:soft-light;
+}</style> 
+    
     <p class="pill"><strong>Note:</strong> Prices change frequently and vary by ship and sailing. Some venues or experiences may not be available on all ships.</p>
   </section>
 
