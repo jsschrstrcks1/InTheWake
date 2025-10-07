@@ -30,12 +30,40 @@
   outline:2px solid #0d3b66;
   outline-offset:2px;
 }
+    .pill {
+  background:rgba(230,244,248,.75);
+  border-left:4px solid var(--rope);
+  color:var(--ink);
+}.section h2 {
+  margin-bottom:.25rem;
+  letter-spacing:.02em;
+  font-weight:700;
+}
+.divider {margin-bottom:1.5rem;}
+
+    .version-badge {
+  float:right;
+  margin-top:-2rem;
+}
+    .subtitle {
+  color:#f7fafc;
+  opacity:.95;
+  text-shadow:0 1px 4px rgba(0,0,0,.65);
+}
   </style>
 </head>
 <body>
+  <body class="restaurants-page">
   <style>body {
   background:linear-gradient(var(--foam),#fff 220px);
   color:var(--ink);
+  /* Scoped refinement — Restaurants module only */
+body.restaurants-page .card {
+  border-radius:18px;
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.06),
+    inset 0 0 0 1px rgba(255,255,255,.7);
+}
 }</style>
 <header class="site-header">
   <nav class="pill-nav" aria-label="Primary" style="display:flex;gap:.75rem;flex-wrap:wrap;padding:.75rem 1rem">
