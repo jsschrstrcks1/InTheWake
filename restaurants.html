@@ -522,7 +522,8 @@
     (async function boot(){
       let db=null;
       try{
-        const res = await fetch('https://www.cruisinginthewake.com/assets/data/venues.json', {cache:'no-store'});
+    const DATA_URL = location.origin.replace(/\/$/,'') + '/assets/data/venues.json';
+        const res = await fetch(DATA_URL, {cache:'no-store'});
         if(!res.ok) throw new Error('HTTP '+res.status);
         db = await res.json();
       }catch(e){
