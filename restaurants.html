@@ -1,675 +1,157 @@
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Restaurants &amp; Menus | In the Wake</title>
-  <meta name="version" content="v2.256.015"/>
+  <meta name="version" content="v2.256.018"/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta name="description" content="Premium & complimentary dining across the fleet — menus, prices, accessibility notes."/>
   <link rel="stylesheet" href="/assets/styles.css?v=2.245"/>
 
-  <!-- Restaurants module patch (scoped) -->
-  <style id="restaurants-patch-v2_256_015">
+  <style id="restaurants-patch-v2_256_018">
     :root{ --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e; }
 
-    /* HERO — match Radiance look */
+    /* ==== HERO (same look as ship pages) ==== */
     body.restaurants-page .hero--wake{
-      position:relative;
-      min-height:clamp(200px, 28vw, 360px);
+      position:relative; isolation:isolate;
+      min-height:clamp(220px,30vw,380px);
       background:url('/assets/wake-hero.jpg') center/cover no-repeat;
-      color:#fff;
-      margin-left:calc(50% - 50vw); width:100vw; display:flex; align-items:flex-end;
-      padding:0; isolation:isolate;
+      color:#fff; display:flex; align-items:flex-end;
     }
-    body.restaurants-page .hero--wake::before{
-      /* subtle darken, not solid navy */
-      content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,18,28,.25), rgba(0,18,28,.50) 70%, rgba(0,18,28,.65));
+    body.restaurants-page .hero--wake::after{
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(180deg,rgba(0,18,28,.3),rgba(0,18,28,.65) 80%,rgba(0,18,28,.8));
       z-index:0;
     }
-    /* grid overlay like ships pages */
-    body.restaurants-page .hero--wake .latlon-grid{ position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.55 }
-    body.restaurants-page .hero--wake .latlon-grid svg{ width:100%; height:100% }
-    body.restaurants-page .hero--wake .grid-lines{ stroke:rgba(255,255,255,.24); vector-effect:non-scaling-stroke }
-
-    /* title block */
-    body.restaurants-page .hero--wake .hero-inner{
+    body.restaurants-page .hero-inner{
       position:relative; z-index:2; width:100%;
-      max-width:1160px; margin:0 auto; padding:2.2rem 16px 1.4rem;
-      text-shadow:0 2px 6px rgba(0,0,0,.45);
+      max-width:1160px; margin:0 auto; padding:2.4rem 16px 1.6rem;
+      text-shadow:0 2px 6px rgba(0,0,0,.55);
     }
     body.restaurants-page .hero--wake h1{
-      margin:0; font-weight:800; letter-spacing:.01em; font-size:clamp(1.6rem,3.6vw,2.8rem)
+      margin:0; font-weight:800; font-size:clamp(1.8rem,3.5vw,2.9rem);
+      letter-spacing:.01em;
     }
-    body.restaurants-page .hero--wake .version-badge{
+    body.restaurants-page .version-badge{
       display:inline-block; margin-left:.5rem; background:rgba(12,32,44,.7);
-      border:1px solid rgba(255,255,255,.35); color:#fff; padding:.15rem .5rem; border-radius:8px; font-size:.75rem
+      border:1px solid rgba(255,255,255,.35); color:#fff;
+      padding:.2rem .55rem; border-radius:8px; font-size:.78rem;
     }
     body.restaurants-page .hero--wake .subtitle{
-      margin:.35rem 0 0; color:#f7fafc; opacity:.95; font-size:clamp(.95rem,1.4vw,1.2rem);
+      margin:.35rem 0 0; color:#f7fafc; opacity:.95; font-size:clamp(.95rem,1.5vw,1.2rem);
     }
 
-    /* PAGE BACKGROUND */
-    body.restaurants-page{ background:linear-gradient(var(--foam), #fff 220px); color:var(--ink); }
-
-    /* SECTION + WATERMARK */
+    /* ==== LAYOUT ==== */
+    body.restaurants-page{ background:linear-gradient(var(--foam),#fff 240px); color:var(--ink); }
     body.restaurants-page .section{ position:relative; margin:0 auto; max-width:1160px; padding:0 16px 1rem; }
     body.restaurants-page .section::before{
-      content:""; position:absolute; inset:auto 0 0 0; margin:auto; height:420px; max-width:980px;
-      background:url('/assets/watermark.png') no-repeat center bottom / 420px auto;
+      content:""; position:absolute; inset:auto 0 0 0; margin:auto;
+      height:420px; max-width:980px;
+      background:url('/assets/watermark.png') no-repeat center bottom/420px auto;
       opacity:.07; pointer-events:none; transform:translateY(60px);
     }
-
-    /* ROPE DIVIDER */
     body.restaurants-page .divider{
-      height:12px; background: var(--rope);
-      -webkit-mask: linear-gradient(90deg,#000 60%,transparent 60%) repeat-x;
-              mask: linear-gradient(90deg,#000 60%,transparent 60%) repeat-x;
-      background-repeat:repeat-x; margin:.45rem 0 1.5rem;
+      height:12px; background:var(--rope);
+      -webkit-mask:linear-gradient(90deg,#000 60%,transparent 60%) repeat-x;
+      mask:linear-gradient(90deg,#000 60%,transparent 60%) repeat-x;
+      background-repeat:repeat-x; margin:.5rem 0 1.5rem;
     }
-
-    /* GRID + CARDS */
     body.restaurants-page .grid{ display:grid; gap:1rem }
     body.restaurants-page .grid-3{ grid-template-columns:repeat(3,minmax(0,1fr)) }
-    @media (max-width:960px){ body.restaurants-page .grid-3{ grid-template-columns:1fr 1fr } }
-    @media (max-width:640px){ body.restaurants-page .grid-3{ grid-template-columns:1fr } }
+    @media(max-width:960px){ .grid-3{grid-template-columns:1fr 1fr} }
+    @media(max-width:640px){ .grid-3{grid-template-columns:1fr} }
+    .card{border-radius:18px;box-shadow:0 2px 8px rgba(0,0,0,.06),inset 0 0 0 1px rgba(255,255,255,.7);
+      background:#fff;border:2px solid var(--rope);padding:.9rem;}
+    .card a{display:block;color:inherit;text-decoration:none}
+    .card a strong{color:#0a3d62}
+    .is-hidden{display:none!important}
+    .section.is-empty{display:none!important}
 
-    body.restaurants-page .card{
-      border-radius:18px;
-      box-shadow:0 2px 8px rgba(0,0,0,.06), inset 0 0 0 1px rgba(255,255,255,.7);
-      overflow:hidden; background:#fff; border:2px solid var(--rope);
-      padding:.9rem;
-    }
-    body.restaurants-page .card a{ display:block; color:inherit; text-decoration:none }
-    body.restaurants-page .card a strong{ color:#0a3d62 }
-    .is-hidden{ display:none !important }
+    /* SEARCH + CHIPS */
+    #search-wrap{max-width:1160px;margin:.75rem auto 0;padding:0 16px}
+    #q{width:100%;padding:.65rem .85rem;border-radius:12px;border:1px solid #cfe1ea;font-size:1rem}
+    #q:focus{border-color:#0e6e8e;box-shadow:0 0 0 3px rgba(14,110,142,.15)}
+    #search-meta{margin:.4rem 0 0;color:#355;font-size:.9rem}
+    .filters{margin:.4rem auto 0;max-width:1160px;padding:0 16px}
+    .filters .filter-row{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:.35rem 0}
+    .chip{padding:.35rem .6rem;border:1px dashed var(--rope);border-radius:999px;background:#fff;font-size:.9rem;cursor:pointer;user-select:none}
+    .chip[aria-pressed="true"]{background:#0e6e8e;color:#fff;border-color:#0e6e8e;box-shadow:0 1px 6px rgba(0,0,0,.12)}
+    .pill{background:rgba(230,244,248,.75);border-left:4px solid var(--rope);border:1px solid rgba(13,59,102,.06);
+      color:var(--ink);padding:.5rem .75rem;border-radius:.5rem;}
 
-    /* PILL / NOTE / CHIPS */
-    body.restaurants-page .pill{
-      background:rgba(230,244,248,.75); border-left:4px solid var(--rope);
-      border:1px solid rgba(13,59,102,.06); color:var(--ink);
-      padding:.5rem .75rem; border-radius:.5rem;
-    }
-    body.restaurants-page .pill:focus-visible{ outline:2px solid #0d3b66; outline-offset:2px; }
-
-    body.restaurants-page .filters{ margin:.4rem auto 0; max-width:1160px; padding:0 16px }
-    body.restaurants-page .filters .filter-row{ display:flex; gap:.4rem; flex-wrap:wrap; align-items:center; margin:.35rem 0 }
-    body.restaurants-page .filters .label{ color:#355 }
-    body.restaurants-page .filters .chip{
-      display:inline-block; padding:.35rem .6rem; border:1px dashed var(--rope);
-      border-radius:999px; background:#fff; font-size:.9rem; cursor:pointer; user-select:none;
-      transition:background .15s ease, color .15s ease, box-shadow .15s ease, border-color .15s ease;
-    }
-    body.restaurants-page .filters .chip[aria-pressed="true"]{
-      background:#0e6e8e; color:#fff; border-color:#0e6e8e; box-shadow:0 1px 6px rgba(0,0,0,.12);
-    }
-
-    /* SEARCH */
-    #search-wrap{ max-width:1160px; margin:.75rem auto 0; padding:0 16px }
-    #q{
-      width:100%; padding:.65rem .85rem; border-radius:12px; border:1px solid #cfe1ea;
-      font-size:1rem; outline:none;
-    }
-    #q:focus{ border-color:#0e6e8e; box-shadow:0 0 0 3px rgba(14,110,142,.15) }
-    #search-meta{ margin:.4rem 0 0; color:#355; font-size:.9rem }
-
-    /* TYPOGRAPHY */
-    body.restaurants-page .section h2{ margin:.25rem 0 .25rem; letter-spacing:.02em; font-weight:700; color:#0a3d62 }
-    /* Hide empty sections cleanly */
-.section.is-empty { display:none !important; }
-
-/* Brand → Class → Ship pill bar */
-#brandbar { position:relative; z-index: 60; max-width:1160px; margin:.35rem auto 0; padding:0 16px; }
-#brandbar .row { display:flex; gap:.4rem; flex-wrap:wrap; align-items:center; }
-#brandbar .label { color:#355 }
-#brandbar .pillbtn{
-  display:inline-block; padding:.38rem .65rem; border:1px dashed var(--rope);
-  border-radius:999px; background:#fff; font-size:.9rem; cursor:pointer; user-select:none;
-}
-#brandbar .pillbtn[aria-pressed="true"]{ background:#0e6e8e; color:#fff; border-color:#0e6e8e; box-shadow:0 1px 6px rgba(0,0,0,.12) }
-
-/* dropdown trays */
-#brandbar .tray{
-  position:absolute; top:100%; left:16px; right:16px; display:none;
-  background:#fff; border:2px solid var(--rope); border-radius:14px; padding:.6rem; margin-top:.35rem;
-  box-shadow:0 8px 28px rgba(8,48,65,.18);
-}
-#brandbar .tray.on { display:block }
-#brandbar .tray .group{ display:flex; gap:.4rem; flex-wrap:wrap; }
-#brandbar .tray .pillbtn{ white-space:nowrap }
-
-/* make sure trays float above everything */
-.hero--wake, .hero--wake * { position: relative; z-index: 1; }
-#brandbar .tray { z-index: 80; }
-
-/* small helper for the “Quick links by ship” pills */
-#ship-links { display:flex; flex-wrap:wrap; gap:.4rem }
+    /* Brand/Class/Ship pills */
+    #brandbar{position:relative;z-index:60;max-width:1160px;margin:.35rem auto 0;padding:0 16px}
+    #brandbar .row{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+    #brandbar .pillbtn{padding:.38rem .65rem;border:1px dashed var(--rope);border-radius:999px;background:#fff;font-size:.9rem;cursor:pointer}
+    #brandbar .pillbtn[aria-pressed="true"]{background:#0e6e8e;color:#fff;border-color:#0e6e8e}
+    #brandbar .tray{position:absolute;top:100%;left:16px;right:16px;display:none;background:#fff;border:2px solid var(--rope);
+      border-radius:14px;padding:.6rem;margin-top:.35rem;box-shadow:0 8px 28px rgba(8,48,65,.18)}
+    #brandbar .tray.on{display:block}
+    #brandbar .tray .group{display:flex;gap:.4rem;flex-wrap:wrap}
   </style>
 </head>
-<body class="restaurants-page">
 
-  <header class="site-header">
+<body class="restaurants-page">
+  <header>
     <nav class="pill-nav" aria-label="Primary" style="display:flex;gap:.75rem;flex-wrap:wrap;padding:.75rem 1rem">
-      <a href="/">Home</a>
-      <a href="/ships/">Ships</a>
+      <a href="/">Home</a><a href="/ships/">Ships</a>
       <a class="active" href="/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/disability-at-sea.html">Disability at Sea</a>
-      <a href="/drink-packages.html">Drink Packages</a>
-      <a href="/packing-lists.html">Packing Lists</a>
-      <a href="/cruise-lines/">Cruise Lines</a>
-      <a href="/solo.html">Solo</a>
-      <a href="/travel.html">Travel</a>
+      <a href="/ports.html">Ports</a><a href="/disability-at-sea.html">Disability at Sea</a>
+      <a href="/drink-packages.html">Drink Packages</a><a href="/packing-lists.html">Packing Lists</a>
+      <a href="/cruise-lines/">Cruise Lines</a><a href="/solo.html">Solo</a><a href="/travel.html">Travel</a>
     </nav>
 
-    <div class="hero hero--wake" role="img" aria-label="Sunset wake hero image">
-      <!-- grid overlay similar to ships pages -->
-      <div class="latlon-grid" aria-hidden="true">
-        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-          <g class="grid-lines" stroke-width="0.35">
-            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
-            <line x1="90" y1="0" x2="90" y2="60"/>
-            <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
-            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
-          </g>
-        </svg>
-      </div>
-
+    <div class="hero hero--wake">
       <div class="hero-inner">
-        <h1>Restaurants &amp; Menus <span class="version-badge">v2.256.015</span></h1>
+        <h1>Restaurants &amp; Menus <span class="version-badge">v2.256.018</span></h1>
         <p class="subtitle">Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes.</p>
       </div>
     </div>
   </header>
 
-  <!-- Search -->
-  <div id="search-wrap" role="search">
-    <input id="q" type="search" inputmode="search" placeholder="Type to filter… (e.g., chops, giovanni, sushi, suite, diamond)" aria-label="Filter restaurants by name, type, or tag">
+  <div id="search-wrap">
+    <input id="q" type="search" placeholder="Type to filter… (e.g., chops, sushi, suite, diamond)">
     <div id="search-meta" class="tiny" aria-live="polite">Loading venues…</div>
   </div>
 
-  <!-- Category chips -->
-  <div id="filters" class="filters" role="group" aria-label="Filter dining">
+  <div id="filters" class="filters">
     <div class="filter-row">
       <span class="label tiny">Categories:</span>
-      <button type="button" class="pill chip" data-kind="cat" data-val="premium" aria-pressed="false">Premium</button>
-      <button type="button" class="pill chip" data-kind="cat" data-val="complimentary" aria-pressed="false">Complimentary</button>
-      <button type="button" class="pill chip" data-kind="cat" data-val="activity" aria-pressed="false">Activities</button>
+      <button type="button" class="chip" data-kind="cat" data-val="premium" aria-pressed="false">Premium</button>
+      <button type="button" class="chip" data-kind="cat" data-val="complimentary" aria-pressed="false">Complimentary</button>
+      <button type="button" class="chip" data-kind="cat" data-val="activity" aria-pressed="false">Activities</button>
     </div>
-    <!-- Brand → Class → Ship bar -->
-<nav id="brandbar" aria-label="Filter by brand, class, or ship">
-  <div class="row">
-    <span class="label tiny">Show only:</span>
-    <button type="button" class="pillbtn" id="brandBtn" aria-expanded="false" aria-controls="tray-brand">Royal Caribbean</button>
-    <button type="button" class="pillbtn" id="classBtn" aria-expanded="false" aria-controls="tray-class">Ship Class</button>
-    <button type="button" class="pillbtn" id="shipBtn" aria-expanded="false" aria-controls="tray-ship">Ship</button>
-    <button type="button" class="pillbtn" id="clearBtn" aria-pressed="false" title="Clear brand/class/ship filters">Clear</button>
   </div>
-  <div id="tray-brand" class="tray" role="menu" aria-label="Choose a cruise brand">
-    <div class="group" id="brands"></div>
-  </div>
-  <div id="tray-class" class="tray" role="menu" aria-label="Choose a ship class">
-    <div class="group" id="classes"></div>
-  </div>
-  <div id="tray-ship" class="tray" role="menu" aria-label="Choose a ship">
-    <div class="group" id="ships"></div>
-  </div>
-</nav>
-  </div>
+
+  <nav id="brandbar">
+    <div class="row">
+      <span class="label tiny">Show only:</span>
+      <button class="pillbtn" id="brandBtn">Royal Caribbean</button>
+      <button class="pillbtn" id="classBtn">Ship Class</button>
+      <button class="pillbtn" id="shipBtn">Ship</button>
+      <button class="pillbtn" id="clearBtn">Clear</button>
+    </div>
+    <div id="tray-brand" class="tray"><div class="group" id="brands"></div></div>
+    <div id="tray-class" class="tray"><div class="group" id="classes"></div></div>
+    <div id="tray-ship" class="tray"><div class="group" id="ships"></div></div>
+  </nav>
 
   <main>
-    <!-- Intro note -->
-    <section class="section">
-      <p class="pill"><strong>Note:</strong> Prices change frequently and vary by ship and sailing. Some venues or experiences may not be available on all ships.</p>
-    </section>
+    <section class="section"><p class="pill"><strong>Note:</strong> Prices change by ship and sailing; some venues unavailable on select itineraries.</p></section>
 
-    <!-- Auto-rendered sections -->
-    <section class="section" id="complimentary">
-      <h2>Main Dining &amp; Complimentary</h2>
-      <div class="divider" aria-hidden="true"></div>
-      <div class="grid grid-3" id="grid-complimentary"></div>
-    </section>
+    <section class="section" id="complimentary"><h2>Main Dining &amp; Complimentary</h2><div class="divider"></div><div class="grid grid-3" id="grid-complimentary"></div></section>
+    <section class="section" id="premium"><h2>Specialty Dining</h2><div class="divider"></div><div class="grid grid-3" id="grid-premium"></div></section>
+    <section class="section" id="activity"><h2>Dining Activities &amp; Classes</h2><div class="divider"></div><div class="grid grid-3" id="grid-activity"></div></section>
 
-    <section class="section" id="premium">
-      <h2>Specialty Dining</h2>
-      <div class="divider" aria-hidden="true"></div>
-      <div class="grid grid-3" id="grid-premium"></div>
-    </section>
+    <section class="section" id="by-ship"><h2>Quick Links by Ship</h2><div class="divider"></div><div id="ship-links"></div></section>
 
-    <section class="section" id="activities">
-      <h2>Dining Activities &amp; Classes</h2>
-      <div class="divider" aria-hidden="true"></div>
-      <div class="grid grid-3" id="grid-activity"></div>
-    </section>
-
-    <!-- Quick cross-links (keep) -->
-  <section class="section" id="by-ship">
-  <h2>Quick Links by Ship</h2>
-  <div class="divider" aria-hidden="true"></div>
-  <div id="ship-links"></div>
-</section>
-
-    <!-- Footer notes -->
-    <section class="section">
-      <p class="pill"><strong>Accessibility:</strong> See each venue’s page and the <a href="/disability-at-sea.html">Disability at Sea</a> module for ship-specific notes.</p>
-      <p class="tiny">Prices are snapshots from recent sailings and may change without notice.</p>
-    </section>
+    <section class="section"><p class="pill"><strong>Accessibility:</strong> See each venue page and <a href="/disability-at-sea.html">Disability at Sea</a> for ship notes.</p></section>
   </main>
 
-  <footer class="site-footer" style="text-align:center">
-    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
-  </footer>
+  <footer class="site-footer" style="text-align:center"><p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p></footer>
 
- <script>
-/* ---------- filter core (search + chips + brand/class/ship) ---------- */
-(function(){
-  var q    = document.getElementById('q');
-  var meta = document.getElementById('search-meta');
-  var chips = [];
-
-  function norm(s){
-    return String(s||'').toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-      .replace(/[’‘']/g,"'").replace(/\s+/g,' ').trim();
-  }
-
-  /* tiny 1-edit distance (prefix + near-match) */
-  function edit1(a,b){
-    if (a===b) return true;
-    if (!a || !b) return false;
-    if (Math.abs(a.length-b.length)>1) return false;
-    if (a.length===b.length){
-      var d=0; for (var i=0;i<a.length;i++) if(a[i]!==b[i]) d++;
-      return d<=1;
-    }
-    if (a.length>b.length){ var t=a; a=b; b=t; }
-    for (var i=0,j=0; i<a.length&&j<b.length; ){
-      if (a[i]===b[j]){ i++; j++; }
-      else { j++; return a.slice(i)===b.slice(j) || a.slice(i+1)===b.slice(j); }
-    }
-    return true;
-  }
-
-  /* synonyms so “diamond +” / “plus” etc. work */
-  var synonyms = {
-    'diamond':['diamond','diamond lounge','diamond or above','diamond plus','crown & anchor diamond'],
-    'suite':['suite','suites','suite lounge','pinnacle','coastal kitchen','the grove'],
-    'pinnacle':['pinnacle','suite','suite lounge','coastal kitchen','the grove'],
-    'complimentary':['free','included','complimentary'],
-    'premium':['specialty','premium','extra fee']
-  };
-
-  function tokenHits(cardText, tokens){
-    if (!tokens.length) return true;
-    return tokens.every(function(tok){
-      if (!tok) return true;
-      if (cardText.indexOf(tok)!==-1) return true;
-      if (synonyms[tok]){
-        for (var i=0;i<synonyms[tok].length;i++){
-          var s = norm(synonyms[tok][i]);
-          if (cardText.indexOf(s)!==-1) return true;
-        }
-      }
-      var words = cardText.split(/\s+/);
-      for (var w=0; w<words.length; w++){
-        var wd = words[w];
-        if (wd.startsWith(tok)) return true;
-        if (edit1(tok, wd)) return true;
-      }
-      return false;
-    });
-  }
-
-  var cards = []; // {el, cat, text, ships:Set, classes:Set, brand}
-  var state = { cats:new Set(), query:'', brand:'rccl', klass:'', ship:'' };
-
-  function readURL(){
-    var sp = new URLSearchParams(location.search);
-    state.query = sp.get('q') || '';
-    state.brand = sp.get('brand') || 'rccl';
-    state.klass = sp.get('class') || '';
-    state.ship  = sp.get('ship')  || '';
-    var cats  = (sp.get('cats')||'').toLowerCase().split(',').filter(Boolean);
-    state.cats = new Set(cats);
-    if (q && state.query) q.value = state.query;
-    chips.forEach(function(c){
-      var on = state.cats.has(c.getAttribute('data-val'));
-      c.setAttribute('aria-pressed', on?'true':'false');
-    });
-  }
-  function writeURL(){
-    var sp = new URLSearchParams(location.search);
-    function setOrDel(k,v){ if(v) sp.set(k,v); else sp.delete(k); }
-    setOrDel('q', state.query);
-    setOrDel('brand', state.brand);
-    setOrDel('class', state.klass);
-    setOrDel('ship', state.ship);
-    sp.delete('cats');
-    if (state.cats.size) sp.set('cats', Array.from(state.cats).join(','));
-    history.replaceState(null,'', location.pathname + (sp.toString()?('?'+sp.toString()):''));
-  }
-
-  function reindex(){
-    var links = Array.from(document.querySelectorAll('.grid .card a'));
-    cards = links.map(function(a){
-      var cat   = norm(a.getAttribute('data-cat'));
-      var tags  = norm(a.getAttribute('data-tags'));
-      var ships = new Set((a.getAttribute('data-ships')||'').toLowerCase().split(/\s+/).filter(Boolean));
-      var klass = new Set((a.getAttribute('data-classes')||'').toLowerCase().split(/\s+/).filter(Boolean));
-      var brand = (a.getAttribute('data-brand')||'rccl').toLowerCase();
-      var acc   = norm(a.getAttribute('data-access'));
-      var text  = norm(a.textContent + ' ' + tags + ' ' + Array.from(ships).join(' ') + ' ' + acc + ' ' + (a.getAttribute('href')||''));
-      return { el:a.closest('.card'), cat:cat, text:text, ships:ships, classes:klass, brand:brand };
-    });
-    chips = Array.from(document.querySelectorAll('#filters .chip'));
-  }
-
-  function apply(){
-    var nQ = norm(state.query);
-    var toks = nQ ? nQ.split(/\s+/) : [];
-    var shown = 0;
-
-    cards.forEach(function(c){
-      var textHit = tokenHits(c.text, toks);
-      var catHit  = !state.cats.size || state.cats.has(c.cat);
-      var brandHit = !state.brand || c.brand===state.brand;
-      var classHit = !state.klass || c.classes.has(state.klass);
-      var shipHit  = !state.ship  || c.ships.has(state.ship);
-      var hit = textHit && catHit && brandHit && classHit && shipHit;
-      c.el.classList.toggle('is-hidden', !hit);
-      if (hit) shown++;
-    });
-
-    // hide empty grids and their section headings
-    ['complimentary','premium','activity'].forEach(function(cat){
-      var section = document.getElementById(cat).closest('.section');
-      var grid = document.getElementById('grid-'+cat);
-      var visible = grid.querySelectorAll('.card:not(.is-hidden)').length;
-      grid.classList.toggle('is-hidden', visible===0);
-      section.classList.toggle('is-empty', visible===0);
-    });
-
-    var total = cards.length;
-    meta.textContent = (state.query || state.cats.size || state.klass || state.ship)
-      ? ('Showing ' + shown + ' of ' + total)
-      : ('Showing all ' + total + ' venues & activities');
-  }
-
-  function onInput(){ state.query = q.value || ''; writeURL(); apply(); }
-  function onChipClick(ev){
-    var btn = ev.currentTarget;
-    var val = btn.getAttribute('data-val');
-    var on  = btn.getAttribute('aria-pressed') === 'true';
-    if (on){ state.cats.delete(val); } else { state.cats.add(val); }
-    btn.setAttribute('aria-pressed', on?'false':'true');
-    writeURL(); apply();
-  }
-
-  window.__wireChips = function(){
-    chips = Array.from(document.querySelectorAll('#filters .chip'));
-    chips.forEach(function(b){ b.removeEventListener('click', onChipClick); b.addEventListener('click', onChipClick); });
-  };
-  window.__reindexRestaurants = function(){ reindex(); readURL(); apply(); };
-
-  if (q){ q.addEventListener('input', onInput); }
-  window.addEventListener('keydown', function(e){ if(e.key==='/' && document.activeElement!==q){ e.preventDefault(); q.focus(); }});
-
-  /* --- brand/class/ship tray interactions --- */
-  (function brandUI(){
-    var brandBtn = document.getElementById('brandBtn');
-    var classBtn = document.getElementById('classBtn');
-    var shipBtn  = document.getElementById('shipBtn');
-    var clearBtn = document.getElementById('clearBtn');
-    var tBrand   = document.getElementById('tray-brand');
-    var tClass   = document.getElementById('tray-class');
-    var tShip    = document.getElementById('tray-ship');
-
-    function toggleTray(btn, tray){
-      var open = tray.classList.contains('on');
-      [tBrand,tClass,tShip].forEach(x=>x.classList.remove('on'));
-      [brandBtn,classBtn,shipBtn].forEach(b=>b.setAttribute('aria-expanded','false'));
-      if (!open){ tray.classList.add('on'); btn.setAttribute('aria-expanded','true'); }
-    }
-    function closeTraysSoon(){
-      setTimeout(function(){ [tBrand,tClass,tShip].forEach(x=>x.classList.remove('on'));
-        [brandBtn,classBtn,shipBtn].forEach(b=>b.setAttribute('aria-expanded','false')); }, 220);
-    }
-
-    brandBtn.addEventListener('click', ()=>toggleTray(brandBtn,tBrand));
-    classBtn.addEventListener('click', ()=>toggleTray(classBtn,tClass));
-    shipBtn .addEventListener('click', ()=>toggleTray(shipBtn,tShip));
-
-    [tBrand,tClass,tShip].forEach(tray=>{
-      tray.addEventListener('mouseleave', closeTraysSoon);
-      tray.addEventListener('focusout', function(e){
-        if (!tray.contains(e.relatedTarget)) closeTraysSoon();
-      });
-    });
-
-    clearBtn.addEventListener('click', function(){
-      state.klass=''; state.ship=''; writeURL(); apply();
-      [tBrand,tClass,tShip].forEach(x=>x.classList.remove('on'));
-    });
-
-    // expose for renderer to populate trays and attach handlers to options
-    window.__brandbar = {
-      setBrand: function(b){ state.brand=b||'rccl'; writeURL(); apply(); },
-      setClass: function(k){ state.klass=k||''; state.ship=''; writeURL(); apply(); },
-      setShip:  function(s){ state.ship=s||''; writeURL(); apply(); },
-      close: closeTraysSoon
-    };
-  })();
-
-  // initial message until renderer runs
-  if (meta) meta.textContent = 'Loading venues…';
-})();
-</script>
-
-<script>
-/* ---------- renderer (build cards from venues.json + fill pill trays) ---------- */
-(async function renderVenues(){
-  try{
-    const res = await fetch('/assets/data/venues.json', {cache:'no-store'});
-    if(!res.ok) throw new Error('venues.json not found');
-    const db = await res.json();
-
-    // canonical category per slug
-    const catBySlug = Object.fromEntries((db.venues||[]).map(v=>[v.slug, v.category]));
-
-    // reverse index: venue → ships / classes
-    const shipsByVenue  = new Map();
-    const classesByShip = {};
-    const brandByShip   = {}; // future-proof multi-brand; rccl default
-    Object.entries(db.ships||{}).forEach(([ship, payload])=>{
-      classesByShip[ship] = (payload.class||'').toLowerCase();
-      brandByShip[ship]   = (payload.brand||'rccl').toLowerCase();
-      (payload.venues||[]).forEach(slug=>{
-        if(!shipsByVenue.has(slug)) shipsByVenue.set(slug, new Set());
-        shipsByVenue.get(slug).add(ship);
-      });
-    });
-    const classesByVenue = new Map();
-    shipsByVenue.forEach((set, slug)=>{
-      const klasses = new Set();
-      set.forEach(ship=>{ const k = classesByShip[ship]; if(k) klasses.add(k); });
-      classesByVenue.set(slug, klasses);
-    });
-
-    // access rules per venue slug
-    const accessBySlug = Object.create(null);
-    (db.venues||[]).forEach(v=>{
-      if (Array.isArray(v.access) && v.access.length){
-        accessBySlug[v.slug] = v.access.map(s=>String(s).toLowerCase());
-      }
-    });
-
-    // short blurbs (fallback). If db.venues[i].blurb exists, that wins.
-    const fallbackBlurb = {
-      'mdr':'Rotating menus and themed nights in a classic dining room.',
-      'windjammer':'Casual buffet from breakfast to dinner.',
-      'park-cafe':'Quick salads, paninis, and the famous kummelweck.',
-      'latte-tudes':'Morning espresso and pastry stop (varies by class).',
-      'sorrentos':'Hot from the oven, by-the-slice pizza most hours.',
-      'johnny-rockets':'Retro diner burgers and shakes (fee varies).',
-      'chops':'Signature steakhouse, aged cuts and sides.',
-      'izumi':'Sushi, hot rocks, or hibachi depending on ship.',
-      'giovannis':'Handmade pastas and Italian classics.',
-      'chefs-table':'Hosted, wine-paired tasting dinner (limited seats).',
-      'samba-grill':'Brazilian churrasco served rodizio-style.',
-      'coastal-kitchen':'Refined, fresh flavors for suite guests.',
-      'the-grove':'Open-air suite sun deck dining (Icon class).',
-      'suite-lounge':'Private lounge with small bites (Suites & Pinnacle).',
-      'diamond-lounge':'Member lounge with snacks (Diamond or above).',
-      'dining-activities':'Hands-on classes and tastings fleetwide.',
-      'vintages':'Wines by the glass, flights, and pairings.',
-      'dog-house':'Boardwalk/poolside hot dogs and toppings.',
-      'cafe-promenade':'24-ish hour snacks, sandwiches, and coffee.',
-      'el-loco-fresh':'Tex-Mex favorites, quick and casual.',
-      'solarium-bistro':'Lighter Mediterranean-leaning fare.',
-      'starbucks':'Espresso drinks and pastries.',
-      'hooked':'New England-style seafood and raw bar.',
-      'jamies-italian':'Family-style Italian by Jamie Oliver.',
-      '150-central-park':'Seasonal fine dining in Central Park.',
-      'wonderland':'Playful, multi-sensory tasting journey.',
-      'sugar-beach':'Candy wall and ice cream counter.',
-      'mason-jar':'Southern comfort with live music at brunch/dinner.',
-      'cafe-two70':'Sandwiches and salads with wake views.',
-      'the-grande':'Old-school elegance on select Quantum layouts.',
-      'chic':'Contemporary dining room on select Quantum layouts.',
-      'aquadome-market':'Icon’s food hall with five stalls.',
-      'pearl-cafe':'Grab-and-go bites on the Royal Promenade.',
-      'surfside-eatery':'Family-friendly buffet in Surfside.',
-      'basecamp':'Snacks near Thrill Island; draft beer add-ons.',
-      'celebration-table':'Bookable private dining for your group.',
-      'pier-7':'All-day brunch and light coastal plates.',
-      'izumi-in-the-park':'Walk-up sushi and sweets window.'
-    };
-    const blurbBySlug = Object.fromEntries((db.venues||[]).map(v=>[v.slug, v.blurb||fallbackBlurb[v.slug]||'Details vary by ship; see venue page.']));
-
-    // ensure lounges exist (fleetwide rule you requested)
-    [['suite-lounge','Suite Lounge'],['diamond-lounge','Diamond Lounge']].forEach(([slug,name])=>{
-      if (!catBySlug[slug]) {
-        if (!db.venues) db.venues=[];
-        db.venues.push({slug,name,category:'complimentary',blurb:blurbBySlug[slug]});
-        catBySlug[slug] = 'complimentary';
-      }
-    });
-
-    // where to paint
-    const roots = {
-      complimentary: document.getElementById('grid-complimentary'),
-      premium:       document.getElementById('grid-premium'),
-      activity:      document.getElementById('grid-activity')
-    };
-
-    function makeCard(v){
-      const slug = v.slug;
-      const name = v.name || slug;
-      const href = '/restaurants/'+slug+'.html';
-      const cat  = catBySlug[slug] || v.category || 'complimentary';
-      const ships = Array.from( (shipsByVenue.get(slug)||new Set()).values() );
-      const klasses = Array.from( (classesByVenue.get(slug)||new Set()).values() );
-      const access = accessBySlug[slug] || v.access || [];
-      const accessWords = access.map(a=> a==='diamond-or-above' ? 'diamond or above' : a);
-
-      // helper tags so searches like “suite”, “pinnacle”, “diamond plus” hit
-      const extraTags = [];
-      if (slug==='diamond-lounge'){ extraTags.push('diamond lounge','crown & anchor diamond','diamond or above','diamond plus'); }
-      if (slug==='suite-lounge'){ extraTags.push('suite lounge','pinnacle','suites'); }
-      if (slug==='coastal-kitchen' || slug==='the-grove'){ extraTags.push('suite','pinnacle','suite restaurant'); }
-
-      return `
-        <div class="card">
-          <a href="${href}"
-             data-brand="rccl"
-             data-cat="${cat}"
-             ${ships.length   ? `data-ships="${ships.join(' ')}"` : ''}
-             ${klasses.length ? `data-classes="${klasses.join(' ')}"` : ''}
-             ${accessWords.length ? `data-access="${accessWords.join(', ')}"` : ''}
-             data-tags="${extraTags.join(' ')}">
-            <strong>${name}</strong><br>
-            <small>${blurbBySlug[slug]}</small>
-          </a>
-        </div>`;
-    }
-
-    // paint all venues (sorted for calm UI)
-    const allVenues = (db.venues||[]).slice().sort((a,b)=> (a.name||a.slug).localeCompare(b.name||b.slug));
-    allVenues.forEach(v=>{
-      const root = roots[catBySlug[v.slug]||v.category||'complimentary'] || roots.complimentary;
-      root.insertAdjacentHTML('beforeend', makeCard(v));
-    });
-
-    // build Brand → Class → Ship trays from JSON
-    const $brands  = document.getElementById('brands');
-    const $classes = document.getElementById('classes');
-    const $ships   = document.getElementById('ships');
-
-    // brands (for now only Royal Caribbean)
-    $brands.innerHTML = `<button class="pillbtn" role="menuitem" data-brand="rccl">Royal Caribbean</button>`;
-    $brands.querySelectorAll('button').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        window.__brandbar.setBrand(btn.getAttribute('data-brand'));
-        window.__brandbar.close();
-      });
-    });
-
-    // classes from data
-    const classes = Array.from(new Set(Object.values(classesByShip))).filter(Boolean).sort();
-    $classes.innerHTML = classes.map(k=>`<button class="pillbtn" role="menuitem" data-class="${k}">${k.replace(/\b\w/g,m=>m.toUpperCase())} Class</button>`).join('');
-    $classes.querySelectorAll('button').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        window.__brandbar.setClass(btn.getAttribute('data-class'));
-        window.__brandbar.close();
-        // also repopulate ships tray for this class
-        fillShips(btn.getAttribute('data-class'));
-      });
-    });
-
-    // ships tray (filtered by class selection, else all)
-    function fillShips(klass){
-      const items = Object.entries(db.ships||{}).filter(([slug,p])=> !klass || (String(p.class||'').toLowerCase()===klass));
-      items.sort((a,b)=> (a[1].name||a[0]).localeCompare(b[1].name||b[0]));
-      $ships.innerHTML = items.map(([slug,p])=>
-        `<button class="pillbtn" role="menuitem" data-ship="${slug}" title="Filter to ${p.name}">${p.name}</button>`
-      ).join('');
-      $ships.querySelectorAll('button').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          window.__brandbar.setShip(btn.getAttribute('data-ship'));
-          window.__brandbar.close();
-        });
-      });
-    }
-    fillShips(''); // initial
-
-    // wire chips + index + apply
-    if (window.__wireChips) window.__wireChips();
-    if (window.__reindexRestaurants) window.__reindexRestaurants();
-
-    // quick links by ship (optional: auto-generate pills that filter)
-    const shipLinksHost = document.getElementById('ship-links');
-    if (shipLinksHost){
-      const items = Object.entries(db.ships||{}).sort((a,b)=> (a[1].name||a[0]).localeCompare(b[1].name||b[0]));
-      shipLinksHost.innerHTML = items.map(([slug,p])=>
-        `<button class="pillbtn" data-ship="${slug}" title="Show restaurants on ${p.name}">${p.name}</button>`
-      ).join('');
-      shipLinksHost.querySelectorAll('button').forEach(b=>{
-        b.addEventListener('click', ()=>{
-          window.__brandbar.setShip(b.getAttribute('data-ship'));
-          window.scrollTo({top: document.getElementById('q').offsetTop - 80, behavior:'smooth'});
-        });
-      });
-    }
-
-    const meta = document.getElementById('search-meta');
-    if (meta) meta.textContent = 'Showing all venues & activities';
-  }catch(e){
-    const meta = document.getElementById('search-meta');
-    if (meta) meta.textContent = 'Could not load venues.';
-  }
-})();
-</script>
+  <!-- Scripts -->
+  <script src="/assets/js/restaurants-v2.256.018.js" defer></script>
 </body>
 </html>
