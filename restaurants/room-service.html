@@ -232,4 +232,139 @@
     <div class="card__content prose">
       <h2>The Logbook — Real Guest Soundings</h2>
 
-      <p class="pill"><strong>Depth Sounding:</strong> First-person account captured “in the wake,” edited for clarity. Experiences vary by ship and
+      <p class="pill"><strong>Depth Sounding:</strong> First-person account captured “in the wake,” edited for clarity. Experiences vary by ship and      itinerary.</p>
+
+      <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
+        <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">
+          4.5 ★ out of 5
+        </span>
+        <span class="tiny" style="color:#355;">Symphony of the Seas • Sep 2025 • Breakfast daily + late-night snacks</span>
+        <span class="tiny" style="color:#355;">Pricing: cold = free • hot ≈ $7.95 + 18%</span>
+      </div>
+
+      <p class="tiny" style="margin:-.4rem 0 .8rem;color:#355;">
+        Sailed aboard <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>.
+      </p>
+
+      <h3>Royal Caribbean Room Service Review 2025: Effortless In-Cabin Indulgence Around the Clock</h3>
+
+      <h4>Introduction</h4>
+      <p>Room Service turns your stateroom into a private dining nook — reliable, crave-worthy bites with minimal fuss and maximum relaxation. From a free continental spread at dawn to a hot cheeseburger at midnight, it nails the balance of quality and ease. On my 7-night Bahamas cruise, I ordered continental breakfast most mornings, plus all-day items for lunch and a late-night snack. The value is strong: cold items = $0; hot items ≈ $7.95 + gratuity.</p>
+
+      <h4>Food</h4>
+      <p>The complimentary yogurt parfait was a daily win — creamy yogurt, crunchy granola, and bright berries in a spill-safe cup, paired with a flaky croissant and juice. Midday, the <strong>club sandwich</strong> (cold) arrived deli-fresh with pickle spears — simple, balanced, and free. For a hot upgrade, the personal cheese pizza came bubbling and crisp, perfect balcony fare. Desserts like <strong>chocolate-dipped strawberries</strong> capped things sweetly. It’s not gourmet, but it’s comfort that travels well.</p>
+
+      <h4>Service</h4>
+      <p>Ordering via the app or phone took under a minute; deliveries averaged 15–20 minutes. Operators clearly explained free vs fee items and flagged my nut allergy across later orders. On busier sea days, waits grew slightly but included courteous follow-up calls. The crew’s calm efficiency makes Room Service a quiet highlight.</p>
+
+      <h4>Atmosphere</h4>
+      <p>Because the “dining room” is your room, the mood is whatever you choose — sunrise trays on the balcony, lights-down movie snacks, or PJs after port days. Privacy is the luxury, and it feels indulgent without costing time or effort.</p>
+
+      <h4>Conclusion</h4>
+      <p>Dependable food, courteous timing, and made-for-coziness convenience make Room Service an easy yes. The fee structure simply teaches smarter ordering — bundle hots, lean on free continentals. <strong>Rating: 4.5 / 5.</strong> Ideal for families, couples, or suite guests; use the app to time orders and bundle for value.</p>
+
+      <p class="tiny" style="margin-top:.75rem;">
+        Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a>
+      </p>
+    </div>
+
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "Restaurant",
+        "name": "Room Service (Royal Caribbean)",
+        "servesCuisine": "International / In-room",
+        "provider": { "@type": "Organization", "name": "Royal Caribbean International" }
+      },
+      "name": "Royal Caribbean Room Service Review 2025: Effortless In-Cabin Indulgence Around the Clock",
+      "reviewBody": "Complimentary continental breakfast and all-day bites delivered to your stateroom. Cold items free; hot items incur a small delivery fee. Reliable timing and easy app ordering make it a relaxing, high-value option.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "4.5", "bestRating": "5", "worstRating": "1" },
+      "author": { "@type": "Person", "name": "Guest Sounding (Symphony of the Seas, Sep 2025)" },
+      "isPartOf": { "@type": "WebPage", "url": "https://www.cruisinginthewake.com/restaurants/room-service.html" }
+    }
+    </script>
+  </section>
+
+  <!-- Sources -->
+  <section class="card" id="sources">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content">
+      <h2>Sources &amp; Attribution</h2>
+      <ul>
+        <li>Royal Caribbean onboard materials &amp; Royal App (fees / hours vary by ship).</li>
+        <li>Aggregated 2024–2025 cruiser reports for menus and delivery times.</li>
+        <li>Royal Caribbean marks &amp; menus referenced under fair use for commentary.</li>
+        <li>App ordering not available fleet-wide; fallback = door-hanger or stateroom phone.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
+</footer>
+
+<!-- Venue hydrator -->
+<script>
+(function(){
+  const cleanClass=s=>String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
+  const CLASS_ORDER=['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
+
+  const urlSlug=(location.pathname.split('/').pop()||'').replace(/\.html$/,'');
+  const VENUE_HINTS=[urlSlug,'room-service','room service','in-room dining','in room dining','roomservice'];
+
+  const byClassSize=(a,b)=>{
+    const ai=CLASS_ORDER.indexOf(cleanClass(a[1].class));
+    const bi=CLASS_ORDER.indexOf(cleanClass(b[1].class));
+    if(ai!==bi){if(ai===-1)return 1;if(bi===-1)return -1;return ai-bi;}
+    return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
+  };
+
+  function shipHref(slug){return `/ships/rcl/${slug}.html`;}
+
+  async function hydrateShipList(listEl){
+    try{
+      const res=await fetch(`${location.origin}/assets/data/venues.json`,{cache:'no-store'});
+      if(!res.ok)throw new Error(res.status);
+      const db=await res.json();
+      const ships=Object.entries(db.ships||{}).filter(([slug,p])=>{
+        const v=Array.isArray(p.venues)?p.venues:[];
+        return VENUE_HINTS.some(h=>v.includes(h));
+      }).sort(byClassSize);
+      listEl.innerHTML=ships.length
+        ? ships.map(([slug,p])=>`<a class="chip" href="${shipHref(slug)}">${p.name||slug}</a>`).join('')
+        : `<span class="tiny muted">No active ships found for this venue.</span>`;
+    }catch{listEl.innerHTML=`<span class="tiny muted">Could not load ship list.</span>`;}
+  }
+
+  const btn=document.querySelector('#rccl-toggle');
+  const list=document.querySelector('#rccl-ship-list');
+  const tip=document.querySelector('#rccl-tip');
+  if(btn&&list){
+    const setNote=o=>{
+      const note=btn.querySelector('.note');
+      if(note)note.textContent=o?'— tap again to hide ships':'— tap to see ships';
+    };
+    const toggle=o=>{
+      const open=typeof o==='boolean'?o:btn.getAttribute('aria-expanded')!=='true';
+      btn.setAttribute('aria-expanded',open);
+      list.classList.toggle('is-hidden',!open);
+      if(open&&tip)tip.style.display='none';
+      setNote(open);
+    };
+    btn.addEventListener('click',()=>toggle());
+    btn.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}
+    });
+    list.classList.add('is-hidden');
+    hydrateShipList(list);
+    setNote(false);
+  }
+})();
+</script>
+</body>
+</html>
