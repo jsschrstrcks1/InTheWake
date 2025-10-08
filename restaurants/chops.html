@@ -55,7 +55,59 @@
   to   { opacity:1; transform:translateY(0) }
 }
 </style>
-</head>
+  <style id="ship-pills-visual">
+/* === Ship Pills Visual Refresh (venue pages) === */
+.ship-pills-bar .ship-pills a.chip {
+  display:inline-block;
+  font-size:1rem;                 /* slightly larger than normal text */
+  font-weight:500;
+  border:1px solid var(--rope,#d9b382);
+  background-color:#fff;
+  color:var(--ink,#083041);
+  border-radius:999px;
+  padding:.35rem .85rem;
+  line-height:1.2;
+  text-decoration:none;
+  transition:all .18s ease-in-out;
+}
+.ship-pills-bar .ship-pills a.chip::before {
+  content:"⚓";                   /* subtle anchor glyph */
+  font-size:.8em;
+  margin-right:.35em;
+  color:var(--rope,#d9b382);
+  opacity:.9;
+}
+.ship-pills-bar .ship-pills a.chip:hover {
+  background-color:var(--foam,#e6f4f8);
+  border-color:var(--accent,#0e6e8e);
+  color:var(--accent,#0e6e8e);
+  text-decoration:none;
+  transform:translateY(-1px);
+}
+.ship-pills-bar .chip.rc-toggle {
+  font-weight:600;
+  background:#0e6e8e;
+  color:#fff;
+  border-color:#0e6e8e;
+}
+.ship-pills-bar .chip.rc-toggle .tiny.note {
+  color:#fff;
+  opacity:.8;
+}
+</style>
+  <!-- ==== restaurants: logbook/card layering fix ==== -->
+<style id="logbook-card-fix">
+  /* keep watermark behind content and prevent layout weirdness */
+  .card{ position:relative; overflow:hidden; }
+  .card > img[aria-hidden]{
+    position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.08;
+  }
+  .card .card__content{ position:relative; z-index:1; }
+  /* light prose rhythm so headings don’t bunch */
+  .prose h3{ margin:.9rem 0 .45rem; }
+  .prose h4{ margin:.8rem 0 .35rem; }
+</style>
+  </head>
 
 <body class="venue-page">
 <header class="site-header">
