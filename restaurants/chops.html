@@ -15,371 +15,230 @@
   <meta name="referrer" content="no-referrer">
 
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
-<script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Normalize absolute links to current origin -->
   <script>
   (function(){
-    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs = p => ORIGIN + (String(p||'').startsWith('/') ? p : '/'+p);
     function normalize(){
-      var sel=[
+      const sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
         'img[src^="https://www.cruisinginthewake.com/"]',
         'link[href^="https://www.cruisinginthewake.com/"]',
         'script[src^="https://www.cruisinginthewake.com/"]'
       ].join(',');
-      document.querySelectorAll(sel).forEach(function(el){
-        var attr=el.hasAttribute('href')?'href':'src';
-        try{var u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{
+          const u=new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(e){}
       });
     }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', normalize, {once:true});
+    else normalize();
   })();
   </script>
-  <style>
-  .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
-  .ship-pills-bar .pills{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center}
-  .ship-pills-bar .pill{white-space:nowrap}
-    /* Collapsible ship pills: matches your existing pill language */
-.ship-pills-bar { margin:.25rem 0 1rem; }
-.ship-pills-bar .chip { cursor:pointer; }
-.ship-pills { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem; }
-.ship-pills a.chip { text-decoration:none; color:inherit; }
-.is-hidden { display:none !important; }
-.tiny.note { opacity:.7; font-weight:600; }
-.tiny.muted { color:#466; opacity:.75; }
 
-/* Optional: subtle “drawer” entrance */
-.ship-pills[data-anim="in"] { animation: shipDrawer .18s ease-out; }
-@keyframes shipDrawer {
-  from { opacity:0; transform:translateY(-4px) }
-  to   { opacity:1; transform:translateY(0) }
-}
-</style>
-  <style id="ship-pills-visual">
-/* === Ship Pills Visual Refresh (venue pages) === */
-.ship-pills-bar .ship-pills a.chip {
-  display:inline-block;
-  font-size:1rem;                 /* slightly larger than normal text */
-  font-weight:500;
-  border:1px solid var(--rope,#d9b382);
-  background-color:#fff;
-  color:var(--ink,#083041);
-  border-radius:999px;
-  padding:.35rem .85rem;
-  line-height:1.2;
-  text-decoration:none;
-  transition:all .18s ease-in-out;
-}
-.ship-pills-bar .ship-pills a.chip::before {
-  content:"⚓";                   /* subtle anchor glyph */
-  font-size:.8em;
-  margin-right:.35em;
-  color:var(--rope,#d9b382);
-  opacity:.9;
-}
-.ship-pills-bar .ship-pills a.chip:hover {
-  background-color:var(--foam,#e6f4f8);
-  border-color:var(--accent,#0e6e8e);
-  color:var(--accent,#0e6e8e);
-  text-decoration:none;
-  transform:translateY(-1px);
-}
-.ship-pills-bar .chip.rc-toggle {
-  font-weight:600;
-  background:#0e6e8e;
-  color:#fff;
-  border-color:#0e6e8e;
-}
-.ship-pills-bar .chip.rc-toggle .tiny.note {
-  color:#fff;
-  opacity:.8;
-}
-    /* Match pill size and text rhythm */
-.ship-pills-bar .rc-toggle {
-  display:inline-block;
-  font-size:1rem;
-  font-weight:600;
-  border:1px solid var(--rope,#d9b382);
-  border-radius:999px;
-  padding:.35rem .85rem;
-  background-color:#f7fdfd;
-  color:var(--ink,#083041);
-  transition:background-color .18s ease-in-out,border-color .18s ease-in-out;
-}
-.ship-pills-bar .rc-toggle:hover {
-  background-color:var(--foam,#e6f4f8);
-  border-color:var(--accent,#0e6e8e);
-  color:var(--accent,#0e6e8e);
-}
-</style>
-  <!-- ==== restaurants: logbook/card layering fix ==== -->
-<style id="logbook-card-fix">
-  /* keep watermark behind content and prevent layout weirdness */
-  .card{ position:relative; overflow:hidden; }
-  .card > img[aria-hidden]{
-    position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.08;
-  }
-  .card .card__content{ position:relative; z-index:1; }
-  /* light prose rhythm so headings don’t bunch */
-  .prose h3{ margin:.9rem 0 .45rem; }
-  .prose h4{ margin:.8rem 0 .35rem; }
-</style>
-  </head>
+  <!-- Minimal local styles for ship pills and logbook layering -->
+  <style>
+    .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
+    .ship-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+    .chip{cursor:pointer}
+    .is-hidden{display:none!important}
+    .tiny.note{opacity:.7;font-weight:600}
+    .tiny.muted{color:#466;opacity:.75}
+    .ship-pills[data-anim="in"]{animation:shipDrawer .18s ease-out}
+    @keyframes shipDrawer{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+    /* Visual refresh */
+    .ship-pills-bar .ship-pills a.chip{
+      display:inline-block;font-size:1rem;font-weight:500;
+      border:1px solid var(--rope,#d9b382);background:#fff;color:var(--ink,#083041);
+      border-radius:999px;padding:.35rem .85rem;line-height:1.2;text-decoration:none;
+      transition:all .18s ease-in-out;
+    }
+    .ship-pills-bar .ship-pills a.chip::before{
+      content:"⚓";font-size:.8em;margin-right:.35em;color:var(--rope,#d9b382);opacity:.9;
+    }
+    .ship-pills-bar .ship-pills a.chip:hover{
+      background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);
+      color:var(--accent,#0e6e8e);transform:translateY(-1px);
+    }
+    .ship-pills-bar .rc-toggle{
+      display:inline-block;font-size:1rem;font-weight:600;
+      border:1px solid var(--rope,#d9b382);border-radius:999px;
+      padding:.35rem .85rem;background:#f7fdfd;color:var(--ink,#083041);
+      transition:background .18s ease,border-color .18s ease;
+    }
+    .ship-pills-bar .rc-toggle:hover{
+      background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);
+    }
+
+    /* Card & logbook layering */
+    .card{position:relative;overflow:hidden}
+    .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.08}
+    .card .card__content{position:relative;z-index:1}
+    .prose h3{margin:.9rem 0 .45rem}
+    .prose h4{margin:.8rem 0 .35rem}
+  </style>
+</head>
 
 <body class="venue-page">
 <header class="site-header">
   <nav class="pill-nav pills" aria-label="Primary">
-    <a href="https://www.cruisinginthewake.com/">Home</a>
-    <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
-    <a class="active" href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-    <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-    <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-    <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-    <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-    <a href="https://www.cruisinginthewake.com/cruise-lines/">Cruise Lines</a>
-    <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
-    <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+    <a href="/">Home</a>
+    <a href="/ships/">Ships</a>
+    <a class="active" href="/restaurants.html">Restaurants &amp; Menus</a>
+    <a href="/ports.html">Ports</a>
+    <a href="/disability-at-sea.html">Disability at Sea</a>
+    <a href="/drink-packages.html">Drink Packages</a>
+    <a href="/packing-lists.html">Packing Lists</a>
+    <a href="/cruise-lines/">Cruise Lines</a>
+    <a href="/solo.html">Solo</a>
+    <a href="/travel.html">Travel</a>
   </nav>
 
-  <!-- keep your global hero here -->
-  <!-- Persona Review -->
-<section class="card" id="logbook">
-  <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true"
-       style="position:absolute;inset:0;margin:auto;opacity:.08;max-width:60%;pointer-events:none" />
+  <div class="hero" role="img" aria-label="Wake at sunset hero">
+    <img class="hero-compass" src="/assets/compass-rose.svg" alt="" aria-hidden="true">
+    <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt="In the Wake"></div>
+    <p class="tagline">A Cruise Traveler’s Logbook</p>
+    <div class="hero-credit">
+      <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">
+        Photo by Flickers of Majesty — Instagram
+      </a>
+    </div>
+  </div>
+</header>
 
-  <div class="card__content prose">
-    <h2>The Logbook — Real Guest Soundings</h2>
+<main class="wrap">
+  <!-- Overview -->
+  <section class="card" id="overview">
+    <h1 class="page-title">Chops Grille</h1>
+    <p class="subtitle">Royal Caribbean — Specialty Steakhouse</p>
+    <p class="lede">Elevate your evening with hand-cut USDA Prime steaks and succulent seafood in Royal Caribbean’s hallmark steakhouse at sea.</p>
+    <p class="blurb">Chops Grille is a signature premium venue found fleet-wide, pairing classic steakhouse tradition with modern craft and service that feels personal. An anchor of the line’s culinary identity, it offers a quiet, intimate contrast to the Main Dining Room. <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
+    <p class="pill version" style="float:right;margin-top:.5rem;">v2.257.001</p>
+  </section>
 
-    <p class="pill">
-      <strong>Depth Sounding:</strong> This is a first-person account captured “in the wake,” edited to our
-      venue standards for clarity. Individual sailings vary by ship, itinerary, and crew.
-    </p>
+  <!-- Menu & Prices -->
+  <section class="card" id="menu-prices">
+    <h2>Menu &amp; Prices</h2>
+    <p class="price-note"><strong>Lunch:</strong> $21–25 · <strong>Dinner:</strong> $39–65 (+18% gratuity) · Children 6–12 half price · Varies by ship/class &amp; lunch/dinner.</p>
 
-    <!-- Review meta header -->
-    <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
-      <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">
-        4.5 ★ out of 5
-      </span>
-      <span class="tiny" style="color:#355;">Oasis of the Seas • Sep 2025 • Dinner seating 7:30 PM</span>
-      <span class="tiny" style="color:#355;">Cover: ~$55 pp (+18% gratuity)</span>
+    <div class="grid grid-3">
+      <div>
+        <h3>Starters</h3>
+        <ul>
+          <li>Colossal Shrimp Cocktail</li>
+          <li>Pan-Seared Crab Cake</li>
+          <li>Tuna Tartare with Wasabi Caviar</li>
+          <li>Wild Mushroom Soup with White Truffle Oil</li>
+          <li>Crispy Goat Cheese Salad / The Wedge</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Mains</h3>
+        <ul>
+          <li>USDA Prime Filet Mignon (9 oz)</li>
+          <li>Bone-In Ribeye (16 oz)</li>
+          <li>New York Strip (12 oz)</li>
+          <li>Herb-Crusted Rack of Lamb</li>
+          <li>Grilled Branzino with Sautéed Spinach</li>
+          <li>Broiled 1.5 lb Maine Lobster (+$21 add-on)</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Sides &amp; Desserts</h3>
+        <ul>
+          <li>Creamed Spinach · Truffle Fries · Gruyère Tater Tots</li>
+          <li>Mac &amp; Cheese · Mashed Potatoes · Sautéed Mushrooms</li>
+          <li>New York Cheesecake · Chocolate Lava Cake · Crème Brûlée</li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Crosslink to ship page -->
-    <p class="tiny" style="margin:-.4rem 0 .8rem;color:#355;">
-      Sailed aboard <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>.
-    </p>
+    <p class="note">Lunch menus are a subset of the core offerings with smaller portions and a petite filet option for exceptional value.</p>
 
-    <!-- Title -->
-    <h3>Chops Grille Review: A Premium Steakhouse Experience at Sea</h3>
+    <details class="variant">
+      <summary>Ship-Specific Variants</summary>
+      <ul>
+        <li>Icon Class — Dry-Aged Prime Porterhouse and Truffle-Butter Lobster Tail (To Verify pricing).</li>
+        <li>Oasis Class — Expanded seafood section including broiled scallops and jumbo shrimp.</li>
+      </ul>
+    </details>
+  </section>
 
-    <!-- INTRO -->
-    <p><em>Introduction.</em> My overall impression of Chops Grille on Royal Caribbean is that it's a standout specialty
-      dining option that delivers an upscale, indulgent steakhouse vibe right in the middle of your cruise adventure.
-      It's the kind of place where you can escape the hustle of the ship and enjoy a refined meal that feels like a
-      land-based fine dining spot, with premium cuts of meat and attentive service making it worth every penny for a
-      special night out. I visited Chops Grille on the Oasis of the Seas during a 7-night Caribbean cruise in
-      September 2025, opting for a 7:30 PM dinner reservation. The general price level is fixed-cover charge style:
-      around $55 per person for dinner (including appetizer, entree, dessert, and shared sides), plus gratuities —
-      a premium upgrade from the Main Dining Room and excellent value for the quality.</p>
-
-    <!-- FOOD -->
-    <h4>Food</h4>
-    <p>The food at Chops Grille truly shines as the star of the show, with a menu focused on hand-cut USDA Prime steaks
-      and fresh seafood that elevates classic American steakhouse fare. I started with the colossal shrimp cocktail —
-      plump, chilled prawns with a zesty horseradish cocktail sauce and remoulade. For my entree, I chose the 9-oz.
-      filet mignon, perfectly seared to medium-rare, buttery and tender, lifted by house-made béarnaise. We shared
-      grilled black pepper bacon (slow-cooked Berkshire pork with a sweet-spicy glaze — dangerously addictive),
-      truffled French fries dusted with parmesan and white truffle oil, and creamed spinach that was velvety and
-      comforting. Dessert was the warm chocolate lava cake with vanilla ice cream — decadent without being heavy.</p>
-    <p>On busier nights, some diners note the occasional inconsistency (e.g., an over- or under-cook), but in my case the
-      server replaced a slightly off steak immediately — the kind of recovery that makes the meal feel bespoke. Overall,
-      ingredients are top-tier (think Linz Heritage meats and fresh Maine lobster add-on), plating is elegant, and the
-      flavors balance tradition with smart twists.</p>
-
-    <!-- SERVICE -->
-    <h4>Service</h4>
-    <p>Service was exemplary — polished yet warm. Our waiter, Marco, knew the menu inside-out, suggested a bold Cabernet
-      with the ribeye, and timed check-ins perfectly. The team handled a mild nut allergy with care and even provided a
-      gluten-free bread option. Peak nights can feel brisk due to demand, but that kept the pacing lively rather than
-      rushed. The host and sommelier added to the VIP feel — a welcome contrast to the sometimes impersonal cadence of
-      big-ship dining.</p>
-
-    <!-- AMBIANCE -->
-    <h4>Atmosphere</h4>
-    <p>The room is sophisticated and intimate: dark woods, soft leather, warm lighting, subtle jazz — a calm, romantic
-      escape from high-energy decks. On Oasis-class, ocean-view windows add a serene backdrop. Older ships may feel more
-      classic than flashy, which keeps the focus on the food and company.</p>
-
-    <!-- CONCLUSION -->
-    <h4>Conclusion</h4>
-    <p>Chops Grille impressed with premium steaks, flavorful sides, attentive service, and an intimate vibe — a
-      worthwhile splurge that elevates the cruise experience. Minor variances only underline the team’s commitment to
-      making things right. <strong>Rating: 4.5/5.</strong> Recommended for food lovers, couples, celebratory nights, or
-      anyone upgrading from the MDR. Dinner typically runs <strong>$39–$65</strong> (ship/itinerary dependent); lunch is
-      a stealth value at <strong>$21–$25</strong>. <em>Pro tip:</em> book early in Cruise Planner and consider the
-      Unlimited Dining Package if you’ll dine more than once.</p>
-
-    <!-- CTA back to Restaurants hub -->
-    <p class="tiny" style="margin-top:.75rem;">
-      Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a>
-    </p>
-  </div>
-</section>
-
-<!-- SEO Review markup -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Review",
-  "itemReviewed": {
-    "@type": "Restaurant",
-    "name": "Chops Grille",
-    "servesCuisine": "Steakhouse",
-    "provider": { "@type": "Organization", "name": "Royal Caribbean International" }
-  },
-  "name": "Chops Grille — Premium Steakhouse at Sea",
-  "reviewBody": "Upscale steakhouse experience aboard Oasis of the Seas (Sep 2025). Standout filet mignon, shareable sides (truffled fries, creamed spinach), warm chocolate lava cake; attentive service and intimate ambiance. Dinner fixed-cover around $55 + gratuity; lunch is a strong value.",
-  "reviewRating": { "@type": "Rating", "ratingValue": "4.5", "bestRating": "5", "worstRating": "1" },
-  "author": { "@type": "Person", "name": "Guest Sounding (Oasis of the Seas, Sep 2025)" },
-  "isPartOf": { "@type": "WebPage", "url": "https://www.cruisinginthewake.com/restaurants/chops-grille.html" }
-}
-</script>
-
-<!-- Special Accommodations -->
-<section class="card" id="accommodations">
-  <h2>Special Accommodations</h2>
-  <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
-    <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Royal Caribbean follows SAFE Food Policy. Please disclose allergens to your server before ordering. Gluten-free, dairy-free, and vegetarian accommodations are available on request. For severe allergies, contact Royal Caribbean’s accessibility team at least 30 days before sailing and confirm with the venue on embarkation day.</p>
-  </div>
-</section>
-
-<!-- Availability -->
-<section class="card" id="availability">
-  <h2>Where You’ll Find It</h2>
-  <p>This venue appears on the following Royal Caribbean ships:</p>
-  <nav class="ship-pills-bar" aria-label="Ships featuring this venue">
-  <!-- Toggle pill -->
- <button id="rccl-toggle"
-        class="chip rc-toggle"
-        aria-expanded="false"
-        aria-controls="rccl-ship-list">
-  Royal Caribbean <span class="tiny note">— tap to see ships</span>
-</button>
-
-<!-- Collapsible list lives outside the button -->
-<div id="rccl-ship-list"
-     class="ship-pills is-hidden"
-     role="region"
-     aria-label="Ships with Chops Grille">
-  <!-- pills injected by JS -->
-</div></nav>
-  
-  <!-- Inline tip for first-time visitors -->
-  <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">
-    Tip: Click the “Royal Caribbean” link above to reveal the ships that feature Chops Grille.
-  </p>
-</section>
-
-<!-- Persona Review -->
-
-<section class="card" id="logbook">
-  <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true"
-       style="position:absolute;inset:0;margin:auto;opacity:.08;max-width:60%;pointer-events:none" />
-  <div class="card__content prose">
-    <h2>The Logbook — Real Guest Soundings</h2>
-    ...
-  </div>
-</section>
-
-    <p class="pill">
-      <strong>Depth Sounding:</strong> This is a first-person account captured “in the wake,” edited to our
-      venue standards for clarity. Individual sailings vary by ship, itinerary, and crew.
-    </p>
-
-    <!-- Review meta header -->
-    <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
-      <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">
-        4.5 ★ out of 5
-      </span>
-      <span class="tiny" style="color:#355;">Oasis of the Seas • Sep 2025 • Dinner seating 7:30 PM</span>
-      <span class="tiny" style="color:#355;">Cover: ~$55 pp (+18% gratuity)</span>
+  <!-- Special Accommodations -->
+  <section class="card" id="accommodations">
+    <h2>Special Accommodations</h2>
+    <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
+      <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Royal Caribbean follows SAFE Food Policy. Please disclose allergens to your server before ordering. Gluten-free, dairy-free, and vegetarian accommodations are available on request. For severe allergies, contact Royal Caribbean’s accessibility team at least 30 days before sailing and confirm with the venue on embarkation day.</p>
     </div>
+  </section>
 
-    <!-- Crosslink to ship page -->
-    <p class="tiny" style="margin:-.4rem 0 .8rem;color:#355;">
-      Sailed aboard <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>.
-    </p>
+  <!-- Where You’ll Find It -->
+  <section class="card" id="availability">
+    <h2>Where You’ll Find It</h2>
+    <p>This venue appears on the following Royal Caribbean ships:</p>
 
-    <!-- Title -->
-    <h3>Chops Grille Review: A Premium Steakhouse Experience at Sea</h3>
+    <nav class="ship-pills-bar" aria-label="Ships featuring this venue">
+      <button id="rccl-toggle" class="rc-toggle" aria-expanded="false" aria-controls="rccl-ship-list">
+        Royal Caribbean <span class="tiny note">— tap to see ships</span>
+      </button>
+      <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Chops Grille"></div>
+    </nav>
 
-    <!-- INTRO -->
-    <p><em>Introduction.</em> My overall impression of Chops Grille on Royal Caribbean is that it's a standout specialty
-      dining option that delivers an upscale, indulgent steakhouse vibe right in the middle of your cruise adventure.
-      It's the kind of place where you can escape the hustle of the ship and enjoy a refined meal that feels like a
-      land-based fine dining spot, with premium cuts of meat and attentive service making it worth every penny for a
-      special night out. I visited Chops Grille on the Oasis of the Seas during a 7-night Caribbean cruise in
-      September 2025, opting for a 7:30 PM dinner reservation. The general price level is fixed-cover charge style:
-      around $55 per person for dinner (including appetizer, entree, dessert, and shared sides), plus gratuities —
-      a premium upgrade from the Main Dining Room and excellent value for the quality.</p>
+    <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">Tip: Click the “Royal Caribbean” link above to reveal the ships that feature Chops Grille.</p>
+  </section>
 
-    <!-- FOOD -->
-    <h4>Food</h4>
-    <p>The food at Chops Grille truly shines as the star of the show, with a menu focused on hand-cut USDA Prime steaks
-      and fresh seafood that elevates classic American steakhouse fare. I started with the colossal shrimp cocktail —
-      plump, chilled prawns with a zesty horseradish cocktail sauce and remoulade. For my entree, I chose the 9-oz.
-      filet mignon, perfectly seared to medium-rare, buttery and tender, lifted by house-made béarnaise. We shared
-      grilled black pepper bacon (slow-cooked Berkshire pork with a sweet-spicy glaze — dangerously addictive),
-      truffled French fries dusted with parmesan and white truffle oil, and creamed spinach that was velvety and
-      comforting. Dessert was the warm chocolate lava cake with vanilla ice cream — decadent without being heavy.</p>
-    <p>On busier nights, some diners note the occasional inconsistency (e.g., an over- or under-cook), but in my case the
-      server replaced a slightly off steak immediately — the kind of recovery that makes the meal feel bespoke. Overall,
-      ingredients are top-tier (think Linz Heritage meats and fresh Maine lobster add-on), plating is elegant, and the
-      flavors balance tradition with smart twists.</p>
+  <!-- The Logbook -->
+  <section class="card" id="logbook">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true" style="position:absolute;inset:0;margin:auto;opacity:.08;max-width:60%;pointer-events:none">
+    <div class="card__content prose">
+      <h2>The Logbook — Real Guest Soundings</h2>
 
-    <!-- SERVICE -->
-    <h4>Service</h4>
-    <p>Service was exemplary — polished yet warm. Our waiter, Marco, knew the menu inside-out, suggested a bold Cabernet
-      with the ribeye, and timed check-ins perfectly. The team handled a mild nut allergy with care and even provided a
-      gluten-free bread option. Peak nights can feel brisk due to demand, but that kept the pacing lively rather than
-      rushed. The host and sommelier added to the VIP feel — a welcome contrast to the sometimes impersonal cadence of
-      big-ship dining.</p>
+      <p class="pill">
+        <strong>Depth Sounding:</strong> This is a first-person account captured “in the wake,” edited to our venue standards for clarity. Individual sailings vary by ship, itinerary, and crew.
+      </p>
 
-    <!-- AMBIANCE -->
-    <h4>Atmosphere</h4>
-    <p>The room is sophisticated and intimate: dark woods, soft leather, warm lighting, subtle jazz — a calm, romantic
-      escape from high-energy decks. On Oasis-class, ocean-view windows add a serene backdrop. Older ships may feel more
-      classic than flashy, which keeps the focus on the food and company.</p>
+      <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
+        <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">4.5 ★ out of 5</span>
+        <span class="tiny" style="color:#355;">Oasis of the Seas • Sep 2025 • Dinner seating 7:30 PM</span>
+        <span class="tiny" style="color:#355;">Cover: ~$55 pp (+18% gratuity)</span>
+      </div>
 
-    <!-- CONCLUSION -->
-    <h4>Conclusion</h4>
-    <p>Chops Grille impressed with premium steaks, flavorful sides, attentive service, and an intimate vibe — a
-      worthwhile splurge that elevates the cruise experience. Minor variances only underline the team’s commitment to
-      making things right. <strong>Rating: 4.5/5.</strong> Recommended for food lovers, couples, celebratory nights, or
-      anyone upgrading from the MDR. Dinner typically runs <strong>$39–$65</strong> (ship/itinerary dependent); lunch is
-      a stealth value at <strong>$21–$25</strong>. <em>Pro tip:</em> book early in Cruise Planner and consider the
-      Unlimited Dining Package if you’ll dine more than once.</p>
+      <p class="tiny" style="margin:-.4rem 0 .8rem;color:#355;">Sailed aboard <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>.</p>
 
-    <!-- CTA back to Restaurants hub -->
-    <p class="tiny" style="margin-top:.75rem;">
-      Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a>
-    </p>
-  </div>
+      <h3>Chops Grille Review: A Premium Steakhouse Experience at Sea</h3>
+
+      <p><em>Introduction.</em> My overall impression of Chops Grille on Royal Caribbean is that it's a standout specialty dining option that delivers an upscale, indulgent steakhouse vibe right in the middle of your cruise adventure. It's the kind of place where you can escape the hustle of the ship and enjoy a refined meal that feels like a land-based fine dining spot, with premium cuts of meat and attentive service making it worth every penny for a special night out. I visited Chops Grille on the Oasis of the Seas during a 7-night Caribbean cruise in September 2025, opting for a 7:30 PM dinner reservation. The general price level is fixed-cover charge style: around $55 per person for dinner (including appetizer, entree, dessert, and shared sides), plus gratuities — a premium upgrade from the Main Dining Room and excellent value for the quality.</p>
+
+      <h4>Food</h4>
+      <p>The food at Chops Grille truly shines as the star of the show, with a menu focused on hand-cut USDA Prime steaks and fresh seafood that elevates classic American steakhouse fare. I started with the colossal shrimp cocktail — plump, chilled prawns with a zesty horseradish cocktail sauce and remoulade. For my entree, I chose the 9-oz. filet mignon, perfectly seared to medium-rare, buttery and tender, lifted by house-made béarnaise. We shared grilled black pepper bacon (slow-cooked Berkshire pork with a sweet-spicy glaze — dangerously addictive), truffled French fries dusted with parmesan and white truffle oil, and creamed spinach that was velvety and comforting. Dessert was the warm chocolate lava cake with vanilla ice cream — decadent without being heavy.</p>
+      <p>On busier nights, some diners note the occasional inconsistency (e.g., an over- or under-cook), but in my case the server replaced a slightly off steak immediately — the kind of recovery that makes the meal feel bespoke. Overall, ingredients are top-tier (think Linz Heritage meats and fresh Maine lobster add-on), plating is elegant, and the flavors balance tradition with smart twists.</p>
+
+      <h4>Service</h4>
+      <p>Service was exemplary — polished yet warm. Our waiter, Marco, knew the menu inside-out, suggested a bold Cabernet with the ribeye, and timed check-ins perfectly. The team handled a mild nut allergy with care and even provided a gluten-free bread option. Peak nights can feel brisk due to demand, but that kept the pacing lively rather than rushed. The host and sommelier added to the VIP feel — a welcome contrast to the sometimes impersonal cadence of big-ship dining.</p>
+
+      <h4>Atmosphere</h4>
+      <p>The room is sophisticated and intimate: dark woods, soft leather, warm lighting, subtle jazz — a calm, romantic escape from high-energy decks. On Oasis-class, ocean-view windows add a serene backdrop. Older ships may feel more classic than flashy, which keeps the focus on the food and company.</p>
+
+      <h4>Conclusion</h4>
+      <p>Chops Grille impressed with premium steaks, flavorful sides, attentive service, and an intimate vibe — a worthwhile splurge that elevates the cruise experience. Minor variances only underline the team’s commitment to making things right. <strong>Rating: 4.5/5.</strong> Recommended for food lovers, couples, celebratory nights, or anyone upgrading from the MDR. Dinner typically runs <strong>$39–$65</strong> (ship/itinerary dependent); lunch is a stealth value at <strong>$21–$25</strong>. <em>Pro tip:</em> book early in Cruise Planner and consider the Unlimited Dining Package if you’ll dine more than once.</p>
+
+      <p class="tiny" style="margin-top:.75rem;">Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
+    </div>
+  </section>
 
   <!-- SEO Review markup -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Review",
-    "itemReviewed": {
-      "@type": "Restaurant",
-      "name": "Chops Grille",
-      "servesCuisine": "Steakhouse",
-      "provider": {
-        "@type": "Organization",
-        "name": "Royal Caribbean International"
-      }
-    },
+    "itemReviewed": { "@type": "Restaurant", "name": "Chops Grille", "servesCuisine": "Steakhouse", "provider": { "@type": "Organization", "name": "Royal Caribbean International" } },
     "name": "Chops Grille — Premium Steakhouse at Sea",
     "reviewBody": "Upscale steakhouse experience aboard Oasis of the Seas (Sep 2025). Standout filet mignon, shareable sides (truffled fries, creamed spinach), warm chocolate lava cake; attentive service and intimate ambiance. Dinner fixed-cover around $55 + gratuity; lunch is a strong value.",
     "reviewRating": { "@type": "Rating", "ratingValue": "4.5", "bestRating": "5", "worstRating": "1" },
@@ -387,24 +246,18 @@
     "isPartOf": { "@type": "WebPage", "url": "https://www.cruisinginthewake.com/restaurants/chops-grille.html" }
   }
   </script>
-</section>
 
-
-
-  
-
-<!-- Sources -->
-<section class="card" id="sources">
-  <h2>Sources &amp; Attribution</h2>
-  <ul>
-    <li><a href="https://www.royalcaribbean.com/cruise-dining" target="_blank" rel="noopener">Royal Caribbean — Cruise Dining Overview</a></li>
-    <li><a href="https://www.royalcaribbean.com/guides/radiance-of-the-seas-restaurants" target="_blank" rel="noopener">Royal Caribbean — Radiance: Restaurants</a></li>
-    <li><a href="https://www.royalcaribbeanincentives.com/ship/enchantment-of-the-seas/dining/" target="_blank" rel="noopener">Royal Caribbean — Enchantment: Dining</a></li>
-     <li>Royal Caribbean marks and menus referenced under fair use for research and commentary.</li>
-    <li>All Rights Reserved</li>
-  </ul>
-</section>
-
+  <!-- Sources -->
+  <section class="card" id="sources">
+    <h2>Sources &amp; Attribution</h2>
+    <ul>
+      <li><a href="https://www.royalcaribbean.com/cruise-dining" target="_blank" rel="noopener">Royal Caribbean — Cruise Dining Overview</a></li>
+      <li><a href="https://www.royalcaribbean.com/guides/radiance-of-the-seas-restaurants" target="_blank" rel="noopener">Royal Caribbean — Radiance: Restaurants</a></li>
+      <li><a href="https://www.royalcaribbeanincentives.com/ship/enchantment-of-the-seas/dining/" target="_blank" rel="noopener">Royal Caribbean — Enchantment: Dining</a></li>
+      <li>Royal Caribbean marks and menus referenced under fair use for research and commentary.</li>
+      <li>All Rights Reserved</li>
+    </ul>
+  </section>
 </main>
 
 <footer class="site-footer">
@@ -412,124 +265,76 @@
 </footer>
 
 <script src="/assets/js/venue-boot.js?v=2.257" defer></script>
- <script>
+<script>
 (function(){
-  // Helpers
-  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
-  const cleanClass = s => String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
-  const CLASS_ORDER = ['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
+  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const cleanClass=s=>String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
+  const CLASS_ORDER=['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
 
-  // Derive safe venue hints from URL; include known alias
-  const urlSlug = String((location.pathname.split('/').pop()||'').replace(/\.html$/,''));
-  const base = urlSlug.replace(/-grill(e)?$/,'').replace(/-grille$/,'').replace(/-/g,' ').trim();
-  // For Chops this yields "chops". Build a small hint set:
-  const VENUE_HINTS = Array.from(new Set([
-    base,                                   // "chops"
-    urlSlug,                                // "chops-grille"
-    base.replace(/\s+/g,'-'),               // "chops"
-    base.replace(/\s+/g,''),                // "chops"
-    'chops'                                 // explicit safety net
-  ].filter(Boolean)));
+  // Venue slug & hints (handles “chops-grille” and variants)
+  const urlSlug=(location.pathname.split('/').pop()||'').replace(/\.html$/,'');
+  const base=urlSlug.replace(/-grill(e)?$/,'').replace(/-grille$/,'').replace(/-/g,' ').trim();
+  const VENUE_HINTS=[base,urlSlug,base.replace(/\s+/g,'-'),base.replace(/\s+/g,''),'chops'].filter(Boolean);
 
-  // Sort by class size then A–Z
-  const byClassSize = (a,b) => {
-    const ai = CLASS_ORDER.indexOf(cleanClass(a[1].class));
-    const bi = CLASS_ORDER.indexOf(cleanClass(b[1].class));
-    if (ai !== bi){
-      if (ai === -1) return 1;
-      if (bi === -1) return -1;
-      return ai - bi;
-    }
+  const byClassSize=(a,b)=>{
+    const ai=CLASS_ORDER.indexOf(cleanClass(a[1].class));
+    const bi=CLASS_ORDER.indexOf(cleanClass(b[1].class));
+    if(ai!==bi){ if(ai===-1) return 1; if(bi===-1) return -1; return ai-bi; }
     return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
   };
 
-  // Ship link builder
-  function shipHref(slug){
-    // Your site largely uses /ships/rcl/<slug>.html (seen in this page)
-    // If you later add per-line subfolders (e.g., /ships/rcl/rcl/…), update here.
-    return `/ships/rcl/${slug}.html`;
-  }
-
-  // Populate the single ship list (the element that owns the pills)
   async function hydrateShipList(listEl){
     try{
-      const DATA_URL = (location.origin||'').replace(/\/$/,'') + '/assets/data/venues.json';
-      const res = await fetch(DATA_URL, {cache:'no-store'});
-      if (!res.ok) throw new Error('HTTP '+res.status);
-      const db = await res.json();
+      const res=await fetch('/assets/data/venues.json',{cache:'no-store'});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const db=await res.json();
 
-      const ships = Object.entries(db.ships || {}).filter(([slug,p])=>{
-        const v = Array.isArray(p.venues) ? p.venues : [];
-        // match if any hint is present in the venues array
-        return VENUE_HINTS.some(h => v.includes(h));
+      const ships=Object.entries(db.ships||{}).filter(([slug,p])=>{
+        const v=Array.isArray(p.venues)?p.venues:[];
+        return VENUE_HINTS.some(h=>v.includes(h));
       }).sort(byClassSize);
 
-      if (!ships.length){
-        listEl.innerHTML = `<span class="tiny muted">No active ships found for this venue.</span>`;
-        return;
-      }
-
-      listEl.innerHTML = ships.map(([slug,p])=>{
-        const name = p.name || slug;
-        return `<a class="chip" href="${shipHref(slug)}" title="${name}">${name}</a>`;
-      }).join('');
+      listEl.innerHTML = ships.length
+        ? ships.map(([slug,p])=>{
+            const name=p.name||slug;
+            return `<a class="chip" href="/ships/rcl/${slug}.html" title="${name}">${name}</a>`;
+          }).join('')
+        : `<span class="tiny muted">No active ships found for this venue.</span>`;
     }catch(e){
       listEl.innerHTML = `<span class="tiny muted">Could not load ship list.</span>`;
     }
   }
 
-  // Wire any number of toggles that point (via aria-controls) to a list
-  function wireToggles(){
-    // Find every button with an aria-controls target
-    const toggles = $$('button[aria-controls]');
-    // Collect unique lists we control
-    const lists = new Map(); // id -> element
-    toggles.forEach(btn=>{
-      const id = btn.getAttribute('aria-controls');
-      const list = document.getElementById(id);
-      if (!list) return;
+  const btn=document.getElementById('rccl-toggle');
+  const list=document.getElementById('rccl-ship-list');
+  const tip=document.getElementById('rccl-tip');
 
-      // prime once per list
-      if (!lists.has(id)){
-        lists.set(id, list);
-        // start collapsed
-        list.classList.add('is-hidden');
-        // hydrate pills once per list
-        hydrateShipList(list);
-      }
-
-      // update helper text inside the button if present
-      function setNote(open){
-        const note = btn.querySelector('.note');
-        if (note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
-      }
-
-      function toggle(open){
-        const list = lists.get(id);
-        const willOpen = (typeof open === 'boolean') ? open : (btn.getAttribute('aria-expanded') !== 'true');
-        btn.setAttribute('aria-expanded', String(willOpen));
-        list.classList.toggle('is-hidden', !willOpen);
-        if (willOpen){
-          list.setAttribute('data-anim','in');
-          setTimeout(()=>list.removeAttribute('data-anim'), 220);
-          const tip = document.getElementById('rccl-tip');
-          if (tip) tip.style.display = 'none';
-        }
-        setNote(willOpen);
-      }
-
-      // click + keyboard
-      btn.addEventListener('click', ()=>toggle());
-      btn.addEventListener('keydown', e=>{
-        if (e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); }
-      });
-
-      // ensure initial state text is right
-      setNote(false);
-    });
+  function setNote(open){
+    const note=btn.querySelector('.note');
+    if(note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
   }
 
-  wireToggles();
+  function toggleList(forceOpen){
+    const open=(typeof forceOpen==='boolean')?forceOpen:(btn.getAttribute('aria-expanded')!=='true');
+    btn.setAttribute('aria-expanded', String(open));
+    list.classList.toggle('is-hidden', !open);
+    if(open){
+      list.setAttribute('data-anim','in');
+      setTimeout(()=>list.removeAttribute('data-anim'),220);
+      if(tip) tip.style.display='none';
+    }
+    setNote(open);
+  }
+
+  // Wire
+  if(btn && list){
+    hydrateShipList(list);          // build pills
+    setNote(false);                 // initial copy
+    btn.addEventListener('click', ()=>toggleList());
+    btn.addEventListener('keydown', e=>{
+      if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggleList(); }
+    });
+  }
 })();
 </script>
 </body>
