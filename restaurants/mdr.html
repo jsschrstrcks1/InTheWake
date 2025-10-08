@@ -104,50 +104,85 @@
   </section>
 
   <!-- Menu & Prices -->
- <!-- Menu & Prices (drop-in replacement) -->
+<!-- Menu & Prices (MDR) -->
 <section class="card" id="menu-prices">
   <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
-  <div class="card__content">
+
+  <style>
+    /* scoped, gentle size bump for this card only */
+    #menu-prices .menu-body { font-size:1.0625rem; line-height:1.6; }
+    #menu-prices .menu-body h3 { font-size:1.15rem; margin:.6rem 0 .35rem; }
+    #menu-prices .menu-body h4 { font-size:1.05rem; margin:.4rem 0 .25rem; }
+    #menu-prices details.variant { margin:.45rem 0; }
+    #menu-prices summary { cursor:pointer; }
+    #menu-prices .legend { opacity:.8; }
+  </style>
+
+  <div class="card__content menu-body">
     <h2>Menu &amp; Price</h2>
     <p class="price-note">
-      <strong>Price:</strong> Complimentary (included). <strong>Service:</strong> Breakfast daily, Lunch on sea days (and select port days), Dinner nightly. 
+      <strong>Price:</strong> Complimentary (included).
+      <strong>Service:</strong> Breakfast daily, Lunch on sea days (and select port days), Dinner nightly.
       Menus rotate by theme; exact line-up varies by ship/itinerary (check the app on board).
     </p>
 
-    <!-- quick “what to expect” snapshot stays 3-up -->
-    <div class="grid grid-3">
-      <div>
-        <h3>Always Around</h3>
-        <ul>
-          <li>French Onion Soup · Caesar or Mixed Greens</li>
-          <li>Shrimp Cocktail (select nights)</li>
-          <li>Tomato or Seasonal Soup</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Mains You’ll See Often</h3>
-        <ul>
-          <li>Grilled Salmon · Herb Roasted Chicken</li>
-          <li>Beef Tenderloin / Prime Rib (feature nights)</li>
-          <li>Vegetarian Pasta or Curry of the Day</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Sweets</h3>
-        <ul>
-          <li>New York Cheesecake · Warm Chocolate Cake</li>
-          <li>Crème Brûlée · Ice Cream &amp; Sorbets (GF)</li>
-        </ul>
-      </div>
-    </div>
+    <p class="tiny legend"><strong>Tip:</strong> Tap a line below to expand the full items list. <strong>Legend:</strong> [V] vegan · <span title="Surcharge">$</span> surcharge (typ. $10–$25; whole lobster ~$25–$30).</p>
 
-    <!-- Legend -->
-    <p class="tiny muted" style="margin:.4rem 0 .8rem">
-      <strong>Legend:</strong> <span title="Vegan">[V]</span> vegan · <span title="Surcharge">$</span> surcharge (typ. $10–$25; whole lobster ~$25–$30). Items/sequence can vary by ship &amp; itinerary.
-    </p>
+    <!-- Always Around (now collapsible) -->
+    <details class="variant">
+      <summary><strong>Always Around</strong> (most nights)</summary>
+      <div class="grid grid-3">
+        <div>
+          <h4>Starters</h4>
+          <ul>
+            <li>French Onion Soup</li>
+            <li>Caesar or Mixed Greens</li>
+            <li>Shrimp Cocktail (select nights)</li>
+            <li>Tomato or Seasonal Soup</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Mains</h4>
+          <ul>
+            <li>Grilled Salmon</li>
+            <li>Herb Roasted Chicken</li>
+            <li>Beef Tenderloin / Prime Rib (feature nights) <strong>$</strong></li>
+            <li>Vegetarian Pasta or Curry of the Day [V]</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Sweets</h4>
+          <ul>
+            <li>New York Cheesecake</li>
+            <li>Warm Chocolate Cake</li>
+            <li>Crème Brûlée</li>
+            <li>Ice Cream &amp; Sorbets (GF)</li>
+          </ul>
+        </div>
+      </div>
+    </details>
 
-    <!-- Theme Nights: compact, scannable, collapsible -->
-    <details class="variant" open>
+    <!-- Kids (now collapsible) -->
+    <details class="variant">
+      <summary><strong>Kids’ Menu</strong> (ask your server)</summary>
+      <ul>
+        <li>Chicken tenders · Mini burgers · Grilled chicken</li>
+        <li>Pasta (butter or marinara) · Mac &amp; cheese</li>
+        <li>Vegetables · Fries · Fresh fruit</li>
+      </ul>
+      <p class="tiny legend">Servers happily mix-and-match; tiny portions available.</p>
+    </details>
+
+    <!-- Vegan & Indian (concise, collapsible) -->
+    <details class="variant">
+      <summary><strong>Vegan &amp; Indian Options</strong></summary>
+      <p><strong>Vegan:</strong> Since 2023, each dinner theme includes 1–2 vegan choices per course (starter, entrée, dessert). Expect items like Ratatouille or Vegetable Wellington (French), Eggplant Parmesan (Italian), Falafel Plate (Mediterranean), Stir-Fried Tofu / Pad Thai (Asia), Sorbet Trio or dairy-free desserts.</p>
+      <p><strong>Indian &amp; Vegetarian:</strong> Most sailings can provide Indian vegetarian mains (e.g., chana masala, dal, aloo gobi) and breads on request; some ships offer a rotating Indian option on the printed menu.</p>
+      <p class="tiny legend"><strong>How to request:</strong> Note preferences in the Royal App or via <em>special_needs@rccl.com</em> before sailing, then confirm with the MDR host on Day 1 for nightly prep.</p>
+    </details>
+
+    <!-- Theme nights (all collapsed by default) -->
+    <details class="variant">
       <summary><strong>Welcome Aboard</strong> (Night 1 — all sailings)</summary>
       <div class="grid grid-3">
         <div><h4>Starters</h4><ul>
@@ -314,8 +349,6 @@
         </ul></div>
       </div>
     </details>
-
-    <p class="note">Kids’ Menu: chicken tenders, pasta (marinara/butter), grilled chicken, mini burgers, veggies, fruit; ask your server — they’ll accommodate picky eaters.</p>
   </div>
 </section>
 
