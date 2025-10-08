@@ -549,74 +549,77 @@
         b.addEventListener('click', ()=>{ STATE.brand = b.getAttribute('data-brand'); apply(); closeAll(); });
       });
 
-        // classes (largest ➜ smallest)
-      const CLASS_ORDER = [
-        'icon',          // biggest
-        'oasis',
-        'quantum ultra',
-        'quantum',
-        'freedom',
-        'voyager',
-        'radiance',
-        'vision',
-        'sovereign',
-        'empress'        // smallest
-      ];
+// classes (largest ➜ smallest)
+const CLASS_ORDER = [
+  'icon',          // biggest
+  'oasis',
+  'quantum ultra',
+  'quantum',
+  'freedom',
+  'voyager',
+  'radiance',
+  'vision',
+  'sovereign',
+  'empress'        // smallest
+];
 
-      const cleanClass = s => String(s||'')
-        .toLowerCase()
-        .replace(/\s*class\s*$/,'')   // tolerate “Radiance Class”, etc.
-        .trim();
+const cleanClass = s => String(s||'')
+  .toLowerCase()
+  .replace(/\s*class\s*$/,'')   // tolerate “Radiance Class”, etc.
+  .trim();
 
-      const classes = Array.from(
-        new Set(
-          Object.values(db.ships || {})
-            .map(s => cleanClass(s.class))
-            .filter(Boolean)
-        )
-      ).sort((a, b) => {
-        const ai = CLASS_ORDER.indexOf(a);
-        const bi = CLASS_ORDER.indexOf(b);
-        if (ai === -1 && bi === -1) return a.localeCompare(b); // unknowns alpha
-        if (ai === -1) return 1;
-        if (bi === -1) return -1;
-        return ai - bi;
-      });
+const classes = Array.from(
+  new Set(
+    Object.values(db.ships || {})
+      .map(s => cleanClass(s.class))
+      .filter(Boolean)
+  )
+).sort((a, b) => {
+  const ai = CLASS_ORDER.indexOf(a);
+  const bi = CLASS_ORDER.indexOf(b);
+  if (ai === -1 && bi === -1) return a.localeCompare(b); // unknowns alpha
+  if (ai === -1) return 1;
+  if (bi === -1) return -1;
+  return ai - bi;
+});
 
-      $classes.innerHTML = classes
-        .map(k => {
-          const label = k.replace(/\b\w/g, m => m.toUpperCase()) + ' Class';
-          return `<button class="pillbtn" data-class="${k}" role="menuitem">${label}</button>`;
-        })
-        .join('');
+$classes.innerHTML = classes
+  .map(k => {
+    const label = k.replace(/\b\w/g, m => m.toUpperCase()) + ' Class';
+    return `<button class="pillbtn" data-class="${k}" role="menuitem">${label}</button>`;
+  })
+  .join('');
 
-      $classes.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          STATE.klass = btn.getAttribute('data-class') || '';
-          STATE.ship  = '';
-          apply(); closeAll();
-          fillShips(STATE.klass);
-          toggle(sBtn, tS);
-        });
+// bind class buttons
+$classes.querySelectorAll('button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    STATE.klass = btn.getAttribute('data-class') || '';
+    STATE.ship  = '';
+    apply(); closeAll();
+    fillShips(STATE.klass);
+    toggle(sBtn, tS);
+  });
+});
 
-      // ships
-            function fillShips(klass){
-        const k = cleanClass(klass);
-        const items = Object.entries(db.ships || {})
-          .filter(([slug, p]) => !k || cleanClass(p.class) === k)
-          .sort((a,b) => (a[1].name||a[0]).localeCompare(b[1].name||b[0]));
-        $ships.innerHTML = items.map(([slug,p]) =>
-          `<button class="pillbtn" data-ship="${slug}" role="menuitem" title="Filter to ${p.name}">${p.name}</button>`
-        ).join('');
-        $ships.querySelectorAll('button').forEach(b=>{
-          b.addEventListener('click', ()=>{
-            STATE.ship = b.getAttribute('data-ship')||'';
-            apply(); closeAll();
-            window.scrollTo({top: $('#q').offsetTop - 80, behavior:'smooth'});
-          });
-        });
-      }
-      fillShips('');
+// ships
+function fillShips(klass){
+  const k = cleanClass(klass);
+  const items = Object.entries(db.ships || {})
+    .filter(([slug, p]) => !k || cleanClass(p.class) === k)
+    .sort((a,b) => (a[1].name||a[0]).localeCompare(b[1].name||b[0]));
+  $ships.innerHTML = items.map(([slug,p]) =>
+    `<button class="pillbtn" data-ship="${slug}" role="menuitem" title="Filter to ${p.name}">${p.name}</button>`
+  ).join('');
+  $ships.querySelectorAll('button').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      STATE.ship = b.getAttribute('data-ship')||'';
+      apply(); closeAll();
+      window.scrollTo({top: $('#q').offsetTop - 80, behavior:'smooth'});
+    });
+  });
+}
+
+fillShips('');
 
       // venues (by name)
       const venues = (db.venues||[]).slice().sort((a,b)=> (a.name||a.slug).localeCompare(b.name||b.slug));
