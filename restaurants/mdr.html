@@ -104,52 +104,220 @@
   </section>
 
   <!-- Menu & Prices -->
-  <section class="card" id="menu-prices">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
-    <div class="card__content">
-      <h2>Menu &amp; Price</h2>
-      <p class="price-note"><strong>Price:</strong> Complimentary (included). <strong>Service:</strong> Breakfast daily, Lunch on sea days (and select port days), Dinner nightly. Menu rotates by night and itinerary.</p>
+ <!-- Menu & Prices (drop-in replacement) -->
+<section class="card" id="menu-prices">
+  <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+  <div class="card__content">
+    <h2>Menu &amp; Price</h2>
+    <p class="price-note">
+      <strong>Price:</strong> Complimentary (included). <strong>Service:</strong> Breakfast daily, Lunch on sea days (and select port days), Dinner nightly. 
+      Menus rotate by theme; exact line-up varies by ship/itinerary (check the app on board).
+    </p>
 
-      <div class="grid grid-3">
-        <div>
-          <h3>Starters &amp; Soups</h3>
-          <ul>
-            <li>French Onion Soup · Escargots à la Bourguignonne</li>
-            <li>Caesar or Mixed Green Salad</li>
-            <li>Shrimp Cocktail [select nights]</li>
-            <li>Tomato Bisque · Seasonal Soup</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Mains</h3>
-          <ul>
-            <li>Grilled Salmon · Herb Roasted Chicken</li>
-            <li>Beef Tenderloin / Prime Rib [feature nights]</li>
-            <li>Vegetarian Pasta or Curry of the Day</li>
-            <li>Chef’s Regional Feature (varies by itinerary)</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Sides &amp; Desserts</h3>
-          <ul>
-            <li>Mashed Potatoes · Seasonal Vegetables · Rice Pilaf</li>
-            <li>New York Cheesecake · Warm Chocolate Cake</li>
-            <li>Crème Brûlée · Ice Cream &amp; Sorbets (GF)</li>
-          </ul>
-        </div>
-      </div>
-
-      <details class="variant">
-        <summary>Ship-Specific Notes</summary>
+    <!-- quick “what to expect” snapshot stays 3-up -->
+    <div class="grid grid-3">
+      <div>
+        <h3>Always Around</h3>
         <ul>
-          <li>[To Verify] “Classic” items available nightly (e.g., grilled chicken, sirloin, pasta) on most ships.</li>
-          <li>[To Verify] Formal night often features prime rib or lobster on select itineraries.</li>
+          <li>French Onion Soup · Caesar or Mixed Greens</li>
+          <li>Shrimp Cocktail (select nights)</li>
+          <li>Tomato or Seasonal Soup</li>
         </ul>
-      </details>
-
-      <p class="note">Kids’ Menu: Chicken tenders, pasta with marinara or butter, mini burgers, grilled chicken, veggies, and fruit are commonly available. Ask your server — they’ll accommodate picky eaters.</p>
+      </div>
+      <div>
+        <h3>Mains You’ll See Often</h3>
+        <ul>
+          <li>Grilled Salmon · Herb Roasted Chicken</li>
+          <li>Beef Tenderloin / Prime Rib (feature nights)</li>
+          <li>Vegetarian Pasta or Curry of the Day</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Sweets</h3>
+        <ul>
+          <li>New York Cheesecake · Warm Chocolate Cake</li>
+          <li>Crème Brûlée · Ice Cream &amp; Sorbets (GF)</li>
+        </ul>
+      </div>
     </div>
-  </section>
+
+    <!-- Legend -->
+    <p class="tiny muted" style="margin:.4rem 0 .8rem">
+      <strong>Legend:</strong> <span title="Vegan">[V]</span> vegan · <span title="Surcharge">$</span> surcharge (typ. $10–$25; whole lobster ~$25–$30). Items/sequence can vary by ship &amp; itinerary.
+    </p>
+
+    <!-- Theme Nights: compact, scannable, collapsible -->
+    <details class="variant" open>
+      <summary><strong>Welcome Aboard</strong> (Night 1 — all sailings)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Caesar Salad</li><li>French Onion Soup</li><li>Shrimp Cocktail</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>Roasted Chicken Breast</li><li>Grilled Salmon</li><li>Pasta Primavera [V]</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>New York Cheesecake</li><li>Chocolate Cake</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <details class="variant">
+      <summary><strong>French Night</strong> (6+ nights — Formal 1)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Escargot in Garlic Butter</li><li>Lobster Bisque</li><li>Wedge Salad</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>Beef Tenderloin (béarnaise) <strong>$</strong></li>
+          <li>Coq au Vin</li><li>Ratatouille [V]</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>Crème Brûlée</li><li>Warm Apple Cobbler</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <details class="variant">
+      <summary><strong>Italian Night</strong> (all sailings)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Caprese Salad</li><li>Minestrone Soup</li><li>Arancini</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>Osso Buco</li><li>Eggplant Parmesan [V]</li><li>Spaghetti Carbonara</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>Tiramisu</li><li>Cannoli</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <details class="variant">
+      <summary><strong>Caribbean Night</strong> (Caribbean itineraries)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Jerk Chicken Skewers</li><li>Callaloo Soup</li><li>Tropical Fruit Salad</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>Jerk Pork Chops</li><li>Plantain-Crusted Mahi-Mahi</li><li>Rice &amp; Peas [V]</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>Coconut Flan</li><li>Rum Cake</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <details class="variant">
+      <summary><strong>Royal Night</strong> (6+ nights — Formal 2)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Chilled Fruit Soup</li><li>Smoked Salmon</li><li>Greek Salad</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>Filet of Beef Wellington</li>
+          <li>Maine Lobster Tail (1 complimentary; add’l <strong>$16.99</strong>)</li>
+          <li>Vegetable Moussaka [V]</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>Grand Marnier Soufflé</li><li>Berry Compote Cheesecake</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <details class="variant">
+      <summary><strong>Mexican Night</strong> (7+ nights)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Guacamole &amp; Chips</li><li>Tortilla Soup</li><li>Ceviche</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>Carne Asada</li><li>Enchiladas Verdes</li><li>Black Bean Burrito [V]</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>Churros w/ Chocolate Sauce</li><li>Tres Leches Cake</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <details class="variant">
+      <summary><strong>Mediterranean Night</strong> (8+ nights)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Hummus Platter</li><li>Greek Lemon Soup</li><li>Tabouli Salad</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>Grilled Lamb Chops</li><li>Falafel Plate [V]</li><li>Spanakopita</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>Baklava</li><li>Yogurt Parfait</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <details class="variant">
+      <summary><strong>British Night</strong> (9+ nights)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Ploughman’s Lunch</li><li>Cullen Skink Soup</li><li>Cucumber Sandwiches</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>Shepherd’s Pie</li><li>Bangers &amp; Mash</li><li>Bubble &amp; Squeak [V]</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>Sticky Toffee Pudding</li><li>Trifle</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <details class="variant">
+      <summary><strong>Taste of USA</strong> (10+ nights)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Buffalo Wings</li><li>Clam Chowder</li><li>Cobb Salad</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>BBQ Ribs</li><li>Maryland Crab Cakes</li><li>Mac &amp; Cheese [V]</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>Apple Pie</li><li>Red Velvet Cake</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <details class="variant">
+      <summary><strong>Asia Night</strong> (11+ nights)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Spring Rolls</li><li>Tom Yum Soup</li><li>Edamame Salad</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>Thai Chicken Curry</li><li>Pad Thai</li><li>Stir-Fried Tofu [V]</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>Mango Sticky Rice</li><li>Green Tea Ice Cream</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <details class="variant">
+      <summary><strong>Bon Voyage</strong> (last night — 6+ nights)</summary>
+      <div class="grid grid-3">
+        <div><h4>Starters</h4><ul>
+          <li>Antipasto Platter</li><li>Gazpacho</li><li>Waldorf Salad</li>
+        </ul></div>
+        <div><h4>Entrees</h4><ul>
+          <li>Braised Short Rib</li><li>Seared Tuna</li><li>Quinoa Pilaf [V]</li>
+        </ul></div>
+        <div><h4>Desserts</h4><ul>
+          <li>Chocolate Lava Cake</li><li>Sorbet Trio</li>
+        </ul></div>
+      </div>
+    </details>
+
+    <p class="note">Kids’ Menu: chicken tenders, pasta (marinara/butter), grilled chicken, mini burgers, veggies, fruit; ask your server — they’ll accommodate picky eaters.</p>
+  </div>
+</section>
 
   <!-- Special Accommodations -->
   <section class="card" id="accommodations">
