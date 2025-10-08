@@ -5,51 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Room Service — Royal Caribbean | In the Wake</title>
 
+  <!-- Meta / SEO -->
   <meta name="description" content="Royal Caribbean Room Service — complimentary continental breakfast and 24/7 in-cabin dining. Typical hot delivery fee $7.95 + 18%. Menu, tips, suite notes, and real cruiser review.">
   <meta property="og:site_name" content="In the Wake">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Room Service — Royal Caribbean">
   <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants/room-service.html">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/room-service-hero.jpg?v=2.257">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.cruisinginthewake.com/assets/social/room-service-hero.jpg?v=2.257">
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/room-service.html">
   <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="index,follow">
+  <meta name="version" content="2.257.001">
   <meta name="venue-tags" content="room service, in-room dining, 24/7, complimentary continental breakfast, delivery fee, hot items, club sandwich, pizza, yogurt parfait, suites, star class, royal caribbean">
 
   <!-- Site CSS -->
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
+
+  <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Normalize absolute URLs to current origin -->
+  <!-- Normalize absolute URLs -->
   <script>
   (function(){
-    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     function normalize(){
-      var sel=[
+      const sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
         'img[src^="https://www.cruisinginthewake.com/"]',
         'link[href^="https://www.cruisinginthewake.com/"]',
         'script[src^="https://www.cruisinginthewake.com/"]'
       ].join(',');
-      document.querySelectorAll(sel).forEach(function(el){
-        var attr=el.hasAttribute('href')?'href':'src';
-        try{var u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{
+          const u=new URL(el.getAttribute(attr));
+          el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);
+        }catch{}
       });
     }
     if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
   })();
   </script>
 
-  <!-- Page-scoped micro-tweaks -->
+  <!-- Local visual tweaks -->
   <style>
-    /* Keep pills to one line like Radiance header */
-    @media (min-width:980px){ .hero-header .navbar .pills{ flex-wrap:nowrap; } }
+    /* Pills stay on one line, scroll on mobile */
+    @media (min-width:980px){ .hero-header .navbar .pills{flex-wrap:nowrap;} }
     @media (max-width:979px){
-      .hero-header .navbar .pills{ flex-wrap:nowrap; overflow:auto; scrollbar-width:none }
-      .hero-header .navbar .pills::-webkit-scrollbar{ display:none }
+      .hero-header .navbar .pills{flex-wrap:nowrap;overflow:auto;scrollbar-width:none}
+      .hero-header .navbar .pills::-webkit-scrollbar{display:none}
     }
 
-    /* Ship pills + card watermark helpers (shared with other venue pages) */
+    /* Accessibility helpers */
+    .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+    .visually-hidden.focusable:active,
+    .visually-hidden.focusable:focus{position:static;width:auto;height:auto;margin:0;overflow:visible;clip:auto;white-space:normal}
+
+    /* Card watermark & ship pills (consistent w/ venues) */
+    .card{position:relative;overflow:hidden}
+    .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.08;max-width:60%;margin:auto}
+    .card .card__content{position:relative;z-index:1}
     .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
     .ship-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
     .ship-pills a.chip,
@@ -59,28 +76,27 @@
       text-decoration:none;transition:all .18s ease-in-out;line-height:1.2;white-space:nowrap
     }
     .ship-pills a.chip::before{content:"⚓";font-size:.8em;margin-right:.35em;color:var(--rope,#d9b382);opacity:.9}
-    .ship-pills a.chip:hover,.ship-pills-bar .rc-toggle:hover{background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);transform:translateY(-1px)}
+    .ship-pills a.chip:hover,
+    .ship-pills-bar .rc-toggle:hover{background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);transform:translateY(-1px)}
     .rc-toggle{cursor:pointer}
     .tiny.note{opacity:.75;font-weight:600}
     .tiny.muted{color:#466;opacity:.8}
     .is-hidden{display:none!important}
-    .card{position:relative;overflow:hidden}
-    .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.08;max-width:60%;margin:auto}
-    .card .card__content{position:relative;z-index:1}
 
-    /* Menu rhythm (slight bump to match surrounding text size) */
-    #menu-prices .menu-body{ font-size:1.0625rem; line-height:1.6; }
-    #menu-prices .menu-body h3{ font-size:1.15rem; margin:.6rem 0 .35rem; }
-    #menu-prices .menu-body h4{ font-size:1.05rem; margin:.4rem 0 .25rem; }
-    #menu-prices details.variant{ margin:.45rem 0; }
-    #menu-prices summary{ cursor:pointer; }
-    #menu-prices .legend{ opacity:.85; }
+    /* Menu rhythm */
+    #menu-prices .menu-body{font-size:1.0625rem;line-height:1.6}
+    #menu-prices .menu-body h3{font-size:1.15rem;margin:.6rem 0 .35rem}
+    #menu-prices .menu-body h4{font-size:1.05rem;margin:.4rem 0 .25rem}
+    #menu-prices details.variant{margin:.45rem 0}
+    #menu-prices summary{cursor:pointer}
+    #menu-prices .legend{opacity:.85}
   </style>
 </head>
 
 <body class="venue-page">
+  <a class="visually-hidden focusable" href="#main">Skip to content</a>
 
-<!-- ===== Site Header (brand + hero) ===== -->
+<!-- ===== Header / Branding ===== -->
 <header class="hero-header">
   <div class="navbar">
     <div class="brand">
@@ -89,362 +105,131 @@
       <span class="version-badge">v2.257</span>
     </div>
     <nav class="pills" aria-label="Primary">
-      <a href="https://www.cruisinginthewake.com/">Home</a>
-      <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
-      <a class="active" href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-      <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-      <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-      <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-      <a href="https://www.cruisinginthewake.com/cruise-lines/">Cruise Lines</a>
-      <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
-      <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+      <a href="/">Home</a>
+      <a href="/ships/">Ships</a>
+      <a class="active" href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/disability-at-sea.html">Disability at Sea</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/packing-lists.html">Packing Lists</a>
+      <a href="/cruise-lines/">Cruise Lines</a>
+      <a href="/solo.html">Solo</a>
+      <a href="/travel.html">Travel</a>
     </nav>
   </div>
 
-  <div class="hero hero--wake" role="img" aria-label="Wake at sunset hero">
-    <img class="hero-compass" src="/assets/compass-rose.svg" alt="" aria-hidden="true">
-    <div class="hero-title">
-      <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
-    </div>
+  <div class="hero hero--wake" role="img" aria-hidden="true">
+    <img class="hero-compass" src="/assets/compass-rose.svg" alt="">
+    <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt=""></div>
     <p class="tagline">A Cruise Traveler’s Logbook</p>
     <div class="hero-credit">
       <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">
         Photo by Flickers of Majesty — Instagram
       </a>
     </div>
-    <h1 style="position:absolute;left:-9999px">Room Service</h1>
+    <h1 hidden aria-hidden="true">Room Service</h1>
   </div>
 </header>
 
-<main class="wrap">
+<main id="main" class="wrap">
 
   <!-- Overview -->
   <section class="card" id="overview">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content">
-      <h1 class="page-title">Room Service</h1>
+      <h1 class="page-title" id="page-title">Room Service</h1>
       <p class="subtitle">Royal Caribbean — In-Room Dining (24/7 on most sailings)</p>
       <p class="lede">Complimentary continental breakfast and all-day in-cabin bites delivered to your door. Add hot favorites for a small per-order delivery fee.</p>
-      <p class="blurb">Think of it as a cozy extension of the ship’s restaurants — perfect for sunrise coffee, balcony lunches, or late-night snacks. Order in the Royal App or by phone (stateroom quick dial). <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
+      <p class="blurb">Think of it as a cozy extension of the ship’s restaurants — perfect for sunrise coffee, balcony lunches, or late-night snacks. Order via the Royal App or in-room phone (dial 32). <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
       <p class="pill version" style="float:right;margin-top:.5rem;">v2.257.001</p>
     </div>
   </section>
 
   <!-- Menu & Price -->
   <section class="card" id="menu-prices">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content menu-body">
       <h2>Menu &amp; Price</h2>
       <p class="price-note">
-        <strong>Price:</strong> Continental &amp; cold items are typically <strong>$0</strong>. Hot items usually incur a flat <strong>$7.95 delivery fee</strong> + <strong>18% gratuity</strong> per order (≈ <strong>$9.50</strong> total). <em>Fees and hours can vary by ship/itinerary; check the Royal App once on board.</em>
+        <strong>Price:</strong> Continental &amp; cold items are typically <strong>$0</strong>. Hot items usually incur a flat <strong>$7.95 delivery fee</strong> + <strong>18% gratuity</strong> per order (≈ <strong>$9.50</strong>). <em>Fees &amp; hours vary by ship; confirm in the Royal App on board.</em>
       </p>
-      <p class="tiny legend"><strong>Tip:</strong> Each hot order shares one delivery fee — bundle items together. Suite perks on select tiers may waive hot delivery.</p>
+      <p class="tiny legend"><strong>Tip:</strong> Each hot order shares one delivery fee — bundle items together. Suite perks on select tiers may waive the fee.</p>
 
-      <!-- Continental Breakfast -->
       <details class="variant">
-        <summary><strong>Continental Breakfast</strong> (complimentary; common window ~6:00–10:00 AM)</summary>
+        <summary><strong>Continental Breakfast</strong> (complimentary ~6 AM – 10 AM)</summary>
         <div class="grid grid-3">
-          <div>
-            <h4>Beverages</h4>
-            <ul>
-              <li>Fresh Coffee &amp; Hot Tea</li>
-              <li>Orange / Apple Juice</li>
-              <li>Milk</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Cereals &amp; Yogurts</h4>
-            <ul>
-              <li>Cold Cereals (e.g., Corn Flakes, Granola, Raisin Bran)</li>
-              <li>Plain &amp; Fruit Yogurt</li>
-              <li>Yogurt Parfait (yogurt, granola, berries)</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Bakery &amp; Fruit</h4>
-            <ul>
-              <li>Croissants, Danishes, Muffins, Toast, Bagels w/ Cream Cheese</li>
-              <li>Fresh Fruit Plate (seasonal) • Half Grapefruit</li>
-            </ul>
-          </div>
+          <div><h4>Beverages</h4><ul><li>Fresh Coffee &amp; Tea</li><li>Orange / Apple Juice</li><li>Milk</li></ul></div>
+          <div><h4>Cereals &amp; Yogurts</h4><ul><li>Corn Flakes, Granola, Raisin Bran</li><li>Plain &amp; Fruit Yogurt</li><li>Yogurt Parfait with Berries</li></ul></div>
+          <div><h4>Bakery &amp; Fruit</h4><ul><li>Croissants, Danish, Muffins, Bagels w/ Cream Cheese</li><li>Fresh Fruit Plate • Half Grapefruit</li></ul></div>
         </div>
       </details>
 
-      <!-- American Breakfast (hot) -->
       <details class="variant">
         <summary><strong>American Breakfast</strong> (hot; delivery fee applies)</summary>
         <div class="grid grid-3">
-          <div>
-            <h4>Eggs &amp; Plates</h4>
-            <ul>
-              <li>Fried / Scrambled / Poached Eggs</li>
-              <li>Made-to-order Omelet (cheese/ham/veggies)</li>
-              <li>Eggs Benedict</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Sides</h4>
-            <ul>
-              <li>Bacon • Sausage • Turkey Bacon</li>
-              <li>Hash Browns / Home Fries</li>
-              <li>Oatmeal w/ Raisins &amp; Brown Sugar</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Griddle</h4>
-            <ul>
-              <li>Pancakes or French Toast w/ Syrup &amp; Berries</li>
-            </ul>
-          </div>
+          <div><h4>Eggs &amp; Plates</h4><ul><li>Fried / Scrambled / Poached Eggs</li><li>Omelet (cheese, ham, veggies)</li><li>Eggs Benedict</li></ul></div>
+          <div><h4>Sides</h4><ul><li>Bacon • Sausage • Turkey Bacon</li><li>Hash Browns / Home Fries</li><li>Oatmeal w/ Raisins &amp; Brown Sugar</li></ul></div>
+          <div><h4>Griddle</h4><ul><li>Pancakes or French Toast with Syrup &amp; Berries</li></ul></div>
         </div>
       </details>
 
-      <!-- All-Day Menu -->
       <details class="variant">
-        <summary><strong>All-Day Menu</strong> (24/7 on most sailings; hot items fee applies)</summary>
+        <summary><strong>All-Day Menu</strong> (24/7; hot fee applies)</summary>
         <div class="grid grid-3">
-          <div>
-            <h4>Salads, Soups &amp; Cold</h4>
-            <ul>
-              <li>Caesar or Greek Salad</li>
-              <li>Tuna Salad Cup</li>
-              <li>Chicken Noodle Soup (hot)</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Sandwiches &amp; Wraps</h4>
-            <ul>
-              <li>Club Sandwich (turkey, bacon, lettuce, tomato)</li>
-              <li>BLT • Ham &amp; Cheese</li>
-              <li>Tuna/Egg Salad on Croissant • Veggie Wrap</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Hot Favorites &amp; Treats</h4>
-            <ul>
-              <li>Personal Cheese Pizza • Grilled Cheese • Hot Dog</li>
-              <li>Burger / Cheeseburger (add bacon +$)</li>
-              <li>Philly Cheesesteak • Penne Marinara</li>
-              <li>Cookies &amp; Brownies • Chocolate-Dipped Strawberries</li>
-            </ul>
-          </div>
+          <div><h4>Salads &amp; Soups</h4><ul><li>Caesar / Greek Salad</li><li>Tuna Salad Cup</li><li>Chicken Noodle Soup (hot)</li></ul></div>
+          <div><h4>Sandwiches &amp; Wraps</h4><ul><li>Club Sandwich (turkey, bacon, lettuce, tomato)</li><li>BLT • Ham &amp; Cheese</li><li>Tuna / Egg Salad on Croissant • Veggie Wrap</li></ul></div>
+          <div><h4>Hot Favorites &amp; Treats</h4><ul><li>Personal Cheese Pizza • Grilled Cheese • Hot Dog</li><li>Burger / Cheeseburger (add bacon +$)</li><li>Philly Cheesesteak • Penne Marinara</li><li>Cookies • Brownies • Chocolate-Dipped Strawberries</li></ul></div>
         </div>
-        <p class="tiny legend">Some sailings list premium upgrades (e.g., Wagyu Burger or Grilled Salmon) with individual surcharges in addition to the delivery fee.</p>
+        <p class="tiny legend">Premium upgrades (e.g., Wagyu Burger, Grilled Salmon) may carry extra charge plus delivery fee.</p>
       </details>
 
-      <!-- Kids -->
       <details class="variant">
-        <summary><strong>Kids’ Picks</strong> (available most hours)</summary>
-        <ul>
-          <li>Peanut Butter &amp; Jelly</li>
-          <li>Chicken Fingers w/ Fries</li>
-          <li>Fresh Fruit &amp; Cookies</li>
-        </ul>
+        <summary><strong>Kids’ Picks</strong></summary>
+        <ul><li>Peanut Butter &amp; Jelly</li><li>Chicken Fingers w/ Fries</li><li>Fruit &amp; Cookies</li></ul>
       </details>
 
-      <!-- Fees & suites -->
       <details class="variant">
         <summary><strong>Fees &amp; Suite Notes</strong></summary>
         <ul>
-          <li>One delivery fee per hot order (bundle items); continental/cold items are generally free.</li>
-          <li>Suite guests on some tiers may receive complimentary hot delivery — verify in the Royal App or with your stateroom attendant.</li>
-          <li>Beverages like specialty coffee/sodas may carry standard drink pricing unless you have a package.</li>
+          <li>One delivery fee per hot order (bundling saves).</li>
+          <li>Suite tiers may receive complimentary hot delivery — confirm on board.</li>
+          <li>Beverages like specialty coffee / soda follow standard pricing unless covered by package.</li>
         </ul>
+        <p class="tiny legend">App ordering isn’t available on every ship; if missing, use the door-hanger or in-room phone.</p>
       </details>
     </div>
   </section>
 
-  <!-- Special Accommodations -->
+  <!-- Accommodations -->
   <section class="card" id="accommodations">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content">
       <h2>Special Accommodations</h2>
-      <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
-        <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Note allergies/preferences in the Royal App or when calling — staff can flag orders (e.g., no-nut parfait, no dairy). Vegetarian and lighter options are available; gluten-free adjustments (e.g., no bun/lettuce wrap) on request. Confirm onboard for the latest procedures.</p>
-      </div>
+      <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Specify allergies in the App or when calling. Staff flag orders (e.g., no-nut parfait, gluten-free bun). Vegetarian &amp; lighter options always available.</p>
     </div>
   </section>
 
-  <!-- Where You’ll Find It -->
+  <!-- Availability -->
   <section class="card" id="availability">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content">
       <h2>Where You’ll Find It</h2>
-      <p>Room Service is offered across the Royal Caribbean fleet (hours/fees can vary):</p>
+      <p>Room Service is fleet-wide (on most ships 24 hours a day; fees may vary).</p>
 
       <nav class="ship-pills-bar" aria-label="Ships featuring this venue">
         <button id="rccl-toggle" class="rc-toggle" aria-expanded="false" aria-controls="rccl-ship-list">
           Royal Caribbean <span class="tiny note">— tap to see ships</span>
         </button>
-        <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Room Service">
-          <!-- pills injected by JS -->
-        </div>
+        <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Room Service"></div>
       </nav>
-
-      <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">
-        Tip: Click the “Royal Caribbean” pill above to reveal ships that offer Room Service.
-      </p>
+      <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">Tip: Tap “Royal Caribbean” to reveal ships offering Room Service.</p>
     </div>
   </section>
 
-  <!-- Logbook Review -->
+  <!-- Review -->
   <section class="card" id="logbook">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content prose">
       <h2>The Logbook — Real Guest Soundings</h2>
 
-      <p class="pill">
-        <strong>Depth Sounding:</strong> First-person account captured “in the wake,” edited to our venue standards for clarity. Individual sailings vary by ship, itinerary, and crew.
-      </p>
-
-      <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
-        <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">
-          4.5 ★ out of 5
-        </span>
-        <span class="tiny" style="color:#355;">Symphony of the Seas • Sep 2025 • Breakfast daily + late-night snacks</span>
-        <span class="tiny" style="color:#355;">Pricing observed: Cold free • Hot delivery ≈ $7.95 + 18%</span>
-      </div>
-
-      <p class="tiny" style="margin:-.4rem 0 .8rem;color:#355;">
-        Sailed aboard <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>.
-      </p>
-
-      <h3>Royal Caribbean Room Service Review 2025: Effortless In-Cabin Indulgence Around the Clock</h3>
-
-      <h4>Introduction</h4>
-      <p>Room Service turns your stateroom into a private dining nook — reliable, crave-worthy bites with minimum fuss and maximum relaxation. From a free continental spread at dawn to a hot cheeseburger at midnight, it nails the balance of quality and ease. On my 7-night Bahamas cruise, I ordered continental breakfast most mornings, plus all-day items for lunch and a late-night snack. The value is strong: cold items at $0; hot items generally carry a flat per-order fee with gratuity.</p>
-
-      <h4>Food</h4>
-      <p>The complimentary yogurt parfait was a daily win — creamy yogurt, crunchy granola, and berry brightness in a spill-safe cup, paired with a flaky croissant and juice. Midday, the <strong>club sandwich</strong> (cold) landed as a tidy, deli-style stack with pickle spears — simple, fresh, and free to deliver. For a hot upgrade, the personal cheese pizza arrived bubbling and crisp enough to hold its slice, perfect balcony food. Desserts like <strong>chocolate-dipped strawberries</strong> delivered a chilled, photogenic finish. It’s not a gourmet showcase, but the focused menu highlights reliable hits that travel well.</p>
-
-      <h4>Service</h4>
-      <p>Ordering via the app or phone was quick, with delivery typically in 15–20 minutes. Operators clearly called out what’s free vs. fee and noted a nut allergy once so it was flagged thereafter. On busier sea days, waits ticked up slightly, but follow-up calls checked that everything arrived as expected. The team’s friendly, low-pressure approach makes Room Service a trusted cabin ally.</p>
-
-      <h4>Atmosphere</h4>
-      <p>Because the “dining room” is your room, the vibe is whatever you want — sunrise trays on the balcony, dim lights for a movie night, or PJ lunches after a long excursion. That privacy is the point, and it feels indulgent without costing time.</p>
-
-      <h4>Conclusion</h4>
-      <p>Dependable food, courteous timing, and made-for-coziness convenience make Room Service an easy yes. The delivery fee and lean menu simply encourage smarter choices (bundle hot items; lean on free continental). <strong>Rating: 4.5/5.</strong> Great for families, couples, and suite guests; use the app to time orders and bundle for value.</p>
-
-      <p class="tiny" style="margin-top:.75rem;">
-        Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a>
-      </p>
-    </div>
-
-    <!-- SEO Review markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Review",
-      "itemReviewed": {
-        "@type": "Restaurant",
-        "name": "Room Service (Royal Caribbean)",
-        "servesCuisine": "International / In-room",
-        "provider": { "@type": "Organization", "name": "Royal Caribbean International" }
-      },
-      "name": "Royal Caribbean Room Service Review 2025: Effortless In-Cabin Indulgence Around the Clock",
-      "reviewBody": "Complimentary continental breakfast and all-day bites delivered to your stateroom. Cold items free; hot items typically incur a per-order delivery fee with gratuity. Reliable timing and easy app ordering make it a relaxing, high-value option.",
-      "reviewRating": { "@type": "Rating", "ratingValue": "4.5", "bestRating": "5", "worstRating": "1" },
-      "author": { "@type": "Person", "name": "Guest Sounding (Symphony of the Seas, Sep 2025)" },
-      "isPartOf": { "@type": "WebPage", "url": "https://www.cruisinginthewake.com/restaurants/room-service.html" }
-    }
-    </script>
-  </section>
-
-  <!-- Sources -->
-  <section class="card" id="sources">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
-    <div class="card__content">
-      <h2>Sources &amp; Attribution</h2>
-      <ul>
-        <li>Royal Caribbean onboard materials &amp; Royal App (fees/hours can vary by ship and sailing).</li>
-        <li>Aggregated 2024–2025 cruiser reports for common items, timing, and fee structure.</li>
-        <li>Royal Caribbean marks and menus referenced under fair use for research and commentary.</li>
-        <li>In app roomservice ordering is not available on all ships. If in app is unavailable there is a door hanger, or a number you can call on board. </li>
-      </ul>
-    </div>
-  </section>
-
-</main>
-
-<footer class="site-footer">
-  <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
-</footer>
-
-<!-- Venue hydrator: builds ship pills from venues.json -->
-<script>
-(function(){
-  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
-  const cleanClass=s=>String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
-  const CLASS_ORDER=['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
-
-  // Slug + aliases for Room Service
-  const urlSlug=String((location.pathname.split('/').pop()||'').replace(/\.html$/,''));
-  const VENUE_HINTS=Array.from(new Set([
-    urlSlug, 'room-service','room service','in-room dining','in room dining','roomservice'
-  ]));
-
-  const byClassSize=(a,b)=>{
-    const ai=CLASS_ORDER.indexOf(cleanClass(a[1].class));
-    const bi=CLASS_ORDER.indexOf(cleanClass(b[1].class));
-    if(ai!==bi){ if(ai===-1) return 1; if(bi===-1) return -1; return ai-bi; }
-    return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
-  };
-
-  function shipHref(slug){ return `/ships/rcl/${slug}.html`; }
-
-  async function hydrateShipList(listEl){
-    try{
-      const DATA_URL=(location.origin||'').replace(/\/$/,'')+'/assets/data/venues.json';
-      const res=await fetch(DATA_URL,{cache:'no-store'});
-      if(!res.ok) throw new Error('HTTP '+res.status);
-      const db=await res.json();
-
-      const ships=Object.entries(db.ships||{}).filter(([slug,p])=>{
-        const v=Array.isArray(p.venues)?p.venues:[];
-        return VENUE_HINTS.some(h=>v.includes(h));
-      }).sort(byClassSize);
-
-      listEl.innerHTML = ships.length
-        ? ships.map(([slug,p])=>{
-            const name=p.name||slug;
-            return `<a class="chip" href="${shipHref(slug)}" title="${name}">${name}</a>`;
-          }).join('')
-        : `<span class="tiny muted">No active ships found for this venue.</span>`;
-    }catch(e){
-      listEl.innerHTML=`<span class="tiny muted">Could not load ship list.</span>`;
-    }
-  }
-
-  function wireToggles(){
-    const btn=document.querySelector('#rccl-toggle');
-    const list=document.querySelector('#rccl-ship-list');
-    const tip=document.querySelector('#rccl-tip');
-    if(!btn||!list) return;
-
-    function setNote(open){
-      const note=btn.querySelector('.note');
-      if(note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
-    }
-    function toggle(open){
-      const willOpen = (typeof open==='boolean') ? open : (btn.getAttribute('aria-expanded')!=='true');
-      btn.setAttribute('aria-expanded', String(willOpen));
-      list.classList.toggle('is-hidden', !willOpen);
-      if(willOpen && tip) tip.style.display='none';
-      setNote(willOpen);
-    }
-
-    btn.addEventListener('click', ()=>toggle());
-    btn.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
-
-    // Start collapsed; hydrate content
-    list.classList.add('is-hidden');
-    hydrateShipList(list);
-    setNote(false);
-  }
-  wireToggles();
-})();
-</script>
-</body>
-</html>
+      <p class="pill"><strong>Depth Sounding:</strong> First-person account captured “in the wake,” edited for clarity. Experiences vary by ship and
