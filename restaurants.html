@@ -93,6 +93,30 @@ kbd{
   font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size:.85em; padding:.05em .35em; border:1px solid #cfe1ea; border-bottom-width:2px; border-radius:4px; background:#f7fdff;
 }
+
+    <!-- PATCH: 3-up responsive grid for venue cards -->
+<style id="restaurants-grid-patch">
+  /* base grid */
+  .section .grid{ display:grid; gap:1rem; }
+
+  /* default: 1-up (mobile) */
+  .section .grid-3{ grid-template-columns: 1fr; }
+
+  /* ≥680px: 2-up */
+  @media (min-width:680px){
+    .section .grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+
+  /* ≥1024px: 3-up */
+  @media (min-width:1024px){
+    .section .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+  }
+
+  /* make each card fill its grid cell and keep internals tidy */
+  .section .grid > .card{
+    display:flex; flex-direction:column; height:100%;
+  }
+</style>
   </style>
 </head>
 
