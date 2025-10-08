@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Charset & viewport first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Sorrento’s Pizza — Royal Caribbean | In the Wake</title>
+
+  <!-- Canonical SEO -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/sorrentos.html">
+  <meta name="description" content="Royal Caribbean Sorrento’s Pizza — complimentary New York-style slices on the Royal Promenade. Daily rotating specialties, late-night hours, tips, and real cruiser review.">
+  <meta name="keywords" content="Sorrento's, Sorrentos, Royal Caribbean pizza, complimentary pizza, Royal Promenade, late night food, pepperoni slice, Margherita, BBQ chicken pizza">
+  <meta name="version" content="2.257.001">
+  <meta name="referrer" content="no-referrer">
+
+  <!-- Social -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="In the Wake">
+  <meta property="og:title" content="Sorrento’s Pizza — Royal Caribbean">
+  <meta property="og:description" content="Complimentary New York-style slices, rotating specialties, and late-night hours on the Royal Promenade.">
+  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants/sorrentos.html">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Venue tags for internal tooling -->
+  <meta name="venue-tags" content="sorrentos, sorrento's, pizza, complimentary, royal promenade, late night, pepperoni, cheese, margherita, bbq chicken, veggie, garlic knots">
+
+  <!-- Site CSS (unified) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
+
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Normalize absolute URLs to current origin (consistent with ships/venues) -->
+  <script>
+  (function(){
+    var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+    window._abs = function(path){
+      path = String(path||''); if(!path.startsWith('/')) path = '/' + path; return ORIGIN + path;
+    };
+    function normalize(){
+      var sel = [
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(function(el){
+        var attr = el.hasAttribute('href') ? 'href' : 'src';
+        try{
+          var u = new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
+        }catch(e){}
+      });
+    }
+    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', normalize, {once:true}); }
+    else { normalize(); }
+  })();
+  </script>
+
+  <!-- Page-scoped micro-tweaks (kept minimal; all heavy styles live in styles.css) -->
+  <style>
+    /* Keep navbar pills one line on desktop, scrollable on small screens (Radiance behavior) */
+    @media (min-width:980px){ .hero-header .navbar .pills{ flex-wrap:nowrap; } }
+    @media (max-width:979px){
+      .hero-header .navbar .pills{ flex-wrap:nowrap; overflow:auto; scrollbar-width:none }
+      .hero-header .navbar .pills::-webkit-scrollbar{ display:none }
+    }
+
+    /* Ship pills + watermark helpers — shared pattern across venue pages */
+    .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
+    .ship-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+    .ship-pills a.chip,
+    .ship-pills-bar button.rc-toggle{
+      display:inline-block;font-size:1rem;font-weight:600;border:1px solid var(--rope,#d9b382);
+      border-radius:999px;padding:.35rem .85rem;background:#fff;color:var(--ink,#083041);
+      text-decoration:none;transition:all .18s ease-in-out;line-height:1.2;white-space:nowrap
+    }
+    .ship-pills a.chip::before{content:"🍕";font-size:.85em;margin-right:.35em;color:var(--rope,#d9b382);opacity:.9}
+    .ship-pills a.chip:hover,.ship-pills-bar .rc-toggle:hover{
+      background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);transform:translateY(-1px)
+    }
+    .rc-toggle{cursor:pointer}
+    .tiny.note{opacity:.75;font-weight:600}
+    .tiny.muted{color:#466;opacity:.8}
+    .is-hidden{display:none!important}
+    .card{position:relative;overflow:hidden}
+    .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.08;max-width:60%;margin:auto}
+    .card .card__content{position:relative;z-index:1}
+
+    /* Menu rhythm (slight bump so body text and lists balance) */
+    #menu-prices .menu-body{ font-size:1.0625rem; line-height:1.6; }
+    #menu-prices .menu-body h3{ font-size:1.15rem; margin:.6rem 0 .35rem; }
+    #menu-prices .menu-body h4{ font-size:1.05rem; margin:.4rem 0 .25rem; }
+    #menu-prices details.variant{ margin:.45rem 0; }
+    #menu-prices summary{ cursor:pointer; }
+    #menu-prices .legend{ opacity:.85; }
+  </style>
+</head>
+
+<body class="venue-page">
+
+<!-- ===== Site Header (brand + hero) ===== -->
+<header class="hero-header">
+  <div class="navbar">
+    <div class="brand">
+      <img src="/assets/logo_wake.png" alt="In the Wake" height="28">
+      <span class="brand-title">In the Wake</span>
+      <span class="version-badge">v2.257</span>
+    </div>
+    <nav class="pills" aria-label="Primary">
+      <a href="https://www.cruisinginthewake.com/">Home</a>
+      <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
+      <a class="active" href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+      <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+      <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+      <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+      <a href="https://www.cruisinginthewake.com/cruise-lines/">Cruise Lines</a>
+      <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+      <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+    </nav>
+  </div>
+
+  <div class="hero hero--wake" role="img" aria-label="Wake at sunset hero">
+    <img class="hero-compass" src="/assets/compass-rose.svg" alt="" aria-hidden="true">
+    <div class="hero-title">
+      <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
+    </div>
+    <p class="tagline">A Cruise Traveler’s Logbook</p>
+    <div class="hero-credit">
+      <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">
+        Photo by Flickers of Majesty — Instagram
+      </a>
+    </div>
+    <h1 style="position:absolute;left:-9999px">Sorrento’s Pizza</h1>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Overview -->
+  <section class="card" id="overview">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content">
+      <h1 class="page-title">Sorrento’s Pizza</h1>
+      <p class="subtitle">Royal Caribbean — Complimentary Slices on the Promenade</p>
+      <p class="lede">Craving a slice that hits like NYC at sea? Sorrento’s serves hot, complimentary New York-style pizza by the slice — with rotating specialties — right in the buzzing Royal Promenade.</p>
+      <p class="blurb">It’s the ship’s pizza lifeline: quick lines, late hours, and shareable pies for families and night owls alike. Hours and rotations vary by ship — check the Royal App on board. <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
+      <p class="pill version" style="float:right;margin-top:.5rem;">v2.257.001</p>
+    </div>
+  </section>
+
+  <!-- Menu & Price -->
+  <section class="card" id="menu-prices">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content menu-body">
+      <h2>Menu &amp; Price</h2>
+      <p class="price-note">
+        <strong>Price:</strong> Pizza is complimentary (included). Drinks like soda/beer typically <strong>$3–$5</strong>.
+        <strong>Service:</strong> Common hours ~ <strong>11:30 AM – midnight</strong> (often later on select ships). Rotations and availability vary — confirm in the Royal App.
+      </p>
+      <p class="tiny legend"><strong>Tip:</strong> Ask about off-peak custom slices or whole pies for groups. Vegan/gluten-free availability varies by ship.</p>
+
+      <!-- Daily Core -->
+      <details class="variant">
+        <summary><strong>Daily Core</strong> (every day)</summary>
+        <div class="grid grid-3">
+          <div>
+            <h4>Slices (Complimentary)</h4>
+            <ul>
+              <li>Cheese (mozzarella, tomato sauce)</li>
+              <li>Pepperoni (classic)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Whole Pies</h4>
+            <ul>
+              <li>Cheese • Pepperoni</li>
+              <li>Specialty pies vary by day</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Savory Sides</h4>
+            <ul>
+              <li>Garlic Knots</li>
+              <li>Small Antipasto (olives, cheeses) — availability varies</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- Rotations -->
+      <details class="variant">
+        <summary><strong>Rotating Specialties</strong> (examples by day)</summary>
+        <div class="grid grid-3">
+          <div>
+            <h4>Mediterranean &amp; Veg</h4>
+            <ul>
+              <li>Margherita (fresh basil, mozzarella)</li>
+              <li>Veggie (peppers, onions, mushrooms, olives)</li>
+              <li>White Pizza (ricotta, spinach, garlic)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Meat &amp; BBQ</h4>
+            <ul>
+              <li>Carnivore (sausage, pepperoni, ham, bacon)</li>
+              <li>Supreme (pepperoni, sausage, peppers, onions)</li>
+              <li>BBQ Chicken (chicken, red onion, cilantro, BBQ sauce)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Fun &amp; Trial Picks</h4>
+            <ul>
+              <li>“Caribbean Dream” (pineapple, bacon, BBQ-touch)</li>
+              <li>Calzone (ricotta, ham/pepperoni) — select sailings</li>
+              <li>Shrimp Scampi (limited trial)</li>
+            </ul>
+          </div>
+        </div>
+        <p class="tiny legend">Specialties rotate by ship/itinerary. Whole-pie requests and certain specialties may have limited windows; ask the counter team.</p>
+      </details>
+
+      <!-- Add-ons & Drinks -->
+      <details class="variant">
+        <summary><strong>Add-Ons &amp; Drinks</strong></summary>
+        <div class="grid grid-3">
+          <div>
+            <h4>Extras</h4>
+            <ul>
+              <li>Garlic Knots • Antipasto (when offered)</li>
+              <li>Cookies/Brownies (Promenade sweets nearby)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Drinks</h4>
+            <ul>
+              <li>Sodas, water, beer (venue or nearby bars)</li>
+              <li>Typical pricing: ~$3–$5 (or included with package)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Dietary Notes</h4>
+            <ul>
+              <li>Vegan/gluten-free options on select ships</li>
+              <li>Ask staff for ingredient/allergen pointers</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Special Accommodations -->
+  <section class="card" id="accommodations">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content">
+      <h2>Special Accommodations</h2>
+      <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
+        <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Vegan or gluten-free pies may be available by request on some ships; toppings vary. For severe allergies, notify Royal Caribbean in advance and reconfirm on board; counter teams can advise on ingredients and handling.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Where You’ll Find It -->
+  <section class="card" id="availability">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content">
+      <h2>Where You’ll Find It</h2>
+      <p>Sorrento’s is featured on many Royal Caribbean ships, commonly along the Royal Promenade (e.g., Oasis, Icon, and select Quantum/Voyager/Freedom class ships). Availability and setup vary by class.</p>
+
+      <nav class="ship-pills-bar" aria-label="Ships featuring this venue">
+        <button id="rccl-toggle" class="rc-toggle" aria-expanded="false" aria-controls="rccl-ship-list">
+          Royal Caribbean <span class="tiny note">— tap to see ships</span>
+        </button>
+        <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Sorrento’s">
+          <!-- pills injected by JS -->
+        </div>
+      </nav>
+
+      <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">
+        Tip: Click the “Royal Caribbean” pill above to reveal ships that feature Sorrento’s or equivalent pizza venues.
+      </p>
+    </div>
+  </section>
+
+  <!-- Logbook Review -->
+  <section class="card" id="logbook">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content prose">
+      <h2>The Logbook — Real Guest Soundings</h2>
+
+      <p class="pill">
+        <strong>Depth Sounding:</strong> First-person account captured “in the wake,” edited to our venue standards for clarity. Individual sailings vary by ship, itinerary, and crew.
+      </p>
+
+      <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
+        <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">
+          4.5 ★ out of 5
+        </span>
+        <span class="tiny" style="color:#355;">Icon of the Seas • Sep 2025 • Lunch &amp; Late-Night Slices</span>
+        <span class="tiny" style="color:#355;">Price: Pizza complimentary • Drinks ~$3–$5</span>
+      </div>
+
+      <p class="tiny" style="margin:-.4rem 0 .8rem;color:#355;">
+        Sailed aboard <a href="/ships/rcl/icon-of-the-seas.html">Icon of the Seas</a>.
+      </p>
+
+      <h3>Royal Caribbean Sorrento’s Pizza Review 2025: The Ultimate Free Slice Haven on the High Seas</h3>
+
+      <!-- INTRO -->
+      <p><em>Introduction.</em> Sorrento’s is a slice of pure, uncomplicated joy — a complimentary pizzeria delivering hot, crave-worthy New York-style pies with zero fuss. Tucked in the heart of the ship, it turns hunger into happiness without reservations or cover charges. I grabbed slices for lunch and late-night over three days on <strong>Icon of the Seas</strong>; the value is unbeatable for quick, tasty fuel.</p>
+
+      <!-- FOOD -->
+      <h4>Food</h4>
+      <p>The classic <strong>pepperoni slice</strong> hit all the right notes: cupped edges with a little crisp, bubbly mozzarella, and tangy sauce over a thin, chewy crust that held without sagging. Rotations kept things lively — “<strong>Caribbean Dream</strong>” balanced sweet pineapple and smoky bacon with a subtle BBQ note — while the <strong>veggie slice</strong> stayed bright and crisp with peppers, onions, mushrooms, and olives. If a slice leaned greasy, a quick blot fixed it; flavors stayed crowd-pleasing and consistent.</p>
+
+      <!-- SERVICE -->
+      <h4>Service</h4>
+      <p>Counter service was fast and friendly, even at peak. Staff guided us to fresh pies coming out, offered kid-size cuts, and handled simple tweaks (extra basil on Margherita) without slowing the line. The pace felt energetic in a good way — more buzz than bottleneck.</p>
+
+      <!-- AMBIANCE -->
+      <h4>Atmosphere</h4>
+      <p>Set along the Royal Promenade, Sorrento’s blends cozy pizzeria charm with the ship’s lively hum — perfect for people-watching or a quick refuel between activities. Late nights bring a fun, communal vibe that feels like a little street-corner slice shop at sea.</p>
+
+      <!-- CONCLUSION -->
+      <h4>Conclusion</h4>
+      <p>Flavorful slices, zippy service, and a lively Promenade perch make Sorrento’s an easy go-to. Minor grease or rush is part of the authentic, shareable fun. <strong>Rating: 4.5/5.</strong> Ideal for families, night owls, and pizza purists chasing convenient indulgence.</p>
+
+      <p class="tiny" style="margin-top:.75rem;">
+        Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a>
+      </p>
+    </div>
+
+    <!-- SEO Review markup -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"Review",
+      "itemReviewed":{
+        "@type":"Restaurant",
+        "name":"Sorrento’s Pizza",
+        "servesCuisine":"Pizza",
+        "provider":{"@type":"Organization","name":"Royal Caribbean International"}
+      },
+      "name":"Royal Caribbean Sorrento’s Pizza Review 2025: The Ultimate Free Slice Haven on the High Seas",
+      "reviewBody":"Complimentary New York-style slices with rotating specialties on the Royal Promenade. Quick service, late-night hours, and a lively vibe make it a crowd favorite.",
+      "reviewRating":{"@type":"Rating","ratingValue":"4.5","bestRating":"5","worstRating":"1"},
+      "author":{"@type":"Person","name":"Guest Sounding (Icon of the Seas, Sep 2025)"},
+      "isPartOf":{"@type":"WebPage","url":"https://www.cruisinginthewake.com/restaurants/sorrentos.html"}
+    }
+    </script>
+  </section>
+
+  <!-- Sources -->
+  <section class="card" id="sources">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content">
+      <h2>Sources &amp; Attribution</h2>
+      <ul>
+        <li>Royal Caribbean venue descriptions, app previews, and Cruise Compass notes (hours vary by ship).</li>
+        <li>Aggregated 2024–2025 cruiser reports for slice rotations and late-night availability.</li>
+        <li>Royal Caribbean marks and menus referenced under fair use for research and commentary.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
+</footer>
+
+<!-- Venue hydrator: builds ship pills from venues.json -->
+<script>
+(function(){
+  const cleanClass = s => String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
+  const CLASS_ORDER = ['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
+
+  // Slug + aliases for Sorrento’s
+  const urlSlug = String((location.pathname.split('/').pop()||'').replace(/\.html$/,''));
+  const VENUE_HINTS = Array.from(new Set([
+    urlSlug, 'sorrentos', "sorrento's", 'sorrento’s', 'sorrentos pizza', "sorrento's pizza", 'pizza'
+  ]));
+
+  const byClassSize = (a,b)=>{
+    const ai=CLASS_ORDER.indexOf(cleanClass(a[1].class));
+    const bi=CLASS_ORDER.indexOf(cleanClass(b[1].class));
+    if(ai!==bi){ if(ai===-1) return 1; if(bi===-1) return -1; return ai-bi; }
+    return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
+  };
+
+  function shipHref(slug){ return `/ships/rcl/${slug}.html`; }
+
+  async function hydrateShipList(listEl){
+    try{
+      const DATA_URL = (location.origin||'').replace(/\/$/,'') + '/assets/data/venues.json';
+      const res = await fetch(DATA_URL, {cache:'no-store'});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const db = await res.json();
+
+      const ships = Object.entries(db.ships||{}).filter(([slug,p])=>{
+        const v = Array.isArray(p.venues)?p.venues:[];
+        return VENUE_HINTS.some(h=>v.includes(h));
+      }).sort(byClassSize);
+
+      listEl.innerHTML = ships.length
+        ? ships.map(([slug,p])=>{
+            const name=p.name||slug;
+            return `<a class="chip" href="${shipHref(slug)}" title="${name}">${name}</a>`;
+          }).join('')
+        : `<span class="tiny muted">No active ships found for this venue.</span>`;
+    }catch(e){
+      listEl.innerHTML = `<span class="tiny muted">Could not load ship list.</span>`;
+    }
+  }
+
+  function wireToggles(){
+    const btn=document.querySelector('#rccl-toggle');
+    const list=document.querySelector('#rccl-ship-list');
+    const tip=document.querySelector('#rccl-tip');
+    if(!btn||!list) return;
+
+    function setNote(open){
+      const note=btn.querySelector('.note');
+      if(note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
+    }
+    function toggle(open){
+      const willOpen = (typeof open==='boolean') ? open : (btn.getAttribute('aria-expanded')!=='true');
+      btn.setAttribute('aria-expanded', String(willOpen));
+      list.classList.toggle('is-hidden', !willOpen);
+      if(willOpen && tip) tip.style.display='none';
+      setNote(willOpen);
+    }
+
+    btn.addEventListener('click', ()=>toggle());
+    btn.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+
+    list.classList.add('is-hidden');
+    hydrateShipList(list);
+    setNote(false);
+  }
+
+  wireToggles();
+})();
+</script>
+</body>
+</html>
