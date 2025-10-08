@@ -549,34 +549,51 @@
         b.addEventListener('click', ()=>{ STATE.brand = b.getAttribute('data-brand'); apply(); closeAll(); });
       });
 
-      // classes
+        // classes (largest ➜ smallest)
       const CLASS_ORDER = [
-  'icon',            // biggest
-  'oasis',
-  'quantum ultra',
-  'quantum',
-  'freedom',
-  'voyager',
-  'radiance',
-  'vision',
-  'sovereign',
-  'empress'          // smallest
-];
+        'icon',          // biggest
+        'oasis',
+        'quantum ultra',
+        'quantum',
+        'freedom',
+        'voyager',
+        'radiance',
+        'vision',
+        'sovereign',
+        'empress'        // smallest
+      ];
 
-const classes = Array.from(new Set(Object.values(db.ships||{})
-  .map(s => String(s.class||'').toLowerCase().trim())
-  .filter(Boolean)))
-  .sort((a,b) => {
-    const ai = CLASS_ORDER.indexOf(a);
-    const bi = CLASS_ORDER.indexOf(b);
-    if (ai === -1 && bi === -1) return a.localeCompare(b); // unknowns alpha
-    if (ai === -1) return 1;
-    if (bi === -1) return -1;
-    return ai - bi;
-  });
-        b.addEventListener('click', ()=>{
-          STATE.klass = b.getAttribute('data-class')||'';
-          STATE.ship = '';
+      const cleanClass = s => String(s||'')
+        .toLowerCase()
+        .replace(/\s*class\s*$/,'')   // tolerate “Radiance Class”, etc.
+        .trim();
+
+      const classes = Array.from(
+        new Set(
+          Object.values(db.ships || {})
+            .map(s => cleanClass(s.class))
+            .filter(Boolean)
+        )
+      ).sort((a, b) => {
+        const ai = CLASS_ORDER.indexOf(a);
+        const bi = CLASS_ORDER.indexOf(b);
+        if (ai === -1 && bi === -1) return a.localeCompare(b); // unknowns alpha
+        if (ai === -1) return 1;
+        if (bi === -1) return -1;
+        return ai - bi;
+      });
+
+      $classes.innerHTML = classes
+        .map(k => {
+          const label = k.replace(/\b\w/g, m => m.toUpperCase()) + ' Class';
+          return `<button class="pillbtn" data-class="${k}" role="menuitem">${label}</button>`;
+        })
+        .join('');
+
+      $classes.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          STATE.klass = btn.getAttribute('data-class') || '';
+          STATE.ship  = '';
           apply(); closeAll();
           fillShips(STATE.klass);
           toggle(sBtn, tS);
