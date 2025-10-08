@@ -94,6 +94,23 @@
   color:#fff;
   opacity:.8;
 }
+    /* Match pill size and text rhythm */
+.ship-pills-bar .rc-toggle {
+  display:inline-block;
+  font-size:1rem;
+  font-weight:600;
+  border:1px solid var(--rope,#d9b382);
+  border-radius:999px;
+  padding:.35rem .85rem;
+  background-color:#f7fdfd;
+  color:var(--ink,#083041);
+  transition:background-color .18s ease-in-out,border-color .18s ease-in-out;
+}
+.ship-pills-bar .rc-toggle:hover {
+  background-color:var(--foam,#e6f4f8);
+  border-color:var(--accent,#0e6e8e);
+  color:var(--accent,#0e6e8e);
+}
 </style>
   <!-- ==== restaurants: logbook/card layering fix ==== -->
 <style id="logbook-card-fix">
@@ -215,18 +232,20 @@
   <p>This venue appears on the following Royal Caribbean ships:</p>
   <nav class="ship-pills-bar" aria-label="Ships featuring this venue">
   <!-- Toggle pill -->
-  <button id="rccl-toggle"
-          class="chip"
-          aria-expanded="false"
-          aria-controls="rccl-ship-list">
-    Royal Caribbean <span class="tiny note">— tap to see ships</span>
-      <div id="rccl-ship-list"
-       class="ship-pills is-hidden"
-       role="region"
-       aria-label="Ships with Chops Grille">
-    <!-- pills injected by JS -->
-  </div>
-  </button></nav>
+ <button id="rccl-toggle"
+        class="chip rc-toggle"
+        aria-expanded="false"
+        aria-controls="rccl-ship-list">
+  Royal Caribbean <span class="tiny note">— tap to see ships</span>
+</button>
+
+<!-- Collapsible list lives outside the button -->
+<div id="rccl-ship-list"
+     class="ship-pills is-hidden"
+     role="region"
+     aria-label="Ships with Chops Grille">
+  <!-- pills injected by JS -->
+</div></nav>
   
   <!-- Inline tip for first-time visitors -->
   <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">
