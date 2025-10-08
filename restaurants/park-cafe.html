@@ -5,74 +5,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Park Café — Royal Caribbean | In the Wake</title>
 
-  <meta name="description" content="Royal Caribbean Park Café — complimentary fresh salads, sandwiches, light bites in a lush, garden-like setting. Ideal for casual midday meals or wellness breaks.">
-  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/park-cafe.html">
-  <meta name="referrer" content="no-referrer">
-  <meta name="venue-tags" content="park café, park cafe, deli, sandwich, salad bar, complimentary, light dining, healthy, oasis, garden, Central Park">
-
+  <meta name="description" content="Park Café on Royal Caribbean — complimentary salads, sandwiches (signature roast beef on kümmelweck), soups, pizzas, pastries, and fruit. Breakfast & lunch daily; serene Central Park setting on Oasis/Icon class.">
   <meta property="og:site_name" content="In the Wake">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Park Café — Royal Caribbean">
   <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants/park-cafe.html">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/park-cafe.html">
+  <meta name="referrer" content="no-referrer">
+  <meta name="venue-tags" content="park cafe, complimentary, salads, sandwiches, roast beef, kummelweck, central park, breakfast, lunch, pizza, soup, fruit, pastries, coffee, icon class, oasis class">
 
+  <!-- Site CSS -->
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
+
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
+  <!-- Normalize absolute URLs to current origin (modular, same as ships/restaurant pages) -->
   <script>
   (function(){
     var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
-    document.addEventListener('DOMContentLoaded', function(){
-      var sel = [
+    function normalize(){
+      var sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
         'img[src^="https://www.cruisinginthewake.com/"]',
         'link[href^="https://www.cruisinginthewake.com/"]',
         'script[src^="https://www.cruisinginthewake.com/"]'
       ].join(',');
       document.querySelectorAll(sel).forEach(function(el){
-        var attr = el.hasAttribute('href') ? 'href' : 'src';
-        try {
-          var u = new URL(el.getAttribute(attr));
-          el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
-        } catch(e) {}
+        var attr=el.hasAttribute('href')?'href':'src';
+        try{var u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
       });
-    }, {once:true});
+    }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
   })();
   </script>
 
+  <!-- Local, minimal visual tweaks (scoped to this page) -->
   <style>
+    /* Ship pills visuals (reuse across venue pages) */
     .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
     .ship-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
-    .ship-pills a.chip,.ship-pills-bar button.rc-toggle{
+    .ship-pills a.chip,
+    .ship-pills-bar button.rc-toggle{
       display:inline-block;font-size:1rem;font-weight:600;border:1px solid var(--rope,#d9b382);
       border-radius:999px;padding:.35rem .85rem;background:#fff;color:var(--ink,#083041);
       text-decoration:none;transition:all .18s ease-in-out;line-height:1.2;white-space:nowrap
     }
     .ship-pills a.chip::before{content:"⚓";font-size:.8em;margin-right:.35em;color:var(--rope,#d9b382);opacity:.9}
-    .ship-pills a.chip:hover,.ship-pills-bar .rc-toggle:hover{
-      background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);transform:translateY(-1px)
-    }
+    .ship-pills a.chip:hover,.ship-pills-bar .rc-toggle:hover{background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);transform:translateY(-1px)}
     .rc-toggle{cursor:pointer}
-    .is-hidden{display:none!important}
     .tiny.note{opacity:.7;font-weight:600}
     .tiny.muted{color:#466;opacity:.75}
-    .card{position:relative;overflow:hidden}
-    .card>img[aria-hidden]{position:absolute;inset:0;margin:auto;opacity:.08;max-width:60%;pointer-events:none}
-    .card .card__content{position:relative;z-index:1}
-    .prose h3{margin:1.0rem 0 .5rem}.prose h4{margin:.85rem 0 .35rem}
+    .is-hidden{display:none!important}
 
-    /* Slight menu card size bump if needed */
-    #menu-prices .menu-body{font-size:1.0625rem;line-height:1.6}
-    #menu-prices .menu-body h3{font-size:1.15rem;margin:.6rem 0 .35rem}
-    #menu-prices .menu-body h4{font-size:1.05rem;margin:.4rem 0 .25rem}
-    #menu-prices details.variant{margin:.45rem 0}
-    #menu-prices summary{cursor:pointer}
+    /* Card watermark layering for logbook */
+    .card{position:relative;overflow:hidden}
+    .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.08;max-width:60%;margin:auto}
+    .card .card__content{position:relative;z-index:1}
+
+    /* Scoped size bump so menu text matches surrounding rhythm */
+    #menu-prices .menu-body { font-size:1.0625rem; line-height:1.6; }
+    #menu-prices .menu-body h3 { font-size:1.15rem; margin:.6rem 0 .35rem; }
+    #menu-prices .menu-body h4 { font-size:1.05rem; margin:.4rem 0 .25rem; }
+    #menu-prices details.variant { margin:.45rem 0; }
+    #menu-prices summary { cursor:pointer; }
+    #menu-prices .legend { opacity:.85; }
   </style>
 </head>
 
 <body class="venue-page">
 <header class="site-header">
+  <!-- Global pill nav (styles come from styles.css) -->
   <nav class="pill-nav pills" aria-label="Primary">
     <a href="https://www.cruisinginthewake.com/">Home</a>
     <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
@@ -86,15 +90,9 @@
     <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
   </nav>
 
-  <div class="hero" role="img" aria-label="Wake at sunset hero">
-    <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass-rose.svg" alt="" aria-hidden="true">
-    <div class="hero-title">
-      <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
-    </div>
-    <p class="tagline">A Cruise Traveler’s Logbook</p>
-    <div class="hero-credit">
-      <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Photo by Flickers of Majesty — Instagram</a>
-    </div>
+  <!-- Full-bleed hero (assets/hero handled by global CSS) -->
+  <div class="hero hero--wake" role="img" aria-label="Wake at sunset hero">
+    <h1 style="position:absolute;left:-9999px">Park Café</h1>
   </div>
 </header>
 
@@ -105,9 +103,9 @@
     <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content">
       <h1 class="page-title">Park Café</h1>
-      <p class="subtitle">Royal Caribbean — Light &amp; Fresh Dining</p>
-      <p class="lede">Freshly made salads, gourmet sandwiches, and crisp bites in a lush, park-like setting—all complimentary.</p>
-      <p class="blurb">Park Café is your go-to when you want something lighter than the buffet but more relaxing than a line. Think deli freshness with a botanical ambiance—perfect for midday refreshment or a quiet brunch. <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
+      <p class="subtitle">Royal Caribbean — Complimentary Deli &amp; Salads</p>
+      <p class="lede">A serene, quick-service spot for fresh salads, signature sandwiches, soups, pizzas, fruit, and pastries — perfect for easy breakfasts and light, customizable lunches.</p>
+      <p class="blurb">Set amid the greenery of Central Park on Oasis and Icon class, Park Café delivers deli-fresh simplicity and calm vibes away from the bustle. Expect build-your-own salads, the famous roast beef on kümmelweck, and plenty of grab-and-go options. <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
       <p class="pill version" style="float:right;margin-top:.5rem;">v2.257.001</p>
     </div>
   </section>
@@ -118,36 +116,99 @@
     <div class="card__content menu-body">
       <h2>Menu &amp; Price</h2>
       <p class="price-note">
-        <strong>Price:</strong> Complimentary (included).  
-        <strong>Service:</strong> Breakfast and lunch daily; limited afternoon hours on some ships.
+        <strong>Price:</strong> Complimentary (food included). Specialty coffees/smoothies typically <strong>$4–6</strong> or included with beverage packages.
+        <strong>Service:</strong> Breakfast &amp; Lunch daily; generally no dinner service. Exact hours vary by ship — check the Royal App on board.
       </p>
-      <p class="tiny legend"><strong>Tip:</strong> Many items are customizable. Specialty coffees, lattes, and premium drinks may incur extra cost ($4–6).</p>
+      <p class="tiny legend"><strong>Tip:</strong> Tap a line below to expand the full items list. <strong>Legend:</strong> All items complimentary unless noted for beverages.</p>
 
-      <details class="variant" open>
-        <summary><strong>Typical Offerings</strong></summary>
+      <!-- Breakfast -->
+      <details class="variant">
+        <summary><strong>Breakfast</strong> (daily, ~7:00–11:00 AM)</summary>
         <div class="grid grid-3">
           <div>
-            <h4>Breakfast Options</h4>
+            <h4>Fresh &amp; Light</h4>
             <ul>
-              <li>Greek Yogurt Parfaits (berries, granola)</li>
-              <li>Fruit &amp; Cheese Plates</li>
-              <li>Bagels, Toasts, Pastries</li>
+              <li>Yogurt Parfaits (Greek yogurt, granola, seasonal berries)</li>
+              <li>Fresh Fruit Cups (melon, pineapple, grapes)</li>
+              <li>Cereals &amp; Oatmeal</li>
             </ul>
           </div>
           <div>
-            <h4>Salad Bar &amp; Bowls</h4>
+            <h4>Bakery &amp; Bagels</h4>
             <ul>
-              <li>Greens &amp; Spinach base</li>
-              <li>Tomatoes, Cucumber, Carrots, Olives, Feta, Chickpeas</li>
-              <li>Dressings: Balsamic, Vinaigrette, Caesar</li>
+              <li>Pastries (croissants, Danish, muffins)</li>
+              <li>Bagels (plain/everything) with cream cheese; lox add-on on select sailings</li>
             </ul>
           </div>
           <div>
-            <h4>Gourmet Sandwiches &amp; Wraps</h4>
+            <h4>Trials/Rotations</h4>
             <ul>
-              <li>Roast Beef on Kümmelweck (caramelized onions + au jus)</li>
-              <li>Caprese Panini (tomato, basil, mozzarella)</li>
-              <li>Grilled Veggie Wraps, Chicken Club, Tuna Melt</li>
+              <li>Breakfast Burritos (Icon-class trial)</li>
+              <li>Coffee &amp; Iced Tea (complimentary)</li>
+              <li>Specialty coffees/smoothies <strong>$</strong></li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- Lunch -->
+      <details class="variant">
+        <summary><strong>Lunch</strong> (daily, ~11:00 AM–6:00 PM)</summary>
+        <div class="grid grid-3">
+          <div>
+            <h4>Salad Station</h4>
+            <ul>
+              <li>Bases: romaine, spinach, mixed greens</li>
+              <li>Proteins: grilled chicken, tuna salad, hard-boiled eggs, chickpeas</li>
+              <li>Toppings: tomatoes, cucumbers, feta, olives, carrots, peppers, nuts, croutons</li>
+              <li>Dressings: ranch, vinaigrette, balsamic, Caesar</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Sandwiches &amp; Wraps</h4>
+            <ul>
+              <li><strong>Roast Beef on Kümmelweck</strong> (au jus, pickles) — signature</li>
+              <li>Turkey Club (BLT on wheat) · Ham &amp; Cheese Panini</li>
+              <li>Tuna/Egg Salad (croissant or wrap)</li>
+              <li>Veggie Wrap (hummus, cucumber, sprouts)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Hot Items &amp; Treats</h4>
+            <ul>
+              <li>Personal Pizzas (Margherita, pepperoni)</li>
+              <li>Soups (tomato bisque, minestrone)</li>
+              <li>Pasta Salad · Cookies/Brownies · Soft-Serve Ice Cream</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <!-- Rotations/Specials -->
+      <details class="variant">
+        <summary><strong>Weekly Specials</strong> (rotating by ship)</summary>
+        <div class="grid grid-3">
+          <div>
+            <h4>Examples</h4>
+            <ul>
+              <li>Monday: Greek Salad Boost (extra feta &amp; olives)</li>
+              <li>Thursday: Cuban Sandwich (roast pork &amp; ham)</li>
+              <li>Friday: Caprese Panini (mozzarella, basil, tomato)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Notes</h4>
+            <ul>
+              <li>Selections vary by ship and itinerary</li>
+              <li>Check venue boards or the Royal App for the day’s special</li>
+              <li>Gluten-free wraps/lettuce wraps available on request</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Beverages</h4>
+            <ul>
+              <li>Complimentary: water, coffee, iced tea</li>
+              <li>Specialty coffees/smoothies <strong>$4–6</strong> (or included with package)</li>
             </ul>
           </div>
         </div>
@@ -161,47 +222,50 @@
     <div class="card__content">
       <h2>Special Accommodations</h2>
       <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
-        <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Ingredients are clearly labeled (e.g. dairy, nuts, gluten). Gluten-free or lettuce-wrap swaps available on request. For severe allergies, contact the accessibility team prior to sailing and confirm with the venue on embarkation day.</p>
+        <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Park Café can accommodate gluten-free wraps/lettuce wraps and vegetarian choices at the salad bar. For severe allergies, notify Royal Caribbean in advance and reconfirm on embarkation; cross-contact procedures are available on request.</p>
       </div>
     </div>
   </section>
 
-  <!-- Availability -->
+  <!-- Where You’ll Find It -->
   <section class="card" id="availability">
     <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content">
       <h2>Where You’ll Find It</h2>
-      <p>Park Café appears on Oasis-, Icon-, and select newer Royal Caribbean ships:</p>
+      <p>Park Café appears primarily on Oasis and Icon class ships (plus select others):</p>
 
       <nav class="ship-pills-bar" aria-label="Ships featuring this venue">
         <button id="rccl-toggle" class="rc-toggle" aria-expanded="false" aria-controls="rccl-ship-list">
           Royal Caribbean <span class="tiny note">— tap to see ships</span>
         </button>
-        <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Park Café"></div>
+        <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Park Café">
+          <!-- pills injected by JS -->
+        </div>
       </nav>
 
       <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">
-        Tip: Tap “Royal Caribbean” above to reveal ships that include Park Café.
+        Tip: Click the “Royal Caribbean” pill above to reveal ships that feature Park Café.
       </p>
     </div>
   </section>
 
-  <!-- The Logbook — Guest Review -->
+  <!-- The Logbook — Real Guest Soundings -->
   <section class="card" id="logbook">
     <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content prose">
       <h2>The Logbook — Real Guest Soundings</h2>
 
       <p class="pill">
-        <strong>Depth Sounding:</strong> This is a first-person account captured “in the wake,” edited to our venue standards for clarity. Individual sailings vary by ship, itinerary, and crew.
+        <strong>Depth Sounding:</strong> First-person account captured “in the wake,” edited to our venue standards for clarity. Individual sailings vary by ship, itinerary, and crew.
       </p>
 
+      <!-- Review meta header -->
       <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
         <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">
           4.5 ★ out of 5
         </span>
-        <span class="tiny" style="color:#355;">Oasis of the Seas • Oct 2025 • Breakfast &amp; Lunch visits</span>
-        <span class="tiny" style="color:#355;">Price: Complimentary • Premium drinks $4–6</span>
+        <span class="tiny" style="color:#355;">Oasis of the Seas • Oct 2025 • Breakfast &amp; Lunch</span>
+        <span class="tiny" style="color:#355;">Price: Complimentary • Specialty coffee $4–6</span>
       </div>
 
       <p class="tiny" style="margin:-.4rem 0 .8rem;color:#355;">
@@ -210,40 +274,48 @@
 
       <h3>Royal Caribbean Park Café Review 2025: A Serene Escape for Fresh, Customizable Bites</h3>
 
-      <p><em>Introduction.</em> Park Café is a delightful respite aboard Royal Caribbean—complimentary, light, and lush. It blends deli-style simplicity with the tranquil charm of a botanical oasis at sea. On a 7-night Southern Caribbean cruise in October 2025 aboard <strong>Oasis of the Seas</strong>, I enjoyed breakfast and lunch visits. All core food is free; specialty drinks like lattes run $4–6.</p>
+      <!-- INTRO -->
+      <p><em>Introduction.</em> Park Café is a breath of fresh air — a complimentary gem that blends deli-fresh simplicity with the tranquil charm of Central Park. It’s the ideal spot to recharge without the frenzy of busier venues, offering customizable salads and gourmet sandwiches that hit the spot every time. I stopped by for breakfast and lunch on a 7-night Southern Caribbean cruise in early October 2025 aboard <strong>Oasis of the Seas</strong>. The value is fantastic: all food items are free, while specialty coffees run <strong>$4–6</strong> (often covered by a package).</p>
 
+      <!-- FOOD -->
       <h4>Food</h4>
-      <p>Breakfast began with a <strong>Greek yogurt parfait</strong>: creamy yogurt, crunchy granola, and vibrant berries that popped with freshness. It delivered energy without heaviness. The <strong>build-your-own salad station</strong> at lunch was stellar—romaine, spinach, tomatoes, cucumber, olives, shredded carrots, and feta—all brought together by a lively balsamic vinaigrette. As a highlight, the <strong>roast beef sandwich</strong> on kümmelweck roll stood out: juicy beef, caramelized onions, aromatic bun, and dipping au jus. Occasional specials like Caprese panini added welcome variety.</p>
+      <p>Breakfast leaned light and fresh. A yogurt parfait layered Greek yogurt, crunchy granola, and a trio of berries for a creamy-tangy bite that didn’t weigh me down. At lunch, the build-your-own salad station shone — crisp romaine and spinach, juicy cherry tomatoes, cucumbers, olives, feta, and a zesty balsamic vinaigrette. The star, though, was the <strong>signature roast beef on kümmelweck</strong>: thin-sliced beef piled high on a caraway-salted roll with warm au jus. Simple, savory, and deeply satisfying. Rotating specials — like a Caprese panini — keep quick visits interesting without turning it into a marathon meal like Windjammer.</p>
 
+      <!-- SERVICE -->
       <h4>Service</h4>
-      <p>Service is warm and subtly attentive. The counter staff—especially “Elena”—made smart suggestions (e.g. adding chickpeas for protein) and kept assembly fast (sandwich in <2 minutes). Gluten-free swaps (lettuce wrap) were handled seamlessly. Rushes moved quickly, and small touches like fruit upgrades for kids or tray help gave it a friendly balance—not overly formal, not too casual.</p>
+      <p>Service matched the relaxed vibe: friendly counter staff who assemble quickly and offer smart suggestions (add chickpeas for protein, swap a gluten-free wrap if needed). Even at midday rush, the line moved fast, and I noticed thoughtful touches — tray help for families, clear pointers to fresh batches, and easy customizations.</p>
 
-      <h4>Ambiance</h4>
-      <p>Park Café’s setting is its standout feature. Nestled in the ship’s Central Park-style section, it’s lush with live plants, dappled light from the solarium roof, and wooden bistro seating. The mood evolves—bright morning energy turns to a mellow, garden- café glow by afternoon. Occasional live strings drift in. On busy periods it can feel snug, but that added familiarity binds guests in a shared moment.</p>
+      <!-- AMBIANCE -->
+      <h4>Atmosphere</h4>
+      <p>The Central Park setting is the secret sauce. With greenery, bistro seating, and gentle light, it feels like a quiet city garden — perfect for a low-key date, post-yoga lunch, or a solo recharge. It can get snug at peak, but the intimacy adds to the sense of escape compared with the ship’s high-energy venues.</p>
 
+      <!-- CONCLUSION -->
       <h4>Conclusion</h4>
-      <p>Park Café wins with its focused freshness, relaxed service, and picturesque ambiance. Its minimal menu is its strength, inviting repeat visits and experimentation. <strong>Rating: 4.5/5.</strong> Ideal for wellness-focused cruisers, couples wanting a quiet lunch, or anyone craving a light but satisfying escape. <em>Pro tip:</em> Go early for best seating and snap those parfait layers and au jus drips—they’re almost too pretty to eat.</p>
+      <p>Fresh, customizable food, warm service, and a calming park-like ambiance make Park Café an easy daily detour. Minor crowding at lunch is a fair trade-off for the speed and quality.</p>
+
+      <p><strong>Rating:</strong> 4.5/5. Recommended for wellness-minded cruisers, couples, and anyone dodging buffet bustle. <em>Pro tip:</em> Arrive early for outdoor-feeling seats, and don’t skip the kümmelweck with au jus — it’s a Royal classic.</p>
 
       <p class="tiny" style="margin-top:.75rem;">
         Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a>
       </p>
     </div>
 
+    <!-- SEO Review markup -->
     <script type="application/ld+json">
     {
-      "@context":"https://schema.org",
-      "@type":"Review",
-      "itemReviewed":{
-        "@type":"Restaurant",
-        "name":"Park Café",
-        "servesCuisine":"Deli / Light Dining",
-        "provider":{"@type":"Organization","name":"Royal Caribbean International"}
+      "@context": "https://schema.org",
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "Restaurant",
+        "name": "Park Café",
+        "servesCuisine": "Deli / Salads",
+        "provider": { "@type": "Organization", "name": "Royal Caribbean International" }
       },
-      "name":"Royal Caribbean Park Café Review 2025: A Serene Escape for Fresh, Customizable Bites",
-      "reviewBody":"Park Café on Oasis offers complementary deli-style parfaits, fresh salads, and gourmet sandwiches in a tranquil, garden-like atmosphere. Specialty drinks cost $4–6. Fresh ingredients, warm service, and scenic ambiance make it an ideal light-bite spot.",
-      "reviewRating":{"@type":"Rating","ratingValue":"4.5","bestRating":"5","worstRating":"1"},
-      "author":{"@type":"Person","name":"Guest Sounding (Oasis of the Seas, Oct 2025)"},
-      "isPartOf":{"@type":"WebPage","url":"https://www.cruisinginthewake.com/restaurants/park-cafe.html"}
+      "name": "Royal Caribbean Park Café Review 2025: A Serene Escape for Fresh, Customizable Bites",
+      "reviewBody": "Complimentary salads, signature roast beef on kümmelweck, soups, pizzas, fruit, and pastries in a calm Central Park setting. Breakfast and lunch daily; specialty coffee $4–6. Fresh, customizable, and crowd-friendly.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "4.5", "bestRating": "5", "worstRating": "1" },
+      "author": { "@type": "Person", "name": "Guest Sounding (Oasis of the Seas, Oct 2025)" },
+      "isPartOf": { "@type": "WebPage", "url": "https://www.cruisinginthewake.com/restaurants/park-cafe.html" }
     }
     </script>
   </section>
@@ -254,8 +326,9 @@
     <div class="card__content">
       <h2>Sources &amp; Attribution</h2>
       <ul>
-        <li><a href="https://www.royalcaribbean.com/cruise-dining" target="_blank" rel="noopener">Royal Caribbean — Cruise Dining Overview</a></li>
-        <li>Review based on guest account; menu details subject to ship/seasonal variation.</li>
+        <li>Royal Caribbean — venue descriptions and onboard materials (Oasis/Icon class)</li>
+        <li>Guest reports and 2024–2025 sailing menus (Oasis/Symphony/Icon); hours and specials vary by ship.</li>
+        <li>Royal Caribbean marks and menus referenced under fair use for research and commentary.</li>
       </ul>
     </div>
   </section>
@@ -266,48 +339,78 @@
   <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
 </footer>
 
+<!-- Venue hydrator: builds ship pills from venues.json -->
 <script>
 (function(){
-  const btn=document.getElementById('rccl-toggle'),
-        list=document.getElementById('rccl-ship-list'),
-        tip=document.getElementById('rccl-tip');
-  if(!btn||!list) return;
-  function setNote(open){
-    const note = btn.querySelector('.note');
-    if(note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
-  }
-  function toggle(open){
-    const willOpen = (typeof open==='boolean') ? open : (btn.getAttribute('aria-expanded')!=='true');
-    btn.setAttribute('aria-expanded', String(willOpen));
-    list.classList.toggle('is-hidden', !willOpen);
-    if(willOpen && tip) tip.style.display='none';
-    setNote(willOpen);
-  }
-  btn.addEventListener('click', ()=>toggle());
-  btn.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
-  list.classList.add('is-hidden');
-  // hydrate ship list
-  (async function(){
-    try {
-      const res = await fetch((location.origin||'')+'/assets/data/venues.json',{cache:'no-store'});
+  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const cleanClass=s=>String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
+  const CLASS_ORDER=['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
+
+  // Slug + aliases for Park Café
+  const urlSlug=String((location.pathname.split('/').pop()||'').replace(/\.html$/,''));
+  const VENUE_HINTS=Array.from(new Set([
+    urlSlug, 'park-cafe','park cafe','parkcafe'
+  ]));
+
+  const byClassSize=(a,b)=>{
+    const ai=CLASS_ORDER.indexOf(cleanClass(a[1].class));
+    const bi=CLASS_ORDER.indexOf(cleanClass(b[1].class));
+    if(ai!==bi){ if(ai===-1) return 1; if(bi===-1) return -1; return ai-bi; }
+    return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
+  };
+
+  function shipHref(slug){ return `/ships/rcl/${slug}.html`; }
+
+  async function hydrateShipList(listEl){
+    try{
+      const DATA_URL=(location.origin||'').replace(/\/$/,'')+'/assets/data/venues.json';
+      const res=await fetch(DATA_URL,{cache:'no-store'});
       if(!res.ok) throw new Error('HTTP '+res.status);
-      const db = await res.json();
-      const ships = Object.entries(db.ships || {}).filter(([slug,p])=>{
-        const v = Array.isArray(p.venues)?p.venues: [];
-        return v.includes('park-cafe') || v.includes('park café');
-      }).sort((a,b)=>{
-        const i=['icon','oasis','quantum','freedom','voyager','radiance','vision'].indexOf(a[0]);
-        const j=['icon','oasis','quantum','freedom','voyager','radiance','vision'].indexOf(b[0]);
-        return i-j;
-      });
-      list.innerHTML = ships.length
-        ? ships.map(([slug,p]) => `<a class="chip" href="/ships/rcl/${slug}.html">${p.name||slug}</a>`).join('')
-        : `<span class="tiny muted">No ships currently list Park Café.</span>`;
+      const db=await res.json();
+
+      const ships=Object.entries(db.ships||{}).filter(([slug,p])=>{
+        const v=Array.isArray(p.venues)?p.venues:[];
+        return VENUE_HINTS.some(h=>v.includes(h));
+      }).sort(byClassSize);
+
+      listEl.innerHTML = ships.length
+        ? ships.map(([slug,p])=>{
+            const name=p.name||slug;
+            return `<a class="chip" href="${shipHref(slug)}" title="${name}">${name}</a>`;
+          }).join('')
+        : `<span class="tiny muted">No active ships found for this venue.</span>`;
     }catch(e){
-      list.innerHTML = `<span class="tiny muted">Could not load ship list.</span>`;
+      listEl.innerHTML=`<span class="tiny muted">Could not load ship list.</span>`;
     }
-  })();
-  setNote(false);
+  }
+
+  function wireToggles(){
+    const btn=document.querySelector('#rccl-toggle');
+    const list=document.querySelector('#rccl-ship-list');
+    const tip=document.querySelector('#rccl-tip');
+    if(!btn||!list) return;
+
+    function setNote(open){
+      const note=btn.querySelector('.note');
+      if(note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
+    }
+    function toggle(open){
+      const willOpen = (typeof open==='boolean') ? open : (btn.getAttribute('aria-expanded')!=='true');
+      btn.setAttribute('aria-expanded', String(willOpen));
+      list.classList.toggle('is-hidden', !willOpen);
+      if(willOpen && tip) tip.style.display='none';
+      setNote(willOpen);
+    }
+
+    btn.addEventListener('click', ()=>toggle());
+    btn.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+
+    // Start collapsed; hydrate content
+    list.classList.add('is-hidden');
+    hydrateShipList(list);
+    setNote(false);
+  }
+  wireToggles();
 })();
 </script>
 </body>
