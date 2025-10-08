@@ -116,8 +116,44 @@ kbd{
   .section .grid > .card{
     display:flex; flex-direction:column; height:100%;
   }
+
+ <!-- Force 3-up grid on the restaurant sections -->
+<style id="restaurants-grid-force">
+  /* target only these three containers to avoid side-effects */
+  #grid-complimentary,
+  #grid-premium,
+  #grid-activity{
+    display:grid !important;
+    gap:1rem;
+    grid-template-columns: 1fr;      /* 1-up default */
+    align-items: stretch;
+  }
+
+  /* 2-up tablet */
+  @media (min-width:680px){
+    #grid-complimentary,
+    #grid-premium,
+    #grid-activity{
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+  }
+
+  /* 3-up desktop */
+  @media (min-width:1024px){
+    #grid-complimentary,
+    #grid-premium,
+    #grid-activity{
+      grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+  }
+
+  /* let cards fill their tracks cleanly */
+  #grid-complimentary > .card,
+  #grid-premium > .card,
+  #grid-activity > .card{
+    display:flex; flex-direction:column; height:100%;
+  }
 </style>
-  </style>
 </head>
 
 <body class="restaurants-page">
