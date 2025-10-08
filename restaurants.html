@@ -75,6 +75,24 @@
     .page-header .section{ padding-top:1rem; }
     .page-header h1{ margin:.2rem 0 .35rem; color:#083041 }
     .page-header .page-sub{ margin:0 0 1rem; color:#345 }
+    /* ——— Instructions card ——— */
+.tip-card{
+  background:#fff; border:2px solid var(--rope); border-radius:14px;
+  box-shadow:0 2px 6px rgba(8,48,65,.08); padding:1rem; margin:.5rem 0 1rem;
+}
+.tip-head{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
+.tip-head strong{ font-size:1.05rem; color:#083041 }
+.tip-dismiss{
+  appearance:none; border:1px solid #cfe1ea; background:#f7fdff; color:#0e6e8e;
+  padding:.3rem .6rem; border-radius:999px; cursor:pointer; font-size:.85rem;
+}
+.tip-dismiss:hover{ background:#eef7fb }
+.tip-list{ margin:.6rem 0 0 1.1rem; color:#163042; }
+.tip-list li{ margin:.25rem 0; }
+kbd{
+  font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size:.85em; padding:.05em .35em; border:1px solid #cfe1ea; border-bottom-width:2px; border-radius:4px; background:#f7fdff;
+}
   </style>
 </head>
 
@@ -148,6 +166,24 @@
     <div id="tray-venue" class="tray" role="menu"><div class="group" id="venues"></div></div>
   </nav>
 </header><section class="page-header">
+  <section class="section" id="how-to-card">
+  <div class="tip-card" role="region" aria-label="How to use these filters">
+    <div class="tip-head">
+      <strong>How to use this page</strong>
+      <button class="tip-dismiss" type="button" aria-label="Hide tips" onclick="(function(){
+        localStorage.setItem('iw_rest_tips','off');
+        var el=document.getElementById('how-to-card'); if(el) el.style.display='none';
+      })()">Hide tips</button>
+    </div>
+    <ul class="tip-list">
+      <li><strong>Search</strong> for venues, food types, or perks (try “sushi”, “suite”, “diamond”).</li>
+      <li>Use <strong>Categories</strong> to toggle Premium / Complimentary / Activities.</li>
+      <li>Open <strong>More filters</strong> to pick a Cruise Line, Class, Ship, or a specific Venue.</li>
+      <li>On each result, ship <strong>pills</strong> show where it’s available—those pills respect your filters.</li>
+      <li><strong>Clear</strong> resets everything. Press <kbd>/</kbd> to jump to search.</li>
+    </ul>
+  </div>
+</section>
   <div class="section">
     <h1>Restaurants &amp; Menus <span class="version-badge">v2.256.022</span></h1>
     <p class="page-sub">Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes.</p>
@@ -208,21 +244,31 @@
 
   <!-- ============ JS: render + fuzzy filter + trays + ship pills ============ -->
   <script>
-  (function(){
-    const $ = s => document.querySelector(s);
-    const $$ = s => Array.from(document.querySelectorAll(s));
-    const $q = $('#q');
-    const $meta = $('#search-meta');
+(function(){
+  const $  = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const $q = $('#q');
+  const $meta = $('#search-meta');
 
-    /* ---------- helpers ---------- */
-    function norm(s){
-      return String(s||'').toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-        .replace(/[’‘’]/g,"'")
-        .replace(/[-_/]/g,' ')
-        .replace(/\s+/g,' ')
-        .trim();
-    }
+  // ---------- Tips card: honor "hidden" preference ----------
+  (function(){
+    try {
+      if (localStorage.getItem('iw_rest_tips') === 'off') {
+        const hc = document.getElementById('how-to-card');
+        if (hc) hc.style.display = 'none';
+      }
+    } catch(e) {}
+  })();
+
+  /* ---------- helpers ---------- */
+  function norm(s){
+    return String(s||'').toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[’‘’]/g,"'")
+      .replace(/[-_/]/g,' ')
+      .replace(/\s+/g,' ')
+      .trim();
+  }
     // tiny edit-distance<=1
     function near(a,b){
       if (a===b) return true;
