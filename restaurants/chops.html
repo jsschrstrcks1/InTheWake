@@ -218,79 +218,85 @@
 </footer>
 
 <script src="/assets/js/venue-boot.js?v=2.257" defer></script>
-  <script>
+ <script>
 (function(){
-  // Helpers
-  var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-  window._abs = window._abs || function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
-  var normalize = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
-  var slugify  = s => normalize(s).replace(/[^\w]+/g,'-').replace(/-+/g,'-').replace(/(^-|-$)/g,'');
+  const $ = s => document.querySelector(s);
 
-  // Venue keys we’ll accept from JSON (covers naming differences)
-  var VENUE_KEYS = ['chops','chops-grille','chops grille'];
+  // Config
+  const VENUE_SLUG = 'chops-grille';   // this page
+  const CLASS_ORDER = ['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
 
-  // Class sort order (largest -> smallest)
-  var CLASS_ORDER = ['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
-  var cleanClass = s => normalize(String(s||'').replace(/\s*class\s*$/,''));
+  const clean = s => String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
+  const byClassSize = (a,b) => {
+    const ai = CLASS_ORDER.indexOf(clean(a[1].class));
+    const bi = CLASS_ORDER.indexOf(clean(b[1].class));
+    if (ai === -1 && bi === -1) return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi || (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
+  };
 
-  // Load venues.json and render
-  fetch(_abs('/assets/data/venues.json'), {cache:'no-store'})
-    .then(r => r.json())
-    .then(function(db){
-      var ships = db.ships || {};
-      var venues = db.venues || [];
+  const btn = $('#rccl-toggle');
+  const list = $('#rccl-ship-list');
+  const tip  = $('#rccl-tip');
 
-      // Find the canonical slug used in the JSON for this venue
-      var target = (venues.find(v => VENUE_KEYS.includes(slugify(v.slug))) ||
-                    venues.find(v => VENUE_KEYS.includes(slugify(v.name))) ) || {slug:'chops'};
+  // Build absolute path safely to current origin
+  function abs(path){
+    const origin = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+    path = String(path||''); if (!path.startsWith('/')) path = '/' + path;
+    return origin + path;
+  }
 
-      // Collect ships that carry this venue
-      var items = Object.entries(ships)
-        .filter(function([shipSlug, p]){
-          return Array.isArray(p.venues) && p.venues.some(function(vslug){
-            return VENUE_KEYS.includes(slugify(vslug)) || slugify(vslug)===slugify(target.slug);
-          });
-        })
-        .map(function([shipSlug, p]){
-          return {
-            slug: shipSlug,
-            name: p.name || shipSlug,
-            klass: cleanClass(p.class)
-          };
-        });
+  // Populate ship pills from venues.json (ships that include this venue)
+  async function hydrateShipPills(){
+    try{
+      const DATA_URL = location.origin.replace(/\/$/,'') + '/assets/data/venues.json';
+      const res = await fetch(DATA_URL, {cache:'no-store'});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const db = await res.json();
 
-      // Sort by class band (size) then A–Z by ship name
-      items.sort(function(a,b){
-        var ai = CLASS_ORDER.indexOf(a.klass); if(ai===-1) ai=999;
-        var bi = CLASS_ORDER.indexOf(b.klass); if(bi===-1) bi=999;
-        return ai!==bi ? ai-bi : a.name.localeCompare(b.name);
-      });
+      // Find ships that list this venue
+      const ships = Object.entries(db.ships || {}).filter(([slug,payload])=>{
+        const v = Array.isArray(payload.venues) ? payload.venues : [];
+        return v.includes(VENUE_SLUG);
+      }).sort(byClassSize);
 
-      // Render pill bar (clickable chips linking to ship pages)
-      var pillsHost = document.getElementById('ship-pills');
-      if (pillsHost){
-        pillsHost.innerHTML = items.map(function(it){
-          var href = _abs('/ships/rcl/'+it.slug+'.html');
-          var label = it.name;
-          return '<a class="pill" href="'+href+'" title="'+it.name+'">'+label+'</a>';
-        }).join('');
-      }
+      // Render clickable ship pills → ship pages
+      list.innerHTML = ships.map(([slug, p])=>{
+        const name = p.name || slug;
+        // Your ship URL convention (used elsewhere on site)
+        const href = abs(`/ships/rcl/${slug}.html`);
+        return `<a class="chip" href="${href}" title="${name}">${name}</a>`;
+      }).join('') || `<span class="tiny muted">No active ships found in database.</span>`;
+    }catch(e){
+      list.innerHTML = `<span class="tiny muted">Could not load ship list.</span>`;
+    }
+  }
 
-      // Render comprehensive list in “Where You’ll Find It”
-      var ul = document.getElementById('ship-list');
-      if (ul){
-        if (items.length){
-          ul.innerHTML = items.map(function(it){
-            var href = _abs('/ships/rcl/'+it.slug+'.html');
-            var variant = (it.klass==='icon') ? ' <span class="tag">Variant Items</span>' : '';
-            return '<li><a href="'+href+'">'+it.name+'</a>'+variant+'</li>';
-          }).join('');
-        }else{
-          ul.innerHTML = '<li class="muted">No confirmed ships found for this venue in the current database.</li>';
-        }
-      }
-    })
-    .catch(function(){ /* silent fail; page still usable */ });
+  // Toggle behavior (accessible)
+  function toggleList(forceOpen){
+    const open = (typeof forceOpen === 'boolean') ? forceOpen : (btn.getAttribute('aria-expanded') !== 'true');
+    btn.setAttribute('aria-expanded', String(open));
+    list.classList.toggle('is-hidden', !open);
+    if (open){
+      list.setAttribute('data-anim','in');
+      setTimeout(()=>list.removeAttribute('data-anim'), 220);
+      if (tip) tip.style.display = 'none';
+      const note = btn.querySelector('.note');
+      if (note) note.textContent = '— tap again to hide ships';
+    }else{
+      const note = btn.querySelector('.note');
+      if (note) note.textContent = '— tap to see ships';
+    }
+  }
+
+  // Wire events
+  btn?.addEventListener('click', ()=> toggleList());
+  btn?.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggleList(); }});
+
+  // Init
+  hydrateShipPills();          // fill list
+  toggleList(false);           // start collapsed
 })();
 </script>
 </body>
