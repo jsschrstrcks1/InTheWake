@@ -598,13 +598,16 @@
           fillShips(STATE.klass);
           toggle(sBtn, tS);
         });
-      });
 
       // ships
-      function fillShips(klass){
-        const items = Object.entries(db.ships||{}).filter(([slug,p])=> !klass || String(p.class||'').toLowerCase()===klass)
-                          .sort((a,b)=> (a[1].name||a[0]).localeCompare(b[1].name||b[0]));
-        $ships.innerHTML = items.map(([slug,p])=>`<button class="pillbtn" data-ship="${slug}" role="menuitem" title="Filter to ${p.name}">${p.name}</button>`).join('');
+            function fillShips(klass){
+        const k = cleanClass(klass);
+        const items = Object.entries(db.ships || {})
+          .filter(([slug, p]) => !k || cleanClass(p.class) === k)
+          .sort((a,b) => (a[1].name||a[0]).localeCompare(b[1].name||b[0]));
+        $ships.innerHTML = items.map(([slug,p]) =>
+          `<button class="pillbtn" data-ship="${slug}" role="menuitem" title="Filter to ${p.name}">${p.name}</button>`
+        ).join('');
         $ships.querySelectorAll('button').forEach(b=>{
           b.addEventListener('click', ()=>{
             STATE.ship = b.getAttribute('data-ship')||'';
