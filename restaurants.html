@@ -550,9 +550,30 @@
       });
 
       // classes
-      const classes = Array.from(new Set(Object.values(db.ships||{}).map(s=>String(s.class||'').toLowerCase()).filter(Boolean))).sort();
-      $classes.innerHTML = classes.map(k=>`<button class="pillbtn" data-class="${k}" role="menuitem">${k.replace(/\b\w/g,m=>m.toUpperCase())} Class</button>`).join('');
-      $classes.querySelectorAll('button').forEach(b=>{
+      const CLASS_ORDER = [
+  'icon',            // biggest
+  'oasis',
+  'quantum ultra',
+  'quantum',
+  'freedom',
+  'voyager',
+  'radiance',
+  'vision',
+  'sovereign',
+  'empress'          // smallest
+];
+
+const classes = Array.from(new Set(Object.values(db.ships||{})
+  .map(s => String(s.class||'').toLowerCase().trim())
+  .filter(Boolean)))
+  .sort((a,b) => {
+    const ai = CLASS_ORDER.indexOf(a);
+    const bi = CLASS_ORDER.indexOf(b);
+    if (ai === -1 && bi === -1) return a.localeCompare(b); // unknowns alpha
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  });
         b.addEventListener('click', ()=>{
           STATE.klass = b.getAttribute('data-class')||'';
           STATE.ship = '';
