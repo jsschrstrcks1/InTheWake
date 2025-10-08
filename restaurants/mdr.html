@@ -1,1 +1,309 @@
+---
 
+# Main Dining Room — full page (drop-in HTML)
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Main Dining Room — Royal Caribbean | In the Wake</title>
+
+  <meta name="description" content="Royal Caribbean Main Dining Room (MDR) — complimentary, rotating menus for breakfast, lunch (select days), and dinner nightly. Family-friendly classics, vegetarian options, and allergen support.">
+  <meta property="og:site_name" content="In the Wake">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Main Dining Room — Royal Caribbean">
+  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants/main-dining-room.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/main-dining-room.html">
+  <meta name="referrer" content="no-referrer">
+
+  <meta name="venue-tags" content="main dining room, mdr, complimentary, included, lobster, prime rib, escargot, french onion soup, salmon, chicken, pasta, vegetarian, vegan, gluten-free, kids menu, breakfast, lunch, dinner, rotating menu">
+
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
+
+  <script>
+  /* Normalize absolute URLs to current origin */
+  (function(){
+    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
+    function normalize(){
+      var sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(function(el){
+        var attr=el.hasAttribute('href')?'href':'src';
+        try{var u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
+      });
+    }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
+  })();
+  </script>
+
+  <!-- Ship pills visuals + logbook fixes -->
+  <style>
+  .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
+  .ship-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+  .ship-pills a.chip,
+  .ship-pills-bar button.rc-toggle{
+    display:inline-block;font-size:1rem;font-weight:600;border:1px solid var(--rope,#d9b382);
+    border-radius:999px;padding:.35rem .85rem;background:#fff;color:var(--ink,#083041);
+    text-decoration:none;transition:all .18s ease-in-out;line-height:1.2;white-space:nowrap
+  }
+  .ship-pills a.chip::before{content:"⚓";font-size:.8em;margin-right:.35em;color:var(--rope,#d9b382);opacity:.9}
+  .ship-pills a.chip:hover,.ship-pills-bar .rc-toggle:hover{background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);transform:translateY(-1px)}
+  .rc-toggle{cursor:pointer}
+  .rc-toggle .tiny.note{opacity:.8}
+  .is-hidden{display:none!important}
+  .tiny.note{opacity:.7;font-weight:600}
+  .tiny.muted{color:#466;opacity:.75}
+  /* Card watermark layering */
+  .card{position:relative;overflow:hidden}
+  .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.08;max-width:60%;margin:auto}
+  .card .card__content{position:relative;z-index:1}
+  .prose h3{margin:.9rem 0 .45rem}.prose h4{margin:.8rem 0 .35rem}
+  </style>
+</head>
+
+<body class="venue-page">
+<header class="site-header">
+  <nav class="pill-nav pills" aria-label="Primary">
+    <a href="https://www.cruisinginthewake.com/">Home</a>
+    <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
+    <a class="active" href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+    <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+    <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+    <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+    <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+    <a href="https://www.cruisinginthewake.com/cruise-lines/">Cruise Lines</a>
+    <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+    <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+  </nav>
+
+  <div class="hero hero--wake" role="img" aria-label="Wake at sunset hero">
+    <h1 style="position:absolute;left:-9999px">Main Dining Room</h1>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Overview -->
+  <section class="card" id="overview">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content">
+      <h1 class="page-title">Main Dining Room</h1>
+      <p class="subtitle">Royal Caribbean — Complimentary Dining</p>
+      <p class="lede">Rotating menus, classic cruise favorites, and white-tablecloth service — included in your cruise fare for breakfast, lunch (on select days), and dinner nightly.</p>
+      <p class="blurb">The Main Dining Room (MDR) anchors your onboard dining with a mix of staples and nightly features. It’s the most reliable way to sample a little of everything — with vegetarian options, kids’ choices, and allergen support always available. <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
+      <p class="pill version" style="float:right;margin-top:.5rem;">v2.257.001</p>
+    </div>
+  </section>
+
+  <!-- Menu & Prices -->
+  <section class="card" id="menu-prices">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content">
+      <h2>Menu &amp; Price</h2>
+      <p class="price-note"><strong>Price:</strong> Complimentary (included). <strong>Service:</strong> Breakfast daily, Lunch on sea days (and select port days), Dinner nightly. Menu rotates by night and itinerary.</p>
+
+      <div class="grid grid-3">
+        <div>
+          <h3>Starters &amp; Soups</h3>
+          <ul>
+            <li>French Onion Soup · Escargots à la Bourguignonne</li>
+            <li>Caesar or Mixed Green Salad</li>
+            <li>Shrimp Cocktail [select nights]</li>
+            <li>Tomato Bisque · Seasonal Soup</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Mains</h3>
+          <ul>
+            <li>Grilled Salmon · Herb Roasted Chicken</li>
+            <li>Beef Tenderloin / Prime Rib [feature nights]</li>
+            <li>Vegetarian Pasta or Curry of the Day</li>
+            <li>Chef’s Regional Feature (varies by itinerary)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Sides &amp; Desserts</h3>
+          <ul>
+            <li>Mashed Potatoes · Seasonal Vegetables · Rice Pilaf</li>
+            <li>New York Cheesecake · Warm Chocolate Cake</li>
+            <li>Crème Brûlée · Ice Cream &amp; Sorbets (GF)</li>
+          </ul>
+        </div>
+      </div>
+
+      <details class="variant">
+        <summary>Ship-Specific Notes</summary>
+        <ul>
+          <li>[To Verify] “Classic” items available nightly (e.g., grilled chicken, sirloin, pasta) on most ships.</li>
+          <li>[To Verify] Formal night often features prime rib or lobster on select itineraries.</li>
+        </ul>
+      </details>
+
+      <p class="note">Kids’ Menu: Chicken tenders, pasta with marinara or butter, mini burgers, grilled chicken, veggies, and fruit are commonly available. Ask your server — they’ll accommodate picky eaters.</p>
+    </div>
+  </section>
+
+  <!-- Special Accommodations -->
+  <section class="card" id="accommodations">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content">
+      <h2>Special Accommodations</h2>
+      <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
+        <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Royal Caribbean follows SAFE Food Policy. Please disclose allergens to your server before ordering. Gluten-free, dairy-free, vegetarian, and many vegan adjustments are available on request. For severe allergies, contact Royal Caribbean’s accessibility team at least 30 days prior to sailing and confirm with the venue on embarkation day.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Where You’ll Find It -->
+  <section class="card" id="availability">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content">
+      <h2>Where You’ll Find It</h2>
+      <p>The Main Dining Room appears on nearly every Royal Caribbean ship:</p>
+
+      <nav class="ship-pills-bar" aria-label="Ships featuring this venue">
+        <button id="rccl-toggle" class="rc-toggle" aria-expanded="false" aria-controls="rccl-ship-list">
+          Royal Caribbean <span class="tiny note">— tap to see ships</span>
+        </button>
+        <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Main Dining Room">
+          <!-- pills injected by JS -->
+        </div>
+      </nav>
+
+      <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">
+        Tip: Click the “Royal Caribbean” pill above to reveal ships that feature the Main Dining Room.
+      </p>
+    </div>
+  </section>
+
+  <!-- Logbook (optional persona review placeholder) -->
+  <section class="card" id="logbook">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content prose">
+      <h2>The Logbook — Real Guest Soundings</h2>
+      <p class="pill"><strong>Depth Sounding:</strong> This is a first-person account captured “in the wake,” edited to our venue standards for clarity. Individual sailings vary by ship, itinerary, and crew.</p>
+      <h3>MDR Snapshot</h3>
+      <p>Service is friendly and efficient, portions are sensible, and pacing supports both leisurely and quick meals depending on your table’s preference. Families tend to appreciate the predictable favorites and the flexibility for kids.</p>
+      <p class="tiny">Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
+    </div>
+
+    <!-- JSON-LD review (generic snapshot) -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"Review",
+      "itemReviewed":{"@type":"Restaurant","name":"Main Dining Room","servesCuisine":"International","provider":{"@type":"Organization","name":"Royal Caribbean International"}},
+      "name":"Royal Caribbean Main Dining Room — Snapshot",
+      "reviewBody":"Complimentary rotating menus for breakfast, lunch on select days, and dinner nightly. Mix of classics and regional features; family-friendly with vegetarian and allergen accommodations.",
+      "reviewRating":{"@type":"Rating","ratingValue":"4.2","bestRating":"5","worstRating":"1"},
+      "author":{"@type":"Person","name":"Guest Sounding (Fleetwide)"}
+    }
+    </script>
+  </section>
+
+  <!-- Sources -->
+  <section class="card" id="sources">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content">
+      <h2>Sources &amp; Attribution</h2>
+      <ul>
+        <li><a href="https://www.royalcaribbean.com/cruise-dining" target="_blank" rel="noopener">Royal Caribbean — Cruise Dining Overview</a></li>
+        <li>Royal Caribbean marks and menus referenced under fair use for research and commentary.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
+</footer>
+
+<!-- Venue hydrator: builds ship pills from venues.json -->
+<script>
+(function(){
+  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const cleanClass=s=>String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
+  const CLASS_ORDER=['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
+
+  // Slug + aliases for MDR
+  const urlSlug=String((location.pathname.split('/').pop()||'').replace(/\.html$/,''));
+  // Accept common aliases
+  const VENUE_HINTS=Array.from(new Set([
+    urlSlug,                       // "main-dining-room"
+    'main-dining-room','mdr','dining-room','main dining room'
+  ]));
+
+  const byClassSize=(a,b)=>{
+    const ai=CLASS_ORDER.indexOf(cleanClass(a[1].class));
+    const bi=CLASS_ORDER.indexOf(cleanClass(b[1].class));
+    if(ai!==bi){ if(ai===-1) return 1; if(bi===-1) return -1; return ai-bi; }
+    return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
+  };
+
+  function shipHref(slug){ return `/ships/rcl/${slug}.html`; }
+
+  async function hydrateShipList(listEl){
+    try{
+      const DATA_URL=(location.origin||'').replace(/\/$/,'')+'/assets/data/venues.json';
+      const res=await fetch(DATA_URL,{cache:'no-store'});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const db=await res.json();
+
+      const ships=Object.entries(db.ships||{}).filter(([slug,p])=>{
+        const v=Array.isArray(p.venues)?p.venues:[];
+        return VENUE_HINTS.some(h=>v.includes(h));
+      }).sort(byClassSize);
+
+      listEl.innerHTML = ships.length
+        ? ships.map(([slug,p])=>{
+            const name=p.name||slug;
+            return `<a class="chip" href="${shipHref(slug)}" title="${name}">${name}</a>`;
+          }).join('')
+        : `<span class="tiny muted">No active ships found for this venue.</span>`;
+    }catch(e){
+      listEl.innerHTML=`<span class="tiny muted">Could not load ship list.</span>`;
+    }
+  }
+
+  function wireToggles(){
+    const btn=$('#rccl-toggle');
+    const list=$('#rccl-ship-list');
+    const tip=$('#rccl-tip');
+    if(!btn||!list) return;
+
+    function setNote(open){
+      const note=btn.querySelector('.note');
+      if(note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
+    }
+    function toggle(open){
+      const willOpen = (typeof open==='boolean') ? open : (btn.getAttribute('aria-expanded')!=='true');
+      btn.setAttribute('aria-expanded', String(willOpen));
+      list.classList.toggle('is-hidden', !willOpen);
+      if(willOpen && tip) tip.style.display='none';
+      setNote(willOpen);
+    }
+
+    btn.addEventListener('click', ()=>toggle());
+    btn.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+
+    // Start collapsed; hydrate content
+    list.classList.add('is-hidden');
+    hydrateShipList(list);
+    setNote(false);
+  }
+
+  function $(s){ return document.querySelector(s); }
+  wireToggles();
+})();
+</script>
+</body>
+</html>
