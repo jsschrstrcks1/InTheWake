@@ -177,6 +177,104 @@
         <li><strong>Lines:</strong> Peak waits 5–10 minutes (mornings &amp; pre-show). Hit mid-afternoon for shortest queues.</li>
         <li><strong>Pairing Tip:</strong> Grab a latte here, then head to <a href="/restaurants/windjammer.html">Windjammer</a> for a fuller savory plate.</li>
       </ul>
+      <!-- Coffee Card Calculator -->
+<div class="calc coffee-card" id="coffee-calc" style="margin-top:1rem;border:1px solid #d9b382;border-radius:12px;padding:14px;background:#fff6ec;">
+  <h3 style="margin:.1rem 0 .6rem;font-size:1.2rem;">Coffee Card Calculator</h3>
+  <form id="coffeeCalcForm" onsubmit="return false" aria-describedby="coffee-help">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.65rem;">
+      <label>
+        <span class="tiny" style="display:block;color:#355;">Card price (total)</span>
+        <input id="cardPrice" type="number" min="0" step="0.01" value="36" inputmode="decimal" style="width:100%;padding:.5rem;border:1px solid #cdb28f;border-radius:8px">
+      </label>
+      <label>
+        <span class="tiny" style="display:block;color:#355;">Punches on card</span>
+        <input id="punches" type="number" min="1" step="1" value="15" style="width:100%;padding:.5rem;border:1px solid #cdb28f;border-radius:8px">
+      </label>
+      <label>
+        <span class="tiny" style="display:block;color:#355;">Package price/day (Refreshment)</span>
+        <input id="pkgDay" type="number" min="0" step="0.01" value="36" inputmode="decimal" style="width:100%;padding:.5rem;border:1px solid #cdb28f;border-radius:8px">
+      </label>
+      <label>
+        <span class="tiny" style="display:block;color:#355;">Coffees you’ll drink per day</span>
+        <input id="coffeesPerDay" type="number" min="1" step="1" value="2" style="width:100%;padding:.5rem;border:1px solid #cdb28f;border-radius:8px">
+      </label>
+      <label>
+        <span class="tiny" style="display:block;color:#355;">Avg menu price per coffee</span>
+        <input id="avgMenuPrice" type="number" min="0" step="0.01" value="4.75" inputmode="decimal" style="width:100%;padding:.5rem;border:1px solid #cdb28f;border-radius:8px">
+      </label>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem;">
+      <button id="calcBtn" class="pill" type="button" style="border:1px solid #d9b382;border-radius:999px;background:#0e6e8e;color:#fff;padding:.45rem .9rem;font-weight:600">Calculate</button>
+      <button id="resetBtn" class="pill" type="button" style="border:1px solid #d9b382;border-radius:999px;background:#fff;color:#083041;padding:.45rem .9rem;">Reset</button>
+    </div>
+
+    <p id="coffee-help" class="tiny" style="margin:.5rem 0 0;color:#355;">
+      Tip: Enter your actual package price/day from the Royal App. The calculator compares coffee-only value (packages also include other drinks).
+    </p>
+
+    <div id="coffeeResults" role="status" aria-live="polite" style="margin-top:.8rem;line-height:1.55"></div>
+  </form>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const fmt = (n) => isFinite(n) ? '$' + n.toFixed(2) : '—';
+
+  function calculate(){
+    const cardPrice = parseFloat($('cardPrice').value) || 0;
+    const punches   = Math.max(1, parseInt($('punches').value,10) || 1);
+    const pkgDay    = parseFloat($('pkgDay').value) || 0;
+    const perDay    = Math.max(1, parseInt($('coffeesPerDay').value,10) || 1);
+    const avgMenu   = Math.max(0, parseFloat($('avgMenuPrice').value) || 0);
+
+    const cardPerDrink = cardPrice / punches;              // $/coffee with Coffee Card
+    const pkgPerDrink  = perDay ? (pkgDay / perDay) : 0;   // $/coffee if ONLY using package for coffee
+    const breakEvenCoffees = avgMenu > 0 ? (pkgDay / avgMenu) : NaN; // coffees/day to justify package on coffee alone
+
+    let verdict = '';
+    if (isFinite(pkgPerDrink) && pkgPerDrink > 0) {
+      if (cardPerDrink < pkgPerDrink) verdict = 'Coffee Card is cheaper per coffee than using the package purely for coffee.';
+      else if (Math.abs(cardPerDrink - pkgPerDrink) < 0.05) verdict = 'It’s roughly a wash on coffee-only value.';
+      else verdict = 'On coffee alone, the package yields a lower effective cost per coffee at your current pace.';
+    }
+
+    $('coffeeResults').innerHTML = `
+      <div style="border:1px dashed #cdb28f;border-radius:10px;padding:.7rem;background:#fff;">
+        <div><strong>Coffee Card:</strong> ${fmt(cardPerDrink)} per coffee (${fmt(cardPrice)} ÷ ${punches} punches)</div>
+        <div><strong>Package (coffee-only math):</strong> ${fmt(pkgPerDrink)} per coffee (${fmt(pkgDay)}/day ÷ ${perDay} coffees)</div>
+        <div><strong>Break-even guide:</strong> To justify a ${fmt(pkgDay)}/day package on coffee alone at ~${fmt(avgMenu)} each, you’d need about <strong>${isFinite(breakEvenCoffees)? breakEvenCoffees.toFixed(1): '—'}</strong> coffees/day.</div>
+        <div style="margin-top:.4rem;color:#0e6e8e;"><em>${verdict}</em></div>
+        <div class="tiny" style="margin-top:.35rem;color:#355;">Note: Packages include more than coffee (sodas, waters, mocktails/alcohol), so this is a coffee-only comparison.</div>
+      </div>
+    `;
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+  $('resetBtn').addEventListener('click', () => {
+    $('cardPrice').value = 36;
+    $('punches').value = 15;
+    $('pkgDay').value = 36;
+    $('coffeesPerDay').value = 2;
+    $('avgMenuPrice').value = 4.75;
+    $('coffeeResults').innerHTML = '';
+  });
+
+  // Auto-calc on input changes (nice on mobile)
+  ['cardPrice','punches','pkgDay','coffeesPerDay','avgMenuPrice'].forEach(id=>{
+    $(id).addEventListener('change', calculate);
+    $(id).addEventListener('input', () => {
+      // Debounce slightly for better UX
+      clearTimeout(window._coffeeDebounce);
+      window._coffeeDebounce = setTimeout(calculate, 180);
+    });
+  });
+
+  // Initial render
+  calculate();
+})();
+</script>
     </div>
   </section>
 
