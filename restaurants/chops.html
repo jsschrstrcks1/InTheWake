@@ -72,26 +72,24 @@
   </div>
 </header>
 
-<!-- Ship pills populated dynamically -->
-<nav class="ship-pills-bar" aria-label="Ships featuring Chops Grille">
-  <div id="ship-pills" class="pills"></div>
-</nav>
-
 <main class="wrap">
 
 <!-- Overview -->
-<section class="card" id="overview">
+  <section class="card" id="overview">
   <h1 class="page-title">Chops Grille</h1>
   <p class="subtitle">Royal Caribbean — Specialty Steakhouse</p>
-  <p class="pill version">v2.257.001</p>
+
+  <!-- Move version badge to bottom-right corner or end of block -->
   <p class="lede">Elevate your evening with hand-cut USDA Prime steaks and succulent seafood in Royal Caribbean’s hallmark steakhouse at sea.</p>
   <p class="blurb">Chops Grille is a signature premium venue found fleet-wide, pairing classic steakhouse tradition with modern craft and service that feels personal. An anchor of the line’s culinary identity, it offers a quiet, intimate contrast to the Main Dining Room. <a href="https://www.cruisinginthewake.com/restaurants.html">Return to the Restaurants hub →</a></p>
+  
+  <p class="pill version" style="float:right;margin-top:.5rem;">v2.257.001</p>
 </section>
 
 <!-- Menu & Prices -->
 <section class="card" id="menu-prices">
   <h2>Menu &amp; Prices</h2>
-  <p class="price-note"><strong>Lunch:</strong> $21–25 · <strong>Dinner:</strong> $39–65 (+18% gratuity) · Children 6–12 half price · Varies by ship/class</p>
+  <p class="price-note"><strong>Lunch:</strong> $21–25 · <strong>Dinner:</strong> $39–65 (+18% gratuity) · Children 6–12 half price · Varies by ship/class & Lunch/Dinner.</p>
 
   <div class="grid grid-3">
     <div>
@@ -125,7 +123,7 @@
     </div>
   </div>
 
-  <p class="note">Lunch menus mirror the core offerings with smaller portions and a petite filet option for exceptional value.</p>
+  <p class="note">Lunch menus are a subset of the core offerings with smaller portions and a petite filet option for exceptional value.</p>
 
   <details class="variant">
     <summary>Ship-Specific Variants</summary>
@@ -135,7 +133,28 @@
     </ul>
   </details>
 </section>
+<nav class="ship-pills-bar" aria-label="Ships featuring this venue">
+  <!-- Toggle pill -->
+  <button id="rccl-toggle"
+          class="chip"
+          aria-expanded="false"
+          aria-controls="rccl-ship-list">
+    Royal Caribbean <span class="tiny note">— tap to see ships</span>
+  </button>
 
+  <!-- Collapsible ship list -->
+  <div id="rccl-ship-list"
+       class="ship-pills is-hidden"
+       role="region"
+       aria-label="Ships with Chops Grille">
+    <!-- pills injected by JS -->
+  </div>
+
+  <!-- Inline tip for first-time visitors -->
+  <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">
+    Tip: Click the “Royal Caribbean” pill above to reveal the ships that feature Chops Grille.
+  </p>
+</nav>
 <!-- Special Accommodations -->
 <section class="card" id="accommodations">
   <h2>Special Accommodations</h2>
@@ -173,7 +192,7 @@
     <li><a href="https://www.royalcaribbean.com/cruise-dining" target="_blank" rel="noopener">Royal Caribbean — Cruise Dining Overview</a></li>
     <li><a href="https://www.royalcaribbean.com/guides/radiance-of-the-seas-restaurants" target="_blank" rel="noopener">Royal Caribbean — Radiance: Restaurants</a></li>
     <li><a href="https://www.royalcaribbeanincentives.com/ship/enchantment-of-the-seas/dining/" target="_blank" rel="noopener">Royal Caribbean — Enchantment: Dining</a></li>
-    <li class="to-verify">[To Verify] Official venue-specific menu PDF or onboard menu images</li>
+     <li>Royal Caribbean marks and menus referenced under fair use for research and commentary.</li>
   </ul>
 </section>
 
@@ -181,7 +200,6 @@
 
 <footer class="site-footer">
   <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
-  <p>Attribution: Royal Caribbean marks and menus referenced under fair use for research and commentary.</p>
 </footer>
 
 <script src="/assets/js/venue-boot.js?v=2.257" defer></script>
