@@ -214,6 +214,10 @@
     </p>
 
     <div id="coffeeResults" role="status" aria-live="polite" style="margin-top:.8rem;line-height:1.55"></div>
+
+    <p class="tiny link" style="margin-top:.8rem;">
+      ☕ Learn more about what’s covered in each package in our <a href="/drink-packages.html" target="_blank" rel="noopener" style="color:#0e6e8e;font-weight:600;">Drink Packages Guide →</a>
+    </p>
   </form>
 </div>
 
@@ -229,15 +233,15 @@
     const perDay    = Math.max(1, parseInt($('coffeesPerDay').value,10) || 1);
     const avgMenu   = Math.max(0, parseFloat($('avgMenuPrice').value) || 0);
 
-    const cardPerDrink = cardPrice / punches;              // $/coffee with Coffee Card
-    const pkgPerDrink  = perDay ? (pkgDay / perDay) : 0;   // $/coffee if ONLY using package for coffee
-    const breakEvenCoffees = avgMenu > 0 ? (pkgDay / avgMenu) : NaN; // coffees/day to justify package on coffee alone
+    const cardPerDrink = cardPrice / punches;
+    const pkgPerDrink  = perDay ? (pkgDay / perDay) : 0;
+    const breakEvenCoffees = avgMenu > 0 ? (pkgDay / avgMenu) : NaN;
 
     let verdict = '';
     if (isFinite(pkgPerDrink) && pkgPerDrink > 0) {
-      if (cardPerDrink < pkgPerDrink) verdict = 'Coffee Card is cheaper per coffee than using the package purely for coffee.';
+      if (cardPerDrink < pkgPerDrink) verdict = 'Coffee Card is cheaper per cup than using the package purely for coffee.';
       else if (Math.abs(cardPerDrink - pkgPerDrink) < 0.05) verdict = 'It’s roughly a wash on coffee-only value.';
-      else verdict = 'On coffee alone, the package yields a lower effective cost per coffee at your current pace.';
+      else verdict = 'On coffee alone, the package yields a lower effective cost per cup at your current pace.';
     }
 
     $('coffeeResults').innerHTML = `
@@ -261,17 +265,13 @@
     $('coffeeResults').innerHTML = '';
   });
 
-  // Auto-calc on input changes (nice on mobile)
   ['cardPrice','punches','pkgDay','coffeesPerDay','avgMenuPrice'].forEach(id=>{
-    $(id).addEventListener('change', calculate);
     $(id).addEventListener('input', () => {
-      // Debounce slightly for better UX
       clearTimeout(window._coffeeDebounce);
-      window._coffeeDebounce = setTimeout(calculate, 180);
+      window._coffeeDebounce = setTimeout(calculate, 200);
     });
   });
 
-  // Initial render
   calculate();
 })();
 </script>
