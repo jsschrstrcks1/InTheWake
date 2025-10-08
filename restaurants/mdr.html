@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,67 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Main Dining Room — Royal Caribbean | In the Wake</title>
 
-  <meta name="description" content="Royal Caribbean Main Dining Room (MDR) — complimentary, rotating menus for breakfast, lunch (select days), and dinner nightly. Family-friendly classics, vegetarian options, and allergen support.">
-  <meta property="og:site_name" content="In the Wake">
+  <!-- Canonical & SEO -->
+  <meta name="description" content="Royal Caribbean Main Dining Room (MDR) — complimentary, rotating menus for breakfast, lunch (select days), and dinner nightly. Family-friendly classics, vegetarian/vegan options, and allergen support.">
+  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/main-dining-room.html">
+  <meta name="referrer" content="no-referrer">
+  <meta name="venue-tags" content="main dining room, mdr, complimentary, included, lobster, prime rib, escargot, french onion soup, salmon, chicken, pasta, vegetarian, vegan, gluten-free, kids menu, breakfast, lunch, dinner, rotating menu">
+
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="article">
+  <meta property="og:site_name" content="In the Wake">
   <meta property="og:title" content="Main Dining Room — Royal Caribbean">
   <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants/main-dining-room.html">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/main-dining-room.html">
-  <meta name="referrer" content="no-referrer">
 
-  <meta name="venue-tags" content="main dining room, mdr, complimentary, included, lobster, prime rib, escargot, french onion soup, salmon, chicken, pasta, vegetarian, vegan, gluten-free, kids menu, breakfast, lunch, dinner, rotating menu">
-
+  <!-- Site CSS (header/hero/nav lives here) -->
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
 
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Standards-friendly absolute URL normalizer (match Radiance) -->
   <script>
-  /* Normalize absolute URLs to current origin */
   (function(){
-    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
-    function normalize(){
-      var sel=[
+    var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+    window._abs = function(path){ path = String(path||''); if(!path.startsWith('/')) path = '/' + path; return ORIGIN + path; };
+    document.addEventListener('DOMContentLoaded', function(){
+      var sel = [
         'a[href^="https://www.cruisinginthewake.com/"]',
         'img[src^="https://www.cruisinginthewake.com/"]',
         'link[href^="https://www.cruisinginthewake.com/"]',
         'script[src^="https://www.cruisinginthewake.com/"]'
       ].join(',');
       document.querySelectorAll(sel).forEach(function(el){
-        var attr=el.hasAttribute('href')?'href':'src';
-        try{var u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
+        var attr = el.hasAttribute('href') ? 'href' : 'src';
+        try{
+          var u = new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
+        }catch(e){}
       });
-    }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
+    }, {once:true});
   })();
   </script>
 
-  <!-- Ship pills visuals + logbook fixes -->
+  <!-- Scoped MDR-only tweaks -->
   <style>
-  .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
-  .ship-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
-  .ship-pills a.chip,
-  .ship-pills-bar button.rc-toggle{
-    display:inline-block;font-size:1rem;font-weight:600;border:1px solid var(--rope,#d9b382);
-    border-radius:999px;padding:.35rem .85rem;background:#fff;color:var(--ink,#083041);
-    text-decoration:none;transition:all .18s ease-in-out;line-height:1.2;white-space:nowrap
-  }
-  .ship-pills a.chip::before{content:"⚓";font-size:.8em;margin-right:.35em;color:var(--rope,#d9b382);opacity:.9}
-  .ship-pills a.chip:hover,.ship-pills-bar .rc-toggle:hover{background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);transform:translateY(-1px)}
-  .rc-toggle{cursor:pointer}
-  .rc-toggle .tiny.note{opacity:.8}
-  .is-hidden{display:none!important}
-  .tiny.note{opacity:.7;font-weight:600}
-  .tiny.muted{color:#466;opacity:.75}
-  /* Card watermark layering */
-  .card{position:relative;overflow:hidden}
-  .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.08;max-width:60%;margin:auto}
-  .card .card__content{position:relative;z-index:1}
-  .prose h3{margin:.9rem 0 .45rem}.prose h4{margin:.8rem 0 .35rem}
+    /* Ship pills (visuals only) */
+    .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
+    .ship-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+    .ship-pills a.chip,
+    .ship-pills-bar button.rc-toggle{
+      display:inline-block;font-size:1rem;font-weight:600;border:1px solid var(--rope,#d9b382);
+      border-radius:999px;padding:.35rem .85rem;background:#fff;color:var(--ink,#083041);
+      text-decoration:none;transition:all .18s ease-in-out;line-height:1.2;white-space:nowrap
+    }
+    .ship-pills a.chip::before{content:"⚓";font-size:.8em;margin-right:.35em;color:var(--rope,#d9b382);opacity:.9}
+    .ship-pills a.chip:hover,.ship-pills-bar .rc-toggle:hover{background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);transform:translateY(-1px)}
+    .rc-toggle{cursor:pointer}
+    .is-hidden{display:none!important}
+    .tiny.note{opacity:.75;font-weight:600}
+    .tiny.muted{color:#466;opacity:.8}
+
+    /* Watermark layering inside cards */
+    .card{position:relative;overflow:hidden}
+    .card>img[aria-hidden]{position:absolute;inset:0;margin:auto;opacity:.08;max-width:60%;pointer-events:none;z-index:0}
+    .card .card__content{position:relative;z-index:1}
+
+    /* MDR menu readable sizing */
+    #menu-prices .menu-body{font-size:1.0625rem;line-height:1.6}
+    #menu-prices .menu-body h3{font-size:1.15rem;margin:.6rem 0 .35rem}
+    #menu-prices .menu-body h4{font-size:1.05rem;margin:.4rem 0 .25rem}
+    #menu-prices details.variant{margin:.45rem 0}
+    #menu-prices summary{cursor:pointer}
+    #menu-prices .legend{opacity:.85}
   </style>
 </head>
 
 <body class="venue-page">
 <header class="site-header">
+  <!-- Global pill nav (uses styles.css) -->
   <nav class="pill-nav pills" aria-label="Primary">
     <a href="https://www.cruisinginthewake.com/">Home</a>
     <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
@@ -80,13 +96,20 @@
     <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
   </nav>
 
-  <div class="hero hero--wake" role="img" aria-label="Wake at sunset hero">
-    <h1 style="position:absolute;left:-9999px">Main Dining Room</h1>
+  <!-- Full-bleed hero uses styles.css (logo/compass/credit) -->
+  <div class="hero" role="img" aria-label="Wake at sunset hero">
+    <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass-rose.svg" alt="" aria-hidden="true">
+    <div class="hero-title">
+      <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+    </div>
+    <p class="tagline">A Cruise Traveler’s Logbook</p>
+    <div class="hero-credit">
+      <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Photo by Flickers of Majesty — Instagram</a>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
-
   <!-- Overview -->
   <section class="card" id="overview">
     <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
@@ -94,259 +117,177 @@
       <h1 class="page-title">Main Dining Room</h1>
       <p class="subtitle">Royal Caribbean — Complimentary Dining</p>
       <p class="lede">Rotating menus, classic cruise favorites, and white-tablecloth service — included in your cruise fare for breakfast, lunch (on select days), and dinner nightly.</p>
-      <p class="blurb">The Main Dining Room (MDR) anchors your onboard dining with a mix of staples and nightly features. It’s the most reliable way to sample a little of everything — with vegetarian options, kids’ choices, and allergen support always available. <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
+      <p class="blurb">The Main Dining Room (MDR) anchors your onboard dining with a mix of staples and nightly features. It’s the most reliable way to sample a little of everything — with vegetarian/vegan options, kids’ choices, and allergen support always available. <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
       <p class="pill version" style="float:right;margin-top:.5rem;">v2.257.001</p>
     </div>
   </section>
 
-  <!-- Menu & Prices -->
-<!-- Menu & Prices (MDR) -->
-<section class="card" id="menu-prices">
-  <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+  <!-- Menu & Price -->
+  <section class="card" id="menu-prices">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content menu-body">
+      <h2>Menu &amp; Price</h2>
+      <p class="price-note">
+        <strong>Price:</strong> Complimentary (included).
+        <strong>Service:</strong> Breakfast daily, Lunch on sea days (and select port days), Dinner nightly.
+        Menus rotate by theme; exact line-up varies by ship/itinerary (check the app on board).
+      </p>
+      <p class="tiny legend"><strong>Tip:</strong> Tap a line below to expand the full items list. <strong>Legend:</strong> [V] vegan · <span title="Surcharge">$</span> surcharge (typ. $10–$25; whole lobster ~$25–$30).</p>
 
-  <style>
-    /* scoped, gentle size bump for this card only */
-    #menu-prices .menu-body { font-size:1.0625rem; line-height:1.6; }
-    #menu-prices .menu-body h3 { font-size:1.15rem; margin:.6rem 0 .35rem; }
-    #menu-prices .menu-body h4 { font-size:1.05rem; margin:.4rem 0 .25rem; }
-    #menu-prices details.variant { margin:.45rem 0; }
-    #menu-prices summary { cursor:pointer; }
-    #menu-prices .legend { opacity:.8; }
-  </style>
-
-  <div class="card__content menu-body">
-    <h2>Menu &amp; Price</h2>
-    <p class="price-note">
-      <strong>Price:</strong> Complimentary (included).
-      <strong>Service:</strong> Breakfast daily, Lunch on sea days (and select port days), Dinner nightly.
-      Menus rotate by theme; exact line-up varies by ship/itinerary (check the app on board).
-    </p>
-
-    <p class="tiny legend"><strong>Tip:</strong> Tap a line below to expand the full items list. <strong>Legend:</strong> [V] vegan · <span title="Surcharge">$</span> surcharge (typ. $10–$25; whole lobster ~$25–$30).</p>
-
-    <!-- Always Around (now collapsible) -->
-    <details class="variant">
-      <summary><strong>Always Around</strong> (most nights)</summary>
-      <div class="grid grid-3">
-        <div>
-          <h4>Starters</h4>
-          <ul>
-            <li>French Onion Soup</li>
-            <li>Caesar or Mixed Greens</li>
-            <li>Shrimp Cocktail (select nights)</li>
-            <li>Tomato or Seasonal Soup</li>
-          </ul>
+      <!-- Always Around -->
+      <details class="variant">
+        <summary><strong>Always Around</strong> (most nights)</summary>
+        <div class="grid grid-3">
+          <div>
+            <h4>Starters</h4>
+            <ul>
+              <li>French Onion Soup</li>
+              <li>Caesar or Mixed Greens</li>
+              <li>Shrimp Cocktail (select nights)</li>
+              <li>Tomato or Seasonal Soup</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Mains</h4>
+            <ul>
+              <li>Grilled Salmon</li>
+              <li>Herb Roasted Chicken</li>
+              <li>Beef Tenderloin / Prime Rib (feature nights) <strong>$</strong></li>
+              <li>Vegetarian Pasta or Curry of the Day [V]</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Sweets</h4>
+            <ul>
+              <li>New York Cheesecake</li>
+              <li>Warm Chocolate Cake</li>
+              <li>Crème Brûlée</li>
+              <li>Ice Cream &amp; Sorbets (GF)</li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <h4>Mains</h4>
-          <ul>
-            <li>Grilled Salmon</li>
-            <li>Herb Roasted Chicken</li>
-            <li>Beef Tenderloin / Prime Rib (feature nights) <strong>$</strong></li>
-            <li>Vegetarian Pasta or Curry of the Day [V]</li>
-          </ul>
+      </details>
+
+      <!-- Kids -->
+      <details class="variant">
+        <summary><strong>Kids’ Menu</strong> (ask your server)</summary>
+        <ul>
+          <li>Chicken tenders · Mini burgers · Grilled chicken</li>
+          <li>Pasta (butter or marinara) · Mac &amp; cheese</li>
+          <li>Vegetables · Fries · Fresh fruit</li>
+        </ul>
+        <p class="tiny legend">Servers happily mix-and-match; tiny portions available.</p>
+      </details>
+
+      <!-- Vegan & Indian -->
+      <details class="variant">
+        <summary><strong>Vegan &amp; Indian Options</strong></summary>
+        <p><strong>Vegan:</strong> Since 2023, each dinner theme includes 1–2 vegan choices per course (starter, entrée, dessert). Expect Ratatouille/Vegetable Wellington (French), Eggplant Parmesan (Italian), Falafel Plate (Mediterranean), Stir-Fried Tofu or Pad Thai (Asia), Sorbet Trio, etc.</p>
+        <p><strong>Indian &amp; Vegetarian:</strong> Most sailings can provide Indian vegetarian mains (e.g., chana masala, dal, aloo gobi) and breads on request; some ships rotate an Indian entrée on the printed menu.</p>
+        <p class="tiny legend"><strong>How to request:</strong> Note preferences in the Royal App or via <em>special_needs@rccl.com</em> pre-cruise, then confirm with the MDR host on Day 1.</p>
+      </details>
+
+      <!-- Theme nights (collapsed) -->
+      <details class="variant">
+        <summary><strong>Welcome Aboard</strong> (Night 1 — all sailings)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Caesar Salad</li><li>French Onion Soup</li><li>Shrimp Cocktail</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>Roasted Chicken Breast</li><li>Grilled Salmon</li><li>Pasta Primavera [V]</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>New York Cheesecake</li><li>Chocolate Cake</li></ul></div>
         </div>
-        <div>
-          <h4>Sweets</h4>
-          <ul>
-            <li>New York Cheesecake</li>
-            <li>Warm Chocolate Cake</li>
-            <li>Crème Brûlée</li>
-            <li>Ice Cream &amp; Sorbets (GF)</li>
-          </ul>
+      </details>
+
+      <details class="variant">
+        <summary><strong>French Night</strong> (6+ nights — Formal 1)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Escargot in Garlic Butter</li><li>Lobster Bisque</li><li>Wedge Salad</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>Beef Tenderloin (béarnaise) <strong>$</strong></li><li>Coq au Vin</li><li>Ratatouille [V]</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>Crème Brûlée</li><li>Warm Apple Cobbler</li></ul></div>
         </div>
-      </div>
-    </details>
+      </details>
 
-    <!-- Kids (now collapsible) -->
-    <details class="variant">
-      <summary><strong>Kids’ Menu</strong> (ask your server)</summary>
-      <ul>
-        <li>Chicken tenders · Mini burgers · Grilled chicken</li>
-        <li>Pasta (butter or marinara) · Mac &amp; cheese</li>
-        <li>Vegetables · Fries · Fresh fruit</li>
-      </ul>
-      <p class="tiny legend">Servers happily mix-and-match; tiny portions available.</p>
-    </details>
+      <details class="variant">
+        <summary><strong>Italian Night</strong> (all sailings)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Caprese Salad</li><li>Minestrone Soup</li><li>Arancini</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>Osso Buco</li><li>Eggplant Parmesan [V]</li><li>Spaghetti Carbonara</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>Tiramisu</li><li>Cannoli</li></ul></div>
+        </div>
+      </details>
 
-    <!-- Vegan & Indian (concise, collapsible) -->
-    <details class="variant">
-      <summary><strong>Vegan &amp; Indian Options</strong></summary>
-      <p><strong>Vegan:</strong> Since 2023, each dinner theme includes 1–2 vegan choices per course (starter, entrée, dessert). Expect items like Ratatouille or Vegetable Wellington (French), Eggplant Parmesan (Italian), Falafel Plate (Mediterranean), Stir-Fried Tofu / Pad Thai (Asia), Sorbet Trio or dairy-free desserts.</p>
-      <p><strong>Indian &amp; Vegetarian:</strong> Most sailings can provide Indian vegetarian mains (e.g., chana masala, dal, aloo gobi) and breads on request; some ships offer a rotating Indian option on the printed menu.</p>
-      <p class="tiny legend"><strong>How to request:</strong> Note preferences in the Royal App or via <em>special_needs@rccl.com</em> before sailing, then confirm with the MDR host on Day 1 for nightly prep.</p>
-    </details>
+      <details class="variant">
+        <summary><strong>Caribbean Night</strong> (Caribbean itineraries)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Jerk Chicken Skewers</li><li>Callaloo Soup</li><li>Tropical Fruit Salad</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>Jerk Pork Chops</li><li>Plantain-Crusted Mahi-Mahi</li><li>Rice &amp; Peas [V]</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>Coconut Flan</li><li>Rum Cake</li></ul></div>
+        </div>
+      </details>
 
-    <!-- Theme nights (all collapsed by default) -->
-    <details class="variant">
-      <summary><strong>Welcome Aboard</strong> (Night 1 — all sailings)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Caesar Salad</li><li>French Onion Soup</li><li>Shrimp Cocktail</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>Roasted Chicken Breast</li><li>Grilled Salmon</li><li>Pasta Primavera [V]</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>New York Cheesecake</li><li>Chocolate Cake</li>
-        </ul></div>
-      </div>
-    </details>
+      <details class="variant">
+        <summary><strong>Royal Night</strong> (6+ nights — Formal 2)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Chilled Fruit Soup</li><li>Smoked Salmon</li><li>Greek Salad</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>Filet of Beef Wellington</li><li>Maine Lobster Tail (1 complimentary; add’l <strong>$16.99</strong>)</li><li>Vegetable Moussaka [V]</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>Grand Marnier Soufflé</li><li>Berry Compote Cheesecake</li></ul></div>
+        </div>
+      </details>
 
-    <details class="variant">
-      <summary><strong>French Night</strong> (6+ nights — Formal 1)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Escargot in Garlic Butter</li><li>Lobster Bisque</li><li>Wedge Salad</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>Beef Tenderloin (béarnaise) <strong>$</strong></li>
-          <li>Coq au Vin</li><li>Ratatouille [V]</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>Crème Brûlée</li><li>Warm Apple Cobbler</li>
-        </ul></div>
-      </div>
-    </details>
+      <details class="variant">
+        <summary><strong>Mexican Night</strong> (7+ nights)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Guacamole &amp; Chips</li><li>Tortilla Soup</li><li>Ceviche</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>Carne Asada</li><li>Enchiladas Verdes</li><li>Black Bean Burrito [V]</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>Churros w/ Chocolate Sauce</li><li>Tres Leches Cake</li></ul></div>
+        </div>
+      </details>
 
-    <details class="variant">
-      <summary><strong>Italian Night</strong> (all sailings)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Caprese Salad</li><li>Minestrone Soup</li><li>Arancini</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>Osso Buco</li><li>Eggplant Parmesan [V]</li><li>Spaghetti Carbonara</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>Tiramisu</li><li>Cannoli</li>
-        </ul></div>
-      </div>
-    </details>
+      <details class="variant">
+        <summary><strong>Mediterranean Night</strong> (8+ nights)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Hummus Platter</li><li>Greek Lemon Soup</li><li>Tabouli Salad</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>Grilled Lamb Chops</li><li>Falafel Plate [V]</li><li>Spanakopita</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>Baklava</li><li>Yogurt Parfait</li></ul></div>
+        </div>
+      </details>
 
-    <details class="variant">
-      <summary><strong>Caribbean Night</strong> (Caribbean itineraries)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Jerk Chicken Skewers</li><li>Callaloo Soup</li><li>Tropical Fruit Salad</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>Jerk Pork Chops</li><li>Plantain-Crusted Mahi-Mahi</li><li>Rice &amp; Peas [V]</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>Coconut Flan</li><li>Rum Cake</li>
-        </ul></div>
-      </div>
-    </details>
+      <details class="variant">
+        <summary><strong>British Night</strong> (9+ nights)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Ploughman’s Lunch</li><li>Cullen Skink Soup</li><li>Cucumber Sandwiches</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>Shepherd’s Pie</li><li>Bangers &amp; Mash</li><li>Bubble &amp; Squeak [V]</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>Sticky Toffee Pudding</li><li>Trifle</li></ul></div>
+        </div>
+      </details>
 
-    <details class="variant">
-      <summary><strong>Royal Night</strong> (6+ nights — Formal 2)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Chilled Fruit Soup</li><li>Smoked Salmon</li><li>Greek Salad</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>Filet of Beef Wellington</li>
-          <li>Maine Lobster Tail (1 complimentary; add’l <strong>$16.99</strong>)</li>
-          <li>Vegetable Moussaka [V]</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>Grand Marnier Soufflé</li><li>Berry Compote Cheesecake</li>
-        </ul></div>
-      </div>
-    </details>
+      <details class="variant">
+        <summary><strong>Taste of USA</strong> (10+ nights)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Buffalo Wings</li><li>Clam Chowder</li><li>Cobb Salad</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>BBQ Ribs</li><li>Maryland Crab Cakes</li><li>Mac &amp; Cheese [V]</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>Apple Pie</li><li>Red Velvet Cake</li></ul></div>
+        </div>
+      </details>
 
-    <details class="variant">
-      <summary><strong>Mexican Night</strong> (7+ nights)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Guacamole &amp; Chips</li><li>Tortilla Soup</li><li>Ceviche</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>Carne Asada</li><li>Enchiladas Verdes</li><li>Black Bean Burrito [V]</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>Churros w/ Chocolate Sauce</li><li>Tres Leches Cake</li>
-        </ul></div>
-      </div>
-    </details>
+      <details class="variant">
+        <summary><strong>Asia Night</strong> (11+ nights)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Spring Rolls</li><li>Tom Yum Soup</li><li>Edamame Salad</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>Thai Chicken Curry</li><li>Pad Thai</li><li>Stir-Fried Tofu [V]</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>Mango Sticky Rice</li><li>Green Tea Ice Cream</li></ul></div>
+        </div>
+      </details>
 
-    <details class="variant">
-      <summary><strong>Mediterranean Night</strong> (8+ nights)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Hummus Platter</li><li>Greek Lemon Soup</li><li>Tabouli Salad</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>Grilled Lamb Chops</li><li>Falafel Plate [V]</li><li>Spanakopita</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>Baklava</li><li>Yogurt Parfait</li>
-        </ul></div>
-      </div>
-    </details>
-
-    <details class="variant">
-      <summary><strong>British Night</strong> (9+ nights)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Ploughman’s Lunch</li><li>Cullen Skink Soup</li><li>Cucumber Sandwiches</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>Shepherd’s Pie</li><li>Bangers &amp; Mash</li><li>Bubble &amp; Squeak [V]</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>Sticky Toffee Pudding</li><li>Trifle</li>
-        </ul></div>
-      </div>
-    </details>
-
-    <details class="variant">
-      <summary><strong>Taste of USA</strong> (10+ nights)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Buffalo Wings</li><li>Clam Chowder</li><li>Cobb Salad</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>BBQ Ribs</li><li>Maryland Crab Cakes</li><li>Mac &amp; Cheese [V]</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>Apple Pie</li><li>Red Velvet Cake</li>
-        </ul></div>
-      </div>
-    </details>
-
-    <details class="variant">
-      <summary><strong>Asia Night</strong> (11+ nights)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Spring Rolls</li><li>Tom Yum Soup</li><li>Edamame Salad</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>Thai Chicken Curry</li><li>Pad Thai</li><li>Stir-Fried Tofu [V]</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>Mango Sticky Rice</li><li>Green Tea Ice Cream</li>
-        </ul></div>
-      </div>
-    </details>
-
-    <details class="variant">
-      <summary><strong>Bon Voyage</strong> (last night — 6+ nights)</summary>
-      <div class="grid grid-3">
-        <div><h4>Starters</h4><ul>
-          <li>Antipasto Platter</li><li>Gazpacho</li><li>Waldorf Salad</li>
-        </ul></div>
-        <div><h4>Entrees</h4><ul>
-          <li>Braised Short Rib</li><li>Seared Tuna</li><li>Quinoa Pilaf [V]</li>
-        </ul></div>
-        <div><h4>Desserts</h4><ul>
-          <li>Chocolate Lava Cake</li><li>Sorbet Trio</li>
-        </ul></div>
-      </div>
-    </details>
-  </div>
-</section>
+      <details class="variant">
+        <summary><strong>Bon Voyage</strong> (last night — 6+ nights)</summary>
+        <div class="grid grid-3">
+          <div><h4>Starters</h4><ul><li>Antipasto Platter</li><li>Gazpacho</li><li>Waldorf Salad</li></ul></div>
+          <div><h4>Entrees</h4><ul><li>Braised Short Rib</li><li>Seared Tuna</li><li>Quinoa Pilaf [V]</li></ul></div>
+          <div><h4>Desserts</h4><ul><li>Chocolate Lava Cake</li><li>Sorbet Trio</li></ul></div>
+        </div>
+      </details>
+    </div>
+  </section>
 
   <!-- Special Accommodations -->
   <section class="card" id="accommodations">
@@ -370,9 +311,7 @@
         <button id="rccl-toggle" class="rc-toggle" aria-expanded="false" aria-controls="rccl-ship-list">
           Royal Caribbean <span class="tiny note">— tap to see ships</span>
         </button>
-        <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Main Dining Room">
-          <!-- pills injected by JS -->
-        </div>
+        <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Main Dining Room"></div>
       </nav>
 
       <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">
@@ -381,98 +320,59 @@
     </div>
   </section>
 
- <!-- The Logbook — Real Guest Soundings -->
-<section class="card" id="logbook">
-  <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true"
-       style="position:absolute;inset:0;margin:auto;opacity:.08;max-width:60%;pointer-events:none" />
+  <!-- The Logbook — Real Guest Soundings -->
+  <section class="card note-kens-logbook" id="logbook">
+    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content prose">
+      <h2>The Logbook — Real Guest Soundings</h2>
 
-  <div class="card__content prose">
-    <h2>The Logbook — Real Guest Soundings</h2>
+      <p class="pill"><strong>Depth Sounding:</strong> This is a first-person account captured “in the wake,” edited to our venue standards for clarity. Individual sailings vary by ship, itinerary, and crew.</p>
 
-    <p class="pill">
-      <strong>Depth Sounding:</strong> This is a first-person account captured “in the wake,” edited to our venue standards for clarity. Individual sailings vary by ship, itinerary, and crew.
-    </p>
+      <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
+        <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">4 ★ out of 5</span>
+        <span class="tiny" style="color:#355;">Icon of the Seas • Aug 2025 • Dinner (French, Italian, Caribbean Nights)</span>
+        <span class="tiny" style="color:#355;">Price: Complimentary • Optional add-ons $16.99–$25</span>
+      </div>
 
-    <!-- Review meta header -->
-    <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
-      <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">
-        4 ★ out of 5
-      </span>
-      <span class="tiny" style="color:#355;">Icon of the Seas • Aug 2025 • Dinner (French, Italian, Caribbean Nights)</span>
-      <span class="tiny" style="color:#355;">Price: Complimentary • Optional add-ons $16.99–$25</span>
+      <p class="tiny" style="margin:-.4rem 0 .8rem;color:#355;">Sailed aboard <a href="/ships/rcl/icon-of-the-seas.html">Icon of the Seas</a>.</p>
+
+      <h3>Royal Caribbean Main Dining Room Review 2025: Elegant Complimentary Dining with Themed Twists</h3>
+
+      <p><em>Introduction.</em> My overall impression of the Main Dining Room (MDR) on Royal Caribbean is that it's a delightful, value-packed cornerstone of cruise life, offering multi-course meals with global flair that feel surprisingly upscale for being completely complimentary. It's the perfect blend of convenience, variety, and warmth, making every evening a mini-celebration without the hassle or extra cost. I dined at the Main Dining Room on the <strong>Icon of the Seas</strong> during a 7-night Eastern Caribbean cruise in late August 2025, hitting it for both lunch and dinner across three themed nights—French, Italian, and Caribbean. Reservations were flexible via the Royal App at around 7 PM most evenings. The price level is unbeatable: entirely free for core menus (starters, entrées, desserts), with optional premium add-ons like Maine lobster tails ranging from $16.99 to $25, delivering exceptional bang for zero bucks on the basics.</p>
+
+      <h4>Food</h4>
+      <p>On <strong>French Night</strong>, escargot in garlic butter arrived sizzling; the <strong>beef tenderloin</strong> (béarnaise) was a juicy, medium-rare showstopper with crisp asparagus and fingerlings. <strong>Italian Night</strong> featured fork-tender <strong>osso buco</strong>, bright <strong>caprese</strong>, and a feather-light <strong>tiramisu</strong>. <strong>Caribbean Night</strong> brought island energy with <strong>jerk pork chops</strong> and plantain-crusted mahi-mahi; a quick remake on a busy evening was handled gracefully (with a bonus grilled-pineapple side). Presentations were clean, ingredients fresh, and themes kept the lineup fun for both comfort-seekers and adventurers.</p>
+
+      <h4>Service</h4>
+      <p>Our team—led by <strong>Sofia</strong>—was warm and proactive, remembered preferences by Night 2, paced courses at a relaxed 45–60 minutes, and handled dietary tweaks (gluten-free swap for a side) without fuss. Lively peak-evening energy felt communal rather than chaotic, and a surprise sorbet intermezzo was a thoughtful touch.</p>
+
+      <h4>Atmosphere / Ambiance</h4>
+      <p>On <strong>Icon of the Seas</strong>, MDR feels like a modern floating ballroom—three levels, ocean-blue upholstery, and chandelier lighting that settles to a cozy glow by dinner. Window tables at sunset are magic; book early in the app. Noise rises on sea days, but the mood stays upbeat and inclusive.</p>
+
+      <h4>Conclusion</h4>
+      <p><strong>Rating: 4/5.</strong> A cruise essential that punches far above its free price tag. Perfect for families, first-timers, and anyone chasing global flavors without add-on costs. <em>Pro tip:</em> Use My Time Dining in the app to target window seats on theme nights.</p>
+
+      <p class="tiny" style="margin-top:.75rem;">Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
+
+      <!-- JSON-LD review (single canonical block) -->
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Review",
+        "itemReviewed": {
+          "@type": "Restaurant",
+          "name": "Main Dining Room",
+          "servesCuisine": "International",
+          "provider": { "@type": "Organization", "name": "Royal Caribbean International" }
+        },
+        "name": "Royal Caribbean Main Dining Room Review 2025: Elegant Complimentary Dining with Themed Twists",
+        "reviewBody": "Multi-course complimentary dining aboard Icon of the Seas (Aug 2025). Themed nights—French, Italian, Caribbean—feature escargot, osso buco, jerk pork chops, and tiramisu. Excellent service and grand yet inviting ambiance. Free for core menu; optional lobster add-on $16.99–$25.",
+        "reviewRating": { "@type": "Rating", "ratingValue": "4", "bestRating": "5", "worstRating": "1" },
+        "author": { "@type": "Person", "name": "Guest Sounding (Icon of the Seas, Aug 2025)" },
+        "isPartOf": { "@type": "WebPage", "url": "https://www.cruisinginthewake.com/restaurants/main-dining-room.html" }
+      }
+      </script>
     </div>
-
-    <p class="tiny" style="margin:-.4rem 0 .8rem;color:#355;">
-      Sailed aboard <a href="/ships/rcl/icon-of-the-seas.html">Icon of the Seas</a>.
-    </p>
-
-    <h3>Royal Caribbean Main Dining Room Review 2025: Elegant Complimentary Dining with Themed Twists</h3>
-
-    <!-- INTRO -->
-    <p><em>Introduction.</em> My overall impression of the Main Dining Room (MDR) on Royal Caribbean is that it's a delightful, value-packed cornerstone of cruise life, offering multi-course meals with global flair that feel surprisingly upscale for being completely complimentary. It's the perfect blend of convenience, variety, and warmth, making every evening a mini-celebration without the hassle or extra cost. I dined at the Main Dining Room on the <strong>Icon of the Seas</strong> during a 7-night Eastern Caribbean cruise in late August 2025, hitting it for both lunch and dinner across three themed nights—French, Italian, and Caribbean. Reservations were flexible via the Royal App at around 7 PM most evenings. The price level is unbeatable: entirely free for core menus (starters, entrées, desserts), with optional premium add-ons like Maine lobster tails ranging from $16.99 to $25, delivering exceptional bang for zero bucks on the basics.</p>
-
-    <!-- FOOD -->
-    <h4>Food</h4>
-    <p>The food in the Main Dining Room stands out for its thoughtful variety and consistent quality, especially through the rotating theme nights that keep things fresh and exciting on a cruise. On <strong>French Night</strong>, I kicked off with escargot bathed in garlic butter and parsley—tender snails with a rich, herbaceous sauce that was garlicky perfection, presented on a sizzling cast-iron plate. The flavors popped with that classic bistro vibe, and it was a far cry from bland; each bite was garlicky bliss without overwhelming the palate. For my entrée, the <strong>beef tenderloin</strong> was a showstopper: a juicy, medium-rare cut from premium beef, sliced tableside with a velvety béarnaise sauce flecked with tarragon, accompanied by herb-roasted fingerling potatoes and asparagus spears that added crisp, earthy balance. The presentation was polished—vibrant greens and a light jus drizzle made it Instagram-worthy.</p>
-
-    <p>Switching to <strong>Italian Night</strong>, the <strong>osso buco</strong> was fork-tender braised veal shank, slow-cooked with tomatoes, carrots, and gremolata for a savory, melt-in-your-mouth depth that lingered beautifully. We shared a <strong>caprese salad</strong> starter, bursting with heirloom tomatoes, fresh mozzarella, and basil drizzled in balsamic reduction—simple, seasonal ingredients shining through in every juicy, herby bite. Dessert-wise, the <strong>tiramisu</strong> was a highlight: layers of coffee-soaked ladyfingers, mascarpone cream, and cocoa dust, creamy yet light, ending the meal on a sophisticated high note.</p>
-
-    <p><strong>Caribbean Night</strong> brought island energy with <strong>jerk pork chops</strong>—spicy, smoky rubs on thick cuts grilled to juicy perfection, paired with rice and peas infused with coconut milk for a tropical twist. The plantain-crusted mahi-mahi was flaky and mild, with the sweet plantain adding caramelized crunch. While some reviews mention occasional inconsistencies like slightly overcooked fish on busier sea days, this actually encouraged us to explore more dishes, turning it into a fun tasting adventure—our server swapped in a fresh portion seamlessly, adding an extra side of grilled pineapple that elevated the whole plate. Overall, ingredients feel fresh (sourced daily per Royal's standards), presentations are clean and thematic, and flavors cater to every mood, from comfort classics to bold globals—ideal for picky eaters or adventurers in the MDR 2025 menus.</p>
-
-    <!-- SERVICE -->
-    <h4>Service</h4>
-    <p>Service at the Main Dining Room is a genuine bright spot, with staff who bring infectious energy and genuine care that makes you feel like family rather than just another table. Our assigned team—led by a headwaiter named <strong>Sofia</strong>—was warm and proactive from the start, greeting us by name after the first night and remembering our preferences, like my go-to iced tea with lemon. They were incredibly knowledgeable, explaining theme inspirations and offering tweaks for dietary needs—my gluten-free request for the ratatouille on another night came out perfectly adapted with quinoa instead of couscous, no questions asked.</p>
-
-    <p>Attentiveness was spot-on: courses arrived in a relaxed 45–60-minute pace, with bread baskets refilled mid-meal and wine suggestions from their solid by-the-glass list (around $8–12). On peak evenings, when things got lively with families nearby, the slight rush in pacing added a vibrant, communal buzz rather than frustration—servers juggled it like pros, cracking jokes in multiple languages to keep the mood light. They even surprised our table with complimentary sorbet cleansers between courses, a small extra-mile touch that felt thoughtful and cruise-magical. In a high-volume spot like MDR on Icon, this level of friendliness transforms potential waits into engaging chats, making the experience feel personalized and efficient.</p>
-
-    <!-- AMBIANCE -->
-    <h4>Atmosphere / Ambiance</h4>
-    <p>The Main Dining Room’s ambiance on <strong>Icon of the Seas</strong> is grand yet inviting, like stepping into a floating ballroom with a modern cruise edge—perfect for everything from casual family catch-ups to semi-formal date nights. Spanning three levels connected by a stunning spiral staircase (a nod to Titanic glamour), the décor blends sleek metallic accents, ocean-blue upholstery, and subtle LED chandelier lighting that dims to a cozy glow by dinner. It's not overly flashy but elegant enough to elevate your outfit (smart casual works; formal nights amp it up with ties and dresses).</p>
-
-    <p>The mood is sociable and uplifting, with soft live piano or string quartets weaving through conversations—on Caribbean Night, faint steel drum echoes from nearby venues filtered in, adding playful island rhythm without overpowering. Window-lined walls offer mesmerizing sea views, especially at sunset tables (book early via app!), creating that “dinner with a show” vibe. While crowds on sea days can make it noisier than a quiet bistro, this energy fosters a lively, inclusive atmosphere that's spot-on for multi-gen groups or solo travelers mingling—think laughter echoing off high ceilings rather than isolation. It's versatile for occasions like birthday toasts (we celebrated one with a free candle-topped dessert) or just unwinding post-excursion, striking a balance that's refined but never stuffy.</p>
-
-    <!-- CONCLUSION -->
-    <h4>Conclusion</h4>
-    <p>In summary, the Main Dining Room wowed with its thematic food variety, heartfelt service, and elegant yet lively ambiance, proving it's a cruise essential that punches way above its free price tag. The minor busier-night hiccups only enhanced our adaptability, turning meals into shared stories worth savoring.</p>
-
-    <p><strong>Rating:</strong> 4 out of 5 stars. I recommend the Royal Caribbean Main Dining Room to families, first-time cruisers, or anyone chasing hassle-free global eats on a budget—it's a must for 7+ night sailings to unlock all those 2025 theme nights like French and Italian. At no core cost (just $10–30 for fun upgrades like lobster), it's unbeatable value, far surpassing land buffets in polish and surprise. <em>Pro tip:</em> Download the Royal App for My Time Dining to snag window seats, and snap pics of those plated masterpieces—the escargot shells and tiramisu layers are pure eye-candy. If you're sailing soon, MDR is your nightly anchor—elegant, exciting, and endlessly rewarding!</p>
-
-    <p class="tiny" style="margin-top:.75rem;">
-      Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a>
-    </p>
-  </div>
-
-  <!-- SEO Review markup -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    "itemReviewed": {
-      "@type": "Restaurant",
-      "name": "Main Dining Room",
-      "servesCuisine": "International",
-      "provider": { "@type": "Organization", "name": "Royal Caribbean International" }
-    },
-    "name": "Royal Caribbean Main Dining Room Review 2025: Elegant Complimentary Dining with Themed Twists",
-    "reviewBody": "Multi-course complimentary dining aboard Icon of the Seas (Aug 2025). Themed nights—French, Italian, Caribbean—feature escargot, osso buco, jerk pork chops, and tiramisu. Excellent service and grand yet inviting ambiance. Free for core menu; optional lobster add-on $16.99–$25.",
-    "reviewRating": { "@type": "Rating", "ratingValue": "4", "bestRating": "5", "worstRating": "1" },
-    "author": { "@type": "Person", "name": "Guest Sounding (Icon of the Seas, Aug 2025)" },
-    "isPartOf": { "@type": "WebPage", "url": "https://www.cruisinginthewake.com/restaurants/main-dining-room.html" }
-  }
-  </script>
-</section>
-    <!-- JSON-LD review (generic snapshot) -->
-    <script type="application/ld+json">
-    {
-      "@context":"https://schema.org",
-      "@type":"Review",
-      "itemReviewed":{"@type":"Restaurant","name":"Main Dining Room","servesCuisine":"International","provider":{"@type":"Organization","name":"Royal Caribbean International"}},
-      "name":"Royal Caribbean Main Dining Room — Snapshot",
-      "reviewBody":"Complimentary rotating menus for breakfast, lunch on select days, and dinner nightly. Mix of classics and regional features; family-friendly with vegetarian and allergen accommodations.",
-      "reviewRating":{"@type":"Rating","ratingValue":"4.2","bestRating":"5","worstRating":"1"},
-      "author":{"@type":"Person","name":"Guest Sounding (Fleetwide)"}
-    }
-    </script>
   </section>
 
   <!-- Sources -->
@@ -486,89 +386,79 @@
       </ul>
     </div>
   </section>
-
 </main>
 
 <footer class="site-footer">
   <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
 </footer>
 
-<!-- Venue hydrator: builds ship pills from venues.json -->
+<!-- Ship pills hydrator (shared pattern) -->
 <script>
 (function(){
-  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
-  const cleanClass=s=>String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
-  const CLASS_ORDER=['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
+  const $ = s => document.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+  const cleanClass = s => String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
+  const CLASS_ORDER = ['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
 
-  // Slug + aliases for MDR
-  const urlSlug=String((location.pathname.split('/').pop()||'').replace(/\.html$/,''));
-  // Accept common aliases
-  const VENUE_HINTS=Array.from(new Set([
-    urlSlug,                       // "main-dining-room"
-    'main-dining-room','mdr','dining-room','main dining room'
-  ]));
+  const VENUE_HINTS = ['main-dining-room','mdr','dining-room','main dining room'];
 
-  const byClassSize=(a,b)=>{
-    const ai=CLASS_ORDER.indexOf(cleanClass(a[1].class));
-    const bi=CLASS_ORDER.indexOf(cleanClass(b[1].class));
-    if(ai!==bi){ if(ai===-1) return 1; if(bi===-1) return -1; return ai-bi; }
+  const byClassSize = (a,b)=>{
+    const ai = CLASS_ORDER.indexOf(cleanClass(a[1].class));
+    const bi = CLASS_ORDER.indexOf(cleanClass(b[1].class));
+    if (ai !== bi){ if (ai === -1) return 1; if (bi === -1) return -1; return ai - bi; }
     return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
   };
 
-  function shipHref(slug){ return `/ships/rcl/${slug}.html`; }
+  function shipHref(slug){ return '/ships/rcl/'+slug+'.html'; }
 
   async function hydrateShipList(listEl){
     try{
-      const DATA_URL=(location.origin||'').replace(/\/$/,'')+'/assets/data/venues.json';
-      const res=await fetch(DATA_URL,{cache:'no-store'});
-      if(!res.ok) throw new Error('HTTP '+res.status);
-      const db=await res.json();
-
-      const ships=Object.entries(db.ships||{}).filter(([slug,p])=>{
-        const v=Array.isArray(p.venues)?p.venues:[];
-        return VENUE_HINTS.some(h=>v.includes(h));
+      const DATA_URL = (location.origin||'').replace(/\/$/,'') + '/assets/data/venues.json';
+      const res = await fetch(DATA_URL, {cache:'no-store'});
+      if (!res.ok) throw new Error('HTTP '+res.status);
+      const db = await res.json();
+      const ships = Object.entries(db.ships||{}).filter(([slug,p])=>{
+        const v = Array.isArray(p.venues) ? p.venues : [];
+        return VENUE_HINTS.some(h => v.includes(h));
       }).sort(byClassSize);
 
       listEl.innerHTML = ships.length
-        ? ships.map(([slug,p])=>{
-            const name=p.name||slug;
+        ? ships.map(([slug,p]) => {
+            const name = p.name || slug;
             return `<a class="chip" href="${shipHref(slug)}" title="${name}">${name}</a>`;
           }).join('')
         : `<span class="tiny muted">No active ships found for this venue.</span>`;
     }catch(e){
-      listEl.innerHTML=`<span class="tiny muted">Could not load ship list.</span>`;
+      listEl.innerHTML = `<span class="tiny muted">Could not load ship list.</span>`;
     }
   }
 
-  function wireToggles(){
-    const btn=$('#rccl-toggle');
-    const list=$('#rccl-ship-list');
-    const tip=$('#rccl-tip');
-    if(!btn||!list) return;
+  // Toggle wiring (single toggle → single list)
+  (function wire(){
+    const btn = $('#rccl-toggle');
+    const list = $('#rccl-ship-list');
+    const tip  = $('#rccl-tip');
+    if (!btn || !list) return;
 
     function setNote(open){
-      const note=btn.querySelector('.note');
-      if(note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
+      const note = btn.querySelector('.note');
+      if (note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
     }
     function toggle(open){
       const willOpen = (typeof open==='boolean') ? open : (btn.getAttribute('aria-expanded')!=='true');
       btn.setAttribute('aria-expanded', String(willOpen));
       list.classList.toggle('is-hidden', !willOpen);
-      if(willOpen && tip) tip.style.display='none';
+      if (willOpen && tip) tip.style.display='none';
       setNote(willOpen);
     }
-
     btn.addEventListener('click', ()=>toggle());
     btn.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
 
-    // Start collapsed; hydrate content
+    // Init
     list.classList.add('is-hidden');
     hydrateShipList(list);
     setNote(false);
-  }
-
-  function $(s){ return document.querySelector(s); }
-  wireToggles();
+  })();
 })();
 </script>
 </body>
