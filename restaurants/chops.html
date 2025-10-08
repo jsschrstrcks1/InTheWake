@@ -35,6 +35,11 @@
     if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
   })();
   </script>
+  <style>
+  .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
+  .ship-pills-bar .pills{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center}
+  .ship-pills-bar .pill{white-space:nowrap}
+</style>
 </head>
 
 <body class="venue-page">
@@ -141,25 +146,20 @@
 
 <!-- Availability -->
 <section class="card" id="availability">
+ <section class="card" id="availability">
   <h2>Where You’ll Find It</h2>
-  <p>Chops Grille appears on most Royal Caribbean ships including:</p>
-  <ul class="link-list" id="ship-list">
-    <li><a href="https://www.cruisinginthewake.com/ships/rcl/radiance-of-the-seas.html">Radiance of the Seas</a></li>
-    <li><a href="https://www.cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html">Enchantment of the Seas</a></li>
-    <li><a href="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html">Grandeur of the Seas</a></li>
-    <li><a href="https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html">Adventure of the Seas</a></li>
-    <li><a href="https://www.cruisinginthewake.com/ships/rcl/icon-of-the-seas.html">Icon of the Seas</a> <span class="tag">Variant Items</span></li>
-  </ul>
+  <p>This venue appears on the following Royal Caribbean ships:</p>
+  <ul class="link-list" id="ship-list"></ul>
   <details>
     <summary>Former placements / historical notes</summary>
-    <p class="muted">If a ship removes or rebrands Chops Grille, mark it as <strong>Historical Restaurant (on this ship)</strong>.</p>
+    <p class="muted">If a ship removes or rebrands the venue, list it here as <strong>Historical Restaurant</strong> on that ship.</p>
   </details>
 </section>
 
 <!-- Persona Review -->
 <section class="card" id="review">
   <h2>The Logbook — Real Guest Soundings</h2>
-  <p class="pill"><strong>Full disclosure:</strong> I haven’t dined at Chops aboard every ship. Until I do, this Logbook is a composite of vetted guest soundings taken in their own wake, trimmed and edited to our standards.</p>
+  <p class="pill"><strong>Full disclosure:</strong> While Chop's is one of my favorites, I have not yet dined at Chops aboard every ship. Until I do, this Logbook is a composite of my own experiences and vetted guest experiences taken in our own wakes, trimmed and edited to our standards.</p>
 
   <blockquote>
     “Filet mignon was melt-in-your-mouth perfect, and the warm chocolate cake ended the night right. Service felt personal without being pretentious — the steakhouse you hope to find on land but rarely do at sea.” — Guest, <em>Radiance of the Seas</em>
@@ -185,5 +185,80 @@
 </footer>
 
 <script src="/assets/js/venue-boot.js?v=2.257" defer></script>
+  <script>
+(function(){
+  // Helpers
+  var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs = window._abs || function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
+  var normalize = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+  var slugify  = s => normalize(s).replace(/[^\w]+/g,'-').replace(/-+/g,'-').replace(/(^-|-$)/g,'');
+
+  // Venue keys we’ll accept from JSON (covers naming differences)
+  var VENUE_KEYS = ['chops','chops-grille','chops grille'];
+
+  // Class sort order (largest -> smallest)
+  var CLASS_ORDER = ['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
+  var cleanClass = s => normalize(String(s||'').replace(/\s*class\s*$/,''));
+
+  // Load venues.json and render
+  fetch(_abs('/assets/data/venues.json'), {cache:'no-store'})
+    .then(r => r.json())
+    .then(function(db){
+      var ships = db.ships || {};
+      var venues = db.venues || [];
+
+      // Find the canonical slug used in the JSON for this venue
+      var target = (venues.find(v => VENUE_KEYS.includes(slugify(v.slug))) ||
+                    venues.find(v => VENUE_KEYS.includes(slugify(v.name))) ) || {slug:'chops'};
+
+      // Collect ships that carry this venue
+      var items = Object.entries(ships)
+        .filter(function([shipSlug, p]){
+          return Array.isArray(p.venues) && p.venues.some(function(vslug){
+            return VENUE_KEYS.includes(slugify(vslug)) || slugify(vslug)===slugify(target.slug);
+          });
+        })
+        .map(function([shipSlug, p]){
+          return {
+            slug: shipSlug,
+            name: p.name || shipSlug,
+            klass: cleanClass(p.class)
+          };
+        });
+
+      // Sort by class band (size) then A–Z by ship name
+      items.sort(function(a,b){
+        var ai = CLASS_ORDER.indexOf(a.klass); if(ai===-1) ai=999;
+        var bi = CLASS_ORDER.indexOf(b.klass); if(bi===-1) bi=999;
+        return ai!==bi ? ai-bi : a.name.localeCompare(b.name);
+      });
+
+      // Render pill bar (clickable chips linking to ship pages)
+      var pillsHost = document.getElementById('ship-pills');
+      if (pillsHost){
+        pillsHost.innerHTML = items.map(function(it){
+          var href = _abs('/ships/rcl/'+it.slug+'.html');
+          var label = it.name;
+          return '<a class="pill" href="'+href+'" title="'+it.name+'">'+label+'</a>';
+        }).join('');
+      }
+
+      // Render comprehensive list in “Where You’ll Find It”
+      var ul = document.getElementById('ship-list');
+      if (ul){
+        if (items.length){
+          ul.innerHTML = items.map(function(it){
+            var href = _abs('/ships/rcl/'+it.slug+'.html');
+            var variant = (it.klass==='icon') ? ' <span class="tag">Variant Items</span>' : '';
+            return '<li><a href="'+href+'">'+it.name+'</a>'+variant+'</li>';
+          }).join('');
+        }else{
+          ul.innerHTML = '<li class="muted">No confirmed ships found for this venue in the current database.</li>';
+        }
+      }
+    })
+    .catch(function(){ /* silent fail; page still usable */ });
+})();
+</script>
 </body>
 </html>
