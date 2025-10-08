@@ -75,85 +75,74 @@
     .page-header .section{ padding-top:1rem; }
     .page-header h1{ margin:.2rem 0 .35rem; color:#083041 }
     .page-header .page-sub{ margin:0 0 1rem; color:#345 }
+
     /* ——— Instructions card ——— */
-.tip-card{
-  background:#fff; border:2px solid var(--rope); border-radius:14px;
-  box-shadow:0 2px 6px rgba(8,48,65,.08); padding:1rem; margin:.5rem 0 1rem;
-}
-.tip-head{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
-.tip-head strong{ font-size:1.05rem; color:#083041 }
-.tip-dismiss{
-  appearance:none; border:1px solid #cfe1ea; background:#f7fdff; color:#0e6e8e;
-  padding:.3rem .6rem; border-radius:999px; cursor:pointer; font-size:.85rem;
-}
-.tip-dismiss:hover{ background:#eef7fb }
-.tip-list{ margin:.6rem 0 0 1.1rem; color:#163042; }
-.tip-list li{ margin:.25rem 0; }
-kbd{
-  font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size:.85em; padding:.05em .35em; border:1px solid #cfe1ea; border-bottom-width:2px; border-radius:4px; background:#f7fdff;
-}
+    .tip-card{
+      background:#fff; border:2px solid var(--rope); border-radius:14px;
+      box-shadow:0 2px 6px rgba(8,48,65,.08); padding:1rem; margin:.5rem 0 1rem;
+    }
+    .tip-head{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
+    .tip-head strong{ font-size:1.05rem; color:#083041 }
+    .tip-dismiss{
+      appearance:none; border:1px solid #cfe1ea; background:#f7fdff; color:#0e6e8e;
+      padding:.3rem .6rem; border-radius:999px; cursor:pointer; font-size:.85rem;
+    }
+    .tip-dismiss:hover{ background:#eef7fb }
+    .tip-list{ margin:.6rem 0 0 1.1rem; color:#163042; }
+    .tip-list li{ margin:.25rem 0; }
+    kbd{
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:.85em; padding:.05em .35em; border:1px solid #cfe1ea; border-bottom-width:2px; border-radius:4px; background:#f7fdff;
+    }
+  </style>
 
-    <!-- PATCH: 3-up responsive grid for venue cards -->
-<style id="restaurants-grid-patch">
-  /* base grid */
-  .section .grid{ display:grid; gap:1rem; }
+  <!-- PATCH: 3-up responsive grid for venue cards (generic helper) -->
+  <style id="restaurants-grid-patch">
+    .section .grid{ display:grid; gap:1rem; }
+    .section .grid-3{ grid-template-columns: 1fr; }
 
-  /* default: 1-up (mobile) */
-  .section .grid-3{ grid-template-columns: 1fr; }
+    @media (min-width:680px){
+      .section .grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (min-width:1024px){
+      .section .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+    }
 
-  /* ≥680px: 2-up */
-  @media (min-width:680px){
-    .section .grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-  }
+    .section .grid > .card{
+      display:flex; flex-direction:column; height:100%;
+    }
+  </style>
 
-  /* ≥1024px: 3-up */
-  @media (min-width:1024px){
-    .section .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
-  }
-
-  /* make each card fill its grid cell and keep internals tidy */
-  .section .grid > .card{
-    display:flex; flex-direction:column; height:100%;
-  }
-
- <!-- Force 3-up grid on the restaurant sections -->
-<style id="restaurants-grid-force">
-  /* target only these three containers to avoid side-effects */
-  #grid-complimentary,
-  #grid-premium,
-  #grid-activity{
-    display:grid !important;
-    gap:1rem;
-    grid-template-columns: 1fr;      /* 1-up default */
-    align-items: stretch;
-  }
-
-  /* 2-up tablet */
-  @media (min-width:680px){
+  <!-- Force 3-up grid on the restaurant sections (wins against old primitives) -->
+  <style id="restaurants-grid-force">
     #grid-complimentary,
     #grid-premium,
     #grid-activity{
-      grid-template-columns: repeat(2, minmax(0,1fr));
+      display:grid !important;
+      gap:1rem;
+      grid-template-columns: 1fr;
+      align-items: stretch;
     }
-  }
-
-  /* 3-up desktop */
-  @media (min-width:1024px){
-    #grid-complimentary,
-    #grid-premium,
-    #grid-activity{
-      grid-template-columns: repeat(3, minmax(0,1fr));
+    @media (min-width:680px){
+      #grid-complimentary,
+      #grid-premium,
+      #grid-activity{
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
     }
-  }
-
-  /* let cards fill their tracks cleanly */
-  #grid-complimentary > .card,
-  #grid-premium > .card,
-  #grid-activity > .card{
-    display:flex; flex-direction:column; height:100%;
-  }
-</style>
+    @media (min-width:1024px){
+      #grid-complimentary,
+      #grid-premium,
+      #grid-activity{
+        grid-template-columns: repeat(3, minmax(0,1fr));
+      }
+    }
+    #grid-complimentary > .card,
+    #grid-premium > .card,
+    #grid-activity > .card{
+      display:flex; flex-direction:column; height:100%;
+    }
+  </style>
 </head>
 
 <body class="restaurants-page">
