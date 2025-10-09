@@ -4,9 +4,16 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Restaurants &amp; Menus | In the Wake</title>
-  <meta name="version" content="v2.256.022"/>
+  <meta name="version" content="v3.001"/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta name="description" content="Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes."/>
+ <meta property="og:type" content="website"/>
+<meta property="og:site_name" content="In the Wake"/>
+<meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
+<meta property="og:title" content="Restaurants & Menus | In the Wake"/>
+<meta property="og:description" content="Premium & complimentary dining across the fleet — menus, prices, accessibility notes."/>
+<meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.001"/>
+<meta name="twitter:card" content="summary_large_image"/>
   <!-- Standards v3.001: absolute URL + origin normalizer -->
 <script>
 (function(){
@@ -42,7 +49,7 @@ if('serviceWorker' in navigator){
 }
 </script>
   <!-- bump query to bust cache -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.246.001"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.001"/>
 
   <!-- ===== Page patch (scoped to Restaurants page) — NO hero overrides here ===== -->
   <style id="restaurants-v2_256_022">
@@ -186,7 +193,7 @@ if('serviceWorker' in navigator){
     <a class="logo-sm" href="https://www.cruisinginthewake.com/">
       <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake" />
     </a>
-    <span class="ver">v2.256.022</span>
+    <span class="ver">v3.001</span>
 
     <nav class="pill-nav" aria-label="Primary">
       <a class="chip" href="https://www.cruisinginthewake.com/">Home</a>
@@ -268,7 +275,7 @@ if('serviceWorker' in navigator){
   </div>
 </section>
   <div class="section">
-    <h1>Restaurants &amp; Menus <span class="version-badge">v2.256.022</span></h1>
+    <h1>Restaurants &amp; Menus <span class="version-badge">v3.001</span></h1>
     <p class="page-sub">Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes.</p>
   </div>
 </section>
@@ -652,15 +659,21 @@ if('serviceWorker' in navigator){
   if ($meta) $meta.textContent = 'Loading venues…';
 
   /* ---------- load JSON and render ---------- */
+(function(){
+  // ... keep your helper code above unchanged ...
+
   (async function boot(){
     let db=null;
     try{
-      const DATA_URL = location.origin.replace(/\/$/,'') + '/assets/data/venues.json';
-      const res = await fetch(DATA_URL, {cache:'no-store'});
-      if(!res.ok) throw new Error('HTTP '+res.status);
-      db = await res.json();
+      // Standards v3.001: cached JSON with weekly TTL + version invalidation
+      db = await SiteCache.getJSON(_abs('/assets/data/venues.json'), {
+        ttlDays: 7,
+        versionPath: ['version']
+      });
     }catch(e){
-      $meta && ($meta.textContent = 'Could not load venues.'); return;
+      const $meta=document.querySelector('#search-meta');
+      if($meta){ $meta.textContent='Could not load venues.'; }
+      return;
     }
 
     // reverse maps
@@ -713,5 +726,19 @@ if('serviceWorker' in navigator){
   })();
 })();
   </script>
+  <script>
+(function(){
+  async function warm(){
+    try{
+      // Core for this page:
+      await SiteCache.getJSON(_abs('/assets/data/venues.json'), { ttlDays:7, versionPath:['version'] });
+      // Optional (nice to have globally, harmless here):
+      // await SiteCache.getJSON(_abs('/assets/data/fleet_index.json'), { ttlDays:7, versionPath:['version'] });
+    }catch(e){}
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', warm, {once:true}); }
+  else { warm(); }
+})();
+</script>
 </body>
 </html>
