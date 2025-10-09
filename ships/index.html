@@ -140,346 +140,16 @@
   <footer class="wrap center">© <span id="yr"></span> In the Wake — A Cruise Traveler’s Logbook</footer>
   <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 
-  <script>
-  /* ships-browse (v1.1)
-     - Reads /assets/data/fleet_index.json
-     - Supports two shapes:
-       A) { ships:[{...}] }
-       B) { cruise_lines:[{ name, slug, ships:[...] }, ...] }  <-- your provided sample
-     - For (B), class is inferred from `notes` like "Breakaway-class." until you expose `class_id`.
-  */
-  (function(){
-    const abs = (p)=> (typeof window._abs==='function' ? _abs(p) : p);
-    const SOURCE = abs('/assets/data/fleet_index.json');
-
-    const el = {
-      linesGrid:   document.getElementById('linesGrid'),
-      linesEmpty:  document.getElementById('linesEmpty'),
-      classesSec:  document.getElementById('classesSection'),
-      classesGrid: document.getElementById('classesGrid'),
-      classesEmpty:document.getElementById('classesEmpty'),
-      shipsSec:    document.getElementById('shipsSection'),
-      shipsGrid:   document.getElementById('shipsGrid'),
-      shipsEmpty:  document.getElementById('shipsEmpty'),
-      meta:        document.getElementById('meta'),
-      crumbLineWrap: document.getElementById('crumb-line-wrap'),
-      crumbLine:     document.getElementById('crumb-line'),
-      crumbClassWrap:document.getElementById('crumb-class-wrap'),
-      crumbClass:    document.getElementById('crumb-class'),
-      crumbHere:     document.getElementById('crumb-here')
-    };
-
-    const STATE = { line:null, classId:null };
-    const WORLD = { byLine:{} };
-
-    const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
-    const titleCase = s => String(s||'').replace(/(^|[-_ ])([a-z])/g, (_,sp,ch)=> (sp?sp:'')+ch.toUpperCase());
-    const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&lt;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]);
-    function toNumMaybe(v){ if(v==null||v==="N/A") return null; const n=Number(String(v).replace(/[^\d.]/g,'')); return Number.isFinite(n)?n:null; }
-
-    // --- Normalizers --------------------------------------------------------
-    function normalizeFromFlat(json){
-      const raw = (json && json.ships) || [];
-      return raw.map(x=>{
-        const a = x.attributes || x;
-        return {
-          name: a.name || a.title || a.ship || '',
-          slug: a.slug || a.id || '',
-          line: norm(a.line || a.brand || a.cruise_line || ''),
-          class: norm(a.class || a.ship_class || ''),
-          year: toNumMaybe(a.entered_service || a.inaugural || a.launched || a.year_built_or_entered),
-          gt: toNumMaybe(a.gt || a.gross_tonnage || a.tonnage),
-          guests: toNumMaybe(a.capacity || a.passengers || a.guests),
-          image: a.image || a.hero || (a.slug? `/assets/ships/${a.slug}.jpeg` : ''),
-          detail_url: a.detail_url || a.url || (a.slug && a.line ? `/ships/${a.line}/${a.slug}.html` : '')
-        };
-      }).filter(s=> s.name && s.line);
-    }
-
-    function inferClassFromNotes(notes){
-      const m = String(notes||'').match(/([A-Za-z][A-Za-z \-']+)-class/i);
-      return m ? norm(m[1]) : '';
-    }
-
-    function normalizeFromCruiseLines(json){
-      const out = [];
-      const lines = Array.isArray(json?.cruise_lines) ? json.cruise_lines : [];
-      for(const L of lines){
-        const lineLabel = L.name || '';
-        const lineSlug  = norm(L.slug || lineLabel);
-        const ships = Array.isArray(L.ships) ? L.ships : [];
-        for(const s of ships){
-          out.push({
-            name: s.name || '',
-            slug: s.slug || '',
-            line: lineSlug || norm(lineLabel),
-            class: norm(s.class || s.ship_class || inferClassFromNotes(s.notes)),
-            year: toNumMaybe(s.year_built_or_entered || s.entered_service || s.launched),
-            gt: toNumMaybe(s.gt),
-            guests: toNumMaybe(s.capacity),
-            image: s.image || (s.slug ? `/assets/ships/${s.slug}.jpeg` : ''),
-            detail_url: s.url || (lineSlug && s.slug ? `/ships/${lineSlug}/${s.slug}.html` : '')
-          });
-        }
-      }
-      return out.filter(s=> s.name && s.line);
-    }
-
-    function groupByLineAndClass(list){
-      const byLine = {};
-      for(const s of list){
-        const line = s.line;
-        const klass = s.class || 'unknown';
-        if(!byLine[line]) byLine[line] = {};
-        if(!byLine[line][klass]) byLine[line][klass] = [];
-        byLine[line][klass].push(s);
-      }
-      return byLine;
-    }
-
-    // --- Rendering ----------------------------------------------------------
-    function lineDisplay(id){
-      const map = { 'rcl':'Royal Caribbean International', 'royal-caribbean': 'Royal Caribbean International', 'royal-caribbean-international':'Royal Caribbean International' };
-      return map[id] || titleCase(id.replace(/-/g,' '));
-    }
-
-    function classDisplay(id){
-      const label = titleCase(id.replace(/-?class$/,'').replace(/-/g,' '));
-      return label && label!=='Unknown' ? `${label} Class` : 'Class';
-    }
-
-    function lineCard(lineId, classes){
-      const count = Object.values(classes).reduce((n,arr)=> n+(arr?arr.length:0), 0);
-      const logo = (/(^|-)rcl($|-)|royal/.test(lineId)) ? '/assets/lines/rcl.png' : '/assets/logo_wake.png';
-      return `
-        <article class="card clickable" role="button" tabindex="0" data-line="${esc(lineId)}" aria-label="${esc(lineDisplay(lineId))}">
-          <div class="thumb">
-            <img src="${abs(logo)}" alt="${esc(lineDisplay(lineId))} logo" loading="lazy"
-                 onerror="this.src='${abs('/assets/logo_wake.png')}'"/>
-          </div>
-          <div class="body">
-            <h3 class="card-title">${esc(lineDisplay(lineId))} <span class="pill badge">${count} ships</span></h3>
-            <p class="small muted">${Object.keys(classes).length} classes</p>
-          </div>
-        </article>`;
-    }
-
-    function classCard(lineId, classId, shipCount){
-      const guess1 = abs(`/assets/classes/${lineId}/${classId}.jpeg`);
-      const guess2 = abs(`/assets/classes/${classId}.jpeg`);
-      return `
-        <article class="card clickable" role="button" tabindex="0" data-class="${esc(classId)}" aria-label="${esc(classDisplay(classId))}">
-          <div class="thumb">
-            <img src="${guess1}" alt="${esc(classDisplay(classId))}" loading="lazy"
-                 onerror="(function(i){var fb=['${guess2}','${abs('/assets/ships/radiance-of-the-seas1.jpeg')}']; i._f=(i._f||0); if(i._f<fb.length){ i.src=fb[i._f++]; } })(this)"/>
-          </div>
-          <div class="body">
-            <h3 class="card-title">${esc(classDisplay(classId))} <span class="pill badge">${shipCount}</span></h3>
-            <p class="small muted">Tap to see ships</p>
-          </div>
-        </article>`;
-    }
-
-    function shipCard(s){
-      const img1 = abs(s.image || '');
-      const img2 = s.slug ? abs(`/assets/ships/${s.slug}.jpeg`) : '';
-      const img3 = s.slug ? abs(`/assets/ships/${s.line}/${s.slug}/${s.slug}1.jpeg`) : '';
-      const href = s.detail_url ? abs(s.detail_url) : '#';
-      return `
-        <article class="card" role="article" data-slug="${esc(s.slug)}">
-          <div class="thumb">
-            <img src="${img1}" alt="${esc(s.name)}" loading="lazy"
-                 onerror="(function(i){var fb=['${img2}','${img3}']; i._f=(i._f||0); if(i._f<fb.length){ i.src=fb[i._f++]; } })(this)"/>
-          </div>
-          <div class="body">
-            <h3 class="card-title">${esc(s.name)}</h3>
-            <div class="stats-mini" style="display:grid;grid-template-columns:1fr 1fr;gap:.25rem .75rem;font-size:.92rem">
-              <div><span class="k">GT:</span> ${s.gt? s.gt.toLocaleString() : '—'}</div>
-              <div><span class="k">Guests:</span> ${s.guests? s.guests.toLocaleString() : '—'}</div>
-              <div><span class="k">Year:</span> ${s.year || '—'}</div>
-            </div>
-            <p style="margin-top:.5rem"><a class="btn" href="${href}">Open Ship Page →</a></p>
-          </div>
-        </article>`;
-    }
-
-    function renderLines(byLine){
-      const ids = Object.keys(byLine).sort();
-      el.linesGrid.innerHTML = ids.map(id => lineCard(id, byLine[id])).join('');
-      if (!ids.length) el.linesEmpty.classList.remove('hidden'); else el.linesEmpty.classList.add('hidden');
-      el.linesGrid.querySelectorAll('[data-line]').forEach(btn=>{
-        btn.addEventListener('click', ()=> selectLine(btn.getAttribute('data-line')));
-      });
-    }
-
-    function renderClasses(lineId, classes){
-      el.classesSec.classList.remove('hidden');
-      const ids = Object.keys(classes).sort();
-      el.classesGrid.innerHTML = ids.map(id => classCard(lineId, id, (classes[id]||[]).length)).join('');
-      if (!ids.length) el.classesEmpty.classList.remove('hidden'); else el.classesEmpty.classList.add('hidden');
-      el.classesGrid.querySelectorAll('[data-class]').forEach(btn=>{
-        btn.addEventListener('click', ()=> selectClass(btn.getAttribute('data-class')));
-      });
-    }
-
-    function renderShips(lineId, classId, list){
-      el.shipsSec.classList.remove('hidden');
-      const arr = (list||[]).slice().sort((a,b)=> a.name.localeCompare(b.name, undefined, {sensitivity:'base'}));
-      el.shipsGrid.innerHTML = arr.map(shipCard).join('');
-      if (!arr.length) el.shipsEmpty.classList.remove('hidden'); else el.shipsEmpty.classList.add('hidden');
-    }
-
-    // --- Selection + Crumbs -------------------------------------------------
-    function selectLine(lineId){
-      STATE.line=lineId; STATE.classId=null;
-      el.crumbLine.textContent = lineDisplay(lineId);
-      el.crumbLineWrap.classList.remove('hidden');
-      el.crumbClassWrap.classList.add('hidden');
-      el.crumbHere.textContent='Choose a class';
-      renderClasses(lineId, WORLD.byLine[lineId] || {});
-      el.shipsSec.classList.add('hidden'); el.shipsGrid.innerHTML='';
-      history.replaceState(null,'', location.pathname + '#'+encodeURIComponent(lineId));
-    }
-    function selectClass(classId){
-      STATE.classId=classId;
-      el.crumbClass.textContent = classDisplay(classId);
-      el.crumbClassWrap.classList.remove('hidden');
-      el.crumbHere.textContent='Choose a ship';
-      renderShips(STATE.line, classId, (WORLD.byLine[STATE.line]||{})[classId]);
-      history.replaceState(null,'', location.pathname + '#'+encodeURIComponent(STATE.line)+'/'+encodeURIComponent(classId));
-    }
-    el.crumbLine.addEventListener('click', ()=> { if(STATE.line) selectLine(STATE.line); });
-    el.crumbClass.addEventListener('click', ()=> { if(STATE.line && STATE.classId) selectClass(STATE.classId); });
-
-    // --- Boot ---------------------------------------------------------------
-    (async function init(){
-      try{
-        const r = await fetch(SOURCE, {cache:'no-store'});
-        if(!r.ok) throw new Error(r.status);
-        const raw = await r.json();
-
-        // pick normalizer based on root keys
-        const ships = raw?.cruise_lines ? normalizeFromCruiseLines(raw) : normalizeFromFlat(raw);
-        WORLD.byLine = groupByLineAndClass(ships);
-
-        // meta footer
-        const when = raw.generated || raw.updated || (raw.meta && raw.meta.updated);
-        const ver  = raw.version || (raw.meta && raw.meta.version);
-        el.meta.textContent = (ver||when) ? `Data: ${ver?('v'+ver):''}${ver&&when?' • ':''}${when?String(when).slice(0,10):''}` : 'Data source: fleet_index.json';
-
-        // render
-        renderLines(WORLD.byLine);
-
-        // default focus: Royal if present
-        const royalKey = Object.keys(WORLD.byLine).find(k => /royal|rcl/.test(k));
-        if (!location.hash && royalKey) selectLine(royalKey);
-
-        // deep-link restore
-        const hash = (location.hash||'').slice(1);
-        if (hash){
-          const [line,classId] = hash.split('/').map(s=>decodeURIComponent(s||''));
-          if (line && WORLD.byLine[line]) {
-            selectLine(line);
-            if (classId && (WORLD.byLine[line][classId])) selectClass(classId);
-          }
-        }
-      }catch(e){
-        console.error('browse init failed', e);
-        el.linesEmpty.classList.remove('hidden');
-      }
-    })();
-  })();
-  </script>
-  <script>
-/* ships-browse with auto image discovery (v1.5)
-   - Reads /assets/data/fleet_index.json
-   - Filters to Royal Caribbean (for now)
-   - Finds ship images automatically (or uses optional manifest)
-   - Only renders ships that have ≥1 image; randomizes per load
+<script>
+/* ships-browse (v1.7, auto image discovery)
+   - Data: /assets/data/fleet_index.json
+   - Image policy: only show ships with at least one discoverable image.
+   - Randomize 1 of N images each load. Prefer assets/ships/thumbs/.
 */
 (function(){
   const abs = (p)=> (typeof window._abs==='function' ? _abs(p) : p);
   const SOURCE = abs('/assets/data/fleet_index.json');
 
-  // ---- Image discovery config ---------------------------------------------
-  const DIRS = [
-    '/assets/ships/thumbs/', // preferred thumbs
-    '/assets/ships/',
-    '/assets/',
-    '/images/',
-    '/ships/',
-    '/ships/assets/',
-    '/ships/rcl/images/'
-  ].map(abs);
-
-  const EXTS = ['.jpg','.jpeg','.png'];
-  const MAX_VARIANT = 6;        // try slug + 1..6
-  const MAX_IMAGES_PER_SHIP = 3; // stop after we find this many
-  const HEAD_TIMEOUT_MS = 2500;  // per request
-  const PROBE_CONCURRENCY = 4;   // parallel probes
-
-  // Optional inline manifest:
-  // <script type="application/json" id="image-inventory">{ "radiance-of-the-seas": ["/assets/ships/thumbs/radiance-of-the-seas1.jpg", ...] }</script>
- <script> function readInlineInventory(){
-    try{
-      const el = document.getElementById('image-inventory');
-      if(!el) return null;
-      const j = JSON.parse(el.textContent||'{}');
-      return (j && typeof j==='object') ? j : null;
-    }catch{ return null; }
-  }
-
-  // HEAD probe with timeout
-  async function head(url){
-    const ctrl = new AbortController();
-    const t = setTimeout(()=>ctrl.abort(), HEAD_TIMEOUT_MS);
-    try{
-      const r = await fetch(url, { method:'HEAD', cache:'force-cache', signal:ctrl.signal });
-      return r.ok;
-    }catch{
-      return false;
-    }finally{
-      clearTimeout(t);
-    }
-  }
-
-  // Generate candidate URLs for a slug
-  function* candidatesFor(slug){
-    // unnumbered first (more likely if you sometimes use plain <slug>.ext)
-    for(const d of DIRS) for(const ext of EXTS) yield d + slug + ext;
-    // numbered variants
-    for(let n=1; n<=MAX_VARIANT; n++){
-      for(const d of DIRS) for(const ext of EXTS) yield d + slug + n + ext;
-    }
-  }
-
-  // Bounded parallel probing; stops when found == MAX_IMAGES_PER_SHIP or no more candidates
-  async function discoverImagesFor(slug){
-    const found = [];
-    const it = candidatesFor(slug);
-    const queue = [];
-    let done = false;
-
-    async function worker(){
-      for(;;){
-        if (found.length >= MAX_IMAGES_PER_SHIP) return;
-        const next = it.next();
-        if (next.done){ done = true; return; }
-        const url = next.value;
-        if (await head(url)) found.push(url);
-        if (found.length >= MAX_IMAGES_PER_SHIP) return;
-      }
-    }
-    for(let i=0;i<PROBE_CONCURRENCY;i++) queue.push(worker());
-    await Promise.all(queue);
-    return found;
-  }
-
-  function randomPick(arr){
-    return arr[Math.floor(Math.random()*arr.length)];
-  }
-
-  // ---- DOM refs ------------------------------------------------------------
   const el = {
     linesGrid:   document.getElementById('linesGrid'),
     linesEmpty:  document.getElementById('linesEmpty'),
@@ -498,38 +168,18 @@
   };
 
   const STATE = { line:null, classId:null };
-  const WORLD = { byLine:{}, images:{}, inlineImages: readInlineInventory() || {} };
+  const WORLD = { byLine:{} };
 
   const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
   const titleCase = s => String(s||'').replace(/(^|[-_ ])([a-z])/g, (_,sp,ch)=> (sp?sp:'')+ch.toUpperCase());
   const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&lt;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]);
-  function toNumMaybe(v){ if(v==null||v==="N/A") return null; const n=Number(String(v).replace(/[^\d.]/g,'')); return Number.isFinite(n)?n:null; }
+  const toNumMaybe = v => {
+    if(v==null||v==="N/A") return null;
+    const n=Number(String(v).replace(/[^\d.]/g,''));
+    return Number.isFinite(n)?n:null;
+  };
 
-  // ---- fleet normalizers (same as before, trimmed) -------------------------
-  function inferClassFromNotes(notes){
-    const m = String(notes||'').match(/([A-Za-z][A-Za-z \-']+)-class/i);
-    return m ? norm(m[1]) : '';
-  }
-  function normalizeFromCruiseLines(json){
-    const out=[]; const lines = Array.isArray(json?.cruise_lines) ? json.cruise_lines : [];
-    for(const L of lines){
-      const lineLabel = L.name || ''; const lineSlug = norm(L.slug || lineLabel);
-      const ships = Array.isArray(L.ships) ? L.ships : [];
-      for(const s of ships){
-        out.push({
-          name: s.name || '', slug: s.slug || '',
-          line: lineSlug || norm(lineLabel),
-          class: norm(s.class || s.ship_class || inferClassFromNotes(s.notes)),
-          year: toNumMaybe(s.year_built_or_entered || s.entered_service || s.launched),
-          gt: toNumMaybe(s.gt), guests: toNumMaybe(s.capacity),
-          status: norm(s.status || ''), // active/historical/etc
-          image: s.image || '',
-          detail_url: s.url || (lineSlug && s.slug ? `/ships/${lineSlug}/${s.slug}.html` : '')
-        });
-      }
-    }
-    return out.filter(s=> s.name && s.line);
-  }
+  // ---------- Data normalization ----------
   function normalizeFromFlat(json){
     const raw = (json && json.ships) || [];
     return raw.map(x=>{
@@ -542,11 +192,38 @@
         year: toNumMaybe(a.entered_service || a.inaugural || a.launched || a.year_built_or_entered),
         gt: toNumMaybe(a.gt || a.gross_tonnage || a.tonnage),
         guests: toNumMaybe(a.capacity || a.passengers || a.guests),
-        status: norm(a.status || ''),
-        image: a.image || '',
+        // image resolved later
         detail_url: a.detail_url || a.url || (a.slug && a.line ? `/ships/${a.line}/${a.slug}.html` : '')
       };
     }).filter(s=> s.name && s.line);
+  }
+
+  function inferClassFromNotes(notes){
+    const m = String(notes||'').match(/([A-Za-z][A-Za-z \-']+)-class/i);
+    return m ? norm(m[1]) : '';
+  }
+
+  function normalizeFromCruiseLines(json){
+    const out = [];
+    const lines = Array.isArray(json?.cruise_lines) ? json.cruise_lines : [];
+    for(const L of lines){
+      const lineLabel = L.name || '';
+      const lineSlug  = norm(L.slug || lineLabel);
+      const ships = Array.isArray(L.ships) ? L.ships : [];
+      for(const s of ships){
+        out.push({
+          name: s.name || '',
+          slug: s.slug || '',
+          line: lineSlug || norm(lineLabel),
+          class: norm(s.class || s.ship_class || inferClassFromNotes(s.notes)),
+          year: toNumMaybe(s.year_built_or_entered || s.entered_service || s.launched),
+          gt: toNumMaybe(s.gt),
+          guests: toNumMaybe(s.capacity),
+          detail_url: s.url || (lineSlug && s.slug ? `/ships/${lineSlug}/${s.slug}.html` : '')
+        });
+      }
+    }
+    return out.filter(s=> s.name && s.line);
   }
 
   function groupByLineAndClass(list){
@@ -561,15 +238,96 @@
     return byLine;
   }
 
-  // ---- Rendering (unchanged in spirit) ------------------------------------
+  // ---------- Image discovery (preferred → fallback roots) ----------
+  // Note: these are *directories* relative to the site root
+  const IMAGE_ROOTS = [
+    'assets/ships/thumbs',    // preferred (already thumbnails)
+    'assets/ships',
+    'assets',
+    'images',
+    'ships',
+    'ships/assets',
+    'ships/rcl/images'
+  ];
+  const EXTS = ['jpeg','jpg','png'];
+  const SUFFIXES = ['','1','2','3']; // plain + numbered variants
+
+  // Cache: slug -> array of discovered image URLs
+  const IMG_CACHE = new Map();
+
+  async function headOK(url){
+    try{
+      const r = await fetch(url, { method:'HEAD', cache:'no-store' });
+      if (r.ok) return true;
+      // Some hosts deny HEAD; fall back to GET but don't hold body
+      const g = await fetch(url, { method:'GET', cache:'no-store' });
+      return g.ok;
+    }catch{ return false; }
+  }
+
+  async function discoverImagesForSlug(slug){
+    if (IMG_CACHE.has(slug)) return IMG_CACHE.get(slug);
+
+    const candidates = [];
+    for (const root of IMAGE_ROOTS){
+      for (const suf of SUFFIXES){
+        for (const ext of EXTS){
+          candidates.push(`/${root}/${slug}${suf ? suf : ''}.${ext}`);
+        }
+      }
+    }
+
+    const found = [];
+    // Try preferred roots first, bail once we have 3 (randomize among them later)
+    for (let i=0; i<candidates.length && found.length<3; i++){
+      const url = abs(candidates[i]);
+      // de-dupe in case roots overlap
+      if (found.indexOf(url) !== -1) continue;
+      /* eslint-disable no-await-in-loop */
+      const ok = await headOK(url);
+      if (ok) found.push(url);
+      /* eslint-enable no-await-in-loop */
+    }
+    IMG_CACHE.set(slug, found);
+    return found;
+  }
+
+  // Throttled batch (limits parallel fetches so we don’t hammer the server)
+  async function batchDiscover(slugs, concurrency=6){
+    const results = new Map();
+    let i = 0;
+    async function worker(){
+      while (i < slugs.length){
+        const idx = i++;
+        const slug = slugs[idx];
+        const imgs = await discoverImagesForSlug(slug);
+        results.set(slug, imgs);
+      }
+    }
+    const workers = Array.from({length: Math.min(concurrency, slugs.length)}, worker);
+    await Promise.all(workers);
+    return results;
+  }
+
+  function pickRandom(arr){
+    return (arr && arr.length) ? arr[Math.floor(Math.random()*arr.length)] : '';
+  }
+
+  // ---------- Rendering ----------
   function lineDisplay(id){
-    const map = { 'rcl':'Royal Caribbean International', 'royal-caribbean': 'Royal Caribbean International', 'royal-caribbean-international':'Royal Caribbean International' };
+    const map = {
+      'rcl':'Royal Caribbean International',
+      'royal-caribbean':'Royal Caribbean International',
+      'royal-caribbean-international':'Royal Caribbean International'
+    };
     return map[id] || titleCase(id.replace(/-/g,' '));
   }
+
   function classDisplay(id){
     const label = titleCase(id.replace(/-?class$/,'').replace(/-/g,' '));
     return label && label!=='Unknown' ? `${label} Class` : 'Class';
   }
+
   function lineCard(lineId, classes){
     const count = Object.values(classes).reduce((n,arr)=> n+(arr?arr.length:0), 0);
     const logo = (/(^|-)rcl($|-)|royal/.test(lineId)) ? '/assets/lines/rcl.png' : '/assets/logo_wake.png';
@@ -585,6 +343,7 @@
         </div>
       </article>`;
   }
+
   function classCard(lineId, classId, shipCount){
     const guess1 = abs(`/assets/classes/${lineId}/${classId}.jpeg`);
     const guess2 = abs(`/assets/classes/${classId}.jpeg`);
@@ -600,16 +359,17 @@
         </div>
       </article>`;
   }
-  function shipCard(s, pickedUrl){
+
+  function shipCard(s, imgUrl){
     const href = s.detail_url ? abs(s.detail_url) : '#';
     return `
       <article class="card" role="article" data-slug="${esc(s.slug)}">
         <div class="thumb">
-          <img src="${pickedUrl}" alt="${esc(s.name)}" loading="lazy"/>
+          <img src="${imgUrl}" alt="${esc(s.name)}" loading="lazy"/>
         </div>
         <div class="body">
           <h3 class="card-title">${esc(s.name)}</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.25rem .75rem;font-size:.92rem">
+          <div class="stats-mini" style="display:grid;grid-template-columns:1fr 1fr;gap:.25rem .75rem;font-size:.92rem">
             <div><span class="k">GT:</span> ${s.gt? s.gt.toLocaleString() : '—'}</div>
             <div><span class="k">Guests:</span> ${s.guests? s.guests.toLocaleString() : '—'}</div>
             <div><span class="k">Year:</span> ${s.year || '—'}</div>
@@ -627,6 +387,7 @@
       btn.addEventListener('click', ()=> selectLine(btn.getAttribute('data-line')));
     });
   }
+
   function renderClasses(lineId, classes){
     el.classesSec.classList.remove('hidden');
     const ids = Object.keys(classes).sort();
@@ -636,21 +397,28 @@
       btn.addEventListener('click', ()=> selectClass(btn.getAttribute('data-class')));
     });
   }
+
   async function renderShips(lineId, classId, list){
     el.shipsSec.classList.remove('hidden');
-    // ensure images present, pick one at random per ship
-    const rows = [];
-    for(const s of (list||[]).slice().sort((a,b)=> a.name.localeCompare(b.name, undefined, {sensitivity:'base'}))){
-      const imgs = WORLD.images[s.slug] || WORLD.inlineImages[s.slug] || [];
-      const picked = imgs.length ? randomPick(imgs) : null;
-      if (!picked) continue; // skip ship entirely
-      rows.push(shipCard(s, abs(picked)));
-    }
-    el.shipsGrid.innerHTML = rows.join('');
-    if (!rows.length) el.shipsEmpty.classList.remove('hidden'); else el.shipsEmpty.classList.add('hidden');
+    const arr = (list||[]).slice().sort((a,b)=> a.name.localeCompare(b.name, undefined, {sensitivity:'base'}));
+
+    // Discover images for this set (throttled)
+    const slugs = arr.map(s=>s.slug).filter(Boolean);
+    const discovered = await batchDiscover(slugs, 6);
+
+    // Filter out ships with no image; pick random image for each
+    const withImgs = arr
+      .map(s => {
+        const imgs = discovered.get(s.slug) || [];
+        return imgs.length ? { ship:s, img: pickRandom(imgs) } : null;
+      })
+      .filter(Boolean);
+
+    el.shipsGrid.innerHTML = withImgs.map(({ship, img}) => shipCard(ship, img)).join('');
+    if (!withImgs.length) el.shipsEmpty.classList.remove('hidden'); else el.shipsEmpty.classList.add('hidden');
   }
 
-  // ---- Selection + crumbs --------------------------------------------------
+  // ---------- Selection + crumbs ----------
   function selectLine(lineId){
     STATE.line=lineId; STATE.classId=null;
     el.crumbLine.textContent = lineDisplay(lineId);
@@ -661,60 +429,38 @@
     el.shipsSec.classList.add('hidden'); el.shipsGrid.innerHTML='';
     history.replaceState(null,'', location.pathname + '#'+encodeURIComponent(lineId));
   }
-  function selectClass(classId){
+  async function selectClass(classId){
     STATE.classId=classId;
     el.crumbClass.textContent = classDisplay(classId);
     el.crumbClassWrap.classList.remove('hidden');
     el.crumbHere.textContent='Choose a ship';
-    renderShips(STATE.line, classId, (WORLD.byLine[STATE.line]||{})[classId]);
+    await renderShips(STATE.line, classId, (WORLD.byLine[STATE.line]||{})[classId]);
     history.replaceState(null,'', location.pathname + '#'+encodeURIComponent(STATE.line)+'/'+encodeURIComponent(classId));
   }
   el.crumbLine.addEventListener('click', ()=> { if(STATE.line) selectLine(STATE.line); });
   el.crumbClass.addEventListener('click', ()=> { if(STATE.line && STATE.classId) selectClass(STATE.classId); });
 
-  // ---- Boot ----------------------------------------------------------------
+  // ---------- Boot ----------
   (async function init(){
     try{
-      const r = await fetch(SOURCE, {cache:'no-store'}); if(!r.ok) throw new Error(r.status);
+      const r = await fetch(SOURCE, {cache:'no-store'});
+      if(!r.ok) throw new Error(r.status);
       const raw = await r.json();
 
-      const allShips = raw?.cruise_lines ? normalizeFromCruiseLines(raw) : normalizeFromFlat(raw);
+      const ships = raw?.cruise_lines ? normalizeFromCruiseLines(raw) : normalizeFromFlat(raw);
+      WORLD.byLine = groupByLineAndClass(ships);
 
-      // limit to Royal for now, drop historical unless no status is provided, and dedupe by slug
-      const isRoyal = (id)=> /(^|-)rcl($|-)|royal/.test(id);
-      const seen = new Set();
-      const royal = allShips.filter(s => isRoyal(s.line) && (s.status==='' || s.status==='active'))
-                            .filter(s => { if(!s.slug || seen.has(s.slug)) return false; seen.add(s.slug); return true; });
-
-      // Discover images — first use inline inventory, then probe only missing
-      const missing = royal.filter(s => !(WORLD.inlineImages[s.slug] && WORLD.inlineImages[s.slug].length));
-
-      // staggered probing to keep it light
-      for (const ship of missing){
-        const imgs = await discoverImagesFor(ship.slug);
-        if (imgs && imgs.length) WORLD.images[ship.slug] = imgs;
-      }
-
-      // Remove ships that still have zero images
-      const withImages = royal.filter(s => {
-        const imgs = WORLD.inlineImages[s.slug] || WORLD.images[s.slug] || [];
-        return imgs.length > 0;
-      });
-
-      WORLD.byLine = groupByLineAndClass(withImages);
-
-      // meta
       const when = raw.generated || raw.updated || (raw.meta && raw.meta.updated);
       const ver  = raw.version || (raw.meta && raw.meta.version);
       el.meta.textContent = (ver||when) ? `Data: ${ver?('v'+ver):''}${ver&&when?' • ':''}${when?String(when).slice(0,10):''}` : 'Data source: fleet_index.json';
 
-      // render lines (Royal will auto-open)
       renderLines(WORLD.byLine);
 
+      // Default to Royal if present
       const royalKey = Object.keys(WORLD.byLine).find(k => /royal|rcl/.test(k));
       if (!location.hash && royalKey) selectLine(royalKey);
 
-      // deep link
+      // Deep-link restore
       const hash = (location.hash||'').slice(1);
       if (hash){
         const [line,classId] = hash.split('/').map(s=>decodeURIComponent(s||''));
