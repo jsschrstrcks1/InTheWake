@@ -147,5 +147,175 @@ if ('serviceWorker' in navigator) {
     .catch(err => console.warn('SW registration failed:', err));
 }
 </script>
+  <script>
+/* Smart Warmup (v1.4) — site-wide, ship + restaurant aware
+   - Uses SiteCache.getJSON (weekly ttl, version-aware)
+   - Warms images via the SW image cache (by GETing with "no-store")
+   - Safe to include on ANY page (home, ships, restaurants, etc.)
+*/
+(function(){
+  // ---- tiny helpers ----
+  const abs = (p)=> (typeof window._abs==='function' ? _abs(p) : p);
+  const ready = (fn)=> (document.readyState==='loading'
+    ? document.addEventListener('DOMContentLoaded', fn, {once:true})
+    : fn());
+  const idle = (fn)=> ('requestIdleCallback' in window ? requestIdleCallback(fn, {timeout:2500}) : setTimeout(fn, 200));
+
+  // Ensure SiteCache is present (lazy inject if needed)
+  function ensureSiteCache(){
+    return new Promise((resolve)=>{
+      if (window.SiteCache && typeof SiteCache.getJSON==='function') return resolve();
+      const s = document.createElement('script');
+      s.src = abs('/assets/js/site-cache.js'); s.defer = true;
+      s.onload = ()=> resolve();
+      s.onerror = ()=> resolve(); // still proceed; page should work without
+      document.head.appendChild(s);
+    });
+  }
+
+  // Simple image warmer: GET with no-store so the SW puts it in its cache
+  function warmImages(urls){
+    urls = (urls||[]).filter(Boolean);
+    urls.forEach(u=>{
+      try{ fetch(u, {cache:'no-store', mode:'no-cors'}).catch(()=>{}); }catch(_){}
+    });
+  }
+
+  // ---- context sniffers ----
+  function getShipContext(){
+    // match /ships/<line>/<slug>.html  → { line, slug }
+    const m = location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)\.html$/i);
+    return m ? { line: m[1].toLowerCase(), slug: m[2].toLowerCase() } : null;
+  }
+  function onRestaurantHub(){ return /\/restaurants\.html$/i.test(location.pathname); }
+  function onRestaurantDetail(){
+    // allow /restaurants/<slug>.html or /restaurants/rcl/<slug>.html
+    return /\/restaurants(\/[^/]+)?\/[^/]+\.html$/i.test(location.pathname);
+  }
+
+  // ---- warm tasks ----
+  async function warmGlobalJSON(){
+    try{
+      await ensureSiteCache();
+      await Promise.allSettled([
+        SiteCache.getJSON(abs('/assets/data/fleet_index.json'), { ttlDays:7, versionPath:['version'] }),
+        SiteCache.getJSON(abs('/assets/data/venues.json'),      { ttlDays:7, versionPath:['version'] }),
+        SiteCache.getJSON(abs('/assets/data/personas/index.json'), { ttlDays:7, versionPath:['version'] })
+      ]);
+    }catch(_){}
+  }
+
+  async function warmShipSpecific(ctx){
+    if (!ctx) return;
+    // personas for this ship (several fallbacks)
+    const personaGuesses = [
+      abs(`/ships/${ctx.line}/assets/${ctx.slug}.json`),
+      abs(`/assets/data/logbook/${ctx.line}/${ctx.slug}.json`),
+      abs(`/assets/data/ships/${ctx.line}/${ctx.slug}.json`)
+    ];
+    // videos json guesses
+    const videoGuesses = [
+      abs(`/ships/${ctx.line}/assets/videos/${ctx.slug}.json`),
+      abs(`/videos/${ctx.slug}.json`),
+      abs(`/assets/data/videos/${ctx.slug}.json`)
+    ];
+    // ship gallery images (common patterns)
+    const shipImages = [
+      abs(`/assets/ships/${ctx.slug}1.jpeg`),
+      abs(`/assets/ships/${ctx.slug}2.jpeg`),
+      abs(`/assets/ships/${ctx.slug}3.jpeg`),
+      abs(`/assets/ships/${ctx.slug}1.jpg`),
+      abs(`/assets/ships/${ctx.slug}2.jpg`),
+      abs(`/assets/ships/${ctx.slug}3.jpg`),
+      abs(`/assets/ships/rcl/${ctx.slug}/${ctx.slug}1.jpeg`),
+      abs(`/assets/ships/rcl/${ctx.slug}/${ctx.slug}2.jpeg`),
+      abs(`/assets/ships/rcl/${ctx.slug}/${ctx.slug}3.jpeg`),
+      abs(`/assets/ships/thumbs/${ctx.slug}.jpg`),
+      abs(`/assets/ships/thumbs/${ctx.slug}.jpeg`),
+      abs(`/assets/ships/thumbs/${ctx.slug}.png`)
+    ];
+
+    // dining hero variants often used on ship pages
+    const diningImages = [
+      abs(`/assets/ships/${ctx.line}/${ctx.slug}/dining-hero.jpg`),
+      abs(`/assets/ships/${ctx.slug}-dining.jpg`)
+    ];
+
+    try{
+      await ensureSiteCache();
+      await Promise.allSettled([
+        // personas/videos JSON for this ship
+        ...personaGuesses.map(u=> SiteCache.getJSON(u, { ttlDays:7 })),
+        ...videoGuesses.map(u=> SiteCache.getJSON(u, { ttlDays:7 }))
+      ]);
+    }catch(_){}
+
+    // warm images via SW
+    warmImages([...shipImages, ...diningImages]);
+  }
+
+  async function warmRestaurants(){
+    // Always cache venues.json (shared across site)
+    try{
+      await ensureSiteCache();
+      const venuesData = await SiteCache.getJSON(abs('/assets/data/venues.json'), { ttlDays:7, versionPath:['version'] });
+
+      // Try to warm a handful of venue images (thumbs preferred)
+      // We’ll sample first ~30 to keep it light on hubs; detail pages can load more
+      const VENUES = Array.isArray(venuesData?.venues) ? venuesData.venues.slice(0, 30) : [];
+      const guesses = [];
+      VENUES.forEach(v=>{
+        const slug = (v && (v.slug || v.id || v.name || '')).toString().trim().toLowerCase().replace(/\s+/g,'-');
+        if (!slug) return;
+        guesses.push(
+          abs(`/assets/restaurants/thumbs/${slug}.jpg`),
+          abs(`/assets/restaurants/thumbs/${slug}.jpeg`),
+          abs(`/assets/restaurants/thumbs/${slug}.png`),
+          abs(`/assets/restaurants/${slug}.jpg`),
+          abs(`/assets/restaurants/${slug}.jpeg`),
+          abs(`/assets/restaurants/${slug}.png`)
+        );
+      });
+
+      // Also warm common restaurant hero images you use a lot
+      const common = [
+        abs('/assets/restaurants/chops-hero.jpg'),
+        abs('/assets/restaurants/giovannis-hero.jpg'),
+        abs('/assets/restaurants/chefs-table-hero.jpg')
+      ];
+
+      warmImages([...common, ...guesses]);
+    }catch(_){}
+  }
+
+  // ---- run: light first, then deeper on idle ----
+  ready(()=>{
+    // Global small set (logos etc.) for instant brand feel everywhere
+    warmImages([
+      abs('/assets/logo_wake.png'),
+      abs('/assets/compass_rose.svg'),
+      abs('/assets/watermark.png'),
+      abs('/assets/ship-map.png')
+    ]);
+
+    // JSON first (so the next nav is instant)
+    idle(warmGlobalJSON);
+
+    // Contextual warms
+    const shipCtx = getShipContext();
+    if (shipCtx){
+      idle(()=> warmShipSpecific(shipCtx));
+    }
+
+    // Restaurants: hub or detail
+    if (onRestaurantHub() || onRestaurantDetail()){
+      idle(warmRestaurants);
+    } else {
+      // Even if not on a restaurant page, warming a tiny bit helps later navs
+      idle(()=> warmRestaurants());
+    }
+  });
+})();
+</script>
 </body>
 </html>
