@@ -2,7 +2,7 @@
    - Supports new rc.venues.v1: /assets/data/venues.json { venues[], ships{} }
    - Back-compat with legacy rc/msc restaurants JSON
    - Auto ship detection (inline JSON or URL)
-   - Venue names link to restaurants anchors: /restaurants.html#<provider>-<slug>
+   - Venue names link to pretty URLs: /restaurants/<slug>.html
 */
 (() => {
   const CARD = document.querySelector('#dining-card');
@@ -68,8 +68,13 @@
 
   // ---------- Rendering ----------
   function linkifyNames(arr) {
-    const base = `/restaurants.html#${provider}-`;
-    return arr.map(({ name }) => `<a href="${base}${slugify(name)}">${name}</a>`);
+    // arr is [{ name, slug }]
+    const mk = ({ name, slug }) => {
+      const s = slug && String(slug).trim() ? slug : slugify(name);
+      const href = abs(`/restaurants/${s}.html`);
+      return `<a href="${href}">${name}</a>`;
+    };
+    return arr.map(mk);
   }
 
   function renderOK(incObjects, preObjects) {
