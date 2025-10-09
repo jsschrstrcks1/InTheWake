@@ -141,10 +141,11 @@
   <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 
 <script>
-/* ships-browse (v1.7, auto image discovery)
+/* ships-browse (v1.8, auto image discovery + Royal heuristic)
    - Data: /assets/data/fleet_index.json
    - Image policy: only show ships with at least one discoverable image.
    - Randomize 1 of N images each load. Prefer assets/ships/thumbs/.
+   - NEW: coerce Royal line when slug/name ends with "of the seas".
 */
 (function(){
   const abs = (p)=> (typeof window._abs==='function' ? _abs(p) : p);
@@ -179,23 +180,42 @@
     return Number.isFinite(n)?n:null;
   };
 
+  // ---------- Line inference (Royal heuristic) ----------
+  function inferRoyalFromSeas(slug, name){
+    const s = String(slug||'').toLowerCase().trim();
+    const n = String(name||'').toLowerCase().trim();
+    return /-of-the-seas$/.test(s) || /\bof the seas\b/.test(n);
+  }
+  // Only fills when line is blank/dirty; won't overwrite a valid explicit line
+  function coerceLine(line, slug, name){
+    const nline = norm(line);
+    if (nline) return nline;
+    if (inferRoyalFromSeas(slug, name)) return 'royal-caribbean';
+    return nline; // '' if we can't infer
+  }
+
   // ---------- Data normalization ----------
   function normalizeFromFlat(json){
     const raw = (json && json.ships) || [];
     return raw.map(x=>{
       const a = x.attributes || x;
+      const name = a.name || a.title || a.ship || '';
+      const slug = a.slug || a.id || '';
+      const line = coerceLine(a.line || a.brand || a.cruise_line || '', slug, name); // << heuristic
+      const cls  = norm(a.class || a.ship_class || '');
+
       return {
-        name: a.name || a.title || a.ship || '',
-        slug: a.slug || a.id || '',
-        line: norm(a.line || a.brand || a.cruise_line || ''),
-        class: norm(a.class || a.ship_class || ''),
+        name,
+        slug,
+        line,
+        class: cls,
         year: toNumMaybe(a.entered_service || a.inaugural || a.launched || a.year_built_or_entered),
         gt: toNumMaybe(a.gt || a.gross_tonnage || a.tonnage),
         guests: toNumMaybe(a.capacity || a.passengers || a.guests),
-        // image resolved later
-        detail_url: a.detail_url || a.url || (a.slug && a.line ? `/ships/${a.line}/${a.slug}.html` : '')
+        // Use the *coerced* line for URL if needed
+        detail_url: a.detail_url || a.url || (slug && line ? `/ships/${line}/${slug}.html` : '')
       };
-    }).filter(s=> s.name && s.line);
+    }).filter(s=> s.name && s.line); // require line after coercion
   }
 
   function inferClassFromNotes(notes){
@@ -208,18 +228,25 @@
     const lines = Array.isArray(json?.cruise_lines) ? json.cruise_lines : [];
     for(const L of lines){
       const lineLabel = L.name || '';
-      const lineSlug  = norm(L.slug || lineLabel);
+      const lineSlugProvided  = norm(L.slug || lineLabel);
       const ships = Array.isArray(L.ships) ? L.ships : [];
       for(const s of ships){
+        const name = s.name || '';
+        const slug = s.slug || '';
+        // Prefer provided line but allow heuristic if missing/blank
+        const coercedLine = coerceLine(lineSlugProvided, slug, name);
+        const klass = norm(s.class || s.ship_class || inferClassFromNotes(s.notes));
+
         out.push({
-          name: s.name || '',
-          slug: s.slug || '',
-          line: lineSlug || norm(lineLabel),
-          class: norm(s.class || s.ship_class || inferClassFromNotes(s.notes)),
+          name,
+          slug,
+          line: coercedLine,
+          class: klass,
           year: toNumMaybe(s.year_built_or_entered || s.entered_service || s.launched),
           gt: toNumMaybe(s.gt),
           guests: toNumMaybe(s.capacity),
-          detail_url: s.url || (lineSlug && s.slug ? `/ships/${lineSlug}/${s.slug}.html` : '')
+          // Use coerced line for URL if needed
+          detail_url: s.url || (coercedLine && slug ? `/ships/${coercedLine}/${slug}.html` : '')
         });
       }
     }
@@ -239,7 +266,6 @@
   }
 
   // ---------- Image discovery (preferred → fallback roots) ----------
-  // Note: these are *directories* relative to the site root
   const IMAGE_ROOTS = [
     'assets/ships/thumbs',    // preferred (already thumbnails)
     'assets/ships',
@@ -252,14 +278,12 @@
   const EXTS = ['jpeg','jpg','png'];
   const SUFFIXES = ['','1','2','3']; // plain + numbered variants
 
-  // Cache: slug -> array of discovered image URLs
   const IMG_CACHE = new Map();
 
   async function headOK(url){
     try{
       const r = await fetch(url, { method:'HEAD', cache:'no-store' });
       if (r.ok) return true;
-      // Some hosts deny HEAD; fall back to GET but don't hold body
       const g = await fetch(url, { method:'GET', cache:'no-store' });
       return g.ok;
     }catch{ return false; }
@@ -278,10 +302,8 @@
     }
 
     const found = [];
-    // Try preferred roots first, bail once we have 3 (randomize among them later)
     for (let i=0; i<candidates.length && found.length<3; i++){
       const url = abs(candidates[i]);
-      // de-dupe in case roots overlap
       if (found.indexOf(url) !== -1) continue;
       /* eslint-disable no-await-in-loop */
       const ok = await headOK(url);
@@ -292,7 +314,6 @@
     return found;
   }
 
-  // Throttled batch (limits parallel fetches so we don’t hammer the server)
   async function batchDiscover(slugs, concurrency=6){
     const results = new Map();
     let i = 0;
