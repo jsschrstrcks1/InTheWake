@@ -6,20 +6,18 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Disability at Sea — In the Wake (v3.001)</title>
+  <title>Disability at Sea | In the Wake (v3.001)</title>
   <meta name="version" content="v3.001"/>
-  <meta name="description" content="Disability at Sea — practical accessibility at every step of the journey. Real experiences, video carousels, and depth soundings from our own wake. Coming soon."/>
+  <meta name="description" content="Accessible cruising resources based on real experiences — mobility, sensory, dietary, and service-animal guidance. Content is actively in development."/>
   <meta name="robots" content="index, follow"/>
 
-  <!-- Canonical -->
+  <!-- Canonical & Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/disability-at-sea.html"/>
-
-  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
-  <meta property="og:title" content="Disability at Sea — In the Wake"/>
-  <meta property="og:description" content="Practical, first-hand accessibility guidance for cruise travelers. Video carousels and real experiences — charted from our own wake. Coming soon."/>
+  <meta property="og:title" content="Disability at Sea | In the Wake"/>
+  <meta property="og:description" content="Accessible cruising, grounded in real experiences. Coming soon: videos, first-hand notes, and ship-by-ship details."/>
   <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.001"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
@@ -28,31 +26,59 @@
   (function(){
     var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+    document.addEventListener('DOMContentLoaded',function(){
+      var sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(function(el){
+        var attr=el.hasAttribute('href')?'href':'src';
+        try{
+          var u=new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(e){}
+      });
+    },{once:true});
   })();
   </script>
 
-  <!-- v3.001: SiteCache + SW -->
+  <!-- Site cache + SW -->
   <script src="/assets/js/site-cache.js" defer></script>
   <script>
   if('serviceWorker' in navigator){
-    window.addEventListener('load', ()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('/sw.js').catch(function(){});
+    });
   }
   </script>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.001"/>
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.001"/>
 
-  <!-- Hero styling (same look as home for consistency) -->
-  <style>
-    .hero{background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05)}
-    .hero::before,.hero::after{content:none!important}
+  <!-- Page-specific hero tuning (no overlays) -->
+  <style id="hero-vibrancy">
+    .hero{ background:url('/assets/index_hero.jpg') center/cover no-repeat!important }
+    .hero::before,.hero::after{ content:none!important }
   </style>
 
-  <!-- Preload above-the-fold asset -->
+  <!-- Minimal A11y helpers not already in styles.css -->
+  <style>
+    .skip-link{position:absolute;left:-999px;top:auto}
+    .skip-link:focus{left:12px;top:12px;z-index:9999;background:#fff;border:2px solid var(--accent);padding:.4rem .6rem;border-radius:8px;outline:none}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    :focus{outline:2px solid var(--accent);outline-offset:2px}
+    :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+    .card.coming-soon::after{
+      content:""; position:absolute; inset:0; margin:auto; width:min(60%,360px); height:min(60%,360px);
+      background:url('/assets/watermark.png') center/contain no-repeat; opacity:.06; pointer-events:none;
+    }
+  </style>
   <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 </head>
 <body class="page">
+  <a class="skip-link" href="#content">Skip to main content</a>
 
   <header class="site-header hero-header">
     <div class="navbar">
@@ -61,7 +87,7 @@
         <span class="tiny ver-badge" aria-label="Site version">v3.001</span>
       </div>
 
-      <nav class="pill-nav pills" aria-label="Primary">
+      <nav class="pill-nav pills" aria-label="Primary navigation">
         <a href="/">Home</a>
         <a href="/ships/">Ships</a>
         <a href="/restaurants.html">Restaurants &amp; Menus</a>
@@ -75,48 +101,86 @@
       </nav>
     </div>
 
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+    <div class="hero" role="img" aria-label="Sunlit ship wake on calm ocean">
       <div class="latlon-grid" aria-hidden="true"></div>
       <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
+      <div class="hero-credit">
+        <a class="pill long" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
     </div>
   </header>
 
   <main class="wrap" id="content">
-    <section class="card" aria-labelledby="das-coming">
-      <h2 id="das-coming">Disability at Sea — Coming Soon</h2>
-      <p>We’re building a practical, no-fluff accessibility companion for every step of the journey—embarkation, cabins, dining rooms, theaters, tenders, shore days, and everything in between.</p>
-      <p>What to expect:</p>
+    <header class="card" aria-labelledby="page-title">
+      <h1 id="page-title">Disability at Sea</h1>
+      <p>Real-world accessibility guidance for cruise travelers. This section is being built with input from guests, crew, and advocates.</p>
+    </header>
+
+    <section class="card coming-soon" aria-labelledby="coming">
+      <h2 id="coming">Coming Soon</h2>
       <ul class="venue-list">
-        <li><strong>Video carousels</strong> that show real routes, thresholds, and layouts.</li>
-        <li><strong>First-hand experiences</strong> from our crew and trusted cruisers—what worked, what didn’t, and the tiny fixes that matter.</li>
-        <li><strong>Depth soundings from our own wake</strong>—measured notes you can trust, not brochure copy.</li>
-        <li><strong>Link-throughs</strong> to ship pages, venues, and port snapshots for cross-checking.</li>
+        <li>Video walkthroughs for mobility, sensory, and dietary accessibility.</li>
+        <li>“Depth soundings” — real experiences from our own wake, ship by ship.</li>
+        <li>Deck-plan annotations for accessible cabins and venues.</li>
+        <li>Guides for requesting accommodations and communicating needs onboard.</li>
       </ul>
-      <p>We’re charting carefully so details stay accurate and useful. Thanks for your patience while we bring this section to life.</p>
+      <p class="pill" style="display:inline-block;margin-top:.5rem;">
+        Want to contribute your experience? Email <a href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a>
+      </p>
+    </section>
+
+    <section class="card" aria-labelledby="interim">
+      <h2 id="interim">Interim Resources</h2>
+      <p>While this section grows, accessibility notes are being added across ship, restaurant, and port pages where verified information exists. Each listing includes structured ARIA labeling, descriptive alt text, and keyboard navigation support as part of our ongoing WCAG 2.1 Level AA implementation.</p>
     </section>
   </main>
 
-  <footer class="wrap">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
+  <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
+    <p class="access-statement tiny" style="margin-top:.6rem">
+      We design to meet WCAG 2.1 Level AA standards and the ADA requirements for digital accessibility.  
+      If you encounter any barrier, please email <a href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a>.  
+      Last reviewed 2025-10-09.
+    </p>
   </footer>
 
-  <!-- Light warmup so future nav is snappy -->
+  <!-- Smart Warmup / Cache -->
   <script>
   (function(){
-    const abs=p=> (typeof _abs==='function'? _abs(p):p);
-    const ready=f=>document.readyState==='loading'
-      ?document.addEventListener('DOMContentLoaded',f,{once:true}):f();
-    const idle=f=>('requestIdleCallback'in window?requestIdleCallback(f,{timeout:2500}):setTimeout(f,200));
-    async function ensure(){if(window.SiteCache)return;await new Promise(r=>{const s=document.createElement('script');s.src=abs('/assets/js/site-cache.js');s.defer=true;s.onload=r;s.onerror=r;document.head.appendChild(s);});}
-    async function warm(){try{await ensure();await Promise.allSettled([
-      SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
-      SiteCache.getJSON(abs('/assets/data/venues.json'),     {ttlDays:7,versionPath:['version']})
-    ]);}catch(_){}} ready(()=>idle(warm));
+    const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
+    const ready=(fn)=> (document.readyState==='loading'
+      ? document.addEventListener('DOMContentLoaded', fn, {once:true})
+      : fn());
+    const idle=(fn)=> ('requestIdleCallback' in window ? requestIdleCallback(fn, {timeout:2500}) : setTimeout(fn, 200));
+
+    function ensureSiteCache(){
+      return new Promise((resolve)=>{
+        if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
+        const s=document.createElement('script');
+        s.src=abs('/assets/js/site-cache.js'); s.defer=true;
+        s.onload=()=>resolve(); s.onerror=()=>resolve();
+        document.head.appendChild(s);
+      });
+    }
+    function warmImages(urls){
+      (urls||[]).forEach(u=>{
+        try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{}); }catch(_){}
+      });
+    }
+
+    ready(()=>{
+      warmImages([abs('/assets/logo_wake.png'),abs('/assets/compass_rose.svg'),abs('/assets/watermark.png')]);
+      idle(async ()=>{
+        try{
+          await ensureSiteCache();
+          await SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']});
+        }catch(_){}
+      });
+    });
   })();
   </script>
 </body>
