@@ -964,12 +964,20 @@ function ytId(v){
     });
   })();
   </script>
-  <script>
-(async () => {
-  await Promise.all([
-    SiteCache.getJSON(_abs('/assets/data/fleet_index.json'), { ttlDays: 7, versionPath: ['version'] }),
-    SiteCache.getJSON(_abs('/assets/data/venues.json'), { ttlDays: 7, versionPath: ['version'] })
-  ]);
+  <script src="/assets/js/site-cache.js" defer></script>
+ <script>
+(function(){
+  async function warm(){
+    try{
+      await Promise.all([
+        SiteCache.getJSON(_abs('/assets/data/fleet_index.json'), { ttlDays: 7, versionPath: ['version'] }),
+        SiteCache.getJSON(_abs('/assets/data/venues.json'),      { ttlDays: 7, versionPath: ['version'] })
+      ]);
+    }catch(e){ /* ignore — page still works without cache */ }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', warm, {once:true});
+  } else { warm(); }
 })();
 </script>
 </body>
