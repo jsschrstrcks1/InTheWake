@@ -1,75 +1,69 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Restaurants &amp; Menus | In the Wake</title>
+  <title>Restaurants &amp; Menus | In the Wake (v3.001)</title>
   <meta name="version" content="v3.001"/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta name="description" content="Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes."/>
- <meta property="og:type" content="website"/>
-<meta property="og:site_name" content="In the Wake"/>
-<meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
-<meta property="og:title" content="Restaurants &amp; Menus | In the Wake"/>
-<meta property="og:description" content="Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes."/>
-<meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.001"/>
-<meta name="twitter:card" content="summary_large_image"/>
- <meta name="robots" content="index, follow"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
+  <meta property="og:title" content="Restaurants &amp; Menus | In the Wake"/>
+  <meta property="og:description" content="Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.001"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="robots" content="index, follow"/>
+
   <!-- Standards v3.001: absolute URL + origin normalizer -->
-<script>
-(function(){
-  var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
-  document.addEventListener('DOMContentLoaded',function(){
-    var sel=[
-      'a[href^="https://www.cruisinginthewake.com/"]',
-      'img[src^="https://www.cruisinginthewake.com/"]',
-      'link[href^="https://www.cruisinginthewake.com/"]',
-      'script[src^="https://www.cruisinginthewake.com/"]'
-    ].join(',');
-    document.querySelectorAll(sel).forEach(function(el){
-      var attr=el.hasAttribute('href')?'href':'src';
-      try{
-        var u=new URL(el.getAttribute(attr));
-        el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
-      }catch(e){}
+  <script>
+  (function(){
+    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+    document.addEventListener('DOMContentLoaded',function(){
+      var sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(function(el){
+        var attr=el.hasAttribute('href')?'href':'src';
+        try{ var u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(e){}
+      });
+    },{once:true});
+  })();
+  </script>
+
+  <!-- Standards v3.001: Site cache utility (defer safe) -->
+  <script src="/assets/js/site-cache.js" defer></script>
+
+  <!-- Standards v3.001: register service worker for image cache -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('/sw.js').catch(function(){});
     });
-  },{once:true});
-})();
-</script>
+  }
+  </script>
 
-<!-- Standards v3.001: Site cache utility (defer safe) -->
-<script src="/assets/js/site-cache.js" defer></script>
-
-<!-- Standards v3.001: register service worker for image cache -->
-<script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load', function(){
-    navigator.serviceWorker.register('/sw.js').catch(function(){});
-  });
-}
-</script>
-  <!-- bump query to bust cache -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.001"/>
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.001"/>
 
   <!-- ===== Page patch (scoped to Restaurants page) — NO hero overrides here ===== -->
   <style id="restaurants-v2_256_022">
-    :root{
-      --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e;
-    }
+    :root{ --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e; }
 
-    /* Topbar */
-    .topbar{display:flex;align-items:center;gap:.6rem;padding:.35rem .75rem}
-    .topbar .logo-sm img{height:24px;width:auto;display:block}
-    .topbar .ver{color:#355;opacity:.65;font-weight:600;font-size:.95rem}
-    .site-header .pill-nav{margin-left:auto;display:flex;gap:.5rem;flex-wrap:wrap;position:relative;z-index:15}
-
-    /* ===== Layout & content (no hero rules) ===== */
+    /* Layout */
     body.restaurants-page{ background:linear-gradient(var(--foam),#fff 240px); color:var(--ink); }
     body.restaurants-page .section{ position:relative; margin:0 auto; max-width:1160px; padding:0 16px 1rem; }
     body.restaurants-page .section::before{
       content:""; position:absolute; inset:auto 0 0 0; margin:auto; height:420px; max-width:980px;
-      background:url("https://www.cruisinginthewake.com/assets/watermark.png") no-repeat center bottom/420px auto;
+      background:url("/assets/watermark.png") no-repeat center bottom/420px auto;
       opacity:.07; pointer-events:none; transform:translateY(60px);
     }
     body.restaurants-page .divider{
@@ -78,6 +72,12 @@ if('serviceWorker' in navigator){
               mask:linear-gradient(90deg,#000 60%,transparent 60%) repeat-x;
       background-repeat:repeat-x; margin:.5rem 0 1.5rem;
     }
+
+    /* Topbar + pills */
+    .topbar{display:flex;align-items:center;gap:.6rem;padding:.35rem .75rem}
+    .topbar .logo-sm img{height:24px;width:auto;display:block}
+    .topbar .ver{color:#355;opacity:.65;font-weight:600;font-size:.95rem}
+    .site-header .pill-nav.pills{margin-left:auto;display:flex;gap:.5rem;flex-wrap:wrap}
 
     /* Cards */
     .card{ border-radius:18px; box-shadow:0 2px 8px rgba(0,0,0,.06), inset 0 0 0 1px rgba(255,255,255,.7);
@@ -99,7 +99,7 @@ if('serviceWorker' in navigator){
     .pill{ background:rgba(230,244,248,.75); border-left:4px solid var(--rope); border:1px solid rgba(13,59,102,.06);
            color:var(--ink); padding:.5rem .75rem; border-radius:.5rem; }
 
-    /* Brand/Class/Ship/Venue pills + trays */
+    /* Brand/Class/Ship/Venue trays */
     #brandbar{ position:relative; z-index:60; max-width:1160px; margin:.35rem auto 0; padding:0 16px; }
     #brandbar .row{ display:flex; gap:.4rem; flex-wrap:wrap; align-items:center; }
     #brandbar .pillbtn{ padding:.38rem .65rem; border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.9rem; cursor:pointer; }
@@ -109,178 +109,138 @@ if('serviceWorker' in navigator){
     #brandbar .tray.on{ display:block; }
     #brandbar .tray .group{ display:flex; gap:.4rem; flex-wrap:wrap; }
 
-    /* Ship pills inside cards */
+    /* Ship pills in cards */
     .ship-pills{ margin-top:.5rem; display:flex; flex-wrap:wrap; gap:.35rem; }
     .ship-pills .chip{ font-size:.75rem; padding:.25rem .5rem; border-style:solid; }
 
-    /* Page header just below hero */
+    /* Header below hero */
     .page-header .section{ padding-top:1rem; }
     .page-header h1{ margin:.2rem 0 .35rem; color:#083041 }
     .page-header .page-sub{ margin:0 0 1rem; color:#345 }
 
-    /* ——— Instructions card ——— */
-    .tip-card{
-      background:#fff; border:2px solid var(--rope); border-radius:14px;
-      box-shadow:0 2px 6px rgba(8,48,65,.08); padding:1rem; margin:.5rem 0 1rem;
-    }
+    /* Tips card */
+    .tip-card{ background:#fff; border:2px solid var(--rope); border-radius:14px; box-shadow:0 2px 6px rgba(8,48,65,.08); padding:1rem; margin:.5rem 0 1rem; }
     .tip-head{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
     .tip-head strong{ font-size:1.05rem; color:#083041 }
-    .tip-dismiss{
-      appearance:none; border:1px solid #cfe1ea; background:#f7fdff; color:#0e6e8e;
-      padding:.3rem .6rem; border-radius:999px; cursor:pointer; font-size:.85rem;
-    }
+    .tip-dismiss{ appearance:none; border:1px solid #cfe1ea; background:#f7fdff; color:#0e6e8e; padding:.3rem .6rem; border-radius:999px; cursor:pointer; font-size:.85rem; }
     .tip-dismiss:hover{ background:#eef7fb }
     .tip-list{ margin:.6rem 0 0 1.1rem; color:#163042; }
     .tip-list li{ margin:.25rem 0; }
-    kbd{
-      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:.85em; padding:.05em .35em; border:1px solid #cfe1ea; border-bottom-width:2px; border-radius:4px; background:#f7fdff;
-    }
+    kbd{ font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; font-size:.85em; padding:.05em .35em; border:1px solid #cfe1ea; border-bottom-width:2px; border-radius:4px; background:#f7fdff; }
+
+    /* Skip link (fallback) */
+    .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip-link:focus{ position:static; width:auto; height:auto; padding:.4rem .6rem; background:#fff; border:1px solid var(--rope); border-radius:999px; margin:.35rem; display:inline-block; }
   </style>
 
-  <!-- PATCH: 3-up responsive grid for venue cards (generic helper) -->
+  <!-- 3-up responsive grid -->
   <style id="restaurants-grid-patch">
     .section .grid{ display:grid; gap:1rem; }
     .section .grid-3{ grid-template-columns: 1fr; }
-
-    @media (min-width:680px){
-      .section .grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
-    @media (min-width:1024px){
-      .section .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
-    }
-
-    .section .grid > .card{
-      display:flex; flex-direction:column; height:100%;
-    }
+    @media (min-width:680px){ .section .grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (min-width:1024px){ .section .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    .section .grid > .card{ display:flex; flex-direction:column; height:100%; }
   </style>
 
-  <!-- Force 3-up grid on the restaurant sections (wins against old primitives) -->
+  <!-- Force 3-up grid -->
   <style id="restaurants-grid-force">
-    #grid-complimentary,
-    #grid-premium,
-    #grid-activity{
-      display:grid !important;
-      gap:1rem;
-      grid-template-columns: 1fr;
-      align-items: stretch;
-    }
-    @media (min-width:680px){
-      #grid-complimentary,
-      #grid-premium,
-      #grid-activity{
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
-    }
-    @media (min-width:1024px){
-      #grid-complimentary,
-      #grid-premium,
-      #grid-activity{
-        grid-template-columns: repeat(3, minmax(0,1fr));
-      }
-    }
-    #grid-complimentary > .card,
-    #grid-premium > .card,
-    #grid-activity > .card{
-      display:flex; flex-direction:column; height:100%;
-    }
+    #grid-complimentary, #grid-premium, #grid-activity{ display:grid !important; gap:1rem; grid-template-columns: 1fr; align-items:stretch; }
+    @media (min-width:680px){ #grid-complimentary, #grid-premium, #grid-activity{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (min-width:1024px){ #grid-complimentary, #grid-premium, #grid-activity{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    #grid-complimentary > .card, #grid-premium > .card, #grid-activity > .card{ display:flex; flex-direction:column; height:100%; }
   </style>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg" imagesrcset="/assets/compass_rose.svg" />
+
+  <!-- Preload small asset -->
+  <link rel="preload" as="image" href="/assets/compass_rose.svg" imagesrcset="/assets/compass_rose.svg"/>
 </head>
 
 <body class="restaurants-page">
- <header class="site-header">
-  <!-- Top bar: tiny logo + version + pills aligned right -->
-  <div class="topbar">
-    <a class="logo-sm" href="https://www.cruisinginthewake.com/">
-      <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake" />
-    </a>
-    <span class="ver">v3.001</span>
+  <!-- Skip link -->
+  <a class="skip-link" href="#content">Skip to main content</a>
 
-    <nav class="pill-nav" aria-label="Primary">
-      <a class="chip" href="https://www.cruisinginthewake.com/">Home</a>
-      <a class="chip" href="https://www.cruisinginthewake.com/ships/">Ships</a>
-      <a class="chip" href="https://www.cruisinginthewake.com/restaurants.html" aria-current="page">Restaurants &amp; Menus</a>
-      <a class="chip" href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-      <a class="chip" href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-      <a class="chip" href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-      <a class="chip" href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-      <a class="chip" href="https://www.cruisinginthewake.com/cruise-lines/">Cruise Lines</a>
-      <a class="chip" href="https://www.cruisinginthewake.com/solo.html">Solo</a>
-      <a class="chip" href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+  <header class="site-header hero-header">
+    <div class="topbar">
+      <a class="logo-sm" href="/"><img src="/assets/logo_wake.png" alt="In the Wake"/></a>
+      <span class="ver">v3.001</span>
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html" aria-current="page">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability-at-sea.html">Disability at Sea</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/cruise-lines/">Cruise Lines</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/travel.html">Travel</a>
+      </nav>
+    </div>
+
+    <!-- Full-bleed hero -->
+    <div class="hero" role="img" aria-label="Sunset wake hero image">
+      <div class="latlon-grid" aria-hidden="true">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+          <g class="grid-lines" stroke-width="0.35">
+            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+            <line x1="90" y1="0" x2="90" y2="60"/>
+            <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+          </g>
+        </svg>
+      </div>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt="In the Wake"></div>
+      <p class="tagline">A Cruise Traveler’s Logbook</p>
+      <div class="hero-credit">
+        <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Photo by Flickers of Majesty — Instagram</a>
+      </div>
+    </div>
+
+    <!-- Brand/Class/Ship/Venue pill bar -->
+    <nav id="brandbar" aria-label="Filter by brand, class, ship, or venue">
+      <div class="row">
+        <span class="label tiny">Show only:</span>
+        <button class="pillbtn" id="brandBtn" aria-expanded="false" aria-controls="tray-brand">Cruise Line</button>
+        <button class="pillbtn" id="classBtn" aria-expanded="false" aria-controls="tray-class">Ship Class</button>
+        <button class="pillbtn" id="shipBtn"  aria-expanded="false" aria-controls="tray-ship">Ship</button>
+        <button class="pillbtn" id="venueBtn" aria-expanded="false" aria-controls="tray-venue">Venue</button>
+        <button class="pillbtn" id="clearBtn" title="Clear filters">Clear</button>
+      </div>
+      <div id="tray-brand" class="tray" role="menu"><div class="group" id="brands"></div></div>
+      <div id="tray-class" class="tray" role="menu"><div class="group" id="classes"></div></div>
+      <div id="tray-ship"  class="tray" role="menu"><div class="group" id="ships"></div></div>
+      <div id="tray-venue" class="tray" role="menu"><div class="group" id="venues"></div></div>
     </nav>
-  </div>
+  </header>
 
-  <!-- Full-bleed GLOBAL hero (matches ships pages) -->
-  <div class="hero" role="img" aria-label="Sunset wake hero image">
-    <div class="latlon-grid" aria-hidden="true">
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-        <g class="grid-lines" stroke-width="0.35">
-          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
-          <line x1="90" y1="0" x2="90" y2="60"/>
-          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
-          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
-        </g>
-      </svg>
+  <section class="page-header">
+    <section class="section" id="how-to-card">
+      <div class="tip-card" role="region" aria-label="How to use these filters">
+        <div class="tip-head">
+          <strong>How to use this page</strong>
+          <button class="tip-dismiss" type="button" aria-label="Hide tips" onclick="(function(){
+            try{ localStorage.setItem('iw_rest_tips','off'); }catch(e){}
+            var el=document.getElementById('how-to-card'); if(el) el.style.display='none';
+          })()">Hide tips</button>
+        </div>
+        <ul class="tip-list">
+          <li><strong>Search</strong> for venues, food types, or perks (try “sushi”, “suite”, “diamond”).</li>
+          <li>Use <strong>Categories</strong> to toggle Premium / Complimentary / Activities.</li>
+          <li>Open <strong>More filters</strong> to pick a Cruise Line, Class, Ship, or a specific Venue.</li>
+          <li>On each result, ship <strong>button</strong> shows where it’s available—those buttons respect your filters.</li>
+          <li><strong>Clear</strong> resets everything. Press <kbd>/</kbd> to jump to search.</li>
+        </ul>
+      </div>
+    </section>
+    <div class="section">
+      <h1 id="content">Restaurants &amp; Menus <span class="version-badge">v3.001</span></h1>
+      <p class="page-sub">Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes.</p>
     </div>
+  </section>
 
-    <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
-
-    <div class="hero-title">
-      <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
-    </div>
-
-    <p class="tagline">A Cruise Traveler’s Logbook</p>
-
-    <div class="hero-credit">
-      <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">
-        Photo by Flickers of Majesty — Instagram
-      </a>
-    </div>
-  </div>
-
-  <!-- Brand/Class/Ship/Venue pill bar -->
-  <nav id="brandbar" aria-label="Filter by brand, class, ship, or venue">
-    <div class="row">
-      <span class="label tiny">Show only:</span>
-      <button class="pillbtn" id="brandBtn" aria-expanded="false" aria-controls="tray-brand">Cruise Line</button>
-      <button class="pillbtn" id="classBtn" aria-expanded="false" aria-controls="tray-class">Ship Class</button>
-      <button class="pillbtn" id="shipBtn"  aria-expanded="false" aria-controls="tray-ship">Ship</button>
-      <button class="pillbtn" id="venueBtn" aria-expanded="false" aria-controls="tray-venue">Venue</button>
-      <button class="pillbtn" id="clearBtn" title="Clear filters">Clear</button>
-    </div>
-    <div id="tray-brand" class="tray" role="menu"><div class="group" id="brands"></div></div>
-    <div id="tray-class" class="tray" role="menu"><div class="group" id="classes"></div></div>
-    <div id="tray-ship"  class="tray" role="menu"><div class="group" id="ships"></div></div>
-    <div id="tray-venue" class="tray" role="menu"><div class="group" id="venues"></div></div>
-  </nav>
-</header><section class="page-header">
-  <section class="section" id="how-to-card">
-  <div class="tip-card" role="region" aria-label="How to use these filters">
-    <div class="tip-head">
-      <strong>How to use this page</strong>
-      <button class="tip-dismiss" type="button" aria-label="Hide tips" onclick="(function(){
-        localStorage.setItem('iw_rest_tips','off');
-        var el=document.getElementById('how-to-card'); if(el) el.style.display='none';
-      })()">Hide tips</button>
-    </div>
-    <ul class="tip-list">
-      <li><strong>Search</strong> for venues, food types, or perks (try “sushi”, “suite”, “diamond”).</li>
-      <li>Use <strong>Categories</strong> to toggle Premium / Complimentary / Activities.</li>
-      <li>Open <strong>More filters</strong> to pick a Cruise Line, Class, Ship, or a specific Venue.</li>
-      <li>On each result, ship <strong>button</strong> show where it’s available—those buttons respect your filters.</li>
-      <li><strong>Clear</strong> resets everything. Press <kbd>/</kbd> to jump to search.</li>
-    </ul>
-  </div>
-</section>
-  <div class="section">
-    <h1>Restaurants &amp; Menus <span class="version-badge">v3.001</span></h1>
-    <p class="page-sub">Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes.</p>
-  </div>
-</section>
   <!-- Search -->
   <div id="search-wrap" role="search">
     <input id="q" type="search" inputmode="search" placeholder="Type to filter… (e.g., chops, sushi, suite, diamond)" aria-label="Filter restaurants by name, type, access, or tag">
@@ -326,7 +286,7 @@ if('serviceWorker' in navigator){
     </section>
 
     <section class="section">
-      <p class="pill"><strong>Accessibility:</strong> See each venue page and <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a> for ship notes.</p>
+      <p class="pill"><strong>Accessibility:</strong> See each venue page and <a href="/disability-at-sea.html">Disability at Sea</a> for ship notes.</p>
     </section>
   </main>
 
@@ -342,17 +302,12 @@ if('serviceWorker' in navigator){
   const $q = $('#q');
   const $meta = $('#search-meta');
 
-  // ---------- Tips card: honor "hidden" preference ----------
+  // Honor tips preference
   (function(){
-    try {
-      if (localStorage.getItem('iw_rest_tips') === 'off') {
-        const hc = document.getElementById('how-to-card');
-        if (hc) hc.style.display = 'none';
-      }
-    } catch(e) {}
+    try{ if (localStorage.getItem('iw_rest_tips') === 'off') { const hc = document.getElementById('how-to-card'); if (hc) hc.style.display = 'none'; } }catch(e){}
   })();
 
-  /* ---------- helpers ---------- */
+  // Helpers
   function norm(s){
     return String(s||'').toLowerCase()
       .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
@@ -361,7 +316,6 @@ if('serviceWorker' in navigator){
       .replace(/\s+/g,' ')
       .trim();
   }
-  // tiny edit-distance<=1
   function near(a,b){
     if (a===b) return true;
     if (!a||!b) return false;
@@ -393,7 +347,6 @@ if('serviceWorker' in navigator){
     });
   }
 
-  /* ---------- blurbs fallback ---------- */
   const BLURB = {
     "mdr":"Rotating menus, themed nights; classic cruise dining.",
     "windjammer":"Casual buffet for breakfast, lunch, and dinner.",
@@ -436,16 +389,14 @@ if('serviceWorker' in navigator){
   };
 
   const roots = {
-    complimentary: $('#grid-complimentary'),
-    premium:       $('#grid-premium'),
-    activity:      $('#grid-activity')
+    complimentary: document.getElementById('grid-complimentary'),
+    premium:       document.getElementById('grid-premium'),
+    activity:      document.getElementById('grid-activity')
   };
 
-  /* ---------- state ---------- */
   let CARDS = []; // {el, slug, cat, brand, text, ships:Set, classes:Set}
   const STATE = { cats:new Set(), query:'', brand:'rccl', klass:'', ship:'', venue:'' };
 
-  /* ---------- ship chips update per filter (normalized) ---------- */
   function updateShipChips(card){
     const box = card.el.querySelector('.ship-pills');
     if (!box) return;
@@ -461,11 +412,10 @@ if('serviceWorker' in navigator){
     box.classList.toggle('is-hidden', !anyVisible);
   }
 
-  /* ---------- render ---------- */
   function cardHTML(v, shipList, classList, access, shipsDict){
     const slug = v.slug;
     const name = v.name || slug;
-    const href = `https://www.cruisinginthewake.com/restaurants/${slug}.html`;
+    const href = `/restaurants/${slug}.html`;
     const cat  = (v.category || 'complimentary').toLowerCase();
     const blurb = v.blurb || BLURB[slug] || 'Details vary by ship; see venue page.';
     const join = arr => (Array.isArray(arr)?arr:[]).join(' ');
@@ -507,7 +457,7 @@ if('serviceWorker' in navigator){
   }
 
   function reindex(){
-    CARDS = $$('.grid .card a').map(a=>{
+    CARDS = Array.from(document.querySelectorAll('.grid .card a')).map(a=>{
       const slug = a.getAttribute('data-slug')||'';
       const cat  = (a.getAttribute('data-cat')||'').toLowerCase();
       const brand = (a.getAttribute('data-brand')||'rccl').toLowerCase();
@@ -534,7 +484,6 @@ if('serviceWorker' in navigator){
 
       c.el.classList.toggle('is-hidden', !hit);
       if (hit) shown++;
-
       updateShipChips(c);
     });
 
@@ -546,7 +495,7 @@ if('serviceWorker' in navigator){
   }
 
   function wireChips(){
-    $$('#filters .chip').forEach(btn=>{
+    Array.from(document.querySelectorAll('#filters .chip')).forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const val = (btn.getAttribute('data-val')||'').toLowerCase();
         const on  = btn.getAttribute('aria-pressed')==='true';
@@ -558,19 +507,23 @@ if('serviceWorker' in navigator){
   }
 
   function wireBrandBar(db){
-    const bBtn=$('#brandBtn'), cBtn=$('#classBtn'), sBtn=$('#shipBtn'), vBtn=$('#venueBtn'), clr=$('#clearBtn');
-    const tB=$('#tray-brand'), tC=$('#tray-class'), tS=$('#tray-ship'), tV=$('#tray-venue');
-    const $brands=$('#brands'), $classes=$('#classes'), $ships=$('#ships'), $venues=$('#venues');
+    const bBtn=document.getElementById('brandBtn'),
+          cBtn=document.getElementById('classBtn'),
+          sBtn=document.getElementById('shipBtn'),
+          vBtn=document.getElementById('venueBtn'),
+          clr =document.getElementById('clearBtn');
+    const tB=document.getElementById('tray-brand'),
+          tC=document.getElementById('tray-class'),
+          tS=document.getElementById('tray-ship'),
+          tV=document.getElementById('tray-venue');
+    const $brands=document.getElementById('brands'),
+          $classes=document.getElementById('classes'),
+          $ships=document.getElementById('ships'),
+          $venues=document.getElementById('venues');
 
-    function closeAll(){
-      [tB,tC,tS,tV].forEach(x=>x.classList.remove('on'));
-      [bBtn,cBtn,sBtn,vBtn].forEach(b=>b.setAttribute('aria-expanded','false'));
-    }
-    function toggle(btn,tray){
-      const open = tray.classList.contains('on');
-      closeAll();
-      if (!open){ tray.classList.add('on'); btn.setAttribute('aria-expanded','true'); }
-    }
+    function closeAll(){ [tB,tC,tS,tV].forEach(x=>x.classList.remove('on')); [bBtn,cBtn,sBtn,vBtn].forEach(b=>b.setAttribute('aria-expanded','false')); }
+    function toggle(btn,tray){ const open = tray.classList.contains('on'); closeAll(); if (!open){ tray.classList.add('on'); btn.setAttribute('aria-expanded','true'); } }
+
     bBtn.addEventListener('click', ()=>toggle(bBtn,tB));
     cBtn.addEventListener('click', ()=>toggle(cBtn,tC));
     sBtn.addEventListener('click', ()=>toggle(sBtn,tS));
@@ -579,9 +532,10 @@ if('serviceWorker' in navigator){
       tr.addEventListener('mouseleave', ()=>setTimeout(closeAll,220));
       tr.addEventListener('focusout', e=>{ if(!tr.contains(e.relatedTarget)) setTimeout(closeAll,220); });
     });
+
     clr.addEventListener('click', ()=>{
       STATE.klass=''; STATE.ship=''; STATE.venue=''; STATE.query=''; $q.value=''; STATE.cats.clear();
-      $$('#filters .chip[aria-pressed="true"]').forEach(x=>x.setAttribute('aria-pressed','false'));
+      Array.from(document.querySelectorAll('#filters .chip[aria-pressed="true"]')).forEach(x=>x.setAttribute('aria-pressed','false'));
       apply(); closeAll();
     });
 
@@ -592,10 +546,7 @@ if('serviceWorker' in navigator){
     });
 
     // classes (largest ➜ smallest)
-    const CLASS_ORDER = [
-      'icon','oasis','quantum ultra','quantum','freedom','voyager',
-      'radiance','vision','sovereign','empress'
-    ];
+    const CLASS_ORDER = ['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
     const cleanClass = s => String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
     const classes = Array.from(new Set(
       Object.values(db.ships || {}).map(s => cleanClass(s.class)).filter(Boolean)
@@ -622,7 +573,6 @@ if('serviceWorker' in navigator){
       });
     });
 
-    // ships
     function fillShips(klass){
       const k = cleanClass(klass);
       const items = Object.entries(db.ships || {})
@@ -635,52 +585,43 @@ if('serviceWorker' in navigator){
         b.addEventListener('click', ()=>{
           STATE.ship = (b.getAttribute('data-ship')||'').toLowerCase();
           apply(); closeAll();
-          window.scrollTo({top: $('#q').offsetTop - 80, behavior:'smooth'});
+          window.scrollTo({top: document.getElementById('q').offsetTop - 80, behavior:'smooth'});
         });
       });
     }
     fillShips('');
 
-    // venues (by name)
+    // venues
     const venues = (db.venues||[]).slice().sort((a,b)=> (a.name||a.slug).localeCompare(b.name||b.slug));
     $venues.innerHTML = venues.map(v=>`<button class="pillbtn" data-venue="${v.slug}" role="menuitem">${v.name}</button>`).join('');
     $venues.querySelectorAll('button').forEach(b=>{
       b.addEventListener('click', ()=>{
         STATE.venue = (b.getAttribute('data-venue')||'').toLowerCase();
         apply(); closeAll();
-        window.scrollTo({top: $('#q').offsetTop - 80, behavior:'smooth'});
+        window.scrollTo({top: document.getElementById('q').offsetTop - 80, behavior:'smooth'});
       });
     });
   }
 
-  // input + keyboard focus
-  $q && $q.addEventListener('input', ()=>{ STATE.query = $q.value || ''; apply(); });
+  // Input + keyboard
+  if ($q) $q.addEventListener('input', ()=>{ STATE.query = $q.value || ''; apply(); });
   window.addEventListener('keydown', e=>{ if(e.key==='/' && document.activeElement!==$q){ e.preventDefault(); $q.focus(); }});
 
-  // fail-safe meta text
   if ($meta) $meta.textContent = 'Loading venues…';
 
-  /* ---------- load JSON and render ---------- */
-(function(){
-  // ... keep your helper code above unchanged ...
-
+  // Boot
   (async function boot(){
     let db=null;
     try{
-      // Standards v3.001: cached JSON with weekly TTL + version invalidation
-      db = await SiteCache.getJSON(_abs('/assets/data/venues.json'), {
-        ttlDays: 7,
-        versionPath: ['version']
-      });
+      db = await SiteCache.getJSON(_abs('/assets/data/venues.json'), { ttlDays: 7, versionPath: ['version'] });
     }catch(e){
-      const $meta=document.querySelector('#search-meta');
-      if($meta){ $meta.textContent='Could not load venues.'; }
+      const m=document.getElementById('search-meta'); if(m){ m.textContent='Could not load venues.'; }
       return;
     }
 
-    // reverse maps
-    const shipsByVenue = new Map();     // slug -> Set(ship)
-    const classesByShip = {};           // ship -> class(lower)
+    // Reverse maps
+    const shipsByVenue = new Map();
+    const classesByShip = {};
     Object.entries(db.ships||{}).forEach(([ship, payload])=>{
       classesByShip[ship] = String(payload.class||'').toLowerCase();
       (payload.venues||[]).forEach(slug=>{
@@ -688,25 +629,26 @@ if('serviceWorker' in navigator){
         shipsByVenue.get(slug).add(ship);
       });
     });
-    const classesByVenue = new Map();   // slug -> Set(class)
+    const classesByVenue = new Map();
     shipsByVenue.forEach((set, slug)=>{
       const ks = new Set();
       set.forEach(ship=>{ const k = classesByShip[ship]; if(k) ks.add(k); });
       classesByVenue.set(slug, ks);
     });
 
-    // paint all cards
+    // Paint cards
     (db.venues||[]).forEach(v=>{
       const slug = v.slug;
       const shipList  = Array.from((shipsByVenue.get(slug)||new Set()).values());
       const classList = Array.from((classesByVenue.get(slug)||new Set()).values());
       const access    = (Array.isArray(v.access)?v.access:[]).map(x=>norm(x));
-      const root = roots[(v.category||'complimentary').toLowerCase()] || roots.complimentary;
-      root.insertAdjacentHTML('beforeend', cardHTML(v, shipList, classList, access, db.ships||{}));
+      const root = (v.category||'complimentary').toLowerCase();
+      (roots[root]||roots.complimentary)
+        .insertAdjacentHTML('beforeend', cardHTML(v, shipList, classList, access, db.ships||{}));
     });
 
-    // quick ship links (filter pills under "Quick Links by Ship")
-    const host = $('#ship-links');
+    // Quick ship links
+    const host = document.getElementById('ship-links');
     if (host){
       const items = Object.entries(db.ships||{}).sort((a,b)=> (a[1].name||a[0]).localeCompare(b[1].name||b[0]));
       host.innerHTML = items.map(([slug,p])=>`<button class="chip" data-ship="${slug}" title="Show ${p.name} venues">${p.name}</button>`).join('');
@@ -714,33 +656,31 @@ if('serviceWorker' in navigator){
         b.addEventListener('click', ()=>{
           STATE.ship = (b.getAttribute('data-ship')||'').toLowerCase();
           apply();
-          window.scrollTo({top: $('#q').offsetTop - 80, behavior:'smooth'});
+          window.scrollTo({top: document.getElementById('q').offsetTop - 80, behavior:'smooth'});
         });
       });
     }
 
-    // index & wire UI
     reindex();
     wireChips();
     wireBrandBar(db);
     apply();
-    $meta && ($meta.textContent = 'Showing all venues & activities');
+    if ($meta) $meta.textContent = 'Showing all venues & activities';
   })();
 })();
   </script>
+
+  <!-- Warmup -->
   <script>
-(function(){
-  async function warm(){
-    try{
-      // Core for this page:
-      await SiteCache.getJSON(_abs('/assets/data/venues.json'), { ttlDays:7, versionPath:['version'] });
-      // Optional (nice to have globally, harmless here):
-      // await SiteCache.getJSON(_abs('/assets/data/fleet_index.json'), { ttlDays:7, versionPath:['version'] });
-    }catch(e){}
-  }
-  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', warm, {once:true}); }
-  else { warm(); }
-})();
-</script>
+  (function(){
+    async function warm(){
+      try{
+        await SiteCache.getJSON(_abs('/assets/data/venues.json'), { ttlDays:7, versionPath:['version'] });
+      }catch(e){}
+    }
+    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', warm, {once:true}); }
+    else { warm(); }
+  })();
+  </script>
 </body>
 </html>
