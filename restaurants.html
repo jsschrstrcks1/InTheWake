@@ -7,8 +7,42 @@
   <meta name="version" content="v2.256.022"/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta name="description" content="Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes."/>
+  <!-- Standards v3.001: absolute URL + origin normalizer -->
+<script>
+(function(){
+  var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded',function(){
+    var sel=[
+      'a[href^="https://www.cruisinginthewake.com/"]',
+      'img[src^="https://www.cruisinginthewake.com/"]',
+      'link[href^="https://www.cruisinginthewake.com/"]',
+      'script[src^="https://www.cruisinginthewake.com/"]'
+    ].join(',');
+    document.querySelectorAll(sel).forEach(function(el){
+      var attr=el.hasAttribute('href')?'href':'src';
+      try{
+        var u=new URL(el.getAttribute(attr));
+        el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+      }catch(e){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Standards v3.001: Site cache utility (defer safe) -->
+<script src="/assets/js/site-cache.js" defer></script>
+
+<!-- Standards v3.001: register service worker for image cache -->
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+}
+</script>
   <!-- bump query to bust cache -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.246"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.246.001"/>
 
   <!-- ===== Page patch (scoped to Restaurants page) — NO hero overrides here ===== -->
   <style id="restaurants-v2_256_022">
