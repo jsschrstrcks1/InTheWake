@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Disability at Sea — In the Wake (v3.001)</title>
+  <meta name="version" content="v3.001"/>
+  <meta name="description" content="Disability at Sea — practical accessibility at every step of the journey. Real experiences, video carousels, and depth soundings from our own wake. Coming soon."/>
+  <meta name="robots" content="index, follow"/>
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/disability-at-sea.html"/>
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
+  <meta property="og:title" content="Disability at Sea — In the Wake"/>
+  <meta property="og:description" content="Practical, first-hand accessibility guidance for cruise travelers. Video carousels and real experiences — charted from our own wake. Coming soon."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.001"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Standards v3.001: absolute URL + origin normalizer -->
+  <script>
+  (function(){
+    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  })();
+  </script>
+
+  <!-- v3.001: SiteCache + SW -->
+  <script src="/assets/js/site-cache.js" defer></script>
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', ()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.001"/>
+
+  <!-- Hero styling (same look as home for consistency) -->
+  <style>
+    .hero{background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
+           filter:saturate(1.35) contrast(1.12) brightness(1.05)}
+    .hero::before,.hero::after{content:none!important}
+  </style>
+
+  <!-- Preload above-the-fold asset -->
+  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+</head>
+<body class="page">
+
+  <header class="site-header hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
+        <span class="tiny ver-badge" aria-label="Site version">v3.001</span>
+      </div>
+
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability-at-sea.html" aria-current="page">Disability at Sea</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/travel.html">Travel</a>
+      </nav>
+    </div>
+
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <section class="card" aria-labelledby="das-coming">
+      <h2 id="das-coming">Disability at Sea — Coming Soon</h2>
+      <p>We’re building a practical, no-fluff accessibility companion for every step of the journey—embarkation, cabins, dining rooms, theaters, tenders, shore days, and everything in between.</p>
+      <p>What to expect:</p>
+      <ul class="venue-list">
+        <li><strong>Video carousels</strong> that show real routes, thresholds, and layouts.</li>
+        <li><strong>First-hand experiences</strong> from our crew and trusted cruisers—what worked, what didn’t, and the tiny fixes that matter.</li>
+        <li><strong>Depth soundings from our own wake</strong>—measured notes you can trust, not brochure copy.</li>
+        <li><strong>Link-throughs</strong> to ship pages, venues, and port snapshots for cross-checking.</li>
+      </ul>
+      <p>We’re charting carefully so details stay accurate and useful. Thanks for your patience while we bring this section to life.</p>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook
+  </footer>
+
+  <!-- Light warmup so future nav is snappy -->
+  <script>
+  (function(){
+    const abs=p=> (typeof _abs==='function'? _abs(p):p);
+    const ready=f=>document.readyState==='loading'
+      ?document.addEventListener('DOMContentLoaded',f,{once:true}):f();
+    const idle=f=>('requestIdleCallback'in window?requestIdleCallback(f,{timeout:2500}):setTimeout(f,200));
+    async function ensure(){if(window.SiteCache)return;await new Promise(r=>{const s=document.createElement('script');s.src=abs('/assets/js/site-cache.js');s.defer=true;s.onload=r;s.onerror=r;document.head.appendChild(s);});}
+    async function warm(){try{await ensure();await Promise.allSettled([
+      SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
+      SiteCache.getJSON(abs('/assets/data/venues.json'),     {ttlDays:7,versionPath:['version']})
+    ]);}catch(_){}} ready(()=>idle(warm));
+  })();
+  </script>
+</body>
+</html>
