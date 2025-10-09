@@ -339,18 +339,73 @@
             "registry": "Bahamas"
           }
           </script>
-          <script>
-  (function fixDiningJSON(){
+         <script>
+(function fixDiningJSON(){
+  function run(){
     var el = document.getElementById('dining-data-source'); if(!el) return;
     try{
       var obj = JSON.parse(el.textContent||'{}');
-      if (obj && obj.json) {
-        obj.json = _abs('/assets/data/rc-restaurants.json');
+      if (obj) {
+        var path = '/assets/data/venues.json';
+        obj.json   = (typeof _abs === 'function') ? _abs(path) : path;  // canonical absolute
+        obj.url    = obj.json;                                          // back-compat hint
+        obj.schema = 'rc.venues.v1';                                    // optional branch hint
         el.textContent = JSON.stringify(obj);
       }
     }catch(e){}
-  })();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run, {once:true});
+  } else { run(); }
+})();
 </script>
+          <script>
+/*
+  window.getShipVenues(slug) -> Promise<{ meta, ship, venues[] }>
+  - Reads /assets/data/venues.json (absolute URL via _abs when available)
+  - Expands ship.venues (slugs) to full venue objects
+  - Caches fetch; safe if slug not found
+*/
+(function(){
+  var DATA_PATH = '/assets/data/venues.json';
+  var DATA_URL  = (typeof _abs === 'function') ? _abs(DATA_PATH) : DATA_PATH;
+  var _cache = null, _pending = null, _venuesIndex = null, _ships = null;
+
+  function load(){
+    if (_cache) return Promise.resolve(_cache);
+    if (_pending) return _pending;
+    _pending = fetch(DATA_URL, { credentials:'omit', referrerPolicy:'no-referrer' })
+      .then(function(r){ return r.json(); })
+      .then(function(json){
+        if (!json || !Array.isArray(json.venues) || !json.ships) {
+          throw new Error('Invalid venues.json shape');
+        }
+        _venuesIndex = Object.fromEntries(json.venues.map(function(v){ return [v.slug, v]; }));
+        _ships = json.ships;
+        _cache = json;
+        return json;
+      })
+      .finally(function(){ _pending = null; });
+    return _pending;
+  }
+
+  async function getShipVenues(shipSlug){
+    var data = await load();
+    var ship = _ships[shipSlug];
+    if (!ship) return { meta: data.meta || {}, ship: null, venues: [] };
+
+    var venues = (ship.venues || []).map(function(slug){
+      var v = _venuesIndex[slug];
+      return v ? Object.assign({ slug: slug }, v)
+               : { slug: slug, name: slug, category: 'unknown' };
+    });
+    return { meta: data.meta || {}, ship: ship, venues: venues };
+  }
+
+  window.getShipVenues = getShipVenues;
+})();
+</script>
+          
         </section>
       </section>
 
