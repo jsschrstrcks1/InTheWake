@@ -9,8 +9,8 @@
   if (!CARD) return;
 
   const SOURCES = [
+    'https://www.cruisinginthewake.com/assets/data/venues.json',
     'https://www.cruisinginthewake.com/assets/data/rc-restaurants.json',
-    'https://www.cruisinginthewake.com/assets/data/ccl-restaurants.json',
     'https://www.cruisinginthewake.com/assets/data/msc-restaurants.json',
     '/assets/data/rc-restaurants.json','/assets/data/ccl-restaurants.json','/assets/data/msc-restaurants.json'
   ];
