@@ -1,87 +1,380 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="referrer" content="no-referrer" />
-  <meta name="description" content="Royal Caribbean Chef's Table — an intimate, multi-course tasting led by the ship’s Chef de Cuisine. 2025 menus, wine pairings, reviews & pricing for Allure, Icon, and Jewel of the Seas." />
-  <meta name="keywords" content="chef's table royal caribbean, cruise tasting menu, royal caribbean fine dining, wine pairing dinner, oasis-class specialty dining" />
-  <title>Chef’s Table | Royal Caribbean 2025 Menu & Reviews | Cruising in the Wake</title>
-  <link rel="stylesheet" href="/assets/styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chef’s Table — Royal Caribbean | In the Wake</title>
+
+  <meta name="description" content="Royal Caribbean Chef’s Table — intimate multi-course tasting with wine pairings, led by the Chef de Cuisine. 2025 price $95–$129.99 · limited seating · menu, booking tips & review.">
+  <meta property="og:site_name" content="In the Wake">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Chef’s Table — Royal Caribbean">
+  <meta property="og:description" content="Intimate, multi-course tasting with curated wine pairings. See 2025 pricing, sample menu, booking tips, and a detailed review.">
+  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants/chefs-table.html">
+  <!-- <meta property="og:image" content="https://www.cruisinginthewake.com/assets/og/chefs-table-hero.jpg"> -->
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0a3d62">
+
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Normalize absolute links to current origin (same as Chops) -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs = p => ORIGIN + (String(p||'').startsWith('/') ? p : '/'+p);
+    function normalize(){
+      const sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{
+          const u=new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(e){}
+      });
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', normalize, {once:true});
+    else normalize();
+  })();
+  </script>
+
+  <!-- Minimal local styles to mirror Chops card/pills feel -->
+  <style>
+    .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
+    .ship-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+    .chip{cursor:pointer}
+    .is-hidden{display:none!important}
+    .tiny.note{opacity:.7;font-weight:600}
+    .tiny.muted{color:#466;opacity:.75}
+    .ship-pills[data-anim="in"]{animation:shipDrawer .18s ease-out}
+    @keyframes shipDrawer{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+    .ship-pills-bar .ship-pills a.chip{
+      display:inline-block;font-size:1rem;font-weight:500;
+      border:1px solid var(--rope,#d9b382);background:#fff;color:var(--ink,#083041);
+      border-radius:999px;padding:.35rem .85rem;line-height:1.2;text-decoration:none;
+      transition:all .18s ease-in-out;
+    }
+    .ship-pills-bar .ship-pills a.chip::before{
+      content:"🍷";font-size:.8em;margin-right:.35em;color:var(--rope,#d9b382);opacity:.9;
+    }
+    .ship-pills-bar .ship-pills a.chip:hover{
+      background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);
+      color:var(--accent,#0e6e8e);transform:translateY(-1px);
+    }
+    .ship-pills-bar .rc-toggle{
+      display:inline-block;font-size:1rem;font-weight:600;
+      border:1px solid var(--rope,#d9b382);border-radius:999px;
+      padding:.35rem .85rem;background:#f7fdfd;color:var(--ink,#083041);
+      transition:background .18s ease,border-color .18s ease;
+    }
+    .ship-pills-bar .rc-toggle:hover{
+      background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);
+    }
+
+    /* Card watermark like Chops Logbook */
+    .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.08}
+    .card .card__content{position:relative;z-index:1}
+    .prose h3{margin:.9rem 0 .45rem}
+    .prose h4{margin:.8rem 0 .35rem}
+  </style>
 </head>
 
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-<header>
-  <h1>Chef’s Table — The Pinnacle of Cruise Cuisine</h1>
-  <p>Experience Royal Caribbean’s most exclusive culinary event — a multi-course tasting guided by the ship’s Chef de Cuisine, paired with fine wines and stories that bring each course to life.</p>
+<body class="venue-page">
+<header class="site-header">
+  <nav class="pill-nav pills" aria-label="Primary">
+    <a href="/">Home</a>
+    <a href="/ships/">Ships</a>
+    <a class="active" href="/restaurants.html">Restaurants &amp; Menus</a>
+    <a href="/ports.html">Ports</a>
+    <a href="/disability-at-sea.html">Disability at Sea</a>
+    <a href="/drink-packages.html">Drink Packages</a>
+    <a href="/packing-lists.html">Packing Lists</a>
+    <a href="/cruise-lines/">Cruise Lines</a>
+    <a href="/solo.html">Solo</a>
+    <a href="/travel.html">Travel</a>
+  </nav>
+
+  <div class="hero" role="img" aria-label="Wake at sunset hero">
+    <img class="hero-compass" src="/assets/compass-rose.svg" alt="" aria-hidden="true">
+    <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt="In the Wake"></div>
+    <p class="tagline">A Cruise Traveler’s Logbook</p>
+    <div class="hero-credit">
+      <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">
+        Photo by Flickers of Majesty — Instagram
+      </a>
+    </div>
+  </div>
 </header>
 
-<section class="overview">
-  <h2>About the Experience</h2>
-  <p>Chef’s Table is an intimate group dinner (12–16 guests) held several times per sailing. Each seating unfolds as a private epicurean journey — five to seven chef-curated courses with sommelier-selected wines, served in an elegant, candle-lit setting. Guests enjoy behind-the-scenes commentary and interactive storytelling from the culinary team.</p>
+<main class="wrap" id="main">
+  <!-- Overview -->
+  <section class="card" id="overview">
+    <h1 class="page-title">Chef’s Table</h1>
+    <p class="subtitle">Royal Caribbean — Intimate Tasting Menu with Wine Pairings</p>
+    <p class="lede">An exclusive, small-group, multi-course experience led by the ship’s Chef de Cuisine—each course paired with sommelier-selected wines and stories from the galley.</p>
 
-  <ul>
-    <li><strong>Available On:</strong> Most Royal Caribbean ships, including Allure, Anthem, Jewel, and Icon of the Seas</li>
-    <li><strong>Schedule:</strong> 2–3 nights per cruise, reservations via Cruise Planner</li>
-    <li><strong>Pricing (2025):</strong> $95–$129.99 per person (includes wine & gratuity)</li>
-    <li><strong>Dress Code:</strong> Formal / Smart Casual</li>
-  </ul>
-</section>
+    <ul class="meta-inline" style="margin:.6rem 0 0; padding-left:1rem;">
+      <li><strong>Seating:</strong> 12–16 guests · select nights per sailing</li>
+      <li><strong>2025 Price:</strong> $95–$129.99 per person (incl. pairings & gratuity)</li>
+      <li><strong>Booking:</strong> Cruise Planner (limited availability)</li>
+    </ul>
 
-<section class="menu">
-  <h2>2025 Sample Menu — Seven-Course Journey</h2>
+    <p class="blurb" style="margin-top:.65rem;">
+      Chef’s Table is offered on most Royal Caribbean ships (availability varies by itinerary). It’s the pinnacle of the line’s culinary program—best for anniversaries, foodie splurges, or guests who love a guided tasting journey.
+      <a href="/restaurants.html">Return to the Restaurants hub →</a>
+    </p>
+    <p class="pill version" style="float:right;margin-top:.5rem;">v2.257.001</p>
+  </section>
 
-  <ol>
-    <li><strong>Amuse-Bouche:</strong> Scallop Carpaccio · Yuzu vinaigrette · Crispy quinoa · Microgreens</li>
-    <li><strong>Soup or Salad:</strong> Lobster Bisque with Chive Oil · Heirloom Tomato & Burrata Salad</li>
-    <li><strong>Seafood or Foie Gras:</strong> Seared Foie Gras on Brioche · Fig Compote or Tuna Crudo with Sesame & Ginger</li>
-    <li><strong>Intermezzo:</strong> Lemon-Basil Sorbet</li>
-    <li><strong>Main Course:</strong> Beef Wellington & Butter-Poached Lobster Tail · Béarnaise Sauce · Wild Mushrooms</li>
-    <li><strong>Cheese Course:</strong> Artisanal Cheeses & Cured Meats · Focaccia Crostini</li>
-    <li><strong>Dessert:</strong> Chocolate Soufflé with Grand Marnier Sauce · Deconstructed Cheesecake with Berry Coulis</li>
-  </ol>
+  <!-- Menu & Prices -->
+  <section class="card" id="menu-prices">
+    <h2>Menu &amp; Pricing</h2>
+    <p class="price-note">
+      <strong>Prix-Fixe:</strong> $95–$129.99 per person (includes wine pairings & gratuity). Menu is a fixed tasting that may change seasonally and by ship.
+    </p>
 
-  <p><em>Wine pairings:</em> Prosecco · Chardonnay · Cabernet Sauvignon · Port — curated by the ship’s sommelier.</p>
-</section>
+    <div class="grid grid-3">
+      <div>
+        <h3>Amuse &amp; Starters</h3>
+        <ul>
+          <li>Scallop Carpaccio · yuzu vinaigrette, crispy quinoa</li>
+          <li>Lobster Bisque · chive oil, foam</li>
+          <li>Heirloom Tomato &amp; Burrata · balsamic pearls, basil</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Mains &amp; Intermezzo</h3>
+        <ul>
+          <li>Palate Cleanser · lemon-basil or passionfruit sorbet</li>
+          <li>Beef Wellington · prosciutto, duxelles, béarnaise</li>
+          <li>Butter-Poached Lobster Tail · drawn butter</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Dessert &amp; Pairings</h3>
+        <ul>
+          <li>Chocolate Soufflé · Grand Marnier anglaise</li>
+          <li>Deconstructed Cheesecake · berry coulis</li>
+          <li>Sommelier-led wine pairings with each course</li>
+        </ul>
+      </div>
+    </div>
 
-<section class="reviews">
-  <h2>Guest Reviews (2024–2025)</h2>
-  <ul>
-    <li><em>“Scallop carpaccio zesty-fresh, beef Wellington sublime — unforgettable evening.”</em> – Cruise Critic, Jan 2025</li>
-    <li><em>“Wine pairings elevate every bite; chef stories mesmerize.”</em> – RoyalCaribbeanBlog, Dec 2024</li>
-    <li><em>“Worth the splurge — private, personal, perfect.”</em> – Reddit r/royalcaribbean, Apr 2025</li>
-  </ul>
-</section>
+    <p class="note">Dishes may vary by ship and season; vegetarian or allergy accommodations are typically available with advance notice.</p>
 
-<section class="review-detail">
-  <h2>Our Review — Chef’s Table on Allure of the Seas</h2>
+    <p class="cta">
+      <a class="btn" href="/#planner" aria-label="Open Cruise Planner to check Chef’s Table availability">Check availability in Cruise Planner</a>
+    </p>
+  </section>
 
-  <p><strong>Overall Impression:</strong> Chef’s Table is Royal Caribbean’s apex of artistry — a seven-course crescendo where precision meets passion, transforming fine dining into storytelling. Each dish arrives as performance, each pour a personality, weaving a night of culinary intimacy few experiences at sea match.</p>
+  <!-- Special Accommodations -->
+  <section class="card" id="accommodations">
+    <h2>Special Accommodations</h2>
+    <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
+      <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Notify Royal Caribbean of severe allergies at least 30 days before sailing and again with the maître d’ upon boarding. Vegetarian, gluten-free, and other accommodations are often possible if requested in advance.</p>
+    </div>
+  </section>
 
-  <p><strong>Food:</strong> The journey begins with a translucent Scallop Carpaccio glazed in yuzu and sea salt spark — bright, briny, balanced. By the fifth course, the Beef Wellington emerges rosy and resplendent, its prosciutto cradle whispering smoke over mushroom duxelles. Dessert arrives as a warm soufflé that melts into citrus-tinged grace, capping the meal in mirthful silence. Portions deliberately petite — a dance, not a marathon — and presentation plated poetry. </p>
+  <!-- Where You’ll Find It -->
+  <section class="card" id="availability">
+    <h2>Where You’ll Find It</h2>
+    <p>Chef’s Table appears on many ships across Oasis, Quantum, and Radiance classes (scheduling varies by sailing):</p>
 
-  <p><strong>Service:</strong> The Chef de Cuisine and sommelier guide each table as hosts and historians. Their banter balances education and entertainment; wine refills arrive before glasses empty, and personal dietary notes feel memorized, not managed. Timing is tight yet graceful — a 2½-hour evening that flows like a rehearsed symphony.</p>
+    <nav class="ship-pills-bar" aria-label="Ships featuring this venue">
+      <button id="rccl-toggle" class="rc-toggle" aria-expanded="false" aria-controls="rccl-ship-list">
+        Royal Caribbean <span class="tiny note">— tap to see ships</span>
+      </button>
+      <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Chef’s Table"></div>
+    </nav>
 
-  <p><strong>Atmosphere:</strong> Held in a private dining room or curated galley nook, the setting glows with amber lamplight and crystal reflections. Conversation hums softly over porcelain chimes and cabernet swirls. On Allure, the chef’s commentary bridges culinary and cultural stories, turning each plate into narrative art. A rare space of quiet grandeur amid a floating city.</p>
+    <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">Tip: Tap “Royal Caribbean” to reveal ships with Chef’s Table on your sailing.</p>
+  </section>
 
-  <p><strong>Summary:</strong> From scallop zest to soufflé sighs, Chef’s Table is a masterclass in measured magnificence — a feast of flavor, finesse, and fellowship. </p>
+  <!-- The Logbook (review) -->
+  <section class="card note-kens-logbook" id="review">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content prose">
+      <h2>The Logbook — Real Guest Soundings</h2>
 
-  <p><strong>Rating:</strong> 4.6 / 5 ⭐ — Minor waits for wine refills on busy sails, but an unrivaled value for fine-dining devotees. </p>
-</section>
+      <p class="pill">
+        <strong>Depth Sounding:</strong> A first-person account captured “in the wake,” edited to our venue standards for clarity. Sailings vary by ship, itinerary, and crew.
+      </p>
 
-<section class="faq">
-  <h2>FAQ — Chef’s Table Quick Answers</h2>
-  <ul>
-    <li><strong>How much does it cost?</strong> $95–$129.99 per person (2025, wine included).</li>
-    <li><strong>Is it included in a dining package?</strong> Yes — via “3-Night” or “Ultimate” packages with upgrade credit.</li>
-    <li><strong>How do I book?</strong> Through Cruise Planner pre-sailing or Guest Services onboard.</li>
-    <li><strong>Is there a dress code?</strong> Smart Casual to Formal (avoid shorts / flip-flops).</li>
-  </ul>
-</section>
+      <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
+        <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">4.4 ★ out of 5</span>
+        <span class="tiny" style="color:#355;">Allure of the Seas • May 2025 • Chef’s Table seating 7 PM</span>
+        <span class="tiny" style="color:#355;">Cover: $109.99 pp (incl. pairings & gratuity)</span>
+      </div>
 
-<footer>
-  <p>© 2025 Cruising in the Wake · <a href="/restaurants.html">Back to All Restaurants</a></p>
+      <h3>Chef’s Table Review: Course-by-Course Theater with Polished Pairings</h3>
+      <p><em>Introduction.</em> The Chef’s Table on Royal Caribbean is less a dinner and more a narrated performance—an intimate progression of plates where the Chef de Cuisine and sommelier thread flavor, technique, and story into a single arc. On a spring sailing aboard <a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>, our 12-guest table settled into a quiet private room as the sommelier poured a sparkling aperitif and the chef sketched the evening’s route: bright seafood, a playful intermezzo, a classic surf-and-turf climax, and a warm, nostalgic finish. At around $110 per person including pairings and gratuity, it sits above most specialty venues—but the intimacy, pacing, and commentary deliver value beyond a “bigger steak for the price” comparison.</p>
+
+      <h4>Food</h4>
+      <p>The opening salvo—scallop carpaccio—arrived translucent and chilled, lifted by a quick prickle of yuzu and the nutty crackle of crisped quinoa. The lobster bisque that followed was familiar, yet refined: more shell essence than cream, streaked with chive oil and capped with a feather of foam. Midway, a lemon-basil sorbet reset the palate—simple, bright, and effective—before the marquee tandem: butter-poached lobster tail and a rosy slice of beef Wellington. The Wellington is the technical flex: tenderloin folded in prosciutto and duxelles under golden pastry, plated with a teaspoon of béarnaise and gloss of jus. It is indulgent without heaviness, and the lobster’s clean sweetness keeps the course buoyant. Dessert toggled between a properly risen chocolate soufflé with a Grand Marnier anglaise and a deconstructed cheesecake crowned with berries—one classic, one modern, both restrained in sugar and generous in texture.</p>
+
+      <h4>Pairings</h4>
+      <p>Wine pairings elevate the procession from “special dinner” to “guided tasting.” A mineral-etched Chardonnay echoed the shellfish; a poised Cabernet draped over the Wellington without bulldozing the pastry; and a late-harvest pour warmed dessert. The sommelier’s explanations were crisp and unfussy—enough insight for geeks, never so long that the table cooled. If you rarely order bottles onboard, this curated glide path feels like a clever splurge: you taste widely without second-guessing the list.</p>
+
+      <h4>Service &amp; Pacing</h4>
+      <p>With only a dozen seats, service feels bespoke. Plates land in quiet unison; servers announce components clearly; the chef checks in without rushing the room. Our seating ran just over two hours—unhurried but forward—leaving room for post-dinner strolls without sacrificing course detail. Guests with allergies at our table were accommodated gracefully, with alternate plates matching the arc and pairings adjusted on the fly.</p>
+
+      <h4>Atmosphere</h4>
+      <p>The setting is intentionally cocooned—soft lighting, low clink of cutlery, and a buffer from the ship’s bustle. Conversation deepens as the night progresses; strangers become co-conspirators. It’s ideal for anniversaries, food-curious couples, and small groups that enjoy the rhythm of a tasting menu. If your ideal cruise dinner is quick, loud, and bottomless, Chef’s Table will feel formal. If you savor editorial pacing, it’s a standout night.</p>
+
+      <h4>Conclusion</h4>
+      <p><strong>Verdict:</strong> A polished, story-driven tasting with thoughtful pairings and attentive hospitality. It doesn’t chase shock value—it polishes classics and threads them together with intention. Book early in Cruise Planner, flag allergies in advance, and arrive ready to linger. <strong>Rating: 4.4/5.</strong></p>
+
+      <p class="tiny" style="margin-top:.75rem;">Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="card" id="faq">
+    <h2>Chef’s Table — FAQ</h2>
+    <details>
+      <summary>What does Chef’s Table include?</summary>
+      <p>A fixed multi-course tasting menu with curated wine pairings, led by the Chef de Cuisine and sommelier. Seating is limited to ~12–16 guests.</p>
+    </details>
+    <details>
+      <summary>How much does it cost in 2025?</summary>
+      <p>Typically $95–$129.99 per person, including wine pairings and gratuity. Sales or packages sometimes lower the effective price.</p>
+    </details>
+    <details>
+      <summary>Can they accommodate allergies or preferences?</summary>
+      <p>Often, yes—notify Royal Caribbean prior to sailing and again at embarkation, and remind the team when you arrive.</p>
+    </details>
+    <details>
+      <summary>How long does it take?</summary>
+      <p>About 2–2.5 hours from first pour to dessert, depending on pacing and table size.</p>
+    </details>
+  </section>
+
+  <!-- Sources -->
+  <section class="card" id="sources">
+    <h2>Sources &amp; Attribution</h2>
+    <ul>
+      <li><a href="https://www.royalcaribbean.com/cruise-dining" target="_blank" rel="noopener">Royal Caribbean — Cruise Dining Overview</a></li>
+      <li><a href="https://www.royalcaribbean.com" target="_blank" rel="noopener">Royal Caribbean — Official Site</a></li>
+      <li>Menus and marks referenced under fair use for research and commentary.</li>
+      <li>All Rights Reserved</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
 </footer>
+
+<!-- JSON-LD: Review -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Review",
+  "itemReviewed":{
+    "@type":"Restaurant",
+    "name":"Chef’s Table",
+    "servesCuisine":"Tasting Menu",
+    "provider":{"@type":"Organization","name":"Royal Caribbean International"}
+  },
+  "name":"Chef’s Table — Intimate Tasting with Wine Pairings",
+  "reviewBody":"Intimate, guided tasting aboard Allure of the Seas (May 2025). Highlights included scallop carpaccio, lobster bisque, Wellington + butter-poached lobster, and chocolate soufflé—each course paired by the sommelier. Attentive service, calm setting, and smart pacing made it a standout splurge.",
+  "reviewRating":{"@type":"Rating","ratingValue":"4.4","bestRating":"5","worstRating":"1"},
+  "author":{"@type":"Person","name":"Guest Sounding (Allure of the Seas, May 2025)"},
+  "isPartOf":{"@type":"WebPage","url":"https://www.cruisinginthewake.com/restaurants/chefs-table.html"}
+}
+</script>
+
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What is Chef’s Table on Royal Caribbean?","acceptedAnswer":{"@type":"Answer","text":"A small-group, multi-course tasting with curated wine pairings led by the Chef de Cuisine and sommelier. Limited seating on select nights."}},
+    {"@type":"Question","name":"How much does Chef’s Table cost in 2025?","acceptedAnswer":{"@type":"Answer","text":"Typically $95–$129.99 per person including wine pairings and gratuity. Promotions or dining packages can reduce the effective price."}},
+    {"@type":"Question","name":"Can allergies be accommodated?","acceptedAnswer":{"@type":"Answer","text":"Often, yes. Provide details to Royal Caribbean before sailing and reconfirm at embarkation; alert the team on arrival."}},
+    {"@type":"Question","name":"How long does the experience last?","acceptedAnswer":{"@type":"Answer","text":"Plan for roughly 2–2.5 hours from first pour through dessert."}}
+  ]
+}
+</script>
+
+<script src="/assets/js/venue-boot.js?v=2.257" defer></script>
+<script>
+(function(){
+  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const cleanClass=s=>String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
+  const CLASS_ORDER=['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
+
+  // Venue slug & hints for Chef's Table
+  const VENUE_HINTS=['chefs table','chef’s table','chefs-table','chefs_table','chefstables','chefstable'];
+
+  const byClassSize=(a,b)=>{
+    const ai=CLASS_ORDER.indexOf(cleanClass(a[1].class));
+    const bi=CLASS_ORDER.indexOf(cleanClass(b[1].class));
+    if(ai!==bi){ if(ai===-1) return 1; if(bi===-1) return -1; return ai-bi; }
+    return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
+  };
+
+  async function hydrateShipList(listEl){
+    try{
+      const res=await fetch('/assets/data/venues.json',{cache:'no-store'});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const db=await res.json();
+
+      const ships=Object.entries(db.ships||{}).filter(([slug,p])=>{
+        const v=Array.isArray(p.venues)?p.venues:[];
+        return VENUE_HINTS.some(h=>v.includes(h));
+      }).sort(byClassSize);
+
+      listEl.innerHTML = ships.length
+        ? ships.map(([slug,p])=>{
+            const name=p.name||slug;
+            return `<a class="chip" href="/ships/rcl/${slug}.html" title="${name}">${name}</a>`;
+          }).join('')
+        : `<span class="tiny muted">No active ships found for this venue.</span>`;
+    }catch(e){
+      listEl.innerHTML = `<span class="tiny muted">Could not load ship list.</span>`;
+    }
+  }
+
+  const btn=document.getElementById('rccl-toggle');
+  const list=document.getElementById('rccl-ship-list');
+  const tip=document.getElementById('rccl-tip');
+
+  function setNote(open){
+    const note=btn.querySelector('.note');
+    if(note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
+  }
+
+  function toggleList(forceOpen){
+    const open=(typeof forceOpen==='boolean')?forceOpen:(btn.getAttribute('aria-expanded')!=='true');
+    btn.setAttribute('aria-expanded', String(open));
+    list.classList.toggle('is-hidden', !open);
+    if(open){
+      list.setAttribute('data-anim','in');
+      setTimeout(()=>list.removeAttribute('data-anim'),220);
+      if(tip) tip.style.display='none';
+    }
+    setNote(open);
+  }
+
+  if(btn && list){
+    hydrateShipList(list);
+    setNote(false);
+    btn.addEventListener('click', ()=>toggleList());
+    btn.addEventListener('keydown', e=>{
+      if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggleList(); }
+    });
+  }
+})();
+</script>
 </body>
 </html>
