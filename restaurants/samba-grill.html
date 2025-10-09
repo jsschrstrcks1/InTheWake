@@ -1,143 +1,397 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="referrer" content="no-referrer" />
-  <title>Samba Grill | Royal Caribbean Brazilian Steakhouse 2025 Menu & Reviews</title>
-  <meta name="description" content="Samba Grill on Allure & Radiance of the Seas — authentic Brazilian churrascaria with tableside-carved meats and an antipasto buffet. 2025 menu, prices, tips & an in-depth review." />
-  <meta name="keywords" content="Samba Grill Royal Caribbean, Brazilian steakhouse cruise, churrascaria at sea, Allure of the Seas restaurants, Radiance of the Seas dining" />
-  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/samba-grill.html" />
-  <link rel="stylesheet" href="/assets/styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Samba Grill — Royal Caribbean | In the Wake</title>
+
+  <meta name="description" content="Royal Caribbean’s Samba Grill: a Brazilian churrascaria with gaucho-carved meats and an antipasto buffet. Dinner $34.99 (incl. gratuity). Menu, tips, ships, and an in-depth review.">
+  <meta property="og:site_name" content="In the Wake">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Samba Grill — Royal Caribbean">
+  <meta property="og:description" content="Tableside-carved Brazilian meats, antipasto buffet, and caipirinhas at sea. See pricing, menu highlights, where it’s offered, and a real guest review.">
+  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants/samba-grill.html">
+  <!-- <meta property="og:image" content="https://www.cruisinginthewake.com/assets/og/samba-grill-hero.jpg"> -->
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/samba-grill.html">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0a3d62">
+
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Normalize absolute links to current origin -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs = p => ORIGIN + (String(p||'').startsWith('/') ? p : '/'+p);
+    function normalize(){
+      const sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{
+          const u=new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(e){}
+      });
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', normalize, {once:true});
+    else normalize();
+  })();
+  </script>
+
+  <!-- Local tweaks to match Chops/Chef’s Table feel -->
+  <style>
+    .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
+    .ship-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+    .chip{cursor:pointer}
+    .is-hidden{display:none!important}
+    .tiny.note{opacity:.7;font-weight:600}
+    .tiny.muted{color:#466;opacity:.75}
+    .ship-pills[data-anim="in"]{animation:shipDrawer .18s ease-out}
+    @keyframes shipDrawer{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+    .ship-pills-bar .ship-pills a.chip{
+      display:inline-block;font-size:1rem;font-weight:500;
+      border:1px solid var(--rope,#d9b382);background:#fff;color:var(--ink,#083041);
+      border-radius:999px;padding:.35rem .85rem;line-height:1.2;text-decoration:none;
+      transition:all .18s ease-in-out;
+    }
+    .ship-pills-bar .ship-pills a.chip::before{
+      content:"🥩";font-size:.8em;margin-right:.35em;color:var(--rope,#d9b382);opacity:.9;
+    }
+    .ship-pills-bar .ship-pills a.chip:hover{
+      background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);
+      color:var(--accent,#0e6e8e);transform:translateY(-1px);
+    }
+    .ship-pills-bar .rc-toggle{
+      display:inline-block;font-size:1rem;font-weight:600;
+      border:1px solid var(--rope,#d9b382);border-radius:999px;
+      padding:.35rem .85rem;background:#f7fdfd;color:var(--ink,#083041);
+      transition:background .18s ease,border-color .18s ease;
+    }
+    .ship-pills-bar .rc-toggle:hover{
+      background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);
+    }
+
+    .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.08}
+    .card .card__content{position:relative;z-index:1}
+    .prose h3{margin:.9rem 0 .45rem}
+    .prose h4{margin:.8rem 0 .35rem}
+  </style>
 </head>
-<body>
-<header class="page-hero">
-  <h1>Samba Grill</h1>
-  <p class="subhead">Royal Caribbean’s Brazilian churrascaria — endless, gaucho-carved meats with a fresh antipasto buffet.</p>
-  <ul class="meta-inline">
-    <li><strong>Ships:</strong> Allure of the Seas, Radiance of the Seas</li>
-    <li><strong>Hours:</strong> Dinner 5:30–9:30 PM (lunch select sea days)</li>
-    <li><strong>Price (2025):</strong> $34.99 dinner · $24.99 lunch (incl. gratuity; packages discount)</li>
-  </ul>
+
+<body class="venue-page">
+<header class="site-header">
+  <nav class="pill-nav pills" aria-label="Primary">
+    <a href="/">Home</a>
+    <a href="/ships/">Ships</a>
+    <a class="active" href="/restaurants.html">Restaurants &amp; Menus</a>
+    <a href="/ports.html">Ports</a>
+    <a href="/disability-at-sea.html">Disability at Sea</a>
+    <a href="/drink-packages.html">Drink Packages</a>
+    <a href="/packing-lists.html">Packing Lists</a>
+    <a href="/cruise-lines/">Cruise Lines</a>
+    <a href="/solo.html">Solo</a>
+    <a href="/travel.html">Travel</a>
+  </nav>
+
+  <div class="hero" role="img" aria-label="Wake at sunset hero">
+    <img class="hero-compass" src="/assets/compass-rose.svg" alt="" aria-hidden="true">
+    <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt="In the Wake"></div>
+    <p class="tagline">A Cruise Traveler’s Logbook</p>
+    <div class="hero-credit">
+      <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">
+        Photo by Flickers of Majesty — Instagram
+      </a>
+    </div>
+  </div>
 </header>
 
-<section id="positioning">
-  <h2>What Samba Grill Is</h2>
-  <p>Samba Grill is Royal Caribbean’s take on a traditional Brazilian steakhouse (churrascaria). Expect a lively, all-you-can-eat rodizio service where gauchos circulate with skewers of grilled meats, plus a self-serve antipasto and salad buffet for starters, sides, and sweets. It’s a specialty venue with a casual vibe, built for groups and meat-lovers who want something different from the MDR or Chops.</p>
-</section>
+<main class="wrap" id="main">
+  <!-- Overview -->
+  <section class="card" id="overview">
+    <h1 class="page-title">Samba Grill</h1>
+    <p class="subtitle">Royal Caribbean — Brazilian Churrascaria at Sea</p>
+    <p class="lede">Gaucho-carved, fire-kissed meats delivered tableside, with an antipasto and salad buffet that keeps the feast festive and flexible.</p>
 
-<section id="who-it’s-for">
-  <h2>Who It’s For (and Not For)</h2>
-  <ul class="bulleted">
-    <li><strong>Great for:</strong> Families with teens, friend groups, hearty appetites, package holders, “try-everything” diners.</li>
-    <li><strong>Less ideal for:</strong> Vegetarians/vegans, very light eaters, couples seeking a long, hushed fine-dining evening.</li>
-  </ul>
-</section>
+    <ul class="meta-inline" style="margin:.6rem 0 0; padding-left:1rem;">
+      <li><strong>Hours:</strong> Dinner 5:30–9:30 PM (lunch on select sea days)</li>
+      <li><strong>2025 Price:</strong> $34.99 per person (incl. gratuity)</li>
+      <li><strong>Format:</strong> Unlimited rodizio + self-serve antipasto</li>
+    </ul>
 
-<section id="menu">
-  <h2>2025 Menu Snapshot</h2>
-  <div class="grid two">
-    <div>
-      <h3>Rodizio Meats (gaucho-carved)</h3>
-      <ul>
-        <li>Picanha (top sirloin, garlic rub)</li>
-        <li>Fraldinha (bottom sirloin, chimichurri)</li>
-        <li>Alcatra (top round, herb seasoned)</li>
-        <li>Costela (slow-roasted beef ribs)</li>
-        <li>Lombo (pork loin, rosemary)</li>
-        <li>Frango (chicken leg/thigh, lemon-pepper)</li>
-        <li>Bacon-Wrapped Chicken Breast</li>
-        <li>Cordeiro (leg of lamb, mint rub)</li>
-        <li>Abobrinha (grilled zucchini) & seasonal veg</li>
-      </ul>
+    <p class="blurb" style="margin-top:.65rem;">
+      Samba Grill is available on a limited set of ships and shines as an easygoing, value-forward alternative to the classic steakhouse—perfect for groups and protein-forward appetites.
+      <a href="/restaurants.html">Return to the Restaurants hub →</a>
+    </p>
+    <p class="pill version" style="float:right;margin-top:.5rem;">v2.257.001</p>
+  </section>
+
+  <!-- Menu & Prices -->
+  <section class="card" id="menu-prices">
+    <h2>Menu &amp; Pricing</h2>
+    <p class="price-note"><strong>Cover:</strong> $34.99 for dinner (incl. gratuity). Lunch offered on some sea days (~$24.99). Beverage purchases are à la carte or covered by packages.</p>
+
+    <div class="grid grid-3">
+      <div>
+        <h3>Rodizio Meats</h3>
+        <ul>
+          <li>Picanha · garlic-rubbed top sirloin</li>
+          <li>Alcatra · herb-seasoned top round</li>
+          <li>Fraldinha · chimichurri bottom sirloin</li>
+          <li>Costela · slow-roasted beef ribs</li>
+          <li>Lombo · rosemary pork loin</li>
+          <li>Frango · lemon-pepper chicken</li>
+          <li>Bacon-Wrapped Chicken Breast</li>
+          <li>Cordeiro · mint-rubbed leg of lamb</li>
+          <li>Abobrinha · grilled zucchini</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Antipasto Buffet</h3>
+        <ul>
+          <li>Caesar, Greek &amp; Caprese salads</li>
+          <li>Prosciutto, salami, chorizo; assorted cheeses</li>
+          <li>Shrimp cocktail, smoked salmon</li>
+          <li>Grilled asparagus, roasted peppers, olives</li>
+          <li>Feijoada, polenta, mashed potatoes</li>
+          <li>Pão de queijo &amp; garlic rolls</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Drinks &amp; Desserts</h3>
+        <ul>
+          <li>Caipirinhas, beer, wine (à la carte)</li>
+          <li>Flan · Cheesecake · Chocolate Mousse</li>
+          <li>Tropical fruit platters</li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h3>Antipasto & Sides (buffet)</h3>
-      <ul>
-        <li>Caesar, Greek, and Caprese salads</li>
-        <li>Cold cuts, cheeses, olives, smoked salmon</li>
-        <li>Feijoada (black bean stew), polenta, potatoes</li>
-        <li>Grilled vegetables, seasonal fruit</li>
-        <li>Pão de queijo, garlic rolls</li>
-      </ul>
-      <h3>Drinks & Desserts</h3>
-      <ul>
-        <li>Caipirinhas, beer, and wine (à la carte / packages)</li>
-        <li>Flan, cheesecake, chocolate mousse, fruit</li>
-      </ul>
+
+    <p class="note">Selection varies by sailing and ship. Lunch service (where offered) is a shorter rotation with fewer cuts.</p>
+
+    <p class="cta">
+      <a class="btn" href="/#planner" aria-label="Open Cruise Planner to check Samba Grill availability">Check availability in Cruise Planner</a>
+    </p>
+  </section>
+
+  <!-- Special Accommodations -->
+  <section class="card" id="accommodations">
+    <h2>Special Accommodations</h2>
+    <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
+      <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Samba Grill is meat-forward, with limited vegetarian mains; the buffet helps expand options. For severe allergies or gluten-free needs, notify Royal Caribbean 30+ days pre-sailing and reconfirm onboard; request well-done or specific doneness as gauchos pass.</p>
     </div>
-  </div>
-  <p class="note">Menu items can rotate slightly by sailing and region. Dinner is the full experience; lunch services are shorter and may feature fewer cuts.</p>
-</section>
+  </section>
 
-<section id="pros-cons">
-  <h2>Highlights & Watch-outs</h2>
-  <div class="grid two">
-    <div>
-      <h3>What Guests Love</h3>
+  <!-- Where You’ll Find It -->
+  <section class="card" id="availability">
+    <h2>Where You’ll Find It</h2>
+    <p>This venue is currently found on select ships such as <em>Allure of the Seas</em> and <em>Radiance of the Seas</em> (availability can change by season/refit):</p>
+
+    <nav class="ship-pills-bar" aria-label="Ships featuring this venue">
+      <button id="rccl-toggle" class="rc-toggle" aria-expanded="false" aria-controls="rccl-ship-list">
+        Royal Caribbean <span class="tiny note">— tap to see ships</span>
+      </button>
+      <div id="rccl-ship-list" class="ship-pills is-hidden" role="region" aria-label="Ships with Samba Grill"></div>
+    </nav>
+
+    <p class="tiny muted" id="rccl-tip" style="margin:.35rem 0 0;">Tip: Tap “Royal Caribbean” to reveal ships with Samba Grill on your sailing.</p>
+  </section>
+
+  <!-- The Logbook (review) -->
+  <section class="card note-kens-logbook" id="review">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true">
+    <div class="card__content prose">
+      <h2>The Logbook — Real Guest Soundings</h2>
+
+      <p class="pill">
+        <strong>Depth Sounding:</strong> A first-person account captured “in the wake,” edited to our venue standards for clarity. Sailings vary by ship, itinerary, and crew.
+      </p>
+
+      <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
+        <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">4.0 ★ out of 5</span>
+        <span class="tiny" style="color:#355;">Radiance of the Seas • July 2025 • Dinner seating 7 PM</span>
+        <span class="tiny" style="color:#355;">Cover: $34.99 pp (incl. gratuity)</span>
+      </div>
+
+      <h3>Samba Grill Review: Gaucho Theater, Easygoing Price</h3>
+      <p><em>Introduction.</em> Samba Grill isn’t trying to be the fanciest steakhouse onboard—it’s aiming for something more convivial: a rolling parade of skewers, a help-yourself antipasto spread, and an upbeat room that gets livelier as the little “go/stop” discs flip from green to red. On a summertime Alaska sailing aboard <a href="/ships/rcl/radiance-of-the-seas.html">Radiance of the Seas</a>, our group booked Samba as a change of pace from the Main Dining Room. At <strong>$34.99</strong> including gratuity, it’s priced to be approachable—especially if you’re using a dining package—yet promises that primal churrascaria satisfaction you can’t get from a single entrée.</p>
+
+      <h4>Food</h4>
+      <p>The buffet sets a fresh tone: vinaigrette-bright Caesar, a briny Greek with firm feta, a proper Caprese with decent tomatoes for a ship crossing, and a little deli corner of prosciutto, salami, and a couple of crowd-pleasing cheeses. There’s shrimp cocktail and a tray of smoked salmon, grilled veg, olives, and warm pão de queijo that disappear as fast as they’re replenished. It’s not a chef’s table of curiosities; it’s a reset for the palate between passes of protein and a way to build the plate you want—especially helpful if you’re balancing carnivorous enthusiasm with a bit of roughage.</p>
+      <p>Skewer service is the show. Our favorites were the <strong>picanha</strong>—garlic-rubbed top sirloin with that essential fat cap—and the <strong>bacon-wrapped chicken</strong>, which arrived juicy and smoky. <strong>Fraldinha</strong> wore chimichurri well; <strong>alcatra</strong> was herb-scented and sliced thin. Beef ribs came less frequently but delivered sticky, roasted savor when they did. Lamb had good flavor, though the first pass leaned past medium; asking the gaucho for a rarer cut on the next round fixed it. You can (and should) call your preferred doneness as a skewer approaches—this is the difference between a merely good and a grin-worthy plate.</p>
+      <p>With rodizio, pacing is part of the craft. Samba’s team was attentive: pausing when our discs flipped red, returning with requested cuts, keeping water and caipirinhas moving. Sides like polenta and feijoada were simple and homey; the latter’s black-bean comfort is perfect cruise food after a wind-whipped sail-away. Desserts are uncomplicated—flan, cheesecake, chocolate mousse—more “close the loop” than “linger for pastry poetry.”</p>
+
+      <h4>Service &amp; Atmosphere</h4>
+      <p>The room feels relaxed and slightly tucked away, which suits Samba’s “hidden-gem” reputation. On Radiance, we had a window perch; watching glaciers slide by while a gaucho shaves picanha is peak cruise juxtaposition. Service leaned friendly over formal. Carvers checked preferences without hovering, and our server kept the table organized so plates never felt chaotic—a small miracle with a dozen skewers in circulation. Noise levels rose as larger groups loosened up, but conversation was still easy at a four-top.</p>
+
+      <h4>Value &amp; Fit</h4>
+      <p>At the price point, Samba is strong value if you enjoy variety and interaction. Compared to Chops, you’re trading prime cuts and composed plating for volume, rotation, and a bit of theater. That’s the appeal: you can sample five or six proteins the way you like them, take breaks at the buffet, and call the night when the green-to-red flip finally sticks. If you’re vegetarian or seeking seafood beyond shrimp and smoked salmon, options are thinner; the buffet helps, but this is a meat-forward venue. For families with teens and groups celebrating, the format just works.</p>
+
+      <h4>Tips</h4>
       <ul>
-        <li>Juicy picanha and bacon-wrapped chicken are consistent crowd-pleasers.</li>
-        <li>Endless variety — you can sample everything at your own pace.</li>
-        <li>Antipasto bar makes it easy for picky eaters to build a plate.</li>
-        <li>Lower price than most steakhouses at sea, especially with packages.</li>
+        <li><strong>Arrive hungry, pace yourself.</strong> Start with a light buffet pass; save room for picanha and ribs.</li>
+        <li><strong>Call your doneness.</strong> Ask the gaucho for rare/medium slices as they carve—don’t be shy.</li>
+        <li><strong>Flip early, flip often.</strong> Red buys breathing room so you can actually enjoy what’s on the plate.</li>
+        <li><strong>Caipirinha pairing.</strong> The classic lime version cuts rich meats nicely; packages usually cover it.</li>
+        <li><strong>Lunch check.</strong> On some itineraries there’s a lower-price lunch with fewer cuts; great for first-timers.</li>
       </ul>
+
+      <h4>Conclusion</h4>
+      <p><strong>Verdict:</strong> Samba Grill delivers exactly what it promises—an unfussy, festive rodizio with a friendly team, solid favorites (picanha, bacon-wrapped chicken), and an easy price of entry. The buffet won’t wow food obsessives and not every pass hits the perfect doneness without a request, but the format invites you to calibrate the night to your taste. For groups and meat-leaning diners, it’s a satisfying detour from the MDR. <strong>Rating: 4.0/5.</strong></p>
+
+      <p class="tiny" style="margin-top:.75rem;">Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
     </div>
-    <div>
-      <h3>Common Complaints</h3>
-      <ul>
-        <li>Some cuts can arrive overcooked during rushes — ask for preferred doneness.</li>
-        <li>Buffet feels basic if you’re expecting a gourmet salad bar.</li>
-        <li>Pacing can lag for rarer cuts; signal staff if you’re waiting.</li>
-      </ul>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="tips">
-  <h2>Booking & Pro Tips</h2>
-  <ul class="bulleted">
-    <li><strong>Go hungry, start light:</strong> Hit salads sparingly so you can focus on the rodizio stars.</li>
-    <li><strong>Call your doneness:</strong> When picanha or lamb arrives, specify “medium-rare” and wait for the next slice if needed.</li>
-    <li><strong>Use the service disk:</strong> Green = keep meats coming; Red = pause. Don’t be shy — it controls your pacing.</li>
-    <li><strong>Value play:</strong> If offered, the sea-day lunch is the budget win; dinner is the full show.</li>
-    <li><strong>Pair smart:</strong> Caipirinha or a dry red works well; the Refreshment/Deluxe package can be a savings lever.</li>
-  </ul>
-</section>
+  <!-- FAQ -->
+  <section class="card" id="faq">
+    <h2>Samba Grill — FAQ</h2>
+    <details>
+      <summary>What’s included in the cover?</summary>
+      <p>Unlimited rodizio meats carved tableside plus access to the antipasto/salad buffet. Desserts are included; beverages are extra or covered by a package.</p>
+    </details>
+    <details>
+      <summary>How much does it cost?</summary>
+      <p>Dinner is typically $34.99 per person (gratuity included). Some sailings offer a shorter lunch around $24.99.</p>
+    </details>
+    <details>
+      <summary>Is it good for kids or groups?</summary>
+      <p>Yes—families and groups tend to enjoy the interactive format and variety. Shared tables may appear on peak nights.</p>
+    </details>
+    <details>
+      <summary>Can vegetarians eat here?</summary>
+      <p>Options are limited. The buffet provides salads, cheeses, breads, and sides, but mains are meat-forward.</p>
+    </details>
+  </section>
 
-<section id="review">
-  <h2>Our Review: Samba Grill on Allure of the Seas (2025)</h2>
-  <p><strong>Bottom line:</strong> Samba Grill delivers a lively, value-forward take on the Brazilian steakhouse format with plenty of crowd-pleasing meats and a relaxed pace that suits cruise nights. Go in with realistic expectations — this is a fun rodizio, not a fine-dining steakhouse — and you’ll leave happy, full, and likely planning a return visit.</p>
+  <!-- Sources -->
+  <section class="card" id="sources">
+    <h2>Sources &amp; Attribution</h2>
+    <ul>
+      <li><a href="https://www.royalcaribbean.com/cruise-dining" target="_blank" rel="noopener">Royal Caribbean — Cruise Dining Overview</a></li>
+      <li><a href="https://www.royalcaribbean.com" target="_blank" rel="noopener">Royal Caribbean — Official Site</a></li>
+      <li>Menus and marks referenced under fair use for research and commentary.</li>
+      <li>All Rights Reserved</li>
+    </ul>
+  </section>
+</main>
 
-  <p><strong>Setting & first impressions.</strong> Tucked away from Allure’s busiest corridors, Samba feels like a welcome exhale. Lighting is warm, tables are well-spaced, and the hum of conversation never completely drowns out the sizzle from the pass. Service starts at the buffet: a focused spread of salads, cheeses, and sides that’s more “solid support act” than headliner. A few bites of pão de queijo and a modest salad are all you need before the skewers begin to roll.</p>
-
-  <p><strong>The meats — where Samba earns its stripes.</strong> Picanha is the cut to watch for: well-seasoned crust, clean beef flavor, and a juicy center when carved medium-rare. Ask your gaucho, and they’ll happily return when a fresh skewer is ready — the difference is noticeable. Fraldinha brings a looser grain and a punch of chimichurri; it’s flavorful, if a touch chewier by nature. The bacon-wrapped chicken is unapologetically indulgent: salty, smoky, and exactly the kind of bite that wins over teens and casual diners. Pork loin arrives rosy and aromatic with rosemary; the beef ribs, served in smaller carved chunks, lean rich and sticky. Lamb appears less frequently on busy evenings; when timed right, it’s tender with a mint-herb lift, but it’s the one cut where pacing matters most. If something lands past your preferred doneness, say so — staff are gracious about timing a better slice.</p>
-
-  <p><strong>Buffet & sides.</strong> The antipasto lineup won’t outshine the meat, but it’s fresh and functional: a crisp Caesar, a pleasant Greek salad with briny feta, and a simple Caprese that works best when tomatoes are at their peak. Feijoada is a nice touch — hearty and lightly smoky — and pairs well with any of the beef cuts. Grilled vegetables and polenta give you texture and variety without weighing things down. Desserts are classic cruise comfort (flan, cheesecake, mousse). If you still have room, the flan is the best balance of flavor and portion.</p>
-
-  <p><strong>Service & pacing.</strong> Samba uses a service disk (green to keep meats coming; red to pause), which makes it easy to control flow. On our visit, gauchos circled steadily without feeling rushed, and our server checked in often to target cuts we hadn’t seen yet. When the dining room filled, rarer meats did slow a bit; a quick ask brought the next skewer to our table within minutes. Drink service kept up — the caipirinha is bright, limey, and not overly sweet — and water refills were quietly efficient.</p>
-
-  <p><strong>Value & comparisons.</strong> At <em>$34.99</em> for dinner, Samba undercuts most steakhouses at sea while offering a wider variety of proteins. The trade-off is precision: you’re not getting Chops-level searing on a single premium steak, but you are getting breadth — picanha, lamb, pork, chicken, ribs — and control over how much of each you want. With a 3-meal dining package, the effective cost drops further, making Samba one of the better “fill-up and have fun” specialty choices on Allure or Radiance. If you’ve done land-based rodizios, you’ll find the spirit intact, with cruise-scale adjustments.</p>
-
-  <p><strong>Best way to dine.</strong> Book an earlier seating if you like faster rotations and hotter slices; later seatings feel livelier but can see more variance in doneness as skewers turn over. Start light at the buffet, call your doneness on arrival of each skewer, and use the disk to manage tempo. Two to three passes of favorites is plenty — you’ll appreciate dessert more if you stop one bite before full.</p>
-
-  <p><strong>Verdict.</strong> Samba Grill is a spirited, social dinner that earns its cover with variety and generosity. It’s not trying to be a white-tablecloth temple to beef; it’s an upbeat Brazilian feast at sea. Go for the picanha and the vibe, stay for a second caipirinha, and roll out content.</p>
-
-  <p><strong>Rating:</strong> 4.0 / 5 — Excellent value and fun service; occasional overcooking and a basic buffet keep it from must-book status for purists, but it’s an easy recommendation for groups and package holders.</p>
-</section>
-
-<section id="faq" class="faq">
-  <h2>FAQ</h2>
-  <ul>
-    <li><strong>Is Samba included?</strong> No. It’s a specialty venue; dining packages reduce the effective cost.</li>
-    <li><strong>How long does dinner take?</strong> About 75–110 minutes, depending on your pacing (and how often you flip the disk to green).</li>
-    <li><strong>Can vegetarians be accommodated?</strong> Options are limited; the buffet has salads, veg, and bread, but this venue is meat-forward.</li>
-    <li><strong>What’s the dress code?</strong> Resort casual (no swimwear); collared shirt or smart top fits the room.</li>
-  </ul>
-</section>
-
-<footer class="page-footer">
-  <nav><a href="/restaurants.html">← All Restaurants</a></nav>
-  <p>© 2025 Cruising in the Wake</p>
+<footer class="site-footer">
+  <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
 </footer>
+
+<!-- JSON-LD: Review -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Review",
+  "itemReviewed":{
+    "@type":"Restaurant",
+    "name":"Samba Grill",
+    "servesCuisine":"Brazilian",
+    "provider":{"@type":"Organization","name":"Royal Caribbean International"}
+  },
+  "name":"Samba Grill — Gaucho-Carved Brazilian at Sea",
+  "reviewBody":"Radiance of the Seas (July 2025) dinner review: lively rodizio format with standout picanha, bacon-wrapped chicken, and solid buffet basics. Friendly gaucho service; call doneness for best results. Great group value at $34.99, meat-forward with limited vegetarian mains.",
+  "reviewRating":{"@type":"Rating","ratingValue":"4.0","bestRating":"5","worstRating":"1"},
+  "author":{"@type":"Person","name":"Guest Sounding (Radiance of the Seas, July 2025)"},
+  "isPartOf":{"@type":"WebPage","url":"https://www.cruisinginthewake.com/restaurants/samba-grill.html"}
+}
+</script>
+
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What’s included in the cover?","acceptedAnswer":{"@type":"Answer","text":"Unlimited gaucho-carved meats and access to the antipasto/salad buffet. Desserts included; beverages are à la carte or covered by a package."}},
+    {"@type":"Question","name":"How much does Samba Grill cost?","acceptedAnswer":{"@type":"Answer","text":"Dinner is typically $34.99 per person including gratuity. Select sailings offer a shorter lunch near $24.99."}},
+    {"@type":"Question","name":"Is Samba Grill good for families and groups?","acceptedAnswer":{"@type":"Answer","text":"Yes. The interactive rodizio style and variety work well for families with teens and celebratory groups."}},
+    {"@type":"Question","name":"Are there vegetarian options?","acceptedAnswer":{"@type":"Answer","text":"Limited. The buffet provides salads, cheeses, breads, and sides, but mains are meat-forward."}}
+  ]
+}
+</script>
+
+<script src="/assets/js/venue-boot.js?v=2.257" defer></script>
+<script>
+(function(){
+  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const cleanClass=s=>String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
+  const CLASS_ORDER=['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
+
+  // Venue slug & hints for Samba Grill
+  const VENUE_HINTS=[
+    'samba grill','samba','samba-grill','sambagrill'
+  ];
+
+  const byClassSize=(a,b)=>{
+    const ai=CLASS_ORDER.indexOf(cleanClass(a[1].class));
+    const bi=CLASS_ORDER.indexOf(cleanClass(b[1].class));
+    if(ai!==bi){ if(ai===-1) return 1; if(bi===-1) return -1; return ai-bi; }
+    return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
+  };
+
+  async function hydrateShipList(listEl){
+    try{
+      const res=await fetch('/assets/data/venues.json',{cache:'no-store'});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const db=await res.json();
+
+      const ships=Object.entries(db.ships||{}).filter(([slug,p])=>{
+        const v=Array.isArray(p.venues)?p.venues:[];
+        return VENUE_HINTS.some(h=>v.includes(h));
+      }).sort(byClassSize);
+
+      listEl.innerHTML = ships.length
+        ? ships.map(([slug,p])=>{
+            const name=p.name||slug;
+            // Prefer RCL path; adjust if your ship slugs live elsewhere
+            return `<a class="chip" href="/ships/rcl/${slug}.html" title="${name}">${name}</a>`;
+          }).join('')
+        : `<span class="tiny muted">No active ships found for this venue.</span>`;
+    }catch(e){
+      listEl.innerHTML = `<span class="tiny muted">Could not load ship list.</span>`;
+    }
+  }
+
+  const btn=document.getElementById('rccl-toggle');
+  const list=document.getElementById('rccl-ship-list');
+  const tip=document.getElementById('rccl-tip');
+
+  function setNote(open){
+    const note=btn.querySelector('.note');
+    if(note) note.textContent = open ? '— tap again to hide ships' : '— tap to see ships';
+  }
+
+  function toggleList(forceOpen){
+    const open=(typeof forceOpen==='boolean')?forceOpen:(btn.getAttribute('aria-expanded')!=='true');
+    btn.setAttribute('aria-expanded', String(open));
+    list.classList.toggle('is-hidden', !open);
+    if(open){
+      list.setAttribute('data-anim','in');
+      setTimeout(()=>list.removeAttribute('data-anim'),220);
+      if(tip) tip.style.display='none';
+    }
+    setNote(open);
+  }
+
+  if(btn && list){
+    hydrateShipList(list);
+    setNote(false);
+    btn.addEventListener('click', ()=>toggleList());
+    btn.addEventListener('keydown', e=>{
+      if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggleList(); }
+    });
+  }
+})();
+</script>
 </body>
 </html>
