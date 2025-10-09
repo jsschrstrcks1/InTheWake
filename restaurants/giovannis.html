@@ -5,347 +5,327 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Giovanni’s Italian — Kitchen vs. Table | In the Wake</title>
 
-  <meta name="description" content="Giovanni’s Italian on Royal Caribbean: compare Giovanni’s Italian Kitchen vs. Giovanni’s Table. Menus, prices, ships, reservations, reviews, and dining package value.">
-  <meta name="keywords" content="Giovanni’s Italian Kitchen, Giovanni’s Table, Royal Caribbean, Italian restaurant, pasta, pizza, specialty dining, Wonder of the Seas, Utopia of the Seas, Icon of the Seas">
-  <meta name="referrer" content="no-referrer">
-  <meta name="version" content="3.001.000">
+  <meta name="description" content="Compare Giovanni’s Italian Kitchen and Giovanni’s Table on Royal Caribbean. Prices, menus, ships, and which one’s right for your sailing in 2025.">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="version" content="3.002.000">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="In the Wake">
   <meta property="og:title" content="Giovanni’s Italian — Kitchen vs. Table">
+  <meta property="og:description" content="Side-by-side: Giovanni’s Italian Kitchen vs. Giovanni’s Table — pricing, menus, ships, and tips for 2025 sailings.">
   <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants/giovannis.html">
-  <meta property="og:description" content="What’s the difference between Giovanni’s Italian Kitchen and Giovanni’s Table? See menus, pricing, ships, and our take.">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/og/giovannis.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="venue-tags" content="giovanni's, italian, specialty dining, pizza, pasta, kitchen, table, royal caribbean">
+  <meta name="twitter:image" content="https://www.cruisinginthewake.com/assets/og/giovannis.jpg">
 
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/giovannis.html">
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.002">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <script>
-  (function(){
-    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
-    function normalize(){
-      var sel=[
-        'a[href^="https://www.cruisinginthewake.com/"]',
-        'img[src^="https://www.cruisinginthewake.com/"]',
-        'link[href^="https://www.cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]'
-      ].join(',');
-      document.querySelectorAll(sel).forEach(function(el){
-        var attr=el.hasAttribute('href')?'href':'src';
-        try{var u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
-      });
-    }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
-  })();
-  </script>
-
   <style>
-    /* page-specific sprinkles */
-    .compare {display:grid;gap:1rem}
-    @media(min-width:900px){.compare{grid-template-columns:1fr 1fr}}
-    .chip.badge{border-radius:999px;border:1px solid var(--rope,#d9b382);padding:.2rem .6rem;font-weight:600}
-    .kicker{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent,#0e6e8e)}
-    .price {font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
-    .table-like{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
-    .table-like div{background:var(--foam,#f2f8fb);padding:.65rem .75rem;border-radius:8px}
-    .tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1rem}
-    .tabs button{border:1px solid var(--rope,#d9b382);background:#fff;border-radius:999px;padding:.35rem .85rem;cursor:pointer;font-weight:600}
-    .tabs button[aria-pressed="true"]{background:var(--foam,#e6f4f8);color:var(--accent,#0e6e8e);border-color:var(--accent,#0e6e8e)}
-    .tabpanel{display:none}
-    .tabpanel.is-active{display:block}
-    .legend{font-size:.9rem;color:#466}
-    .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;opacity:.08;max-width:60%;margin:auto}
-    .grid-3{display:grid;gap:1rem}
-    @media(min-width:980px){.grid-3{grid-template-columns:repeat(3,1fr)}}
-  </style>
+    /* Utilities */
+    .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    :focus-visible{outline:2px solid var(--accent,#0e6e8e);outline-offset:2px}
+    .skip-link{position:absolute;left:-9999px;top:auto}
+    .skip-link:focus{left:8px;top:8px;z-index:9999;background:#fff;color:#000;padding:.5rem .75rem;border-radius:.25rem;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+    .is-hidden{display:none!important}
 
-  <!-- Minimal schema for rich results -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"ItemList",
-    "name":"Giovanni's Italian — Kitchen vs. Table",
-    "itemListElement":[
-      {"@type":"ListItem","position":1,"name":"Giovanni's Italian Kitchen","url":"https://www.cruisinginthewake.com/restaurants/giovannis.html#kitchen"},
-      {"@type":"ListItem","position":2,"name":"Giovanni's Table","url":"https://www.cruisinginthewake.com/restaurants/giovannis.html#table"}
-    ]
-  }
-  </script>
+    /* Minor layout polish for nav pills on small screens */
+    @media (min-width:980px){.hero-header .navbar .pills{flex-wrap:nowrap}}
+    @media (max-width:979px){
+      .hero-header .navbar .pills{flex-wrap:nowrap;overflow:auto;scrollbar-width:none}
+      .hero-header .navbar .pills::-webkit-scrollbar{display:none}
+    }
+
+    /* Chips */
+    .ship-pills-bar{max-width:1100px;margin:.5rem auto 0;padding:0 14px}
+    .ship-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+    .ship-pills a.chip,
+    .ship-pills-bar button.rc-toggle{
+      display:inline-block;font-size:1rem;font-weight:600;border:1px solid var(--rope,#d9b382);
+      border-radius:999px;padding:.35rem .85rem;background:#fff;color:var(--ink,#083041);
+      text-decoration:none;transition:all .18s ease-in-out;white-space:nowrap
+    }
+    .ship-pills a.chip::before{content:"🍝";font-size:.9em;margin-right:.35em;color:var(--rope,#d9b382)}
+    .ship-pills a.chip:hover,.ship-pills-bar .rc-toggle:hover{
+      background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e);transform:translateY(-1px)
+    }
+
+    /* Cards */
+    .card>img[aria-hidden]{position:absolute;inset:0;z-index:0;opacity:.08;max-width:60%;margin:auto}
+
+    /* Tabs (ARIA pattern) */
+    .tabs[role="tablist"]{display:flex;gap:.5rem;flex-wrap:wrap}
+    [role="tab"]{
+      appearance:none;border:1px solid var(--rope,#d9b382);background:#fff;color:var(--ink,#083041);
+      border-radius:999px;padding:.4rem .9rem;font-weight:700;cursor:pointer
+    }
+    [role="tab"][aria-selected="true"]{background:var(--foam,#e6f4f8);border-color:var(--accent,#0e6e8e);color:var(--accent,#0e6e8e)}
+    .tabpanel{margin-top:1rem}
+    .compare-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media (min-width:780px){.compare-grid{grid-template-columns:1fr 1fr}}
+    .compare-card{border:1px solid var(--line,#e5e7eb);border-radius:12px;padding:12px;background:#fff}
+    .compare-card h3{margin:.25rem 0 .5rem}
+
+    /* Price badge */
+    .price-badge{display:inline-block;background:#0e6e8e;color:#fff;border-radius:999px;padding:.2rem .6rem;font-weight:700;font-size:.9rem}
+
+    /* Data lists */
+    .kv{display:grid;grid-template-columns:120px 1fr;gap:.25rem .75rem;margin:.75rem 0}
+    .kv dt{font-weight:700;color:var(--ink,#083041)}
+    .kv dd{margin:0}
+  </style>
 </head>
 
 <body class="venue-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
 <header class="hero-header">
   <div class="navbar">
     <div class="brand">
-      <img src="/assets/logo_wake.png" alt="In the Wake" height="28">
+      <img src="/assets/logo_wake.png" alt="In the Wake" height="28" width="140" loading="eager">
       <span class="brand-title">In the Wake</span>
-      <span class="version-badge">v3.001</span>
+      <span class="version-badge">v3.002</span>
     </div>
     <nav class="pills" aria-label="Primary">
       <a href="/">Home</a>
       <a href="/ships/">Ships</a>
-      <a class="active" href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a class="active" href="/restaurants.html" aria-current="page">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/disability-at-sea.html">Disability at Sea</a>
       <a href="/drink-packages.html">Drink Packages</a>
       <a href="/packing-lists.html">Packing Lists</a>
       <a href="/cruise-lines/">Cruise Lines</a>
+      <a href="/solo.html">Solo</a>
+      <a href="/travel.html">Travel</a>
     </nav>
   </div>
 
-  <div class="hero hero--wake" role="img" aria-label="Rustic Italian table with pasta and pizza">
-    <img class="hero-compass" src="/assets/compass-rose.svg" alt="" aria-hidden="true">
-    <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt="In the Wake"></div>
+  <div class="hero hero--wake">
+    <img class="hero-compass" src="/assets/compass-rose.svg" alt="" aria-hidden="true" width="256" height="256" loading="lazy">
+    <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt="In the Wake" width="220" height="44" loading="lazy"></div>
     <p class="tagline">A Cruise Traveler’s Logbook</p>
     <div class="hero-credit">
-      <a class="pill long" href="/restaurants.html">Back to Restaurants Hub</a>
+      <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Photo by Flickers of Majesty — Instagram</a>
     </div>
-    <h1 style="position:absolute;left:-9999px">Giovanni’s Italian — Kitchen vs. Table</h1>
+    <h1>Giovanni’s Italian — Kitchen vs. Table</h1>
   </div>
 </header>
 
-<main class="wrap">
+<main id="main" class="wrap">
 
   <!-- Overview -->
   <section class="card" id="overview">
-    <img src="/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true" loading="lazy" width="900" height="900">
     <div class="card__content">
-      <p class="kicker">Royal Caribbean Specialty Dining</p>
-      <h1 class="page-title">Giovanni’s Italian — Kitchen vs. Table</h1>
-      <p class="subtitle">Two takes on trattoria comfort. One handy guide.</p>
-      <p class="lede">Giovanni’s comes in two flavors: the newer <strong>Giovanni’s Italian Kitchen</strong> (pizza-forward, modern trattoria) and the classic <strong>Giovanni’s Table</strong> (family-style, old-world plates). Use this page to compare menus, prices, ships, and which one fits your cruise night.</p>
-      <p><span class="chip badge">Specialty Dining</span> <span class="chip badge">Italian</span> <span class="chip badge">Family-Friendly</span></p>
-      <p class="pill version" style="float:right;margin-top:.5rem;">v3.001.000</p>
+      <h2 class="page-title">Overview</h2>
+      <p class="subtitle">Royal Caribbean — Specialty Italian (Two Concepts)</p>
+      <p class="lede">Giovanni’s comes in two flavors: the newer <strong>Italian Kitchen</strong> (pizza-forward, modern trattoria) and the classic <strong>Giovanni’s Table</strong> (family-style, rustic Italian). This guide compares both on one page so you can pick the right vibe, price point, and menu for your sailing.</p>
+      <p class="blurb">Covers 2025 pricing, ships, hours, and menus — plus an at-a-glance comparison. <a href="/restaurants.html">Back to Restaurants →</a></p>
+      <p class="pill version" style="float:right;margin-top:.5rem;">v3.002.000</p>
     </div>
   </section>
 
-  <!-- Quick Compare Card -->
+  <!-- Comparison card -->
   <section class="card" id="compare">
-    <img src="/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true" loading="lazy" width="900" height="900">
     <div class="card__content">
-      <h2>Quick Compare</h2>
-      <div class="compare">
-        <div class="panel">
-          <h3 id="kitchen">Giovanni’s Italian <span class="nowrap">Kitchen</span></h3>
-          <p class="legend">Modern trattoria • Pizza oven • Shareable apps</p>
-          <div class="table-like" style="margin:.6rem 0">
-            <div><strong>Vibe</strong><br>Relaxed, lively trattoria; great for families</div>
-            <div><strong>Best For</strong><br>Pizza + pastas, value lunch on sea days</div>
-            <div><strong>Typical Price</strong><br><span class="price">$14.99 lunch · $34.99 dinner</span></div>
-            <div><strong>Highlights</strong><br>Hand-tossed pizzas, gigantic meatball, lobster ravioli</div>
-          </div>
-          <a class="chip" href="#kitchen-menu">Jump to Kitchen menu →</a>
+      <h2>Giovanni’s Kitchen vs. Giovanni’s Table — Quick Compare</h2>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <h3>Giovanni’s Italian Kitchen</h3>
+          <p><span class="price-badge">$14.99 lunch · $34.99 dinner</span> (packages lower cost)</p>
+          <dl class="kv">
+            <dt>Ships</dt><dd>Freedom refits; Oasis/Quantum Ultra; Icon/Utopia/Wonder</dd>
+            <dt>Vibe</dt><dd>Trattoria-modern, pizza oven front-and-center</dd>
+            <dt>Menu</dt><dd>Antipasti, hand-tossed pizzas, pastas, Nonna’s entrées</dd>
+            <dt>Best for</dt><dd>Families &amp; casual date nights; shareable plates</dd>
+            <dt>Open</dt><dd>Sea-day lunch · nightly dinner (varies by ship)</dd>
+          </dl>
+          <a class="chip" href="#kitchen">See details →</a>
         </div>
-        <div class="panel">
-          <h3 id="table">Giovanni’s <span class="nowrap">Table</span></h3>
-          <p class="legend">Rustic, family-style classics • Larger platters</p>
-          <div class="table-like" style="margin:.6rem 0">
-            <div><strong>Vibe</strong><br>Cozy, candle-lit; date-night friendly</div>
-            <div><strong>Best For</strong><br>Hearty share plates, “Nonna” entrees</div>
-            <div><strong>Typical Price</strong><br><span class="price">$18.99 lunch · $34.99–$39.99 dinner</span></div>
-            <div><strong>Highlights</strong><br>Osso buco, lasagna Bolognese, tiramisu</div>
-          </div>
-          <a class="chip" href="#table-menu">Jump to Table menu →</a>
-        </div>
-      </div>
-      <p class="legend" style="margin-top:.6rem">Tip: Dining packages can drop effective cost ~30–40%. Kids’ menus available.</p>
-    </div>
-  </section>
-
-  <!-- Which One Should I Book? -->
-  <section class="card" id="chooser">
-    <img src="/assets/watermark.png" alt="" aria-hidden="true">
-    <div class="card__content">
-      <h2>Kitchen or Table: which suits your night?</h2>
-      <div class="grid-3">
-        <div>
-          <h3>Pizza people &amp; grazers → <span style="white-space:nowrap">Kitchen</span></h3>
-          <p>Hand-tossed pies, antipasti, and modern twists. Lunch on sea days is the sleeper value.</p>
-        </div>
-        <div>
-          <h3>Occasion dinner &amp; sharers → Table</h3>
-          <p>Old-world classics in bigger, family-style portions—great for slow, celebratory meals.</p>
-        </div>
-        <div>
-          <h3>Kids &amp; groups</h3>
-          <p>Both work. <strong>Kitchen</strong> runs louder &amp; quicker; <strong>Table</strong> feels cozier for date night.</p>
+        <div class="compare-card">
+          <h3>Giovanni’s Table</h3>
+          <p><span class="price-badge">$18.99 lunch · $34.99–$39.99 dinner</span></p>
+          <dl class="kv">
+            <dt>Ships</dt><dd>Oasis, Freedom, Independence, some Quantum variants</dd>
+            <dt>Vibe</dt><dd>Rustic, cozy, family-style</dd>
+            <dt>Menu</dt><dd>Hearty pastas, osso buco, classic antipasti</dd>
+            <dt>Best for</dt><dd>Occasions &amp; carb-comfort feasts</dd>
+            <dt>Open</dt><dd>Sea-day lunch · nightly dinner (varies by ship)</dd>
+          </dl>
+          <a class="chip" href="#table">See details →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Tabs: Menus & Prices -->
-  <section class="card" id="menus-prices">
-    <img src="/assets/watermark.png" alt="" aria-hidden="true">
+  <!-- Tabs -->
+  <section class="card" id="variants">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true" loading="lazy" width="900" height="900">
     <div class="card__content">
-      <h2>Menus &amp; Pricing</h2>
-      <div class="tabs" role="tablist" aria-label="Giovanni's variants">
-        <button role="tab" aria-controls="tp-kitchen" aria-pressed="true" onclick="swap('tp-kitchen',this)">Italian Kitchen</button>
-        <button role="tab" aria-controls="tp-table" aria-pressed="false" onclick="swap('tp-table',this)">Giovanni’s Table</button>
+      <h2>Choose a Variant</h2>
+      <div class="tabs" role="tablist" aria-label="Giovanni’s variants">
+        <button role="tab" id="tab-kitchen" aria-controls="panel-kitchen" aria-selected="true" tabindex="0">Italian Kitchen</button>
+        <button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="false" tabindex="-1">Giovanni’s Table</button>
       </div>
 
-      <!-- Kitchen -->
-      <div id="tp-kitchen" class="tabpanel is-active" role="region" aria-labelledby="Italian Kitchen">
-        <p><strong>Price:</strong> <span class="price">$14.99 lunch (sea days) · $34.99 dinner</span> (incl. gratuity). Packages reduce cost.</p>
-        <details id="kitchen-menu" class="variant" open>
-          <summary><strong>Antipasti &amp; Insalate</strong></summary>
+      <!-- Kitchen panel -->
+      <div id="panel-kitchen" class="tabpanel is-active" role="tabpanel" aria-labelledby="tab-kitchen">
+        <h3 id="kitchen">Giovanni’s Italian Kitchen — Details</h3>
+        <p><strong>Positioning:</strong> casual trattoria with hand-tossed pizzas, antipasti, hearty pastas, and Nonna’s classics. Launched fleetwide 2019→ with ongoing rollouts.</p>
+        <ul>
+          <li><strong>Price:</strong> Lunch <em>$14.99</em>; Dinner <em>$34.99</em> (incl. gratuity). Packages reduce cost.</li>
+          <li><strong>Hours:</strong> Sea-day lunch; nightly dinner (check app for your sailing).</li>
+          <li><strong>Highlights:</strong> Calamari Fritti; Gigantic Meatball; Lobster Ravioli; Lasagna Bolognese; Chicken Parm; pizza “Giovanni’s” (salami + honey).</li>
+          <li><strong>Who will love it:</strong> Families, groups, pizza-people, shareable-plate fans.</li>
+        </ul>
+        <details class="variant" open>
+          <summary><strong>Sample Menu &amp; Pricing</strong></summary>
           <ul>
-            <li>Calamari Fritti (with polenta &amp; marinara)</li>
-            <li>Stromboli (salami, mozzarella)</li>
-            <li>Gigantic Meatball (beef, ricotta, San Marzano sauce)</li>
-            <li>Caprese / Caesar</li>
+            <li>Antipasti: Calamari Fritti; Stromboli; Meatball (shareable)</li>
+            <li>Insalate: Caprese; Caesar</li>
+            <li>Pizza: Margherita; Pepperoni; Giovanni’s (salami, honey)</li>
+            <li>Pastas: Lobster Ravioli (sage cream); Fettuccine Alfredo (+chicken); Lasagna Bolognese</li>
+            <li>Entrees: Chicken Parmigiana; Osso Buco (Nonna’s); Grilled Mahi Puttanesca</li>
+            <li>Dolci: Tiramisu; Cannoli; Gelato</li>
           </ul>
-        </details>
-        <details class="variant">
-          <summary><strong>Pizzas &amp; Pastas</strong></summary>
-          <ul>
-            <li>Hand-tossed Pizzas: Margherita, Pepperoni, Giovanni’s (spicy salami, hot honey)</li>
-            <li>Lobster Ravioli (sage cream)</li>
-            <li>Fettuccine Alfredo (add chicken)</li>
-            <li>Lasagna Bolognese (Nonna’s)</li>
-            <li>Penne Arrabbiata</li>
-          </ul>
-        </details>
-        <details class="variant">
-          <summary><strong>Entrees &amp; Dolci</strong></summary>
-          <ul>
-            <li>Chicken Parmigiana • Osso Buco (veal, risotto)</li>
-            <li>Tiramisu • Cannoli • Gelato</li>
-          </ul>
+          <p class="note">Lunch focuses on pizza + lighter plates; dinner adds fuller entrées. Actual menus rotate by sailing.</p>
         </details>
       </div>
 
-      <!-- Table -->
-      <div id="tp-table" class="tabpanel" role="region" aria-labelledby="Giovanni’s Table">
-        <p><strong>Price:</strong> <span class="price">$18.99 lunch · $34.99–$39.99 dinner</span> (incl. gratuity). Packages reduce cost.</p>
-        <details id="table-menu" class="variant" open>
-          <summary><strong>Starters to Share</strong></summary>
+      <!-- Table panel -->
+      <div id="panel-table" class="tabpanel" role="tabpanel" aria-labelledby="tab-table" hidden>
+        <h3 id="table">Giovanni’s Table — Details</h3>
+        <p><strong>Positioning:</strong> rustic, family-style Italian with generous pastas and classics in a cozy, romantic setting. Long-time Royal staple.</p>
+        <ul>
+          <li><strong>Price:</strong> Lunch <em>$18.99</em>; Dinner <em>$34.99–$39.99</em> (incl. gratuity). Packages available.</li>
+          <li><strong>Hours:</strong> Sea-day lunch; nightly dinner (check app for your sailing).</li>
+          <li><strong>Highlights:</strong> Lasagna Bolognese; Osso Buco with risotto; Lobster Ravioli; Shrimp Scampi Bruschetta; classic antipasti.</li>
+          <li><strong>Who will love it:</strong> Date-nighters, carb-comfort seekers, celebration dinners.</li>
+        </ul>
+        <details class="variant" open>
+          <summary><strong>Sample Menu &amp; Pricing</strong></summary>
           <ul>
-            <li>Antipasto Platter • Calamari • Shrimp Scampi Bruschetta</li>
-            <li>Italian Sausage Soup • Minestrone • Caprese</li>
+            <li>Antipasti: Calamari; Stromboli; Meatball (shareable)</li>
+            <li>Soups/Salads: Minestrone; Caprese; Italian Sausage Soup</li>
+            <li>Pastas: Lasagna Bolognese; Fettuccine Alfredo; Lobster Ravioli</li>
+            <li>Entrees: Osso Buco; Chicken Parmigiana; Filet (select ships)</li>
+            <li>Dolci: Tiramisu; Cannoli; Cheesecake</li>
           </ul>
-        </details>
-        <details class="variant">
-          <summary><strong>Pasta &amp; Mains</strong></summary>
-          <ul>
-            <li>Lasagna Bolognese • Fettuccine Alfredo</li>
-            <li>Lobster Ravioli • Spaghetti Carbonara</li>
-            <li>Osso Buco (Nonna’s) • Filet Mignon Marsala</li>
-          </ul>
-        </details>
-        <details class="variant">
-          <summary><strong>Dolci</strong></summary>
-          <ul>
-            <li>Tiramisu • Cannoli • Cheesecake • Apple Crostata</li>
-          </ul>
+          <p class="note">Lunch is abbreviated; dinner menu is broader with heavier mains. Rotations vary by ship.</p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- Ships & Access -->
-  <section class="card" id="where">
-    <img src="/assets/watermark.png" alt="" aria-hidden="true">
+  <!-- Tips -->
+  <section class="card" id="tips">
+    <img src="/assets/watermark.png" alt="" aria-hidden="true" loading="lazy" width="900" height="900">
     <div class="card__content">
-      <h2>Where you’ll find them</h2>
-      <div class="compare">
-        <div>
-          <h3>Italian Kitchen — newer concept</h3>
-          <p class="legend">2019–present rollout</p>
-          <ul>
-            <li>Oasis class: <em>Wonder</em>, <em>Utopia</em></li>
-            <li>Icon class: <em>Icon</em></li>
-            <li>Freedom/selected Quantum Ultra refits</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Giovanni’s Table — classic concept</h3>
-          <p class="legend">Legacy favorite</p>
-          <ul>
-            <li>Oasis, Freedom, Independence</li>
-            <li>Quantum (select), Spectrum/others</li>
-          </ul>
-        </div>
-      </div>
-      <p class="legend" style="margin-top:.5rem">Exact placement varies by ship; check the Cruise Planner for your sailing.</p>
-    </div>
-  </section>
-
-  <!-- Reservations, Packages, Tips -->
-  <section class="card" id="booking">
-    <img src="/assets/watermark.png" alt="" aria-hidden="true">
-    <div class="card__content">
-      <h2>Reservations &amp; value tips</h2>
+      <h2>Which One Should You Book?</h2>
       <ul>
-        <li><strong>Book early:</strong> Prime dinner slots go fast—especially on Oasis/Icon.</li>
-        <li><strong>Dining packages:</strong> “3-Night” or “Unlimited” can drop per-meal cost 30–40%.</li>
-        <li><strong>Lunch plays:</strong> On sea days, <em>Kitchen</em> lunch (~$15) is a superb value.</li>
-        <li><strong>Families:</strong> Ask for kids’ menus; shareable plates stretch value.</li>
-        <li><strong>Allergies:</strong> Kitchens can adjust many dishes (gluten-free pasta on request).</li>
+        <li><strong>Want pizza + shareables?</strong> Pick <em>Italian Kitchen</em> (lunch is a value play).</li>
+        <li><strong>Want cozy, classic, and hearty?</strong> Pick <em>Giovanni’s Table</em> (great for occasions).</li>
+        <li><strong>Using a dining package?</strong> Either is solid; Kitchen tends to feel “broader” for groups.</li>
+        <li><strong>With kids?</strong> Kitchen’s pizzas keep everyone happy; both have kid options.</li>
       </ul>
-      <div class="cta-row" style="margin-top:.75rem">
-        <a class="pill" href="/drink-packages.html">See Dining &amp; Drink Packages →</a>
-        <a class="pill" href="/restaurants.html">Browse more restaurants →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Reviews snapshot -->
-  <section class="card" id="reviews">
-    <img src="/assets/watermark.png" alt="" aria-hidden="true">
-    <div class="card__content">
-      <h2>What cruisers say (2024–2025)</h2>
-      <div class="compare">
-        <div>
-          <h3>Italian Kitchen — ~4.3/5</h3>
-          <ul>
-            <li><strong>Loved:</strong> Pizzas, lobster ravioli, gigantic meatball; casual vibe.</li>
-            <li><strong>Meh:</strong> Portion size vs. price on some apps; occasional pasta doneness misses.</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Giovanni’s Table — ~4.3/5</h3>
-          <ul>
-            <li><strong>Loved:</strong> Hearty family-style plates, osso buco, cozy ambiance.</li>
-            <li><strong>Meh:</strong> Can feel heavy; pacing slow on peak nights.</li>
-          </ul>
-        </div>
-      </div>
-      <p class="legend">Our take: <em>Kitchen</em> for lively, pizza-forward nights; <em>Table</em> for classic, share-heavy dinners.</p>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="card" id="faq">
-    <img src="/assets/watermark.png" alt="" aria-hidden="true">
-    <div class="card__content">
-      <h2>FAQ</h2>
-      <details open><summary>Is either venue included?</summary>
-        <p>Both are <strong>specialty dining</strong> with a cover charge. Dining packages lower the effective price. Kids often have reduced pricing.</p>
-      </details>
-      <details><summary>Which one is on my ship?</summary>
-        <p>Newer and amplified ships tend to feature <em>Italian Kitchen</em>; many legacy ships keep <em>Giovanni’s Table</em>. Check your Cruise Planner.</p>
-      </details>
-      <details><summary>Dress code?</summary>
-        <p>Smart casual. No jacket required. Formal nights welcome a dressier look.</p>
-      </details>
     </div>
   </section>
 
 </main>
 
 <footer class="wrap" style="margin-bottom:3rem">
-  <p class="legend">Content last updated v3.001.000. Menus and prices can vary by ship and sailing.</p>
+  <p class="fine">Content updated for 2025 sailings. Menus, prices, and hours are subject to change by ship and itinerary.</p>
 </footer>
 
-<script>
-  function swap(id,btn){
-    document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-pressed','false'));
-    btn.setAttribute('aria-pressed','true');
-    document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('is-active'));
-    document.getElementById(id).classList.add('is-active');
-  }
+<!-- Structured data: list + two restaurant nodes -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"ItemList",
+      "name":"Giovanni's Italian — Kitchen vs. Table",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Giovanni's Italian Kitchen","url":"https://www.cruisinginthewake.com/restaurants/giovannis.html#kitchen"},
+        {"@type":"ListItem","position":2,"name":"Giovanni's Table","url":"https://www.cruisinginthewake.com/restaurants/giovannis.html#table"}
+      ]
+    },
+    {
+      "@type":"Restaurant",
+      "name":"Giovanni's Italian Kitchen",
+      "servesCuisine":"Italian",
+      "priceRange":"$$",
+      "url":"https://www.cruisinginthewake.com/restaurants/giovannis.html#kitchen",
+      "offers":[
+        {"@type":"Offer","priceCurrency":"USD","price":"14.99","category":"lunch","availabilityStarts":"2025-01-01"},
+        {"@type":"Offer","priceCurrency":"USD","price":"34.99","category":"dinner","availabilityStarts":"2025-01-01"}
+      ]
+    },
+    {
+      "@type":"Restaurant",
+      "name":"Giovanni's Table",
+      "servesCuisine":"Italian",
+      "priceRange":"$$",
+      "url":"https://www.cruisinginthewake.com/restaurants/giovannis.html#table",
+      "offers":[
+        {"@type":"Offer","priceCurrency":"USD","price":"18.99","category":"lunch","availabilityStarts":"2025-01-01"},
+        {"@type":"Offer","priceCurrency":"USD","price":"34.99","category":"dinner","availabilityStarts":"2025-01-01"}
+      ]
+    }
+  ]
+}
 </script>
+
+<!-- Accessible Tabs JS (no inline handlers; keyboard supported) -->
+<script>
+(function(){
+  const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+  if (!tabs.length) return;
+  const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+
+  function activate(next){
+    tabs.forEach((t,i)=>{
+      const isActive = t === next;
+      t.setAttribute('aria-selected', String(isActive));
+      t.tabIndex = isActive ? 0 : -1;
+      panels[i].toggleAttribute('hidden', !isActive);
+      panels[i].classList.toggle('is-active', isActive);
+    });
+    next.focus();
+  }
+
+  tabs.forEach(t=>{
+    t.addEventListener('click', () => activate(t));
+    t.addEventListener('keydown', (e)=>{
+      const i = tabs.indexOf(t);
+      let ni = i;
+      if (e.key === 'ArrowRight') ni = (i+1)%tabs.length;
+      else if (e.key === 'ArrowLeft') ni = (i-1+tabs.length)%tabs.length;
+      else if (e.key === 'Home') ni = 0;
+      else if (e.key === 'End') ni = tabs.length-1;
+      else return;
+      e.preventDefault();
+      activate(tabs[ni]);
+    });
+  });
+
+  // Allow compare-card anchors to switch tabs
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const id = a.getAttribute('href').slice(1);
+      if (id === 'kitchen' || id === 'table'){
+        e.preventDefault();
+        const targetTab = document.getElementById(id === 'kitchen' ? 'tab-kitchen' : 'tab-table');
+        if (targetTab) activate(targetTab);
+        const targetPanel = document.getElementById('panel-' + id);
+        if (targetPanel) targetPanel.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
