@@ -980,5 +980,42 @@ function ytId(v){
   } else { warm(); }
 })();
 </script>
+  <!-- Service Worker + Image Cache + JSON Warmup -->
+<script>
+  // Register Service Worker for image caching
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .catch(err => console.warn('Service Worker registration failed:', err));
+  }
+
+  // ImageWarm helper for pre-caching key Radiance images
+  window.ImageWarm = {
+    prime(urls = []) {
+      urls.forEach(u => { try { fetch(u, { mode:'no-cors', cache:'no-store' }); } catch {} });
+    }
+  };
+
+  // Cache key JSON + pre-warm important images
+  (async () => {
+    try {
+      // Cache fleet_index.json and venues.json with 7-day TTL
+      await Promise.all([
+        SiteCache.getJSON(_abs('/assets/data/fleet_index.json'), { ttlDays: 7, versionPath: ['version'] }),
+        SiteCache.getJSON(_abs('/assets/data/venues.json'), { ttlDays: 7, versionPath: ['version'] })
+      ]);
+
+      // Preload Radiance hero and carousel images into the SW cache
+      const imgs = [
+        _abs('/assets/ships/radiance-of-the-seas1.jpeg'),
+        _abs('/assets/ships/radiance-of-the-seas2.jpg'),
+        _abs('/assets/ships/radiance-of-the-seas3.jpg'),
+        _abs('/assets/ships/rcl/radiance-of-the-seas/dining-hero.jpg')
+      ];
+      ImageWarm.prime(imgs);
+    } catch (e) {
+      console.warn('Warmup skipped:', e);
+    }
+  })();
+</script>
 </body>
 </html>
