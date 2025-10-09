@@ -141,5 +141,11 @@
   <footer class="wrap">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
   </footer>
+  <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .catch(err => console.warn('SW registration failed:', err));
+}
+</script>
 </body>
 </html>
