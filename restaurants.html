@@ -131,6 +131,31 @@
     /* Skip link (fallback) */
     .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
     .skip-link:focus{ position:static; width:auto; height:auto; padding:.4rem .6rem; background:#fff; border:1px solid var(--rope); border-radius:999px; margin:.35rem; display:inline-block; }
+
+    /* A11y focus rings (global for custom UI) */
+    .pill, .chip, .pillbtn, .btn, .tip-dismiss, #clearBtn, .logo-sm, .hero-credit .pill.long { outline: none; }
+    .pill:focus-visible, .chip:focus-visible, .pillbtn:focus-visible, .btn:focus-visible,
+    .tip-dismiss:focus-visible, #clearBtn:focus-visible, .logo-sm:focus-visible,
+    .hero-credit .pill.long:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px rgba(14,110,142,.2);
+      border-radius: 8px;
+    }
+
+    /* Reduced motion guard */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+    }
+
+    /* High-contrast (forced colors) safety */
+    @media (forced-colors: active){
+      .pill:focus-visible, .chip:focus-visible, .pillbtn:focus-visible, .btn:focus-visible,
+      .tip-dismiss:focus-visible, #clearBtn:focus-visible {
+        outline: 2px solid CanvasText;
+        box-shadow: none;
+      }
+    }
   </style>
 
   <!-- 3-up responsive grid -->
@@ -207,7 +232,7 @@
         <button class="pillbtn" id="classBtn" aria-expanded="false" aria-controls="tray-class">Ship Class</button>
         <button class="pillbtn" id="shipBtn"  aria-expanded="false" aria-controls="tray-ship">Ship</button>
         <button class="pillbtn" id="venueBtn" aria-expanded="false" aria-controls="tray-venue">Venue</button>
-        <button class="pillbtn" id="clearBtn" title="Clear filters">Clear</button>
+        <button class="pillbtn" id="clearBtn" type="button" aria-label="Clear all filters" title="Clear filters">Clear</button>
       </div>
       <div id="tray-brand" class="tray" role="menu"><div class="group" id="brands"></div></div>
       <div id="tray-class" class="tray" role="menu"><div class="group" id="classes"></div></div>
@@ -291,7 +316,7 @@
   </main>
 
   <footer class="site-footer" style="text-align:center">
-    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
+    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
   </footer>
 
   <!-- ============ JS: render + fuzzy filter + trays + ship pills ============ -->
@@ -531,6 +556,13 @@
     [tB,tC,tS,tV].forEach(tr=>{
       tr.addEventListener('mouseleave', ()=>setTimeout(closeAll,220));
       tr.addEventListener('focusout', e=>{ if(!tr.contains(e.relatedTarget)) setTimeout(closeAll,220); });
+    });
+
+    // NEW: ESC to close trays (a11y)
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        closeAll();
+      }
     });
 
     clr.addEventListener('click', ()=>{
