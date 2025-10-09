@@ -964,5 +964,13 @@ function ytId(v){
     });
   })();
   </script>
+  <script>
+(async () => {
+  await Promise.all([
+    SiteCache.getJSON(_abs('/assets/data/fleet_index.json'), { ttlDays: 7, versionPath: ['version'] }),
+    SiteCache.getJSON(_abs('/assets/data/venues.json'), { ttlDays: 7, versionPath: ['version'] })
+  ]);
+})();
+</script>
 </body>
 </html>
