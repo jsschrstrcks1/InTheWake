@@ -1,24 +1,25 @@
+<!-- ships/index.html — v3.006 (Standards-compliant, RC '...of the Seas' only, image-verified) -->
 <!doctype html>
 <html lang="en">
 <head>
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Standards v3.002: absolute URL + origin normalizer -->
+  <!-- Standards v3.006: absolute URL + origin normalizer -->
   <script>
   (function(){
-    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
     document.addEventListener('DOMContentLoaded', function(){
-      var sel=[
+      const sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
         'img[src^="https://www.cruisinginthewake.com/"]',
         'link[href^="https://www.cruisinginthewake.com/"]',
         'script[src^="https://www.cruisinginthewake.com/"]'
       ].join(',');
-      document.querySelectorAll(sel).forEach(function(el){
-        var attr=el.hasAttribute('href')?'href':'src';
-        try{ var u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(e){}
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
       });
     }, {once:true});
   })();
@@ -26,48 +27,43 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Browse Ships — Line → Class → Ship | In the Wake (v3.002)</title>
-  <meta name="version" content="v3.002"/>
-  <meta name="description" content="Explore ships by cruise line and class. Select a line, pick a class, then open any ship’s detail page."/>
+  <title>Royal Caribbean Fleet — ‘…of the Seas’ | In the Wake (v3.006)</title>
+  <meta name="version" content="v3.006"/>
+  <meta name="description" content="Browse finished Royal Caribbean ‘…of the Seas’ ship pages. Only ships with verified images (completed pages) appear here."/>
   <meta name="robots" content="index, follow"/>
+  <meta name="referrer" content="no-referrer"/>
 
   <!-- Canonical & Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/index.html"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/index.html"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Browse Ships — In the Wake"/>
-  <meta property="og:description" content="Explore ships by cruise line and class."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/radiance-of-the-seas1.jpg?v=3.002"/>
+  <meta property="og:title" content="Royal Caribbean ‘…of the Seas’ — In the Wake"/>
+  <meta property="og:description" content="Finished ship pages for Royal Caribbean ‘…of the Seas’. Only image-verified pages are shown."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/radiance-of-the-seas1.jpg?v=3.006"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Site CSS (v3.002) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.002"/>
+  <!-- Site CSS (versioned) -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
 
-  <!-- Page micro-tweaks -->
+  <!-- Page-scoped tweaks (non-global names to avoid collisions) -->
   <style>
     .hidden{display:none!important}
-    .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:.9rem; }
+    .cards-grid{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:1.2rem; }
+    @media (max-width:900px){ .cards-grid{ grid-template-columns:1fr; } }
     .card.clickable{ cursor:pointer; transition:transform .06s ease-in-out; }
     .card.clickable:hover{ transform:translateY(-1px); }
     .card .thumb{ width:100%; aspect-ratio:16/9; background:#eef5f7; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
     .card .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .pill.badge{ margin-left:.35rem; }
-    .crumbs{ display:flex; flex-wrap:wrap; gap:.35rem; align-items:center; margin:.25rem 0 1rem; justify-content:center; }
-    .crumbs .sep{ opacity:.6; }
-    .crumbs a,.crumbs button{ color:#064; text-decoration:underline; background:none; border:none; padding:0; cursor:pointer; }
-    .center{text-align:center}
-    .tiny-quiet{ font-size:.9rem; color:#456; }
-    body::before{ content:""; position:fixed; inset:0; background:url("/assets/watermark.png") center right / 420px auto no-repeat; opacity:.06; pointer-events:none; z-index:0; }
+    .tiny-quiet{ font-size:.95rem; color:#456; }
+    /* Gentle watermark is provided globally via styles.css (body::before); ensure stacking */
     body > * { position:relative; z-index:1; }
-    .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
-    .skip-link:focus{ position:static; width:auto; height:auto; padding:.4rem .6rem; background:#fff; border:1px solid var(--rope); border-radius:999px; margin:.35rem; display:inline-block; }
   </style>
 
-  <!-- Preload small asset -->
+  <!-- Preload small asset used in hero -->
   <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 
-  <!-- Standards v3.002: Site cache util + SW -->
+  <!-- Standards v3.006: SiteCache util + SW + Share bar -->
   <script src="/assets/js/site-cache.js" defer></script>
   <script>
     if('serviceWorker' in navigator){
@@ -76,21 +72,22 @@
       });
     }
   </script>
+  <script src="/assets/js/share-bar.js" defer></script>
 </head>
-<body class="page no-hero-filter">
 
+<body class="page no-hero-filter">
   <!-- Skip link (WCAG 2.4.1) -->
   <a class="skip-link" href="#content">Skip to main content</a>
 
-  <!-- Shared Header -->
+  <!-- Shared Header / Hero -->
   <header class="site-header hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        <span class="version-badge">v3.002</span>
+        <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
+        <span class="version-badge">v3.006</span>
       </div>
       <nav class="pill-nav pills" aria-label="Primary">
-        <a href="/" >Home</a>
+        <a href="/">Home</a>
         <a href="/ships/" aria-current="page">Ships</a>
         <a href="/restaurants.html">Restaurants &amp; Menus</a>
         <a href="/ports.html">Ports</a>
@@ -103,9 +100,10 @@
       </nav>
     </div>
 
-    <div class="hero" role="img" aria-label="Ships hub hero image">
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <!-- Lat/Lon grid -->
       <div class="latlon-grid" aria-hidden="true">
-        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none" width="100%" height="100%">
           <g class="grid-lines" stroke-width="0.35">
             <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
             <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
@@ -117,552 +115,250 @@
           </g>
         </svg>
       </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake"/>
+        <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
         <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+      <div class="hero-credit">
+        <a class="pill long" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
+  <!-- Main -->
   <main class="wrap" id="content">
-    <h1>Browse Ships</h1>
-
-    <nav class="crumbs" aria-label="Breadcrumb">
-      <span id="crumb-line-wrap" class="hidden"><button id="crumb-line" type="button"></button> <span class="sep">›</span></span>
-      <span id="crumb-class-wrap" class="hidden"><button id="crumb-class" type="button"></button> <span class="sep">›</span></span>
-      <strong id="crumb-here">Choose a cruise line</strong>
-    </nav>
-
-    <!-- Lines -->
-    <section class="card" aria-labelledby="linesHeading">
-      <h2 id="linesHeading" class="card-title">Cruise Lines</h2>
-      <div id="linesGrid" class="grid" role="list"></div>
-      <p id="linesEmpty" class="tiny-quiet hidden" role="status" aria-live="polite">No cruise lines found.</p>
+    <section class="card" aria-labelledby="title">
+      <h1 id="title">Royal Caribbean Fleet</h1>
+      <p>Explore the completed ship pages for Royal Caribbean International. Each ship below links to its dedicated page. Only pages with verified imagery appear for now; more ships are added as pages are finished.</p>
     </section>
 
-    <!-- Classes -->
-    <section id="classesSection" class="card hidden" aria-labelledby="classesHeading">
-      <h2 id="classesHeading" class="card-title">Classes</h2>
-      <div id="classesGrid" class="grid" role="list"></div>
-      <p id="classesEmpty" class="tiny-quiet hidden" role="status" aria-live="polite">No classes found for this line.</p>
-    </section>
-
-    <!-- Ships -->
-    <section id="shipsSection" class="card hidden" aria-labelledby="shipsHeading">
-      <h2 id="shipsHeading" class="card-title">Ships</h2>
-      <div id="shipsGrid" class="grid" role="list"></div>
-      <p id="shipsEmpty" class="tiny-quiet hidden" role="status" aria-live="polite">No ships found in this class (yet).</p>
+    <!-- Fleet grid -->
+    <section class="card" aria-labelledby="fleetHeading">
+      <h2 id="fleetHeading" class="card-title">‘…of the Seas’ (image-verified)</h2>
+      <div id="fleetGrid" class="cards-grid" role="list"></div>
+      <p id="fleetEmpty" class="tiny-quiet" role="status" aria-live="polite" style="margin-top:.5rem">No completed ship pages found yet.</p>
     </section>
 
     <!-- Data meta -->
     <section class="card" aria-labelledby="dataHeading">
       <h2 id="dataHeading" class="card-title">Data</h2>
-      <p id="meta" class="tiny">Data source: fleet_index.json</p>
+      <p id="meta" class="tiny">Data sources: rc-fleet-index.json / rcl_of_the_seas.json</p>
     </section>
   </main>
 
-  <footer class="wrap center">© <span id="yr"></span> In the Wake — A Cruise Traveler’s Logbook</footer>
+  <footer class="wrap center">© <span id="yr"></span> In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></footer>
   <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 
- <script>
-/* ships-browse (v2.4 — v3.002 standards, cache-first images w/ manifest + fallback discovery)
-   Data: /assets/data/fleet_index.json
-   Image sources (priority):
-     1) cache-manifest.json mapped to ship slug (cache-first via caches.match)
-     2) guessed file patterns (discovery) — disabled when USE_MANIFEST_ONLY = true
-   Heuristics:
-     - filename contains "radiance" => radiance-of-the-seas
-     - filename contains "adventure" => adventure-of-the-seas
-     - Royal line inference + repair pass for "* of the Seas"
-*/
-(function(){
-  // -------- TOGGLE: set to true to force manifest-only images (no discovery/fetch guessing)
-  const USE_MANIFEST_ONLY = false;
+  <!-- Page logic (v3.006): two JSONs w/ fallback; RC '...of the Seas' only; cache-first image verification; random image pick -->
+  <script>
+  (async function(){
+    const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
 
-  const abs = (p)=> (typeof window._abs==='function' ? _abs(p) : p);
-  const SOURCE = abs('/assets/data/fleet_index.json');
+    // Primary then fallback
+    const SOURCES=[ abs('/ships/assets/data/rc-fleet-index.json'), abs('/data/rcl_of_the_seas.json') ];
 
-  // Ensure SiteCache (race guard for Safari defer)
-  async function ensureSiteCache(){
-    if (window.SiteCache && typeof SiteCache.getJSON==='function') return;
-    await new Promise((resolve)=>{
-      const s=document.createElement('script');
-      s.src=abs('/assets/js/site-cache.js'); s.defer=true;
-      s.onload=resolve; s.onerror=resolve;
-      document.head.appendChild(s);
-    });
-  }
-
-  const el = {
-    linesGrid:   document.getElementById('linesGrid'),
-    linesEmpty:  document.getElementById('linesEmpty'),
-    classesSec:  document.getElementById('classesSection'),
-    classesGrid: document.getElementById('classesGrid'),
-    classesEmpty:document.getElementById('classesEmpty'),
-    shipsSec:    document.getElementById('shipsSection'),
-    shipsGrid:   document.getElementById('shipsGrid'),
-    shipsEmpty:  document.getElementById('shipsEmpty'),
-    meta:        document.getElementById('meta'),
-    crumbLineWrap: document.getElementById('crumb-line-wrap'),
-    crumbLine:     document.getElementById('crumb-line'),
-    crumbClassWrap:document.getElementById('crumb-class-wrap'),
-    crumbClass:    document.getElementById('crumb-class'),
-    crumbHere:     document.getElementById('crumb-here')
-  };
-
-  const STATE = { line:null, classId:null };
-  const WORLD = { byLine:{} };
-
-  const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
-  const titleCase = s => String(s||'').replace(/(^|[-_ ])([a-z])/g, (_,sp,ch)=> (sp?sp:'')+ch.toUpperCase());
-  const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&lt;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  const toNumMaybe = v => { if(v==null||v==="N/A") return null; const n=Number(String(v).replace(/[^\d.]/g,'')); return Number.isFinite(n)?n:null; };
-
-  // ---------- Line inference (Royal heuristic) ----------
-  function inferRoyalFromSeas(slug, name){
-    const s = String(slug||'').toLowerCase().trim();
-    const n = String(name||'').toLowerCase().trim();
-    return /-of-the-seas$/.test(s) || /\bof the seas\b/.test(n);
-  }
-  function coerceLine(line, slug, name){
-    const nline = norm(line);
-    if (nline) return nline;
-    if (inferRoyalFromSeas(slug, name)) return 'royal-caribbean';
-    return nline; // ''
-  }
-
-  // --- Repair pass: force Royal for "* of the Seas" regardless of dirty data ---
-  function isOfTheSeas(nameOrSlug){
-    const s = String(nameOrSlug||'').toLowerCase();
-    return /\bof the seas\b/.test(s) || /-of-the-seas\b/.test(s);
-  }
-  function repairRoyalMissingLine(list){
-    return list.map(s=>{
-      const saysRoyalByName = isOfTheSeas(s.name) || isOfTheSeas(s.slug);
-      if (!saysRoyalByName) return s;
-
-      const current = String(s.line||'').toLowerCase();
-      if (!current || current === 'unknown' || current === 'na' || /^(tbd|null|undefined|-)?$/.test(current)){
-        return { ...s, line: 'royal-caribbean' };
-      }
-      if (!/royal(-caribbean)?/.test(current)){
-        return { ...s, line: 'royal-caribbean' };
-      }
-      return s;
-    });
-  }
-
-  // ---------- Data normalization ----------
-  function normalizeFromFlat(json){
-    const raw = (json && json.ships) || [];
-    return raw.map(x=>{
-      const a = x.attributes || x;
-      const name = a.name || a.title || a.ship || '';
-      const slug = a.slug || a.id || '';
-      const line = coerceLine(a.line || a.brand || a.cruise_line || '', slug, name);
-      const cls  = norm(a.class || a.ship_class || '');
-      return {
-        name, slug, line, class: cls,
-        year: toNumMaybe(a.entered_service || a.inaugural || a.launched || a.year_built_or_entered),
-        gt: toNumMaybe(a.gt || a.gross_tonnage || a.tonnage),
-        guests: toNumMaybe(a.capacity || a.passengers || a.guests),
-        detail_url: a.detail_url || a.url || (slug && line ? `/ships/${line}/${slug}.html` : '')
-      };
-    }).filter(s=> s.name && s.line);
-  }
-
-  function inferClassFromNotes(notes){
-    const m = String(notes||'').match(/([A-Za-z][A-Za-z \-']+)-class/i);
-    return m ? norm(m[1]) : '';
-  }
-
-  function normalizeFromCruiseLines(json){
-    const out = [];
-    const lines = Array.isArray(json?.cruise_lines) ? json.cruise_lines : [];
-    for(const L of lines){
-      const lineLabel = L.name || '';
-      const lineSlugProvided  = norm(L.slug || lineLabel);
-      const ships = Array.isArray(L.ships) ? L.ships : [];
-      for(const s of ships){
-        const name = s.name || '';
-        const slug = s.slug || '';
-        const coercedLine = coerceLine(lineSlugProvided, slug, name);
-        const klass = norm(s.class || s.ship_class || inferClassFromNotes(s.notes));
-        out.push({
-          name, slug, line: coercedLine, class: klass,
-          year: toNumMaybe(s.year_built_or_entered || s.entered_service || s.launched),
-          gt: toNumMaybe(s.gt),
-          guests: toNumMaybe(s.capacity),
-          detail_url: s.url || (coercedLine && slug ? `/ships/${coercedLine}/${slug}.html` : '')
-        });
-      }
-    }
-    return out.filter(s=> s.name && s.line);
-  }
-
-  function groupByLineAndClass(list){
-    const byLine = {};
-    for(const s of list){
-      const line = s.line;
-      const klass = s.class || 'unknown';
-      if(!byLine[line]) byLine[line] = {};
-      if(!byLine[line][klass]) byLine[line][klass] = [];
-      byLine[line][klass].push(s);
-    }
-    return byLine;
-  }
-
-  // ---------- Manifest ingestion ----------
-  // cache-manifest.json structure is flexible: accept either:
-  // { files:[ "/path/a.jpg", ... ] } or { images:[...], assets:[...] } or a flat array
-  function flattenManifest(obj){
-    if (!obj) return [];
-    if (Array.isArray(obj)) return obj;
-    const buckets = [];
-    for (const k of Object.keys(obj)){
-      const v = obj[k];
-      if (Array.isArray(v)) buckets.push(v);
-    }
-    return buckets.flat().filter(Boolean);
-  }
-
-  // Normalize file path to a ship slug when possible
-  function slugFromPath(path){
-    const fn = String(path.split('/').pop()||'').toLowerCase();
-    // strip extension
-    const base = fn.replace(/\.(jpg|jpeg|png|webp|avif|gif|svg)$/i,'');
-    // heuristic: “radiance” => radiance-of-the-seas, “adventure” => adventure-of-the-seas
-    if (/\bradiance\b/.test(base)) return 'radiance-of-the-seas';
-    if (/\badventure\b/.test(base)) return 'adventure-of-the-seas';
-
-    // try to lift well-formed slugs
-    const m = base.match(/[a-z0-9-]+(?:(?:-of)?-the-seas)?/);
-    if (m) {
-      const s = m[0];
-      // if ends with a trailing digit (like 1/2/3), remove it
-      return s.replace(/-?[123]$/,'');
-    }
-    return ''; // unknown
-  }
-
-  async function loadManifestIndex(){
-    try{
-      await ensureSiteCache();
-      const man = await SiteCache.getJSON(abs('/assets/cache-manifest.json'), { ttlDays: 7, versionPath: ['version'] });
-      const files = flattenManifest(man);
-      const index = new Map();
-      files.forEach(p=>{
-        const url = abs(String(p));
-        const slug = slugFromPath(String(p));
-        if (!slug) return;
-        if (!index.has(slug)) index.set(slug, []);
-        if (!index.get(slug).includes(url)) index.get(slug).push(url);
-      });
-      return index; // Map<slug, [urls]>
-    }catch(_){
-      return new Map();
-    }
-  }
-
-  // ---------- Image discovery (fallback) ----------
-  const IMAGE_ROOTS = [
-    'assets/ships/thumbs',
-    'assets/ships',
-    'assets',
-    'images',
-    'ships',
-    'ships/assets',
-    'ships/rcl/images'
-  ];
-  const EXTS = ['jpeg','jpg','png'];
-  const SUFFIXES = ['','1','2','3'];
-
-  const IMG_CACHE = new Map();
-
-  async function headOK(url){
-    try{
-      // Prefer HEAD; some hosts disallow — fallback to GET
-      const r = await fetch(url, { method:'HEAD', cache:'no-store' });
-      if (r.ok) return true;
-      const g = await fetch(url, { method:'GET', cache:'no-store' });
-      return g.ok;
-    }catch{ return false; }
-  }
-
-  async function discoverImagesForSlug(slug){
-    if (IMG_CACHE.has(slug)) return IMG_CACHE.get(slug);
-    const candidates = [];
-    for (const root of IMAGE_ROOTS){
-      for (const suf of SUFFIXES){
-        for (const ext of EXTS){
-          candidates.push(`/${root}/${slug}${suf? suf:''}.${ext}`);
-        }
-      }
-    }
-    const found = [];
-    for (let i=0; i<candidates.length && found.length<3; i++){
-      const url = abs(candidates[i]);
-      if (found.indexOf(url) !== -1) continue;
-      /* eslint-disable no-await-in-loop */
-      const ok = await headOK(url);
-      if (ok) found.push(url);
-      /* eslint-enable no-await-in-loop */
-    }
-    IMG_CACHE.set(slug, found);
-    return found;
-  }
-
-  async function batchDiscover(slugs, concurrency=6){
-    const results = new Map(); let i = 0;
-    async function worker(){
-      while (i < slugs.length){
-        const idx = i++; const slug = slugs[idx];
-        const imgs = USE_MANIFEST_ONLY ? [] : await discoverImagesForSlug(slug);
-        results.set(slug, imgs);
-      }
-    }
-    await Promise.all(Array.from({length: Math.min(concurrency, slugs.length)}, worker));
-    return results;
-  }
-
-  // ---------- Cache-first selection ----------
-  async function pickCacheFirst(urls){
-    if (!('caches' in window)) return '';
-    for (const u of urls){
-      try{
-        const hit = await caches.match(u, { ignoreSearch:true });
-        if (hit) return u; // present in any cache (likely SW image cache)
-      }catch(_){}
-    }
-    return '';
-  }
-
-  function pickRandom(arr){ return (arr && arr.length) ? arr[Math.floor(Math.random()*arr.length)] : ''; }
-
-  // ---------- Rendering ----------
-  function lineDisplay(id){
-    const map = {
-      'rcl':'Royal Caribbean International',
-      'royal-caribbean':'Royal Caribbean International',
-      'royal-caribbean-international':'Royal Caribbean International'
+    // Known, curated image pools per slug (expandable). Only ships with at least one *verified* image will render.
+    const IMAGE_CANDIDATES = {
+      'adventure-of-the-seas': [
+        '/ships/rcl/images/Adventure_of_the_Seas1.jpeg',
+        '/ships/rcl/images/Adventure_of_the_Seas2.jpg',
+        '/ships/rcl/images/Adventure_of_the_Seas3.jpg',
+        '/ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg',
+        '/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg',
+        '/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg'
+      ],
+      'enchantment-of-the-seas': [
+        '/ships/assets/enchantment-of-the-seas1.jpg',
+        '/ships/assets/images/Enchantment_of_the_Seas.jpeg',
+        '/images/Enchantment_of_the_Seas.jpeg',
+        '/images/enchantment-of-the-seas2.jpeg',
+        '/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg'
+      ],
+      'grandeur-of-the-seas': [
+        '/ships/assets/grandeur-of-the-seas1.jpg'
+      ],
+      'radiance-of-the-seas': [
+        '/ships/assets/images/allure2.jpg', /* temp holding if radiance hero not yet in /assets */
+        '/ships/assets/images/allure3.jpg'
+      ],
+      'rhapsody-of-the-seas': [
+        '/ships/assets/rhapsody-of-the-seas1.jpg',
+        '/ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg',
+        '/ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg',
+        '/ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg'
+      ],
+      'sovereign-of-the-seas': [
+        '/ships/assets/sovereign-of-the-seas1.jpg',
+        '/ships/assets/sovereign-of-the-seas2.jpg',
+        '/ships/assets/sovereign-of-the-seas3.jpg'
+      ],
+      'vision-of-the-seas': [
+        '/ships/assets/vision-of-the-seas1.jpg'
+      ]
     };
-    return map[id] || titleCase(id.replace(/-/g,' '));
-  }
 
-  function classDisplay(id){
-    const label = titleCase(id.replace(/-?class$/,'').replace(/-/g,' '));
-    return label && label!=='Unknown' ? `${label} Class` : 'Class';
-  }
+    // Also nudge SW to cache-manifest items (safe no-ops if absent)
+    try { fetch('/assets/cache-manifest.json', {cache:'no-store'}).catch(()=>{}); } catch(_){}
 
-  function lineCard(lineId, classes){
-    const count = Object.values(classes).reduce((n,arr)=> n+(arr?arr.length:0), 0);
-    const logo = (/(^|-)rcl($|-)|royal/.test(lineId)) ? '/assets/lines/rcl.png' : '/assets/logo_wake.png';
-    return `
-      <div class="card clickable" role="listitem">
-        <button type="button" class="card-btn" data-line="${esc(lineId)}" aria-label="${esc(lineDisplay(lineId))}">
-          <div class="thumb">
-            <img src="${abs(logo)}" alt="${esc(lineDisplay(lineId))} logo" loading="lazy"
-                 onerror="this.src='${abs('/assets/logo_wake.png')}'"/>
-          </div>
-          <div class="body">
-            <h3 class="card-title">${esc(lineDisplay(lineId))} <span class="pill badge">${count} ships</span></h3>
-            <p class="small muted">${Object.keys(classes).length} classes</p>
-          </div>
-        </button>
-      </div>`;
-  }
-
-  function classCard(lineId, classId, shipCount){
-    const guess1 = abs(`/assets/classes/${lineId}/${classId}.jpeg`);
-    const guess2 = abs(`/assets/classes/${classId}.jpeg`);
-    return `
-      <div class="card clickable" role="listitem">
-        <button type="button" class="card-btn" data-class="${esc(classId)}" aria-label="${esc(classDisplay(classId))}">
-          <div class="thumb">
-            <img src="${guess1}" alt="${esc(classDisplay(classId))}" loading="lazy"
-                 onerror="(function(i){var fb=['${guess2}','${abs('/assets/ships/radiance-of-the-seas1.jpg')}']; i._f=(i._f||0); if(i._f<fb.length){ i.src=fb[i._f++]; } })(this)"/>
-          </div>
-          <div class="body">
-            <h3 class="card-title">${esc(classDisplay(classId))} <span class="pill badge">${shipCount}</span></h3>
-            <p class="small muted">Tap to see ships</p>
-          </div>
-        </button>
-      </div>`;
-  }
-
-  function shipCard(s, imgUrl){
-    const href = s.detail_url ? abs(s.detail_url) : '#';
-    const safeImg = imgUrl || abs('/assets/ships/thumbs/placeholder.jpg');
-    return `
-      <article class="card" role="listitem" data-slug="${esc(s.slug)}">
-        <div class="thumb">
-          <img src="${safeImg}" alt="${esc(s.name)}" loading="lazy"/>
-        </div>
-        <div class="body">
-          <h3 class="card-title">${esc(s.name)}</h3>
-          <div class="stats-mini" style="display:grid;grid-template-columns:1fr 1fr;gap:.25rem .75rem;font-size:.92rem">
-            <div><span class="k">GT:</span> ${s.gt? s.gt.toLocaleString() : '—'}</div>
-            <div><span class="k">Guests:</span> ${s.guests? s.guests.toLocaleString() : '—'}</div>
-            <div><span class="k">Year:</span> ${s.year || '—'}</div>
-          </div>
-          <p style="margin-top:.5rem"><a class="btn" href="${href}">Open Ship Page →</a></p>
-        </div>
-      </article>`;
-  }
-
-  function renderLines(byLine){
-    const ids = Object.keys(byLine).sort();
-    el.linesGrid.innerHTML = ids.map(id => lineCard(id, byLine[id])).join('');
-    el.linesEmpty.classList.toggle('hidden', !!ids.length);
-    el.linesGrid.querySelectorAll('.card-btn[data-line]').forEach(btn=>{
-      btn.addEventListener('click', ()=> selectLine(btn.getAttribute('data-line')));
-    });
-  }
-
-  function renderClasses(lineId, classes){
-    el.classesSec.classList.remove('hidden');
-    const ids = Object.keys(classes).sort();
-    el.classesGrid.innerHTML = ids.map(id => classCard(lineId, id, (classes[id]||[]).length)).join('');
-    el.classesEmpty.classList.toggle('hidden', !!ids.length);
-    el.classesGrid.querySelectorAll('.card-btn[data-class]').forEach(btn=>{
-      btn.addEventListener('click', ()=> selectClass(btn.getAttribute('data-class')));
-    });
-  }
-
-  async function renderShips(lineId, classId, list){
-    el.shipsSec.classList.remove('hidden');
-    const arr = (list||[]).slice().sort((a,b)=> a.name.localeCompare(b.name, undefined, {sensitivity:'base'}));
-    const slugs = arr.map(s=>s.slug).filter(Boolean);
-
-    // 1) Build manifest index
-    const manifestIndex = await loadManifestIndex(); // Map<slug, [urls]>
-
-    // 2) Prepare candidates per slug
-    const candidateMap = new Map();
-    for (const s of arr){
-      const primary = manifestIndex.get(s.slug) || [];
-      const alt = [];
-      // Add heuristic alternates if needed (radiance/adventure)
-      if (!primary.length){
-        if (/radiance-of-the-seas/.test(s.slug) && manifestIndex.get('radiance-of-the-seas')) alt.push(...manifestIndex.get('radiance-of-the-seas'));
-        if (/adventure-of-the-seas/.test(s.slug) && manifestIndex.get('adventure-of-the-seas')) alt.push(...manifestIndex.get('adventure-of-the-seas'));
+    async function loadFleetJSON(){
+      for(const url of SOURCES){
+        try{
+          const r = await fetch(url, {cache:'no-store'});
+          if (r.ok) { const json=await r.json(); annotateMeta(json, url); return json; }
+        }catch(_){}
       }
-      candidateMap.set(s.slug, [...primary, ...alt]);
+      throw new Error('Fleet data unavailable');
     }
 
-    // 3) Cache-first choose from manifest
-    const chosenFromCache = new Map();
-    if ('caches' in window){
-      for (const s of arr){
-        const urls = candidateMap.get(s.slug) || [];
-        const hit = await pickCacheFirst(urls);
-        if (hit) chosenFromCache.set(s.slug, hit);
-      }
+    function annotateMeta(json, url){
+      const el=document.getElementById('meta');
+      const when=json.generated || json.updated || (json.meta && json.meta.updated);
+      const ver =json.version || (json.meta && json.meta.version) || '—';
+      el.textContent = `Data: v${ver} • ${when? String(when).slice(0,10): 'unknown'} • Source: ${url}`;
     }
 
-    // 4) Discovery fallback (unless disabled)
-    const needDiscovery = slugs.filter(slug => {
-      const hasCacheHit = chosenFromCache.has(slug);
-      const manCount = (candidateMap.get(slug) || []).length;
-      return !hasCacheHit && manCount === 0;
-    });
-    const discovered = await batchDiscover(needDiscovery, 6); // Map<slug, [urls]>
-
-    // 5) Final pick: cache-hit → manifest url → discovered → placeholder
-    const cards = [];
-    for (const s of arr){
-      let url = chosenFromCache.get(s.slug) || '';
-      if (!url){
-        const fromMan = (candidateMap.get(s.slug)||[])[0] || '';
-        if (fromMan) url = fromMan;
-      }
-      if (!url && !USE_MANIFEST_ONLY){
-        const disc = discovered.get(s.slug) || [];
-        url = disc[0] || '';
-      }
-      cards.push(shipCard(s, url));
-    }
-
-    el.shipsGrid.innerHTML = cards.join('');
-    const anyImg = cards.some(html => /<img\s/i.test(html));
-    el.shipsEmpty.classList.toggle('hidden', anyImg);
-  }
-
-  // ---------- Selection + crumbs ----------
-  function selectLine(lineId){
-    STATE.line=lineId; STATE.classId=null;
-    el.crumbLine.textContent = lineDisplay(lineId);
-    el.crumbLineWrap.classList.remove('hidden');
-    el.crumbClassWrap.classList.add('hidden');
-    el.crumbHere.textContent='Choose a class';
-    renderClasses(lineId, WORLD.byLine[lineId] || {});
-    el.shipsSec.classList.add('hidden'); el.shipsGrid.innerHTML='';
-    history.replaceState(null,'', location.pathname + '#'+encodeURIComponent(lineId));
-  }
-  async function selectClass(classId){
-    STATE.classId=classId;
-    el.crumbClass.textContent = classDisplay(classId);
-    el.crumbClassWrap.classList.remove('hidden');
-    el.crumbHere.textContent='Choose a ship';
-    await renderShips(STATE.line, classId, (WORLD.byLine[STATE.line]||{})[classId]);
-    history.replaceState(null,'', location.pathname + '#'+encodeURIComponent(STATE.line)+'/'+encodeURIComponent(classId));
-  }
-  el.crumbLine.addEventListener('click', ()=> { if(STATE.line) selectLine(STATE.line); });
-  el.crumbClass.addEventListener('click', ()=> { if(STATE.line && STATE.classId) selectClass(STATE.classId); });
-
-  // ---------- Boot ----------
-  (async function init(){
-    try{
-      // Nudge SW to hydrate early (pairs with global warmup)
-      try { fetch('/assets/cache-manifest.json', {cache:'no-store'}).catch(()=>{}); } catch(_){}
-
-      const r = await fetch(SOURCE, {cache:'no-store'});
-      if(!r.ok) throw new Error(r.status);
-      const raw = await r.json();
-
-      const ships = raw?.cruise_lines ? normalizeFromCruiseLines(raw) : normalizeFromFlat(raw);
-      const repaired = repairRoyalMissingLine(ships);
-      WORLD.byLine = groupByLineAndClass(repaired);
-
-      const when = raw.generated || raw.updated || (raw.meta && raw.meta.updated);
-      const ver  = raw.version || (raw.meta && raw.meta.version);
-      el.meta.textContent = (ver||when) ? `Data: ${ver?('v'+ver):''}${ver&&when?' • ':''}${when?String(when).slice(0,10):''}` : 'Data source: fleet_index.json';
-
-      renderLines(WORLD.byLine);
-
-      // Default to Royal if present
-      const royalKey = Object.keys(WORLD.byLine).find(k => /royal|rcl/.test(k));
-      if (!location.hash && royalKey) selectLine(royalKey);
-
-      // Deep-link restore
-      const hash = (location.hash||'').slice(1);
-      if (hash){
-        const [line,classId] = hash.split('/').map(s=>decodeURIComponent(s||''));
-        if (line && WORLD.byLine[line]) {
-          selectLine(line);
-          if (classId && (WORLD.byLine[line][classId])) selectClass(classId);
+    // Normalize: accept both array-of-lines and keyed-object forms.
+    function normalizeShips(raw){
+      const out=[];
+      const lines = raw.cruise_lines;
+      if (Array.isArray(lines)){
+        for(const L of lines){
+          const lineSlug=(L.slug || L.line_slug || '').toLowerCase();
+          for(const s of (L.ships||[])){
+            out.push({
+              name: s.name || '',
+              slug: (s.slug || '').toLowerCase(),
+              line: lineSlug,
+              year: parseInt(String(s.year_built_or_entered||'').replace(/[^\d]/g,'')) || null,
+              class: String(s.class||s.ship_class||'').toLowerCase(),
+              gt: parseInt(String(s.gt||'').replace(/[^\d]/g,'')) || null,
+              guests: parseInt(String(s.capacity||'').replace(/[^\d]/g,'')) || null
+            });
+          }
+        }
+      } else if (lines && typeof lines==='object'){
+        for(const [lineId, ships] of Object.entries(lines)){
+          if(!Array.isArray(ships)) continue;
+          for(const s of ships){
+            out.push({
+              name: s.name || '',
+              slug: String(s.slug||'').toLowerCase(),
+              line: String(lineId||'').toLowerCase(),
+              year: parseInt(String(s.year_built_or_entered||'').replace(/[^\d]/g,'')) || null,
+              class: String(s.class||s.ship_class||'').toLowerCase(),
+              gt: parseInt(String(s.gt||'').replace(/[^\d]/g,'')) || null,
+              guests: parseInt(String(s.capacity||'').replace(/[^\d]/g,'')) || null
+            });
+          }
+        }
+      } else if (Array.isArray(raw.ships)){ // flat fallback
+        for(const s of raw.ships){
+          const a=s.attributes||s;
+          out.push({
+            name:a.name||a.title||a.ship||'',
+            slug:String(a.slug||a.id||'').toLowerCase(),
+            line:String(a.line || a.brand || a.cruise_line || '').toLowerCase(),
+            year:parseInt(String(a.entered_service||a.launched||a.year_built_or_entered||'').replace(/[^\d]/g,''))||null,
+            class:String(a.class||a.ship_class||'').toLowerCase(),
+            gt:parseInt(String(a.gt||a.gross_tonnage||'').replace(/[^\d]/g,''))||null,
+            guests:parseInt(String(a.capacity||a.passengers||'').replace(/[^\d]/g,''))||null
+          });
         }
       }
+      return out;
+    }
+
+    // Repair dirty line: if ‘…of the seas’, force Royal Caribbean
+    function enforceRoyalForOfTheSeas(list){
+      return list.map(s=>{
+        const isOTS = /\bof the seas\b/i.test(s.name) || /-of-the-seas$/.test(s.slug||'');
+        if (isOTS) return {...s, line:'royal-caribbean'};
+        return s;
+      });
+    }
+
+    // Cache-first verify whether an image exists
+    async function imgExists(url){
+      const absUrl=abs(url);
+      try{
+        if('caches' in window){
+          const hit = await caches.match(absUrl, {ignoreSearch:true});
+          if (hit) return true;
+        }
+      }catch(_){}
+      try{
+        // Prefer HEAD; fall back to GET if HEAD blocked.
+        const r = await fetch(absUrl, {method:'HEAD', cache:'no-store'});
+        if (r.ok) return true;
+      }catch(_){}
+      try{
+        const rg = await fetch(absUrl, {method:'GET', cache:'no-store'});
+        return rg.ok;
+      }catch(_){ return false; }
+    }
+
+    function pickRandom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    async function pickVerifiedImage(slug){
+      const cand = (IMAGE_CANDIDATES[slug]||[]).map(abs);
+      for (let i=0; i<cand.length; i++){
+        // shuffle-on-the-fly by sampling random remaining
+        const j = Math.floor(Math.random()*(cand.length-i)) + i;
+        const tmp=cand[i]; cand[i]=cand[j]; cand[j]=tmp;
+      }
+      for (const u of cand){
+        if (await imgExists(u)) return u;
+      }
+      return ''; // none verified
+    }
+
+    // Render
+    const grid = document.getElementById('fleetGrid');
+    const empty = document.getElementById('fleetEmpty');
+
+    try{
+      const raw   = await loadFleetJSON();
+      const all   = enforceRoyalForOfTheSeas(normalizeShips(raw));
+      const rcOTS = all.filter(s => s.line==='royal-caribbean' && (/\bof the seas\b/i.test(s.name) || /-of-the-seas$/.test(s.slug||'')));
+
+      // Only include ships for which we can verify at least one image
+      const out = [];
+      for (const s of rcOTS){
+        const slug = s.slug || String(s.name||'').toLowerCase().replace(/\s+/g,'-').replace(/’/g,"'").replace(/-+/g,'-');
+        const img = await pickVerifiedImage(slug);
+        if (!img) continue;
+        out.push({ ship:s, slug, img });
+      }
+
+      // Build cards
+      grid.innerHTML = out.map(({ship, slug, img})=>{
+        const href = abs(`/ships/rcl/${slug}.html`);
+        return `
+          <a class="card clickable" role="listitem" href="${href}" aria-label="${ship.name}">
+            <div class="thumb"><img src="${img}" alt="${ship.name}"/></div>
+            <div class="body">
+              <h3 class="card-title">${ship.name}</h3>
+              <p class="tiny-quiet">${ship.year ? ('Year: '+ship.year) : ''}</p>
+            </div>
+          </a>`;
+      }).join('');
+
+      empty.classList.toggle('hidden', grid.children.length>0);
     }catch(e){
-      console.error('browse init failed', e);
-      el.linesEmpty.classList.remove('hidden');
+      console.error('fleet page init failed', e);
+      empty.textContent = 'Failed to load fleet data.';
     }
   })();
-})();
-</script>
+  </script>
 
-  <!-- Smart Warmup (tiny): logos + compass + watermark + manifest poke -->
+  <!-- Progressive card reveal -->
   <script>
   (function(){
-    const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
-    const warm=(urls)=> (urls||[]).forEach(u=>{ try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{});}catch(_){}} );
-    function go(){
-      warm([abs('/assets/logo_wake.png'),abs('/assets/compass_rose.svg'),abs('/assets/watermark.png')]);
-      // Encourage SW to touch the manifest early
-      try { fetch('/assets/cache-manifest.json', {cache:'no-store'}).catch(()=>{}); } catch(_){}
-    }
-    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', go, {once:true}); } else { go(); }
+    const IO=('IntersectionObserver' in window) ? new IntersectionObserver((ents)=>{
+      ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); IO.unobserve(e.target);} });
+    },{rootMargin:'80px 0px'}) : null;
+    document.querySelectorAll('.card').forEach(c=>{ if(IO){ IO.observe(c); } else { c.classList.add('visible'); } });
   })();
   </script>
 </body>
