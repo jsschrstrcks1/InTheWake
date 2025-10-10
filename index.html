@@ -6,8 +6,8 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Cruising In the Wake | A Cruise Traveler’s Logbook & Planning Companion (v3.003)</title>
-  <meta name="version" content="v3.003"/>
+  <title>Cruising In the Wake | A Cruise Traveler’s Logbook & Planning Companion (v3.004)</title>
+  <meta name="version" content="v3.004"/>
   <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship reviews, menu scans, port snapshots, accessibility notes, and solo travel tips based on real sailings."/>
   <meta name="robots" content="index, follow"/>
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
@@ -21,10 +21,10 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/index.html"/>
   <meta property="og:title" content="In the Wake | A Cruise Traveler’s Logbook & Planning Companion"/>
   <meta property="og:description" content="Ship reviews, menus, ports, accessibility notes, and trip-tested planning from real sailings."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.003"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.004"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Standards v3.003: absolute URL + origin normalizer -->
+  <!-- Standards v3.004: absolute URL + origin normalizer -->
   <script>
   (function(){
     var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
@@ -59,14 +59,27 @@
   }
   </script>
 
-  <!-- CSS (v3.003) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.003"/>
+  <!-- CSS (v3.004) -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.004"/>
 
   <!-- Page-specific hero tuning -->
   <style id="hero-vibrancy">
     .hero{ background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
            filter:saturate(1.35) contrast(1.12) brightness(1.05) }
     .hero::before,.hero::after{ content:none!important }
+  </style>
+
+  <!-- Inline fallback for grid + watermark (remove after CSS deploy) -->
+  <style id="home-grid-fallback">
+    .grid-3{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:1.2rem }
+    @media (max-width:900px){ .grid-3{ grid-template-columns:1fr } }
+    .card{ position:relative; overflow:hidden }
+    .card::after{
+      content:""; position:absolute; inset:0; margin:auto;
+      width:min(60%, 360px); height:min(60%, 360px);
+      background:url('/assets/watermark.png') center/contain no-repeat;
+      opacity:.06; pointer-events:none;
+    }
   </style>
 
   <!-- Preload small asset -->
@@ -80,7 +93,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
-        <span class="tiny ver-badge" aria-label="Site version">v3.003</span>
+        <span class="tiny ver-badge" aria-label="Site version">v3.004</span>
       </div>
 
       <nav class="pill-nav pills" aria-label="Primary">
@@ -232,7 +245,7 @@
   })();
   </script>
 
-  <!-- Card reveal on scroll (AOS-lite) -->
+  <!-- Card reveal on scroll -->
   <script>
   (function(){
     const els=[...document.querySelectorAll('.card')];
