@@ -1,11 +1,11 @@
-<!-- ships/index.html — v3.006 (Standards-compliant, RC '...of the Seas' only, image-verified) -->
+<!-- ships/index.html — v3.006 (standards-compliant, two-JSON fallback, cache-first images) -->
 <!doctype html>
 <html lang="en">
 <head>
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Standards v3.006: absolute URL + origin normalizer -->
+  <!-- Standards: absolute URL + origin normalizer -->
   <script>
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
@@ -19,51 +19,55 @@
       ].join(',');
       document.querySelectorAll(sel).forEach(el=>{
         const attr=el.hasAttribute('href')?'href':'src';
-        try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+        try{ const u=new URL(el.getAttribute(attr));
+             el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(_){}
       });
-    }, {once:true});
+    },{once:true});
   })();
   </script>
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Royal Caribbean Fleet — ‘…of the Seas’ | In the Wake (v3.006)</title>
+  <title>Royal Caribbean Fleet — In the Wake (v3.006)</title>
   <meta name="version" content="v3.006"/>
-  <meta name="description" content="Browse finished Royal Caribbean ‘…of the Seas’ ship pages. Only ships with verified images (completed pages) appear here."/>
-  <meta name="robots" content="index, follow"/>
+  <meta name="description" content="Browse Royal Caribbean’s ‘of the Seas’ ships with verified imagery. Each card links to its ship page."/>
   <meta name="referrer" content="no-referrer"/>
+  <meta name="robots" content="index, follow"/>
 
   <!-- Canonical & Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/index.html"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/index.html"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Royal Caribbean ‘…of the Seas’ — In the Wake"/>
-  <meta property="og:description" content="Finished ship pages for Royal Caribbean ‘…of the Seas’. Only image-verified pages are shown."/>
+  <meta property="og:title" content="Royal Caribbean Fleet — In the Wake"/>
+  <meta property="og:description" content="Explore completed ship pages with verified imagery."/>
   <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/radiance-of-the-seas1.jpg?v=3.006"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Site CSS (versioned) -->
+  <!-- Site CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
 
-  <!-- Page-scoped tweaks (non-global names to avoid collisions) -->
+  <!-- Page micro-tweaks (scoped, no collisions) -->
   <style>
     .hidden{display:none!important}
-    .cards-grid{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:1.2rem; }
-    @media (max-width:900px){ .cards-grid{ grid-template-columns:1fr; } }
-    .card.clickable{ cursor:pointer; transition:transform .06s ease-in-out; }
-    .card.clickable:hover{ transform:translateY(-1px); }
-    .card .thumb{ width:100%; aspect-ratio:16/9; background:#eef5f7; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-    .card .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .tiny-quiet{ font-size:.95rem; color:#456; }
-    /* Gentle watermark is provided globally via styles.css (body::before); ensure stacking */
-    body > * { position:relative; z-index:1; }
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;}
+    .card.clickable{cursor:pointer;transition:transform .06s ease-in-out;}
+    .card.clickable:hover{transform:translateY(-1px);}
+    .card .thumb{width:100%;aspect-ratio:16/9;background:#eef5f7;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+    .card .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+    .tiny-quiet{font-size:.9rem;color:#456}
+    /* gentle watermark under content only */
+    body::before{content:"";position:fixed;inset:0;background:url("/assets/watermark.png") center right/420px auto no-repeat;opacity:.06;pointer-events:none;z-index:0;}
+    body>*{position:relative;z-index:1;}
+    /* Hero re-use */
+    .hero{ background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat; }
   </style>
 
-  <!-- Preload small asset used in hero -->
+  <!-- Preload small asset -->
   <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 
-  <!-- Standards v3.006: SiteCache util + SW + Share bar -->
+  <!-- Site cache util + SW (standards) -->
   <script src="/assets/js/site-cache.js" defer></script>
   <script>
     if('serviceWorker' in navigator){
@@ -72,14 +76,15 @@
       });
     }
   </script>
+
+  <!-- Floating Share Bar (auto-injected) -->
   <script src="/assets/js/share-bar.js" defer></script>
 </head>
-
 <body class="page no-hero-filter">
   <!-- Skip link (WCAG 2.4.1) -->
   <a class="skip-link" href="#content">Skip to main content</a>
 
-  <!-- Shared Header / Hero -->
+  <!-- Header -->
   <header class="site-header hero-header">
     <div class="navbar">
       <div class="brand">
@@ -90,20 +95,12 @@
         <a href="/">Home</a>
         <a href="/ships/" aria-current="page">Ships</a>
         <a href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="/ports.html">Ports</a>
-        <a href="/disability-at-sea.html">Disability at Sea</a>
         <a href="/drink-packages.html">Drink Packages</a>
-        <a href="/packing-lists.html">Packing Lists</a>
-        <a href="/planning.html">Planning</a>
-        <a href="/solo.html">Solo</a>
-        <a href="/travel.html">Travel</a>
       </nav>
     </div>
-
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <!-- Lat/Lon grid -->
+    <div class="hero" role="img" aria-label="Open ocean at sunrise with grid overlay">
       <div class="latlon-grid" aria-hidden="true">
-        <svg viewBox="0 0 100 60" preserveAspectRatio="none" width="100%" height="100%">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
           <g class="grid-lines" stroke-width="0.35">
             <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
             <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
@@ -115,7 +112,7 @@
           </g>
         </svg>
       </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="160" height="160" alt="" aria-hidden="true"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
         <div class="tagline">A Cruise Traveler’s Logbook</div>
@@ -126,243 +123,216 @@
     </div>
   </header>
 
-  <!-- Main -->
   <main class="wrap" id="content">
     <section class="card" aria-labelledby="title">
       <h1 id="title">Royal Caribbean Fleet</h1>
       <p>Explore the completed ship pages for Royal Caribbean International. Each ship below links to its dedicated page. Only pages with verified imagery appear for now; more ships are added as pages are finished.</p>
     </section>
 
-    <!-- Fleet grid -->
-    <section class="card" aria-labelledby="fleetHeading">
-      <h2 id="fleetHeading" class="card-title">‘…of the Seas’ (image-verified)</h2>
+    <section class="card" aria-labelledby="otsHeading">
+      <h2 id="otsHeading">‘…of the Seas’ (image-verified)</h2>
       <div id="fleetGrid" class="cards-grid" role="list"></div>
-      <p id="fleetEmpty" class="tiny-quiet" role="status" aria-live="polite" style="margin-top:.5rem">No completed ship pages found yet.</p>
+      <p id="fleetEmpty" class="tiny-quiet hidden" role="status" aria-live="polite">No completed ship pages found yet.</p>
+      <p id="fleetError" class="tiny-quiet hidden" role="status" aria-live="polite">Failed to load fleet data.</p>
     </section>
 
-    <!-- Data meta -->
     <section class="card" aria-labelledby="dataHeading">
-      <h2 id="dataHeading" class="card-title">Data</h2>
-      <p id="meta" class="tiny">Data sources: rc-fleet-index.json / rcl_of_the_seas.json</p>
+      <h2 id="dataHeading">Data</h2>
+      <p id="meta" class="tiny">Data sources: <code>rc-fleet-index.json</code> / <code>rcl_of_the_seas.json</code></p>
     </section>
   </main>
 
-  <footer class="wrap center">© <span id="yr"></span> In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></footer>
+  <footer class="wrap center">© <span id="yr"></span> In the Wake — A Cruise Traveler’s Logbook</footer>
   <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 
-  <!-- Page logic (v3.006): two JSONs w/ fallback; RC '...of the Seas' only; cache-first image verification; random image pick -->
+  <!-- Fleet loader (placed at end to guarantee DOM is ready) -->
   <script>
-  (async function(){
-    const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
+  (function(){
+    const abs = (p)=> (typeof window._abs==='function'? _abs(p): p);
 
-    // Primary then fallback
-    const SOURCES=[ abs('/ships/assets/data/rc-fleet-index.json'), abs('/data/rcl_of_the_seas.json') ];
+    // Primary + fallback JSONs (no merging, just fallback)
+    const JSON_SOURCES = [
+      abs('/ships/assets/data/rc-fleet-index.json'),
+      abs('/data/rcl_of_the_seas.json')
+    ];
 
-    // Known, curated image pools per slug (expandable). Only ships with at least one *verified* image will render.
-   const IMAGE_CANDIDATES = {
-  'adventure-of-the-seas': [
-    '/ships/rcl/images/Adventure_of_the_Seas1.jpeg',
-    '/ships/rcl/images/Adventure_of_the_Seas2.jpg',
-    '/ships/rcl/images/Adventure_of_the_Seas3.jpg',
-    '/ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg',
-    '/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg',
-    '/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg'
-  ],
-  'allure-of-the-seas': [
-    '/ships/assets/images/allure-of-the-seas-3.jpg',
-    '/ships/assets/images/allure2.jpg',
-    '/ships/assets/images/allure3.jpg'
-  ],
-  'enchantment-of-the-seas': [
-    '/ships/assets/enchantment-of-the-seas1.jpg',
-    '/ships/assets/images/Enchantment_of_the_Seas.jpeg',
-    '/images/Enchantment_of_the_Seas.jpeg',
-    '/images/enchantment-of-the-seas2.jpeg',
-    '/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg'
-  ],
-  'grandeur-of-the-seas': [
-    '/ships/assets/grandeur-of-the-seas1.jpg'
-  ],
-  'radiance-of-the-seas': [
-    '/ships/assets/images/radiance-of-the-seas1.jpg'
-  ],
-  'rhapsody-of-the-seas': [
-    '/ships/assets/rhapsody-of-the-seas1.jpg',
-    '/ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg',
-    '/ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg',
-    '/ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg'
-  ],
-  'sovereign-of-the-seas': [
-    '/ships/assets/sovereign-of-the-seas1.jpg',
-    '/ships/assets/sovereign-of-the-seas2.jpg',
-    '/ships/assets/sovereign-of-the-seas3.jpg'
-  ],
-  'vision-of-the-seas': [
-    '/ships/assets/vision-of-the-seas1.jpg'
-  ]
-};
+    // Verified image candidates by slug (Allure fixed here)
+    const IMAGE_CANDIDATES = {
+      'adventure-of-the-seas': [
+        '/ships/rcl/images/Adventure_of_the_Seas1.jpeg',
+        '/ships/rcl/images/Adventure_of_the_Seas2.jpg',
+        '/ships/rcl/images/Adventure_of_the_Seas3.jpg',
+        '/ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg',
+        '/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg',
+        '/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg'
+      ],
+      'allure-of-the-seas': [
+        '/ships/assets/images/allure-of-the-seas-3.jpg',
+        '/ships/assets/images/allure2.jpg',
+        '/ships/assets/images/allure3.jpg'
+      ],
+      'enchantment-of-the-seas': [
+        '/ships/assets/enchantment-of-the-seas1.jpg',
+        '/ships/assets/images/Enchantment_of_the_Seas.jpeg',
+        '/images/Enchantment_of_the_Seas.jpeg',
+        '/images/enchantment-of-the-seas2.jpeg',
+        '/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg'
+      ],
+      'grandeur-of-the-seas': [
+        '/ships/assets/grandeur-of-the-seas1.jpg'
+      ],
+      'radiance-of-the-seas': [
+        // add whenever you have radiance images locally
+      ],
+      'rhapsody-of-the-seas': [
+        '/ships/assets/rhapsody-of-the-seas1.jpg',
+        '/ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg',
+        '/ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg',
+        '/ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg'
+      ],
+      'sovereign-of-the-seas': [
+        '/ships/assets/sovereign-of-the-seas1.jpg',
+        '/ships/assets/sovereign-of-the-seas2.jpg',
+        '/ships/assets/sovereign-of-the-seas3.jpg'
+      ],
+      'vision-of-the-seas': [
+        '/ships/assets/vision-of-the-seas1.jpg'
+      ]
+    };
 
-    // Also nudge SW to cache-manifest items (safe no-ops if absent)
-    try { fetch('/assets/cache-manifest.json', {cache:'no-store'}).catch(()=>{}); } catch(_){}
-
-    async function loadFleetJSON(){
-      for(const url of SOURCES){
-        try{
-          const r = await fetch(url, {cache:'no-store'});
-          if (r.ok) { const json=await r.json(); annotateMeta(json, url); return json; }
-        }catch(_){}
-      }
-      throw new Error('Fleet data unavailable');
-    }
-
-    function annotateMeta(json, url){
-      const el=document.getElementById('meta');
-      const when=json.generated || json.updated || (json.meta && json.meta.updated);
-      const ver =json.version || (json.meta && json.meta.version) || '—';
-      el.textContent = `Data: v${ver} • ${when? String(when).slice(0,10): 'unknown'} • Source: ${url}`;
-    }
-
-    // Normalize: accept both array-of-lines and keyed-object forms.
-    function normalizeShips(raw){
-      const out=[];
-      const lines = raw.cruise_lines;
-      if (Array.isArray(lines)){
-        for(const L of lines){
-          const lineSlug=(L.slug || L.line_slug || '').toLowerCase();
-          for(const s of (L.ships||[])){
-            out.push({
-              name: s.name || '',
-              slug: (s.slug || '').toLowerCase(),
-              line: lineSlug,
-              year: parseInt(String(s.year_built_or_entered||'').replace(/[^\d]/g,'')) || null,
-              class: String(s.class||s.ship_class||'').toLowerCase(),
-              gt: parseInt(String(s.gt||'').replace(/[^\d]/g,'')) || null,
-              guests: parseInt(String(s.capacity||'').replace(/[^\d]/g,'')) || null
-            });
-          }
-        }
-      } else if (lines && typeof lines==='object'){
-        for(const [lineId, ships] of Object.entries(lines)){
-          if(!Array.isArray(ships)) continue;
-          for(const s of ships){
-            out.push({
-              name: s.name || '',
-              slug: String(s.slug||'').toLowerCase(),
-              line: String(lineId||'').toLowerCase(),
-              year: parseInt(String(s.year_built_or_entered||'').replace(/[^\d]/g,'')) || null,
-              class: String(s.class||s.ship_class||'').toLowerCase(),
-              gt: parseInt(String(s.gt||'').replace(/[^\d]/g,'')) || null,
-              guests: parseInt(String(s.capacity||'').replace(/[^\d]/g,'')) || null
-            });
-          }
-        }
-      } else if (Array.isArray(raw.ships)){ // flat fallback
-        for(const s of raw.ships){
-          const a=s.attributes||s;
-          out.push({
-            name:a.name||a.title||a.ship||'',
-            slug:String(a.slug||a.id||'').toLowerCase(),
-            line:String(a.line || a.brand || a.cruise_line || '').toLowerCase(),
-            year:parseInt(String(a.entered_service||a.launched||a.year_built_or_entered||'').replace(/[^\d]/g,''))||null,
-            class:String(a.class||a.ship_class||'').toLowerCase(),
-            gt:parseInt(String(a.gt||a.gross_tonnage||'').replace(/[^\d]/g,''))||null,
-            guests:parseInt(String(a.capacity||a.passengers||'').replace(/[^\d]/g,''))||null
-          });
-        }
-      }
-      return out;
-    }
-
-    // Repair dirty line: if ‘…of the seas’, force Royal Caribbean
-    function enforceRoyalForOfTheSeas(list){
-      return list.map(s=>{
-        const isOTS = /\bof the seas\b/i.test(s.name) || /-of-the-seas$/.test(s.slug||'');
-        if (isOTS) return {...s, line:'royal-caribbean'};
-        return s;
-      });
-    }
-
-    // Cache-first verify whether an image exists
-    async function imgExists(url){
-      const absUrl=abs(url);
-      try{
-        if('caches' in window){
-          const hit = await caches.match(absUrl, {ignoreSearch:true});
-          if (hit) return true;
-        }
-      }catch(_){}
-      try{
-        // Prefer HEAD; fall back to GET if HEAD blocked.
-        const r = await fetch(absUrl, {method:'HEAD', cache:'no-store'});
-        if (r.ok) return true;
-      }catch(_){}
-      try{
-        const rg = await fetch(absUrl, {method:'GET', cache:'no-store'});
-        return rg.ok;
-      }catch(_){ return false; }
-    }
+    const el = {
+      grid: document.getElementById('fleetGrid'),
+      empty: document.getElementById('fleetEmpty'),
+      error: document.getElementById('fleetError'),
+      meta: document.getElementById('meta')
+    };
 
     function pickRandom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
-    async function pickVerifiedImage(slug){
-      const cand = (IMAGE_CANDIDATES[slug]||[]).map(abs);
-      for (let i=0; i<cand.length; i++){
-        // shuffle-on-the-fly by sampling random remaining
-        const j = Math.floor(Math.random()*(cand.length-i)) + i;
-        const tmp=cand[i]; cand[i]=cand[j]; cand[j]=tmp;
+    async function cacheFirst(urls){
+      if(!('caches' in window)) return urls[0] || '';
+      // try cache
+      for(const u of urls){
+        try{
+          const hit = await caches.match(u, { ignoreSearch:true });
+          if (hit) return u;
+        }catch(_){}
       }
-      for (const u of cand){
-        if (await imgExists(u)) return u;
-      }
-      return ''; // none verified
+      // fallback to first available URL
+      return urls[0] || '';
     }
 
-    // Render
-    const grid = document.getElementById('fleetGrid');
-    const empty = document.getElementById('fleetEmpty');
+    async function loadFleetJSON(){
+      for(const url of JSON_SOURCES){
+        try{
+          const r = await fetch(url, { cache:'no-store' });
+          if (r.ok) { const json = await r.json(); return { json, url }; }
+        }catch(e){ /* try next */ }
+      }
+      throw new Error('fleet-json-unavailable');
+    }
 
-    try{
-      const raw   = await loadFleetJSON();
-      const all   = enforceRoyalForOfTheSeas(normalizeShips(raw));
-      const rcOTS = all.filter(s => s.line==='royal-caribbean' && (/\bof the seas\b/i.test(s.name) || /-of-the-seas$/.test(s.slug||'')));
+    function normalizeShipsShape(data){
+      // Your files use: { ships:[{ name, slug, ... }] }
+      const ships = Array.isArray(data?.ships) ? data.ships : [];
+      return ships.map(s=>({
+        name: s.name || '',
+        slug: s.slug || (s.name||'').toLowerCase().replace(/\s+/g,'-'),
+        status: s.status || '',
+        class: s.class || '',
+        year: (typeof s.year==='number')? s.year : (s.year? Number(s.year): null),
+        gt: (s.gt==null)? null : Number(s.gt),
+        capacity: (s.capacity==null)? null : Number(s.capacity)
+      }));
+    }
 
-      // Only include ships for which we can verify at least one image
-      const out = [];
-      for (const s of rcOTS){
-        const slug = s.slug || String(s.name||'').toLowerCase().replace(/\s+/g,'-').replace(/’/g,"'").replace(/-+/g,'-');
-        const img = await pickVerifiedImage(slug);
-        if (!img) continue;
-        out.push({ ship:s, slug, img });
+    function isOfTheSeas(name){ return /\bof the seas\b/i.test(String(name||'')); }
+
+    function renderCards(list){
+      const cards = [];
+      list.forEach(s=>{
+        const cand = (IMAGE_CANDIDATES[s.slug]||[]).filter(Boolean);
+        if (!cand.length) return; // image-verified only
+        cards.push({ ship:s, cand });
+      });
+
+      if (!cards.length){
+        el.empty.classList.remove('hidden');
+        el.grid.innerHTML='';
+        return;
       }
 
-      // Build cards
-      grid.innerHTML = out.map(({ship, slug, img})=>{
-        const href = abs(`/ships/rcl/${slug}.html`);
-        return `
-          <a class="card clickable" role="listitem" href="${href}" aria-label="${ship.name}">
-            <div class="thumb"><img src="${img}" alt="${ship.name}"/></div>
-            <div class="body">
-              <h3 class="card-title">${ship.name}</h3>
-              <p class="tiny-quiet">${ship.year ? ('Year: '+ship.year) : ''}</p>
-            </div>
-          </a>`;
-      }).join('');
+      el.empty.classList.add('hidden');
 
-      empty.classList.toggle('hidden', grid.children.length>0);
-    }catch(e){
-      console.error('fleet page init failed', e);
-      empty.textContent = 'Failed to load fleet data.';
+      // Build DOM
+      const frag = document.createDocumentFragment();
+      cards.forEach(item=>{
+        const a = document.createElement('a');
+        a.className='card clickable';
+        a.setAttribute('role','listitem');
+        a.href = abs(`/ships/rcl/${item.ship.slug}.html`);
+        a.innerHTML = `
+          <div class="thumb"><img alt="${item.ship.name}"/></div>
+          <div class="body">
+            <h3 class="card-title">${item.ship.name}</h3>
+            <p class="small muted">${item.ship.class? item.ship.class+' Class' : ''}</p>
+          </div>
+        `;
+        frag.appendChild(a);
+
+        // choose image: cache-first among candidates, then random
+        (async ()=>{
+          const chosen = await cacheFirst(item.cand);
+          const finalSrc = chosen || pickRandom(item.cand);
+          const img = a.querySelector('img');
+          if (finalSrc) img.src = abs(finalSrc);
+          else a.remove(); // belt & suspenders: if nothing, remove card
+        })();
+      });
+      el.grid.innerHTML='';
+      el.grid.appendChild(frag);
     }
-  })();
-  </script>
 
-  <!-- Progressive card reveal -->
-  <script>
-  (function(){
-    const IO=('IntersectionObserver' in window) ? new IntersectionObserver((ents)=>{
-      ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); IO.unobserve(e.target);} });
-    },{rootMargin:'80px 0px'}) : null;
-    document.querySelectorAll('.card').forEach(c=>{ if(IO){ IO.observe(c); } else { c.classList.add('visible'); } });
+    async function init(){
+      try{
+        const { json, url } = await loadFleetJSON();
+        const ships = normalizeShipsShape(json)
+          .filter(s => isOfTheSeas(s.name)); // ‘…of the Seas’
+
+        // stamp meta
+        const when = json.generated || json.updated || (json.meta && json.meta.updated);
+        const ver  = json.version || (json.meta && json.meta.version);
+        el.meta.textContent = `Data: ${ver?('v'+ver):''}${ver&&when?' • ':''}${when?String(when).slice(0,10):''} • Source: ${url}`;
+
+        renderCards(ships);
+      }catch(e){
+        console.error('fleet load failed', e);
+        el.error.classList.remove('hidden');
+        el.empty.classList.add('hidden');
+      }
+    }
+
+    // Progressive card reveal (IO)
+    (function reveal(){
+      const IO=('IntersectionObserver' in window) ? new IntersectionObserver((ents)=>{
+        ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); IO.unobserve(e.target);} });
+      }, {rootMargin:'80px 0px'}) : null;
+      document.querySelectorAll('.card').forEach(c=>{
+        if(IO){ IO.observe(c);} else { c.classList.add('visible'); }
+      });
+    })();
+
+    // Warm SW cache with known assets
+    (function warm(){
+      try { fetch('/assets/compass_rose.svg', {cache:'no-store',mode:'no-cors'}); } catch(_){}
+      try { fetch('/assets/watermark.png', {cache:'no-store',mode:'no-cors'}); } catch(_){}
+      try { fetch('/assets/index_hero.jpg', {cache:'no-store',mode:'no-cors'}); } catch(_){}
+    })();
+
+    // Start
+    if (document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded', init, {once:true});
+    } else { init(); }
   })();
   </script>
 </body>
