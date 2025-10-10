@@ -159,44 +159,48 @@
     const SOURCES=[ abs('/ships/assets/data/rc-fleet-index.json'), abs('/data/rcl_of_the_seas.json') ];
 
     // Known, curated image pools per slug (expandable). Only ships with at least one *verified* image will render.
-    const IMAGE_CANDIDATES = {
-      'adventure-of-the-seas': [
-        '/ships/rcl/images/Adventure_of_the_Seas1.jpeg',
-        '/ships/rcl/images/Adventure_of_the_Seas2.jpg',
-        '/ships/rcl/images/Adventure_of_the_Seas3.jpg',
-        '/ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg',
-        '/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg',
-        '/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg'
-      ],
-      'enchantment-of-the-seas': [
-        '/ships/assets/enchantment-of-the-seas1.jpg',
-        '/ships/assets/images/Enchantment_of_the_Seas.jpeg',
-        '/images/Enchantment_of_the_Seas.jpeg',
-        '/images/enchantment-of-the-seas2.jpeg',
-        '/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg'
-      ],
-      'grandeur-of-the-seas': [
-        '/ships/assets/grandeur-of-the-seas1.jpg'
-      ],
-      'radiance-of-the-seas': [
-        '/ships/assets/images/allure2.jpg', /* temp holding if radiance hero not yet in /assets */
-        '/ships/assets/images/allure3.jpg'
-      ],
-      'rhapsody-of-the-seas': [
-        '/ships/assets/rhapsody-of-the-seas1.jpg',
-        '/ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg',
-        '/ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg',
-        '/ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg'
-      ],
-      'sovereign-of-the-seas': [
-        '/ships/assets/sovereign-of-the-seas1.jpg',
-        '/ships/assets/sovereign-of-the-seas2.jpg',
-        '/ships/assets/sovereign-of-the-seas3.jpg'
-      ],
-      'vision-of-the-seas': [
-        '/ships/assets/vision-of-the-seas1.jpg'
-      ]
-    };
+   const IMAGE_CANDIDATES = {
+  'adventure-of-the-seas': [
+    '/ships/rcl/images/Adventure_of_the_Seas1.jpeg',
+    '/ships/rcl/images/Adventure_of_the_Seas2.jpg',
+    '/ships/rcl/images/Adventure_of_the_Seas3.jpg',
+    '/ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg',
+    '/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg',
+    '/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg'
+  ],
+  'allure-of-the-seas': [
+    '/ships/assets/images/allure-of-the-seas-3.jpg',
+    '/ships/assets/images/allure2.jpg',
+    '/ships/assets/images/allure3.jpg'
+  ],
+  'enchantment-of-the-seas': [
+    '/ships/assets/enchantment-of-the-seas1.jpg',
+    '/ships/assets/images/Enchantment_of_the_Seas.jpeg',
+    '/images/Enchantment_of_the_Seas.jpeg',
+    '/images/enchantment-of-the-seas2.jpeg',
+    '/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg'
+  ],
+  'grandeur-of-the-seas': [
+    '/ships/assets/grandeur-of-the-seas1.jpg'
+  ],
+  'radiance-of-the-seas': [
+    '/ships/assets/images/radiance-of-the-seas1.jpg'
+  ],
+  'rhapsody-of-the-seas': [
+    '/ships/assets/rhapsody-of-the-seas1.jpg',
+    '/ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg',
+    '/ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg',
+    '/ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg'
+  ],
+  'sovereign-of-the-seas': [
+    '/ships/assets/sovereign-of-the-seas1.jpg',
+    '/ships/assets/sovereign-of-the-seas2.jpg',
+    '/ships/assets/sovereign-of-the-seas3.jpg'
+  ],
+  'vision-of-the-seas': [
+    '/ships/assets/vision-of-the-seas1.jpg'
+  ]
+};
 
     // Also nudge SW to cache-manifest items (safe no-ops if absent)
     try { fetch('/assets/cache-manifest.json', {cache:'no-store'}).catch(()=>{}); } catch(_){}
