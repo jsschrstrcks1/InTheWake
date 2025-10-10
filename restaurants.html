@@ -318,9 +318,8 @@
   <footer class="site-footer" style="text-align:center">
     <p>© 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
   </footer>
-
-  <!-- ============ JS: render + fuzzy filter + trays + ship pills ============ -->
-  <script>
+<!-- ============ JS: render + fuzzy filter + trays + ship pills ============ -->
+<script>
 (function(){
   const $  = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
@@ -558,12 +557,8 @@
       tr.addEventListener('focusout', e=>{ if(!tr.contains(e.relatedTarget)) setTimeout(closeAll,220); });
     });
 
-    // NEW: ESC to close trays (a11y)
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape'){
-        closeAll();
-      }
-    });
+    // ESC to close trays
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeAll(); } });
 
     clr.addEventListener('click', ()=>{
       STATE.klass=''; STATE.ship=''; STATE.venue=''; STATE.query=''; $q.value=''; STATE.cats.clear();
@@ -640,34 +635,31 @@
   window.addEventListener('keydown', e=>{ if(e.key==='/' && document.activeElement!==$q){ e.preventDefault(); $q.focus(); }});
 
   if ($meta) $meta.textContent = 'Loading venues…';
-<script>
-(function(){
-  const $m = () => document.getElementById('search-meta');
 
-  // 1) Ensure SiteCache is present (handles Safari defer timing)
+  // -------- ensure SiteCache present (defer race guard)
   function ensureSiteCache(){
     return new Promise((resolve)=>{
       if (window.SiteCache && typeof SiteCache.getJSON === 'function') return resolve();
-      // inject only if missing
       const s = document.createElement('script');
-      s.src = '/assets/js/site-cache.js';   // same path you already use
+      s.src = '/assets/js/site-cache.js';
       s.defer = true;
       s.onload = () => resolve();
-      s.onerror = () => resolve();          // fail open; boot() will handle fetch errors
+      s.onerror = () => resolve();
       document.head.appendChild(s);
     });
   }
 
+  // -------- Boot
   (async function boot(){
-    let db = null;
+    let db=null;
     try{
-      await ensureSiteCache();  // <-- NEW: wait here
+      await ensureSiteCache();
       db = await SiteCache.getJSON('/assets/data/venues.json', {
         ttlDays: 7,
-        versionPath: ['meta','version']   // <-- FIXED path
+        versionPath: ['meta','version']   // << correct path
       });
     }catch(e){
-      const m = $m(); if (m) m.textContent = 'Could not load venues.';
+      const m=document.getElementById('search-meta'); if(m){ m.textContent='Could not load venues.'; }
       return;
     }
 
@@ -720,19 +712,27 @@
     if ($meta) $meta.textContent = 'Showing all venues & activities';
   })();
 })();
-  </script>
+</script>
 
-  <!-- Warmup -->
-  <script>
-  (function(){
-    async function warm(){
-      try{
-        await SiteCache.getJSON(_abs('/assets/data/venues.json'), { ttlDays:7, versionPath:['version'] });
-      }catch(e){}
-    }
-    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', warm, {once:true}); }
-    else { warm(); }
-  })();
-  </script>
+<!-- Warmup (optional) -->
+<script>
+(function(){
+  async function warm(){
+    try{
+      // ensure SiteCache exists even if defer raced
+      if(!(window.SiteCache && SiteCache.getJSON)){
+        await new Promise((resolve)=>{
+          const s=document.createElement('script'); s.src='/assets/js/site-cache.js'; s.defer=true;
+          s.onload=resolve; s.onerror=resolve; document.head.appendChild(s);
+        });
+      }
+      await SiteCache.getJSON('/assets/data/venues.json', { ttlDays:7, versionPath:['meta','version'] });
+    }catch(e){}
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', warm, {once:true}); }
+  else { warm(); }
+})();
+</script>
+ 
 </body>
 </html>
