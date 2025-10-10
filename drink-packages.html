@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Standards v3.002: absolute URL + origin normalizer -->
+  <script>
+  (function(){
+    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+    document.addEventListener('DOMContentLoaded',function(){
+      var sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(function(el){
+        var attr=el.hasAttribute('href')?'href':'src';
+        try{var u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
+      });
+    },{once:true});
+
+    // External link protection
+    document.addEventListener('click',function(e){
+      const a=e.target?.closest?.('a[href]');
+      if(!a) return;
+      try{
+        const u=new URL(a.href,location.href);
+        if(u.origin!==location.origin){
+          a.setAttribute('target','_blank');
+          a.setAttribute('rel','noopener noreferrer');
+        }
+      }catch(_){}
+    },{capture:true});
+  })();
+  </script>
+
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Drink Packages | In the Wake (v3.002)</title>
+  <meta name="version" content="v3.002"/>
+  <meta name="description" content="Learn about cruise line drink packages, beverage policies, and price calculators. A clear-eyed guide to saving money at sea — coming soon."/>
+  <meta name="robots" content="index,follow"/>
+
+  <!-- Canonical & Social -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/drink-packages.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/drink-packages.html"/>
+  <meta property="og:title" content="Drink Packages | In the Wake"/>
+  <meta property="og:description" content="Comparing drink packages across cruise lines — simplified explanations, calculators, and honest insights. Coming soon."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/drinks-hero.jpg?v=3.002"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Standards v3.002: cache + SW -->
+  <script src="/assets/js/site-cache.js" defer></script>
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.002"/>
+
+  <!-- Hero and watermark -->
+  <style>
+    .hero{background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
+           filter:saturate(1.3) contrast(1.1) brightness(1.05);}
+    .hero::before,.hero::after{content:none!important;}
+    body::before{content:"";position:fixed;inset:0;
+      background:url("/assets/watermark.png") center right/420px auto no-repeat;
+      opacity:.06;pointer-events:none;z-index:0;}
+    body>*{position:relative;z-index:1;}
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
+    .skip-link:focus{position:static;width:auto;height:auto;padding:.4rem .6rem;background:#fff;
+      border:1px solid var(--rope);border-radius:999px;margin:.35rem;display:inline-block;}
+  </style>
+
+  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+</head>
+<body class="page">
+
+  <a class="skip-link" href="#content">Skip to main content</a>
+
+  <header class="site-header hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
+        <span class="version-badge">v3.002</span>
+      </div>
+
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability-at-sea.html">Disability at Sea</a>
+        <a href="/drink-packages.html" aria-current="page">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/travel.html">Travel</a>
+      </nav>
+    </div>
+
+    <div class="hero" role="img" aria-label="Colorful cocktail glasses against an ocean backdrop">
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+      <div class="hero-credit">
+        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <section class="card" aria-labelledby="drink-packages">
+      <h1 id="drink-packages">Cruise Drink Packages</h1>
+      <p>Every cruise line approaches beverages differently — from “classic” packages to tiered premium options, from soda-only plans to all-inclusive beverage programs. Prices shift often, and what’s included varies wildly between lines.</p>
+      <p><em>In the Wake</em> is developing clear, side-by-side explanations of every major cruise line’s drink package systems, plus <strong>interactive calculators</strong> to help you decide whether the math works out for your sailing style.</p>
+    </section>
+
+    <section class="card" aria-labelledby="coming-soon">
+      <h2 id="coming-soon">Coming Soon</h2>
+      <ul>
+        <li>Per-line package breakdowns (Royal Caribbean, Carnival, NCL, MSC, and more)</li>
+        <li>Cost-per-drink comparisons and onboard price data</li>
+        <li>Interactive “Worth It?” calculators for each cruise line</li>
+        <li>Accessibility notes for guests with dietary or medical beverage restrictions</li>
+      </ul>
+      <p>These tools are in progress and will roll out line by line. Our goal is transparency: no fluff, no pressure — just the truth about what’s in your glass and what it really costs.</p>
+    </section>
+
+    <section class="card" aria-labelledby="philosophy">
+      <h2 id="philosophy">Why This Matters</h2>
+      <p>The average cruiser spends more on beverages than on excursions — yet drink packages remain one of the most confusing parts of booking. We’re building resources that put clarity ahead of marketing, helping you understand value before you swipe your card.</p>
+      <p>Because calm seas — and calm decisions — are what we’re all about.</p>
+    </section>
+  </main>
+
+  <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
+    <p class="tiny" style="margin-top:.6rem">
+      All prices and inclusions subject to cruise line updates.  
+      Data refreshed weekly once calculators go live.  
+      Last reviewed 2025-10-10.
+    </p>
+  </footer>
+
+  <!-- Smart Warmup / Cache -->
+  <script>
+  (function(){
+    const abs=p=>(typeof window._abs==='function'?_abs(p):p);
+    const ready=f=>document.readyState==='loading'
+      ?document.addEventListener('DOMContentLoaded',f,{once:true}):f();
+    const idle=f=>('requestIdleCallback'in window?requestIdleCallback(f,{timeout:2500}):setTimeout(f,200));
+    async function ensure(){if(window.SiteCache)return;
+      await new Promise(r=>{const s=document.createElement('script');s.src=abs('/assets/js/site-cache.js');
+      s.defer=true;s.onload=r;s.onerror=r;document.head.appendChild(s);});}
+    async function warmGlobal(){
+      try{
+        await ensure();
+        await Promise.allSettled([
+          SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
+          SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['version']}),
+          SiteCache.getJSON(abs('/assets/data/personas/index.json'),{ttlDays:7,versionPath:['version']})
+        ]);
+      }catch(_){}
+    }
+    ready(()=>{idle(warmGlobal);
+      try{fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(()=>{});}catch(_){}
+    });
+  })();
+  </script>
+</body>
+</html>
