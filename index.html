@@ -1,3 +1,9 @@
+<!--
+  In the Wake — Invocation Edition
+  Soli Deo Gloria · abondservant · Proverbs 3:5; Colossians 3:23
+  Page: /index.html · v3.006 · Built: 2025-10-10T00:00:00Z
+-->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,8 +12,8 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Cruising In the Wake | A Cruise Traveler’s Logbook & Planning Companion (v3.004)</title>
-  <meta name="version" content="v3.004"/>
+  <title>Cruising In the Wake | A Cruise Traveler’s Logbook & Planning Companion (v3.006)</title>
+  <meta name="version" content="v3.006"/>
   <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship reviews, menu scans, port snapshots, accessibility notes, and solo travel tips based on real sailings."/>
   <meta name="robots" content="index, follow"/>
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
@@ -21,10 +27,10 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/index.html"/>
   <meta property="og:title" content="In the Wake | A Cruise Traveler’s Logbook & Planning Companion"/>
   <meta property="og:description" content="Ship reviews, menus, ports, accessibility notes, and trip-tested planning from real sailings."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.004"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.006"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Standards v3.004: absolute URL + origin normalizer -->
+  <!-- Standards v3.006: absolute URL + origin normalizer -->
   <script>
   (function(){
     var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
@@ -47,8 +53,38 @@
   })();
   </script>
 
+  <!-- External link hardener (sitewide) -->
+  <script>
+  (function(){
+    function isExternal(a){
+      try{ var u=new URL(a.href, location.href); return u.origin!==location.origin; }catch(_){ return false; }
+    }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href]');
+      if(!a || !isExternal(a)) return;
+      a.setAttribute('target','_blank');
+      if(!/\bnoopener\b/i.test(a.rel||'')) a.setAttribute('rel', (a.rel||'').trim()+' noopener');
+    }, true);
+  })();
+  </script>
+
+  <!-- WebSite structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "In the Wake",
+    "url": "https://www.cruisinginthewake.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.cruisinginthewake.com/search.html?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
   <!-- Site cache utility -->
-  <script src="/assets/js/site-cache.js" defer></script>
+  <script src="/assets/js/site-cache.js?v=3.006" defer></script>
 
   <!-- Service worker -->
   <script>
@@ -59,8 +95,8 @@
   }
   </script>
 
-  <!-- CSS (v3.004) -->
- <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.004"/>
+  <!-- CSS (v3.006) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006"/>
 
   <!-- Page-specific hero tuning -->
   <style id="hero-vibrancy">
@@ -69,7 +105,7 @@
     .hero::before,.hero::after{ content:none!important }
   </style>
 
-  <!-- Inline fallback for grid + watermark (remove after CSS deploy) -->
+  <!-- Inline fallback for grid + watermark -->
   <style id="home-grid-fallback">
     .grid-3{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:1.2rem }
     @media (max-width:900px){ .grid-3{ grid-template-columns:1fr } }
@@ -80,6 +116,9 @@
       background:url('/assets/watermark.png') center/contain no-repeat;
       opacity:.06; pointer-events:none;
     }
+    /* Skip-link safety (visible on focus) */
+    .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip-link:focus{ position:static; width:auto; height:auto; padding:.5rem .75rem; background:#fff; border:2px solid #0a3d62; border-radius:8px; z-index:1000; }
   </style>
 
   <!-- Preload small asset -->
@@ -93,7 +132,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
-        <span class="tiny ver-badge" aria-label="Site version">v3.004</span>
+        <span class="tiny ver-badge" aria-label="Site version">v3.006</span>
       </div>
 
       <nav class="pill-nav pills" aria-label="Primary">
@@ -158,7 +197,7 @@
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
   </footer>
 
-  <!-- Smart Warmup / Cache (v1.6) -->
+  <!-- Smart Warmup / Cache -->
   <script>
   (function(){
     const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
@@ -166,20 +205,14 @@
       ? document.addEventListener('DOMContentLoaded', fn, {once:true})
       : fn());
     const idle=(fn)=> ('requestIdleCallback' in window ? requestIdleCallback(fn, {timeout:2500}) : setTimeout(fn, 200));
-
     function ensureSiteCache(){
       return new Promise((resolve)=>{
         if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
-        const s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js'); s.defer=true;
+        const s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.006'); s.defer=true;
         s.onload=()=>resolve(); s.onerror=()=>resolve(); document.head.appendChild(s);
       });
     }
     function warmImages(urls){ (urls||[]).forEach(u=>{ try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{});}catch(_){}}); }
-
-    function onRestaurantHub(){ return /\/restaurants\.html$/i.test(location.pathname); }
-    function onRestaurantDetail(){ return /\/restaurants(?:\/[^/]+)?\/[^/]+\.html$/i.test(location.pathname); }
-    function getShipContext(){ const m=location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)\.html$/i); return m?{line:m[1].toLowerCase(),slug:m[2].toLowerCase()}:null; }
-
     async function warmGlobalJSON(){
       try{
         await ensureSiteCache();
@@ -190,57 +223,13 @@
         ]);
       }catch(_){}
     }
-
-    async function warmShipSpecific(ctx){
-      if(!ctx) return;
-      const persona=[ `/ships/${ctx.line}/assets/${ctx.slug}.json`,
-                      `/assets/data/logbook/${ctx.line}/${ctx.slug}.json`,
-                      `/assets/data/ships/${ctx.line}/${ctx.slug}.json` ].map(abs);
-      const videos=[ `/ships/${ctx.line}/assets/videos/${ctx.slug}.json`,
-                     `/videos/${ctx.slug}.json`,
-                     `/assets/data/videos/${ctx.slug}.json` ].map(abs);
-      const imgs=[ `/assets/ships/${ctx.slug}1.jpg`,
-                   `/assets/ships/${ctx.slug}2.jpg`,
-                   `/assets/ships/${ctx.slug}3.jpg`,
-                   `/assets/ships/thumbs/${ctx.slug}.jpg` ].map(abs);
-      try{
-        await ensureSiteCache();
-        await Promise.allSettled([
-          ...persona.map(u=>SiteCache.getJSON(u,{ttlDays:7})),
-          ...videos.map(u=>SiteCache.getJSON(u,{ttlDays:7}))
-        ]);
-      }catch(_){}
-      warmImages(imgs);
-    }
-
-    async function warmRestaurants(){
-      try{
-        await ensureSiteCache();
-        const venues=await SiteCache.getJSON(abs('/assets/data/venues.json'), {ttlDays:7,versionPath:['meta','version']});
-        const list=(Array.isArray(venues?.venues)? venues.venues.slice(0,30): []).flatMap(v=>{
-          const slug=String(v?.slug||v?.id||v?.name||'').trim().toLowerCase().replace(/\s+/g,'-');
-          return [`/assets/restaurants/thumbs/${slug}.jpg`,`/assets/restaurants/${slug}.jpg`].map(abs);
-        });
-        warmImages([
-          abs('/assets/restaurants/chops-hero.jpg'),
-          abs('/assets/restaurants/giovannis-hero.jpg'),
-          abs('/assets/restaurants/chefs-table-hero.jpg'),
-          ...list
-        ]);
-      }catch(_){}
-    }
-
     function warmChrome(){
       warmImages([abs('/assets/logo_wake.png'),abs('/assets/compass_rose.svg'),abs('/assets/watermark.png')]);
     }
-
     ready(()=>{
       warmChrome();
       try { fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(()=>{});} catch(_){}
       idle(warmGlobalJSON);
-      const shipCtx=getShipContext(); if(shipCtx) idle(()=>warmShipSpecific(shipCtx));
-      if (onRestaurantHub() || onRestaurantDetail()) idle(warmRestaurants);
-      else idle(()=>warmRestaurants());
     });
   })();
   </script>
@@ -258,6 +247,13 @@
   </script>
 
   <!-- Floating Social Share Bar (sitewide) -->
-  <script defer src="/assets/js/share-bar.js?v=1.2"></script>
+  <script defer src="/assets/js/share-bar.js?v=3.006"></script>
+
+  <!--
+    Invocation Signature · Soli Deo Gloria
+    “Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
+    “Trust in the LORD with all your heart…” — Proverbs 3:5
+    Steward: abondservant · Timestamp (UTC): 2025-10-10T00:00:00Z · v3.006
+  -->
 </body>
 </html>
