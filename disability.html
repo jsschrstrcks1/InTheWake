@@ -1,90 +1,186 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Standards v3.002: absolute URL + origin normalizer -->
+  <script>
+  (function(){
+    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+    document.addEventListener('DOMContentLoaded',function(){
+      var sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(function(el){
+        var attr=el.hasAttribute('href')?'href':'src';
+        try{var u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
+      });
+    },{once:true});
+
+    // External link safety
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
+      if(!a) return;
+      try{
+        var u=new URL(a.href,location.href);
+        if(u.origin!==location.origin){
+          a.setAttribute('target','_blank');
+          a.setAttribute('rel','noopener noreferrer');
+        }
+      }catch(_){}
+    },{capture:true});
+  })();
+  </script>
+
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Disability at Sea — In the Wake (v2.203)</title>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
-  
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Accessibility Commitment | In the Wake (v3.002)</title>
+  <meta name="version" content="v3.002"/>
+  <meta name="description" content="In the Wake is committed to full ADA and WCAG 2.1 Level AA accessibility, ensuring every traveler can navigate, plan, and participate without barriers."/>
+  <meta name="robots" content="index,follow"/>
 
-  <style id="brand-title-hide">.brand-title{display:none!important}</style>
-
-
-  <style id="hero-vibrancy">
-    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
-    .hero::before,.hero::after{ content:none!important }
-  </style>
-
-
-  
-
-
-  <style id="hero-credit-css">
-    .hero{ position:relative }
-    .hero-credit{
-      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.12);
-    }
-  </style>
-
-
-  <style id="card-watermark">
-    .card{ position:relative; overflow:hidden }
-    .card::after{
-      content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none;
-    }
-  </style>
-
+  <!-- Canonical & Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/disability.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/disability.html"/>
+  <meta property="og:title" content="Accessibility Commitment | In the Wake"/>
+  <meta property="og:description" content="Our mission is full digital accessibility for all travelers. We adhere to ADA and WCAG 2.1 Level AA guidelines across every page."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.002"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Standards v3.002: cache + SW -->
+  <script src="/assets/js/site-cache.js" defer></script>
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.002"/>
+
+  <!-- Hero + Watermark -->
+  <style>
+    .hero{background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
+          filter:saturate(1.35) contrast(1.12) brightness(1.05);}
+    .hero::before,.hero::after{content:none!important;}
+    body::before{content:"";position:fixed;inset:0;
+      background:url("/assets/watermark.png") center right/420px auto no-repeat;
+      opacity:.06;pointer-events:none;z-index:0;}
+    body>*{position:relative;z-index:1;}
+  </style>
+
+  <!-- A11y & skip link -->
+  <style>
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
+    .skip-link:focus{position:static;width:auto;height:auto;padding:.4rem .6rem;
+      background:#fff;border:1px solid var(--rope);border-radius:999px;margin:.35rem;display:inline-block;}
+  </style>
+
+  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 </head>
 <body class="page">
-  <header class="hero-header">
+
+  <a class="skip-link" href="#content">Skip to main content</a>
+
+  <header class="site-header hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        
+        <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
+        <span class="version-badge">v3.002</span>
       </div>
-      
-      <nav class="nav">
-        <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drinks.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
+
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability-at-sea.html" aria-current="page">Disability at Sea</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/travel.html">Travel</a>
       </nav>
-    
     </div>
+
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-    
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div>
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div></div>
+      <div class="hero-credit">
+        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
+      </div>
+    </div>
   </header>
+
   <main class="wrap" id="content">
-    
-    <section class="card" aria-labelledby="welcome">
-      <h2 id="welcome">Welcome Aboard</h2>
-      <p><em>In the Wake</em> is a practical cruise companion shaped by real sailings and careful curation. Use it to compare ships, scan menus, scout cabins, and sanity-check tips without losing your bearings. We prioritize family-friendly creators, surface accessibility notes wherever possible, and treat numbers as snapshots in time. Cross-links connect ships, restaurants, and ports so you can verify details from more than one angle. The goal isn’t to sell you on anything—it’s to keep you oriented, remove friction, and help you make confident choices that feel like your idea all along. Fair winds and following seas.</p>
+    <section class="card" aria-labelledby="access-title">
+      <h1 id="access-title">Accessibility &amp; Inclusion Commitment</h1>
+      <p><em>In the Wake</em> is built on a simple conviction: everyone deserves access to reliable, unbiased cruise information—without barriers. Whether you navigate with a keyboard, screen reader, voice software, or switch device, our goal is for every part of the site to work smoothly and clearly for you.</p>
+      <p>This is more than compliance—it’s conviction. We believe information should be as open as the ocean itself, accessible to every traveler who dreams of setting sail.</p>
+    </section>
+
+    <section class="card" aria-labelledby="ada-wcag">
+      <h2 id="ada-wcag">ADA &amp; WCAG 2.1 Compliance</h2>
+      <p>We design, code, and review every page against the standards of the <strong>Americans with Disabilities Act (ADA)</strong> and the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong>.</p>
+      <ul>
+        <li><strong>Perceivable:</strong> Text alternatives for images, clear contrast, and legible type.</li>
+        <li><strong>Operable:</strong> Full keyboard navigation, logical focus order, and visible focus indicators.</li>
+        <li><strong>Understandable:</strong> Consistent layout, plain language, and predictable navigation.</li>
+        <li><strong>Robust:</strong> Semantic HTML and ARIA roles that support modern assistive technologies.</li>
+      </ul>
+      <p>Our commitment includes quarterly audits, user feedback channels, and continuous iteration as guidelines evolve. Accessibility isn’t a checkbox—it’s a living process of hospitality and respect.</p>
+    </section>
+
+    <section class="card" aria-labelledby="contact-access">
+      <h2 id="contact-access">Contact for Accessibility Support</h2>
+      <p>If you encounter any barrier while using our website, please reach out so we can fix it quickly:</p>
+      <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
+      <p>We aim to respond within 48 hours with acknowledgment and follow-up. Feedback from users with disabilities directly shapes our roadmap—it’s the best way for us to improve.</p>
     </section>
   </main>
-  <footer class="wrap">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
+
+  <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
+    <p class="tiny" style="margin-top:.6rem">We design to meet WCAG 2.1 Level AA standards and ADA requirements for digital accessibility.  
+      If you encounter any barrier, email <a href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a>.  
+      Last reviewed 2025-10-10.</p>
   </footer>
+
+  <!-- Smart Warmup / Cache -->
+  <script>
+  (function(){
+    const abs=p=>(typeof window._abs==='function'?_abs(p):p);
+    const ready=f=>document.readyState==='loading'
+      ?document.addEventListener('DOMContentLoaded',f,{once:true}):f();
+    const idle=f=>('requestIdleCallback'in window?requestIdleCallback(f,{timeout:2500}):setTimeout(f,200));
+    async function ensure(){if(window.SiteCache)return;
+      await new Promise(r=>{const s=document.createElement('script');s.src=abs('/assets/js/site-cache.js');
+      s.defer=true;s.onload=r;s.onerror=r;document.head.appendChild(s);});}
+    async function warmGlobal(){
+      try{
+        await ensure();
+        await Promise.allSettled([
+          SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
+          SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['version']}),
+          SiteCache.getJSON(abs('/assets/data/personas/index.json'),{ttlDays:7,versionPath:['version']})
+        ]);
+      }catch(_){}
+    }
+    ready(()=>{idle(warmGlobal);
+      try{fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(()=>{});}catch(_){}
+    });
+  })();
+  </script>
 </body>
 </html>
