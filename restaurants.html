@@ -328,8 +328,67 @@
 
   // Honor tips preference
   (function(){
-    try{ if (localStorage.getItem('iw_rest_tips') === 'off') { const hc = document.getElementById('how-to-card'); if (hc) hc.style.display = 'none'; } }catch(e){}
+    try{
+      if (localStorage.getItem('iw_rest_tips') === 'off') {
+        const hc = document.getElementById('how-to-card'); if (hc) hc.style.display = 'none';
+      }
+    }catch(e){}
   })();
+
+  /* ================== GRACE HELPERS (fail-safe loader) ================== */
+  function setStatus(msg){ const m=document.getElementById('search-meta'); if(m) m.textContent=msg; }
+
+  async function fetchWithTimeout(url, {timeoutMs=8000}={}){
+    const ctl = new AbortController();
+    const t = setTimeout(()=>ctl.abort(), timeoutMs);
+    try{
+      const r = await fetch(url,{cache:'no-store', signal:ctl.signal});
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return await r.json();
+    }finally{ clearTimeout(t); }
+  }
+
+  function isVenuesDB(x){ return !!(x && Array.isArray(x.venues) && x.venues.length>=0 && x.ships && typeof x.ships==='object'); }
+
+  async function loadVenuesGracefully(){
+    const URL = '/assets/data/venues.json';
+
+    // 1) Try SiteCache (fresh)
+    try{
+      if (window.SiteCache && typeof SiteCache.getJSON==='function'){
+        const db = await SiteCache.getJSON(URL, { ttlDays:7, versionPath:['meta','version'] });
+        if (isVenuesDB(db)) return {db, source:'sitecache'};
+      }
+    }catch(e){/* fallthrough */}
+
+    // 2) Network direct (timeout)
+    try{
+      const db = await fetchWithTimeout(URL, {timeoutMs:8000});
+      if (isVenuesDB(db)) return {db, source:'network'};
+    }catch(e){/* fallthrough */}
+
+    // 3) Stale localStorage record (even if expired)
+    try{
+      const raw = localStorage.getItem('sc::'+URL);
+      if (raw){
+        const rec = JSON.parse(raw);
+        if (rec && isVenuesDB(rec.data)) return {db:rec.data, source:'stale-cache'};
+      }
+    }catch(e){}
+
+    throw new Error('venues-unavailable');
+  }
+
+  function ensureRetryButton(onRetry){
+    const meta = document.getElementById('search-meta');
+    if (!meta || meta._retryAttached) return;
+    const btn = document.createElement('button');
+    btn.type='button'; btn.textContent='Retry'; btn.className='chip'; btn.style.marginLeft='.5rem';
+    btn.addEventListener('click', onRetry);
+    meta.appendChild(btn);
+    meta._retryAttached = true;
+  }
+  /* ===================================================================== */
 
   // Helpers
   function norm(s){
@@ -513,9 +572,8 @@
 
     hideEmptySections();
     const total = CARDS.length;
-    $meta.textContent = (q || STATE.cats.size || STATE.klass || STATE.ship || STATE.venue)
-      ? `Showing ${shown} of ${total}`
-      : `Showing all venues & activities`;
+    setStatus((q || STATE.cats.size || STATE.klass || STATE.ship || STATE.venue)
+      ? `Showing ${shown} of ${total}` : `Showing all venues & activities`);
   }
 
   function wireChips(){
@@ -634,32 +692,31 @@
   if ($q) $q.addEventListener('input', ()=>{ STATE.query = $q.value || ''; apply(); });
   window.addEventListener('keydown', e=>{ if(e.key==='/' && document.activeElement!==$q){ e.preventDefault(); $q.focus(); }});
 
-  if ($meta) $meta.textContent = 'Loading venues…';
+  setStatus('Loading venues…');
 
-  // -------- ensure SiteCache present (defer race guard)
+  // Ensure SiteCache present (Safari defer race)
   function ensureSiteCache(){
     return new Promise((resolve)=>{
       if (window.SiteCache && typeof SiteCache.getJSON === 'function') return resolve();
       const s = document.createElement('script');
-      s.src = '/assets/js/site-cache.js';
-      s.defer = true;
-      s.onload = () => resolve();
-      s.onerror = () => resolve();
+      s.src = '/assets/js/site-cache.js'; s.defer = true;
+      s.onload = resolve; s.onerror = resolve;
       document.head.appendChild(s);
     });
   }
 
-  // -------- Boot
+  // -------- Boot with graceful data path
   (async function boot(){
-    let db=null;
+    await ensureSiteCache();
+
+    let db;
     try{
-      await ensureSiteCache();
-      db = await SiteCache.getJSON('/assets/data/venues.json', {
-        ttlDays: 7,
-        versionPath: ['meta','version']   // << correct path
-      });
+      const res = await loadVenuesGracefully();
+      db = res.db;
+      setStatus(res.source==='stale-cache' ? 'Showing saved data (offline).' : 'Showing all venues & activities');
     }catch(e){
-      const m=document.getElementById('search-meta'); if(m){ m.textContent='Could not load venues.'; }
+      setStatus('Could not load venues.');
+      ensureRetryButton(()=>location.reload());
       return;
     }
 
@@ -709,7 +766,6 @@
     wireChips();
     wireBrandBar(db);
     apply();
-    if ($meta) $meta.textContent = 'Showing all venues & activities';
   })();
 })();
 </script>
@@ -719,7 +775,6 @@
 (function(){
   async function warm(){
     try{
-      // ensure SiteCache exists even if defer raced
       if(!(window.SiteCache && SiteCache.getJSON)){
         await new Promise((resolve)=>{
           const s=document.createElement('script'); s.src='/assets/js/site-cache.js'; s.defer=true;
