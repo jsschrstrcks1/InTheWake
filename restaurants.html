@@ -4,22 +4,7 @@
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Restaurants &amp; Menus | In the Wake (v3.001)</title>
-  <meta name="version" content="v3.001"/>
-  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
-  <meta name="description" content="Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes."/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
-  <meta property="og:title" content="Restaurants &amp; Menus | In the Wake"/>
-  <meta property="og:description" content="Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.001"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="robots" content="index, follow"/>
-
-  <!-- Standards v3.001: absolute URL + origin normalizer -->
+  <!-- Standards v3.002: absolute URL + origin normalizer -->
   <script>
   (function(){
     var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
@@ -39,10 +24,25 @@
   })();
   </script>
 
-  <!-- Standards v3.001: Site cache utility (defer safe) -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Restaurants &amp; Menus | In the Wake (v3.002)</title>
+  <meta name="version" content="v3.002"/>
+  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
+  <meta name="description" content="Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
+  <meta property="og:title" content="Restaurants &amp; Menus | In the Wake"/>
+  <meta property="og:description" content="Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.002"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="robots" content="index, follow"/>
+
+  <!-- Standards v3.002: Site cache utility (defer safe) -->
   <script src="/assets/js/site-cache.js" defer></script>
 
-  <!-- Standards v3.001: register service worker for image cache -->
+  <!-- Standards v3.002: register service worker for image cache -->
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load', function(){
@@ -52,9 +52,9 @@
   </script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.001"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.002"/>
 
-  <!-- ===== Page patch (scoped to Restaurants page) — NO hero overrides here ===== -->
+  <!-- ===== Page patch (scoped to Restaurants page) ===== -->
   <style id="restaurants-v2_256_022">
     :root{ --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e; }
 
@@ -176,7 +176,7 @@
   </style>
 
   <!-- Preload small asset -->
-  <link rel="preload" as="image" href="/assets/compass_rose.svg" imagesrcset="/assets/compass_rose.svg"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 </head>
 
 <body class="restaurants-page">
@@ -186,7 +186,7 @@
   <header class="site-header hero-header">
     <div class="topbar">
       <a class="logo-sm" href="/"><img src="/assets/logo_wake.png" alt="In the Wake"/></a>
-      <span class="ver">v3.001</span>
+      <span class="ver">v3.002</span>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/ships/">Ships</a>
@@ -261,7 +261,7 @@
       </div>
     </section>
     <div class="section">
-      <h1 id="content">Restaurants &amp; Menus <span class="version-badge">v3.001</span></h1>
+      <h1 id="content">Restaurants &amp; Menus <span class="version-badge">v3.002</span></h1>
       <p class="page-sub">Premium &amp; complimentary dining across the fleet — menus, prices, accessibility notes.</p>
     </div>
   </section>
@@ -318,13 +318,25 @@
   <footer class="site-footer" style="text-align:center">
     <p>© 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
   </footer>
-<!-- ============ JS: render + fuzzy filter + trays + ship pills ============ -->
+
+<!-- ============ JS: render + fuzzy filter + trays + ship pills (v3.002) ============ -->
 <script>
 (function(){
   const $  = s => document.querySelector(s);
-  const $$ = s => Array.from(document.querySelectorAll(s));
   const $q = $('#q');
-  const $meta = $('#search-meta');
+
+  // Open external links in new tab (standards v3.002)
+  document.addEventListener('click', function(e){
+    const a = e.target.closest && e.target.closest('a[href]');
+    if(!a) return;
+    try{
+      const u = new URL(a.href, location.href);
+      if(u.origin !== location.origin){
+        a.setAttribute('target','_blank');
+        a.setAttribute('rel','noopener');
+      }
+    }catch(_){}
+  }, {capture:true});
 
   // Honor tips preference
   (function(){
@@ -349,6 +361,17 @@
   }
 
   function isVenuesDB(x){ return !!(x && Array.isArray(x.venues) && x.venues.length>=0 && x.ships && typeof x.ships==='object'); }
+
+  // Ensure SiteCache present (Safari defer race)
+  function ensureSiteCache(){
+    return new Promise((resolve)=>{
+      if (window.SiteCache && typeof SiteCache.getJSON === 'function') return resolve();
+      const s = document.createElement('script');
+      s.src = '/assets/js/site-cache.js'; s.defer = true;
+      s.onload = resolve; s.onerror = resolve;
+      document.head.appendChild(s);
+    });
+  }
 
   async function loadVenuesGracefully(){
     const URL = '/assets/data/venues.json';
@@ -694,20 +717,12 @@
 
   setStatus('Loading venues…');
 
-  // Ensure SiteCache present (Safari defer race)
-  function ensureSiteCache(){
-    return new Promise((resolve)=>{
-      if (window.SiteCache && typeof SiteCache.getJSON === 'function') return resolve();
-      const s = document.createElement('script');
-      s.src = '/assets/js/site-cache.js'; s.defer = true;
-      s.onload = resolve; s.onerror = resolve;
-      document.head.appendChild(s);
-    });
-  }
-
-  // -------- Boot with graceful data path
+  // -------- Boot with graceful data path + warmup
   (async function boot(){
     await ensureSiteCache();
+
+    // Encourage early SW precache fetch of data manifest (if present)
+    try { fetch('/assets/cache-manifest.json', {cache:'no-store'}).catch(()=>{}); } catch(_){}
 
     let db;
     try{
@@ -745,7 +760,33 @@
       const access    = (Array.isArray(v.access)?v.access:[]).map(x=>norm(x));
       const root = (v.category||'complimentary').toLowerCase();
       (roots[root]||roots.complimentary)
-        .insertAdjacentHTML('beforeend', cardHTML(v, shipList, classList, access, db.ships||{}));
+        .insertAdjacentHTML('beforeend', (function(){
+          const join = arr => (Array.isArray(arr)?arr:[]).join(' ');
+          return (function(shipsDict){
+            const slug=v.slug, name=v.name||slug, href='/restaurants/'+slug+'.html', cat=(v.category||'complimentary').toLowerCase();
+            const blurb=v.blurb || ({"mdr":"Rotating menus, themed nights; classic cruise dining."}[slug]) || 'Details vary by ship; see venue page.';
+            const tags=norm([name, join(v.aliases), blurb, join(v.access), join(v.audience), slug].join(' '));
+            const chips = shipList.map(s=>{
+              const nm = shipsDict[s]?.name || s;
+              const cls= (shipsDict[s]?.class||'').toLowerCase();
+              return `<span class="chip" data-ship="${s}" data-class="${norm(cls)}" title="${nm}">${nm}</span>`;
+            }).join('');
+            return `
+              <div class="card">
+                <a href="${href}"
+                   data-slug="${slug}"
+                   data-cat="${cat}"
+                   data-brand="rccl"
+                   ${shipList.length?'data-ships="'+shipList.join(' ')+'"':''}
+                   ${classList.length?'data-classes="'+classList.join(' ')+'"':''}
+                   ${access.length?'data-access="'+access.join(', ')+'"':''}
+                   data-tags="${tags}">
+                  <strong>${name}</strong><br><small>${blurb}</small>
+                </a>
+                <div class="ship-pills">${chips}</div>
+              </div>`;
+          })(db.ships||{});
+        })());
     });
 
     // Quick ship links
@@ -762,30 +803,42 @@
       });
     }
 
-    reindex();
-    wireChips();
-    wireBrandBar(db);
-    apply();
+    // Reindex + wire UI
+    (function reindex(){
+      window.requestAnimationFrame(()=>{
+        const links = document.querySelectorAll('.grid .card a');
+        const out = [];
+        links.forEach(a=>{
+          const slug = a.getAttribute('data-slug')||'';
+          const cat  = (a.getAttribute('data-cat')||'').toLowerCase();
+          const brand = (a.getAttribute('data-brand')||'rccl').toLowerCase();
+          const ships = new Set((a.getAttribute('data-ships')||'').toLowerCase().split(/\s+/).filter(Boolean));
+          const klass = new Set((a.getAttribute('data-classes')||'').toLowerCase().split(/\s+/).filter(Boolean));
+          const text = norm(a.textContent + ' ' + (a.getAttribute('data-tags')||'') + ' ' + (a.getAttribute('data-access')||''));
+          out.push({ el:a.closest('.card'), slug, cat, brand, ships, classes:klass, text });
+        });
+        CARDS = out;
+        wireChips();
+        wireBrandBar(db);
+        apply();
+      });
+    })();
   })();
 })();
 </script>
 
-<!-- Warmup (optional) -->
+<!-- Smart Warmup (v1.6): logos + compass + watermark + venues.json touch -->
 <script>
 (function(){
-  async function warm(){
-    try{
-      if(!(window.SiteCache && SiteCache.getJSON)){
-        await new Promise((resolve)=>{
-          const s=document.createElement('script'); s.src='/assets/js/site-cache.js'; s.defer=true;
-          s.onload=resolve; s.onerror=resolve; document.head.appendChild(s);
-        });
-      }
-      await SiteCache.getJSON('/assets/data/venues.json', { ttlDays:7, versionPath:['meta','version'] });
-    }catch(e){}
+  const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
+  function warm(urls){ (urls||[]).forEach(u=>{ try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{});}catch(_){}} ); }
+  function go(){
+    warm([abs('/assets/logo_wake.png'),abs('/assets/compass_rose.svg'),abs('/assets/watermark.png')]);
+    // encourage early data hydration
+    try { fetch('/assets/data/venues.json', {cache:'no-store'}).catch(()=>{}); } catch(_){}
+    try { fetch('/assets/cache-manifest.json', {cache:'no-store'}).catch(()=>{}); } catch(_){}
   }
-  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', warm, {once:true}); }
-  else { warm(); }
+  if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', go, {once:true}); } else { go(); }
 })();
 </script>
  
