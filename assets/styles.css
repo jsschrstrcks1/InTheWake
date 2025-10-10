@@ -356,3 +356,19 @@ header.site-header::before, header.site-header::after{ display:none !important }
 @media (prefers-reduced-motion: reduce){
   .share-bar{ transition:none !important; }
 }
+
+/* === Layout grid utilities (sitewide) === */
+.grid-3{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 1.2rem;
+}
+@media (max-width: 900px){
+  .grid-3{ grid-template-columns: 1fr; }
+}
+
+/* (Optional) common utility for two-up if not already present globally */
+.grid-2{
+  display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:1rem;
+}
+@media (max-width: 900px){ .grid-2{ grid-template-columns:1fr; } }
