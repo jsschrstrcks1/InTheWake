@@ -232,7 +232,28 @@
     if (inferRoyalFromSeas(slug, name)) return 'royal-caribbean';
     return nline; // ''
   }
+// --- Repair pass: force Royal for "* of the Seas" regardless of dirty data ---
+function isOfTheSeas(nameOrSlug){
+  const s = String(nameOrSlug||'').toLowerCase();
+  return /\bof the seas\b/.test(s) || /-of-the-seas\b/.test(s);
+}
 
+function repairRoyalMissingLine(list){
+  return list.map(s=>{
+    const saysRoyalByName = isOfTheSeas(s.name) || isOfTheSeas(s.slug);
+    if (!saysRoyalByName) return s;
+
+    // If the data is missing or clearly wrong, coerce it.
+    const current = String(s.line||'').toLowerCase();
+    if (!current || current === 'unknown' || current === 'na' || /^(tbd|null|undefined|-)?$/.test(current)){
+      return { ...s, line: 'royal-caribbean' };
+    }
+    // If it claims some *other* line, we still trust the pattern and override.
+    if (!/royal(-caribbean)?/.test(current)){
+      return { ...s, line: 'royal-caribbean' };
+    }
+    return s;
+  }
   // ---------- Data normalization ----------
   function normalizeFromFlat(json){
     const raw = (json && json.ships) || [];
