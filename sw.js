@@ -1,53 +1,50 @@
-// /sw.js — In the Wake image cache (v0.5)
-const CACHE = 'itw-img-v5';
+// /sw.js — In the Wake unified cache (v0.6)
+const CACHE = 'itw-img-v6';
 const MAX_ITEMS = 200; // soft cap
 
-self.addEventListener('install', (e) => self.skipWaiting());
+self.addEventListener('install', e => self.skipWaiting());
 
-self.addEventListener('activate', (e) => {
+self.addEventListener('activate', e => {
   e.waitUntil((async () => {
-    // Claim clients and purge old caches
     await self.clients.claim();
     const names = await caches.keys();
     await Promise.all(
       names.filter(n => n.startsWith('itw-img-') && n !== CACHE)
            .map(n => caches.delete(n))
     );
+    // optional: prefetch manifest if present
+    fetch('/assets/cache-manifest.json', {cache:'no-store'}).catch(()=>{});
   })());
 });
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-
-  // Only GET requests
   if (req.method !== 'GET') return;
 
   const url = new URL(req.url);
-
-  // Only same-origin images
   if (url.origin !== location.origin) return;
 
-  // Prefer the browser’s classification over extension sniffing
-  // (covers jpg/png/webp/avif/svg/gif reliably)
-  if (req.destination !== 'image') return;
+  // Broader test: normal images or SVG/doc-classified ones
+  const isLikelyImage = req.destination === 'image' ||
+    /\.(?:jpg|jpeg|png|webp|gif|avif|svg)(\?.*)?$/i.test(url.pathname);
+  if (!isLikelyImage) return;
 
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
 
-    // Cache lookup ignoring ?v= cache-busters, etc.
-    const cached = await cache.match(req, { ignoreSearch: true });
+    // normalize key (strip ?v= etc.)
+    const normURL = new URL(url.href);
+    normURL.search = '';
+    const normReq = new Request(normURL.href, { method: 'GET' });
 
-    // Kick off background refresh
+    const cached = await cache.match(normReq);
+
     const refresh = (async () => {
       try {
         const net = await fetch(req, { cache: 'no-store' });
-        // Cache same-origin responses—even opaque is fine here
         if (net && (net.ok || net.type === 'opaque')) {
-          // Put under a normalized key without querystring
-          const normURL = new URL(url.href); normURL.search = '';
-          await cache.put(new Request(normURL.href, { method: 'GET' }), net.clone());
-          // Soft cap the cache
-          pruneCache(cache, MAX_ITEMS).catch(() => {});
+          await cache.put(normReq, net.clone());
+          pruneCache(cache, MAX_ITEMS).catch(()=>{});
         }
         return net;
       } catch {
@@ -55,12 +52,11 @@ self.addEventListener('fetch', (event) => {
       }
     })();
 
-    // SWR: return cache first, then network if no hit
+    // SWR: cache first, then background refresh
     return cached || (await refresh) || new Response('', { status: 504 });
   })());
 });
 
-// Remove oldest entries if we exceed MAX_ITEMS (best-effort)
 async function pruneCache(cache, maxItems) {
   const keys = await cache.keys();
   if (keys.length <= maxItems) return;
