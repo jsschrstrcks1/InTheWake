@@ -1,6 +1,49 @@
-// /sw.js — In the Wake unified cache (v0.7-stable)
-const CACHE='itw-img-v0.7';const MAX_ITEMS=200;
-self.addEventListener('install',e=>self.skipWaiting());
-self.addEventListener('activate',e=>{e.waitUntil((async()=>{await self.clients.claim();const n=await caches.keys();await Promise.all(n.filter(x=>x.startsWith('itw-img-')&&x!==CACHE).map(x=>caches.delete(x)));try{const r=await fetch('/assets/cache-manifest.json',{cache:'no-store'});if(r.ok){const c=await caches.open(CACHE);await c.put('/assets/cache-manifest.json',r.clone());}}catch{}})());});
-self.addEventListener('message',e=>{if(e.data&&e.data.type==='SKIP_WAITING')self.skipWaiting();});
-self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;const u=new URL(r.url);if(u.origin!==location.origin)return;const i=r.destination==='image'||/\.(?:jpg|jpeg|png|webp|gif|avif|svg)(\?.*)?$/i.test(u.pathname);if(!i)return;e.respondWith((async()=>{const c=await caches.open(CACHE);const n=new URL(u.href);n.search='';n.hash='';const a=new Request(n.href,{method:'GET'});const h=await c.match(a);(async()=>{try{const f=await fetch(r,{cache:'no-store'});if(f&&(f.ok||f.type==='opaque')){await c.put(a,f.clone());const k=await c.keys();if(k.length>MAX_ITEMS)await c.delete(k[0]);}}catch{}})();if(h)return h;try{const f=await fetch(r,{cache:'no-store'});if(f&&f.ok){await c.put(a,f.clone());const k=await c.keys();if(k.length>MAX_ITEMS)await c.delete(k[0]);return f;}}catch{}const px='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=';return fetch(px);})());});
+// /sw.js — In the Wake image cache (v0.7-stable)
+const CACHE = 'itw-img-v7';
+const MAX_ITEMS = 240;
+
+self.addEventListener('install', (e) => { self.skipWaiting(); });
+self.addEventListener('activate', (e) => {
+  e.waitUntil((async () => {
+    await self.clients.claim();
+    const names = await caches.keys();
+    await Promise.all(names.filter(n => n.startsWith('itw-img-') && n !== CACHE).map(n => caches.delete(n)));
+  })());
+});
+
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  if (url.origin !== location.origin) return;
+
+  const isLikelyImage = req.destination === 'image' || /\.(?:jpg|jpeg|png|webp|gif|avif|svg)(\?.*)?$/i.test(url.pathname);
+  if (!isLikelyImage) return;
+
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE);
+    const normURL = new URL(url.href); normURL.search = '';
+    const normReq = new Request(normURL.href, { method: 'GET' });
+
+    const cached = await cache.match(normReq);
+    const refresh = (async () => {
+      try{
+        const res = await fetch(req, { cache: 'no-store' });
+        if (res && (res.ok || res.type === 'opaque')) {
+          await cache.put(normReq, res.clone());
+          prune(cache);
+        }
+        return res;
+      }catch(_){ return null; }
+    })();
+
+    return cached || await refresh || new Response('', { status: 504 });
+  })());
+});
+
+async function prune(cache){
+  const keys = await cache.keys();
+  if (keys.length <= MAX_ITEMS) return;
+  const toDelete = keys.length - MAX_ITEMS;
+  for (let i=0; i<toDelete; i++){ await cache.delete(keys[i]); }
+}
