@@ -752,42 +752,51 @@
       classesByVenue.set(slug, ks);
     });
 
-    // Paint cards
-    (db.venues||[]).forEach(v=>{
-      const slug = v.slug;
-      const shipList  = Array.from((shipsByVenue.get(slug)||new Set()).values());
-      const classList = Array.from((classesByVenue.get(slug)||new Set()).values());
-      const access    = (Array.isArray(v.access)?v.access:[]).map(x=>norm(x));
-      const root = (v.category||'complimentary').toLowerCase();
-      (roots[root]||roots.complimentary)
-        .insertAdjacentHTML('beforeend', (function(){
-          const join = arr => (Array.isArray(arr)?arr:[]).join(' ');
-          return (function(shipsDict){
-            const slug=v.slug, name=v.name||slug, href='/restaurants/'+slug+'.html', cat=(v.category||'complimentary').toLowerCase();
-            const blurb=v.blurb || ({"mdr":"Rotating menus, themed nights; classic cruise dining."}[slug]) || 'Details vary by ship; see venue page.';
-            const tags=norm([name, join(v.aliases), blurb, join(v.access), join(v.audience), slug].join(' '));
-            const chips = shipList.map(s=>{
-              const nm = shipsDict[s]?.name || s;
-              const cls= (shipsDict[s]?.class||'').toLowerCase();
-              return `<span class="chip" data-ship="${s}" data-class="${norm(cls)}" title="${nm}">${nm}</span>`;
-            }).join('');
-            return `
-              <div class="card">
-                <a href="${href}"
-                   data-slug="${slug}"
-                   data-cat="${cat}"
-                   data-brand="rccl"
-                   ${shipList.length?'data-ships="'+shipList.join(' ')+'"':''}
-                   ${classList.length?'data-classes="'+classList.join(' ')+'"':''}
-                   ${access.length?'data-access="'+access.join(', ')+'"':''}
-                   data-tags="${tags}">
-                  <strong>${name}</strong><br><small>${blurb}</small>
-                </a>
-                <div class="ship-pills">${chips}</div>
-              </div>`;
-          })(db.ships||{});
-        })());
-    });
+   // Paint cards (v3.002: defensive, sorted, de-duped, batched DOM writes)
+(() => {
+  const venues = Array.isArray(db?.venues) ? db.venues.slice() : [];
+  if (!venues.length) return;
+
+  // Normalize helpers
+  const uniq = arr => Array.from(new Set((arr || []).filter(Boolean)));
+  const byName = (a, b) => (String(a?.name || a?.slug || '').localeCompare(String(b?.name || b?.slug || ''), undefined, { sensitivity: 'base' }));
+
+  // Build HTML per category first (minimize reflow)
+  const buckets = { complimentary: [], premium: [], activity: [] };
+
+  venues.sort(byName).forEach(v => {
+    try {
+      const slug = String(v?.slug || '').trim();
+      if (!slug) return;
+
+      const cat = String(v?.category || 'complimentary').toLowerCase();
+      const bucket = buckets[cat] || buckets.complimentary;
+
+      // De-duped, sorted ship/class lists for clean pills
+      const shipArr  = uniq(Array.from((shipsByVenue.get(slug) || new Set()).values()))
+                        .sort((a, b) => (db?.ships?.[a]?.name || a).localeCompare(db?.ships?.[b]?.name || b));
+      const classArr = uniq(Array.from((classesByVenue.get(slug) || new Set()).values()))
+                        .sort();
+
+      const access   = uniq((Array.isArray(v?.access) ? v.access : []).map(x => norm(x)));
+
+      bucket.push(cardHTML(v, shipArr, classArr, access, db?.ships || {}));
+    } catch (_) {
+      /* fail-open: skip malformed venue */
+    }
+  });
+
+  // Single append per grid (fast + a11y-friendly order)
+  Object.entries(buckets).forEach(([cat, htmlList]) => {
+    if (!htmlList.length) return;
+    const root = roots[cat] || roots.complimentary;
+    if (!root) return;
+
+    const tpl = document.createElement('template');
+    tpl.innerHTML = htmlList.join('').trim();
+    root.appendChild(tpl.content);
+  });
+})();
 
     // Quick ship links
     const host = document.getElementById('ship-links');
