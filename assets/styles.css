@@ -249,41 +249,22 @@ header.site-header::before, header.site-header::after{ display:none !important }
 .note-kens-logbook .prose .card.voyage-tips {
   max-width: 800px;
   width: 100%;
-  margin: 2rem auto 1rem; /* Top/bottom margins, auto left/right for centering */
+  margin: 2rem auto 1rem;
 }
 
 /* Ensure the card content doesn't stretch too wide */
-.card.voyage-tips .card-content {
-  max-width: 100%;
-}
+.card.voyage-tips .card-content { max-width: 100%; }
 
 /* Center the button group */
 .card.voyage-tips .button-group {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
+  display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;
 }
-
-.card.voyage-tips .button-group .btn {
-  flex: 1;
-  min-width: 160px;
-  max-width: 200px;
-  text-align: center;
-}
+.card.voyage-tips .button-group .btn { flex: 1; min-width: 160px; max-width: 200px; text-align: center; }
 
 /* Responsive: Stack buttons on mobile */
-@media (max-width: 768px) {
-  .card.voyage-tips .button-group {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .card.voyage-tips .button-group .btn {
-    width: 100%;
-    max-width: 250px;
-  }
+@media (max-width: 768px){
+  .card.voyage-tips .button-group { flex-direction: column; align-items: center; }
+  .card.voyage-tips .button-group .btn { width: 100%; max-width: 250px; }
 }
 
 /* Nuclear option: Force center regardless of parent */
@@ -292,26 +273,20 @@ header.site-header::before, header.site-header::after{ display:none !important }
   margin-left: auto !important;
   margin-right: auto !important;
   max-width: 800px !important;
-  width: calc(100% - 2rem) !important; /* Account for padding */
+  width: calc(100% - 2rem) !important;
 }
 
 /* Ensure the prose container doesn't interfere */
-.note-kens-logbook .prose {
-  position: relative;
-}
+.note-kens-logbook .prose { position: relative; }
 
 /* Wrap the card in a centering container if needed */
-.voyage-tips-wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0;
-}
+.voyage-tips-wrapper { display: flex; justify-content: center; margin: 2rem 0; }
 
 /* VesselFinder map container */
 #vesselfinder-map { max-width: 100%; margin: 0 auto; }
 .card.itinerary #vesselfinder-map { background: var(--sky); }
 
-.hidden{display:none!important}
+.hidden{ display:none!important }
 
 /* Logbook — keep the Fuel card full-size inside .prose */
 .prose .voyage-tips-wrapper{ margin:1rem 0; }
@@ -324,92 +299,60 @@ header.site-header::before, header.site-header::after{ display:none !important }
 .prose .card.voyage-tips .card-title{ font-size:1.25rem; margin:.25rem 0 .5rem; }
 .prose .card.voyage-tips ul{ margin:.5rem 0 .75rem 1.1rem; }
 .prose .card.voyage-tips .button-group{ justify-content:center; }
-/* Center the top nav pills like Radiance and keep them on one line on desktop */
-.site-header .pill-nav.pills{
-  justify-content:center;            /* center, not right */
-  margin-left:auto; margin-right:auto;
-  max-width:none;                    /* remove 78vw cap that caused wrapping */
-  width:100%;
-  text-align:center;
-}
 
-@media (min-width: 980px){
+/* Center the top nav pills sitewide */
+.site-header .pill-nav.pills{
+  justify-content:center; margin-left:auto; margin-right:auto;
+  max-width:none; width:100%; text-align:center;
+}
+@media (min-width:980px){
   .site-header .pill-nav.pills{
-    flex-wrap:nowrap;                /* one line on desktop */
-    gap:.45rem;                      /* a touch tighter to help fit */
+    flex-wrap:nowrap; gap:.45rem;
   }
   .site-header .pill-nav.pills a{
-    font-size:.92rem;                /* tiny shrink to avoid wrap on edge cases */
-    padding:.32rem .64rem;
+    font-size:.92rem; padding:.32rem .64rem;
   }
 }
-
-/* Mobile keeps wrapping naturally */
-@media (max-width: 979.98px){
+@media (max-width:979.98px){
   .site-header .pill-nav.pills{ justify-content:center; }
 }
+
 /* Motto Styling — v3.002c */
-.motto {
-  font-style: italic;
-  font-size: 1.15rem;
-  color: var(--ink, #0e3746);
-  text-align: left;
-  padding-left: 0.5rem;
-  margin: 0.25rem 0 1rem 0;
-  border-left: 4px solid var(--rope, #d9b382);
-  background: linear-gradient(to right, rgba(217,179,130,0.12), rgba(217,179,130,0));
-  border-radius: 0 8px 8px 0;
-  font-weight: 500;
-  opacity: 0.95;
-  transition: all 0.4s ease;
+.motto{
+  font-style:italic; font-size:1.15rem; color:var(--ink, #0e3746);
+  text-align:left; padding-left:.5rem; margin:.25rem 0 1rem 0;
+  border-left:4px solid var(--rope, #d9b382);
+  background:linear-gradient(to right, rgba(217,179,130,0.12), rgba(217,179,130,0));
+  border-radius:0 8px 8px 0; font-weight:500; opacity:.95; transition:all .4s ease;
 }
-.motto:hover {
-  opacity: 1;
-  background: linear-gradient(to right, rgba(217,179,130,0.22), rgba(217,179,130,0));
+.motto:hover{
+  opacity:1; background:linear-gradient(to right, rgba(217,179,130,0.22), rgba(217,179,130,0));
 }
-@media (prefers-color-scheme: dark) {
-  .motto {
-    color: var(--foam, #d7e5ee);
-    border-left-color: var(--foam, #c9d8e7);
-    background: linear-gradient(to right, rgba(201,216,231,0.1), rgba(201,216,231,0));
+@media (prefers-color-scheme: dark){
+  .motto{
+    color:var(--foam, #d7e5ee); border-left-color:var(--foam, #c9d8e7);
+    background:linear-gradient(to right, rgba(201,216,231,0.1), rgba(201,216,231,0));
   }
 }
-}
-.card { opacity: 0; transform: translateY(12px); transition: opacity .4s ease, transform .4s ease; }
-.card.visible { opacity: 1; transform: translateY(0); }
+
+/* Reveal-on-scroll for cards */
+.card{ opacity:0; transform:translateY(12px); transition:opacity .4s ease, transform .4s ease; }
+.card.visible{ opacity:1; transform:translateY(0); }
 
 /* === Floating Social Share Bar === */
-.share-bar {
-  position: fixed;
-  right: 0.9rem;
-  bottom: 1.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  z-index: 999;
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity .45s ease, transform .45s ease;
+.share-bar{
+  position:fixed; right:.9rem; bottom:1.4rem;
+  display:flex; flex-direction:column; gap:.5rem; z-index:999;
+  opacity:0; transform:translateY(15px);
+  transition:opacity .45s ease, transform .45s ease;
 }
-.share-bar.visible {
-  opacity: 1;
-  transform: translateY(0);
+.share-bar.visible{ opacity:1; transform:translateY(0); }
+.share-bar .share{
+  background:var(--ink, #083041); color:#fff; text-decoration:none;
+  padding:.45rem .7rem; border-radius:10px; font-size:.85rem; line-height:1;
+  box-shadow:0 2px 6px rgba(0,0,0,.25); text-align:center; transition:background .25s ease;
 }
-.share-bar .share {
-  background: var(--ink, #083041);
-  color: #fff;
-  text-decoration: none;
-  padding: 0.45rem 0.7rem;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  line-height: 1;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-  text-align: center;
-  transition: background .25s ease;
-}
-.share-bar .share:hover {
-  background: var(--accent, #0e6e8e);
-}
+.share-bar .share:hover{ background:var(--accent, #0e6e8e); }
 @media (prefers-reduced-motion: reduce){
-  .share-bar { transition: none !important; }
+  .share-bar{ transition:none !important; }
 }
