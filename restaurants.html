@@ -640,14 +640,34 @@
   window.addEventListener('keydown', e=>{ if(e.key==='/' && document.activeElement!==$q){ e.preventDefault(); $q.focus(); }});
 
   if ($meta) $meta.textContent = 'Loading venues…';
+<script>
+(function(){
+  const $m = () => document.getElementById('search-meta');
 
-  // Boot
+  // 1) Ensure SiteCache is present (handles Safari defer timing)
+  function ensureSiteCache(){
+    return new Promise((resolve)=>{
+      if (window.SiteCache && typeof SiteCache.getJSON === 'function') return resolve();
+      // inject only if missing
+      const s = document.createElement('script');
+      s.src = '/assets/js/site-cache.js';   // same path you already use
+      s.defer = true;
+      s.onload = () => resolve();
+      s.onerror = () => resolve();          // fail open; boot() will handle fetch errors
+      document.head.appendChild(s);
+    });
+  }
+
   (async function boot(){
-    let db=null;
+    let db = null;
     try{
-      db = await SiteCache.getJSON(_abs('/assets/data/venues.json'), { ttlDays: 7, versionPath: ['version'] });
+      await ensureSiteCache();  // <-- NEW: wait here
+      db = await SiteCache.getJSON('/assets/data/venues.json', {
+        ttlDays: 7,
+        versionPath: ['meta','version']   // <-- FIXED path
+      });
     }catch(e){
-      const m=document.getElementById('search-meta'); if(m){ m.textContent='Could not load venues.'; }
+      const m = $m(); if (m) m.textContent = 'Could not load venues.';
       return;
     }
 
