@@ -165,8 +165,8 @@
   <footer class="wrap center">© <span id="yr"></span> In the Wake — A Cruise Traveler’s Logbook</footer>
   <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 
-  <script>
-/* ships-browse (v2.3 — v3.002 standards, cache-first images w/ manifest + fallback discovery)
+ <script>
+/* ships-browse (v2.4 — v3.002 standards, cache-first images w/ manifest + fallback discovery)
    Data: /assets/data/fleet_index.json
    Image sources (priority):
      1) cache-manifest.json mapped to ship slug (cache-first via caches.match)
@@ -174,9 +174,8 @@
    Heuristics:
      - filename contains "radiance" => radiance-of-the-seas
      - filename contains "adventure" => adventure-of-the-seas
-     - Royal line inference for "* of the Seas"
+     - Royal line inference + repair pass for "* of the Seas"
 */
-
 (function(){
   // -------- TOGGLE: set to true to force manifest-only images (no discovery/fetch guessing)
   const USE_MANIFEST_ONLY = false;
@@ -232,28 +231,28 @@
     if (inferRoyalFromSeas(slug, name)) return 'royal-caribbean';
     return nline; // ''
   }
-// --- Repair pass: force Royal for "* of the Seas" regardless of dirty data ---
-function isOfTheSeas(nameOrSlug){
-  const s = String(nameOrSlug||'').toLowerCase();
-  return /\bof the seas\b/.test(s) || /-of-the-seas\b/.test(s);
-}
 
-function repairRoyalMissingLine(list){
-  return list.map(s=>{
-    const saysRoyalByName = isOfTheSeas(s.name) || isOfTheSeas(s.slug);
-    if (!saysRoyalByName) return s;
-
-    // If the data is missing or clearly wrong, coerce it.
-    const current = String(s.line||'').toLowerCase();
-    if (!current || current === 'unknown' || current === 'na' || /^(tbd|null|undefined|-)?$/.test(current)){
-      return { ...s, line: 'royal-caribbean' };
-    }
-    // If it claims some *other* line, we still trust the pattern and override.
-    if (!/royal(-caribbean)?/.test(current)){
-      return { ...s, line: 'royal-caribbean' };
-    }
-    return s;
+  // --- Repair pass: force Royal for "* of the Seas" regardless of dirty data ---
+  function isOfTheSeas(nameOrSlug){
+    const s = String(nameOrSlug||'').toLowerCase();
+    return /\bof the seas\b/.test(s) || /-of-the-seas\b/.test(s);
   }
+  function repairRoyalMissingLine(list){
+    return list.map(s=>{
+      const saysRoyalByName = isOfTheSeas(s.name) || isOfTheSeas(s.slug);
+      if (!saysRoyalByName) return s;
+
+      const current = String(s.line||'').toLowerCase();
+      if (!current || current === 'unknown' || current === 'na' || /^(tbd|null|undefined|-)?$/.test(current)){
+        return { ...s, line: 'royal-caribbean' };
+      }
+      if (!/royal(-caribbean)?/.test(current)){
+        return { ...s, line: 'royal-caribbean' };
+      }
+      return s;
+    });
+  }
+
   // ---------- Data normalization ----------
   function normalizeFromFlat(json){
     const raw = (json && json.ships) || [];
@@ -315,7 +314,7 @@ function repairRoyalMissingLine(list){
   }
 
   // ---------- Manifest ingestion ----------
-  // cache-manifest.json structure is flexible: we’ll accept either:
+  // cache-manifest.json structure is flexible: accept either:
   // { files:[ "/path/a.jpg", ... ] } or { images:[...], assets:[...] } or a flat array
   function flattenManifest(obj){
     if (!obj) return [];
@@ -333,7 +332,6 @@ function repairRoyalMissingLine(list){
     const fn = String(path.split('/').pop()||'').toLowerCase();
     // strip extension
     const base = fn.replace(/\.(jpg|jpeg|png|webp|avif|gif|svg)$/i,'');
-    // common ship slugs are already like "radiance-of-the-seas1"
     // heuristic: “radiance” => radiance-of-the-seas, “adventure” => adventure-of-the-seas
     if (/\bradiance\b/.test(base)) return 'radiance-of-the-seas';
     if (/\badventure\b/.test(base)) return 'adventure-of-the-seas';
@@ -544,9 +542,9 @@ function repairRoyalMissingLine(list){
     const candidateMap = new Map();
     for (const s of arr){
       const primary = manifestIndex.get(s.slug) || [];
-      const alt = []; // heuristic alternates (radiance/adventure)
+      const alt = [];
+      // Add heuristic alternates if needed (radiance/adventure)
       if (!primary.length){
-        // If slug looks like *-of-the-seas but manifest has "radiance"/"adventure", add guessed alternates:
         if (/radiance-of-the-seas/.test(s.slug) && manifestIndex.get('radiance-of-the-seas')) alt.push(...manifestIndex.get('radiance-of-the-seas'));
         if (/adventure-of-the-seas/.test(s.slug) && manifestIndex.get('adventure-of-the-seas')) alt.push(...manifestIndex.get('adventure-of-the-seas'));
       }
@@ -564,7 +562,11 @@ function repairRoyalMissingLine(list){
     }
 
     // 4) Discovery fallback (unless disabled)
-    const needDiscovery = slugs.filter(slug => !chosenFromCache.has(slug) && !(candidateMap.get(slug)||[]).length===0);
+    const needDiscovery = slugs.filter(slug => {
+      const hasCacheHit = chosenFromCache.has(slug);
+      const manCount = (candidateMap.get(slug) || []).length;
+      return !hasCacheHit && manCount === 0;
+    });
     const discovered = await batchDiscover(needDiscovery, 6); // Map<slug, [urls]>
 
     // 5) Final pick: cache-hit → manifest url → discovered → placeholder
@@ -620,7 +622,8 @@ function repairRoyalMissingLine(list){
       const raw = await r.json();
 
       const ships = raw?.cruise_lines ? normalizeFromCruiseLines(raw) : normalizeFromFlat(raw);
-      WORLD.byLine = groupByLineAndClass(ships);
+      const repaired = repairRoyalMissingLine(ships);
+      WORLD.byLine = groupByLineAndClass(repaired);
 
       const when = raw.generated || raw.updated || (raw.meta && raw.meta.updated);
       const ver  = raw.version || (raw.meta && raw.meta.version);
@@ -647,7 +650,7 @@ function repairRoyalMissingLine(list){
     }
   })();
 })();
-  </script>
+</script>
 
   <!-- Smart Warmup (tiny): logos + compass + watermark + manifest poke -->
   <script>
