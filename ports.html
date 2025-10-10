@@ -4,62 +4,83 @@
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Ports — In the Wake (v3.001)</title>
-  <meta name="version" content="v3.001"/>
-  <meta name="description" content="Explore upcoming port guides from In the Wake — snapshots, accessibility notes, and honest travel insight for cruise travelers."/>
-  <meta name="robots" content="index, follow"/>
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://www.cruisinginthewake.com/ports.html"/>
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:url" content="https://www.cruisinginthewake.com/ports.html"/>
-  <meta property="og:title" content="Ports — In the Wake"/>
-  <meta property="og:description" content="Cruise ports coming soon — authentic snapshots and accessibility insights for travelers."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/ports-hero.jpg?v=3.001"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-
-  <!-- Standards v3.001: absolute URL + origin normalizer -->
+  <!-- Standards v3.002: absolute URL + origin normalizer -->
   <script>
   (function(){
     var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+    document.addEventListener('DOMContentLoaded',function(){
+      var sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(function(el){
+        var attr=el.hasAttribute('href')?'href':'src';
+        try{var u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
+      });
+    },{once:true});
   })();
   </script>
 
-  <!-- v3.001: SiteCache + SW -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Ports | In the Wake (v3.002)</title>
+  <meta name="version" content="v3.002"/>
+  <meta name="description" content="Explore upcoming port guides from In the Wake — snapshots, accessibility notes, and honest travel insight for cruise travelers."/>
+  <meta name="robots" content="index,follow"/>
+
+  <!-- Canonical & Social -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/ports.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/ports.html"/>
+  <meta property="og:title" content="Ports | In the Wake"/>
+  <meta property="og:description" content="Cruise ports coming soon — authentic snapshots and accessibility insights for travelers."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/ports-hero.jpg?v=3.002"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Standards v3.002: SiteCache + SW -->
   <script src="/assets/js/site-cache.js" defer></script>
   <script>
   if('serviceWorker' in navigator){
-    window.addEventListener('load', ()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
   }
   </script>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.001"/>
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.002"/>
 
-  <!-- Hero styling -->
+  <!-- Scoped Styles -->
   <style>
+    body.page{background:linear-gradient(var(--foam),#fff 240px);color:var(--ink);}
     .hero{background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05)}
-    .hero::before,.hero::after{content:none!important}
+           filter:saturate(1.3) contrast(1.1) brightness(1.05);}
+    .hero::before,.hero::after{content:none!important;}
+    body::before{content:"";position:fixed;inset:0;
+      background:url("/assets/watermark.png") center right/420px auto no-repeat;
+      opacity:.06;pointer-events:none;z-index:0;}
+    body>*{position:relative;z-index:1;}
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
+    .skip-link:focus{position:static;width:auto;height:auto;
+      padding:.4rem .6rem;background:#fff;border:1px solid var(--rope);
+      border-radius:999px;margin:.35rem;display:inline-block;}
   </style>
 
-  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+  <link rel="preload" as="image" type="image/svg+xml" href="/assets/compass_rose.svg"/>
 </head>
 <body class="page">
+
+  <!-- Skip link -->
+  <a class="skip-link" href="#content">Skip to main content</a>
 
   <header class="site-header hero-header">
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
-        <span class="tiny ver-badge" aria-label="Site version">v3.001</span>
+        <span class="version-badge">v3.002</span>
       </div>
-
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/ships/">Ships</a>
@@ -81,34 +102,50 @@
         <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
+      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a></div>
     </div>
   </header>
 
   <main class="wrap" id="content">
     <section class="card" aria-labelledby="ports-coming">
-      <h2 id="ports-coming">Cruise Ports — Coming Soon</h2>
-      <p>Our port depths are being sounded! Soon you’ll be able to explore embarkation hubs, island getaways, and coastal treasures—each with accessibility notes, photo highlights, and nearby excursions. We’re working to ensure every port entry reflects real-world experience, not brochure copy. Check back soon for new additions as we fill in the map, one harbor at a time.</p>
+      <h1 id="ports-coming">Cruise Ports — Coming Soon</h1>
+      <p>Our port depths are being sounded! Soon you’ll be able to explore embarkation hubs, island getaways, and coastal treasures — each with accessibility notes, photo highlights, and nearby excursions. We’re working to ensure every port entry reflects real-world experience, not brochure copy. Check back soon for new additions as we fill in the map, one harbor at a time.</p>
     </section>
   </main>
 
-  <footer class="wrap">
+  <footer class="wrap center">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
   </footer>
 
   <!-- Warmup + caching -->
   <script>
   (function(){
-    const abs=p=> (typeof _abs==='function'? _abs(p):p);
+    const abs=p=>(typeof window._abs==='function'?_abs(p):p);
     const ready=f=>document.readyState==='loading'
       ?document.addEventListener('DOMContentLoaded',f,{once:true}):f();
     const idle=f=>('requestIdleCallback'in window?requestIdleCallback(f,{timeout:2500}):setTimeout(f,200));
-    async function ensure(){if(window.SiteCache)return;await new Promise(r=>{const s=document.createElement('script');s.src=abs('/assets/js/site-cache.js');s.defer=true;s.onload=r;s.onerror=r;document.head.appendChild(s);});}
-    async function warmGlobal(){try{await ensure();await Promise.allSettled([
-      SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
-      SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['version']}),
-      SiteCache.getJSON(abs('/assets/data/personas/index.json'),{ttlDays:7,versionPath:['version']})
-    ]);}catch(_){}}ready(()=>{idle(warmGlobal);});
+    async function ensure(){if(window.SiteCache)return;
+      await new Promise(r=>{
+        const s=document.createElement('script');
+        s.src=abs('/assets/js/site-cache.js');s.defer=true;
+        s.onload=r;s.onerror=r;document.head.appendChild(s);
+      });
+    }
+    async function warmGlobal(){
+      try{
+        await ensure();
+        await Promise.allSettled([
+          SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
+          SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['version']}),
+          SiteCache.getJSON(abs('/assets/data/personas/index.json'),{ttlDays:7,versionPath:['version']}),
+          SiteCache.getJSON(abs('/assets/data/ports.json'),{ttlDays:7,versionPath:['version']})
+        ]);
+      }catch(_){}
+    }
+    ready(()=>{idle(warmGlobal);
+      // encourage early cache hydration
+      try{fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(()=>{});}catch(_){}
+    });
   })();
   </script>
 </body>
