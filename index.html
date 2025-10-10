@@ -167,107 +167,107 @@
     © 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
   </footer>
 
-  <!-- SW already registered above via v3.002 block -->
+<!-- Smart Warmup (v1.6, v3.002-compliant) — site-wide, ship + restaurant aware, with race guards -->
+<script>
+(function(){
+  const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
+  const ready=(fn)=> (document.readyState==='loading'
+    ? document.addEventListener('DOMContentLoaded', fn, {once:true})
+    : fn());
+  const idle=(fn)=> ('requestIdleCallback' in window ? requestIdleCallback(fn, {timeout:2500}) : setTimeout(fn, 200));
 
-  <!-- Smart Warmup (v1.6, v3.002-compliant) — site-wide, ship + restaurant aware, with race guards -->
-  <script>
-  (function(){
-    const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
-    const ready=(fn)=> (document.readyState==='loading'
-      ? document.addEventListener('DOMContentLoaded', fn, {once:true})
-      : fn());
-    const idle=(fn)=> ('requestIdleCallback' in window ? requestIdleCallback(fn, {timeout:2500}) : setTimeout(fn, 200));
-
-    // v3.002 race guard: ensure SiteCache exists even if defer loads late
-    function ensureSiteCache(){
-      return new Promise((resolve)=>{
-        if (window.SiteCache && typeof SiteCache.getJSON==='function') return resolve();
-        const s=document.createElement('script');
-        s.src=abs('/assets/js/site-cache.js'); s.defer=true;
-        s.onload=()=>resolve(); s.onerror=()=>resolve(); // fail-open; calls below are try/catch
-        document.head.appendChild(s);
-      });
-    }
-
-    function warmImages(urls){
-      (urls||[]).filter(Boolean).forEach(u=>{
-        try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{}); }catch(_){}
-      });
-    }
-
-    // Route helpers (used across pages — we keep on index so it benefits everywhere via nav)
-    function onRestaurantHub(){ return /\/restaurants\.html$/i.test(location.pathname); }
-    function onRestaurantDetail(){ return /\/restaurants(?:\/[^/]+)?\/[^/]+\.html$/i.test(location.pathname); }
-    function getShipContext(){
-      const m=location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)\.html$/i);
-      return m?{line:m[1].toLowerCase(),slug:m[2].toLowerCase()}:null;
-    }
-
-    // JSON warmers — note the corrected version paths (venues uses meta.version)
-    async function warmGlobalJSON(){
-      try{
-        await ensureSiteCache();
-        await Promise.allSettled([
-          SiteCache.getJSON(abs('/assets/data/fleet_index.json'), { ttlDays:7, versionPath:['version'] }),
-          SiteCache.getJSON(abs('/assets/data/venues.json'),      { ttlDays:7, versionPath:['meta','version'] }),
-          SiteCache.getJSON(abs('/assets/data/personas/index.json'), { ttlDays:7, versionPath:['version'] })
-        ]);
-      }catch(_){}
-    }
-
-    async function warmShipSpecific(ctx){
-      if(!ctx) return;
-      const persona=[ `/ships/${ctx.line}/assets/${ctx.slug}.json`,
-                      `/assets/data/logbook/${ctx.line}/${ctx.slug}.json`,
-                      `/assets/data/ships/${ctx.line}/${ctx.slug}.json` ].map(abs);
-      const videos=[ `/ships/${ctx.line}/assets/videos/${ctx.slug}.json`,
-                     `/videos/${ctx.slug}.json`,
-                     `/assets/data/videos/${ctx.slug}.json` ].map(abs);
-      const imgs=[ `/assets/ships/${ctx.slug}1.jpg`,
-                   `/assets/ships/${ctx.slug}2.jpg`,
-                   `/assets/ships/${ctx.slug}3.jpg`,
-                   `/assets/ships/thumbs/${ctx.slug}.jpg` ].map(abs);
-      try{
-        await ensureSiteCache();
-        await Promise.allSettled([
-          ...persona.map(u=>SiteCache.getJSON(u,{ttlDays:7})),
-          ...videos.map(u=>SiteCache.getJSON(u,{ttlDays:7}))
-        ]);
-      }catch(_){}
-      warmImages(imgs);
-    }
-
-    async function warmRestaurants(){
-      try{
-        await ensureSiteCache();
-        const venues=await SiteCache.getJSON(abs('/assets/data/venues.json'), { ttlDays:7, versionPath:['meta','version'] });
-        const list=(Array.isArray(venues?.venues)? venues.venues.slice(0,30): []).flatMap(v=>{
-          const slug=String(v?.slug||v?.id||v?.name||'').trim().toLowerCase().replace(/\s+/g,'-');
-          return [`/assets/restaurants/thumbs/${slug}.jpg`,`/assets/restaurants/${slug}.jpg`].map(abs);
-        });
-        warmImages([
-          abs('/assets/restaurants/chops-hero.jpg'),
-          abs('/assets/restaurants/giovannis-hero.jpg'),
-          abs('/assets/restaurants/chefs-table-hero.jpg'),
-          ...list
-        ]);
-      }catch(_){}
-    }
-
-    // Minimal a11y/UX warm assets
-    function warmChrome(){
-      warmImages([abs('/assets/logo_wake.png'),abs('/assets/compass_rose.svg'),abs('/assets/watermark.png')]);
-    }
-
-    // Kickoff on every page so navigation is snappy when users reach heavier views
-    ready(()=>{
-      warmChrome();
-      idle(warmGlobalJSON);
-      const shipCtx=getShipContext(); if (shipCtx) idle(()=>warmShipSpecific(shipCtx));
-      if (onRestaurantHub() || onRestaurantDetail()) idle(warmRestaurants);
-      else idle(()=>warmRestaurants()); // still pre-warm on non-restaurant pages
+  // v3.002 race guard: ensure SiteCache exists even if defer loads late
+  function ensureSiteCache(){
+    return new Promise((resolve)=>{
+      if (window.SiteCache && typeof SiteCache.getJSON==='function') return resolve();
+      const s=document.createElement('script');
+      s.src=abs('/assets/js/site-cache.js'); s.defer=true;
+      s.onload=()=>resolve(); s.onerror=()=>resolve(); // fail-open
+      document.head.appendChild(s);
     });
-  })();
-  </script>
+  }
+
+  function warmImages(urls){
+    (urls||[]).filter(Boolean).forEach(u=>{
+      try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{}); }catch(_){}
+    });
+  }
+
+  // Route helpers
+  function onRestaurantHub(){ return /\/restaurants\.html$/i.test(location.pathname); }
+  function onRestaurantDetail(){ return /\/restaurants(?:\/[^/]+)?\/[^/]+\.html$/i.test(location.pathname); }
+  function getShipContext(){
+    const m=location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)\.html$/i);
+    return m?{line:m[1].toLowerCase(),slug:m[2].toLowerCase()}:null;
+  }
+
+  // JSON warmers
+  async function warmGlobalJSON(){
+    try{
+      await ensureSiteCache();
+      await Promise.allSettled([
+        SiteCache.getJSON(abs('/assets/data/fleet_index.json'), { ttlDays:7, versionPath:['version'] }),
+        SiteCache.getJSON(abs('/assets/data/venues.json'),      { ttlDays:7, versionPath:['meta','version'] }),
+        SiteCache.getJSON(abs('/assets/data/personas/index.json'), { ttlDays:7, versionPath:['version'] })
+      ]);
+    }catch(_){}
+  }
+
+  async function warmShipSpecific(ctx){
+    if(!ctx) return;
+    const persona=[ `/ships/${ctx.line}/assets/${ctx.slug}.json`,
+                    `/assets/data/logbook/${ctx.line}/${ctx.slug}.json`,
+                    `/assets/data/ships/${ctx.line}/${ctx.slug}.json` ].map(abs);
+    const videos=[ `/ships/${ctx.line}/assets/videos/${ctx.slug}.json`,
+                   `/videos/${ctx.slug}.json`,
+                   `/assets/data/videos/${ctx.slug}.json` ].map(abs);
+    const imgs=[ `/assets/ships/${ctx.slug}1.jpg`,
+                 `/assets/ships/${ctx.slug}2.jpg`,
+                 `/assets/ships/${ctx.slug}3.jpg`,
+                 `/assets/ships/thumbs/${ctx.slug}.jpg` ].map(abs);
+    try{
+      await ensureSiteCache();
+      await Promise.allSettled([
+        ...persona.map(u=>SiteCache.getJSON(u,{ttlDays:7})),
+        ...videos.map(u=>SiteCache.getJSON(u,{ttlDays:7}))
+      ]);
+    }catch(_){}
+    warmImages(imgs);
+  }
+
+  async function warmRestaurants(){
+    try{
+      await ensureSiteCache();
+      const venues=await SiteCache.getJSON(abs('/assets/data/venues.json'), { ttlDays:7, versionPath:['meta','version'] });
+      const list=(Array.isArray(venues?.venues)? venues.venues.slice(0,30): []).flatMap(v=>{
+        const slug=String(v?.slug||v?.id||v?.name||'').trim().toLowerCase().replace(/\s+/g,'-');
+        return [`/assets/restaurants/thumbs/${slug}.jpg`,`/assets/restaurants/${slug}.jpg`].map(abs);
+      });
+      warmImages([
+        abs('/assets/restaurants/chops-hero.jpg'),
+        abs('/assets/restaurants/giovannis-hero.jpg'),
+        abs('/assets/restaurants/chefs-table-hero.jpg'),
+        ...list
+      ]);
+    }catch(_){}
+  }
+
+  // Minimal a11y/UX warm assets
+  function warmChrome(){
+    warmImages([abs('/assets/logo_wake.png'),abs('/assets/compass_rose.svg'),abs('/assets/watermark.png')]);
+  }
+
+  // Entry point
+  ready(()=>{
+    warmChrome();
+    // Encourage early SW precache fetch
+    try { fetch('/assets/cache-manifest.json', {cache:'no-store'}).catch(()=>{}); } catch(_){}
+    idle(warmGlobalJSON);
+    const shipCtx = getShipContext(); if (shipCtx) idle(()=>warmShipSpecific(shipCtx));
+    if (onRestaurantHub() || onRestaurantDetail()) idle(warmRestaurants);
+    else idle(()=>warmRestaurants());
+  });
+})();
+</script>
 </body>
 </html>
