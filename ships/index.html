@@ -1,11 +1,11 @@
-<!-- ships/index.html — v3.004c (standards-compliant) -->
+<!-- ships/index.html — v3.004d (standards-compliant) -->
 <!doctype html>
 <html lang="en">
 <head>
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Standards v3.004c: absolute URL + origin normalizer -->
+  <!-- Standards v3.004d: absolute URL + origin normalizer -->
   <script>
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
@@ -30,24 +30,20 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Browse Ships — Line → Class → Ship | In the Wake (v3.004c)</title>
-  <meta name="version" content="v3.004c"/>
+  <title>Browse Ships — Line → Class → Ship | In the Wake (v3.004d)</title>
+  <meta name="version" content="v3.004d"/>
   <meta name="description" content="Explore ships by cruise line and class. Select a line, pick a class, then open any ship’s detail page."/>
   <meta name="referrer" content="no-referrer"/>
   <meta name="robots" content="index, follow"/>
-
-  <!-- Canonical & Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/index.html"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/index.html"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:title" content="Browse Ships — In the Wake"/>
   <meta property="og:description" content="Explore ships by cruise line and class."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/radiance-of-the-seas1.jpg?v=3.004c"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/radiance-of-the-seas1.jpg?v=3.004d"/>
   <meta name="twitter:card" content="summary_large_image"/>
-
-  <!-- Site CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.004c"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.004d"/>
 
   <style>
     .hidden{display:none!important}
@@ -83,7 +79,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
-        <span class="version-badge">v3.004c</span>
+        <span class="version-badge">v3.004d</span>
       </div>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
@@ -130,7 +126,7 @@
   <footer class="wrap center">© <span id="yr"></span> In the Wake — A Cruise Traveler’s Logbook</footer>
   <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 
-  <!-- ships-browse logic v3.004c -->
+  <!-- ships-browse logic v3.004d -->
   <script>
   (async function(){
     const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
@@ -148,10 +144,6 @@
       if(!data) throw new Error('Fleet data unavailable.');
       return data;
     }
-
-    const IMAGE_ROOTS=[
-      'ships/assets','ships/assets/images','ships/rcl/images','ships/assets/thumbs','assets/ships','images'
-    ];
 
     const el={
       linesGrid:document.getElementById('linesGrid'),
@@ -176,19 +168,42 @@
     const titleCase=s=>String(s||'').replace(/(^|[-_ ])([a-z])/g,(_,sp,ch)=>(sp?sp:'')+ch.toUpperCase());
 
     function normalizeFromCruiseLines(json){
-      const out=[];const lines=json.cruise_lines||{};
-      const arr=Array.isArray(lines)?lines:Object.values(lines);
-      for(const L of arr){
-        const ships=L.ships||[];
-        for(const s of ships){
-          out.push({
-            name:s.name||'',slug:s.slug||'',line:L.slug||L.line_slug||'',class:norm(s.class||s.ship_class||''),
-            gt:parseInt(s.gt)||null,guests:parseInt(s.capacity)||null,year:parseInt(s.year_built_or_entered)||null,
-            detail_url:s.url||(`/ships/${L.slug||L.line_slug}/${s.slug}.html`)
-          });
+      const out = [];
+      const lines = json.cruise_lines || {};
+      if (Array.isArray(lines)) {
+        for (const L of lines) {
+          const ships = L.ships || [];
+          for (const s of ships) {
+            out.push({
+              name: s.name || '',
+              slug: s.slug || '',
+              line: L.slug || L.line_slug || '',
+              class: norm(s.class || s.ship_class || ''),
+              gt: parseInt(s.gt) || null,
+              guests: parseInt(s.capacity) || null,
+              year: parseInt(s.year_built_or_entered) || null,
+              detail_url: s.url || `/ships/${L.slug || L.line_slug}/${s.slug}.html`
+            });
+          }
+        }
+      } else if (typeof lines === 'object') {
+        for (const [lineId, ships] of Object.entries(lines)) {
+          if (!Array.isArray(ships)) continue;
+          for (const s of ships) {
+            out.push({
+              name: s.name || '',
+              slug: s.slug || '',
+              line: lineId,
+              class: norm(s.class || s.ship_class || ''),
+              gt: parseInt(s.gt) || null,
+              guests: parseInt(s.capacity) || null,
+              year: parseInt(s.year_built_or_entered) || null,
+              detail_url: s.url || `/ships/${lineId}/${s.slug}.html`
+            });
+          }
         }
       }
-      return out.filter(x=>x.name&&x.line);
+      return out.filter(x => x.name && x.line);
     }
 
     function groupByLineAndClass(list){
