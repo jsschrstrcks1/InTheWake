@@ -94,7 +94,27 @@
       </section>
   </main>
   <footer class="wrap">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
+    © 2025 In the Wake — A Cruise Traveler’s Logbook<!-- Floating Social Share Bar -->
+<div id="share-bar" class="share-bar" aria-label="Share this page">
+  <a class="share twitter" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
+  <a class="share facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
+  <a class="share instagram" href="#" onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')" aria-label="Copy link for Instagram">Ig</a>
+  <a class="share whatsapp" href="https://wa.me/?text=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
+  <a class="share wechat" href="weixin://" aria-label="Share on WeChat">WeChat</a>
+</div>
+
+<script>
+(function(){
+  const bar=document.getElementById('share-bar');
+  if(!bar) return;
+  const toggle=()=>{ 
+    if(window.scrollY>150){ bar.classList.add('visible'); } 
+    else{ bar.classList.remove('visible'); } 
+  };
+  window.addEventListener('scroll',toggle,{passive:true});
+  toggle(); // initial check
+})();
+</script>
   </footer>
 </body>
 </html>
