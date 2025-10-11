@@ -1,112 +1,260 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <!--
+    In the Wake — Invocation Edition v3.006
+    “Soli Deo Gloria.”  1 Cor 10:31 · Prov 3:5–6
+    Authorship: abondservant (a bondservant of Christ)
+    Timestamp: 2025-10-10T00:00:00Z
+  -->
+
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Standards v3.006 — Absolute-URL + Origin Normalizer -->
+  <script>
+  (function(){
+    const ORIGIN = (location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs = p => { p = String(p||''); if(!p.startsWith('/')) p = '/'+p; return ORIGIN+p; };
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.querySelectorAll([
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',')).forEach(el=>{
+        const attr = el.hasAttribute('href')?'href':'src';
+        try{
+          const u = new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(_){}
+      });
+    },{once:true});
+  })();
+  </script>
+
+  <!-- External Link Hardening -->
+  <script>
+  document.addEventListener('click', e =>{
+    const a = e.target.closest && e.target.closest('a[href]');
+    if(!a)return;
+    try{
+      const u = new URL(a.href, location.href);
+      if(u.origin !== location.origin){
+        a.target = '_blank';
+        a.rel = 'noopener';
+      }
+    }catch(_){}
+  },{capture:true});
+  </script>
+
+  <!-- Meta / SEO -->
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Planning — In the Wake (v2.203)</title>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
-  
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Planning | In the Wake (v3.006)</title>
+  <meta name="version" content="v3.006"/>
+  <meta name="description"
+        content="Plan your voyage with confidence — checklists, tips, and faithful guidance for smooth sailings before you board."/>
+  <meta name="robots" content="index,follow"/>
 
-  <style id="brand-title-hide">.brand-title{display:none!important}</style>
-
-
-  <style id="hero-vibrancy">
-    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
-    .hero::before,.hero::after{ content:none!important }
-  </style>
-
-
-  
-
-
-  <style id="hero-credit-css">
-    .hero{ position:relative }
-    .hero-credit{
-      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.12);
-    }
-  </style>
-
-
-  <style id="card-watermark">
-    .card{ position:relative; overflow:hidden }
-    .card::after{
-      content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none;
-    }
-  </style>
-
+  <!-- Canonical & Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/planning.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/planning.html"/>
+  <meta property="og:title" content="Planning | In the Wake"/>
+  <meta property="og:description"
+        content="Cruise planning made simple — timelines, packing prep, and faith-anchored travel wisdom."/>
+  <meta property="og:image"
+        content="https://www.cruisinginthewake.com/assets/social/planning-hero.jpg?v=3.006"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Breadcrumb Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
+      {"@type":"ListItem","position":2,"name":"Planning","item":"https://www.cruisinginthewake.com/planning.html"}
+    ]
+  }
+  </script>
+
+  <!-- SiteCache + Service Worker -->
+  <script src="/assets/js/site-cache.js" defer></script>
+  <script>
+  if('serviceWorker'in navigator){
+    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
+
+  <!-- Hero Styling -->
+  <style id="hero-vibrancy">
+    .hero{
+      background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
+      filter:saturate(1.35) contrast(1.12) brightness(1.05);
+    }
+    .hero::before,.hero::after{content:none!important}
+  </style>
+
+  <!-- Card Watermark -->
+  <style id="card-watermark">
+    .card{position:relative;overflow:hidden}
+    .card::after{
+      content:"";position:absolute;inset:0;margin:auto;
+      width:min(60%,360px);height:min(60%,360px);
+      background:url('/assets/watermark.png') center/contain no-repeat;
+      opacity:.06;pointer-events:none;
+    }
+  </style>
+
+  <!-- A11y Helpers -->
+  <style>
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{
+      position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;
+      background:#fff;border:2px solid var(--accent,#0e6e8e);
+      border-radius:10px;z-index:9999;
+    }
+    @media(prefers-reduced-motion:reduce){
+      *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+    }
+  </style>
+
+  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 </head>
+
 <body class="page">
+  <a class="skip-link" href="#content">Skip to main content</a>
+
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark" width="256" height="64"/>
+        <span class="tiny ver-badge" aria-label="Site version">v3.006</span>
       </div>
-      
-      <nav class="nav">
-        <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drinks.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability-at-sea.html">Disability at Sea</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/planning.html" aria-current="page">Planning</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/travel.html">Travel</a>
+        <a href="/cruise-lines/">Cruise Lines</a>
       </nav>
-    
     </div>
+
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" width="180" height="180"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64"/>
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-    
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div>
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div></div>
+      <div class="hero-credit">
+        Photo © <a href="https://www.flickersofmajesty.com">Flickers of Majesty</a> · 
+        <a href="https://instagram.com/flickersofmajesty">Instagram</a>
+      </div>
+    </div>
   </header>
+
   <main class="wrap" id="content">
-    
     <section class="card" aria-labelledby="welcome">
-      <h2 id="welcome">Welcome Aboard</h2>
-      <p><em>In the Wake</em> is a practical cruise companion shaped by real sailings and careful curation. Use it to compare ships, scan menus, scout cabins, and sanity-check tips without losing your bearings. We prioritize family-friendly creators, surface accessibility notes wherever possible, and treat numbers as snapshots in time. Cross-links connect ships, restaurants, and ports so you can verify details from more than one angle. The goal isn’t to sell you on anything—it’s to keep you oriented, remove friction, and help you make confident choices that feel like your idea all along. Fair winds and following seas.</p>
+      <h1 id="welcome">Welcome Aboard</h1>
+      <p><em>In the Wake</em> is a practical cruise companion shaped by real sailings and careful curation.
+         Use it to compare ships, scan menus, scout cabins, and sanity-check tips without losing your bearings.
+         We prioritize family-friendly creators, surface accessibility notes wherever possible, and treat numbers as snapshots in time.
+         Cross-links connect ships, restaurants, and ports so you can verify details from more than one angle.
+         The goal isn’t to sell you on anything—it’s to keep you oriented, remove friction, and help you make confident choices that feel like your idea all along. 
+         Fair winds and following seas.</p>
     </section>
   </main>
-  <footer class="wrap">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <!-- Floating Social Share Bar -->
-<div id="share-bar" class="share-bar" aria-label="Share this page">
-  <a class="share twitter" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
-  <a class="share facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
-  <a class="share instagram" href="#" onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')" aria-label="Copy link for Instagram">Ig</a>
-  <a class="share whatsapp" href="https://wa.me/?text=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
-  <a class="share wechat" href="weixin://" aria-label="Share on WeChat">WeChat</a>
-</div>
 
-<script>
-(function(){
-  const bar=document.getElementById('share-bar');
-  if(!bar) return;
-  const toggle=()=>{ 
-    if(window.scrollY>150){ bar.classList.add('visible'); } 
-    else{ bar.classList.remove('visible'); } 
-  };
-  window.addEventListener('scroll',toggle,{passive:true});
-  toggle(); // initial check
-})();
-</script>
+  <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
   </footer>
+
+  <!-- Floating Social Share Bar -->
+  <div id="share-bar" class="share-bar" aria-label="Share this page">
+    <a class="share twitter" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com"
+       target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
+    <a class="share facebook"
+       href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com"
+       target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
+    <a class="share instagram" href="#"
+       onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')"
+       aria-label="Copy link for Instagram">Ig</a>
+    <a class="share whatsapp" href="https://wa.me/?text=https://www.cruisinginthewake.com"
+       target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
+    <a class="share wechat" href="weixin://" aria-label="Share on WeChat">WeChat</a>
+  </div>
+
+  <script>
+  (function(){
+    const bar=document.getElementById('share-bar');
+    if(!bar)return;
+    const toggle=()=>{ 
+      if(window.scrollY>150){bar.classList.add('visible');}
+      else{bar.classList.remove('visible');}
+    };
+    window.addEventListener('scroll',toggle,{passive:true});
+    toggle();
+  })();
+  </script>
+
+  <!-- Smart Warmup / Cache -->
+  <script>
+  (function(){
+    const abs = p => (typeof window._abs==='function'?_abs(p):p);
+    const ready = fn => (document.readyState==='loading'
+       ?document.addEventListener('DOMContentLoaded',fn,{once:true})
+       :fn());
+    const idle = fn => ('requestIdleCallback'in window
+       ?requestIdleCallback(fn,{timeout:2500})
+       :setTimeout(fn,200));
+
+    function ensureSiteCache(){
+      return new Promise(res=>{
+        if(window.SiteCache&&typeof SiteCache.getJSON==='function')return res();
+        const s=document.createElement('script');
+        s.src=abs('/assets/js/site-cache.js');s.defer=true;
+        s.onload=res;s.onerror=res;
+        document.head.appendChild(s);
+      });
+    }
+    function warm(u){try{fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{});}catch(_){ }}
+
+    ready(()=>{
+      warm(abs('/assets/logo_wake.png'));
+      warm(abs('/assets/compass_rose.svg'));
+      warm(abs('/assets/watermark.png'));
+      idle(async()=>{
+        try{
+          await ensureSiteCache();
+          await Promise.allSettled([
+            SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
+            SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['meta','version']})
+          ]);
+        }catch(_){}
+      });
+    });
+  })();
+  </script>
+
+  <!--
+    Invocation Edition Footer Note:
+    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31 · 
+    “Trust in the LORD with all your heart … He will make straight your paths.” — Prov 3:5–6 
+    Signed: abondservant · Soli Deo Gloria.
+  -->
 </body>
 </html>
