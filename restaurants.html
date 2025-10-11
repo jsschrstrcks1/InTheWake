@@ -2,87 +2,35 @@
 <html lang="en">
 <head>
   <!--
-    In the Wake — Invocation Edition v3.006a
+    In the Wake — Invocation Edition v3.006b
     “Soli Deo Gloria.” 1 Cor 10:31 · Prov 3:5–6
-    Authorship : abondservant (a bondservant of Christ)
-    Timestamp  : 2025-10-10T00:00:00Z
+    Authorship: abondservant (a bondservant of Christ)
+    Timestamp: 2025-10-10T00:00:00Z
   -->
-
-  <!-- Analytics -->
-  <script defer src="https://cloud.umami.is/script.js"
-          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-
-  <!-- Standards v3.006: absolute URL + origin normalizer -->
-  <script>
-  (function(){
-    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=p=>{p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p};
-    document.addEventListener('DOMContentLoaded',()=>{
-      document.querySelectorAll([
-        'a[href^="https://www.cruisinginthewake.com/"]',
-        'img[src^="https://www.cruisinginthewake.com/"]',
-        'link[href^="https://www.cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]'
-      ].join(',')).forEach(el=>{
-        const attr=el.hasAttribute('href')?'href':'src';
-        try{const u=new URL(el.getAttribute(attr));
-            el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}
-        catch(_){}
-      });
-    },{once:true});
-  })();
-  </script>
-
-  <!-- External link hardening -->
-  <script>
-  document.addEventListener('click',e=>{
-    const a=e.target.closest&&e.target.closest('a[href]');
-    if(!a)return;
-    try{
-      const u=new URL(a.href,location.href);
-      if(u.origin!==location.origin){a.target='_blank';a.rel='noopener';}
-    }catch(_){}
-  },{capture:true});
-  </script>
-
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Restaurants & Menus | In the Wake (v3.006a)</title>
-  <meta name="version" content="v3.006a"/>
-  <meta name="description" content="Premium and complimentary dining across the fleet — menus, prices, accessibility notes."/>
-  <meta name="robots" content="index,follow"/>
-
-  <!-- Canonical / Social -->
+  <title>Restaurants & Menus | In the Wake (v3.006b)</title>
+  <meta name="version" content="v3.006b"/>
+  <meta name="description"
+        content="Premium and complimentary dining across the fleet — menus, prices, and accessibility notes."/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
+  <meta name="robots" content="index,follow"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta property="og:title" content="Restaurants & Menus | In the Wake"/>
-  <meta property="og:description" content="Premium and complimentary dining across the fleet — menus, prices, accessibility notes."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.006a"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
+  <meta property="og:image"
+        content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.006"/>
+  <meta property="og:site_name" content="In the Wake"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"BreadcrumbList",
-    "itemListElement":[
-      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
-      {"@type":"ListItem","position":2,"name":"Restaurants & Menus","item":"https://www.cruisinginthewake.com/restaurants.html"}
-    ]
-  }
-  </script>
-
-  <!-- SiteCache + SW -->
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <script src="/assets/js/site-cache.js" defer></script>
   <script>
-  if('serviceWorker'in navigator){
+  if('serviceWorker' in navigator){
     addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
   }
   </script>
-
-  <!-- CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 </head>
@@ -90,149 +38,109 @@
 <body class="restaurants-page">
   <a class="skip-link" href="#content">Skip to main content</a>
 
-  <!-- ==== header / hero / nav identical to standard header ==== -->
+  <!-- ====== HEADER + NAV identical to working pages ====== -->
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark" width="256" height="64"/>
+        <span class="tiny ver-badge">v3.006b</span>
+      </div>
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html" aria-current="page">Restaurants & Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability-at-sea.html">Disability at Sea</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/planning.html">Planning</a>
+      </nav>
+    </div>
+    <div class="hero" role="img" aria-label="Dining venues across the fleet">
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64"/>
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+    </div>
+  </header>
 
-  <main id="content">
-    <!-- existing complimentary/premium/activity/by-ship sections -->
+  <main id="content" class="wrap">
+    <div id="search-meta" class="tiny" aria-live="polite">Loading venues…</div>
+    <section class="section" id="complimentary"><h2>Main Dining & Complimentary</h2><div class="grid" id="grid-complimentary"></div></section>
+    <section class="section" id="premium"><h2>Specialty Dining</h2><div class="grid" id="grid-premium"></div></section>
+    <section class="section" id="activity"><h2>Dining Activities & Classes</h2><div class="grid" id="grid-activity"></div></section>
   </main>
 
   <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook · 
-    <a href="/accessibility.html">Accessibility & WCAG 2.1 AA Commitment</a>
+    © 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility & WCAG 2.1 AA Commitment</a>
   </footer>
 
-  <!-- ============== Fixed JSON loader + renderer v3.006a ============= -->
+  <!-- ====== FIXED RENDERER ====== -->
   <script>
-  (async function(){
-    const $=s=>document.querySelector(s);
-    const setStatus=m=>{const el=$('#search-meta');if(el)el.textContent=m};
-    const abs=p=>(typeof window._abs==='function'?_abs(p):p);
+  (async()=>{
+    const setStatus=m=>{const e=document.getElementById('search-meta');if(e)e.textContent=m;};
+    const abs=p=>typeof window._abs==='function'?_abs(p):p;
+    const roots={
+      complimentary:document.getElementById('grid-complimentary'),
+      premium:document.getElementById('grid-premium'),
+      activity:document.getElementById('grid-activity')
+    };
 
-    async function ensureSiteCacheReady(){
-      if(window.SiteCache&&typeof SiteCache.getJSON==='function')return true;
+    // 1. Guarantee SiteCache loaded
+    if(!window.SiteCache||typeof SiteCache.getJSON!=='function'){
       await new Promise(r=>{
         const s=document.createElement('script');
-        s.src='/assets/js/site-cache.js';
-        s.defer=true; s.onload=r; s.onerror=r;
-        document.head.appendChild(s);
-      });
-      return true;
-    }
-
-    function isVenuesDB(x){return x&&Array.isArray(x.venues)&&typeof x.ships==='object';}
-
-    async function loadVenues(){
-      const url=abs('/assets/data/venues.json');
-      // 1️⃣ Try SiteCache first
-      try{
-        if(window.SiteCache&&typeof SiteCache.getJSON==='function'){
-          const db=await SiteCache.getJSON(url,{ttlDays:7,versionPath:['meta','version']});
-          if(isVenuesDB(db))return db;
-        }
-      }catch(e){console.warn('SiteCache load failed',e);}
-      // 2️⃣ Network fallback
-      try{
-        const r=await fetch(url,{cache:'no-store'});
-        const db=await r.json();
-        if(isVenuesDB(db))return db;
-      }catch(e){console.warn('Network load failed',e);}
-      // 3️⃣ LocalStorage stale record
-      try{
-        const raw=localStorage.getItem('sc::'+url);
-        if(raw){
-          const rec=JSON.parse(raw);
-          if(isVenuesDB(rec.data))return rec.data;
-        }
-      }catch(e){}
-      throw new Error('venues.json unavailable');
-    }
-
-    function hideEmptySections(){
-      [['complimentary','grid-complimentary'],
-       ['premium','grid-premium'],
-       ['activity','grid-activity']].forEach(([sec,grid])=>{
-        const root=document.getElementById(grid);
-        const count=root?root.querySelectorAll('.card:not(.is-hidden)').length:0;
-        const section=document.getElementById(sec);
-        if(section)section.classList.toggle('is-hidden',!count);
+        s.src='/assets/js/site-cache.js';s.defer=true;
+        s.onload=r;s.onerror=r;document.head.appendChild(s);
       });
     }
 
-    function renderVenues(db){
-      const roots={
-        complimentary:$('#grid-complimentary'),
-        premium:$('#grid-premium'),
-        activity:$('#grid-activity')
-      };
-      if(!db||!db.venues)return;
-
-      const shipsByVenue=new Map();
-      Object.entries(db.ships||{}).forEach(([ship,p])=>{
-        (p.venues||[]).forEach(v=>{
-          if(!shipsByVenue.has(v))shipsByVenue.set(v,new Set());
-          shipsByVenue.get(v).add(ship);
-        });
-      });
-
-      const buckets={complimentary:[],premium:[],activity:[]};
-      const uniq=a=>Array.from(new Set(a.filter(Boolean)));
-      const byName=(a,b)=>String(a.name||a.slug||'').localeCompare(b.name||b.slug||'');
-
-      db.venues.sort(byName).forEach(v=>{
-        try{
-          const slug=v.slug||'';
-          const cat=(v.category||'complimentary').toLowerCase();
-          const shipList=uniq(Array.from(shipsByVenue.get(slug)||[]));
-          const shipPills=shipList.map(s=>{
-            const ship=db.ships[s];
-            const nm=ship&&ship.name?ship.name:s;
-            return `<span class="chip" title="${nm}">${nm}</span>`;
-          }).join('');
-          const blurb=(cat==='premium'?'Specialty Dining':'Complimentary Venue');
-          const html=`<div class="card">
-              <a href="/restaurants/${slug}.html" data-slug="${slug}" data-cat="${cat}">
-                <strong>${v.name}</strong><br><small>${blurb}</small>
-              </a>
-              <div class="ship-pills">${shipPills}</div>
-            </div>`;
-          (buckets[cat]||buckets.complimentary).push(html);
-        }catch(e){console.warn('render venue failed',e);}
-      });
-
-      Object.entries(buckets).forEach(([cat,list])=>{
-        const root=roots[cat];
-        if(root&&list.length){
-          const tpl=document.createElement('template');
-          tpl.innerHTML=list.join('');
-          root.appendChild(tpl.content);
-        }
-      });
-      hideEmptySections();
-    }
-
-    await ensureSiteCacheReady();
-    setStatus('Loading venues…');
-
+    // 2. Load venues.json
     let db;
     try{
-      db=await loadVenues();
+      const url=abs('/assets/data/venues.json');
+      db=await SiteCache.getJSON(url,{ttlDays:7,versionPath:['meta','version']});
+      if(!db||!Array.isArray(db.venues)||typeof db.ships!=='object')throw new Error('Invalid schema');
     }catch(e){
-      console.error(e);
-      setStatus('Could not load venues.');
+      console.error('Failed to load venues.json',e);
+      setStatus('Could not load venues data.');
       return;
     }
 
-    requestAnimationFrame(()=>{
-      renderVenues(db);
-      setStatus('Showing all venues & activities');
+    // 3. Map ships → venues
+    const shipsByVenue=new Map();
+    for(const [ship,payload] of Object.entries(db.ships)){
+      (payload.venues||[]).forEach(v=>{
+        if(!shipsByVenue.has(v))shipsByVenue.set(v,new Set());
+        shipsByVenue.get(v).add(ship);
+      });
+    }
+
+    // 4. Render
+    const buckets={complimentary:[],premium:[],activity:[]};
+    const uniq=a=>Array.from(new Set(a.filter(Boolean)));
+    const sortByName=(a,b)=>(a.name||a.slug||'').localeCompare(b.name||b.slug||'');
+    db.venues.sort(sortByName).forEach(v=>{
+      const cat=(v.category||'complimentary').toLowerCase();
+      const slug=v.slug; const ships=uniq(Array.from(shipsByVenue.get(slug)||[]));
+      const shipHTML=ships.map(s=>`<span class="chip">${db.ships[s]?.name||s}</span>`).join('');
+      buckets[cat]?.push(`<div class="card">
+        <a href="/restaurants/${slug}.html"><strong>${v.name}</strong><br><small>${v.category==='premium'?'Specialty Dining':'Complimentary Venue'}</small></a>
+        <div class="ship-pills">${shipHTML}</div></div>`);
     });
+
+    for(const [cat,list] of Object.entries(buckets)){
+      const root=roots[cat];if(root&&list.length){root.innerHTML=list.join('');}
+    }
+    setStatus('Showing all venues & activities.');
   })();
   </script>
 
   <!--
-    Invocation Edition footer note:
-    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31
-    “Trust in the LORD with all your heart … He will make straight your paths.” — Prov 3:5–6
+    Invocation Edition Footer Note:
+    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31 · 
+    “Trust in the LORD with all your heart … He will make straight your paths.” — Prov 3:5–6 
     Signed: abondservant · Soli Deo Gloria.
   -->
 </body>
