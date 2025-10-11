@@ -2,53 +2,101 @@
 <html lang="en">
 <head>
   <!--
-    In the Wake — Invocation Edition v3.006b
+    In the Wake — Invocation Edition v3.006c
     “Soli Deo Gloria.” 1 Cor 10:31 · Prov 3:5–6
     Authorship: abondservant (a bondservant of Christ)
     Timestamp: 2025-10-10T00:00:00Z
   -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Restaurants & Menus | In the Wake (v3.006b)</title>
-  <meta name="version" content="v3.006b"/>
-  <meta name="description"
-        content="Premium and complimentary dining across the fleet — menus, prices, and accessibility notes."/>
-  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
+  <title>Restaurants & Menus | In the Wake (v3.006c)</title>
+  <meta name="version" content="v3.006c"/>
+  <meta name="description" content="Premium and complimentary dining across the fleet — menus, prices, accessibility notes."/>
   <meta name="robots" content="index,follow"/>
+  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
+
+  <!-- Social -->
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Restaurants & Menus | In the Wake"/>
-  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
-  <meta property="og:image"
-        content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.006"/>
   <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
+  <meta property="og:title" content="Restaurants & Menus | In the Wake"/>
+  <meta property="og:description" content="Premium and complimentary dining across the fleet — menus, prices, accessibility notes."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.006"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <script defer src="https://cloud.umami.is/script.js"
-          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <!-- Analytics + core utilities -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <script src="/assets/js/site-cache.js" defer></script>
   <script>
-  if('serviceWorker' in navigator){
-    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-  }
+  if('serviceWorker' in navigator){ addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }
   </script>
+
+  <!-- Site CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+
+  <!-- Page-scoped presentation utilities (cards, grid, chips) -->
+  <style>
+    /* Grid: responsive 1 → 2 → 3 columns */
+    .grid{ display:grid; gap:1rem; }
+    @media (min-width:680px){ .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (min-width:1024px){ .grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+
+    /* Cards */
+    .card{ background:#fff; border:2px solid var(--rope,#D9B382); border-radius:18px;
+           box-shadow:0 2px 8px rgba(0,0,0,.06), inset 0 0 0 1px rgba(255,255,255,.7);
+           padding:.9rem; display:flex; flex-direction:column; min-height:120px; }
+    .card a{ display:block; text-decoration:none; color:inherit; }
+    .card a strong{ color:#083041; }
+    .card small{ color:#355; }
+
+    /* Watermark (subtle) */
+    .card{ position:relative; overflow:hidden; }
+    .card::after{
+      content:""; position:absolute; inset:0; margin:auto; width:min(60%,360px); height:min(60%,360px);
+      background:url('/assets/watermark.png') center/contain no-repeat; opacity:.05; pointer-events:none;
+    }
+
+    /* Ship “chips” */
+    .ship-pills{ margin-top:.55rem; display:flex; flex-wrap:wrap; gap:.35rem; }
+    .ship-pills .chip{
+      display:inline-block; padding:.28rem .6rem; font-size:.78rem;
+      border:1px dashed var(--rope,#D9B382); border-radius:999px; background:#fff;
+      white-space:nowrap;
+    }
+
+    /* Section spacing */
+    main.wrap .section{ margin:1.2rem 0; }
+    .section h2{ margin:.25rem 0 .55rem; color:#0b3445; }
+
+    /* Status line */
+    #search-meta{ margin:.5rem 0 1rem; color:#355; }
+
+    /* A11y helpers */
+    .skip-link{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+    .skip-link:focus{ position:fixed; left:12px; top:12px; width:auto; height:auto; padding:.45rem .7rem;
+      background:#fff; border:2px solid var(--accent,#0e6e8e); border-radius:10px; z-index:9999; }
+    :focus-visible{ outline:3px solid var(--accent,#0e6e8e); outline-offset:2px; }
+    @media (prefers-reduced-motion: reduce){
+      *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+    }
+  </style>
 </head>
 
 <body class="restaurants-page">
   <a class="skip-link" href="#content">Skip to main content</a>
 
-  <!-- ====== HEADER + NAV identical to working pages ====== -->
+  <!-- Header -->
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png" alt="In the Wake wordmark" width="256" height="64"/>
-        <span class="tiny ver-badge">v3.006b</span>
+        <span class="tiny ver-badge">v3.006c</span>
       </div>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/ships/">Ships</a>
-        <a href="/restaurants.html" aria-current="page">Restaurants & Menus</a>
+        <a href="/restaurants.html" aria-current="page">Restaurants &amp; Menus</a>
         <a href="/ports.html">Ports</a>
         <a href="/disability-at-sea.html">Disability at Sea</a>
         <a href="/drink-packages.html">Drink Packages</a>
@@ -57,91 +105,118 @@
       </nav>
     </div>
     <div class="hero" role="img" aria-label="Dining venues across the fleet">
-      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64"/>
+        <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
     </div>
   </header>
 
+  <!-- Content -->
   <main id="content" class="wrap">
     <div id="search-meta" class="tiny" aria-live="polite">Loading venues…</div>
-    <section class="section" id="complimentary"><h2>Main Dining & Complimentary</h2><div class="grid" id="grid-complimentary"></div></section>
-    <section class="section" id="premium"><h2>Specialty Dining</h2><div class="grid" id="grid-premium"></div></section>
-    <section class="section" id="activity"><h2>Dining Activities & Classes</h2><div class="grid" id="grid-activity"></div></section>
+
+    <section class="section" id="complimentary" aria-labelledby="complimentary-title">
+      <h2 id="complimentary-title">Main Dining &amp; Complimentary</h2>
+      <div class="grid" id="grid-complimentary"></div>
+    </section>
+
+    <section class="section" id="premium" aria-labelledby="premium-title">
+      <h2 id="premium-title">Specialty Dining</h2>
+      <div class="grid" id="grid-premium"></div>
+    </section>
+
+    <section class="section" id="activity" aria-labelledby="activity-title">
+      <h2 id="activity-title">Dining Activities &amp; Classes</h2>
+      <div class="grid" id="grid-activity"></div>
+    </section>
   </main>
 
   <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility & WCAG 2.1 AA Commitment</a>
+    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
+    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
   </footer>
 
-  <!-- ====== FIXED RENDERER ====== -->
+  <!-- Data loader & renderer (kept robust) -->
   <script>
   (async()=>{
-    const setStatus=m=>{const e=document.getElementById('search-meta');if(e)e.textContent=m;};
-    const abs=p=>typeof window._abs==='function'?_abs(p):p;
-    const roots={
-      complimentary:document.getElementById('grid-complimentary'),
-      premium:document.getElementById('grid-premium'),
-      activity:document.getElementById('grid-activity')
-    };
+    const setStatus=m=>{const e=document.getElementById('search-meta'); if(e) e.textContent=m; };
+    const abs=p=>typeof window._abs==='function'? _abs(p) : p;
 
-    // 1. Guarantee SiteCache loaded
-    if(!window.SiteCache||typeof SiteCache.getJSON!=='function'){
+    // Ensure SiteCache is ready
+    if(!(window.SiteCache && typeof SiteCache.getJSON==='function')){
       await new Promise(r=>{
-        const s=document.createElement('script');
-        s.src='/assets/js/site-cache.js';s.defer=true;
-        s.onload=r;s.onerror=r;document.head.appendChild(s);
+        const s=document.createElement('script'); s.src='/assets/js/site-cache.js'; s.defer=true;
+        s.onload=r; s.onerror=r; document.head.appendChild(s);
       });
     }
 
-    // 2. Load venues.json
+    // Load DB (Option A shape)
     let db;
     try{
-      const url=abs('/assets/data/venues.json');
-      db=await SiteCache.getJSON(url,{ttlDays:7,versionPath:['meta','version']});
-      if(!db||!Array.isArray(db.venues)||typeof db.ships!=='object')throw new Error('Invalid schema');
+      db = await SiteCache.getJSON(abs('/assets/data/venues.json'), { ttlDays:7, versionPath:['meta','version'] });
+      if(!db || !Array.isArray(db.venues) || typeof db.ships!=='object') throw new Error('Invalid venues schema');
     }catch(e){
-      console.error('Failed to load venues.json',e);
+      console.error(e);
       setStatus('Could not load venues data.');
       return;
     }
 
-    // 3. Map ships → venues
-    const shipsByVenue=new Map();
-    for(const [ship,payload] of Object.entries(db.ships)){
-      (payload.venues||[]).forEach(v=>{
-        if(!shipsByVenue.has(v))shipsByVenue.set(v,new Set());
+    // Build reverse map: venue -> set(ships)
+    const shipsByVenue = new Map();
+    for(const [ship, payload] of Object.entries(db.ships||{})){
+      for(const v of (payload.venues||[])){
+        if(!shipsByVenue.has(v)) shipsByVenue.set(v, new Set());
         shipsByVenue.get(v).add(ship);
-      });
+      }
     }
 
-    // 4. Render
-    const buckets={complimentary:[],premium:[],activity:[]};
-    const uniq=a=>Array.from(new Set(a.filter(Boolean)));
-    const sortByName=(a,b)=>(a.name||a.slug||'').localeCompare(b.name||b.slug||'');
-    db.venues.sort(sortByName).forEach(v=>{
-      const cat=(v.category||'complimentary').toLowerCase();
-      const slug=v.slug; const ships=uniq(Array.from(shipsByVenue.get(slug)||[]));
-      const shipHTML=ships.map(s=>`<span class="chip">${db.ships[s]?.name||s}</span>`).join('');
-      buckets[cat]?.push(`<div class="card">
-        <a href="/restaurants/${slug}.html"><strong>${v.name}</strong><br><small>${v.category==='premium'?'Specialty Dining':'Complimentary Venue'}</small></a>
-        <div class="ship-pills">${shipHTML}</div></div>`);
+    // Buckets
+    const roots = {
+      complimentary: document.getElementById('grid-complimentary'),
+      premium: document.getElementById('grid-premium'),
+      activity: document.getElementById('grid-activity')
+    };
+    const buckets = { complimentary:[], premium:[], activity:[] };
+    const byName = (a,b)=>(a.name||a.slug||'').localeCompare(b.name||b.slug||'');
+    const uniq = arr => Array.from(new Set(arr.filter(Boolean)));
+
+    // Render each venue
+    db.venues.sort(byName).forEach(v=>{
+      const slug = String(v.slug||'').trim();
+      if(!slug) return;
+      const cat = String(v.category||'complimentary').toLowerCase();
+      const ships = uniq(Array.from(shipsByVenue.get(slug)||[]));
+      const shipHTML = ships.map(s=>`<span class="chip" title="${db.ships[s]?.name||s}">${db.ships[s]?.name||s}</span>`).join('');
+
+      const label = (cat==='premium') ? 'Specialty Dining' : (cat==='activity' ? 'Activity' : 'Complimentary Venue');
+      const html = `
+        <div class="card">
+          <a href="/restaurants/${slug}.html">
+            <strong>${v.name||slug}</strong><br>
+            <small>${label}</small>
+          </a>
+          <div class="ship-pills" aria-label="Available on ships">${shipHTML}</div>
+        </div>`;
+
+      (buckets[cat]||buckets.complimentary).push(html);
     });
 
-    for(const [cat,list] of Object.entries(buckets)){
-      const root=roots[cat];if(root&&list.length){root.innerHTML=list.join('');}
-    }
+    // Paint
+    Object.entries(buckets).forEach(([cat,list])=>{
+      const root = roots[cat];
+      if(root && list.length){
+        root.innerHTML = list.join('');
+      }
+    });
+
     setStatus('Showing all venues & activities.');
   })();
   </script>
 
-  <!--
-    Invocation Edition Footer Note:
-    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31 · 
-    “Trust in the LORD with all your heart … He will make straight your paths.” — Prov 3:5–6 
-    Signed: abondservant · Soli Deo Gloria.
-  -->
+  <!-- Invocation footer -->
+  <!-- “Whatever you do, do all to the glory of God.” — 1 Cor 10:31 · “Trust in the LORD… He will make straight your paths.” — Prov 3:5–6 -->
 </body>
 </html>
