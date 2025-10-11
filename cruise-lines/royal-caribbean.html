@@ -10,8 +10,8 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Royal Caribbean — In the Wake (v3.006.003)</title>
-  <meta name="version" content="v3.006.003"/>
+  <title>Royal Caribbean — In the Wake (v3.006.004)</title>
+  <meta name="version" content="v3.006.004"/>
   <meta name="description" content="Royal Caribbean, class-by-class and ship-by-ship: venues, menus, tips, and a calm planning companion."/>
   <meta name="theme-color" content="#0e6e8e"/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html"/>
@@ -22,7 +22,7 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html"/>
   <meta property="og:title" content="Royal Caribbean — In the Wake"/>
   <meta property="og:description" content="Class overviews, ship guides, venues, and packing notes."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/royal-caribbean.jpg?v=3.006.003"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/royal-caribbean.jpg?v=3.006.004"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Structured data -->
@@ -44,7 +44,7 @@
   </script>
 
   <!-- Unified CSS (cache-busted) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.003"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.004"/>
   <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg"/>
 
   <!-- Reduced motion guard -->
@@ -53,7 +53,7 @@
   <!-- Page-local trims only -->
   <style>
     .brand-title{display:none!important}
-    .layout{display:grid;grid-template-columns: minmax(0,1fr) 340px; gap:1.1rem}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:1.1rem}
     @media (max-width:1100px){.layout{grid-template-columns:1fr}}
 
     .big-line{font-size:clamp(1.6rem,2.4vw,2.25rem);letter-spacing:.02em;color:var(--sea);margin:.3rem 0 1rem}
@@ -61,12 +61,17 @@
     .pill-row{display:flex;flex-wrap:wrap;gap:.5rem}
     .pill-row .pillbtn{padding:.38rem .7rem;border-radius:999px;border:1px dashed var(--rope);background:#fff;font-weight:600}
     .pill-row .pillbtn[aria-pressed="true"]{background:#f7fdff}
+
     .toggle{display:flex;align-items:center;gap:.5rem;margin:.35rem 0 .6rem}
-    .toggle input{width:42px;height:22px;appearance:none;background:#dfe7ea;border-radius:999px;position:relative;outline:none;border:1px solid #cfe1ea}
-    .toggle input:checked{background:#b8e0ea}
-    .toggle input::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:999px;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .18s ease}
-    .toggle input:checked::after{transform:translateX(20px)}
+    .toggle input[type="checkbox"]{width:42px;height:22px;appearance:none;background:#dfe7ea;border-radius:999px;position:relative;outline:none;border:1px solid #cfe1ea}
+    .toggle input[type="checkbox"]:checked{background:#b8e0ea}
+    .toggle input[type="checkbox"]::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:999px;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .18s ease}
+    .toggle input[type="checkbox"]:checked::after{transform:translateX(20px)}
     .toggle .tiny{color:#355}
+
+    .seg{display:inline-flex;border:1px solid var(--rope);border-radius:12px;overflow:hidden}
+    .seg button{padding:.35rem .6rem;border:0;background:#fff}
+    .seg button[aria-pressed="true"]{background:#f7fdff;font-weight:700}
 
     .grid{display:grid;gap:1rem}
     .cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -84,6 +89,7 @@
 
     /* Right rail venues */
     .rail{display:flex;flex-direction:column;gap:1rem}
+    .rail .header{display:flex;align-items:center;justify-content:space-between}
     .venue-card{display:grid;grid-template-columns:84px 1fr;gap:.6rem;align-items:center;border:2px solid var(--rope);border-radius:14px;padding:.6rem;background:#fff;text-decoration:none;color:inherit;box-shadow:0 2px 6px rgba(8,48,65,.08)}
     .venue-thumb{width:84px;height:58px;border-radius:10px;overflow:hidden;background:#eef4f6;border:1px solid #dfe7ea;display:flex;align-items:center;justify-content:center}
     .venue-thumb img{width:100%;height:100%;object-fit:cover}
@@ -92,12 +98,11 @@
 
     .mini{font-size:.9rem}
     .muted{color:#456}
-    .divider{height:12px;background:var(--rope);-webkit-mask:linear-gradient(90deg,#000 60%,transparent 60%) repeat-x;mask:linear-gradient(90deg,#000 60%,transparent 60%) repeat-x;margin:.4rem 0 1rem}
   </style>
 
   <!-- Site cache helper + service worker -->
-  <script src="https://www.cruisinginthewake.com/assets/js/site-cache.js?v=3.006.003" defer></script>
-  <script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.006.003').catch(()=>{}))}</script>
+  <script src="https://www.cruisinginthewake.com/assets/js/site-cache.js?v=3.006.004" defer></script>
+  <script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.006.004').catch(()=>{}))}</script>
 </head>
 
 <body class="page">
@@ -107,7 +112,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
-        <span class="version-badge">v3.006.003</span>
+        <span class="version-badge">v3.006.004</span>
       </div>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="https://www.cruisinginthewake.com/">Home</a>
@@ -147,22 +152,27 @@
           <p class="mini">Packing for slides, show nights, and breezy pool decks? See <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>.</p>
         </section>
 
-        <!-- Search -->
+        <!-- Search + Pills + Class grid -->
         <section class="card">
-          <h2 class="visually-hidden">Search</h2>
+          <h2 class="visually-hidden">Search & Class</h2>
+
           <div class="search-wrap">
             <label class="tiny muted" for="shipSearch">Search Royal Caribbean ships &amp; venues</label>
             <input id="shipSearch" type="search" placeholder="Try: Oasis, Allure, Chops, Izumi…" autocomplete="off" inputmode="search" aria-controls="searchResults">
           </div>
+
           <div class="toggle">
             <input id="toggleUnfinished" type="checkbox" aria-label="Show unfinished ships (no thumbnail yet)">
             <span class="tiny">Show unfinished ships</span>
           </div>
+
           <div id="classPills" class="pill-row" role="tablist" aria-label="Ship classes"></div>
+
           <div id="classResults" class="card" style="margin-top:.7rem">
             <div id="classShips" class="grid cols-3" aria-live="polite"></div>
             <p id="classEmpty" class="mini muted" style="margin:.4rem 0 0;display:none">No finished ships in this class yet.</p>
           </div>
+
           <div id="searchResults" class="grid cols-3" style="margin-top:1rem"></div>
         </section>
 
@@ -173,35 +183,45 @@
           <p><strong>Now:</strong> every ship appears in its class. If a card shows an image, that ship page is considered complete. Cards without a thumbnail are still in progress and will unlock as soon as they’re ready.</p>
         </section>
 
-        <!-- Gallery (simple) -->
+        <!-- Gallery -->
         <section class="card">
           <h2>Gallery</h2>
           <div class="grid cols-3">
             <figure>
-              <img src="https://www.cruisinginthewake.com/assets/ships/icon-of-the-seas.jpg?v=3.006.003" alt="Icon of the Seas underway">
+              <img src="https://www.cruisinginthewake.com/assets/ships/icon-of-the-seas.jpg?v=3.006.004" alt="Icon of the Seas underway">
               <figcaption class="mini">Wikimedia Commons — attribution listed below.</figcaption>
             </figure>
             <figure>
-              <img src="https://www.cruisinginthewake.com/assets/ships/wonder-of-the-seas.jpg?v=3.006.003" alt="Wonder of the Seas at anchor">
+              <img src="https://www.cruisinginthewake.com/assets/ships/wonder-of-the-seas.jpg?v=3.006.004" alt="Wonder of the Seas at anchor">
               <figcaption class="mini">Wikimedia Commons — attribution listed below.</figcaption>
             </figure>
           </div>
         </section>
 
-        <!-- Attributions -->
+        <!-- Attributions (expanded placeholder list) -->
         <section class="card">
           <h3>Image Credits</h3>
           <ul class="mini">
-            <li>Icon of the Seas photo — Wikimedia Commons (CC BY-SA); final attribution string pending source lock.</li>
-            <li>Wonder of the Seas photo — Wikimedia Commons (CC BY-SA); final attribution string pending source lock.</li>
-            <li>Assorted ship thumbnails — cached local assets and Wikimedia; replace with precise credits as each page is finalized.</li>
+            <li>Allure of the Seas thumbnails — <code>/ships/assets/images/allure-of-the-seas-3.jpg</code>, <code>allure2.jpg</code>, <code>allure3.jpg</code> (Wikimedia Commons; CC BY-SA). Final author/CC strings to be confirmed per file metadata.</li>
+            <li>Enchantment of the Seas thumbnails — <code>/ships/assets/enchantment-of-the-seas1.jpg</code>, <code>/ships/assets/images/Enchantment_of_the_Seas.jpeg</code>, <code>/images/enchantment-of-the-seas2.jpeg</code>, <code>/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg</code> (Wikimedia Commons / local cache).</li>
+            <li>Rhapsody of the Seas thumbnails — multiple Wikimedia sources (<code>…(3731959629) Medium.jpeg</code>, <code>…(6451158929) Medium.jpeg</code>, etc.), CC BY / CC BY-SA.</li>
+            <li>Vision / Grandeur / Sovereign class images — local cached assets listed in page script; verify each image’s author and license prior to final publication.</li>
+            <li>Icon & Wonder hero images — Wikimedia Commons (CC BY-SA); confirm exact attribution strings with permanent links.</li>
           </ul>
+          <p class="tiny muted">Note: Replace this placeholder list with exact author, title, license, and source URLs during final media pass.</p>
         </section>
       </div>
 
       <!-- RIGHT RAIL -->
       <aside class="rail" aria-label="Venues">
-        <h2 class="visually-hidden">Venues</h2>
+        <div class="header">
+          <h2 class="visually-hidden">Venues</h2>
+          <div class="seg" role="tablist" aria-label="Venue filter">
+            <button id="segBoth" class="segbtn" type="button" aria-pressed="true">All</button>
+            <button id="segPremium" class="segbtn" type="button" aria-pressed="false">Premium</button>
+            <button id="segIncluded" class="segbtn" type="button" aria-pressed="false">Included</button>
+          </div>
+        </div>
         <div id="venueRail"></div>
       </aside>
     </div>
@@ -217,33 +237,57 @@
     const ABS = p => ORIGIN + p;
 
     // -------- Data
-    const CLASS_ORDER = ['Icon','Oasis','Freedom','Voyager','Radiance','Vision']; // editorial, largest→smallest
+    const CLASS_ORDER = ['Icon','Oasis','Freedom','Voyager','Radiance','Vision']; // editorial order
 
-    // Venues (subset; add more as pages exist)
+    // Venues dataset (40+). type: 'premium' | 'included'. Slugs map to /restaurants/<slug>.html
     const VENUES = [
-      {name:"Chops Grille", slug:"chops-grille"},
-      {name:"Giovanni’s", slug:"giovannis"},
-      {name:"Izumi", slug:"izumi"},
-      {name:"Teppanyaki", slug:"teppanyaki"},
-      {name:"150 Central Park", slug:"150-central-park"},
-      {name:"Wonderland", slug:"wonderland"},
-      {name:"Hooked Seafood", slug:"hooked-seafood"},
-      {name:"The Mason Jar", slug:"mason-jar"},
-      {name:"Chef’s Table", slug:"chefs-table"},
-      {name:"Empire Supper Club", slug:"empire-supper-club"},
-      {name:"Coastal Kitchen", slug:"coastal-kitchen"},
-      {name:"Cafe Promenade", slug:"cafe-promenade"},
-      {name:"Basecamp", slug:"basecamp"},
-      {name:"Aquadome Market", slug:"aquadome-market"},
-      {name:"Cafe Two70", slug:"cafe-two70"},
-      {name:"Johnny Rockets", slug:"johnny-rockets"},
-      {name:"Portside BBQ", slug:"portside-bbq"}
+      // Premium
+      {name:"Empire Supper Club (Experience)", slug:"empire-supper-club", type:"premium"},
+      {name:"150 Central Park", slug:"150-central-park", type:"premium"},
+      {name:"Wonderland", slug:"wonderland", type:"premium"},
+      {name:"Chops Grille", slug:"chops-grille", type:"premium"},
+      {name:"Giovanni’s", slug:"giovannis", type:"premium"},
+      {name:"Hooked Seafood", slug:"hooked-seafood", type:"premium"},
+      {name:"The Mason Jar", slug:"mason-jar", type:"premium"},
+      {name:"Chef’s Table", slug:"chefs-table", type:"premium"},
+      {name:"Izumi", slug:"izumi", type:"premium"},
+      {name:"Teppanyaki", slug:"teppanyaki", type:"premium"},
+      {name:"Playmakers", slug:"playmakers", type:"premium"},
+      {name:"Jamie’s Italian", slug:"jamies-italian", type:"premium"},
+      {name:"Portside BBQ", slug:"portside-bbq", type:"premium"},
+      {name:"El Loco Fresh (Some upcharge items)", slug:"el-loco-fresh", type:"premium"},
+
+      // Included
+      {name:"Main Dining Room", slug:"main-dining-room", type:"included"},
+      {name:"Windjammer", slug:"windjammer", type:"included"},
+      {name:"Coastal Kitchen", slug:"coastal-kitchen", type:"included"},
+      {name:"Sorrento’s", slug:"sorrentos", type:"included"},
+      {name:"Cafe Promenade", slug:"cafe-promenade", type:"included"},
+      {name:"Cafe Two70", slug:"cafe-two70", type:"included"},
+      {name:"Aquadome Market", slug:"aquadome-market", type:"included"},
+      {name:"Basecamp", slug:"basecamp", type:"included"},
+      {name:"Dog House", slug:"dog-house", type:"included"},
+      {name:"Johnny Rockets (breakfast)", slug:"johnny-rockets", type:"included"},
+      {name:"Sprinkles", slug:"sprinkles", type:"included"},
+      {name:"Vitality Cafe", slug:"vitality-cafe", type:"included"},
+      {name:"Park Cafe", slug:"park-cafe", type:"included"},
+      {name:"Boardwalk Dog House", slug:"dog-house", type:"included"},
+      {name:"Solarium Bistro", slug:"solarium-bistro", type:"included"},
+      {name:"Room Service (continental breakfast)", slug:"room-service", type:"included"},
+      {name:"Diamond Lounge", slug:"diamond-lounge", type:"included"},
+      {name:"Latte-tudes", slug:"latte-tudes", type:"included"},
+      {name:"Coastal Kitchen (Suites/Crown & Anchor)", slug:"coastal-kitchen", type:"included"},
+      // More (aliases or ship-specific counters)
+      {name:"Wipeout Cafe", slug:"wipeout-cafe", type:"included"},
+      {name:"Boardwalk Donuts", slug:"boardwalk-donuts", type:"included"},
+      {name:"Mini Bites", slug:"mini-bites", type:"included"},
+      {name:"Solarium Cafe", slug:"solarium-bistro", type:"included"},
+      {name:"Royal Promenade Cafe", slug:"cafe-promenade", type:"included"},
+      {name:"Sorrento’s Pizza", slug:"sorrentos", type:"included"},
+      {name:"El Loco Fresh", slug:"el-loco-fresh", type:"included"}
     ];
 
-    // Venue thumb convention + fallback
-    const venueThumb = slug =>
-      ABS(`/restaurants/assets/${slug}.jpg`);
-
+    const venueThumb = slug => ABS(`/restaurants/assets/${slug}.jpg`);
     const VENUE_FALLBACK = ABS('/assets/venues/placeholder.jpg');
 
     // Ships
@@ -285,7 +329,7 @@
       {name:'Grandeur of the Seas', slug:'grandeur-of-the-seas', cls:'Vision'}
     ];
 
-    // Provided cached thumbnails and other known assets (URL-encoded)
+    // Image hints (ONLY these count as "finished" for the toggle)
     const enc = p => encodeURI(p);
     const IMAGE_HINTS = {
       'enchantment-of-the-seas': [
@@ -319,35 +363,58 @@
         enc('/ships/assets/images/allure-of-the-seas-3.jpg'),
         enc('/ships/assets/images/allure2.jpg'),
         enc('/ships/assets/images/allure3.jpg')
-      ],
-      '_misc':[ enc('/ships/assets/images/Bahamas_Cruise_-_ship_interior_-_June_2018_(2224) Medium.jpeg') ]
-    };
-    const tryConventional = slug => {
-      const out=[], exts=['jpg','jpeg','png'], idx=['1','2','3'];
-      idx.forEach(n=>exts.forEach(ext=>out.push(enc(`/ships/rcl/${slug}-${n}.${ext}`))));
-      return out;
+      ]
     };
     const PLACEHOLDER = ABS('/assets/ships/placeholder-ship.jpg');
-
-    const hasThumb = slug => {
-      const cand = (IMAGE_HINTS[slug]||[]).concat(tryConventional(slug));
-      return cand.length>0;
-    };
     const pickThumb = slug => {
-      const cand = (IMAGE_HINTS[slug]||[]).concat(tryConventional(slug), IMAGE_HINTS._misc||[]);
-      return ABS(cand[0] || '/assets/ships/placeholder-ship.jpg');
+      const cand = IMAGE_HINTS[slug];
+      if (cand && cand.length) return ABS(cand[0]);
+      return PLACEHOLDER;
     };
+    const isFinished = slug => !!(IMAGE_HINTS[slug] && IMAGE_HINTS[slug].length);
 
-    // -------- DOM
+    // -------- DOM refs
     const pills = document.getElementById('classPills');
     const classGrid = document.getElementById('classShips');
     const classEmpty = document.getElementById('classEmpty');
     const q = document.getElementById('shipSearch');
     const searchOut = document.getElementById('searchResults');
-    const toggle = document.getElementById('toggleUnfinished');
-    const venueRail = document.getElementById('venueRail');
+    const toggleUnfinished = document.getElementById('toggleUnfinished');
 
-    // Build class pills
+    const venueRail = document.getElementById('venueRail');
+    const segBoth = document.getElementById('segBoth');
+    const segPremium = document.getElementById('segPremium');
+    const segIncluded = document.getElementById('segIncluded');
+    let venueFilter = 'both'; // 'both' | 'premium' | 'included'
+
+    // Venue buttons
+    function setSeg(which){
+      venueFilter = which;
+      [segBoth,segPremium,segIncluded].forEach(b=>b.setAttribute('aria-pressed','false'));
+      (which==='both'?segBoth:which==='premium'?segPremium:segIncluded).setAttribute('aria-pressed','true');
+      renderVenues();
+    }
+    segBoth.addEventListener('click',()=>setSeg('both'));
+    segPremium.addEventListener('click',()=>setSeg('premium'));
+    segIncluded.addEventListener('click',()=>setSeg('included'));
+
+    function renderVenues(){
+      venueRail.innerHTML='';
+      const list = VENUES.filter(v => venueFilter==='both' ? true : v.type===venueFilter);
+      list.forEach(v=>{
+        const a=document.createElement('a');
+        a.className='venue-card';
+        a.href=ABS(`/restaurants/${v.slug}.html`);
+        a.innerHTML=`<span class="venue-thumb"><img loading="lazy" alt="${v.name}" src="${venueThumb(v.slug)}" onerror="this.src='${VENUE_FALLBACK}'"></span>
+          <span>
+            <div class="venue-name">${v.name}</div>
+            <span class="venue-type">${v.type==='premium'?'Premium':'Included'}</span>
+          </span>`;
+        venueRail.appendChild(a);
+      });
+    }
+
+    // Class pills
     let currentClass = CLASS_ORDER[0];
     CLASS_ORDER.forEach(cls=>{
       const b=document.createElement('button');
@@ -365,29 +432,26 @@
       pills.appendChild(b);
     });
 
-    // Render class grid respecting toggle
+    // Render class grid (toggle default OFF)
     function renderClass(){
-      const showUnfinished = toggle.checked;
-      const list = SHIPS.filter(s=>s.cls===currentClass)
-                        .filter(s=> showUnfinished || hasThumb(s.slug));
+      const showUnfinished = toggleUnfinished.checked; // false by default
+      const list = SHIPS
+        .filter(s=>s.cls===currentClass)
+        .filter(s=> showUnfinished || isFinished(s.slug));
       classGrid.innerHTML='';
       list.forEach(s=>{
         const a=document.createElement('a');
         a.className='ship-card';
         a.href=ABS(`/ships/rcl/${s.slug}.html`);
         a.innerHTML=`
-          <span class="thumb"><img loading="lazy" decoding="async" alt="${s.name}" src="${showUnfinished||hasThumb(s.slug)?pickThumb(s.slug):PLACEHOLDER}"></span>
+          <span class="thumb"><img loading="lazy" decoding="async" alt="${s.name}" src="${pickThumb(s.slug)}"></span>
           <span class="body"><strong>${s.name}</strong><span class="badge">${s.cls}</span></span>
         `;
         classGrid.appendChild(a);
       });
       classEmpty.style.display = list.length ? 'none':'block';
     }
-
-    toggle.addEventListener('change', ()=>{
-      renderClass();
-      doSearch();
-    });
+    toggleUnfinished.addEventListener('change', ()=>{ renderClass(); doSearch(); });
 
     // Live search (ships + classes + venues)
     function norm(s){return (s||'').toLowerCase().replace(/\sof the seas\b/,'').trim()}
@@ -396,9 +460,9 @@
       searchOut.innerHTML='';
       if(!v){ return; }
 
-      const showUnfinished = toggle.checked;
+      const showUnfinished = toggleUnfinished.checked;
 
-      // class hits (as pills → clicking acts like selecting class)
+      // classes
       CLASS_ORDER.filter(c=>norm(c).includes(v)).forEach(c=>{
         const a=document.createElement('a');
         a.className='ship-card';
@@ -409,11 +473,11 @@
         searchOut.appendChild(a);
       });
 
-      // ship hits
+      // ships
       SHIPS.filter(s=>{
         const n=norm(s.name);
         const pass = n.includes(v)||n.replace(' of the seas','').includes(v);
-        const finished = hasThumb(s.slug);
+        const finished = isFinished(s.slug);
         return pass && (showUnfinished || finished);
       }).forEach(s=>{
         const a=document.createElement('a');
@@ -424,39 +488,21 @@
         searchOut.appendChild(a);
       });
 
-      // venue hits
+      // venues
       VENUES.filter(vn=>norm(vn.name).includes(v)).forEach(vn=>{
         const a=document.createElement('a');
         a.className='ship-card';
         a.href=ABS(`/restaurants/${vn.slug}.html`);
         a.innerHTML=`<span class="thumb"><img loading="lazy" alt="${vn.name}" src="${venueThumb(vn.slug)}" onerror="this.src='${VENUE_FALLBACK}'"></span>
-          <span class="body"><strong>${vn.name}</strong><span class="badge">Venue</span></span>`;
+          <span class="body"><strong>${vn.name}</strong><span class="badge">${vn.type==='premium'?'Premium':'Included'}</span></span>`;
         searchOut.appendChild(a);
       });
     }
     q.addEventListener('input', ()=>{ clearTimeout(q._t); q._t=setTimeout(doSearch,90); });
 
-    // Venue rail (randomized selection)
-    (function renderVenues(){
-      const pool=[...VENUES];
-      const take = m => pool.splice(Math.floor(Math.random()*pool.length),1)[0];
-      const show=Math.min(10, pool.length);
-      for(let i=0;i<show;i++){
-        const v = take();
-        const a=document.createElement('a');
-        a.className='venue-card';
-        a.href=ABS(`/restaurants/${v.slug}.html`);
-        a.innerHTML=`<span class="venue-thumb"><img loading="lazy" alt="${v.name}" src="${venueThumb(v.slug)}" onerror="this.src='${VENUE_FALLBACK}'"></span>
-          <span>
-            <div class="venue-name">${v.name}</div>
-            <span class="venue-type">Venue</span>
-          </span>`;
-        venueRail.appendChild(a);
-      }
-    })();
-
-    // Initial render
+    // Initial render (toggle OFF by default)
     renderClass();
+    renderVenues();
   })();
   </script>
 </body>
