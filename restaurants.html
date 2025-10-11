@@ -2,19 +2,20 @@
 <html lang="en">
 <head>
   <!--
-    In the Wake — Invocation Edition v3.006
-    “Soli Deo Gloria.” 1 Cor 10:31 · Prov 3:5-6
-    Authorship: abondservant (a bondservant of Christ)
-    Timestamp: 2025-10-10T00:00:00Z
+    In the Wake — Invocation Edition v3.006a
+    “Soli Deo Gloria.” 1 Cor 10:31 · Prov 3:5–6
+    Authorship : abondservant (a bondservant of Christ)
+    Timestamp  : 2025-10-10T00:00:00Z
   -->
 
   <!-- Analytics -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Standards v3.006: absolute-URL + origin normalizer -->
+  <!-- Standards v3.006: absolute URL + origin normalizer -->
   <script>
   (function(){
-    const ORIGIN=(location.origin||(location.protocol+"//"+location.host)).replace(/\/$/,'');
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=p=>{p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p};
     document.addEventListener('DOMContentLoaded',()=>{
       document.querySelectorAll([
@@ -24,7 +25,9 @@
         'script[src^="https://www.cruisinginthewake.com/"]'
       ].join(',')).forEach(el=>{
         const attr=el.hasAttribute('href')?'href':'src';
-        try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
+        try{const u=new URL(el.getAttribute(attr));
+            el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}
+        catch(_){}
       });
     },{once:true});
   })();
@@ -35,27 +38,28 @@
   document.addEventListener('click',e=>{
     const a=e.target.closest&&e.target.closest('a[href]');
     if(!a)return;
-    try{const u=new URL(a.href,location.href);
-      if(u.origin!==location.origin){a.target='_blank';a.rel='noopener';}}
-    catch(_){}
+    try{
+      const u=new URL(a.href,location.href);
+      if(u.origin!==location.origin){a.target='_blank';a.rel='noopener';}
+    }catch(_){}
   },{capture:true});
   </script>
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Restaurants & Menus | In the Wake (v3.006)</title>
-  <meta name="version" content="v3.006"/>
+  <title>Restaurants & Menus | In the Wake (v3.006a)</title>
+  <meta name="version" content="v3.006a"/>
   <meta name="description" content="Premium and complimentary dining across the fleet — menus, prices, accessibility notes."/>
   <meta name="robots" content="index,follow"/>
 
-  <!-- Canonical / OG / Twitter -->
+  <!-- Canonical / Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta property="og:title" content="Restaurants & Menus | In the Wake"/>
   <meta property="og:description" content="Premium and complimentary dining across the fleet — menus, prices, accessibility notes."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.006"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.006a"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Structured Data -->
@@ -86,17 +90,18 @@
 <body class="restaurants-page">
   <a class="skip-link" href="#content">Skip to main content</a>
 
-  <!-- ===== header / hero / nav omitted here for brevity — identical to your current markup ===== -->
+  <!-- ==== header / hero / nav identical to standard header ==== -->
 
   <main id="content">
-    <!-- your existing #complimentary / #premium / #activity / #by-ship sections unchanged -->
+    <!-- existing complimentary/premium/activity/by-ship sections -->
   </main>
 
   <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility & WCAG 2.1 AA Commitment</a>
+    © 2025 In the Wake — A Cruise Traveler’s Logbook · 
+    <a href="/accessibility.html">Accessibility & WCAG 2.1 AA Commitment</a>
   </footer>
 
-  <!-- ================= Fixed JSON loader + renderer ================= -->
+  <!-- ============== Fixed JSON loader + renderer v3.006a ============= -->
   <script>
   (async function(){
     const $=s=>document.querySelector(s);
@@ -107,28 +112,102 @@
       if(window.SiteCache&&typeof SiteCache.getJSON==='function')return true;
       await new Promise(r=>{
         const s=document.createElement('script');
-        s.src='/assets/js/site-cache.js';s.onload=r;s.onerror=r;document.head.appendChild(s);
+        s.src='/assets/js/site-cache.js';
+        s.defer=true; s.onload=r; s.onerror=r;
+        document.head.appendChild(s);
       });
       return true;
     }
 
-    function isVenuesDB(x){
-      return x&&Array.isArray(x.venues)&&typeof x.ships==='object';
-    }
+    function isVenuesDB(x){return x&&Array.isArray(x.venues)&&typeof x.ships==='object';}
 
     async function loadVenues(){
       const url=abs('/assets/data/venues.json');
+      // 1️⃣ Try SiteCache first
       try{
-        const db=await fetch(url,{cache:'no-store'}).then(r=>r.json());
-        if(isVenuesDB(db))return db;
-      }catch(e){console.error('Direct fetch failed',e);}
-      if(window.SiteCache&&typeof SiteCache.getJSON==='function'){
-        try{
+        if(window.SiteCache&&typeof SiteCache.getJSON==='function'){
           const db=await SiteCache.getJSON(url,{ttlDays:7,versionPath:['meta','version']});
           if(isVenuesDB(db))return db;
-        }catch(e){console.error('SiteCache fetch failed',e);}
-      }
+        }
+      }catch(e){console.warn('SiteCache load failed',e);}
+      // 2️⃣ Network fallback
+      try{
+        const r=await fetch(url,{cache:'no-store'});
+        const db=await r.json();
+        if(isVenuesDB(db))return db;
+      }catch(e){console.warn('Network load failed',e);}
+      // 3️⃣ LocalStorage stale record
+      try{
+        const raw=localStorage.getItem('sc::'+url);
+        if(raw){
+          const rec=JSON.parse(raw);
+          if(isVenuesDB(rec.data))return rec.data;
+        }
+      }catch(e){}
       throw new Error('venues.json unavailable');
+    }
+
+    function hideEmptySections(){
+      [['complimentary','grid-complimentary'],
+       ['premium','grid-premium'],
+       ['activity','grid-activity']].forEach(([sec,grid])=>{
+        const root=document.getElementById(grid);
+        const count=root?root.querySelectorAll('.card:not(.is-hidden)').length:0;
+        const section=document.getElementById(sec);
+        if(section)section.classList.toggle('is-hidden',!count);
+      });
+    }
+
+    function renderVenues(db){
+      const roots={
+        complimentary:$('#grid-complimentary'),
+        premium:$('#grid-premium'),
+        activity:$('#grid-activity')
+      };
+      if(!db||!db.venues)return;
+
+      const shipsByVenue=new Map();
+      Object.entries(db.ships||{}).forEach(([ship,p])=>{
+        (p.venues||[]).forEach(v=>{
+          if(!shipsByVenue.has(v))shipsByVenue.set(v,new Set());
+          shipsByVenue.get(v).add(ship);
+        });
+      });
+
+      const buckets={complimentary:[],premium:[],activity:[]};
+      const uniq=a=>Array.from(new Set(a.filter(Boolean)));
+      const byName=(a,b)=>String(a.name||a.slug||'').localeCompare(b.name||b.slug||'');
+
+      db.venues.sort(byName).forEach(v=>{
+        try{
+          const slug=v.slug||'';
+          const cat=(v.category||'complimentary').toLowerCase();
+          const shipList=uniq(Array.from(shipsByVenue.get(slug)||[]));
+          const shipPills=shipList.map(s=>{
+            const ship=db.ships[s];
+            const nm=ship&&ship.name?ship.name:s;
+            return `<span class="chip" title="${nm}">${nm}</span>`;
+          }).join('');
+          const blurb=(cat==='premium'?'Specialty Dining':'Complimentary Venue');
+          const html=`<div class="card">
+              <a href="/restaurants/${slug}.html" data-slug="${slug}" data-cat="${cat}">
+                <strong>${v.name}</strong><br><small>${blurb}</small>
+              </a>
+              <div class="ship-pills">${shipPills}</div>
+            </div>`;
+          (buckets[cat]||buckets.complimentary).push(html);
+        }catch(e){console.warn('render venue failed',e);}
+      });
+
+      Object.entries(buckets).forEach(([cat,list])=>{
+        const root=roots[cat];
+        if(root&&list.length){
+          const tpl=document.createElement('template');
+          tpl.innerHTML=list.join('');
+          root.appendChild(tpl.content);
+        }
+      });
+      hideEmptySections();
     }
 
     await ensureSiteCacheReady();
@@ -147,52 +226,13 @@
       renderVenues(db);
       setStatus('Showing all venues & activities');
     });
-
-    function renderVenues(db){
-      const roots={
-        complimentary:$('#grid-complimentary'),
-        premium:$('#grid-premium'),
-        activity:$('#grid-activity')
-      };
-      if(!db?.venues)return;
-
-      const shipsByVenue=new Map();
-      Object.entries(db.ships||{}).forEach(([ship,p])=>{
-        (p.venues||[]).forEach(v=>{
-          if(!shipsByVenue.has(v))shipsByVenue.set(v,new Set());
-          shipsByVenue.get(v).add(ship);
-        });
-      });
-
-      const buckets={complimentary:[],premium:[],activity:[]};
-      const uniq=a=>Array.from(new Set(a.filter(Boolean)));
-      const byName=(a,b)=>String(a.name||a.slug||'').localeCompare(b.name||b.slug||'');
-
-      db.venues.sort(byName).forEach(v=>{
-        const slug=v.slug,cat=(v.category||'complimentary').toLowerCase();
-        const shipList=uniq(Array.from(shipsByVenue.get(slug)||[]));
-        const html=`<div class="card"><a href="/restaurants/${slug}.html" data-slug="${slug}" data-cat="${cat}">
-          <strong>${v.name}</strong><br><small>${v.category==='premium'?'Specialty Dining':'Complimentary Venue'}</small>
-        </a>
-        <div class="ship-pills">${shipList.map(s=>`<span class="chip">${db.ships[s]?.name||s}</span>`).join('')}</div></div>`;
-        (buckets[cat]||buckets.complimentary).push(html);
-      });
-
-      Object.entries(buckets).forEach(([cat,list])=>{
-        const root=roots[cat];
-        if(root&&list.length){
-          const tpl=document.createElement('template');
-          tpl.innerHTML=list.join('');
-          root.appendChild(tpl.content);
-        }
-      });
-    }
   })();
   </script>
 
   <!--
     Invocation Edition footer note:
-    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31 · “Trust in the LORD with all your heart … He will make straight your paths.” — Prov 3:5-6
+    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31
+    “Trust in the LORD with all your heart … He will make straight your paths.” — Prov 3:5–6
     Signed: abondservant · Soli Deo Gloria.
   -->
 </body>
