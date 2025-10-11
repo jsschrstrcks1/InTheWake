@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- In the Wake — Royal Caribbean (v3.007a) • Soli Deo Gloria -->
+  <!-- In the Wake — Royal Caribbean (v3.009) • Soli Deo Gloria -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Royal Caribbean — In the Wake (v3.007a)</title>
-  <meta name="description" content="Royal Caribbean, class-by-class: ships, premium dining venues, and practical links to menus and packing lists."/>
+  <title>Royal Caribbean — In the Wake (v3.009)</title>
+  <meta name="description" content="Royal Caribbean, class-by-class and ship-by-ship: marketing-style blurbs, premium venues, menus, and packing tips."/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html"/>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007a"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.009"/>
+
   <style>
     .brand-title{display:none!important}
     .hero{position:relative}
@@ -16,11 +17,19 @@
     .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;opacity:.06;pointer-events:none}
     .grid{display:grid;gap:1rem}
     .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width:880px){.grid.cols-2{grid-template-columns:1fr}}
+    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media (max-width:1100px){.grid.cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:800px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}}
     .badge{display:inline-block;padding:.1rem .5rem;border:1px solid #d9b382;border-radius:999px;font-size:.78rem;background:#fff;margin-left:.35rem}
     .mini{font-size:.9rem}
     .list-tight li{margin:.2rem 0}
+    .ship{border:1px solid #eee;border-radius:.6rem;padding:.75rem;background:#fff}
+    .ship h4{margin:.2rem 0 .3rem}
+    .searchbar{position:sticky;top:0;background:#fff;z-index:5;border-bottom:1px solid #e9e9e9;padding:.75rem .75rem}
+    .searchbar input[type="search"]{width:100%;max-width:720px;padding:.65rem .8rem;border:1px solid #d8d8d8;border-radius:.6rem}
+    .muted{opacity:.75}
   </style>
+
   <style id="hero-vibrancy">
     .hero{background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat!important;filter:saturate(1.28) contrast(1.08) brightness(1.05)}
     .hero::before,.hero::after{content:none!important}
@@ -58,157 +67,244 @@
   </header>
 
   <main class="wrap" id="content">
-    <img class="page-watermark" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true">
+    <!-- NOTE: Removed the extra page watermark compass to avoid duplicate compass roses -->
 
+    <!-- TOP SEARCH -->
+    <section class="searchbar" id="search">
+      <label class="muted" for="shipSearch">Search Royal Caribbean ships</label>
+      <input id="shipSearch" type="search" placeholder="Type a ship name (e.g., Symphony, Icon, Mariner)…" autocomplete="off" aria-controls="searchResults">
+      <div id="searchResults" class="grid cols-3" aria-live="polite" style="margin-top:.75rem;"></div>
+    </section>
+
+    <!-- INTRO -->
     <section class="card">
       <h1>Royal Caribbean</h1>
-      <p>Neighborhood-style ships, headline entertainment, and a specialty-dining roster that can turn a sea day into a progressive tasting. Use the class guides below to jump straight to ships, then scan the venue lists to see what’s onboard before you book.</p>
-      <p class="mini">Packing for waterparks, formal nights, and windy pool decks? See our <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a> (swim shirts, magnet hooks, lanyards, and a small dry bag are MVPs on RCI).</p>
+      <p>Neighborhood-style ships, headline entertainment, and a specialty-dining bench deep enough to turn a sea day into a progressive tasting. Start with your class—Icon, Oasis, Freedom, Voyager, Radiance, Vision—then pick the ship whose vibe (and venues) match your crew.</p>
+      <p class="mini">Packing for slides, show nights, and breezy pool decks? See <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a> (reef-safe sunscreen, magnet hooks, lanyards, small dry bag = MVPs on RCI).</p>
     </section>
 
     <!-- COMING SOON -->
     <section class="card" id="coming-soon">
       <h2>Coming Soon</h2>
-      <p>We’re charting a full <em>depth sounding</em> of the Royal Caribbean experience—clear comparisons by class (Icon, Oasis, Freedom, Voyager, Radiance, Vision), with deck-flow notes, quiet corners, and “best at lunch on embarkation” picks.</p>
-      <p>You’ll also get an honest map of premium venues—what shines on which ships, typical pricing, and when to book versus walk up. Menus and venue pages will be linked ship-by-ship so you can plan nights in order, not in guesswork.</p>
-      <p>Finally, we’ll connect it all to real-world prep: cabin quirks, show reservations, splash-zone strategies, and targeted <a href="https://www.cruisinginthewake.com/packing.html">packing list</a> add-ons for Perfect Day at CocoCay, Alaska layers, and Mediterranean sun.</p>
+      <p>We’re charting a full <em>depth sounding</em> of Royal Caribbean—clear comparisons by class with deck-flow notes, quiet corners, and “eat-here-on-embarkation” tips so you can hit your groove fast.</p>
+      <p>You’ll also get an honest map of premium venues—what shines, typical surcharges, when to book vs. walk up—with links straight to menus and venue pages on a per-ship basis.</p>
+      <p>Finally, we’ll connect it all to real-world prep: cabin quirks, show reservations, Splashaway strategies, and targeted <a href="https://www.cruisinginthewake.com/packing.html">packing</a> for CocoCay, Alaska layers, and Med sun.</p>
     </section>
 
-    <!-- CLASSES -->
-    <section class="card">
+    <!-- CLASSES + SHIPS -->
+    <section class="card" id="classes">
       <h2>Ship Classes</h2>
 
-      <div class="grid cols-2">
-        <!-- ICON CLASS -->
-        <div class="card">
-          <h3>Icon Class <span class="badge">debut 2024</span></h3>
-          <ul class="list-tight">
-            <li><a href="https://www.cruisinginthewake.com/ships/icon-of-the-seas.html">Icon of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/star-of-the-seas.html">Star of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/star-of-the-seas-aug-2025-debut.html">Star of the Seas (Aug 2025 debut)</a></li>
-          </ul>
-          <p class="mini"><strong>Premium venues likely by class:</strong>
-            <a href="https://www.cruisinginthewake.com/restaurants.html#empire-supper-club">Empire Supper Club</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#wonderland">Wonderland</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#150-central-park">150 Central Park</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops Grille</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi Sushi</a> /
-            <a href="https://www.cruisinginthewake.com/restaurants.html#teppanyaki">Teppanyaki</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#hooked-seafood">Hooked Seafood</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#giovannis">Giovanni’s</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#jamies-italian">Jamie’s Italian</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#mason-jar">The Mason Jar</a>.
-          </p>
-          <p class="mini"><a href="https://www.cruisinginthewake.com/restaurants.html#royal-caribbean">All venues &amp; menus for Royal Caribbean</a> ·
-            <a href="https://www.cruisinginthewake.com/packing.html">Packing tips for waterpark days</a></p>
-        </div>
+      <!-- ICON CLASS -->
+      <article class="card" id="icon-class">
+        <h3>Icon Class <span class="badge">debut 2024</span></h3>
+        <p>Royal’s “world’s best family vacation” era: waterpark neighborhood, seven pools, and a show slate that spans air, ice, water, and stage. Expect maximal choice with smarter crowd flow and a grown-up palette of lounges for date-night escapes.</p>
+        <p class="mini"><strong>Premium venues by class (varies by ship):</strong>
+          <a href="https://www.cruisinginthewake.com/restaurants.html#empire-supper-club">Empire Supper Club</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#wonderland">Wonderland</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#150-central-park">150 Central Park</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops Grille</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi</a> /
+          <a href="https://www.cruisinginthewake.com/restaurants.html#teppanyaki">Teppanyaki</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#hooked-seafood">Hooked Seafood</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#giovannis">Giovanni’s</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>.
+          <span class="mini">See <a href="https://www.cruisinginthewake.com/restaurants.html#royal-caribbean">venues &amp; menus</a>.</span>
+        </p>
 
-        <!-- OASIS CLASS -->
-        <div class="card">
-          <h3>Oasis Class <span class="badge">mega-ships</span></h3>
-          <ul class="list-tight">
-            <li><a href="https://www.cruisinginthewake.com/ships/oasis-of-the-seas.html">Oasis of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/allure-of-the-seas.html">Allure of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/harmony-of-the-seas.html">Harmony of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/symphony-of-the-seas.html">Symphony of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/wonder-of-the-seas.html">Wonder of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/utopia-of-the-seas.html">Utopia of the Seas</a></li>
-          </ul>
-          <p class="mini"><strong>Premium venues (varies by ship):</strong>
-            <a href="https://www.cruisinginthewake.com/restaurants.html#150-central-park">150 Central Park</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#wonderland">Wonderland</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops Grille</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#giovannis">Giovanni’s</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi</a> /
-            <a href="https://www.cruisinginthewake.com/restaurants.html#teppanyaki">Teppanyaki</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#hooked-seafood">Hooked Seafood</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#mason-jar">The Mason Jar</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#portside-bbq">Portside BBQ</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#johnny-rockets">Johnny Rockets</a>.
-          </p>
-          <p class="mini"><a href="https://www.cruisinginthewake.com/packing.html">Packing for sea days &amp; show nights</a></p>
+        <div class="grid cols-3">
+          <div class="ship" data-name="Icon of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/icon-of-the-seas.html">Icon of the Seas</a></h4>
+            <p>The headline-maker. Category 6 slides, Surfside for families, adults-only Cloud 17, and an AquaDome that turns acrobatics into goosebumps. Big-ship energy with pockets of calm when you want them.</p>
+          </div>
+          <div class="ship" data-name="Star of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/star-of-the-seas.html">Star of the Seas</a></h4>
+            <p>Second in class and dialed for sun-chasing weeks: seven pools, party-forward weekends, and the same “something for everyone” engine—plus fresh tweaks to nightlife flow.</p>
+          </div>
+          <div class="ship" data-name="Star of the Seas (Aug 2025 debut)">
+            <h4><a href="https://www.cruisinginthewake.com/ships/star-of-the-seas-aug-2025-debut.html">Star of the Seas (Aug 2025 debut)</a></h4>
+            <p>Refinements on the formula you already know—Icon comfort with new show kits and venue placements. Watch this space for venue-by-venue coverage.</p>
+          </div>
         </div>
+      </article>
 
-        <!-- FREEDOM CLASS -->
-        <div class="card">
-          <h3>Freedom Class</h3>
-          <ul class="list-tight">
-            <li><a href="https://www.cruisinginthewake.com/ships/freedom-of-the-seas.html">Freedom of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/liberty-of-the-seas.html">Liberty of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/independence-of-the-seas.html">Independence of the Seas</a></li>
-          </ul>
-          <p class="mini"><strong>Premium venues commonly found:</strong>
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops Grille</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#giovannis">Giovanni’s</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#johnny-rockets">Johnny Rockets</a>.
-          </p>
-          <p class="mini"><a href="https://www.cruisinginthewake.com/packing.html">Weekend-cruise packing cheatsheet</a></p>
-        </div>
+      <!-- OASIS CLASS -->
+      <article class="card" id="oasis-class">
+        <h3>Oasis Class <span class="badge">neighborhood megaships</span></h3>
+        <p>The original “neighborhood” revolution: Central Park, Boardwalk, AquaTheater, and the Ultimate Abyss on many ships. Broadway-scale shows meet casual-to-premium dining and resort-level pool decks.</p>
+        <p class="mini"><strong>Premium venues (varies by ship):</strong>
+          <a href="https://www.cruisinginthewake.com/restaurants.html#150-central-park">150 Central Park</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#wonderland">Wonderland</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#giovannis">Giovanni’s</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi</a> /
+          <a href="https://www.cruisinginthewake.com/restaurants.html#teppanyaki">Teppanyaki</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#hooked-seafood">Hooked</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#mason-jar">The Mason Jar</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#portside-bbq">Portside BBQ</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>.
+        </p>
 
-        <!-- VOYAGER CLASS -->
-        <div class="card">
-          <h3>Voyager Class</h3>
-          <ul class="list-tight">
-            <li><a href="https://www.cruisinginthewake.com/ships/voyager-of-the-seas.html">Voyager of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/explorer-of-the-seas.html">Explorer of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/adventure-of-the-seas.html">Adventure of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/navigator-of-the-seas.html">Navigator of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/mariner-of-the-seas.html">Mariner of the Seas</a></li>
-          </ul>
-          <p class="mini"><strong>Premium venues often present:</strong>
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops Grille</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#giovannis">Giovanni’s</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#johnny-rockets">Johnny Rockets</a>.
-          </p>
-          <p class="mini"><a href="https://www.cruisinginthewake.com/packing.html">What to pack for laser tag &amp; slides</a></p>
+        <div class="grid cols-3">
+          <div class="ship" data-name="Oasis of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/oasis-of-the-seas.html">Oasis of the Seas</a></h4>
+            <p>The blueprint: Central Park strolls, Boardwalk fun, and big-evening theater. Perfect for first-timers who want “it all” without guesswork.</p>
+          </div>
+          <div class="ship" data-name="Allure of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/allure-of-the-seas.html">Allure of the Seas</a></h4>
+            <p>Entertainment-forward with classic Oasis charm—AquaTheater spectacles, family spaces that work all day, and easy dinner-to-show flow.</p>
+          </div>
+          <div class="ship" data-name="Harmony of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/harmony-of-the-seas.html">Harmony of the Seas</a></h4>
+            <p>“Go big on bold” energy: Ultimate Abyss dry slide, Perfect Storm waterslides, and a nightlife circuit that hums after dark.</p>
+          </div>
+          <div class="ship" data-name="Symphony of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/symphony-of-the-seas.html">Symphony of the Seas</a></h4>
+            <p>Variety king. Superb show package, Central Park date nights, and family magnets like laser tag and ice shows.</p>
+          </div>
+          <div class="ship" data-name="Wonder of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/wonder-of-the-seas.html">Wonder of the Seas</a></h4>
+            <p>Weekender icon: resort-style pools by day, party-forward neighborhoods by night, with CocoCay pairings that deliver max fun in short bursts.</p>
+          </div>
+          <div class="ship" data-name="Utopia of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/utopia-of-the-seas.html">Utopia of the Seas</a></h4>
+            <p>The “ultimate weekend” playbook—short sailings, big thrills, dialed dining. Think rapid-fire fun with zero compromise.</p>
+          </div>
         </div>
+      </article>
 
-        <!-- RADIANCE CLASS -->
-        <div class="card">
-          <h3>Radiance Class</h3>
-          <ul class="list-tight">
-            <li><a href="https://www.cruisinginthewake.com/ships/radiance-of-the-seas.html">Radiance of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/brilliance-of-the-seas.html">Brilliance of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/serenade-of-the-seas.html">Serenade of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/jewel-of-the-seas.html">Jewel of the Seas</a></li>
-          </ul>
-          <p class="mini"><strong>Premium venues typically seen:</strong>
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops Grille</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>.
-          </p>
-          <p class="mini"><a href="https://www.cruisinginthewake.com/packing.html">Alaska layers &amp; balcony essentials</a></p>
-        </div>
+      <!-- FREEDOM CLASS -->
+      <article class="card" id="freedom-class">
+        <h3>Freedom Class</h3>
+        <p>Sweet spot scale—big-ship staples without mega-ship sprawl. FlowRider surf, sports decks, comedy/live-music nights, and versatile dining that works for mixed-age groups.</p>
+        <p class="mini"><strong>Premium venues commonly found:</strong>
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#giovannis">Giovanni’s</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#johnny-rockets">Johnny Rockets</a>.
+        </p>
 
-        <!-- VISION CLASS (+ historical) -->
-        <div class="card">
-          <h3>Vision Class</h3>
-          <ul class="list-tight">
-            <li><a href="https://www.cruisinginthewake.com/ships/vision-of-the-seas.html">Vision of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/rhapsody-of-the-seas.html">Rhapsody of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/enchantment-of-the-seas.html">Enchantment of the Seas</a></li>
-            <li><a href="https://www.cruisinginthewake.com/ships/grandeur-of-the-seas.html">Grandeur of the Seas</a></li>
-          </ul>
-          <p class="mini"><strong>Premium venues (select ships):</strong>
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops Grille</a>,
-            <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>.
-          </p>
-          <p class="mini"><a href="https://www.cruisinginthewake.com/packing.html">Compact-ship packing (smart storage)</a></p>
-          <p class="mini"><strong>Historical:</strong> <a href="https://www.cruisinginthewake.com/ships/majesty-of-the-seas.html">Majesty of the Seas</a> (reference archive)</p>
+        <div class="grid cols-3">
+          <div class="ship" data-name="Freedom of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/freedom-of-the-seas.html">Freedom of the Seas</a></h4>
+            <p>Weekend warrior favorite: Perfect Day pairings, refreshed pool deck, and just-right variety for families and friend groups.</p>
+          </div>
+          <div class="ship" data-name="Liberty of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/liberty-of-the-seas.html">Liberty of the Seas</a></h4>
+            <p>FlowRider + Splashaway Bay + glow-in-the-dark laser tag = effortless sea days. Evenings swing from pub singalongs to steakhouse classics.</p>
+          </div>
+          <div class="ship" data-name="Independence of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/independence-of-the-seas.html">Independence of the Seas</a></h4>
+            <p>Short-sailing pro: dueling slides, sports-deck energy, and late-night venues that keep the vibe rolling.</p>
+          </div>
         </div>
-      </div>
+      </article>
+
+      <!-- VOYAGER CLASS -->
+      <article class="card" id="voyager-class">
+        <h3>Voyager Class</h3>
+        <p>The class that taught cruising to skate—literally. Ice rinks, Royal Promenade parades, and compact layouts that make “do it all” days surprisingly easy.</p>
+        <p class="mini"><strong>Premium venues often present:</strong>
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#giovannis">Giovanni’s</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#johnny-rockets">Johnny Rockets</a>.
+        </p>
+
+        <div class="grid cols-3">
+          <div class="ship" data-name="Voyager of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/voyager-of-the-seas.html">Voyager of the Seas</a></h4>
+            <p>Trailblazer that still punches above its weight: ice shows, rock wall views, and family-friendly flow on port-heavy routes.</p>
+          </div>
+          <div class="ship" data-name="Explorer of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/explorer-of-the-seas.html">Explorer of the Seas</a></h4>
+            <p>Easygoing crowd pleaser—great for “first RCI” trips. Expect promenade buzz, pool-deck contests, and classic specialty hits.</p>
+          </div>
+          <div class="ship" data-name="Adventure of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/adventure-of-the-seas.html">Adventure of the Seas</a></h4>
+            <p>Island-hopper spirit: Perfect Day pairs beautifully with laser tag and slide time; nights lean lively in the pub and Boleros.</p>
+          </div>
+          <div class="ship" data-name="Navigator of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/navigator-of-the-seas.html">Navigator of the Seas</a></h4>
+            <p>Short-cruise specialist out of LA: Blaster aqua coaster, double-size pool deck, and the Lime &amp; Coconut rooftop scene.</p>
+          </div>
+          <div class="ship" data-name="Mariner of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/mariner-of-the-seas.html">Mariner of the Seas</a></h4>
+            <p>Boredom-buster for 3–5 nights: Perfect Storm slides, Playmakers hangouts, and reliable specialty lineup.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- RADIANCE CLASS -->
+      <article class="card" id="radiance-class">
+        <h3>Radiance Class</h3>
+        <p>Glass-and-views ships built for scenery: Alaska, fjords, and coastals. Floor-to-ceiling windows, calmer vibe, and classic specialty pairings.</p>
+        <p class="mini"><strong>Premium venues typically seen:</strong>
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>.
+        </p>
+
+        <div class="grid cols-3">
+          <div class="ship" data-name="Radiance of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/radiance-of-the-seas.html">Radiance of the Seas</a></h4>
+            <p>Window-to-water cruising: quiet Solarium, theater nights, and scenery that’s part of the itinerary.</p>
+          </div>
+          <div class="ship" data-name="Brilliance of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/brilliance-of-the-seas.html">Brilliance of the Seas</a></h4>
+            <p>Refined and well-paced—wine at Vintages, steaks at Chops, and sunrise-at-sea views all over.</p>
+          </div>
+          <div class="ship" data-name="Serenade of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/serenade-of-the-seas.html">Serenade of the Seas</a></h4>
+            <p>Great Alaska fit: glass elevators to glaciers, easy deck flow, evenings with jazz or production shows.</p>
+          </div>
+          <div class="ship" data-name="Jewel of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/jewel-of-the-seas.html">Jewel of the Seas</a></h4>
+            <p>Smaller-ship warmth meets big-views DNA—ideal for port-intense Med and Caribbean runs.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- VISION CLASS -->
+      <article class="card" id="vision-class">
+        <h3>Vision Class</h3>
+        <p>Cozy classics with atrium life and big-itinerary charm. Think Bermuda, New England, or Caribbean hops with simpler logistics and personable crews.</p>
+        <p class="mini"><strong>Premium venues (select ships):</strong>
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops</a>,
+          <a href="https://www.cruisinginthewake.com/restaurants.html#chefstable">Chef’s Table</a>.
+          <span class="mini">Packing: <a href="https://www.cruisinginthewake.com/packing.html">smart storage &amp; formal-lite</a>.</span>
+        </p>
+
+        <div class="grid cols-3">
+          <div class="ship" data-name="Vision of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/vision-of-the-seas.html">Vision of the Seas</a></h4>
+            <p>Glass-canopy Solarium, promenade life in the Centrum, and itineraries that put ports first.</p>
+          </div>
+          <div class="ship" data-name="Rhapsody of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/rhapsody-of-the-seas.html">Rhapsody of the Seas</a></h4>
+            <p>Intimate, musical, and friendly—perfect for easygoing island chains and classic cocktails at sunset.</p>
+          </div>
+          <div class="ship" data-name="Enchantment of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/enchantment-of-the-seas.html">Enchantment of the Seas</a></h4>
+            <p>Stretch-added decks, great pool-day flow, and a nostalgic Royal feel that still feels fresh.</p>
+          </div>
+          <div class="ship" data-name="Grandeur of the Seas">
+            <h4><a href="https://www.cruisinginthewake.com/ships/grandeur-of-the-seas.html">Grandeur of the Seas</a></h4>
+            <p>Beloved “Grande Dame” vibe—crew-forward hospitality and atrium evenings that feel like a neighborhood.</p>
+          </div>
+          <div class="ship" data-name="Majesty of the Seas (Historical)">
+            <h4><a href="https://www.cruisinginthewake.com/ships/majesty-of-the-seas.html">Majesty of the Seas</a> <span class="mini">(archive)</span></h4>
+            <p>Historical reference: Royal’s compact classic—kept for context and nostalgia.</p>
+          </div>
+        </div>
+      </article>
     </section>
 
     <!-- VENUE INDEX NUDGE -->
-    <section class="card">
+    <section class="card" id="venues">
       <h2>Premium Venues (Quick Links)</h2>
-      <p class="mini">Browse menus, pricing notes, and ship coverage:</p>
       <p class="mini">
         <a href="https://www.cruisinginthewake.com/restaurants.html#chops-grille">Chops Grille</a> ·
         <a href="https://www.cruisinginthewake.com/restaurants.html#izumi">Izumi</a> /
@@ -251,5 +347,51 @@
   <footer class="wrap">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
   </footer>
+
+  <script>
+    // --- Simple ship search across this page ---
+    const indexShips = () => {
+      const cards = [...document.querySelectorAll('.ship')];
+      return cards.map(card => {
+        const name = card.dataset.name || card.querySelector('h4')?.innerText || '';
+        const url = card.querySelector('a')?.href || '#';
+        const blurb = card.querySelector('p')?.innerText || '';
+        return {name, url, blurb, el: card};
+      });
+    };
+
+    const SHIPS = indexShips();
+    const input = document.getElementById('shipSearch');
+    const results = document.getElementById('searchResults');
+
+    const renderResults = (list) => {
+      results.innerHTML = '';
+      list.slice(0, 12).forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'ship';
+        card.innerHTML = `
+          <h4><a href="${s.url}">${s.name}</a></h4>
+          <p class="mini">${s.blurb}</p>
+        `;
+        results.appendChild(card);
+      });
+      results.parentElement.style.display = list.length ? 'block' : 'block'; // keep space
+    };
+
+    const fusey = (q, s) => {
+      q = q.trim().toLowerCase();
+      if (!q) return [];
+      return s.filter(x => x.name.toLowerCase().includes(q) || x.blurb.toLowerCase().includes(q));
+    };
+
+    input?.addEventListener('input', () => renderResults(fusey(input.value, SHIPS)));
+
+    // Prefill with popular searches on focus
+    input?.addEventListener('focus', () => {
+      if (!input.value) {
+        renderResults(SHIPS.slice(0, 6));
+      }
+    });
+  </script>
 </body>
 </html>
