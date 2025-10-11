@@ -1,51 +1,17 @@
-<!--
-  In the Wake — Invocation Edition
-  Soli Deo Gloria · abondservant · Proverbs 3:5; Colossians 3:23
-  Page: /packing-lists.html · v3.006 · Built: 2025-10-10T00:00:00Z
--->
-
 <!doctype html>
 <html lang="en">
 <head>
+  <!--
+    In the Wake — Invocation Edition v3.006
+    “Soli Deo Gloria.” 1 Corinthians 10:31 · Proverbs 3:5–6
+    Authorship: abondservant (a bondservant of Christ). This work is offered as worship.
+    Timestamp: 2025-10-10T00:00:00Z
+  -->
+
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Packing Lists — In the Wake (v3.006)</title>
-  <meta name="version" content="v3.006"/>
-  <meta name="description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
-  <meta name="robots" content="index, follow"/>
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://www.cruisinginthewake.com/packing-lists.html"/>
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="article"/>
-  <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:url" content="https://www.cruisinginthewake.com/packing-lists.html"/>
-  <meta property="og:title" content="Packing Lists — In the Wake"/>
-  <meta property="og:description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/packing-hero.jpg?v=3.006"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Packing Lists",
-    "description": "Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings.",
-    "url": "https://www.cruisinginthewake.com/packing-lists.html",
-    "publisher": {
-      "@type": "Organization",
-      "name": "In the Wake",
-      "url": "https://www.cruisinginthewake.com/"
-    }
-  }
-  </script>
-
-  <!-- Standards v3.006: absolute URL + origin normalizer -->
+  <!-- Standards v3.006: Absolute URL + origin normalizer -->
   <script>
   (function(){
     var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
@@ -59,69 +25,109 @@
       ].join(',');
       document.querySelectorAll(sel).forEach(function(el){
         var attr=el.hasAttribute('href')?'href':'src';
-        try{ var u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(e){}
+        try{
+          var u=new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(_){}
       });
     },{once:true});
   })();
   </script>
 
-  <!-- External link hardener -->
+  <!-- External link hardening (target=_blank + noopener) -->
   <script>
-  (function(){
-    function isExternal(a){
-      try{ var u=new URL(a.href, location.href); return u.origin!==location.origin; }catch(_){ return false; }
-    }
-    document.addEventListener('click', function(e){
-      var a=e.target.closest&&e.target.closest('a[href]');
-      if(!a||!isExternal(a))return;
-      a.setAttribute('target','_blank');
-      if(!/\bnoopener\b/i.test(a.rel||'')) a.setAttribute('rel',(a.rel||'').trim()+' noopener');
-    },true);
-  })();
+  document.addEventListener('click', function(e){
+    var a=e.target.closest && e.target.closest('a[href]');
+    if(!a) return;
+    try{
+      var u=new URL(a.href, location.href);
+      if(u.origin!==location.origin){ a.target='_blank'; a.rel='noopener'; }
+    }catch(_){}
+  }, {capture:true});
   </script>
 
-  <!-- Site cache utility -->
-  <script src="/assets/js/site-cache.js?v=3.006" defer></script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Packing Lists — In the Wake (v3.006)</title>
+  <meta name="version" content="v3.006"/>
+  <meta name="description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
+  <meta name="robots" content="index, follow"/>
 
-  <!-- Service worker -->
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/packing-lists.html"/>
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/packing-lists.html"/>
+  <meta property="og:title" content="Packing Lists — In the Wake"/>
+  <meta property="og:description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/packing-hero.jpg?v=3.006"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- SiteCache + Service Worker (standards) -->
+  <script src="/assets/js/site-cache.js" defer></script>
   <script>
   if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('/sw.js').catch(function(){});
+    });
   }
   </script>
 
-  <!-- CSS -->
+  <!-- CSS (v3.006) -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
 
   <!-- Hero tuning -->
   <style id="hero-vibrancy">
-    .hero{ background:url('/assets/social/packing-hero.jpg?v=3.006') center/cover no-repeat!important;
-           filter:saturate(1.3) contrast(1.1) brightness(1.05); }
-    .hero::before,.hero::after{ content:none!important; }
+    .hero{ background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
+           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
+    .hero::before,.hero::after{ content:none!important }
   </style>
 
-  <!-- 3-up grid + watermark -->
-  <style>
+  <!-- Responsive grid utilities -->
+  <style id="itw-grid-3">
     .grid-3{ display:grid; gap:1.2rem; grid-template-columns:1fr; }
     @media (min-width:680px){ .grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (min-width:1024px){ .grid-3{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
-    .card{ position:relative; overflow:hidden; }
+  </style>
+
+  <!-- Card watermark (light) -->
+  <style id="card-watermark">
+    .card{ position:relative; overflow:hidden }
     .card::after{
       content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%,360px); height:min(60%,360px);
+      width:min(60%, 360px); height:min(60%, 360px);
       background:url('/assets/watermark.png') center/contain no-repeat;
       opacity:.06; pointer-events:none;
     }
-    .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
-    .skip-link:focus{ position:fixed; left:12px; top:12px; width:auto; height:auto; padding:.45rem .7rem;
-      background:#fff; border:2px solid var(--accent,#0e6e8e); border-radius:10px; z-index:9999; }
   </style>
 
-  <!-- Preload -->
+  <!-- A11y helpers -->
+  <style>
+    .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip-link:focus{ position:fixed; left:12px; top:12px; width:auto; height:auto; padding:.45rem .7rem;
+      background:#fff; border:2px solid var(--accent, #0e6e8e); border-radius:10px; z-index:9999; }
+    :focus-visible{ outline:3px solid var(--accent, #0e6e8e); outline-offset:2px; }
+    @media (prefers-reduced-motion: reduce){
+      *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+    }
+    @media (forced-colors: active){
+      :focus-visible{ outline:2px solid CanvasText; box-shadow:none!important; }
+    }
+  </style>
+
+  <!-- Safe preload (small SVG) -->
   <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 </head>
-
 <body class="page">
+  <!--
+    Invocation footer header marker:
+    Everything we build is offered to God. “Soli Deo Gloria.”
+    If you’re reading this source, may your voyage be blessed with fair winds and following seas.
+  -->
+
+  <!-- Skip link -->
   <a class="skip-link" href="#content">Skip to main content</a>
 
   <header class="hero-header">
@@ -145,38 +151,117 @@
       </nav>
     </div>
 
-    <div class="hero" role="img" aria-label="Open suitcase with cruise essentials">
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" width="180" height="180"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-      <div class="hero-credit">
-        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
+      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty">Instagram</a></div>
     </div>
   </header>
 
   <main class="wrap" id="content">
-    <section class="card">
-      <h1>Packing Lists</h1>
-      <p>Your cruise starts before embarkation — with a smartly packed bag. Use these trip-tested checklists to prepare for every sailing, from solo to family adventures.</p>
+    <aside class="floating-note" aria-live="polite" aria-label="Important note">
+      <h3>Important</h3>
+      <p><strong>Photograph your travel documents.</strong> Keep images of passports, IDs, visas, and insurance cards on your phone (and a cloud backup). If wallets go missing or you need embassy help, this speeds everything up.</p>
+    </aside>
+
+    <!-- Sticky secondary pill nav -->
+    <nav class="pill-nav pills" aria-label="On-page sections" id="section-nav" style="position:sticky; top:0; z-index:6; background:var(--sky); padding:.4rem .2rem; border-bottom:2px solid var(--rope)">
+      <a class="pill" href="#carryon">Carry-On</a>
+      <a class="pill" href="#men">Men</a>
+      <a class="pill" href="#women">Women</a>
+      <a class="pill" href="#everyone">Everyone</a>
+      <a class="pill" href="#families">Families</a>
+      <a class="pill" href="#tips">Tips</a>
+    </nav>
+
+    <section class="card" aria-labelledby="carryon">
+      <h1 id="carryon">Carry-on Essentials</h1>
+      <p>Keep these with you on embarkation day and on flights. Assume checked bags might be delayed.</p>
+      <ul>
+        <li>Passport and/or birth certificate + photo ID</li>
+        <li>Cruise &amp; flight boarding passes</li>
+        <li>Travel insurance &amp; medical cards</li>
+        <li>Emergency contact list (printed)</li>
+        <li>Cash, credit/debit cards, wallet</li>
+        <li>Phone, charger &amp; power bank</li>
+        <li>Medications (original containers)</li>
+        <li>Glasses/contacts</li>
+        <li>Deodorant &amp; small toiletries (TSA-size when flying)</li>
+        <li>Change of clothes &amp; swimwear</li>
+        <li>Reusable water bottle</li>
+        <li>Seasickness medication</li>
+        <li>Snacks</li>
+        <li>Hand sanitizer &amp; wipes</li>
+        <li>Headphones / ear plugs / eye mask</li>
+        <li>Hotel info &amp; keys</li>
+        <li>Document holder or money belt</li>
+        <li>Pen &amp; photocopies of ID/credit cards</li>
+      </ul>
     </section>
 
-    <!-- Core content -->
-    <section class="grid-3" aria-label="Packing list sections">
-      <!-- Cards truncated for brevity -->
-      <section class="card" aria-labelledby="carryon">
-        <h2 id="carryon">Carry-On Essentials</h2>
-        <p>Keep these with you on embarkation day and flights. Assume checked bags may be delayed.</p>
+    <section class="grid-3" aria-label="Packing lists by audience">
+      <section class="card" aria-labelledby="men">
+        <h2 id="men">Men</h2>
         <ul>
-          <li>Passport and/or birth certificate + photo ID</li>
-          <li>Boarding passes, travel insurance cards</li>
-          <li>Medications in original containers</li>
-          <li>Phone, charger, and power bank</li>
-          <li>Change of clothes and swimwear</li>
-          <li>Reusable water bottle, snacks, sanitizer</li>
+          <li>Activewear</li>
+          <li>Swimwear / bathing suits</li>
+          <li>Footwear appropriate to your plans (formal shoes, comfy walking shoes, hiking boots, flip-flops)</li>
+          <li>Water shoes</li>
+          <li>Sneakers / athletic shoes</li>
+          <li>Sandals / flip-flops</li>
+          <li>Casual shirts (t-shirts, polos)</li>
+          <li>Shorts</li>
+          <li>Jeans</li>
+          <li>Sweaters / hoodies</li>
+          <li>Jacket</li>
+          <li>Socks</li>
+          <li>Undergarments / undershirts</li>
+          <li>Dress shirts</li>
+          <li>Slacks</li>
+          <li>Tie</li>
+          <li>Formal wear (requirements vary by cruise line)</li>
+          <li>Belt(s)</li>
+          <li>Shaving supplies</li>
+          <li>Hair product / comb / brush</li>
+        </ul>
+        <p class="note">Cold-weather layers are only needed on certain itineraries. See <a href="/ports.html">Ports</a> for typical weather by destination.</p>
+        <p class="note">Formal night expectations vary by cruise line—check your sailing to avoid over- or under-packing.</p>
+      </section>
+
+      <section class="card" aria-labelledby="women">
+        <h2 id="women">Women</h2>
+        <ul>
+          <li>Activewear</li>
+          <li>Swimwear / bathing suits</li>
+          <li>Footwear appropriate to your plans (formal shoes, comfy walking shoes, hiking boots, flip-flops)</li>
+          <li>Water shoes</li>
+          <li>Sneakers / athletic shoes</li>
+          <li>Sandals / flip-flops</li>
+          <li>Casual tops (t-shirts, tanks, blouses)</li>
+          <li>Shorts</li>
+          <li>Jeans</li>
+          <li>Skirts</li>
+          <li>Dresses</li>
+          <li>Pajamas</li>
+          <li>Sweaters / hoodies</li>
+          <li>Jacket</li>
+          <li>Socks</li>
+          <li>Undergarments (bras/underwear)</li>
+          <li>Stockings (as desired)</li>
+          <li>Heels / dress shoes</li>
+          <li>Formal wear</li>
+          <li>Belt(s)</li>
+          <li>Makeup / brushes / remover</li>
+          <li>Hair elastics / clips / scrunchies</li>
+          <li>Hair product / tools (dryer/iron if needed)</li>
+          <li>Purse</li>
+          <li>Pashmina</li>
+          <li>Scarf</li>
+          <li>Perfume / travel atomizer</li>
         </ul>
       </section>
 
@@ -184,66 +269,233 @@
         <h2 id="everyone">Everyone</h2>
         <ul>
           <li>Aloe &amp; sunscreen</li>
-          <li>Toiletries, hairbrush, deodorant</li>
-          <li>Magnetic hooks, laundry clips, zip bags</li>
-          <li>Rain jacket or umbrella</li>
-          <li>Converter / adapter (international)</li>
+          <li>Bug spray</li>
+          <li>First-aid kit &amp; pain reliever</li>
+          <li>Moisturizer &amp; lip balm</li>
+          <li>Dental floss &amp; kit</li>
+          <li>Toothbrush / toothpaste / mouthwash</li>
+          <li>Shampoo / conditioner (travel sizes if flying)</li>
+          <li>Soap / body wash</li>
+          <li>Contacts, solution &amp; case (plus glasses)</li>
+          <li>Reusable water bottle</li>
+          <li>Keycard lanyard</li>
+          <li>Magnetic hooks</li>
+          <li>Laundry items (dryer sheets, clips, bags)</li>
+          <li>Rain jacket / compact umbrella</li>
+          <li>Day pack / beach bag</li>
+          <li>Swim goggles</li>
+          <li>Wet bags / zip-top bags</li>
+          <li>Converter / adapter <small>(needed when departing or staying in countries with different outlets)</small></li>
         </ul>
       </section>
 
       <section class="card" aria-labelledby="families">
         <h2 id="families">Families</h2>
         <ul>
-          <li>Baby gear (diapers, wipes, bottles)</li>
-          <li>Compact stroller or carrier</li>
-          <li>Tablets loaded with shows &amp; games</li>
-          <li>Travel-size first-aid kit</li>
+          <li>Baby gear (diapers, wipes, formula, bottles)</li>
+          <li>Stroller or baby carrier (compact)</li>
+          <li>Portable crib or bed rail (if required by line)</li>
+          <li>Age-appropriate toys &amp; books</li>
+          <li>Tablets/phones with downloaded shows &amp; games</li>
+          <li>Note: some stateroom TVs allow HDMI inputs for game consoles—this varies by ship/line; check with your cruise line.</li>
         </ul>
       </section>
     </section>
 
-    <section class="card" id="tips">
-      <h2>Packing Tips</h2>
-      <p>Tap to expand each tip below:</p>
-      <details><summary>Pack a smart carry-on</summary><p>Keep IDs, meds, and cruise docs with you; assume luggage delays.</p></details>
-      <details><summary>Know dress codes</summary><p>Main dining is resort casual; formal night expectations vary.</p></details>
-      <details><summary>Use packing cubes</summary><p>Segment outfits and compress soft items for easier unpacking.</p></details>
-      <details><summary>Photo your documents</summary><p>Store passport &amp; insurance images on your phone and in the cloud.</p></details>
-      <details><summary>Split family luggage</summary><p>Mix everyone’s clothes across bags — no one stranded if one is lost.</p></details>
+    <!-- TIPS — grouped subsections, verbatim content preserved -->
+    <section class="card" id="tips" aria-labelledby="tips-title">
+      <h2 id="tips-title">Tips</h2>
+      <p>Click to expand each tip.</p>
+
+      <!-- Preparation & Flights -->
+      <h3 id="tips-prep">Preparation &amp; Flights</h3>
+      <details>
+        <summary>1) Plan around flights and liquid rules</summary>
+        <div class="tip-body">
+          <p>If you’re flying, know your airline’s weight and bag count limits before you pack. Weigh checked bags at home and leave a little “souvenir margin.” TSA’s 3-1-1 rule applies to carry-ons: liquids, gels, and aerosols must be in containers ≤ 3.4 oz / 100 ml inside a single quart-size bag. That includes toothpaste, mouthwash, lotions, and hair products.</p>
+          <p>Flying internationally? Double-check your connection airports: some security re-screens even mid-journey and will re-enforce 3-1-1 on duty-free liquids unless they’re in STEBs (sealed duty-free bags).</p>
+        </div>
+      </details>
+      <details>
+        <summary>2) Pack a smart carry-on</summary>
+        <div class="tip-body">
+          <p>Your checked bags can take hours to reach your stateroom on embarkation day. Put meds, IDs, cruise documents, valuables, a change of clothes, swimwear, sunscreen, and chargers in your carry-on. If an airline misroutes a suitcase, you can still enjoy day one. Include a compact power bank and a small toiletries kit that satisfies 3-1-1.</p>
+          <p>Some lines offer priority services (e.g., Royal Caribbean’s “The Key”) that include expedited boarding, a welcome lunch, reserved seating, VOOM internet, and <strong>baggage delivery to your stateroom</strong>. Check your line for details.</p>
+        </div>
+      </details>
+
+      <!-- Luggage & Wardrobe Strategy -->
+      <h3 id="tips-luggage">Luggage &amp; Wardrobe Strategy</h3>
+      <details>
+        <summary>3) Edit your checked luggage</summary>
+        <div class="tip-body">
+          <p>Lay out everything, then remove the “maybes.” You rarely need duplicate silhouettes (three black pants!)—swap tops and accessories instead. If traveling as a family, split everyone’s clothing between two suitcases so no one is stuck with nothing if a bag goes missing.</p>
+          <p>Roll garments (or use folder boards) to save space and reduce creases.</p>
+        </div>
+      </details>
+      <details>
+        <summary>4) Know dress codes</summary>
+        <div class="tip-body">
+          <p>Most mainstream lines trend “resort casual” at dinner; premium/luxury lines (e.g., Cunard) may enforce formal nights. Check your line’s guidance and pack accordingly (a simple collared shirt + slacks or a sundress covers most nights). Specialty restaurants may have stricter expectations than the main dining room. Theme nights are fun but optional—don’t overpack for them.</p>
+        </div>
+      </details>
+      <details>
+        <summary>5) Use packing aids</summary>
+        <div class="tip-body">
+          <p>Packing cubes segment outfits (pool, nightwear, gym) and make unpacking instant. Compression cubes or bags shrink soft items (tees/athleisure). A small laundry bag and a few extra zip-tops keep damp or sandy things separated for the flight home.</p>
+        </div>
+      </details>
+      <details>
+        <summary>6) Laundry options</summary>
+        <div class="tip-body">
+          <p>Some ships have self-serve laundromats; many offer paid wash-and-fold or per-item service. If you plan to pack light, confirm your ship’s options and prices. Travel detergent sheets and a sink-stopper handle quick rinses; a collapsible line or a handful of clips speeds drying.</p>
+        </div>
+      </details>
+      <details>
+        <summary>7) Toiletries reality check</summary>
+        <div class="tip-body">
+          <p>Mainstream lines often supply only wall-mounted soap/shampoo. If you care about hair/skin products, bring travel sizes of conditioner and lotion. Most cabins include a basic hair dryer—leave your heavy one at home unless you need a specific tool.</p>
+        </div>
+      </details>
+      <details>
+        <summary>10) Re-wear smartly</summary>
+        <div class="tip-body">
+          <p>Bottoms (jeans, chinos) can be worn twice; refresh with different tops. Scarves, ties, and jewelry change the look without adding bulk.</p>
+        </div>
+      </details>
+      <details>
+        <summary>17) Pack lighter than you think</summary>
+        <div class="tip-body">
+          <p>No one’s keeping score on outfit repeats. Pack what’s relevant to your itinerary and needs; most forgotten items can be bought onboard (at a markup) or in port. Aim for versatility, not volume.</p>
+        </div>
+      </details>
+
+      <!-- Onboard, Ports & Tech -->
+      <h3 id="tips-onboard">Onboard, Ports &amp; Tech</h3>
+      <details>
+        <summary>8) Pack for destination &amp; activities</summary>
+        <div class="tip-body">
+          <p>Match outfits to what you’ll do ashore: breathable layers and comfy walking shoes for sightseeing; water shoes for rocky or coral beaches; modest coverage for religious sites (shoulders/knees). Don’t guess the climate—review each stop on the <a href="/ports.html">Ports</a> page for typical temps and notes.</p>
+        </div>
+      </details>
+      <details>
+        <summary>9) Leave room for souvenirs</summary>
+        <div class="tip-body">
+          <p>Plan a little space—or pack a foldable duffel you can check on the way home. Bubble-wrap or a padded packing cube keeps fragile items intact.</p>
+        </div>
+      </details>
+      <details>
+        <summary>11) Don’t forget the basics</summary>
+        <div class="tip-body">
+          <p>OTC meds, sunscreen, batteries, memory cards, ear plugs, and travel adapters cost more onboard. If cruising with kids, pre-load a tablet with offline shows and a couple of small games/books.</p>
+        </div>
+      </details>
+      <details>
+        <summary>16) PPE varies by port</summary>
+        <div class="tip-body">
+          <p>Mask rules change by country and can return temporarily. Check each stop on the <a href="/ports.html">Ports</a> page and your line’s travel updates a week before sailing.</p>
+        </div>
+      </details>
+      <details>
+        <summary>18) Temperatures on board</summary>
+        <div class="tip-body">
+          <p>Indoor spaces often sit around low-70s °F (21–22 °C). If you tend to run cool, a light layer helps in the theater or dining room. Tropical itineraries are often warm even in winter; though they can still be breezy or wet—bring a packable rain layer. See our <a href="/ports.html">Ports</a> page for more details.</p>
+        </div>
+      </details>
+      <details>
+        <summary>19) Power: adapters &amp; converters</summary>
+        <div class="tip-body">
+          <p>Most cabins have U.S. and sometimes EU outlets. Power strips and extension cords are generally prohibited. Bring a compact multi-USB wall charger (no cord, no surge suppression). Converters are only needed if you’ll spend nights pre/post-cruise in regions with different voltage (e.g., 230V Europe) and your devices aren’t dual-voltage.</p>
+        </div>
+      </details>
+      <details>
+        <summary>20) Tech &amp; gaming</summary>
+        <div class="tip-body">
+          <p>Some stateroom TVs accept HDMI; others are locked down. If connecting a console matters, ask your cruise line about your specific ship. Download shows, playlists, maps, and reading for offline use before you sail.</p>
+        </div>
+      </details>
+      <details>
+        <summary>21) Theme Nights</summary>
+        <div class="tip-body">
+          <p>Cruise ships often host theme nights you can enjoy without over-packing. Common examples include: Formal Night, White Night, Caribbean Night, Decades Nights, and other special events.</p>
+          <p><em>How to confirm:</em> Check the daily planner in your cruise line’s app in the weeks before sailing or once onboard.</p>
+        </div>
+      </details>
+      <details>
+        <summary>22) Social Media Groups</summary>
+        <div class="tip-body">
+          <p>Connect with fellow cruisers via <strong>roll call groups</strong> organized by ship and sail date. Great for excursion buddies, cabin crawls, and pre-trip Q&amp;A.</p>
+          <ul>
+            <li><strong>Cruise Critic Roll Calls</strong> — <a href="https://boards.cruisecritic.com/forum/20-roll-calls/">Browse the forums</a>.</li>
+            <li><strong>Facebook Groups</strong> — Search using the ship’s full name and the date written out with the year.</li>
+          </ul>
+          <p><strong>Date tip:</strong> Write out the date (month day, year). Short formats like <code>01/04/22</code> mean different things in different countries.</p>
+        </div>
+      </details>
+
+      <!-- Documents & Safety -->
+      <h3 id="tips-docs">Documents &amp; Safety</h3>
+      <details>
+        <summary>12) Keep IDs with you</summary>
+        <div class="tip-body">
+          <p>Carry passports OR an original birth certificate (raised seal) + photo ID, visas, vaccination proof (if required), and cruise docs in your personal item—not checked luggage. Keep paper copies in a separate bag.</p>
+        </div>
+      </details>
+      <details>
+        <summary>13) Prohibited items (know before you pack)</summary>
+        <div class="tip-body">
+          <p>Commonly restricted: irons/steamers, surge-protected power strips, candles/incense, hot plates, drones (ship-dependent), weapons, and certain knives. Check your cruise line’s banned list; policies vary and are enforced at embarkation.</p>
+        </div>
+      </details>
+      <details>
+        <summary>14) Photo your documents</summary>
+        <div class="tip-body">
+          <p>Store clear photos of passports/IDs, travel insurance, and cards on your phone (and one cloud location). If originals are lost, these speed replacement.</p>
+          <aside class="callout"><strong>Vital:</strong> Keep digital copies of IDs &amp; tickets on your phone. It’s a lifesaver in emergencies.</aside>
+        </div>
+      </details>
+      <details>
+        <summary>15) Emergency contacts</summary>
+        <div class="tip-body">
+          <p>Carry a printed sheet with your emergency contacts, your cruise line’s guest services/emergency number, travel insurer hotline, and your ship’s name. Put a copy in each suitcase, too.</p>
+        </div>
+      </details>
     </section>
   </main>
 
   <footer class="wrap" role="contentinfo">
-    <div class="affiliate-banner">
-      This site is a labor of love. Some pages use affiliate links; purchasing through them helps keep the lights on. Thank you for supporting independent, gospel-minded work at sea.
+    <div class="affiliate-banner" aria-label="Affiliate disclosure">
+      This site is a labor of love. Some pages use affiliate links; purchasing through them is the easiest way to say thanks and helps keep the lights on. We appreciate you!
     </div>
     <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
   </footer>
 
-  <!-- Floating share bar -->
-  <script defer src="/assets/js/share-bar.js?v=3.006"></script>
+  <!-- Universal floating share bar -->
+  <script defer src="/assets/js/share-bar.js?v=1.2"></script>
 
-  <!-- Smart Warmup -->
+  <!-- Smart Warmup / Cache -->
   <script>
   (function(){
     const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
     const ready=(fn)=> (document.readyState==='loading'
-      ? document.addEventListener('DOMContentLoaded',fn,{once:true})
+      ? document.addEventListener('DOMContentLoaded', fn, {once:true})
       : fn());
-    const idle=(fn)=>('requestIdleCallback' in window?requestIdleCallback(fn,{timeout:2500}):setTimeout(fn,200));
+    const idle=(fn)=> ('requestIdleCallback' in window ? requestIdleCallback(fn, {timeout:2500}) : setTimeout(fn, 200));
+
     function ensureSiteCache(){
       return new Promise((resolve)=>{
         if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
         const s=document.createElement('script');
-        s.src=abs('/assets/js/site-cache.js?v=3.006'); s.defer=true;
+        s.src=abs('/assets/js/site-cache.js'); s.defer=true;
         s.onload=resolve; s.onerror=resolve;
         document.head.appendChild(s);
       });
     }
-    function warm(u){ try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{});}catch(_){}} 
+    function warm(urls){ (urls||[]).forEach(u=>{ try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{});}catch(_){}} ); }
+
     ready(()=>{
-      ['logo_wake.png','compass_rose.svg','watermark.png'].map(x=>warm(abs('/assets/'+x)));
-      idle(async()=>{
+      warm([abs('/assets/logo_wake.png'),abs('/assets/compass_rose.svg'),abs('/assets/watermark.png')]);
+      idle(async ()=>{
         try{
           await ensureSiteCache();
           await Promise.allSettled([
@@ -256,10 +508,10 @@
   </script>
 
   <!--
-    Invocation Signature · Soli Deo Gloria
-    “Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
-    “Trust in the LORD with all your heart…” — Proverbs 3:5
-    Steward: abondservant · Timestamp (UTC): 2025-10-10T00:00:00Z · v3.006
+    Invocation Edition footer note:
+    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31
+    “Trust in the LORD with all your heart … He will make straight your paths.” — Prov 3:5–6
+    Signed: abondservant · Soli Deo Gloria.
   -->
 </body>
 </html>
