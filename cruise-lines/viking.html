@@ -3,26 +3,29 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Viking — In the Wake (v2.206)</title>
-  <meta name="description" content="Viking: quiet luxury, destination immersion, and Nordic calm. Adults-only ships with included beer & wine at meals, Wi-Fi, laundry and select excursions."/>
+  <title>Viking — In the Wake (v2.207)</title>
+  <meta name="description" content="Viking: quiet luxury, destination immersion, and Nordic calm. Adults-only ships with beer & wine at meals, Wi-Fi, laundry, and select excursions included."/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/viking.html"/>
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006"/>
 
-  <!-- a11y utility only, everything else relies on global CSS -->
+  <!-- a11y utility only -->
   <style>
     .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:0;top:0;width:auto;height:auto;background:#fff;border:2px solid #000;padding:.5rem;z-index:10000}
   </style>
 </head>
 
 <body class="page">
-  <header class="hero-header" role="banner">
-    <div class="navbar" role="navigation" aria-label="Global">
+  <a href="#content" class="skip-link">Skip to content</a>
+
+  <header class="hero-header">
+    <nav class="navbar" aria-label="Global">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
-        <span class="version-badge">v2.206</span>
+        <span class="version-badge">v2.207</span>
       </div>
-
-      <nav class="nav">
+      <div class="nav">
         <a href="https://www.cruisinginthewake.com/">Home</a>
         <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
         <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
@@ -33,47 +36,48 @@
         <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
         <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
         <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
-      </nav>
-    </div>
+        <a href="https://www.cruisinginthewake.com/cruise-lines.html" aria-current="page">Cruise Lines</a>
+      </div>
+    </nav>
 
-    <!-- Global stylesheet provides the hero background and 1 compass -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+    <!-- hero: background and single compass come from your global CSS -->
+    <div class="hero">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg"
+           alt="" width="86" height="86" decoding="async"/>
       <div class="hero-title">
         <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
-        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
+          Photo © Flickers of Majesty
+        </a>
       </div>
     </div>
   </header>
 
-  <main id="content" class="wrap" role="main">
+  <main id="content" class="wrap">
     <!-- Top: Search -->
     <section id="search" class="card" aria-labelledby="search-title">
       <h2 id="search-title">Search Ships</h2>
       <form id="shipSearchForm" class="search" role="search" aria-label="Ship search">
         <label for="shipSearch" class="visually-hidden">Search by ship name</label>
         <div class="actions">
-          <input id="shipSearch" name="q" type="search" autocomplete="off"
-                 placeholder="Type a ship name… (tolerates typos)" aria-controls="searchResults"/>
+          <input id="shipSearch" name="q" type="search" placeholder="Type a ship name… (tolerates typos)"
+                 autocomplete="off" aria-controls="searchResults"/>
           <button id="btnSearch" type="submit">Search</button>
         </div>
       </form>
-      <div id="searchResults" class="" aria-live="polite"></div>
+      <div id="searchResults" aria-live="polite"></div>
       <noscript><p class="tiny">JavaScript is off. Use the <a href="#ships">Ships A–Z list</a> below.</p></noscript>
     </section>
 
-    <!-- Page header -->
     <header class="site-header" aria-labelledby="page-title">
       <h1 id="page-title">Viking</h1>
       <p class="tiny">Quiet luxury, destination immersion, and Nordic calm. No kids. No casinos.</p>
     </header>
 
-    <!-- Lead card -->
     <section class="card" aria-labelledby="lead-title">
       <h2 id="lead-title">Why Viking</h2>
       <p>Viking keeps the spotlight on the destination: resident historians, chamber music, and unhurried days carried by clean Scandinavian design. Ships feel like boutique hotels at sea — serene spaces that frame the view rather than compete with it.</p>
@@ -130,21 +134,19 @@
       <h2 id="gallery-title">Gallery</h2>
       <div class="grid-3">
         <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-star.html">
-          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-1.jpg" alt=""></span>
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-1.jpg" alt="Viking Star underway" width="640" height="426" loading="lazy" decoding="async"></span>
           <span class="body"><strong>Viking Star</strong><span class="badge">Ocean</span></span>
         </a>
         <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-sea.html">
-          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt=""></span>
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt="Viking Sea deck view" width="640" height="426" loading="lazy" decoding="async"></span>
           <span class="body"><strong>Viking Sea</strong><span class="badge">Ocean</span></span>
         </a>
         <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-bragi.html">
-          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt=""></span>
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt="Viking Bragi on the river" width="640" height="426" loading="lazy" decoding="async"></span>
           <span class="body"><strong>Viking Bragi</strong><span class="badge">Longship</span></span>
         </a>
       </div>
     </section>
-
-    <footer class="tiny">© 2025 In the Wake — Compiled by Ken</footer>
   </main>
 
   <footer class="wrap">
