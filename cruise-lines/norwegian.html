@@ -1,208 +1,296 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!--
+    In the Wake — Norwegian Cruise Line (v3.007a)
+    Reverently crafted. Soli Deo Gloria.
+  -->
+
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Standards: absolute URL + origin normalizer -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+"//"+location.host)).replace(/\/$/,'');
+    window._abs=p=>{p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p};
+    document.addEventListener('DOMContentLoaded',()=>{
+      const sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{ const u=new URL(el.getAttribute(attr));
+             el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(_){}
+      });
+    },{once:true});
+  })();
+  </script>
+
+  <!-- External link hardening -->
+  <script>
+  document.addEventListener('click',e=>{
+    const a=e.target.closest&&e.target.closest('a[href]'); if(!a) return;
+    try{ const u=new URL(a.href,location.href);
+         if(u.origin!==location.origin){ a.target='_blank'; a.rel='noopener'; }
+    }catch(_){}
+  },{capture:true});
+  </script>
+
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Norwegian — In the Wake (v2.202)</title>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
-  
-<style id="brand-title-hide">.brand-title{display:none!important}</style>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Norwegian — In the Wake (v3.007a)</title>
+  <meta name="version" content="v3.007a"/>
+  <meta name="description" content="Norwegian Cruise Line at a glance — ship classes, standout venues, accessibility notes, and practical tips."/>
+  <meta name="robots" content="index,follow"/>
 
-  <style id="hero-credit-css">
-    .hero{ position:relative }
-    .hero-credit{
-      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.12);
+  <!-- Canonical / Social -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/norwegian.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/cruise-lines/norwegian.html"/>
+  <meta property="og:title" content="Norwegian Cruise Line — In the Wake"/>
+  <meta property="og:description" content="Freestyle cruising with ship classes, venues, and honest traveler notes."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/cruise-lines-hero.jpg?v=3.007a"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
+    {"@type":"ListItem","position":2,"name":"Cruise Lines","item":"https://www.cruisinginthewake.com/cruise-lines/"},
+    {"@type":"ListItem","position":3,"name":"Norwegian","item":"https://www.cruisinginthewake.com/cruise-lines/norwegian.html"}
+  ]}
+  </script>
+
+  <!-- SiteCache + SW -->
+  <script src="/assets/js/site-cache.js" defer></script>
+  <script>
+  if('serviceWorker' in navigator){
+    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.007a"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+
+  <!-- Page styles (single hero; no duplication with global .hero) -->
+  <style>
+    :root{ --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e; }
+    body.page{ background:linear-gradient(var(--foam),#fff 240px); color:var(--ink); }
+
+    /* Keep global hero but adjust vibrancy only, without adding a second hero layer */
+    .hero-header .hero{
+      filter:saturate(1.18) contrast(1.06) brightness(1.04);
     }
-  </style>
+    .hero::before,.hero::after{ content:none!important; }
 
+    /* Hide duplicate brand title blocks from older snippets */
+    .brand-title{ display:none!important; }
 
-  <style id="card-watermark">
+    /* Card watermark, subtle and accessible */
     .card{ position:relative; overflow:hidden }
     .card::after{
       content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
+      width:min(60%,360px); height:min(60%,360px);
+      background:url('/assets/watermark.png') center/contain no-repeat;
       opacity:.06; pointer-events:none;
     }
+
+    /* Local grids for gallery & lists */
+    .grid{ display:grid; gap:1rem; }
+    .grid.gallery{ grid-template-columns:1fr; }
+    @media (min-width:800px){ .grid.gallery{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+    /* Small badges */
+    .badge{ display:inline-block; font-size:.78rem; padding:.1rem .45rem; border:1px solid var(--rope);
+            border-radius:999px; background:#fff; margin-left:.35rem; }
+
+    /* Search area */
+    .search{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+    .search input[type="search"]{ flex:1 1 260px; padding:.55rem .7rem; border:1px solid #cfe1ea; border-radius:10px; }
+    .search button{ padding:.55rem .8rem; border:1px dashed var(--rope); border-radius:10px; background:#fff; cursor:pointer; }
+    #searchResults .result{ padding:.6rem .7rem; border:1px solid var(--rope); border-radius:12px; background:#fff; }
   </style>
-
-  <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/norwegian.html"/>
-
-  <style id="hero-vibrancy">
-    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
-    .hero::before,.hero::after{ content:none!important }
-  </style>
-
 </head>
+
 <body class="page">
+  <a class="skip-link" href="#content">Skip to main content</a>
+
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
+        <span class="version-badge tiny">v3.007a</span>
       </div>
-      
-      <nav class="nav">
-        <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drinks.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability-at-sea.html">Disability at Sea</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/cruise-lines/" >Cruise Lines</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/travel.html">Travel</a>
       </nav>
-    
     </div>
+
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-    
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div></div>
+      <div class="hero-credit">
+        <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Photo by Flickers of Majesty — Instagram</a>
+      </div>
+    </div>
   </header>
-  <main class="wrap" id="content">
-    
-    <img class="page-watermark" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="Compass watermark">
-<header class="site-header">
-  <div class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-title"><h1>In The Wake</h1><p>A Practical Cruise Companion</p></div>
-    <img class="compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="Compass rose">
-  
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div></div>
-</header>
-<div class="wrap">
-  <nav class="pills" role="navigation" aria-label="Primary">
-    <a href="https://jsschrstrcks1.github.io/index.html">Home</a>
-    <a href="#classes">Ship Classes</a>
-    <a href="#ships">Ships A–Z</a>
-    <a href="#search">Search Ships</a>
-    <a href="https://jsschrstrcks1.github.io/ships/ships.html">All Ships Across All Lines</a>
-    <span class="lang">
-      <label for="langSelect" class="small">Language: </label>
-      <select id="langSelect" data-default="en"></select>
-    </span>
-  </nav>
-<section class="card i18n" data-lang="en"><h2>FREESTYLE EVERYTHING. BOOK NCL TODAY.</h2><p>No schedules. No dress codes. Just your vacation, your way. Sleep in, dine when you want, and chase nightlife that hits your vibe.</p><p>From Prima’s chic design to Encore’s go-big thrills, the choice is yours every hour of every day.</p><p>Flexible cabins and hot sailings sell quickly — don’t wait.</p></section><section class="card i18n" data-lang="es"><h2>FREESTYLE TOTAL. RESERVA NCL HOY.</h2><p>Sin horarios ni códigos de vestimenta. Solo tus reglas. Duerme, cena y disfruta cuando quieras.</p><p>Desde el diseño elegante de Prima hasta la adrenalina de Encore, eliges a cada hora.</p><p>Las mejores salidas vuelan. No lo dejes pasar.</p></section><section class="card i18n" data-lang="de"><h2>FREESTYLE PUR. JETZT NCL BUCHEN.</h2><p>Keine festen Zeiten, kein Dresscode – nur dein Urlaub, wie du ihn willst.</p><p>Von Prima’s Design bis zu Encore’s Action: Du entscheidest 24/7.</p><p>Beliebte Abfahrten sind schnell weg – buch jetzt!</p></section>
-<section class="card">
-  <h2>Gallery</h2>
-  <div class="grid">
-    <figure>
-      <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/norwegian-hero-1.jpg" alt="Norwegian Cruise Line ship at sea">
-      <figcaption>Image: Wikimedia Commons — add specific attribution here.</figcaption>
-    </figure>
-    <figure>
-      <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/norwegian-hero-2.jpg" alt="Norwegian Cruise Line deck view">
-      <figcaption>Image: Wikimedia Commons — add specific attribution here.</figcaption>
-    </figure>
-  </div>
-</section>
 
-<section id="classes">
-  <h2>Ship Classes</h2>
-  <div class="grid">
-    
+  <main class="wrap" id="content">
+    <section class="card">
+      <h1>Norwegian Cruise Line</h1>
+      <p><strong>Freestyle cruising</strong> means dining when you like, dressing how you like, and building each day around your own rhythm. From chic, modern spaces on the Prima class to go-big entertainment across the Breakaway Plus ships, NCL leans into choice and flexibility.</p>
+    </section>
+
+    <section class="card">
+      <h2>Gallery</h2>
+      <div class="grid gallery">
+        <figure>
+          <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/norwegian-hero-1.jpg" alt="Norwegian Cruise Line ship at sea">
+          <figcaption class="tiny">Image: Wikimedia Commons — replace with final credited media.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/norwegian-hero-2.jpg" alt="Norwegian Cruise Line deck view">
+          <figcaption class="tiny">Image: Wikimedia Commons — replace with final credited media.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="classes" class="card">
+      <h2>Ship Classes</h2>
+      <div class="grid">
         <div class="card">
           <h3>Prima Class <span class="badge">launched 2022</span></h3>
-          <ul><li><a href="https://jsschrstrcks1.github.io/ships/ncl-prima.html">Norwegian Prima</a></li><li><a href="https://jsschrstrcks1.github.io/ships/ncl-viva.html">Norwegian Viva</a></li></ul>
+          <ul>
+            <li><a href="https://jsschrstrcks1.github.io/ships/ncl-prima.html">Norwegian Prima</a></li>
+            <li><a href="https://jsschrstrcks1.github.io/ships/ncl-viva.html">Norwegian Viva</a></li>
+          </ul>
         </div>
         <div class="card">
           <h3>Breakaway Plus <span class="badge">launched 2015</span></h3>
-          <ul><li><a href="https://jsschrstrcks1.github.io/ships/ncl-bliss.html">Norwegian Bliss</a></li><li><a href="https://jsschrstrcks1.github.io/ships/ncl-encore.html">Norwegian Encore</a></li><li><a href="https://jsschrstrcks1.github.io/ships/ncl-escape.html">Norwegian Escape</a></li><li><a href="https://jsschrstrcks1.github.io/ships/ncl-joy.html">Norwegian Joy</a></li></ul>
+          <ul>
+            <li><a href="https://jsschrstrcks1.github.io/ships/ncl-bliss.html">Norwegian Bliss</a></li>
+            <li><a href="https://jsschrstrcks1.github.io/ships/ncl-encore.html">Norwegian Encore</a></li>
+            <li><a href="https://jsschrstrcks1.github.io/ships/ncl-escape.html">Norwegian Escape</a></li>
+            <li><a href="https://jsschrstrcks1.github.io/ships/ncl-joy.html">Norwegian Joy</a></li>
+          </ul>
         </div>
-  </div>
-</section>
+      </div>
+    </section>
 
-<section id="ships">
-  <h2>Ships A–Z</h2>
-  <ul>
-    <li><a href="https://jsschrstrcks1.github.io/ships/ncl-bliss.html">Norwegian Bliss</a></li><li><a href="https://jsschrstrcks1.github.io/ships/ncl-encore.html">Norwegian Encore</a></li><li><a href="https://jsschrstrcks1.github.io/ships/ncl-escape.html">Norwegian Escape</a></li><li><a href="https://jsschrstrcks1.github.io/ships/ncl-joy.html">Norwegian Joy</a></li><li><a href="https://jsschrstrcks1.github.io/ships/ncl-prima.html">Norwegian Prima</a></li><li><a href="https://jsschrstrcks1.github.io/ships/ncl-viva.html">Norwegian Viva</a></li>
-  </ul>
-</section>
+    <section id="ships" class="card">
+      <h2>Ships A–Z</h2>
+      <ul>
+        <li><a href="https://jsschrstrcks1.github.io/ships/ncl-bliss.html">Norwegian Bliss</a></li>
+        <li><a href="https://jsschrstrcks1.github.io/ships/ncl-encore.html">Norwegian Encore</a></li>
+        <li><a href="https://jsschrstrcks1.github.io/ships/ncl-escape.html">Norwegian Escape</a></li>
+        <li><a href="https://jsschrstrcks1.github.io/ships/ncl-joy.html">Norwegian Joy</a></li>
+        <li><a href="https://jsschrstrcks1.github.io/ships/ncl-prima.html">Norwegian Prima</a></li>
+        <li><a href="https://jsschrstrcks1.github.io/ships/ncl-viva.html">Norwegian Viva</a></li>
+      </ul>
+    </section>
 
-<section id="search" class="card">
-  <h2>Search Ships</h2>
-  <div class="search">
-    <input id="shipSearch" type="search" placeholder="Type a ship name… (tolerates typos)">
-    <button id="btnSearch">Search</button>
-  </div>
-  <div id="searchResults" class="grid" aria-live="polite"></div>
-</section>
+    <section id="coming" class="card">
+      <h2>Coming Soon</h2>
+      <p>We’re charting a full <em>depth sounding</em> of the Norwegian experience. Expect clear, practical breakdowns of each ship class — how Prima differs from Breakaway Plus in layout and feel, where the quiet corners hide, and which decks hum after dark. You’ll see cabin tips, pool-deck realities, and traffic-flow notes that help your days run smooth.</p>
+      <p>Dining gets equal treatment: complimentary mainstays vs. specialty favorites, sample prices, and which venues shine for breakfast, date night, or a late bite. We’ll connect menus and accessibility notes to specific ships and sailings so you can plan with confidence, not guesswork.</p>
+      <p>Finally, we’ll thread it all together with practical “you’ll-thank-yourself” advice — embarkation timing, show reservations, thermal-suite etiquette, and what to pack for NCL’s vibe. No brochure fluff, just hard-won traveler insight to make your cruise sing.</p>
+    </section>
 
-<script>
-window.SHIP_DATA = [
-  {
-    "name": "Norwegian Prima",
-    "url": "ncl-prima.html",
-    "aliases": [
-      "NCL Prima",
-      "Norweigan Prima",
-      "Norweigian Prima"
-    ]
-  },
-  {
-    "name": "Norwegian Viva",
-    "url": "ncl-viva.html",
-    "aliases": [
-      "NCL Viva",
-      "Norweigan Viva"
-    ]
-  },
-  {
-    "name": "Norwegian Escape",
-    "url": "ncl-escape.html",
-    "aliases": [
-      "NCL Escape",
-      "Norweigan Escape"
-    ]
-  },
-  {
-    "name": "Norwegian Bliss",
-    "url": "ncl-bliss.html",
-    "aliases": [
-      "NCL Bliss",
-      "Norweigan Bliss"
-    ]
-  },
-  {
-    "name": "Norwegian Joy",
-    "url": "ncl-joy.html",
-    "aliases": [
-      "NCL Joy",
-      "Norweigan Joy"
-    ]
-  },
-  {
-    "name": "Norwegian Encore",
-    "url": "ncl-encore.html",
-    "aliases": [
-      "NCL Encore",
-      "Norweigan Encore"
-    ]
-  }
-];
-document.addEventListener('DOMContentLoaded', ()=>{ setupShipSearch(window.SHIP_DATA); });
-</script>
+    <section id="search" class="card">
+      <h2>Search Ships</h2>
+      <div class="search" role="search">
+        <input id="shipSearch" type="search" placeholder="Type a ship name… (tolerates typos)" aria-label="Search Norwegian ships"/>
+        <button id="btnSearch" type="button">Search</button>
+      </div>
+      <div id="searchResults" class="grid" aria-live="polite" aria-busy="false"></div>
+    </section>
 
-<section class="card">
-  <h3>Image Credits</h3>
-  <p class="small">Hero and supplemental images sourced from Wikimedia Commons. Replace placeholders with final credited media.</p>
-</section>
-</div>
-<footer>© 2025 In the Wake — Compiled by Ken</footer>
+    <section class="card">
+      <h3>Image Credits</h3>
+      <p class="tiny">Hero and supplemental images: Wikimedia Commons (place final, specific attributions upon publication).</p>
+    </section>
   </main>
-  <footer class="wrap">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
+
+  <footer class="wrap" role="contentinfo" style="text-align:center">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
   </footer>
+
+  <!-- Tiny, self-contained typo-tolerant ship search -->
+  <script>
+  (function(){
+    const DATA = [
+      {name:"Norwegian Prima",  url:"ncl-prima.html",  aliases:["NCL Prima","Norweigan Prima","Norweigian Prima"]},
+      {name:"Norwegian Viva",   url:"ncl-viva.html",   aliases:["NCL Viva","Norweigan Viva"]},
+      {name:"Norwegian Escape", url:"ncl-escape.html", aliases:["NCL Escape","Norweigan Escape"]},
+      {name:"Norwegian Bliss",  url:"ncl-bliss.html",  aliases:["NCL Bliss","Norweigan Bliss"]},
+      {name:"Norwegian Joy",    url:"ncl-joy.html",    aliases:["NCL Joy","Norweigan Joy"]},
+      {name:"Norwegian Encore", url:"ncl-encore.html", aliases:["NCL Encore","Norweigan Encore"]}
+    ];
+    const $=s=>document.querySelector(s);
+    const $$=s=>Array.from(document.querySelectorAll(s));
+    const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+
+    function score(q, text){
+      // simple contains + prefix boost; crude but fast and kind to typos
+      if(!q) return 1;
+      if(text.startsWith(q)) return 0.1;
+      if(text.includes(q))   return 0.3;
+      // one-off deletion/insertion tolerance
+      const a=text, b=q; let i=0,j=0,err=0;
+      while(i<a.length && j<b.length){
+        if(a[i]===b[j]){i++;j++;continue;}
+        err++; if(err>1) return 10;
+        (a.length>b.length)?i++:(a.length<b.length)?j++:(i++,j++);
+      }
+      return 0.6;
+    }
+
+    function setup(){
+      const input=$('#shipSearch'), btn=$('#btnSearch'), out=$('#searchResults');
+      if(!input||!btn||!out) return;
+      function run(){
+        const q=norm(input.value);
+        out.setAttribute('aria-busy','true');
+        const items=DATA.map(d=>{
+          const hay=[d.name].concat(d.aliases||[]).map(norm).join(' | ');
+          return {d, sc: Math.min(
+            score(q, norm(d.name)),
+            ...((d.aliases||[]).map(a=>score(q, norm(a))))
+          )};
+        }).filter(x=>!q || x.sc<10).sort((a,b)=>a.sc-b.sc).slice(0,12);
+        out.innerHTML = items.length
+          ? items.map(x=>`<a class="result" href="${x.d.url}"><strong>${x.d.name}</strong><br><small>${(x.d.aliases||[]).join(', ')}</small></a>`).join('')
+          : `<div class="result"><em>No matches yet. Try “Prima” or “Encore”.</em></div>`;
+        out.setAttribute('aria-busy','false');
+      }
+      input.addEventListener('input', ()=>{ clearTimeout(input._t); input._t=setTimeout(run,90); });
+      btn.addEventListener('click', run);
+      run();
+    }
+    (document.readyState==='loading')?document.addEventListener('DOMContentLoaded',setup,{once:true}):setup();
+  })();
+  </script>
 </body>
 </html>
