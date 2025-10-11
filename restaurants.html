@@ -435,331 +435,40 @@
 })();
 </script>
 
-<!-- ================= Filters & Search Canon (v3.006d) — ship/class aware + brand tray ships ================= -->
-<script>
-(function(){
-  const $  = s => document.querySelector(s);
-  const $$ = s => Array.from(document.querySelectorAll(s));
-
-  const rComp = $('#grid-complimentary');
-  const rPrem = $('#grid-premium');
-  const rAct  = $('#grid-activity');
-  const $q    = $('#q');
-  const meta  = $('#search-meta');
-
-  // ===== State + indices =====
-  const STATE = { cats:new Set(), query:'', brand:'rccl', klass:'', ship:'', venue:'' };
-  let CARDS = [];                 // { el, slug, cat, brand, ships:Set, classes:Set, text }
-  let SHIPS = {};                 // slug -> { name, class }  (filled after paint)
-  const CLASS_ORDER = ['icon','oasis','quantum ultra','quantum','freedom','voyager','radiance','vision','sovereign','empress'];
-
-  // ===== helpers =====
-  function setStatus(s){ if(meta) meta.textContent = s; }
-  function norm(s){
-    return String(s||'').toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-      .replace(/[’‘]/g,"'")
-      .replace(/[-_/]/g,' ')
-      .replace(/\s+/g,' ')
-      .trim();
-  }
-  // single-edit tolerance
-  function near(a,b){
-    if(a===b) return true;
-    if(!a||!b) return false;
-    const la=a.length, lb=b.length;
-    if(Math.abs(la-lb)>1) return false;
-    let i=0,j=0, edits=0;
-    while(i<la && j<lb){
-      if(a[i]===b[j]){ i++; j++; continue; }
-      if(++edits>1) return false;
-      if(la>lb) i++; else if(lb>la) j++; else { i++; j++; }
-    }
-    return true;
+<!-- Overlay/stacking fix for brand/class/ship/venue trays (v3.006d) -->
+<style id="restaurants-tray-overlay-fix">
+  /* Ensure the header can show overlays above hero and page content */
+  .site-header,
+  .hero-header {
+    position: relative;
+    z-index: 3000;   /* higher than hero/backdrops */
+    overflow: visible !important; /* prevent clipping */
   }
 
-  const SYN = {
-    diamond:['diamond','diamond lounge','diamond club','diamond plus','crown & anchor diamond'],
-    suite:['suite','suites','pinnacle','suite lounge','coastal kitchen','the grove'],
-    premium:['premium','specialty','extra fee'],
-    complimentary:['complimentary','included','free'],
-  };
-
-  function tokenMatch(text, tokens){
-    if(!tokens.length) return true;
-    const words = text.split(/\s+/);
-    return tokens.every(tok=>{
-      if(!tok) return true;
-      if(text.includes(tok)) return true;
-      if(SYN[tok]) for(const s of SYN[tok]) if(text.includes(norm(s))) return true;
-      for(const w of words){ if(w.startsWith(tok) || near(tok,w)) return true; }
-      return false;
-    });
+  /* Lift the brand bar above the header base */
+  #brandbar {
+    position: relative;
+    z-index: 4000;
   }
 
-  // ===== (re)index cards — now enriched with ship names and class names =====
-  function reindex(){
-    CARDS = $$('.grid .card a').map(a=>{
-      const slug  = a.getAttribute('data-slug')||'';
-      const cat   = (a.getAttribute('data-cat')||'').toLowerCase();
-      const brand = (a.getAttribute('data-brand')||'rccl').toLowerCase();
-      const shipSlugs = (a.getAttribute('data-ships')||'').toLowerCase().split(/\s+/).filter(Boolean);
-      const ships = new Set(shipSlugs);
-      const klass = new Set((a.getAttribute('data-classes')||'').toLowerCase().split(/\s+/).filter(Boolean));
-
-      // Base text (venue name, aliases, access, etc.)
-      let text = norm(a.textContent + ' ' + (a.getAttribute('data-tags')||'') + ' ' + (a.getAttribute('data-access')||''));
-
-      // Enrich: add ship names and class tokens so search matches "oasis", "oasis of the seas", etc.
-      shipSlugs.forEach(s=>{
-        const rec = SHIPS[s];
-        if(rec){
-          const shipName = norm(rec.name);
-          const cls = norm(rec.class||'');
-          if(shipName) text += ' ' + shipName;                     // "serenade of the seas"
-          if(cls){
-            text += ' ' + cls;                                     // "oasis"
-            text += ' ' + cls + ' class';                          // "oasis class"
-          }
-        }else{
-          // fallback: derive from chip text inside this card if present
-          const chip = a.parentElement?.querySelector(`.ship-pills [data-ship="${s}"]`);
-          if(chip){
-            text += ' ' + norm(chip.textContent||'');
-            const cls = norm(chip.getAttribute('data-class')||'');
-            if(cls){ text += ' ' + cls + ' ' + cls + ' class'; }
-          }
-        }
-      });
-
-      return { el:a.closest('.card'), slug, cat, brand, ships, classes:klass, text };
-    });
-    apply();
+  /* Trays float above everything; allow scrolling if tall */
+  #brandbar .tray {
+    position: absolute;          /* keep aligned to brandbar */
+    z-index: 4500;               /* above nav/hero and cards */
+    max-height: 60vh;            /* don’t run off small screens */
+    overflow: auto;              /* scroll within tray if needed */
+    will-change: transform;      /* smoother open/close */
   }
 
-  function updateShipChips(card){
-    const box = card.el.querySelector('.ship-pills');
-    if(!box) return;
-    const spans = box.querySelectorAll('[data-ship]');
-    spans.forEach(sp=>{
-      const ship = (sp.getAttribute('data-ship')||'').toLowerCase();
-      const cls  = (sp.getAttribute('data-class')||'').toLowerCase();
-      const okShip  = !STATE.ship  || STATE.ship===ship;
-      const okClass = !STATE.klass || STATE.klass===cls;
-      sp.classList.toggle('is-hidden', !(okShip && okClass));
-    });
-    const any = box.querySelectorAll('.chip:not(.is-hidden)').length>0;
-    box.classList.toggle('is-hidden', !any);
+  /* Make sure nothing else accidentally sits above trays */
+  .hero,
+  .hero * {
+    z-index: 1;
   }
 
-  function hideEmptySections(){
-    [['#grid-complimentary','#complimentary'],['#grid-premium','#premium'],['#grid-activity','#activity']].forEach(([grid,sec])=>{
-      const count = document.querySelector(grid)?.querySelectorAll('.card:not(.is-hidden)')?.length || 0;
-      const node = document.querySelector(sec);
-      if(node) node.classList.toggle('is-hidden', count===0);
-    });
+  /* Some themes apply unexpected overflow to navbars; keep it open */
+  .topbar,
+  .navbar {
+    overflow: visible !important;
   }
-
-  function apply(){
-    const q = norm(STATE.query);
-    const toks = q ? q.split(' ') : [];
-    let shown = 0;
-
-    CARDS.forEach(c=>{
-      const tHit = tokenMatch(c.text, toks);
-      const cHit = !STATE.cats.size || STATE.cats.has(c.cat);
-      const bHit = !STATE.brand || c.brand===STATE.brand;
-      const kHit = !STATE.klass || c.classes.has(STATE.klass);
-      const sHit = !STATE.ship  || c.ships.has(STATE.ship);
-      const vHit = !STATE.venue || c.slug===STATE.venue;
-      const hit  = tHit && cHit && bHit && kHit && sHit && vHit;
-
-      c.el.classList.toggle('is-hidden', !hit);
-      if(hit) shown++;
-      updateShipChips(c);
-    });
-
-    hideEmptySections();
-    const total = CARDS.length;
-    setStatus((q || STATE.cats.size || STATE.klass || STATE.ship || STATE.venue)
-      ? `Showing ${shown} of ${total}` : `Showing all venues & activities`);
-  }
-
-  // ===== wiring =====
-  function wireSearch(){
-    if(!$q) return;
-    let t=null;
-    $q.addEventListener('input', ()=>{
-      clearTimeout(t);
-      const val = $q.value || '';
-      t = setTimeout(()=>{ STATE.query = val; apply(); }, 80);
-    });
-    window.addEventListener('keydown', e=>{
-      if(e.key==='/' && document.activeElement!==$q){ e.preventDefault(); $q.focus(); }
-    });
-  }
-
-  function wireCategoryChips(){
-    $$('#filters .chip[data-kind="cat"]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const val=(btn.getAttribute('data-val')||'').toLowerCase();
-        const on = btn.getAttribute('aria-pressed')==='true';
-        if(on) STATE.cats.delete(val); else STATE.cats.add(val);
-        btn.setAttribute('aria-pressed', on?'false':'true');
-        apply();
-      });
-    });
-  }
-
-  function wireBrandBar(db){
-    const bBtn=$('#brandBtn'), cBtn=$('#classBtn'), sBtn=$('#shipBtn'), vBtn=$('#venueBtn'), clr=$('#clearBtn');
-    const tB=$('#tray-brand'), tC=$('#tray-class'), tS=$('#tray-ship'), tV=$('#tray-venue');
-    const $brands=$('#brands'), $classes=$('#classes'), $ships=$('#ships'), $venues=$('#venues');
-
-    function closeAll(){ [tB,tC,tS,tV].forEach(x=>x&&x.classList.remove('on')); [bBtn,cBtn,sBtn,vBtn].forEach(b=>b&&b.setAttribute('aria-expanded','false')); }
-    function toggle(btn,tray){ if(!btn||!tray) return; const open=tray.classList.contains('on'); closeAll(); if(!open){ tray.classList.add('on'); btn.setAttribute('aria-expanded','true'); } }
-
-    bBtn?.addEventListener('click', ()=>toggle(bBtn,tB));
-    cBtn?.addEventListener('click', ()=>toggle(cBtn,tC));
-    sBtn?.addEventListener('click', ()=>toggle(sBtn,tS));
-    vBtn?.addEventListener('click', ()=>toggle(vBtn,tV));
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAll(); });
-
-    clr?.addEventListener('click', ()=>{
-      STATE.klass=''; STATE.ship=''; STATE.venue=''; STATE.query=''; STATE.cats.clear();
-      if($q) $q.value='';
-      $$('#filters .chip[aria-pressed="true"]').forEach(x=>x.setAttribute('aria-pressed','false'));
-      apply(); closeAll(); $q?.focus();
-    });
-
-    // --- Brand tray: Royal Caribbean + All Ships (largest → smallest) ---
-    if($brands){
-      // Ships sorted by class size (CLASS_ORDER) then name
-      const shipsArr = Object.entries(db.ships||{}).map(([slug,p])=>({slug, name:p.name||slug, cls:norm(p.class||'')}))
-        .sort((a,b)=>{
-          const ai = CLASS_ORDER.indexOf(a.cls), bi = CLASS_ORDER.indexOf(b.cls);
-          if(ai!==bi) return (ai===-1?999:ai) - (bi===-1?999:bi);
-          return a.name.localeCompare(b.name);
-        });
-
-      $brands.innerHTML =
-        `<button class="pillbtn" data-brand="rccl" role="menuitem">Royal Caribbean</button>
-         <div class="group" style="margin-top:.35rem">
-           <span class="label tiny" aria-hidden="true" style="align-self:center">All Ships (largest → smallest):</span>
-           ${shipsArr.map(s=>`<button class="pillbtn" data-ship="${s.slug}" role="menuitem" title="Show ${s.name} venues">${s.name}</button>`).join('')}
-         </div>`;
-
-      // set brand on click
-      $brands.querySelector('[data-brand="rccl"]')?.addEventListener('click', ()=>{ STATE.brand='rccl'; apply(); });
-
-      // ship buttons inside brand tray
-      $brands.querySelectorAll('button[data-ship]').forEach(b=>{
-        b.addEventListener('click', ()=>{
-          STATE.ship = (b.getAttribute('data-ship')||'').toLowerCase();
-          apply(); closeAll();
-          const top = $('#q')?.offsetTop || 0;
-          window.scrollTo({top: Math.max(top-80,0), behavior:'smooth'});
-        });
-      });
-    }
-
-    // --- Class tray (choose a class, then ship tray focuses) ---
-    if($classes){
-      const clean = s=>String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
-      const classes = Array.from(new Set(Object.values(db.ships||{}).map(s=>clean(s.class)).filter(Boolean)))
-        .sort((a,b)=>{
-          const ai=CLASS_ORDER.indexOf(a), bi=CLASS_ORDER.indexOf(b);
-          if(ai===-1 && bi===-1) return a.localeCompare(b);
-          if(ai===-1) return 1; if(bi===-1) return -1; return ai-bi;
-        });
-      $classes.innerHTML = classes.map(k=>`<button class="pillbtn" data-class="${k}" role="menuitem">${k.replace(/\b\w/g,m=>m.toUpperCase())} Class</button>`).join('');
-      $classes.querySelectorAll('button').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          STATE.klass=(btn.getAttribute('data-class')||'').toLowerCase(); STATE.ship='';
-          apply(); closeAll(); fillShips(STATE.klass); toggle(sBtn,tS);
-        });
-      });
-    }
-
-    function fillShips(klass){
-      if(!$ships) return;
-      const clean=s=>String(s||'').toLowerCase().replace(/\s*class\s*$/,'').trim();
-      const items = Object.entries(db.ships||{})
-        .filter(([slug,p])=>!klass || clean(p.class)===klass)
-        .sort((a,b)=>{
-          // within a class just alpha by name
-          return (a[1].name||a[0]).localeCompare(b[1].name||b[0]);
-        });
-      $ships.innerHTML = items.map(([slug,p])=>`<button class="pillbtn" data-ship="${slug}" role="menuitem" title="Filter to ${p.name}">${p.name}</button>`).join('');
-      $ships.querySelectorAll('button').forEach(b=>{
-        b.addEventListener('click', ()=>{
-          STATE.ship=(b.getAttribute('data-ship')||'').toLowerCase();
-          apply(); closeAll();
-          const top = $('#q')?.offsetTop || 0;
-          window.scrollTo({top: Math.max(top-80,0), behavior:'smooth'});
-        });
-      });
-    }
-    fillShips('');
-
-    // --- Venue tray ---
-    if($venues){
-      const vs = (db.venues||[]).slice().sort((a,b)=>(a.name||a.slug).localeCompare(b.name||b.slug));
-      $venues.innerHTML = vs.map(v=>`<button class="pillbtn" data-venue="${v.slug}" role="menuitem">${v.name}</button>`).join('');
-      $venues.querySelectorAll('button').forEach(b=>{
-        b.addEventListener('click', ()=>{
-          STATE.venue=(b.getAttribute('data-venue')||'').toLowerCase();
-          apply(); closeAll();
-          const top = $('#q')?.offsetTop || 0;
-          window.scrollTo({top: Math.max(top-80,0), behavior:'smooth'});
-        });
-      });
-    }
-  }
-
-  // ===== boot after renderer paints =====
-  function afterPaint(){
-    // Build SHIPS index (slug -> {name, class}) from pill chips that renderer added
-    SHIPS = {};
-    $$('.ship-pills .chip[data-ship]').forEach(chip=>{
-      const slug = chip.getAttribute('data-ship');
-      const name = chip.textContent.trim();
-      const cls  = chip.getAttribute('data-class')||'';
-      if(slug && !SHIPS[slug]) SHIPS[slug] = {name, class:cls};
-    });
-
-    // Build minimal DB for trays
-    const db = { ships: SHIPS, venues: [] };
-    $$('.grid .card a').forEach(a=>{
-      const slug=a.getAttribute('data-slug');
-      const name=a.querySelector('strong')?.textContent?.trim() || slug;
-      if(slug) db.venues.push({slug, name});
-    });
-
-    reindex();
-    wireSearch();
-    wireCategoryChips();
-    wireBrandBar(db);
-
-    // reindex on DOM changes (future live updates)
-    const mo = new MutationObserver(()=>{ afterPaint(); mo.disconnect(); });
-    [rComp,rPrem,rAct].forEach(n=>n&&mo.observe(n,{childList:true,subtree:true}));
-  }
-
-  function safeBoot(){
-    if(!rComp || !rPrem || !rAct) return;
-    if(!document.querySelector('.grid .card a')){
-      const mo = new MutationObserver(()=>{
-        if(document.querySelector('.grid .card a')){ mo.disconnect(); afterPaint(); }
-      });
-      mo.observe(document.body, {subtree:true, childList:true});
-      return;
-    }
-    afterPaint();
-  }
-
-  (document.readyState==='loading'
-    ? document.addEventListener('DOMContentLoaded', safeBoot, {once:true})
-    : setTimeout(safeBoot, 0));
-})();
-</script>
+</style>
