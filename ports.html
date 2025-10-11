@@ -1,33 +1,51 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Analytics -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <!--
+    In the Wake — Invocation Edition v3.006
+    “Soli Deo Gloria.” 1 Cor 10:31 · Prov 3:5-6
+    Authorship  : abondservant (a bondservant of Christ)
+    Timestamp   : 2025-10-10T00:00:00Z
+  -->
 
-  <!-- Standards v3.002: absolute URL + origin normalizer -->
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Standards v3.006 : absolute URL + origin normalizer -->
   <script>
   (function(){
-    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
-    document.addEventListener('DOMContentLoaded',function(){
-      var sel=[
+    const ORIGIN = (location.origin || (location.protocol+"//"+location.host)).replace(/\/$/,'');
+    window._abs = p=>{p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p};
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.querySelectorAll([
         'a[href^="https://www.cruisinginthewake.com/"]',
         'img[src^="https://www.cruisinginthewake.com/"]',
         'link[href^="https://www.cruisinginthewake.com/"]',
         'script[src^="https://www.cruisinginthewake.com/"]'
-      ].join(',');
-      document.querySelectorAll(sel).forEach(function(el){
-        var attr=el.hasAttribute('href')?'href':'src';
-        try{var u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
+      ].join(',')).forEach(el=>{
+        const attr = el.hasAttribute('href')?'href':'src';
+        try{const u = new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
       });
     },{once:true});
   })();
   </script>
 
+  <!-- External link hardening -->
+  <script>
+  document.addEventListener('click',e=>{
+    const a = e.target.closest&&e.target.closest('a[href]');
+    if(!a)return;
+    try{const u = new URL(a.href,location.href);
+      if(u.origin!==location.origin){a.target='_blank';a.rel='noopener';}}
+    catch(_){}
+  },{capture:true});
+  </script>
+
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Ports | In the Wake (v3.002)</title>
-  <meta name="version" content="v3.002"/>
+  <title>Ports | In the Wake (v3.006)</title>
+  <meta name="version" content="v3.006"/>
   <meta name="description" content="Explore upcoming port guides from In the Wake — snapshots, accessibility notes, and honest travel insight for cruise travelers."/>
   <meta name="robots" content="index,follow"/>
 
@@ -38,48 +56,75 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/ports.html"/>
   <meta property="og:title" content="Ports | In the Wake"/>
   <meta property="og:description" content="Cruise ports coming soon — authentic snapshots and accessibility insights for travelers."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/ports-hero.jpg?v=3.002"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/ports-hero.jpg?v=3.006"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Standards v3.002: SiteCache + SW -->
-  <script src="/assets/js/site-cache.js" defer></script>
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
+      {"@type":"ListItem","position":2,"name":"Ports","item":"https://www.cruisinginthewake.com/ports.html"}
+    ]
   }
   </script>
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.002"/>
+  <!-- SiteCache + Service Worker -->
+  <script src="/assets/js/site-cache.js" defer></script>
+  <script>
+  if('serviceWorker'in navigator){
+    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
 
-  <!-- Scoped Styles -->
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+
+  <!-- Scoped visuals -->
   <style>
-    body.page{background:linear-gradient(var(--foam),#fff 240px);color:var(--ink);}
-    .hero{background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
-           filter:saturate(1.3) contrast(1.1) brightness(1.05);}
+    body.page{
+      background:linear-gradient(var(--foam),#fff 240px);
+      color:var(--ink);
+    }
+    .hero{
+      background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
+      filter:saturate(1.3) contrast(1.1) brightness(1.05);
+    }
     .hero::before,.hero::after{content:none!important;}
-    body::before{content:"";position:fixed;inset:0;
+    body::before{
+      content:"";
+      position:fixed;inset:0;
       background:url("/assets/watermark.png") center right/420px auto no-repeat;
-      opacity:.06;pointer-events:none;z-index:0;}
+      opacity:.06;pointer-events:none;z-index:0;
+    }
     body>*{position:relative;z-index:1;}
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
-    .skip-link:focus{position:static;width:auto;height:auto;
-      padding:.4rem .6rem;background:#fff;border:1px solid var(--rope);
-      border-radius:999px;margin:.35rem;display:inline-block;}
+    .skip-link{
+      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
+    }
+    .skip-link:focus{
+      position:fixed;left:12px;top:12px;width:auto;height:auto;
+      padding:.45rem .7rem;background:#fff;
+      border:2px solid var(--accent);border-radius:10px;z-index:9999;
+    }
   </style>
-
-  <link rel="preload" as="image" type="image/svg+xml" href="/assets/compass_rose.svg"/>
 </head>
-<body class="page">
 
-  <!-- Skip link -->
+<body class="page">
+  <!--
+    Invocation header note:
+    Every page is a blank check for God’s glory. Soli Deo Gloria.
+  -->
+
   <a class="skip-link" href="#content">Skip to main content</a>
 
   <header class="site-header hero-header">
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
-        <span class="version-badge">v3.002</span>
+        <span class="tiny ver-badge" aria-label="Site version">v3.006</span>
       </div>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
@@ -97,40 +142,49 @@
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" width="180" height="180"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a></div>
+      <div class="hero-credit">
+        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </div>
     </div>
   </header>
 
   <main class="wrap" id="content">
     <section class="card" aria-labelledby="ports-coming">
       <h1 id="ports-coming">Cruise Ports — Coming Soon</h1>
-      <p>Our port depths are being sounded! Soon you’ll be able to explore embarkation hubs, island getaways, and coastal treasures — each with accessibility notes, photo highlights, and nearby excursions. We’re working to ensure every port entry reflects real-world experience, not brochure copy. Check back soon for new additions as we fill in the map, one harbor at a time.</p>
+      <p>
+        Our port depths are being sounded! Soon you’ll be able to explore embarkation hubs, island getaways, and coastal treasures — each with accessibility notes, photo highlights, and nearby excursions.
+        We’re working to ensure every entry reflects real-world experience, not brochure copy. Check back soon as we fill in the map, one harbor at a time.
+      </p>
     </section>
   </main>
 
-  <footer class="wrap center">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
+  <footer class="wrap center" role="contentinfo">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook · 
+    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
   </footer>
 
-  <!-- Warmup + caching -->
+  <!-- Smart Warmup & Cache -->
   <script>
   (function(){
     const abs=p=>(typeof window._abs==='function'?_abs(p):p);
     const ready=f=>document.readyState==='loading'
       ?document.addEventListener('DOMContentLoaded',f,{once:true}):f();
     const idle=f=>('requestIdleCallback'in window?requestIdleCallback(f,{timeout:2500}):setTimeout(f,200));
-    async function ensure(){if(window.SiteCache)return;
+
+    async function ensure(){
+      if(window.SiteCache&&typeof SiteCache.getJSON==='function')return;
       await new Promise(r=>{
         const s=document.createElement('script');
-        s.src=abs('/assets/js/site-cache.js');s.defer=true;
-        s.onload=r;s.onerror=r;document.head.appendChild(s);
+        s.src=abs('/assets/js/site-cache.js');s.defer=true;s.onload=r;s.onerror=r;
+        document.head.appendChild(s);
       });
     }
+
     async function warmGlobal(){
       try{
         await ensure();
@@ -142,31 +196,40 @@
         ]);
       }catch(_){}
     }
-    ready(()=>{idle(warmGlobal);
-      // encourage early cache hydration
-      try{fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(()=>{});}catch(_){}
+
+    ready(()=>{
+      idle(warmGlobal);
+      try{
+        fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(()=>{});
+      }catch(_){}
     });
   })();
   </script>
-</body><footer><!-- Floating Social Share Bar -->
-<div id="share-bar" class="share-bar" aria-label="Share this page">
-  <a class="share twitter" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
-  <a class="share facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
-  <a class="share instagram" href="#" onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')" aria-label="Copy link for Instagram">Ig</a>
-  <a class="share whatsapp" href="https://wa.me/?text=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
-  <a class="share wechat" href="weixin://" aria-label="Share on WeChat">WeChat</a>
-</div>
 
-<script>
-(function(){
-  const bar=document.getElementById('share-bar');
-  if(!bar) return;
-  const toggle=()=>{ 
-    if(window.scrollY>150){ bar.classList.add('visible'); } 
-    else{ bar.classList.remove('visible'); } 
-  };
-  window.addEventListener('scroll',toggle,{passive:true});
-  toggle(); // initial check
-})();
-</script></footer>
+  <!-- Floating Social Share Bar -->
+  <div id="share-bar" class="share-bar" aria-label="Share this page">
+    <a class="share twitter" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
+    <a class="share facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
+    <a class="share instagram" href="#" onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')" aria-label="Copy link for Instagram">Ig</a>
+    <a class="share whatsapp" href="https://wa.me/?text=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
+    <a class="share wechat" href="weixin://" aria-label="Share on WeChat">WeChat</a>
+  </div>
+
+  <script>
+  (function(){
+    const bar=document.getElementById('share-bar');
+    if(!bar)return;
+    const toggle=()=>{window.scrollY>150?bar.classList.add('visible'):bar.classList.remove('visible');};
+    window.addEventListener('scroll',toggle,{passive:true});
+    toggle();
+  })();
+  </script>
+
+  <!--
+    Invocation footer note:
+    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31  · 
+    “Trust in the LORD with all your heart … He will make straight your paths.” — Prov 3:5-6
+    Signed: abondservant · Soli Deo Gloria.
+  -->
+</body>
 </html>
