@@ -104,7 +104,7 @@
     .card a.venue-link strong{ color:#0a3d62; }
     .card .desc{ font-size:.92rem; color:#254; line-height:1.35; }
     .ship-pills{ margin-top:.2rem; display:flex; flex-wrap:wrap; gap:.35rem; }
-    .ship-pills .chip, .ship-pills button.chip{ font-size:.75rem; padding:.25rem .5rem; border:1px solid var(--rope); border-radius:999px; background:#fff; cursor:pointer; }
+    .ship-pills .chip, .ship-pills button.chip{ font-size:.75rem; padding:.25rem .55rem; border:1px solid var(--rope); border-radius:999px; background:#fff; cursor:pointer; height:1.8rem; line-height:1; }
     .is-hidden{ display:none !important; }
 
     /* Header bits */
@@ -137,9 +137,11 @@
     }
     #brandbar .tray.on{ display:block; }
     #brandbar .tray .group{ display:flex; gap:.4rem; flex-wrap:wrap; }
-    #brandbar .row{ display:flex; gap:.4rem; flex-wrap:wrap; align-items:center; }
+    #brandbar .row{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
     #brandbar .pillbtn{
-      padding:.38rem .65rem; border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.9rem; cursor:pointer;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.38rem .65rem; height:2.1rem; line-height:1;
+      border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.9rem; cursor:pointer;
     }
     #brandbar .pillbtn[aria-pressed="true"]{ background:#0e6e8e; color:#fff; border-color:#0e6e8e; }
 
@@ -147,10 +149,14 @@
     #search-wrap{ max-width:1160px; margin:.75rem auto 0; padding:0 16px; }
     #q{ width:100%; padding:.65rem .85rem; border-radius:12px; border:1px solid #cfe1ea; font-size:1rem; }
     #q:focus{ border-color:#0e6e8e; box-shadow:0 0 0 3px rgba(14,110,142,.15); }
-    #search-meta{ margin:.45rem 16px 0; color:#355; font-size:.9rem; }
+
     .filters{ max-width:1160px; margin:.4rem auto 0; padding:0 16px; }
-    .filters .filter-row{ display:flex; gap:.4rem; flex-wrap:wrap; align-items:center; }
-    .chip{ padding:.35rem .6rem; border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.85rem; cursor:pointer; user-select:none; }
+    .filters .filter-row{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+    .filters .filter-row .label{ line-height:1; }
+
+    .chip{ display:inline-flex; align-items:center; justify-content:center;
+      padding:.38rem .65rem; height:2.1rem; line-height:1;
+      border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.85rem; cursor:pointer; user-select:none; }
     .chip[aria-pressed="true"]{ background:#0e6e8e; color:#fff; border-color:#0e6e8e; box-shadow:0 1px 6px rgba(0,0,0,.12); }
 
     /* Card entry “gravitas” */
@@ -197,13 +203,12 @@
       </div>
     </div>
 
-    <!-- Filters canon (markup) -->
+    <!-- Filters canon -->
     <div id="search-wrap" role="search">
       <input id="q" type="search" inputmode="search"
              placeholder="Type to filter… (e.g., chops, sushi, suite, diamond)"
              aria-label="Filter restaurants by name, type, access, tag, ship, or class">
     </div>
-    <div id="search-meta" class="tiny" aria-live="polite">Loading venues…</div>
 
     <div id="filters" class="filters" role="group" aria-label="Filter by category">
       <div class="filter-row">
@@ -254,6 +259,11 @@
     <section class="section">
       <p class="pill"><strong>Accessibility:</strong> See each venue page and <a href="/disability-at-sea.html">Disability at Sea</a> for ship notes.</p>
     </section>
+
+    <!-- Status line (bottom) -->
+    <section class="section">
+      <div id="search-meta-bottom" class="tiny" aria-live="polite" style="color:#355"></div>
+    </section>
   </main>
 
   <footer class="wrap" role="contentinfo" style="text-align:center">
@@ -265,9 +275,9 @@
   (function(){
     const $ = s => document.querySelector(s);
     const roots = { complimentary: $('#grid-complimentary'), premium: $('#grid-premium'), activity: $('#grid-activity') };
-    const meta = $('#search-meta');
+    const statusEl = $('#search-meta-bottom');
     const abs  = p => (typeof window._abs==='function' ? _abs(p) : p);
-    const setStatus = m => { if(meta) meta.textContent=m; };
+    const setStatus = m => { if(statusEl) statusEl.textContent=m; };
 
     function isDB(x){ return !!(x && Array.isArray(x.venues) && x.ships && typeof x.ships==='object'); }
 
@@ -298,7 +308,6 @@
       const cat  = (v.category || 'complimentary').toLowerCase();
       const blurb= (v.category === 'premium') ? 'Specialty Dining' : (cat==='activity'?'Activity / Class':'Complimentary Venue');
 
-      // chips with data for filters
       const chips = shipList.map(s=>{
         const nm = shipsDict[s]?.name || s;
         const cls= norm(shipsDict[s]?.class || '');
@@ -382,7 +391,6 @@
         const db=await loadDB();
         paint(db);
         setStatus('Showing all venues & activities');
-        // start enrichment (non-blocking)
         const slugs=[...new Set(Array.from(document.querySelectorAll('.card [data-slug]')).map(a=>a.getAttribute('data-slug')))];
         enrichDescriptions(slugs);
       }catch(e){
@@ -401,11 +409,11 @@
     const $  = s => document.querySelector(s);
     const $$ = s => Array.from(document.querySelectorAll(s));
     const $q = $('#q');
-    const meta = $('#search-meta');
+    const statusEl = $('#search-meta-bottom');
+    const setStatus = m => { if(statusEl) statusEl.textContent=m; };
 
     // shared state
     window.STATE = { cats:new Set(), query:'', brand:'rccl', klass:'', ship:'', venue:'' };
-    const setStatus = m => { if(meta) meta.textContent=m; };
 
     function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'").replace(/[-_/]/g,' ').replace(/\s+/g,' ').trim(); }
     function near(a,b){ if(a===b) return true; if(!a||!b) return false; const la=a.length, lb=b.length; if(Math.abs(la-lb)>1) return false; let i=0,j=0,e=0; while(i<la&&j<lb){ if(a[i]===b[j]){i++;j++;continue;} if(++e>1) return false; if(la>lb)i++; else if(lb>la)j++; else{ i++; j++; } } return true; }
@@ -531,6 +539,7 @@
       function closeAll(){ [tB,tC,tS,tV].forEach(x=>x&&x.classList.remove('on')); [bBtn,cBtn,sBtn,vBtn].forEach(b=>b&&b.setAttribute('aria-expanded','false')); }
       function toggle(btn,tray){ if(!btn||!tray) return; const open=tray.classList.contains('on'); closeAll(); if(!open){ tray.classList.add('on'); btn.setAttribute('aria-expanded','true'); } }
       function markPressed(btn, on){ if(!btn) return; btn.setAttribute('aria-pressed', on?'true':'false'); }
+      function clearQuery(){ if($q) $q.value=''; STATE.query=''; }
 
       bBtn?.addEventListener('click', ()=>toggle(bBtn,tB));
       cBtn?.addEventListener('click', ()=>toggle(cBtn,tC));
@@ -564,10 +573,14 @@
         $classes.querySelectorAll('button').forEach(btn=>{
           btn.addEventListener('click', ()=>{
             const val=(btn.getAttribute('data-class')||'').toLowerCase();
-            // toggle
-            STATE.klass = (STATE.klass===val)? '' : val;
-            markPressed(cBtn, !!STATE.klass);
-            STATE.ship=''; apply(); closeAll(); fillShips(STATE.klass); toggle(sBtn,tS);
+            // toggle; also CLEAR venue and query so class shows all venues
+            const toggled = (STATE.klass===val);
+            STATE.klass = toggled ? '' : val;
+            STATE.ship  = '';              // class selection resets ship
+            STATE.venue = '';              // clear venue context
+            clearQuery();
+            markPressed(cBtn, !!STATE.klass); markPressed(sBtn,false); markPressed(vBtn,false);
+            apply(); closeAll(); fillShips(STATE.klass); toggle(sBtn,tS);
             const top=$('#q')?.offsetTop||0; scrollTo({top:Math.max(top-80,0),behavior:'smooth'});
           });
         });
@@ -580,8 +593,11 @@
         $ships.querySelectorAll('button').forEach(b=>{
           b.addEventListener('click', ()=>{
             const val=(b.getAttribute('data-ship')||'').toLowerCase();
-            STATE.ship = (STATE.ship===val)? '' : val;  // toggle
-            markPressed(sBtn, !!STATE.ship);
+            const toggled=(STATE.ship===val);
+            STATE.ship  = toggled ? '' : val;
+            STATE.venue = '';            // clear venue when picking a ship
+            clearQuery();
+            markPressed(sBtn, !!STATE.ship); markPressed(vBtn,false);
             apply(); closeAll();
             const top=$('#q')?.offsetTop||0; scrollTo({top:Math.max(top-80,0),behavior:'smooth'});
           });
@@ -594,8 +610,12 @@
         $venues.querySelectorAll('button').forEach(b=>{
           b.addEventListener('click', ()=>{
             const val=(b.getAttribute('data-venue')||'').toLowerCase();
-            STATE.venue = (STATE.venue===val)? '' : val; // toggle
-            markPressed(vBtn, !!STATE.venue);
+            const toggled=(STATE.venue===val);
+            STATE.venue = toggled ? '' : val;
+            // venue selection clears class/ship to show venue fleet-wide
+            STATE.klass=''; STATE.ship='';
+            clearQuery();
+            markPressed(vBtn, !!STATE.venue); markPressed(cBtn,false); markPressed(sBtn,false);
             apply(); closeAll();
             const top=$('#q')?.offsetTop||0; scrollTo({top:Math.max(top-80,0),behavior:'smooth'});
           });
@@ -605,6 +625,7 @@
       buildClasses(); fillShips(''); buildVenues();
     }
 
+    // Ship-pill click inside cards (also clears venue + query so ship view is complete)
     function upgradeShipPills(){
       ['#grid-complimentary','#grid-premium','#grid-activity'].forEach(sel=>{
         const root=$(sel); if(!root) return;
@@ -612,9 +633,11 @@
           const btn=e.target.closest('button.chip[data-ship]'); if(!btn) return;
           const ship=(btn.getAttribute('data-ship')||'').toLowerCase();
           const cls =(btn.getAttribute('data-class')||'').toLowerCase();
-          STATE.ship = (STATE.ship===ship)? '' : ship; // toggle
-          if(STATE.ship) STATE.klass=cls;  // helpful default
-          $q && ($q.value=''); STATE.query='';
+          const toggled=(STATE.ship===ship);
+          STATE.ship = toggled ? '' : ship;
+          STATE.klass = toggled ? '' : cls;
+          STATE.venue = '';
+          if($q) $q.value=''; STATE.query='';
           apply();
           const top=$('#q')?.offsetTop||0; scrollTo({top:Math.max(top-80,0),behavior:'smooth'});
         });
