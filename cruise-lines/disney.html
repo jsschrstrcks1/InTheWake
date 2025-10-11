@@ -1,179 +1,286 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!--
+    In the Wake — Cruise Line: Disney (v3.007)
+    “Soli Deo Gloria.” 1 Cor 10:31 · Prov 3:5–6
+  -->
+
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Standards: absolute URL + origin normalizer -->
+  <script>
+  (function () {
+    const ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+    window._abs = p => { p = String(p || ''); if (!p.startsWith('/')) p = '/' + p; return ORIGIN + p; };
+    document.addEventListener('DOMContentLoaded', () => {
+      const sel = [
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(el => {
+        const attr = el.hasAttribute('href') ? 'href' : 'src';
+        try {
+          const u = new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
+        } catch(_){}
+      });
+    }, { once:true });
+  })();
+  </script>
+
+  <!-- External link hardening -->
+  <script>
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    try {
+      const u = new URL(a.href, location.href);
+      if (u.origin !== location.origin) { a.target = '_blank'; a.rel = 'noopener'; }
+    } catch(_){}
+  }, { capture:true });
+  </script>
+
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Disney — In the Wake (v2.202)</title>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
-  
-<style id="brand-title-hide">.brand-title{display:none!important}</style>
+  <title>Disney Cruise Line | In the Wake (v3.007)</title>
+  <meta name="version" content="v3.007"/>
+  <meta name="description" content="Disney Cruise Line overview: Triton Class, ships A–Z, gallery, and a typo-tolerant ship finder — from In the Wake."/>
+  <meta name="robots" content="index,follow"/>
 
-  <style id="hero-credit-css">
-    .hero{ position:relative }
-    .hero-credit{
-      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.12);
-    }
-  </style>
+  <!-- Canonical / Social -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/disney.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/cruise-lines/disney.html"/>
+  <meta property="og:title" content="Disney Cruise Line | In the Wake"/>
+  <meta property="og:description" content="Triton Class details, ships A–Z, photos, and a typo-tolerant ship finder."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/cruise-lines-hero.jpg?v=3.007"/>
+  <meta name="twitter:card" content="summary_large_image"/>
 
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org",
+   "@type":"BreadcrumbList",
+   "itemListElement":[
+     {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
+     {"@type":"ListItem","position":2,"name":"Cruise Lines","item":"https://www.cruisinginthewake.com/cruise-lines/"},
+     {"@type":"ListItem","position":3,"name":"Disney","item":"https://www.cruisinginthewake.com/cruise-lines/disney.html"}
+   ]}
+  </script>
 
-  <style id="card-watermark">
+  <!-- SiteCache + Service Worker -->
+  <script src="/assets/js/site-cache.js" defer></script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.007"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+
+  <!-- Page polish (uses global hero; no duplicate hero markup) -->
+  <style>
+    :root { --rope:#D9B382; --ink:#083041; --foam:#e6f4f8; --accent:#0e6e8e; }
+    body.page{ background:linear-gradient(var(--foam),#fff 240px); color:var(--ink); }
+
+    /* Skip link */
+    .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip-link:focus{ position:fixed; left:12px; top:12px; width:auto; height:auto; padding:.45rem .7rem;
+      background:#fff; border:2px solid var(--accent); border-radius:10px; z-index:10000; }
+
+    /* Card watermark */
     .card{ position:relative; overflow:hidden }
     .card::after{
-      content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none;
+      content:""; position:absolute; inset:0; margin:auto; width:min(58%,360px); height:min(58%,360px);
+      background:url('/assets/watermark.png') center/contain no-repeat; opacity:.06; pointer-events:none;
     }
+
+    .grid{ display:grid; gap:1rem; }
+    .grid.two{ grid-template-columns:1fr; }
+    @media (min-width:760px){ .grid.two{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+    .badge{ font-size:.75rem; background:#eef7fb; border:1px solid var(--rope); border-radius:999px; padding:.1rem .5rem }
   </style>
-
-  <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/disney.html"/>
-
-  <style id="hero-vibrancy">
-    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
-    .hero::before,.hero::after{ content:none!important }
-  </style>
-
 </head>
+
 <body class="page">
-  <header class="hero-header">
+  <a class="skip-link" href="#content">Skip to main content</a>
+
+  <header class="site-header hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
+        <span class="version-badge" aria-label="Site version">v3.007</span>
       </div>
-      
-      <nav class="nav">
-        <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drinks.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability-at-sea.html">Disability at Sea</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/cruise-lines/" aria-current="page">Cruise Lines</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/travel.html">Travel</a>
       </nav>
-    
     </div>
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+
+    <!-- Global hero from styles.css (single instance) -->
+    <div class="hero" role="img" aria-label="Open ocean at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake"/>
       </div>
-    
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div></div>
+      <p class="tagline">A Cruise Traveler’s Logbook</p>
+      <div class="hero-credit">
+        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo by Flickers of Majesty</a>
+      </div>
+    </div>
   </header>
+
   <main class="wrap" id="content">
-    
-    <img class="page-watermark" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="Compass watermark">
-<header class="site-header">
-  <div class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-title"><h1>In The Wake</h1><p>A Practical Cruise Companion</p></div>
-    <img class="compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="Compass rose">
-  
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div></div>
-</header>
-<div class="wrap">
-  <nav class="pills" role="navigation" aria-label="Primary">
-    <a href="https://jsschrstrcks1.github.io/index.html">Home</a>
-    <a href="#classes">Ship Classes</a>
-    <a href="#ships">Ships A–Z</a>
-    <a href="#search">Search Ships</a>
-    <a href="https://jsschrstrcks1.github.io/ships/ships.html">All Ships Across All Lines</a>
-    <span class="lang">
-      <label for="langSelect" class="small">Language: </label>
-      <select id="langSelect" data-default="en"></select>
-    </span>
-  </nav>
-<section class="card i18n" data-lang="en"><h2>MAGIC AT SEA. BOOK DISNEY.</h2><p>Beloved characters, Broadway-caliber shows, and immersive dining your kids will never forget.</p><p>Private island days and impeccable service make every moment feel storybook-perfect.</p><p>These sailings sell quickly — capture the magic now.</p></section><section class="card i18n" data-lang="fr"><h2>MAGIE EN MER. DISNEY.</h2><p>Personnages adorés, spectacles dignes de Broadway et restaurants immersifs pour toute la famille.</p><p>Île privée et service irréprochable — des souvenirs inoubliables.</p><p>Ces croisières partent vite — réservez la magie maintenant.</p></section><section class="card i18n" data-lang="ja"><h2>海の魔法。ディズニーを今すぐ予約。</h2><p>大人気キャラクター、ブロードウェイクラスのショー、家族で楽しめる没入型ダイニング。</p><p>プライベートアイランドと行き届いたサービスで物語のような体験を。</p><p>販売は早期に終了します。今すぐ予約を。</p></section>
-<section class="card">
-  <h2>Gallery</h2>
-  <div class="grid">
-    <figure>
-      <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/disney-hero-1.jpg" alt="Disney Cruise Line ship at sea">
-      <figcaption>Image: Wikimedia Commons — add specific attribution here.</figcaption>
-    </figure>
-    <figure>
-      <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/disney-hero-2.jpg" alt="Disney Cruise Line deck view">
-      <figcaption>Image: Wikimedia Commons — add specific attribution here.</figcaption>
-    </figure>
-  </div>
-</section>
+    <!-- Intro -->
+    <section class="card" aria-labelledby="intro-h">
+      <h1 id="intro-h">Disney Cruise Line</h1>
+      <p><strong>Magic at sea.</strong> Beloved characters, Broadway-caliber shows, and imaginative dining that turns meals into memories. Private-island days and attentive service wrap the voyage in storybook warmth.</p>
+      <p>Below you’ll find classes, ships A–Z, a gallery, and a typo-tolerant ship finder so you can jump straight to a profile even if your spelling is a little… wish-ful.</p>
+    </section>
 
-<section id="classes">
-  <h2>Ship Classes</h2>
-  <div class="grid">
-    
-        <div class="card">
-          <h3>Triton Class <span class="badge">launched 2022</span></h3>
-          <ul><li><a href="https://jsschrstrcks1.github.io/ships/disney-destiny.html">Disney Destiny</a></li><li><a href="https://jsschrstrcks1.github.io/ships/disney-treasure.html">Disney Treasure</a></li><li><a href="https://jsschrstrcks1.github.io/ships/disney-wish.html">Disney Wish</a></li></ul>
-        </div>
-  </div>
-</section>
+    <!-- Coming Soon (depth sounding) -->
+    <section class="card" aria-labelledby="coming-h">
+      <h2 id="coming-h">Coming Soon: A Deep Sounding of Disney’s Fleet</h2>
+      <p>We’re charting a full guide to the Disney experience—meticulous breakdowns of ship classes from Triton to classic refits, what each class gets right, and how those differences shape your days on board. Think clear comparisons of stateroom layouts, family spaces, adult-only escapes, and motion/quiet zones for sensitive sailors.</p>
+      <p>You’ll also get venue-by-venue notes (menus, pricing context, and accessibility observations), embarkation tips tailored to Disney’s terminals, and practical strategies for snagging show reservations, character meets, and Castaway Cay day plans. Our aim is simple: fewer surprises, more delight.</p>
+      <p>As we complete each section, we’ll knit it into ship pages and class overviews so everything stays discoverable and up to date. Until then, enjoy the quick links below and the ship finder if you’re sailing soon.</p>
+    </section>
 
-<section id="ships">
-  <h2>Ships A–Z</h2>
-  <ul>
-    <li><a href="https://jsschrstrcks1.github.io/ships/disney-destiny.html">Disney Destiny</a></li><li><a href="https://jsschrstrcks1.github.io/ships/disney-treasure.html">Disney Treasure</a></li><li><a href="https://jsschrstrcks1.github.io/ships/disney-wish.html">Disney Wish</a></li>
-  </ul>
-</section>
+    <!-- Gallery -->
+    <section class="card" aria-labelledby="gallery-h">
+      <h2 id="gallery-h">Gallery</h2>
+      <div class="grid two">
+        <figure>
+          <img src="/assets/cruise-lines/disney-hero-1.jpg" alt="Disney Cruise Line ship under way at sea">
+          <figcaption class="tiny">Image: Wikimedia Commons — add specific attribution.</figcaption>
+        </figure>
+        <figure>
+          <img src="/assets/cruise-lines/disney-hero-2.jpg" alt="Topside deck view on a Disney Cruise Line ship">
+          <figcaption class="tiny">Image: Wikimedia Commons — add specific attribution.</figcaption>
+        </figure>
+      </div>
+    </section>
 
-<section id="search" class="card">
-  <h2>Search Ships</h2>
-  <div class="search">
-    <input id="shipSearch" type="search" placeholder="Type a ship name… (tolerates typos)">
-    <button id="btnSearch">Search</button>
-  </div>
-  <div id="searchResults" class="grid" aria-live="polite"></div>
-</section>
+    <!-- Classes -->
+    <section id="classes" class="card" aria-labelledby="classes-h">
+      <h2 id="classes-h">Ship Classes</h2>
+      <div class="grid two">
+        <article class="card" aria-labelledby="triton-h">
+          <h3 id="triton-h">Triton Class <span class="badge">launched 2022</span></h3>
+          <ul>
+            <li><a href="/ships/disney-destiny.html">Disney Destiny</a></li>
+            <li><a href="/ships/disney-treasure.html">Disney Treasure</a></li>
+            <li><a href="/ships/disney-wish.html">Disney Wish</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
-<script>
-window.SHIP_DATA = [
-  {
-    "name": "Disney Wish",
-    "url": "disney-wish.html",
-    "aliases": [
-      "Disny Wish",
-      "Diznee Wish"
-    ]
-  },
-  {
-    "name": "Disney Treasure",
-    "url": "disney-treasure.html",
-    "aliases": [
-      "Disny Treasure",
-      "Disney Tresure"
-    ]
-  },
-  {
-    "name": "Disney Destiny",
-    "url": "disney-destiny.html",
-    "aliases": [
-      "Disny Destiny",
-      "Disney Destiney"
-    ]
-  }
-];
-document.addEventListener('DOMContentLoaded', ()=>{ setupShipSearch(window.SHIP_DATA); });
-</script>
+    <!-- Ships A–Z -->
+    <section id="ships" class="card" aria-labelledby="ships-h">
+      <h2 id="ships-h">Ships A–Z</h2>
+      <ul>
+        <li><a href="/ships/disney-destiny.html">Disney Destiny</a></li>
+        <li><a href="/ships/disney-treasure.html">Disney Treasure</a></li>
+        <li><a href="/ships/disney-wish.html">Disney Wish</a></li>
+      </ul>
+    </section>
 
-<section class="card">
-  <h3>Image Credits</h3>
-  <p class="small">Hero and supplemental images sourced from Wikimedia Commons. Replace placeholders with final credited media.</p>
-</section>
-</div>
-<footer>© 2025 In the Wake — Compiled by Ken</footer>
+    <!-- Search -->
+    <section id="search" class="card" aria-labelledby="search-h">
+      <h2 id="search-h">Search Ships</h2>
+      <div class="search" role="search">
+        <label for="shipSearch" class="tiny" style="display:block;margin-bottom:.25rem">Type a ship name (tolerates typos)</label>
+        <input id="shipSearch" type="search" placeholder="e.g., disny → Disney" aria-controls="searchResults">
+        <button id="btnSearch" type="button">Search</button>
+      </div>
+      <div id="searchResults" class="grid two" aria-live="polite" aria-busy="false"></div>
+    </section>
+
+    <section class="card" aria-labelledby="credits-h">
+      <h3 id="credits-h">Image Credits</h3>
+      <p class="tiny">Hero and supplemental images sourced from Wikimedia Commons. Replace placeholders with final credited media.</p>
+    </section>
   </main>
-  <footer class="wrap">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
+
+  <footer class="wrap" role="contentinfo">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
   </footer>
+
+  <!-- Dataset + Search logic (typo-tolerant) -->
+  <script>
+  const SHIPS = [
+    { name:"Disney Wish",     url:"/ships/disney-wish.html",     aliases:["Disny Wish","Diznee Wish"] },
+    { name:"Disney Treasure", url:"/ships/disney-treasure.html", aliases:["Disny Treasure","Disney Tresure"] },
+    { name:"Disney Destiny",  url:"/ships/disney-destiny.html",  aliases:["Disny Destiny","Disney Destiney"] }
+  ];
+
+  const $ = s => document.querySelector(s);
+  const norm = s => String(s||'').toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[’‘]/g,"'").trim();
+
+  function near(a,b){
+    if(a===b) return true;
+    if(!a||!b) return false;
+    const la=a.length, lb=b.length;
+    if(Math.abs(la-lb)>1) return false;
+    let i=0,j=0,e=0;
+    while(i<la && j<lb){
+      if(a[i]===b[j]){ i++; j++; continue; }
+      if(++e>1) return false;
+      if(la>lb) i++; else if(lb>la) j++; else { i++; j++; }
+    }
+    return true;
+  }
+
+  function searchShips(q){
+    const t = norm(q);
+    if(!t) return SHIPS;
+    return SHIPS.filter(s=>{
+      const hay = [s.name, ...(s.aliases||[])].map(norm);
+      return hay.some(h => h.includes(t) || near(t,h) || h.split(/\s+/).some(w => w.startsWith(t) || near(t,w)));
+    });
+  }
+
+  function renderResults(list){
+    const root = $('#searchResults'); if(!root) return;
+    root.setAttribute('aria-busy','true');
+    root.innerHTML = list.map(s => `
+      <a class="card" href="${s.url}" aria-label="${s.name}">
+        <strong>${s.name}</strong><br><small>Open ship profile</small>
+      </a>
+    `).join('');
+    root.setAttribute('aria-busy','false');
+  }
+
+  function wireSearch(){
+    const input = $('#shipSearch'), btn = $('#btnSearch');
+    const go = ()=> renderResults(searchShips(input.value||''));
+    input?.addEventListener('input', ()=>{ clearTimeout(input._t); input._t = setTimeout(go, 90); });
+    btn?.addEventListener('click', go);
+    go();
+  }
+
+  document.addEventListener('DOMContentLoaded', wireSearch, { once:true });
+  </script>
 </body>
 </html>
