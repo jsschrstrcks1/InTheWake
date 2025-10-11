@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Viking — In the Wake (v2.207)</title>
+  <title>Viking — In the Wake (v2.208)</title>
   <meta name="description" content="Viking: quiet luxury, destination immersion, and Nordic calm. Adults-only ships with beer & wine at meals, Wi-Fi, laundry, and select excursions included."/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/viking.html"/>
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006"/>
 
-  <!-- a11y utility only -->
+  <!-- a11y utilities (standards) -->
   <style>
     .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
@@ -23,7 +23,7 @@
     <nav class="navbar" aria-label="Global">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
-        <span class="version-badge">v2.207</span>
+        <span class="version-badge">v2.208</span>
       </div>
       <div class="nav">
         <a href="https://www.cruisinginthewake.com/">Home</a>
@@ -40,155 +40,132 @@
       </div>
     </nav>
 
-    <!-- hero: background and single compass come from your global CSS -->
-    <div class="hero">
+    <!-- Single hero (compass + grid come from global CSS) -->
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg"
-           alt="" width="86" height="86" decoding="async"/>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" width="86" height="86" decoding="async" aria-hidden="true"/>
       <div class="hero-title">
         <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
-        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
-          Photo © Flickers of Majesty
-        </a>
+        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <main id="content" class="wrap">
-    <!-- Top: Search -->
-    <section id="search" class="card" aria-labelledby="search-title">
-      <h2 id="search-title">Search Ships</h2>
-      <form id="shipSearchForm" class="search" role="search" aria-label="Ship search">
-        <label for="shipSearch" class="visually-hidden">Search by ship name</label>
-        <div class="actions">
-          <input id="shipSearch" name="q" type="search" placeholder="Type a ship name… (tolerates typos)"
-                 autocomplete="off" aria-controls="searchResults"/>
-          <button id="btnSearch" type="submit">Search</button>
-        </div>
+  <main class="wrap" id="content">
+    <!-- Top pills nav (standards class names) -->
+    <nav class="pill-nav pills" role="navigation" aria-label="Primary">
+      <a href="https://jsschrstrcks1.github.io/index.html">Home</a>
+      <a href="#search">Search Ships</a>
+      <a href="#classes">Ship Classes</a>
+      <a href="#ships">Ships A–Z</a>
+      <a href="https://jsschrstrcks1.github.io/ships/ships.html">All Ships Across All Lines</a>
+    </nav>
+
+    <!-- Search-first layout -->
+    <section id="search" class="card" role="search" aria-label="Search Viking ships">
+      <h2>Search Ships</h2>
+      <form class="search" onsubmit="event.preventDefault(); document.getElementById('btnSearch').click();">
+        <label class="visually-hidden" for="shipSearch">Search by ship name</label>
+        <input id="shipSearch" type="search" placeholder="Type a ship name… (tolerates typos)" inputmode="search" autocomplete="off" aria-describedby="searchHelp">
+        <button id="btnSearch" type="button">Search</button>
+        <p id="searchHelp" class="tiny">Try: “Viking Star”, “Viking Sea”, or “Viking Bragi”.</p>
       </form>
-      <div id="searchResults" aria-live="polite"></div>
-      <noscript><p class="tiny">JavaScript is off. Use the <a href="#ships">Ships A–Z list</a> below.</p></noscript>
+      <div id="searchResults" class="grid-3" aria-live="polite" aria-busy="false"></div>
     </section>
 
-    <header class="site-header" aria-labelledby="page-title">
-      <h1 id="page-title">Viking</h1>
-      <p class="tiny">Quiet luxury, destination immersion, and Nordic calm. No kids. No casinos.</p>
-    </header>
-
-    <section class="card" aria-labelledby="lead-title">
-      <h2 id="lead-title">Why Viking</h2>
-      <p>Viking keeps the spotlight on the destination: resident historians, chamber music, and unhurried days carried by clean Scandinavian design. Ships feel like boutique hotels at sea — serene spaces that frame the view rather than compete with it.</p>
-      <p>Beer &amp; wine with meals, Wi-Fi, self-service laundry, and select excursions are included. No casinos, no kids, and no constant upsell — just thoughtful service and time to linger ashore. Cabins are limited and sell early.</p>
-    </section>
-
-    <!-- Coming Soon -->
-    <section class="card" aria-labelledby="coming-soon-title">
-      <h2 id="coming-soon-title">Coming Soon: A Depth-Sounding of Viking</h2>
-      <p>We’re charting a class-by-class guide to Viking’s fleet — from the all-veranda <em>Ocean</em> ships (~930 guests) to the sleek <em>Longships</em> on Europe’s rivers. You’ll see how class shapes stateroom layouts, public-space flow, veranda sizes, and quiet zones, so you can match ship design to your travel style.</p>
-      <p>Expect a practical tour of daily life onboard: the Living Room’s reading nooks, Explorers’ Lounge for fjord watching, Mamsen’s Norwegian comfort food, Manfredi’s Italian classics, the World Café’s open kitchens, and the Spa’s thermal suite. We’ll add sample day rhythms, embarkation tips, and packing pointers tuned to Viking’s smart-casual cadence.</p>
-      <p>We’ll also include quick links by class to ship pages, dining and bar overviews, and stateroom guides — everything you need to choose the right ship for your itinerary with confidence.</p>
+    <!-- Intro / positioning -->
+    <section class="card">
+      <h2>Quiet Luxury. No Kids. No Casinos.</h2>
+      <p>Viking pursues destination-focused travel with resident historians, classical music, and Nordic calm. Beer and wine at lunch and dinner, Wi-Fi, laundry access, and select excursions are included—without the upsell.</p>
+      <p>Stateroom counts are intentionally modest and sell early. If this stillness-and-substance approach resonates, consider securing your sailing while space remains. <strong>Soli Deo Gloria.</strong></p>
     </section>
 
     <!-- Ship Classes -->
-    <section id="classes" class="card" aria-labelledby="classes-title">
-      <h2 id="classes-title">Ship Classes</h2>
+    <section id="classes">
+      <h2>Ship Classes</h2>
       <div class="grid-3">
-        <article class="card" aria-labelledby="ocean-class-title">
-          <h3 id="ocean-class-title">Ocean Ships <span class="badge">launched 2015</span></h3>
-          <p>All-veranda ocean ships designed around light and views. Hallmarks include the Wintergarden, Explorers’ Lounge, a full thermal suite, and destination-focused enrichment with lectures and classical music.</p>
+        <div class="card">
+          <h3>Ocean Ships <span class="badge">launched 2015+</span></h3>
+          <p>Viking’s 930-guest Ocean sisters embody <em>quiet luxury at sea</em>: all-veranda accommodations, warm woods, daylight-rich lounges, and design that defers to the view. The pace is unhurried; enrichment and place take center stage.</p>
+          <p>No casinos and no forced spectacle—just thoughtful venues like the <strong>Explorers’ Lounge</strong>, serene <strong>Wintergarden</strong>, and destination-driven dining. Life on board orients you to life ashore.</p>
           <ul>
+            <li><a href="https://jsschrstrcks1.github.io/ships/viking-star.html">Viking Star</a></li>
             <li><a href="https://jsschrstrcks1.github.io/ships/viking-sea.html">Viking Sea</a></li>
             <li><a href="https://jsschrstrcks1.github.io/ships/viking-sky.html">Viking Sky</a></li>
-            <li><a href="https://jsschrstrcks1.github.io/ships/viking-star.html">Viking Star</a></li>
           </ul>
-        </article>
+        </div>
 
-        <article class="card" aria-labelledby="longship-class-title">
-          <h3 id="longship-class-title">Longships (River) <span class="badge">launched 2012</span></h3>
-          <p>Efficient river ships with airy lounges and the Aquavit Terrace, built for scenery and culture. Think included tours, regional menus, and unhurried days that maximize time in port.</p>
+        <div class="card">
+          <h3>Longships (River) <span class="badge">launched 2012+</span></h3>
+          <p><strong>Viking Longships</strong> bring 190 guests into the historic hearts of Europe’s rivers. Floor-to-ceiling lounges, the Aquavit Terrace, and walk-off access keep you close to the water—and to the cultures that grew up upon it.</p>
+          <p>Inside you’ll find Scandinavian restraint: light, air, and textures that serve the story outside your window. Lectures, regional cuisine, and effortless steps ashore complete the picture.</p>
           <ul>
             <li><a href="https://jsschrstrcks1.github.io/ships/viking-bragi.html">Viking Bragi</a></li>
             <li><a href="https://jsschrstrcks1.github.io/ships/viking-egil.html">Viking Egil</a></li>
           </ul>
-        </article>
+        </div>
       </div>
     </section>
 
-    <!-- Ships A–Z -->
-    <section id="ships" class="card" aria-labelledby="ships-title">
-      <h2 id="ships-title">Ships A–Z</h2>
-      <ul>
-        <li><a href="https://jsschrstrcks1.github.io/ships/viking-bragi.html">Viking Bragi</a></li>
-        <li><a href="https://jsschrstrcks1.github.io/ships/viking-egil.html">Viking Egil</a></li>
-        <li><a href="https://jsschrstrcks1.github.io/ships/viking-sea.html">Viking Sea</a></li>
-        <li><a href="https://jsschrstrcks1.github.io/ships/viking-sky.html">Viking Sky</a></li>
-        <li><a href="https://jsschrstrcks1.github.io/ships/viking-star.html">Viking Star</a></li>
-      </ul>
+    <!-- Coming Soon (Depth Sounding) -->
+    <section id="coming-soon" class="card">
+      <h2>Coming Soon — A Depth Sounding of the Viking Experience</h2>
+      <p>This page will deepen into a full <strong>Depth Sounding</strong>: class guides, ship-by-ship notes, and venue walkthroughs—from the <em>Wintergarden</em> and <em>Explorers’ Lounge</em> to specialty dining and quiet corners—anchored in practical details that help you choose wisely.</p>
+      <p>Expect illustrated pieces on design heritage and onboard rhythms; links to itineraries, menus, and enrichment; and reflections that treat travel as stewardship—seeking knowledge, beauty, and rest under God’s sovereign sea. Each addition will favor clarity over hype.</p>
+      <p>When ready, you’ll find cross-links to cabins by category, dining by venue, and curated packing notes for river and ocean climates—useful tools for unhurried planning. <strong>Soli Deo Gloria.</strong></p>
     </section>
 
-    <!-- Gallery -->
-    <section class="card" aria-labelledby="gallery-title">
-      <h2 id="gallery-title">Gallery</h2>
+    <!-- Ships Index (cards) -->
+    <section id="ships">
+      <h2>Ships A–Z</h2>
       <div class="grid-3">
         <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-star.html">
-          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-1.jpg" alt="Viking Star underway" width="640" height="426" loading="lazy" decoding="async"></span>
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-1.jpg" alt="Viking Star underway" loading="lazy" decoding="async"></span>
           <span class="body"><strong>Viking Star</strong><span class="badge">Ocean</span></span>
         </a>
         <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-sea.html">
-          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt="Viking Sea deck view" width="640" height="426" loading="lazy" decoding="async"></span>
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt="Viking Sea deck view" loading="lazy" decoding="async"></span>
           <span class="body"><strong>Viking Sea</strong><span class="badge">Ocean</span></span>
         </a>
+        <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-sky.html">
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-1.jpg" alt="Viking Sky at sea" loading="lazy" decoding="async"></span>
+          <span class="body"><strong>Viking Sky</strong><span class="badge">Ocean</span></span>
+        </a>
         <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-bragi.html">
-          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt="Viking Bragi on the river" width="640" height="426" loading="lazy" decoding="async"></span>
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt="Viking Bragi on the river" loading="lazy" decoding="async"></span>
           <span class="body"><strong>Viking Bragi</strong><span class="badge">Longship</span></span>
+        </a>
+        <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-egil.html">
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-1.jpg" alt="Viking Egil near a riverside town" loading="lazy" decoding="async"></span>
+          <span class="body"><strong>Viking Egil</strong><span class="badge">Longship</span></span>
         </a>
       </div>
     </section>
+
+    <!-- Image credits -->
+    <section class="card">
+      <h3>Image Credits</h3>
+      <p class="tiny">Hero and supplemental images sourced from Wikimedia Commons. Replace with final credited media.</p>
+    </section>
+
+    <footer class="tiny center">© 2025 In the Wake — Compiled by Ken</footer>
   </main>
 
-  <footer class="wrap">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
-  </footer>
-
+  <!-- Single search implementation (standards hook only) -->
   <script>
-    (function(){
-      const data = [
-        { name:"Viking Star",  url:"viking-star.html",  aliases:["Viking Starr","Vikin Star"] },
-        { name:"Viking Sea",   url:"viking-sea.html",   aliases:["Viking C","Viking See"] },
-        { name:"Viking Sky",   url:"viking-sky.html",   aliases:["Viking Ski","Viking Skye"] },
-        { name:"Viking Bragi", url:"viking-bragi.html", aliases:["Braghi","Vragi"] },
-        { name:"Viking Egil",  url:"viking-egil.html",  aliases:["Egel","Egill"] }
-      ];
-
-      function search(q){
-        const out = document.getElementById('searchResults');
-        out.innerHTML = "";
-        if(!q){ return; }
-        const n = q.trim().toLowerCase();
-        const hits = data.filter(s => [s.name, ...(s.aliases||[])].join(" ").toLowerCase().includes(n));
-        if(!hits.length){
-          out.innerHTML = '<p class="tiny">No matches. Try: Viking Star, Viking Sea, Viking Sky, Viking Bragi, Viking Egil.</p>';
-          return;
-        }
-        const ul = document.createElement('ul');
-        hits.forEach(s=>{
-          const li = document.createElement('li');
-          li.innerHTML = '<a href="https://jsschrstrcks1.github.io/ships/'+ s.url +'">'+ s.name +'</a>';
-          ul.appendChild(li);
-        });
-        out.appendChild(ul);
-      }
-
-      document.addEventListener('DOMContentLoaded', function(){
-        const form = document.getElementById('shipSearchForm');
-        const input = document.getElementById('shipSearch');
-        form.addEventListener('submit', function(e){ e.preventDefault(); search(input.value); });
-        document.getElementById('btnSearch').addEventListener('click', function(e){ e.preventDefault(); search(input.value); });
-      });
-    })();
+    window.SHIP_DATA = [
+      { name: "Viking Star",  url: "viking-star.html",  aliases: ["Viking Starr","Vikin Star"] },
+      { name: "Viking Sea",   url: "viking-sea.html",   aliases: ["Viking C","Viking See"] },
+      { name: "Viking Sky",   url: "viking-sky.html",   aliases: ["Viking Ski","Viking Skye"] },
+      { name: "Viking Bragi", url: "viking-bragi.html", aliases: ["Braghi","Vragi"] },
+      { name: "Viking Egil",  url: "viking-egil.html",  aliases: ["Egel","Egill"] }
+    ];
+    document.addEventListener('DOMContentLoaded', ()=>{
+      if (window.setupShipSearch) { window.setupShipSearch(window.SHIP_DATA); }
+    });
   </script>
 </body>
 </html>
