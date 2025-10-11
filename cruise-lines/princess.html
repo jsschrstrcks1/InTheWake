@@ -1,171 +1,271 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!--
+    In the Wake — Princess Cruises (v3.007a)
+    Reverently prepared. Soli Deo Gloria.
+  -->
+
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Standards: absolute URL + origin normalizer -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+"//"+location.host)).replace(/\/$/,'');
+    window._abs=p=>{p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p};
+    document.addEventListener('DOMContentLoaded',()=>{
+      const sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{ const u=new URL(el.getAttribute(attr));
+             el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(_){}
+      });
+    },{once:true});
+  })();
+  </script>
+
+  <!-- External link hardening -->
+  <script>
+  document.addEventListener('click',e=>{
+    const a=e.target.closest&&e.target.closest('a[href]'); if(!a) return;
+    try{ const u=new URL(a.href,location.href);
+         if(u.origin!==location.origin){ a.target='_blank'; a.rel='noopener'; }
+    }catch(_){}
+  },{capture:true});
+  </script>
+
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Princess — In the Wake (v2.202)</title>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
-  
-<style id="brand-title-hide">.brand-title{display:none!important}</style>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Princess — In the Wake (v3.007a)</title>
+  <meta name="version" content="v3.007a"/>
+  <meta name="description" content="Princess Cruises at a glance — Sphere Class highlights, venues, MedallionClass notes, and practical traveler insight."/>
+  <meta name="robots" content="index,follow"/>
 
-  <style id="hero-credit-css">
-    .hero{ position:relative }
-    .hero-credit{
-      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.12);
-    }
-  </style>
+  <!-- Canonical / Social -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/princess.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/cruise-lines/princess.html"/>
+  <meta property="og:title" content="Princess Cruises — In the Wake"/>
+  <meta property="og:description" content="Ship classes, dining venues, accessibility notes, and honest guidance for Princess itineraries."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/cruise-lines-hero.jpg?v=3.007a"/>
+  <meta name="twitter:card" content="summary_large_image"/>
 
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
+    {"@type":"ListItem","position":2,"name":"Cruise Lines","item":"https://www.cruisinginthewake.com/cruise-lines/"},
+    {"@type":"ListItem","position":3,"name":"Princess","item":"https://www.cruisinginthewake.com/cruise-lines/princess.html"}
+  ]}
+  </script>
 
-  <style id="card-watermark">
+  <!-- SiteCache + SW -->
+  <script src="/assets/js/site-cache.js" defer></script>
+  <script>
+  if('serviceWorker' in navigator){
+    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.007a"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+
+  <!-- Page styles (single hero; no duplication with global .hero) -->
+  <style>
+    :root{ --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e; }
+    body.page{ background:linear-gradient(var(--foam),#fff 240px); color:var(--ink); }
+
+    /* keep the global hero, just gentle vibrancy */
+    .hero-header .hero{ filter:saturate(1.18) contrast(1.06) brightness(1.04); }
+    .hero::before,.hero::after{ content:none!important; }
+
+    .brand-title{ display:none!important; } /* hide legacy brand-title blocks */
+
+    /* Subtle watermark for cards */
     .card{ position:relative; overflow:hidden }
     .card::after{
       content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
+      width:min(60%,360px); height:min(60%,360px);
+      background:url('/assets/watermark.png') center/contain no-repeat;
       opacity:.06; pointer-events:none;
     }
+
+    /* Local grids */
+    .grid{ display:grid; gap:1rem; }
+    .grid.gallery{ grid-template-columns:1fr; }
+    @media (min-width:800px){ .grid.gallery{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+    .badge{ display:inline-block; font-size:.78rem; padding:.1rem .45rem; border:1px solid var(--rope);
+            border-radius:999px; background:#fff; margin-left:.35rem; }
+
+    /* Search */
+    .search{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+    .search input[type="search"]{ flex:1 1 260px; padding:.55rem .7rem; border:1px solid #cfe1ea; border-radius:10px; }
+    .search button{ padding:.55rem .8rem; border:1px dashed var(--rope); border-radius:10px; background:#fff; cursor:pointer; }
+    #searchResults .result{ padding:.6rem .7rem; border:1px solid var(--rope); border-radius:12px; background:#fff; }
   </style>
-
-  <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/princess.html"/>
-
-  <style id="hero-vibrancy">
-    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
-    .hero::before,.hero::after{ content:none!important }
-  </style>
-
 </head>
+
 <body class="page">
+  <a class="skip-link" href="#content">Skip to main content</a>
+
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
+        <span class="version-badge tiny">v3.007a</span>
       </div>
-      
-      <nav class="nav">
-        <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drinks.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability-at-sea.html">Disability at Sea</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/cruise-lines/">Cruise Lines</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/travel.html">Travel</a>
       </nav>
-    
     </div>
+
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-    
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div></div>
+      <div class="hero-credit">
+        <a class="pill long" href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Photo by Flickers of Majesty — Instagram</a>
+      </div>
+    </div>
   </header>
-  <main class="wrap" id="content">
-    
-    <img class="page-watermark" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="Compass watermark">
-<header class="site-header">
-  <div class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-title"><h1>In The Wake</h1><p>A Practical Cruise Companion</p></div>
-    <img class="compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="Compass rose">
-  
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div></div>
-</header>
-<div class="wrap">
-  <nav class="pills" role="navigation" aria-label="Primary">
-    <a href="https://jsschrstrcks1.github.io/index.html">Home</a>
-    <a href="#classes">Ship Classes</a>
-    <a href="#ships">Ships A–Z</a>
-    <a href="#search">Search Ships</a>
-    <a href="https://jsschrstrcks1.github.io/ships/ships.html">All Ships Across All Lines</a>
-    <span class="lang">
-      <label for="langSelect" class="small">Language: </label>
-      <select id="langSelect" data-default="en"></select>
-    </span>
-  </nav>
-<section class="card i18n" data-lang="en"><h2>COME BACK NEW. BOOK PRINCESS.</h2><p>Destination-led itineraries, smart medallion tech, and service that remembers your name.</p><p>From Alaska to Japan, discover more with a premium yet approachable vibe.</p><p>Book now — prime sailings won’t wait.</p></section><section class="card i18n" data-lang="en-au"><h2>COME BACK NEW. BOOK PRINCESS.</h2><p>Itineraries for explorers, MedallionClass convenience and warm service.</p><p>From the South Pacific to Japan, go further in comfort.</p><p>Spots fill fast — lock it in.</p></section><section class="card i18n" data-lang="ja"><h2>新しい自分で帰ろう。プリンセスを予約。</h2><p>行き先重視のコース、メダリオンテック、心のこもったおもてなし。</p><p>アラスカから日本まで、プレミアムな旅を。</p><p>人気の出航は早い者勝ち。今すぐ予約を。</p></section>
-<section class="card">
-  <h2>Gallery</h2>
-  <div class="grid">
-    <figure>
-      <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/princess-hero-1.jpg" alt="Princess Cruises ship at sea">
-      <figcaption>Image: Wikimedia Commons — add specific attribution here.</figcaption>
-    </figure>
-    <figure>
-      <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/princess-hero-2.jpg" alt="Princess Cruises deck view">
-      <figcaption>Image: Wikimedia Commons — add specific attribution here.</figcaption>
-    </figure>
-  </div>
-</section>
 
-<section id="classes">
-  <h2>Ship Classes</h2>
-  <div class="grid">
-    
+  <main class="wrap" id="content">
+    <section class="card">
+      <h1>Princess Cruises</h1>
+      <p><strong>Come Back New</strong> isn’t just a tagline — Princess leans into destination-driven itineraries, gracious service, and MedallionClass conveniences that quietly remove friction from your day. Sphere Class ships usher in airier atriums, refreshed poolscapes, and smart venue flow.</p>
+    </section>
+
+    <section class="card">
+      <h2>Gallery</h2>
+      <div class="grid gallery">
+        <figure>
+          <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/princess-hero-1.jpg" alt="Princess Cruises ship at sea">
+          <figcaption class="tiny">Image: Wikimedia Commons — replace with final credited media.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/princess-hero-2.jpg" alt="Princess Cruises deck view">
+          <figcaption class="tiny">Image: Wikimedia Commons — replace with final credited media.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="classes" class="card">
+      <h2>Ship Classes</h2>
+      <div class="grid">
         <div class="card">
           <h3>Sphere Class <span class="badge">launched 2023</span></h3>
-          <ul><li><a href="https://jsschrstrcks1.github.io/ships/princess-star-princess.html">Star Princess</a></li><li><a href="https://jsschrstrcks1.github.io/ships/princess-sun-princess.html">Sun Princess</a></li></ul>
+          <ul>
+            <li><a href="https://jsschrstrcks1.github.io/ships/princess-star-princess.html">Star Princess</a></li>
+            <li><a href="https://jsschrstrcks1.github.io/ships/princess-sun-princess.html">Sun Princess</a></li>
+          </ul>
         </div>
-  </div>
-</section>
+      </div>
+    </section>
 
-<section id="ships">
-  <h2>Ships A–Z</h2>
-  <ul>
-    <li><a href="https://jsschrstrcks1.github.io/ships/princess-star-princess.html">Star Princess</a></li><li><a href="https://jsschrstrcks1.github.io/ships/princess-sun-princess.html">Sun Princess</a></li>
-  </ul>
-</section>
+    <section id="ships" class="card">
+      <h2>Ships A–Z</h2>
+      <ul>
+        <li><a href="https://jsschrstrcks1.github.io/ships/princess-star-princess.html">Star Princess</a></li>
+        <li><a href="https://jsschrstrcks1.github.io/ships/princess-sun-princess.html">Sun Princess</a></li>
+      </ul>
+    </section>
 
-<section id="search" class="card">
-  <h2>Search Ships</h2>
-  <div class="search">
-    <input id="shipSearch" type="search" placeholder="Type a ship name… (tolerates typos)">
-    <button id="btnSearch">Search</button>
-  </div>
-  <div id="searchResults" class="grid" aria-live="polite"></div>
-</section>
+    <section id="coming" class="card">
+      <h2>Coming Soon</h2>
+      <p>We’re preparing a full <em>depth sounding</em> of the Princess experience. You’ll get clear, practical distinctions across ship classes — what Sphere changes versus Royal or Grand in layout, pool and buffet flow, and where the quiet corners live during sea days. Expect cabin-category nuance (including “worth it” upgrades) and deck-by-deck rhythm so your days feel unhurried and well-timed.</p>
+      <p>Dining will be mapped with honesty: main dining patterns, venues that shine for embarkation lunch, and specialty options with typical prices and accessibility notes. We’ll connect menus and experiences to specific ships and seasons, surfacing the small details that turn good evenings into great ones.</p>
+      <p>Finally, we’ll stitch it together with traveler wisdom — MedallionClass tips that actually save time, embarkation strategies, theater reservation realities, and packing cues for itineraries from Alaska to Japan. No brochure fluff, just trustworthy insights to help you come back new.</p>
+    </section>
 
-<script>
-window.SHIP_DATA = [
-  {
-    "name": "Sun Princess",
-    "url": "princess-sun-princess.html",
-    "aliases": [
-      "Sun Priness",
-      "Sun Princces"
-    ]
-  },
-  {
-    "name": "Star Princess",
-    "url": "princess-star-princess.html",
-    "aliases": [
-      "Star Priness",
-      "Star Princces"
-    ]
-  }
-];
-document.addEventListener('DOMContentLoaded', ()=>{ setupShipSearch(window.SHIP_DATA); });
-</script>
+    <section id="search" class="card">
+      <h2>Search Ships</h2>
+      <div class="search" role="search">
+        <input id="shipSearch" type="search" placeholder="Type a ship name… (tolerates typos)" aria-label="Search Princess ships"/>
+        <button id="btnSearch" type="button">Search</button>
+      </div>
+      <div id="searchResults" class="grid" aria-live="polite" aria-busy="false"></div>
+    </section>
 
-<section class="card">
-  <h3>Image Credits</h3>
-  <p class="small">Hero and supplemental images sourced from Wikimedia Commons. Replace placeholders with final credited media.</p>
-</section>
-</div>
-<footer>© 2025 In the Wake — Compiled by Ken</footer>
+    <section class="card">
+      <h3>Image Credits</h3>
+      <p class="tiny">Hero and supplemental images: Wikimedia Commons (place final, specific attributions upon publication).</p>
+    </section>
   </main>
-  <footer class="wrap">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
+
+  <footer class="wrap" role="contentinfo" style="text-align:center">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
   </footer>
+
+  <!-- Tiny, self-contained typo-tolerant ship search -->
+  <script>
+  (function(){
+    const DATA = [
+      {name:"Sun Princess",  url:"princess-sun-princess.html",  aliases:["Sun Priness","Sun Princces"]},
+      {name:"Star Princess", url:"princess-star-princess.html", aliases:["Star Priness","Star Princces"]}
+    ];
+    const $=s=>document.querySelector(s);
+    const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+
+    function score(q, text){
+      if(!q) return 0.1;
+      if(text.startsWith(q)) return 0.1;
+      if(text.includes(q))   return 0.3;
+      // one-edit tolerance
+      const a=text, b=q; let i=0,j=0,err=0;
+      while(i<a.length && j<b.length){
+        if(a[i]===b[j]){i++;j++;continue;}
+        if(++err>1) return 10;
+        (a.length>b.length)?i++:(a.length<b.length)?j++:(i++,j++);
+      }
+      return 0.6;
+    }
+
+    function setup(){
+      const input=$('#shipSearch'), btn=$('#btnSearch'), out=$('#searchResults');
+      if(!input||!btn||!out) return;
+      function run(){
+        const q=norm(input.value);
+        out.setAttribute('aria-busy','true');
+        const items = DATA.map(d=>{
+          const cand=[d.name].concat(d.aliases||[]);
+          const sc = Math.min(...cand.map(c=>score(q, norm(c))));
+          return {d, sc};
+        }).filter(x=>!q || x.sc<10).sort((a,b)=>a.sc-b.sc).slice(0,12);
+        out.innerHTML = items.length
+          ? items.map(x=>`<a class="result" href="${x.d.url}"><strong>${x.d.name}</strong><br><small>${(x.d.aliases||[]).join(', ')}</small></a>`).join('')
+          : `<div class="result"><em>No matches yet. Try “Sun Princess”.</em></div>`;
+        out.setAttribute('aria-busy','false');
+      }
+      input.addEventListener('input', ()=>{ clearTimeout(input._t); input._t=setTimeout(run,90); });
+      btn.addEventListener('click', run);
+      run();
+    }
+    (document.readyState==='loading')?document.addEventListener('DOMContentLoaded',setup,{once:true}):setup();
+  })();
+  </script>
 </body>
 </html>
