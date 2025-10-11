@@ -20,61 +20,55 @@
   <a href="#content" class="skip-link">Skip to content</a>
 
   <header class="hero-header">
-    <nav class="navbar" aria-label="Global">
-      <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
-        <span class="version-badge">v2.208</span>
-      </div>
-      <div class="nav">
-        <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drinks.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html" aria-current="page">Cruise Lines</a>
-      </div>
-    </nav>
-
-    <!-- Single hero (compass + grid come from global CSS) -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" width="86" height="86" decoding="async" aria-hidden="true"/>
-      <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
-      </div>
-      <div class="hero-credit">
-        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
+  <div class="navbar">
+    <div class="brand">
+      <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
+      <span class="version-badge">v2.208</span>
     </div>
-  </header>
+
+    <!-- REQUIRED pills classes -->
+    <nav class="pill-nav pills" aria-label="Primary">
+      <a href="https://www.cruisinginthewake.com/">Home</a>
+      <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
+      <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+      <a href="https://www.cruisinginthewake.com/disability.html">Disability at Sea</a>
+      <a href="https://www.cruisinginthewake.com/drinks.html">Drink Packages</a>
+      <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a>
+      <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
+      <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
+      <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
+      <a href="https://www.cruisinginthewake.com/cruise-lines.html" aria-current="page">Cruise Lines</a>
+    </nav>
+  </div>
+
+  <div class="hero" role="img" aria-label="Ship wake at sunrise">
+    <div class="latlon-grid" aria-hidden="true"></div>
+    <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" width="86" height="86" decoding="async" aria-hidden="true"/>
+    <div class="hero-title">
+      <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+      <div class="tagline">A Cruise Traveler’s Logbook</div>
+    </div>
+    <div class="hero-credit">
+      <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+    </div>
+  </div>
+</header>
 
   <main class="wrap" id="content">
-    <!-- Top pills nav (standards class names) -->
-    <nav class="pill-nav pills" role="navigation" aria-label="Primary">
-      <a href="https://jsschrstrcks1.github.io/index.html">Home</a>
-      <a href="#search">Search Ships</a>
-      <a href="#classes">Ship Classes</a>
-      <a href="#ships">Ships A–Z</a>
-      <a href="https://jsschrstrcks1.github.io/ships/ships.html">All Ships Across All Lines</a>
-    </nav>
+   
 
     <!-- Search-first layout -->
     <section id="search" class="card" role="search" aria-label="Search Viking ships">
-      <h2>Search Ships</h2>
-      <form class="search" onsubmit="event.preventDefault(); document.getElementById('btnSearch').click();">
-        <label class="visually-hidden" for="shipSearch">Search by ship name</label>
-        <input id="shipSearch" type="search" placeholder="Type a ship name… (tolerates typos)" inputmode="search" autocomplete="off" aria-describedby="searchHelp">
-        <button id="btnSearch" type="button">Search</button>
-        <p id="searchHelp" class="tiny">Try: “Viking Star”, “Viking Sea”, or “Viking Bragi”.</p>
-      </form>
-      <div id="searchResults" class="grid-3" aria-live="polite" aria-busy="false"></div>
-    </section>
+  <h2>Search Ships</h2>
+  <form class="search" id="shipSearchForm">
+    <label class="visually-hidden" for="shipSearch">Search by ship name</label>
+    <input id="shipSearch" type="search" placeholder="Type a ship name… (tolerates typos)" inputmode="search" autocomplete="off" aria-describedby="searchHelp">
+    <button id="btnSearch" type="submit">Search</button>
+    <p id="searchHelp" class="tiny">Try: “Viking Star”, “Viking Sea”, or “Viking Bragi”.</p>
+  </form>
+  <div id="searchResults" class="grid-3" aria-live="polite" aria-busy="false"></div>
+</section>
 
     <!-- Intro / positioning -->
     <section class="card">
@@ -156,16 +150,30 @@
 
   <!-- Single search implementation (standards hook only) -->
   <script>
-    window.SHIP_DATA = [
-      { name: "Viking Star",  url: "viking-star.html",  aliases: ["Viking Starr","Vikin Star"] },
-      { name: "Viking Sea",   url: "viking-sea.html",   aliases: ["Viking C","Viking See"] },
-      { name: "Viking Sky",   url: "viking-sky.html",   aliases: ["Viking Ski","Viking Skye"] },
-      { name: "Viking Bragi", url: "viking-bragi.html", aliases: ["Braghi","Vragi"] },
-      { name: "Viking Egil",  url: "viking-egil.html",  aliases: ["Egel","Egill"] }
-    ];
-    document.addEventListener('DOMContentLoaded', ()=>{
-      if (window.setupShipSearch) { window.setupShipSearch(window.SHIP_DATA); }
+  window.SHIP_DATA = [
+    { name: "Viking Star",  url: "viking-star.html",  aliases: ["Viking Starr","Vikin Star"] },
+    { name: "Viking Sea",   url: "viking-sea.html",   aliases: ["Viking C","Viking See"] },
+    { name: "Viking Sky",   url: "viking-sky.html",   aliases: ["Viking Ski","Viking Skye"] },
+    { name: "Viking Bragi", url: "viking-bragi.html", aliases: ["Braghi","Vragi"] },
+    { name: "Viking Egil",  url: "viking-egil.html",  aliases: ["Egel","Egill"] }
+  ];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // hook search
+    const form  = document.getElementById('shipSearchForm');
+    const input = document.getElementById('shipSearch');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (window.setupShipSearch) {
+        window.setupShipSearch(window.SHIP_DATA, input.value);
+      }
     });
-  </script>
+
+    // initialize module if it expects just data
+    if (window.setupShipSearch) {
+      window.setupShipSearch(window.SHIP_DATA);
+    }
+  });
+</script>
 </body>
 </html>
