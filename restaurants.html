@@ -3,7 +3,7 @@
 <head>
   <!--
     In the Wake — Restaurants & Menus
-    Standards v3.007 — full upgrade drop-in
+    Standards v3.007a — full upgrade drop-in
     Soli Deo Gloria.
   -->
 
@@ -40,8 +40,8 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Restaurants &amp; Menus | In the Wake (v3.007)</title>
-  <meta name="version" content="v3.007"/>
+  <title>Restaurants &amp; Menus | In the Wake (v3.007a)</title>
+  <meta name="version" content="v3.007a"/>
   <meta name="description" content="Premium & complimentary dining across the fleet — menus, prices, accessibility notes."/>
   <meta name="robots" content="index,follow"/>
 
@@ -52,7 +52,7 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants.html"/>
   <meta property="og:title" content="Restaurants &amp; Menus | In the Wake"/>
   <meta property="og:description" content="Premium & complimentary dining across the fleet — menus, prices, accessibility notes."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.007"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/restaurants-hero.jpg?v=3.007a"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Structured Data -->
@@ -72,7 +72,7 @@
   </script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.007"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.007a"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 
   <!-- Page styles (hero + watermark + grids + overlays + animation) -->
@@ -126,8 +126,9 @@
 
     /* Trays must float ABOVE everything */
     .site-header,.hero-header{ position:relative; z-index:5000; overflow:visible!important; }
-    #filters{ position:relative; z-index:5100; }
-    #brandbar{ position:relative; z-index:5200; }
+    #brandbar{ position:relative; z-index:5200; margin:.4rem auto 0; padding:0 16px; max-width:1160px; }
+    #brandbar .row{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+
     #brandbar .tray{
       position:absolute; top:100%; left:16px; right:16px;
       display:none; background:#fff; border:2px solid var(--rope);
@@ -137,27 +138,21 @@
     }
     #brandbar .tray.on{ display:block; }
     #brandbar .tray .group{ display:flex; gap:.4rem; flex-wrap:wrap; }
-    #brandbar .row{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
-    #brandbar .pillbtn{
+
+    #brandbar .label{ line-height:1; }
+
+    .pillbtn, .chip{
       display:inline-flex; align-items:center; justify-content:center;
       padding:.38rem .65rem; height:2.1rem; line-height:1;
-      border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.9rem; cursor:pointer;
+      border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.9rem; cursor:pointer; user-select:none;
     }
-    #brandbar .pillbtn[aria-pressed="true"]{ background:#0e6e8e; color:#fff; border-color:#0e6e8e; }
+    .chip{ font-size:.85rem }
+    .pillbtn[aria-pressed="true"], .chip[aria-pressed="true"]{ background:#0e6e8e; color:#fff; border-color:#0e6e8e; box-shadow:0 1px 6px rgba(0,0,0,.12); }
 
-    /* Filters */
+    /* Search */
     #search-wrap{ max-width:1160px; margin:.75rem auto 0; padding:0 16px; }
     #q{ width:100%; padding:.65rem .85rem; border-radius:12px; border:1px solid #cfe1ea; font-size:1rem; }
     #q:focus{ border-color:#0e6e8e; box-shadow:0 0 0 3px rgba(14,110,142,.15); }
-
-    .filters{ max-width:1160px; margin:.4rem auto 0; padding:0 16px; }
-    .filters .filter-row{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
-    .filters .filter-row .label{ line-height:1; }
-
-    .chip{ display:inline-flex; align-items:center; justify-content:center;
-      padding:.38rem .65rem; height:2.1rem; line-height:1;
-      border:1px dashed var(--rope); border-radius:999px; background:#fff; font-size:.85rem; cursor:pointer; user-select:none; }
-    .chip[aria-pressed="true"]{ background:#0e6e8e; color:#fff; border-color:#0e6e8e; box-shadow:0 1px 6px rgba(0,0,0,.12); }
 
     /* Card entry “gravitas” */
     @keyframes card-enter { from{opacity:0;transform:translateY(18px) scale(.985)} to{opacity:1;transform:none} }
@@ -177,7 +172,7 @@
   <header class="site-header hero-header">
     <div class="topbar">
       <a class="logo-sm" href="/"><img src="/assets/logo_wake.png" alt="In the Wake"/></a>
-      <span class="ver">v3.007</span>
+      <span class="ver">v3.007a</span>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/ships/">Ships</a>
@@ -203,23 +198,15 @@
       </div>
     </div>
 
-    <!-- Filters canon -->
+    <!-- Search -->
     <div id="search-wrap" role="search">
       <input id="q" type="search" inputmode="search"
              placeholder="Type to filter… (e.g., chops, sushi, suite, diamond)"
              aria-label="Filter restaurants by name, type, access, tag, ship, or class">
     </div>
 
-    <div id="filters" class="filters" role="group" aria-label="Filter by category">
-      <div class="filter-row">
-        <span class="label tiny">Categories:</span>
-        <button type="button" class="chip" data-kind="cat" data-val="premium" aria-pressed="false">Premium</button>
-        <button type="button" class="chip" data-kind="cat" data-val="complimentary" aria-pressed="false">Complimentary</button>
-        <button type="button" class="chip" data-kind="cat" data-val="activity" aria-pressed="false">Activities</button>
-      </div>
-    </div>
-
-    <nav id="brandbar" aria-label="Filter by brand, class, ship, or venue">
+    <!-- Unified toolbar: Show only + Categories -->
+    <nav id="brandbar" aria-label="Filter by brand, category, class, ship, or venue">
       <div class="row">
         <span class="label tiny">Show only:</span>
         <button class="pillbtn" id="brandBtn" aria-expanded="false" aria-controls="tray-brand" aria-pressed="false">Cruise Line</button>
@@ -227,11 +214,17 @@
         <button class="pillbtn" id="shipBtn"  aria-expanded="false" aria-controls="tray-ship"  aria-pressed="false">Ship</button>
         <button class="pillbtn" id="venueBtn" aria-expanded="false" aria-controls="tray-venue" aria-pressed="false">Venue</button>
         <button class="pillbtn" id="clearBtn" type="button" aria-label="Clear all filters" title="Clear filters">Clear</button>
+
+        <span class="label tiny" style="margin-left:.75rem">Categories:</span>
+        <button type="button" class="chip" data-kind="cat" data-val="premium" aria-pressed="false">Premium</button>
+        <button type="button" class="chip" data-kind="cat" data-val="complimentary" aria-pressed="false">Complimentary</button>
+        <button type="button" class="chip" data-kind="cat" data-val="activity" aria-pressed="false">Activities</button>
       </div>
-      <div id="tray-brand" class="tray" role="menu"><div class="group" id="brands"></div></div>
-      <div id="tray-class" class="tray" role="menu"><div class="group" id="classes"></div></div>
-      <div id="tray-ship"  class="tray" role="menu"><div class="group" id="ships"></div></div>
-      <div id="tray-venue" class="tray" role="menu"><div class="group" id="venues"></div></div>
+
+      <div id="tray-brand" class="tray" role="menu" aria-label="Choose Cruise Line"><div class="group" id="brands"></div></div>
+      <div id="tray-class" class="tray" role="menu" aria-label="Choose Ship Class"><div class="group" id="classes"></div></div>
+      <div id="tray-ship"  class="tray" role="menu" aria-label="Choose Ship"><div class="group" id="ships"></div></div>
+      <div id="tray-venue" class="tray" role="menu" aria-label="Choose Venue"><div class="group" id="venues"></div></div>
     </nav>
   </header>
 
@@ -278,6 +271,15 @@
     const statusEl = $('#search-meta-bottom');
     const abs  = p => (typeof window._abs==='function' ? _abs(p) : p);
     const setStatus = m => { if(statusEl) statusEl.textContent=m; };
+
+    // Small helper to add a Retry chip into the status line
+    function ensureRetry(onClick){
+      if(!statusEl || statusEl.querySelector('button.retry')) return;
+      const b=document.createElement('button');
+      b.type='button'; b.className='chip retry'; b.textContent='Retry'; b.style.marginLeft='.5rem';
+      b.addEventListener('click', onClick);
+      statusEl.appendChild(b);
+    }
 
     function isDB(x){ return !!(x && Array.isArray(x.venues) && x.ships && typeof x.ships==='object'); }
 
@@ -396,6 +398,7 @@
       }catch(e){
         console.error('[itw] venues load error:',e);
         setStatus('Could not load venues.');
+        ensureRetry(()=>location.reload());
       }
     }
 
@@ -403,7 +406,7 @@
   })();
   </script>
 
-  <!-- ===== Filters, search, trays, ship-pill click, animations ===== -->
+  <!-- ===== Filters, search, trays, ship-pill click, animations, focus trap ===== -->
   <script>
   (function(){
     const $  = s => document.querySelector(s);
@@ -520,8 +523,10 @@
       $q.addEventListener('input', ()=>{ clearTimeout(t); const val=$q.value||''; t=setTimeout(()=>{ STATE.query=val; apply(); },80); });
       addEventListener('keydown', e=>{ if(e.key==='/' && document.activeElement!==$q){ e.preventDefault(); $q.focus(); }});
     }
+
+    // Category chips anywhere in the DOM (unified toolbar)
     function wireCategoryChips(){
-      $$('#filters .chip[data-kind="cat"]').forEach(btn=>{
+      $$('button.chip[data-kind="cat"]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const v=(btn.getAttribute('data-val')||'').toLowerCase();
           const on=btn.getAttribute('aria-pressed')==='true';
@@ -531,13 +536,55 @@
       });
     }
 
+    // ----- Focus trap + roving focus helpers for trays -----
+    function focusablesIn(el){ return Array.from(el.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])')).filter(n=>!n.disabled && n.offsetParent!==null); }
+    function trapAndRove(tray, firstToFocus){
+      const group = tray.querySelector('.group'); if(!group) return;
+      const items = focusablesIn(group);
+      if(!items.length) return;
+
+      let idx = Math.max(0, items.indexOf(firstToFocus||items[0]));
+      items[idx].focus();
+
+      function onKey(e){
+        if(!tray.classList.contains('on')) return;
+        if(e.key==='Tab'){
+          e.preventDefault();
+          idx = (idx + (e.shiftKey?-1:1) + items.length) % items.length;
+          items[idx].focus();
+        } else if(e.key==='ArrowRight' || e.key==='ArrowDown'){
+          e.preventDefault(); idx=(idx+1)%items.length; items[idx].focus();
+        } else if(e.key==='ArrowLeft' || e.key==='ArrowUp'){
+          e.preventDefault(); idx=(idx-1+items.length)%items.length; items[idx].focus();
+        } else if(e.key==='Escape'){
+          closeAll();
+        }
+      }
+      tray.addEventListener('keydown', onKey);
+      const observer = new MutationObserver(()=>{
+        if(!tray.classList.contains('on')){ tray.removeEventListener('keydown', onKey); observer.disconnect(); }
+      });
+      observer.observe(tray,{attributes:true,attributeFilter:['class']});
+    }
+
+    // ----- Brandbar / trays -----
     function wireBrandBar(){
       const bBtn=$('#brandBtn'), cBtn=$('#classBtn'), sBtn=$('#shipBtn'), vBtn=$('#venueBtn'), clr=$('#clearBtn');
       const tB=$('#tray-brand'), tC=$('#tray-class'), tS=$('#tray-ship'), tV=$('#tray-venue');
       const $brands=$('#brands'), $classes=$('#classes'), $ships=$('#ships'), $venues=$('#venues');
 
       function closeAll(){ [tB,tC,tS,tV].forEach(x=>x&&x.classList.remove('on')); [bBtn,cBtn,sBtn,vBtn].forEach(b=>b&&b.setAttribute('aria-expanded','false')); }
-      function toggle(btn,tray){ if(!btn||!tray) return; const open=tray.classList.contains('on'); closeAll(); if(!open){ tray.classList.add('on'); btn.setAttribute('aria-expanded','true'); } }
+      function open(btn,tray){
+        if(!btn||!tray) return;
+        closeAll();
+        tray.classList.add('on'); btn.setAttribute('aria-expanded','true');
+        // focus trap + roving
+        setTimeout(()=> trapAndRove(tray, tray.querySelector('button')), 0);
+      }
+      function toggle(btn,tray){
+        if(!btn||!tray) return; const openNow=tray.classList.contains('on');
+        if(openNow){ closeAll(); } else { open(btn,tray); }
+      }
       function markPressed(btn, on){ if(!btn) return; btn.setAttribute('aria-pressed', on?'true':'false'); }
       function clearQuery(){ if($q) $q.value=''; STATE.query=''; }
 
@@ -550,7 +597,7 @@
       clr?.addEventListener('click', ()=>{
         STATE.klass=''; STATE.ship=''; STATE.venue=''; STATE.query=''; STATE.cats.clear();
         $q && ($q.value='');
-        $$('#filters .chip[aria-pressed="true"]').forEach(x=>x.setAttribute('aria-pressed','false'));
+        $$('button.chip[aria-pressed="true"]').forEach(x=>x.setAttribute('aria-pressed','false'));
         markPressed(cBtn,false); markPressed(sBtn,false); markPressed(vBtn,false);
         apply(); closeAll(); $q?.focus();
       });
@@ -573,14 +620,14 @@
         $classes.querySelectorAll('button').forEach(btn=>{
           btn.addEventListener('click', ()=>{
             const val=(btn.getAttribute('data-class')||'').toLowerCase();
-            // toggle; also CLEAR venue and query so class shows all venues
             const toggled = (STATE.klass===val);
             STATE.klass = toggled ? '' : val;
-            STATE.ship  = '';              // class selection resets ship
-            STATE.venue = '';              // clear venue context
+            STATE.ship  = '';
+            STATE.venue = '';
             clearQuery();
             markPressed(cBtn, !!STATE.klass); markPressed(sBtn,false); markPressed(vBtn,false);
-            apply(); closeAll(); fillShips(STATE.klass); toggle(sBtn,tS);
+            apply(); closeAll();
+            fillShips(STATE.klass); open(sBtn,tS);
             const top=$('#q')?.offsetTop||0; scrollTo({top:Math.max(top-80,0),behavior:'smooth'});
           });
         });
@@ -595,7 +642,7 @@
             const val=(b.getAttribute('data-ship')||'').toLowerCase();
             const toggled=(STATE.ship===val);
             STATE.ship  = toggled ? '' : val;
-            STATE.venue = '';            // clear venue when picking a ship
+            STATE.venue = '';
             clearQuery();
             markPressed(sBtn, !!STATE.ship); markPressed(vBtn,false);
             apply(); closeAll();
@@ -612,7 +659,6 @@
             const val=(b.getAttribute('data-venue')||'').toLowerCase();
             const toggled=(STATE.venue===val);
             STATE.venue = toggled ? '' : val;
-            // venue selection clears class/ship to show venue fleet-wide
             STATE.klass=''; STATE.ship='';
             clearQuery();
             markPressed(vBtn, !!STATE.venue); markPressed(cBtn,false); markPressed(sBtn,false);
