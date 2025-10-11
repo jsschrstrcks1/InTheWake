@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <!--
-    In the Wake — Cruise Lines (v3.007a)
-    Soli Deo Gloria.
+    In the Wake — Cruise Lines (v3.007b)
+    “Soli Deo Gloria.”
   -->
 
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js"
           data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <noscript><meta http-equiv="refresh" content="0; url=/noscript.html"></noscript>
 
   <!-- Standards: absolute URL + origin normalizer -->
   <script>
@@ -24,8 +25,9 @@
       ].join(',');
       document.querySelectorAll(sel).forEach(el=>{
         const attr=el.hasAttribute('href')?'href':'src';
-        try{ const u=new URL(el.getAttribute(attr));
-             el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        try{
+          const u=new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
         }catch(_){}
       });
     },{once:true});
@@ -35,17 +37,20 @@
   <!-- External link hardening -->
   <script>
   document.addEventListener('click',e=>{
-    const a=e.target.closest&&e.target.closest('a[href]'); if(!a) return;
-    try{ const u=new URL(a.href,location.href);
-         if(u.origin!==location.origin){ a.target='_blank'; a.rel='noopener'; }
+    const a=e.target.closest&&e.target.closest('a[href]');
+    if(!a) return;
+    try{
+      const u=new URL(a.href,location.href);
+      if(u.origin!==location.origin){ a.target='_blank'; a.rel='noopener'; }
     }catch(_){}
   },{capture:true});
   </script>
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Cruise Lines | In the Wake (v3.007a)</title>
-  <meta name="version" content="v3.007a"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <title>Cruise Lines | In the Wake (v3.007b)</title>
+  <meta name="version" content="v3.007b"/>
   <meta name="description" content="Browse cruise line guides: Royal Caribbean, Celebrity, Princess, Carnival, Disney, Norwegian, MSC, Holland America, Viking, and Virgin Voyages."/>
   <meta name="robots" content="index,follow"/>
 
@@ -56,15 +61,19 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/cruise-lines/"/>
   <meta property="og:title" content="Cruise Lines | In the Wake"/>
   <meta property="og:description" content="Line-by-line guides with dining, ships, and accessibility notes."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/cruise-lines-hero.jpg?v=3.007a"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/cruise-lines-hero.jpg?v=3.007b"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Structured data -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-    {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
-    {"@type":"ListItem","position":2,"name":"Cruise Lines","item":"https://www.cruisinginthewake.com/cruise-lines/"}
-  ]}
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
+      {"@type":"ListItem","position":2,"name":"Cruise Lines","item":"https://www.cruisinginthewake.com/cruise-lines/"}
+    ]
+  }
   </script>
 
   <!-- SiteCache + SW -->
@@ -76,7 +85,7 @@
   </script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.007a"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.007b"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 
   <!-- Page styles -->
@@ -150,7 +159,7 @@
   <header class="site-header hero-header">
     <div class="topbar">
       <a class="logo-sm" href="/"><img src="/assets/logo_wake.png" alt="In the Wake"/></a>
-      <span class="ver">v3.007a</span>
+      <span class="ver">v3.007b</span>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/ships/">Ships</a>
@@ -169,7 +178,7 @@
     <div class="hero" role="img" aria-label="Open ocean at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
       <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
-      <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt="In the Wake"></div>
+      <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt="In the Wake"/></div>
       <p class="tagline">A Cruise Traveler’s Logbook</p>
     </div>
 
@@ -188,29 +197,31 @@
       <div class="divider" aria-hidden="true"></div>
       <div class="grid" id="line-grid">
         <!-- Cards are plain anchors so this page can be fully static -->
-        <div class="card"><a href="/cruise-lines/royal-caribbean.html"><strong>Royal Caribbean</strong><br><small>Ships, dining, accessibility notes</small></a></div>
-        <div class="card"><a href="/cruise-lines/celebrity.html"><strong>Celebrity Cruises</strong><br><small>Modern luxury at sea</small></a></div>
-        <div class="card"><a href="/cruise-lines/princess.html"><strong>Princess</strong><br><small>Relaxed elegance & MedallionClass</small></a></div>
-        <div class="card"><a href="/cruise-lines/carnival.html"><strong>Carnival</strong><br><small>Fun ships & casual vibes</small></a></div>
-        <div class="card"><a href="/cruise-lines/disney.html"><strong>Disney Cruise Line</strong><br><small>Family-forward magic</small></a></div>
-        <div class="card"><a href="/cruise-lines/norwegian.html"><strong>Norwegian</strong><br><small>Freestyle cruising</small></a></div>
-        <div class="card"><a href="/cruise-lines/msc.html"><strong>MSC Cruises</strong><br><small>European style & Yacht Club</small></a></div>
-        <div class="card"><a href="/cruise-lines/holland-america.html"><strong>Holland America</strong><br><small>Classic ocean voyages</small></a></div>
-        <div class="card"><a href="/cruise-lines/viking.html"><strong>Viking</strong><br><small>Adults-only discovery</small></a></div>
-        <div class="card"><a href="/cruise-lines/virgin.html"><strong>Virgin Voyages</strong><br><small>Adult-by-design</small></a></div>
+        <div class="card"><a href="/cruise-lines/royal-caribbean.html" aria-label="Royal Caribbean guide"><strong>Royal Caribbean</strong><br><small>Ships, dining, accessibility notes</small></a></div>
+        <div class="card"><a href="/cruise-lines/celebrity.html" aria-label="Celebrity Cruises guide"><strong>Celebrity Cruises</strong><br><small>Modern luxury at sea</small></a></div>
+        <div class="card"><a href="/cruise-lines/princess.html" aria-label="Princess guide"><strong>Princess</strong><br><small>Relaxed elegance &amp; MedallionClass</small></a></div>
+        <div class="card"><a href="/cruise-lines/carnival.html" aria-label="Carnival guide"><strong>Carnival</strong><br><small>Fun ships &amp; casual vibes</small></a></div>
+        <div class="card"><a href="/cruise-lines/disney.html" aria-label="Disney Cruise Line guide"><strong>Disney Cruise Line</strong><br><small>Family-forward magic</small></a></div>
+        <div class="card"><a href="/cruise-lines/norwegian.html" aria-label="Norwegian guide"><strong>Norwegian</strong><br><small>Freestyle cruising</small></a></div>
+        <div class="card"><a href="/cruise-lines/msc.html" aria-label="MSC Cruises guide"><strong>MSC Cruises</strong><br><small>European style &amp; Yacht Club</small></a></div>
+        <div class="card"><a href="/cruise-lines/holland-america.html" aria-label="Holland America guide"><strong>Holland America</strong><br><small>Classic ocean voyages</small></a></div>
+        <div class="card"><a href="/cruise-lines/viking.html" aria-label="Viking guide"><strong>Viking</strong><br><small>Adults-only discovery</small></a></div>
+        <div class="card"><a href="/cruise-lines/virgin.html" aria-label="Virgin Voyages guide"><strong>Virgin Voyages</strong><br><small>Adult-by-design</small></a></div>
       </div>
     </section>
   </main>
 
   <footer class="wrap" role="contentinfo" style="text-align:center">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
+    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
   </footer>
 
-  <!-- Tiny script: search + “gravitas” entry -->
+  <!-- Tiny script: search + “gravitas” entry (respects reduced-motion) -->
   <script>
   (function(){
     const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
     const q=$('#q'), meta=$('#search-meta'), grid=$('#line-grid');
+    const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'").trim(); }
     function update(){
       const val=norm(q?.value||''); let shown=0;
@@ -221,13 +232,12 @@
         if(hit) shown++;
       });
       if(meta) meta.textContent = val ? `Showing ${shown} of 10` : 'Showing all cruise lines';
-      // gravitas
+      if(prefersReduced) return;
       let i=0; grid.querySelectorAll('.card:not(.is-hidden)').forEach(c=>{
         c.classList.remove('--in'); void c.offsetWidth; c.style.setProperty('--stg', i++); c.classList.add('--in');
       });
     }
     q?.addEventListener('input', ()=>{ clearTimeout(q._t); q._t=setTimeout(update,70); });
-    // first paint animation
     requestAnimationFrame(update);
   })();
   </script>
