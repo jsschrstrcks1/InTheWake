@@ -3,39 +3,14 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Viking — In the Wake (v2.205)</title>
-
+  <title>Viking — In the Wake (v2.206)</title>
   <meta name="description" content="Viking: quiet luxury, destination immersion, and Nordic calm. Adults-only ships with included beer & wine at meals, Wi-Fi, laundry and select excursions."/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/viking.html"/>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006"/>
 
+  <!-- a11y utility only, everything else relies on global CSS -->
   <style>
-    /* scoped enhancements only */
-    .hero{
-      position:relative;
-      background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat;
-      filter:saturate(1.15) contrast(1.06) brightness(1.03)
-    }
-    .hero-credit{
-      position:absolute; right:.75rem; bottom:.75rem;
-      background:rgba(255,255,255,.9); padding:.3rem .6rem; border-radius:.5rem;
-      font-size:.85rem; box-shadow:0 2px 6px rgba(0,0,0,.12)
-    }
-    .card{position:relative; overflow:hidden}
-    .card::after{
-      content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%,360px); height:min(60%,360px);
-      background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none
-    }
-    .search .actions{display:flex; gap:.5rem; align-items:center}
-    .search input[type="search"]{flex:1; min-width:220px}
-    .badge{font-size:.8rem; background:#eef; padding:.1rem .4rem; border-radius:.4rem}
-    .figure img{width:100%; height:auto}
-    .visually-hidden{
-      position:absolute!important; height:1px;width:1px; overflow:hidden;
-      clip:rect(1px,1px,1px,1px); white-space:nowrap
-    }
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
   </style>
 </head>
 
@@ -44,7 +19,9 @@
     <div class="navbar" role="navigation" aria-label="Global">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
+        <span class="version-badge">v2.206</span>
       </div>
+
       <nav class="nav">
         <a href="https://www.cruisinginthewake.com/">Home</a>
         <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
@@ -60,27 +37,21 @@
       </nav>
     </div>
 
+    <!-- Global stylesheet provides the hero background and 1 compass -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <!-- single decorative compass only -->
+      <div class="latlon-grid" aria-hidden="true"></div>
       <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
         <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
-        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
-        <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a>
+        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
   <main id="content" class="wrap" role="main">
-    <!-- removed page watermark to avoid duplicate compass -->
-    <header class="site-header" aria-labelledby="page-title">
-      <h1 id="page-title">Viking</h1>
-      <p class="small">Quiet luxury, destination immersion, and Nordic calm. No kids. No casinos.</p>
-    </header>
-
     <!-- Top: Search -->
     <section id="search" class="card" aria-labelledby="search-title">
       <h2 id="search-title">Search Ships</h2>
@@ -92,47 +63,38 @@
           <button id="btnSearch" type="submit">Search</button>
         </div>
       </form>
-      <div id="searchResults" class="grid" aria-live="polite"></div>
-      <noscript><p class="small">JavaScript is off. Use the <a href="#ships">Ships A–Z list</a> below.</p></noscript>
+      <div id="searchResults" class="" aria-live="polite"></div>
+      <noscript><p class="tiny">JavaScript is off. Use the <a href="#ships">Ships A–Z list</a> below.</p></noscript>
     </section>
 
-    <!-- Lead marketing -->
+    <!-- Page header -->
+    <header class="site-header" aria-labelledby="page-title">
+      <h1 id="page-title">Viking</h1>
+      <p class="tiny">Quiet luxury, destination immersion, and Nordic calm. No kids. No casinos.</p>
+    </header>
+
+    <!-- Lead card -->
     <section class="card" aria-labelledby="lead-title">
-      <h2 id="lead-title">Quiet Luxury. No Kids. No Casinos. Viking.</h2>
-      <p>Viking focuses on where you’re going, not just how you get there. Expect resident historians, chamber music, and clear-eyed Scandinavian design that frames the scenery rather than competing with it.</p>
-      <p>Beer &amp; wine with meals, Wi-Fi, laundry, and select excursions are included — without the upsell. Cabins are limited and sell early; if Viking is your style, reserve while they exist.</p>
+      <h2 id="lead-title">Why Viking</h2>
+      <p>Viking keeps the spotlight on the destination: resident historians, chamber music, and unhurried days carried by clean Scandinavian design. Ships feel like boutique hotels at sea — serene spaces that frame the view rather than compete with it.</p>
+      <p>Beer &amp; wine with meals, Wi-Fi, self-service laundry, and select excursions are included. No casinos, no kids, and no constant upsell — just thoughtful service and time to linger ashore. Cabins are limited and sell early.</p>
     </section>
 
     <!-- Coming Soon -->
     <section class="card" aria-labelledby="coming-soon-title">
-      <h2 id="coming-soon-title">Coming Soon: A Depth-Sounding of the Viking Experience</h2>
-      <p>We’re preparing a class-by-class guide to Viking’s fleet — from intimate <em>Ocean</em> ships that feel like boutique hotels at sea to elegant <em>Longships</em> gliding Europe’s rivers. You’ll see how class impacts space, stateroom types, verandas, and traffic flow, all within Viking’s serene, adults-only ethos.</p>
-      <p>We’ll map daily life onboard: the Living Room’s quiet corners, Explorers’ Lounge for fjord watching, Mamsen’s Norwegian comfort dishes, Manfredi’s Italian classics, the World Café’s open kitchen, the Spa’s thermal suite, and enrichment mainstays like lectures and classical ensembles. Expect sample day rhythms, embarkation pointers, and packing notes tuned to Viking’s smart-casual cadence.</p>
-      <p>Finally, look for quick links by class to ship pages, dining and bar overviews, and stateroom guides — everything needed to choose the right ship for your itinerary and travel style.</p>
-    </section>
-
-    <!-- Gallery -->
-    <section class="card" aria-labelledby="gallery-title">
-      <h2 id="gallery-title">Gallery</h2>
-      <div class="grid">
-        <figure class="figure">
-          <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-1.jpg" alt="Viking ocean ship underway at sea">
-          <figcaption>Image: Wikimedia Commons — replace with final attribution.</figcaption>
-        </figure>
-        <figure class="figure">
-          <img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt="Teak promenade and lounge seating on a Viking ship">
-          <figcaption>Image: Wikimedia Commons — replace with final attribution.</figcaption>
-        </figure>
-      </div>
+      <h2 id="coming-soon-title">Coming Soon: A Depth-Sounding of Viking</h2>
+      <p>We’re charting a class-by-class guide to Viking’s fleet — from the all-veranda <em>Ocean</em> ships (~930 guests) to the sleek <em>Longships</em> on Europe’s rivers. You’ll see how class shapes stateroom layouts, public-space flow, veranda sizes, and quiet zones, so you can match ship design to your travel style.</p>
+      <p>Expect a practical tour of daily life onboard: the Living Room’s reading nooks, Explorers’ Lounge for fjord watching, Mamsen’s Norwegian comfort food, Manfredi’s Italian classics, the World Café’s open kitchens, and the Spa’s thermal suite. We’ll add sample day rhythms, embarkation tips, and packing pointers tuned to Viking’s smart-casual cadence.</p>
+      <p>We’ll also include quick links by class to ship pages, dining and bar overviews, and stateroom guides — everything you need to choose the right ship for your itinerary with confidence.</p>
     </section>
 
     <!-- Ship Classes -->
     <section id="classes" class="card" aria-labelledby="classes-title">
       <h2 id="classes-title">Ship Classes</h2>
-      <div class="grid">
+      <div class="grid-3">
         <article class="card" aria-labelledby="ocean-class-title">
           <h3 id="ocean-class-title">Ocean Ships <span class="badge">launched 2015</span></h3>
-          <p>All-veranda ships (~930 guests) with serene Scandinavian interiors. Hallmarks include the Wintergarden, Explorers’ Lounge, a spa thermal suite, multiple included dining venues, and destination-forward enrichment.</p>
+          <p>All-veranda ocean ships designed around light and views. Hallmarks include the Wintergarden, Explorers’ Lounge, a full thermal suite, and destination-focused enrichment with lectures and classical music.</p>
           <ul>
             <li><a href="https://jsschrstrcks1.github.io/ships/viking-sea.html">Viking Sea</a></li>
             <li><a href="https://jsschrstrcks1.github.io/ships/viking-sky.html">Viking Sky</a></li>
@@ -142,7 +104,7 @@
 
         <article class="card" aria-labelledby="longship-class-title">
           <h3 id="longship-class-title">Longships (River) <span class="badge">launched 2012</span></h3>
-          <p>Efficient river ships built for scenery: airy lounges, Aquavit Terrace, and staterooms designed around the view. Think cultural immersion, included tours, and unhurried days on Europe’s waterways.</p>
+          <p>Efficient river ships with airy lounges and the Aquavit Terrace, built for scenery and culture. Think included tours, regional menus, and unhurried days that maximize time in port.</p>
           <ul>
             <li><a href="https://jsschrstrcks1.github.io/ships/viking-bragi.html">Viking Bragi</a></li>
             <li><a href="https://jsschrstrcks1.github.io/ships/viking-egil.html">Viking Egil</a></li>
@@ -163,13 +125,26 @@
       </ul>
     </section>
 
-    <!-- Credits -->
-    <section class="card" aria-labelledby="credits-title">
-      <h2 id="credits-title">Image Credits</h2>
-      <p class="small">Hero and supplemental images sourced from Wikimedia Commons. Replace placeholders with final, specific attributions per image license.</p>
+    <!-- Gallery -->
+    <section class="card" aria-labelledby="gallery-title">
+      <h2 id="gallery-title">Gallery</h2>
+      <div class="grid-3">
+        <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-star.html">
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-1.jpg" alt=""></span>
+          <span class="body"><strong>Viking Star</strong><span class="badge">Ocean</span></span>
+        </a>
+        <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-sea.html">
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt=""></span>
+          <span class="body"><strong>Viking Sea</strong><span class="badge">Ocean</span></span>
+        </a>
+        <a class="ship-card" href="https://jsschrstrcks1.github.io/ships/viking-bragi.html">
+          <span class="thumb"><img src="https://jsschrstrcks1.github.io/assets/cruise-lines/viking-hero-2.jpg" alt=""></span>
+          <span class="body"><strong>Viking Bragi</strong><span class="badge">Longship</span></span>
+        </a>
+      </div>
     </section>
 
-    <footer class="small">© 2025 In the Wake — Compiled by Ken</footer>
+    <footer class="tiny">© 2025 In the Wake — Compiled by Ken</footer>
   </main>
 
   <footer class="wrap">
@@ -193,17 +168,16 @@
         const n = q.trim().toLowerCase();
         const hits = data.filter(s => [s.name, ...(s.aliases||[])].join(" ").toLowerCase().includes(n));
         if(!hits.length){
-          out.innerHTML = '<p class="small">No matches. Try “Viking Star”, “Viking Sea”, “Viking Sky”, “Viking Bragi”, or “Viking Egil”.</p>';
+          out.innerHTML = '<p class="tiny">No matches. Try: Viking Star, Viking Sea, Viking Sky, Viking Bragi, Viking Egil.</p>';
           return;
         }
-        const frag = document.createDocumentFragment();
+        const ul = document.createElement('ul');
         hits.forEach(s=>{
-          const art = document.createElement('article');
-          art.className = 'card';
-          art.innerHTML = '<h3><a href="https://jsschrstrcks1.github.io/ships/'+ s.url +'">'+ s.name +'</a></h3>';
-          frag.appendChild(art);
+          const li = document.createElement('li');
+          li.innerHTML = '<a href="https://jsschrstrcks1.github.io/ships/'+ s.url +'">'+ s.name +'</a>';
+          ul.appendChild(li);
         });
-        out.appendChild(frag);
+        out.appendChild(ul);
       }
 
       document.addEventListener('DOMContentLoaded', function(){
