@@ -85,27 +85,20 @@
   </script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.007b"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 
-  <!-- Page styles -->
+  <!-- Page-local trims (no hero overrides here; unified CSS handles hero) -->
   <style>
     :root{ --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e; }
-    body.lines-page{ background:linear-gradient(var(--foam),#fff 240px); color:var(--ink); }
-    .hero{ background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
-           filter:saturate(1.12) contrast(1.06) brightness(1.04); }
-    .hero::before,.hero::after{ content:none!important; }
-    body::before{ content:""; position:fixed; inset:0;
-      background:url("/assets/watermark.png") no-repeat center right/420px auto;
-      opacity:.06; pointer-events:none; z-index:0; }
-    body>*{ position:relative; z-index:1; }
 
+    /* layout helpers */
     .wrap{ max-width:1160px; margin:0 auto; padding:0 16px; }
     .topbar{display:flex;align-items:center;gap:.6rem;padding:.35rem .75rem}
     .pill-nav.pills{margin-left:auto;display:flex;gap:.5rem;flex-wrap:wrap}
     .ver{color:#355;opacity:.7;font-weight:600;font-size:.95rem}
 
-    /* Skip link + focus rings */
+    /* a11y */
     .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
     .skip-link:focus{ position:fixed; left:12px; top:12px; width:auto; height:auto; padding:.45rem .7rem;
       background:#fff; border:2px solid var(--accent); border-radius:10px; z-index:10000; }
@@ -120,13 +113,13 @@
       *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
     }
 
-    /* Search */
+    /* search */
     #search-wrap{ max-width:1160px; margin:.75rem auto 0; padding:0 16px; }
     #q{ width:100%; padding:.65rem .85rem; border-radius:12px; border:1px solid #cfe1ea; font-size:1rem; }
     #q:focus{ border-color:#0e6e8e; box-shadow:0 0 0 3px rgba(14,110,142,.15); }
     #search-meta{ margin:.45rem 16px 0; color:#355; font-size:.9rem; }
 
-    /* Cards grid */
+    /* grid + cards */
     .section{ position:relative; margin:0 auto; max-width:1160px; padding:0 16px 1rem; }
     .divider{ height:12px; background:var(--rope);
       -webkit-mask:linear-gradient(90deg,#000 60%,transparent 60%) repeat-x;
@@ -145,7 +138,7 @@
     .card a{ display:block; color:inherit; text-decoration:none; }
     .card a strong{ color:#0a3d62; }
 
-    /* Entry animation */
+    /* entry animation (respects reduced motion) */
     @keyframes card-enter { from{opacity:0;transform:translateY(18px) scale(.985)} to{opacity:1;transform:none} }
     .grid .card{ will-change:opacity,transform }
     .grid .card.--in{ animation:card-enter 460ms cubic-bezier(.19,.75,.22,1) both }
@@ -153,7 +146,7 @@
   </style>
 </head>
 
-<body class="lines-page">
+<body class="lines-page no-hero-filter">
   <a class="skip-link" href="#content">Skip to main content</a>
 
   <header class="site-header hero-header">
@@ -178,7 +171,7 @@
     <div class="hero" role="img" aria-label="Open ocean at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
       <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
-      <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt="In the Wake"/></div>
+      <div class="hero-title"><img class="logo" src="/assets/logo_wake.png" alt="In the Wake"></div>
       <p class="tagline">A Cruise Traveler’s Logbook</p>
     </div>
 
@@ -196,7 +189,6 @@
       <h1>Cruise Lines</h1>
       <div class="divider" aria-hidden="true"></div>
       <div class="grid" id="line-grid">
-        <!-- Cards are plain anchors so this page can be fully static -->
         <div class="card"><a href="/cruise-lines/royal-caribbean.html" aria-label="Royal Caribbean guide"><strong>Royal Caribbean</strong><br><small>Ships, dining, accessibility notes</small></a></div>
         <div class="card"><a href="/cruise-lines/celebrity.html" aria-label="Celebrity Cruises guide"><strong>Celebrity Cruises</strong><br><small>Modern luxury at sea</small></a></div>
         <div class="card"><a href="/cruise-lines/princess.html" aria-label="Princess guide"><strong>Princess</strong><br><small>Relaxed elegance &amp; MedallionClass</small></a></div>
@@ -216,7 +208,7 @@
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
   </footer>
 
-  <!-- Tiny script: search + “gravitas” entry (respects reduced-motion) -->
+  <!-- Tiny script: search + staggered entry -->
   <script>
   (function(){
     const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
