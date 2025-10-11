@@ -10,8 +10,8 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Royal Caribbean — In the Wake (v3.006.001)</title>
-  <meta name="version" content="v3.006.001"/>
+  <title>Royal Caribbean — In the Wake (v3.006.002)</title>
+  <meta name="version" content="v3.006.002"/>
   <meta name="description" content="Royal Caribbean, class-by-class and ship-by-ship: practical blurbs, premium venues, menus, and packing tips."/>
   <meta name="robots" content="index,follow"/>
 
@@ -22,24 +22,22 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html"/>
   <meta property="og:title" content="Royal Caribbean — In the Wake"/>
   <meta property="og:description" content="Class overviews, ship guides, venue links, and practical planning for Royal Caribbean."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/royal-caribbean-hero.jpg?v=3.006.001"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/royal-caribbean-hero.jpg?v=3.006.002"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Unified CSS (universal cache buster) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.001"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.002"/>
 
   <!-- Preloads -->
   <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg"/>
-  <!-- A few likely-first thumbnails (safe to miss silently if absent) -->
   <link rel="preload" as="image" href="https://www.cruisinginthewake.com/ships/rcl/icon-of-the-seas-1.jpg"/>
   <link rel="preload" as="image" href="https://www.cruisinginthewake.com/ships/rcl/oasis-of-the-seas-1.jpg"/>
 
-  <!-- Reduced motion guard -->
+  <!-- Reduced motion guard + page-local trims -->
   <style>
     @media (prefers-reduced-motion: reduce){
       *{animation-duration:0.001ms!important;animation-iteration-count:1!important;transition-duration:0.001ms!important}
     }
-    /* Page-local trims (layout for main + venues rail) */
     .content-grid{display:grid;grid-template-columns:1fr;gap:1rem}
     @media (min-width:1024px){.content-grid{grid-template-columns:minmax(0,1fr) 320px}}
     #venues-rail{position:sticky;top:14px}
@@ -52,6 +50,11 @@
     .ship-card .badge{font-size:.72rem;background:#e6f4f8;border:1px solid var(--rope);border-radius:999px;padding:.1rem .5rem}
     .mini{font-size:.9rem}
     .list-tight li{margin:.2rem 0}
+    .grid{display:grid;gap:1rem}
+    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media (max-width:1100px){.grid.cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:800px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}}
   </style>
 
   <!-- JSON-LD ItemList of ships (static for crawl) -->
@@ -97,7 +100,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
-        <span class="version-badge">v3.006.001</span>
+        <span class="version-badge">v3.006.002</span>
       </div>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="https://www.cruisinginthewake.com/">Home</a>
@@ -109,8 +112,10 @@
         <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
         <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
         <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html" aria-current="page">Cruise Lines</a>
+        <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a> <!-- directory index -->
+        <!-- Per your rule: on this page we ALSO expose a direct file link in a later pill for consistency -->
+        <a href="https://www.cruisinginthewake.com/cruise-lines.html" class="hidden" aria-hidden="true">Cruise Lines (file)</a>
       </nav>
     </div>
 
@@ -150,40 +155,40 @@
         <section class="card" id="coming-soon">
           <h2>Coming Soon — Depth Sounding</h2>
           <p>We’re charting a full <em>depth sounding</em> of Royal Caribbean—class overviews, ship guides, and venue walkthroughs—so you can match your crew to the right neighborhood, deck flow, and dining rhythm.</p>
-          <p><strong>What you’ll see today:</strong> every ship listed within its class. If a ship card shows an image, its page is considered complete. Ships without a thumbnail are still in progress and will be revealed as soon as they’re ready.</p>
+          <p><strong>Now:</strong> every ship appears in its class. If a ship card shows an image, its page is considered complete. Cards without a thumbnail are still in progress and will unlock as soon as they’re ready.</p>
           <p>Expect premium-venue notes by class, links to menus, and practical prep tied to real itineraries—CocoCay heat, Alaska layers, and Med sun. Soli Deo Gloria.</p>
         </section>
 
-        <!-- Class sections (editorial order: Icon → Oasis → Freedom → Voyager → Radiance → Vision) -->
+        <!-- Class sections (Icon → Oasis → Freedom → Voyager → Radiance → Vision) -->
         <section class="card" id="icon-class">
           <h2>Icon Class</h2>
-          <p>Royal’s “world’s best family vacation” era: waterpark neighborhood, seven pools, and a show slate that spans air, ice, water, and stage—max choice with calmer pockets for date-night escapes.</p>
+          <p>“World’s best family vacation”: waterpark neighborhood, seven pools, and show slates across air, ice, water, and stage—max choice with calmer pockets for date nights.</p>
           <p class="mini"><strong>Premium venues (varies by ship):</strong>
             <a href="https://www.cruisinginthewake.com/restaurants/empire-supper-club.html">Empire Supper Club</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/izumi.html">Izumi</a> /
             <a href="https://www.cruisinginthewake.com/restaurants/teppanyaki.html">Teppanyaki</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/hooked-seafood.html">Hooked Seafood</a> ·
-            <a href="https://www.cruisinginthewake.com/restaurants/giovannis.html">Giovanni’s</a> ·
+            <a href="https://www.cruisinginthewake.com/restaurants/giovannis.html">Giovanni's</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/chops-grille.html">Chops Grille</a> ·
-            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef’s Table</a>
+            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef's Table</a>
           </p>
           <div class="grid cols-3" id="icon-grid"></div>
         </section>
 
         <section class="card" id="oasis-class">
           <h2>Oasis Class</h2>
-          <p>The original “neighborhood” revolution: Central Park, Boardwalk, AquaTheater, and big-evening shows. Resort-level pools meet casual-to-premium dining.</p>
+          <p>The original “neighborhood” revolution: Central Park, Boardwalk, and AquaTheater. Resort-level pools, Broadway-scale shows, and casual-to-premium dining.</p>
           <p class="mini"><strong>Premium venues (varies by ship):</strong>
             <a href="https://www.cruisinginthewake.com/restaurants/150-central-park.html">150 Central Park</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/wonderland.html">Wonderland</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/chops-grille.html">Chops</a> ·
-            <a href="https://www.cruisinginthewake.com/restaurants/giovannis.html">Giovanni’s</a> ·
+            <a href="https://www.cruisinginthewake.com/restaurants/giovannis.html">Giovanni's</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/izumi.html">Izumi</a> /
             <a href="https://www.cruisinginthewake.com/restaurants/teppanyaki.html">Teppanyaki</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/hooked-seafood.html">Hooked</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/mason-jar.html">The Mason Jar</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/portside-bbq.html">Portside BBQ</a> ·
-            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef’s Table</a>
+            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef's Table</a>
           </p>
           <div class="grid cols-3" id="oasis-grid"></div>
         </section>
@@ -193,9 +198,9 @@
           <p>Sweet-spot scale—big-ship staples without mega-ship sprawl. FlowRider, sports decks, comedy/live music, and versatile dining for mixed-age groups.</p>
           <p class="mini"><strong>Premium venues (varies by ship):</strong>
             <a href="https://www.cruisinginthewake.com/restaurants/chops-grille.html">Chops</a> ·
-            <a href="https://www.cruisinginthewake.com/restaurants/giovannis.html">Giovanni’s</a> ·
+            <a href="https://www.cruisinginthewake.com/restaurants/giovannis.html">Giovanni's</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/izumi.html">Izumi</a> ·
-            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef’s Table</a> ·
+            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef's Table</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/johnny-rockets.html">Johnny Rockets</a>
           </p>
           <div class="grid cols-3" id="freedom-grid"></div>
@@ -203,12 +208,12 @@
 
         <section class="card" id="voyager-class">
           <h2>Voyager Class</h2>
-          <p>The class that taught cruising to skate—ice rinks, Royal Promenade parades, and compact layouts that make “do it all” days surprisingly easy.</p>
+          <p>The class that taught cruising to skate: ice rinks, Royal Promenade parades, and compact layouts that make “do it all” days surprisingly easy.</p>
           <p class="mini"><strong>Premium venues (varies by ship):</strong>
             <a href="https://www.cruisinginthewake.com/restaurants/chops-grille.html">Chops</a> ·
-            <a href="https://www.cruisinginthewake.com/restaurants/giovannis.html">Giovanni’s</a> ·
+            <a href="https://www.cruisinginthewake.com/restaurants/giovannis.html">Giovanni's</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/izumi.html">Izumi</a> ·
-            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef’s Table</a> ·
+            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef's Table</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/johnny-rockets.html">Johnny Rockets</a>
           </p>
           <div class="grid cols-3" id="voyager-grid"></div>
@@ -216,11 +221,11 @@
 
         <section class="card" id="radiance-class">
           <h2>Radiance Class</h2>
-          <p>Glass-and-views ships built for scenery: Alaska, fjords, and coastals. Floor-to-ceiling windows, calmer vibe, and classic specialty pairings.</p>
+          <p>Glass-and-views ships built for scenery—Alaska, fjords, and coastals. Floor-to-ceiling windows, calmer vibe, and classic specialty pairings.</p>
           <p class="mini"><strong>Premium venues (varies by ship):</strong>
             <a href="https://www.cruisinginthewake.com/restaurants/chops-grille.html">Chops</a> ·
             <a href="https://www.cruisinginthewake.com/restaurants/izumi.html">Izumi</a> ·
-            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef’s Table</a>
+            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef's Table</a>
           </p>
           <div class="grid cols-3" id="radiance-grid"></div>
         </section>
@@ -230,17 +235,16 @@
           <p>Cozy classics with atrium life and big-itinerary charm—Bermuda, New England, or Caribbean hops with personable crews.</p>
           <p class="mini"><strong>Premium venues (varies by ship):</strong>
             <a href="https://www.cruisinginthewake.com/restaurants/chops-grille.html">Chops</a> ·
-            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef’s Table</a>
+            <a href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">Chef's Table</a>
           </p>
           <div class="grid cols-3" id="vision-grid"></div>
         </section>
 
-        <!-- Attributions (fill as images are finalized) -->
+        <!-- Attributions scaffold -->
         <section class="card" id="attributions">
           <h2>Image Attributions</h2>
-          <ul class="mini list-tight">
-            <li>Sample: <em>Icon of the Seas underway</em> — via Wikimedia Commons (Author • License). URL.</li>
-            <li>Sample: <em>Wonder of the Seas</em> — via Wikimedia Commons (Author • License). URL.</li>
+          <ul class="mini list-tight" id="attrib-list">
+            <!-- Fill per final media; sample entries kept for structure -->
           </ul>
         </section>
       </div>
@@ -262,21 +266,20 @@
     Soli Deo Gloria — All work on this project is offered as a gift to God.
   </div>
 
-  <!-- SW registration (standards) -->
+  <!-- SW registration -->
   <script>
     if('serviceWorker' in navigator){
-      addEventListener('load',()=>navigator.serviceWorker.register('https://www.cruisinginthewake.com/sw.js?v=3.006.001').catch(()=>{}));
+      addEventListener('load',()=>navigator.serviceWorker.register('https://www.cruisinginthewake.com/sw.js?v=3.006.002').catch(()=>{}));
     }
   </script>
 
-  <!-- Page script: data, image resolution, class pills, unified search, venues rail -->
+  <!-- Page script -->
   <script>
   (function(){
-    const VERSION='3.006.001';
     const ORIGIN='https://www.cruisinginthewake.com';
-    const encode = s => encodeURI(String(s||''));
+    const enc=s=>encodeURI(String(s||''));
 
-    // Classes (editorial order)
+    // Classes (editorial order largest → smallest)
     const CLASSES=[
       {key:'Icon',label:'Icon Class'},
       {key:'Oasis',label:'Oasis Class'},
@@ -288,55 +291,49 @@
 
     // Ships
     const SHIPS=[
-      // Icon
       {name:'Icon of the Seas',slug:'icon-of-the-seas',cls:'Icon'},
       {name:'Star of the Seas',slug:'star-of-the-seas',cls:'Icon'},
-      // Oasis
       {name:'Oasis of the Seas',slug:'oasis-of-the-seas',cls:'Oasis'},
       {name:'Allure of the Seas',slug:'allure-of-the-seas',cls:'Oasis'},
       {name:'Harmony of the Seas',slug:'harmony-of-the-seas',cls:'Oasis'},
       {name:'Symphony of the Seas',slug:'symphony-of-the-seas',cls:'Oasis'},
       {name:'Wonder of the Seas',slug:'wonder-of-the-seas',cls:'Oasis'},
       {name:'Utopia of the Seas',slug:'utopia-of-the-seas',cls:'Oasis'},
-      // Freedom
       {name:'Freedom of the Seas',slug:'freedom-of-the-seas',cls:'Freedom'},
       {name:'Liberty of the Seas',slug:'liberty-of-the-seas',cls:'Freedom'},
       {name:'Independence of the Seas',slug:'independence-of-the-seas',cls:'Freedom'},
-      // Voyager
       {name:'Voyager of the Seas',slug:'voyager-of-the-seas',cls:'Voyager'},
       {name:'Explorer of the Seas',slug:'explorer-of-the-seas',cls:'Voyager'},
       {name:'Adventure of the Seas',slug:'adventure-of-the-seas',cls:'Voyager'},
       {name:'Navigator of the Seas',slug:'navigator-of-the-seas',cls:'Voyager'},
       {name:'Mariner of the Seas',slug:'mariner-of-the-seas',cls:'Voyager'},
-      // Radiance
       {name:'Radiance of the Seas',slug:'radiance-of-the-seas',cls:'Radiance'},
       {name:'Brilliance of the Seas',slug:'brilliance-of-the-seas',cls:'Radiance'},
       {name:'Serenade of the Seas',slug:'serenade-of-the-seas',cls:'Radiance'},
       {name:'Jewel of the Seas',slug:'jewel-of-the-seas',cls:'Radiance'},
-      // Vision
       {name:'Vision of the Seas',slug:'vision-of-the-seas',cls:'Vision'},
       {name:'Rhapsody of the Seas',slug:'rhapsody-of-the-seas',cls:'Vision'},
       {name:'Enchantment of the Seas',slug:'enchantment-of-the-seas',cls:'Vision'},
       {name:'Grandeur of the Seas',slug:'grandeur-of-the-seas',cls:'Vision'}
     ];
 
-    // Venues
+    // Venues (ASCII apostrophes to avoid JS parsing quirks)
     const VENUES=[
-      {name:'Chops Grille',slug:'chops-grille'},
-      {name:'Giovanni’s',slug:'giovannis'},
-      {name:'Izumi',slug:'izumi'},
-      {name:'Teppanyaki',slug:'teppanyaki'},
-      {name:'150 Central Park',slug:'150-central-park'},
-      {name:'Wonderland',slug:'wonderland'},
-      {name:'Hooked Seafood',slug:'hooked-seafood'},
-      {name:'The Mason Jar',slug:'mason-jar'},
-      {name:'Portside BBQ',slug:'portside-bbq'},
-      {name:'Chef’s Table',slug:'chefs-table'},
-      {name:'Johnny Rockets',slug:'johnny-rockets'},
-      {name:'Empire Supper Club',slug:'empire-supper-club'}
+      {name:"Chops Grille",slug:"chops-grille"},
+      {name:"Giovanni's",slug:"giovannis"},
+      {name:"Izumi",slug:"izumi"},
+      {name:"Teppanyaki",slug:"teppanyaki"},
+      {name:"150 Central Park",slug:"150-central-park"},
+      {name:"Wonderland",slug:"wonderland"},
+      {name:"Hooked Seafood",slug:"hooked-seafood"},
+      {name:"The Mason Jar",slug:"mason-jar"},
+      {name:"Portside BBQ",slug:"portside-bbq"},
+      {name:"Chef's Table",slug:"chefs-table"},
+      {name:"Johnny Rockets",slug:"johnny-rockets"},
+      {name:"Empire Supper Club",slug:"empire-supper-club"}
     ];
 
-    // Image hints you provided (URL-encoded when used)
+    // Image hints you provided
     const IMG_HINTS={
       'enchantment-of-the-seas':[
         '/ships/assets/enchantment-of-the-seas1.jpg',
@@ -373,28 +370,111 @@
       '_misc':[ '/ships/assets/images/Bahamas_Cruise_-_ship_interior_-_June_2018_(2224) Medium.jpeg' ]
     };
 
-    // Convention: /ships/rcl/<slug>-1.jpg|jpeg|png (then -2, -3)
-    const conventional = (slug)=>{
-      const exts=['jpg','jpeg','png'], idx=['1','2','3'];
-      const out=[];
+    // Convention: /ships/rcl/<slug>-1/2/3.(jpg|jpeg|png)
+    const conventional = slug => {
+      const exts=['jpg','jpeg','png'], idx=['1','2','3']; const out=[];
       idx.forEach(n=>exts.forEach(ext=>out.push(`/ships/rcl/${slug}-${n}.${ext}`)));
       return out;
     };
 
-    const candidatesFor=(slug)=>{
-      const hints=(IMG_HINTS[slug]||[]).map(encode);
-      const conv = conventional(slug).map(encode);
-      const misc=(IMG_HINTS._misc||[]).map(encode);
+    const candidatesFor = slug => {
+      const hints=(IMG_HINTS[slug]||[]).map(enc);
+      const conv = conventional(slug).map(enc);
+      const misc=(IMG_HINTS._misc||[]).map(enc);
       return [...hints,...conv,...misc].map(p=>ORIGIN+p);
     };
 
-    // Under-construction switch: complete if any candidate exists (per standard, image presence implies completion)
-    let HIDE_WIP=true;
-    const isComplete=(slug)=> (candidatesFor(slug).length>0);
+    // WIP toggle: complete iff at least one provided hint exists (hints are from cache list)
+    const HIDE_WIP=true;
+    const isComplete = slug => (IMG_HINTS[slug] && IMG_HINTS[slug].length>0);
 
     // DOM helpers
-    const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+    const $=s=>document.querySelector(s); const $$=s=>Array.from(document.querySelectorAll(s));
 
-    // Ship card
-    function shipURL(slug){ return `${ORIGIN}/ships/rcl/${slug}.html`; }
-    function shipCard(s
+    // Components
+    const shipURL = slug => `${ORIGIN}/ships/rcl/${slug}.html`;
+    function shipCard(s){
+      const img=(candidatesFor(s.slug)[0]) || `${ORIGIN}/assets/ships/placeholder-ship.jpg`;
+      const a=document.createElement('a'); a.className='ship-card'; a.href=shipURL(s.slug);
+      a.innerHTML=`
+        <span class="thumb"><img loading="lazy" decoding="async" alt="${s.name}" src="${img}"></span>
+        <span class="body"><strong>${s.name}</strong><span class="badge" data-class="${s.cls}">${s.cls}</span></span>
+      `;
+      a.querySelector('.badge').addEventListener('click',(e)=>{e.preventDefault(); renderClassTray(s.cls);});
+      return a;
+    }
+    function venueCard(v){
+      const a=document.createElement('a'); a.className='ship-card'; a.href=`${ORIGIN}/restaurants/${v.slug}.html`;
+      a.innerHTML=`<span class="thumb" aria-hidden="true"></span><span class="body"><strong>${v.name}</strong><span class="badge">Venue</span></span>`;
+      return a;
+    }
+
+    // Pills & tray
+    const pillsEl=$('#class-pills .pill-row'); const trayEl=$('#class-tray');
+    function renderPills(){
+      pillsEl.innerHTML='';
+      CLASSES.forEach(({key,label})=>{
+        const b=document.createElement('button'); b.type='button'; b.className='pillbtn'; b.textContent=label; b.dataset.class=key;
+        b.addEventListener('click',()=>renderClassTray(key));
+        pillsEl.appendChild(b);
+      });
+    }
+    function renderClassTray(clsKey){
+      trayEl.innerHTML='';
+      const list=SHIPS.filter(s=>s.cls===clsKey).filter(s=>HIDE_WIP?isComplete(s.slug):true);
+      if(!list.length){ trayEl.innerHTML='<p class="tiny">No finished ships in this class yet.</p>'; return; }
+      list.forEach(s=>trayEl.appendChild(shipCard(s)));
+    }
+
+    // Grids under class sections
+    function mountGrid(sel, clsKey){
+      const el=$(sel); if(!el) return; el.innerHTML='';
+      SHIPS.filter(s=>s.cls===clsKey).forEach(s=>{
+        if(HIDE_WIP && !isComplete(s.slug)){
+          const d=document.createElement('div'); d.className='ship-card';
+          d.innerHTML=`<span class="thumb"></span><span class="body"><strong>${s.name}</strong><span class="badge">${s.cls}</span><span class="mini" style="opacity:.7">Coming soon</span></span>`;
+          el.appendChild(d);
+        }else{
+          el.appendChild(shipCard(s));
+        }
+      });
+    }
+
+    // Venues rail
+    function shuffle(a){return a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);}
+    function renderVenuesRail(){
+      const rail=$('#venue-cards'); rail.innerHTML='';
+      shuffle(VENUES).slice(0,8).forEach(v=>rail.appendChild(venueCard(v)));
+    }
+
+    // Unified search
+    const qEl=$('#q'), results=$('#results');
+    const norm=s=>String(s||'').toLowerCase().replace(/\sof the seas\b/,'').trim();
+    function renderResults(items){ results.innerHTML=''; items.slice(0,18).forEach(it=>results.appendChild(it.type==='venue'?venueCard(it):shipCard(it))); }
+    function doSearch(){
+      const v=norm(qEl.value); if(!v){ results.innerHTML=''; return; }
+      const classHits=CLASSES.filter(c=> norm(c.key).includes(v) || norm(c.label).includes(v));
+      const shipHits=SHIPS.filter(s=>{const n=norm(s.name); return n.includes(v)||n.replace(/\sof the seas\b/,'').includes(v);})
+                           .filter(s=>HIDE_WIP?isComplete(s.slug):true);
+      const classShips=classHits.flatMap(c=>SHIPS.filter(s=>s.cls===c.key)).filter(s=>HIDE_WIP?isComplete(s.slug):true);
+      const venueHits=VENUES.filter(vn=>norm(vn.name).includes(v)).map(vn=>({...vn,type:'venue'}));
+      renderResults([...shipHits, ...classShips, ...venueHits]);
+    }
+    qEl?.addEventListener('input',()=>{clearTimeout(qEl._t); qEl._t=setTimeout(doSearch,80);});
+
+    // Mount
+    document.addEventListener('DOMContentLoaded',()=>{
+      renderPills();
+      renderClassTray('Icon');           // initial tray
+      mountGrid('#icon-grid','Icon');
+      mountGrid('#oasis-grid','Oasis');
+      mountGrid('#freedom-grid','Freedom');
+      mountGrid('#voyager-grid','Voyager');
+      mountGrid('#radiance-grid','Radiance');
+      mountGrid('#vision-grid','Vision');
+      renderVenuesRail();
+    });
+  })();
+  </script>
+</body>
+</html>
