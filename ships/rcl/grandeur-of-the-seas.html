@@ -9,8 +9,8 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-  <title>Grandeur of the Seas — In the Wake (v3.006.011)</title>
-  <meta name="version" content="v3.006.011"/>
+  <title>Grandeur of the Seas — In the Wake (v3.006.016)</title>
+  <meta name="version" content="v3.006.016"/>
   <meta name="description" content="A practical, creator-curated look at Royal Caribbean’s Grandeur of the Seas: venues, dining, cabins, accessibility notes, tips, photos, and cross-links to ports and restaurants."/>
   <meta name="theme-color" content="#0e6e8e"/>
   <meta name="robots" content="index,follow"/>
@@ -24,7 +24,7 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
   <meta property="og:title" content="Grandeur of the Seas — In the Wake"/>
   <meta property="og:description" content="Royal Caribbean’s Grandeur of the Seas, presented in our ‘gold standard’ layout: quick facts, venues, menus, photos, accessibility notes, and smart cross-links."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-hero.jpg?v=3.006.011"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-hero.jpg?v=3.006.016"/>
   <meta property="og:image:alt" content="Grandeur of the Seas underway at sea"/>
   <meta property="og:image:width" content="1600"/>
   <meta property="og:image:height" content="900"/>
@@ -33,7 +33,7 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Grandeur of the Seas — In the Wake"/>
   <meta name="twitter:description" content="Royal Caribbean’s Grandeur of the Seas with venues, menus, cabins, tips, photos, and cross-links to ports & restaurants."/>
-  <meta name="twitter:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-hero.jpg?v=3.006.011"/>
+  <meta name="twitter:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-hero.jpg?v=3.006.016"/>
 
   <!-- JSON-LD: WebPage + Breadcrumbs -->
   <script type="application/ld+json">
@@ -44,7 +44,7 @@
     "url": "https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html",
     "description": "A practical, creator-curated look at Royal Caribbean’s Grandeur of the Seas: venues, dining, cabins, accessibility notes, tips, photos, and cross-links to ports and restaurants.",
     "isPartOf": {"@type":"WebSite","name":"In the Wake","url":"https://www.cruisinginthewake.com"},
-    "image": "https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-hero.jpg?v=3.006.011",
+    "image": "https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-hero.jpg?v=3.006.016",
     "publisher": {"@type":"Organization","name":"In the Wake","logo":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/brand/logo.png"}},
     "breadcrumb": {
       "@type":"BreadcrumbList",
@@ -57,11 +57,31 @@
   }
   </script>
 
+  <!-- Standards helper: normalize same-origin absolutes to avoid CORS/redirects -->
+  <script>
+    (function(){
+      const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+      window._abs=function(p){p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p;};
+      addEventListener('DOMContentLoaded',function(){
+        const sel=[
+          'a[href^="https://www.cruisinginthewake.com/"]',
+          'img[src^="https://www.cruisinginthewake.com/"]',
+          'link[href^="https://www.cruisinginthewake.com/"]',
+          'script[src^="https://www.cruisinginthewake.com/"]'
+        ].join(',');
+        document.querySelectorAll(sel).forEach(el=>{
+          const attr=el.hasAttribute('href')?'href':'src';
+          try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+        });
+      },{once:true});
+    })();
+  </script>
+
   <!-- Unified CSS (cache-busted MUST) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.011"/>
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.016"/>
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.006.016"/>
   <link rel="preconnect" href="https://www.youtube.com">
-<link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="preconnect" href="https://i.ytimg.com">
 
   <!-- Page-local trims only (no hero/filter overrides) -->
   <style>
@@ -80,6 +100,15 @@
       opacity:.08;pointer-events:none;z-index:0
     }
     main, header, footer, section, nav{position:relative;z-index:1}
+
+    /* Fuel Your Voyage mini styles (keeps your look) */
+    .voyage-tips-wrapper{margin-top:1rem}
+    .voyage-tips ul{margin:.5rem 0 .75rem 1rem}
+    .voyage-tips .btn{
+      display:inline-block;background:var(--accent,#0e6e8e);color:#fff;
+      padding:.5rem 1rem;border-radius:8px;text-decoration:none;margin:.25rem;
+    }
+    .voyage-tips .btn:hover{background:#0a3d62}
   </style>
 
   <!-- Reduced motion + SW -->
@@ -97,7 +126,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
-        <span class="version-badge">v3.006.011</span>
+        <span class="version-badge">v3.006.016</span>
       </div>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="https://www.cruisinginthewake.com/">Home</a>
@@ -117,7 +146,7 @@
 
     <div class="hero" role="img" aria-label="Open ocean at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.006.016" alt="" aria-hidden="true"/>
       <div class="hero-title">
         <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
@@ -142,20 +171,20 @@
       <p class="tiny-muted" style="margin-top:.5rem">Numbers are rounded; check Royal Caribbean’s specs for the latest refit notes and capacity adjustments.</p>
     </section>
 
-    <!-- Photos -->
+    <!-- Photos (your originals) -->
     <section class="card" aria-labelledby="photosHeading">
       <h2 id="photosHeading">A First Look</h2>
       <div class="photo-grid">
         <figure>
-          <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%203.jpeg" alt="Grandeur — at Labadee in the rain"/>
+          <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%203.jpeg?v=3.006.016" alt="Grandeur — at Labadee in the rain"/>
           <figcaption class="tiny">Photo © <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
         </figure>
         <figure>
-          <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%201.jpeg" alt="Grandeur — through the trees"/>
+          <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%201.jpeg?v=3.006.016" alt="Grandeur — through the trees"/>
           <figcaption class="tiny">Photo © <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
         </figure>
         <figure>
-          <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%202.jpeg" alt="Grandeur — in the fog"/>
+          <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%202.jpeg?v=3.006.016" alt="Grandeur — in the fog"/>
           <figcaption class="tiny">Photo © <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
         </figure>
       </div>
@@ -170,7 +199,7 @@
       <p class="tiny">Sailings vary by season; check itineraries out of Tampa and the Caribbean for current routes.</p>
     </section>
 
-    <!-- Dining Venues (Vision-class core, with dress note) -->
+    <!-- Dining (static venue cards keeping your structure) -->
     <section class="card" aria-labelledby="diningHeading">
       <h2 id="diningHeading">Dining & Lounges</h2>
       <p class="tiny">Dress: <strong>Smart casual by default</strong>. Formal night welcome across the ship; <em>Chef’s Table</em> encourages formal attire.</p>
@@ -202,25 +231,20 @@
       </div>
     </section>
 
-    <!-- Experiences (Vision-class compatible) -->
-    <section class="card" aria-labelledby="xpHeading">
-      <h2 id="xpHeading">Experiences Onboard</h2>
-      <div class="grid-3">
-        <div class="card"><strong>Rock Climbing Wall</strong><br><span class="tiny">Included</span></div>
-        <div class="card"><strong>Mini Golf</strong><br><span class="tiny">Included</span></div>
-        <div class="card"><strong>Poolside Movies</strong><br><span class="tiny">Included</span></div>
-        <div class="card"><strong>Game Shows &amp; Live Music</strong><br><span class="tiny">Included</span></div>
-        <div class="card"><strong>Solarium (adults)</strong><br><span class="tiny">Included · glass-covered retreat</span></div>
-        <div class="card"><strong>Chef’s Table</strong><br><span class="tiny">Premium · formal encouraged</span></div>
-      </div>
-    </section>
-
-    <!-- Ken’s Logbook -->
-    <section class="card note-kens-logbook" aria-labelledby="logbookHeading">
+    <!-- Ken’s Logbook (full text restored) -->
+    <section class="card note-kens-logbook" aria-labelledby="logbookHeading" id="logbook">
       <h2 id="logbookHeading">A note from Ken’s Logbook — a personal review</h2>
-      <p>We sailed <em>Grandeur of the Seas</em> in an ocean-view stateroom—bright, with sunrise views that set the tone for each day. <strong>Chops Grille</strong> delivered a fantastic filet; the <strong>Main Dining Room</strong> pacing was spot on. Service shined across the ship—Miguel at Chops, Vincent D’Cruz at Guest Services, and Vergel in Windjammer—each adding those small, memorable touches.</p>
-      <p>We tried <strong>Taste of Royal</strong>: the tuna tartare popped; shrimp needed a nudge of heat; the fried cheesecake stole the show. Evening entertainment mixed production shows with comedians and live bands—easy to find, easy to enjoy.</p>
-      <p>Bottom line: <em>Grandeur</em> delivers intimate scale, classic Royal fun, and crew who make it personal.</p>
+      <div id="logbook-body">
+        <p>
+          We sailed <em>Grandeur of the Seas</em> in an ocean-view stateroom—bright - with views of epic sunrises; a great way to start each morning. Dining was a highlight: <strong>Chops Grille</strong> delivered a fantastic filet, and the <strong>Main Dining Room</strong> impressed with thoughtful pacing and spot-on recommendations. Service all around was warm and proactive: Miguel (Philippines) at Chops provided truly excellent, personable care; at Guest Services, Vincent D’Cruz resolved our requests quickly and professionally; and in <strong>Windjammer</strong>, Vergel noticed a morning pattern and brought fresh eggs to our table before we asked—a small kindness that says a lot about this crew.
+        </p>
+        <p>
+          We tried <strong>Taste of Royal</strong>: the tuna tartare was tasty; shrimp could have used a touch more heat; the fried cheesecake stole the show. (Pro tip: the Saint Peter’s spritzer really pops if you squeeze the orange wedge.) Our Eastern Caribbean itinerary hit Aruba, Curaçao, and Bonaire. We snorkeled in Aruba (hello, flamingos), toured the Curaçao distillery and a sun-warmed cave, and in Bonaire took a quick taxi to <a href="https://buddydive.com/" target="_blank" rel="noopener">Buddy Dive Center</a>—great value rentals (as of Nov 2024), clear water, and a drop-off reef that rewards confident snorkelers and divers. Labadee beach time was still fun despite weather nixing our planned dive excursion. So we took in the Local Artists - who can be VERY assertive; a firm “no, thanks” works in at least three languages.
+        </p>
+        <p>
+          Embark and debark in Fort Lauderdale were smooth, though port driving/parking can be confusing and pricey—off-port parking plus a taxi often beats the on-site rates. In the evenings, we caught <em>Broadway Rhythm &amp; Rhyme</em> and <em>Tango Buenos Aires</em>—the latter stood out with world-class dancing and vocals. Bottom line: <em>Grandeur</em> delivers that extra dose of personal connection big ships can’t replicate, backed by classic Royal fun and friendly, attentive service.
+        </p>
+      </div>
     </section>
 
     <!-- Videos -->
@@ -242,10 +266,14 @@
         <p>Pin your stateroom, elevators, dining, and venues before you sail.</p>
         <p><a class="pillbtn" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
       </section>
-      <section class="card" aria-labelledby="liveTrackHeading">
+
+      <!-- Hybrid VesselFinder: widget with resilient iframe fallback -->
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-name="GRANDEUR-OF-THE-SEAS" data-imo="9102978">
         <h2 id="liveTrackHeading">Where Is Grandeur Right Now?</h2>
         <p>Live position, speed, and next port.</p>
-        <p><a class="pillbtn" href="https://www.cruisemapper.com/ships/Grandeur-Of-The-Seas-598" target="_blank" rel="noopener">Open CruiseMapper Live Tracker →</a></p>
+        <div id="vf-map" role="region" aria-label="Live ship map for Grandeur of the Seas" style="width:100%;height:300px;background:var(--sky)"></div>
+        <iframe id="vf-fallback" class="hidden" title="Live ship tracker for Grandeur of the Seas" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen></iframe>
+        <p class="tiny">Tip: The map refreshes automatically while this tab is open.</p>
       </section>
     </section>
 
@@ -289,6 +317,104 @@
         navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},
         a11y:{enabled:true}
       });
+    })();
+  </script>
+
+  <!-- Inject “Fuel Your Voyage” at the 60% mark of the logbook -->
+  <script>
+    (function injectFuelAtSixty(){
+      const host=document.getElementById('logbook-body'); if(!host) return;
+      const FUEL_HTML = `
+<div class="voyage-tips-wrapper">
+  <div class="card voyage-tips" aria-label="Voyage planning tips">
+    <h2 class="card-title">Fuel Your Voyage</h2>
+    <div class="card-content">
+      <h3>Drink Packages</h3>
+      <ul>
+        <li>Deluxe Beverage Package: ~$60/day for premium drinks</li>
+        <li>Refreshment Package: Non-alcoholic options</li>
+        <li>Soda Package: all the Freestyle Machine options</li>
+      </ul>
+      <h3>Pack Like a Pro</h3>
+      <ul>
+        <li>Shawl for chilly theater nights</li>
+        <li>Swimwear for pool deck</li>
+        <li>Comfortable shoes for shore tours</li>
+      </ul>
+      <div class="button-group" aria-label="Voyage planning links">
+        <a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn" aria-label="View all drink package options">View Drink Options</a>
+        <a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn" aria-label="Access complete packing guide">Packing Guide</a>
+      </div>
+    </div>
+  </div>
+</div>`;
+      // Insert once as the reader passes ~60% of the logbook scroll height
+      let inserted=false;
+      function tryInsert(){
+        if(inserted) return;
+        const sec=document.getElementById('logbook'); if(!sec) return;
+        const r=sec.getBoundingClientRect();
+        const total=sec.scrollHeight;
+        const seen=sec.scrollTop + sec.clientHeight;
+        const pct=seen/total;
+        if(pct>=0.60 || r.top<window.innerHeight*0.2){
+          const div=document.createElement('div');
+          div.innerHTML=FUEL_HTML;
+          // place after ~60% of existing paragraphs
+          const paras=[...host.querySelectorAll('p')];
+          const idx=Math.max(0,Math.min(paras.length, Math.round(paras.length*0.60)));
+          const ref=paras[idx]||paras[paras.length-1]||host.lastChild;
+          host.insertBefore(div, ref?ref.nextSibling:null);
+          inserted=true; sec.removeEventListener('scroll',tryInsert); window.removeEventListener('scroll',tryInsert);
+        }
+      }
+      // Observe scroll both on window and section for robustness
+      const sec=document.getElementById('logbook');
+      sec.addEventListener('scroll',tryInsert,{passive:true});
+      window.addEventListener('scroll',tryInsert,{passive:true});
+      // Also attempt once after load (for short content)
+      setTimeout(tryInsert,500);
+    })();
+  </script>
+
+  <!-- Hybrid VesselFinder (widget + iframe fallback, cache-busting) -->
+  <script>
+    (function hybridVF(){
+      const card=document.querySelector('.card.itinerary'); if(!card) return;
+      const name=(card.getAttribute('data-name')||'').trim();
+      const imo=(card.getAttribute('data-imo')||'').trim();
+      const mapEl=document.getElementById('vf-map');
+      const iFr=document.getElementById('vf-fallback');
+      const base="https://www.vesselfinder.com/vessels/"+encodeURIComponent(name)+"-IMO-"+imo+"#map";
+      const bust=u=>u+(u.includes('?')?'&':'?')+'ts='+(Date.now());
+
+      function useIframe(){
+        if(!iFr) return;
+        iFr.src=bust(base);
+        iFr.classList.remove('hidden');
+        if(mapEl) mapEl.style.display='none';
+      }
+
+      const s=document.createElement('script');
+      s.src=bust("https://www.vesselfinder.com/aismap.js");
+      s.async=true;
+
+      const stallTimer=setTimeout(useIframe, 4500);
+      s.onload=function(){
+        try{
+          clearTimeout(stallTimer);
+          if(window.AISMap && mapEl){
+            new AISMap(mapEl,{width:"100%",height:300,zoom:8,names:true,show_track:1,track_days:1,vessel:"IMO:"+imo});
+            setTimeout(function(){
+              if(!mapEl.querySelector('canvas,svg')) useIframe();
+            },2500);
+          } else {
+            useIframe();
+          }
+        }catch(_){ useIframe(); }
+      };
+      s.onerror=function(){ clearTimeout(stallTimer); useIframe(); };
+      document.head.appendChild(s);
     })();
   </script>
 </body>
