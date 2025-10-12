@@ -285,82 +285,47 @@
       </div>
     </section>
 
-    <!-- Deck plans + live tracker -->
-    <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Ship Layout (Deck Plans)</h2>
-        <p>Pin your stateroom, elevators, dining, and venues before you sail.</p>
-        <p><a class="pillbtn" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
-      </section>
+<!-- Ken’s Logbook (restored) + Fuel Your Voyage at ~60% -->
+<section class="card note-kens-logbook" aria-labelledby="logbookHeading">
+  <h2 id="logbookHeading">A note from Ken’s Logbook — a personal review</h2>
 
-     <!-- Live tracker (right column) -->
-<section class="card itinerary" aria-labelledby="liveTrackHeading"
-         data-name="GRANDEUR-OF-THE-SEAS" data-imo="9102978">
-  <h2 id="liveTrackHeading">Where Is Grandeur Right Now?</h2>
-  <p>Live position, speed, and next port.</p>
+  <p>
+    We sailed <em>Grandeur of the Seas</em> in an ocean-view stateroom—bright - with views of epic sunrises; a great way to start each morning. Dining was a highlight: <strong>Chops Grille</strong> delivered a fantastic filet, and the <strong>Main Dining Room</strong> impressed with thoughtful pacing and spot-on recommendations. Service all around was warm and proactive: Miguel (Philippines) at Chops provided truly excellent, personable care; at Guest Services, Vincent D’Cruz resolved our requests quickly and professionally; and in <strong>Windjammer</strong>, Vergel noticed a morning pattern and brought fresh eggs to our table before we asked—a small kindness that says a lot about this crew.
+  </p>
 
-  <!-- Primary widget target -->
-  <div id="vf-map" role="region"
-       aria-label="Live ship map for Grandeur of the Seas"
-       style="width:100%;height:300px;background:var(--sky)"></div>
+  <p>
+    We tried <strong>Taste of Royal</strong>: the tuna tartare was tasty; shrimp could have used a touch more heat; the fried cheesecake stole the show. (Pro tip: the Saint Peter’s spritzer really pops if you squeeze the orange wedge.) Our Eastern Caribbean itinerary hit Aruba, Curaçao, and Bonaire. We snorkeled in Aruba (hello, flamingos), toured the Curaçao distillery and a sun-warmed cave, and in Bonaire took a quick taxi to <a href="https://buddydive.com/" target="_blank" rel="noopener">Buddy Dive Center</a>—great value rentals (as of Nov 2024), clear water, and a drop-off reef that rewards confident snorkelers and divers. Labadee beach time was still fun despite weather nixing our planned dive excursion. So we took in the Local Artists - who can be VERY assertive; a firm “no, thanks” works in at least three languages.
+  </p>
 
-  <!-- Fallback iframe points to the exact vessel page -->
-  <iframe id="vf-fallback" class="hidden"
-          title="Live ship tracker for Grandeur of the Seas"
-          width="100%" height="300" frameborder="0" loading="lazy"
-          allowfullscreen></iframe>
+  <!-- Fuel Your Voyage (original structure) -->
+  <div class="voyage-tips-wrapper" style="margin:1rem 0 0">
+    <div class="card voyage-tips" aria-label="Voyage planning tips" style="margin:0">
+      <h2 class="card-title" style="margin-top:.25rem">Fuel Your Voyage</h2>
+      <div class="card-content">
+        <h3>Drink Packages</h3>
+        <ul>
+          <li>Deluxe Beverage Package: ~$60/day for premium drinks</li>
+          <li>Refreshment Package: Non-alcoholic options</li>
+          <li>Soda Package: all the Freestyle Machine options</li>
+        </ul>
+        <h3>Pack Like a Pro</h3>
+        <ul>
+          <li>Shawl for chilly theater nights</li>
+          <li>Swimwear for pool deck</li>
+          <li>Comfortable shoes for shore tours</li>
+        </ul>
+        <div class="button-group" aria-label="Voyage planning links">
+          <a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn" aria-label="View all drink package options">View Drink Options</a>
+          <a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn" aria-label="Access complete packing guide">Packing Guide</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <p class="tiny">Tip: The map refreshes automatically while this tab is open.</p>
-  <p class="tiny">
-    Backup links:
-    <a href="https://www.vesselfinder.com/vessels/GRANDEUR-OF-THE-SEAS-IMO-9102978#map" target="_blank" rel="noopener">VesselFinder</a> ·
-    <a href="https://www.cruisemapper.com/ships/Grandeur-Of-The-Seas-598" target="_blank" rel="noopener">CruiseMapper</a>
+  <p>
+    Embark and debark in Fort Lauderdale were smooth, though port driving/parking can be confusing and pricey—off-port parking plus a taxi often beats the on-site rates. In the evenings, we caught <em>Broadway Rhythm &amp; Rhyme</em> and <em>Tango Buenos Aires</em>—the latter stood out with world-class dancing and vocals. Bottom line: <em>Grandeur</em> delivers that extra dose of personal connection big ships can’t replicate, backed by classic Royal fun and friendly, attentive service.
   </p>
 </section>
-
-<script>
-  // VesselFinder hybrid: widget first; if anything fails, show iframe to exact vessel URL
-  (function hybridVF(){
-    const card = document.querySelector('.card.itinerary'); if(!card) return;
-    const name = (card.getAttribute('data-name')||'').trim();  // MUST be all-caps with hyphens
-    const imo  = (card.getAttribute('data-imo')||'').trim();   // 9102978
-    const mapEl = document.getElementById('vf-map');
-    const iFr   = document.getElementById('vf-fallback');
-
-    const baseVF = "https://www.vesselfinder.com/vessels/"+encodeURIComponent(name)+"-IMO-"+imo+"#map";
-    const bust   = u => u + (u.includes('?')?'&':'?') + 'ts=' + Date.now();
-
-    function useIframe(){
-      if(!iFr) return;
-      iFr.src = bust(baseVF);
-      iFr.classList.remove('hidden');
-      if(mapEl) mapEl.style.display='none';
-    }
-
-    // Try official VF widget
-    const s = document.createElement('script');
-    s.src = bust("https://www.vesselfinder.com/aismap.js");
-    s.async = true;
-
-    // If widget stalls or fails, swap to iframe
-    const stall = setTimeout(useIframe, 4500);
-    s.onload = function(){
-      try{
-        clearTimeout(stall);
-        if(window.AISMap && mapEl){
-          new AISMap(mapEl, {
-            width:"100%", height:300, zoom:8, names:true,
-            show_track:1, track_days:1, vessel:"IMO:"+imo
-          });
-          // sanity check: if no canvas/tiles render, fallback
-          setTimeout(()=>{ if(!mapEl.querySelector('canvas,svg')) useIframe(); }, 2500);
-        } else { useIframe(); }
-      }catch(_){ useIframe(); }
-    };
-    s.onerror = function(){ clearTimeout(stall); useIframe(); };
-    document.head.appendChild(s);
-  })();
-</script>
 
     <!-- Footer note -->
     <section class="card center" style="margin-top:1rem">
