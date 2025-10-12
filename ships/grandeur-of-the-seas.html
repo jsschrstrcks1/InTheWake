@@ -326,12 +326,41 @@
       </section>
 
       <!-- Keeping the known-good link approach to avoid embed flakiness -->
-      <section class="card itinerary" aria-labelledby="liveTrackHeading">
-        <h2 id="liveTrackHeading">Where Is Grandeur Right Now?</h2>
-        <p>See the ship’s current position, speed, and next port on a live tracker.</p>
-        <p><a class="pill" href="https://www.cruisemapper.com/ships/Grandeur-Of-The-Seas-598" target="_blank" rel="noopener">Open CruiseMapper Live Tracker</a></p>
-        <p class="tiny">Tip: Keep this page open while you check the tracker; it opens in a new tab.</p>
-      </section>
+    <div id="vf-map" style="width:100%;height:300px;background:var(--sky)"></div>
+<iframe id="vf-fallback" class="hidden" width="100%" height="300" frameborder="0" loading="lazy"></iframe>
+
+<script>
+(function hybridVF(){
+  const card = document.querySelector('.card.itinerary'); if(!card) return;
+  const name = card.dataset.name, imo = card.dataset.imo;
+  const base = "https://www.vesselfinder.com/vessels/"+encodeURIComponent(name)+"-IMO-"+imo+"#map";
+  const mapEl = document.getElementById('vf-map');
+  const iFr   = document.getElementById('vf-fallback');
+
+  function bust(u){ return u + (u.includes('?')?'&':'?') + 'ts=' + Date.now(); }
+  function useIframe(){ iFr.src=bust(base); iFr.classList.remove('hidden'); mapEl.style.display='none'; }
+
+  const s=document.createElement('script');
+  s.src = bust("https://www.vesselfinder.com/aismap.js");
+  s.async = true;
+
+  const stall = setTimeout(useIframe, 4500);
+  s.onload = function(){
+    try{
+      clearTimeout(stall);
+      if(window.AISMap && mapEl){
+        new AISMap(mapEl,{width:"100%",height:300,zoom:8,names:true,show_track:1,track_days:1,vessel:"IMO:"+imo});
+        // sanity check after render; if no canvas/tiles, fallback to iframe
+        setTimeout(()=>{ if(!mapEl.querySelector('canvas,svg')) useIframe(); }, 2500);
+      } else {
+        useIframe();
+      }
+    }catch(_){ useIframe(); }
+  };
+  s.onerror = function(){ clearTimeout(stall); useIframe(); };
+  document.head.appendChild(s);
+})();
+</script>
     </section>
 
     <!-- Related -->
