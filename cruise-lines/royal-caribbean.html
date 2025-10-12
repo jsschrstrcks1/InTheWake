@@ -42,6 +42,7 @@
   <!-- Unified CSS (cache-busted MUST) -->
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.011"/>
   <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg"/>
+  <link rel="preconnect" href="https://www.cruisinginthewake.com" crossorigin>
 
   <!-- Page-local trims (kept minimal; no overrides to hero/filter rules) -->
   <style>
@@ -589,4 +590,108 @@ function ex(name,type,classes,formal){return {name,type,classes,formal:!!formal}
   OUT.innerHTML=''; MORE.classList.add('sb-hidden');
 
 })();
-</script><link rel="preconnect" href="https://www.cruisinginthewake.com" crossorigin></body>
+</script><script>
+(function() {
+  'use strict';
+
+  // --- helpers (reuse globals if present) ---
+  const $  = s => document.querySelector(s);
+  const el = (t,c)=>{const n=document.createElement(t); if(c) n.className=c; return n;};
+  const abs = p => p.startsWith('http') ? p : (ORIGIN + p);
+  const encAbs = p => { const [path, rest] = p.split(/([?#].*)/); return abs(encodeURI(path) + (rest||'')); };
+  const isFinished = slug => Array.isArray(window.IMAGE_MAP?.[slug]) && window.IMAGE_MAP[slug].length>0;
+
+  function pickImg(slug){
+    const conventional = [`/ships/rcl/${slug}-1.jpg`,`/ships/rcl/${slug}-1.jpeg`,`/ships/rcl/${slug}-1.png`];
+    const list = (window.IMAGE_MAP?.[slug]||[]).concat(conventional);
+    return list[0] ? encAbs(list[0]) : encAbs(FALLBACK_IMG);
+  }
+
+  // Experiences available on a ship (by class)
+  function shipExperiences(ship) {
+    const cls = ship.cls;
+    const inc = [];
+    const prem = [];
+    for (const x of EXPERIENCES) {
+      const onThis = x.classes && x.classes.includes(cls);
+      if (!onThis) continue;
+      (x.type === 'premium' ? prem : inc).push(x);
+    }
+    return { inc, prem };
+  }
+
+  function classBlurb(cls){
+    const by = {
+      'Icon':'Waterpark neighborhood, seven pools, AquaDome shows — maximal choice with quiet corners when you want them.',
+      'Oasis':'The original “neighborhood” giants: Central Park, Boardwalk, AquaTheater — Broadway scale with resort-deck ease.',
+      'Quantum':'Two70° tech shows, North Star pod, SeaPlex energy — smart-weather ships that shine in cooler routes.',
+      'Quantum Ultra':'Amped Quantum features tuned for warm weather; SeaPlex, iFly®, glow parties.',
+      'Freedom':'Big-ship staples without mega sprawl — FlowRider, sports decks, crowd-pleasing dining.',
+      'Voyager':'The class that taught cruising to skate — ice shows, Promenade buzz, compact do-it-all days.',
+      'Radiance':'Glass and views for scenery routes — calmer vibe, classic specialties.',
+      'Vision':'Cozy classics with personable crews and port-forward itineraries.'
+    };
+    return by[cls] || '';
+  }
+
+  function shipCard(s){
+    const xp = shipExperiences(s);
+    const a = el('a','ship-card');
+    a.href = `${ORIGIN}/ships/rcl/${s.slug}.html`;
+    const incCount = xp.inc.length;
+    const premCount = xp.prem.length;
+    const tooltipNames = [...xp.inc.slice(0,4).map(x=>x.name), ...xp.prem.slice(0,2).map(x=>`★ ${x.name}`)].join(', ');
+    a.title = tooltipNames ? `Onboard highlights: ${tooltipNames}${xp.inc.length+xp.prem.length>6?'…':''}` : `Open ${s.name}`;
+
+    a.innerHTML = `
+      <span class="thumb"><img loading="lazy" decoding="async" alt="${s.name}" src="${pickImg(s.slug)}"></span>
+      <span class="body">
+        <strong>${s.name}</strong>
+        <span class="badge">${s.cls}</span>
+        <span class="badge" aria-label="Experiences available">${incCount} incl · ${premCount} prem</span>
+      </span>
+    `;
+    return a;
+  }
+
+  function renderClassPills(){
+    const tray = document.getElementById('class-tray');
+    if (!tray) return;
+    tray.innerHTML = '';
+    CLASS_ORDER.forEach(cls=>{
+      const b = el('button','pillbtn');
+      b.type='button'; b.textContent = `${cls} Class`;
+      b.addEventListener('click', ()=>{
+        const id = `sec-${cls.toLowerCase().replace(/\s+/g,'-')}`;
+        const sec = document.getElementById(id);
+        if (sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+      tray.appendChild(b);
+    });
+  }
+
+  function renderClassSections(){
+    const host = document.getElementById('class-sections');
+    if (!host) return;
+    host.innerHTML = '';
+    CLASS_ORDER.forEach(cls=>{
+      const sec = el('section','card');
+      sec.id = `sec-${cls.toLowerCase().replace(/\s+/g,'-')}`;
+      const h = el('h3'); h.textContent = `${cls} Class`;
+      const p = el('p','tiny'); p.textContent = classBlurb(cls);
+      sec.append(h,p);
+
+      const grid = el('div','grid-3');
+      const list = SHIPS.filter(s => s.cls===cls); // show *all* by class
+      list.forEach(s => grid.appendChild(shipCard(s)));
+      sec.appendChild(grid);
+
+      host.appendChild(sec);
+    });
+  }
+
+  // kick
+  renderClassPills();
+  renderClassSections();
+})();
+</script></body>
