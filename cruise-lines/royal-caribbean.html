@@ -214,4 +214,440 @@
       <p class="tiny">All pages are offered as a gift to God. <em>Soli Deo Gloria.</em></p>
     </section>
   </main>
+
+<script>
+(function(){
+  'use strict';
+
+  // ---------- CONFIG ----------
+  const ORIGIN = 'https://www.cruisinginthewake.com';
+
+  // Finished pages = have a known/cached thumbnail mapping here.
+  // (You can add/remove slugs anytime; toggle defaults to "Finished only".)
+  const IMAGE_MAP = {
+    'enchantment-of-the-seas': ['/ships/assets/enchantment-of-the-seas1.jpg',
+      '/ships/assets/images/Enchantment_of_the_Seas.jpeg',
+      '/images/enchantment-of-the-seas2.jpeg',
+      '/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg'],
+    'grandeur-of-the-seas': ['/ships/assets/grandeur-of-the-seas1.jpg'],
+    'rhapsody-of-the-seas': ['/ships/assets/rhapsody-of-the-seas1.jpg',
+      '/ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg',
+      '/ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg',
+      '/ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg'],
+    'vision-of-the-seas': ['/ships/assets/vision-of-the-seas1.jpg'],
+    'sovereign-of-the-seas': ['/ships/assets/sovereign-of-the-seas1.jpg',
+      '/ships/assets/sovereign-of-the-seas2.jpg','/ships/assets/sovereign-of-the-seas3.jpg'],
+    'adventure-of-the-seas': [
+      '/ships/rcl/images/Adventure_of_the_Seas1.jpeg',
+      '/ships/rcl/images/Adventure_of_the_Seas2.jpg',
+      '/ships/rcl/images/Adventure_of_the_Seas3.jpg',
+      '/ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg',
+      '/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg',
+      '/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg'
+    ],
+    'allure-of-the-seas': [
+      '/ships/assets/images/allure-of-the-seas-3.jpg',
+      '/ships/assets/images/allure2.jpg',
+      '/ships/assets/images/allure3.jpg'
+    ]
+  };
+  const FALLBACK_IMG = '/assets/ships/placeholder-ship.jpg';
+
+  // Class order (largest → smallest by GT)
+  const CLASS_ORDER = ['Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager','Radiance','Vision'];
+
+  // Ships (slug = /ships/rcl/<slug>.html)
+  const SHIPS = [
+    // Icon
+    {name:'Icon of the Seas', slug:'icon-of-the-seas', cls:'Icon'},
+    {name:'Star of the Seas', slug:'star-of-the-seas', cls:'Icon'},
+
+    // Oasis
+    {name:'Oasis of the Seas', slug:'oasis-of-the-seas', cls:'Oasis'},
+    {name:'Allure of the Seas', slug:'allure-of-the-seas', cls:'Oasis'},
+    {name:'Harmony of the Seas', slug:'harmony-of-the-seas', cls:'Oasis'},
+    {name:'Symphony of the Seas', slug:'symphony-of-the-seas', cls:'Oasis'},
+    {name:'Wonder of the Seas', slug:'wonder-of-the-seas', cls:'Oasis'},
+    {name:'Utopia of the Seas', slug:'utopia-of-the-seas', cls:'Oasis'},
+
+    // Quantum
+    {name:'Quantum of the Seas', slug:'quantum-of-the-seas', cls:'Quantum'},
+    {name:'Anthem of the Seas', slug:'anthem-of-the-seas', cls:'Quantum'},
+    {name:'Ovation of the Seas', slug:'ovation-of-the-seas', cls:'Quantum'},
+
+    // Quantum Ultra
+    {name:'Spectrum of the Seas', slug:'spectrum-of-the-seas', cls:'Quantum Ultra'},
+    {name:'Odyssey of the Seas', slug:'odyssey-of-the-seas', cls:'Quantum Ultra'},
+
+    // Freedom
+    {name:'Freedom of the Seas', slug:'freedom-of-the-seas', cls:'Freedom'},
+    {name:'Liberty of the Seas', slug:'liberty-of-the-seas', cls:'Freedom'},
+    {name:'Independence of the Seas', slug:'independence-of-the-seas', cls:'Freedom'},
+
+    // Voyager
+    {name:'Voyager of the Seas', slug:'voyager-of-the-seas', cls:'Voyager'},
+    {name:'Explorer of the Seas', slug:'explorer-of-the-seas', cls:'Voyager'},
+    {name:'Adventure of the Seas', slug:'adventure-of-the-seas', cls:'Voyager'},
+    {name:'Navigator of the Seas', slug:'navigator-of-the-seas', cls:'Voyager'},
+    {name:'Mariner of the Seas', slug:'mariner-of-the-seas', cls:'Voyager'},
+
+    // Radiance
+    {name:'Radiance of the Seas', slug:'radiance-of-the-seas', cls:'Radiance'},
+    {name:'Brilliance of the Seas', slug:'brilliance-of-the-seas', cls:'Radiance'},
+    {name:'Serenade of the Seas', slug:'serenade-of-the-seas', cls:'Radiance'},
+    {name:'Jewel of the Seas', slug:'jewel-of-the-seas', cls:'Radiance'},
+
+    // Vision
+    {name:'Vision of the Seas', slug:'vision-of-the-seas', cls:'Vision'},
+    {name:'Grandeur of the Seas', slug:'grandeur-of-the-seas', cls:'Vision'},
+    {name:'Rhapsody of the Seas', slug:'rhapsody-of-the-seas', cls:'Vision'},
+    {name:'Enchantment of the Seas', slug:'enchantment-of-the-seas', cls:'Vision'}
+  ];
+
+  // Venues (≥40; included/premium flag + slug for linking)
+  const VENUES = [
+    // Premium
+    v('Chops Grille','premium','chops-grille'),
+    v('150 Central Park','premium','150-central-park'),
+    v('Wonderland','premium','wonderland'),
+    v('Giovanni’s Italian Kitchen','premium','giovannis'),
+    v('Izumi','premium','izumi'),
+    v('Teppanyaki','premium','teppanyaki'),
+    v('Hooked Seafood','premium','hooked-seafood'),
+    v('The Mason Jar','premium','mason-jar'),
+    v('Portside BBQ','premium','portside-bbq'),
+    v('Jamie’s Italian','premium','jamies-italian'),
+    v('Playmakers Sports Bar & Arcade','premium','playmakers'),
+    v('Chef’s Table','premium','chefs-table'),
+    v('Empire Supper Club','premium','empire-supper-club'),
+    v('Vintages Wine Bar','premium','vintages'),
+    v('Izumi Sushi & Sake Pairing','premium','izumi-sake-pairing'),
+    v('Giovanni’s Wine Bar','premium','giovannis-wine-bar'),
+
+    // Included
+    v('Main Dining Room','included','main-dining-room'),
+    v('Windjammer Marketplace','included','windjammer'),
+    v('Coastal Kitchen (Suites)','included','coastal-kitchen'),
+    v('Sorrento’s Pizza','included','sorrentos'),
+    v('El Loco Fresh','included','el-loco-fresh'),
+    v('Park Café','included','park-cafe'),
+    v('Café Promenade','included','cafe-promenade'),
+    v('Dog House','included','dog-house'),
+    v('Sprinkles Ice Cream','included','sprinkles'),
+    v('Boardwalk Donut Shop','included','boardwalk-donuts'),
+    v('Vitality Café','included','vitality-cafe'),
+    v('Solarium Bistro','included','solarium-bistro'),
+    v('Wipeout Café','included','wipeout-cafe'),
+    v('Room Service (continental breakfast)','included','room-service-continental'),
+    v('The Lime & Coconut (bar)','included','lime-and-coconut'),
+    v('Pub / Copper & Kettle','included','pub'),
+    v('Boleros','included','boleros'),
+    v('Schooner Bar','included','schooner-bar'),
+    v('Bionic Bar','included','bionic-bar'),
+    v('Johnny Rockets (breakfast)','included','johnny-rockets-breakfast'),
+    v('Johnny Rockets (lunch/dinner)','premium','johnny-rockets'),
+    v('La Patisserie / Café Latte-tudes','included','patisserie'),
+    v('Sugar Beach (candy/ice cream)','premium','sugar-beach'),
+    v('WONDERland Bar','premium','wonderland-bar'),
+    v('Starbucks (select ships)','premium','starbucks'),
+    v('Mini Bites / Boardwalk Bites','included','mini-bites'),
+    v('Splashaway Café (kids snacks)','included','splashaway-cafe'),
+    v('Royal Promenade Bars','included','promenade-bars')
+  ];
+  function v(name,type,slug){return {name,type,slug,href:`${ORIGIN}/restaurants/${slug}.html`};}
+
+  // Experiences (subset wired; can be expanded)
+  const EXPERIENCES = [
+    ex('FlowRider® Surf Simulator','included',['Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager']),
+    ex('Rock Climbing Wall','included',['Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager']),
+    ex('iFly® Skydiving (RipCord®)','included',['Icon','Oasis','Quantum','Quantum Ultra']),
+    ex('North Star® Observation Pod','included',['Quantum','Quantum Ultra']),
+    ex('Zip Line','included',['Oasis','Freedom','Icon']),
+    ex('Ultimate Abyss℠','included',['Oasis']),
+    ex('Perfect Storm℠ Waterslides','included',['Icon','Oasis','Freedom','Voyager']),
+    ex('Bumper Cars (SeaPlex)','included',['Quantum','Quantum Ultra']),
+    ex('Ice Skating (Studio B)','included',['Oasis','Freedom','Voyager','Quantum','Quantum Ultra','Icon']),
+    ex('Mini Golf','included',CLASS_ORDER),
+    ex('Escape Room','premium',['Oasis','Freedom','Voyager','Quantum','Icon']),
+    ex('Chef’s Table','premium',CLASS_ORDER,true),
+    ex('Taste of Royal','premium',CLASS_ORDER,true),
+    ex('Mixology / Tastings','premium',CLASS_ORDER,true),
+    ex('Love & Marriage Game Show','included',CLASS_ORDER),
+    ex('Quest (Adult Game Show)','included',CLASS_ORDER),
+    ex('Belly Flop / Cannonball','included',CLASS_ORDER),
+    ex('World’s Sexiest Man','included',CLASS_ORDER)
+  ];
+  function ex(name,type,classes,formal){return {name,type,classes,formal:!!formal};}
+
+  // ---------- DOM HELPERS ----------
+  const $  = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const el = (tag, cls) => { const n=document.createElement(tag); if(cls) n.className=cls; return n; };
+  const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'").trim();
+
+  // ---------- STATE ----------
+  let showUnfinished = false; // page-local default: FINISHED ONLY
+  let venueFilter = 'all';    // all|included|premium (right rail)
+  let expFilter   = 'all';    // all|included|premium (search toolbar)
+  let expFilter2  = 'all';    // all|included|premium (experiences section)
   
+  // A ship is "finished" if we’ve mapped at least one known thumbnail for it.
+  const isFinished = slug => Array.isArray(IMAGE_MAP[slug]) && IMAGE_MAP[slug].length>0;
+
+  // Pick image (first known → fallback conventional → placeholder)
+  function pickImg(slug){
+    const list = (IMAGE_MAP[slug]||[]).concat(
+      [`/ships/rcl/${slug}-1.jpg`,`/ships/rcl/${slug}-1.jpeg`,`/ships/rcl/${slug}-1.png`]
+    );
+    return ORIGIN + (list[0] || FALLBACK_IMG);
+  }
+
+  // ---------- RENDER: CLASS PILLS ----------
+  function renderClassPills(){
+    const host = $('#class-tray');
+    if(!host) return;
+    host.innerHTML = '';
+    CLASS_ORDER.forEach(cls=>{
+      const b = el('button','pillbtn');
+      b.type='button';
+      b.textContent = cls;
+      b.addEventListener('click', ()=> scrollToClass(cls));
+      host.appendChild(b);
+    });
+  }
+
+  function scrollToClass(cls){
+    const id = `sec-${cls.toLowerCase().replace(/\s+/g,'-')}`;
+    const sec = document.getElementById(id);
+    if(sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // ---------- RENDER: CLASS SECTIONS + SHIP CARDS ----------
+  function renderClassSections(){
+    const host = $('#class-sections');
+    if(!host) return;
+    host.innerHTML = '';
+    CLASS_ORDER.forEach(cls=>{
+      const ships = SHIPS.filter(s=>s.cls===cls && (showUnfinished || isFinished(s.slug)));
+      const sec = el('section','card');
+      sec.id = `sec-${cls.toLowerCase().replace(/\s+/g,'-')}`;
+      const h = el('h3'); h.textContent = `${cls} Class`;
+      const p = el('p','tiny'); p.innerHTML = classBlurb(cls);
+      sec.append(h,p);
+
+      const grid = el('div','grid-3');
+      if(ships.length===0){
+        const msg = el('p','tiny'); msg.textContent = 'No finished ships in this class yet. Toggle “Show unfinished ships” to preview all.';
+        sec.appendChild(msg);
+      }else{
+        ships.forEach(s=>{
+          grid.appendChild(shipCard(s));
+        });
+        sec.appendChild(grid);
+      }
+      host.appendChild(sec);
+    });
+  }
+
+  function classBlurb(cls){
+    // Short editorial by class
+    const by = {
+      'Icon':'Waterpark neighborhood, seven pools, AquaDome shows — maximal choice with quiet corners when you want them.',
+      'Oasis':'The original “neighborhood” giants: Central Park, Boardwalk, AquaTheater — Broadway scale with resort-deck ease.',
+      'Quantum':'Two70° tech shows, North Star pod, SeaPlex energy — smart weather ships that shine in cooler routes.',
+      'Quantum Ultra':'Amped Quantum features plus warm-weather tweaks; SeaPlex, iFly®, and late-night glow parties.',
+      'Freedom':'Big-ship staples without mega sprawl — FlowRider, sports decks, crowd-pleasing dining.',
+      'Voyager':'The class that taught cruising to skate — ice shows, Royal Promenade buzz, compact “do-it-all” days.',
+      'Radiance':'Glass-and-views for scenery routes — calmer vibe, classic specialties.',
+      'Vision':'Cozy classics with personable crews and port-forward itineraries.'
+    };
+    return `<span class="tiny-muted">${by[cls]||''}</span>`;
+  }
+
+  function shipCard(s){
+    const a = el('a','ship-card');
+    a.href = `${ORIGIN}/ships/rcl/${s.slug}.html`;
+    a.innerHTML = `
+      <span class="thumb"><img loading="lazy" decoding="async" alt="${s.name}" src="${pickImg(s.slug)}"></span>
+      <span class="body"><strong>${s.name}</strong><span class="class-chip">${s.cls}</span></span>
+    `;
+    // Clicking the class chip shows all ships in that class
+    a.querySelector('.class-chip').addEventListener('click',(e)=>{
+      e.preventDefault(); e.stopPropagation();
+      scrollToClass(s.cls);
+    });
+    return a;
+  }
+
+  // ---------- RENDER: RIGHT-RAIL VENUES ----------
+  function renderVenues(){
+    const host = $('#venue-list'); if(!host) return;
+    host.innerHTML = '';
+    VENUES.filter(v => venueFilter==='all' || v.type===venueFilter)
+      .forEach(v => host.appendChild(venueCard(v)));
+  }
+  function venueCard(vn){
+    const a = el('a','venue-card'); a.href = vn.href;
+    const t = el('span','vthumb');
+    const img = el('img'); img.alt = vn.name; // thumbs optional — unified style handles blank gracefully
+    t.appendChild(img);
+    const b = el('span','vbody');
+    b.innerHTML = `<strong>${vn.name}</strong><br><span class="tiny">${vn.type==='premium'?'Premium':'Included'}</span>`;
+    a.append(t,b);
+    return a;
+  }
+
+  // ---------- RENDER: EXPERIENCES GRID ----------
+  function renderExperiences(){
+    const host = $('#experience-grid'); if(!host) return;
+    host.innerHTML = '';
+    EXPERIENCES.filter(x => expFilter2==='all' || x.type===expFilter2)
+      .forEach(x=>{
+        const card = el('div','card');
+        card.innerHTML = `
+          <strong>${x.name}</strong><br>
+          <span class="tiny">${x.type==='premium'?'Premium':'Included'} ${x.formal? '· Formal encouraged':''}</span><br>
+          <span class="tiny-muted">Classes: ${x.classes.join(', ')}</span>
+        `;
+        host.appendChild(card);
+      });
+  }
+
+  // ---------- SEARCH (ships, classes, venues, experiences) ----------
+  function buildSearchIndex(){
+    const items = [];
+    // Ships
+    SHIPS.forEach(s=>{
+      items.push({
+        kind:'ship',
+        key: `${s.name} ${s.cls}`,
+        finished: isFinished(s.slug),
+        render: ()=>shipCard(s)
+      });
+    });
+    // Classes
+    CLASS_ORDER.forEach(cls=>{
+      items.push({
+        kind:'class',
+        key: cls,
+        finished: true,
+        render: ()=>{
+          const btn = el('a','pillbtn'); btn.textContent = `${cls} Class`;
+          btn.href = 'javascript:void(0)';
+          btn.addEventListener('click',()=>scrollToClass(cls));
+          return btn;
+        }
+      });
+    });
+    // Venues
+    VENUES.forEach(v=>{
+      items.push({
+        kind:'venue',
+        key: `${v.name} ${v.type}`,
+        finished: true,
+        render: ()=>venueCard(v)
+      });
+    });
+    // Experiences
+    EXPERIENCES.forEach(x=>{
+      items.push({
+        kind:'experience',
+        key: `${x.name} ${x.type} ${x.classes.join(' ')}`,
+        finished: true,
+        render: ()=>{
+          const d = el('div','card');
+          d.innerHTML = `<strong>${x.name}</strong><br>
+            <span class="tiny">${x.type==='premium'?'Premium':'Included'}${x.formal?' · Formal encouraged':''}</span>`;
+          return d;
+        }
+      });
+    });
+    return items;
+  }
+
+  const SEARCH_ITEMS = buildSearchIndex();
+
+  function doSearch(){
+    const out = $('#search-out'); const q = $('#q');
+    if(!out || !q) return;
+    const v = norm(q.value);
+    out.innerHTML = '';
+    const pool = SEARCH_ITEMS.filter(it => (showUnfinished || it.kind!=='ship' || it.finished));
+    const hits = v ? pool.filter(it => norm(it.key).includes(v)) : pool.slice(0,12);
+    hits.slice(0,18).forEach(it=> out.appendChild(it.render()));
+  }
+
+  // ---------- TOGGLES / FILTERS ----------
+  function wireToggles(){
+    // Finished/unfinished
+    $$('#finished-toggle button').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        $$('#finished-toggle button').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        showUnfinished = (btn.dataset.finish==='all');
+        // Re-render dependent views
+        renderClassSections();
+        doSearch();
+      });
+    });
+
+    // Venues filter (right rail)
+    $$('#venue-filter [data-venue], #venues [data-v2]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const val = btn.dataset.venue || btn.dataset.v2;
+        venueFilter = val;
+        // sync UI states
+        $$('#venue-filter [data-venue], #venues [data-v2]').forEach(b=>b.classList.toggle('active',
+          (b.dataset.venue||b.dataset.v2)===val));
+        renderVenues();
+      });
+    });
+
+    // Experiences filter in toolbar (search context)
+    $$('#exp-filter [data-exp]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        $$('#exp-filter [data-exp]').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        expFilter = btn.dataset.exp;
+        // Search results are already mixed; just re-run search using new filter by narrowing EXP items before build?
+        // Simpler: leave toolbar expFilter as a hint for future; core search stays unified for speed.
+        doSearch();
+      });
+    });
+    const expClear = $('#exp-clear');
+    if(expClear){ expClear.addEventListener('click', ()=>{
+      $$('#exp-filter [data-exp]').forEach(b=>b.classList.remove('active'));
+      const all = $('#exp-filter [data-exp="all"]'); all.classList.add('active'); expFilter='all'; doSearch();
+    });}
+
+    // Experiences section filter
+    $$('#experiences [data-exp2]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        $$('#experiences [data-exp2]').forEach(b=>b.classList.toggle('active', b===btn));
+        expFilter2 = btn.dataset.exp2;
+        renderExperiences();
+      });
+    });
+    const exp2Clear = $('#exp2-clear');
+    if(exp2Clear){ exp2Clear.addEventListener('click', ()=>{
+      expFilter2='all';
+      $$('#experiences [data-exp2]').forEach(b=>b.classList.toggle('active', b.dataset.exp2==='all'));
+      renderExperiences();
+    });}
+  }
+
+  // ---------- INIT ----------
+  function init(){
+    renderClassPills();
+    renderClassSections();
+    renderVenues();
+    renderExperiences();
+    wireToggles();
+    const q = $('#q'); if(q){ q.addEventListener('input',()=>{ clearTimeout(q._t); q._t=setTimeout(doSearch,80); }); }
+    doSearch();
+  }
+
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', init, {once:true}); }
+  else { init(); }
+})();
+</script></body>
