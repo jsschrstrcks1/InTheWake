@@ -72,7 +72,6 @@
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
-    // Normalize same-origin hard-coded absolute URLs to avoid CORS redirects
     document.addEventListener('DOMContentLoaded', function(){
       const sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
@@ -263,7 +262,6 @@
       <section id="dining-card" class="card" data-ship="Grandeur of the Seas" aria-labelledby="diningHeading">
         <h2 id="diningHeading">Dining Venues on Grandeur of the Seas</h2>
 
-        <!-- Use known-good local image -->
         <img id="dining-hero" class="card-hero"
              src="/ships/assets/img/Cordelia_Empress_Food_Court.jpg?v=3.006.016"
              alt="Grandeur dining venue seating with ocean view" loading="lazy"
@@ -271,7 +269,6 @@
 
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
-        <!-- Real, existing data source -->
         <script type="application/json" id="dining-data-source">{
           "provider":"rcl",
           "json":"/assets/data/venues.json",
@@ -281,11 +278,11 @@
       </section>
     </section>
 
-    <!-- LOGBOOK (scaffolding + your review fallback) -->
+    <!-- LOGBOOK -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook — Tales From the Wake</h2>
 
-      <!-- Fallback: your review, shown unless JSON is found -->
+      <!-- Fallback: your review (shown unless JSON is present) -->
       <article class="story" id="logbook-fallback">
         <h3 tabindex="0">Ken’s Logbook — Grandeur of the Seas</h3>
         <div class="story-body">
@@ -295,7 +292,6 @@
         </div>
       </article>
 
-      <!-- JSON loader injects stories + keyboard nav UI if any JSON is found -->
       <div id="logbook-stories" class="prose"></div>
     </section>
 
@@ -322,32 +318,18 @@
         </figure>
       </section>
 
-      <!-- Live tracker (auto-refreshing) -->
+      <!-- Live tracker (robust fallback chain + auto-refresh) -->
       <section class="card itinerary" aria-labelledby="liveTrackHeading"
-               data-imo="9115627" data-name="GRANDEUR-OF-THE-SEAS">
+               data-imo="9115627" data-name="GRANDEUR-OF-THE-SEAS" data-cm="598">
         <h2 id="liveTrackHeading">Where Is Grandeur Right Now?</h2>
         <p>See the ship’s current position, speed, and next port on a live tracker.</p>
-        <iframe id="liveMap" title="Live ship tracker for Grandeur of the Seas"
+        <div id="vf-map" style="width:100%;height:300px;background:var(--sky)"></div>
+        <iframe id="vf-iframe" title="Live ship tracker for Grandeur of the Seas"
                 width="100%" height="300" frameborder="0" loading="lazy"
                 referrerpolicy="no-referrer" allowfullscreen
-                style="border-radius:12px;background:var(--sky)"></iframe>
+                style="border-radius:12px;background:var(--sky);display:none"></iframe>
         <p class="tiny">Tip: The map refreshes automatically while this tab is open.</p>
       </section>
-    </section>
-
-    <!-- Fuel Your Voyage (upsell) -->
-    <section class="card" aria-labelledby="fuelHeading">
-      <h2 id="fuelHeading">Fuel Your Voyage</h2>
-      <p class="small">Quick hops to the most-used tools and guides while you plan:</p>
-      <div class="pills" role="group" aria-label="Planning shortcuts">
-        <a class="pill" href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a class="pill" href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a class="pill" href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-        <a class="pill" href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-        <a class="pill" href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-        <a class="pill" href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
-        <a class="pill" href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
-      </div>
     </section>
 
     <!-- Related -->
@@ -391,7 +373,7 @@
   <footer class="wrap">© <span id="yr"></span> In the Wake — A Cruise Traveler’s Logbook</footer>
   <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 
-  <!-- ===== First Look init (waits for Swiper readiness) ===== -->
+  <!-- ===== First Look init ===== -->
   <script>
   (function initFirstLook(){
     function go(){
@@ -409,7 +391,7 @@
   })();
   </script>
 
-  <!-- ===== Logbook loader (keeps your fallback unless JSON is found) ===== -->
+  <!-- ===== Logbook loader with 60% Fuel block insertion ===== -->
   <script>
   (function initShipLogbook(){
     const mount=document.getElementById('logbook-stories'); if(!mount) return;
@@ -417,6 +399,24 @@
     const slug='grandeur-of-the-seas', line='rcl';
     function abs(p){return (window._abs?_abs(p):p);}
     function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+
+    // >>> Replace the inner HTML below with your canonical "Fuel Your Voyage" copy if it differs
+    const FUEL_HTML = `
+      <article class="story fuel-upsell" aria-live="polite">
+        <h3 tabindex="0">Fuel Your Voyage</h3>
+        <div class="story-body">
+          <p class="small">Quick hops to the most-used tools and guides while you plan:</p>
+          <div class="pills" role="group" aria-label="Planning shortcuts">
+            <a class="pill" href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+            <a class="pill" href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+            <a class="pill" href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+            <a class="pill" href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+            <a class="pill" href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+            <a class="pill" href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+            <a class="pill" href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+          </div>
+        </div>
+      </article>`;
 
     const SOURCES=[
       abs('/ships/'+line+'/assets/'+slug+'.json?v=3.006.016'),
@@ -437,6 +437,7 @@
 
     const state={i:0,items:[]};
     function renderOne(p){
+      if(p && p.__fuel) return FUEL_HTML;
       const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');
       const body=String(p.markdown||p.body||p.content||p.html||p.text||p.story||p.notes||'').trim();
       if(!body) return '';
@@ -479,19 +480,32 @@
     }
 
     fetchFirst().then(data=>{
-      const items=normalizePayload(data).map(p=>({
+      let items=normalizePayload(data).map(p=>({
         title:(p.title||p.persona_label||p.heading||p.name||'Guest Perspective'),
         markdown:(p.markdown||p.body||p.content||p.html||p.text||p.story||p.notes||'')
       })).filter(p=>String(p.markdown||'').trim().length);
 
-      if(!items.length){ return; } // keep your fallback visible
+      if(!items.length){ 
+        // Keep your fallback visible; also append Fuel block after it
+        mount.innerHTML = FUEL_HTML;
+        return;
+      }
+
+      // Insert Fuel block at the 60% mark (rounded down)
+      const insertAt = Math.max(0, Math.floor(items.length * 0.6));
+      items.splice(insertAt, 0, {__fuel:true});
+
+      // Hide fallback, render carousel
       if(fallbackEl) fallbackEl.remove();
       state.items=items; ensureNav(); go(0,false);
-    }).catch(()=>{ /* keep fallback visible */ });
+    }).catch(()=>{
+      // Keep fallback; still show Fuel block beneath it
+      mount.innerHTML = FUEL_HTML;
+    });
   })();
   </script>
 
-  <!-- ===== Dining loader helper (venues.json on same origin) ===== -->
+  <!-- ===== Dining loader (venues.json same origin) ===== -->
   <script>
   (function(){
     const DATA_PATH='/assets/data/venues.json';
@@ -552,7 +566,7 @@
   })();
   </script>
 
-  <!-- ===== Videos (static list fallback + JSON sources if added later) ===== -->
+  <!-- ===== Videos ===== -->
   <script>
   (function initGrandeurVideos(){
     const sec=document.querySelector('[aria-labelledby="video-highlights"]'); if(!sec) return;
@@ -612,7 +626,7 @@
   })();
   </script>
 
-  <!-- ===== Ship stats loader (primary: local path to avoid CORS) ===== -->
+  <!-- ===== Ship stats loader ===== -->
   <script>
   (async function loadShipStats(){
     const el=document.getElementById('ship-stats'); if(!el) return;
@@ -654,22 +668,86 @@
   })();
   </script>
 
-  <!-- ===== Live tracker auto-refresh ===== -->
+  <!-- ===== Live tracker (AISMap + multi-iframe fallbacks + auto-refresh) ===== -->
   <script>
   (function initLiveTracker(){
-    const wrap = document.querySelector('.card.itinerary'); if(!wrap) return;
-    const name = (wrap.dataset.name||'').trim();
-    const imo  = (wrap.dataset.imo||'').trim();
-    const base = "https://www.vesselfinder.com/vessels/"+encodeURIComponent(name)+"-IMO-"+imo+"#map";
-    const fr   = document.getElementById('liveMap');
-    const STEP = 15*60*1000; // 15 min
+    const card = document.querySelector('.card.itinerary'); if(!card) return;
+    const name = (card.dataset.name||'').trim();
+    const imo  = (card.dataset.imo||'').trim();
+    const cmId = (card.dataset.cm||'').trim(); // CruiseMapper numeric id (598)
+    const mapEl = document.getElementById('vf-map');
+    const fr    = document.getElementById('vf-iframe');
+    const STEP  = 15*60*1000; // refresh every 15 minutes
 
     function stamp(){ return Math.floor(Date.now()/STEP); }
-    function setSrc(){ fr.src = base + (base.includes('?')?'&':'?') + 'ts=' + stamp(); }
+    function q(u){ return u + (u.includes('?')?'&':'?') + 'ts=' + stamp(); }
 
-    setSrc();
-    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) setSrc(); });
-    setInterval(()=>{ if(!document.hidden) setSrc(); }, STEP);
+    // Try VF widget first
+    function tryWidget(){
+      return new Promise(resolve=>{
+        const s=document.createElement('script');
+        s.src=q("https://www.vesselfinder.com/aismap.js");
+        s.async=true;
+        let done=false;
+        s.onload=function(){ 
+          try{
+            if(window.AISMap && mapEl){
+              new AISMap(mapEl,{width:"100%",height:300,zoom:8,names:true,show_track:1,track_days:1,vessel:"IMO:"+imo});
+              done=true; resolve(true);
+              // health check: if no canvas, fallback
+              setTimeout(()=>{ if(!mapEl.querySelector('canvas,svg')) resolve(false); }, 2000);
+            } else { resolve(false); }
+          }catch(_){ resolve(false); }
+        };
+        s.onerror=function(){ resolve(false); };
+        document.head.appendChild(s);
+        // guard timeout
+        setTimeout(()=>{ if(!done) resolve(false); }, 4500);
+      });
+    }
+
+    // If widget fails, rotate through likely working iframes
+    const iframeCandidates = [
+      // VF vessel details by IMO (no name dependency)
+      () => q("https://www.vesselfinder.com/vessels/details/imo/"+encodeURIComponent(imo))+"#map",
+      // VF with plain query
+      () => q("https://www.vesselfinder.com/")+"?imo="+encodeURIComponent(imo)+"#map",
+      // CruiseMapper fallback (known-good)
+      () => q("https://www.cruisemapper.com/ships/Grandeur-Of-The-Seas-"+(cmId||"598"))
+    ];
+
+    function showIframe(){
+      for(const make of iframeCandidates){
+        const url = make();
+        fr.style.display='block';
+        fr.src = url;
+        // break after first; if site blocks, user still gets a page (404s here are rare with these URLs)
+        break;
+      }
+      // auto-refresh when visible
+      function refresh(){ if(document.hidden) return; fr.src = iframeCandidates[0](); }
+      setInterval(refresh, STEP);
+      document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) refresh(); });
+    }
+
+    // Kick off
+    tryWidget().then(ok=>{
+      if(!ok) showIframe();
+      else{
+        // widget present: refresh by re-creating widget on interval (cheap but reliable)
+        setInterval(()=>{
+          if(document.hidden) return;
+          mapEl.innerHTML='';
+          try{ new AISMap(mapEl,{width:"100%",height:300,zoom:8,names:true,show_track:1,track_days:1,vessel:"IMO:"+imo}); }catch(_){}
+        }, STEP);
+        document.addEventListener('visibilitychange', ()=>{
+          if(!document.hidden){
+            mapEl.innerHTML='';
+            try{ new AISMap(mapEl,{width:"100%",height:300,zoom:8,names:true,show_track:1,track_days:1,vessel:"IMO:"+imo}); }catch(_){}
+          }
+        });
+      }
+    });
   })();
   </script>
 </body>
