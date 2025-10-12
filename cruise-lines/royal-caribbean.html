@@ -71,6 +71,23 @@
 .list-row .thumb{width:60px;height:40px;border-radius:8px;overflow:hidden;border:1px solid #dfe7ea;background:#eef4f6}
 .list-row .thumb img{width:100%;height:100%;object-fit:cover}
 .list-row strong{color:var(--sea)}
+ /* Search board: compact grid + rows */
+.sb-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+@media (max-width:1100px){.sb-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){.sb-grid{grid-template-columns:1fr}}
+
+.list-row{display:grid;grid-template-columns:96px 1fr;gap:.75rem;align-items:center;
+  border:2px solid var(--rope);border-radius:14px;background:#fff;padding:.6rem}
+.list-row .thumb{width:96px;height:64px;border-radius:10px;overflow:hidden;border:1px solid #dfe7ea;background:#eef4f6}
+.list-row .thumb img{width:100%;height:100%;object-fit:cover}
+.list-row .title{font-weight:800;color:var(--sea);font-size:1.15rem}
+.list-row .meta{font-size:.86rem;color:#567}
+.sb-hidden{display:none!important}
+
+.sb-qwrap{position:relative;display:inline-flex;align-items:center}
+#sb-q{width:min(44ch,60vw);padding:.55rem .9rem;border:1px solid #cfe1ea;border-radius:14px}
+#sb-clear{position:absolute;right:.3rem;top:50%;transform:translateY(-50%);border:0;background:transparent;
+  font-size:1.2rem;line-height:1;padding:.2rem .4rem;cursor:pointer} 
   </style>
 
   <!-- Reduced motion + SW (Every Page) -->
@@ -119,58 +136,52 @@
       <div class="tiny">Tip: Search below matches <em>ships</em>, <em>classes</em>, <em>venues</em>, and <em>experiences</em>. Toggle “Show unfinished ships” to include pages still in dry dock (no thumbnail yet).</div>
     </section>
 
-    <!-- Global search -->
-   <section class="card" id="searchbox" role="search" aria-label="Browse Royal Caribbean">
-  <div class="toolbar" style="gap:.6rem;align-items:center;flex-wrap:wrap">
-    <!-- Tabs -->
-    <div class="seg" id="sb-tabs" role="tablist" aria-label="Result type">
-      <button type="button" role="tab" aria-selected="true" data-tab="ships"   class="active">Ships</button>
-      <button type="button" role="tab" aria-selected="false" data-tab="venues">Venues</button>
-      <button type="button" role="tab" aria-selected="false" data-tab="xp">Experiences</button>
+    <!-- Search Board (ships / venues / experiences) -->
+<section class="card" id="sb" role="region" aria-label="Search Royal Caribbean">
+  <div class="toolbar" id="sb-view" aria-label="Choose content">
+    <div class="seg">
+      <button type="button" class="active" data-view="ships" aria-pressed="true">Ships</button>
+      <button type="button" data-view="venues" aria-pressed="false">Venues</button>
+      <button type="button" data-view="experiences" aria-pressed="false">Experiences</button>
     </div>
-
-    <!-- Search -->
-    <label class="tiny" for="sb-q" style="margin-left:.35rem">Search</label>
-    <input id="sb-q" type="search" inputmode="search" placeholder="Try: Oasis, Chops, FlowRider…" autocomplete="off" aria-controls="sb-out">
-    <button type="button" id="sb-clear" class="pillbtn" aria-label="Clear search">Clear</button>
-
-    <!-- Density -->
-    <div class="seg" id="sb-view" aria-label="View density">
-      <button type="button" data-view="card" class="active">Cards</button>
-      <button type="button" data-view="list">List</button>
+    <div class="seg" id="sb-finish" aria-label="Ship completion">
+      <button type="button" class="active" data-finish="finished" aria-pressed="true">Finished only</button>
+      <button type="button" data-finish="all" aria-pressed="false">Show unfinished ships</button>
+    </div>
+    <label class="visually-hidden" for="sb-q">Search</label>
+    <div class="sb-qwrap">
+      <input id="sb-q" type="search" inputmode="search" placeholder="Try: Oasis, Chops, Icon, Chef’s Table…" autocomplete="off" aria-controls="sb-out">
+      <button type="button" id="sb-clear" class="sb-clear" aria-label="Clear search">×</button>
     </div>
   </div>
 
-  <!-- Filters (contextual) -->
-  <div id="sb-filters" class="toolbar" style="margin-top:.6rem;gap:.5rem;flex-wrap:wrap">
-    <!-- Ships filters -->
-    <div class="seg sb-only" data-for="ships" id="sb-finish">
-      <button type="button" data-finish="finished" class="active">Finished only</button>
-      <button type="button" data-finish="all">Show unfinished</button>
-    </div>
-    <div class="pillrow sb-only" data-for="ships" id="sb-classes"></div>
+  <!-- Blurb that disappears on first interaction -->
+  <div id="sb-welcome" class="tiny-muted" style="margin:.4rem 0 0">
+    <p><strong>Choose your chart:</strong> tap <em>Ships</em>, <em>Venues</em>, or <em>Experiences</em>. Type to narrow, use the chips to filter, and <em>Load more</em> to see the rest. “Finished only” shows ships with thumbnails (live pages); flip the toggle to preview everything in dry dock.</p>
+  </div>
 
-    <!-- Venues filters -->
-    <div class="seg sb-only" data-for="venues" id="sb-vfilter">
-      <button type="button" data-v="all" class="active">Venues: All</button>
+  <!-- Context filters (change based on active view) -->
+  <div class="toolbar" id="sb-filters" style="margin:.5rem 0 .5rem">
+    <!-- Classes (always visible for Ships, optional for others) -->
+    <div id="sb-classes" class="pillrow" aria-label="Filter by class"></div>
+
+    <!-- Venue filter -->
+    <div class="seg" id="sb-vfilter" aria-label="Venues filter">
+      <button type="button" class="active" data-v="all">Venues: All</button>
       <button type="button" data-v="included">Included</button>
       <button type="button" data-v="premium">Premium</button>
     </div>
 
-    <!-- Experiences filters -->
-    <div class="seg sb-only" data-for="xp" id="sb-xpfilter">
-      <button type="button" data-xp="all" class="active">Experiences: All</button>
+    <!-- Experiences filter -->
+    <div class="seg" id="sb-xpfilter" aria-label="Experiences filter">
+      <button type="button" class="active" data-xp="all">Experiences: All</button>
       <button type="button" data-xp="included">Included</button>
       <button type="button" data-xp="premium">Premium</button>
     </div>
-    <label class="tiny sb-only" data-for="xp" style="display:inline-flex;align-items:center;gap:.35rem">
-      <input type="checkbox" id="sb-formal"> Formal-only
-    </label>
   </div>
 
-  <!-- Results header + pane -->
-  <div class="tiny-muted" id="sb-summary" style="margin:.4rem 0 0"></div>
-  <div id="sb-out" class="grid-3" style="margin-top:.6rem"></div>
+  <!-- Results -->
+  <div id="sb-out" class="sb-grid" aria-live="polite"></div>
   <div class="center" style="margin-top:.6rem">
     <button type="button" id="sb-more" class="pillbtn">Load more</button>
   </div>
