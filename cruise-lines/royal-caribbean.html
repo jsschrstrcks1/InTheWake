@@ -10,8 +10,8 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Royal Caribbean — In the Wake (v3.006.010)</title>
-  <meta name="version" content="v3.006.010"/>
+  <title>Royal Caribbean — In the Wake (v3.006.011)</title>
+  <meta name="version" content="v3.006.011"/>
   <meta name="description" content="Royal Caribbean, class-by-class and ship-by-ship: venues, experiences, dress code, and ship search with image thumbnails."/>
   <meta name="theme-color" content="#0e6e8e"/>
   <meta name="robots" content="index,follow"/>
@@ -23,7 +23,7 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html"/>
   <meta property="og:title" content="Royal Caribbean — In the Wake"/>
   <meta property="og:description" content="Explore Royal Caribbean by class and ship with venue and experience guides."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/royal-caribbean-hero.jpg?v=3.006.010"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/royal-caribbean-hero.jpg?v=3.006.011"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- JSON-LD (Breadcrumbs) -->
@@ -40,7 +40,7 @@
   </script>
 
   <!-- Unified CSS (cache-busted MUST) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.010"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.011"/>
   <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg"/>
 
   <!-- Page-local trims (kept minimal; no overrides to hero/filter rules) -->
@@ -98,7 +98,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
-        <span class="version-badge">v3.006.010</span>
+        <span class="version-badge">v3.006.011</span>
       </div>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="https://www.cruisinginthewake.com/">Home</a>
@@ -264,11 +264,11 @@
 /* ====== DATA FEEDS FOR SEARCH BOARD ====== */
 
 // 1️⃣  Base constants
-const ORIGIN = 'https://www.cruisinginthewake.com';
-const FALLBACK_IMG = '/assets/ships/placeholder-ship.jpg';
+window.ORIGIN = 'https://www.cruisinginthewake.com';
+window.FALLBACK_IMG = '/assets/ships/placeholder-ship.jpg';
 
 // 2️⃣  Image map (ships with thumbnails already finished)
-const IMAGE_MAP = {
+window.IMAGE_MAP = {
   'enchantment-of-the-seas': ['/ships/assets/enchantment-of-the-seas1.jpg'],
   'grandeur-of-the-seas': ['/ships/assets/grandeur-of-the-seas1.jpg'],
   'rhapsody-of-the-seas': ['/ships/assets/rhapsody-of-the-seas1.jpg'],
@@ -279,12 +279,12 @@ const IMAGE_MAP = {
 };
 
 // 3️⃣  Classes (largest → smallest by GT)
-const CLASS_ORDER = [
+window.CLASS_ORDER = [
   'Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager','Radiance','Vision'
 ];
 
 // 4️⃣  Ships
-const SHIPS = [
+window.SHIPS = [
   // Icon
   {name:'Icon of the Seas',slug:'icon-of-the-seas',cls:'Icon'},
   {name:'Star of the Seas',slug:'star-of-the-seas',cls:'Icon'},
@@ -325,7 +325,7 @@ const SHIPS = [
 ];
 
 // 5️⃣  Venues (included vs premium)
-const VENUES = [
+window.VENUES = [
   // Premium
   v('Chops Grille','premium','chops-grille'),
   v('150 Central Park','premium','150-central-park'),
@@ -375,7 +375,7 @@ const VENUES = [
 function v(name,type,slug){return {name,type,slug,href:`${ORIGIN}/restaurants/${slug}.html`};}
 
 // 6️⃣  Experiences
-const EXPERIENCES = [
+window.EXPERIENCES = [
   ex('FlowRider® Surf Simulator','included',['Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager']),
   ex('Rock Climbing Wall','included',['Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager']),
   ex('iFly® Skydiving (RipCord®)','included',['Icon','Oasis','Quantum','Quantum Ultra']),
