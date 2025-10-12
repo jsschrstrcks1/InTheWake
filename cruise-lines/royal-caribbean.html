@@ -621,18 +621,33 @@ function ex(name,type,classes,formal){return {name,type,classes,formal:!!formal}
   }
 
   function classBlurb(cls){
-    const by = {
-      'Icon':'Waterpark neighborhood, seven pools, AquaDome shows — maximal choice with quiet corners when you want them.',
-      'Oasis':'The original “neighborhood” giants: Central Park, Boardwalk, AquaTheater — Broadway scale with resort-deck ease.',
-      'Quantum':'Two70° tech shows, North Star pod, SeaPlex energy — smart-weather ships that shine in cooler routes.',
-      'Quantum Ultra':'Amped Quantum features tuned for warm weather; SeaPlex, iFly®, glow parties.',
-      'Freedom':'Big-ship staples without mega sprawl — FlowRider, sports decks, crowd-pleasing dining.',
-      'Voyager':'The class that taught cruising to skate — ice shows, Promenade buzz, compact do-it-all days.',
-      'Radiance':'Glass and views for scenery routes — calmer vibe, classic specialties.',
-      'Vision':'Cozy classics with personable crews and port-forward itineraries.'
-    };
-    return by[cls] || '';
-  }
+  const by = {
+    'Icon': 
+      'The newest flagships of the fleet — vast floating cities with neighborhoods in the sky and promenades at sea level. AquaDome shows defy physics, Surfside keeps families smiling, and Central Park sways with live strings under real trees. These are ships that make sea days feel like destinations in themselves.',
+
+    'Oasis': 
+      'The class that redefined the modern cruise ship. Oasis-class vessels brought neighborhoods to the ocean: Boardwalk nostalgia, Central Park tranquility, and AquaTheater spectacles that rival Broadway. Perfect for families, groups, and anyone who likes a little “wow” mixed with their wake.',
+
+    'Quantum': 
+      'Technology meets exploration. Quantum-class ships sail cooler routes and bring the adventure indoors: North Star® observation pods, RipCord® skydiving, and robotic bartenders. Designed for smart weather flexibility, these ships balance innovation with surprising serenity.',
+
+    'Quantum Ultra': 
+      'A warmer-weather evolution of Quantum — the same tech-forward design, but tuned for tropics and nightlife. SeaPlex brings bumper cars and glow parties, while iFly® and North Star® keep the skyline moving. The Ultra class lives up to its name: familiar comfort with an amped-up pulse.',
+
+    'Freedom': 
+      'The bridge between classic and colossal. Freedom-class ships keep the FlowRider®, promenade parades, and family-friendly scale — without the size of newer behemoths. Expect proven favorites, spirited pool decks, and a crew that knows how to balance fun with efficiency.',
+
+    'Voyager': 
+      'Royal Caribbean’s trailblazers of the early 2000s. The first to skate at sea and stroll a true promenade, Voyager-class ships deliver a condensed “mega-ship” experience with manageable size and warmth. Perfect for first-time cruisers who still want ice shows and nightlife variety.',
+
+    'Radiance': 
+      'Glass-wrapped and purpose-built for scenery. Radiance-class ships excel on glacier routes and coastal itineraries where the view matters most. Expect bright atriums, Solarium calm, and specialty dining done without flash. Smaller crowds, larger windows, and excellent service define these vessels.',
+
+    'Vision': 
+      'The fleet’s explorers — smaller, older, deeply loved. Vision-class ships trade bells and whistles for intimacy and itinerary. Ideal for port-intensive voyages where connection and conversation replace parades and pyrotechnics. A favorite among loyal cruisers who know the value of “ship life.”'
+  };
+  return by[cls] || '';
+}
 
   function shipCard(s){
     const xp = shipExperiences(s);
