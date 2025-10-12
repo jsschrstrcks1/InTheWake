@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- ===== Critical meta first (v3.006.015) ===== -->
+  <!-- ===== Critical meta first (v3.006.016) ===== -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer"/>
   <meta name="robots" content="index, follow"/>
-  <meta name="version" content="3.006.015"/>
+  <meta name="version" content="3.006.016"/>
 
   <title>Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
   <meta name="description" content="Grandeur of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."/>
@@ -20,11 +20,11 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
   <meta property="og:title" content="Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos"/>
   <meta property="og:description" content="All the essentials for Grandeur of the Seas: live map, dining, stats, and videos."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/ships/assets/grandeur-of-the-seas1.jpg?v=3.006.015"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/ships/assets/grandeur-of-the-seas1.jpg?v=3.006.016"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos"/>
   <meta name="twitter:description" content="Live tracker, dining, deck plans, and videos for Grandeur of the Seas."/>
-  <meta name="twitter:image" content="https://www.cruisinginthewake.com/ships/assets/grandeur-of-the-seas1.jpg?v=3.006.015"/>
+  <meta name="twitter:image" content="https://www.cruisinginthewake.com/ships/assets/grandeur-of-the-seas1.jpg?v=3.006.016"/>
 
   <!-- Organization -->
   <script type="application/ld+json">{
@@ -63,7 +63,7 @@
     "itemReviewed":{"@type":"Cruise","name":"Grandeur of the Seas",
       "provider":{"@type":"Organization","name":"Royal Caribbean International","url":"https://www.royalcaribbean.com"},
       "url":"https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html",
-      "image":"https://www.cruisinginthewake.com/ships/assets/grandeur-of-the-seas1.jpg?v=3.006.015",
+      "image":"https://www.cruisinginthewake.com/ships/assets/grandeur-of-the-seas1.jpg?v=3.006.016",
       "description":"A Vision-class cruise ship operated by Royal Caribbean International."}
   }</script>
 
@@ -72,7 +72,7 @@
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
-    // Normalize same-origin hard-coded absolute URLs to avoid CORS (esp. JSON) and redirects
+    // Normalize same-origin hard-coded absolute URLs to avoid CORS redirects
     document.addEventListener('DOMContentLoaded', function(){
       const sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
@@ -82,8 +82,7 @@
       ].join(',');
       document.querySelectorAll(sel).forEach(el=>{
         const attr=el.hasAttribute('href')?'href':'src';
-        try{
-          const u=new URL(el.getAttribute(attr));
+        try{ const u=new URL(el.getAttribute(attr));
           el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
         }catch(_){}
       });
@@ -92,12 +91,12 @@
   </script>
 
   <!-- ===== CSS (versioned) ===== -->
-  <link rel="preload" as="style" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.015">
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.015">
+  <link rel="preload" as="style" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.016">
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.016">
 
   <!-- Preload only assets used at first paint -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.006.015">
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.006.015">
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.006.016">
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.006.016">
 
   <!-- Swiper (primary + CDN fallback) -->
   <script>
@@ -106,8 +105,8 @@
     function addJS(src, ok, fail){
       const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
     }
-    const primaryCSS=_abs('/vendor/swiper/swiper-bundle.min.css?v=3.006.015');
-    const primaryJS =_abs('/vendor/swiper/swiper-bundle.min.js?v=3.006.015');
+    const primaryCSS=_abs('/vendor/swiper/swiper-bundle.min.css?v=3.006.016');
+    const primaryJS =_abs('/vendor/swiper/swiper-bundle.min.js?v=3.006.016');
     const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
     const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
     addCSS(primaryCSS);
@@ -165,8 +164,8 @@
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        <span class="version-badge">v3.006.015</span>
+        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.006.016" alt="In the Wake wordmark"/>
+        <span class="version-badge">v3.006.016</span>
       </div>
       <nav class="pills" aria-label="Primary">
         <a class="pill" href="https://www.cruisinginthewake.com/index.html">Home</a>
@@ -184,25 +183,19 @@
       <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
           <g class="grid-lines" stroke-width="0.35">
-            <line x1="10" y1="0" x2="10" y2="60"/>
-            <line x1="20" y1="0" x2="20" y2="60"/>
-            <line x1="30" y1="0" x2="30" y2="60"/>
-            <line x1="40" y1="0" x2="40" y2="60"/>
-            <line x1="50" y1="0" x2="50" y2="60"/>
-            <line x1="60" y1="0" x2="60" y2="60"/>
-            <line x1="70" y1="0" x2="70" y2="60"/>
-            <line x1="80" y1="0" x2="80" y2="60"/>
+            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
             <line x1="90" y1="0" x2="90" y2="60"/>
-            <line x1="0" y1="10" x2="100" y2="10"/>
-            <line x1="0" y1="20" x2="100" y2="20"/>
-            <line x1="0" y1="30" x2="100" y2="30"/>
-            <line x1="0" y1="40" x2="100" y2="40"/>
+            <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
           </g>
         </svg>
       </div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.006.015" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.006.016" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.006.015" alt="In the Wake">
+        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.006.016" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
@@ -218,24 +211,24 @@
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
 
-        <!-- Your original three Flickers of Majesty photos (exact paths) -->
+        <!-- Your original three Flickers of Majesty photos -->
         <div class="swiper firstlook" aria-label="Grandeur of the Seas photo carousel">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <figure>
-                <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%203.jpeg?v=3.006.015" alt="Grandeur — at Labadee Haiti in the rain" loading="lazy">
+                <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%203.jpeg?v=3.006.016" alt="Grandeur — at Labadee Haiti in the rain" loading="lazy">
                 <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
               </figure>
             </div>
             <div class="swiper-slide">
               <figure>
-                <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%201.jpeg?v=3.006.015" alt="Grandeur — through the trees" loading="lazy">
+                <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%201.jpeg?v=3.006.016" alt="Grandeur — through the trees" loading="lazy">
                 <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
               </figure>
             </div>
             <div class="swiper-slide">
               <figure>
-                <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%202.jpeg?v=3.006.015" alt="Grandeur — in the fog" loading="lazy">
+                <img src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas%20-%202.jpeg?v=3.006.016" alt="Grandeur — in the fog" loading="lazy">
                 <figcaption class="tiny">Photo © <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener">Flickers of Majesty</a> — <a href="https://flickersofmajesty.com/" target="_blank" rel="noopener">flickersofmajesty.com</a></figcaption>
               </figure>
             </div>
@@ -270,15 +263,15 @@
       <section id="dining-card" class="card" data-ship="Grandeur of the Seas" aria-labelledby="diningHeading">
         <h2 id="diningHeading">Dining Venues on Grandeur of the Seas</h2>
 
-        <!-- Use known-good local image; keep your prior hero as fallback if you later add it -->
+        <!-- Use known-good local image -->
         <img id="dining-hero" class="card-hero"
-             src="/ships/assets/img/Cordelia_Empress_Food_Court.jpg?v=3.006.015"
+             src="/ships/assets/img/Cordelia_Empress_Food_Court.jpg?v=3.006.016"
              alt="Grandeur dining venue seating with ocean view" loading="lazy"
-             onerror="(function(img){var fb=[_abs('/ships/assets/grandeur-of-the-seas1.jpg?v=3.006.015')];img._fbi=(img._fbi||0);if(img._fbi<fb.length){img.src=fb[img._fbi++];}})(this)"/>
+             onerror="(function(img){var fb=[_abs('/ships/assets/grandeur-of-the-seas1.jpg?v=3.006.016')];img._fbi=(img._fbi||0);if(img._fbi<fb.length){img.src=fb[img._fbi++];}})(this)"/>
 
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
-        <!-- Real, existing data source (no CORS): assets/data/venues.json -->
+        <!-- Real, existing data source -->
         <script type="application/json" id="dining-data-source">{
           "provider":"rcl",
           "json":"/assets/data/venues.json",
@@ -288,18 +281,22 @@
       </section>
     </section>
 
-    <!-- Logbook (your full review restored verbatim) -->
-    <section class="card note-kens-logbook" aria-labelledby="logbookHeading">
-      <h2 id="logbookHeading">A note from Ken’s Logbook — a personal review</h2>
-      <p>
-        We sailed <em>Grandeur of the Seas</em> in an ocean-view stateroom—bright - with views of epic sunrises; a great way to start each morning. Dining was a highlight: <strong>Chops Grille</strong> delivered a fantastic filet, and the <strong>Main Dining Room</strong> impressed with thoughtful pacing and spot-on recommendations. Service all around was warm and proactive: Miguel (Philippines) at Chops provided truly excellent, personable care; at Guest Services, Vincent D’Cruz resolved our requests quickly and professionally; and in <strong>Windjammer</strong>, Vergel noticed a morning pattern and brought fresh eggs to our table before we asked—a small kindness that says a lot about this crew.
-      </p>
-      <p>
-        We tried <strong>Taste of Royal</strong>: the tuna tartare was tasty; shrimp could have used a touch more heat; the fried cheesecake stole the show. (Pro tip: the Saint Peter’s spritzer really pops if you squeeze the orange wedge.) Our Eastern Caribbean itinerary hit Aruba, Curaçao, and Bonaire. We snorkeled in Aruba (hello, flamingos), toured the Curaçao distillery and a sun-warmed cave, and in Bonaire took a quick taxi to <a href="https://buddydive.com/" target="_blank" rel="noopener">Buddy Dive Center</a>—great value rentals (as of Nov 2024), clear water, and a drop-off reef that rewards confident snorkelers and divers. Labadee beach time was still fun despite weather nixing our planned dive excursion. So we took in the Local Artists - who can be VERY assertive; a firm “no, thanks” works in at least three languages.
-      </p>
-      <p>
-        Embark and debark in Fort Lauderdale were smooth, though port driving/parking can be confusing and pricey—off-port parking plus a taxi often beats the on-site rates. In the evenings, we caught <em>Broadway Rhythm &amp; Rhyme</em> and <em>Tango Buenos Aires</em>—the latter stood out with world-class dancing and vocals. Bottom line: <em>Grandeur</em> delivers that extra dose of personal connection big ships can’t replicate, backed by classic Royal fun and friendly, attentive service.
-      </p>
+    <!-- LOGBOOK (scaffolding + your review fallback) -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">The Logbook — Tales From the Wake</h2>
+
+      <!-- Fallback: your review, shown unless JSON is found -->
+      <article class="story" id="logbook-fallback">
+        <h3 tabindex="0">Ken’s Logbook — Grandeur of the Seas</h3>
+        <div class="story-body">
+          <p>We sailed <em>Grandeur of the Seas</em> in an ocean-view stateroom—bright - with views of epic sunrises; a great way to start each morning. Dining was a highlight: <strong>Chops Grille</strong> delivered a fantastic filet, and the <strong>Main Dining Room</strong> impressed with thoughtful pacing and spot-on recommendations. Service all around was warm and proactive: Miguel (Philippines) at Chops provided truly excellent, personable care; at Guest Services, Vincent D’Cruz resolved our requests quickly and professionally; and in <strong>Windjammer</strong>, Vergel noticed a morning pattern and brought fresh eggs to our table before we asked—a small kindness that says a lot about this crew.</p>
+          <p>We tried <strong>Taste of Royal</strong>: the tuna tartare was tasty; shrimp could have used a touch more heat; the fried cheesecake stole the show. (Pro tip: the Saint Peter’s spritzer really pops if you squeeze the orange wedge.) Our Eastern Caribbean itinerary hit Aruba, Curaçao, and Bonaire. We snorkeled in Aruba (hello, flamingos), toured the Curaçao distillery and a sun-warmed cave, and in Bonaire took a quick taxi to <a href="https://buddydive.com/" target="_blank" rel="noopener">Buddy Dive Center</a>—great value rentals (as of Nov 2024), clear water, and a drop-off reef that rewards confident snorkelers and divers. Labadee beach time was still fun despite weather nixing our planned dive excursion. So we took in the Local Artists - who can be VERY assertive; a firm “no, thanks” works in at least three languages.</p>
+          <p>Embark and debark in Fort Lauderdale were smooth, though port driving/parking can be confusing and pricey—off-port parking plus a taxi often beats the on-site rates. In the evenings, we caught <em>Broadway Rhythm &amp; Rhyme</em> and <em>Tango Buenos Aires</em>—the latter stood out with world-class dancing and vocals. Bottom line: <em>Grandeur</em> delivers that extra dose of personal connection big ships can’t replicate, backed by classic Royal fun and friendly, attentive service.</p>
+        </div>
+      </article>
+
+      <!-- JSON loader injects stories + keyboard nav UI if any JSON is found -->
+      <div id="logbook-stories" class="prose"></div>
     </section>
 
     <!-- Videos -->
@@ -321,46 +318,36 @@
         <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
         <p><a class="pill" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
         <figure>
-          <img src="https://www.cruisinginthewake.com/assets/ship-map.png?v=3.006.015" alt="Grandeur of the Seas simplified deck plan preview" loading="lazy"/>
+          <img src="https://www.cruisinginthewake.com/assets/ship-map.png?v=3.006.016" alt="Grandeur of the Seas simplified deck plan preview" loading="lazy"/>
         </figure>
       </section>
 
-      <!-- Keeping the known-good link approach to avoid embed flakiness -->
-    <div id="vf-map" style="width:100%;height:300px;background:var(--sky)"></div>
-<iframe id="vf-fallback" class="hidden" width="100%" height="300" frameborder="0" loading="lazy"></iframe>
+      <!-- Live tracker (auto-refreshing) -->
+      <section class="card itinerary" aria-labelledby="liveTrackHeading"
+               data-imo="9115627" data-name="GRANDEUR-OF-THE-SEAS">
+        <h2 id="liveTrackHeading">Where Is Grandeur Right Now?</h2>
+        <p>See the ship’s current position, speed, and next port on a live tracker.</p>
+        <iframe id="liveMap" title="Live ship tracker for Grandeur of the Seas"
+                width="100%" height="300" frameborder="0" loading="lazy"
+                referrerpolicy="no-referrer" allowfullscreen
+                style="border-radius:12px;background:var(--sky)"></iframe>
+        <p class="tiny">Tip: The map refreshes automatically while this tab is open.</p>
+      </section>
+    </section>
 
-<script>
-(function hybridVF(){
-  const card = document.querySelector('.card.itinerary'); if(!card) return;
-  const name = card.dataset.name, imo = card.dataset.imo;
-  const base = "https://www.vesselfinder.com/vessels/"+encodeURIComponent(name)+"-IMO-"+imo+"#map";
-  const mapEl = document.getElementById('vf-map');
-  const iFr   = document.getElementById('vf-fallback');
-
-  function bust(u){ return u + (u.includes('?')?'&':'?') + 'ts=' + Date.now(); }
-  function useIframe(){ iFr.src=bust(base); iFr.classList.remove('hidden'); mapEl.style.display='none'; }
-
-  const s=document.createElement('script');
-  s.src = bust("https://www.vesselfinder.com/aismap.js");
-  s.async = true;
-
-  const stall = setTimeout(useIframe, 4500);
-  s.onload = function(){
-    try{
-      clearTimeout(stall);
-      if(window.AISMap && mapEl){
-        new AISMap(mapEl,{width:"100%",height:300,zoom:8,names:true,show_track:1,track_days:1,vessel:"IMO:"+imo});
-        // sanity check after render; if no canvas/tiles, fallback to iframe
-        setTimeout(()=>{ if(!mapEl.querySelector('canvas,svg')) useIframe(); }, 2500);
-      } else {
-        useIframe();
-      }
-    }catch(_){ useIframe(); }
-  };
-  s.onerror = function(){ clearTimeout(stall); useIframe(); };
-  document.head.appendChild(s);
-})();
-</script>
+    <!-- Fuel Your Voyage (upsell) -->
+    <section class="card" aria-labelledby="fuelHeading">
+      <h2 id="fuelHeading">Fuel Your Voyage</h2>
+      <p class="small">Quick hops to the most-used tools and guides while you plan:</p>
+      <div class="pills" role="group" aria-label="Planning shortcuts">
+        <a class="pill" href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+        <a class="pill" href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+        <a class="pill" href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+        <a class="pill" href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+        <a class="pill" href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+        <a class="pill" href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
+        <a class="pill" href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
+      </div>
     </section>
 
     <!-- Related -->
@@ -419,6 +406,88 @@
       }catch(_){}
     }
     go();
+  })();
+  </script>
+
+  <!-- ===== Logbook loader (keeps your fallback unless JSON is found) ===== -->
+  <script>
+  (function initShipLogbook(){
+    const mount=document.getElementById('logbook-stories'); if(!mount) return;
+    const fallbackEl=document.getElementById('logbook-fallback');
+    const slug='grandeur-of-the-seas', line='rcl';
+    function abs(p){return (window._abs?_abs(p):p);}
+    function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+
+    const SOURCES=[
+      abs('/ships/'+line+'/assets/'+slug+'.json?v=3.006.016'),
+      abs('/assets/data/logbook/'+line+'/'+slug+'.json?v=3.006.016'),
+      abs('/assets/data/ships/'+line+'/'+slug+'.json?v=3.006.016')
+    ];
+    function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
+
+    function mdToHtml(src){
+      let html=String(src||'').trim(); if(!html) return '';
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>')
+               .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+               .replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>';
+      return html.replace(/^<p>\s*<\/p>/,'');
+    }
+
+    const state={i:0,items:[]};
+    function renderOne(p){
+      const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');
+      const body=String(p.markdown||p.body||p.content||p.html||p.text||p.story||p.notes||'').trim();
+      if(!body) return '';
+      return '<article class="story" aria-live="polite"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';
+    }
+
+    function ensureNav(){
+      if(document.getElementById('logbook-nav')) return;
+      const nav=document.createElement('div'); nav.id='logbook-nav'; nav.className='button-group'; nav.setAttribute('role','group'); nav.setAttribute('aria-label','Logbook navigation');
+      const prev=document.createElement('button'); prev.type='button'; prev.className='pill'; prev.id='logbook-prev'; prev.textContent='◀ Port'; prev.onclick=()=>go(state.i-1,true);
+      const pos=document.createElement('span'); pos.id='logbook-pos'; pos.className='tiny'; pos.style.minWidth='8ch'; pos.style.textAlign='center';
+      const next=document.createElement('button'); next.type='button'; next.className='pill'; next.id='logbook-next'; next.textContent='Starboard ▶'; next.onclick=()=>go(state.i+1,true);
+      nav.append(prev,pos,next); mount.parentNode.insertBefore(nav,mount);
+      window.addEventListener('keydown',e=>{ if(!state.items.length) return; if(e.key==='ArrowLeft') go(state.i-1,true); if(e.key==='ArrowRight') go(state.i+1,true);});
+    }
+    function updatePos(){
+      const pos=document.getElementById('logbook-pos'); if(!pos) return;
+      const total=state.items.length||0; pos.textContent=total?((state.i+1)+' / '+total):'';
+      const prev=document.getElementById('logbook-prev'); const next=document.getElementById('logbook-next');
+      if(prev) prev.disabled=(state.i<=0); if(next) next.disabled=(state.i>=total-1);
+    }
+    function go(idx,focusHeading){
+      if(!state.items.length) return;
+      state.i=clamp(idx,0,state.items.length-1);
+      mount.innerHTML=renderOne(state.items[state.i])||'<article class="story"><p class="small">Story unavailable.</p></article>';
+      updatePos();
+      if(focusHeading){const h=mount.querySelector('h3'); if(h) h.focus();}
+      const base=location.href.split('#')[0]; history.replaceState(null,'',base+'#logbook-'+(state.i+1));
+    }
+    function normalizePayload(data){
+      if(!data) return [];
+      if(Array.isArray(data)) return data;
+      if(Array.isArray(data.personas)) return data.personas;
+      if(Array.isArray(data.stories)) return data.stories;
+      if(data[slug]){const d=data[slug]; if(Array.isArray(d.personas)) return d.personas; if(Array.isArray(d.stories)) return d.stories;}
+      if(data.logbook){ const b=data.logbook; if(Array.isArray(b.personas)) return b.personas; if(Array.isArray(b.stories)) return b.stories; }
+      if(data.ships&&data.ships[slug]){const s=data.ships[slug]; if(Array.isArray(s.personas)) return s.personas; if(Array.isArray(s.stories)) return s.stories;}
+      let merged=[]; Object.keys(data||{}).forEach(k=>{const v=data[k]; if(Array.isArray(v)) merged=merged.concat(v)});
+      return merged;
+    }
+
+    fetchFirst().then(data=>{
+      const items=normalizePayload(data).map(p=>({
+        title:(p.title||p.persona_label||p.heading||p.name||'Guest Perspective'),
+        markdown:(p.markdown||p.body||p.content||p.html||p.text||p.story||p.notes||'')
+      })).filter(p=>String(p.markdown||'').trim().length);
+
+      if(!items.length){ return; } // keep your fallback visible
+      if(fallbackEl) fallbackEl.remove();
+      state.items=items; ensureNav(); go(0,false);
+    }).catch(()=>{ /* keep fallback visible */ });
   })();
   </script>
 
@@ -491,7 +560,7 @@
     const WRAP=document.getElementById('featuredVideos'); if(!WRAP) return;
     const CONTAINER=sec.querySelector('.swiper.videos');
     const fallback=document.getElementById('videoFallback');
-    const SOURCES=[_abs('/ships/rcl/assets/videos/grandeur.json?v=3.006.015'),_abs('/videos/grandeur.json?v=3.006.015')];
+    const SOURCES=[_abs('/ships/rcl/assets/videos/grandeur.json?v=3.006.016'),_abs('/videos/grandeur.json?v=3.006.016')];
 
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
@@ -547,7 +616,10 @@
   <script>
   (async function loadShipStats(){
     const el=document.getElementById('ship-stats'); if(!el) return;
-    const SOURCES=[ _abs('/ships/assets/data/fleet/fleet_index.json?v=3.006.015'), _abs('/assets/data/fleet_index.json?v=3.006.015') ];
+    const SOURCES=[
+      _abs('/ships/assets/data/fleet/fleet_index.json?v=3.006.016'),
+      _abs('/assets/data/fleet_index.json?v=3.006.016')
+    ];
     async function tryFetch(u){ try{const r=await fetch(u,{cache:'no-store'}); if(r.ok) return await r.json();}catch(_){} return null; }
     let data=null; for(const u of SOURCES){ data=await tryFetch(u); if(data) break; }
     if(!data){
@@ -579,6 +651,25 @@
     ].filter(p=>p[1]!=null && String(p[1]).trim()!=='')
      .map(p=>'<div class="stat-line"><span class="stat-key">'+p[0]+':</span><span class="stat-val">'+p[1]+'</span></div>').join('');
     el.innerHTML=rows||'<p class="tiny">Stats coming soon.</p>';
+  })();
+  </script>
+
+  <!-- ===== Live tracker auto-refresh ===== -->
+  <script>
+  (function initLiveTracker(){
+    const wrap = document.querySelector('.card.itinerary'); if(!wrap) return;
+    const name = (wrap.dataset.name||'').trim();
+    const imo  = (wrap.dataset.imo||'').trim();
+    const base = "https://www.vesselfinder.com/vessels/"+encodeURIComponent(name)+"-IMO-"+imo+"#map";
+    const fr   = document.getElementById('liveMap');
+    const STEP = 15*60*1000; // 15 min
+
+    function stamp(){ return Math.floor(Date.now()/STEP); }
+    function setSrc(){ fr.src = base + (base.includes('?')?'&':'?') + 'ts=' + stamp(); }
+
+    setSrc();
+    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) setSrc(); });
+    setInterval(()=>{ if(!document.hidden) setSrc(); }, STEP);
   })();
   </script>
 </body>
