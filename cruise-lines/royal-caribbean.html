@@ -10,8 +10,8 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Royal Caribbean — In the Wake (v3.006.008)</title>
-  <meta name="version" content="v3.006.008"/>
+  <title>Royal Caribbean — In the Wake (v3.006.009)</title>
+  <meta name="version" content="v3.006.009"/>
   <meta name="description" content="Royal Caribbean, class-by-class and ship-by-ship: venues, experiences, dress code, and ship search with image thumbnails."/>
   <meta name="theme-color" content="#0e6e8e"/>
   <meta name="robots" content="index,follow"/>
@@ -23,7 +23,7 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html"/>
   <meta property="og:title" content="Royal Caribbean — In the Wake"/>
   <meta property="og:description" content="Explore Royal Caribbean by class and ship with venue and experience guides."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/royal-caribbean-hero.jpg?v=3.006.008"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/royal-caribbean-hero.jpg?v=3.006.009"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- JSON-LD (Breadcrumbs) -->
@@ -40,7 +40,7 @@
   </script>
 
   <!-- Unified CSS (cache-busted MUST) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.008"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.009"/>
   <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg"/>
 
   <!-- Page-local trims (kept minimal; no overrides to hero/filter rules) -->
@@ -80,7 +80,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
-        <span class="version-badge">v3.006.008</span>
+        <span class="version-badge">v3.006.009</span>
       </div>
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="https://www.cruisinginthewake.com/">Home</a>
@@ -221,6 +221,13 @@
 
   // ---------- CONFIG ----------
   const ORIGIN = 'https://www.cruisinginthewake.com';
+    // URL helpers (make everything absolute + encoded)
+  const abs = p => p.startsWith('http') ? p : (ORIGIN + p);
+  const encAbs = p => {
+    // Keep query/hash intact while encoding the path itself
+    const [path, rest] = p.split(/([?#].*)/);
+    return abs(encodeURI(path) + (rest || ''));
+  };
 
   // Finished pages = have a known/cached thumbnail mapping here.
   // (You can add/remove slugs anytime; toggle defaults to "Finished only".)
@@ -391,15 +398,20 @@
   let expFilter   = 'all';    // all|included|premium (search toolbar)
   let expFilter2  = 'all';    // all|included|premium (experiences section)
   
-  // A ship is "finished" if we’ve mapped at least one known thumbnail for it.
-  const isFinished = slug => Array.isArray(IMAGE_MAP[slug]) && IMAGE_MAP[slug].length>0;
+  // A ship is "finished" if we’ve mapped at least one known thumbnail
+  const isFinished = slug =>
+    Array.isArray(IMAGE_MAP[slug]) && IMAGE_MAP[slug].length > 0;
 
-  // Pick image (first known → fallback conventional → placeholder)
+  // Pick image (first known → conventional → placeholder), all ABSOLUTE + ENCODED
   function pickImg(slug){
-    const list = (IMAGE_MAP[slug]||[]).concat(
-      [`/ships/rcl/${slug}-1.jpg`,`/ships/rcl/${slug}-1.jpeg`,`/ships/rcl/${slug}-1.png`]
-    );
-    return ORIGIN + (list[0] || FALLBACK_IMG);
+    const conventional = [
+      `/ships/rcl/${slug}-1.jpg`,
+      `/ships/rcl/${slug}-1.jpeg`,
+      `/ships/rcl/${slug}-1.png`
+    ];
+    const candidates = (IMAGE_MAP[slug] || []).concat(conventional);
+    const first = candidates[0];
+    return first ? encAbs(first) : encAbs(FALLBACK_IMG);
   }
 
   // ---------- RENDER: CLASS PILLS ----------
