@@ -67,10 +67,6 @@
     .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
          background:#f7f9fb;border:1px solid #cfe1ea;border-radius:6px;padding:.06rem .33rem}
  .sb-hidden{display:none!important}
-.list-row{display:flex;align-items:center;gap:.6rem;border:1px dashed var(--rope);border-radius:12px;padding:.5rem;background:#fff}
-.list-row .thumb{width:60px;height:40px;border-radius:8px;overflow:hidden;border:1px solid #dfe7ea;background:#eef4f6}
-.list-row .thumb img{width:100%;height:100%;object-fit:cover}
-.list-row strong{color:var(--sea)}
  /* Search board: compact grid + rows */
 .sb-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
 @media (max-width:1100px){.sb-grid{grid-template-columns:1fr 1fr}}
@@ -263,7 +259,145 @@
       <p class="tiny">All pages are offered as a gift to God. <em>Soli Deo Gloria.</em></p>
     </section>
   </main>
+<!-- === Royal Caribbean Data Arrays (for Search + Rendering) === -->
+<script>
+/* ====== DATA FEEDS FOR SEARCH BOARD ====== */
 
+// 1️⃣  Base constants
+const ORIGIN = 'https://www.cruisinginthewake.com';
+const FALLBACK_IMG = '/assets/ships/placeholder-ship.jpg';
+
+// 2️⃣  Image map (ships with thumbnails already finished)
+const IMAGE_MAP = {
+  'enchantment-of-the-seas': ['/ships/assets/enchantment-of-the-seas1.jpg'],
+  'grandeur-of-the-seas': ['/ships/assets/grandeur-of-the-seas1.jpg'],
+  'rhapsody-of-the-seas': ['/ships/assets/rhapsody-of-the-seas1.jpg'],
+  'vision-of-the-seas': ['/ships/assets/vision-of-the-seas1.jpg'],
+  'adventure-of-the-seas': ['/ships/rcl/images/Adventure_of_the_Seas1.jpeg'],
+  'allure-of-the-seas': ['/ships/assets/images/allure-of-the-seas-3.jpg'],
+  'wonder-of-the-seas': ['/ships/assets/images/wonder-of-the-seas-1.jpg']
+};
+
+// 3️⃣  Classes (largest → smallest by GT)
+const CLASS_ORDER = [
+  'Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager','Radiance','Vision'
+];
+
+// 4️⃣  Ships
+const SHIPS = [
+  // Icon
+  {name:'Icon of the Seas',slug:'icon-of-the-seas',cls:'Icon'},
+  {name:'Star of the Seas',slug:'star-of-the-seas',cls:'Icon'},
+  // Oasis
+  {name:'Oasis of the Seas',slug:'oasis-of-the-seas',cls:'Oasis'},
+  {name:'Allure of the Seas',slug:'allure-of-the-seas',cls:'Oasis'},
+  {name:'Harmony of the Seas',slug:'harmony-of-the-seas',cls:'Oasis'},
+  {name:'Symphony of the Seas',slug:'symphony-of-the-seas',cls:'Oasis'},
+  {name:'Wonder of the Seas',slug:'wonder-of-the-seas',cls:'Oasis'},
+  {name:'Utopia of the Seas',slug:'utopia-of-the-seas',cls:'Oasis'},
+  // Quantum
+  {name:'Quantum of the Seas',slug:'quantum-of-the-seas',cls:'Quantum'},
+  {name:'Anthem of the Seas',slug:'anthem-of-the-seas',cls:'Quantum'},
+  {name:'Ovation of the Seas',slug:'ovation-of-the-seas',cls:'Quantum'},
+  // Quantum Ultra
+  {name:'Spectrum of the Seas',slug:'spectrum-of-the-seas',cls:'Quantum Ultra'},
+  {name:'Odyssey of the Seas',slug:'odyssey-of-the-seas',cls:'Quantum Ultra'},
+  // Freedom
+  {name:'Freedom of the Seas',slug:'freedom-of-the-seas',cls:'Freedom'},
+  {name:'Liberty of the Seas',slug:'liberty-of-the-seas',cls:'Freedom'},
+  {name:'Independence of the Seas',slug:'independence-of-the-seas',cls:'Freedom'},
+  // Voyager
+  {name:'Voyager of the Seas',slug:'voyager-of-the-seas',cls:'Voyager'},
+  {name:'Explorer of the Seas',slug:'explorer-of-the-seas',cls:'Voyager'},
+  {name:'Adventure of the Seas',slug:'adventure-of-the-seas',cls:'Voyager'},
+  {name:'Navigator of the Seas',slug:'navigator-of-the-seas',cls:'Voyager'},
+  {name:'Mariner of the Seas',slug:'mariner-of-the-seas',cls:'Voyager'},
+  // Radiance
+  {name:'Radiance of the Seas',slug:'radiance-of-the-seas',cls:'Radiance'},
+  {name:'Brilliance of the Seas',slug:'brilliance-of-the-seas',cls:'Radiance'},
+  {name:'Serenade of the Seas',slug:'serenade-of-the-seas',cls:'Radiance'},
+  {name:'Jewel of the Seas',slug:'jewel-of-the-seas',cls:'Radiance'},
+  // Vision
+  {name:'Vision of the Seas',slug:'vision-of-the-seas',cls:'Vision'},
+  {name:'Grandeur of the Seas',slug:'grandeur-of-the-seas',cls:'Vision'},
+  {name:'Rhapsody of the Seas',slug:'rhapsody-of-the-seas',cls:'Vision'},
+  {name:'Enchantment of the Seas',slug:'enchantment-of-the-seas',cls:'Vision'}
+];
+
+// 5️⃣  Venues (included vs premium)
+const VENUES = [
+  // Premium
+  v('Chops Grille','premium','chops-grille'),
+  v('150 Central Park','premium','150-central-park'),
+  v('Wonderland','premium','wonderland'),
+  v('Giovanni’s Italian Kitchen','premium','giovannis'),
+  v('Izumi','premium','izumi'),
+  v('Teppanyaki','premium','teppanyaki'),
+  v('Hooked Seafood','premium','hooked-seafood'),
+  v('The Mason Jar','premium','mason-jar'),
+  v('Portside BBQ','premium','portside-bbq'),
+  v('Jamie’s Italian','premium','jamies-italian'),
+  v('Playmakers Sports Bar & Arcade','premium','playmakers'),
+  v('Chef’s Table','premium','chefs-table'),
+  v('Empire Supper Club','premium','empire-supper-club'),
+  v('Vintages Wine Bar','premium','vintages'),
+  v('Izumi Sushi & Sake Pairing','premium','izumi-sake-pairing'),
+  v('Giovanni’s Wine Bar','premium','giovannis-wine-bar'),
+  v('Starbucks (select ships)','premium','starbucks'),
+  v('Johnny Rockets (lunch/dinner)','premium','johnny-rockets'),
+  v('Sugar Beach','premium','sugar-beach'),
+  // Included
+  v('Main Dining Room','included','main-dining-room'),
+  v('Windjammer Marketplace','included','windjammer'),
+  v('Coastal Kitchen (Suites)','included','coastal-kitchen'),
+  v('Sorrento’s Pizza','included','sorrentos'),
+  v('El Loco Fresh','included','el-loco-fresh'),
+  v('Park Café','included','park-cafe'),
+  v('Café Promenade','included','cafe-promenade'),
+  v('Dog House','included','dog-house'),
+  v('Sprinkles Ice Cream','included','sprinkles'),
+  v('Boardwalk Donut Shop','included','boardwalk-donuts'),
+  v('Vitality Café','included','vitality-cafe'),
+  v('Solarium Bistro','included','solarium-bistro'),
+  v('Wipeout Café','included','wipeout-cafe'),
+  v('Room Service (continental breakfast)','included','room-service-continental'),
+  v('The Lime & Coconut (bar)','included','lime-and-coconut'),
+  v('Pub / Copper & Kettle','included','pub'),
+  v('Boleros','included','boleros'),
+  v('Schooner Bar','included','schooner-bar'),
+  v('Bionic Bar','included','bionic-bar'),
+  v('Johnny Rockets (breakfast)','included','johnny-rockets-breakfast'),
+  v('La Patisserie / Café Latte-tudes','included','patisserie'),
+  v('Mini Bites / Boardwalk Bites','included','mini-bites'),
+  v('Splashaway Café','included','splashaway-cafe'),
+  v('Royal Promenade Bars','included','promenade-bars')
+];
+function v(name,type,slug){return {name,type,slug,href:`${ORIGIN}/restaurants/${slug}.html`};}
+
+// 6️⃣  Experiences
+const EXPERIENCES = [
+  ex('FlowRider® Surf Simulator','included',['Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager']),
+  ex('Rock Climbing Wall','included',['Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager']),
+  ex('iFly® Skydiving (RipCord®)','included',['Icon','Oasis','Quantum','Quantum Ultra']),
+  ex('North Star® Observation Pod','included',['Quantum','Quantum Ultra']),
+  ex('Zip Line','included',['Oasis','Freedom','Icon']),
+  ex('Ultimate Abyss℠','included',['Oasis']),
+  ex('Perfect Storm℠ Waterslides','included',['Icon','Oasis','Freedom','Voyager']),
+  ex('Bumper Cars (SeaPlex)','included',['Quantum','Quantum Ultra']),
+  ex('Ice Skating (Studio B)','included',['Oasis','Freedom','Voyager','Quantum','Quantum Ultra','Icon']),
+  ex('Mini Golf','included',CLASS_ORDER),
+  ex('Escape Room','premium',['Oasis','Freedom','Voyager','Quantum','Icon']),
+  ex('Chef’s Table','premium',CLASS_ORDER,true),
+  ex('Taste of Royal','premium',CLASS_ORDER,true),
+  ex('Mixology / Tastings','premium',CLASS_ORDER,true),
+  ex('Love & Marriage Game Show','included',CLASS_ORDER),
+  ex('Quest (Adult Game Show)','included',CLASS_ORDER),
+  ex('Belly Flop / Cannonball','included',CLASS_ORDER),
+  ex('World’s Sexiest Man','included',CLASS_ORDER)
+];
+function ex(name,type,classes,formal){return {name,type,classes,formal:!!formal};}
+</script>
+<!-- === END Royal Caribbean Data Arrays === -->
 <script>
 (function(){
   'use strict';
@@ -453,4 +587,4 @@
   OUT.innerHTML=''; MORE.classList.add('sb-hidden');
 
 })();
-</script></body>
+</script><link rel="preconnect" href="https://www.cruisinginthewake.com" crossorigin></body>
