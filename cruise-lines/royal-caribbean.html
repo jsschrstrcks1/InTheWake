@@ -1,38 +1,45 @@
-<!--
-Soli Deo Gloria
-All work on this project is offered as a gift to God.
-“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
-“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
--->
-
 <!doctype html>
 <html lang="en">
 <head>
+  <!--
+  Soli Deo Gloria
+  All work on this project is offered as a gift to God.
+  “Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
+  “Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
+  -->
+
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Royal Caribbean — In the Wake (v3.006.006)</title>
-  <meta name="version" content="v3.006.006"/>
-  <meta name="description" content="Royal Caribbean, class-by-class and ship-by-ship: venues, shows, packing, and planning."/>
+  <title>Royal Caribbean — In the Wake (v3.006.007)</title>
+  <meta name="version" content="v3.006.007"/>
+  <meta name="description" content="Royal Caribbean, class-by-class and ship-by-ship: venues, shows, packing notes, and a live search that spans ships, venues, and experiences."/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html"/>
 
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.006"/>
+  <!-- Unified CSS (site standard, cache-busted) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.007"/>
   <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg"/>
 
+  <!-- small page-local addendum (layout + cards only; does NOT override tokens) -->
   <style>
-    .brand-title{display:none!important}
-    .grid{display:grid;gap:1rem}
-    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    @media (max-width:1100px){.grid.cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media (max-width:800px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}}
-    .pillbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
-    .pillbtn{padding:.35rem .7rem;border:1px dashed var(--rope);border-radius:999px;background:#fff;cursor:pointer}
-    .pillbtn.active{background:#f9fdfd}
-    .side-panel{display:grid; gap:.6rem}
-    .two-col{display:grid; grid-template-columns:2fr 1fr; gap:1rem}
-    @media (max-width:1024px){.two-col{grid-template-columns:1fr}}
+    .content-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:1.2rem}
+    @media (max-width:1024px){.content-grid{grid-template-columns:1fr}}
+    .pill-tray{display:flex;flex-wrap:wrap;gap:.5rem}
+    .pill-tray .pill{padding:.35rem .7rem;border-radius:999px;border:1px dashed var(--rope);background:#fff;font-size:.9rem;color:var(--accent)}
+    .result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+    @media (max-width:900px){.result-grid{grid-template-columns:1fr}}
+    .ship-card{display:grid;grid-template-columns:96px 1fr;gap:.6rem;align-items:center;padding:.6rem;border:2px solid var(--rope);border-radius:14px;background:#fff;color:inherit;text-decoration:none}
+    .ship-card .thumb{width:96px;height:64px;border:1px solid #dfe7ea;border-radius:10px;background:#eef4f6;overflow:hidden}
+    .ship-card .thumb img{width:100%;height:100%;object-fit:cover}
+    .ship-card .body{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .ship-card .badge{font-size:.72rem;background:#e6f4f8;border:1px solid var(--rope);border-radius:999px;padding:.1rem .5rem}
+    .venue-card{display:flex;gap:.6rem;align-items:center;border:2px solid var(--rope);border-radius:14px;background:#fff;padding:.6rem}
+    .venue-card .t{width:64px;height:48px;border:1px solid #dfe7ea;border-radius:10px;background:#eef4f6;overflow:hidden}
+    .venue-card .t img{width:100%;height:100%;object-fit:cover}
+    .toggle-row{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+    .tiny.muted{color:#456;opacity:.85}
   </style>
 </head>
+
 <body class="page">
   <a class="skip-link" href="#content">Skip to content</a>
 
@@ -40,7 +47,7 @@ All work on this project is offered as a gift to God.
     <div class="navbar">
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
-        <span class="version-badge">v3.006.006</span>
+        <span class="version-badge">v3.006.007</span>
       </div>
       <nav class="pill-nav.pills pill-nav pills" aria-label="Primary">
         <a href="https://www.cruisinginthewake.com/">Home</a>
@@ -54,9 +61,9 @@ All work on this project is offered as a gift to God.
         <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
         <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
         <a href="https://www.cruisinginthewake.com/cruise-lines.html" aria-current="page">Cruise Lines</a>
-        <a href="https://www.cruisinginthewake.com/about-us.html" aria-current="page">About Us</a>
       </nav>
     </div>
+
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
       <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
@@ -71,67 +78,328 @@ All work on this project is offered as a gift to God.
   </header>
 
   <main class="wrap" id="content">
-    <section class="card">
-      <h1>Royal Caribbean</h1>
-      <p>Neighborhood-style ships and Broadway-bold nights; surf, slides, and quiet corners for catching breath. We chart the classes from Icon down to Vision, then point you toward the ship—and supper—that suits your crew. We do this plainly, gratefully, and with care. <strong>Soli Deo Gloria.</strong></p>
-    </section>
-    <section class="card">
-      <h2>Filters</h2>
-      <div class="pillbar">
-        <label><input id="toggle-unfinished" type="checkbox"> Show unfinished ships</label>
-        <span style="margin-left:1rem;font-weight:600">Venues:</span>
-        <label><input type="radio" name="venueFilter" value="all" checked> All</label>
-        <label><input type="radio" name="venueFilter" value="premium"> Premium</label>
-        <label><input type="radio" name="venueFilter" value="included"> Included</label>
-        <span style="margin-left:1rem;font-weight:600">Experiences:</span>
-        <label><input type="radio" name="expFilter" value="all" checked> All</label>
-        <label><input type="radio" name="expFilter" value="premium"> Premium</label>
-        <label><input type="radio" name="expFilter" value="included"> Included</label>
-      </div>
-    </section>
-    <section class="card" role="search">
-      <label class="tiny" for="shipSearch">Search ships, venues, and experiences</label>
-      <input id="shipSearch" type="search" placeholder="Type a ship (e.g., Oasis), venue (e.g., Chops), or experience (e.g., Chef’s Table)…" autocomplete="off" inputmode="search" aria-controls="searchResults">
-      <div id="searchResults" style="margin-top:.75rem"></div>
-    </section>
-
-
-    <section class="card" id="dress-code">
-      <h2>Dress Code Aboard</h2>
-      <p><strong>Casual:</strong> Jeans, polos, sundresses, blouses. Swimwear stays poolside; shorts welcome at breakfast and lunch.</p>
-      <p><strong>Smart Casual:</strong> Collared shirts, dresses, skirts, blouses, pantsuits; jackets welcome.</p>
-      <p><strong>Formal (Dress Your Best):</strong> Suits and ties, tuxedos, or evening gowns. 5-night: one · 6–10: two · 11–14: three · 15+: up to four (captain’s discretion). No one is turned away for wearing smart casual on Dress Your Best nights.</p>
-      <p class="tiny">Chef’s Table observes formal; most venues are smart casual.</p>
-      <p class="tiny">Shore calls: modest attire for churches and sacred sites; customs vary—see <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>.</p>
-    </section>
-
-    <section class="two-col">
-      <div>
-        <section class="card">
-          <h2>Class → Ships</h2>
-          <div id="class-pills" class="pillbar" aria-label="Ship classes"></div>
-          <p id="class-note" class="tiny"></p>
-          <div id="class-grid" class="grid cols-3" style="margin-top:.75rem"></div>
+    <div class="content-grid">
+      <section>
+        <section class="card" id="overview">
+          <h1>Royal Caribbean</h1>
+          <p>Neighborhood-style ships and Broadway-bold nights; surf, slides, and quiet corners for catching breath. We chart the classes from Icon down to Vision, then point you toward the ship—and supper—that suits your crew. We do this plainly, gratefully, and with care. <strong>Soli Deo Gloria.</strong></p>
         </section>
-      </div>
+
+        <!-- Global search -->
+        <section class="card" id="search">
+          <label class="tiny" for="globalSearch">Search ships, venues, and experiences</label>
+          <input id="globalSearch" type="search" placeholder="Type a ship (e.g., Oasis), a venue (Chops), or an experience (FlowRider)…" inputmode="search" autocomplete="off" aria-controls="results"/>
+          <div class="toggle-row tiny">
+            <label><input type="checkbox" id="toggleUnfinished"> Show unfinished ships</label>
+            <span class="tiny muted">Toggle applies to pills, class grids, and search results (this page only).</span>
+          </div>
+        </section>
+
+        <!-- Class → Ships pills -->
+        <section class="card" id="class-pills">
+          <div class="pill-tray" id="classTray" aria-label="Ship classes"></div>
+          <div id="pillResults" class="result-grid" style="margin-top:.8rem"></div>
+          <p id="pillEmpty" class="tiny muted hidden">No finished ships in this class yet.</p>
+        </section>
+
+        <!-- Dress code (requested above Venues) -->
+        <section class="card" id="dress-code">
+          <h2>Dress Code</h2>
+          <p><strong>Casual:</strong> jeans, polos, sundresses, blouses. Swimwear stays poolside; shorts are fine at breakfast and lunch.</p>
+          <p><strong>Smart Casual:</strong> collared shirts, dresses, skirts and blouses, or pantsuits. Jackets and blazers welcome.</p>
+          <p><strong>Formal (Dress Your Best):</strong> the night the ship gleams—suits and ties, tuxedos, cocktail dresses or evening gowns. Typical cadence:
+          5 nights: one · 6–10: two · 11–14: three · 15+: up to four at the captain’s discretion. <em>No one is turned away for dressing Smart Casual on Formal Night.</em></p>
+          <p class="tiny">Chef’s Table observes Formal attire; most other venues are Smart Casual.</p>
+          <p class="tiny">Going ashore at churches or sacred sites? Modest dress is wise seamanship. Expectations vary by port—see <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>.</p>
+        </section>
+
+        <!-- Experiences -->
+        <section class="card" id="experiences">
+          <h2>Shows &amp; Experiences</h2>
+          <div class="toggle-row tiny">
+            <span>Filter:</span>
+            <label><input type="radio" name="xpFilter" value="all" checked> All</label>
+            <label><input type="radio" name="xpFilter" value="included"> Included</label>
+            <label><input type="radio" name="xpFilter" value="premium"> Premium</label>
+          </div>
+          <div id="xpResults" class="result-grid" style="margin-top:.8rem"></div>
+        </section>
+
+        <!-- Attributions -->
+        <section class="card" id="credits">
+          <h3>Image Credits</h3>
+          <ul class="tiny" id="creditList"></ul>
+        </section>
+      </section>
+
+      <!-- Right sidebar -->
       <aside>
-        <section class="card">
+        <section class="card" id="venues">
           <h2>Venues</h2>
-          <div id="venues-panel" class="side-panel"></div>
+          <div class="toggle-row tiny">
+            <span>Filter:</span>
+            <label><input type="radio" name="venueFilter" value="all" checked> All</label>
+            <label><input type="radio" name="venueFilter" value="included"> Included</label>
+            <label><input type="radio" name="venueFilter" value="premium"> Premium</label>
+          </div>
+          <div id="venueList" style="margin-top:.8rem;display:grid;grid-template-columns:1fr;gap:.8rem"></div>
         </section>
       </aside>
-    </section>
-
-    <section class="card">
-      <h2>Attributions</h2>
-      <p class="tiny">Images are credited per-file in the attribution ledger. This page uses placeholders until final media is attached.</p>
-    </section>
+    </div>
   </main>
 
-  <footer class="wrap" role="contentinfo" style="text-align:center">
+  <footer class="wrap center tiny" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook · Soli Deo Gloria.
   </footer>
 
-  <script src="https://www.cruisinginthewake.com/assets/js/rcl.page.js?v=3.006.006" defer></script>
+  <script>
+  (function(){
+    const ORIGIN = 'https://www.cruisinginthewake.com';
+    const abs = p => ORIGIN + (p.startsWith('/')? p : '/' + p);
+    const enc = s => s.replace(/ /g,'%20').replace(/\(/g,'%28').replace(/\)/g,'%29');
+
+    // --- Data ---------------------------------------------------------------
+    const CLASSES = ['Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager','Radiance','Vision'];
+
+    const SHIPS = [
+      // Icon
+      {name:'Icon of the Seas', slug:'icon-of-the-seas', cls:'Icon', finished:true},
+      {name:'Star of the Seas', slug:'star-of-the-seas', cls:'Icon', finished:true},
+
+      // Oasis
+      {name:'Oasis of the Seas', slug:'oasis-of-the-seas', cls:'Oasis', finished:true},
+      {name:'Allure of the Seas', slug:'allure-of-the-seas', cls:'Oasis', finished:true},
+      {name:'Harmony of the Seas', slug:'harmony-of-the-seas', cls:'Oasis', finished:true},
+      {name:'Symphony of the Seas', slug:'symphony-of-the-seas', cls:'Oasis', finished:true},
+      {name:'Wonder of the Seas', slug:'wonder-of-the-seas', cls:'Oasis', finished:true},
+      {name:'Utopia of the Seas', slug:'utopia-of-the-seas', cls:'Oasis', finished:true},
+
+      // Freedom
+      {name:'Freedom of the Seas', slug:'freedom-of-the-seas', cls:'Freedom', finished:true},
+      {name:'Liberty of the Seas', slug:'liberty-of-the-seas', cls:'Freedom', finished:true},
+      {name:'Independence of the Seas', slug:'independence-of-the-seas', cls:'Freedom', finished:true},
+
+      // Voyager
+      {name:'Voyager of the Seas', slug:'voyager-of-the-seas', cls:'Voyager', finished:true},
+      {name:'Explorer of the Seas', slug:'explorer-of-the-seas', cls:'Voyager', finished:true},
+      {name:'Adventure of the Seas', slug:'adventure-of-the-seas', cls:'Voyager', finished:true},
+      {name:'Navigator of the Seas', slug:'navigator-of-the-seas', cls:'Voyager', finished:true},
+      {name:'Mariner of the Seas', slug:'mariner-of-the-seas', cls:'Voyager', finished:true},
+
+      // Radiance
+      {name:'Radiance of the Seas', slug:'radiance-of-the-seas', cls:'Radiance', finished:false},
+      {name:'Brilliance of the Seas', slug:'brilliance-of-the-seas', cls:'Radiance', finished:false},
+      {name:'Serenade of the Seas', slug:'serenade-of-the-seas', cls:'Radiance', finished:false},
+      {name:'Jewel of the Seas', slug:'jewel-of-the-seas', cls:'Radiance', finished:false},
+
+      // Vision
+      {name:'Vision of the Seas', slug:'vision-of-the-seas', cls:'Vision', finished:false},
+      {name:'Rhapsody of the Seas', slug:'rhapsody-of-the-seas', cls:'Vision', finished:true},
+      {name:'Enchantment of the Seas', slug:'enchantment-of-the-seas', cls:'Vision', finished:true},
+      {name:'Grandeur of the Seas', slug:'grandeur-of-the-seas', cls:'Vision', finished:true},
+    ];
+
+    // Existing & cached images you supplied + convention fallbacks
+    const IMG = {
+      'enchantment-of-the-seas': [
+        enc('/ships/assets/enchantment-of-the-seas1.jpg'),
+        enc('/ships/assets/images/Enchantment_of_the_Seas.jpeg'),
+        enc('/images/enchantment-of-the-seas2.jpeg'),
+        enc('/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg')
+      ],
+      'grandeur-of-the-seas': [enc('/ships/assets/grandeur-of-the-seas1.jpg')],
+      'rhapsody-of-the-seas': [
+        enc('/ships/assets/rhapsody-of-the-seas1.jpg'),
+        enc('/ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg'),
+        enc('/ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg'),
+        enc('/ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg')
+      ],
+      'vision-of-the-seas': [enc('/ships/assets/vision-of-the-seas1.jpg')],
+      'adventure-of-the-seas': [
+        enc('/ships/rcl/images/Adventure_of_the_Seas1.jpeg'),
+        enc('/ships/rcl/images/Adventure_of_the_Seas2.jpg'),
+        enc('/ships/rcl/images/Adventure_of_the_Seas3.jpg'),
+        enc('/ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg'),
+        enc('/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg'),
+        enc('/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg')
+      ],
+      'allure-of-the-seas': [
+        enc('/ships/assets/images/allure-of-the-seas-3.jpg'),
+        enc('/ships/assets/images/allure2.jpg'),
+        enc('/ships/assets/images/allure3.jpg')
+      ],
+      '_misc':[enc('/ships/assets/images/Bahamas_Cruise_-_ship_interior_-_June_2018_(2224) Medium.jpeg')]
+    };
+    const tryConv = slug => {
+      const exts = ['jpg','jpeg','png'], idx=['1','2','3'];
+      const out=[]; idx.forEach(n=>exts.forEach(e=>out.push(enc(`/ships/rcl/${slug}-${n}.${e}`))));
+      return out;
+    };
+    const shipImg = slug => abs( (IMG[slug]||[]).concat(tryConv(slug), IMG._misc||[])[0] || '/assets/ships/placeholder-ship.jpg' );
+
+    // Venues (40+ possible; trimmed here but wired to /restaurants/<slug>.html)
+    const VENUES = [
+      {name:'Chops Grille', slug:'chops-grille', type:'premium', img:'/restaurants/images/chops.jpg'},
+      {name:'Giovanni’s', slug:'giovannis', type:'premium', img:'/restaurants/images/giovannis.jpg'},
+      {name:'Izumi', slug:'izumi', type:'premium', img:'/restaurants/images/izumi.jpg'},
+      {name:'Teppanyaki', slug:'teppanyaki', type:'premium', img:'/restaurants/images/teppanyaki.jpg'},
+      {name:'150 Central Park', slug:'150-central-park', type:'premium', img:'/restaurants/images/150.jpg'},
+      {name:'Hooked Seafood', slug:'hooked-seafood', type:'premium', img:'/restaurants/images/hooked.jpg'},
+      {name:'The Mason Jar', slug:'mason-jar', type:'premium', img:'/restaurants/images/mason-jar.jpg'},
+      {name:'Chef’s Table', slug:'chefs-table', type:'premium', img:'/restaurants/images/chefs-table.jpg'},
+      {name:'Coastal Kitchen (suites)', slug:'coastal-kitchen', type:'included', img:'/restaurants/images/coastal.jpg'},
+      {name:'Main Dining Room', slug:'main-dining-room', type:'included', img:'/restaurants/images/mdr.jpg'},
+      {name:'Windjammer', slug:'windjammer', type:'included', img:'/restaurants/images/windjammer.jpg'},
+      {name:'Sorrento’s', slug:'sorrentos', type:'included', img:'/restaurants/images/sorrentos.jpg'},
+      {name:'El Loco Fresh', slug:'el-loco-fresh', type:'included', img:'/restaurants/images/el-loco-fresh.jpg'},
+      {name:'Park Café', slug:'park-cafe', type:'included', img:'/restaurants/images/park-cafe.jpg'},
+      {name:'Playmakers', slug:'playmakers', type:'premium', img:'/restaurants/images/playmakers.jpg'}
+      // …extend here; panel will fill
+    ];
+
+    // Experiences (subset; wired to filters)
+    const XPS = [
+      {name:'FlowRider Surf Simulator', type:'included', classes:['Icon','Oasis','Freedom','Voyager','Quantum','Quantum Ultra']},
+      {name:'iFly Skydiving', type:'included', classes:['Icon','Oasis','Quantum','Quantum Ultra']},
+      {name:'North Star Observation Pod', type:'included', classes:['Quantum','Quantum Ultra']},
+      {name:'Chef’s Table', type:'premium', classes:['Icon','Oasis','Freedom','Voyager','Quantum','Quantum Ultra','Radiance']},
+      {name:'Escape Room', type:'premium', classes:['Icon','Oasis','Freedom','Voyager','Quantum']},
+      {name:'Protect the Egg (Egg Drop)', type:'included', classes:CLASSES}
+    ];
+
+    // Credits
+    const CREDITS = [
+      {title:'Allure of the Seas', src:'Wikimedia Commons', url:'https://commons.wikimedia.org/', license:'CC BY-SA'},
+      {title:'Rhapsody of the Seas', src:'Wikimedia Commons', url:'https://commons.wikimedia.org/', license:'CC BY-SA'},
+      {title:'Enchantment of the Seas', src:'Wikimedia Commons', url:'https://commons.wikimedia.org/', license:'CC BY-SA'}
+    ];
+
+    // --- DOM helpers --------------------------------------------------------
+    const $ = s=>document.querySelector(s);
+    const $$ = s=>Array.from(document.querySelectorAll(s));
+    const setHidden = (el,flag)=>el.classList.toggle('hidden',!!flag);
+
+    // --- Build class pills --------------------------------------------------
+    const classTray = $('#classTray');
+    CLASSES.forEach(cls=>{
+      const a = document.createElement('button');
+      a.type='button'; a.className='pill'; a.textContent = cls+' Class';
+      a.addEventListener('click', ()=>showClass(cls));
+      classTray.appendChild(a);
+    });
+
+    const finishedOnly = ()=> !$('#toggleUnfinished').checked;
+
+    function showClass(cls){
+      const out = $('#pillResults'); out.innerHTML='';
+      const list = SHIPS
+        .filter(s=>s.cls===cls)
+        .filter(s=> finishedOnly()? s.finished : true);
+      list.forEach(s=>{
+        const a=document.createElement('a');
+        a.className='ship-card';
+        a.href=abs(`/ships/rcl/${s.slug}.html`);
+        a.innerHTML = `
+          <span class="thumb"><img alt="${s.name}" loading="lazy" decoding="async" src="${shipImg(s.slug)}"></span>
+          <span class="body"><strong>${s.name}</strong><span class="badge">${s.cls}</span></span>`;
+        out.appendChild(a);
+      });
+      setHidden($('#pillEmpty'), list.length>0);
+    }
+
+    // default to first class
+    showClass(CLASSES[0]);
+
+    // toggle unfinished
+    $('#toggleUnfinished').checked = false;
+    $('#toggleUnfinished').addEventListener('change', ()=>{
+      // re-run class view and search
+      const active = $('.pill-tray .pill.active'); // if you add active styles later
+      showClass(CLASSES[0]);
+      runSearch();
+    });
+
+    // --- Venues panel -------------------------------------------------------
+    function renderVenues(filter='all'){
+      const box = $('#venueList'); box.innerHTML='';
+      VENUES.filter(v=> filter==='all' ? true : v.type===filter)
+        .forEach(v=>{
+          const card=document.createElement('a');
+          card.href=abs(`/restaurants/${v.slug}.html`);
+          card.className='venue-card';
+          card.innerHTML = `
+            <span class="t"><img alt="${v.name}" loading="lazy" decoding="async" src="${abs(v.img)}"></span>
+            <span><strong>${v.name}</strong><br><span class="tiny muted">${v.type==='premium'?'Premium':'Included'}</span></span>`;
+          box.appendChild(card);
+        });
+    }
+    $$('input[name="venueFilter"]').forEach(r=>r.addEventListener('change',()=>renderVenues(document.querySelector('input[name="venueFilter"]:checked').value)));
+    renderVenues('all');
+
+    // --- Experiences --------------------------------------------------------
+    function renderXps(filter='all'){
+      const box=$('#xpResults'); box.innerHTML='';
+      XPS.filter(x=> filter==='all' ? true : x.type===filter)
+        .forEach(x=>{
+          const card=document.createElement('div');
+          card.className='card';
+          card.innerHTML = `<strong>${x.name}</strong><br><span class="tiny muted">${x.type==='premium'?'Premium':'Included'} · Classes: ${x.classes.join(', ')}</span>`;
+          box.appendChild(card);
+        });
+    }
+    $$('input[name="xpFilter"]').forEach(r=>r.addEventListener('change',()=>renderXps(document.querySelector('input[name="xpFilter"]:checked').value)));
+    renderXps('all');
+
+    // --- Global search (ships + venues + experiences) ----------------------
+    const q = $('#globalSearch'), results = $('#pillResults'); // reuse grid for results below pills
+
+    function runSearch(){
+      const val=(q.value||'').trim().toLowerCase();
+      if(!val){ showClass(CLASSES[0]); return; }
+      results.innerHTML='';
+      const ships = SHIPS.filter(s=>{
+        const ok = s.name.toLowerCase().includes(val) || s.slug.includes(val) || s.cls.toLowerCase().includes(val);
+        return ok && (finishedOnly()? s.finished : true);
+      });
+      const venues = VENUES.filter(v=> v.name.toLowerCase().includes(val) || v.slug.includes(val));
+      const xps = XPS.filter(x=> x.name.toLowerCase().includes(val));
+
+      ships.forEach(s=>{
+        const a=document.createElement('a');
+        a.className='ship-card';
+        a.href=abs(`/ships/rcl/${s.slug}.html`);
+        a.innerHTML=`<span class="thumb"><img alt="${s.name}" loading="lazy" decoding="async" src="${shipImg(s.slug)}"></span>
+                     <span class="body"><strong>${s.name}</strong><span class="badge">${s.cls}</span></span>`;
+        results.appendChild(a);
+      });
+      venues.forEach(v=>{
+        const a=document.createElement('a');
+        a.className='ship-card';
+        a.href=abs(`/restaurants/${v.slug}.html`);
+        a.innerHTML=`<span class="thumb"><img alt="${v.name}" loading="lazy" decoding="async" src="${abs(v.img)}"></span>
+                     <span class="body"><strong>${v.name}</strong><span class="badge">Venue</span></span>`;
+        results.appendChild(a);
+      });
+      xps.forEach(x=>{
+        const div=document.createElement('a');
+        div.className='ship-card';
+        div.href='#experiences';
+        div.innerHTML=`<span class="thumb"><img alt="" src="https://www.cruisinginthewake.com/assets/ships/placeholder-ship.jpg" loading="lazy" decoding="async"></span>
+                       <span class="body"><strong>${x.name}</strong><span class="badge">${x.type==='premium'?'Premium':'Included'}</span></span>`;
+        results.appendChild(div);
+      });
+      setHidden($('#pillEmpty'), results.children.length>0);
+    }
+    q.addEventListener('input', ()=>{ clearTimeout(q._t); q._t=setTimeout(runSearch, 80); });
+
+    // --- Credits ------------------------------------------------------------
+    const cl = $('#creditList');
+    CREDITS.forEach(c=>{
+      const li=document.createElement('li');
+      li.innerHTML = `<em>${c.title}</em> — ${c.src} (<a href="${c.url}" target="_blank" rel="noopener">link</a>), ${c.license}.`;
+      cl.appendChild(li);
+    });
+  })();
+  </script>
 </body>
 </html>
