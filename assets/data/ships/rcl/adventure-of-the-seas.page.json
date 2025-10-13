@@ -1,0 +1,72 @@
+{
+  "slug": "adventure-of-the-seas",
+  "line": "rcl",
+  "class": "Voyager Class",
+  "imo": "9167227",
+  "tracker": {
+    "provider": "vesselfinder",
+    "embed_name": "ADVENTURE-OF-THE-SEAS",
+    "details_url": "https://www.vesselfinder.com/vessels/ADVENTURE-OF-THE-SEAS-IMO-9167227#map",
+    "refresh_policy": "on_load"
+  },
+  "deck_plans": {
+    "official_url": "https://www.royalcaribbean.com/cruise-ships/adventure-of-the-seas/deck-plans",
+    "preview_img": "/assets/ship-map.png"
+  },
+  "dining": {
+    "provider": "rcl",
+    "json": "/assets/data/venues.json",
+    "aliases": ["Adventure of the Seas", "Adventure Of The Seas", "Adventure OTS"],
+    "schema_hint": "rc.venues.v1"
+  },
+  "videos": {
+    "sources": [
+      "/ships/rcl/assets/videos/adventure-of-the-seas.json",
+      "/videos/adventure-of-the-seas.json"
+    ],
+    "policy": "prefer per-ship file; fallback to secondary"
+  },
+  "logbook": {
+    "sources": [
+      "/ships/rcl/assets/adventure.json",
+      "/assets/data/ships/rcl/adventure-of-the-seas.json",
+      "/assets/data/logbook/rcl/adventure-of-the-seas.json"
+    ],
+    "shape_notes": ["entries[]", "personas[]", "stories[]", "logbook.stories[]"]
+  },
+  "stats_fallback": {
+    "entered_service": 2001,
+    "gt": "138,193 GT",
+    "guests": "3,807 (max)",
+    "crew": "1,185",
+    "length": "1,020 ft (311 m)",
+    "beam": "157.5 ft (48 m)",
+    "registry": "Bahamas"
+  },
+  "prefetch": [
+    "/assets/data/fleet_index.json",
+    "/assets/data/venues.json",
+    "/ships/rcl/assets/videos/adventure-of-the-seas.json",
+    "/ships/rcl/assets/adventure.json",
+    "/assets/img/Cordelia_Empress_Food_Court.jpg",
+    "/assets/logo_wake.png",
+    "/assets/compass_rose.svg",
+    "/assets/watermark.png",
+    "/assets/ship-map.png"
+  ],
+  "related": {
+    "sister_ships": [
+      "/ships/rcl/voyager-of-the-seas.html",
+      "/ships/rcl/explorer-of-the-seas.html",
+      "/ships/rcl/navigator-of-the-seas.html",
+      "/ships/rcl/mariner-of-the-seas.html"
+    ],
+    "class_pills_order": ["icon","oasis","quantum","freedom","voyager","radiance","vision"]
+  },
+  "compliance": {
+    "alt_text_required": true,
+    "captions_short": true,
+    "loading_lazy": true,
+    "wcag": "2.1 AA"
+  }
+}
