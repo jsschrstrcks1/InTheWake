@@ -754,8 +754,7 @@ if ('serviceWorker' in navigator) {
   })();
   </script>
 </body>
-</html>
-// /sw.js — In the Wake image cache (v0.8-stable)
+</html><script>// /sw.js — In the Wake image cache (v0.8-stable)
 const CACHE = 'itw-img-v8';
 const MAX_ITEMS = 240;
 
@@ -805,3 +804,4 @@ async function prune(cache){
   const toDelete = keys.length - MAX_ITEMS;
   for (let i=0; i<toDelete; i++){ await cache.delete(keys[i]); }
 }
+</script>
