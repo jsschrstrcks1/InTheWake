@@ -346,47 +346,61 @@
       </section>
     </section>
 
-    <!-- Logbook -->
-    <section class="card note-kens-logbook" aria-labelledby="logbook">
-      <h2 id="logbook">The Logbook — Tales From the Wake</h2>
-      <div id="logbook-stories" class="prose">
-        <p class="tiny">Loading real guest perspectives…</p>
-      </div>
-      <script type="application/json" id="logbook-data">{
-        "items":[
-          {
-            "title":"Embarkation Day — First Impressions",
-            "markdown":"Check-in was a breeze at noon and cabins opened right at 1:30. **Grandeur** wears her years proudly — intimate venues, friendly crew, and the Centrum really pops at sailaway. Pro tip: Pack swimsuits in your carry-on and claim a lounger forward starboard."
-          },
-          {
-            "title":"Sea Day — Solarium & Snacks",
-            "markdown":"Adults-only Solarium stayed blissfully calm before lunch. *Park Café* soups were the sleeper hit. Afternoon trivia in the Schooner packed out fast — arrive 10 minutes early."
-          }
-        ]
-      }</script>
-    </section>
+   <!-- Ken’s Logbook (single, accessible, script-friendly) -->
+<section class="card note-kens-logbook" id="logbook" aria-labelledby="logbookHeading">
+  <h2 id="logbookHeading">A note from Ken’s Logbook — a personal review</h2>
 
-    <!-- Nested Fuel Your Voyage (inserts after first story via JS) -->
-    <section class="card fuel-wrapper" id="fuel-your-voyage" aria-labelledby="fuelHeading">
-      <h2 id="fuelHeading">Fuel Your Voyage</h2>
-      <p>Quick hops to the most-used tools and guides while you plan:</p>
-      <div class="grid-2">
-        <section class="card mini">
-          <h3>Plan &amp; Prepare</h3>
+  <!-- Anchor body so the 60% injector can target it -->
+  <div id="logbook-body">
+    <p>
+      We sailed <em>Grandeur of the Seas</em> in an ocean-view stateroom—bright, with views of epic sunrises; a great way to start each morning. Dining was a highlight:
+      <strong>Chops Grille</strong> delivered a fantastic filet, and the <strong>Main Dining Room</strong> impressed with thoughtful pacing and spot-on recommendations.
+      Service all around was warm and proactive: Miguel (Philippines) at Chops provided truly excellent, personable care; at Guest Services, Vincent D’Cruz resolved our
+      requests quickly and professionally; and in <strong>Windjammer</strong>, Vergel noticed a morning pattern and brought fresh eggs to our table before we asked—a small
+      kindness that says a lot about this crew.
+    </p>
+
+    <p>
+      We tried <strong>Taste of Royal</strong>: the tuna tartare was tasty; shrimp could have used a touch more heat; the fried cheesecake stole the show. (Pro tip: the Saint
+      Peter’s spritzer really pops if you squeeze the orange wedge.) Our Eastern Caribbean itinerary hit Aruba, Curaçao, and Bonaire. We snorkeled in Aruba (hello, flamingos),
+      toured the Curaçao distillery and a sun-warmed cave, and in Bonaire took a quick taxi to
+      <a href="https://buddydive.com/" target="_blank" rel="noopener">Buddy Dive Center</a>—great value rentals (as of Nov 2024), clear water, and a drop-off reef that rewards
+      confident snorkelers and divers. Labadee beach time was still fun despite weather nixing our planned dive excursion. Local artists can be VERY assertive; a firm
+      “no, thanks” works in at least three languages.
+    </p>
+
+    <!-- Your existing inline Fuel card stays in the DOM; the script will insert a second one at ~60% -->
+    <div class="voyage-tips-wrapper" style="margin:1rem 0 0">
+      <div class="card voyage-tips" aria-label="Voyage planning tips" style="margin:0">
+        <h2 class="card-title" style="margin-top:.25rem">Fuel Your Voyage</h2>
+        <div class="card-content">
+          <h3>Drink Packages</h3>
           <ul>
-            <li><a class="btn" href="https://www.cruisinginthewake.com/packing-lists.html" target="_blank" rel="noopener">Packing Lists</a></li>
-            <li><a class="btn" href="https://www.cruisinginthewake.com/disability-at-sea.html" target="_blank" rel="noopener">Disability at Sea</a></li>
+            <li>Deluxe Beverage Package: ~$60/day for premium drinks</li>
+            <li>Refreshment Package: Non-alcoholic options</li>
+            <li>Soda Package: all the Freestyle Machine options</li>
           </ul>
-        </section>
-        <section class="card mini">
-          <h3>Onboard Savvy</h3>
+          <h3>Pack Like a Pro</h3>
           <ul>
-            <li><a class="btn" href="https://www.cruisinginthewake.com/drink-packages.html" target="_blank" rel="noopener">Drink Packages</a></li>
-            <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants.html" target="_blank" rel="noopener">Restaurants &amp; Menus</a></li>
+            <li>Shawl for chilly theater nights</li>
+            <li>Swimwear for pool deck</li>
+            <li>Comfortable shoes for shore tours</li>
           </ul>
-        </section>
+          <div class="button-group" aria-label="Voyage planning links">
+            <a href="https://www.cruisinginthewake.com/drink-packages.html" class="btn" aria-label="View all drink package options">View Drink Options</a>
+            <a href="https://www.cruisinginthewake.com/packing-lists.html" class="btn" aria-label="Access complete packing guide">Packing Guide</a>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
+
+    <p>
+      Embark and debark in Fort Lauderdale were smooth, though port driving/parking can be confusing and pricey—off-port parking plus a taxi often beats the on-site rates.
+      In the evenings, we caught <em>Broadway Rhythm &amp; Rhyme</em> and <em>Tango Buenos Aires</em>—the latter stood out with world-class dancing and vocals.
+      Bottom line: <em>Grandeur</em> delivers that extra dose of personal connection big ships can’t replicate, backed by classic Royal fun and friendly, attentive service.
+    </p>
+  </div>
+</section>
 
     <!-- Videos -->
     <section class="card" aria-labelledby="video-highlights">
