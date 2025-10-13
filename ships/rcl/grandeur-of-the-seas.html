@@ -200,6 +200,7 @@
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
         <div class="swiper firstlook" aria-label="Grandeur of the Seas photo carousel">
+  <div class="swiper firstlook" aria-label="Grandeur of the Seas photo carousel">
   <div class="swiper-wrapper">
     <div class="swiper-slide">
       <figure>
@@ -239,23 +240,6 @@
   <div class="swiper-button-prev" aria-label="Previous image"></div>
   <div class="swiper-button-next" aria-label="Next image"></div>
 </div>
-            <div class="swiper-slide">
-              <figure>
-                <img
-                  src="/ships/assets/grandeur-of-the-seas3.jpg?v=3.007.003"
-                  alt="Grandeur of the Seas alongside — photo 3" loading="lazy"
-                  onerror="(function(i){var fb=['/ships/assets/grandeur-of-the-seas1.jpg?v=3.007.003','/assets/ships/grandeur/hero.jpg?v=3.007.003'];i._fbi=(i._fbi||0);if(i._fbi<fb.length){i.src=fb[i._fbi++];}})(this)">
-                <figcaption class="tiny">©
-                  <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a> —
-                  <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener noreferrer">Instagram</a>. All rights reserved.
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-          <div class="swiper-pagination" aria-hidden="true"></div>
-          <div class="swiper-button-prev" aria-label="Previous image"></div>
-          <div class="swiper-button-next" aria-label="Next image"></div>
-        </div>
 
         <!-- Ship stats -->
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
@@ -689,15 +673,14 @@
   })();
   </script>
 
-  <!-- Service Worker register -->
-  <script>
-    if('serviceWorker' in navigator){
-      window.addEventListener('load', function(){
-        navigator.serviceWorker.register('/sw.js?v=3.007.003')
-          .catch(function(err){ console.warn('SW registration failed', err); });
-      });
-    }
-  </script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js?v=3.007.002')
+      .catch(function(err){ console.warn('SW registration failed', err); });
+  });
+}
+</script>
 
   <!-- External links: new tab (defense-in-depth) -->
   <script>
@@ -747,7 +730,7 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
-    const normURL = new URL(url.href); normURL.search = '';
+    const normURL = new URL(url.href);
     const normReq = new Request(normURL.href, { method: 'GET' });
 
     const cached = await cache.match(normReq);
