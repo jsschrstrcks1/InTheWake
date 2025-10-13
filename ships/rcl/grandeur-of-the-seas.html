@@ -546,44 +546,123 @@ Invocation: In the Wake — RCL Page v3.006.008
   })();
   </script>
 
-  <!-- ===== Ship stats loader (fleet_index.json with fallback) ===== -->
-  <script>
-  (async function loadShipStats(){
-    const el=document.getElementById('ship-stats'); if(!el) return;
-    const SOURCE="https://www.cruisinginthewake.com/assets/data/fleet_index.json";
-    async function tryFetch(u){ try{const r=await fetch(u,{cache:'no-store'}); if(r.ok) return await r.json();}catch(_){} return null; }
-    let data=await tryFetch(SOURCE);
-    if(!data){
-      try{const fb=JSON.parse(document.getElementById('ship-stats-fallback').textContent||'{}'); data={ships:[fb]};}
-      catch(_){}
-    }
-    if(!data){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
+  <!-- ===== Ship stats loader (fleets_index.json; resilient schema walker) ===== -->
+<script>
+(async function loadShipStatsFromFleetsIndex(){
+  const el = document.getElementById('ship-stats'); if(!el) return;
 
-    function norm(s){ return String(s||'').toLowerCase().replace(/’/g,"'").trim(); }
-    function* walk(n){ if(!n) return; if(Array.isArray(n)){ for(const it of n) yield* walk(it); return; } if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
-    const targetSlug=norm(el.getAttribute('data-slug')||''); let ship=null;
-    for(const obj of walk(data)){
-      const rawSlug=obj&&(obj.slug||obj.id||(obj.attributes&&obj.attributes.slug));
-      const nslug=norm(rawSlug);
-      const nname=norm((obj&&(obj.name||obj.title||obj.ship))||(obj&&obj.attributes&&obj.attributes.name));
-      if((targetSlug&&nslug===targetSlug)||nname==='grandeur of the seas'){ ship=obj; break; }
+  // 1) Source (as requested)
+  const SOURCE = "/data/fleets_index.json";
+
+  // 2) Helpers
+  const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
+  const wantedSlug = norm(el.getAttribute('data-slug') || 'grandeur-of-the-seas');
+  const wantedLine = 'royal-caribbean'; // RCI bucket key in fleets_index.json
+
+  async function getJSON(url){
+    try{ const r = await fetch(url, {cache:'no-store', referrerPolicy:'no-referrer'}); if(r.ok) return await r.json(); }
+    catch(_) {}
+    return null;
+  }
+
+  function pick(...vals){
+    for(const v of vals){ if(v!=null && String(v).trim()!=='') return v; }
+    return '';
+  }
+
+  // 3) Extract a ship record from the unified index
+  function findShip(data){
+    if(!data) return null;
+
+    // A) Canonical: cruise_lines -> royal-caribbean -> array
+    let arr = (data.cruise_lines && Array.isArray(data.cruise_lines[wantedLine])) ? data.cruise_lines[wantedLine] : null;
+
+    // B) Fallbacks if structure differs
+    if(!arr){
+      // sometimes stored under "cruise_lines" with different key, try loose scan
+      const cl = data.cruise_lines || {};
+      for(const k of Object.keys(cl)){
+        if(/royal[- ]?caribbean/i.test(k)) { if(Array.isArray(cl[k])) { arr = cl[k]; break; } }
+      }
     }
-    if(!ship){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
-    const a=ship.attributes||ship;
-    const rows=[
-      ['Class',a.class||a.ship_class||'Vision Class'],
-      ['Entered Service',a.year_built_or_entered||a.entered_service||a.inaugural||a.launched||'1996'],
-      ['Gross Tonnage',a.gt||a.gross_tonnage||'~73,800 GT'],
-      ['Guests',a.capacity||a.passengers||a.guests||'~1,996 (double)'],
-      ['Crew',a.crew],
-      ['Length',a.length||a.length_overall],
-      ['Beam',a.beam||a.width],
-      ['Registry',a.flag||a.registry||'Bahamas']
-    ].filter(p=>p[1]!=null && String(p[1]).trim()!=='')
-     .map(p=>'<div class="stat-line"><span class="stat-key">'+p[0]+':</span><span class="stat-val">'+p[1]+'</span></div>').join('');
-    el.innerHTML=rows||'<p class="tiny">Stats coming soon.</p>';
-  })();
-  </script>
+
+    if(!arr){
+      // very defensive: walk everything and collect possible ship-like objects
+      arr = [];
+      (function walk(n){
+        if(!n) return;
+        if(Array.isArray(n)){ n.forEach(walk); return; }
+        if(typeof n==='object'){
+          if('line_slug' in n && 'slug' in n && 'name' in n){ arr.push(n); }
+          Object.values(n).forEach(walk);
+        }
+      })(data);
+      // keep only royal-caribbean if present
+      const rc = arr.filter(o => norm(o.line_slug)==wantedLine);
+      if(rc.length) arr = rc;
+    }
+
+    if(!arr || !arr.length) return null;
+
+    // prefer exact slug match; else fuzzy by name/aliases
+    const exact = arr.find(o => norm(o.slug) === wantedSlug);
+    if(exact) return exact;
+
+    const fuzzy = arr.find(o => {
+      const n = norm(o.name);
+      if(n === wantedSlug.replace(/-/g,' ')) return true;
+      const als = Array.isArray(o.aliases) ? o.aliases.map(norm) : [];
+      return als.includes(wantedSlug) || als.includes(wantedSlug.replace(/-/g,' '));
+    });
+    return fuzzy || null;
+  }
+
+  // 4) Render nicely into the grid
+  function render(ship){
+    if(!ship){ el.innerHTML = '<p class="tiny">Stats coming soon.</p>'; return; }
+    const a = ship.attributes || {};
+
+    // Known harmonized fields (fall back to sensible defaults if missing)
+    const rows = [
+      ['Class',       pick(a.class, a.ship_class, /vision/i.test(ship.name||'') ? 'Vision Class' : '')],
+      ['Entered Service', pick(a.entered_service, a.year_built_or_entered, a.inaugural, a.launched, '')],
+      ['Gross Tonnage',   pick(a.gt, a.gross_tonnage, '~73,800 GT')],
+      ['Guests',          pick(a.guests, a.capacity, a.passengers, '~1,996 (double)')],
+      ['Crew',            pick(a.crew)],
+      ['Length',          pick(a.length, a.length_overall)],
+      ['Beam',            pick(a.beam, a.width)],
+      ['Registry',        pick(a.registry, a.flag, 'Bahamas')]
+    ]
+    .filter(([k,v]) => v!=null && String(v).trim()!=='')
+    .map(([k,v]) => <div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>)
+    .join('');
+
+    el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
+  }
+
+  // 5) Fetch + render with graceful fallback to inline JSON
+  let data = await getJSON(SOURCE);
+
+  // If file moved in the future, honor its own canonical path (your sample includes this hint)
+  if(data && data.meta && data.meta.canonical_path && data.meta.canonical_path !== SOURCE){
+    const canonical = data.meta.canonical_path;
+    const retry = await getJSON(canonical);
+    if(retry) data = retry;
+  }
+
+  let ship = findShip(data);
+
+  if(!ship){
+    // fallback: inline <script type="application/json" id="ship-stats-fallback">
+    try{
+      const fb = JSON.parse((document.getElementById('ship-stats-fallback')||{}).textContent||'{}');
+      if(fb && (fb.slug || fb.name)) ship = { name: fb.name || 'Grandeur of the Seas', slug: fb.slug || 'grandeur-of-the-seas', attributes: fb };
+    }catch(_){}
+  }
+
+  render(ship);
+})();
+</script>
 
   <!-- ===== Logbook: use owner JSON if provided ===== -->
   <script>
