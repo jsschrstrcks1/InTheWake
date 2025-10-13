@@ -142,13 +142,34 @@
     html, body { overflow-x:hidden; }
     .hero-header .hero{ width:100%; margin-left:0 }
     /* First Look sizing hygiene */
-.swiper.firstlook{position:relative;overflow:hidden;contain:content}
 .swiper.firstlook .swiper-wrapper{align-items:stretch}
 .swiper.firstlook .swiper-slide{height:auto}
 .swiper.firstlook img{display:block;width:100%;height:auto;border-radius:10px}
 
 /* Optional: ensure hero H1 never collapses visually if themed elsewhere */
 .hero-title h1{margin:0;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700}
+    /* --- Baseline carousel layout: works without Swiper CSS/JS --- */
+.swiper.firstlook{ overflow:hidden; }
+.swiper.firstlook .swiper-wrapper{
+  display:flex;           /* prevent vertical stacking */
+  align-items:stretch;
+  gap:0;
+}
+.swiper.firstlook .swiper-slide{
+  flex:0 0 100%;          /* 1 slide per view */
+  max-width:100%;
+}
+.swiper.firstlook figure{ margin:0; } /* no stray gaps */
+.swiper.firstlook img{
+  display:block;
+  width:100% !important;
+  height:auto !important;
+  object-fit:cover;       /* stays neat if a height is ever applied */
+  border-radius:10px;
+}
+    @media (min-width: 720px){
+  .swiper.firstlook{ max-height: 70vh; }
+}
   </style>
   <link rel="preload" as="image"
       href="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-3.jpeg?v=3.007.005"
