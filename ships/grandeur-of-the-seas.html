@@ -84,22 +84,6 @@
   <!-- ===== Analytics (defer) ===== -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- ===== Swiper (primary + CDN fallback + bailout) ===== -->
-  <script>
-  (function ensureSwiper(){
-    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-    function addJS(src, ok, fail){ const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s); }
-    const primaryCSS="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-    const primaryJS ="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    let bailed=false; const bail=()=>{ if(bailed) return; bailed=true; document.documentElement.classList.add('swiper-fallback'); };
-    addCSS(primaryCSS);
-    addJS(primaryJS, ()=>{ window.__swiperReady=true; }, ()=>{ addCSS(cdnCSS); addJS(cdnJS, ()=>{ window.__swiperReady=true; }, bail); });
-    setTimeout(()=>{ if(!window.__swiperReady || !window.Swiper) bail(); }, 5000);
-  })();
-    </script>
-
   <!-- ===== Page micro CSS (scoped, v3.007.001 compliance) ===== -->
   <style>
     .hidden{display:none!important}
@@ -205,7 +189,7 @@
                   <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Grandeur_of_the_Seas_2016.jpg"
                        alt="Grandeur of the Seas underway (2016)" loading="lazy"/>
                 </a>
-                <figcaption class="tiny">© Wikimedia Commons — CC BY-SA 4.0</figcaption>
+               <figcaption class="tiny">© Flickers of Majesty — all rights reserved.</figcaption>
               </figure>
             </div>
             <div class="swiper-slide">
@@ -214,7 +198,7 @@
                   <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Grandeur_of_the_Seas%2C_Royal_Caribbean_%2815634351358%29.jpg"
                        alt="Grandeur docked in port" loading="lazy"/>
                 </a>
-                <figcaption class="tiny">© Wikimedia Commons — CC BY 2.0</figcaption>
+               <figcaption class="tiny">© Flickers of Majesty — all rights reserved.</figcaption>
               </figure>
             </div>
             <div class="swiper-slide">
@@ -223,7 +207,7 @@
                   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Grandeur_of_the_Seas_in_Bermuda.jpg"
                        alt="Grandeur of the Seas in Bermuda" loading="lazy"/>
                 </a>
-                <figcaption class="tiny">© Wikimedia Commons — CC BY-SA 3.0</figcaption>
+               <figcaption class="tiny">© Flickers of Majesty — all rights reserved.</figcaption>
               </figure>
             </div>
           </div>
@@ -292,16 +276,29 @@
       </script>
     </section>
 
-    <!-- ✅ Fuel Your Voyage (explicit section block) -->
-    <section class="card" id="fuel-your-voyage" aria-labelledby="fuelHeading">
-      <h2 id="fuelHeading">Fuel Your Voyage</h2>
-      <p>Make the most of <em>Grandeur of the Seas</em> with essential planning tools and curated guides.</p>
-      <div class="button-group" aria-label="Voyage planning links">
-        <a class="btn" href="https://www.cruisinginthewake.com/drink-packages.html" target="_blank" rel="noopener">See Drink Packages</a>
-        <a class="btn" href="https://www.cruisinginthewake.com/packing-lists.html" target="_blank" rel="noopener">Packing Lists</a>
-        <a class="btn" href="https://www.cruisinginthewake.com/disability-at-sea.html" target="_blank" rel="noopener">Disability at Sea</a>
-      </div>
+   <!-- ✅ Nested Fuel Your Voyage section -->
+<section class="card fuel-wrapper" id="fuel-your-voyage" aria-labelledby="fuelHeading">
+  <h2 id="fuelHeading">Fuel Your Voyage</h2>
+  <p>Quick hops to the most-used tools and guides while you plan:</p>
+
+  <div class="grid-2">
+    <section class="card mini">
+      <h3>Plan &amp; Prepare</h3>
+      <ul>
+        <li><a class="btn" href="https://www.cruisinginthewake.com/packing-lists.html" target="_blank" rel="noopener">Packing Lists</a></li>
+        <li><a class="btn" href="https://www.cruisinginthewake.com/disability-at-sea.html" target="_blank" rel="noopener">Disability at Sea</a></li>
+      </ul>
     </section>
+
+    <section class="card mini">
+      <h3>Onboard Savvy</h3>
+      <ul>
+        <li><a class="btn" href="https://www.cruisinginthewake.com/drink-packages.html" target="_blank" rel="noopener">Drink Packages</a></li>
+        <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants.html" target="_blank" rel="noopener">Restaurants &amp; Menus</a></li>
+      </ul>
+    </section>
+  </div>
+</section>
 
     <!-- ✅ Videos -->
     <section class="card" aria-labelledby="video-highlights">
@@ -489,242 +486,252 @@
     </section>
 
     <!-- ✅ Image Attributions -->
-    <section class="card attributions" aria-labelledby="attribs">
-      <h2 id="attribs">Image Attributions</h2>
-      <ul>
-        <li>Hero/Carousel: Wikimedia Commons files linked in the gallery (licenses: CC BY / CC BY-SA; see file pages).</li>
-        <li>Header/Wordmark: © In the Wake.</li>
-      </ul>
-      <p class="tiny">All rights reserved where applicable.</p>
-    </section>
+<section class="card attributions" aria-labelledby="attribs">
+  <h2 id="attribs">Image Attributions</h2>
+  <ul>
+    <li>Grandeur gallery images: © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>. All rights reserved. Used with permission.</li>
+    <li>Dining hero (<em>Cordelia Empress Food Court</em>): © Wikimedia Commons, CC BY-SA 4.0.</li>
+    <li>Header/Wordmark: © In the Wake.</li>
+  </ul>
+  <p class="tiny">All rights reserved where applicable.</p>
+</section>
   </main>
 
   <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
-    <!-- ===== Vendor & Core JS ===== -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-  <!-- Google tag (gtag.js) alongside Umami as requested -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-WZP891PZXJ');
-  </script>
 
   <!-- Swiper (primary + CDN fallback) -->
-  <script>
-  (function ensureSwiper(){
-    function add(h,css){var el=document.createElement(css?'link':'script'); if(css){el.rel='stylesheet'; el.href=h;} else {el.src=h; el.async=true;} (css?document.head:document.head).appendChild(el); return el;}
-    var ready=function(){return !!window.Swiper;};
-    add("https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css",true);
-    add("https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js",false).onerror=function(){
-      add("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css",true);
-      add("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js",false);
-    };
-    var t0=Date.now(); (function wait(){ if(ready()) return document.documentElement.classList.remove('swiper-fallback'); if(Date.now()-t0>5000) document.documentElement.classList.add('swiper-fallback'); setTimeout(wait,100); })();
-  })();
-  </script>
+<script>
+(function ensureSwiper(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){ const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s); }
 
-  <!-- Init both carousels -->
-  <script>
-  (function initSwipers(){
-    function when(cb){ if(window.Swiper) cb(); else setTimeout(function(){ when(cb); }, 100); }
-    when(function(){
-      try{
-        new Swiper('.swiper.firstlook', {
-          loop:false, lazy:true, watchOverflow:true,
-          pagination:{el:'.swiper.firstlook .swiper-pagination', clickable:true},
-          navigation:{nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev'},
-          a11y:{enabled:true}
-        });
-        new Swiper('.swiper.videos', {
-          loop:false, lazy:true, watchOverflow:true,
-          pagination:{el:'.swiper.videos .swiper-pagination', clickable:true},
-          navigation:{nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev'},
-          a11y:{enabled:true}
-        });
-      }catch(e){ document.documentElement.classList.add('swiper-fallback'); }
-    });
-  })();
-  </script>
+  const primaryCSS="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+
+  let ready=false, bailed=false;
+  const bail=()=>{ if(bailed) return; bailed=true; document.documentElement.classList.add('swiper-fallback'); };
+
+  addCSS(primaryCSS);
+  addJS(primaryJS, ()=>{ ready=true; }, ()=>{ addCSS(cdnCSS); addJS(cdnJS, ()=>{ ready=true; }, bail); });
+
+  setTimeout(()=>{ if(!ready || !window.Swiper) bail(); }, 5000);
+})();
+</script>
+
+<script>
+(function initSwipers(){
+  function when(cb){ if(window.Swiper) cb(); else setTimeout(()=>when(cb), 100); }
+  when(function(){
+    try{
+      new Swiper('.swiper.firstlook', {
+        loop:false, lazy:true, watchOverflow:true,
+        pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
+        navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
+        a11y:{ enabled:true }
+      });
+      new Swiper('.swiper.videos', {
+        loop:false, lazy:true, watchOverflow:true,
+        pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
+        navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+        a11y:{ enabled:true }
+      });
+    }catch(e){ document.documentElement.classList.add('swiper-fallback'); }
+  });
+})();
+</script>
 
   <!-- Ship stats loader (fallback-first; no infinite walk) -->
-  <script>
-  (function loadShipStats(){
-    const el=document.getElementById('ship-stats'); if(!el) return;
-    function render(a){
-      const rows=[
-        ['Class', a.class],
-        ['Entered Service', a.entered_service],
-        ['Gross Tonnage', a.gt],
-        ['Guests', a.guests],
-        ['Crew', a.crew],
-        ['Length', a.length],
-        ['Beam', a.beam],
-        ['Registry', a.registry]
-      ].filter(p=>p[1] && String(p[1]).trim()!=='')
-       .map(p=>'<div class="stat-line"><span class="stat-key">'+p[0]+':</span><span class="stat-val">'+p[1]+'</span></div>').join('');
-      el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
-    }
+<script>
+(function loadShipStats(){
+  const el=document.getElementById('ship-stats'); if(!el) return;
+  function render(a){
+    const rows=[
+      ['Class', a.class],
+      ['Entered Service', a.entered_service],
+      ['Gross Tonnage', a.gt],
+      ['Guests', a.guests],
+      ['Crew', a.crew],
+      ['Length', a.length],
+      ['Beam', a.beam],
+      ['Registry', a.registry]
+    ].filter(p=>p[1] && String(p[1]).trim()!=='')
+     .map(p=>'<div class="stat-line"><span class="stat-key">'+p[0]+':</span><span class="stat-val">'+p[1]+'</span></div>').join('');
+    el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
+  }
+  try{
+    const fb = JSON.parse((document.getElementById('ship-stats-fallback')||{}).textContent||'{}');
+    if (fb && (fb.name||fb.slug)) return render(fb);
+  }catch(_){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; }
+})();
+</script>
+
+ <script>
+(function initVideos(){
+  const WRAP=document.getElementById('featuredVideos'); if(!WRAP) return;
+  const CON=document.querySelector('.swiper.videos');
+  const FALL=document.getElementById('videoFallback');
+
+  function ytId(v){
+    if(!v) return '';
+    if(v.youtube_id) return String(v.youtube_id);
+    const u=String(v.url||v.embed_url||'');
+    const m=u.match(/[?&]v=([A-Za-z0-9_-]{6,})/)||u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/)||u.match(/\/embed\/([A-Za-z0-9_-]{6,})/);
+    return m?m[1]:'';
+  }
+  function getList(){
     try{
-      const fb = JSON.parse((document.getElementById('ship-stats-fallback')||{}).textContent||'{}');
-      if (fb && (fb.name||fb.slug)) return render(fb);
-    }catch(_){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; }
-  })();
-  </script>
+      const j=JSON.parse((document.getElementById('videos-data')||{}).textContent||'{}');
+      if(Array.isArray(j)) return j;
+      if(Array.isArray(j.videos)) return j.videos;
+    }catch(_){}
+    return [];
+  }
 
-  <!-- Videos loader (uses embedded #videos-data JSON; strict de-dupe) -->
-  <script>
-  (function initVideos(){
-    const WRAP=document.getElementById('featuredVideos'); if(!WRAP) return;
-    const CONTAINER=document.querySelector('.swiper.videos');
-    const FALL=document.getElementById('videoFallback');
-    function ytId(v){
-      if(!v) return '';
-      if(v.youtube_id) return String(v.youtube_id);
-      const u=String(v.url||v.embed_url||'');
-      const m=u.match(/[?&]v=([A-Za-z0-9_-]{6,})/)||u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/)||u.match(/\/embed\/([A-Za-z0-9_-]{6,})/);
-      return m?m[1]:'';
-    }
-    function getList(){
-      try{
-        const j=JSON.parse((document.getElementById('videos-data')||{}).textContent||'{}');
-        if(Array.isArray(j)) return j;
-        if(Array.isArray(j.videos)) return j.videos;
-      }catch(_){}
-      return [];
-    }
-    const items=getList();
-    const seen=Object.create(null), slides=[];
-    items.forEach(v=>{
-      const id=ytId(v); if(!id||seen[id]) return; seen[id]=1;
-      const title=(v.title||'Ship video').replace(/"/g,'&quot;');
-      slides.push('<div class="swiper-slide"><iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>');
-    });
-    if(!slides.length){ if(FALL) FALL.classList.remove('hidden'); CONTAINER.classList.add('carousel-fallback'); return; }
-    WRAP.innerHTML = slides.join('');
-  })();
-  </script>
+  const items=getList(), seen=Object.create(null), slides=[];
+  items.forEach(v=>{
+    const id=ytId(v); if(!id||seen[id]) return; seen[id]=1;
+    const title=(v.title||'Ship video').replace(/"/g,'&quot;');
+    slides.push('<div class="swiper-slide"><iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>');
+  });
 
-  <!-- Logbook renderer -->
-  <script>
-  (function initLogbook(){
-    const mount=document.getElementById('logbook-stories'); if(!mount) return;
-    const src=document.getElementById('logbook-data'); if(!src) return;
-    function mdToHtml(s){
-      let h=String(s||'').trim();
-      if(!h) return '';
-      h=h.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>')
-         .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-         .replace(/\*(.+?)\*/g,'<em>$1</em>');
-      return '<p>'+h.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>';
-    }
+  if(!slides.length){ if(FALL) FALL.classList.remove('hidden'); CON.classList.add('carousel-fallback'); return; }
+  WRAP.innerHTML = slides.join('');
+})();
+</script>
+
+ <script>
+(function initLogbook(){
+  const mount=document.getElementById('logbook-stories'); if(!mount) return;
+  const src=document.getElementById('logbook-data'); if(!src) return;
+  function mdToHtml(s){
+    let h=String(s||'').trim();
+    if(!h) return '';
+    h=h.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>')
+       .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+       .replace(/\*(.+?)\*/g,'<em>$1</em>');
+    return '<p>'+h.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>';
+  }
+  try{
+    const json=JSON.parse(src.textContent||'{}');
+    const items=Array.isArray(json.items)?json.items:[];
+    if(!items.length){ mount.innerHTML='<p class="tiny">No entries yet.</p>'; return; }
+    mount.innerHTML = items.map(p=>(
+      '<article class="story"><h3>'+(p.title||'Guest Perspective')+'</h3><div class="story-body">'+mdToHtml(p.markdown||'')+'</div></article>'
+    )).join('');
+  }catch(_){ mount.innerHTML='<p class="tiny">Stories will appear shortly.</p>'; }
+
+  // ✅ Move Fuel section directly after the first story
+  const fuel=document.getElementById('fuel-your-voyage');
+  const firstStory=mount.querySelector('.story');
+  if(fuel && firstStory){ firstStory.after(fuel); }
+})();
+</script>
+
+ <script>
+(function initHybridVesselFinder(){
+  const wrap=document.querySelector('.card.itinerary[data-imo]'); if(!wrap) return;
+  const imo=(wrap.getAttribute('data-imo')||'').trim();
+  const mapEl=document.getElementById('vf-map-grandeur');
+  const iFr=wrap.querySelector('iframe.live-map');
+
+  // New details URL works reliably and avoids 404s
+  const makeURL=()=>`https://www.vesselfinder.com/vessels/details/${imo}`;
+
+  function useIframe(){
+    if(!iFr) return;
+    const url=new URL(makeURL());
+    url.searchParams.set('t', Date.now());  // cache-bust on first load too
+    iFr.src = url.toString();
+    iFr.classList.remove('hidden');
+    if(mapEl) mapEl.style.display='none';
+  }
+
+  // Primary attempt: AISMap widget
+  const s=document.createElement('script');
+  s.src="https://www.vesselfinder.com/aismap.js"; s.async=true;
+
+  const stall=setTimeout(useIframe, 4000);
+  s.onload=function(){
     try{
-      const json=JSON.parse(src.textContent||'{}');
-      const items=Array.isArray(json.items)?json.items:[];
-      if(!items.length){ mount.innerHTML='<p class="tiny">No entries yet.</p>'; return; }
-      mount.innerHTML = items.map(p=>(
-        '<article class="story"><h3>'+(p.title||'Guest Perspective')+'</h3><div class="story-body">'+mdToHtml(p.markdown||'')+'</div></article>'
-      )).join('');
-    }catch(_){ mount.innerHTML='<p class="tiny">Stories will appear shortly.</p>'; }
-  })();
-  </script>
-
-  <!-- VesselFinder widget with 60s auto-refresh fallback -->
-  <script>
-  (function initHybridVesselFinder(){
-    const wrap=document.querySelector('.card.itinerary[data-imo]'); if(!wrap) return;
-    const imo=(wrap.getAttribute('data-imo')||'').trim();
-    const name=(wrap.getAttribute('data-name')||'').trim();
-    const mapEl=document.getElementById('vf-map-grandeur');
-    const iFr=wrap.querySelector('iframe.live-map');
-    const makeURL=()=>`https://www.vesselfinder.com/vessels/${encodeURIComponent(name)}-IMO-${imo}#map`;
-
-    function useIframe(){
-      if(!iFr) return;
-      iFr.src = makeURL() + '&t=' + Date.now();
-      iFr.classList.remove('hidden');
-      if(mapEl) mapEl.style.display='none';
-    }
-
-    // Primary attempt: AISMap
-    const s=document.createElement('script');
-    s.src="https://www.vesselfinder.com/aismap.js"; s.async=true;
-    const stall=setTimeout(useIframe, 4000);
-    s.onload=function(){
-      try{
-        clearTimeout(stall);
-        if(window.AISMap && mapEl){
-          new AISMap(mapEl, { width:"100%", height:300, zoom:8, names:true, show_track:1, track_days:1, vessel:"IMO:"+imo });
-          // Soft check that something rendered
-          setTimeout(()=>{ if(!mapEl.querySelector('canvas,svg')) useIframe(); }, 2000);
-        }else{
-          useIframe();
-        }
-      }catch(_){ useIframe(); }
-    };
-    s.onerror=function(){ clearTimeout(stall); useIframe(); };
-    document.head.appendChild(s);
-
-    // 60s refresh for iframe fallback (if visible)
-    setInterval(function(){
-      if(iFr && !iFr.classList.contains('hidden')){
-        const u=new URL(iFr.src); u.searchParams.set('t',Date.now()); iFr.src=u.toString();
+      clearTimeout(stall);
+      if(window.AISMap && mapEl){
+        new AISMap(mapEl, { width:"100%", height:300, zoom:8, names:true, show_track:1, track_days:1, vessel:"IMO:"+imo });
+        // Soft check that something rendered
+        setTimeout(()=>{ if(!mapEl.querySelector('canvas,svg')) useIframe(); }, 2000);
+      }else{
+        useIframe();
       }
-    }, 60000);
-  })();
-  </script>
+    }catch(_){ useIframe(); }
+  };
+  s.onerror=function(){ clearTimeout(stall); useIframe(); };
+  document.head.appendChild(s);
+
+  // 60s refresh for iframe fallback (only if iframe is visible)
+  setInterval(function(){
+    if(iFr && !iFr.classList.contains('hidden')){
+      try{
+        const u=new URL(iFr.src);
+        u.searchParams.set('t', Date.now());
+        iFr.src = u.toString();
+      }catch(_){}
+    }
+  }, 60000);
+})();
+</script>
 
   <!-- Venues/Experiences filters -->
-  <script>
-  (function initVX(){
-    const $=(sel,ctx=document)=>ctx.querySelector(sel);
-    const $$=(sel,ctx=document)=>Array.from(ctx.querySelectorAll(sel));
-    const search=$('#vx-search');
-    const chips=$$('#venues-experiences .chip');
-    const cards=$$('#vx-grid .vx');
+ <script>
+(function initVX(){
+  const $=(sel,ctx=document)=>ctx.querySelector(sel);
+  const $$=(sel,ctx=document)=>Array.from(ctx.querySelectorAll(sel));
+  const search=$('#vx-search');
+  const chips=$$('#venues-experiences .chip');
+  const grid=$('#vx-grid');
+  const cards=()=> $$('#vx-grid .vx');
 
-    function apply(){
-      const q=(search.value||'').toLowerCase().trim();
-      const active=chips.find(c=>c.classList.contains('is-on') && c.dataset.filter!=='all');
-      const tag=active?active.dataset.filter:null;
-      cards.forEach(card=>{
-        const name=($('h3',card)?.textContent||'').toLowerCase();
-        const tags=(card.dataset.tags||'').toLowerCase();
-        const show=(!q||name.includes(q)) && (!tag||tags.includes(tag));
-        card.style.display = show? '' : 'none';
-      });
-    }
-    if(search) search.addEventListener('input',apply);
-    chips.forEach(ch=>ch.addEventListener('click',()=>{
-      chips.forEach(c=>{c.classList.remove('is-on'); c.setAttribute('aria-pressed','false');});
-      ch.classList.add('is-on'); ch.setAttribute('aria-pressed','true'); apply();
-    }));
-    apply();
+  function apply(){
+    const q=(search?.value||'').toLowerCase().trim();
+    const active=chips.find(c=>c.classList.contains('is-on') && c.dataset.filter!=='all');
+    const tag=active?active.dataset.filter:null;
+    cards().forEach(card=>{
+      const name=($('h3',card)?.textContent||'').toLowerCase();
+      const tags=(card.dataset.tags||'').toLowerCase();
+      const show=(!q||name.includes(q)) && (!tag||tags.includes(tag));
+      card.style.display = show? '' : 'none';
+    });
+  }
 
-    // Augment from entertainment JSON (as cards under Shows/Music/etc.)
-    try{
-      const raw = (document.getElementById('entertainment-data')||{}).textContent||'';
-      if(!raw) return;
-      const data = JSON.parse(raw);
-      const grid = $('#vx-grid');
-      const add = (title, desc, tags) => {
+  if(search) search.addEventListener('input',apply);
+  chips.forEach(ch=>ch.addEventListener('click',()=>{
+    chips.forEach(c=>{c.classList.remove('is-on'); c.setAttribute('aria-pressed','false');});
+    ch.classList.add('is-on'); ch.setAttribute('aria-pressed','true'); apply();
+  }));
+
+  // Augment from entertainment JSON
+  try{
+    const raw=(document.getElementById('entertainment-data')||{}).textContent||'';
+    if(raw){
+      const data=JSON.parse(raw);
+      const add=(title,desc,tags)=>{
         const el=document.createElement('article');
         el.className='card vx';
-        el.setAttribute('data-tags', tags);
-        el.innerHTML = '<h3>'+title+'</h3><p>'+desc+'</p>';
+        el.setAttribute('data-tags',tags);
+        el.innerHTML='<h3>'+title+'</h3><p>'+desc+'</p>';
         grid.appendChild(el);
-        cards.push(el);
       };
       (data.production_shows||[]).forEach(s=> add(s.title, s.description||'Production show', 'experience shows'));
       (data.guest_entertainers||[]).forEach(n=> add(n, 'Rotating headliners; check schedule.', 'experience shows music'));
       (data.interactive_events||[]).forEach(e=> add(e.name, e.description||'Interactive game show', 'experience adults'));
       (data.themed_parties||[]).forEach(p=> add(p.name, (p.venue?('Venue: '+p.venue):'Themed party'), 'experience music adults'));
       (data.other_entertainment||[]).forEach(line=> add(line.split(':')[0], line, 'experience'));
-      apply();
-    }catch(_){}
-  })();
-  </script>
+    }
+  }catch(_){}
+
+  apply();
+})();
+</script>
 
   <!-- External links: new tab (defense-in-depth) -->
   <script>
