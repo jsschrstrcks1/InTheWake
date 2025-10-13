@@ -1,0 +1,71 @@
+{
+  "slug": "radiance-of-the-seas",
+  "line": "rcl",
+  "class": "Radiance Class",
+  "imo": "9195195",
+  "tracker": {
+    "provider": "vesselfinder",
+    "embed_name": "RADIANCE-OF-THE-SEAS",
+    "details_url": "https://www.vesselfinder.com/vessels/RADIANCE-OF-THE-SEAS-IMO-9195195#map",
+    "refresh_policy": "on_load"
+  },
+  "deck_plans": {
+    "official_url": "https://www.royalcaribbean.com/cruise-ships/radiance-of-the-seas/deck-plans",
+    "preview_img": "/assets/ship-map.png"
+  },
+  "dining": {
+    "provider": "rcl",
+    "json": "/assets/data/venues.json",
+    "aliases": ["Radiance of the Seas", "Radiance Of The Seas", "Radiance"],
+    "schema_hint": "rc.venues.v1"
+  },
+  "videos": {
+    "sources": [
+      "/ships/rcl/assets/videos/radiance.json?v=3.006",
+      "/videos/radiance.json?v=3.006"
+    ],
+    "policy": "prefer per-ship file; fallback to secondary"
+  },
+  "logbook": {
+    "sources": [
+      "/ships/rcl/assets/radiance-of-the-seas.json",
+      "/assets/data/logbook/rcl/radiance-of-the-seas.json",
+      "/assets/data/ships/rcl/radiance-of-the-seas.json"
+    ],
+    "shape_notes": ["personas[]", "stories[]", "logbook.stories[]", "ships[slug].personas|stories"]
+  },
+  "stats_fallback": {
+    "entered_service": 2001,
+    "gt": "90,090 GT",
+    "guests": "2,466 (double) ~2,700 (max)",
+    "crew": "860",
+    "length": "962 ft (293 m)",
+    "beam": "106 ft (32 m)",
+    "registry": "Bahamas"
+  },
+  "prefetch": [
+    "/assets/data/fleet_index.json",
+    "/assets/data/venues.json",
+    "/ships/rcl/assets/videos/radiance.json?v=3.006",
+    "/assets/data/logbook/rcl/radiance-of-the-seas.json",
+    "/assets/img/Cordelia_Empress_Food_Court.jpg",
+    "/assets/logo_wake.png",
+    "/assets/compass_rose.svg",
+    "/assets/watermark.png",
+    "/assets/ship-map.png"
+  ],
+  "related": {
+    "sister_ships": [
+      "/ships/rcl/brilliance-of-the-seas.html",
+      "/ships/rcl/serenade-of-the-seas.html",
+      "/ships/rcl/jewel-of-the-seas.html"
+    ],
+    "class_pills_order": ["icon","oasis","quantum","freedom","voyager","radiance","vision"]
+  },
+  "compliance": {
+    "alt_text_required": true,
+    "captions_short": true,
+    "loading_lazy": true,
+    "wcag": "2.1 AA"
+  }
+}
