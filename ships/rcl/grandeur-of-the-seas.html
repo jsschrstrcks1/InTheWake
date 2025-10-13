@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer"/>
   <meta name="robots" content="index, follow"/>
-  <meta name="version" content="3.007.001"/>
+  <meta name="version" content="3.007.003"/>
   <title>Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
   <meta name="description" content="Grandeur of the Seas: deck plans, live tracker, dining venues, entertainment and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."/>
 
@@ -107,7 +107,7 @@
   <div class="navbar">
     <div class="brand">
       <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-      <span class="version-badge">v3.007.001</span>
+      <span class="version-badge">v3.007.003</span>
     </div>
     <!-- ✅ Pills nav -->
     <nav class="pill-nav pills" aria-label="Site">
@@ -157,9 +157,9 @@
       <h2 id="first-look">A First Look</h2>
       <div class="swiper firstlook" aria-label="Grandeur of the Seas photo carousel">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><figure><img src="/ships/assets/grandeur-of-the-seas1.jpg?v=3.007.001" alt="Grandeur of the Seas at sea" loading="lazy"></figure></div>
-          <div class="swiper-slide"><figure><img src="/ships/assets/grandeur-of-the-seas2.jpg?v=3.007.001" alt="Grandeur broadside" loading="lazy"></figure></div>
-          <div class="swiper-slide"><figure><img src="/ships/assets/grandeur-of-the-seas3.jpg?v=3.007.001" alt="Grandeur alongside" loading="lazy"></figure></div>
+          <div class="swiper-slide"><figure><img src="/ships/assets/grandeur-of-the-seas1.jpg?v=3.007.003" alt="Grandeur of the Seas at sea" loading="lazy"></figure></div>
+          <div class="swiper-slide"><figure><img src="/ships/assets/grandeur-of-the-seas2.jpg?v=3.007.003" alt="Grandeur broadside" loading="lazy"></figure></div>
+          <div class="swiper-slide"><figure><img src="/ships/assets/grandeur-of-the-seas3.jpg?v=3.007.003" alt="Grandeur alongside" loading="lazy"></figure></div>
         </div>
         <div class="swiper-pagination" aria-hidden="true"></div>
         <div class="swiper-button-prev" aria-label="Previous image"></div>
@@ -364,7 +364,7 @@
   const WRAP=document.getElementById('featuredVideos'); if(!WRAP) return;
   const CONTAINER=document.querySelector('.swiper.videos');
   const fallback=document.getElementById('videoFallback');
-  const SOURCES=[ "/ships/rcl/assets/videos/grandeur.json?v=3.007.001", "/videos/grandeur.json?v=3.007.001" ];
+  const SOURCES=[ "/ships/rcl/assets/videos/grandeur.json?v=3.007.003", "/videos/grandeur.json?v=3.007.003" ];
   function fetchFirst(i){ i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
     return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1)); }
   function ytId(v){
