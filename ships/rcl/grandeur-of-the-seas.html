@@ -202,6 +202,19 @@ Invocation: In the Wake — RCL Page v3.007.001
     html, body { overflow-x:hidden; }
     .hero-header .hero{ width:100%; margin-left:0 }
   </style>
+  <style>
+/* 🔧 Hotfix: prevent runaway layout after First Look */
+.swiper.firstlook{ contain: unset; }
+
+/* Pre-init guard so content below appears immediately even if Swiper CSS/JS stalls */
+.swiper.firstlook:not(.swiper-initialized) .swiper-wrapper{ display:block; }
+.swiper.firstlook:not(.swiper-initialized) .swiper-slide{ display:none; }
+.swiper.firstlook:not(.swiper-initialized) .swiper-slide:first-child{ display:block; }
+
+/* If fallback class is applied, still show all slides stacked (already in your sheet) */
+html.swiper-fallback .swiper .swiper-wrapper{ display:block !important; }
+html.swiper-fallback .swiper .swiper-slide{ display:block !important; margin-bottom:12px; }
+</style>
 </head>
 
 <body class="page no-hero-filter">
