@@ -1,0 +1,72 @@
+{
+  "slug": "allure-of-the-seas",
+  "line": "rcl",
+  "class": "Oasis Class",
+  "imo": "9383948",
+  "tracker": {
+    "provider": "vesselfinder",
+    "embed_name": "ALLURE-OF-THE-SEAS",
+    "details_url": "https://www.vesselfinder.com/vessels/ALLURE-OF-THE-SEAS-IMO-9383948#map"
+  },
+  "deck_plans": {
+    "official_url": "https://www.royalcaribbean.com/cruise-ships/allure-of-the-seas/deck-plans",
+    "preview_img": "/assets/ship-map.png"
+  },
+  "dining": {
+    "provider": "rcl",
+    "json": "/assets/data/rc-restaurants.json",
+    "aliases": ["Allure of the Seas", "Allure Of The Seas"],
+    "schema_hint": "rc.venues.v1 (migrate from rc-restaurants.json when ready)"
+  },
+  "videos": {
+    "sources": [
+      "/ships/rcl/assets/videos/allure-of-the-seas.json?v=2.245",
+      "/assets/data/rc_ship_videos.json?v=2.245"
+    ],
+    "policy": "prefer per-ship file; fallback to master keyed by slug"
+  },
+  "logbook": {
+    "sources": [
+      "/ships/rcl/assets/allure.json?v=2.245",
+      "/assets/data/allure.json?v=2.245",
+      "/assets/data/ships/rcl/allure-of-the-seas.json?v=2.245",
+      "/assets/data/logbook/rcl/allure-of-the-seas.json?v=2.245"
+    ],
+    "shape_notes": ["personas[]", "stories[]", "logbook.stories[]", "ships[slug].logbook.*"]
+  },
+  "stats_fallback": {
+    "entered_service": 2010,
+    "gt": "225,282 GT",
+    "guests": "6,780 (max)",
+    "crew": "2,200",
+    "length": "1,187 ft (362 m)",
+    "beam": "215 ft (66 m)",
+    "registry": "Bahamas"
+  },
+  "prefetch": [
+    "/assets/data/fleet_index.json",
+    "/assets/data/rc-restaurants.json",
+    "/ships/rcl/assets/videos/allure-of-the-seas.json?v=2.245",
+    "/ships/rcl/assets/allure.json?v=2.245",
+    "/assets/img/Cordelia_Empress_Food_Court.jpg",
+    "/assets/logo_wake.png",
+    "/assets/compass_rose.svg",
+    "/assets/watermark.png",
+    "/assets/ship-map.png"
+  ],
+  "related": {
+    "sister_ships": [
+      "/ships/rcl/oasis-of-the-seas.html",
+      "/ships/rcl/harmony-of-the-seas.html",
+      "/ships/rcl/symphony-of-the-seas.html",
+      "/ships/rcl/wonder-of-the-seas.html"
+    ],
+    "class_pills_order": ["icon","oasis","quantum","freedom","voyager","radiance","vision"]
+  },
+  "compliance": {
+    "alt_text_required": true,
+    "captions_short": true,
+    "loading_lazy": true,
+    "wcag": "2.1 AA"
+  }
+}
