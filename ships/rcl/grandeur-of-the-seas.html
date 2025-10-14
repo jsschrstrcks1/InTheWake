@@ -171,6 +171,37 @@
 @media (min-width:720px) {
   .swiper.firstlook { max-height: 70vh; }
 }
+    /* First Look slides — stable sizing & paint across Safari/Chrome/Firefox */
+.swiper.firstlook { overflow: hidden; }
+.swiper.firstlook .swiper-wrapper { align-items: stretch; }
+.swiper.firstlook .swiper-slide { height: auto; }
+
+/* each slide reserves space; image is pinned inside it */
+.swiper.firstlook figure{
+  margin:0;
+  aspect-ratio:16/9;
+  position:relative;   /* <— important */
+  overflow:hidden;
+}
+.swiper.firstlook img{
+  display:block;
+  position:absolute;   /* <— important */
+  inset:0;             /* top/right/bottom/left:0 */
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+/* keep your fallback (activates only when .swiper-fallback is on <html>) */
+.swiper-fallback .swiper.firstlook{overflow:hidden}
+.swiper-fallback .swiper.firstlook .swiper-wrapper{display:flex;align-items:stretch;gap:0}
+.swiper-fallback .swiper.firstlook .swiper-slide{flex:0 0 100%;max-width:100%}
+.swiper-fallback .swiper.firstlook figure{margin:0}
+.swiper-fallback .swiper.firstlook img{
+  display:block;width:100%!important;height:auto!important;object-fit:cover;border-radius:10px;
+}
+@media (min-width:720px){ .swiper-fallback .swiper.firstlook{max-height:70vh} }
   </style>
 
   <!-- ===== Site CSS (versioned) ===== -->
@@ -565,28 +596,26 @@
   function when(cb){ if (window.Swiper) cb(); else setTimeout(()=>when(cb), 100); }
   when(function(){
     try{
-      // FIRST LOOK (images)
-      const fl = new Swiper('.swiper.firstlook',{
-        loop: false,
-        watchOverflow: true,
-        autoHeight: true,
-        preloadImages: false,
-        updateOnImagesReady: true,
-        observer: true, observeParents: true,
-        pagination: { el: '.swiper.firstlook .swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper.firstlook .swiper-button-next', prevEl: '.swiper.firstlook .swiper-button-prev' },
-        a11y: { enabled: true },
-        on: {
-          imagesReady(sw){ sw.updateAutoHeight(0); }
-        }
+      new Swiper('.swiper.firstlook',{
+        loop:false,
+        watchOverflow:true,
+        autoHeight:false,   // figure already defines height; let it be
+        pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
+        navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
+        a11y:{ enabled:true }
       });
-
-      // Belt & suspenders: update height when any slide image actually finishes loading
-      document.querySelectorAll('.swiper.firstlook img').forEach(img=>{
-        if(!img.complete){
-          img.addEventListener('load', ()=> fl.updateAutoHeight(0), { once:true });
-        }
+      new Swiper('.swiper.videos',{
+        loop:false,
+        watchOverflow:true,
+        pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
+        navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
+        a11y:{ enabled:true }
       });
+    }catch(e){
+      document.documentElement.classList.add('swiper-fallback');
+    }
+  });
+})();
 
       // VIDEOS
       new Swiper('.swiper.videos',{
