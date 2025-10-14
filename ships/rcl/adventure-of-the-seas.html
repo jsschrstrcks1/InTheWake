@@ -3,7 +3,7 @@
 <head>
   <!-- ===========================================================
        In the Wake — Adventure of the Seas
-       Standards Compliance v3.007.002
+       Standards Compliance v3.007.003
        =========================================================== -->
 
   <!-- ===== Google tag (gtag.js) ===== -->
@@ -125,10 +125,10 @@
   <!-- ===== Analytics (Umami) ===== -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-    <!-- ===== Page micro CSS (scoped, v3.007.002 compliance) ===== -->
+    <!-- ===== Page micro CSS (scoped, v3.007.003 compliance) ===== -->
   <style>
 /* =========================================================
-   In the Wake — Adventure page micro CSS (v3.007.002)
+   In the Wake — Adventure page micro CSS (v3.007.003)
    ========================================================= */
 
 /* A11y helpers */
@@ -201,7 +201,198 @@ html,body{overflow-x:hidden}
 .pill.editor-note strong{font-style:normal;color:var(--ink,#0a3d62)}
 .swiper.firstlook figure{margin:0;aspect-ratio:16/9;}
 .swiper.firstlook img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;}
-  </style>
+ 
+
+/* First Look: keep height before JS, match Grandeur */
+.swiper.firstlook{overflow:hidden}
+.swiper.firstlook .swiper-wrapper{align-items:stretch}
+.swiper.firstlook .swiper-slide{height:auto}
+.swiper.firstlook figure{margin:0;aspect-ratio:16/9;position:relative;overflow:hidden}
+.swiper.firstlook img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
+
+/* Fallback if Swiper fails to load */
+.swiper-fallback .swiper.firstlook .swiper-wrapper{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.swiper-fallback .swiper.firstlook .swiper-slide{flex:0 0 100%;max-width:100%;scroll-snap-align:start}
+.swiper-fallback .swiper-button-prev::after,
+.swiper-fallback .swiper-button-next::after{display:none}
+.swiper-fallback .swiper-button-prev,
+.swiper-fallback .swiper-button-next{
+  position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,64,160,.15);
+  border:2px solid #1e66ff;color:#1e66ff;padding:.4rem .55rem;border-radius:.5rem;cursor:pointer;user-select:none;z-index:7
+}
+
+/* Small a11y helper reused across pages */
+.visually-hidden-focusable{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.visually-hidden-focusable:focus{position:static;left:auto;width:auto;height:auto;padding:.5rem .75rem;background:#fff;border:2px solid #0e6e8e;border-radius:8px;z-index:1000}
+</style>
+
+<!-- === FRAME 1: hero credit fix (Flickers of Majesty) === -->
+<script>
+(function fixHeroCredit(){
+  const credit = document.querySelector('.hero-credit .pill.long');
+  if (!credit) return;
+  credit.href = 'https://www.instagram.com/flickersofmajesty/';
+  credit.textContent = 'Photo © Flickers of Majesty — Instagram';
+})();
+</script>
+
+<!-- === FRAME 1: stats loader (normalize slug/name, 3 sources, inline fallback) === -->
+<script>
+(async function loadShipStatsV3(){
+  const el = document.getElementById('ship-stats'); if(!el) return;
+  const SOURCES = [
+    (window._abs?_abs('/assets/data/fleet_index.json'):'/assets/data/fleet_index.json'),
+    (window._abs?_abs('/assets/data/fleet-index.json'):'/assets/data/fleet-index.json'),
+    (window._abs?_abs('/assets/data/fleet.json'):'/assets/data/fleet.json')
+  ];
+  async function j(u){ try{ const r=await fetch(u,{cache:'no-store'}); if(r.ok) return await r.json(); }catch(_){} return null; }
+  function norm(s){ return String(s||'').toLowerCase().replace(/’/g,"'").trim(); }
+  function* walk(n){ if(!n) return; if(Array.isArray(n)){ for(const it of n) yield* walk(it); return; }
+    if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
+  let data=null; for (const u of SOURCES){ data=await j(u); if(data) break; }
+  if(!data){
+    try{ const fb=JSON.parse(document.getElementById('ship-stats-fallback').textContent||'{}'); data={ships:[fb]}; }
+    catch(_) {}
+  }
+  if(!data){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
+
+  const targetSlug='adventure-of-the-seas', targetName=norm('Adventure of the Seas');
+  let ship=null;
+  for (const o of walk(data)){
+    const slug = norm(o && (o.slug || o.id || (o.attributes && o.attributes.slug)));
+    const nm   = norm(o && (o.name || o.title || (o.attributes && o.attributes.name)));
+    if (slug===targetSlug || nm===targetName || (nm && nm.includes('adventure of the seas'))){ ship=o; break; }
+  }
+  if(!ship){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
+  const a = ship.attributes || ship;
+  const rows = [
+    ['Class', a.class || a.ship_class || (a.notes && /voyager/i.test(a.notes) ? 'Voyager Class' : '')],
+    ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
+    ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
+    ['Guests', a.capacity || a.passengers || a.guests],
+    ['Crew', a.crew],
+    ['Length', a.length || a.length_overall],
+    ['Beam', a.beam || a.width],
+    ['Registry', a.flag || a.registry]
+  ].filter(p=>p[1]!=null && String(p[1]).trim()!=='')
+   .map(p=>'<div class="stat-line"><span class="stat-key">'+p[0]+':</span><span class="stat-val">'+p[1]+'</span></div>')
+   .join('');
+  el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
+})();
+</script>
+
+<!-- === FRAME 1: videos adapter (accepts Adventure JSON shape, strict ship filter, Swiper fallback) === -->
+<script>
+(function videosAdapterV3(){
+  const wrap = document.getElementById('featuredVideos'); if(!wrap) return;
+  const sec = wrap.closest('.card'); const cont = sec && sec.querySelector('.swiper.videos');
+  const slug='adventure-of-the-seas';
+  const urls = [
+    (window._abs?_abs('/ships/rcl/assets/videos/'+slug+'.json'):'/ships/rcl/assets/videos/'+slug+'.json'),
+    (window._abs?_abs('/videos/'+slug+'.json'):'/videos/'+slug+'.json') // optional backup
+  ];
+  function fetchFirst(arr,i){ i=i||0; if(i>=arr.length) return Promise.resolve(null);
+    return fetch(arr[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(arr,i+1)).catch(()=>fetchFirst(arr,i+1)); }
+
+  const NEG = /\b(Utopia|Icon|Wonder|Symphony|Harmony|Oasis|Quantum|Odyssey|Anthem|Spectrum|MSC|Princess|Celebrity|Divina|World America|Edge|Star of the Seas|Jubilee)\b/i;
+  const POS = [/\bAdventure of the Seas\b/i, /\bAdventure\s*OTS\b/i, /\bRCI\s*Adventure\b/i, /\bRCL\s*Adventure\b/i, /\bVoyager[-\s]?class\b/i];
+  const getId = v => v.videoId ||
+    (String(v.embed_url||'').match(/\/embed\/([A-Za-z0-9_-]{6,})/)||[])[1] ||
+    (String(v.url||'').match(/[?&]v=([A-Za-z0-9_-]{6,})/)||[])[1] || '';
+
+  function isAdventure(v){
+    if ((v.ship && (v.ship.slug||'').toLowerCase()) === slug) return true;
+    const blob = [v.title, v.description, (v.tags||[]).join(' '), v.creator, v.channel, v.ship_name].join('\n');
+    if (NEG.test(blob)) return false;
+    return POS.some(rx=>rx.test(blob));
+  }
+
+  function flatten(json){
+    // Accept both: {videos:{cat:[…]}} and the single-array variant
+    const out=[];
+    if (json && json.videos && typeof json.videos==='object'){
+      Object.keys(json.videos).forEach(cat=>{
+        const arr=json.videos[cat]; if(Array.isArray(arr)){
+          arr.forEach(v=>out.push(Object.assign({category:cat},v)));
+        }
+      });
+    } else if (json && Array.isArray(json.videos)){
+      json.videos.forEach(v=>out.push(v));
+    }
+    return out;
+  }
+
+  function maybeInitSwiper(){
+    if (window.Swiper){
+      new Swiper('.swiper.videos',{
+        loop:false,lazy:true,watchOverflow:true,
+        pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+        navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+        a11y:{enabled:true}
+      });
+    }else if (cont){
+      cont.classList.add('swiper-fallback');
+    }
+  }
+
+  fetchFirst(urls).then(json=>{
+    const items = flatten(json).filter(v=>{
+      const id=getId(v); if(!id) return false;
+      return isAdventure(v);
+    });
+    if (!items.length){
+      wrap.innerHTML='<div class="swiper-slide"><div class="note tiny">Videos will cast off shortly (no ship-matched items).</div></div>';
+      return maybeInitSwiper();
+    }
+    wrap.innerHTML = items.map(v=>{
+      const id = getId(v);
+      const title = String(v.title||'Video').replace(/"/g,'&quot;');
+      return '<div class="swiper-slide" data-category="'+(v.category||'')+'">'+
+               '<iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" '+
+               'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '+
+               'loading="lazy" allowfullscreen></iframe>'+
+             '</div>';
+    }).join('');
+    maybeInitSwiper();
+  }).catch(()=>{
+    wrap.innerHTML='<div class="swiper-slide"><div class="note tiny">Video data unreachable.</div></div>';
+    maybeInitSwiper();
+  });
+})();
+</script>
+
+<!-- === FRAME 1: robust Swiper bootstrap (DOMContentLoaded + CDN fallback) === -->
+<script>
+(function ensureSwiper(){
+  function addCSS(h){const l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l);}
+  function addJS(src,cb){const s=document.createElement('script');s.src=src;s.async=true;s.onload=cb;document.head.appendChild(s);}
+  const localCSS = (window._abs?_abs('/vendor/swiper/swiper-bundle.min.css?v=3.007.070'):'/vendor/swiper/swiper-bundle.min.css?v=3.007.070');
+  const localJS  = (window._abs?_abs('/vendor/swiper/swiper-bundle.min.js?v=3.007.070'):'/vendor/swiper/swiper-bundle.min.js?v=3.007.070');
+  const cdnCSS='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
+  const cdnJS ='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+
+  function initFirstLook(){
+    if (!window.Swiper) return;
+    if (document.querySelector('.swiper.firstlook')){
+      new Swiper('.swiper.firstlook',{
+        loop:false,lazy:true,watchOverflow:true,
+        pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
+        navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
+        a11y:{enabled:true}
+      });
+    }
+  }
+
+  addCSS(localCSS);
+  document.addEventListener('DOMContentLoaded',function(){
+    addJS(localJS, initFirstLook);
+    setTimeout(function(){
+      if(!window.Swiper){ addCSS(cdnCSS); addJS(cdnJS, initFirstLook); }
+    }, 900);
+  }, {once:true});
+})();
+</script>
+
 
   <!-- ===== Site CSS (versioned global) ===== -->
   <link rel="preload" as="style" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.070"/>
@@ -216,7 +407,7 @@ html,body{overflow-x:hidden}
       <div class="brand">
         <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.070" 
              alt="In the Wake wordmark" width="200" height="40"/>
-        <span class="version-badge">v3.007.002</span>
+        <span class="version-badge">v3.007.003</span>
       </div>
 
       <!-- Primary Navigation (pills) -->
@@ -407,97 +598,104 @@ html,body{overflow-x:hidden}
     </div>
   </section>
 
-  <script>
-  /* ===== Logbook Loader & Renderer (v3.007.002) ===== */
-  (function LogbookV3(){
-    const MOUNT = document.getElementById('logbook-stories');
-    const NOTE  = document.getElementById('editorNoteMount');
-    const POS   = document.getElementById('logbook-pos');
-    const PREV  = document.getElementById('logbook-prev');
-    const NEXT  = document.getElementById('logbook-next');
-    if (!MOUNT) return;
+ <!-- === FRAME 2: Logbook Renderer v3.007.071 === -->
+<script>
+(function LogbookV3(){
+  const MOUNT = document.getElementById('logbook-stories');
+  const NOTE  = document.getElementById('editorNoteMount');
+  const POS   = document.getElementById('logbook-pos');
+  const PREV  = document.getElementById('logbook-prev');
+  const NEXT  = document.getElementById('logbook-next');
+  if(!MOUNT) return;
 
-    const slug = 'adventure-of-the-seas';
-    const SRC  = (window._abs ? _abs('/ships/rcl/assets/'+slug+'.json') : '/ships/rcl/assets/'+slug+'.json');
-    const state = { i:0, personas:[], idIndex:{} };
+  const slug='adventure-of-the-seas';
+  const SRC=(window._abs?_abs('/ships/rcl/assets/'+slug+'.json'):'/ships/rcl/assets/'+slug+'.json');
+  const state={i:0,entries:[],idIndex:{}};
 
-    const fuelCardHTML =
-      '<div class="voyage-tips-wrapper" style="margin:1rem 0 0">'+
-        '<div class="card voyage-tips" aria-label="Voyage planning tips">'+
-          '<h2 class="card-title">Fuel Your Voyage</h2>'+
-          '<div class="card-content">'+
-            '<h3>Drink Packages</h3>'+
-            '<ul><li>Deluxe Beverage Package (~$60/day)</li>'+
-                '<li>Refreshment Package (non-alcoholic)</li>'+
-                '<li>Soda Package (Freestyle machines)</li></ul>'+
-            '<h3>Pack Like a Pro</h3>'+
-            '<ul><li>Shawl for chilly theater nights</li>'+
-                '<li>Swimwear for pool deck</li>'+
-                '<li>Comfortable shoes for shore tours</li></ul>'+
-            '<div class="button-group">'+
-              '<a href="/drink-packages.html" class="btn">View Drink Options</a>'+
-              '<a href="/packing-lists.html" class="btn">Packing Guide</a>'+
-            '</div>'+
+  const fuelCardHTML =
+    '<div class="voyage-tips-wrapper" style="margin:1rem 0 0">'+
+      '<div class="card voyage-tips" aria-label="Voyage planning tips">'+
+        '<h2 class="card-title">Fuel Your Voyage</h2>'+
+        '<div class="card-content">'+
+          '<h3>Drink Packages</h3>'+
+          '<ul><li>Deluxe Beverage Package (~$60/day)</li>'+
+              '<li>Refreshment Package (non-alcoholic)</li>'+
+              '<li>Soda Package (Freestyle machines)</li></ul>'+
+          '<h3>Pack Like a Pro</h3>'+
+          '<ul><li>Shawl for chilly theater nights</li>'+
+              '<li>Swimwear for pool deck</li>'+
+              '<li>Comfortable shoes for shore tours</li></ul>'+
+          '<div class="button-group">'+
+            '<a href="/drink-packages.html" class="btn">View Drink Options</a>'+
+            '<a href="/packing-lists.html" class="btn">Packing Guide</a>'+
           '</div>'+
         '</div>'+
-      '</div>';
+      '</div>'+
+    '</div>';
 
-    function mdToHtml(md){
-      if(!md) return '';
-      let h = String(md).trim();
-      h = h.replace(/^###### (.+)$/gm,'<h6>$1</h6>')
-           .replace(/^##### (.+)$/gm,'<h5>$1</h5>')
-           .replace(/^#### (.+)$/gm,'<h4>$1</h4>')
-           .replace(/^### (.+)$/gm,'<h3>$1</h3>')
-           .replace(/^## (.+)$/gm,'<h2>$1</h2>')
-           .replace(/^# (.+)$/gm,'<h1>$1</h1>')
-           .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-           .replace(/\*(.+?)\*/g,'<em>$1</em>')
-           .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
-      h = h.replace(/(?:\r?\n){2,}/g,'</p><p>').replace(/(?:\r?\n)/g,'<br/>');
-      return '<p>'+h+'</p>';
-    }
+  function mdToHtml(md){
+    if(!md) return '';
+    let h=String(md).trim();
+    h=h.replace(/^###### (.+)$/gm,'<h6>$1</h6>')
+       .replace(/^##### (.+)$/gm,'<h5>$1</h5>')
+       .replace(/^#### (.+)$/gm,'<h4>$1</h4>')
+       .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+       .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+       .replace(/^# (.+)$/gm,'<h1>$1</h1>')
+       .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+       .replace(/\*(.+?)\*/g,'<em>$1</em>')
+       .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+    h=h.replace(/(?:\r?\n){2,}/g,'</p><p>').replace(/(?:\r?\n)/g,'<br/>');
+    return '<p>'+h+'</p>';
+  }
 
-    function renderEditorNote(json){
-      const ship = json && (json.ship_name || 'this ship');
-      const n = json && json.nights_stood_watch ? json.nights_stood_watch : 'several';
-      const text =
-        'I have stood watch for '+n+
-        ' nights aboard <em>'+ship+
-        '</em>. These reflections draw from my own experience and from the voices of fellow travelers — depth soundings taken in our shared wake. Each has been carefully trimmed, tested, and edited to the same high standards, offered here to help smooth the waters ahead of your own sailing.';
-      NOTE.innerHTML = '<div class="pill editor-note" role="note">'+text+'</div>';
-    }
+  function renderEditorNote(json){
+    const ship=json && (json.ship_name||'this ship');
+    const n=json && (typeof json.nights_stood_watch==='number'?json.nights_stood_watch:NaN);
+    const phr=n>0?
+      'I have stood watch for '+n+' night'+(n===1?'':'s')+' aboard <em>'+ship+'</em>.' :
+      'Though I have not yet sailed aboard <em>'+ship+'</em>, these reflections draw from our editorial network and aggregated traveler soundings.';
+    const text=phr+
+      ' Each entry has been trimmed, tested, and edited to the same high standards — depth soundings taken in our shared wake, offered here to help smooth the waters ahead of your own sailing.';
+    NOTE.innerHTML='<div class="pill editor-note" role="note">'+text+'</div>';
+  }
 
-    function injectFuelAt60(container){
-      try{
-        const paras = Array.from(container.querySelectorAll('p'));
-        if (paras.length < 3) return;
-        const idx = Math.max(1, Math.min(paras.length-1, Math.round(paras.length * 0.6)));
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = fuelCardHTML;
-        paras[idx].parentNode.insertBefore(wrapper, paras[idx].nextSibling);
-      }catch(_){}
-    }
+  function injectFuelAt60(container){
+    try{
+      const paras=Array.from(container.querySelectorAll('p'));
+      if(paras.length<3)return;
+      const idx=Math.max(1,Math.min(paras.length-1,Math.round(paras.length*0.6)));
+      const wrapper=document.createElement('div');wrapper.innerHTML=fuelCardHTML;
+      paras[idx].parentNode.insertBefore(wrapper,paras[idx].nextSibling);
+    }catch(_){}
+  }
 
-    function go(i){
-      if (!state.personas.length) return;
-      state.i = Math.max(0, Math.min(state.personas.length-1, i));
-      const p = state.personas[state.i];
-      MOUNT.innerHTML = '<article class="story"><h3>'+
-        (p.title||'Guest Perspective')+'</h3><div class="story-body">'+
-        mdToHtml(p.markdown||'')+'</div></article>';
-      injectFuelAt60(MOUNT);
-      POS.textContent = (state.i+1)+' / '+state.personas.length;
-    }
+  function go(i){
+    if(!state.entries.length)return;
+    state.i=Math.max(0,Math.min(state.entries.length-1,i));
+    const p=state.entries[state.i];
+    MOUNT.innerHTML='<article class="story"><h3>'+
+      (p.title||'Guest Perspective')+'</h3><div class="story-body">'+
+      mdToHtml(p.markdown||'')+'</div></article>';
+    injectFuelAt60(MOUNT);
+    POS.textContent=(state.i+1)+' / '+state.entries.length;
+  }
 
-    fetch(SRC,{cache:'no-store'}).then(r=>r.json()).then(json=>{
-      renderEditorNote(json);
-      const arr = Array.isArray(json.personas)?json.personas.slice():[];
-      state.personas = arr; state.idIndex = Object.fromEntries(arr.map((p,i)=>[p.id,i]));
-      go(state.idIndex['p0-ken']!=null?state.idIndex['p0-ken']:0);
-    }).catch(()=>{NOTE.innerHTML='';MOUNT.innerHTML='<p class="tiny">Stories coming soon.</p>';});
-  })();
-  </script>
+  fetch(SRC,{cache:'no-store'}).then(r=>r.json()).then(json=>{
+    renderEditorNote(json);
+    const arr=[];
+    if(Array.isArray(json.authored_entries)) arr.push(...json.authored_entries);
+    if(Array.isArray(json.personas)) arr.push(...json.personas);
+    state.entries=arr; state.idIndex=Object.fromEntries(arr.map((p,i)=>[p.id,i]));
+    go(state.idIndex['p0-ken']!=null?state.idIndex['p0-ken']:0);
+    PREV.onclick=()=>go(state.i-1);
+    NEXT.onclick=()=>go(state.i+1);
+  }).catch(()=>{
+    NOTE.innerHTML='';
+    MOUNT.innerHTML='<p class="tiny">Stories coming soon.</p>';
+  });
+})();
+</script>
 
   <!-- ===== Videos Swiper ===== -->
   <section class="card" aria-labelledby="video-highlights">
@@ -609,7 +807,94 @@ html,body{overflow-x:hidden}
 
       <p class="tiny">Lineups change by sailing; check the Royal app for your dates.</p>
     </section>
+<!-- === FRAME 3: Venues + Experiences Dynamic Loader v3.007.071 === -->
+<script>
+(function VXV3(){
+  const grid=document.getElementById('vx-grid');
+  const search=document.getElementById('vx-search');
+  const chips=document.querySelectorAll('#venues-experiences .chip');
+  if(!grid)return;
 
+  /* === Config === */
+  const SRC=[
+    (window._abs?_abs('/assets/data/rc-restaurants.json'):'/assets/data/rc-restaurants.json'),
+    (window._abs?_abs('/assets/data/venues.json'):'/assets/data/venues.json'),
+    (window._abs?_abs('/assets/data/experiences.json'):'/assets/data/experiences.json')
+  ];
+  const CACHE={};
+  const slug='adventure-of-the-seas';
+
+  /* === Helpers === */
+  function norm(s){return String(s||'').toLowerCase();}
+  function words(s){return norm(s).split(/[\s,;:/&]+/g);}
+  function hasTag(v,t){const tags=(v.tags||v.type||'').toString().toLowerCase();return tags.includes(t);}
+  function j(u){return fetch(u,{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);}
+  function buildCard(v){
+    const name=v.name||v.title||'Unnamed Venue';
+    const desc=v.description||v.blurb||'';
+    const taglist=(v.tags||v.type||'').toString();
+    const href=v.url||v.href||'';
+    let btn='';
+    if(href)btn='<a class="btn" href="'+href+'" target="_blank" rel="noopener">Details →</a>';
+    return '<article class="card vx" data-tags="'+taglist+'"><h3>'+name+'</h3><p>'+desc+'</p>'+btn+'</article>';
+  }
+
+  /* === Populate === */
+  async function populate(){
+    const arrs=await Promise.all(SRC.map(u=>CACHE[u]||j(u)));
+    const merged=[];
+    arrs.forEach(js=>{
+      if(!js)return;
+      const vals=Array.isArray(js)?js:(js.items||js.venues||js.data||[]);
+      vals.forEach(v=>{
+        if(!v)return;
+        if(v.ship && v.ship!=='all' && norm(v.ship)!==slug) return;
+        merged.push(v);
+      });
+    });
+    if(!merged.length){grid.insertAdjacentHTML('beforeend','<p class="tiny">Venues data unavailable.</p>');return;}
+    const html=merged.map(buildCard).join('');
+    grid.insertAdjacentHTML('beforeend',html);
+  }
+
+  /* === Filter & Search === */
+  function filterView(){
+    const q=norm(search.value||'');
+    const active=document.querySelector('#venues-experiences .chip.is-on');
+    const tag=(active&&active.dataset.filter!=='all')?active.dataset.filter:'';
+    const cards=grid.querySelectorAll('.card.vx');
+    cards.forEach(c=>{
+      const tags=norm(c.dataset.tags||'');
+      const text=norm(c.textContent||'');
+      let show=true;
+      if(tag && !tags.includes(tag))show=false;
+      if(q){
+        const w=words(q);
+        show=w.some(word=>{
+          if(word==='show'||word==='shows')return tags.includes('show')||tags.includes('entertainment');
+          if(word==='experience'||word==='experiences')return tags.includes('experience')||tags.includes('activity');
+          return text.includes(word)||tags.includes(word);
+        });
+      }
+      c.style.display=show?'block':'none';
+    });
+  }
+
+  /* === Chip behavior === */
+  chips.forEach(ch=>{
+    ch.addEventListener('click',()=>{
+      chips.forEach(c=>c.classList.remove('is-on'));
+      ch.classList.add('is-on');
+      filterView();
+    });
+  });
+
+  search.addEventListener('input',filterView);
+
+  /* === Run === */
+  populate().then(()=>filterView());
+})();
+</script>
     <!-- ===== Image Attributions ===== -->
     <section class="card attributions" aria-labelledby="attribs">
       <h2 id="attribs">Image Attributions</h2>
@@ -690,5 +975,67 @@ html,body{overflow-x:hidden}
     else upgrade();
   })();
   </script>
+  <!-- === FRAME 4: Attribution Manager v3.007.071 === -->
+<script>
+(function AttributionManagerV3(){
+  const section=document.querySelector('.card.attributions');
+  if(!section)return;
+
+  /* === 1. Preserve existing attributions exactly === */
+  const list=section.querySelector('ul');
+  const existingHTML=list?list.innerHTML:'';
+  const existingLines=new Set();
+  existingHTML.split('</li>').forEach(li=>{
+    const txt=li.replace(/<[^>]+>/g,'').trim();
+    if(txt)existingLines.add(txt);
+  });
+
+  /* === 2. Collect new image sources === */
+  const imgs=document.querySelectorAll('.swiper.firstlook img, #dining-hero');
+  const newItems=[];
+  imgs.forEach(img=>{
+    const src=img.getAttribute('src')||'';
+    const alt=img.getAttribute('alt')||'';
+    if(!src)return;
+    const wikiMatch=/commons\.wikimedia\.org.*File:([^?]+)/i.exec(src);
+    const localMatch=/\/ships\/rcl\/images\/([^/]+)$/i.exec(src);
+    let author='Unknown';
+    let license='Wikimedia Commons (license on file page)';
+    let title=alt||localMatch&&decodeURIComponent(localMatch[1])||'Image';
+    if(/flickersofmajesty/i.test(src)||/flickersofmajesty/i.test(alt)){
+      author='Flickers of Majesty';
+      license='Used with permission (All Rights Reserved)';
+    } else if(wikiMatch){
+      author='Wikimedia Commons contributor';
+      license='CC BY-SA 4.0 (per file page)';
+    }
+    const line=title+' — © '+author+' ('+license+')';
+    if(!Array.from(existingLines).some(x=>x.includes(title)||x.includes(author)))newItems.push(line);
+  });
+
+  /* === 3. Update or create list === */
+  if(newItems.length){
+    const ul=list||document.createElement('ul');
+    newItems.forEach(t=>{
+      const li=document.createElement('li');
+      li.innerHTML=t.replace(/ /g,' '); // normalize spaces
+      ul.appendChild(li);
+    });
+    if(!list)section.appendChild(ul);
+  }
+
+  /* === 4. Audit footer note === */
+  if(!section.querySelector('.tiny')){
+    const p=document.createElement('p');
+    p.className='tiny';
+    p.textContent='All rights reserved where applicable.';
+    section.appendChild(p);
+  }
+
+  /* === 5. Log summary (for console QA only) === */
+  console.info('%cAttribution Manager','color:#0a3d62;font-weight:bold');
+  console.table({existing:existingLines.size,added:newItems.length,total:(existingLines.size+newItems.length)});
+})();
+</script>
 </body>
 </html>
