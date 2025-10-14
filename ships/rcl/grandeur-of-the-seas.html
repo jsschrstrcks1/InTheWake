@@ -850,54 +850,79 @@ html,body{overflow-x:hidden}
 
   <!-- Venues/Experiences filters + JSON augmentation -->
   <script>
-  (function initVX(){
-    const $=(sel,ctx=document)=>ctx.querySelector(sel);
-    const $$=(sel,ctx=document)=>Array.from(ctx.querySelectorAll(sel));
-    const search=$('#vx-search');
-    const chips=$$('#venues-experiences .chip');
-    const grid=$('#vx-grid');
-    const cards=()=> $$('#vx-grid .vx');
+(function initVX(){
+  const $ = (sel, ctx=document)=>ctx.querySelector(sel);
+  const $$ = (sel, ctx=document)=>Array.from(ctx.querySelectorAll(sel));
+  const search = $('#vx-search');
+  const chips  = $$('#venues-experiences .chip');
+  const grid   = $('#vx-grid');
+  const cards  = () => $$('#vx-grid .vx');
 
-    function apply(){
-      const q=(search?.value||'').toLowerCase().trim();
-      const active=chips.find(c=>c.classList.contains('is-on') && c.dataset.filter!=='all');
-      const tag=active?active.dataset.filter:null;
-      cards().forEach(card=>{
-        const name=($('h3',card)?.textContent||'').toLowerCase();
-        const tags=(card.dataset.tags||'').toLowerCase();
-        const show=(!q||name.includes(q)) && (!tag||tags.includes(tag));
-        card.style.display = show? '' : 'none';
-      });
+  /* Category and synonym map */
+  const CAT = {
+    'show': ['shows'], 'shows': ['shows','show'],
+    'bar': ['bar','bars'], 'bars': ['bar'],
+    'coffee': ['coffee','cafe'], 'cafe': ['coffee','cafe'],
+    'specialty': ['specialty'], 'included': ['included'],
+    'experience': ['experience'], 'experiences': ['experience'],
+    'xperience': ['experience'], 'xperiences': ['experience'],
+    'music': ['music','shows'], 'live': ['music','shows'],
+    'kids': ['kids','teens'], 'teens': ['kids','teens'],
+    'adults': ['adults','adult'], 'adult': ['adults','adult'],
+    'spa': ['spa','fitness']
+  };
+
+  function tokenize(s){ return String(s||'').toLowerCase().split(/[^a-z0-9]+/).filter(Boolean); }
+
+  function apply(){
+    const q = (search?.value || '').trim();
+    const words = tokenize(q);
+    const wantTags = new Set();
+    words.forEach(w => { const tags = CAT[w]; if(tags) tags.forEach(t => wantTags.add(t)); });
+
+    const active = chips.find(c => c.classList.contains('is-on') && c.dataset.filter!=='all');
+    const chipTag = active ? (active.dataset.filter || '').toLowerCase() : null;
+    if(chipTag) wantTags.add(chipTag);
+
+    cards().forEach(card=>{
+      const name = ($('h3',card)?.textContent || '').toLowerCase();
+      const tags = (card.dataset.tags || '').toLowerCase();
+      const textWords = words.filter(w => !CAT[w]);
+      const catOK  = !wantTags.size || Array.from(wantTags).some(tag => tags.includes(tag));
+      const textOK = !textWords.length || textWords.every(w => name.includes(w) || tags.includes(w));
+      card.style.display = (catOK && textOK) ? '' : 'none';
+    });
+  }
+
+  if(search) search.addEventListener('input', apply);
+  chips.forEach(ch => ch.addEventListener('click', ()=>{
+    chips.forEach(c=>{ c.classList.remove('is-on'); c.setAttribute('aria-pressed','false'); });
+    ch.classList.add('is-on'); ch.setAttribute('aria-pressed','true'); apply();
+  }));
+
+  /* Load JSON experiences and augment grid */
+  try {
+    const raw = (document.getElementById('entertainment-data') || {}).textContent || '';
+    if(raw){
+      const data = JSON.parse(raw);
+      const add = (title,desc,tags)=>{
+        const el=document.createElement('article');
+        el.className='card vx';
+        el.setAttribute('data-tags',tags);
+        el.innerHTML='<h3>'+title+'</h3><p>'+desc+'</p>';
+        grid.appendChild(el);
+      };
+      (data.production_shows||[]).forEach(s=> add(s.title, s.description||'Production show','experience shows'));
+      (data.guest_entertainers||[]).forEach(n=> add(n,'Rotating headliner','experience shows music'));
+      (data.interactive_events||[]).forEach(e=> add(e.name, e.description||'Interactive game','experience adults'));
+      (data.themed_parties||[]).forEach(p=> add(p.name, p.venue?('Venue: '+p.venue):'Themed party','experience music adults'));
+      (data.other_entertainment||[]).forEach(line=> add(line.split(':')[0], line,'experience'));
     }
+  } catch(err){ console.warn('VX JSON parse failed', err); }
 
-    if(search) search.addEventListener('input',apply);
-    chips.forEach(ch=>ch.addEventListener('click',()=>{
-      chips.forEach(c=>{c.classList.remove('is-on'); c.setAttribute('aria-pressed','false');});
-      ch.classList.add('is-on'); ch.setAttribute('aria-pressed','true'); apply();
-    }));
-
-    try{
-      const raw=(document.getElementById('entertainment-data')||{}).textContent||'';
-      if(raw){
-        const data=JSON.parse(raw);
-        const add=(title,desc,tags)=>{
-          const el=document.createElement('article');
-          el.className='card vx';
-          el.setAttribute('data-tags',tags);
-          el.innerHTML='<h3>'+title+'</h3><p>'+desc+'</p>';
-          grid.appendChild(el);
-        };
-        (data.production_shows||[]).forEach(s=> add(s.title, s.description||'Production show', 'experience shows'));
-        (data.guest_entertainers||[]).forEach(n=> add(n, 'Rotating headliners; check schedule.', 'experience shows music'));
-        (data.interactive_events||[]).forEach(e=> add(e.name, e.description||'Interactive game show', 'experience adults'));
-        (data.themed_parties||[]).forEach(p=> add(p.name, (p.venue?('Venue: '+p.venue):'Themed party'), 'experience music adults'));
-        (data.other_entertainment||[]).forEach(line=> add(line.split(':')[0], line, 'experience'));
-      }
-    }catch(_){}
-
-    apply();
-  })();
-  </script>
+  apply();
+})();
+</script>
 
   <!-- Service Worker (versioned) -->
   <script>
