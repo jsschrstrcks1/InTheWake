@@ -158,14 +158,16 @@
     .swiper.firstlook .swiper-wrapper { align-items:stretch; }
     .swiper.firstlook .swiper-slide { height:auto !important; }
 
-     /* Make sure figures/images lay out space */
-    .swiper.firstlook figure { margin:0; }
-    .swiper.firstlook img {
-      display:block;
-      width:100% !important;
-      height:auto !important;
-      object-fit:cover;
-      border-radius:10px;}
+/* Give each slide a real box before images download */
+.swiper.firstlook figure{ margin:0; aspect-ratio:16/9; }
+
+.swiper.firstlook img{
+  display:block;
+  width:100%;
+  height:100%;         /* fill the aspect-ratio box */
+  object-fit:cover;
+  border-radius:10px;
+}
     /* Small guard height so layout doesn’t collapse pre-load */
 .swiper.firstlook { min-height:220px; }
 @media (min-width:720px){ .swiper.firstlook { min-height:320px; } }
