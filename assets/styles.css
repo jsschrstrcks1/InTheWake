@@ -61,3 +61,28 @@ h1,h2,h3{color:var(--sea)}
   overflow:hidden!important;clip:rect(0 0 0 0)!important;
   white-space:nowrap!important;border:0!important
 }
+/* ===== Restore proper grid behavior for VX and multi-column cards ===== */
+#vx-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* 2 columns for tablets, 3 for desktop */
+@media (min-width: 720px) and (max-width: 979.98px) {
+  #vx-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 980px) {
+  #vx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Small screens (mobile) = single column */
+@media (max-width: 719.98px) {
+  #vx-grid { grid-template-columns: 1fr; }
+}
+
+/* Make sure each card stretches evenly */
+#vx-grid .card.vx {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
