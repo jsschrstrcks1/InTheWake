@@ -584,6 +584,7 @@ html,body{overflow-x:hidden}
           <button class="chip" data-filter="coffee">Coffee</button>
           <button class="chip" data-filter="bar">Bar</button>
           <button class="chip" data-filter="shows">Shows</button>
+          <button class="chip" data-filter="experience">Experiences & Activities</button>
           <button class="chip" data-filter="music">Live Music</button>
           <button class="chip" data-filter="spa">Spa &amp; Fitness</button>
           <button class="chip" data-filter="kids">Kids &amp; Teens</button>
@@ -849,77 +850,220 @@ html,body{overflow-x:hidden}
   </script>
 
   <!-- Venues/Experiences filters + JSON augmentation -->
-  <script>
+ <script>
+/* In the Wake — VX (Venues / Experiences) v3.007.011-full
+   - Adds "Experiences" chip
+   - Canonical experiences seeded (tastings, tours, parties, classes, enrichment)
+   - Search understands category words (shows/experiences/bar/coffee/etc.)
+   - Works with existing static venue cards and any JSON you also inject
+*/
 (function initVX(){
-  const $ = (sel, ctx=document)=>ctx.querySelector(sel);
+  const $  = (sel, ctx=document)=>ctx.querySelector(sel);
   const $$ = (sel, ctx=document)=>Array.from(ctx.querySelectorAll(sel));
-  const search = $('#vx-search');
-  const chips  = $$('#venues-experiences .chip');
-  const grid   = $('#vx-grid');
+
+  const scope  = $('#venues-experiences') || document;
+  const search = $('#vx-search', scope);
+  const chipBar= $('.chips', scope);
+  const grid   = $('#vx-grid', scope);
+  const chips  = () => $$('#venues-experiences .chip');
   const cards  = () => $$('#vx-grid .vx');
 
-  /* Category and synonym map */
+  if(!grid) return;
+
+  /* ---------- 1) Ensure we have an "Experiences" chip in the bar ---------- */
+  (function ensureExperiencesChip(){
+    if (!chipBar) return;
+    const showsChip = chipBar.querySelector('[data-filter="shows"]');
+    const hasExp = chipBar.querySelector('[data-filter="experience"]');
+    if (!hasExp) {
+      const btn = document.createElement('button');
+      btn.className = 'chip';
+      btn.dataset.filter = 'experience';
+      btn.textContent = 'Experiences';
+      if (showsChip && showsChip.nextSibling) {
+        chipBar.insertBefore(btn, showsChip.nextSibling);
+      } else {
+        chipBar.appendChild(btn);
+      }
+    }
+  })();
+
+  /* ---------- 2) Canonical Experiences seed (ship-agnostic) --------------- */
+  const experiencesSeed = [
+    // Dining / Tastings
+    { t:'Taste of Royal Lunch', d:'Multi-course tasting across marquee venues. Limited dates; book early in the app.', g:'experience dining premium' },
+    { t:"Chef’s Table", d:'Intimate multi-course dinner with curated wine pairings; very limited seating.', g:'experience dining premium adults' },
+    { t:'Wine & Cheese Tasting', d:'Guided wine flight with cheese pairings; options vary by sailing.', g:'experience tasting wine adults' },
+    { t:'Craft Beer Tasting', d:'Sampler of regional and ship-favorite brews; check daily planner.', g:'experience tasting beer adults' },
+    { t:'Spirits / Whiskey / Rum Tasting', d:'Guided flight; learn notes, provenance, and pairing basics.', g:'experience tasting spirits adults' },
+    { t:'Mixology Class', d:'Hands-on cocktail session with ship bartenders; shake, stir, and sample.', g:'experience class mixology bar adults' },
+    { t:'Martini / Margarita Class', d:'Focus class on classic martinis or margs with technique and tasting.', g:'experience class mixology bar adults' },
+    { t:'Sushi Making Workshop', d:'Roll basics + plating tips; family-friendly sessions on select sailings.', g:'experience class culinary family' },
+    { t:'Cupcake Decorating', d:'Kid-favorite (and adult-approved) decorating class.', g:'experience class dessert kids family' },
+
+    // Tours & Behind-the-Scenes
+    { t:'All Access Ship Tour', d:'Behind-the-scenes tour (galley, backstage; bridge wings where permitted). Space limited.', g:'experience tour behind-the-scenes adults' },
+    { t:'Galley Tour', d:'Short walkthrough of the ship galley on select sailings.', g:'experience tour behind-the-scenes' },
+    { t:'Bridge Meet & Greet / Photo', d:'Occasional captain meet/photo ops depending on itinerary and operations.', g:'experience tour meet-and-greet' },
+
+    // Interactive & Game Shows
+    { t:'The Quest', d:'Adults-only, legendary scavenger/game show. It gets wild—come ready.', g:'experience games adults party' },
+    { t:'Protect the Egg (Egg Drop)', d:'Build contraptions in teams to save an egg dropped from height. Judged on creativity & success.', g:'experience games family' },
+    { t:'Karaoke Nights', d:'Schooner Bar / Star Lounge. Family and adults sessions; prizes for crowd favorites.', g:'experience music karaoke family adults' },
+    { t:'Liars Club', d:'Comedy panel game of bluffs and definitions.', g:'experience games adults' },
+    { t:'Majority Rules', d:'Hilarious group answer game—most common answer wins.', g:'experience games family adults' },
+    { t:'Friendly Feud', d:'Team showdown with survey questions, Family-Feud style.', g:'experience games family' },
+    { t:'General Trivia & Name That Tune', d:'Rotating trivia blocks; music decades, movies, theme nights.', g:'experience games trivia family' },
+    { t:'Scavenger Hunts', d:'Family & adults variants throughout the sailing.', g:'experience games family adults' },
+
+    // Themed Parties & Social
+    { t:"'70s Disco Street Party", d:'Throwback street party in the Centrum or pool deck.', g:'experience party music adults' },
+    { t:"'80s Party", d:'Neon nostalgia and big-hair anthems.', g:'experience party music adults' },
+    { t:'White Hot Night', d:'Wear white; lights down, vibes up.', g:'experience party music adults' },
+    { t:'Silent Party', d:'Headphone disco with multiple DJ channels.', g:'experience party music adults' },
+    { t:'Sailaway Party', d:'Kickoff celebration on the pool deck.', g:'experience party music family' },
+    { t:'Pub Crawl', d:'Guided crawl with mini-challenges; select sailings.', g:'experience party bar adults' },
+
+    // Wellness & Enrichment
+    { t:'Spa Seminars', d:'Informational wellness sessions (sales-adjacent).', g:'experience spa enrichment' },
+    { t:'Fitness Workshops', d:'Stretch, abs, spin, and more—schedule varies.', g:'experience fitness enrichment' },
+    { t:'Port Lectures & Enrichment Talks', d:'Port highlights, history, and practical tips.', g:'experience enrichment lecture' },
+    { t:'Art Gallery Preview & Auction', d:'Preview gallery, live auction, and bubbly.', g:'experience art auction shopping' },
+
+    // Movies & Misc
+    { t:'Movies Under the Stars', d:'Outdoor pool-deck screenings, weather permitting.', g:'experience movie family' }
+  ];
+
+  /* ---------- 3) Add seed experiences to grid (idempotent) ----------------- */
+  (function appendExperiences(){
+    // basic guard if developer already added them by hand (avoid duplicates by title)
+    const seen = new Set(cards().map(c => (c.querySelector('h3')?.textContent || '').trim().toLowerCase()));
+    experiencesSeed.forEach(x=>{
+      const key = String(x.t||'').trim().toLowerCase();
+      if (!key || seen.has(key)) return;
+      const el = document.createElement('article');
+      el.className = 'card vx';
+      el.setAttribute('data-tags', String(x.g||'').toLowerCase());
+      el.innerHTML = '<h3>'+x.t+'</h3><p>'+ (x.d||'') +'</p>';
+      grid.appendChild(el);
+      seen.add(key);
+    });
+  })();
+
+  /* ---------- 4) Search: map category words to tags + text match ------------ */
   const CAT = {
-    'show': ['shows'], 'shows': ['shows','show'],
-    'bar': ['bar','bars'], 'bars': ['bar'],
-    'coffee': ['coffee','cafe'], 'cafe': ['coffee','cafe'],
-    'specialty': ['specialty'], 'included': ['included'],
-    'experience': ['experience'], 'experiences': ['experience'],
-    'xperience': ['experience'], 'xperiences': ['experience'],
-    'music': ['music','shows'], 'live': ['music','shows'],
-    'kids': ['kids','teens'], 'teens': ['kids','teens'],
-    'adults': ['adults','adult'], 'adult': ['adults','adult'],
-    'spa': ['spa','fitness']
+    // Shows
+    'show':['shows'],'shows':['shows','show'],
+    // Bars / Coffee
+    'bar':['bar','bars'],'bars':['bar','bars'],
+    'coffee':['coffee','cafe'],'cafe':['coffee','cafe'],
+    // Fare types
+    'specialty':['specialty'],'included':['included'],
+    // Experiences
+    'experience':['experience'],'experiences':['experience'],
+    'xperience':['experience'],'xperiences':['experience'],
+    // Music / live
+    'music':['music','shows'],'live':['music','shows'],
+    // Audiences / areas
+    'kids':['kids','teens'],'teens':['kids','teens'],
+    'adults':['adults','adult'],'adult':['adults','adult'],
+    // Wellness
+    'spa':['spa','fitness'],'fitness':['spa','fitness'],
+    // Other helpful intents
+    'party':['party','music'],'parties':['party','music'],
+    'tour':['tour'],'tours':['tour'],
+    'tasting':['tasting'],'tastings':['tasting'],
+    'class':['class'],'classes':['class'],
+    'movie':['movie'],'movies':['movie']
   };
 
-  function tokenize(s){ return String(s||'').toLowerCase().split(/[^a-z0-9]+/).filter(Boolean); }
+  function tokenize(s){
+    return String(s||'')
+      .toLowerCase()
+      .split(/[^a-z0-9]+/g)
+      .filter(Boolean);
+  }
 
   function apply(){
     const q = (search?.value || '').trim();
     const words = tokenize(q);
-    const wantTags = new Set();
-    words.forEach(w => { const tags = CAT[w]; if(tags) tags.forEach(t => wantTags.add(t)); });
+    const want = new Set();
 
-    const active = chips.find(c => c.classList.contains('is-on') && c.dataset.filter!=='all');
-    const chipTag = active ? (active.dataset.filter || '').toLowerCase() : null;
-    if(chipTag) wantTags.add(chipTag);
+    // Expand category words → tags
+    words.forEach(w => {
+      const tags = CAT[w];
+      if (tags) tags.forEach(t => want.add(t));
+      // Simple plural→singular fallback (bars->bar, shows->show, parties->party)
+      if (!tags && /s$/.test(w)) {
+        const singular = w.replace(/ies$/, 'y').replace(/s$/, '');
+        if (CAT[singular]) CAT[singular].forEach(t => want.add(t));
+      }
+    });
+
+    // Merge active chip intent (unless user typed any category word—then typed wins)
+    const activeChip = chips().find(c => c.classList.contains('is-on') && c.dataset.filter!=='all');
+    const chipTag = activeChip ? (activeChip.dataset.filter || '').toLowerCase() : null;
+    const typedHasCategory = words.some(w => CAT[w] || CAT[w?.replace(/ies$/,'y')?.replace(/s$/,'')]);
+    if (chipTag && !typedHasCategory) want.add(chipTag);
 
     cards().forEach(card=>{
-      const name = ($('h3',card)?.textContent || '').toLowerCase();
+      const name = (card.querySelector('h3')?.textContent || '').toLowerCase();
       const tags = (card.dataset.tags || '').toLowerCase();
-      const textWords = words.filter(w => !CAT[w]);
-      const catOK  = !wantTags.size || Array.from(wantTags).some(tag => tags.includes(tag));
+
+      // plain words that are NOT category intents
+      const textWords = words.filter(w=>{
+        const base = w.replace(/ies$/,'y').replace(/s$/,'');
+        return !(CAT[w] || CAT[base]);
+      });
+
+      const catOK  = !want.size || Array.from(want).some(t => tags.includes(t));
       const textOK = !textWords.length || textWords.every(w => name.includes(w) || tags.includes(w));
+
       card.style.display = (catOK && textOK) ? '' : 'none';
     });
   }
 
-  if(search) search.addEventListener('input', apply);
-  chips.forEach(ch => ch.addEventListener('click', ()=>{
-    chips.forEach(c=>{ c.classList.remove('is-on'); c.setAttribute('aria-pressed','false'); });
-    ch.classList.add('is-on'); ch.setAttribute('aria-pressed','true'); apply();
+  /* ---------- 5) Wire events ----------------------------------------------- */
+  if (search) search.addEventListener('input', apply);
+
+  chips().forEach(ch => ch.addEventListener('click', ()=>{
+    chips().forEach(c=>{ c.classList.remove('is-on'); c.setAttribute('aria-pressed','false'); });
+    ch.classList.add('is-on');
+    ch.setAttribute('aria-pressed','true');
+    apply();
   }));
 
-  /* Load JSON experiences and augment grid */
-  try {
-    const raw = (document.getElementById('entertainment-data') || {}).textContent || '';
-    if(raw){
+  /* ---------- 6) Optional: augment from existing JSON (kept compatible) ---- */
+  (function augmentFromEntertainmentJSON(){
+    try{
+      const raw = (document.getElementById('entertainment-data') || {}).textContent || '';
+      if(!raw) return;
       const data = JSON.parse(raw);
+
+      const seen = new Set(cards().map(c => (c.querySelector('h3')?.textContent || '').trim().toLowerCase()));
       const add = (title,desc,tags)=>{
+        const key = String(title||'').trim().toLowerCase();
+        if (!key || seen.has(key)) return;
         const el=document.createElement('article');
         el.className='card vx';
-        el.setAttribute('data-tags',tags);
-        el.innerHTML='<h3>'+title+'</h3><p>'+desc+'</p>';
+        el.setAttribute('data-tags', String(tags||'').toLowerCase());
+        el.innerHTML='<h3>'+title+'</h3><p>'+ (desc||'') +'</p>';
         grid.appendChild(el);
+        seen.add(key);
       };
-      (data.production_shows||[]).forEach(s=> add(s.title, s.description||'Production show','experience shows'));
-      (data.guest_entertainers||[]).forEach(n=> add(n,'Rotating headliner','experience shows music'));
-      (data.interactive_events||[]).forEach(e=> add(e.name, e.description||'Interactive game','experience adults'));
-      (data.themed_parties||[]).forEach(p=> add(p.name, p.venue?('Venue: '+p.venue):'Themed party','experience music adults'));
-      (data.other_entertainment||[]).forEach(line=> add(line.split(':')[0], line,'experience'));
-    }
-  } catch(err){ console.warn('VX JSON parse failed', err); }
 
+      (data.production_shows||[]).forEach(s=> add(s.title, s.description||'Production show', 'experience shows'));
+      (data.guest_entertainers||[]).forEach(n=> add(n, 'Rotating headliners; check schedule.', 'experience shows music'));
+      (data.interactive_events||[]).forEach(e=> add(e.name, e.description||'Interactive game show', 'experience games'));
+      (data.themed_parties||[]).forEach(p=> add(p.name, (p.venue?('Venue: '+p.venue):'Themed party'), 'experience party music'));
+      (data.other_entertainment||[]).forEach(line=>{
+        const title = String(line).split(':')[0];
+        add(title, line, 'experience');
+      });
+    }catch(err){ console.warn('VX JSON parse failed', err); }
+  })();
+
+  /* ---------- 7) Initial paint --------------------------------------------- */
   apply();
 })();
 </script>
