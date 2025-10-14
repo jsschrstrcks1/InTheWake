@@ -3,47 +3,35 @@
 <head>
   <!-- ===========================================================
        In the Wake — Adventure of the Seas
-       Standards Compliance v3.007.003
+       Standards Compliance v3.007.004
        =========================================================== -->
 
   <!-- ===== Google tag (gtag.js) ===== -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-WZP891PZXJ');
   </script>
 
   <!-- ===== Absolute URL helper & same-origin normalizer ===== -->
   <script>
-  (function () {
-    const ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/, '');
-    const IS_PROD = /\.?cruisinginthewake\.com$/i.test(location.hostname);
-
-    window._abs = function (path) {
-      path = String(path || '');
-      if (!path.startsWith('/')) path = '/' + path;
-      return ORIGIN + path;
-    };
-
-    if (!IS_PROD) return;
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const sel = [
-        'a[href^="https://www.cruisinginthewake.com/"]',
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    const IS_PROD=/\.?cruisinginthewake\.com$/i.test(location.hostname);
+    window._abs=function(path){path=String(path||'');if(!path.startsWith('/'))path='/'+path;return ORIGIN+path;};
+    if(!IS_PROD)return;
+    document.addEventListener('DOMContentLoaded',function(){
+      const sel=['a[href^="https://www.cruisinginthewake.com/"]',
         'img[src^="https://www.cruisinginthewake.com/"]',
         'link[href^="https://www.cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]'
-      ].join(',');
-      document.querySelectorAll(sel).forEach(el => {
-        const attr = el.hasAttribute('href') ? 'href' : 'src';
-        try {
-          const u = new URL(el.getAttribute(attr));
-          el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
-        } catch (_) {}
+        'script[src^="https://www.cruisinginthewake.com/"]'].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
       });
-    }, { once: true });
+    },{once:true});
   })();
   </script>
 
@@ -57,9 +45,7 @@
   <!-- ===== SEO / OG / Twitter ===== -->
   <title>Adventure of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
   <meta name="description" content="Adventure of the Seas: deck plans, live tracker (auto-refresh), dining venues, stateroom videos, and real guest logbook. Plan your Royal Caribbean cruise with In the Wake."/>
-
   <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html"/>
-
   <meta property="og:type" content="article"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html"/>
@@ -68,312 +54,73 @@
   <meta property="og:image" content="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas1.jpeg?v=3.007.070"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- ===== JSON-LD Schema: Organization ===== -->
-  <script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "In the Wake",
-    "url": "https://www.cruisinginthewake.com/",
-    "logo": "https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.070",
-    "sameAs": [
-      "https://www.instagram.com/flickersofmajesty/",
-      "https://www.youtube.com/@cruisinginthewake"
-    ]
-  }</script>
+  <!-- ===== JSON-LD Schemas ===== -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"In the Wake","url":"https://www.cruisinginthewake.com/","logo":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.070","sameAs":["https://www.instagram.com/flickersofmajesty/","https://www.youtube.com/@cruisinginthewake"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://www.cruisinginthewake.com/","potentialAction":{"@type":"SearchAction","target":"https://www.cruisinginthewake.com/search.html?q={query}","query-input":"required name=query"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","name":"Adventure of the Seas Overview","author":{"@type":"Person","name":"In the Wake Editorial Team"},"reviewBody":"Adventure of the Seas captures the spirit of Voyager-class cruising with bold amenities and intimate spaces.","reviewRating":{"@type":"Rating","ratingValue":"4.5","bestRating":"5","worstRating":"1"},"itemReviewed":{"@type":"Cruise","name":"Adventure of the Seas","provider":{"@type":"Organization","name":"Royal Caribbean International","url":"https://www.royalcaribbean.com"},"url":"https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html","image":"https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas1.jpeg?v=3.007.070","description":"Voyager-class cruise ship operated by Royal Caribbean International."}}</script>
 
-  <!-- ===== JSON-LD Schema: WebSite + SearchAction ===== -->
-  <script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "In the Wake",
-    "url": "https://www.cruisinginthewake.com/",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://www.cruisinginthewake.com/search.html?q={query}",
-      "query-input": "required name=query"
-    }
-  }</script>
-
-  <!-- ===== JSON-LD Schema: Review (static overview) ===== -->
-  <script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "Review",
-    "name": "Adventure of the Seas Overview",
-    "author": { "@type": "Person", "name": "In the Wake Editorial Team" },
-    "reviewBody": "Adventure of the Seas captures the spirit of Voyager-class cruising with bold amenities and intimate spaces.",
-    "reviewRating": { "@type": "Rating", "ratingValue": "4.5", "bestRating": "5", "worstRating": "1" },
-    "itemReviewed": {
-      "@type": "Cruise",
-      "name": "Adventure of the Seas",
-      "provider": { "@type": "Organization", "name": "Royal Caribbean International", "url": "https://www.royalcaribbean.com" },
-      "url": "https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html",
-      "image": "https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas1.jpeg?v=3.007.070",
-      "description": "Voyager-class cruise ship operated by Royal Caribbean International."
-    }
-  }</script>
-
-  <!-- ===== Preconnects ===== -->
+  <!-- ===== Preconnects & Preloads ===== -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
   <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin>
   <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-
-  <!-- ===== Preloads ===== -->
   <link rel="preload" as="image" href="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas1.jpeg?v=3.007.070" fetchpriority="high"/>
   <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.070"/>
 
   <!-- ===== Analytics (Umami) ===== -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-    <!-- ===== Page micro CSS (scoped, v3.007.003 compliance) ===== -->
+  <!-- ===== Page micro CSS (scoped) ===== -->
   <style>
 /* =========================================================
-   In the Wake — Adventure page micro CSS (v3.007.003)
+   In the Wake — Adventure page micro CSS (v3.007.004)
    ========================================================= */
-
-/* A11y helpers */
-.visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.visually-hidden-focusable{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .visually-hidden-focusable:focus{position:static;left:auto;width:auto;height:auto;padding:.5rem .75rem;background:#fff;border:2px solid #0e6e8e;border-radius:8px;z-index:1000}
 .hidden{display:none!important}
-
-/* Layout + cards */
-body::before{
-  content:"";position:fixed;inset:0;
-  background:url("https://www.cruisinginthewake.com/assets/watermark.png?v=3.007.070")
-    center right/420px auto no-repeat;
-  opacity:.06;pointer-events:none;z-index:0
-}
+body::before{content:"";position:fixed;inset:0;background:url("https://www.cruisinginthewake.com/assets/watermark.png?v=3.007.070")center right/420px auto no-repeat;opacity:.06;pointer-events:none;z-index:0}
 body>*{position:relative;z-index:1}
 .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-.card{background:#fff;border:2px solid var(--rope,#d9b382);border-radius:14px;
-  padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);
-  position:relative;overflow:hidden}
+.card{background:#fff;border:2px solid var(--rope,#d9b382);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
 .grid-2{display:grid;gap:1rem;align-items:stretch}
 .grid-2>.card{display:flex;flex-direction:column}
-@media (min-width:980px){.grid-2{grid-template-columns:1fr 1fr}}
-
-/* Pills (nav/buttons) */
-.pills,.class-pills,.related-pills,.button-group{
-  display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;text-align:center
-}
-.pill-nav.pills a{
-  padding:.35rem .7rem;border-radius:10px;border:1px dashed var(--rope,#d9b382);
-  background:#fff;font-size:.9rem;color:var(--accent,#0e6e8e)
-}
+@media(min-width:980px){.grid-2{grid-template-columns:1fr 1fr}}
+.pills,.class-pills,.related-pills,.button-group{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;text-align:center}
+.pill-nav.pills a{padding:.35rem .7rem;border-radius:10px;border:1px dashed var(--rope,#d9b382);background:#fff;font-size:.9rem;color:var(--accent,#0e6e8e)}
 .pill-nav.pills a:hover{background:#f9fdfd;text-decoration:none}
-
-/* Hero */
 html,body{overflow-x:hidden}
 .hero-header .hero{width:100%;margin-left:0}
 .hero-title h1{margin:0;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700}
-.hero-credit .pill{margin-top:.25rem;font-size:.8rem}
 .hero-credit{display:flex;flex-direction:column;align-items:center;gap:.25rem;margin-top:.5rem}
-.hero-credit .pill.long{border:1px dashed var(--rope,#d9b382);padding:.25rem .75rem;border-radius:999px;background:#fff}
-
-/* Ship stats mini-card */
+.hero-credit .pill.long{border:1px dashed var(--rope,#d9b382);padding:.25rem .75rem;border-radius:999px;background:#fff;font-size:.8rem}
 .ship-stats.card.mini{margin-top:.8rem}
 .stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem .8rem;font-size:.95rem}
 .stat-line{display:flex;gap:.35rem;justify-content:space-between;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
-.stat-key{color:#355;font-weight:600}
-.stat-val{color:#024}
-
-/* Swiper & images */
+.stat-key{color:#355;font-weight:600}.stat-val{color:#024}
 .swiper.firstlook{overflow:hidden}
 .swiper.firstlook .swiper-wrapper{align-items:stretch}
 .swiper.firstlook .swiper-slide{height:auto}
 .swiper.firstlook figure{margin:0;aspect-ratio:16/9;position:relative;overflow:hidden}
 .swiper.firstlook img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
-@media (min-width:720px){.swiper.firstlook{max-height:70vh}}
-
-/* Fallback mode (no Swiper JS) */
-.swiper-fallback .swiper.firstlook .swiper-wrapper{display:flex;align-items:stretch;gap:0}
+@media(min-width:720px){.swiper.firstlook{max-height:70vh}}
+.swiper-fallback .swiper.firstlook .swiper-wrapper{display:flex;align-items:stretch}
 .swiper-fallback .swiper.firstlook .swiper-slide{flex:0 0 100%;max-width:100%}
 .swiper-fallback .swiper.firstlook img{display:block;width:100%!important;height:auto!important;object-fit:cover;border-radius:10px}
-
-/* Logbook pill */
-.pill.editor-note{
-  display:block;max-width:100%;
-  background:var(--foam,#f9fbfc);color:#062b44;
-  border:1.5px solid var(--rope,#d9b382);border-radius:999px;
-  padding:.75rem 1rem;font-size:.92rem;font-style:italic;line-height:1.5;
-  margin:.5rem auto 1rem;box-shadow:0 1px 4px rgba(8,48,65,.08)
-}
+.pill.editor-note{display:block;background:var(--foam,#f9fbfc);color:#062b44;border:1.5px solid var(--rope,#d9b382);border-radius:999px;padding:.75rem 1rem;font-size:.92rem;font-style:italic;line-height:1.5;margin:.5rem auto 1rem;box-shadow:0 1px 4px rgba(8,48,65,.08)}
 .pill.editor-note strong{font-style:normal;color:var(--ink,#0a3d62)}
-.swiper.firstlook figure{margin:0;aspect-ratio:16/9;}
-.swiper.firstlook img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;}
- 
-
-/* First Look: keep height before JS, match Grandeur */
-.swiper.firstlook{overflow:hidden}
-.swiper.firstlook .swiper-wrapper{align-items:stretch}
-.swiper.firstlook .swiper-slide{height:auto}
-.swiper.firstlook figure{margin:0;aspect-ratio:16/9;position:relative;overflow:hidden}
-.swiper.firstlook img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
-
-/* Fallback if Swiper fails to load */
-.swiper-fallback .swiper.firstlook .swiper-wrapper{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
-.swiper-fallback .swiper.firstlook .swiper-slide{flex:0 0 100%;max-width:100%;scroll-snap-align:start}
-.swiper-fallback .swiper-button-prev::after,
-.swiper-fallback .swiper-button-next::after{display:none}
-.swiper-fallback .swiper-button-prev,
-.swiper-fallback .swiper-button-next{
-  position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,64,160,.15);
-  border:2px solid #1e66ff;color:#1e66ff;padding:.4rem .55rem;border-radius:.5rem;cursor:pointer;user-select:none;z-index:7
-}
-
-/* Small a11y helper reused across pages */
-.visually-hidden-focusable{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.visually-hidden-focusable:focus{position:static;left:auto;width:auto;height:auto;padding:.5rem .75rem;background:#fff;border:2px solid #0e6e8e;border-radius:8px;z-index:1000}
 </style>
-
-<!-- === FRAME 1: hero credit fix (Flickers of Majesty) === -->
-<script>
-(function fixHeroCredit(){
-  const credit = document.querySelector('.hero-credit .pill.long');
-  if (!credit) return;
-  credit.href = 'https://www.instagram.com/flickersofmajesty/';
-  credit.textContent = 'Photo © Flickers of Majesty — Instagram';
-})();
-</script>
-
-<!-- === FRAME 1: stats loader (normalize slug/name, 3 sources, inline fallback) === -->
-<script>
-(async function loadShipStatsV3(){
-  const el = document.getElementById('ship-stats'); if(!el) return;
-  const SOURCES = [
-    (window._abs?_abs('/assets/data/fleet_index.json'):'/assets/data/fleet_index.json'),
-    (window._abs?_abs('/assets/data/fleet-index.json'):'/assets/data/fleet-index.json'),
-    (window._abs?_abs('/assets/data/fleet.json'):'/assets/data/fleet.json')
-  ];
-  async function j(u){ try{ const r=await fetch(u,{cache:'no-store'}); if(r.ok) return await r.json(); }catch(_){} return null; }
-  function norm(s){ return String(s||'').toLowerCase().replace(/’/g,"'").trim(); }
-  function* walk(n){ if(!n) return; if(Array.isArray(n)){ for(const it of n) yield* walk(it); return; }
-    if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
-  let data=null; for (const u of SOURCES){ data=await j(u); if(data) break; }
-  if(!data){
-    try{ const fb=JSON.parse(document.getElementById('ship-stats-fallback').textContent||'{}'); data={ships:[fb]}; }
-    catch(_) {}
-  }
-  if(!data){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
-
-  const targetSlug='adventure-of-the-seas', targetName=norm('Adventure of the Seas');
-  let ship=null;
-  for (const o of walk(data)){
-    const slug = norm(o && (o.slug || o.id || (o.attributes && o.attributes.slug)));
-    const nm   = norm(o && (o.name || o.title || (o.attributes && o.attributes.name)));
-    if (slug===targetSlug || nm===targetName || (nm && nm.includes('adventure of the seas'))){ ship=o; break; }
-  }
-  if(!ship){ el.innerHTML='<p class="tiny">Stats coming soon.</p>'; return; }
-  const a = ship.attributes || ship;
-  const rows = [
-    ['Class', a.class || a.ship_class || (a.notes && /voyager/i.test(a.notes) ? 'Voyager Class' : '')],
-    ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
-    ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
-    ['Guests', a.capacity || a.passengers || a.guests],
-    ['Crew', a.crew],
-    ['Length', a.length || a.length_overall],
-    ['Beam', a.beam || a.width],
-    ['Registry', a.flag || a.registry]
-  ].filter(p=>p[1]!=null && String(p[1]).trim()!=='')
-   .map(p=>'<div class="stat-line"><span class="stat-key">'+p[0]+':</span><span class="stat-val">'+p[1]+'</span></div>')
-   .join('');
-  el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
-})();
-</script>
-
-<!-- === FRAME 1: videos adapter (accepts Adventure JSON shape, strict ship filter, Swiper fallback) === -->
-<script>
-(function videosAdapterV3(){
-  const wrap = document.getElementById('featuredVideos'); if(!wrap) return;
-  const sec = wrap.closest('.card'); const cont = sec && sec.querySelector('.swiper.videos');
-  const slug='adventure-of-the-seas';
-  const urls = [
-    (window._abs?_abs('/ships/rcl/assets/videos/'+slug+'.json'):'/ships/rcl/assets/videos/'+slug+'.json'),
-    (window._abs?_abs('/videos/'+slug+'.json'):'/videos/'+slug+'.json') // optional backup
-  ];
-  function fetchFirst(arr,i){ i=i||0; if(i>=arr.length) return Promise.resolve(null);
-    return fetch(arr[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(arr,i+1)).catch(()=>fetchFirst(arr,i+1)); }
-
-  const NEG = /\b(Utopia|Icon|Wonder|Symphony|Harmony|Oasis|Quantum|Odyssey|Anthem|Spectrum|MSC|Princess|Celebrity|Divina|World America|Edge|Star of the Seas|Jubilee)\b/i;
-  const POS = [/\bAdventure of the Seas\b/i, /\bAdventure\s*OTS\b/i, /\bRCI\s*Adventure\b/i, /\bRCL\s*Adventure\b/i, /\bVoyager[-\s]?class\b/i];
-  const getId = v => v.videoId ||
-    (String(v.embed_url||'').match(/\/embed\/([A-Za-z0-9_-]{6,})/)||[])[1] ||
-    (String(v.url||'').match(/[?&]v=([A-Za-z0-9_-]{6,})/)||[])[1] || '';
-
-  function isAdventure(v){
-    if ((v.ship && (v.ship.slug||'').toLowerCase()) === slug) return true;
-    const blob = [v.title, v.description, (v.tags||[]).join(' '), v.creator, v.channel, v.ship_name].join('\n');
-    if (NEG.test(blob)) return false;
-    return POS.some(rx=>rx.test(blob));
-  }
-
-  function flatten(json){
-    // Accept both: {videos:{cat:[…]}} and the single-array variant
-    const out=[];
-    if (json && json.videos && typeof json.videos==='object'){
-      Object.keys(json.videos).forEach(cat=>{
-        const arr=json.videos[cat]; if(Array.isArray(arr)){
-          arr.forEach(v=>out.push(Object.assign({category:cat},v)));
-        }
-      });
-    } else if (json && Array.isArray(json.videos)){
-      json.videos.forEach(v=>out.push(v));
-    }
-    return out;
-  }
-
-  function maybeInitSwiper(){
-    if (window.Swiper){
-      new Swiper('.swiper.videos',{
-        loop:false,lazy:true,watchOverflow:true,
-        pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
-        navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
-        a11y:{enabled:true}
-      });
-    }else if (cont){
-      cont.classList.add('swiper-fallback');
-    }
-  }
-
-  fetchFirst(urls).then(json=>{
-    const items = flatten(json).filter(v=>{
-      const id=getId(v); if(!id) return false;
-      return isAdventure(v);
-    });
-    if (!items.length){
-      wrap.innerHTML='<div class="swiper-slide"><div class="note tiny">Videos will cast off shortly (no ship-matched items).</div></div>';
-      return maybeInitSwiper();
-    }
-    wrap.innerHTML = items.map(v=>{
-      const id = getId(v);
-      const title = String(v.title||'Video').replace(/"/g,'&quot;');
-      return '<div class="swiper-slide" data-category="'+(v.category||'')+'">'+
-               '<iframe title="'+title+'" src="https://www.youtube-nocookie.com/embed/'+id+'" '+
-               'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '+
-               'loading="lazy" allowfullscreen></iframe>'+
-             '</div>';
-    }).join('');
-    maybeInitSwiper();
-  }).catch(()=>{
-    wrap.innerHTML='<div class="swiper-slide"><div class="note tiny">Video data unreachable.</div></div>';
-    maybeInitSwiper();
-  });
-})();
-</script>
-
 <!-- === FRAME 1: robust Swiper bootstrap (DOMContentLoaded + CDN fallback) === -->
 <script>
 (function ensureSwiper(){
   function addCSS(h){const l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l);}
   function addJS(src,cb){const s=document.createElement('script');s.src=src;s.async=true;s.onload=cb;document.head.appendChild(s);}
-  const localCSS = (window._abs?_abs('/vendor/swiper/swiper-bundle.min.css?v=3.007.070'):'/vendor/swiper/swiper-bundle.min.css?v=3.007.070');
-  const localJS  = (window._abs?_abs('/vendor/swiper/swiper-bundle.min.js?v=3.007.070'):'/vendor/swiper/swiper-bundle.min.js?v=3.007.070');
+  const localCSS=(window._abs?_abs('/vendor/swiper/swiper-bundle.min.css?v=3.007.070'):'/vendor/swiper/swiper-bundle.min.css?v=3.007.070');
+  const localJS =(window._abs?_abs('/vendor/swiper/swiper-bundle.min.js?v=3.007.070'):'/vendor/swiper/swiper-bundle.min.js?v=3.007.070');
   const cdnCSS='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
   const cdnJS ='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
-
   function initFirstLook(){
-    if (!window.Swiper) return;
-    if (document.querySelector('.swiper.firstlook')){
+    if(!window.Swiper)return;
+    if(document.querySelector('.swiper.firstlook')){
       new Swiper('.swiper.firstlook',{
         loop:false,lazy:true,watchOverflow:true,
         pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
@@ -382,237 +129,227 @@ html,body{overflow-x:hidden}
       });
     }
   }
-
   addCSS(localCSS);
   document.addEventListener('DOMContentLoaded',function(){
-    addJS(localJS, initFirstLook);
+    addJS(localJS,initFirstLook);
     setTimeout(function(){
-      if(!window.Swiper){ addCSS(cdnCSS); addJS(cdnJS, initFirstLook); }
-    }, 900);
-  }, {once:true});
+      if(!window.Swiper){addCSS(cdnCSS);addJS(cdnJS,initFirstLook);}
+    },900);
+  },{once:true});
 })();
 </script>
 
-
-  <!-- ===== Site CSS (versioned global) ===== -->
-  <link rel="preload" as="style" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.070"/>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.070"/>
+<!-- ===== Site CSS (versioned global) ===== -->
+<link rel="preload" as="style" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.070"/>
+<link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.070"/>
 </head>
 
 <body class="page no-hero-filter">
-  <a class="visually-hidden-focusable" href="#content">Skip to content</a>
+<a class="visually-hidden-focusable" href="#content">Skip to content</a>
 
-  <header class="hero-header">
-    <div class="navbar">
-      <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.070" 
-             alt="In the Wake wordmark" width="200" height="40"/>
-        <span class="version-badge">v3.007.003</span>
-      </div>
-
-      <!-- Primary Navigation (pills) -->
-      <nav class="pill-nav pills" aria-label="Primary">
-        <a href="https://www.cruisinginthewake.com/index.html">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html">Cruise Lines</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines/about-us.html">About Us</a>
-      </nav>
+<header class="hero-header">
+  <div class="navbar">
+    <div class="brand">
+      <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.070"
+           alt="In the Wake wordmark" width="200" height="40"/>
+      <span class="version-badge">v3.007.004</span>
     </div>
+    <nav class="pill-nav pills" aria-label="Primary">
+      <a href="https://www.cruisinginthewake.com/index.html">Home</a>
+      <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
+      <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+      <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+      <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+      <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+      <a href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html">Cruise Lines</a>
+      <a href="https://www.cruisinginthewake.com/cruise-lines/about-us.html">About Us</a>
+    </nav>
+  </div>
 
-    <!-- ===== Hero Image Section ===== -->
-    <div class="hero" role="img" aria-label="Adventure of the Seas hero image">
-      <div class="latlon-grid" aria-hidden="true">
-        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
-          <g class="grid-lines" stroke-width="0.35">
-            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
-            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
-            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
-            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
-            <line x1="90" y1="0" x2="90" y2="60"/>
-            <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
-            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
-          </g>
-        </svg>
-      </div>
-      <img class="hero-compass"
-           src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.070"
-           alt="" width="256" height="256" aria-hidden="true"/>
-      <div class="hero-title">
-        <img class="logo"
-             src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.070"
-             alt="In the Wake" width="220" height="44"/>
-        <h1 class="tagline">A Cruise Traveler’s Logbook</h1>
-      </div>
-      <div class="hero-credit">
-        <a class="pill long" href="https://commons.wikimedia.org/wiki/Category:Adventure_of_the_Seas" 
-           target="_blank" rel="noopener">Images via Wikimedia Commons (CC BY-SA 4.0)</a>
-      </div>
+  <!-- ===== Hero Image Section ===== -->
+  <div class="hero" role="img"
+       aria-label="Adventure of the Seas sailing at sunset — header background image">
+    <div class="latlon-grid" aria-hidden="true">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+        <g class="grid-lines" stroke-width="0.35">
+          <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+          <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+          <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+          <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+          <line x1="90" y1="0" x2="90" y2="60"/>
+          <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+          <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+        </g>
+      </svg>
     </div>
-  </header>
+    <img class="hero-compass"
+         src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.070"
+         alt="" width="256" height="256" aria-hidden="true"/>
+    <div class="hero-title">
+      <img class="logo"
+           src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.070"
+           alt="In the Wake" width="220" height="44"/>
+      <h1 class="tagline">A Cruise Traveler’s Logbook</h1>
+    </div>
+    <div class="hero-credit">
+      <a class="pill long" href="https://www.instagram.com/flickersofmajesty/"
+         target="_blank" rel="noopener">Photo © Flickers of Majesty — Instagram</a>
+    </div>
+  </div>
+</header>
 
-    <main class="wrap" id="content" tabindex="-1">
-    <!-- Row 1: First Look (left) + Dining (right) -->
-    <section class="grid-2">
-      <!-- ===== First Look + Stats ===== -->
-      <section class="card" aria-labelledby="first-look">
-        <h2 id="first-look">A First Look</h2>
+<main class="wrap" id="content" tabindex="-1">
+<section class="grid-2">
 
-        <div class="swiper firstlook" aria-labelledby="first-look" aria-roledescription="carousel">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <figure>
-                <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_docked_in_Aruba_2024.jpg"
-                   target="_blank" rel="noopener">
-                  <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg?v=3.007.070"
-                       alt="Adventure of the Seas docked in Aruba (2024)"
-                       loading="eager" decoding="async" width="1920" height="1280"/>
-                </a>
-                <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
-              </figure>
-            </div>
+  <!-- ===== First Look + Stats ===== -->
+  <section class="card" aria-labelledby="first-look">
+    <h2 id="first-look">A First Look</h2>
 
-            <div class="swiper-slide">
-              <figure>
-                <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_pool_area.jpg"
-                   target="_blank" rel="noopener">
-                  <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg?v=3.007.070"
-                       alt="Adventure of the Seas — Pool Deck Area"
-                       loading="lazy" decoding="async" width="1920" height="1280"/>
-                </a>
-                <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
-              </figure>
-            </div>
-
-            <div class="swiper-slide">
-              <figure>
-                <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_seas_in_Willemstad.jpg"
-                   target="_blank" rel="noopener">
-                  <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg?v=3.007.070"
-                       alt="Adventure of the Seas — Willemstad Harbor"
-                       loading="lazy" decoding="async" width="1920" height="1280"/>
-                </a>
-                <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
-              </figure>
-            </div>
-
-            <div class="swiper-slide">
-              <figure>
-                <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas1.jpeg?v=3.007.070"
-                     alt="Adventure of the Seas underway at sea"
-                     loading="lazy" decoding="async" width="1920" height="1280"/>
-                <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
-              </figure>
-            </div>
-
-            <div class="swiper-slide">
-              <figure>
-                <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas2.jpg?v=3.007.070"
-                     alt="Adventure of the Seas — side profile view"
-                     loading="lazy" decoding="async" width="1920" height="1280"/>
-                <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
-              </figure>
-            </div>
-
-            <div class="swiper-slide">
-              <figure>
-                <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas3.jpg?v=3.007.070"
-                     alt="Adventure of the Seas — aft section view"
-                     loading="lazy" decoding="async" width="1920" height="1280"/>
-                <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
-              </figure>
-            </div>
-          </div>
-          <div class="swiper-pagination" aria-hidden="true"></div>
-          <div class="swiper-button-prev" aria-label="Previous image"></div>
-          <div class="swiper-button-next" aria-label="Next image"></div>
+    <div class="swiper firstlook" aria-labelledby="first-look" aria-roledescription="carousel">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <figure>
+            <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_docked_in_Aruba_2024.jpg"
+               target="_blank" rel="noopener">
+              <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg?v=3.007.070"
+                   alt="Adventure of the Seas docked in Aruba (2024)"
+                   loading="eager" decoding="async" width="1920" height="1280"/>
+            </a>
+            <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
+          </figure>
         </div>
 
-        <!-- ===== Ship Stats ===== -->
-        <section class="ship-stats card mini" aria-labelledby="statsHeading">
-          <h3 id="statsHeading">Adventure at a Glance</h3>
-          <div id="ship-stats" class="stats-grid" data-slug="adventure-of-the-seas"></div>
-          <script type="application/json" id="ship-stats-fallback">{
-            "slug":"adventure-of-the-seas",
-            "name":"Adventure of the Seas",
-            "class":"Voyager Class",
-            "entered_service":2001,
-            "gt":"138,193 GT",
-            "guests":"3,807 (max)",
-            "crew":"1,185",
-            "length":"311 m (1,020 ft)",
-            "beam":"48 m (157.5 ft)",
-            "registry":"Bahamas"
-          }</script>
-        </section>
-      </section>
+        <div class="swiper-slide">
+          <figure>
+            <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_Seas_pool_area.jpg"
+               target="_blank" rel="noopener">
+              <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg?v=3.007.070"
+                   alt="Adventure of the Seas — Pool Deck Area"
+                   loading="lazy" decoding="async" width="1920" height="1280"/>
+            </a>
+            <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
+          </figure>
+        </div>
 
-      <!-- ===== Dining Card ===== -->
-      <section id="dining-card" class="card" data-ship="Adventure of the Seas" aria-labelledby="diningHeading">
-        <h2 id="diningHeading">Dining Venues on Adventure of the Seas</h2>
-        <img id="dining-hero" class="card-hero"
-             src="https://upload.wikimedia.org/wikipedia/commons/1/11/Cordelia_Empress_Food_Court.jpg"
-             alt="Adventure of the Seas dining venue with ocean view"
-             loading="lazy" decoding="async" width="1600" height="900"/>
-        <ul>
-          <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/main-dining-room.html"
-                 target="_blank" rel="noopener">Main Dining Room</a> — rotating menus (Included)</li>
-          <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/windjammer.html"
-                 target="_blank" rel="noopener">Windjammer Café</a> — buffet breakfast/lunch/dinner (Included)</li>
-          <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/chops-grille.html"
-                 target="_blank" rel="noopener">Chops Grille</a> — steakhouse (Specialty)</li>
-          <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/giovannis-table.html"
-                 target="_blank" rel="noopener">Giovanni’s Table</a> — Italian family-style (Specialty)</li>
-          <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/izumi.html"
-                 target="_blank" rel="noopener">Izumi Sushi &amp; Hot Rocks</a> — Asian fusion (Specialty)</li>
-          <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/cafe-promenade.html"
-                 target="_blank" rel="noopener">Café Promenade</a> — 24 hr snacks &amp; coffee (Included)</li>
-        </ul>
-        <p class="tiny">Menu details subject to change; prices reflect last verified sailing.</p>
-        <p class="center">
-          <a class="btn" href="https://www.cruisinginthewake.com/restaurants.html"
-             target="_blank" rel="noopener">Browse Menus →</a>
-        </p>
-      </section>
-    </section>
+        <div class="swiper-slide">
+          <figure>
+            <a href="https://commons.wikimedia.org/wiki/File:Adventure_of_the_seas_in_Willemstad.jpg"
+               target="_blank" rel="noopener">
+              <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg?v=3.007.070"
+                   alt="Adventure of the Seas — Willemstad Harbor"
+                   loading="lazy" decoding="async" width="1920" height="1280"/>
+            </a>
+            <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
+          </figure>
+        </div>
 
-        <!-- ===== The Logbook (JSON-driven) ===== -->
-  <section class="card note-kens-logbook" id="logbook" aria-labelledby="logbookHeading">
-    <h2 id="logbookHeading">The Logbook — Tales From the Wake</h2>
+        <div class="swiper-slide">
+          <figure>
+            <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas1.jpeg?v=3.007.070"
+                 alt="Adventure of the Seas underway at sea"
+                 loading="lazy" decoding="async" width="1920" height="1280"/>
+            <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
+          </figure>
+        </div>
 
-    <!-- Editor’s pill mount -->
-    <div id="editorNoteMount"></div>
+        <div class="swiper-slide">
+          <figure>
+            <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas2.jpg?v=3.007.070"
+                 alt="Adventure of the Seas — side profile view"
+                 loading="lazy" decoding="async" width="1920" height="1280"/>
+            <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
+          </figure>
+        </div>
 
-    <!-- Persona stories -->
-    <div id="logbook-stories" class="prose" aria-live="polite"></div>
-
-    <!-- Port / Starboard nav -->
-    <div id="logbook-nav" class="button-group" role="group" aria-label="Logbook navigation" style="margin-top:.5rem">
-      <button type="button" class="pill" id="logbook-prev" aria-label="Previous entry">◀ Port</button>
-      <span id="logbook-pos" class="tiny" style="min-width:8ch;text-align:center"></span>
-      <button type="button" class="pill" id="logbook-next" aria-label="Next entry">Starboard ▶</button>
+        <div class="swiper-slide">
+          <figure>
+            <img src="https://www.cruisinginthewake.com/ships/rcl/images/Adventure_of_the_Seas3.jpg?v=3.007.070"
+                 alt="Adventure of the Seas — aft section view"
+                 loading="lazy" decoding="async" width="1920" height="1280"/>
+            <figcaption class="tiny">© Wikimedia Commons (CC BY-SA 4.0)</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="swiper-pagination" aria-hidden="true"></div>
+      <div class="swiper-button-prev" aria-label="Previous image"></div>
+      <div class="swiper-button-next" aria-label="Next image"></div>
     </div>
+
+    <!-- ===== Ship Stats ===== -->
+    <section class="ship-stats card mini" aria-labelledby="statsHeading">
+      <h3 id="statsHeading">Adventure at a Glance</h3>
+      <div id="ship-stats" class="stats-grid" data-slug="adventure-of-the-seas"></div>
+      <script type="application/json" id="ship-stats-fallback">{
+        "slug":"adventure-of-the-seas",
+        "name":"Adventure of the Seas",
+        "class":"Voyager Class",
+        "entered_service":2001,
+        "gt":"138,193 GT",
+        "guests":"3,807 (max)",
+        "crew":"1,185",
+        "length":"311 m (1,020 ft)",
+        "beam":"48 m (157.5 ft)",
+        "registry":"Bahamas"
+      }</script>
+    </section>
   </section>
 
- <!-- === FRAME 2: Logbook Renderer v3.007.071 === -->
+    <!-- ===== Dining Card ===== -->
+  <section id="dining-card" class="card" data-ship="Adventure of the Seas" aria-labelledby="diningHeading">
+    <h2 id="diningHeading">Dining Venues on Adventure of the Seas</h2>
+    <img id="dining-hero" class="card-hero"
+         src="https://upload.wikimedia.org/wikipedia/commons/1/11/Cordelia_Empress_Food_Court.jpg"
+         alt="Adventure of the Seas dining venue with ocean view"
+         loading="lazy" decoding="async" width="1600" height="900"/>
+    <ul>
+      <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/main-dining-room.html"
+             target="_blank" rel="noopener">Main Dining Room</a> — rotating menus (Included)</li>
+      <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/windjammer.html"
+             target="_blank" rel="noopener">Windjammer Café</a> — buffet breakfast/lunch/dinner (Included)</li>
+      <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/chops-grille.html"
+             target="_blank" rel="noopener">Chops Grille</a> — steakhouse (Specialty)</li>
+      <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/giovannis-table.html"
+             target="_blank" rel="noopener">Giovanni’s Table</a> — Italian family-style (Specialty)</li>
+      <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/izumi.html"
+             target="_blank" rel="noopener">Izumi Sushi &amp; Hot Rocks</a> — Asian fusion (Specialty)</li>
+      <li><a class="btn" href="https://www.cruisinginthewake.com/restaurants/rcl/cafe-promenade.html"
+             target="_blank" rel="noopener">Café Promenade</a> — 24 hr snacks &amp; coffee (Included)</li>
+    </ul>
+    <p class="tiny">Menu details subject to change; prices reflect last verified sailing.</p>
+    <p class="center">
+      <a class="btn" href="https://www.cruisinginthewake.com/restaurants.html"
+         target="_blank" rel="noopener">Browse Menus →</a>
+    </p>
+  </section>
+</section> <!-- end grid-2 (first look + dining) -->
+
+<!-- ===== The Logbook (JSON-driven) ===== -->
+<section class="card note-kens-logbook" id="logbook" aria-labelledby="logbookHeading">
+  <h2 id="logbookHeading">The Logbook — Tales From the Wake</h2>
+  <div id="editorNoteMount"></div>
+  <div id="logbook-stories" class="prose" aria-live="polite"></div>
+  <div id="logbook-nav" class="button-group" role="group" aria-label="Logbook navigation" style="margin-top:.5rem">
+    <button type="button" class="pill" id="logbook-prev" aria-label="Previous entry">◀ Port</button>
+    <span id="logbook-pos" class="tiny" style="min-width:8ch;text-align:center"></span>
+    <button type="button" class="pill" id="logbook-next" aria-label="Next entry">Starboard ▶</button>
+  </div>
+</section>
+
+<!-- === FRAME 2: Logbook Renderer v3.007.004 === -->
 <script>
 (function LogbookV3(){
-  const MOUNT = document.getElementById('logbook-stories');
-  const NOTE  = document.getElementById('editorNoteMount');
-  const POS   = document.getElementById('logbook-pos');
-  const PREV  = document.getElementById('logbook-prev');
-  const NEXT  = document.getElementById('logbook-next');
-  if(!MOUNT) return;
-
+  const MOUNT=document.getElementById('logbook-stories');
+  const NOTE=document.getElementById('editorNoteMount');
+  const POS=document.getElementById('logbook-pos');
+  const PREV=document.getElementById('logbook-prev');
+  const NEXT=document.getElementById('logbook-next');
+  if(!MOUNT)return;
   const slug='adventure-of-the-seas';
   const SRC=(window._abs?_abs('/ships/rcl/assets/'+slug+'.json'):'/ships/rcl/assets/'+slug+'.json');
   const state={i:0,entries:[],idIndex:{}};
 
-  const fuelCardHTML =
+  const fuelCardHTML=
     '<div class="voyage-tips-wrapper" style="margin:1rem 0 0">'+
       '<div class="card voyage-tips" aria-label="Voyage planning tips">'+
         '<h2 class="card-title">Fuel Your Voyage</h2>'+
@@ -634,7 +371,7 @@ html,body{overflow-x:hidden}
     '</div>';
 
   function mdToHtml(md){
-    if(!md) return '';
+    if(!md)return '';
     let h=String(md).trim();
     h=h.replace(/^###### (.+)$/gm,'<h6>$1</h6>')
        .replace(/^##### (.+)$/gm,'<h5>$1</h5>')
@@ -655,8 +392,7 @@ html,body{overflow-x:hidden}
     const phr=n>0?
       'I have stood watch for '+n+' night'+(n===1?'':'s')+' aboard <em>'+ship+'</em>.' :
       'Though I have not yet sailed aboard <em>'+ship+'</em>, these reflections draw from our editorial network and aggregated traveler soundings.';
-    const text=phr+
-      ' Each entry has been trimmed, tested, and edited to the same high standards — depth soundings taken in our shared wake, offered here to help smooth the waters ahead of your own sailing.';
+    const text=phr+' Each entry has been trimmed, tested, and edited to the same high standards — depth soundings taken in our shared wake, offered here to help smooth the waters ahead of your own sailing.';
     NOTE.innerHTML='<div class="pill editor-note" role="note">'+text+'</div>';
   }
 
@@ -684,9 +420,10 @@ html,body{overflow-x:hidden}
   fetch(SRC,{cache:'no-store'}).then(r=>r.json()).then(json=>{
     renderEditorNote(json);
     const arr=[];
-    if(Array.isArray(json.authored_entries)) arr.push(...json.authored_entries);
-    if(Array.isArray(json.personas)) arr.push(...json.personas);
-    state.entries=arr; state.idIndex=Object.fromEntries(arr.map((p,i)=>[p.id,i]));
+    if(Array.isArray(json.authored_entries))arr.push(...json.authored_entries);
+    if(Array.isArray(json.personas))arr.push(...json.personas);
+    state.entries=arr;
+    state.idIndex=Object.fromEntries(arr.map((p,i)=>[p.id,i]));
     go(state.idIndex['p0-ken']!=null?state.idIndex['p0-ken']:0);
     PREV.onclick=()=>go(state.i-1);
     NEXT.onclick=()=>go(state.i+1);
@@ -697,125 +434,109 @@ html,body{overflow-x:hidden}
 })();
 </script>
 
-  <!-- ===== Videos Swiper ===== -->
-  <section class="card" aria-labelledby="video-highlights">
-    <h2 id="video-highlights">Watch: Adventure Highlights</h2>
-    <p class="small">Swipe through ship walkthroughs, tours, and stateroom videos.</p>
-    <div class="swiper videos" aria-label="Featured video carousel">
-      <div class="swiper-wrapper" id="featuredVideos"></div>
-      <div class="swiper-pagination" aria-hidden="true"></div>
-      <div class="swiper-button-prev" aria-label="Previous slide"></div>
-      <div class="swiper-button-next" aria-label="Next slide"></div>
-    </div>
-    <script type="application/json" id="videos-data">{
-      "videos":[]
-    }</script>
-  </section>
+<!-- ===== Videos Swiper ===== -->
+<section class="card" aria-labelledby="video-highlights">
+  <h2 id="video-highlights">Watch: Adventure Highlights</h2>
+  <p class="small">Swipe through ship walkthroughs, tours, and stateroom videos.</p>
+  <div class="swiper videos" aria-label="Featured video carousel">
+    <div class="swiper-wrapper" id="featuredVideos"></div>
+    <div class="swiper-pagination" aria-hidden="true"></div>
+    <div class="swiper-button-prev" aria-label="Previous slide"></div>
+    <div class="swiper-button-next" aria-label="Next slide"></div>
+  </div>
+  <script type="application/json" id="videos-data">{"videos":[]}</script>
+</section>
 
   <!-- ===== Deck Plans + Live Tracker ===== -->
-  <section class="grid-2">
-    <section class="card" aria-labelledby="deck-plans">
-       <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
-       <p class="small">Your compass to Adventure — decks, waypoints, and sea-day strategy.</p>
-       <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/adventure-of-the-seas/deck-plans"
-             target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
-       <figure>
-         <img src="https://www.cruisinginthewake.com/assets/ship-map.png?v=3.007.070"
-             alt="Adventure of the Seas deck plan preview"
-             loading="lazy" decoding="async" width="1200" height="675"/>
-         <figcaption class="tiny">Preview only — open official deck plans for details.</figcaption>
-       </figure>
-    </section>
-
-    <section class="card itinerary" aria-labelledby="liveTrackHeading"
-             data-imo="9167227" data-name="ADVENTURE-OF-THE-SEAS">
-       <h2 id="liveTrackHeading">Where Is Adventure Right Now?</h2>
-       <p>See the ship’s current position and next port on a live tracker.</p>
-       <div id="vf-map-adventure" class="vf-map" role="region"
-           aria-label="Live ship map for Adventure of the Seas"></div>
-       <iframe class="live-map hidden" title="Live ship tracker for Adventure of the Seas"
-           width="100%" height="300" loading="lazy" allowfullscreen></iframe>
-       <p class="tiny">If the live widget stalls, it falls back to an iframe centered on the ship.</p>
-    </section>
+<section class="grid-2">
+  <section class="card" aria-labelledby="deck-plans">
+    <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
+    <p class="small">Your compass to Adventure — decks, waypoints, and sea-day strategy.</p>
+    <p><a class="btn"
+          href="https://www.royalcaribbean.com/cruise-ships/adventure-of-the-seas/deck-plans"
+          target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+    <figure>
+      <img src="https://www.cruisinginthewake.com/assets/ship-map.png?v=3.007.070"
+           alt="Adventure of the Seas deck plan preview"
+           loading="lazy" decoding="async" width="1200" height="675"/>
+      <figcaption class="tiny">Preview only — open official deck plans for details.</figcaption>
+    </figure>
   </section>
 
-          <!-- ===== Related Sections ===== -->
-    <section class="related-row">
-      <section class="card carousel related-ships" aria-labelledby="related-ships">
-        <h2 id="related-ships" class="card-title">Voyager Class — Sister Ships</h2>
-        <nav class="pill-nav pills related-pills" aria-label="Voyager-class ships">
-          <a class="pill" href="https://www.cruisinginthewake.com/ships/rcl/voyager-of-the-seas.html">Voyager of the Seas</a>
-          <a class="pill" href="https://www.cruisinginthewake.com/ships/rcl/explorer-of-the-seas.html">Explorer of the Seas</a>
-          <a class="pill" href="https://www.cruisinginthewake.com/ships/rcl/mariner-of-the-seas.html">Mariner of the Seas</a>
-          <a class="pill" href="https://www.cruisinginthewake.com/ships/rcl/navigator-of-the-seas.html">Navigator of the Seas</a>
-        </nav>
-        <p class="center"><a href="https://www.cruisinginthewake.com/ships/ships.html" class="btn">See All Ships</a></p>
-      </section>
+  <section class="card itinerary" aria-labelledby="liveTrackHeading"
+           data-imo="9167227" data-name="ADVENTURE-OF-THE-SEAS">
+    <h2 id="liveTrackHeading">Where Is Adventure Right Now?</h2>
+    <p>See the ship’s current position and next port on a live tracker.</p>
+    <div id="vf-map-adventure" class="vf-map" role="region"
+         aria-label="Live ship map for Adventure of the Seas"></div>
+    <iframe class="live-map hidden"
+            title="Live ship tracker for Adventure of the Seas"
+            width="100%" height="300" loading="lazy" allowfullscreen></iframe>
+    <p class="tiny">If the live widget stalls, it falls back to an iframe centered on the ship.</p>
+  </section>
+</section>
 
-      <section class="card carousel related-classes" aria-labelledby="related-classes">
-        <h2 id="related-classes" class="card-title">Explore Royal Caribbean Classes</h2>
-        <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
-        <nav class="pill-nav pills class-pills" aria-label="Royal Caribbean classes">
-          <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
-          <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
-          <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
-          <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
-          <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
-          <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
-          <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#vision">Vision Class</a>
-        </nav>
-        <p class="center"><a href="https://www.cruisinginthewake.com/ships/ships.html" class="btn">Browse All Ships</a></p>
-      </section>
-    </section>
+<!-- ===== Related Sections ===== -->
+<section class="related-row">
+  <section class="card carousel related-ships" aria-labelledby="related-ships">
+    <h2 id="related-ships" class="card-title">Voyager Class — Sister Ships</h2>
+    <nav class="pill-nav pills related-pills" aria-label="Voyager-class ships">
+      <a class="pill" href="https://www.cruisinginthewake.com/ships/rcl/voyager-of-the-seas.html">Voyager of the Seas</a>
+      <a class="pill" href="https://www.cruisinginthewake.com/ships/rcl/explorer-of-the-seas.html">Explorer of the Seas</a>
+      <a class="pill" href="https://www.cruisinginthewake.com/ships/rcl/mariner-of-the-seas.html">Mariner of the Seas</a>
+      <a class="pill" href="https://www.cruisinginthewake.com/ships/rcl/navigator-of-the-seas.html">Navigator of the Seas</a>
+    </nav>
+    <p class="center"><a href="https://www.cruisinginthewake.com/ships/ships.html" class="btn">See All Ships</a></p>
+  </section>
 
-    <!-- ===== Venues, Experiences & Shows ===== -->
-    <section class="card" id="venues-experiences">
-      <h2>Venues, Experiences &amp; Shows</h2>
-      <div class="filters" style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;margin:.5rem 0 1rem">
-        <input id="vx-search" type="search" placeholder="Search…" aria-label="Search venues and experiences"
-               style="flex:1;min-width:240px;padding:.6rem .8rem;border:1px solid var(--rope);border-radius:999px"/>
-        <div class="chips pill-nav pills" role="group" aria-label="Category filters">
-          <button class="chip is-on" data-filter="all" aria-pressed="true">All</button>
-          <button class="chip" data-filter="included">Included</button>
-          <button class="chip" data-filter="specialty">Specialty</button>
-          <button class="chip" data-filter="coffee">Coffee</button>
-          <button class="chip" data-filter="bar">Bar</button>
-          <button class="chip" data-filter="shows">Shows</button>
-          <button class="chip" data-filter="experience">Experiences &amp; Activities</button>
-          <button class="chip" data-filter="music">Live Music</button>
-          <button class="chip" data-filter="spa">Spa &amp; Fitness</button>
-          <button class="chip" data-filter="kids">Kids &amp; Teens</button>
-          <button class="chip" data-filter="adults">Adults-Only</button>
-        </div>
-      </div>
+  <section class="card carousel related-classes" aria-labelledby="related-classes">
+    <h2 id="related-classes" class="card-title">Explore Royal Caribbean Classes</h2>
+    <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
+    <nav class="pill-nav pills class-pills" aria-label="Royal Caribbean classes">
+      <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
+      <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
+      <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
+      <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
+      <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
+      <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
+      <a class="pill" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html#vision">Vision Class</a>
+    </nav>
+    <p class="center"><a href="https://www.cruisinginthewake.com/ships/ships.html" class="btn">Browse All Ships</a></p>
+  </section>
+</section>
 
-      <div class="grid-2" id="vx-grid">
-        <!-- Sample static bars -->
-        <article class="card vx" data-tags="bar">
-          <h3>Schooner Bar</h3>
-          <p>Nautical-themed piano bar with sing-alongs and cocktails like the Schooner Smash.</p>
-        </article>
-        <article class="card vx" data-tags="bar">
-          <h3>Boleros</h3>
-          <p>Latin-inspired lounge with mojitos, salsa bands and rum specialties.</p>
-        </article>
-        <article class="card vx" data-tags="experience show">
-          <h3>Ice Show — Cool Art | Hot Ice</h3>
-          <p>Signature onboard ice-skating spectacular in Studio B Arena.</p>
-        </article>
-      </div>
+<!-- ===== Venues, Experiences & Shows ===== -->
+<section class="card" id="venues-experiences">
+  <h2>Venues, Experiences &amp; Shows</h2>
+  <div class="filters" style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;margin:.5rem 0 1rem">
+    <input id="vx-search" type="search" placeholder="Search…" aria-label="Search venues and experiences"
+           style="flex:1;min-width:240px;padding:.6rem .8rem;border:1px solid var(--rope);border-radius:999px"/>
+    <div class="chips pill-nav pills" role="group" aria-label="Category filters">
+      <button class="chip is-on" data-filter="all" aria-pressed="true">All</button>
+      <button class="chip" data-filter="included">Included</button>
+      <button class="chip" data-filter="specialty">Specialty</button>
+      <button class="chip" data-filter="coffee">Coffee</button>
+      <button class="chip" data-filter="bar">Bar</button>
+      <button class="chip" data-filter="shows">Shows</button>
+      <button class="chip" data-filter="experience">Experiences &amp; Activities</button>
+      <button class="chip" data-filter="music">Live Music</button>
+      <button class="chip" data-filter="spa">Spa &amp; Fitness</button>
+      <button class="chip" data-filter="kids">Kids &amp; Teens</button>
+      <button class="chip" data-filter="adults">Adults-Only</button>
+    </div>
+  </div>
 
-      <p class="tiny">Lineups change by sailing; check the Royal app for your dates.</p>
-    </section>
-<!-- === FRAME 3: Venues + Experiences Dynamic Loader v3.007.071 === -->
+  <div class="grid-2" id="vx-grid"></div>
+  <p class="tiny">Lineups change by sailing; check the Royal app for your dates.</p>
+</section>
+
+<!-- === FRAME 3: Venues + Experiences Dynamic Loader v3.007.004 === -->
 <script>
 (function VXV3(){
   const grid=document.getElementById('vx-grid');
   const search=document.getElementById('vx-search');
   const chips=document.querySelectorAll('#venues-experiences .chip');
   if(!grid)return;
-
-  /* === Config === */
   const SRC=[
     (window._abs?_abs('/assets/data/rc-restaurants.json'):'/assets/data/rc-restaurants.json'),
     (window._abs?_abs('/assets/data/venues.json'):'/assets/data/venues.json'),
@@ -823,23 +544,16 @@ html,body{overflow-x:hidden}
   ];
   const CACHE={};
   const slug='adventure-of-the-seas';
-
-  /* === Helpers === */
   function norm(s){return String(s||'').toLowerCase();}
   function words(s){return norm(s).split(/[\s,;:/&]+/g);}
-  function hasTag(v,t){const tags=(v.tags||v.type||'').toString().toLowerCase();return tags.includes(t);}
   function j(u){return fetch(u,{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);}
   function buildCard(v){
     const name=v.name||v.title||'Unnamed Venue';
     const desc=v.description||v.blurb||'';
     const taglist=(v.tags||v.type||'').toString();
     const href=v.url||v.href||'';
-    let btn='';
-    if(href)btn='<a class="btn" href="'+href+'" target="_blank" rel="noopener">Details →</a>';
-    return '<article class="card vx" data-tags="'+taglist+'"><h3>'+name+'</h3><p>'+desc+'</p>'+btn+'</article>';
+    return '<article class="card vx" data-tags="'+taglist+'"><h3>'+name+'</h3><p>'+desc+'</p>'+(href?'<a class="btn" href="'+href+'" target="_blank" rel="noopener">Details →</a>':'')+'</article>';
   }
-
-  /* === Populate === */
   async function populate(){
     const arrs=await Promise.all(SRC.map(u=>CACHE[u]||j(u)));
     const merged=[];
@@ -848,16 +562,13 @@ html,body{overflow-x:hidden}
       const vals=Array.isArray(js)?js:(js.items||js.venues||js.data||[]);
       vals.forEach(v=>{
         if(!v)return;
-        if(v.ship && v.ship!=='all' && norm(v.ship)!==slug) return;
+        if(v.ship&&v.ship!=='all'&&norm(v.ship)!==slug)return;
         merged.push(v);
       });
     });
     if(!merged.length){grid.insertAdjacentHTML('beforeend','<p class="tiny">Venues data unavailable.</p>');return;}
-    const html=merged.map(buildCard).join('');
-    grid.insertAdjacentHTML('beforeend',html);
+    grid.insertAdjacentHTML('beforeend',merged.map(buildCard).join(''));
   }
-
-  /* === Filter & Search === */
   function filterView(){
     const q=norm(search.value||'');
     const active=document.querySelector('#venues-experiences .chip.is-on');
@@ -867,7 +578,7 @@ html,body{overflow-x:hidden}
       const tags=norm(c.dataset.tags||'');
       const text=norm(c.textContent||'');
       let show=true;
-      if(tag && !tags.includes(tag))show=false;
+      if(tag&&!tags.includes(tag))show=false;
       if(q){
         const w=words(q);
         show=w.some(word=>{
@@ -879,161 +590,157 @@ html,body{overflow-x:hidden}
       c.style.display=show?'block':'none';
     });
   }
-
-  /* === Chip behavior === */
-  chips.forEach(ch=>{
-    ch.addEventListener('click',()=>{
-      chips.forEach(c=>c.classList.remove('is-on'));
-      ch.classList.add('is-on');
-      filterView();
-    });
-  });
-
+  chips.forEach(ch=>ch.addEventListener('click',()=>{chips.forEach(c=>c.classList.remove('is-on'));ch.classList.add('is-on');filterView();}));
   search.addEventListener('input',filterView);
-
-  /* === Run === */
   populate().then(()=>filterView());
 })();
 </script>
-    <!-- ===== Image Attributions ===== -->
-    <section class="card attributions" aria-labelledby="attribs">
-      <h2 id="attribs">Image Attributions</h2>
-      <ul>
-        <li>Ship images: © <a href="https://commons.wikimedia.org/wiki/Category:Adventure_of_the_Seas"
-          target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0).</li>
-        <li>Dining hero (<em>Cordelia Empress Food Court</em>): © Wikimedia Commons (CC BY-SA 4.0).</li>
-        <li>Header &amp; wordmark: © In the Wake.</li>
-      </ul>
-      <p class="tiny">All rights reserved where applicable.</p>
-    </section>
-  </main>
 
-  <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
+<!-- ===== Image Attributions ===== -->
+<section class="card attributions" aria-labelledby="attribs">
+  <h2 id="attribs">Image Attributions</h2>
+  <ul>
+    <li>Ship images: © <a href="https://commons.wikimedia.org/wiki/Category:Adventure_of_the_Seas" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0).</li>
+    <li>Dining hero (<em>Cordelia Empress Food Court</em>): © Wikimedia Commons (CC BY-SA 4.0).</li>
+    <li>Header &amp; wordmark: © In the Wake / Photo © Flickers of Majesty (All Rights Reserved).</li>
+  </ul>
+  <p class="tiny">All rights reserved where applicable.</p>
+</section>
+</main>
 
-  <!-- Accessibility commitment -->
-  <script type="text/javascript"
-    src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js"
-    data-acc-accid="774c13e29978"
-    data-acc-host="delivery.consentmanager.net"
-    data-acc-cdn="cdn.consentmanager.net"></script>
+<footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 
-  <!-- Swiper loader with fallback -->
-  <script>
-  (function ensureSwiper(){
-    function addCSS(h){const l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l);}
-    function addJS(src,cb){const s=document.createElement('script');s.src=src;s.async=true;s.onload=cb;document.head.appendChild(s);}
-    const localCSS=_abs('/vendor/swiper/swiper-bundle.min.css?v=3.007.070');
-    const localJS=_abs('/vendor/swiper/swiper-bundle.min.js?v=3.007.070');
-    const cdnCSS='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
-    const cdnJS='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
-    addCSS(localCSS);addJS(localJS,()=>new Swiper('.swiper.firstlook',{pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}}));
-    setTimeout(()=>{if(!window.Swiper){addCSS(cdnCSS);addJS(cdnJS);}},2500);
-  })();
-  </script>
+<!-- Accessibility commitment -->
+<script type="text/javascript"
+  src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js"
+  data-acc-accid="774c13e29978"
+  data-acc-host="delivery.consentmanager.net"
+  data-acc-cdn="cdn.consentmanager.net"></script>
+  <!-- === FRAME 4: Hybrid VesselFinder Loader === -->
+<script>
+(function initHybridVesselFinder(){
+  const wrap = document.querySelector('.card.itinerary[data-imo]');
+  if(!wrap) return;
+  const imo = wrap.getAttribute('data-imo');
+  const mapEl = document.getElementById('vf-map-adventure');
+  const iFr = wrap.querySelector('iframe.live-map');
 
-  <!-- Hybrid VesselFinder -->
-  <script>
-  (function initHybridVesselFinder(){
-    const wrap=document.querySelector('.card.itinerary[data-imo]');if(!wrap)return;
-    const imo=wrap.getAttribute('data-imo');const mapEl=document.getElementById('vf-map-adventure');
-    const iFr=wrap.querySelector('iframe.live-map');
-    function useIframe(){if(!iFr)return;iFr.src='https://www.vesselfinder.com/vessels/details/'+imo;iFr.classList.remove('hidden');mapEl.style.display='none';}
-    const s=document.createElement('script');s.src='https://www.vesselfinder.com/aismap.js';s.async=true;
-    const stall=setTimeout(useIframe,4000);
-    s.onload=function(){try{clearTimeout(stall);if(window.AISMap&&mapEl){new AISMap(mapEl,{width:"100%",height:300,zoom:8,names:true,show_track:1,track_days:1,vessel:"IMO:"+imo});}
-      else useIframe();}catch(e){useIframe();}};
-    s.onerror=function(){clearTimeout(stall);useIframe();};document.head.appendChild(s);
-  })();
-  </script>
+  function useIframe(){
+    if(!iFr)return;
+    iFr.src = 'https://www.vesselfinder.com/vessels/details/'+imo;
+    iFr.classList.remove('hidden');
+    if(mapEl) mapEl.style.display = 'none';
+  }
 
-  <!-- Service Worker -->
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',function(){
-      navigator.serviceWorker.register('/sw.js?v=3.007.070')
-        .catch(e=>console.warn('SW registration failed',e));
+  const s = document.createElement('script');
+  s.src = 'https://www.vesselfinder.com/aismap.js';
+  s.async = true;
+
+  const stall = setTimeout(useIframe, 4000);
+  s.onload = function(){
+    try{
+      clearTimeout(stall);
+      if(window.AISMap && mapEl){
+        new AISMap(mapEl,{
+          width:"100%",height:300,zoom:8,names:true,
+          show_track:1,track_days:1,vessel:"IMO:"+imo
+        });
+      }else useIframe();
+    }catch(e){useIframe();}
+  };
+  s.onerror = function(){clearTimeout(stall);useIframe();};
+  document.head.appendChild(s);
+})();
+</script>
+
+<!-- === FRAME 5: Service Worker Registration === -->
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js?v=3.007.070')
+      .catch(e=>console.warn('SW registration failed',e));
+  });
+}
+</script>
+
+<!-- === FRAME 6: External Link Safety === -->
+<script>
+(function externalLinksNewTab(){
+  const here = location.hostname.replace(/^www\./,'');
+  function upgrade(){
+    document.querySelectorAll('a[href]').forEach(a=>{
+      const h = a.getAttribute('href')||'';
+      if(/^(#|mailto:|tel:)/i.test(h)) return;
+      try{
+        const u = new URL(h,location.href);
+        const host = u.hostname.replace(/^www\./,'');
+        if(host !== here){ a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+      }catch(_){}
     });
   }
-  </script>
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded',upgrade,{once:true});
+  }else upgrade();
+})();
+</script>
 
-  <!-- External links safety -->
-  <script>
-  (function externalLinksNewTab(){
-    const here=location.hostname.replace(/^www\./,'');
-    function upgrade(){
-      document.querySelectorAll('a[href]').forEach(a=>{
-        const h=a.getAttribute('href')||'';
-        if(/^(#|mailto:|tel:)/i.test(h))return;
-        try{
-          const u=new URL(h,location.href);
-          const host=u.hostname.replace(/^www\./,'');
-          if(host!==here){a.target='_blank';a.rel='noopener noreferrer';}
-        }catch(_){}
-      });
-    }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}
-    else upgrade();
-  })();
-  </script>
-  <!-- === FRAME 4: Attribution Manager v3.007.071 === -->
+<!-- === FRAME 7: Attribution Manager v3.007.004 === -->
 <script>
 (function AttributionManagerV3(){
-  const section=document.querySelector('.card.attributions');
-  if(!section)return;
+  const section = document.querySelector('.card.attributions');
+  if(!section) return;
 
-  /* === 1. Preserve existing attributions exactly === */
-  const list=section.querySelector('ul');
-  const existingHTML=list?list.innerHTML:'';
-  const existingLines=new Set();
+  // 1. Preserve existing entries
+  const list = section.querySelector('ul');
+  const existingHTML = list?list.innerHTML:'';
+  const existingLines = new Set();
   existingHTML.split('</li>').forEach(li=>{
-    const txt=li.replace(/<[^>]+>/g,'').trim();
+    const txt = li.replace(/<[^>]+>/g,'').trim();
     if(txt)existingLines.add(txt);
   });
 
-  /* === 2. Collect new image sources === */
-  const imgs=document.querySelectorAll('.swiper.firstlook img, #dining-hero');
-  const newItems=[];
+  // 2. Detect new images
+  const imgs = document.querySelectorAll('.swiper.firstlook img, #dining-hero');
+  const newItems = [];
   imgs.forEach(img=>{
-    const src=img.getAttribute('src')||'';
-    const alt=img.getAttribute('alt')||'';
+    const src = img.getAttribute('src') || '';
+    const alt = img.getAttribute('alt') || '';
     if(!src)return;
-    const wikiMatch=/commons\.wikimedia\.org.*File:([^?]+)/i.exec(src);
-    const localMatch=/\/ships\/rcl\/images\/([^/]+)$/i.exec(src);
-    let author='Unknown';
-    let license='Wikimedia Commons (license on file page)';
-    let title=alt||localMatch&&decodeURIComponent(localMatch[1])||'Image';
+    let author = 'Unknown';
+    let license = 'Wikimedia Commons (license on file page)';
+    let title = alt || (src.split('/').pop());
     if(/flickersofmajesty/i.test(src)||/flickersofmajesty/i.test(alt)){
-      author='Flickers of Majesty';
-      license='Used with permission (All Rights Reserved)';
-    } else if(wikiMatch){
-      author='Wikimedia Commons contributor';
-      license='CC BY-SA 4.0 (per file page)';
+      author = 'Flickers of Majesty';
+      license = 'Used with permission (All Rights Reserved)';
+    }else if(/wikimedia/i.test(src)){
+      author = 'Wikimedia Commons contributor';
+      license = 'CC BY-SA 4.0 (per file page)';
     }
-    const line=title+' — © '+author+' ('+license+')';
-    if(!Array.from(existingLines).some(x=>x.includes(title)||x.includes(author)))newItems.push(line);
+    const line = title+' — © '+author+' ('+license+')';
+    if(!Array.from(existingLines).some(x=>x.includes(title)||x.includes(author)))
+      newItems.push(line);
   });
 
-  /* === 3. Update or create list === */
+  // 3. Add any new entries
   if(newItems.length){
-    const ul=list||document.createElement('ul');
+    const ul = list || document.createElement('ul');
     newItems.forEach(t=>{
-      const li=document.createElement('li');
-      li.innerHTML=t.replace(/ /g,' '); // normalize spaces
+      const li = document.createElement('li');
+      li.textContent = t;
       ul.appendChild(li);
     });
     if(!list)section.appendChild(ul);
   }
 
-  /* === 4. Audit footer note === */
+  // 4. Ensure footer note
   if(!section.querySelector('.tiny')){
-    const p=document.createElement('p');
-    p.className='tiny';
-    p.textContent='All rights reserved where applicable.';
+    const p = document.createElement('p');
+    p.className = 'tiny';
+    p.textContent = 'All rights reserved where applicable.';
     section.appendChild(p);
   }
 
-  /* === 5. Log summary (for console QA only) === */
-  console.info('%cAttribution Manager','color:#0a3d62;font-weight:bold');
+  console.info('%cAttribution Manager v3.007.004','color:#0a3d62;font-weight:bold');
   console.table({existing:existingLines.size,added:newItems.length,total:(existingLines.size+newItems.length)});
 })();
 </script>
