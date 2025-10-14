@@ -41,12 +41,12 @@
     gtag('config', 'G-WZP891PZXJ');
   </script>
 
-  <!-- ===== Critical meta (v3.007.011) ===== -->
+  <!-- ===== Critical meta (v3.007.012) ===== -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer"/>
   <meta name="robots" content="index, follow"/>
-  <meta name="version" content="3.007.011"/>
+  <meta name="version" content="3.007.012"/>
 
   <title>Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
   <meta name="description" content="Grandeur of the Seas: deck plans, live tracker (auto-refresh), dining venues, stateroom videos, and real guest logbook. Plan your Royal Caribbean cruise with In the Wake."/>
@@ -60,14 +60,14 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
   <meta property="og:title" content="Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos"/>
   <meta property="og:description" content="All the essentials for Grandeur of the Seas: live map (auto-refresh), dining, stats, and videos."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.011"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.012"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Organization -->
   <script type="application/ld+json">{
     "@context":"https://schema.org","@type":"Organization",
     "name":"In the Wake","url":"https://www.cruisinginthewake.com/",
-    "logo":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.011",
+    "logo":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.012",
     "sameAs":["https://www.instagram.com/flickersofmajesty/","https://www.youtube.com/@cruisinginthewake"]
   }</script>
 
@@ -100,21 +100,21 @@
     "itemReviewed":{"@type":"Cruise","name":"Grandeur of the Seas",
       "provider":{"@type":"Organization","name":"Royal Caribbean International","url":"https://www.royalcaribbean.com"},
       "url":"https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html",
-      "image":"https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.011",
+      "image":"https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.012",
       "description":"Vision-class cruise operated by Royal Caribbean International."}}
   }</script>
 
   <!-- ===== Preload key art ===== -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.011" fetchpriority="high"/>
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.011"/>
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.012" fetchpriority="high"/>
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.012"/>
 
   <!-- ===== Analytics (Umami) ===== -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- ===== Page micro CSS (scoped, v3.007.011 compliance) ===== -->
+  <!-- ===== Page micro CSS (scoped, v3.007.012 compliance) ===== -->
   <style>
 /* =========================================================
-   In the Wake — Grandeur page micro CSS (v3.007.011-clean)
+   In the Wake — Grandeur page micro CSS (v3.007.012-clean)
    ========================================================= */
 
 /* A11y helpers */
@@ -123,7 +123,7 @@
 .hidden{display:none!important}
 
 /* Layout + cards */
-body::before{content:"";position:fixed;inset:0;background:url("https://www.cruisinginthewake.com/assets/watermark.png?v=3.007.011") center right/420px auto no-repeat;opacity:.06;pointer-events:none;z-index:0}
+body::before{content:"";position:fixed;inset:0;background:url("https://www.cruisinginthewake.com/assets/watermark.png?v=3.007.012") center right/420px auto no-repeat;opacity:.06;pointer-events:none;z-index:0}
 body>*{position:relative;z-index:1}
 .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
 .card{background:#fff;border:2px solid var(--rope,#d9b382);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
@@ -187,11 +187,19 @@ html,body{overflow-x:hidden}
 #vx-grid{display:grid;gap:1rem}
 @media (min-width:720px) and (max-width:979.98px){#vx-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:980px){#vx-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    /* First Look: force a real height that Swiper can’t zero out */
+.swiper.firstlook { aspect-ratio: 16/9; height: auto; }
+.swiper.firstlook .swiper-wrapper,
+.swiper.firstlook .swiper-slide { height: 100% !important; }
+.swiper.firstlook figure { margin:0; height:100%; }
+.swiper.firstlook img {
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:10px; display:block;
+}
 </style>
 
   <!-- ===== Site CSS (versioned) ===== -->
-  <link rel="preload" as="style" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.011"/>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.011"/>
+  <link rel="preload" as="style" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.012"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.012"/>
 </head>
 
   <body class="page no-hero-filter">
@@ -200,8 +208,8 @@ html,body{overflow-x:hidden}
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.011" alt="In the Wake wordmark" width="200" height="40"/>
-        <span class="version-badge">v3.007.011</span>
+        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.012" alt="In the Wake wordmark" width="200" height="40"/>
+        <span class="version-badge">v3.007.012</span>
       </div>
 
       <!-- Primary Navigation (pills) -->
@@ -233,9 +241,9 @@ html,body{overflow-x:hidden}
           </g>
         </svg>
       </div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.011" alt="" width="256" height="256" aria-hidden="true"/>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.012" alt="" width="256" height="256" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.011" alt="In the Wake" width="220" height="44"/>
+        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.012" alt="In the Wake" width="220" height="44"/>
         <h1 class="tagline">A Cruise Traveler’s Logbook</h1>
       </div>
       <div class="hero-credit">
@@ -259,7 +267,7 @@ html,body{overflow-x:hidden}
               <figure>
                 <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
                   <img
-                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-3.jpeg?v=3.007.011"
+                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-3.jpeg?v=3.007.012"
                     alt="Grandeur of the Seas — starboard profile underway"
                     loading="eager" decoding="async" width="1920" height="1280"/>
                 </a>
@@ -271,7 +279,7 @@ html,body{overflow-x:hidden}
               <figure>
                 <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
                   <img
-                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-2.jpeg?v=3.007.011"
+                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-2.jpeg?v=3.007.012"
                     alt="Grandeur of the Seas — port side in port"
                     loading="lazy" decoding="async" width="1920" height="1280"/>
                 </a>
@@ -283,7 +291,7 @@ html,body{overflow-x:hidden}
               <figure>
                 <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
                   <img
-                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-1.jpeg?v=3.007.011"
+                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-1.jpeg?v=3.007.012"
                     alt="Grandeur of the Seas — alongside"
                     loading="lazy" decoding="async" width="1920" height="1280"/>
                 </a>
@@ -319,7 +327,7 @@ html,body{overflow-x:hidden}
       <section id="dining-card" class="card" data-ship="Grandeur of the Seas" aria-labelledby="diningHeading">
         <h2 id="diningHeading">Dining Venues on Grandeur of the Seas</h2>
         <img id="dining-hero" class="card-hero"
-             src="https://www.cruisinginthewake.com/ships/assets/img/Cordelia_Empress_Food_Court.jpg?v=3.007.011"
+             src="https://www.cruisinginthewake.com/ships/assets/img/Cordelia_Empress_Food_Court.jpg?v=3.007.012"
              alt="Grandeur dining venue seating with ocean view"
              loading="lazy" decoding="async" width="1600" height="900"/>
         <ul>
@@ -533,7 +541,7 @@ html,body{overflow-x:hidden}
         <p class="small">From sea days to disembarkation, let this be your compass to Grandeur—charting decks, waypoints, and sea-day strategy.</p>
         <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
         <figure>
-          <img src="https://www.cruisinginthewake.com/assets/ship-map.png?v=3.007.011" alt="Grandeur of the Seas simplified deck plan preview" loading="lazy" decoding="async" width="1200" height="675"/>
+          <img src="https://www.cruisinginthewake.com/assets/ship-map.png?v=3.007.012" alt="Grandeur of the Seas simplified deck plan preview" loading="lazy" decoding="async" width="1200" height="675"/>
           <figcaption class="tiny">Preview only — open official deck plans for full details.</figcaption>
         </figure>
       </section>
@@ -729,8 +737,8 @@ html,body{overflow-x:hidden}
 (function ensureSwiper(){
   function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
   function addJS(src, ok, fail){ const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s); }
-  const primaryCSS="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css?v=3.007.011";
-  const primaryJS ="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js?v=3.007.011";
+  const primaryCSS="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css?v=3.007.012";
+  const primaryJS ="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js?v=3.007.012";
   const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
   const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
   addCSS(primaryCSS);
@@ -875,7 +883,7 @@ html,body{overflow-x:hidden}
 
   <!-- Venues/Experiences filters + JSON augmentation -->
  <script>
-/* In the Wake — VX (Venues / Experiences) v3.007.011-full
+/* In the Wake — VX (Venues / Experiences) v3.007.012-full
    - Adds "Experiences" chip
    - Canonical experiences seeded (tastings, tours, parties, classes, enrichment)
    - Search understands category words (shows/experiences/bar/coffee/etc.)
@@ -1096,7 +1104,7 @@ html,body{overflow-x:hidden}
   <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('/sw.js?v=3.007.011')
+      navigator.serviceWorker.register('/sw.js?v=3.007.012')
         .catch(function(err){ console.warn('SW registration failed', err); });
     });
   }
