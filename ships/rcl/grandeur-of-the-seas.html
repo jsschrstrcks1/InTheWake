@@ -1,7 +1,28 @@
 <!doctype html>
 <html lang="en">
 <head>
-
+<script>
+/* Absolute URL helper + origin normalizer */
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=[
+      'a[href^="https://www.cruisinginthewake.com/"]',
+      'img[src^="https://www.cruisinginthewake.com/"]',
+      'link[href^="https://www.cruisinginthewake.com/"]',
+      'script[src^="https://www.cruisinginthewake.com/"]'
+    ].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{
+        const u=new URL(el.getAttribute(attr));
+        el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+      }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
   <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin>
@@ -16,12 +37,12 @@
     gtag('config', 'G-WZP891PZXJ');
   </script>
 
-  <!-- ===== Critical meta (v3.007.008) ===== -->
+  <!-- ===== Critical meta (v3.007.010) ===== -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer"/>
   <meta name="robots" content="index, follow"/>
-  <meta name="version" content="3.007.008"/>
+  <meta name="version" content="3.007.010"/>
 
   <title>Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
   <meta name="description" content="Grandeur of the Seas: deck plans, live tracker (auto-refresh), dining venues, stateroom videos, and real guest logbook. Plan your Royal Caribbean cruise with In the Wake."/>
@@ -35,14 +56,14 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"/>
   <meta property="og:title" content="Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos"/>
   <meta property="og:description" content="All the essentials for Grandeur of the Seas: live map (auto-refresh), dining, stats, and videos."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.008"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Organization -->
   <script type="application/ld+json">{
     "@context":"https://schema.org","@type":"Organization",
     "name":"In the Wake","url":"https://www.cruisinginthewake.com/",
-    "logo":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.008",
+    "logo":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.010",
     "sameAs":["https://www.instagram.com/flickersofmajesty/","https://www.youtube.com/@cruisinginthewake"]
   }</script>
 
@@ -75,170 +96,98 @@
     "itemReviewed":{"@type":"Cruise","name":"Grandeur of the Seas",
       "provider":{"@type":"Organization","name":"Royal Caribbean International","url":"https://www.royalcaribbean.com"},
       "url":"https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html",
-      "image":"https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.008",
+      "image":"https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010",
       "description":"Vision-class cruise operated by Royal Caribbean International."}}
   }</script>
 
   <!-- ===== Preload key art ===== -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.008" fetchpriority="high"/>
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.008"/>
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010" fetchpriority="high"/>
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.010"/>
 
   <!-- ===== Analytics (Umami) ===== -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- ===== Page micro CSS (scoped, v3.007.008 compliance) ===== -->
+  <!-- ===== Page micro CSS (scoped, v3.007.010 compliance) ===== -->
   <style>
-    .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .visually-hidden-focusable:focus{position:static;left:auto;width:auto;height:auto;padding:.5rem .75rem;background:#fff;border:2px solid #0e6e8e;border-radius:8px;z-index:1000}
-    .hidden{display:none!important}
-    .pills,.class-pills,.related-pills,.button-group{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;text-align:center}
-    .pill-nav.pills a{padding:.35rem .7rem;border-radius:10px;border:1px dashed var(--rope,#d9b382);background:#fff;font-size:.9rem;color:var(--accent,#0e6e8e)}
-    .pill-nav.pills a:hover{background:#f9fdfd;text-decoration:none}
-    body::before{content:"";position:fixed;inset:0;background:url("https://www.cruisinginthewake.com/assets/watermark.png?v=3.007.008") center right/420px auto no-repeat;opacity:.06;pointer-events:none;z-index:0}
-    body>*{position:relative;z-index:1}
-    .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-    .card{background:#fff;border:2px solid var(--rope,#d9b382);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
-    .grid-2{display:grid;gap:1rem;align-items:stretch}
-    .grid-2>.card{display:flex;flex-direction:column}
-    @media (min-width:980px){.grid-2{grid-template-columns:1fr 1fr}}
-/* Venues grid: 1col mobile, 2col mid, 3col wide */
-#vx-grid {
-  display: grid;            /* already grid via .grid-2, this is harmless */
-  gap: 1rem;
-}
+/* =========================================================
+   In the Wake — Grandeur page micro CSS (v3.007.010-clean)
+   ========================================================= */
 
-@media (min-width: 980px) {
-  /* override the global .grid-2 two-col rule */
-  #vx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
+/* A11y helpers */
+.visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.visually-hidden-focusable:focus{position:static;left:auto;width:auto;height:auto;padding:.5rem .75rem;background:#fff;border:2px solid #0e6e8e;border-radius:8px;z-index:1000}
+.hidden{display:none!important}
 
-/* (optional) if you want two columns a bit earlier */
-@media (min-width: 720px) and (max-width: 979.98px) {
-  #vx-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-    .ship-stats.card.mini{margin-top:.8rem}
-    .stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem .8rem;font-size:.95rem}
-    .stat-line{display:flex;gap:.35rem;justify-content:space-between;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
-    .stat-key{color:#355;font-weight:600}.stat-val{color:#024}
+/* Layout + cards */
+body::before{content:"";position:fixed;inset:0;background:url("https://www.cruisinginthewake.com/assets/watermark.png?v=3.007.010") center right/420px auto no-repeat;opacity:.06;pointer-events:none;z-index:0}
+body>*{position:relative;z-index:1}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+.card{background:#fff;border:2px solid var(--rope,#d9b382);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
+.grid-2{display:grid;gap:1rem;align-items:stretch}
+.grid-2>.card{display:flex;flex-direction:column}
+@media (min-width:980px){.grid-2{grid-template-columns:1fr 1fr}}
 
-    /* Fixed heights for map/video containers */
-    .vf-map, iframe.live-map{width:100%;height:300px;max-height:300px;display:block}
-    .swiper.videos iframe{width:100%;aspect-ratio:16/9;display:block;border:0;border-radius:12px}
+/* Pills (nav/buttons) */
+.pills,.class-pills,.related-pills,.button-group{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;text-align:center}
+.pill-nav.pills a{padding:.35rem .7rem;border-radius:10px;border:1px dashed var(--rope,#d9b382);background:#fff;font-size:.9rem;color:var(--accent,#0e6e8e)}
+.pill-nav.pills a:hover{background:#f9fdfd;text-decoration:none}
 
-    /* Contain horizontal overflow */
-    html, body{overflow-x:hidden}
-    .hero-header .hero{width:100%;margin-left:0}
+/* Hero */
+html,body{overflow-x:hidden}
+.hero-header .hero{width:100%;margin-left:0}
+.hero-title h1{margin:0;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700}
 
-    /* Optional: ensure hero H1 never collapses visually if themed elsewhere */
-    .hero-title h1{margin:0;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700}
+/* Ship stats */
+.ship-stats.card.mini{margin-top:.8rem}
+.stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem .8rem;font-size:.95rem}
+.stat-line{display:flex;gap:.35rem;justify-content:space-between;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
+.stat-key{color:#355;font-weight:600}.stat-val{color:#024}
 
-    /* Baseline carousel layout: works without Swiper CSS/JS */
+/* Media: maps + videos */
+.vf-map,iframe.live-map{width:100%;height:300px;max-height:300px;display:block}
+.swiper.videos iframe{width:100%;aspect-ratio:16/9;display:block;border:0;border-radius:12px}
+
+/* First Look carousel (stable across Safari/Chrome/Firefox) */
+.swiper.firstlook{overflow:hidden}
+.swiper.firstlook .swiper-wrapper{align-items:stretch}
+.swiper.firstlook .swiper-slide{height:auto}
+.swiper.firstlook figure{margin:0;aspect-ratio:16/9;position:relative;overflow:hidden}
+.swiper.firstlook img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
+@media (min-width:720px){.swiper.firstlook{max-height:70vh}}
+
+/* First Look — fallback when Swiper fails (html.swiper-fallback) */
 .swiper-fallback .swiper.firstlook{overflow:hidden}
 .swiper-fallback .swiper.firstlook .swiper-wrapper{display:flex;align-items:stretch;gap:0}
 .swiper-fallback .swiper.firstlook .swiper-slide{flex:0 0 100%;max-width:100%}
 .swiper-fallback .swiper.firstlook figure{margin:0}
-.swiper-fallback .swiper.firstlook img{
-  display:block;width:100%!important;height:auto!important;object-fit:cover;border-radius:10px;
-}
-@media (min-width:720px){ .swiper-fallback .swiper.firstlook{max-height:70vh} }
+.swiper-fallback .swiper.firstlook img{display:block;width:100%!important;height:auto!important;object-fit:cover;border-radius:10px}
 
+/* Logbook */
+.note-kens-logbook.card{overflow:visible}
+.note-kens-logbook .story{margin-bottom:1rem}
 
-    /* Logbook + fuel card */
-    .note-kens-logbook.card{overflow:visible}
-    .note-kens-logbook .story{margin-bottom:1rem}
-    .fuel-wrapper.card{margin-top:1rem}
+/* Editor note pill */
+.pill.editor-note{
+  display:block;max-width:100%;
+  background:var(--foam,#f9fbfc);color:#062b44;
+  border:1.5px solid var(--rope,#d9b382);border-radius:999px;
+  padding:.75rem 1rem;font-size:.92rem;font-style:italic;line-height:1.5;
+  margin:.5rem auto 1rem;box-shadow:0 1px 4px rgba(8,48,65,.08)
+}
+.pill.editor-note strong{font-style:normal;color:var(--ink,#0a3d62)}
 
+/* Fuel card block */
+.voyage-tips.card{overflow:visible}
 
-
-
-/* Give each slide a real box before images download */
-.swiper.firstlook figure{ margin:0; aspect-ratio:16/9; }
-
-.swiper.firstlook img{
-  display:block;
-  width:100%;
-  height:100%;         /* fill the aspect-ratio box */
-  object-fit:cover;
-  border-radius:10px;
-}
-/* --- Clean First Look carousel rules --- */
-.swiper.firstlook {
-  overflow: hidden;
-}
-.swiper.firstlook .swiper-wrapper {
-  align-items: stretch;
-}
-.swiper.firstlook .swiper-slide {
-  height: auto;
-}
-.swiper.firstlook figure {
-  margin: 0;
-  aspect-ratio: 16 / 9;  /* reserves space to stop layout collapse */
-}
-.swiper.firstlook img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-}
-@media (min-width:720px) {
-  .swiper.firstlook { max-height: 70vh; }
-}
-    /* First Look slides — stable sizing & paint across Safari/Chrome/Firefox */
-.swiper.firstlook { overflow: hidden; }
-.swiper.firstlook .swiper-wrapper { align-items: stretch; }
-.swiper.firstlook .swiper-slide { height: auto; }
-
-/* each slide reserves space; image is pinned inside it */
-.swiper.firstlook figure{
-  margin:0;
-  aspect-ratio:16/9;
-  position:relative;   /* <— important */
-  overflow:hidden;
-}
-.swiper.firstlook img{
-  display:block;
-  position:absolute;   /* <— important */
-  inset:0;             /* top/right/bottom/left:0 */
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:10px;
-}
-
-/* keep your fallback (activates only when .swiper-fallback is on <html>) */
-.swiper-fallback .swiper.firstlook{overflow:hidden}
-.swiper-fallback .swiper.firstlook .swiper-wrapper{display:flex;align-items:stretch;gap:0}
-.swiper-fallback .swiper.firstlook .swiper-slide{flex:0 0 100%;max-width:100%}
-.swiper-fallback .swiper.firstlook figure{margin:0}
-.swiper-fallback .swiper.firstlook img{
-  display:block;width:100%!important;height:auto!important;object-fit:cover;border-radius:10px;
-}
-@media (min-width:720px){ .swiper-fallback .swiper.firstlook{max-height:70vh} }
-    .pill.editor-note {
-  display: block;
-  max-width: 100%;
-  background: var(--foam, #f9fbfc);
-  color: #062b44;
-  border: 1.5px solid var(--rope, #d9b382);
-  border-radius: 999px;
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  font-style: italic;
-  line-height: 1.5;
-  margin: 0.75rem auto 1.25rem;
-  box-shadow: 0 1px 4px rgba(8,48,65,0.08);
-}
-.pill.editor-note strong {
-  font-style: normal;
-  color: var(--ink, #0a3d62);
-}
-  </style>
+/* Venues grid: 1col mobile → 2col mid → 3col wide */
+#vx-grid{display:grid;gap:1rem}
+@media (min-width:720px) and (max-width:979.98px){#vx-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:980px){#vx-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
 
   <!-- ===== Site CSS (versioned) ===== -->
-  <link rel="preload" as="style" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.008"/>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.008"/>
+  <link rel="preload" as="style" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.010"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.007.010"/>
 </head>
 
   <body class="page no-hero-filter">
@@ -247,8 +196,8 @@
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.008" alt="In the Wake wordmark" width="200" height="40"/>
-        <span class="version-badge">v3.007.008</span>
+        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.010" alt="In the Wake wordmark" width="200" height="40"/>
+        <span class="version-badge">v3.007.010</span>
       </div>
 
       <!-- Primary Navigation (pills) -->
@@ -280,9 +229,9 @@
           </g>
         </svg>
       </div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.008" alt="" width="256" height="256" aria-hidden="true"/>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.007.010" alt="" width="256" height="256" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.008" alt="In the Wake" width="220" height="44"/>
+        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.010" alt="In the Wake" width="220" height="44"/>
         <h1 class="tagline">A Cruise Traveler’s Logbook</h1>
       </div>
       <div class="hero-credit">
@@ -306,7 +255,7 @@
               <figure>
                 <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
                   <img
-                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-3.jpeg?v=3.007.008"
+                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-3.jpeg?v=3.007.010"
                     alt="Grandeur of the Seas — starboard profile underway"
                     loading="eager" decoding="async" width="1920" height="1280"/>
                 </a>
@@ -318,7 +267,7 @@
               <figure>
                 <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
                   <img
-                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-2.jpeg?v=3.007.008"
+                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-2.jpeg?v=3.007.010"
                     alt="Grandeur of the Seas — port side in port"
                     loading="lazy" decoding="async" width="1920" height="1280"/>
                 </a>
@@ -330,7 +279,7 @@
               <figure>
                 <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
                   <img
-                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-1.jpeg?v=3.007.008"
+                    src="https://www.cruisinginthewake.com/assets/ships/grandeur-of-the-seas-1.jpeg?v=3.007.010"
                     alt="Grandeur of the Seas — alongside"
                     loading="lazy" decoding="async" width="1920" height="1280"/>
                 </a>
@@ -366,7 +315,7 @@
       <section id="dining-card" class="card" data-ship="Grandeur of the Seas" aria-labelledby="diningHeading">
         <h2 id="diningHeading">Dining Venues on Grandeur of the Seas</h2>
         <img id="dining-hero" class="card-hero"
-             src="https://www.cruisinginthewake.com/ships/assets/img/Cordelia_Empress_Food_Court.jpg?v=3.007.008"
+             src="https://www.cruisinginthewake.com/ships/assets/img/Cordelia_Empress_Food_Court.jpg?v=3.007.010"
              alt="Grandeur dining venue seating with ocean view"
              loading="lazy" decoding="async" width="1600" height="900"/>
         <ul>
@@ -580,7 +529,7 @@
         <p class="small">From sea days to disembarkation, let this be your compass to Grandeur—charting decks, waypoints, and sea-day strategy.</p>
         <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/grandeur-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
         <figure>
-          <img src="https://www.cruisinginthewake.com/assets/ship-map.png?v=3.007.008" alt="Grandeur of the Seas simplified deck plan preview" loading="lazy" decoding="async" width="1200" height="675"/>
+          <img src="https://www.cruisinginthewake.com/assets/ship-map.png?v=3.007.010" alt="Grandeur of the Seas simplified deck plan preview" loading="lazy" decoding="async" width="1200" height="675"/>
           <figcaption class="tiny">Preview only — open official deck plans for full details.</figcaption>
         </figure>
       </section>
@@ -770,24 +719,20 @@
 
   <footer class="wrap">© 2025 In the Wake — A Cruise Traveler’s Logbook</footer>
 <script type="text/javascript" src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js" data-acc-accid="774c13e29978" data-acc-host="delivery.consentmanager.net" data-acc-cdn="cdn.consentmanager.net"></script>
-      <!-- Swiper (primary + CDN fallback) -->
-  <script>
-  (function ensureSwiper(){
-    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-    function addJS(src, ok, fail){ const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s); }
-    const primaryCSS="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css?v=3.007.008";
-    const primaryJS ="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js?v=3.007.008";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    let ready=false, bailed=false;
-    const bail=()=>{ if(bailed) return; bailed=true; document.documentElement.classList.add('swiper-fallback'); };
-    addCSS(primaryCSS);
-    addJS(primaryJS, ()=>{ ready=true; }, ()=>{ addCSS(cdnCSS); addJS(cdnJS, ()=>{ ready=true; }, bail); });
-    setTimeout(()=>{ if(!ready || !window.Swiper) bail(); }, 5000);
-  })();
-  </script>
-
- <script>
+<script>
+/* Load Swiper (primary self-hosted with CDN fallback) */
+(function ensureSwiper(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){ const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s); }
+  const primaryCSS="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css?v=3.007.010";
+  const primaryJS ="https://www.cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js?v=3.007.010";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, null, function(){ addCSS(cdnCSS); addJS(cdnJS); });
+})();
+</script>
+    <script>
 (function initSwipers(){
   function when(cb){ if (window.Swiper) cb(); else setTimeout(()=>when(cb), 100); }
   when(function(){
@@ -795,7 +740,7 @@
       new Swiper('.swiper.firstlook',{
         loop:false,
         watchOverflow:true,
-        autoHeight:false,   // figure already defines height; let it be
+        autoHeight:false,
         pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
         navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
         a11y:{ enabled:true }
@@ -806,20 +751,6 @@
         pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
         navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
         a11y:{ enabled:true }
-      });
-    }catch(e){
-      document.documentElement.classList.add('swiper-fallback');
-    }
-  });
-})();
-
-      // VIDEOS
-      new Swiper('.swiper.videos',{
-        loop: false,
-        watchOverflow: true,
-        pagination: { el: '.swiper.videos .swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper.videos .swiper-button-next', prevEl: '.swiper.videos .swiper-button-prev' },
-        a11y: { enabled: true }
       });
     }catch(e){
       document.documentElement.classList.add('swiper-fallback');
@@ -972,7 +903,7 @@
   <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('/sw.js?v=3.007.008')
+      navigator.serviceWorker.register('/sw.js?v=3.007.010')
         .catch(function(err){ console.warn('SW registration failed', err); });
     });
   }
