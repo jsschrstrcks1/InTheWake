@@ -107,19 +107,6 @@
     .stat-line{display:flex;gap:.35rem;justify-content:space-between;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
     .stat-key{color:#355;font-weight:600}.stat-val{color:#024}
 
-    /* Swiper controls visible even if fallback class toggles */
-    .swiper.firstlook .swiper-button-prev,.swiper.firstlook .swiper-button-next,
-    .swiper.videos .swiper-button-prev,.swiper.videos .swiper-button-next{
-      display:flex!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;z-index:7!important;width:44px;height:44px;align-items:center;justify-content:center;color:#0a3d62
-    }
-    .swiper.firstlook .swiper-button-prev{left:8px}.swiper.firstlook .swiper-button-next{right:8px}
-    .swiper.firstlook .swiper-button-prev::after,.swiper.firstlook .swiper-button-next::after,
-    .swiper.videos .swiper-button-prev::after,.swiper.videos .swiper-button-next::after{
-      font-size:18px;background:#fff;border-radius:999px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.18)
-    }
-    .swiper.firstlook .swiper-pagination-bullet{background:#0a3d62;opacity:.45}
-    .swiper.firstlook .swiper-pagination-bullet-active{opacity:1}
-
     /* Fixed heights for map/video containers */
     .vf-map, iframe.live-map{width:100%;height:300px;max-height:300px;display:block}
     .swiper.videos iframe{width:100%;aspect-ratio:16/9;display:block;border:0;border-radius:12px}
@@ -127,11 +114,6 @@
     /* Contain horizontal overflow */
     html, body{overflow-x:hidden}
     .hero-header .hero{width:100%;margin-left:0}
-
-    /* First Look sizing hygiene */
-    .swiper.firstlook .swiper-wrapper{align-items:stretch}
-    .swiper.firstlook .swiper-slide{height:auto}
-    .swiper.firstlook img{display:block;width:100%;height:auto;border-radius:10px}
 
     /* Optional: ensure hero H1 never collapses visually if themed elsewhere */
     .hero-title h1{margin:0;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700}
@@ -145,18 +127,15 @@
   display:block;width:100%!important;height:auto!important;object-fit:cover;border-radius:10px;
 }
 @media (min-width:720px){ .swiper-fallback .swiper.firstlook{max-height:70vh} }
-    /* Safe hygiene (always on) */
-.swiper.firstlook img{max-width:100%;height:auto;display:block;border-radius:10px}
-.swiper.firstlook .swiper-slide{height:auto}
+
 
     /* Logbook + fuel card */
     .note-kens-logbook.card{overflow:visible}
     .note-kens-logbook .story{margin-bottom:1rem}
     .fuel-wrapper.card{margin-top:1rem}
-    /* Swiper height fix */
-    .swiper.firstlook { height:auto !important; }
-    .swiper.firstlook .swiper-wrapper { align-items:stretch; }
-    .swiper.firstlook .swiper-slide { height:auto !important; }
+
+
+
 
 /* Give each slide a real box before images download */
 .swiper.firstlook figure{ margin:0; aspect-ratio:16/9; }
@@ -168,9 +147,30 @@
   object-fit:cover;
   border-radius:10px;
 }
-    /* Small guard height so layout doesn’t collapse pre-load */
-.swiper.firstlook { min-height:220px; }
-@media (min-width:720px){ .swiper.firstlook { min-height:320px; } }
+/* --- Clean First Look carousel rules --- */
+.swiper.firstlook {
+  overflow: hidden;
+}
+.swiper.firstlook .swiper-wrapper {
+  align-items: stretch;
+}
+.swiper.firstlook .swiper-slide {
+  height: auto;
+}
+.swiper.firstlook figure {
+  margin: 0;
+  aspect-ratio: 16 / 9;  /* reserves space to stop layout collapse */
+}
+.swiper.firstlook img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+@media (min-width:720px) {
+  .swiper.firstlook { max-height: 70vh; }
+}
   </style>
 
   <!-- ===== Site CSS (versioned) ===== -->
@@ -560,31 +560,48 @@
   })();
   </script>
 
-  <script>
-  (function initSwipers(){
-    function when(cb){ if (window.Swiper) cb(); else setTimeout(()=>when(cb), 100); }
-    when(function(){
-      try{
-       new Swiper('.swiper.firstlook', {
-  loop:false,
-  watchOverflow:true,
-  autoHeight:true,              // <-- add this
-  pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
-  navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
-  a11y:{ enabled:true }
-});
-        new Swiper('.swiper.videos',{
-          loop:false,watchOverflow:true,
-          pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
-          navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
-          a11y:{ enabled:true }
-        });
-      }catch(e){
-        document.documentElement.classList.add('swiper-fallback');
-      }
-    });
-  })();
-  </script>
+ <script>
+(function initSwipers(){
+  function when(cb){ if (window.Swiper) cb(); else setTimeout(()=>when(cb), 100); }
+  when(function(){
+    try{
+      // FIRST LOOK (images)
+      const fl = new Swiper('.swiper.firstlook',{
+        loop: false,
+        watchOverflow: true,
+        autoHeight: true,
+        preloadImages: false,
+        updateOnImagesReady: true,
+        observer: true, observeParents: true,
+        pagination: { el: '.swiper.firstlook .swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper.firstlook .swiper-button-next', prevEl: '.swiper.firstlook .swiper-button-prev' },
+        a11y: { enabled: true },
+        on: {
+          imagesReady(sw){ sw.updateAutoHeight(0); }
+        }
+      });
+
+      // Belt & suspenders: update height when any slide image actually finishes loading
+      document.querySelectorAll('.swiper.firstlook img').forEach(img=>{
+        if(!img.complete){
+          img.addEventListener('load', ()=> fl.updateAutoHeight(0), { once:true });
+        }
+      });
+
+      // VIDEOS
+      new Swiper('.swiper.videos',{
+        loop: false,
+        watchOverflow: true,
+        pagination: { el: '.swiper.videos .swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper.videos .swiper-button-next', prevEl: '.swiper.videos .swiper-button-prev' },
+        a11y: { enabled: true }
+      });
+    }catch(e){
+      document.documentElement.classList.add('swiper-fallback');
+    }
+  });
+})();
+</script>
 
   <!-- Ship stats loader (fallback-first) -->
   <script>
