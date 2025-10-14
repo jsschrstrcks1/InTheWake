@@ -135,3 +135,51 @@ h1,h2,h3{color:var(--sea)}
 .card .card-hero,
 .card .vf-map,
 .card iframe.live-map { width:100%; border:0; border-radius:12px; }
+/* ===== In the Wake — additive stability patch (v3.007.073b) ===== */
+
+/* A) Stop horizontal "infinite scrolling" caused by full-bleed hero */
+html, body { overflow-x: hidden; }  /* safety net across the site */
+
+/* Use viewport units that ignore the scrollbar width (modern browsers) */
+@supports (width: 100svw) {
+  .hero-header .hero {
+    width: 100svw;
+    margin-left: calc(50% - 50svw);
+  }
+}
+
+/* B) First Look: keep visible even if Swiper momentarily sets height:0 */
+.swiper.firstlook {
+  aspect-ratio: 16/9;
+  height: auto;              /* prefer intrinsic sizing */
+  min-height: 220px;         /* guard against 0px flashes */
+}
+.swiper.firstlook .swiper-wrapper,
+.swiper.firstlook .swiper-slide { height: 100% !important; min-height: inherit; }
+.swiper.firstlook figure { margin: 0; height: 100%; position: relative; overflow: hidden; }
+.swiper.firstlook img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; border-radius: 10px; display: block;
+  backface-visibility: hidden; transform: translateZ(0); /* WebKit repaint fix */
+}
+
+/* Hide chrome in CSS fallback only */
+.swiper-fallback .swiper .swiper-button-prev,
+.swiper-fallback .swiper .swiper-button-next,
+.swiper-fallback .swiper .swiper-pagination { display: none !important; }
+
+/* C) Venues grid — ensure multi-column (keeps your earlier rules) */
+#vx-grid { display: grid; gap: 1rem; }
+@media (max-width: 719.98px){ #vx-grid { grid-template-columns: 1fr; } }
+@media (min-width: 720px) and (max-width: 979.98px){
+  #vx-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (min-width: 980px){
+  #vx-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+#vx-grid .card.vx { width:100%; display:flex; flex-direction:column; }
+
+/* D) Misc: media inside cards */
+.card .card-hero,
+.card .vf-map,
+.card iframe.live-map { width:100%; border:0; border-radius:12px; }
