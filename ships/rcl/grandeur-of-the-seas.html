@@ -101,7 +101,21 @@
     .grid-2{display:grid;gap:1rem;align-items:stretch}
     .grid-2>.card{display:flex;flex-direction:column}
     @media (min-width:980px){.grid-2{grid-template-columns:1fr 1fr}}
+/* Venues grid: 1col mobile, 2col mid, 3col wide */
+#vx-grid {
+  display: grid;            /* already grid via .grid-2, this is harmless */
+  gap: 1rem;
+}
 
+@media (min-width: 980px) {
+  /* override the global .grid-2 two-col rule */
+  #vx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* (optional) if you want two columns a bit earlier */
+@media (min-width: 720px) and (max-width: 979.98px) {
+  #vx-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
     .ship-stats.card.mini{margin-top:.8rem}
     .stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem .8rem;font-size:.95rem}
     .stat-line{display:flex;gap:.35rem;justify-content:space-between;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
