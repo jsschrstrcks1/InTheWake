@@ -86,3 +86,52 @@ h1,h2,h3{color:var(--sea)}
   display: flex;
   flex-direction: column;
 }
+/* ===== In the Wake — Unified Styles additive patch (v3.007.073) ===== */
+
+/* 1) Generic 2-up grid used on ship pages (First Look+Dining, Deck+Tracker) */
+.grid-2 { display: grid; gap: 1rem; align-items: stretch; }
+.grid-2 > .card { display: flex; flex-direction: column; }
+@media (min-width: 980px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+/* 2) Venues grid (ID-specific so we don’t affect other grids) */
+#vx-grid { display: grid; gap: 1rem; }
+@media (max-width: 719.98px){ #vx-grid { grid-template-columns: 1fr; } }
+@media (min-width: 720px) and (max-width: 979.98px){
+  #vx-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (min-width: 980px){
+  #vx-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+#vx-grid .card.vx { width: 100%; display: flex; flex-direction: column; }
+
+/* 3) First Look carousel sizing (prevents zero-height in some Swiper loads) */
+.swiper.firstlook { aspect-ratio: 16/9; height: auto; }
+.swiper.firstlook .swiper-wrapper,
+.swiper.firstlook .swiper-slide { height: 100% !important; }
+.swiper.firstlook figure { margin: 0; height: 100%; position: relative; overflow: hidden; }
+.swiper.firstlook img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; border-radius: 10px; display: block;
+}
+/* When JS fails and we enable the CSS-only fallback */
+.swiper-fallback .swiper.firstlook .swiper-wrapper{ display:flex; gap:0; }
+.swiper-fallback .swiper.firstlook .swiper-slide{ flex:0 0 100%; max-width:100%; }
+.swiper-fallback .swiper .swiper-button-prev,
+.swiper-fallback .swiper .swiper-button-next,
+.swiper-fallback .swiper .swiper-pagination{ display:none !important; }
+
+/* 4) “At a Glance” stats grid (safe, small) */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.4rem .8rem;
+  font-size:.95rem;
+}
+.stat-line{display:flex;justify-content:space-between;gap:.35rem;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
+.stat-key{color:#355;font-weight:600}
+.stat-val{color:#024}
+
+/* 5) Helpful utility: ensure media inside cards scales nicely */
+.card .card-hero,
+.card .vf-map,
+.card iframe.live-map { width:100%; border:0; border-radius:12px; }
