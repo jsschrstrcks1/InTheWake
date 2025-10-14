@@ -381,139 +381,166 @@
       </section>
     </section>
 
-    <!-- Logbook (JSON-driven, Port/Aft nav, disclaimers, deep-linkable) -->
+  <!-- The Logbook (JSON-driven, with Editor pill + 60% Fuel card) -->
 <section class="card note-kens-logbook" id="logbook" aria-labelledby="logbookHeading">
   <h2 id="logbookHeading">The Logbook — Tales From the Wake</h2>
 
-  <!-- disclaimers + watch nights line -->
-  <div id="logbook-disclaimer" class="tiny" style="margin:.25rem 0 .75rem"></div>
+  <!-- Editor’s pill is injected here -->
+  <div id="editorNoteMount"></div>
 
-  <!-- persona body -->
-  <div id="logbook-stories" class="prose"></div>
+  <!-- Persona body -->
+  <div id="logbook-stories" class="prose" aria-live="polite"></div>
 
-  <!-- Port/Aft nav -->
-  <div id="logbook-nav" class="button-group" role="group" aria-label="Logbook navigation" style="margin-top:.5rem"></div>
+  <!-- Port/Starboard persona nav -->
+  <div id="logbook-nav" class="button-group" role="group" aria-label="Logbook navigation" style="margin-top:.5rem">
+    <button type="button" class="pill" id="logbook-prev" aria-label="Previous entry">◀ Port</button>
+    <span id="logbook-pos" class="tiny" style="min-width:8ch;text-align:center"></span>
+    <button type="button" class="pill" id="logbook-next" aria-label="Next entry">Starboard ▶</button>
+  </div>
 </section>
 
+<style>
+  .pill.editor-note {
+    display:block; background:var(--foam,#f9fbfc); color:#062b44;
+    border:1.5px solid var(--rope,#d9b382); border-radius:999px;
+    padding:.75rem 1rem; font-size:.92rem; font-style:italic; line-height:1.5;
+    margin:.5rem auto 1rem; box-shadow:0 1px 4px rgba(8,48,65,.08);
+  }
+  .pill.editor-note strong { font-style:normal; color:var(--ink,#0a3d62); }
+
+  /* Fuel card (reuses your card visuals) */
+  .voyage-tips.card{overflow:visible}
+</style>
+
 <script>
-(function initGrandeurLogbook(){
-  const SHIP_SLUG='grandeur-of-the-seas';
-  const CANDIDATES=[
-    '/ships/rcl/assets/'+SHIP_SLUG+'.json',           // preferred
-    '/assets/data/logbook/rcl/'+SHIP_SLUG+'.json',    // fallback
-    '/assets/data/ships/rcl/'+SHIP_SLUG+'.json'       // legacy
-  ];
+(function LogbookV3(){
+  const MOUNT = document.getElementById('logbook-stories');
+  const NOTE  = document.getElementById('editorNoteMount');
+  const POS   = document.getElementById('logbook-pos');
+  const PREV  = document.getElementById('logbook-prev');
+  const NEXT  = document.getElementById('logbook-next');
 
-  const mount    = document.getElementById('logbook-stories');
-  const disclaim = document.getElementById('logbook-disclaimer');
-  const navWrap  = document.getElementById('logbook-nav');
-  if(!mount) return;
+  if(!MOUNT) return;
 
-  const abs = (p)=> (window._abs? _abs(p) : p);
-  const qs  = new URLSearchParams(location.search);
-  const deepId = (qs.get('id')||'').trim();
+  const slug = 'grandeur-of-the-seas';
+  const SRC  = (window._abs? _abs('/ships/rcl/assets/'+slug+'.json') : '/ships/rcl/assets/'+slug+'.json');
 
-  function fetchFirst(i){
-    i=i||0; if(i>=CANDIDATES.length) return Promise.resolve(null);
-    const url=abs(CANDIDATES[i]);
-    return fetch(url,{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));
+  const state = { i:0, personas:[], idIndex:{} };
+
+  const fuelCardHTML =
+    '<div class="voyage-tips-wrapper" style="margin:1rem 0 0">'+
+      '<div class="card voyage-tips" aria-label="Voyage planning tips" style="margin:0">'+
+        '<h2 class="card-title" style="margin-top:.25rem">Fuel Your Voyage</h2>'+
+        '<div class="card-content">'+
+          '<h3>Drink Packages</h3>'+
+          '<ul><li>Deluxe Beverage Package: ~\\$60/day for premium drinks</li>'+
+              '<li>Refreshment Package: Non-alcoholic options</li>'+
+              '<li>Soda Package: all the Freestyle Machine options</li></ul>'+
+          '<h3>Pack Like a Pro</h3>'+
+          '<ul><li>Shawl for chilly theater nights</li>'+
+              '<li>Swimwear for pool deck</li>'+
+              '<li>Comfortable shoes for shore tours</li></ul>'+
+          '<div class="button-group" aria-label="Voyage planning links">'+
+            '<a href="/drink-packages.html" class="btn" aria-label="View all drink package options">View Drink Options</a>'+
+            '<a href="/packing-lists.html" class="btn" aria-label="Access complete packing guide">Packing Guide</a>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+  function mdToHtml(md){
+    if(!md) return '';
+    let h = String(md).trim();
+    h = h.replace(/^######\s+(.+)$/gm,'<h6>$1</h6>')
+         .replace(/^#####\s+(.+)$/gm,'<h5>$1</h5>')
+         .replace(/^####\s+(.+)$/gm,'<h4>$1</h4>')
+         .replace(/^###\s+(.+)$/gm,'<h3>$1</h3>')
+         .replace(/^##\s+(.+)$/gm,'<h2>$1</h2>')
+         .replace(/^#\s+(.+)$/gm,'<h1>$1</h1>')
+         .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+         .replace(/\*(.+?)\*/g,'<em>$1</em>')
+         .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+    // paragraph wrap
+    h = h.replace(/(?:\r?\n){2,}/g,'</p><p>').replace(/(?:\r?\n)/g,'<br/>');
+    h = '<p>'+h+'</p>';
+    return h.replace(/^<p>\s*<\/p>/,'');
   }
-  function mdToHtml(src){
-    let html=String(src||'').trim(); if(!html) return '';
-    html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>')
-             .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-             .replace(/\*(.+?)\*/g,'<em>$1</em>');
-    html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>';
-    return html.replace(/^<p>\s*<\/p>/,'');
-  }
-  function normalize(data){
-    if(!data) return {personas:[],meta:{}};
-    const personas = Array.isArray(data.personas) ? data.personas
-                    : (data[SHIP_SLUG] && Array.isArray(data[SHIP_SLUG].personas)) ? data[SHIP_SLUG].personas
-                    : (data.logbook && Array.isArray(data.logbook.personas)) ? data.logbook.personas
-                    : [];
-    const meta = Object.assign({}, data.meta||{}, data[SHIP_SLUG]?.meta||{});
-    return {personas, meta};
-  }
-  function pickDefaultIndex(list){
-    if(!list.length) return 0;
-    if(deepId){
-      const j=list.findIndex(p=>String(p.id||'')===deepId);
-      if(j>=0) return j;
+
+  function renderEditorNote(json){
+    const ship = json && (json.ship_name || 'this ship');
+    const nights = json && json.nights_stood_watch;
+    const fromJson = json && json.editor_note;
+
+    let text = fromJson;
+    if(!text){
+      const n = (nights!=null? String(nights) : 'several');
+      text = 'Editor’s Logbook Note: I have stood watch for '+n+' nights aboard <em>'+ship+'</em>. '+
+             'These reflections draw from my own experience and from the voices of fellow travelers — depth soundings taken in our shared wake. '+
+             'Each has been carefully trimmed, tested, and edited to the same high standards, offered here to help smooth the waters ahead of your own sailing.';
     }
-    let i=list.findIndex(p=>p.is_author===true); if(i>=0) return i;
-    i=list.findIndex(p=>/ken|editor|captain/i.test(String(p.id||'')+' '+String(p.author||''))); if(i>=0) return i;
-    return 0;
-  }
-  function renderDisclaimer(meta,current){
-    const shipName='Grandeur of the Seas';
-    const agg = meta.disclaimer_aggregate
-      || 'Full disclosure: Until we complete an in-wake sailing on this ship, some Logbook entries are vetted aggregate perspectives, trimmed and edited to our standards.';
-    const authored = meta.disclaimer_authored
-      || 'When marked as authored, the entry reflects a first-person sailing by our editor.';
-    const nights = (typeof meta.watch_nights==='number')
-      ? `I have personally stood watch ${meta.watch_nights} night${meta.watch_nights===1?'':'s'} on ${shipName}.` : '';
-    const isAgg  = current && (current.is_aggregate===true || /^##\s*Full disclosure/i.test(String(current.markdown||'')));
-    const bits = [ isAgg ? agg : authored ];
-    if(nights) bits.push(nights);
-    disclaim.innerHTML = bits.length ? ('<em>'+bits.join(' &nbsp;•&nbsp; ')+'</em>') : '';
-  }
-  function renderOne(p){
-    const title=String(p.title||p.persona_label||'Guest Perspective').replace(/</g,'&lt;');
-    const body =String(p.markdown||p.body||p.content||'').trim();
-    return '<article class="story" aria-live="polite">'
-         + '<h3 tabindex="0">'+title+'</h3>'
-         + '<div class="story-body">'+mdToHtml(body)+'</div>'
-         + '</article>';
+    NOTE.innerHTML = '<div class="pill editor-note" role="note" aria-label="Editor’s Logbook Note">'+text+'</div>';
   }
 
-  let STATE={list:[], idx:0, meta:{}};
-
-  function renderNav(){
-    const list=STATE.list, idx=STATE.idx;
-    navWrap.innerHTML='';
-    if(list.length<=1) return;
-    const btn = (label,disabled,on)=>{ const b=document.createElement('button'); b.type='button'; b.className='pill'; b.textContent=label; b.disabled=disabled; b.onclick=on; return b; };
-    const prev = btn('◀ Port', idx<=0, ()=>go(idx-1,true));
-    const pos  = document.createElement('span'); pos.className='tiny'; pos.style.minWidth='8ch'; pos.style.textAlign='center'; pos.textContent=(idx+1)+' / '+list.length;
-    const next = btn('Aft ▶', idx>=list.length-1, ()=>go(idx+1,true));
-    navWrap.append(prev,pos,next);
-    window.onkeydown = (e)=>{ if(e.key==='ArrowLeft' && idx>0) go(idx-1,true); if(e.key==='ArrowRight' && idx<list.length-1) go(idx+1,true); };
-  }
-  function go(newIdx,focusHeading){
-    const list=STATE.list; if(!list.length) return;
-    STATE.idx=Math.max(0,Math.min(list.length-1,newIdx));
-    const current=list[STATE.idx];
-    renderDisclaimer(STATE.meta,current);
-    mount.innerHTML=renderOne(current);
-    renderNav();
-
-    // deep-link
-    const base=location.href.split('#')[0];
-    const u=new URL(base, location.href);
-    u.searchParams.set('view','persona');
-    if(current.id) u.searchParams.set('id', current.id);
-    history.replaceState(null,'', u.toString());
-
-    if(focusHeading){ const h=mount.querySelector('h3'); if(h) h.focus(); }
+  function injectFuelAt60(container){
+    try{
+      const paras = Array.from(container.querySelectorAll('p'));
+      if(paras.length < 3) return; // keep short entries clean
+      const idx = Math.max(1, Math.min(paras.length-1, Math.round(paras.length * 0.6)));
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = fuelCardHTML;
+      paras[idx].parentNode.insertBefore(wrapper, paras[idx].nextSibling);
+    }catch(_){}
   }
 
-  fetchFirst().then(json=>{
-    const {personas, meta}=normalize(json||{});
-    if(!personas.length){
-      // graceful fallback: keep any server-rendered HTML that might be present
-      if(!mount.innerHTML.trim()){
-        mount.innerHTML='<p class="small">Stories coming soon.</p>';
-      }
-      return;
-    }
-    STATE.list=personas;
-    STATE.meta=meta||{};
-    go(pickDefaultIndex(personas), false);
+  function byId(id){ return state.personas[state.idIndex[id]]; }
+
+  function go(idx){
+    if(!state.personas.length) return;
+    state.i = Math.max(0, Math.min(state.personas.length-1, idx));
+    const p = state.personas[state.i];
+
+    const title = (p.title || p.persona_label || 'Guest Perspective').replace(/</g,'&lt;');
+    const body  = mdToHtml(p.markdown || '');
+
+    MOUNT.innerHTML = '<article class="story"><h3>'+title+'</h3><div class="story-body">'+body+'</div></article>';
+
+    // Fuel card around 60% of the way through the text
+    injectFuelAt60(MOUNT);
+
+    // nav wiring
+    const port = p.nav_port && byId(p.nav_port.target_persona_id);
+    const stb  = p.nav_starboard && byId(p.nav_starboard.target_persona_id);
+
+    PREV.disabled = !port; NEXT.disabled = !stb;
+    PREV.textContent = (p.nav_port && p.nav_port.label) ? p.nav_port.label : '◀ Port';
+    NEXT.textContent = (p.nav_starboard && p.nav_starboard.label) ? p.nav_starboard.label : 'Starboard ▶';
+
+    PREV.onclick = port ? ()=>go(state.idIndex[p.nav_port.target_persona_id]) : null;
+    NEXT.onclick = stb  ? ()=>go(state.idIndex[p.nav_starboard.target_persona_id]) : null;
+
+    POS.textContent = (state.i+1)+' / '+state.personas.length;
+
+    // arrow keys
+    window.onkeydown = (e)=>{
+      if(e.key==='ArrowLeft' && port) go(state.idIndex[p.nav_port.target_persona_id]);
+      if(e.key==='ArrowRight' && stb) go(state.idIndex[p.nav_starboard.target_persona_id]);
+    };
+  }
+
+  fetch(SRC,{cache:'no-store'}).then(r=>r.json()).then(json=>{
+    renderEditorNote(json);
+
+    const arr = Array.isArray(json.personas) ? json.personas.slice() : [];
+    // Build id index
+    state.personas = arr;
+    state.idIndex = Object.fromEntries(arr.map((p, i)=>[p.id, i]));
+
+    // Default to Ken’s entry if present, else first
+    const start = state.idIndex['p0-ken'] != null ? state.idIndex['p0-ken'] : 0;
+    go(start);
   }).catch(()=>{
-    if(!mount.innerHTML.trim()){
-      mount.innerHTML='<p class="small">We hit a snag loading entries. Try a hard refresh.</p>';
-    }
+    NOTE.innerHTML = '';
+    MOUNT.innerHTML = '<p class="tiny">Stories coming soon.</p>';
   });
 })();
 </script>
