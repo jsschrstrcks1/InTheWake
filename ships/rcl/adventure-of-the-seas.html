@@ -81,14 +81,32 @@
   "query-input":"required name=query"}
 }</script>
 
-<script type="application/ld+json">{
-  "@context":"https://schema.org","@type":"BreadcrumbList","name":"Site Breadcrumbs",
-  "itemListElement":[
-    {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
-    {"@type":"ListItem","position":2,"name":"Ships","item":"https://www.cruisinginthewake.com/ships/ships.html"},
-    {"@type":"ListItem","position":3,"name":"Adventure of the Seas","item":"https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html"}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": { "@id": "https://www.cruisinginthewake.com/" }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ships",
+      "item": { "@id": "https://www.cruisinginthewake.com/ships/ships.html" }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Adventure of the Seas",
+      "item": { "@id": "https://www.cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html" }
+    }
   ]
-}</script>
+}
+</script>
 
 <script type="application/ld+json">{
   "@context":"https://schema.org","@type":"Review",
@@ -265,7 +283,28 @@
     <button type="button" class="pill" id="logbook-next" aria-label="Next entry">Starboard ▶</button>
   </div>
 </section>
+<script>
+(async function safeLogbook(){
+  try {
+    const r = await fetch(SRC, { cache: 'no-store' });
+    if (!r.ok) throw 0;
+    const text = await r.text();
+    if (text.trim().startsWith('<')) throw 0;
+    const json = JSON.parse(text);
 
+    renderEditorNote(json);
+    const arr = Array.isArray(json.personas) ? json.personas : [];
+    state.personas = arr;
+    state.idIndex  = Object.fromEntries(arr.map((p,i)=>[p.id,i]));
+    const start = state.idIndex['p0-ken'] ?? 0;
+
+    if (arr.length) { go(start); }
+    else { NOTE.innerHTML=''; MOUNT.innerHTML='<p class="tiny">Stories coming soon.</p>'; }
+  } catch {
+    NOTE.innerHTML=''; MOUNT.innerHTML='<p class="tiny">Stories coming soon.</p>';
+  }
+})();
+</script>
 <style>
 .pill.editor-note {
   display:block; background:var(--foam,#f9fbfc); color:#062b44;
@@ -275,10 +314,6 @@
 }
 .pill.editor-note strong { font-style:normal; color:var(--ink,#0a3d62); }
 .voyage-tips.card{overflow:visible}
-     #vx-grid, .vx-grid { display:grid; gap:1rem; }
-@media (max-width:719.98px){ #vx-grid, .vx-grid { grid-template-columns:1fr; } }
-@media (min-width:720px) and (max-width:979.98px){ #vx-grid, .vx-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media (min-width:980px){ #vx-grid, .vx-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
 </style>
 
 <script>
