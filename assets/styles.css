@@ -219,3 +219,29 @@ html, body { overflow-x: hidden; }          /* safety net */
 /* 3) Ensure the two-up rows actually go 1×2 on desktop (keeps mobile = 1 col). */
 .grid-2 { display:grid; gap:1rem; align-items:stretch; }
 @media (min-width:980px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+/* ===== In the Wake — definitive scroll fix (v3.007.074b) ===== */
+
+/* 1. Guarantee no horizontal overflow */
+html, body { overflow-x: hidden !important; }
+
+/* 2. Specifically override the 100vw rule for ship pages */
+.hero-header > .hero {
+  width: 100% !important;
+  margin-left: 0 !important;
+  overflow-x: clip !important;   /* hides sub-pixel overflow in WebKit/Edge */
+}
+
+/* 3. Safety: contain grid SVG lines inside the header */
+.hero-header .latlon-grid {
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* 4. Maintain hero image aspect without forcing scrollbars */
+.hero-header .hero img,
+.hero-header .hero::before,
+.hero-header .hero::after {
+  max-width: 100%;
+  height: auto;
+}
