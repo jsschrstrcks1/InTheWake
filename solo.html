@@ -163,5 +163,108 @@
 })();
 </script>
   </footer>
+  <script>
+(function(){
+  // Articles registry (stub; we’ll populate with real entries later)
+  const ARTICLES = [
+    {slug:"freedom-of-your-own-wake", title:"The Freedom of Your Own Wake",
+     url:"/solo/freedom-of-your-own-wake.html",
+     hero:"https://www.cruisinginthewake.com/assets/solo/freedom-hero.jpg",
+     dek:"A gentle case for sailing alone: rest, rhythm, and room to breathe."},
+    // {slug:"dining-alone-without-feeling-alone", ...},
+    // {slug:"packing-for-peace", ...}
+  ];
+
+  const qs = new URLSearchParams(location.search);
+  const hash = (location.hash||"").replace(/^#/, "");
+  let slug = qs.get("a") || hash || "";
+
+  // Avoid same-article repeat
+  const last = localStorage.getItem("solo:lastSlug");
+  if(!slug){
+    const pool = ARTICLES.filter(a=>a.slug!==last);
+    const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
+    slug = pick.slug;
+    history.replaceState(null, "", location.pathname+"#"+slug);
+  }
+
+  const article = ARTICLES.find(a=>a.slug===slug) || ARTICLES[0];
+  localStorage.setItem("solo:lastSlug", article.slug);
+
+  // Render host container (we’ll replace innerHTML with fetched article HTML)
+  const host = document.getElementById("solo-article-host");
+  if(host){
+    fetch(article.url, {credentials:"omit", cache:"no-store"})
+      .then(r=>r.ok?r.text():Promise.reject(r.status))
+      .then(html=>{
+        host.innerHTML = html;
+        wireShareButtons(article);
+        injectArticleSEO(article);
+        hydrateSidebar(article);
+      })
+      .catch(()=>{ host.innerHTML = "<p>We hit rough seas loading this article. Try refreshing.</p>"; });
+  }
+
+  function wireShareButtons(a){
+    const el = document.querySelector('.byline .share');
+    if(!el) return;
+    const shareUrl = "https://www.cruisinginthewake.com/solo/"+a.slug+".html";
+    el.addEventListener('click', (e)=>{
+      e.preventDefault();
+      navigator.clipboard.writeText(shareUrl).then(()=> {
+        el.textContent = "Link copied!";
+        setTimeout(()=>el.textContent="Share this article", 2000);
+      });
+    });
+  }
+
+  // Swap OG/Twitter + JSON-LD when deep-linked to specific article
+  function injectArticleSEO(a){
+    if(!(location.search.includes("a=") || location.hash)) return; // only on deep-link
+    setMeta('og:title', a.title+" — In the Wake");
+    setMeta('og:description', a.dek);
+    setMeta('og:image', a.hero);
+    setMeta('og:url', "https://www.cruisinginthewake.com/solo/"+a.slug+".html");
+
+    setMeta('twitter:card', 'summary_large_image');
+    setNameMeta('description', a.dek);
+
+    // inject JSON-LD Article schema
+    const ld = document.createElement('script');
+    ld.type="application/ld+json";
+    ld.textContent = JSON.stringify({
+      "@context":"https://schema.org",
+      "@type":"BlogPosting",
+      "headline": a.title,
+      "description": a.dek,
+      "image": a.hero,
+      "url": "https://www.cruisinginthewake.com/solo/"+a.slug+".html",
+      "isPartOf": {"@type":"Blog","name":"Solo Cruising","url":"https://www.cruisinginthewake.com/solo.html"}
+    });
+    document.head.appendChild(ld);
+
+    function setMeta(property, content){
+      let m = document.querySelector('meta[property="'+property+'"]');
+      if(!m){ m = document.createElement('meta'); m.setAttribute('property', property); document.head.appendChild(m); }
+      m.setAttribute('content', content);
+    }
+    function setNameMeta(name, content){
+      let m = document.querySelector('meta[name="'+name+'"]');
+      if(!m){ m = document.createElement('meta'); m.setAttribute('name', name); document.head.appendChild(m); }
+      m.setAttribute('content', content);
+    }
+  }
+
+  // Sidebar: authors + rotating list (placeholder)
+  function hydrateSidebar(active){
+    const list = document.getElementById('author-articles');
+    if(!list) return;
+    const byAuthor = ARTICLES.filter(a=>true /* later: match author */).slice(0,5);
+    list.innerHTML = byAuthor.map(a=>(
+      `<li><a href="${_abs('/solo.html?a='+encodeURIComponent(a.slug))}">${a.title}</a></li>`
+    )).join('');
+  }
+})();
+</script>
 </body>
 </html>
