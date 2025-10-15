@@ -14,7 +14,7 @@
   <!-- Canonical Host Normalizer: force apex (no-www) + https -->
   <script>
   (function(){
-    var wantHost = "cruisinginthewake.com"; // set to "www.cruisinginthewake.com" if you prefer www
+    var wantHost = "cruisinginthewake.com";
     var h = location.hostname.toLowerCase();
     var isHttps = (location.protocol === "https:");
     if (h !== wantHost || !isHttps) {
@@ -116,16 +116,18 @@
       padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
       box-shadow:0 2px 6px rgba(0,0,0,.12)
     }
-    <style id="authors-rail-css">
-  .card-authors .author{display:flex; gap:.75rem; align-items:center; margin:.5rem 0}
-  .card-authors .author img{width:40px; height:40px; border-radius:999px; object-fit:cover}
-  .card-authors .author .meta{display:flex; flex-direction:column}
-  .card-authors .author .meta a{font-weight:600; text-decoration:none}
-  .card-authors .author .meta .links{font-size:.9rem; opacity:.8}
-  .card-authors .author .meta .links a{margin-right:.5rem}
-  .card-authors .roll{margin:.35rem 0 .75rem}
-  .card-authors .roll a{display:inline-block; margin:.15rem .35rem .15rem 0; font-size:.92rem}
-</style>
+  </style>
+
+  <!-- Authors rail CSS -->
+  <style id="authors-rail-css">
+    .card-authors .author{display:flex; gap:.75rem; align-items:center; margin:.5rem 0}
+    .card-authors .author img{width:40px; height:40px; border-radius:999px; object-fit:cover}
+    .card-authors .author .meta{display:flex; flex-direction:column}
+    .card-authors .author .meta a{font-weight:600; text-decoration:none}
+    .card-authors .author .meta .links{font-size:.9rem; opacity:.8}
+    .card-authors .author .meta .links a{margin-right:.5rem}
+    .card-authors .roll{margin:.35rem 0 .75rem}
+    .card-authors .roll a{display:inline-block; margin:.15rem .35rem .15rem 0; font-size:.92rem}
   </style>
 
   <!-- Page watermark (behind cards) -->
@@ -228,13 +230,14 @@
         <p>Trimming the sails — this will just take a moment.</p>
       </article>
     </section>
+
     <!-- Authors rail -->
-<section class="cards stack" id="solo-authors-rail" aria-label="Authors">
-  <article class="card card-authors">
-    <h2>Authors</h2>
-    <div id="authors-list" class="authors"></div>
-  </article>
-</section>
+    <section class="cards stack" id="solo-authors-rail" aria-label="Authors">
+      <article class="card card-authors">
+        <h2>Authors</h2>
+        <div id="authors-list" class="authors"></div>
+      </article>
+    </section>
   </main>
 
   <footer class="wrap">
@@ -331,242 +334,270 @@
   })();
   </script>
 
- <script>
-(function(){
-  const ORIGIN = (location.origin || (location.protocol + '//' + location.host));
-  const ARTICLE_BASE = "/solo/articles/"; // same-origin
-  const PERMALINK_BASE = ORIGIN + ARTICLE_BASE;
+  <!-- Solo article loader + deep-link SEO injector (same-origin, no cross-origin redirects) -->
+  <script>
+  (function(){
+    "use strict";
 
-  // --- DATA ------------------------------------------------------------------
-  // Accept both legacy and new shapes by normalizing each entry.
-  const RAW_AUTHORS = [
-    {
-      id: "ken",
-      name: "Ken Baker",
-      url: "https://ken-baker.com",
-      avatar: "https://www.cruisinginthewake.com/assets/authors/ken.jpg",
-      socials: [
-        {label:"Site", href:"https://ken-baker.com"},
-        {label:"IG", href:"https://instagram.com/flickersofmajesty"},
-      ]
-    },
-    // Add Tina/etc as they publish:
-    // { id:"tina", name:"Tina Maulsby", url:"", avatar:"/assets/authors/tina.jpg", socials:[...] }
-  ];
+    const ORIGIN = (location.origin || (location.protocol + '//' + location.host));
+    const ARTICLE_BASE = "/solo/articles/";
+    const PERMALINK_BASE = ORIGIN + ARTICLE_BASE;
 
-  const RAW_ARTICLES = [
-    // New shape
-    { slug:"freedom-of-your-own-wake",
-      title:"The Freedom of Your Own Wake",
-      hero: ORIGIN + "/assets/solo/freedom-hero.jpg",
-      dek: "A gentle case for sailing alone: rest, rhythm, and room to breathe.",
-      authorId:"ken",
-      tags:["solo","tips","reflection"]
-    },
-
-    // Example legacy shape (supported): id/image/excerpt
-    // { id:"packing-for-solo", title:"Packing for the Solo Sailor",
-    //   image: ORIGIN + "/assets/solo/packing-hero.jpg",
-    //   excerpt: "Smart, light, and ship-ready: what actually earns its place in your bag.",
-    //   author:"ken", tags:["packing","solo"] }
-  ];
-
-  function normArticle(a){
-    return {
-      slug: a.slug || a.id || "",
-      title: a.title || "",
-      hero: a.hero || a.image || "",
-      dek: a.dek || a.excerpt || "",
-      authorId: a.authorId || a.author || "",
-      tags: Array.isArray(a.tags) ? a.tags : []
-    };
-  }
-
-  function normAuthor(a){
-    return {
-      id: a.id || "",
-      name: a.name || "",
-      url: a.url || "",
-      avatar: a.avatar || "",
-      socials: Array.isArray(a.socials) ? a.socials : []
-    };
-  }
-
-  const AUTHORS = RAW_AUTHORS.map(normAuthor);
-  const ARTICLES = RAW_ARTICLES.map(normArticle);
-
-  // quick lookups
-  const authorById = Object.fromEntries(AUTHORS.map(a=>[a.id,a]));
-  const articlesByAuthor = ARTICLES.reduce((acc,a)=>{
-    if(!acc[a.authorId]) acc[a.authorId]=[];
-    acc[a.authorId].push(a);
-    return acc;
-  },{});
-
-  // --- ROUTING / CHOICE ------------------------------------------------------
-  const qs = new URLSearchParams(location.search);
-  const hash = (location.hash||"").replace(/^#/, "");
-  let slug = qs.get("a") || hash || "";
-
-  const last = localStorage.getItem("solo:lastSlug");
-  if(!slug){
-    const pool = ARTICLES.filter(a=>a.slug && a.slug!==last);
-    const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
-    slug = pick?.slug || ARTICLES[0]?.slug || "";
-    if(slug) history.replaceState(null, "", location.pathname+"#"+slug);
-  }
-
-  const article = ARTICLES.find(a=>a.slug===slug) || ARTICLES[0];
-  localStorage.setItem("solo:lastSlug", article.slug);
-  window.__soloArticle = article; // share bar & SEO
-
-  // --- RENDER ARTICLE --------------------------------------------------------
-  const host = document.getElementById("solo-article-host");
-  if(host){
-    fetch(ARTICLE_BASE + encodeURIComponent(article.slug) + ".html", {
-      credentials:"omit", cache:"no-store", redirect:"follow"
-    })
-    .then(r=>r.ok ? r.text() : Promise.reject(r.status))
-    .then(html=>{
-      host.innerHTML = html;
-      wireShareButtons(article);
-      injectArticleSEO(article);
-      if (window.__hydrateShareBar) window.__hydrateShareBar();
-      // ensure byline author present; if absent, add a minimal one:
-      ensureBylineAuthorFallback(article);
-    })
-    .catch(()=>{
-      host.innerHTML = `<h2>We hit rough seas loading this article.</h2>
-        <p>Try refreshing or <a href="${ORIGIN}/solo.html">return to Solo home</a>.</p>`;
-    });
-  }
-
-  function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
-
-  function wireShareButtons(a){
-    const el = document.querySelector('.byline .share');
-    if(!el) return;
-    const url = permalink(a.slug);
-    el.addEventListener('click', (e)=>{
-      e.preventDefault();
-      navigator.clipboard.writeText(url).then(()=>{
-        el.textContent="Link copied!"; setTimeout(()=>el.textContent="Share this article",1500);
-      });
-    });
-  }
-
-  // If deep-linked (hash or ?a=), inject per-article SEO overrides.
-  function injectArticleSEO(a){
-    if(!(location.search.includes("a=") || location.hash)) return;
-    const url = permalink(a.slug);
-    setMeta('og:title', a.title+" — In the Wake");
-    setMeta('og:description', a.dek || "Solo cruising reflections and tips.");
-    setMeta('og:image', a.hero || (ORIGIN + "/assets/index_hero.jpg"));
-    setMeta('og:url', url);
-    setNameMeta('description', a.dek || "Solo cruising reflections and tips.");
-    setMeta('twitter:card','summary_large_image');
-
-    const existingLD = document.querySelector('script[type="application/ld+json"].solo-article-ld');
-    if (existingLD) existingLD.remove();
-    const ld = document.createElement('script');
-    ld.type="application/ld+json";
-    ld.className = "solo-article-ld";
-    ld.textContent = JSON.stringify({
-      "@context":"https://schema.org",
-      "@type":"BlogPosting",
-      "headline": a.title,
-      "description": a.dek || "Solo cruising reflections and tips.",
-      "image": a.hero || (ORIGIN + "/assets/index_hero.jpg"),
-      "url": url,
-      "isPartOf": {"@type":"Blog","name":"Solo Cruising","url": ORIGIN + "/solo.html"}
-    });
-    document.head.appendChild(ld);
-
-    function setMeta(p,c){ let m=document.querySelector(`meta[property="${p}"]`);
-      if(!m){ m=document.createElement('meta'); m.setAttribute('property',p); document.head.appendChild(m); }
-      m.setAttribute('content', c); }
-    function setNameMeta(n,c){ let m=document.querySelector(`meta[name="${n}"]`);
-      if(!m){ m=document.createElement('meta'); m.setAttribute('name',n); document.head.appendChild(m); }
-      m.setAttribute('content', c); }
-  }
-
-  // --- AUTHORS RAIL ----------------------------------------------------------
-  renderAuthorsRail();
-
-  function renderAuthorsRail(){
-    const rail = document.getElementById("authors-list");
-    if(!rail) return;
-    rail.innerHTML = ""; // clear
-
-    // Sort authors by number of articles desc
-    const sorted = [...AUTHORS].sort((a,b)=>{
-      const aa=(articlesByAuthor[a.id]||[]).length;
-      const bb=(articlesByAuthor[b.id]||[]).length;
-      return bb-aa;
-    });
-
-    for(const a of sorted){
-      const authored = (articlesByAuthor[a.id]||[]);
-      const pick = authored.length ? authored[Math.floor(Math.random()*authored.length)] : null;
-      const div = document.createElement('div'); div.className="author";
-
-      div.innerHTML = `
-        <img src="${a.avatar}" alt="${escapeHtml(a.name)}">
-        <div class="meta">
-          <a href="${a.url||'#'}" ${a.url?'target="_blank" rel="noopener"':''}>${escapeHtml(a.name)}</a>
-          <div class="links">
-            ${(a.socials||[]).map(s=>`<a href="${s.href}" target="_blank" rel="noopener">${escapeHtml(s.label)}</a>`).join('')}
-          </div>
-        </div>
-      `;
-
-      rail.appendChild(div);
-
-      // Roll of articles (up to 4)
-      const roll = document.createElement('div'); roll.className="roll";
-      const max = Math.min(4, authored.length);
-      for(let i=0;i<max;i++){
-        const art = authored[(i + Math.floor(Math.random()*authored.length)) % authored.length];
-        const href = PERMALINK_BASE + encodeURIComponent(art.slug) + ".html";
-        const aTag = document.createElement('a');
-        aTag.href = href;
-        aTag.textContent = art.title;
-        aTag.addEventListener('click', (e)=>{
-          // stay on solo.html, deep-link to article
-          e.preventDefault();
-          history.pushState(null, "", location.pathname + "#" + art.slug);
-          location.reload(); // simplest refresh to reuse loader path
-        });
-        roll.appendChild(aTag);
+    // -------------------------
+    // AUTHORS (pre-seeded)
+    // -------------------------
+    const RAW_AUTHORS = [
+      {
+        id: "ken",
+        name: "Ken Baker",
+        url: "https://ken-baker.com",
+        avatar: "https://www.cruisinginthewake.com/assets/authors/ken.jpg",
+        socials: [
+          { label:"Site", href:"https://ken-baker.com" },
+          { label:"IG",   href:"https://instagram.com/flickersofmajesty" },
+          { label:"Lakeview Fellowship Church",   href:"https://instagram.com/flickersofmajesty" }, 
+          { label:"Facebook Solo Travel Group",   href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=ken_profile" },
+          { label:"Facebook Solo Travel Community (mobile only)",   href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=ken_profile" }
+        ]
+      },
+      {
+        id: "tina",
+        name: "Tina Maulsby",
+        url: "https://www.cruisinginthewake.com/authors/tina-maulsby.html",
+        avatar: "https://www.cruisinginthewake.com/assets/authors/tina.jpg",
+        socials: [
+          { label:"TikTok", href:"https://www.tiktok.com/@beyondboundarieswithtina?utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile },
+          { label:"Etsy",   href:"https://www.etsy.com/shop/YOUR_SHOP?section_id=CRUISE_ONLY" },
+          { label:"Facebook Solo Travel Group",   href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" },
+          { label:"Facebook Solo Travel Community (mobile only)",   href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" }
+        ]
       }
-      rail.appendChild(roll);
+    ];
+
+    // -------------------------
+    // ARTICLES (pre-seeded)
+    // -------------------------
+    const RAW_ARTICLES = [
+      {
+        slug: "freedom-of-your-own-wake",
+        title: "The Freedom of Your Own Wake",
+        hero: ORIGIN + "/assets/solo/freedom-hero.jpg",
+        dek:  "A gentle case for sailing alone: rest, rhythm, and room to breathe.",
+        authorId: "ken",
+        tags: ["solo","tips","reflection"]
+      },
+      {
+        slug: "why-i-started-solo-cruising",
+        title: "Why I Started Solo Cruising (and Built a Community)",
+        hero: ORIGIN + "/assets/solo/tina-why-i-started-hero.jpg",
+        dek:  "From that first solo gangway to a thriving community — lessons, safety, and the unexpected joy of sailing on your own terms.",
+        authorId: "tina",
+        tags: ["solo","story","community","women"]
+      }
+    ];
+
+    // -------------------------
+    // Normalizers (shape-compat)
+    // -------------------------
+    function normArticle(a){
+      return {
+        slug:      a.slug   || a.id   || "",
+        title:     a.title  || "",
+        hero:      a.hero   || a.image   || "",
+        dek:       a.dek    || a.excerpt || "",
+        authorId:  a.authorId || a.author || "",
+        tags:      Array.isArray(a.tags) ? a.tags : []
+      };
     }
-  }
+    function normAuthor(a){
+      return {
+        id:      a.id || "",
+        name:    a.name || "",
+        url:     a.url || "",
+        avatar:  a.avatar || "",
+        socials: Array.isArray(a.socials) ? a.socials : []
+      };
+    }
 
-  // If an article file lacks a byline block, add a minimal one so “no authors” never happens.
-  function ensureBylineAuthorFallback(a){
-    const hasByline = !!document.querySelector('footer.byline');
-    if(hasByline) return;
-    const mounted = document.getElementById('solo-article-host');
-    if(!mounted) return;
-    const auth = authorById[a.authorId] || null;
-    if(!auth) return;
-    const footer = document.createElement('footer');
-    footer.className = "byline";
-    footer.innerHTML = `
-      <img src="${auth.avatar}" alt="${escapeHtml(auth.name)}" width="48" height="48">
-      <div>
-        <strong><a href="${auth.url}" target="_blank" rel="noopener">${escapeHtml(auth.name)}</a></strong>
-        <a class="share" href="#" role="button">Share this article</a>
-      </div>`;
-    mounted.appendChild(footer);
-  }
+    const AUTHORS  = RAW_AUTHORS.map(normAuthor);
+    const ARTICLES = RAW_ARTICLES.map(normArticle);
 
-  // --- helpers ---------------------------------------------------------------
-  function escapeHtml(s){ return String(s||"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m])); }
+    const authorById = Object.fromEntries(AUTHORS.map(a => [a.id, a]));
+    const articlesByAuthor = ARTICLES.reduce((acc,a)=>{
+      if(!acc[a.authorId]) acc[a.authorId] = [];
+      acc[a.authorId].push(a);
+      return acc;
+    }, {});
 
-})();
-</script>
+    // -------------------------
+    // Routing / choice
+    // -------------------------
+    const qs   = new URLSearchParams(location.search);
+    const hash = (location.hash||"").replace(/^#/, "");
+    let slug   = qs.get("a") || hash || "";
+
+    const last = localStorage.getItem("solo:lastSlug");
+    if(!slug){
+      const pool = ARTICLES.filter(a=>a.slug && a.slug!==last);
+      const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
+      slug = pick?.slug || ARTICLES[0]?.slug || "";
+      if(slug) history.replaceState(null, "", location.pathname + "#" + slug);
+    }
+
+    const article = ARTICLES.find(a=>a.slug===slug) || ARTICLES[0];
+    localStorage.setItem("solo:lastSlug", article.slug);
+    window.__soloArticle = article; // for share-bar + SEO
+
+    // -------------------------
+    // Render article
+    // -------------------------
+    const host = document.getElementById("solo-article-host");
+    if(host){
+      fetch(ARTICLE_BASE + encodeURIComponent(article.slug) + ".html", {
+        credentials:"omit", cache:"no-store", redirect:"follow"
+      })
+      .then(r => r.ok ? r.text() : Promise.reject(r.status))
+      .then(html => {
+        host.innerHTML = html;
+        wireShareButtons(article);
+        injectArticleSEO(article);
+        if (window.__hydrateShareBar) window.__hydrateShareBar();
+        ensureBylineAuthorFallback(article);
+      })
+      .catch(() => {
+        host.innerHTML = `<h2>We hit rough seas loading this article.</h2>
+          <p>Try refreshing or <a href="${ORIGIN}/solo.html">return to Solo home</a>.</p>`;
+      });
+    }
+
+    // -------------------------
+    // Authors rail
+    // -------------------------
+    renderAuthorsRail();
+
+    function renderAuthorsRail(){
+      const rail = document.getElementById("authors-list");
+      if(!rail) return;
+      rail.innerHTML = "";
+
+      const sorted = [...AUTHORS].sort((a,b)=>{
+        const aa = (articlesByAuthor[a.id]||[]).length;
+        const bb = (articlesByAuthor[b.id]||[]).length;
+        return bb - aa;
+      });
+
+      for(const a of sorted){
+        const authored = (articlesByAuthor[a.id]||[]);
+        const div = document.createElement('div'); div.className = "author";
+        div.innerHTML = `
+          <img src="${a.avatar}" alt="${escapeHtml(a.name)}">
+          <div class="meta">
+            <a href="${a.url||'#'}" ${a.url?'target="_blank" rel="noopener"':''}>${escapeHtml(a.name)}</a>
+            <div class="links">
+              ${(a.socials||[]).map(s=>`<a href="${s.href}" target="_blank" rel="noopener">${escapeHtml(s.label)}</a>`).join('')}
+            </div>
+          </div>
+        `;
+        rail.appendChild(div);
+
+        const roll = document.createElement('div'); roll.className = "roll";
+        const max  = Math.min(4, authored.length);
+        for(let i=0;i<max;i++){
+          const art = authored[(i + Math.floor(Math.random()*authored.length)) % authored.length];
+          const title = art?.title || '';
+          const aTag = document.createElement('a');
+          aTag.href = permalink(art.slug);
+          aTag.textContent = title;
+          aTag.addEventListener('click', (e)=>{
+            e.preventDefault();
+            history.pushState(null, "", location.pathname + "#" + art.slug);
+            location.reload();
+          });
+          roll.appendChild(aTag);
+        }
+        rail.appendChild(roll);
+      }
+    }
+
+    // -------------------------
+    // Helpers
+    // -------------------------
+    function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
+
+    function wireShareButtons(a){
+      const el = document.querySelector('.byline .share');
+      if(!el) return;
+      const url = permalink(a.slug);
+      el.addEventListener('click', (e)=>{
+        e.preventDefault();
+        navigator.clipboard.writeText(url).then(()=>{
+          el.textContent = "Link copied!";
+          setTimeout(()=> el.textContent = "Share this article", 1500);
+        });
+      });
+    }
+
+    function injectArticleSEO(a){
+      if(!(location.search.includes("a=") || location.hash)) return;
+      const url = permalink(a.slug);
+      setMeta('og:title', a.title + " — In the Wake");
+      setMeta('og:description', a.dek || "Solo cruising reflections and tips.");
+      setMeta('og:image', a.hero || (ORIGIN + "/assets/index_hero.jpg"));
+      setMeta('og:url', url);
+      setNameMeta('description', a.dek || "Solo cruising reflections and tips.");
+      setMeta('twitter:card','summary_large_image');
+
+      const existingLD = document.querySelector('script[type="application/ld+json"].solo-article-ld');
+      if (existingLD) existingLD.remove();
+      const ld = document.createElement('script');
+      ld.type = "application/ld+json";
+      ld.className = "solo-article-ld";
+      ld.textContent = JSON.stringify({
+        "@context":"https://schema.org",
+        "@type":"BlogPosting",
+        "headline": a.title,
+        "description": a.dek || "Solo cruising reflections and tips.",
+        "image": a.hero || (ORIGIN + "/assets/index_hero.jpg"),
+        "url": url,
+        "isPartOf": {"@type":"Blog","name":"Solo Cruising","url": ORIGIN + "/solo.html"}
+      });
+      document.head.appendChild(ld);
+
+      function setMeta(p,c){
+        let m=document.querySelector(`meta[property="${p}"]`);
+        if(!m){ m=document.createElement('meta'); m.setAttribute('property',p); document.head.appendChild(m); }
+        m.setAttribute('content', c);
+      }
+      function setNameMeta(n,c){
+        let m=document.querySelector(`meta[name="${n}"]`);
+        if(!m){ m=document.createElement('meta'); m.setAttribute('name',n); document.head.appendChild(m); }
+        m.setAttribute('content', c);
+      }
+    }
+
+    function ensureBylineAuthorFallback(a){
+      const hasByline = !!document.querySelector('footer.byline');
+      if(hasByline) return;
+      const mounted = document.getElementById('solo-article-host');
+      if(!mounted) return;
+      const auth = authorById[a.authorId] || null;
+      if(!auth) return;
+      const footer = document.createElement('footer');
+      footer.className = "byline";
+      footer.innerHTML = `
+        <img src="${auth.avatar}" alt="${escapeHtml(auth.name)}" width="48" height="48">
+        <div>
+          <strong><a href="${auth.url}" target="_blank" rel="noopener">${escapeHtml(auth.name)}</a></strong>
+          <a class="share" href="#" role="button">Share this article</a>
+        </div>`;
+      mounted.appendChild(footer);
+    }
+
+    function escapeHtml(s){
+      return String(s||"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+    }
+  })();
+  </script>
 </body>
 </html>
 <!-- Soli Deo Gloria — abondservant, A.D. 2025-10-10 -->
