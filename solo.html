@@ -9,6 +9,19 @@
   <meta name="version" content="3.006.solo.003"/>
 
   <title>Solo Travel — In the Wake</title>
+  <!-- Canonical Host Normalizer: force apex (no-www) + https -->
+<script>
+(function(){
+  var wantHost = "cruisinginthewake.com";       // <-- pick ONE: apex or www
+  var h = location.hostname.toLowerCase();
+  var isHttps = (location.protocol === "https:");
+  if (h !== wantHost || !isHttps) {
+    var target = "https://" + wantHost + location.pathname + location.search + location.hash;
+    // Use replace() to avoid polluting history
+    location.replace(target);
+  }
+})();
+</script>
   <link rel="canonical" href="https://www.cruisinginthewake.com/solo.html"/>
 
   <!-- Styles -->
