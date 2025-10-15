@@ -275,6 +275,10 @@
 }
 .pill.editor-note strong { font-style:normal; color:var(--ink,#0a3d62); }
 .voyage-tips.card{overflow:visible}
+     #vx-grid, .vx-grid { display:grid; gap:1rem; }
+@media (max-width:719.98px){ #vx-grid, .vx-grid { grid-template-columns:1fr; } }
+@media (min-width:720px) and (max-width:979.98px){ #vx-grid, .vx-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (min-width:980px){ #vx-grid, .vx-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
 </style>
 
 <script>
