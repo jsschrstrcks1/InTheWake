@@ -6,9 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
-  <meta name="version" content="3.006.solo.002"/>
-
-  <title>Solo Travel — In the Wake</title>
+  <meta name="version" content="3.006.solo.003"/>
+<!-- Cache-Buster Helper (Standards v3.006) -->
+<script>
+(function(){
+  // Use the page's declared version or fallback to YYYYMMDD
+  const VER = (document.querySelector('meta[name="version"]')?.content ||
+               new Date().toISOString().slice(0,10).replace(/-/g,""));
+  // Append ?v=VER to any .css or .js without a query string
+  for(const el of document.querySelectorAll('link[rel="stylesheet"], script[src]')){
+    const src = el.href || el.src;
+    if(src && !src.includes('?v=')){
+      const bust = src + (src.includes('?') ? '&' : '?') + 'v=' + VER;
+      if(el.tagName==='LINK') el.href = bust;
+      else el.src = bust;
+    }
+  }
+})();
+</script>
+  <title>Solo Travel — In the Wake v3.006.solo.003</title>
   <link rel="canonical" href="https://www.cruisinginthewake.com/solo.html"/>
 
   <!-- Styles -->
