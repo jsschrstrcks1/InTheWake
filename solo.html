@@ -9,11 +9,6 @@
   <meta name="version" content="3.006.solo.002"/>
 
   <title>Solo Travel — In the Wake</title>
-  <style>
-.share-bar{position:relative; z-index:10}
-.share-list{display:flex; gap:.75rem; list-style:none; margin:.5rem 0 0; padding:0}
-.share-list .share{pointer-events:auto}
-</style>
   <link rel="canonical" href="https://www.cruisinginthewake.com/solo.html"/>
 
   <!-- Styles -->
@@ -177,15 +172,14 @@
     © 2025 In the Wake — A Cruise Traveler’s Logbook
     <span class="version-badge">v3.006.solo.002</span>
 
- <nav id="share-bar" class="share-bar" aria-label="Share this page" role="navigation">
-  <ul class="share-list">
-    <li><a id="share-x"        class="share" target="_blank" rel="noopener">X</a></li>
-    <li><a id="share-fb"       class="share" target="_blank" rel="noopener">Fb</a></li>
-    <li><a id="share-ig"       class="share" href="#"        >Ig</a></li>
-    <li><a id="share-wa"       class="share" target="_blank" rel="noopener">Wa</a></li>
-    <li><a id="share-wechat"   class="share"                 >WeChat</a></li>
-  </ul>
-</nav>
+    <!-- Floating Social Share Bar -->
+    <div id="share-bar" class="share-bar" aria-label="Share this page">
+      <a class="share twitter" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
+      <a class="share facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
+      <a class="share instagram" href="#" onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')" aria-label="Copy link for Instagram">Ig</a>
+      <a class="share whatsapp" href="https://wa.me/?text=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
+      <a class="share wechat" href="weixin://" aria-label="Share on WeChat">WeChat</a>
+    </div>
   </footer>
 
   <!-- Share bar visibility + external link hardener -->
@@ -209,118 +203,95 @@
   </script>
 
   <!-- Solo article loader + deep-link SEO injector -->
- <script>
-(function(){
-  const SITE = "https://www.cruisinginthewake.com";
-  const ARTICLE_BASE = SITE + "/solo/articles/";
+  <script>
+  (function(){
+    const ARTICLES = [
+      {slug:"freedom-of-your-own-wake", title:"The Freedom of Your Own Wake",
+       url:"/solo/freedom-of-your-own-wake.html",
+       hero:"https://www.cruisinginthewake.com/assets/solo/freedom-hero.jpg",
+       dek:"A gentle case for sailing alone: rest, rhythm, and room to breathe."}
+      // future: more articles…
+    ];
 
-  // registry (can live here or be generated at build time)
-  const ARTICLES = [
-    {
-      slug: "freedom-of-your-own-wake",
-      title: "The Freedom of Your Own Wake",
-      hero: SITE + "/assets/solo/freedom-hero.jpg",
-      dek:  "A gentle case for sailing alone: rest, rhythm, and room to breathe."
+    const qs = new URLSearchParams(location.search);
+    const hash = (location.hash||"").replace(/^#/, "");
+    let slug = qs.get("a") || hash || "";
+
+    const last = localStorage.getItem("solo:lastSlug");
+    if(!slug){
+      const pool = ARTICLES.filter(a=>a.slug!==last);
+      const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
+      slug = pick.slug;
+      history.replaceState(null, "", location.pathname+"#"+slug);
     }
-    // add more here…
-  ];
 
-  const qs   = new URLSearchParams(location.search);
-  const hash = (location.hash||"").replace(/^#/, "");
-  let slug   = qs.get("a") || hash || "";
+    const article = ARTICLES.find(a=>a.slug===slug) || ARTICLES[0];
+    localStorage.setItem("solo:lastSlug", article.slug);
 
-  const last = localStorage.getItem("solo:lastSlug");
-  if(!slug){
-    const pool = ARTICLES.filter(a=>a.slug!==last);
-    const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
-    slug = pick.slug;
-    history.replaceState(null, "", location.pathname+"#"+slug);
-  }
+    const host = document.getElementById("solo-article-host");
+    if(host){
+      fetch(article.url, {credentials:"omit", cache:"no-store"})
+        .then(r=>r.ok?r.text():Promise.reject(r.status))
+        .then(html=>{
+          host.innerHTML = html;
+          wireShareButtons(article);
+          injectArticleSEO(article);
+          hydrateSidebar(article);
+        })
+        .catch(()=>{ host.innerHTML = "<p>We hit rough seas loading this article. Try refreshing.</p>"; });
+    }
 
-  const article = ARTICLES.find(a=>a.slug===slug) || ARTICLES[0];
-  localStorage.setItem("solo:lastSlug", article.slug);
-  window.__soloArticle = article; // for share-bar hydration
-
-  const host = document.getElementById("solo-article-host");
-  if(host){
-    fetch(ARTICLE_BASE + article.slug + ".html", {credentials:"omit", cache:"no-store"})
-      .then(r=>r.ok ? r.text() : Promise.reject(r.status))
-      .then(html=>{
-        host.innerHTML = html;
-        wireShareButtons(article);
-        injectArticleSEO(article);
-        if (window.__hydrateShareBar) window.__hydrateShareBar();
-      })
-      .catch(()=>{
-        host.innerHTML = `
-          <h2>We hit rough seas loading this article.</h2>
-          <p>Try refreshing the page or <a href="${SITE}/solo.html">return to Solo home</a>.</p>`;
+    function wireShareButtons(a){
+      const el = document.querySelector('.byline .share');
+      if(!el) return;
+      const shareUrl = "https://www.cruisinginthewake.com/solo/"+a.slug+".html";
+      el.addEventListener('click', (e)=>{
+        e.preventDefault();
+        navigator.clipboard.writeText(shareUrl).then(()=> {
+          el.textContent = "Link copied!";
+          setTimeout(()=>el.textContent="Share this article", 2000);
+        });
       });
-  }
+    }
 
-  function permalink(slug){ return ARTICLE_BASE + encodeURIComponent(slug) + ".html"; }
+    function injectArticleSEO(a){
+      if(!(location.search.includes("a=") || location.hash)) return;
+      setMeta('og:title', a.title+" — In the Wake");
+      setMeta('og:description', a.dek);
+      setMeta('og:image', a.hero);
+      setMeta('og:url', "https://www.cruisinginthewake.com/solo/"+a.slug+".html");
+      setMeta('twitter:card', 'summary_large_image');
+      setNameMeta('description', a.dek);
 
-  function wireShareButtons(a){
-    const el = document.querySelector('.byline .share');
-    if(!el) return;
-    const url = permalink(a.slug);
-    el.addEventListener('click', (e)=>{
-      e.preventDefault();
-      navigator.clipboard.writeText(url).then(()=>{
-        el.textContent="Link copied!"; setTimeout(()=>el.textContent="Share this article",1500);
+      const ld = document.createElement('script');
+      ld.type="application/ld+json";
+      ld.textContent = JSON.stringify({
+        "@context":"https://schema.org",
+        "@type":"BlogPosting",
+        "headline": a.title,
+        "description": a.dek,
+        "image": a.hero,
+        "url": "https://www.cruisinginthewake.com/solo/"+a.slug+".html",
+        "isPartOf": {"@type":"Blog","name":"Solo Cruising","url":"https://www.cruisinginthewake.com/solo.html"}
       });
-    });
-  }
+      document.head.appendChild(ld);
 
-  // If deep-linked, swap OG/Twitter + JSON-LD to the specific article
-  function injectArticleSEO(a){
-    if(!(location.search.includes("a=") || location.hash)) return;
-    const url = permalink(a.slug);
-    setMeta('og:title', a.title+" — In the Wake");
-    setMeta('og:description', a.dek);
-    setMeta('og:image', a.hero);
-    setMeta('og:url', url);
-    setMeta('twitter:card','summary_large_image');
-    setNameMeta('description', a.dek);
-
-    const ld = document.createElement('script');
-    ld.type="application/ld+json";
-    ld.textContent = JSON.stringify({
-      "@context":"https://schema.org",
-      "@type":"BlogPosting",
-      "headline": a.title,
-      "description": a.dek,
-      "image": a.hero,
-      "url": url,
-      "isPartOf": {"@type":"Blog","name":"Solo Cruising","url": SITE + "/solo.html"}
-    });
-    document.head.appendChild(ld);
-
-    function setMeta(prop, content){
-      let m=document.querySelector('meta[property="'+prop+'"]');
-      if(!m){ m=document.createElement('meta'); m.setAttribute('property',prop); document.head.appendChild(m); }
-      m.setAttribute('content', content);
+      function setMeta(property, content){
+        let m = document.querySelector('meta[property="'+property+'"]');
+        if(!m){ m = document.createElement('meta'); m.setAttribute('property', property); document.head.appendChild(m); }
+        m.setAttribute('content', content);
+      }
+      function setNameMeta(name, content){
+        let m = document.querySelector('meta[name="'+name+'"]');
+        if(!m){ m = document.createElement('meta'); m.setAttribute('name', name); document.head.appendChild(m); }
+        m.setAttribute('content', content);
+      }
     }
-    function setNameMeta(name, content){
-      let m=document.querySelector('meta[name="'+name+'"]');
-      if(!m){ m=document.createElement('meta'); m.setAttribute('name',name); document.head.appendChild(m); }
-      m.setAttribute('content', content);
-    }
-  }
-})();
-</script>
-  function currentShareTarget(){
-  if (window.__soloArticle && window.__soloArticle.slug){
-    return "https://www.cruisinginthewake.com/solo/articles/" + window.__soloArticle.slug + ".html";
-  }
-  const qs = new URLSearchParams(location.search);
-  const hashSlug = (location.hash||"").replace(/^#/, "");
-  if (qs.get("a") || hashSlug){
-    const slug = qs.get("a") || hashSlug;
-    return "https://www.cruisinginthewake.com/solo/articles/" + encodeURIComponent(slug) + ".html";
-  }
-  return "https://www.cruisinginthewake.com/solo.html";
-}
+
+    // Placeholder for authors sidebar hydration (future)
+    function hydrateSidebar(){/* no-op for now */}
+  })();
+  </script>
 </body>
 </html>
 <!-- Soli Deo Gloria — abondservant, A.D. 2025-10-10 -->
