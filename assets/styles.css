@@ -183,3 +183,39 @@ html, body { overflow-x: hidden; }  /* safety net across the site */
 .card .card-hero,
 .card .vf-map,
 .card iframe.live-map { width:100%; border:0; border-radius:12px; }
+
+/* ===== In the Wake — tiny stability patch (v3.007.073d) ===== */
+
+/* 1) Kill horizontal “infinite scroll”.
+   Root cause: .hero uses 100vw (includes scrollbar), causing 1–2px overflow. */
+html, body { overflow-x: hidden; }          /* safety net */
+.hero-header .hero {                        /* override the earlier 100vw rule */
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+
+/* 2) First Look: stop height=0 blips and image disappearances during Swiper init. */
+.swiper.firstlook {
+  aspect-ratio: 16/9;
+  height: auto;
+  min-height: 220px;                        /* keeps a real box while JS boots */
+}
+.swiper.firstlook[style*="height: 0"] {
+  height: auto !important;
+  min-height: 220px !important;
+}
+.swiper.firstlook .swiper-wrapper,
+.swiper.firstlook .swiper-slide {
+  height: 100% !important;
+  min-height: inherit;
+}
+.swiper.firstlook figure { margin:0; height:100%; position:relative; overflow:hidden; }
+.swiper.firstlook img {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; border-radius:10px; display:block;
+  backface-visibility:hidden; transform:translateZ(0);  /* WebKit repaint nudge */
+}
+
+/* 3) Ensure the two-up rows actually go 1×2 on desktop (keeps mobile = 1 col). */
+.grid-2 { display:grid; gap:1rem; align-items:stretch; }
+@media (min-width:980px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
