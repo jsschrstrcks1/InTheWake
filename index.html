@@ -260,6 +260,43 @@
   <!-- Floating Social Share Bar (sitewide) -->
   <script defer src="/assets/js/share-bar.js?v=3.006"></script>
 
+  
+<script>
+(function(){
+  if (!('serviceWorker' in navigator)) return;
+
+  const SW_URL = '/sw.js';
+  const SEED_ON_IDLE = [
+    // Hint the SW to precache these ASAP (same-origin only)
+    '/solo.html',
+    '/ships/ships.html',
+    '/packing.html',
+    '/solo/articles/freedom-of-your-own-wake.html',
+    '/solo/articles/why-i-started-solo-cruising.html'
+  ];
+
+  function seedOnIdle(reg) {
+    if (!navigator.serviceWorker.controller) return;
+    const send = () => navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls: SEED_ON_IDLE});
+    if ('requestIdleCallback' in window) requestIdleCallback(send, {timeout: 2000});
+    else setTimeout(send, 800);
+  }
+
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register(SW_URL)
+      .then(reg => {
+        // If this SW just took control, seed right away; otherwise seed when controlled
+        if (navigator.serviceWorker.controller) seedOnIdle(reg);
+        navigator.serviceWorker.addEventListener('controllerchange', function once(){
+          navigator.serviceWorker.removeEventListener('controllerchange', once);
+          seedOnIdle(reg);
+        });
+      })
+      .catch(()=>{});
+  });
+})();
+</script>
+
   <!--
     Invocation Signature · Soli Deo Gloria
     “Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
