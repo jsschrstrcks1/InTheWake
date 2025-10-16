@@ -1,4 +1,3 @@
-<!-- Invocation: This page is an act of worship of God — may all we ship be true, beautiful, and helpful. Soli Deo Gloria. -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,7 +9,6 @@
 
   <title>Solo Travel — In the Wake</title>
 
-  <!-- Canonical Host Normalizer: force apex (no-www) + https -->
   <script>
   (function(){
     var wantHost = "cruisinginthewake.com";
@@ -24,7 +22,7 @@
 
   <link rel="canonical" href="https://cruisinginthewake.com/solo.html"/>
 
-  <!-- Styles (same-origin so cache-buster can touch it) -->
+  <!-- Same-origin so cache-buster can touch it -->
   <link rel="stylesheet" href="/assets/styles.css"/>
 
   <!-- Preconnects -->
@@ -125,46 +123,28 @@
     .wrap,.cards,.card{position:relative; z-index:1}
   </style>
 
-  <!-- Nav pills (all links look like pills; current one emphasized) -->
-  <style id="nav-pills">
-    .nav[aria-label="Primary"] a{
-      display:inline-block; border-radius:999px; padding:.25rem .60rem;
-      text-decoration:none; border:2px solid transparent; margin-right:.35rem;
-    }
-    .nav[aria-label="Primary"] a[aria-current="page"],
-    .nav[aria-label="Primary"] a.is-current{
-      border-color: rgba(14,110,142,.35);
-      background: rgba(14,110,142,.06);
-      font-weight:600;
+  <!-- Nav pills: use existing .pill-nav.pills, plus emphasize current -->
+  <style id="nav-pills-emphasis">
+    .nav.pill-nav.pills a[aria-current="page"],
+    .nav.pill-nav.pills a.is-current{
+      border:2px solid rgba(14,110,142,.35);
+      background:rgba(14,110,142,.06);
+      font-weight:700;
     }
   </style>
 
-  <!-- Old share bar look/feel -->
-  <style id="share-css">
-    .share-bar{position:fixed; right:16px; bottom:16px; z-index:1000; opacity:0; transform:translateY(12px); transition:.2s}
-    .share-bar.visible{opacity:1; transform:none}
-    .share-bar a{display:inline-block; margin-right:.35rem; font-weight:600; text-decoration:none; background:#ffffffcc; padding:.35rem .55rem; border-radius:.55rem; box-shadow:0 4px 16px rgba(0,0,0,.12)}
-    @media (max-width: 680px){ .share-bar{right:12px; bottom:12px} .share-bar a{padding:.3rem .5rem} }
-    html.a11y-launcher-present .share-bar{bottom:84px}
-  </style>
+  <!-- A11y no-overlap shim for restored share bar -->
+  <style>html.a11y-launcher-present{--share-bar-bottom:84px}</style>
+  <script>
+  (function(){
+    new MutationObserver(function(){
+      document.documentElement.classList.add('a11y-launcher-present');
+    }).observe(document.documentElement,{subtree:true,childList:true});
+  })();
+  </script>
 
-  <!-- Authors rail CSS + two-column layout on wide screens -->
-  <style id="authors-rail-css">
-    @media (min-width: 1100px){
-      .page .wrap .layout{display:grid; grid-template-columns: 1fr 320px; gap:1.25rem}
-      .page .wrap .layout .maincol{min-width:0}
-      .page .wrap .layout .rail{position:sticky; top:88px; align-self:start}
-    }
-    .card-authors .author{display:flex; gap:.75rem; align-items:center; margin:.5rem 0}
-    .card-authors .avatar{width:40px; height:40px; border-radius:999px; overflow:hidden; flex:none; background:#e9f3f7}
-    .card-authors .avatar img{width:100%; height:100%; object-fit:cover; display:block}
-    .card-authors .author .meta{display:flex; flex-direction:column}
-    .card-authors .author .meta a{font-weight:600; text-decoration:none}
-    .card-authors .author .meta .links{font-size:.9rem; opacity:.8}
-    .card-authors .author .meta .links a{margin-right:.5rem}
-    .card-authors .roll{margin:.35rem 0 .75rem}
-    .card-authors .roll a{display:inline-block; margin:.15rem .35rem .15rem 0; font-size:.92rem}
-  </style>
+  <!-- Restored floating share bar -->
+  <script defer src="/assets/js/share-bar.js?v=3.006.solo.008"></script>
 
   <!-- Standards Invocation (docstring) -->
   <!-- EVERY-PAGE v3.002 · SOLO-MODULE v3.006.solo.008 · SHIP-PAGE v3.006 · RCL-ADDENDUM v3.006.006 -->
@@ -177,7 +157,8 @@
       <div class="brand">
         <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
       </div>
-      <nav class="nav" aria-label="Primary">
+      <!-- Pill nav enabled -->
+      <nav class="nav pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/ships/ships.html">Ships</a>
         <a href="/restaurants.html">Restaurants &amp; Menus</a>
@@ -246,24 +227,11 @@
   <footer class="wrap">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
     <span class="version-badge">v3.006.solo.008</span>
-
-    <!-- Old Floating Social Share Bar -->
-    <div id="share-bar" class="share-bar" aria-label="Share this page">
-      <a class="share twitter"  id="share-x"  target="_blank" rel="noopener">X</a>
-      <a class="share facebook" id="share-fb" target="_blank" rel="noopener">Fb</a>
-      <a class="share instagram" id="share-ig" href="#">Ig</a>
-      <a class="share whatsapp"  id="share-wa" target="_blank" rel="noopener">Wa</a>
-      <a class="share wechat"    id="share-wechat" href="#">WeChat</a>
-    </div>
   </footer>
 
-  <!-- Share bar visibility + external link hardener + nav aria-current setter -->
+  <!-- External link hardener + nav aria-current setter -->
   <script>
   (function(){
-    const bar=document.getElementById('share-bar');
-    function toggle(){ if(window.scrollY>150){bar?.classList.add('visible')} else {bar?.classList.remove('visible')} }
-    window.addEventListener('scroll',toggle,{passive:true}); toggle();
-
     const sameOrigin = location.origin;
     document.addEventListener('click',function(e){
       const a=e.target.closest('a[href]'); if(!a) return;
@@ -285,10 +253,6 @@
         } catch(_) {}
       }
     })();
-
-    // Detect a11y launcher and nudge share bar up to avoid overlap
-    const mo = new MutationObserver(function(){ document.documentElement.classList.add('a11y-launcher-present'); });
-    mo.observe(document.documentElement, {subtree:true, childList:true});
   })();
   </script>
 
@@ -301,7 +265,6 @@
     const ARTICLE_BASE = "/solo/articles/";
     const PERMALINK_BASE = ORIGIN + ARTICLE_BASE;
 
-    // Authors
     const RAW_AUTHORS = [
       { id:"ken",  name:"Ken Baker",  url:"https://ken-baker.com",        avatarBase:"/authors/img/ken1",
         socials:[ {label:"Site",href:"https://ken-baker.com"},
@@ -315,7 +278,6 @@
                   {label:"Community (mobile)",href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link"} ]}
     ];
 
-    // Articles
     const RAW_ARTICLES = [
       { slug:"freedom-of-your-own-wake",
         title:"The Freedom of Your Own Wake",
@@ -338,7 +300,6 @@
     const authorById = Object.fromEntries(AUTHORS.map(a => [a.id, a]));
     const articlesByAuthor = ARTICLES.reduce(function(acc,a){ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
 
-    // Routing
     const qs   = new URLSearchParams(location.search);
     const hash = (location.hash||"").replace(/^#/, "");
     var slug   = qs.get("a") || hash || "";
@@ -355,7 +316,6 @@
     localStorage.setItem("solo:lastSlug", article.slug);
     window.__soloArticle = article;
 
-    // Render article
     const host = document.getElementById("solo-article-host");
     if(host){
       fetch(ARTICLE_BASE + encodeURIComponent(article.slug) + ".html", {
@@ -366,7 +326,6 @@
         host.innerHTML = html;
         wireShareButtons(article);
         injectArticleSEO(article);
-        hydrateShareBar();
         ensureBylineAuthorFallback(article);
       })
       .catch(function(){
@@ -374,7 +333,6 @@
       });
     }
 
-    // Authors rail
     renderAuthorsRail();
 
     function renderAuthorsRail(){
@@ -432,7 +390,6 @@
       });
     }
 
-    // Helpers
     function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
 
     function wireShareButtons(a){
@@ -516,97 +473,47 @@
       mounted.appendChild(footer);
     }
 
-    // OLD Share bar hydration (uses deep link or article permalink)
-    function hydrateShareBar(){
-      const ORI = (location.origin || (location.protocol+'//'+location.host));
-      const BASE = "/solo/articles/";
-      var url;
-      if (window.__soloArticle && window.__soloArticle.slug){
-        url = ORI + BASE + window.__soloArticle.slug + ".html";
-      } else {
-        const qs = new URLSearchParams(location.search);
-        const hashSlug = (location.hash||"").replace(/^#/, "");
-        if (qs.get("a") || hashSlug){
-          const slug = qs.get("a") || hashSlug;
-          url = ORI + BASE + encodeURIComponent(slug) + ".html";
-        } else {
-          url = ORI + "/solo.html";
-        }
-      }
-      const encU = encodeURIComponent(url);
-      const text = encodeURIComponent(document.title.replace(/\s*\|.*$/,''));
-
-      const x  = document.getElementById("share-x");
-      const fb = document.getElementById("share-fb");
-      const ig = document.getElementById("share-ig");
-      const wa = document.getElementById("share-wa");
-      const wc = document.getElementById("share-wechat");
-
-      if(x)  x.href  = "https://twitter.com/intent/tweet?url="+encU+"&text="+text;
-      if(fb) fb.href = "https://www.facebook.com/sharer/sharer.php?u="+encU;
-      if(wa) wa.href = "https://wa.me/?text="+text+"%20"+encU;
-      if(ig){
-        ig.addEventListener("click", function(e){
-          e.preventDefault();
-          navigator.clipboard.writeText(url).then(function(){
-            ig.textContent="Copied!"; setTimeout(function(){ig.textContent="Ig";},1200);
-          });
-        });
-      }
-      if(wc){
-        wc.addEventListener("click", function(e){
-          e.preventDefault();
-          navigator.clipboard.writeText(url).then(function(){ alert("Link copied. Share it in WeChat."); });
-        });
-      }
-    }
-    window.hydrateShareBar = hydrateShareBar;
-
     function escapeHtml(s){
       return String(s||"").replace(/[&<>"']/g, function(m){ return ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" })[m]; });
     }
   })();
   </script>
-  <!-- SW registration + gentle seeding (same-origin only) -->
-<script>
-(function(){
-  if(!('serviceWorker' in navigator)) return;
 
-  var ver  = document.querySelector('meta[name="version"]')?.content || '';
-  var sw   = '/sw.js' + (ver ? ('?v='+encodeURIComponent(ver)) : '');
+  <!-- SW registration + gentle seeding (unchanged) -->
+  <script>
+  (function(){
+    if(!('serviceWorker' in navigator)) return;
 
-  // Optional: hint the manifest early
-  var l = document.createElement('link');
-  l.rel = 'preload'; l.as = 'fetch'; l.href = '/precache-manifest.json'; l.crossOrigin = 'anonymous';
-  document.head.appendChild(l);
+    var ver  = document.querySelector('meta[name="version"]')?.content || '';
+    var sw   = '/sw.js' + (ver ? ('?v='+encodeURIComponent(ver)) : '');
 
-  window.addEventListener('load', function(){
-    navigator.serviceWorker.register(sw, { scope: '/' })
-      .then(function(){ return navigator.serviceWorker.ready; })
-      .then(function(reg){
-        // Light-touch priming: fetch the manifest, then quietly request top URLs.
-        fetch('/precache-manifest.json', {cache:'no-store'})
-          .then(function(r){ return r.ok ? r.json() : []; })
-          .then(function(list){
-            if(!Array.isArray(list)) return;
-            // Fetch in priority order; SW fetch handler will cache per its strategies.
-            list.slice(0, 50).forEach(function(u){
-              // Ensure same-origin
-              try {
-                var url = new URL(u, location.origin);
-                if (url.origin === location.origin) fetch(url.href).catch(function(){});
-              } catch(_) {}
-            });
-            // If your sw.js v12 supports it, also nudge it via postMessage (no-op otherwise).
-            if (navigator.serviceWorker.controller) {
-              try { navigator.serviceWorker.controller.postMessage({type:'SEED_FROM_PAGE', urls:list}); } catch(_){}
-            }
-          })
-          .catch(function(){});
-      })
-      .catch(function(){ /* ignore */ });
-  });
-})();
-</script>
+    var l = document.createElement('link');
+    l.rel = 'preload'; l.as = 'fetch'; l.href = '/precache-manifest.json'; l.crossOrigin = 'anonymous';
+    document.head.appendChild(l);
+
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register(sw, { scope: '/' })
+        .then(function(){ return navigator.serviceWorker.ready; })
+        .then(function(reg){
+          fetch('/precache-manifest.json', {cache:'no-store'})
+            .then(function(r){ return r.ok ? r.json() : []; })
+            .then(function(list){
+              if(!Array.isArray(list)) return;
+              list.slice(0, 50).forEach(function(u){
+                try {
+                  var url = new URL(u, location.origin);
+                  if (url.origin === location.origin) fetch(url.href).catch(function(){});
+                } catch(_) {}
+              });
+              if (navigator.serviceWorker.controller) {
+                try { navigator.serviceWorker.controller.postMessage({type:'SEED_FROM_PAGE', urls:list}); } catch(_){}
+              }
+            })
+            .catch(function(){});
+        })
+        .catch(function(){});
+    });
+  })();
+  </script>
 </body>
 </html>
