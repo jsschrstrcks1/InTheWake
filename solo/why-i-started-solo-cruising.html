@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0e6e8e">
+  <meta name="version" content="3.006.solo.008"/>
+
+  <!-- EDIT THESE FOUR -->
+  <script>
+    window.__SOLO_PAGE = {
+      SLUG:  "why-i-started-solo-cruising",               // fragment filename (no .html)
+      TITLE: "Why I Started Solo Cruising (and Built a Community)",
+      DEK:   "From that first solo gangway to a thriving community — lessons, safety, and the joy of sailing on your own terms.",
+      HERO:  "/authors/tinas-images/ncl-jade.png"         // absolute or root-relative
+    };
+  </script>
+
+  <title>Solo Travel — In the Wake</title>
+
+  <!-- Canonical Host Normalizer -->
+  <script>(function(){var w="cruisinginthewake.com",h=location.hostname.toLowerCase(),s=(location.protocol==="https:");if(h!==w||!s){location.replace("https://"+w+location.pathname+location.search+location.hash);}})();</script>
+
+  <link rel="canonical" id="canonical-link" href=""/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/styles.css"/>
+
+  <!-- Social defaults (overridden below) -->
+  <meta name="description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" id="og-title" content="">
+  <meta property="og:description" id="og-desc" content="">
+  <meta property="og:url" id="og-url" content="">
+  <meta property="og:image" id="og-image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="page">
+  <a href="#content" class="skip-link">Skip to main content</a>
+
+  <!-- Header + pill nav (same as site) -->
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
+      </div>
+      <nav class="nav pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/ships.html">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability.html">Disability at Sea</a>
+        <a href="/drinks.html">Drink Packages</a>
+        <a href="/packing.html">Packing Lists</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/solo.html">Solo Travel</a>
+        <a href="/travel.html">Travel Tips</a>
+        <a href="/cruise-lines.html">Cruise Lines</a>
+        <a href="/about-us.html">About Us</a>
+      </nav>
+    </div>
+
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+      <div class="hero-credit">
+        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+        <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="content" role="main">
+    <section class="cards stack">
+      <article class="card" id="solo-article-host" aria-live="polite">
+        <h2>Loading article…</h2>
+      </article>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook
+    <span class="version-badge">v3.006.solo.008</span>
+  </footer>
+
+  <!-- Old Floating Social Share Bar (keep your preferred) -->
+  <script defer src="/assets/js/share-bar.js?v=3.006.solo.008"></script>
+
+  <!-- Minimal loader to pull the fragment and set metas -->
+  <script>
+  (function(){
+    "use strict";
+    var ORIGIN  = location.origin || (location.protocol + '//' + location.host);
+    var SLUG    = (window.__SOLO_PAGE && window.__SOLO_PAGE.SLUG)  || "";
+    var TITLE   = (window.__SOLO_PAGE && window.__SOLO_PAGE.TITLE) || document.title;
+    var DEK     = (window.__SOLO_PAGE && window.__SOLO_PAGE.DEK)   || "";
+    var HERO    = (window.__SOLO_PAGE && window.__SOLO_PAGE.HERO)  || (ORIGIN + "/assets/index_hero.jpg");
+
+    // Canonical + OG for the full page URL
+    var pageUrl = ORIGIN + "/solo/" + encodeURIComponent(SLUG) + ".html";
+    function setAttr(sel, attr, val){ var el=document.querySelector(sel); if(el) el.setAttribute(attr,val); }
+    setAttr('#canonical-link','href', pageUrl);
+    setAttr('#og-title','content', TITLE + " — In the Wake");
+    setAttr('#og-desc','content',  DEK || "Solo cruising reflections and tips.");
+    setAttr('#og-url','content',   pageUrl);
+    setAttr('#og-image','content', HERO);
+    if (/\.webp(\?|$)/i.test(HERO)) {
+      var ogt=document.createElement('meta'); ogt.setAttribute('property','og:image:type'); ogt.setAttribute('content','image/webp'); document.head.appendChild(ogt);
+    }
+
+    // Fetch and mount the fragment
+    var host = document.getElementById("solo-article-host");
+    if(!SLUG || !host){ return; }
+    var frag = "/solo/articles/" + encodeURIComponent(SLUG) + ".html";
+    fetch(frag, {credentials:'omit', cache:'no-store'})
+      .then(function(r){ return r.ok ? r.text() : Promise.reject(r.status); })
+      .then(function(html){
+        host.innerHTML = html;
+      })
+      .catch(function(){
+        host.innerHTML = '<h2>We hit rough seas loading this article.</h2><p><a href="/solo.html">Return to Solo</a></p>';
+      });
+
+    // Nav current state
+    (function setAriaCurrent(){
+      var nav = document.querySelector('.nav[aria-label="Primary"]'); if(!nav) return;
+      var here = "/solo.html";  // highlight the Solo section tab
+      Array.prototype.forEach.call(nav.querySelectorAll('a[href]'), function(a){
+        try{
+          var u=new URL(a.getAttribute('href'), ORIGIN);
+          if(u.pathname.replace(/\/+$/,'').toLowerCase()===here) a.setAttribute('aria-current','page');
+        }catch(_){}
+      });
+    })();
+  })();
+  </script>
+</body>
+</html>
