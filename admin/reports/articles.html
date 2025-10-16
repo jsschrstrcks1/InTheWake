@@ -112,7 +112,7 @@
     </section>
   </main>
 
- <script>
+<script>
 (function(){
   "use strict";
 
@@ -120,7 +120,7 @@
   const MANIFEST_URL = "https://cruisinginthewake.com/precache-manifest.json";
   const SITEMAP_URL  = "https://cruisinginthewake.com/solo/sitemap.xml";
 
-  // Keep disabled unless you wire a serverless endpoint
+  // Optional serverless endpoint (leave empty to disable button)
   const SITEMAP_UPDATE_ENDPOINT = "";
 
   const el = {
@@ -152,35 +152,54 @@
       fetchText(SITEMAP_URL)
     ]);
 
-    const manifestVal = manifestRes.status === "fulfilled" ? manifestRes.value : null;
-    const manifestList = normalizeManifestToList(manifestVal);   // <- tolerant of shapes
-    const manifestOk = manifestList.length > 0;
-
-    const sitemapXml = sitemapRes.status === "fulfilled" ? sitemapRes.value : "";
-    const sitemapOk  = !!sitemapXml;
-
-    if (!manifestOk && !sitemapOk) {
-      setDiag("Couldn’t read precache-manifest.json or /solo/sitemap.xml. Nothing to compare.");
-      return;
+    // ---- Normalize manifest into a flat list of URL strings ----
+    let manifestUrls = [];
+    if (manifestRes.status === "fulfilled") {
+      manifestUrls = flattenManifestUrls(manifestRes.value);
     }
+    const manifestOk = Array.isArray(manifestUrls) && manifestUrls.length > 0;
 
-    const pages = manifestOk ? slugsFromList(manifestList, "/solo/", true) : new Set();
-    const frags = manifestOk ? slugsFromList(manifestList, "/solo/articles/", true) : new Set();
-    const site  = sitemapOk  ? slugsFromSitemap(sitemapXml) : new Set();
+    // ---- Parse sitemap into slugs ----
+    const sitemapOk  = (sitemapRes.status === "fulfilled" && typeof sitemapRes.value === "string");
+    const site = sitemapOk ? slugsFromSitemap(sitemapRes.value) : new Set();
+
+    // ---- Build sets from manifest ----
+    const pages = manifestOk ? slugsFromManifest(manifestUrls, "/solo/", true) : new Set();
+    const frags = manifestOk ? slugsFromManifest(manifestUrls, "/solo/articles/", true) : new Set();
 
     const diagBits = [];
-    diagBits.push(manifestOk ? ("manifest ok ("+manifestList.length+" URLs)") : "manifest missing/unreadable");
+    diagBits.push(manifestOk ? ("manifest ok ("+manifestUrls.length+" URLs)") : "manifest missing/unreadable");
     diagBits.push(sitemapOk ? ("sitemap ok ("+site.size+" solo URLs)") : "sitemap missing/unreadable");
     setDiag(diagBits.join(" · "));
 
-    // Differences
+    // ---------- Tightened logic begins ----------
+    // Case: we have fragments but NO full /solo pages detected at all.
+    if (frags.size > 0 && pages.size === 0) {
+      // Red: every fragment implies a missing full page build.
+      fillList(el.listFragMissPages, frags, "/solo/articles/", "/solo/");
+      show(el.cardFragMissPages);
+
+      // Also flag which of those fragments' pages are missing from sitemap (if sitemap is available)
+      if (sitemapOk) {
+        const fragNotInSite = diff(frags, site);
+        if (fragNotInSite.size) {
+          fillList(el.listFragMissSite, fragNotInSite, "/solo/articles/", "/solo/");
+          show(el.cardFragMissSite);
+        }
+      }
+      return; // Don't show "All Clear"
+    }
+    // ---------- Tightened logic ends ----------
+
+    // Normal differences when both layers are detectable
     const fragNotInPages = diff(frags, pages);
     const fragNotInSite  = diff(frags, site);
     const pagesNotInSite = diff(pages, site);
 
     const anyIssues = fragNotInPages.size || fragNotInSite.size || pagesNotInSite.size;
+    const hasSignals = (frags.size || pages.size || site.size);
 
-    if (!anyIssues) {
+    if (!anyIssues && hasSignals) {
       show(el.cardAllClear);
     } else {
       if (fragNotInPages.size) {
@@ -194,13 +213,14 @@
       if (pagesNotInSite.size) {
         fillList(el.listPagesMissSite, pagesNotInSite, "/solo/", null);
         show(el.cardPagesMissSite);
+        // Build proposed entries for those missing from sitemap
+        const xml = buildSitemapEntries(pagesNotInSite);
+        el.additions.value = xml;
+        show(el.proposals);
       }
-    }
-
-    // Proposals for sitemap additions (full pages missing from sitemap)
-    if (pagesNotInSite.size) {
-      el.additions.value = buildSitemapEntries(pagesNotInSite);
-      show(el.proposals);
+      if (!hasSignals) {
+        setDiag("No solo URLs detected yet (no fragments, pages, or sitemap entries).");
+      }
     }
 
     el.btnCopy.addEventListener("click", function(){
@@ -229,8 +249,7 @@
     });
   }
 
-  // ---- Helpers ------------------------------------------------------------
-
+  // ---------- helpers ----------
   function setDiag(msg){ el.diag.textContent = msg; }
   function show(node){ node.style.display = ""; }
 
@@ -245,50 +264,20 @@
     return r.text();
   }
 
-  // Accepts:
-  //  - Array<string> (plain list of URLs)
-  //  - Array<{url:string}> (workbox-style entries)
-  //  - Object with arrays: { pages:[…], assets:[…], images:[…], … }
-  //  - Nested arrays or mixed strings/objects
-  function normalizeManifestToList(man){
+  // Accepts either an array of URLs or a manifest object with arrays of URLs
+  function flattenManifestUrls(m){
+    if (Array.isArray(m)) return m.slice();
+    if (!m || typeof m !== "object") return [];
     const out = [];
-    if (!man) return out;
-
-    const pushUrlish = (v) => {
-      if (!v) return;
-      if (typeof v === "string") { out.push(v); return; }
-      if (typeof v === "object") {
-        // common fields seen in various tools
-        if (typeof v.url === "string") out.push(v.url);
-        else if (typeof v.href === "string") out.push(v.href);
-        else if (typeof v.path === "string") out.push(v.path);
-      }
-    };
-
-    if (Array.isArray(man)) {
-      man.forEach(pushUrlish);
-      return out;
-    }
-
-    if (typeof man === "object") {
-      for (const [k, v] of Object.entries(man)) {
-        if (Array.isArray(v)) {
-          v.forEach(pushUrlish);
-        } else if (typeof v === "string" || typeof v === "object") {
-          pushUrlish(v);
-        }
-      }
-    }
-
-    // Normalize to absolute-like strings for URL() below
+    const keys = ["pages","assets","images","sitemaps","urls","files"];
+    keys.forEach(k => { if (Array.isArray(m[k])) out.push(...m[k]); });
     return out;
   }
 
-  function slugsFromList(list, prefix, htmlOnly){
+  function slugsFromManifest(list, prefix, htmlOnly){
     const out = new Set();
     for (const u of list) {
       try{
-        // Support relative or absolute
         const url = new URL(u, ORIGIN);
         const p = url.pathname;
         if (!p.startsWith(prefix)) continue;
