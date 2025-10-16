@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0e6e8e">
+  <meta name="version" content="3.006.reports.001"/>
+  <title>Articles Report — In the Wake</title>
+
+  <link rel="canonical" href="https://cruisinginthewake.com/admin/reports/articles.html"/>
+  <link rel="stylesheet" href="/assets/styles.css"/>
+
+  <style>
+    /* Page-specific chrome (keeps your site look) */
+    .badge{display:inline-block;padding:.1rem .45rem;border-radius:999px;border:1px solid var(--rope);background:#fff;font-size:.78rem}
+    .ok { color:#106b21 }
+    .muted { opacity:.75 }
+    .error { color:#8b1111 }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace }
+    .grid-3-tight{display:grid;gap:.8rem}
+    @media (min-width:980px){ .grid-3-tight{grid-template-columns: 1fr 1fr 1fr} }
+    .card.red{border-color:#c75e5e;background:#fff6f6}
+    .card.yellow{border-color:#d9b382;background:#fffbf5}
+    .card.green{border-color:#7dbf90;background:#f6fff8}
+    .list{margin:.35rem 0 0;padding-left:1.1rem}
+    .list li{margin:.12rem 0}
+    .scroll{max-height:360px;overflow:auto;border:1px dashed var(--rope);border-radius:10px;padding:.5rem;background:#fff}
+    .btn{appearance:none;border:1px solid #cfe1ea;background:#f7fdff;color:#0e6e8e;padding:.45rem .7rem;border-radius:10px;cursor:pointer}
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+    textarea.out{width:100%;min-height:140px;border:1px solid #cfe1ea;border-radius:10px;padding:.6rem;font-size:.92rem}
+  </style>
+</head>
+<body>
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
+        <span class="version-badge">Reports · v3.006.reports.001</span>
+      </div>
+      <nav class="nav pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/ships/ships.html">Ships</a>
+        <a href="/about-us.html">About</a>
+        <a href="/admin/reports/articles.html" aria-current="page">Admin: Articles</a>
+      </nav>
+    </div>
+    <div class="hero" role="img" aria-label="Watermark Header">
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
+        <div class="tagline">Articles Consistency Report</div>
+      </div>
+      <div class="hero-credit">
+        <span class="pill long">Site health: articles vs fragments vs sitemap</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <section class="cards stack">
+      <article class="card">
+        <h2>What this checks</h2>
+        <ul class="list">
+          <li>Every fragment in <span class="mono">/solo/articles/&lt;slug&gt;.html</span> has a full page at <span class="mono">/solo/&lt;slug&gt;.html</span>.</li>
+          <li>Every full page in <span class="mono">/solo/&lt;slug&gt;.html</span> is present in <span class="mono">/solo/sitemap.xml</span>.</li>
+          <li>Flags anything in fragments that isn’t represented in both other places.</li>
+        </ul>
+        <p class="tiny muted">Source of truth: <span class="mono">/precache-manifest.json</span> (for file discovery) + <span class="mono">/solo/sitemap.xml</span> (for index status).</p>
+      </article>
+    </section>
+
+    <section class="cards stack grid-3-tight">
+      <article class="card" id="diag-card">
+        <h3>Diagnostics</h3>
+        <div id="diag" class="tiny muted">Running…</div>
+      </article>
+
+      <article class="card red" id="fragments-missing-pages" style="display:none">
+        <h3 class="error">Fragments without Full Pages</h3>
+        <p>These exist in <span class="mono">/solo/articles/</span> but there’s no matching <span class="mono">/solo/&lt;slug&gt;.html</span>.</p>
+        <div class="scroll"><ol id="list-frag-miss-pages" class="list"></ol></div>
+      </article>
+
+      <article class="card red" id="fragments-missing-sitemap" style="display:none">
+        <h3 class="error">Fragments not represented in Sitemap</h3>
+        <p>These fragments’ full pages are missing from <span class="mono">/solo/sitemap.xml</span>.</p>
+        <div class="scroll"><ol id="list-frag-miss-sitemap" class="list"></ol></div>
+      </article>
+
+      <article class="card yellow" id="pages-missing-sitemap" style="display:none">
+        <h3>Full Pages missing from Sitemap</h3>
+        <p>These <span class="mono">/solo/&lt;slug&gt;.html</span> pages aren’t in the sitemap yet.</p>
+        <div class="scroll"><ol id="list-pages-miss-sitemap" class="list"></ol></div>
+      </article>
+
+      <article class="card green" id="all-clear" style="display:none">
+        <h3 class="ok">All Clear</h3>
+        <p>Everything in <span class="mono">/solo/</span>, <span class="mono">/solo/articles/</span>, and <span class="mono">/solo/sitemap.xml</span> is consistent.</p>
+      </article>
+
+      <article class="card" id="proposals" style="display:none">
+        <h3>Proposed sitemap additions</h3>
+        <p>Paste these into <span class="mono">/solo/sitemap.xml</span> (inside the <span class="mono">&lt;urlset&gt;</span>):</p>
+        <textarea id="sitemap-additions" class="out" readonly></textarea>
+        <div style="margin-top:.6rem;display:flex;gap:.5rem;flex-wrap:wrap">
+          <button class="btn" id="btn-copy">Copy XML</button>
+          <button class="btn" id="btn-append" disabled>Append to sitemap (requires endpoint)</button>
+          <span class="tiny muted">Config the endpoint in the script as <span class="mono">SITEMAP_UPDATE_ENDPOINT</span>.</span>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+  (function(){
+    "use strict";
+
+    const ORIGIN = (location.origin || (location.protocol + "//" + location.host));
+    const MANIFEST_URL = "/precache-manifest.json";
+    const SITEMAP_URL  = "/solo/sitemap.xml";
+
+    /* Optional: serverless endpoint that appends entries into sitemap.
+       Leave empty to keep the button disabled. Provide something like:
+       https://your-worker.example.com/api/solo-sitemap-append
+       Expected method: POST body { entriesXml: "<url>…</url>…" }
+    */
+    const SITEMAP_UPDATE_ENDPOINT = "";
+
+    const el = {
+      diag: document.getElementById("diag"),
+      cardAllClear: document.getElementById("all-clear"),
+      cardFragMissPages: document.getElementById("fragments-missing-pages"),
+      cardFragMissSite: document.getElementById("fragments-missing-sitemap"),
+      cardPagesMissSite: document.getElementById("pages-missing-sitemap"),
+      listFragMissPages: document.getElementById("list-frag-miss-pages"),
+      listFragMissSite: document.getElementById("list-frag-miss-sitemap"),
+      listPagesMissSite: document.getElementById("list-pages-miss-sitemap"),
+      proposals: document.getElementById("proposals"),
+      additions: document.getElementById("sitemap-additions"),
+      btnCopy: document.getElementById("btn-copy"),
+      btnAppend: document.getElementById("btn-append")
+    };
+
+    if (SITEMAP_UPDATE_ENDPOINT) el.btnAppend.disabled = false;
+
+    run().catch(function(err){
+      setDiag("Hard failure: " + (err && err.message ? err.message : String(err)));
+    });
+
+    async function run(){
+      setDiag("Fetching manifest and sitemap…");
+
+      const [manifest, sitemapXml] = await Promise.allSettled([
+        fetchJson(MANIFEST_URL),
+        fetchText(SITEMAP_URL)
+      ]);
+
+      const manifestOk = manifest.status === "fulfilled" && Array.isArray(manifest.value);
+      const sitemapOk  = sitemapXml.status === "fulfilled" && typeof sitemapXml.value === "string";
+
+      if (!manifestOk && !sitemapOk) {
+        setDiag("Couldn’t read precache-manifest.json or /solo/sitemap.xml. Nothing to compare.");
+        return;
+      }
+
+      const pages = manifestOk ? slugsFromManifest(manifest.value, "/solo/", true) : new Set();
+      const frags = manifestOk ? slugsFromManifest(manifest.value, "/solo/articles/", true) : new Set();
+      const site  = sitemapOk  ? slugsFromSitemap(sitemapXml.value) : new Set();
+
+      const diagBits = [];
+      if (manifestOk) diagBits.push("manifest ok ("+manifest.value.length+" entries)");
+      else diagBits.push("manifest missing/unreadable");
+      if (sitemapOk) diagBits.push("sitemap ok ("+site.size+" solo URLs)");
+      else diagBits.push("sitemap missing/unreadable");
+      setDiag(diagBits.join(" · "));
+
+      // Differences
+      const fragNotInPages   = diff(frags, pages);
+      const fragNotInSite    = diff(frags, site);
+      const pagesNotInSite   = diff(pages, site);
+
+      const anyIssues = fragNotInPages.size || fragNotInSite.size || pagesNotInSite.size;
+
+      if (!anyIssues) {
+        show(el.cardAllClear);
+      } else {
+        if (fragNotInPages.size) {
+          fillList(el.listFragMissPages, fragNotInPages, "/solo/articles/", "/solo/");
+          show(el.cardFragMissPages);
+        }
+        if (fragNotInSite.size) {
+          fillList(el.listFragMissSite, fragNotInSite, "/solo/articles/", "/solo/");
+          show(el.cardFragMissSite);
+        }
+        if (pagesNotInSite.size) {
+          fillList(el.listPagesMissSite, pagesNotInSite, "/solo/", null);
+          show(el.cardPagesMissSite);
+        }
+      }
+
+      // Build proposed sitemap additions for full pages missing from sitemap
+      if (pagesNotInSite.size) {
+        const xml = buildSitemapEntries(pagesNotInSite);
+        el.additions.value = xml;
+        show(el.proposals);
+      }
+
+      el.btnCopy.addEventListener("click", function(){
+        navigator.clipboard.writeText(el.additions.value || "").then(function(){
+          el.btnCopy.textContent = "Copied!";
+          setTimeout(function(){ el.btnCopy.textContent = "Copy XML"; }, 900);
+        });
+      });
+
+      el.btnAppend.addEventListener("click", async function(){
+        if (!SITEMAP_UPDATE_ENDPOINT) return;
+        el.btnAppend.disabled = true;
+        el.btnAppend.textContent = "Appending…";
+        try{
+          const res = await fetch(SITEMAP_UPDATE_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type":"application/json" },
+            body: JSON.stringify({ entriesXml: el.additions.value || "" })
+          });
+          if (!res.ok) throw new Error("Endpoint returned " + res.status);
+          el.btnAppend.textContent = "Appended ✓";
+        }catch(err){
+          el.btnAppend.textContent = "Append failed";
+          setDiag("Append error: " + (err && err.message ? err.message : String(err)));
+        }
+      });
+    }
+
+    function setDiag(msg){ el.diag.textContent = msg; }
+    function show(node){ node.style.display = ""; }
+
+    async function fetchJson(url){
+      const r = await fetch(url, { cache:"no-store" });
+      if (!r.ok) throw new Error("HTTP " + r.status + " for " + url);
+      return r.json();
+    }
+    async function fetchText(url){
+      const r = await fetch(url, { cache:"no-store" });
+      if (!r.ok) throw new Error("HTTP " + r.status + " for " + url);
+      return r.text();
+    }
+
+    function slugsFromManifest(list, prefix, htmlOnly){
+      const out = new Set();
+      for (const u of list) {
+        try{
+          const url = new URL(u, ORIGIN);
+          const p = url.pathname;
+          if (!p.startsWith(prefix)) continue;
+          if (htmlOnly && !/\.html$/i.test(p)) continue;
+          // /solo/articles/foo.html -> foo
+          // /solo/bar.html          -> bar
+          const slug = p.split("/").pop().replace(/\.html$/i,"");
+          if (slug && slug !== "solo" && slug !== "sitemap") out.add(slug);
+        }catch(_){}
+      }
+      return out;
+    }
+
+    function slugsFromSitemap(xml){
+      const out = new Set();
+      try{
+        const dom = new DOMParser().parseFromString(xml, "application/xml");
+        const locs = Array.from(dom.querySelectorAll("url > loc")).map(n=>n.textContent.trim());
+        for (const loc of locs) {
+          try{
+            const u = new URL(loc);
+            if (!/\/solo\/[^/]+\.html$/i.test(u.pathname)) continue;
+            const slug = u.pathname.split("/").pop().replace(/\.html$/i,"");
+            if (slug && slug !== "solo") out.add(slug);
+          }catch(_){}
+        }
+      }catch(_){}
+      return out;
+    }
+
+    function diff(a, b){
+      const d = new Set();
+      a.forEach(s => { if (!b.has(s)) d.add(s); });
+      return d;
+    }
+
+    function fillList(ol, set, fromPrefix, toPrefix){
+      ol.innerHTML = "";
+      const sorted = Array.from(set).sort((x,y)=>x.localeCompare(y));
+      sorted.forEach(slug => {
+        const li = document.createElement("li");
+        let html = "";
+        if (fromPrefix) html += `<span class="mono">${fromPrefix}${slug}.html</span>`;
+        if (toPrefix)   html += ` → missing <span class="mono">${toPrefix}${slug}.html</span>`;
+        li.innerHTML = html;
+        ol.appendChild(li);
+      });
+    }
+
+    function buildSitemapEntries(slugSet){
+      const now = new Date().toISOString().slice(0,10);
+      const lines = [];
+      const sorted = Array.from(slugSet).sort((x,y)=>x.localeCompare(y));
+      for (const slug of sorted) {
+        const loc = `${ORIGIN}/solo/${encodeURIComponent(slug)}.html`;
+        lines.push(
+`  <url>
+    <loc>${loc}</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>`
+        );
+      }
+      return lines.join("\n");
+    }
+  })();
+  </script>
+</body>
+</html>
