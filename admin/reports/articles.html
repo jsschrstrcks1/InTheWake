@@ -112,211 +112,248 @@
     </section>
   </main>
 
-  <script>
-  (function(){
-    "use strict";
+ <script>
+(function(){
+  "use strict";
 
-    const ORIGIN = (location.origin || (location.protocol + "//" + location.host));
-    const MANIFEST_URL = "https://cruisinginthewake.com/precache-manifest.json";
-    const SITEMAP_URL  = "https://cruisinginthewake.com/solo/sitemap.xml";
+  const ORIGIN = (location.origin || (location.protocol + "//" + location.host));
+  const MANIFEST_URL = "https://cruisinginthewake.com/precache-manifest.json";
+  const SITEMAP_URL  = "https://cruisinginthewake.com/solo/sitemap.xml";
 
-    /* Optional: serverless endpoint that appends entries into sitemap.
-       Leave empty to keep the button disabled. Provide something like:
-       https://your-worker.example.com/api/solo-sitemap-append
-       Expected method: POST body { entriesXml: "<url>…</url>…" }
-    */
-    const SITEMAP_UPDATE_ENDPOINT = "";
+  // Keep disabled unless you wire a serverless endpoint
+  const SITEMAP_UPDATE_ENDPOINT = "";
 
-    const el = {
-      diag: document.getElementById("diag"),
-      cardAllClear: document.getElementById("all-clear"),
-      cardFragMissPages: document.getElementById("fragments-missing-pages"),
-      cardFragMissSite: document.getElementById("fragments-missing-sitemap"),
-      cardPagesMissSite: document.getElementById("pages-missing-sitemap"),
-      listFragMissPages: document.getElementById("list-frag-miss-pages"),
-      listFragMissSite: document.getElementById("list-frag-miss-sitemap"),
-      listPagesMissSite: document.getElementById("list-pages-miss-sitemap"),
-      proposals: document.getElementById("proposals"),
-      additions: document.getElementById("sitemap-additions"),
-      btnCopy: document.getElementById("btn-copy"),
-      btnAppend: document.getElementById("btn-append")
-    };
+  const el = {
+    diag: document.getElementById("diag"),
+    cardAllClear: document.getElementById("all-clear"),
+    cardFragMissPages: document.getElementById("fragments-missing-pages"),
+    cardFragMissSite: document.getElementById("fragments-missing-sitemap"),
+    cardPagesMissSite: document.getElementById("pages-missing-sitemap"),
+    listFragMissPages: document.getElementById("list-frag-miss-pages"),
+    listFragMissSite: document.getElementById("list-frag-miss-sitemap"),
+    listPagesMissSite: document.getElementById("list-pages-miss-sitemap"),
+    proposals: document.getElementById("proposals"),
+    additions: document.getElementById("sitemap-additions"),
+    btnCopy: document.getElementById("btn-copy"),
+    btnAppend: document.getElementById("btn-append")
+  };
 
-    if (SITEMAP_UPDATE_ENDPOINT) el.btnAppend.disabled = false;
+  if (SITEMAP_UPDATE_ENDPOINT) el.btnAppend.disabled = false;
 
-    run().catch(function(err){
-      setDiag("Hard failure: " + (err && err.message ? err.message : String(err)));
+  run().catch(function(err){
+    setDiag("Hard failure: " + (err && err.message ? err.message : String(err)));
+  });
+
+  async function run(){
+    setDiag("Fetching manifest and sitemap…");
+
+    const [manifestRes, sitemapRes] = await Promise.allSettled([
+      fetchJson(MANIFEST_URL),
+      fetchText(SITEMAP_URL)
+    ]);
+
+    const manifestVal = manifestRes.status === "fulfilled" ? manifestRes.value : null;
+    const manifestList = normalizeManifestToList(manifestVal);   // <- tolerant of shapes
+    const manifestOk = manifestList.length > 0;
+
+    const sitemapXml = sitemapRes.status === "fulfilled" ? sitemapRes.value : "";
+    const sitemapOk  = !!sitemapXml;
+
+    if (!manifestOk && !sitemapOk) {
+      setDiag("Couldn’t read precache-manifest.json or /solo/sitemap.xml. Nothing to compare.");
+      return;
+    }
+
+    const pages = manifestOk ? slugsFromList(manifestList, "/solo/", true) : new Set();
+    const frags = manifestOk ? slugsFromList(manifestList, "/solo/articles/", true) : new Set();
+    const site  = sitemapOk  ? slugsFromSitemap(sitemapXml) : new Set();
+
+    const diagBits = [];
+    diagBits.push(manifestOk ? ("manifest ok ("+manifestList.length+" URLs)") : "manifest missing/unreadable");
+    diagBits.push(sitemapOk ? ("sitemap ok ("+site.size+" solo URLs)") : "sitemap missing/unreadable");
+    setDiag(diagBits.join(" · "));
+
+    // Differences
+    const fragNotInPages = diff(frags, pages);
+    const fragNotInSite  = diff(frags, site);
+    const pagesNotInSite = diff(pages, site);
+
+    const anyIssues = fragNotInPages.size || fragNotInSite.size || pagesNotInSite.size;
+
+    if (!anyIssues) {
+      show(el.cardAllClear);
+    } else {
+      if (fragNotInPages.size) {
+        fillList(el.listFragMissPages, fragNotInPages, "/solo/articles/", "/solo/");
+        show(el.cardFragMissPages);
+      }
+      if (fragNotInSite.size) {
+        fillList(el.listFragMissSite, fragNotInSite, "/solo/articles/", "/solo/");
+        show(el.cardFragMissSite);
+      }
+      if (pagesNotInSite.size) {
+        fillList(el.listPagesMissSite, pagesNotInSite, "/solo/", null);
+        show(el.cardPagesMissSite);
+      }
+    }
+
+    // Proposals for sitemap additions (full pages missing from sitemap)
+    if (pagesNotInSite.size) {
+      el.additions.value = buildSitemapEntries(pagesNotInSite);
+      show(el.proposals);
+    }
+
+    el.btnCopy.addEventListener("click", function(){
+      navigator.clipboard.writeText(el.additions.value || "").then(function(){
+        el.btnCopy.textContent = "Copied!";
+        setTimeout(function(){ el.btnCopy.textContent = "Copy XML"; }, 900);
+      });
     });
 
-    async function run(){
-      setDiag("Fetching manifest and sitemap…");
-
-      const [manifest, sitemapXml] = await Promise.allSettled([
-        fetchJson(MANIFEST_URL),
-        fetchText(SITEMAP_URL)
-      ]);
-
-      const manifestOk = manifest.status === "fulfilled" && Array.isArray(manifest.value);
-      const sitemapOk  = sitemapXml.status === "fulfilled" && typeof sitemapXml.value === "string";
-
-      if (!manifestOk && !sitemapOk) {
-        setDiag("Couldn’t read precache-manifest.json or /solo/sitemap.xml. Nothing to compare.");
-        return;
-      }
-
-      const pages = manifestOk ? slugsFromManifest(manifest.value, "/solo/", true) : new Set();
-      const frags = manifestOk ? slugsFromManifest(manifest.value, "/solo/articles/", true) : new Set();
-      const site  = sitemapOk  ? slugsFromSitemap(sitemapXml.value) : new Set();
-
-      const diagBits = [];
-      if (manifestOk) diagBits.push("manifest ok ("+manifest.value.length+" entries)");
-      else diagBits.push("manifest missing/unreadable");
-      if (sitemapOk) diagBits.push("sitemap ok ("+site.size+" solo URLs)");
-      else diagBits.push("sitemap missing/unreadable");
-      setDiag(diagBits.join(" · "));
-
-      // Differences
-      const fragNotInPages   = diff(frags, pages);
-      const fragNotInSite    = diff(frags, site);
-      const pagesNotInSite   = diff(pages, site);
-
-      const anyIssues = fragNotInPages.size || fragNotInSite.size || pagesNotInSite.size;
-
-      if (!anyIssues) {
-        show(el.cardAllClear);
-      } else {
-        if (fragNotInPages.size) {
-          fillList(el.listFragMissPages, fragNotInPages, "/solo/articles/", "/solo/");
-          show(el.cardFragMissPages);
-        }
-        if (fragNotInSite.size) {
-          fillList(el.listFragMissSite, fragNotInSite, "/solo/articles/", "/solo/");
-          show(el.cardFragMissSite);
-        }
-        if (pagesNotInSite.size) {
-          fillList(el.listPagesMissSite, pagesNotInSite, "/solo/", null);
-          show(el.cardPagesMissSite);
-        }
-      }
-
-      // Build proposed sitemap additions for full pages missing from sitemap
-      if (pagesNotInSite.size) {
-        const xml = buildSitemapEntries(pagesNotInSite);
-        el.additions.value = xml;
-        show(el.proposals);
-      }
-
-      el.btnCopy.addEventListener("click", function(){
-        navigator.clipboard.writeText(el.additions.value || "").then(function(){
-          el.btnCopy.textContent = "Copied!";
-          setTimeout(function(){ el.btnCopy.textContent = "Copy XML"; }, 900);
+    el.btnAppend.addEventListener("click", async function(){
+      if (!SITEMAP_UPDATE_ENDPOINT) return;
+      el.btnAppend.disabled = true;
+      el.btnAppend.textContent = "Appending…";
+      try{
+        const res = await fetch(SITEMAP_UPDATE_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type":"application/json" },
+          body: JSON.stringify({ entriesXml: el.additions.value || "" })
         });
-      });
+        if (!res.ok) throw new Error("Endpoint returned " + res.status);
+        el.btnAppend.textContent = "Appended ✓";
+      }catch(err){
+        el.btnAppend.textContent = "Append failed";
+        setDiag("Append error: " + (err && err.message ? err.message : String(err)));
+      }
+    });
+  }
 
-      el.btnAppend.addEventListener("click", async function(){
-        if (!SITEMAP_UPDATE_ENDPOINT) return;
-        el.btnAppend.disabled = true;
-        el.btnAppend.textContent = "Appending…";
-        try{
-          const res = await fetch(SITEMAP_UPDATE_ENDPOINT, {
-            method: "POST",
-            headers: { "Content-Type":"application/json" },
-            body: JSON.stringify({ entriesXml: el.additions.value || "" })
-          });
-          if (!res.ok) throw new Error("Endpoint returned " + res.status);
-          el.btnAppend.textContent = "Appended ✓";
-        }catch(err){
-          el.btnAppend.textContent = "Append failed";
-          setDiag("Append error: " + (err && err.message ? err.message : String(err)));
+  // ---- Helpers ------------------------------------------------------------
+
+  function setDiag(msg){ el.diag.textContent = msg; }
+  function show(node){ node.style.display = ""; }
+
+  async function fetchJson(url){
+    const r = await fetch(url, { cache:"no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status + " for " + url);
+    return r.json();
+  }
+  async function fetchText(url){
+    const r = await fetch(url, { cache:"no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status + " for " + url);
+    return r.text();
+  }
+
+  // Accepts:
+  //  - Array<string> (plain list of URLs)
+  //  - Array<{url:string}> (workbox-style entries)
+  //  - Object with arrays: { pages:[…], assets:[…], images:[…], … }
+  //  - Nested arrays or mixed strings/objects
+  function normalizeManifestToList(man){
+    const out = [];
+    if (!man) return out;
+
+    const pushUrlish = (v) => {
+      if (!v) return;
+      if (typeof v === "string") { out.push(v); return; }
+      if (typeof v === "object") {
+        // common fields seen in various tools
+        if (typeof v.url === "string") out.push(v.url);
+        else if (typeof v.href === "string") out.push(v.href);
+        else if (typeof v.path === "string") out.push(v.path);
+      }
+    };
+
+    if (Array.isArray(man)) {
+      man.forEach(pushUrlish);
+      return out;
+    }
+
+    if (typeof man === "object") {
+      for (const [k, v] of Object.entries(man)) {
+        if (Array.isArray(v)) {
+          v.forEach(pushUrlish);
+        } else if (typeof v === "string" || typeof v === "object") {
+          pushUrlish(v);
         }
-      });
+      }
     }
 
-    function setDiag(msg){ el.diag.textContent = msg; }
-    function show(node){ node.style.display = ""; }
+    // Normalize to absolute-like strings for URL() below
+    return out;
+  }
 
-    async function fetchJson(url){
-      const r = await fetch(url, { cache:"no-store" });
-      if (!r.ok) throw new Error("HTTP " + r.status + " for " + url);
-      return r.json();
+  function slugsFromList(list, prefix, htmlOnly){
+    const out = new Set();
+    for (const u of list) {
+      try{
+        // Support relative or absolute
+        const url = new URL(u, ORIGIN);
+        const p = url.pathname;
+        if (!p.startsWith(prefix)) continue;
+        if (htmlOnly && !/\.html$/i.test(p)) continue;
+        const slug = p.split("/").pop().replace(/\.html$/i,"");
+        if (slug && slug !== "solo" && slug !== "sitemap") out.add(slug);
+      }catch(_){}
     }
-    async function fetchText(url){
-      const r = await fetch(url, { cache:"no-store" });
-      if (!r.ok) throw new Error("HTTP " + r.status + " for " + url);
-      return r.text();
-    }
+    return out;
+  }
 
-    function slugsFromManifest(list, prefix, htmlOnly){
-      const out = new Set();
-      for (const u of list) {
+  function slugsFromSitemap(xml){
+    const out = new Set();
+    try{
+      const dom = new DOMParser().parseFromString(xml, "application/xml");
+      const locs = Array.from(dom.querySelectorAll("url > loc")).map(n=>n.textContent.trim());
+      for (const loc of locs) {
         try{
-          const url = new URL(u, ORIGIN);
-          const p = url.pathname;
-          if (!p.startsWith(prefix)) continue;
-          if (htmlOnly && !/\.html$/i.test(p)) continue;
-          // /solo/articles/foo.html -> foo
-          // /solo/bar.html          -> bar
-          const slug = p.split("/").pop().replace(/\.html$/i,"");
-          if (slug && slug !== "solo" && slug !== "sitemap") out.add(slug);
+          const u = new URL(loc);
+          if (!/\/solo\/[^/]+\.html$/i.test(u.pathname)) continue;
+          const slug = u.pathname.split("/").pop().replace(/\.html$/i,"");
+          if (slug && slug !== "solo") out.add(slug);
         }catch(_){}
       }
-      return out;
-    }
+    }catch(_){}
+    return out;
+  }
 
-    function slugsFromSitemap(xml){
-      const out = new Set();
-      try{
-        const dom = new DOMParser().parseFromString(xml, "application/xml");
-        const locs = Array.from(dom.querySelectorAll("url > loc")).map(n=>n.textContent.trim());
-        for (const loc of locs) {
-          try{
-            const u = new URL(loc);
-            if (!/\/solo\/[^/]+\.html$/i.test(u.pathname)) continue;
-            const slug = u.pathname.split("/").pop().replace(/\.html$/i,"");
-            if (slug && slug !== "solo") out.add(slug);
-          }catch(_){}
-        }
-      }catch(_){}
-      return out;
-    }
+  function diff(a, b){
+    const d = new Set();
+    a.forEach(s => { if (!b.has(s)) d.add(s); });
+    return d;
+  }
 
-    function diff(a, b){
-      const d = new Set();
-      a.forEach(s => { if (!b.has(s)) d.add(s); });
-      return d;
-    }
+  function fillList(ol, set, fromPrefix, toPrefix){
+    ol.innerHTML = "";
+    const sorted = Array.from(set).sort((x,y)=>x.localeCompare(y));
+    sorted.forEach(slug => {
+      const li = document.createElement("li");
+      let html = "";
+      if (fromPrefix) html += `<span class="mono">${fromPrefix}${slug}.html</span>`;
+      if (toPrefix)   html += ` → missing <span class="mono">${toPrefix}${slug}.html</span>`;
+      li.innerHTML = html;
+      ol.appendChild(li);
+    });
+  }
 
-    function fillList(ol, set, fromPrefix, toPrefix){
-      ol.innerHTML = "";
-      const sorted = Array.from(set).sort((x,y)=>x.localeCompare(y));
-      sorted.forEach(slug => {
-        const li = document.createElement("li");
-        let html = "";
-        if (fromPrefix) html += `<span class="mono">${fromPrefix}${slug}.html</span>`;
-        if (toPrefix)   html += ` → missing <span class="mono">${toPrefix}${slug}.html</span>`;
-        li.innerHTML = html;
-        ol.appendChild(li);
-      });
-    }
-
-    function buildSitemapEntries(slugSet){
-      const now = new Date().toISOString().slice(0,10);
-      const lines = [];
-      const sorted = Array.from(slugSet).sort((x,y)=>x.localeCompare(y));
-      for (const slug of sorted) {
-        const loc = `${ORIGIN}/solo/${encodeURIComponent(slug)}.html`;
-        lines.push(
+  function buildSitemapEntries(slugSet){
+    const now = new Date().toISOString().slice(0,10);
+    const lines = [];
+    const sorted = Array.from(slugSet).sort((x,y)=>x.localeCompare(y));
+    for (const slug of sorted) {
+      const loc = `${ORIGIN}/solo/${encodeURIComponent(slug)}.html`;
+      lines.push(
 `  <url>
     <loc>${loc}</loc>
     <lastmod>${now}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>`
-        );
-      }
-      return lines.join("\n");
+      );
     }
-  })();
-  </script>
+    return lines.join("\n");
+  }
+})();
+</script>
 </body>
 </html>
