@@ -21,8 +21,9 @@
     return card;
   }
   function show(node){ node.style.display = ""; }
-  function setDiag(msg){ document.getElementById("diag").textContent = msg; }
-  function li(ol, html){ const li=document.createElement("li"); li.innerHTML=html; ol.appendChild(li); }
+  function setDiag(msg){ const d=document.getElementById("diag"); if(d) d.textContent = msg; }
+  function li(ol, html){ const _li=document.createElement("li"); _li.innerHTML=html; ol.appendChild(_li); }
+  function fmt(mono){ return `<span class="mono">${mono}</span>`; }
 
   // fetchers
   async function fetchJson(url){
@@ -54,13 +55,19 @@
     });
     return out.filter(Boolean);
   }
-  function slugsFromManifest(list, prefix){
+
+  // Extract slugs by prefix with optional exclusions (to stop /solo/ capturing /solo/articles/)
+  function slugsFromManifest(list, prefix, excludePrefixes){
     const out = new Set();
+    const ex = Array.isArray(excludePrefixes) ? excludePrefixes : [];
     for (const u of list) {
       try{
         const url = new URL(u, ORIGIN);
-        const p = url.pathname;
+        let p = url.pathname;
+        // strip any trailing slashes and ignore query params for matching
+        if (!p.startsWith("/")) p = "/" + p;
         if (!p.startsWith(prefix)) continue;
+        if (ex.some(ep => p.startsWith(ep))) continue;       // <— important fix
         if (!/\.html$/i.test(p)) continue;
         const slug = p.split("/").pop().replace(/\.html$/i,"");
         if (slug && slug !== "solo" && slug !== "sitemap") out.add(slug);
@@ -68,6 +75,7 @@
     }
     return out;
   }
+
   function slugsFromSitemap(xml){
     const out = new Set();
     try{
@@ -75,7 +83,7 @@
       const locs = Array.from(dom.querySelectorAll("url > loc")).map(n=>n.textContent.trim());
       for (const loc of locs) {
         try{
-          const u = new URL(loc);
+          const u = new URL(loc, ORIGIN);
           if (!/\/solo\/[^/]+\.html$/i.test(u.pathname)) continue;
           const slug = u.pathname.split("/").pop().replace(/\.html$/i,"");
           if (slug && slug !== "solo") out.add(slug);
@@ -84,8 +92,6 @@
     }catch(_){}
     return out;
   }
-
-  function fmt(mono){ return `<span class="mono">${mono}</span>`; }
 
   run().catch(err => setDiag("Hard failure: " + (err?.message || String(err))));
 
@@ -100,22 +106,25 @@
     const site = (sm.status === "fulfilled") ? slugsFromSitemap(sm.value) : new Set();
     const sitemapOk = (sm.status === "fulfilled");
 
-    // From manifest, treat these separately
-    const mPages = manifestOk ? slugsFromManifest(manifestUrls, "/solo/") : new Set();
+    // From manifest, treated separately — and exclude /solo/articles/ from /solo/ set
+    const mPages = manifestOk ? slugsFromManifest(manifestUrls, "/solo/", ["/solo/articles/"]) : new Set();
     const mFrags = manifestOk ? slugsFromManifest(manifestUrls, "/solo/articles/") : new Set();
 
-    // Candidate slugs to test on-disk existence
+    // Candidates = union of anything we can see (sitemap or manifest)
     const candidates = new Set([ ...site, ...mPages, ...mFrags ]);
 
+    // Verbose diagnostics
     const diagBits = [
       manifestOk ? `manifest ok (${manifestUrls.length} URLs)` : "manifest missing/unreadable",
+      `manifest pages: ${mPages.size}`,
+      `manifest fragments: ${mFrags.size}`,
       sitemapOk ? `sitemap ok (${site.size} solo URLs)` : "sitemap missing/unreadable",
       `candidates: ${candidates.size}`
     ];
     setDiag(diagBits.join(" · "));
 
     if (candidates.size === 0) {
-      // Nothing we can validate; show nothing else (issues-only screen).
+      // Issues-only UI: nothing else to say until one source has data
       return;
     }
 
@@ -179,7 +188,6 @@
         li(ol, `${fmt('/solo/'+slug+'.html')} → add to ${fmt('/solo/sitemap.xml')}`);
       });
       show(card);
-      // If you want proposed XML, reuse your existing textarea builder here
     }
     if (missing.manifestPage.size || missing.manifestFrag.size){
       const card = needCard("missing-manifest","Missing in prefetch manifest",
@@ -195,10 +203,15 @@
       show(card);
     }
 
-    // Only green if NO issues and all four sources agree for every candidate
-    if (!anyIssue) {
-      const allClear = document.getElementById("all-clear");
-      if (allClear) show(allClear);
+    // Only green if NO issues and all four sources agree for every candidate (and at least one candidate exists)
+    if (!anyIssue && candidates.size > 0) {
+      const allClear = document.getElementById("all-clear") ||
+                       needCard("all-clear","All Clear","All four sources agree for all detected slugs.","green");
+      // Replace <ol> with a compact summary
+      const list = allClear.querySelector("#all-clear-list");
+      if (list) list.parentElement.innerHTML =
+        `<div class="tiny muted">Slugs: ${Array.from(candidates).sort().map(s=>fmt(s)).join(", ")}</div>`;
+      show(allClear);
     }
   }
 })();
