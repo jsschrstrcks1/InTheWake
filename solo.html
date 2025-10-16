@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
-  <!-- Bumped for cache-busting -->
-  <meta name="version" content="3.006.solo.007"/>
+  <meta name="version" content="3.006.solo.008"/>
 
   <title>Solo Travel — In the Wake</title>
 
@@ -140,17 +139,12 @@
     }
   </style>
 
-  <!-- Share bar CSS (avoid collision with a11y widget) -->
+  <!-- Old share bar look/feel -->
   <style id="share-css">
     .share-bar{position:fixed; right:16px; bottom:16px; z-index:1000; opacity:0; transform:translateY(12px); transition:.2s}
     .share-bar.visible{opacity:1; transform:none}
-    .share-list{display:flex; gap:.5rem; list-style:none; margin:0; padding:.4rem .6rem; background:#ffffffcc; border-radius:.75rem; box-shadow:0 4px 16px rgba(0,0,0,.12)}
-    .share-list .share{pointer-events:auto}
-    @media (max-width: 680px){
-      .share-bar{right:12px; bottom:12px}
-      .share-list{gap:.4rem}
-    }
-    /* nudge up if the injected a11y launcher exists bottom-right */
+    .share-bar a{display:inline-block; margin-right:.35rem; font-weight:600; text-decoration:none; background:#ffffffcc; padding:.35rem .55rem; border-radius:.55rem; box-shadow:0 4px 16px rgba(0,0,0,.12)}
+    @media (max-width: 680px){ .share-bar{right:12px; bottom:12px} .share-bar a{padding:.3rem .5rem} }
     html.a11y-launcher-present .share-bar{bottom:84px}
   </style>
 
@@ -173,7 +167,7 @@
   </style>
 
   <!-- Standards Invocation (docstring) -->
-  <!-- EVERY-PAGE v3.002 · SOLO-MODULE v3.006.solo.007 · SHIP-PAGE v3.006 · RCL-ADDENDUM v3.006.006 -->
+  <!-- EVERY-PAGE v3.002 · SOLO-MODULE v3.006.solo.008 · SHIP-PAGE v3.006 · RCL-ADDENDUM v3.006.006 -->
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
@@ -251,29 +245,25 @@
 
   <footer class="wrap">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.006.solo.007</span>
+    <span class="version-badge">v3.006.solo.008</span>
 
-    <!-- Share Bar -->
-    <nav id="share-bar" class="share-bar" aria-label="Share this page" role="navigation">
-      <ul class="share-list">
-        <li><a id="share-x"      class="share" target="_blank" rel="noopener">X</a></li>
-        <li><a id="share-fb"     class="share" target="_blank" rel="noopener">Fb</a></li>
-        <li><a id="share-ig"     class="share" href="#">Ig</a></li>
-        <li><a id="share-wa"     class="share" target="_blank" rel="noopener">Wa</a></li>
-        <li><a id="share-wechat" class="share" href="#">WeChat</a></li>
-      </ul>
-    </nav>
+    <!-- Old Floating Social Share Bar -->
+    <div id="share-bar" class="share-bar" aria-label="Share this page">
+      <a class="share twitter"  id="share-x"  target="_blank" rel="noopener">X</a>
+      <a class="share facebook" id="share-fb" target="_blank" rel="noopener">Fb</a>
+      <a class="share instagram" id="share-ig" href="#">Ig</a>
+      <a class="share whatsapp"  id="share-wa" target="_blank" rel="noopener">Wa</a>
+      <a class="share wechat"    id="share-wechat" href="#">WeChat</a>
+    </div>
   </footer>
 
-  <!-- Share bar visibility + hydration + external link hardener + nav aria-current setter -->
+  <!-- Share bar visibility + external link hardener + nav aria-current setter -->
   <script>
   (function(){
-    // Show on scroll cue
     const bar=document.getElementById('share-bar');
     function toggle(){ if(window.scrollY>150){bar?.classList.add('visible')} else {bar?.classList.remove('visible')} }
     window.addEventListener('scroll',toggle,{passive:true}); toggle();
 
-    // External link hardener
     const sameOrigin = location.origin;
     document.addEventListener('click',function(e){
       const a=e.target.closest('a[href]'); if(!a) return;
@@ -283,7 +273,6 @@
       }catch(_){}
     },{passive:true});
 
-    // Ensure nav pill present even if markup missed aria-current
     (function setAriaCurrent(){
       const nav = document.querySelector('.nav[aria-label="Primary"]');
       if(!nav) return;
@@ -298,12 +287,12 @@
     })();
 
     // Detect a11y launcher and nudge share bar up to avoid overlap
-    const mo = new MutationObserver(()=>{ document.documentElement.classList.add('a11y-launcher-present'); });
+    const mo = new MutationObserver(function(){ document.documentElement.classList.add('a11y-launcher-present'); });
     mo.observe(document.documentElement, {subtree:true, childList:true});
   })();
   </script>
 
-  <!-- Solo article loader + deep-link SEO injector -->
+  <!-- Solo article loader + deep-link SEO injector + authors rail -->
   <script>
   (function(){
     "use strict";
@@ -312,21 +301,21 @@
     const ARTICLE_BASE = "/solo/articles/";
     const PERMALINK_BASE = ORIGIN + ARTICLE_BASE;
 
-    // AUTHORS (pre-seeded)
+    // Authors
     const RAW_AUTHORS = [
-      { id:"ken",  name:"Ken Baker",  url:"https://ken-baker.com",            avatarBase:"/authors/img/ken1",
+      { id:"ken",  name:"Ken Baker",  url:"https://ken-baker.com",        avatarBase:"/authors/img/ken1",
         socials:[ {label:"Site",href:"https://ken-baker.com"},
                   {label:"IG",href:"https://instagram.com/flickersofmajesty"},
                   {label:"Facebook Solo Travel Group",href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr"},
                   {label:"Community (mobile)",href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link"} ]},
-      { id:"tina", name:"Tina Maulsby", url:"/authors/tina-maulsby.html",     avatarBase:"/authors/img/tina3",
+      { id:"tina", name:"Tina Maulsby", url:"/authors/tina-maulsby.html", avatarBase:"/authors/img/tina3",
         socials:[ {label:"TikTok",href:"https://www.tiktok.com/@beyondboundarieswithtina"},
                   {label:"Etsy",href:"https://www.etsy.com/shop/YOUR_SHOP?section_id=CRUISE_ONLY"},
                   {label:"Facebook Group",href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr"},
                   {label:"Community (mobile)",href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link"} ]}
     ];
 
-    // ARTICLES (pre-seeded)
+    // Articles
     const RAW_ARTICLES = [
       { slug:"freedom-of-your-own-wake",
         title:"The Freedom of Your Own Wake",
@@ -335,12 +324,11 @@
         authorId:"ken", tags:["solo","tips","reflection"] },
       { slug:"why-i-started-solo-cruising",
         title:"Why I Started Solo Cruising (and Built a Community)",
-        hero: ORIGIN + "/authors/img/tina3.webp",
+        hero: ORIGIN + "/authors/tinas-images/ncl-jade.png",
         dek:"From that first solo gangway to a thriving community — lessons, safety, and the joy of sailing on your own terms.",
         authorId:"tina", tags:["solo","story","community","women"] }
     ];
 
-    // Normalizers
     function normArticle(a){ return { slug:a.slug||"", title:a.title||"", hero:a.hero||"", dek:a.dek||"", authorId:a.authorId||"", tags:Array.isArray(a.tags)?a.tags:[] }; }
     function normAuthor(a){ return { id:a.id||"", name:a.name||"", url:a.url||"", avatarBase:a.avatarBase||"", socials:Array.isArray(a.socials)?a.socials:[] }; }
 
@@ -348,15 +336,277 @@
     const ARTICLES = RAW_ARTICLES.map(normArticle);
 
     const authorById = Object.fromEntries(AUTHORS.map(a => [a.id, a]));
-    const articlesByAuthor = ARTICLES.reduce((acc,a)=>{ (acc[a.authorId] ||= []).push(a); return acc; }, {});
+    const articlesByAuthor = ARTICLES.reduce(function(acc,a){ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
 
-    // Routing / choice
+    // Routing
     const qs   = new URLSearchParams(location.search);
     const hash = (location.hash||"").replace(/^#/, "");
-    let slug   = qs.get("a") || hash || "";
+    var slug   = qs.get("a") || hash || "";
 
     const last = localStorage.getItem("solo:lastSlug");
     if(!slug){
-      const pool = ARTICLES.filter(a=>a.slug && a.slug!==last);
+      const pool = ARTICLES.filter(function(a){return a.slug && a.slug!==last;});
       const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
-      slug = pick?.slug || ARTICLES[0]?.slug || "";
+      slug = (pick && pick.slug) || (ARTICLES[0] && ARTICLES[0].slug) || "";
+      if(slug) history.replaceState(null, "", location.pathname + "#" + slug);
+    }
+
+    const article = ARTICLES.find(function(a){return a.slug===slug;}) || ARTICLES[0];
+    localStorage.setItem("solo:lastSlug", article.slug);
+    window.__soloArticle = article;
+
+    // Render article
+    const host = document.getElementById("solo-article-host");
+    if(host){
+      fetch(ARTICLE_BASE + encodeURIComponent(article.slug) + ".html", {
+        credentials:"omit", cache:"no-store", redirect:"follow"
+      })
+      .then(function(r){ return r.ok ? r.text() : Promise.reject(r.status); })
+      .then(function(html){
+        host.innerHTML = html;
+        wireShareButtons(article);
+        injectArticleSEO(article);
+        hydrateShareBar();
+        ensureBylineAuthorFallback(article);
+      })
+      .catch(function(){
+        host.innerHTML = '<h2>We hit rough seas loading this article.</h2><p>Try refreshing or <a href="'+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
+      });
+    }
+
+    // Authors rail
+    renderAuthorsRail();
+
+    function renderAuthorsRail(){
+      const rail = document.getElementById("authors-list");
+      if(!rail) return;
+      rail.innerHTML = "";
+
+      const ver = document.querySelector('meta[name="version"]')?.content || "";
+      const sorted = AUTHORS.slice().sort(function(a,b){
+        const aa = (articlesByAuthor[a.id]||[]).length;
+        const bb = (articlesByAuthor[b.id]||[]).length;
+        return bb - aa;
+      });
+
+      sorted.forEach(function(a){
+        const authored = (articlesByAuthor[a.id]||[]);
+        const div = document.createElement('div'); div.className = "author";
+
+        const fallbackExt = a.id === "ken" ? "jpg" : "png";
+        const webp = a.avatarBase + ".webp" + (ver?("?v="+encodeURIComponent(ver)):"");
+        const fall = a.avatarBase + "." + fallbackExt + (ver?("?v="+encodeURIComponent(ver)):"");
+
+        div.innerHTML = ''+
+          '<div class="avatar">'+
+            '<picture>'+
+              '<source type="image/webp" srcset="'+webp+'">'+
+              '<img src="'+fall+'" alt="'+escapeHtml(a.name)+'" width="80" height="80" loading="lazy" decoding="async">'+
+            '</picture>'+
+          '</div>'+
+          '<div class="meta">'+
+            '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener"':'')+'>'+escapeHtml(a.name)+'</a>'+
+            '<div class="links">'+
+              (a.socials||[]).map(function(s){return '<a href="'+s.href+'" target="_blank" rel="noopener">'+escapeHtml(s.label)+'</a>';}).join('')+
+            '</div>'+
+          '</div>';
+        rail.appendChild(div);
+
+        const roll = document.createElement('div'); roll.className = "roll";
+        const max  = Math.min(4, authored.length);
+        for(var i=0;i<max;i++){
+          const art = authored[(i + Math.floor(Math.random()*authored.length)) % authored.length];
+          const aTag = document.createElement('a');
+          aTag.href = permalink(art.slug);
+          aTag.textContent = art.title;
+          aTag.addEventListener('click', function(e){
+            e.preventDefault();
+            const u = new URL(this.href, location.origin);
+            const s = u.pathname.split('/').pop().replace(/\.html$/,'');
+            history.pushState(null, "", location.pathname + "#" + s);
+            location.reload();
+          });
+          roll.appendChild(aTag);
+        }
+        rail.appendChild(roll);
+      });
+    }
+
+    // Helpers
+    function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
+
+    function wireShareButtons(a){
+      const el = document.querySelector('.byline .share');
+      if(!el) return;
+      const url = permalink(a.slug);
+      el.addEventListener('click', function(e){
+        e.preventDefault();
+        navigator.clipboard.writeText(url).then(function(){
+          el.textContent = "Link copied!";
+          setTimeout(function(){ el.textContent = "Share this article"; }, 1500);
+        });
+      });
+    }
+
+    function injectArticleSEO(a){
+      if(!(location.search.includes("a=") || location.hash)) return;
+      const url = permalink(a.slug);
+      setMeta('og:title', a.title + " — In the Wake");
+      setMeta('og:description', a.dek || "Solo cruising reflections and tips.");
+      setMeta('og:image', a.hero || (ORIGIN + "/assets/index_hero.jpg"));
+      setMeta('og:url', url);
+      setNameMeta('description', a.dek || "Solo cruising reflections and tips.");
+      setMeta('twitter:card','summary_large_image');
+      if (a.hero && /\.webp(\?|$)/i.test(a.hero)) { setMeta('og:image:type','image/webp'); }
+
+      const existingLD = document.querySelector('script[type="application/ld+json"].solo-article-ld');
+      if (existingLD) existingLD.remove();
+      const ld = document.createElement('script');
+      ld.type = "application/ld+json";
+      ld.className = "solo-article-ld";
+      ld.textContent = JSON.stringify({
+        "@context":"https://schema.org",
+        "@type":"BlogPosting",
+        "headline": a.title,
+        "description": a.dek || "Solo cruising reflections and tips.",
+        "image": a.hero || (ORIGIN + "/assets/index_hero.jpg"),
+        "url": url,
+        "isPartOf": {"@type":"Blog","name":"Solo Cruising","url": ORIGIN + "/solo.html"}
+      });
+      document.head.appendChild(ld);
+
+      function setMeta(p,c){
+        var m=document.querySelector('meta[property="'+p+'"]');
+        if(!m){ m=document.createElement('meta'); m.setAttribute('property',p); document.head.appendChild(m); }
+        m.setAttribute('content', c);
+      }
+      function setNameMeta(n,c){
+        var m=document.querySelector('meta[name="'+n+'"]');
+        if(!m){ m=document.createElement('meta'); m.setAttribute('name',n); document.head.appendChild(m); }
+        m.setAttribute('content', c);
+      }
+    }
+
+    function ensureBylineAuthorFallback(a){
+      const hasByline = !!document.querySelector('footer.byline');
+      if(hasByline) return;
+      const mounted = document.getElementById('solo-article-host');
+      if(!mounted) return;
+      const auth = authorById[a.authorId] || null;
+      if(!auth) return;
+
+      const ver = document.querySelector('meta[name="version"]')?.content || "";
+      const fallbackExt = auth.id === "ken" ? "jpg" : "png";
+      const webp = auth.avatarBase + ".webp" + (ver?("?v="+encodeURIComponent(ver)):"");
+      const fall = auth.avatarBase + "." + fallbackExt + (ver?("?v="+encodeURIComponent(ver)):"");
+
+      const footer = document.createElement('footer');
+      footer.className = "byline";
+      footer.innerHTML = ''+
+        '<div class="avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;flex:none">'+
+          '<picture>'+
+            '<source type="image/webp" srcset="'+webp+'">'+
+            '<img src="'+fall+'" alt="'+escapeHtml(auth.name)+'" width="48" height="48" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">'+
+          '</picture>'+
+        '</div>'+
+        '<div style="margin-left:.5rem">'+
+          '<strong><a href="'+auth.url+'"'+(auth.url?' target="_blank" rel="noopener"':'')+'>'+escapeHtml(auth.name)+'</a></strong>'+
+          '<a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>'+
+        '</div>';
+      mounted.appendChild(footer);
+    }
+
+    // OLD Share bar hydration (uses deep link or article permalink)
+    function hydrateShareBar(){
+      const ORI = (location.origin || (location.protocol+'//'+location.host));
+      const BASE = "/solo/articles/";
+      var url;
+      if (window.__soloArticle && window.__soloArticle.slug){
+        url = ORI + BASE + window.__soloArticle.slug + ".html";
+      } else {
+        const qs = new URLSearchParams(location.search);
+        const hashSlug = (location.hash||"").replace(/^#/, "");
+        if (qs.get("a") || hashSlug){
+          const slug = qs.get("a") || hashSlug;
+          url = ORI + BASE + encodeURIComponent(slug) + ".html";
+        } else {
+          url = ORI + "/solo.html";
+        }
+      }
+      const encU = encodeURIComponent(url);
+      const text = encodeURIComponent(document.title.replace(/\s*\|.*$/,''));
+
+      const x  = document.getElementById("share-x");
+      const fb = document.getElementById("share-fb");
+      const ig = document.getElementById("share-ig");
+      const wa = document.getElementById("share-wa");
+      const wc = document.getElementById("share-wechat");
+
+      if(x)  x.href  = "https://twitter.com/intent/tweet?url="+encU+"&text="+text;
+      if(fb) fb.href = "https://www.facebook.com/sharer/sharer.php?u="+encU;
+      if(wa) wa.href = "https://wa.me/?text="+text+"%20"+encU;
+      if(ig){
+        ig.addEventListener("click", function(e){
+          e.preventDefault();
+          navigator.clipboard.writeText(url).then(function(){
+            ig.textContent="Copied!"; setTimeout(function(){ig.textContent="Ig";},1200);
+          });
+        });
+      }
+      if(wc){
+        wc.addEventListener("click", function(e){
+          e.preventDefault();
+          navigator.clipboard.writeText(url).then(function(){ alert("Link copied. Share it in WeChat."); });
+        });
+      }
+    }
+    window.hydrateShareBar = hydrateShareBar;
+
+    function escapeHtml(s){
+      return String(s||"").replace(/[&<>"']/g, function(m){ return ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" })[m]; });
+    }
+  })();
+  </script>
+  <!-- SW registration + gentle seeding (same-origin only) -->
+<script>
+(function(){
+  if(!('serviceWorker' in navigator)) return;
+
+  var ver  = document.querySelector('meta[name="version"]')?.content || '';
+  var sw   = '/sw.js' + (ver ? ('?v='+encodeURIComponent(ver)) : '');
+
+  // Optional: hint the manifest early
+  var l = document.createElement('link');
+  l.rel = 'preload'; l.as = 'fetch'; l.href = '/precache-manifest.json'; l.crossOrigin = 'anonymous';
+  document.head.appendChild(l);
+
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register(sw, { scope: '/' })
+      .then(function(){ return navigator.serviceWorker.ready; })
+      .then(function(reg){
+        // Light-touch priming: fetch the manifest, then quietly request top URLs.
+        fetch('/precache-manifest.json', {cache:'no-store'})
+          .then(function(r){ return r.ok ? r.json() : []; })
+          .then(function(list){
+            if(!Array.isArray(list)) return;
+            // Fetch in priority order; SW fetch handler will cache per its strategies.
+            list.slice(0, 50).forEach(function(u){
+              // Ensure same-origin
+              try {
+                var url = new URL(u, location.origin);
+                if (url.origin === location.origin) fetch(url.href).catch(function(){});
+              } catch(_) {}
+            });
+            // If your sw.js v12 supports it, also nudge it via postMessage (no-op otherwise).
+            if (navigator.serviceWorker.controller) {
+              try { navigator.serviceWorker.controller.postMessage({type:'SEED_FROM_PAGE', urls:list}); } catch(_){}
+            }
+          })
+          .catch(function(){});
+      })
+      .catch(function(){ /* ignore */ });
+  });
+})();
+</script>
+</body>
+</html>
