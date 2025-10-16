@@ -1,4 +1,4 @@
-<!-- Invocation: This page is an act of worship of God — may all we ship bring glory and honor to God as the creator of all beauty. May it bring people into His Kingdom, and may all we do and say be true, beautiful, and helpful. -->
+<!-- Invocation: This page is an act of worship of God — may all we ship be true, beautiful, and helpful. Soli Deo Gloria. -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
   <!-- Bumped for cache-busting -->
-  <meta name="version" content="3.006.solo.006"/>
+  <meta name="version" content="3.006.solo.007"/>
 
   <title>Solo Travel — In the Wake</title>
 
@@ -18,17 +18,15 @@
     var h = location.hostname.toLowerCase();
     var isHttps = (location.protocol === "https:");
     if (h !== wantHost || !isHttps) {
-      var target = "https://" + wantHost + location.pathname + location.search + location.hash;
-      location.replace(target);
+      location.replace("https://" + wantHost + location.pathname + location.search + location.hash);
     }
   })();
   </script>
 
-  <!-- Canonical reflects chosen host (apex here) -->
   <link rel="canonical" href="https://cruisinginthewake.com/solo.html"/>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css"/>
+  <!-- Styles (same-origin so cache-buster can touch it) -->
+  <link rel="stylesheet" href="/assets/styles.css"/>
 
   <!-- Preconnects -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -46,7 +44,7 @@
   </script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Accessibility (deferred head allowed per standards) -->
+  <!-- Accessibility (deferred) -->
   <script defer src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js"
     data-acc-accid="774c13e29978"
     data-acc-host="delivery.consentmanager.net"
@@ -60,7 +58,7 @@
   })();
   </script>
 
-  <!-- Cache-Buster Helper (Standards v3.006 — same-origin only) -->
+  <!-- Cache-Buster (same-origin CSS/JS only) -->
   <script>
   (function(){
     const VER = (document.querySelector('meta[name="version"]')?.content ||
@@ -82,7 +80,7 @@
   <meta property="og:title" content="Solo Travel — In the Wake">
   <meta property="og:description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
   <meta property="og:url" content="https://cruisinginthewake.com/solo.html">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/index_hero.jpg">
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/index_hero.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Schema.org: CollectionPage -->
@@ -99,10 +97,10 @@
   <!-- Page CSS fixes -->
   <style id="brand-title-hide">.brand-title{display:none!important}</style>
 
-  <!-- Hero vibrancy (no global desaturation) -->
+  <!-- Hero vibrancy -->
   <style id="hero-vibrancy">
     .hero{
-      background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat!important;
+      background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
       filter:saturate(1.2) contrast(1.08) brightness(1.03)
     }
     .hero::before,.hero::after{content:none!important}
@@ -118,58 +116,64 @@
     }
   </style>
 
-  <!-- Authors rail CSS -->
-<style id="authors-rail-css">
-  .card-authors .author{display:flex; gap:.75rem; align-items:center; margin:.5rem 0}
-  .card-authors .avatar{width:40px; height:40px; border-radius:999px; overflow:hidden; flex:none; background:#e9f3f7}
-  .card-authors .avatar img{width:100%; height:100%; object-fit:cover; display:block}
-  .card-authors .author .meta{display:flex; flex-direction:column}
-  .card-authors .author .meta a{font-weight:600; text-decoration:none}
-  .card-authors .author .meta .links{font-size:.9rem; opacity:.8}
-  .card-authors .author .meta .links a{margin-right:.5rem}
-  .card-authors .roll{margin:.35rem 0 .75rem}
-  .card-authors .roll a{display:inline-block; margin:.15rem .35rem .15rem 0; font-size:.92rem}
-</style>
-
   <!-- Page watermark (behind cards) -->
   <style id="page-watermark">
     body::before{
       content:""; position:fixed; inset:0;
-      background:url('https://www.cruisinginthewake.com/assets/watermark.png?v=3.007.070')
-                 center right/520px auto no-repeat;
+      background:url('/assets/watermark.png?v=3.007.070') center right/520px auto no-repeat;
       opacity:.10; pointer-events:none; z-index:0
     }
     .wrap,.cards,.card{position:relative; z-index:1}
   </style>
 
-  <!-- Nav pill (aria-current) -->
-  <style id="nav-pill">
+  <!-- Nav pills (all links look like pills; current one emphasized) -->
+  <style id="nav-pills">
+    .nav[aria-label="Primary"] a{
+      display:inline-block; border-radius:999px; padding:.25rem .60rem;
+      text-decoration:none; border:2px solid transparent; margin-right:.35rem;
+    }
     .nav[aria-label="Primary"] a[aria-current="page"],
-    .nav[aria-label="Primary"] a.active,
     .nav[aria-label="Primary"] a.is-current{
-      border:2px solid rgba(14,110,142,.35);
-      border-radius:999px;
-      padding:.25rem .6rem;
-      background:rgba(14,110,142,.06);
+      border-color: rgba(14,110,142,.35);
+      background: rgba(14,110,142,.06);
       font-weight:600;
     }
   </style>
 
-  <!-- Share bar CSS -->
+  <!-- Share bar CSS (avoid collision with a11y widget) -->
   <style id="share-css">
-    .share-bar{position:relative; z-index:10}
-    .share-list{display:flex; gap:.75rem; list-style:none; margin:.5rem 0 0; padding:0}
+    .share-bar{position:fixed; right:16px; bottom:16px; z-index:1000; opacity:0; transform:translateY(12px); transition:.2s}
+    .share-bar.visible{opacity:1; transform:none}
+    .share-list{display:flex; gap:.5rem; list-style:none; margin:0; padding:.4rem .6rem; background:#ffffffcc; border-radius:.75rem; box-shadow:0 4px 16px rgba(0,0,0,.12)}
     .share-list .share{pointer-events:auto}
+    @media (max-width: 680px){
+      .share-bar{right:12px; bottom:12px}
+      .share-list{gap:.4rem}
+    }
+    /* nudge up if the injected a11y launcher exists bottom-right */
+    html.a11y-launcher-present .share-bar{bottom:84px}
   </style>
 
-  <!-- Standards Invocation
-    - EVERY-PAGE_STANDARDS v3.002
-    - SOLO-MODULE_STANDARDS v3.006.solo.006
-    - SHIP-PAGE_STANDARDS v3.006 (a11y, perf)
-    - ADDENDUM_RCL v3.006.006 (invocation footer + attribution)
-    - Invocation Signature 2025-10-10
-    Soli Deo Gloria
-  -->
+  <!-- Authors rail CSS + two-column layout on wide screens -->
+  <style id="authors-rail-css">
+    @media (min-width: 1100px){
+      .page .wrap .layout{display:grid; grid-template-columns: 1fr 320px; gap:1.25rem}
+      .page .wrap .layout .maincol{min-width:0}
+      .page .wrap .layout .rail{position:sticky; top:88px; align-self:start}
+    }
+    .card-authors .author{display:flex; gap:.75rem; align-items:center; margin:.5rem 0}
+    .card-authors .avatar{width:40px; height:40px; border-radius:999px; overflow:hidden; flex:none; background:#e9f3f7}
+    .card-authors .avatar img{width:100%; height:100%; object-fit:cover; display:block}
+    .card-authors .author .meta{display:flex; flex-direction:column}
+    .card-authors .author .meta a{font-weight:600; text-decoration:none}
+    .card-authors .author .meta .links{font-size:.9rem; opacity:.8}
+    .card-authors .author .meta .links a{margin-right:.5rem}
+    .card-authors .roll{margin:.35rem 0 .75rem}
+    .card-authors .roll a{display:inline-block; margin:.15rem .35rem .15rem 0; font-size:.92rem}
+  </style>
+
+  <!-- Standards Invocation (docstring) -->
+  <!-- EVERY-PAGE v3.002 · SOLO-MODULE v3.006.solo.007 · SHIP-PAGE v3.006 · RCL-ADDENDUM v3.006.006 -->
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
@@ -177,29 +181,29 @@
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
       </div>
       <nav class="nav" aria-label="Primary">
-        <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drinks.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-        <a href="https://www.cruisinginthewake.com/solo.html" aria-current="page">Solo Travel</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
-        <a href="https://www.cruisinginthewake.com/about-us.html">About Us</a>
+        <a href="/">Home</a>
+        <a href="/ships/ships.html">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability.html">Disability at Sea</a>
+        <a href="/drinks.html">Drink Packages</a>
+        <a href="/packing.html">Packing Lists</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/solo.html" aria-current="page">Solo Travel</a>
+        <a href="/travel.html">Travel Tips</a>
+        <a href="/cruise-lines.html">Cruise Lines</a>
+        <a href="/about-us.html">About Us</a>
       </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
@@ -209,41 +213,45 @@
     </div>
   </header>
 
-  <main class="wrap" id="content" role="main">
-    <section class="cards stack">
-      <article class="card card-welcome">
-        <h2>Welcome Aboard</h2>
-        <p>In the Wake is a practical cruise companion built from real sailings. Use it to compare ships, scan menus, and plan ports without losing your bearings. We favor family-friendly sources and surface accessibility notes where helpful. Treat numbers as snapshots in time and lean on cross-links to double-check the latest details. When it’s time to book, the goal is that you’ll feel confident—and feel like it was your idea all along. Fair winds and following seas.</p>
-      </article>
-    </section>
+  <main class="wrap layout" id="content" role="main">
+    <div class="maincol">
+      <section class="cards stack">
+        <article class="card card-welcome">
+          <h2>Welcome Aboard</h2>
+          <p>In the Wake is a practical cruise companion built from real sailings. Use it to compare ships, scan menus, and plan ports without losing your bearings. We favor family-friendly sources and surface accessibility notes where helpful. Treat numbers as snapshots in time and lean on cross-links to double-check the latest details. When it’s time to book, the goal is that you’ll feel confident—and feel like it was your idea all along. Fair winds and following seas.</p>
+        </article>
+      </section>
 
-    <section class="cards stack">
-      <article class="card">
-        <h2>Solo Cruising</h2>
-        <p>Cabin picks, safety, and creators who focus on solo travel.</p>
-      </article>
-    </section>
+      <section class="cards stack">
+        <article class="card">
+          <h2>Solo Cruising</h2>
+          <p>Cabin picks, safety, and creators who focus on solo travel.</p>
+        </article>
+      </section>
 
-    <!-- Active article host -->
-    <section class="cards stack">
-      <article class="card" id="solo-article-host" aria-live="polite">
-        <h2>Loading your article…</h2>
-        <p>Trimming the sails — this will just take a moment.</p>
-      </article>
-    </section>
+      <!-- Active article host -->
+      <section class="cards stack">
+        <article class="card" id="solo-article-host" aria-live="polite">
+          <h2>Loading your article…</h2>
+          <p>Trimming the sails — this will just take a moment.</p>
+        </article>
+      </section>
+    </div>
 
-    <!-- Authors rail -->
-    <section class="cards stack" id="solo-authors-rail" aria-label="Authors">
-      <article class="card card-authors">
-        <h2>Authors</h2>
-        <div id="authors-list" class="authors"></div>
-      </article>
-    </section>
+    <!-- Right rail -->
+    <aside class="rail">
+      <section class="cards stack" id="solo-authors-rail" aria-label="Authors">
+        <article class="card card-authors">
+          <h2>Authors</h2>
+          <div id="authors-list" class="authors"></div>
+        </article>
+      </section>
+    </aside>
   </main>
 
   <footer class="wrap">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.006.solo.006</span>
+    <span class="version-badge">v3.006.solo.007</span>
 
     <!-- Share Bar -->
     <nav id="share-bar" class="share-bar" aria-label="Share this page" role="navigation">
@@ -289,53 +297,13 @@
       }
     })();
 
-    // Share bar hydration
-    function currentShareTarget(){
-      const ORIGIN = (location.origin || (location.protocol+'//'+location.host));
-      const BASE = "/solo/articles/";
-      if (window.__soloArticle && window.__soloArticle.slug){
-        return ORIGIN + BASE + window.__soloArticle.slug + ".html";
-      }
-      const qs = new URLSearchParams(location.search);
-      const hashSlug = (location.hash||"").replace(/^#/, "");
-      if (qs.get("a") || hashSlug){
-        const slug = qs.get("a") || hashSlug;
-        return ORIGIN + BASE + encodeURIComponent(slug) + ".html";
-      }
-      return ORIGIN + "/solo.html";
-    }
-    function hydrateShareBar(){
-      const url  = currentShareTarget();
-      const encU = encodeURIComponent(url);
-      const text = encodeURIComponent(document.title.replace(/\s*\|.*$/,''));
-      const x  = document.getElementById("share-x");
-      const fb = document.getElementById("share-fb");
-      const ig = document.getElementById("share-ig");
-      const wa = document.getElementById("share-wa");
-      const wc = document.getElementById("share-wechat");
-      if(x)  x.href  = "https://twitter.com/intent/tweet?url="+encU+"&text="+text;
-      if(fb) fb.href = "https://www.facebook.com/sharer/sharer.php?u="+encU;
-      if(wa) wa.href = "https://wa.me/?text="+text+"%20"+encU;
-      if(ig){
-        ig.addEventListener("click", function(e){
-          e.preventDefault();
-          navigator.clipboard.writeText(url).then(()=>{
-            ig.textContent="Copied!"; setTimeout(()=>ig.textContent="Ig",1200);
-          });
-        });
-      }
-      if(wc){
-        wc.addEventListener("click", function(e){
-          e.preventDefault();
-          navigator.clipboard.writeText(url).then(()=>alert("Link copied. Share it in WeChat."));
-        });
-      }
-    }
-    hydrateShareBar(); window.__hydrateShareBar = hydrateShareBar;
+    // Detect a11y launcher and nudge share bar up to avoid overlap
+    const mo = new MutationObserver(()=>{ document.documentElement.classList.add('a11y-launcher-present'); });
+    mo.observe(document.documentElement, {subtree:true, childList:true});
   })();
   </script>
 
-  <!-- Solo article loader + deep-link SEO injector (same-origin, no cross-origin redirects) -->
+  <!-- Solo article loader + deep-link SEO injector -->
   <script>
   (function(){
     "use strict";
@@ -344,96 +312,45 @@
     const ARTICLE_BASE = "/solo/articles/";
     const PERMALINK_BASE = ORIGIN + ARTICLE_BASE;
 
-  <!-- -------------------------
-     AUTHORS (pre-seeded)
-     ------------------------- -->
-const RAW_AUTHORS = [
-  {
-    id: "ken",
-    name: "Ken Baker",
-    url: "https://ken-baker.com",
-    // base path only; we'll build webp/jpg variants in render
-    avatarBase: "/authors/img/ken1",
-    socials: [
-      { label:"Site", href:"https://ken-baker.com" },
-      { label:"IG",   href:"https://instagram.com/flickersofmajesty" },
-      { label:"Facebook Solo Travel Group", href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=ken_profile" },
-      { label:"Community (mobile)", href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=ken_profile" }
-    ]
-  },
-  {
-    id: "tina",
-    name: "Tina Maulsby",
-    url: "/authors/tina-maulsby.html",
-    avatarBase: "/authors/img/tina3", // nicest crop for avatar/hero
-    socials: [
-      { label:"TikTok", href:"https://www.tiktok.com/@beyondboundarieswithtina?utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" },
-      { label:"Etsy",   href:"https://www.etsy.com/shop/YOUR_SHOP?section_id=CRUISE_ONLY" },
-      { label:"Facebook Group", href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" },
-      { label:"Community (mobile)", href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" }
-    ]
-  }
-];
+    // AUTHORS (pre-seeded)
+    const RAW_AUTHORS = [
+      { id:"ken",  name:"Ken Baker",  url:"https://ken-baker.com",            avatarBase:"/authors/img/ken1",
+        socials:[ {label:"Site",href:"https://ken-baker.com"},
+                  {label:"IG",href:"https://instagram.com/flickersofmajesty"},
+                  {label:"Facebook Solo Travel Group",href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr"},
+                  {label:"Community (mobile)",href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link"} ]},
+      { id:"tina", name:"Tina Maulsby", url:"/authors/tina-maulsby.html",     avatarBase:"/authors/img/tina3",
+        socials:[ {label:"TikTok",href:"https://www.tiktok.com/@beyondboundarieswithtina"},
+                  {label:"Etsy",href:"https://www.etsy.com/shop/YOUR_SHOP?section_id=CRUISE_ONLY"},
+                  {label:"Facebook Group",href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr"},
+                  {label:"Community (mobile)",href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link"} ]}
+    ];
 
-/* -------------------------
-   ARTICLES (pre-seeded)
-   ------------------------- */
-const RAW_ARTICLES = [
-  {
-    slug: "freedom-of-your-own-wake",
-    title: "The Freedom of Your Own Wake",
-    hero: ORIGIN + "/assets/solo/freedom-hero.jpg",
-    dek:  "A gentle case for sailing alone: rest, rhythm, and room to breathe.",
-    authorId: "ken",
-    tags: ["solo","tips","reflection"]
-  },
-  {
-    slug: "why-i-started-solo-cruising",
-    title: "Why I Started Solo Cruising (and Built a Community)",
-    // use your Tina photo as hero for now (WebP primary)
-    hero: ORIGIN + "/authors/img/tina3.webp",
-    dek:  "From that first solo gangway to a thriving community — lessons, safety, and the unexpected joy of sailing on your own terms.",
-    authorId: "tina",
-    tags: ["solo","story","community","women"]
-  }
-];
+    // ARTICLES (pre-seeded)
+    const RAW_ARTICLES = [
+      { slug:"freedom-of-your-own-wake",
+        title:"The Freedom of Your Own Wake",
+        hero: ORIGIN + "/assets/solo/freedom-hero.jpg",
+        dek:"A gentle case for sailing alone: rest, rhythm, and room to breathe.",
+        authorId:"ken", tags:["solo","tips","reflection"] },
+      { slug:"why-i-started-solo-cruising",
+        title:"Why I Started Solo Cruising (and Built a Community)",
+        hero: ORIGIN + "/authors/img/tina3.webp",
+        dek:"From that first solo gangway to a thriving community — lessons, safety, and the joy of sailing on your own terms.",
+        authorId:"tina", tags:["solo","story","community","women"] }
+    ];
 
-    // -------------------------
-    // Normalizers (shape-compat)
-    // -------------------------
-    function normArticle(a){
-      return {
-        slug:      a.slug   || a.id   || "",
-        title:     a.title  || "",
-        hero:      a.hero   || a.image   || "",
-        dek:       a.dek    || a.excerpt || "",
-        authorId:  a.authorId || a.author || "",
-        tags:      Array.isArray(a.tags) ? a.tags : []
-      };
-    }
-    function normAuthor(a){
-      return {
-        id:      a.id || "",
-        name:    a.name || "",
-        url:     a.url || "",
-        avatar:  a.avatar || "",
-        socials: Array.isArray(a.socials) ? a.socials : []
-      };
-    }
+    // Normalizers
+    function normArticle(a){ return { slug:a.slug||"", title:a.title||"", hero:a.hero||"", dek:a.dek||"", authorId:a.authorId||"", tags:Array.isArray(a.tags)?a.tags:[] }; }
+    function normAuthor(a){ return { id:a.id||"", name:a.name||"", url:a.url||"", avatarBase:a.avatarBase||"", socials:Array.isArray(a.socials)?a.socials:[] }; }
 
     const AUTHORS  = RAW_AUTHORS.map(normAuthor);
     const ARTICLES = RAW_ARTICLES.map(normArticle);
 
     const authorById = Object.fromEntries(AUTHORS.map(a => [a.id, a]));
-    const articlesByAuthor = ARTICLES.reduce((acc,a)=>{
-      if(!acc[a.authorId]) acc[a.authorId] = [];
-      acc[a.authorId].push(a);
-      return acc;
-    }, {});
+    const articlesByAuthor = ARTICLES.reduce((acc,a)=>{ (acc[a.authorId] ||= []).push(a); return acc; }, {});
 
-    // -------------------------
     // Routing / choice
-    // -------------------------
     const qs   = new URLSearchParams(location.search);
     const hash = (location.hash||"").replace(/^#/, "");
     let slug   = qs.get("a") || hash || "";
@@ -443,187 +360,3 @@ const RAW_ARTICLES = [
       const pool = ARTICLES.filter(a=>a.slug && a.slug!==last);
       const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
       slug = pick?.slug || ARTICLES[0]?.slug || "";
-      if(slug) history.replaceState(null, "", location.pathname + "#" + slug);
-    }
-
-    const article = ARTICLES.find(a=>a.slug===slug) || ARTICLES[0];
-    localStorage.setItem("solo:lastSlug", article.slug);
-    window.__soloArticle = article; // for share-bar + SEO
-
-    // -------------------------
-    // Render article
-    // -------------------------
-    const host = document.getElementById("solo-article-host");
-    if(host){
-      fetch(ARTICLE_BASE + encodeURIComponent(article.slug) + ".html", {
-        credentials:"omit", cache:"no-store", redirect:"follow"
-      })
-      .then(r => r.ok ? r.text() : Promise.reject(r.status))
-      .then(html => {
-        host.innerHTML = html;
-        wireShareButtons(article);
-        injectArticleSEO(article);
-        if (window.__hydrateShareBar) window.__hydrateShareBar();
-        ensureBylineAuthorFallback(article);
-      })
-      .catch(() => {
-        host.innerHTML = `<h2>We hit rough seas loading this article.</h2>
-          <p>Try refreshing or <a href="${ORIGIN}/solo.html">return to Solo home</a>.</p>`;
-      });
-    }
-
-   function renderAuthorsRail(){
-  const rail = document.getElementById("authors-list");
-  if(!rail) return;
-  rail.innerHTML = "";
-
-  const ver = document.querySelector('meta[name="version"]')?.content || "";
-
-  const sorted = [...AUTHORS].sort((a,b)=>{
-    const aa = (articlesByAuthor[a.id]||[]).length;
-    const bb = (articlesByAuthor[b.id]||[]).length;
-    return bb - aa;
-  });
-
-  for(const a of sorted){
-    const authored = (articlesByAuthor[a.id]||[]);
-    const div = document.createElement('div'); div.className = "author";
-
-    // choose fallback extension by what exists in your repo (Ken = .jpg, Tina = .png)
-    const fallbackExt = a.id === "ken" ? "jpg" : "png";
-    const webp = `${a.avatarBase}.webp${ver?`?v=${encodeURIComponent(ver)}`:""}`;
-    const fall = `${a.avatarBase}.${fallbackExt}${ver?`?v=${encodeURIComponent(ver)}`:""}`;
-
-    div.innerHTML = `
-      <div class="avatar">
-        <picture>
-          <source type="image/webp" srcset="${webp}">
-          <img src="${fall}" alt="${escapeHtml(a.name)}" width="80" height="80" loading="lazy" decoding="async">
-        </picture>
-      </div>
-      <div class="meta">
-        <a href="${a.url||'#'}"${a.url?' target="_blank" rel="noopener"':''}>${escapeHtml(a.name)}</a>
-        <div class="links">
-          ${(a.socials||[]).map(s=>`<a href="${s.href}" target="_blank" rel="noopener">${escapeHtml(s.label)}</a>`).join('')}
-        </div>
-      </div>
-    `;
-    rail.appendChild(div);
-
-    const roll = document.createElement('div'); roll.className = "roll";
-    const max  = Math.min(4, authored.length);
-    for(let i=0;i<max;i++){
-      const art = authored[(i + Math.floor(Math.random()*authored.length)) % authored.length];
-      const aTag = document.createElement('a');
-      aTag.href = permalink(art.slug);
-      aTag.textContent = art.title;
-      aTag.addEventListener('click', (e)=>{
-        e.preventDefault();
-        history.pushState(null, "", location.pathname + "#" + art.slug);
-        location.reload();
-      });
-      roll.appendChild(aTag);
-    }
-    rail.appendChild(roll);
-  }
-}
-
-    // -------------------------
-    // Helpers
-    // -------------------------
-    function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
-
-    function wireShareButtons(a){
-      const el = document.querySelector('.byline .share');
-      if(!el) return;
-      const url = permalink(a.slug);
-      el.addEventListener('click', (e)=>{
-        e.preventDefault();
-        navigator.clipboard.writeText(url).then(()=>{
-          el.textContent = "Link copied!";
-          setTimeout(()=> el.textContent = "Share this article", 1500);
-        });
-      });
-    }
-
-    function injectArticleSEO(a){
-      if(!(location.search.includes("a=") || location.hash)) return;
-      const url = permalink(a.slug);
-      setMeta('og:title', a.title + " — In the Wake");
-      setMeta('og:description', a.dek || "Solo cruising reflections and tips.");
-      setMeta('og:image', a.hero || (ORIGIN + "/assets/index_hero.jpg"));
-      setMeta('og:url', url);
-      setNameMeta('description', a.dek || "Solo cruising reflections and tips.");
-      setMeta('twitter:card','summary_large_image');
-
-      if (a.hero && /\.webp(\?|$)/i.test(a.hero)) {
-    setMeta('og:image:type', 'image/webp');
-  }
-
-      const existingLD = document.querySelector('script[type="application/ld+json"].solo-article-ld');
-      if (existingLD) existingLD.remove();
-      const ld = document.createElement('script');
-      ld.type = "application/ld+json";
-      ld.className = "solo-article-ld";
-      ld.textContent = JSON.stringify({
-        "@context":"https://schema.org",
-        "@type":"BlogPosting",
-        "headline": a.title,
-        "description": a.dek || "Solo cruising reflections and tips.",
-        "image": a.hero || (ORIGIN + "/assets/index_hero.jpg"),
-        "url": url,
-        "isPartOf": {"@type":"Blog","name":"Solo Cruising","url": ORIGIN + "/solo.html"}
-      });
-      document.head.appendChild(ld);
-
-      function setMeta(p,c){
-        let m=document.querySelector(`meta[property="${p}"]`);
-        if(!m){ m=document.createElement('meta'); m.setAttribute('property',p); document.head.appendChild(m); }
-        m.setAttribute('content', c);
-      }
-      function setNameMeta(n,c){
-        let m=document.querySelector(`meta[name="${n}"]`);
-        if(!m){ m=document.createElement('meta'); m.setAttribute('name',n); document.head.appendChild(m); }
-        m.setAttribute('content', c);
-      }
-    }
-
-function ensureBylineAuthorFallback(a){
-  const hasByline = !!document.querySelector('footer.byline');
-  if(hasByline) return;
-  const mounted = document.getElementById('solo-article-host');
-  if(!mounted) return;
-  const auth = authorById[a.authorId] || null;
-  if(!auth) return;
-
-  const ver = document.querySelector('meta[name="version"]')?.content || "";
-  const fallbackExt = auth.id === "ken" ? "jpg" : "png";
-  const webp = `${auth.avatarBase}.webp${ver?`?v=${encodeURIComponent(ver)}`:""}`;
-  const fall = `${auth.avatarBase}.${fallbackExt}${ver?`?v=${encodeURIComponent(ver)}`:""}`;
-
-  const footer = document.createElement('footer');
-  footer.className = "byline";
-  footer.innerHTML = `
-    <div class="avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;flex:none">
-      <picture>
-        <source type="image/webp" srcset="${webp}">
-        <img src="${fall}" alt="${escapeHtml(auth.name)}" width="48" height="48" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
-      </picture>
-    </div>
-    <div style="margin-left:.5rem">
-      <strong><a href="${auth.url}" ${auth.url?'target="_blank" rel="noopener"':''}>${escapeHtml(auth.name)}</a></strong>
-      <a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>
-    </div>`;
-  mounted.appendChild(footer);
-}
-
-    function escapeHtml(s){
-      return String(s||"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
-    }
-  })();
-  </script>
-    <!-- Floating Social Share Bar (sitewide) -->
-  <script defer src="/assets/js/share-bar.js?v=3.007"></script>
-</body>
-</html>
-<!-- Soli Deo Gloria — abondservant, A.D. 2025-10-10 -->
