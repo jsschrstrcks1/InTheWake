@@ -1,23 +1,19 @@
-# robots.txt for https://www.cruisinginthewake.com/
-# Last updated: 2025-10-10
+# robots.txt for https://cruisinginthewake.com/
+# Last updated: 2025-10-16
 # Purpose: Allow full indexing of public content while preventing crawl of internal assets.
-
 User-agent: *
 # === Allow key content sections ===
 Allow: /$
-Allow: /ships/index.html
+Allow: /ships/
 Allow: /restaurants/
 Allow: /ports/
-Allow: /cruise-lines.html
+Allow: /cruise-lines/
 Allow: /travel.html
 Allow: /solo.html
 Allow: /disability.html
 Allow: /drinks.html
 Allow: /packing.html
-Allow: /ships/rcl/grandeur-of-the-seas.html
-Allow: /ships/rcl/radiance-of-the-seas.html
-
-
+Allow: /planning.html
 # === Disallow internal or redundant paths ===
 Disallow: /assets/
 Disallow: /images/
@@ -28,13 +24,12 @@ Disallow: /meta/
 Disallow: /vendor/
 Disallow: /__MACOSX/
 Disallow: /404.html
-Disallow: /index.html
 Disallow: /placeholder.md
-
+Disallow: /admin/  # Added for potential sensitive paths
+Disallow: /*.php$  # Block dynamic scripts if not used
 # === Sitemap reference ===
-Sitemap: https://www.cruisinginthewake.com/sitemap.xml
-
+Sitemap: https://cruisinginthewake.com/sitemap.xml
 # === Notes for search engines ===
-#  - All /ships/ subdirectories include rich detail pages (safe to crawl).
-#  - /restaurants/ includes individual venue profiles and menu reviews.
-#  - /assets/, /data/, /meta/, /vendor/ contain supporting files only.
+# - /ships/ includes detailed ship pages (e.g., /ships/rcl/grandeur-of-the-seas.html).
+# - /restaurants/ includes venue profiles and menu reviews.
+# - /assets/, /data/, /meta/, /vendor/ contain supporting files only.
