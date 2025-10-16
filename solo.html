@@ -119,16 +119,17 @@
   </style>
 
   <!-- Authors rail CSS -->
-  <style id="authors-rail-css">
-    .card-authors .author{display:flex; gap:.75rem; align-items:center; margin:.5rem 0}
-    .card-authors .author img{width:40px; height:40px; border-radius:999px; object-fit:cover}
-    .card-authors .author .meta{display:flex; flex-direction:column}
-    .card-authors .author .meta a{font-weight:600; text-decoration:none}
-    .card-authors .author .meta .links{font-size:.9rem; opacity:.8}
-    .card-authors .author .meta .links a{margin-right:.5rem}
-    .card-authors .roll{margin:.35rem 0 .75rem}
-    .card-authors .roll a{display:inline-block; margin:.15rem .35rem .15rem 0; font-size:.92rem}
-  </style>
+<style id="authors-rail-css">
+  .card-authors .author{display:flex; gap:.75rem; align-items:center; margin:.5rem 0}
+  .card-authors .avatar{width:40px; height:40px; border-radius:999px; overflow:hidden; flex:none; background:#e9f3f7}
+  .card-authors .avatar img{width:100%; height:100%; object-fit:cover; display:block}
+  .card-authors .author .meta{display:flex; flex-direction:column}
+  .card-authors .author .meta a{font-weight:600; text-decoration:none}
+  .card-authors .author .meta .links{font-size:.9rem; opacity:.8}
+  .card-authors .author .meta .links a{margin-right:.5rem}
+  .card-authors .roll{margin:.35rem 0 .75rem}
+  .card-authors .roll a{display:inline-block; margin:.15rem .35rem .15rem 0; font-size:.92rem}
+</style>
 
   <!-- Page watermark (behind cards) -->
   <style id="page-watermark">
@@ -343,58 +344,59 @@
     const ARTICLE_BASE = "/solo/articles/";
     const PERMALINK_BASE = ORIGIN + ARTICLE_BASE;
 
-    // -------------------------
-    // AUTHORS (pre-seeded)
-    // -------------------------
-    const RAW_AUTHORS = [
-      {
-        id: "ken",
-        name: "Ken Baker",
-        url: "https://ken-baker.com",
-        avatar: "https://www.cruisinginthewake.com/authors/img/ken1.webp",
-        socials: [
-          { label:"Site", href:"https://ken-baker.com" },
-          { label:"IG",   href:"https://instagram.com/flickersofmajesty" },
-          { label:"Lakeview Fellowship Church",   href:"https://instagram.com/flickersofmajesty" }, 
-          { label:"Facebook Solo Travel Group",   href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=ken_profile" },
-          { label:"Facebook Solo Travel Community (mobile only)",   href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=ken_profile" }
-        ]
-      },
-      {
-        id: "tina",
-        name: "Tina Maulsby",
-        url: "https://www.cruisinginthewake.com/authors/tina-maulsby.html",
-        avatar: "https://www.cruisinginthewake.com/authors/img/ico/tina3ico.webp",
-        socials: [
-          { label:"TikTok", href:"https://www.tiktok.com/@beyondboundarieswithtina?utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" },
-          { label:"Etsy",   href:"https://www.etsy.com/shop/YOUR_SHOP?section_id=CRUISE_ONLY" },
-          { label:"Facebook Solo Travel Group",   href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" },
-          { label:"Facebook Solo Travel Community (mobile only)",   href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" }
-        ]
-      }
-    ];
+  <!-- -------------------------
+     AUTHORS (pre-seeded)
+     ------------------------- -->
+const RAW_AUTHORS = [
+  {
+    id: "ken",
+    name: "Ken Baker",
+    url: "https://ken-baker.com",
+    // base path only; we'll build webp/jpg variants in render
+    avatarBase: "/authors/img/ken1",
+    socials: [
+      { label:"Site", href:"https://ken-baker.com" },
+      { label:"IG",   href:"https://instagram.com/flickersofmajesty" },
+      { label:"Facebook Solo Travel Group", href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=ken_profile" },
+      { label:"Community (mobile)", href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=ken_profile" }
+    ]
+  },
+  {
+    id: "tina",
+    name: "Tina Maulsby",
+    url: "/authors/tina-maulsby.html",
+    avatarBase: "/authors/img/tina3", // nicest crop for avatar/hero
+    socials: [
+      { label:"TikTok", href:"https://www.tiktok.com/@beyondboundarieswithtina?utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" },
+      { label:"Etsy",   href:"https://www.etsy.com/shop/YOUR_SHOP?section_id=CRUISE_ONLY" },
+      { label:"Facebook Group", href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" },
+      { label:"Community (mobile)", href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link&utm_source=cruisinginthewake&utm_medium=author_card&utm_campaign=tina_profile" }
+    ]
+  }
+];
 
-    // -------------------------
-    // ARTICLES (pre-seeded)
-    // -------------------------
-    const RAW_ARTICLES = [
-      {
-        slug: "freedom-of-your-own-wake",
-        title: "The Freedom of Your Own Wake",
-        hero: ORIGIN + "/assets/solo/freedom-hero.jpg",
-        dek:  "A gentle case for sailing alone: rest, rhythm, and room to breathe.",
-        authorId: "ken",
-        tags: ["solo","tips","reflection"]
-      },
-      {
-        slug: "why-i-started-solo-cruising",
-        title: "Why I Started Solo Cruising (and Built a Community)",
-        hero: ORIGIN + "/assets/solo/tina-why-i-started-hero.jpg",
-        dek:  "From that first solo gangway to a thriving community — lessons, safety, and the unexpected joy of sailing on your own terms.",
-        authorId: "tina",
-        tags: ["solo","story","community","women"]
-      }
-    ];
+/* -------------------------
+   ARTICLES (pre-seeded)
+   ------------------------- */
+const RAW_ARTICLES = [
+  {
+    slug: "freedom-of-your-own-wake",
+    title: "The Freedom of Your Own Wake",
+    hero: ORIGIN + "/assets/solo/freedom-hero.jpg",
+    dek:  "A gentle case for sailing alone: rest, rhythm, and room to breathe.",
+    authorId: "ken",
+    tags: ["solo","tips","reflection"]
+  },
+  {
+    slug: "why-i-started-solo-cruising",
+    title: "Why I Started Solo Cruising (and Built a Community)",
+    // use your Tina photo as hero for now (WebP primary)
+    hero: ORIGIN + "/authors/img/tina3.webp",
+    dek:  "From that first solo gangway to a thriving community — lessons, safety, and the unexpected joy of sailing on your own terms.",
+    authorId: "tina",
+    tags: ["solo","story","community","women"]
+  }
+];
 
     // -------------------------
     // Normalizers (shape-compat)
@@ -470,54 +472,61 @@
       });
     }
 
-    // -------------------------
-    // Authors rail
-    // -------------------------
-    renderAuthorsRail();
+   function renderAuthorsRail(){
+  const rail = document.getElementById("authors-list");
+  if(!rail) return;
+  rail.innerHTML = "";
 
-    function renderAuthorsRail(){
-      const rail = document.getElementById("authors-list");
-      if(!rail) return;
-      rail.innerHTML = "";
+  const ver = document.querySelector('meta[name="version"]')?.content || "";
 
-      const sorted = [...AUTHORS].sort((a,b)=>{
-        const aa = (articlesByAuthor[a.id]||[]).length;
-        const bb = (articlesByAuthor[b.id]||[]).length;
-        return bb - aa;
+  const sorted = [...AUTHORS].sort((a,b)=>{
+    const aa = (articlesByAuthor[a.id]||[]).length;
+    const bb = (articlesByAuthor[b.id]||[]).length;
+    return bb - aa;
+  });
+
+  for(const a of sorted){
+    const authored = (articlesByAuthor[a.id]||[]);
+    const div = document.createElement('div'); div.className = "author";
+
+    // choose fallback extension by what exists in your repo (Ken = .jpg, Tina = .png)
+    const fallbackExt = a.id === "ken" ? "jpg" : "png";
+    const webp = `${a.avatarBase}.webp${ver?`?v=${encodeURIComponent(ver)}`:""}`;
+    const fall = `${a.avatarBase}.${fallbackExt}${ver?`?v=${encodeURIComponent(ver)}`:""}`;
+
+    div.innerHTML = `
+      <div class="avatar">
+        <picture>
+          <source type="image/webp" srcset="${webp}">
+          <img src="${fall}" alt="${escapeHtml(a.name)}" width="80" height="80" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <div class="meta">
+        <a href="${a.url||'#'}"${a.url?' target="_blank" rel="noopener"':''}>${escapeHtml(a.name)}</a>
+        <div class="links">
+          ${(a.socials||[]).map(s=>`<a href="${s.href}" target="_blank" rel="noopener">${escapeHtml(s.label)}</a>`).join('')}
+        </div>
+      </div>
+    `;
+    rail.appendChild(div);
+
+    const roll = document.createElement('div'); roll.className = "roll";
+    const max  = Math.min(4, authored.length);
+    for(let i=0;i<max;i++){
+      const art = authored[(i + Math.floor(Math.random()*authored.length)) % authored.length];
+      const aTag = document.createElement('a');
+      aTag.href = permalink(art.slug);
+      aTag.textContent = art.title;
+      aTag.addEventListener('click', (e)=>{
+        e.preventDefault();
+        history.pushState(null, "", location.pathname + "#" + art.slug);
+        location.reload();
       });
-
-      for(const a of sorted){
-        const authored = (articlesByAuthor[a.id]||[]);
-        const div = document.createElement('div'); div.className = "author";
-        div.innerHTML = `
-          <img src="${a.avatar}" alt="${escapeHtml(a.name)}">
-          <div class="meta">
-            <a href="${a.url||'#'}" ${a.url?'target="_blank" rel="noopener"':''}>${escapeHtml(a.name)}</a>
-            <div class="links">
-              ${(a.socials||[]).map(s=>`<a href="${s.href}" target="_blank" rel="noopener">${escapeHtml(s.label)}</a>`).join('')}
-            </div>
-          </div>
-        `;
-        rail.appendChild(div);
-
-        const roll = document.createElement('div'); roll.className = "roll";
-        const max  = Math.min(4, authored.length);
-        for(let i=0;i<max;i++){
-          const art = authored[(i + Math.floor(Math.random()*authored.length)) % authored.length];
-          const title = art?.title || '';
-          const aTag = document.createElement('a');
-          aTag.href = permalink(art.slug);
-          aTag.textContent = title;
-          aTag.addEventListener('click', (e)=>{
-            e.preventDefault();
-            history.pushState(null, "", location.pathname + "#" + art.slug);
-            location.reload();
-          });
-          roll.appendChild(aTag);
-        }
-        rail.appendChild(roll);
-      }
+      roll.appendChild(aTag);
     }
+    rail.appendChild(roll);
+  }
+}
 
     // -------------------------
     // Helpers
@@ -547,6 +556,10 @@
       setNameMeta('description', a.dek || "Solo cruising reflections and tips.");
       setMeta('twitter:card','summary_large_image');
 
+      if (a.hero && /\.webp(\?|$)/i.test(a.hero)) {
+    setMeta('og:image:type', 'image/webp');
+  }
+
       const existingLD = document.querySelector('script[type="application/ld+json"].solo-article-ld');
       if (existingLD) existingLD.remove();
       const ld = document.createElement('script');
@@ -575,23 +588,34 @@
       }
     }
 
-    function ensureBylineAuthorFallback(a){
-      const hasByline = !!document.querySelector('footer.byline');
-      if(hasByline) return;
-      const mounted = document.getElementById('solo-article-host');
-      if(!mounted) return;
-      const auth = authorById[a.authorId] || null;
-      if(!auth) return;
-      const footer = document.createElement('footer');
-      footer.className = "byline";
-      footer.innerHTML = `
-        <img src="${auth.avatar}" alt="${escapeHtml(auth.name)}" width="48" height="48">
-        <div>
-          <strong><a href="${auth.url}" target="_blank" rel="noopener">${escapeHtml(auth.name)}</a></strong>
-          <a class="share" href="#" role="button">Share this article</a>
-        </div>`;
-      mounted.appendChild(footer);
-    }
+function ensureBylineAuthorFallback(a){
+  const hasByline = !!document.querySelector('footer.byline');
+  if(hasByline) return;
+  const mounted = document.getElementById('solo-article-host');
+  if(!mounted) return;
+  const auth = authorById[a.authorId] || null;
+  if(!auth) return;
+
+  const ver = document.querySelector('meta[name="version"]')?.content || "";
+  const fallbackExt = auth.id === "ken" ? "jpg" : "png";
+  const webp = `${auth.avatarBase}.webp${ver?`?v=${encodeURIComponent(ver)}`:""}`;
+  const fall = `${auth.avatarBase}.${fallbackExt}${ver?`?v=${encodeURIComponent(ver)}`:""}`;
+
+  const footer = document.createElement('footer');
+  footer.className = "byline";
+  footer.innerHTML = `
+    <div class="avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;flex:none">
+      <picture>
+        <source type="image/webp" srcset="${webp}">
+        <img src="${fall}" alt="${escapeHtml(auth.name)}" width="48" height="48" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
+      </picture>
+    </div>
+    <div style="margin-left:.5rem">
+      <strong><a href="${auth.url}" ${auth.url?'target="_blank" rel="noopener"':''}>${escapeHtml(auth.name)}</a></strong>
+      <a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>
+    </div>`;
+  mounted.appendChild(footer);
+}
 
     function escapeHtml(s){
       return String(s||"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
