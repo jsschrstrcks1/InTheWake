@@ -1,0 +1,358 @@
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
+“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
+Page: /admin/reports/v3.008-audit.html · v3.008 · Built: 2025-10-17T00:00:00Z
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="version" content="3.008"/>
+  <meta name="standards:baseline" content="3.008"/>
+  <title>v3.008 Compliance Auditor — In the Wake</title>
+  <link rel="canonical" href="https://www.cruisinginthewake.com/admin/reports/v3.008-audit.html">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008">
+  <style>
+    .wrap{max-width:1200px;margin:0 auto;padding:20px 14px 36px}
+    .grid{display:grid;gap:1rem}
+    @media (min-width:980px){.grid{grid-template-columns:1fr 2fr}}
+    textarea{width:100%;min-height:140px}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
+    .ok{color:#155724}
+    .warn{color:#856404}
+    .err{color:#721c24}
+    .code{white-space:pre-wrap;font:12px/1.35 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;background:#f7f7f7;border:1px solid #ddd;border-radius:6px;padding:.5rem}
+    .pill{display:inline-block;padding:.25rem .5rem;border-radius:999px;background:#eef;border:1px solid #99f;margin:.2rem .25rem}
+    details{margin:.25rem 0}
+    summary{cursor:pointer}
+    .tiny.mono{font-size:11px}
+  </style>
+</head>
+<body class="page">
+  <a class="visually-hidden-focusable" href="#content">Skip to content</a>
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png?v=3.008" alt="In the Wake wordmark">
+        <span class="version-badge">v3.008</span>
+      </div>
+      <nav class="pill-nav.pills pill-nav pills" aria-label="Primary">
+        <a href="https://www.cruisinginthewake.com/">Home</a>
+        <a href="https://www.cruisinginthewake.com/admin/reports/v3.008-audit.html" aria-current="page">Admin: v3.008 Audit</a>
+      </nav>
+    </div>
+    <div class="hero" role="img" aria-label="Audit tools hero">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008" width="160" height="160" alt="" aria-hidden="true">
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png?v=3.008" alt="In the Wake">
+        <div class="tagline">Site-wide compliance in one pass</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <section class="card">
+      <h1>v3.008 Compliance Auditor</h1>
+      <p>Paste same-origin URLs (one per line). The auditor fetches each page and validates against the full v3.008 rule set. Results include copy-paste <strong>patch blocks</strong> for quick fixes.</p>
+      <div class="grid">
+        <div>
+          <label for="urls"><strong>URLs (one per line)</strong></label>
+          <textarea id="urls" class="mono" placeholder="/index.html
+/ships/index.html
+/ships/rcl/grandeur-of-the-seas.html
+/cruise-lines.html
+/restaurants.html
+/ports.html"></textarea>
+          <p class="tiny">Tip: leave off protocol to use current origin.</p>
+          <button id="run" class="btn">Run Audit</button>
+        </div>
+        <div>
+          <h3>Unified Top-Nav (expected order)</h3>
+          <div class="code tiny mono">Home · Ships · Restaurants &amp; Menus · Ports · Planning · Drink Packages · Packing Lists · Accessibility · Cruise Lines · Solo · Travel · About Us</div>
+          <p class="tiny">Class: <span class="mono">.pill-nav.pills</span> · Active link uses <span class="mono">aria-current="page"</span></p>
+          <details>
+            <summary>Canonical HTML snippet</summary>
+<pre class="code">&lt;nav class="pill-nav pills" aria-label="Primary"&gt;
+  &lt;a href="https://www.cruisinginthewake.com/"&gt;Home&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/ships/"&gt;Ships&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/restaurants.html"&gt;Restaurants &amp; Menus&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/ports.html"&gt;Ports&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/planning.html"&gt;Planning&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/drink-packages.html"&gt;Drink Packages&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/packing-lists.html"&gt;Packing Lists&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/disability-at-sea.html"&gt;Accessibility&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/cruise-lines.html"&gt;Cruise Lines&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/solo.html"&gt;Solo&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/travel.html"&gt;Travel&lt;/a&gt;
+  &lt;a href="https://www.cruisinginthewake.com/about-us.html"&gt;About Us&lt;/a&gt;
+&lt;/nav&gt;</pre>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="cards stack"></section>
+  </main>
+
+  <footer class="wrap tiny center">Soli Deo Gloria — All work on this project is offered to God.</footer>
+
+  <script>
+  (function(){
+    "use strict";
+    const VERSION = "3.008";
+    const ABS = (p)=> (new URL(p, location.origin)).toString();
+
+    /** Rule helpers (explicit v3.008 logic) */
+    const unifiedNav = [
+      "/", "/ships/", "/restaurants.html", "/ports.html", "/planning.html",
+      "/drink-packages.html", "/packing-lists.html", "/disability-at-sea.html",
+      "/cruise-lines.html", "/solo.html", "/travel.html", "/about-us.html"
+    ].map(ABS);
+
+    function collectNav(doc){
+      const nav = doc.querySelector('.pill-nav.pills');
+      if(!nav) return {found:false, items:[]};
+      const items = Array.from(nav.querySelectorAll('a[href]')).map(a => new URL(a.getAttribute('href'), location.origin).toString());
+      const active = (nav.querySelector('a[aria-current="page"]') || null);
+      return {found:true, items, activeHref: active ? new URL(active.getAttribute('href'), location.origin).toString() : null};
+    }
+
+    function meta(doc, name){
+      return doc.querySelector(`meta[name="${name}"]`)?.getAttribute('content') || "";
+    }
+    function content(doc, sel){ return doc.querySelector(sel)?.textContent?.trim() || ""; }
+    function href(doc, sel){ const el=doc.querySelector(sel); return el ? el.getAttribute('href')||"" : ""; }
+    function attr(el, name){ return el ? (el.getAttribute(name) || "") : ""; }
+    function count(doc, sel){ return doc.querySelectorAll(sel).length; }
+
+    function hasInvocationVisible(doc){
+      return /Soli Deo Gloria/i.test(doc.body?.innerText||"");
+    }
+    function hasInvocationComment(html){
+      return /Soli Deo Gloria/i.test(html.split("</head>")[0] || html.slice(0, 2048));
+    }
+
+    function allInternalAbsolute(doc){
+      let ok = true, bad = [];
+      doc.querySelectorAll('a[href], img[src], link[href], script[src]').forEach(el=>{
+        const attr = el.hasAttribute('href') ? 'href' : 'src';
+        const val = el.getAttribute(attr)||"";
+        if (/^(mailto:|tel:|#)/i.test(val)) return;
+        try{
+          const u = new URL(val, location.origin);
+          if (u.origin===location.origin && !/^https?:\/\//i.test(val)) { ok=false; bad.push(val); }
+        }catch(_){}
+      });
+      return {ok, bad};
+    }
+
+    function versionMatch(doc, url){
+      const title = doc.querySelector('title')?.textContent || "";
+      const mv = meta(doc,"version") || meta(doc,"page:version");
+      const sb = meta(doc,"standards:baseline");
+      const css = Array.from(doc.querySelectorAll('link[rel="stylesheet"][href]')).map(l=>l.href);
+      const js  = Array.from(doc.querySelectorAll('script[src]')).map(s=>s.src);
+      const vBadge = doc.querySelector('.version-badge, .ver-badge')?.textContent || "";
+
+      const titleHas = /\(v?3\.008\)/.test(title);
+      const metaOk   = /3\.008/.test(mv);
+      const baseOk   = /3\.008/.test(sb); // allow missing for older pages but warn
+      const assetsOk = css.concat(js).every(u => !/^https?:/.test(u) || !/(\?|&)v=/.test(u) || /(\?|&)v=3\.008(\b|$)/.test(u));
+      const badgeOk  = /3\.008/.test(vBadge);
+
+      return {
+        titleHas, metaOk, baseOk, assetsOk, badgeOk,
+        errors: [].concat(
+          titleHas?[]:[`Title missing (v3.008)`],
+          metaOk?[]:[`<meta name="version" content="3.008"> missing/mismatch (found "${mv||'∅'}")`],
+          baseOk?[]:[`<meta name="standards:baseline" content="3.008"> missing/mismatch (found "${sb||'∅'}")`],
+          assetsOk?[]:[`One or more assets not versioned with ?v=3.008`],
+          badgeOk?[]:[`Visible version badge not "v3.008" (found "${vBadge||'∅'}")`]
+        )
+      };
+    }
+
+    function heroRule(doc){
+      return {
+        heroes: count(doc,'.hero'),
+        compasses: count(doc,'.hero .hero-compass')
+      };
+    }
+
+    function ogTwitter(doc, url){
+      const ogTitle = doc.querySelector('meta[property="og:title"]')?.content || "";
+      const ogUrl   = doc.querySelector('meta[property="og:url"]')?.content || "";
+      const ogImg   = doc.querySelector('meta[property="og:image"]')?.content || "";
+      const twCard  = doc.querySelector('meta[name="twitter:card"]')?.content || "";
+      return {
+        ok: !!ogTitle && !!ogUrl && !!ogImg && twCard==='summary_large_image',
+        errors: [].concat(
+          ogTitle?[]:['og:title missing'],
+          ogUrl?[]:['og:url missing'],
+          ogImg?[]:['og:image missing'],
+          (twCard==='summary_large_image')?[]:['twitter:card must be "summary_large_image"']
+        )
+      };
+    }
+
+    function canonical(doc, url){
+      const can = href(doc, 'link[rel="canonical"]');
+      const good = can && /^https:\/\/www\.cruisinginthewake\.com\//.test(can);
+      return {ok: !!good, can};
+    }
+
+    function swAndRM(doc){
+      const sw = Array.from(doc.querySelectorAll('script')).some(s => /serviceWorker\.register\(.*sw\.js/.test(s.textContent||""));
+      const rm = /prefers-reduced-motion/.test((doc.querySelector('style, link[rel="stylesheet"]')?.outerHTML || "")) ||
+                 Array.from(doc.querySelectorAll('style')).some(st => /prefers-reduced-motion/.test(st.textContent||""));
+      return {sw, rm};
+    }
+
+    function jsonld(doc){
+      const blocks = Array.from(doc.querySelectorAll('script[type="application/ld+json"]')).map(s=>s.textContent||"");
+      let hasWebPage=false, hasItemList=false;
+      try {
+        blocks.forEach(b=>{
+          const j=JSON.parse(b);
+          const arr = Array.isArray(j) ? j : [j];
+          arr.forEach(x=>{
+            if (x['@type']==='WebPage') hasWebPage=true;
+            if (x['@type']==='ItemList') hasItemList=true;
+          });
+        });
+      }catch(_){}
+      return {hasWebPage, hasItemList};
+    }
+
+    function buildPatch(doc, url){
+      const title=doc.querySelector('title')?.textContent||'';
+      const fixedTitle = title.replace(/\(v[0-9.]+\)/,'').trim() + ' (v3.008)';
+      const canonicalHref = `https://www.cruisinginthewake.com${new URL(url, location.origin).pathname}`;
+      const navHtml = `<nav class="pill-nav pills" aria-label="Primary">
+  <a href="https://www.cruisinginthewake.com/">Home</a>
+  <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
+  <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+  <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+  <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
+  <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+  <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+  <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Accessibility</a>
+  <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
+  <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+  <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+  <a href="https://www.cruisinginthewake.com/about-us.html">About Us</a>
+</nav>`;
+
+      return `<!-- v3.008 PATCH SET -->
+<!-- Title -->
+<title>${fixedTitle}</title>
+
+<!-- Version Meta -->
+<meta name="version" content="3.008">
+<meta name="standards:baseline" content="3.008">
+
+<!-- Canonical -->
+<link rel="canonical" href="${canonicalHref}">
+
+<!-- Asset versioning -->
+<link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008">
+<script defer src="https://www.cruisinginthewake.com/assets/js/site-cache.js?v=3.008"></script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008').catch(()=>{}));}</script>
+
+<!-- Unified Nav -->
+${navHtml}
+
+<!-- Invocation footer line -->
+<footer class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</footer>
+<!-- /v3.008 PATCH SET -->`;
+    }
+
+    /** UI */
+    document.getElementById('run').addEventListener('click', async ()=>{
+      const box=document.getElementById('urls');
+      const raw=box.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+      const urls=raw.map(s=> new URL(s, location.origin).toString());
+      const mount=document.getElementById('results');
+      mount.innerHTML='';
+
+      for (const u of urls){
+        const card=document.createElement('article');
+        card.className='card';
+        card.innerHTML=`<h3>${u}</h3><div class="tiny">Auditing…</div>`;
+        mount.appendChild(card);
+
+        try{
+          const r=await fetch(u, {cache:'no-store'});
+          if(!r.ok){ card.innerHTML+=`<p class="err">HTTP ${r.status}</p>`; continue; }
+          const html=await r.text();
+          const parser=new DOMParser();
+          const doc=parser.parseFromString(html, 'text/html');
+
+          const issues=[];
+
+          // Invocation
+          if(!hasInvocationComment(html)) issues.push('Missing UTF-8 invocation comment in <head> preamble.');
+          if(!hasInvocationVisible(doc))  issues.push('Missing visible invocation footer line.');
+
+          // Version trinity
+          const vm=versionMatch(doc, u);
+          issues.push(...vm.errors);
+
+          // Canonical absolute
+          const can=canonical(doc,u);
+          if(!can.ok) issues.push(`Canonical missing/invalid (found "${can.can||'∅'}")`);
+
+          // Absolute URLs everywhere (no relatives in prod)
+          const abs=allInternalAbsolute(doc);
+          if(!abs.ok) issues.push(`Internal absolute URL rule: found ${abs.bad.length} relative href/src (first: ${abs.bad[0]||'∅'})`);
+
+          // Nav
+          const nav=collectNav(doc);
+          if(!nav.found) issues.push('Top nav missing .pill-nav.pills');
+          if(nav.found){
+            const mismatch = JSON.stringify(nav.items) !== JSON.stringify(unifiedNav);
+            if(mismatch) issues.push('Top nav order/targets do not match unified standard.');
+            if(!nav.activeHref) issues.push('Top nav missing aria-current="page" on active link.');
+          }
+
+          // Hero rule
+          const hr=heroRule(doc);
+          if(hr.heroes!==1) issues.push(`Single hero rule violated (found ${hr.heroes}).`);
+          if(hr.compasses!==1) issues.push(`Single compass rule violated (found ${hr.compasses}).`);
+
+          // OG/Twitter
+          const og=ogTwitter(doc,u);
+          issues.push(...og.errors);
+
+          // JSON-LD presence (WebPage required; ItemList recommended on hubs)
+          const ld=jsonld(doc);
+          if(!ld.hasWebPage) issues.push('JSON-LD WebPage block missing.');
+
+          // SW + reduced-motion
+          const swrm=swAndRM(doc);
+          if(!swrm.sw) issues.push('Service worker registration missing.');
+          if(!swrm.rm) issues.push('Reduced-motion CSS guard missing.');
+
+          // Render
+          if(!issues.length){
+            card.innerHTML = `<h3>${u}</h3><p class="ok">✅ Fully compliant (v3.008).</p>`;
+          }else{
+            const list = `<ul>${issues.map(i=>`<li class="err">${i}</li>`).join('')}</ul>`;
+            const patch = `<details><summary>Show suggested patch</summary><pre class="code">${escapeHtml(buildPatch(doc,u))}</pre></details>`;
+            card.innerHTML = `<h3>${u}</h3>${list}${patch}`;
+          }
+        }catch(e){
+          card.innerHTML+=`<p class="err">Fetch/Parse error: ${e.message}</p>`;
+        }
+      }
+    });
+
+    function escapeHtml(s){return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+  })();
+  </script>
+</body>
+</html>
