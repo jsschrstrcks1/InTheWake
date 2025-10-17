@@ -346,3 +346,49 @@ h1,h2,h3{color:var(--sea)}
 .card .card-hero,
 .card .vf-map,
 .card iframe.live-map { width:100%; border:0; border-radius:12px; }
+
+/* ===== In the Wake — Single Hero Standard (v3.006) ===== */
+
+/* 1) Normalize hero container */
+figure.hero,
+.article-hero,
+.article-card .hero {
+  margin: 0 0 1rem 0;
+  padding: 0;
+  border: 0;
+}
+
+/* 2) Always render one full-width hero image */
+figure.hero picture,
+figure.hero img,
+.article-hero picture,
+.article-hero img,
+.article-card .hero picture,
+.article-card .hero img {
+  display: block !important;
+  width: 100% !important;
+  height: auto;
+  /* Maintain cinematic crop without stretching */
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px; /* match your card radius */
+}
+
+/* 3) Kill any legacy 2-up split rules */
+.article-card img:first-of-type,
+.article-card img:nth-of-type(2) {
+  width: 100% !important;
+}
+
+/* 4) If any extra/fallback image gets injected, hide it */
+figure.hero img + img,
+.article-hero img + img,
+.article-card .hero img + img {
+  display: none !important;
+}
+
+/* 5) Placeholder gets subdued styling (if used) */
+.hero.placeholder {
+  filter: saturate(.85) contrast(.95);
+  opacity: .92;
+}
