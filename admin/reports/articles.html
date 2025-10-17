@@ -1,249 +1,272 @@
-<script>
-(function(){
-  "use strict";
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer">
+  <title>Articles Consistency Report — In the Wake</title>
+  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css">
+</head>
+<body class="page">
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
+        <span class="version-badge">Reports</span>
+      </div>
+      <nav class="nav pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/admin/reports/articles.html" aria-current="page">Admin: Articles</a>
+      </nav>
+    </div>
+    <div class="hero" role="img" aria-label="Watermark Header">
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
+        <div class="tagline">Articles Consistency Report</div>
+      </div>
+    </div>
+  </header>
 
-  const ORIGIN = (location.origin || (location.protocol + "//" + location.host));
-  const MANIFEST_URL = "/precache-manifest.json";
-  const SITEMAP_URL  = "/solo/sitemap.xml";
-  const SITEMAP_UPDATE_ENDPOINT = ""; // optional, leave blank to disable
+  <main class="wrap" id="content">
+    <section class="cards stack">
+      <article class="card">
+        <h2>Diagnostics</h2>
+        <div id="diag" class="tiny muted">Running…</div>
+      </article>
+    </section>
+    <section class="cards stack grid-3-tight"></section>
+  </main>
 
-  // ---------- DOM readiness ----------
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", start, { once:true });
-  } else {
-    start();
-  }
+  <!-- Your script exactly as provided -->
+  <script>
+  (function(){
+    "use strict";
 
-  function start(){
-    run().catch(err => setDiag("Hard failure: " + (err?.message || String(err))));
-  }
+    const ORIGIN = (location.origin || (location.protocol + "//" + location.host));
+    const MANIFEST_URL = "/precache-manifest.json";
+    const SITEMAP_URL  = "/solo/sitemap.xml";
+    const SITEMAP_UPDATE_ENDPOINT = "";
 
-  // ---- helpers to get/make cards if missing ----
-  function hostContainer(){
-    // Prefer the existing grid; otherwise create a minimal host so the page isn't blank
-    let grid = document.querySelector(".grid-3-tight") || document.querySelector(".cards.stack");
-    if (!grid) {
-      const main = document.getElementById("content") || document.querySelector("main") || document.body;
-      const sec = document.createElement("section");
-      sec.className = "cards stack grid-3-tight";
-      main.appendChild(sec);
-      grid = sec;
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", start, { once:true });
+    } else {
+      start();
     }
-    return grid;
-  }
-
-  function needCard(id, title, desc, cls){
-    let card = document.getElementById(id);
-    if (card) return card;
-    const grid = hostContainer();
-    card = document.createElement("article");
-    card.className = "card " + (cls||"");
-    card.id = id;
-    card.style.display = "none";
-    card.innerHTML = `<h3>${title}</h3><p>${desc}</p><div class="scroll"><ol id="${id}-list" class="list"></ol></div>`;
-    grid.appendChild(card);
-    return card;
-  }
-  function show(node){ node.style.display = ""; }
-  function setDiag(msg){
-    let d = document.getElementById("diag");
-    if (!d) {
-      // create a tiny diag card if missing
-      const c = needCard("diag-card","Diagnostics","", "");
-      show(c);
-      c.innerHTML = `<h3>Diagnostics</h3><div id="diag" class="tiny muted"></div>`;
-      d = document.getElementById("diag");
+    function start(){
+      run().catch(err => setDiag("Hard failure: " + (err?.message || String(err))));
     }
-    d.textContent = msg;
-  }
-  function li(ol, html){ const _li=document.createElement("li"); _li.innerHTML=html; ol.appendChild(_li); }
-  function fmt(mono){ return `<span class="mono">${mono}</span>`; }
 
-  // fetchers
-  async function fetchJson(url){
-    const r = await fetch(url, { cache:"no-store" });
-    if (!r.ok) throw new Error("HTTP " + r.status + " for " + url);
-    return r.json();
-  }
-  async function fetchText(url){
-    const r = await fetch(url, { cache:"no-store" });
-    if (!r.ok) throw new Error("HTTP " + r.status + " for " + url);
-    return r.text();
-  }
-  async function exists(url){
-    try{
-      const r = await fetch(url, { cache:"no-store", redirect:"follow" });
-      return r.ok;
-    }catch(_){ return false; }
-  }
-
-  // manifest normalization
-  function flattenManifestUrls(m){
-    if (Array.isArray(m)) {
-      return m.map(x => typeof x === "string" ? x : (x && (x.url || x.href))).filter(Boolean);
+    function hostContainer(){
+      let grid = document.querySelector(".grid-3-tight") || document.querySelector(".cards.stack");
+      if (!grid) {
+        const main = document.getElementById("content") || document.querySelector("main") || document.body;
+        const sec = document.createElement("section");
+        sec.className = "cards stack grid-3-tight";
+        main.appendChild(sec);
+        grid = sec;
+      }
+      return grid;
     }
-    if (!m || typeof m !== "object") return [];
-    const out = [];
-    ["pages","assets","images","sitemaps","urls","files"].forEach(k=>{
-      if (Array.isArray(m[k])) m[k].forEach(v => out.push(typeof v === "string" ? v : (v && (v.url || v.href))));
-    });
-    return out.filter(Boolean);
-  }
+    function needCard(id, title, desc, cls){
+      let card = document.getElementById(id);
+      if (card) return card;
+      const grid = hostContainer();
+      card = document.createElement("article");
+      card.className = "card " + (cls||"");
+      card.id = id;
+      card.style.display = "none";
+      card.innerHTML = `<h3>${title}</h3><p>${desc}</p><div class="scroll"><ol id="${id}-list" class="list"></ol></div>`;
+      grid.appendChild(card);
+      return card;
+    }
+    function show(node){ node.style.display = ""; }
+    function setDiag(msg){
+      let d = document.getElementById("diag");
+      if (!d) {
+        const c = needCard("diag-card","Diagnostics","", "");
+        show(c);
+        c.innerHTML = `<h3>Diagnostics</h3><div id="diag" class="tiny muted"></div>`;
+        d = document.getElementById("diag");
+      }
+      d.textContent = msg;
+    }
+    function li(ol, html){ const _li=document.createElement("li"); _li.innerHTML=html; ol.appendChild(_li); }
+    function fmt(mono){ return `<span class="mono">${mono}</span>`; }
 
-  // Extract slugs by prefix with optional exclusions (to stop /solo/ capturing /solo/articles/)
-  function slugsFromManifest(list, prefix, excludePrefixes){
-    const out = new Set();
-    const ex = Array.isArray(excludePrefixes) ? excludePrefixes : [];
-    for (const u of list) {
+    async function fetchJson(url){
+      const r = await fetch(url, { cache:"no-store" });
+      if (!r.ok) throw new Error("HTTP " + r.status + " for " + url);
+      return r.json();
+    }
+    async function fetchText(url){
+      const r = await fetch(url, { cache:"no-store" });
+      if (!r.ok) throw new Error("HTTP " + r.status + " for " + url);
+      return r.text();
+    }
+    async function exists(url){
       try{
-        const url = new URL(u, ORIGIN);
-        let p = url.pathname;
-        if (!p.startsWith("/")) p = "/" + p;
-        if (!p.startsWith(prefix)) continue;
-        if (ex.some(ep => p.startsWith(ep))) continue; // stop bleedthrough
-        if (!/\.html$/i.test(p)) continue;
-        const slug = p.split("/").pop().replace(/\.html$/i,"");
-        if (slug && slug !== "solo" && slug !== "sitemap") out.add(slug);
-      }catch(_){}
+        const r = await fetch(url, { cache:"no-store", redirect:"follow" });
+        return r.ok;
+      }catch(_){ return false; }
     }
-    return out;
-  }
 
-  function slugsFromSitemap(xml){
-    const out = new Set();
-    try{
-      const dom = new DOMParser().parseFromString(xml, "application/xml");
-      const locs = Array.from(dom.querySelectorAll("url > loc")).map(n=>n.textContent.trim());
-      for (const loc of locs) {
+    function flattenManifestUrls(m){
+      if (Array.isArray(m)) {
+        return m.map(x => typeof x === "string" ? x : (x && (x.url || x.href))).filter(Boolean);
+      }
+      if (!m || typeof m !== "object") return [];
+      const out = [];
+      ["pages","assets","images","sitemaps","urls","files"].forEach(k=>{
+        if (Array.isArray(m[k])) m[k].forEach(v => out.push(typeof v === "string" ? v : (v && (v.url || v.href))));
+      });
+      return out.filter(Boolean);
+    }
+
+    function slugsFromManifest(list, prefix, excludePrefixes){
+      const out = new Set();
+      const ex = Array.isArray(excludePrefixes) ? excludePrefixes : [];
+      for (const u of list) {
         try{
-          const u = new URL(loc, ORIGIN);
-          if (!/\/solo\/[^/]+\.html$/i.test(u.pathname)) continue;
-          const slug = u.pathname.split("/").pop().replace(/\.html$/i,"");
-          if (slug && slug !== "solo") out.add(slug);
+          const url = new URL(u, ORIGIN);
+          let p = url.pathname;
+          if (!p.startsWith("/")) p = "/" + p;
+          if (!p.startsWith(prefix)) continue;
+          if (ex.some(ep => p.startsWith(ep))) continue;
+          if (!/\.html$/i.test(p)) continue;
+          const slug = p.split("/").pop().replace(/\.html$/i,"");
+          if (slug && slug !== "solo" && slug !== "sitemap") out.add(slug);
         }catch(_){}
       }
-    }catch(_){}
-    return out;
-  }
-
-  async function run(){
-    setDiag("Fetching manifest & sitemap…");
-
-    const [man, sm] = await Promise.allSettled([ fetchJson(MANIFEST_URL), fetchText(SITEMAP_URL) ]);
-
-    const manifestUrls = (man.status === "fulfilled") ? flattenManifestUrls(man.value) : [];
-    const manifestOk   = manifestUrls.length > 0;
-
-    const site = (sm.status === "fulfilled") ? slugsFromSitemap(sm.value) : new Set();
-    const sitemapOk = (sm.status === "fulfilled");
-
-    // From manifest, treated separately — and exclude /solo/articles/ from /solo/ set
-    const mPages = manifestOk ? slugsFromManifest(manifestUrls, "/solo/", ["/solo/articles/"]) : new Set();
-    const mFrags = manifestOk ? slugsFromManifest(manifestUrls, "/solo/articles/") : new Set();
-
-    // Candidates = union of anything we can see (sitemap or manifest)
-    const candidates = new Set([ ...site, ...mPages, ...mFrags ]);
-
-    // Verbose diagnostics
-    const diagBits = [
-      manifestOk ? `manifest ok (${manifestUrls.length} URLs)` : "manifest missing/unreadable",
-      `manifest pages: ${mPages.size}`,
-      `manifest fragments: ${mFrags.size}`,
-      sitemapOk ? `sitemap ok (${site.size} solo URLs)` : "sitemap missing/unreadable",
-      `candidates: ${candidates.size}`
-    ];
-    setDiag(diagBits.join(" · "));
-
-    if (candidates.size === 0) {
-      // Issues-only UI: nothing else to say until one source has data
-      return;
+      return out;
     }
 
-    // Verify on-disk presence for each slug
-    const diskSolo = new Set();
-    const diskFrag = new Set();
-    await Promise.all(Array.from(candidates).map(async slug=>{
-      const page = `/solo/${encodeURIComponent(slug)}.html`;
-      const frag = `/solo/articles/${encodeURIComponent(slug)}.html`;
-      if (await exists(page)) diskSolo.add(slug);
-      if (await exists(frag)) diskFrag.add(slug);
-    }));
+    function slugsFromSitemap(xml){
+      const out = new Set();
+      try{
+        const dom = new DOMParser().parseFromString(xml, "application/xml");
+        const locs = Array.from(dom.querySelectorAll("url > loc")).map(n=>n.textContent.trim());
+        for (const loc of locs) {
+          try{
+            const u = new URL(loc, ORIGIN);
+            if (!/\/solo\/[^/]+\.html$/i.test(u.pathname)) continue;
+            const slug = u.pathname.split("/").pop().replace(/\.html$/i,"");
+            if (slug && slug !== "solo") out.add(slug);
+          }catch(_){}
+        }
+      }catch(_){}
+      return out;
+    }
 
-    // Build per-slug matrix & collect issues
-    const missing = {
-      diskPage: new Set(),
-      diskFrag: new Set(),
-      sitemap:  new Set(),
-      manifestPage: new Set(),
-      manifestFrag: new Set(),
-    };
+    async function run(){
+      setDiag("Fetching manifest & sitemap…");
 
-    candidates.forEach(slug=>{
-      if (!diskSolo.has(slug))      missing.diskPage.add(slug);
-      if (!diskFrag.has(slug))      missing.diskFrag.add(slug);
-      if (!site.has(slug))          missing.sitemap.add(slug);
-      if (!mPages.has(slug))        missing.manifestPage.add(slug);
-      if (!mFrags.has(slug))        missing.manifestFrag.add(slug);
-    });
+      const [man, sm] = await Promise.allSettled([ fetchJson(MANIFEST_URL), fetchText(SITEMAP_URL) ]);
 
-    const anyIssue = Object.values(missing).some(s => s.size);
+      const manifestUrls = (man.status === "fulfilled") ? flattenManifestUrls(man.value) : [];
+      const manifestOk   = manifestUrls.length > 0;
 
-    // Render issues
-    if (missing.diskPage.size){
-      const card = needCard("missing-disk-pages","Missing on disk: /solo/&lt;slug&gt;.html",
-                            "These slugs do not resolve as full pages.", "red");
-      const ol = card.querySelector("#missing-disk-pages-list");
-      ol.innerHTML = "";
-      Array.from(missing.diskPage).sort().forEach(slug=>{
-        li(ol, `${fmt('/solo/'+slug+'.html')}`);
+      const site = (sm.status === "fulfilled") ? slugsFromSitemap(sm.value) : new Set();
+      const sitemapOk = (sm.status === "fulfilled");
+
+      const mPages = manifestOk ? slugsFromManifest(manifestUrls, "/solo/", ["/solo/articles/"]) : new Set();
+      const mFrags = manifestOk ? slugsFromManifest(manifestUrls, "/solo/articles/") : new Set();
+
+      const candidates = new Set([ ...site, ...mPages, ...mFrags ]);
+
+      const diagBits = [
+        manifestOk ? `manifest ok (${manifestUrls.length} URLs)` : "manifest missing/unreadable",
+        `manifest pages: ${mPages.size}`,
+        `manifest fragments: ${mFrags.size}`,
+        sitemapOk ? `sitemap ok (${site.size} solo URLs)` : "sitemap missing/unreadable",
+        `candidates: ${candidates.size}`
+      ];
+      setDiag(diagBits.join(" · "));
+
+      if (candidates.size === 0) return;
+
+      const diskSolo = new Set();
+      const diskFrag = new Set();
+      await Promise.all(Array.from(candidates).map(async slug=>{
+        const page = `/solo/${encodeURIComponent(slug)}.html`;
+        const frag = `/solo/articles/${encodeURIComponent(slug)}.html`;
+        if (await exists(page)) diskSolo.add(slug);
+        if (await exists(frag)) diskFrag.add(slug);
+      }));
+
+      const missing = {
+        diskPage: new Set(),
+        diskFrag: new Set(),
+        sitemap:  new Set(),
+        manifestPage: new Set(),
+        manifestFrag: new Set(),
+      };
+
+      candidates.forEach(slug=>{
+        if (!diskSolo.has(slug))      missing.diskPage.add(slug);
+        if (!diskFrag.has(slug))      missing.diskFrag.add(slug);
+        if (!site.has(slug))          missing.sitemap.add(slug);
+        if (!mPages.has(slug))        missing.manifestPage.add(slug);
+        if (!mFrags.has(slug))        missing.manifestFrag.add(slug);
       });
-      show(card);
-    }
-    if (missing.diskFrag.size){
-      const card = needCard("missing-disk-frags","Missing on disk: /solo/articles/&lt;slug&gt;.html",
-                            "These slugs do not resolve as fragments.", "red");
-      const ol = card.querySelector("#missing-disk-frags-list");
-      ol.innerHTML = "";
-      Array.from(missing.diskFrag).sort().forEach(slug=>{
-        li(ol, `${fmt('/solo/articles/'+slug+'.html')}`);
-      });
-      show(card);
-    }
-    if (missing.sitemap.size){
-      const card = document.getElementById("pages-missing-sitemap") ||
-                   needCard("pages-missing-sitemap","Full Pages missing from Sitemap",
-                            "Present elsewhere but not in /solo/sitemap.xml.","yellow");
-      const ol = card.querySelector("#list-pages-miss-sitemap") || card.querySelector("#pages-missing-sitemap-list");
-      ol.innerHTML = "";
-      Array.from(missing.sitemap).sort().forEach(slug=>{
-        li(ol, `${fmt('/solo/'+slug+'.html')} → add to ${fmt('/solo/sitemap.xml')}`);
-      });
-      show(card);
-    }
-    if (missing.manifestPage.size || missing.manifestFrag.size){
-      const card = needCard("missing-manifest","Missing in prefetch manifest",
-                            "These URLs are not present in /precache-manifest.json.","yellow");
-      const ol = card.querySelector("#missing-manifest-list");
-      ol.innerHTML = "";
-      Array.from(missing.manifestPage).sort().forEach(slug=>{
-        li(ol, `${fmt('/solo/'+slug+'.html')} (page)`);
-      });
-      Array.from(missing.manifestFrag).sort().forEach(slug=>{
-        li(ol, `${fmt('/solo/articles/'+slug+'.html')} (fragment)`);
-      });
-      show(card);
-    }
 
-    // Only green if NO issues and all four sources agree for every candidate (and at least one candidate exists)
-    if (!anyIssue && candidates.size > 0) {
-      const allClear = document.getElementById("all-clear") ||
-                       needCard("all-clear","All Clear","All four sources agree for all detected slugs.","green");
-      // Replace <ol> with a compact summary
-      const list = allClear.querySelector("#all-clear-list");
-      if (list) list.parentElement.innerHTML =
-        `<div class="tiny muted">Slugs: ${Array.from(candidates).sort().map(s=>fmt(s)).join(", ")}</div>`;
-      show(allClear);
+      const anyIssue = Object.values(missing).some(s => s.size);
+
+      if (missing.diskPage.size){
+        const card = needCard("missing-disk-pages","Missing on disk: /solo/&lt;slug&gt;.html",
+                              "These slugs do not resolve as full pages.", "red");
+        const ol = card.querySelector("#missing-disk-pages-list");
+        ol.innerHTML = "";
+        Array.from(missing.diskPage).sort().forEach(slug=>{
+          li(ol, `${fmt('/solo/'+slug+'.html')}`);
+        });
+        show(card);
+      }
+      if (missing.diskFrag.size){
+        const card = needCard("missing-disk-frags","Missing on disk: /solo/articles/&lt;slug&gt;.html",
+                              "These slugs do not resolve as fragments.", "red");
+        const ol = card.querySelector("#missing-disk-frags-list");
+        ol.innerHTML = "";
+        Array.from(missing.diskFrag).sort().forEach(slug=>{
+          li(ol, `${fmt('/solo/articles/'+slug+'.html')}`);
+        });
+        show(card);
+      }
+      if (missing.sitemap.size){
+        const card = document.getElementById("pages-missing-sitemap") ||
+                     needCard("pages-missing-sitemap","Full Pages missing from Sitemap",
+                              "Present elsewhere but not in /solo/sitemap.xml.","yellow");
+        const ol = card.querySelector("#list-pages-miss-sitemap") || card.querySelector("#pages-missing-sitemap-list");
+        ol.innerHTML = "";
+        Array.from(missing.sitemap).sort().forEach(slug=>{
+          li(ol, `${fmt('/solo/'+slug+'.html')} → add to ${fmt('/solo/sitemap.xml')}`);
+        });
+        show(card);
+      }
+      if (missing.manifestPage.size || missing.manifestFrag.size){
+        const card = needCard("missing-manifest","Missing in prefetch manifest",
+                              "These URLs are not present in /precache-manifest.json.","yellow");
+        const ol = card.querySelector("#missing-manifest-list");
+        ol.innerHTML = "";
+        Array.from(missing.manifestPage).sort().forEach(slug=>{
+          li(ol, `${fmt('/solo/'+slug+'.html')} (page)`);
+        });
+        Array.from(missing.manifestFrag).sort().forEach(slug=>{
+          li(ol, `${fmt('/solo/articles/'+slug+'.html')} (fragment)`);
+        });
+        show(card);
+      }
+
+      if (!anyIssue && candidates.size > 0) {
+        const allClear = document.getElementById("all-clear") ||
+                         needCard("all-clear","All Clear","All four sources agree for all detected slugs.","green");
+        const list = allClear.querySelector("#all-clear-list");
+        if (list) list.parentElement.innerHTML =
+          `<div class="tiny muted">Slugs: ${Array.from(candidates).sort().map(s=>fmt(s)).join(", ")}</div>`;
+        show(allClear);
+      }
     }
-  }
-})();
-</script>
+  })();
+  </script>
+</body>
+</html>
