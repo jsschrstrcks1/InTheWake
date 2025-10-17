@@ -7,21 +7,55 @@
   const SITEMAP_URL  = "/solo/sitemap.xml";
   const SITEMAP_UPDATE_ENDPOINT = ""; // optional, leave blank to disable
 
+  // ---------- DOM readiness ----------
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start, { once:true });
+  } else {
+    start();
+  }
+
+  function start(){
+    run().catch(err => setDiag("Hard failure: " + (err?.message || String(err))));
+  }
+
   // ---- helpers to get/make cards if missing ----
+  function hostContainer(){
+    // Prefer the existing grid; otherwise create a minimal host so the page isn't blank
+    let grid = document.querySelector(".grid-3-tight") || document.querySelector(".cards.stack");
+    if (!grid) {
+      const main = document.getElementById("content") || document.querySelector("main") || document.body;
+      const sec = document.createElement("section");
+      sec.className = "cards stack grid-3-tight";
+      main.appendChild(sec);
+      grid = sec;
+    }
+    return grid;
+  }
+
   function needCard(id, title, desc, cls){
     let card = document.getElementById(id);
     if (card) return card;
-    const grid = document.querySelector(".grid-3-tight") || document.querySelector(".cards.stack");
+    const grid = hostContainer();
     card = document.createElement("article");
     card.className = "card " + (cls||"");
     card.id = id;
     card.style.display = "none";
     card.innerHTML = `<h3>${title}</h3><p>${desc}</p><div class="scroll"><ol id="${id}-list" class="list"></ol></div>`;
-    grid && grid.appendChild(card);
+    grid.appendChild(card);
     return card;
   }
   function show(node){ node.style.display = ""; }
-  function setDiag(msg){ const d=document.getElementById("diag"); if(d) d.textContent = msg; }
+  function setDiag(msg){
+    let d = document.getElementById("diag");
+    if (!d) {
+      // create a tiny diag card if missing
+      const c = needCard("diag-card","Diagnostics","", "");
+      show(c);
+      c.innerHTML = `<h3>Diagnostics</h3><div id="diag" class="tiny muted"></div>`;
+      d = document.getElementById("diag");
+    }
+    d.textContent = msg;
+  }
   function li(ol, html){ const _li=document.createElement("li"); _li.innerHTML=html; ol.appendChild(_li); }
   function fmt(mono){ return `<span class="mono">${mono}</span>`; }
 
@@ -64,10 +98,9 @@
       try{
         const url = new URL(u, ORIGIN);
         let p = url.pathname;
-        // strip any trailing slashes and ignore query params for matching
         if (!p.startsWith("/")) p = "/" + p;
         if (!p.startsWith(prefix)) continue;
-        if (ex.some(ep => p.startsWith(ep))) continue;       // <— important fix
+        if (ex.some(ep => p.startsWith(ep))) continue; // stop bleedthrough
         if (!/\.html$/i.test(p)) continue;
         const slug = p.split("/").pop().replace(/\.html$/i,"");
         if (slug && slug !== "solo" && slug !== "sitemap") out.add(slug);
@@ -92,8 +125,6 @@
     }catch(_){}
     return out;
   }
-
-  run().catch(err => setDiag("Hard failure: " + (err?.message || String(err))));
 
   async function run(){
     setDiag("Fetching manifest & sitemap…");
