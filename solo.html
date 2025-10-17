@@ -213,29 +213,20 @@
       </section>
     </div>
 
-    <!-- Right rail -->
+    <!-- Right rail (fixed) -->
     <aside class="rail">
+      <section class="cards stack" aria-label="Articles">
+        <article class="card">
+          <h2>Articles</h2>
+          <div id="articles-feed" aria-live="polite">Loading feed…</div>
+        </article>
+      </section>
+
       <section class="cards stack" id="solo-authors-rail" aria-label="Authors">
         <article class="card card-authors">
           <h2>Authors</h2>
           <div id="authors-list" class="authors"></div>
         </article>
-     <aside class="rail">
-  <section class="cards stack" aria-label="Articles">
-    <article class="card">
-      <h2>Articles</h2>
-      <div id="articles-feed" aria-live="polite">Loading feed…</div>
-    </article>
-  </section>
-
-  <section class="cards stack" id="solo-authors-rail" aria-label="Authors">
-    <article class="card card-authors">
-      <h2>Authors</h2>
-      <div id="authors-list" class="authors"></div>
-    </article>
-  </section>
-</aside>
-      
       </section>
     </aside>
   </main>
@@ -531,83 +522,84 @@
     });
   })();
   </script>
+
+  <!-- Articles feed (fixed to use /solo/sitemap.xml) -->
   <script>
-(function(){
-  const FEED_CONTAINER_ID = "articles-feed";
-  const SITEMAP_URL = "/sitemap.xml";
+  (function(){
+    const FEED_CONTAINER_ID = "articles-feed";
+    const SITEMAP_URL = "/solo/sitemap.xml";
 
-  document.addEventListener("DOMContentLoaded", async () => {
-    const feed = document.getElementById(FEED_CONTAINER_ID);
-    if (!feed) return;
+    document.addEventListener("DOMContentLoaded", async () => {
+      const feed = document.getElementById(FEED_CONTAINER_ID);
+      if (!feed) return;
 
-    try {
-      const res = await fetch(SITEMAP_URL, { cache: "no-store" });
-      const text = await res.text();
-      const parser = new DOMParser();
-      const xml = parser.parseFromString(text, "application/xml");
-      const urls = Array.from(xml.querySelectorAll("url > loc"))
-        .map(node => node.textContent.trim())
-        .filter(u => u.includes("/solo/") && !u.endsWith("/solo.html"));
+      try {
+        const res = await fetch(SITEMAP_URL, { cache: "no-store" });
+        const text = await res.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, "application/xml");
+        const urls = Array.from(xml.querySelectorAll("url > loc"))
+          .map(node => node.textContent.trim())
+          .filter(u => u.includes("/solo/") && !u.endsWith("/solo.html"));
 
-      if (!urls.length) {
-        feed.innerHTML = "<p>No solo articles found yet.</p>";
-        return;
+        if (!urls.length) {
+          feed.innerHTML = "<p>No solo articles found yet.</p>";
+          return;
+        }
+
+        for (const u of urls) {
+          try {
+            const r = await fetch(u, { cache: "no-store" });
+            const h = await r.text();
+            const dom = new DOMParser().parseFromString(h, "text/html");
+            const title = dom.querySelector("title")?.textContent
+              ?.replace(/\s*— In the Wake/i, "")
+              .trim() || "Untitled";
+            const author = dom.querySelector("meta[name='author']")?.content || "";
+            const a = document.createElement("a");
+            a.href = u;
+            a.target = "_blank";
+            a.rel = "noopener";
+            a.className = "feed-item";
+            a.innerHTML = `<strong>${title}</strong>${author ? `<div class="feed-author">${author}</div>` : ""}`;
+            feed.appendChild(a);
+          } catch(e) { /* skip broken entries */ }
+        }
+      } catch(e) {
+        console.warn("Feed generation failed:", e);
       }
+    });
+  })();
+  </script>
 
-      // For each article URL, fetch the <title> and optional <meta name='author'>
-      for (const u of urls) {
-        try {
-          const r = await fetch(u, { cache: "no-store" });
-          const h = await r.text();
-          const dom = new DOMParser().parseFromString(h, "text/html");
-          const title = dom.querySelector("title")?.textContent
-            ?.replace(/\s*— In the Wake/i, "")
-            .trim() || "Untitled";
-          const author = dom.querySelector("meta[name='author']")?.content || "";
-          const a = document.createElement("a");
-          a.href = u;
-          a.target = "_blank";
-          a.rel = "noopener";
-          a.className = "feed-item";
-          a.innerHTML = `<strong>${title}</strong>${author ? `<div class="feed-author">${author}</div>` : ""}`;
-          feed.appendChild(a);
-        } catch(e) { /* skip broken entries */ }
-      }
-    } catch(e) {
-      console.warn("Feed generation failed:", e);
-    }
-  });
-})();
-</script>
-
-<style>
-#articles-feed {
-  max-height: 480px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-  padding-right: .5rem;
-}
-#articles-feed a.feed-item {
-  display: block;
-  background: #fff;
-  border: 1px solid var(--rope);
-  border-radius: 8px;
-  padding: .6rem .7rem;
-  color: var(--ink);
-  text-decoration: none;
-  box-shadow: 0 1px 4px rgba(8,48,65,.08);
-}
-#articles-feed a.feed-item:hover {
-  background: #f9fdfd;
-  text-decoration: none;
-}
-#articles-feed .feed-author {
-  font-size: .85rem;
-  opacity: .8;
-  margin-top: .2rem;
-}
-</style>
+  <style>
+  #articles-feed {
+    max-height: 480px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding-right: .5rem;
+  }
+  #articles-feed a.feed-item {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--rope);
+    border-radius: 8px;
+    padding: .6rem .7rem;
+    color: var(--ink);
+    text-decoration: none;
+    box-shadow: 0 1px 4px rgba(8,48,65,.08);
+  }
+  #articles-feed a.feed-item:hover {
+    background: #f9fdfd;
+    text-decoration: none;
+  }
+  #articles-feed .feed-author {
+    font-size: .85rem;
+    opacity: .8;
+    margin-top: .2rem;
+  }
+  </style>
 </body>
 </html>
