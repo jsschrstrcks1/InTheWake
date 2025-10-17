@@ -436,3 +436,53 @@ figure.hero img,
   height: 100% !important;
   object-fit: cover !important;
 }
+/* ===== In the Wake — Article Hero Hard Reset (v3.006.1 final) ===== */
+
+/* One hero image per article/card; natural proportions */
+figure.hero,
+.article-hero,
+.article-card .hero { 
+  margin: 0 0 1rem 0;
+  padding: 0;
+  border: 0;
+  overflow: visible !important;
+}
+
+figure.hero picture,
+figure.hero img,
+.article-hero picture,
+.article-hero img,
+.article-card .hero picture,
+.article-card .hero img {
+  position: static !important;      /* undo absolute from carousel rules */
+  inset: auto !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;          /* preserve native aspect ratio */
+  object-fit: contain !important;   /* show the whole image (no cropping) */
+  max-height: none !important;      /* use 85vh if you want a tall cap */
+  border-radius: 12px;
+}
+
+/* Kill any old two-up split behavior */
+.article-card img:first-of-type,
+.article-card img:nth-of-type(2) {
+  width: 100% !important;
+}
+
+/* Hide any injected fallback duplicates */
+figure.hero img + img,
+.article-hero img + img,
+.article-card .hero img + img {
+  display: none !important;
+}
+
+/* Scope the carousel “cover” rule ONLY to the First Look slider */
+.swiper.firstlook img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;     /* cover is fine for sliders */
+  border-radius: 10px;
+}
