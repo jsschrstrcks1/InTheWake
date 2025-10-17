@@ -358,7 +358,7 @@ figure.hero,
   border: 0;
 }
 
-/* 2) Always render one full-width hero image */
+/* Maintain natural proportions */
 figure.hero picture,
 figure.hero img,
 .article-hero picture,
@@ -367,11 +367,23 @@ figure.hero img,
 .article-card .hero img {
   display: block !important;
   width: 100% !important;
-  height: auto;
-  /* Maintain cinematic crop without stretching */
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 12px; /* match your card radius */
+  height: auto !important; /* <-- allows image to scale freely */
+  max-height: 85vh;        /* prevents it from being too tall on large screens */
+  object-fit: contain !important; /* <-- shows entire image instead of cropping */
+  border-radius: 12px;
+}
+
+/* Remove split-image behavior */
+.article-card img:first-of-type,
+.article-card img:nth-of-type(2) {
+  width: 100% !important;
+}
+
+/* Hide injected duplicates */
+figure.hero img + img,
+.article-hero img + img,
+.article-card .hero img + img {
+  display: none !important;
 }
 
 /* 3) Kill any legacy 2-up split rules */
