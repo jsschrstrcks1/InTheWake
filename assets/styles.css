@@ -404,3 +404,35 @@ figure.hero img + img,
   filter: saturate(.85) contrast(.95);
   opacity: .92;
 }
+
+/* ===== In the Wake — Article Hero Hard Reset (v3.006.1) ===== */
+figure.hero,
+.article-hero,
+.article-card .hero {
+  overflow: visible !important;   /* allow natural height */
+}
+
+/* Force natural, full-width images (no cropping, no absolute positioning) */
+figure.hero picture,
+figure.hero img,
+.article-hero picture,
+.article-hero img,
+.article-card .hero picture,
+.article-card .hero img {
+  position: static !important;    /* undo absolute from Swiper rules */
+  inset: auto !important;         /* reset top/right/bottom/left */
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;        /* keep native aspect ratio */
+  object-fit: contain !important; /* show the whole image */
+  max-height: none !important;    /* or 85vh if you want a cap */
+  border-radius: 12px;
+}
+
+/* Safety: only Swiper slides should use absolute cover */
+.swiper.firstlook img {
+  position: absolute !important;
+  inset: 0 !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
