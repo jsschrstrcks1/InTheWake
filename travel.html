@@ -174,168 +174,250 @@ All work on this project is offered as a gift to God.
   </header>
 
   <!-- Main -->
-  <main class="wrap page with-right-rail" id="content" tabindex="-1">
-   <!-- Story: Intro -->
-<section class="card prose" id="intro">
-  <h1>⚓ Top 20 Questions I’m Asked About Cruising for the First Time</h1>
-  <p>Every time I post photos from a sailing, my inbox fills with questions that all begin the same way:</p>
-  <p><em>“Okay, be honest — I’ve never cruised before. What do I actually need to know?”</em></p>
-  <p>So here it is — my full answer, tea brewed strong and tanged with the salt of experience. These are the twenty questions that come up again and again from first-time cruisers: the things people whisper at sail-away while clutching a mimosa and a little bit of uncertainty.</p>
-  <p>I’ve gathered the answers from the cruise lines directly then laced them with what the sea itself teaches you after a few voyages — that the horizon is friend, not mystery.</p>
-</section>
+ <main class="wrap page with-right-rail" id="content" tabindex="-1">
+  <style>
+    /* Layout: content + rail */
+    .with-right-rail{
+      display:grid; gap:1.2rem;
+      grid-template-columns: minmax(0,1fr) minmax(280px,360px);
+      align-items:start;
+    }
+    .content-col{ grid-column:1; min-width:0; }
+    .right-rail{ grid-column:2; position:sticky; top:1rem; align-self:start; }
+    @media (max-width: 1024px){
+      .with-right-rail{ grid-template-columns: 1fr; }
+      .right-rail{ position:static; grid-column:1; }
+    }
 
-<!-- 1) Planning & Booking -->
-<section class="card prose" id="planning-booking">
-  <h2>⚓ Planning &amp; Booking</h2>
+    /* Quick Chart chips & separators */
+    .quick-chart{ display:flex; flex-wrap:wrap; gap:.35rem .5rem; }
+    .quick-chart a{ white-space:nowrap; }
+    .quick-chart .sep{ opacity:.55; margin:0 .35rem; }
 
-  <h3 id="docs">What documents do I need for a cruise?</h3>
-  <p>Think of your passport as your boarding pass to the world — it opens every gangway and every sunrise beyond your own coastline. For U.S. “closed-loop” cruises (round-trip from the same port — e.g., Tampa → Cozumel → Tampa), a birth certificate and photo ID can work, but I always bring a passport. It’s smoother, safer, and the sea rewards those who prepare for every tide.</p>
-  <p>A bit of advice? Whether traveling internationally by land or sea, always keep a photo of your travel documents on your phone in case something happens and you have to visit your embassy to get them replaced.</p>
+    /* Article rail tiles */
+    .rail{ display:grid; gap:.75rem; }
+    .rail-item{ display:grid; grid-template-columns: 112px 1fr; gap:.75rem; align-items:start; }
+    .rail-item .thumb img{
+      display:block; width:112px; height:72px; object-fit:cover; border-radius:.5rem;
+    }
+    .rail-item .avatar{
+      width:18px; height:18px; border-radius:50%; vertical-align:middle; margin-right:.25rem;
+    }
+  </style>
 
-  <h3 id="choose-line">How do I choose a cruise line, ship, or itinerary?</h3>
-  <p>Ships are like personalities: some loud and joyful, some quietly elegant. Families thrive on Royal Caribbean’s energy, couples drift toward Celebrity’s calm, and solo sailors often find kindred spirits on Virgin Voyages. Start near home to test your sea legs — 4- to 7-night Caribbean itineraries are perfect first crossings. Shorter sailings tend to have younger vibes while longer sailings go to a wider variety of fabulous places. Know your vibe, and select accordingly. The ship is half of the experience, and the itinerary is the other half.</p>
+  <!-- LEFT COLUMN: all story cards live here -->
+  <div class="content-col">
 
-  <h3 id="when-to-book">When’s the best time to book and sail?</h3>
-  <p>Book early for choice, late for chance. Super early, or <em>very</em> late for the best deals. Spring and fall give you kinder seas and smaller crowds. Spring, fall, and winter breaks will have more kids and kid activities on board. These dates are not the same for every state, or grade level. Check the dates for the state you are going to be departing from.</p>
+    <!-- Intro -->
+    <section class="card prose" id="intro">
+      <h1>⚓ Top 20 Questions I’m Asked About Cruising for the First Time</h1>
+      <p>Every time I post photos from a sailing, my inbox fills with questions that all begin the same way:</p>
+      <p><em>“Okay, be honest — I’ve never cruised before. What do I actually need to know?”</em></p>
+      <p>So here it is — my full answer, tea brewed strong and tanged with the salt of experience. These are the twenty questions that come up again and again from first-time cruisers: the things people whisper at sail-away while clutching a mimosa and a little bit of uncertainty.</p>
+      <p>I’ve gathered the answers from the cruise lines directly then laced them with what the sea itself teaches you after a few voyages — that the horizon is friend, not mystery.</p>
+    </section>
 
-  <h3 id="whats-included">What’s actually included in the fare?</h3>
-  <p>Your fare buys more than passage; it buys a floating city of meals, music, and open water. Expect roughly $500–$1,000 per person for a week — stateroom, meals, and basic entertainment included. Extras like Wi-Fi (~19/day), drinks (~11/day for soda up to 70+/day for adult beverages), and excursions add color to the ledger. My trick: set aside 25% extra for “sea-day decisions.”</p>
+    <!-- Planning & Booking -->
+    <section class="card prose" id="planning-booking">
+      <h2>⚓ Planning &amp; Booking</h2>
+      <h3 id="docs">What documents do I need for a cruise?</h3>
+      <p>Think of your passport as your boarding pass to the world — it opens every gangway and every sunrise beyond your own coastline. For U.S. “closed-loop” cruises (round-trip from the same port — e.g., Tampa → Cozumel → Tampa), a birth certificate and photo ID can work, but I always bring a passport. It’s smoother, safer, and the sea rewards those who prepare for every tide.</p>
+      <p>A bit of advice? Whether traveling internationally by land or sea, always keep a photo of your travel documents on your phone in case something happens and you have to visit your embassy to get them replaced.</p>
 
-  <h3 id="insurance">Do I really need travel insurance?</h3>
-  <p>Yes. The ocean is generous but unpredictable. Travel insurance is your safety harness — covering delays, cancellations, and the unlikely medical detour. If you can’t afford to lose the trip, you can’t afford to skip the insurance. Read the fine print carefully. Some cover previous medical conditions, and some do not. Some cover missed port days, but most do not. The ship’s hospital is a wonderful thing, but scarcity means steep prices. Insurance provides a great “pay-you-back-after” safety net.</p>
-</section>
+      <h3 id="choose-line">How do I choose a cruise line, ship, or itinerary?</h3>
+      <p>Ships are like personalities: some loud and joyful, some quietly elegant. Families thrive on Royal Caribbean’s energy, couples drift toward Celebrity’s calm, and solo sailors often find kindred spirits on Virgin Voyages. Start near home to test your sea legs — 4- to 7-night Caribbean itineraries are perfect first crossings. Shorter sailings tend to have younger vibes while longer sailings go to a wider variety of fabulous places. Know your vibe, and select accordingly. The ship is half of the experience, and the itinerary is the other half.</p>
 
-<!-- 2) Packing & Preparation -->
-<section class="card prose" id="packing-prep">
-  <h2>🧳 Packing &amp; Preparation</h2>
+      <h3 id="when-to-book">When’s the best time to book and sail?</h3>
+      <p>Book early for choice, late for chance. Super early, or <em>very</em> late for the best deals. Spring and fall give you kinder seas and smaller crowds. Spring, fall, and winter breaks will have more kids and kid activities on board. These dates are not the same for every state, or grade level. Check the dates for the state you are going to be departing from.</p>
 
-  <h3 id="what-to-pack">What should I pack for a cruise?</h3>
-  <p>Pack like a mariner — efficient and adaptable. A few light layers, one good outfit for formal nights, comfortable shoes, sunscreen, and your sense of humor. Cabins have clever storage but little space. I roll clothes, hang hats and shoes on magnetic hooks, and keep my passport and phone in a waterproof pouch. See our dialed-in <a href="/packing-lists.html">packing lists</a>.</p>
+      <h3 id="whats-included">What’s actually included in the fare?</h3>
+      <p>Your fare buys more than passage; it buys a floating city of meals, music, and open water. Expect roughly $500–$1,000 per person for a week — stateroom, meals, and basic entertainment included. Extras like Wi-Fi (~19/day), drinks (~11/day for soda up to 70+/day for adult beverages), and excursions add color to the ledger. My trick: set aside 25% extra for “sea-day decisions.”</p>
 
-  <h3 id="alcohol-food">Can I bring my own alcohol or food?</h3>
-  <p>A bottle or two of wine, likely yes. A case of beer, no. Cruise lines keep tight rules — not to be stingy, but for safety. If it’s sealed and sensible, you’re fine. If it looks like a tailgate, leave it at home. Every cruise line is a little different regarding what is and is not ok, and these rules have been changing lately, so please contact your cruise line directly to see exactly what the rules are for your sailing.</p>
+      <h3 id="insurance">Do I really need travel insurance?</h3>
+      <p>Yes. The ocean is generous but unpredictable. Travel insurance is your safety harness — covering delays, cancellations, and the unlikely medical detour. If you can’t afford to lose the trip, you can’t afford to skip the insurance. Read the fine print carefully. Some cover previous medical conditions, and some do not. Some cover missed port days, but most do not. The ship’s hospital is a wonderful thing, but scarcity means steep prices. Insurance provides a great “pay-you-back-after” safety net.</p>
+    </section>
 
-  <h3 id="seasick">How do I keep from getting seasick?</h3>
-  <p>Pick a mid-ship cabin, lower deck if possible. Modern stabilizers tame most swells, but I still suggest people pack ginger chews and motion patches. Better than the chews are fresh ginger from the kitchen, which they will happily give you chunks of. If you <strong>know</strong> you are prone to sickness, scopolamine patches, or a once-and-done shot are available from your doctor. Pro tip: keep your eyes on the horizon; it steadies more than your stomach.</p>
-</section>
+    <!-- Packing -->
+    <section class="card prose" id="packing-prep">
+      <h2>🧳 Packing &amp; Preparation</h2>
+      <h3 id="what-to-pack">What should I pack for a cruise?</h3>
+      <p>Pack like a mariner — efficient and adaptable. A few light layers, one good outfit for formal nights, comfortable shoes, sunscreen, and your sense of humor. Cabins have clever storage but little space. I roll clothes, hang hats and shoes on magnetic hooks, and keep my passport and phone in a waterproof pouch. See our dialed-in <a href="/packing-lists.html">packing lists</a>.</p>
 
-<!-- 3) Life Onboard -->
-<section class="card prose" id="life-onboard">
-  <h2>🚢 Life Onboard</h2>
+      <h3 id="alcohol-food">Can I bring my own alcohol or food?</h3>
+      <p>A bottle or two of wine, likely yes. A case of beer, no. Cruise lines keep tight rules — not to be stingy, but for safety. If it’s sealed and sensible, you’re fine. If it looks like a tailgate, leave it at home. Every cruise line is a little different regarding what is and is not ok, and these rules have been changing lately, so please contact your cruise line directly to see exactly what the rules are for your sailing.</p>
 
-  <h3 id="crowds">Isn’t cruising just for retirees or party people?</h3>
-  <p>Hardly. Ships are floating neighborhoods. You’ll find grandparents, honeymooners, toddlers, and teens — all making wakes, and sharing sunsets in their own way. Cruising has a rhythm for every tempo: karaoke and “world’s sexiest man” contests at one end, quiet piano bars or trivia challenges at the other.</p>
+      <h3 id="seasick">How do I keep from getting seasick?</h3>
+      <p>Pick a mid-ship cabin, lower deck if possible. Modern stabilizers tame most swells, but I still suggest people pack ginger chews and motion patches. Better than the chews are fresh ginger from the kitchen, which they will happily give you chunks of. If you <strong>know</strong> you are prone to sickness, scopolamine patches, or a once-and-done shot are available from your doctor. Pro tip: keep your eyes on the horizon; it steadies more than your stomach.</p>
+    </section>
 
-  <h3 id="food-drinks">How’s the food — and do I need a drink package?</h3>
-  <p>Food is half the fun: global menus, sunrise buffets, midnight snacks. Specialty restaurants (steakhouse, sushi, hibachi, Italian, etc.) cost extra but feel worth it on long voyages. Drink packages only pay off if you plan to indulge deeply daily — otherwise the complimentary water, coffee, and lemonade will more than do.</p>
+    <!-- Life Onboard -->
+    <section class="card prose" id="life-onboard">
+      <h2>🚢 Life Onboard</h2>
+      <h3 id="crowds">Isn’t cruising just for retirees or party people?</h3>
+      <p>Hardly. Ships are floating neighborhoods. You’ll find grandparents, honeymooners, toddlers, and teens — all making wakes, and sharing sunsets in their own way. Cruising has a rhythm for every tempo: karaoke and “world’s sexiest man” contests at one end, quiet piano bars or trivia challenges at the other.</p>
 
-  <h3 id="sea-day-bored">Will I get bored on sea days?</h3>
-  <p>I used to tell my children that only boring people are bored — or said differently, the only boredom at sea is self-inflicted. Between live music, trivia, lectures, good food, great company, and the hypnotic rhythm of the wake itself, I find sea days restorative — like the world pressing “pause.” If you love to read like I do, then a few hours at the aft of the ship, in the sun or shade with a good book can be better for your health and sanity than almost anything else.</p>
+      <h3 id="food-drinks">How’s the food — and do I need a drink package?</h3>
+      <p>Food is half the fun: global menus, sunrise buffets, midnight snacks. Specialty restaurants (steakhouse, sushi, hibachi, Italian, etc.) cost extra but feel worth it on long voyages. Drink packages only pay off if you plan to indulge deeply daily — otherwise the complimentary water, coffee, and lemonade will more than do.</p>
 
-  <h3 id="grats-pay">How do gratuities and onboard payments work?</h3>
-  <p>Your cabin key becomes your wallet. Protect it. It’s your identification and credit card as you come and go around the ship. Tips — around $16 per person per day — are automatically added and shared among crew. This ensures folks you don't see are rewarded for their hard work as well. Most ship crew gets a stipend from the ship; but makes most of their income from the tips. Some cruise lines let you take the gratuities off, but that directly affects the woman washing your bedding, the men that prevent rust and paint the ship, or that keep those big beautiful glass windows clean around the ship.</p>
-  <p>I still tip in person when someone truly makes the voyage shine (room attendants, main dining room waiter, and favorite bartenders). Gratitude, like the tide, is best given freely. Those you take good care of, take better care of you.</p>
+      <h3 id="sea-day-bored">Will I get bored on sea days?</h3>
+      <p>I used to tell my children that only boring people are bored — or said differently, the only boredom at sea is self-inflicted. Between live music, trivia, lectures, good food, great company, and the hypnotic rhythm of the wake itself, I find sea days restorative — like the world pressing “pause.” If you love to read like I do, then a few hours at the aft of the ship, in the sun or shade with a good book can be better for your health and sanity than almost anything else.</p>
 
-  <h3 id="cabins-space">Are cabins really that small?</h3>
-  <p>Yes, but they’re marvels of design — everything has a nook. Use magnetic hooks, pack cubes, and store suitcases under the bed. Outlets are generally the most limiting factor, especially with surge suppressors and most kinds of outlet expanders being recently banned. A balcony adds breathing room, but I’ve had just as peaceful a morning coffee by the window, or up on deck watching flying fish race the hull.</p>
-</section>
+      <h3 id="grats-pay">How do gratuities and onboard payments work?</h3>
+      <p>Your cabin key becomes your wallet. Protect it. It’s your identification and credit card as you come and go around the ship. Tips — around $16 per person per day — are automatically added and shared among crew. This ensures folks you don't see are rewarded for their hard work as well. Most ship crew gets a stipend from the ship; but makes most of their income from the tips. Some cruise lines let you take the gratuities off, but that directly affects the woman washing your bedding, the men that prevent rust and paint the ship, or that keep those big beautiful glass windows clean around the ship.</p>
+      <p>I still tip in person when someone truly makes the voyage shine (room attendants, main dining room waiter, and favorite bartenders). Gratitude, like the tide, is best given freely. Those you take good care of, take better care of you.</p>
 
-<!-- 4) Ports & Excursions -->
-<section class="card prose" id="ports-excursions">
-  <h2>⚓ Ports &amp; Excursions</h2>
+      <h3 id="cabins-space">Are cabins really that small?</h3>
+      <p>Yes, but they’re marvels of design — everything has a nook. Use magnetic hooks, pack cubes, and store suitcases under the bed. Outlets are generally the most limiting factor, especially with surge suppressors and most kinds of outlet expanders being recently banned. A balcony adds breathing room, but I’ve had just as peaceful a morning coffee by the window, or up on deck watching flying fish race the hull.</p>
+    </section>
 
-  <h3 id="passport-in-port">Do I need my passport in port?</h3>
-  <p>If you are on a cruise that starts and ends in the same U.S.-based port, you can likely get by with just your (raised seal) birth certificate and driver’s license. However, I <strong>always</strong> travel with my passport. Sometimes, in some ports, for some cruise lines the ship keeps it secure. NCL needed our passports as we went through the Panama Canal, for instance. For independent tours, carry it. The rule of thumb: if the gangway drops on foreign soil, treat it like international travel. You really are entering a foreign country with its own set of rules.</p>
+    <!-- Ports -->
+    <section class="card prose" id="ports-excursions">
+      <h2>⚓ Ports &amp; Excursions</h2>
+      <h3 id="passport-in-port">Do I need my passport in port?</h3>
+      <p>If you are on a cruise that starts and ends in the same U.S.-based port, you can likely get by with just your (raised seal) birth certificate and driver’s license. However, I <strong>always</strong> travel with my passport. Sometimes, in some ports, for some cruise lines the ship keeps it secure. NCL needed our passports as we went through the Panama Canal, for instance. For independent tours, carry it. The rule of thumb: if the gangway drops on foreign soil, treat it like international travel. You really are entering a foreign country with its own set of rules.</p>
 
-  <h3 id="late-back">What if I’m late getting back to the ship?</h3>
-  <p><strong>Stay on ship time — always.</strong> Ship leaves on ship time. On a ship excursion, they wait. On your own, the tide — and timetable — wait for no one. I’ve watched the gangway pull while latecomers sprinted the pier. It makes a funny video until it’s you. Pad your return time and set local alarms that reflect <em>ship time</em> (ship time and port time can differ).</p>
+      <h3 id="late-back">What if I’m late getting back to the ship?</h3>
+      <p><strong>Stay on ship time — always.</strong> Ship leaves on ship time. On a ship excursion, they wait. On your own, the tide — and timetable — wait for no one. I’ve watched the gangway pull while latecomers sprinted the pier. It makes a funny video until it’s you. Pad your return time and set local alarms that reflect <em>ship time</em> (ship time and port time can differ).</p>
 
-  <h3 id="stay-onboard">Can I just stay onboard instead?</h3>
-  <p>Absolutely. A ship in port is the quietest place on earth. The pools empty, the buffet hums softly, and the horizon belongs entirely to you.</p>
-</section>
+      <h3 id="stay-onboard">Can I just stay onboard instead?</h3>
+      <p>Absolutely. A ship in port is the quietest place on earth. The pools empty, the buffet hums softly, and the horizon belongs entirely to you.</p>
+    </section>
 
-<!-- 5) Safety & Health -->
-<section class="card prose" id="safety-health">
-  <h2>⚕️ Safety &amp; Health</h2>
+    <!-- Safety & Health -->
+    <section class="card prose" id="safety-health">
+      <h2>⚕️ Safety &amp; Health</h2>
+      <h3 id="illness">Are ships safe from illness?</h3>
+      <p>Cruise ships are cleaner than most cities. Sanitizer stations gleam at every doorway; crew wipe handrails like clockwork. I wash before meals and after shore excursions, and in two decades, even during the height and chaos of a global pandemic, I’ve caught nothing worse than a sunburn. One lesson I've seen repeated over and over — those who neglect to wash their hands have more regrets than those who do wash. The more insistent the ship’s staff is about hand washing, the more seriously you need to take this.</p>
 
-  <h3 id="illness">Are ships safe from illness?</h3>
-  <p>Cruise ships are cleaner than most cities. Sanitizer stations gleam at every doorway; crew wipe handrails like clockwork. I wash before meals and after shore excursions, and in two decades, even during the height and chaos of a global pandemic, I’ve caught nothing worse than a sunburn. One lesson I've seen repeated over and over — those who neglect to wash their hands have more regrets than those who do wash. The more insistent the ship’s staff is about hand washing, the more seriously you need to take this.</p>
-  <p>Photo inspiration via <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Flickers of Majesty</a>.</p>
+      <h3 id="weather">What happens in bad weather?</h3>
+      <p>Captains read the sea like a diary. Cruise lines have billions invested in the ship, and in us having a good time. They generally go out of their way to avoid bad weather. If storms gather, they simply turn the page and chart another course. Ships are built for it; the best sailors know when to steer clear. When it’s unavoidable (certain crossings like the Tasman Sea are renowned for rough seas, for instance) the ship has been engineered by the brightest minds in marine engineering to handle it. Redundant systems, more than enough lifeboats to hold all the guests and crew, sister ships nearby (far enough you can’t really see them without aid, close enough to help in a crisis), and plenty of other systems designed to remain unseen but protect our lives — and their investment.</p>
 
-  <h3 id="weather">What happens in bad weather?</h3>
-  <p>Captains read the sea like a diary. Cruise lines have billions invested in the ship, and in us having a good time. They generally go out of their way to avoid bad weather. If storms gather, they simply turn the page and chart another course. Ships are built for it; the best sailors know when to steer clear. When it’s unavoidable (certain crossings like the Tasman Sea are renowned for rough seas, for instance) the ship has been engineered by the brightest minds in marine engineering to handle it. Redundant systems, more than enough lifeboats to hold all the guests and crew, sister ships nearby (far enough you can’t really see them without aid, close enough to help in a crisis), and plenty of other systems designed to remain unseen but protect our lives — and their investment.</p>
+      <h3 id="kids-pregnancy">Can kids or pregnant guests sail?</h3>
+      <p>Yes — within reason. Infants usually need to be at least six months old; expectant mothers can sail up to 24–28 weeks (verify the exact cutoff date with your prospective cruise line). Ships can handle births in an emergency, but they aren't as equipped as your local hospital for such things. Family programs at sea are better than many on land — Disney, Royal Caribbean, and Norwegian have it down to an art.</p>
+    </section>
 
-  <h3 id="kids-pregnancy">Can kids or pregnant guests sail?</h3>
-  <p>Yes — within reason. Infants usually need to be at least six months old; expectant mothers can sail up to 24–28 weeks (verify the exact cutoff date with your prospective cruise line). Ships can handle births in an emergency, but they aren't as equipped as your local hospital for such things. Family programs at sea are better than many on land — Disney, Royal Caribbean, and Norwegian have it down to an art.</p>
-</section>
+    <!-- Disembarkation -->
+    <section class="card prose" id="disembark">
+      <h2>⛵ Disembarkation &amp; After</h2>
+      <h3 id="getting-off">How does getting off the ship actually work?</h3>
+      <p>You can walk off early with your bags (self-assist) or set them out the night before for the crew to handle. Either way, breakfast early, smile at customs, and don’t book your flight before noon. Debark day is brisk but bittersweet — the ship becomes a memory the moment your feet touch the pier.</p>
 
-<!-- 6) Disembarkation & After -->
-<section class="card prose" id="disembark">
-  <h2>⛵ Disembarkation &amp; After</h2>
+      <h3 id="gain-weight">And the big one… will I gain weight?</h3>
+      <p>Maybe — if you make it your mission. Between steps, excursions, and stairs, most passengers balance it out. Besides, a few extra desserts are just ballast for the soul. Personally, I find I lose a few pounds across the week. Some of the women in my life find they swell a little (from the sodium in the food, and likely not drinking enough water). But not enough for it to be a problem for them.</p>
 
-  <h3 id="getting-off">How does getting off the ship actually work?</h3>
-  <p>You can walk off early with your bags (self-assist) or set them out the night before for the crew to handle. Either way, breakfast early, smile at customs, and don’t book your flight before noon. Debark day is brisk but bittersweet — the ship becomes a memory the moment your feet touch the pier.</p>
+      <hr>
+      <h3>🐚 Final Thought</h3>
+      <p>Cruising is the one kind of travel where you unpack once and wake up somewhere new every morning. It’s motion and stillness in the same heartbeat. If this is your first voyage, know this: the sea will meet you halfway. Ask questions, bring wonder, and leave space for awe. You’ll find, as I did, that joy doesn’t arrive with the itinerary — it rolls in with the tide.</p>
+      <p><strong>Fair winds, and following seas; I hope to see you in the wake.</strong></p>
+    </section>
 
-  <h3 id="gain-weight">And the big one… will I gain weight?</h3>
-  <p>Maybe — if you make it your mission. Between steps, excursions, and stairs, most passengers balance it out. Besides, a few extra desserts are just ballast for the soul. Personally, I find I lose a few pounds across the week. Some of the women in my life find they swell a little (from the sodium in the food, and likely not drinking enough water). But not enough for it to be a problem for them.</p>
+  </div><!-- /.content-col -->
 
-  <hr>
-  <h3>🐚 Final Thought</h3>
-  <p>Cruising is the one kind of travel where you unpack once and wake up somewhere new every morning. It’s motion and stillness in the same heartbeat. If this is your first voyage, know this: the sea will meet you halfway. Ask questions, bring wonder, and leave space for awe. You’ll find, as I did, that joy doesn’t arrive with the itinerary — it rolls in with the tide.</p>
-  <p><strong>Fair winds, and following seas; I hope to see you in the wake.</strong></p>
+  <!-- RIGHT COLUMN: articles rail + quick chart -->
+  <aside class="right-rail" aria-label="Right rail">
+    <!-- 1) From the Journal (Ken + Tina + this page-as-article) -->
+    <section class="card" id="journal-rail" aria-labelledby="jr-title">
+      <h3 id="jr-title">From the Journal</h3>
+      <p class="tiny muted">Articles from our writers’ wakes.</p>
+      <div class="rail" id="rail-mount" aria-live="polite"></div>
+    </section>
 
-  <p class="tiny">More reflections in <a href="/journal.html">the Journal</a>.</p>
-</section>
+    <!-- 2) Quick Chart nav -->
+    <nav class="card" id="quick-chart" aria-label="Quick Chart">
+      <h3>Quick Chart</h3>
+      <div class="quick-chart">
+        <a href="#planning-booking">Planning &amp; Booking</a><span class="sep">•</span>
+        <a href="#docs">Docs</a><span class="sep">•</span>
+        <a href="#choose-line">Choosing a Line</a><span class="sep">•</span>
+        <a href="#when-to-book">When to Book</a><span class="sep">•</span>
+        <a href="#whats-included">Included</a><span class="sep">•</span>
+        <a href="#insurance">Insurance</a><span class="sep">•</span>
+        <a href="#packing-prep">Packing</a><span class="sep">•</span>
+        <a href="#alcohol-food">Alcohol &amp; Food</a><span class="sep">•</span>
+        <a href="#seasick">Seasick</a><span class="sep">•</span>
+        <a href="#life-onboard">Onboard</a><span class="sep">•</span>
+        <a href="#grats-pay">Gratuities</a><span class="sep">•</span>
+        <a href="#cabins-space">Cabins</a><span class="sep">•</span>
+        <a href="#ports-excursions">Ports</a><span class="sep">•</span>
+        <a href="#late-back">Late Back</a><span class="sep">•</span>
+        <a href="#safety-health">Safety &amp; Health</a><span class="sep">•</span>
+        <a href="#illness">Illness</a><span class="sep">•</span>
+        <a href="#weather">Weather</a><span class="sep">•</span>
+        <a href="#disembark">Disembark</a><span class="sep">•</span>
+        <a href="#gain-weight">Weight?</a>
+      </div>
+    </nav>
+  </aside>
 
-    <!-- Right Rail -->
-    <aside class="right-rail">
-      <!-- From the Journal (Articles) -->
-      <section class="rail card journal-rail" aria-label="From the Journal — Articles from our writers’ wakes">
-        <h2>From the Journal</h2>
-        <p class="muted">Articles from our writers’ wakes.</p>
-        <div id="journal-rail-list" aria-live="polite"></div>
-      </section>
+  <!-- right-rail data + renderer -->
+  <script>
+    (function(){
+      const RAIL = document.getElementById('rail-mount');
+      if(!RAIL) return;
 
-      <!-- Quick Chart -->
-      <section class="rail card quick-chart" aria-label="Quick Chart — Jump to a section">
-        <h2>Quick Chart</h2>
-        <nav class="chip-list">
-          <a class="chip" href="#planning-booking">Planning &amp; Booking</a><span class="sep">•</span>
-          <a class="chip" href="#docs">Documents</a><span class="sep">•</span>
-          <a class="chip" href="#choose-line">Choosing a Line</a><span class="sep">•</span>
-          <a class="chip" href="#when-to-book">When to Book</a><span class="sep">•</span>
-          <a class="chip" href="#whats-included">What’s Included</a><span class="sep">•</span>
-          <a class="chip" href="#insurance">Insurance</a><span class="sep">•</span>
+      // Ensure Tina + Ken + this page-as-article
+      const seed = [
+        {
+          title:"Freedom of Your Own Wake",
+          url:"/solo/articles/freedom-of-your-own-wake.html",
+          date:"2024-08-14",
+          excerpt:"On choosing solitude without being alone.",
+          image:"/assets/articles/solo/freedom-of-your-own-wake.jpg?v=3.008",
+          author:{ name:"Ken Baker", url:"/authors/ken-baker.html", image:"/assets/authors/ken-baker.jpg?v=3.008" }
+        },
+        {
+          title:"Why I Started Solo Cruising",
+          url:"/solo/articles/why-i-started-solo-cruising.html",
+          date:"2024-06-01",
+          excerpt:"The first step off the pier is the hardest—and worth it.",
+          image:"/assets/articles/solo/why-i-started-solo-cruising.jpg?v=3.008",
+          author:{ name:"Ken Baker", url:"/authors/ken-baker.html", image:"/assets/authors/ken-baker.jpg?v=3.008" }
+        },
+        {
+          title:"Packing Smart, Sailing Lighter",
+          url:"/travel/packing-smart-sailing-lighter.html",
+          date:"2024-11-10",
+          excerpt:"What I actually bring now that I’ve learned the hard way.",
+          image:"/assets/articles/packing/packing-smart-cover.jpg?v=3.008",
+          author:{ name:"Tina", url:"/authors/tina.html", image:"/assets/authors/tina.jpg?v=3.008" }
+        },
+        {
+          // this page, presented as an article for discovery
+          title:"Top 20 First-Cruise Questions (Answered)",
+          url:"/travel.html",
+          date:"2025-10-17",
+          excerpt:"A first-person guide to planning, packing, ports, and ship life.",
+          image:"/assets/articles/top-20-questions/cover.jpg?v=3.008",
+          author:{ name:"Ken Baker", url:"/authors/ken-baker.html", image:"/assets/authors/ken-baker.jpg?v=3.008" }
+        }
+      ];
 
-          <a class="chip" href="#packing-prep">Packing</a><span class="sep">•</span>
-          <a class="chip" href="#what-to-pack">What to Pack</a><span class="sep">•</span>
-          <a class="chip" href="#alcohol-food">Alcohol &amp; Food</a><span class="sep">•</span>
-          <a class="chip" href="#seasick">Seasickness</a><span class="sep">•</span>
+      function fallbackImg(img){
+        img.onerror = null;
+        img.src = '/assets/placeholders/article-thumb.jpg?v=3.008';
+      }
 
-          <a class="chip" href="#life-onboard">Life Onboard</a><span class="sep">•</span>
-          <a class="chip" href="#crowds">Crowds</a><span class="sep">•</span>
-          <a class="chip" href="#food-drinks">Food &amp; Drinks</a><span class="sep">•</span>
-          <a class="chip" href="#sea-day-bored">Sea Days</a><span class="sep">•</span>
-          <a class="chip" href="#grats-pay">Gratuities &amp; Pay</a><span class="sep">•</span>
-          <a class="chip" href="#cabins-space">Cabins</a><span class="sep">•</span>
+      function tile(a){
+        const d = a.date ? new Date(a.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}) : '';
+        const thumb = (a.image && a.image.trim()) || (a.author && a.author.image) || '/assets/placeholders/article-thumb.jpg?v=3.008';
+        const alt = a.title || 'Article image';
+        const avatar = a.author?.image ? `<img class="avatar" src="${a.author.image}" alt="${a.author.name}" onerror="this.onerror=null;this.src='/assets/authors/default.jpg?v=3.008'">` : '';
+        return `<article class="rail-item">
+          <a class="thumb" href="${a.url}">
+            <img src="${thumb}" alt="${alt}" onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=3.008'">
+          </a>
+          <div class="meta">
+            <h4><a href="${a.url}">${a.title||''}</a></h4>
+            <p class="tiny muted">${d}${a.author?.name ? ` · ${avatar}<a class="author" href="${a.author.url||'#'}">${a.author.name}</a>` : ''}</p>
+            <p class="tiny">${a.excerpt||''}</p>
+          </div>
+        </article>`;
+      }
 
-          <a class="chip" href="#ports-excursions">Ports</a><span class="sep">•</span>
-          <a class="chip" href="#passport-in-port">Passport in Port</a><span class="sep">•</span>
-          <a class="chip" href="#late-back">Late Back?</a><span class="sep">•</span>
-          <a class="chip" href="#stay-onboard">Stay Onboard</a><span class="sep">•</span>
-
-          <a class="chip" href="#safety-health">Safety &amp; Health</a><span class="sep">•</span>
-          <a class="chip" href="#illness">Illness</a><span class="sep">•</span>
-          <a class="chip" href="#weather">Weather</a><span class="sep">•</span>
-          <a class="chip" href="#kids-pregnancy">Kids &amp; Pregnancy</a><span class="sep">•</span>
-
-          <a class="chip" href="#disembark">Disembark &amp; After</a><span class="sep">•</span>
-          <a class="chip" href="#getting-off">Getting Off</a><span class="sep">•</span>
-          <a class="chip" href="#gain-weight">Weight Gain?</a>
-        </nav>
-      </section>
-    </aside>
-  </main>
+      RAIL.innerHTML = seed.map(tile).join('');
+    })();
+  </script>
+</main>
 
   <!-- Footer -->
   <footer class="wrap" role="contentinfo">
