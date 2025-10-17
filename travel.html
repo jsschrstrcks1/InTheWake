@@ -1,131 +1,245 @@
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
+“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
+Page: /travel.html · v3.008 · Built: 2025-10-17T00:00:00Z
+-->
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WZP891PZXJ');
-</script>
+  <!-- Analytics (async/defers first, minimal init) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date()); gtag('config', 'G-WZP891PZXJ');
+  </script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Core meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Travel Tips — In the Wake (v2.203)</title>
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
-  
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="index, follow">
+  <title>Travel Tips — In the Wake (v3.008)</title>
+  <meta name="version" content="3.008">
+  <meta name="standards:baseline" content="3.008">
+  <meta name="description" content="Trip-tested cruise travel tips for air, hotels, embarkation, and on-the-way logistics — tightly cross-linked into ship, restaurant, and port guides.">
 
-  <style id="brand-title-hide">.brand-title{display:none!important}</style>
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/travel.html"/>
 
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/travel.html"/>
+  <meta property="og:title" content="Travel Tips — In the Wake"/>
+  <meta property="og:description" content="Trip-tested cruise travel tips for air, hotels, embarkation, and logistics — linked to ships, restaurants, and ports."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.008"/>
+  <meta name="twitter:card" content="summary_large_image"/>
 
-  <style id="hero-vibrancy">
-    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat!important;
+  <!-- JSON-LD: WebPage (required) -->
+  <script type="application/ld+json">{
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"Travel Tips — In the Wake",
+    "url":"https://www.cruisinginthewake.com/travel.html",
+    "primaryImageOfPage":"https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.008",
+    "isPartOf":{"@type":"WebSite","name":"In the Wake","url":"https://www.cruisinginthewake.com/"}
+  }</script>
+
+  <!-- Site CSS (versioned) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008"/>
+
+  <!-- Preload LCP hero -->
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008" fetchpriority="high">
+
+  <!-- Absolute URL normalizer (for staging/CDN safety) -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+    function normalize(){
+      const sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(function(el){
+        const attr = el.hasAttribute('href') ? 'href' : 'src';
+        try{
+          const u=new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(_){}
+      });
+    }
+    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', normalize, {once:true}); } else { normalize(); }
+  })();
+  </script>
+
+  <!-- External links hardening -->
+  <script>
+  (function(){
+    const here = location.hostname.replace(/^www\./,'');
+    function upgrade(){
+      document.querySelectorAll('a[href]').forEach(a=>{
+        const href=a.getAttribute('href')||'';
+        if (/^(#|mailto:|tel:)/i.test(href)) return;
+        try{
+          const u=new URL(href, location.href);
+          const host=u.hostname.replace(/^www\./,'');
+          if (host !== here || a.rel==='external'){
+            a.target='_blank';
+            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+          }
+        }catch(_){}
+      });
+    }
+    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', upgrade, {once:true}); } else { upgrade(); }
+  })();
+  </script>
+
+  <!-- Minor page-scoped CSS -->
+  <style>
+    /* Hide legacy brand-title if present */
+    .brand-title{display:none!important}
+
+    /* Accessible hero tuning */
+    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008') center/cover no-repeat!important;
            filter:saturate(1.35) contrast(1.12) brightness(1.05) }
     .hero::before,.hero::after{ content:none!important }
-  </style>
 
-
-  
-
-
-  <style id="hero-credit-css">
+    /* Hero credit */
     .hero{ position:relative }
     .hero-credit{
       position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
       padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
       box-shadow:0 2px 6px rgba(0,0,0,.12);
     }
-  </style>
 
-
-  <style id="card-watermark">
+    /* Card watermark */
     .card{ position:relative; overflow:hidden }
     .card::after{
       content:""; position:absolute; inset:0; margin:auto;
       width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
+      background:url('https://www.cruisinginthewake.com/assets/watermark.png?v=3.008') center/contain no-repeat;
       opacity:.06; pointer-events:none;
+    }
+
+    /* Skip link (WCAG 2.4.1) */
+    .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .visually-hidden-focusable:focus{position:static;left:auto;width:auto;height:auto;padding:.5rem .75rem;background:#fff;border:2px solid #0e6e8e;border-radius:8px;z-index:1000}
+
+    /* Reduced motion guard */
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
     }
   </style>
 
-  <link rel="canonical" href="https://cruisinginthewake.com/travel.html"/>
+  <!-- Site cache utility (versioned) -->
+  <script defer src="https://www.cruisinginthewake.com/assets/js/site-cache.js?v=3.008"></script>
+
+  <!-- Service worker registration -->
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('/sw.js?v=3.008').catch(function(){});
+    });
+  }
+  </script>
 </head>
 <body class="page">
+  <!-- Skip link -->
+  <a class="visually-hidden-focusable" href="#content">Skip to content</a>
+
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        
+        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008" width="256" height="64" alt="In the Wake wordmark"/>
+        <span class="version-badge">v3.008</span>
       </div>
-      
-      <nav class="nav">
+
+      <!-- Unified Top Navigation (.pill-nav.pills) -->
+      <nav class="pill-nav pills" aria-label="Primary">
         <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
+        <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
         <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
         <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drinks.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing.html">Packing Lists</a>
         <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel Tips</a>
+        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Accessibility</a>
         <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
+        <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+        <a href="https://www.cruisinginthewake.com/travel.html" aria-current="page">Travel</a>
         <a href="https://www.cruisinginthewake.com/about-us.html">About Us</a>
       </nav>
-    
     </div>
+
+    <!-- Single hero + single compass -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.008" width="180" height="180" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-    
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div>
-<div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a></div></div>
+      <div class="hero-credit">
+        Photo © <a href="https://www.flickersofmajesty.com" rel="noopener noreferrer" target="_blank">Flickers of Majesty</a> ·
+        <a href="https://instagram.com/flickersofmajesty" rel="noopener noreferrer" target="_blank">Instagram</a>
+      </div>
+    </div>
   </header>
-  <main class="wrap" id="content">
-    
+
+  <main class="wrap" id="content" tabindex="-1">
     <section class="cards stack">
-        <article class="card card-welcome">
-          <h2>Welcome Aboard</h2>
-          <p>In the Wake is a practical cruise companion built from real sailings. Use it to compare ships, scan menus, and plan ports without losing your bearings. We favor family‑friendly sources and surface accessibility notes where helpful. Treat numbers as snapshots in time and lean on cross‑links to double‑check the latest details. When it’s time to book, the goal is that you’ll feel confident—and feel like it was your idea all along. Fair winds and following seas.</p>
-        </article>
-      </section>
+      <article class="card card-welcome">
+        <h1>Travel Tips</h1>
+        <p class="motto"><em>Trip-tested logistics that keep your course steady.</em></p>
+        <p>In the Wake is a practical cruise companion built from real sailings. Use it to compare ships, scan menus, and plan ports without losing your bearings. We favor family-friendly sources and surface accessibility notes where helpful. Treat numbers as snapshots in time and lean on cross-links to double-check the latest details. When it’s time to book, the goal is that you’ll feel confident—and feel like it was your idea all along. Fair winds and following seas.</p>
+      </article>
+    </section>
 
-      <section class="cards stack">
-        <article class="card">
-          <h2>Travel Tips</h2>
-          <p>Air, hotels, embarkation, and miscellany—all cross‑linked back into the guide.</p>
-        </article>
-      </section>
+    <section class="cards stack">
+      <article class="card">
+        <h2>Air, Hotels, and Embarkation</h2>
+        <p>Air, hotels, embarkation, and miscellany — all cross-linked back into the guide.</p>
+        <ul>
+          <li>Fly in the day before embarkation; buffer weather and connections.</li>
+          <li>Pick hotels near port or easy transit; confirm shuttle times.</li>
+          <li>Tag checked bags clearly; keep meds and documents in carry-on.</li>
+          <li>Use ship/port pages for real-time context and dining plans.</li>
+        </ul>
+        <p class="tiny muted">Lineups can change by sailing. Verify details in your cruise line’s app the week of departure.</p>
+      </article>
+    </section>
   </main>
-  <footer class="wrap">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook<!-- Floating Social Share Bar -->
-<div id="share-bar" class="share-bar" aria-label="Share this page">
-  <a class="share twitter" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
-  <a class="share facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
-  <a class="share instagram" href="#" onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')" aria-label="Copy link for Instagram">Ig</a>
-  <a class="share whatsapp" href="https://wa.me/?text=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
-  <a class="share wechat" href="weixin://" aria-label="Share on WeChat">WeChat</a>
-</div>
 
-<script>
-(function(){
-  const bar=document.getElementById('share-bar');
-  if(!bar) return;
-  const toggle=()=>{ 
-    if(window.scrollY>150){ bar.classList.add('visible'); } 
-    else{ bar.classList.remove('visible'); } 
-  };
-  window.addEventListener('scroll',toggle,{passive:true});
-  toggle(); // initial check
-})();
-</script>
+  <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
+    <!-- Floating Social Share Bar (shared asset) -->
+    <script defer src="https://www.cruisinginthewake.com/assets/js/share-bar.js?v=3.008"></script>
+
+    <!-- Visible invocation line -->
+    <p class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</p>
   </footer>
+
+  <!-- Smart Warmup / Cache (optional but recommended) -->
+  <script>
+  (function(){
+    async function warm(){
+      try{
+        await Promise.allSettled([
+          (window.SiteCache && SiteCache.getJSON && SiteCache.getJSON('/assets/data/fleet_index.json',{ttlDays:7,versionPath:['version']})),
+          (window.SiteCache && SiteCache.getJSON && SiteCache.getJSON('/assets/data/venues.json',{ttlDays:7,versionPath:['meta','version']})),
+          (window.SiteCache && SiteCache.getJSON && SiteCache.getJSON('/assets/data/personas/index.json',{ttlDays:7,versionPath:['version']}))
+        ]);
+      }catch(_){}
+    }
+    if (document.readyState==='loading') { document.addEventListener('DOMContentLoaded', warm, {once:true}); } else { warm(); }
+  })();
+  </script>
 </body>
 </html>
