@@ -524,53 +524,100 @@
   </script>
 
   <!-- Articles feed (fixed to use /solo/sitemap.xml) -->
-  <script>
-  (function(){
-    const FEED_CONTAINER_ID = "articles-feed";
-    const SITEMAP_URL = "/solo/sitemap.xml";
+  <!-- right-rail data + renderer -->
+<script>
+(function(){
+  const mount = document.getElementById('rail-mount');
+  if (!mount) return;
 
-    document.addEventListener("DOMContentLoaded", async () => {
-      const feed = document.getElementById(FEED_CONTAINER_ID);
-      if (!feed) return;
+  const SRC = '/assets/data/articles/index.json?v=3.008';
+  const PLACEHOLDER = '/assets/placeholders/article-thumb.jpg?v=3.008';
+  const CONTEXT_TAGS = ['travel']; // Travel page → travel + shared ("solo, travel") articles
 
-      try {
-        const res = await fetch(SITEMAP_URL, { cache: "no-store" });
-        const text = await res.text();
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(text, "application/xml");
-        const urls = Array.from(xml.querySelectorAll("url > loc"))
-          .map(node => node.textContent.trim())
-          .filter(u => u.includes("/solo/") && !u.endsWith("/solo.html"));
+  // Fallback local seed
+  const localSeed = [
+    {
+      id:'top-20-first-cruise-questions',
+      title:'Top 20 First-Cruise Questions (Answered)',
+      url:'/travel.html',
+      date:'2025-10-17',
+      excerpt:'A first-person guide to planning, packing, ports, and ship life.',
+      image:'/assets/articles/top-20-questions/cover.jpg?v=3.008',
+      author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/assets/authors/ken-baker.jpg?v=3.008'}
+    },
+    {
+      id:'freedom-of-your-own-wake',
+      title:'Freedom of Your Own Wake',
+      url:'/solo/articles/freedom-of-your-own-wake.html',
+      date:'2024-08-14',
+      excerpt:'On choosing solitude without being alone.',
+      image:'/assets/articles/freedom-of-your-own-wake.jpg?v=3.008',
+      author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/assets/authors/ken-baker.jpg?v=3.008'}
+    },
+    {
+      id:'why-i-started-solo-cruising',
+      title:'Why I Started Solo Cruising',
+      url:'/solo/articles/why-i-started-solo-cruising.html',
+      date:'2024-06-01',
+      excerpt:'From that first solo gangway to a thriving community — freedom found at sea.',
+      image:'/assets/articles/solo/why-i-started-solo-cruising.jpg?v=3.008',
+      author:{name:'Tina', url:'/authors/tina.html', image:'/assets/authors/tina.jpg?v=3.008'}
+    }
+  ];
 
-        if (!urls.length) {
-          feed.innerHTML = "<p>No solo articles found yet.</p>";
-          return;
-        }
-
-        for (const u of urls) {
-          try {
-            const r = await fetch(u, { cache: "no-store" });
-            const h = await r.text();
-            const dom = new DOMParser().parseFromString(h, "text/html");
-            const title = dom.querySelector("title")?.textContent
-              ?.replace(/\s*— In the Wake/i, "")
-              .trim() || "Untitled";
-            const author = dom.querySelector("meta[name='author']")?.content || "";
-            const a = document.createElement("a");
-            a.href = u;
-            a.target = "_blank";
-            a.rel = "noopener";
-            a.className = "feed-item";
-            a.innerHTML = `<strong>${title}</strong>${author ? `<div class="feed-author">${author}</div>` : ""}`;
-            feed.appendChild(a);
-          } catch(e) { /* skip broken entries */ }
-        }
-      } catch(e) {
-        console.warn("Feed generation failed:", e);
-      }
+  function dedupe(arr){
+    const seen=new Set();
+    return arr.filter(a=>{
+      const k=a.url||a.id;
+      if(seen.has(k)) return false;
+      seen.add(k);
+      return true;
     });
-  })();
-  </script>
+  }
+
+  function filterForContext(list){
+    return list.filter(a=>{
+      if(!Array.isArray(a.keywords)) return false;
+      return a.keywords.some(k=>CONTEXT_TAGS.includes(k));
+    });
+  }
+
+  function card(a){
+    const d = a.date ? new Date(a.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}) : '';
+    const img = a.image || PLACEHOLDER;
+    const author = a.author || {};
+    const avatar = author.image
+      ? `<img class="avatar" src="${author.image}" alt="${author.name}" onerror="this.onerror=null;this.src='/assets/placeholders/author.jpg?v=3.008'">`
+      : '';
+    return `<article class="rail-item">
+      <a class="thumb" href="${a.url}">
+        <img src="${img}" alt="${a.title}" onerror="this.onerror=null;this.src='${PLACEHOLDER}'">
+      </a>
+      <div class="meta">
+        <h4><a href="${a.url}">${a.title}</a></h4>
+        <p class="tiny muted">${d}${author.name ? ` · ${avatar}<a class="author" href="${author.url||'#'}">${author.name}</a>` : ''}</p>
+        <p class="tiny">${a.excerpt||''}</p>
+      </div>
+    </article>`;
+  }
+
+  function render(list){
+    mount.innerHTML = list.map(card).join('');
+  }
+
+  fetch(SRC,{cache:'no-store'})
+    .then(r=>r.ok?r.json():Promise.reject())
+    .then(json=>{
+      let list = Array.isArray(json?.articles) ? json.articles : [];
+      list = filterForContext(list);
+      list = dedupe([...list, ...localSeed]).slice(0,4);
+      render(list);
+    })
+    .catch(()=>{
+      render(localSeed.slice(0,3));
+    });
+})();
+</script>
 
   <style>
   #articles-feed {
