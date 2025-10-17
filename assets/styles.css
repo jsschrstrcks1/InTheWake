@@ -405,47 +405,16 @@ figure.hero img + img,
   opacity: .92;
 }
 
-/* ===== In the Wake — Article Hero Hard Reset (v3.006.1) ===== */
+/* ===== In the Wake — Article Hero (dedup v3.006.1) ===== */
+
+/* Natural, single-image hero: no forced crop, no absolute positioning */
 figure.hero,
 .article-hero,
 .article-card .hero {
-  overflow: visible !important;   /* allow natural height */
-}
-
-/* Force natural, full-width images (no cropping, no absolute positioning) */
-figure.hero picture,
-figure.hero img,
-.article-hero picture,
-.article-hero img,
-.article-card .hero picture,
-.article-card .hero img {
-  position: static !important;    /* undo absolute from Swiper rules */
-  inset: auto !important;         /* reset top/right/bottom/left */
-  display: block !important;
-  width: 100% !important;
-  height: auto !important;        /* keep native aspect ratio */
-  object-fit: contain !important; /* show the whole image */
-  max-height: none !important;    /* or 85vh if you want a cap */
-  border-radius: 12px;
-}
-
-/* Safety: only Swiper slides should use absolute cover */
-.swiper.firstlook img {
-  position: absolute !important;
-  inset: 0 !important;
-  height: 100% !important;
-  object-fit: cover !important;
-}
-/* ===== In the Wake — Article Hero Hard Reset (v3.006.1 final) ===== */
-
-/* One hero image per article/card; natural proportions */
-figure.hero,
-.article-hero,
-.article-card .hero { 
   margin: 0 0 1rem 0;
   padding: 0;
   border: 0;
-  overflow: visible !important;
+  overflow: visible !important;  /* allow natural height */
 }
 
 figure.hero picture,
@@ -454,35 +423,35 @@ figure.hero img,
 .article-hero img,
 .article-card .hero picture,
 .article-card .hero img {
-  position: static !important;      /* undo absolute from carousel rules */
+  position: static !important;   /* undo absolute from carousel rules */
   inset: auto !important;
   display: block !important;
   width: 100% !important;
-  height: auto !important;          /* preserve native aspect ratio */
-  object-fit: contain !important;   /* show the whole image (no cropping) */
-  max-height: none !important;      /* use 85vh if you want a tall cap */
+  height: auto !important;       /* preserve native aspect ratio */
+  object-fit: contain !important;/* show entire image (no cropping) */
+  max-height: none !important;   /* set to 85vh if you want a tall cap */
   border-radius: 12px;
 }
 
-/* Kill any old two-up split behavior */
+/* Ensure no legacy “2-up split” on cards */
 .article-card img:first-of-type,
 .article-card img:nth-of-type(2) {
   width: 100% !important;
 }
 
-/* Hide any injected fallback duplicates */
+/* Hide any fallback duplicate image that might get injected */
 figure.hero img + img,
 .article-hero img + img,
 .article-card .hero img + img {
   display: none !important;
 }
 
-/* Scope the carousel “cover” rule ONLY to the First Look slider */
+/* Scope the COVER behavior strictly to the First Look carousel only */
 .swiper.firstlook img {
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;     /* cover is fine for sliders */
+  object-fit: cover !important;  /* cover is correct for slides */
   border-radius: 10px;
 }
