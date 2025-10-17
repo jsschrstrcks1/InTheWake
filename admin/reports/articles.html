@@ -1,28 +1,107 @@
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
+“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
+Page: /admin/reports/articles.html · v3.008 · Built: 2025-10-17T00:00:00Z
+-->
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Core meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
-  <title>Articles Consistency Report — In the Wake</title>
-  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="version" content="3.008">
+  <meta name="standards:baseline" content="3.008">
+  <title>Articles Consistency Report (v3.008) — In the Wake</title>
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/admin/reports/articles.html"/>
+
+  <!-- CSS (versioned) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008"/>
+  <style>
+    .scroll{max-height:48vh; overflow:auto}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
+    .cards.stack .card.red{border-color:#b71c1c}
+    .cards.stack .card.yellow{border-color:#8d6e00}
+    .cards.stack .card.green{border-color:#1b5e20}
+    .grid-3-tight{display:grid; gap:1rem}
+    @media (min-width: 980px){ .grid-3-tight{grid-template-columns:repeat(3, minmax(0,1fr))} }
+    .muted{opacity:.8}
+  </style>
+
+  <!-- Absolute URL normalizer (prod → current origin safety) -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(p){ p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p; };
+    function normalize(){
+      const sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+      });
+    }
+    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', normalize, {once:true}); } else { normalize(); }
+  })();
+  </script>
+
+  <!-- External link hardener -->
+  <script>
+  (function(){
+    const here=location.hostname.replace(/^www\./,'');
+    function upgrade(){
+      document.querySelectorAll('a[href]').forEach(a=>{
+        const href=a.getAttribute('href')||'';
+        if (/^(#|mailto:|tel:)/i.test(href)) return;
+        try{
+          const u=new URL(href, location.href);
+          const host=u.hostname.replace(/^www\./,'');
+          if (host !== here){ a.target='_blank'; a.rel=['noopener','noreferrer',(a.rel||'')].join(' ').trim(); }
+        }catch(_){}
+      });
+    }
+    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', upgrade, {once:true}); } else { upgrade(); }
+  })();
+  </script>
 </head>
 <body class="page">
+  <a class="visually-hidden-focusable" href="#content">Skip to content</a>
+
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
-        <span class="version-badge">Reports</span>
+        <img src="/assets/logo_wake.png?v=3.008" alt="In the Wake wordmark"/>
+        <span class="version-badge">v3.008</span>
       </div>
-      <nav class="nav pill-nav pills" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/solo.html">Solo</a>
-        <a href="/admin/reports/articles.html" aria-current="page">Admin: Articles</a>
+      <!-- Unified nav (admin variant keeps core order; highlights Admin) -->
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="https://www.cruisinginthewake.com/">Home</a>
+        <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
+        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
+        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Accessibility</a>
+        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
+        <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+        <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+        <a href="https://www.cruisinginthewake.com/admin/reports/articles.html" aria-current="page">Admin: Articles</a>
       </nav>
     </div>
+
     <div class="hero" role="img" aria-label="Watermark Header">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.008" alt="In the Wake">
         <div class="tagline">Articles Consistency Report</div>
       </div>
     </div>
@@ -38,15 +117,16 @@
     <section class="cards stack grid-3-tight"></section>
   </main>
 
-  <!-- Your script exactly as provided -->
   <script>
   (function(){
     "use strict";
 
     const ORIGIN = (location.origin || (location.protocol + "//" + location.host));
-    const MANIFEST_URL = "/precache-manifest.json";
-    const SITEMAP_URL  = "/solo/sitemap.xml";
-    const SITEMAP_UPDATE_ENDPOINT = "";
+    // v3.008 sources: add global articles manifest; keep Solo index & sitemap; keep precache
+    const PRECACHE_URL = "/precache-manifest.json";
+    const SOLO_SITEMAP = "/solo/sitemap.xml";
+    const SOLO_INDEX   = "/solo/articles/index.json?v=3.008";
+    const GLOBAL_ARTS  = "/assets/data/articles.json?v=3.008";
 
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", start, { once:true });
@@ -76,7 +156,7 @@
       card.className = "card " + (cls||"");
       card.id = id;
       card.style.display = "none";
-      card.innerHTML = `<h3>${title}</h3><p>${desc}</p><div class="scroll"><ol id="${id}-list" class="list"></ol></div>`;
+      card.innerHTML = `<h3>${title}</h3><p class="tiny muted">${desc||""}</p><div class="scroll"><ol id="${id}-list" class="list"></ol></div>`;
       grid.appendChild(card);
       return card;
     }
@@ -158,33 +238,65 @@
       return out;
     }
 
+    function slugsFromJsonList(list){
+      // Accepts either {articles:[{url,title,...}]} or an array of {url,...}
+      const arr = Array.isArray(list) ? list : (list && Array.isArray(list.articles) ? list.articles : []);
+      const out = new Set();
+      for (const a of arr){
+        const url = a && (a.url || a.permalink || "");
+        if (!url) continue;
+        try{
+          const u = new URL(url, ORIGIN);
+          // Accept both full solo pages and solo fragments as article targets
+          const m = u.pathname.match(/^\/solo(?:\/articles)?\/([^/]+)\.html$/i);
+          if (m && m[1]) out.add(m[1]);
+        }catch(_){}
+      }
+      return out;
+    }
+
     async function run(){
-      setDiag("Fetching manifest & sitemap…");
+      setDiag("Fetching precache, solo sitemap, solo index, and global articles…");
 
-      const [man, sm] = await Promise.allSettled([ fetchJson(MANIFEST_URL), fetchText(SITEMAP_URL) ]);
+      const [pre, sm, soloIdx, glob] = await Promise.allSettled([
+        fetchJson(PRECACHE_URL),
+        fetchText(SOLO_SITEMAP),
+        fetchJson(SOLO_INDEX),
+        fetchJson(GLOBAL_ARTS)
+      ]);
 
-      const manifestUrls = (man.status === "fulfilled") ? flattenManifestUrls(man.value) : [];
-      const manifestOk   = manifestUrls.length > 0;
+      const precacheUrls = (pre.status==='fulfilled') ? flattenManifestUrls(pre.value) : [];
+      const preOk = precacheUrls.length>0;
 
-      const site = (sm.status === "fulfilled") ? slugsFromSitemap(sm.value) : new Set();
-      const sitemapOk = (sm.status === "fulfilled");
+      const sitemapSlugs = (sm.status==='fulfilled') ? slugsFromSitemap(sm.value) : new Set();
+      const sitemapOk = (sm.status==='fulfilled');
 
-      const mPages = manifestOk ? slugsFromManifest(manifestUrls, "/solo/", ["/solo/articles/"]) : new Set();
-      const mFrags = manifestOk ? slugsFromManifest(manifestUrls, "/solo/articles/") : new Set();
+      const soloIndexSlugs = (soloIdx.status==='fulfilled') ? slugsFromJsonList(soloIdx.value) : new Set();
+      const globalArticleSlugs = (glob.status==='fulfilled') ? slugsFromJsonList(glob.value) : new Set();
 
-      const candidates = new Set([ ...site, ...mPages, ...mFrags ]);
+      // Also mine precache for /solo/ pages and /solo/articles/ fragments
+      const preSoloPages = preOk ? slugsFromManifest(precacheUrls, "/solo/", ["/solo/articles/"]) : new Set();
+      const preSoloFrags = preOk ? slugsFromManifest(precacheUrls, "/solo/articles/") : new Set();
 
-      const diagBits = [
-        manifestOk ? `manifest ok (${manifestUrls.length} URLs)` : "manifest missing/unreadable",
-        `manifest pages: ${mPages.size}`,
-        `manifest fragments: ${mFrags.size}`,
-        sitemapOk ? `sitemap ok (${site.size} solo URLs)` : "sitemap missing/unreadable",
+      // Candidate universe: union of all sources
+      const candidates = new Set([
+        ...sitemapSlugs, ...soloIndexSlugs, ...globalArticleSlugs, ...preSoloPages, ...preSoloFrags
+      ]);
+
+      const bits = [
+        preOk ? `precache ok (${precacheUrls.length} URLs)` : "precache missing/unreadable",
+        `precache pages: ${preSoloPages.size}`,
+        `precache frags: ${preSoloFrags.size}`,
+        sitemapOk ? `sitemap ok (${sitemapSlugs.size} solo URLs)` : "sitemap missing/unreadable",
+        `solo index slugs: ${soloIndexSlugs.size}`,
+        `global articles slugs: ${globalArticleSlugs.size}`,
         `candidates: ${candidates.size}`
       ];
-      setDiag(diagBits.join(" · "));
+      setDiag(bits.join(" · "));
 
-      if (candidates.size === 0) return;
+      if (!candidates.size) return;
 
+      // Disk existence checks
       const diskSolo = new Set();
       const diskFrag = new Set();
       await Promise.all(Array.from(candidates).map(async slug=>{
@@ -197,76 +309,70 @@
       const missing = {
         diskPage: new Set(),
         diskFrag: new Set(),
-        sitemap:  new Set(),
-        manifestPage: new Set(),
-        manifestFrag: new Set(),
+        sitemap: new Set(),
+        precachePage: new Set(),
+        precacheFrag: new Set(),
+        globalManifest: new Set(), // NEW: missing from /assets/data/articles.json
+        soloIndex: new Set()       // NEW: missing from /solo/articles/index.json
       };
 
       candidates.forEach(slug=>{
-        if (!diskSolo.has(slug))      missing.diskPage.add(slug);
-        if (!diskFrag.has(slug))      missing.diskFrag.add(slug);
-        if (!site.has(slug))          missing.sitemap.add(slug);
-        if (!mPages.has(slug))        missing.manifestPage.add(slug);
-        if (!mFrags.has(slug))        missing.manifestFrag.add(slug);
+        if (!diskSolo.has(slug))         missing.diskPage.add(slug);
+        if (!diskFrag.has(slug))         missing.diskFrag.add(slug);
+        if (!sitemapSlugs.has(slug))     missing.sitemap.add(slug);
+        if (!preSoloPages.has(slug))     missing.precachePage.add(slug);
+        if (!preSoloFrags.has(slug))     missing.precacheFrag.add(slug);
+        if (!globalArticleSlugs.has(slug)) missing.globalManifest.add(slug);
+        if (!soloIndexSlugs.has(slug))     missing.soloIndex.add(slug);
       });
 
-      const anyIssue = Object.values(missing).some(s => s.size);
+      const anyIssue = Object.values(missing).some(s=>s.size);
 
-      if (missing.diskPage.size){
-        const card = needCard("missing-disk-pages","Missing on disk: /solo/&lt;slug&gt;.html",
-                              "These slugs do not resolve as full pages.", "red");
-        const ol = card.querySelector("#missing-disk-pages-list");
+      function renderSet(id, title, desc, klass, set, prefix){
+        if (!set.size) return;
+        const card = needCard(id, title, desc, klass);
+        const ol = card.querySelector(`#${id}-list`);
         ol.innerHTML = "";
-        Array.from(missing.diskPage).sort().forEach(slug=>{
-          li(ol, `${fmt('/solo/'+slug+'.html')}`);
+        Array.from(set).sort().forEach(slug=>{
+          const page = `${prefix.replace('%s', slug)}`;
+          li(ol, fmt(page));
         });
         show(card);
       }
-      if (missing.diskFrag.size){
-        const card = needCard("missing-disk-frags","Missing on disk: /solo/articles/&lt;slug&gt;.html",
-                              "These slugs do not resolve as fragments.", "red");
-        const ol = card.querySelector("#missing-disk-frags-list");
-        ol.innerHTML = "";
-        Array.from(missing.diskFrag).sort().forEach(slug=>{
-          li(ol, `${fmt('/solo/articles/'+slug+'.html')}`);
-        });
-        show(card);
-      }
-      if (missing.sitemap.size){
-        const card = document.getElementById("pages-missing-sitemap") ||
-                     needCard("pages-missing-sitemap","Full Pages missing from Sitemap",
-                              "Present elsewhere but not in /solo/sitemap.xml.","yellow");
-        const ol = card.querySelector("#list-pages-miss-sitemap") || card.querySelector("#pages-missing-sitemap-list");
-        ol.innerHTML = "";
-        Array.from(missing.sitemap).sort().forEach(slug=>{
-          li(ol, `${fmt('/solo/'+slug+'.html')} → add to ${fmt('/solo/sitemap.xml')}`);
-        });
-        show(card);
-      }
-      if (missing.manifestPage.size || missing.manifestFrag.size){
-        const card = needCard("missing-manifest","Missing in prefetch manifest",
-                              "These URLs are not present in /precache-manifest.json.","yellow");
-        const ol = card.querySelector("#missing-manifest-list");
-        ol.innerHTML = "";
-        Array.from(missing.manifestPage).sort().forEach(slug=>{
-          li(ol, `${fmt('/solo/'+slug+'.html')} (page)`);
-        });
-        Array.from(missing.manifestFrag).sort().forEach(slug=>{
-          li(ol, `${fmt('/solo/articles/'+slug+'.html')} (fragment)`);
-        });
-        show(card);
-      }
+
+      renderSet("missing-disk-pages","Missing on disk: /solo/<slug>.html",
+        "These slugs do not resolve as full pages.", "red", missing.diskPage, "/solo/%s.html");
+      renderSet("missing-disk-frags","Missing on disk: /solo/articles/<slug>.html",
+        "These slugs do not resolve as fragments.", "red", missing.diskFrag, "/solo/articles/%s.html");
+
+      renderSet("missing-sitemap","Missing from /solo/sitemap.xml",
+        "Add these full pages to the Solo sitemap.", "yellow", missing.sitemap, "/solo/%s.html");
+
+      renderSet("missing-precache-pages","Missing in precache (pages)",
+        "Add to /precache-manifest.json under 'pages' or 'urls'.", "yellow", missing.precachePage, "/solo/%s.html");
+      renderSet("missing-precache-frags","Missing in precache (fragments)",
+        "Add to /precache-manifest.json under 'pages' or 'urls'.", "yellow", missing.precacheFrag, "/solo/articles/%s.html");
+
+      renderSet("missing-global-manifest","Missing in global articles manifest",
+        "Add entries to /assets/data/articles.json so sitewide rails can discover them.", "yellow", missing.globalManifest, "/solo/%s.html");
+
+      renderSet("missing-solo-index","Missing in Solo index",
+        "Add entries to /solo/articles/index.json for Solo area features.", "yellow", missing.soloIndex, "/solo/articles/%s.html");
 
       if (!anyIssue && candidates.size > 0) {
-        const allClear = document.getElementById("all-clear") ||
-                         needCard("all-clear","All Clear","All four sources agree for all detected slugs.","green");
-        const list = allClear.querySelector("#all-clear-list");
+        const ok = document.getElementById("all-clear") || needCard("all-clear","All Clear",
+          "All sources agree for all detected slugs.","green");
+        const list = ok.querySelector("#all-clear-list");
         if (list) list.parentElement.innerHTML =
           `<div class="tiny muted">Slugs: ${Array.from(candidates).sort().map(s=>fmt(s)).join(", ")}</div>`;
-        show(allClear);
+        show(ok);
       }
     }
   })();
   </script>
+
+  <footer class="wrap tiny">
+    <p class="center">Soli Deo Gloria — All work on this project is offered to God.</p>
+  </footer>
 </body>
 </html>
