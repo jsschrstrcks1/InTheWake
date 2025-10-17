@@ -7,203 +7,390 @@ All work on this project is offered as a gift to God.
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Core Meta -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <title>Travel Tips — In the Wake (v3.008)</title>
 
+  <!-- Title / Version Trinity -->
+  <title>Travel Tips — In the Wake (v3.008)</title>
   <meta name="page:version" content="v3.008">
   <meta name="standards:baseline" content="3.006">
+
+  <!-- Canonical & Description -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/travel.html">
-  <meta name="description" content="Practical, story-forward cruise travel guidance — the 20 most asked questions for first-time cruisers, by Ken Baker.">
+  <meta name="description" content="Story-forward help for first voyages: passports, packing, ship time, seasickness, safety, and the 20 questions beginners ask most.">
   <meta name="robots" content="index, follow">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="In the Wake">
   <meta property="og:url" content="https://www.cruisinginthewake.com/travel.html">
-  <meta property="og:title" content="Top 20 Questions I’m Asked About Cruising — In the Wake">
-  <meta property="og:description" content="First sailing jitters, steady answers: passports, packing, ship time, seasickness, and more.">
+  <meta property="og:title" content="Travel Tips — In the Wake">
+  <meta property="og:description" content="A first sailing, twenty steady answers, and a course you can trust.">
   <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.008">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- JSON-LD Article Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Top 20 Questions I’m Asked About Cruising",
-    "description": "A first sailing, twenty honest answers, and a steady course — story-forward cruise guidance by Ken Baker and Tina.",
-    "image": "https://www.cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg",
-    "author": [
-      {
-        "@type": "Person",
-        "name": "Ken Baker",
-        "url": "https://www.cruisinginthewake.com/authors/ken-baker.html"
-      },
-      {
-        "@type": "Person",
-        "name": "Tina",
-        "url": "https://www.cruisinginthewake.com/authors/tina.html"
-      }
-    ],
-    "publisher": {
-      "@type": "Organization",
-      "name": "In the Wake",
-      "url": "https://www.cruisinginthewake.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.cruisinginthewake.com/assets/logo_wake.png"
-      }
-    },
-    "datePublished": "2025-10-17",
-    "dateModified": "2025-10-17"
-  }
+  <!-- Styles (global, versioned) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008">
+
+  <!-- Preload LCP image (hero) -->
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=v3.008" fetchpriority="high">
+
+  <!-- Reduced-motion guard (micro) -->
+  <style>
+    @media (prefers-reduced-motion: reduce){
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+    /* Page layout with right rail */
+    .with-right-rail{display:grid;grid-template-columns:1fr minmax(260px,320px);gap:1.2rem}
+    @media (max-width: 980px){ .with-right-rail{grid-template-columns:1fr} .right-rail{order:2} }
+    /* Rails */
+    .right-rail .rail{position:sticky; top:1rem}
+    .rail.card{padding:1rem}
+    .journal-rail .rail-item{display:grid;grid-template-columns:96px 1fr;gap:.6rem;margin:.6rem 0;padding:.5rem 0;border-top:1px dashed rgba(0,0,0,.08)}
+    .journal-rail .rail-item:first-child{border-top:none}
+    .journal-rail .thumb img{width:96px;height:64px;object-fit:cover;border-radius:.5rem}
+    .journal-rail .meta h4{margin:.1rem 0 .2rem;font-size:1rem;line-height:1.2}
+    .journal-rail .avatar{width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:.35rem}
+    /* Quick Chart chips with separators */
+    .quick-chart .chip-list{display:flex;flex-wrap:wrap;gap:.25rem .5rem;align-items:center}
+    .quick-chart .chip{display:inline-block;padding:.25rem .5rem;border:1px solid var(--rope,#d3b896);border-radius:999px;background:#fff;text-decoration:none}
+    .quick-chart .sep{opacity:.6;margin:0 .25rem}
+    /* Hero tune */
+    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=v3.008') center/cover no-repeat!important; }
+    .hero::before,.hero::after{ content:none!important }
+  </style>
+
+  <!-- Absolute URL normalizer -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(p){p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p;};
+    function normalize(){
+      const sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
+      });
+    }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
+  })();
   </script>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008">
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008">
+  <!-- External link hardener -->
+  <script>
+  (function(){
+    const here=location.hostname.replace(/^www\./,'');
+    function upgrade(){
+      document.querySelectorAll('a[href]').forEach(a=>{
+        const href=a.getAttribute('href')||'';
+        if (/^(#|mailto:|tel:)/i.test(href)) return;
+        try{
+          const u=new URL(href, location.href);
+          const host=u.hostname.replace(/^www\./,'');
+          if (host !== here || a.rel==='external'){
+            a.target='_blank';
+            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+          }
+        }catch(_){}
+      });
+    }
+    if (document.readyState==='loading'){document.addEventListener('DOMContentLoaded', upgrade, {once:true});} else { upgrade(); }
+  })();
+  </script>
 
-  <!-- Reduced Motion -->
-  <style>@media (prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important}}</style>
+  <!-- Analytics (async/defer) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config','G-WZP891PZXJ');
+  </script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Nav consistency script -->
-  <script src="https://www.cruisinginthewake.com/assets/js/site-cache.js?v=3.008" defer></script>
+  <!-- JSON-LD (Article with both authors) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Article",
+    "headline":"Top 20 Questions I’m Asked About Cruising",
+    "description":"A first sailing, twenty honest answers, and a steady course — story-forward cruise guidance.",
+    "image":"https://www.cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.008",
+    "author":[
+      {"@type":"Person","name":"Ken Baker","url":"https://www.cruisinginthewake.com/authors/ken-baker.html","image":"https://www.cruisinginthewake.com/assets/authors/ken-baker.jpg?v=3.008"},
+      {"@type":"Person","name":"Tina","url":"https://www.cruisinginthewake.com/authors/tina.html","image":"https://www.cruisinginthewake.com/assets/authors/tina.jpg?v=3.008"}
+    ],
+    "publisher":{"@type":"Organization","name":"In the Wake","url":"https://www.cruisinginthewake.com",
+      "logo":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008"}},
+    "datePublished":"2025-10-17","dateModified":"2025-10-17",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.cruisinginthewake.com/travel.html"}
+  }
+  </script>
 </head>
 
 <body class="page">
-  <a class="skip-link" href="#content">Skip to main content</a>
+  <!-- Skip link -->
+  <a class="visually-hidden-focusable" href="#content">Skip to content</a>
 
+  <!-- Header / Hero -->
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png" alt="In the Wake wordmark" width="256" height="64"/>
-        <span class="tiny ver-badge">v3.008</span>
+        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008" width="220" height="44" alt="In the Wake">
+        <span class="version-badge">v3.008</span>
       </div>
       <nav class="pill-nav pills" aria-label="Primary">
-        <a href="/" >Home</a>
-        <a href="/ships/">Ships</a>
-        <a href="/restaurants.html">Restaurants</a>
-        <a href="/ports.html">Ports</a>
-        <a href="/disability-at-sea.html">Accessibility</a>
-        <a href="/drink-packages.html">Drink Packages</a>
-        <a href="/packing-lists.html">Packing</a>
-        <a href="/planning.html">Planning</a>
-        <a href="/solo.html">Solo</a>
-        <a href="/travel.html" aria-current="page">Travel</a>
-        <a href="/cruise-lines.html">Cruise Lines</a>
-        <a href="/about-us.html">About Us</a>
+        <a href="https://www.cruisinginthewake.com/">Home</a>
+        <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
+        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
+        <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+        <a href="https://www.cruisinginthewake.com/travel.html" aria-current="page">Travel</a>
+        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
+        <a href="https://www.cruisinginthewake.com/about-us.html">About Us</a>
       </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg?v=3.008" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
+        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008" width="220" height="44" alt="In the Wake">
+        <p class="tagline">A Cruise Traveler’s Logbook</p>
       </div>
       <div class="hero-credit">
-        <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+        <a class="pill long" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty — Instagram</a>
       </div>
     </div>
   </header>
 
+  <!-- Main -->
   <main class="wrap page with-right-rail" id="content" tabindex="-1">
     <!-- Story -->
     <article class="card prose" id="story">
       <h1>⚓ Top 20 Questions I’m Asked About Cruising for the First Time</h1>
-      <p>Every time I post photos from a sailing, my inbox fills with one familiar question:  
-      <em>“Be honest — I’ve never cruised before. What do I actually need to know?”</em></p>
-      <p>So here it is — tea brewed strong and tanged with the salt of experience. These are the twenty questions I hear most often from first-time cruisers: things people whisper at sail-away while clutching a mimosa and a little uncertainty.  
-      The answers are drawn from cruise lines themselves, then laced with what the sea teaches you after a few voyages — that the horizon is friend, not mystery.</p>
+      <p>Every time I post photos from a sailing, my inbox fills with questions that all begin the same way:</p>
+      <p><em>“Okay, be honest — I’ve never cruised before. What do I actually need to know?”</em></p>
+      <p>So here it is — my full answer, tea brewed strong and tanged with the salt of experience. These are the twenty questions that come up again and again from first-time cruisers: the things people whisper at sail-away while clutching a mimosa and a little bit of uncertainty.</p>
+      <p>I’ve gathered the answers from the cruise lines directly then laced them with what the sea itself teaches you after a few voyages — that the horizon is friend, not mystery.</p>
 
-      <h2 id="docs">📜 Planning & Booking</h2>
-      <p>... [All of your story text, as finalized in your previous pass, including the “Stay on ship time — always” and “Fair winds, and following seas; I hope to see you in the wake.” ending.] ...</p>
+      <h2 id="planning-booking">⚓ Planning &amp; Booking</h2>
+
+      <h3 id="docs">What documents do I need for a cruise?</h3>
+      <p>Think of your passport as your boarding pass to the world — it opens every gangway and every sunrise beyond your own coastline. For U.S. “closed-loop” cruises (round-trip from the same port — e.g., Tampa → Cozumel → Tampa), a birth certificate and photo ID can work, but I always bring a passport. It’s smoother, safer, and the sea rewards those who prepare for every tide.</p>
+      <p>A bit of advice? Whether traveling internationally by land or sea, always keep a photo of your travel documents on your phone in case something happens and you have to visit your embassy to get them replaced.</p>
+
+      <h3 id="choose-line">How do I choose a cruise line, ship, or itinerary?</h3>
+      <p>Ships are like personalities: some loud and joyful, some quietly elegant. Families thrive on Royal Caribbean’s energy, couples drift toward Celebrity’s calm, and solo sailors often find kindred spirits on Virgin Voyages. Start near home to test your sea legs — 4- to 7-night Caribbean itineraries are perfect first crossings. Shorter sailings tend to have younger vibes while longer sailings go to a wider variety of fabulous places. Know your vibe, and select accordingly. The ship is half of the experience, and the itinerary is the other half.</p>
+
+      <h3 id="when-to-book">When’s the best time to book and sail?</h3>
+      <p>Book early for choice, late for chance. Super early, or <em>very</em> late for the best deals. Spring and fall give you kinder seas and smaller crowds. Spring, fall, and winter breaks will have more kids and kid activities on board. These dates are not the same for every state, or grade level. Check the dates for the state you are going to be departing from.</p>
+
+      <h3 id="whats-included">What’s actually included in the fare?</h3>
+      <p>Your fare buys more than passage; it buys a floating city of meals, music, and open water. Expect roughly $500–$1,000 per person for a week — stateroom, meals, and basic entertainment included. Extras like Wi-Fi (~19/day), drinks (~11/day for soda up to 70+/day for adult beverages), and excursions add color to the ledger. My trick: set aside 25% extra for “sea-day decisions.”</p>
+
+      <h3 id="insurance">Do I really need travel insurance?</h3>
+      <p>Yes. The ocean is generous but unpredictable. Travel insurance is your safety harness — covering delays, cancellations, and the unlikely medical detour. If you can’t afford to lose the trip, you can’t afford to skip the insurance. Read the fine print carefully. Some cover previous medical conditions, and some do not. Some cover missed port days, but most do not. The ship’s hospital is a wonderful thing, but scarcity means steep prices. Insurance provides a great “pay-you-back-after” safety net.</p>
+
+      <h2 id="packing-prep">🧳 Packing &amp; Preparation</h2>
+
+      <h3 id="what-to-pack">What should I pack for a cruise?</h3>
+      <p>Pack like a mariner — efficient and adaptable. A few light layers, one good outfit for formal nights, comfortable shoes, sunscreen, and your sense of humor. Cabins have clever storage but little space. I roll clothes, hang hats and shoes on magnetic hooks, and keep my passport and phone in a waterproof pouch. See our dialed-in <a href="/packing-lists.html">packing lists</a>.</p>
+
+      <h3 id="alcohol-food">Can I bring my own alcohol or food?</h3>
+      <p>A bottle or two of wine, likely yes. A case of beer, no. Cruise lines keep tight rules — not to be stingy, but for safety. If it’s sealed and sensible, you’re fine. If it looks like a tailgate, leave it at home. Every cruise line is a little different regarding what is and is not ok, and these rules have been changing lately, so please contact your cruise line directly to see exactly what the rules are for your sailing.</p>
+
+      <h3 id="seasick">How do I keep from getting seasick?</h3>
+      <p>Pick a mid-ship cabin, lower deck if possible. Modern stabilizers tame most swells, but I still suggest people pack ginger chews and motion patches. Better than the chews are fresh ginger from the kitchen, which they will happily give you chunks of. If you <strong>know</strong> you are prone to sickness, scopolamine patches, or a once-and-done shot are available from your doctor. Pro tip: keep your eyes on the horizon; it steadies more than your stomach.</p>
+
+      <h2 id="life-onboard">🚢 Life Onboard</h2>
+
+      <h3 id="crowds">Isn’t cruising just for retirees or party people?</h3>
+      <p>Hardly. Ships are floating neighborhoods. You’ll find grandparents, honeymooners, toddlers, and teens — all making wakes, and sharing sunsets in their own way. Cruising has a rhythm for every tempo: karaoke and “world’s sexiest man” contests at one end, quiet piano bars or trivia challenges at the other.</p>
+
+      <h3 id="food-drinks">How’s the food — and do I need a drink package?</h3>
+      <p>Food is half the fun: global menus, sunrise buffets, midnight snacks. Specialty restaurants (steakhouse, sushi, hibachi, Italian, etc.) cost extra but feel worth it on long voyages. Drink packages only pay off if you plan to indulge deeply daily — otherwise the complimentary water, coffee, and lemonade will more than do.</p>
+
+      <h3 id="sea-day-bored">Will I get bored on sea days?</h3>
+      <p>I used to tell my children that only boring people are bored — or said differently, the only boredom at sea is self-inflicted. Between live music, trivia, lectures, good food, great company, and the hypnotic rhythm of the wake itself, I find sea days restorative — like the world pressing “pause.” If you love to read like I do, then a few hours at the aft of the ship, in the sun or shade with a good book can be better for your health and sanity than almost anything else.</p>
+
+      <h3 id="grats-pay">How do gratuities and onboard payments work?</h3>
+      <p>Your cabin key becomes your wallet. Protect it. It’s your identification and credit card as you come and go around the ship. Tips — around $16 per person per day — are automatically added and shared among crew. This ensures folks you don't see are rewarded for their hard work as well. Most ship crew gets a stipend from the ship; but makes most of their income from the tips. Some cruise lines let you take the gratuities off, but that directly affects the woman washing your bedding, the men that prevent rust and paint the ship, or that keep those big beautiful glass windows clean around the ship.</p>
+      <p>I still tip in person when someone truly makes the voyage shine (room attendants, main dining room waiter, and favorite bartenders). Gratitude, like the tide, is best given freely. Those you take good care of, take better care of you.</p>
+
+      <h3 id="cabins-space">Are cabins really that small?</h3>
+      <p>Yes, but they’re marvels of design — everything has a nook. Use magnetic hooks, pack cubes, and store suitcases under the bed. Outlets are generally the most limiting factor, especially with surge suppressors and most kinds of outlet expanders being recently banned. A balcony adds breathing room, but I’ve had just as peaceful a morning coffee by the window, or up on deck watching flying fish race the hull.</p>
+
+      <h2 id="ports-excursions">⚓ Ports &amp; Excursions</h2>
+
+      <h3 id="passport-in-port">Do I need my passport in port?</h3>
+      <p>If you are on a cruise that starts and ends in the same U.S.-based port, you can likely get by with just your (raised seal) birth certificate and driver’s license. However, I <strong>always</strong> travel with my passport. Sometimes, in some ports, for some cruise lines the ship keeps it secure. NCL needed our passports as we went through the Panama Canal, for instance. For independent tours, carry it. The rule of thumb: if the gangway drops on foreign soil, treat it like international travel. You really are entering a foreign country with its own set of rules.</p>
+
+      <h3 id="late-back">What if I’m late getting back to the ship?</h3>
+      <p><strong>Stay on ship time — always.</strong> Ship leaves on ship time. On a ship excursion, they wait. On your own, the tide — and timetable — wait for no one. I’ve watched the gangway pull while latecomers sprinted the pier. It makes a funny video until it’s you. Pad your return time and set local alarms that reflect <em>ship time</em> (ship time and port time can differ).</p>
+
+      <h3 id="stay-onboard">Can I just stay onboard instead?</h3>
+      <p>Absolutely. A ship in port is the quietest place on earth. The pools empty, the buffet hums softly, and the horizon belongs entirely to you.</p>
+
+      <h2 id="safety-health">⚕️ Safety &amp; Health</h2>
+
+      <h3 id="illness">Are ships safe from illness?</h3>
+      <p>Cruise ships are cleaner than most cities. Sanitizer stations gleam at every doorway; crew wipe handrails like clockwork. I wash before meals and after shore excursions, and in two decades, even during the height and chaos of a global pandemic, I’ve caught nothing worse than a sunburn. One lesson I've seen repeated over and over — those who neglect to wash their hands have more regrets than those who do wash. The more insistent the ship’s staff is about hand washing, the more seriously you need to take this.</p>
+      <p>Photo inspiration via <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Flickers of Majesty</a>.</p>
+
+      <h3 id="weather">What happens in bad weather?</h3>
+      <p>Captains read the sea like a diary. Cruise lines have billions invested in the ship, and in us having a good time. They generally go out of their way to avoid bad weather. If storms gather, they simply turn the page and chart another course. Ships are built for it; the best sailors know when to steer clear. When it’s unavoidable (certain crossings like the Tasman Sea are renowned for rough seas, for instance) the ship has been engineered by the brightest minds in marine engineering to handle it. Redundant systems, more than enough lifeboats to hold all the guests and crew, sister ships nearby (far enough you can’t really see them without aid, close enough to help in a crisis), and plenty of other systems designed to remain unseen but protect our lives — and their investment.</p>
+
+      <h3 id="kids-pregnancy">Can kids or pregnant guests sail?</h3>
+      <p>Yes — within reason. Infants usually need to be at least six months old; expectant mothers can sail up to 24–28 weeks (verify the exact cutoff date with your prospective cruise line). Ships can handle births in an emergency, but they aren't as equipped as your local hospital for such things. Family programs at sea are better than many on land — Disney, Royal Caribbean, and Norwegian have it down to an art.</p>
+
+      <h2 id="disembark">⛵ Disembarkation &amp; After</h2>
+
+      <h3 id="getting-off">How does getting off the ship actually work?</h3>
+      <p>You can walk off early with your bags (self-assist) or set them out the night before for the crew to handle. Either way, breakfast early, smile at customs, and don’t book your flight before noon. Debark day is brisk but bittersweet — the ship becomes a memory the moment your feet touch the pier.</p>
+
+      <h3 id="gain-weight">And the big one… will I gain weight?</h3>
+      <p>Maybe — if you make it your mission. Between steps, excursions, and stairs, most passengers balance it out. Besides, a few extra desserts are just ballast for the soul. Personally, I find I lose a few pounds across the week. Some of the women in my life find they swell a little (from the sodium in the food, and likely not drinking enough water). But not enough for it to be a problem for them.</p>
+
+      <hr>
+      <h3>🐚 Final Thought</h3>
+      <p>Cruising is the one kind of travel where you unpack once and wake up somewhere new every morning. It’s motion and stillness in the same heartbeat. If this is your first voyage, know this: the sea will meet you halfway. Ask questions, bring wonder, and leave space for awe. You’ll find, as I did, that joy doesn’t arrive with the itinerary — it rolls in with the tide.</p>
+      <p><strong>Fair winds, and following seas; I hope to see you in the wake.</strong></p>
+
+      <p class="tiny">More reflections in <a href="/journal.html">the Journal</a>.</p>
     </article>
 
-    <!-- Right-hand column -->
+    <!-- Right Rail -->
     <aside class="right-rail">
-      <!-- Article Rail -->
-      <aside class="card journal-rail" aria-label="From the Journal">
-        <h3>From the Journal</h3>
-        <div id="journal-rail-list" class="journal-list"></div>
-      </aside>
+      <!-- From the Journal (Articles) -->
+      <section class="rail card journal-rail" aria-label="From the Journal — Articles from our writers’ wakes">
+        <h2>From the Journal</h2>
+        <p class="muted">Articles from our writers’ wakes.</p>
+        <div id="journal-rail-list" aria-live="polite"></div>
+      </section>
 
       <!-- Quick Chart -->
-      <aside class="quick-chart card" aria-label="Quick navigation">
-        <h3>Quick Chart</h3>
-        <nav class="chip-list" aria-label="Jump to a question">
+      <section class="rail card quick-chart" aria-label="Quick Chart — Jump to a section">
+        <h2>Quick Chart</h2>
+        <nav class="chip-list">
+          <a class="chip" href="#planning-booking">Planning &amp; Booking</a><span class="sep">•</span>
           <a class="chip" href="#docs">Documents</a><span class="sep">•</span>
-          <a class="chip" href="#packing">Packing</a><span class="sep">•</span>
-          <a class="chip" href="#onboard">Onboard Life</a><span class="sep">•</span>
-          <a class="chip" href="#ports">Ports</a><span class="sep">•</span>
-          <a class="chip" href="#safety">Safety &amp; Health</a><span class="sep">•</span>
-          <a class="chip" href="#disembark">Disembarkation</a>
+          <a class="chip" href="#choose-line">Choosing a Line</a><span class="sep">•</span>
+          <a class="chip" href="#when-to-book">When to Book</a><span class="sep">•</span>
+          <a class="chip" href="#whats-included">What’s Included</a><span class="sep">•</span>
+          <a class="chip" href="#insurance">Insurance</a><span class="sep">•</span>
+
+          <a class="chip" href="#packing-prep">Packing</a><span class="sep">•</span>
+          <a class="chip" href="#what-to-pack">What to Pack</a><span class="sep">•</span>
+          <a class="chip" href="#alcohol-food">Alcohol &amp; Food</a><span class="sep">•</span>
+          <a class="chip" href="#seasick">Seasickness</a><span class="sep">•</span>
+
+          <a class="chip" href="#life-onboard">Life Onboard</a><span class="sep">•</span>
+          <a class="chip" href="#crowds">Crowds</a><span class="sep">•</span>
+          <a class="chip" href="#food-drinks">Food &amp; Drinks</a><span class="sep">•</span>
+          <a class="chip" href="#sea-day-bored">Sea Days</a><span class="sep">•</span>
+          <a class="chip" href="#grats-pay">Gratuities &amp; Pay</a><span class="sep">•</span>
+          <a class="chip" href="#cabins-space">Cabins</a><span class="sep">•</span>
+
+          <a class="chip" href="#ports-excursions">Ports</a><span class="sep">•</span>
+          <a class="chip" href="#passport-in-port">Passport in Port</a><span class="sep">•</span>
+          <a class="chip" href="#late-back">Late Back?</a><span class="sep">•</span>
+          <a class="chip" href="#stay-onboard">Stay Onboard</a><span class="sep">•</span>
+
+          <a class="chip" href="#safety-health">Safety &amp; Health</a><span class="sep">•</span>
+          <a class="chip" href="#illness">Illness</a><span class="sep">•</span>
+          <a class="chip" href="#weather">Weather</a><span class="sep">•</span>
+          <a class="chip" href="#kids-pregnancy">Kids &amp; Pregnancy</a><span class="sep">•</span>
+
+          <a class="chip" href="#disembark">Disembark &amp; After</a><span class="sep">•</span>
+          <a class="chip" href="#getting-off">Getting Off</a><span class="sep">•</span>
+          <a class="chip" href="#gain-weight">Weight Gain?</a>
         </nav>
-      </aside>
+      </section>
     </aside>
   </main>
 
-  <footer class="wrap center tiny">
-    Soli Deo Gloria — All work on this project is offered to God.
+  <!-- Footer -->
+  <footer class="wrap" role="contentinfo">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
+    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
-  <!-- Journal Rail JS -->
+  <!-- Journal rail bootstrap (Ken + Tina + this page) -->
   <script>
   (function(){
-    const mount=document.getElementById('journal-rail-list');
-    if(!mount) return;
+    const mount=document.getElementById('journal-rail-list'); if(!mount) return;
     const SRC='/assets/data/articles/index.json?v=3.008';
-    const fallback=[
+    const localSeed=[
       {
         id:'travel-top-20-questions',
         url:'/travel.html',
         title:'Top 20 Questions I’m Asked About Cruising',
-        author:{name:'Ken Baker',url:'/authors/ken-baker.html'},
+        author:{name:'Ken Baker',url:'/authors/ken-baker.html', image:'/assets/authors/ken-baker.jpg?v=3.008'},
         date:'2025-10-17',
-        image:'/assets/articles/top-20-questions/cover.jpg',
-        excerpt:'First sailing jitters, steady answers: passports, packing, ship time, seasickness, and more.'
+        image:'/assets/articles/top-20-questions/cover.jpg?v=3.008',
+        excerpt:'Passports, packing, ship time, seasickness, and twenty steady answers for a first voyage.'
+      },
+      {
+        id:'freedom-of-your-own-wake',
+        url:'/solo/articles/freedom-of-your-own-wake.html',
+        title:'Freedom of Your Own Wake',
+        author:{name:'Tina',url:'/authors/tina.html', image:'/assets/authors/tina.jpg?v=3.008'},
+        date:'2024-08-14',
+        image:'/assets/articles/solo/freedom-of-your-own-wake.jpg?v=3.008',
+        excerpt:'On choosing solitude without being alone.'
       },
       {
         id:'why-i-started-solo-cruising',
         url:'/solo/articles/why-i-started-solo-cruising.html',
         title:'Why I Started Solo Cruising',
-        author:{name:'Tina',url:'/authors/tina.html'},
-        date:'2025-09-04',
-        image:'/assets/articles/solo/why-i-started-solo-cruising.jpg',
+        author:{name:'Tina',url:'/authors/tina.html', image:'/assets/authors/tina.jpg?v=3.008'},
+        date:'2024-06-01',
+        image:'/assets/articles/solo/why-i-started-solo-cruising.jpg?v=3.008',
         excerpt:'From that first solo gangway to a thriving community — freedom found at sea.'
       }
     ];
+    function dedupe(arr){const seen=new Set();return arr.filter(a=>{const k=a.url||a.id; if(seen.has(k)) return false; seen.add(k); return true;});}
     function card(a){
       const d=new Date(a.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+      const avatar=a.author?.image? `<img class="avatar" src="${a.author.image}" alt="${a.author.name}">` : '';
       return `<article class="rail-item">
         <a class="thumb" href="${a.url}"><img src="${a.image}" alt=""></a>
-        <h4><a href="${a.url}">${a.title}</a></h4>
-        <p class="tiny muted">${d} · by <a href="${a.author.url}">${a.author.name}</a></p>
-        <p class="tiny">${a.excerpt}</p>
+        <div class="meta">
+          <h4><a href="${a.url}">${a.title}</a></h4>
+          <p class="tiny muted">${d} · <span class="by">by</span> ${avatar}<a class="author" href="${a.author?.url||'#'}">${a.author?.name||''}</a></p>
+          <p class="tiny">${a.excerpt||''}</p>
+        </div>
       </article>`;
     }
-    fetch(SRC,{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{
-      const items=j?.articles||fallback;
-      mount.innerHTML=items.slice(0,4).map(card).join('');
-    }).catch(()=>{mount.innerHTML=fallback.slice(0,3).map(card).join('');});
+    fetch(SRC,{cache:'no-store'})
+      .then(r=>r.ok?r.json():Promise.reject())
+      .then(j=>{
+        const remote=Array.isArray(j?.articles)? j.articles : [];
+        const list=dedupe([ ...localSeed, ...remote ]).slice(0,4);
+        mount.innerHTML=list.map(card).join('');
+      })
+      .catch(()=>{ mount.innerHTML=localSeed.slice(0,3).map(card).join(''); });
   })();
   </script>
 
-  <style>
-  .quick-chart .chip-list{display:flex;flex-wrap:wrap;gap:.25rem .5rem;align-items:center}
-  .quick-chart .chip{display:inline-block;padding:.25rem .55rem;border:1px solid var(--rope,#d5c4a1);border-radius:999px;text-decoration:none}
-  .quick-chart .sep{opacity:.6;margin:0 .25rem}
-  .journal-rail .rail-item{display:grid;grid-template-columns:88px 1fr;gap:.6rem;margin:.6rem 0;padding:.4rem 0;border-top:1px dashed rgba(0,0,0,.08)}
-  .journal-rail .rail-item:first-child{border-top:none}
-  .journal-rail .thumb img{width:88px;height:58px;object-fit:cover;border-radius:.5rem}
-  .journal-rail h4{margin:.1rem 0 .2rem;font-size:1rem;line-height:1.2}
-  @media (min-width:980px){
-    .page.with-right-rail{display:grid;grid-template-columns:minmax(0,1fr)320px;gap:1.25rem}
-    .right-rail{position:sticky;top:1rem;align-self:start}
+  <!-- Service worker -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('/sw.js?v=3.008').catch(()=>{});
+    });
   }
-  </style>
-
+  </script>
 </body>
 </html>
