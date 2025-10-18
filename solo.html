@@ -312,6 +312,65 @@ All work on this project is offered as a gift to God.
     #authors-list .author{display:grid;grid-template-columns:56px 1fr;gap:.6rem;align-items:center;margin:.5rem 0;}
     #authors-list .author .avatar img{width:56px;height:56px;border-radius:50%;object-fit:cover;display:block;}
     #authors-list .roll{display:flex;flex-wrap:wrap;gap:.35rem .5rem;margin-left:56px;}
+
+  /* --- Solo: bulletproof photo attribution BELOW the image --- */
+
+/* 1) Never let hero media float */
+#solo-article-host figure.hero > img,
+#solo-article-host figure.hero > picture,
+#solo-article-host .article-hero > img,
+#solo-article-host .article-hero > picture{
+  float: none !important;
+  display: block !important;
+}
+
+/* 2) If the credit is INSIDE the figure */
+#solo-article-host figure.hero > figcaption,
+#solo-article-host .article-hero > figcaption,
+#solo-article-host figure.hero > .photo-credit,
+#solo-article-host .article-hero > .photo-credit,
+#solo-article-host figure.hero > .credit,
+#solo-article-host .article-hero > .credit{
+  position: static !important;
+  inset: auto !important;
+  float: none !important;
+  clear: both !important;
+  transform: none !important;
+  display: block !important;
+
+  margin-top: .65rem;
+  padding-top: .45rem;
+  border-top: 1px dashed rgba(8,48,65,.12);
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  text-align: right;
+  font-size: .95rem;
+  line-height: 1.4;
+  color: #083041;
+  opacity: .85;
+}
+
+/* 3) If the credit is OUTSIDE the figure as the next sibling */
+#solo-article-host figure.hero + figcaption,
+#solo-article-host figure.hero + .photo-credit,
+#solo-article-host figure.hero + .credit,
+#solo-article-host .article-hero + figcaption,
+#solo-article-host .article-hero + .photo-credit,
+#solo-article-host .article-hero + .credit{
+  float: none !important;
+  clear: both !important;
+  display: block !important;
+
+  margin: .65rem 2px 0;
+  padding-top: .45rem;
+  border-top: 1px dashed rgba(8,48,65,.12);
+  text-align: right;
+  font-size: .95rem;
+  line-height: 1.4;
+  color: #083041;
+  opacity: .85;
+}
   </style>
 
   <!-- Standards Invocation (docstring) -->
