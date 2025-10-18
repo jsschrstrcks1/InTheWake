@@ -526,5 +526,23 @@
 
   })();
   </script>
+  <script>
+(function(){
+  // 1) Keep only the first hero header (some merges create a second one)
+  const headers = document.querySelectorAll('header.hero-header');
+  headers.forEach((h,i)=>{ if(i>0) h.remove(); });
+
+  // 2) Ensure the active-article host is clean (no pasted full article inside)
+  const host = document.getElementById('solo-article-host');
+  if (host) {
+    // If we find a full <html>, <head>, or another <header> inside main, nuke them
+    host.querySelectorAll('html, head, header.hero-header').forEach(n=>n.remove());
+    // If someone pasted a full article here, keep only the loading placeholder
+    const pastedArticle = host.querySelector('article[id]');
+    if (pastedArticle) host.innerHTML =
+      '<h2>Loading your article…</h2><p>Trimming the sails — this will just take a moment.</p>';
+  }
+})();
+</script>
 </body>
 </html>
