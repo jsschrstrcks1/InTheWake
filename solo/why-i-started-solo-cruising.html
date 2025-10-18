@@ -75,7 +75,13 @@
     </div>
   </header>
 <style>/* Never paint the header background on article heroes */
-figure.hero, .article-hero, .article-card .hero { background:none !important; }</style>
+figure.hero, .article-hero, .article-card .hero { background:none !important; }
+/* Only hide duplicate *direct* children, never <img> inside <picture> */
+#solo-article-host figure.hero > img + img,
+#solo-article-host .article-hero > img + img,
+#solo-article-host .article-card .hero > img + img {
+  display: none !important;
+}</style>
   <main class="wrap" id="content" role="main">
     <section class="cards stack">
       <article class="card" id="solo-article-host" aria-live="polite">
