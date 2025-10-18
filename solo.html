@@ -75,7 +75,45 @@ All work on this project is offered as a gift to God.
       width: 100% !important;           /* kill legacy split */
     }
   </style>
+<style id="solo-host-hero-fix">
+  /* Scope to the Solo host so the rest of the site stays untouched */
+  #solo-article-host figure.hero,
+  #solo-article-host .article-hero,
+  #solo-article-host .article-card .hero {
+    margin: 0 0 1rem 0;
+    padding: 0; border: 0;
+    overflow: visible !important;
+  }
 
+  #solo-article-host figure.hero picture,
+  #solo-article-host figure.hero img,
+  #solo-article-host .article-hero picture,
+  #solo-article-host .article-hero img,
+  #solo-article-host .article-card .hero picture,
+  #solo-article-host .article-card .hero img {
+    position: static !important;      /* undo any absolute cover rules */
+    inset: auto !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;          /* preserve native aspect */
+    object-fit: contain !important;   /* no cropping */
+    border-radius: 12px;
+  }
+
+  /* Nuke the legacy “first two images = split” rule *inside the host only* */
+  #solo-article-host .article-card img:first-of-type,
+  #solo-article-host .article-card img:nth-of-type(2) {
+    width: 100% !important;
+  }
+
+  /* If a second hero image sneaks in, hide it */
+  #solo-article-host figure.hero img + img,
+  #solo-article-host figure.hero picture + picture,
+  #solo-article-host .article-hero img + img,
+  #solo-article-host .article-hero picture + picture {
+    display: none !important;
+  }
+</style>
   <!-- Preconnects -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
