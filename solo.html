@@ -47,14 +47,15 @@ All work on this project is offered as a gift to God.
   <link rel="stylesheet" href="/assets/styles.css?v=3.008.002"/>
 
   <!-- 🔧 SOLO HERO SCOPE FIX (prevents cropped/split images only inside #solo-article-host) -->
-  <style id="solo-hero-scope-fix">
+  <style id="solo-host-hero-fix">
+    /* Scope to the Solo host so the rest of the site stays untouched */
     #solo-article-host figure.hero,
     #solo-article-host .article-hero,
-    #solo-article-host .article-card .hero { 
-      overflow: visible !important;
-      margin: 0 0 1rem 0; 
-      padding: 0; 
+    #solo-article-host .article-card .hero {
+      margin: 0 0 1rem 0;
+      padding: 0;
       border: 0;
+      overflow: visible !important;
     }
     #solo-article-host figure.hero picture,
     #solo-article-host figure.hero img,
@@ -62,7 +63,7 @@ All work on this project is offered as a gift to God.
     #solo-article-host .article-hero img,
     #solo-article-host .article-card .hero picture,
     #solo-article-host .article-card .hero img {
-      position: static !important;
+      position: static !important;      /* undo any absolute cover rules */
       inset: auto !important;
       display: block !important;
       width: 100% !important;
@@ -70,50 +71,16 @@ All work on this project is offered as a gift to God.
       object-fit: contain !important;   /* no cropping */
       border-radius: 12px;
     }
+    /* Nuke legacy “first two images = split” behavior *inside the host only* */
     #solo-article-host .article-card img:first-of-type,
-    #solo-article-host .article-card img:nth-of-type(2) {
-      width: 100% !important;           /* kill legacy split */
-    }
+    #solo-article-host .article-card img:nth-of-type(2) { width: 100% !important; }
+    /* If a second hero image sneaks in, hide it */
+    #solo-article-host figure.hero img + img,
+    #solo-article-host figure.hero picture + picture,
+    #solo-article-host .article-hero img + img,
+    #solo-article-host .article-hero picture + picture { display: none !important; }
   </style>
-<style id="solo-host-hero-fix">
-  /* Scope to the Solo host so the rest of the site stays untouched */
-  #solo-article-host figure.hero,
-  #solo-article-host .article-hero,
-  #solo-article-host .article-card .hero {
-    margin: 0 0 1rem 0;
-    padding: 0; border: 0;
-    overflow: visible !important;
-  }
 
-  #solo-article-host figure.hero picture,
-  #solo-article-host figure.hero img,
-  #solo-article-host .article-hero picture,
-  #solo-article-host .article-hero img,
-  #solo-article-host .article-card .hero picture,
-  #solo-article-host .article-card .hero img {
-    position: static !important;      /* undo any absolute cover rules */
-    inset: auto !important;
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;          /* preserve native aspect */
-    object-fit: contain !important;   /* no cropping */
-    border-radius: 12px;
-  }
-
-  /* Nuke the legacy “first two images = split” rule *inside the host only* */
-  #solo-article-host .article-card img:first-of-type,
-  #solo-article-host .article-card img:nth-of-type(2) {
-    width: 100% !important;
-  }
-
-  /* If a second hero image sneaks in, hide it */
-  #solo-article-host figure.hero img + img,
-  #solo-article-host figure.hero picture + picture,
-  #solo-article-host .article-hero img + img,
-  #solo-article-host .article-hero picture + picture {
-    display: none !important;
-  }
-</style>
   <!-- Preconnects -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
@@ -217,19 +184,6 @@ All work on this project is offered as a gift to God.
       font-weight:700;
     }
   </style>
-
-  <!-- A11y no-overlap shim for share bar -->
-  <style>html.a11y-launcher-present{--share-bar-bottom:84px}</style>
-  <script>
-  (function(){
-    new MutationObserver(function(){
-      document.documentElement.classList.add('a11y-launcher-present');
-    }).observe(document.documentElement,{subtree:true,childList:true});
-  })();
-  </script>
-
-  <!-- Floating share bar (versioned) -->
-  <script defer src="/assets/js/share-bar.js?v=3.008.002"></script>
 
   <!-- RIGHT-RAIL LAYOUT -->
   <style id="right-rail-layout">
@@ -398,7 +352,7 @@ All work on this project is offered as a gift to God.
         authorId:"ken", tags:["solo","tips","reflection"] },
       { slug:"why-i-started-solo-cruising",
         title:"Why I Started Solo Cruising (and Built a Community)",
-        hero: ORIGIN + "/assets/articles/why-i-started-solo-cruising.jpg",  /* ✅ your requested hero */
+        hero: ORIGIN + "/assets/articles/why-i-started-solo-cruising.jpg", /* ✅ your requested hero */
         dek:"From that first solo gangway to a thriving community — lessons, safety, and the joy of sailing on your own terms.",
         authorId:"tina", tags:["solo","story","community","women"] }
     ];
@@ -410,32 +364,54 @@ All work on this project is offered as a gift to God.
     const ARTICLES = RAW_ARTICLES.map(normArticle);
 
     const authorById = Object.fromEntries(AUTHORS.map(a => [a.id, a]));
-    const articlesByAuthor = ARTICLES.reduce(function(acc,a){ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
+    const articlesByAuthor = ARTICLES.reduce((acc,a)=>{ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
 
+    // Helper: permalink
+    function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
+
+    // Helper: normalize mounted hero so it never crops/splits
+    function normalizeSoloHero(root){
+      const scopes = root.querySelectorAll('figure.hero, .article-hero, .article-card .hero');
+      scopes.forEach(scope=>{
+        const kids = Array.from(scope.querySelectorAll('picture, img'));
+        kids.forEach((el,i)=>{
+          el.removeAttribute('width'); el.removeAttribute('height');
+          if(el.tagName==='IMG'){ el.loading = el.loading || 'lazy'; el.decoding = el.decoding || 'async'; }
+          if(i>0) el.remove(); // keep only the first media node
+        });
+      });
+    }
+
+    // Pick article from ?a= or #slug (fallback to last/random)
     const qs   = new URLSearchParams(location.search);
     const hash = (location.hash||"").replace(/^#/, "");
-    var slug   = qs.get("a") || hash || "";
-
+    let slug   = qs.get("a") || hash || "";
     const last = localStorage.getItem("solo:lastSlug");
+
     if(!slug){
-      const pool = ARTICLES.filter(function(a){return a.slug && a.slug!==last;});
+      const pool = ARTICLES.filter(a=>a.slug && a.slug!==last);
       const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
       slug = (pick && pick.slug) || (ARTICLES[0] && ARTICLES[0].slug) || "";
       if(slug) history.replaceState(null, "", location.pathname + "#" + slug);
     }
 
-    const article = ARTICLES.find(function(a){return a.slug===slug;}) || ARTICLES[0];
+    const article = ARTICLES.find(a=>a.slug===slug) || ARTICLES[0];
     localStorage.setItem("solo:lastSlug", article.slug);
     window.__soloArticle = article;
 
+    // Mount the article fragment
     const host = document.getElementById("solo-article-host");
     if(host){
-      fetch(ARTICLE_BASE + encodeURIComponent(article.slug) + ".html", {
+      fetch("/solo/articles/" + encodeURIComponent(article.slug) + ".html", {
         credentials:"omit", cache:"no-store", redirect:"follow"
       })
-      .then(function(r){ return r.ok ? r.text() : Promise.reject(r.status); })
-      .then(function(html){
+      .then(r => r.ok ? r.text() : Promise.reject(r.status))
+      .then(html => {
         host.innerHTML = html;
+
+        /* ✅ run AFTER mount */
+        normalizeSoloHero(host);
+
         wireShareButtons(article);
         injectArticleSEO(article);
         ensureBylineAuthorFallback(article);
@@ -445,19 +421,15 @@ All work on this project is offered as a gift to God.
       });
     }
 
+    // Authors rail
     renderAuthorsRail();
-
     function renderAuthorsRail(){
       const rail = document.getElementById("authors-list");
       if(!rail) return;
       rail.innerHTML = "";
 
       const ver = document.querySelector('meta[name="page:version"]')?.content || "";
-      const sorted = AUTHORS.slice().sort(function(a,b){
-        const aa = (articlesByAuthor[a.id]||[]).length;
-        const bb = (articlesByAuthor[b.id]||[]).length;
-        return bb - aa;
-      });
+      const sorted = AUTHORS.slice().sort((a,b)=> (articlesByAuthor[b.id]||[]).length - (articlesByAuthor[a.id]||[]).length);
 
       sorted.forEach(function(a){
         const authored = (articlesByAuthor[a.id]||[]);
@@ -484,7 +456,7 @@ All work on this project is offered as a gift to God.
 
         const roll = document.createElement('div'); roll.className = "roll";
         const max  = Math.min(4, authored.length);
-        for(var i=0;i<max;i++){
+        for(let i=0;i<max;i++){
           const art = authored[(i + Math.floor(Math.random()*authored.length)) % authored.length];
           const aTag = document.createElement('a');
           aTag.href = permalink(art.slug);
@@ -502,8 +474,7 @@ All work on this project is offered as a gift to God.
       });
     }
 
-    function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
-
+    // Share button
     function wireShareButtons(a){
       const el = document.querySelector('.byline .share');
       if(!el) return;
@@ -517,6 +488,7 @@ All work on this project is offered as a gift to God.
       });
     }
 
+    // SEO overrides when deep-linking to a specific article
     function injectArticleSEO(a){
       if(!(location.search.includes("a=") || location.hash)) return;
       const url = permalink(a.slug);
@@ -545,17 +517,18 @@ All work on this project is offered as a gift to God.
       document.head.appendChild(ld);
 
       function setMeta(p,c){
-        var m=document.querySelector('meta[property="'+p+'"]');
+        let m=document.querySelector('meta[property="'+p+'"]');
         if(!m){ m=document.createElement('meta'); m.setAttribute('property',p); document.head.appendChild(m); }
         m.setAttribute('content', c);
       }
       function setNameMeta(n,c){
-        var m=document.querySelector('meta[name="'+n+'"]');
+        let m=document.querySelector('meta[name="'+n+'"]');
         if(!m){ m=document.createElement('meta'); m.setAttribute('name',n); document.head.appendChild(m); }
         m.setAttribute('content', c);
       }
     }
 
+    // Byline fallback if fragment doesn’t include one
     function ensureBylineAuthorFallback(a){
       const hasByline = !!document.querySelector('footer.byline');
       if(hasByline) return;
@@ -579,14 +552,14 @@ All work on this project is offered as a gift to God.
           '</picture>'+
         '</div>'+
         '<div style="margin-left:.5rem">'+
-          '<strong><a href="'+auth.url+'"'+(auth.url?' target="_blank" rel="noopener"':'')+'>'+escapeHtml(auth.name)+'</a></strong>'+
+          '<strong><a href="'+(auth.url||'#')+'"'+(auth.url?' target="_blank" rel="noopener"':'')+'>'+escapeHtml(auth.name)+'</a></strong>'+
           '<a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>'+
         '</div>';
       mounted.appendChild(footer);
     }
 
     function escapeHtml(s){
-      return String(s||"").replace(/[&<>"']/g, function(m){ return ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" })[m]; });
+      return String(s||"").replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
     }
   })();
   </script>
@@ -620,7 +593,7 @@ All work on this project is offered as a gift to God.
         date:'2024-06-01',
         excerpt:'From that first solo gangway to a thriving community — freedom found at sea.',
         image:'/assets/articles/why-i-started-solo-cruising.jpg?v=3.008.002',
-        author:{name:'Tina', url:'/authors/tina-maulsby.html', image:'/assets/authors/tina.jpg?v=3.008.002'},
+        author:{name:'Tina Maulsby', url:'/authors/tina-maulsby.html', image:'/assets/authors/tina.jpg?v=3.008.002'},
         keywords:['solo']
       }
     ];
