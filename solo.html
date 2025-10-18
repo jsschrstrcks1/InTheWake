@@ -332,245 +332,261 @@ figure.hero, .article-hero, .article-card .hero { background:none !important; }<
 
   <!-- Solo article loader + deep-link SEO injector + authors rail -->
   <script>
-  (function(){
-    "use strict";
+(function(){
+  "use strict";
 
-    const ORIGIN = (location.origin || (location.protocol + '//' + location.host));
-    const ARTICLE_BASE = "/solo/articles/";
-    const PERMALINK_BASE = ORIGIN + ARTICLE_BASE;
+  /* --- tiny CSS safety: only hide duplicate *direct* children in heroes --- */
+  (function ensureSoloHeroCSS(){
+    if (document.getElementById('solo-hero-direct-child-fix')) return;
+    const css = `
+      #solo-article-host figure.hero > img + img,
+      #solo-article-host .article-hero > img + img,
+      #solo-article-host .article-card .hero > img + img { display: none !important; }
+    `;
+    const style = document.createElement('style');
+    style.id = 'solo-hero-direct-child-fix';
+    style.textContent = css;
+    document.head.appendChild(style);
+  })();
 
-    const RAW_AUTHORS = [
-      { id:"ken",  name:"Ken Baker",  url:"https://ken-baker.com",        avatarBase:"/authors/img/ken1",
-        socials:[ {label:"Site",href:"https://ken-baker.com"},
-                  {label:"IG",href:"https://instagram.com/flickersofmajesty"},
-                  {label:"Facebook Solo Travel Group",href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr"},
-                  {label:"Community (mobile)",href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link"} ]},
-      { id:"tina", name:"Tina Maulsby", url:"/authors/tina-maulsby.html", avatarBase:"/authors/img/tina3",
-        socials:[ {label:"TikTok",href:"https://www.tiktok.com/@beyondboundarieswithtina"},
-                  {label:"Etsy",href:"https://www.etsy.com/shop/YOUR_SHOP?section_id=CRUISE_ONLY"},
-                  {label:"Facebook Group",href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr"},
-                  {label:"Community (mobile)",href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link"} ]}
-    ];
+  const ORIGIN        = (location.origin || (location.protocol + '//' + location.host));
+  const ARTICLE_BASE  = "/solo/articles/";
+  const PERMALINK_BASE= ORIGIN + ARTICLE_BASE;
 
-    const RAW_ARTICLES = [
-      { slug:"freedom-of-your-own-wake",
-        title:"The Freedom of Your Own Wake",
-        hero: ORIGIN + "/assets/solo/freedom-hero.jpg",
-        dek:"A gentle case for sailing alone: rest, rhythm, and room to breathe.",
-        authorId:"ken", tags:["solo","tips","reflection"] },
-      { slug:"why-i-started-solo-cruising",
-        title:"Why I Started Solo Cruising (and Built a Community)",
-        hero: ORIGIN + "/assets/articles/why-i-started-solo-cruising.jpg", /* ✅ your requested hero */
-        dek:"From that first solo gangway to a thriving community — lessons, safety, and the joy of sailing on your own terms.",
-        authorId:"tina", tags:["solo","story","community","women"] }
-    ];
+  /* --- data ---------------------------------------------------------------- */
+  const RAW_AUTHORS = [
+    { id:"ken",  name:"Ken Baker",  url:"https://ken-baker.com",        avatarBase:"/authors/img/ken1",
+      socials:[ {label:"Site",href:"https://ken-baker.com"},
+                {label:"IG",href:"https://instagram.com/flickersofmajesty"},
+                {label:"Facebook Solo Travel Group",href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr"},
+                {label:"Community (mobile)",href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link"} ]},
+    { id:"tina", name:"Tina Maulsby", url:"/authors/tina-maulsby.html", avatarBase:"/authors/img/tina3",
+      socials:[ {label:"TikTok",href:"https://www.tiktok.com/@beyondboundarieswithtina"},
+                {label:"Etsy",href:"https://www.etsy.com/shop/YOUR_SHOP?section_id=CRUISE_ONLY"},
+                {label:"Facebook Group",href:"https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr"},
+                {label:"Community (mobile)",href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link"} ]}
+  ];
 
-    function normArticle(a){ return { slug:a.slug||"", title:a.title||"", hero:a.hero||"", dek:a.dek||"", authorId:a.authorId||"", tags:Array.isArray(a.tags)?a.tags:[] }; }
-    function normAuthor(a){ return { id:a.id||"", name:a.name||"", url:a.url||"", avatarBase:a.avatarBase||"", socials:Array.isArray(a.socials)?a.socials:[] }; }
+  const RAW_ARTICLES = [
+    { slug:"freedom-of-your-own-wake",
+      title:"The Freedom of Your Own Wake",
+      hero: ORIGIN + "/assets/solo/freedom-hero.jpg",
+      dek:"A gentle case for sailing alone: rest, rhythm, and room to breathe.",
+      authorId:"ken", tags:["solo","tips","reflection"] },
+    { slug:"why-i-started-solo-cruising",
+      title:"Why I Started Solo Cruising (and Built a Community)",
+      hero: ORIGIN + "/assets/articles/why-i-started-solo-cruising.jpg",
+      dek:"From that first solo gangway to a thriving community — lessons, safety, and the joy of sailing on your own terms.",
+      authorId:"tina", tags:["solo","story","community","women"] }
+  ];
 
-    const AUTHORS  = RAW_AUTHORS.map(normAuthor);
-    const ARTICLES = RAW_ARTICLES.map(normArticle);
+  function normArticle(a){ return { slug:a.slug||"", title:a.title||"", hero:a.hero||"", dek:a.dek||"", authorId:a.authorId||"", tags:Array.isArray(a.tags)?a.tags:[] }; }
+  function normAuthor(a){ return { id:a.id||"", name:a.name||"", url:a.url||"", avatarBase:a.avatarBase||"", socials:Array.isArray(a.socials)?a.socials:[] }; }
 
-    const authorById = Object.fromEntries(AUTHORS.map(a => [a.id, a]));
-    const articlesByAuthor = ARTICLES.reduce((acc,a)=>{ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
+  const AUTHORS  = RAW_AUTHORS.map(normAuthor);
+  const ARTICLES = RAW_ARTICLES.map(normArticle);
 
-    // Helper: permalink
-    function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
+  const authorById = Object.fromEntries(AUTHORS.map(a => [a.id, a]));
+  const articlesByAuthor = ARTICLES.reduce((acc,a)=>{ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
 
-    // Helper: normalize mounted hero so it never crops/splits
-    function normalizeSoloHero(root){
-      const scopes = root.querySelectorAll('figure.hero, .article-hero, .article-card .hero');
-      scopes.forEach(scope=>{
-        const kids = Array.from(scope.querySelectorAll('picture, img'));
-        kids.forEach((el,i)=>{
-          el.removeAttribute('width'); el.removeAttribute('height');
-          if(el.tagName==='IMG'){ el.loading = el.loading || 'lazy'; el.decoding = el.decoding || 'async'; }
-          if(i>0) el.remove(); // keep only the first media node
-        });
-      });
-    }
+  /* --- helpers ------------------------------------------------------------- */
+  function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
 
-    // Pick article from ?a= or #slug (fallback to last/random)
-    const qs   = new URLSearchParams(location.search);
-    const hash = (location.hash||"").replace(/^#/, "");
-    let slug   = qs.get("a") || hash || "";
-    const last = localStorage.getItem("solo:lastSlug");
-
-    if(!slug){
-      const pool = ARTICLES.filter(a=>a.slug && a.slug!==last);
-      const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
-      slug = (pick && pick.slug) || (ARTICLES[0] && ARTICLES[0].slug) || "";
-      if(slug) history.replaceState(null, "", location.pathname + "#" + slug);
-    }
-
-    const article = ARTICLES.find(a=>a.slug===slug) || ARTICLES[0];
-    localStorage.setItem("solo:lastSlug", article.slug);
-    window.__soloArticle = article;
-
-    // Mount the article fragment
-    const host = document.getElementById("solo-article-host");
-    if(host){
-      fetch("/solo/articles/" + encodeURIComponent(article.slug) + ".html", {
-        credentials:"omit", cache:"no-store", redirect:"follow"
-      })
-      .then(r => r.ok ? r.text() : Promise.reject(r.status))
-      .then(html => {
-        host.innerHTML = html;
-
-        /* ✅ run AFTER mount */
-        normalizeSoloHero(host);
-
-        wireShareButtons(article);
-        injectArticleSEO(article);
-        ensureBylineAuthorFallback(article);
-      })
-      .catch(function(){
-        host.innerHTML = '<h2>We hit rough seas loading this article.</h2><p>Try refreshing or <a href="'+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
-      });
-    }
-
-    // Authors rail
-    renderAuthorsRail();
-    function renderAuthorsRail(){
-      const rail = document.getElementById("authors-list");
-      if(!rail) return;
-      rail.innerHTML = "";
-
-      const ver = document.querySelector('meta[name="page:version"]')?.content || "";
-      const sorted = AUTHORS.slice().sort((a,b)=> (articlesByAuthor[b.id]||[]).length - (articlesByAuthor[a.id]||[]).length);
-
-      sorted.forEach(function(a){
-        const authored = (articlesByAuthor[a.id]||[]);
-        const div = document.createElement('div'); div.className = "author";
-
-        const fallbackExt = a.id === "ken" ? "jpg" : "png";
-        const webp = a.avatarBase + ".webp" + (ver?("?v="+encodeURIComponent(ver)):"");
-        const fall = a.avatarBase + "." + fallbackExt + (ver?("?v="+encodeURIComponent(ver)):"");
-
-        div.innerHTML = ''+
-          '<div class="avatar">'+
-            '<picture>'+
-              '<source type="image/webp" srcset="'+webp+'">'+
-              '<img src="'+fall+'" alt="'+escapeHtml(a.name)+'" width="80" height="80" loading="lazy" decoding="async">'+
-            '</picture>'+
-          '</div>'+
-          '<div class="meta">'+
-            '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener"':'')+'>'+escapeHtml(a.name)+'</a>'+
-            '<div class="links">'+
-              (a.socials||[]).map(function(s){return '<a href="'+s.href+'" target="_blank" rel="noopener">'+escapeHtml(s.label)+'</a>';}).join('')+
-            '</div>'+
-          '</div>';
-        rail.appendChild(div);
-
-        const roll = document.createElement('div'); roll.className = "roll";
-        const max  = Math.min(4, authored.length);
-        for(let i=0;i<max;i++){
-          const art = authored[(i + Math.floor(Math.random()*authored.length)) % authored.length];
-          const aTag = document.createElement('a');
-          aTag.href = permalink(art.slug);
-          aTag.textContent = art.title;
-          aTag.addEventListener('click', function(e){
-            e.preventDefault();
-            const u = new URL(this.href, location.origin);
-            const s = u.pathname.split('/').pop().replace(/\.html$/,'');
-            history.pushState(null, "", location.pathname + "#" + s);
-            location.reload();
-          });
-          roll.appendChild(aTag);
+  // ✅ FIXED: touch only *direct* children so we never delete <img> inside <picture>
+  function normalizeSoloHero(root){
+    root.querySelectorAll('figure.hero, .article-hero, .article-card .hero').forEach(scope=>{
+      const media = scope.querySelectorAll(':scope > picture, :scope > img');
+      media.forEach((el, i) => {
+        // natural sizing; let CSS handle layout
+        el.removeAttribute('width'); el.removeAttribute('height');
+        if (el.tagName === 'IMG') {
+          el.loading  = el.loading  || 'lazy';
+          el.decoding = el.decoding || 'async';
         }
-        rail.appendChild(roll);
+        // keep only the first top-level media node
+        if (i > 0) el.remove();
       });
-    }
+    });
+  }
 
-    // Share button
-    function wireShareButtons(a){
-      const el = document.querySelector('.byline .share');
-      if(!el) return;
-      const url = permalink(a.slug);
-      el.addEventListener('click', function(e){
-        e.preventDefault();
-        navigator.clipboard.writeText(url).then(function(){
-          el.textContent = "Link copied!";
-          setTimeout(function(){ el.textContent = "Share this article"; }, 1500);
-        });
+  function wireShareButtons(a){
+    const el = document.querySelector('.byline .share');
+    if(!el) return;
+    const url = permalink(a.slug);
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      navigator.clipboard.writeText(url).then(function(){
+        el.textContent = "Link copied!";
+        setTimeout(function(){ el.textContent = "Share this article"; }, 1500);
       });
+    });
+  }
+
+  function injectArticleSEO(a){
+    if(!(location.search.includes("a=") || location.hash)) return;
+    const url = permalink(a.slug);
+    setMeta('og:title', a.title + " — In the Wake");
+    setMeta('og:description', a.dek || "Solo cruising reflections and tips.");
+    setMeta('og:image', a.hero || (ORIGIN + "/assets/index_hero.jpg"));
+    setMeta('og:url', url);
+    setNameMeta('description', a.dek || "Solo cruising reflections and tips.");
+    setMeta('twitter:card','summary_large_image');
+    if (a.hero && /\.webp(\?|$)/i.test(a.hero)) { setMeta('og:image:type','image/webp'); }
+
+    const existingLD = document.querySelector('script[type="application/ld+json"].solo-article-ld');
+    if (existingLD) existingLD.remove();
+    const ld = document.createElement('script');
+    ld.type = "application/ld+json";
+    ld.className = "solo-article-ld";
+    ld.textContent = JSON.stringify({
+      "@context":"https://schema.org",
+      "@type":"BlogPosting",
+      "headline": a.title,
+      "description": a.dek || "Solo cruising reflections and tips.",
+      "image": a.hero || (ORIGIN + "/assets/index_hero.jpg"),
+      "url": url,
+      "isPartOf": {"@type":"Blog","name":"Solo Cruising","url": ORIGIN + "/solo.html"}
+    });
+    document.head.appendChild(ld);
+
+    function setMeta(p,c){
+      let m=document.querySelector('meta[property="'+p+'"]');
+      if(!m){ m=document.createElement('meta'); m.setAttribute('property',p); document.head.appendChild(m); }
+      m.setAttribute('content', c);
     }
-
-    // SEO overrides when deep-linking to a specific article
-    function injectArticleSEO(a){
-      if(!(location.search.includes("a=") || location.hash)) return;
-      const url = permalink(a.slug);
-      setMeta('og:title', a.title + " — In the Wake");
-      setMeta('og:description', a.dek || "Solo cruising reflections and tips.");
-      setMeta('og:image', a.hero || (ORIGIN + "/assets/index_hero.jpg?v=3.008.004"));
-      setMeta('og:url', url);
-      setNameMeta('description', a.dek || "Solo cruising reflections and tips.");
-      setMeta('twitter:card','summary_large_image');
-      if (a.hero && /\.webp(\?|$)/i.test(a.hero)) { setMeta('og:image:type','image/webp'); }
-
-      const existingLD = document.querySelector('script[type="application/ld+json"].solo-article-ld');
-      if (existingLD) existingLD.remove();
-      const ld = document.createElement('script');
-      ld.type = "application/ld+json";
-      ld.className = "solo-article-ld";
-      ld.textContent = JSON.stringify({
-        "@context":"https://schema.org",
-        "@type":"BlogPosting",
-        "headline": a.title,
-        "description": a.dek || "Solo cruising reflections and tips.",
-        "image": a.hero || (ORIGIN + "/assets/index_hero.jpg?v=3.008.004"),
-        "url": url,
-        "isPartOf": {"@type":"Blog","name":"Solo Cruising","url": ORIGIN + "/solo.html"}
-      });
-      document.head.appendChild(ld);
-
-      function setMeta(p,c){
-        let m=document.querySelector('meta[property="'+p+'"]');
-        if(!m){ m=document.createElement('meta'); m.setAttribute('property',p); document.head.appendChild(m); }
-        m.setAttribute('content', c);
-      }
-      function setNameMeta(n,c){
-        let m=document.querySelector('meta[name="'+n+'"]');
-        if(!m){ m=document.createElement('meta'); m.setAttribute('name',n); document.head.appendChild(m); }
-        m.setAttribute('content', c);
-      }
+    function setNameMeta(n,c){
+      let m=document.querySelector('meta[name="'+n+'"]');
+      if(!m){ m=document.createElement('meta'); m.setAttribute('name',n); document.head.appendChild(m); }
+      m.setAttribute('content', c);
     }
+  }
 
-    // Byline fallback if fragment doesn’t include one
-    function ensureBylineAuthorFallback(a){
-      const hasByline = !!document.querySelector('footer.byline');
-      if(hasByline) return;
-      const mounted = document.getElementById('solo-article-host');
-      if(!mounted) return;
-      const auth = authorById[a.authorId] || null;
-      if(!auth) return;
+  function ensureBylineAuthorFallback(a){
+    const hasByline = !!document.querySelector('footer.byline');
+    if(hasByline) return;
+    const mounted = document.getElementById('solo-article-host');
+    if(!mounted) return;
+    const auth = authorById[a.authorId] || null;
+    if(!auth) return;
 
-      const ver = document.querySelector('meta[name="page:version"]')?.content || "3.008.004";
-      const fallbackExt = auth.id === "ken" ? "jpg" : "png";
-      const webp = auth.avatarBase + ".webp?v=" + encodeURIComponent(ver);
-      const fall = auth.avatarBase + "." + fallbackExt + "?v=" + encodeURIComponent(ver);
+    const ver = document.querySelector('meta[name="page:version"]')?.content || "3.008.003";
+    const fallbackExt = auth.id === "ken" ? "jpg" : "png";
+    const webp = auth.avatarBase + ".webp?v=" + encodeURIComponent(ver);
+    const fall = auth.avatarBase + "." + fallbackExt + "?v=" + encodeURIComponent(ver);
 
-      const footer = document.createElement('footer');
-      footer.className = "byline";
-      footer.innerHTML = ''+
-        '<div class="avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;flex:none">'+
+    const footer = document.createElement('footer');
+    footer.className = "byline";
+    footer.innerHTML = ''+
+      '<div class="avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;flex:none">'+
+        '<picture>'+
+          '<source type="image/webp" srcset="'+webp+'">'+
+          '<img src="'+fall+'" alt="'+escapeHtml(auth.name)+'" width="48" height="48" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">'+
+        '</picture>'+
+      '</div>'+
+      '<div style="margin-left:.5rem">'+
+        '<strong><a href="'+(auth.url||'#')+'"'+(auth.url?' target="_blank" rel="noopener"':'')+'>'+escapeHtml(auth.name)+'</a></strong>'+
+        '<a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>'+
+      '</div>';
+    mounted.appendChild(footer);
+  }
+
+  function escapeHtml(s){
+    return String(s||"").replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+  }
+
+  /* --- choose article, fetch, mount, normalize ---------------------------- */
+  const qs   = new URLSearchParams(location.search);
+  const hash = (location.hash||"").replace(/^#/, "");
+  let slug   = qs.get("a") || hash || "";
+  const last = localStorage.getItem("solo:lastSlug");
+
+  if(!slug){
+    const pool = ARTICLES.filter(a=>a.slug && a.slug!==last);
+    const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
+    slug = (pick && pick.slug) || (ARTICLES[0] && ARTICLES[0].slug) || "";
+    if(slug) history.replaceState(null, "", location.pathname + "#" + slug);
+  }
+
+  const article = ARTICLES.find(a=>a.slug===slug) || ARTICLES[0];
+  localStorage.setItem("solo:lastSlug", article.slug);
+  window.__soloArticle = article;
+
+  const host = document.getElementById("solo-article-host");
+  if(host){
+    fetch(ARTICLE_BASE + encodeURIComponent(article.slug) + ".html", {
+      credentials:"omit", cache:"no-store", redirect:"follow"
+    })
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(html => {
+      host.innerHTML = html;
+
+      // ✅ run AFTER mount so we act on the fragment’s DOM
+      normalizeSoloHero(host);
+
+      wireShareButtons(article);
+      injectArticleSEO(article);
+      ensureBylineAuthorFallback(article);
+    })
+    .catch(function(){
+      host.innerHTML = '<h2>We hit rough seas loading this article.</h2><p>Try refreshing or <a href="'+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
+    });
+  }
+
+  /* --- authors rail -------------------------------------------------------- */
+  renderAuthorsRail();
+  function renderAuthorsRail(){
+    const rail = document.getElementById("authors-list");
+    if(!rail) return;
+    rail.innerHTML = "";
+
+    const ver = document.querySelector('meta[name="page:version"]')?.content || "";
+    const sorted = AUTHORS.slice().sort((a,b)=> (articlesByAuthor[b.id]||[]).length - (articlesByAuthor[a.id]||[]).length);
+
+    sorted.forEach(function(a){
+      const authored = (articlesByAuthor[a.id]||[]);
+      const div = document.createElement('div'); div.className = "author";
+
+      const fallbackExt = a.id === "ken" ? "jpg" : "png";
+      const webp = a.avatarBase + ".webp" + (ver?("?v="+encodeURIComponent(ver)):"");
+      const fall = a.avatarBase + "." + fallbackExt + (ver?("?v="+encodeURIComponent(ver)):"");
+
+      div.innerHTML = ''+
+        '<div class="avatar">'+
           '<picture>'+
             '<source type="image/webp" srcset="'+webp+'">'+
-            '<img src="'+fall+'" alt="'+escapeHtml(auth.name)+'" width="48" height="48" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">'+
+            '<img src="'+fall+'" alt="'+escapeHtml(a.name)+'" width="80" height="80" loading="lazy" decoding="async">'+
           '</picture>'+
         '</div>'+
-        '<div style="margin-left:.5rem">'+
-          '<strong><a href="'+(auth.url||'#')+'"'+(auth.url?' target="_blank" rel="noopener"':'')+'>'+escapeHtml(auth.name)+'</a></strong>'+
-          '<a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>'+
+        '<div class="meta">'+
+          '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener"':'')+'>'+escapeHtml(a.name)+'</a>'+
+          '<div class="links">'+
+            (a.socials||[]).map(function(s){return '<a href="'+s.href+'" target="_blank" rel="noopener">'+escapeHtml(s.label)+'</a>';}).join('')+
+          '</div>'+
         '</div>';
-      mounted.appendChild(footer);
-    }
+      rail.appendChild(div);
 
-    function escapeHtml(s){
-      return String(s||"").replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
-    }
-  })();
-  </script>
+      const roll = document.createElement('div'); roll.className = "roll";
+      const max  = Math.min(4, authored.length);
+      for(let i=0;i<max;i++){
+        const art = authored[(i + Math.floor(Math.random()*authored.length)) % authored.length];
+        const aTag = document.createElement('a');
+        aTag.href = permalink(art.slug);
+        aTag.textContent = art.title;
+        aTag.addEventListener('click', function(e){
+          e.preventDefault();
+          const u = new URL(this.href, location.origin);
+          const s = u.pathname.split('/').pop().replace(/\.html$/,'');
+          history.pushState(null, "", location.pathname + "#" + s);
+          location.reload();
+        });
+        roll.appendChild(aTag);
+      }
+      rail.appendChild(roll);
+    });
+  }
+
+})();
+</script>
 
   <!-- Articles rail (Unified source: /assets/data/articles/index.json) -->
   <script>
