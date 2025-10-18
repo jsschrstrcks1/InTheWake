@@ -14,8 +14,8 @@ All work on this project is offered as a gift to God.
   <meta name="theme-color" content="#0e6e8e">
 
   <!-- Version Trinity -->
-  <title>Solo Travel — In the Wake (v3.008.006)</title>
-  <meta name="page:version" content="v3.008.006">
+  <title>Solo Travel — In the Wake (v3.008.007)</title>
+  <meta name="page:version" content="v3.008.007">
   <meta name="standards:baseline" content="3.008">
 
   <!-- Canonical & Description -->
@@ -79,6 +79,31 @@ All work on this project is offered as a gift to God.
     #solo-article-host figure.hero picture + picture,
     #solo-article-host .article-hero img + img,
     #solo-article-host .article-hero picture + picture { display: none !important; }
+    /* Solo article hero sizing fix (v3.008.007) */
+#solo-article-host figure.hero,
+#solo-article-host .article-hero {
+  max-width: 94%;
+  margin: 0 auto 1.25rem auto;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#solo-article-host figure.hero img,
+#solo-article-host .article-hero img,
+#solo-article-host figure.hero picture,
+#solo-article-host .article-hero picture {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+}
+
+/* Optional: light frame for visual separation */
+#solo-article-host figure.hero {
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #fff;
+}
   </style>
 
   <!-- Preconnects -->
@@ -221,7 +246,7 @@ All work on this project is offered as a gift to God.
   </style>
 
   <!-- Standards Invocation (docstring) -->
-  <!-- EVERY-PAGE v3.008.006 · SOLO-MODULE v3.008.006 · UNIFIED-NAV v3.008.006 -->
+  <!-- EVERY-PAGE v3.008.007 · SOLO-MODULE v3.008.007 · UNIFIED-NAV v3.008.007 -->
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
@@ -230,7 +255,7 @@ All work on this project is offered as a gift to God.
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.008.004" alt="In the Wake wordmark" width="256" height="64"/>
-        <span class="version-badge">v3.008.006</span>
+        <span class="version-badge">v3.008.007</span>
       </div>
       <!-- Unified pill nav (absolute URLs) -->
       <nav class="nav pill-nav pills" aria-label="Primary">
@@ -310,7 +335,7 @@ figure.hero, .article-hero, .article-card .hero { background:none !important; }<
 
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.008.006</span>
+    <span class="version-badge">v3.008.007</span>
     <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
