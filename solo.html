@@ -144,7 +144,13 @@ All work on this project is offered as a gift to God.
   </script>
 
   <!-- Page CSS tweaks -->
-  <style id="brand-title-hide">.brand-title{display:none!important}</style>
+  <style id="brand-title-hide">.brand-title{display:none!important}
+  /* Only hide duplicate *direct* children, never <img> inside <picture> */
+#solo-article-host figure.hero > img + img,
+#solo-article-host .article-hero > img + img,
+#solo-article-host .article-card .hero > img + img {
+  display: none !important;
+}</style>
 
   <!-- Hero vibrancy -->
   <style id="hero-vibrancy">
