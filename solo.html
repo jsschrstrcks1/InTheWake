@@ -14,8 +14,8 @@ All work on this project is offered as a gift to God.
   <meta name="theme-color" content="#0e6e8e">
 
   <!-- Version Trinity -->
-  <title>Solo Travel — In the Wake (v3.008.010)</title>
-  <meta name="page:version" content="v3.008.010">
+  <title>Solo Travel — In the Wake (v3.008.011)</title>
+  <meta name="page:version" content="v3.008.011">
   <meta name="standards:baseline" content="3.008">
 
   <!-- Canonical & Description -->
@@ -79,7 +79,7 @@ All work on this project is offered as a gift to God.
     #solo-article-host figure.hero picture + picture,
     #solo-article-host .article-hero img + img,
     #solo-article-host .article-hero picture + picture { display: none !important; }
- /* === Solo article hero — framed image + caption below (v3.008.010) === */
+ /* === Solo article hero — framed image + caption below (v3.008.011) === */
 
 /* Frame + centering */
 #solo-article-host figure.hero,
@@ -135,6 +135,43 @@ All work on this project is offered as a gift to God.
 #solo-article-host figure.hero > figcaption a:hover,
 #solo-article-host .article-hero > figcaption a:hover{
   text-decoration:underline;
+}
+    /* --- Solo hero caption: force below image, kill any overlay styles --- */
+#solo-article-host figure.hero figcaption,
+#solo-article-host .article-hero figcaption{
+  position: static !important;
+  inset: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  top: auto !important;
+  float: none !important;
+  transform: none !important;
+  display: block !important;
+
+  margin-top: .65rem;
+  padding-top: .45rem;
+  border-top: 1px dashed rgba(8,48,65,.12);
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+
+  font-size: .95rem;
+  line-height: 1.4;
+  color: #083041;
+  text-align: right;
+  opacity: .85;
+}
+
+/* Make sure the media actually fills the frame */
+#solo-article-host figure.hero > picture,
+#solo-article-host figure.hero > img,
+#solo-article-host .article-hero > picture,
+#solo-article-host .article-hero > img{
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
 }
   </style>
 
@@ -278,7 +315,7 @@ All work on this project is offered as a gift to God.
   </style>
 
   <!-- Standards Invocation (docstring) -->
-  <!-- EVERY-PAGE v3.008.010 · SOLO-MODULE v3.008.010 · UNIFIED-NAV v3.008.010 -->
+  <!-- EVERY-PAGE v3.008.011 · SOLO-MODULE v3.008.011 · UNIFIED-NAV v3.008.011 -->
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
@@ -287,7 +324,7 @@ All work on this project is offered as a gift to God.
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.008.004" alt="In the Wake wordmark" width="256" height="64"/>
-        <span class="version-badge">v3.008.010</span>
+        <span class="version-badge">v3.008.011</span>
       </div>
       <!-- Unified pill nav (absolute URLs) -->
       <nav class="nav pill-nav pills" aria-label="Primary">
@@ -367,7 +404,7 @@ figure.hero, .article-hero, .article-card .hero { background:none !important; }<
 
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.008.010</span>
+    <span class="version-badge">v3.008.011</span>
     <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
