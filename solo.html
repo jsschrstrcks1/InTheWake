@@ -261,29 +261,31 @@
   </script>
 
   <!-- Solo article loader + SEO injector + hero normalizer + authors rail + related rail -->
-  <script>
-  (function(){
-    "use strict";
+<script>
+(function(){
+  "use strict";
 
-    /* Tiny CSS safety in case the scoped style was stripped by a CDN merge */
-    (function ensureSoloHeroCSS(){
-      if (document.getElementById('solo-hero-direct-child-fix')) return;
-      const css = `
-        #solo-article-host figure.hero > img + img,
-        #solo-article-host .article-hero > img + img,
-        #solo-article-host .article-card .hero > img + img { display: none !important; }`;
-      const style = document.createElement('style');
-      style.id = 'solo-hero-direct-child-fix';
-      style.textContent = css;
-      document.head.appendChild(style);
-    })();
+  /* --- small CSS safety (unchanged) -------------------------------------- */
+  (function ensureSoloHeroCSS(){
+    if (document.getElementById('solo-hero-direct-child-fix')) return;
+    var css = '\
+      #solo-article-host figure.hero > img + img,\
+      #solo-article-host .article-hero > img + img,\
+      #solo-article-host .article-card .hero > img + img { display: none !important; }';
+    var style = document.createElement('style');
+    style.id = 'solo-hero-direct-child-fix';
+    style.textContent = css;
+    document.head.appendChild(style);
+  })();
 
-    const ORIGIN         = (location.origin || (location.protocol + '//' + location.host));
-    const PERMALINK_BASE = ORIGIN + "/solo/";
-    const ARTICLE_BASE   = "/solo/articles/";                 // locked, canonical base
+  /* ================ HARDENED LOADER (keeps your exact paths) ============== */
+  try {
+    var ORIGIN         = (location.origin || (location.protocol + '//' + location.host));
+    var PERMALINK_BASE = ORIGIN + "/solo/";
+    var ARTICLE_BASE   = "/solo/articles/";     // canonical partials folder (no full pages)
 
-    /* --- data -------------------------------------------------------------- */
-    const RAW_AUTHORS = [
+    /* --- data seeds (unchanged) ------------------------------------------- */
+    var RAW_AUTHORS = [
       { id:"ken",  name:"Ken Baker",  url:"/authors/ken-baker.html", avatarBase:"/authors/img/ken1",
         socials:[ {label:"Site",href:"/authors/ken-baker.html"},
                   {label:"IG",href:"https://instagram.com/flickersofmajesty"},
@@ -294,7 +296,7 @@
                   {label:"Community (mobile)",href:"https://m.me/cm/Aba2d_mIzlMxlCA5/?send_source=cm:copy_invite_link"} ]}
     ];
 
-    const RAW_ARTICLES = [
+    var RAW_ARTICLES = [
       { slug:"freedom-of-your-own-wake",
         title:"The Freedom of Your Own Wake",
         hero: ORIGIN + "/assets/solo/freedom-hero.jpg",
@@ -309,80 +311,85 @@
         authorId:"tina", tags:["solo","story","community","women"] }
     ];
 
-    // Prefer sitewide authors.json; fallback to RAW_AUTHORS
-    async function loadAuthorsJson(ver){
-      try{
-        const r=await fetch('/data/authors.json?v='+(ver||'3.008.016'),{cache:'no-store'});
-        if(!r.ok) throw 0;
-        const j=await r.json();
-        if(Array.isArray(j?.authors)&&j.authors.length){
-          return j.authors.map(a=>({
-            id: (a.slug||'').split('-')[0]||a.slug||a.name.toLowerCase(),
-            name: a.name, url: a.url,
-            avatarBase: (a.image||'').replace(/\.(webp|jpg|jpeg|png)(\?.*)?$/,''),
-            socials: []
-          }));
-        }
-      }catch(_){}
-      return null;
+    /* --- helpers (no optional chaining) ----------------------------------- */
+    function getMeta(name, fallback){
+      var m = document.querySelector('meta[name="'+name+'"]');
+      return (m && m.content) ? m.content : (fallback || "");
+    }
+    var ver = getMeta("page:version","3.008.016");
+
+    function objectFromEntries(list){
+      var out = {};
+      for (var i=0;i<list.length;i++){ out[list[i][0]] = list[i][1]; }
+      return out;
+    }
+    function authorById(arr){
+      var pairs = arr.map(function(a){ return [a.id, a]; });
+      return objectFromEntries(pairs);
+    }
+    function articlesByAuthor(list){
+      var acc = {};
+      for (var i=0;i<list.length;i++){
+        var a = list[i];
+        (acc[a.authorId] = acc[a.authorId] || []).push(a);
+      }
+      return acc;
+    }
+    function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
+    function escapeHtml(s){
+      return String(s||"").replace(/[&<>"']/g, function(m){ return ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" })[m]; });
     }
 
-    const ver = document.querySelector('meta[name="page:version"]')?.content || "3.008.016";
-    let AUTHORS = RAW_AUTHORS;
-
-    const ARTICLES = RAW_ARTICLES;
-    const authorById = (arr)=>Object.fromEntries(arr.map(a => [a.id, a]));
-    let __authorsIndex = authorById(AUTHORS);
-
-    const articlesByAuthor = (list)=>list.reduce((acc,a)=>{ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
-    let __articlesByAuthor = articlesByAuthor(ARTICLES);
-
-    function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
-
     function normalizeSoloHero(root){
-      root.querySelectorAll('figure.hero, .article-hero, .article-card .hero').forEach(scope=>{
-        const media = scope.querySelectorAll(':scope > picture, :scope > img');
-        media.forEach((el, i) => {
+      var scopes = root.querySelectorAll('figure.hero, .article-hero, .article-card .hero');
+      Array.prototype.forEach.call(scopes, function(scope){
+        var media = scope.querySelectorAll(':scope > picture, :scope > img');
+        Array.prototype.forEach.call(media, function(el, i){
           el.removeAttribute('width'); el.removeAttribute('height');
           if (el.tagName === 'IMG') {
-            el.loading  = el.loading  || 'lazy';
-            el.decoding = el.decoding || 'async';
+            if (!el.loading)  el.loading  = 'lazy';
+            if (!el.decoding) el.decoding = 'async';
           }
-          if (i > 0) el.remove(); // keep only first top-level media child
+          if (i > 0) el.parentNode && el.parentNode.removeChild(el);
         });
       });
     }
 
     function wireShareButtons(a){
-      const el = document.querySelector('.byline .share');
+      var el = document.querySelector('.byline .share');
       if(!el) return;
-      const url = permalink(a.slug);
+      var url = permalink(a.slug);
       el.addEventListener('click', function(e){
         e.preventDefault();
-        navigator.clipboard.writeText(url).then(function(){
-          el.textContent = "Link copied!";
-          setTimeout(function(){ el.textContent = "Share this article"; }, 1500);
-        });
+        if (navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(url).then(function(){
+            el.textContent = "Link copied!";
+            setTimeout(function(){ el.textContent = "Share this article"; }, 1500);
+          });
+        } else {
+          prompt("Copy this link:", url);
+        }
       });
       el.setAttribute('role','button'); el.setAttribute('tabindex','0');
       el.addEventListener('keydown', function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); el.click(); }});
     }
 
-    function setMeta(p,c){
-      let m=document.querySelector('meta[property="'+p+'"]');
-      if(!m){ m=document.createElement('meta'); m.setAttribute('property',p); document.head.appendChild(m); }
-      m.setAttribute('content', c);
+    function setMeta(prop, content){
+      var m=document.querySelector('meta[property="'+prop+'"]');
+      if(!m){ m=document.createElement('meta'); m.setAttribute('property',prop); document.head.appendChild(m); }
+      m.setAttribute('content', content);
     }
-    function setNameMeta(n,c){
-      let m=document.querySelector('meta[name="'+n+'"]');
-      if(!m){ m=document.createElement('meta'); m.setAttribute('name',n); document.head.appendChild(m); }
-      m.setAttribute('content', c);
+    function setNameMeta(name, content){
+      var m=document.querySelector('meta[name="'+name+'"]');
+      if(!m){ m=document.createElement('meta'); m.setAttribute('name',name); document.head.appendChild(m); }
+      m.setAttribute('content', content);
     }
 
     function injectArticleSEO(a){
-      if(!(location.search.includes("a=") || location.hash)) return;
-      const url = permalink(a.slug);
-      document.title = a.title + " | Solo Cruising | In the Wake (v" + (document.querySelector('meta[name="page:version"]')?.content||"3.008.016") + ")";
+      // Only when deep-linked
+      if(!(location.search.indexOf("a=") >= 0 || location.hash)) return;
+      var url = permalink(a.slug);
+      document.title = a.title + " | Solo Cruising | In the Wake (v" + getMeta("page:version","3.008.016") + ")";
       setNameMeta('description', a.dek || "Solo cruising reflections and tips.");
       setMeta('og:type','article');
       setMeta('og:title', a.title + " — In the Wake");
@@ -391,9 +398,10 @@
       setMeta('og:url', url);
       setNameMeta('twitter:card','summary_large_image');
 
-      // JSON-LD (dynamic; static lives in each article file)
-      document.querySelectorAll('script[type="application/ld+json"].solo-article-ld').forEach(n=>n.remove());
-      const ld = document.createElement('script');
+      // JSON-LD (remove any prior dynamic nodes)
+      var olds = document.querySelectorAll('script[type="application/ld+json"].solo-article-ld');
+      Array.prototype.forEach.call(olds, function(n){ n.parentNode.removeChild(n); });
+      var ld = document.createElement('script');
       ld.type = "application/ld+json";
       ld.className = "solo-article-ld";
       ld.textContent = JSON.stringify({
@@ -409,21 +417,247 @@
       document.head.appendChild(ld);
     }
 
+    /* --- pick article ----------------------------------------------------- */
+    var AUTHORS = RAW_AUTHORS.slice(0);
+    var ARTICLES = RAW_ARTICLES.slice(0);
+    var __authorsIndex = authorById(AUTHORS);
+    var __articlesByAuthor = articlesByAuthor(ARTICLES);
+
+    var qs   = new URLSearchParams(location.search);
+    var hash = (location.hash||"").replace(/^#/, "");
+    var slug = qs.get("a") || hash || "";
+    var last = localStorage.getItem("solo:lastSlug");
+
+    if(!slug){
+      var pool = ARTICLES.filter(function(a){ return a.slug && a.slug!==last; });
+      var pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
+      slug = (pick && pick.slug) || (ARTICLES[0] && ARTICLES[0].slug) || "";
+      if(slug) history.replaceState(null, "", location.pathname + "#" + slug);
+    }
+
+    var article = (function(){
+      for (var i=0;i<ARTICLES.length;i++){ if(ARTICLES[i].slug===slug) return ARTICLES[i]; }
+      return ARTICLES[0];
+    })();
+    localStorage.setItem("solo:lastSlug", article.slug);
+    window.__soloArticle = article;
+
+    /* --- fetch & mount article (partial only) ----------------------------- */
+    var host = document.getElementById("solo-article-host");
+    if(host){
+      var href = ARTICLE_BASE + encodeURIComponent(article.slug) + ".html?v=" + encodeURIComponent(ver);
+      fetch(href, { credentials:"omit", cache:"no-store", redirect:"follow" })
+        .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.text(); })
+        .then(function(html){
+          // Accept only a clean <article> partial
+          var hasArticle = /<article[\s>]/i.test(html);
+          var looksFull  = /<(html|head|body|header)[\s>]/i.test(html);
+          if(!hasArticle || looksFull) throw new Error("Not a partial article");
+
+          host.innerHTML = html;
+          // scrub any stray full-page elements a contributor pasted
+          var junk = host.querySelectorAll('html, head, header.hero-header, footer.site, footer.wrap');
+          Array.prototype.forEach.call(junk, function(n){ n.parentNode.removeChild(n); });
+
+          normalizeSoloHero(host);
+          wireShareButtons(article);
+          injectArticleSEO(article);
+          ensureBylineAuthorFallback(article);
+          host.setAttribute('aria-busy','false');
+        })
+        .catch(function(err){
+          console.error("[solo] Failed to mount", article.slug, err);
+          host.innerHTML =
+            '<h2>We hit rough seas loading this article.</h2>'+
+            '<p>Try refreshing or <a href="'+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
+          host.setAttribute('aria-busy','false');
+        });
+    }
+
+    /* --- authors rail (never blocks page) -------------------------------- */
+    function renderAuthorsRail(){
+      var rail = document.getElementById("authors-list");
+      if(!rail) return;
+      rail.innerHTML = "";
+
+      var v = getMeta("page:version","");
+      var sorted = AUTHORS.slice(0).sort(function(a,b){
+        var ac = (__articlesByAuthor[a.id]||[]).length;
+        var bc = (__articlesByAuthor[b.id]||[]).length;
+        return bc - ac;
+      });
+
+      sorted.forEach(function(a){
+        var authored = (__articlesByAuthor[a.id]||[]);
+        var div = document.createElement('div'); div.className = "author";
+        var webp = a.avatarBase + ".webp" + (v?("?v="+encodeURIComponent(v)):"");
+        var fall = a.avatarBase + ".jpg"  + (v?("?v="+encodeURIComponent(v)):"");
+
+        div.innerHTML =
+          '<div class="avatar">'+
+            '<picture>'+
+              '<source type="image/webp" srcset="'+webp+'">'+
+              '<img src="'+fall+'" alt="'+escapeHtml(a.name)+'" width="80" height="80" loading="lazy" decoding="async">'+
+            '</picture>'+
+          '</div>'+
+          '<div class="meta">'+
+            '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(a.name)+'</a>'+
+          '</div>';
+
+        rail.appendChild(div);
+
+        var roll = document.createElement('div'); roll.className = "roll";
+        var max  = Math.min(3, authored.length);
+        for(var i=0;i<max;i++){
+          var art = authored[(i + Math.floor(Math.random()*Math.max(1,authored.length))) % Math.max(1,authored.length)];
+          if(!art) break;
+          var aTag = document.createElement('a');
+          aTag.href = permalink(art.slug);
+          aTag.textContent = art.title;
+          aTag.addEventListener('click', function(e){
+            e.preventDefault();
+            var u = new URL(this.href, location.origin);
+            var s = u.pathname.split('/').pop().replace(/\.html$/,'');
+            history.pushState(null, "", location.pathname + "#" + s);
+            location.reload();
+          });
+          roll.appendChild(aTag);
+        }
+        rail.appendChild(roll);
+      });
+    }
+
+    // Try to hydrate from /data/authors.json; fallback silently to RAW_AUTHORS
+    (function loadAuthorsJson(){
+      var url = '/data/authors.json?v=' + encodeURIComponent(ver);
+      try{
+        fetch(url, {cache:'no-store'}).then(function(r){
+          if(!r.ok) throw 0;
+          return r.json();
+        }).then(function(j){
+          if (j && j.authors && j.authors.length){
+            AUTHORS = j.authors.map(function(a){
+              return {
+                id: (String(a.slug||'').split('-')[0]||a.slug||a.name||'').toLowerCase(),
+                name: a.name,
+                url: a.url,
+                avatarBase: String(a.image||'').replace(/\.(webp|jpg|jpeg|png)(\?.*)?$/,''),
+                socials: []
+              };
+            });
+            __authorsIndex = authorById(AUTHORS);
+            __articlesByAuthor = articlesByAuthor(ARTICLES);
+          }
+        }).catch(function(){/* keep RAW_AUTHORS */})
+        .finally(function(){ renderAuthorsRail(); });
+      }catch(_){
+        renderAuthorsRail();
+      }
+    })();
+
+    /* --- related reading (fallback to localSeed) -------------------------- */
+    (function related(){
+      var mount = document.getElementById("related-rail");
+      if(!mount) return;
+
+      var SRC = "/assets/data/articles/index.json?v=3.008.015";            /* keep your original */
+      var PLACEHOLDER    = "/assets/placeholders/article-thumb.jpg?v=3.008.015";
+      var AV_PLACEHOLDER = "/assets/placeholders/author.jpg?v=3.008.015";
+      var CONTEXT_TAGS   = ["solo","royal-caribbean","tips","reflection"];
+
+      function normUrl(u){ try { return new URL(u, location.origin).pathname.replace(/\/+$/,''); } catch (e){ return String(u||"").trim(); } }
+      function dedupe(arr){
+        var seen = Object.create(null);
+        return arr.filter(function(a){
+          var key = normUrl(a.url || a.id || "");
+          if (seen[key]) return false;
+          seen[key] = 1; return true;
+        });
+      }
+      function byContext(list){
+        return list.filter(function(a){
+          var kws = Array.isArray(a.keywords)? a.keywords : [];
+          for (var i=0;i<kws.length;i++){ if (CONTEXT_TAGS.indexOf(kws[i])>=0) return true; }
+          return false;
+        });
+      }
+      function fmtDate(iso){
+        if(!iso) return "";
+        try{ return new Date(iso).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}); }
+        catch(e){ return ""; }
+      }
+      function card(a){
+        var d = fmtDate(a.date);
+        var isPlaceholder = !(a.image && String(a.image).trim());
+        var img = isPlaceholder ? PLACEHOLDER : a.image;
+        var imgAlt = isPlaceholder ? 'Placeholder image' : (a.title||'Article image');
+        var author = a.author || {};
+        var avatarSrc = author.image || AV_PLACEHOLDER;
+        var avatarAlt = author.name ? author.name : 'Default author portrait';
+
+        return '<article class="rail-item">\
+          <a class="thumb" href="'+a.url+'">\
+            <img src="'+img+'" alt="'+escapeHtml(imgAlt)+'" width="112" height="72" style="width:112px;height:72px;object-fit:cover;border-radius:.5rem;display:block;">\
+          </a>\
+          <div class="meta">\
+            <h4><a href="'+a.url+'">'+escapeHtml(a.title||"")+'</a></h4>\
+            <p class="tiny muted">'+escapeHtml(d)+(author.name ? ' · <img class="avatar" src="'+avatarSrc+'" alt="'+escapeHtml(avatarAlt)+'" width="18" height="18"><a class="author" href="'+(author.url||'#')+'">'+escapeHtml(author.name)+'</a>' : '')+'</p>\
+            <p class="tiny">'+escapeHtml(a.excerpt||"")+'</p>\
+          </div>\
+        </article>';
+      }
+      function render(list){
+        mount.innerHTML = list.map(card).join('') || '<div class="tiny muted">No related items yet.</div>';
+      }
+      function afterRender(){
+        Array.prototype.forEach.call(mount.querySelectorAll(".rail-item .thumb img"), function(img){
+          img.addEventListener("error",function(){ if(img.dataset.fallback) return; img.dataset.fallback="1"; img.src=PLACEHOLDER; },{once:true});
+        });
+        Array.prototype.forEach.call(mount.querySelectorAll(".rail-item .avatar"), function(img){
+          img.addEventListener("error",function(){ if(img.dataset.fallback) return; img.dataset.fallback="1"; img.src=AV_PLACEHOLDER; },{once:true});
+        });
+      }
+
+      var localSeed = ARTICLES.map(function(a){
+        var auth = __authorsIndex[a.authorId] || {};
+        return { id:a.slug, title:a.title, url:permalink(a.slug), date:a.date,
+                 excerpt:a.dek, image:a.hero, author:{ name:auth.name, url:auth.url } };
+      });
+
+      fetch(SRC,{cache:"no-store"})
+        .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+        .then(function(json){
+          var list = Array.isArray(json && json.articles) ? json.articles : [];
+          list = byContext(dedupe([].concat(list, localSeed))).slice(0,5);
+          render(list); afterRender();
+        })
+        .catch(function(){
+          var list = byContext(dedupe(localSeed)).slice(0,3);
+          render(list); afterRender();
+        });
+    })();
+
+    /* --- prevent duplicate compass inside mounted article ----------------- */
+    (function ensureSingleCompass(){
+      var host = document.getElementById('solo-article-host');
+      if (!host) return;
+      var all = host.querySelectorAll('.hero-compass');
+      Array.prototype.forEach.call(all, function(n){ n.parentNode.removeChild(n); });
+    })();
+
+    /* --- byline fallback (kept) ------------------------------------------ */
     function ensureBylineAuthorFallback(a){
-      const hasByline = !!document.querySelector('footer.byline');
-      if(hasByline) return;
-      const mounted = document.getElementById('solo-article-host');
-      if(!mounted) return;
-      const auth = __authorsIndex[a.authorId] || null;
-      if(!auth) return;
+      if (document.querySelector('footer.byline')) return;
+      var mounted = document.getElementById('solo-article-host'); if(!mounted) return;
+      var auth = __authorsIndex[a.authorId] || null; if(!auth) return;
 
-      const ver = document.querySelector('meta[name="page:version"]')?.content || "3.008.016";
-      const webp = auth.avatarBase + ".webp?v=" + encodeURIComponent(ver);
-      const fall = auth.avatarBase + ".jpg?v=" + encodeURIComponent(ver);
+      var v = getMeta("page:version","3.008.015");
+      var webp = auth.avatarBase + ".webp?v=" + encodeURIComponent(v);
+      var fall = auth.avatarBase + ".jpg?v=" + encodeURIComponent(v);
 
-      const footer = document.createElement('footer');
+      var footer = document.createElement('footer');
       footer.className = "byline";
-      footer.innerHTML = ''+
+      footer.innerHTML =
         '<div class="avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;flex:none">'+
           '<picture>'+
             '<source type="image/webp" srcset="'+webp+'">'+
@@ -437,207 +671,17 @@
       mounted.appendChild(footer);
     }
 
-    function escapeHtml(s){
-      return String(s||"").replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+  } catch (fatal) {
+    // Surface any early/parse error so the page isn't silently empty
+    console.error("[solo] Fatal loader error:", fatal);
+    var host = document.getElementById("solo-article-host");
+    if (host) {
+      host.innerHTML = '<h2>We hit rough seas loading this page.</h2><p class="tiny muted">'+String(fatal)+'</p>';
+      host.setAttribute('aria-busy','false');
     }
-
-    /* --- choose article, then fetch from canonical base ------------------- */
-    const qs   = new URLSearchParams(location.search);
-    const hash = (location.hash||"").replace(/^#/, "");
-    let slug   = qs.get("a") || hash || "";
-    const last = localStorage.getItem("solo:lastSlug");
-
-    if(!slug){
-      const pool = ARTICLES.filter(a=>a.slug && a.slug!==last);
-      const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : ARTICLES[0];
-      slug = (pick && pick.slug) || (ARTICLES[0] && ARTICLES[0].slug) || "";
-      if(slug) history.replaceState(null, "", location.pathname + "#" + slug);
-    }
-
-    const article = ARTICLES.find(a=>a.slug===slug) || ARTICLES[0];
-    localStorage.setItem("solo:lastSlug", article.slug);
-    window.__soloArticle = article;
-
-    function looksLikePartial(html){
-      const hasArticle = /\<article[\s>]/i.test(html);
-      const looksFull  = /\<(html|head|body|header)[\s>]/i.test(html);
-      return hasArticle && !looksFull;
-    }
-    function sanitizeBeforeMount(container){
-      container.querySelectorAll('html, head, header.hero-header, footer.site, footer.wrap').forEach(n=>n.remove());
-    }
-
-    const host = document.getElementById("solo-article-host");
-    if(host){
-      const href = ARTICLE_BASE + encodeURIComponent(article.slug) + ".html?v=" + encodeURIComponent(ver);
-      console.debug('[solo] fetching article →', href);
-      fetch(href, { credentials:"omit", cache:"no-store", redirect:"follow" })
-        .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
-        .then(html => {
-          if(!looksLikePartial(html)) throw new Error('Fetched file is not a clean <article> partial.');
-          host.innerHTML = html;
-          sanitizeBeforeMount(host);
-          normalizeSoloHero(host);
-          wireShareButtons(article);
-          injectArticleSEO(article);
-          ensureBylineAuthorFallback(article);
-          host.setAttribute('aria-busy','false');
-        })
-        .catch(err => {
-          console.error('[solo] Failed to mount article:', article.slug, err);
-          host.innerHTML = '<h2>We hit rough seas loading this article.</h2><p>Try refreshing or <a href="'+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
-          host.setAttribute('aria-busy','false');
-        });
-    }
-
-    /* --- authors rail ------------------------------------------------------ */
-    function renderAuthorsRail(){
-      const rail = document.getElementById("authors-list");
-      if(!rail) return;
-      rail.innerHTML = "";
-
-      const v = document.querySelector('meta[name="page:version"]')?.content || "";
-      const sorted = AUTHORS.slice().sort((a,b)=> (__articlesByAuthor[b.id]||[]).length - (__articlesByAuthor[a.id]||[]).length);
-
-      sorted.forEach(function(a){
-        const authored = (__articlesByAuthor[a.id]||[]);
-        const div = document.createElement('div'); div.className = "author";
-
-        const webp = a.avatarBase + ".webp" + (v?("?v="+encodeURIComponent(v)):"");
-        const fall = a.avatarBase + ".jpg"  + (v?("?v="+encodeURIComponent(v)):"");
-
-        div.innerHTML = ''+
-          '<div class="avatar">'+
-            '<picture>'+
-              '<source type="image/webp" srcset="'+webp+'">'+
-              '<img src="'+fall+'" alt="'+escapeHtml(a.name)+'" width="80" height="80" loading="lazy" decoding="async">'+
-            </picture>'+
-          '</div>'+
-          '<div class="meta">'+
-            '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(a.name)+'</a>'+
-          '</div>';
-        rail.appendChild(div);
-
-        const roll = document.createElement('div'); roll.className = "roll";
-        const max  = Math.min(3, authored.length);
-        for(let i=0;i<max;i++){
-          const art = authored[(i + Math.floor(Math.random()*authored.length)) % authored.length];
-          const aTag = document.createElement('a');
-          aTag.href = permalink(art.slug);
-          aTag.textContent = art.title;
-          aTag.addEventListener('click', function(e){
-            e.preventDefault();
-            const u = new URL(this.href, location.origin);
-            const s = u.pathname.split('/').pop().replace(/\.html$/,'');
-            history.pushState(null, "", location.pathname + "#" + s);
-            location.reload();
-          });
-          roll.appendChild(aTag);
-        }
-        rail.appendChild(roll);
-      });
-    }
-
-    loadAuthorsJson(ver).then(list => {
-      if(list) {
-        AUTHORS = list;
-        __authorsIndex = authorById(AUTHORS);
-        __articlesByAuthor = articlesByAuthor(ARTICLES);
-      }
-      renderAuthorsRail();
-    });
-
-    /* --- related reading --------------------------------------------------- */
-    (function related(){
-      const mount = document.getElementById("related-rail");
-      if(!mount) return;
-
-      const SRC = "/assets/data/articles/index.json?v=3.008.016";
-      const PLACEHOLDER = "/assets/placeholders/article-thumb.jpg?v=3.008.016";
-      const AV_PLACEHOLDER = "/assets/placeholders/author.jpg?v=3.008.016";
-      const CONTEXT_TAGS = ["solo","royal-caribbean","tips","reflection"];
-
-      function normUrl(u){ try { return new URL(u, location.origin).pathname.replace(/\/+$/,''); } catch { return String(u||"").trim(); } }
-      function dedupe(arr){
-        const seen = new Set();
-        return arr.filter(a=>{
-          const key = normUrl(a.url || a.id || "");
-          if (seen.has(key)) return false;
-          seen.add(key); return true;
-        });
-      }
-      function byContext(list){
-        return list.filter(a=>{
-          const kws = Array.isArray(a.keywords)? a.keywords : [];
-          return kws.some(k => CONTEXT_TAGS.includes(k));
-        });
-      }
-      function fmtDate(iso){
-        if(!iso) return "";
-        try{
-          return new Date(iso).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
-        }catch{ return ""; }
-      }
-      function card(a){
-        const d = fmtDate(a.date);
-        const isPlaceholder = !(a.image && String(a.image).trim());
-        const img = isPlaceholder ? PLACEHOLDER : a.image;
-        const imgAlt = isPlaceholder ? 'Placeholder image' : (a.title||'Article image');
-
-        const author = a.author || {};
-        const avatarSrc = author.image || AV_PLACEHOLDER;
-        const avatarAlt = author.name ? author.name : 'Default author portrait';
-
-        return `<article class="rail-item">
-          <a class="thumb" href="${a.url}">
-            <img src="${img}" alt="${imgAlt}" width="112" height="72" style="width:112px;height:72px;object-fit:cover;border-radius:.5rem;display:block;">
-          </a>
-          <div class="meta">
-            <h4><a href="${a.url}">${a.title||''}</a></h4>
-            <p class="tiny muted">${d}${author.name ? ` · <img class="avatar" src="${avatarSrc}" alt="${avatarAlt}" width="18" height="18"><a class="author" href="${author.url||'#'}">${author.name}</a>` : ''}</p>
-            <p class="tiny">${a.excerpt||''}</p>
-          </div>
-        </article>`;
-      }
-      function render(list){
-        mount.innerHTML = list.map(card).join('') || '<div class="tiny muted">No related items yet.</div>';
-      }
-      function afterRender(){
-        mount.querySelectorAll(".rail-item .thumb img").forEach((img)=>{
-          img.addEventListener("error",()=>{ if(img.dataset.fallback) return; img.dataset.fallback="1"; img.src=PLACEHOLDER; },{once:true});
-        });
-        mount.querySelectorAll(".rail-item .avatar").forEach((img)=>{
-          img.addEventListener("error",()=>{ if(img.dataset.fallback) return; img.dataset.fallback="1"; img.src=AV_PLACEHOLDER; },{once:true});
-        });
-      }
-
-      const localSeed = ARTICLES.map(a => ({
-        id:a.slug, title:a.title, url:permalink(a.slug), date:a.date,
-        excerpt:a.dek, image:a.hero, author:{ name:(__authorsIndex[a.authorId]||{}).name, url:(__authorsIndex[a.authorId]||{}).url }
-      }));
-
-      fetch(SRC,{cache:"no-store"})
-        .then(r=>r.ok?r.json():Promise.reject())
-        .then(json=>{
-          let list = Array.isArray(json?.articles) ? json.articles : [];
-          list = byContext(dedupe([...list, ...localSeed])).slice(0,5);
-          render(list); afterRender();
-        })
-        .catch(()=>{
-          const list = byContext(dedupe(localSeed)).slice(0,3);
-          render(list); afterRender();
-        });
-    })();
-
-    // Single-compass guard inside hosted article
-    (function ensureSingleCompass(){
-      const host = document.getElementById('solo-article-host');
-      if (!host) return;
-      host.querySelectorAll('.hero-compass').forEach(n => n.remove());
-    })();
-
-  })();
-  </script>
+  }
+})();
+</script>
 
   <script>
   (function(){
