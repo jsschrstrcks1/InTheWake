@@ -25,7 +25,7 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/solo.html">
   <meta property="og:title" content="Solo Travel — In the Wake">
   <meta property="og:description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/solo/solo-tranquility.jpg?v=3.008.015">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/solo/solo-tranquility.jpg?v=3.008.016">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Schema (index) -->
@@ -40,7 +40,7 @@
   </script>
 
   <!-- Styles (site bundle) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.008.015"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.016"/>
 
   <!-- SOLO host hero guard (scoped) -->
   <style id="solo-host-hero-fix">
@@ -78,11 +78,10 @@
 
   <!-- Header hero (robust fallbacks) -->
   <style>
-    /* Layered backgrounds: if the first 404s or isn't supported, lower layers still render */
     .hero{
       background:
-        url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.015')             center/cover no-repeat !important;
-      min-height: 320px; /* ensure visible area */
+        url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.016') center/cover no-repeat !important;
+      min-height: 320px;
     }
     .hero::before,.hero::after{content:none!important}
     html,body{overflow-x:hidden}
@@ -113,6 +112,29 @@
       .wrap.layout{ grid-template-columns:minmax(0,1fr) 360px; }
     }
   </style>
+
+  <!-- Compact top nav overrides -->
+  <style>
+    .navbar{
+      max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:.5rem;
+      padding:.3rem .9rem;
+    }
+    .brand img{height:24px}
+    .version-badge{font-size:.7rem;opacity:.8}
+    .pill-nav.pills{
+      display:flex;flex-wrap:wrap;justify-content:flex-start;gap:.3rem .4rem;
+      margin-left:auto;margin-right:0;width:auto;max-width:unset;
+    }
+    .pill-nav.pills a{
+      padding:.26rem .55rem;border-radius:8px;border:1px solid rgba(217,179,130,.6);
+      background:#fff;font-size:.92rem;line-height:1.2;
+    }
+    @media (pointer:fine){ .pill-nav.pills a:hover{ border-style:dashed; text-decoration:none; } }
+    @media (max-width:900px){
+      .pill-nav.pills{ flex-wrap:nowrap; overflow:auto; white-space:nowrap; scrollbar-width:thin; -webkit-overflow-scrolling:touch; }
+      .pill-nav.pills a{ flex:0 0 auto; }
+    }
+  </style>
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
@@ -121,7 +143,7 @@
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008.015" alt="In the Wake wordmark" width="256" height="64"/>
+        <img src="/assets/logo_wake.png?v=3.008.016" alt="In the Wake wordmark" width="256" height="64"/>
         <span class="version-badge">v3.008.016</span>
       </div>
       <nav class="nav pill-nav pills" aria-label="Primary">
@@ -142,9 +164,9 @@
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.015" width="180" height="180" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.016" width="180" height="180" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008.015" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.008.016" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
@@ -258,7 +280,7 @@
 
     const ORIGIN         = (location.origin || (location.protocol + '//' + location.host));
     const PERMALINK_BASE = ORIGIN + "/solo/";
-    const FETCH_PATHS    = ["/solo/articles/", "/solo/"]; // try both (current + standards)
+    const ARTICLE_BASE   = "/solo/articles/";                 // locked, canonical base
 
     /* --- data -------------------------------------------------------------- */
     const RAW_AUTHORS = [
@@ -290,7 +312,7 @@
     // Prefer sitewide authors.json; fallback to RAW_AUTHORS
     async function loadAuthorsJson(ver){
       try{
-        const r=await fetch('/data/authors.json?v='+(ver||'3.008.015'),{cache:'no-store'});
+        const r=await fetch('/data/authors.json?v='+(ver||'3.008.016'),{cache:'no-store'});
         if(!r.ok) throw 0;
         const j=await r.json();
         if(Array.isArray(j?.authors)&&j.authors.length){
@@ -305,15 +327,15 @@
       return null;
     }
 
-    const ver = document.querySelector('meta[name="page:version"]')?.content || "3.008.015";
+    const ver = document.querySelector('meta[name="page:version"]')?.content || "3.008.016";
     let AUTHORS = RAW_AUTHORS;
 
     const ARTICLES = RAW_ARTICLES;
     const authorById = (arr)=>Object.fromEntries(arr.map(a => [a.id, a]));
     let __authorsIndex = authorById(AUTHORS);
 
-    const articlesByAuthor = (list, idx)=>list.reduce((acc,a)=>{ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
-    let __articlesByAuthor = articlesByAuthor(ARTICLES, __authorsIndex);
+    const articlesByAuthor = (list)=>list.reduce((acc,a)=>{ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
+    let __articlesByAuthor = articlesByAuthor(ARTICLES);
 
     function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
 
@@ -360,7 +382,7 @@
     function injectArticleSEO(a){
       if(!(location.search.includes("a=") || location.hash)) return;
       const url = permalink(a.slug);
-      document.title = a.title + " | Solo Cruising | In the Wake (v" + (document.querySelector('meta[name="page:version"]')?.content||"3.008.015") + ")";
+      document.title = a.title + " | Solo Cruising | In the Wake (v" + (document.querySelector('meta[name="page:version"]')?.content||"3.008.016") + ")";
       setNameMeta('description', a.dek || "Solo cruising reflections and tips.");
       setMeta('og:type','article');
       setMeta('og:title', a.title + " — In the Wake");
@@ -395,10 +417,9 @@
       const auth = __authorsIndex[a.authorId] || null;
       if(!auth) return;
 
-      const ver = document.querySelector('meta[name="page:version"]')?.content || "3.008.015";
-      const fallbackExt = "jpg"; // JPG fallback per standards
+      const ver = document.querySelector('meta[name="page:version"]')?.content || "3.008.016";
       const webp = auth.avatarBase + ".webp?v=" + encodeURIComponent(ver);
-      const fall = auth.avatarBase + "." + fallbackExt + "?v=" + encodeURIComponent(ver);
+      const fall = auth.avatarBase + ".jpg?v=" + encodeURIComponent(ver);
 
       const footer = document.createElement('footer');
       footer.className = "byline";
@@ -420,7 +441,7 @@
       return String(s||"").replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
     }
 
-    /* --- choose article, fetch, mount, normalize -------------------------- */
+    /* --- choose article, then fetch from canonical base ------------------- */
     const qs   = new URLSearchParams(location.search);
     const hash = (location.hash||"").replace(/^#/, "");
     let slug   = qs.get("a") || hash || "";
@@ -437,26 +458,36 @@
     localStorage.setItem("solo:lastSlug", article.slug);
     window.__soloArticle = article;
 
+    function looksLikePartial(html){
+      const hasArticle = /\<article[\s>]/i.test(html);
+      const looksFull  = /\<(html|head|body|header)[\s>]/i.test(html);
+      return hasArticle && !looksFull;
+    }
+    function sanitizeBeforeMount(container){
+      container.querySelectorAll('html, head, header.hero-header, footer.site, footer.wrap').forEach(n=>n.remove());
+    }
+
     const host = document.getElementById("solo-article-host");
     if(host){
-      (function tryFetch(i){
-        if(i >= FETCH_PATHS.length){
+      const href = ARTICLE_BASE + encodeURIComponent(article.slug) + ".html?v=" + encodeURIComponent(ver);
+      console.debug('[solo] fetching article →', href);
+      fetch(href, { credentials:"omit", cache:"no-store", redirect:"follow" })
+        .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+        .then(html => {
+          if(!looksLikePartial(html)) throw new Error('Fetched file is not a clean <article> partial.');
+          host.innerHTML = html;
+          sanitizeBeforeMount(host);
+          normalizeSoloHero(host);
+          wireShareButtons(article);
+          injectArticleSEO(article);
+          ensureBylineAuthorFallback(article);
+          host.setAttribute('aria-busy','false');
+        })
+        .catch(err => {
+          console.error('[solo] Failed to mount article:', article.slug, err);
           host.innerHTML = '<h2>We hit rough seas loading this article.</h2><p>Try refreshing or <a href="'+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
           host.setAttribute('aria-busy','false');
-          return;
-        }
-        fetch(FETCH_PATHS[i] + encodeURIComponent(article.slug) + ".html", { credentials:"omit", cache:"no-store", redirect:"follow" })
-          .then(r => r.ok ? r.text() : Promise.reject(r.status))
-          .then(html => {
-            host.innerHTML = html;
-            normalizeSoloHero(host);          // run AFTER mount
-            wireShareButtons(article);
-            injectArticleSEO(article);
-            ensureBylineAuthorFallback(article);
-            host.setAttribute('aria-busy','false');
-          })
-          .catch(function(){ tryFetch(i+1); });
-      })(0);
+        });
     }
 
     /* --- authors rail ------------------------------------------------------ */
@@ -465,26 +496,26 @@
       if(!rail) return;
       rail.innerHTML = "";
 
-      const ver = document.querySelector('meta[name="page:version"]')?.content || "";
+      const v = document.querySelector('meta[name="page:version"]')?.content || "";
       const sorted = AUTHORS.slice().sort((a,b)=> (__articlesByAuthor[b.id]||[]).length - (__articlesByAuthor[a.id]||[]).length);
 
       sorted.forEach(function(a){
         const authored = (__articlesByAuthor[a.id]||[]);
         const div = document.createElement('div'); div.className = "author";
 
-        const webp = a.avatarBase + ".webp" + (ver?("?v="+encodeURIComponent(ver)):"");
-        const fall = a.avatarBase + ".jpg" + (ver?("?v="+encodeURIComponent(ver)):"");
+        const webp = a.avatarBase + ".webp" + (v?("?v="+encodeURIComponent(v)):"");
+        const fall = a.avatarBase + ".jpg"  + (v?("?v="+encodeURIComponent(v)):"");
 
         div.innerHTML = ''+
           '<div class="avatar">'+
             '<picture>'+
               '<source type="image/webp" srcset="'+webp+'">'+
               '<img src="'+fall+'" alt="'+escapeHtml(a.name)+'" width="80" height="80" loading="lazy" decoding="async">'+
-            '</picture>'+
+            </picture>'+
           '</div>'+
           '<div class="meta">'+
             '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(a.name)+'</a>'+
-          </div>';
+          '</div>';
         rail.appendChild(div);
 
         const roll = document.createElement('div'); roll.className = "roll";
@@ -511,7 +542,7 @@
       if(list) {
         AUTHORS = list;
         __authorsIndex = authorById(AUTHORS);
-        __articlesByAuthor = articlesByAuthor(ARTICLES, __authorsIndex);
+        __articlesByAuthor = articlesByAuthor(ARTICLES);
       }
       renderAuthorsRail();
     });
@@ -521,9 +552,9 @@
       const mount = document.getElementById("related-rail");
       if(!mount) return;
 
-      const SRC = "/assets/data/articles/index.json?v=3.008.015";
-      const PLACEHOLDER = "/assets/placeholders/article-thumb.jpg?v=3.008.015";
-      const AV_PLACEHOLDER = "/assets/placeholders/author.jpg?v=3.008.015";
+      const SRC = "/assets/data/articles/index.json?v=3.008.016";
+      const PLACEHOLDER = "/assets/placeholders/article-thumb.jpg?v=3.008.016";
+      const AV_PLACEHOLDER = "/assets/placeholders/author.jpg?v=3.008.016";
       const CONTEXT_TAGS = ["solo","royal-caribbean","tips","reflection"];
 
       function normUrl(u){ try { return new URL(u, location.origin).pathname.replace(/\/+$/,''); } catch { return String(u||"").trim(); } }
