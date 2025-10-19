@@ -2,23 +2,24 @@
 <html lang="en">
 <head>
   <!-- ======================================================
-       In the Wake — Solo Cruising Index (v3.008.015)
-       Standards: Solo_Cruising_Module_Standards_v3.006.solo.001
+       In the Wake — Solo Cruising Index (v3.008.016)
+       Standards: Solo_Cruising_Module_Standards_v3.006.solo.001 (+ v3.008 addendum)
        ====================================================== -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
-  <meta name="page:version" content="v3.008.015">
+  <meta name="page:version" content="v3.008.016">
+  <meta name="version" content="v3.008.016">
   <meta name="standards:baseline" content="3.008">
   <meta name="robots" content="index, follow"/>
 
   <!-- Canonical & Description (index default) -->
-  <title>Solo Travel — In the Wake (v3.008.015)</title>
+  <title>Solo Travel — In the Wake (v3.008.016)</title>
   <link rel="canonical" href="https://www.cruisinginthewake.com/solo.html"/>
   <meta name="description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
 
-  <!-- Open Graph / Twitter (index defaults; article SEO is injected on deep link) -->
+  <!-- Open Graph / Twitter (index defaults; article SEO is static in each article file) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="In the Wake">
   <meta property="og:url" content="https://www.cruisinginthewake.com/solo.html">
@@ -26,6 +27,17 @@
   <meta property="og:description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
   <meta property="og:image" content="https://www.cruisinginthewake.com/assets/solo/solo-tranquility.jpg?v=3.008.015">
   <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Schema (index) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CollectionPage",
+    "name":"Solo Travel — In the Wake",
+    "url":"https://www.cruisinginthewake.com/solo.html",
+    "isPartOf":{"@type":"WebSite","name":"In the Wake","url":"https://www.cruisinginthewake.com/"}
+  }
+  </script>
 
   <!-- Styles (site bundle) -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.008.015"/>
@@ -51,7 +63,7 @@
     #solo-article-host .article-hero > figcaption{
       position:static!important; inset:auto!important; transform:none!important;
       float:none!important; display:block!important;
-      margin-top:.65rem; padding-top:.45rem; text-align:right;
+      margin-top:.65rem; padding-top:.45rem; text-align:left; /* left-aligned per standard */
       border-top:1px dashed rgba(8,48,65,.12);
       font-size:.95rem; line-height:1.4; color:#083041; opacity:.85;
       background:none!important; box-shadow:none!important; border-radius:0!important;
@@ -63,17 +75,44 @@
     /* Never paint the header background on article heroes */
     figure.hero, .article-hero, .article-card .hero { background:none !important; }
   </style>
+
   <!-- Header hero (robust fallbacks) -->
-<style>
-  /* Layered backgrounds: if the first 404s or isn't supported, lower layers still render */
-  .hero{
-    background:
-      url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.015')             center/cover no-repeat !important;
-    min-height: 320px; /* ensure visible area */
-  }
-  .hero::before,.hero::after{content:none!important}
-  html,body{overflow-x:hidden}
-</style>
+  <style>
+    /* Layered backgrounds: if the first 404s or isn't supported, lower layers still render */
+    .hero{
+      background:
+        url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.015')             center/cover no-repeat !important;
+      min-height: 320px; /* ensure visible area */
+    }
+    .hero::before,.hero::after{content:none!important}
+    html,body{overflow-x:hidden}
+  </style>
+
+  <!-- Two-column layout (rail on right at ≥980px) -->
+  <style id="solo-two-col-layout">
+    .wrap.layout{
+      display:grid;
+      grid-template-columns:minmax(0,1fr);
+      gap:24px;
+      align-items:start;
+    }
+    .wrap.layout .maincol{ order:1; min-width:0; }
+    .wrap.layout > aside.rail{ order:2; min-width:0; }
+    @media (min-width:980px){
+      .wrap.layout{
+        grid-template-columns:minmax(0,1fr) 320px; /* main | rail */
+        gap:32px;
+      }
+      .wrap.layout > aside.rail{
+        position:sticky; top:96px; align-self:start;
+      }
+      .wrap.layout > aside.rail .cards{ display:grid; gap:16px; }
+      .wrap.layout > aside.rail .card{ width:100%; }
+    }
+    @media (min-width:1400px){
+      .wrap.layout{ grid-template-columns:minmax(0,1fr) 360px; }
+    }
+  </style>
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
@@ -83,7 +122,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.008.015" alt="In the Wake wordmark" width="256" height="64"/>
-        <span class="version-badge">v3.008.015</span>
+        <span class="version-badge">v3.008.016</span>
       </div>
       <nav class="nav pill-nav pills" aria-label="Primary">
         <a href="https://www.cruisinginthewake.com/">Home</a>
@@ -116,23 +155,23 @@
   </header>
 
   <!-- Main -->
-  <main class="wrap layout" id="content" role="main">
+  <main class="wrap layout" id="content" role="main" aria-describedby="solo-intro">
     <div class="maincol" aria-label="Solo Articles">
       <section class="cards stack">
-        <article class="card card-intro">
+        <article class="card card-intro" id="solo-intro">
           <h2>Solo, but Never Alone</h2>
           <p>Here on the open sea, the wake behind us tells a story — not of crowds, but of courage.
           <strong>In the Wake’s</strong> world-roaming authors chart this course together, penning reflections and real-world helps for those who sail solo.</p>
           <p>In the weeks ahead, our team will be sharing <em>travel logs, lessons, and laughter</em> from journeys across the world’s oceans — all written to help you navigate the beauty and balance of cruising on your own.</p>
           <p>Whether you’re plotting your first voyage or your fiftieth, consider this your friendly harbor: a place to learn, to rest, and to remember that even when you sail solo, you sail in good company.</p>
           <p>Fair winds, following seas, and space to breathe — your solo journey begins here.</p>
-          <p class="tiny muted">Standards: Solo Module v3.006.solo.001</p>
+          <p class="tiny muted">Standards: Solo Module v3.006.solo.001 (+ v3.008 addendum)</p>
         </article>
       </section>
 
       <!-- Active article host (hash or ?a=slug) -->
       <section class="cards stack">
-        <article class="card" id="solo-article-host" aria-live="polite">
+        <article class="card" id="solo-article-host" aria-live="polite" aria-busy="true">
           <h2>Loading your article…</h2>
           <p>Trimming the sails — this will just take a moment.</p>
         </article>
@@ -161,7 +200,7 @@
       <section class="cards stack" aria-label="Related Reading">
         <article class="card">
           <h2>Related Reading</h2>
-          <div id="related-rail" class="rail" aria-live="polite">Loading recommendations…</div>
+          <div id="related-rail" class="rail-items" aria-live="polite">Loading recommendations…</div>
         </article>
       </section>
 
@@ -179,7 +218,7 @@
 
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.008.015</span>
+    <span class="version-badge">v3.008.016</span>
     <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
@@ -248,10 +287,33 @@
         authorId:"tina", tags:["solo","story","community","women"] }
     ];
 
-    const AUTHORS  = RAW_AUTHORS;
+    // Prefer sitewide authors.json; fallback to RAW_AUTHORS
+    async function loadAuthorsJson(ver){
+      try{
+        const r=await fetch('/data/authors.json?v='+(ver||'3.008.015'),{cache:'no-store'});
+        if(!r.ok) throw 0;
+        const j=await r.json();
+        if(Array.isArray(j?.authors)&&j.authors.length){
+          return j.authors.map(a=>({
+            id: (a.slug||'').split('-')[0]||a.slug||a.name.toLowerCase(),
+            name: a.name, url: a.url,
+            avatarBase: (a.image||'').replace(/\.(webp|jpg|jpeg|png)(\?.*)?$/,''),
+            socials: []
+          }));
+        }
+      }catch(_){}
+      return null;
+    }
+
+    const ver = document.querySelector('meta[name="page:version"]')?.content || "3.008.015";
+    let AUTHORS = RAW_AUTHORS;
+
     const ARTICLES = RAW_ARTICLES;
-    const authorById = Object.fromEntries(AUTHORS.map(a => [a.id, a]));
-    const articlesByAuthor = ARTICLES.reduce((acc,a)=>{ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
+    const authorById = (arr)=>Object.fromEntries(arr.map(a => [a.id, a]));
+    let __authorsIndex = authorById(AUTHORS);
+
+    const articlesByAuthor = (list, idx)=>list.reduce((acc,a)=>{ (acc[a.authorId] = acc[a.authorId] || []).push(a); return acc; }, {});
+    let __articlesByAuthor = articlesByAuthor(ARTICLES, __authorsIndex);
 
     function permalink(slug){ return PERMALINK_BASE + encodeURIComponent(slug) + ".html"; }
 
@@ -307,7 +369,7 @@
       setMeta('og:url', url);
       setNameMeta('twitter:card','summary_large_image');
 
-      // JSON-LD (remove any solo-article-ld left-overs first)
+      // JSON-LD (dynamic; static lives in each article file)
       document.querySelectorAll('script[type="application/ld+json"].solo-article-ld').forEach(n=>n.remove());
       const ld = document.createElement('script');
       ld.type = "application/ld+json";
@@ -330,11 +392,11 @@
       if(hasByline) return;
       const mounted = document.getElementById('solo-article-host');
       if(!mounted) return;
-      const auth = authorById[a.authorId] || null;
+      const auth = __authorsIndex[a.authorId] || null;
       if(!auth) return;
 
       const ver = document.querySelector('meta[name="page:version"]')?.content || "3.008.015";
-      const fallbackExt = auth.id === "ken" ? "jpg" : "png";
+      const fallbackExt = "jpg"; // JPG fallback per standards
       const webp = auth.avatarBase + ".webp?v=" + encodeURIComponent(ver);
       const fall = auth.avatarBase + "." + fallbackExt + "?v=" + encodeURIComponent(ver);
 
@@ -377,10 +439,10 @@
 
     const host = document.getElementById("solo-article-host");
     if(host){
-      // Try modern path first; fall back to legacy folder
       (function tryFetch(i){
         if(i >= FETCH_PATHS.length){
           host.innerHTML = '<h2>We hit rough seas loading this article.</h2><p>Try refreshing or <a href="'+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
+          host.setAttribute('aria-busy','false');
           return;
         }
         fetch(FETCH_PATHS[i] + encodeURIComponent(article.slug) + ".html", { credentials:"omit", cache:"no-store", redirect:"follow" })
@@ -391,28 +453,27 @@
             wireShareButtons(article);
             injectArticleSEO(article);
             ensureBylineAuthorFallback(article);
+            host.setAttribute('aria-busy','false');
           })
           .catch(function(){ tryFetch(i+1); });
       })(0);
     }
 
     /* --- authors rail ------------------------------------------------------ */
-    renderAuthorsRail();
     function renderAuthorsRail(){
       const rail = document.getElementById("authors-list");
       if(!rail) return;
       rail.innerHTML = "";
 
       const ver = document.querySelector('meta[name="page:version"]')?.content || "";
-      const sorted = AUTHORS.slice().sort((a,b)=> (articlesByAuthor[b.id]||[]).length - (articlesByAuthor[a.id]||[]).length);
+      const sorted = AUTHORS.slice().sort((a,b)=> (__articlesByAuthor[b.id]||[]).length - (__articlesByAuthor[a.id]||[]).length);
 
       sorted.forEach(function(a){
-        const authored = (articlesByAuthor[a.id]||[]);
+        const authored = (__articlesByAuthor[a.id]||[]);
         const div = document.createElement('div'); div.className = "author";
 
-        const fallbackExt = a.id === "ken" ? "jpg" : "png";
         const webp = a.avatarBase + ".webp" + (ver?("?v="+encodeURIComponent(ver)):"");
-        const fall = a.avatarBase + "." + fallbackExt + (ver?("?v="+encodeURIComponent(ver)):"");
+        const fall = a.avatarBase + ".jpg" + (ver?("?v="+encodeURIComponent(ver)):"");
 
         div.innerHTML = ''+
           '<div class="avatar">'+
@@ -423,7 +484,7 @@
           '</div>'+
           '<div class="meta">'+
             '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(a.name)+'</a>'+
-          '</div>';
+          </div>';
         rail.appendChild(div);
 
         const roll = document.createElement('div'); roll.className = "roll";
@@ -445,6 +506,15 @@
         rail.appendChild(roll);
       });
     }
+
+    loadAuthorsJson(ver).then(list => {
+      if(list) {
+        AUTHORS = list;
+        __authorsIndex = authorById(AUTHORS);
+        __articlesByAuthor = articlesByAuthor(ARTICLES, __authorsIndex);
+      }
+      renderAuthorsRail();
+    });
 
     /* --- related reading --------------------------------------------------- */
     (function related(){
@@ -479,18 +549,21 @@
       }
       function card(a){
         const d = fmtDate(a.date);
-        const img = (a.image && a.image.trim()) || PLACEHOLDER;
+        const isPlaceholder = !(a.image && String(a.image).trim());
+        const img = isPlaceholder ? PLACEHOLDER : a.image;
+        const imgAlt = isPlaceholder ? 'Placeholder image' : (a.title||'Article image');
+
         const author = a.author || {};
-        const avatar = author.image
-          ? `<img class="avatar" src="${author.image}" alt="${author.name||'Author'}" width="18" height="18">`
-          : `<img class="avatar" src="${AV_PLACEHOLDER}" alt="" width="18" height="18">`;
+        const avatarSrc = author.image || AV_PLACEHOLDER;
+        const avatarAlt = author.name ? author.name : 'Default author portrait';
+
         return `<article class="rail-item">
           <a class="thumb" href="${a.url}">
-            <img src="${img}" alt="${a.title||'Article image'}" width="112" height="72" style="width:112px;height:72px;object-fit:cover;border-radius:.5rem;display:block;">
+            <img src="${img}" alt="${imgAlt}" width="112" height="72" style="width:112px;height:72px;object-fit:cover;border-radius:.5rem;display:block;">
           </a>
           <div class="meta">
             <h4><a href="${a.url}">${a.title||''}</a></h4>
-            <p class="tiny muted">${d}${author.name ? ` · ${avatar}<a class="author" href="${author.url||'#'}">${author.name}</a>` : ''}</p>
+            <p class="tiny muted">${d}${author.name ? ` · <img class="avatar" src="${avatarSrc}" alt="${avatarAlt}" width="18" height="18"><a class="author" href="${author.url||'#'}">${author.name}</a>` : ''}</p>
             <p class="tiny">${a.excerpt||''}</p>
           </div>
         </article>`;
@@ -509,7 +582,7 @@
 
       const localSeed = ARTICLES.map(a => ({
         id:a.slug, title:a.title, url:permalink(a.slug), date:a.date,
-        excerpt:a.dek, image:a.hero, author:{ name:(authorById[a.authorId]||{}).name, url:(authorById[a.authorId]||{}).url }
+        excerpt:a.dek, image:a.hero, author:{ name:(__authorsIndex[a.authorId]||{}).name, url:(__authorsIndex[a.authorId]||{}).url }
       }));
 
       fetch(SRC,{cache:"no-store"})
@@ -525,25 +598,31 @@
         });
     })();
 
+    // Single-compass guard inside hosted article
+    (function ensureSingleCompass(){
+      const host = document.getElementById('solo-article-host');
+      if (!host) return;
+      host.querySelectorAll('.hero-compass').forEach(n => n.remove());
+    })();
+
   })();
   </script>
-  <script>
-(function(){
-  // 1) Keep only the first hero header (some merges create a second one)
-  const headers = document.querySelectorAll('header.hero-header');
-  headers.forEach((h,i)=>{ if(i>0) h.remove(); });
 
-  // 2) Ensure the active-article host is clean (no pasted full article inside)
-  const host = document.getElementById('solo-article-host');
-  if (host) {
-    // If we find a full <html>, <head>, or another <header> inside main, nuke them
-    host.querySelectorAll('html, head, header.hero-header').forEach(n=>n.remove());
-    // If someone pasted a full article here, keep only the loading placeholder
-    const pastedArticle = host.querySelector('article[id]');
-    if (pastedArticle) host.innerHTML =
-      '<h2>Loading your article…</h2><p>Trimming the sails — this will just take a moment.</p>';
-  }
-})();
-</script>
+  <script>
+  (function(){
+    // 1) Keep only the first hero header (some merges create a second one)
+    const headers = document.querySelectorAll('header.hero-header');
+    headers.forEach((h,i)=>{ if(i>0) h.remove(); });
+
+    // 2) Ensure the active-article host is clean (no pasted full article inside)
+    const host = document.getElementById('solo-article-host');
+    if (host) {
+      host.querySelectorAll('html, head, header.hero-header').forEach(n=>n.remove());
+      const pastedArticle = host.querySelector('article[id]');
+      if (pastedArticle) host.innerHTML =
+        '<h2>Loading your article…</h2><p>Trimming the sails — this will just take a moment.</p>';
+    }
+  })();
+  </script>
 </body>
 </html>
