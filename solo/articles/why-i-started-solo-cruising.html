@@ -82,11 +82,30 @@
 
   <p>So whether you’re single, married, introverted, or just craving time to yourself — give yourself permission to go. You’ll discover that solo doesn’t mean being alone. It means coming home to yourself.</p>
 
-  <p class="cta">Author’s Pick:
-    <a href="https://www.etsy.com/listing/4388692258/life-is-better-on-a-cruise-shirt-blue?ref=shop_home_active_2&logging_key=f1f57007da892c84380b204380ec800041a39d9c%3A4388692258&utm_source=cruisinginthewake&utm_medium=author_pick_cta&utm_campaign=tina_profile" target="_blank" rel="noopener noreferrer">
-      See the shirt I couldn’t cruise without →
-    </a>
-  </p>
+ <!-- === Author's Pick CTA (Dynamic Shirt Image) === -->
+<p class="cta" id="author-pick-cta">
+  <a href="https://www.etsy.com/listing/4388692258/life-is-better-on-a-cruise-shirt-blue?ref=shop_home_active_2&logging_key=f1f57007da892c84380b204380ec800041a39d9c%3A4388692258&utm_source=cruisinginthewake&utm_medium=author_pick_cta&utm_campaign=tina_profile"
+     target="_blank" rel="noopener noreferrer">
+     <img id="shirt-img" src="/authors/tinas-images/shirt1.png" alt="Cruise T-shirt preview" width="120" height="120" loading="lazy" decoding="async">
+     See the shirt I couldn’t cruise without →
+  </a>
+</p>
+
+<script>
+(function(){
+  // === Randomized Shirt Image Loader (v3.008 CTA Addendum) ===
+  const img = document.getElementById('shirt-img');
+  if (!img) return;
+
+  const count = 6;
+  const index = Math.floor(Math.random() * count) + 1;
+  const version = document.querySelector('meta[name="page:version"]')?.content || '3.008';
+  const src = `/authors/tinas-images/shirt${index}.png?v=${encodeURIComponent(version)}`;
+
+  img.src = src;
+  img.alt = `Cruise T-shirt #${index} preview`;
+})();
+</script>
 
   <footer class="byline">
     <picture>
