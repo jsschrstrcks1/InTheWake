@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
-  <meta name="version" content="3.006.solo.008"/>
+  <meta name="version" content="3.008.016"/>
 
-  <!-- EDIT THESE FOUR -->
+  <!-- Page config for this indexed, standalone article page -->
   <script>
     window.__SOLO_PAGE = {
-      SLUG:  "freedom-of-your-own-wake",               // fragment filename (no .html)
-      TITLE: "Finding Freedom in Your Own Wake",
-      DEK:   "A gentle case for sailing alone — rest, rhythm, and room to breathe. Reflections and practical encouragement for solo cruising from Ken Baker",
-      HERO:  "https://www.cruisinginthewake.com/assets/index_hero.jpg"         // absolute or root-relative
+      SLUG:  "freedom-of-your-own-wake", // fragment filename (no .html)
+      TITLE: "The Freedom of Your Own Wake",
+      DEK:   "A gentle case for sailing alone — rest, rhythm, and room to breathe. Reflections and practical encouragement for solo cruising from Ken Baker.",
+      HERO:  "https://www.cruisinginthewake.com/assets/index_hero.jpg" // absolute or root-relative
     };
   </script>
 
@@ -22,12 +22,13 @@
   <!-- Canonical Host Normalizer -->
   <script>(function(){var w="cruisinginthewake.com",h=location.hostname.toLowerCase(),s=(location.protocol==="https:");if(h!==w||!s){location.replace("https://"+w+location.pathname+location.search+location.hash);}})();</script>
 
+  <!-- Canonical (set in script below) -->
   <link rel="canonical" id="canonical-link" href=""/>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/assets/styles.css"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.016"/>
 
-  <!-- Social defaults (overridden below) -->
+  <!-- Social defaults (populated by script below) -->
   <meta name="description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
   <meta property="og:type" content="article">
   <meta property="og:title" id="og-title" content="">
@@ -35,6 +36,45 @@
   <meta property="og:url" id="og-url" content="">
   <meta property="og:image" id="og-image" content="">
   <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Scoped figure styles so the mounted fragment matches Solo page framing -->
+  <style>
+    /* Card frame for both top hero and inline image when fragment mounts here */
+    #solo-article-host figure.hero,
+    #solo-article-host .article-hero,
+    #solo-article-host figure.inline-hero{
+      margin:0 0 1rem 0; padding:10px; overflow:visible!important;
+      max-width:min(860px,92%); margin-inline:auto; background:#fff!important;
+      border-radius:16px; border:1px solid rgba(8,48,65,.10);
+      box-shadow:0 6px 22px rgba(8,48,65,.08);
+    }
+    #solo-article-host figure.hero > picture,
+    #solo-article-host figure.hero > img,
+    #solo-article-host figure.inline-hero > picture,
+    #solo-article-host figure.inline-hero > img{
+      display:block; width:100%!important; height:auto!important;
+      object-fit:contain!important; border-radius:12px;
+    }
+    /* Caption beneath, left-aligned */
+    #solo-article-host figure.hero > figcaption,
+    #solo-article-host .article-hero > figcaption,
+    #solo-article-host figure.inline-hero > figcaption{
+      position:static!important; inset:auto!important; transform:none!important;
+      float:none!important; display:block!important;
+      margin-top:.65rem; padding-top:.45rem; text-align:left;
+      border-top:1px dashed rgba(8,48,65,.12);
+      font-size:.95rem; line-height:1.4; color:#083041; opacity:.85;
+      background:none!important; box-shadow:none!important; border-radius:0!important;
+    }
+    #solo-article-host figure.hero > figcaption a,
+    #solo-article-host .article-hero > figcaption a,
+    #solo-article-host figure.inline-hero > figcaption a{
+      color:var(--accent,#0e6e8e); font-weight:600; text-decoration:none;
+    }
+    #solo-article-host figure.hero > figcaption a:hover,
+    #solo-article-host .article-hero > figcaption a:hover,
+    #solo-article-host figure.inline-hero > figcaption a:hover{ text-decoration:underline; }
+  </style>
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
@@ -43,16 +83,16 @@
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
+        <img src="/assets/logo_wake.png?v=3.008.016" alt="In the Wake wordmark" width="256" height="64"/>
       </div>
       <nav class="nav pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
-        <a href="/ships/ships.html">Ships</a>
+        <a href="/ships/">Ships</a>
         <a href="/restaurants.html">Restaurants &amp; Menus</a>
         <a href="/ports.html">Ports</a>
-        <a href="/disability.html">Disability at Sea</a>
-        <a href="/drinks.html">Drink Packages</a>
-        <a href="/packing.html">Packing Lists</a>
+        <a href="/disability-at-sea.html">Disability at Sea</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
         <a href="/planning.html">Planning</a>
         <a href="/solo.html">Solo Travel</a>
         <a href="/travel.html">Travel Tips</a>
@@ -63,14 +103,14 @@
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.016" width="180" height="180" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.008.016" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
-        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
-        <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a>
+        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        · <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
   </header>
@@ -79,41 +119,40 @@
     <section class="cards stack">
       <article class="card" id="solo-article-host" aria-live="polite">
         <h2>Loading article…</h2>
+        <p class="tiny muted">Trimming the sails — this will just take a moment.</p>
       </article>
     </section>
   </main>
 
-  <footer class="wrap">
+  <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.006.solo.008</span>
+    <span class="version-badge">v3.008.016</span>
   </footer>
 
-  <!-- Old Floating Social Share Bar (keep your preferred) -->
-  <script defer src="/assets/js/share-bar.js?v=3.006.solo.008"></script>
+  <!-- (Optional) Floating Social Share Bar -->
+  <script defer src="/assets/js/share-bar.js?v=3.008.016"></script>
 
   <!-- Minimal loader to pull the fragment and set metas -->
   <script>
   (function(){
     "use strict";
     var ORIGIN  = location.origin || (location.protocol + '//' + location.host);
-    var SLUG    = (window.__SOLO_PAGE && window.__SOLO_PAGE.SLUG)  || "";
-    var TITLE   = (window.__SOLO_PAGE && window.__SOLO_PAGE.TITLE) || document.title;
-    var DEK     = (window.__SOLO_PAGE && window.__SOLO_PAGE.DEK)   || "";
-    var HERO    = (window.__SOLO_PAGE && window.__SOLO_PAGE.HERO)  || (ORIGIN + "/assets/index_hero.jpg");
+    var cfg     = (window.__SOLO_PAGE || {});
+    var SLUG    = cfg.SLUG  || "";
+    var TITLE   = cfg.TITLE || document.title;
+    var DEK     = cfg.DEK   || "Solo cruising reflections and tips.";
+    var HERO    = cfg.HERO  || (ORIGIN + "/assets/index_hero.jpg");
 
     // Canonical + OG for the full page URL
     var pageUrl = ORIGIN + "/solo/" + encodeURIComponent(SLUG) + ".html";
     function setAttr(sel, attr, val){ var el=document.querySelector(sel); if(el) el.setAttribute(attr,val); }
     setAttr('#canonical-link','href', pageUrl);
     setAttr('#og-title','content', TITLE + " — In the Wake");
-    setAttr('#og-desc','content',  DEK || "Solo cruising reflections and tips.");
+    setAttr('#og-desc','content',  DEK);
     setAttr('#og-url','content',   pageUrl);
     setAttr('#og-image','content', HERO);
-    if (/\.webp(\?|$)/i.test(HERO)) {
-      var ogt=document.createElement('meta'); ogt.setAttribute('property','og:image:type'); ogt.setAttribute('content','image/webp'); document.head.appendChild(ogt);
-    }
 
-    // Fetch and mount the fragment
+    // Fetch and mount the article fragment
     var host = document.getElementById("solo-article-host");
     if(!SLUG || !host){ return; }
     var frag = "/solo/articles/" + encodeURIComponent(SLUG) + ".html";
@@ -126,10 +165,10 @@
         host.innerHTML = '<h2>We hit rough seas loading this article.</h2><p><a href="/solo.html">Return to Solo</a></p>';
       });
 
-    // Nav current state
+    // Primary nav: mark Solo as current
     (function setAriaCurrent(){
       var nav = document.querySelector('.nav[aria-label="Primary"]'); if(!nav) return;
-      var here = "/solo.html";  // highlight the Solo section tab
+      var here = "/solo.html";
       Array.prototype.forEach.call(nav.querySelectorAll('a[href]'), function(a){
         try{
           var u=new URL(a.getAttribute('href'), ORIGIN);
