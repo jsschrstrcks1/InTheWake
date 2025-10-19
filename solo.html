@@ -39,6 +39,19 @@
   }
   </script>
 
+  <!-- ItemList schema (explicit article index for non-JS bots) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ItemList",
+    "name":"Solo Cruising Articles",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"url":"https://www.cruisinginthewake.com/solo/articles/why-i-started-solo-cruising.html"},
+      {"@type":"ListItem","position":2,"url":"https://www.cruisinginthewake.com/solo/articles/freedom-of-your-own-wake.html"}
+    ]
+  }
+  </script>
+
   <!-- Styles (site bundle) -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.008.016"/>
 
@@ -63,7 +76,7 @@
     #solo-article-host .article-hero > figcaption{
       position:static!important; inset:auto!important; transform:none!important;
       float:none!important; display:block!important;
-      margin-top:.65rem; padding-top:.45rem; text-align:left; /* left-aligned per standard */
+      margin-top:.65rem; padding-top:.45rem; text-align:left;
       border-top:1px dashed rgba(8,48,65,.12);
       font-size:.95rem; line-height:1.4; color:#083041; opacity:.85;
       background:none!important; box-shadow:none!important; border-radius:0!important;
@@ -99,7 +112,7 @@
     .wrap.layout > aside.rail{ order:2; min-width:0; }
     @media (min-width:980px){
       .wrap.layout{
-        grid-template-columns:minmax(0,1fr) 320px; /* main | rail */
+        grid-template-columns:minmax(0,1fr) 320px;
         gap:32px;
       }
       .wrap.layout > aside.rail{
@@ -181,13 +194,34 @@
     <div class="maincol" aria-label="Solo Articles">
       <section class="cards stack">
         <article class="card card-intro" id="solo-intro">
-          <h2>Solo, but Never Alone</h2>
+          <!-- H2 -> H1 (semantic) -->
+          <h1>Solo, but Never Alone</h1>
           <p>Here on the open sea, the wake behind us tells a story — not of crowds, but of courage.
           <strong>In the Wake’s</strong> world-roaming authors chart this course together, penning reflections and real-world helps for those who sail solo.</p>
           <p>In the weeks ahead, our team will be sharing <em>travel logs, lessons, and laughter</em> from journeys across the world’s oceans — all written to help you navigate the beauty and balance of cruising on your own.</p>
           <p>Whether you’re plotting your first voyage or your fiftieth, consider this your friendly harbor: a place to learn, to rest, and to remember that even when you sail solo, you sail in good company.</p>
           <p>Fair winds, following seas, and space to breathe — your solo journey begins here.</p>
           <p class="tiny muted">Standards: Solo Module v3.006.solo.001 (+ v3.008 addendum)</p>
+
+          <!-- Hidden crawlable index of articles (defense-in-depth) -->
+          <nav class="visually-hidden" aria-label="Solo articles index">
+            <ul>
+              <li><a href="/solo/articles/why-i-started-solo-cruising.html">Why I Started Solo Cruising (and Built a Community)</a></li>
+              <li><a href="/solo/articles/freedom-of-your-own-wake.html">The Freedom of Your Own Wake</a></li>
+            </ul>
+          </nav>
+
+          <!-- No-JS fallback for users and non-JS bots -->
+          <noscript>
+            <section class="card">
+              <h2>Articles</h2>
+              <p>JavaScript is off. Open articles directly:</p>
+              <ul>
+                <li><a href="/solo/articles/why-i-started-solo-cruising.html">Why I Started Solo Cruising (and Built a Community)</a></li>
+                <li><a href="/solo/articles/freedom-of-your-own-wake.html">The Freedom of Your Own Wake</a></li>
+              </ul>
+            </section>
+          </noscript>
         </article>
       </section>
 
@@ -225,6 +259,9 @@
           <div id="related-rail" class="rail-items" aria-live="polite">Loading recommendations…</div>
         </article>
       </section>
+    </aside> <!-- CLOSE aside -->
+
+  </main> <!-- CLOSE main -->
 
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
@@ -602,7 +639,7 @@
           img.addEventListener("error",function(){ if(img.dataset.fallback) return; img.dataset.fallback="1"; img.src=PLACEHOLDER; },{once:true});
         });
         Array.prototype.forEach.call(mount.querySelectorAll(".rail-item .avatar"), function(img){
-          img.addEventListener("error",function(){ if(img.dataset.fallback) return; img.dataset.fallback="1"; img.src=AV_PLACEHOLDER; },{once:true});
+          img.addEventListener("error",function(){ if(img.dataset.fallback) return; img.dataset-fallback="1"; img.src=AV_PLACEHOLDER; },{once:true});
         });
       }
 
