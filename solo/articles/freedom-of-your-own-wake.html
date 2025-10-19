@@ -4,7 +4,7 @@
   <!-- ======================================================
        In the Wake — Article SEO Metadata (static page)
        Article: The Freedom of Your Own Wake
-       Version: v3.008.015
+       Version: v3.008.016
        Standards Baseline: 3.008
        Author: Ken Baker
        ====================================================== -->
@@ -12,13 +12,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
-  <meta name="page:version" content="v3.008.015">
+  <meta name="page:version" content="v3.008.016">
   <meta name="standards:baseline" content="3.008">
   <meta name="robots" content="index, follow"/>
 
   <!-- Canonical & Title/Desc -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/solo/articles/freedom-of-your-own-wake.html">
-  <title>The Freedom of Your Own Wake | Solo Cruising Guide | In the Wake (v3.008.015)</title>
+  <title>The Freedom of Your Own Wake | Solo Cruising Guide | In the Wake (v3.008.016)</title>
   <meta name="description" content="A gentle case for sailing alone — rest, rhythm, and room to breathe. Reflections and practical encouragement for solo cruising from Ken Baker.">
 
   <!-- Open Graph / Twitter -->
@@ -27,12 +27,12 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/solo/articles/freedom-of-your-own-wake.html">
   <meta property="og:title" content="The Freedom of Your Own Wake — A Gentle Case for Solo Cruising">
   <meta property="og:description" content="Chart your own course with Ken Baker’s gentle case for solo cruising. Find rest, rhythm, and room to breathe at sea.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.015">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.016">
   <meta property="og:image:type" content="image/jpeg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Freedom of Your Own Wake — A Gentle Case for Solo Cruising">
   <meta name="twitter:description" content="Discover the freedom of solo cruising. Reflections and practical wisdom from Ken Baker.">
-  <meta name="twitter:image" content="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.015">
+  <meta name="twitter:image" content="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.016">
   <meta name="twitter:creator" content="@CruisingWake">
 
   <!-- JSON-LD -->
@@ -42,7 +42,7 @@
     "@type": "BlogPosting",
     "headline": "The Freedom of Your Own Wake: A Gentle Case for Solo Cruising",
     "description": "Chart your own course with Ken Baker’s gentle case for solo cruising — practical tips, reflections, and the joy of finding rest and rhythm at sea.",
-    "image": "https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.015",
+    "image": "https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.016",
     "url": "https://www.cruisinginthewake.com/solo/articles/freedom-of-your-own-wake.html",
     "datePublished": "2025-10-15",
     "dateModified": "2025-10-19",
@@ -63,7 +63,7 @@
       "url": "https://www.cruisinginthewake.com",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008.015"
+        "url": "https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008.016"
       }
     },
     "keywords": [
@@ -76,8 +76,11 @@
   }
   </script>
 
-  <!-- Hero + Inline Figure Styling -->
+  <!-- Figure/Card Styling (works standalone and when embedded in Solo host) -->
   <style>
+    /* Card frame for both top hero and inline image */
+    .article figure.hero,
+    .article figure.inline-hero,
     #solo-article-host figure.hero,
     #solo-article-host .article-hero {
       margin:0 0 1rem 0; padding:10px; overflow:visible!important;
@@ -85,37 +88,37 @@
       border-radius:16px; border:1px solid rgba(8,48,65,.10);
       box-shadow:0 6px 22px rgba(8,48,65,.08);
     }
+    .article figure.hero > picture,
+    .article figure.hero > img,
+    .article figure.inline-hero > picture,
+    .article figure.inline-hero > img,
     #solo-article-host figure.hero > picture,
     #solo-article-host figure.hero > img {
       display:block; width:100%!important; height:auto!important;
       object-fit:contain!important; border-radius:12px;
     }
+    /* Caption beneath, left-aligned */
+    .article figure.hero > figcaption,
+    .article figure.inline-hero > figcaption,
     #solo-article-host figure.hero > figcaption,
-    .article figure.inline-hero > figcaption {
-      position:static!important; margin-top:.65rem; padding-top:.45rem;
-      text-align:left; border-top:1px dashed rgba(8,48,65,.12);
+    #solo-article-host .article-hero > figcaption {
+      position:static!important; inset:auto!important; transform:none!important;
+      float:none!important; display:block!important;
+      margin-top:.65rem; padding-top:.45rem; text-align:left;
+      border-top:1px dashed rgba(8,48,65,.12);
       font-size:.95rem; line-height:1.4; color:#083041; opacity:.85;
       background:none!important; box-shadow:none!important; border-radius:0!important;
     }
+    .article figure.hero > figcaption a,
+    .article figure.inline-hero > figcaption a,
     #solo-article-host figure.hero > figcaption a,
-    .article figure.inline-hero > figcaption a {
+    #solo-article-host .article-hero > figcaption a {
       color:var(--accent,#0e6e8e); font-weight:600; text-decoration:none;
     }
+    .article figure.hero > figcaption a:hover,
+    .article figure.inline-hero > figcaption a:hover,
     #solo-article-host figure.hero > figcaption a:hover,
-    .article figure.inline-hero > figcaption a:hover { text-decoration:underline; }
-
-    /* Inline hero same frame and dimensions as top hero */
-    .article figure.inline-hero {
-      margin:0 0 1rem 0; padding:10px; overflow:visible!important;
-      max-width:min(860px,92%); margin-inline:auto; background:#fff!important;
-      border-radius:16px; border:1px solid rgba(8,48,65,.10);
-      box-shadow:0 6px 22px rgba(8,48,65,.08);
-    }
-    .article figure.inline-hero > picture,
-    .article figure.inline-hero > img {
-      display:block; width:100%!important; height:auto!important;
-      object-fit:contain!important; border-radius:12px;
-    }
+    #solo-article-host .article-hero > figcaption a:hover { text-decoration:underline; }
   </style>
 </head>
 <body class="article">
@@ -123,11 +126,10 @@
     <h1>The Freedom of Your Own Wake</h1>
     <p class="dek">A gentle case for sailing alone — rest, rhythm, and room to breathe when the sea becomes both your mirror and your companion.</p>
 
-    <!-- HERO -->
+    <!-- TOP HERO (now in card frame) -->
     <figure class="hero">
       <picture>
-        <source type="image/webp" srcset="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.015" width="1600" height="900">
-        <img src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.015"
+        <img src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.016"
              width="1600" height="900" loading="lazy" decoding="async" fetchpriority="high"
              alt="Sunrise over a calm sea">
       </picture>
@@ -151,12 +153,11 @@
 
     <p>Without the constant pull of conversation or planning, you begin to hear the voice of the One who calms the seas. You begin to realize that solitude is not separation — it’s communion. And sometimes, the most faithful thing you can do is take a deep breath and let the Lord steer for a while.</p>
 
-    <!-- INLINE IMAGE -->
+    <!-- INLINE IMAGE (now matches hero card + new source) -->
     <figure class="inline-hero">
       <picture>
-        <source type="image/webp" srcset="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.015">
-        <img src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.015"
-             loading="lazy" decoding="async" alt="Sunrise at sea">
+        <img src="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.016"
+             loading="lazy" decoding="async" alt="Wake trailing a ship at sunrise">
       </picture>
       <figcaption>Photo © <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a></figcaption>
     </figure>
@@ -176,8 +177,8 @@
     <footer class="byline">
       <div class="avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;flex:none">
         <picture>
-          <source type="image/webp" srcset="https://www.cruisinginthewake.com/authors/img/ken1.webp?v=3.008.015">
-          <img src="https://www.cruisinginthewake.com/authors/img/ken1.jpg?v=3.008.015" alt="Ken Baker" width="48" height="48" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
+          <source type="image/webp" srcset="https://www.cruisinginthewake.com/authors/img/ken1.webp?v=3.008.016">
+          <img src="https://www.cruisinginthewake.com/authors/img/ken1.jpg?v=3.008.016" alt="Ken Baker" width="48" height="48" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
         </picture>
       </div>
       <div style="margin-left:.5rem">
@@ -196,6 +197,7 @@
     </footer>
   </article>
 
+  <!-- Share button helper -->
   <script>
   (function(){
     const btn = document.querySelector('.byline .share');
