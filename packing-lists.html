@@ -443,6 +443,7 @@
   </script>
 
   <!-- Articles rail hydrator (uses same images as Travel/Solo) -->
+    <!-- Articles rail hydrator (v3.008.028 — Freedom hero override) -->
   <script>
   (function(){
     const MOUNT=document.getElementById('rail-mount');
@@ -451,8 +452,8 @@
     function showFall(on){ if(FALL) FALL.style.display=on?'':'none'; }
 
     const abs=p=>(typeof _abs==='function'?_abs(p):p);
-    const SRC = '/assets/data/articles/index.json?v=3.008.027';
-    const PLACEHOLDER = '/assets/placeholders/article-thumb.jpg?v=3.008.027';
+    const SRC='/assets/data/articles/index.json?v=3.008.028';
+    const PLACEHOLDER='/assets/placeholders/article-thumb.jpg?v=3.008.028';
 
     /* Seed matches Travel/Solo imagery */
     const SEED=[
@@ -461,43 +462,47 @@
         title:'Top 20 First-Cruise Questions (Answered)',
         date:'2025-10-16',
         excerpt:'A first-person guide to planning, packing, ports, and ship life.',
-        /* same hero used on Travel page */
-        image:'/assets/articles/top-20-questions/cover.jpg?v=3.008.027',
-        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/authors/img/ken1.webp?v=3.008.027'}
+        image:'/assets/articles/top-20-questions/cover.jpg?v=3.008.028',
+        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v=3.008.028'}
       },
       {
         url:'/solo/articles/freedom-of-your-own-wake.html',
         title:'Freedom of Your Own Wake',
         date:'2024-08-13',
         excerpt:'On choosing solitude without being alone.',
-        image:'/assets/articles/solo/freedom-of-your-own-wake.jpg?v=3.008.027',
-        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/authors/img/ken1.webp?v=3.008.027'}
+        /* Updated hero per user: index_hero.jpg */
+        image:'/assets/index_hero.jpg?v=3.008.028',
+        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v=3.008.028'}
       }
     ];
 
     function card(a){
       const d=a.date?new Date(a.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}):'';
       const img=(a.image&&a.image.trim())||(a.author&&a.author.image)||PLACEHOLDER;
-      const avatar=(a.author&&a.author.image)||'/authors/img/ken1.webp?v=3.008.027';
+      const avatar=(a.author&&a.author.image)||'/authors/img/ken1.webp?v=3.008.028';
       const authorName=(a.author&&a.author.name)||'Ken Baker';
       const authorUrl=(a.author&&a.author.url)||'/authors/ken-baker.html';
       return `<article class="rail-item">
         <a class="thumb" href="${a.url}"><img src="${img}" alt="${a.title||'Article image'}"></a>
         <div class="meta">
           <h4><a href="${a.url}">${a.title||''}</a></h4>
-          <p class="tiny muted">${d} · <img class="author-avatar" src="${avatar}" alt="${authorName}" style="width:18px;height:18px;border-radius:50%;vertical-align:-3px;margin-right:.25rem"><a href="${authorUrl}">${authorName}</a></p>
+          <p class="tiny muted">${d} · 
+            <img class="author-avatar" src="${avatar}" alt="${authorName}" 
+              style="width:18px;height:18px;border-radius:50%;vertical-align:-3px;margin-right:.25rem">
+            <a href="${authorUrl}">${authorName}</a>
+          </p>
           <p class="tiny">${a.excerpt||''}</p>
         </div>
       </article>`;
     }
+
     function render(list){ MOUNT.innerHTML=list.slice(0,4).map(card).join(''); }
 
     fetch(abs(SRC),{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject())
       .then(json=>{
         const remote=Array.isArray(json?.articles)?json.articles:[];
         const items=[...SEED, ...remote].filter(x=>x&&x.url).slice(0,6);
-        render(items);
-        showFall(false);
+        render(items); showFall(false);
       })
       .catch(()=>{ render(SEED); showFall(false); });
   })();
