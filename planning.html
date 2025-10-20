@@ -570,107 +570,165 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
   })();
   </script>
 <script>
-/* In the Wake • Right-Rail Hardener (rail-only) v3.008.025
-   - Wires to #journal-rail (your real mount)
-   - Multi-source article feed with solid fallbacks
-   - Safe image fallbacks for author/article thumbs
-   Soli Deo Gloria. */
 (function(){
-  const V='3.008.025';
-  const abs=(p)=> (typeof window._abs==='function'?_abs(p):p);
-  const $=(s,r=document)=>r.querySelector(s);
+  const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
 
-  const MOUNT = $('#journal-rail');           // ✅ your real mount
-  const FALL  = $('#journal-rail-fallback');  // tiny “Loading…” helper if present
-  if(!MOUNT) return;
+  // ------- DOM -------
+  const statePills=document.getElementById('state-pills');
+  const portPills =document.getElementById('port-pills');
+  const blurb    =document.getElementById('port-blurb');
+  const airports =document.getElementById('airports');
+  const warns    =document.getElementById('warnings');
+  const qaMount  =document.getElementById('qa');
+  const seasonal =document.getElementById('seasonal-banner');
+  const breaksEl =document.getElementById('school-breaks');
 
-  function showFallback(on){ if(FALL){ FALL.style.display = on ? '' : 'none'; } }
+  // ------- utils -------
+  const esc = (s)=> String(s??'').replace(/[&<>"]/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[m]));
+  const chip=(label,on,current=false)=>{
+    const a=document.createElement('a'); a.href='#'; a.className='pill'; a.textContent=label;
+    if(current) a.setAttribute('aria-current','true');
+    a.addEventListener('click',e=>{e.preventDefault(); on&&on();});
+    return a;
+  };
 
-  const ARTICLE_PLACEHOLDER = '/assets/placeholders/article-thumb.jpg?v='+V;
-  const AUTHOR_PLACEHOLDER  = '/assets/placeholders/author.jpg?v='+V;
-
-  // Try multiple sources; settle gracefully.
-  const SOURCES = [
-    '/assets/data/articles.json?v='+V,
-    '/assets/data/articles/index.json?v='+V,
-    '/solo/articles/index.json?v='+V
-  ];
-
-  // Seed ensures something shows even if feeds 404.
-  const SEED = [
-    {
-      url:'/solo/articles/freedom-of-your-own-wake.html',
-      title:'Freedom of Your Own Wake',
-      date:'2025-10-17',
-      dek:'On choosing solitude without being alone.',
-      image:'/assets/index_hero.jpg?v='+V,
-      author:{ name:'Ken Baker', url:'/authors/ken-baker.html', image:'/assets/authors/ken-baker.jpg?v='+V }
-    },
-    {
-      url:'/travel.html#top-20-questions',
-      title:'Top 20 First-Cruise Questions (Answered)',
-      date:'2025-10-17',
-      dek:'Planning, packing, ports, and ship life—steady answers.',
-      image:'/assets/articles/top-20-questions/cover.jpg?v='+V,
-      author:{ name:'Ken Baker', url:'/authors/ken-baker.html', image:'/assets/authors/ken-baker.jpg?v='+V }
-    }
-    // To feature Tina here right away, add her card to SEED with the correct URL/image.
-  ];
-
-  function normalize(payload){
-    const list = Array.isArray(payload?.articles) ? payload.articles
-               : Array.isArray(payload) ? payload
-               : [];
-    return list.map(a=>({
-      url: a.url || a.permalink || '#',
-      title: a.title || a.headline || 'Article',
-      dek: a.dek || a.description || a.excerpt || '',
-      date: a.datePublished || a.date || '',
-      image: a.image || '',
-      author: a.author || a.by || null
-    })).filter(x=>x.url && (x.url.startsWith('/') || /^https?:\/\//.test(x.url)));
+  function stripJSONComments(str){
+    return String(str)
+      .replace(/\/\*[\s\S]*?\*\//g,'')              // /* … */
+      .replace(/(^|[^:])\/\/.*$/gm,'$1')            // // … (not after :)
+      .replace(/,\s*([}\]])/g,'$1');                // trailing commas
   }
 
-  async function tryFetch(u){
+  async function fetchJSON(url){
+    try{ const r=await fetch(abs(url),{cache:'no-store'}); if(!r.ok) throw 0; return await r.json(); }
+    catch(_){ return null; }
+  }
+
+  async function loadDataset(){
+    // remote first…
+    const urls=[
+      '/assets/data/planning_dataset_v0.6.json?v=3.008.027',
+      '/assets/data/planning_dataset.json?v=3.008.027'
+    ];
+    for(const u of urls){ const j=await fetchJSON(u); if(j) return j; }
+    // …then inline (comment-tolerant)
     try{
-      const r=await fetch(abs(u),{cache:'no-store'});
-      if(!r.ok) throw 0;
-      return normalize(await r.json());
-    }catch(_){ return []; }
+      const raw=document.getElementById('planning-dataset-inline')?.textContent||'{}';
+      return JSON.parse(stripJSONComments(raw));
+    }catch(_){ return {}; }
   }
 
-  function card(a){
-    const d = a.date && !isNaN(Date.parse(a.date)) ? new Date(a.date).toLocaleDateString() : '';
-    const img = a.image ? abs(a.image) : (a.author?.image ? abs(a.author.image) : abs(ARTICLE_PLACEHOLDER));
-    const authorName = a.author?.name || '';
-    const authorURL  = a.author?.url  || '';
-    const avatar     = a.author?.image ? abs(a.author.image) : AUTHOR_PLACEHOLDER;
+  // normalize into {states:[{code,name,ports:[]…}]}
+  function normalize(data){
+    if(Array.isArray(data.states)) return data;
+    const ports = Array.isArray(data.ports)? data.ports : [];
+    const map = new Map();
+    for(const p of ports){
+      const st=p.state||'—';
+      if(!map.has(st)) map.set(st,{ code:st, name:st, ports:[], blurb:'', tips:[], warnings:[] });
+      map.get(st).ports.push(p);
+    }
+    return { states:[...map.values()], school_break_signals:data.school_break_signals||{}, rendering_hints:data.rendering_hints||{} };
+  }
 
-    return `
-      <article class="rail-item">
-        <a class="thumb" href="${a.url}">
-          <img src="${img}" alt="${a.title}" onerror="this.onerror=null;this.src='${abs(ARTICLE_PLACEHOLDER)}'">
-        </a>
-        <div class="meta">
-          <h4><a href="${a.url}">${a.title}</a></h4>
-          <p class="tiny muted">${d}${authorName ? ` · <img class="avatar" src="${avatar}" alt="${authorName}" onerror="this.onerror=null;this.src='${abs(AUTHOR_PLACEHOLDER)}'"> <a class="author" href="${authorURL}">${authorName}</a>`:''}</p>
-          ${a.dek ? `<p class="tiny">${a.dek}</p>` : ``}
-        </div>
-      </article>`;
+  function groupByState(states){
+    // ensure each state's ports are ordered
+    states.forEach(s=>{
+      (s.ports||[]).sort((a,b)=>(a.priority_rank_state||99)-(b.priority_rank_state||99)
+        || String(a.port_name||a.name).localeCompare(String(b.port_name||b.name)));
+    });
+    // sort states: FL first, then alpha
+    states.sort((a,b)=> (a.code==='FL'? -1 : b.code==='FL'? 1 : String(a.name).localeCompare(String(b.name))));
+    return states;
+  }
+
+  function renderBreaks(meta){
+    const sb=meta.school_break_signals||{};
+    const items=[
+      `<strong>Spring Break:</strong> ${esc(sb.spring_break?.window||'varies')} — ${esc(sb.spring_break?.notes||'')}`,
+      `<strong>Fall Break:</strong> ${esc(sb.fall_break?.window||'varies')} — ${esc(sb.fall_break?.notes||'')}`,
+      sb.other_spikes?.length?`<strong>Also Busy:</strong> ${sb.other_spikes.join(', ')}`:''
+    ].filter(Boolean);
+    breaksEl.innerHTML=items.map(x=>`<div>${x}</div>`).join('');
+  }
+
+  function renderPortContent(p, meta){
+    // blurb
+    const bl=(p.blurb||p.dek||p.description||[]);
+    blurb.innerHTML=Array.isArray(bl)? bl.map(x=>`<p>${esc(x)}</p>`).join('') : `<p>${esc(bl)}</p>`;
+    // seasonal banner
+    const hints=meta.rendering_hints||{};
+    if(hints.show_school_break_banner!==false){
+      const sb=meta.school_break_signals||{};
+      seasonal.style.display='';
+      seasonal.innerHTML=`<strong>Heads-up:</strong> Spring Break (${esc(sb.spring_break?.window||'varies')}) & Fall Break (${esc(sb.fall_break?.window||'varies')}) raise fares/traffic. ${esc(sb.spring_break?.notes||'')}`;
+    }else seasonal.style.display='none';
+    // airports
+    airports.innerHTML=(p.airports||[]).map(a=>`
+      <div class="airport">
+        <div><span class="code">${esc(a.code)}</span> — ${esc(a.name)}</div>
+        <div class="tiny">${a.distance_miles?`${a.distance_miles} mi · `:''}${esc(a.typical_drive_minutes||a.approxDriveMins||'')}${a.typical_drive_minutes||a.approxDriveMins?' (typical)':''}</div>
+        ${a.notes?`<div class="tiny muted">${esc(a.notes)}</div>`:''}
+      </div>`).join('') || `<div class="tiny muted">No airport data.</div>`;
+    // warnings
+    warns.innerHTML=(p.warnings||[]).map(w=>`<li>${esc(w)}</li>`).join('') || `<li class="tiny muted">No special cautions.</li>`;
+    // Q&A
+    qaMount.innerHTML=(p.qa||[]).map(q=>`<details class="qa"><summary>${esc(q.q)}</summary><div class="tiny">${esc(q.a)}</div></details>`).join('') || `<p class="tiny muted">No questions yet.</p>`;
   }
 
   (async function boot(){
-    showFallback(true);
-    let items=[];
-    for(const src of SOURCES){ items = await tryFetch(src); if(items.length) break; }
-    if(!items.length) items = SEED;
+    const raw = await loadDataset();
+    const data = normalize(raw);
+    renderBreaks(data);
 
-    // Prefer Travel/Solo planning-adjacent
-    const score = (a)=> ((/\/travel|\/solo/.test(a.url))?1:0) + ((a.title||'').toLowerCase().includes('question')?1:0);
-    items.sort((a,b)=> score(b)-score(a));
+    const states = groupByState(data.states||[]);
+    if(!states.length){ statePills.innerHTML=''; portPills.innerHTML=''; return; }
 
-    MOUNT.innerHTML = items.slice(0,4).map(card).join('');
-    showFallback(false);
+    let currentState = states.find(s=>s.code==='FL')?.code || states[0].code;
+    let currentPortSlug = null;
+
+    function selectState(code){
+      const st = states.find(s=>s.code===code);
+      if(!st) return;
+      currentState = code;
+      // build state chips
+      statePills.innerHTML='';
+      states.forEach(s=>{
+        statePills.appendChild(chip(s.code, ()=>selectState(s.code), s.code===currentState));
+      });
+      // build port pills
+      portPills.innerHTML='';
+      const list=st.ports||[];
+      if(!list.length){ blurb.innerHTML=''; airports.innerHTML=''; warns.innerHTML=''; qaMount.innerHTML=''; return; }
+      if(!currentPortSlug || !list.some(p=>(p.port_slug||p.id)===currentPortSlug)){
+        currentPortSlug = (list[0].port_slug||list[0].id);
+      }
+      list.forEach(p=>{
+        const name = p.port_name||p.name;
+        const slug = p.port_slug||p.id;
+        portPills.appendChild(chip(name, ()=>selectPort(slug), slug===currentPortSlug));
+      });
+      // render current port
+      selectPort(currentPortSlug, false);
+    }
+
+    function selectPort(slug, scroll=true){
+      currentPortSlug = slug;
+      const st = states.find(s=>s.code===currentState); if(!st) return;
+      const p  = (st.ports||[]).find(x=>(x.port_slug||x.id)===slug);
+      if(!p) return;
+      // refresh port pills to set aria-current correctly
+      portPills.querySelectorAll('.pill').forEach(a=>a.removeAttribute('aria-current'));
+      const active = Array.from(portPills.children).find(a=>a.textContent===(p.port_name||p.name));
+      if(active) active.setAttribute('aria-current','true');
+      renderPortContent(p, data);
+      if(scroll && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+        document.getElementById('port-panel')?.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    }
+
+    // init
+    selectState(currentState);
   })();
 })();
 </script>
