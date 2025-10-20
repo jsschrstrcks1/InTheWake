@@ -1,182 +1,114 @@
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
+“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
+
+STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · A11y/WCAG Addendum v3.100
+ADDENDUM: Facebook Domain Verification v3.008.021
+-->
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WZP891PZXJ');
-</script>
-  <!--
-    In the Wake — Invocation Edition v3.006
-    “Soli Deo Gloria.” 1 Cor 10:31 · Prov 3:5–6
-    Authorship : abondservant (a bondservant of Christ)
-    Timestamp  : 2025-10-10T00:00:00Z
-  -->
-
-  <!-- Analytics -->
-  <script defer src="https://cloud.umami.is/script.js"
-          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-
-  <!-- Standards v3.006: absolute URL + origin normalizer -->
-  <script>
-  (function(){
-    const ORIGIN = (location.origin || (location.protocol + "//" + location.host)).replace(/\/$/, "");
-    window._abs = p => { p = String(p || ""); if(!p.startsWith("/")) p = "/" + p; return ORIGIN + p };
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll([
-        'a[href^="https://www.cruisinginthewake.com/"]',
-        'img[src^="https://www.cruisinginthewake.com/"]',
-        'link[href^="https://www.cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]'
-      ].join(",")).forEach(el => {
-        const attr = el.hasAttribute("href") ? "href" : "src";
-        try {
-          const u = new URL(el.getAttribute(attr));
-          el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
-        } catch(_) {}
-      });
-    }, { once: true });
-  })();
-  </script>
-
-  <!-- External link hardening -->
-  <script>
-  document.addEventListener("click", e => {
-    const a = e.target.closest && e.target.closest("a[href]");
-    if(!a) return;
-    try {
-      const u = new URL(a.href, location.href);
-      if(u.origin !== location.origin){
-        a.target = "_blank";
-        a.rel = "noopener";
-      }
-    } catch(_) {}
-  }, { capture: true });
-  </script>
-
+  <!-- Core Meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Disability at Sea | In the Wake (v3.006)</title>
-  <meta name="version" content="v3.006"/>
-  <meta name="description" content="Accessible cruising resources grounded in real experiences — mobility, sensory, dietary, and service-animal guidance. Content is actively in development."/>
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0e6e8e">
+  <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
+
+  <!-- Title / Version Trinity -->
+  <title>Accessibility & Inclusion — In the Wake (v3.008.022)</title>
+  <meta name="version" content="v3.008.022"/>
+  <meta name="page:version" content="v3.008.022"/>
+  <meta name="standards:baseline" content="3.008"/>
+
+  <!-- Canonical & Description -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/disability-at-sea.html"/>
+  <meta name="description" content="In the Wake is committed to accessibility for all travelers — honoring every ability, ensuring every voyager can plan and dream freely. Built for clarity, inclusion, and love."/>
   <meta name="robots" content="index,follow"/>
 
-  <!-- Canonical & Social -->
-  <link rel="canonical" href="https://cruisinginthewake.com/disability-at-sea.html"/>
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
-  <meta property="og:title" content="Disability at Sea | In the Wake"/>
-  <meta property="og:description" content="Accessible cruising, grounded in real experiences. Coming soon: videos, first-hand notes, and ship-by-ship details."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.006"/>
+  <meta property="og:title" content="Accessibility & Inclusion — In the Wake"/>
+  <meta property="og:description" content="Our mission is full digital accessibility for all travelers — a site built with empathy and conviction, following WCAG 2.1 AA and ADA standards."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.008"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.cruisinginthewake.com/"},
-      {"@type": "ListItem", "position": 2, "name": "Disability at Sea", "item": "https://www.cruisinginthewake.com/disability-at-sea.html"}
-    ]
-  }
-  </script>
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008"/>
 
-  <!-- SiteCache + Service Worker -->
-  <script src="/assets/js/site-cache.js" defer></script>
+  <!-- Preload Hero -->
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008" fetchpriority="high"/>
+
+  <!-- Consent Manager -->
+  <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js" data-cmp-host="a.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
+
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
-  if("serviceWorker" in navigator){
-    addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
-  }
+    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());gtag('config','G-WZP891PZXJ');
+  </script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Absolute URL Normalizer -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
+    function normalize(){
+      const sel=['a[href^="https://www.cruisinginthewake.com/"]','img[src^="https://www.cruisinginthewake.com/"]','link[href^="https://www.cruisinginthewake.com/"]','script[src^="https://www.cruisinginthewake.com/"]'].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
+      });
+    }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
+  })();
   </script>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+  <!-- External link hardener -->
+  <script>
+  (function(){
+    const here=location.hostname.replace(/^www\./,'');
+    function upgrade(){
+      document.querySelectorAll('a[href]').forEach(a=>{
+        const href=a.getAttribute('href')||'';
+        if(/^(#|mailto:|tel:)/i.test(href))return;
+        try{
+          const u=new URL(href,location.href);
+          const host=u.hostname.replace(/^www\./,'');
+          if(host!==here||a.rel==='external'){
+            a.target='_blank';
+            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+          }
+        }catch(_){}
+      });
+    }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}else{upgrade();}
+  })();
+  </script>
 
-  <!-- Scoped page visuals -->
+  <!-- Hero tune -->
   <style>
-    body.page {
-      background: linear-gradient(var(--foam), #fff 240px);
-      color: var(--ink);
-    }
-    .hero {
-      background: url("/assets/index_hero.jpg") center/cover no-repeat !important;
-      filter: saturate(1.3) contrast(1.1) brightness(1.05);
-    }
-    .hero::before, .hero::after { content: none !important; }
-
-    /* Watermark */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url("/assets/watermark.png") center right/420px auto no-repeat;
-      opacity: .06;
-      pointer-events: none;
-      z-index: 0;
-    }
-    body > * { position: relative; z-index: 1; }
-
-    /* Skip link */
-    .skip-link {
-      position: absolute;
-      left: -9999px;
-      top: auto;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-    .skip-link:focus {
-      position: fixed;
-      left: 12px;
-      top: 12px;
-      width: auto;
-      height: auto;
-      padding: .45rem .7rem;
-      background: #fff;
-      border: 2px solid var(--accent);
-      border-radius: 10px;
-      z-index: 9999;
-    }
-
-    /* Focus ring normalization */
-    .pill, .btn, .logo-sm, .hero-credit .pill.long { outline: none; }
-    .pill:focus-visible, .btn:focus-visible, .logo-sm:focus-visible, .hero-credit .pill.long:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 2px;
-      box-shadow: 0 0 0 3px rgba(14,110,142,.2);
-      border-radius: 8px;
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      *{animation-duration:.001ms!important;transition-duration:.001ms!important;}
-    }
-    @media (forced-colors: active){
-      .pill:focus-visible, .btn:focus-visible {
-        outline: 2px solid CanvasText;
-        box-shadow: none;
-      }
-    }
+    .hero{background:url('/assets/index_hero.jpg?v=3.008') center/cover no-repeat!important;filter:saturate(1.35) contrast(1.12) brightness(1.05);}
+    .hero::before,.hero::after{content:none!important;}
   </style>
 </head>
 
 <body class="page">
-  <!-- Invocation header note -->
   <a class="skip-link" href="#content">Skip to main content</a>
 
-  <header class="site-header hero-header">
+  <!-- Header -->
+  <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
-        <span class="tiny ver-badge" aria-label="Site version">v3.006</span>
+        <img src="/assets/logo_wake.png?v=3.008" width="256" height="64" alt="In the Wake wordmark"/>
+        <span class="version-badge">v3.008.022</span>
       </div>
-
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/ships/">Ships</a>
@@ -188,119 +120,72 @@
         <a href="/planning.html">Planning</a>
         <a href="/solo.html">Solo</a>
         <a href="/travel.html">Travel</a>
-        <a href="https://www.cruisinginthewake.com/about-us.html">About Us</a>
+        <a href="/cruise-lines.html">Cruise Lines</a>
+        <a href="/about-us.html">About</a>
       </nav>
     </div>
 
-    <div class="hero" role="img" aria-label="Sunlit ship wake on calm ocean">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" width="180" height="180" aria-hidden="true"/>
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
+        <img class="logo" src="/assets/logo_wake.png?v=3.008" width="256" height="64" alt="In the Wake">
+        <div class="tagline">Accessible Seas for Every Traveler</div>
       </div>
       <div class="hero-credit">
-        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        Photo © <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <main class="wrap" id="content">
-    <header class="card" aria-labelledby="page-title">
-      <h1 id="page-title">Disability at Sea</h1>
-      <p>Real-world accessibility guidance for cruise travelers. This section is being built with input from guests, crew, and advocates.</p>
-    </header>
-
-    <section class="card coming-soon" aria-labelledby="coming">
-      <h2 id="coming">Coming Soon</h2>
-      <ul class="venue-list">
-        <li>Video walkthroughs: mobility, sensory, dietary accessibility.</li>
-        <li>“Depth soundings” — first-hand experiences, ship by ship.</li>
-        <li>Deck-plan annotations for accessible cabins and venues.</li>
-        <li>Guides for requesting accommodations and communicating needs onboard.</li>
-      </ul>
-      <p class="pill" style="display:inline-block;margin-top:.5rem;">
-        Want to contribute your experience? Email
-        <a href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a>
-      </p>
+  <!-- Main -->
+  <main id="content" class="wrap" role="main">
+    <section class="card">
+      <h1>Accessibility &amp; Inclusion Commitment</h1>
+      <p><em>In the Wake</em> exists to ensure that every traveler — regardless of ability, age, or circumstance — can explore the wonder of cruising without barriers. We believe accessibility is not simply a regulation to meet, but an act of love and respect. The sea calls to everyone, and our mission is to make sure every person can answer that call with confidence and dignity.</p>
+      <p>Our team approaches accessibility as both a technical and moral standard. We continually test and refine our website against the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> and the <strong>Americans with Disabilities Act (ADA)</strong>, ensuring full keyboard navigation, assistive technology support, and readable design. When feedback comes, we listen — because accessibility is not a finish line, but a voyage we’re all on together.</p>
     </section>
 
-    <section class="card" aria-labelledby="interim">
-      <h2 id="interim">Interim Resources</h2>
-      <p>While this section grows, accessibility notes are being added across ship, restaurant, and port pages where verified information exists. Each listing includes structured ARIA, descriptive alt text, and keyboard navigation support as part of our WCAG 2.1 Level AA implementation.</p>
+    <section class="card">
+      <h2>Ensuring Access for Every Voyager</h2>
+      <p>From visual clarity to cognitive simplicity, every choice we make — from color contrast to content structure — aims to serve travelers of every ability. We’re committed to designing pages that are perceivable, operable, understandable, and robust. Our goal is a website where every reader feels welcomed, seen, and supported, no matter how they navigate or communicate.</p>
+      <p>For those journeying through life with disabilities, chronic conditions, or neurodivergence, we recognize the additional challenges that come with travel. You matter deeply to us. Your feedback, your perspective, and your presence enrich everything we do here. We strive to build a community that reflects not perfection, but compassion.</p>
+    </section>
+
+    <section class="card">
+      <h2>Partner Spotlight: Autism on the Seas</h2>
+      <p>We’re proud to recommend <a href="https://autismontheseas.com" target="_blank" rel="noopener noreferrer"><strong>Autism on the Seas</strong></a>, an international organization that partners with major cruise lines — including Royal Caribbean, Carnival, and Disney — to provide dedicated services for travelers with autism, Down syndrome, Tourette syndrome, cerebral palsy, and other cognitive or developmental disabilities. Since 2007, they’ve helped families and individuals experience cruising with the dignity, joy, and peace of mind every traveler deserves.</p>
+      <p>Their staff-assisted cruises, sensory supports, and compassionate approach make the ocean a more welcoming place. We celebrate their work and encourage families on the spectrum to explore their sailings. No one should ever feel that the horizon is out of reach — and thanks to partners like Autism on the Seas, it isn’t.</p>
+    </section>
+
+    <section class="card">
+      <h2>Contact &amp; Feedback</h2>
+      <p>If you encounter any accessibility barrier while visiting our site, please let us know so we can correct it promptly.</p>
+      <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
+      <p>We typically respond within 48 hours. Your feedback directly shapes how we improve — because this isn’t just a site, it’s a shared voyage toward inclusion.</p>
     </section>
   </main>
 
-  <footer class="wrap center" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook · 
+  <!-- Footer -->
+  <footer class="wrap" role="contentinfo">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <p class="tiny" style="margin-top:.6rem">
-      We design to meet WCAG 2.1 Level AA standards and ADA requirements for digital accessibility.
-      If you encounter any barrier, please email
-      <a href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a>.
-      Last reviewed 2025-10-10.
-    </p>
+    <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
-  <!-- Smart Warmup & Cache -->
+  <!-- Accessibility Script -->
+  <script type="text/javascript" src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js" data-acc-accid="774c13e29978" data-acc-host="delivery.consentmanager.net" data-acc-cdn="cdn.consentmanager.net"></script>
+
+  <!-- Service Worker -->
   <script>
-  (function(){
-    const abs=p=>(typeof window._abs==='function'?_abs(p):p);
-    const ready=f=>document.readyState==='loading'
-      ?document.addEventListener('DOMContentLoaded',f,{once:true}):f();
-    const idle=f=>('requestIdleCallback'in window?requestIdleCallback(f,{timeout:2500}):setTimeout(f,200));
-
-    async function ensure(){
-      if(window.SiteCache&&typeof SiteCache.getJSON==='function')return;
-      await new Promise(r=>{
-        const s=document.createElement('script');
-        s.src=abs('/assets/js/site-cache.js');s.defer=true;s.onload=r;s.onerror=r;
-        document.head.appendChild(s);
-      });
-    }
-
-    async function warmGlobal(){
-      try{
-        await ensure();
-        await Promise.allSettled([
-          SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
-          SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['meta','version']}),
-          SiteCache.getJSON(abs('/assets/data/ports.json'),{ttlDays:7,versionPath:['version']})
-        ]);
-      }catch(_){}
-    }
-
-    ready(()=>{
-      idle(warmGlobal);
-      try{fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(()=>{});}catch(_){}
-    });
-  })();
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008').catch(()=>{}));
+  }
   </script>
 
-  <!-- Floating Social Share Bar -->
-  <div id="share-bar" class="share-bar" aria-label="Share this page">
-    <a class="share twitter" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
-    <a class="share facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
-    <a class="share instagram" href="#" onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')" aria-label="Copy link for Instagram">Ig</a>
-    <a class="share whatsapp" href="https://wa.me/?text=https://www.cruisinginthewake.com" target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
-    <a class="share wechat" href="weixin://" aria-label="Share on WeChat">WeChat</a>
-  </div>
-
-  <script>
-  (function(){
-    const bar=document.getElementById('share-bar');
-    if(!bar)return;
-    const toggle=()=>{window.scrollY>150?bar.classList.add('visible'):bar.classList.remove('visible');};
-    window.addEventListener('scroll',toggle,{passive:true});
-    toggle();
-  })();
-  </script>
-
+  <!-- Invocation -->
   <!--
-    Invocation footer note:
-    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31
-    “Trust in the LORD with all your heart…He will make straight your paths.” — Prov 3:5-6
-    Signed: abondservant · Soli Deo Gloria.
+    Invocation · Soli Deo Gloria
+    Steward: abondservant · Path: /disability-at-sea.html · Version: v3.008.022 · Timestamp (UTC): 2025-10-19T00:00:00Z
   -->
 </body>
 </html>
