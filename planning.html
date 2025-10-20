@@ -144,6 +144,38 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
 #state-buttons .pill[aria-current="true"], #port-buttons .pill[aria-current="true"]{
   border-color:var(--sea,#0e6e8e); box-shadow:0 0 0 3px rgb(14 110 142 / .08);
 }
+    /* Distinction between region and port button groups */
+#state-buttons{
+  margin-bottom: .6rem;
+  border-bottom: 1px dashed var(--rope,#cfd9df);
+  padding-bottom: .4rem;
+}
+#state-buttons .pill{
+  background:#fff;
+  border-color: var(--rope,#cfd9df);
+  color: var(--sea,#0e6e8e);
+  font-weight:600;
+}
+#state-buttons .pill[aria-current="true"]{
+  background:var(--sea,#0e6e8e);
+  color:#fff;
+  border-color: var(--sea,#0e6e8e);
+}
+
+#port-buttons{
+  margin-top:.7rem;
+}
+#port-buttons .pill{
+  background:#f7fdff;
+  border-color: var(--sea,#0e6e8e);
+  color: var(--sea,#0e6e8e);
+  font-weight:500;
+}
+#port-buttons .pill[aria-current="true"]{
+  background:var(--sea,#0e6e8e);
+  color:#fff;
+  border-color: var(--sea,#0e6e8e);
+}
   </style>
 </head>
 
