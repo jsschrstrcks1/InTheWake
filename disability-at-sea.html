@@ -10,6 +10,13 @@ ADDENDUM: Facebook Domain Verification v3.008.021
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Consent Manager (must be first) -->
+  <script type="text/javascript" data-cmp-ab="1"
+    src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+    data-cmp-host="a.delivery.consentmanager.net"
+    data-cmp-cdn="cdn.consentmanager.net"
+    data-cmp-codesrc="16"></script>
+
   <!-- Core Meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -18,9 +25,9 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
   <!-- Title / Version Trinity -->
-  <title>Accessibility & Inclusion — In the Wake (v3.008.022)</title>
-  <meta name="version" content="v3.008.022"/>
-  <meta name="page:version" content="v3.008.022"/>
+  <title>Accessibility &amp; Inclusion — In the Wake (v3.008.023)</title>
+  <meta name="version" content="v3.008.023"/>
+  <meta name="page:version" content="v3.008.023"/>
   <meta name="standards:baseline" content="3.008"/>
 
   <!-- Canonical & Description -->
@@ -32,19 +39,16 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
-  <meta property="og:title" content="Accessibility & Inclusion — In the Wake"/>
+  <meta property="og:title" content="Accessibility &amp; Inclusion — In the Wake"/>
   <meta property="og:description" content="Our mission is full digital accessibility for all travelers — a site built with empathy and conviction, following WCAG 2.1 AA and ADA standards."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.008"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.008.023"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.008"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.023"/>
 
   <!-- Preload Hero -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008" fetchpriority="high"/>
-
-  <!-- Consent Manager -->
-  <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js" data-cmp-host="a.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.023" fetchpriority="high"/>
 
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -92,43 +96,65 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   })();
   </script>
 
-  <!-- Hero tune -->
+  <!-- Topbar + Skip styles (override global nav centering) -->
   <style>
-    .hero{background:url('/assets/index_hero.jpg?v=3.008') center/cover no-repeat!important;filter:saturate(1.35) contrast(1.12) brightness(1.05);}
+    .visually-hidden-focusable{
+      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden
+    }
+    .visually-hidden-focusable:focus{
+      position:static;left:auto;width:auto;height:auto;padding:.5rem .75rem;background:#fff;
+      border:2px solid var(--sea,#0e6e8e);border-radius:8px;z-index:1000
+    }
+    .topbar{
+      display:flex;align-items:center;gap:.75rem;padding:.4rem .9rem;
+      border-bottom:1px solid rgba(8,48,65,.08);background:#fff;position:relative;z-index:5
+    }
+    .topbar .pill-nav{
+      display:flex;gap:.35rem .45rem;margin-left:auto;flex-wrap:nowrap;white-space:nowrap;
+      overflow:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch;max-width:100%;
+    }
+    .topbar .pill-nav.pills{justify-content:flex-start;width:auto;max-width:none;text-align:left}
+    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:.5rem;padding:.45rem .9rem}
+    .brand img{height:24px}
+    .version-badge{font-size:.7rem;opacity:.8;margin-left:.5rem}
+    .hero{background:url('/assets/index_hero.jpg?v=3.008.023') center/cover no-repeat!important;filter:saturate(1.35) contrast(1.12) brightness(1.05);}
     .hero::before,.hero::after{content:none!important;}
   </style>
 </head>
 
 <body class="page">
-  <a class="skip-link" href="#content">Skip to main content</a>
+  <!-- Topbar: Skip + Primary nav on one line -->
+  <div class="topbar">
+    <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
+    <nav class="pill-nav pills" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/ships/">Ships</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/disability-at-sea.html" aria-current="page">Disability at Sea</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/packing-lists.html">Packing Lists</a>
+      <a href="/planning.html">Planning</a>
+      <a href="/solo.html">Solo</a>
+      <a href="/travel.html">Travel</a>
+      <a href="/cruise-lines.html">Cruise Lines</a>
+      <a href="/about-us.html">About</a>
+    </nav>
+  </div>
 
-  <!-- Header -->
+  <!-- Header (brand + hero only) -->
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008" width="256" height="64" alt="In the Wake wordmark"/>
-        <span class="version-badge">v3.008.022</span>
+        <img src="/assets/logo_wake.png?v=3.008.023" width="256" height="64" alt="In the Wake wordmark"/>
+        <span class="version-badge">v3.008.023</span>
       </div>
-      <nav class="pill-nav pills" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/ships/">Ships</a>
-        <a href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="/ports.html">Ports</a>
-        <a href="/disability-at-sea.html" aria-current="page">Disability at Sea</a>
-        <a href="/drink-packages.html">Drink Packages</a>
-        <a href="/packing-lists.html">Packing Lists</a>
-        <a href="/planning.html">Planning</a>
-        <a href="/solo.html">Solo</a>
-        <a href="/travel.html">Travel</a>
-        <a href="/cruise-lines.html">Cruise Lines</a>
-        <a href="/about-us.html">About</a>
-      </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.023" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.008.023" width="256" height="64" alt="In the Wake">
         <div class="tagline">Accessible Seas for Every Traveler</div>
       </div>
       <div class="hero-credit">
@@ -152,9 +178,9 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     </section>
 
     <section class="card">
-      <h2>Partner Spotlight: Autism on the Seas</h2>
+      <h2>Provider Spotlight: Autism on the Seas</h2>
       <p>We’re proud to recommend <a href="https://autismontheseas.com" target="_blank" rel="noopener noreferrer"><strong>Autism on the Seas</strong></a>, an international organization that partners with major cruise lines — including Royal Caribbean, Carnival, and Disney — to provide dedicated services for travelers with autism, Down syndrome, Tourette syndrome, cerebral palsy, and other cognitive or developmental disabilities. Since 2007, they’ve helped families and individuals experience cruising with the dignity, joy, and peace of mind every traveler deserves.</p>
-      <p>Their staff-assisted cruises, sensory supports, and compassionate approach make the ocean a more welcoming place. We celebrate their work and encourage families on the spectrum to explore their sailings. No one should ever feel that the horizon is out of reach — and thanks to partners like Autism on the Seas, it isn’t.</p>
+      <p>Their staff-assisted cruises, sensory supports, and compassionate approach make the ocean a more welcoming place. We celebrate their work and encourage families on the spectrum to explore their sailings. No one should ever feel that the horizon is out of reach — and thanks to partners like Autism on the Seas, it isn’t. While we have not personally sailed with them and receive no benefit from this mention, we believe in their mission and know families who’ve benefitted from their services — so we gladly commend them to you.</p>
     </section>
 
     <section class="card">
@@ -173,19 +199,39 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   </footer>
 
   <!-- Accessibility Script -->
-  <script type="text/javascript" src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js" data-acc-accid="774c13e29978" data-acc-host="delivery.consentmanager.net" data-acc-cdn="cdn.consentmanager.net"></script>
+  <script type="text/javascript"
+    src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js"
+    data-acc-accid="774c13e29978"
+    data-acc-host="delivery.consentmanager.net"
+    data-acc-cdn="cdn.consentmanager.net"></script>
+
+  <!-- aria-current safety (in case of mirrors/subpaths) -->
+  <script>
+  (function(){
+    var nav=document.querySelector('.topbar .pill-nav[aria-label="Primary"]'); if(!nav) return;
+    var here=location.pathname.replace(/\/+$/,'').toLowerCase();
+    nav.querySelectorAll('a[href]').forEach(function(a){
+      try{
+        var url=new URL(a.getAttribute('href'), location.origin);
+        if(url.pathname.replace(/\/+$/,'').toLowerCase()===here){
+          a.setAttribute('aria-current','page'); a.classList.add('is-current');
+        }
+      }catch(_){}
+    });
+  })();
+  </script>
 
   <!-- Service Worker -->
   <script>
   if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008').catch(()=>{}));
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008.023').catch(()=>{}));
   }
   </script>
 
   <!-- Invocation -->
   <!--
     Invocation · Soli Deo Gloria
-    Steward: abondservant · Path: /disability-at-sea.html · Version: v3.008.022 · Timestamp (UTC): 2025-10-19T00:00:00Z
+    Steward: abondservant · Path: /disability-at-sea.html · Version: v3.008.023 · Timestamp (UTC): 2025-10-19T00:00:00Z
   -->
 </body>
 </html>
