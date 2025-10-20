@@ -3,7 +3,7 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 “Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
 “Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
-Page: /index.html · v3.008.001 · Built: 2025-10-17T00:00:00Z
+Page: /index.html · v3.008.020 · Built: 2025-10-19T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
@@ -24,9 +24,10 @@ Page: /index.html · v3.008.001 · Built: 2025-10-17T00:00:00Z
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index, follow">
-  <meta name="version" content="3.008"/>
+  <meta name="page:version" content="v3.008.020">
+  <meta name="version" content="3.008.020"/>
   <meta name="standards:baseline" content="3.008"/>
-  <title>Cruising In the Wake | A Cruise Traveler’s Logbook & Planning Companion (v3.008.001)</title>
+  <title>Cruising In the Wake | A Cruise Traveler’s Logbook & Planning Companion (v3.008.020)</title>
   <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship reviews, menu scans, port snapshots, accessibility notes, and solo travel tips based on real sailings.">
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
 
@@ -39,25 +40,26 @@ Page: /index.html · v3.008.001 · Built: 2025-10-17T00:00:00Z
   <meta property="og:url" content="https://www.cruisinginthewake.com/index.html">
   <meta property="og:title" content="In the Wake | A Cruise Traveler’s Logbook & Planning Companion">
   <meta property="og:description" content="Ship reviews, menus, ports, accessibility notes, and trip-tested planning from real sailings.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.008">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.008.019">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- URL normalizer (absolute prod → current origin) -->
   <script>
   (function(){
-    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(path){ path=String(path||''); if(!path.match(/^\//)) path='/'+path; return ORIGIN+path; };
     function normalize(){
-      const sel=[
+      var sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
         'img[src^="https://www.cruisinginthewake.com/"]',
         'link[href^="https://www.cruisinginthewake.com/"]',
         'script[src^="https://www.cruisinginthewake.com/"]'
       ].join(',');
-      document.querySelectorAll(sel).forEach(el=>{
-        const attr=el.hasAttribute('href')?'href':'src';
-        try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
-      });
+      var list=document.querySelectorAll(sel);
+      for(var i=0;i<list.length;i++){
+        var el=list[i]; var attr=el.hasAttribute('href')?'href':'src';
+        try{ var u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+      }
     }
     if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', normalize, {once:true}); } else { normalize(); }
   })();
@@ -65,21 +67,25 @@ Page: /index.html · v3.008.001 · Built: 2025-10-17T00:00:00Z
 
   <!-- External link hardener -->
   <script>
-  (function externalLinksNewTab(){
-    const here=location.hostname.replace(/^www\./,'');
+  (function(){
+    var here=location.hostname.replace(/^www\./,'');
     function upgrade(){
-      document.querySelectorAll('a[href]').forEach(a=>{
-        const href=a.getAttribute('href')||'';
-        if (/^(#|mailto:|tel:)/i.test(href)) return;
+      var links=document.querySelectorAll('a[href]');
+      for(var i=0;i<links.length;i++){
+        var a=links[i], href=a.getAttribute('href')||'';
+        if (/^(#|mailto:|tel:)/i.test(href)) continue;
         try{
-          const u=new URL(href, location.href);
-          const host=u.hostname.replace(/^www\./,'');
+          var u=new URL(href, location.href);
+          var host=u.hostname.replace(/^www\./,'');
           if (host !== here || a.rel==='external'){
             a.target='_blank';
-            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+            var parts=(a.rel||'').split(/\s+/).filter(Boolean);
+            if(parts.indexOf('noopener')<0) parts.push('noopener');
+            if(parts.indexOf('noreferrer')<0) parts.push('noreferrer');
+            a.rel=parts.join(' ');
           }
         }catch(_){}
-      });
+      }
     }
     if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', upgrade, {once:true}); } else { upgrade(); }
   })();
@@ -95,38 +101,63 @@ Page: /index.html · v3.008.001 · Built: 2025-10-17T00:00:00Z
   }</script>
 
   <!-- Site cache & SW -->
-  <script src="/assets/js/site-cache.js?v=3.008" defer></script>
+  <script src="/assets/js/site-cache.js?v=3.008.019" defer></script>
   <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('/sw.js?v=3.008').catch(function(){});
+      navigator.serviceWorker.register('/sw.js?v=3.008.019').catch(function(){});
     });
   }
   </script>
 
   <!-- CSS (global, versioned) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.019">
 
   <!-- LCP image preload (hero) -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008" fetchpriority="high">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.019" fetchpriority="high">
 
-  <!-- Page-scoped styles (layout + rail) -->
+  <!-- Page-scoped styles (topbar + layout hardening) -->
   <style>
     /* Reduced-motion guard */
     @media (prefers-reduced-motion: reduce){
-      * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+      *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
     }
 
-    /* Skip link */
-    .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .visually-hidden-focusable:focus{position:static;left:auto;width:auto;height:auto;padding:.5rem .75rem;background:#fff;border:2px solid var(--sea,#0e6e8e);border-radius:8px;z-index:1000}
+    /* ===== Topbar: skip-link + primary nav on one line ===== */
+    .topbar{
+      display:flex; align-items:center; gap:.75rem;
+      padding:.4rem .9rem; border-bottom:1px solid rgba(8,48,65,.08);
+      background:#fff; position:relative; z-index:3;
+    }
+    .topbar .skip-link{
+      position:static; clip:auto; width:auto; height:auto; padding:.2rem .5rem;
+      border-radius:6px; background:#0e6e8e; color:#fff; text-decoration:none; font-size:.9rem; line-height:1.2;
+    }
+    .topbar .pill-nav{
+      display:flex; gap:.35rem .45rem; flex-wrap:wrap; margin-left:auto;
+    }
+    .topbar .pill-nav a{
+      padding:.26rem .55rem; border-radius:8px; border:1px solid rgba(217,179,130,.6);
+      background:#fff; font-size:.92rem; line-height:1.2; text-decoration:none;
+    }
+    @media(pointer:fine){ .topbar .pill-nav a:hover{ border-style:dashed; } }
+    @media(max-width:900px){
+      .topbar .pill-nav{flex-wrap:nowrap; overflow:auto; white-space:nowrap; scrollbar-width:thin; -webkit-overflow-scrolling:touch;}
+      .topbar .pill-nav a{flex:0 0 auto;}
+    }
 
-    /* Two-column intro: Welcome (left) + Journal rail (right) */
+    /* Header brand row (nav removed — avoids overlap) */
+    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:.5rem;padding:.45rem .9rem;}
+    .brand img{height:24px}
+    .version-badge{font-size:.7rem;opacity:.8;margin-left:.5rem;}
+
+    /* Intro two-column (desktop) */
     .intro-grid{display:grid;gap:1.2rem}
     @media (min-width:980px){ .intro-grid{grid-template-columns:2fr 1.2fr} }
 
-    .hero{ background:url('/assets/index_hero.jpg?v=3.008') center/cover no-repeat!important; }
-    .hero::before,.hero::after{ content:none!important }
+    /* Hero fallback image (header background is handled globally) */
+    .hero{ background:url('/assets/index_hero.jpg?v=3.008.019') center/cover no-repeat !important; }
+    .hero::before,.hero::after{ content:none !important; }
 
     /* Journal rail cards */
     .journal-rail .dek{margin-top:.25rem;margin-bottom:1rem;opacity:.9}
@@ -141,47 +172,48 @@ Page: /index.html · v3.008.001 · Built: 2025-10-17T00:00:00Z
 </head>
 
 <body class="page">
-  <!-- Skip link -->
-  <a class="visually-hidden-focusable" href="#content">Skip to content</a>
+  <!-- Topbar: Skip + Primary Nav on one line -->
+  <div class="topbar">
+    <a href="#content" class="skip-link">Skip to main content</a>
+    <nav class="pill-nav" aria-label="Primary">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/ships/">Ships</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/planning.html">Planning</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/packing-lists.html">Packing Lists</a>
+      <a href="/disability-at-sea.html">Accessibility</a>
+      <a href="/cruise-lines.html">Cruise Lines</a>
+      <a href="/solo.html">Solo</a>
+      <a href="/travel.html">Travel</a>
+      <a href="/about-us.html">About</a>
+    </nav>
+  </div>
 
+  <!-- Header (brand + hero only; nav lives in the topbar) -->
   <header class="site-header hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.008.001</span>
+        <img src="/assets/logo_wake.png?v=3.008.019" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.008.020</span>
       </div>
-
-      <!-- Unified Navigation (v3.008.001) -->
-      <nav class="pill-nav pills" aria-label="Primary">
-        <a href="https://www.cruisinginthewake.com/" aria-current="page">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Accessibility</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
-        <a href="https://www.cruisinginthewake.com/about-us.html">About</a>
-      </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.019" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.008.019" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
-        <a class="pill long" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+        <a class="pill long" href="https://instagram.com/flickersofmajesty" rel="noopener noreferrer" target="_blank">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <main id="content" class="wrap">
+  <main id="content" class="wrap" role="main" aria-label="Main content">
     <!-- Intro grid: Welcome (left) + Journal rail (right) -->
     <div class="intro-grid" aria-label="Intro and latest articles">
       <section class="card" aria-labelledby="page-title">
@@ -231,106 +263,144 @@ Page: /index.html · v3.008.001 · Built: 2025-10-17T00:00:00Z
   <!-- Smart warmup (JSON) + small asset hints -->
   <script>
   (function(){
-    const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
-    const ready=(fn)=> (document.readyState==='loading'
-      ? document.addEventListener('DOMContentLoaded', fn, {once:true})
-      : fn());
-    const idle=(fn)=> ('requestIdleCallback' in window ? requestIdleCallback(fn, {timeout:2500}) : setTimeout(fn, 200));
+    function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
+    function ready(fn){ return (document.readyState==='loading') ? document.addEventListener('DOMContentLoaded', fn, {once:true}) : fn(); }
+    function idle(fn){ return ('requestIdleCallback' in window) ? requestIdleCallback(fn, {timeout:2500}) : setTimeout(fn, 200); }
     function ensureSiteCache(){
-      return new Promise((resolve)=>{
+      return new Promise(function(resolve){
         if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
-        const s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.008'); s.defer=true;
-        s.onload=()=>resolve(); s.onerror=()=>resolve(); document.head.appendChild(s);
+        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.008.019'); s.defer=true;
+        s.onload=function(){resolve();}; s.onerror=function(){resolve();}; document.head.appendChild(s);
       });
     }
-    function warmImages(urls){ (urls||[]).forEach(u=>{ try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{});}catch(_){}}); }
-    async function warmGlobalJSON(){
-      try{
-        await ensureSiteCache();
-        await Promise.allSettled([
+    function warmImages(urls){
+      for(var i=0;i<(urls||[]).length;i++){ try{ fetch(urls[i],{cache:'no-store',mode:'no-cors'})['catch'](function(){}); }catch(_){ } }
+    }
+    function warmGlobalJSON(){
+      return ensureSiteCache().then(function(){
+        return Promise.allSettled([
           SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
           SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['meta','version']}),
           SiteCache.getJSON(abs('/assets/data/personas/index.json'),{ttlDays:7,versionPath:['version']}),
           SiteCache.getJSON(abs('/assets/videos/rc_ship_videos.json'),{ttlDays:7,versionPath:['version']})
         ]);
-      }catch(_){}
+      });
     }
-    ready(()=>{ warmImages([abs('/assets/logo_wake.png?v=3.008'),abs('/assets/compass_rose.svg?v=3.008'),abs('/assets/watermark.png?v=3.008')]); idle(warmGlobalJSON); });
+    ready(function(){
+      warmImages([abs('/assets/logo_wake.png?v=3.008.019'),abs('/assets/compass_rose.svg?v=3.008.019'),abs('/assets/watermark.png?v=3.008.019')]);
+      idle(warmGlobalJSON);
+    });
   })();
   </script>
 
-  <!-- Journal rail hydrator (uses Solo articles if no global manifest) -->
+  <!-- Journal rail hydrator (maps solo fragments → full pages) -->
   <script>
   (function(){
-    const MOUNT = document.getElementById('journal-rail');
-    const FALL  = document.getElementById('journal-rail-fallback');
+    var MOUNT = document.getElementById('journal-rail');
+    var FALL  = document.getElementById('journal-rail-fallback');
     if (!MOUNT) return;
 
     function showFallback(on){ if (!FALL) return; FALL.style.display = on ? '' : 'none'; }
+    function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
 
-    const abs = (p)=> (typeof _abs==='function' ? _abs(p) : p);
-    const SOURCES = [
-      '/assets/data/articles.json?v=3.008',
-      '/solo/articles/index.json?v=3.008'
+    var SOURCES = [
+      '/assets/data/articles.json?v=3.008.019',
+      '/solo/articles/index.json?v=3.008.019'
     ];
-    const HARD_FALLBACK = [
-      { url:'/solo/articles/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', dek:'On choosing solitude without being alone.', date:'2025-10-17', image:'/assets/articles/freedom-of-your-own-wake.jpg' },
-      { url:'/solo/articles/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2025-10-17', image:'assets/articles/why-i-started-solo-cruising.jpg' }
+    var HARD_FALLBACK = [
+      { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2024-05-31', image:'/assets/articles/why-i-started-solo-cruising.jpg' },
+      { url:'/solo/freedom-of-your-own-wake.html', title:'The Freedom of Your Own Wake', dek:'On choosing solitude without being alone.', date:'2025-10-15', image:'/assets/articles/freedom-of-your-own-wake.jpg' }
     ];
 
     function normalize(list){
-      return (Array.isArray(list)? list: (list && list.articles)||[])
-        .map(a=>({
-          url: abs(a.url || a.permalink || '#'),
+      var arr = Array.isArray(list)? list: (list && list.articles)||[];
+      var out = [];
+      for (var i=0;i<arr.length;i++){
+        var a=arr[i]||{};
+        var to = a.url || a.permalink || '#';
+        // Map solo fragments → full pages (…/solo/articles/*.html → …/solo/*.html)
+        if (/^\/solo\/articles\/.+\.html$/.test(to)) to = to.replace('/solo/articles/','/solo/');
+        out.push({
+          url: abs(to),
           title: String(a.title || a.headline || 'Article').trim(),
           dek: String(a.dek || a.description || a.excerpt || '').trim(),
           date: String(a.datePublished || a.date || '').trim(),
           image: a.image ? abs(a.image) : ''
-        }))
-        .filter(a=>/^https?:\/\//.test(a.url) || a.url.startsWith('/'));
+        });
+      }
+      return out.filter(function(a){ return (/^https?:\/\//.test(a.url) || a.url.indexOf('/')===0); });
     }
-    async function tryFetch(url){
-      try{ const r=await fetch(abs(url),{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
-      catch(_){ return []; }
+
+    function tryFetch(url){
+      return fetch(abs(url),{cache:'no-store'})
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(j){ return normalize(j); })
+        .catch(function(){ return []; });
     }
+
     function injectItemListJSONLD(items){
       try{
-        const json={"@context":"https://schema.org","@type":"ItemList","name":"From the Journal",
-          "itemListElement":items.map((a,i)=>({"@type":"ListItem","position":i+1,"item":{"@type":"BlogPosting","headline":a.title,"url":a.url}}))};
-        const s=document.createElement('script'); s.type='application/ld+json'; s.text=JSON.stringify(json); document.head.appendChild(s);
+        var json={"@context":"https://schema.org","@type":"ItemList","name":"From the Journal",
+          "itemListElement":items.slice(0,6).map(function(a,i){return{"@type":"ListItem","position":i+1,"item":{"@type":"BlogPosting","headline":a.title,"url":a.url}}})};
+        var s=document.createElement('script'); s.type='application/ld+json'; s.text=JSON.stringify(json); document.head.appendChild(s);
       }catch(_){}
     }
+
     function render(items){
-      const take = items.slice(0,6);
+      var take = items.slice(0,6);
       if (!take.length){ showFallback(true); return; }
-      const frag=document.createDocumentFragment();
-      take.forEach(a=>{
-        const el=document.createElement('article'); el.className='card post-card'; el.setAttribute('role','article');
+      var frag=document.createDocumentFragment();
+      for (var i=0;i<take.length;i++){
+        var a=take[i];
+        var el=document.createElement('article'); el.className='card post-card'; el.setAttribute('role','article');
         el.innerHTML=[
-          a.image?`<a class="thumb" href="${a.url}"><img src="${a.image}" alt=""></a>`:'',
-          `<h3><a href="${a.url}">${a.title}</a></h3>`,
-          a.date?`<div class="meta"><time datetime="${a.date}">${new Date(a.date).toLocaleDateString()}</time></div>`:'',
-          a.dek?`<p class="excerpt">${a.dek}</p>`:''
+          a.image?('<a class="thumb" href="'+a.url+'"><img src="'+a.image+'" alt=""></a>'):'',
+          '<h3><a href="'+a.url+'">'+a.title+'</a></h3>',
+          (a.date?('<div class="meta"><time datetime="'+a.date+'">'+(new Date(a.date)).toLocaleDateString()+'</time></div>'):''),
+          (a.dek?('<p class="excerpt">'+a.dek+'</p>'):'')
         ].join('');
         frag.appendChild(el);
-      });
+      }
       MOUNT.appendChild(frag);
       injectItemListJSONLD(take);
       showFallback(false);
     }
 
-    (async function boot(){
+    (function boot(){
       showFallback(true);
-      let items=[];
-      for (const src of SOURCES){ items = await tryFetch(src); if (items.length) break; }
-      if (!items.length) items = normalize(HARD_FALLBACK);
-      render(items);
+      (function chain(i){
+        if (i>=SOURCES.length){
+          render(normalize(HARD_FALLBACK));
+          return;
+        }
+        tryFetch(SOURCES[i]).then(function(items){
+          if (items.length){ render(items); }
+          else { chain(i+1); }
+        });
+      })(0);
     })();
   })();
   </script>
 
+  <!-- Primary nav: aria-current -->
+  <script>
+  (function(){
+    var nav = document.querySelector('.topbar .pill-nav[aria-label="Primary"]') || document.querySelector('.topbar .pill-nav'); if(!nav) return;
+    var here = location.pathname.replace(/\/+$/,'').toLowerCase();
+    var links = nav.querySelectorAll('a[href]');
+    for (var i=0;i<links.length;i++){
+      try{
+        var url = new URL(links[i].getAttribute('href'), location.origin);
+        if (url.pathname.replace(/\/+$/,'').toLowerCase() === here) {
+          links[i].setAttribute('aria-current','page'); links[i].classList.add('is-current');
+        }
+      }catch(_){}
+    }
+  })();
+  </script>
+
   <!-- Floating Share Bar -->
-  <script defer src="/assets/js/share-bar.js?v=3.008"></script>
+  <script defer src="/assets/js/share-bar.js?v=3.008.019"></script>
 
   <!-- Closing invocation (visible) -->
   <footer class="tiny center">Soli Deo Gloria — All work on this project, from travel, to photography to coding and articles - is offered as an act of worship to God.</footer>
