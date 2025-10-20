@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <!-- ======================================================
-       In the Wake — Solo Cruising Index (v3.008.019)
-       Standards: Solo_Cruising_Module_Standards_v3.006.solo.001 (+ v3.008 addendum)
+       In the Wake — Solo Cruising Index (v3.008.021)
+       Standards: Solo_Cruising_Module_Standards_v3.008.solo.002
        ====================================================== -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
-  <meta name="page:version" content="v3.008.019">
-  <meta name="version" content="v3.008.019">
+  <meta name="page:version" content="v3.008.021">
+  <meta name="version" content="v3.008.021">
   <meta name="standards:baseline" content="3.008">
   <meta name="robots" content="index, follow"/>
 
-  <title>Solo Travel — In the Wake (v3.008.019)</title>
+  <title>Solo Travel — In the Wake (v3.008.021)</title>
   <link rel="canonical" href="https://www.cruisinginthewake.com/solo.html"/>
   <meta name="description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
 
@@ -24,7 +24,7 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/solo.html">
   <meta property="og:title" content="Solo Travel — In the Wake">
   <meta property="og:description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/solo/solo-tranquility.jpg?v=3.008.019">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/solo/solo-tranquility.jpg?v=3.008.021">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Schema: CollectionPage -->
@@ -38,7 +38,7 @@
   }
   </script>
 
-  <!-- ItemList schema (explicit article index for non-JS bots) -->
+  <!-- ItemList schema for non-JS bots (use FULL pages, not fragments) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -52,9 +52,9 @@
   </script>
 
   <!-- Site bundle -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.008.019"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.021"/>
 
-  <!-- SOLO host hero + inline-hero card treatment (scoped) -->
+  <!-- SOLO hero + inline-hero card treatment (scoped) -->
   <style id="solo-host-hero-fix">
     #solo-article-host figure.hero,
     #solo-article-host .article-hero,
@@ -91,10 +91,10 @@
     figure.hero, .article-hero, .article-card .hero, figure.inline-hero { background:none !important; }
   </style>
 
-  <!-- Header hero (fallback) -->
+  <!-- Header hero (fallback visual) -->
   <style>
     .hero{
-      background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.019') center/cover no-repeat !important;
+      background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.021') center/cover no-repeat !important;
       min-height:320px;
     }
     .hero::before,.hero::after{content:none!important}
@@ -103,30 +103,28 @@
 
   <!-- Two-column layout (sticky rail at ≥980px) -->
   <style id="solo-two-col-layout">
-    /* base */
-    .wrap.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:start;}
-    .wrap.layout .maincol{order:1;min-width:0;}
-    .wrap.layout > aside.rail{order:2;min-width:0;}
-    /* force two columns at desktop */
+    /* Page scoping avoids surprises from the global bundle */
+    body.solo .wrap.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:start;}
+    body.solo .wrap.layout .maincol{order:1;min-width:0;}
+    body.solo .wrap.layout > aside.rail{order:2;min-width:0;}
     @media (min-width:980px){
-      .wrap.layout{
+      body.solo .wrap.layout{
         grid-template-columns:minmax(0,1fr) 320px !important; /* main | rail */
         gap:32px !important;
       }
-      .wrap.layout > aside.rail{
+      body.solo .wrap.layout > aside.rail{
         position:sticky; top:96px; align-self:start;
       }
-      .wrap.layout > aside.rail .cards{display:grid;gap:16px;}
-      .wrap.layout > aside.rail .card{width:100%;}
+      body.solo .wrap.layout > aside.rail .cards{display:grid;gap:16px;}
+      body.solo .wrap.layout > aside.rail .card{width:100%;}
     }
     @media (min-width:1400px){
-      .wrap.layout{ grid-template-columns:minmax(0,1fr) 360px !important; }
+      body.solo .wrap.layout{ grid-template-columns:minmax(0,1fr) 360px !important; }
     }
   </style>
 
-  <!-- Topbar + compact nav -->
+  <!-- Topbar + compact nav (skip + nav on one line; no overlap) -->
   <style>
-    /* Topbar: skip link + primary nav on one line */
     .topbar{
       display:flex; align-items:center; gap:.75rem;
       padding:.4rem .9rem; border-bottom:1px solid rgba(8,48,65,.08);
@@ -149,16 +147,14 @@
       .topbar .pill-nav a{flex:0 0 auto;}
     }
 
-    /* Header brand row (no nav here; prevents overlap) */
-    .navbar{
-      max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:.5rem; padding:.45rem .9rem;
-    }
+    /* Header brand row (no nav here; prevents overlap with version) */
+    .navbar{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:.5rem; padding:.45rem .9rem;}
     .brand img{height:24px}
     .version-badge{font-size:.7rem; opacity:.8; margin-left:.5rem;}
   </style>
 </head>
 
-<body class="page">
+<body class="page solo">
   <!-- Topbar: Skip + Primary Nav on one line -->
   <div class="topbar">
     <a href="#content" class="skip-link">Skip to main content</a>
@@ -181,11 +177,15 @@
   <!-- Header (brand + hero only; nav lives in the topbar) -->
   <header class="hero-header">
     <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png?v=3.008.021" alt="In the Wake wordmark" width="256" height="64"/>
+        <span class="version-badge">v3.008.021</span>
+      </div>
     </div>
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.019" width="180" height="180" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.021" width="180" height="180" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008.019" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.008.021" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
@@ -204,9 +204,9 @@
           <p>In the weeks ahead, our team will be sharing <em>travel logs, lessons, and laughter</em> from journeys across the world’s oceans — all written to help you navigate the beauty and balance of cruising on your own.</p>
           <p>Whether you’re plotting your first voyage or your fiftieth, consider this your friendly harbor: a place to learn, to rest, and to remember that even when you sail solo, you sail in good company.</p>
           <p>Fair winds, following seas, and space to breathe — your solo journey begins here.</p>
-          <p class="tiny muted">Standards: Solo Module v3.006.solo.001 (+ v3.008 addendum)</p>
+          <p class="tiny muted">Standards: Solo Module v3.008.solo.002</p>
 
-          <!-- Crawlable index -->
+          <!-- Crawlable index (full pages) -->
           <nav class="visually-hidden" aria-label="Solo articles index">
             <ul>
               <li><a href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a></li>
@@ -235,6 +235,7 @@
           <p>Trimming the sails — this will just take a moment.</p>
         </article>
       </section>
+    </div>
 
     <!-- Right rail -->
     <aside class="rail" aria-label="Sidebar">
@@ -258,7 +259,7 @@
 
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.008.019</span>
+    <span class="version-badge">v3.008.021</span>
     <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
@@ -284,7 +285,7 @@
   (function(){
     "use strict";
 
-    /* --- small CSS safety (unchanged) ---------------------------------- */
+    /* --- small CSS safety --------------------------------------------- */
     (function ensureSoloHeroCSS(){
       if (document.getElementById('solo-hero-direct-child-fix')) return;
       var css = '\
@@ -301,7 +302,8 @@
     var ORIGIN         = (location.origin || (location.protocol + '//' + location.host));
     var PERMALINK_BASE = ORIGIN + "/solo/";          // full pages for sharing
     var ARTICLE_BASE   = "/solo/articles/";          // fragments folder
-    var ver            = (document.querySelector('meta[name="page:version"]') && document.querySelector('meta[name="page:version"]').content) || "3.008.019";
+    var verMeta = document.querySelector('meta[name="page:version"]');
+    var ver = (verMeta && verMeta.content) || "3.008.021";
 
     /* --- seeds -------------------------------------------------------- */
     var RAW_AUTHORS = [
@@ -426,8 +428,8 @@
           var hasArticle = /<article[\s>]/i.test(html);
           var looksFull  = /<(html|head|body|header)[\s>]/i.test(html);
           if(!hasArticle || looksFull) throw new Error("Not a partial article");
-
           host.innerHTML = html;
+
           // scrub any stray full-page elements
           var junk = host.querySelectorAll('html, head, header.hero-header, footer.site, footer.wrap');
           for (var i=0;i<junk.length;i++){ junk[i].parentNode.removeChild(junk[i]); }
@@ -493,7 +495,7 @@
       }
     }
 
-    // hydrate from /data/authors.json if present; 404-safe
+    // hydrate from /data/authors.json if present; stay quiet on 404
     (function loadAuthorsJson(){
       var url = '/data/authors.json?v=' + encodeURIComponent(ver);
       fetch(url, {cache:'no-store'})
@@ -516,20 +518,19 @@
         .finally(function(){ renderAuthorsRail(); });
     })();
 
-    /* --- related reading (prefer external index; fallback local) -------- */
+    /* --- related reading (external index preferred; local fallback) ---- */
     (function related(){
       var mount = document.getElementById("related-rail");
       if(!mount) return;
 
-      var SRC = "/assets/data/articles/index.json?v=3.008.017";
-      var PLACEHOLDER    = "/assets/placeholders/article-thumb.jpg?v=3.008.017";
-      var AV_PLACEHOLDER = "/assets/placeholders/author.jpg?v=3.008.017";
+      var SRC = "/assets/data/articles/index.json?v=3.008.021";
+      var PLACEHOLDER    = "/assets/placeholders/article-thumb.jpg?v=3.008.021";
+      var AV_PLACEHOLDER = "/assets/placeholders/author.jpg?v=3.008.021";
       var CONTEXT_TAGS   = ["solo","royal-caribbean","tips","reflection"];
 
       function normUrl(u){ try { return new URL(u, location.origin).pathname.replace(/\/+$/,''); } catch (e){ return String(u||"").trim(); } }
       function dedupe(arr){
-        var seen = Object.create(null);
-        var out = [];
+        var seen = Object.create(null), out=[];
         for (var i=0;i<arr.length;i++){
           var key = normUrl(arr[i].url || arr[i].id || "");
           if (!seen[key]){ seen[key]=1; out.push(arr[i]); }
@@ -556,7 +557,7 @@
         var author = a.author || {};
         var avatarSrc = author.image || AV_PLACEHOLDER;
         var avatarAlt = author.name ? author.name : 'Default author portrait';
-        // IMPORTANT: link to FULL PAGES on solo/
+        // IMPORTANT: link to FULL PAGES on /solo/
         var to = a.url && /\/solo\/articles\//.test(a.url) ? a.url.replace('/solo/articles/','/solo/').replace(/\.html$/,'') + '.html' : (a.url||'#');
 
         return '<article class="rail-item">\
@@ -634,7 +635,7 @@
         '</div>';
       mounted.appendChild(footer);
 
-      // share button copy
+      // share button copy-to-clipboard of FULL page URL
       var el = footer.querySelector('.share');
       if(el){
         var url = permalink(a.slug);
