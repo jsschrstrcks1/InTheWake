@@ -878,6 +878,25 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
 
     // Optional dedupe guard if feeds repeat entries
     const seen = new Set();
-    data.states = data.states.filter
+    data.states = data.states.filter(s=>{
+      const key = s.code || s.name;
+      if (!key || seen.has(key)) return false;
+      seen.add(key); return true;
+    });
+
+    // Sort by rough popularity (put Florida first if present)
+    data.states.sort((a,b)=> (a.code==='FL'? -1 : b.code==='FL'? 1 : a.name.localeCompare(b.name)));
+
+    buildPills(data.states, tabs, panels);
+  }
+
+  // ---------- bootstrap ----------
+  (async function boot(){
+    try{ await hydrateRail(); }catch(_){}
+    try{ await hydratePlanning(); }catch(_){}
+  })();
+
+})();
+</script>
 </body>
 </html>
