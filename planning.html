@@ -135,6 +135,15 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
     details.qa{border:1px solid var(--rope,#dfe7ee);border-radius:.6rem;padding:.5rem .7rem;background:#fff}
     details.qa + details.qa{margin-top:.5rem}
     .rail .card .thumb img{ display:block; }
+    /* Planning pills – force the “button” look even if a global pill class isn’t present */
+#state-buttons, #port-buttons{display:flex;flex-wrap:wrap;gap:.4rem .5rem;margin-top:.35rem}
+#state-buttons .pill, #port-buttons .pill{
+  display:inline-block;padding:.45rem .75rem;border:2px solid var(--rope,#cfd9df);
+  border-radius:999px;background:#fff;text-decoration:none;line-height:1.15
+}
+#state-buttons .pill[aria-current="true"], #port-buttons .pill[aria-current="true"]{
+  border-color:var(--sea,#0e6e8e); box-shadow:0 0 0 3px rgb(14 110 142 / .08);
+}
   </style>
 </head>
 
@@ -265,136 +274,210 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
   </footer>
 
   <!-- INLINE DATASET (single source of truth) -->
-  <script id="planning-dataset" type="application/json">{
-    "version":"0.6",
-    "last_updated":"2025-10-20T00:00:00Z",
-    "ports":[
-      /* US — Florida */
-      {"slug":"miami","name":"PortMiami","city":"Miami","state":"FL","state_full":"Florida","country":"USA","region":"Southeast",
-        "blurb":["PortMiami is the world’s cruise crossroads: busy, polished, and built to move people.","Traffic can be spirited. Arrive early, enjoy Brickell or Bayside, and let the port machinery whisk you aboard."],
-        "tips":["Prefer MIA; closest with most nonstops.","Budget time for causeway backups on embark mornings/Sundays.","Staying in Brickell/Downtown? Short rideshare beats renting.","Eat in Brickell City Centre or Bayside to dodge peaks."],
-        "warnings":["Rush hour + cruise surges can double drive times.","Spring Break (early Mar–early Apr) is intense across beaches.","Event spikes: Art Basel, Ultra, F1.","Causeway tolls—ensure rental e-toll."],
-        "airports":[
-          {"code":"MIA","name":"Miami Intl","distance_miles":9,"typical_drive":"20–35 min","notes":"Closest; Brightline nearby."},
-          {"code":"FLL","name":"Fort Lauderdale","distance_miles":28,"typical_drive":"35–60 min","notes":"Often cheaper; I-95 variability."},
-          {"code":"PBI","name":"Palm Beach","distance_miles":70,"typical_drive":"75–110 min","notes":"Brightline + rideshare workable."}
-        ],
-        "qa":[{"q":"MIA or FLL?","a":"MIA is closest. FLL can be cheaper—add 45–60+ minutes. If flying day-of, choose MIA."}]
-      },
-      {"slug":"port-everglades","name":"Port Everglades","city":"Fort Lauderdale","state":"FL","state_full":"Florida","country":"USA","region":"Southeast",
-        "blurb":["Everglades is the efficient sibling of South Florida cruising—fast transfers and short hops from the airport.","Stay near 17th Street for painless mornings. Beach and Las Olas are close by."],
-        "tips":["FLL→port is ~10–15 min; rideshare is simplest.","Hotels on 17th St often bundle shuttles—compare.","From MIA, add I-95 buffer or take Brightline."],
-        "warnings":["Sundays stack multiple turnarounds—expect peaks.","Spring Break weeks spike prices and traffic.","17th St bridge lifts bunch traffic."],
-        "airports":[
-          {"code":"FLL","name":"Fort Lauderdale","distance_miles":3,"typical_drive":"10–15 min"},
-          {"code":"MIA","name":"Miami Intl","distance_miles":28,"typical_drive":"40–70 min"},
-          {"code":"PBI","name":"Palm Beach","distance_miles":50,"typical_drive":"55–90 min"}
-        ]
-      },
-      {"slug":"port-canaveral","name":"Port Canaveral","city":"Cape Canaveral","state":"FL","state_full":"Florida","country":"USA","region":"Southeast",
-        "blurb":["Port Canaveral pairs clean terminals with space-coast energy.","Orlando (MCO) gives flight choice; shared shuttles/private cars make the 45–60+ minute trip simple if you build in time."],
-        "tips":["If flying into MCO, target before-noon arrivals.","Shared shuttles are cost-effective; private cars win on time.","Stay in Cocoa Beach the night before to skip I-95/528 stress."],
-        "warnings":["SR-528 weekend traffic can add 20–40 min.","Holiday weeks, Spring Break, and launches surge demand.","Summer storms can slow highway speeds."],
-        "airports":[
-          {"code":"MCO","name":"Orlando Intl","distance_miles":45,"typical_drive":"45–70 min","notes":"Tolls on 528; SunPass or rental e-toll."},
-          {"code":"MLB","name":"Melbourne","distance_miles":26,"typical_drive":"35–50 min"},
-          {"code":"SFB","name":"Orlando Sanford","distance_miles":60,"typical_drive":"60–90 min"}
-        ]
-      },
-      {"slug":"tampa","name":"Port Tampa Bay","city":"Tampa","state":"FL","state_full":"Florida","country":"USA","region":"Southeast",
-        "blurb":["Tampa is a compact, friendly on-ramp to the Caribbean with Riverwalk vibes.","Arrive the day before, enjoy Ybor City or a sunset stroll. Winter fog can slow channel transits."],
-        "tips":["Fly in a day early; weather/ATC elsewhere can ripple.","Price compare port parking vs. hotel ‘park & cruise’.","Rideshare works well; set pickup a block off the terminal.","Sparkman Wharf/Riverwalk are minutes from the berths."],
-        "warnings":["Winter AM fog (Dec–Feb) may delay arrivals/departures.","Rush hour (I-275, I-4, Selmon) may add 20–45 min.","Selmon is cashless tolls—ensure e-toll.","Spring Break + Gasparilla surge demand."],
-        "airports":[
-          {"code":"TPA","name":"Tampa Intl","distance_miles":9,"typical_drive":"18–30 min"},
-          {"code":"PIE","name":"St. Pete–Clearwater","distance_miles":20,"typical_drive":"30–50 min"},
-          {"code":"SRQ","name":"Sarasota–Bradenton","distance_miles":48,"typical_drive":"55–80 min"},
-          {"code":"MCO","name":"Orlando Intl","distance_miles":85,"typical_drive":"90–120 min"}
-        ]
-      },
+ <script id="planning-dataset" type="application/json">
+{
+  "version": "0.7",
+  "last_updated": "2025-10-20T00:00:00Z",
+  "signals": {
+    "spring_break": {
+      "window": "mid-Feb → early Apr",
+      "notes": "K-12 varies by district (most in March). Colleges peak early–mid March."
+    },
+    "fall_break": {
+      "window": "late Sep → mid-Oct",
+      "notes": "Observed by some districts; long weekends add demand."
+    },
+    "busy_days": ["Thanksgiving week","Christmas–New Year’s","MLK","Presidents’ Day","Memorial Day","Labor Day","Indigenous/Columbus Day","Veterans Day"],
+    "disclaimer": "Drive times are typical in light–moderate traffic; weather, events, or incidents can extend them."
+  },
+  "ports": [
+    /* =============== FLORIDA (USA) =============== */
+    {
+      "slug":"port-miami","name":"PortMiami","city":"Miami","state":"FL","state_full":"Florida","country":"USA",
+      "blurb":["PortMiami is polished and busy with the widest itinerary choice.","Traffic + causeways surge on embark Sundays—build margin."],
+      "tips":["Prefer MIA for day-of flights; FLL can be cheaper.","Stay Downtown/Brickell for easy mornings."],
+      "warnings":["Rush hour + cruise surges can double drive times.","Spring Break spikes demand.","Art Basel/Ultra/F1 weekends snarl routes."],
+      "airports":[
+        {"code":"MIA","name":"Miami Intl","distance_miles":9,"typical_drive":"20–35 min","notes":"Closest; rail/Brightline nearby."},
+        {"code":"FLL","name":"Fort Lauderdale","distance_miles":28,"typical_drive":"35–60 min","notes":"Often cheaper; I-95 variability."},
+        {"code":"PBI","name":"Palm Beach","distance_miles":70,"typical_drive":"75–110 min","notes":"Smaller network; Brightline + rideshare is viable."}
+      ],
+      "qa":[{"q":"MIA or FLL?","a":"MIA is closest. FLL can be cheaper—add 45–60+ minutes. If flying day-of, choose MIA."}]
+    },
+    {
+      "slug":"port-everglades","name":"Port Everglades","city":"Fort Lauderdale","state":"FL","state_full":"Florida","country":"USA",
+      "blurb":["Efficient transfers and quick airport hop.","Stay near 17th Street for painless mornings."],
+      "tips":["FLL→port ~10–15 min; rideshare is simplest.","Hotels on 17th St often bundle shuttles."],
+      "warnings":["Sundays stack multiple turnarounds.","Spring Break weeks spike prices/traffic.","17th St bridge lifts bunch traffic."],
+      "airports":[
+        {"code":"FLL","name":"Fort Lauderdale","distance_miles":3,"typical_drive":"10–15 min","notes":"Closest/simplest hop."},
+        {"code":"MIA","name":"Miami Intl","distance_miles":28,"typical_drive":"40–70 min","notes":"More nonstops; Brightline option."}
+      ],
+      "qa":[{"q":"Port parking or hotel?","a":"Port parking is easiest up to ~5 nights; ‘park & cruise’ hotel bundles can win on week-long trips."}]
+    },
+    {
+      "slug":"port-canaveral","name":"Port Canaveral","city":"Cape Canaveral","state":"FL","state_full":"Florida","country":"USA",
+      "blurb":["Clean terminals + space-coast energy.","Orlando (MCO) gives the flight choice; shuttles/private cars are common."],
+      "tips":["If flying into MCO, target before-noon arrivals.","Shared shuttles are cost-effective; private cars save time.","Stay Cocoa Beach the night before."],
+      "warnings":["SR-528 weekend traffic can add 20–40 min.","Holiday weeks, Spring Break, and launches surge demand."],
+      "airports":[
+        {"code":"MCO","name":"Orlando Intl","distance_miles":45,"typical_drive":"45–70 min","notes":"Tolls on 528; SunPass/e-toll."},
+        {"code":"MLB","name":"Melbourne","distance_miles":26,"typical_drive":"35–50 min","notes":"Small/easy; limited routes."},
+        {"code":"SFB","name":"Orlando Sanford","distance_miles":60,"typical_drive":"60–90 min","notes":"Budget carriers; longer drive."}
+      ],
+      "qa":[{"q":"Same-day flight safe?","a":"Safer to arrive a day early. If same-day, book an early nonstop—weather and I-4 delays stack quickly."}]
+    },
+    {
+      "slug":"port-tampa-bay","name":"Port Tampa Bay","city":"Tampa","state":"FL","state_full":"Florida","country":"USA",
+      "blurb":["Compact terminals, friendly logistics, and a waterfront that puts hotels and food within easy reach."],
+      "tips":["Arrive a day early; weather anywhere can ripple.","Compare hotel ‘park & cruise’ vs. port parking."],
+      "warnings":["Winter a.m. fog can slow channel transits.","I-275/I-4/Selmon rush can add 20–45 min."],
+      "airports":[
+        {"code":"TPA","name":"Tampa Intl","distance_miles":9,"typical_drive":"18–30 min","notes":"Excellent rideshare flow."},
+        {"code":"PIE","name":"St. Pete–Clearwater","distance_miles":20,"typical_drive":"30–50 min","notes":"More budget carriers."},
+        {"code":"SRQ","name":"Sarasota–Bradenton","distance_miles":48,"typical_drive":"55–80 min","notes":"Smaller; workable."},
+        {"code":"MCO","name":"Orlando Intl","distance_miles":85,"typical_drive":"90–120 min","notes":"I-4 work zones add time."}
+      ],
+      "qa":[{"q":"Budget transfer from TPA?","a":"Rideshare is simplest for 1–3; families compare hotel shuttle bundles vs. private transfers."}]
+    },
 
-      /* US — Texas */
-      {"slug":"galveston","name":"Port of Galveston","city":"Galveston","state":"TX","state_full":"Texas","country":"USA","region":"Gulf",
-        "blurb":["Galveston mixes small-island charm with big-ship choices. Parking and shuttles abound; weekend departures are popular."],
-        "tips":["HOU usually has shorter drives; IAH has more nonstops.","Consider hotel bundles with cruise parking.","Arrive day-early; I-45 incidents can stack delays."],
-        "warnings":["I-45 construction/events can add 30–60 min.","Fog delays (winter) are possible."],
-        "airports":[
-          {"code":"HOU","name":"Houston Hobby","distance_miles":42,"typical_drive":"50–75 min"},
-          {"code":"IAH","name":"Bush Intercontinental","distance_miles":70,"typical_drive":"75–110 min"}
-        ]
-      },
+    /* =============== CALIFORNIA (USA) =============== */
+    {
+      "slug":"los-angeles","name":"Los Angeles World Cruise Center (San Pedro)","city":"Los Angeles","state":"CA","state_full":"California","country":"USA",
+      "blurb":["San Pedro serves many LA-area sailings. Pick airports based on traffic windows as much as fares."],
+      "tips":["LAX has most nonstops; LGB is nearer with fewer routes; SNA is calm but farther.","Arrive outside peak rush (7–10a, 3–7p)."],
+      "warnings":["405/110 rush can double times.","Sports/concert weekends spike congestion."],
+      "airports":[
+        {"code":"LAX","name":"Los Angeles Intl","distance_miles":20,"typical_drive":"30–65 min"},
+        {"code":"LGB","name":"Long Beach","distance_miles":14,"typical_drive":"25–45 min"},
+        {"code":"SNA","name":"John Wayne (Orange County)","distance_miles":36,"typical_drive":"45–80 min"}
+      ]
+    },
+    {
+      "slug":"san-diego","name":"Port of San Diego","city":"San Diego","state":"CA","state_full":"California","country":"USA",
+      "blurb":["Downtown-adjacent and walkable waterfront; great option for shorter West Coast itineraries."],
+      "tips":["SAN is minutes away—rental car rarely needed."],
+      "warnings":["Comic-Con/marathons swell demand."],
+      "airports":[{"code":"SAN","name":"San Diego Intl","distance_miles":3,"typical_drive":"8–15 min"}]
+    },
 
-      /* US — NJ/NYC */
-      {"slug":"cape-liberty","name":"Cape Liberty Cruise Port","city":"Bayonne","state":"NJ","state_full":"New Jersey","country":"USA","region":"Northeast",
-        "blurb":["Skyline sail-aways without Manhattan chaos; closer to EWR than JFK/LGA."],
-        "tips":["Prefer EWR for proximity; pre-book car service.","Check stadium/convention schedules; game days snarl routes."],
-        "warnings":["Rush hour & bridge/tunnel incidents extend drives.","Winter weather can impact schedules."],
-        "airports":[
-          {"code":"EWR","name":"Newark Liberty","distance_miles":10,"typical_drive":"20–35 min"},
-          {"code":"JFK","name":"JFK","distance_miles":34,"typical_drive":"60–100 min"},
-          {"code":"LGA","name":"LaGuardia","distance_miles":24,"typical_drive":"50–85 min"}
-        ]
-      },
+    /* =============== TEXAS (USA) =============== */
+    {
+      "slug":"galveston","name":"Port of Galveston","city":"Galveston","state":"TX","state_full":"Texas","country":"USA",
+      "blurb":["Small-island charm with big-ship choices. Parking and shuttles are abundant."],
+      "tips":["HOU usually shorter drives; IAH has more nonstops.","Book parking early on sold-out weekends."],
+      "warnings":["I-45 construction/incidents can add 30–60 min.","Fog delays possible in winter."],
+      "airports":[
+        {"code":"HOU","name":"Houston Hobby","distance_miles":42,"typical_drive":"50–75 min"},
+        {"code":"IAH","name":"Bush Intercontinental","distance_miles":70,"typical_drive":"75–110 min"}
+      ]
+    },
 
-      /* US — Maryland */
-      {"slug":"baltimore","name":"Port of Baltimore (South Locust Point)","city":"Baltimore","state":"MD","state_full":"Maryland","country":"USA","region":"Mid-Atlantic",
-        "blurb":["A convenient Northeast option with drivable access for many. Terminal is straightforward; parking is on-site."],
-        "tips":["BWI → port is quick; Amtrak to Baltimore Penn + rideshare works."],
-        "warnings":["I-95/I-695 incidents can extend drives; winter storms ripple."],
-        "airports":[
-          {"code":"BWI","name":"Baltimore/Washington","distance_miles":11,"typical_drive":"20–30 min"},
-          {"code":"DCA","name":"Reagan National","distance_miles":45,"typical_drive":"55–85 min"},
-          {"code":"IAD","name":"Dulles","distance_miles":60,"typical_drive":"70–110 min"}
-        ]
-      },
+    /* =============== NORTHEAST / MID-ATLANTIC (USA) =============== */
+    {
+      "slug":"cape-liberty","name":"Cape Liberty (Bayonne)","city":"Bayonne","state":"NJ","state_full":"New Jersey","country":"USA",
+      "blurb":["Skyline sail-aways without Manhattan chaos; closer to EWR than JFK/LGA."],
+      "tips":["Prefer EWR for proximity; pre-book car service.","Check game/convention schedules."],
+      "warnings":["Bridge/tunnel traffic + closures extend drives.","Winter weather impacts schedules."],
+      "airports":[
+        {"code":"EWR","name":"Newark Liberty","distance_miles":10,"typical_drive":"20–35 min"},
+        {"code":"JFK","name":"JFK","distance_miles":34,"typical_drive":"60–100 min"},
+        {"code":"LGA","name":"LaGuardia","distance_miles":24,"typical_drive":"50–85 min"}
+      ]
+    },
+    {
+      "slug":"baltimore","name":"Port of Baltimore (South Locust Point)","city":"Baltimore","state":"MD","state_full":"Maryland","country":"USA",
+      "blurb":["Straightforward terminal with on-site parking; drivable for many in the Mid-Atlantic."],
+      "tips":["BWI is closest; Amtrak to Baltimore Penn + rideshare works."],
+      "warnings":["I-95/I-695 incidents extend drives; winter storms ripple."],
+      "airports":[
+        {"code":"BWI","name":"Baltimore/Washington","distance_miles":11,"typical_drive":"20–30 min"},
+        {"code":"DCA","name":"Reagan National","distance_miles":45,"typical_drive":"55–85 min"},
+        {"code":"IAD","name":"Dulles","distance_miles":60,"typical_drive":"70–110 min"}
+      ]
+    },
+    {
+      "slug":"boston","name":"Flynn Cruiseport Boston (Black Falcon)","city":"Boston","state":"MA","state_full":"Massachusetts","country":"USA",
+      "blurb":["Gateway to Canada/New England with lively neighborhoods nearby; autumn foliage season is magic."],
+      "tips":["BOS is close; plan for tunnel tolls.","Consider a North End stay the night before."],
+      "warnings":["Leaf-peeping raises fares/occupancy.","Tunnels/bridges concentrate traffic."],
+      "airports":[{"code":"BOS","name":"Logan Intl","distance_miles":4,"typical_drive":"12–25 min"}]
+    },
 
-      /* US — California */
-      {"slug":"los-angeles","name":"Los Angeles World Cruise Center (San Pedro)","city":"Los Angeles","state":"CA","state_full":"California","country":"USA","region":"West Coast",
-        "blurb":["San Pedro serves many LA-area sailings. Pick airports by traffic windows as much as fares; a day-early stay erases 405/110 stress."],
-        "tips":["LAX most nonstops; LGB nearer with fewer routes; SNA great from OC.","Avoid peak rush (7–10a, 3–7p) where possible."],
-        "warnings":["405/110 rush can double times; event weekends spike congestion."],
-        "airports":[
-          {"code":"LAX","name":"Los Angeles Intl","distance_miles":20,"typical_drive":"30–65 min"},
-          {"code":"LGB","name":"Long Beach","distance_miles":14,"typical_drive":"25–45 min"},
-          {"code":"SNA","name":"John Wayne (Orange County)","distance_miles":36,"typical_drive":"45–80 min"}
-        ]
-      },
-      {"slug":"san-diego","name":"Port of San Diego","city":"San Diego","state":"CA","state_full":"California","country":"USA","region":"West Coast",
-        "blurb":["Downtown-adjacent and easy; great for shorter West Coast itineraries. Walkable waterfront; hotels close by."],
-        "tips":["SAN is minutes away—rental car rarely needed; rideshare flow is excellent."],
-        "warnings":["Event weekends (Comic-Con, marathons) swell demand."],
-        "airports":[
-          {"code":"SAN","name":"San Diego Intl","distance_miles":3,"typical_drive":"8–15 min"}
-        ]
-      },
+    /* =============== GULF (USA) =============== */
+    {
+      "slug":"new-orleans","name":"Port NOLA (Erato/Julia)","city":"New Orleans","state":"LA","state_full":"Louisiana","country":"USA",
+      "blurb":["Walkable and flavorful; staying in the Warehouse District trims morning stress."],
+      "tips":["MSY ~25–35 min; avoid tight connections.","Festival season swings pricing/traffic."],
+      "warnings":["Parades/festivals reshape routes; river fog happens."],
+      "airports":[{"code":"MSY","name":"Louis Armstrong New Orleans","distance_miles":15,"typical_drive":"25–40 min"}]
+    },
+    {
+      "slug":"mobile","name":"Port of Mobile (Alabama)","city":"Mobile","state":"AL","state_full":"Alabama","country":"USA",
+      "blurb":["Compact and friendly; a good drive-market choice."],
+      "tips":["If flying, use MOB; many guests drive."],
+      "warnings":["Summer thunderstorms slow interstates.","Event weekends spike demand downtown."],
+      "airports":[
+        {"code":"MOB","name":"Mobile Regional","distance_miles":17,"typical_drive":"25–40 min"},
+        {"code":"PNS","name":"Pensacola","distance_miles":58,"typical_drive":"65–90 min"}
+      ]
+    },
 
-      /* INTERNATIONAL — Canada */
-      {"slug":"vancouver","name":"Canada Place (Vancouver)","city":"Vancouver","state":"BC","state_full":"British Columbia","country":"Canada","region":"Pacific Northwest",
-        "blurb":["A stunning Alaska gateway with seamless rail/skytrain links and walkable downtown hotels."],
-        "tips":["YVR has broad service; arrive a day early for peace of mind.","Taxi/ride-hail queues move quickly on cruise days."],
-        "warnings":["Peak summer + weekend events increase hotel rates; border formalities add time for some passengers."],
-        "airports":[
-          {"code":"YVR","name":"Vancouver Intl","distance_miles":9,"typical_drive":"20–35 min","notes":"Canada Line (SkyTrain) + short walk or taxi."}
-        ]
-      },
+    /* =============== PACIFIC NORTHWEST (USA) =============== */
+    {
+      "slug":"seattle","name":"Port of Seattle (Pier 66/91)","city":"Seattle","state":"WA","state_full":"Washington","country":"USA",
+      "blurb":["Smooth Alaska gateway; hotels in Belltown/Waterfront simplify mornings."],
+      "tips":["SEA has the flights; plan for security peaks.","Stadium events add time; check schedules."],
+      "warnings":["Summer events spike downtown traffic; drizzle/fog is normal."],
+      "airports":[
+        {"code":"SEA","name":"Seattle–Tacoma Intl","distance_miles":15,"typical_drive":"25–45 min"},
+        {"code":"PAE","name":"Paine Field","distance_miles":27,"typical_drive":"35–60 min"}
+      ]
+    },
 
-      /* INTERNATIONAL — Australia */
-      {"slug":"sydney","name":"Overseas Passenger Terminal (Circular Quay)","city":"Sydney","state":"NSW","state_full":"New South Wales","country":"Australia","region":"Australia",
-        "blurb":["Iconic sail-away by the Opera House/Harbour Bridge. OTP at Circular Quay; White Bay serves some calls."],
-        "tips":["SYD is the main gateway; arrive 1–2 days early to shake jet lag.","Trains to Circular Quay are straightforward; consider taxi for luggage."],
-        "warnings":["Summer heat waves & holiday peaks raise demand."],
-        "airports":[
-          {"code":"SYD","name":"Sydney (Kingsford Smith)","distance_miles":10,"typical_drive":"25–45 min"}
-        ]
-      }
-    ],
-    "signals":{
-      "spring_break":{"window":"mid-Feb → early Apr","notes":"K-12 varies by district (most in March). Colleges peak early–mid March."},
-      "fall_break":{"window":"late Sep → mid-Oct","notes":"Adopted by some districts; modest bump on long weekends."},
-      "busy_days":["Thanksgiving week","Christmas–New Year","MLK","Presidents’ Day","Memorial Day","Labor Day","Indigenous/Columbus Day","Veterans Day"],
-      "disclaimer":"Times are typical in light–moderate traffic. Rush hour, events, weather, and incidents can extend travel."
+    /* =============== CARIBBEAN (US TERRITORY) =============== */
+    {
+      "slug":"san-juan","name":"San Juan Cruise Port","city":"San Juan","state":"PR","state_full":"Puerto Rico","country":"USA",
+      "blurb":["Deep-Caribbean itineraries with Old San Juan steps away."],
+      "tips":["SJU has broad service; arrive daytime if possible."],
+      "warnings":["Festivals (SanSe) fill rooms; tropical weather affects flights."],
+      "airports":[{"code":"SJU","name":"Luis Muñoz Marín Intl","distance_miles":8,"typical_drive":"15–30 min"}]
+    },
+
+    /* =============== CANADA =============== */
+    {
+      "slug":"vancouver","name":"Canada Place (Vancouver)","city":"Vancouver","state":"BC","state_full":"British Columbia","country":"Canada",
+      "blurb":["Premier Alaska gateway with a spectacular sail-away under Lions Gate Bridge."],
+      "tips":["YVR has excellent transit; consider SkyTrain + short taxi.","Arrive a day early for border/ATC margin."],
+      "warnings":["Peak summer + cruise clusters crowd downtown; convention days raise rates."],
+      "airports":[{"code":"YVR","name":"Vancouver Intl","distance_miles":9,"typical_drive":"20–35 min","notes":"SkyTrain to Waterfront + 10–12 min walk."}]
+    },
+
+    /* =============== AUSTRALIA =============== */
+    {
+      "slug":"sydney","name":"Overseas Passenger Terminal (Circular Quay)","city":"Sydney","state":"NSW","state_full":"New South Wales","country":"Australia",
+      "blurb":["Sail past the Opera House/Harbour Bridge—arguably the world’s best sail-away."],
+      "tips":["SYD has rail to Circular Quay; consider a CBD/Quay hotel.","Arrive day-early—international recovery buffers are kind."],
+      "warnings":["Event days around the Quay increase traffic and pedestrian congestion."],
+      "airports":[{"code":"SYD","name":"Sydney (Kingsford Smith)","distance_miles":10,"typical_drive":"25–40 min","notes":"Airport rail → Circular Quay."}]
+    },
+    {
+      "slug":"brisbane","name":"Brisbane International Cruise Terminal (Pinkenba)","city":"Brisbane","state":"QLD","state_full":"Queensland","country":"Australia",
+      "blurb":["Purpose-built terminal with straightforward road access."],
+      "tips":["BNE is close; rideshare is easiest.","Check ship/terminal assignments for suburban berths."],
+      "warnings":["Peak hour on Gateway Motorway can add time."],
+      "airports":[{"code":"BNE","name":"Brisbane","distance_miles":7,"typical_drive":"15–25 min"}]
+    },
+    {
+      "slug":"melbourne","name":"Station Pier (Port Melbourne)","city":"Melbourne","state":"VIC","state_full":"Victoria","country":"Australia",
+      "blurb":["Historic pier close to the CBD and St Kilda."],
+      "tips":["MEL has the lift; rideshare/tram to CBD is simple."],
+      "warnings":["Event weekends can tighten hotel supply."],
+      "airports":[{"code":"MEL","name":"Melbourne (Tullamarine)","distance_miles":17,"typical_drive":"25–45 min"}]
     }
-  }</script>
+  ]
+}
+</script>
 
   <!-- JOURNAL RAIL (Ken + Tina + safe image fallbacks) -->
  <!-- JOURNAL RAIL (Ken + Tina + hard image fallbacks) -->
