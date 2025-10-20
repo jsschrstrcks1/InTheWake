@@ -569,5 +569,315 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
     })();
   })();
   </script>
+<script>
+/* In the Wake • Planning/Right-Rail Hardener v3.008.024
+   - Fixes 404s (authors, articles, planning dataset) with robust fallbacks
+   - Ensures state pills & port panels render even if remote JSONs fail
+   - Keeps to a11y: ARIA roles, focus mgmt, reduced motion safe
+   Soli Deo Gloria. */
+(function(){
+  const V = '3.008.024';
+
+  // ---------- tiny utils ----------
+  const abs = (p)=> (typeof window._abs==='function' ? _abs(p) : p);
+  const $  = (s, r=document)=> r.querySelector(s);
+  const $$ = (s, r=document)=> Array.from(r.querySelectorAll(s));
+  const safeDate = (d)=> isNaN(Date.parse(d)) ? '' : new Date(d).toLocaleDateString();
+
+  async function tryFetchJSON(urls){
+    for (const url of urls){
+      try{
+        const r = await fetch(abs(url), { cache:'no-store' });
+        if (!r.ok) continue;
+        return await r.json();
+      }catch(_){/* next */}
+    }
+    return null;
+  }
+
+  // ---------- RIGHT RAIL: Articles (with Tina + Ken) ----------
+  const RAIL_SEL = {
+    mount: '#rail-mount', // required in your markup
+  };
+
+  const ARTICLE_PLACEHOLDER = '/assets/placeholders/article-thumb.jpg?v='+V;
+  const AUTHOR_PLACEHOLDER  = '/assets/placeholders/author.jpg?v='+V;
+
+  const ARTICLE_SOURCES = [
+    '/assets/data/articles.json?v='+V,
+    '/assets/data/articles/index.json?v='+V,
+    '/solo/articles/index.json?v='+V
+  ];
+
+  // Hard fallback (guarantees something shows)
+  const ARTICLE_SEED = [
+    {
+      url:'/travel.html#top-20-questions',
+      title:'Top 20 First-Cruise Questions (Answered)',
+      date:'2025-10-17',
+      dek:'Planning, packing, ports, and ship life—steady answers.',
+      image:'/assets/articles/top-20-questions/cover.jpg?v='+V,
+      author:{ name:'Ken Baker', url:'/authors/ken-baker.html',
+               image:'/assets/authors/ken-baker.jpg?v='+V }
+    },
+    {
+      url:'/solo/articles/freedom-of-your-own-wake.html',
+      title:'Freedom of Your Own Wake',
+      date:'2025-10-17',
+      dek:'On choosing solitude without being alone.',
+      // per your note, use the site hero (same as Travel/Solo pages)
+      image:'/assets/index_hero.jpg?v='+V,
+      author:{ name:'Ken Baker', url:'/authors/ken-baker.html',
+               image:'/assets/authors/ken-baker.jpg?v='+V }
+    },
+    // Optional Tina example—update the URL when you publish
+    // {
+    //   url:'/travel/tina-planning-grace-and-margin.html',
+    //   title:'Travel Days with Grace & Margin',
+    //   date:'2025-10-12',
+    //   dek:'Tina’s calm, practical rhythm for less-stress embarkations.',
+    //   image:'/assets/articles/tina-planning/cover.jpg?v='+V,
+    //   author:{ name:'Tina', url:'/authors/tina.html',
+    //            image:'/assets/authors/tina.jpg?v='+V }
+    // }
+  ];
+
+  function normalizeArticles(payload){
+    const list = Array.isArray(payload?.articles) ? payload.articles : (Array.isArray(payload) ? payload : []);
+    return list.map(a=>({
+      url: a.url || a.permalink || '#',
+      title: a.title || a.headline || 'Article',
+      dek: a.dek || a.description || a.excerpt || '',
+      date: a.datePublished || a.date || '',
+      image: a.image || '',
+      author: a.author || a.by || null
+    })).filter(x=> x.url && (x.url.startsWith('/') || /^https?:\/\//.test(x.url)));
+  }
+
+  function railCard(a){
+    const img = a.image ? abs(a.image) : abs( (a.author && a.author.image) || ARTICLE_PLACEHOLDER );
+    const authorName = a.author?.name || '';
+    const authorURL  = a.author?.url  || '#';
+    const avatar     = a.author?.image ? abs(a.author.image) : AUTHOR_PLACEHOLDER;
+    return `
+      <article class="rail-item">
+        <a class="thumb" href="${a.url}">
+          <img src="${img}" alt="${a.title}" onerror="this.onerror=null;this.src='${abs(ARTICLE_PLACEHOLDER)}'">
+        </a>
+        <div class="meta">
+          <h4><a href="${a.url}">${a.title}</a></h4>
+          <p class="tiny muted">
+            ${a.date ? `${safeDate(a.date)}` : ''}${authorName ? ` · <img class="avatar" src="${avatar}" alt="${authorName}" onerror="this.onerror=null;this.src='${abs(AUTHOR_PLACEHOLDER)}'"> <a class="author" href="${authorURL}">${authorName}</a>` : ''}
+          </p>
+          ${a.dek ? `<p class="tiny">${a.dek}</p>` : ``}
+        </div>
+      </article>`;
+  }
+
+  async function hydrateRail(){
+    const mount = $(RAIL_SEL.mount);
+    if (!mount) return;
+    let data = await tryFetchJSON(ARTICLE_SOURCES);
+    let items = normalizeArticles(data);
+    if (!items.length) items = ARTICLE_SEED;
+    // Prefer Travel/Solo planning-adjacent items first
+    const score = (a)=> (a.url.includes('/travel')||a.url.includes('/solo')?1:0) + (a.title||'').toLowerCase().includes('question') ? 1 : 0;
+    items.sort((a,b)=> score(b)-score(a));
+    mount.innerHTML = items.slice(0,4).map(railCard).join('');
+  }
+
+  // ---------- PLANNING: States/Ports/Airports ----------
+  // Where your page expects dataset: primary file(s) → fallback → embedded seed
+  const PLAN_SOURCES = [
+    '/assets/data/planning_dataset_v0.6.json?v='+V,
+    '/assets/data/planning_dataset_v0.5.json?v='+V,
+    '/assets/data/planning_dataset.json?v='+V
+  ];
+
+  // Minimal seed (expand whenever you like); RCL-served US ports only here.
+  const PLANNING_SEED = {
+    meta:{ version:'0.6-seed', updated:'2025-10-20' },
+    states:[
+      {
+        code:'FL', name:'Florida',
+        blurb:'Florida is home base for many itineraries. Fly in a day early if possible—thunderstorms and rush hour can stack delays.',
+        tips:['Book refundable hotels near the port','Use SunPass-ready rentals or plan for tolls','Budget extra time for I-95 / I-595 backups'],
+        warnings:['Summer storms can ground flights temporarily','I-95/I-195/I-395 rush hour is real','Holiday weekends = heavy port traffic'],
+        ports:[
+          {
+            id:'MIA', name:'PortMiami', city:'Miami', rcl:true,
+            airports:[
+              { code:'MIA', name:'Miami (MIA)', approxDriveMins:15, notes:'Busy; closest to port.' },
+              { code:'FLL', name:'Fort Lauderdale (FLL)', approxDriveMins:35, notes:'Traffic-dependent; Tri-Rail/Brightline viable.' },
+              { code:'PBI', name:'Palm Beach (PBI)', approxDriveMins:75, notes:'Consider only for better fares.' }
+            ]
+          },
+          {
+            id:'FLL', name:'Port Everglades', city:'Fort Lauderdale', rcl:true,
+            airports:[
+              { code:'FLL', name:'Fort Lauderdale (FLL)', approxDriveMins:10, notes:'Closest; quick hop to terminals.' },
+              { code:'MIA', name:'Miami (MIA)', approxDriveMins:35, notes:'Peak-hour I-95 slows to a crawl.' }
+            ]
+          },
+          {
+            id:'PCV', name:'Port Canaveral', city:'Cape Canaveral', rcl:true,
+            airports:[
+              { code:'MLB', name:'Melbourne (MLB)', approxDriveMins:45, notes:'Small; check schedules.' },
+              { code:'MCO', name:'Orlando (MCO)', approxDriveMins:50, notes:'Most options; beware rental car queues.' },
+              { code:'SFB', name:'Sanford (SFB)', approxDriveMins:70, notes:'Allegiant focus city.' }
+            ]
+          },
+          {
+            id:'TPA', name:'Port Tampa Bay', city:'Tampa', rcl:true,
+            airports:[
+              { code:'TPA', name:'Tampa (TPA)', approxDriveMins:20, notes:'Closest/most convenient.' },
+              { code:'PIE', name:'St. Pete–Clearwater (PIE)', approxDriveMins:35, notes:'Limited majors.' },
+              { code:'SRQ', name:'Sarasota (SRQ)', approxDriveMins:70, notes:'Consider for regional fares.' }
+            ]
+          }
+        ],
+        intraStateAirWarn:[
+          'MIA↔FLL ~35–60 min; add time for I-95 backups',
+          'MCO↔Port Canaveral ~50–70 min; watch NASA/SR 528 congestion',
+          'TPA↔Port Tampa ~20–35 min; bridges + game days can spike delays'
+        ],
+        schoolBreaks:[
+          'Spring breaks stagger Feb–Apr (K-12 & colleges).',
+          'Summer family travel surges mid-Jun–mid-Aug.',
+          'Thanksgiving, Christmas–New Year = premium demand.'
+        ]
+      },
+      {
+        code:'TX', name:'Texas',
+        blurb:'Galveston serves much of the central US. Consider flying into HOU for more Southwest options.',
+        tips:['Arrive a day early during storm season','Book parking early on sold-out weekends'],
+        warnings:['I-45 construction can snarl traffic','Fog can pause port ops in winter'],
+        ports:[
+          {
+            id:'GLS', name:'Port of Galveston', city:'Galveston', rcl:true,
+            airports:[
+              { code:'HOU', name:'Houston Hobby (HOU)', approxDriveMins:55, notes:'Best for Southwest.' },
+              { code:'IAH', name:'Houston Intercontinental (IAH)', approxDriveMins:80, notes:'United hub; further drive.' }
+            ]
+          }
+        ],
+        schoolBreaks:[
+          'Texas spring breaks cluster around early–mid March.',
+          'Football weekends can raise hotel rates in Houston/Galveston.'
+        ]
+      },
+      {
+        code:'NJ', name:'New Jersey',
+        blurb:'Cape Liberty is Newark-adjacent and a strong Northeast gateway.',
+        tips:['Target EWR for shortest transfer','Arrive early in winter for weather buffers'],
+        warnings:['Holland/Lincoln Tunnel traffic peaks weekday PM','Winter nor’easters can disrupt flights'],
+        ports:[
+          {
+            id:'EWRP', name:'Cape Liberty (Bayonne)', city:'Bayonne, NJ', rcl:true,
+            airports:[
+              { code:'EWR', name:'Newark (EWR)', approxDriveMins:20, notes:'Closest, easiest.' },
+              { code:'JFK', name:'JFK (NYC)', approxDriveMins:60, notes:'Allow extra time; bridge/tunnel traffic.' },
+              { code:'LGA', name:'LaGuardia (LGA)', approxDriveMins:50, notes:'Weekend work can affect routes.' }
+            ]
+          }
+        ]
+      },
+      {
+        code:'MD', name:'Maryland',
+        blurb:'Baltimore is convenient to the Mid-Atlantic and capital region.',
+        tips:['Use BWI for shortest transfer','Watch for I-95 weekend delays'],
+        warnings:['Harbor tunnel closures/repairs add time'],
+        ports:[
+          {
+            id:'BALT', name:'Port of Baltimore', city:'Baltimore', rcl:true,
+            airports:[
+              { code:'BWI', name:'Baltimore/Washington (BWI)', approxDriveMins:20, notes:'Closest.' },
+              { code:'DCA', name:'Reagan National (DCA)', approxDriveMins:60, notes:'DC traffic variability.' },
+              { code:'IAD', name:'Dulles (IAD)', approxDriveMins:75, notes:'Consider only for intl routings.' }
+            ]
+          }
+        ]
+      },
+      {
+        code:'WA', name:'Washington',
+        blurb:'Seattle is your Alaska gateway; ships alternate Piers 66/91.',
+        tips:['Fly in at least a day ahead for Alaska sailings','Budget time for cruise-day traffic near Belltown/Interbay'],
+        warnings:['Bridge lifts aren’t common but incidents cause jams','Summer events spike downtown traffic'],
+        ports:[
+          {
+            id:'SEA', name:'Port of Seattle', city:'Seattle', rcl:true,
+            airports:[
+              { code:'SEA', name:'Seattle/Tacoma (SEA)', approxDriveMins:25, notes:'Link light rail + rideshare options.' },
+              { code:'PAE', name:'Paine Field (PAE)', approxDriveMins:50, notes:'Limited but pleasant.' }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+
+  function buildPills(states, mountTabs, mountPanels){
+    if (!mountTabs || !mountPanels) return;
+    mountTabs.setAttribute('role','tablist');
+    const pills = states.map((s, idx)=>`
+      <a href="#state-${s.code}" class="pill" role="tab" aria-selected="${idx===0?'true':'false'}"
+         id="tab-${s.code}" data-code="${s.code}">${s.name}</a>`).join('');
+    mountTabs.innerHTML = pills;
+    mountPanels.innerHTML = states.map((s, idx)=>`
+      <section class="card" id="state-${s.code}" role="tabpanel" aria-labelledby="tab-${s.code}"
+               ${idx===0?'':'hidden'} >
+        <h2>${s.name}</h2>
+        ${s.blurb?`<p class="dek">${s.blurb}</p>`:''}
+        ${s.tips?.length?`<h3>Tips</h3><ul>${s.tips.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}
+        ${s.warnings?.length?`<h3>Warnings</h3><ul class="tiny">${s.warnings.map(w=>`<li>${w}</li>`).join('')}</ul>`:''}
+
+        ${s.ports?.length?`
+          <h3>Ports & Airports</h3>
+          <div class="rail">
+            ${s.ports.map(p=>`
+              <article class="rail-item">
+                <div class="meta">
+                  <h4>${p.name} — ${p.city}</h4>
+                  <p class="tiny muted">${p.rcl?'Royal Caribbean served':''}</p>
+                  <ul class="tiny">
+                    ${p.airports.map(a=>`<li><strong>${a.code}</strong> ${a.name} · ~${a.approxDriveMins} min <span class="muted">${a.notes||''}</span></li>`).join('')}
+                  </ul>
+                </div>
+              </article>
+            `).join('')}
+          </div>`:''}
+
+        ${s.intraStateAirWarn?.length?`<p class="tiny muted"><strong>Transfer notes:</strong> ${s.intraStateAirWarn.join(' • ')}</p>`:''}
+        ${s.schoolBreaks?.length?`<p class="tiny muted"><strong>Peak calendars:</strong> ${s.schoolBreaks.join(' • ')}</p>`:''}
+      </section>
+    `).join('');
+
+    // tab behavior
+    mountTabs.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[role="tab"][data-code]');
+      if(!a) return;
+      e.preventDefault();
+      const code = a.getAttribute('data-code');
+      $$('a[role="tab"]', mountTabs).forEach(x=>x.setAttribute('aria-selected','false'));
+      a.setAttribute('aria-selected','true');
+      $$('#'+mountPanels.id+' > [role="tabpanel"]').forEach(p=>p.hidden = true);
+      const panel = $('#state-'+code);
+      if (panel) panel.hidden = false;
+      // move focus to panel for a11y (optional)
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) panel.scrollIntoView({behavior:'smooth', block:'start'});
+    }, {passive:false});
+  }
+
+  async function hydratePlanning(){
+    const tabs   = document.getElementById('planning-tabs');   // <nav class="pills"... id="planning-tabs">
+    const panels = document.getElementById('planning-panels'); // <div id="planning-panels"></div>
+    if (!tabs || !panels) return;
+
+    let data = await tryFetchJSON(PLAN_SOURCES);
+    if (!data?.states?.length) data = PLANNING_SEED;
+
+    // Optional dedupe guard if feeds repeat entries
+    const seen = new Set();
+    data.states = data.states.filter
 </body>
 </html>
