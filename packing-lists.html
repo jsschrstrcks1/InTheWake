@@ -1,26 +1,12 @@
-<!--
-Soli Deo Gloria
-All work on this project is offered as a gift to God.
-“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
-“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
-
-STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · A11y/WCAG Addendum v3.100
-ADDENDUM: Facebook Domain Verification v3.008.021
-PAGE: /packing-lists.html · v3.008.025
--->
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Consent Manager (kept first to honor autoblocking where required) -->
-  <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js" data-cmp-host="a.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
-
-  <!-- Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-  <script>
-    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date()); gtag('config','G-WZP891PZXJ');
-  </script>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <!-- Consent Manager (must be first) -->
+  <script type="text/javascript" data-cmp-ab="1"
+          src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+          data-cmp-host="a.delivery.consentmanager.net"
+          data-cmp-cdn="cdn.consentmanager.net"
+          data-cmp-codesrc="16"></script>
 
   <!-- Core Meta -->
   <meta charset="utf-8"/>
@@ -29,16 +15,16 @@ PAGE: /packing-lists.html · v3.008.025
   <meta name="theme-color" content="#0e6e8e">
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
 
-  <!-- Title / Version -->
-  <title>Packing Lists — In the Wake (v3.008.025)</title>
-  <meta name="version" content="v3.008.025"/>
-  <meta name="page:version" content="v3.008.025"/>
+  <!-- Title / Version Trinity -->
+  <title>Packing Lists — In the Wake (v3.008.027)</title>
+  <meta name="version" content="v3.008.027"/>
+  <meta name="page:version" content="v3.008.027"/>
   <meta name="standards:baseline" content="3.008"/>
-  <meta name="description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
 
-  <!-- Robots / Canonical -->
-  <meta name="robots" content="index, follow"/>
+  <!-- Canonical & Description -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/packing-lists.html"/>
+  <meta name="description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
+  <meta name="robots" content="index, follow"/>
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website"/>
@@ -46,7 +32,7 @@ PAGE: /packing-lists.html · v3.008.025
   <meta property="og:url" content="https://www.cruisinginthewake.com/packing-lists.html"/>
   <meta property="og:title" content="Packing Lists — In the Wake"/>
   <meta property="og:description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/packing-hero.jpg?v=3.008.025"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/packing-hero.jpg?v=3.008.027"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- JSON-LD: Breadcrumbs -->
@@ -61,11 +47,11 @@ PAGE: /packing-lists.html · v3.008.025
   }
   </script>
 
-  <!-- URL normalizer (absolute prod → current origin) -->
+  <!-- Absolute URL normalizer -->
   <script>
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(p){ p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p; };
+    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
     function normalize(){
       const sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
@@ -75,10 +61,13 @@ PAGE: /packing-lists.html · v3.008.025
       ].join(',');
       document.querySelectorAll(sel).forEach(el=>{
         const attr=el.hasAttribute('href')?'href':'src';
-        try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+        try{
+          const u=new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(_){}
       });
     }
-    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', normalize, {once:true}); } else { normalize(); }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});} else { normalize(); }
   })();
   </script>
 
@@ -104,84 +93,82 @@ PAGE: /packing-lists.html · v3.008.025
   })();
   </script>
 
-  <!-- Site Cache + SW -->
-  <script src="/assets/js/site-cache.js?v=3.008.025" defer></script>
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config','G-WZP891PZXJ');
+  </script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Site cache + SW -->
+  <script src="/assets/js/site-cache.js?v=3.008.027" defer></script>
   <script>
   if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008.025').catch(()=>{}));
+    window.addEventListener('load', ()=>navigator.serviceWorker.register('/sw.js?v=3.008.027').catch(()=>{}));
   }
   </script>
 
-  <!-- CSS (global, versioned) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008.025">
+  <!-- CSS (global) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008.027"/>
 
-  <!-- LCP image preload (hero) -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.025" fetchpriority="high">
+  <!-- LCP image preload -->
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.027" fetchpriority="high"/>
 
-  <!-- Page-scoped styles (layout + right rail) -->
+  <!-- Page-scoped styles -->
   <style>
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
     }
-
     /* Skip link */
     .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .visually-hidden-focusable:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--sea,#0e6e8e);border-radius:10px;z-index:10000}
+    .visually-hidden-focusable:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--accent,#0e6e8e);border-radius:10px;z-index:10000}
 
-    /* Two-column: Content + Right Rail */
-    .with-right-rail{display:grid;gap:1.2rem;grid-template-columns:minmax(0,1fr) minmax(300px,360px);align-items:start}
-    .content-col{grid-column:1;min-width:0}
-    .right-rail{grid-column:2;position:sticky;top:1rem;align-self:start}
-    @media (max-width:1024px){ .with-right-rail{grid-template-columns:1fr}.right-rail{position:static;grid-column:1} }
-
-    /* Card watermark safety */
-    .card{position:relative;overflow:hidden}
-    .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);
-      background:url('/assets/watermark.png?v=3.008.025') center/contain no-repeat;opacity:.06;pointer-events:none}
-
-    /* Grid 3 utility (used by audience buckets) */
-    .grid-3{ display:grid; gap:1.2rem; grid-template-columns:1fr; }
-    @media (min-width:680px){ .grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-    @media (min-width:1024px){ .grid-3{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
-
-    /* Right-rail tiles */
-    .rail{display:grid;gap:.75rem}
-    .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
-    .rail-item .thumb img{display:block;width:112px;height:72px;object-fit:cover;border-radius:.5rem}
-    .rail-item .avatar{width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:.25rem}
-
-    /* Sticky sub-nav */
-    #section-nav{position:sticky; top:0; z-index:6; background:var(--sky); padding:.4rem .2rem; border-bottom:2px solid var(--rope)}
-  </style>
-
-  <!-- Hero tune (page) -->
-  <style>
-    .hero{ background:url('/assets/index_hero.jpg?v=3.008.025') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
+    /* Hero tune */
+    .hero{ background:url('/assets/index_hero.jpg?v=3.008.027') center/cover no-repeat!important; }
     .hero::before,.hero::after{ content:none!important }
+
+    /* Layout: content + right rail */
+    .with-right-rail{display:grid;gap:1.2rem}
+    @media (min-width:980px){ .with-right-rail{grid-template-columns:2fr 1.2fr} }
+    .content-col{min-width:0}
+    .right-rail{position:sticky;top:1rem;align-self:start}
+    @media (max-width:1024px){ .right-rail{position:static} }
+
+    /* Watermark safety on cards */
+    .card{position:relative;overflow:hidden}
+    .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.008.027') center/contain no-repeat;opacity:.06;pointer-events:none}
+
+    /* Right-rail blocks */
+    .rail{display:grid;gap:.9rem}
+    .rail .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
+    .rail .thumb{width:112px;height:72px;border-radius:10px;background:#eef4f7;overflow:hidden}
+    .rail .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .rail .meta h4{margin:.1rem 0 .25rem;font-size:1.05rem}
+
+    /* Sticky section pills */
+    #section-nav{position:sticky;top:0;z-index:6;background:var(--sky);padding:.4rem .2rem;border-bottom:2px solid var(--rope);margin-bottom:1rem}
   </style>
 </head>
 
 <body class="page">
   <!-- Skip link -->
-  <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
+  <a class="visually-hidden-focusable" href="#content">Skip to content</a>
 
-  <!-- Header -->
+  <!-- Header / Nav -->
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008.025" alt="In the Wake wordmark" width="256" height="64"/>
-        <span class="version-badge">v3.008.025</span>
+        <img src="/assets/logo_wake.png?v=3.008.027" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.008.027</span>
       </div>
-
-      <!-- Unified Nav -->
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="https://www.cruisinginthewake.com/">Home</a>
         <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
         <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
         <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Accessibility</a>
+        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
         <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
         <a href="https://www.cruisinginthewake.com/packing-lists.html" aria-current="page">Packing Lists</a>
         <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
@@ -194,17 +181,17 @@ PAGE: /packing-lists.html · v3.008.025
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.025" alt="" aria-hidden="true" width="180" height="180"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.027" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008.025" alt="In the Wake" width="256" height="64">
+        <img class="logo" src="/assets/logo_wake.png?v=3.008.027" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
+      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com">Flickers of Majesty</a></div>
     </div>
   </header>
 
   <!-- Main -->
-  <main class="wrap with-right-rail" id="content">
+  <main id="content" class="wrap with-right-rail" role="main">
     <!-- LEFT: content -->
     <div class="content-col">
       <aside class="floating-note card" aria-live="polite" aria-label="Important note">
@@ -212,7 +199,7 @@ PAGE: /packing-lists.html · v3.008.025
         <p><strong>Photograph your travel documents.</strong> Keep images of passports, IDs, visas, and insurance cards on your phone (and a cloud backup). If wallets go missing or you need embassy help, this speeds everything up.</p>
       </aside>
 
-      <!-- Sticky secondary pill nav -->
+      <!-- On-page pills -->
       <nav class="pill-nav pills" aria-label="On-page sections" id="section-nav">
         <a class="pill" href="#carryon">Carry-On</a>
         <a class="pill" href="#men">Men</a>
@@ -222,7 +209,6 @@ PAGE: /packing-lists.html · v3.008.025
         <a class="pill" href="#tips">Tips</a>
       </nav>
 
-      <!-- Restored content (verbatim from your previous version) -->
       <section class="card" aria-labelledby="carryon">
         <h1 id="carryon">Carry-on Essentials</h1>
         <p>Keep these with you on embarkation day and on flights. Assume checked bags might be delayed.</p>
@@ -239,8 +225,7 @@ PAGE: /packing-lists.html · v3.008.025
           <li>Change of clothes &amp; swimwear</li>
           <li>Reusable water bottle</li>
           <li>Seasickness medication</li>
-          <li>Snacks</li>
-          <li>Hand sanitizer &amp; wipes</li>
+          <li>Snacks; hand sanitizer &amp; wipes</li>
           <li>Headphones / ear plugs / eye mask</li>
           <li>Hotel info &amp; keys</li>
           <li>Document holder or money belt</li>
@@ -252,85 +237,42 @@ PAGE: /packing-lists.html · v3.008.025
         <section class="card" aria-labelledby="men">
           <h2 id="men">Men</h2>
           <ul>
-            <li>Activewear</li>
-            <li>Swimwear / bathing suits</li>
-            <li>Footwear appropriate to your plans (formal shoes, comfy walking shoes, hiking boots, flip-flops)</li>
-            <li>Water shoes</li>
-            <li>Sneakers / athletic shoes</li>
-            <li>Sandals / flip-flops</li>
-            <li>Casual shirts (t-shirts, polos)</li>
-            <li>Shorts</li>
-            <li>Jeans</li>
-            <li>Sweaters / hoodies</li>
-            <li>Jacket</li>
-            <li>Socks</li>
-            <li>Undergarments / undershirts</li>
-            <li>Dress shirts</li>
-            <li>Slacks</li>
-            <li>Tie</li>
-            <li>Formal wear (requirements vary by cruise line)</li>
-            <li>Belt(s)</li>
-            <li>Shaving supplies</li>
-            <li>Hair product / comb / brush</li>
+            <li>Activewear; swimwear</li><li>Walking shoes; sandals; water shoes</li>
+            <li>Tees/polos; shorts; jeans</li><li>Sweater/hoodie; jacket</li>
+            <li>Socks; underwear; undershirts</li>
+            <li>Dress shirt; slacks; tie; belt</li>
+            <li>Formal wear (if required by line)</li>
+            <li>Shaving kit; hair product/comb</li>
           </ul>
-          <p class="tiny">Cold-weather layers are only needed on certain itineraries. See <a href="/ports.html">Ports</a> for typical weather by destination.</p>
-          <p class="tiny">Formal night expectations vary by cruise line—check your sailing to avoid over- or under-packing.</p>
+          <p class="tiny">Cold-weather layers only for certain itineraries. See <a href="/ports.html">Ports</a> for typical weather.</p>
         </section>
 
         <section class="card" aria-labelledby="women">
           <h2 id="women">Women</h2>
           <ul>
-            <li>Activewear</li>
-            <li>Swimwear / bathing suits</li>
-            <li>Footwear appropriate to your plans (formal shoes, comfy walking shoes, hiking boots, flip-flops)</li>
-            <li>Water shoes</li>
-            <li>Sneakers / athletic shoes</li>
-            <li>Sandals / flip-flops</li>
-            <li>Casual tops (t-shirts, tanks, blouses)</li>
-            <li>Shorts</li>
-            <li>Jeans</li>
-            <li>Skirts</li>
-            <li>Dresses</li>
-            <li>Pajamas</li>
-            <li>Sweaters / hoodies</li>
-            <li>Jacket</li>
-            <li>Socks</li>
-            <li>Undergarments (bras/underwear)</li>
-            <li>Stockings (as desired)</li>
-            <li>Heels / dress shoes</li>
-            <li>Formal wear</li>
-            <li>Belt(s)</li>
-            <li>Makeup / brushes / remover</li>
-            <li>Hair elastics / clips / scrunchies</li>
-            <li>Hair product / tools (dryer/iron if needed)</li>
-            <li>Purse</li>
-            <li>Pashmina</li>
-            <li>Scarf</li>
-            <li>Perfume / travel atomizer</li>
+            <li>Activewear; swimwear</li><li>Walking shoes; sandals; water shoes</li>
+            <li>Tops (tees/tanks/blouses); shorts; jeans</li>
+            <li>Skirts/dresses; pajamas; sweater/hoodie; jacket</li>
+            <li>Socks; underwear; bras/stockings</li>
+            <li>Heels/dress shoes; belt(s); formal wear</li>
+            <li>Makeup &amp; remover; hair ties/clips/tools</li>
+            <li>Purse; pashmina/scarf; perfume</li>
           </ul>
         </section>
 
         <section class="card" aria-labelledby="everyone">
           <h2 id="everyone">Everyone</h2>
           <ul>
-            <li>Aloe &amp; sunscreen</li>
-            <li>Bug spray</li>
-            <li>First-aid kit &amp; pain reliever</li>
-            <li>Moisturizer &amp; lip balm</li>
-            <li>Dental floss &amp; kit</li>
-            <li>Toothbrush / toothpaste / mouthwash</li>
-            <li>Shampoo / conditioner (travel sizes if flying)</li>
-            <li>Soap / body wash</li>
-            <li>Contacts, solution &amp; case (plus glasses)</li>
-            <li>Reusable water bottle</li>
-            <li>Keycard lanyard</li>
-            <li>Magnetic hooks</li>
-            <li>Laundry items (dryer sheets, clips, bags)</li>
-            <li>Rain jacket / compact umbrella</li>
-            <li>Day pack / beach bag</li>
-            <li>Swim goggles</li>
-            <li>Wet bags / zip-top bags</li>
-            <li>Converter / adapter <small>(needed when departing or staying in countries with different outlets)</small></li>
+            <li>Aloe &amp; sunscreen; bug spray</li>
+            <li>First-aid kit; OTC meds; pain reliever</li>
+            <li>Moisturizer; lip balm; dental kit</li>
+            <li>Shampoo/conditioner; soap/body wash</li>
+            <li>Contacts + solution; glasses</li>
+            <li>Keycard lanyard; magnetic hooks</li>
+            <li>Laundry items (clips, dryer sheets, bag)</li>
+            <li>Rain jacket/compact umbrella; day pack</li>
+            <li>Goggles; wet/zip-top bags</li>
+            <li>Converter/adapter (for non-US stays)</li>
           </ul>
         </section>
 
@@ -338,195 +280,126 @@ PAGE: /packing-lists.html · v3.008.025
           <h2 id="families">Families</h2>
           <ul>
             <li>Baby gear (diapers, wipes, formula, bottles)</li>
-            <li>Stroller or baby carrier (compact)</li>
-            <li>Portable crib or bed rail (if required by line)</li>
-            <li>Age-appropriate toys &amp; books</li>
-            <li>Tablets/phones with downloaded shows &amp; games</li>
-            <li>Note: some stateroom TVs allow HDMI inputs for game consoles—this varies by ship/line; check with your cruise line.</li>
+            <li>Compact stroller or carrier</li>
+            <li>Portable crib/rail (if line requires)</li>
+            <li>Toys, books, tablet with offline shows</li>
+            <li>Some TVs accept HDMI; varies by ship</li>
           </ul>
         </section>
       </section>
 
-      <!-- TIPS -->
+      <!-- Tips -->
       <section class="card" id="tips" aria-labelledby="tips-title">
         <h2 id="tips-title">Tips</h2>
         <p>Click to expand each tip.</p>
 
         <h3 id="tips-prep">Preparation &amp; Flights</h3>
-        <details>
-          <summary>1) Plan around flights and liquid rules</summary>
+        <details><summary>1) Plan around flights and liquid rules</summary>
           <div class="tip-body">
-            <p>If you’re flying, know your airline’s weight and bag count limits before you pack. Weigh checked bags at home and leave a little “souvenir margin.” TSA’s 3-1-1 rule applies to carry-ons: liquids, gels, and aerosols must be in containers ≤ 3.4 oz / 100 ml inside a single quart-size bag. That includes toothpaste, mouthwash, lotions, and hair products.</p>
-            <p>Flying internationally? Double-check your connection airports: some security re-screens even mid-journey and will re-enforce 3-1-1 on duty-free liquids unless they’re in STEBs (sealed duty-free bags).</p>
+            <p>Know airline weight/count limits. TSA 3-1-1 applies: ≤100ml per container, one quart bag.</p>
+            <p>Some connections re-screen duty-free unless sealed in STEBs.</p>
           </div>
         </details>
-        <details>
-          <summary>2) Pack a smart carry-on</summary>
+        <details><summary>2) Pack a smart carry-on</summary>
           <div class="tip-body">
-            <p>Your checked bags can take hours to reach your stateroom on embarkation day. Put meds, IDs, cruise documents, valuables, a change of clothes, swimwear, sunscreen, and chargers in your carry-on. If an airline misroutes a suitcase, you can still enjoy day one. Include a compact power bank and a small toiletries kit that satisfies 3-1-1.</p>
-            <p>Some lines offer priority services (e.g., Royal Caribbean’s “The Key”) that include expedited boarding, a welcome lunch, reserved seating, VOOM internet, and <strong>baggage delivery to your stateroom</strong>. Check your line for details.</p>
+            <p>Checked bags can arrive late. Keep meds, IDs, docs, valuables, swimwear, chargers with you.</p>
           </div>
         </details>
 
-        <h3 id="tips-luggage">Luggage &amp; Wardrobe Strategy</h3>
-        <details>
-          <summary>3) Edit your checked luggage</summary>
-          <div class="tip-body">
-            <p>Lay out everything, then remove the “maybes.” You rarely need duplicate silhouettes (three black pants!)—swap tops and accessories instead. If traveling as a family, split everyone’s clothing between two suitcases so no one is stuck with nothing if a bag goes missing.</p>
-            <p>Roll garments (or use folder boards) to save space and reduce creases.</p>
-          </div>
+        <h3 id="tips-luggage">Luggage &amp; Wardrobe</h3>
+        <details><summary>3) Edit your checked luggage</summary>
+          <div class="tip-body"><p>Remove “maybes”; mix-and-match. Split family items across bags.</p></div>
         </details>
-        <details>
-          <summary>4) Know dress codes</summary>
-          <div class="tip-body">
-            <p>Most mainstream lines trend “resort casual” at dinner; premium/luxury lines (e.g., Cunard) may enforce formal nights. Check your line’s guidance and pack accordingly (a simple collared shirt + slacks or a sundress covers most nights). Specialty restaurants may have stricter expectations than the main dining room. Theme nights are fun but optional—don’t overpack for them.</p>
-          </div>
+        <details><summary>4) Know dress codes</summary>
+          <div class="tip-body"><p>Most lines are resort-casual; formal varies. Specialty restaurants may be stricter.</p></div>
         </details>
-        <details>
-          <summary>5) Use packing aids</summary>
-          <div class="tip-body">
-            <p>Packing cubes segment outfits (pool, nightwear, gym) and make unpacking instant. Compression cubes or bags shrink soft items (tees/athleisure). A small laundry bag and a few extra zip-tops keep damp or sandy things separated for the flight home.</p>
-          </div>
+        <details><summary>5) Use packing aids</summary>
+          <div class="tip-body"><p>Packing cubes organize; compression saves space. Bring a laundry bag.</p></div>
         </details>
-        <details>
-          <summary>6) Laundry options</summary>
-          <div class="tip-body">
-            <p>Some ships have self-serve laundromats; many offer paid wash-and-fold or per-item service. If you plan to pack light, confirm your ship’s options and prices. Travel detergent sheets and a sink-stopper handle quick rinses; a collapsible line or a handful of clips speeds drying.</p>
-          </div>
+        <details><summary>6) Laundry options</summary>
+          <div class="tip-body"><p>Self-serve on some ships; otherwise paid service. Travel detergent sheets help.</p></div>
         </details>
-        <details>
-          <summary>7) Toiletries reality check</summary>
-          <div class="tip-body">
-            <p>Mainstream lines often supply only wall-mounted soap/shampoo. If you care about hair/skin products, bring travel sizes of conditioner and lotion. Most cabins include a basic hair dryer—leave your heavy one at home unless you need a specific tool.</p>
-          </div>
+        <details><summary>7) Toiletries reality check</summary>
+          <div class="tip-body"><p>Bring conditioner/lotion if you’re picky. Cabin hair dryers are basic.</p></div>
         </details>
-        <details>
-          <summary>10) Re-wear smartly</summary>
-          <div class="tip-body">
-            <p>Bottoms (jeans, chinos) can be worn twice; refresh with different tops. Scarves, ties, and jewelry change the look without adding bulk.</p>
-          </div>
+        <details><summary>10) Re-wear smartly</summary>
+          <div class="tip-body"><p>Repeat bottoms; refresh tops. Accessories change the look.</p></div>
         </details>
-        <details>
-          <summary>17) Pack lighter than you think</summary>
-          <div class="tip-body">
-            <p>No one’s keeping score on outfit repeats. Pack what’s relevant to your itinerary and needs; most forgotten items can be bought onboard (at a markup) or in port. Aim for versatility, not volume.</p>
-          </div>
+        <details><summary>17) Pack lighter than you think</summary>
+          <div class="tip-body"><p>Versatility over volume. Most forgotten items can be bought in port.</p></div>
         </details>
 
         <h3 id="tips-onboard">Onboard, Ports &amp; Tech</h3>
-        <details>
-          <summary>8) Pack for destination &amp; activities</summary>
-          <div class="tip-body">
-            <p>Match outfits to what you’ll do ashore: breathable layers and comfy walking shoes for sightseeing; water shoes for rocky or coral beaches; modest coverage for religious sites (shoulders/knees). Don’t guess the climate—review each stop on the <a href="/ports.html">Ports</a> page for typical temps and notes.</p>
-          </div>
+        <details><summary>8) Pack for destination &amp; activities</summary>
+          <div class="tip-body"><p>Match layers to excursions; modest wear for religious sites. See <a href="/ports.html">Ports</a>.</p></div>
         </details>
-        <details>
-          <summary>9) Leave room for souvenirs</summary>
-          <div class="tip-body">
-            <p>Plan a little space—or pack a foldable duffel you can check on the way home. Bubble-wrap or a padded packing cube keeps fragile items intact.</p>
-          </div>
+        <details><summary>9) Leave room for souvenirs</summary>
+          <div class="tip-body"><p>Bring a foldable duffel; pad fragile items.</p></div>
         </details>
-        <details>
-          <summary>11) Don’t forget the basics</summary>
-          <div class="tip-body">
-            <p>OTC meds, sunscreen, batteries, memory cards, ear plugs, and travel adapters cost more onboard. If cruising with kids, pre-load a tablet with offline shows and a couple of small games/books.</p>
-          </div>
+        <details><summary>11) Don’t forget basics</summary>
+          <div class="tip-body"><p>OTC meds, sunscreen, batteries, adapters, memory cards cost more onboard.</p></div>
         </details>
-        <details>
-          <summary>16) PPE varies by port</summary>
-          <div class="tip-body">
-            <p>Mask rules change by country and can return temporarily. Check each stop on the <a href="/ports.html">Ports</a> page and your line’s travel updates a week before sailing.</p>
-          </div>
+        <details><summary>16) PPE varies by port</summary>
+          <div class="tip-body"><p>Rules change; check your line a week before sailing.</p></div>
         </details>
-        <details>
-          <summary>18) Temperatures on board</summary>
-          <div class="tip-body">
-            <p>Indoor spaces often sit around low-70s °F (21–22 °C). If you tend to run cool, a light layer helps in the theater or dining room. Tropical itineraries are often warm even in winter; though they can still be breezy or wet—bring a packable rain layer. See our <a href="/ports.html">Ports</a> page for more details.</p>
-          </div>
+        <details><summary>18) Temperatures on board</summary>
+          <div class="tip-body"><p>Indoor spaces ~21–22 °C (low-70s °F). Bring a light layer.</p></div>
         </details>
-        <details>
-          <summary>19) Power: adapters &amp; converters</summary>
-          <div class="tip-body">
-            <p>Most cabins have U.S. and sometimes EU outlets. Power strips and extension cords are generally prohibited. Bring a compact multi-USB wall charger (no cord, no surge suppression). Converters are only needed if you’ll spend nights pre/post-cruise in regions with different voltage (e.g., 230V Europe) and your devices aren’t dual-voltage.</p>
-          </div>
+        <details><summary>19) Power: adapters &amp; converters</summary>
+          <div class="tip-body"><p>Power strips w/surge are banned. Bring a multi-USB wall charger.</p></div>
         </details>
-        <details>
-          <summary>20) Tech &amp; gaming</summary>
-          <div class="tip-body">
-            <p>Some stateroom TVs accept HDMI; others are locked down. If connecting a console matters, ask your cruise line about your specific ship. Download shows, playlists, maps, and reading for offline use before you sail.</p>
-          </div>
+        <details><summary>20) Tech &amp; gaming</summary>
+          <div class="tip-body"><p>Some TVs accept HDMI; varies by ship. Download media offline.</p></div>
         </details>
-        <details>
-          <summary>21) Theme Nights</summary>
-          <div class="tip-body">
-            <p>Cruise ships often host theme nights you can enjoy without over-packing. Common examples include: Formal Night, White Night, Caribbean Night, Decades Nights, and other special events.</p>
-            <p><em>How to confirm:</em> Check the daily planner in your cruise line’s app in the weeks before sailing or once onboard.</p>
-          </div>
+        <details><summary>21) Theme Nights</summary>
+          <div class="tip-body"><p>Fun, optional. Check your line’s app for details.</p></div>
         </details>
-        <details>
-          <summary>22) Social Media Groups</summary>
+        <details><summary>22) Social Media Groups</summary>
           <div class="tip-body">
-            <p>Connect with fellow cruisers via <strong>roll call groups</strong> organized by ship and sail date. Great for excursion buddies, cabin crawls, and pre-trip Q&amp;A.</p>
-            <ul>
-              <li><strong>Cruise Critic Roll Calls</strong> — <a href="https://boards.cruisecritic.com/forum/20-roll-calls/">Browse the forums</a>.</li>
-              <li><strong>Facebook Groups</strong> — Search using the ship’s full name and the date written out with the year.</li>
-            </ul>
-            <p><strong>Date tip:</strong> Write out the date (month day, year). Short formats like <code>01/04/22</code> mean different things in different countries.</p>
+            <p>Find roll calls on Cruise Critic or Facebook (use ship name + full date).</p>
           </div>
         </details>
 
         <h3 id="tips-docs">Documents &amp; Safety</h3>
-        <details>
-          <summary>12) Keep IDs with you</summary>
-          <div class="tip-body">
-            <p>Carry passports OR an original birth certificate (raised seal) + photo ID, visas, vaccination proof (if required), and cruise docs in your personal item—not checked luggage. Keep paper copies in a separate bag.</p>
-          </div>
+        <details><summary>12) Keep IDs with you</summary>
+          <div class="tip-body"><p>Keep passports or birth-certificate+ID, visas, vax proof, cruise docs in your personal item.</p></div>
         </details>
-        <details>
-          <summary>13) Prohibited items (know before you pack)</summary>
-          <div class="tip-body">
-            <p>Commonly restricted: irons/steamers, surge-protected power strips, candles/incense, hot plates, drones (ship-dependent), weapons, and certain knives. Check your cruise line’s banned list; policies vary and are enforced at embarkation.</p>
-          </div>
+        <details><summary>13) Prohibited items</summary>
+          <div class="tip-body"><p>No irons/steamers, surge strips, candles, hot plates, many drones, weapons. Check your line.</p></div>
         </details>
-        <details>
-          <summary>14) Photo your documents</summary>
-          <div class="tip-body">
-            <p>Store clear photos of passports/IDs, travel insurance, and cards on your phone (and one cloud location). If originals are lost, these speed replacement.</p>
-            <aside class="callout"><strong>Vital:</strong> Keep digital copies of IDs &amp; tickets on your phone. It’s a lifesaver in emergencies.</aside>
-          </div>
+        <details><summary>14) Photo your documents</summary>
+          <div class="tip-body"><p>Store clear photos of IDs/insurance/cards on phone + cloud.</p></div>
         </details>
-        <details>
-          <summary>15) Emergency contacts</summary>
-          <div class="tip-body">
-            <p>Carry a printed sheet with your emergency contacts, your cruise line’s guest services/emergency number, travel insurer hotline, and your ship’s name. Put a copy in each suitcase, too.</p>
-          </div>
+        <details><summary>15) Emergency contacts</summary>
+          <div class="tip-body"><p>Carry a printed sheet: contacts, insurer hotline, cruise line emergency number, ship name.</p></div>
         </details>
       </section>
     </div>
 
     <!-- RIGHT: rails -->
     <aside class="right-rail" aria-label="Right rail">
-      <!-- Author card (Ken only) -->
+      <!-- Author rail (Ken only) -->
       <section class="card" aria-labelledby="author-title">
         <h3 id="author-title">About the Author</h3>
-        <div class="rail-item" style="grid-template-columns:72px 1fr">
-          <a class="thumb" href="/authors/ken-baker.html">
-            <img src="/assets/authors/ken-baker.jpg?v=3.008.025" alt="Photo of Ken Baker">
-          </a>
-          <div class="meta">
-            <p><strong><a href="/authors/ken-baker.html">Ken Baker</a></strong></p>
-            <p class="tiny">Cruise logbook keeper, solo-sailing advocate, and deck-11 coffee enthusiast.</p>
-          </div>
+        <div class="rail">
+          <article class="rail-item">
+            <div class="thumb" style="width:72px;height:72px;border-radius:50%;overflow:hidden;background:#eef4f7">
+              <img class="author-avatar" src="/authors/img/ken1.webp?v=3.008.027" alt="Ken Baker" width="72" height="72" loading="lazy" decoding="async">
+            </div>
+            <div class="meta">
+              <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+              <p class="tiny">Cruise logbook keeper, solo-sailing advocate, and deck-11 coffee enthusiast.</p>
+            </div>
+          </article>
         </div>
       </section>
 
-      <!-- From the Journal -->
+      <!-- Articles rail -->
       <section class="card" id="journal-rail" aria-labelledby="jr-title">
         <h3 id="jr-title">From the Journal</h3>
         <p class="tiny muted">Articles from our writers’ wakes.</p>
-        <div class="rail" id="rail-mount" aria-live="polite">
-          <!-- Hydrated by script; seeded fallback below -->
-        </div>
+        <div class="rail" id="rail-mount" aria-live="polite"></div>
+        <p id="rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     </aside>
   </main>
@@ -534,120 +407,131 @@ PAGE: /packing-lists.html · v3.008.025
   <!-- Footer -->
   <footer class="wrap" role="contentinfo">
     <div class="affiliate-banner" aria-label="Affiliate disclosure">
-      This site is a labor of love. Some pages use affiliate links; purchasing through them is the easiest way to say thanks and helps keep the lights on. We appreciate you!
+      This site is a labor of love. Some pages use affiliate links; purchasing through them helps keep the lights on. Thank you!
     </div>
-    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
+    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
+    <div class="tiny center">Soli Deo Gloria.</div>
   </footer>
 
   <!-- Floating Share Bar -->
-  <script defer src="/assets/js/share-bar.js?v=3.008.025"></script>
+  <script defer src="/assets/js/share-bar.js?v=3.008.027"></script>
 
-  <!-- Smart Warmup / Cache -->
+  <!-- Smart warmup -->
   <script>
   (function(){
-    const abs=(p)=> (typeof window._abs==='function'? _abs(p): p);
-    const ready=(fn)=> (document.readyState==='loading' ? document.addEventListener('DOMContentLoaded', fn, {once:true}) : fn());
-    const idle=(fn)=> ('requestIdleCallback' in window ? requestIdleCallback(fn, {timeout:2500}) : setTimeout(fn, 200));
-
+    const abs=p=>(typeof _abs==='function'?_abs(p):p);
+    const ready=f=>document.readyState==='loading' ? document.addEventListener('DOMContentLoaded',f,{once:true}) : f();
+    const idle=f=>('requestIdleCallback'in window?requestIdleCallback(f,{timeout:2500}):setTimeout(f,200));
     function ensureSiteCache(){
-      return new Promise((resolve)=>{
-        if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
-        const s=document.createElement('script');
-        s.src=abs('/assets/js/site-cache.js?v=3.008.025'); s.defer=true;
-        s.onload=resolve; s.onerror=resolve;
-        document.head.appendChild(s);
+      return new Promise(res=>{
+        if(window.SiteCache&&typeof SiteCache.getJSON==='function') return res();
+        const s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.008.027'); s.defer=true;
+        s.onload=res; s.onerror=res; document.head.appendChild(s);
       });
     }
-    function warm(urls){ (urls||[]).forEach(u=>{ try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{});}catch(_){}} ); }
-
+    function warmImages(list){ (list||[]).forEach(u=>{ try{ fetch(u,{cache:'no-store',mode:'no-cors'}); }catch(_){}}); }
     ready(()=>{
-      warm([abs('/assets/logo_wake.png?v=3.008.025'),abs('/assets/compass_rose.svg?v=3.008.025'),abs('/assets/watermark.png?v=3.008.025')]);
-      idle(async ()=>{
-        try{
-          await ensureSiteCache();
-          await Promise.allSettled([
-            SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']})
-          ]);
-        }catch(_){}
-      });
+      warmImages([abs('/assets/logo_wake.png?v=3.008.027'),abs('/assets/compass_rose.svg?v=3.008.027'),abs('/assets/watermark.png?v=3.008.027')]);
+      idle(async ()=>{ try{
+        await ensureSiteCache();
+        await Promise.allSettled([
+          SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']})
+        ]);
+      }catch(_){ }});
     });
   })();
   </script>
 
-  <!-- Journal rail hydrator (uses images matching Solo/Travel pages) -->
+  <!-- Articles rail hydrator (uses same images as Travel/Solo) -->
   <script>
   (function(){
-    const mount = document.getElementById('rail-mount');
-    if(!mount) return;
+    const MOUNT=document.getElementById('rail-mount');
+    const FALL=document.getElementById('rail-fallback');
+    if(!MOUNT) return;
+    function showFall(on){ if(FALL) FALL.style.display=on?'':'none'; }
 
-    const PLACEHOLDER = '/assets/placeholders/article-thumb.jpg?v=3.008.025';
+    const abs=p=>(typeof _abs==='function'?_abs(p):p);
+    const SRC = '/assets/data/articles/index.json?v=3.008.027';
+    const PLACEHOLDER = '/assets/placeholders/article-thumb.jpg?v=3.008.027';
 
-    // Seed to ensure correct images (mirror of Solo/Travel usage)
-    const seed = [
+    /* Seed matches Travel/Solo imagery */
+    const SEED=[
       {
-        title:'Top 20 First-Cruise Questions (Answered)',
         url:'/travel.html',
-        date:'2025-10-17',
+        title:'Top 20 First-Cruise Questions (Answered)',
+        date:'2025-10-16',
         excerpt:'A first-person guide to planning, packing, ports, and ship life.',
-        image:'/assets/articles/top-20-questions/cover.jpg?v=3.008.025',
-        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/assets/authors/ken-baker.jpg?v=3.008.025'}
+        /* same hero used on Travel page */
+        image:'/assets/articles/top-20-questions/cover.jpg?v=3.008.027',
+        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/authors/img/ken1.webp?v=3.008.027'}
       },
       {
-        title:'Freedom of Your Own Wake',
         url:'/solo/articles/freedom-of-your-own-wake.html',
-        date:'2024-08-14',
+        title:'Freedom of Your Own Wake',
+        date:'2024-08-13',
         excerpt:'On choosing solitude without being alone.',
-        image:'/assets/articles/solo/freedom-of-your-own-wake.jpg?v=3.008.025',
-        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/assets/authors/ken-baker.jpg?v=3.008.025'}
-      },
-      {
-        title:'Why I Started Solo Cruising',
-        url:'/solo/articles/why-i-started-solo-cruising.html',
-        date:'2024-06-01',
-        excerpt:'From that first solo gangway to a thriving community — freedom found at sea.',
-        image:'/assets/articles/solo/why-i-started-solo-cruising.jpg?v=3.008.025',
-        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/assets/authors/ken-baker.jpg?v=3.008.025'}
+        image:'/assets/articles/solo/freedom-of-your-own-wake.jpg?v=3.008.027',
+        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/authors/img/ken1.webp?v=3.008.027'}
       }
     ];
 
     function card(a){
-      const d = a.date ? new Date(a.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}) : '';
-      const img = (a.image && a.image.trim()) || (a.author && a.author.image) || PLACEHOLDER;
-      const author = a.author || {};
-      const avatar = author.image
-        ? `<img class="avatar" src="${author.image}" alt="${author.name||'Author'}" onerror="this.onerror=null;this.src='/assets/placeholders/author.jpg?v=3.008.025'">`
-        : '';
+      const d=a.date?new Date(a.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}):'';
+      const img=(a.image&&a.image.trim())||(a.author&&a.author.image)||PLACEHOLDER;
+      const avatar=(a.author&&a.author.image)||'/authors/img/ken1.webp?v=3.008.027';
+      const authorName=(a.author&&a.author.name)||'Ken Baker';
+      const authorUrl=(a.author&&a.author.url)||'/authors/ken-baker.html';
       return `<article class="rail-item">
-        <a class="thumb" href="${a.url}">
-          <img src="${img}" alt="${a.title||'Article image'}" onerror="this.onerror=null;this.src='${PLACEHOLDER}'">
-        </a>
+        <a class="thumb" href="${a.url}"><img src="${img}" alt="${a.title||'Article image'}"></a>
         <div class="meta">
           <h4><a href="${a.url}">${a.title||''}</a></h4>
-          <p class="tiny muted">${d}${author.name ? ` · ${avatar}<a class="author" href="${author.url||'#'}">${author.name}</a>` : ''}</p>
+          <p class="tiny muted">${d} · <img class="author-avatar" src="${avatar}" alt="${authorName}" style="width:18px;height:18px;border-radius:50%;vertical-align:-3px;margin-right:.25rem"><a href="${authorUrl}">${authorName}</a></p>
           <p class="tiny">${a.excerpt||''}</p>
         </div>
       </article>`;
     }
+    function render(list){ MOUNT.innerHTML=list.slice(0,4).map(card).join(''); }
 
-    function render(list){ mount.innerHTML = list.map(card).join(''); }
-
-    // Try remote list first; fall back to seed ensuring images/avatars match house style
-    fetch('/assets/data/articles/index.json?v=3.008.025',{cache:'no-store'})
-      .then(r=>r.ok?r.json():Promise.reject())
+    fetch(abs(SRC),{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject())
       .then(json=>{
-        const remote = Array.isArray(json?.articles) ? json.articles : [];
-        const good = remote.filter(a=>a && a.url && a.image); // be picky about image presence
-        const merged = (good.length ? good : seed).slice(0,3);
-        render(merged);
+        const remote=Array.isArray(json?.articles)?json.articles:[];
+        const items=[...SEED, ...remote].filter(x=>x&&x.url).slice(0,6);
+        render(items);
+        showFall(false);
       })
-      .catch(()=> render(seed.slice(0,3)));
+      .catch(()=>{ render(SEED); showFall(false); });
   })();
   </script>
 
-  <!-- Invocation Signature -->
+  <!-- Avatar harmonizer (Ken everywhere) -->
+  <script>
+  (function(){
+    const CANDIDATES=[
+      '/authors/img/ken1.webp?v=3.008.027',
+      '/authors/img/ken1.jpg?v=3.008.027',
+      '/authors/img/ken1.png?v=3.008.027'
+    ];
+    const FALL='/assets/placeholders/author.jpg?v=3.008.027';
+    function choose(el, list){
+      let i=0;
+      function next(){
+        if(i>=list.length){el.src=FALL;return;}
+        const u=list[i++]; const img=new Image();
+        img.onload=()=>{el.src=u;}; img.onerror=next; img.src=u;
+      }
+      next();
+    }
+    document.querySelectorAll('img.author-avatar,.avatar').forEach(el=>{
+      const src=el.getAttribute('src')||'';
+      if(!/authors\/img\/ken1/i.test(src)) choose(el,CANDIDATES);
+    });
+  })();
+  </script>
+
+  <!-- Invocation signature -->
   <!--
-    Invocation · Soli Deo Gloria
-    Steward: abondservant · Path: /packing-lists.html · Version: v3.008.025 · Timestamp (UTC): 2025-10-19T00:00:00Z
+    Soli Deo Gloria · Steward: abondservant
+    Path: /packing-lists.html · Version: v3.008.027 · UTC: 2025-10-20T00:00:00Z
   -->
 </body>
 </html>
