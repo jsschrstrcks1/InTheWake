@@ -395,84 +395,92 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
   }</script>
 
   <!-- JOURNAL RAIL (Ken + Tina + safe image fallbacks) -->
-  <script>
-  (function(){
-    const V='3.008.025';
-    const mount=document.getElementById('journal-rail');
-    const fallback=document.getElementById('journal-rail-fallback');
-    const abs=(p)=> (typeof _abs==='function'?_abs(p):p);
+ <!-- JOURNAL RAIL (Ken + Tina + hard image fallbacks) -->
+<script>
+(function(){
+  const V='3.008.025';
+  const mount=document.getElementById('journal-rail');
+  const fallback=document.getElementById('journal-rail-fallback');
+  const abs=(p)=> (typeof _abs==='function'?_abs(p):p);
 
-    const sources=[
-      '/assets/data/articles.json?v='+V,
-      '/assets/data/articles/index.json?v='+V,
-      '/solo/articles/index.json?v='+V
-    ];
+  const sources=[
+    '/assets/data/articles.json?v='+V,
+    '/assets/data/articles/index.json?v='+V,
+    '/solo/articles/index.json?v='+V
+  ];
 
-    // Seeds that must always render (with your requested images)
-    const SEED=[
-      {
-        url:'/travel.html#top-20-questions',
-        title:'Top 20 First-Cruise Questions (Answered)',
-        date:'2025-10-17',
-        dek:'Planning, packing, ports, and ship life—steady answers.',
-        image:'/assets/index_hero.jpg?v='+V,            // per your directive
-        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v='+V}
-      },
-      {
-        url:'/solo/articles/freedom-of-your-own-wake.html',
-        title:'Freedom of Your Own Wake',
-        date:'2025-10-17',
-        dek:'On choosing solitude without being alone.',
-        image:'/assets/index_hero.jpg?v='+V,
-        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v='+V}
-      },
-      {
-        url:'/travel/tina-planning-grace-and-margin.html',
-        title:'Travel Days with Grace & Margin',
-        date:'2025-10-12',
-        dek:'Tina’s calm, practical rhythm for less-stress embarkations.',
-        image:'/assets/articles/tina/cover.jpg?v='+V,
-        author:{name:'Tina',url:'/authors/tina.html',image:'/authors/img/author.webp?v='+V}
-      }
-    ];
-
-    function normalize(payload){
-      const list=Array.isArray(payload?.articles)?payload.articles:(Array.isArray(payload)?payload:[]);
-      return list.map(a=>({
-        url:a.url||a.permalink||'#',
-        title:a.title||a.headline||'Article',
-        dek:a.dek||a.description||a.excerpt||'',
-        date:a.datePublished||a.date||'',
-        image:a.image||'',
-        author:a.author||a.by||null
-      })).filter(a=>a.url&&(/[/.]/.test(a.url)));
+  const SEED=[
+    {
+      url:'/solo/articles/freedom-of-your-own-wake.html',
+      title:'Freedom of Your Own Wake',
+      date:'2025-10-17',
+      dek:'On choosing solitude without being alone.',
+      image:'/assets/index_hero.jpg?v='+V,
+      author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v='+V}
+    },
+    {
+      url:'/travel/tina-planning-grace-and-margin.html',
+      title:'Why I Started Solo Cruising',
+      date:'2024-05-31',
+      dek:'From that first solo gangway to a thriving community — freedom found at sea.',
+      image:'/assets/articles/tina/cover.jpg?v='+V,
+      author:{name:'Tina Maulsby',url:'/authors/tina.html',image:'/authors/img/author.webp?v='+V}
+    },
+    {
+      url:'/travel.html#top-20-questions',
+      title:'Top 20 First-Cruise Questions (Answered)',
+      date:'2025-10-16',
+      dek:'A first-person guide to planning, packing, ports, and ship life.',
+      // try explicit cover first; fall back to the hero if missing
+      image:'/assets/articles/top-20-questions/cover.jpg?v='+V,
+      fallback:'/assets/index_hero.jpg?v='+V,
+      author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v='+V}
     }
-    async function tryFetch(u){ try{const r=await fetch(abs(u),{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }catch(_){return [];} }
-    const safeDate=d=>isNaN(Date.parse(d))?'':new Date(d).toLocaleDateString();
-    function card(a){
-      const img=a.image?abs(a.image):'/assets/placeholders/article-thumb.jpg?v='+V;
-      const avatar=a.author?.image?abs(a.author.image):'/authors/img/author.webp?v='+V;
-      const name=a.author?.name||'';
-      const url=a.author?.url||'#';
-      return `<article class="rail-item">
-        <a class="thumb" href="${a.url}"><img src="${img}" alt="${a.title}" onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=${V}'"></a>
-        <div class="meta"><h4><a href="${a.url}">${a.title}</a></h4>
-          <p class="tiny muted">${a.date?safeDate(a.date):''}${name?` · <img class="avatar" src="${avatar}" alt="${name}" onerror="this.onerror=null;this.src='/authors/img/author.webp?v=${V}'"> <a href="${url}">${name}</a>`:''}</p>
-          ${a.dek?`<p class="tiny">${a.dek}</p>`:''}
-        </div></article>`;
-    }
+  ];
 
-    (async function boot(){
-      if(!mount) return;
-      fallback.style.display='';
-      let items=[];
-      for(const s of sources){ items=await tryFetch(s); if(items.length) break; }
-      if(!items.length) items=SEED;
-      mount.innerHTML=items.slice(0,4).map(card).join('');
-      fallback.style.display='none';
-    })();
+  function normalize(payload){
+    const list=Array.isArray(payload?.articles)?payload.articles:(Array.isArray(payload)?payload:[]);
+    return list.map(a=>({
+      url:a.url||a.permalink||'#',
+      title:a.title||a.headline||'Article',
+      dek:a.dek||a.description||a.excerpt||'',
+      date:a.datePublished||a.date||'',
+      image:a.image||'',
+      author:a.author||a.by||null
+    })).filter(a=>a.url&&(/[/.]/.test(a.url)));
+  }
+  async function tryFetch(u){ try{const r=await fetch(abs(u),{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }catch(_){return [];} }
+  const safeDate=d=>isNaN(Date.parse(d))?'':new Date(d).toLocaleDateString();
+
+  function card(a){
+    const img=a.image?abs(a.image):'/assets/placeholders/article-thumb.jpg?v='+V;
+    const fallback=a.fallback?abs(a.fallback):'/assets/placeholders/article-thumb.jpg?v='+V;
+    const avatar=a.author?.image?abs(a.author.image):'/authors/img/author.webp?v='+V;
+    const name=a.author?.name||''; const url=a.author?.url||'#';
+    return `<article class="rail-item">
+      <a class="thumb" href="${a.url}">
+        <img src="${img}" alt="${a.title}"
+             onerror="this.onerror=null;this.src='${fallback}'">
+      </a>
+      <div class="meta">
+        <h4><a href="${a.url}">${a.title}</a></h4>
+        <p class="tiny muted">${a.date?safeDate(a.date):''}${name?` · <img class="avatar" src="${avatar}" alt="${name}" onerror="this.onerror=null;this.src='/authors/img/author.webp?v=${V}'"> <a href="${url}">${name}</a>`:''}</p>
+        ${a.dek?`<p class="tiny">${a.dek}</p>`:''}
+      </div>
+    </article>`;
+  }
+
+  (async function boot(){
+    if(!mount) return;
+    fallback.style.display='';
+    let items=[];
+    for(const s of sources){ items=await tryFetch(s); if(items.length) break; }
+    if(!items.length) items=SEED;
+    mount.innerHTML=items.slice(0,4).map(card).join('');
+    fallback.style.display='none';
   })();
-  </script>
+})();
+</script>
 
   <!-- PLANNER RUNTIME (one script; builds buttons + panels from inline dataset) -->
   <!-- PLANNER RUNTIME (robust JSONC parsing + buttons render) -->
