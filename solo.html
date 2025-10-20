@@ -286,6 +286,7 @@
   </script>
 
   <!-- Solo article loader + SEO injector + hero normalizer + authors rail + related rail -->
+<!-- Solo article loader + SEO injector + hero normalizer + authors rail + related rail -->
 <script>
 (function(){
   "use strict";
@@ -636,10 +637,10 @@
       }
       function afterRender(){
         Array.prototype.forEach.call(mount.querySelectorAll(".rail-item .thumb img"), function(img){
-          img.addEventListener("error",function(){ if(img.dataset.fallback) return; img.dataset.fallback="1"; img.src=PLACEHOLDER; },{once:true});
+          img.addEventListener("error",function(){ if(img.dataset.fallback) return; img.dataset.fallback = "1"; img.src = PLACEHOLDER; },{once:true});
         });
         Array.prototype.forEach.call(mount.querySelectorAll(".rail-item .avatar"), function(img){
-          img.addEventListener("error",function(){ if(img.dataset.fallback) return; img.dataset-fallback="1"; img.src=AV_PLACEHOLDER; },{once:true});
+          img.addEventListener("error",function(){ if(img.dataset.fallback) return; img.dataset.fallback = "1"; img.src = AV_PLACEHOLDER; },{once:true});
         });
       }
 
