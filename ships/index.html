@@ -1,303 +1,169 @@
-<!--
-Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.
-
-STANDARDS: Every Page v3.008 · Ships v3.001 · Unified Nav v3.008 · Right-Rail Articles+Author v3.008.025
-A11y/WCAG Addendum v3.100 · CMP/Consent v3.008.020 · FB Domain Verification v3.008.021
-Page: /ships.html · v3.008.026 · Built: 2025-10-20T00:00:00Z
-GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
--->
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Consent (autoblocking) -->
-  <script type="text/javascript" data-cmp-ab="1"
-    src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
-    data-cmp-host="a.delivery.consentmanager.net"
-    data-cmp-cdn="cdn.consentmanager.net"
-    data-cmp-codesrc="16"></script>
-
   <!-- Analytics -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WZP891PZXJ');</script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date()); gtag('config','G-WZP891PZXJ');
+  </script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Core meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="referrer" content="no-referrer">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0e6e8e">
-  <meta name="version" content="3.008.026"/>
-  <meta name="page:version" content="3.008.026"/>
-  <meta name="standards:baseline" content="3.008"/>
-  <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
+  <title>Royal Caribbean — Fleet (v2.203)</title>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
 
-  <!-- SEO -->
-  <title>Ships — In the Wake (v3.008.026)</title>
-  <meta name="description" content="Explore Royal Caribbean ships at a glance: classes, debut years, and quick links—rendered from a live fleet dataset." />
-
-  <!-- Canonical & Social -->
-  <link rel="canonical" href="https://www.cruisinginthewake.com/ships.html"/>
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="In the Wake">
-  <meta property="og:url" content="https://www.cruisinginthewake.com/ships.html">
-  <meta property="og:title" content="Ships — In the Wake">
-  <meta property="og:description" content="Explore Royal Caribbean ships at a glance: classes, debut years, and quick links—rendered from a live fleet dataset.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/ships-hero.jpg?v=3.008.026">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <!-- URL normalizer -->
-  <script>
-  (function(){
-    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
-    function normalize(){
-      const sel=['a[href^="https://www.cruisinginthewake.com/"]','img[src^="https://www.cruisinginthewake.com/"]','link[href^="https://www.cruisinginthewake.com/"]','script[src^="https://www.cruisinginthewake.com/"]'].join(',');
-      document.querySelectorAll(sel).forEach(el=>{
-        const attr=el.hasAttribute('href')?'href':'src';
-        try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
-      });
-    }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
-  })();
-  </script>
-
-  <!-- External link hardener -->
-  <script>
-  (function(){
-    const here=location.hostname.replace(/^www\./,'');
-    function upgrade(){
-      document.querySelectorAll('a[href]').forEach(a=>{
-        const href=a.getAttribute('href')||'';
-        if(/^(#|mailto:|tel:)/i.test(href))return;
-        try{
-          const u=new URL(href,location.href);
-          const host=u.hostname.replace(/^www\./,'');
-          if(host!==here||a.rel==='external'){
-            a.target='_blank';
-            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
-          }
-        }catch(_){}
-      });
-    }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}else{upgrade();}
-  })();
-  </script>
-
-  <!-- Site cache & SW -->
-  <script src="/assets/js/site-cache.js?v=3.008.026" defer></script>
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008.026').catch(()=>{}));
-  }
-  </script>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008.026">
-
-  <!-- LCP preload -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.026" fetchpriority="high">
-
-  <!-- Page-local styles (tiny, standards-safe) -->
+  <!-- Minor page styles + rail grid -->
   <style>
-    @media (prefers-reduced-motion: reduce){
-      *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-    }
-    .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .visually-hidden-focusable:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--sea,#0e6e8e);border-radius:10px;z-index:9999}
-    /* watermark inside cards */
-    .card{position:relative;overflow:hidden}
-    .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.008.026') center/contain no-repeat;opacity:.06;pointer-events:none}
-    /* ships grid */
-    .vx-grid{display:grid;gap:1rem}
-    @media (min-width:720px) and (max-width:979.98px){.vx-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
-    @media (min-width:980px){.vx-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
-    .ship-card{display:grid;grid-template-columns:96px 1fr;gap:.6rem;align-items:center;padding:.6rem;border:2px solid var(--rope);border-radius:14px;background:#fff;text-decoration:none;color:inherit}
-    .ship-card .thumb{width:96px;height:64px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea}
-    .ship-card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .ship-card .body{display:flex;flex-direction:column;gap:.25rem}
-    .ship-card .meta{display:flex;gap:.35rem;flex-wrap:wrap;font-size:.86rem;color:#456}
-    .badge{font-size:.72rem;background:#e6f4f8;border:1px solid var(--rope);border-radius:999px;padding:.05rem .45rem}
-    .muted{color:#456}
+    .fleet-grid { display:grid; gap:.9rem }
+    @media (min-width:1060px){ .fleet-grid { grid-template-columns: minmax(0,1fr) 360px; } }
+    .cards { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:.9rem; }
+    .ship-card { display:grid; grid-template-columns:96px 1fr; gap:.6rem; align-items:start;
+                 border:2px solid var(--rope); border-radius:14px; padding:.6rem; background:#fff; }
+    .ship-card .thumb { width:96px; height:64px; overflow:hidden; border-radius:10px;
+                        background:#eef4f6; border:1px solid #dfe7ea; }
+    .ship-card .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .pill-row{display:flex; gap:.5rem; flex-wrap:wrap}
+    .pill-row a{ padding:.4rem .7rem; border:1px solid var(--rope); border-radius:999px; background:#fff; text-decoration:none; font-weight:600 }
+  </style>
+
+  <!-- Rail article image fallback needs this once -->
+  <style>
+    .rail{display:grid; gap:.9rem}
+    .rail-item{display:grid; grid-template-columns:112px 1fr; gap:.75rem; align-items:start}
+    .rail-item .thumb img{display:block;width:112px;height:72px;object-fit:cover;border-radius:.5rem}
+    .rail-item .avatar{width:20px;height:20px;border-radius:50%;vertical-align:middle;margin-right:.25rem}
+  </style>
+
+  <!-- Simple brand hero -->
+  <style>
+    .hero{ position:relative; background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat; min-height:220px }
+    .hero-credit{ position:absolute; right:.85rem; bottom:.85rem }
+    .hero-credit .pill{ display:inline-block; padding:.45rem .7rem; border-radius:999px; background:#fff; border:1px solid var(--rope); font-weight:600 }
   </style>
 </head>
 
 <body class="page">
-  <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
-
-  <header class="site-header hero-header">
+  <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008.026" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.008.026</span>
+        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake wordmark"/>
       </div>
-      <nav class="pill-nav pills" aria-label="Primary">
+      <nav class="nav">
         <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships.html" aria-current="page">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="https://www.cruisinginthewake.com/ships/ships.html" aria-current="page">Ships</a>
         <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Accessibility</a>
-        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
         <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
         <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
         <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
         <a href="https://www.cruisinginthewake.com/about-us.html">About</a>
       </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.026" width="180" height="180" alt="" aria-hidden="true">
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008.026" width="256" height="64" alt="In the Wake">
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
-      </div>
-      <div class="hero-credit">
-        <a class="pill long" href="https://instagram.com/flickersofmajesty" rel="noopener external">Photo © Flickers of Majesty</a>
-      </div>
+      <div class="hero-credit"><a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
     </div>
   </header>
 
-  <main id="content" class="wrap" role="main" style="display:block">
-    <section class="card prose" aria-labelledby="ships-intro">
-      <h1 id="ships-intro">Royal Caribbean Ships — At a Glance</h1>
-      <p class="tiny muted">This list renders from a live dataset. If your connection is offline or a cache holds stale JSON, we’ll fall back to a small on-page seed until the network returns.</p>
-    </section>
+  <main class="wrap fleet-grid" id="content">
+    <!-- LEFT -->
+    <div>
+      <section class="card">
+        <h1>Royal Caribbean Ships — At a Glance</h1>
+        <p class="tiny muted">This list renders only ships that have **verified images** in our library. As more imagery is verified, more cards will appear.</p>
 
-    <section class="card" aria-labelledby="fleet-list">
-      <h2 id="fleet-list">Fleet</h2>
-      <div id="fleet-grid" class="vx-grid" aria-live="polite"></div>
-      <p id="fleet-fallback" class="tiny muted" aria-live="polite" style="display:none">Loading ships…</p>
-    </section>
+        <div class="cards" id="fleet-cards" aria-live="polite"></div>
+        <p class="tiny muted" id="fleet-note" style="margin-top:.5rem">Showing ships with verified images only.</p>
+      </section>
 
-    <section class="card" aria-labelledby="deck-plans">
-      <h2 id="deck-plans">Ship Layout (Deck Plans)</h2>
-      <p>Study the ship’s layout—pin your stateroom, elevators, dining, and venues before you sail.</p>
-      <p><a class="pill" href="https://www.royalcaribbean.com/cruise-ships/ships/deck-plans" rel="noopener external">Open Official Deck Plans</a></p>
-    </section>
-
-    <section class="card" aria-labelledby="live-tracker">
-      <h2 id="live-tracker">Where Is the Ship Right Now?</h2>
-      <p class="tiny muted">Opens in a new tab so you can keep this page handy.</p>
-      <p><a class="pill" href="https://www.cruisemapper.com/?live" rel="noopener external">Open Live Ship Tracker</a></p>
-    </section>
+      <section class="card">
+        <h2>Explore by Cruise Line</h2>
+        <div class="pill-row">
+          <a href="/cruise-lines.html">All Cruise Lines</a>
+          <a href="/cruise-lines.html#royal-caribbean">Royal Caribbean</a>
+        </div>
+      </section>
+    </div>
 
     <!-- RIGHT RAIL -->
     <aside class="rail" aria-label="Right rail">
-      <section class="card" aria-labelledby="jr-title">
-        <h3 id="jr-title">From the Journal</h3>
-        <p class="tiny muted">Articles from our writers’ wakes.</p>
-        <div class="rail" id="journal-rail"></div>
-        <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
-      </section>
-
-      <section class="card" aria-labelledby="author-title">
-        <h3 id="author-title">About the Author</h3>
-        <article class="rail-item" role="article" style="display:grid;grid-template-columns:96px 1fr;gap:.75rem;align-items:start">
-          <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
-            <img
-              src="/authors/img/ken1.webp?v=3.008.026"
-              srcset="/authors/img/ken1.webp?v=3.008.026 1x, /authors/img/ken1.webp?v=3.008.026 2x"
-              alt="Ken Baker"
-              style="width:100%;height:100%;object-fit:cover"
-              onerror="this.onerror=null;this.src='/authors/img/ken1.jpg?v=3.008.026'">
-          </a>
-          <div class="meta">
-            <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-            <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
-            <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a></p>
-          </div>
-        </article>
+      <section class="card">
+        <h3>From the Journal</h3>
+        <div id="journal-rail"></div>
       </section>
     </aside>
   </main>
 
   <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
-    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    © 2025 In the Wake — A Cruise Traveler’s Logbook
     <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.</p>
   </footer>
 
-  <!-- FLEET RUNTIME (JSON fetch + seed fallback) -->
+  <!-- IMAGE INDEX (exactly from your list; only used for verified cards) -->
   <script>
-  (function(){
-    const V='3.008.026';
-    const grid=document.getElementById('fleet-grid');
-    const fallback=document.getElementById('fleet-fallback');
-    const abs=(p)=> (typeof _abs==='function'?_abs(p):p);
+  // Helper: make absolute & URL-encode spaces safely
+  const abs = (p)=> {
+    if(!p) return '';
+    const base = p.startsWith('/') ? p : '/'+p;
+    // encode only the path segments (keeps slashes)
+    return base.split('/').map((seg,i)=> i===0?'':encodeURIComponent(seg)).join('/');
+  };
 
-    const DATA_URL='/assets/data/rc-fleet-index.json?v='+V;
+  // Map ship slug -> preferred image (we’ll not render if image is missing)
+  const SHIP_IMAGES = {
+    "enchantment-of-the-seas": "/ships/assets/enchantment-of-the-seas1.jpg",
+    "grandeur-of-the-seas": "/ships/assets/grandeur-of-the-seas1.jpg",
+    "rhapsody-of-the-seas": "/ships/assets/rhapsody-of-the-seas1.jpg",
+    "sovereign-of-the-seas": "/ships/assets/sovereign-of-the-seas1.jpg",
+    "vision-of-the-seas": "/ships/assets/vision-of-the-seas1.jpg",
+    "allure-of-the-seas": "ships/assets/images/allure-of-the-seas-3.jpg",
+    "adventure-of-the-seas": "ships/rcl/images/Adventure_of_the_Seas2.jpg"
+  };
 
-    const SEED={
-      cruise_line:{name:'Royal Caribbean International',slug:'royal-caribbean'},
-      ships:[
-        {"name":"Icon of the Seas","slug":"icon-of-the-seas","status":"active","class":"Icon","year":2024,"gt":null,"capacity":null,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Utopia of the Seas","slug":"utopia-of-the-seas","status":"active","class":"Oasis","year":2024,"gt":236857,"capacity":null,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Star of the Seas","slug":"star-of-the-seas","status":"active","class":"Icon","year":2025,"gt":null,"capacity":null,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Wonder of the Seas","slug":"wonder-of-the-seas","status":"active","class":"Oasis","year":2022,"gt":null,"capacity":null,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Harmony of the Seas","slug":"harmony-of-the-seas","status":"active","class":"Oasis","year":2016,"gt":226963,"capacity":5479,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Odyssey of the Seas","slug":"odyssey-of-the-seas","status":"active","class":"Quantum Ultra","year":2021,"gt":167704,"capacity":4180,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Freedom of the Seas","slug":"freedom-of-the-seas","status":"active","class":"Freedom","year":2006,"gt":156271,"capacity":3634,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Mariner of the Seas","slug":"mariner-of-the-seas","status":"active","class":"Voyager","year":2003,"gt":139863,"capacity":3388,"image":"/assets/index_hero.jpg?v="+V}
-      ]
-    };
+  // Minimal dataset (we render only if we have an image above)
+  const FLEET = [
+    { name:"Adventure of the Seas", slug:"adventure-of-the-seas", class:"Voyager" },
+    { name:"Allure of the Seas", slug:"allure-of-the-seas", class:"Oasis" },
+    { name:"Enchantment Of The Seas", slug:"enchantment-of-the-seas", class:"Vision" },
+    { name:"Grandeur Of The Seas", slug:"grandeur-of-the-seas", class:"Vision" },
+    { name:"Rhapsody Of The Seas", slug:"rhapsody-of-the-seas", class:"Vision" },
+    { name:"Sovereign Of The Seas", slug:"sovereign-of-the-seas", class:"Sovereign" },
+    { name:"Vision Of The Seas", slug:"vision-of-the-seas", class:"Vision" }
+  ];
 
-    function card(s){
-      const href='/ships/'+(s.slug||'').replace(/^\//,'')+'.html';
-      const img= s.image ? abs(s.image) : '/assets/placeholders/ship.jpg?v='+V;
-      const gt = (s.gt? s.gt.toLocaleString()+' GT' : '—');
-      const cap= (s.capacity? s.capacity.toLocaleString() : '—');
-      const klass = s.class||'—';
-      const year  = s.year||'—';
-      return `<a class="ship-card" href="${href}" aria-label="${s.name} — ${klass}, ${year}">
-        <div class="thumb"><img src="${img}" alt=""></div>
-        <div class="body">
-          <strong>${s.name}</strong>
-          <div class="meta">
-            <span class="badge">${klass}</span>
-            <span>• Debut: ${year}</span>
-            <span>• ${gt}</span>
-            <span>• Cap: ${cap}</span>
-          </div>
+  function shipCard(s) {
+    const imgPath = SHIP_IMAGES[s.slug];
+    if(!imgPath) return ''; // not verified; skip
+    const src = abs(imgPath);
+    const fallback = "/assets/index_hero.jpg";
+    return `
+      <article class="ship-card">
+        <div class="thumb">
+          <img src="${src}" alt="${s.name}"
+               onerror="this.onerror=null;this.src='${fallback}'">
         </div>
-      </a>`;
-    }
+        <div>
+          <h4 style="margin:.1rem 0 .25rem 0">${s.name}</h4>
+          <div class="tiny muted"><span class="badge" style="background:#e6f4f8;border:1px solid var(--rope);border-radius:999px;padding:.05rem .45rem">${s.class||'—'}</span></div>
+          <div class="tiny muted">• Debut: —</div>
+          <div class="tiny muted">• Cap: —</div>
+        </div>
+      </article>`;
+  }
 
-    async function load(){
-      if(!grid) return;
-      fallback.style.display='';
-      let data=null;
-      try{
-        const r=await fetch(abs(DATA_URL),{cache:'no-store',credentials:'omit'});
-        if(r.ok){
-          data=await r.json();
-        }
-      }catch(_){}
-      const ships=(data&&Array.isArray(data.ships)?data.ships:SEED.ships)||[];
-      // Sort by class then year desc then name
-      ships.sort((a,b)=>{
-        const ac=(a.class||'').localeCompare(b.class||'');
-        if(ac!==0) return ac;
-        const yd=(b.year||0)-(a.year||0);
-        if(yd!==0) return yd;
-        return (a.name||'').localeCompare(b.name||'');
-      });
-      grid.innerHTML=ships.map(card).join('');
-      fallback.style.display='none';
-    }
-    load();
+  (function renderFleet(){
+    const mount = document.getElementById('fleet-cards');
+    mount.innerHTML = FLEET.map(shipCard).filter(Boolean).join('') || '<p class="tiny muted">No verified images yet.</p>';
   })();
   </script>
 
-  <!-- JOURNAL RAIL (Ken + Tina + hard image fallbacks) -->
+  <!-- Journal rail (hard fallbacks; ensures Top 20 has a thumb) -->
   <script>
   (function(){
-    const V='3.008.026';
+    const V='2.203';
     const mount=document.getElementById('journal-rail');
-    const fallback=document.getElementById('journal-rail-fallback');
-    const abs=(p)=> (typeof _abs==='function'?_abs(p):p);
     const sources=[
       '/assets/data/articles.json?v='+V,
       '/assets/data/articles/index.json?v='+V,
@@ -307,27 +173,27 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
       {
         url:'/solo/articles/freedom-of-your-own-wake.html',
         title:'Freedom of Your Own Wake',
-        date:'2025-10-17',
+        date:'2024-08-13',
         dek:'On choosing solitude without being alone.',
-        image:'/assets/index_hero.jpg?v='+V,
-        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v='+V}
+        image:'/assets/index_hero.jpg',
+        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp'}
       },
       {
         url:'/travel/tina-planning-grace-and-margin.html',
         title:'Why I Started Solo Cruising',
         date:'2024-05-31',
         dek:'From that first solo gangway to a thriving community — freedom found at sea.',
-        image:'/assets/articles/tina/cover.jpg?v='+V,
-        author:{name:'Tina Maulsby',url:'/authors/tina.html',image:'/authors/img/author.webp?v='+V}
+        image:'/assets/articles/tina/cover.jpg',
+        author:{name:'Tina Maulsby',url:'/authors/tina.html',image:'/authors/img/author.webp'}
       },
       {
         url:'/travel.html#top-20-questions',
         title:'Top 20 First-Cruise Questions (Answered)',
         date:'2025-10-16',
         dek:'A first-person guide to planning, packing, ports, and ship life.',
-        image:'/assets/articles/top-20-questions/cover.jpg?v='+V,
-        fallback:'/assets/index_hero.jpg?v='+V,
-        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v='+V}
+        image:'/assets/articles/top-20-questions/cover.jpg',
+        fallback:'/assets/index_hero.jpg',
+        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp'}
       }
     ];
     function normalize(payload){
@@ -338,229 +204,33 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
         dek:a.dek||a.description||a.excerpt||'',
         date:a.datePublished||a.date||'',
         image:a.image||'',
+        fallback:a.fallback||'',
         author:a.author||a.by||null
       })).filter(a=>a.url&&(/[/.]/.test(a.url)));
     }
-    async function tryFetch(u){ try{const r=await fetch(abs(u),{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }catch(_){return [];} }
+    async function tryFetch(u){ try{const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }catch(_){return [];} }
     const safeDate=d=>isNaN(Date.parse(d))?'':new Date(d).toLocaleDateString();
     function card(a){
-      const img=a.image?abs(a.image):'/assets/placeholders/article-thumb.jpg?v='+V;
-      const fallback=a.fallback?abs(a.fallback):'/assets/placeholders/article-thumb.jpg?v='+V;
-      const avatar=a.author?.image?abs(a.author.image):'/authors/img/author.webp?v='+V;
-      const name=a.author?.name||''; const url=a.author?.url||'#';
-      return `<article class="rail-item" style="display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start">
-        <a class="thumb" href="${a.url}" style="display:block;width:112px;height:72px;border-radius:.5rem;overflow:hidden">
-          <img src="${img}" alt="${a.title}"
-               onerror="this.onerror=null;this.src='${fallback}'" style="width:100%;height:100%;object-fit:cover">
+      const img=a.image||a.fallback||'/assets/index_hero.jpg';
+      const avatar=a.author?.image||'/authors/img/author.webp'; const name=a.author?.name||''; const url=a.author?.url||'#';
+      return `<article class="rail-item">
+        <a class="thumb" href="${a.url}">
+          <img src="${img}" alt="${a.title}" onerror="this.onerror=null;this.src='${a.fallback||'/assets/index_hero.jpg'}'">
         </a>
         <div class="meta">
           <h4><a href="${a.url}">${a.title}</a></h4>
-          <p class="tiny muted">${a.date?safeDate(a.date):''}${name?` · <img class="avatar" src="${avatar}" alt="${name}" style="width:20px;height:20px;border-radius:50%;vertical-align:middle;margin-right:.25rem" onerror="this.onerror=null;this.src='/authors/img/author.webp?v=${V}'"> <a href="${url}">${name}</a>`:''}</p>
+          <p class="tiny muted">${a.date?safeDate(a.date):''}${name?` · <img class="avatar" src="${avatar}" alt="${name}" onerror="this.onerror=null;this.src='/authors/img/author.webp'"> <a href="${url}">${name}</a>`:''}</p>
           ${a.dek?`<p class="tiny">${a.dek}</p>`:''}
         </div>
       </article>`;
     }
     (async function boot(){
-      if(!mount) return;
-      fallback.style.display='';
       let items=[];
       for(const s of sources){ items=await tryFetch(s); if(items.length) break; }
       if(!items.length) items=SEED;
-      mount.innerHTML=items.slice(0,4).map(card).join('');
-      fallback.style.display='none';
+      mount.innerHTML=items.slice(0,3).map(card).join('');
     })();
   })();
   </script>
-  <script>
-/* Ships Index Runtime — image-gated fleet (v3.008.027)
-   Rules:
-   - Only render ships that have an image from IMAGE_LIST
-   - Prefer rcl/images > ships/assets/images > everything else
-   - Join with fleet JSON for class/year/gt/cap
-   - No external deps; resilient to missing JSONs
-*/
-(function(){
-  const FLEET_MOUNT_SELECTOR = '.wrap #content';         // page root we already have
-  const FLEET_SECTION_TITLE  = 'Fleet';                  // heading text to find/replace
-
-  // 1) Image sources provided by you (exact strings).
-  const IMAGE_LIST = [
-    "/ships/assets/enchantment-of-the-seas1.jpg",
-    "/ships/assets/grandeur-of-the-seas1.jpg",
-    "/ships/assets/rhapsody-of-the-seas1.jpg",
-    "/ships/assets/sovereign-of-the-seas1.jpg",
-    "/ships/assets/sovereign-of-the-seas2.jpg",
-    "/ships/assets/sovereign-of-the-seas3.jpg",
-    "/ships/assets/vision-of-the-seas1.jpg",
-    "/ships/assets/data/fleet/fleet_index.json",   // (non-image; ignored automatically)
-    "ships/assets/images/Bahamas_Cruise_-_ship_interior_-_June_2018_(2224) Medium.jpeg",
-    "ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg",
-    "ships/assets/images/Enchantment_of_the_Seas.jpeg",
-    "ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg",
-    "ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg",
-    "ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg",
-    "ships/assets/images/allure-of-the-seas-3.jpg",
-    "ships/assets/images/allure2.jpg",
-    "ships/assets/images/allure3.jpg",
-    "ships/assets/img/Cordelia_Empress_Food_Court.jpg",
-    "ships/rcl/assets/videos/adventure-of-the-seas.json",
-    "ships/rcl/assets/videos/allure-of-the-seas.json",
-    "ships/rcl/assets/videos/radiance.json",
-    "ships/rcl/assets/videos/enchantment.json",
-    "ships/rcl/assets/adventure.json",
-    "ships/rcl/assets/allure.json",
-    "ships/rcl/assets/enchantment.json",
-    "ships/rcl/assets/radiance-of-the-seas.json",
-    "ships/rcl/images/Adventure_of_the_Seas1.jpeg",
-    "ships/rcl/images/Adventure_of_the_Seas2.jpg",
-    "ships/rcl/images/Adventure_of_the_Seas3.jpg",
-    "ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg",
-    "ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg",
-    "ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg",
-    "images/Bahamas_Cruise_-_ship_interior_-_June_2018_(2224) Medium.jpeg",
-    "images/Enchantment_of_the_Seas.jpeg",
-    "images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg",
-    "images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg",
-    "images/Rhapsody_of_the_Seas_2 Medium.jpeg",
-    "images/enchantment-of-the-seas2.jpeg"
-  ];
-
-  // 2) map keywords -> canonical slugs
-  const KEYWORD_TO_SLUG = {
-    'allure'     : 'allure-of-the-seas',
-    'adventure'  : 'adventure-of-the-seas',
-    'enchantment': 'enchantment-of-the-seas',
-    'grandeur'   : 'grandeur-of-the-seas',
-    'radiance'   : 'radiance-of-the-seas',
-    'rhapsody'   : 'rhapsody-of-the-seas',
-    'sovereign'  : 'sovereign-of-the-seas',
-    'vision'     : 'vision-of-the-seas'
-  };
-
-  // 3) helper: classify image quality (higher is better)
-  function imageScore(path){
-    const p = path.toLowerCase();
-    if (!/\.(jpg|jpeg|png|webp|avif)$/i.test(p)) return -1; // not an image
-    if (p.startsWith('/ships/rcl/images') || p.startsWith('ships/rcl/images')) return 3;
-    if (p.startsWith('/ships/assets/images') || p.startsWith('ships/assets/images')) return 2;
-    if (p.includes('allure') || p.includes('adventure') || p.includes('enchantment') ||
-        p.includes('grandeur') || p.includes('radiance') || p.includes('rhapsody') ||
-        p.includes('sovereign') || p.includes('vision')) return 1;
-    return 0;
-  }
-
-  // 4) infer slug from a path using the keyword table
-  function inferSlugFromPath(path){
-    const p = path.toLowerCase();
-    for(const k in KEYWORD_TO_SLUG){
-      if (p.includes(k)) return KEYWORD_TO_SLUG[k];
-    }
-    return null;
-  }
-
-  // 5) build imagesBySlug (best single image per slug)
-  const imagesBySlug = {};
-  IMAGE_LIST.forEach(raw => {
-    const url = String(raw || '').trim();
-    const slug = inferSlugFromPath(url);
-    if (!slug) return;
-    const score = imageScore(url);
-    if (score < 0) return; // not an image
-    const prev = imagesBySlug[slug];
-    if (!prev || score > prev.score) {
-      imagesBySlug[slug] = { url, score };
-    }
-  });
-
-  // 6) fetch fleet data (two known locations; first that responds wins)
-  async function getFleet(){
-    const candidates = [
-      '/assets/data/rc-fleet-index.json',
-      '/ships/assets/data/fleet/fleet_index.json'
-    ];
-    for (const u of candidates){
-      try{
-        const r = await fetch(u, {cache:'no-store'});
-        if (r.ok) return (await r.json());
-      }catch(_){}
-    }
-    return { ships: [] };
-  }
-
-  // 7) render helpers
-  const fmt = (n)=> (n==null?'—':n.toLocaleString());
-  const esc = (s)=> String(s||'').replace(/[&<>"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
-
-  function shipCard(s, imgUrl){
-    const u = encodeURI(imgUrl);
-    const cls = s.class||'';
-    const year= s.year!=null ? `Debut: ${s.year}` : 'Debut: —';
-    const gt  = s.gt!=null ? `${fmt(s.gt)} GT` : '—';
-    const cap = s.capacity!=null ? fmt(s.capacity) : '—';
-    return `
-      <a class="ship-card" href="/ships/${esc(s.slug||'')}.html" aria-label="${esc(s.name||'Ship')} details">
-        <span class="thumb"><img loading="lazy" src="${u}" alt="Photo of ${esc(s.name||'ship')}" /></span>
-        <span class="body">
-          <strong>${esc(s.name||'')}</strong>
-          ${cls?`<span class="badge">${esc(cls)}</span>`:''}
-          <span class="tiny muted">• ${year}</span>
-          <span class="tiny muted">• ${gt}</span>
-          <span class="tiny muted">• Cap: ${cap}</span>
-        </span>
-      </a>`;
-  }
-
-  // 8) mount find/replace: we’ll locate the first card with a heading that equals "Fleet"
-  function findFleetCard(){
-    const root = document.querySelector(FLEET_MOUNT_SELECTOR) || document;
-    const cards = Array.from(root.querySelectorAll('.card'));
-    for (const c of cards){
-      const h = c.querySelector('h2,h3');
-      if (h && h.textContent.trim().toLowerCase() === FLEET_SECTION_TITLE.toLowerCase()){
-        return c;
-      }
-    }
-    return null;
-  }
-
-  // 9) boot
-  (async function boot(){
-    const fleetCard = findFleetCard();
-    if (!fleetCard) return;
-
-    const data = await getFleet();
-    const bySlug = new Map((data.ships||[]).map(s => [String(s.slug||'').toLowerCase(), s]));
-
-    // filter to ONLY slugs that have images
-    const slugs = Object.keys(imagesBySlug);
-
-    // build HTML grid
-    const cards = [];
-    slugs.sort().forEach(slug=>{
-      const ship = bySlug.get(slug) || { name: slug.replace(/-/g,' ').replace(/\b\w/g,m=>m.toUpperCase()), slug };
-      const img  = imagesBySlug[slug].url;
-      cards.push(shipCard(ship, img));
-    });
-
-    // replace inner content of the Fleet card
-    const grid = `
-      <div class="vx-grid">
-        ${cards.join('\n')}
-      </div>
-      <p class="tiny muted" style="margin-top:.6rem">Showing ships with verified images only. More ships appear as images are verified.</p>
-    `;
-    // keep the title node; replace everything after the first heading
-    const heading = fleetCard.querySelector('h2,h3');
-    if (heading){
-      // wipe following siblings
-      let n=heading.nextSibling;
-      while(n){ const z=n.nextSibling; n.remove(); n=z; }
-      heading.insertAdjacentHTML('afterend', grid);
-    }else{
-      fleetCard.innerHTML = `<h2>${FLEET_SECTION_TITLE}</h2>` + grid;
-    }
-  })();
-})();
-</script>
 </body>
 </html>
