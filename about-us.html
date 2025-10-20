@@ -1,64 +1,236 @@
-<!DOCTYPE html>
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
+“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
+
+STANDARDS: Every Page v3.008 · Topbar/Nav v3.008 · A11y/WCAG Addendum v3.100
+GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER.
+Page: /about-us.html · v3.008.020
+-->
+<!doctype html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Consent Manager (autoblocking first) -->
+  <script type="text/javascript"
+          data-cmp-ab="1"
+          src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+          data-cmp-host="a.delivery.consentmanager.net"
+          data-cmp-cdn="cdn.consentmanager.net"
+          data-cmp-codesrc="16"></script>
 
-  gtag('config', 'G-WZP891PZXJ');
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Cruising in the Wake</title>
-    <link rel="stylesheet" href="/styles.css">
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date()); gtag('config', 'G-WZP891PZXJ');
+  </script>
+
+  <!-- Core meta -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0e6e8e">
+  <meta name="robots" content="index, follow">
+
+  <!-- Versioning / Standards -->
+  <meta name="version" content="v3.008.020">
+  <meta name="page:version" content="v3.008.020">
+  <meta name="standards:baseline" content="3.008">
+
+  <!-- Canonical / Title / Description -->
+  <title>About Us — In the Wake (v3.008.020)</title>
+  <link rel="canonical" href="https://www.cruisinginthewake.com/about-us.html">
+  <meta name="description" content="Who we are, why we sail, and how we help you cruise with calm confidence.">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="In the Wake">
+  <meta property="og:url" content="https://www.cruisinginthewake.com/about-us.html">
+  <meta property="og:title" content="About Us — In the Wake">
+  <meta property="og:description" content="Who we are, why we sail, and how we help you cruise with calm confidence.">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/about-hero.jpg?v=3.008.020">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- JSON-LD: AboutPage + Organization -->
+  <script type="application/ld+json">{
+    "@context":"https://schema.org",
+    "@type":"AboutPage",
+    "name":"About Us — In the Wake",
+    "url":"https://www.cruisinginthewake.com/about-us.html",
+    "isPartOf":{"@type":"WebSite","name":"In the Wake","url":"https://www.cruisinginthewake.com/"},
+    "primaryImageOfPage":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/social/about-hero.jpg?v=3.008.020"},
+    "publisher":{
+      "@type":"Organization",
+      "name":"In the Wake",
+      "url":"https://www.cruisinginthewake.com/",
+      "logo":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008.020"}
+    }
+  }</script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.020">
+
+  <!-- LCP hero preload -->
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.020" fetchpriority="high">
+
+  <!-- Absolute URL normalizer (keeps stage/prod in sync) -->
+  <script>
+  (function(){
+    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(p){ p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p; };
+    function normalize(){
+      var sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      var list=document.querySelectorAll(sel);
+      for(var i=0;i<list.length;i++){
+        var el=list[i]; var attr=el.hasAttribute('href')?'href':'src';
+        try{ var u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+      }
+    }
+    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', normalize, {once:true}); } else { normalize(); }
+  })();
+  </script>
+
+  <!-- External link hardener -->
+  <script>
+  (function(){
+    var here=location.hostname.replace(/^www\./,'');
+    function upgrade(){
+      var links=document.querySelectorAll('a[href]');
+      for(var i=0;i<links.length;i++){
+        var a=links[i]; var href=a.getAttribute('href')||'';
+        if(/^(#|mailto:|tel:)/i.test(href)) continue;
+        try{
+          var u=new URL(href, location.href); var host=u.hostname.replace(/^www\./,'');
+          if(host!==here || a.rel==='external'){
+            a.target='_blank';
+            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+          }
+        }catch(_){}
+      }
+    }
+    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', upgrade, {once:true}); } else { upgrade(); }
+  })();
+  </script>
+
+  <!-- Page-scoped tweaks (topbar layout only) -->
+  <style>
+    /* Topbar puts Skip + Primary nav on one line */
+    .topbar{
+      display:flex; align-items:center; gap:.75rem;
+      padding:.4rem .9rem; border-bottom:1px solid rgba(8,48,65,.08);
+      background:#fff; position:relative; z-index:3;
+    }
+    .topbar .skip-link{
+      position:static; clip:auto; width:auto; height:auto; padding:.2rem .5rem;
+      border-radius:6px; background:#0e6e8e; color:#fff; text-decoration:none; font-size:.9rem; line-height:1.2;
+    }
+    .topbar .pill-nav{
+      display:flex; gap:.35rem .45rem; flex-wrap:wrap; margin-left:auto;
+    }
+    .topbar .pill-nav a{
+      padding:.26rem .55rem; border-radius:8px; border:1px solid rgba(217,179,130,.6);
+      background:#fff; font-size:.92rem; line-height:1.2; text-decoration:none;
+    }
+    @media(pointer:fine){ .topbar .pill-nav a:hover{ border-style:dashed; } }
+    @media(max-width:900px){
+      .topbar .pill-nav{flex-wrap:nowrap; overflow:auto; white-space:nowrap; scrollbar-width:thin; -webkit-overflow-scrolling:touch;}
+      .topbar .pill-nav a{flex:0 0 auto;}
+    }
+
+    /* Brand row (kept empty to avoid overlap with version/nav) */
+    .navbar{ max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:.5rem; padding:.45rem .9rem; }
+    .version-badge{ font-size:.7rem; opacity:.8; margin-left:.5rem; }
+
+    /* Header hero fix (uses global hero styles for image/compass/tagline) */
+    .hero{ background:url('/assets/index_hero.jpg?v=3.008.020') center/cover no-repeat!important; }
+    .hero::before,.hero::after{ content:none!important }
+  </style>
 </head>
-<body>
-    <!-- Header -->
-    <header class="hero-header">
-        <nav class="navbar">
-            <div class="brand">
-                <img src="/assets/logo.png" alt="Cruising in the Wake Logo">
-                <span class="version-badge">v3.006</span>
-            </div>
-            <div class="pill-nav pills">
-                <a href="/">Home</a>
-                <a href="/ships">Ships</a>
-                <a href="/restaurants">Restaurants & Menus</a>
-                <a href="/ports">Ports</a>
-                <a href="/disability">Disability at Sea</a>
-                <a href="/drinks">Drink Packages</a>
-                <a href="/packing">Packing Lists</a>
-                <a href="/planning">Planning</a>
-                <a href="/solo">Solo</a>
-                <a href="/travel">Travel</a>
-                <a href="/about-us.html">About</a>
-            </div>
-        </nav>
-        <div class="hero">
-            <img class="hero-compass" src="/assets/compass.png" alt="Compass">
-            <div class="hero-title">
-                <img class="logo" src="/assets/hero-logo.png" alt="Cruising in the Wake">
-            </div>
-            <div class="hero-credit">
-                <a class="pill long" href="http://www.flickersofmajesty.com">Photo © Flickers of Majesty</a>
-            </div>
-            <div class="tagline">Smooth Water Ahead</div>
-        </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="wrap">
-        <section class="card">
-            <h1>About Us</h1>
-            <p>Ahoy, voyagers! Welcome to <strong>Cruising in the Wake</strong>, your trusty compass for sailing through cruise planning with joy and ease. We’re here to chart your course with mariner wisdom—ship overviews, port tips, restaurant menus, solo travel hacks—all crafted to keep your adventure sailing through calm seas, no squalls in sight. Whether you’re a rookie cruiser or a seasoned skipper, we’ve got the map to make your journey a breeze.</p>
-            <p>I’m your captain, driven by a love for adventure, beauty, and connection. First, <strong>Cruising in the Wake</strong> is my flagship project, a logbook sharing real-voyage know-how to ensure your trip feels like smooth sailing. Next, through <a href="http://www.flickersofmajesty.com">Flickers of Majesty</a>, I capture the sea’s fleeting wonders—think glowing sunsets or vibrant port markets—in photos that spark your wanderlust. On land, I tend a quirky flock of sheep, guiding them with the same care I bring to steering cruisers toward unforgettable destinations. Finally, as a pastor at <a href="https://lakeviewfellowshipchurch.com">Lakeview Fellowship Church</a>, I live by <em>“Taking Strangers Making Family,”</em> fostering community with grace, a Bachelor of Arts, and a Master of Divinity in the works.</p>
-            <p>Our mission is to turn cruise planning into a delight, not a storm. We dive into the details—accessibility, packing lists, drink packages—so you can savor the memories. Like a perfect snapshot or a warm fellowship, we’re here to make strangers into shipmates, united by the majesty of the sea.</p>
-            <p class="center"><strong>Set sail with us!</strong> Explore our guides, pack your sea bag, and let’s make waves together. Fair winds and following wakes—your adventure’s on the horizon!</p>
-        </section>
-    </main>
+<body class="page">
+  <!-- Topbar: Skip + Primary Nav -->
+  <div class="topbar">
+    <a href="#content" class="skip-link">Skip to main content</a>
+    <nav class="pill-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/ships/">Ships</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/disability-at-sea.html">Disability at Sea</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/packing-lists.html">Packing Lists</a>
+      <a href="/planning.html">Planning</a>
+      <a href="/solo.html">Solo</a>
+      <a href="/travel.html">Travel</a>
+      <a href="/cruise-lines.html">Cruise Lines</a>
+      <a href="/about-us.html" aria-current="page">About</a>
+    </nav>
+  </div>
+
+  <!-- Header (brand + hero only) -->
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png?v=3.008.020" width="256" height="64" alt="In the Wake wordmark">
+        <span class="version-badge">v3.008.020</span>
+      </div>
+    </div>
+
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.020" width="180" height="180" alt="" aria-hidden="true">
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png?v=3.008.020" width="256" height="64" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+      <div class="hero-credit">
+        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main id="content" class="wrap" role="main" tabindex="-1">
+    <section class="card">
+      <h1>About Us</h1>
+      <p>Ahoy, voyagers! Welcome to <strong>Cruising in the Wake</strong>, your trusty compass for sailing through cruise planning with joy and ease. We’re here to chart your course with mariner wisdom—ship overviews, port tips, restaurant menus, solo travel hacks—all crafted to keep your adventure sailing through calm seas, no squalls in sight. Whether you’re a rookie cruiser or a seasoned skipper, we’ve got the map to make your journey a breeze.</p>
+      <p>I’m your captain, driven by a love for adventure, beauty, and connection. First, <strong>Cruising in the Wake</strong> is my flagship project, a logbook sharing real-voyage know-how to ensure your trip feels like smooth sailing. Next, through <a href="https://www.flickersofmajesty.com">Flickers of Majesty</a>, I capture the sea’s fleeting wonders—think glowing sunsets or vibrant port markets—in photos that spark your wanderlust. On land, I tend a quirky flock of sheep, guiding them with the same care I bring to steering cruisers toward unforgettable destinations. Finally, as a pastor at <a href="https://lakeviewfellowshipchurch.com">Lakeview Fellowship Church</a>, I live by <em>“Taking Strangers Making Family,”</em> fostering community with grace, a Bachelor of Arts, and a Master of Divinity in the works.</p>
+      <p>Our mission is to turn cruise planning into a delight, not a storm. We dive into the details—accessibility, packing lists, drink packages—so you can savor the memories. Like a perfect snapshot or a warm fellowship, we’re here to make strangers into shipmates, united by the majesty of the sea.</p>
+      <p class="center"><strong>Set sail with us!</strong> Explore our guides, pack your sea bag, and let’s make waves together. Fair winds and following wakes—your adventure’s on the horizon!</p>
+    </section>
+  </main>
+
+  <footer class="wrap" role="contentinfo">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
+    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
+  </footer>
+
+  <!-- Service Worker (quiet failure OK) -->
+  <script>
+    if('serviceWorker' in navigator){
+      window.addEventListener('load', function(){
+        navigator.serviceWorker.register('/sw.js?v=3.008.020').catch(function(){});
+      });
+    }
+  </script>
+
+  <!-- Invocation Signature -->
+  <!-- Steward: abondservant · Path: /about-us.html · Version: v3.008.020 · Timestamp: 2025-10-19T00:00:00Z -->
+  
+  <!-- Consent Manager: optional accessibility widget (kept at end if used sitewide) -->
+  <script src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js"
+          data-acc-accid="774c13e29978"
+          data-acc-host="delivery.consentmanager.net"
+          data-acc-cdn="cdn.consentmanager.net"></script>
 </body>
-    <footer><script type="text/javascript" src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js" data-acc-accid="774c13e29978" data-acc-host="delivery.consentmanager.net" data-acc-cdn="cdn.consentmanager.net"></script></footer>
 </html>
