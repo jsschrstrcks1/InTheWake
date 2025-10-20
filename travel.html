@@ -4,12 +4,19 @@ All work on this project is offered as a gift to God.
 “Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
 “Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
 
-STANDARDS: Every Page v3.008.019 · Root/Main v3.008.019 · Unified Nav v3.008.019 · A11y/WCAG Addendum v3.100
+STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · A11y/WCAG Addendum v3.100
 GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER.
 -->
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Consent (CMP) — keep first so it can autoblock analytics where required -->
+  <script type="text/javascript" data-cmp-ab="1"
+    src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+    data-cmp-host="a.delivery.consentmanager.net"
+    data-cmp-cdn="cdn.consentmanager.net"
+    data-cmp-codesrc="16"></script>
+
   <!-- Core Meta -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,10 +24,10 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   <meta name="theme-color" content="#0e6e8e">
 
   <!-- Title / Version Trinity -->
-  <title>Travel Tips — In the Wake (v3.008.019)</title>
-  <meta name="version" content="v3.008.019">
-  <meta name="page:version" content="v3.008.019">
-  <meta name="standards:baseline" content="3.008.019">
+  <title>Travel Tips — In the Wake (v3.008.020)</title>
+  <meta name="version" content="v3.008.020">
+  <meta name="page:version" content="v3.008.020">
+  <meta name="standards:baseline" content="3.008">
 
   <!-- Canonical & Description -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/travel.html">
@@ -33,150 +40,60 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   <meta property="og:url" content="https://www.cruisinginthewake.com/travel.html">
   <meta property="og:title" content="Travel Tips — In the Wake">
   <meta property="og:description" content="A first sailing, twenty steady answers, and a course you can trust.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.008.019">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.008.020">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Styles (global, versioned) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008.019">
+  <!-- Analytics (loads AFTER CMP) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config','G-WZP891PZXJ');
+  </script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Preload LCP image (hero) -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.019" fetchpriority="high">
-
-  <!-- Absolute URL normalizer (ES5) -->
+  <!-- URL normalizer (absolute prod → current origin) -->
   <script>
   (function(){
-    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(p){ p=String(p||''); if(p.charAt(0)!=='/'){ p='/'+p; } return ORIGIN+p; };
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(p){p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p;};
     function normalize(){
-      var sel=[
+      const sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
         'img[src^="https://www.cruisinginthewake.com/"]',
         'link[href^="https://www.cruisinginthewake.com/"]',
         'script[src^="https://www.cruisinginthewake.com/"]'
       ].join(',');
-      var nodes=document.querySelectorAll(sel);
-      for(var i=0;i<nodes.length;i++){
-        var el=nodes[i];
-        var attr=el.hasAttribute('href')?'href':'src';
-        try{
-          var u=new URL(el.getAttribute(attr));
-          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
-        }catch(_){}
-      }
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{const u=new URL(el.getAttribute(attr));
+            el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
+      });
     }
-    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', normalize, {once:true}); } else { normalize(); }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
   })();
   </script>
 
-  <!-- External link hardener (ES5) -->
+  <!-- External link hardener -->
   <script>
   (function(){
-    var here=location.hostname.replace(/^www\./,'');
+    const here=location.hostname.replace(/^www\./,'');
     function upgrade(){
-      var links=document.querySelectorAll('a[href]');
-      for(var i=0;i<links.length;i++){
-        var a=links[i];
-        var href=a.getAttribute('href')||'';
-        if (/^(#|mailto:|tel:)/i.test(href)) continue;
+      document.querySelectorAll('a[href]').forEach(a=>{
+        const href=a.getAttribute('href')||'';
+        if (/^(#|mailto:|tel:)/i.test(href)) return;
         try{
-          var u=new URL(href, location.href);
-          var host=u.hostname.replace(/^www\./,'');
+          const u=new URL(href, location.href);
+          const host=u.hostname.replace(/^www\./,'');
           if (host !== here || a.rel==='external'){
             a.target='_blank';
             a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
           }
         }catch(_){}
-      }
+      });
     }
-    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', upgrade, {once:true}); } else { upgrade(); }
+    if (document.readyState==='loading'){document.addEventListener('DOMContentLoaded', upgrade, {once:true});} else { upgrade(); }
   })();
   </script>
-
-  <!-- Consent first (optional here if used sitewide) -->
-  <!-- <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js" data-cmp-host="a.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script> -->
-
-  <!-- Analytics (async/defer) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-  <script>
-    window.dataLayer=window.dataLayer||[];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date()); gtag('config','G-WZP891PZXJ');
-  </script>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-
-  <!-- Site Cache (JSON TTL/version-aware) -->
-  <script src="/assets/js/site-cache.js?v=3.008.019" defer></script>
-
-  <!-- Page CSS (layout & rails) -->
-  <style>
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-    }
-
-    /* Topbar (skip + primary nav on one line) */
-    .topbar{
-      display:flex; align-items:center; gap:.75rem;
-      padding:.4rem .9rem; border-bottom:1px solid rgba(8,48,65,.08);
-      background:#fff; position:relative; z-index:3;
-    }
-    .topbar .skip-link{
-      position:static; clip:auto; width:auto; height:auto; padding:.2rem .5rem;
-      border-radius:6px; background:#0e6e8e; color:#fff; text-decoration:none; font-size:.9rem; line-height:1.2;
-    }
-    .topbar .pill-nav{
-      display:flex; gap:.35rem .45rem; flex-wrap:wrap; margin-left:auto;
-    }
-    .topbar .pill-nav a{
-      padding:.26rem .55rem; border-radius:8px; border:1px solid rgba(217,179,130,.6);
-      background:#fff; font-size:.92rem; line-height:1.2; text-decoration:none;
-    }
-    @media(pointer:fine){ .topbar .pill-nav a:hover{ border-style:dashed; } }
-    @media(max-width:900px){
-      .topbar .pill-nav{flex-wrap:nowrap; overflow:auto; white-space:nowrap; scrollbar-width:thin; -webkit-overflow-scrolling:touch;}
-      .topbar .pill-nav a{flex:0 0 auto;}
-    }
-
-    /* Header brand row (no nav here; prevents overlap) */
-    .navbar{
-      max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:.5rem; padding:.45rem .9rem;
-    }
-    .brand img{height:24px}
-    .version-badge{font-size:.7rem; opacity:.8; margin-left:.5rem;}
-
-    /* Header hero */
-    .hero{
-      background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.019') center/cover no-repeat!important;
-      min-height:320px;
-    }
-    .hero::before,.hero::after{ content:none!important }
-
-    /* Main layout: content + right rail */
-    .with-right-rail{display:grid;gap:1.2rem;grid-template-columns:minmax(0,1fr);align-items:start}
-    .content-col{min-width:0}
-    .right-rail{min-width:0}
-    @media (min-width:980px){
-      .with-right-rail{grid-template-columns:minmax(0,1fr) 320px !important; gap:32px!important;}
-      .right-rail{position:sticky; top:96px; align-self:start;}
-    }
-    @media (min-width:1400px){
-      .with-right-rail{grid-template-columns:minmax(0,1fr) 360px !important;}
-    }
-
-    /* Cards watermark safety (kept) */
-    .card{position:relative;overflow:hidden}
-
-    /* Rail tiles */
-    .rail{display:grid;gap:.75rem}
-    .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
-    .rail-item .thumb img{display:block;width:112px;height:72px;object-fit:cover;border-radius:.5rem}
-    .rail-item .avatar{width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:.25rem}
-
-    /* Quick Chart chips + separators */
-    .quick-chart{display:flex;flex-wrap:wrap;gap:.35rem .5rem}
-    .quick-chart a{white-space:nowrap}
-    .quick-chart .sep{opacity:.55;margin:0 .35rem}
-  </style>
 
   <!-- JSON-LD: Article -->
   <script type="application/ld+json">
@@ -185,51 +102,90 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     "@type":"Article",
     "headline":"Top 20 Questions I’m Asked About Cruising",
     "description":"A first sailing, twenty honest answers, and a steady course — story-forward cruise guidance.",
-    "image":"https://www.cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.008.019",
-    "author":{"@type":"Person","name":"Ken Baker","url":"https://www.cruisinginthewake.com/authors/ken-baker.html","image":"https://www.cruisinginthewake.com/assets/authors/ken-baker.jpg?v=3.008.019"},
-    "contributor":{"@type":"Person","name":"Tina","url":"https://www.cruisinginthewake.com/authors/tina.html","image":"https://www.cruisinginthewake.com/assets/authors/tina.jpg?v=3.008.019"},
+    "image":"https://www.cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.008.020",
+    "author":{"@type":"Person","name":"Ken Baker","url":"https://www.cruisinginthewake.com/authors/ken-baker.html","image":"https://www.cruisinginthewake.com/authors/img/ken1.jpg?v=3.008.020"},
+    "contributor":{"@type":"Person","name":"Tina Maulsby","url":"https://www.cruisinginthewake.com/authors/tina-maulsby.html","image":"https://www.cruisinginthewake.com/authors/img/tina3.jpg?v=3.008.020"},
     "publisher":{"@type":"Organization","name":"In the Wake","url":"https://www.cruisinginthewake.com",
-      "logo":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008.019"}},
+      "logo":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008.020"}},
     "datePublished":"2025-10-17","dateModified":"2025-10-17",
     "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.cruisinginthewake.com/travel.html"}
   }
   </script>
+
+  <!-- Site Cache (JSON TTL/version-aware) -->
+  <script src="/assets/js/site-cache.js?v=3.008.020" defer></script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.020">
+
+  <!-- Preload LCP image (hero) -->
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.020" imagesrcset="/assets/index_hero.jpg?v=3.008.020" fetchpriority="high">
+
+  <!-- Page CSS (layout & rails) -->
+  <style>
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    }
+
+    /* Header hero image (scoped) */
+    .hero{ background:url('/assets/index_hero.jpg?v=3.008.020') center/cover no-repeat!important; }
+    .hero::before,.hero::after{ content:none!important }
+
+    /* Layout: main content + right rail (desktop ≥980px) */
+    .with-right-rail{display:grid;gap:1.2rem;grid-template-columns:minmax(0,1fr);align-items:start}
+    @media (min-width:980px){
+      .with-right-rail{grid-template-columns:minmax(0,1fr) 320px}
+      .right-rail{position:sticky;top:96px;align-self:start}
+    }
+    .content-col{min-width:0}
+
+    /* Rail tiles (match solo/rail look) */
+    .rail{display:grid;gap:.75rem}
+    .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
+    .rail-item .thumb img{display:block;width:112px;height:72px;object-fit:cover;border-radius:.5rem}
+    .rail-item .avatar{width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:.25rem}
+
+    /* Quick Chart chips */
+    .quick-chart{display:flex;flex-wrap:wrap;gap:.35rem .5rem}
+    .quick-chart a{white-space:nowrap}
+    .quick-chart .sep{opacity:.55;margin:0 .35rem}
+  </style>
 </head>
 
 <body class="page">
-  <!-- Topbar: Skip + Primary Nav -->
-  <div class="topbar">
-    <a href="#content" class="skip-link">Skip to main content</a>
-    <nav class="pill-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/ships/">Ships</a>
-      <a href="/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/disability-at-sea.html">Disability at Sea</a>
-      <a href="/drink-packages.html">Drink Packages</a>
-      <a href="/packing-lists.html">Packing Lists</a>
-      <a href="/planning.html">Planning</a>
-      <a href="/solo.html">Solo</a>
-      <a href="/travel.html" aria-current="page">Travel</a>
-      <a href="/cruise-lines.html">Cruise Lines</a>
-      <a href="/about-us.html">About Us</a>
-    </nav>
-  </div>
+  <!-- Skip link -->
+  <a class="visually-hidden" href="#content">Skip to content</a>
 
-  <!-- Header (brand + hero only) -->
+  <!-- Header / Hero (standard unified header) -->
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008.019" width="256" height="64" alt="In the Wake">
-        <span class="version-badge">v3.008.019</span>
+        <img src="/assets/logo_wake.png?v=3.008.020" width="220" height="44" alt="In the Wake">
+        <span class="version-badge">v3.008.020</span>
       </div>
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/disability-at-sea.html">Disability at Sea</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/travel.html" aria-current="page">Travel</a>
+        <a href="/cruise-lines.html">Cruise Lines</a>
+        <a href="/about-us.html">About Us</a>
+      </nav>
     </div>
+
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.019" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.020" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008.019" width="256" height="64" alt="In the Wake">
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
+        <img class="logo" src="/assets/logo_wake.png?v=3.008.020" width="220" height="44" alt="In the Wake">
+        <p class="tagline">A Cruise Traveler’s Logbook</p>
       </div>
       <div class="hero-credit">
         <a class="pill long" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty — Instagram</a>
@@ -238,12 +194,12 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   </header>
 
   <!-- Main -->
-  <main class="wrap with-right-rail" id="content" role="main" tabindex="-1" aria-labelledby="page-title">
+  <main class="wrap with-right-rail" id="content" tabindex="-1">
     <!-- LEFT COLUMN -->
     <div class="content-col">
       <!-- Intro (agreed verbiage intact) -->
       <section class="card prose" id="intro">
-        <h1 id="page-title">⚓ Top 20 Questions I’m Asked About Cruising for the First Time</h1>
+        <h1>⚓ Top 20 Questions I’m Asked About Cruising for the First Time</h1>
         <p>Every time I post photos from a sailing, my inbox fills with questions that all begin the same way:</p>
         <p><em>“Okay, be honest — I’ve never cruised before. What do I actually need to know?”</em></p>
         <p>So here it is — my full answer, tea brewed strong and tanged with the salt of experience. These are the twenty questions that come up again and again from first-time cruisers: the things people whisper at sail-away while clutching a mimosa and a little bit of uncertainty.</p>
@@ -388,7 +344,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     </aside>
   </main>
 
-  <!-- Footer (single landmark) -->
+  <!-- Footer -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
@@ -397,170 +353,141 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
 
   <!-- Cache pre-warm (JSONs) -->
   <script>
-  (function(){
-    function warm(){
-      if(!(window.SiteCache && typeof SiteCache.getJSON==='function')) return;
-      try{
-        Promise.all([
-          SiteCache.getJSON('/assets/data/fleet_index.json',{ttlDays:7,versionPath:['version']}),
-          SiteCache.getJSON('/assets/data/venues.json',{ttlDays:7,versionPath:['version']}),
-          SiteCache.getJSON('/assets/data/personas.json',{ttlDays:7,versionPath:['version']}),
-          SiteCache.getJSON('/assets/data/articles/index.json',{ttlDays:7,versionPath:['version']})
-        ]).catch(function(){});
-      }catch(_){}
-    }
-    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', warm, {once:true}); } else { warm(); }
-  })();
+  (function(){async function warm(){try{await Promise.all([
+    SiteCache.getJSON('/assets/data/fleet_index.json',{ttlDays:7,versionPath:['version']}),
+    SiteCache.getJSON('/assets/data/venues.json',{ttlDays:7,versionPath:['meta','version']}),
+    SiteCache.getJSON('/assets/data/personas/index.json',{ttlDays:7,versionPath:['version']}),
+    SiteCache.getJSON('/assets/data/articles/index.json',{ttlDays:7,versionPath:['version']})
+  ]);}catch(_){}} if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',warm,{once:true}); } else { warm(); })();
   </script>
 
   <!-- Service worker -->
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('/sw.js?v=3.008.019').catch(function(){});
+      navigator.serviceWorker.register('/sw.js?v=3.008.020').catch(()=>{});
     });
   }
   </script>
 
-  <!-- Articles rail: JSON index + seed (link to FULL PAGES) -->
+  <!-- Articles rail: JSON index + seeded fallbacks (Ken + Tina + this page) -->
   <script>
   (function(){
-    var mount = document.getElementById('rail-mount');
-    if (!mount) return;
+    const mount = document.getElementById('rail-mount'); if (!mount) return;
 
-    var SRC = '/assets/data/articles/index.json?v=3.008.019';
-    var PLACEHOLDER = '/assets/placeholders/article-thumb.jpg?v=3.008.019';
-    var CONTEXT_TAGS = ['travel'];
+    const SRC = '/assets/data/articles/index.json?v=3.008.020';
+    const PLACEHOLDER = '/assets/placeholders/article-thumb.jpg?v=3.008.020';
+    const AV_PLACEHOLDER = '/assets/placeholders/author.jpg?v=3.008.020';
+    const CONTEXT_TAGS = ['travel'];
 
-    var localSeed = [
+    /* Use the same author images we use elsewhere */
+    const localSeed = [
       {
         id:'top-20-first-cruise-questions',
         title:'Top 20 First-Cruise Questions (Answered)',
         url:'/travel.html',
         date:'2025-10-17',
         excerpt:'A first-person guide to planning, packing, ports, and ship life.',
-        image:'/assets/articles/top-20-questions/cover.jpg?v=3.008.019',
-        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/assets/authors/ken-baker.jpg?v=3.008.019'},
+        image:'/assets/articles/top-20-questions/cover.jpg?v=3.008.020',
+        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/authors/img/ken1.jpg?v=3.008.020'},
         keywords:['travel']
       },
       {
         id:'freedom-of-your-own-wake',
-        title:'Freedom of Your Own Wake',
+        title:'The Freedom of Your Own Wake',
+        /* LINK TO FULL PAGE, not fragment */
         url:'/solo/freedom-of-your-own-wake.html',
         date:'2024-08-14',
         excerpt:'On choosing solitude without being alone.',
-        image:'/assets/articles/solo/freedom-of-your-own-wake.jpg?v=3.008.019',
-        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/assets/authors/ken-baker.jpg?v=3.008.019'},
+        image:'/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.020',
+        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/authors/img/ken1.jpg?v=3.008.020'},
         keywords:['solo','travel']
       },
       {
         id:'why-i-started-solo-cruising',
-        title:'Why I Started Solo Cruising',
+        title:'Why I Started Solo Cruising (and Built a Community)',
+        /* LINK TO FULL PAGE, not fragment */
         url:'/solo/why-i-started-solo-cruising.html',
         date:'2024-06-01',
         excerpt:'From that first solo gangway to a thriving community — freedom found at sea.',
-        image:'/assets/articles/solo/why-i-started-solo-cruising.jpg?v=3.008.019',
-        author:{name:'Tina', url:'/authors/tina.html', image:'/assets/authors/tina.jpg?v=3.008.019'},
+        image:'/assets/articles/why-i-started-solo-cruising.jpg?v=3.008.020',
+        author:{name:'Tina Maulsby', url:'/authors/tina-maulsby.html', image:'/authors/img/tina3.jpg?v=3.008.020'},
         keywords:['solo','travel']
       }
     ];
 
-    function dedupe(arr){
-      var seen={};
-      var out=[];
-      for(var i=0;i<arr.length;i++){
-        var a=arr[i]; var k=a.url||a.id;
-        if(!k || seen[k]) continue;
-        seen[k]=1; out.push(a);
-      }
-      return out;
-    }
-
-    function filterForContext(list){
-      var out=[];
-      for(var i=0;i<list.length;i++){
-        var a=list[i];
-        if(!a || !a.keywords || !a.keywords.length) continue;
-        for(var k=0;k<a.keywords.length;k++){
-          if (CONTEXT_TAGS.indexOf(a.keywords[k])>=0){ out.push(a); break; }
+    function norm(list){
+      return (Array.isArray(list)? list : (list && list.articles) || []).map(a=>{
+        /* If a remote item points to /solo/articles/, rewrite to the full page under /solo/ */
+        var to = a.url || a.permalink || '#';
+        if (/^\/solo\/articles\/.+\.html$/i.test(to)) {
+          to = to.replace('/solo/articles/','/solo/'); /* full page */
         }
+        return {
+          url: to,
+          title: String(a.title || a.headline || 'Article').trim(),
+          excerpt: String(a.dek || a.description || a.excerpt || '').trim(),
+          date: String(a.datePublished || a.date || '').trim(),
+          image: a.image || '',
+          author: a.author || null,
+          keywords: a.keywords || a.tags || []
+        };
+      });
+    }
+    function dedupe(arr){
+      const seen=new Set(); const out=[];
+      for (var i=0;i<arr.length;i++){
+        var k=arr[i].url || arr[i].id; if(!k || seen.has(k)) continue;
+        seen.add(k); out.push(arr[i]);
       }
       return out;
     }
-
+    function filterForContext(list){
+      return list.filter(a=>{
+        var kws = Array.isArray(a.keywords)? a.keywords : [];
+        for (var i=0;i<kws.length;i++) if (CONTEXT_TAGS.indexOf(kws[i])>=0) return true;
+        return false;
+      });
+    }
     function card(a){
       var d = a.date ? new Date(a.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}) : '';
       var img = (a.image && a.image.trim()) || (a.author && a.author.image) || PLACEHOLDER;
       var author = a.author || {};
-      var avatar = author.image
-        ? '<img class="avatar" src="'+author.image+'" alt="'+(author.name||'Author')+'" onerror="this.onerror=null;this.src=\'/assets/placeholders/author.jpg?v=3.008.019\'">'
-        : '';
+      var avatarSrc = author.image || AV_PLACEHOLDER;
+      var avatarAlt = author.name ? author.name : 'Author';
       return '<article class="rail-item">\
         <a class="thumb" href="'+a.url+'">\
           <img src="'+img+'" alt="'+(a.title||'Article image')+'" onerror="this.onerror=null;this.src=\''+PLACEHOLDER+'\'">\
         </a>\
         <div class="meta">\
           <h4><a href="'+a.url+'">'+(a.title||'')+'</a></h4>\
-          <p class="tiny muted">'+d+(author.name ? ' · '+avatar+'<a class="author" href="'+(author.url||'#')+'">'+author.name+'</a>' : '')+'</p>\
+          <p class="tiny muted">'+(d||'')+(author.name ? ' · <img class="avatar" src="'+avatarSrc+'" alt="'+avatarAlt+'" onerror="this.onerror=null;this.src=\''+AV_PLACEHOLDER+'\'"><a class="author" href="'+(author.url||'#')+'">'+author.name+'</a>' : '')+'</p>\
           <p class="tiny">'+(a.excerpt||'')+'</p>\
         </div>\
       </article>';
     }
-
     function render(list){
-      var html=[];
-      for(var i=0;i<list.length;i++){ html.push(card(list[i])); }
-      mount.innerHTML = html.join('');
-    }
-
-    function normalizeJSON(raw){
-      var arr = Array.isArray(raw && raw.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      // If remote uses /solo/articles/, rewrite to full pages (/solo/<slug>.html)
-      for(var i=0;i<arr.length;i++){
-        var u = arr[i].url || '';
-        if (/\/solo\/articles\/[^\/]+\.html/i.test(u)){
-          arr[i].url = u.replace('/solo/articles/','/solo/').replace(/\.html$/,'') + '.html';
-        }
-      }
-      return arr;
+      mount.innerHTML = list.map(card).join('') || '<div class="tiny muted">No related items yet.</div>';
     }
 
     fetch(SRC,{cache:'no-store'})
-      .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
-      .then(function(json){
-        var remote = normalizeJSON(json);
-        var list = dedupe(filterForContext(remote).concat(localSeed));
-        render(list.slice(0,4));
+      .then(r=>r.ok?r.json():Promise.reject())
+      .then(json=>{
+        var remote = norm(json);
+        var list = dedupe([].concat(filterForContext(remote), localSeed)).slice(0,4);
+        render(list);
       })
-      .catch(function(){
+      .catch(()=>{
         render(localSeed.slice(0,3));
       });
-  })();
-  </script>
-
-  <!-- Primary nav: aria-current -->
-  <script>
-  (function(){
-    var nav = document.querySelector('.topbar .pill-nav[aria-label="Primary"]') || document.querySelector('.topbar .pill-nav');
-    if(!nav) return;
-    var here = location.pathname.replace(/\/+$/,'').toLowerCase();
-    var links = nav.querySelectorAll('a[href]');
-    for (var i=0;i<links.length;i++){
-      try{
-        var url = new URL(links[i].getAttribute('href'), location.origin);
-        if (url.pathname.replace(/\/+$/,'').toLowerCase() === here) {
-          links[i].setAttribute('aria-current','page');
-          links[i].classList.add('is-current');
-        }
-      }catch(_){}
-    }
   })();
   </script>
 
   <!-- Invocation Signature -->
   <!--
     Invocation · Soli Deo Gloria
-    Steward: abondservant · Path: /travel.html · Version: v3.008.019 · Timestamp (UTC): 2025-10-17T00:00:00Z
+    Steward: abondservant · Path: /travel.html · Version: v3.008.020 · Timestamp (UTC): 2025-10-19T00:00:00Z
   -->
 </body>
 </html>
