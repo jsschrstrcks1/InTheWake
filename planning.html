@@ -1,270 +1,569 @@
+<!--
+Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.
+
+STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · Right-Rail Articles+Author v3.008.020
+A11y/WCAG Addendum v3.100 · CMP/Consent v3.008.020 · FB Domain Verification v3.008.021
+Page: /planning.html · v3.008.023 · Built: 2025-10-20T00:00:00Z
+GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
+-->
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WZP891PZXJ');
-</script>
-  <!--
-    In the Wake — Invocation Edition v3.006
-    “Soli Deo Gloria.”  1 Cor 10:31 · Prov 3:5–6
-    Authorship: abondservant (a bondservant of Christ)
-    Timestamp: 2025-10-10T00:00:00Z
-  -->
+  <!-- Consent (kept first for autoblocking where required) -->
+  <script type="text/javascript" data-cmp-ab="1"
+    src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+    data-cmp-host="a.delivery.consentmanager.net"
+    data-cmp-cdn="cdn.consentmanager.net"
+    data-cmp-codesrc="16"></script>
 
   <!-- Analytics -->
-  <script defer src="https://cloud.umami.is/script.js"
-          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-
-  <!-- Standards v3.006 — Absolute-URL + Origin Normalizer -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
-  (function(){
-    const ORIGIN = (location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs = p => { p = String(p||''); if(!p.startsWith('/')) p = '/'+p; return ORIGIN+p; };
-    document.addEventListener('DOMContentLoaded',()=>{
-      document.querySelectorAll([
-        'a[href^="https://www.cruisinginthewake.com/"]',
-        'img[src^="https://www.cruisinginthewake.com/"]',
-        'link[href^="https://www.cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]'
-      ].join(',')).forEach(el=>{
-        const attr = el.hasAttribute('href')?'href':'src';
-        try{
-          const u = new URL(el.getAttribute(attr));
-          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
-        }catch(_){}
-      });
-    },{once:true});
-  })();
+    window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config','G-WZP891PZXJ');
   </script>
 
-  <!-- External Link Hardening -->
-  <script>
-  document.addEventListener('click', e =>{
-    const a = e.target.closest && e.target.closest('a[href]');
-    if(!a)return;
-    try{
-      const u = new URL(a.href, location.href);
-      if(u.origin !== location.origin){
-        a.target = '_blank';
-        a.rel = 'noopener';
-      }
-    }catch(_){}
-  },{capture:true});
-  </script>
-
-  <!-- Meta / SEO -->
+  <!-- Core meta -->
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Planning | In the Wake (v3.006)</title>
-  <meta name="version" content="v3.006"/>
-  <meta name="description"
-        content="Plan your voyage with confidence — checklists, tips, and faithful guidance for smooth sailings before you board."/>
-  <meta name="robots" content="index,follow"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0e6e8e">
+  <meta name="version" content="3.008.023"/>
+  <meta name="page:version" content="3.008.023"/>
+  <meta name="standards:baseline" content="3.008"/>
+  <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
 
-  <!-- Canonical & Social -->
-  <link rel="canonical" href="https://cruisinginthewake.com/planning.html"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:url" content="https://www.cruisinginthewake.com/planning.html"/>
-  <meta property="og:title" content="Planning | In the Wake"/>
-  <meta property="og:description"
-        content="Cruise planning made simple — timelines, packing prep, and faith-anchored travel wisdom."/>
-  <meta property="og:image"
-        content="https://www.cruisinginthewake.com/assets/social/planning-hero.jpg?v=3.006"/>
-  <meta name="twitter:card" content="summary_large_image"/>
+  <!-- SEO -->
+  <title>Planning — In the Wake (v3.008.023)</title>
+  <meta name="description" content="Plan your voyage with confidence: calm guidance, state-by-state port details, nearby airports, smart timing, and gentle cautions—curated from real sailings." />
 
-  <!-- Breadcrumb Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"BreadcrumbList",
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/planning.html"/>
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="In the Wake">
+  <meta property="og:url" content="https://www.cruisinginthewake.com/planning.html">
+  <meta property="og:title" content="Planning — In the Wake">
+  <meta property="og:description" content="Cruise planning made simple—timelines, airport-to-port tips, and steady answers in a gentle voice.">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/planning-hero.jpg?v=3.008.023">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Breadcrumb JSON-LD -->
+  <script type="application/ld+json">{
+    "@context":"https://schema.org","@type":"BreadcrumbList",
     "itemListElement":[
       {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
       {"@type":"ListItem","position":2,"name":"Planning","item":"https://www.cruisinginthewake.com/planning.html"}
     ]
-  }
-  </script>
+  }</script>
 
-  <!-- SiteCache + Service Worker -->
-  <script src="/assets/js/site-cache.js" defer></script>
+  <!-- URL normalizer (absolute prod → current origin) -->
   <script>
-  if('serviceWorker'in navigator){
-    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+    function normalize(){
+      const sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+      });
+    }
+    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', normalize, {once:true}); } else { normalize(); }
+  })();
+  </script>
+
+  <!-- External link hardener -->
+  <script>
+  (function(){
+    const here=location.hostname.replace(/^www\./,'');
+    function upgrade(){
+      document.querySelectorAll('a[href]').forEach(a=>{
+        const href=a.getAttribute('href')||'';
+        if (/^(#|mailto:|tel:)/i.test(href)) return;
+        try{
+          const u=new URL(href, location.href);
+          const host=u.hostname.replace(/^www\./,'');
+          if (host !== here || a.rel==='external'){
+            a.target='_blank';
+            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+          }
+        }catch(_){}
+      });
+    }
+    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', upgrade, {once:true}); } else { upgrade(); }
+  })();
+  </script>
+
+  <!-- Site cache & SW -->
+  <script src="/assets/js/site-cache.js?v=3.008.023" defer></script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('/sw.js?v=3.008.023').catch(function(){});
+    });
   }
   </script>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
+  <!-- CSS (global) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008.023">
 
-  <!-- Hero Styling -->
-  <style id="hero-vibrancy">
-    .hero{
-      background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
-      filter:saturate(1.35) contrast(1.12) brightness(1.05);
-    }
-    .hero::before,.hero::after{content:none!important}
-  </style>
+  <!-- LCP image preload -->
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.023" fetchpriority="high">
 
-  <!-- Card Watermark -->
-  <style id="card-watermark">
-    .card{position:relative;overflow:hidden}
-    .card::after{
-      content:"";position:absolute;inset:0;margin:auto;
-      width:min(60%,360px);height:min(60%,360px);
-      background:url('/assets/watermark.png') center/contain no-repeat;
-      opacity:.06;pointer-events:none;
-    }
-  </style>
-
-  <!-- A11y Helpers -->
+  <!-- Page-scoped styles -->
   <style>
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{
-      position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;
-      background:#fff;border:2px solid var(--accent,#0e6e8e);
-      border-radius:10px;z-index:9999;
+    /* Reduced-motion guard */
+    @media (prefers-reduced-motion: reduce){
+      * { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
     }
-    @media(prefers-reduced-motion:reduce){
-      *{animation-duration:.001ms!important;transition-duration:.001ms!important}
-    }
+    /* Skip link */
+    .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .visually-hidden-focusable:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--sea,#0e6e8e);border-radius:10px;z-index:9999}
+    /* Layout: main grid with right rail */
+    .planning-grid{display:grid;gap:1.2rem}
+    @media (min-width:1060px){ .planning-grid{grid-template-columns:minmax(0,1fr) 360px} }
+    /* Hero tune */
+    .hero{ background:url('/assets/index_hero.jpg?v=3.008.023') center/cover no-repeat!important; }
+    .hero::before,.hero::after{ content:none!important }
+    /* Pills */
+    .state-pills,.port-pills{display:flex;flex-wrap:wrap;gap:.4rem .5rem}
+    .state-pills .pill,.port-pills .pill{white-space:nowrap}
+    /* Right rail cards */
+    .rail{display:grid;gap:.9rem}
+    .rail .card .tiny.muted{opacity:.75}
+    .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
+    .rail-item .thumb img{display:block;width:112px;height:72px;object-fit:cover;border-radius:.5rem}
+    .rail-item .avatar{width:20px;height:20px;border-radius:50%;vertical-align:middle;margin-right:.25rem}
+    /* Watermark */
+    .card{position:relative;overflow:hidden}
+    .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);
+      background:url('/assets/watermark.png?v=3.008.023') center/contain no-repeat;opacity:.06;pointer-events:none}
+    /* Inline callouts */
+    .banner{padding:.7rem .9rem;border:1px solid var(--rope,#cfd9df);border-radius:.75rem;background:#fbfdff}
+    .banner.warn{background:#fff8f8;border-color:#ffd1d1}
+    .grid-airports{display:grid;grid-template-columns:1fr;gap:.6rem}
+    @media(min-width:560px){ .grid-airports{grid-template-columns:repeat(2,minmax(0,1fr));} }
+    .airport{padding:.7rem .8rem;border:1px solid var(--rope,#dfe7ee);border-radius:.6rem;background:#fff}
+    .airport .code{font-weight:700}
+    details.qa{border:1px solid var(--rope,#dfe7ee);border-radius:.6rem;padding:.5rem .7rem;background:#fff}
+    details.qa + details.qa{margin-top:.5rem}
   </style>
-
-  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 </head>
 
 <body class="page">
-  <a class="skip-link" href="#content">Skip to main content</a>
+  <!-- Skip link -->
+  <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
 
-  <header class="hero-header">
+  <!-- Header -->
+  <header class="site-header hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png" alt="In the Wake wordmark" width="256" height="64"/>
-        <span class="tiny ver-badge" aria-label="Site version">v3.006</span>
+        <img src="/assets/logo_wake.png?v=3.008.023" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.008.023</span>
       </div>
+
+      <!-- Unified Navigation -->
       <nav class="pill-nav pills" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/ships/">Ships</a>
-        <a href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="/ports.html">Ports</a>
-        <a href="/disability-at-sea.html">Disability at Sea</a>
-        <a href="/drink-packages.html">Drink Packages</a>
-        <a href="/packing-lists.html">Packing Lists</a>
-        <a href="/planning.html" aria-current="page">Planning</a>
-        <a href="/solo.html">Solo</a>
-        <a href="/travel.html">Travel</a>
+        <a href="https://www.cruisinginthewake.com/">Home</a>
+        <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
+        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Accessibility</a>
+        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+        <a href="https://www.cruisinginthewake.com/planning.html" aria-current="page">Planning</a>
+        <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+        <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
         <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
-        <a href="https://www.cruisinginthewake.com/about-us.html">About Us</a>
+        <a href="https://www.cruisinginthewake.com/about-us.html">About</a>
       </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" width="180" height="180"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.023" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64"/>
+        <img class="logo" src="/assets/logo_wake.png?v=3.008.023" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
-        Photo © <a href="https://www.flickersofmajesty.com">Flickers of Majesty</a> · 
-        <a href="https://instagram.com/flickersofmajesty">Instagram</a>
+        <a class="pill long" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <main class="wrap" id="content">
-    <section class="card" aria-labelledby="welcome">
-      <h1 id="welcome">Welcome Aboard</h1>
-      <p><em>In the Wake</em> is a practical cruise companion shaped by real sailings and careful curation.
-         Use it to compare ships, scan menus, scout cabins, and sanity-check tips without losing your bearings.
-         We prioritize family-friendly creators, surface accessibility notes wherever possible, and treat numbers as snapshots in time.
-         Cross-links connect ships, restaurants, and ports so you can verify details from more than one angle.
-         The goal isn’t to sell you on anything—it’s to keep you oriented, remove friction, and help you make confident choices that feel like your idea all along. 
-         Fair winds and following seas.</p>
-    </section>
+  <!-- Main -->
+  <main id="content" class="wrap planning-grid" role="main">
+    <!-- LEFT: Content -->
+    <div>
+      <!-- Part 1: General Planning (blurb + quick tips) -->
+      <section class="card prose" aria-labelledby="planning-intro">
+        <h1 id="planning-intro">Planning That Feels Like Smooth Water</h1>
+        <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
+        <p>Good planning trades hurry for margin. Fly in a day early when you can, keep documents backed up, and give yourself a little space at every hand-off. Our goal is to help you tuck in behind a steady hull—so the chop softens, the course steadies, and decisions feel easy.</p>
+        <div class="banner">
+          <strong>Quick Tips:</strong>
+          <ul>
+            <li>Arrive the day before embarkation; sleep near the port when possible.</li>
+            <li>Keep photos of IDs, insurance, and tickets (and one cloud copy).</li>
+            <li>Book nonstops when you can; delay risk compounds with connections.</li>
+            <li>Pad transfers around <em>rush hour</em>, events, and school breaks.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Part 2: State & Port selector -->
+      <section class="card" aria-labelledby="state-port-selector">
+        <h2 id="state-port-selector">Find Your Departure</h2>
+        <p class="tiny muted">Choose a state, then a port. We’ll show nearby airports, typical drives, and gentle cautions.</p>
+
+        <!-- State pills -->
+        <div class="state-pills" id="state-pills" role="tablist" aria-label="States"></div>
+        <!-- Port pills -->
+        <div class="port-pills" id="port-pills" role="tablist" aria-label="Ports by State" style="margin-top:.6rem"></div>
+
+        <!-- Dynamic port panel -->
+        <div id="port-panel" style="margin-top:1rem">
+          <section class="prose" id="port-blurb"></section>
+          <div class="banner warn tiny" id="seasonal-banner" style="display:none;margin-top:.6rem"></div>
+
+          <h3 style="margin-top:1rem">Nearby Airports &amp; Typical Drives</h3>
+          <div class="grid-airports" id="airports"></div>
+
+          <h3 style="margin-top:1rem">Gentle Cautions</h3>
+          <ul id="warnings" class="tiny"></ul>
+
+          <h3 style="margin-top:1rem">Steady Answers</h3>
+          <div id="qa"></div>
+        </div>
+      </section>
+
+      <!-- Part 3: Timing banners (school breaks) -->
+      <section class="card" aria-labelledby="timing">
+        <h2 id="timing">Timing That Loves Your Future Self</h2>
+        <p>Travel has tides. We’ll nudge you when demand is likely to swell so you can buy earlier, sleep closer, or leave sooner.</p>
+        <div class="banner tiny" id="school-breaks"></div>
+      </section>
+    </div>
+
+    <!-- RIGHT: Rail (Articles + Author) -->
+    <aside class="rail" aria-label="Right rail">
+      <!-- Articles rail -->
+      <section class="card" aria-labelledby="jr-title">
+        <h3 id="jr-title">From the Journal</h3>
+        <p class="tiny muted">Articles from our writers’ wakes.</p>
+        <div class="rail" id="journal-rail"></div>
+        <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
+      </section>
+
+      <!-- Author rail (Ken only on this page) -->
+      <section class="card" aria-labelledby="author-title">
+        <h3 id="author-title">About the Author</h3>
+        <article class="rail-item" role="article">
+          <a class="thumb" href="/authors/ken-baker.html">
+            <img src="/assets/authors/ken-baker.jpg?v=3.008.023" alt="Ken Baker" onerror="this.onerror=null;this.src='/assets/placeholders/author.jpg?v=3.008.023'">
+          </a>
+          <div class="meta">
+            <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+            <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
+            <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a></p>
+          </div>
+        </article>
+      </section>
+    </aside>
   </main>
 
+  <!-- Footer -->
   <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
+    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
+    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.</p>
   </footer>
 
-  <!-- Floating Social Share Bar -->
-  <div id="share-bar" class="share-bar" aria-label="Share this page">
-    <a class="share twitter" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com"
-       target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
-    <a class="share facebook"
-       href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com"
-       target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
-    <a class="share instagram" href="#"
-       onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')"
-       aria-label="Copy link for Instagram">Ig</a>
-    <a class="share whatsapp" href="https://wa.me/?text=https://www.cruisinginthewake.com"
-       target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
-    <a class="share wechat" href="weixin://" aria-label="Share on WeChat">WeChat</a>
-  </div>
+  <!-- Dataset: external fetch with inline fallback -->
+  <script id="planning-dataset-inline" type="application/json">{
+    "version":"0.5",
+    "last_updated":"2025-10-20T00:00:00Z",
+    "ports":[
+      {
+        "port_slug":"tampa","port_name":"Port Tampa Bay","city":"Tampa","state":"FL","region":"Southeast",
+        "primary_lines":["Royal Caribbean","Carnival","Norwegian"],"priority_rank_state":2,
+        "blurb":[
+          "Tampa feels like an easy on-ramp to the Caribbean: compact cruise terminals, friendly logistics, and a waterfront that puts hotels, food, and the Riverwalk within simple reach. If you like calmer vibes than Miami and Port Everglades, Tampa’s your pace.",
+          "Arrive the day before, breathe, and enjoy Ybor City or the Riverwalk sunset. Getting to the terminals is straightforward, and rideshare works well. The channel can fog in on winter mornings, but the city’s hospitality (and cafés) make a delay feel civilized."
+        ],
+        "tips":["Fly in a day early; Tampa runs smooth, but weather/ATC anywhere can ripple.","If driving, price compare port parking vs. hotel ‘park & cruise’ bundles.","Rideshare works well; set pickup a block off the terminal for faster exits.","Sparkman Wharf/Riverwalk are minutes from the berths."],
+        "warnings":["Winter AM fog (Dec–Feb) can slow channel transits.","Rush hour (I-275, I-4, Selmon) 7–9a & 3:30–6:30p may add 20–45 min.","Selmon has cashless tolls—ensure e-toll.","Spring Break surges (Mar–early Apr) + Gasparilla (late Jan)."],
+        "airports":[
+          {"code":"TPA","name":"Tampa International","distance_miles":9,"typical_drive_minutes":"18–30","notes":"Primary; excellent rideshare flow."},
+          {"code":"PIE","name":"St. Pete–Clearwater","distance_miles":20,"typical_drive_minutes":"30–50","notes":"Budget carriers; beach traffic variability."},
+          {"code":"SRQ","name":"Sarasota–Bradenton","distance_miles":48,"typical_drive_minutes":"55–80","notes":"Small/easy; toll options via Selmon."},
+          {"code":"MCO","name":"Orlando Intl","distance_miles":85,"typical_drive_minutes":"90–120","notes":"Widest flights; I-4 work zones may add time."}
+        ],
+        "qa":[
+          {"q":"Day-of flight okay?","a":"We recommend the night before. Delays anywhere can echo. A quiet Riverwalk evening beats sprinting to the gangway."},
+          {"q":"Budget transfer from TPA?","a":"Rideshare is simplest for 1–3; for families, compare a private shuttle or hotel ‘park & cruise’."}
+        ],
+        "status":"active"
+      },
+      {
+        "port_slug":"miami","port_name":"PortMiami","city":"Miami","state":"FL","region":"Southeast",
+        "primary_lines":["Royal Caribbean","Carnival","Norwegian","MSC","Celebrity"],"priority_rank_state":1,
+        "blurb":[
+          "PortMiami is the world’s cruise crossroads: busy, polished, and built to move people. Expect skyline views and the widest itinerary choice in Florida.",
+          "Traffic can be spirited. Padding your schedule is an act of peace. Arrive early, enjoy Brickell or Bayside, and let the port machinery whisk you aboard."
+        ],
+        "tips":["Prefer MIA; closest with most nonstops.","Budget time for causeway backups on embark mornings/Sundays.","Staying in Brickell/Downtown? Short rideshare beats renting.","Eat in Brickell City Centre or Bayside to dodge peak crowds."],
+        "warnings":["Rush hour + cruise surges can double drive times.","Spring Break (early Mar–early Apr) is intense across beaches.","Event spikes: Art Basel, Ultra, F1.","Causeway tolls—ensure rental e-toll."],
+        "airports":[
+          {"code":"MIA","name":"Miami Intl","distance_miles":9,"typical_drive_minutes":"20–35","notes":"Closest; rail/Brightline nearby."},
+          {"code":"FLL","name":"Fort Lauderdale","distance_miles":28,"typical_drive_minutes":"35–60","notes":"Often cheaper; I-95 variability."},
+          {"code":"PBI","name":"Palm Beach","distance_miles":70,"typical_drive_minutes":"75–110","notes":"Smaller; Brightline + rideshare is an option."}
+        ],
+        "qa":[
+          {"q":"MIA or FLL?","a":"MIA is closest. FLL can be cheaper—add 45–60+ min (more in rush hour). If flying day-of, choose MIA."},
+          {"q":"Terminal arrival window?","a":"Honor your assigned time; it’s built for flow. Early can work, but inside your slot is smoothest."}
+        ],
+        "status":"active"
+      },
+      {
+        "port_slug":"port-everglades","port_name":"Port Everglades","city":"Fort Lauderdale","state":"FL","region":"Southeast",
+        "primary_lines":["Royal Caribbean","Celebrity","Princess","Holland America"],"priority_rank_state":3,
+        "blurb":[
+          "Everglades is the efficient sibling of South Florida cruising—fast transfers and short hops from the airport.",
+          "Stay near 17th Street for painless mornings. With the beach and Las Olas close by, pre-cruise evenings already feel like vacation."
+        ],
+        "tips":["FLL→port is ~10–15 min; rideshare is simplest.","Hotels on 17th St often bundle shuttles—compare.","From MIA, add I-95 buffer or take Brightline."],
+        "warnings":["Sundays stack multiple turnarounds—expect peaks.","Spring Break weeks spike prices and traffic.","17th St bridge lifts are brief but bunch traffic."],
+        "airports":[
+          {"code":"FLL","name":"Fort Lauderdale","distance_miles":3,"typical_drive_minutes":"10–15","notes":"Closest/simplest hop."},
+          {"code":"MIA","name":"Miami Intl","distance_miles":28,"typical_drive_minutes":"40–70","notes":"More nonstops; Brightline option."},
+          {"code":"PBI","name":"Palm Beach","distance_miles":50,"typical_drive_minutes":"55–90","notes":"Smaller; works in a pinch."}
+        ],
+        "qa":[
+          {"q":"Port parking or hotel?","a":"Port parking is most convenient on short cruises; for a week, hotel ‘park & cruise’ deals may pencil out better."}
+        ],
+        "status":"active"
+      },
+      {
+        "port_slug":"port-canaveral","port_name":"Port Canaveral","city":"Cape Canaveral","state":"FL","region":"Southeast",
+        "primary_lines":["Royal Caribbean","Disney","Carnival","MSC"],"priority_rank_state":4,
+        "blurb":[
+          "Port Canaveral pairs clean terminals with space-coast energy—beaches minutes away and easy family logistics, especially if you’re adding parks.",
+          "Orlando (MCO) gives flight choice; shared shuttles and private transfers make the 45–60+ minute trip simple if you build in time."
+        ],
+        "tips":["If flying into MCO, target before noon arrivals.","Shared shuttles are cost-effective; private cars win on time.","Stay in Cocoa Beach the night before to skip I-95/528 stress."],
+        "warnings":["I-528 weekend traffic can add 20–40 min.","Holiday weeks, Spring Break, and launches surge demand.","Summer storms can slow highway speeds."],
+        "airports":[
+          {"code":"MCO","name":"Orlando Intl","distance_miles":45,"typical_drive_minutes":"45–70","notes":"Tolls on 528; SunPass or rental e-toll."},
+          {"code":"MLB","name":"Melbourne","distance_miles":26,"typical_drive_minutes":"35–50","notes":"Small/easy; limited routes."},
+          {"code":"SFB","name":"Orlando Sanford","distance_miles":60,"typical_drive_minutes":"60–90","notes":"Budget carriers; longer drive."}
+        ],
+        "qa":[
+          {"q":"Same-day flight?","a":"We advise the night before. If you must same-day, book an early nonstop. Weather and I-4 delays stack quickly."}
+        ],
+        "status":"active"
+      }
+    ],
+    "school_break_signals":{
+      "spring_break":{"window":"mid-Feb → early Apr","notes":"K-12 varies by district (most in March). Colleges peak early–mid March. Expect crowded airports/interstates and pricier hotels."},
+      "fall_break":{"window":"late Sep → mid-Oct","notes":"Adopted by some districts; modest but noticeable demand bump on long weekends."},
+      "other_spikes":["Thanksgiving week","Christmas–New Year’s","Long weekends: MLK, Presidents', Memorial, Labor, Indigenous/Columbus, Veterans"]
+    },
+    "rendering_hints":{"distance_disclaimer":"Times are typical in light–moderate traffic. Rush hour, events, weather, and incidents can extend travel.","show_rush_hour_banner":true,"show_school_break_banner":true}
+  }</script>
 
+  <!-- Journal rail hydrator (uses same image set as Travel/Solo) -->
   <script>
   (function(){
-    const bar=document.getElementById('share-bar');
-    if(!bar)return;
-    const toggle=()=>{ 
-      if(window.scrollY>150){bar.classList.add('visible');}
-      else{bar.classList.remove('visible');}
-    };
-    window.addEventListener('scroll',toggle,{passive:true});
-    toggle();
+    const MOUNT = document.getElementById('journal-rail');
+    const FALL  = document.getElementById('journal-rail-fallback');
+    if (!MOUNT) return;
+    function showFallback(on){ if (!FALL) return; FALL.style.display = on ? '' : 'none'; }
+    const abs=(p)=> (typeof _abs==='function'? _abs(p): p);
+    const SOURCES = [
+      '/assets/data/articles.json?v=3.008.023',
+      '/solo/articles/index.json?v=3.008.023'
+    ];
+    const HARD = [
+      { url:'/solo/articles/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', date:'2025-10-17',
+        dek:'On choosing solitude without being alone.',
+        image:'/assets/index_hero.jpg?v=3.008.023' },
+      { url:'/travel.html', title:'Top 20 First-Cruise Questions (Answered)', date:'2025-10-17',
+        dek:'Planning, packing, ports, and ship life—steady answers.',
+        image:'/assets/articles/top-20-questions/cover.jpg?v=3.008.023' }
+    ];
+    function norm(list){
+      return (Array.isArray(list)?list:(list&&list.articles)||[]).map(a=>({
+        url:abs(a.url||a.permalink||'#'),
+        title:String(a.title||a.headline||'Article').trim(),
+        dek:String(a.dek||a.description||a.excerpt||'').trim(),
+        date:String(a.datePublished||a.date||'').trim(),
+        image:a.image?abs(a.image):''
+      })).filter(a=>/^https?:\/\//.test(a.url)||a.url.startsWith('/'));
+    }
+    async function tryFetch(u){ try{const r=await fetch(abs(u),{cache:'no-store'}); if(!r.ok) throw 0; return norm(await r.json()); }catch(_){return [];} }
+    function card(a){
+      const d=a.date?new Date(a.date).toLocaleDateString():''; const img=a.image||'/assets/placeholders/article-thumb.jpg?v=3.008.023';
+      return `<article class="rail-item"><a class="thumb" href="${a.url}">
+        <img src="${img}" alt="" onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=3.008.023'"></a>
+        <div class="meta"><h4><a href="${a.url}">${a.title}</a></h4>
+        <p class="tiny muted">${d}</p>${a.dek?`<p class="tiny">${a.dek}</p>`:''}</div></article>`;
+    }
+    (async function boot(){
+      showFallback(true);
+      let items=[];
+      for (const src of SOURCES){ items = await tryFetch(src); if (items.length) break; }
+      if (!items.length) items = norm(HARD);
+      MOUNT.innerHTML = items.slice(0,4).map(card).join('');
+      showFallback(false);
+    })();
   })();
   </script>
 
-  <!-- Smart Warmup / Cache -->
+  <!-- Planner runtime (loads external JSON, falls back to inline) -->
   <script>
   (function(){
-    const abs = p => (typeof window._abs==='function'?_abs(p):p);
-    const ready = fn => (document.readyState==='loading'
-       ?document.addEventListener('DOMContentLoaded',fn,{once:true})
-       :fn());
-    const idle = fn => ('requestIdleCallback'in window
-       ?requestIdleCallback(fn,{timeout:2500})
-       :setTimeout(fn,200));
+    const abs=(p)=> (typeof _abs==='function'? _abs(p): p);
 
-    function ensureSiteCache(){
-      return new Promise(res=>{
-        if(window.SiteCache&&typeof SiteCache.getJSON==='function')return res();
-        const s=document.createElement('script');
-        s.src=abs('/assets/js/site-cache.js');s.defer=true;
-        s.onload=res;s.onerror=res;
-        document.head.appendChild(s);
+    const statePills=document.getElementById('state-pills');
+    const portPills =document.getElementById('port-pills');
+    const panel    =document.getElementById('port-panel');
+    const blurb    =document.getElementById('port-blurb');
+    const airports =document.getElementById('airports');
+    const warns    =document.getElementById('warnings');
+    const qaMount  =document.getElementById('qa');
+    const seasonal =document.getElementById('seasonal-banner');
+    const breaksEl =document.getElementById('school-breaks');
+
+    function groupByState(ports){
+      const m=new Map();
+      ports.forEach(p=>{
+        const st=p.state || '—';
+        if(!m.has(st)) m.set(st, []);
+        m.get(st).push(p);
+      });
+      // sort by in-state priority then name
+      for(const [st,list] of m) list.sort((a,b)=>(a.priority_rank_state||99)-(b.priority_rank_state||99) || a.port_name.localeCompare(b.port_name));
+      return m;
+    }
+
+    function chip(label, onclick, current=false){
+      const a=document.createElement('a');
+      a.href="#"; a.className='pill'; a.textContent=label;
+      if(current) a.setAttribute('aria-current','true');
+      a.addEventListener('click',(e)=>{e.preventDefault(); onclick && onclick();});
+      return a;
+    }
+
+    function renderStatePills(map, select){
+      statePills.innerHTML='';
+      Array.from(map.keys()).sort().forEach(st=>{
+        statePills.appendChild(chip(st, ()=>select(st), false));
       });
     }
-    function warm(u){try{fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{});}catch(_){ }}
 
-    ready(()=>{
-      warm(abs('/assets/logo_wake.png'));
-      warm(abs('/assets/compass_rose.svg'));
-      warm(abs('/assets/watermark.png'));
-      idle(async()=>{
-        try{
-          await ensureSiteCache();
-          await Promise.allSettled([
-            SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
-            SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['meta','version']})
-          ]);
-        }catch(_){}
+    function renderPortPills(list, select, activeSlug){
+      portPills.innerHTML='';
+      list.forEach(p=>{
+        const a=chip(p.port_name, ()=>select(p.port_slug), p.port_slug===activeSlug);
+        portPills.appendChild(a);
       });
-    });
+    }
+
+    function htmlEscape(s){ return String(s||'').replace(/[&<>"]/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
+
+    function renderPort(p, meta){
+      // Blurb
+      blurb.innerHTML = (p.blurb||[]).map(par=>`<p>${htmlEscape(par)}</p>`).join('') ||
+        `<p>${htmlEscape(p.port_name)} in ${htmlEscape(p.city)}, ${htmlEscape(p.state)}.</p>`;
+
+      // Seasonal banner
+      const hints = meta.rendering_hints||{};
+      if (hints.show_school_break_banner){
+        const sb = meta.school_break_signals||{};
+        seasonal.style.display='';
+        seasonal.innerHTML = `<strong>Heads-up:</strong> Spring Break (${htmlEscape(sb.spring_break?.window||'varies')}) and Fall Break (${htmlEscape(sb.fall_break?.window||'varies')}) raise fares and traffic. ${htmlEscape(sb.spring_break?.notes||'')}`;
+      } else {
+        seasonal.style.display='none';
+      }
+
+      // Airports
+      airports.innerHTML = (p.airports||[]).map(a=>`
+        <div class="airport">
+          <div><span class="code">${htmlEscape(a.code)}</span> — ${htmlEscape(a.name)}</div>
+          <div class="tiny">${a.distance_miles} mi · ${htmlEscape(a.typical_drive_minutes)} (typical)</div>
+          ${a.notes?`<div class="tiny muted">${htmlEscape(a.notes)}</div>`:''}
+        </div>`).join('') || `<div class="tiny muted">No airport data.</div>`;
+
+      // Warnings
+      warns.innerHTML = (p.warnings||[]).map(w=>`<li>${htmlEscape(w)}</li>`).join('') || `<li class="tiny muted">No special cautions.</li>`;
+
+      // Q&A
+      qaMount.innerHTML = (p.qa||[]).map(q=>`
+        <details class="qa"><summary>${htmlEscape(q.q)}</summary><div class="tiny">${htmlEscape(q.a)}</div></details>
+      `).join('') || `<p class="tiny muted">No questions yet.</p>`;
+    }
+
+    function renderBreaks(meta){
+      const sb=meta.school_break_signals||{};
+      const items = [
+        `<strong>Spring Break:</strong> ${htmlEscape(sb.spring_break?.window||'varies')} — ${htmlEscape(sb.spring_break?.notes||'')}`,
+        `<strong>Fall Break:</strong> ${htmlEscape(sb.fall_break?.window||'varies')} — ${htmlEscape(sb.fall_break?.notes||'')}`,
+        sb.other_spikes ? `<strong>Also Busy:</strong> ${sb.other_spikes.join(', ')}` : ''
+      ].filter(Boolean);
+      breaksEl.innerHTML = items.map(x=>`<div>${x}</div>`).join('');
+    }
+
+    async function loadDataset(){
+      // Try external first, then inline fallback
+      try{
+        const r=await fetch(abs('/assets/data/planning_dataset_v0.5.json?v=3.008.023'),{cache:'no-store'});
+        if(r.ok){ return await r.json(); }
+      }catch(_){}
+      try{
+        const raw=document.getElementById('planning-dataset-inline').textContent;
+        return JSON.parse(raw);
+      }catch(_){ return {"ports":[],"school_break_signals":{},"rendering_hints":{}}; }
+    }
+
+    (async function boot(){
+      const data = await loadDataset();
+      const byState = groupByState(data.ports||[]);
+      renderBreaks(data);
+
+      let currentState = 'FL';           // default to Florida
+      let currentSlug  = 'miami';        // default selection (popular)
+      const selectState = (st)=>{
+        currentState = st;
+        const list = byState.get(st)||[];
+        currentSlug = (list[0] && list[0].port_slug) || '';
+        renderPortPills(list, selectPort, currentSlug);
+        const p=list.find(x=>x.port_slug===currentSlug);
+        if(p) renderPort(p, data);
+      };
+      const selectPort = (slug)=>{
+        currentSlug = slug;
+        const list = byState.get(currentState)||[];
+        renderPortPills(list, selectPort, currentSlug);
+        const p=list.find(x=>x.port_slug===slug);
+        if(p) renderPort(p, data);
+      };
+
+      renderStatePills(byState, selectState);
+      selectState(currentState); // init
+      selectPort(currentSlug);   // init
+    })();
   })();
   </script>
-
-  <!--
-    Invocation Edition Footer Note:
-    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31 · 
-    “Trust in the LORD with all your heart … He will make straight your paths.” — Prov 3:5–6 
-    Signed: abondservant · Soli Deo Gloria.
-  -->
 </body>
 </html>
