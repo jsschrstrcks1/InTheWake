@@ -253,17 +253,17 @@ ADDENDUM: Facebook Domain Verification v3.008.021
 
       async function get(u){ try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }catch(_){ return []; } }
 
-      function card(a){
-        const img = a.image ? `<img src="${esc(a.image)}" alt="${esc(a.title)}" loading="lazy" decoding="async"
-                         onerror="this.closest('.thumb')?.remove();">` : '';
-        const thumb = img ? `<a class="thumb" href="${esc(a.url)}" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#eef4f7">${img}</a>` : '';
-        return `<article class="card post-card" role="article">
-          ${thumb}
-          <h3><a href="${esc(a.url)}">${esc(a.title)}</a></h3>
-          <div class="meta tiny muted">${a.date?toDate(a.date):''}</div>
-          ${a.dek?`<p class="excerpt">${esc(a.dek)}</p>`:''}
-        </article>`;
-      }
+function card(a){
+  const img = a.image ? `<img src="${esc(a.image)}" alt="${esc(a.title)}" loading="lazy" decoding="async"
+       onerror="this.onerror=null; this.src='/assets/index_hero.jpg'; this.closest('.thumb')?.classList.add('no-thumb');">` : '';
+  const thumb = img ? `<a class="thumb" href="${esc(a.url)}" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#eef4f7">${img}</a>` : '';
+  return `<article class="card post-card" role="article">
+    ${thumb}
+    <h3><a href="${esc(a.url)}">${esc(a.title)}</a></h3>
+    <div class="meta tiny muted">${a.date?toDate(a.date):''}</div>
+    ${a.dek?`<p class="excerpt">${esc(a.dek)}</p>`:''}
+  </article>`;
+}
 
       (async function boot(){
         let items=[];
