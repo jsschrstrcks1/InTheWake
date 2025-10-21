@@ -638,3 +638,127 @@ html, body { overflow-x: hidden; }
 
 /* Ensure nav row sits above hero and never gets clipped by a parent */
 .navbar{ z-index: 6; overflow: visible; }
+/* ===== Unified Nav v3.009.002 — grouped pills + disclosure submenus ===== */
+
+/* Container row */
+.navbar{
+  display:flex;
+  align-items:flex-end;
+  gap:.6rem;
+  max-width:1100px;
+  margin:0 auto;
+  padding:.5rem .9rem .35rem;
+  position:relative;
+  z-index:6;                /* float above hero */
+}
+.navbar .brand{flex:0 0 auto}
+.navbar .pill-nav{
+  flex:1 1 auto;
+  min-width:0;              /* critical so row can shrink */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.45rem;
+  white-space:nowrap;
+  flex-wrap:nowrap;         /* single line */
+  overflow-x:auto;          /* scroll when crowded */
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  padding-inline:.75rem;    /* breathing room at edges */
+  scroll-padding-inline:.75rem;
+  /* soft fade at edges (safe no-op outside WebKit) */
+  mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+  -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+}
+
+/* Pill chips (links AND buttons share styling) */
+.pill-nav a,
+.pill-nav button.nav-disclosure{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  padding:.35rem .7rem;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid var(--rope, #d9b382);
+  color:var(--accent, #0e6e8e);
+  font:inherit;
+  font-size:.9rem;
+  line-height:1.2;
+  cursor:pointer;
+  text-decoration:none;
+}
+.pill-nav a:hover,
+.pill-nav button.nav-disclosure:hover{
+  background:#f9fdfd;
+  text-decoration:none;
+}
+
+/* Current page chip */
+.pill-nav a[aria-current="page"]{
+  outline:3px dashed var(--rope, #d9b382);
+  outline-offset:2px;
+  box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
+}
+
+/* Group wrapper + submenu */
+.nav-group{position:relative;display:inline-block}
+.nav-disclosure svg{width:14px;height:14px}
+
+/* Hidden by default; toggled via [data-open="true"] from a tiny JS helper */
+.submenu{
+  position:absolute;
+  left:0;
+  top:calc(100% + 6px);
+  min-width:220px;
+  background:#fff;
+  border:1px solid var(--rope, #d9b382);
+  border-radius:12px;
+  padding:.35rem;
+  box-shadow:0 8px 24px rgba(8,48,65,.12);
+  display:none;
+  z-index:20;
+}
+.nav-group[data-open="true"] .submenu{ display:block; }
+
+/* Submenu items */
+.submenu a{
+  display:block;
+  padding:.35rem .6rem;
+  border-radius:8px;
+  border:1px solid transparent;
+  color:inherit;
+  white-space:nowrap;
+}
+.submenu a:hover{
+  background:#f9fdfd;
+  border-color:#ecd7b7;
+  text-decoration:none;
+}
+
+/* Focus visibility (keyboard a11y) */
+.pill-nav a:focus-visible,
+.pill-nav button.nav-disclosure:focus-visible,
+.submenu a:focus-visible{
+  outline:3px solid #0e6e8e;
+  outline-offset:2px;
+}
+
+/* Hover-only fallback (no JS): show menus on hover for pointer devices */
+@media (hover:hover){
+  .nav-group:hover .submenu{ display:block; }
+}
+
+/* Reduced motion: stop dropdown fades/animations if you later add them */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+
+/* Safety: hero overflow (keeps chips from being clipped by full-bleed images) */
+html, body{ overflow-x:hidden }
+.hero-header > .hero{
+  width:100% !important;
+  margin-left:0 !important;
+  overflow-x:clip !important;
+}
