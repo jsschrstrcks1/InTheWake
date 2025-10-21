@@ -5,7 +5,7 @@ All work on this project is offered as a gift to God.
 “Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
 
 STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · A11y/WCAG Addendum v3.100
-ADDENDUM: Facebook Domain Verification v3.008.021
+ADDENDUM: Facebook Domain Verification v3.008.033
 -->
 <!doctype html>
 <html lang="en">
@@ -15,13 +15,14 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
+  <meta name="color-scheme" content="light dark">
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
-  <!-- Title / Version Trinity -->
-  <title>About Us — In the Wake (v3.008.021)</title>
-  <meta name="version" content="v3.008.021">
-  <meta name="page:version" content="v3.008.021">
-  <meta name="standards:baseline" content="3.008">
+  <!-- Title / Version -->
+  <title>About Us — In the Wake</title>
+  <meta name="version" content="3.008.033">
+  <meta name="page:version" content="3.008.033">
+  <meta name="standards:baseline" content="3.008"/>
 
   <!-- Canonical & Description -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/about-us.html">
@@ -34,14 +35,14 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta property="og:url" content="https://www.cruisinginthewake.com/about-us.html">
   <meta property="og:title" content="About Us — In the Wake">
   <meta property="og:description" content="Meet the crew behind In the Wake — real cruisers writing from real voyages.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/about-us.jpg?v=3.008">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/about-us.jpg?v=3.008.033">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Global Styles -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.033">
 
   <!-- Preload Hero -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008" fetchpriority="high">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.033" fetchpriority="high">
 
   <!-- CMP Autoblocking -->
   <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js" data-cmp-host="a.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
@@ -49,8 +50,10 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
-    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date()); gtag('config','G-WZP891PZXJ');
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
   </script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
@@ -60,10 +63,12 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(p){p=String(p||''); if(!p.startsWith('/'))p='/'+p; return ORIGIN+p;};
     function normalize(){
-      const sel=['a[href^="https://www.cruisinginthewake.com/"]',
-                 'img[src^="https://www.cruisinginthewake.com/"]',
-                 'link[href^="https://www.cruisinginthewake.com/"]',
-                 'script[src^="https://www.cruisinginthewake.com/"]'].join(',');
+      const sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
       document.querySelectorAll(sel).forEach(el=>{
         const attr=el.hasAttribute('href')?'href':'src';
         try{const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
@@ -97,43 +102,42 @@ ADDENDUM: Facebook Domain Verification v3.008.021
 
   <!-- Hero tune -->
   <style>
-    .hero{background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008') center/cover no-repeat!important;}
-    .hero::before,.hero::after{content:none!important}
+    .hero{background:url('/assets/index_hero.jpg?v=3.008.033') center/cover no-repeat!important;min-height:240px;position:relative}
+    .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
+    .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600}
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:.75rem;top:.75rem;width:auto;height:auto;background:#fff;border:2px solid var(--rope);border-radius:12px;padding:.5rem .75rem;z-index:1000}
+    /* Current page highlight (unified) */
+    .navbar a.is-active,.navbar a[aria-current="page"]{outline:2px dashed #c8a36a;background:#fff;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
   </style>
 </head>
 
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
 
-  <!-- Header -->
-  <header class="hero-header">
-    <div class="navbar">
-      <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008" width="256" height="64" alt="In the Wake wordmark">
-        <span class="version-badge">v3.008.021</span>
+  <!-- Header (Unified Nav) -->
+  <header class="hero-header" role="banner">
+    <nav class="navbar pill-nav pills" role="navigation" aria-label="Primary">
+      <div class="brand" aria-hidden="true">
+        <img src="/assets/logo_wake.png?v=3.008.033" width="256" height="64" alt="">
+        <span class="version-badge">v3.008.033</span>
       </div>
-      <nav class="pill-nav pills" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/ships/">Ships</a>
-        <a href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="/ports.html">Ports</a>
-        <a href="/disability-at-sea.html">Disability at Sea</a>
-        <a href="/drink-packages.html">Drink Packages</a>
-        <a href="/packing-lists.html">Packing Lists</a>
-        <a href="/planning.html">Planning</a>
-        <a href="/solo.html">Solo</a>
-        <a href="/travel.html">Travel</a>
-        <a href="/cruise-lines.html">Cruise Lines</a>
-        <a href="/about-us.html" aria-current="page">About</a>
-      </nav>
-    </div>
+      <a href="/">Home</a>
+      <a href="/ships/index.html">Ships</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/planning.html">Planning</a>
+      <a href="/drinks.html">Drink Packages</a>
+      <a href="/packing-lists.html">Packing Lists</a>
+      <a href="/disability.html">Accessibility</a>
+      <a href="/cruise-lines.html">Cruise Lines</a>
+      <a href="/solo.html">Solo</a>
+      <a href="/travel.html">Travel</a>
+      <a href="/about-us.html" aria-current="page">About</a>
+    </nav>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008" width="180" height="180" alt="" aria-hidden="true">
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008" width="256" height="64" alt="In the Wake">
-      </div>
-      <div class="tagline">Smooth Water Ahead</div>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.033" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-credit">
         <a class="pill long" href="https://flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
@@ -158,22 +162,47 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
+  <!-- Alias-aware current nav highlighter (handles legacy paths) -->
+  <script>
+  (function(){
+    const norm=p=>{try{return new URL(p,location.origin).pathname.replace(/\/index\.html$/i,'/').replace(/\/+$/,'/').toLowerCase()||'/';}catch(e){return'/';}};
+    const here=norm(location.pathname);
+    const ALIASES=new Map([
+      ['/','/'],
+      ['/ships/','/ships/'],
+      ['/ships/index.html','/ships/'],
+      ['/ships/ships.html','/ships/'],
+      ['/drink-packages.html','/drinks.html'],
+      ['/disability-at-sea.html','/disability.html'],
+      ['/about.html','/about-us.html']
+    ]);
+    const canon=p=>ALIASES.get(p)||p;
+    document.querySelectorAll('.navbar a[href]').forEach(a=>{
+      const t=norm(a.getAttribute('href'));
+      if(canon(t)===canon(here)){a.setAttribute('aria-current','page');a.classList.add('is-active');}
+    });
+  })();
+  </script>
+
   <!-- Accessibility script -->
-  <script type="text/javascript" src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js" data-acc-accid="774c13e29978" data-acc-host="delivery.consentmanager.net" data-acc-cdn="cdn.consentmanager.net"></script>
+  <script src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js"
+          data-acc-accid="774c13e29978"
+          data-acc-host="delivery.consentmanager.net"
+          data-acc-cdn="cdn.consentmanager.net"></script>
 
   <!-- Service Worker -->
   <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',function(){
-      navigator.serviceWorker.register('/sw.js?v=3.008').catch(()=>{});
-    });
-  }
+    if('serviceWorker' in navigator){
+      addEventListener('load',function(){
+        navigator.serviceWorker.register('/sw.js?v=3.008.033').catch(()=>{});
+      });
+    }
   </script>
 
   <!-- Invocation -->
   <!--
     Invocation · Soli Deo Gloria
-    Steward: abondservant · Path: /about-us.html · Version: v3.008.021 · Timestamp (UTC): 2025-10-19T00:00:00Z
+    Steward: abondservant · Path: /about-us.html · Version: 3.008.033 · Timestamp (UTC): 2025-10-20T00:00:00Z
   -->
 </body>
 </html>
