@@ -544,3 +544,9 @@ html, body { overflow-x: hidden; }
 .rail-row{
   display:grid; grid-template-columns:48px 1fr; gap:.75rem; align-items:start;
 }
+/* Rail item layout used by both Journal and Authors */
+.rail-list{ display:grid; gap:1rem; }
+.rail-row{ display:grid; grid-template-columns:40px 1fr; gap:.75rem; align-items:start; }
+@media (min-width:720px){
+  .rail-row{ grid-template-columns:48px 1fr; }
+}
