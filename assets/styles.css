@@ -762,3 +762,34 @@ html, body{ overflow-x:hidden }
   margin-left:0 !important;
   overflow-x:clip !important;
 }
+/* Unified Nav essentials (keep/ensure these exist) */
+.navbar{ z-index:6; overflow:visible; }            /* chips & menus never clipped */
+.nav-group{ position:relative; display:inline-block; }
+.submenu{
+  position:absolute; left:0; top:calc(100% + 6px);
+  min-width:220px; background:#fff; border:1px solid var(--rope);
+  border-radius:12px; padding:.35rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
+  display:none; z-index:20;
+}
+.nav-group[data-open="true"] .submenu{ display:block; }
+
+/* Hover fallback (works even if JS fails) */
+@media (hover:hover){
+  .nav-group:hover .submenu{ display:block; }
+}
+
+/* Keep hero from covering the nav row on full-bleed headers */
+.hero-header > .hero{
+  position:relative; z-index:-1;
+  width:100% !important; margin-left:0 !important; overflow-x:clip !important;
+}
+
+/* Pill row: single-line with scroll & soft edges */
+.pill-nav{
+  flex:1 1 auto; min-width:0; display:flex; align-items:center; justify-content:center;
+  gap:.45rem; white-space:nowrap; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
+  -webkit-overflow-scrolling:touch; scrollbar-width:thin; padding-inline:.75rem;
+  scroll-padding-inline:.75rem;
+  mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+  -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+}
