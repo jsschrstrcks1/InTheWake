@@ -81,6 +81,25 @@ Page: /about-us.html · v3.009.001 (inline prototype)
       background:url('/assets/index_hero.jpg') center/cover no-repeat;
       display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;
     }
+    /* Restored: over-image title block */
+    .hero .latlon-grid{position:absolute;inset:0;pointer-events:none}
+    .hero-title{
+      position:absolute;
+      left:min(3vw,1rem);
+      bottom:clamp(.6rem,2vw,1.4rem);
+      z-index:3;display:flex;align-items:flex-end;gap:.6rem;
+      text-shadow:0 2px 6px rgba(0,0,0,.45);
+    }
+    .hero-title .logo{
+      width:clamp(189px,23.1vw,378px);
+      max-width:min(45vw,520px);
+      filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));
+    }
+    .hero .tagline{
+      font-weight:700;letter-spacing:.2px;color:#e6f4f8;
+      font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;
+    }
+
     .hero .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
     .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15);text-decoration:none}
@@ -163,8 +182,16 @@ Page: /about-us.html · v3.009.001 (inline prototype)
       </nav>
     </div>
 
+    <!-- Restored hero title block (logo + tagline) -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="">
+      <div class="latlon-grid" aria-hidden="true"></div>
+
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-credit"><a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
     </div>
   </header>
@@ -207,7 +234,7 @@ Page: /about-us.html · v3.009.001 (inline prototype)
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — All work on this project is offered to God.</p>
+    <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
   </footer>
 
   <!-- ===== Runtime (authors + journal + dropdown a11y) ===== -->
@@ -236,7 +263,7 @@ Page: /about-us.html · v3.009.001 (inline prototype)
     });
 
     /* --------- Helpers --------- */
-    const esc = s => String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+    const esc = s => String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;","/>":"&gt;",'"':"&quot;"}[m]));
     const safeDate = d => { const t=Date.parse(d||''); return isNaN(t)?'':new Date(t).toLocaleDateString(); };
 
     /* --------- Authors map (canonical avatars) --------- */
