@@ -5,26 +5,25 @@
   <script type="text/javascript" data-cmp-ab="1"
           src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
           data-cmp-host="a.delivery.consentmanager.net"
-          data-cmp-cdn="cdn.consentmanager.net"
-          data-cmp-codesrc="16"></script>
+          data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
 
   <!-- Core Meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
 
-  <!-- Title / Version Trinity -->
-  <title>Packing Lists — In the Wake (v3.008.027)</title>
-  <meta name="version" content="v3.008.027"/>
-  <meta name="page:version" content="v3.008.027"/>
-  <meta name="standards:baseline" content="3.008"/>
+  <!-- Title / Version -->
+  <title>Packing Lists — In the Wake (v3.009.005)</title>
+  <meta name="version" content="v3.009.005"/>
+  <meta name="page:version" content="3.009.005"/>
+  <meta name="standards:baseline" content="3.009"/>
 
   <!-- Canonical & Description -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/packing-lists.html"/>
   <meta name="description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
-  <meta name="robots" content="index, follow"/>
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website"/>
@@ -32,20 +31,18 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/packing-lists.html"/>
   <meta property="og:title" content="Packing Lists — In the Wake"/>
   <meta property="og:description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/packing-hero.jpg?v=3.008.027"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/packing-hero.jpg?v=3.009.005"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- JSON-LD: Breadcrumbs -->
-  <script type="application/ld+json">
-  {
+  <script type="application/ld+json">{
     "@context":"https://schema.org",
     "@type":"BreadcrumbList",
     "itemListElement":[
       {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
       {"@type":"ListItem","position":2,"name":"Packing Lists","item":"https://www.cruisinginthewake.com/packing-lists.html"}
     ]
-  }
-  </script>
+  }</script>
 
   <!-- Absolute URL normalizer -->
   <script>
@@ -78,115 +75,127 @@
     function upgrade(){
       document.querySelectorAll('a[href]').forEach(a=>{
         const href=a.getAttribute('href')||'';
-        if (/^(#|mailto:|tel:)/i.test(href)) return;
+        if(/^(#|mailto:|tel:)/i.test(href)) return;
         try{
           const u=new URL(href, location.href);
-          const host=u.hostname.replace(/^www\./,'');
-          if (host !== here || a.rel==='external'){
+          if(u.hostname.replace(/^www\./,'')!==here || a.rel==='external'){
             a.target='_blank';
-            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+            const parts=(a.rel||'').split(/\s+/).filter(Boolean);
+            if(!parts.includes('noopener')) parts.push('noopener');
+            if(!parts.includes('noreferrer')) parts.push('noreferrer');
+            a.rel=parts.join(' ');
           }
         }catch(_){}
       });
     }
-    if (document.readyState==='loading'){document.addEventListener('DOMContentLoaded', upgrade, {once:true});} else { upgrade(); }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});} else { upgrade(); }
   })();
   </script>
 
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
-    window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date()); gtag('config','G-WZP891PZXJ');
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
   </script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Site cache + SW -->
-  <script src="/assets/js/site-cache.js?v=3.008.027" defer></script>
+  <!-- Site cache + SW (versioned) -->
+  <script src="/assets/js/site-cache.js?v=3.009.005" defer></script>
   <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load', ()=>navigator.serviceWorker.register('/sw.js?v=3.008.027').catch(()=>{}));
-  }
+    if('serviceWorker' in navigator){
+      addEventListener('load', ()=>navigator.serviceWorker.register('/sw.js?v=3.009.005').catch(()=>{}));
+    }
   </script>
 
   <!-- CSS (global) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008.027"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.009.005"/>
 
   <!-- LCP image preload -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.027" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.005" fetchpriority="high"/>
 
-  <!-- Page-scoped styles -->
+  <!-- Page-scoped styles (layout only) -->
   <style>
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
     }
     /* Skip link */
-    .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .visually-hidden-focusable:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--accent,#0e6e8e);border-radius:10px;z-index:10000}
-
-    /* Hero tune */
-    .hero{ background:url('/assets/index_hero.jpg?v=3.008.027') center/cover no-repeat!important; }
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--accent,#0e6e8e);border-radius:10px;z-index:10000}
+    /* Hero tune (use versioned image) */
+    .hero{ background:url('/assets/index_hero.jpg?v=3.009.005') center/cover no-repeat!important; }
     .hero::before,.hero::after{ content:none!important }
-
     /* Layout: content + right rail */
     .with-right-rail{display:grid;gap:1.2rem}
-    @media (min-width:980px){ .with-right-rail{grid-template-columns:2fr 1.2fr} }
+    @media (min-width:980px){ .with-right-rail{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)} }
     .content-col{min-width:0}
     .right-rail{position:sticky;top:1rem;align-self:start}
     @media (max-width:1024px){ .right-rail{position:static} }
-
-    /* Watermark safety on cards */
+    /* Gentle watermark on cards */
     .card{position:relative;overflow:hidden}
-    .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.008.027') center/contain no-repeat;opacity:.06;pointer-events:none}
-
-    /* Right-rail blocks */
+    .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.009.005') center/contain no-repeat;opacity:.06;pointer-events:none}
+    /* Articles rail */
     .rail{display:grid;gap:.9rem}
     .rail .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
     .rail .thumb{width:112px;height:72px;border-radius:10px;background:#eef4f7;overflow:hidden}
     .rail .thumb img{width:100%;height:100%;object-fit:cover;display:block}
     .rail .meta h4{margin:.1rem 0 .25rem;font-size:1.05rem}
-
-    /* Sticky section pills */
+    /* Section pills (on-page nav) */
     #section-nav{position:sticky;top:0;z-index:6;background:var(--sky);padding:.4rem .2rem;border-bottom:2px solid var(--rope);margin-bottom:1rem}
   </style>
 </head>
 
 <body class="page">
   <!-- Skip link -->
-  <a class="visually-hidden-focusable" href="#content">Skip to content</a>
+  <a class="skip-link" href="#content">Skip to content</a>
 
-  <!-- Header / Nav -->
-  <header class="hero-header">
+  <!-- Unified header + nav (v3.009) -->
+  <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008.027" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.008.027</span>
+        <img src="/assets/logo_wake.png?v=3.009.005" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.009.005</span>
       </div>
+
       <nav class="pill-nav pills" aria-label="Primary">
-        <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing-lists.html" aria-current="page">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
-        <a href="https://www.cruisinginthewake.com/about-us.html">About</a>
+        <a class="chip" href="/">Home</a>
+
+        <div class="nav-item nav-group" id="nav-planning">
+          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ships/">Ships</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/cruise-lines/">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html" aria-current="page">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <div class="nav-item nav-group" id="nav-travel">
+          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="chip" href="/about-us.html">About</a>
       </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.027" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.009.005" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008.027" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.009.005" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com">Flickers of Majesty</a></div>
+      <div class="hero-credit">Photo © <a href="https://www.flickersofmajesty.com" rel="noopener" target="_blank">Flickers of Majesty</a></div>
     </div>
   </header>
 
@@ -355,9 +364,7 @@
           <div class="tip-body"><p>Fun, optional. Check your line’s app for details.</p></div>
         </details>
         <details><summary>22) Social Media Groups</summary>
-          <div class="tip-body">
-            <p>Find roll calls on Cruise Critic or Facebook (use ship name + full date).</p>
-          </div>
+          <div class="tip-body"><p>Find roll calls on Cruise Critic or Facebook (use ship name + full date).</p></div>
         </details>
 
         <h3 id="tips-docs">Documents &amp; Safety</h3>
@@ -378,13 +385,13 @@
 
     <!-- RIGHT: rails -->
     <aside class="right-rail" aria-label="Right rail">
-      <!-- Author rail (Ken only) -->
+      <!-- Author rail -->
       <section class="card" aria-labelledby="author-title">
         <h3 id="author-title">About the Author</h3>
         <div class="rail">
           <article class="rail-item">
             <div class="thumb" style="width:72px;height:72px;border-radius:50%;overflow:hidden;background:#eef4f7">
-              <img class="author-avatar" src="/authors/img/ken1.webp?v=3.008.027" alt="Ken Baker" width="72" height="72" loading="lazy" decoding="async">
+              <img class="author-avatar" src="/authors/img/ken1.webp?v=3.009.005" alt="Ken Baker" width="72" height="72" loading="lazy" decoding="async">
             </div>
             <div class="meta">
               <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -413,8 +420,11 @@
     <div class="tiny center">Soli Deo Gloria.</div>
   </footer>
 
+  <!-- Unified Nav behavior -->
+  <script src="/assets/js/newnav.js?v=3.009.005" defer></script>
+
   <!-- Floating Share Bar -->
-  <script defer src="/assets/js/share-bar.js?v=3.008.027"></script>
+  <script defer src="/assets/js/share-bar.js?v=3.009.005"></script>
 
   <!-- Smart warmup -->
   <script>
@@ -425,13 +435,13 @@
     function ensureSiteCache(){
       return new Promise(res=>{
         if(window.SiteCache&&typeof SiteCache.getJSON==='function') return res();
-        const s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.008.027'); s.defer=true;
+        const s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.005'); s.defer=true;
         s.onload=res; s.onerror=res; document.head.appendChild(s);
       });
     }
-    function warmImages(list){ (list||[]).forEach(u=>{ try{ fetch(u,{cache:'no-store',mode:'no-cors'}); }catch(_){}}); }
+    function warmImages(list){ (list||[]).forEach(u=>{ try{ fetch(u,{cache:'no-store',mode:'no-cors'}) }catch(_){}}); }
     ready(()=>{
-      warmImages([abs('/assets/logo_wake.png?v=3.008.027'),abs('/assets/compass_rose.svg?v=3.008.027'),abs('/assets/watermark.png?v=3.008.027')]);
+      warmImages([abs('/assets/logo_wake.png?v=3.009.005'),abs('/assets/compass_rose.svg?v=3.009.005'),abs('/assets/watermark.png?v=3.009.005')]);
       idle(async ()=>{ try{
         await ensureSiteCache();
         await Promise.allSettled([
@@ -442,8 +452,7 @@
   })();
   </script>
 
-  <!-- Articles rail hydrator (uses same images as Travel/Solo) -->
-    <!-- Articles rail hydrator (v3.008.028 — Freedom hero override) -->
+  <!-- Articles rail hydrator -->
   <script>
   (function(){
     const MOUNT=document.getElementById('rail-mount');
@@ -452,34 +461,32 @@
     function showFall(on){ if(FALL) FALL.style.display=on?'':'none'; }
 
     const abs=p=>(typeof _abs==='function'?_abs(p):p);
-    const SRC='/assets/data/articles/index.json?v=3.008.028';
-    const PLACEHOLDER='/assets/placeholders/article-thumb.jpg?v=3.008.028';
+    const SRC='/assets/data/articles/index.json?v=3.009.005';
+    const PLACEHOLDER='/assets/placeholders/article-thumb.jpg?v=3.009.005';
 
-    /* Seed matches Travel/Solo imagery */
     const SEED=[
       {
         url:'/travel.html',
         title:'Top 20 First-Cruise Questions (Answered)',
         date:'2025-10-16',
         excerpt:'A first-person guide to planning, packing, ports, and ship life.',
-        image:'/assets/articles/top-20-questions/cover.jpg?v=3.008.028',
-        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v=3.008.028'}
+        image:'/assets/articles/top-20-questions/cover.jpg?v=3.009.005',
+        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v=3.009.005'}
       },
       {
-        url:'/solo/articles/freedom-of-your-own-wake.html',
+        url:'/solo/freedom-of-your-own-wake.html',
         title:'Freedom of Your Own Wake',
         date:'2024-08-13',
         excerpt:'On choosing solitude without being alone.',
-        /* Updated hero per user: index_hero.jpg */
-        image:'/assets/index_hero.jpg?v=3.008.028',
-        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v=3.008.028'}
+        image:'/assets/index_hero.jpg?v=3.009.005',
+        author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v=3.009.005'}
       }
     ];
 
     function card(a){
       const d=a.date?new Date(a.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}):'';
       const img=(a.image&&a.image.trim())||(a.author&&a.author.image)||PLACEHOLDER;
-      const avatar=(a.author&&a.author.image)||'/authors/img/ken1.webp?v=3.008.028';
+      const avatar=(a.author&&a.author.image)||'/authors/img/ken1.webp?v=3.009.005';
       const authorName=(a.author&&a.author.name)||'Ken Baker';
       const authorUrl=(a.author&&a.author.url)||'/authors/ken-baker.html';
       return `<article class="rail-item">
@@ -487,7 +494,7 @@
         <div class="meta">
           <h4><a href="${a.url}">${a.title||''}</a></h4>
           <p class="tiny muted">${d} · 
-            <img class="author-avatar" src="${avatar}" alt="${authorName}" 
+            <img class="author-avatar" src="${avatar}" alt="${authorName}"
               style="width:18px;height:18px;border-radius:50%;vertical-align:-3px;margin-right:.25rem">
             <a href="${authorUrl}">${authorName}</a>
           </p>
@@ -508,15 +515,15 @@
   })();
   </script>
 
-  <!-- Avatar harmonizer (Ken everywhere) -->
+  <!-- Avatar harmonizer -->
   <script>
   (function(){
     const CANDIDATES=[
-      '/authors/img/ken1.webp?v=3.008.027',
-      '/authors/img/ken1.jpg?v=3.008.027',
-      '/authors/img/ken1.png?v=3.008.027'
+      '/authors/img/ken1.webp?v=3.009.005',
+      '/authors/img/ken1.jpg?v=3.009.005',
+      '/authors/img/ken1.png?v=3.009.005'
     ];
-    const FALL='/assets/placeholders/author.jpg?v=3.008.027';
+    const FALL='/assets/placeholders/author.jpg?v=3.009.005';
     function choose(el, list){
       let i=0;
       function next(){
@@ -533,10 +540,7 @@
   })();
   </script>
 
-  <!-- Invocation signature -->
-  <!--
-    Soli Deo Gloria · Steward: abondservant
-    Path: /packing-lists.html · Version: v3.008.027 · UTC: 2025-10-20T00:00:00Z
-  -->
+  <!-- Signature -->
+  <!-- Soli Deo Gloria · Steward: abondservant · Path: /packing-lists.html · Version: v3.009.005 · UTC build -->
 </body>
 </html>
