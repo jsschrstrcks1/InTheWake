@@ -1,66 +1,51 @@
 <!--
 Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
-
-STANDARDS (INLINE): Core v3.009 · Unified Nav v3.009 (dropdowns)
-A11y/WCAG Addendum v3.100 · Cache/SW v3.x · JSON-LD WebSite+SearchAction
-Page: /index.html · v3.009.004 (inline)
-Built: 2025-10-20T00:00:00Z
+Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- CMP (Consent Manager) -->
-  <script type="text/javascript" data-cmp-ab="1"
-    src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
-    data-cmp-host="a.delivery.consentmanager.net"
-    data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
+  <!-- Consent (first to honor autoblocking) -->
+  <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js" data-cmp-host="a.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
 
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-  <script>
-    window.dataLayer=window.dataLayer||[];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);} gtag('js',new Date()); gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
 
   <!-- Core meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="version" content="v3.009.004"/>
-  <meta name="standards:baseline" content="3.009"/>
-  <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
-  <meta name="theme-color" content="#0a3d62">
-  <meta name="color-scheme" content="light dark">
-
+  <meta name="page:version" content="3.009.003">
+  <meta name="standards:baseline" content="3.009">
   <title>In the Wake | A Cruise Traveler’s Logbook & Planning Companion</title>
-  <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship guides, menu scans, port snapshots, accessibility notes, and solo travel tips—based on real sailings.">
+  <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship reviews, menu scans, port snapshots, accessibility notes, and solo travel tips based on real sailings.">
+  <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
 
-  <!-- Canonical -->
+  <!-- Canonical & Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/"/>
-
-  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="In the Wake">
   <meta property="og:url" content="https://www.cruisinginthewake.com/">
   <meta property="og:title" content="In the Wake | A Cruise Traveler’s Logbook & Planning Companion">
-  <meta property="og:description" content="Ship guides, menus, ports, accessibility notes, and trip-tested planning from real sailings.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.004">
+  <meta property="og:description" content="Ship reviews, menus, ports, accessibility notes, and trip-tested planning from real sailings.">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.003">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- PWA / icons -->
   <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0a3d62">
+  <meta name="color-scheme" content="light dark">
   <link rel="icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <!-- Absolute-URL normalizer (prod → current origin) -->
+  <!-- URL normalizer (prod → current origin) -->
   <script>
   (function(){
     var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(p){ p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p; };
+    window._abs=function(path){ path=String(path||''); if(!path.match(/^\//)) path='/'+path; return ORIGIN+path; };
     function normalize(){
       var sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
@@ -73,7 +58,7 @@ Built: 2025-10-20T00:00:00Z
         try{ var u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
       });
     }
-    if (document.readyState==='loading'){ addEventListener('DOMContentLoaded', normalize, {once:true}); } else { normalize(); }
+    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', normalize, {once:true}); } else { normalize(); }
   })();
   </script>
 
@@ -81,24 +66,23 @@ Built: 2025-10-20T00:00:00Z
   <script>
   (function(){
     var here=location.hostname.replace(/^www\./,'');
-    function harden(){
+    function upgrade(){
       document.querySelectorAll('a[href]').forEach(function(a){
         var href=a.getAttribute('href')||'';
         if (/^(#|mailto:|tel:)/i.test(href)) return;
         try{
           var u=new URL(href, location.href);
-          var host=u.hostname.replace(/^www\./,'');
-          if (host!==here || /\bexternal\b/.test(a.rel||'')){
+          if(u.hostname.replace(/^www\./,'')!==here || a.rel==='external'){
             a.target='_blank';
             var parts=(a.rel||'').split(/\s+/).filter(Boolean);
-            if(parts.indexOf('noopener')<0) parts.push('noopener');
-            if(parts.indexOf('noreferrer')<0) parts.push('noreferrer');
+            if(!parts.includes('noopener')) parts.push('noopener');
+            if(!parts.includes('noreferrer')) parts.push('noreferrer');
             a.rel=parts.join(' ');
           }
         }catch(_){}
       });
     }
-    if (document.readyState==='loading'){ addEventListener('DOMContentLoaded', harden, {once:true}); } else { harden(); }
+    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', upgrade, {once:true}); } else { upgrade(); }
   })();
   </script>
 
@@ -112,193 +96,168 @@ Built: 2025-10-20T00:00:00Z
   }</script>
 
   <!-- Site cache & SW -->
-  <script src="/assets/js/site-cache.js?v=3.009.004" defer></script>
+  <script src="/assets/js/site-cache.js?v=3.009.003" defer></script>
   <script>
   if ('serviceWorker' in navigator) {
     addEventListener('load', function(){
-      navigator.serviceWorker.register('/sw.js?v=3.009.004').catch(function(){});
+      navigator.serviceWorker.register('/sw.js?v=3.009.003').catch(function(){});
     });
   }
   </script>
 
-  <!-- Unified CSS (global) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.009.004">
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.004" fetchpriority="high">
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.009.004"/>
+  <!-- CSS (global) -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.009.003">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.003" fetchpriority="high">
 
-  <!-- Page-scoped styles (Unified Nav + hero + layout) -->
+  <!-- Page-scoped styles (two-column layout + rails) -->
   <style>
-    :root{ --rope:#d9b382; --accent:#0e6e8e; --ink:#083041; --foam:#e6f4f8; }
-    html,body{overflow-x:hidden}
     @media (prefers-reduced-motion: reduce){
-      *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+      *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
     }
 
-    /* Skip link */
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{left:12px;top:12px;width:auto;height:auto;background:#0e6e8e;color:#fff;border:0;padding:.45rem .7rem;z-index:10000;border-radius:10px}
-
-    /* Header rope + bleed guard */
-    .hero-header{position:relative;border-bottom:6px double var(--rope);z-index:0}
-    .hero-header > .hero{position:relative;z-index:-1;width:100%!important;margin-left:0!important;overflow-x:clip!important}
-
-    /* Unified Nav v3.009 */
-    .navbar{display:flex;align-items:flex-end;gap:.6rem;max-width:1100px;margin:0 auto;padding:.5rem .9rem .35rem;position:relative;z-index:6}
-    .brand{display:flex;align-items:flex-end;gap:.6rem;flex:0 0 auto}
-    .brand img{height:28px;width:auto}
-    .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-    .main-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-inline:.75rem;scroll-padding-inline:.75rem;
-      mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-      -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+    /* Topbar (skip + primary nav) */
+    .topbar{
+      display:flex; align-items:center; gap:.75rem;
+      padding:.4rem .9rem; border-bottom:1px solid rgba(8,48,65,.08);
+      background:#fff; position:relative; z-index:3;
     }
-    .nav-item{position:relative;display:inline-block}
-    .chip,.nav-disclosure{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none}
-    .main-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-    .submenu{position:absolute;left:0;top:calc(100% + 6px);min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;z-index:20}
-    .submenu a{display:block;padding:.35rem .6rem;border-radius:8px;border:1px solid transparent;color:inherit;white-space:nowrap}
-    .submenu a:hover{background:#f9fdfd;border-color:#ecd7b7;text-decoration:none}
-    .nav-group[data-open="true"] .submenu{display:block}
-    @media (hover:hover){ .nav-group:hover .submenu{display:block} }
+    .topbar .skip-link{
+      position:static; clip:auto; width:auto; height:auto; padding:.2rem .5rem;
+      border-radius:6px; background:#0e6e8e; color:#fff; text-decoration:none; font-size:.9rem; line-height:1.2;
+    }
+    .pill-nav{display:flex; gap:.35rem .45rem; flex-wrap:wrap; margin-left:auto;}
+    .pill-nav a{padding:.26rem .55rem; border-radius:8px; border:1px solid rgba(217,179,130,.6); background:#fff; font-size:.92rem; line-height:1.2; font-weight:600; text-decoration:none}
+    .pill-nav a.is-active,.pill-nav a[aria-current="page"]{outline:2px dashed #c8a36a; box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
 
-    /* Hero: logo + tagline beneath the ship/logo */
-    body.page{background:linear-gradient(var(--foam),#fff 240px);color:var(--ink);}
-    .hero{position:relative;min-height:clamp(220px,26vw,360px);display:flex;align-items:flex-end;background:url('/assets/index_hero.jpg?v=3.009.004') center/cover no-repeat}
-    .hero .latlon-grid{position:absolute;inset:0;pointer-events:none}
-    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
-    .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
-    .hero .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
-    .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
-    .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15);text-decoration:none}
+    /* Header brand + hero */
+    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:.5rem;padding:.45rem .9rem;}
+    .brand img{height:24px}
+    .version-badge{font-size:.7rem;opacity:.8;margin-left:.5rem;}
+    .hero{ background:url('/assets/index_hero.jpg?v=3.009.003') center/cover no-repeat; min-height:240px; position:relative; }
+    .hero .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
+    .hero .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600}
 
-    /* Layout */
+    /* Two-column content + right rail */
     .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-    .grid-3{display:grid;gap:1rem}
-    @media (min-width:980px){ .grid-3{grid-template-columns:repeat(3,1fr)} }
+    .layout{display:grid;gap:1rem;grid-template-columns:1fr}
+    @media (min-width:980px){ .layout{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)} }
 
-    /* Cards / journal */
-    .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.6rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-    h1,h2,h3{color:#0a3d62;margin:.25rem 0 .5rem}
-    .motto{margin-top:.15rem}
-    .journal-rail .dek{margin-top:.25rem;margin-bottom:1rem;opacity:.9}
-    #journal-rail{display:grid;grid-template-columns:1fr;gap:.9rem}
+    /* Cards & rails */
+    .card{position:relative}
+    #journal-rail, #authors-rail{display:grid;gap:1rem}
     .post-card{display:flex;flex-direction:column;gap:.5rem}
     .post-card .thumb{aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:#eef4f7}
     .post-card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
     .post-card h3{font-size:1.05rem;line-height:1.25;margin:.25rem 0}
     .post-card .meta{font-size:.85rem;opacity:.8}
-    .post-card .excerpt{font-size:.95rem}
+
+    .rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
+    .author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover}
+
+    /* Primary sections grid (three wide beneath intro) */
+    .grid-3{display:grid;gap:1rem;margin-top:1rem}
+    @media (min-width:760px){ .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))} }
+    @media (min-width:1100px){ .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))} }
   </style>
 </head>
 
 <body class="page">
-  <!-- Unified Nav behavior -->
-  <script src="/assets/js/newnav.js?v=3.009.004" defer></script>
+  <!-- Topbar: Skip + Primary Nav -->
+  <div class="topbar">
+    <a href="#content" class="skip-link">Skip to main content</a>
+    <nav class="pill-nav" aria-label="Primary">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/ships/">Ships</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/planning.html">Planning</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/packing-lists.html">Packing Lists</a>
+      <a href="/disability.html">Accessibility</a>
+      <a href="/cruise-lines/">Cruise Lines</a>
+      <a href="/solo.html">Solo</a>
+      <a href="/travel.html">Travel</a>
+      <a href="/about-us.html">About</a>
+    </nav>
+  </div>
 
-  <!-- Skip link -->
-  <a href="#content" class="skip-link">Skip to main content</a>
-
-  <!-- Header + Unified Nav -->
-  <header class="site-header hero-header" role="banner">
-    <div class="navbar">
+  <!-- Header (brand + hero only; nav lives in the topbar) -->
+  <header class="site-header hero-header">
+    <div class="navbar" aria-hidden="true">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.009.004" width="256" height="64" alt="In the Wake wordmark">
-        <span class="version-badge">v3.009.004 (inline)</span>
+        <img src="/assets/logo_wake.png?v=3.009.003" width="256" height="64" alt="">
+        <span class="tiny version-badge">v3.009.003</span>
       </div>
-
-      <nav class="main-nav" aria-label="Primary">
-        <div class="nav-item"><a class="chip" href="/" aria-current="page">Home</a></div>
-
-        <div class="nav-item nav-group" id="nav-planning">
-          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
-          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
-            <a role="menuitem" href="/planning.html">Planning (overview)</a>
-            <a role="menuitem" href="/ports.html">Ports</a>
-            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a role="menuitem" href="/ships.html">Ships</a>
-            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-            <a role="menuitem" href="/cruise-lines/">Cruise Lines</a>
-            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-            <a role="menuitem" href="/accessibility.html">Accessibility</a>
-          </div>
-        </div>
-
-        <div class="nav-item nav-group" id="nav-travel">
-          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
-          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
-            <a role="menuitem" href="/travel.html">Travel (overview)</a>
-            <a role="menuitem" href="/solo.html">Solo</a>
-          </div>
-        </div>
-
-        <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
-      </nav>
     </div>
 
-    <!-- Hero (logo + tagline beneath the ship) -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.009.004" width="180" height="180" alt="" aria-hidden="true">
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.009.004" width="256" height="64" alt="In the Wake">
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
-      </div>
       <div class="hero-credit">
-        <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+        <a class="pill" href="https://instagram.com/flickersofmajesty" rel="noopener noreferrer" target="_blank">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
+  <!-- Two-column layout: content (left) + right rail -->
   <main id="content" class="wrap" role="main" aria-label="Main content">
-    <!-- Intro grid: Welcome (left) + Journal rail (right) -->
-    <div class="intro-grid" aria-label="Intro and latest articles">
-      <section class="card" aria-labelledby="page-title">
-        <h1 id="page-title">Welcome Aboard</h1>
-        <p class="motto tiny"><em>The calmest seas are found in another’s wake.</em></p>
-        <p>
-          Mariners know a small truth with big comfort: the calmest water lies in the wake of another boat.
-          Tuck in behind a steady hull and the chop softens, the course steadies, and the hard parts feel easier.
-          <strong>In the Wake</strong> exists to be that smooth water for your cruise planning.
-        </p>
-        <p>
-          We sail ahead—collecting real-world details from actual voyages—so you can follow with confidence.
-          Compare ships and classes, scan menus and prices, scout cabins, and spot accessibility notes without all the whitecaps.
-          The goal isn’t to sell you anything; it’s to take the friction out of decisions so your trip feels effortless.
-          Fair winds—and gentler seas—in our wake.
-        </p>
+    <div class="layout">
+      <!-- LEFT: Intro + three-wide sections -->
+      <section>
+        <section class="card" aria-labelledby="page-title">
+          <h1 id="page-title">Welcome Aboard</h1>
+          <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
+          <p>
+            Mariners know a small truth with big comfort: the calmest water lies in the wake of another boat.
+            Tuck in behind a steady hull and the chop softens, the course steadies, and the hard parts feel easier.
+            <em>In the Wake</em> exists to be that smooth water for your cruise planning.
+          </p>
+          <p>
+            We sail ahead—collecting real-world details from actual voyages—so you can follow with confidence.
+            Compare ships and classes, scan menus and prices, scout cabins, and spot accessibility notes without all the whitecaps.
+            The goal isn’t to sell you anything; it’s to take the friction out of decisions so your trip feels effortless.
+            Fair winds—and gentler seas—in our wake.
+          </p>
+        </section>
+
+        <!-- Three-wide primary sections grid -->
+        <section class="grid-3" aria-label="Primary sections">
+          <section class="card"><h3><a href="/ships/">Ships →</a></h3><p>Class overviews, per-ship pages, and cross-links to restaurants.</p></section>
+          <section class="card"><h3><a href="/restaurants.html">Restaurants &amp; Menus →</a></h3><p>Flagship venues, menus, price bands, and allergen notes.</p></section>
+          <section class="card"><h3><a href="/ports.html">Ports →</a></h3><p>Quick snapshots, local tips, and map context.</p></section>
+          <section class="card"><h3><a href="/disability.html">Accessibility →</a></h3><p>Practical guidance from real sailings.</p></section>
+          <section class="card"><h3><a href="/drink-packages.html">Drink Packages →</a></h3><p>What’s included and where to save.</p></section>
+          <section class="card"><h3><a href="/packing-lists.html">Packing Lists →</a></h3><p>Trip-tested lists for different routes and seasons.</p></section>
+          <section class="card"><h3><a href="/planning.html">Planning →</a></h3><p>Pre/post-cruise logistics, documents, and timing.</p></section>
+          <section class="card"><h3><a href="/solo.html">Solo →</a></h3><p>Cabin picks and social spots that click.</p></section>
+          <section class="card"><h3><a href="/travel.html">Travel →</a></h3><p>Air, hotels, insurance, and stitching trips together.</p></section>
+        </section>
       </section>
 
-      <section class="card journal-rail" aria-labelledby="journal-title">
-        <h2 id="journal-title">From the Journal</h2>
-        <p class="dek">Articles from our writers’ wakes.</p>
-        <div id="journal-rail" aria-busy="true"></div>
-        <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
-      </section>
+      <!-- RIGHT: Journal + Featured Authors rail -->
+      <aside aria-label="Right rail">
+        <section class="card" aria-labelledby="journal-title">
+          <h2 id="journal-title">From the Journal</h2>
+          <p class="tiny dek">Articles from our writers’ wakes.</p>
+          <div id="journal-rail" aria-busy="true"></div>
+          <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
+        </section>
+
+        <section class="card" aria-labelledby="authors-title">
+          <h2 id="authors-title">Featured Authors</h2>
+          <div id="authors-rail"></div>
+        </section>
+      </aside>
     </div>
-
-    <!-- Primary sections grid -->
-    <section class="grid-3" aria-label="Primary sections">
-      <section class="card"><h3><a href="/ships.html">Ships →</a></h3><p>Class overviews, per-ship pages, and cross-links to restaurants.</p></section>
-      <section class="card"><h3><a href="/restaurants.html">Restaurants &amp; Menus →</a></h3><p>Flagship venues, menus, price bands, and allergen notes.</p></section>
-      <section class="card"><h3><a href="/ports.html">Ports →</a></h3><p>Quick snapshots, local tips, and map context.</p></section>
-      <section class="card"><h3><a href="/accessibility.html">Accessibility →</a></h3><p>Practical guidance from real sailings.</p></section>
-      <section class="card"><h3><a href="/drink-packages.html">Drink Packages →</a></h3><p>What’s included and where to save.</p></section>
-      <section class="card"><h3><a href="/packing-lists.html">Packing Lists →</a></h3><p>Trip-tested lists for different routes and seasons.</p></section>
-      <section class="card"><h3><a href="/planning.html">Planning →</a></h3><p>Pre/post-cruise logistics, documents, and timing.</p></section>
-      <section class="card"><h3><a href="/solo.html">Solo →</a></h3><p>Cabin picks and social spots that click.</p></section>
-      <section class="card"><h3><a href="/travel.html">Travel →</a></h3><p>Air, hotels, insurance, and stitching trips together.</p></section>
-    </section>
   </main>
 
   <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
-    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <p class="tiny center" style="margin-top:.5rem">
-      Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
-    </p>
+    <nav aria-label="Footer">
+      © 2025 In the Wake — A Cruise Traveler’s Logbook ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+      <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
+    </nav>
   </footer>
 
-  <!-- Smart warmup (JSON) + small asset hints -->
+  <!-- Warmup + cache -->
   <script>
   (function(){
     function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
@@ -307,25 +266,21 @@ Built: 2025-10-20T00:00:00Z
     function ensureSiteCache(){
       return new Promise(function(resolve){
         if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
-        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.004'); s.defer=true;
+        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.003'); s.defer=true;
         s.onload=resolve; s.onerror=resolve; document.head.appendChild(s);
       });
     }
-    function warmImages(urls){
-      (urls||[]).forEach(function(u){ try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(function(){});}catch(_){ } });
-    }
-    function warmGlobalJSON(){
-      return ensureSiteCache().then(function(){
-        return Promise.allSettled([
-          SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
-          SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['meta','version']}),
-          SiteCache.getJSON(abs('/assets/data/personas/index.json'),{ttlDays:7,versionPath:['version']})
-        ]);
-      });
-    }
     ready(function(){
-      warmImages([abs('/assets/logo_wake.png?v=3.009.004'),abs('/assets/compass_rose.svg?v=3.009.004'),abs('/assets/watermark.png?v=3.009.004')]);
-      idle(warmGlobalJSON);
+      try{ fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(()=>{});}catch(_){}
+      idle(function(){
+        ensureSiteCache().then(function(){
+          Promise.allSettled([
+            SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
+            SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['meta','version']}),
+            SiteCache.getJSON(abs('/assets/data/personas/index.json'),{ttlDays:7,versionPath:['version']})
+          ]);
+        });
+      });
     });
   })();
   </script>
@@ -337,59 +292,47 @@ Built: 2025-10-20T00:00:00Z
     var FALL  = document.getElementById('journal-rail-fallback');
     if (!MOUNT) return;
 
-    function showFallback(on){ if (FALL) FALL.style.display = on ? '' : 'none'; }
+    function showFallback(on){ if (!FALL) return; FALL.style.display = on ? '' : 'none'; }
     function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
 
     var SOURCES = [
-      '/assets/data/articles/index.json?v=3.009.004',
-      '/solo/articles/index.json?v=3.009.004',
-      '/travel/articles/index.json?v=3.009.004'
+      '/assets/data/articles.json?v=3.009.003',
+      '/solo/articles/index.json?v=3.009.003',
+      '/travel/articles/index.json?v=3.009.003'
     ];
     var HARD_FALLBACK = [
       { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2024-05-31', image:'/assets/articles/why-i-started-solo-cruising.jpg' },
-      { url:'/solo/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', dek:'On choosing solitude without being alone.', date:'2025-10-15', image:'/assets/articles/freedom-of-your-own-wake.jpg' }
+      { url:'/solo/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', dek:'On choosing solitude without being alone.', date:'2024-08-13', image:'/assets/articles/freedom-of-your-own-wake.jpg' }
     ];
 
-    function normalize(list){
-      var arr = Array.isArray(list)? list: (list && list.articles)||[];
-      var out = [];
-      for (var i=0;i<arr.length;i++){
-        var a=arr[i]||{};
-        var to = a.url || a.permalink || '#';
-        if (/^\/solo\/articles\/.+\.html$/.test(to)) to = to.replace('/solo/articles/','/solo/');
-        out.push({
+    function normalize(feed){
+      var arr = Array.isArray(feed?.articles)? feed.articles : (Array.isArray(feed)? feed : []);
+      return arr.map(function(a){
+        var to=a.url||a.permalink||'#';
+        if(/^\/solo\/articles\/.+\.html$/.test(to)) to=to.replace('/solo/articles/','/solo/');
+        return {
           url: abs(to),
-          title: String(a.title || a.headline || 'Article').trim(),
-          dek: String(a.dek || a.description || a.excerpt || '').trim(),
-          date: String(a.datePublished || a.date || '').trim(),
-          image: a.image ? abs(a.image) : ''
-        });
-      }
-      return out.filter(function(a){ return a.url && a.url!=='#'; });
+          title: String(a.title||a.headline||'Article').trim(),
+          dek: String(a.dek||a.description||a.excerpt||'').trim(),
+          date: String(a.date||a.datePublished||'').trim(),
+          image: a.image? abs(a.image):''
+        };
+      }).filter(function(x){ return x.url && x.url!=='#'; });
     }
 
     function tryFetch(url){
       return fetch(abs(url),{cache:'no-store'})
         .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .then(function(j){ return normalize(j); })
+        .then(normalize)
         .catch(function(){ return []; });
     }
 
-    function injectItemListJSONLD(items){
-      try{
-        var json={"@context":"https://schema.org","@type":"ItemList","name":"From the Journal",
-          "itemListElement":items.slice(0,6).map(function(a,i){return{"@type":"ListItem","position":i+1,"item":{"@type":"BlogPosting","headline":a.title,"url":a.url}}})};
-        var s=document.createElement('script'); s.type='application/ld+json'; s.text=JSON.stringify(json); document.head.appendChild(s);
-      }catch(_){}
-    }
-
     function render(items){
-      var take = items.slice(0,6);
-      if (!take.length){ showFallback(true); return; }
+      var take=items.slice(0,6);
+      if(!take.length){ showFallback(true); return; }
       var frag=document.createDocumentFragment();
-      for (var i=0;i<take.length;i++){
-        var a=take[i];
-        var el=document.createElement('article'); el.className='card post-card'; el.setAttribute('role','article');
+      take.forEach(function(a){
+        var el=document.createElement('article'); el.className='post-card card'; el.setAttribute('role','article');
         el.innerHTML=[
           a.image?('<a class="thumb" href="'+a.url+'"><img src="'+a.image+'" alt=""></a>'):'',
           '<h3><a href="'+a.url+'">'+a.title+'</a></h3>',
@@ -397,23 +340,83 @@ Built: 2025-10-20T00:00:00Z
           (a.dek?('<p class="excerpt">'+a.dek+'</p>'):'')
         ].join('');
         frag.appendChild(el);
-      }
+      });
       MOUNT.appendChild(frag);
-      injectItemListJSONLD(take);
       showFallback(false);
       MOUNT.setAttribute('aria-busy','false');
     }
 
     (function boot(){
       showFallback(true);
-      (function chain(i){
-        if (i>=SOURCES.length){ render(normalize(HARD_FALLBACK)); return; }
+      (function chain(i, collected){
+        if (i>=SOURCES.length){ render(collected.length?collected:HARD_FALLBACK); return; }
         tryFetch(SOURCES[i]).then(function(items){
-          if (items.length){ render(items); }
-          else { chain(i+1); }
+          chain(i+1, (collected||[]).concat(items));
         });
-      })(0);
+      })(0, []);
     })();
+  })();
+  </script>
+
+  <!-- Featured Authors rail hydrator -->
+  <script>
+  (function(){
+    var mount=document.getElementById('authors-rail'); if(!mount) return;
+    var VERSION='3.009.003';
+    var GENERIC='/authors/img/author.webp';
+
+    function esc(s){return String(s||'').replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]);});}
+    function row(a){
+      var img=a.image||GENERIC;
+      return '<div class="rail-row" role="listitem" aria-label="'+esc(a.name)+'">'+
+        '<img class="author-avatar" src="'+esc(img)+'" alt="'+esc(a.name)+'" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\''+GENERIC+'\'">'+
+        '<div><h4 style="margin:.15rem 0 .2rem 0"><a href="'+esc(a.url||"#")+'">'+esc(a.name||"Author")+'</a></h4>'+
+        '<p class="tiny">Contributor</p></div></div>';
+    }
+
+    function get(u){
+      return fetch(u,{cache:'no-store'}).then(function(r){if(!r.ok) throw 0; return r.json();})
+      .then(function(j){
+        var arr=Array.isArray(j?.authors)?j.authors:[];
+        return arr.map(function(x){ return {name:x.name||x.title,url:x.url||x.profile,image:x.webp||x.image||x.avatar||''}; });
+      }).catch(function(){ return []; });
+    }
+
+    (async function boot(){
+      var list=[];
+      for (const src of ['/data/authors.json?v='+VERSION,'/travel/data/authors.json?v='+VERSION]) {
+        list=list.concat(await get(src));
+      }
+      if(!list.length){
+        list=[
+          { name:'Ken Baker',   url:'/authors/ken-baker.html',    image:'/authors/img/ken1.jpg'  },
+          { name:'Tina Maulsby',url:'/authors/tina-maulsby.html', image:'/authors/img/tina3.jpg' }
+        ];
+      }
+      mount.innerHTML = list.slice(0,4).map(row).join('');
+    })();
+  })();
+  </script>
+
+  <!-- Primary nav: mark current + legacy aliases -->
+  <script>
+  (function(){
+    var nav = document.querySelector('.pill-nav[aria-label="Primary"]'); if(!nav) return;
+    function norm(p){ try{ return new URL(p, location.origin).pathname.replace(/\/index\.html$/i,'/').replace(/\/+$/,'/').toLowerCase() || '/'; }catch(e){ return '/'; } }
+    var here = norm(location.pathname);
+    var ALIASES = new Map([
+      ['/','/'],
+      ['/ships/ships.html','/ships/'],
+      ['/ships/index.html','/ships/'],
+      ['/drink-packages.html','/drink-packages.html'],
+      ['/disability-at-sea.html','/disability.html'],
+      ['/about.html','/about-us.html']
+    ]);
+    function canon(p){ return ALIASES.get(p)||p; }
+    nav.querySelectorAll('a[href]').forEach(function(a){
+      var t = norm(a.getAttribute('href'));
+      if (canon(t) === canon(here)) { a.setAttribute('aria-current','page'); a.classList.add('is-active'); }
+    });
   })();
   </script>
 </body>
