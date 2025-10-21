@@ -473,3 +473,27 @@ figure.hero img + img,
   object-fit: cover !important;  /* cover is correct for slides */
   border-radius: 10px;
 }
+/* ===== In the Wake — stability shim (v3.008.038) ===== */
+/* 1) Guarantee no horizontal overflow from the header hero only */
+html, body { overflow-x: hidden; }
+.hero-header > .hero {
+  width: 100% !important;         /* override any earlier 100vw */
+  margin-left: 0 !important;      /* cancel full-bleed shift */
+  overflow-x: clip !important;    /* hides sub-pixel bleed in WebKit/Edge */
+}
+
+/* 2) Unify venues grid: support BOTH legacy #vx-grid and current .vx-grid */
+.vx-grid, #vx-grid { display: grid; gap: 1rem; }
+@media (max-width: 719.98px){
+  .vx-grid, #vx-grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 720px) and (max-width: 979.98px){
+  .vx-grid, #vx-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 980px){
+  .vx-grid, #vx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.vx-grid .card.vx, #vx-grid .card.vx { width: 100%; display: flex; flex-direction: column; }
+
+/* 3) Journal rail: if an image fails, collapse the reserved box cleanly */
+.post-card .thumb.no-thumb { display: none; }
