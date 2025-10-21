@@ -1,6 +1,6 @@
 <!--
 Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
-Page: /index.html · v3.009.006 (unified-nav repair) · Built: 2025-10-21T00:00:00Z
+Page: /index.html · v3.009.007 (unified-nav repair) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
@@ -136,41 +136,56 @@ Page: /index.html · v3.009.006 (unified-nav repair) · Built: 2025-10-21T00:00:
   <a href="#content" class="skip-link">Skip to main content</a>
 
   <!-- Unified Nav v3.009 (uses global CSS + /assets/js/newnav.js) -->
-  <header class="site-header hero-header" role="banner">
-    <div class="navbar">
-      <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.009.004" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.009.006</span>
+  <!-- Unified Nav v3.009 — grouped pills + dropdowns -->
+<div class="navbar">
+  <div class="brand">
+    <img src="/assets/logo_wake.png?v=3.009.006" width="256" height="64" alt="In the Wake wordmark">
+    <span class="tiny version-badge">v3.009.006</span>
+  </div>
+
+  <nav class="pill-nav pills" aria-label="Primary">
+    <a class="chip" href="/">Home</a>
+
+    <!-- Profit-center: promote to top-level -->
+    <a class="chip" href="/packing-lists.html">Packing Lists</a>
+
+    <!-- Planning group -->
+    <div class="nav-item nav-group" id="nav-planning">
+      <!-- Works whether this is a <button> or an <a> -->
+      <button class="nav-disclosure chip" type="button"
+              aria-expanded="false" aria-controls="menu-planning">
+        Planning ▾
+      </button>
+      <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+        <a role="menuitem" href="/planning.html">Planning (overview)</a>
+        <a role="menuitem" href="/ports.html">Ports</a>
+        <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a role="menuitem" href="/ships/">Ships</a>
+        <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+        <a role="menuitem" href="/cruise-lines/">Cruise Lines</a>
+        <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+        <a role="menuitem" href="/accessibility.html">Accessibility</a>
       </div>
-
-      <nav class="pill-nav pills" aria-label="Primary">
-        <a class="chip" href="/" aria-current="page">Home</a>
-
-        <div class="nav-item nav-group" id="nav-planning">
-          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
-          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
-            <a role="menuitem" href="/planning.html">Planning (overview)</a>
-            <a role="menuitem" href="/ports.html">Ports</a>
-            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a role="menuitem" href="/ships/">Ships</a>
-            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-            <a role="menuitem" href="/cruise-lines/">Cruise Lines</a>
-            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-            <a role="menuitem" href="/accessibility.html">Accessibility</a>
-          </div>
-        </div>
-
-        <div class="nav-item nav-group" id="nav-travel">
-          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
-          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
-            <a role="menuitem" href="/travel.html">Travel (overview)</a>
-            <a role="menuitem" href="/solo.html">Solo</a>
-          </div>
-        </div>
-
-        <a class="chip" href="/about-us.html">About</a>
-      </nav>
     </div>
+
+    <!-- Travel group -->
+    <div class="nav-item nav-group" id="nav-travel">
+      <button class="nav-disclosure chip" type="button"
+              aria-expanded="false" aria-controls="menu-travel">
+        Travel ▾
+      </button>
+      <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+        <a role="menuitem" href="/travel.html">Travel (overview)</a>
+        <a role="menuitem" href="/solo.html">Solo</a>
+      </div>
+    </div>
+
+    <a class="chip" href="/about-us.html">About</a>
+  </nav>
+</div>
+
+<!-- Load after markup (defer is OK). Make sure the file has NO <script> wrapper -->
+<script src="/assets/js/newnav.js?v=3.009.006" defer></script>
 
     <!-- Hero with logo + tagline (beneath the ship logo) -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
