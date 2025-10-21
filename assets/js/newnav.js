@@ -1,78 +1,97 @@
-/* Unified Nav v3.009 — disclosure menus
-   Soli Deo Gloria.  */
+/* /assets/js/newnav.js — Unified Nav v3.009.006
+   Soli Deo Gloria. */
 (function(){
-  // Run once the DOM is ready (defer-safe and non-defer-safe)
+  // Ready helper (handles defer or inline)
   function ready(fn){
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', fn, { once: true });
+      document.addEventListener('DOMContentLoaded', fn, { once:true });
     } else { fn(); }
+  }
+
+  function firstFocusable(root){
+    return root.querySelector('a,button,[role="menuitem"],[tabindex]:not([tabindex="-1"])');
   }
 
   function closeAll(except){
     document.querySelectorAll('.nav-group[data-open="true"]').forEach(g=>{
-      if (g !== except) {
+      if(g!==except){
         g.dataset.open = 'false';
-        const btn = g.querySelector('.nav-disclosure');
-        if (btn) btn.setAttribute('aria-expanded','false');
+        const b = g.querySelector('.nav-disclosure');
+        if (b) b.setAttribute('aria-expanded','false');
       }
     });
   }
 
+  function asDisclosure(el){
+    // Support <button> or <a> used as a button
+    if (el.tagName === 'A') {
+      el.setAttribute('role','button');
+      el.setAttribute('tabindex','0');
+      // prevent accidental navigation if someone left href
+      if (!el.hasAttribute('href')) el.setAttribute('href','#');
+    }
+    return el;
+  }
+
   function wire(group){
-    const btn  = group.querySelector('.nav-disclosure');
+    const btn  = asDisclosure(group.querySelector('.nav-disclosure'));
     const menu = group.querySelector('.submenu');
     if(!btn || !menu) return;
 
-    // Initial ARIA
-    btn.setAttribute('aria-expanded','false');
     btn.setAttribute('aria-haspopup','true');
+    btn.setAttribute('aria-expanded','false');
     menu.setAttribute('role','menu');
 
-    const open = (state) => {
+    function open(state){
       const on = !!state;
       group.dataset.open = on ? 'true' : 'false';
       btn.setAttribute('aria-expanded', String(on));
-      if (on) { closeAll(group); }
-    };
+      if (on) closeAll(group);
+    }
 
-    // Click toggles
-    btn.addEventListener('click', (e)=>{
-      e.preventDefault();
+    // Toggle on click / press
+    btn.addEventListener('click', e=>{
+      // If it's an <a>, never navigate
+      if (btn.tagName === 'A') e.preventDefault();
       open(group.dataset.open !== 'true');
     });
 
-    // Click outside closes
-    document.addEventListener('click', (e)=>{
+    // Outside click closes
+    document.addEventListener('click', e=>{
       if (!group.contains(e.target)) open(false);
     });
 
-    // Keyboard on button
-    btn.addEventListener('keydown', (e)=>{
-      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+    // Keyboard on button/anchor
+    btn.addEventListener('keydown', e=>{
+      const k = e.key;
+      if (k === 'Enter' || k === ' ' || k === 'ArrowDown'){
         e.preventDefault();
         open(true);
-        (menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')||btn).focus();
-      } else if (e.key === 'Escape') {
+        (firstFocusable(menu) || btn).focus();
+      } else if (k === 'Escape'){
         open(false); btn.focus();
+      } else if (k === 'ArrowUp' && group.dataset.open === 'true'){
+        e.preventDefault();
+        (firstFocusable(menu) || btn).focus();
       }
     });
 
-    // Keyboard in menu
-    menu.addEventListener('keydown', (e)=>{
-      if (e.key === 'Escape') { e.preventDefault(); open(false); btn.focus(); }
-      if (e.key === 'ArrowUp' && e.target === menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')) {
+    // Menu key handling
+    menu.addEventListener('keydown', e=>{
+      if (e.key === 'Escape'){ e.preventDefault(); open(false); btn.focus(); }
+      if (e.key === 'ArrowUp' && e.target === firstFocusable(menu)){
         e.preventDefault(); btn.focus();
       }
     });
 
-    // Hover open for pointer devices (progressive enhancement)
-    if (matchMedia('(hover:hover)').matches) {
+    // Pointer hover enhancement (doesn't affect touch)
+    if (matchMedia('(hover:hover)').matches){
       group.addEventListener('mouseenter', ()=>open(true));
       group.addEventListener('mouseleave', ()=>open(false));
     }
   }
 
-  ready(()=>{
+  ready(function(){
     document.querySelectorAll('.nav-group').forEach(wire);
   });
 })();
