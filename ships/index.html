@@ -154,263 +154,264 @@
     <button class="share" id="share-copy" type="button" aria-live="polite">Copy link</button>
   </div>
 
-  <!-- Data + rendering -->
-  <script>
-  (function(){
-    "use strict";
+<!-- Data + rendering (auto-resolver) -->
+<script>
+(function(){
+  "use strict";
+  const VER = (document.querySelector('meta[name="page:version"]')?.content) || '3.008.023';
 
-    const VER = (document.querySelector('meta[name="page:version"]')?.content) || '3.008.023';
+  /* 0) Seed list — show only ships that we can find an image for */
+  const FLEET = [
+    { name:"Enchantment of the Seas", slug:"enchantment-of-the-seas" },
+    { name:"Grandeur of the Seas",    slug:"grandeur-of-the-seas" },
+    { name:"Rhapsody of the Seas",    slug:"rhapsody-of-the-seas" },
+    { name:"Sovereign of the Seas",   slug:"sovereign-of-the-seas" },
+    { name:"Vision of the Seas",      slug:"vision-of-the-seas" },
+    { name:"Allure of the Seas",      slug:"allure-of-the-seas" },
+    { name:"Adventure of the Seas",   slug:"adventure-of-the-seas" }
+  ];
 
-    /* ---------- Verified images (from your provided paths) ------------- */
-    const SHIP_IMAGES = {
-      "enchantment-of-the-seas": "/ships/assets/enchantment-of-the-seas1.jpg",
-      "grandeur-of-the-seas":    "/ships/assets/grandeur-of-the-seas1.jpg",
-      "rhapsody-of-the-seas":    "/ships/assets/rhapsody-of-the-seas1.jpg",
-      "sovereign-of-the-seas":   "/ships/assets/sovereign-of-the-seas1.jpg",
-      "vision-of-the-seas":      "/ships/assets/vision-of-the-seas1.jpg",
-      "allure-of-the-seas":      "ships/assets/images/allure-of-the-seas-3.jpg",
-      "adventure-of-the-seas":   "ships/rcl/images/Adventure_of_the_Seas2.jpg"
-    };
+  /* 1) Optional override manifest (lets you map any slug -> any URL) */
+  let MANIFEST = null;
+  async function loadImageManifest(){
+    try{
+      const r = await fetch('/ships/image-index.json?v='+encodeURIComponent(VER), {cache:'no-store',credentials:'omit'});
+      if(!r.ok) throw 0;
+      MANIFEST = await r.json();
+    }catch(_){ MANIFEST = null; }
+  }
 
-    /* ---------- Seed list (render only if we have an image) ------------ */
-    const FLEET = [
-      { name:"Enchantment of the Seas", slug:"enchantment-of-the-seas" },
-      { name:"Grandeur of the Seas",    slug:"grandeur-of-the-seas" },
-      { name:"Rhapsody of the Seas",    slug:"rhapsody-of-the-seas" },
-      { name:"Sovereign of the Seas",   slug:"sovereign-of-the-seas" },
-      { name:"Vision of the Seas",      slug:"vision-of-the-seas" },
-      { name:"Allure of the Seas",      slug:"allure-of-the-seas" },
-      { name:"Adventure of the Seas",   slug:"adventure-of-the-seas" }
+  /* 2) Your legacy special cases (kept so nothing breaks) */
+  const LEGACY = {
+    "allure-of-the-seas": "/ships/assets/images/allure-of-the-seas-3.jpg",
+    "adventure-of-the-seas": "/ships/rcl/images/Adventure_of_the_Seas2.jpg"
+  };
+
+  /* 3) Candidate paths we probe, in order of preference */
+  function candidatesFor(slug){
+    return [
+      `/ships/cards/${slug}.webp`,
+      `/ships/cards/${slug}.jpg`,
+      `/ships/assets/${slug}1.jpg`,
+      `/ships/assets/${slug}.jpg`,
+      LEGACY[slug] || null
+    ].filter(Boolean);
+  }
+
+  async function resolveImageURL(url){
+    try{
+      let r = await fetch(url, {method:'HEAD', cache:'no-store'});
+      if (r.ok) return url;
+      r = await fetch(url, {method:'GET', cache:'no-store', credentials:'omit'});
+      if (r.ok) return url;
+    }catch(_){}
+    return null;
+  }
+
+  async function findImageFor(slug){
+    if (MANIFEST && MANIFEST[slug]) {
+      const hit = await resolveImageURL(MANIFEST[slug]);
+      if (hit) return hit;
+    }
+    const list = candidatesFor(slug);
+    for (let i=0;i<list.length;i++){
+      const hit = await resolveImageURL(list[i]);
+      if (hit) return hit;
+    }
+    return null;
+  }
+
+  /* 4) Stats: fleets_index.json → Map(slug -> {year, gt, cap, notes}) */
+  async function fetchFleetIndex(){
+    try{
+      const r = await fetch('/assets/data/fleets_index.json?v='+encodeURIComponent(VER), {cache:'no-store'});
+      if(!r.ok) throw new Error('fleets_index fetch failed '+r.status);
+      return await r.json();
+    }catch(e){ console.warn('[fleet]', e); return null; }
+  }
+  function rcIndexLookup(indexJson){
+    const map = new Map();
+    const list = indexJson?.cruise_lines?.['royal-caribbean'] || [];
+    for (const s of list){
+      const slug = String(s.slug || s.attributes?.slug || '').toLowerCase();
+      if(!slug) continue;
+      const a = s.attributes || {};
+      map.set(slug, {
+        year: a.year_built_or_entered || '',
+        gt:   a.gt || '',
+        cap:  a.capacity || '',
+        notes: a.notes || ''
+      });
+    }
+    return map;
+  }
+  const fmtNum = (n)=> (''+n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+  function shipCard(ship, imgUrl, stats){
+    const s = stats.get(ship.slug) || {};
+    const debut = s.year || '—';
+    const cap   = s.cap ? fmtNum(String(s.cap).replace(/[, ]/g,'')) : '—';
+    const gt    = s.gt ? String(s.gt).replace(/\s/g,'') : '';
+    const extra = gt ? ` • ${gt} GT` : '';
+    const href  = `/ships/${ship.slug}.html`;
+    return `
+      <article class="ship-card">
+        <a class="thumb" href="${href}" aria-label="${ship.name}">
+          <img src="${imgUrl}" alt="${ship.name}" loading="lazy" decoding="async"
+               onerror="this.onerror=null;this.src='/assets/index_hero.jpg'">
+        </a>
+        <div>
+          <h3 style="margin:.1rem 0 .25rem 0"><a href="${href}">${ship.name}</a></h3>
+          <p class="tiny muted">• Debut: ${debut}${extra}<br>• Cap: ${cap}</p>
+        </div>
+      </article>`;
+  }
+
+  async function renderFleet(){
+    const mount = document.getElementById('fleet-cards');
+    await loadImageManifest();                              // optional; silent on 404
+    const data  = await fetchFleetIndex();
+    const stats = rcIndexLookup(data||{});
+
+    const resolved = await Promise.all(FLEET.map(async s => {
+      const img = await findImageFor(s.slug);
+      return img ? {ship:s, img} : null;
+    }));
+    const usable = resolved.filter(Boolean);
+
+    mount.innerHTML = usable.length
+      ? usable.map(x => shipCard(x.ship, x.img, stats)).join('')
+      : '<p class="tiny muted">No verified images yet.</p>';
+
+    const note = document.getElementById('fleet-note');
+    if (note) note.hidden = !usable.length;
+
+    // Ask SW to precache: fleets index + used images (+ manifest if present)
+    if (navigator.serviceWorker?.controller){
+      const urls = ['/assets/data/fleets_index.json']
+        .concat(MANIFEST ? ['/ships/image-index.json'] : [])
+        .concat(usable.map(x=>x.img));
+      navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls});
+    }
+  }
+
+  /* 5) Journal rail — Solo + Travel + site-wide index (newest first) */
+  (function journalRail(){
+    const mount=document.getElementById('journal-rail');
+    const sources=[
+      '/assets/data/articles/index.json?v='+VER,
+      '/solo/articles/index.json?v='+VER,
+      '/travel/articles/index.json?v='+VER
     ];
+    const SEED=[{
+      url:'/travel.html#top-20-questions',
+      title:'Top 20 First-Cruise Questions (Answered)',
+      date:'2025-10-16',
+      dek:'Planning, packing, ports, ship life.',
+      image:'/assets/articles/top-20-questions/cover.jpg',
+      fallback:'/assets/index_hero.jpg',
+      author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp'}
+    }];
+    const norm=(x)=> (Array.isArray(x?.articles)?x.articles:(Array.isArray(x)?x:[]))
+      .map(y=>({url:y.url||y.permalink||'#', title:y.title||'Article', dek:y.dek||y.description||y.excerpt||'',
+                date:y.date||y.datePublished||'', image:y.image||y.cover||'', fallback:'/assets/index_hero.jpg',
+                author:y.author||null}))
+      .filter(z=>z.url && z.url!=='#');
+    const get=async(u)=>{ try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return norm(await r.json()); }catch(_){ return []; } };
+    const fmtDate=(d)=>{ const t=Date.parse(d||''); return isNaN(t)? '' : new Date(t).toLocaleDateString(); };
+    const card=(a)=>`<article class="rail-item">
+      <a class="thumb" href="${a.url}">
+        <img src="${a.image||a.fallback}" alt="${a.title}" loading="lazy" decoding="async"
+             onerror="this.onerror=null;this.src='${a.fallback}'">
+      </a>
+      <div>
+        <h4><a href="${a.url}">${a.title}</a></h4>
+        <p class="tiny muted">${a.date?fmtDate(a.date):''}${
+          a.author?.name?` · <img class="avatar" src="${a.author.image||'/authors/img/author.webp'}" alt="${a.author.name}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/authors/img/author.webp'"> <a href="${a.author.url||'#'}">${a.author.name}</a>`:''}</p>
+        ${a.dek?`<p class="tiny">${a.dek}</p>`:''}
+      </div>
+    </article>`;
+    (async function boot(){
+      let items=[]; for(const src of sources){ items = items.concat(await get(src)); }
+      if(!items.length) items=SEED;
+      items.sort((a,b)=> (Date.parse(b.date||'')||0)-(Date.parse(a.date||'')||0));
+      mount.innerHTML = items.slice(0,3).map(card).join('');
+      mount.setAttribute('aria-busy','false');
 
-    /* ---------- Stats hydrator (fleets_index.json) --------------------- */
-    async function fetchFleetIndex(){
-      try{
-        const r = await fetch('/assets/data/fleets_index.json?v='+encodeURIComponent(VER), { cache:'no-store' });
-        if(!r.ok) throw new Error('fleets_index fetch failed '+r.status);
-        return await r.json();
-      }catch(e){ console.warn('[fleet]', e); return null; }
-    }
-    function rcIndexLookup(indexJson){
-      const map = new Map();
-      const list = indexJson?.cruise_lines?.['royal-caribbean'] || [];
-      for(const s of list){
-        const slug = String(s.slug || s.attributes?.slug || '').toLowerCase();
-        if(!slug) continue;
-        const a = s.attributes || {};
-        map.set(slug, {
-          year: a.year_built_or_entered || '',
-          gt:   a.gt || '',
-          cap:  a.capacity || '',
-          notes: a.notes || ''
-        });
-      }
-      return map;
-    }
-    const fmtNum = (n)=> (''+n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-    function shipCard(ship, stats){
-      const img = SHIP_IMAGES[ship.slug];
-      if(!img) return '';
-      const s = stats.get(ship.slug) || {};
-      const debut = s.year || '—';
-      const cap   = s.cap ? fmtNum(String(s.cap).replace(/[, ]/g,'')) : '—';
-      const gt    = s.gt ? String(s.gt).replace(/\s/g,'') : '';
-      const extra = gt ? ` • ${gt} GT` : '';
-      const href  = `/ships/${ship.slug}.html`;
-      return `
-        <article class="ship-card">
-          <a class="thumb" href="${href}" aria-label="${ship.name}">
-            <img src="${img}" alt="${ship.name}" loading="lazy" decoding="async"
-                 onerror="this.onerror=null;this.src='/assets/index_hero.jpg'">
-          </a>
-          <div>
-            <h3 style="margin:.1rem 0 .25rem 0"><a href="${href}">${ship.name}</a></h3>
-            <p class="tiny muted">• Debut: ${debut}${extra}<br>• Cap: ${cap}</p>
-          </div>
-        </article>`;
-    }
-
-    async function renderFleet(){
-      const mount = document.getElementById('fleet-cards');
-      const data  = await fetchFleetIndex();
-      const stats = rcIndexLookup(data||{});
-      const html  = FLEET.map(s => shipCard(s, stats)).filter(Boolean).join('');
-      mount.innerHTML = html || '<p class="tiny muted">No verified images yet.</p>';
-      const note = document.getElementById('fleet-note');
-      if (note) note.hidden = !html;
-
-      // Ask SW to precache JSON + used images
       if(navigator.serviceWorker?.controller){
-        const used = ['/assets/data/fleets_index.json'].concat(
-          FLEET.map(s=>SHIP_IMAGES[s.slug]).filter(Boolean)
-        );
-        navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls: used});
+        navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls:[
+          '/assets/data/articles/index.json','/solo/articles/index.json','/travel/articles/index.json'
+        ]});
       }
-    }
-
-    /* ---------- Journal rail (Solo + Travel + site index) -------------- */
-    (function journalRail(){
-      const mount=document.getElementById('journal-rail');
-      const sources=[
-        '/assets/data/articles/index.json?v='+VER, // site-wide index if present
-        '/solo/articles/index.json?v='+VER,
-        '/travel/articles/index.json?v='+VER
-      ];
-      const SEED=[
-        {
-          url:'/travel.html#top-20-questions',
-          title:'Top 20 First-Cruise Questions (Answered)',
-          date:'2025-10-16',
-          dek:'Planning, packing, ports, ship life.',
-          image:'/assets/articles/top-20-questions/cover.jpg',
-          fallback:'/assets/index_hero.jpg',
-          author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp'}
-        },
-        {
-          url:'/solo/freedom-of-your-own-wake.html',
-          title:'Freedom of Your Own Wake',
-          date:'2024-08-13',
-          dek:'On choosing solitude without being alone.',
-          image:'/assets/articles/freedom-of-your-own-wake.jpg',
-          fallback:'/assets/index_hero.jpg',
-          author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp'}
-        }
-      ];
-      function norm(x){
-        const a = Array.isArray(x?.articles)? x.articles : (Array.isArray(x)? x : []);
-        return a.map(y=>({
-          url: y.url || y.permalink || '#',
-          title: y.title || 'Article',
-          dek: y.dek || y.description || y.excerpt || '',
-          date: y.date || y.datePublished || '',
-          image: y.image || y.cover || '',
-          fallback:'/assets/index_hero.jpg',
-          author: y.author || null
-        })).filter(z=>z.url && z.url!=='#');
-      }
-      async function get(u){ try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return norm(await r.json()); }catch(_){ return []; } }
-      const fmtDate = (d)=> { const t=Date.parse(d||''); return isNaN(t)? '' : new Date(t).toLocaleDateString(); };
-      function card(a){
-        const img=a.image||a.fallback;
-        const avatar=a.author?.image||'/authors/img/author.webp';
-        const name=a.author?.name||'';
-        const url=a.author?.url||'#';
-        return `<article class="rail-item">
-          <a class="thumb" href="${a.url}">
-            <img src="${img}" alt="${a.title}" loading="lazy" decoding="async"
-                 onerror="this.onerror=null;this.src='${a.fallback}'">
-          </a>
-          <div>
-            <h4><a href="${a.url}">${a.title}</a></h4>
-            <p class="tiny muted">${a.date?fmtDate(a.date):''}${name?` · <img class="avatar" src="${avatar}" alt="${name}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/authors/img/author.webp'"> <a href="${url}">${name}</a>`:''}</p>
-            ${a.dek?`<p class="tiny">${a.dek}</p>`:''}
-          </div>
-        </article>`;
-      }
-      (async function boot(){
-        let items=[];
-        for(const src of sources){
-          const got = await get(src);
-          items = items.concat(got);
-        }
-        if(!items.length) items = SEED;
-        // Simple sort newest->oldest when dates present
-        items.sort((a,b)=> (Date.parse(b.date||'')||0)-(Date.parse(a.date||'')||0));
-        mount.innerHTML = items.slice(0,3).map(card).join('');
-        mount.setAttribute('aria-busy','false');
-
-        // seed SW
-        if(navigator.serviceWorker?.controller){
-          navigator.serviceWorker.controller.postMessage({
-            type:'SEED_URLS',
-            urls: ['/assets/data/articles/index.json','/solo/articles/index.json','/travel/articles/index.json']
-          });
-        }
-      })();
     })();
-
-    /* ---------- Authors rail (site + travel) --------------------------- */
-    (function authorsRail(){
-      const mount = document.getElementById('authors-rail');
-      const sources = ['/data/authors.json?v='+VER, '/travel/data/authors.json?v='+VER];
-
-      // Seeds
-      let AUTHORS = [
-        { id:'ken',  name:'Ken Baker',  url:'/authors/ken-baker.html',   avatarBase:'/authors/img/ken1'  },
-        { id:'tina', name:'Tina Maulsby', url:'/authors/tina-maulsby.html', avatarBase:'/authors/img/tina3' }
-      ];
-
-      function escapeHtml(s){ return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
-      function render(list){
-        if(!list.length){ mount.innerHTML='<p class="tiny muted">Authors coming online.</p>'; mount.setAttribute('aria-busy','false'); return; }
-        mount.innerHTML = list.slice(0,4).map(a=>{
-          const webp = a.avatarBase + '.webp?v='+encodeURIComponent(VER);
-          const jpg  = a.avatarBase + '.jpg?v='+encodeURIComponent(VER);
-          return `
-            <div class="rail-item" role="listitem" aria-label="${escapeHtml(a.name)}">
-              <div class="thumb" style="width:112px;height:72px;border-radius:.5rem;overflow:hidden">
-                <picture>
-                  <source type="image/webp" srcset="${webp}">
-                  <img src="${jpg}" alt="${escapeHtml(a.name)}" loading="lazy" decoding="async" style="width:112px;height:72px;object-fit:cover">
-                </picture>
-              </div>
-              <div>
-                <h4><a href="${a.url}">${escapeHtml(a.name)}</a></h4>
-                <p class="tiny muted">Contributor</p>
-              </div>
-            </div>`;
-        }).join('');
-        mount.setAttribute('aria-busy','false');
-      }
-
-      (async function load(){
-        let loaded=[];
-        for(const u of sources){
-          try{
-            const r = await fetch(u,{cache:'no-store'});
-            if(!r.ok) continue;
-            const j = await r.json();
-            const arr = Array.isArray(j?.authors) ? j.authors : [];
-            loaded = loaded.concat(arr.map(a=>({
-              id: (String(a.slug||a.name||'').split('-')[0]||'').toLowerCase(),
-              name: a.name || a.title || 'Author',
-              url: a.url || a.profile || '#',
-              avatarBase: String(a.image||a.avatar||'').replace(/\.(jpg|jpeg|png|webp)(\?.*)?$/,'')
-            })));
-          }catch(_){}
-        }
-        const byKey = new Map();
-        AUTHORS.concat(loaded).forEach(a=>{ if(!byKey.has(a.id)) byKey.set(a.id,a); });
-        render(Array.from(byKey.values()));
-        // Seed SW with likely avatars
-        if(navigator.serviceWorker?.controller){
-          const urls = Array.from(byKey.values()).flatMap(a=>[a.avatarBase+'.webp', a.avatarBase+'.jpg']);
-          navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls});
-        }
-      })();
-    })();
-
-    /* ---------- Accessible share bar ----------------------------------- */
-    (function shareBar(){
-      const bar=document.getElementById('share-bar');
-      const native=document.getElementById('share-native');
-      const copy=document.getElementById('share-copy');
-      const url=location.href;
-      function toggle(){ if(window.scrollY>180){ bar.classList.add('visible'); } else { bar.classList.remove('visible'); } }
-      window.addEventListener('scroll',toggle,{passive:true}); toggle();
-      native.addEventListener('click', async ()=>{ try{
-        if(navigator.share){ await navigator.share({title:document.title,url}); }
-        else { await navigator.clipboard.writeText(url); native.textContent='Link copied'; setTimeout(()=>native.textContent='Share',1500); }
-      }catch(_){}});
-      copy.addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(url); copy.textContent='Copied'; setTimeout(()=>copy.textContent='Copy link',1500);}catch(_){} });
-      native.setAttribute('aria-label','Share this page');
-      copy.setAttribute('aria-label','Copy page URL to clipboard');
-    })();
-
-    /* ---------- Kickoff ------------------------------------------------- */
-    renderFleet();
   })();
-  </script>
+
+  /* 6) Authors rail — site + travel, with graceful seeds */
+  (function authorsRail(){
+    const mount = document.getElementById('authors-rail');
+    const sources = ['/data/authors.json?v='+VER, '/travel/data/authors.json?v='+VER];
+    let AUTHORS = [
+      { id:'ken',  name:'Ken Baker',  url:'/authors/ken-baker.html',   avatarBase:'/authors/img/ken1'  },
+      { id:'tina', name:'Tina Maulsby', url:'/authors/tina-maulsby.html', avatarBase:'/authors/img/tina3' }
+    ];
+    const esc=(s)=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+    function render(list){
+      if(!list.length){ mount.innerHTML='<p class="tiny muted">Authors coming online.</p>'; mount.setAttribute('aria-busy','false'); return; }
+      mount.innerHTML = list.slice(0,4).map(a=>{
+        const webp = a.avatarBase + '.webp?v='+encodeURIComponent(VER);
+        const jpg  = a.avatarBase + '.jpg?v='+encodeURIComponent(VER);
+        return `<div class="rail-item" role="listitem" aria-label="${esc(a.name)}">
+          <div class="thumb" style="width:112px;height:72px;border-radius:.5rem;overflow:hidden">
+            <picture><source type="image/webp" srcset="${webp}">
+              <img src="${jpg}" alt="${esc(a.name)}" loading="lazy" decoding="async" style="width:112px;height:72px;object-fit:cover"></picture>
+          </div>
+          <div><h4><a href="${a.url}">${esc(a.name)}</a></h4><p class="tiny muted">Contributor</p></div>
+        </div>`;
+      }).join('');
+      mount.setAttribute('aria-busy','false');
+    }
+    (async function load(){
+      let loaded=[];
+      for(const u of sources){
+        try{
+          const r = await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
+          const j = await r.json(); const arr = Array.isArray(j?.authors) ? j.authors : [];
+          loaded = loaded.concat(arr.map(a=>({
+            id:(String(a.slug||a.name||'').split('-')[0]||'').toLowerCase(),
+            name:a.name||a.title||'Author', url:a.url||a.profile||'#',
+            avatarBase:String(a.image||a.avatar||'').replace(/\.(jpg|jpeg|png|webp)(\?.*)?$/,'')
+          })));
+        }catch(_){}
+      }
+      const byKey = new Map(); AUTHORS.concat(loaded).forEach(a=>{ if(!byKey.has(a.id)) byKey.set(a.id,a); });
+      render(Array.from(byKey.values()));
+      if(navigator.serviceWorker?.controller){
+        const urls = Array.from(byKey.values()).flatMap(a=>[a.avatarBase+'.webp', a.avatarBase+'.jpg']);
+        navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls});
+      }
+    })();
+  })();
+
+  /* 7) Accessible share bar */
+  (function shareBar(){
+    const bar=document.getElementById('share-bar');
+    const native=document.getElementById('share-native');
+    const copy=document.getElementById('share-copy');
+    const url=location.href;
+    function toggle(){ if(window.scrollY>180){ bar.classList.add('visible'); } else { bar.classList.remove('visible'); } }
+    window.addEventListener('scroll',toggle,{passive:true}); toggle();
+    native.addEventListener('click', async ()=>{ try{
+      if(navigator.share){ await navigator.share({title:document.title,url}); }
+      else { await navigator.clipboard.writeText(url); native.textContent='Link copied'; setTimeout(()=>native.textContent='Share',1500); }
+    }catch(_){}});
+    copy.addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(url); copy.textContent='Copied'; setTimeout(()=>copy.textContent='Copy link',1500);}catch(_){} });
+    native.setAttribute('aria-label','Share this page');
+    copy.setAttribute('aria-label','Copy page URL to clipboard');
+  })();
+
+  /* 8) Go */
+  renderFleet();
+})();
+</script>
 </body>
 </html>
