@@ -19,9 +19,9 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
   <!-- Title / Version Trinity -->
-  <title>About Us — In the Wake (v3.008.033)</title>
-  <meta name="version" content="v3.008.033">
-  <meta name="page:version" content="v3.008.033">
+  <title>About Us — In the Wake (v3.008.034)</title>
+  <meta name="version" content="v3.008.034">
+  <meta name="page:version" content="3.008.034">
   <meta name="standards:baseline" content="3.008"/>
 
   <!-- Canonical, Description, Robots -->
@@ -35,12 +35,12 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta property="og:url" content="https://www.cruisinginthewake.com/about-us.html">
   <meta property="og:title" content="About Us — In the Wake">
   <meta property="og:description" content="Meet the crew behind In the Wake — real cruisers writing from real voyages.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/about-us.jpg?v=3.008.033">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/about-us.jpg?v=3.008.034">
   <meta property="og:image:alt" content="Ocean wake at sunrise behind a ship">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="About Us — In the Wake">
   <meta name="twitter:description" content="Meet the crew behind In the Wake — real cruisers writing from real voyages.">
-  <meta name="twitter:image" content="https://www.cruisinginthewake.com/assets/social/about-us.jpg?v=3.008.033">
+  <meta name="twitter:image" content="https://www.cruisinginthewake.com/assets/social/about-us.jpg?v=3.008.034">
 
   <!-- PWA / Icons -->
   <link rel="manifest" href="/site.webmanifest">
@@ -48,10 +48,10 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   <!-- Global Styles -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008.033">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.034">
 
   <!-- Preload Hero -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.033" fetchpriority="high">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.034" fetchpriority="high">
 
   <!-- CMP Autoblocking (load early) -->
   <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js" data-cmp-host="a.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
@@ -106,23 +106,31 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   })();
   </script>
 
-  <!-- Hero tune -->
+  <!-- Page-scoped layout/rails styles -->
   <style>
-    .hero{background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.033') center/cover no-repeat!important;}
+    .hero{background:url('/assets/index_hero.jpg?v=3.008.034') center/cover no-repeat!important;}
     .hero::before,.hero::after{content:none!important}
+
     /* Focus visibility guarantee */
     .navbar a:focus-visible,
     .pill-nav a:focus-visible,
     a.pill:focus-visible { outline:3px solid #0e6e8e; outline-offset:2px; border-radius:10px; }
+
     /* Reduced-motion guard */
     @media (prefers-reduced-motion: reduce){
       *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
     }
-    /* Share bar styles (for parity site-wide) */
-    .share-bar{position:fixed;left:12px;bottom:12px;display:flex;gap:.5rem;z-index:9999;transform:translateY(12px);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
-    .share-bar.visible{opacity:1;transform:none;pointer-events:auto}
-    .share-bar .share{padding:.4rem .6rem;border-radius:999px;border:1px solid var(--rope);background:#fff;text-decoration:none;font-weight:600}
-    @media (prefers-reduced-motion: reduce){.share-bar{transition:none}}
+
+    /* Intro grid: journal + authors side-by-side on wide */
+    .intro-grid{display:grid;gap:1rem}
+    @media (min-width:980px){ .intro-grid{grid-template-columns:2fr 1.2fr} }
+
+    /* Rails */
+    .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
+    .rail-item .thumb img{display:block;width:112px;height:72px;object-fit:cover;border-radius:.5rem}
+    .rail-item .avatar{width:20px;height:20px;border-radius:50%;vertical-align:middle;margin-right:.25rem}
+    #journal-rail{display:grid;grid-template-columns:1fr;gap:.9rem}
+    .journal-rail .dek{margin-top:.25rem;margin-bottom:1rem;opacity:.9}
   </style>
 
   <!-- JSON-LD: WebSite + SearchAction -->
@@ -142,8 +150,8 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand" aria-hidden="true">
-        <img src="/assets/logo_wake.png?v=3.008.033" width="256" height="64" alt="">
-        <span class="version-badge">v3.008.033</span>
+        <img src="/assets/logo_wake.png?v=3.008.034" width="256" height="64" alt="">
+        <span class="version-badge">v3.008.034</span>
       </div>
       <nav class="pill-nav pills navbar" aria-label="Primary">
         <a href="/">Home</a>
@@ -162,9 +170,9 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.033" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.034" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008.033" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.008.034" width="256" height="64" alt="In the Wake">
       </div>
       <div class="tagline">Smooth Water Ahead</div>
       <div class="hero-credit">
@@ -205,13 +213,8 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
-  <!-- Accessible floating share bar (parity with other pages) -->
-  <div id="share-bar" class="share-bar" aria-label="Share this page">
-    <button class="share" id="share-native" type="button">Share</button>
-    <a class="share" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com/about-us.html" target="_blank" rel="noopener" aria-label="Share on X">X</a>
-    <a class="share" href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com/about-us.html" target="_blank" rel="noopener" aria-label="Share on Facebook">Facebook</a>
-    <button class="share" id="share-copy" type="button" aria-live="polite">Copy link</button>
-  </div>
+  <!-- Floating Share Bar -->
+  <script defer src="/assets/js/wshare-bar.js?v=3.008.034"></script>
 
   <!-- Auto-highlight current nav (aliases handled) -->
   <script>
@@ -238,7 +241,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <!-- Articles rail (Solo + Travel + site) -->
   <script>
   (function(){
-    const VER=document.querySelector('meta[name="page:version"]')?.content||'3.008.033';
+    const VER=document.querySelector('meta[name="page:version"]')?.content||'3.008.034';
     const mount=document.getElementById('journal-rail'); if(!mount) return;
     const sources=['/assets/data/articles/index.json?v='+VER,'/solo/articles/index.json?v='+VER,'/travel/articles/index.json?v='+VER];
     const SEED=[{url:'/solo/freedom-of-your-own-wake.html',title:'The Freedom of Your Own Wake',dek:'On choosing solitude without being alone.',date:'2025-10-15',image:'/assets/articles/freedom-of-your-own-wake.jpg'}];
@@ -276,7 +279,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <!-- Authors rail (site + travel) -->
   <script>
   (function(){
-    const VER=document.querySelector('meta[name="page:version"]')?.content||'3.008.033';
+    const VER=document.querySelector('meta[name="page:version"]')?.content||'3.008.034';
     const mount=document.getElementById('authors-rail'); if(!mount) return;
     const sources=['/data/authors.json?v='+VER,'/travel/data/authors.json?v='+VER];
     let AUTHORS=[{id:'ken',name:'Ken Baker',url:'/authors/ken-baker.html',avatarBase:'/authors/img/ken1'},{id:'tina',name:'Tina Maulsby',url:'/authors/tina-maulsby.html',avatarBase:'/authors/img/tina3'}];
@@ -318,25 +321,6 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   })();
   </script>
 
-  <!-- Share bar logic -->
-  <script>
-  (function(){
-    const bar=document.getElementById('share-bar');
-    const native=document.getElementById('share-native');
-    const copy=document.getElementById('share-copy');
-    const url=location.href;
-    function toggle(){ if(window.scrollY>180){bar.classList.add('visible');} else {bar.classList.remove('visible');} }
-    window.addEventListener('scroll',toggle,{passive:true}); toggle();
-    native.addEventListener('click', async ()=>{ try{
-      if(navigator.share){ await navigator.share({title:document.title,url}); }
-      else { await navigator.clipboard.writeText(url); native.textContent='Link copied'; setTimeout(()=>native.textContent='Share',1500); }
-    }catch(_){ }});
-    copy.addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(url); copy.textContent='Copied'; setTimeout(()=>copy.textContent='Copy link',1500);}catch(_){ }});
-    native.setAttribute('aria-label','Share this page');
-    copy.setAttribute('aria-label','Copy page URL to clipboard');
-  })();
-  </script>
-
   <!-- Accessibility helper (ConsentManager) -->
   <script type="text/javascript" src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js" data-acc-accid="774c13e29978" data-acc-host="delivery.consentmanager.net" data-acc-cdn="cdn.consentmanager.net"></script>
 
@@ -344,17 +328,17 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load',function(){
-      navigator.serviceWorker.register('/sw.js?v=3.008.033').catch(()=>{});
+      navigator.serviceWorker.register('/sw.js?v=3.008.034').catch(()=>{});
     });
   }
   </script>
 
-  <!-- Hidden Invocation (required by baseline) -->
+  <!-- Hidden Invocation (baseline) -->
   <!--
     Invocation · Soli Deo Gloria
     Steward: abondservant
     Path: /about-us.html
-    Version: v3.008.033
+    Version: v3.008.034
     Timestamp (UTC): 2025-10-21T00:00:00Z
   -->
 </body>
