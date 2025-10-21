@@ -41,10 +41,10 @@
   <meta name="robots" content="index,follow,max-image-preview:large"/>
 
   <!-- Page version (for cache-busting in client JS) -->
-  <meta name="page:version" content="3.008.029"/>
+  <meta name="page:version" content="3.008.032"/>
 
   <!-- CSS (site-wide) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.008.029"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.032"/>
 
   <!-- Page styles -->
   <style>
@@ -58,9 +58,10 @@
     .pill-row{display:flex;gap:.5rem;flex-wrap:wrap}
     .pill-row a{padding:.4rem .7rem;border:1px solid var(--rope);border-radius:999px;background:#fff;text-decoration:none;font-weight:600}
     .rail{display:grid;gap:1rem}
-    .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
-    .rail-item .thumb img{display:block;width:112px;height:72px;object-fit:cover;border-radius:.5rem}
-    .rail-item .avatar{width:20px;height:20px;border-radius:50%;vertical-align:middle;margin-right:.25rem}
+    /* Author cards: circular avatars so they don’t “junk up” */
+    .rail-item{display:grid;grid-template-columns:56px 1fr;gap:.75rem;align-items:center}
+    .rail-item .avatar-wrap{width:56px;height:56px;border-radius:50%;overflow:hidden;border:1px solid #dfe7ea;background:#f7fafb}
+    .rail-item .avatar-wrap img{width:100%;height:100%;object-fit:cover;display:block}
     .hero{position:relative;background:url('/assets/index_hero.jpg') center/cover no-repeat;min-height:240px}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
     .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600}
@@ -85,7 +86,7 @@
     <nav class="navbar pill-nav pills" role="navigation" aria-label="Primary">
       <div class="brand" aria-hidden="true">
         <img src="/assets/logo_wake.png" alt="" width="116" height="28" decoding="async">
-        <span class="version-badge" aria-label="Site version">v3.008.029</span>
+        <span class="version-badge" aria-label="Site version">v3.008.032</span>
       </div>
 
       <a href="/">Home</a>
@@ -127,7 +128,7 @@
       </section>
     </div>
 
-  <!-- RIGHT RAIL -->
+    <!-- RIGHT RAIL -->
     <aside class="rail" aria-label="Sidebar">
       <section class="card" aria-labelledby="journal-title">
         <h3 id="journal-title">From the Journal</h3>
@@ -170,11 +171,11 @@
   })();
   </script>
 
-  <!-- Data + rendering (auto-resolver; Solo+Travel rails; authors rail; sharebar) -->
+  <!-- Data + rendering (auto-resolver; rails) -->
   <script>
   (function(){
     "use strict";
-    const VER = (document.querySelector('meta[name="page:version"]')?.content) || '3.008.029';
+    const VER = (document.querySelector('meta[name="page:version"]')?.content) || '3.008.032';
 
     /* Fleet (render only ships with images) */
     const FLEET = [
@@ -214,26 +215,18 @@
     }
     async function resolveImageURL(url){
       try{
-        let r=await fetch(url,{method:'HEAD',cache:'no-store'});
-        if(r.ok) return url;
-        r=await fetch(url,{method:'GET',cache:'no-store',credentials:'omit'});
-        if(r.ok) return url;
+        let r=await fetch(url,{method:'HEAD',cache:'no-store'}); if(r.ok) return url;
+        r=await fetch(url,{method:'GET',cache:'no-store',credentials:'omit'}); if(r.ok) return url;
       }catch(_){}
       return null;
     }
     async function findImageFor(slug){
-      if(MANIFEST&&MANIFEST[slug]){
-        const hit=await resolveImageURL(MANIFEST[slug]);
-        if(hit) return hit;
-      }
-      for(const u of candidatesFor(slug)){
-        const hit=await resolveImageURL(u);
-        if(hit) return hit;
-      }
+      if(MANIFEST&&MANIFEST[slug]){ const hit=await resolveImageURL(MANIFEST[slug]); if(hit) return hit; }
+      for(const u of candidatesFor(slug)){ const hit=await resolveImageURL(u); if(hit) return hit; }
       return null;
     }
 
-    /* Stats from fleets_index (canonical path, content-type validation) */
+    /* Stats from fleets_index (supports both shapes) */
     async function fetchFleetIndex(){
       try{
         const r=await fetch('/assets/data/fleets_index.json',{cache:'no-store'});
@@ -242,14 +235,16 @@
         if(!ct.includes('application/json')) throw new Error('Not JSON: '+ct);
         return await r.json();
       }catch(e){
-        console.error('[fleet] fleets_index load failed:', e);
+        console.error('[fleet] load failed:', e);
         return null;
       }
     }
     function rcIndexLookup(json){
       const map=new Map();
-      const list=json?.cruise_lines?.['royal-caribbean']||[];
-      for(const s of list){
+      const collection = (json?.cruise_lines && json.cruise_lines['royal-caribbean'])
+                       || json?.['royal-caribbean']
+                       || [];
+      for(const s of collection){
         const slug=String(s.slug||s.attributes?.slug||'').toLowerCase().trim();
         if(!slug) continue;
         const a=s.attributes||{};
@@ -298,17 +293,9 @@
         ? usable.map(x=>shipCard(x.ship,x.img,stats)).join('')
         : '<p class="tiny muted">No verified images yet.</p>';
       const note=document.getElementById('fleet-note'); if(note) note.hidden=!usable.length;
-
-      // Precache canonical JSON + used images (+ manifest if present)
-      if(navigator.serviceWorker?.controller){
-        const urls=['/assets/data/fleets_index.json']
-          .concat(MANIFEST?['/ships/image-index.json']:[])
-          .concat(usable.map(x=>x.img));
-        navigator.serviceWorker.controller.postMessage({type:'SEED_URLS',urls});
-      }
     }
 
-    /* Journal rail (Solo + Travel + site) */
+    /* Journal rail (avatars are circular and stable) */
     (function journalRail(){
       const mount=document.getElementById('journal-rail');
       const sources=[ '/assets/data/articles/index.json?v='+VER, '/solo/articles/index.json?v='+VER, '/travel/articles/index.json?v='+VER ];
@@ -319,19 +306,20 @@
       const get=async(u)=>{try{const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return norm(await r.json());}catch(_){return [];}}
       const fmtDate=(d)=>{const t=Date.parse(d||'');return isNaN(t)?'':new Date(t).toLocaleDateString();}
       const card=(a)=>`<article class="rail-item">
-        <a class="thumb" href="${a.url}"><img src="${a.image||a.fallback}" alt="${a.title}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${a.fallback}'"></a>
-        <div><h4><a href="${a.url}">${a.title}</a></h4>
-          <p class="tiny muted">${a.date?fmtDate(a.date):''}${a.author?.name?` · <img class="avatar" src="${a.author.image||'/authors/img/author.webp'}" alt="${a.author.name}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/authors/img/author.webp'"> <a href="${a.author.url||'#'}">${a.author.name}</a>`:''}</p>
+        <div class="avatar-wrap">
+          <img src="${a.author?.image||'/authors/img/author.webp'}" alt="${a.author?.name||'Author'}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/authors/img/author.webp'">
+        </div>
+        <div>
+          <h4><a href="${a.url}">${a.title}</a></h4>
+          <p class="tiny muted">${a.date?fmtDate(a.date):''}${a.author?.name?` · <a href="${a.author.url||'#'}">${a.author.name}</a>`:''}</p>
           ${a.dek?`<p class="tiny">${a.dek}</p>`:''}
-        </div></article>`;
+        </div>
+      </article>`;
       (async function boot(){
         let items=[]; for(const s of sources){ items=items.concat(await get(s)); }
         if(!items.length) items=SEED;
         items.sort((a,b)=>(Date.parse(b.date||'')||0)-(Date.parse(a.date||'')||0));
         mount.innerHTML=items.slice(0,3).map(card).join(''); mount.setAttribute('aria-busy','false');
-        if(navigator.serviceWorker?.controller){
-          navigator.serviceWorker.controller.postMessage({type:'SEED_URLS',urls:['/assets/data/articles/index.json','/solo/articles/index.json','/travel/articles/index.json']});
-        }
       })();
     })();
 
@@ -340,20 +328,26 @@
       const mount=document.getElementById('authors-rail');
       const sources=['/data/authors.json?v='+VER,'/travel/data/authors.json?v='+VER];
       let AUTHORS=[{id:'ken',name:'Ken Baker',url:'/authors/ken-baker.html',avatarBase:'/authors/img/ken1'},{id:'tina',name:'Tina Maulsby',url:'/authors/tina-maulsby.html',avatarBase:'/authors/img/tina3'}];
-      const esc=(s)=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;","—":"—",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]||m));
+      const esc=(s)=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
       function render(list){
         if(!list.length){mount.innerHTML='<p class="tiny muted">Authors coming online.</p>'; mount.setAttribute('aria-busy','false'); return;}
         mount.innerHTML=list.slice(0,4).map(a=>{
-          const webp=a.avatarBase+'.webp?v='+encodeURIComponent(VER); const jpg=a.avatarBase+'.jpg?v='+encodeURIComponent(VER);
+          const webp=a.avatarBase+'.webp?v='+encodeURIComponent(VER);
+          const jpg =a.avatarBase+'.jpg?v='+encodeURIComponent(VER);
           return `<div class="rail-item" role="listitem" aria-label="${esc(a.name)}">
-            <div class="thumb" style="width:112px;height:72px;border-radius:.5rem;overflow:hidden">
-              <picture><source type="image/webp" srcset="${webp}"><img src="${jpg}" alt="${esc(a.name)}" loading="lazy" decoding="async" style="width:112px;height:72px;object-fit:cover"></picture>
+            <div class="avatar-wrap">
+              <picture><source type="image/webp" srcset="${webp}">
+                <img src="${jpg}" alt="${esc(a.name)}" loading="lazy" decoding="async">
+              </picture>
             </div>
-            <div><h4><a href="${a.url}">${esc(a.name)}</a></h4><p class="tiny muted">Contributor</p></div></div>`;
-        }).join(''); mount.setAttribute('aria-busy','false');
+            <div><h4><a href="${a.url}">${esc(a.name)}</a></h4><p class="tiny muted">Contributor</p></div>
+          </div>`;
+        }).join('');
+        mount.setAttribute('aria-busy','false');
       }
       (async function load(){
-        let loaded=[]; for(const u of sources){
+        let loaded=[];
+        for(const u of sources){
           try{
             const r=await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
             const j=await r.json(); const arr=Array.isArray(j?.authors)?j.authors:[];
@@ -365,12 +359,8 @@
             })));
           }catch(_){}
         }
-        const byKey=new Map(); AUTHORS.concat(loaded).forEach(a=>{if(!byKey.has(a.id)) byKey.set(a.id,a);});
+        const byKey=new Map(); AUTHORS.concat(loaded).forEach(a=>{ if(!byKey.has(a.id)) byKey.set(a.id,a); });
         render(Array.from(byKey.values()));
-        if(navigator.serviceWorker?.controller){
-          const urls=Array.from(byKey.values()).flatMap(a=>[a.avatarBase+'.webp',a.avatarBase+'.jpg']);
-          navigator.serviceWorker.controller.postMessage({type:'SEED_URLS',urls});
-        }
       })();
     })();
 
@@ -382,8 +372,11 @@
       const url=location.href;
       function toggle(){ if(window.scrollY>180){bar.classList.add('visible');} else {bar.classList.remove('visible');}}
       window.addEventListener('scroll',toggle,{passive:true}); toggle();
-      native.addEventListener('click',async()=>{try{ if(navigator.share){await navigator.share({title:document.title,url});} else {await navigator.clipboard.writeText(url); native.textContent='Link copied'; setTimeout(()=>native.textContent='Share',1500);} }catch(_){}});
-      copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(url); copy.textContent='Copied'; setTimeout(()=>copy.textContent='Copy link',1500);}catch(_){}});
+      native.addEventListener('click',async()=>{try{
+        if(navigator.share){await navigator.share({title:document.title,url});}
+        else {await navigator.clipboard.writeText(url); native.textContent='Link copied'; setTimeout(()=>native.textContent='Share',1500);}
+      }catch(_){}}); 
+      copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(url); copy.textContent='Copied'; setTimeout(()=>copy.textContent='Copy link',1500);}catch(_){}}); 
       native.setAttribute('aria-label','Share this page'); copy.setAttribute('aria-label','Copy page URL to clipboard');
     })();
 
