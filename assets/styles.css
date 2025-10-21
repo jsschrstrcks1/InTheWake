@@ -497,3 +497,50 @@ html, body { overflow-x: hidden; }
 
 /* 3) Journal rail: if an image fails, collapse the reserved box cleanly */
 .post-card .thumb.no-thumb { display: none; }
+
+/* --- Skip link: hidden until focused (WCAG) --- */
+.skip-link{
+  position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
+}
+.skip-link:focus{
+  left:.75rem;top:.5rem;width:auto;height:auto;
+  background:#0e6e8e;color:#fff;border-radius:10px;
+  padding:.35rem .6rem;z-index:1000;outline:0;
+}
+
+/* --- Pill nav: force single line, center, with horizontal scroll on narrow screens --- */
+.pill-nav.pills{
+  display:flex;align-items:center;justify-content:center;
+  gap:.45rem; padding:.35rem 0;
+  white-space:nowrap; flex-wrap:nowrap;      /* one line */
+  overflow-x:auto; overflow-y:hidden;        /* scroll if not enough room */
+  -webkit-overflow-scrolling:touch; scrollbar-width:thin;
+}
+.pill-nav.pills a{
+  padding:.35rem .7rem;border-radius:10px;
+  border:1px solid var(--rope);              /* firm line */
+  background:#fff;font-size:.9rem;color:var(--accent);
+}
+.pill-nav.pills a:hover{ text-decoration:none; background:#f9fdfd; }
+
+/* Current page chip = dotted outline (exact visual you pointed to) */
+.pill-nav.pills a[aria-current="page"]{
+  outline:3px dashed var(--rope);
+  outline-offset:2px;
+  box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
+}
+
+/* --- Author/Journal avatar chips: consistent circles & centering --- */
+.avatar, .journal-avatar, .author-avatar{
+  width:40px;height:40px;border-radius:50%;
+  object-fit:cover;object-position:center center;display:block;
+}
+@media (min-width:720px){
+  .journal-avatar, .author-avatar{ width:48px;height:48px; }
+}
+
+/* Rail item layout used by both Journal and Authors */
+.rail-list{ display:grid; gap:1rem; }
+.rail-row{
+  display:grid; grid-template-columns:48px 1fr; gap:.75rem; align-items:start;
+}
