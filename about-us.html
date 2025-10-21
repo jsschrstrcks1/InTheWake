@@ -96,6 +96,43 @@ Page: /about-us.html • v3.008.043 (inline build)
 
     /* Footer */
     footer.wrap{font-size:.92rem}
+    .pill-nav{
+  display:flex;
+  align-items:center;
+  /* start at left so Safari doesn't center + clip */
+  justify-content:flex-start;
+
+  gap:.45rem;
+  padding:.35rem .5rem;
+
+  /* single line that can scroll */
+  white-space:nowrap;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+
+  /* THE IMPORTANT BITS */
+  flex:1 1 auto;  /* take remaining row space next to the brand */
+  min-width:0;    /* allow the child to shrink so it can scroll */
+}
+
+/* keep the chips visual exactly as before */
+.pill-nav a{
+  display:inline-block;
+  padding:.35rem .7rem;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid var(--rope);
+  color:var(--accent);
+  font-size:.9rem;
+}
+.pill-nav a[aria-current="page"]{
+  outline:3px dashed var(--rope);
+  outline-offset:2px;
+  box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
+}
   </style>
 
   <!-- (Optional) Analytics + CMP. Keep if you want parity; safe to remove during testing. -->
