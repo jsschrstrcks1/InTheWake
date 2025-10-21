@@ -550,3 +550,69 @@ html, body { overflow-x: hidden; }
 @media (min-width:720px){
   .rail-row{ grid-template-columns:48px 1fr; }
 }
+/* ===== Hotfix v3.008.042 — Navbar, Rails placement, Header line ===== */
+
+/* -- A) Pill navbar: never clip, one-line scroll, brand does not crowd it -- */
+.navbar {
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  overflow:visible;                 /* ensure chips aren’t cut off */
+}
+.navbar .brand { flex:0 0 auto; }
+.navbar .pill-nav { flex:1 1 auto; min-width:0; }  /* allow nav to consume width */
+
+.pill-nav.pills{
+  display:flex; align-items:center; justify-content:center;
+  gap:.45rem; padding:.35rem 0;
+  white-space:nowrap; flex-wrap:nowrap;               /* one line only */
+  overflow-x:auto; overflow-y:hidden;                 /* scroll if needed */
+  -webkit-overflow-scrolling:touch; scrollbar-width:thin;
+}
+.pill-nav.pills a{
+  padding:.35rem .7rem; border-radius:10px;
+  border:1px solid var(--rope); background:#fff; color:var(--accent);
+}
+.pill-nav.pills a[aria-current="page"]{
+  outline:3px dashed var(--rope); outline-offset:2px;
+  box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
+}
+
+/* -- B) Rails: Articles on the RIGHT at ≥980px, single column below -- */
+.rails { display:grid; gap:1rem; }
+.rail-authors, .rail-journal { min-width:0; }
+@media (min-width:980px){
+  .rails{
+    grid-template-columns:1fr 1fr;
+    grid-template-areas: "authors journal";
+  }
+  .rail-authors{ grid-area:authors; }
+  .rail-journal{ grid-area:journal; }
+}
+/* Mobile/tablet remains natural flow (Authors then Journal) */
+
+/* Avatar circles & alignment (shared by both rails) */
+.avatar, .journal-avatar, .author-avatar{
+  width:40px; height:40px; border-radius:50%;
+  object-fit:cover; object-position:center; display:block;
+}
+@media (min-width:720px){
+  .journal-avatar, .author-avatar{ width:48px; height:48px; }
+}
+.rail-list{ display:grid; gap:1rem; }
+.rail-row{ display:grid; grid-template-columns:48px 1fr; gap:.75rem; align-items:start; }
+
+/* -- C) Header bottom rope line should always be visible -- */
+.hero-header{
+  position:relative;
+  border-bottom:6px double var(--rope);
+  z-index:0;                        /* the border draws above the hero background */
+}
+.hero-header > .hero{
+  position:relative;
+  z-index:-1;                       /* push the image below the header border */
+  width:100% !important;
+  margin-left:0 !important;
+  overflow-x:clip !important;
+}
+
