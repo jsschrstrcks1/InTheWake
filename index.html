@@ -1,6 +1,6 @@
 <!--
 Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
-Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
+Page: /index.html · v3.009.004 (unified-nav repair) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
@@ -18,7 +18,7 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="page:version" content="3.009.003">
+  <meta name="page:version" content="3.009.004">
   <meta name="standards:baseline" content="3.009">
   <title>In the Wake | A Cruise Traveler’s Logbook & Planning Companion</title>
   <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship reviews, menu scans, port snapshots, accessibility notes, and solo travel tips based on real sailings.">
@@ -31,7 +31,7 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
   <meta property="og:url" content="https://www.cruisinginthewake.com/">
   <meta property="og:title" content="In the Wake | A Cruise Traveler’s Logbook & Planning Companion">
   <meta property="og:description" content="Ship reviews, menus, ports, accessibility notes, and trip-tested planning from real sailings.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.003">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.004">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- PWA / icons -->
@@ -96,65 +96,35 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
   }</script>
 
   <!-- Site cache & SW -->
-  <script src="/assets/js/site-cache.js?v=3.009.003" defer></script>
+  <script src="/assets/js/site-cache.js?v=3.009.004" defer></script>
   <script>
   if ('serviceWorker' in navigator) {
     addEventListener('load', function(){
-      navigator.serviceWorker.register('/sw.js?v=3.009.003').catch(function(){});
+      navigator.serviceWorker.register('/sw.js?v=3.009.004').catch(function(){});
     });
   }
   </script>
 
   <!-- CSS (global) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.009.003">
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.003" fetchpriority="high">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.009.004">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.004" fetchpriority="high">
 
-  <!-- Page-scoped styles (two-column layout + rails) -->
+  <!-- Page-scoped styles: layout & rails only (no nav CSS) -->
   <style>
     @media (prefers-reduced-motion: reduce){
       *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
     }
-
-    /* Topbar (skip + primary nav) */
-    .topbar{
-      display:flex; align-items:center; gap:.75rem;
-      padding:.4rem .9rem; border-bottom:1px solid rgba(8,48,65,.08);
-      background:#fff; position:relative; z-index:3;
-    }
-    .topbar .skip-link{
-      position:static; clip:auto; width:auto; height:auto; padding:.2rem .5rem;
-      border-radius:6px; background:#0e6e8e; color:#fff; text-decoration:none; font-size:.9rem; line-height:1.2;
-    }
-    .pill-nav{display:flex; gap:.35rem .45rem; flex-wrap:wrap; margin-left:auto;}
-    .pill-nav a{padding:.26rem .55rem; border-radius:8px; border:1px solid rgba(217,179,130,.6); background:#fff; font-size:.92rem; line-height:1.2; font-weight:600; text-decoration:none}
-    .pill-nav a.is-active,.pill-nav a[aria-current="page"]{outline:2px dashed #c8a36a; box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-
-    /* Header brand + hero */
-    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:.5rem;padding:.45rem .9rem;}
-    .brand img{height:24px}
-    .version-badge{font-size:.7rem;opacity:.8;margin-left:.5rem;}
-    .hero{ background:url('/assets/index_hero.jpg?v=3.009.003') center/cover no-repeat; min-height:240px; position:relative; }
-    .hero .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
-    .hero .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600}
-
-    /* Two-column content + right rail */
     .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
     .layout{display:grid;gap:1rem;grid-template-columns:1fr}
     @media (min-width:980px){ .layout{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)} }
-
-    /* Cards & rails */
-    .card{position:relative}
     #journal-rail, #authors-rail{display:grid;gap:1rem}
     .post-card{display:flex;flex-direction:column;gap:.5rem}
     .post-card .thumb{aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:#eef4f7}
     .post-card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
     .post-card h3{font-size:1.05rem;line-height:1.25;margin:.25rem 0}
     .post-card .meta{font-size:.85rem;opacity:.8}
-
     .rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
     .author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover}
-
-    /* Primary sections grid (three wide beneath intro) */
     .grid-3{display:grid;gap:1rem;margin-top:1rem}
     @media (min-width:760px){ .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))} }
     @media (min-width:1100px){ .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))} }
@@ -162,38 +132,55 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
 </head>
 
 <body class="page">
-  <!-- Topbar: Skip + Primary Nav -->
-  <div class="topbar">
-    <a href="#content" class="skip-link">Skip to main content</a>
-    <nav class="pill-nav" aria-label="Primary">
-      <a href="/" aria-current="page">Home</a>
-      <a href="/ships/">Ships</a>
-      <a href="/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/planning.html">Planning</a>
-      <a href="/drink-packages.html">Drink Packages</a>
-      <a href="/packing-lists.html">Packing Lists</a>
-      <a href="/disability.html">Accessibility</a>
-      <a href="/cruise-lines/">Cruise Lines</a>
-      <a href="/solo.html">Solo</a>
-      <a href="/travel.html">Travel</a>
-      <a href="/about-us.html">About</a>
-    </nav>
-  </div>
+  <!-- Skip-to-content -->
+  <a href="#content" class="skip-link">Skip to main content</a>
 
-  <!-- Header (brand + hero only; nav lives in the topbar) -->
-  <header class="site-header hero-header">
-    <div class="navbar" aria-hidden="true">
+  <!-- Unified Nav v3.009 (uses global CSS + /assets/js/newnav.js) -->
+  <header class="site-header hero-header" role="banner">
+    <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.009.003" width="256" height="64" alt="">
-        <span class="tiny version-badge">v3.009.003</span>
+        <img src="/assets/logo_wake.png?v=3.009.004" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.009.004</span>
       </div>
+
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a class="chip" href="/" aria-current="page">Home</a>
+
+        <div class="nav-item nav-group" id="nav-planning">
+          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ships/">Ships</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/cruise-lines/">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <div class="nav-item nav-group" id="nav-travel">
+          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="chip" href="/about-us.html">About</a>
+      </nav>
     </div>
 
+    <!-- Hero with logo + tagline (beneath the ship logo) -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="hero-credit">
-        <a class="pill" href="https://instagram.com/flickersofmajesty" rel="noopener noreferrer" target="_blank">Photo © Flickers of Majesty</a>
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true">
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png?v=3.009.004" width="256" height="64" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
+      <div class="hero-credit"><a class="pill long" href="https://instagram.com/flickersofmajesty" rel="noopener noreferrer" target="_blank">Photo © Flickers of Majesty</a></div>
     </div>
   </header>
 
@@ -223,7 +210,7 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
           <section class="card"><h3><a href="/ships/">Ships →</a></h3><p>Class overviews, per-ship pages, and cross-links to restaurants.</p></section>
           <section class="card"><h3><a href="/restaurants.html">Restaurants &amp; Menus →</a></h3><p>Flagship venues, menus, price bands, and allergen notes.</p></section>
           <section class="card"><h3><a href="/ports.html">Ports →</a></h3><p>Quick snapshots, local tips, and map context.</p></section>
-          <section class="card"><h3><a href="/disability.html">Accessibility →</a></h3><p>Practical guidance from real sailings.</p></section>
+          <section class="card"><h3><a href="/accessibility.html">Accessibility →</a></h3><p>Practical guidance from real sailings.</p></section>
           <section class="card"><h3><a href="/drink-packages.html">Drink Packages →</a></h3><p>What’s included and where to save.</p></section>
           <section class="card"><h3><a href="/packing-lists.html">Packing Lists →</a></h3><p>Trip-tested lists for different routes and seasons.</p></section>
           <section class="card"><h3><a href="/planning.html">Planning →</a></h3><p>Pre/post-cruise logistics, documents, and timing.</p></section>
@@ -243,21 +230,22 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
 
         <section class="card" aria-labelledby="authors-title">
           <h2 id="authors-title">Featured Authors</h2>
-          <div id="authors-rail"></div>
+          <div id="authors-rail" class="rail-list" role="list"></div>
         </section>
       </aside>
     </div>
   </main>
 
   <footer class="wrap" role="contentinfo">
-    <nav aria-label="Footer">
-      © 2025 In the Wake — A Cruise Traveler’s Logbook ·
-      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-      <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
-    </nav>
+    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
+    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
   </footer>
 
-  <!-- Warmup + cache -->
+  <!-- Unified Nav behavior helper -->
+  <script src="/assets/js/newnav.js?v=3.009.004" defer></script>
+
+  <!-- Warmup + cache (unchanged) -->
   <script>
   (function(){
     function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
@@ -266,7 +254,7 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
     function ensureSiteCache(){
       return new Promise(function(resolve){
         if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
-        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.003'); s.defer=true;
+        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.004'); s.defer=true;
         s.onload=resolve; s.onerror=resolve; document.head.appendChild(s);
       });
     }
@@ -285,7 +273,7 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
   })();
   </script>
 
-  <!-- Journal rail hydrator -->
+  <!-- Journal rail hydrator (unchanged) -->
   <script>
   (function(){
     var MOUNT = document.getElementById('journal-rail');
@@ -296,9 +284,9 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
     function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
 
     var SOURCES = [
-      '/assets/data/articles.json?v=3.009.003',
-      '/solo/articles/index.json?v=3.009.003',
-      '/travel/articles/index.json?v=3.009.003'
+      '/assets/data/articles.json?v=3.009.004',
+      '/solo/articles/index.json?v=3.009.004',
+      '/travel/articles/index.json?v=3.009.004'
     ];
     var HARD_FALLBACK = [
       { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2024-05-31', image:'/assets/articles/why-i-started-solo-cruising.jpg' },
@@ -358,11 +346,11 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
   })();
   </script>
 
-  <!-- Featured Authors rail hydrator -->
+  <!-- Featured Authors rail hydrator (unchanged) -->
   <script>
   (function(){
     var mount=document.getElementById('authors-rail'); if(!mount) return;
-    var VERSION='3.009.003';
+    var VERSION='3.009.004';
     var GENERIC='/authors/img/author.webp';
 
     function esc(s){return String(s||'').replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]);});}
@@ -395,28 +383,6 @@ Page: /index.html · v3.009.003 (inline repair) · Built: 2025-10-21T00:00:00Z
       }
       mount.innerHTML = list.slice(0,4).map(row).join('');
     })();
-  })();
-  </script>
-
-  <!-- Primary nav: mark current + legacy aliases -->
-  <script>
-  (function(){
-    var nav = document.querySelector('.pill-nav[aria-label="Primary"]'); if(!nav) return;
-    function norm(p){ try{ return new URL(p, location.origin).pathname.replace(/\/index\.html$/i,'/').replace(/\/+$/,'/').toLowerCase() || '/'; }catch(e){ return '/'; } }
-    var here = norm(location.pathname);
-    var ALIASES = new Map([
-      ['/','/'],
-      ['/ships/ships.html','/ships/'],
-      ['/ships/index.html','/ships/'],
-      ['/drink-packages.html','/drink-packages.html'],
-      ['/disability-at-sea.html','/disability.html'],
-      ['/about.html','/about-us.html']
-    ]);
-    function canon(p){ return ALIASES.get(p)||p; }
-    nav.querySelectorAll('a[href]').forEach(function(a){
-      var t = norm(a.getAttribute('href'));
-      if (canon(t) === canon(here)) { a.setAttribute('aria-current','page'); a.classList.add('is-active'); }
-    });
   })();
   </script>
 </body>
