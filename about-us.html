@@ -4,7 +4,7 @@ All work on this project is offered as a gift to God.
 “Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
 “Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
 
-STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · A11y/WCAG Addendum v3.100
+STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008.041 · A11y/WCAG Addendum v3.100
 ADDENDUM: Facebook Domain Verification v3.008.021
 -->
 <!doctype html>
@@ -19,9 +19,9 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
   <!-- ===== Title / Version Trinity (single source of truth) ===== -->
-  <title>About Us — In the Wake (v3.008.037)</title>
-  <meta name="version" content="v3.008.037">
-  <meta name="page:version" content="v3.008.037">
+  <title>About Us — In the Wake (v3.008.041)</title>
+  <meta name="version" content="v3.008.041">
+  <meta name="page:version" content="v3.008.041">
   <meta name="standards:baseline" content="3.008"/>
 
   <!-- ===== Canonical & Description ===== -->
@@ -35,14 +35,14 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta property="og:url" content="https://www.cruisinginthewake.com/about-us.html">
   <meta property="og:title" content="About Us — In the Wake">
   <meta property="og:description" content="Meet the crew behind In the Wake — real cruisers writing from real voyages.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/about-us.jpg?v=3.008.037">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/about-us.jpg?v=3.008.041">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- ===== CSS (versioned) ===== -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.008.037">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.041">
 
   <!-- ===== LCP image preload (hero) ===== -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.037" fetchpriority="high">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.041" fetchpriority="high">
 
   <!-- ===== CMP Autoblocking (must precede analytics) ===== -->
   <script type="text/javascript" data-cmp-ab="1"
@@ -102,13 +102,12 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   })();
   </script>
 
-  <!-- ===== Reduced-motion global guard ===== -->
+  <!-- ===== Reduced-motion global guard & About-specific hero normalization ===== -->
   <style>
     @media (prefers-reduced-motion: reduce){
       *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
     }
-    /* Page-specific hero normalization (no tagline on About) */
-    .hero{background:url('/assets/index_hero.jpg?v=3.008.037') center/cover no-repeat !important;}
+    .hero{background:url('/assets/index_hero.jpg?v=3.008.041') center/cover no-repeat !important;}
     .hero::before,.hero::after{content:none !important;}
   </style>
 
@@ -129,10 +128,9 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008.037" width="256" height="64" alt="In the Wake wordmark" decoding="async">
-        <span class="version-badge">v3.008.037</span>
+        <img src="/assets/logo_wake.png?v=3.008.041" width="256" height="64" alt="In the Wake wordmark" decoding="async">
+        <span class="version-badge">v3.008.041</span>
       </div>
-      <!-- Unified nav (normalized order) -->
       <nav class="pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/ships/">Ships</a>
@@ -150,8 +148,8 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.037" width="180" height="180" alt="" aria-hidden="true" decoding="async">
-      <!-- Tagline intentionally removed on About page per standard -->
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.041" width="180" height="180" alt="" aria-hidden="true" decoding="async">
+      <!-- Tagline intentionally omitted on About page -->
       <div class="hero-credit">
         <a class="pill long" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
@@ -159,21 +157,15 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   </header>
 
   <!-- ===== Main ===== -->
-<main class="wrap" id="content" role="main" tabindex="-1" aria-label="Main content">
-<section class="card" aria-labelledby="about-title">
-  <h1 id="about-title">About Us</h1>
-  <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
-  <p>
-    Ahoy, voyagers! Welcome to <strong>In the Wake</strong>, your trusty compass for sailing through cruise planning with joy and ease. We’re here to chart your course with mariner wisdom—ship overviews, port tips, restaurant menus, solo travel hacks—all crafted to keep your adventure sailing through calm seas, no squalls in sight. Whether you’re a rookie cruiser or a seasoned skipper, we’ve got the map to make your journey a breeze.
-  </p>
-  <p>
-    I’m your captain, driven by a love for adventure, beauty, and connection. <strong>In the Wake</strong> is my flagship project — a logbook sharing real-voyage know-how to ensure your trip feels like smooth sailing. Through <a href="https://flickersofmajesty.com">Flickers of Majesty</a>, I capture the sea’s fleeting wonders — glowing sunsets, vibrant ports, and the majesty of motion. On land, I tend a small flock of sheep, guiding them with the same care I bring to steering cruisers toward unforgettable destinations. As a pastor at <a href="https://lakeviewfellowshipchurch.com">Lakeview Fellowship Church</a>, I live by <em>“Taking Strangers, Making Family.”</em>
-  </p>
-  <p>
-    Our mission is to turn cruise planning into a delight, not a storm. We dive into the details — accessibility, packing lists, drink packages — so you can savor the memories. Like a perfect snapshot or a warm fellowship, we’re here to make strangers into shipmates, united by the majesty of the sea.
-  </p>
-  <p class="center"><strong>Set sail with us!</strong> Explore our guides, pack your sea bag, and let’s make waves together. Fair winds and following wakes — your adventure’s on the horizon!</p>
-</section>
+  <main class="wrap" id="content" role="main" tabindex="-1" aria-label="Main content">
+    <section class="card" aria-labelledby="about-title">
+      <h1 id="about-title">About Us</h1>
+      <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
+      <p>Ahoy, voyagers! Welcome to <strong>In the Wake</strong>, your trusty compass for sailing through cruise planning with joy and ease. We’re here to chart your course with mariner wisdom—ship overviews, port tips, restaurant menus, solo travel hacks—all crafted to keep your adventure sailing through calm seas, no squalls in sight. Whether you’re a rookie cruiser or a seasoned skipper, we’ve got the map to make your journey a breeze.</p>
+      <p>I’m your captain, driven by a love for adventure, beauty, and connection. <strong>In the Wake</strong> is my flagship project — a logbook sharing real-voyage know-how to ensure your trip feels like smooth sailing. Through <a href="https://flickersofmajesty.com">Flickers of Majesty</a>, I capture the sea’s fleeting wonders — glowing sunsets, vibrant ports, and the majesty of motion. On land, I tend a small flock of sheep, guiding them with the same care I bring to steering cruisers toward unforgettable destinations. As a pastor at <a href="https://lakeviewfellowshipchurch.com">Lakeview Fellowship Church</a>, I live by <em>“Taking Strangers, Making Family.”</em></p>
+      <p>Our mission is to turn cruise planning into a delight, not a storm. We dive into the details — accessibility, packing lists, drink packages — so you can savor the memories. Like a perfect snapshot or a warm fellowship, we’re here to make strangers into shipmates, united by the majesty of the sea.</p>
+      <p class="center"><strong>Set sail with us!</strong> Explore our guides, pack your sea bag, and let’s make waves together. Fair winds and following wakes — your adventure’s on the horizon!</p>
+    </section>
 
     <!-- Rails -->
     <div class="grid-2" aria-label="Latest and Contributors" style="display:grid;gap:1rem">
@@ -214,33 +206,30 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   })();
   </script>
 
-  <!-- ===== Floating Share Bar (your requested file) ===== -->
-  <script defer src="/assets/js/wshare-bar.js?v=3.008.037"></script>
+  <!-- ===== Floating Share Bar ===== -->
+  <script defer src="/assets/js/wshare-bar.js?v=3.008.041"></script>
 
-  <!-- ===== Service Worker (versioned) ===== -->
+  <!-- ===== Service Worker ===== -->
   <script>
   if('serviceWorker' in navigator){
-    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008.037').catch(()=>{}));
+    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008.041').catch(()=>{}));
   }
   </script>
 
-  <!-- ===== Journal & Authors Rails (robust, image-error safe) ===== -->
+  <!-- ===== Journal & Authors Rails (compact rows, avatar-circles) ===== -->
   <script>
   (function(){
     "use strict";
-    const VER = document.querySelector('meta[name="page:version"]')?.content || '3.008.037';
+    const VER = document.querySelector('meta[name="page:version"]')?.content || '3.008.041';
 
-    /* ---------- Helpers ---------- */
     const esc = s => String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
     const abs = p => (typeof window._abs==='function') ? _abs(p) : p;
     const toDate = d => { const t=Date.parse(d||''); return isNaN(t)?'':new Date(t).toLocaleDateString(); };
 
-    /* ---------- Journal Rail ---------- */
-        /* ---------- Journal Rail (compact rows) ---------- */
+    /* ---------- Journal Rail (compact rows) ---------- */
     (function journal(){
       const mount = document.getElementById('journal-rail'); if(!mount) return;
 
-      const VER = document.querySelector('meta[name="page:version"]')?.content || '';
       const sources = [
         '/assets/data/articles/index.json?v='+VER,
         '/solo/articles/index.json?v='+VER,
@@ -271,17 +260,11 @@ ADDENDUM: Facebook Domain Verification v3.008.021
         }
       ];
 
-      const toDate = d => { const t = Date.parse(d||''); return isNaN(t)? '' : new Date(t).toLocaleDateString(); };
-      const esc = s => String(s||"").replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-
       function normalize(feed){
         const arr = Array.isArray(feed?.articles) ? feed.articles : (Array.isArray(feed) ? feed : []);
         return arr.map(a=>{
-          // Map solo fragments → full pages
           let url = a.url || a.permalink || '#';
           if (/^\/solo\/articles\/.+\.html$/.test(url)) url = url.replace('/solo/articles/','/solo/');
-
-          // Author object normalization
           let author = null;
           const raw = a.author || null;
           if (raw){
@@ -315,10 +298,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
 
       function row(a){
         const av = a.author?.image ? a.author.image.replace(/\.(webp|png|jpg|jpeg)(\?.*)?$/,'') : '';
-        const avatar = av
-          ? `${av}.jpg`
-          : '/authors/img/author.webp';
-
+        const avatar = av ? `${av}.jpg` : '/authors/img/author.webp';
         const authorName = esc(a.author?.name || '');
         const authorLink = a.author?.url ? `<a href="${esc(a.author.url)}">${authorName}</a>` : authorName;
 
@@ -342,23 +322,19 @@ ADDENDUM: Facebook Domain Verification v3.008.021
         items.sort((a,b)=>(Date.parse(b.date||'')||0)-(Date.parse(a.date||'')||0));
         const take = items.slice(0,3);
 
-        // Wrap rows in a list container for spacing consistency
         mount.innerHTML = `<div class="rail-list">${take.map(row).join('')}</div>`;
         mount.setAttribute('aria-busy','false');
 
-        // JSON-LD ItemList for the first 3
         try{
           const json={"@context":"https://schema.org","@type":"ItemList","name":"From the Journal",
-            "itemListElement":take.map((a,i)=>({"@type":"ListItem","position":i+1,"item":{"@type":"BlogPosting","headline":a.title,"url":a.url}}))};
+            "itemListElement":take.map((a,i)=>({"@type":"ListItem","position":i+1,"item":{"@type":"BlogPosting","headline":a.title,"url":abs(a.url)}}))};
           const s=document.createElement('script'); s.type='application/ld+json'; s.text=JSON.stringify(json); document.head.appendChild(s);
         }catch(_){}
 
-        // SW seeding (quiet)
         if(navigator.serviceWorker?.controller){
-          navigator.serviceWorker.controller.postMessage({
-            type:'SEED_URLS',
-            urls:['/assets/data/articles/index.json','/solo/articles/index.json','/travel/articles/index.json']
-          });
+          navigator.serviceWorker.controller.postMessage({type:'SEED_URLS',urls:[
+            '/assets/data/articles/index.json','/solo/articles/index.json','/travel/articles/index.json'
+          ]});
         }
       })();
     })();
@@ -372,7 +348,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
         { id:'tina', name:'Tina Maulsby', url:'/authors/tina-maulsby.html', avatarBase:'/authors/img/tina3' }
       ];
 
-            function render(list){
+      function render(list){
         if(!list.length){
           mount.innerHTML='<p class="tiny muted">Authors coming online.</p>';
           mount.setAttribute('aria-busy','false'); return;
@@ -426,7 +402,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     Invocation · Soli Deo Gloria
     Steward: abondservant
     Path: /about-us.html
-    Version: v3.008.037
+    Version: v3.008.041
     Timestamp (UTC): 2025-10-21T00:00:00Z
   -->
 </body>
