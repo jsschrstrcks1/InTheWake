@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- ========= Consent (autoblocking) ========= -->
+  <!-- Consent (autoblocking) — keep compatible -->
   <script type="text/javascript" data-cmp-ab="1"
     src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
     data-cmp-host="a.delivery.consentmanager.net"
     data-cmp-cdn="cdn.consentmanager.net"
     data-cmp-codesrc="16"></script>
 
-  <!-- ========= Analytics ========= -->
+  <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
@@ -17,47 +17,43 @@
   </script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- ========= Core meta ========= -->
+  <!-- Core meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0e6e8e">
-  <meta name="version" content="3.009.000"/>
-  <meta name="page:version" content="3.009.000"/>
+  <meta name="version" content="3.009.001"/>
   <meta name="standards:baseline" content="3.008"/>
 
-  <!-- ========= SEO ========= -->
-  <title>Royal Caribbean — Fleet | In the Wake (v3.009.000)</title>
-  <meta name="description" content="Royal Caribbean fleet — verified-image ship cards and recent journal articles from our writers’ wakes." />
-  <link rel="canonical" href="https://www.cruisinginthewake.com/ships/index.html"/>
+  <!-- SEO -->
+  <title>Ships — In the Wake (v3.009.001)</title>
+  <meta name="description" content="Explore cruise ships at a glance. Verified imagery, quick stats, and calm guidance — starting with Royal Caribbean and expanding soon." />
 
-  <!-- Open Graph / Twitter -->
+  <!-- Canonical & Social -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/ships/"/>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="In the Wake">
-  <meta property="og:url" content="https://www.cruisinginthewake.com/ships/index.html">
-  <meta property="og:title" content="Royal Caribbean — Fleet | In the Wake">
-  <meta property="og:description" content="Royal Caribbean fleet — verified-image ship cards and fresh reads from the Journal.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/ships-fleet-hero.jpg?v=3.009.000">
+  <meta property="og:url" content="https://www.cruisinginthewake.com/ships/">
+  <meta property="og:title" content="Ships — In the Wake">
+  <meta property="og:description" content="Explore cruise ships at a glance. Verified imagery, quick stats, and calm guidance."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/ships-hero.jpg?v=3.009.001">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- JSON-LD Breadcrumbs -->
+  <!-- Breadcrumb JSON-LD -->
   <script type="application/ld+json">{
     "@context":"https://schema.org","@type":"BreadcrumbList",
     "itemListElement":[
       {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
-      {"@type":"ListItem","position":2,"name":"Ships","item":"https://www.cruisinginthewake.com/ships/index.html"},
-      {"@type":"ListItem","position":3,"name":"Royal Caribbean — Fleet","item":"https://www.cruisinginthewake.com/ships/index.html#royal-caribbean"}
+      {"@type":"ListItem","position":2,"name":"Ships","item":"https://www.cruisinginthewake.com/ships/"}
     ]
   }</script>
 
-  <!-- LCP Preload -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.009.000" fetchpriority="high">
-
-  <!-- URL normalizer (keeps env portable) -->
+  <!-- URL normalizer -->
   <script>
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
     function normalize(){
       const sel=['a[href^="https://www.cruisinginthewake.com/"]','img[src^="https://www.cruisinginthewake.com/"]','link[href^="https://www.cruisinginthewake.com/"]','script[src^="https://www.cruisinginthewake.com/"]'].join(',');
       document.querySelectorAll(sel).forEach(el=>{
@@ -65,7 +61,7 @@
         try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
       });
     }
-    (document.readyState==='loading')?addEventListener('DOMContentLoaded',normalize,{once:true}):normalize();
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
   })();
   </script>
 
@@ -73,197 +69,215 @@
   <script>
   (function(){
     const here=location.hostname.replace(/^www\./,'');
-    function harden(){
+    function upgrade(){
       document.querySelectorAll('a[href]').forEach(a=>{
         const href=a.getAttribute('href')||'';
-        if(/^(#|mailto:|tel:)/i.test(href)) return;
+        if(/^(#|mailto:|tel:)/i.test(href))return;
         try{
           const u=new URL(href,location.href);
           const host=u.hostname.replace(/^www\./,'');
           if(host!==here||a.rel==='external'){
             a.target='_blank';
-            a.rel=['noopener','noreferrer',...(a.rel||'').split(/\s+/)].filter(Boolean).join(' ');
+            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
           }
         }catch(_){}
       });
     }
-    (document.readyState==='loading')?addEventListener('DOMContentLoaded',harden,{once:true}):harden();
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}else{upgrade();}
   })();
   </script>
 
-  <!-- Service worker hook -->
+  <!-- Site cache & SW -->
   <script>
   if('serviceWorker' in navigator){
-    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.009.000').catch(()=>{}));
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.009.001').catch(()=>{}));
   }
   </script>
 
-  <!-- ========= CSS ========= -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.009.000">
-  <style>
-    /* Accessibility helpers */
-    .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .visually-hidden-focusable:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--sea,#0e6e8e);border-radius:10px;z-index:9999}
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.009.001">
 
-    /* Layout */
+  <!-- LCP preload -->
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.009.001" fetchpriority="high">
+
+  <!-- Page styles -->
+  <style>
     .fleet-grid{display:grid;gap:1rem}
     @media(min-width:1060px){.fleet-grid{grid-template-columns:minmax(0,1fr) 360px}}
-
-    .hero{position:relative;min-height:220px;background:url('/assets/index_hero.jpg?v=3.009.000') center/cover no-repeat}
-    .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
-    .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600}
-
     .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9rem}
     .ship-card{display:grid;grid-template-columns:96px 1fr;gap:.6rem;align-items:start;border:2px solid var(--rope);border-radius:14px;padding:.6rem;background:#fff}
     .ship-card .thumb{width:96px;height:64px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea}
     .ship-card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .badge{font-size:.72rem;background:#e6f4f8;border:1px solid var(--rope);border-radius:999px;padding:.05rem .45rem}
-
+    .pill-row{display:flex;gap:.5rem;flex-wrap:wrap}
+    .pill-row a{padding:.4rem .7rem;border:1px solid var(--rope);border-radius:999px;background:#fff;text-decoration:none;font-weight:600}
     .rail{display:grid;gap:.9rem}
     .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
     .rail-item .thumb img{display:block;width:112px;height:72px;object-fit:cover;border-radius:.5rem}
     .rail-item .avatar{width:20px;height:20px;border-radius:50%;vertical-align:middle;margin-right:.25rem}
-
-    .pill-row{display:flex;gap:.5rem;flex-wrap:wrap}
-    .pill-row a{padding:.4rem .7rem;border:1px solid var(--rope);border-radius:999px;background:#fff;text-decoration:none;font-weight:600}
+    .hero{position:relative;background:url('/assets/index_hero.jpg?v=3.009.001') center/cover no-repeat;min-height:220px}
+    .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
+    .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600}
   </style>
 </head>
 
 <body class="page">
-  <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
-
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.009.000" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.009.000</span>
+        <img src="/assets/logo_wake.png?v=3.009.001" width="256" height="64" alt="In the Wake wordmark">
       </div>
-      <nav class="pill-nav pills" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/ships/index.html" aria-current="page">Ships</a>
-        <a href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="/ports.html">Ports</a>
-        <a href="/disability-at-sea.html">Accessibility</a>
-        <a href="/drink-packages.html">Drink Packages</a>
-        <a href="/packing-lists.html">Packing Lists</a>
-        <a href="/solo.html">Solo</a>
-        <a href="/travel.html">Travel</a>
-        <a href="/cruise-lines.html">Cruise Lines</a>
-        <a href="/about-us.html">About</a>
+      <nav class="nav">
+        <a href="https://www.cruisinginthewake.com/">Home</a>
+        <a href="https://www.cruisinginthewake.com/ships/" aria-current="page">Ships</a>
+        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+        <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+        <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+        <a href="https://www.cruisinginthewake.com/about-us.html">About</a>
       </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="hero-credit">
-        <a class="pill long" href="https://instagram.com/flickersofmajesty" rel="noopener external">Photo © Flickers of Majesty</a>
-      </div>
+      <div class="hero-credit"><a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
     </div>
   </header>
 
-  <main id="content" class="wrap fleet-grid" role="main">
+  <main class="wrap fleet-grid" id="content">
     <!-- LEFT -->
     <div>
-      <section class="card" aria-labelledby="fleet-title">
-        <h1 id="fleet-title">Royal Caribbean Ships — At a Glance</h1>
-        <p class="tiny muted">Only ships with <strong>verified images</strong> from our library appear here. As more imagery is verified, more cards will appear.</p>
-
-        <div class="cards" id="fleet-cards" aria-live="polite"></div>
-        <p class="tiny muted" id="fleet-note" style="margin-top:.5rem">Showing ships with verified images only.</p>
-      </section>
-
+      <!-- Explore first -->
       <section class="card" aria-labelledby="explore-lines">
-        <h2 id="explore-lines">Explore by Cruise Line</h2>
+        <h1 id="explore-lines">Explore by Cruise Line</h1>
         <div class="pill-row">
           <a href="/cruise-lines.html">All Cruise Lines</a>
           <a href="/cruise-lines.html#royal-caribbean">Royal Caribbean</a>
         </div>
       </section>
+
+      <!-- Main fleet grid -->
+      <section class="card" aria-labelledby="ships-title">
+        <h2 id="ships-title">Ships</h2>
+        <p class="tiny muted">Only ships with **verified images** render here. Stats hydrate from <code>/assets/data/fleets_index.json</code>.</p>
+        <div class="cards" id="fleet-cards" aria-live="polite"></div>
+        <p class="tiny muted" id="fleet-note" style="margin-top:.5rem">Showing ships with verified images only.</p>
+      </section>
     </div>
 
     <!-- RIGHT RAIL -->
     <aside class="rail" aria-label="Right rail">
-      <section class="card" aria-labelledby="rail-journal">
-        <h3 id="rail-journal">From the Journal</h3>
+      <section class="card" aria-labelledby="jr-title">
+        <h3 id="jr-title">From the Journal</h3>
         <div id="journal-rail"></div>
-        <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
       </section>
+      <!-- (Author rail to be added later; you said we can circle back) -->
     </aside>
   </main>
 
   <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
-    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    © 2025 In the Wake — A Cruise Traveler’s Logbook
     <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.</p>
   </footer>
 
-  <!-- ========= Fleet runtime (verified images only) ========= -->
+  <!-- VERIFIED IMAGES (from your list) + robust path encoder -->
   <script>
-  (function(){
-    // Safe-absolute + encode spaces and parentheses in path segments
-    const abs=(p)=>{ if(!p) return ''; const base=p.startsWith('/')?p:'/'+p;
-      return base.split('/').map((seg,i)=> i===0?'':encodeURIComponent(seg)).join('/');
-    };
+  // URL-encode each path segment to fix spaces and parentheses in filenames
+  function encodePath(p){
+    if(!p) return '';
+    const abs = p.startsWith('/') ? p : '/'+p;
+    return abs.split('/').map((seg,i)=> i===0 ? '' : encodeURIComponent(seg)).join('/');
+  }
 
-    // Verified sources from your list (render ONLY these)
-    const SHIP_IMAGES={
-      "adventure-of-the-seas":"ships/rcl/images/Adventure_of_the_Seas2.jpg",
-      "allure-of-the-seas":"ships/assets/images/allure-of-the-seas-3.jpg",
-      "enchantment-of-the-seas":"/ships/assets/enchantment-of-the-seas1.jpg",
-      "grandeur-of-the-seas":"/ships/assets/grandeur-of-the-seas1.jpg",
-      "rhapsody-of-the-seas":"/ships/assets/rhapsody-of-the-seas1.jpg",
-      "sovereign-of-the-seas":"/ships/assets/sovereign-of-the-seas1.jpg",
-      "vision-of-the-seas":"/ships/assets/vision-of-the-seas1.jpg"
-    };
+  // Only ships present here will render (your “verified images” rule)
+  const SHIP_IMAGES = {
+    "enchantment-of-the-seas": "/ships/assets/enchantment-of-the-seas1.jpg",
+    "grandeur-of-the-seas": "/ships/assets/grandeur-of-the-seas1.jpg",
+    "rhapsody-of-the-seas": "/ships/assets/rhapsody-of-the-seas1.jpg",
+    "sovereign-of-the-seas": "/ships/assets/sovereign-of-the-seas1.jpg",
+    "vision-of-the-seas": "/ships/assets/vision-of-the-seas1.jpg",
+    "allure-of-the-seas": "ships/assets/images/allure-of-the-seas-3.jpg",
+    "adventure-of-the-seas": "ships/rcl/images/Adventure_of_the_Seas2.jpg"
+    // (Add more here later as you verify)
+  };
+  </script>
 
-    // Minimal ship metadata (class only for badge)
-    const FLEET=[
-      {name:"Adventure of the Seas",slug:"adventure-of-the-seas",class:"Voyager"},
-      {name:"Allure of the Seas",slug:"allure-of-the-seas",class:"Oasis"},
-      {name:"Enchantment of the Seas",slug:"enchantment-of-the-seas",class:"Vision"},
-      {name:"Grandeur of the Seas",slug:"grandeur-of-the-seas",class:"Vision"},
-      {name:"Rhapsody of the Seas",slug:"rhapsody-of-the-seas",class:"Vision"},
-      {name:"Sovereign of the Seas",slug:"sovereign-of-the-seas",class:"Sovereign"},
-      {name:"Vision of the Seas",slug:"vision-of-the-seas",class:"Vision"}
-    ];
+  <!-- FLEET HYDRATION (stats from fleets_index) -->
+  <script>
+  (async function(){
+    const mount = document.getElementById('fleet-cards');
+    const fallbackImg = '/assets/index_hero.jpg?v=3.009.001';
+    const indexURL = '/assets/data/fleets_index.json';
 
-    function card(s){
-      const path=SHIP_IMAGES[s.slug];
-      if(!path) return ''; // not verified -> skip
-      const src=abs(path);
-      const fallback="/assets/index_hero.jpg?v=3.009.000";
-      return `<article class="ship-card" role="article">
-        <div class="thumb">
-          <img src="${src}" alt="${s.name}"
-               onerror="this.onerror=null;this.src='${fallback}'">
-        </div>
-        <div>
-          <h4 style="margin:.1rem 0 .25rem 0">${s.name}</h4>
-          <div class="tiny muted"><span class="badge">${s.class||'—'}</span></div>
-          <div class="tiny muted">• Debut: —</div>
-          <div class="tiny muted">• Cap: —</div>
-        </div>
-      </article>`;
+    // fetch & parse fleets_index
+    let index = null;
+    try{
+      const res = await fetch(indexURL,{cache:'no-store'});
+      if(!res.ok) throw 0;
+      index = await res.json();
+    }catch(e){
+      console.error('fleets_index load failed', e);
     }
 
-    const mount=document.getElementById('fleet-cards');
-    mount.innerHTML=FLEET.map(card).filter(Boolean).join('') || '<p class="tiny muted">No verified images yet.</p>';
+    // Helper: lookup Royal Caribbean entry by slug
+    function rcLookup(slug){
+      try{
+        const list = index?.cruise_lines?.['royal-caribbean'] || [];
+        return list.find(x => (x.slug||'') === slug) || null;
+      }catch(_){ return null; }
+    }
+    function cleanNumber(x){
+      if(x==null) return null;
+      const s=String(x).replace(/[^\d]/g,'');
+      return s ? s : null;
+    }
+    function fmtCap(x){
+      const n=cleanNumber(x);
+      if(!n) return '—';
+      return n.replace(/\B(?=(\d{3})+(?!\d))/g,',');
+    }
+
+    // Build cards from verified images only
+    const slugs = Object.keys(SHIP_IMAGES);
+    const cards = await Promise.all(slugs.map(async slug=>{
+      const data = rcLookup(slug);
+      // name/class from fleets_index if present; otherwise derive
+      const name = data?.name || slug.replace(/-/g,' ').replace(/\b\w/g,m=>m.toUpperCase());
+      const cls  = (data?.attributes?.class) || (data?.category||[]).find(c=>/class/i.test(c)) || '';
+      const year = data?.attributes?.year_built_or_entered || data?.attributes?.year || data?.attributes?.entered_service || '';
+      const cap  = data?.attributes?.capacity || data?.attributes?.berths || data?.attributes?.double_occupancy || '';
+
+      const imgRaw = SHIP_IMAGES[slug];
+      const img = encodePath(imgRaw);
+
+      return `
+        <article class="ship-card">
+          <div class="thumb">
+            <img src="${img}" alt="${name}" onerror="this.onerror=null;this.src='${fallbackImg}'">
+          </div>
+          <div>
+            <h4 style="margin:.1rem 0 .25rem 0">${name}</h4>
+            <div class="tiny muted">
+              ${cls ? `<span class="badge" style="background:#e6f4f8;border:1px solid var(--rope);border-radius:999px;padding:.05rem .45rem">${cls}</span>` : ``}
+            </div>
+            <div class="tiny muted">• Debut: ${year||'—'}</div>
+            <div class="tiny muted">• Cap: ${fmtCap(cap)}</div>
+          </div>
+        </article>`;
+    }));
+
+    mount.innerHTML = cards.join('') || '<p class="tiny muted">No verified ships yet.</p>';
   })();
   </script>
 
-  <!-- ========= Journal rail (with hard fallbacks; forces Top 20 thumb) ========= -->
+  <!-- JOURNAL RAIL (hard fallbacks; ensures Top 20 cover appears) -->
   <script>
   (function(){
-    const V='3.009.000';
+    const V='3.009.001';
     const mount=document.getElementById('journal-rail');
-    const fallbackMsg=document.getElementById('journal-rail-fallback');
-    const abs=(p)=>p;
-
     const sources=[
       '/assets/data/articles.json?v='+V,
       '/assets/data/articles/index.json?v='+V,
       '/solo/articles/index.json?v='+V
     ];
-
     const SEED=[
       {
         url:'/solo/articles/freedom-of-your-own-wake.html',
@@ -291,7 +305,6 @@
         author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v='+V}
       }
     ];
-
     function normalize(payload){
       const list=Array.isArray(payload?.articles)?payload.articles:(Array.isArray(payload)?payload:[]);
       return list.map(a=>({
@@ -304,17 +317,14 @@
         author:a.author||a.by||null
       })).filter(a=>a.url&&(/[/.]/.test(a.url)));
     }
-    async function tryFetch(u){ try{const r=await fetch(abs(u),{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }catch(_){return [];} }
+    async function tryFetch(u){ try{const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }catch(_){return [];} }
     const safeDate=d=>isNaN(Date.parse(d))?'':new Date(d).toLocaleDateString();
-
     function card(a){
       const img=a.image||a.fallback||('/assets/index_hero.jpg?v='+V);
-      const avatar=a.author?.image||('/authors/img/author.webp?v='+V);
-      const name=a.author?.name||''; const url=a.author?.url||'#';
+      const avatar=a.author?.image||('/authors/img/author.webp?v='+V); const name=a.author?.name||''; const url=a.author?.url||'#';
       return `<article class="rail-item">
         <a class="thumb" href="${a.url}">
-          <img src="${img}" alt="${a.title}"
-               onerror="this.onerror=null;this.src='${a.fallback||('/assets/index_hero.jpg?v='+V)}'">
+          <img src="${img}" alt="${a.title}" onerror="this.onerror=null;this.src='${a.fallback||('/assets/index_hero.jpg?v='+V)}'">
         </a>
         <div class="meta">
           <h4><a href="${a.url}">${a.title}</a></h4>
@@ -323,14 +333,11 @@
         </div>
       </article>`;
     }
-
     (async function boot(){
-      fallbackMsg.style.display='';
       let items=[];
       for(const s of sources){ items=await tryFetch(s); if(items.length) break; }
       if(!items.length) items=SEED;
       mount.innerHTML=items.slice(0,3).map(card).join('');
-      fallbackMsg.style.display='none';
     })();
   })();
   </script>
