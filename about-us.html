@@ -6,12 +6,11 @@ All work on this project is offered as a gift to God.
 
 STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · A11y/WCAG Addendum v3.100
 ADDENDUM: Facebook Domain Verification v3.008.021
-Page: /about-us.html · v3.008.036 · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Core Meta -->
+  <!-- ===== Core Meta ===== -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
@@ -19,44 +18,48 @@ Page: /about-us.html · v3.008.036 · Built: 2025-10-21T00:00:00Z
   <meta name="color-scheme" content="light dark">
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
-  <!-- Title / Version Trinity -->
-  <title>About Us — In the Wake (v3.008.036)</title>
-  <meta name="version" content="3.008.036">
-  <meta name="page:version" content="3.008.036">
-  <meta name="standards:baseline" content="3.008">
+  <!-- ===== Title / Version Trinity (single source of truth) ===== -->
+  <title>About Us — In the Wake (v3.008.037)</title>
+  <meta name="version" content="v3.008.037">
+  <meta name="page:version" content="v3.008.037">
+  <meta name="standards:baseline" content="3.008"/>
 
-  <!-- Canonical & Description -->
+  <!-- ===== Canonical & Description ===== -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/about-us.html">
   <meta name="description" content="Meet the crew behind In the Wake — real cruisers writing from real voyages.">
-  <meta name="robots" content="index, follow"/>
+  <meta name="robots" content="index, follow, max-image-preview:large"/>
 
-  <!-- Open Graph / Twitter -->
+  <!-- ===== Open Graph / Twitter ===== -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="In the Wake">
   <meta property="og:url" content="https://www.cruisinginthewake.com/about-us.html">
   <meta property="og:title" content="About Us — In the Wake">
   <meta property="og:description" content="Meet the crew behind In the Wake — real cruisers writing from real voyages.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/about-us.jpg?v=3.008.036">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/about-us.jpg?v=3.008.037">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- CSS (global) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.008.036">
+  <!-- ===== CSS (versioned) ===== -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.008.037">
 
-  <!-- Hero LCP preload -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.036" fetchpriority="high">
+  <!-- ===== LCP image preload (hero) ===== -->
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.037" fetchpriority="high">
 
-  <!-- CMP Autoblocking (kept first to honor autoblocking where required) -->
-  <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js" data-cmp-host="a.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
+  <!-- ===== CMP Autoblocking (must precede analytics) ===== -->
+  <script type="text/javascript" data-cmp-ab="1"
+          src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+          data-cmp-host="a.delivery.consentmanager.net"
+          data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
 
-  <!-- Analytics -->
+  <!-- ===== Analytics ===== -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
-    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+    window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date()); gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
   </script>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Absolute URL normalizer -->
+  <!-- ===== Absolute URL normalizer ===== -->
   <script>
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
@@ -75,7 +78,7 @@ Page: /about-us.html · v3.008.036 · Built: 2025-10-21T00:00:00Z
   })();
   </script>
 
-  <!-- External link hardener -->
+  <!-- ===== External link hardener ===== -->
   <script>
   (function(){
     const here=location.hostname.replace(/^www\./,'');
@@ -88,7 +91,9 @@ Page: /about-us.html · v3.008.036 · Built: 2025-10-21T00:00:00Z
           const host=u.hostname.replace(/^www\./,'');
           if(host!==here||a.rel==='external'){
             a.target='_blank';
-            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+            const rel=new Set(String(a.rel||'').split(/\s+/).filter(Boolean));
+            rel.add('noopener'); rel.add('noreferrer');
+            a.rel=Array.from(rel).join(' ');
           }
         }catch(_){}
       });
@@ -97,248 +102,261 @@ Page: /about-us.html · v3.008.036 · Built: 2025-10-21T00:00:00Z
   })();
   </script>
 
-  <!-- Page-scoped styles -->
+  <!-- ===== Reduced-motion global guard ===== -->
   <style>
     @media (prefers-reduced-motion: reduce){
       *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
     }
-
-    /* Topbar (unified) */
-    .topbar{display:flex;align-items:center;gap:.75rem;padding:.45rem .9rem;border-bottom:1px solid rgba(8,48,65,.08);background:#fff;position:relative;z-index:3}
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{position:static;clip:auto;width:auto;height:auto;padding:.25rem .6rem;border-radius:8px;background:#0e6e8e;color:#fff}
-    .pill-nav{display:flex;gap:.4rem .5rem;flex-wrap:wrap;margin-left:auto}
-    .pill-nav a{padding:.32rem .64rem;border:1px solid var(--rope);border-radius:999px;background:#fff;text-decoration:none;font-weight:600}
-    .pill-nav a.is-active, .pill-nav a[aria-current="page"]{background:#fff;border:1px solid var(--rope);box-shadow:0 1px 2px rgba(8,48,65,.08)}
-    @media(max-width:900px){ .pill-nav{flex-wrap:nowrap;overflow:auto;white-space:nowrap;scrollbar-width:thin;-webkit-overflow-scrolling:touch} .pill-nav a{flex:0 0 auto} }
-
-    /* Simple hero (no compass, no overlay text) */
-    .hero{position:relative;background:url('/assets/index_hero.jpg?v=3.008.036') center/cover no-repeat;min-height:260px}
-    .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
-    .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600}
-
-    /* Layout */
-    .wrap{max-width:1100px;margin:0 auto;padding:1rem}
-    .intro-grid{display:grid;gap:1rem}
-    @media (min-width:980px){ .intro-grid{grid-template-columns:2fr 1.2fr;align-items:start} }
-
-    /* Journal rail cards */
-    .journal-rail .dek{margin-top:.25rem;margin-bottom:1rem;opacity:.9}
-    #journal-rail{display:grid;grid-template-columns:1fr;gap:.9rem}
-    .post-card{display:flex;flex-direction:column;gap:.5rem}
-    .post-card .thumb{aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:#eef4f7}
-    .post-card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .post-card h3{font-size:1.05rem;line-height:1.25;margin:.25rem 0}
-    .post-card .meta{font-size:.85rem;opacity:.8}
-
-    /* Authors rail */
-    .authors-rail{display:grid;gap:.75rem}
-    .author-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
-    .author-item .thumb{width:112px;height:72px;overflow:hidden;border-radius:.5rem;background:#eef4f7}
-    .author-item .thumb img{width:112px;height:72px;object-fit:cover;display:block}
+    /* Page-specific hero normalization (no tagline on About) */
+    .hero{background:url('/assets/index_hero.jpg?v=3.008.037') center/cover no-repeat !important;}
+    .hero::before,.hero::after{content:none !important;}
   </style>
+
+  <!-- ===== WebSite JSON-LD ===== -->
+  <script type="application/ld+json">{
+    "@context":"https://schema.org","@type":"WebSite",
+    "name":"In the Wake","url":"https://www.cruisinginthewake.com/",
+    "potentialAction":{"@type":"SearchAction",
+      "target":"https://www.cruisinginthewake.com/search.html?q={query}",
+      "query-input":"required name=query"}
+  }</script>
 </head>
 
 <body class="page">
-  <!-- Topbar (unified) -->
-  <div class="topbar">
-    <a href="#content" class="skip-link">Skip to main content</a>
-    <div class="brand" aria-hidden="true">
-      <img src="/assets/logo_wake.png?v=3.008.036" alt="" width="116" height="28" decoding="async">
-      <span class="version-badge" aria-label="Site version">v3.008.036</span>
-    </div>
-    <nav class="pill-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/ships/">Ships</a>
-      <a href="/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/planning.html">Planning</a>
-      <a href="/drink-packages.html">Drink Packages</a>
-      <a href="/packing-lists.html">Packing Lists</a>
-      <a href="/disability-at-sea.html">Accessibility</a>
-      <a href="/cruise-lines.html">Cruise Lines</a>
-      <a href="/solo.html">Solo</a>
-      <a href="/travel.html">Travel</a>
-      <a href="/about-us.html" aria-current="page">About</a>
-    </nav>
-  </div>
+  <a href="#content" class="skip-link">Skip to main content</a>
 
-  <!-- Header (hero only; no text overlays) -->
+  <!-- ===== Header ===== -->
   <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png?v=3.008.037" width="256" height="64" alt="In the Wake wordmark" decoding="async">
+        <span class="version-badge">v3.008.037</span>
+      </div>
+      <!-- Unified nav (normalized order) -->
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/drinks.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/disability.html">Accessibility</a>
+        <a href="/cruise-lines.html">Cruise Lines</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/travel.html">Travel</a>
+        <a href="/about-us.html" aria-current="page">About</a>
+      </nav>
+    </div>
+
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.037" width="180" height="180" alt="" aria-hidden="true" decoding="async">
+      <!-- Tagline intentionally removed on About page per standard -->
       <div class="hero-credit">
         <a class="pill long" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <!-- Main -->
+  <!-- ===== Main ===== -->
   <main class="wrap" id="content" role="main" tabindex="-1" aria-label="Main content">
-    <section class="card" aria-labelledby="page-title">
-      <h1 id="page-title">About Us</h1>
-      <p>Ahoy, voyagers! Welcome to <strong>In the Wake</strong>, your trusty compass for sailing through cruise planning with joy and ease. We’re here to chart your course with mariner wisdom—ship overviews, port tips, restaurant menus, solo travel hacks—all crafted to keep your adventure sailing through calm seas, no squalls in sight. Whether you’re a rookie cruiser or a seasoned skipper, we’ve got the map to make your journey a breeze.</p>
-      <p>I’m your captain, driven by a love for adventure, beauty, and connection. <strong>In the Wake</strong> is my flagship project — a logbook sharing real-voyage know-how to ensure your trip feels like smooth sailing. Through <a href="https://flickersofmajesty.com">Flickers of Majesty</a>, I capture the sea’s fleeting wonders — glowing sunsets, vibrant ports, and the majesty of motion. On land, I tend a small flock of sheep, guiding them with the same care I bring to steering cruisers toward unforgettable destinations. As a pastor at <a href="https://lakeviewfellowshipchurch.com">Lakeview Fellowship Church</a>, I live by <em>“Taking Strangers, Making Family.”</em></p>
-      <p>Our mission is to turn cruise planning into a delight, not a storm. We dive into the details — accessibility, packing lists, drink packages — so you can savor the memories. Like a perfect snapshot or a warm fellowship, we’re here to make strangers into shipmates, united by the majesty of the sea.</p>
-      <p class="center"><strong>Set sail with us!</strong> Explore our guides, pack your sea bag, and let’s make waves together. Fair winds and following wakes — your adventure’s on the horizon!</p>
+    <section class="card" aria-labelledby="about-title">
+      <h1 id="about-title">About Us</h1>
+      <p>Ahoy, voyagers! Welcome to <strong>In the Wake</strong>, your trusty compass for sailing through cruise planning with joy and ease. We’re here to chart your course with mariner wisdom—ship overviews, port tips, restaurant menus, solo travel guidance—all crafted to keep your adventure sailing through calm seas.</p>
+      <p>I’m your captain, driven by a love for adventure, beauty, and connection. <strong>In the Wake</strong> is my flagship project — a logbook sharing real-voyage know-how to ensure your trip feels like smooth sailing. Through <a href="https://flickersofmajesty.com">Flickers of Majesty</a>, I capture the sea’s fleeting wonders. On land, I serve at <a href="https://lakeviewfellowshipchurch.com">Lakeview Fellowship Church</a> with the heartbeat, <em>“Taking Strangers, Making Family.”</em></p>
+      <p>Our mission is to turn cruise planning into a delight, not a storm. We dive into the details — accessibility, packing lists, drink packages — so you can savor the memories. Fair winds — and gentler seas — in our wake.</p>
     </section>
 
     <!-- Rails -->
-    <div class="intro-grid" aria-label="Latest & Authors">
-      <section class="card journal-rail" aria-labelledby="journal-title">
+    <div class="grid-2" aria-label="Latest and Contributors" style="display:grid;gap:1rem">
+      <section class="card" aria-labelledby="journal-title">
         <h2 id="journal-title">From the Journal</h2>
-        <p class="dek">Articles from our writers’ wakes.</p>
         <div id="journal-rail" role="feed" aria-busy="true"></div>
-        <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
       </section>
 
-      <section class="card" aria-labelledby="authors-title">
+      <aside class="card" aria-labelledby="authors-title">
         <h2 id="authors-title">Featured Authors</h2>
-        <div id="authors-rail" class="authors-rail" role="list" aria-busy="true"></div>
-      </section>
+        <div id="authors-rail" role="list" aria-busy="true"></div>
+      </aside>
     </div>
   </main>
 
-  <!-- Footer -->
+  <!-- ===== Footer ===== -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     <div class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
-  <!-- Accessibility widget (vendor) -->
-  <script type="text/javascript" src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js" data-acc-accid="774c13e29978" data-acc-host="delivery.consentmanager.net" data-acc-cdn="cdn.consentmanager.net"></script>
-
-  <!-- Service Worker -->
-  <script>
-    if('serviceWorker' in navigator){
-      window.addEventListener('load',function(){
-        navigator.serviceWorker.register('/sw.js?v=3.008.036').catch(()=>{});
-      });
-    }
-  </script>
-
-  <!-- Auto-highlight (aliases for legacy paths) -->
+  <!-- ===== Current-page highlighter (aliases handled) ===== -->
   <script>
   (function(){
-    const norm=u=>{try{return new URL(u,location.origin).pathname.replace(/\/index\.html$/i,'/').replace(/\/+$/,'/').toLowerCase()||'/';}catch(_){return'/';}};
+    const norm=u=>new URL(u,location.origin).pathname.replace(/\/index\.html$/i,'/').replace(/\/+$/,'/').toLowerCase();
+    const ALIASES=new Map([
+      ['/ships/ships.html','/ships/'],
+      ['/ships/index.html','/ships/'],
+      ['/packing.html','/packing-lists.html'],
+      ['/about.html','/about-us.html'],
+      ['/','/']
+    ]);
     const here=norm(location.pathname);
-    const ALIASES=new Map([['/about.html','/about-us.html'],['/','/']]);
-    const canon=p=>ALIASES.get(p)||p;
     document.querySelectorAll('.pill-nav a[href]').forEach(a=>{
-      const t=norm(a.getAttribute('href')); if(canon(t)===canon(here)){a.setAttribute('aria-current','page'); a.classList.add('is-active');}
+      const t=norm(a.getAttribute('href')); if((ALIASES.get(t)||t)===(ALIASES.get(here)||here)){ a.setAttribute('aria-current','page'); }
     });
   })();
   </script>
 
-  <!-- Rails: Journal (site + solo + travel) -->
+  <!-- ===== Floating Share Bar (your requested file) ===== -->
+  <script defer src="/assets/js/wshare-bar.js?v=3.008.037"></script>
+
+  <!-- ===== Service Worker (versioned) ===== -->
   <script>
-  (function(){
-    const VER=document.querySelector('meta[name="page:version"]')?.content || '3.008.036';
-    const MOUNT=document.getElementById('journal-rail'); if(!MOUNT) return;
-    const FALL=document.getElementById('journal-rail-fallback');
-
-    const SOURCES=[
-      '/assets/data/articles/index.json?v='+VER,
-      '/solo/articles/index.json?v='+VER,
-      '/travel/articles/index.json?v='+VER
-    ];
-    const SEED=[{
-      url:'/travel.html#top-20-questions',
-      title:'Top 20 First-Cruise Questions (Answered)',
-      date:'2025-10-16',
-      dek:'Planning, packing, ports, ship life.',
-      image:'/assets/articles/top-20-questions/cover.jpg'
-    }];
-
-    const norm=(x)=>(Array.isArray(x?.articles)?x.articles:(Array.isArray(x)?x:[]))
-      .map(y=>({url:y.url||y.permalink||'#', title:y.title||'Article', dek:y.dek||y.description||y.excerpt||'', date:y.date||y.datePublished||'', image:y.image||y.cover||''}))
-      .filter(z=>z.url && z.url!=='#');
-
-    const get=async(u)=>{try{const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return norm(await r.json());}catch(_){return [];}}
-    const fmtDate=d=>{const t=Date.parse(d||''); return isNaN(t)?'':new Date(t).toLocaleDateString();}
-    const card=a=>`<article class="post-card" role="article">
-      ${a.image?`<a class="thumb" href="${a.url}"><img src="${a.image}" alt=""></a>`:''}
-      <h3><a href="${a.url}">${a.title}</a></h3>
-      ${a.date?`<div class="meta"><time datetime="${a.date}">${fmtDate(a.date)}</time></div>`:''}
-      ${a.dek?`<p class="excerpt">${a.dek}</p>`:''}
-    </article>`;
-
-    function showFallback(on){ if(FALL) FALL.style.display = on ? '' : 'none'; }
-
-    (async function boot(){
-      showFallback(true);
-      let items=[];
-      for(const s of SOURCES){ items = items.concat(await get(s)); }
-      if(!items.length) items = norm(SEED);
-      items.sort((a,b)=>(Date.parse(b.date||'')||0)-(Date.parse(a.date||'')||0));
-      MOUNT.innerHTML = items.slice(0,3).map(card).join('');
-      MOUNT.setAttribute('aria-busy','false');
-      showFallback(false);
-
-      try{
-        const json={"@context":"https://schema.org","@type":"ItemList","name":"From the Journal",
-          "itemListElement":items.slice(0,3).map((a,i)=>({"@type":"ListItem","position":i+1,"item":{"@type":"BlogPosting","headline":a.title,"url":a.url}}))};
-        const s=document.createElement('script'); s.type='application/ld+json'; s.text=JSON.stringify(json); document.head.appendChild(s);
-      }catch(_){}
-    })();
-  })();
+  if('serviceWorker' in navigator){
+    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008.037').catch(()=>{}));
+  }
   </script>
 
-  <!-- Rails: Authors (site + travel) -->
+  <!-- ===== Journal & Authors Rails (robust, image-error safe) ===== -->
   <script>
   (function(){
-    const VER=document.querySelector('meta[name="page:version"]')?.content || '3.008.036';
-    const mount=document.getElementById('authors-rail'); if(!mount) return;
+    "use strict";
+    const VER = document.querySelector('meta[name="page:version"]')?.content || '3.008.037';
 
-    const sources=['/data/authors.json?v='+VER,'/travel/data/authors.json?v='+VER];
-    let AUTHORS=[{id:'ken',name:'Ken Baker',url:'/authors/ken-baker.html',avatarBase:'/authors/img/ken1'},
-                 {id:'tina',name:'Tina Maulsby',url:'/authors/tina-maulsby.html',avatarBase:'/authors/img/tina3'}];
+    /* ---------- Helpers ---------- */
+    const esc = s => String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+    const abs = p => (typeof window._abs==='function') ? _abs(p) : p;
+    const toDate = d => { const t=Date.parse(d||''); return isNaN(t)?'':new Date(t).toLocaleDateString(); };
 
-    const esc=s=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-    function render(list){
-      if(!list.length){ mount.innerHTML='<p class="tiny muted">Authors coming online.</p>'; mount.setAttribute('aria-busy','false'); return; }
-      mount.innerHTML=list.slice(0,4).map(a=>{
-        const webp=a.avatarBase+'.webp?v='+encodeURIComponent(VER);
-        const jpg =a.avatarBase+'.jpg?v='+encodeURIComponent(VER);
-        return `<div class="author-item" role="listitem" aria-label="${esc(a.name)}">
-          <div class="thumb">
-            <picture><source type="image/webp" srcset="${webp}"><img src="${jpg}" alt="${esc(a.name)}" loading="lazy" decoding="async"></picture>
-          </div>
-          <div><h4><a href="${a.url}">${esc(a.name)}</a></h4><p class="tiny muted">Contributor</p></div>
-        </div>`;
-      }).join('');
-      mount.setAttribute('aria-busy','false');
-    }
+    /* ---------- Journal Rail ---------- */
+    (function journal(){
+      const mount = document.getElementById('journal-rail'); if(!mount) return;
+      const sources = [
+        '/assets/data/articles/index.json?v='+VER,
+        '/solo/articles/index.json?v='+VER,
+        '/travel/articles/index.json?v='+VER
+      ];
+      const FALLBACK = [
+        { url:'/solo/freedom-of-your-own-wake.html', title:'The Freedom of Your Own Wake', date:'2024-08-13',
+          dek:'On choosing solitude without being alone.', image:'/assets/articles/freedom-of-your-own-wake.jpg' }
+      ];
 
-    (async function load(){
-      let loaded=[];
-      for(const u of sources){
-        try{
-          const r=await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
-          const j=await r.json(); const arr=Array.isArray(j?.authors)?j.authors:[];
-          loaded=loaded.concat(arr.map(a=>({
-            id:(String(a.slug||a.name||'').split('-')[0]||'').toLowerCase(),
-            name:a.name||a.title||'Author',
-            url:a.url||a.profile||'#',
-            avatarBase:String(a.image||a.avatar||'').replace(/\.(jpg|jpeg|png|webp)(\?.*)?$/,'')
-          })));
-        }catch(_){}
+      const normalize = (x) => (Array.isArray(x?.articles)?x.articles:(Array.isArray(x)?x:[])).map(a=>{
+        let url = a.url || a.permalink || '#';
+        if (/^\/solo\/articles\/.+\.html$/.test(url)) url = url.replace('/solo/articles/','/solo/');
+        return {
+          url, title: a.title || 'Article',
+          dek: a.dek || a.description || a.excerpt || '',
+          date: a.date || a.datePublished || '',
+          image: a.image || a.cover || ''
+        };
+      }).filter(a=>a.url && a.url!=='#');
+
+      async function get(u){ try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }catch(_){ return []; } }
+
+      function card(a){
+        const img = a.image ? `<img src="${esc(a.image)}" alt="${esc(a.title)}" loading="lazy" decoding="async"
+                         onerror="this.closest('.thumb')?.remove();">` : '';
+        const thumb = img ? `<a class="thumb" href="${esc(a.url)}" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#eef4f7">${img}</a>` : '';
+        return `<article class="card post-card" role="article">
+          ${thumb}
+          <h3><a href="${esc(a.url)}">${esc(a.title)}</a></h3>
+          <div class="meta tiny muted">${a.date?toDate(a.date):''}</div>
+          ${a.dek?`<p class="excerpt">${esc(a.dek)}</p>`:''}
+        </article>`;
       }
-      const byKey=new Map(); AUTHORS.concat(loaded).forEach(a=>{ if(!byKey.has(a.id)) byKey.set(a.id,a); });
-      render(Array.from(byKey.values()));
+
+      (async function boot(){
+        let items=[];
+        for (const s of sources){ const got=await get(s); items=items.concat(got); }
+        if(!items.length) items = FALLBACK;
+        items.sort((a,b)=>(Date.parse(b.date||'')||0)-(Date.parse(a.date||'')||0));
+        const take = items.slice(0,3);
+        mount.innerHTML = take.map(card).join('');
+        mount.setAttribute('aria-busy','false');
+
+        // JSON-LD ItemList for the first 3
+        try{
+          const json={"@context":"https://schema.org","@type":"ItemList","name":"From the Journal",
+            "itemListElement":take.map((a,i)=>({"@type":"ListItem","position":i+1,"item":{"@type":"BlogPosting","headline":a.title,"url":abs(a.url)}}))};
+          const s=document.createElement('script'); s.type='application/ld+json'; s.text=JSON.stringify(json); document.head.appendChild(s);
+        }catch(_){}
+
+        // Seed SW (quietly)
+        if(navigator.serviceWorker?.controller){
+          navigator.serviceWorker.controller.postMessage({type:'SEED_URLS',urls:[
+            '/assets/data/articles/index.json','/solo/articles/index.json','/travel/articles/index.json'
+          ]});
+        }
+      })();
+    })();
+
+    /* ---------- Authors Rail ---------- */
+    (function authors(){
+      const mount = document.getElementById('authors-rail'); if(!mount) return;
+      const sources = ['/data/authors.json?v='+VER, '/travel/data/authors.json?v='+VER];
+      let seeds = [
+        { id:'ken',  name:'Ken Baker',  url:'/authors/ken-baker.html',   avatarBase:'/authors/img/ken1'  },
+        { id:'tina', name:'Tina Maulsby', url:'/authors/tina-maulsby.html', avatarBase:'/authors/img/tina3' }
+      ];
+
+      function render(list){
+        if(!list.length){ mount.innerHTML='<p class="tiny muted">Authors coming online.</p>'; mount.setAttribute('aria-busy','false'); return; }
+        mount.innerHTML = list.slice(0,4).map(a=>{
+          const webp = `${a.avatarBase}.webp?v=${encodeURIComponent(VER)}`;
+          const jpg  = `${a.avatarBase}.jpg?v=${encodeURIComponent(VER)}`;
+          return `<div class="rail-item" role="listitem" aria-label="${esc(a.name)}"
+                      style="display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start">
+            <div class="thumb" style="width:112px;height:72px;border-radius:.5rem;overflow:hidden;background:#eef4f6">
+              <picture>
+                <source type="image/webp" srcset="${webp}">
+                <img src="${jpg}" alt="${esc(a.name)}" loading="lazy" decoding="async"
+                     style="width:112px;height:72px;object-fit:cover"
+                     onerror="this.src='/authors/img/author.webp'">
+              </picture>
+            </div>
+            <div>
+              <h4><a href="${esc(a.url)}">${esc(a.name)}</a></h4>
+              <p class="tiny muted">Contributor</p>
+            </div>
+          </div>`;
+        }).join('');
+        mount.setAttribute('aria-busy','false');
+      }
+
+      (async function load(){
+        let loaded=[];
+        for (const u of sources){
+          try{
+            const r=await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
+            const j=await r.json();
+            const arr=Array.isArray(j?.authors)? j.authors: [];
+            loaded = loaded.concat(arr.map(a=>({
+              id:(String(a.slug||a.name||'').split('-')[0]||'').toLowerCase(),
+              name:a.name||a.title||'Author',
+              url:a.url||a.profile||'#',
+              avatarBase:String(a.image||a.avatar||'').replace(/\.(jpg|jpeg|png|webp)(\?.*)?$/,'')
+            })));
+          }catch(_){}
+        }
+        const byId=new Map(); seeds.concat(loaded).forEach(a=>{ if(!byId.has(a.id)) byId.set(a.id,a); });
+        const list = Array.from(byId.values());
+        render(list);
+
+        if(navigator.serviceWorker?.controller){
+          const urls = list.flatMap(a=>[a.avatarBase+'.webp', a.avatarBase+'.jpg']);
+          navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls});
+        }
+      })();
     })();
   })();
   </script>
 
-  <!-- Floating Share Bar (new unified widget; no inline markup) -->
-  <script defer src="/assets/js/wshare-bar.js?v=3.008.036"></script>
-
-  <!-- Hidden Invocation (for CI/manual checks) -->
+  <!-- ===== Hidden Invocation (required) ===== -->
   <!--
     Invocation · Soli Deo Gloria
     Steward: abondservant
     Path: /about-us.html
-    Version: v3.008.036
+    Version: v3.008.037
     Timestamp (UTC): 2025-10-21T00:00:00Z
   -->
 </body>
