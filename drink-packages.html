@@ -1,79 +1,76 @@
+<!--
+Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
+
+STANDARDS (INLINE): Core v3.009 · Unified Nav v3.009 (dropdowns)
+A11y/WCAG Addendum v3.100 · Cache/SW v3.x · JSON-LD Breadcrumbs
+Page: /drink-packages.html · v3.009.003 (inline)
+-->
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- CMP (Consent Manager) -->
+  <script type="text/javascript" data-cmp-ab="1"
+    src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+    data-cmp-host="a.delivery.consentmanager.net"
+    data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
 
-  gtag('config', 'G-WZP891PZXJ');
-</script>
-  <!--
-    In the Wake — Invocation Edition v3.006
-    “Soli Deo Gloria.” 1 Cor 10:31 · Prov 3:5–6
-    Authorship : abondservant (a bondservant of Christ)
-    Timestamp  : 2025-10-10T00:00:00Z
-  -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
 
-  <!-- Analytics -->
-  <script defer src="https://cloud.umami.is/script.js"
-          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Standards v3.006: absolute URL + origin normalizer -->
+  <!-- Standards: absolute URL normalizer -->
   <script>
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
     document.addEventListener('DOMContentLoaded',function(){
-      const sel=[
-        'a[href^="https://www.cruisinginthewake.com/"]',
-        'img[src^="https://www.cruisinginthewake.com/"]',
-        'link[href^="https://www.cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]'
-      ].join(',');
+      const sel=['a[href^="https://www.cruisinginthewake.com/"]','img[src^="https://www.cruisinginthewake.com/"]','link[href^="https://www.cruisinginthewake.com/"]','script[src^="https://www.cruisinginthewake.com/"]'].join(',');
       document.querySelectorAll(sel).forEach(function(el){
         const attr=el.hasAttribute('href')?'href':'src';
-        try{
-          const u=new URL(el.getAttribute(attr));
-          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
-        }catch(_){}
+        try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
       });
     },{once:true});
-  })();
-  </script>
 
-  <!-- External link hardening -->
-  <script>
-  document.addEventListener('click', function(e){
-    const a=e.target.closest && e.target.closest('a[href]');
-    if(!a) return;
-    try{
-      const u=new URL(a.href, location.href);
-      if(u.origin!==location.origin){ a.target='_blank'; a.rel='noopener'; }
-    }catch(_){}
-  }, {capture:true});
+    // External link hardening
+    document.addEventListener('click',function(e){
+      const a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
+      if(!a) return;
+      try{
+        const u=new URL(a.href,location.href);
+        if(u.origin!==location.origin){ a.setAttribute('target','_blank'); a.setAttribute('rel','noopener noreferrer'); }
+      }catch(_){}
+    },{capture:true});
+  })();
   </script>
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Drink Packages | In the Wake (v3.006)</title>
-  <meta name="version" content="v3.006"/>
-  <meta name="description" content="Learn about cruise line drink packages, beverage policies, and price calculators. A clear-eyed guide to saving money at sea — coming soon."/>
+  <meta name="theme-color" content="#0e6e8e"/>
   <meta name="robots" content="index,follow"/>
 
+  <title>Drink Packages — In the Wake (v3.009.003)</title>
+  <meta name="version" content="v3.009.003"/>
+  <meta name="description" content="Learn about cruise line drink packages, beverage policies, and price calculators. A clear-eyed guide to saving money at sea — coming soon."/>
+
   <!-- Canonical & Social -->
-  <link rel="canonical" href="https://cruisinginthewake.com/drink-packages.html"/>
+  <link rel="canonical" href="https://www.cruisinginthewake.com/drink-packages.html"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/drink-packages.html"/>
-  <meta property="og:title" content="Drink Packages | In the Wake"/>
+  <meta property="og:title" content="Drink Packages — In the Wake"/>
   <meta property="og:description" content="Comparing drink packages across cruise lines — simplified explanations, calculators, and honest insights. Coming soon."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/drinks-hero.jpg?v=3.006"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/drinks-hero.jpg?v=3.009.003"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Structured Data: Breadcrumbs (fixes 'position' warning) -->
+  <!-- Structured Data: Breadcrumbs -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -85,57 +82,66 @@
   }
   </script>
 
-  <!-- SiteCache + Service Worker -->
-  <script src="/assets/js/site-cache.js" defer></script>
+  <!-- Site Cache helper + SW registration -->
+  <script defer src="https://www.cruisinginthewake.com/assets/js/site-cache.js?v=3.009.003"></script>
   <script>
-  if('serviceWorker' in navigator){
-    addEventListener('load', ()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-  }
+    if('serviceWorker' in navigator){
+      addEventListener('load', ()=> {
+        navigator.serviceWorker.register('https://www.cruisinginthewake.com/sw.js?v=3.009.003').catch(()=>{});
+      });
+    }
   </script>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+  <!-- Unified CSS (global) -->
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.009.003"/>
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg"/>
 
-  <!-- Page visuals & a11y helpers -->
+  <!-- Page-local a11y + Unified Nav additions -->
   <style>
+    :root{ --rope:#d9b382; --accent:#0e6e8e; --ink:#083041; --foam:#e6f4f8; }
+    html,body{overflow-x:hidden}
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:12px;top:12px;width:auto;height:auto;background:#0e6e8e;color:#fff;border:0;padding:.45rem .7rem;z-index:10000;border-radius:10px}
+
+    /* Header rope above hero; prevent 100vw bleed */
+    .hero-header{position:relative;border-bottom:6px double var(--rope);z-index:0}
+    .hero-header > .hero{position:relative;z-index:-1;width:100% !important;margin-left:0 !important;overflow-x:clip !important}
+
+    /* Unified Nav v3.009 (grouped pills + dropdowns) */
+    .navbar{display:flex;align-items:flex-end;gap:.6rem;max-width:1100px;margin:0 auto;padding:.5rem .9rem .35rem;position:relative;z-index:6}
+    .brand{display:flex;align-items:flex-end;gap:.6rem;flex:0 0 auto}
+    .brand img{height:28px;width:auto}
+    .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
+    .main-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-inline:.75rem;scroll-padding-inline:.75rem;
+      mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+      -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+    }
+    .nav-item{position:relative;display:inline-block}
+    .chip,.nav-disclosure{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none}
+    .main-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
+    .submenu{position:absolute;left:0;top:calc(100% + 6px);min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;z-index:20}
+    .submenu a{display:block;padding:.35rem .6rem;border-radius:8px;border:1px solid transparent;color:inherit;white-space:nowrap}
+    .submenu a:hover{background:#f9fdfd;border-color:#ecd7b7;text-decoration:none}
+    .nav-group[data-open="true"] .submenu{display:block}
+    @media (hover:hover){ .nav-group:hover .submenu{display:block} }
+
+    /* Hero: logo + tagline beneath the ship/logo */
+    .hero{position:relative;min-height:clamp(200px,24vw,340px);display:flex;align-items:flex-end;background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat}
+    .hero .latlon-grid{position:absolute;inset:0;pointer-events:none}
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+    .hero .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
+    .hero .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
+
+    /* Page visuals (subtle background) */
     body.page{background:linear-gradient(var(--foam),#fff 240px);color:var(--ink);}
-    .hero{background:url('/assets/index_hero.jpg') center/cover no-repeat!important;
-          filter:saturate(1.3) contrast(1.1) brightness(1.05);}
-    .hero::before,.hero::after{content:none!important;}
-
-    /* Watermark */
-    body::before{content:"";position:fixed;inset:0;
-      background:url("/assets/watermark.png") center right/420px auto no-repeat;
-      opacity:.06;pointer-events:none;z-index:0;}
-    body>*{position:relative;z-index:1;}
-
-    /* Skip link */
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
-    .skip-link:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;
-      padding:.45rem .7rem;background:#fff;border:2px solid var(--accent);
-      border-radius:10px;z-index:9999;}
-
-    /* Focus ring normalization */
-    .pill, .btn, .logo-sm, .hero-credit .pill.long { outline: none; }
-    .pill:focus-visible, .btn:focus-visible, .logo-sm:focus-visible, .hero-credit .pill.long:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 2px;
-      box-shadow: 0 0 0 3px rgba(14,110,142,.2);
-      border-radius: 8px;
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      *{animation-duration:.001ms!important;transition-duration:.001ms!important;}
-    }
-    @media (forced-colors: active){
-      .pill:focus-visible, .btn:focus-visible { outline:2px solid CanvasText; box-shadow:none; }
-    }
   </style>
 </head>
-<body class="page">
-  <!-- Invocation header marker:
-       Everything we build is offered to God. “Soli Deo Gloria.” -->
+
+<body class="page no-hero-filter">
+  <!-- Unified Nav behavior -->
+  <script src="https://www.cruisinginthewake.com/assets/js/newnav.js?v=3.009.003" defer></script>
 
   <!-- Skip link -->
   <a class="skip-link" href="#content">Skip to main content</a>
@@ -143,39 +149,52 @@
   <header class="site-header hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
-        <span class="tiny ver-badge" aria-label="Site version">v3.006</span>
+        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
+        <span class="version-badge">v3.009.003 (inline)</span>
       </div>
 
-      <nav class="pill-nav pills" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/ships/">Ships</a>
-        <a href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="/ports.html">Ports</a>
-        <a href="/disability-at-sea.html">Disability at Sea</a>
-        <a href="/drink-packages.html" aria-current="page">Drink Packages</a>
-        <a href="/packing-lists.html">Packing Lists</a>
-        <a href="/planning.html">Planning</a>
-        <a href="/solo.html">Solo</a>
-        <a href="/travel.html">Travel</a>
-        <a href="https://www.cruisinginthewake.com/about-us.html">About Us</a>
+      <!-- Unified dropdown nav -->
+      <nav class="main-nav" aria-label="Primary">
+        <div class="nav-item"><a class="chip" href="https://www.cruisinginthewake.com/">Home</a></div>
+
+        <div class="nav-item nav-group" id="nav-planning">
+          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+            <a role="menuitem" href="https://www.cruisinginthewake.com/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+            <a role="menuitem" href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="https://www.cruisinginthewake.com/ships.html">Ships</a>
+            <a role="menuitem" href="https://www.cruisinginthewake.com/drink-packages.html" aria-current="page">Drink Packages</a>
+            <a role="menuitem" href="https://www.cruisinginthewake.com/cruise-lines/">Cruise Lines</a>
+            <a role="menuitem" href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="https://www.cruisinginthewake.com/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <div class="nav-item nav-group" id="nav-travel">
+          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+            <a role="menuitem" href="https://www.cruisinginthewake.com/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="https://www.cruisinginthewake.com/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a class="chip" href="https://www.cruisinginthewake.com/about-us.html">About</a></div>
       </nav>
     </div>
 
+    <!-- Hero (tagline beneath the ship/logo) -->
     <div class="hero" role="img" aria-label="Colorful cocktail glasses against an ocean backdrop">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake"/>
+        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
-      </div>
-      <div class="hero-credit">
-        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <main class="wrap" id="content">
+  <main class="wrap" id="content" role="main" tabindex="-1" aria-label="Main content">
     <section class="card" aria-labelledby="drink-packages">
       <h1 id="drink-packages">Cruise Drink Packages</h1>
       <p>Every cruise line approaches beverages differently — from “classic” packages to tiered premium options, from soda-only plans to all-inclusive beverage programs. Prices shift often, and what’s included varies widely between lines.</p>
@@ -200,12 +219,12 @@
     </section>
   </main>
 
-  <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
-    <p class="tiny" style="margin-top:.6rem">
-      All prices and inclusions subject to cruise line updates.
-      Data will refresh weekly once calculators go live.
-      Last reviewed 2025-10-10.
+  <footer class="wrap" role="contentinfo" style="text-align:center">
+    <div class="tiny" style="margin-bottom:.35rem">v3.009.003</div>
+    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
+    <a href="https://www.cruisinginthewake.com/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    <p class="tiny center" style="margin-top:.5rem">
+      Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
     </p>
   </footer>
 
@@ -221,7 +240,7 @@
       if(window.SiteCache && typeof SiteCache.getJSON==='function') return;
       await new Promise(r=>{
         const s=document.createElement('script');
-        s.src=abs('/assets/js/site-cache.js'); s.defer=true; s.onload=r; s.onerror=r;
+        s.src=abs('/assets/js/site-cache.js?v=3.009.003'); s.defer=true; s.onload=r; s.onerror=r;
         document.head.appendChild(s);
       });
     }
@@ -266,12 +285,5 @@
     toggle();
   })();
   </script>
-
-  <!--
-    Invocation Edition footer note:
-    “Whatever you do, do all to the glory of God.” — 1 Cor 10:31
-    “Trust in the LORD with all your heart … He will make straight your paths.” — Prov 3:5–6
-    Signed: abondservant · Soli Deo Gloria.
-  -->
 </body>
 </html>
