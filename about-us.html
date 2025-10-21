@@ -1,10 +1,10 @@
 <!--
 Soli Deo Gloria — All work on this project is offered to God.
 
-STANDARDS used here (INLINE): Every Page v3.009 · Unified Nav v3.009 (dropdowns)
+STANDARDS (INLINE): Every Page v3.009 · Unified Nav v3.009 (dropdowns)
 Right-Rail Articles+Author v3.009 · A11y/WCAG Addendum v3.100
 CMP/Consent v3.008.020 · FB Domain Verification v3.008.021
-Page: /about-us.html · v3.009.001 (inline prototype)
+Page: /about-us.html · v3.009.003 (inline)
 -->
 <!doctype html>
 <html lang="en">
@@ -16,18 +16,15 @@ Page: /about-us.html · v3.009.001 (inline prototype)
   <meta name="color-scheme" content="light dark">
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
-  <title>About Us — In the Wake (v3.009.001 inline)</title>
+  <title>About Us — In the Wake (v3.009.003 inline)</title>
   <meta name="description" content="Meet the crew behind In the Wake — real cruisers writing from real voyages.">
   <link rel="canonical" href="https://www.cruisinginthewake.com/about-us.html">
 
   <!-- ===== Inline CSS (no styles.css reliance) ===== -->
   <style>
-    :root{
-      --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-    }
+    :root{ --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e; }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    html,body{overflow-x:hidden}
+    html,body{margin:0;padding:0;overflow-x:hidden}
     body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--ink);background:var(--sky);line-height:1.55}
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
@@ -37,10 +34,7 @@ Page: /about-us.html · v3.009.001 (inline prototype)
 
     /* Skip link */
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{
-      left:.75rem;top:.5rem;width:auto;height:auto;padding:.4rem .65rem;
-      background:#0e6e8e;color:#fff;border-radius:10px;z-index:1000;outline:0;
-    }
+    .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;padding:.4rem .65rem;background:#0e6e8e;color:#fff;border-radius:10px;z-index:1000;outline:0}
 
     /* Header / Nav / Hero */
     .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
@@ -49,57 +43,26 @@ Page: /about-us.html · v3.009.001 (inline prototype)
     .brand img{height:28px;width:auto}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-    /* Dropdown nav (no horizontal scroll) */
-    .main-nav{display:flex;gap:.5rem;flex:1 1 auto;min-width:0}
+    /* Unified nav (single row, scrollable when crowded) */
+    .main-nav{display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;white-space:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-inline:.75rem}
     .nav-item{position:relative}
-    .chip{
-      display:inline-flex;align-items:center;gap:.35rem;
-      padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);
-      color:var(--accent);font-size:.95rem;cursor:pointer;
-    }
-    .chip[aria-current="page"]{
-      outline:3px dashed var(--rope);outline-offset:2px;
-      box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
-    }
+    .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
+    .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
     .nav-item > a.chip{text-decoration:none}
     .nav-item[aria-haspopup="true"] .caret{font-size:.85em}
-    .menu{
-      position:absolute;left:0;top:calc(100% + .35rem);
-      min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;
-      box-shadow:0 6px 18px rgba(8,48,65,.15);padding:.6rem;display:none;
-    }
+    .menu{position:absolute;left:0;top:calc(100% + .35rem);min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:0 6px 18px rgba(8,48,65,.15);padding:.6rem;display:none;z-index:20}
     .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem}
     .menu a{display:block;padding:.4rem .5rem;border-radius:.5rem;color:#123}
     .menu a:hover{background:#f4fafb;text-decoration:none}
-    /* Open states (mouse & keyboard) */
     .nav-item.open .menu{display:block}
     .nav-item:focus-within .menu{display:block}
 
-    /* Hero image — no 100vw bleed */
-    .hero{
-      position:relative;width:100%;min-height:clamp(200px,24vw,340px);
-      background:url('/assets/index_hero.jpg') center/cover no-repeat;
-      display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;
-    }
-    /* Restored: over-image title block */
+    /* Hero (tagline **beneath** the logo/ship) */
+    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg') center/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
     .hero .latlon-grid{position:absolute;inset:0;pointer-events:none}
-    .hero-title{
-      position:absolute;
-      left:min(3vw,1rem);
-      bottom:clamp(.6rem,2vw,1.4rem);
-      z-index:3;display:flex;align-items:flex-end;gap:.6rem;
-      text-shadow:0 2px 6px rgba(0,0,0,.45);
-    }
-    .hero-title .logo{
-      width:clamp(189px,23.1vw,378px);
-      max-width:min(45vw,520px);
-      filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));
-    }
-    .hero .tagline{
-      font-weight:700;letter-spacing:.2px;color:#e6f4f8;
-      font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;
-    }
-
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+    .hero .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
     .hero .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
     .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15);text-decoration:none}
@@ -107,16 +70,12 @@ Page: /about-us.html · v3.009.001 (inline prototype)
     /* Layout */
     .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
     .grid{display:grid;gap:1rem;grid-template-columns:1fr}
-    @media (min-width:980px){
-      .grid{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)}
-    }
+    @media (min-width:980px){ .grid{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)} }
 
-    /* Cards */
+    /* Cards / rails */
     .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.6rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
     h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
     .motto{margin-top:.15rem}
-
-    /* Right rail */
     .rail-list{display:grid;gap:1rem}
     .rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
     .journal-avatar,.author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center}
@@ -125,7 +84,7 @@ Page: /about-us.html · v3.009.001 (inline prototype)
     footer.wrap{font-size:.92rem}
   </style>
 
-  <!-- Consent/Analytics (optional for prototype; safe to keep) -->
+  <!-- Consent/Analytics -->
   <script type="text/javascript" data-cmp-ab="1"
           src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
           data-cmp-host="a.delivery.consentmanager.net"
@@ -135,7 +94,9 @@ Page: /about-us.html · v3.009.001 (inline prototype)
 </head>
 
 <body>
-  <script src="/assets/js/newnav.js?v=3.009.002" defer></script>
+  <!-- Unified Nav JS (tiny helper) -->
+  <script src="/assets/js/newnav.js?v=3.009.003" defer></script>
+
   <a href="#content" class="skip-link">Skip to main content</a>
 
   <!-- ===== Header ===== -->
@@ -143,10 +104,10 @@ Page: /about-us.html · v3.009.001 (inline prototype)
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark">
-        <span class="version-badge">v3.009.001 (inline)</span>
+        <span class="version-badge">v3.009.003 (inline)</span>
       </div>
 
-      <!-- New dropdown nav (Home · Planning · Travel · About) -->
+      <!-- Dropdown nav -->
       <nav class="main-nav" aria-label="Primary">
         <div class="nav-item"><a class="chip" href="/">Home</a></div>
 
@@ -163,7 +124,7 @@ Page: /about-us.html · v3.009.001 (inline prototype)
             <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
             <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
             <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-            <a role="menuitem" href="/disability.html">Accessibility</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
           </div>
         </div>
 
@@ -182,15 +143,13 @@ Page: /about-us.html · v3.009.001 (inline prototype)
       </nav>
     </div>
 
-    <!-- Restored hero title block (logo + tagline) -->
+    <!-- Hero (logo + tagline under it) -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-
       <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-credit"><a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
     </div>
@@ -204,15 +163,9 @@ Page: /about-us.html · v3.009.001 (inline prototype)
         <h1 id="about-title">About Us</h1>
         <p class="motto tiny"><em>The calmest seas are found in another’s wake.</em></p>
 
-        <p>
-          Ahoy, voyagers! Welcome to <strong>In the Wake</strong>, your trusty compass for sailing through cruise planning with joy and ease. We’re here to chart your course with mariner wisdom—ship overviews, port tips, restaurant menus, solo travel hacks—all crafted to keep your adventure sailing through calm seas, no squalls in sight. Whether you’re a rookie cruiser or a seasoned skipper, we’ve got the map to make your journey a breeze.
-        </p>
-        <p>
-          I’m your captain, driven by a love for adventure, beauty, and connection. <strong>In the Wake</strong> is my flagship project — a logbook sharing real-voyage know-how to ensure your trip feels like smooth sailing. Through <a href="https://flickersofmajesty.com">Flickers of Majesty</a>, I capture the sea’s fleeting wonders — glowing sunsets, vibrant ports, and the majesty of motion. On land, I tend a small flock of sheep, guiding them with the same care I bring to steering cruisers toward unforgettable destinations. As a pastor at <a href="https://lakeviewfellowshipchurch.com">Lakeview Fellowship Church</a>, I live by <em>“Taking Strangers, Making Family.”</em>
-        </p>
-        <p>
-          Our mission is to turn cruise planning into a delight, not a storm. We dive into the details — accessibility, packing lists, drink packages — so you can savor the memories. Like a perfect snapshot or a warm fellowship, we’re here to make strangers into shipmates, united by the majesty of the sea.
-        </p>
+        <p>Ahoy, voyagers! Welcome to <strong>In the Wake</strong>, your trusty compass for sailing through cruise planning with joy and ease. We’re here to chart your course with mariner wisdom—ship overviews, port tips, restaurant menus, solo travel hacks—all crafted to keep your adventure sailing through calm seas, no squalls in sight. Whether you’re a rookie cruiser or a seasoned skipper, we’ve got the map to make your journey a breeze.</p>
+        <p>I’m your captain, driven by a love for adventure, beauty, and connection. <strong>In the Wake</strong> is my flagship project — a logbook sharing real-voyage know-how to ensure your trip feels like smooth sailing. Through <a href="https://flickersofmajesty.com">Flickers of Majesty</a>, I capture the sea’s fleeting wonders — glowing sunsets, vibrant ports, and the majesty of motion. On land, I tend a small flock of sheep, guiding them with the same care I bring to steering cruisers toward unforgettable destinations. As a pastor at <a href="https://lakeviewfellowshipchurch.com">Lakeview Fellowship Church</a>, I live by <em>“Taking Strangers, Making Family.”</em></p>
+        <p>Our mission is to turn cruise planning into a delight, not a storm. We dive into the details — accessibility, packing lists, drink packages — so you can savor the memories. Like a perfect snapshot or a warm fellowship, we’re here to make strangers into shipmates, united by the majesty of the sea.</p>
         <p class="center"><strong>Set sail with us!</strong> Explore our guides, pack your sea bag, and let’s make waves together. Fair winds and following wakes — your adventure’s on the horizon!</p>
       </section>
 
@@ -242,7 +195,7 @@ Page: /about-us.html · v3.009.001 (inline prototype)
   (function(){
     "use strict";
     /* --------- Constants --------- */
-    const VERSION = '3.009.001';                 // cache buster
+    const VERSION = '3.009.003';                 // cache buster
     const GENERIC_AVATAR = '/authors/img/author.webp';
 
     /* --------- Dropdown nav (click + keyboard) --------- */
@@ -258,12 +211,11 @@ Page: /about-us.html · v3.009.001 (inline prototype)
       btn.addEventListener('click', (e)=>{ e.stopPropagation(); (item.classList.contains('open')? close(): open()); });
       btn.addEventListener('keydown', (e)=>{ if(e.key==='ArrowDown'){ open(); menu.querySelector('a')?.focus(); } });
       item.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ close(); btn.focus(); } });
-
       document.addEventListener('click', (e)=>{ if(!item.contains(e.target)) close(); });
     });
 
     /* --------- Helpers --------- */
-    const esc = s => String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;","/>":"&gt;",'"':"&quot;"}[m]));
+    const esc = s => String(s||"").replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
     const safeDate = d => { const t=Date.parse(d||''); return isNaN(t)?'':new Date(t).toLocaleDateString(); };
 
     /* --------- Authors map (canonical avatars) --------- */
@@ -320,11 +272,7 @@ Page: /about-us.html · v3.009.001 (inline prototype)
           const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0;
           const j=await r.json();
           const arr=Array.isArray(j?.authors)? j.authors: [];
-          return arr.map(x=>({
-            name: x.name || x.title,
-            url:  x.url  || x.profile,
-            image: x.webp || x.image || x.avatar || ''
-          }));
+          return arr.map(x=>({ name:x.name||x.title, url:x.url||x.profile, image:x.webp||x.image||x.avatar||'' }));
         }catch(_){ return []; }
       }
 
@@ -348,21 +296,9 @@ Page: /about-us.html · v3.009.001 (inline prototype)
       ];
 
       const SEED = [
-        { url:'/travel.html#top-20-questions',
-          title:'Top 20 First-Cruise Questions (Answered)',
-          date:'2025-10-16',
-          dek:'A first-person guide to planning, packing, ports, and ship life.',
-          author:{ name:'Ken Baker',  url:'/authors/ken-baker.html',  image:'/authors/img/ken1.jpg' } },
-        { url:'/solo/freedom-of-your-own-wake.html',
-          title:'Freedom of Your Own Wake',
-          date:'2024-08-13',
-          dek:'On choosing solitude without being alone.',
-          author:{ name:'Ken Baker',  url:'/authors/ken-baker.html',  image:'/authors/img/ken1.jpg' } },
-        { url:'/solo/why-i-started-solo-cruising.html',
-          title:'Why I Started Solo Cruising',
-          date:'2024-05-31',
-          dek:'From that first solo gangway to a thriving community — freedom found at sea.',
-          author:{ name:'Tina Maulsby', url:'/authors/tina-maulsby.html', image:'/authors/img/tina3.jpg' } }
+        { url:'/travel.html#top-20-questions', title:'Top 20 First-Cruise Questions (Answered)', date:'2025-10-16', dek:'A first-person guide to planning, packing, ports, and ship life.', author:{ name:'Ken Baker',  url:'/authors/ken-baker.html',  image:'/authors/img/ken1.jpg' } },
+        { url:'/solo/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', date:'2024-08-13', dek:'On choosing solitude without being alone.', author:{ name:'Ken Baker',  url:'/authors/ken-baker.html',  image:'/authors/img/ken1.jpg' } },
+        { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', date:'2024-05-31', dek:'From that first solo gangway to a thriving community — freedom found at sea.', author:{ name:'Tina Maulsby', url:'/authors/tina-maulsby.html', image:'/authors/img/tina3.jpg' } }
       ];
 
       function normalize(feed){
@@ -406,11 +342,7 @@ Page: /about-us.html · v3.009.001 (inline prototype)
           const key = String(a.author?.name||'').trim().toLowerCase();
           const canon = key && authorsMap.get(key);
           if(canon){
-            a.author = {
-              name: canon.name,
-              url:  a.author?.url || canon.url || '',
-              image: a.author?.image || canon.image || GENERIC_AVATAR
-            };
+            a.author = { name:canon.name, url:a.author?.url||canon.url||'', image:a.author?.image||canon.image||GENERIC_AVATAR };
           }else{
             if(!a.author) a.author = { name:'', url:'', image:GENERIC_AVATAR };
             if(!a.author.image) a.author.image = GENERIC_AVATAR;
@@ -422,7 +354,7 @@ Page: /about-us.html · v3.009.001 (inline prototype)
         mount.innerHTML = items.slice(0,3).map(row).join('');
         mount.setAttribute('aria-busy','false');
 
-        // (Nice-to-have) hint SW to cache authors.json fresh this session
+        // Optional: hint SW to cache authors.json fresh this session
         if(navigator.serviceWorker?.controller){
           navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls:['/data/authors.json?v='+VERSION]});
         }
