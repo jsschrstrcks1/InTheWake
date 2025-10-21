@@ -89,7 +89,7 @@
       </div>
 
       <a href="/">Home</a>
-      <a href="/ships/index.html">Ships</a>
+      <a href="/ships/index.html" aria-current="page">Ships</a>
       <a href="/restaurants.html">Restaurants &amp; Menus</a>
       <a href="/ports.html">Ports</a>
       <a href="/planning.html">Planning</a>
@@ -127,7 +127,7 @@
       </section>
     </div>
 
-    <!-- RIGHT RAIL -->
+  <!-- RIGHT RAIL -->
     <aside class="rail" aria-label="Sidebar">
       <section class="card" aria-labelledby="journal-title">
         <h3 id="journal-title">From the Journal</h3>
@@ -156,7 +156,7 @@
     <button class="share" id="share-copy" type="button" aria-live="polite">Copy link</button>
   </div>
 
-  <!-- Auto-highlight current nav item (handles /, /index.html, legacy paths) -->
+  <!-- Auto-highlight current nav item -->
   <script>
   (function(){
     const norm=(u)=>{try{return new URL(u,location.origin).pathname.replace(/\/index\.html$/i,'/').replace(/\/+$/,'/').toLowerCase()||'/';}catch(e){return'/';}};
@@ -164,7 +164,8 @@
     const ALIASES=new Map([['/ships/ships.html','/ships/'],['/ships/index.html','/ships/'],['/packing.html','/packing-lists.html'],['/about.html','/about-us.html'],['/','/']]);
     const canon=(p)=>ALIASES.get(p)||p;
     document.querySelectorAll('.navbar a[href]').forEach(a=>{
-      const t=norm(a.getAttribute('href')); if(canon(t)===canon(here)){a.setAttribute('aria-current','page'); a.classList.add('is-active');}
+      const t=norm(a.getAttribute('href'));
+      if(canon(t)===canon(here)){a.setAttribute('aria-current','page'); a.classList.add('is-active');}
     });
   })();
   </script>
@@ -189,7 +190,11 @@
     /* Optional override manifest */
     let MANIFEST=null;
     async function loadImageManifest(){
-      try{const r=await fetch('/ships/image-index.json?v='+encodeURIComponent(VER),{cache:'no-store',credentials:'omit'}); if(!r.ok) throw 0; MANIFEST=await r.json();}catch(_){MANIFEST=null;}
+      try{
+        const r=await fetch('/ships/image-index.json?v='+encodeURIComponent(VER),{cache:'no-store',credentials:'omit'});
+        if(!r.ok) throw 0;
+        MANIFEST=await r.json();
+      }catch(_){MANIFEST=null;}
     }
 
     /* Legacy paths kept working */
@@ -208,36 +213,69 @@
       ].filter(Boolean);
     }
     async function resolveImageURL(url){
-      try{let r=await fetch(url,{method:'HEAD',cache:'no-store'}); if(r.ok) return url;
-          r=await fetch(url,{method:'GET',cache:'no-store',credentials:'omit'}); if(r.ok) return url;}catch(_){}
+      try{
+        let r=await fetch(url,{method:'HEAD',cache:'no-store'});
+        if(r.ok) return url;
+        r=await fetch(url,{method:'GET',cache:'no-store',credentials:'omit'});
+        if(r.ok) return url;
+      }catch(_){}
       return null;
     }
     async function findImageFor(slug){
-      if(MANIFEST&&MANIFEST[slug]){const hit=await resolveImageURL(MANIFEST[slug]); if(hit) return hit;}
-      for(const u of candidatesFor(slug)){const hit=await resolveImageURL(u); if(hit) return hit;}
+      if(MANIFEST&&MANIFEST[slug]){
+        const hit=await resolveImageURL(MANIFEST[slug]);
+        if(hit) return hit;
+      }
+      for(const u of candidatesFor(slug)){
+        const hit=await resolveImageURL(u);
+        if(hit) return hit;
+      }
       return null;
     }
 
-    /* Stats from fleets_index */
+    /* Stats from fleets_index (canonical path, content-type validation) */
     async function fetchFleetIndex(){
-      try{const r=await fetch('/assets/data/fleets_index.json?v='+encodeURIComponent(VER),{cache:'no-store'}); if(!r.ok) throw 0; return await r.json();}catch(e){return null;}
+      try{
+        const r=await fetch('/assets/data/fleets_index.json',{cache:'no-store'});
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        const ct=(r.headers.get('content-type')||'').toLowerCase();
+        if(!ct.includes('application/json')) throw new Error('Not JSON: '+ct);
+        return await r.json();
+      }catch(e){
+        console.error('[fleet] fleets_index load failed:', e);
+        return null;
+      }
     }
     function rcIndexLookup(json){
-      const map=new Map(); const list=json?.cruise_lines?.['royal-caribbean']||[];
-      for(const s of list){const slug=String(s.slug||s.attributes?.slug||'').toLowerCase(); if(!slug) continue;
-        const a=s.attributes||{}; map.set(slug,{year:a.year_built_or_entered||'',gt:a.gt||'',cap:a.capacity||'',notes:a.notes||''});}
+      const map=new Map();
+      const list=json?.cruise_lines?.['royal-caribbean']||[];
+      for(const s of list){
+        const slug=String(s.slug||s.attributes?.slug||'').toLowerCase().trim();
+        if(!slug) continue;
+        const a=s.attributes||{};
+        const year=a.year_built_or_entered||a.year_built||a.entered_service||a.built||'';
+        const gt  =a.gt||a.gross_tonnage||a.grt||a.tonnage||'';
+        const cap =a.capacity||a.passenger_capacity||a.passengers||a.berths||'';
+        map.set(slug,{year:String(year).trim(),gt:String(gt).trim(),cap:String(cap).trim(),notes:a.notes||''});
+      }
       return map;
     }
-    const fmtNum=(n)=>(''+n).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+    const fmtNum=(n)=>{
+      const raw=String(n||'').replace(/[^\d.]/g,''); if(!raw) return '';
+      const parts=raw.split('.'); parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,','); return parts.join('.');
+    };
 
     function shipCard(ship,imgUrl,stats){
-      const s=stats.get(ship.slug)||{}; const debut=s.year||'—';
-      const cap=s.cap?fmtNum(String(s.cap).replace(/[, ]/g,'')):'—';
-      const gt=s.gt?String(s.gt).replace(/\s/g,''):'';
-      const extra=gt?` • ${gt} GT`:''; const href=`/ships/${ship.slug}.html`;
+      const s=stats.get(ship.slug)||{};
+      const debut=s.year||'—';
+      const cap  =s.cap?fmtNum(s.cap):'—';
+      const gt   =s.gt?String(s.gt).replace(/\s/g,''):'';
+      const extra=gt?` • ${gt} GT`:'';
+      const href =`/ships/${ship.slug}.html`;
       return `<article class="ship-card">
         <a class="thumb" href="${href}" aria-label="${ship.name}">
-          <img src="${imgUrl}" alt="${ship.name}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/assets/index_hero.jpg'">
+          <img src="${imgUrl}" alt="${ship.name}" loading="lazy" decoding="async"
+               onerror="this.onerror=null;this.src='/assets/index_hero.jpg'">
         </a>
         <div>
           <h3 style="margin:.1rem 0 .25rem 0"><a href="${href}">${ship.name}</a></h3>
@@ -249,13 +287,23 @@
     async function renderFleet(){
       const mount=document.getElementById('fleet-cards');
       await loadImageManifest();
-      const data=await fetchFleetIndex(); const stats=rcIndexLookup(data||{});
-      const resolved=await Promise.all(FLEET.map(async s=>{const img=await findImageFor(s.slug); return img?{ship:s,img}:null;}));
+      const data=await fetchFleetIndex();
+      const stats=rcIndexLookup(data||{});
+      const resolved=await Promise.all(FLEET.map(async s=>{
+        const img=await findImageFor(s.slug);
+        return img?{ship:s,img}:null;
+      }));
       const usable=resolved.filter(Boolean);
-      mount.innerHTML=usable.length?usable.map(x=>shipCard(x.ship,x.img,stats)).join(''):'<p class="tiny muted">No verified images yet.</p>';
+      mount.innerHTML=usable.length
+        ? usable.map(x=>shipCard(x.ship,x.img,stats)).join('')
+        : '<p class="tiny muted">No verified images yet.</p>';
       const note=document.getElementById('fleet-note'); if(note) note.hidden=!usable.length;
+
+      // Precache canonical JSON + used images (+ manifest if present)
       if(navigator.serviceWorker?.controller){
-        const urls=['/assets/data/fleets_index.json'].concat(MANIFEST?['/ships/image-index.json']:[]).concat(usable.map(x=>x.img));
+        const urls=['/assets/data/fleets_index.json']
+          .concat(MANIFEST?['/ships/image-index.json']:[])
+          .concat(usable.map(x=>x.img));
         navigator.serviceWorker.controller.postMessage({type:'SEED_URLS',urls});
       }
     }
@@ -292,7 +340,7 @@
       const mount=document.getElementById('authors-rail');
       const sources=['/data/authors.json?v='+VER,'/travel/data/authors.json?v='+VER];
       let AUTHORS=[{id:'ken',name:'Ken Baker',url:'/authors/ken-baker.html',avatarBase:'/authors/img/ken1'},{id:'tina',name:'Tina Maulsby',url:'/authors/tina-maulsby.html',avatarBase:'/authors/img/tina3'}];
-      const esc=(s)=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+      const esc=(s)=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;","—":"—",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]||m));
       function render(list){
         if(!list.length){mount.innerHTML='<p class="tiny muted">Authors coming online.</p>'; mount.setAttribute('aria-busy','false'); return;}
         mount.innerHTML=list.slice(0,4).map(a=>{
@@ -305,12 +353,23 @@
         }).join(''); mount.setAttribute('aria-busy','false');
       }
       (async function load(){
-        let loaded=[]; for(const u of sources){try{const r=await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
-          const j=await r.json(); const arr=Array.isArray(j?.authors)?j.authors:[]; loaded=loaded.concat(arr.map(a=>({id:(String(a.slug||a.name||'').split('-')[0]||'').toLowerCase(),name:a.name||a.title||'Author',url:a.url||a.profile||'#',avatarBase:String(a.image||a.avatar||'').replace(/\.(jpg|jpeg|png|webp)(\?.*)?$/,'')})));}catch(_){}} 
+        let loaded=[]; for(const u of sources){
+          try{
+            const r=await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
+            const j=await r.json(); const arr=Array.isArray(j?.authors)?j.authors:[];
+            loaded=loaded.concat(arr.map(a=>({
+              id:(String(a.slug||a.name||'').split('-')[0]||'').toLowerCase(),
+              name:a.name||a.title||'Author',
+              url:a.url||a.profile||'#',
+              avatarBase:String(a.image||a.avatar||'').replace(/\.(jpg|jpeg|png|webp)(\?.*)?$/,'')
+            })));
+          }catch(_){}
+        }
         const byKey=new Map(); AUTHORS.concat(loaded).forEach(a=>{if(!byKey.has(a.id)) byKey.set(a.id,a);});
         render(Array.from(byKey.values()));
         if(navigator.serviceWorker?.controller){
-          const urls=Array.from(byKey.values()).flatMap(a=>[a.avatarBase+'.webp',a.avatarBase+'.jpg']); navigator.serviceWorker.controller.postMessage({type:'SEED_URLS',urls});
+          const urls=Array.from(byKey.values()).flatMap(a=>[a.avatarBase+'.webp',a.avatarBase+'.jpg']);
+          navigator.serviceWorker.controller.postMessage({type:'SEED_URLS',urls});
         }
       })();
     })();
