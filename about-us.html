@@ -1,283 +1,406 @@
 <!--
 Soli Deo Gloria — All work on this project is offered to God.
-STANDARDS (inline prototype): Every Page v3.009.001 • Unified Nav (Grouped) v3.009.001
-Right-Rail Articles+Author v3.008 • A11y/WCAG Addendum v3.100
-Page: /about-us.html • v3.009.001
+
+STANDARDS used here (INLINE): Every Page v3.009 · Unified Nav v3.009 (dropdowns)
+Right-Rail Articles+Author v3.009 · A11y/WCAG Addendum v3.100
+CMP/Consent v3.008.020 · FB Domain Verification v3.008.021
+Page: /about-us.html · v3.009.001 (inline prototype)
 -->
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#0e6e8e">
-<title>About Us — In the Wake (prototype v3.009.001)</title>
-<link rel="canonical" href="https://www.cruisinginthewake.com/about-us.html">
-<meta name="description" content="Meet the crew behind In the Wake — real cruisers writing from real voyages.">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0e6e8e">
+  <meta name="color-scheme" content="light dark">
+  <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
-<!-- ===== Inline CSS (no external stylesheet) ===== -->
-<style>
-:root{
-  --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-}
-*{box-sizing:border-box} html,body{margin:0;padding:0}
-body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;
-     color:var(--ink); background:var(--sky); line-height:1.55}
-a{color:var(--accent); text-decoration:none} a:hover{text-decoration:underline}
-img{max-width:100%; height:auto; display:block}
+  <title>About Us — In the Wake (v3.009.001 inline)</title>
+  <meta name="description" content="Meet the crew behind In the Wake — real cruisers writing from real voyages.">
+  <link rel="canonical" href="https://www.cruisinginthewake.com/about-us.html">
 
-/* Skip to content */
-.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-.skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;
-  border-radius:10px;padding:.4rem .65rem;z-index:1000;outline:0}
+  <!-- ===== Inline CSS (no styles.css reliance) ===== -->
+  <style>
+    :root{
+      --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    html,body{overflow-x:hidden}
+    body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--ink);background:var(--sky);line-height:1.55}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    img{max-width:100%;height:auto;display:block}
+    .tiny{font-size:.9rem;color:#456}
+    .center{text-align:center}
 
-/* ===== Header / Hero ===== */
-.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-.navbar{max-width:1100px;margin:0 auto;padding:.5rem .9rem .4rem;display:flex;gap:.8rem;align-items:flex-end}
-.brand{display:flex;align-items:flex-end;gap:.6rem;flex:0 0 auto}
-.brand img{height:28px;width:auto}
-.version{font-size:.72rem;opacity:.8}
+    /* Skip link */
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{
+      left:.75rem;top:.5rem;width:auto;height:auto;padding:.4rem .65rem;
+      background:#0e6e8e;color:#fff;border-radius:10px;z-index:1000;outline:0;
+    }
 
-/* ===== Grouped, one-line nav (no scrolling bar) ===== */
-.menubar{display:flex;align-items:center;gap:.5rem;flex:1 1 auto;min-width:0}
-.menubar > li{list-style:none;position:relative}
-.menubar > li > a,
-.menubar > li > button{
-  appearance:none;border:1px solid var(--rope);background:#fff;color:var(--accent);
-  border-radius:10px;padding:.4rem .75rem;font-size:.92rem;font-weight:600;cursor:pointer;
-}
-.menubar > li > a[aria-current="page"],
-.menubar > li[aria-current="page"] > button{
-  outline:3px dashed var(--rope); outline-offset:2px;
-  box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
-}
-.menubar > li > button .caret{margin-left:.35rem}
+    /* Header / Nav / Hero */
+    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
+    .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.5rem .9rem .35rem;align-items:center;position:relative;z-index:5}
+    .brand{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
+    .brand img{height:28px;width:auto}
+    .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-/* Submenus (popover) */
-.submenu{
-  position:absolute; top:calc(100% + .45rem); left:0; z-index:50;
-  background:#fff; border:2px solid var(--rope); border-radius:12px; box-shadow:0 6px 18px rgba(8,48,65,.12);
-  padding:.5rem; display:none; min-width:240px;
-}
-.submenu.open{display:block}
-.submenu a{display:block; padding:.45rem .6rem; border-radius:8px; white-space:nowrap; color:var(--accent)}
-.submenu a:hover{background:#f6fbfd; text-decoration:none}
-.submenu .label{display:block; font-size:.8rem; color:#456; padding:.25rem .6rem .4rem}
+    /* Dropdown nav (no horizontal scroll) */
+    .main-nav{display:flex;gap:.5rem;flex:1 1 auto;min-width:0}
+    .nav-item{position:relative}
+    .chip{
+      display:inline-flex;align-items:center;gap:.35rem;
+      padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);
+      color:var(--accent);font-size:.95rem;cursor:pointer;
+    }
+    .chip[aria-current="page"]{
+      outline:3px dashed var(--rope);outline-offset:2px;
+      box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
+    }
+    .nav-item > a.chip{text-decoration:none}
+    .nav-item[aria-haspopup="true"] .caret{font-size:.85em}
+    .menu{
+      position:absolute;left:0;top:calc(100% + .35rem);
+      min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;
+      box-shadow:0 6px 18px rgba(8,48,65,.15);padding:.6rem;display:none;
+    }
+    .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem}
+    .menu a{display:block;padding:.4rem .5rem;border-radius:.5rem;color:#123}
+    .menu a:hover{background:#f4fafb;text-decoration:none}
+    /* Open states (mouse & keyboard) */
+    .nav-item.open .menu{display:block}
+    .nav-item:focus-within .menu{display:block}
 
-/* Mobile: inline accordion (no overlay) */
-@media (max-width: 879.98px){
-  .navbar{flex-wrap:wrap; gap:.6rem}
-  .brand{order:0}
-  .menubar{order:1; width:100%; justify-content:flex-start; flex-wrap:wrap}
-  .menubar > li{margin-right:.35rem}
-  .submenu{position:static; box-shadow:none; margin-top:.35rem}
-}
+    /* Hero image — no 100vw bleed */
+    .hero{
+      position:relative;width:100%;min-height:clamp(200px,24vw,340px);
+      background:url('/assets/index_hero.jpg') center/cover no-repeat;
+      display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;
+    }
+    .hero .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
+    .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
+    .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15);text-decoration:none}
 
-/* Hero */
-.hero{position:relative;width:100%;min-height:clamp(220px,24vw,340px);
-  background:url('/assets/index_hero.jpg') center/cover no-repeat; display:flex;align-items:flex-end;overflow:hidden}
-.hero .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;
-  filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
-.hero-credit{position:absolute;right:.85rem;bottom:.85rem}
-.hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);
-  font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
+    /* Layout */
+    .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+    .grid{display:grid;gap:1rem;grid-template-columns:1fr}
+    @media (min-width:980px){
+      .grid{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)}
+    }
 
-/* Layout */
-.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-.grid{display:grid;gap:1rem;grid-template-columns:1fr}
-@media (min-width:980px){ .grid{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)} } /* right rail */
+    /* Cards */
+    .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.6rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
+    h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
+    .motto{margin-top:.15rem}
 
-/* Cards & text */
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.6rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
-.tiny{font-size:.9rem;color:#456}
-.center{text-align:center}
+    /* Right rail */
+    .rail-list{display:grid;gap:1rem}
+    .rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
+    .journal-avatar,.author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center}
 
-/* Rails */
-.rail-list{display:grid;gap:1rem}
-.rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
-.journal-avatar,.author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center}
+    /* Footer */
+    footer.wrap{font-size:.92rem}
+  </style>
 
-/* Footer */
-footer.wrap{font-size:.92rem}
-</style>
+  <!-- Consent/Analytics (optional for prototype; safe to keep) -->
+  <script type="text/javascript" data-cmp-ab="1"
+          src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+          data-cmp-host="a.delivery.consentmanager.net"
+          data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);} gtag('js',new Date()); gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
 </head>
 
 <body>
-<a href="#content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
 
-<header class="hero-header" role="banner">
-  <div class="navbar">
-    <div class="brand">
-      <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark">
-      <span class="version">v3.009.001</span>
+  <!-- ===== Header ===== -->
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark">
+        <span class="version-badge">v3.009.001 (inline)</span>
+      </div>
+
+      <!-- New dropdown nav (Home · Planning · Travel · About) -->
+      <nav class="main-nav" aria-label="Primary">
+        <div class="nav-item"><a class="chip" href="/">Home</a></div>
+
+        <div class="nav-item" aria-haspopup="true">
+          <button class="chip" type="button" aria-expanded="false" aria-controls="menu-planning">
+            Planning <span class="caret">▾</span>
+          </button>
+          <div id="menu-planning" class="menu" role="menu" aria-label="Planning">
+            <div class="label tiny">Plan your cruise</div>
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/disability.html">Accessibility</a>
+          </div>
+        </div>
+
+        <div class="nav-item" aria-haspopup="true">
+          <button class="chip" type="button" aria-expanded="false" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div id="menu-travel" class="menu" role="menu" aria-label="Travel">
+            <div class="label tiny">On the move</div>
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a class="chip" href="/about-us.html" aria-current="page">About</a></div>
+      </nav>
     </div>
 
-    <!-- ===== Grouped nav ===== -->
-    <ul class="menubar" role="menubar" aria-label="Primary">
-      <li role="none"><a role="menuitem" href="/" id="nav-home">Home</a></li>
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="">
+      <div class="hero-credit"><a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
+    </div>
+  </header>
 
-      <li role="none" id="nav-planning">
-        <button type="button" role="menuitem" aria-haspopup="true" aria-expanded="false">
-          Planning <span class="caret" aria-hidden="true">▾</span>
-        </button>
-        <div class="submenu" role="menu" aria-label="Planning">
-          <span class="label">Plan your cruise</span>
-          <a role="menuitem" href="/ports.html">Ports</a>
-          <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-          <a role="menuitem" href="/ships.html">Ships</a>
-          <a role="menuitem" href="/drinks.html">Drink Packages</a>
-          <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
-        </div>
-      </li>
+  <!-- ===== Main: content + RIGHT RAIL ===== -->
+  <main id="content" class="wrap" role="main" tabindex="-1" aria-label="Main content">
+    <div class="grid">
+      <!-- Content column -->
+      <section class="card" aria-labelledby="about-title">
+        <h1 id="about-title">About Us</h1>
+        <p class="motto tiny"><em>The calmest seas are found in another’s wake.</em></p>
 
-      <li role="none" id="nav-travel">
-        <button type="button" role="menuitem" aria-haspopup="true" aria-expanded="false">
-          Travel <span class="caret" aria-hidden="true">▾</span>
-        </button>
-        <div class="submenu" role="menu" aria-label="Travel">
-          <span class="label">On the move</span>
-          <a role="menuitem" href="/travel.html">Travel (overview)</a>
-          <a role="menuitem" href="/solo.html">Solo</a>
-        </div>
-      </li>
-
-      <li role="none" aria-current="page"><a role="menuitem" href="/about-us.html" aria-current="page">About</a></li>
-    </ul>
-  </div>
-
-  <div class="hero" role="img" aria-label="Ship wake at sunrise">
-    <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true">
-    <div class="hero-credit"><a class="pill" href="https://instagram.com/flickersofmajesty" rel="noopener external">Photo © Flickers of Majesty</a></div>
-  </div>
-</header>
-
-<main id="content" class="wrap" role="main" tabindex="-1" aria-label="Main content">
-  <div class="grid">
-    <!-- Content -->
-    <section class="card" aria-labelledby="about-title">
-      <h1 id="about-title">About Us</h1>
-      <p class="tiny"><em>The calmest seas are found in another’s wake.</em></p>
-
-      <p>Ahoy, voyagers! Welcome to <strong>In the Wake</strong>, your trusty compass for sailing through cruise planning with joy and ease. We’re here to chart your course with mariner wisdom—ship overviews, port tips, restaurant menus, solo travel hacks—all crafted to keep your adventure sailing through calm seas, no squalls in sight. Whether you’re a rookie cruiser or a seasoned skipper, we’ve got the map to make your journey a breeze.</p>
-
-      <p>I’m your captain, driven by a love for adventure, beauty, and connection. <strong>In the Wake</strong> is my flagship project — a logbook sharing real-voyage know-how to ensure your trip feels like smooth sailing. Through <a href="https://flickersofmajesty.com">Flickers of Majesty</a>, I capture the sea’s fleeting wonders — glowing sunsets, vibrant ports, and the majesty of motion. On land, I tend a small flock of sheep, guiding them with the same care I bring to steering cruisers toward unforgettable destinations. As a pastor at <a href="https://lakeviewfellowshipchurch.com">Lakeview Fellowship Church</a>, I live by <em>“Taking Strangers, Making Family.”</em></p>
-
-      <p>Our mission is to turn cruise planning into a delight, not a storm. We dive into the details — accessibility, packing lists, drink packages — so you can savor the memories. Like a perfect snapshot or a warm fellowship, we’re here to make strangers into shipmates, united by the majesty of the sea.</p>
-
-      <p class="center"><strong>Set sail with us!</strong> Explore our guides, pack your sea bag, and let’s make waves together. Fair winds and following wakes — your adventure’s on the horizon!</p>
-    </section>
-
-    <!-- Right rail (desktop on the right, stacked on mobile) -->
-    <aside aria-label="Right rail">
-      <section class="card" aria-labelledby="authors-title">
-        <h2 id="authors-title">Featured Authors</h2>
-        <div id="authors-rail" class="rail-list" role="list" aria-busy="true"></div>
+        <p>
+          Ahoy, voyagers! Welcome to <strong>In the Wake</strong>, your trusty compass for sailing through cruise planning with joy and ease. We’re here to chart your course with mariner wisdom—ship overviews, port tips, restaurant menus, solo travel hacks—all crafted to keep your adventure sailing through calm seas, no squalls in sight. Whether you’re a rookie cruiser or a seasoned skipper, we’ve got the map to make your journey a breeze.
+        </p>
+        <p>
+          I’m your captain, driven by a love for adventure, beauty, and connection. <strong>In the Wake</strong> is my flagship project — a logbook sharing real-voyage know-how to ensure your trip feels like smooth sailing. Through <a href="https://flickersofmajesty.com">Flickers of Majesty</a>, I capture the sea’s fleeting wonders — glowing sunsets, vibrant ports, and the majesty of motion. On land, I tend a small flock of sheep, guiding them with the same care I bring to steering cruisers toward unforgettable destinations. As a pastor at <a href="https://lakeviewfellowshipchurch.com">Lakeview Fellowship Church</a>, I live by <em>“Taking Strangers, Making Family.”</em>
+        </p>
+        <p>
+          Our mission is to turn cruise planning into a delight, not a storm. We dive into the details — accessibility, packing lists, drink packages — so you can savor the memories. Like a perfect snapshot or a warm fellowship, we’re here to make strangers into shipmates, united by the majesty of the sea.
+        </p>
+        <p class="center"><strong>Set sail with us!</strong> Explore our guides, pack your sea bag, and let’s make waves together. Fair winds and following wakes — your adventure’s on the horizon!</p>
       </section>
 
-      <section class="card" aria-labelledby="journal-title">
-        <h2 id="journal-title">From the Journal</h2>
-        <div id="journal-rail" class="rail-list" role="feed" aria-busy="true"></div>
-      </section>
-    </aside>
-  </div>
-</main>
+      <!-- RIGHT RAIL -->
+      <aside aria-label="Right rail">
+        <section class="card" aria-labelledby="authors-title">
+          <h2 id="authors-title">Featured Authors</h2>
+          <div id="authors-rail" class="rail-list" role="list" aria-busy="true"></div>
+        </section>
 
-<footer class="wrap" role="contentinfo">
-  © 2025 In the Wake — A Cruise Traveler’s Logbook ·
-  <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-  <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — All work on this project is offered to God.</p>
-</footer>
+        <section class="card" aria-labelledby="journal-title">
+          <h2 id="journal-title">From the Journal</h2>
+          <div id="journal-rail" class="rail-list" role="feed" aria-busy="true"></div>
+        </section>
+      </aside>
+    </div>
+  </main>
 
-<!-- ===== Minimal JS for grouped nav + rails ===== -->
-<script>
-(function(){
-  // --- Grouped nav: toggle submenus (click & keyboard), a11y correct.
-  function setupMenu(groupId){
-    const li = document.getElementById(groupId); if(!li) return;
-    const btn = li.querySelector('button'); const menu = li.querySelector('.submenu');
-    function open(){ menu.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
-    function close(){ menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
-    btn.addEventListener('click', e => { e.preventDefault(); (menu.classList.contains('open')?close:open)(); });
-    btn.addEventListener('keydown', e => {
-      if(e.key==='ArrowDown'){ e.preventDefault(); open(); const first=menu.querySelector('a'); first&&first.focus(); }
-      if(e.key==='Escape'){ close(); btn.focus(); }
+  <footer class="wrap" role="contentinfo">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
+    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — All work on this project is offered to God.</p>
+  </footer>
+
+  <!-- ===== Runtime (authors + journal + dropdown a11y) ===== -->
+  <script>
+  (function(){
+    "use strict";
+    /* --------- Constants --------- */
+    const VERSION = '3.009.001';                 // cache buster
+    const GENERIC_AVATAR = '/authors/img/author.webp';
+
+    /* --------- Dropdown nav (click + keyboard) --------- */
+    const items = document.querySelectorAll('.nav-item[aria-haspopup="true"]');
+    items.forEach(item=>{
+      const btn = item.querySelector('button.chip');
+      const menu = item.querySelector('.menu');
+      if(!btn || !menu) return;
+
+      function open(){ item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+      function close(){ item.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+
+      btn.addEventListener('click', (e)=>{ e.stopPropagation(); (item.classList.contains('open')? close(): open()); });
+      btn.addEventListener('keydown', (e)=>{ if(e.key==='ArrowDown'){ open(); menu.querySelector('a')?.focus(); } });
+      item.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ close(); btn.focus(); } });
+
+      document.addEventListener('click', (e)=>{ if(!item.contains(e.target)) close(); });
     });
-    menu.addEventListener('keydown', e => { if(e.key==='Escape'){ e.preventDefault(); close(); btn.focus(); }});
-    document.addEventListener('click', e => { if(!li.contains(e.target)) close(); });
-  }
-  setupMenu('nav-planning');
-  setupMenu('nav-travel');
 
-  // --- Authors rail (seed + optional fetch)
-  (async function authors(){
-    const mount=document.getElementById('authors-rail'); if(!mount) return;
-    const SEED=[{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.jpg'},
-                {name:'Tina Maulsby',url:'/authors/tina-maulsby.html',image:'/authors/img/tina3.jpg'}];
-    function row(a){return `<div class="rail-row" role="listitem" aria-label="${a.name}">
-      <img class="author-avatar" src="${a.image||'/authors/img/author.webp'}" alt="${a.name}"
-           loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/authors/img/author.webp'">
-      <div><h4 style="margin:.1rem 0 .2rem 0"><a href="${a.url||'#'}">${a.name}</a></h4>
-      <p class="tiny" style="color:#456">Contributor</p></div></div>`;}
-    let items=[];
-    try{
-      const urls=['/data/authors.json','/travel/data/authors.json'];
-      for(const u of urls){
-        const r=await fetch(u,{cache:'no-store'}); if(r.ok){ const j=await r.json();
-          const list=Array.isArray(j?.authors)? j.authors: [];
-          items.push(...list.map(x=>({name:x.name||x.title,url:x.url||x.profile,image:x.image||x.avatar})));
+    /* --------- Helpers --------- */
+    const esc = s => String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+    const safeDate = d => { const t=Date.parse(d||''); return isNaN(t)?'':new Date(t).toLocaleDateString(); };
+
+    /* --------- Authors map (canonical avatars) --------- */
+    async function loadAuthorsMap(){
+      const out = new Map();
+      try{
+        const r = await fetch('/data/authors.json?v='+VERSION, {cache:'no-store'});
+        if(r.ok){
+          const j = await r.json();
+          const arr = Array.isArray(j?.authors) ? j.authors : [];
+          for(const a of arr){
+            const key = String(a.name||'').trim().toLowerCase();
+            if(!key) continue;
+            out.set(key, {
+              name: a.name,
+              url:  a.url || a.profile || '',
+              image: a.webp || a.image || a.avatar || GENERIC_AVATAR
+            });
+          }
         }
-      }
-    }catch(_){}
-    if(!items.length) items=SEED;
-    mount.innerHTML=items.slice(0,4).map(row).join('');
-    mount.setAttribute('aria-busy','false');
-  })();
+      }catch(_){}
+      return out;
+    }
 
-  // --- Journal rail (compact)
-  (async function journal(){
-    const mount=document.getElementById('journal-rail'); if(!mount) return;
-    const SEED=[
-      {url:'/travel.html#top-20-questions',title:'Top 20 First-Cruise Questions (Answered)',date:'2025-10-16',
-       dek:'A first-person guide to planning, packing, ports, and ship life.',author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.jpg'}},
-      {url:'/solo/freedom-of-your-own-wake.html',title:'Freedom of Your Own Wake',date:'2024-08-13',
-       dek:'On choosing solitude without being alone.',author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.jpg'}},
-      {url:'/solo/why-i-started-solo-cruising.html',title:'Why I Started Solo Cruising',date:'2024-05-31',
-       dek:'From that first solo gangway to a thriving community — freedom found at sea.',author:{name:'Tina Maulsby',url:'/authors/tina-maulsby.html',image:'/authors/img/tina3.jpg'}}
-    ];
-    const sources=['/assets/data/articles/index.json','/solo/articles/index.json','/travel/articles/index.json'];
-    const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-    const safeDate=d=>{const t=Date.parse(d||'');return isNaN(t)?'':new Date(t).toLocaleDateString();}
-    function normalize(feed){
-      const arr=Array.isArray(feed?.articles)?feed.articles:(Array.isArray(feed)?feed:[]);
-      return arr.map(a=>{
-        let url=a.url||a.permalink||'#';
-        if(/^\/solo\/articles\/.+\.html$/.test(url)) url=url.replace('/solo/articles/','/solo/');
-        let author=a.author||null; if(author && typeof author==='string') author={name:author};
-        return {url,title:a.title||'Article',dek:a.dek||a.description||a.excerpt||'',date:a.date||a.datePublished||'',author};
-      }).filter(x=>x.url && x.url!=='#');
-    }
-    function row(a){
-      const name=esc(a.author?.name||''); const av=a.author?.image||'/authors/img/author.webp';
-      const link=a.author?.url?` <a href="${esc(a.author.url)}">${name}</a>`:name;
-      return `<article class="rail-row" role="article" aria-label="${esc(a.title)}">
-        <img class="journal-avatar" src="${esc(av)}" alt="${name||'Author'}" loading="lazy" decoding="async"
-             onerror="this.onerror=null;this.src='/authors/img/author.webp'">
-        <div>
-          <h3 style="margin:.1rem 0 .2rem 0"><a href="${esc(a.url)}">${esc(a.title)}</a></h3>
-          <p class="tiny" style="color:#456">${a.date?safeDate(a.date):''}${name?` · ${link}`:''}</p>
-          ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
-        </div>
-      </article>`;
-    }
-    let items=[];
-    try{ for(const s of sources){ const r=await fetch(s,{cache:'no-store'}); if(r.ok){ items.push(...normalize(await r.json())); } } }catch(_){}
-    if(!items.length) items=SEED;
-    items.sort((a,b)=>(Date.parse(b.date||'')||0)-(Date.parse(a.date||'')||0));
-    mount.innerHTML=items.slice(0,3).map(row).join('');
-    mount.setAttribute('aria-busy','false');
+    /* ===================== Authors Rail ===================== */
+    (function authors(){
+      const mount = document.getElementById('authors-rail'); if(!mount) return;
+
+      const sources = [
+        '/data/authors.json?v='+VERSION,
+        '/travel/data/authors.json?v='+VERSION
+      ];
+
+      const SEED = [
+        { name:'Ken Baker',   url:'/authors/ken-baker.html',    image:'/authors/img/ken1.jpg'  },
+        { name:'Tina Maulsby',url:'/authors/tina-maulsby.html', image:'/authors/img/tina3.jpg' }
+      ];
+
+      function row(a){
+        const img = a.image || GENERIC_AVATAR;
+        return `<div class="rail-row" role="listitem" aria-label="${esc(a.name)}">
+          <img class="author-avatar" src="${esc(img)}" alt="${esc(a.name)}"
+               loading="lazy" decoding="async"
+               onerror="this.onerror=null;this.src='${GENERIC_AVATAR}'">
+          <div>
+            <h4 style="margin:.15rem 0 .2rem 0"><a href="${esc(a.url||'#')}">${esc(a.name||'Author')}</a></h4>
+            <p class="tiny">Contributor</p>
+          </div>
+        </div>`;
+      }
+
+      async function get(u){
+        try{
+          const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0;
+          const j=await r.json();
+          const arr=Array.isArray(j?.authors)? j.authors: [];
+          return arr.map(x=>({
+            name: x.name || x.title,
+            url:  x.url  || x.profile,
+            image: x.webp || x.image || x.avatar || ''
+          }));
+        }catch(_){ return []; }
+      }
+
+      (async function boot(){
+        let list=[];
+        for (const u of sources){ list = list.concat(await get(u)); }
+        if(!list.length) list = SEED;
+        mount.innerHTML = list.slice(0,4).map(row).join('');
+        mount.setAttribute('aria-busy','false');
+      })();
+    })();
+
+    /* ===================== Journal Rail ===================== */
+    (function journal(){
+      const mount = document.getElementById('journal-rail'); if(!mount) return;
+
+      const sources = [
+        '/assets/data/articles/index.json?v='+VERSION,
+        '/solo/articles/index.json?v='+VERSION,
+        '/travel/articles/index.json?v='+VERSION
+      ];
+
+      const SEED = [
+        { url:'/travel.html#top-20-questions',
+          title:'Top 20 First-Cruise Questions (Answered)',
+          date:'2025-10-16',
+          dek:'A first-person guide to planning, packing, ports, and ship life.',
+          author:{ name:'Ken Baker',  url:'/authors/ken-baker.html',  image:'/authors/img/ken1.jpg' } },
+        { url:'/solo/freedom-of-your-own-wake.html',
+          title:'Freedom of Your Own Wake',
+          date:'2024-08-13',
+          dek:'On choosing solitude without being alone.',
+          author:{ name:'Ken Baker',  url:'/authors/ken-baker.html',  image:'/authors/img/ken1.jpg' } },
+        { url:'/solo/why-i-started-solo-cruising.html',
+          title:'Why I Started Solo Cruising',
+          date:'2024-05-31',
+          dek:'From that first solo gangway to a thriving community — freedom found at sea.',
+          author:{ name:'Tina Maulsby', url:'/authors/tina-maulsby.html', image:'/authors/img/tina3.jpg' } }
+      ];
+
+      function normalize(feed){
+        const arr=Array.isArray(feed?.articles)?feed.articles:(Array.isArray(feed)?feed:[]);
+        return arr.map(a=>{
+          let url=a.url||a.permalink||'#';
+          if(/^\/solo\/articles\/.+\.html$/.test(url)) url=url.replace('/solo/articles/','/solo/');
+          let author=a.author||a.by||null;
+          if(author && typeof author==='string') author={name:author};
+          return {url,title:a.title||'Article',dek:a.dek||a.description||a.excerpt||'',date:a.date||a.datePublished||'',author};
+        }).filter(x=>x.url && x.url!=='#');
+      }
+
+      async function get(u){ try{const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }catch(_){ return []; } }
+
+      function row(a){
+        const name=esc(a.author?.name||'');
+        const av=a.author?.image||GENERIC_AVATAR;
+        const link=a.author?.url?` <a href="${esc(a.author.url)}">${name}</a>`:name;
+        return `<article class="rail-row" role="article" aria-label="${esc(a.title)}">
+          <img class="journal-avatar" src="${esc(av)}" alt="${name||'Author'}"
+               loading="lazy" decoding="async"
+               onerror="this.onerror=null;this.src='${GENERIC_AVATAR}'">
+          <div>
+            <h3 style="margin:.1rem 0 .2rem 0"><a href="${esc(a.url)}">${esc(a.title)}</a></h3>
+            <p class="tiny">${a.date?safeDate(a.date):''}${name?` · ${link}`:''}</p>
+            ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
+          </div>
+        </article>`;
+      }
+
+      (async function boot(){
+        const authorsMap = await loadAuthorsMap();
+
+        let items=[];
+        for (const s of sources){ items = items.concat(await get(s)); }
+        if(!items.length) items = SEED;
+
+        // Prefer canonical avatars from authors.json
+        items = items.map(a=>{
+          const key = String(a.author?.name||'').trim().toLowerCase();
+          const canon = key && authorsMap.get(key);
+          if(canon){
+            a.author = {
+              name: canon.name,
+              url:  a.author?.url || canon.url || '',
+              image: a.author?.image || canon.image || GENERIC_AVATAR
+            };
+          }else{
+            if(!a.author) a.author = { name:'', url:'', image:GENERIC_AVATAR };
+            if(!a.author.image) a.author.image = GENERIC_AVATAR;
+          }
+          return a;
+        });
+
+        items.sort((a,b)=>(Date.parse(b.date||'')||0)-(Date.parse(a.date||'')||0));
+        mount.innerHTML = items.slice(0,3).map(row).join('');
+        mount.setAttribute('aria-busy','false');
+
+        // (Nice-to-have) hint SW to cache authors.json fresh this session
+        if(navigator.serviceWorker?.controller){
+          navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls:['/data/authors.json?v='+VERSION]});
+        }
+      })();
+    })();
   })();
-})();
-</script>
+  </script>
 </body>
 </html>
