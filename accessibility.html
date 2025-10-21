@@ -1,235 +1,146 @@
-<!--
-Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
-
-STANDARDS (INLINE): Core v3.009 · Unified Nav v3.009 (dropdowns)
-A11y/WCAG Addendum v3.100 · Cache/SW v3.x · CMP/Analytics wired
-Page: /accessibility.html · v3.009.002 (inline)
--->
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- CMP (Consent Manager) -->
-  <script type="text/javascript" data-cmp-ab="1"
-    src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
-    data-cmp-host="a.delivery.consentmanager.net"
-    data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
-
-  <!-- Google Analytics -->
+  <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-    gtag('js',new Date()); gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
-
-  <!-- Umami (secondary analytics) -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-
-  <!-- Absolute URL + external link safety -->
-  <script>
-  (function(){
-    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
-    document.addEventListener('DOMContentLoaded',function(){
-      var sel=['a[href^="https://www.cruisinginthewake.com/"]',
-               'img[src^="https://www.cruisinginthewake.com/"]',
-               'link[href^="https://www.cruisinginthewake.com/"]',
-               'script[src^="https://www.cruisinginthewake.com/"]'].join(',');
-      document.querySelectorAll(sel).forEach(function(el){
-        var attr=el.hasAttribute('href')?'href':'src';
-        try{var u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(e){}
-      });
-    },{once:true});
-    // External link safety
-    document.addEventListener('click',function(e){
-      var a=e.target&&e.target.closest?e.target.closest('a[href]'):null; if(!a) return;
-      try{var u=new URL(a.href,location.href); if(u.origin!==location.origin){a.target='_blank'; a.rel='noopener noreferrer';}}catch(_){}
-    },{capture:true});
-  })();
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);} gtag('js',new Date()); gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
 
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="referrer" content="no-referrer">
-  <meta name="theme-color" content="#0e6e8e">
-  <meta name="color-scheme" content="light dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+
+  <title>Cruise Lines &amp; Ships — In the Wake (v3.009.002)</title>
+  <meta name="page:version" content="v3.009.002"/>
+  <meta name="description" content="Browse cruise lines and ships: class overviews, dining, accessibility notes, and planning tools across Royal Caribbean, Celebrity, Princess, Carnival, Disney, Norwegian, MSC, Holland America, Viking, and Virgin Voyages."/>
   <meta name="robots" content="index,follow"/>
 
-  <title>Accessibility Commitment | In the Wake (v3.009.002)</title>
-  <meta name="version" content="v3.009.002"/>
-  <meta name="description" content="In the Wake is committed to full ADA and WCAG 2.1 Level AA accessibility, ensuring every traveler can navigate, plan, and participate without barriers."/>
-
-  <!-- Canonical & Social (normalized to /accessibility.html) -->
-  <link rel="canonical" href="https://www.cruisinginthewake.com/accessibility.html"/>
+  <!-- Canonical / Social -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:url" content="https://www.cruisinginthewake.com/accessibility.html"/>
-  <meta property="og:title" content="Accessibility Commitment | In the Wake"/>
-  <meta property="og:description" content="Our mission is full digital accessibility for all travelers. We adhere to ADA and WCAG 2.1 Level AA guidelines across every page."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.009.002"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/cruise-lines/"/>
+  <meta property="og:title" content="Cruise Lines &amp; Ships — In the Wake"/>
+  <meta property="og:description" content="Line-by-line and ship-by-ship guides with dining, accessibility, and planning tools."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/cruise-lines-hero.jpg?v=3.009.002"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Cache helper + Service Worker -->
-  <script src="/assets/js/site-cache.js" defer></script>
-  <script>if('serviceWorker' in navigator){
-    addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-  }</script>
-
-  <!-- Unified CSS (global) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.009.002"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
-
-  <!-- Page-local trims + Unified Nav additions -->
+  <!-- Minimal inline styles + unified nav -->
   <style>
-    :root{ --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e; }
-    html,body{overflow-x:hidden} .tiny{font-size:.9rem;color:#456}
-
-    /* Skip link (WCAG) */
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;
-      border-radius:10px;padding:.35rem .6rem;z-index:1000;outline:0}
-
-    /* Header rope stays above hero */
-    .hero-header{position:relative;border-bottom:6px double var(--rope);z-index:0}
-    .hero-header > .hero{position:relative;z-index:-1;width:100% !important;margin-left:0 !important;overflow-x:clip !important}
-
-    /* Full-bleed hero without 100vw bleed */
-    .hero{position:relative;min-height:clamp(200px,24vw,340px);display:flex;align-items:flex-end;background:url('/assets/index_hero.jpg') center/cover no-repeat}
-    .hero .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
-    .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
-    .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15);text-decoration:none}
-
-    /* Unified Nav v3.009 (pills + dropdowns) */
-    .navbar{display:flex;align-items:flex-end;gap:.6rem;max-width:1100px;margin:0 auto;padding:.5rem .9rem .35rem;position:relative;z-index:6}
-    .brand{display:flex;align-items:flex-end;gap:.6rem;flex:0 0 auto}
-    .brand img{height:28px;width:auto}
-    .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-
-    .main-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-inline:.75rem;scroll-padding-inline:.75rem;
-      mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-      -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-    }
-    .nav-item{position:relative;display:inline-block}
-    .chip,.nav-disclosure{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none}
-    .main-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-    .submenu{position:absolute;left:0;top:calc(100% + 6px);min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;z-index:20}
-    .submenu a{display:block;padding:.35rem .6rem;border-radius:8px;border:1px solid transparent;color:inherit;white-space:nowrap}
-    .submenu a:hover{background:#f9fdfd;border-color:#ecd7b7;text-decoration:none}
-    .nav-group[data-open="true"] .submenu{display:block}
-    @media (hover:hover){ .nav-group:hover .submenu{display:block} }
-
-    /* Content */
+    :root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e}
+    *{box-sizing:border-box}html,body{margin:0;padding:0;overflow-x:hidden}
+    body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;background:var(--sky);color:var(--ink);line-height:1.55}
+    a{color:var(--accent)} a:hover{text-decoration:underline}
     .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-    .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
+    .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem}
+    .grid{display:grid;gap:1rem}
+    @media(min-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(min-width:980px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .tiny{font-size:.9rem;color:#456}
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;padding:.35rem .6rem;background:#0e6e8e;color:#fff;border-radius:10px;z-index:1000;outline:0}
+
+    /* Unified Nav v3.009 */
+    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
+    .navbar{display:flex;align-items:flex-end;gap:.6rem;max-width:1100px;margin:0 auto;padding:.5rem .9rem .35rem;position:relative;z-index:6}
+    .brand{display:flex;align-items:flex-end;gap:.6rem}.brand img{height:28px}.version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
+    .main-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-inline:.75rem;mask-image:linear-gradient(to right,transparent,black .9rem,black calc(100% - .9rem),transparent);-webkit-mask-image:linear-gradient(to right,transparent,black .9rem,black calc(100% - .9rem),transparent)}
+    .chip,.nav-disclosure{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer}
+    .main-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
+    .nav-group{position:relative;display:inline-block}.nav-disclosure svg{width:14px;height:14px}
+    .submenu{position:absolute;left:0;top:calc(100% + 6px);min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;z-index:20}
+    .nav-group[data-open="true"] .submenu{display:block}
+    .submenu a{display:block;padding:.35rem .6rem;border-radius:8px;border:1px solid transparent;color:inherit}
+    .submenu a:hover{background:#f9fdfd;border-color:#ecd7b7;text-decoration:none}
+    @media(hover:hover){.nav-group:hover .submenu{display:block}}
+
+    /* Hero (logo + compass + tagline) */
+    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg') center/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+    .latlon-grid{position:absolute;inset:0;pointer-events:none}
+    .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+    .tagline{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(.55rem,1.6vw,1.1rem);font-weight:700;letter-spacing:.2px;color:#e6f4f8;text-shadow:0 2px 6px rgba(0,0,0,.45);font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
   </style>
-</head>
 
-<body class="page">
-  <!-- Unified Nav behavior -->
   <script src="/assets/js/newnav.js?v=3.009.002" defer></script>
-
+</head>
+<body>
   <a class="skip-link" href="#content">Skip to main content</a>
 
-  <!-- ===== Header ===== -->
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark"/>
+        <img src="/assets/logo_wake.png" alt="In the Wake"/>
         <span class="version-badge">v3.009.002 (inline)</span>
       </div>
 
-      <!-- Unified dropdown nav -->
       <nav class="main-nav" aria-label="Primary">
-        <div class="nav-item"><a class="chip" href="/">Home</a></div>
+        <a class="chip" href="/">Home</a>
 
-        <div class="nav-item nav-group" id="nav-planning">
-          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
+        <div class="nav-group" data-open="false">
+          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-planning">
+            Planning <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
           <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
             <a role="menuitem" href="/planning.html">Planning (overview)</a>
             <a role="menuitem" href="/ports.html">Ports</a>
             <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
             <a role="menuitem" href="/ships.html">Ships</a>
             <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/cruise-lines/" aria-current="page">Cruise Lines &amp; Ships</a>
             <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-            <a role="menuitem" href="/accessibility.html" aria-current="page">Accessibility</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
           </div>
         </div>
 
-        <div class="nav-item nav-group" id="nav-travel">
-          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
+        <div class="nav-group" data-open="false">
+          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-travel">
+            Travel <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
           <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
             <a role="menuitem" href="/travel.html">Travel (overview)</a>
             <a role="menuitem" href="/solo.html">Solo</a>
           </div>
         </div>
 
-        <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
+        <a class="chip" href="/about-us.html">About</a>
       </nav>
     </div>
 
-    <!-- Single hero + compass -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+    <div class="hero" role="img" aria-label="Open ocean at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"/>
-      <div class="hero-credit">
-        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake"/>
       </div>
+      <div class="tagline">A Cruise Traveler’s Logbook</div>
     </div>
   </header>
 
-  <!-- ===== Main ===== -->
-  <main class="wrap" id="content" role="main" tabindex="-1" aria-label="Main content">
-    <section class="card" aria-labelledby="access-title">
-      <h1 id="access-title">Accessibility &amp; Inclusion Commitment</h1>
-      <p><em>In the Wake</em> is built on a simple conviction: everyone deserves access to reliable, unbiased cruise information—without barriers. Whether you navigate with a keyboard, screen reader, voice software, or switch device, our goal is for every part of the site to work smoothly and clearly for you.</p>
-      <p>This is more than compliance—it’s conviction. We believe information should be as open as the ocean itself, accessible to every traveler who dreams of setting sail.</p>
-    </section>
+  <main id="content" class="wrap" role="main">
+    <section class="section">
+      <h1>Cruise Lines &amp; Ships</h1>
+      <p class="tiny" id="search-meta" aria-live="polite">Showing all cruise lines</p>
 
-    <section class="card" aria-labelledby="ada-wcag">
-      <h2 id="ada-wcag">ADA &amp; WCAG 2.1 Compliance</h2>
-      <p>We design, code, and review every page against the standards of the <strong>Americans with Disabilities Act (ADA)</strong> and the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong>.</p>
-      <ul>
-        <li><strong>Perceivable:</strong> Text alternatives for images, clear contrast, and legible type.</li>
-        <li><strong>Operable:</strong> Full keyboard navigation, logical focus order, and visible focus indicators.</li>
-        <li><strong>Understandable:</strong> Consistent layout, plain language, and predictable navigation.</li>
-        <li><strong>Robust:</strong> Semantic HTML and ARIA roles that support modern assistive technologies.</li>
-      </ul>
-      <p>Our commitment includes quarterly audits, user feedback channels, and continuous iteration as guidelines evolve. Accessibility isn’t a checkbox—it’s a living process of hospitality and respect.</p>
-    </section>
-
-    <section class="card" aria-labelledby="contact-access">
-      <h2 id="contact-access">Contact for Accessibility Support</h2>
-      <p>If you encounter any barrier while using our website, please reach out so we can fix it quickly:</p>
-      <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
-      <p>We aim to respond within 48 hours with acknowledgment and follow-up. Feedback from users with disabilities directly shapes our roadmap—it’s the best way for us to improve.</p>
+      <div class="grid" id="line-grid">
+        <div class="card"><a href="/cruise-lines/royal-caribbean.html"><strong>Royal Caribbean</strong><br><small>Ships, dining, accessibility notes</small></a></div>
+        <div class="card"><a href="/cruise-lines/celebrity.html"><strong>Celebrity Cruises</strong><br><small>Modern luxury at sea</small></a></div>
+        <div class="card"><a href="/cruise-lines/princess.html"><strong>Princess</strong><br><small>Relaxed elegance &amp; MedallionClass</small></a></div>
+        <div class="card"><a href="/cruise-lines/carnival.html"><strong>Carnival</strong><br><small>Fun ships &amp; casual vibes</small></a></div>
+        <div class="card"><a href="/cruise-lines/disney.html"><strong>Disney Cruise Line</strong><br><small>Family-forward magic</small></a></div>
+        <div class="card"><a href="/cruise-lines/norwegian.html"><strong>Norwegian</strong><br><small>Freestyle cruising</small></a></div>
+        <div class="card"><a href="/cruise-lines/msc.html"><strong>MSC Cruises</strong><br><small>European style &amp; Yacht Club</small></a></div>
+        <div class="card"><a href="/cruise-lines/holland-america.html"><strong>Holland America</strong><br><small>Classic ocean voyages</small></a></div>
+        <div class="card"><a href="/cruise-lines/viking.html"><strong>Viking</strong><br><small>Adults-only discovery</small></a></div>
+        <div class="card"><a href="/cruise-lines/virgin.html"><strong>Virgin Voyages</strong><br><small>Adult-by-design</small></a></div>
+      </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
-    <p class="tiny" style="margin-top:.6rem">
-      We design to meet WCAG 2.1 Level AA standards and ADA requirements for digital accessibility.
-      If you encounter any barrier, email <a href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a>.
-      Last reviewed 2025-10-10.
-    </p>
-    <p class="tiny center" style="margin-top:.5rem">
-      Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
-    </p>
+  <footer class="wrap" role="contentinfo" style="text-align:center">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
+    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    <p class="tiny" style="margin-top:.5rem">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
   </footer>
-
-  <!-- Floating Social Share Bar -->
-  <div id="share-bar" class="share-bar" aria-label="Share this page">
-    <a class="share twitter" href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com/accessibility.html" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
-    <a class="share facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com/accessibility.html" target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
-    <a class="share instagram" href="#" onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')" aria-label="Copy link for Instagram">Ig</a>
-    <a class="share whatsapp" href="https://wa.me/?text=https://www.cruisinginthewake.com/accessibility.html" target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
-    <a class="share wechat" href="weixin://" aria-label="Share on WeChat">WeChat</a>
-  </div>
-  <script>
-    (function(){
-      const bar=document.getElementById('share-bar'); if(!bar) return;
-      const toggle=()=>{ if(scrollY>150) bar.classList.add('visible'); else bar.classList.remove('visible'); };
-      addEventListener('scroll',toggle,{passive:true}); toggle();
-    })();
-  </script>
 </body>
 </html>
