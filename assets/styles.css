@@ -615,4 +615,26 @@ html, body { overflow-x: hidden; }
   margin-left:0 !important;
   overflow-x:clip !important;
 }
+/* === Rails: enforce “Articles on the right” on desktop === */
+@media (min-width: 980px){
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-2 .rail-authors  { order: 1; }
+  .grid-2 .rail-articles { order: 2; } /* right column */
+}
+/* Mobile stacks naturally: Authors then Journal (screen-reader friendly) */
 
+/* === Unified Nav: prevent horizontal clipping & give edge breathing room === */
+.pill-nav.pills{
+  /* already single-line + overflow-x set in your sheet; we just add padding & masks */
+  padding-inline: .75rem;              /* space so first/last chip aren’t cut */
+  scroll-padding-inline: .75rem;       /* keyboard/scroll alignment hint */
+  -webkit-overflow-scrolling: touch;
+  /* soft edge fade (Safari/WebKit need -webkit- prefix) */
+  mask-image: linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+}
+.pill-nav.pills a:first-child{ margin-left: .15rem; }   /* micro guard rails */
+.pill-nav.pills a:last-child { margin-right:.15rem; }
+
+/* Ensure nav row sits above hero and never gets clipped by a parent */
+.navbar{ z-index: 6; overflow: visible; }
