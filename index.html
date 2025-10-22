@@ -114,17 +114,14 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
     .brand img{height:44px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-    .pill-nav{
-      flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;
-      white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:visible;padding-inline:.75rem;scroll-padding-inline:.75rem
-    }
-    .pill-nav a,.pill-nav button.nav-disclosure{
-      display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
-      border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
-    }
-    .pill-nav a:hover,.pill-nav button.nav-disclosure:hover{background:#f9fdfd}
-    .pill-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-
+   .pill-nav {
+  flex:1 1 auto; min-width:0; display:flex; align-items:center;
+  justify-content:center; gap:.45rem;
+  white-space:nowrap; flex-wrap:nowrap;
+  overflow-x:auto; overflow-y:visible; /* Critical: allow vertical overflow */
+  padding-inline:.75rem; scroll-padding-inline:.75rem;
+  position: relative; /* Establish positioning context */
+}
     /* Hero */
     .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.020a') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
