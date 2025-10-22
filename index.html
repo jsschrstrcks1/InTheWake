@@ -1,6 +1,6 @@
 <!--
 Soli Deo Gloria — Every pixel and part of this project is offered as worship to God.
-Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built: 2025-10-21T00:00:00Z
+Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + no [hidden] + dates) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
@@ -95,70 +95,45 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
       "query-input":"required name=query"}
   }</script>
 
-  <!-- Site cache & SW -->
-  <script src="/assets/js/site-cache.js?v=3.009.015" defer></script>
-  <script>
-  if ('serviceWorker' in navigator) {
-    addEventListener('load', function(){
-      navigator.serviceWorker.register('/sw.js?v=3.009.015').catch(function(){});
-    });
-  }
-  </script>
-
   <!-- LCP image preload -->
   <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.015" fetchpriority="high">
 
   <!-- Inline CSS (self-contained) -->
   <style>
-    :root{
-      --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-    }
+    :root{ --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e; }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
     body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--ink);background:var(--sky);line-height:1.55}
-
-    /* Skip link */
-    .skip-link{
-      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
-    }
-    .skip-link:focus{
-      left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:1000;outline:0;
-    }
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:1000;outline:0}
 
     /* Header + hero */
     .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-    .navbar{
-      max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:6;overflow:visible;
-    }
+    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:6;overflow:visible}
     .brand{display:flex;align-items:flex-end;gap:.6rem}
     .brand img{height:28px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-    .pill-nav{
-      flex:1 1 auto; min-width:0; display:flex; align-items:center; justify-content:center;
-      gap:.45rem; white-space:nowrap; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; padding-inline:.75rem; scroll-padding-inline:.75rem;
-      -webkit-overflow-scrolling:touch; scrollbar-width:thin;
-      mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-      -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-    }
-    .pill-nav a,.pill-nav button.nav-disclosure{
-      display:inline-flex; align-items:center; gap:.35rem; padding:.35rem .7rem; border-radius:10px; background:#fff; border:1px solid var(--rope);
-      color:var(--accent); font:inherit; font-size:.9rem; line-height:1.2; cursor:pointer; text-decoration:none;
-    }
-    .pill-nav a:hover,.pill-nav button.nav-disclosure:hover{background:#f9fdfd; text-decoration:none}
-    .pill-nav a[aria-current="page"]{ outline:3px dashed var(--rope); outline-offset:2px; box-shadow:0 0 0 3px rgba(200,163,106,.15) inset; }
+    .pill-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding-inline:.75rem;scroll-padding-inline:.75rem}
+    .pill-nav a,.pill-nav button.nav-disclosure{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none}
+    .pill-nav a:hover,.pill-nav button.nav-disclosure:hover{background:#f9fdfd}
+    .pill-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
 
     /* Dropdowns */
     .nav-group{position:relative}
     .submenu{
-      position:absolute; left:0; top:calc(100% + 6px); min-width:220px; background:#fff; border:1px solid var(--rope); border-radius:12px;
-      padding:.35rem; box-shadow:0 8px 24px rgba(8,48,65,.12); display:none !important; visibility:hidden; opacity:0; pointer-events:none; z-index:20;
+      position:absolute;left:0;top:calc(100% + 6px);min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;
+      padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:20
     }
-    .nav-group[data-open="true"] > .submenu{ display:block !important; visibility:visible; opacity:1; pointer-events:auto; }
+    /* 3 ways to open: JS data attr, keyboard focus, or hover */
+    .nav-group[data-open="true"]>.submenu,
+    .nav-group:focus-within>.submenu,
+    .nav-group:hover>.submenu{
+      display:block;visibility:visible;opacity:1;pointer-events:auto
+    }
 
     /* Hero */
-    .hero{ position:relative; width:100% !important; margin-left:0 !important; min-height:clamp(200px,24vw,340px);
-      background:url('/assets/index_hero.jpg?v=3.009.015') 50% 50% / cover no-repeat; display:flex; align-items:flex-end; overflow:hidden; }
+    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.015') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
     .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;text-decoration:none}
     .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
@@ -172,7 +147,7 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
 
     /* Layout */
     .layout{display:grid;gap:1rem;grid-template-columns:1fr}
-    @media (min-width:980px){ .layout{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)} }
+    @media (min-width:980px){.layout{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)}}
 
     /* Rails + posts */
     #journal-rail,#authors-rail{display:grid;gap:1rem}
@@ -186,11 +161,11 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
 
     /* Primary sections grid */
     .grid-3{display:grid;gap:1rem;margin-top:1rem}
-    @media (min-width:760px){ .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))} }
-    @media (min-width:1100px){ .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))} }
+    @media (min-width:760px){.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (min-width:1100px){.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
-    @media (prefers-reduced-motion: reduce){
-      *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+    @media (prefers-reduced-motion:reduce){
+      *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
     }
   </style>
 </head>
@@ -210,7 +185,6 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
 
       <nav class="pill-nav" aria-label="Primary">
         <a href="/" aria-current="page">Home</a>
-        <!-- Profit-center -->
         <a href="/packing-lists.html">Packing Lists</a>
 
         <!-- Planning group -->
@@ -247,7 +221,6 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
 
     <!-- Hero -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
       <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true" style="position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);z-index:2;pointer-events:none">
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake.png?v=3.009.015" width="256" height="64" alt="In the Wake">
@@ -259,28 +232,26 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
     </div>
   </header>
 
-  <!-- Dropdown behavior (inline, no external JS) -->
+  <!-- Dropdown behavior (inline, no [hidden], no optional chaining) -->
   <script>
   (function(){
     'use strict';
-    const on  = (el,evt,fn,opts)=>el&&el.addEventListener(evt,fn,opts||false);
-    const qs  = (s,r=document)=>r.querySelector(s);
-    const qsa = (s,r=document)=>Array.from(r.querySelectorAll(s));
-    const ready = (fn)=>document.readyState==='loading' ? document.addEventListener('DOMContentLoaded',fn,{once:true}) : fn();
+    function on(el,evt,fn,opt){ if(el) el.addEventListener(evt,fn,opt||false); }
+    function qs(s,r){ return (r||document).querySelector(s); }
+    function qsa(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+    function ready(fn){ if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fn,{once:true});} else { fn(); } }
 
     function setOpen(group,on){
       if(!group) return;
-      const btn  = qs('.nav-disclosure', group);
-      const menu = qs('.submenu', group);
+      var btn  = qs('.nav-disclosure', group);
       group.dataset.open = on ? 'true' : 'false';
-      if(btn)  btn.setAttribute('aria-expanded', on ? 'true' : 'false');
-      if(menu){ menu.hidden = !on; menu.style.display = on ? 'block' : 'none'; }
+      if(btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
     }
-    function toggle(group){ setOpen(group, group?.dataset.open!=='true'); }
+    function toggle(group){ setOpen(group, group && group.dataset.open!=='true'); }
 
     function wireGroup(group){
-      const btn  = qs('.nav-disclosure', group) || qs('button, a', group);
-      const menu = qs('.submenu', group);
+      var btn  = qs('.nav-disclosure', group) || qs('button, a', group);
+      var menu = qs('.submenu', group);
       if(!btn || !menu) return;
       if(!menu.id){ menu.id = 'menu-' + Math.random().toString(36).slice(2); }
       btn.setAttribute('aria-controls', menu.id);
@@ -288,19 +259,22 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
       btn.setAttribute('aria-haspopup','true');
       setOpen(group,false);
 
-      on(btn,'click',e=>{ e.preventDefault(); e.stopPropagation(); toggle(group); });
-      on(document,'click',e=>{ if(!group.contains(e.target)) setOpen(group,false); });
-
-      on(btn,'keydown',e=>{
-        if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(group,true); qs('a,button,[tabindex]:not([tabindex="-1"])',menu)?.focus(); }
+      on(btn,'click',function(e){ e.preventDefault(); e.stopPropagation(); toggle(group); });
+      on(btn,'keydown',function(e){
+        if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(group,true); var first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])'); if(first) first.focus(); }
         if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); }
       });
-      on(menu,'keydown',e=>{ if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); } });
-      on(menu,'focusout',()=>setTimeout(()=>{ if(!group.contains(document.activeElement)) setOpen(group,false); },0));
+      on(menu,'keydown',function(e){ if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); } });
+      on(menu,'focusout',function(){ setTimeout(function(){ if(!group.contains(document.activeElement)) setOpen(group,false); },0); });
+
+      // Close when clicking outside
+      on(document,'click',function(e){ if(!group.contains(e.target)) setOpen(group,false); });
+      // Touch-friendly open on first tap anywhere on the pill area
+      on(group,'touchstart',function(e){ if(e.target===btn || btn.contains(e.target)){ e.preventDefault(); toggle(group); } },{passive:false});
     }
 
     function wireNav(){
-      qsa('.navbar').forEach(n=>n.style.overflow='visible');
+      qsa('.navbar').forEach(function(n){ n.style.overflow='visible'; });
       qsa('.nav-group').forEach(wireGroup);
     }
     ready(wireNav);
@@ -379,7 +353,7 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
       });
     }
     ready(function(){
-      try{ fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(()=>{});}catch(_){}
+      try{ fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(function(){});}catch(_){}
       idle(function(){
         ensureSiteCache().then(function(){
           Promise.allSettled([
@@ -414,7 +388,7 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
     ];
 
     function normalize(feed){
-      var arr = Array.isArray(feed?.articles)? feed.articles : (Array.isArray(feed)? feed : []);
+      var arr = Array.isArray(feed && feed.articles)? feed.articles : (Array.isArray(feed)? feed : []);
       return arr.map(function(a){
         var to=a.url||a.permalink||'#';
         if(/^\/solo\/articles\/.+\.html$/.test(to)) to=to.replace('/solo/articles/','/solo/');
@@ -442,7 +416,7 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
       take.forEach(function(a){
         var el=document.createElement('article'); el.className='post-card card'; el.setAttribute('role','article');
         el.innerHTML=[
-          a.image?('<a class="thumb" href="'+a.url+'"><img src="'+a.image+'" alt=""></a>'):'',
+          (a.image?('<a class="thumb" href="'+a.url+'"><img src="'+a.image+'" alt=""></a>'):''),
           '<h3><a href="'+a.url+'">'+a.title+'</a></h3>',
           (a.date?('<div class="meta"><time datetime="'+a.date+'">'+(new Date(a.date)).toLocaleDateString()+'</time></div>'):''),
           (a.dek?('<p class="excerpt">'+a.dek+'</p>'):'')
@@ -485,15 +459,16 @@ Page: /index.html · v3.009.015 (inline CSS + fixed dropdowns + dates) · Built:
     function get(u){
       return fetch(u,{cache:'no-store'}).then(function(r){if(!r.ok) throw 0; return r.json();})
       .then(function(j){
-        var arr=Array.isArray(j?.authors)?j.authors:[];
+        var arr=Array.isArray(j && j.authors)? j.authors:[]; 
         return arr.map(function(x){ return {name:x.name||x.title,url:x.url||x.profile,image:x.webp||x.image||x.avatar||''}; });
       }).catch(function(){ return []; });
     }
 
     (async function boot(){
       var list=[];
-      for (const src of ['/data/authors.json?v='+VERSION,'/travel/data/authors.json?v='+VERSION]) {
-        list=list.concat(await get(src));
+      for (var i=0;i<2;i++){
+        var src = i===0 ? '/data/authors.json?v='+VERSION : '/travel/data/authors.json?v='+VERSION;
+        var arr = await get(src); list=list.concat(arr);
       }
       if(!list.length){
         list=[
