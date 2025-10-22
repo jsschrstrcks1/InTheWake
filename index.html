@@ -198,6 +198,77 @@ Page: /index.html · v3.009.020b (portal menus + logo sizing + hardening) · Bui
       display:block; opacity:0; visibility:hidden; pointer-events:none;
     }
     /* ======================================================================= */
+    /* === HOTFIX v3.009.020c =============================================== */
+/* 1) Hero: center the wordmark + caption; prevent clipping */
+.hero { overflow: visible; } /* was hidden; could clip at small heights */
+.hero-title{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: clamp(1rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+  text-align: center;
+}
+.hero-title .logo{
+  width: clamp(260px, 32vw, 560px);
+  height: auto;
+  max-width: min(92vw, 560px); /* keep fully on-screen */
+}
+.hero-title .tagline{
+  display: block;
+  margin-top: .2rem;
+  text-align: center;
+}
+
+/* 2) Pills: scope styles to TOP-LEVEL pills only (not submenu links) */
+.pill-nav > a,
+.pill-nav > .nav-group > .nav-disclosure{
+  display:inline-flex; align-items:center; gap:.35rem;
+  padding:.35rem .7rem; border-radius:10px; background:#fff;
+  border:1px solid var(--rope); color:var(--accent);
+  font:inherit; font-size:.9rem; line-height:1.2;
+  cursor:pointer; text-decoration:none;
+}
+/* Remove the broad descendant rule’s side effects */
+.pill-nav a:not(:scope > a):not(.nav-disclosure){
+  all: unset; /* reset if anything leaked */
+}
+
+/* 3) Submenu: force vertical stack everywhere, including the portal clone */
+.submenu{
+  /* ensure it behaves like a vertical menu even if external flex rules leak */
+  display: none;             /* default closed; your JS opens it */
+  flex-direction: column;    /* vertical items just in case */
+}
+.submenu a,
+.submenu button{
+  display: block !important;
+  width: 100%;
+  margin: 0;
+  padding: .5rem .65rem;
+  border-radius: .65rem;
+  text-decoration: none;
+  white-space: normal !important; /* prevent horizontal stretching */
+}
+
+/* When rendered inside the portal, be explicit */
+#nav-portal .submenu{
+  display: block !important;
+  position: fixed !important;
+  pointer-events: auto !important;
+  z-index: 2147483647 !important;
+  flex-direction: column !important;
+}
+#nav-portal .submenu a,
+#nav-portal .submenu button{
+  display: block !important;
+  width: 100% !important;
+  white-space: normal !important;
+}
+/* ====================================================================== */
   </style>
 </head>
 
