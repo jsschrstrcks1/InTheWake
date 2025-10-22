@@ -175,6 +175,42 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     .sharebar .pill{display:inline-block;padding:.4rem .7rem;border-radius:999px;border:1px solid var(--rope,#d9b382);background:#fff;text-decoration:none}
     .sharebar .copy{position:relative}
     .sharebar .copy[data-copied="1"]::after{content:'Copied!';position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + 6px);background:#083041;color:#fff;border-radius:6px;padding:.2rem .35rem;font-size:.8rem;white-space:nowrap}
+ /* === Dropdown visibility logic === */
+.submenu {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  min-width: 220px;
+  background: #fff;
+  border: 1px solid var(--rope,#d9b382);
+  border-radius: 12px;
+  padding: .4rem;
+  box-shadow: 0 8px 24px rgba(8,48,65,.12);
+  z-index: 100;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .15s ease;
+}
+
+/* open when JS sets data-open="true" */
+.nav-group[data-open="true"] > .submenu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* optional graceful hover/focus assist */
+.nav-group:hover > .submenu,
+.nav-group:focus-within > .submenu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+  
   </style>
 </head>
 
