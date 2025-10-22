@@ -1,6 +1,6 @@
 <!--
 Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
-Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:00Z
+Page: /index.html · v3.009.012 (unified-nav + hero wrap + dates) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
@@ -18,7 +18,7 @@ Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="page:version" content="3.009.011">
+  <meta name="page:version" content="3.009.012">
   <meta name="standards:baseline" content="3.009">
   <title>In the Wake | A Cruise Traveler’s Logbook & Planning Companion</title>
   <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship reviews, menu scans, port snapshots, accessibility notes, and solo travel tips based on real sailings.">
@@ -31,7 +31,7 @@ Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:
   <meta property="og:url" content="https://www.cruisinginthewake.com/">
   <meta property="og:title" content="In the Wake | A Cruise Traveler’s Logbook & Planning Companion">
   <meta property="og:description" content="Ship reviews, menus, ports, accessibility notes, and trip-tested planning from real sailings.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.011">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.012">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- PWA / icons -->
@@ -96,18 +96,18 @@ Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:
   }</script>
 
   <!-- Site cache & SW -->
-  <script src="/assets/js/site-cache.js?v=3.009.011" defer></script>
+  <script src="/assets/js/site-cache.js?v=3.009.012" defer></script>
   <script>
   if ('serviceWorker' in navigator) {
     addEventListener('load', function(){
-      navigator.serviceWorker.register('/sw.js?v=3.009.011').catch(function(){});
+      navigator.serviceWorker.register('/sw.js?v=3.009.012').catch(function(){});
     });
   }
   </script>
 
   <!-- CSS (global) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.009.011">
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.011" fetchpriority="high">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.009.012">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.012" fetchpriority="high">
 
   <!-- Page-scoped styles: layout & rails only (no nav CSS) -->
   <style>
@@ -128,13 +128,12 @@ Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:
     .grid-3{display:grid;gap:1rem;margin-top:1rem}
     @media (min-width:760px){ .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))} }
     @media (min-width:1100px){ .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))} }
-    /* Dropdown visibility + z-index guarantee */
-.nav-group { position: relative; }
-.submenu { display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 20; }
-.nav-group[data-open="true"] .submenu { display: block !important; }
 
-/* Ensure the navbar itself never clips dropdowns */
-.navbar { overflow: visible; z-index: 6; }
+    /* Dropdown visibility + z-index guarantee */
+    .nav-group { position: relative; }
+    .submenu { display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 20; }
+    .nav-group[data-open="true"] .submenu { display: block !important; }
+    .navbar { overflow: visible; z-index: 6; }
   </style>
 </head>
 
@@ -142,69 +141,71 @@ Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:
   <!-- Skip-to-content -->
   <a href="#content" class="skip-link">Skip to main content</a>
 
-  <!-- Unified Nav v3.009 (uses global CSS + /assets/js/newnav.js) -->
-  <!-- Unified Nav v3.009 — grouped pills + dropdowns -->
-<div class="navbar">
-  <div class="brand">
-    <img src="/assets/logo_wake.png?v=3.009.011" width="256" height="64" alt="In the Wake wordmark">
-    <span class="tiny version-badge">v3.009.011</span>
-  </div>
-
-  <nav class="pill-nav pills" aria-label="Primary">
-    <a class="chip" href="/">Home</a>
-
-    <!-- Profit-center: promote to top-level -->
-    <a class="chip" href="/packing-lists.html">Packing Lists</a>
-
-    <!-- Planning group -->
-    <div class="nav-item nav-group" id="nav-planning">
-      <!-- Works whether this is a <button> or an <a> -->
-      <button class="nav-disclosure chip" type="button"
-              aria-expanded="false" aria-controls="menu-planning">
-        Planning ▾
-      </button>
-      <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
-        <a role="menuitem" href="/planning.html">Planning (overview)</a>
-        <a role="menuitem" href="/ports.html">Ports</a>
-        <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a role="menuitem" href="/ships/">Ships</a>
-        <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-        <a role="menuitem" href="/cruise-lines/">Cruise Lines</a>
-        <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-        <a role="menuitem" href="/accessibility.html">Accessibility</a>
+  <!-- Header wraps navbar + hero (fixes stray </header/>) -->
+  <header class="site-header hero-header">
+    <!-- Unified Nav v3.009 — grouped pills + dropdowns -->
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png?v=3.009.012" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.009.012</span>
       </div>
+
+      <nav class="pill-nav pills" aria-label="Primary">
+        <a class="chip" href="/">Home</a>
+
+        <!-- Profit-center: promote to top-level -->
+        <a class="chip" href="/packing-lists.html">Packing Lists</a>
+
+        <!-- Planning group -->
+        <div class="nav-item nav-group" id="nav-planning">
+          <button class="nav-disclosure chip" type="button"
+                  aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+            Planning ▾
+          </button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ships/">Ships</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/cruise-lines/">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel group -->
+        <div class="nav-item nav-group" id="nav-travel">
+          <button class="nav-disclosure chip" type="button"
+                  aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel ▾
+          </button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="chip" href="/about-us.html">About</a>
+      </nav>
     </div>
 
-    <!-- Travel group -->
-    <div class="nav-item nav-group" id="nav-travel">
-      <button class="nav-disclosure chip" type="button"
-              aria-expanded="false" aria-controls="menu-travel">
-        Travel ▾
-      </button>
-      <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
-        <a role="menuitem" href="/travel.html">Travel (overview)</a>
-        <a role="menuitem" href="/solo.html">Solo</a>
-      </div>
-    </div>
-
-    <a class="chip" href="/about-us.html">About</a>
-  </nav>
-</div>
-
-<!-- Load after markup (defer is OK). Make sure the file has NO <script> wrapper -->
-<script src="/assets/js/newnav.js?v=3.009.011" defer></script>
-
-    <!-- Hero with logo + tagline (beneath the ship logo) -->
+    <!-- Hero (inside the header) -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
       <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.009.011" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.009.012" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-      <div class="hero-credit"><a class="pill long" href="https://instagram.com/flickersofmajesty" rel="noopener noreferrer" target="_blank">Photo © Flickers of Majesty</a></div>
+      <div class="hero-credit">
+        <a class="pill long" href="https://instagram.com/flickersofmajesty" rel="noopener noreferrer" target="_blank">Photo © Flickers of Majesty</a>
+      </div>
     </div>
   </header>
+
+  <!-- Load dropdown behavior once (after markup) -->
+  <script src="/assets/js/newnav.js?v=3.009.012" defer></script>
 
   <!-- Two-column layout: content (left) + right rail -->
   <main id="content" class="wrap" role="main" aria-label="Main content">
@@ -264,10 +265,7 @@ Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:
     <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
   </footer>
 
-  <!-- Unified Nav behavior helper -->
-  <script src="/assets/js/newnav.js?v=3.009.011" defer></script>
-
-  <!-- Warmup + cache (unchanged) -->
+  <!-- Warmup + cache -->
   <script>
   (function(){
     function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
@@ -276,7 +274,7 @@ Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:
     function ensureSiteCache(){
       return new Promise(function(resolve){
         if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
-        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.011'); s.defer=true;
+        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.012'); s.defer=true;
         s.onload=resolve; s.onerror=resolve; document.head.appendChild(s);
       });
     }
@@ -295,7 +293,7 @@ Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:
   })();
   </script>
 
-  <!-- Journal rail hydrator (unchanged) -->
+  <!-- Journal rail hydrator (dates updated) -->
   <script>
   (function(){
     var MOUNT = document.getElementById('journal-rail');
@@ -306,13 +304,13 @@ Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:
     function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
 
     var SOURCES = [
-      '/assets/data/articles.json?v=3.009.011',
-      '/solo/articles/index.json?v=3.009.011',
-      '/travel/articles/index.json?v=3.009.011'
+      '/assets/data/articles.json?v=3.009.012',
+      '/solo/articles/index.json?v=3.009.012',
+      '/travel/articles/index.json?v=3.009.012'
     ];
     var HARD_FALLBACK = [
-      { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2024-05-31', image:'/assets/articles/why-i-started-solo-cruising.jpg' },
-      { url:'/solo/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', dek:'On choosing solitude without being alone.', date:'2024-08-13', image:'/assets/articles/freedom-of-your-own-wake.jpg' }
+      { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2025-10-12', image:'/assets/articles/why-i-started-solo-cruising.jpg' },
+      { url:'/solo/freedom-of-your-own-wake.html',   title:'Freedom of Your Own Wake',    dek:'On choosing solitude without being alone.',     date:'2025-10-13', image:'/assets/articles/freedom-of-your-own-wake.jpg' }
     ];
 
     function normalize(feed){
@@ -368,11 +366,11 @@ Page: /index.html · v3.009.011 (unified-nav repair) · Built: 2025-10-21T00:00:
   })();
   </script>
 
-  <!-- Featured Authors rail hydrator (unchanged) -->
+  <!-- Featured Authors rail hydrator -->
   <script>
   (function(){
     var mount=document.getElementById('authors-rail'); if(!mount) return;
-    var VERSION='3.009.011';
+    var VERSION='3.009.012';
     var GENERIC='/authors/img/author.webp';
 
     function esc(s){return String(s||'').replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]);});}
