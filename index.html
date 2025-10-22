@@ -269,6 +269,77 @@ Page: /index.html · v3.009.020b (portal menus + logo sizing + hardening) · Bui
   white-space: normal !important;
 }
 /* ====================================================================== */
+    /* === HOTFIX v3.009.020d =============================================== */
+/* 1) Hero: left align logo and caption, consistent with baseline */
+.hero { overflow: visible; }
+.hero-title{
+  position: absolute;
+  left: min(3vw, 1rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .4rem;
+  text-align: left;
+}
+.hero-title .logo{
+  width: clamp(260px, 32vw, 560px);
+  height: auto;
+  max-width: min(92vw, 560px);
+}
+.hero-title .tagline{
+  display: block;
+  margin-top: .3rem;
+  color: #e6f4f8;
+  font-weight: 700;
+  letter-spacing: .2px;
+  font-size: clamp(1rem, 1.6vw, 1.4rem);
+  text-align: left;
+}
+
+/* 2) Submenu: ensure vertical stacking, one item per line */
+.submenu{
+  display: none;
+  flex-direction: column !important;
+  background: #fff;
+  border: 1px solid var(--rope, #d9b382);
+  border-radius: 12px;
+  padding: .4rem;
+  box-shadow: 0 8px 24px rgba(8,48,65,.12);
+  min-width: 220px;
+  z-index: 2147483647;
+}
+.submenu a,
+.submenu button{
+  display: block !important;
+  width: 100% !important;
+  margin: 0;
+  padding: .55rem .75rem;
+  border-radius: .6rem;
+  text-decoration: none;
+  white-space: normal !important;
+  text-align: left;
+  background: transparent;
+}
+.submenu a:hover,
+.submenu button:hover{
+  background: #f9fdfd;
+}
+
+/* Ensure cloned portal version also stacks vertically */
+#nav-portal .submenu{
+  display: block !important;
+  flex-direction: column !important;
+  position: fixed !important;
+  pointer-events: auto !important;
+  z-index: 2147483647 !important;
+}
+#nav-portal .submenu a,
+#nav-portal .submenu button{
+  display: block !important;
+  white-space: normal !important;
+}
+/* ====================================================================== */
   </style>
 </head>
 
