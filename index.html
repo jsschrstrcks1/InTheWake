@@ -166,6 +166,41 @@ Page: /index.html · v3.009.018 (downward menus + unwarped logo) · Built: 2025-
     @media (prefers-reduced-motion:reduce){
       *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
     }
+    /* === Dropdown visibility logic === */
+.submenu {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  min-width: 220px;
+  background: #fff;
+  border: 1px solid var(--rope,#d9b382);
+  border-radius: 12px;
+  padding: .4rem;
+  box-shadow: 0 8px 24px rgba(8,48,65,.12);
+  z-index: 100;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .15s ease;
+}
+
+/* open when JS sets data-open="true" */
+.nav-group[data-open="true"] > .submenu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* optional graceful hover/focus assist */
+.nav-group:hover > .submenu,
+.nav-group:focus-within > .submenu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
   </style>
 </head>
 
