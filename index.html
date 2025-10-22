@@ -119,18 +119,6 @@ Page: /index.html · v3.009.019 (downward menus + unwarped logo) · Built: 2025-
     .pill-nav a:hover,.pill-nav button.nav-disclosure:hover{background:#f9fdfd}
     .pill-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
 
-    /* Dropdowns — open downward */
-    .nav-group{position:relative}
-    .submenu{
-      position:absolute;left:0;top:calc(100% + 10px);bottom:auto;min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;
-      padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:20
-    }
-    .nav-group[data-open="true"]>.submenu,
-    .nav-group:focus-within>.submenu,
-    .nav-group:hover>.submenu{
-      display:block;visibility:visible;opacity:1;pointer-events:auto
-    }
-
     /* Hero */
     .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.019') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
@@ -166,75 +154,40 @@ Page: /index.html · v3.009.019 (downward menus + unwarped logo) · Built: 2025-
     @media (prefers-reduced-motion:reduce){
       *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
     }
-    /* === Dropdown visibility logic === */
-.submenu {
-  position: absolute;
-  left: 0;
-  top: calc(100% + 8px);
-  min-width: 220px;
-  background: #fff;
-  border: 1px solid var(--rope,#d9b382);
-  border-radius: 12px;
-  padding: .4rem;
-  box-shadow: 0 8px 24px rgba(8,48,65,.12);
-  z-index: 100;
-  display: none;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity .15s ease;
-}
-
-/* open when JS sets data-open="true" */
-.nav-group[data-open="true"] > .submenu {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-/* optional graceful hover/focus assist */
-.nav-group:hover > .submenu,
-.nav-group:focus-within > .submenu {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
     /* === Unified Nav: click-to-open dropdowns (v3.009.019) ================== */
-/* Base: keep menus hidden by default */
-.submenu{
-  position:absolute; left:0; top:calc(100% + 8px);
-  min-width:220px; background:#fff; border:1px solid var(--rope,#d9b382);
-  border-radius:12px; padding:.4rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
-  z-index:100;
-  display:none; opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .15s ease;
-}
+    /* Base: keep menus hidden by default */
+    .submenu {
+      position:absolute; left:0; top:calc(100% + 8px);
+      min-width:220px; background:#fff; border:1px solid var(--rope,#d9b382);
+      border-radius:12px; padding:.4rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
+      z-index:100;
+      display:none; opacity:0; visibility:hidden; pointer-events:none;
+      transition:opacity .15s ease;
+    }
 
-/* JS toggles this; this rule MUST be present and later in cascade */
-.nav-group[data-open="true"] > .submenu{
-  display:block; opacity:1; visibility:visible; pointer-events:auto;
-}
+    /* JS toggles this; this rule MUST be present and later in cascade */
+    .nav-group[data-open="true"] > .submenu{
+      display:block; opacity:1; visibility:visible; pointer-events:auto;
+    }
 
-/* Optional assist so hover/focus still works without JS */
-.nav-group:hover > .submenu,
-.nav-group:focus-within > .submenu{
-  display:block; opacity:1; visibility:visible; pointer-events:auto;
-}
+    /* Optional assist so hover/focus still works without JS */
+    .nav-group:hover > .submenu,
+    .nav-group:focus-within > .submenu{
+      display:block; opacity:1; visibility:visible; pointer-events:auto;
+    }
 
-/* Ensure vertical, single-column menu items (no side-by-side pills) */
-.submenu a,
-.submenu button{
-  display:block; width:100%; margin:0; padding:.5rem .65rem;
-  border-radius:.65rem; text-decoration:none;
-}
+    /* Ensure vertical, single-column menu items (no side-by-side pills) */
+    .submenu a,
+    .submenu button{
+      display:block; width:100%; margin:0; padding:.5rem .65rem;
+      border-radius:.65rem; text-decoration:none;
+    }
 
-/* Stacking + clipping safety */
-.navbar{ position:relative; z-index:6; overflow:visible; }
-.nav-group{ position:relative; }        /* anchor for absolute submenu */
-.hero-header, header{ overflow:visible; }
-/* ======================================================================== */
+    /* Stacking + clipping safety */
+    .navbar{ position:relative; z-index:6; overflow:visible; }
+    .nav-group{ position:relative; }        /* anchor for absolute submenu */
+    .hero-header, header{ overflow:visible; }
+    /* ======================================================================== */
   </style>
 </head>
 
