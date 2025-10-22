@@ -1,6 +1,6 @@
 <!--
 Soli Deo Gloria — Every pixel and part of this project is offered as worship to God.
-Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Built: 2025-10-21T00:00:00Z
+Page: /index.html · v3.009.016 (nav unclipped + high z-index + dates) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
@@ -109,7 +109,11 @@ Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Bui
 
     /* Header + hero */
     .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:6;overflow:visible}
+    .navbar{
+      max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
+      padding:.5rem .9rem .35rem;position:relative;z-index:9999; /* raised */
+      overflow:visible
+    }
     .brand{display:flex;align-items:flex-end;gap:.6rem}
     .brand img{height:28px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
@@ -117,8 +121,8 @@ Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Bui
     .pill-nav{
       flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;
       white-space:nowrap;flex-wrap:nowrap;
-      overflow-x:auto;          /* keep horizontal scrolling on narrow screens */
-      overflow-y:visible;       /* <-- was hidden; allow dropdowns to escape */
+      /* critical: let dropdowns escape the scroller in all engines */
+      overflow:visible;
       padding-inline:.75rem;scroll-padding-inline:.75rem
     }
     .pill-nav a,.pill-nav button.nav-disclosure{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none}
@@ -129,9 +133,8 @@ Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Bui
     .nav-group{position:relative}
     .submenu{
       position:absolute;left:0;top:calc(100% + 6px);min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;
-      padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:20
+      padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:10000 /* raised */
     }
-    /* 3 ways to open: JS data attr, keyboard focus, or hover */
     .nav-group[data-open="true"]>.submenu,
     .nav-group:focus-within>.submenu,
     .nav-group:hover>.submenu{
@@ -177,12 +180,9 @@ Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Bui
 </head>
 
 <body class="page">
-  <!-- Skip-to-content -->
   <a href="#content" class="skip-link">Skip to main content</a>
 
-  <!-- Header wraps navbar + hero -->
   <header class="site-header hero-header">
-    <!-- Unified Nav -->
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.009.016" width="256" height="64" alt="In the Wake wordmark">
@@ -193,7 +193,6 @@ Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Bui
         <a href="/" aria-current="page">Home</a>
         <a href="/packing-lists.html">Packing Lists</a>
 
-        <!-- Planning group -->
         <div class="nav-item nav-group" id="nav-planning">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
             Planning ▾
@@ -210,7 +209,6 @@ Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Bui
           </div>
         </div>
 
-        <!-- Travel group -->
         <div class="nav-item nav-group" id="nav-travel">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
             Travel ▾
@@ -225,7 +223,6 @@ Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Bui
       </nav>
     </div>
 
-    <!-- Hero -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true" style="position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);z-index:2;pointer-events:none">
       <div class="hero-title">
@@ -238,7 +235,7 @@ Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Bui
     </div>
   </header>
 
-  <!-- Dropdown behavior (inline, no [hidden], no optional chaining) -->
+  <!-- Dropdown behavior -->
   <script>
   (function(){
     'use strict';
@@ -272,46 +269,30 @@ Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Bui
       });
       on(menu,'keydown',function(e){ if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); } });
       on(menu,'focusout',function(){ setTimeout(function(){ if(!group.contains(document.activeElement)) setOpen(group,false); },0); });
-
-      /* Close when clicking outside */
       on(document,'click',function(e){ if(!group.contains(e.target)) setOpen(group,false); });
-
-      /* Touch-friendly open on first tap */
-      on(group,'touchstart',function(e){ var btn2=qs('.nav-disclosure',group); if(e.target===btn2 || (btn2 && btn2.contains(e.target))){ e.preventDefault(); toggle(group); } },{passive:false});
+      on(group,'touchstart',function(e){ var b=qs('.nav-disclosure',group); if(e.target===b || (b && b.contains(e.target))){ e.preventDefault(); toggle(group); } },{passive:false});
     }
 
     function wireNav(){
-      qsa('.navbar').forEach(function(n){ n.style.overflow='visible'; });
-      /* Ensure dropdowns are not clipped by the pill bar */
-      qsa('.pill-nav').forEach(function(n){ n.style.overflowY='visible'; });
+      qsa('.navbar').forEach(function(n){ n.style.overflow='visible'; n.style.zIndex='9999'; });
+      qsa('.pill-nav').forEach(function(n){ n.style.overflow='visible'; });
+      qsa('.submenu').forEach(function(n){ n.style.zIndex='10000'; });
       qsa('.nav-group').forEach(wireGroup);
     }
     ready(wireNav);
   })();
   </script>
 
-  <!-- Two-column layout: content (left) + right rail -->
   <main id="content" class="wrap" role="main" aria-label="Main content">
     <div class="layout">
-      <!-- LEFT: Intro + three-wide sections -->
       <section>
         <section class="card" aria-labelledby="page-title">
           <h1 id="page-title">Welcome Aboard</h1>
           <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
-          <p>
-            Mariners know a small truth with big comfort: the calmest water lies in the wake of another boat.
-            Tuck in behind a steady hull and the chop softens, the course steadies, and the hard parts feel easier.
-            <em>In the Wake</em> exists to be that smooth water for your cruise planning.
-          </p>
-          <p>
-            We sail ahead—collecting real-world details from actual voyages—so you can follow with confidence.
-            Compare ships and classes, scan menus and prices, scout cabins, and spot accessibility notes without all the whitecaps.
-            The goal isn’t to sell you anything; it’s to take the friction out of decisions so your trip feels effortless.
-            Fair winds—and gentler seas—in our wake.
-          </p>
+          <p>Mariners know a small truth with big comfort: the calmest water lies in the wake of another boat. Tuck in behind a steady hull and the chop softens, the course steadies, and the hard parts feel easier. <em>In the Wake</em> exists to be that smooth water for your cruise planning.</p>
+          <p>We sail ahead—collecting real-world details from actual voyages—so you can follow with confidence. Compare ships and classes, scan menus and prices, scout cabins, and spot accessibility notes without all the whitecaps. The goal isn’t to sell you anything; it’s to take the friction out of decisions so your trip feels effortless. Fair winds—and gentler seas—in our wake.</p>
         </section>
 
-        <!-- Three-wide primary sections grid -->
         <section class="grid-3" aria-label="Primary sections">
           <section class="card"><h3><a href="/ships/">Ships →</a></h3><p>Class overviews, per-ship pages, and cross-links to restaurants.</p></section>
           <section class="card"><h3><a href="/restaurants.html">Restaurants &amp; Menus →</a></h3><p>Flagship venues, menus, price bands, and allergen notes.</p></section>
@@ -325,7 +306,6 @@ Page: /index.html · v3.009.016 (inline CSS + dropdown unclipped + dates) · Bui
         </section>
       </section>
 
-      <!-- RIGHT: Journal + Featured Authors rail -->
       <aside aria-label="Right rail">
         <section class="card" aria-labelledby="journal-title">
           <h2 id="journal-title">From the Journal</h2>
