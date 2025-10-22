@@ -1,6 +1,6 @@
 <!--
 Soli Deo Gloria — Every pixel and part of this project is offered as worship to God.
-Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-10-21T00:00:00Z
+Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/pointer-events hardening) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
@@ -18,7 +18,7 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="page:version" content="3.009.020">
+  <meta name="page:version" content="3.009.020a">
   <meta name="standards:baseline" content="3.009">
   <title>In the Wake | A Cruise Traveler’s Logbook & Planning Companion</title>
   <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship reviews, menu scans, port snapshots, accessibility notes, and solo travel tips based on real sailings.">
@@ -31,7 +31,7 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
   <meta property="og:url" content="https://www.cruisinginthewake.com/">
   <meta property="og:title" content="In the Wake | A Cruise Traveler’s Logbook & Planning Companion">
   <meta property="og:description" content="Ship reviews, menus, ports, accessibility notes, and trip-tested planning from real sailings.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.020">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.020a">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- PWA / icons -->
@@ -96,7 +96,7 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
   }</script>
 
   <!-- LCP image preload -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.020" fetchpriority="high">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.020a" fetchpriority="high">
 
   <!-- Inline CSS (self-contained) -->
   <style>
@@ -108,23 +108,31 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
     .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:1000;outline:0}
 
     /* Header + hero */
-    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:6;overflow:visible}
+    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6; overflow:visible;}
+    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:999;overflow:visible}
     .brand{display:flex;align-items:flex-end;gap:.6rem}
-    .brand img{height:28px;width:auto;display:block}
+    .brand img{height:44px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-    .pill-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding-inline:.75rem;scroll-padding-inline:.75rem}
-    .pill-nav a,.pill-nav button.nav-disclosure{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none}
+    .pill-nav{
+      flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;
+      white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:visible;padding-inline:.75rem;scroll-padding-inline:.75rem
+    }
+    .pill-nav a,.pill-nav button.nav-disclosure{
+      display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
+      border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
+    }
     .pill-nav a:hover,.pill-nav button.nav-disclosure:hover{background:#f9fdfd}
     .pill-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
 
     /* Hero */
-    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.020') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden}
+    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.020a') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
     .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;text-decoration:none}
     .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);height:auto !important}
+    .hero-title .logo{height:44px;width:auto !important}
+    /* Decorative hero bits should never intercept clicks */
+    .hero *[aria-hidden="true"], .hero .latlon-grid, .hero .hero-compass{ pointer-events:none !important; }
 
     /* Content */
     .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
@@ -154,39 +162,26 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
     @media (prefers-reduced-motion:reduce){
       *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
     }
-    /* === Unified Nav: click-to-open dropdowns (v3.009.020) ================== */
+
+    /* === Unified Nav: click-to-open dropdowns (v3.009.020a) ================= */
     /* Base: keep menus hidden by default */
-    .submenu {
+    .nav-group{ position:relative; } /* anchor for absolute submenu */
+    .submenu{
       position:absolute; left:0; top:calc(100% + 8px);
       min-width:220px; background:#fff; border:1px solid var(--rope,#d9b382);
       border-radius:12px; padding:.4rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
-      z-index:100;
-      display:none; opacity:0; visibility:hidden; pointer-events:none;
+      z-index:1000; display:none; opacity:0; visibility:hidden; pointer-events:none;
       transition:opacity .15s ease;
     }
-
-    /* JS toggles this; this rule MUST be present and later in cascade */
-    .nav-group[data-open="true"] > .submenu{
+    .nav-group[data-open="true"]>.submenu,
+    .nav-group:hover>.submenu,
+    .nav-group:focus-within>.submenu{
       display:block; opacity:1; visibility:visible; pointer-events:auto;
     }
-
-    /* Optional assist so hover/focus still works without JS */
-    .nav-group:hover > .submenu,
-    .nav-group:focus-within > .submenu{
-      display:block; opacity:1; visibility:visible; pointer-events:auto;
-    }
-
-    /* Ensure vertical, single-column menu items (no side-by-side pills) */
-    .submenu a,
-    .submenu button{
+    .submenu a,.submenu button{
       display:block; width:100%; margin:0; padding:.5rem .65rem;
       border-radius:.65rem; text-decoration:none;
     }
-
-    /* Stacking + clipping safety */
-    .navbar{ position:relative; z-index:6; overflow:visible; }
-    .nav-group{ position:relative; }        /* anchor for absolute submenu */
-    .hero-header, header{ overflow:visible; }
     /* ======================================================================== */
   </style>
 </head>
@@ -200,8 +195,8 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
     <!-- Unified Nav -->
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.009.020" width="256" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.009.020</span>
+        <img src="/assets/logo_wake.png?v=3.009.020a" width="256" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.009.020a</span>
       </div>
 
       <nav class="pill-nav" aria-label="Primary">
@@ -244,7 +239,7 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <img class="hero-compass" src="/assets/compass_rose.svg" width="180" alt="" aria-hidden="true" style="position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);z-index:2;pointer-events:none">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.009.020" width="256" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.009.020a" width="256" alt="In the Wake">
         <div class="tagline" style="color:#e6f4f8;font-weight:700;letter-spacing:.2px;font-size:clamp(.9rem,1.5vw,1.35rem)">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
@@ -369,7 +364,7 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
     function ensureSiteCache(){
       return new Promise(function(resolve){
         if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
-        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.020'); s.defer=true;
+        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.020a'); s.defer=true;
         s.onload=resolve; s.onerror=resolve; document.head.appendChild(s);
       });
     }
@@ -388,7 +383,7 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
   })();
   </script>
 
-  <!-- Journal rail hydrator (dates updated) -->
+  <!-- Journal rail hydrator -->
   <script>
   (function(){
     var MOUNT = document.getElementById('journal-rail');
@@ -399,9 +394,9 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
     function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
 
     var SOURCES = [
-      '/assets/data/articles.json?v=3.009.020',
-      '/solo/articles/index.json?v=3.009.020',
-      '/travel/articles/index.json?v=3.009.020'
+      '/assets/data/articles.json?v=3.009.020a',
+      '/solo/articles/index.json?v=3.009.020a',
+      '/travel/articles/index.json?v=3.009.020a'
     ];
     var HARD_FALLBACK = [
       { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2025-10-12', image:'/assets/articles/why-i-started-solo-cruising.jpg' },
@@ -465,7 +460,7 @@ Page: /index.html · v3.009.020 (downward menus + unwarped logo) · Built: 2025-
   <script>
   (function(){
     var mount=document.getElementById('authors-rail'); if(!mount) return;
-    var VERSION='3.009.020';
+    var VERSION='3.009.020a';
     var GENERIC='/authors/img/author.webp';
 
     function esc(s){return String(s||'').replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]);});}
