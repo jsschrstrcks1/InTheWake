@@ -1,6 +1,6 @@
 <!--
 Soli Deo Gloria — Every pixel and part of this project is offered as worship to God.
-Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built: 2025-10-21T00:00:00Z
+Page: /index.html · v3.009.018 (downward menus + unwarped logo) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
@@ -18,7 +18,7 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="page:version" content="3.009.017">
+  <meta name="page:version" content="3.009.018">
   <meta name="standards:baseline" content="3.009">
   <title>In the Wake | A Cruise Traveler’s Logbook & Planning Companion</title>
   <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship reviews, menu scans, port snapshots, accessibility notes, and solo travel tips based on real sailings.">
@@ -31,7 +31,7 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
   <meta property="og:url" content="https://www.cruisinginthewake.com/">
   <meta property="og:title" content="In the Wake | A Cruise Traveler’s Logbook & Planning Companion">
   <meta property="og:description" content="Ship reviews, menus, ports, accessibility notes, and trip-tested planning from real sailings.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.017">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.018">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- PWA / icons -->
@@ -96,7 +96,7 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
   }</script>
 
   <!-- LCP image preload -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.017" fetchpriority="high">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.018" fetchpriority="high">
 
   <!-- Inline CSS (self-contained) -->
   <style>
@@ -109,31 +109,21 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
 
     /* Header + hero */
     .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-    .navbar{
-      max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
-      padding:.5rem .9rem .35rem;position:relative;z-index:9999; /* raised */
-      overflow:visible
-    }
+    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:6;overflow:visible}
     .brand{display:flex;align-items:flex-end;gap:.6rem}
     .brand img{height:28px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-    .pill-nav{
-      flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;
-      white-space:nowrap;flex-wrap:nowrap;
-      /* critical: let dropdowns escape the scroller in all engines */
-      overflow:visible;
-      padding-inline:.75rem;scroll-padding-inline:.75rem
-    }
+    .pill-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding-inline:.75rem;scroll-padding-inline:.75rem}
     .pill-nav a,.pill-nav button.nav-disclosure{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none}
     .pill-nav a:hover,.pill-nav button.nav-disclosure:hover{background:#f9fdfd}
     .pill-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
 
-    /* Dropdowns */
+    /* Dropdowns — open downward */
     .nav-group{position:relative}
     .submenu{
-      position:absolute;left:0;top:calc(100% + 6px);min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;
-      padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:10000 /* raised */
+      position:absolute;left:0;top:calc(100% + 10px);bottom:auto;min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;
+      padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:20
     }
     .nav-group[data-open="true"]>.submenu,
     .nav-group:focus-within>.submenu,
@@ -142,11 +132,11 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
     }
 
     /* Hero */
-    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.017') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden}
+    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.018') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
     .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;text-decoration:none}
     .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
+    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);height:auto !important}
 
     /* Content */
     .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
@@ -180,19 +170,23 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
 </head>
 
 <body class="page">
+  <!-- Skip-to-content -->
   <a href="#content" class="skip-link">Skip to main content</a>
 
+  <!-- Header wraps navbar + hero -->
   <header class="site-header hero-header">
+    <!-- Unified Nav -->
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.009.017" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.009.017</span>
+        <img src="/assets/logo_wake.png?v=3.009.018" width="256" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.009.018</span>
       </div>
 
       <nav class="pill-nav" aria-label="Primary">
         <a href="/" aria-current="page">Home</a>
         <a href="/packing-lists.html">Packing Lists</a>
 
+        <!-- Planning group -->
         <div class="nav-item nav-group" id="nav-planning">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
             Planning ▾
@@ -209,6 +203,7 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
           </div>
         </div>
 
+        <!-- Travel group -->
         <div class="nav-item nav-group" id="nav-travel">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
             Travel ▾
@@ -223,10 +218,11 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
       </nav>
     </div>
 
+    <!-- Hero -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true" style="position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);z-index:2;pointer-events:none">
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" alt="" aria-hidden="true" style="position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);z-index:2;pointer-events:none">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.009.017" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.009.018" width="256" alt="In the Wake">
         <div class="tagline" style="color:#e6f4f8;font-weight:700;letter-spacing:.2px;font-size:clamp(.9rem,1.5vw,1.35rem)">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
@@ -235,7 +231,7 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
     </div>
   </header>
 
-  <!-- Dropdown behavior -->
+  <!-- Dropdown behavior (inline, no [hidden], no optional chaining) -->
   <script>
   (function(){
     'use strict';
@@ -269,30 +265,43 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
       });
       on(menu,'keydown',function(e){ if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); } });
       on(menu,'focusout',function(){ setTimeout(function(){ if(!group.contains(document.activeElement)) setOpen(group,false); },0); });
+
+      // Close when clicking outside
       on(document,'click',function(e){ if(!group.contains(e.target)) setOpen(group,false); });
-      on(group,'touchstart',function(e){ var b=qs('.nav-disclosure',group); if(e.target===b || (b && b.contains(e.target))){ e.preventDefault(); toggle(group); } },{passive:false});
+      // Touch-friendly toggle
+      on(group,'touchstart',function(e){ var btnEl = qs('.nav-disclosure', group); if(e.target===btnEl || (btnEl && btnEl.contains(e.target))){ e.preventDefault(); toggle(group); } },{passive:false});
     }
 
     function wireNav(){
-      qsa('.navbar').forEach(function(n){ n.style.overflow='visible'; n.style.zIndex='9999'; });
-      qsa('.pill-nav').forEach(function(n){ n.style.overflow='visible'; });
-      qsa('.submenu').forEach(function(n){ n.style.zIndex='10000'; });
+      qsa('.navbar').forEach(function(n){ n.style.overflow='visible'; });
       qsa('.nav-group').forEach(wireGroup);
     }
     ready(wireNav);
   })();
   </script>
 
+  <!-- Two-column layout: content (left) + right rail -->
   <main id="content" class="wrap" role="main" aria-label="Main content">
     <div class="layout">
+      <!-- LEFT: Intro + three-wide sections -->
       <section>
         <section class="card" aria-labelledby="page-title">
           <h1 id="page-title">Welcome Aboard</h1>
           <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
-          <p>Mariners know a small truth with big comfort: the calmest water lies in the wake of another boat. Tuck in behind a steady hull and the chop softens, the course steadies, and the hard parts feel easier. <em>In the Wake</em> exists to be that smooth water for your cruise planning.</p>
-          <p>We sail ahead—collecting real-world details from actual voyages—so you can follow with confidence. Compare ships and classes, scan menus and prices, scout cabins, and spot accessibility notes without all the whitecaps. The goal isn’t to sell you anything; it’s to take the friction out of decisions so your trip feels effortless. Fair winds—and gentler seas—in our wake.</p>
+          <p>
+            Mariners know a small truth with big comfort: the calmest water lies in the wake of another boat.
+            Tuck in behind a steady hull and the chop softens, the course steadies, and the hard parts feel easier.
+            <em>In the Wake</em> exists to be that smooth water for your cruise planning.
+          </p>
+          <p>
+            We sail ahead—collecting real-world details from actual voyages—so you can follow with confidence.
+            Compare ships and classes, scan menus and prices, scout cabins, and spot accessibility notes without all the whitecaps.
+            The goal isn’t to sell you anything; it’s to take the friction out of decisions so your trip feels effortless.
+            Fair winds—and gentler seas—in our wake.
+          </p>
         </section>
 
+        <!-- Three-wide primary sections grid -->
         <section class="grid-3" aria-label="Primary sections">
           <section class="card"><h3><a href="/ships/">Ships →</a></h3><p>Class overviews, per-ship pages, and cross-links to restaurants.</p></section>
           <section class="card"><h3><a href="/restaurants.html">Restaurants &amp; Menus →</a></h3><p>Flagship venues, menus, price bands, and allergen notes.</p></section>
@@ -306,6 +315,7 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
         </section>
       </section>
 
+      <!-- RIGHT: Journal + Featured Authors rail -->
       <aside aria-label="Right rail">
         <section class="card" aria-labelledby="journal-title">
           <h2 id="journal-title">From the Journal</h2>
@@ -337,7 +347,7 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
     function ensureSiteCache(){
       return new Promise(function(resolve){
         if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
-        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.017'); s.defer=true;
+        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.018'); s.defer=true;
         s.onload=resolve; s.onerror=resolve; document.head.appendChild(s);
       });
     }
@@ -367,9 +377,9 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
     function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
 
     var SOURCES = [
-      '/assets/data/articles.json?v=3.009.017',
-      '/solo/articles/index.json?v=3.009.017',
-      '/travel/articles/index.json?v=3.009.017'
+      '/assets/data/articles.json?v=3.009.018',
+      '/solo/articles/index.json?v=3.009.018',
+      '/travel/articles/index.json?v=3.009.018'
     ];
     var HARD_FALLBACK = [
       { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2025-10-12', image:'/assets/articles/why-i-started-solo-cruising.jpg' },
@@ -433,7 +443,7 @@ Page: /index.html · v3.009.017 (nav unclipped + high z-index + dates) · Built:
   <script>
   (function(){
     var mount=document.getElementById('authors-rail'); if(!mount) return;
-    var VERSION='3.009.017';
+    var VERSION='3.009.018';
     var GENERIC='/authors/img/author.webp';
 
     function esc(s){return String(s||'').replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]);});}
