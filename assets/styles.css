@@ -793,3 +793,37 @@ html, body{ overflow-x:hidden }
   mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
   -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
 }
+/* === Unified Nav: click-to-open dropdowns (v3.009.018) ================== */
+/* Base: keep menus hidden by default */
+.submenu{
+  position:absolute; left:0; top:calc(100% + 8px);
+  min-width:220px; background:#fff; border:1px solid var(--rope,#d9b382);
+  border-radius:12px; padding:.4rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
+  z-index:100;
+  display:none; opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .15s ease;
+}
+
+/* JS toggles this; this rule MUST be present and later in cascade */
+.nav-group[data-open="true"] > .submenu{
+  display:block; opacity:1; visibility:visible; pointer-events:auto;
+}
+
+/* Optional assist so hover/focus still works without JS */
+.nav-group:hover > .submenu,
+.nav-group:focus-within > .submenu{
+  display:block; opacity:1; visibility:visible; pointer-events:auto;
+}
+
+/* Ensure vertical, single-column menu items (no side-by-side pills) */
+.submenu a,
+.submenu button{
+  display:block; width:100%; margin:0; padding:.5rem .65rem;
+  border-radius:.65rem; text-decoration:none;
+}
+
+/* Stacking + clipping safety */
+.navbar{ position:relative; z-index:6; overflow:visible; }
+.nav-group{ position:relative; }        /* anchor for absolute submenu */
+.hero-header, header{ overflow:visible; }
+/* ======================================================================== */
