@@ -128,6 +128,13 @@ Page: /index.html · v3.009.008 (unified-nav repair) · Built: 2025-10-21T00:00:
     .grid-3{display:grid;gap:1rem;margin-top:1rem}
     @media (min-width:760px){ .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))} }
     @media (min-width:1100px){ .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))} }
+    /* Dropdown visibility + z-index guarantee */
+.nav-group { position: relative; }
+.submenu { display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 20; }
+.nav-group[data-open="true"] .submenu { display: block !important; }
+
+/* Ensure the navbar itself never clips dropdowns */
+.navbar { overflow: visible; z-index: 6; }
   </style>
 </head>
 
