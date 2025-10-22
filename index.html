@@ -1,6 +1,6 @@
 <!--
 Soli Deo Gloria — Every pixel and part of this project is offered as worship to God.
-Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/pointer-events hardening) · Built: 2025-10-21T00:00:00Z
+Page: /index.html · v3.009.020b (portal menus + logo sizing + hardening) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
@@ -11,27 +11,32 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);} gtag('js',new Date()); gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-WZP891PZXJ', { anonymize_ip: true });
+  </script>
 
   <!-- Core meta -->
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="page:version" content="3.009.020a">
+  <meta name="page:version" content="3.009.020b">
   <meta name="standards:baseline" content="3.009">
   <title>In the Wake | A Cruise Traveler’s Logbook & Planning Companion</title>
   <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship reviews, menu scans, port snapshots, accessibility notes, and solo travel tips based on real sailings.">
-  <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
+  <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
   <!-- Canonical & Social -->
-  <link rel="canonical" href="https://www.cruisinginthewake.com/"/>
+  <link rel="canonical" href="https://www.cruisinginthewake.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="In the Wake">
   <meta property="og:url" content="https://www.cruisinginthewake.com/">
   <meta property="og:title" content="In the Wake | A Cruise Traveler’s Logbook & Planning Companion">
   <meta property="og:description" content="Ship reviews, menus, ports, accessibility notes, and trip-tested planning from real sailings.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.020a">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.020b">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- PWA / icons -->
@@ -96,7 +101,7 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
   }</script>
 
   <!-- LCP image preload -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.020a" fetchpriority="high">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.020b" fetchpriority="high">
 
   <!-- Inline CSS (self-contained) -->
   <style>
@@ -108,26 +113,38 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
     .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:1000;outline:0}
 
     /* Header + hero */
-    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6; overflow:visible;}
-    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:999;overflow:visible}
+    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;overflow:visible}
+    .navbar{
+      max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
+      padding:.5rem .9rem .35rem;position:relative;z-index:100;overflow:visible
+    }
     .brand{display:flex;align-items:flex-end;gap:.6rem}
-    .brand img{height:44px;width:auto;display:block}
+    /* Larger wordmark in navbar */
+    .brand img{height:56px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-   .pill-nav {
-  flex:1 1 auto; min-width:0; display:flex; align-items:center;
-  justify-content:center; gap:.45rem;
-  white-space:nowrap; flex-wrap:nowrap;
-  overflow-x:auto; overflow-y:visible; /* Critical: allow vertical overflow */
-  padding-inline:.75rem; scroll-padding-inline:.75rem;
-  position: relative; /* Establish positioning context */
-}
+    .pill-nav{
+      flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;
+      white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:visible;padding-inline:.75rem;scroll-padding-inline:.75rem
+    }
+    .pill-nav a,.pill-nav button.nav-disclosure{
+      display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
+      border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
+    }
+    .pill-nav a:hover,.pill-nav button.nav-disclosure:hover{background:#f9fdfd}
+    .pill-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
+
     /* Hero */
-    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.020a') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden}
+    .hero{
+      position:relative;width:100%;min-height:clamp(220px,24vw,360px);
+      background:url('/assets/index_hero.jpg?v=3.009.020b') 50% 50%/cover no-repeat;
+      display:flex;align-items:flex-end;overflow:hidden
+    }
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
     .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;text-decoration:none}
     .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-    .hero-title .logo{height:44px;width:auto !important}
+    /* Bigger wordmark in hero, responsive */
+    .hero-title .logo{width:clamp(240px,28vw,520px);height:auto}
     /* Decorative hero bits should never intercept clicks */
     .hero *[aria-hidden="true"], .hero .latlon-grid, .hero .hero-compass{ pointer-events:none !important; }
 
@@ -160,26 +177,27 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
       *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
     }
 
-    /* === Unified Nav: click-to-open dropdowns (v3.009.020a) ================= */
-    /* Base: keep menus hidden by default */
-    .nav-group{ position:relative; } /* anchor for absolute submenu */
+    /* === Unified Nav: portalized dropdowns (v3.009.020b) =================== */
+    .nav-group{ position:relative; z-index:1 } /* anchor; still used for placeholder */
     .submenu{
       position:absolute; left:0; top:calc(100% + 8px);
       min-width:220px; background:#fff; border:1px solid var(--rope,#d9b382);
       border-radius:12px; padding:.4rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
-      z-index:1000; display:none; opacity:0; visibility:hidden; pointer-events:none;
-      transition:opacity .15s ease;
+      display:none; opacity:0; visibility:hidden; pointer-events:none;
+      transform:translateY(-8px); transition:opacity .15s ease, transform .15s ease;
     }
-    .nav-group[data-open="true"]>.submenu,
-    .nav-group:hover>.submenu,
-    .nav-group:focus-within>.submenu{
-      display:block; opacity:1; visibility:visible; pointer-events:auto;
+    /* Fallback if JS fails: hover/focus still works on desktop */
+    @media (hover:hover) and (pointer:fine){
+      .nav-group:hover > .submenu,
+      .nav-group:focus-within > .submenu{
+        display:block; opacity:1; visibility:visible; pointer-events:auto; transform:translateY(0);
+      }
     }
-    .submenu a,.submenu button{
-      display:block; width:100%; margin:0; padding:.5rem .65rem;
-      border-radius:.65rem; text-decoration:none;
+    /* Placeholder shown only when portalizing to avoid layout shift */
+    .submenu.portalized-placeholder{
+      display:block; opacity:0; visibility:hidden; pointer-events:none;
     }
-    /* ======================================================================== */
+    /* ======================================================================= */
   </style>
 </head>
 
@@ -192,8 +210,8 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
     <!-- Unified Nav -->
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.009.020a" width="256" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.009.020a</span>
+        <img src="/assets/logo_wake.png?v=3.009.020b" width="256" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.009.020b</span>
       </div>
 
       <nav class="pill-nav" aria-label="Primary">
@@ -234,10 +252,10 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
 
     <!-- Hero -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" alt="" aria-hidden="true" style="position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);z-index:2;pointer-events:none">
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" alt="" aria-hidden="true" style="position:absolute;right:min(3vw,1rem);top:.5rem;width:96px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);z-index:2;pointer-events:none">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.009.020a" width="256" alt="In the Wake">
-        <div class="tagline" style="color:#e6f4f8;font-weight:700;letter-spacing:.2px;font-size:clamp(.9rem,1.5vw,1.35rem)">A Cruise Traveler’s Logbook</div>
+        <img class="logo" src="/assets/logo_wake.png?v=3.009.020b" width="256" alt="In the Wake">
+        <div class="tagline" style="color:#e6f4f8;font-weight:700;letter-spacing:.2px;font-size:clamp(1rem,1.6vw,1.4rem)">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
         <a class="pill" href="https://instagram.com/flickersofmajesty" rel="noopener noreferrer" target="_blank">Photo © Flickers of Majesty</a>
@@ -245,7 +263,7 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
     </div>
   </header>
 
-  <!-- Dropdown behavior (inline, no [hidden], no optional chaining) -->
+  <!-- Dropdown behavior with portal (no clipping, CMP-proof) -->
   <script>
   (function(){
     'use strict';
@@ -254,11 +272,91 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
     function qsa(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
     function ready(fn){ if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fn,{once:true});} else { fn(); } }
 
+    var PORTAL = null;
+    function ensurePortal(){
+      if (!PORTAL){
+        PORTAL = document.getElementById('nav-portal');
+        if (!PORTAL){
+          PORTAL = document.createElement('div');
+          PORTAL.id = 'nav-portal';
+          PORTAL.style.position = 'fixed';
+          PORTAL.style.left = '0';
+          PORTAL.style.top = '0';
+          PORTAL.style.width = '0';
+          PORTAL.style.height = '0';
+          PORTAL.style.zIndex = '2147483647';
+          PORTAL.style.pointerEvents = 'none';
+          document.body.appendChild(PORTAL);
+        }
+      }
+      return PORTAL;
+    }
+
+    function placeInPortal(group, menu){
+      var portal = ensurePortal(); if(!portal) return;
+
+      // keep original slot to preserve hover/focus geometry
+      menu.classList.add('portalized-placeholder');
+
+      // clone into the portal
+      var clone = menu.cloneNode(true);
+      clone.classList.remove('portalized-placeholder');
+      clone.style.position = 'fixed';
+      clone.style.pointerEvents = 'auto';
+      clone.style.zIndex = '2147483647';
+      clone.style.display = 'block';
+      clone.style.opacity = '1';
+      clone.style.visibility = 'visible';
+      clone.style.transform = 'translateY(0)';
+
+      var btn = qs('.nav-disclosure', group) || group;
+      var rect = btn.getBoundingClientRect();
+      var gap = 8;
+      clone.style.left = rect.left + 'px';
+      clone.style.top  = (rect.bottom + gap) + 'px';
+      clone.style.minWidth = Math.max(220, Math.round(rect.width)) + 'px';
+
+      // esc closes
+      on(clone,'keydown',function(e){
+        if(e.key==='Escape'){
+          setOpen(group,false);
+          closePortal(group, menu);
+          if (btn && btn.focus) btn.focus();
+        }
+      });
+
+      // add to portal
+      clone.dataset.portalFor = group.id || 'nav-group';
+      portal.appendChild(clone);
+
+      // click outside closes
+      var outside = function(e){
+        if (!clone.contains(e.target) && !group.contains(e.target)){
+          setOpen(group,false);
+          closePortal(group, menu);
+          document.removeEventListener('mousedown',outside,true);
+          document.removeEventListener('touchstart',outside,true);
+        }
+      };
+      document.addEventListener('mousedown',outside,true);
+      document.addEventListener('touchstart',outside,true);
+    }
+
+    function closePortal(group, menu){
+      var portal = ensurePortal(); if(!portal) return;
+      Array.prototype.slice.call(portal.children).forEach(function(n){
+        if(n.dataset.portalFor === (group.id || 'nav-group')) portal.removeChild(n);
+      });
+      menu.classList.remove('portalized-placeholder');
+    }
+
     function setOpen(group,on){
       if(!group) return;
       var btn  = qs('.nav-disclosure', group);
+      var menu = qs('.submenu', group);
       group.dataset.open = on ? 'true' : 'false';
       if(btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+      if (on){ placeInPortal(group, menu); } else { closePortal(group, menu); }
     }
     function toggle(group){ setOpen(group, group && group.dataset.open!=='true'); }
 
@@ -274,22 +372,28 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
 
       on(btn,'click',function(e){ e.preventDefault(); e.stopPropagation(); toggle(group); });
       on(btn,'keydown',function(e){
-        if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(group,true); var first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])'); if(first) first.focus(); }
+        if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(group,true); }
         if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); }
       });
       on(menu,'keydown',function(e){ if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); } });
-      on(menu,'focusout',function(){ setTimeout(function(){ if(!group.contains(document.activeElement)) setOpen(group,false); },0); });
 
-      // Close when clicking outside
-      on(document,'click',function(e){ if(!group.contains(e.target)) setOpen(group,false); });
+      // close when focus leaves both group and the portal clone
+      on(menu,'focusout',function(){ setTimeout(function(){
+        var portal = ensurePortal();
+        var active = document.activeElement;
+        var inGroup = group.contains(active);
+        var inClone = portal && Array.prototype.some.call(portal.children, function(c){ return c.contains(active); });
+        if(!inGroup && !inClone) setOpen(group,false);
+      },0); });
+
       // Touch-friendly toggle
-      on(group,'touchstart',function(e){ var btnEl = qs('.nav-disclosure', group); if(e.target===btnEl || (btnEl && btnEl.contains(e.target))){ e.preventDefault(); toggle(group); } },{passive:false});
+      on(group,'touchstart',function(e){
+        var btnEl = qs('.nav-disclosure', group);
+        if(e.target===btnEl || (btnEl && btnEl.contains(e.target))){ e.preventDefault(); toggle(group); }
+      },{passive:false});
     }
 
-    function wireNav(){
-      qsa('.navbar').forEach(function(n){ n.style.overflow='visible'; });
-      qsa('.nav-group').forEach(wireGroup);
-    }
+    function wireNav(){ qsa('.nav-group').forEach(wireGroup); }
     ready(wireNav);
   })();
   </script>
@@ -361,7 +465,7 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
     function ensureSiteCache(){
       return new Promise(function(resolve){
         if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
-        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.020a'); s.defer=true;
+        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.020b'); s.defer=true;
         s.onload=resolve; s.onerror=resolve; document.head.appendChild(s);
       });
     }
@@ -391,9 +495,9 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
     function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
 
     var SOURCES = [
-      '/assets/data/articles.json?v=3.009.020a',
-      '/solo/articles/index.json?v=3.009.020a',
-      '/travel/articles/index.json?v=3.009.020a'
+      '/assets/data/articles.json?v=3.009.020b',
+      '/solo/articles/index.json?v=3.009.020b',
+      '/travel/articles/index.json?v=3.009.020b'
     ];
     var HARD_FALLBACK = [
       { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2025-10-12', image:'/assets/articles/why-i-started-solo-cruising.jpg' },
@@ -457,7 +561,7 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
   <script>
   (function(){
     var mount=document.getElementById('authors-rail'); if(!mount) return;
-    var VERSION='3.009.020a';
+    var VERSION='3.009.020b';
     var GENERIC='/authors/img/author.webp';
 
     function esc(s){return String(s||'').replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]);});}
@@ -492,6 +596,18 @@ Page: /index.html · v3.009.020a (downward menus + unwarped logo + z-index/point
       mount.innerHTML = list.slice(0,4).map(row).join('');
     })();
   })();
+  </script>
+
+  <!-- Menu portal host (topmost, pointer-events off by default) -->
+  <div id="nav-portal" style="position:fixed;left:0;top:0;width:0;height:0;z-index:2147483647;pointer-events:none"></div>
+
+  <!-- Optional: Service Worker registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function(){
+        navigator.serviceWorker.register('/sw.js?v=3.009.021').catch(function(){});
+      });
+    }
   </script>
 </body>
 </html>
