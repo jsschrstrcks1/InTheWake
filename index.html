@@ -1,6 +1,6 @@
 <!--
-Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
-Page: /index.html · v3.009.014 (inline CSS + inline nav JS) · Built: 2025-10-21T00:00:00Z
+Soli Deo Gloria — Every pixel and part of this project is offered as worship to God.
+Page: /index.html · v3.009.014 (inline CSS + fixed dropdowns + dates) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
@@ -96,6 +96,7 @@ Page: /index.html · v3.009.014 (inline CSS + inline nav JS) · Built: 2025-10-2
   }</script>
 
   <!-- Site cache & SW -->
+  <script src="/assets/js/site-cache.js?v=3.009.014" defer></script>
   <script>
   if ('serviceWorker' in navigator) {
     addEventListener('load', function(){
@@ -104,83 +105,76 @@ Page: /index.html · v3.009.014 (inline CSS + inline nav JS) · Built: 2025-10-2
   }
   </script>
 
-  <!-- All styles inline -->
+  <!-- LCP image preload -->
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.014" fetchpriority="high">
+
+  <!-- Inline CSS (self-contained) -->
   <style>
-    /* ===== Variables / base ===== */
     :root{
       --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-      --compass-tint: invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
     body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--ink);background:var(--sky);line-height:1.55}
-    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-    img{max-width:100%;height:auto;display:block}
-    .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
 
-    /* ===== Skip link ===== */
+    /* Skip link */
     .skip-link{
       position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
     }
     .skip-link:focus{
-      left:.75rem;top:.5rem;width:auto;height:auto;padding:.35rem .6rem;background:#0e6e8e;color:#fff;border-radius:10px;z-index:1000;outline:0;
+      left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:1000;outline:0;
     }
 
-    /* ===== Header / hero ===== */
+    /* Header + hero */
     .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-    .hero{position:relative;width:100%;margin-left:0;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.014') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;z-index:1}
-    .latlon-grid{position:absolute;inset:0;pointer-events:none}
-    .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2;filter:var(--compass-tint) drop-shadow(0 2px 6px rgba(0,0,0,.25));pointer-events:none}
-    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
-    .tagline{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(.55rem,1.6vw,1.1rem);font-weight:700;letter-spacing:.2px;color:#e6f4f8;text-shadow:0 2px 6px rgba(0,0,0,.45);font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3}
-    .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
-    .hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15);text-decoration:none}
-
-    /* ===== Navbar (single-line pills + dropdowns) ===== */
     .navbar{
-      display:flex;align-items:flex-end;gap:.6rem;max-width:1100px;margin:0 auto;
-      padding:.5rem .9rem .35rem;position:relative;z-index:6;overflow:visible;
+      max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:6;overflow:visible;
     }
-    .brand{display:flex;align-items:flex-end;gap:.6rem;flex:0 0 auto}
-    .brand img{height:28px;width:auto}
+    .brand{display:flex;align-items:flex-end;gap:.6rem}
+    .brand img{height:28px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-    .pill-nav.pills{
-      flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;
-      white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
-      padding-inline:.75rem;scroll-padding-inline:.75rem;
+
+    .pill-nav{
+      flex:1 1 auto; min-width:0; display:flex; align-items:center; justify-content:center;
+      gap:.45rem; white-space:nowrap; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; padding-inline:.75rem; scroll-padding-inline:.75rem;
+      -webkit-overflow-scrolling:touch; scrollbar-width:thin;
       mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
       -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
     }
     .pill-nav a,.pill-nav button.nav-disclosure{
-      display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);
-      font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none;
+      display:inline-flex; align-items:center; gap:.35rem; padding:.35rem .7rem; border-radius:10px; background:#fff; border:1px solid var(--rope);
+      color:var(--accent); font:inherit; font-size:.9rem; line-height:1.2; cursor:pointer; text-decoration:none;
     }
-    .pill-nav a:hover,.pill-nav button.nav-disclosure:hover{background:#f9fdfd;text-decoration:none}
-    .pill-nav a[aria-current="page"]{
-      outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
-    }
+    .pill-nav a:hover,.pill-nav button.nav-disclosure:hover{background:#f9fdfd; text-decoration:none}
+    .pill-nav a[aria-current="page"]{ outline:3px dashed var(--rope); outline-offset:2px; box-shadow:0 0 0 3px rgba(200,163,106,.15) inset; }
 
     /* Dropdowns */
-    .nav-group{position:relative;display:inline-block}
+    .nav-group{position:relative}
     .submenu{
-      position:absolute;left:0;top:calc(100% + 6px);min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;padding:.35rem;
-      box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;z-index:20;
+      position:absolute; left:0; top:calc(100% + 6px); min-width:220px; background:#fff; border:1px solid var(--rope); border-radius:12px;
+      padding:.35rem; box-shadow:0 8px 24px rgba(8,48,65,.12); display:none !important; visibility:hidden; opacity:0; pointer-events:none; z-index:20;
     }
-    .nav-group[data-open="true"] .submenu{display:block}
-    .submenu a{display:block;padding:.35rem .6rem;border-radius:8px;border:1px solid transparent;color:inherit;white-space:nowrap}
-    .submenu a:hover{background:#f9fdfd;border-color:#ecd7b7;text-decoration:none}
+    .nav-group[data-open="true"] > .submenu{ display:block !important; visibility:visible; opacity:1; pointer-events:auto; }
 
-    /* ===== Content ===== */
+    /* Hero */
+    .hero{ position:relative; width:100% !important; margin-left:0 !important; min-height:clamp(200px,24vw,340px);
+      background:url('/assets/index_hero.jpg?v=3.009.014') 50% 50% / cover no-repeat; display:flex; align-items:flex-end; overflow:hidden; }
+    .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
+    .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;text-decoration:none}
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
+
+    /* Content */
+    .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+    .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
     h1,h2,h3{color:var(--sea)}
+    .tiny{font-size:.88rem;color:#456}
+
+    /* Layout */
     .layout{display:grid;gap:1rem;grid-template-columns:1fr}
     @media (min-width:980px){ .layout{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)} }
-    .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
-    .grid-3{display:grid;gap:1rem;margin-top:1rem}
-    @media (min-width:760px){ .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))} }
-    @media (min-width:1100px){ .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))} }
 
-    /* Right rail */
+    /* Rails + posts */
     #journal-rail,#authors-rail{display:grid;gap:1rem}
     .post-card{display:flex;flex-direction:column;gap:.5rem}
     .post-card .thumb{aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:#eef4f7}
@@ -190,13 +184,14 @@ Page: /index.html · v3.009.014 (inline CSS + inline nav JS) · Built: 2025-10-2
     .rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
     .author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover}
 
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-    }
+    /* Primary sections grid */
+    .grid-3{display:grid;gap:1rem;margin-top:1rem}
+    @media (min-width:760px){ .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))} }
+    @media (min-width:1100px){ .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))} }
 
-    /* Safety: no horizontal bleed */
-    html,body{overflow-x:hidden}
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+    }
   </style>
 </head>
 
@@ -206,22 +201,23 @@ Page: /index.html · v3.009.014 (inline CSS + inline nav JS) · Built: 2025-10-2
 
   <!-- Header wraps navbar + hero -->
   <header class="site-header hero-header">
-    <!-- Unified Nav (inline-wired) -->
+    <!-- Unified Nav -->
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.009.014" width="256" height="64" alt="In the Wake wordmark">
         <span class="tiny version-badge">v3.009.014</span>
       </div>
 
-      <nav class="pill-nav pills" aria-label="Primary">
-        <a href="/">Home</a>
-
-        <!-- Profit-center: top-level -->
+      <nav class="pill-nav" aria-label="Primary">
+        <a href="/" aria-current="page">Home</a>
+        <!-- Profit-center -->
         <a href="/packing-lists.html">Packing Lists</a>
 
-        <!-- Planning -->
+        <!-- Planning group -->
         <div class="nav-item nav-group" id="nav-planning">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+            Planning ▾
+          </button>
           <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
             <a role="menuitem" href="/planning.html">Planning (overview)</a>
             <a role="menuitem" href="/ports.html">Ports</a>
@@ -234,9 +230,11 @@ Page: /index.html · v3.009.014 (inline CSS + inline nav JS) · Built: 2025-10-2
           </div>
         </div>
 
-        <!-- Travel -->
+        <!-- Travel group -->
         <div class="nav-item nav-group" id="nav-travel">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel ▾
+          </button>
           <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
             <a role="menuitem" href="/travel.html">Travel (overview)</a>
             <a role="menuitem" href="/solo.html">Solo</a>
@@ -250,46 +248,66 @@ Page: /index.html · v3.009.014 (inline CSS + inline nav JS) · Built: 2025-10-2
     <!-- Hero -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true" style="position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);z-index:2;pointer-events:none">
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake.png?v=3.009.014" width="256" height="64" alt="In the Wake">
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
+        <div class="tagline" style="color:#e6f4f8;font-weight:700;letter-spacing:.2px;font-size:clamp(.9rem,1.5vw,1.35rem)">A Cruise Traveler’s Logbook</div>
       </div>
-      <div class="hero-credit"><a class="pill long" href="https://instagram.com/flickersofmajesty" rel="noopener noreferrer" target="_blank">Photo © Flickers of Majesty</a></div>
+      <div class="hero-credit">
+        <a class="pill" href="https://instagram.com/flickersofmajesty" rel="noopener noreferrer" target="_blank">Photo © Flickers of Majesty</a>
+      </div>
     </div>
   </header>
 
-  <!-- Inline nav wiring (no external JS dependency) -->
+  <!-- Dropdown behavior (inline, no external JS) -->
   <script>
   (function(){
-    function wire(group){
+    'use strict';
+    const on  = (el,evt,fn,opts)=>el&&el.addEventListener(evt,fn,opts||false);
+    const qs  = (s,r=document)=>r.querySelector(s);
+    const qsa = (s,r=document)=>Array.from(r.querySelectorAll(s));
+    const ready = (fn)=>document.readyState==='loading' ? document.addEventListener('DOMContentLoaded',fn,{once:true}) : fn();
+
+    function setOpen(group,on){
       if(!group) return;
-      const btn  = group.querySelector('.nav-disclosure');
-      const menu = group.querySelector('.submenu');
-      if(!btn || !menu) return;
-
-      const setOpen = (on)=>{ group.dataset.open = on ? 'true' : 'false'; btn.setAttribute('aria-expanded', on ? 'true' : 'false'); };
-
-      // Toggle on click
-      btn.addEventListener('click', e => { e.preventDefault(); setOpen(group.dataset.open!=='true'); });
-
-      // Close when clicking outside
-      document.addEventListener('click', e => { if(!group.contains(e.target)) setOpen(false); });
-
-      // Keyboard a11y
-      btn.addEventListener('keydown', e => {
-        if(e.key==='ArrowDown'){ setOpen(true); const first=menu.querySelector('a'); if(first) first.focus(); e.preventDefault(); }
-        if(e.key==='Escape'){ setOpen(false); btn.focus(); }
-      });
-      menu.addEventListener('keydown', e => { if(e.key==='Escape'){ setOpen(false); btn.focus(); } });
+      const btn  = qs('.nav-disclosure', group);
+      const menu = qs('.submenu', group);
+      group.dataset.open = on ? 'true' : 'false';
+      if(btn)  btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+      if(menu){ menu.hidden = !on; menu.style.display = on ? 'block' : 'none'; }
     }
-    // Wire both groups
-    wire(document.getElementById('nav-planning'));
-    wire(document.getElementById('nav-travel'));
+    function toggle(group){ setOpen(group, group?.dataset.open!=='true'); }
+
+    function wireGroup(group){
+      const btn  = qs('.nav-disclosure', group) || qs('button, a', group);
+      const menu = qs('.submenu', group);
+      if(!btn || !menu) return;
+      if(!menu.id){ menu.id = 'menu-' + Math.random().toString(36).slice(2); }
+      btn.setAttribute('aria-controls', menu.id);
+      btn.setAttribute('type','button');
+      btn.setAttribute('aria-haspopup','true');
+      setOpen(group,false);
+
+      on(btn,'click',e=>{ e.preventDefault(); e.stopPropagation(); toggle(group); });
+      on(document,'click',e=>{ if(!group.contains(e.target)) setOpen(group,false); });
+
+      on(btn,'keydown',e=>{
+        if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(group,true); qs('a,button,[tabindex]:not([tabindex="-1"])',menu)?.focus(); }
+        if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); }
+      });
+      on(menu,'keydown',e=>{ if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); } });
+      on(menu,'focusout',()=>setTimeout(()=>{ if(!group.contains(document.activeElement)) setOpen(group,false); },0));
+    }
+
+    function wireNav(){
+      qsa('.navbar').forEach(n=>n.style.overflow='visible');
+      qsa('.nav-group').forEach(wireGroup);
+    }
+    ready(wireNav);
   })();
   </script>
 
-  <!-- Main -->
+  <!-- Two-column layout: content (left) + right rail -->
   <main id="content" class="wrap" role="main" aria-label="Main content">
     <div class="layout">
       <!-- LEFT: Intro + three-wide sections -->
@@ -344,7 +362,7 @@ Page: /index.html · v3.009.014 (inline CSS + inline nav JS) · Built: 2025-10-2
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
+    <p class="tiny" style="text-align:center;margin-top:.5rem">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God.</p>
   </footer>
 
   <!-- Warmup + cache -->
@@ -375,41 +393,46 @@ Page: /index.html · v3.009.014 (inline CSS + inline nav JS) · Built: 2025-10-2
   })();
   </script>
 
-  <!-- Journal rail (with dates updated) -->
+  <!-- Journal rail hydrator (dates updated) -->
   <script>
   (function(){
-    var MOUNT=document.getElementById('journal-rail');
-    var FALL=document.getElementById('journal-rail-fallback');
-    if(!MOUNT) return;
-    function showFallback(on){ if(FALL) FALL.style.display=on?'':'none'; }
+    var MOUNT = document.getElementById('journal-rail');
+    var FALL  = document.getElementById('journal-rail-fallback');
+    if (!MOUNT) return;
+
+    function showFallback(on){ if (!FALL) return; FALL.style.display = on ? '' : 'none'; }
     function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
 
-    var SOURCES=[
+    var SOURCES = [
       '/assets/data/articles.json?v=3.009.014',
       '/solo/articles/index.json?v=3.009.014',
       '/travel/articles/index.json?v=3.009.014'
     ];
-    var HARD_FALLBACK=[
+    var HARD_FALLBACK = [
       { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2025-10-12', image:'/assets/articles/why-i-started-solo-cruising.jpg' },
       { url:'/solo/freedom-of-your-own-wake.html',   title:'Freedom of Your Own Wake',    dek:'On choosing solitude without being alone.',     date:'2025-10-13', image:'/assets/articles/freedom-of-your-own-wake.jpg' }
     ];
 
     function normalize(feed){
-      var arr=Array.isArray(feed?.articles)?feed.articles:(Array.isArray(feed)?feed:[]);
+      var arr = Array.isArray(feed?.articles)? feed.articles : (Array.isArray(feed)? feed : []);
       return arr.map(function(a){
         var to=a.url||a.permalink||'#';
         if(/^\/solo\/articles\/.+\.html$/.test(to)) to=to.replace('/solo/articles/','/solo/');
-        return { url:abs(to), title:String(a.title||a.headline||'Article').trim(),
-          dek:String(a.dek||a.description||a.excerpt||'').trim(),
-          date:String(a.date||a.datePublished||'').trim(),
-          image:a.image?abs(a.image):'' };
+        return {
+          url: abs(to),
+          title: String(a.title||a.headline||'Article').trim(),
+          dek: String(a.dek||a.description||a.excerpt||'').trim(),
+          date: String(a.date||a.datePublished||'').trim(),
+          image: a.image? abs(a.image):''
+        };
       }).filter(function(x){ return x.url && x.url!=='#'; });
     }
 
     function tryFetch(url){
       return fetch(abs(url),{cache:'no-store'})
         .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .then(normalize).catch(function(){ return []; });
+        .then(normalize)
+        .catch(function(){ return []; });
     }
 
     function render(items){
@@ -434,16 +457,16 @@ Page: /index.html · v3.009.014 (inline CSS + inline nav JS) · Built: 2025-10-2
     (function boot(){
       showFallback(true);
       (function chain(i, collected){
-        if(i>=SOURCES.length){ render(collected.length?collected:HARD_FALLBACK); return; }
+        if (i>=SOURCES.length){ render(collected.length?collected:HARD_FALLBACK); return; }
         tryFetch(SOURCES[i]).then(function(items){
-          chain(i+1,(collected||[]).concat(items));
+          chain(i+1, (collected||[]).concat(items));
         });
-      })(0,[]);
+      })(0, []);
     })();
   })();
   </script>
 
-  <!-- Featured Authors rail -->
+  <!-- Featured Authors rail hydrator -->
   <script>
   (function(){
     var mount=document.getElementById('authors-rail'); if(!mount) return;
