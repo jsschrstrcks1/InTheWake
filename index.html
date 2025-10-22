@@ -1,14 +1,18 @@
 <!--
-Soli Deo Gloria — Every pixel and part of this project is offered as worship to God.
-Page: /index.html · v3.009.016 (inline CSS + fixed dropdowns + no [hidden] + dates) · Built: 2025-10-21T00:00:00Z
+Soli Deo Gloria — Diagnostic build to isolate dropdown failure.
+Page: /index.html · v3.009.017-diagnostic (nav debug + overlay detection) · Built: 2025-10-21T00:00:00Z
 -->
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Consent (first to honor autoblocking) -->
-  <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js" data-cmp-host="a.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
+  <!-- Consent (kept to test interference). If this blocks, logs will show it. -->
+  <script type="text/javascript" data-cmp-ab="1"
+          src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+          data-cmp-host="a.delivery.consentmanager.net"
+          data-cmp-cdn="cdn.consentmanager.net"
+          data-cmp-codesrc="16"></script>
 
-  <!-- Analytics -->
+  <!-- Analytics (left as-is) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);} gtag('js',new Date()); gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
@@ -18,89 +22,18 @@ Page: /index.html · v3.009.016 (inline CSS + fixed dropdowns + no [hidden] + da
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="page:version" content="3.009.016">
+  <meta name="page:version" content="3.009.017-diagnostic">
   <meta name="standards:baseline" content="3.009">
-  <title>In the Wake | A Cruise Traveler’s Logbook & Planning Companion</title>
-  <meta name="description" content="Stop guessing and start sailing with confidence. Honest ship reviews, menu scans, port snapshots, accessibility notes, and solo travel tips based on real sailings.">
-  <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
-
-  <!-- Canonical & Social -->
+  <title>In the Wake | Diagnostic Nav Build</title>
+  <meta name="description" content="Diagnostic build to troubleshoot dropdown nav behavior.">
   <link rel="canonical" href="https://www.cruisinginthewake.com/"/>
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="In the Wake">
-  <meta property="og:url" content="https://www.cruisinginthewake.com/">
-  <meta property="og:title" content="In the Wake | A Cruise Traveler’s Logbook & Planning Companion">
-  <meta property="og:description" content="Ship reviews, menus, ports, accessibility notes, and trip-tested planning from real sailings.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/home-hero.jpg?v=3.009.016">
-  <meta name="twitter:card" content="summary_large_image">
 
-  <!-- PWA / icons -->
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0a3d62">
-  <meta name="color-scheme" content="light dark">
-  <link rel="icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-  <!-- URL normalizer (prod → current origin) -->
-  <script>
-  (function(){
-    var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(path){ path=String(path||''); if(!path.match(/^\//)) path='/'+path; return ORIGIN+path; };
-    function normalize(){
-      var sel=[
-        'a[href^="https://www.cruisinginthewake.com/"]',
-        'img[src^="https://www.cruisinginthewake.com/"]',
-        'link[href^="https://www.cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]'
-      ].join(',');
-      document.querySelectorAll(sel).forEach(function(el){
-        var attr=el.hasAttribute('href')?'href':'src';
-        try{ var u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
-      });
-    }
-    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', normalize, {once:true}); } else { normalize(); }
-  })();
-  </script>
-
-  <!-- External link hardener -->
-  <script>
-  (function(){
-    var here=location.hostname.replace(/^www\./,'');
-    function upgrade(){
-      document.querySelectorAll('a[href]').forEach(function(a){
-        var href=a.getAttribute('href')||'';
-        if (/^(#|mailto:|tel:)/i.test(href)) return;
-        try{
-          var u=new URL(href, location.href);
-          if(u.hostname.replace(/^www\./,'')!==here || a.rel==='external'){
-            a.target='_blank';
-            var parts=(a.rel||'').split(/\s+/).filter(Boolean);
-            if(!parts.includes('noopener')) parts.push('noopener');
-            if(!parts.includes('noreferrer')) parts.push('noreferrer');
-            a.rel=parts.join(' ');
-          }
-        }catch(_){}
-      });
-    }
-    if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', upgrade, {once:true}); } else { upgrade(); }
-  })();
-  </script>
-
-  <!-- JSON-LD: WebSite + SearchAction -->
-  <script type="application/ld+json">{
-    "@context":"https://schema.org","@type":"WebSite",
-    "name":"In the Wake","url":"https://www.cruisinginthewake.com/",
-    "potentialAction":{"@type":"SearchAction",
-      "target":"https://www.cruisinginthewake.com/search.html?q={query}",
-      "query-input":"required name=query"}
-  }</script>
-
-  <!-- LCP image preload -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.016" fetchpriority="high">
+  <!-- Preload hero (kept) -->
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.017" fetchpriority="high">
 
   <!-- Inline CSS (self-contained) -->
   <style>
-    :root{ --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e; }
+    :root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e;}
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
     body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--ink);background:var(--sky);line-height:1.55}
@@ -109,12 +42,12 @@ Page: /index.html · v3.009.016 (inline CSS + fixed dropdowns + no [hidden] + da
 
     /* Header + hero */
     .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:6;overflow:visible}
+    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:1000;overflow:visible}
     .brand{display:flex;align-items:flex-end;gap:.6rem}
     .brand img{height:28px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-    .pill-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding-inline:.75rem;scroll-padding-inline:.75rem}
+    .pill-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding-inline:.75rem}
     .pill-nav a,.pill-nav button.nav-disclosure{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none}
     .pill-nav a:hover,.pill-nav button.nav-disclosure:hover{background:#f9fdfd}
     .pill-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
@@ -123,17 +56,17 @@ Page: /index.html · v3.009.016 (inline CSS + fixed dropdowns + no [hidden] + da
     .nav-group{position:relative}
     .submenu{
       position:absolute;left:0;top:calc(100% + 6px);min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;
-      padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:20
+      padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:10000
     }
-    /* 3 ways to open: JS data attr, keyboard focus, or hover */
+    /* Open states: JS data attribute, focus, or hover */
     .nav-group[data-open="true"]>.submenu,
     .nav-group:focus-within>.submenu,
     .nav-group:hover>.submenu{
-      display:block;visibility:visible;opacity:1;pointer-events:auto
+      display:block !important; visibility:visible !important; opacity:1 !important; pointer-events:auto !important;
     }
 
     /* Hero */
-    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.016') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden}
+    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.009.017') 50% 50%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
     .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;text-decoration:none}
     .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
@@ -144,50 +77,46 @@ Page: /index.html · v3.009.016 (inline CSS + fixed dropdowns + no [hidden] + da
     .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
     h1,h2,h3{color:var(--sea)}
     .tiny{font-size:.88rem;color:#456}
-
-    /* Layout */
     .layout{display:grid;gap:1rem;grid-template-columns:1fr}
     @media (min-width:980px){.layout{grid-template-columns:minmax(0,2fr) minmax(320px,1fr)}}
-
-    /* Rails + posts */
     #journal-rail,#authors-rail{display:grid;gap:1rem}
     .post-card{display:flex;flex-direction:column;gap:.5rem}
     .post-card .thumb{aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:#eef4f7}
     .post-card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
     .post-card h3{font-size:1.05rem;line-height:1.25;margin:.25rem 0}
     .post-card .meta{font-size:.85rem;opacity:.8}
-    .rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
-    .author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover}
-
-    /* Primary sections grid */
     .grid-3{display:grid;gap:1rem;margin-top:1rem}
     @media (min-width:760px){.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media (min-width:1100px){.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
-    @media (prefers-reduced-motion:reduce){
-      *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+    /* DIAGNOSTIC: outline open groups so you can *see* state change */
+    .nav-group[data-open="true"]{ outline:2px solid #e60026; outline-offset:2px; }
+
+    /* DIAGNOSTIC: floating logger */
+    #nav-debug{
+      position:fixed;right:.5rem;bottom:.5rem;z-index:999999;background:#011627;color:#e6f4f8;
+      font:12px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid #334; border-radius:8px; padding:.5rem .6rem; max-width:44ch
     }
+    #nav-debug b{color:#ffdd57}
+    #nav-debug .bad{color:#ff6b6b}
+    #nav-debug .ok{color:#7ef7a1}
   </style>
 </head>
 
 <body class="page">
-  <!-- Skip-to-content -->
   <a href="#content" class="skip-link">Skip to main content</a>
 
-  <!-- Header wraps navbar + hero -->
   <header class="site-header hero-header">
-    <!-- Unified Nav -->
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.009.016" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.009.016</span>
+        <img src="/assets/logo_wake.png?v=3.009.017" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.009.017-diagnostic</span>
       </div>
 
       <nav class="pill-nav" aria-label="Primary">
         <a href="/" aria-current="page">Home</a>
         <a href="/packing-lists.html">Packing Lists</a>
 
-        <!-- Planning group -->
         <div class="nav-item nav-group" id="nav-planning">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
             Planning ▾
@@ -204,7 +133,6 @@ Page: /index.html · v3.009.016 (inline CSS + fixed dropdowns + no [hidden] + da
           </div>
         </div>
 
-        <!-- Travel group -->
         <div class="nav-item nav-group" id="nav-travel">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
             Travel ▾
@@ -219,11 +147,11 @@ Page: /index.html · v3.009.016 (inline CSS + fixed dropdowns + no [hidden] + da
       </nav>
     </div>
 
-    <!-- Hero -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true" style="position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);z-index:2;pointer-events:none">
+      <img class="hero-compass" src="/assets/compass_rose.svg" width="180" height="180" alt="" aria-hidden="true"
+           style="position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);z-index:2;pointer-events:none">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.009.016" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.009.017" width="256" height="64" alt="In the Wake">
         <div class="tagline" style="color:#e6f4f8;font-weight:700;letter-spacing:.2px;font-size:clamp(.9rem,1.5vw,1.35rem)">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
@@ -232,34 +160,64 @@ Page: /index.html · v3.009.016 (inline CSS + fixed dropdowns + no [hidden] + da
     </div>
   </header>
 
-  <!-- Dropdown behavior (inline, no [hidden], no optional chaining) -->
+  <!-- DIAGNOSTIC LOGGER UI -->
+  <div id="nav-debug" role="status" aria-live="polite">
+    <b>NavDiag v3.009.017</b><br>
+    Waiting for script…
+  </div>
+
+  <!-- Diagnostic dropdown behavior -->
   <script>
   (function(){
     'use strict';
-    function on(el,evt,fn,opt){ if(el) el.addEventListener(evt,fn,opt||false); }
-    function qs(s,r){ return (r||document).querySelector(s); }
-    function qsa(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
-    function ready(fn){ if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fn,{once:true});} else { fn(); } }
+    var dbg = document.getElementById('nav-debug');
+    var log = function(msg){ if(dbg){ dbg.innerHTML = dbg.innerHTML.split('\n').slice(-20).join('\n'); dbg.innerHTML += '<br>'+msg; } console.log('[NavDiag]', msg); };
+    var on  = function(el,evt,fn,opt){ if(el) el.addEventListener(evt,fn,opt||false); };
+    var qs  = function(s,r){ return (r||document).querySelector(s); };
+    var qsa = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+    var ready=function(fn){ if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fn,{once:true});} else { fn(); } };
+
+    function topElementAt(el){
+      try{
+        var rect = el.getBoundingClientRect();
+        var x = Math.floor(rect.left + Math.min(10, Math.max(2, rect.width/2)));
+        var y = Math.floor(rect.top  + Math.min(10, Math.max(2, rect.height/2)));
+        return document.elementFromPoint(x,y);
+      }catch(_){ return null; }
+    }
 
     function setOpen(group,on){
       if(!group) return;
       var btn  = qs('.nav-disclosure', group);
+      var menu = qs('.submenu', group);
       group.dataset.open = on ? 'true' : 'false';
       if(btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+      if(on && menu){
+        // force over everything during debug
+        menu.style.zIndex = '999999';
+      }
+      log('setOpen('+group.id+','+on+') → data-open='+group.dataset.open);
     }
-    function toggle(group){ setOpen(group, group && group.dataset.open!=='true'); }
 
-    function wireGroup(group){
+    function wireGroup(group, ix){
       var btn  = qs('.nav-disclosure', group) || qs('button, a', group);
       var menu = qs('.submenu', group);
-      if(!btn || !menu) return;
-      if(!menu.id){ menu.id = 'menu-' + Math.random().toString(36).slice(2); }
+      if(!btn || !menu){ log('<span class="bad">Group '+(group.id||ix)+' missing btn/menu</span>'); return; }
+      if(!menu.id){ menu.id = 'menu-'+(ix+1); }
       btn.setAttribute('aria-controls', menu.id);
       btn.setAttribute('type','button');
       btn.setAttribute('aria-haspopup','true');
       setOpen(group,false);
 
-      on(btn,'click',function(e){ e.preventDefault(); e.stopPropagation(); toggle(group); });
+      on(btn,'click',function(e){
+        var top = topElementAt(btn);
+        if(top && top!==btn && !btn.contains(top)){
+          log('<span class="bad">Click intercepted by '+(top.id?('#'+top.id):('<'+top.tagName.toLowerCase()+'>'))+'</span>');
+        }
+        e.preventDefault(); e.stopPropagation();
+        setOpen(group, group.dataset.open!=='true');
+      });
+
       on(btn,'keydown',function(e){
         if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(group,true); var first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])'); if(first) first.focus(); }
         if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); }
@@ -269,216 +227,78 @@ Page: /index.html · v3.009.016 (inline CSS + fixed dropdowns + no [hidden] + da
 
       // Close when clicking outside
       on(document,'click',function(e){ if(!group.contains(e.target)) setOpen(group,false); });
-      // Touch-friendly open on first tap anywhere on the pill area
-      on(group,'touchstart',function(e){ if(e.target===btn || btn.contains(e.target)){ e.preventDefault(); toggle(group); } },{passive:false});
+
+      // Touch open
+      on(group,'touchstart',function(e){ if(e.target===btn || btn.contains(e.target)){ e.preventDefault(); setOpen(group, group.dataset.open!=='true'); } },{passive:false});
+
+      // Initial overlay test
+      var atop = topElementAt(btn);
+      if(atop && atop!==btn && !btn.contains(atop)){
+        log('<span class="bad">Overlay above '+(group.id||('group#'+(ix+1)))+': '+(atop.id?('#'+atop.id):('<'+atop.tagName.toLowerCase()+'>'))+'</span>');
+      } else {
+        log('<span class="ok">Clickable: '+(group.id||('group#'+(ix+1)))+'</span>');
+      }
+    }
+
+    function detectConsent(){
+      var suspects = [
+        '#cmp_overlay','#cmpbox','#cmplz-cookiebanner',
+        '[id*="consent"]','[class*="consent"]','[id*="cmp"]','[class*="cmp"]'
+      ].map(function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); })
+       .flat().filter(Boolean);
+      if(suspects.length){
+        log('<span class="bad">Consent/overlay nodes present: '+suspects.map(function(n){return n.id?('#'+n.id):n.tagName;}).join(', ')+'</span>');
+      } else {
+        log('<span class="ok">No obvious consent overlay</span>');
+      }
     }
 
     function wireNav(){
-      qsa('.navbar').forEach(function(n){ n.style.overflow='visible'; });
-      qsa('.nav-group').forEach(wireGroup);
+      log('<b>Boot</b> DOM ready. Wiring nav…');
+      qsa('.navbar').forEach(function(n){ n.style.overflow='visible'; n.style.zIndex='1000'; });
+      var groups = qsa('.nav-group');
+      log('Found '+groups.length+' .nav-group element(s).');
+      groups.forEach(wireGroup);
+      window.NavDiag = {
+        openAll: function(){ groups.forEach(function(g){ setOpen(g,true); }); },
+        closeAll:function(){ groups.forEach(function(g){ setOpen(g,false); }); },
+        clickAll:function(){ groups.forEach(function(g){ var b=qs('.nav-disclosure',g); if(b){ b.click(); } }); }
+      };
+      detectConsent();
+      log('<b>Ready</b>. Try clicking “Planning ▾” or run NavDiag.openAll() in console.');
     }
     ready(wireNav);
   })();
   </script>
 
-  <!-- Two-column layout: content (left) + right rail -->
   <main id="content" class="wrap" role="main" aria-label="Main content">
     <div class="layout">
-      <!-- LEFT: Intro + three-wide sections -->
       <section>
         <section class="card" aria-labelledby="page-title">
           <h1 id="page-title">Welcome Aboard</h1>
           <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
-          <p>
-            Mariners know a small truth with big comfort: the calmest water lies in the wake of another boat.
-            Tuck in behind a steady hull and the chop softens, the course steadies, and the hard parts feel easier.
-            <em>In the Wake</em> exists to be that smooth water for your cruise planning.
-          </p>
-          <p>
-            We sail ahead—collecting real-world details from actual voyages—so you can follow with confidence.
-            Compare ships and classes, scan menus and prices, scout cabins, and spot accessibility notes without all the whitecaps.
-            The goal isn’t to sell you anything; it’s to take the friction out of decisions so your trip feels effortless.
-            Fair winds—and gentler seas—in our wake.
-          </p>
+          <p>Diagnostic build: if the dropdown still won’t appear, the console + yellow panel at bottom-right will tell us whether clicks are intercepted or the menu is behind another layer.</p>
         </section>
 
-        <!-- Three-wide primary sections grid -->
         <section class="grid-3" aria-label="Primary sections">
           <section class="card"><h3><a href="/ships/">Ships →</a></h3><p>Class overviews, per-ship pages, and cross-links to restaurants.</p></section>
           <section class="card"><h3><a href="/restaurants.html">Restaurants &amp; Menus →</a></h3><p>Flagship venues, menus, price bands, and allergen notes.</p></section>
           <section class="card"><h3><a href="/ports.html">Ports →</a></h3><p>Quick snapshots, local tips, and map context.</p></section>
-          <section class="card"><h3><a href="/accessibility.html">Accessibility →</a></h3><p>Practical guidance from real sailings.</p></section>
-          <section class="card"><h3><a href="/drink-packages.html">Drink Packages →</a></h3><p>What’s included and where to save.</p></section>
-          <section class="card"><h3><a href="/packing-lists.html">Packing Lists →</a></h3><p>Trip-tested lists for different routes and seasons.</p></section>
-          <section class="card"><h3><a href="/planning.html">Planning →</a></h3><p>Pre/post-cruise logistics, documents, and timing.</p></section>
-          <section class="card"><h3><a href="/solo.html">Solo →</a></h3><p>Cabin picks and social spots that click.</p></section>
-          <section class="card"><h3><a href="/travel.html">Travel →</a></h3><p>Air, hotels, insurance, and stitching trips together.</p></section>
         </section>
       </section>
 
-      <!-- RIGHT: Journal + Featured Authors rail -->
       <aside aria-label="Right rail">
         <section class="card" aria-labelledby="journal-title">
           <h2 id="journal-title">From the Journal</h2>
-          <p class="tiny dek">Articles from our writers’ wakes.</p>
-          <div id="journal-rail" aria-busy="true"></div>
-          <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
-        </section>
-
-        <section class="card" aria-labelledby="authors-title">
-          <h2 id="authors-title">Featured Authors</h2>
-          <div id="authors-rail" class="rail-list" role="list"></div>
+          <div id="journal-rail" class="tiny">Intentionally minimized for diagnostics.</div>
         </section>
       </aside>
     </div>
   </main>
 
   <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
-    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <p class="tiny" style="text-align:center;margin-top:.5rem">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God.</p>
+    © 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria.</p>
   </footer>
-
-  <!-- Warmup + cache -->
-  <script>
-  (function(){
-    function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
-    function ready(fn){ return (document.readyState==='loading') ? document.addEventListener('DOMContentLoaded', fn, {once:true}) : fn(); }
-    function idle(fn){ return ('requestIdleCallback' in window) ? requestIdleCallback(fn, {timeout:2500}) : setTimeout(fn, 200); }
-    function ensureSiteCache(){
-      return new Promise(function(resolve){
-        if(window.SiteCache&&typeof SiteCache.getJSON==='function') return resolve();
-        var s=document.createElement('script'); s.src=abs('/assets/js/site-cache.js?v=3.009.016'); s.defer=true;
-        s.onload=resolve; s.onerror=resolve; document.head.appendChild(s);
-      });
-    }
-    ready(function(){
-      try{ fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(function(){});}catch(_){}
-      idle(function(){
-        ensureSiteCache().then(function(){
-          Promise.allSettled([
-            SiteCache.getJSON(abs('/assets/data/fleet_index.json'),{ttlDays:7,versionPath:['version']}),
-            SiteCache.getJSON(abs('/assets/data/venues.json'),{ttlDays:7,versionPath:['meta','version']}),
-            SiteCache.getJSON(abs('/assets/data/personas/index.json'),{ttlDays:7,versionPath:['version']})
-          ]);
-        });
-      });
-    });
-  })();
-  </script>
-
-  <!-- Journal rail hydrator (dates updated) -->
-  <script>
-  (function(){
-    var MOUNT = document.getElementById('journal-rail');
-    var FALL  = document.getElementById('journal-rail-fallback');
-    if (!MOUNT) return;
-
-    function showFallback(on){ if (!FALL) return; FALL.style.display = on ? '' : 'none'; }
-    function abs(p){ return (typeof window._abs==='function') ? _abs(p) : p; }
-
-    var SOURCES = [
-      '/assets/data/articles.json?v=3.009.016',
-      '/solo/articles/index.json?v=3.009.016',
-      '/travel/articles/index.json?v=3.009.016'
-    ];
-    var HARD_FALLBACK = [
-      { url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', dek:'A practical—and personal—case for sailing solo.', date:'2025-10-12', image:'/assets/articles/why-i-started-solo-cruising.jpg' },
-      { url:'/solo/freedom-of-your-own-wake.html',   title:'Freedom of Your Own Wake',    dek:'On choosing solitude without being alone.',     date:'2025-10-13', image:'/assets/articles/freedom-of-your-own-wake.jpg' }
-    ];
-
-    function normalize(feed){
-      var arr = Array.isArray(feed && feed.articles)? feed.articles : (Array.isArray(feed)? feed : []);
-      return arr.map(function(a){
-        var to=a.url||a.permalink||'#';
-        if(/^\/solo\/articles\/.+\.html$/.test(to)) to=to.replace('/solo/articles/','/solo/');
-        return {
-          url: abs(to),
-          title: String(a.title||a.headline||'Article').trim(),
-          dek: String(a.dek||a.description||a.excerpt||'').trim(),
-          date: String(a.date||a.datePublished||'').trim(),
-          image: a.image? abs(a.image):''
-        };
-      }).filter(function(x){ return x.url && x.url!=='#'; });
-    }
-
-    function tryFetch(url){
-      return fetch(abs(url),{cache:'no-store'})
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .then(normalize)
-        .catch(function(){ return []; });
-    }
-
-    function render(items){
-      var take=items.slice(0,6);
-      if(!take.length){ showFallback(true); return; }
-      var frag=document.createDocumentFragment();
-      take.forEach(function(a){
-        var el=document.createElement('article'); el.className='post-card card'; el.setAttribute('role','article');
-        el.innerHTML=[
-          (a.image?('<a class="thumb" href="'+a.url+'"><img src="'+a.image+'" alt=""></a>'):''),
-          '<h3><a href="'+a.url+'">'+a.title+'</a></h3>',
-          (a.date?('<div class="meta"><time datetime="'+a.date+'">'+(new Date(a.date)).toLocaleDateString()+'</time></div>'):''),
-          (a.dek?('<p class="excerpt">'+a.dek+'</p>'):'')
-        ].join('');
-        frag.appendChild(el);
-      });
-      MOUNT.appendChild(frag);
-      showFallback(false);
-      MOUNT.setAttribute('aria-busy','false');
-    }
-
-    (function boot(){
-      showFallback(true);
-      (function chain(i, collected){
-        if (i>=SOURCES.length){ render(collected.length?collected:HARD_FALLBACK); return; }
-        tryFetch(SOURCES[i]).then(function(items){
-          chain(i+1, (collected||[]).concat(items));
-        });
-      })(0, []);
-    })();
-  })();
-  </script>
-
-  <!-- Featured Authors rail hydrator -->
-  <script>
-  (function(){
-    var mount=document.getElementById('authors-rail'); if(!mount) return;
-    var VERSION='3.009.016';
-    var GENERIC='/authors/img/author.webp';
-
-    function esc(s){return String(s||'').replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]);});}
-    function row(a){
-      var img=a.image||GENERIC;
-      return '<div class="rail-row" role="listitem" aria-label="'+esc(a.name)+'">'+
-        '<img class="author-avatar" src="'+esc(img)+'" alt="'+esc(a.name)+'" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\''+GENERIC+'\'">'+
-        '<div><h4 style="margin:.15rem 0 .2rem 0"><a href="'+esc(a.url||"#")+'">'+esc(a.name||"Author")+'</a></h4>'+
-        '<p class="tiny">Contributor</p></div></div>';
-    }
-
-    function get(u){
-      return fetch(u,{cache:'no-store'}).then(function(r){if(!r.ok) throw 0; return r.json();})
-      .then(function(j){
-        var arr=Array.isArray(j && j.authors)? j.authors:[]; 
-        return arr.map(function(x){ return {name:x.name||x.title,url:x.url||x.profile,image:x.webp||x.image||x.avatar||''}; });
-      }).catch(function(){ return []; });
-    }
-
-    (async function boot(){
-      var list=[];
-      for (var i=0;i<2;i++){
-        var src = i===0 ? '/data/authors.json?v='+VERSION : '/travel/data/authors.json?v='+VERSION;
-        var arr = await get(src); list=list.concat(arr);
-      }
-      if(!list.length){
-        list=[
-          { name:'Ken Baker',   url:'/authors/ken-baker.html',    image:'/authors/img/ken1.jpg'  },
-          { name:'Tina Maulsby',url:'/authors/tina-maulsby.html', image:'/authors/img/tina3.jpg' }
-        ];
-      }
-      mount.innerHTML = list.slice(0,4).map(row).join('');
-    })();
-  })();
-  </script>
 </body>
 </html>
