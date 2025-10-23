@@ -110,6 +110,54 @@
     /* keep the skip link visible when focused (shared class in site CSS) */
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:1000;outline:0}
+  /* === HERO: keep wordmark fully on-screen, left-aligned, caption beneath === */
+.hero { position: relative; overflow: visible; }
+.hero-title{
+  position: absolute;
+  /* respect notches + keep safely in view */
+  left: max(12px, 2.5vw, env(safe-area-inset-left));
+  bottom: max(16px, 2.2vw, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* left align */
+  gap: .35rem;
+  text-align: left;
+  translate: 0 0;            /* cancel any inherited transforms */
+}
+.hero-title .logo{
+  /* clamp so it never shoots off-screen */
+  width: clamp(220px, 28vw, 520px);
+  max-width: min(48vw, 520px);
+  height: auto !important;
+  display: block;
+}
+.hero-title .tagline{
+  margin-top: .15rem;
+  font-weight: 700;
+  letter-spacing: .2px;
+  font-size: clamp(.95rem, 1.5vw, 1.35rem);
+  color: #e6f4f8;
+  text-align: left;          /* sit directly under the logo */
+}
+
+/* === NAV SUBMENU: FORCE VERTICAL ITEMS ================================ */
+/* The pill-nav makes top-level links inline-flex & nowrap.
+   These overrides ensure submenus stack one item per line. */
+.pill-nav .nav-group > .submenu {
+  display: block;            /* the popover itself is a block */
+  white-space: normal;       /* allow wrapping inside submenu */
+}
+.pill-nav .nav-group > .submenu a,
+.pill-nav .nav-group > .submenu button {
+  display: block !important; /* beat .pill-nav a { display:inline-flex } */
+  width: 100%;
+  white-space: normal !important;
+  margin: 0;
+  padding: .5rem .65rem;
+  border-radius: .65rem;
+  text-decoration: none;
+}
+  
   </style>
 </head>
 <body class="page">
