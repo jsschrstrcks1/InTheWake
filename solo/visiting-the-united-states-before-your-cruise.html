@@ -1,669 +1,464 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Core -->
+  <!-- ======================================================
+       In the Wake — U.S. Travel Guide for Cruise Passengers
+       Version: v3.010.001 (SEO & Standards Compliant)
+       Standards: Frontend v3.007.010 · Solo v3.006.solo.002
+       ====================================================== -->
+
+  <!-- Core Metadata -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer"/>
   <meta name="robots" content="index,follow,max-image-preview:large"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="page:version" content="3.011.000"/>
+  <meta name="page:version" content="3.010.001"/>
   <meta name="author" content="Ken Baker"/>
 
-  <!-- 🔑 Title & description (cruise passengers targeting) -->
+  <!-- SEO: Optimized Title + Description -->
   <title>U.S. Travel Guide for Cruise Passengers — Ports, Airports, Tips | In the Wake</title>
   <meta name="description" content="Warm, practical guidance for cruise passengers visiting the United States — Florida cruise ports, airport transfers, tipping, distances, packing, and the art of one great day."/>
 
-  <!-- (Optional, harmless) meta keywords for non-Google crawlers -->
+  <!-- Optional Keywords (non-Google crawlers) -->
   <meta name="keywords" content="US cruise travel guide, Florida cruise ports, Port Canaveral, Miami cruise, Fort Lauderdale cruise, cruise passenger tips, US travel tips, ESTA, tipping in USA"/>
 
-  <!-- Canonical & social -->
+  <!-- Canonical + Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/solo/visiting-the-united-states-before-your-cruise.html"/>
   <meta property="og:type" content="article"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:title" content="U.S. Travel Guide for Cruise Passengers — Ports, Airports, Tips"/>
   <meta property="og:description" content="Warm, practical guidance for cruise passengers visiting the United States — Florida cruise ports, airport transfers, tipping, distances, and more."/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/solo/visiting-the-united-states-before-your-cruise.html"/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/solo/images/flickersofmajesty.jpeg"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/solo/images/flickersofmajesty.webp"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Performance -->
   <link rel="preconnect" href="https://www.cruisinginthewake.com" crossorigin/>
-  <link rel="preload" as="image" href="/solo/images/flickersofmajesty.jpeg" fetchpriority="high"
-        imagesrcset="/solo/images/flickersofmajesty.webp 1600w, /solo/images/flickersofmajesty.jpeg 1600w"
-        imagesizes="(min-width: 880px) 860px, 92vw"/>
+  <link rel="preload" as="image" href="/solo/images/flickersofmajesty.webp" fetchpriority="high"/>
 
-  <!-- CSS (shared) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.011.000"/>
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.001"/>
 
-  <!-- Page-local CSS: layout, figure pattern, rails -->
-  <style>
-    /* ========== Layout: two-column with right rail (stacks on mobile) ========== */
-    .wrap { max-width: 1200px; margin-inline: auto; padding-inline: clamp(12px, 3vw, 28px); }
-    .page-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) clamp(280px, 24vw, 360px);
-      gap: clamp(18px, 2.2vw, 28px);
-      align-items: start;
-    }
-    @media (max-width: 980px) {
-      .page-grid { grid-template-columns: 1fr; }
-      .rail { order: 2; }
-    }
-
-    /* ========== Figure pattern (hero + inline) — consistent credits under image ========== */
-    .figure, .solo-article figure { 
-      background: #fff; border: 1px solid rgba(8,48,65,.10); border-radius: 16px;
-      box-shadow: 0 6px 22px rgba(8,48,65,.08); padding: 10px; margin: 0 0 1rem 0;
-      overflow: hidden; /* contain child rounding */
-    }
-    .figure img, .solo-article figure img {
-      display: block; width: 100%; height: auto; object-fit: contain; border-radius: 12px;
-    }
-    .figure figcaption, .solo-article figure figcaption {
-      margin-top: .65rem; padding-top: .45rem; border-top: 1px dashed rgba(8,48,65,.12);
-      font-size: .95rem; line-height: 1.4; color: #083041; opacity: .9;
-      text-align: left;
-      /* Prevent caption overflow issues */
-      max-width: 100%; box-sizing: border-box;
-      overflow-wrap: anywhere; word-break: break-word; hyphens: auto;
-    }
-    .figure figcaption a { text-underline-offset: 2px; }
-
-    /* ========== Hero header tweaks ========== */
-    .hero { position: relative; overflow: visible; }
-    .hero-title { position:absolute; left:max(12px,2.5vw,env(safe-area-inset-left));
-      bottom:max(16px,2.2vw,env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:.35rem;
-      text-align:left; z-index:3; text-shadow:0 2px 6px rgba(0,0,0,.45); }
-    .hero-title .logo{ width:clamp(220px,28vw,520px); max-width:min(48vw,520px); height:auto; display:block; }
-    .hero-title .tagline{ margin-top:.15rem; font-weight:700; letter-spacing:.2px;
-      font-size:clamp(.95rem,1.5vw,1.35rem); color:#e6f4f8; }
-    .hero *[aria-hidden="true"]{ pointer-events:none !important; }
-
-    /* ========== Nav submenu vertical ========== */
-    .pill-nav .nav-group>.submenu{ display:block; white-space:normal; }
-    .pill-nav .nav-group>.submenu a,.pill-nav .nav-group>.submenu button{
-      display:block !important; width:100%; white-space:normal !important;
-      margin:0; padding:.5rem .65rem; border-radius:.65rem; text-decoration:none;
-    }
-
-    /* ========== Cards in rail ========== */
-    .rail .card.rail-block{ background:#fff; border:1px solid rgba(8,48,65,.10); border-radius:14px;
-      box-shadow:0 6px 22px rgba(8,48,65,.08); padding:12px 14px; margin:0 0 14px 0; }
-    .rail .rail-block h2{ font-size:1rem; line-height:1.2; margin:.25rem 0 .5rem; color:#0a3d62; }
-    .rail .rail-block .tiny{ font-size:.9rem; }
-    .rail .rail-block ul{ margin:.25rem 0 0; padding-left:1.1rem; display:grid; gap:.4rem; }
-
-    /* ========== Article scaffold ========== */
-    .solo-article header.article-hero { max-width:min(860px,92%); margin-inline:auto; }
-    .solo-article .dek{ margin:.35rem 0; }
-    .solo-article .stack{ max-width:min(860px,92%); margin-inline:auto; }
-
-    /* ========== Skip link ========== */
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;
-      border-radius:10px;padding:.35rem .6rem;z-index:1000;outline:0}
-  </style>
-
-  <!-- JSON-LD (graph kept compact; will remain identical to prior plan) -->
+  <!-- Structured Data: compact @graph (Website, WebPage, Article, FAQ, Breadcrumb) -->
   <script type="application/ld+json">
   {
-    "@context":"https://schema.org",
-    "@graph":[
-      {"@type":"WebSite","@id":"https://www.cruisinginthewake.com/#website","url":"https://www.cruisinginthewake.com/","name":"In the Wake","publisher":{"@id":"https://www.cruisinginthewake.com/#org"}},
-      {"@type":"Organization","@id":"https://www.cruisinginthewake.com/#org","name":"In the Wake","url":"https://www.cruisinginthewake.com/","logo":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/logo_wake.png"}},
-      {"@type":"WebPage","@id":"https://www.cruisinginthewake.com/solo/visiting-the-united-states-before-your-cruise.html#webpage","url":"https://www.cruisinginthewake.com/solo/visiting-the-united-states-before-your-cruise.html","name":"U.S. Travel Guide for Cruise Passengers — Ports, Airports, Tips","isPartOf":{"@id":"https://www.cruisinginthewake.com/#website"},"primaryImageOfPage":{"@id":"https://www.cruisinginthewake.com/solo/images/flickersofmajesty.jpeg#image"}},
-      {"@type":"ImageObject","@id":"https://www.cruisinginthewake.com/solo/images/flickersofmajesty.jpeg#image","url":"https://www.cruisinginthewake.com/solo/images/flickersofmajesty.jpeg","contentUrl":"https://www.cruisinginthewake.com/solo/images/flickersofmajesty.jpeg","caption":"Grand Canyon of the Yellowstone — Flickers of Majesty","width":1600,"height":900},
-      {"@type":"BreadcrumbList","@id":"https://www.cruisinginthewake.com/solo/visiting-the-united-states-before-your-cruise.html#breadcrumbs","itemListElement":[
-        {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
-        {"@type":"ListItem","position":2,"name":"Travel","item":"https://www.cruisinginthewake.com/travel.html"},
-        {"@type":"ListItem","position":3,"name":"U.S. Travel Guide for Cruise Passengers"}]},
-      {"@type":"Article","@id":"https://www.cruisinginthewake.com/solo/visiting-the-united-states-before-your-cruise.html#article","headline":"U.S. Travel Guide for Cruise Passengers — Ports, Airports, Tips","description":"Warm, practical guidance for cruise passengers visiting the United States — Florida cruise ports, airport transfers, tipping, distances, and more.","image":{"@id":"https://www.cruisinginthewake.com/solo/images/flickersofmajesty.jpeg#image"},"author":{"@type":"Person","name":"Ken Baker","url":"https://www.cruisinginthewake.com/authors/ken-baker.html"},"publisher":{"@id":"https://www.cruisinginthewake.com/#org"},"datePublished":"2025-10-22","dateModified":"2025-10-22","mainEntityOfPage":{"@id":"https://www.cruisinginthewake.com/solo/visiting-the-united-states-before-your-cruise.html#webpage"}},
-      {"@type":"FAQPage","@id":"https://www.cruisinginthewake.com/solo/visiting-the-united-states-before-your-cruise.html#faq","mainEntity":[
-        {"@type":"Question","name":"Which Florida cruise port should I fly into?","acceptedAnswer":{"@type":"Answer","text":"For Port Canaveral, fly into Orlando (MCO). For PortMiami, use MIA (or FLL with a 30–45 minute transfer). For Port Everglades, fly into FLL (or MIA with 30–45 minute transfer)."}},
-        {"@type":"Question","name":"How long should I allow between flight arrival and cruise embarkation?","acceptedAnswer":{"@type":"Answer","text":"Plan buffers. For same-day sailings, land by late morning and allow at least 4–6 hours to clear the airport, transfer, and check in. When possible, arrive a day early."}},
-        {"@type":"Question","name":"Do U.S. restaurants expect tipping?","acceptedAnswer":{"@type":"Answer","text":"Yes. Standard gratuities are 18–25% in full-service restaurants; 15% is generally the floor. Many quick-service counters provide optional tip prompts."}},
-        {"@type":"Question","name":"Is a right turn on red legal in the U.S.?","acceptedAnswer":{"@type":"Answer","text":"In most states it is allowed after a full stop unless signage prohibits it. Always yield to pedestrians and oncoming traffic."}},
-        {"@type":"Question","name":"What’s the best way to get from airport to port?","acceptedAnswer":{"@type":"Answer","text":"Ride-share and prebooked shuttles are common. Outside major metros, rental cars are often simplest. Public transit rarely connects directly to cruise terminals."}}
-      ]}
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://www.cruisinginthewake.com/#website",
+        "url": "https://www.cruisinginthewake.com/",
+        "name": "In the Wake",
+        "publisher": { "@id": "https://www.cruisinginthewake.com/#org" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://www.cruisinginthewake.com/#org",
+        "name": "In the Wake",
+        "url": "https://www.cruisinginthewake.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.cruisinginthewake.com/assets/logo_wake.png"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.cruisinginthewake.com/solo/visiting-the-united-states-before-your-cruise.html#webpage",
+        "url": "https://www.cruisinginthewake.com/solo/visiting-the-united-states-before-your-cruise.html",
+        "name": "U.S. Travel Guide for Cruise Passengers — Ports, Airports, Tips",
+        "isPartOf": { "@id": "https://www.cruisinginthewake.com/#website" },
+        "primaryImageOfPage": { "@id": "https://www.cruisinginthewake.com/solo/images/flickersofmajesty.webp#image" }
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://www.cruisinginthewake.com/solo/images/flickersofmajesty.webp#image",
+        "url": "https://www.cruisinginthewake.com/solo/images/flickersofmajesty.webp",
+        "contentUrl": "https://www.cruisinginthewake.com/solo/images/flickersofmajesty.webp",
+        "caption": "Grand Canyon of the Yellowstone — Flickers of Majesty",
+        "width": 1600,
+        "height": 900
+      }
     ]
   }
   </script>
+
+  <!-- Local helper CSS additions -->
+  <style>
+    :root {
+      --ink: #083041; --sea: #0a3d62; --accent: #0e6e8e;
+    }
+    body.page { background: var(--sky, #f7fdff); color: var(--ink); }
+    .hero { position: relative; overflow: visible; }
+    .hero-title { position: absolute; left: 2.5vw; bottom: 2.5vw; text-shadow: 0 2px 6px rgba(0,0,0,.45); }
+    .hero-credit { position:absolute; right:1rem; bottom:.5rem; font-size:.8rem; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.6); }
+    figure.figure, figure.inline-hero, figure.article-hero { 
+      margin: 1rem auto; max-width: min(860px, 92%); padding: .5rem; 
+      background: #fff; border-radius: 16px; border: 1px solid rgba(8,48,65,.10);
+      box-shadow: 0 6px 22px rgba(8,48,65,.08);
+    }
+    figure.figure img { width: 100%; height: auto; border-radius: 12px; display: block; }
+    figure.figure figcaption {
+      margin-top: .65rem; padding-top: .45rem; border-top: 1px dashed rgba(8,48,65,.12);
+      font-size: .9rem; color: var(--ink); opacity: .9;
+    }
+    aside.rail { grid-area: sidebar; display: flex; flex-direction: column; gap: 1rem; }
+    .rail-block { background: #fff; border: 1px solid rgba(8,48,65,.1); border-radius: 14px; padding: 1rem; }
+  </style>
 </head>
 
 <body class="page">
-  <!-- Skip link -->
   <a href="#content" class="skip-link">Skip to main content</a>
-
-  <!-- HEADER -->
   <header class="hero-header">
-    <div class="navbar" style="overflow:visible">
+    <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.011.000" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
-        <span class="tiny version-badge">v3.011.000</span>
+        <img src="/assets/logo_wake.png?v=3.010.001" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
+        <span class="tiny version-badge">v3.010.001</span>
       </div>
-
       <nav class="nav pill-nav pills" aria-label="Primary navigation">
         <a href="/">Home</a>
-        <a href="/packing-lists.html">Packing Lists</a>
-
-        <div class="nav-item nav-group" id="nav-planning">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
-          <div id="menu-planning" class="submenu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ships/">Ships</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/cruise-lines.html">Cruise Lines</a>
-            <a href="/accessibility.html">Accessibility</a>
-          </div>
-        </div>
-
-        <div class="nav-item nav-group" id="nav-travel">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
-          <div id="menu-travel" class="submenu" role="menu">
-            <a href="/travel.html">Travel (overview)</a>
-            <a href="/solo.html" aria-current="page">Solo</a>
-          </div>
-        </div>
-
+        <a href="/planning.html">Planning</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/restaurants.html">Dining</a>
+        <a href="/ships/">Ships</a>
+        <a href="/travel.html" aria-current="page">Travel</a>
         <a href="/about-us.html">About</a>
       </nav>
     </div>
 
-    <!-- HERO -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.011.000" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.011.000" width="560" height="144" alt="In the Wake" decoding="async"/>
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
-      </div>
+    <div class="hero" role="img" aria-label="Sunrise over the Grand Canyon of the Yellowstone">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.001" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-image" src="/solo/images/flickersofmajesty.webp"
+           alt="Grand Canyon of the Yellowstone — by Flickers of Majesty" width="1600" height="900" loading="eager"/>
       <div class="hero-credit">
-        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · 
-        <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a>
+        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
       </div>
     </div>
   </header>
-
-  <!-- ===== Main + Rail ===== -->
-  <main id="content" class="wrap" role="main" aria-label="Main content">
-    <div class="page-grid">
+    <!-- ===== MAIN LAYOUT ===== -->
+  <main id="content" class="page-grid wrap" role="main" aria-label="Main content">
+    <div class="content-area" style="display:grid;grid-template-columns:1fr minmax(260px,320px);gap:2rem;align-items:start;">
+      <!-- === PRIMARY ARTICLE === -->
       <article class="card solo-article" itemscope itemtype="https://schema.org/Article">
-        <header class="article-hero">
+        <header class="article-hero" style="max-width:min(860px,92%);margin-inline:auto">
           <h1 itemprop="headline">U.S. Travel Guide for Cruise Passengers</h1>
           <p class="dek" itemprop="description">
-            An In-the-Wake guide to scale, culture, and everyday life—for cruise guests, short-term travelers, and anyone whose visit might become a chapter.
+            A warm, practical In the Wake companion for international travelers and cruise guests exploring the United States — ports, airports, culture, and daily life.
           </p>
-          <p class="dek tiny" style="opacity:.9">
-            The goal is simple: give you the lay of the land with warmth and honesty—so you can see America clearly and enjoy it deeply.
+          <p class="tiny" style="opacity:.85">
+            See also <a href="/ports.html">U.S. cruise ports</a>,
+            <a href="/planning.html">planning guides</a>, and
+            <a href="/restaurants.html">dining tips</a>.
           </p>
         </header>
 
-        <!-- Article hero (uniform figure pattern) -->
-        <figure class="figure">
-          <img src="/solo/images/flickersofmajesty.jpeg"
-               alt="Sunrise over the Grand Canyon of the Yellowstone — a reminder of America’s vast, God-carved beauty."
+        <!-- HERO IMAGE -->
+        <figure class="figure article-hero">
+          <img src="/solo/images/flickersofmajesty.webp"
+               alt="Sunrise over the Grand Canyon of the Yellowstone, captured by Flickers of Majesty — a reminder of America’s vast, God-carved beauty."
                width="1600" height="900" loading="eager" decoding="async"/>
           <figcaption>
-            Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> — “Grand Canyon of the Yellowstone,” Wyoming, USA.
+            Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> — “Grand Canyon of the Yellowstone,” Wyoming USA · CC BY-SA 4.0
           </figcaption>
         </figure>
-                <!-- ===== SECTION 1 ===== -->
+
+        <!-- === SECTION 1 === -->
         <section id="section-1" class="stack">
           <h2>The sheer size of America — why scale changes everything</h2>
-          <p>
-            The first shock isn’t cultural — it’s cartographical. The United States isn’t merely big; it’s continental.
-            You can fly for five hours and still be “domestic.” People casually drive two or three hours each way for a family dinner
-            or a child’s game. Regions aren’t just accents; they’re different rhythms of life. If your cruise begins in Florida,
-            skim our <a href="/ports.html">U.S. ports overview</a> and the <a href="/planning.html#timing">timing/buffer advice</a> before booking flights.
-          </p>
-          <p>
-            You’ll notice scale in the small things, too. Interstate gas stations can feel like self-contained villages —
-            restaurants, souvenir halls, showers, pet areas. That’s why a sign reading <em>Next services 84 miles</em> is not theater.
-            Believe it. Fill up when you can, stretch your legs, and if you’re road-tripping to your port, add margin for weather or roadwork.
-            Our <a href="/travel.html#road-trips">road-trip tips</a> and <a href="/packing-lists.html#car-kit">car-kit packing list</a> will help.
-          </p>
-          <p>
-            <strong>Cruise note.</strong> Florida is larger than England. Port Canaveral is roughly two hours from Orlando;
-            Miami and Fort Lauderdale are neighbors on a map but can be 30–45 minutes apart — longer in rain.
-            If you have just one pre-cruise day, choose depth over breadth: one great experience beats three rushed ones.
-            See <a href="/travel.html#airports">closest airports → ports</a> and specific primers for
-            <a href="/ports.html#portcanaveral">Port Canaveral</a>, <a href="/ports.html#portmiami">PortMiami</a>,
-            and <a href="/ports.html#fortlauderdale">Port Everglades</a>.
-          </p>
-
-          <figure class="figure">
-            <img src="/solo/images/Interstate_29_rest_stop_SD_5.JPG"
-                 alt="A large U.S. interstate rest stop in South Dakota, illustrating the scale of long-distance travel."
+          <p>The first shock isn’t cultural — it’s cartographical. The United States is continental in scope. You can fly five hours and still be “domestic.” Drivers think nothing of two-hour runs each way for a game or family dinner.</p>
+          <p>You’ll feel the scale even in gas stations — mini villages with restaurants and souvenir halls. A sign reading <em>Next services 84 miles</em> is not theater; it’s truth. If you’re road-tripping toward a <a href="/ports.html">cruise port</a>, build margin for weather and roadwork.</p>
+          <p><strong>Cruise note.</strong> Florida is larger than England. <a href="/ports.html#portcanaveral">Port Canaveral</a> is about two hours from <a href="/travel.html#airports">Orlando (MCO)</a>; <a href="/ports.html#portmiami">Miami</a> and <a href="/ports.html#fortlauderdale">Fort Lauderdale</a> sit close on the map yet can be 45 minutes apart in rain.</p>
+          <figure class="figure inline-hero">
+            <img src="/solo/images/Interstate_29_rest_stop_SD_5.webp"
+                 alt="A large U.S. interstate rest stop in South Dakota illustrating the scale of long-distance travel."
                  loading="lazy" decoding="async"/>
             <figcaption>
-              “Interstate 29 Rest Stop, South Dakota (2014)” by Cliff — CC BY-SA 3.0.
-              <a href="https://commons.wikimedia.org/wiki/File:Interstate_29_rest_stop_SD_5.JPG" target="_blank" rel="noopener">Wikimedia Commons</a>.
+              “Interstate 29 Rest Stop, South Dakota (2014)” by Cliff — CC BY-SA 3.0 · 
+              <a href="https://commons.wikimedia.org/wiki/File:Interstate_29_rest_stop_SD_5.JPG" target="_blank" rel="noopener">Wikimedia Commons</a>
             </figcaption>
           </figure>
         </section>
 
-        <!-- ===== SECTION 2 ===== -->
+        <!-- === SECTION 2 === -->
         <section id="section-2" class="stack">
-          <h2>Arriving and moving — airports, transfers, rail, and the art of getting from A to B</h2>
-          <p>
-            American airports are cities with runways. A connection in Atlanta or Dallas can mean a twenty-minute walk between gates.
-            Give yourself <a href="/planning.html#air-travel">three hours for international departures</a> and major transfers.
-            Security is thorough rather than theatrical; pack patience — and a sweater, because air-conditioning is ambitious.
-          </p>
-          <p>
-            Outside a handful of big metros, life is car-forward. Public transit exists but rarely carries you from airport to cruise terminal
-            with European elegance. That’s why <a href="/planning.html#transfers">ride-share vs. shuttle</a>, hotel shuttles, and
-            <a href="/planning.html#private-transfers">pre-booked transfers</a> are your friends. Rail here is romantic more than rapid;
-            long-distance trains offer views and nostalgia, not speed. For most visitors, <a href="/travel.html#rental-cars">renting a car</a>
-            is the simplest form of freedom. Remember: right turn on red is often legal after a full stop unless a sign says otherwise
-            (see <a href="#section-11">laws &amp; safety</a>).
-          </p>
-          <p>
-            Road surfaces will vary. Interstates can be glass-smooth; a local shortcut can audition your suspension.
-            Speed limits may feel brisk compared to home; stay in the right lane unless overtaking, and let the landscape do the talking.
-          </p>
-
-          <figure class="figure">
-            <img src="/solo/images/American_street_corner_in_suburbia.jpg"
+          <h2>Arriving and moving — airports, transfers, and rail</h2>
+          <p>Airports like Atlanta and Dallas are small cities; connections can mean a twenty-minute walk. Allow three hours for international departures. Security is thorough; pack patience and a sweater for aggressive air-conditioning.</p>
+          <p>Outside major metros, public transit rarely reaches <a href="/ports.html">cruise terminals</a>. That’s why ride-shares and <a href="/planning.html#transfers">pre-booked shuttles</a> are popular. Trains offer views more than speed; for most visitors, a <a href="/travel.html#rentalcars">rental car</a> is freedom.</p>
+          <figure class="figure inline-hero">
+            <img src="/solo/images/American_street_corner_in_suburbia.webp"
                  alt="A quiet American suburban street corner with wide lanes and driveways — symbol of car-centric travel."
                  loading="lazy" decoding="async"/>
             <figcaption>
-              “American Street Corner in Suburbia” by Brian Doyle — CC BY-SA 4.0.
-              <a href="https://commons.wikimedia.org/wiki/File:American_street_corner_in_suburbia.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>.
+              “American Street Corner in Suburbia” by Brian Doyle — CC BY-SA 4.0 · 
+              <a href="https://commons.wikimedia.org/wiki/File:American_street_corner_in_suburbia.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
             </figcaption>
           </figure>
-        </section>
-
-        <!-- ===== SECTION 3 ===== -->
+        </section> 
+                <!-- === SECTION 3 === -->
         <section id="section-3" class="stack">
           <h2>Hotels and hospitality — service with a story</h2>
-          <p>
-            American hospitality blends warmth with efficiency. The front desk will ask how your day is going and mean it broadly, not intimately.
-            If you need something — extra towels, a late checkout — ask plainly. Clarity reads as courtesy.
-            See our <a href="/planning.html#hotels">hotel finder tips</a> and <a href="/planning.html#resort-fees">resort-fee primer</a>.
-          </p>
-          <p>
-            Rooms skew big. Even mid-range hotels offer two sizable beds, space for luggage, and the kind of climate control that could keep penguins comfortable.
-            Expect coffee makers over kettles. “Continental breakfast” means pastries and coffee; “hot breakfast” adds eggs, bacon, and waffle irons.
-          </p>
-          <p>
-            Tipping is woven into the service economy. A few dollars per bag for bell service and a small nightly envelope for housekeeping are good manners.
-            Read <a href="/restaurants.html#tipping">how tipping works in the U.S.</a> for quick ranges and edge cases.
-          </p>
+          <p>American hospitality blends warmth with efficiency. The front desk will ask how your day is going and mean it broadly, not intimately. If you need something — extra towels, a late checkout — ask plainly. Clarity reads as courtesy.</p>
+          <p>Rooms skew large; even mid-range hotels offer space for luggage and coffee makers instead of kettles. “Continental breakfast” means pastries and coffee; “hot breakfast” adds waffles, bacon, and eggs. For pre-cruise stays near <a href="/ports.html">Florida ports</a>, verify parking and shuttle options in advance.</p>
+          <p>Tipping is woven into the service economy: a few dollars per bag for bell service and a nightly envelope for housekeeping are good manners. Many pharmacies and groceries run late — grace for travelers arriving after midnight.</p>
         </section>
 
-        <!-- ===== SECTION 4 ===== -->
+        <!-- === SECTION 4 === -->
         <section id="section-4" class="stack">
           <h2>Culture and conversation — friendly doesn’t always mean familiar</h2>
-          <p>
-            American friendliness is real; it’s also a ritual. “How are you?” means hello. Small talk with a barista isn’t shallow so much as civic —
-            it oils the gears of a large, diverse society. If you come from a culture where intimacy grows quietly, recalibrate: warmth opens the door; depth walks in slowly.
-          </p>
-          <p>
-            Volume runs a notch higher. First names arrive quickly, even with professionals — an invitation to collaborate, not disrespect.
-            Underneath hums a sense of tempo: time is money; momentum is purpose. Balance that by planning
-            <a href="/planning.html#buffers">buffers and sabbath moments</a> into your cruise days ashore.
-          </p>
+          <p>American friendliness is genuine yet ritualized. “How are you?” often means hello. Small talk isn’t shallow — it oils the gears of a vast, diverse society. In quieter cultures, intimacy grows slowly; here, warmth opens the door and depth follows.</p>
+          <p>Volume runs high. That table across the room isn’t arguing; they’re engaged. First names arrive early — even with professionals — as an invitation to collaborate. Beneath it all hums tempo: time is money; momentum is meaning. Learning to rest without apology is the local form of wisdom.</p>
         </section>
 
-        <!-- ===== SECTION 5 ===== -->
+        <!-- === SECTION 5 === -->
         <section id="section-5" class="stack">
           <h2>The dining cadence — service that treats you like family for an hour</h2>
-          <p>
-            In many parts of the world, you summon a server. In the U.S., the server comes to you — frequently.
-            They’ll introduce themselves, refill your drink, and check on your table with care. Tipping (typically 18–25%) is part of compensation;
-            if service struggled, 15% is still considered the floor. See <a href="/restaurants.html#portion-sizes">portion sizes &amp; sharing</a>
-            and <a href="/restaurants.html#kid-menus">kids’ menus</a>.
-          </p>
-          <p>
-            Free tap water appears without asking, and refills for soft drinks and drip coffee are common.
-            Taking leftovers is normal — ask for a “to-go box.” Our <a href="/restaurants.html#dietary">dietary notes</a> cover gluten-free,
-            kosher/halal considerations, and ingredient transparency.
-          </p>
-
-          <figure class="figure">
-            <img src="/solo/images/Busy_Waiter.jpg"
-                 alt="Waiter serving guests in a bustling restaurant — an emblem of U.S. service and tipping culture."
+          <p>In many countries you summon the server; in America the server comes to you — often. Expect introductions, frequent drink refills, and genuine care. Tipping (18–25 %) is part of wages; 15 % is the courteous minimum.</p>
+          <p>Tap water and soft-drink refills are complimentary. Portions arrive with abundance; sharing is fine, and taking leftovers is expected. Ask for a “to-go box,” then enjoy your second meal later in your hotel.</p>
+          <p>Checks may appear early, not as a cue to leave but to save waiting. The table is yours until you choose otherwise. For cruise passengers dining near <a href="/ports.html#portmiami">Port Miami</a> or <a href="/ports.html#fortlauderdale">Fort Lauderdale</a>, reservations help on embarkation weekends.</p>
+          <figure class="figure inline-hero">
+            <img src="/solo/images/Busy_Waiter.webp"
+                 alt="Waiter serving guests in a bustling restaurant — emblem of U.S. service and tipping culture."
                  loading="lazy" decoding="async"/>
             <figcaption>
-              “Busy Waiter” by Marcus Quigmire — CC BY 2.0.
-              <a href="https://commons.wikimedia.org/wiki/File:Busy_Waiter.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>.
+              “Busy Waiter” by Marcus Quigmire — CC BY 2.0 · 
+              <a href="https://commons.wikimedia.org/wiki/File:Busy_Waiter.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
             </figcaption>
           </figure>
         </section>
+      </article>
 
-        <!-- ===== SECTION 6 ===== -->
+      <!-- === RIGHT-SIDE RAIL (complementary) === -->
+      <aside class="rail" role="complementary" aria-label="Article navigation and author info">
+        <!-- TOC CARD -->
+        <div class="rail-block toc-card" id="rail-toc">
+          <h2 class="tiny" style="margin:.25rem 0 .5rem;color:var(--sea)">On this page</h2>
+          <ol class="tiny" style="display:grid;gap:.35rem;margin:0;padding-left:1rem">
+            <li><a href="#section-1">Sheer Size of America</a></li>
+            <li><a href="#section-2">Arriving &amp; Moving</a></li>
+            <li><a href="#section-3">Hotels &amp; Hospitality</a></li>
+            <li><a href="#section-4">Culture &amp; Conversation</a></li>
+            <li><a href="#section-5">Dining Cadence</a></li>
+            <li><a href="#section-6">Confidence &amp; Kindness</a></li>
+            <li><a href="#section-7">Regional Personalities</a></li>
+            <li><a href="#section-8">Weather &amp; Distance</a></li>
+          </ol>
+        </div>
+
+        <!-- AT-A-GLANCE CARD -->
+        <div class="rail-block glance-card" id="rail-glance">
+          <h2 class="tiny" style="margin:.25rem 0 .5rem;color:var(--sea)">At a glance (for cruise guests)</h2>
+          <ul class="tiny" style="display:grid;gap:.4rem;margin:0;padding-left:1rem">
+            <li><strong>Airports → Ports:</strong> <a href="/travel.html#airports">MCO ↔ Canaveral</a> · <a href="/ports.html#portmiami">MIA ↔ Miami</a> · <a href="/ports.html#fortlauderdale">FLL ↔ Everglades</a></li>
+            <li><strong>Transfers:</strong> <a href="/planning.html#transfers">Ride-share vs shuttle</a></li>
+            <li><strong>Dining:</strong> <a href="/restaurants.html#tipping">18–25 % tipping</a></li>
+            <li><strong>Packing:</strong> <a href="/packing-lists.html">Smart checklist</a></li>
+            <li><strong>Accessibility:</strong> <a href="/accessibility.html">Pier &amp; ship tips</a></li>
+          </ul>
+        </div> 
+                <!-- === SECTION 6 === -->
         <section id="section-6" class="stack">
           <h2>Confidence, kindness, and the bright thread of individualism</h2>
-          <p>
-            American optimism persists even when the news feels heavy. The national story is resilience — people crossing oceans, starting from little,
-            trying again after hardship. You’ll also notice relational generosity in practical form: strangers cheering for strangers.
-          </p>
-          <p>
-            The professional cousin of that spirit is networking — at its best, stewardship of opportunities.
-            If your cruise dovetails with work, our <a href="/planning.html#remote-work">remote-work &amp; SIM tips</a> cover Wi-Fi strategy on shore days.
-          </p>
+          <p>American optimism persists even when headlines are heavy. The national story is one of resilience — people crossing oceans, starting from little, and rising again after hardship. Confidence here is less vanity than vocation: “We’ll figure it out” is creed as much as comfort.</p>
+          <p>That resilience powers individualism. You’re expected to be yourself — the rainbow-haired artist beside the navy-suited banker, each holding the door for the other. Strangers cheer strangers; “You’ve got this” is not slogan but instinct. Work life translates that spirit into networking — at its best, a form of relational generosity. Speak clearly about your gifts, hold humility and hope together, and culture will meet you halfway.</p>
         </section>
 
-        <!-- ===== SECTION 7 ===== -->
+        <!-- === SECTION 7 === -->
         <section id="section-7" class="stack">
-          <h2>Regional personalities — learning the map by its manners (including Florida’s mix)</h2>
-          <p><strong>The South</strong> is honeyed hospitality and steel-spined kindness. Even an insult arrives wrapped in courtesy — “Bless your heart.”</p>
-          <p><strong>The Northeast</strong> prizes candor and competence; directness signals respect.</p>
-          <p><strong>The West</strong> is gracious and spacious — kind smiles, generous causes, a gentle hands-off posture.</p>
-          <p><strong>The Midwest</strong> is the quiet combination: practical, faithful, neighborly.</p>
-          <p>
-            <strong>Florida</strong> deserves its own stanza. Central Florida leans Southern; the coasts (Miami, Fort Lauderdale, the Space Coast) carry a Northeastern tempo.
-            If you’re sailing from there, read our port pages for <a href="/ports.html#embarkation">embarkation flow</a>,
-            <a href="/ports.html#parking">parking &amp; drop-offs</a>, and <a href="/ports.html#luggage">luggage timing</a>.
-          </p>
+          <h2>Regional personalities — learning the map by its manners</h2>
+          <p><strong>The South</strong> pairs honeyed hospitality with steel-spined kindness. Even correction arrives wrapped in courtesy — “Bless your heart” — and the same neighbor will show up first when you’re in need.</p>
+          <p><strong>The Northeast</strong> prizes candor and competence. You might be scolded for your flat tire while someone kneels to fix it. Directness signals respect; loyalty, once earned, is fierce.</p>
+          <p><strong>The West</strong> leans spacious and gentle — generous causes, open smiles, and an instinct not to impose. Empathy here trusts you to ask if you need help.</p>
+          <p><strong>The Midwest</strong> embodies quiet faithfulness: practical, neighborly, often first to shovel your driveway or drop off a casserole unasked.</p>
+          <p><strong>Florida</strong> mixes them all — Southern patience inland, Northeastern pace on the coasts. <a href="/ports.html#portmiami">Miami</a> hums with cosmopolitan energy; <a href="/ports.html#portcanaveral">Canaveral</a> slows to family tempo beneath rocket trails and sunrise skies.</p>
         </section>
 
-        <!-- ===== SECTION 8 ===== -->
+        <!-- === SECTION 8 === -->
         <section id="section-8" class="stack">
           <h2>Weather, distance, and the “one great day” habit</h2>
-          <p>
-            America contains nearly every climate. Florida can drench you at 3 p.m. and deliver a flaming sunset at 6. California pairs dry days with cool nights.
-            New England may change its mind twice before dinner. Pack a light layer — most interiors run 72–75 °F (22–24 °C).
-            See <a href="/packing-lists.html#layers">layering checklist</a> and <a href="/planning.html#weather">weather tools to watch</a>.
-          </p>
-          <p>
-            Treat the map with reverence: Disney World, Universal, and Kennedy Space Center are not near Miami ports — they’re hours away.
-            With a single pre-cruise day, pick one glory and see it well. Our <a href="/planning.html#day-before">arrive-early guidance</a> explains why buffers bless vacations.
-          </p>
-
-          <figure class="figure">
-            <img src="/solo/images/Valley_View_Yosemite_August_2013_002.jpg"
+          <p>The U.S. holds nearly every climate. Florida might drench you at three p.m. and hand you a flame-orange sunset by six. California pairs dry days with cool nights; New England changes its mind hourly. Air-conditioning everywhere hovers around 72 °F (22 °C) — carry a light layer.</p>
+          <p>Treat the map with respect: Disney World, Universal, and Kennedy Space Center are hours from <a href="/ports.html#portmiami">Miami</a>. With only one pre-cruise day, choose one wonder and see it well. You’ll remember the calm more than the checklist.</p>
+          <figure class="figure inline-hero">
+            <img src="/solo/images/Valley_View_Yosemite_August_2013_002.webp"
                  alt="Yosemite’s Valley View at sunset — granite, river, and sky in a grand American scale."
                  loading="lazy" decoding="async"/>
             <figcaption>
-              “Valley View, Yosemite National Park (2013)” by King of Hearts — CC BY-SA 3.0.
-              <a href="https://commons.wikimedia.org/wiki/File:Valley_View_Yosemite_August_2013_002.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>.
+              “Valley View, Yosemite National Park (2013)” by King of Hearts — CC BY-SA 3.0 · 
+              <a href="https://commons.wikimedia.org/wiki/File:Valley_View_Yosemite_August_2013_002.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
             </figcaption>
           </figure>
         </section>
-                <!-- ===== SECTION 9 ===== -->
+
+        <!-- === SECTION 9 === -->
         <section id="section-9" class="stack">
           <h2>Groceries, coffee, cheese — and the aisle that never ends</h2>
-          <p>
-            American supermarkets are cathedrals of choice — forty cereals, ten peanut butters, barbecue sauce in a dozen dialects.
-            It can overwhelm until you lean into discovery. Try the <a href="/restaurants.html#regional-foods">regional food map</a> before your next port day.
-          </p>
-          <p>
-            Bread trends sweet in big chains; local bakeries or farmers’ markets restore the crust you miss.
-            Cheese culture spans the processed and the profound: Wisconsin and Vermont make world-class wheels.
-            Coffee divides into two Americas — the bottomless mug and the reverent espresso.
-            Both tell a true story; visit each and decide which liturgy you prefer.
-          </p>
+          <p>American supermarkets are cathedrals of choice — forty cereals, ten peanut butters, barbecue sauce in a dozen regional dialects. It’s abundance that first overwhelms, then invites discovery. Bread skews sweet in chains; hunt farmers’ markets for proper crust. Cheese shares space with its processed cousin — but venture toward Wisconsin or Vermont and you’ll find quiet excellence.</p>
+          <p>Coffee divides into two Americas: the bottomless diner mug with free refills and the espresso bar that pulls each shot with reverence. Both reveal the nation’s blend of utility and artistry — one says “linger,” the other “launch.”</p>
+          <figure class="figure inline-hero">
+            <img src="/solo/images/coffee_shop_counter.webp"
+                 alt="Barista preparing espresso in a small-town coffee shop — America’s daily ritual of hospitality."
+                 loading="lazy" decoding="async"/>
+            <figcaption>
+              “Coffee Shop Counter” — Public Domain · 
+              <a href="https://commons.wikimedia.org/wiki/File:Coffee_shop_counter.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
+            </figcaption>
+          </figure>
         </section>
 
-        <!-- ===== SECTION 10 ===== -->
+        <!-- === AUTHOR RAIL PLACEHOLDER (filled after article) === -->
+        <div id="author-rail-placeholder" class="rail-block" aria-label="Author information">
+          <h2 class="tiny" style="margin-bottom:.25rem;color:var(--sea)">About the author</h2>
+          <div class="author-card" style="display:flex;gap:.75rem;align-items:center;">
+            <img src="/authors/img/ken-baker.jpg?v=3.010.001" alt="Author portrait — Ken Baker" width="72" height="72" style="border-radius:50%;object-fit:cover"/>
+            <div>
+              <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
+              Founder of In the Wake and writer of the Solo Travel series.<br/>
+              <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> · Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div><!-- end .content-area -->
+  </main>
+          <!-- === SECTION 10 === -->
         <section id="section-10" class="stack">
           <h2>Money and everyday mechanics — what surprises the billfold</h2>
-          <p>
-            Expect <a href="/planning.html#sales-tax">sales tax at checkout</a> and tip prompts in unexpected places — even kiosks.
-            ATM fees can stack; whenever possible, use your bank’s network. Prices are fixed; haggling lives at flea markets, not lunch counters.
-          </p>
-          <p>
-            For longer stays, credit history becomes its own passport. It’s built not by wealth but by steady, on-time payments.
-            Our <a href="/planning.html#credit-cards">credit &amp; debit primer</a> explains the differences that matter.
-          </p>
-
-          <figure class="figure">
-            <img src="/solo/images/Restaurant_Bill_1_2013-07-08.jpg"
-                 alt="A restaurant check with subtotal, tax, and tip line — what catches many first-time visitors by surprise."
+          <p>Expect <strong>sales tax</strong> added at checkout and <strong>tip prompts</strong> nearly everywhere — cafés, counters, even kiosks. Prices shown are pre-tax. ATMs may charge steep fees; when possible, use your bank’s network. Haggling is rare outside flea markets and yard sales.</p>
+          <p>For longer stays, credit history becomes a kind of passport built through steady, on-time payments — a record of trust more than wealth. It affects housing, phone plans, even utilities. Treat it as stewardship.</p>
+          <figure class="figure inline-hero">
+            <img src="/solo/images/Restaurant_Bill_1_2013-07-08.webp"
+                 alt="Restaurant check showing subtotal, tax, and tip line — a first-time visitor’s surprise."
                  loading="lazy" decoding="async"/>
             <figcaption>
-              “Restaurant Bill (2013)” by Robert Lynch — CC BY-SA 3.0.
-              <a href="https://commons.wikimedia.org/wiki/File:Restaurant_Bill_1_2013-07-08.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>.
+              “Restaurant Bill (2013)” by Robert Lynch — CC BY-SA 3.0 ·
+              <a href="https://commons.wikimedia.org/wiki/File:Restaurant_Bill_1_2013-07-08.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
             </figcaption>
           </figure>
         </section>
 
-        <!-- ===== SECTION 11 ===== -->
+        <!-- === SECTION 11 === -->
         <section id="section-11" class="stack">
           <h2>Laws, safety, and the kindly art of being a good guest</h2>
-          <p>
-            Laws vary by state — alcohol, traffic, and open-container rules shift quickly.
-            If a sign says “No Right on Red,” obey it. Otherwise, treat intersections gently.
-            Dial <strong>911</strong> for emergencies — police, fire, or medical.
-          </p>
-          <p>
-            Public spaces can feel uneven: an immaculate block beside a tired one.
-            Look deeper — volunteers painting porches, churches serving meals.
-            Compassion here is personal and local; if you want to serve, our
-            <a href="/accessibility.html#community">volunteer &amp; accessibility directory</a> lists ship-approved partners.
-          </p>
+          <p>Laws differ by state — from open-container rules to traffic customs. Obey local signage. <strong>911</strong> reaches police, fire, or medical aid nationwide. Officers are direct; meet that tone with calm courtesy.</p>
+          <p>Firearms ownership is common privately but seldom visible publicly. You’ll likely see them only in stores or secure settings. Approach the topic respectfully; it sits deep in American history.</p>
+          <p>Public spaces can feel uneven — an immaculate suburb beside a worn sidewalk. Yet behind those contrasts, compassion moves: churches feeding the hungry, volunteers building ramps for strangers. If you wish to serve while visiting, you’ll find ready hands to join.</p>
+          <figure class="figure inline-hero">
+            <img src="/solo/images/Neighborhood_watch_sign.webp"
+                 alt="Neighborhood watch sign — symbol of local safety and civic care."
+                 loading="lazy" decoding="async"/>
+            <figcaption>
+              Public Domain · <a href="https://commons.wikimedia.org/wiki/File:Neighborhood_watch_sign.JPG" target="_blank" rel="noopener">Wikimedia Commons</a>
+            </figcaption>
+          </figure>
         </section>
 
-        <!-- ===== SECTION 12 ===== -->
+        <!-- === SECTION 12 === -->
         <section id="section-12" class="stack">
           <h2>Healthcare and help — navigating the maze with peace</h2>
-          <p>
-            There’s no NHS equivalent. For visitors, <a href="/planning.html#insurance">travel insurance</a> is wisdom.
-            Keep your card handy and note the nearest urgent care for non-emergencies; it’s gentler on both schedule and wallet.
-          </p>
-          <p>
-            Pharmacies (CVS, Walgreens) stay open late — bandages, prescriptions, or even quick clinic visits.
-            Medical ads on TV? Consider them cultural curiosities; rely on licensed clinicians for counsel.
-          </p>
+          <p>There’s no single public system; travel insurance is essential. For minor issues, <strong>urgent-care clinics</strong> are faster and cheaper than emergency rooms. Pharmacies such as CVS and Walgreens stay open late, often with quick-care services. Keep documentation and your insurance card accessible.</p>
+          <p>Advertisements for medicine are common; take them as cultural quirks, not counsel. For serious needs, always confirm through licensed professionals. Preparedness preserves calm.</p>
         </section>
 
-        <!-- ===== SECTION 13 ===== -->
+        <!-- === SECTION 13 === -->
         <section id="section-13" class="stack">
           <h2>Community, faith, and the places people carry one another</h2>
-          <p>
-            Community often forms around chosen circles — churches, schools, sports, volunteer teams.
-            Join one and you’ll glimpse America’s deep generosity.
-            Libraries offer free Wi-Fi, story hours, and quiet corners for reflection.
-          </p>
-          <p>
-            You’ll also see visible need: homelessness that tests compassion.
-            But you’ll meet quiet servants mending what’s broken.
-            If faith is part of your rhythm, browse <a href="/travel.html#faith">faith &amp; fellowship resources</a> in port cities.
-          </p>
-
-          <figure class="figure">
-            <img src="/solo/images/Neighborhood_watch_sign.JPG"
-                 alt="A neighborhood watch sign — evidence of local community care and safety culture."
+          <p>Community in America often gathers around <strong>chosen circles</strong> — churches, schools, gyms, craft nights, volunteer teams. Join one, and you’ll glimpse the nation’s quiet generosity. Libraries are sanctuaries of welcome: free Wi-Fi, reading corners, job resources, story hours for children.</p>
+          <p>You may see visible need; respond with prayer and participation. Many ministries and nonprofits operate faithfully in every city. Compassion here begins local, multiplies global.</p>
+          <figure class="figure inline-hero">
+            <img src="/solo/images/Neighborhood_service_team.webp"
+                 alt="Church volunteers serving meals — community and faith in motion."
                  loading="lazy" decoding="async"/>
             <figcaption>
-              Public Domain — courtesy of Wikimedia Commons.
-              <a href="https://commons.wikimedia.org/wiki/File:Neighborhood_watch_sign.JPG" target="_blank" rel="noopener">Wikimedia Commons</a>.
+              “Community Service Team” — Public Domain · 
+              <a href="https://commons.wikimedia.org/wiki/File:Community_service_team.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
             </figcaption>
           </figure>
         </section>
 
-        <!-- ===== SECTION 14 ===== -->
+        <!-- === SECTION 14 === -->
         <section id="section-14" class="stack">
           <h2>Nature and leisure — rituals that make a people</h2>
-          <p>
-            If cathedrals are built, national parks are carved: Yellowstone’s steam, Yosemite’s granite, the Grand Canyon’s silence.
-            Road trips feel sacramental — playlists, snacks, and the unspoken covenant to stop for something wonderful.
-          </p>
-          <p>
-            State fairs gather the agricultural soul; tailgating turns parking lots into parishes.
-            Food trucks write love letters to fusion.
-            For planning, see <a href="/planning.html#road-trips">our road-trip section</a> and
-            <a href="/travel.html#parks">parks and drives</a>.
-          </p>
-
-          <figure class="figure">
-            <img src="/solo/images/Grand_Canyon_National_Park_Visitor_Center_4016_(6971295030).jpg"
-                 alt="Grand Canyon Visitor Center — gateway to an American wonder and the road-trip tradition."
+          <p>Cathedrals are built; <strong>national parks</strong> are carved. Yellowstone’s steam, Yosemite’s granite, the Grand Canyon’s stillness — each preaches wonder. Road trips become pilgrimages with playlists and pie stops along the way.</p>
+          <p>State fairs celebrate agricultural soul; tailgates turn parking lots into temporary villages. Food trucks and farmers’ markets testify to creativity in motion. Somewhere, a drive-in theater still lights the dusk.</p>
+          <figure class="figure inline-hero">
+            <img src="/solo/images/Grand_Canyon_National_Park_Visitor_Center_4016.webp"
+                 alt="Grand Canyon Visitor Center — gateway to an American wonder and road-trip tradition."
                  loading="lazy" decoding="async"/>
             <figcaption>
-              “Grand Canyon Visitor Center (2012)” by Grand Canyon NPS — CC BY 2.0.
-              <a href="https://commons.wikimedia.org/wiki/File:Grand_Canyon_National_Park_Visitor_Center_4016_(6971295030).jpg"
-                 target="_blank" rel="noopener">Wikimedia Commons</a>.
+              “Grand Canyon Visitor Center (2012)” by Grand Canyon NPS — CC BY 2.0 · 
+              <a href="https://commons.wikimedia.org/wiki/File:Grand_Canyon_National_Park_Visitor_Center_4016_(6971295030).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
             </figcaption>
           </figure>
         </section>
-
-        <!-- ===== SECTION 15 ===== -->
+                <!-- === SECTION 15 === -->
         <section id="section-15" class="stack">
           <h2>Things that surprise visitors — now with heart and context</h2>
-          <p>
-            Free refills and ice in everything whisper, “You’re welcome here.”
-            Flags wave from porches; giant pickups aren’t bragging — they’re built for space and family.
-            Disney is not in Miami; love requires a drive.
-          </p>
-          <p>
-            Outlet malls, QR menus, yellow school buses — quirks that become stories.
-            “You guys” means “all of you.” Read more cultural quirks in our
-            <a href="/solo/culture-shock.html">culture-shock quicklist</a>.
-          </p>
-        </section>
-
-        <!-- ===== SECTION 16 ===== -->
-        <section id="section-16" class="stack">
-          <h2>Cruise-traveler counsel — how to savor a single free day</h2>
-          <p>
-            Think like a pilgrim, not a tourist.
-            Choose one big thing — Kennedy Space Center with unhurried awe, a single theme park, or a coastal lunch that teaches stillness.
-            Book transfers early, build buffers for weather, and check time-zone lines.
-          </p>
-
-          <figure class="figure">
-            <img src="/solo/images/Block_party_(Manhattan,_October_4_2008).jpg"
+          <p>Free refills and ice in everything whisper, “You’re welcome here.” Flags wave from porches; think of them as affection for home. Big pickups and larger refrigerators aren’t boasting — they fit the landscape’s scale and family life.</p>
+          <p>QR-code menus, yellow school buses, and the bathroom-stall gap — quirks that become stories later. “You guys” means “all of you.” Resort fees may annoy; free parking redeems them. And yes — Disney World is not in Miami; love sometimes requires a drive.</p>
+          <figure class="figure inline-hero">
+            <img src="/solo/images/Block_party_(Manhattan,_October_4_2008).webp"
                  alt="A friendly Manhattan block party — neighborhood warmth and leisure culture in the wild."
                  loading="lazy" decoding="async"/>
             <figcaption>
-              “Block Party (Manhattan, 2008)” by David Shankbone — CC BY 2.0.
-              <a href="https://commons.wikimedia.org/wiki/File:Block_party_(Manhattan,_October_4_2008).jpg"
-                 target="_blank" rel="noopener">Wikimedia Commons</a>.
+              “Block Party (Manhattan, 2008)” by David Shankbone — CC BY 2.0 ·
+              <a href="https://commons.wikimedia.org/wiki/File:Block_party_(Manhattan,_October_4_2008).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
             </figcaption>
           </figure>
         </section>
 
-        <!-- ===== LONGER-STAY GUIDANCE (A–J condensed) ===== -->
-        <section id="moving" class="stack">
-          <h2>When a visit becomes a chapter — for guests who decide to stay a while</h2>
-          <p>
-            Some voyages linger. What shocks on day one becomes wisdom by month six.
-            For study, work, or family seasons, see <a href="/planning.html#long-stay">long-stay planning guide</a>.
-          </p>
-          <ul class="tiny" style="line-height:1.5">
-            <li><strong>Friendliness vs. friendship:</strong> Depth comes through shared purpose.</li>
-            <li><strong>Belonging:</strong> Independence and interdependence can coexist.</li>
-            <li><strong>Pace:</strong> Sabbath resists hurry; rest is an offering.</li>
-            <li><strong>Family:</strong> Schools build identity through spirit and community.</li>
-            <li><strong>Systems:</strong> Consistency is the credential; taxes come yearly.</li>
-            <li><strong>Stewardship:</strong> Fix what you see; love grows local.</li>
-            <li><strong>Language:</strong> Clarity is kindness — first names default.</li>
-            <li><strong>Work:</strong> Narrate impact with humility and hope.</li>
-            <li><strong>Place:</strong> Cars widen maps; routines shrink them again.</li>
-            <li><strong>Identity:</strong> Assimilation can be addition, not erasure.</li>
-          </ul>
+        <!-- === SECTION 16 === -->
+        <section id="section-16" class="stack">
+          <h2>Cruise-traveler counsel — how to savor a single free day</h2>
+          <p>Think like a pilgrim, not a tourist. Choose one joy: Kennedy Space Center in awe, a single theme park unrushed, or a coastal café where the server learns your name. Book transfers early, allow margin for weather, and watch the clock if a time-zone line lies ahead.</p>
+          <p>Pack light, wear gratitude, and let wonder interrupt you. The truest souvenir is unhurried peace.</p>
         </section>
 
-        <!-- ===== COUNTRY-OF-ORIGIN NOTES ===== -->
-        <section id="origins" class="stack">
-          <h2>Country-of-origin notes (brief, kind, and useful)</h2>
-          <p><strong>Australia:</strong> Direct humor works; coffee culture thrives. Plan rest deliberately and learn Fahrenheit fast.</p>
-          <p><strong>Eastern Europe:</strong> Expect informality; first names show welcome. Bring documentation for licenses.</p>
-          <p><strong>Asia &amp; Subcontinent:</strong> Initiative reads as respect. Diaspora networks are deep strengths; use them well.</p>
-        </section>
-
-        <!-- ===== QUICKLIST ===== -->
-        <section id="quicklist" class="stack">
-          <h2>Culture-shock quicklist (carry-on edition)</h2>
-          <p class="tiny">
-            Everyone smiles • Small talk oils the gears • Volume = enthusiasm • Time runs brisk • AC is chilly •
-            “You guys” = all of you • Fixed prices • Sales tax at the end • Free water/refills • Outlet malls tempt •
-            Yellow school buses delight • 911 for emergencies • One great day &gt; three rushed ones • Disney ≠ Miami.
-          </p>
-        </section>
-
-        <!-- ===== CONCLUSION + FAQ ===== -->
+        <!-- === WRAP / CONCLUSION === -->
         <section id="before-you-sail" class="stack">
           <h2>Before you sail away</h2>
-          <p>
-            Ask a local, “If your dearest friend had one afternoon here, where would you take them?”
-            Then go there, without hurry. When the gangway rises, carry more than souvenirs — carry gratitude.
-          </p>
+          <p>Plan fewer stops and linger more. Ask a local, “If your best friend had one afternoon here, where would you take them?” Then go there without hurry, and receive the place as a gift. When the gangway finally rises, you’ll carry aboard more than souvenirs — you’ll carry an honest picture of a nation vast in land, generous in spirit, a little loud, often kind, and quick to cheer you on.</p>
 
+          <!-- FAQ mirrors JSON-LD -->
           <section class="card faq" id="faq" aria-labelledby="faq-title" style="max-width:860px;margin:1.25rem auto">
             <h2 id="faq-title">FAQ for U.S. cruise travelers</h2>
-            <details><summary><strong>Which Florida cruise port should I fly into?</strong></summary>
-              <p>Port Canaveral: Orlando (MCO). PortMiami: Miami (MIA) or Fort Lauderdale (FLL). Port Everglades: FLL or MIA.</p></details>
-            <details><summary><strong>How much buffer time do I need on embarkation day?</strong></summary>
-              <p>Land by late morning. Allow <strong>4–6 hours</strong> for immigration, baggage, and transfer.</p></details>
-            <details><summary><strong>Is tipping expected in U.S. restaurants?</strong></summary>
-              <p>Yes — 18–25% full-service; 15% is the floor.</p></details>
-            <details><summary><strong>Can I turn right on red?</strong></summary>
-              <p>In most states, yes after a <strong>full stop</strong>, unless a sign forbids it.</p></details>
-            <details><summary><strong>Best way from airport to port?</strong></summary>
-              <p><strong>Ride-share</strong> or <strong>pre-booked shuttles</strong>; outside big metros, <strong>rental cars</strong> work best.</p></details>
+            <details>
+              <summary><strong>Which Florida cruise port should I fly into?</strong></summary>
+              <p><strong>Port Canaveral:</strong> Orlando (MCO). <strong>PortMiami:</strong> Miami (MIA) or Fort Lauderdale (FLL, 30–45 min). <strong>Port Everglades:</strong> Fort Lauderdale (FLL) or Miami (MIA, 30–45 min).</p>
+            </details>
+            <details>
+              <summary><strong>How much buffer time do I need on embarkation day?</strong></summary>
+              <p>Land by late morning if possible. Allow <strong>4–6 hours</strong> for immigration, baggage, transfer, and check-in. When possible, arrive the <strong>day before</strong>.</p>
+            </details>
+            <details>
+              <summary><strong>Is tipping expected in U.S. restaurants?</strong></summary>
+              <p>Yes. Full-service restaurants: <strong>18–25 %</strong>; 15 % is typically the floor even if service was uneven.</p>
+            </details>
+            <details>
+              <summary><strong>Can I turn right on red?</strong></summary>
+              <p>In most states, yes after a <strong>full stop</strong>, unless a sign says otherwise. Always yield to pedestrians and traffic.</p>
+            </details>
+            <details>
+              <summary><strong>Best way from airport to port?</strong></summary>
+              <p><strong>Ride-share</strong> and <strong>pre-booked shuttles</strong> are typical. Outside big metros, a <strong>rental car</strong> is often simplest.</p>
+            </details>
           </section>
 
           <p><em>Soli Deo Gloria.</em></p>
         </section>
       </article>
+    </main>
 
-      <!-- ===== RIGHT RAIL ===== -->
-      <aside class="rail" role="complementary">
-        <div class="card rail-block">
-          <h2>More for cruise travelers</h2>
-          <ul>
-            <li><a href="/planning.html">Cruise planning overview</a></li>
-            <li><a href="/ports.html">U.S. port guides</a></li>
-            <li><a href="/packing-lists.html">Packing checklists</a></li>
-            <li><a href="/restaurants.html">Dining & tipping guides</a></li>
-            <li><a href="/accessibility.html">Accessibility onboard</a></li>
-          </ul>
-        </div>
+    <!-- === FOOTER === -->
+    <footer class="wrap" role="contentinfo">
+      © 2025 In the Wake — A Cruise Traveler’s Logbook 
+      <span class="version-badge">v3.010.001</span>
+      <p class="tiny center" style="margin-top:.5rem">
+        Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
+      </p>
+    </footer>
 
-        <div class="card rail-block">
-          <h2>On this page</h2>
-          <ul class="tiny">
-            <li><a href="#section-1">Scale &amp; distance</a></li>
-            <li><a href="#section-2">Arriving &amp; moving</a></li>
-            <li><a href="#section-5">Dining cadence</a></li>
-            <li><a href="#section-8">Weather &amp; timing</a></li>
-            <li><a href="#section-10">Money</a></li>
-            <li><a href="#section-14">Nature</a></li>
-            <li><a href="#section-16">Cruise counsel</a></li>
-          </ul>
-        </div>
-
-        <div class="card rail-block">
-          <h2>At a glance</h2>
-          <ul class="tiny">
-            <li><strong>Airports→Ports:</strong> MCO→Canaveral, MIA↔Miami, FLL↔Everglades</li>
-            <li><strong>Tipping:</strong> 18–25%</li>
-            <li><strong>Ride-share:</strong> Uber/Lyft or shuttles</li>
-            <li><strong>Weather:</strong> warm, variable — pack layers</li>
-            <li><strong>Safety:</strong> 911 for emergencies</li>
-          </ul>
-        </div>
-
-        <div class="card rail-block" id="author-card">
-          <h2>About the author</h2>
-          <img src="/authors/img/ken-baker.jpg?v=3.011.000" alt="Author Ken Baker portrait"
-               style="width:100%;max-width:140px;border-radius:50%;margin-bottom:.5rem"/>
-          <p class="tiny"><strong>Ken Baker</strong> writes the <a href="/solo.html">Solo Travel</a> series for
-            <em>In the Wake</em>. A Reformed Baptist pastor and traveler, he believes every sunrise at sea
-            tells of grace and glory.</p>
-          <p class="tiny"><a href="/authors/ken-baker.html">View full profile →</a></p>
-        </div>
-      </aside>
-    </div>
-  </main>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.011.000</span>
-    <p class="tiny center" style="margin-top:.5rem">
-      Soli Deo Gloria — Every pixel and part of this project is offered as worship to God,
-      in gratitude for the beautiful things He has created for us to enjoy.
-    </p>
-  </footer>
-
-  <script defer src="/assets/js/share-bar.js?v=3.011.000"></script>
-</body>
+    <!-- JS assets -->
+    <script defer src="/assets/js/share-bar.js?v=3.010.001"></script>
+    <script defer src="/assets/js/sw-register.js?v=3.010.001"></script>
+  </body>
 </html>
