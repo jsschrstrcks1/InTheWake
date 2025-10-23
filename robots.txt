@@ -1,35 +1,50 @@
-# robots.txt for https://cruisinginthewake.com/
-# Last updated: 2025-10-16
-# Purpose: Allow full indexing of public content while preventing crawl of internal assets.
+# robots.txt for https://www.cruisinginthewake.com/
+# Last updated: 2025-10-23
+# Purpose: Allow full indexing of public content, ensure canonical article is crawled,
+#          and prevent crawl of internal assets and fragment builds.
+
 User-agent: *
+
 # === Allow key content sections ===
 Allow: /$
 Allow: /ships/
 Allow: /restaurants/
 Allow: /ports/
 Allow: /cruise-lines/
+Allow: /planning.html
 Allow: /travel.html
 Allow: /solo.html
-Allow: /disability.html
-Allow: /drinks.html
-Allow: /packing.html
-Allow: /planning.html
-# === Disallow internal or redundant paths ===
+Allow: /solo/
+Allow: /packing-lists.html
+Allow: /accessibility.html
+Allow: /drink-packages.html
+
+# ✳️ Canonical full article (allow explicitly)
+Allow: /solo/visiting-the-united-states-before-your-cruise.html
+
+# === Disallow internal, redundant, or fragment paths ===
 Disallow: /assets/
-Disallow: /images/
 Disallow: /js/
 Disallow: /css/
 Disallow: /data/
 Disallow: /meta/
 Disallow: /vendor/
+Disallow: /images/           # top-level only; /solo/images/ remains crawlable
 Disallow: /__MACOSX/
 Disallow: /404.html
 Disallow: /placeholder.md
-Disallow: /admin/  # Added for potential sensitive paths
-Disallow: /*.php$  # Block dynamic scripts if not used
-# === Sitemap reference ===
-Sitemap: https://cruisinginthewake.com/sitemap.xml
-# === Notes for search engines ===
-# - /ships/ includes detailed ship pages (e.g., /ships/rcl/grandeur-of-the-seas.html).
-# - /restaurants/ includes venue profiles and menu reviews.
-# - /assets/, /data/, /meta/, /vendor/ contain supporting files only.
+Disallow: /admin/
+Disallow: /drafts/
+Disallow: /staging/
+Disallow: /tmp/
+Disallow: /solo/article/     # block article fragments / partial builds
+Disallow: /*.php$            # block dynamic scripts if not used
+
+# === Sitemap references (canonical host) ===
+Sitemap: https://www.cruisinginthewake.com/sitemap.xml
+Sitemap: https://www.cruisinginthewake.com/solo/sitemap.xml
+
+# Notes:
+# - /solo/images/ remains indexable for article imagery and rich results.
+# - Aligns with <link rel="canonical"> and JSON-LD on the article page.
+# - Mirrors navigation paths and v3.010 standards.
