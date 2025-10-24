@@ -166,6 +166,18 @@
 
     /* Minor header nav overflow guard */
     .navbar{overflow:visible}
+    /* Ensure the nav sits above the hero image */
+.navbar{ position:relative; z-index: 2000; }
+
+/* Submenu already has z-index:50; keep it clearly above content */
+.submenu{ z-index: 3000; }
+
+/* Desktop hover fallback (touch devices ignore due to media query) */
+@media (hover:hover) and (pointer:fine){
+  .pill-nav .nav-group:hover > .submenu{
+    display:block;
+  }
+}
   </style>
 
 
