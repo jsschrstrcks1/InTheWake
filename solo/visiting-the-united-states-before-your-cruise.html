@@ -178,6 +178,53 @@
     display:block;
   }
 }
+    /* Ensure the whole header stack can show popovers */
+.hero-header{ position:relative; z-index: 1200; }
+.navbar{ position:relative; z-index: 2000; }
+
+/* The trigger container must anchor the absolute submenu */
+.nav-group{ position: relative; }
+
+/* Base submenu (hidden by default) */
+.pill-nav .nav-group > .submenu{
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  display: none;
+  min-width: 220px;
+  padding: .35rem;
+  background: #fff;
+  border: 1px solid rgba(8,48,65,.15);
+  border-radius: .65rem;
+  box-shadow: 0 8px 24px rgba(8,48,65,.12);
+  z-index: 4000;              /* above hero imagery */
+  pointer-events: auto;
+  white-space: normal;         /* allow wrapping inside submenu */
+}
+
+/* Show when JS toggles .open (win vs. CSS specificity issues) */
+.pill-nav .nav-group.open > .submenu{
+  display: block !important;
+}
+
+/* Submenu items vertical, not inline-pills */
+.pill-nav .nav-group > .submenu a,
+.pill-nav .nav-group > .submenu button{
+  display: block !important;
+  width: 100%;
+  margin: 0;
+  padding: .5rem .65rem;
+  border-radius: .65rem;
+  text-decoration: none;
+  white-space: normal !important;
+}
+
+/* Desktop hover fallback (touch devices ignore) */
+@media (hover:hover) and (pointer:fine){
+  .pill-nav .nav-group:hover > .submenu{
+    display: block;
+  }
+}
   </style>
 
 
@@ -626,14 +673,25 @@
   <!-- JS: submenu disclosure (fixes menu) -->
 
 
- <script>
-/* Accessible dropdowns (click + keyboard + outside/Escape), all groups */
+<script>
+/* Accessible dropdowns: click + keyboard + outside/Escape, all groups */
 (function(){
-  const groups = document.querySelectorAll('.nav-group');
+  const groups = Array.from(document.querySelectorAll('.nav-group'));
   if (!groups.length) return;
 
-  function open(g){ g.classList.add('open'); g.querySelector('.nav-disclosure').setAttribute('aria-expanded','true'); }
-  function close(g){ g.classList.remove('open'); g.querySelector('.nav-disclosure').setAttribute('aria-expanded','false'); }
+  function open(g){
+    g.classList.add('open');
+    const b = g.querySelector('.nav-disclosure');
+    if (b) b.setAttribute('aria-expanded','true');
+  }
+  function close(g){
+    g.classList.remove('open');
+    const b = g.querySelector('.nav-disclosure');
+    if (b) b.setAttribute('aria-expanded','false');
+  }
+  function closeAll(except){
+    groups.forEach(g => { if (g !== except) close(g); });
+  }
 
   groups.forEach(g=>{
     const btn  = g.querySelector('.nav-disclosure');
@@ -643,39 +701,40 @@
     // Click toggle
     btn.addEventListener('click', (e)=>{
       e.stopPropagation();
-      if (g.classList.contains('open')) { close(g); } else {
-        // close others
-        groups.forEach(other=>{ if(other!==g) close(other); });
-        open(g);
-      }
+      const isOpen = g.classList.contains('open');
+      closeAll(g);
+      if (!isOpen) open(g); else close(g);
     });
 
-    // Close on outside click
-    document.addEventListener('click', (e)=>{
-      if(!g.contains(e.target)) close(g);
-    });
-
-    // Keyboard support
+    // Keyboard on button
     btn.addEventListener('keydown', (e)=>{
       if(e.key === 'ArrowDown'){
         e.preventDefault();
         open(g);
         const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
         if(first) first.focus();
-      } else if(e.key === 'Escape'){
+      }
+      if(e.key === 'Escape'){
         close(g); btn.focus();
       }
     });
 
+    // Escape inside menu
     menu.addEventListener('keydown', (e)=>{
       if(e.key === 'Escape'){ close(g); btn.focus(); }
     });
 
-    // Close when focus leaves the group
+    // Close when tabbing away from the group
     menu.addEventListener('focusout', ()=>{
       setTimeout(()=>{ if(!g.contains(document.activeElement)) close(g); }, 0);
     });
   });
+
+  // Single outside-click closer (capture to win over other handlers)
+  document.addEventListener('click', (e)=>{
+    // if click is not inside any group, close all
+    if(!groups.some(g => g.contains(e.target))) closeAll();
+  }, true);
 })();
 </script>
 
