@@ -1,12 +1,14 @@
-/* sw.js — In the Wake Service Worker (v13)
-   Changes vs v12:
-   - Exclude / and /index.html from precache/sitemap seeding
-   - Respect hard reloads: bypass caches on HTML when Cache-Control: no-cache
-   - Enable navigation preload for faster networkFirst navigations
-   - Fetch precache sources with no-store + bust param
+/* sw.js — In the Wake Service Worker (v14)
+   Changes vs v13:
+   - Supports multiple precache sources:
+     1) /precache-manifest.json  (pages/assets/images/sitemaps)
+     2) /prefetch-images-*.json  (authors/ships/other)
+   - Merges & de-dupes URLs before seeding
+   - Still excludes "/" and "/index.html" from manifest/sitemap seeding
+   - Keeps navigation preload + HTML hard-reload behavior
 */
 
-const SW_VERSION   = "v13";
+const SW_VERSION   = "v14";
 const PREFIX       = "itw";
 const PAGE_CACHE   = `${PREFIX}-page-${SW_VERSION}`;
 const ASSET_CACHE  = `${PREFIX}-asset-${SW_VERSION}`;
@@ -18,6 +20,12 @@ const MAX_ASSETS   = 60;
 const MAX_IMAGES   = 360;
 
 const BUST = () => `v=${SW_VERSION}-${Date.now()}`;
+
+// Manifest sources (feel free to change the filename/version here)
+const MANIFEST_SOURCES = [
+  "/precache-manifest.json",
+  "/prefetch-images.json" // optional; if missing, we skip it
+];
 
 // Utils --------------------------------------------------------------------
 function sameOrigin(u) {
@@ -56,11 +64,9 @@ self.addEventListener("install", (e) => {
 self.addEventListener("activate", (e) => {
   e.waitUntil((async () => {
     await self.clients.claim();
-    // Enable faster navigations
     if (self.registration.navigationPreload) {
       try { await self.registration.navigationPreload.enable(); } catch(_) {}
     }
-    // Clean old buckets
     const keep = new Set([PAGE_CACHE, ASSET_CACHE, IMG_CACHE, PRECACHE]);
     const names = await caches.keys();
     await Promise.all(names
@@ -83,33 +89,60 @@ self.addEventListener("message", (event) => {
 // Warmup helpers ------------------------------------------------------------
 async function warmPrecache() {
   try {
-    const res = await fetch(`/precache-manifest.json?${BUST()}`, { cache: "no-store", credentials: "omit" });
-    if (!res.ok) return;
-    const manifest = await res.json();
-    const urls = new Set();
-
     const excludePaths = new Set(["/", "/index.html"]);
+    const allURLs = new Set();
+    let sitemaps = [];
 
-    (manifest.pages  || []).forEach(u => {
-      if (!sameOrigin(u)) return;
-      const uo = new URL(u, location.origin);
-      if (!excludePaths.has(uo.pathname)) urls.add(uo.pathname + uo.search);
-    });
-    (manifest.assets || []).forEach(u => {
-      if (!sameOrigin(u)) return;
-      const uo = new URL(u, location.origin);
-      urls.add(uo.pathname + uo.search);
-    });
-    (manifest.images || []).forEach(u => {
-      if (!sameOrigin(u)) return;
-      const uo = new URL(u, location.origin);
-      urls.add(uo.pathname + uo.search);
-    });
+    // Load/merge every manifest source
+    for (const src of MANIFEST_SOURCES) {
+      const url = new URL(src, location.origin);
+      url.search += (url.search ? "&" : "?") + BUST();
+      let res;
+      try {
+        res = await fetch(url.href, { cache: "no-store", credentials: "omit" });
+      } catch { res = null; }
+      if (!res || !res.ok) continue;
 
-    await seedURLs([...urls]);
+      // Each manifest may have a different shape; handle both
+      const data = await res.json();
 
-    const sitemaps = Array.isArray(manifest.sitemaps) ? manifest.sitemaps : ["/sitemap.xml"];
-    for (const sm of sitemaps) {
+      // 1) Original precache-manifest.json shape
+      if (Array.isArray(data.pages) || Array.isArray(data.assets) || Array.isArray(data.images)) {
+        const pushList = (arr=[]) => arr.forEach(u => {
+          if (!sameOrigin(u)) return;
+          const uo = new URL(u, location.origin);
+          if (!excludePaths.has(uo.pathname)) allURLs.add(uo.pathname + uo.search);
+        });
+        pushList(data.pages);
+        pushList(data.assets);
+        pushList(data.images);
+
+        // handle sitemaps from main manifest
+        if (src.includes("precache-manifest")) {
+          if (Array.isArray(data.sitemaps)) sitemaps = data.sitemaps.slice();
+          else sitemaps = ["/sitemap.xml"];
+        }
+      }
+
+      // 2) Image prefetch file shape: { authors:[], ships:[], other:[] }
+      if (Array.isArray(data.authors) || Array.isArray(data.ships) || Array.isArray(data.other)) {
+        const pushList2 = (arr=[]) => arr.forEach(u => {
+          if (!sameOrigin(u)) return;
+          const uo = new URL(u, location.origin);
+          // these are mostly images; we do not exclude "/" checks here since they’re files
+          allURLs.add(uo.pathname + uo.search);
+        });
+        pushList2(data.authors);
+        pushList2(data.ships);
+        pushList2(data.other);
+      }
+    }
+
+    // Seed merged URLs
+    await seedURLs([...allURLs]);
+
+    // Seed sitemaps (if any were discovered)
+    for (const sm of (sitemaps && sitemaps.length ? sitemaps : ["/sitemap.xml"])) {
       try { await seedFromSitemap(sm); } catch (_) {}
     }
   } catch (_) {}
@@ -133,7 +166,6 @@ async function seedFromSitemap(path) {
     const xml = await res.text();
     urls = Array.from(xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)).map(m => m[1]);
   }
-  // Exclude index routes
   const same = urls.filter(u => {
     if (!sameOrigin(u)) return false;
     const p = new URL(u, location.origin).pathname;
@@ -148,11 +180,10 @@ async function seedURLs(urls) {
   await Promise.all(urls.map(async (u) => {
     try {
       const abs = new URL(u, location.origin);
-      // Add a tiny bust only for seeding fetch, not for lookup keys
       const fetchURL = new URL(abs.href);
       fetchURL.search += (fetchURL.search ? "&" : "?") + BUST();
 
-      const reqPut = new Request(abs.href, { method: "GET" });     // cache key
+      const reqPut = new Request(abs.href, { method: "GET" }); // cache key
       const hit = await pre.match(reqPut);
       if (hit) return;
 
@@ -183,7 +214,6 @@ async function copyPrecacheToRuntime() {
       } else if (isImageURL(url.href)) {
         await imgC.put(req, res.clone());
       } else if (url.pathname.endsWith(".html") || url.pathname === "/") {
-        // still allow other pages to be available offline
         await pageC.put(req, res.clone());
       }
     }
@@ -223,7 +253,6 @@ self.addEventListener("fetch", (event) => {
 });
 
 async function handleHTML(event, request) {
-  // Respect hard reloads: bypass caches
   const cc = (request.headers && request.headers.get("cache-control")) || "";
   const pragma = (request.headers && request.headers.get("pragma")) || "";
   const hardReload = /\bno-cache\b/i.test(cc) || /\bno-cache\b/i.test(pragma);
@@ -232,7 +261,6 @@ async function handleHTML(event, request) {
   const key   = cacheKey(request);
 
   try {
-    // navigation preload (if available)
     const preload = event.preloadResponse ? (await event.preloadResponse) : null;
     if (!hardReload && preload && (preload.ok || preload.type === "opaque")) {
       cache.put(key, preload.clone()).catch(()=>{});
@@ -240,7 +268,6 @@ async function handleHTML(event, request) {
       return preload;
     }
 
-    // Always prefer network
     const res = await fetch(request);
     if (res && (res.ok || res.type === "opaque")) {
       cache.put(key, res.clone()).catch(()=>{});
@@ -248,7 +275,6 @@ async function handleHTML(event, request) {
     }
     return res;
   } catch (_) {
-    // Network failed: return cached (page or precache)
     const cached = await cache.match(key);
     if (cached) return cached;
     const pre = await caches.open(PRECACHE);
