@@ -114,6 +114,53 @@
     "articleSection":"Solo Travel"
   }
   </script>
+  <style>
+/* === NAV & HERO LAYERING SANITY (fixes wordmark + menus) === */
+.hero-header{position:relative; z-index:0;}
+.hero-header > .hero{
+  position:relative !important;
+  z-index:0 !important;                 /* hero is the floor */
+  width:100% !important; margin-left:0 !important; overflow-x:clip !important;
+}
+.navbar{
+  position:relative !important;
+  z-index:1000 !important;              /* nav row above hero */
+  overflow:visible !important;          /* submenus can escape */
+}
+.submenu{ z-index:1100 !important; }    /* submenus above everything */
+
+/* Ensure big wordmark actually renders/aligns */
+.hero-title .logo{
+  display:block !important;
+  opacity:1 !important; visibility:visible !important;
+  width:clamp(189px,23.1vw,378px) !important;
+  max-width:min(45vw,520px) !important;
+  filter:none !important;               /* kill any accidental fades */
+}
+
+/* Dropdown menu geometry & a11y focus */
+.nav-group{ position:relative; }
+.submenu{
+  position:absolute; left:0; top:calc(100% + 8px);
+  min-width:220px; background:#fff; border:1px solid var(--rope,#d9b382);
+  border-radius:12px; padding:.4rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
+  display:none; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease;
+}
+.nav-group[data-open="true"] > .submenu{
+  display:block; opacity:1; visibility:visible; pointer-events:auto;
+}
+.submenu a{ display:block; padding:.5rem .65rem; border-radius:.65rem; }
+
+/* Safety: no ancestor clips the dropdowns */
+header, .hero-header, .navbar{ overflow:visible !important; }
+
+/* Figure/caption clamp: force caption below image (fix for the waterfall) */
+.solo-article figure img{ position:static !important; display:block !important; width:100% !important; height:auto !important; object-fit:contain !important; }
+.solo-article figure > figcaption{ display:block; clear:both; }
+
+/* Optional: preload helps the wordmark show faster */
+</style>
+<link rel="preload" as="image" href="/assets/logo_wake.png">
 </head>
 <body class="page no-hero-filter">
   <a href="#content" class="skip-link">Skip to main content</a>
