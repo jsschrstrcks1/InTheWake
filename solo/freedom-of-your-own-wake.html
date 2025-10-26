@@ -177,6 +177,77 @@
   .author-card picture{ display:block; flex:0 0 48px; }
 
   .toc a.active{font-weight:700;text-decoration:underline}
+   /* ========= NAV: limit pill styling to top-level only ========= */
+.pill-nav {
+  flex: 1 1 auto; min-width: 0;
+  display: flex; align-items: center; justify-content: center;
+  gap: .45rem; white-space: nowrap; flex-wrap: nowrap;
+  overflow: visible; padding-inline: .75rem;
+}
+
+/* Only top-level links/buttons get pill styling */
+.pill-nav > a,
+.pill-nav > .nav-group > .nav-disclosure {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .35rem .7rem; border-radius: 10px; background: #fff;
+  border: 1px solid var(--rope); color: #0e6e8e;
+  font: inherit; font-size: .9rem; line-height: 1.2;
+  cursor: pointer; text-decoration: none;
+}
+
+/* Submenu container: baseline hidden (wins over any global) */
+.submenu{
+  position: absolute !important;
+  left: 0; top: calc(100% + 8px);
+  min-width: 220px; background: #fff; border: 1px solid var(--rope);
+  border-radius: 12px; padding: .4rem;
+  box-shadow: 0 8px 24px rgba(8,48,65,.12);
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: 1100;
+}
+
+/* Reveal when the group is “open” (dataset or class) */
+.nav-group[data-open="true"] > .submenu,
+.nav-group.open > .submenu{
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Submenu links look like menu items, not pills */
+.submenu a{
+  display: block; width: 100%;
+  margin: 0; padding: .5rem .65rem;
+  border-radius: .65rem; border: 0;
+  background: transparent; color: var(--ink); text-decoration: none;
+}
+.submenu a:hover, .submenu a:focus{
+  background: #f2f7fa;
+  outline: 2px solid transparent;
+}
+
+/* Keep the popover visible (no clipping) */
+header, .hero-header, .navbar, .pill-nav, .nav-group { overflow: visible; }
+.nav-group { position: relative; }
+
+/* ========= TAGLINE: back under the logo (left-aligned) ========= */
+.tagline{
+  position: absolute;
+  left: min(3vw, 1rem);           /* tuck under the logo */
+  bottom: clamp(.55rem, 1.6vw, 1.1rem);
+  transform: none !important;     /* remove centering */
+  font-weight: 700; letter-spacing: .2px;
+  color: #e6f4f8;
+  font-size: clamp(.9rem,1.5vw,1.35rem);
+  white-space: nowrap; z-index: 3;
+}
+
+/* ========= (Unchanged but helpful) ========= */
+header, .hero-header, .navbar { position: relative; z-index: 1000; }
 </style>
 </head>
 <body class="page">
