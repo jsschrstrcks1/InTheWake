@@ -146,6 +146,32 @@
 
     .author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center}
     .toc a.active{font-weight:700;text-decoration:underline}
+  /* --- Author avatar: perfect circle, no baseline gap --- */
+.author-avatar{
+  display:block;              /* remove baseline gap */
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center;
+  flex:0 0 48px;              /* fixed slot in the flex row */
+}
+
+/* Make the picture itself a fixed block too (prevents stray gaps) */
+.author-card picture{ display:block; flex:0 0 48px; }
+
+/* --- Tagline: put it back exactly like the good page --- */
+.tagline{
+  position:absolute;
+  left:50%;
+  bottom:clamp(.55rem,1.6vw,1.1rem);
+  font-weight:700;
+  letter-spacing:.2px;
+  color:#e6f4f8;
+  font-size:clamp(.9rem,1.5vw,1.35rem);
+  white-space:nowrap;
+  z-index:3;
+}
   </style>
 </head>
 <body class="page">
@@ -409,17 +435,17 @@
       const ken = list.find(a => /ken\s*baker/i.test(a.name||'')) || list[0];
       if(!ken) return;
 
-      rail.querySelector('.author-card').innerHTML = `
-        <picture>
-          <source type="image/webp" srcset="/authors/img/ken1.webp">
-          <img class="author-avatar" src="/authors/img/ken1.jpg" width="72" height="72" alt="Author — Ken Baker">
-        </picture>
-        <div>
-          <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
-          Founder of In the Wake and writer of the Solo Travel series.<br/>
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
-          Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
-        </div>`;
+rail.querySelector('.author-card').innerHTML = `
+  <picture>
+    <source type="image/webp" srcset="/authors/img/ken1.webp">
+    <img class="author-avatar" src="/authors/img/ken1.jpg" width="48" height="48" alt="Author — Ken Baker">
+  </picture>
+  <div>
+    <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
+    Founder of In the Wake and writer of the Solo Travel series.<br/>
+    <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+    Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+  </div>`;
     })();
 
   /* Right-rail: Recent articles (with absolute Top-20 image override — forced) */
