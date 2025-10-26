@@ -157,6 +157,35 @@
   color:#083041;
   opacity:.9;
 }
+  /* ===== Fix: keep article hero as a normal figure, caption left beneath image ===== */
+.solo-article figure.article-hero { 
+  display:block !important;
+  position:static !important;
+  float:none !important;
+  clear:none !important;
+}
+
+.solo-article figure.article-hero img {
+  display:block !important;
+  width:100% !important;
+  height:auto !important;
+  object-fit:contain !important;
+  margin:0 !important;
+}
+
+.solo-article figure.article-hero > figcaption {
+  display:block !important;
+  text-align:left !important;
+  margin-top:.65rem !important;
+  padding-top:.45rem !important;
+  border-top:1px dashed rgba(8,48,65,.12) !important;
+  line-height:1.4;
+  color:#083041;
+  opacity:.9;
+}
+
+/* Prevent any generic figcaption center rule from winning */
+figure figcaption { text-align:inherit; }
 </style>
 <link rel="preload" as="image" href="/assets/logo_wake.png">
 </head>
@@ -501,6 +530,8 @@
 
 /* Run after DOM is ready just in case script moves */
 document.addEventListener('DOMContentLoaded', () => {
+  // Normalize article hero figure so it doesn't inherit global .hero flex styles
+document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.remove('hero'));
 
   /* 1) Accessible dropdowns: click + hover + keyboard (+ outside/Escape) */
   (function(){
