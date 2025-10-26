@@ -4,7 +4,7 @@
   <!-- ============================================================
        In the Wake — Solo Article (standalone)
        Page: Visiting (or Moving to) the United States
-       Version: 3.010.021|  Standards baseline: 3.010.x
+       Version: 3.010.022|  Standards baseline: 3.010.x
        ============================================================ -->
 
   <!-- Core -->
@@ -14,7 +14,7 @@
   <meta name="robots" content="index,follow,max-image-preview:large"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.021"/>
+  <meta name="version" content="3.010.022"/>
   <meta name="author" content="Ken Baker"/>
 
   <!-- Title & SEO -->
@@ -40,7 +40,7 @@
   <link rel="preload" as="image" href="/solo/images/flickersofmajesty.jpeg" fetchpriority="high"/>
 
 <style>
-  /* ===== In the Wake — Solo Article (compact standards) v3.010.021 ===== */
+  /* ===== In the Wake — Solo Article (compact standards) v3.010.022 ===== */
   :root{
     --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
     --shadow:0 6px 22px rgba(8,48,65,.08);
@@ -137,7 +137,7 @@
 
   /* Safety */
   html,body{overflow-x:hidden}
-  /* ===== Patch v3.010.021-final (Hero caption & float fix) ===== */
+  /* ===== Patch v3.010.022-final (Hero caption & float fix) ===== */
 .solo-article figure.article-hero,
 .solo-article figure.article-hero * {
   display:block !important;
@@ -196,8 +196,8 @@ figure figcaption { text-align:inherit; }
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.021" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
-        <span class="tiny version-badge">v3.010.021</span>
+        <img src="/assets/logo_wake.png?v=3.010.022" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
+        <span class="tiny version-badge">v3.010.022</span>
       </div>
 
       <!-- De-duplicated, accessible pill nav -->
@@ -230,9 +230,9 @@ figure figcaption { text-align:inherit; }
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.021" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.022" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.021" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.022" width="560" height="144" alt="In the Wake" decoding="async"/>
       </div>
       <div class="tagline">A Cruise Traveler’s Logbook</div>
       <div class="hero-credit">
@@ -519,14 +519,14 @@ figure figcaption { text-align:inherit; }
   <!-- ============================= FOOTER ============================ -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge tiny">v3.010.021</span>
+    <span class="version-badge tiny">v3.010.022</span>
     <p class="tiny center" style="margin-top:.5rem">
       Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
     </p>
   </footer>
 
 <script>
-/* ===== In the Wake — Solo Article JS v3.010.021 ===== */
+/* ===== In the Wake — Solo Article JS v3.010.022 ===== */
 
 /* Run after DOM is ready just in case script moves */
 document.addEventListener('DOMContentLoaded', () => {
@@ -606,7 +606,7 @@ document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.r
 
   // Attach a resilient image src with cache-bust and fallbacks
   function setImageWithFallback(imgEl, primary, altPaths=[]){
-    const stamp = 'v=3.010.021';
+    const stamp = 'v=3.010.022';
     const tried = new Set();
     const queue = [primary, ...altPaths]
       .filter(Boolean)
@@ -721,7 +721,7 @@ document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.r
     }
     // *** travel.html override (this is the one you needed) ***
     if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-      primary = '/assets/articles/travel/cover.jpg';
+      primary = 'https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg';
     }
 
     // (3) heuristic guess if still missing
@@ -748,7 +748,7 @@ document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.r
     // Extra explicit tries per known slug
     if(/\/travel(\.html)?$/.test(href)){
       alts.push(
-        'assets/articles/top-20-questions/cover.jpg',
+        '/assets/articles/top-20-questions/cover.jpg',
         '/assets/articles/travel/cover.JPG',
         '/assets/articles/travel/cover.webp',
         '/assets/articles/travel/cover.png'
@@ -757,7 +757,7 @@ document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.r
 
     // (5) instrumented fallback loader so you can see attempts
     (function setImageWithFallbackVerbose(imgEl, primarySrc, altPaths=[]){
-      const stamp = 'v=3.010.021';
+      const stamp = 'v=3.010.022';
       const tried = new Set();
       const queue = [primarySrc, ...altPaths].filter(Boolean).map(p => p.includes('?') ? `${p}&${stamp}` : `${p}?${stamp}`);
 
@@ -785,7 +785,7 @@ document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.r
   /* 5) Service worker */
   (function(){
     if('serviceWorker' in navigator){
-      const v='3.010.021';
+      const v='3.010.022';
       navigator.serviceWorker.register('/sw.js?v='+encodeURIComponent(v)).catch(()=>{});
     }
   })();
