@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- ======================================================
-       In the Wake — Solo Article (standalone, no fragment)
+       In the Wake — Solo Article (standalone, repaired)
        Page: The Freedom of Your Own Wake
        Version: 3.010.023  |  Standards baseline: 3.010.x
        ====================================================== -->
@@ -41,7 +41,7 @@
   <!-- Preload LCP hero -->
   <link rel="preload" as="image" href="/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017" fetchpriority="high"/>
 
-  <!-- Site CSS -->
+  <!-- Global site CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.004"/>
 
   <!-- Structured data: Article -->
@@ -61,52 +61,43 @@
   }
   </script>
 
-  <!-- Local helper styles (solo framing + submenu + figures) -->
+  <!-- Local helper styles (repairs + figure normalization) -->
   <style>
     /* Skip link */
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:1000;outline:0}
+    .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
 
-    /* Keep dropdowns able to overflow header */
-    .navbar{overflow:visible}
-    .pill-nav{position:relative;overflow:visible}
+    /* Let dropdowns escape the nav row; remove masks that clip submenus */
+    header,.hero-header,.navbar,.pill-nav{overflow:visible !important}
+    .pill-nav{position:relative;-webkit-mask:none !important;mask:none !important}
+    .submenu{z-index:1100}
 
-    /* Hero layout (tagline kept inside hero, left) */
+    /* Hero layout (keep wordmark in-frame on big viewports) */
     .hero{position:relative;overflow:visible}
-    .hero-title{position:absolute;left:max(12px,2.5vw,env(safe-area-inset-left));bottom:max(16px,2.2vw,env(safe-area-inset-bottom));
-      display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-align:left;z-index:3;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-    .hero-title .logo{width:clamp(220px,28vw,520px);max-width:min(48vw,520px);height:auto;display:block}
-    .hero-title .tagline{margin-top:.15rem;font-weight:700;letter-spacing:.2px;font-size:clamp(.95rem,1.5vw,1.35rem);color:#e6f4f8}
-    .hero-credit{position:absolute;right:12px;bottom:8px;color:#fff;font-size:.8rem;text-shadow:0 1px 3px rgba(0,0,0,.65);z-index:3}
-
-    /* NAV submenu (same behavior as working page) */
-    .nav-group{position:relative;display:inline-block}
-    .nav-disclosure{appearance:none;background:transparent;border:0;padding:.5rem .9rem;border-radius:999px;cursor:pointer}
-    .nav-disclosure:focus-visible{outline:2px solid #0e6e8e;outline-offset:2px}
-    .submenu{
-      position:absolute;left:0;top:calc(100% + 8px);
-      min-width:220px;background:#fff;border:1px solid rgba(8,48,65,.15);
-      border-radius:.65rem;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
-      display:none;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s ease;z-index:1100;
+    .hero-title{
+      position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);
+      display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;
+      text-align:left;z-index:3;text-shadow:0 2px 6px rgba(0,0,0,.45)
     }
-    .nav-group[data-open="true"]>.submenu{display:block;opacity:1;visibility:visible;pointer-events:auto}
-    .submenu a{display:block!important;width:100%;white-space:normal!important;margin:0;padding:.5rem .65rem;border-radius:.65rem;text-decoration:none}
+    .hero-title .logo{width:clamp(220px,28vw,520px);max-width:min(45vw,520px);height:auto;display:block}
+    .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
+    .hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid #d9b382;font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
 
-    /* Figures / captions (card frame) */
-    .solo-article figure,
-    .solo-article .article-hero{
+    /* Figures / captions (solo card frame) */
+    figure.hero,figure.inline-hero,figure.pull,
+    .solo-article figure,.solo-article .article-hero{
       margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;
-      background:#fff;border:1px solid rgba(8,48,65,.10);border-radius:16px;box-shadow:0 6px 22px rgba(8,48,65,.08)
+      background:#fff;border-radius:16px;border:1px solid rgba(8,48,65,.10);
+      box-shadow:0 6px 22px rgba(8,48,65,.08)
     }
-    .solo-article figure img,
-    .solo-article .article-hero img{
-      display:block !important;width:100% !important;height:auto !important;object-fit:contain !important;
-      position:static !important;float:none !important;border-radius:12px
+    figure.hero img,figure.inline-hero img,
+    .solo-article figure img,.solo-article .article-hero img{
+      display:block;width:100%;height:auto;object-fit:contain;border-radius:12px;
+      position:static !important;float:none !important;
     }
-    .solo-article .article-hero>figcaption,
-    .solo-article figure>figcaption{
-      display:block !important;clear:both !important;margin-top:.65rem;padding-top:.45rem;text-align:left !important;
-      border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
+    figure>figcaption,.solo-article .article-hero>figcaption,.solo-article figure>figcaption{
+      margin-top:.65rem;padding-top:.45rem;text-align:left;border-top:1px dashed rgba(8,48,65,.12);
+      font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
     }
     figure figcaption{text-align:inherit}
 
@@ -119,7 +110,7 @@
     .page-grid .content-area{display:grid;grid-template-columns:1fr minmax(260px,320px);gap:2rem;align-items:start;max-width:1200px;margin-inline:auto}
     .solo-article{max-width:860px;margin-inline:auto}
 
-    /* TOC scroll comfort */
+    /* TOC jump comfort */
     [id]{scroll-margin-top:16px}
   </style>
 </head>
@@ -128,38 +119,39 @@
 
   <!-- =========================== HEADER ============================ -->
   <header class="hero-header">
-    <div class="navbar">
+    <div class="navbar" style="overflow:visible">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.010.004" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
         <span class="tiny version-badge">v3.010.023</span>
       </div>
 
-      <!-- Primary nav (working dropdowns) -->
-      <nav class="nav pill-nav" aria-label="Primary">
+      <!-- Primary nav with working dropdown -->
+      <nav class="nav pill-nav pills" aria-label="Primary">
         <a href="/">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/packing-lists.html">Packing Lists</a>
 
-        <div class="nav-item nav-group" id="nav-planning" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
-          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+        <div class="nav-item nav-group" data-open="false">
+          <button class="nav-disclosure" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="planning-submenu">Planning ▾</button>
+          <div id="planning-submenu" class="submenu" role="menu" aria-label="Planning">
             <a role="menuitem" href="/planning.html">Planning (overview)</a>
-            <a role="menuitem" href="/ships.html">Ships</a>
-            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a role="menuitem" href="/ports.html">Ports</a>
-            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
             <a role="menuitem" href="/accessibility.html">Accessibility</a>
           </div>
         </div>
 
-        <div class="nav-item nav-group" id="nav-travel" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
-          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
-            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+        <div class="nav-item nav-group" data-open="false">
+          <button class="nav-disclosure" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="travel-submenu">Travel ▾</button>
+          <div id="travel-submenu" class="submenu" role="menu" aria-label="Travel">
             <a role="menuitem" href="/solo.html" aria-current="page">Solo</a>
+            <a role="menuitem" href="/travel.html">Travel Tips</a>
           </div>
         </div>
 
-        <a href="/about-us.html">About</a>
+        <a href="/cruise-lines.html">Cruise Lines</a>
+        <a href="/about-us.html">About Us</a>
       </nav>
     </div>
 
@@ -170,8 +162,7 @@
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
-        Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
-        <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a>
+        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
@@ -187,7 +178,7 @@
           <p class="dek" itemprop="description">A gentle case for sailing alone — rest, rhythm, and room to breathe when the sea becomes both your mirror and your companion.</p>
         </header>
 
-        <!-- TOP HERO (kept in the card frame; caption beneath, left-aligned) -->
+        <!-- TOP HERO (caption left, beneath) -->
         <figure class="article-hero">
           <img
             src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017"
@@ -195,8 +186,7 @@
             loading="eager" decoding="async" fetchpriority="high"
             alt="Sunrise over a calm sea">
           <figcaption>
-            Photo ©
-            <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
+            Photo © <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
           </figcaption>
         </figure>
 
@@ -217,17 +207,14 @@
 
         <p>Without the constant pull of conversation or planning, you begin to hear the voice of the One who calms the seas. You begin to realize that solitude is not separation — it’s communion. And sometimes, the most faithful thing you can do is take a deep breath and let the Lord steer for a while.</p>
 
-        <!-- INLINE IMAGE (matches hero card styling) -->
+        <!-- INLINE IMAGE -->
         <figure class="inline-hero">
-          <picture>
-            <img
-              src="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.017"
-              loading="lazy" decoding="async"
-              alt="Wake trailing a ship at sunrise">
-          </picture>
+          <img
+            src="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.017"
+            loading="lazy" decoding="async"
+            alt="Wake trailing a ship at sunrise">
           <figcaption>
-            Photo ©
-            <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
+            Photo © <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
           </figcaption>
         </figure>
 
@@ -266,7 +253,7 @@
             </div>
           </div>
 
-          <!-- Disclosure (as a card, consistent framing) -->
+          <!-- Disclosure -->
           <section class="cards stack" style="margin-top:1rem">
             <article class="card" id="solo-disclosure">
               <h3>Disclosure</h3>
@@ -296,7 +283,10 @@
         <section id="author-rail" class="card" aria-label="Author information">
           <h2 class="tiny" style="margin-bottom:.25rem;color:#0a3d62">About the author</h2>
           <div class="author-card" style="display:flex;gap:.75rem;align-items:center;">
-            <img src="/authors/img/ken-baker.jpg?v=3.010.004" alt="Author portrait — Ken Baker" width="72" height="72" style="border-radius:50%;object-fit:cover">
+            <picture>
+              <source type="image/webp" srcset="/authors/img/ken1.webp">
+              <img src="/authors/img/ken1.jpg" alt="Author portrait — Ken Baker" width="72" height="72" style="border-radius:50%;object-fit:cover">
+            </picture>
             <div>
               <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
               Founder of In the Wake and writer of the Solo Travel series.<br>
@@ -304,6 +294,12 @@
               Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
             </div>
           </div>
+        </section>
+
+        <!-- Recent Articles rail -->
+        <section class="card" aria-labelledby="recent-rail-title">
+          <h2 id="recent-rail-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">Recent Articles</h2>
+          <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         </section>
       </aside>
     </div><!-- /.content-area -->
@@ -320,67 +316,145 @@
 
   <!-- =========================== JS ================================ -->
   <script>
-  /* Run after DOM is ready */
-  document.addEventListener('DOMContentLoaded', () => {
-    /* 0) Normalize: if any article figures accidentally have .hero, strip it */
-    document.querySelectorAll('.solo-article figure.hero').forEach(f => f.classList.remove('hero'));
+  /* Normalize: ensure article figures don’t adopt global .hero layout */
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('.solo-article figure.hero').forEach(f=>f.classList.remove('hero'));
+  });
 
-    /* 1) Accessible dropdowns (same behavior as the working page) */
-    (function(){
-      const groups = Array.from(document.querySelectorAll('.nav-group'));
-      if(!groups.length) return;
+  /* Accessible dropdowns (click + hover + keyboard + outside/Escape) */
+  (function(){
+    const groups = Array.from(document.querySelectorAll('.nav-group'));
+    if(!groups.length) return;
 
-      const setOpen = (g,on)=>{
-        g.dataset.open = on ? "true" : "false";
-        const b = g.querySelector('.nav-disclosure');
-        if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
-      };
-      const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
+    const setOpen = (g,on)=>{
+      g.dataset.open = on ? "true" : "false";
+      const b = g.querySelector('.nav-disclosure');
+      if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    };
+    const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
 
-      groups.forEach(g=>{
-        const btn  = g.querySelector('.nav-disclosure');
-        const menu = g.querySelector('.submenu');
-        if(!btn || !menu) return;
+    groups.forEach(g=>{
+      const btn  = g.querySelector('.nav-disclosure');
+      const menu = g.querySelector('.submenu');
+      if(!btn || !menu) return;
 
-        // Click toggle
-        btn.addEventListener('click',(e)=>{
-          e.stopPropagation();
-          const open = g.dataset.open === "true";
-          closeAll(g);
-          setOpen(g, !open);
-        });
-
-        // Hover (pointer devices)
-        if (window.matchMedia && matchMedia('(hover:hover)').matches){
-          g.addEventListener('mouseenter', ()=>{ closeAll(g); setOpen(g,true); });
-          g.addEventListener('mouseleave', ()=> setOpen(g,false));
-        }
-
-        // Keyboard
-        btn.addEventListener('keydown',(e)=>{
-          if(e.key==='ArrowDown'){
-            e.preventDefault();
-            setOpen(g,true);
-            const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-            if(first) first.focus();
-          }
-          if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
-        });
-        menu.addEventListener('keydown',(e)=>{
-          if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
-        });
-
-        // Close when focus leaves the group
-        menu.addEventListener('focusout',()=>{
-          setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0);
-        });
+      btn.addEventListener('click',(e)=>{
+        e.stopPropagation();
+        const open = g.dataset.open === "true";
+        closeAll(g);
+        setOpen(g, !open);
       });
 
-      // Close on outside click / window blur
-      document.addEventListener('click', (e)=>{ if(!groups.some(g=>g.contains(e.target))) closeAll(); }, true);
-      window.addEventListener('blur', ()=> closeAll());
+      // Hover support (pointer devices)
+      if (window.matchMedia && matchMedia('(hover:hover)').matches){
+        g.addEventListener('mouseenter', ()=>{ closeAll(g); setOpen(g,true); });
+        g.addEventListener('mouseleave', ()=> setOpen(g,false));
+      }
+
+      // Keyboard
+      btn.addEventListener('keydown',(e)=>{
+        if(e.key==='ArrowDown'){
+          e.preventDefault();
+          setOpen(g,true);
+          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+          if(first) first.focus();
+        }
+        if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
+      });
+      menu.addEventListener('keydown',(e)=>{
+        if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
+      });
+
+      // Close when focus leaves the group
+      menu.addEventListener('focusout',()=>{
+        setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0);
+      });
+    });
+
+    // Close on outside click / window blur
+    document.addEventListener('click', (e)=>{ if(!groups.some(g=>g.contains(e.target))) closeAll(); }, true);
+    window.addEventListener('blur', ()=> closeAll());
+  })();
+
+  /* Recent Articles rail — resilient thumbs (keeps Top-20 override) */
+  (function(){
+    const pick=(o,keys,f=null)=>{for(const k of keys){if(o && o[k]!=null) return o[k]} return f};
+
+    async function fetchJSONWithFallback(urls){
+      for (const u of urls){
+        try{ const r=await fetch(u,{credentials:'omit',cache:'no-cache'}); if(r.ok) return await r.json(); }catch(_){}
+      }
+      return null;
+    }
+
+    (async function loadRecent(){
+      const raw = await fetchJSONWithFallback([
+        '/assets/data/articles/index.json',
+        '/assets/data/articles.json'
+      ]);
+      const rail = document.getElementById('recent-rail');
+      if(!rail || !raw) return;
+
+      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+      const here = location.pathname.replace(/\/+$/,'');
+      const view = items.filter(p=>{
+        const href = pick(p,['url','path'],'#');
+        const norm = (href||'').replace(/\/+$/,'');
+        return norm && norm !== here;
+      }).slice(0,3);
+
+      rail.innerHTML = view.map(p=>{
+        const title = pick(p,['title','name'],'Article');
+        const href  = pick(p,['url','path'],'#');
+        return `
+          <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
+            <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
+              <img class="article-thumb" alt="" decoding="async" style="width:100%;height:100%;object-fit:cover">
+            </div>
+            <div class="tiny" style="line-height:1.35">${title}</div>
+          </a>`;
+      }).join('');
+
+      const cards=[...rail.querySelectorAll('a.card')];
+      cards.forEach((card,i)=>{
+        const p=view[i]||{};
+        const el=card.querySelector('img.article-thumb');
+        const href=(pick(p,['url','path'],'')||'').toLowerCase();
+        const title=(pick(p,['title','name'],'')||'').toLowerCase();
+
+        let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
+
+        // Keep this override — it fixes the Top-20 thumb
+        if(!primary && (/(top-20|first-cruise-questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title))){
+          primary = '/assets/articles/top-20-questions/cover.jpg';
+        }
+        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
+          primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
+        }
+        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
+          primary = 'https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg';
+        }
+
+        const alts=[];
+        if(primary){
+          const base=primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+          alts.push(primary.replace(/\.jpg$/i,'.jpeg'), primary.replace(/\.jpg$/i,'.JPG'),
+                    `${base}.webp`, `${base}.png`);
+        }
+        const fallback='/assets/index_hero.jpg';
+        const stamp='v=3.010.023';
+        const tried=new Set();
+        const queue=[primary||fallback,...alts].filter(Boolean).map(p=>p.includes('?')?`${p}&${stamp}`:`${p}?${stamp}`);
+        function tryNext(){
+          const next=queue.shift();
+          if(!next){ el.removeAttribute('onerror'); el.alt='Cover image unavailable'; el.style.opacity=.65; return; }
+          if(tried.has(next)) return tryNext();
+          tried.add(next); el.src=next;
+        }
+        el.onerror = tryNext; tryNext();
+      });
     })();
-  });
+  })();
   </script>
 
   <!-- Site JS -->
