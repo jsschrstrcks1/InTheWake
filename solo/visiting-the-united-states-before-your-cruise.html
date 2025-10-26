@@ -4,7 +4,7 @@
   <!-- ============================================================
        In the Wake — Solo Article (standalone)
        Page: Visiting (or Moving to) the United States
-       Version: 3.010.014|  Standards baseline: 3.010.x
+       Version: 3.010.015|  Standards baseline: 3.010.x
        ============================================================ -->
 
   <!-- Core -->
@@ -14,7 +14,7 @@
   <meta name="robots" content="index,follow,max-image-preview:large"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.014"/>
+  <meta name="version" content="3.010.015"/>
   <meta name="author" content="Ken Baker"/>
 
   <!-- Title & SEO -->
@@ -40,143 +40,106 @@
   <link rel="preload" as="image" href="/solo/images/flickersofmajesty.jpeg" fetchpriority="high"/>
 
 <style>
-  /* ===== In the Wake — Solo Article (compact standards) v3.010.012b ===== */
-  :root{
-    --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-    --shadow:0 6px 22px rgba(8,48,65,.08);
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
-  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-  img{max-width:100%;height:auto;display:block}
-  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-  .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-  h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456} .center{text-align:center}
-  .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important;border:0!important}
-  .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-  .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
-
-  /* ===== Header & hero (no overlay, proper stacking) ===== */
-  .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:0}
-  .navbar{
-    max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
-    padding:.5rem .9rem .35rem;position:relative;z-index:1000;overflow:visible;
-  }
-  .brand{display:flex;align-items:flex-end;gap:.6rem}
-  .brand img{height:28px;width:auto}
-  .version-badge{font-size:.72rem;opacity:.8}
-
-  /* Pill nav row + chips */
-  .pill-nav{
-    flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
-    gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
-    -webkit-overflow-scrolling:touch;scrollbar-width:thin;
-    padding-inline:.75rem;scroll-padding-inline:.75rem;
-    -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-            mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-  }
-  .pill-nav a,.pill-nav button.nav-disclosure{
-    display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;
-    border-radius:10px;background:#fff;border:1px solid var(--rope);color:#0e6e8e;
-    font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
-  }
-  .pill-nav a[aria-current="page"]{
-    outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset
-  }
-  .nav-group{position:relative;display:inline-block}
-  .submenu{
-    position:absolute;left:0;top:calc(100% + 8px);
-    min-width:220px;background:#fff;border:1px solid var(--rope);
-    border-radius:12px;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
-    display:none;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s ease;z-index:1100;
-  }
-  .nav-group[data-open="true"] > .submenu{display:block;opacity:1;visibility:visible;pointer-events:auto}
-  .submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem}
-  header,.hero-header,.navbar{overflow:visible}
-
-  /* Hero */
-  .hero{
-    position:relative;width:100% !important;margin-left:0 !important;
-    min-height:clamp(200px,24vw,340px);
-    background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
-    display:flex;align-items:flex-end;overflow-x:clip;z-index:0;
-  }
-  .hero *{filter:none!important;mix-blend-mode:normal!important;opacity:1!important}
-  .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2;pointer-events:none}
-  .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-  .hero-title .logo{display:block;opacity:1;visibility:visible;width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
-  .tagline{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(.55rem,1.6vw,1.1rem);font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3}
-  .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
-  .hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
-
-  /* ===== Article media/caption normalization ===== */
-  .solo-article figure,
-  .solo-article .article-hero{margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;background:#fff;border:1px solid rgba(8,48,65,.1);border-radius:16px;box-shadow:var(--shadow)}
-  .solo-article figure img,
-  .solo-article .article-hero img{
-    display:block !important;width:100% !important;height:auto !important;object-fit:contain !important;
-    position:static !important;float:none !important;border-radius:12px
-  }
-  .solo-article figure > figcaption,
-  .solo-article .article-hero > figcaption{
-    display:block !important;clear:both !important;margin-top:.65rem;padding-top:.45rem;text-align:left;
-    border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
-  }
-
-  /* ===== Page layout rails ===== */
-  .page-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,320px);gap:2rem;align-items:start}
-  @media (max-width:979.98px){.page-grid{grid-template-columns:1fr}}
-  .rail-list{display:grid;gap:1rem}
-  .rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
-  .author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center}
-
-  /* Safety */
-  html,body{overflow-x:hidden}
-/* === NAV & HERO LAYERING SANITY (fixes wordmark + menus) === */
-.hero-header{position:relative; z-index:0;}
-.hero-header > .hero{
-  position:relative !important;
-  z-index:0 !important;                 /* hero is the floor */
-  width:100% !important; margin-left:0 !important; overflow-x:clip !important;
+/* ===== In the Wake — Solo Article (compact standards) v3.010.013 ===== */
+:root{
+  --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
+  --shadow:0 6px 22px rgba(8,48,65,.08);
 }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
+h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456} .center{text-align:center}
+.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important;border:0!important}
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
+
+/* ===== Header & hero (stacking that never breaks) ===== */
+.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:0;overflow:visible}
 .navbar{
-  position:relative !important;
-  z-index:1000 !important;              /* nav row above hero */
-  overflow:visible !important;          /* submenus can escape */
+  max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
+  padding:.5rem .9rem .35rem;position:relative;z-index:1000;overflow:visible;
 }
-.submenu{ z-index:1100 !important; }    /* submenus above everything */
+.brand{display:flex;align-items:flex-end;gap:.6rem}
+.brand img{height:28px;width:auto}
+.version-badge{font-size:.72rem;opacity:.8}
 
-/* Ensure big wordmark actually renders/aligns */
-.hero-title .logo{
-  display:block !important;
-  opacity:1 !important; visibility:visible !important;
-  width:clamp(189px,23.1vw,378px) !important;
-  max-width:min(45vw,520px) !important;
-  filter:none !important;               /* kill any accidental fades */
+/* Pill row + chips */
+.pill-nav{
+  flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
+  gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+  padding-inline:.75rem;scroll-padding-inline:.75rem;
+  -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+          mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
 }
-
-/* Dropdown menu geometry & a11y focus */
-.nav-group{ position:relative; }
+.pill-nav a,.pill-nav button.nav-disclosure{
+  display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;
+  border-radius:10px;background:#fff;border:1px solid var(--rope);color:#0e6e8e;
+  font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
+}
+.pill-nav a[aria-current="page"]{
+  outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset
+}
+.nav-group{position:relative;display:inline-block}
 .submenu{
-  position:absolute; left:0; top:calc(100% + 8px);
-  min-width:220px; background:#fff; border:1px solid var(--rope,#d9b382);
-  border-radius:12px; padding:.4rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
-  display:none; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .15s ease;
+  position:absolute;left:0;top:calc(100% + 8px);
+  min-width:220px;background:#fff;border:1px solid var(--rope);
+  border-radius:12px;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
+  display:none;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s ease;z-index:1100;
 }
-.nav-group[data-open="true"] > .submenu{
-  display:block; opacity:1; visibility:visible; pointer-events:auto;
+.nav-group[data-open="true"]>.submenu{display:block;opacity:1;visibility:visible;pointer-events:auto}
+.submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem}
+header,.hero-header,.navbar{overflow:visible}
+
+/* Hero */
+.hero{
+  position:relative;width:100%!important;margin-left:0!important;
+  min-height:clamp(200px,24vw,340px);
+  background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
+  display:flex;align-items:flex-end;overflow-x:clip;z-index:0;
 }
-.submenu a{ display:block; padding:.5rem .65rem; border-radius:.65rem; }
+.hero *{filter:none!important;mix-blend-mode:normal!important;opacity:1!important}
+.hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2;pointer-events:none}
+.hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+.hero-title .logo{display:block;opacity:1;visibility:visible;width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
+.tagline{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(.55rem,1.6vw,1.1rem);font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3}
+.hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
+.hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
 
-/* Safety: no ancestor clips the dropdowns */
-header, .hero-header, .navbar{ overflow:visible !important; }
+/* ===== Article media/caption normalization (forces caption UNDER image) ===== */
+.solo-article figure,
+.solo-article .article-hero{
+  margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;background:#fff;
+  border:1px solid rgba(8,48,65,.1);border-radius:16px;box-shadow:var(--shadow)
+}
+/* kill any side-by-side image+caption layouts from legacy rules */
+.solo-article figure,
+.solo-article figure *{float:none!important}
+.solo-article figure{display:block!important}
+.solo-article figure img,
+.solo-article .article-hero img{
+  display:block!important;width:100%!important;height:auto!important;object-fit:contain!important;
+  position:static!important;border-radius:12px
+}
+.solo-article figure>figcaption,
+.solo-article .article-hero>figcaption{
+  display:block!important;clear:both!important;margin-top:.65rem;padding-top:.45rem;text-align:left!important;
+  border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
+}
 
-/* Figure/caption clamp: force caption below image (fix for the waterfall) */
-.solo-article figure img{ position:static !important; display:block !important; width:100% !important; height:auto !important; object-fit:contain !important; }
-.solo-article figure > figcaption{ display:block; clear:both; }
+/* ===== Page layout rails ===== */
+.page-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,320px);gap:2rem;align-items:start}
+@media (max-width:979.98px){.page-grid{grid-template-columns:1fr}}
+.rail-list{display:grid;gap:1rem}
+.rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
+.author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center}
 
-/* Optional: preload helps the wordmark show faster */
+/* Safety */
+html,body{overflow-x:hidden}
 </style>
 <link rel="preload" as="image" href="/assets/logo_wake.png">
 </head>
@@ -187,8 +150,8 @@ header, .hero-header, .navbar{ overflow:visible !important; }
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.014" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
-        <span class="tiny version-badge">v3.010.014</span>
+        <img src="/assets/logo_wake.png?v=3.010.015" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
+        <span class="tiny version-badge">v3.010.015</span>
       </div>
 
       <!-- De-duplicated, accessible pill nav -->
@@ -221,9 +184,9 @@ header, .hero-header, .navbar{ overflow:visible !important; }
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.014" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.015" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.014" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.015" width="560" height="144" alt="In the Wake" decoding="async"/>
       </div>
       <div class="tagline">A Cruise Traveler’s Logbook</div>
       <div class="hero-credit">
@@ -510,16 +473,16 @@ header, .hero-header, .navbar{ overflow:visible !important; }
   <!-- ============================= FOOTER ============================ -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge tiny">v3.010.014</span>
+    <span class="version-badge tiny">v3.010.015</span>
     <p class="tiny center" style="margin-top:.5rem">
       Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
     </p>
   </footer>
 
 <script>
-/* ===== In the Wake — Solo Article JS v3.010.012b ===== */
+/* ===== In the Wake — Solo Article JS v3.010.013 ===== */
 (() => {
-  /* ---------- 1) Accessible dropdown menus ---------- */
+  /* ---------- 1) Accessible dropdown menus (click + hover + keyboard) ---------- */
   const groups = Array.from(document.querySelectorAll('.nav-group'));
   if (groups.length) {
     const setOpen = (g,on) => {
@@ -543,7 +506,7 @@ header, .hero-header, .navbar{ overflow:visible !important; }
       });
 
       // hover (pointer devices)
-      if (matchMedia('(hover:hover)').matches) {
+      if (window.matchMedia && matchMedia('(hover:hover)').matches) {
         g.addEventListener('mouseenter', () => { closeAll(g); setOpen(g,true); });
         g.addEventListener('mouseleave', () => setOpen(g,false));
       }
@@ -573,7 +536,7 @@ header, .hero-header, .navbar{ overflow:visible !important; }
     window.addEventListener('blur', () => closeAll());
   }
 
-  /* ---------- 2) Rails: Authors (shape provided) ---------- */
+  /* ---------- 2) Rails: Authors (matches /data/authors.json shape) ---------- */
   (async function loadAuthors(){
     const rail = document.getElementById('authors-rail');
     if (!rail) return;
@@ -586,8 +549,8 @@ header, .hero-header, .navbar{ overflow:visible !important; }
       return null;
     }
 
-    // Prefer /data/authors.json; fall back to /assets/data/authors.json
-    const data = await (getJSON('/data/authors.json') || getJSON('/assets/data/authors.json'));
+    // prefer /data, fallback to /assets/data
+    const data = await getJSON('/data/authors.json') || await getJSON('/assets/data/authors.json');
     if (!data) return;
 
     const list = Array.isArray(data.authors) ? data.authors : (Array.isArray(data) ? data : []);
@@ -600,7 +563,6 @@ header, .hero-header, .navbar{ overflow:visible !important; }
       const roles = Array.isArray(a.roles) ? a.roles.join(', ') : (a.roles || '');
       const sections = Array.isArray(a.sections) ? a.sections.join(', ') : (a.sections || '');
       const blurb = [roles, sections].filter(Boolean).join(' • ');
-
       return `
         <div class="rail-row">
           <img class="author-avatar" src="${img}" alt="${name}">
@@ -612,7 +574,7 @@ header, .hero-header, .navbar{ overflow:visible !important; }
     }).join('');
   })();
 
-  /* ---------- 3) Rails: Recent Articles (robust) ---------- */
+  /* ---------- 3) Rails: Recent Articles (robust cover resolution) ---------- */
   (async function loadRecent(){
     const rail = document.getElementById('recent-rail');
     if (!rail) return;
@@ -625,15 +587,32 @@ header, .hero-header, .navbar{ overflow:visible !important; }
       return null;
     }
 
-    const raw = await (getJSON('/assets/data/articles/index.json') || getJSON('/assets/data/articles.json'));
+    const raw = await getJSON('/assets/data/articles/index.json') || await getJSON('/assets/data/articles.json');
     if (!raw) return;
 
     const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
     if (!items.length) return;
 
+    function resolveHref(p){
+      return p.url || p.path || p.href || '#';
+    }
+    function resolveImg(p, href){
+      // common keys first
+      const i = p.image || p.cover || p.coverImage || p.cover_url || p.thumbnail || (p.images && p.images.cover) || p.hero;
+      if (i) return i;
+
+      // heuristic: known article slugs that have a predictable asset path
+      if (href.includes('top-20-questions')) {
+        return '/assets/articles/top-20-questions/cover.jpg';
+      }
+
+      // last resort
+      return '/assets/index_hero.jpg';
+    }
+
     rail.innerHTML = items.slice(0,6).map(p => {
-      const href  = p.url || p.path || '#';
-      const img   = p.image || p.cover || '/assets/index_hero.jpg';
+      const href  = resolveHref(p);
+      const img   = resolveImg(p, href);
       const title = p.title || 'Article';
       return `
         <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
@@ -648,7 +627,7 @@ header, .hero-header, .navbar{ overflow:visible !important; }
   /* ---------- 4) Service worker (version tag) ---------- */
   (function(){
     if('serviceWorker' in navigator){
-      const v='3.010.012b';
+      const v='3.010.013';
       navigator.serviceWorker.register('/sw.js?v='+encodeURIComponent(v)).catch(()=>{});
     }
   })();
