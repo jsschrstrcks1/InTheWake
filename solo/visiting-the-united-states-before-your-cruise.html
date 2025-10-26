@@ -630,8 +630,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  /* 4) Recent articles rail — explicit Top-20 Questions cover handling */
- // 4) Recent articles rail — resilient covers (slugify + overrides)
 (async function(){
   const raw = await fetchJSONWithFallback([
     '/assets/data/articles/index.json',
@@ -665,76 +663,91 @@ document.addEventListener('DOMContentLoaded', () => {
       </a>`;
   }).join('');
 
-  // helpers
+  // Helpers
   const slugify = (s='') =>
-    (s || '')
-      .toLowerCase()
-      .replace(/https?:\/\/[^/]+/,'')
-      .replace(/[#?].*$/,'')
-      .split('/').filter(Boolean).pop()            // take last path part if URL-ish
-      .replace(/&/g,' and ')
-      .replace(/[^a-z0-9]+/g,'-')
-      .replace(/^-+|-+$/g,'')
-      || '';
+    (s||'').toLowerCase()
+      .replace(/https?:\/\/[^/]+/, '')
+      .replace(/[#?].*$/, '')
+      .split('/').filter(Boolean).pop() || '';
 
   const cards = [...rail.querySelectorAll('a.card')];
 
   cards.forEach((card, i)=>{
     const p = view[i] || {};
     const el = card.querySelector('img.article-thumb');
-    const href  = pick(p,['url','path'],'') || '';
-    const title = pick(p,['title','name'],'') || '';
+    const href  = (pick(p,['url','path'],'') || '').toLowerCase();
+    const title = (pick(p,['title','name'],'') || '').toLowerCase();
 
-    // 1) take direct image if present
+    // (1) direct image from data
     let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
 
-    // 2) specific overrides by slug/title
-    const hrefL = (href||'').toLowerCase();
-    const titleL = (title||'').toLowerCase();
-
-    // Top 20 First-Cruise Questions
-    if (!primary && (/(top-20|first-cruise-questions)/.test(hrefL) || /(top\s*20.*first.*cruise.*questions)/.test(titleL))) {
+    // (2) slug-specific overrides
+    if(!primary && (/(top-20|first-cruise-questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title))){
       primary = '/assets/articles/top-20-questions/cover.jpg';
     }
-
-    // Freedom of Your Own Wake
-    if (!primary && (/freedom-of-your-own-wake/.test(hrefL) || /freedom of your own wake/.test(titleL))) {
+    if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
       primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
     }
-
-    // Travel overview
-    if (!primary && /\/travel(\.html)?$/.test(hrefL)) {
+    // *** travel.html override (this is the one you needed) ***
+    if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
       primary = '/assets/articles/travel/cover.jpg';
     }
 
-    // 3) heuristic: guess from slug if still missing
-    if (!primary) {
-      const guessSlug = slugify(href) || slugify(title);
-      if (guessSlug) primary = `/assets/articles/${guessSlug}/cover.jpg`;
+    // (3) heuristic guess if still missing
+    if(!primary){
+      const guess = slugify(href) || slugify(title);
+      if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
     }
 
-    // 4) extension & case fallbacks
+    // (4) build alt candidates (extensions + explicit variants)
     const alts = [];
-    if (primary) {
-      if (/\.jpg$/i.test(primary)) {
-        alts.push(primary.replace(/\.jpg$/i,'.jpeg'));
-        alts.push(primary.replace(/\.jpg$/i,'.JPG'));
-      } else if (/\.jpeg$/i.test(primary)) {
-        alts.push(primary.replace(/\.jpeg$/i,'.jpg'));
-      } else if (/\.png$/i.test(primary)) {
-        alts.push(primary.replace(/\.png$/i,'.jpg'));
-      } else if (/\.webp$/i.test(primary)) {
-        alts.push(primary.replace(/\.webp$/i,'.jpg'));
-      }
-      // also try common set
+    const pushCommonExts = (base) => {
+      alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
+    };
+    if(primary){
       const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-      alts.push(`${base}.png`, `${base}.webp`);
+      const ext  = (primary.match(/\.(jpg|jpeg|png|webp)$/i)||['','.jpg'])[1].toLowerCase();
+      if(ext === 'jpg'){ alts.push(primary.replace(/\.jpg$/i,'.jpeg'), primary.replace(/\.jpg$/i,'.JPG'), primary.replace(/\.jpg$/i,'.webp'), primary.replace(/\.jpg$/i,'.png')); }
+      else if(ext === 'jpeg'){ alts.push(primary.replace(/\.jpeg$/i,'.jpg'), primary.replace(/\.jpeg$/i,'.JPG'), primary.replace(/\.jpeg$/i,'.webp'), primary.replace(/\.jpeg$/i,'.png')); }
+      else if(ext === 'webp'){ alts.push(primary.replace(/\.webp$/i,'.jpg'), primary.replace(/\.webp$/i,'.jpeg'), primary.replace(/\.webp$/i,'.png')); }
+      else if(ext === 'png'){ alts.push(primary.replace(/\.png$/i,'.jpg'), primary.replace(/\.png$/i,'.jpeg'), primary.replace(/\.png$/i,'.webp')); }
+      pushCommonExts(base);
     }
 
-    // 5) absolute last fallback
-    const fallback = '/assets/index_hero.jpg';
+    // Extra explicit tries per known slug
+    if(/\/travel(\.html)?$/.test(href)){
+      alts.push(
+        '/assets/articles/travel/cover.jpeg',
+        '/assets/articles/travel/cover.JPG',
+        '/assets/articles/travel/cover.webp',
+        '/assets/articles/travel/cover.png'
+      );
+    }
 
-    setImageWithFallback(el, primary || fallback, alts);
+    // (5) instrumented fallback loader so you can see attempts
+    (function setImageWithFallbackVerbose(imgEl, primarySrc, altPaths=[]){
+      const stamp = 'v=3.010.019';
+      const tried = new Set();
+      const queue = [primarySrc, ...altPaths].filter(Boolean).map(p => p.includes('?') ? `${p}&${stamp}` : `${p}?${stamp}`);
+
+      function tryNext(){
+        const next = queue.shift();
+        if(!next){
+          imgEl.removeAttribute('onerror');
+          console.warn('[recent-rail] all image candidates failed for', { href, title, lastTried:[...tried].slice(-1)[0] });
+          // optional: show a subtle placeholder state
+          imgEl.style.opacity = .6;
+          imgEl.alt = 'Cover image unavailable';
+          return;
+        }
+        if(tried.has(next)) return tryNext();
+        tried.add(next);
+        console.debug('[recent-rail] trying', next);
+        imgEl.src = next;
+      }
+      imgEl.onerror = tryNext;
+      tryNext();
+    })(el, primary || '/assets/index_hero.jpg', alts);
   });
 })();
 
