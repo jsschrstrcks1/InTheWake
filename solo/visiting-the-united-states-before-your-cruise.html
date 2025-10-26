@@ -40,106 +40,103 @@
   <link rel="preload" as="image" href="/solo/images/flickersofmajesty.jpeg" fetchpriority="high"/>
 
 <style>
-/* ===== In the Wake — Solo Article (compact standards) v3.010.013 ===== */
-:root{
-  --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-  --shadow:0 6px 22px rgba(8,48,65,.08);
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
-a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-img{max-width:100%;height:auto;display:block}
-.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456} .center{text-align:center}
-.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important;border:0!important}
-.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-.skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
+  /* ===== In the Wake — Solo Article (compact standards) v3.010.013s ===== */
+  :root{
+    --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
+    --shadow:0 6px 22px rgba(8,48,65,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  img{max-width:100%;height:auto;display:block}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+  .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
+  h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456} .center{text-align:center}
+  .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important;border:0!important}
+  .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
 
-/* ===== Header & hero (stacking that never breaks) ===== */
-.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:0;overflow:visible}
-.navbar{
-  max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
-  padding:.5rem .9rem .35rem;position:relative;z-index:1000;overflow:visible;
-}
-.brand{display:flex;align-items:flex-end;gap:.6rem}
-.brand img{height:28px;width:auto}
-.version-badge{font-size:.72rem;opacity:.8}
+  /* ===== Header & hero (no overlay, proper stacking) ===== */
+  .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:0}
+  .navbar{
+    max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
+    padding:.5rem .9rem .35rem;position:relative;z-index:1000;overflow:visible;
+  }
+  .brand{display:flex;align-items:flex-end;gap:.6rem}
+  .brand img{height:28px;width:auto}
+  .version-badge{font-size:.72rem;opacity:.8}
 
-/* Pill row + chips */
-.pill-nav{
-  flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
-  gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
-  -webkit-overflow-scrolling:touch;scrollbar-width:thin;
-  padding-inline:.75rem;scroll-padding-inline:.75rem;
-  -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-          mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-}
-.pill-nav a,.pill-nav button.nav-disclosure{
-  display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;
-  border-radius:10px;background:#fff;border:1px solid var(--rope);color:#0e6e8e;
-  font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
-}
-.pill-nav a[aria-current="page"]{
-  outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset
-}
-.nav-group{position:relative;display:inline-block}
-.submenu{
-  position:absolute;left:0;top:calc(100% + 8px);
-  min-width:220px;background:#fff;border:1px solid var(--rope);
-  border-radius:12px;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
-  display:none;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s ease;z-index:1100;
-}
-.nav-group[data-open="true"]>.submenu{display:block;opacity:1;visibility:visible;pointer-events:auto}
-.submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem}
-header,.hero-header,.navbar{overflow:visible}
+  /* Pill nav row + chips */
+  .pill-nav{
+    flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
+    gap:.45rem;white-space:nowrap;flex-wrap:nowrap;
+    overflow:visible;                    /* <— important: allow submenus */
+    -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+    padding-inline:.75rem;scroll-padding-inline:.75rem;
+    /* Removed masks to prevent clipping of dropdowns */
+  }
+  .pill-nav a,.pill-nav button.nav-disclosure{
+    display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;
+    border-radius:10px;background:#fff;border:1px solid var(--rope);color:#0e6e8e;
+    font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
+  }
+  .pill-nav a[aria-current="page"]{
+    outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset
+  }
+  .nav-group{position:relative;display:inline-block}
+  .submenu{
+    position:absolute;left:0;top:calc(100% + 8px);
+    min-width:220px;background:#fff;border:1px solid var(--rope);
+    border-radius:12px;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
+    display:none;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s ease;z-index:1100;
+  }
+  .nav-group[data-open="true"] > .submenu{display:block;opacity:1;visibility:visible;pointer-events:auto}
+  .submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem}
+  header,.hero-header,.navbar{overflow:visible}
 
-/* Hero */
-.hero{
-  position:relative;width:100%!important;margin-left:0!important;
-  min-height:clamp(200px,24vw,340px);
-  background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
-  display:flex;align-items:flex-end;overflow-x:clip;z-index:0;
-}
-.hero *{filter:none!important;mix-blend-mode:normal!important;opacity:1!important}
-.hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2;pointer-events:none}
-.hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-.hero-title .logo{display:block;opacity:1;visibility:visible;width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
-.tagline{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(.55rem,1.6vw,1.1rem);font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3}
-.hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
-.hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
+  /* Hero */
+  .hero{
+    position:relative;width:100% !important;margin-left:0 !important;
+    min-height:clamp(200px,24vw,340px);
+    background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
+    display:flex;align-items:flex-end;overflow-x:clip;z-index:0;
+  }
+  .hero *{filter:none!important;mix-blend-mode:normal!important;opacity:1!important}
+  .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2;pointer-events:none}
+  .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+  .hero-title .logo{display:block;opacity:1;visibility:visible;width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
+  .tagline{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(.55rem,1.6vw,1.1rem);font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3}
+  .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
+  .hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
 
-/* ===== Article media/caption normalization (forces caption UNDER image) ===== */
-.solo-article figure,
-.solo-article .article-hero{
-  margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;background:#fff;
-  border:1px solid rgba(8,48,65,.1);border-radius:16px;box-shadow:var(--shadow)
-}
-/* kill any side-by-side image+caption layouts from legacy rules */
-.solo-article figure,
-.solo-article figure *{float:none!important}
-.solo-article figure{display:block!important}
-.solo-article figure img,
-.solo-article .article-hero img{
-  display:block!important;width:100%!important;height:auto!important;object-fit:contain!important;
-  position:static!important;border-radius:12px
-}
-.solo-article figure>figcaption,
-.solo-article .article-hero>figcaption{
-  display:block!important;clear:both!important;margin-top:.65rem;padding-top:.45rem;text-align:left!important;
-  border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
-}
+  /* ===== Article media/caption normalization ===== */
+  .solo-article figure,
+  .solo-article .article-hero{
+    margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;
+    background:#fff;border:1px solid rgba(8,48,65,.1);border-radius:16px;box-shadow:var(--shadow)
+  }
+  .solo-article figure img,
+  .solo-article .article-hero img{
+    display:block !important;width:100% !important;height:auto !important;object-fit:contain !important;
+    position:static !important;float:none !important;border-radius:12px
+  }
+  /* Force the Flickers hero caption beneath (left-aligned) */
+  .solo-article .article-hero > figcaption,
+  .solo-article figure > figcaption{
+    display:block !important;clear:both !important;margin-top:.65rem;padding-top:.45rem;text-align:left;
+    border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
+  }
 
-/* ===== Page layout rails ===== */
-.page-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,320px);gap:2rem;align-items:start}
-@media (max-width:979.98px){.page-grid{grid-template-columns:1fr}}
-.rail-list{display:grid;gap:1rem}
-.rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
-.author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center}
+  /* ===== Page layout rails ===== */
+  .page-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,320px);gap:2rem;align-items:start}
+  @media (max-width:979.98px){.page-grid{grid-template-columns:1fr}}
+  .rail-list{display:grid;gap:1rem}
+  .rail-row{display:grid;grid-template-columns:48px 1fr;gap:.75rem;align-items:start}
+  .author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center}
 
-/* Safety */
-html,body{overflow-x:hidden}
+  /* Safety */
+  html,body{overflow-x:hidden}
 </style>
 <link rel="preload" as="image" href="/assets/logo_wake.png">
 </head>
@@ -480,146 +477,222 @@ html,body{overflow-x:hidden}
   </footer>
 
 <script>
-/* ===== In the Wake — Solo Article JS v3.010.013r ===== */
+/* ===== In the Wake — Solo Article JS v3.010.013s ===== */
 
-/* 1) Accessible dropdowns: click + hover + keyboard + outside/Escape */
-(function(){
-  const groups = [...document.querySelectorAll('.nav-group')];
-  if(!groups.length) return;
+/* Run after DOM is ready just in case script moves */
+document.addEventListener('DOMContentLoaded', () => {
 
-  const setOpen = (g,on)=>{
-    g.dataset.open = on ? "true" : "false";
-    const b=g.querySelector('.nav-disclosure');
-    if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
-  };
-  const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
+  /* 1) Accessible dropdowns: click + hover + keyboard (+ outside/Escape) */
+  (function(){
+    const groups = Array.from(document.querySelectorAll('.nav-group'));
+    if(!groups.length) return;
 
-  groups.forEach(g=>{
-    const btn=g.querySelector('.nav-disclosure');
-    const menu=g.querySelector('.submenu');
-    if(!btn||!menu) return;
+    const setOpen = (g,on)=>{
+      g.dataset.open = on ? "true" : "false";
+      const b = g.querySelector('.nav-disclosure');
+      if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    };
+    const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
 
-    // Click toggle
-    btn.addEventListener('click',e=>{
-      e.stopPropagation();
-      const open=g.dataset.open==="true";
-      closeAll(g);
-      setOpen(g,!open);
+    groups.forEach(g=>{
+      const btn  = g.querySelector('.nav-disclosure');
+      const menu = g.querySelector('.submenu');
+      if(!btn || !menu) return;
+
+      // Click toggle
+      btn.addEventListener('click',(e)=>{
+        e.stopPropagation();
+        const open = g.dataset.open === "true";
+        closeAll(g);
+        setOpen(g, !open);
+      });
+
+      // Hover (pointer devices)
+      if (window.matchMedia && matchMedia('(hover:hover)').matches){
+        g.addEventListener('mouseenter', ()=>{ closeAll(g); setOpen(g,true); });
+        g.addEventListener('mouseleave', ()=> setOpen(g,false));
+      }
+
+      // Keyboard
+      btn.addEventListener('keydown',(e)=>{
+        if(e.key==='ArrowDown'){
+          e.preventDefault();
+          setOpen(g,true);
+          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+          if(first) first.focus();
+        }
+        if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
+      });
+      menu.addEventListener('keydown',(e)=>{
+        if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
+      });
+
+      // Close when focus leaves the group
+      menu.addEventListener('focusout',()=>{
+        setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0);
+      });
     });
 
-    // Hover (pointer devices only)
-    if(window.matchMedia && matchMedia('(hover:hover)').matches){
-      g.addEventListener('mouseenter',()=>{ closeAll(g); setOpen(g,true); });
-      g.addEventListener('mouseleave',()=> setOpen(g,false));
+    // Close on outside click / window blur
+    document.addEventListener('click', (e)=>{ if(!groups.some(g=>g.contains(e.target))) closeAll(); }, true);
+    window.addEventListener('blur', ()=> closeAll());
+  })();
+
+  /* 2) Helpers: robust fetch + image failover */
+  async function fetchJSONWithFallback(urls){
+    for (const u of urls){
+      try{
+        const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+        if (res.ok) return await res.json();
+      }catch(_){/* continue */}
+    }
+    return null;
+  }
+  const pick = (obj, keys, fallback=null)=>{
+    for(const k of keys){ if(obj && obj[k] != null) return obj[k]; }
+    return fallback;
+  };
+
+  // Attach a resilient image src with cache-bust and fallbacks
+  function setImageWithFallback(imgEl, primary, altPaths=[]){
+    const stamp = 'v=3.010.013s';
+    const tried = new Set();
+    const queue = [primary, ...altPaths]
+      .filter(Boolean)
+      .map(p => p.includes('?') ? p + '&' + stamp : p + '?' + stamp);
+
+    function tryNext(){
+      const next = queue.shift();
+      if(!next){ imgEl.removeAttribute('onerror'); return; }
+      if(tried.has(next)) return tryNext();
+      tried.add(next);
+      imgEl.src = next;
     }
 
-    // Keyboard support
-    btn.addEventListener('keydown',e=>{
-      if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(g,true);
-        const first=menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-        if(first) first.focus(); }
-      if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
-    });
-    menu.addEventListener('keydown',e=>{
-      if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
-    });
-
-    // Close when focus leaves
-    menu.addEventListener('focusout',()=>{ setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0); });
-  });
-
-  // Global close handlers
-  document.addEventListener('click',e=>{ if(!groups.some(g=>g.contains(e.target))) closeAll(); },true);
-  window.addEventListener('blur',()=> closeAll());
-})();
-
-/* 2) Helpers: fetch fallback + safe key picker */
-async function fetchJSONWithFallback(urls){
-  for(const u of urls){
-    try{
-      const res=await fetch(u,{credentials:'omit',cache:'no-cache'});
-      if(res.ok) return await res.json();
-    }catch(_){}
+    imgEl.onerror = tryNext;
+    tryNext();
   }
-  return null;
-}
-const pick=(obj,keys,fallback=null)=>{
-  for(const k of keys){ if(obj && obj[k]!=null) return obj[k]; }
-  return fallback;
-};
 
-/* 3) Authors rail */
-(async function(){
-  const data=await fetchJSONWithFallback(['/data/authors.json','/assets/data/authors.json']);
-  const rail=document.getElementById('authors-rail');
-  if(!rail||!data) return;
+  /* 3) Authors rail (per your /data/authors.json shape) */
+  (async function(){
+    const data = await fetchJSONWithFallback(['/data/authors.json','/assets/data/authors.json']);
+    const rail = document.getElementById('authors-rail');
+    if(!rail || !data) return;
 
-  const list=Array.isArray(data)?data:(Array.isArray(data.authors)?data.authors:[]);
-  if(!list.length) return;
+    const list = Array.isArray(data.authors) ? data.authors
+               : (Array.isArray(data) ? data : []);
+    if(!list.length) return;
 
-  rail.innerHTML=list.map(a=>{
-    const name=pick(a,['name','title'],'Author');
-    const url=pick(a,['url','href','#'],'#');
-    const img=pick(a,['webp','image','avatarWebp','avatar','photo'],'/authors/img/author.webp');
-    const roles=Array.isArray(a.roles)?a.roles.join(', '):(a.roles||'');
-    const sections=Array.isArray(a.sections)?a.sections.join(', '):(a.sections||'');
-    const blurb=[roles,sections].filter(Boolean).join(' • ');
-    return `
-      <div class="rail-row">
-        <img class="author-avatar" src="${img}" alt="${name}">
-        <div>
-          <strong><a href="${url}">${name}</a></strong><br>
-          ${blurb?`<span class="tiny" style="opacity:.9">${blurb}</span>`:''}
-        </div>
-      </div>`;
-  }).join('');
-})();
+    rail.innerHTML = list.map(a=>{
+      const name = a.name || 'Author';
+      const url  = a.url  || '#';
+      const img  = a.webp || a.image || '/authors/img/author.webp';
+      const roles = Array.isArray(a.roles) ? a.roles.join(', ') : (a.roles || '');
+      const sections = Array.isArray(a.sections) ? a.sections.join(', ') : (a.sections || '');
+      const blurb = [roles, sections].filter(Boolean).join(' • ');
 
-/* 4) Recent articles rail (handles cover.jpg explicitly) */
-(async function(){
-  const data=await fetchJSONWithFallback([
-    '/assets/data/articles/index.json',
-    '/assets/data/articles.json'
-  ]);
-  const rail=document.getElementById('recent-rail');
-  if(!rail||!data) return;
-
-  const items=Array.isArray(data?.articles)?data.articles:(Array.isArray(data)?data:[]);
-  if(!items.length) return;
-
-  const here=location.pathname.replace(/\/+$/,'');
-  const cards=items.filter(p=>{
-      const href=pick(p,['url','path'],'#');
-      const norm=(href||'').replace(/\/+$/,'');
-      return norm && norm!==here;
-    })
-    .slice(0,6)
-    .map(p=>{
-      const href=pick(p,['url','path'],'#');
-      let img=pick(p,['image','cover','img','thumb','thumbnail']);
-      if(!img && href.includes('top-20-questions'))
-        img='/assets/articles/top-20-questions/cover.jpg';
-      if(!img) img='/assets/index_hero.jpg';
-      const title=pick(p,['title','name'],'Article');
       return `
-        <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
-          <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
-            <img src="${img}" alt="" style="width:100%;height:100%;object-fit:cover">
+        <div class="rail-row">
+          <img class="author-avatar" alt="${name}">
+          <div>
+            <strong><a href="${url}">${name}</a></strong><br>
+            ${blurb ? `<span class="tiny" style="opacity:.9">${blurb}</span>` : ''}
           </div>
-          <div class="tiny" style="line-height:1.35">${title}</div>
-        </a>`;
+        </div>`;
     }).join('');
 
-  rail.innerHTML=cards;
-})();
+    // Now wire images with fallbacks (avoids broken src flashes)
+    [...rail.querySelectorAll('.author-avatar')].forEach((el, i)=>{
+      const a = list[i] || {};
+      const primary = a.webp || a.image || '/authors/img/author.webp';
+      const alts = [a.image, a.webp].filter(Boolean);
+      setImageWithFallback(el, primary, alts);
+    });
+  })();
 
-/* 5) Service worker */
-(function(){
-  if('serviceWorker' in navigator){
-    const v='3.010.013r';
-    navigator.serviceWorker.register('/sw.js?v='+encodeURIComponent(v)).catch(()=>{});
-  }
-})();
-</script>
+  /* 4) Recent articles rail — explicit Top-20 Questions cover handling */
+  (async function(){
+    const raw = await fetchJSONWithFallback([
+      '/assets/data/articles/index.json',
+      '/assets/data/articles.json'
+    ]);
+    const rail = document.getElementById('recent-rail');
+    if(!rail || !raw) return;
+
+    const items = Array.isArray(raw?.articles) ? raw.articles
+                : (Array.isArray(raw) ? raw : []);
+    if(!items.length) return;
+
+    const here = location.pathname.replace(/\/+$/,'');
+    rail.innerHTML = items
+      .filter(p=>{
+        const href = pick(p,['url','path'],'#');
+        const norm = (href||'').replace(/\/+$/,'');
+        return norm && norm !== here;
+      })
+      .slice(0,6)
+      .map(p=>{
+        const href  = pick(p,['url','path'],'#');
+        const title = pick(p,['title','name'],'Article');
+
+        // Determine a robust cover path
+        let cover = pick(p,['image','cover','img','thumb','thumbnail'], null);
+        if(!cover && /top-20-questions/i.test(href)){
+          cover = '/assets/articles/top-20-questions/cover.jpg';
+        }
+
+        // Render with empty <img> first; set srcs after insert with fallbacks
+        return `
+          <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
+            <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
+              <img class="article-thumb" alt="" decoding="async">
+            </div>
+            <div class="tiny" style="line-height:1.35">${title}</div>
+          </a>`;
+      }).join('');
+
+    // After insert: set thumbs with strong fallbacks & cache bust
+    const cards = [...rail.querySelectorAll('a.card')];
+    cards.forEach((card, idx)=>{
+      const p = items.filter(q=>{
+        const href = pick(q,['url','path'],'#');
+        const norm = (href||'').replace(/\/+$/,'');
+        return norm && norm !== here;
+      })[idx];
+      const href = pick(p,['url','path'],'#');
+      let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
+      if(!primary && /top-20-questions/i.test(href)){
+        primary = '/assets/articles/top-20-questions/cover.jpg';
+      }
+      const el = card.querySelector('img.article-thumb');
+      const alts = [];
+      if(primary){
+        // try common case variants/paths if the FS is case-/ext- sensitive in prod
+        if(primary.endsWith('.jpg')){
+          alts.push(primary.replace(/\.jpg$/i,'.jpeg'));
+          alts.push(primary.replace(/\.jpg$/i,'.JPG'));
+        }else if(primary.endsWith('.jpeg')){
+          alts.push(primary.replace(/\.jpeg$/i,'.jpg'));
+        }
+      }
+      // also try an alternate shape just in case the JSON changes later
+      if(/top-20-questions/i.test(href)){
+        alts.push('/assets/articles/top-20-questions/cover.jpeg');
+        alts.push('/assets/articles/top-20-questions/cover.JPG');
+      }
+      setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
+    });
+  })();
+
+  /* 5) Service worker */
+  (function(){
+    if('serviceWorker' in navigator){
+      const v='3.010.013s';
+      navigator.serviceWorker.register('/sw.js?v='+encodeURIComponent(v)).catch(()=>{});
+    }
+  })();
+
+});
+</script>  
 </body>
 </html>
