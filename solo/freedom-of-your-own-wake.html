@@ -61,94 +61,147 @@
   }
   </script>
 
-  <style>
-    /* Skip link */
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
+ <style>
+  /* ===== Solo Article Styles v3.010.026 ===== */
+  :root{
+    --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
+    --shadow:0 6px 22px rgba(8,48,65,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  img{max-width:100%;height:auto;display:block}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+  .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
+  h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456} .center{text-align:center}
 
-    /* Let dropdowns escape; no clipping */
-    header,.hero-header,.navbar,.pill-nav{overflow:visible !important}
-    .pill-nav{-webkit-mask:none !important;mask:none !important}
-    .submenu{z-index:1100}
+  /* Skip link */
+  .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
 
-    /* Hero layout (keep logo inside frame) */
-    .hero{position:relative;overflow:visible}
-    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;flex-direction:column;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45);z-index:3}
-    .hero-title .logo{width:clamp(220px,28vw,520px);max-width:min(45vw,520px);height:auto;display:block}
-    .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
-    .hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid #d9b382;font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
+  /* Header / hero (matching the other page) */
+  .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:0}
+  .navbar{
+    max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
+    padding:.5rem .9rem .35rem;position:relative;z-index:1000;overflow:visible;
+  }
+  .brand{display:flex;align-items:flex-end;gap:.6rem}
+  .brand img{height:28px;width:auto}
+  .version-badge{font-size:.72rem;opacity:.8}
 
-    /* Solo article figure normalization */
-    .solo-article figure,.solo-article .article-hero{
-      margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;background:#fff;border-radius:16px;border:1px solid rgba(8,48,65,.10);box-shadow:0 6px 22px rgba(8,48,65,.08)
-    }
-    .solo-article figure img,.solo-article .article-hero img{
-      display:block !important;width:100% !important;height:auto !important;object-fit:contain !important;position:static !important;float:none !important;border-radius:12px
-    }
-    .solo-article figure>figcaption,.solo-article .article-hero>figcaption{
-      margin-top:.65rem;padding-top:.45rem;text-align:left !important;border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
-    }
-    figure figcaption{text-align:inherit}
+  .pill-nav{
+    flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
+    gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem;
+  }
+  .pill-nav a,.pill-nav button.nav-disclosure{
+    display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
+    border:1px solid var(--rope);color:#0e6e8e;font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
+  }
+  .nav-group{position:relative;display:inline-block}
+  .submenu{
+    position:absolute;left:0;top:calc(100% + 8px);min-width:220px;background:#fff;border:1px solid var(--rope);
+    border-radius:12px;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s ease;z-index:1100;
+  }
+  .nav-group[data-open="true"] > .submenu{display:block;opacity:1;visibility:visible;pointer-events:auto}
+  .submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem}
+  header,.hero-header,.navbar{overflow:visible}
 
-    /* Content layout */
-    .page-grid .content-area{display:grid;grid-template-columns:1fr minmax(260px,320px);gap:2rem;align-items:start;max-width:1200px;margin-inline:auto}
-    .solo-article{max-width:860px;margin-inline:auto}
+  .hero{
+    position:relative;width:100%;min-height:clamp(200px,24vw,340px);
+    background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
+    display:flex;align-items:flex-end;overflow-x:clip;z-index:0;
+  }
+  .hero *{filter:none!important;mix-blend-mode:normal!important;opacity:1!important}
+  .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2;pointer-events:none}
+  .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+  .hero-title .logo{display:block;opacity:1;visibility:visible;width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
+  .tagline{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(.6rem,1.6vw,1.1rem);font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3}
+  /* (5) teeny nudge up for optical balance */
+  .tagline{transform:translate(-50%, -1px);}
 
-    /* TOC jump comfort */
-    [id]{scroll-margin-top:16px}
-  </style>
+  .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
+  .hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
+
+  /* Article figures/captions normalized */
+  .solo-article figure,
+  .solo-article .article-hero{
+    margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;
+    background:#fff;border:1px solid rgba(8,48,65,.10);border-radius:16px;box-shadow:var(--shadow)
+  }
+  .solo-article figure img,
+  .solo-article .article-hero img{
+    display:block !important;width:100% !important;height:auto !important;object-fit:contain !important;
+    position:static !important;float:none !important;border-radius:12px
+  }
+  .solo-article .article-hero > figcaption,
+  .solo-article figure > figcaption{
+    display:block !important;clear:both !important;margin-top:.65rem;padding-top:.45rem;text-align:left;
+    border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
+  }
+  figure figcaption { text-align:inherit; }
+
+  /* Layout rails */
+  .page-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,320px);gap:2rem;align-items:start}
+  @media (max-width:979.98px){.page-grid{grid-template-columns:1fr}}
+  .rail-list{display:grid;gap:1rem}
+  .rail section.card + section.card{margin-top:.75rem} /* extra breathing room */
+
+  .author-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center}
+  .toc a.active{font-weight:700;text-decoration:underline}
+</style>
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
 
   <!-- =========================== HEADER ============================ -->
-  <header class="hero-header">
-    <div class="navbar">
-      <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.004" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
-        <span class="tiny version-badge">v3.010.025</span>
-      </div>
-
-      <!-- EXACT same nav as the previous page -->
-      <nav class="nav pill-nav" aria-label="Primary">
-        <a href="/">Home</a>
-
-        <div class="nav-item nav-group" id="nav-planning" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
-          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
-            <a role="menuitem" href="/planning.html">Planning (overview)</a>
-            <a role="menuitem" href="/ships.html">Ships</a>
-            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a role="menuitem" href="/ports.html">Ports</a>
-            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-            <a role="menuitem" href="/accessibility.html">Accessibility</a>
-          </div>
-        </div>
-
-        <div class="nav-item nav-group" id="nav-travel" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
-          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
-            <a role="menuitem" href="/travel.html">Travel (overview)</a>
-            <a role="menuitem" href="/solo.html" aria-current="page">Solo</a>
-          </div>
-        </div>
-
-        <a href="/about-us.html">About</a>
-      </nav>
+ <header class="hero-header">
+  <div class="navbar">
+    <div class="brand">
+      <img src="/assets/logo_wake.png?v=3.010.026" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
+      <span class="tiny version-badge">v3.010.026</span>
     </div>
 
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.004" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.004" width="560" height="144" alt="In the Wake" decoding="async"/>
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
+    <!-- SAME MENU AS THE WORKING PAGE -->
+    <nav class="nav pill-nav" aria-label="Primary">
+      <a href="/">Home</a>
+
+      <div class="nav-item nav-group" id="nav-planning" data-open="false">
+        <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
+        <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+          <a role="menuitem" href="/planning.html">Planning (overview)</a>
+          <a role="menuitem" href="/ships.html">Ships</a>
+          <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+          <a role="menuitem" href="/ports.html">Ports</a>
+          <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+          <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+          <a role="menuitem" href="/accessibility.html">Accessibility</a>
+        </div>
       </div>
-      <div class="hero-credit">
-        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+
+      <div class="nav-item nav-group" id="nav-travel" data-open="false">
+        <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
+        <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+          <a role="menuitem" href="/travel.html">Travel (overview)</a>
+          <a role="menuitem" href="/solo.html" aria-current="page">Solo</a>
+        </div>
       </div>
+
+      <a href="/about-us.html">About</a>
+    </nav>
+  </div>
+
+  <div class="hero" role="img" aria-label="Ship wake at sunrise">
+    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.026" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+    <div class="hero-title">
+      <img class="logo" src="/assets/logo_wake.png?v=3.010.026" width="560" height="144" alt="In the Wake" decoding="async"/>
     </div>
-  </header>
+    <div class="tagline">A Cruise Traveler’s Logbook</div>
+    <div class="hero-credit">
+      <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+    </div>
+  </div>
+</header>
 
   <!-- ============================ MAIN ============================ -->
   <main id="content" class="wrap page-grid" role="main" aria-label="Main content">
@@ -242,24 +295,18 @@
 
         <!-- Author card -->
         <section id="author-rail" class="card" aria-label="Author information">
-          <h2 class="tiny" style="margin-bottom:.25rem;color:#0a3d62">About the author</h2>
-          <div class="author-card" style="display:flex;gap:.75rem;align-items:center;">
-            <picture>
-              <source type="image/webp" srcset="/authors/img/ken1.webp">
-              <img src="/authors/img/ken1.jpg" alt="Author portrait — Ken Baker" width="72" height="72" style="border-radius:50%;object-fit:cover">
-            </picture>
-            <div>
-              <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
-              Founder of In the Wake and writer of the Solo Travel series.
-            </div>
-          </div>
-        </section>
+  <h2 class="tiny" style="margin-bottom:.25rem;color:#0a3d62">About the author</h2>
+  <div class="author-card" style="display:flex;gap:.75rem;align-items:center;">
+    <!-- will be populated by JS with ken1.webp/jpg -->
+  </div>
+</section>
+       
 
         <!-- Recent Articles rail -->
         <section class="card" aria-labelledby="recent-rail-title">
-          <h2 id="recent-rail-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">Recent Articles</h2>
-          <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        </section>
+  <h2 id="recent-rail-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">Recent Articles</h2>
+  <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+</section>
       </aside>
     </div>
   </main>
@@ -271,13 +318,13 @@
   </footer>
 
   <!-- =========================== JS ================================ -->
-  <script>
-  /* Normalize: ensure article figures don’t adopt global .hero layout */
-  document.addEventListener('DOMContentLoaded',()=>{
-    document.querySelectorAll('.solo-article figure.hero').forEach(f=>f.classList.remove('hero'));
-  });
+<script>
+/* ===== Solo Article JS v3.010.026 ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  /* Normalize article figure so global .hero rules never hijack it */
+  document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.remove('hero'));
 
-  /* Accessible dropdowns (same behavior as previous page) */
+  /* Accessible dropdowns (click, hover, keyboard, outside/Escape) */
   (function(){
     const groups = Array.from(document.querySelectorAll('.nav-group'));
     if(!groups.length) return;
@@ -319,94 +366,162 @@
         if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
       });
 
-      menu.addEventListener('focusout',()=>{
-        setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0);
-      });
+      menu.addEventListener('focusout',()=>{ setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0); });
     });
 
     document.addEventListener('click', (e)=>{ if(!groups.some(g=>g.contains(e.target))) closeAll(); }, true);
     window.addEventListener('blur', ()=> closeAll());
   })();
 
-  /* Recent Articles rail — includes Top-20 override exactly as on last page */
-  (function(){
-    const pick=(o,keys,f=null)=>{for(const k of keys){if(o && o[k]!=null) return o[k]} return f};
-    async function fetchJSONWithFallback(urls){
-      for (const u of urls){
-        try{ const r=await fetch(u,{credentials:'omit',cache:'no-cache'}); if(r.ok) return await r.json(); }catch(_){}
-      }
-      return null;
+  /* Helpers */
+  async function fetchJSONWithFallback(urls){
+    for (const u of urls){
+      try{
+        const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+        if (res.ok) return await res.json();
+      }catch(_){/* keep trying */}
     }
+    return null;
+  }
+  const pick = (obj, keys, fallback=null)=>{
+    for(const k of keys){ if(obj && obj[k] != null) return obj[k]; }
+    return fallback;
+  };
 
-    (async function(){
-      const raw = await fetchJSONWithFallback([
-        '/assets/data/articles/index.json',
-        '/assets/data/articles.json'
-      ]);
-      const rail = document.getElementById('recent-rail');
-      if(!rail || !raw) return;
+  function setImageWithFallback(imgEl, primary, altPaths=[]){
+    const stamp = 'v=3.010.026';
+    const tried = new Set();
+    const queue = [primary, ...altPaths].filter(Boolean).map(p => p.includes('?') ? p+'&'+stamp : p+'?'+stamp);
+    function tryNext(){
+      const next = queue.shift();
+      if(!next){ imgEl.removeAttribute('onerror'); return; }
+      if(tried.has(next)) return tryNext();
+      tried.add(next);
+      imgEl.src = next;
+    }
+    imgEl.onerror = tryNext;
+    tryNext();
+  }
 
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,3);
+  /* Right-rail: Authors (matches other page) */
+  (async function(){
+    const data = await fetchJSONWithFallback(['/data/authors.json','/assets/data/authors.json']);
+    const rail = document.getElementById('author-rail');
+    if(!rail || !data) return;
 
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        return `
-          <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
-            <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
-              <img class="article-thumb" alt="" decoding="async" style="width:100%;height:100%;object-fit:cover">
-            </div>
-            <div class="tiny" style="line-height:1.35">${title}</div>
-          </a>`;
-      }).join('');
+    const list = Array.isArray(data.authors) ? data.authors : (Array.isArray(data) ? data : []);
+    const ken = list.find(a => /ken\s*baker/i.test(a.name||'')) || list[0];
+    if(!ken) return;
 
-      const cards=[...rail.querySelectorAll('a.card')];
-      cards.forEach((card,i)=>{
-        const p=view[i]||{};
-        const el=card.querySelector('img.article-thumb');
-        const href=(pick(p,['url','path'],'')||'').toLowerCase();
-        const title=(pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
-
-        // ——— overrides (KEPT) ———
-        if(!primary && (/(top-20|first-cruise-questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title))){
-          primary = '/assets/articles/top-20-questions/cover.jpg';
-        }
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = 'https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg';
-        }
-        // ————————————————
-
-        const alts=[];
-        if(primary){
-          const base=primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(primary.replace(/\.jpg$/i,'.jpeg'), primary.replace(/\.jpg$/i,'.JPG'), `${base}.webp`, `${base}.png`);
-        }
-        const fallback='/assets/index_hero.jpg';
-        const stamp='v=3.010.025';
-        const tried=new Set();
-        const queue=[primary||fallback,...alts].filter(Boolean).map(p=>p.includes('?')?`${p}&${stamp}`:`${p}?${stamp}`);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ el.removeAttribute('onerror'); el.alt='Cover image unavailable'; el.style.opacity=.65; return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next); el.src=next;
-        }
-        el.onerror = tryNext; tryNext();
-      });
-    })();
+    rail.querySelector('.author-card').innerHTML = `
+      <picture>
+        <source type="image/webp" srcset="/authors/img/ken1.webp">
+        <img class="author-avatar" src="/authors/img/ken1.jpg" width="72" height="72" alt="Author — Ken Baker">
+      </picture>
+      <div>
+        <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
+        Founder of In the Wake and writer of the Solo Travel series.<br/>
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+        Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+      </div>`;
   })();
-  </script>
+
+  /* Right-rail: Recent articles (with absolute Top-20 image override) */
+  (async function(){
+    const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
+    const rail = document.getElementById('recent-rail');
+    if(!rail || !raw) return;
+
+    const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+    if(!items.length) return;
+
+    const here = location.pathname.replace(/\/+$/,'');
+    const view = items.filter(p=>{
+      const href = pick(p,['url','path'],'#'); const norm = (href||'').replace(/\/+$/,'');
+      return norm && norm !== here;
+    }).slice(0,6);
+
+    rail.innerHTML = view.map(p=>{
+      const title = pick(p,['title','name'],'Article');
+      const href  = pick(p,['url','path'],'#');
+      return `
+        <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
+          <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
+            <img class="article-thumb" alt="" decoding="async" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="tiny" style="line-height:1.35">${title}</div>
+        </a>`;
+    }).join('');
+
+    const slugify = (s='') => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
+    const cards = [...rail.querySelectorAll('a.card')];
+
+    cards.forEach((card,i)=>{
+      const p = view[i] || {};
+      const el = card.querySelector('img.article-thumb');
+      const href  = (pick(p,['url','path'],'')||'').toLowerCase();
+      const title = (pick(p,['title','name'],'')||'').toLowerCase();
+      let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
+
+      /* ABSOLUTE override for Top-20 */
+      if(!primary && (/(top-20|first-cruise-questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title))){
+        primary = 'https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg';
+      }
+      /* Freedom article explicit */
+      if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
+        primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
+      }
+      /* Travel overview explicit */
+      if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
+        primary = '/assets/articles/travel/cover.jpg';
+      }
+      if(!primary){
+        const guess = slugify(href) || slugify(title);
+        if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
+      }
+
+      const alts = [];
+      if(primary){
+        const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+        alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
+      }
+      setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
+    });
+  })();
+
+  /* TOC scrollspy (highlight current section) */
+  (function(){
+    const toc = document.querySelector('.toc-card .tiny, .toc');
+    const links = toc ? [...toc.querySelectorAll('a[href^="#"]')] : [];
+    if(!links.length) return;
+
+    const map = links.map(a=>{
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      return el ? {a, el} : null;
+    }).filter(Boolean);
+
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        const hit = map.find(m => m.el === e.target);
+        if(!hit) return;
+        if(e.isIntersecting){
+          links.forEach(x => x.classList.remove('active'));
+          hit.a.classList.add('active');
+        }
+      });
+    },{rootMargin:'-40% 0px -55% 0px', threshold:0});
+
+    map.forEach(m=>io.observe(m.el));
+  })();
+
+  /* Service worker (version bump for cache) */
+  if('serviceWorker' in navigator){
+    const v='3.010.026';
+    navigator.serviceWorker.register('/sw.js?v='+encodeURIComponent(v)).catch(()=>{});
+  }
+});
+</script>
 
   <!-- Site JS -->
   <script defer src="/assets/js/share-bar.js?v=3.010.004"></script>
