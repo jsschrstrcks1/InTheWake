@@ -480,140 +480,127 @@ html,body{overflow-x:hidden}
   </footer>
 
 <script>
-/* ===== In the Wake — Solo Article JS v3.010.013 ===== */
-(() => {
-  /* ---------- 1) Accessible dropdown menus (click + hover + keyboard) ---------- */
-  const groups = Array.from(document.querySelectorAll('.nav-group'));
-  if (groups.length) {
-    const setOpen = (g,on) => {
-      g.dataset.open = on ? "true" : "false";
-      const b = g.querySelector('.nav-disclosure');
-      if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
-    };
-    const closeAll = (except=null) => groups.forEach(g => { if (g!==except) setOpen(g,false); });
+/* ===== In the Wake — Solo Article JS v3.010.013r ===== */
 
-    groups.forEach(g => {
-      const btn  = g.querySelector('.nav-disclosure');
-      const menu = g.querySelector('.submenu');
-      if (!btn || !menu) return;
+/* 1) Accessible dropdowns: click + hover + keyboard + outside/Escape */
+(function(){
+  const groups = [...document.querySelectorAll('.nav-group')];
+  if(!groups.length) return;
 
-      // click
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const open = g.dataset.open === "true";
-        closeAll(g);
-        setOpen(g, !open);
-      });
+  const setOpen = (g,on)=>{
+    g.dataset.open = on ? "true" : "false";
+    const b=g.querySelector('.nav-disclosure');
+    if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+  };
+  const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
 
-      // hover (pointer devices)
-      if (window.matchMedia && matchMedia('(hover:hover)').matches) {
-        g.addEventListener('mouseenter', () => { closeAll(g); setOpen(g,true); });
-        g.addEventListener('mouseleave', () => setOpen(g,false));
-      }
+  groups.forEach(g=>{
+    const btn=g.querySelector('.nav-disclosure');
+    const menu=g.querySelector('.submenu');
+    if(!btn||!menu) return;
 
-      // keyboard
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          setOpen(g,true);
-          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-          if (first) first.focus();
-        }
-        if (e.key === 'Escape') { setOpen(g,false); btn.focus(); }
-      });
-      menu.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') { setOpen(g,false); btn.focus(); }
-      });
-
-      // close when focus leaves submenu
-      menu.addEventListener('focusout', () => {
-        setTimeout(() => { if (!g.contains(document.activeElement)) setOpen(g,false); }, 0);
-      });
+    // Click toggle
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const open=g.dataset.open==="true";
+      closeAll(g);
+      setOpen(g,!open);
     });
 
-    // outside click / blur closes all
-    document.addEventListener('click', (e) => { if (!groups.some(g => g.contains(e.target))) closeAll(); }, true);
-    window.addEventListener('blur', () => closeAll());
+    // Hover (pointer devices only)
+    if(window.matchMedia && matchMedia('(hover:hover)').matches){
+      g.addEventListener('mouseenter',()=>{ closeAll(g); setOpen(g,true); });
+      g.addEventListener('mouseleave',()=> setOpen(g,false));
+    }
+
+    // Keyboard support
+    btn.addEventListener('keydown',e=>{
+      if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(g,true);
+        const first=menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+        if(first) first.focus(); }
+      if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
+    });
+    menu.addEventListener('keydown',e=>{
+      if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
+    });
+
+    // Close when focus leaves
+    menu.addEventListener('focusout',()=>{ setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0); });
+  });
+
+  // Global close handlers
+  document.addEventListener('click',e=>{ if(!groups.some(g=>g.contains(e.target))) closeAll(); },true);
+  window.addEventListener('blur',()=> closeAll());
+})();
+
+/* 2) Helpers: fetch fallback + safe key picker */
+async function fetchJSONWithFallback(urls){
+  for(const u of urls){
+    try{
+      const res=await fetch(u,{credentials:'omit',cache:'no-cache'});
+      if(res.ok) return await res.json();
+    }catch(_){}
   }
+  return null;
+}
+const pick=(obj,keys,fallback=null)=>{
+  for(const k of keys){ if(obj && obj[k]!=null) return obj[k]; }
+  return fallback;
+};
 
-  /* ---------- 2) Rails: Authors (matches /data/authors.json shape) ---------- */
-  (async function loadAuthors(){
-    const rail = document.getElementById('authors-rail');
-    if (!rail) return;
+/* 3) Authors rail */
+(async function(){
+  const data=await fetchJSONWithFallback(['/data/authors.json','/assets/data/authors.json']);
+  const rail=document.getElementById('authors-rail');
+  if(!rail||!data) return;
 
-    async function getJSON(url){
-      try{
-        const r = await fetch(url, {credentials:'omit', cache:'no-cache'});
-        if (r.ok) return await r.json();
-      }catch(_){}
-      return null;
-    }
+  const list=Array.isArray(data)?data:(Array.isArray(data.authors)?data.authors:[]);
+  if(!list.length) return;
 
-    // prefer /data, fallback to /assets/data
-    const data = await getJSON('/data/authors.json') || await getJSON('/assets/data/authors.json');
-    if (!data) return;
+  rail.innerHTML=list.map(a=>{
+    const name=pick(a,['name','title'],'Author');
+    const url=pick(a,['url','href','#'],'#');
+    const img=pick(a,['webp','image','avatarWebp','avatar','photo'],'/authors/img/author.webp');
+    const roles=Array.isArray(a.roles)?a.roles.join(', '):(a.roles||'');
+    const sections=Array.isArray(a.sections)?a.sections.join(', '):(a.sections||'');
+    const blurb=[roles,sections].filter(Boolean).join(' • ');
+    return `
+      <div class="rail-row">
+        <img class="author-avatar" src="${img}" alt="${name}">
+        <div>
+          <strong><a href="${url}">${name}</a></strong><br>
+          ${blurb?`<span class="tiny" style="opacity:.9">${blurb}</span>`:''}
+        </div>
+      </div>`;
+  }).join('');
+})();
 
-    const list = Array.isArray(data.authors) ? data.authors : (Array.isArray(data) ? data : []);
-    if (!list.length) return;
+/* 4) Recent articles rail (handles cover.jpg explicitly) */
+(async function(){
+  const data=await fetchJSONWithFallback([
+    '/assets/data/articles/index.json',
+    '/assets/data/articles.json'
+  ]);
+  const rail=document.getElementById('recent-rail');
+  if(!rail||!data) return;
 
-    rail.innerHTML = list.map(a => {
-      const name = a.name || 'Author';
-      const url  = a.url || '#';
-      const img  = a.webp || a.image || a.avatarWebp || a.avatar || '/authors/img/author.webp';
-      const roles = Array.isArray(a.roles) ? a.roles.join(', ') : (a.roles || '');
-      const sections = Array.isArray(a.sections) ? a.sections.join(', ') : (a.sections || '');
-      const blurb = [roles, sections].filter(Boolean).join(' • ');
-      return `
-        <div class="rail-row">
-          <img class="author-avatar" src="${img}" alt="${name}">
-          <div>
-            <strong><a href="${url}">${name}</a></strong><br>
-            ${blurb ? `<span class="tiny" style="opacity:.9">${blurb}</span>` : ''}
-          </div>
-        </div>`;
-    }).join('');
-  })();
+  const items=Array.isArray(data?.articles)?data.articles:(Array.isArray(data)?data:[]);
+  if(!items.length) return;
 
-  /* ---------- 3) Rails: Recent Articles (robust cover resolution) ---------- */
-  (async function loadRecent(){
-    const rail = document.getElementById('recent-rail');
-    if (!rail) return;
-
-    async function getJSON(url){
-      try{
-        const r = await fetch(url, {credentials:'omit', cache:'no-cache'});
-        if (r.ok) return await r.json();
-      }catch(_){}
-      return null;
-    }
-
-    const raw = await getJSON('/assets/data/articles/index.json') || await getJSON('/assets/data/articles.json');
-    if (!raw) return;
-
-    const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-    if (!items.length) return;
-
-    function resolveHref(p){
-      return p.url || p.path || p.href || '#';
-    }
-    function resolveImg(p, href){
-      // common keys first
-      const i = p.image || p.cover || p.coverImage || p.cover_url || p.thumbnail || (p.images && p.images.cover) || p.hero;
-      if (i) return i;
-
-      // heuristic: known article slugs that have a predictable asset path
-      if (href.includes('top-20-questions')) {
-        return '/assets/articles/top-20-questions/cover.jpg';
-      }
-
-      // last resort
-      return '/assets/index_hero.jpg';
-    }
-
-    rail.innerHTML = items.slice(0,6).map(p => {
-      const href  = resolveHref(p);
-      const img   = resolveImg(p, href);
-      const title = p.title || 'Article';
+  const here=location.pathname.replace(/\/+$/,'');
+  const cards=items.filter(p=>{
+      const href=pick(p,['url','path'],'#');
+      const norm=(href||'').replace(/\/+$/,'');
+      return norm && norm!==here;
+    })
+    .slice(0,6)
+    .map(p=>{
+      const href=pick(p,['url','path'],'#');
+      let img=pick(p,['image','cover','img','thumb','thumbnail']);
+      if(!img && href.includes('top-20-questions'))
+        img='/assets/articles/top-20-questions/cover.jpg';
+      if(!img) img='/assets/index_hero.jpg';
+      const title=pick(p,['title','name'],'Article');
       return `
         <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
           <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
@@ -622,15 +609,16 @@ html,body{overflow-x:hidden}
           <div class="tiny" style="line-height:1.35">${title}</div>
         </a>`;
     }).join('');
-  })();
 
-  /* ---------- 4) Service worker (version tag) ---------- */
-  (function(){
-    if('serviceWorker' in navigator){
-      const v='3.010.013';
-      navigator.serviceWorker.register('/sw.js?v='+encodeURIComponent(v)).catch(()=>{});
-    }
-  })();
+  rail.innerHTML=cards;
+})();
+
+/* 5) Service worker */
+(function(){
+  if('serviceWorker' in navigator){
+    const v='3.010.013r';
+    navigator.serviceWorker.register('/sw.js?v='+encodeURIComponent(v)).catch(()=>{});
+  }
 })();
 </script>
 </body>
