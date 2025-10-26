@@ -4,7 +4,7 @@
   <!-- ======================================================
        In the Wake — Solo Article (standalone, no fragment)
        Page: The Freedom of Your Own Wake
-       Version: 3.010.004  |  Standards baseline: 3.010.000
+       Version: 3.010.023  |  Standards baseline: 3.010.x
        ====================================================== -->
 
   <!-- Core -->
@@ -14,7 +14,7 @@
   <meta name="robots" content="index,follow,max-image-preview:large"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.004"/>
+  <meta name="version" content="3.010.023"/>
   <meta name="author" content="Ken Baker"/>
 
   <!-- Title & SEO -->
@@ -38,10 +38,10 @@
   <meta property="article:modified_time"  content="2025-10-22"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Preload LCP hero (JPEG as requested; no WebP changes) -->
+  <!-- Preload LCP hero -->
   <link rel="preload" as="image" href="/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017" fetchpriority="high"/>
 
-  <!-- CSS -->
+  <!-- Site CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.004"/>
 
   <!-- Structured data: Article -->
@@ -67,7 +67,11 @@
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:1000;outline:0}
 
-    /* Hero layout */
+    /* Keep dropdowns able to overflow header */
+    .navbar{overflow:visible}
+    .pill-nav{position:relative;overflow:visible}
+
+    /* Hero layout (tagline kept inside hero, left) */
     .hero{position:relative;overflow:visible}
     .hero-title{position:absolute;left:max(12px,2.5vw,env(safe-area-inset-left));bottom:max(16px,2.2vw,env(safe-area-inset-bottom));
       display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-align:left;z-index:3;text-shadow:0 2px 6px rgba(0,0,0,.45)}
@@ -75,24 +79,36 @@
     .hero-title .tagline{margin-top:.15rem;font-weight:700;letter-spacing:.2px;font-size:clamp(.95rem,1.5vw,1.35rem);color:#e6f4f8}
     .hero-credit{position:absolute;right:12px;bottom:8px;color:#fff;font-size:.8rem;text-shadow:0 1px 3px rgba(0,0,0,.65);z-index:3}
 
-    /* NAV submenu: reliable vertical popover */
-    .pill-nav{position:relative}
-    .nav-group{position:relative}
+    /* NAV submenu (same behavior as working page) */
+    .nav-group{position:relative;display:inline-block}
     .nav-disclosure{appearance:none;background:transparent;border:0;padding:.5rem .9rem;border-radius:999px;cursor:pointer}
     .nav-disclosure:focus-visible{outline:2px solid #0e6e8e;outline-offset:2px}
-    .submenu{display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid rgba(8,48,65,.15);border-radius:.65rem;
-      padding:.35rem;min-width:220px;box-shadow:0 8px 24px rgba(8,48,65,.12);z-index:50}
-    .nav-group.open>.submenu{display:block}
-    .submenu a{display:block!important;width:100%;white-space:normal!important;margin:0;padding:.5rem .65rem;border-radius:.65rem;text-decoration:none}
-    .submenu a:focus-visible{outline:2px solid #0e6e8e;outline-offset:2px}
-
-    /* Figures / captions (solo card frame) */
-    figure.hero, figure.inline-hero, figure.pull{
-      margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;background:#fff;border-radius:16px;
-      border:1px solid rgba(8,48,65,.10);box-shadow:0 6px 22px rgba(8,48,65,.08)
+    .submenu{
+      position:absolute;left:0;top:calc(100% + 8px);
+      min-width:220px;background:#fff;border:1px solid rgba(8,48,65,.15);
+      border-radius:.65rem;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
+      display:none;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s ease;z-index:1100;
     }
-    figure.hero img, figure.inline-hero img{display:block;width:100%;height:auto;object-fit:contain;border-radius:12px}
-    figure>figcaption{margin-top:.65rem;padding-top:.45rem;text-align:left;border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9}
+    .nav-group[data-open="true"]>.submenu{display:block;opacity:1;visibility:visible;pointer-events:auto}
+    .submenu a{display:block!important;width:100%;white-space:normal!important;margin:0;padding:.5rem .65rem;border-radius:.65rem;text-decoration:none}
+
+    /* Figures / captions (card frame) */
+    .solo-article figure,
+    .solo-article .article-hero{
+      margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;
+      background:#fff;border:1px solid rgba(8,48,65,.10);border-radius:16px;box-shadow:0 6px 22px rgba(8,48,65,.08)
+    }
+    .solo-article figure img,
+    .solo-article .article-hero img{
+      display:block !important;width:100% !important;height:auto !important;object-fit:contain !important;
+      position:static !important;float:none !important;border-radius:12px
+    }
+    .solo-article .article-hero>figcaption,
+    .solo-article figure>figcaption{
+      display:block !important;clear:both !important;margin-top:.65rem;padding-top:.45rem;text-align:left !important;
+      border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
+    }
+    figure figcaption{text-align:inherit}
 
     /* Pullquote block */
     figure.pull{padding:1rem 1.25rem}
@@ -102,29 +118,9 @@
     /* Content layout */
     .page-grid .content-area{display:grid;grid-template-columns:1fr minmax(260px,320px);gap:2rem;align-items:start;max-width:1200px;margin-inline:auto}
     .solo-article{max-width:860px;margin-inline:auto}
-  /* ===== Solo-article figure normalization (match prior working page) ===== */
-.solo-article figure,
-.solo-article .article-hero{
-  margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;
-  background:#fff;border:1px solid rgba(8,48,65,.10);
-  border-radius:16px;box-shadow:0 6px 22px rgba(8,48,65,.08);
-}
-.solo-article figure img,
-.solo-article .article-hero img{
-  display:block !important;width:100% !important;height:auto !important;object-fit:contain !important;
-  position:static !important;float:none !important;border-radius:12px;
-}
-.solo-article .article-hero > figcaption,
-.solo-article figure > figcaption{
-  display:block !important;clear:both !important;margin-top:.65rem;padding-top:.45rem;text-align:left !important;
-  border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9;
-}
 
-/* Keep header hero behavior isolated from article figures */
-.solo-article figure.article-hero{ position:static !important; }
-
-/* Prevent any global figcaption centering from leaking in */
-figure figcaption { text-align: inherit; }
+    /* TOC scroll comfort */
+    [id]{scroll-margin-top:16px}
   </style>
 </head>
 <body class="page">
@@ -132,33 +128,38 @@ figure figcaption { text-align: inherit; }
 
   <!-- =========================== HEADER ============================ -->
   <header class="hero-header">
-    <div class="navbar" style="overflow:visible">
+    <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.010.004" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
-        <span class="tiny version-badge">v3.010.004</span>
+        <span class="tiny version-badge">v3.010.023</span>
       </div>
 
-      <!-- Primary nav with working dropdown -->
-      <nav class="nav pill-nav pills" aria-label="Primary">
+      <!-- Primary nav (working dropdowns) -->
+      <nav class="nav pill-nav" aria-label="Primary">
         <a href="/">Home</a>
-        <a href="/ships/">Ships</a>
-        <a href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="/ports.html">Ports</a>
-        <a href="/drink-packages.html">Drink Packages</a>
-        <a href="/packing-lists.html">Packing Lists</a>
 
-        <div class="nav-item nav-group">
-          <button class="nav-disclosure" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="planning-submenu">Planning ▾</button>
-          <div id="planning-submenu" class="submenu" role="menu">
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
             <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
             <a role="menuitem" href="/accessibility.html">Accessibility</a>
           </div>
         </div>
 
-        <a href="/solo.html" aria-current="page">Solo Travel</a>
-        <a href="/travel.html">Travel Tips</a>
-        <a href="/cruise-lines.html">Cruise Lines</a>
-        <a href="/about-us.html">About Us</a>
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html" aria-current="page">Solo</a>
+          </div>
+        </div>
+
+        <a href="/about-us.html">About</a>
       </nav>
     </div>
 
@@ -186,23 +187,22 @@ figure figcaption { text-align: inherit; }
           <p class="dek" itemprop="description">A gentle case for sailing alone — rest, rhythm, and room to breathe when the sea becomes both your mirror and your companion.</p>
         </header>
 
-        <!-- TOP HERO (card frame compatible) -->
-<!-- TOP HERO (kept in the card frame; caption beneath, left-aligned) -->
-<figure class="article-hero">
-  <img
-    src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017"
-    width="1600" height="900"
-    loading="eager" decoding="async" fetchpriority="high"
-    alt="Sunrise over a calm sea">
-  <figcaption>
-    Photo ©
-    <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
-  </figcaption>
-</figure>
+        <!-- TOP HERO (kept in the card frame; caption beneath, left-aligned) -->
+        <figure class="article-hero">
+          <img
+            src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017"
+            width="1600" height="900"
+            loading="eager" decoding="async" fetchpriority="high"
+            alt="Sunrise over a calm sea">
+          <figcaption>
+            Photo ©
+            <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
+          </figcaption>
+        </figure>
 
         <p>There’s something sacred about the moment a ship pulls away from the pier — that quiet hum, the slow drift, the gentle widening of the wake. I’ve sailed with friends, with family, with groups and gatherings, but the first time I sailed <em>alone</em>, something changed. For the first time, I heard the rhythm of the ocean without the noise of my own schedule. I learned that solitude at sea isn’t loneliness — it’s space. It’s rest. It’s a conversation between the soul and the horizon.</p>
 
-        <h2>Finding Peace in the Quiet</h2>
+        <h2 id="finding-peace">Finding Peace in the Quiet</h2>
         <p>When you sail solo, you learn to notice things you’d otherwise miss. The weight of your coffee mug as the ship rocks slightly. The way the morning light flickers off the waves. The sound of a hymn playing quietly in your heart as you lean over the railing, watching the world stretch wide and blue. You start to remember what peace actually feels like.</p>
 
         <p>It isn’t just the absence of noise — it’s the presence of God’s handiwork in the small and ordinary moments. Out there, it’s easy to believe again that His mercies are new every morning, even when you’re miles from shore.</p>
@@ -212,7 +212,7 @@ figure figcaption { text-align: inherit; }
           <figcaption>— Ken Baker</figcaption>
         </figure>
 
-        <h2>The Gift of Going Alone</h2>
+        <h2 id="gift-of-going-alone">The Gift of Going Alone</h2>
         <p>People often ask, “Why cruise alone?” And my answer is simple: sometimes you need to sail without a crowd to remember who you are beneath the noise. A solo voyage gives you permission to think, to pray, to breathe, to watch sunsets without needing to post them. It isn’t selfish — it’s restorative.</p>
 
         <p>Without the constant pull of conversation or planning, you begin to hear the voice of the One who calms the seas. You begin to realize that solitude is not separation — it’s communion. And sometimes, the most faithful thing you can do is take a deep breath and let the Lord steer for a while.</p>
@@ -231,14 +231,14 @@ figure figcaption { text-align: inherit; }
           </figcaption>
         </figure>
 
-        <h2>Lessons from the Wake</h2>
+        <h2 id="lessons-from-the-wake">Lessons from the Wake</h2>
         <ul>
           <li><strong>Pack light — spiritually and practically.</strong> You don’t need to bring everything. The sea has a way of reminding you that less is more, and that simplicity is its own kind of luxury.</li>
           <li><strong>Be still.</strong> Don’t fill every moment with plans. Sit in a quiet corner of the ship and just watch the water move. Let it move you too.</li>
           <li><strong>Reflect rather than escape.</strong> Solo travel isn’t running away — it’s turning toward. It’s space to meet the Lord again in the in-between places.</li>
         </ul>
 
-        <h2>Following in His Wake</h2>
+        <h2 id="following-in-his-wake">Following in His Wake</h2>
         <p>Every ship leaves a wake — a shimmering trail that fades behind it, but never quite disappears. That’s how the Christian life feels when you’re walking (or sailing) with Christ. You move forward, but grace follows close behind. The wake reminds you that where you’ve been still matters, even as He leads you on.</p>
 
         <p>So go. Go in faith. Take a journey not to get away from the world, but to see it again through grateful eyes. The ocean may not answer your questions, but it will make you quiet enough to hear when God does.</p>
@@ -278,17 +278,17 @@ figure figcaption { text-align: inherit; }
 
       <!-- ===================== RIGHT-SIDE RAIL ========================== -->
       <aside class="rail" role="complementary" aria-label="Article navigation and author info" style="display:flex;flex-direction:column;gap:1rem">
-        <!-- On this page (simple anchor list to major headings present) -->
+        <!-- On this page -->
         <section class="card toc-card" aria-labelledby="toc-title">
           <h2 id="toc-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">On this page</h2>
           <nav aria-label="Table of contents">
             <ol class="tiny" style="display:grid;gap:.35rem;margin:0;padding-left:1.1rem">
-  <li><a href="#freedom-of-your-own-wake">Top</a></li>
-  <li><a href="#finding-peace">Finding Peace in the Quiet</a></li>
-  <li><a href="#gift-of-going-alone">The Gift of Going Alone</a></li>
-  <li><a href="#lessons-from-the-wake">Lessons from the Wake</a></li>
-  <li><a href="#following-in-his-wake">Following in His Wake</a></li>
-</ol>
+              <li><a href="#freedom-of-your-own-wake">Top</a></li>
+              <li><a href="#finding-peace">Finding Peace in the Quiet</a></li>
+              <li><a href="#gift-of-going-alone">The Gift of Going Alone</a></li>
+              <li><a href="#lessons-from-the-wake">Lessons from the Wake</a></li>
+              <li><a href="#following-in-his-wake">Following in His Wake</a></li>
+            </ol>
           </nav>
         </section>
 
@@ -312,7 +312,7 @@ figure figcaption { text-align: inherit; }
   <!-- =========================== FOOTER ============================ -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.010.004</span>
+    <span class="version-badge">v3.010.023</span>
     <p class="tiny center" style="margin-top:.5rem">
       Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
     </p>
@@ -320,53 +320,67 @@ figure figcaption { text-align: inherit; }
 
   <!-- =========================== JS ================================ -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.solo-article figure.hero').forEach(f => f.classList.remove('hero'));
-});
-  /* Accessible dropdown (click + keyboard + outside/Escape) */
-  (function(){
-    const group = document.querySelector('.nav-group');
-    if(!group) return;
+  /* Run after DOM is ready */
+  document.addEventListener('DOMContentLoaded', () => {
+    /* 0) Normalize: if any article figures accidentally have .hero, strip it */
+    document.querySelectorAll('.solo-article figure.hero').forEach(f => f.classList.remove('hero'));
 
-    const btn  = group.querySelector('.nav-disclosure');
-    const menu = group.querySelector('.submenu');
+    /* 1) Accessible dropdowns (same behavior as the working page) */
+    (function(){
+      const groups = Array.from(document.querySelectorAll('.nav-group'));
+      if(!groups.length) return;
 
-    function openMenu(){
-      group.classList.add('open');
-      btn.setAttribute('aria-expanded','true');
-    }
-    function closeMenu(){
-      group.classList.remove('open');
-      btn.setAttribute('aria-expanded','false');
-    }
-    function toggleMenu(){
-      if(group.classList.contains('open')) closeMenu(); else openMenu();
-    }
+      const setOpen = (g,on)=>{
+        g.dataset.open = on ? "true" : "false";
+        const b = g.querySelector('.nav-disclosure');
+        if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+      };
+      const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
 
-    // Click to toggle
-    btn.addEventListener('click', (e)=>{ e.stopPropagation(); toggleMenu(); });
+      groups.forEach(g=>{
+        const btn  = g.querySelector('.nav-disclosure');
+        const menu = g.querySelector('.submenu');
+        if(!btn || !menu) return;
 
-    // Close on outside click
-    document.addEventListener('click', (e)=>{
-      if(!group.contains(e.target)) closeMenu();
-    });
+        // Click toggle
+        btn.addEventListener('click',(e)=>{
+          e.stopPropagation();
+          const open = g.dataset.open === "true";
+          closeAll(g);
+          setOpen(g, !open);
+        });
 
-    // Keyboard support
-    btn.addEventListener('keydown', (e)=>{
-      if(e.key === 'ArrowDown'){ e.preventDefault(); openMenu(); const first = menu.querySelector('a'); if(first) first.focus(); }
-      if(e.key === 'Escape'){ closeMenu(); btn.focus(); }
-    });
-    menu.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape'){ closeMenu(); btn.focus(); }
-      if(e.key === 'ArrowUp' && e.target === menu.querySelector('a')){ e.preventDefault(); btn.focus(); }
-    });
+        // Hover (pointer devices)
+        if (window.matchMedia && matchMedia('(hover:hover)').matches){
+          g.addEventListener('mouseenter', ()=>{ closeAll(g); setOpen(g,true); });
+          g.addEventListener('mouseleave', ()=> setOpen(g,false));
+        }
 
-    // Close on focus out (tabbing away)
-    menu.addEventListener('focusout', (e)=>{
-      // If focus leaves the group entirely, close
-      setTimeout(()=>{ if(!group.contains(document.activeElement)) closeMenu(); }, 0);
-    });
-  })();
+        // Keyboard
+        btn.addEventListener('keydown',(e)=>{
+          if(e.key==='ArrowDown'){
+            e.preventDefault();
+            setOpen(g,true);
+            const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+            if(first) first.focus();
+          }
+          if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
+        });
+        menu.addEventListener('keydown',(e)=>{
+          if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
+        });
+
+        // Close when focus leaves the group
+        menu.addEventListener('focusout',()=>{
+          setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0);
+        });
+      });
+
+      // Close on outside click / window blur
+      document.addEventListener('click', (e)=>{ if(!groups.some(g=>g.contains(e.target))) closeAll(); }, true);
+      window.addEventListener('blur', ()=> closeAll());
+    })();
+  });
   </script>
 
   <!-- Site JS -->
