@@ -4,7 +4,7 @@
   <!-- ======================================================
        In the Wake — Solo Article (standalone, repaired)
        Page: The Freedom of Your Own Wake
-       Version: 3.010.028  |  Standards baseline: 3.010.x
+       Version: 3.010.029  |  Standards baseline: 3.010.x
        ====================================================== -->
 
   <!-- Core -->
@@ -14,7 +14,7 @@
   <meta name="robots" content="index,follow,max-image-preview:large"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.028"/>
+  <meta name="version" content="3.010.029"/>
   <meta name="author" content="Ken Baker"/>
 
   <!-- Title & SEO -->
@@ -187,8 +187,8 @@
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.028" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
-        <span class="tiny version-badge">v3.010.028</span>
+        <img src="/assets/logo_wake.png?v=3.010.029" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
+        <span class="tiny version-badge">v3.010.029</span>
       </div>
 
       <!-- SAME MENU AS THE WORKING PAGE -->
@@ -221,9 +221,9 @@
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.028" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.029" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.028" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.029" width="560" height="144" alt="In the Wake" decoding="async"/>
       </div>
       <div class="tagline">A Cruise Traveler’s Logbook</div>
       <div class="hero-credit">
@@ -342,218 +342,229 @@
   <!-- =========================== FOOTER ============================ -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.010.028</span>
+    <span class="version-badge">v3.010.029</span>
   </footer>
 
   <!-- =========================== JS ================================ -->
-  <script>
-  /* ===== Solo Article JS v3.010.028 ===== */
-  document.addEventListener('DOMContentLoaded', () => {
-    /* Normalize article figure so global .hero rules never hijack it */
+ <script>
+/* ===== Solo Article JS v3.010.030 ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  /* 1) Normalize article figure so global .hero rules never hijack it */
+  try {
     document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.remove('hero'));
+  } catch(_) {}
 
-    /* Accessible dropdowns (click, hover, keyboard, outside/Escape) */
-    (function(){
-      const groups = Array.from(document.querySelectorAll('.nav-group'));
-      if(!groups.length) return;
+  /* 2) Accessible dropdowns — robust (click, hover/focus CSS fallback, keyboard, outside/Escape) */
+  (function(){
+    const groups = [...document.querySelectorAll('.nav-group')];
+    if(!groups.length) return;
 
-const setOpen = (g, on) => {
-  g.dataset.open = on ? "true" : "false";
-  g.classList.toggle('open', !!on);  // parallel class flag (extra robustness)
-  const b = g.querySelector('.nav-disclosure');
-  if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
-};
-      const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
+    const setOpen = (g,on)=>{
+      g.dataset.open = on ? 'true' : 'false';
+      g.classList.toggle('open', !!on); // extra class in case CSS targets .open
+      const b = g.querySelector('.nav-disclosure');
+      if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    };
+    const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
 
-      groups.forEach(g=>{
-        const btn  = g.querySelector('.nav-disclosure');
-        const menu = g.querySelector('.submenu');
-        if(!btn || !menu) return;
+    groups.forEach(g=>{
+      const btn  = g.querySelector('.nav-disclosure');
+      const menu = g.querySelector('.submenu');
+      if(!btn || !menu) return;
 
-        btn.addEventListener('click',(e)=>{
-          e.stopPropagation();
-          const open = g.dataset.open === "true";
-          closeAll(g);
-          setOpen(g, !open);
-        });
-
-        if (window.matchMedia && matchMedia('(hover:hover)').matches){
-          g.addEventListener('mouseenter', ()=>{ closeAll(g); setOpen(g,true); });
-          g.addEventListener('mouseleave', ()=> setOpen(g,false));
-        }
-
-        btn.addEventListener('keydown',(e)=>{
-          if(e.key==='ArrowDown'){
-            e.preventDefault();
-            setOpen(g,true);
-            const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-            if(first) first.focus();
-          }
-          if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
-        });
-        menu.addEventListener('keydown',(e)=>{
-          if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
-        });
-
-        menu.addEventListener('focusout',()=>{ setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0); });
+      // Toggle on click
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const open = g.dataset.open === 'true';
+        closeAll(g);
+        setOpen(g, !open);
       });
 
-      document.addEventListener('click', (e)=>{ if(!groups.some(g=>g.contains(e.target))) closeAll(); }, true);
-      window.addEventListener('blur', ()=> closeAll());
-    })();
+      // Keyboard support on the group (Esc + ArrowDown from button)
+      g.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape'){
+          setOpen(g,false);
+          if (document.activeElement && !g.contains(document.activeElement)) return;
+          btn && btn.focus();
+        }
+        if(e.key === 'ArrowDown' && document.activeElement === btn){
+          e.preventDefault();
+          setOpen(g,true);
+          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+          first && first.focus();
+        }
+      });
 
-    /* Helpers */
-    async function fetchJSONWithFallback(urls){
-      for (const u of urls){
-        try{
-          const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-          if (res.ok) return await res.json();
-        }catch(_){/* keep trying */}
+      // Keep open while focusing within; close when focus leaves the whole group
+      menu.addEventListener('focusout',()=>{
+        setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0);
+      });
+    });
+
+    // Close on outside click (bubble phase) and when window loses focus
+    document.addEventListener('click', (e)=>{
+      if(!e.target.closest('.nav-group')) closeAll();
+    });
+    window.addEventListener('blur', ()=> closeAll());
+  })();
+
+  /* 3) Helpers */
+  async function fetchJSONWithFallback(urls){
+    for (const u of urls){
+      try{
+        const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+        if (res.ok) return await res.json();
+      }catch(_){ /* keep trying */ }
+    }
+    return null;
+  }
+  const pick = (obj, keys, fallback=null)=>{
+    for(const k of keys){ if(obj && obj[k] != null) return obj[k]; }
+    return fallback;
+  };
+  function setImageWithFallback(imgEl, primary, altPaths=[]){
+    if(!imgEl) return;
+    const stamp = 'v=3.010.030';
+    const tried = new Set();
+    const queue = [primary, ...altPaths]
+      .filter(Boolean)
+      .map(p => p.includes('?') ? p+'&'+stamp : p+'?'+stamp);
+
+    function tryNext(){
+      const next = queue.shift();
+      if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
+      if(tried.has(next)) return tryNext();
+      tried.add(next);
+      imgEl.src = next;
+    }
+    imgEl.onerror = tryNext;
+    tryNext();
+  }
+
+  /* 4) Right-rail: Authors */
+  (async function(){
+    const data = await fetchJSONWithFallback(['/data/authors.json','/assets/data/authors.json']);
+    const rail = document.getElementById('author-rail');
+    if(!rail || !data) return;
+
+    const list = Array.isArray(data.authors) ? data.authors : (Array.isArray(data) ? data : []);
+    const ken = list.find(a => /ken\s*baker/i.test(a.name||'')) || list[0];
+    if(!ken) return;
+
+    const host = rail.querySelector('.author-card');
+    if(!host) return;
+
+    host.innerHTML = `
+      <picture>
+        <source type="image/webp" srcset="/authors/img/ken1.webp">
+        <img class="author-avatar" src="/authors/img/ken1.jpg" width="48" height="48" alt="Author — Ken Baker">
+      </picture>
+      <div>
+        <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
+        Founder of In the Wake and writer of the Solo Travel series.<br/>
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+        Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+      </div>`;
+  })();
+
+  /* 5) Right-rail: Recent articles (with absolute Top-20 image override) */
+  (async function(){
+    const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
+    const rail = document.getElementById('recent-rail');
+    if(!rail || !raw) return;
+
+    const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+    if(!items.length) return;
+
+    const here = location.pathname.replace(/\/+$/,'');
+    const view = items.filter(p=>{
+      const href = pick(p,['url','path'],'#'); const norm = (href||'').replace(/\/+$/,'');
+      return norm && norm !== here;
+    }).slice(0,6);
+
+    rail.innerHTML = view.map(p=>{
+      const title = pick(p,['title','name'],'Article');
+      const href  = pick(p,['url','path'],'#');
+      return `
+        <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
+          <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
+            <img class="article-thumb" alt="" decoding="async" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="tiny" style="line-height:1.35">${title}</div>
+        </a>`;
+    }).join('');
+
+    const cards = [...rail.querySelectorAll('a.card')];
+
+    cards.forEach((card,i)=>{
+      const p = view[i] || {};
+      const el = card.querySelector('img.article-thumb');
+      const href  = (pick(p,['url','path'],'')||'').toLowerCase();
+      const title = (pick(p,['title','name'],'')||'').toLowerCase();
+
+      let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
+
+      // FORCE override for Top-20 regardless of existing image
+      if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
+        primary = 'https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg';
       }
-      return null;
-    }
-    const pick = (obj, keys, fallback=null)=>{
-      for(const k of keys){ if(obj && obj[k] != null) return obj[k]; }
-      return fallback;
-    };
-
-    function setImageWithFallback(imgEl, primary, altPaths=[]){
-      const stamp = 'v=3.010.028';
-      const tried = new Set();
-      const queue = [primary, ...altPaths].filter(Boolean).map(p => p.includes('?') ? p+'&'+stamp : p+'?'+stamp);
-      function tryNext(){
-        const next = queue.shift();
-        if(!next){ imgEl.removeAttribute('onerror'); return; }
-        if(tried.has(next)) return tryNext();
-        tried.add(next);
-        imgEl.src = next;
+      // Friendly specifics
+      if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
+        primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
       }
-      imgEl.onerror = tryNext;
-      tryNext();
-    }
+      if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
+        primary = '/assets/articles/travel/cover.jpg';
+      }
+      // Heuristic fallback
+      if(!primary){
+        const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
+        const guess = slugify(href) || slugify(title);
+        if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
+      }
 
-    /* Right-rail: Authors */
-    (async function(){
-      const data = await fetchJSONWithFallback(['/data/authors.json','/assets/data/authors.json']);
-      const rail = document.getElementById('author-rail');
-      if(!rail || !data) return;
+      const alts = [];
+      if(primary){
+        const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+        alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
+      }
+      setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
+    });
+  })();
 
-      const list = Array.isArray(data.authors) ? data.authors : (Array.isArray(data) ? data : []);
-      const ken = list.find(a => /ken\s*baker/i.test(a.name||'')) || list[0];
-      if(!ken) return;
+  /* 6) TOC scrollspy (highlight current section) */
+  (function(){
+    const toc = document.querySelector('.toc-card nav');
+    const links = toc ? [...toc.querySelectorAll('a[href^="#"]')] : [];
+    if(!links.length) return;
 
-rail.querySelector('.author-card').innerHTML = `
-  <picture>
-    <source type="image/webp" srcset="/authors/img/ken1.webp">
-    <img class="author-avatar" src="/authors/img/ken1.jpg" width="48" height="48" alt="Author — Ken Baker">
-  </picture>
-  <div>
-    <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
-    Founder of In the Wake and writer of the Solo Travel series.<br/>
-    <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
-    Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
-  </div>`;
-    })();
+    const map = links.map(a=>{
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      return el ? {a, el} : null;
+    }).filter(Boolean);
 
-  /* Right-rail: Recent articles (with absolute Top-20 image override — forced) */
-(async function(){
-  const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-  const rail = document.getElementById('recent-rail');
-  if(!rail || !raw) return;
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        const hit = map.find(m => m.el === e.target);
+        if(!hit) return;
+        if(e.isIntersecting){
+          links.forEach(x => x.classList.remove('active'));
+          hit.a.classList.add('active');
+        }
+      });
+    },{rootMargin:'-40% 0px -55% 0px', threshold:0});
 
-  const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-  if(!items.length) return;
+    map.forEach(m=>io.observe(m.el));
+  })();
 
-  const here = location.pathname.replace(/\/+$/,'');
-  const view = items.filter(p=>{
-    const href = pick(p,['url','path'],'#'); const norm = (href||'').replace(/\/+$/,'');
-    return norm && norm !== here;
-  }).slice(0,6);
-
-  rail.innerHTML = view.map(p=>{
-    const title = pick(p,['title','name'],'Article');
-    const href  = pick(p,['url','path'],'#');
-    return `
-      <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
-        <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
-          <img class="article-thumb" alt="" decoding="async" style="width:100%;height:100%;object-fit:cover">
-        </div>
-        <div class="tiny" style="line-height:1.35">${title}</div>
-      </a>`;
-  }).join('');
-
-  const cards = [...rail.querySelectorAll('a.card')];
-
-  cards.forEach((card,i)=>{
-    const p = view[i] || {};
-    const el = card.querySelector('img.article-thumb');
-    const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-    const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-    let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
-
-    // ***** FORCE override for Top-20 regardless of existing image *****
-    if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-      primary = 'https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg';
-    }
-
-    // Friendly specific hints
-    if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-      primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
-    }
-    if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-      primary = '/assets/articles/travel/cover.jpg';
-    }
-
-    // Heuristic fallback
-    if(!primary){
-      const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-      const guess = slugify(href) || slugify(title);
-      if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
-    }
-
-    const alts = [];
-    if(primary){
-      const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-      alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
-    }
-    setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
-  });
-})();
-
-    /* TOC scrollspy (highlight current section) — fixed selector */
-    (function(){
-      const toc = document.querySelector('.toc-card nav'); // <-- fix: target the nav, not the header
-      const links = toc ? [...toc.querySelectorAll('a[href^="#"]')] : [];
-      if(!links.length) return;
-
-      const map = links.map(a=>{
-        const id = a.getAttribute('href').slice(1);
-        const el = document.getElementById(id);
-        return el ? {a, el} : null;
-      }).filter(Boolean);
-
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          const hit = map.find(m => m.el === e.target);
-          if(!hit) return;
-          if(e.isIntersecting){
-            links.forEach(x => x.classList.remove('active'));
-            hit.a.classList.add('active');
-          }
-        });
-      },{rootMargin:'-40% 0px -55% 0px', threshold:0});
-
-      map.forEach(m=>io.observe(m.el));
-    })();
-
-    /* Service worker (version bump for cache) */
-    if('serviceWorker' in navigator){
-      const v='3.010.028';
-      navigator.serviceWorker.register('/sw.js?v='+encodeURIComponent(v)).catch(()=>{});
-    }
-  });
-  </script>
+  /* 7) Service worker (version bump for cache) */
+  if('serviceWorker' in navigator){
+    const v='3.010.030';
+    navigator.serviceWorker.register('/sw.js?v='+encodeURIComponent(v)).catch(()=>{});
+  }
+});
+</script>
 
   <!-- Site JS -->
   <script defer src="/assets/js/share-bar.js?v=3.010.004"></script>
