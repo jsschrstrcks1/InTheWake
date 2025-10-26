@@ -61,8 +61,8 @@
   }
   </script>
 
-  <style>
-  /* ===== Solo Article Styles v3.010.029 ===== */
+ <style>
+  /* ===== Solo Article Styles v3.010.030 ===== */
   :root{
     --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
     --shadow:0 6px 22px rgba(8,48,65,.08);
@@ -80,11 +80,11 @@
   .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
   .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
 
-  /* Header / hero (matching the other page) */
+  /* Header / hero */
   .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:0}
   .navbar{
     max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
-    padding:.5rem .9rem .35rem;position:relative;z-index:1200; /* bump to sit above hero */
+    padding:.5rem .9rem .35rem;position:relative;z-index:2000; /* top of stack */
     overflow:visible;
   }
   .brand{display:flex;align-items:flex-end;gap:.6rem}
@@ -107,9 +107,9 @@
     min-width:220px;background:#fff;border:1px solid var(--rope);
     border-radius:12px;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
     display:none;opacity:0;visibility:hidden;pointer-events:none;
-    transition:opacity .15s ease;z-index:1100;
+    transition:opacity .15s ease;z-index:2100;
   }
-  /* OPEN state — wins over any global .submenu {display:none} */
+  /* Programmatic open (JS) */
   .nav-group[data-open="true"] > .submenu,
   .nav-group.open > .submenu{
     display:block !important;
@@ -117,7 +117,14 @@
     visibility:visible !important;
     pointer-events:auto !important;
   }
-  /* make sure the container can visually overflow */
+  /* CSS fallback: open on hover and keyboard focus */
+  .nav-group:hover > .submenu,
+  .nav-group:focus-within > .submenu{
+    display:block !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+  }
   header,.hero-header,.navbar,.pill-nav{ overflow:visible; }
 
   .hero{
@@ -132,16 +139,9 @@
 
   /* Tagline — single source of truth */
   .tagline{
-    position:absolute;
-    left:50%;
-    bottom:clamp(.55rem,1.6vw,1.1rem);
-    transform:translateX(-50%);
-    font-weight:700;
-    letter-spacing:.2px;
-    color:#e6f4f8;
-    font-size:clamp(.9rem,1.5vw,1.35rem);
-    white-space:nowrap;
-    z-index:3;
+    position:absolute;left:50%;bottom:clamp(.55rem,1.6vw,1.1rem);
+    transform:translateX(-50%);font-weight:700;letter-spacing:.2px;color:#e6f4f8;
+    font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3;
   }
 
   .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
@@ -171,17 +171,10 @@
   .rail-list{display:grid;gap:1rem}
   .rail section.card + section.card{margin-top:.75rem}
 
-  /* Author avatar — consolidated definition */
+  /* Author avatar */
   .author-avatar{
-    display:block;              /* remove baseline gap */
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    object-fit:cover;
-    object-position:center;
-    flex:0 0 48px;              /* fixed slot in the flex row */
+    display:block;width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center;flex:0 0 48px;
   }
-  /* Make the picture itself a fixed block too (prevents stray gaps) */
   .author-card picture{ display:block; flex:0 0 48px; }
 
   .toc a.active{font-weight:700;text-decoration:underline}
