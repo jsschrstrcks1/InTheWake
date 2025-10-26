@@ -102,6 +102,29 @@
     /* Content layout */
     .page-grid .content-area{display:grid;grid-template-columns:1fr minmax(260px,320px);gap:2rem;align-items:start;max-width:1200px;margin-inline:auto}
     .solo-article{max-width:860px;margin-inline:auto}
+  /* ===== Solo-article figure normalization (match prior working page) ===== */
+.solo-article figure,
+.solo-article .article-hero{
+  margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;
+  background:#fff;border:1px solid rgba(8,48,65,.10);
+  border-radius:16px;box-shadow:0 6px 22px rgba(8,48,65,.08);
+}
+.solo-article figure img,
+.solo-article .article-hero img{
+  display:block !important;width:100% !important;height:auto !important;object-fit:contain !important;
+  position:static !important;float:none !important;border-radius:12px;
+}
+.solo-article .article-hero > figcaption,
+.solo-article figure > figcaption{
+  display:block !important;clear:both !important;margin-top:.65rem;padding-top:.45rem;text-align:left !important;
+  border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9;
+}
+
+/* Keep header hero behavior isolated from article figures */
+.solo-article figure.article-hero{ position:static !important; }
+
+/* Prevent any global figcaption centering from leaking in */
+figure figcaption { text-align: inherit; }
   </style>
 </head>
 <body class="page">
@@ -164,20 +187,18 @@
         </header>
 
         <!-- TOP HERO (card frame compatible) -->
-        <figure class="hero">
-          <picture>
-            <!-- keep JPEG per instruction; no WebP swap -->
-            <img
-              src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017"
-              width="1600" height="900"
-              loading="eager" decoding="async" fetchpriority="high"
-              alt="Sunrise over a calm sea">
-          </picture>
-          <figcaption>
-            Photo ©
-            <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
-          </figcaption>
-        </figure>
+<!-- TOP HERO (kept in the card frame; caption beneath, left-aligned) -->
+<figure class="article-hero">
+  <img
+    src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017"
+    width="1600" height="900"
+    loading="eager" decoding="async" fetchpriority="high"
+    alt="Sunrise over a calm sea">
+  <figcaption>
+    Photo ©
+    <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
+  </figcaption>
+</figure>
 
         <p>There’s something sacred about the moment a ship pulls away from the pier — that quiet hum, the slow drift, the gentle widening of the wake. I’ve sailed with friends, with family, with groups and gatherings, but the first time I sailed <em>alone</em>, something changed. For the first time, I heard the rhythm of the ocean without the noise of my own schedule. I learned that solitude at sea isn’t loneliness — it’s space. It’s rest. It’s a conversation between the soul and the horizon.</p>
 
@@ -262,12 +283,12 @@
           <h2 id="toc-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">On this page</h2>
           <nav aria-label="Table of contents">
             <ol class="tiny" style="display:grid;gap:.35rem;margin:0;padding-left:1.1rem">
-              <li><a href="#freedom-of-your-own-wake">Top</a></li>
-              <li><a href="#freedom-of-your-own-wake">Finding Peace in the Quiet</a></li>
-              <li><a href="#freedom-of-your-own-wake">The Gift of Going Alone</a></li>
-              <li><a href="#freedom-of-your-own-wake">Lessons from the Wake</a></li>
-              <li><a href="#freedom-of-your-own-wake">Following in His Wake</a></li>
-            </ol>
+  <li><a href="#freedom-of-your-own-wake">Top</a></li>
+  <li><a href="#finding-peace">Finding Peace in the Quiet</a></li>
+  <li><a href="#gift-of-going-alone">The Gift of Going Alone</a></li>
+  <li><a href="#lessons-from-the-wake">Lessons from the Wake</a></li>
+  <li><a href="#following-in-his-wake">Following in His Wake</a></li>
+</ol>
           </nav>
         </section>
 
@@ -299,6 +320,9 @@
 
   <!-- =========================== JS ================================ -->
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.solo-article figure.hero').forEach(f => f.classList.remove('hero'));
+});
   /* Accessible dropdown (click + keyboard + outside/Escape) */
   (function(){
     const group = document.querySelector('.nav-group');
