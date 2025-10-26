@@ -41,10 +41,10 @@
   <!-- Preload LCP hero -->
   <link rel="preload" as="image" href="/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017" fetchpriority="high"/>
 
-  <!-- Global site CSS -->
+  <!-- Global CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.004"/>
 
-  <!-- Structured data: Article -->
+  <!-- Structured data -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -61,50 +61,34 @@
   }
   </script>
 
-  <!-- Local helper styles (repairs + figure normalization) -->
   <style>
     /* Skip link */
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
 
-    /* Let dropdowns escape the nav row; remove masks that clip submenus */
+    /* Let dropdowns escape; no clipping */
     header,.hero-header,.navbar,.pill-nav{overflow:visible !important}
-    .pill-nav{position:relative;-webkit-mask:none !important;mask:none !important}
+    .pill-nav{-webkit-mask:none !important;mask:none !important}
     .submenu{z-index:1100}
 
-    /* Hero layout (keep wordmark in-frame on big viewports) */
+    /* Hero layout (keep logo inside frame) */
     .hero{position:relative;overflow:visible}
-    .hero-title{
-      position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);
-      display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;
-      text-align:left;z-index:3;text-shadow:0 2px 6px rgba(0,0,0,.45)
-    }
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;flex-direction:column;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45);z-index:3}
     .hero-title .logo{width:clamp(220px,28vw,520px);max-width:min(45vw,520px);height:auto;display:block}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
     .hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid #d9b382;font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
 
-    /* Figures / captions (solo card frame) */
-    figure.hero,figure.inline-hero,figure.pull,
+    /* Solo article figure normalization */
     .solo-article figure,.solo-article .article-hero{
-      margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;
-      background:#fff;border-radius:16px;border:1px solid rgba(8,48,65,.10);
-      box-shadow:0 6px 22px rgba(8,48,65,.08)
+      margin:0 0 1rem 0;padding:10px;max-width:min(860px,92%);margin-inline:auto;background:#fff;border-radius:16px;border:1px solid rgba(8,48,65,.10);box-shadow:0 6px 22px rgba(8,48,65,.08)
     }
-    figure.hero img,figure.inline-hero img,
     .solo-article figure img,.solo-article .article-hero img{
-      display:block;width:100%;height:auto;object-fit:contain;border-radius:12px;
-      position:static !important;float:none !important;
+      display:block !important;width:100% !important;height:auto !important;object-fit:contain !important;position:static !important;float:none !important;border-radius:12px
     }
-    figure>figcaption,.solo-article .article-hero>figcaption,.solo-article figure>figcaption{
-      margin-top:.65rem;padding-top:.45rem;text-align:left;border-top:1px dashed rgba(8,48,65,.12);
-      font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
+    .solo-article figure>figcaption,.solo-article .article-hero>figcaption{
+      margin-top:.65rem;padding-top:.45rem;text-align:left !important;border-top:1px dashed rgba(8,48,65,.12);font-size:.95rem;line-height:1.4;color:#083041;opacity:.9
     }
     figure figcaption{text-align:inherit}
-
-    /* Pullquote block */
-    figure.pull{padding:1rem 1.25rem}
-    figure.pull blockquote{margin:0;font-size:1.2rem;line-height:1.5}
-    figure.pull figcaption{border-top:none;margin-top:.5rem;padding-top:0;font-size:.95rem;opacity:.8}
 
     /* Content layout */
     .page-grid .content-area{display:grid;grid-template-columns:1fr minmax(260px,320px);gap:2rem;align-items:start;max-width:1200px;margin-inline:auto}
@@ -119,39 +103,38 @@
 
   <!-- =========================== HEADER ============================ -->
   <header class="hero-header">
-    <div class="navbar" style="overflow:visible">
+    <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.010.004" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
         <span class="tiny version-badge">v3.010.024</span>
       </div>
 
-      <!-- Primary nav with working dropdown -->
-      <nav class="nav pill-nav pills" aria-label="Primary">
+      <!-- EXACT same nav as the previous page -->
+      <nav class="nav pill-nav" aria-label="Primary">
         <a href="/">Home</a>
-        <a href="/ships/">Ships</a>
-        <a href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="/ports.html">Ports</a>
-        <a href="/drink-packages.html">Drink Packages</a>
-        <a href="/packing-lists.html">Packing Lists</a>
 
-        <div class="nav-item nav-group" data-open="false">
-          <button class="nav-disclosure" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="planning-submenu">Planning ▾</button>
-          <div id="planning-submenu" class="submenu" role="menu" aria-label="Planning">
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
             <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
             <a role="menuitem" href="/accessibility.html">Accessibility</a>
           </div>
         </div>
 
-        <div class="nav-item nav-group" data-open="false">
-          <button class="nav-disclosure" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="travel-submenu">Travel ▾</button>
-          <div id="travel-submenu" class="submenu" role="menu" aria-label="Travel">
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
             <a role="menuitem" href="/solo.html" aria-current="page">Solo</a>
-            <a role="menuitem" href="/travel.html">Travel Tips</a>
           </div>
         </div>
 
-        <a href="/cruise-lines.html">Cruise Lines</a>
-        <a href="/about-us.html">About Us</a>
+        <a href="/about-us.html">About</a>
       </nav>
     </div>
 
@@ -178,7 +161,7 @@
           <p class="dek" itemprop="description">A gentle case for sailing alone — rest, rhythm, and room to breathe when the sea becomes both your mirror and your companion.</p>
         </header>
 
-        <!-- TOP HERO (caption left, beneath) -->
+        <!-- TOP HERO -->
         <figure class="article-hero">
           <img
             src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017"
@@ -195,8 +178,6 @@
         <h2 id="finding-peace">Finding Peace in the Quiet</h2>
         <p>When you sail solo, you learn to notice things you’d otherwise miss. The weight of your coffee mug as the ship rocks slightly. The way the morning light flickers off the waves. The sound of a hymn playing quietly in your heart as you lean over the railing, watching the world stretch wide and blue. You start to remember what peace actually feels like.</p>
 
-        <p>It isn’t just the absence of noise — it’s the presence of God’s handiwork in the small and ordinary moments. Out there, it’s easy to believe again that His mercies are new every morning, even when you’re miles from shore.</p>
-
         <figure class="pull">
           <blockquote>“The sea doesn’t shout for your attention — it waits for your silence.”</blockquote>
           <figcaption>— Ken Baker</figcaption>
@@ -204,8 +185,6 @@
 
         <h2 id="gift-of-going-alone">The Gift of Going Alone</h2>
         <p>People often ask, “Why cruise alone?” And my answer is simple: sometimes you need to sail without a crowd to remember who you are beneath the noise. A solo voyage gives you permission to think, to pray, to breathe, to watch sunsets without needing to post them. It isn’t selfish — it’s restorative.</p>
-
-        <p>Without the constant pull of conversation or planning, you begin to hear the voice of the One who calms the seas. You begin to realize that solitude is not separation — it’s communion. And sometimes, the most faithful thing you can do is take a deep breath and let the Lord steer for a while.</p>
 
         <!-- INLINE IMAGE -->
         <figure class="inline-hero">
@@ -220,15 +199,13 @@
 
         <h2 id="lessons-from-the-wake">Lessons from the Wake</h2>
         <ul>
-          <li><strong>Pack light — spiritually and practically.</strong> You don’t need to bring everything. The sea has a way of reminding you that less is more, and that simplicity is its own kind of luxury.</li>
-          <li><strong>Be still.</strong> Don’t fill every moment with plans. Sit in a quiet corner of the ship and just watch the water move. Let it move you too.</li>
-          <li><strong>Reflect rather than escape.</strong> Solo travel isn’t running away — it’s turning toward. It’s space to meet the Lord again in the in-between places.</li>
+          <li><strong>Pack light — spiritually and practically.</strong></li>
+          <li><strong>Be still.</strong></li>
+          <li><strong>Reflect rather than escape.</strong></li>
         </ul>
 
         <h2 id="following-in-his-wake">Following in His Wake</h2>
-        <p>Every ship leaves a wake — a shimmering trail that fades behind it, but never quite disappears. That’s how the Christian life feels when you’re walking (or sailing) with Christ. You move forward, but grace follows close behind. The wake reminds you that where you’ve been still matters, even as He leads you on.</p>
-
-        <p>So go. Go in faith. Take a journey not to get away from the world, but to see it again through grateful eyes. The ocean may not answer your questions, but it will make you quiet enough to hear when God does.</p>
+        <p>Every ship leaves a wake — a shimmering trail that fades behind it, but never quite disappears…</p>
 
         <footer class="byline">
           <div class="avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;flex:none">
@@ -241,25 +218,9 @@
             </picture>
           </div>
           <div style="margin-left:.5rem">
-            <strong>
-              <a href="https://ken-baker.com?utm_source=solo_article&utm_medium=byline_link&utm_campaign=ken_profile"
-                target="_blank" rel="noopener noreferrer">Ken Baker</a>
-            </strong>
+            <strong><a href="https://ken-baker.com" target="_blank" rel="noopener noreferrer">Ken Baker</a></strong>
             <a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>
-            <div class="author-links" style="margin-top:.35rem; font-size:.95rem; opacity:.9">
-              <a href="https://instagram.com/flickersofmajesty?utm_source=cruisinginthewake&utm_medium=byline_social&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Instagram</a> ·
-              <a href="https://flickersofmajesty.com?utm_source=cruisinginthewake&utm_medium=byline_social&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a> ·
-              <a href="https://ken-baker.com?utm_source=cruisinginthewake&utm_medium=byline_social&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Personal Site</a>
-            </div>
           </div>
-
-          <!-- Disclosure -->
-          <section class="cards stack" style="margin-top:1rem">
-            <article class="card" id="solo-disclosure">
-              <h3>Disclosure</h3>
-              <p class="pill disclosure">I’ve stood the watch aboard many ships — mostly Royal Caribbean — with more than 150 nights at sea across sailing enough miles to circle the globe and having visited over 30 nations. This article is no borrowed winds, it is instead depth soundings taken in my own wake, trimmed and charted for those who follow. <a href="https://ken-baker.com">~Ken</a></p>
-            </article>
-          </section>
         </footer>
       </article>
 
@@ -289,9 +250,7 @@
             </picture>
             <div>
               <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
-              Founder of In the Wake and writer of the Solo Travel series.<br>
-              <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
-              Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+              Founder of In the Wake and writer of the Solo Travel series.
             </div>
           </div>
         </section>
@@ -302,16 +261,13 @@
           <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         </section>
       </aside>
-    </div><!-- /.content-area -->
+    </div>
   </main>
 
   <!-- =========================== FOOTER ============================ -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
     <span class="version-badge">v3.010.024</span>
-    <p class="tiny center" style="margin-top:.5rem">
-      Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
-    </p>
   </footer>
 
   <!-- =========================== JS ================================ -->
@@ -321,7 +277,7 @@
     document.querySelectorAll('.solo-article figure.hero').forEach(f=>f.classList.remove('hero'));
   });
 
-  /* Accessible dropdowns (click + hover + keyboard + outside/Escape) */
+  /* Accessible dropdowns (same behavior as previous page) */
   (function(){
     const groups = Array.from(document.querySelectorAll('.nav-group'));
     if(!groups.length) return;
@@ -345,13 +301,11 @@
         setOpen(g, !open);
       });
 
-      // Hover support (pointer devices)
       if (window.matchMedia && matchMedia('(hover:hover)').matches){
         g.addEventListener('mouseenter', ()=>{ closeAll(g); setOpen(g,true); });
         g.addEventListener('mouseleave', ()=> setOpen(g,false));
       }
 
-      // Keyboard
       btn.addEventListener('keydown',(e)=>{
         if(e.key==='ArrowDown'){
           e.preventDefault();
@@ -365,21 +319,18 @@
         if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
       });
 
-      // Close when focus leaves the group
       menu.addEventListener('focusout',()=>{
         setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0);
       });
     });
 
-    // Close on outside click / window blur
     document.addEventListener('click', (e)=>{ if(!groups.some(g=>g.contains(e.target))) closeAll(); }, true);
     window.addEventListener('blur', ()=> closeAll());
   })();
 
-  /* Recent Articles rail — resilient thumbs (keeps Top-20 override) */
+  /* Recent Articles rail — includes Top-20 override exactly as on last page */
   (function(){
     const pick=(o,keys,f=null)=>{for(const k of keys){if(o && o[k]!=null) return o[k]} return f};
-
     async function fetchJSONWithFallback(urls){
       for (const u of urls){
         try{ const r=await fetch(u,{credentials:'omit',cache:'no-cache'}); if(r.ok) return await r.json(); }catch(_){}
@@ -387,7 +338,7 @@
       return null;
     }
 
-    (async function loadRecent(){
+    (async function(){
       const raw = await fetchJSONWithFallback([
         '/assets/data/articles/index.json',
         '/assets/data/articles.json'
@@ -424,7 +375,7 @@
 
         let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
 
-        // Keep this override — it fixes the Top-20 thumb
+        // ——— overrides (KEPT) ———
         if(!primary && (/(top-20|first-cruise-questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title))){
           primary = '/assets/articles/top-20-questions/cover.jpg';
         }
@@ -434,12 +385,12 @@
         if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
           primary = 'https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg';
         }
+        // ————————————————
 
         const alts=[];
         if(primary){
           const base=primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(primary.replace(/\.jpg$/i,'.jpeg'), primary.replace(/\.jpg$/i,'.JPG'),
-                    `${base}.webp`, `${base}.png`);
+          alts.push(primary.replace(/\.jpg$/i,'.jpeg'), primary.replace(/\.jpg$/i,'.JPG'), `${base}.webp`, `${base}.png`);
         }
         const fallback='/assets/index_hero.jpg';
         const stamp='v=3.010.024';
