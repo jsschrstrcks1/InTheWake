@@ -223,6 +223,29 @@
 
     /* ===== Avatars ===== */
     .author-avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center}
+  /* Compact packing audience grid */
+.check-grid{
+  display:grid; gap:1rem;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
+.pack-card{
+  background:#fff; border:2px solid var(--rope); border-radius:14px;
+  box-shadow:0 2px 6px rgba(8,48,65,.08);
+  padding:12px 14px; display:grid; gap:.5rem; align-content:start;
+}
+.pack-card h2{margin:.1rem 0 .25rem; font-size:1.15rem; color:var(--sea)}
+.pack-card .blurb{margin:0; font-size:.95rem; color:#274; opacity:.95}
+
+/* Two-column bullets on wider screens; single column on small */
+.pack-list{margin:.2rem 0 0; padding-left:1.1rem}
+@media (min-width:720px){
+  .pack-list.two-col{columns:2; column-gap:1.25rem}
+  .pack-list.two-col li{break-inside:avoid}
+}
+.pack-list li{margin:.25rem 0}
+
+/* Tiny helper text */
+.note{font-size:.9rem; opacity:.85}
   </style>
 </head>
 
