@@ -3,145 +3,147 @@
 <head>
   <!-- ======================================================
        In the Wake — Primary Index
-       Version: 3.010.036  |  Standards baseline: 3.010.x
+       Version: 3.010.037  |  Standards baseline: 3.010.x
        ====================================================== -->
-
-  <!-- Core -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer"/>
   <meta name="robots" content="index,follow,max-image-preview:large"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.036"/>
-
+  <meta name="version" content="3.010.037"/>
+  <meta name="author" content="In the Wake"/>
   <title>In the Wake — A Cruise Traveler’s Logbook</title>
-  <meta name="description" content="Practical planning charts, ports and menus, solo guides, and reflections tested in real wakes — not borrowed winds."/>
+  <meta name="description" content="Practical planning, ship tips, ports, menus, and solo cruising — chart your course for calmer seas."/>
+
   <link rel="canonical" href="https://www.cruisinginthewake.com/"/>
 
-  <!-- Social -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:title" content="In the Wake — A Cruise Traveler’s Logbook"/>
-  <meta property="og:description" content="Practical planning charts, ports and menus, solo guides, and reflections tested in real wakes — not borrowed winds."/>
+  <meta property="og:description" content="Practical planning, ship tips, ports, menus, and solo cruising — chart your course for calmer seas."/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/"/>
   <meta property="og:image" content="https://www.cruisinginthewake.com/assets/index_hero.jpg"/>
-  <meta property="og:image:width" content="1600"/>
-  <meta property="og:image:height" content="900"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <style>
-    /* ===== Site Index Styles v3.010.036 ===== */
-    :root{
-      --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-      --shadow:0 6px 22px rgba(8,48,65,.08);
-      --pill:#dfe7ea;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
-    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-    img{max-width:100%;height:auto;display:block}
-    .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-    .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
+  /* ===== Index Styles v3.010.037 ===== */
+  :root{
+    --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
+    --shadow:0 6px 22px rgba(8,48,65,.08);
+    --card-bg:#fff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  img{max-width:100%;height:auto;display:block}
+  .wrap{max-width:1200px;margin:0 auto;padding:20px 16px 40px}
+  .card{background:var(--card-bg);border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:0 2px 6px rgba(8,48,65,.08)}
+  .stack{display:grid;gap:1rem}
+  h1,h2,h3{color:var(--sea)}
+  .tiny{font-size:.9rem;color:#465}
+  .muted{opacity:.9}
 
-    h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456}
-    .eyebrow{font-size:.9rem;letter-spacing:.25px;text-transform:uppercase;color:#456}
+  /* Skip link */
+  .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
 
-    /* Skip link */
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
+  /* Header / hero */
+  .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
+  .navbar{
+    max-width:1200px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
+    padding:.5rem .9rem .35rem;position:relative;z-index:2000;overflow:visible;
+  }
+  .brand{display:flex;align-items:flex-end;gap:.6rem}
+  .brand img{height:28px;width:auto}
+  .version-badge{font-size:.72rem;opacity:.75}
 
-    /* Header / hero */
-    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:0}
-    .navbar{
-      max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
-      padding:.5rem .9rem .35rem;position:relative;z-index:2000;overflow:visible;
-    }
-    .brand{display:flex;align-items:flex-end;gap:.6rem}
-    .brand img{height:28px;width:auto}
-    .version-badge{font-size:.72rem;opacity:.8}
+  /* Pill nav (top level only) */
+  .pill-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem}
+  .pill-nav > a,
+  .pill-nav > .nav-group > .nav-disclosure{
+    display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .72rem;border-radius:10px;background:#fff;
+    border:1px solid var(--rope);color:#0e6e8e;font:inherit;font-size:.92rem;line-height:1.2;cursor:pointer;text-decoration:none
+  }
+  .nav-group{position:relative;display:inline-block}
+  /* Dropdown — vertical list */
+  .submenu{
+    position:absolute !important;left:0;top:calc(100% + 8px);
+    min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;
+    padding:.45rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
+    display:none !important;opacity:0 !important;visibility:hidden !important;pointer-events:none !important;z-index:2100;
+  }
+  .nav-group[data-open="true"] > .submenu,
+  .nav-group.open > .submenu,
+  .nav-group:hover > .submenu,
+  .nav-group:focus-within > .submenu{
+    display:block !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;
+  }
+  .submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem;border:0;background:transparent;color:var(--ink);text-decoration:none}
+  .submenu a:hover,.submenu a:focus{background:#f2f7fa;outline:2px solid transparent}
+  header,.hero-header,.navbar,.pill-nav,.nav-group{overflow:visible}
 
-    /* Nav (pills only on top-level) */
-    .pill-nav{
-      flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
-      gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem;
-    }
-    .pill-nav > a,
-    .pill-nav > .nav-group > .nav-disclosure{
-      display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
-      border:1px solid var(--rope);color:#0e6e8e;font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
-    }
-    .nav-group{position:relative;display:inline-block}
+  .hero{
+    position:relative;width:100%;min-height:clamp(220px,26vw,360px);
+    background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
+    display:flex;align-items:flex-end;overflow-x:clip;
+  }
+  .hero-compass{position:absolute;right:min(3vw,1rem);top:.6rem;width:86px;opacity:.95;z-index:2;pointer-events:none}
+  .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+  .hero-title .logo{display:block;width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
+  .tagline{position:absolute;left:min(3vw,1rem);bottom:clamp(.55rem,1.6vw,1.1rem);transform:none;font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3}
+  .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
+  .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
 
-    /* Dropdown — vertical stack; baseline hidden */
-    .submenu{
-      position:absolute !important;left:0;top:calc(100% + 8px);
-      min-width:220px;background:#fff;border:1px solid var(--rope);
-      border-radius:12px;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
-      display:none !important;opacity:0 !important;visibility:hidden !important;pointer-events:none !important;z-index:2100;
-    }
-    .nav-group[data-open="true"] > .submenu,
-    .nav-group.open > .submenu{display:block !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;}
-    .nav-group:hover > .submenu,
-    .nav-group:focus-within > .submenu{display:block !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;}
-    .submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem;border:0;background:transparent;color:var(--ink);text-decoration:none}
-    .submenu a:hover,.submenu a:focus{background:#f2f7fa;outline:2px solid transparent}
-    header,.hero-header,.navbar,.pill-nav,.nav-group{overflow:visible}
+  /* Welcome blurb */
+  .welcome{margin:18px 0}
+  .welcome .card{padding:1.1rem}
+  .welcome p{margin:.3rem 0}
+  .welcome strong{color:var(--sea)}
 
-    .hero{
-      position:relative;width:100%;min-height:clamp(200px,24vw,340px);
-      background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
-      display:flex;align-items:flex-end;overflow-x:clip;z-index:0;
-    }
-    .hero *{filter:none!important;mix-blend-mode:normal!important;opacity:1!important}
-    .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2;pointer-events:none}
-    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-    .hero-title .logo{display:block;width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
-    .tagline{
-      position:absolute;left:min(3vw,1rem);bottom:clamp(.55rem,1.6vw,1.1rem);
-      transform:none;font-weight:700;letter-spacing:.2px;color:#e6f4f8;
-      font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3;
-    }
-    .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
-    .hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
+  /* Explore grid */
+  .explore{margin-top:14px}
+  .explore h2{margin:.4rem 0 .6rem}
+  .grid{
+    display:grid;gap:1rem;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  @media (max-width:980px){ .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:620px){ .grid{ grid-template-columns:1fr; } }
+  .xcard{
+    display:grid;grid-template-rows:auto auto 1fr auto;gap:.55rem;padding:1rem;
+  }
+  .xcard h3{margin:0;font-size:1.05rem}
+  .xcard p{margin:0}
+  .xcard .actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
+  .pill-link{
+    display:inline-flex;align-items:center;gap:.35rem;padding:.32rem .6rem;border-radius:999px;border:1px solid var(--rope);background:#fff;text-decoration:none;font-weight:600
+  }
+  .xcard .lede{opacity:.96}
+  .xcard .fine{font-size:.92rem;opacity:.9}
 
-    /* Welcome board (full width card) */
-    .welcome{display:grid;gap:.75rem;padding:1.1rem 1.1rem;background:#fff;border:2px solid var(--rope);border-radius:14px;box-shadow:var(--shadow)}
-    .welcome p{margin:.25rem 0 .25rem}
-    .pills{display:flex;flex-wrap:wrap;gap:.5rem}
-    .pill{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .6rem;border-radius:999px;background:#fff;border:1px solid #cfd9de;box-shadow:0 1px 2px rgba(8,48,65,.06)}
-    .pill[href]{text-decoration:none}
+  /* Social row */
+  .social{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.6rem}
+  .social a{border:1px solid var(--rope);padding:.3rem .55rem;border-radius:999px;text-decoration:none;background:#fff;font-weight:600}
 
-    /* Explore grid */
-    .explore{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1rem}
-    @media (max-width:979.98px){.explore{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media (max-width:639.98px){.explore{grid-template-columns:1fr}}
-
-    .explore .card{margin:0}
-    .explore .lead{margin:.25rem 0 .5rem;color:#365}
-    .chip-row{display:flex;flex-wrap:wrap;gap:.5rem}
-    .chip{
-      display:inline-flex;align-items:center;padding:.25rem .6rem;border-radius:999px;
-      background:#eef4f6;border:1px solid #dfe7ea;font-size:.92rem;color:#0e4d66
-    }
-
-    /* Footer */
-    footer .version-badge{font-size:.72rem;opacity:.8}
-    .center{text-align:center}
+  /* Footer */
+  footer .version-badge{margin-left:.5rem}
   </style>
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
 
-  <!-- =========================== HEADER ============================ -->
+  <!-- =================== HEADER =================== -->
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.036" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
-        <span class="tiny version-badge">v3.010.036</span>
+        <img src="/assets/logo_wake.png?v=3.010.037" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
+        <span class="tiny version-badge">v3.010.037</span>
       </div>
 
+      <!-- New accessible dropdown nav -->
       <nav class="nav pill-nav" aria-label="Primary">
         <a href="/">Home</a>
 
@@ -166,163 +168,191 @@
           </div>
         </div>
 
+        <a href="/cruise-lines.html">Cruise Lines</a>
         <a href="/about-us.html">About</a>
       </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.036" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.037" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.036" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.037" width="560" height="144" alt="In the Wake" decoding="async"/>
       </div>
       <div class="tagline">A Cruise Traveler’s Logbook</div>
       <div class="hero-credit">
-        <span class="pill long">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span>
+        <span class="pill">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span>
       </div>
     </div>
   </header>
 
-  <!-- ============================ MAIN ============================ -->
+  <!-- =================== MAIN =================== -->
   <main id="content" class="wrap" role="main" aria-label="Main content">
 
-    <!-- Welcome Aboard (full-width) -->
-    <section class="welcome card" aria-labelledby="welcome-title">
-      <h2 id="welcome-title" class="eyebrow">Welcome aboard</h2>
-      <p>Trim your sails and settle in. Out at sea, the smoothest passage often comes when you ease in behind a larger ship and let her wake iron the chop. This site is the same — a traveler’s logbook to help you find calmer water: planning charts, ports and menus, solo guides, and reflections tested in real wakes, not borrowed winds.</p>
-      <div class="pills" aria-label="Social & Community">
-        <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Instagram</a>
-        <a class="pill" href="https://www.tiktok.com/@beyondboundarieswithtina" target="_blank" rel="noopener">TikTok</a>
-        <a class="pill" href="https://www.facebook.com/share/g/17XBdqRCsM/?mibextid=wwXIfr" target="_blank" rel="noopener">Solo Community</a>
-      </div>
-    </section>
-
-    <!-- Explore the site (3-wide grid) -->
-    <section class="card" aria-labelledby="explore-title">
-      <h2 id="explore-title" style="margin:.25rem 0 .5rem;color:#0a3d62">Explore the site</h2>
-
-      <div class="explore">
-
-        <!-- Planning -->
-        <article class="card">
-          <h3>Planning</h3>
-          <p class="lead">Start here for ships, restaurants, ports, drink packages, packing lists, and accessibility.</p>
-          <div class="chip-row">
-            <a class="chip" href="/ships.html">Ships</a>
-            <a class="chip" href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a class="chip" href="/ports.html">Ports</a>
-            <a class="chip" href="/drink-packages.html">Drink Packages</a>
-            <a class="chip" href="/packing-lists.html">Packing Lists</a>
-            <a class="chip" href="/accessibility.html">Accessibility</a>
-          </div>
-        </article>
-
-        <!-- Travel -->
-        <article class="card">
-          <h3>Travel</h3>
-          <p class="lead">Packing, ports, and practicalities — smoother days at sea and in port.</p>
-          <div class="chip-row">
-            <a class="chip" href="/travel.html">Travel Tips</a>
-            <a class="chip" href="/ports.html">Ports</a>
-            <a class="chip" href="/packing-lists.html">Packing</a>
-          </div>
-        </article>
-
-        <!-- Solo Travel -->
-        <article class="card">
-          <h3>Solo Travel</h3>
-          <p class="lead">Community, courage, and the quiet gifts of sailing on your own terms.</p>
-          <div class="chip-row">
-            <a class="chip" href="/solo.html">Solo</a>
-            <a class="chip" href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a>
-            <a class="chip" href="/solo/freedom-of-your-own-wake.html">The Freedom of Your Own Wake</a>
-          </div>
-        </article>
-
-        <!-- Ships -->
-        <article class="card">
-          <h3>Ships</h3>
-          <p class="lead">Classes, layouts, quirks — choose the right ship for your style.</p>
-          <div class="chip-row">
-            <a class="chip" href="/ships.html">Ships Overview</a>
-            <a class="chip" href="/restaurants.html">Dining Onboard</a>
-          </div>
-        </article>
-
-        <!-- About -->
-        <article class="card">
-          <h3>About</h3>
-          <p class="lead">Who we are, why we sail, and how to get in touch.</p>
-          <div class="chip-row">
-            <a class="chip" href="/about-us.html">About Us</a>
-            <a class="chip" href="https://ken-baker.com" target="_blank" rel="noopener">Ken Baker</a>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- Author (Ken only on index) -->
-    <section class="card" aria-labelledby="author-title">
-      <h2 id="author-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">About the author</h2>
-      <div style="display:flex;gap:.75rem;align-items:center;">
-        <picture>
-          <source type="image/webp" srcset="/authors/img/ken1.webp">
-          <img src="/authors/img/ken1.jpg" alt="Ken Baker" width="48" height="48" style="border-radius:999px;object-fit:cover;object-position:center;">
-        </picture>
-        <div>
-          <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
-          Founder of In the Wake and writer of the Solo Travel series.<br/>
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
-          Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+    <!-- Welcome blurb (restored) -->
+    <section class="welcome">
+      <article class="card">
+        <h1 class="tiny" style="margin:.1rem 0 .35rem 0;letter-spacing:.3px;text-transform:uppercase">Welcome Aboard</h1>
+        <p class="muted"><strong>Every sailor knows the smoothest voyage comes when you ease in behind a larger ship’s wake.</strong> That’s the idea here: set in behind us for calmer seas — borrow our charts, our lessons, and our little tricks so your next sailing feels steady and sure. We’ll help you trim the sails, read the water, and make room for the kind of rest you can feel in your bones.</p>
+        <div class="social">
+          <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener" aria-label="Instagram">@flickersofmajesty</a>
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener" aria-label="Flickers of Majesty">Flickers of Majesty</a>
         </div>
+      </article>
+    </section>
+
+    <!-- Explore the Site (three-wide grid) -->
+    <section class="explore">
+      <h2>Explore the Site</h2>
+      <div class="grid">
+
+        <article class="card xcard">
+          <h3><a href="/planning.html">Planning</a></h3>
+          <p class="lede">Chart your course from idea to embarkation. We cover timelines, budgets, cabins, and all the tiny decisions that make a voyage smooth instead of stressful.</p>
+          <p class="fine">Start here if you’re piecing together your first cruise or leveling up the way you plan.</p>
+          <div class="actions"><a class="pill-link" href="/planning.html">Open Planning</a></div>
+        </article>
+
+        <article class="card xcard">
+          <h3><a href="/ships.html">Ships</a></h3>
+          <p class="lede">From deck plans to quiet corners, learn how to move like a local onboard. We spotlight layouts, neighborhoods, and small comforts that change your day.</p>
+          <p class="fine">Know the ship and you’ll know where calm waters live.</p>
+          <div class="actions"><a class="pill-link" href="/ships.html">Explore Ships</a></div>
+        </article>
+
+        <article class="card xcard">
+          <h3><a href="/restaurants.html">Restaurants &amp; Menus</a></h3>
+          <p class="lede">Main dining room or tucked-away café, we gather menus, tips, and timing so you can eat well without standing in line or guessing the dress code.</p>
+          <p class="fine">Special diets and “best bets” included.</p>
+          <div class="actions"><a class="pill-link" href="/restaurants.html">See Dining</a></div>
+        </article>
+
+        <article class="card xcard">
+          <h3><a href="/ports.html">Ports</a></h3>
+          <p class="lede">Step ashore with a plan. We share walkable highlights, transit tips, and realistic timing so you make the most of every call without sprinting back to the gangway.</p>
+          <p class="fine">Independent and ship-run excursion notes, too.</p>
+          <div class="actions"><a class="pill-link" href="/ports.html">Visit Ports</a></div>
+        </article>
+
+        <article class="card xcard">
+          <h3><a href="/drink-packages.html">Drink Packages</a></h3>
+          <p class="lede">Worth it or not? We run the real math, edge cases, and gotchas — including specialty coffees, bottled water, and those “day of” promos.</p>
+          <p class="fine">Sail with clarity, not surprises.</p>
+          <div class="actions"><a class="pill-link" href="/drink-packages.html">Run the Numbers</a></div>
+        </article>
+
+        <article class="card xcard">
+          <h3><a href="/packing-lists.html">Packing Lists</a></h3>
+          <p class="lede">Pack light but right. Field-tested lists for cabins, shore days, formal nights, and tiny comforts that feel huge at sea.</p>
+          <p class="fine">Downloadable lists you can tweak before you sail.</p>
+          <div class="actions"><a class="pill-link" href="/packing-lists.html">Pack Smarter</a></div>
+        </article>
+
+        <article class="card xcard">
+          <h3><a href="/accessibility.html">Accessibility</a></h3>
+          <p class="lede">Clear, compassionate guidance for sailing with mobility aids, sensory needs, and service animals — written so the whole party can relax and enjoy the voyage.</p>
+          <p class="fine">What works on board, and what to request ahead.</p>
+          <div class="actions"><a class="pill-link" href="/accessibility.html">Sail Accessibly</a></div>
+        </article>
+
+        <article class="card xcard">
+          <h3><a href="/solo.html">Solo Travel</a></h3>
+          <p class="lede">Find quiet, courage, and community. From first steps to Tina’s “why I started” story, we’ll help you enjoy every mile on your own terms.</p>
+          <p class="fine">Solo ≠ single — it means you finally get to choose.</p>
+          <div class="actions">
+            <a class="pill-link" href="/solo.html">Solo Guides</a>
+            <a class="pill-link" href="/solo/why-i-started-solo-cruising.html">Tina’s Story</a>
+          </div>
+        </article>
+
+        <article class="card xcard">
+          <h3><a href="/travel.html">Travel Tips</a></h3>
+          <p class="lede">Air, hotels, transfers, and “what if?” plans — all the connective tissue that turns a good cruise into an easy trip.</p>
+          <p class="fine">Because embark day should feel like exhale.</p>
+          <div class="actions"><a class="pill-link" href="/travel.html">See Tips</a></div>
+        </article>
+
+        <article class="card xcard">
+          <h3><a href="/cruise-lines.html">Cruise Lines</a></h3>
+          <p class="lede">Personalities, pricing, and quirks by line so you can match your style to the right fleet — from party vibes to quiet libraries and everything between.</p>
+          <p class="fine">Choose your fit before you choose your ship.</p>
+          <div class="actions"><a class="pill-link" href="/cruise-lines.html">Compare Lines</a></div>
+        </article>
+
+        <article class="card xcard">
+          <h3><a href="/about-us.html">About Us</a></h3>
+          <p class="lede">Who we are, where we’ve sailed, and why we care — plus how to reach us if you want to share a story or ask for a specific guide.</p>
+          <p class="fine">We’re delighted you’re here.</p>
+          <div class="actions"><a class="pill-link" href="/about-us.html">Meet the Crew</a></div>
+        </article>
+
       </div>
     </section>
 
+    <!-- Closing line -->
+    <p class="tiny" style="text-align:center;margin-top:18px" aria-label="Soli Deo Gloria">Soli Deo Gloria.</p>
   </main>
 
-  <!-- =========================== FOOTER ============================ -->
-  <footer class="wrap center" role="contentinfo">
-    <div class="tiny" style="opacity:.9;margin-bottom:.35rem">Soli Deo Gloria.</div>
+  <!-- =================== FOOTER =================== -->
+  <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.010.036</span>
+    <span class="version-badge">v3.010.037</span>
   </footer>
 
-  <!-- =========================== JS ================================ -->
+  <!-- =================== JS =================== -->
   <script>
-  /* ===== Index JS v3.010.036 ===== */
-  document.addEventListener('DOMContentLoaded', () => {
-    /* Accessible dropdowns */
-    (function(){
-      const groups = [...document.querySelectorAll('.nav-group')];
-      if(!groups.length) return;
-      const setOpen = (g,on)=>{ g.dataset.open = on ? 'true' : 'false'; g.classList.toggle('open',!!on); const b=g.querySelector('.nav-disclosure'); if(b) b.setAttribute('aria-expanded', on?'true':'false'); };
-      const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
-      groups.forEach(g=>{
-        const btn=g.querySelector('.nav-disclosure'); const menu=g.querySelector('.submenu');
-        if(!btn||!menu) return;
-        btn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); const open=g.dataset.open==='true'; closeAll(g); setOpen(g,!open); });
-        g.addEventListener('keydown', (e)=>{
-          if(e.key==='Escape'){ setOpen(g,false); btn&&btn.focus(); }
-          if(e.key==='ArrowDown' && document.activeElement===btn){
-            e.preventDefault(); setOpen(g,true);
-            const first=menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])'); first&&first.focus();
-          }
-        });
-        menu.addEventListener('focusout',()=>{ setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0); });
-      });
-      document.addEventListener('click', (e)=>{ if(!e.target.closest('.nav-group')) closeAll(); });
-      window.addEventListener('blur', ()=> closeAll());
-    })();
+  // Accessible dropdowns (click, hover/focus, keyboard, outside/Escape)
+  (function(){
+    const groups = Array.from(document.querySelectorAll('.nav-group'));
+    if(!groups.length) return;
 
-    /* Normalize any stray /solo/articles/<slug>.html links to /solo/<slug>.html */
-    (function normalizeSoloArticleLinks(){
-      const fix = href => href.replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i, '/solo/$1.html');
-      document.querySelectorAll('a[href]').forEach(a=>{
-        const old = a.getAttribute('href'); if(!old) return;
-        const neu = fix(old); if (neu !== old) a.setAttribute('href', neu);
+    const setOpen = (g,on)=>{
+      g.dataset.open = on ? "true" : "false";
+      g.classList.toggle('open', !!on);
+      const b = g.querySelector('.nav-disclosure');
+      if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    };
+    const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
+
+    groups.forEach(g=>{
+      const btn  = g.querySelector('.nav-disclosure');
+      const menu = g.querySelector('.submenu');
+      if(!btn || !menu) return;
+
+      // Click toggle
+      btn.addEventListener('click',(e)=>{
+        e.preventDefault(); e.stopPropagation();
+        const open = g.dataset.open === "true";
+        closeAll(g);
+        setOpen(g, !open);
       });
-    })();
-  });
+
+      // Keyboard support
+      g.addEventListener('keydown',(e)=>{
+        if(e.key==='Escape'){ setOpen(g,false); btn && btn.focus(); }
+        if(e.key==='ArrowDown' && document.activeElement===btn){
+          e.preventDefault(); setOpen(g,true);
+          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+          first && first.focus();
+        }
+      });
+
+      // Close when focus leaves the group
+      menu.addEventListener('focusout',()=>{ setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0); });
+    });
+
+    // Outside click + window blur
+    document.addEventListener('click', (e)=>{ if(!e.target.closest('.nav-group')) closeAll(); });
+    window.addEventListener('blur', ()=> closeAll());
+  })();
+
+  // Normalize any stray /solo/articles/<slug>.html links to /solo/<slug>.html
+  (function normalizeSoloArticleLinks(){
+    const fix = href => href.replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i, '/solo/$1.html');
+    document.querySelectorAll('a[href]').forEach(a=>{
+      const old = a.getAttribute('href'); if(!old) return;
+      const neu = fix(old); if (neu !== old) a.setAttribute('href', neu);
+    });
+  })();
   </script>
 </body>
 </html>
