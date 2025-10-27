@@ -1,52 +1,49 @@
-<!--
-Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.
-
-STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · Right-Rail Articles+Author v3.008.025
-A11y/WCAG Addendum v3.100 · CMP/Consent v3.008.020 · FB Domain Verification v3.008.021
-Page: /planning.html · v3.008.025 · Built: 2025-10-20T00:00:00Z
-GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
--->
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- ======================================================
+       In the Wake — Planning (standards refresh, inline)
+       Path: /planning.html
+       Version: 3.010.040  |  Standards: EP v3.010 · Nav v3.010
+       ====================================================== -->
+
   <!-- Consent (autoblocking) -->
   <script type="text/javascript" data-cmp-ab="1"
     src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
     data-cmp-host="a.delivery.consentmanager.net"
-    data-cmp-cdn="cdn.consentmanager.net"
-    data-cmp-codesrc="16"></script>
+    data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
 
   <!-- Analytics -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WZP891PZXJ');</script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);} gtag('js',new Date()); gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Core meta -->
+  <!-- Core Meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#0e6e8e">
-  <meta name="version" content="3.008.025"/>
-  <meta name="page:version" content="3.008.025"/>
-  <meta name="standards:baseline" content="3.008"/>
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
+  <meta name="version" content="3.010.040"/>
+  <meta name="page:version" content="3.010.040"/>
+  <meta name="standards:baseline" content="3.010"/>
 
   <!-- SEO -->
-  <title>Planning — In the Wake (v3.008.025)</title>
-  <meta name="description" content="Plan your voyage with confidence: calm guidance, departure ports, nearby airports, typical drive times, and gentle cautions—curated from real sailings." />
-
-  <!-- Canonical & Social -->
+  <title>Planning — In the Wake (v3.010.040)</title>
+  <meta name="description" content="Cruise planning made calm — ports, nearby airports, typical drives, timelines, and gentle cautions from real sailings." />
   <link rel="canonical" href="https://www.cruisinginthewake.com/planning.html"/>
+
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="In the Wake">
   <meta property="og:url" content="https://www.cruisinginthewake.com/planning.html">
   <meta property="og:title" content="Planning — In the Wake">
-  <meta property="og:description" content="Cruise planning made simple—timelines, airport-to-port tips, and steady answers in a gentle voice.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/planning-hero.jpg?v=3.008.025">
+  <meta property="og:description" content="Plan your voyage with confidence: calm guidance, airport-to-port tips, and steady answers.">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/planning-hero.jpg?v=3.010.040">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Breadcrumb JSON-LD -->
+  <!-- JSON-LD: Breadcrumbs -->
   <script type="application/ld+json">{
     "@context":"https://schema.org","@type":"BreadcrumbList",
     "itemListElement":[
@@ -55,7 +52,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
     ]
   }</script>
 
-  <!-- URL normalizer -->
+  <!-- Absolute URL normalizer -->
   <script>
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
@@ -67,7 +64,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
         try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
       });
     }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
+    document.readyState==='loading'?document.addEventListener('DOMContentLoaded',normalize,{once:true}):normalize();
   })();
   </script>
 
@@ -78,131 +75,168 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
     function upgrade(){
       document.querySelectorAll('a[href]').forEach(a=>{
         const href=a.getAttribute('href')||'';
-        if(/^(#|mailto:|tel:)/i.test(href))return;
+        if(/^(#|mailto:|tel:)/i.test(href)) return;
         try{
           const u=new URL(href,location.href);
-          const host=u.hostname.replace(/^www\./,'');
-          if(host!==here||a.rel==='external'){
+          if(u.hostname.replace(/^www\./,'')!==here || a.rel==='external'){
             a.target='_blank';
-            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+            const parts=(a.rel||'').split(/\s+/).filter(Boolean);
+            if(!parts.includes('noopener')) parts.push('noopener');
+            if(!parts.includes('noreferrer')) parts.push('noreferrer');
+            a.rel=parts.join(' ');
           }
         }catch(_){}
       });
     }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}else{upgrade();}
+    document.readyState==='loading'?document.addEventListener('DOMContentLoaded',upgrade,{once:true}):upgrade();
   })();
   </script>
 
-  <!-- Site cache & SW -->
-  <script src="/assets/js/site-cache.js?v=3.008.025" defer></script>
+  <!-- Normalize /solo/articles/<slug>.html → /solo/<slug>.html -->
   <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008.025').catch(()=>{}));
-  }
+  (function(){
+    function fix(h){return h.replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i,'/solo/$1.html');}
+    function go(){ document.querySelectorAll('a[href]').forEach(a=>{ const o=a.getAttribute('href'); const n=fix(o||''); if(n!==o) a.setAttribute('href',n); }); }
+    document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go,{once:true}):go();
+  })();
   </script>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008.025">
-
-  <!-- LCP preload -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.025" fetchpriority="high">
-
-  <!-- Page styles -->
-  <style>
-    @media (prefers-reduced-motion: reduce){
-      *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  <!-- SW warm + cache (versioned) -->
+  <script>
+    if('serviceWorker' in navigator){
+      addEventListener('load', ()=>navigator.serviceWorker.register('/sw.js?v=3.010.040').catch(()=>{}));
     }
-    .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .visually-hidden-focusable:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--sea,#0e6e8e);border-radius:10px;z-index:9999}
-    .planning-grid{display:grid;gap:1.2rem}
-    @media (min-width:1060px){ .planning-grid{grid-template-columns:minmax(0,1fr) 360px} }
-    .hero{background:url('/assets/index_hero.jpg?v=3.008.025') center/cover no-repeat!important}
-    .hero::before,.hero::after{content:none!important}
-    .buttons{display:flex;flex-wrap:wrap;gap:.45rem .5rem}
-    .buttons .pill{white-space:nowrap}
+  </script>
+
+  <!-- LCP image preload -->
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.040" fetchpriority="high"/>
+
+  <!-- Inline Styles (no styles.css) -->
+  <style>
+    :root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e;--shadow:0 6px 22px rgba(8,48,65,.08)}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    img{max-width:100%;height:auto;display:block}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+    .tiny{font-size:.9rem;color:#456}
+    .muted{opacity:.85}
+    .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
+    .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:0 2px 6px rgba(8,48,65,.08);margin:.8rem 0;position:relative;overflow:hidden}
+    h1,h2,h3{color:var(--sea);margin:.25rem 0 .5rem}
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
+
+    /* Header / Nav */
+    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
+    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:.6rem;padding:.5rem .9rem .35rem}
+    .brand{display:flex;align-items:center;gap:.6rem}
+    .brand img{height:28px}
+    .version-badge{font-size:.72rem;opacity:.8}
+
+    .nav{display:flex;gap:.5rem;flex:1 1 auto;justify-content:center;white-space:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .nav .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:#0e6e8e}
+    .nav-group{position:relative}
+    .submenu{position:absolute;left:0;top:calc(100% + 8px);min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;padding:.6rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none}
+    .nav-group.open .submenu,.nav-group:focus-within .submenu{display:block}
+    .submenu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink)} .submenu a:hover{background:#f2f7fa;text-decoration:none}
+
+    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.010.040') 50% 50%/cover no-repeat;display:flex;align-items:flex-end}
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);text-shadow:0 2px 6px rgba(0,0,0,.45)}
+    .hero-title .logo{width:clamp(189px,23.1vw,378px)}
+    .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem)}
+    .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;pointer-events:none}
+    .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
+
+    /* Layout: content + right rail */
+    .grid{display:grid;gap:1.2rem}
+    @media (min-width:1060px){ .grid{grid-template-columns:minmax(0,1fr) 360px} }
+    .right-rail{position:sticky;top:1rem;align-self:start}
+    @media (max-width:1059.98px){ .right-rail{position:static} }
+
     .rail{display:grid;gap:.9rem}
     .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
-    .rail-item .thumb img{display:block;width:112px;height:72px;object-fit:cover;border-radius:.5rem}
-    .rail-item .avatar{width:20px;height:20px;border-radius:50%;vertical-align:middle;margin-right:.25rem}
-    .card{position:relative;overflow:hidden}
-    .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.008.025') center/contain no-repeat;opacity:.06;pointer-events:none}
-    .banner{padding:.7rem .9rem;border:1px solid var(--rope,#cfd9df);border-radius:.75rem;background:#fbfdff}
-    .banner.warn{background:#fff8f8;border-color:#ffd1d1}
+    .rail-item .thumb{width:112px;height:72px;border-radius:10px;background:#eef4f7;overflow:hidden}
+    .rail-item .thumb img{width:100%;height:100%;object-fit:cover}
+    .rail-item .avatar{width:18px;height:18px;border-radius:50%;vertical-align:-3px;margin-right:.25rem}
+
+    /* Buttons area */
+    .buttons{display:flex;flex-wrap:wrap;gap:.45rem .5rem}
+    .buttons .pill{white-space:nowrap}
+
+    /* Airports grid */
     .grid-airports{display:grid;grid-template-columns:1fr;gap:.6rem}
     @media(min-width:560px){ .grid-airports{grid-template-columns:repeat(2,minmax(0,1fr));} }
-    .airport{padding:.7rem .8rem;border:1px solid var(--rope,#dfe7ee);border-radius:.6rem;background:#fff}
+    .airport{padding:.7rem .8rem;border:1px solid #dfe7ee;border-radius:.6rem;background:#fff}
     .airport .code{font-weight:700}
-    details.qa{border:1px solid var(--rope,#dfe7ee);border-radius:.6rem;padding:.5rem .7rem;background:#fff}
-    details.qa + details.qa{margin-top:.5rem}
-    .rail .card .thumb img{ display:block; }
 
-    /* Planning buttons */
-    #state-buttons, #port-buttons{display:flex;flex-wrap:wrap;gap:.4rem .5rem;margin-top:.35rem}
-    #state-buttons .pill, #port-buttons .pill{
-      display:inline-block;padding:.45rem .75rem;border:2px solid var(--rope,#cfd9df);
-      border-radius:999px;background:#fff;text-decoration:none;line-height:1.15
-    }
-    #state-buttons .pill[aria-current="true"], #port-buttons .pill[aria-current="true"]{
-      border-color:var(--sea,#0e6e8e); box-shadow:0 0 0 3px rgb(14 110 142 / .08);
-    }
-    /* Distinction between region and port button groups */
-    #state-buttons{margin-bottom:.6rem;border-bottom:1px dashed var(--rope,#cfd9df);padding-bottom:.4rem}
-    #state-buttons .pill{background:#fff;border-color:var(--rope,#cfd9df);color:var(--sea,#0e6e8e);font-weight:600}
-    #state-buttons .pill[aria-current="true"]{background:var(--sea,#0e6e8e);color:#fff;border-color:var(--sea,#0e6e8e)}
-    #port-buttons{margin-top:.7rem}
-    #port-buttons .pill{background:#f7fdff;border-color:var(--sea,#0e6e8e);color:var(--sea,#0e6e8e);font-weight:500}
-    #port-buttons .pill[aria-current="true"]{background:var(--sea,#0e6e8e);color:#fff;border-color:var(--sea,#0e6e8e)}
+    details.qa{border:1px solid #dfe7ee;border-radius:.6rem;padding:.5rem .7rem;background:#fff}
+    details.qa + details.qa{margin-top:.5rem}
   </style>
 </head>
-
 <body class="page">
-  <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
-
-  <header class="site-header hero-header">
+  <a class="skip-link" href="#content">Skip to main content</a>
+    <!-- ===== Header ===== -->
+  <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008.025" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.008.025</span>
+        <img src="/assets/logo_wake.png?v=3.010.040" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.010.040</span>
       </div>
-      <nav class="pill-nav pills" aria-label="Primary">
-        <a href="https://www.cruisinginthewake.com/">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Accessibility</a>
-        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/planning.html" aria-current="page">Planning</a>
-        <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
-        <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
-        <a href="https://www.cruisinginthewake.com/about-us.html">About</a>
+
+      <!-- NORMALIZED NAV: Home · Planning▾ · Travel▾ · About -->
+      <nav class="nav" aria-label="Primary">
+        <a class="chip" href="/">Home</a>
+
+        <div class="nav-group" id="nav-planning">
+          <button class="chip nav-disclosure" type="button" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+            <a role="menuitem" href="/planning.html" aria-current="page">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <div class="nav-group" id="nav-travel">
+          <button class="chip nav-disclosure" type="button" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="chip" href="/about-us.html">About</a>
       </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.025" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.040" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008.025" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.040" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <div class="hero-credit">
-        <a class="pill long" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+        <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <main id="content" class="wrap planning-grid" role="main">
-    <!-- LEFT -->
+  <!-- ===== Main ===== -->
+  <main id="content" class="wrap grid" role="main" aria-label="Main content">
+    <!-- LEFT column -->
     <div>
-      <section class="card prose" aria-labelledby="planning-intro">
+      <section class="card" aria-labelledby="planning-intro">
         <h1 id="planning-intro">Planning That Feels Like Smooth Water</h1>
-        <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
+        <p class="motto tiny"><em>The calmest seas are found in another’s wake.</em></p>
         <p>Good planning trades hurry for margin. Fly in a day early when you can, keep documents backed up, and give yourself a little space at every hand-off. Our goal is to help you tuck in behind a steady hull—so the chop softens, the course steadies, and decisions feel easy.</p>
-        <div class="banner">
-          <strong>Quick Tips:</strong>
-          <ul>
+        <div class="card" style="margin:.75rem 0 0;background:#fbfdff;border-color:#cfd9df">
+          <strong>Quick Tips</strong>
+          <ul class="tiny">
             <li>Arrive the day before embarkation; sleep near the port when possible.</li>
             <li>Keep cloud copies of IDs and tickets.</li>
             <li>Prefer nonstops—delay risk compounds.</li>
@@ -220,7 +254,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
 
         <div id="port-panel" style="margin-top:1rem">
           <section class="prose" id="port-blurb"></section>
-          <div class="banner warn tiny" id="seasonal-banner" style="display:none;margin-top:.6rem"></div>
+          <div class="tiny" id="seasonal-banner" style="display:none;margin-top:.6rem;padding:.6rem;border:1px solid #ffd6d6;border-radius:.6rem;background:#fff8f8"></div>
 
           <h3 style="margin-top:1rem">Nearby Airports &amp; Typical Drives</h3>
           <div class="grid-airports" id="airports"></div>
@@ -235,7 +269,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
 
       <section class="card" aria-labelledby="timing">
         <h2 id="timing">Timing That Loves Your Future Self</h2>
-        <div class="banner tiny" id="school-breaks"></div>
+        <div class="tiny" id="school-breaks"></div>
       </section>
 
       <section class="card" aria-labelledby="space-launch">
@@ -244,9 +278,60 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
         <p><a class="pill" href="https://spaceflightnow.com/launch-schedule/" rel="noopener external">Spaceflight Now — Launch Schedule</a></p>
       </section>
     </div>
+    <!-- ============================ FRAME 3 — MAIN + RAILS + FOOTER ============================ -->
+<main id="content" class="wrap" role="main" tabindex="-1" aria-label="Main content">
+  <div class="grid">
+    <!-- ===================== LEFT COLUMN (CONTENT) ===================== -->
+    <section class="card prose" aria-labelledby="planning-intro">
+      <h1 id="planning-intro">Planning That Feels Like Smooth Water</h1>
+      <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
+      <p>Good planning trades hurry for margin. Fly in a day early when you can, keep documents backed up, and give yourself a little space at every hand-off. Our goal is to help you tuck in behind a steady hull—so the chop softens, the course steadies, and decisions feel easy.</p>
+      <div class="banner">
+        <strong>Quick Tips:</strong>
+        <ul>
+          <li>Arrive the day before embarkation; sleep near the port when possible.</li>
+          <li>Keep cloud copies of IDs and tickets.</li>
+          <li>Prefer nonstops—delay risk compounds.</li>
+          <li>Pad transfers around rush hour and school breaks.</li>
+        </ul>
+      </div>
+    </section>
 
-    <!-- RIGHT RAIL -->
-    <aside class="rail" aria-label="Right rail">
+    <section class="card" aria-labelledby="state-port-selector">
+      <h2 id="state-port-selector">Find Your Departure</h2>
+      <p class="tiny muted">Click a <strong>button</strong> for your state or country, then pick your port. We’ll show nearby airports, typical drives, and gentle cautions.</p>
+
+      <nav class="buttons" id="state-buttons" aria-label="States & Countries"></nav>
+      <nav class="buttons" id="port-buttons"  aria-label="Ports by Selection" style="margin-top:.6rem"></nav>
+
+      <div id="port-panel" style="margin-top:1rem">
+        <section class="prose" id="port-blurb"></section>
+        <div class="banner warn tiny" id="seasonal-banner" style="display:none;margin-top:.6rem"></div>
+
+        <h3 style="margin-top:1rem">Nearby Airports &amp; Typical Drives</h3>
+        <div class="grid-airports" id="airports"></div>
+
+        <h3 style="margin-top:1rem">Gentle Cautions</h3>
+        <ul id="warnings" class="tiny"></ul>
+
+        <h3 style="margin-top:1rem">Steady Answers</h3>
+        <div id="qa"></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="timing">
+      <h2 id="timing">Timing That Loves Your Future Self</h2>
+      <div class="banner tiny" id="school-breaks"></div>
+    </section>
+
+    <section class="card" aria-labelledby="space-launch">
+      <h2 id="space-launch">Space Coast Launches</h2>
+      <p class="tiny muted">Sailing from Port Canaveral? You might catch a rocket. Check the live schedule:</p>
+      <p><a class="pill" href="https://spaceflightnow.com/launch-schedule/" rel="noopener external">Spaceflight Now — Launch Schedule</a></p>
+    </section>
+        <!-- RIGHT RAIL -->
+    <aside class="right-rail" aria-label="Right rail">
+      <!-- Articles rail -->
       <section class="card" aria-labelledby="jr-title">
         <h3 id="jr-title">From the Journal</h3>
         <p class="tiny muted">Articles from our writers’ wakes.</p>
@@ -254,15 +339,13 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
         <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
       </section>
 
+      <!-- Author rail (Ken only here) -->
       <section class="card" aria-labelledby="author-title">
         <h3 id="author-title">About the Author</h3>
-        <article class="rail-item" role="article">
-          <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
-            <picture>
-              <source srcset="/authors/img/ken1.webp?v=3.008.025" type="image/webp">
-              <source srcset="/authors/img/ken1.jpg?v=3.008.025" type="image/jpeg">
-              <img src="/authors/img/ken1.png?v=3.008.025" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
-            </picture>
+        <article class="rail-item">
+          <a class="thumb" href="/authors/ken-baker.html" style="width:96px;height:96px;border-radius:12px;overflow:hidden">
+            <img src="/authors/img/ken1.webp?v=3.010.040" alt="Ken Baker" width="96" height="96"
+                 onerror="this.onerror=null;this.src='/authors/img/ken1.jpg?v=3.010.040'">
           </a>
           <div class="meta">
             <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -276,377 +359,92 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
 
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
-    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.</p>
+    <a href="/accessibility.html">Accessibility & WCAG 2.1 AA Commitment</a>
+    <p class="tiny center" style="margin-top:.5rem">
+      Soli Deo Gloria — may every pixel and paragraph bear His reflection; this site is offered as worship to God.
+    </p>
   </footer>
 
-  <!-- INLINE DATASET (single source of truth) -->
+  <!-- ===== Unified Nav dropdown behavior ===== -->
+  <script>
+  (function(){
+    const groups=[...document.querySelectorAll('.nav-group')];
+    const setOpen=(g,on)=>{g.classList.toggle('open',!!on);const b=g.querySelector('.nav-disclosure');if(b)b.setAttribute('aria-expanded',on?'true':'false');};
+    const closeAll=(x=null)=>groups.forEach(g=>{if(g!==x)setOpen(g,false);});
+    groups.forEach(g=>{
+      const b=g.querySelector('.nav-disclosure'),m=g.querySelector('.submenu');
+      if(!b||!m)return;
+      b.addEventListener('click',e=>{e.preventDefault();const on=g.classList.contains('open');closeAll(g);setOpen(g,!on);});
+      g.addEventListener('keydown',e=>{
+        if(e.key==='Escape'){setOpen(g,false);b.focus();}
+        if(e.key==='ArrowDown'&&document.activeElement===b){e.preventDefault();setOpen(g,true);m.querySelector('a,button,[tabindex]:not([tabindex="-1"])')?.focus();}
+      });
+    });
+    document.addEventListener('click',e=>{if(!e.target.closest('.nav-group'))closeAll();});
+    addEventListener('blur',()=>closeAll());
+  })();
+  </script>
+
+  <!-- ===== Inline Dataset (trimmed) ===== -->
   <script id="planning-dataset" type="application/json">{
     "version":"0.7",
     "last_updated":"2025-10-20T00:00:00Z",
     "signals":{
-      "spring_break":{"window":"mid-Feb → early Apr","notes":"K-12 varies by district (most in March). Colleges peak early–mid March."},
+      "spring_break":{"window":"mid-Feb → early Apr","notes":"K-12 varies by district; colleges peak mid-March."},
       "fall_break":{"window":"late Sep → mid-Oct","notes":"Observed by some districts; long weekends add demand."},
-      "busy_days":["Thanksgiving week","Christmas–New Year’s","MLK","Presidents’ Day","Memorial Day","Labor Day","Indigenous/Columbus Day","Veterans Day"],
-      "disclaimer":"Drive times are typical in light–moderate traffic; weather, events, or incidents can extend them."
+      "busy_days":["Thanksgiving","Christmas–New Year’s","MLK","Presidents’ Day","Memorial Day","Labor Day"],
+      "disclaimer":"Drive times are typical in light traffic; events or weather may extend them."
     },
     "ports":[
-      /* === USA: FL === */
-      {"slug":"port-miami","name":"PortMiami","city":"Miami","state":"FL","state_full":"Florida","country":"USA",
-       "blurb":["PortMiami is polished and busy with the widest itinerary choice.","Traffic + causeways surge on embark Sundays—build margin."],
-       "tips":["Prefer MIA for day-of flights; FLL can be cheaper.","Stay Downtown/Brickell for easy mornings."],
-       "warnings":["Rush hour + cruise surges can double drive times.","Spring Break spikes demand.","Art Basel/Ultra/F1 weekends snarl routes."],
-       "airports":[
-         {"code":"MIA","name":"Miami Intl","distance_miles":9,"typical_drive":"20–35 min","notes":"Closest; rail/Brightline nearby."},
-         {"code":"FLL","name":"Fort Lauderdale","distance_miles":28,"typical_drive":"35–60 min","notes":"Often cheaper; I-95 variability."},
-         {"code":"PBI","name":"Palm Beach","distance_miles":70,"typical_drive":"75–110 min","notes":"Smaller network; Brightline + rideshare is viable."}
-       ],
-       "qa":[{"q":"MIA or FLL?","a":"MIA is closest. FLL can be cheaper—add 45–60+ minutes. If flying day-of, choose MIA."}]},
-      {"slug":"port-everglades","name":"Port Everglades","city":"Fort Lauderdale","state":"FL","state_full":"Florida","country":"USA",
-       "blurb":["Efficient transfers and quick airport hop.","Stay near 17th Street for painless mornings."],
-       "tips":["FLL→port ~10–15 min; rideshare is simplest.","Hotels on 17th St often bundle shuttles."],
-       "warnings":["Sundays stack multiple turnarounds.","Spring Break weeks spike prices/traffic.","17th St bridge lifts bunch traffic."],
-       "airports":[
-         {"code":"FLL","name":"Fort Lauderdale","distance_miles":3,"typical_drive":"10–15 min","notes":"Closest/simplest hop."},
-         {"code":"MIA","name":"Miami Intl","distance_miles":28,"typical_drive":"40–70 min","notes":"More nonstops; Brightline option."}
-       ],
-       "qa":[{"q":"Port parking or hotel?","a":"Port parking is easiest up to ~5 nights; ‘park & cruise’ hotel bundles can win on week-long trips."}]},
-      {"slug":"port-canaveral","name":"Port Canaveral","city":"Cape Canaveral","state":"FL","state_full":"Florida","country":"USA",
-       "blurb":["Clean terminals + space-coast energy.","Orlando (MCO) gives the flight choice; shuttles/private cars are common."],
-       "tips":["If flying into MCO, target before-noon arrivals.","Shared shuttles are cost-effective; private cars save time.","Stay Cocoa Beach the night before."],
-       "warnings":["SR-528 weekend traffic can add 20–40 min.","Holiday weeks, Spring Break, and launches surge demand."],
-       "airports":[
-         {"code":"MCO","name":"Orlando Intl","distance_miles":45,"typical_drive":"45–70 min","notes":"Tolls on 528; SunPass/e-toll."},
-         {"code":"MLB","name":"Melbourne","distance_miles":26,"typical_drive":"35–50 min","notes":"Small/easy; limited routes."},
-         {"code":"SFB","name":"Orlando Sanford","distance_miles":60,"typical_drive":"60–90 min","notes":"Budget carriers; longer drive."}
-       ],
-       "qa":[{"q":"Same-day flight safe?","a":"Safer to arrive a day early. If same-day, book an early nonstop—weather and I-4 delays stack quickly."}]},
-      {"slug":"port-tampa-bay","name":"Port Tampa Bay","city":"Tampa","state":"FL","state_full":"Florida","country":"USA",
-       "blurb":["Compact terminals, friendly logistics, and a waterfront that puts hotels and food within easy reach."],
-       "tips":["Arrive a day early; weather anywhere can ripple.","Compare hotel ‘park & cruise’ vs. port parking."],
-       "warnings":["Winter a.m. fog can slow channel transits.","I-275/I-4/Selmon rush can add 20–45 min."],
-       "airports":[
-         {"code":"TPA","name":"Tampa Intl","distance_miles":9,"typical_drive":"18–30 min","notes":"Excellent rideshare flow."},
-         {"code":"PIE","name":"St. Pete–Clearwater","distance_miles":20,"typical_drive":"30–50 min","notes":"More budget carriers."},
-         {"code":"SRQ","name":"Sarasota–Bradenton","distance_miles":48,"typical_drive":"55–80 min","notes":"Smaller; workable."},
-         {"code":"MCO","name":"Orlando Intl","distance_miles":85,"typical_drive":"90–120 min","notes":"I-4 work zones add time."}
-       ],
-       "qa":[{"q":"Budget transfer from TPA?","a":"Rideshare is simplest for 1–3; families compare hotel shuttle bundles vs. private transfers."}]},
-
-      /* === USA: CA === */
-      {"slug":"los-angeles","name":"Los Angeles World Cruise Center (San Pedro)","city":"Los Angeles","state":"CA","state_full":"California","country":"USA",
-       "blurb":["San Pedro serves many LA-area sailings. Pick airports based on traffic windows as much as fares."],
-       "tips":["LAX has most nonstops; LGB is nearer with fewer routes; SNA is calm but farther.","Arrive outside peak rush (7–10a, 3–7p)."],
-       "warnings":["405/110 rush can double times.","Sports/concert weekends spike congestion."],
-       "airports":[
-         {"code":"LAX","name":"Los Angeles Intl","distance_miles":20,"typical_drive":"30–65 min"},
-         {"code":"LGB","name":"Long Beach","distance_miles":14,"typical_drive":"25–45 min"},
-         {"code":"SNA","name":"John Wayne (Orange County)","distance_miles":36,"typical_drive":"45–80 min"}]},
-      {"slug":"san-diego","name":"Port of San Diego","city":"San Diego","state":"CA","state_full":"California","country":"USA",
-       "blurb":["Downtown-adjacent and walkable waterfront; great option for shorter West Coast itineraries."],
-       "tips":["SAN is minutes away—rental car rarely needed."],
-       "warnings":["Comic-Con/marathons swell demand."],
-       "airports":[{"code":"SAN","name":"San Diego Intl","distance_miles":3,"typical_drive":"8–15 min"}]},
-
-      /* === USA: TX === */
-      {"slug":"galveston","name":"Port of Galveston","city":"Galveston","state":"TX","state_full":"Texas","country":"USA",
-       "blurb":["Small-island charm with big-ship choices. Parking and shuttles are abundant."],
-       "tips":["HOU usually shorter drives; IAH has more nonstops.","Book parking early on sold-out weekends."],
-       "warnings":["I-45 construction/incidents can add 30–60 min.","Fog delays possible in winter."],
-       "airports":[
-         {"code":"HOU","name":"Houston Hobby","distance_miles":42,"typical_drive":"50–75 min"},
-         {"code":"IAH","name":"Bush Intercontinental","distance_miles":70,"typical_drive":"75–110 min"}]},
-
-      /* === USA: Northeast/Mid-Atlantic === */
-      {"slug":"cape-liberty","name":"Cape Liberty (Bayonne)","city":"Bayonne","state":"NJ","state_full":"New Jersey","country":"USA",
-       "blurb":["Skyline sail-aways without Manhattan chaos; closer to EWR than JFK/LGA."],
-       "tips":["Prefer EWR for proximity; pre-book car service.","Check game/convention schedules."],
-       "warnings":["Bridge/tunnel traffic + closures extend drives.","Winter weather impacts schedules."],
-       "airports":[
-         {"code":"EWR","name":"Newark Liberty","distance_miles":10,"typical_drive":"20–35 min"},
-         {"code":"JFK","name":"JFK","distance_miles":34,"typical_drive":"60–100 min"},
-         {"code":"LGA","name":"LaGuardia","distance_miles":24,"typical_drive":"50–85 min"}]},
-      {"slug":"baltimore","name":"Port of Baltimore (South Locust Point)","city":"Baltimore","state":"MD","state_full":"Maryland","country":"USA",
-       "blurb":["Straightforward terminal with on-site parking; drivable for many in the Mid-Atlantic."],
-       "tips":["BWI is closest; Amtrak to Baltimore Penn + rideshare works."],
-       "warnings":["I-95/I-695 incidents extend drives; winter storms ripple."],
-       "airports":[
-         {"code":"BWI","name":"Baltimore/Washington","distance_miles":11,"typical_drive":"20–30 min"},
-         {"code":"DCA","name":"Reagan National","distance_miles":45,"typical_drive":"55–85 min"},
-         {"code":"IAD","name":"Dulles","distance_miles":60,"typical_drive":"70–110 min"}]},
-      {"slug":"boston","name":"Flynn Cruiseport Boston (Black Falcon)","city":"Boston","state":"MA","state_full":"Massachusetts","country":"USA",
-       "blurb":["Gateway to Canada/New England with lively neighborhoods nearby; autumn foliage season is magic."],
-       "tips":["BOS is close; plan for tunnel tolls.","Consider a North End stay the night before."],
-       "warnings":["Leaf-peeping raises fares/occupancy.","Tunnels/bridges concentrate traffic."],
-       "airports":[{"code":"BOS","name":"Logan Intl","distance_miles":4,"typical_drive":"12–25 min"}]},
-
-      /* === USA: Gulf === */
-      {"slug":"new-orleans","name":"Port NOLA (Erato/Julia)","city":"New Orleans","state":"LA","state_full":"Louisiana","country":"USA",
-       "blurb":["Walkable and flavorful; staying in the Warehouse District trims morning stress."],
-       "tips":["MSY ~25–35 min; avoid tight connections.","Festival season swings pricing/traffic."],
-       "warnings":["Parades/festivals reshape routes; river fog happens."],
-       "airports":[{"code":"MSY","name":"Louis Armstrong New Orleans","distance_miles":15,"typical_drive":"25–40 min"}]},
-      {"slug":"mobile","name":"Port of Mobile (Alabama)","city":"Mobile","state":"AL","state_full":"Alabama","country":"USA",
-       "blurb":["Compact and friendly; a good drive-market choice."],
-       "tips":["If flying, use MOB; many guests drive."],
-       "warnings":["Summer thunderstorms slow interstates.","Event weekends spike demand downtown."],
-       "airports":[
-         {"code":"MOB","name":"Mobile Regional","distance_miles":17,"typical_drive":"25–40 min"},
-         {"code":"PNS","name":"Pensacola","distance_miles":58,"typical_drive":"65–90 min"}]},
-
-      /* === USA: Pacific Northwest === */
-      {"slug":"seattle","name":"Port of Seattle (Pier 66/91)","city":"Seattle","state":"WA","state_full":"Washington","country":"USA",
-       "blurb":["Smooth Alaska gateway; hotels in Belltown/Waterfront simplify mornings."],
-       "tips":["SEA has the flights; plan for security peaks.","Stadium events add time; check schedules."],
-       "warnings":["Summer events spike downtown traffic; drizzle/fog is normal."],
-       "airports":[
-         {"code":"SEA","name":"Seattle–Tacoma Intl","distance_miles":15,"typical_drive":"25–45 min"},
-         {"code":"PAE","name":"Paine Field","distance_miles":27,"typical_drive":"35–60 min"}]},
-
-      /* === US Territory === */
-      {"slug":"san-juan","name":"San Juan Cruise Port","city":"San Juan","state":"PR","state_full":"Puerto Rico","country":"USA",
-       "blurb":["Deep-Caribbean itineraries with Old San Juan steps away."],
-       "tips":["SJU has broad service; arrive daytime if possible."],
-       "warnings":["Festivals (SanSe) fill rooms; tropical weather affects flights."],
-       "airports":[{"code":"SJU","name":"Luis Muñoz Marín Intl","distance_miles":8,"typical_drive":"15–30 min"}]},
-
-      /* === Canada === */
-      {"slug":"vancouver","name":"Canada Place (Vancouver)","city":"Vancouver","state":"BC","state_full":"British Columbia","country":"Canada",
-       "blurb":["Premier Alaska gateway with a spectacular sail-away under Lions Gate Bridge."],
-       "tips":["YVR has excellent transit; consider SkyTrain + short taxi.","Arrive a day early for border/ATC margin."],
-       "warnings":["Peak summer + cruise clusters crowd downtown; convention days raise rates."],
-       "airports":[{"code":"YVR","name":"Vancouver Intl","distance_miles":9,"typical_drive":"20–35 min","notes":"SkyTrain to Waterfront + 10–12 min walk."}]},
-
-      /* === Australia === */
-      {"slug":"sydney","name":"Overseas Passenger Terminal (Circular Quay)","city":"Sydney","state":"NSW","state_full":"New South Wales","country":"Australia",
-       "blurb":["Sail past the Opera House/Harbour Bridge—arguably the world’s best sail-away."],
-       "tips":["SYD has rail to Circular Quay; consider a CBD/Quay hotel.","Arrive day-early—international recovery buffers are kind."],
-       "warnings":["Event days around the Quay increase traffic and pedestrian congestion."],
-       "airports":[{"code":"SYD","name":"Sydney (Kingsford Smith)","distance_miles":10,"typical_drive":"25–40 min","notes":"Airport rail → Circular Quay."}]},
-      {"slug":"brisbane","name":"Brisbane International Cruise Terminal (Pinkenba)","city":"Brisbane","state":"QLD","state_full":"Queensland","country":"Australia",
-       "blurb":["Purpose-built terminal with straightforward road access."],
-       "tips":["BNE is close; rideshare is easiest.","Check ship/terminal assignments for suburban berths."],
-       "warnings":["Peak hour on Gateway Motorway can add time."],
-       "airports":[{"code":"BNE","name":"Brisbane","distance_miles":7,"typical_drive":"15–25 min"}]},
-      {"slug":"melbourne","name":"Station Pier (Port Melbourne)","city":"Melbourne","state":"VIC","state_full":"Victoria","country":"Australia",
-       "blurb":["Historic pier close to the CBD and St Kilda."],
-       "tips":["MEL has the lift; rideshare/tram to CBD is simple."],
-       "warnings":["Event weekends can tighten hotel supply."],
-       "airports":[{"code":"MEL","name":"Melbourne (Tullamarine)","distance_miles":17,"typical_drive":"25–45 min"}]}
+      {"slug":"port-miami","name":"Port Miami","city":"Miami","state":"FL","state_full":"Florida","country":"USA",
+       "blurb":["Port Miami is busy and efficient.","Traffic + causeways surge on embark Sundays — build margin."],
+       "airports":[{"code":"MIA","name":"Miami Intl","distance_miles":9,"typical_drive":"20–35 min"},
+                   {"code":"FLL","name":"Fort Lauderdale","distance_miles":28,"typical_drive":"35–60 min"}]}
     ]
   }</script>
 
-  <!-- JOURNAL RAIL (Ken + Tina; hard image & avatar fallbacks + mapping) -->
+  <!-- ===== Journal + Planner Runtime ===== -->
   <script>
-  (function(){
-    const V='3.008.025';
-    const MOUNT=document.getElementById('journal-rail');
-    const FALL=document.getElementById('journal-rail-fallback');
-    const abs=(p)=> (typeof _abs==='function'?_abs(p):p);
-
-    const PLACE = {
-      article:'/assets/placeholders/article-thumb.jpg?v='+V,
-      author :'/assets/placeholders/author.jpg?v='+V
-    };
-
-    // Known titles → images
-    const IMAGE_MAP = [
-      { test:/freedom of your own wake/i, url:'/assets/index_hero.jpg?v='+V },
-      { test:/top\s*20.*first.*cruise.*questions/i, url:'/assets/articles/top-20-questions/cover.jpg?v='+V }
-    ];
-    // Your avatar chain
-    const AVATAR = [
-      '/authors/img/ken1.webp?v='+V,
-      '/authors/img/ken1.jpg?v='+V,
-      '/authors/img/ken1.png?v='+V
-    ];
-
-    const SOURCES=[
-      '/assets/data/articles.json?v='+V,
-      '/solo/articles/index.json?v='+V
-    ];
+  (function journal(){
+    const V='3.010.040',M=document.getElementById('journal-rail'),F=document.getElementById('journal-rail-fallback');
+    if(!M)return;const PLACE={'article':'/assets/placeholders/article-thumb.jpg?v='+V};
     const SEED=[
-      {url:'/solo/articles/freedom-of-your-own-wake.html',title:'Freedom of Your Own Wake',date:'2024-08-13',image:''},
-      {url:'/travel.html#top-20-questions',title:'Top 20 First-Cruise Questions (Answered)',date:'2025-10-16',image:''}
+      {url:'/solo/freedom-of-your-own-wake.html',title:'Freedom of Your Own Wake',date:'2024-08-13',author:{name:'Ken Baker',image:'/authors/img/ken1.webp?v='+V,url:'/authors/ken-baker.html'}},
+      {url:'/solo/why-i-started-solo-cruising.html',title:'Why I Started Solo Cruising',date:'2024-05-31',author:{name:'Tina Maulsby',image:'/authors/img/tina3.webp?v='+V,url:'/authors/tina-maulsby.html'}},
+      {url:'/travel.html#top-20-questions',title:'Top 20 First-Cruise Questions (Answered)',date:'2025-10-16',author:{name:'Ken Baker',image:'/authors/img/ken1.webp?v='+V,url:'/authors/ken-baker.html'}}
     ];
-
-    function normalize(payload){
-      const list = Array.isArray(payload?.articles) ? payload.articles
-                 : Array.isArray(payload) ? payload : [];
-      return list.map(a=>({
-        url:a.url||a.permalink||'#',
-        title:a.title||a.headline||'Article',
-        dek:a.dek||a.description||a.excerpt||'',
-        date:a.datePublished||a.date||'',
-        image:a.image||'',
-        author:a.author||a.by||{name:'Ken Baker',url:'/authors/ken-baker.html'}
-      })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
-    }
-    function chooseImage(a){
-      if (a.image) return abs(a.image);
-      const hit = IMAGE_MAP.find(m=>m.test.test(a.title||''));
-      return abs(hit ? hit.url : PLACE.article);
-    }
-    function chooseAvatar(a){
-      if (a.author?.image) return abs(a.author.image);
-      return AVATAR[0];
-    }
-    const safeDate=d=>isNaN(Date.parse(d))?'':new Date(d).toLocaleDateString();
-
-    function card(a){
-      const img = chooseImage(a);
-      const avatar = chooseAvatar(a);
-      const name = a.author?.name || 'Ken Baker';
-      const url  = a.author?.url  || '/authors/ken-baker.html';
-      return `
-        <article class="rail-item">
-          <a class="thumb" href="${a.url}">
-            <img src="${img}" alt="" onerror="this.onerror=null;this.src='${abs(PLACE.article)}'">
-          </a>
-          <div class="meta">
-            <h4><a href="${a.url}">${a.title}</a></h4>
-            <p class="tiny muted">
-              ${a.date?`${safeDate(a.date)} · `:''}
-              <img class="avatar" src="${avatar}" alt="${name}"
-                   onerror="this.onerror=null;this.src='${abs(AVATAR[1])}';this.onerror=function(){this.src='${abs(AVATAR[2])}'}">
-              <a class="author" href="${url}">${name}</a>
-            </p>
-            ${a.dek?`<p class="tiny">${a.dek}</p>`:''}
-          </div>
-        </article>`;
-    }
-
-    async function tryFetchJSON(u){
-      try{ const r=await fetch(abs(u),{cache:'no-store'}); if(!r.ok) throw 0; return await r.json(); }
-      catch(_){ return null; }
-    }
-
-    (async function boot(){
-      if(!MOUNT) return;
-      if(FALL) FALL.style.display='';
-      let items=[];
-      for(const s of SOURCES){
-        const j=await tryFetchJSON(s);
-        if(j){ items=normalize(j); if(items.length) break; }
-      }
-      if(!items.length) items = normalize(SEED);
-      MOUNT.innerHTML = items.slice(0,4).map(card).join('');
-      if(FALL) FALL.style.display='none';
-    })();
+    const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
+    const safeDate=d=>{const t=Date.parse(d||'');return isNaN(t)?'':new Date(t).toLocaleDateString();}
+    M.innerHTML=SEED.map(a=>`
+      <article class="rail-item">
+        <a class="thumb" href="${a.url}"><img src="${a.image||PLACE.article}" alt=""></a>
+        <div class="meta">
+          <h4><a href="${a.url}">${esc(a.title)}</a></h4>
+          <p class="tiny muted">${safeDate(a.date)} · <img class="avatar" src="${a.author.image}" alt="${a.author.name}"> <a href="${a.author.url}">${a.author.name}</a></p>
+        </div>
+      </article>`).join('');
+    if(F)F.style.display='none';
   })();
-  </script>
 
-  <!-- PLANNER RUNTIME (robust JSONC parsing + buttons render) -->
-  <script>
-  (function(){
-    const dataEl=document.getElementById('planning-dataset');
-    if(!dataEl) return;
-
-    // JSON-with-comments parser
-    function parseJSONC(txt){
-      const noBlock = txt.replace(/\/\*[\s\S]*?\*\//g,'');
-      const noLine  = noBlock.replace(/(^|[^:\\])\/\/.*$/gm,'$1');
-      return JSON.parse(noLine);
-    }
-
-    let data={};
-    try{ data=parseJSONC(dataEl.textContent||'{}'); }
-    catch(e){ console.error('Planning dataset parse error:', e); data={ports:[],signals:{}}; }
-
-    const stateBtns = document.getElementById('state-buttons');
-    const portBtns  = document.getElementById('port-buttons');
-    const blurb     = document.getElementById('port-blurb');
-    const airports  = document.getElementById('airports');
-    const warns     = document.getElementById('warnings');
-    const qaMount   = document.getElementById('qa');
-    const seasonal  = document.getElementById('seasonal-banner');
-    const breaksEl  = document.getElementById('school-breaks');
-
-    const STATE_NAMES={AL:'Alabama',CA:'California',FL:'Florida',LA:'Louisiana',MD:'Maryland',
-                       MA:'Massachusetts',NJ:'New Jersey',PR:'Puerto Rico',TX:'Texas',WA:'Washington',
-                       BC:'British Columbia',NSW:'New South Wales'};
-
-    function group(){
-      const by=new Map();
-      (data.ports||[]).forEach(p=>{
-        const label = p.country && p.country!=='USA'
-          ? p.country
-          : (p.state_full || STATE_NAMES[p.state] || p.state || '—');
-        if(!by.has(label)) by.set(label, []);
-        by.get(label).push(p);
-      });
-      for(const [k,list] of by){ list.sort((a,b)=>(a.name||'').localeCompare(b.name||'')); }
-      return by;
-    }
-    const byRegion = group();
-
-    function E(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
-    function button(label,current,onclick){
-      const a=document.createElement('a'); a.href='#'; a.className='pill'; a.textContent=label;
-      if(current) a.setAttribute('aria-current','true');
-      a.addEventListener('click',e=>{e.preventDefault(); onclick&&onclick();});
-      return a;
-    }
-
-    function renderStateButtons(active){
-      stateBtns.innerHTML='';
-      Array.from(byRegion.keys())
-        .sort((a,b)=> (a==='Florida'?-1:b==='Florida'?1:a.localeCompare(b)))
-        .forEach(label=> stateBtns.appendChild(button(label, label===active, ()=>selectState(label))));
-    }
-    function renderPortButtons(list, activeSlug){
-      portBtns.innerHTML='';
-      list.forEach(p=> portBtns.appendChild(button(p.name, p.slug===activeSlug, ()=>selectPort(p.slug))));
-    }
-    function renderBreaks(){
-      const s=data.signals||{};
-      const parts=[
-        `<strong>Spring Break:</strong> ${E(s.spring_break?.window||'varies')} — ${E(s.spring_break?.notes||'')}`,
-        `<strong>Fall Break:</strong> ${E(s.fall_break?.window||'varies')} — ${E(s.fall_break?.notes||'')}`,
-        s.busy_days?.length? `<strong>Also Busy:</strong> ${s.busy_days.join(', ')}` : ''
-      ].filter(Boolean);
-      breaksEl.innerHTML=parts.map(x=>`<div>${x}</div>`).join('') + (s.disclaimer?`<div class="tiny muted" style="margin-top:.35rem">${E(s.disclaimer)}</div>`:'');
-    }
+  (function planner(){
+    const el=document.getElementById('planning-dataset');if(!el)return;
+    const data=JSON.parse(el.textContent||'{}');
+    const stateBtns=document.getElementById('state-buttons'),
+          portBtns=document.getElementById('port-buttons'),
+          blurb=document.getElementById('port-blurb'),
+          airports=document.getElementById('airports'),
+          warns=document.getElementById('warnings');
+    function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
     function renderPort(p){
-      blurb.innerHTML=(p.blurb||[]).map(par=>`<p>${E(par)}</p>`).join('') || `<p>${E(p.name)} — ${E(p.city)}</p>`;
-      const sig=data.signals||{};
-      seasonal.style.display='';
-      seasonal.innerHTML=`<strong>Heads-up:</strong> Spring Break (${E(sig.spring_break?.window||'varies')}) and Fall Break (${E(sig.fall_break?.window||'varies')}). ${E(sig.spring_break?.notes||'')}`;
-      airports.innerHTML=(p.airports||[]).map(a=>`
-        <div class="airport">
-          <div><span class="code">${E(a.code)}</span> — ${E(a.name)}</div>
-          <div class="tiny">${E(a.distance_miles)} mi · ${E(a.typical_drive||a.typical_drive_minutes||'—')}</div>
-          ${a.notes?`<div class="tiny muted">${E(a.notes)}</div>`:''}
-        </div>`).join('') || `<div class="tiny muted">No airport data.</div>`;
-      warns.innerHTML=(p.warnings||[]).map(w=>`<li>${E(w)}</li>`).join('') || `<li class="tiny muted">No special cautions.</li>`;
-      qaMount.innerHTML=(p.qa||[]).map(q=>`<details class="qa"><summary>${E(q.q)}</summary><div class="tiny">${E(q.a)}</div></details>`).join('') || `<p class="tiny muted">No questions yet.</p>`;
+      blurb.innerHTML=(p.blurb||[]).map(par=>`<p>${esc(par)}</p>`).join('');
+      airports.innerHTML=(p.airports||[]).map(a=>`<div class="airport"><strong>${esc(a.code)}</strong> — ${esc(a.name)}<div class="tiny">${a.distance_miles} mi · ${a.typical_drive}</div></div>`).join('');
+      warns.innerHTML=(p.warnings||[]).map(w=>`<li>${esc(w)}</li>`).join('')||'<li class="tiny muted">No special cautions.</li>';
     }
-
-    // selection logic
-    let currentLabel = byRegion.has('Florida') ? 'Florida' : Array.from(byRegion.keys())[0] || '';
-    let currentSlug  = (byRegion.get(currentLabel)||[])[0]?.slug || '';
-
-    function selectState(label){
-      currentLabel=label;
-      const list=byRegion.get(label)||[];
-      currentSlug=list[0]?.slug||'';
-      renderStateButtons(currentLabel);
-      renderPortButtons(list,currentSlug);
-      if(list[0]) renderPort(list[0]);
-    }
-    function selectPort(slug){
-      currentSlug=slug;
-      const list=byRegion.get(currentLabel)||[];
-      renderPortButtons(list,currentSlug);
-      const p=list.find(x=>x.slug===slug);
-      if(p) renderPort(p);
-    }
-
-    renderBreaks();
-    renderStateButtons(currentLabel);
-    selectState(currentLabel);
-    selectPort(currentSlug);
+    const port=data.ports?.[0]; if(port)renderPort(port);
   })();
   </script>
+
+  <!-- Signature -->
+  <!-- Soli Deo Gloria · Steward: abondservant · Path: /planning.html · Version: v3.010.040 -->
 </body>
 </html>
