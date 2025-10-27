@@ -513,14 +513,66 @@
     }
   });
   </script>
-<SCRIPT>// Normalize any stray /solo/articles/<slug>.html links to /solo/<slug>.html
+<script>
+/* Robust solo-link normalizer — fixes absolute/relative + late-added links */
 (function normalizeSoloArticleLinks(){
-  const fix = href => href.replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i, '/solo/$1.html');
-  document.querySelectorAll('a[href]').forEach(a=>{
-    const old = a.getAttribute('href');
-    const neu = fix(old);
-    if (neu !== old) a.setAttribute('href', neu);
+  "use strict";
+
+  // Treat these as same-site
+  const SAME_HOSTS = new Set([
+    location.host,
+    location.host.replace(/^www\./,''),
+    "cruisinginthewake.com",
+    "www.cruisinginthewake.com"
+  ]);
+
+  // Fix a single <a> if it points to /solo/articles/<slug>[.html][?q][#h]
+  function fixOne(a){
+    const raw = a.getAttribute('href');
+    if(!raw) return;
+    try{
+      const u = new URL(raw, location.origin);
+      const hostKey = u.host.replace(/^www\./,'');
+      if(!SAME_HOSTS.has(u.host) && !SAME_HOSTS.has(hostKey)) return; // external – ignore
+
+      // Match both with and without ".html"
+      const m = u.pathname.match(/^\/?solo\/articles\/([a-z0-9\-]+)(?:\.html)?$/i);
+      if(!m) return;
+
+      // Rewrite path, preserve search+hash
+      u.pathname = `/solo/${m[1]}.html`;
+
+      // Use path-only for same-origin, absolute for others (just in case)
+      const newHref = (u.origin === location.origin)
+        ? (u.pathname + u.search + u.hash)
+        : u.toString();
+
+      if (newHref !== raw) a.setAttribute('href', newHref);
+    }catch(_){}
+  }
+
+  // Scan a subtree
+  function scan(root){
+    (root.querySelectorAll ? root.querySelectorAll('a[href]') : []).forEach(fixOne);
+  }
+
+  // Initial pass
+  scan(document);
+
+  // Catch dynamically added links (rails, loaders, etc.)
+  const mo = new MutationObserver(muts=>{
+    for (const m of muts){
+      for (const n of m.addedNodes){
+        if(n.nodeType !== 1) continue;
+        if(n.matches && n.matches('a[href]')) fixOne(n);
+        scan(n);
+      }
+    }
   });
+  mo.observe(document.body, { childList:true, subtree:true });
+
+  // Safety pass on bfcache restores
+  window.addEventListener('pageshow', ()=> scan(document));
 })();
 </script>
   <!-- Site JS (if needed elsewhere) -->
