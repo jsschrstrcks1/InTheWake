@@ -3,8 +3,8 @@
 <head>
   <!-- ======================================================
        In the Wake — Solo Article (standalone, repaired)
-       Page: Why I Started Solo Cruising (and Built a Community)
-       Version: 3.010.030  |  Standards baseline: 3.010.x
+       Page: The Freedom of Your Own Wake
+       Version: 3.010.029  |  Standards baseline: 3.010.x
        ====================================================== -->
 
   <!-- Core -->
@@ -14,45 +14,53 @@
   <meta name="robots" content="index,follow,max-image-preview:large"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.030"/>
+  <meta name="version" content="3.010.029"/>
+  <meta name="author" content="Ken Baker"/>
 
   <!-- Title & SEO -->
-  <title>Why I Started Solo Cruising (and Built a Community) — Solo Travel | In the Wake</title>
-  <meta name="description" content="From that first solo gangway to a thriving community — lessons, safety, and the joy of sailing on your own terms."/>
+  <title>The Freedom of Your Own Wake — Solo Travel | In the Wake</title>
+  <meta name="description" content="A gentle case for sailing alone — rest, rhythm, and room to breathe when the sea becomes both your mirror and your companion."/>
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://www.cruisinginthewake.com/solo/why-i-started-solo-cruising.html"/>
+  <link rel="canonical" href="https://www.cruisinginthewake.com/solo/freedom-of-your-own-wake.html"/>
 
   <!-- Social -->
   <meta property="og:type" content="article"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Why I Started Solo Cruising (and Built a Community)"/>
-  <meta property="og:description" content="From that first solo gangway to a thriving community — lessons, safety, and the joy of sailing on your own terms."/>
-  <meta property="og:url" content="https://www.cruisinginthewake.com/solo/why-i-started-solo-cruising.html"/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/authors/tinas-images/ncl-jade.png"/>
+  <meta property="og:title" content="The Freedom of Your Own Wake"/>
+  <meta property="og:description" content="A gentle case for sailing alone — rest, rhythm, and room to breathe at sea."/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/solo/freedom-of-your-own-wake.html"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017"/>
   <meta property="og:image:width" content="1600"/>
   <meta property="og:image:height" content="900"/>
   <meta property="article:section" content="Solo Travel"/>
+  <meta property="article:published_time" content="2025-10-22"/>
+  <meta property="article:modified_time"  content="2025-10-22"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Preload LCP hero -->
-  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/authors/tinas-images/ncl-jade.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017" fetchpriority="high"/>
+
+
 
   <!-- Structured data -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"Article",
-    "headline":"Why I Started Solo Cruising (and Built a Community)",
-    "description":"From that first solo gangway to a thriving community — lessons, safety, and the joy of sailing on your own terms.",
+    "headline":"The Freedom of Your Own Wake",
+    "description":"A gentle case for sailing alone — rest, rhythm, and room to breathe when the sea becomes both your mirror and your companion.",
+    "author":{"@type":"Person","name":"Ken Baker","url":"https://www.cruisinginthewake.com/authors/ken-baker.html"},
     "publisher":{"@type":"Organization","name":"In the Wake","logo":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/logo_wake.png"}},
-    "image":"https://www.cruisinginthewake.com/authors/tinas-images/ncl-jade.png",
-    "mainEntityOfPage":"https://www.cruisinginthewake.com/solo/why-i-started-solo-cruising.html",
+    "image":"https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017",
+    "mainEntityOfPage":"https://www.cruisinginthewake.com/solo/freedom-of-your-own-wake.html",
+    "datePublished":"2025-10-22",
+    "dateModified":"2025-10-22",
     "articleSection":"Solo Travel"
   }
   </script>
 
-  <style>
+ <style>
   /* ===== Solo Article Styles v3.010.030 ===== */
   :root{
     --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
@@ -86,10 +94,7 @@
     flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
     gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem;
   }
-
-  /* ========= NAV: limit pill styling to top-level only ========= */
-  .pill-nav > a,
-  .pill-nav > .nav-group > .nav-disclosure{
+  .pill-nav a,.pill-nav button.nav-disclosure{
     display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
     border:1px solid var(--rope);color:#0e6e8e;font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
   }
@@ -131,10 +136,10 @@
   .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
   .hero-title .logo{display:block;opacity:1;visibility:visible;width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
 
-  /* Tagline — left under the logo */
+  /* Tagline — single source of truth */
   .tagline{
-    position:absolute;left:min(3vw,1rem);bottom:clamp(.55rem,1.6vw,1.1rem);
-    transform:none;font-weight:700;letter-spacing:.2px;color:#e6f4f8;
+    position:absolute;left:50%;bottom:clamp(.55rem,1.6vw,1.1rem);
+    transform:translateX(-50%);font-weight:700;letter-spacing:.2px;color:#e6f4f8;
     font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3;
   }
 
@@ -172,7 +177,78 @@
   .author-card picture{ display:block; flex:0 0 48px; }
 
   .toc a.active{font-weight:700;text-decoration:underline}
-  </style>
+   /* ========= NAV: limit pill styling to top-level only ========= */
+.pill-nav {
+  flex: 1 1 auto; min-width: 0;
+  display: flex; align-items: center; justify-content: center;
+  gap: .45rem; white-space: nowrap; flex-wrap: nowrap;
+  overflow: visible; padding-inline: .75rem;
+}
+
+/* Only top-level links/buttons get pill styling */
+.pill-nav > a,
+.pill-nav > .nav-group > .nav-disclosure {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .35rem .7rem; border-radius: 10px; background: #fff;
+  border: 1px solid var(--rope); color: #0e6e8e;
+  font: inherit; font-size: .9rem; line-height: 1.2;
+  cursor: pointer; text-decoration: none;
+}
+
+/* Submenu container: baseline hidden (wins over any global) */
+.submenu{
+  position: absolute !important;
+  left: 0; top: calc(100% + 8px);
+  min-width: 220px; background: #fff; border: 1px solid var(--rope);
+  border-radius: 12px; padding: .4rem;
+  box-shadow: 0 8px 24px rgba(8,48,65,.12);
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: 1100;
+}
+
+/* Reveal when the group is “open” (dataset or class) */
+.nav-group[data-open="true"] > .submenu,
+.nav-group.open > .submenu{
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Submenu links look like menu items, not pills */
+.submenu a{
+  display: block; width: 100%;
+  margin: 0; padding: .5rem .65rem;
+  border-radius: .65rem; border: 0;
+  background: transparent; color: var(--ink); text-decoration: none;
+}
+.submenu a:hover, .submenu a:focus{
+  background: #f2f7fa;
+  outline: 2px solid transparent;
+}
+
+/* Keep the popover visible (no clipping) */
+header, .hero-header, .navbar, .pill-nav, .nav-group { overflow: visible; }
+.nav-group { position: relative; }
+
+/* ========= TAGLINE: back under the logo (left-aligned) ========= */
+.tagline{
+  position: absolute;
+  left: min(3vw, 1rem);           /* tuck under the logo */
+  bottom: clamp(.55rem, 1.6vw, 1.1rem);
+  transform: none !important;     /* remove centering */
+  font-weight: 700; letter-spacing: .2px;
+  color: #e6f4f8;
+  font-size: clamp(.9rem,1.5vw,1.35rem);
+  white-space: nowrap; z-index: 3;
+}
+
+/* ========= (Unchanged but helpful) ========= */
+header, .hero-header, .navbar { position: relative; z-index: 1000; }
+</style>
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
@@ -181,8 +257,8 @@
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.030" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
-        <span class="tiny version-badge">v3.010.030</span>
+        <img src="/assets/logo_wake.png?v=3.010.029" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
+        <span class="tiny version-badge">v3.010.029</span>
       </div>
 
       <!-- SAME MENU AS THE WORKING PAGE -->
@@ -215,9 +291,9 @@
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.030" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.029" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.030" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.029" width="560" height="144" alt="In the Wake" decoding="async"/>
       </div>
       <div class="tagline">A Cruise Traveler’s Logbook</div>
       <div class="hero-credit">
@@ -227,47 +303,122 @@
   </header>
 
   <!-- ============================ MAIN ============================ -->
+  <!-- ============================ MAIN ============================ -->
 <main id="content" class="wrap page-grid" role="main" aria-label="Main content">
+  <!-- Direct children of .page-grid (no wrapper div) -->
+
   <!-- ===================== SOLO ARTICLE ======================== -->
-  <article class="card solo-article" itemscope itemtype="https://schema.org/Article" id="why-i-started-solo-cruising" data-slug="why-i-started-solo-cruising">
-    <header class="article-hero" style="max-width:min(860px,92%);margin-inline:auto">
-      <h1 itemprop="headline">Why I Started Solo Cruising (and Built a Community)</h1>
-      <p class="dek" itemprop="description">From that first solo gangway to a thriving community — lessons, safety, and the joy of sailing on your own terms.</p>
-    </header>
+ 
+<article class="card solo-article" itemscope itemtype="https://schema.org/Article" id="freedom-of-your-own-wake" data-slug="freedom-of-your-own-wake">
+  <header class="article-hero" style="max-width:min(860px,92%);margin-inline:auto">
+    <h1 itemprop="headline">The Freedom of Your Own Wake</h1>
+    <p class="dek" itemprop="description">A gentle case for sailing alone — rest, rhythm, and room to breathe when the sea becomes both your mirror and your companion.</p>
+  </header>
 
-    <!-- TOP HERO -->
-    <figure class="article-hero">
-      <img
-        src="https://www.cruisinginthewake.com/authors/tinas-images/ncl-jade.png"
-        width="1600" height="900"
-        loading="eager" decoding="async" fetchpriority="high"
-        alt="NCL Jade at sea">
-      <figcaption>
-        Photo © <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
-      </figcaption>
-    </figure>
+  <!-- TOP HERO -->
+  <figure class="article-hero">
+    <img
+      src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017"
+      width="1600" height="900"
+      loading="eager" decoding="async" fetchpriority="high"
+      alt="Sunrise over a calm sea">
+    <figcaption>
+      Photo © <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
+    </figcaption>
+  </figure>
 
-    <!-- Paste your article body here (kept minimal per “no creativity” request) -->
-  </article>
+  <p>There’s something sacred about the moment a ship pulls away from the pier — that quiet hum, the slow drift, the gentle widening of the wake. I’ve sailed with friends, with family, with groups and gatherings, but the first time I sailed <em>alone</em>, something changed. For the first time, I heard the rhythm of the ocean without the noise of my own schedule. I learned that solitude at sea isn’t loneliness — it’s space. It’s rest. It’s a conversation between the soul and the horizon.</p>
 
-  <!-- ===================== RIGHT-SIDE RAIL ========================== -->
+  <h2 id="finding-peace">Finding Peace in the Quiet</h2>
+  <p>When you sail solo, you learn to notice things you’d otherwise miss. The weight of your coffee mug as the ship rocks slightly. The way the morning light flickers off the waves. The sound of a hymn playing quietly in your heart as you lean over the railing, watching the world stretch wide and blue. You start to remember what peace actually feels like.</p>
+
+  <p>It isn’t just the absence of noise — it’s the presence of God’s handiwork in the small and ordinary moments. Out there, it’s easy to believe again that His mercies are new every morning, even when you’re miles from shore.</p>
+
+  <figure class="pull">
+    <blockquote>“The sea doesn’t shout for your attention — it waits for your silence.”</blockquote>
+    <figcaption>— Ken Baker</figcaption>
+  </figure>
+
+  <h2 id="gift-of-going-alone">The Gift of Going Alone</h2>
+  <p>People often ask, “Why cruise alone?” And my answer is simple: sometimes you need to sail without a crowd to remember who you are beneath the noise. A solo voyage gives you permission to think, to pray, to breathe, to watch sunsets without needing to post them. It isn’t selfish — it’s restorative.</p>
+
+  <p>Without the constant pull of conversation or planning, you begin to hear the voice of the One who calms the seas. You begin to realize that solitude is not separation — it’s communion. And sometimes, the most faithful thing you can do is take a deep breath and let the Lord steer for a while.</p>
+
+  <!-- INLINE IMAGE -->
+  <figure class="inline-hero">
+    <img
+      src="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.008.017"
+      loading="lazy" decoding="async"
+      alt="Wake trailing a ship at sunrise">
+    <figcaption>
+      Photo © <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
+    </figcaption>
+  </figure>
+
+  <h2 id="lessons-from-the-wake">Lessons from the Wake</h2>
+  <ul>
+    <li><strong>Pack light — spiritually and practically.</strong> You don’t need to bring everything. The sea has a way of reminding you that less is more, and that simplicity is its own kind of luxury.</li>
+    <li><strong>Be still.</strong> Don’t fill every moment with plans. Sit in a quiet corner of the ship and just watch the water move. Let it move you too.</li>
+    <li><strong>Reflect rather than escape.</strong> Solo travel isn’t running away — it’s turning toward. It’s space to meet the Lord again in the in-between places.</li>
+  </ul>
+
+  <h2 id="following-in-his-wake">Following in His Wake</h2>
+  <p>Every ship leaves a wake — a shimmering trail that fades behind it, but never quite disappears. That’s how the Christian life feels when you’re walking (or sailing) with Christ. You move forward, but grace follows close behind. The wake reminds you that where you’ve been still matters, even as He leads you on.</p>
+
+  <p>So go. Go in faith. Take a journey not to get away from the world, but to see it again through grateful eyes. The ocean may not answer your questions, but it will make you quiet enough to hear when God does.</p>
+
+  <footer class="byline">
+    <div class="avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;flex:none">
+      <picture>
+        <source type="image/webp" srcset="https://www.cruisinginthewake.com/authors/img/ken1.webp?v=3.008.017">
+        <img
+          src="https://www.cruisinginthewake.com/authors/img/ken1.jpg?v=3.008.017"
+          alt="Ken Baker" width="48" height="48"
+          loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
+      </picture>
+    </div>
+    <div style="margin-left:.5rem">
+      <strong><a href="https://ken-baker.com?utm_source=solo_article&utm_medium=byline_link&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Ken Baker</a></strong>
+      <a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>
+      <div class="author-links" style="margin-top:.35rem; font-size:.95rem; opacity:.9">
+        <a href="https://instagram.com/flickersofmajesty?utm_source=cruisinginthewake&utm_medium=byline_social&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Instagram</a> ·
+        <a href="https://flickersofmajesty.com?utm_source=cruisinginthewake&utm_medium=byline_social&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a> ·
+        <a href="https://ken-baker.com?utm_source=cruisinginthewake&utm_medium=byline_social&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Personal Site</a>
+      </div>
+    </div>
+  </footer>
+
+  <section class="cards stack" id="solo-disclosure">
+    <article class="card disclosure">
+      <h3>Disclosure</h3>
+      <p class="pill disclosure">I’ve stood the watch aboard many ships — mostly Royal Caribbean — with more than 150 nights at sea, sailing enough miles to circle the globe and having visited over 30 nations. This article is no borrowed winds; it is instead depth soundings taken in my own wake, trimmed and charted for those who follow. <a href="https://ken-baker.com">~Ken</a></p>
+    </article>
+  </section>
+</article>  <!-- ===================== RIGHT-SIDE RAIL ========================== -->
   <aside class="rail" role="complementary" aria-label="Author & articles">
+    <!-- On this page -->
     <section class="card toc-card" aria-labelledby="toc-title">
       <h2 id="toc-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">On this page</h2>
       <nav class="toc" aria-label="Table of contents">
         <ol class="tiny" style="display:grid;gap:.35rem;margin:0;padding-left:1.1rem">
-          <!-- Anchors will highlight automatically if you add matching ids in the body -->
+          <li><a href="#freedom-of-your-own-wake">Top</a></li>
+          <li><a href="#finding-peace">Finding Peace in the Quiet</a></li>
+          <li><a href="#gift-of-going-alone">The Gift of Going Alone</a></li>
+          <li><a href="#lessons-from-the-wake">Lessons from the Wake</a></li>
+          <li><a href="#following-in-his-wake">Following in His Wake</a></li>
         </ol>
       </nav>
     </section>
 
+    <!-- Author card -->
     <section id="author-rail" class="card" aria-label="Author information">
       <h2 class="tiny" style="margin-bottom:.25rem;color:#0a3d62">About the author</h2>
       <div class="author-card" style="display:flex;gap:.75rem;align-items:center;">
-        <!-- populated by JS (optional) -->
+        <!-- populated by JS -->
       </div>
     </section>
 
+    <!-- Recent Articles rail -->
     <section class="card" aria-labelledby="recent-rail-title">
       <h2 id="recent-rail-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">Recent Articles</h2>
       <div id="recent-rail" class="rail-list" aria-live="polite"></div>
@@ -278,11 +429,11 @@
   <!-- =========================== FOOTER ============================ -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.010.030</span>
+    <span class="version-badge">v3.010.029</span>
   </footer>
 
   <!-- =========================== JS ================================ -->
-<script>
+ <script>
 /* ===== Solo Article JS v3.010.030 ===== */
 document.addEventListener('DOMContentLoaded', () => {
   /* 1) Normalize article figure so global .hero rules never hijack it */
@@ -345,7 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('blur', ()=> closeAll());
   })();
 
-  /* 3) Helpers (optional rail hydration if you use your data endpoints) */
+  /* 3) Helpers */
   async function fetchJSONWithFallback(urls){
     for (const u of urls){
       try{
@@ -378,15 +529,15 @@ document.addEventListener('DOMContentLoaded', () => {
     tryNext();
   }
 
-  /* 4) Right-rail: Authors (optional) */
+  /* 4) Right-rail: Authors */
   (async function(){
     const data = await fetchJSONWithFallback(['/data/authors.json','/assets/data/authors.json']);
     const rail = document.getElementById('author-rail');
     if(!rail || !data) return;
 
     const list = Array.isArray(data.authors) ? data.authors : (Array.isArray(data) ? data : []);
-    const author = list[0];
-    if(!author) return;
+    const ken = list.find(a => /ken\s*baker/i.test(a.name||'')) || list[0];
+    if(!ken) return;
 
     const host = rail.querySelector('.author-card');
     if(!host) return;
@@ -394,15 +545,17 @@ document.addEventListener('DOMContentLoaded', () => {
     host.innerHTML = `
       <picture>
         <source type="image/webp" srcset="/authors/img/ken1.webp">
-        <img class="author-avatar" src="/authors/img/ken1.jpg" width="48" height="48" alt="Author">
+        <img class="author-avatar" src="/authors/img/ken1.jpg" width="48" height="48" alt="Author — Ken Baker">
       </picture>
       <div>
-        <strong><a href="/authors/">Our Authors</a></strong><br/>
-        Cruise travel, practical tips, and reflections.
+        <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
+        Founder of In the Wake and writer of Travel content. Founder of Flickers of Majesty. Pastor at <a href="https://lakeviewfellowshipchurch.com/" target="_blank" rel="noopener">Lakeview Fellowship/a>. Shepherd at Manatee Creek Farms. <br/>
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+        Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
       </div>`;
   })();
 
-  /* 5) Right-rail: Recent articles (optional) */
+  /* 5) Right-rail: Recent articles (with absolute Top-20 image override) */
   (async function(){
     const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
     const rail = document.getElementById('recent-rail');
@@ -443,9 +596,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
         primary = 'https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg';
       }
-      // Helpful specifics
-      if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-        primary = '/assets/articles/why-i-started-solo-cruising/cover.jpg';
+      // Friendly specifics
+      if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
+        primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
       }
       if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
         primary = '/assets/articles/travel/cover.jpg';
@@ -466,7 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  /* 6) TOC scrollspy (if you add section ids later) */
+  /* 6) TOC scrollspy (highlight current section) */
   (function(){
     const toc = document.querySelector('.toc-card nav');
     const links = toc ? [...toc.querySelectorAll('a[href^="#"]')] : [];
@@ -500,7 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-  <!-- Site JS (optional) -->
+  <!-- Site JS -->
   <script defer src="/assets/js/share-bar.js?v=3.010.004"></script>
   <script defer src="/assets/js/sw-register.js?v=3.010.004"></script>
 </body>
