@@ -513,7 +513,16 @@
     }
   });
   </script>
-
+<SCRIPT>// Normalize any stray /solo/articles/<slug>.html links to /solo/<slug>.html
+(function normalizeSoloArticleLinks(){
+  const fix = href => href.replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i, '/solo/$1.html');
+  document.querySelectorAll('a[href]').forEach(a=>{
+    const old = a.getAttribute('href');
+    const neu = fix(old);
+    if (neu !== old) a.setAttribute('href', neu);
+  });
+})();
+</script>
   <!-- Site JS (if needed elsewhere) -->
   <script defer src="/assets/js/share-bar.js?v=3.010.004"></script>
   <script defer src="/assets/js/sw-register.js?v=3.010.004"></script>
