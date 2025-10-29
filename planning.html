@@ -94,14 +94,10 @@
   })();
   </script>
 
-  <!-- Normalize /solo|/travel/articles/<slug>.html → /solo|/travel/<slug>.html -->
+  <!-- Normalize /solo/articles/<slug>.html → /solo/<slug>.html -->
   <script>
   (function(){
-    function fix(h){
-      return h
-        .replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i,'/solo/$1.html')
-        .replace(/\/travel\/articles\/([a-z0-9\-]+)\.html(\b|$)/i,'/travel/$1.html');
-    }
+    function fix(h){return h.replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i,'/solo/$1.html');}
     function go(){ document.querySelectorAll('a[href]').forEach(a=>{ const o=a.getAttribute('href'); const n=fix(o||''); if(n!==o) a.setAttribute('href',n); }); }
     if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',go,{once:true});}else{go();}
   })();
@@ -111,7 +107,8 @@
   <script src="/assets/js/site-cache.js?v=3.010.049" defer></script>
   <script>
   if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.010.049').catch(()=>{}));
+    // earlier register so the menu JSON/image fetches can benefit on first paint
+    navigator.serviceWorker.register('/sw.js?v=3.010.049').catch(()=>{});
   }
   </script>
 
@@ -143,13 +140,13 @@
       *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
     }
     .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .visually-hidden-focusable:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--sea);border-radius:10px;z-index:9999}
+    .visually-hidden-focusable:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--sea);border-radius:10px;z-index:2147483647}
 
     /* Header / Nav (Unified v3.010) */
-    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;padding-top:6px}
-    .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .25rem;align-items:center;position:relative;z-index:50;line-height:1}
-    .brand{display:flex;align-items:center;gap:.6rem;min-height:34px}
-    .brand img{height:28px;width:auto;display:block}
+    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
+    .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem;align-items:center;position:relative;z-index:1000;min-height:52px}
+    .brand{display:flex;align-items:center;gap:.6rem}
+    .brand img{height:40px;width:auto;display:block} /* keep logo fully inside bar */
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
     .main-nav{display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;white-space:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-inline:.75rem}
@@ -157,7 +154,7 @@
     .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
     .nav-item > a.chip{text-decoration:none}
     .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-    .menu{position:absolute;left:0;top:calc(100% + .35rem);min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;z-index:100}
+    .menu{position:absolute;left:0;top:calc(100% + .35rem);min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;z-index:1001}
     .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem}
     .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink)}
     .menu a:hover{background:#f2f7fa;text-decoration:none}
@@ -165,11 +162,11 @@
 
     /* Hero */
     .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.010.049') center/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
-    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45);pointer-events:none}
     .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
     .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
     .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
-    .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
+    .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2}
 
     /* Layout */
     .planning-grid,.grid{display:grid;gap:1.2rem}
@@ -205,24 +202,24 @@
     #state-buttons .pill[aria-current="true"]{background:var(--sea);color:#fff;border-color:var(--sea)}
     #port-buttons{margin-top:.7rem}
     #port-buttons .pill{background:#f7fdff;border-color:var(--sea);color:var(--sea);font-weight:500}
-    #port-buttons .pill[aria-current="true"]{background:#var(--sea);color:#fff;border-color:var(--sea)}
-
-    /* Share bar */
-    #sharebar{position:fixed;right:12px;top:12px;z-index:60}
-    @media (max-width:720px){ #sharebar{position:fixed;right:8px;top:8px;transform:scale(.95)} }
+    #port-buttons .pill[aria-current="true"]{background:var(--sea);color:#fff;border-color:var(--sea)}
 
     /* Footer */
     footer.wrap{font-size:.92rem}
   </style>
 </head>
+
 <body class="page">
   <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
+
+  <!-- ===== Header (Normalized Nav) ===== -->
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.010.049" width="256" height="64" alt="In the Wake wordmark">
         <span class="tiny version-badge">v3.010.049</span>
       </div>
+
       <!-- Dropdown nav — Home · Planning▾ · Travel▾ · About -->
       <nav class="main-nav" aria-label="Primary">
         <div class="nav-item"><a class="chip" href="/">Home</a></div>
@@ -244,7 +241,7 @@
           </div>
         </div>
 
-                <div class="nav-item" aria-haspopup="true">
+        <div class="nav-item" aria-haspopup="true">
           <button class="chip" type="button" aria-expanded="false" aria-controls="menu-travel">
             Travel <span class="caret">▾</span>
           </button>
@@ -260,23 +257,23 @@
     </div>
 
     <!-- Hero -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+    <div class="hero" role="img" aria-label="Ship wake at sunrise" style="pointer-events:none">
       <div class="latlon-grid" aria-hidden="true"></div>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake.png?v=3.010.049" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.049" width="180" height="180" alt="" aria-hidden="true">
-      <div class="hero-credit">
+      <div class="hero-credit" style="pointer-events:auto">
         <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <!-- SOCIAL SHARE BAR (simple call) -->
-  <div id="sharebar" data-sharebar data-size="sm" data-shape="pill"></div>
-  <script src="/assets/js/sharebar.js?v=3.010.049" defer></script>
+  <!-- Social share bar -->
+  <div id="sharebar" class="wrap" aria-label="Share this page"></div>
 
+  <!-- ===== Main: content + RIGHT RAIL ===== -->
   <main id="content" class="wrap planning-grid" role="main">
     <!-- LEFT -->
     <div>
@@ -314,6 +311,7 @@
 
           <h3 style="margin-top:1rem">Steady Answers</h3>
           <div id="qa"></div>
+          
         </div>
       </section>
 
@@ -364,7 +362,7 @@
     <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.</p>
   </footer>
 
-  <!-- INLINE DATASET -->
+  <!-- INLINE DATASET (single source of truth) — FULL, UNTRIMMED -->
 <script id="planning-dataset" type="application/json">{
   "version":"0.7",
   "last_updated":"2025-10-20T00:00:00Z",
@@ -375,6 +373,7 @@
     "disclaimer":"Drive times are typical in light–moderate traffic; weather, events, or incidents can extend them."
   },
   "ports":[
+    /* === USA: FL === */
     {"slug":"port-miami","name":"PortMiami","city":"Miami","state":"FL","state_full":"Florida","country":"USA",
      "blurb":["PortMiami is polished and busy with the widest itinerary choice.","Traffic + causeways surge on embark Sundays—build margin."],
      "tips":["Prefer MIA for day-of flights; FLL can be cheaper.","Stay Downtown/Brickell for easy mornings."],
@@ -395,9 +394,13 @@
      ],
      "qa":[{"q":"Port parking or hotel?","a":"Port parking is easiest up to ~5 nights; ‘park & cruise’ hotel bundles can win on week-long trips."}],
      "lodging":[
-       {"name":"Holiday Inn Express Fort Lauderdale Cruise-Airport","url":"https://www.ihg.com/holidayinnexpress/hotels/us/en/fort-lauderdale/fllwc/hoteldetail","notes":"Close to the port and FLL; reasonable, clean, and consistently a good pre-cruise stay."}
+       {
+         "name":"Holiday Inn Express Fort Lauderdale Cruise-Airport",
+         "url":"https://www.ihg.com/holidayinnexpress/hotels/us/en/fort-lauderdale/fllwc/hoteldetail",
+         "notes":"Close to the port and FLL; reasonable, clean, and consistently a good pre-cruise stay."
+       }
      ]},
-      {"slug":"port-canaveral","name":"Port Canaveral","city":"Cape Canaveral","state":"FL","state_full":"Florida","country":"USA",
+    {"slug":"port-canaveral","name":"Port Canaveral","city":"Cape Canaveral","state":"FL","state_full":"Florida","country":"USA",
      "blurb":["Clean terminals + space-coast energy.","Orlando (MCO) gives the flight choice; shuttles/private cars are common."],
      "tips":["If flying into MCO, target before-noon arrivals.","Shared shuttles are cost-effective; private cars save time.","Stay Cocoa Beach the night before."],
      "warnings":["SR-528 weekend traffic can add 20–40 min.","Holiday weeks, Spring Break, and launches surge demand."],
@@ -471,7 +474,7 @@
      "blurb":["Walkable and flavorful; staying in the Warehouse District trims morning stress."],
      "tips":["MSY ~25–35 min; avoid tight connections.","Festival season swings pricing/traffic."],
      "warnings":["Parades/festivals reshape routes; river fog happens."],
-     "airports":[{"code":"MSY","name":"Louis Armstrong New Orleans","distance_miles":15,"typical_drive":"25–40 min"}]},
+     "airports":[{"code":"MSY","name":"Luis Armstrong New Orleans","distance_miles":15,"typical_drive":"25–40 min"}]},
     {"slug":"mobile","name":"Port of Mobile (Alabama)","city":"Mobile","state":"AL","state_full":"Alabama","country":"USA",
      "blurb":["Compact and friendly; a good drive-market choice."],
      "tips":["If flying, use MOB; many guests drive."],
@@ -522,318 +525,345 @@
   ]
 }</script>
 
-  <!-- DATASET PATCHER -->
+  <!-- SHARE BAR (mount only; script below) -->
+  <script src="/assets/js/sharebar.js?v=3.010.049" defer></script>
+
   <script>
-  (function(){
-    var el=document.getElementById('planning-dataset');
-    if(!el) return;
-    var txt=el.textContent||'';
-    var cleaned = txt.replace(/\/\*[\s\S]*?\*\//g,'').replace(/(^|[^:\\])\/\/.*$/gm,'$1');
-    try{
-      var data = JSON.parse(cleaned);
-      var p = (data.ports||[]).find(function(x){ return x && x.slug==='port-everglades'; });
-      if(p){
-        p.lodging = [
-          { name:"Holiday Inn Express Fort Lauderdale Cruise-Airport",
-            url:"https://www.ihg.com/holidayinnexpress/hotels/us/en/fort-lauderdale/fllwc/hoteldetail",
-            notes:"Close to the port and FLL; reasonable, clean, and consistently a good pre-cruise stay." }
-        ];
-        el.textContent = JSON.stringify(data, null, 2);
-      }
-    }catch(e){ console.error('Dataset patch failed:', e); }
+/* Inject lodging for Port Everglades into #planning-dataset JSON (runs before planner) */
+(function(){
+  var el=document.getElementById('planning-dataset');
+  if(!el) return;
+  var txt=el.textContent||'';
+
+  // Strip /* ... */ and // ... (but keep URLs)
+  var cleaned = txt.replace(/\/\*[\s\S]*?\*\//g,'')
+                   .replace(/(^|[^:\\])\/\/.*$/gm,'$1');
+
+  try{
+    var data = JSON.parse(cleaned);
+    var p = (data.ports||[]).find(function(x){ return x && x.slug==='port-everglades'; });
+    if(p){
+      p.lodging = [
+        {
+          name: "Holiday Inn Express Fort Lauderdale Cruise-Airport",
+          url: "https://www.ihg.com/holidayinnexpress/hotels/us/en/fort-lauderdale/fllwc/hoteldetail",
+          notes: "Close to the port and FLL; reasonable, clean, and consistently a good pre-cruise stay."
+        }
+      ];
+      el.textContent = JSON.stringify(data, null, 2);
+    }
+  }catch(e){
+    console.error('Dataset patch failed:', e);
+  }
+})();
+</script>
+
+  <!-- JOURNAL RAIL (Ken + Tina; image & link rewrites) -->
+<script>
+/* JOURNAL RAIL — up to 4 items, newest first, with fallbacks */
+(function(){
+  const V='3.010.049';
+  const MOUNT=document.getElementById('journal-rail');
+  const FALL=document.getElementById('journal-rail-fallback');
+  if(!MOUNT) return;
+
+  const abs=p=> (typeof _abs==='function'?_abs(p):p);
+  const PLACE_ART='/assets/placeholders/article-thumb.jpg?v='+V;
+
+  const SOURCES=[
+    '/assets/data/articles/index.json?v='+V,
+    '/travel/articles/index.json?v='+V,
+    '/solo/articles/index.json?v='+V
+  ];
+
+  const SEED=[
+    {url:'/travel/articles/visiting-or-moving-to-the-united-states.html',title:'Visiting (or Moving to) the United States',date:'2025-10-21',image:'/assets/articles/us-visit/cover.jpg?v='+V,author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
+    {url:'/articles/top-20-questions/index.html',title:'Top 20 First-Cruise Questions (Answered)',date:'2025-10-16',image:'/assets/articles/top-20-questions/cover.jpg?v='+V,author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
+    {url:'/solo/freedom-of-your-own-wake.html',title:'Freedom of Your Own Wake',date:'2024-08-13',image:'/assets/index_hero.jpg?v='+V,author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
+    {url:'/solo/why-i-started-solo-cruising.html',title:'Why I Started Solo Cruising',date:'2024-05-31',image:'',author:{name:'Tina Maulsby',url:'/authors/tina-maulsby.html'}}
+  ];
+
+  const IMAGE_MAP=[
+    { test:/freedom of your own wake/i, url:'/assets/index_hero.jpg?v='+V },
+    { test:/top\s*20.*first.*cruise.*questions/i, url:'/assets/articles/top-20-questions/cover.jpg?v='+V }
+  ];
+
+  // rewrite stub → full article
+  const LINK_REWRITE=[ 
+    { test:/\/travel\.html#top-20-questions/i, to:'/articles/top-20-questions/index.html' }
+  ];
+
+  const safeDate=d=>{ const t=Date.parse(d||''); return isNaN(t)?0:t; };
+  const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
+
+  function normalize(payload){
+    const list = Array.isArray(payload?.articles) ? payload.articles
+               : Array.isArray(payload) ? payload : [];
+    return list.map(a=>({
+      url:a.url||a.permalink||'#',
+      title:a.title||a.headline||'Article',
+      dek:a.dek||a.description||a.excerpt||'',
+      date:a.datePublished||a.date||'',
+      image:a.image||'',
+      author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
+    })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
+  }
+
+  function rewriteLink(u){
+    for(const rule of LINK_REWRITE){ if(rule.test.test(u)) return rule.to; }
+    return u;
+  }
+
+  function chooseImage(a){
+    if (a.image) return abs(a.image);
+    const hit = IMAGE_MAP.find(m=>m.test.test(a.title||''));
+    return abs(hit ? hit.url : PLACE_ART);
+  }
+
+  function card(a){
+    const url = rewriteLink(a.url);
+    const img=chooseImage(a);
+    const name=a.author?.name||'';
+    const authorUrl =a.author?.url ||'';
+    const date = safeDate(a.date) ? new Date(a.date).toLocaleDateString()+' · ' : '';
+    return `
+      <article class="rail-item">
+        <a class="thumb" href="${url}"><img src="${img}" alt=""></a>
+        <div class="meta">
+          <h4><a href="${url}">${esc(a.title)}</a></h4>
+          <p class="tiny muted">${date}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
+          ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
+        </div>
+      </article>`;
+  }
+
+  async function get(u){
+    try{ const r=await fetch(abs(u),{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
+    catch(_){ return []; }
+  }
+
+  (async function boot(){
+    if(FALL) FALL.style.display='';
+    let all=[];
+    for(const s of SOURCES){ all = all.concat(await get(s)); }
+    if(!all.length) all = normalize(SEED);
+
+    const seen=new Set();
+    all = all.filter(a=> (seen.has(a.url)?false:(seen.add(a.url),true)));
+
+    all.sort((a,b)=>safeDate(b.date)-safeDate(a.date));
+    MOUNT.innerHTML = all.slice(0,4).map(card).join('');
+    if(FALL) FALL.style.display='none';
   })();
-  </script>
+})();
+</script>
 
-  <!-- JOURNAL RAIL -->
-  <script>
-  (function(){
-    const V='3.010.049';
-    const MOUNT=document.getElementById('journal-rail');
-    const FALL=document.getElementById('journal-rail-fallback');
-    if(!MOUNT) return;
+  <!-- PLANNER RUNTIME -->
+ <script>
+/* PLANNER RUNTIME — JSONC parse, buttons, seasonal banner, airports, warnings, lodging, Q&A */
+(function(){
+  const dataEl=document.getElementById('planning-dataset');
+  if(!dataEl) return;
 
-    const abs=p=> (typeof _abs==='function'?_abs(p):p);
-    const PLACE_ART='/assets/placeholders/article-thumb.jpg?v='+V;
+  // JSON-with-comments parser
+  function parseJSONC(txt){
+    const noBlock = txt.replace(/\/\*[\s\S]*?\*\//g,'');
+    const noLine  = noBlock.replace(/(^|[^:\\])\/\/.*$/gm,'$1');
+    return JSON.parse(noLine);
+  }
 
-    const SOURCES=[
-      '/assets/data/articles/index.json?v='+V,
-      '/travel/articles/index.json?v='+V,
-      '/solo/articles/index.json?v='+V
-    ];
+  let data={};
+  try{ data=parseJSONC(dataEl.textContent||'{}'); }
+  catch(e){ console.error('Planning dataset parse error:', e); data={ports:[],signals:{}}; }
 
-    const SEED=[
-      {url:'/travel/top-20-questions.html',title:'Top 20 First-Cruise Questions (Answered)',date:'2025-10-16',image:'/assets/articles/top-20-questions/cover.jpg?v='+V,author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
-      {url:'/solo/freedom-of-your-own-wake.html',title:'Freedom of Your Own Wake',date:'2024-08-13',image:'/assets/index_hero.jpg?v='+V,author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
-      {url:'/solo/why-i-started-solo-cruising.html',title:'Why I Started Solo Cruising',date:'2024-05-31',image:'',author:{name:'Tina Maulsby',url:'/authors/tina-maulsby.html'}}
-    ];
+  const stateBtns = document.getElementById('state-buttons');
+  const portBtns  = document.getElementById('port-buttons');
+  const blurb     = document.getElementById('port-blurb');
+  const airports  = document.getElementById('airports');
+  const warns     = document.getElementById('warnings');
+  const qaMount   = document.getElementById('qa');
+  const seasonal  = document.getElementById('seasonal-banner');
+  const breaksEl  = document.getElementById('school-breaks');
 
-    const IMAGE_MAP=[
-      { test:/freedom of your own wake/i, url:'/assets/index_hero.jpg?v='+V },
-      { test:/top\s*20.*first.*cruise.*questions/i, url:'/assets/articles/top-20-questions/cover.jpg?v='+V }
-    ];
+  const STATE_NAMES={AL:'Alabama',CA:'California',FL:'Florida',LA:'Louisiana',MD:'Maryland',
+                     MA:'Massachusetts',NJ:'New Jersey',PR:'Puerto Rico',TX:'Texas',WA:'Washington',
+                     BC:'British Columbia',NSW:'New South Wales'};
 
-    const safeDate=d=>{ const t=Date.parse(d||''); return isNaN(t)?0:t; };
-    const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
+  function group(){
+    const by=new Map();
+    (data.ports||[]).forEach(p=>{
+      const label = p.country && p.country!=='USA'
+        ? p.country
+        : (p.state_full || STATE_NAMES[p.state] || p.state || '—');
+      if(!by.has(label)) by.set(label, []);
+      by.get(label).push(p);
+    });
+    for(const [k,list] of by){ list.sort((a,b)=>(a.name||'').localeCompare(b.name||'')); }
+    return by;
+  }
+  const byRegion = group();
 
-    function normalize(payload){
-      const list = Array.isArray(payload?.articles) ? payload.articles
-                 : Array.isArray(payload) ? payload : [];
-      return list.map(a=>{
-        const raw=a.url||a.permalink||'#';
-        const fixed= raw
-          .replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i,'/solo/$1.html')
-          .replace(/\/travel\/articles\/([a-z0-9\-]+)\.html(\b|$)/i,'/travel/$1.html');
-        return {
-          url: fixed,
-          title:a.title||a.headline||'Article',
-          dek:a.dek||a.description||a.excerpt||'',
-          date:a.datePublished||a.date||'',
-          image:a.image||'',
-          author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
-        };
-      }).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
+  function E(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+  function button(label,current,onclick){
+    const a=document.createElement('a'); a.href='#'; a.className='pill'; a.textContent=label;
+    if(current) a.setAttribute('aria-current','true');
+    a.addEventListener('click',e=>{e.preventDefault(); onclick&&onclick();});
+    return a;
+  }
+
+  function renderStateButtons(active){
+    stateBtns.innerHTML='';
+    Array.from(byRegion.keys())
+      .sort((a,b)=> (a==='Florida'?-1:b==='Florida'?1:a.localeCompare(b)))
+      .forEach(label=> stateBtns.appendChild(button(label, label===active, ()=>selectState(label))));
+  }
+  function renderPortButtons(list, activeSlug){
+    portBtns.innerHTML='';
+    list.forEach(p=> portBtns.appendChild(button(p.name, p.slug===activeSlug, ()=>selectPort(p.slug))));
+  }
+  function renderBreaks(){
+    const s=data.signals||{};
+    const parts=[
+      `<strong>Spring Break:</strong> ${E(s.spring_break?.window||'varies')} — ${E(s.spring_break?.notes||'')}`,
+      `<strong>Fall Break:</strong> ${E(s.fall_break?.window||'varies')} — ${E(s.fall_break?.notes||'')}`,
+      s.busy_days?.length? `<strong>Also Busy:</strong> ${s.busy_days.join(', ')}` : ''
+    ].filter(Boolean);
+    breaksEl.innerHTML=parts.map(x=>`<div>${x}</div>`).join('') + (s.disclaimer?`<div class="tiny muted" style="margin-top:.35rem">${E(s.disclaimer)}</div>`:'');
+  }
+
+  function renderPort(p){
+    blurb.innerHTML=(p.blurb||[]).map(par=>`<p>${E(par)}</p>`).join('') || `<p>${E(p.name)} — ${E(p.city)}</p>`;
+    const sig=data.signals||{};
+    seasonal.style.display='';
+    seasonal.innerHTML=`<strong>Heads-up:</strong> Spring Break (${E(sig.spring_break?.window||'varies')}) and Fall Break (${E(sig.fall_break?.window||'varies')}). ${E(sig.spring_break?.notes||'')}`;
+
+    airports.innerHTML=(p.airports||[]).map(a=>`
+      <div class="airport">
+        <div><span class="code">${E(a.code)}</span> — ${E(a.name)}</div>
+        <div class="tiny">${E(a.distance_miles)} mi · ${E(a.typical_drive||a.typical_drive_minutes||'—')}</div>
+        ${a.notes?`<div class="tiny muted">${E(a.notes)}</div>`:''}
+      </div>`).join('') || `<div class="tiny muted">No airport data.</div>`;
+
+    warns.innerHTML=(p.warnings||[]).map(w=>`<li>${E(w)}</li>`).join('') || `<li class="tiny muted">No special cautions.</li>`;
+
+    // Lodging (optional) — renders above Q&A when present
+    const hotels = Array.isArray(p.lodging) ? p.lodging : [];
+    const old = document.getElementById('lodging-block');
+    if (old) old.remove();
+    if (hotels.length){
+      const lodgingHTML = `
+        <div id="lodging-block">
+          <h3 style="margin-top:1rem">Where to Stay</h3>
+          <ul class="tiny">
+            ${hotels.map(h =>
+              `<li><a href="${E(h.url)}" rel="noopener external" target="_blank">${E(h.name)}</a>${h.notes ? ` — ${E(h.notes)}` : ''}</li>`
+            ).join('')}
+          </ul>
+        </div>`;
+      const qaEl = document.getElementById('qa');
+      if (qaEl) qaEl.insertAdjacentHTML('beforebegin', lodgingHTML);
     }
 
-    function chooseImage(a){
-      if (a.image) return abs(a.image);
-      const hit = IMAGE_MAP.find(m=>m.test.test(a.title||''));
-      return abs(hit ? hit.url : PLACE_ART);
-    }
+    qaMount.innerHTML=(p.qa||[]).map(q=>`<details class="qa"><summary>${E(q.q)}</summary><div class="tiny">${E(q.a)}</div></details>`).join('') || `<p class="tiny muted">No questions yet.</p>`;
+  }
 
-    function card(a){
-      const img=chooseImage(a);
-      const name=a.author?.name||'';
-      const url =a.author?.url ||'';
-      const date = safeDate(a.date) ? new Date(a.date).toLocaleDateString()+' · ' : '';
-      return `
-        <article class="rail-item">
-          <a class="thumb" href="${a.url}"><img src="${img}" alt=""></a>
-          <div class="meta">
-            <h4><a href="${a.url}">${esc(a.title)}</a></h4>
-            <p class="tiny muted">${date}${name?`<a class="author" href="${url}">${esc(name)}</a>`:''}</p>
-            ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
-          </div>
-        </article>`;
-    }
+  // selection logic
+  let currentLabel = byRegion.has('Florida') ? 'Florida' : Array.from(byRegion.keys())[0] || '';
+  let currentSlug  = (byRegion.get(currentLabel)||[])[0]?.slug || '';
 
-    async function get(u){
-      try{ const r=await fetch(abs(u),{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
-      catch(_){ return []; }
-    }
-
-    (async function boot(){
-      if(FALL) FALL.style.display='';
-      let all=[];
-      for(const s of SOURCES){ all = all.concat(await get(s)); }
-      if(!all.length) all = normalize(SEED);
-
-      const seen=new Set();
-      all = all.filter(a=> (seen.has(a.url)?false:(seen.add(a.url),true)));
-
-      all.sort((a,b)=>safeDate(b.date)-safeDate(a.date));
-      MOUNT.innerHTML = all.slice(0,4).map(card).join('');
-      if(FALL) FALL.style.display='none';
-    })();
-  })();
-  </script>
-    <!-- PLANNER RUNTIME -->
-  <script>
-  (function(){
-    const dataEl=document.getElementById('planning-dataset');
-    if(!dataEl) return;
-
-    function parseJSONC(txt){
-      const noBlock = txt.replace(/\/\*[\s\S]*?\*\//g,'');
-      const noLine  = noBlock.replace(/(^|[^:\\])\/\/.*$/gm,'$1');
-      return JSON.parse(noLine);
-    }
-
-    let data={};
-    try{ data=parseJSONC(dataEl.textContent||'{}'); }
-    catch(e){ console.error('Planning dataset parse error:', e); data={ports:[],signals:{}}; }
-
-    const stateBtns = document.getElementById('state-buttons');
-    const portBtns  = document.getElementById('port-buttons');
-    const blurb     = document.getElementById('port-blurb');
-    const airports  = document.getElementById('airports');
-    const warns     = document.getElementById('warnings');
-    const qaMount   = document.getElementById('qa');
-    const seasonal  = document.getElementById('seasonal-banner');
-    const breaksEl  = document.getElementById('school-breaks');
-
-    const STATE_NAMES={AL:'Alabama',CA:'California',FL:'Florida',LA:'Louisiana',MD:'Maryland',
-                       MA:'Massachusetts',NJ:'New Jersey',PR:'Puerto Rico',TX:'Texas',WA:'Washington',
-                       BC:'British Columbia',NSW:'New South Wales'};
-
-    function group(){
-      const by=new Map();
-      (data.ports||[]).forEach(p=>{
-        const label = p.country && p.country!=='USA'
-          ? p.country
-          : (p.state_full || STATE_NAMES[p.state] || p.state || '—');
-        if(!by.has(label)) by.set(label, []);
-        by.get(label).push(p);
-      });
-      for(const [k,list] of by){ list.sort((a,b)=>(a.name||'').localeCompare(b.name||'')); }
-      return by;
-    }
-    const byRegion = group();
-
-    function E(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
-    function button(label,current,onclick){
-      const a=document.createElement('a'); a.href='#'; a.className='pill'; a.textContent=label;
-      if(current) a.setAttribute('aria-current','true');
-      a.addEventListener('click',e=>{e.preventDefault(); onclick&&onclick();});
-      return a;
-    }
-
-    function renderStateButtons(active){
-      stateBtns.innerHTML='';
-      Array.from(byRegion.keys())
-        .sort((a,b)=> (a==='Florida'?-1:b==='Florida'?1:a.localeCompare(b)))
-        .forEach(label=> stateBtns.appendChild(button(label, label===active, ()=>selectState(label))));
-    }
-    function renderPortButtons(list, activeSlug){
-      portBtns.innerHTML='';
-      list.forEach(p=> portBtns.appendChild(button(p.name, p.slug===activeSlug, ()=>selectPort(p.slug))));
-    }
-    function renderBreaks(){
-      const s=data.signals||{};
-      const parts=[
-        `<strong>Spring Break:</strong> ${E(s.spring_break?.window||'varies')} — ${E(s.spring_break?.notes||'')}`,
-        `<strong>Fall Break:</strong> ${E(s.fall_break?.window||'varies')} — ${E(s.fall_break?.notes||'')}`,
-        s.busy_days?.length? `<strong>Also Busy:</strong> ${s.busy_days.join(', ')}` : ''
-      ].filter(Boolean);
-      breaksEl.innerHTML=parts.map(x=>`<div>${x}</div>`).join('') + (s.disclaimer?`<div class="tiny muted" style="margin-top:.35rem">${E(s.disclaimer)}</div>`:'');
-    }
-
-    function renderPort(p){
-      blurb.innerHTML=(p.blurb||[]).map(par=>`<p>${E(par)}</p>`).join('') || `<p>${E(p.name)} — ${E(p.city)}</p>`;
-      const sig=data.signals||{};
-      seasonal.style.display='';
-      seasonal.innerHTML=`<strong>Heads-up:</strong> Spring Break (${E(sig.spring_break?.window||'varies')}) and Fall Break (${E(sig.fall_break?.window||'varies')}). ${E(sig.spring_break?.notes||'')}`;
-
-      airports.innerHTML=(p.airports||[]).map(a=>`
-        <div class="airport">
-          <div><span class="code">${E(a.code)}</span> — ${E(a.name)}</div>
-          <div class="tiny">${E(a.distance_miles)} mi · ${E(a.typical_drive||a.typical_drive_minutes||'—')}</div>
-          ${a.notes?`<div class="tiny muted">${E(a.notes)}</div>`:''}
-        </div>`).join('') || `<div class="tiny muted">No airport data.</div>`;
-
-      warns.innerHTML=(p.warnings||[]).map(w=>`<li>${E(w)}</li>`).join('') || `<li class="tiny muted">No special cautions.</li>`;
-
-      // Lodging (optional) — renders above Q&A when present
-      const hotels = Array.isArray(p.lodging) ? p.lodging : [];
-      const old = document.getElementById('lodging-block');
-      if (old) old.remove();
-      if (hotels.length){
-        const lodgingHTML = `
-          <div id="lodging-block">
-            <h3 style="margin-top:1rem">Where to Stay</h3>
-            <ul class="tiny">
-              ${hotels.map(h =>
-                `<li><a href="${E(h.url)}" rel="noopener external" target="_blank">${E(h.name)}</a>${h.notes ? ` — ${E(h.notes)}` : ''}</li>`
-              ).join('')}
-            </ul>
-          </div>`;
-        const qaEl = document.getElementById('qa');
-        if (qaEl) qaEl.insertAdjacentHTML('beforebegin', lodgingHTML);
-      }
-
-      qaMount.innerHTML=(p.qa||[]).map(q=>`<details class="qa"><summary>${E(q.q)}</summary><div class="tiny">${E(q.a)}</div></details>`).join('') || `<p class="tiny muted">No questions yet.</p>`;
-    }
-
-    // selection logic
-    let currentLabel = byRegion.has('Florida') ? 'Florida' : Array.from(byRegion.keys())[0] || '';
-    let currentSlug  = (byRegion.get(currentLabel)||[])[0]?.slug || '';
-
-    function selectState(label){
-      currentLabel=label;
-      const list=byRegion.get(label)||[];
-      currentSlug=list[0]?.slug||'';
-      renderStateButtons(currentLabel);
-      renderPortButtons(list,currentSlug);
-      if(list[0]) renderPort(list[0]);
-    }
-    function selectPort(slug){
-      currentSlug=slug;
-      const list=byRegion.get(currentLabel)||[];
-      renderPortButtons(list,currentSlug);
-      const p=list.find(x=>x.slug===slug);
-      if(p) renderPort(p);
-    }
-
-    renderBreaks();
+  function selectState(label){
+    currentLabel=label;
+    const list=byRegion.get(label)||[];
+    currentSlug=list[0]?.slug||'';
     renderStateButtons(currentLabel);
-    selectState(currentLabel);
-    selectPort(currentSlug);
-  })();
-  </script>
+    renderPortButtons(list,currentSlug);
+    if(list[0]) renderPort(list[0]);
+  }
+  function selectPort(slug){
+    currentSlug=slug;
+    const list=byRegion.get(currentLabel)||[];
+    renderPortButtons(list,currentSlug);
+    const p=list.find(x=>x.slug===slug);
+    if(p) renderPort(p);
+  }
 
-  <!-- Unified Nav behavior -->
+  renderBreaks();
+  renderStateButtons(currentLabel);
+  selectState(currentLabel);
+  selectPort(currentSlug);
+})();
+</script>
+
+  <!-- Unified Nav a11y behavior (hover+click; resistant to hero overlay) -->
+ <script>
+(function(){
+  const groups=[...document.querySelectorAll('.nav-item[aria-haspopup="true"]')];
+  if(!groups.length) return;
+  const OPEN_DELAY=120, CLOSE_DELAY=260;
+  const timers=new WeakMap();
+
+  function setOpen(el, on){
+    if(!el) return;
+    el.classList.toggle('open', !!on);
+    const btn=el.querySelector('button.chip');
+    if(btn) btn.setAttribute('aria-expanded', on?'true':'false');
+  }
+  function clearTimer(el){ const t=timers.get(el); if(t){ clearTimeout(t); timers.delete(el);} }
+  function closeAll(except){ groups.forEach(g=>{ if(g!==except){ clearTimer(g); setOpen(g,false);} }); }
+
+  groups.forEach(g=>{
+    const btn=g.querySelector('button.chip');
+    const menu=g.querySelector('.menu');
+    if(!btn||!menu) return;
+
+    // Click toggle
+    btn.addEventListener('click', e=>{
+      e.preventDefault();
+      const on=g.classList.contains('open');
+      closeAll(g);
+      setOpen(g,!on);
+    });
+
+    // Keyboard
+    btn.addEventListener('keydown', e=>{
+      if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(g,true); (menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')||btn).focus(); }
+      if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
+    });
+    g.addEventListener('keydown', e=>{
+      if(e.key==='Escape'){ setOpen(g,false); (g.querySelector('button.chip')||document.body).focus?.(); }
+    });
+
+    // Hover open with delay
+    g.addEventListener('pointerenter', ()=>{
+      clearTimer(g);
+      timers.set(g, setTimeout(()=>{ closeAll(g); setOpen(g,true); }, OPEN_DELAY));
+    });
+
+    // Keep open while moving into menu; close after leave
+    g.addEventListener('pointerleave', (e)=>{
+      clearTimer(g);
+      const toEl=e.relatedTarget;
+      if(toEl && g.contains(toEl)) return;
+      timers.set(g, setTimeout(()=> setOpen(g,false), CLOSE_DELAY));
+    });
+    menu.addEventListener('pointerenter', ()=> clearTimer(g));
+  });
+
+  // Click outside closes menus
+  document.addEventListener('click', e=>{
+    if(!e.target.closest('.nav-item[aria-haspopup="true"]')) closeAll();
+  });
+})();
+</script>
+
+  <!-- Sharebar hydrate -->
   <script>
-  (function(){
-    const groups=[...document.querySelectorAll('.nav-item[aria-haspopup="true"]')];
-    const OPEN_DELAY=120;
-    const CLOSE_DELAY=260;
-
-    const timers=new WeakMap();
-
-    function setOpen(el, on){
-      if(!el) return;
-      el.classList.toggle('open', !!on);
-      const btn=el.querySelector('button.chip');
-      if(btn) btn.setAttribute('aria-expanded', on?'true':'false');
-    }
-    function clearTimer(el){ const t=timers.get(el); if(t){ clearTimeout(t); timers.delete(el);} }
-    function closeAll(except){ groups.forEach(g=>{ if(g!==except){ clearTimer(g); setOpen(g,false);} }); }
-
-    groups.forEach(g=>{
-      const btn=g.querySelector('button.chip');
-      const menu=g.querySelector('.menu');
-      if(!btn||!menu) return;
-
-      // Click toggle
-      btn.addEventListener('click', e=>{
-        e.preventDefault();
-        const on=g.classList.contains('open');
-        closeAll(g);
-        setOpen(g,!on);
-      });
-
-      // Keyboard
-      btn.addEventListener('keydown', e=>{
-        if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(g,true); (menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')||btn).focus(); }
-        if(e.key==='Escape'){ setOpen(g,false); btn.focus(); }
-      });
-      g.addEventListener('keydown', e=>{
-        if(e.key==='Escape'){ setOpen(g,false); (g.querySelector('button.chip')||document.body).focus?.(); }
-      });
-
-      // Hover open with delay
-      g.addEventListener('pointerenter', ()=>{
-        clearTimer(g);
-        timers.set(g, setTimeout(()=>{ closeAll(g); setOpen(g,true); }, OPEN_DELAY));
-      });
-
-      // Keep open while moving into menu; close after leave
-      g.addEventListener('pointerleave', (e)=>{
-        clearTimer(g);
-        const toEl=e.relatedTarget;
-        if(toEl && g.contains(toEl)) return;
-        timers.set(g, setTimeout(()=> setOpen(g,false), CLOSE_DELAY));
-      });
-      menu.addEventListener('pointerenter', ()=> clearTimer(g));
-    });
-
-    // Click outside closes menus
-    document.addEventListener('click', e=>{
-      if(!e.target.closest('.nav-item[aria-haspopup="true"]')) closeAll();
-    });
-  })();
+    (function(){
+      if(!document.getElementById('sharebar')) return;
+      if(typeof window.initSharebar==='function'){ window.initSharebar('#sharebar'); }
+      else{ window.addEventListener('load',()=>window.initSharebar&&window.initSharebar('#sharebar')); }
+    })();
   </script>
-
-  <!-- SOCIAL SHARE LOADER is included above; element is #sharebar -->
 
   <!-- Signature -->
   <!-- Soli Deo Gloria · Steward: abondservant · Path: /planning.html · Version: v3.010.049 -->
