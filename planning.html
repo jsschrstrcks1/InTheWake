@@ -6,7 +6,7 @@
 
   STANDARDS: Every Page v3.010 · Unified Nav v3.010 (dropdowns) · Right-Rail Articles+Author v3.008.025
   A11y/WCAG Addendum v3.100 · CMP/Consent v3.008.020 · FB Domain Verification v3.008.021
-  Page: /planning.html · v3.010.050 (inline, self-contained — no external styles.css)
+  Page: /planning.html · v3.010.051 (inline, self-contained — no external styles.css)
   GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
   -->
 
@@ -28,13 +28,13 @@
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#0e6e8e">
-  <meta name="version" content="3.010.050"/>
-  <meta name="page:version" content="3.010.050"/>
+  <meta name="version" content="3.010.051"/>
+  <meta name="page:version" content="3.010.051"/>
   <meta name="standards:baseline" content="3.010"/>
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
 
   <!-- SEO -->
-  <title>Planning — In the Wake (v3.010.050)</title>
+  <title>Planning — In the Wake (v3.010.051)</title>
   <meta name="description" content="Plan your voyage with confidence: calm guidance, departure ports, nearby airports, typical drive times, and gentle cautions—curated from real sailings." />
 
   <!-- Canonical & Social -->
@@ -44,7 +44,7 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/planning.html">
   <meta property="og:title" content="Planning — In the Wake">
   <meta property="og:description" content="Cruise planning made simple—timelines, airport-to-port tips, and steady answers in a gentle voice.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/planning-hero.jpg?v=3.010.050">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/planning-hero.jpg?v=3.010.051">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Breadcrumb JSON-LD -->
@@ -104,16 +104,16 @@
   </script>
 
   <!-- Site cache & SW -->
-  <script src="/assets/js/site-cache.js?v=3.010.050" defer></script>
+  <script src="/assets/js/site-cache.js?v=3.010.051" defer></script>
   <script>
   if('serviceWorker' in navigator){
     // earlier register so the menu JSON/image fetches can benefit on first paint
-    navigator.serviceWorker.register('/sw.js?v=3.010.050').catch(()=>{});
+    navigator.serviceWorker.register('/sw.js?v=3.010.051').catch(()=>{});
   }
   </script>
 
   <!-- LCP preload -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.050" fetchpriority="high">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.051" fetchpriority="high">
 
   <!-- ===== Inline CSS (self-contained) ===== -->
   <style>
@@ -132,7 +132,7 @@
     .center{text-align:center}
     .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
     .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
-    .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.010.050') center/contain no-repeat;opacity:.06;pointer-events:none}
+    .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.010.051') center/contain no-repeat;opacity:.06;pointer-events:none}
     h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
     /* A11y */
@@ -146,7 +146,7 @@
     .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
     .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem;align-items:center;position:relative;z-index:1000;min-height:52px}
     .brand{display:flex;align-items:center;gap:.6rem}
-    .brand img{height:40px;width:auto;display:block} /* keep logo fully inside bar */
+    .brand img{height:40px;width:auto;display:block} /* keeps logo inside bar; fixes “sticking off top” */
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
     .main-nav{display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;white-space:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-inline:.75rem}
@@ -161,12 +161,12 @@
     .nav-item.open .menu,.nav-item:focus-within .menu{display:block}
 
     /* Hero */
-    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.010.050') center/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
-    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45);pointer-events:none}
+    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.010.051') center/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;pointer-events:none}
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
     .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
     .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
-    .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
-    .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2}
+    .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
+    .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2;pointer-events:auto}
 
     /* Layout */
     .planning-grid,.grid{display:grid;gap:1.2rem}
@@ -201,7 +201,7 @@
     #state-buttons .pill{background:#fff;border-color:var(--rope,#cfd9df);color:var(--sea);font-weight:600}
     #state-buttons .pill[aria-current="true"]{background:var(--sea);color:#fff;border-color:var(--sea)}
     #port-buttons{margin-top:.7rem}
-    #port-buttons .pill{background:#f7fdff;border-color:var(--sea);color:var(--sea);font-weight:500}
+    #port-buttons .pill{background:#f7fdff;border-color:var(--sea);color:#sea;font-weight:500;color:var(--sea)}
     #port-buttons .pill[aria-current="true"]{background:var(--sea);color:#fff;border-color:var(--sea)}
 
     /* Footer */
@@ -216,8 +216,8 @@
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.050" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.010.050</span>
+        <img src="/assets/logo_wake.png?v=3.010.051" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.010.051</span>
       </div>
 
       <!-- Dropdown nav — Home · Planning▾ · Travel▾ · About -->
@@ -257,14 +257,14 @@
     </div>
 
     <!-- Hero -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise" style="pointer-events:none">
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.050" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.051" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.050" width="180" height="180" alt="" aria-hidden="true">
-      <div class="hero-credit" style="pointer-events:auto">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.051" width="180" height="180" alt="" aria-hidden="true">
+      <div class="hero-credit">
         <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
@@ -292,7 +292,7 @@
         </div>
       </section>
 
-      <section class="card" aria-labelledby="state-port-selector">
+            <section class="card" aria-labelledby="state-port-selector">
         <h2 id="state-port-selector">Find Your Departure</h2>
         <p class="tiny muted">Click a <strong>button</strong> for your state or country, then pick your port. We’ll show nearby airports, typical drives, and gentle cautions.</p>
 
@@ -311,7 +311,6 @@
 
           <h3 style="margin-top:1rem">Steady Answers</h3>
           <div id="qa"></div>
-          
         </div>
       </section>
 
@@ -341,9 +340,9 @@
         <article class="rail-item" role="article">
           <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
             <picture>
-              <source srcset="/authors/img/ken1.webp?v=3.010.050" type="image/webp">
-              <source srcset="/authors/img/ken1.jpg?v=3.010.050" type="image/jpeg">
-              <img src="/authors/img/ken1.png?v=3.010.050" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
+              <source srcset="/authors/img/ken1.webp?v=3.010.051" type="image/webp">
+              <source srcset="/authors/img/ken1.jpg?v=3.010.051" type="image/jpeg">
+              <img src="/authors/img/ken1.png?v=3.010.051" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
             </picture>
           </a>
           <div class="meta">
@@ -525,8 +524,8 @@
   ]
 }</script>
 
-  <!-- SHARE BAR (mount only; script below) -->
-  <script src="/assets/js/sharebar.js?v=3.010.050" defer></script>
+    <!-- SHARE BAR (mount only; script below) -->
+  <script src="/assets/js/sharebar.js?v=3.010.051" defer></script>
 
   <script>
 /* Inject lodging for Port Everglades into #planning-dataset JSON (runs before planner) */
@@ -534,11 +533,7 @@
   var el=document.getElementById('planning-dataset');
   if(!el) return;
   var txt=el.textContent||'';
-
-  // Strip /* ... */ and // ... (but keep URLs)
-  var cleaned = txt.replace(/\/\*[\s\S]*?\*\//g,'')
-                   .replace(/(^|[^:\\])\/\/.*$/gm,'$1');
-
+  var cleaned = txt.replace(/\/\*[\s\S]*?\*\//g,'').replace(/(^|[^:\\])\/\/.*$/gm,'$1');
   try{
     var data = JSON.parse(cleaned);
     var p = (data.ports||[]).find(function(x){ return x && x.slug==='port-everglades'; });
@@ -562,7 +557,7 @@
 <script>
 /* JOURNAL RAIL — up to 4 items, newest first, with fallbacks */
 (function(){
-  const V='3.010.050';
+  const V='3.010.051';
   const MOUNT=document.getElementById('journal-rail');
   const FALL=document.getElementById('journal-rail-fallback');
   if(!MOUNT) return;
@@ -589,7 +584,7 @@
   ];
 
   // rewrite stub → full article
-  const LINK_REWRITE=[ 
+  const LINK_REWRITE=[
     { test:/\/travel\.html#top-20-questions/i, to:'/articles/top-20-questions/index.html' }
   ];
 
@@ -665,7 +660,6 @@
   const dataEl=document.getElementById('planning-dataset');
   if(!dataEl) return;
 
-  // JSON-with-comments parser
   function parseJSONC(txt){
     const noBlock = txt.replace(/\/\*[\s\S]*?\*\//g,'');
     const noLine  = noBlock.replace(/(^|[^:\\])\/\/.*$/gm,'$1');
@@ -746,7 +740,7 @@
 
     warns.innerHTML=(p.warnings||[]).map(w=>`<li>${E(w)}</li>`).join('') || `<li class="tiny muted">No special cautions.</li>`;
 
-    // Lodging (optional) — renders above Q&A when present
+    // Lodging (optional)
     const hotels = Array.isArray(p.lodging) ? p.lodging : [];
     const old = document.getElementById('lodging-block');
     if (old) old.remove();
@@ -866,6 +860,6 @@
   </script>
 
   <!-- Signature -->
-  <!-- Soli Deo Gloria · Steward: abondservant · Path: /planning.html · Version: v3.010.050 -->
+  <!-- Soli Deo Gloria · Steward: abondservant · Path: /planning.html · Version: v3.010.051 -->
 </body>
 </html>
