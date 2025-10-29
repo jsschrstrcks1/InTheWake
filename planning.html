@@ -99,35 +99,55 @@
 
   <!-- Canonicalize /solo/articles/<slug> → /solo/<slug>.html; drop fragments; observe DOM injections -->
   <script>
-  (function(){
-    function canon(href){
-      if(!href) return href;
+(function(){
+  function isSameOrigin(u){
+    try{ return new URL(u, location.origin).origin === location.origin; }
+    catch(_){ return false; }
+  }
+
+  function canonSameOrigin(href){
+    const u = new URL(href, location.origin);
+
+    // Map /{solo|travel}/articles/<slug>[.html]? → /{solo|travel}/<slug>.html
+    u.pathname = u.pathname.replace(
+      /^\/(solo|travel)\/articles\/([a-z0-9\-]+)(?:\.html)?$/i,
+      '/$1/$2.html'
+    );
+
+    // Normalize .../index.html → .../
+    u.pathname = u.pathname.replace(/\/index\.html$/i, '/');
+
+    // Drop fragments on full-article routes
+    if (/^\/(solo|travel)\/[a-z0-9\-]+(?:\.html)?$/i.test(u.pathname)) u.hash = '';
+
+    // Return path+query for same-origin
+    return u.pathname + u.search;
+  }
+
+  function apply(root){
+    (root||document).querySelectorAll('a[href],link[href],img[src],script[src]').forEach(el=>{
+      const k = el.hasAttribute('href') ? 'href' : 'src';
+      const o = el.getAttribute(k) || '';
+      if (!isSameOrigin(o)) return;                 // ← leave externals alone
       try{
-        const u=new URL(href, location.origin);
-        const m=u.pathname.match(/^\/solo\/articles\/([a-z0-9\-]+)(?:\.html)?$/i);
-        if(m){u.pathname='/solo/'+m[1]+'.html';u.hash='';return u.pathname+u.search;}
-        if(/^\/solo\/[a-z0-9\-]+(?:\.html)?$/i.test(u.pathname)){u.hash='';return u.pathname+u.search;}
-        return u.pathname+u.search+u.hash;
-      }catch(_){
-        return String(href)
-          .replace(/(^|https?:\/\/[^\/]+)\/solo\/articles\/([a-z0-9\-]+)(?:\.html)?(\b|$)/i,(_,$1,slug)=>'/solo/'+slug+'.html')
-          .replace(/#.*/,'');
-      }
+        const n = canonSameOrigin(o);
+        if (n !== o) el.setAttribute(k, n);
+      }catch(_){ /* no-op */ }
+    });
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', ()=>apply(), {once:true});
+  } else {
+    apply();
+  }
+  new MutationObserver(muts=>{
+    for (const m of muts){
+      for (const n of m.addedNodes){ if (n.nodeType===1) apply(n); }
     }
-    function apply(root){
-      (root||document).querySelectorAll('a[href],link[href],img[src],script[src]').forEach(el=>{
-        const k=el.hasAttribute('href')?'href':'src';
-        const o=el.getAttribute(k)||'';
-        const n=canon(o);
-        if(n!==o) el.setAttribute(k,n);
-      });
-    }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>apply(),{once:true});}else{apply();}
-    new MutationObserver(muts=>{
-      for(const m of muts){for(const n of m.addedNodes){if(n.nodeType===1) apply(n);}}
-    }).observe(document.documentElement,{subtree:true,childList:true});
-  })();
-  </script>
+  }).observe(document.documentElement,{subtree:true,childList:true});
+})();
+</script>
 
   <!-- Site cache & SW (cache-busted) -->
   <script src="/assets/js/site-cache.js?v=3.010.063" defer></script>
@@ -532,112 +552,118 @@
   <script src="/assets/js/sharebar.js?v=3.010.063" defer></script>
 
   <!-- ===== Journal Rail (full articles only; exclude current) ===== -->
-  <script>
-  (function(){
-    const V='3.010.063';
-    const MOUNT=document.getElementById('journal-rail');
-    const FALL=document.getElementById('journal-rail-fallback');
-    if(!MOUNT) return;
+ <script>
+(function(){
+  const V='3.010.063';
+  const MOUNT=document.getElementById('journal-rail');
+  const FALL=document.getElementById('journal-rail-fallback');
+  if(!MOUNT) return;
 
-    const abs=p=> (/^https?:\/\//i.test(p)?p:(location.origin.replace(/\/$/,'') + (p.startsWith('/')?p:'/'.concat(p))));
-    const PLACE='/assets/placeholders/article-thumb.jpg?v='+V;
+  // ----- helpers
+  function rewriteToFull(u){
+    try{
+      const url=new URL(u, location.href);
+      // solo & travel fragments → full
+      url.pathname = url.pathname.replace(/^\/(solo|travel)\/articles\/([a-z0-9\-]+)(?:\.html)?$/i,'/$1/$2.html');
+      // known folder indexes → folder
+      url.pathname = url.pathname.replace(/\/index\.html$/i,'/');
+      // drop hash on full-article routes
+      if(/^\/(solo|travel)\/[a-z0-9\-]+(?:\.html)?$/i.test(url.pathname)) url.hash='';
+      return url.pathname + url.search;
+    }catch(_){ return u; }
+  }
 
-    function normPath(u){
-      try{
-        const url=new URL(u, location.href);
-        let p=url.pathname.replace(/\/index\.html$/i,'/').replace(/\/+$/,'');
-        p=p.replace(/#.*$/,'').replace(/\?.*$/,'');
-        p=p.replace(/^\/solo\/articles\/([a-z0-9\-]+)\.html$/i,'/solo/$1.html');
-        return p.toLowerCase();
-      }catch(_){ return String(u||'').toLowerCase(); }
-    }
-    const HERE = normPath(location.href);
+  function normPath(u){
+    try{
+      const url=new URL(u, location.href);
+      let p=url.pathname.toLowerCase();
+      p=p.replace(/\/index\.html$/i,'/').replace(/\/+$/,'').replace(/#.*/,'').replace(/\?.*/,'');
+      p=p.replace(/^\/(solo|travel)\/articles\/([a-z0-9\-]+)\.html$/i,'/$1/$2.html');
+      return p;
+    }catch(_){ return String(u||'').toLowerCase(); }
+  }
 
-    function rewrite(u){
-      try{
-        const url=new URL(u, location.href);
-        url.pathname=url.pathname.replace(/^\/solo\/articles\/([a-z0-9\-]+)\.html$/i,'/solo/$1.html');
-        if(url.pathname==='/travel.html' && /#top-20-questions/i.test(url.hash)) url.pathname='/articles/top-20-questions/';
-        url.hash='';
-        return url.pathname+url.search;
-      }catch(_){ return u; }
-    }
+  const HERE = normPath(location.href);
 
-    function chooseImage(rec){
-      if(rec.image) return abs(rec.image);
-      const t=(rec.title||'').toLowerCase();
-      if(/top\s*20.*first.*cruise.*questions/.test(t)) return abs('/assets/articles/top-20-questions/cover.jpg?v=3.010.039');
-      return abs(PLACE);
-    }
+  function chooseImage(rec){
+    if (rec.image) return rec.image;
+    const t=(rec.title||'').toLowerCase();
+    if (/top\s*20.*first.*cruise.*questions/.test(t))
+      return '/assets/articles/top-20-questions/cover.jpg?v=3.010.039';
+    return '/assets/placeholders/article-thumb.jpg?v='+V;
+  }
 
-    function normalize(payload){
-      const list = Array.isArray(payload?.articles) ? payload.articles
-                 : Array.isArray(payload) ? payload : [];
-      return list.map(a=>({
-        url: rewrite(a.url||a.permalink||'#'),
-        title:a.title||a.headline||'Article',
-        dek:a.dek||a.description||a.excerpt||'',
-        date:a.datePublished||a.date||'',
-        image:a.image||'',
-        author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
-      })).filter(a => a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
-    }
+  function normalize(payload){
+    const list = Array.isArray(payload?.articles) ? payload.articles
+               : Array.isArray(payload) ? payload : [];
+    return list.map(a=>({
+      url: rewriteToFull(a.url||a.permalink||'#'),
+      title: a.title||a.headline||'Article',
+      dek: a.dek||a.description||a.excerpt||'',
+      date: a.datePublished||a.date||'',
+      image: a.image||'',
+      author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
+    })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
+  }
 
-    function uniqueAndExclude(list){
-      const seen=new Set();
-      return list.filter(a=>{
-        const p=normPath(a.url);
-        if(p===HERE) return false;
-        if(seen.has(p)) return false;
-        seen.add(p);
-        return true;
-      });
-    }
+  function uniqueAndExclude(list){
+    const seen=new Set();
+    return list.filter(a=>{
+      const p=normPath(a.url);
+      if (p===HERE) return false;          // exclude current article/page
+      if (seen.has(p)) return false;
+      seen.add(p);
+      return true;
+    });
+  }
 
-    function card(a){
-      const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
-      const img=chooseImage(a);
-      const name=a.author?.name||'';
-      const au=a.author?.url||'';
-      const dt=Date.parse(a.date||'');
-      const when = isNaN(dt)? '' : (new Date(a.date)).toLocaleDateString()+' · ';
-      return `
-        <article class="rail-item">
-          <a class="thumb" href="${a.url}"><img src="${img}" alt=""></a>
-          <div class="meta">
-            <h4><a href="${a.url}">${esc(a.title)}</a></h4>
-            <p class="tiny muted">${when}${name?`<a class="author" href="${au}">${esc(name)}</a>`:''}</p>
-            ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
-          </div>
-        </article>`;
-    }
+  // ----- data load (unchanged)
+  const SOURCES=[
+    '/assets/data/articles/index.json?v='+V,
+    '/travel/articles/index.json?v='+V,
+    '/solo/articles/index.json?v='+V
+  ];
+  const SEED = normalize([
+    {url:'/articles/top-20-questions/', title:'Top 20 First-Cruise Questions (Answered)', date:'2025-10-16', image:'/assets/articles/top-20-questions/cover.jpg?v=3.010.039', author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
+    {url:'/solo/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', date:'2024-08-13', image:'/assets/index_hero.jpg?v='+V, author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
+    {url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', date:'2024-05-31', image:'', author:{name:'Tina Maulsby',url:'/authors/tina-maulsby.html'}}
+  ]);
 
-    const SOURCES=[
-      '/assets/data/articles/index.json?v='+V,
-      '/travel/articles/index.json?v='+V,
-      '/solo/articles/index.json?v='+V
-    ];
-    const SEED = normalize([
-      {url:'/articles/top-20-questions/', title:'Top 20 First-Cruise Questions (Answered)', date:'2025-10-16', image:'/assets/articles/top-20-questions/cover.jpg?v=3.010.039', author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
-      {url:'/solo/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', date:'2024-08-13', image:'/assets/index_hero.jpg?v='+V, author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
-      {url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', date:'2024-05-31', image:'', author:{name:'Tina Maulsby',url:'/authors/tina-maulsby.html'}}
-    ]);
+  const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
+  function card(a){
+    const img=chooseImage(a);
+    const name=a.author?.name||'';
+    const authorUrl=a.author?.url||'';
+    const dt=Date.parse(a.date||'');
+    const dateTxt = isNaN(dt)?'':(new Date(a.date)).toLocaleDateString()+' · ';
+    return `
+      <article class="rail-item">
+        <a class="thumb" href="${a.url}"><img src="${img}" alt=""></a>
+        <div class="meta">
+          <h4><a href="${a.url}">${esc(a.title)}</a></h4>
+          <p class="tiny muted">${dateTxt}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
+          ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
+        </div>
+      </article>`;
+  }
 
-    async function get(u){ try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }catch(_){ return []; } }
+  async function get(u){
+    try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
+    catch(_){ return []; }
+  }
 
-    (async function boot(){
-      if(FALL) FALL.style.display='';
-      let all=[];
-      for(const s of SOURCES){ all=all.concat(await get(s)); }
-      if(!all.length) all=SEED;
-
-      all=uniqueAndExclude(all);
-      all.sort((a,b)=> (Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0));
-      MOUNT.innerHTML=all.slice(0,4).map(card).join('');
-      if(FALL) FALL.style.display='none';
-    })();
+  (async function boot(){
+    if(FALL) FALL.style.display='';
+    let all=[];
+    for(const s of SOURCES){ all = all.concat(await get(s)); }
+    if(!all.length) all = SEED;
+    all = uniqueAndExclude(all)
+      .sort((a,b)=>(Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0));
+    MOUNT.innerHTML = all.slice(0,4).map(card).join('');
+    if(FALL) FALL.style.display='none';
   })();
-  </script>
+})();
+</script>
 
   <!-- ===== Planner Runtime ===== -->
   <script>
