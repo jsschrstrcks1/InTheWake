@@ -3,13 +3,7 @@
 <head>
   <!--
   Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.
-
-  STANDARDS: Every Page v3.010 · Unified Nav v3.010 (dropdowns) · Right-Rail Articles+Author v3.008.025
-  A11y/WCAG Addendum v3.100 · CMP/Consent v3.008.020 · FB Domain Verification v3.008.021
-  Page: /planning.html · v3.010.047 (inline, self-contained — no external styles.css)
-  GUARD RAIL: DO NOT REMOVE OR CHANGE USER-APPROVED VERBIAGE.
   -->
-
   <!-- Consent (autoblocking) -->
   <script type="text/javascript" data-cmp-ab="1"
     src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
@@ -17,12 +11,9 @@
     data-cmp-cdn="cdn.consentmanager.net"
     data-cmp-codesrc="16"></script>
 
-  <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WZP891PZXJ');</script>
-
-  <!-- Core meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
@@ -32,12 +23,7 @@
   <meta name="page:version" content="3.010.045"/>
   <meta name="standards:baseline" content="3.010"/>
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x"/>
-
-  <!-- SEO -->
   <title>Planning — In the Wake (v3.010.047)</title>
-  <meta name="description" content="Plan your voyage with confidence: calm guidance, departure ports, nearby airports, typical drive times, and gentle cautions—curated from real sailings." />
-
-  <!-- Canonical & Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/planning.html"/>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="In the Wake">
@@ -46,8 +32,6 @@
   <meta property="og:description" content="Cruise planning made simple—timelines, airport-to-port tips, and steady answers in a gentle voice.">
   <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/planning-hero.jpg?v=3.010.045">
   <meta name="twitter:card" content="summary_large_image">
-
-  <!-- Breadcrumb JSON-LD -->
   <script type="application/ld+json">{
     "@context":"https://schema.org","@type":"BreadcrumbList",
     "itemListElement":[
@@ -55,8 +39,6 @@
       {"@type":"ListItem","position":2,"name":"Planning","item":"https://www.cruisinginthewake.com/planning.html"}
     ]
   }</script>
-
-  <!-- URL normalizer -->
   <script>
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
@@ -71,8 +53,6 @@
     if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
   })();
   </script>
-
-  <!-- External link hardener -->
   <script>
   (function(){
     const here=location.hostname.replace(/^www\./,'');
@@ -93,8 +73,6 @@
     if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}else{upgrade();}
   })();
   </script>
-
-  <!-- Normalize /solo/articles/<slug>.html → /solo/<slug>.html -->
   <script>
   (function(){
     function fix(h){return h.replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i,'/solo/$1.html');}
@@ -102,19 +80,13 @@
     if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',go,{once:true});}else{go();}
   })();
   </script>
-
-  <!-- Site cache & SW -->
   <script src="/assets/js/site-cache.js?v=3.010.045" defer></script>
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.010.045').catch(()=>{}));
   }
   </script>
-
-  <!-- LCP preload -->
   <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.045" fetchpriority="high">
-
-  <!-- ===== Inline CSS (self-contained) ===== -->
   <style>
     :root{
       --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
@@ -207,69 +179,63 @@
     footer.wrap{font-size:.92rem}
   </style>
 </head>
-
 <body class="page">
   <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
-
-  <!-- ===== Header (Normalized Nav) ===== -->
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.010.045" width="256" height="64" alt="In the Wake wordmark">
         <span class="tiny version-badge">v3.010.047</span>
       </div>
+  <!-- Dropdown nav — Home · Planning▾ · Travel▾ · About -->
+  <nav class="main-nav" aria-label="Primary">
+    <div class="nav-item"><a class="chip" href="/">Home</a></div>
 
-      <!-- Dropdown nav — Home · Planning▾ · Travel▾ · About -->
-      <nav class="main-nav" aria-label="Primary">
-        <div class="nav-item"><a class="chip" href="/">Home</a></div>
-
-        <div class="nav-item" aria-haspopup="true">
-          <button class="chip" type="button" aria-expanded="false" aria-controls="menu-planning">
-            Planning <span class="caret">▾</span>
-          </button>
-          <div id="menu-planning" class="menu" role="menu" aria-label="Planning">
-            <div class="label tiny">Plan your cruise</div>
-            <a role="menuitem" href="/planning.html" aria-current="page">Planning (overview)</a>
-            <a role="menuitem" href="/ports.html">Ports</a>
-            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a role="menuitem" href="/ships.html">Ships</a>
-            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
-            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-            <a role="menuitem" href="/accessibility.html">Accessibility</a>
-          </div>
-        </div>
-
-        <div class="nav-item" aria-haspopup="true">
-          <button class="chip" type="button" aria-expanded="false" aria-controls="menu-travel">
-            Travel <span class="caret">▾</span>
-          </button>
-          <div id="menu-travel" class="menu" role="menu" aria-label="Travel">
-            <div class="label tiny">On the move</div>
-            <a role="menuitem" href="/travel.html">Travel (overview)</a>
-            <a role="menuitem" href="/solo.html">Solo</a>
-          </div>
-        </div>
-
-        <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
-      </nav>
-    </div>
-
-    <!-- Hero -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.045" width="256" height="64" alt="In the Wake">
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
-      </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.045" width="180" height="180" alt="" aria-hidden="true">
-      <div class="hero-credit">
-        <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+    <div class="nav-item" aria-haspopup="true">
+      <button class="chip" type="button" aria-expanded="false" aria-controls="menu-planning">
+        Planning <span class="caret">▾</span>
+      </button>
+      <div id="menu-planning" class="menu" role="menu" aria-label="Planning">
+        <div class="label tiny">Plan your cruise</div>
+        <a role="menuitem" href="/planning.html" aria-current="page">Planning (overview)</a>
+        <a role="menuitem" href="/ports.html">Ports</a>
+        <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a role="menuitem" href="/ships.html">Ships</a>
+        <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+        <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+        <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+        <a role="menuitem" href="/accessibility.html">Accessibility</a>
       </div>
     </div>
+
+    <div class="nav-item" aria-haspopup="true">
+      <button class="chip" type="button" aria-expanded="false" aria-controls="menu-travel">
+        Travel <span class="caret">▾</span>
+      </button>
+      <div id="menu-travel" class="menu" role="menu" aria-label="Travel">
+        <div class="label tiny">On the move</div>
+        <a role="menuitem" href="/travel.html">Travel (overview)</a>
+        <a role="menuitem" href="/solo.html">Solo</a>
+      </div>
+    </div>
+
+    <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
+  </nav>
+</div>
+
+<!-- Hero -->
+<div class="hero" role="img" aria-label="Ship wake at sunrise">
+  <div class="latlon-grid" aria-hidden="true"></div>
+  <div class="hero-title">
+    <img class="logo" src="/assets/logo_wake.png?v=3.010.045" width="256" height="64" alt="In the Wake">
+    <div class="tagline">A Cruise Traveler’s Logbook</div>
+  </div>
+  <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.045" width="180" height="180" alt="" aria-hidden="true">
+  <div class="hero-credit">
+    <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+  </div>
+</div>
   </header>
-
-  <!-- ===== Main: content + RIGHT RAIL ===== -->
   <main id="content" class="wrap planning-grid" role="main">
     <!-- LEFT -->
     <div>
@@ -287,78 +253,74 @@
           </ul>
         </div>
       </section>
+  <section class="card" aria-labelledby="state-port-selector">
+    <h2 id="state-port-selector">Find Your Departure</h2>
+    <p class="tiny muted">Click a <strong>button</strong> for your state or country, then pick your port. We’ll show nearby airports, typical drives, and gentle cautions.</p>
 
-      <section class="card" aria-labelledby="state-port-selector">
-        <h2 id="state-port-selector">Find Your Departure</h2>
-        <p class="tiny muted">Click a <strong>button</strong> for your state or country, then pick your port. We’ll show nearby airports, typical drives, and gentle cautions.</p>
+    <nav class="buttons" id="state-buttons" aria-label="States & Countries"></nav>
+    <nav class="buttons" id="port-buttons"  aria-label="Ports by Selection" style="margin-top:.6rem"></nav>
 
-        <nav class="buttons" id="state-buttons" aria-label="States & Countries"></nav>
-        <nav class="buttons" id="port-buttons"  aria-label="Ports by Selection" style="margin-top:.6rem"></nav>
+    <div id="port-panel" style="margin-top:1rem">
+      <section class="prose" id="port-blurb"></section>
+      <div class="banner warn tiny" id="seasonal-banner" style="display:none;margin-top:.6rem"></div>
 
-        <div id="port-panel" style="margin-top:1rem">
-          <section class="prose" id="port-blurb"></section>
-          <div class="banner warn tiny" id="seasonal-banner" style="display:none;margin-top:.6rem"></div>
+      <h3 style="margin-top:1rem">Nearby Airports &amp; Typical Drives</h3>
+      <div class="grid-airports" id="airports"></div>
 
-          <h3 style="margin-top:1rem">Nearby Airports &amp; Typical Drives</h3>
-          <div class="grid-airports" id="airports"></div>
+      <h3 style="margin-top:1rem">Gentle Cautions</h3>
+      <ul id="warnings" class="tiny"></ul>
 
-          <h3 style="margin-top:1rem">Gentle Cautions</h3>
-          <ul id="warnings" class="tiny"></ul>
-
-          <h3 style="margin-top:1rem">Steady Answers</h3>
-          <div id="qa"></div>
-          
-        </div>
-      </section>
-
-      <section class="card" aria-labelledby="timing">
-        <h2 id="timing">Timing That Loves Your Future Self</h2>
-        <div class="banner tiny" id="school-breaks"></div>
-      </section>
-
-      <section class="card" aria-labelledby="space-launch">
-        <h2 id="space-launch">Space Coast Launches</h2>
-        <p class="tiny muted">Sailing from Port Canaveral? You might catch a rocket. Check the live schedule:</p>
-        <p><a class="pill" href="https://spaceflightnow.com/launch-schedule/" rel="noopener external">Spaceflight Now — Launch Schedule</a></p>
-      </section>
+      <h3 style="margin-top:1rem">Steady Answers</h3>
+      <div id="qa"></div>
+      
     </div>
+  </section>
 
-    <!-- RIGHT RAIL -->
-    <aside class="rail" aria-label="Right rail">
-      <section class="card" aria-labelledby="jr-title">
-        <h3 id="jr-title">From the Journal</h3>
-        <p class="tiny muted">Articles from our writers’ wakes.</p>
-        <div class="rail" id="journal-rail"></div>
-        <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
-      </section>
+  <section class="card" aria-labelledby="timing">
+    <h2 id="timing">Timing That Loves Your Future Self</h2>
+    <div class="banner tiny" id="school-breaks"></div>
+  </section>
 
-      <section class="card" aria-labelledby="author-title">
-        <h3 id="author-title">About the Author</h3>
-        <article class="rail-item" role="article">
-          <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
-            <picture>
-              <source srcset="/authors/img/ken1.webp?v=3.010.045" type="image/webp">
-              <source srcset="/authors/img/ken1.jpg?v=3.010.045" type="image/jpeg">
-              <img src="/authors/img/ken1.png?v=3.010.045" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
-            </picture>
-          </a>
-          <div class="meta">
-            <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-            <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
-            <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a></p>
-          </div>
-        </article>
-      </section>
-    </aside>
+  <section class="card" aria-labelledby="space-launch">
+    <h2 id="space-launch">Space Coast Launches</h2>
+    <p class="tiny muted">Sailing from Port Canaveral? You might catch a rocket. Check the live schedule:</p>
+    <p><a class="pill" href="https://spaceflightnow.com/launch-schedule/" rel="noopener external">Spaceflight Now — Launch Schedule</a></p>
+  </section>
+</div>
+
+<!-- RIGHT RAIL -->
+<aside class="rail" aria-label="Right rail">
+  <section class="card" aria-labelledby="jr-title">
+    <h3 id="jr-title">From the Journal</h3>
+    <p class="tiny muted">Articles from our writers’ wakes.</p>
+    <div class="rail" id="journal-rail"></div>
+    <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
+  </section>
+
+  <section class="card" aria-labelledby="author-title">
+    <h3 id="author-title">About the Author</h3>
+    <article class="rail-item" role="article">
+      <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.045" type="image/webp">
+          <source srcset="/authors/img/ken1.jpg?v=3.010.045" type="image/jpeg">
+          <img src="/authors/img/ken1.png?v=3.010.045" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
+        </picture>
+      </a>
+      <div class="meta">
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
+        <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a></p>
+      </div>
+    </article>
+  </section>
+</aside>
   </main>
-
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.</p>
   </footer>
-
-  <!-- INLINE DATASET (single source of truth) — FULL, UNTRIMMED -->
 <script id="planning-dataset" type="application/json">{
   "version":"0.7",
   "last_updated":"2025-10-20T00:00:00Z",
@@ -520,7 +482,6 @@
      "airports":[{"code":"MEL","name":"Melbourne (Tullamarine)","distance_miles":17,"typical_drive":"25–45 min"}]}
   ]
 }</script>
-
   <script>
 /* Inject lodging for Port Everglades into #planning-dataset JSON (runs before planner) */
 (function(){
@@ -551,8 +512,6 @@
   }
 })();
 </script>
-
-  <!-- JOURNAL RAIL (Ken + Tina; hard image & avatar fallbacks + mapping) -->
 <script>
 /* JOURNAL RAIL — up to 4 items, newest first, with fallbacks */
 (function(){
@@ -639,8 +598,6 @@
   })();
 })();
 </script>
-
-  <!-- PLANNER RUNTIME (robust JSONC parsing + buttons render) -->
  <script>
 /* PLANNER RUNTIME — JSONC parse, buttons, seasonal banner, airports, warnings, lodging, Q&A */
 (function(){
@@ -775,8 +732,6 @@
   selectPort(currentSlug);
 })();
 </script>
-
-  <!-- Unified Nav a11y behavior (small helper) -->
  <script>
 (function(){
   const groups=[...document.querySelectorAll('.nav-item[aria-haspopup="true"]')];
@@ -838,8 +793,18 @@
   });
 })();
 </script>
-
-  <!-- Signature -->
-  <!-- Soli Deo Gloria · Steward: abondservant · Path: /planning.html · Version: v3.010.047 -->
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+    
