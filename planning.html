@@ -209,7 +209,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
   background:#eaf6f6;
 }
 
-.brand{display:flex;align-items:center;gap:.6rem}
+.brand{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
 .brand img{height:40px;width:auto;display:block}
 .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
@@ -325,7 +325,8 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
 .hero-title .logo{
   width:clamp(189px,23.1vw,378px);
-  max-width:min(45vw,520px);
+  max-width:min(90vw,520px);
+  height:auto;
   filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));
 }
 
@@ -396,6 +397,14 @@ details.qa + details.qa{margin-top:.5rem}
 
 /* Footer */
 footer.wrap{font-size:.92rem}
+    overflow-x:auto;
+overflow-y:visible;
+padding-bottom:1px; /* safeguards overflow-y */
+.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;isolation:isolate}
+.navbar{position:relative;z-index:3000}
+.menu{position:absolute;z-index:4000}
+.hero{position:relative;z-index:0}
+.menu{pointer-events:auto}
   </style>
 </head>
 
