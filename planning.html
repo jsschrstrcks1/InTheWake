@@ -2,351 +2,88 @@
 <html lang="en">
 <head>
   <!--
-  Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.
+  Soli Deo Gloria — every pixel and paragraph offered in gratitude.
 
-  STANDARDS: Every Page v3.010 · Unified Nav v3.010 (dropdowns fixed) · Right-Rail v3.008.025 (patched)
-  A11y/WCAG Addendum v3.100 · CMP/Consent v3.008.020 · FB Domain Verification v3.008.021
-  Page: /planning.html · v3.010.070 (self-contained)
+  STANDARDS: Every Page v3.010 · Unified Nav v3.010 (dropdowns hardened)
+  Right-Rail v3.008.025 (patched) · A11y/WCAG Addendum v3.100
+  CMP v3.008.020 · FB Verification v3.008.021
+  Page: /planning.html · v3.010.071 (self-contained)
   -->
-
-  <!-- CMP / analytics trimmed for brevity -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="version" content="3.010.070"/>
-
-  <title>Planning — In the Wake (v3.010.070)</title>
+  <meta name="version" content="3.010.071"/>
+  <title>Planning — In the Wake (v3.010.071)</title>
   <link rel="canonical" href="https://www.cruisinginthewake.com/planning.html"/>
 
-  <!-- ===== Inline CSS (patched) ===== -->
- <style>
-:root{
-  --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-  --shadow:0 2px 6px rgba(8,48,65,.08);
-  --shadow-lg:0 10px 28px rgba(8,48,65,.14); /* slightly deeper for contrast */
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;overflow-x:hidden}
-body{
-  font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  color:var(--ink);
-  background:var(--sky)
-}
-img{max-width:100%;height:auto;display:block}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-.tiny{font-size:.9rem;color:#456}
-.muted{opacity:.85}
-.center{text-align:center}
-.pill{
-  display:inline-block;
-  padding:.45rem .75rem;
-  border:1px solid var(--rope);
-  border-radius:999px;
-  background:#fff;
-  line-height:1.1
-}
-.card{
-  background:#fff;
-  border:2px solid var(--rope);
-  border-radius:14px;
-  padding:1rem;
-  box-shadow:var(--shadow);
-  margin:.8rem 0;
-  position:relative;
-  overflow:hidden
-}
-.card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  margin:auto;
-  width:min(60%,360px);
-  height:min(60%,360px);
-  background:url('/assets/watermark.png?v=3.010.070') center/contain no-repeat;
-  opacity:.06;
-  pointer-events:none
-}
-h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
+  <!-- ===== Inline CSS (dropdown + hero fixes applied) ===== -->
+  <style>
+  :root{
+    --sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e;
+    --shadow:0 2px 6px rgba(8,48,65,.08);
+    --shadow-lg:0 10px 28px rgba(8,48,65,.14);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;overflow-x:hidden}
+  body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+  img{max-width:100%;height:auto;display:block}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+  .tiny{font-size:.9rem;color:#456}.muted{opacity:.85}.center{text-align:center}
+  .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
+  .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
+  .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);
+    background:url('/assets/watermark.png?v=3.010.071') center/contain no-repeat;opacity:.06;pointer-events:none}
+  h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
-/* A11y */
-@media (prefers-reduced-motion:reduce){
-  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-}
-.visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-.visually-hidden-focusable:focus{
-  position:fixed;left:12px;top:12px;width:auto;height:auto;
-  padding:.45rem .7rem;background:#fff;border:2px solid var(--sea);
-  border-radius:10px;z-index:2147483647
-}
+  /* ===== Nav / Dropdown Fixes ===== */
+  .hero-header{position:relative;z-index:0;border-bottom:6px double var(--rope);background:#eaf6f6;isolation:isolate;overflow:visible}
+  .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .75rem;align-items:center;
+    position:relative;z-index:9000;min-height:56px;background:#eaf6f6;overflow:visible}
+  .brand{display:flex;align-items:center;gap:.6rem}
+  .brand img{height:40px;width:auto;display:block}
+  .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-/* ===== Header / Nav ===== */
-.hero-header{
-  position:relative;
-  border-bottom:6px double var(--rope);
-  background:#eaf6f6;
-  isolation:isolate;
-}
-.navbar{
-  max-width:1100px;
-  margin:0 auto;
-  display:flex;
-  gap:.6rem;
-  padding:.35rem .9rem .45rem; /* tighter base, slight bottom for spacing */
-  align-items:center;
-  position:relative;
-  z-index:3000;
-  min-height:56px;
-  background:#eaf6f6;
-  overflow-y:visible;
-}
-.brand{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
-.brand img{height:40px;width:auto;display:block}
-.version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
+  .main-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap;
+    overflow:visible;padding-inline:.75rem;padding-bottom:1px;scrollbar-width:thin}
+  .nav-item{position:relative}
+  .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
+    border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
+  .nav-item>a.chip{text-decoration:none}
+  .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;
+    box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
 
-/* Main Nav */
-.main-nav{
-  display:flex;
-  gap:.5rem;
-  flex:1 1 auto;
-  min-width:0;
-  align-items:center;
-  justify-content:center;
-  white-space:nowrap;
-  overflow-x:auto;
-  overflow-y:visible;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:thin;
-  padding-inline:.75rem;
-  padding-bottom:1px;
-}
-.nav-item{position:relative}
-.chip{
-  display:inline-flex;
-  align-items:center;
-  gap:.35rem;
-  padding:.35rem .7rem;
-  border-radius:10px;
-  background:#fff;
-  border:1px solid var(--rope);
-  color:var(--accent);
-  font-size:.95rem;
-  cursor:pointer;
-}
-.nav-item > a.chip{text-decoration:none}
-.chip[aria-current="page"]{
-  outline:3px dashed var(--rope);
-  outline-offset:2px;
-  box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
-}
+  .nav-item .menu{position:absolute;left:0;top:100%;transform:translateY(.35rem);
+    min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;
+    box-shadow:var(--shadow-lg);padding:.6rem;display:none;z-index:10000;pointer-events:auto}
+  .main-nav .nav-item.open>.menu,
+  .main-nav .nav-item:focus-within>.menu{display:block!important}
+  .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
+  .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink)}
+  .menu a:hover{background:#f2f7fa;text-decoration:none}
 
-/* Dropdown Menus (anchored correctly) */
-.nav-item .menu{
-  position:absolute;
-  left:0;
-  top:100%;
-  transform:translateY(0.35rem);
-  min-width:240px;
-  background:#fff;
-  border:1px solid var(--rope);
-  border-radius:12px;
-  box-shadow:var(--shadow-lg);
-  padding:.6rem;
-  display:none;
-  z-index:4000;
-  pointer-events:auto;
-}
-.main-nav .nav-item.open > .menu,
-.main-nav .nav-item:focus-within > .menu{
-  display:block !important;
-}
-.menu .label{
-  font-weight:600;
-  color:#234;
-  margin:.15rem .2rem .35rem;
-  font-size:.9rem;
-}
-.menu a{
-  display:block;
-  padding:.45rem .6rem;
-  border-radius:.6rem;
-  color:var(--ink);
-  text-decoration:none;
-}
-.menu a:hover{background:#f2f7fa;text-decoration:none}
+  /* ===== Hero Adjustments ===== */
+  .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);
+    background:url('/assets/index_hero.jpg?v=3.010.071') center 38%/cover no-repeat;
+    display:flex;align-items:flex-end;overflow:hidden;margin-top:.15rem;z-index:0}
+  .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);
+    display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+  .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(90vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+  .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
+  .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;
+    filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
+  .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2}
+  /* ===== Layout ===== */
+  .planning-grid{display:grid;gap:1.2rem}
+  @media(min-width:1060px){.planning-grid{grid-template-columns:minmax(0,1fr) 360px}}
+  footer.wrap{font-size:.92rem}
+  </style>
 
-/* ===== Hero ===== */
-.hero{
-  position:relative;
-  width:100%;
-  min-height:clamp(200px,24vw,340px);
-  background:url('/assets/index_hero.jpg?v=3.010.070') center/cover no-repeat;
-  display:flex;
-  align-items:flex-end;
-  overflow:hidden;
-  z-index:0;
-}
-.hero::before{content:"";position:absolute;inset:0;pointer-events:none}
-.hero-title{
-  position:absolute;
-  left:min(3vw,1rem);
-  bottom:clamp(.6rem,2vw,1.4rem);
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:.35rem;
-  text-shadow:0 2px 6px rgba(0,0,0,.45);
-  pointer-events:none;
-}
-.hero-title .logo{
-  width:clamp(189px,23.1vw,378px);
-  max-width:min(90vw,520px);
-  height:auto;
-  filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));
-}
-.tagline{
-  font-weight:700;
-  letter-spacing:.2px;
-  color:#e6f4f8;
-  font-size:clamp(.9rem,1.5vw,1.35rem);
-  white-space:nowrap;
-}
-.hero-compass{
-  position:absolute;
-  right:min(3vw,1rem);
-  top:.5rem;
-  width:86px;
-  opacity:.95;
-  filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);
-  pointer-events:none;
-}
-.hero-credit{
-  position:absolute;
-  right:.85rem;
-  bottom:.85rem;
-  z-index:2;
-}
-
-/* ===== Layout / Grid ===== */
-.planning-grid{display:grid;gap:1.2rem}
-@media(min-width:1060px){
-  .planning-grid{grid-template-columns:minmax(0,1fr) 360px}
-}
-.buttons{display:flex;flex-wrap:wrap;gap:.45rem .5rem}
-.buttons .pill{white-space:nowrap}
-
-/* Banners & details */
-.banner{
-  padding:.7rem .9rem;
-  border:1px solid var(--rope,#cfd9df);
-  border-radius:.75rem;
-  background:#fbfdff;
-}
-.banner.warn{background:#fff8f8;border-color:#ffd1d1}
-details.qa{
-  border:1px solid var(--rope,#dfe7ee);
-  border-radius:.6rem;
-  padding:.5rem .7rem;
-  background:#fff;
-}
-details.qa + details.qa{margin-top:.5rem}
-
-/* Airports grid */
-.grid-airports{display:grid;grid-template-columns:1fr;gap:.6rem}
-@media(min-width:560px){
-  .grid-airports{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-.airport{
-  padding:.7rem .8rem;
-  border:1px solid var(--rope,#dfe7ee);
-  border-radius:.6rem;
-  background:#fff;
-}
-.airport .code{font-weight:700}
-
-/* Rails */
-.rail{display:grid;gap:.9rem}
-.rail-item{
-  display:grid;
-  grid-template-columns:112px 1fr;
-  gap:.75rem;
-  align-items:start
-}
-.rail-item .thumb{
-  width:112px;height:72px;
-  border-radius:10px;
-  background:#eef4f7;
-  overflow:hidden
-}
-.rail-item .thumb img{width:100%;height:100%;object-fit:cover}
-.rail-item .avatar{
-  width:20px;height:20px;
-  border-radius:50%;
-  vertical-align:middle;
-  margin-right:.25rem
-}
-
-/* Planner buttons */
-#state-buttons,#port-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:.4rem .5rem;
-  margin-top:.35rem
-}
-#state-buttons .pill,#port-buttons .pill{
-  display:inline-block;
-  padding:.45rem .75rem;
-  border:2px solid var(--rope,#cfd9df);
-  border-radius:999px;
-  background:#fff;
-  text-decoration:none;
-  line-height:1.15
-}
-#state-buttons .pill[aria-current="true"],
-#port-buttons .pill[aria-current="true"]{
-  border-color:var(--sea);
-  box-shadow:0 0 0 3px rgb(14 110 142 /.08)
-}
-#state-buttons{
-  margin-bottom:.6rem;
-  border-bottom:1px dashed var(--rope,#cfd9df);
-  padding-bottom:.4rem
-}
-#state-buttons .pill{
-  background:#fff;
-  border-color:var(--rope,#cfd9df);
-  color:var(--sea);
-  font-weight:600
-}
-#state-buttons .pill[aria-current="true"]{
-  background:var(--sea);
-  color:#fff;
-  border-color:var(--sea)
-}
-#port-buttons{
-  margin-top:.7rem
-}
-#port-buttons .pill{
-  background:#f7fdff;
-  border-color:var(--sea);
-  color:var(--sea);
-  font-weight:500
-}
-#port-buttons .pill[aria-current="true"]{
-  background:var(--sea);
-  color:#fff;
-  border-color:var(--sea)
-}
-
-/* ===== Footer ===== */
-footer.wrap{font-size:.92rem}
-</style>
-</head>
-<body>
-    <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
+  <body class="page">
+  <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
 
   <!-- ===== Header (Unified Nav) ===== -->
-  <header class="hero-header" role="banner">
+  <header class="hero-header" role="banner" style="padding-top:.15rem">
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.010.070" width="256" height="64" alt="In the Wake wordmark">
@@ -428,7 +165,7 @@ footer.wrap{font-size:.92rem}
         <p class="tiny muted">Click a <strong>button</strong> for your state or country, then pick your port. We’ll show nearby airports, typical drives, and gentle cautions.</p>
 
         <nav class="buttons" id="state-buttons" aria-label="States & Countries"></nav>
-        <nav class="buttons" id="port-buttons"  aria-label="Ports by Selection" style="margin-top:.6rem"></nav>
+        <nav class="buttons" id="port-buttons" aria-label="Ports by Selection" style="margin-top:.6rem"></nav>
 
         <div id="port-panel" style="margin-top:1rem">
           <section class="prose" id="port-blurb"></section>
@@ -638,7 +375,7 @@ footer.wrap{font-size:.92rem}
   <!-- ===== Sharebar (mount-only; script below hydrates) ===== -->
   <script src="/assets/js/sharebar.js?v=3.010.070" defer></script>
 
-  <!-- ===== Journal Rail (fixed markup; exclude current) ===== -->
+  <!-- ===== Journal Rail (image chooser enforced; exclude current) ===== -->
   <script>
   (function(){
     const V='3.010.070';
@@ -667,10 +404,14 @@ footer.wrap{font-size:.92rem}
     const HERE = normPath(location.href);
 
     function chooseImage(rec){
-      if (rec.image) return rec.image;
+      // If a valid image is provided, prefer it
+      if (rec.image && typeof rec.image === 'string' && rec.image.trim()) return rec.image;
+      // Forced cover for "Top 20 First-Cruise Questions"
       const t=(rec.title||'').toLowerCase();
-      if (/top\s*20.*first.*cruise.*questions/.test(t))
+      if (/top\s*20.*first.*cruise.*questions/.test(t)) {
         return '/assets/articles/top-20-questions/cover.jpg';
+      }
+      // Fallback placeholder (versioned)
       return '/assets/placeholders/article-thumb.jpg?v='+V;
     }
 
@@ -877,7 +618,7 @@ footer.wrap{font-size:.92rem}
   })();
   </script>
 
-  <!-- Unified Nav a11y behavior (hover+click; refined) -->
+  <!-- Unified Nav a11y behavior (hover+click; resilient to hero overlay) -->
   <script>
   (function(){
     const groups=[...document.querySelectorAll('.nav-item[aria-haspopup]')];
@@ -899,7 +640,7 @@ footer.wrap{font-size:.92rem}
       const menu=g.querySelector('.menu');
       if(!btn||!menu) return;
 
-      // Click toggle (prevent scroll/focus flicker)
+      // Click toggle
       btn.addEventListener('click', e=>{
         e.preventDefault();
         e.stopPropagation();
@@ -941,7 +682,7 @@ footer.wrap{font-size:.92rem}
   })();
   </script>
 
-  <!-- Sharebar hydrate (unchanged) -->
+  <!-- Sharebar hydrate -->
   <script>
     (function(){
       if(!document.getElementById('sharebar')) return;
