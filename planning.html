@@ -189,21 +189,25 @@
 
     /* Header / Nav (Unified v3.010) */
     .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-    .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem;align-items:center;position:relative;z-index:2000;min-height:56px}
+    .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem;align-items:center;position:relative;z-index:3000;min-height:56px}
     .brand{display:flex;align-items:center;gap:.6rem}
     .brand img{height:40px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-    .main-nav{display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;white-space:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-inline:.75rem}
+    .main-nav{display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;white-space:nowrap;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-inline:.75rem}
     .nav-item{position:relative}
     .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
     .nav-item > a.chip{text-decoration:none}
     .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-    .menu{position:absolute;left:0;top:calc(100% + .35rem);min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;z-index:2100}
     .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem}
     .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink)}
     .menu a:hover{background:#f2f7fa;text-decoration:none}
-    .nav-item.open .menu,.nav-item:focus-within .menu{display:block}
+    .menu{position:absolute;left:0;top:calc(100% + .35rem);min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;z-index:4000}
+.main-nav .nav-item.open > .menu,
+.main-nav .nav-item:focus-within > .menu{display:block}
+
+.navbar{position:relative;z-index:3000}
+.hero-header{position:relative;z-index:2000}
 
     /* Hero */
     .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.010.064') center/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -252,6 +256,16 @@
 
     /* Footer */
     footer.wrap{font-size:.92rem}
+    .main-nav{
+  /* existing props … */
+  overflow-x:auto;
+  overflow-y:visible;
+  padding-bottom:1px; /* helps some engines respect visible Y overflow */
+}
+    .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;isolation:isolate}
+.hero{position:relative;z-index:0}  /* hero sits below navbar within header */
+.navbar{position:relative;z-index:3000}
+.menu{z-index:4000}
   </style>
 </head>
 
@@ -585,13 +599,14 @@
 
   const HERE = normPath(location.href);
 
-  function chooseImage(rec){
-    if (rec.image) return rec.image;
-    const t=(rec.title||'').toLowerCase();
-    if (/top\s*20.*first.*cruise.*questions/.test(t))
-      return '/assets/articles/top-20-questions/cover.jpg?v=3.010.039';
-    return '/assets/placeholders/article-thumb.jpg?v='+V;
-  }
+function chooseImage(rec){
+  if (rec.image) return rec.image;
+  const t=(rec.title||'').toLowerCase();
+  // Exact, stable cover (no version param) for the Top-20 article
+  if (/top\s*20.*first.*cruise.*questions/.test(t))
+    return '/assets/articles/top-20-questions/cover.jpg';
+  return '/assets/placeholders/article-thumb.jpg?v='+V;
+}
 
   function normalize(payload){
     const list = Array.isArray(payload?.articles) ? payload.articles
@@ -624,7 +639,7 @@
     '/solo/articles/index.json?v='+V
   ];
   const SEED = normalize([
-    {url:'/articles/top-20-questions/', title:'Top 20 First-Cruise Questions (Answered)', date:'2025-10-16', image:'/assets/articles/top-20-questions/cover.jpg?v=3.010.039', author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
+    {url:'/articles/top-20-questions/', title:'Top 20 First-Cruise Questions (Answered)', date:'2025-10-16', image:'image:'/assets/articles/top-20-questions/cover.jpg'?v=3.010.039', author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
     {url:'/solo/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', date:'2024-08-13', image:'/assets/index_hero.jpg?v='+V, author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
     {url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', date:'2024-05-31', image:'', author:{name:'Tina Maulsby',url:'/authors/tina-maulsby.html'}}
   ]);
