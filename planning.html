@@ -397,14 +397,13 @@ details.qa + details.qa{margin-top:.5rem}
 
 /* Footer */
 footer.wrap{font-size:.92rem}
-    overflow-x:auto;
-overflow-y:visible;
-padding-bottom:1px; /* safeguards overflow-y */
 .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;isolation:isolate}
 .navbar{position:relative;z-index:3000}
 .menu{position:absolute;z-index:4000}
 .hero{position:relative;z-index:0}
 .menu{pointer-events:auto}
+    /* Ensure dropdowns render, even if another rule sets display:none */
+.nav-item.open > .menu{display:block !important}
   </style>
 </head>
 
@@ -792,7 +791,11 @@ function chooseImage(rec){
     const dateTxt = isNaN(dt)?'':(new Date(a.date)).toLocaleDateString()+' · ';
     return `
       <article class="rail-item">
-        <a class="thumb" href="${a.url}"><img src="${img}" alt=""></a>
+        <a class="thumb" href="${a.url}"><img src="${img}" alt=""><a class="thumb" href="${a.url}">
+  <img src="${img}" alt=""
+       loading="lazy"
+       onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v='+encodeURIComponent('${V}');">
+</a>/a>
         <div class="meta">
           <h4><a href="${a.url}">${esc(a.title)}</a></h4>
           <p class="tiny muted">${dateTxt}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
