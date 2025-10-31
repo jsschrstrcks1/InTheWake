@@ -1,15 +1,18 @@
-<!--
-Soli Deo Gloria
-All work on this project is offered as a gift to God.
-“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
-“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
-
-STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · A11y/WCAG Addendum v3.100
-ADDENDUM: Facebook Domain Verification v3.008.021
--->
 <!doctype html>
 <html lang="en">
 <head>
+  <!--
+  Soli Deo Gloria — may every pixel and paragraph bear His reflection.
+
+  STANDARDS (v3.010.070):
+    • Every Page v3.010
+    • Unified Nav v3.010 (dropdowns fixed; hover/click/keyboard)
+    • A11y/WCAG Addendum v3.100
+    • CMP/Consent v3.008.020
+    • FB Domain Verification v3.008.021
+  PAGE: /disability-at-sea.html · VERSION: v3.010.070
+  -->
+
   <!-- Consent Manager (must be first) -->
   <script type="text/javascript" data-cmp-ab="1"
     src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
@@ -24,11 +27,11 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta name="theme-color" content="#0e6e8e">
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
-  <!-- Title / Version Trinity -->
-  <title>Accessibility &amp; Inclusion — In the Wake (v3.008.023)</title>
-  <meta name="version" content="v3.008.023"/>
-  <meta name="page:version" content="v3.008.023"/>
-  <meta name="standards:baseline" content="3.008"/>
+  <!-- Title / Version -->
+  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.070)</title>
+  <meta name="version" content="v3.010.070"/>
+  <meta name="page:version" content="v3.010.070"/>
+  <meta name="standards:baseline" content="3.010.070"/>
 
   <!-- Canonical & Description -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/disability-at-sea.html"/>
@@ -41,14 +44,11 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
   <meta property="og:title" content="Accessibility &amp; Inclusion — In the Wake"/>
   <meta property="og:description" content="Our mission is full digital accessibility for all travelers — a site built with empathy and conviction, following WCAG 2.1 AA and ADA standards."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.008.023"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.070"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.008.023"/>
-
   <!-- Preload Hero -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.023" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.070" fetchpriority="high"/>
 
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -96,106 +96,187 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   })();
   </script>
 
-  <!-- Topbar + Skip styles (override global nav centering) -->
+  <!-- ===== Inline CSS (unified with Planning page) ===== -->
   <style>
-    .visually-hidden-focusable{
-      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden
-    }
-    .visually-hidden-focusable:focus{
-      position:static;left:auto;width:auto;height:auto;padding:.5rem .75rem;background:#fff;
-      border:2px solid var(--sea,#0e6e8e);border-radius:8px;z-index:1000
-    }
-    .topbar{
-      display:flex;align-items:center;gap:.75rem;padding:.4rem .9rem;
-      border-bottom:1px solid rgba(8,48,65,.08);background:#fff;position:relative;z-index:5
-    }
-    .topbar .pill-nav{
-      display:flex;gap:.35rem .45rem;margin-left:auto;flex-wrap:nowrap;white-space:nowrap;
-      overflow:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch;max-width:100%;
-    }
-    .topbar .pill-nav.pills{justify-content:flex-start;width:auto;max-width:none;text-align:left}
-    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:.5rem;padding:.45rem .9rem}
-    .brand img{height:24px}
-    .version-badge{font-size:.7rem;opacity:.8;margin-left:.5rem}
-    .hero{background:url('/assets/index_hero.jpg?v=3.008.023') center/cover no-repeat!important;filter:saturate(1.35) contrast(1.12) brightness(1.05);}
-    .hero::before,.hero::after{content:none!important;}
+:root{
+  --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
+  --shadow:0 2px 6px rgba(8,48,65,.08);
+  --shadow-lg:0 10px 28px rgba(8,48,65,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+.tiny{font-size:.9rem;color:#456}
+.muted{opacity:.85}
+.center{text-align:center}
+.pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
+.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
+.card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.010.070') center/contain no-repeat;opacity:.06;pointer-events:none}
+h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
+
+/* A11y */
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+.visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.visually-hidden-focusable:focus{
+  position:fixed;left:12px;top:12px;width:auto;height:auto;
+  padding:.45rem .7rem;background:#fff;border:2px solid var(--sea);
+  border-radius:10px;z-index:2147483647
+}
+
+/* ===== Header / Nav ===== */
+.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;isolation:isolate}
+.navbar{
+  max-width:1100px;margin:0 auto;display:flex;gap:.6rem;
+  padding:.35rem .9rem .45rem;align-items:center;position:relative;
+  z-index:3000;min-height:56px;background:#eaf6f6;overflow-y:visible;
+}
+.brand{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
+.brand img{height:40px;width:auto;display:block}
+.version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
+
+/* Main Nav (unified dropdowns) */
+.main-nav{
+  display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;
+  white-space:nowrap;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
+  padding-inline:.75rem;padding-bottom:1px;
+}
+.nav-item{position:relative}
+.chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
+.nav-item>a.chip{text-decoration:none}
+.chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
+
+/* Dropdown Menus */
+.nav-item .menu{
+  position:absolute;left:0;top:100%;transform:translateY(.35rem);min-width:240px;background:#fff;
+  border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;z-index:4000;pointer-events:auto
+}
+.main-nav .nav-item.open>.menu,.main-nav .nav-item:focus-within>.menu{display:block!important}
+.menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
+.menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
+.menu a:hover{background:#f2f7fa;text-decoration:none}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative;width:100%;min-height:clamp(200px,24vw,340px);
+  background:url('/assets/index_hero.jpg?v=3.010.070') center/cover no-repeat;
+  display:flex;align-items:flex-end;overflow:hidden;z-index:0
+}
+.hero-title{
+  position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);
+  display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45);pointer-events:none
+}
+.hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(90vw,520px);height:auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+.tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
+.hero-compass{
+  position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;
+  filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none
+}
+.hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2}
+
+/* ===== Layout ===== */
+.prose p{margin:.6rem 0}
+footer.wrap{font-size:.92rem}
   </style>
 </head>
 
 <body class="page">
-  <!-- Topbar: Skip + Primary nav on one line -->
-  <div class="topbar">
-    <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
-    <nav class="pill-nav pills" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/ships/">Ships</a>
-      <a href="/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/disability-at-sea.html" aria-current="page">Disability at Sea</a>
-      <a href="/drink-packages.html">Drink Packages</a>
-      <a href="/packing-lists.html">Packing Lists</a>
-      <a href="/planning.html">Planning</a>
-      <a href="/solo.html">Solo</a>
-      <a href="/travel.html">Travel</a>
-      <a href="/cruise-lines.html">Cruise Lines</a>
-      <a href="/about-us.html">About</a>
-    </nav>
-  </div>
+  <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
 
-  <!-- Header (brand + hero only) -->
-  <header class="hero-header">
+  <!-- ===== Header (Unified Nav) ===== -->
+  <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008.023" width="256" height="64" alt="In the Wake wordmark"/>
-        <span class="version-badge">v3.008.023</span>
+        <img src="/assets/logo_wake.png?v=3.010.070" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.010.070</span>
       </div>
+
+      <nav class="main-nav" aria-label="Primary">
+        <div class="nav-item"><a class="chip" href="/">Home</a></div>
+
+        <div class="nav-item" aria-haspopup="menu">
+          <button class="chip" type="button" aria-expanded="false" aria-controls="menu-planning">
+            Planning <span class="caret">▾</span>
+          </button>
+          <div id="menu-planning" class="menu" role="menu" aria-label="Planning">
+            <div class="label tiny">Plan your cruise</div>
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html" aria-current="page">Accessibility</a>
+          </div>
+        </div>
+
+        <div class="nav-item" aria-haspopup="menu">
+          <button class="chip" type="button" aria-expanded="false" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div id="menu-travel" class="menu" role="menu" aria-label="Travel">
+            <div class="label tiny">On the move</div>
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
+      </nav>
     </div>
 
+    <!-- Hero -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.023" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008.023" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.070" width="256" height="64" alt="In the Wake">
         <div class="tagline">Accessible Seas for Every Traveler</div>
       </div>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.070" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-credit">
-        Photo © <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
+        Photo © <a class="pill" href="https://flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <!-- Main -->
+  <!-- ===== Main ===== -->
   <main id="content" class="wrap" role="main">
-    <section class="card">
-      <h1>Accessibility &amp; Inclusion Commitment</h1>
+    <section class="card prose" aria-labelledby="a11y-commit">
+      <h1 id="a11y-commit">Accessibility &amp; Inclusion Commitment</h1>
       <p><em>In the Wake</em> exists to ensure that every traveler — regardless of ability, age, or circumstance — can explore the wonder of cruising without barriers. We believe accessibility is not simply a regulation to meet, but an act of love and respect. The sea calls to everyone, and our mission is to make sure every person can answer that call with confidence and dignity.</p>
       <p>Our team approaches accessibility as both a technical and moral standard. We continually test and refine our website against the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> and the <strong>Americans with Disabilities Act (ADA)</strong>, ensuring full keyboard navigation, assistive technology support, and readable design. When feedback comes, we listen — because accessibility is not a finish line, but a voyage we’re all on together.</p>
     </section>
 
-    <section class="card">
-      <h2>Ensuring Access for Every Voyager</h2>
+    <section class="card prose" aria-labelledby="every-voyager">
+      <h2 id="every-voyager">Ensuring Access for Every Voyager</h2>
       <p>From visual clarity to cognitive simplicity, every choice we make — from color contrast to content structure — aims to serve travelers of every ability. We’re committed to designing pages that are perceivable, operable, understandable, and robust. Our goal is a website where every reader feels welcomed, seen, and supported, no matter how they navigate or communicate.</p>
       <p>For those journeying through life with disabilities, chronic conditions, or neurodivergence, we recognize the additional challenges that come with travel. You matter deeply to us. Your feedback, your perspective, and your presence enrich everything we do here. We strive to build a community that reflects not perfection, but compassion.</p>
     </section>
 
-    <section class="card">
-      <h2>Provider Spotlight: Autism on the Seas</h2>
+    <section class="card prose" aria-labelledby="aots">
+      <h2 id="aots">Provider Spotlight: Autism on the Seas</h2>
       <p>We’re proud to recommend <a href="https://autismontheseas.com" target="_blank" rel="noopener noreferrer"><strong>Autism on the Seas</strong></a>, an international organization that partners with major cruise lines — including Royal Caribbean, Carnival, and Disney — to provide dedicated services for travelers with autism, Down syndrome, Tourette syndrome, cerebral palsy, and other cognitive or developmental disabilities. Since 2007, they’ve helped families and individuals experience cruising with the dignity, joy, and peace of mind every traveler deserves.</p>
       <p>Their staff-assisted cruises, sensory supports, and compassionate approach make the ocean a more welcoming place. We celebrate their work and encourage families on the spectrum to explore their sailings. No one should ever feel that the horizon is out of reach — and thanks to partners like Autism on the Seas, it isn’t. While we have not personally sailed with them and receive no benefit from this mention, we believe in their mission and know families who’ve benefitted from their services — so we gladly commend them to you.</p>
     </section>
 
-    <section class="card">
-      <h2>Contact &amp; Feedback</h2>
+    <section class="card prose" aria-labelledby="feedback">
+      <h2 id="feedback">Contact &amp; Feedback</h2>
       <p>If you encounter any accessibility barrier while visiting our site, please let us know so we can correct it promptly.</p>
       <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
       <p>We typically respond within 48 hours. Your feedback directly shapes how we improve — because this isn’t just a site, it’s a shared voyage toward inclusion.</p>
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- ===== Footer ===== -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
+    <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection.</p>
   </footer>
 
   <!-- Accessibility Script -->
@@ -205,33 +286,70 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     data-acc-host="delivery.consentmanager.net"
     data-acc-cdn="cdn.consentmanager.net"></script>
 
-  <!-- aria-current safety (in case of mirrors/subpaths) -->
+  <!-- Unified Nav a11y behavior (hover+click+keyboard; same as Planning) -->
   <script>
   (function(){
-    var nav=document.querySelector('.topbar .pill-nav[aria-label="Primary"]'); if(!nav) return;
-    var here=location.pathname.replace(/\/+$/,'').toLowerCase();
-    nav.querySelectorAll('a[href]').forEach(function(a){
-      try{
-        var url=new URL(a.getAttribute('href'), location.origin);
-        if(url.pathname.replace(/\/+$/,'').toLowerCase()===here){
-          a.setAttribute('aria-current','page'); a.classList.add('is-current');
-        }
-      }catch(_){}
+    const groups=[...document.querySelectorAll('.nav-item[aria-haspopup]')];
+    if(!groups.length) return;
+    const OPEN_DELAY=120, CLOSE_DELAY=240;
+    const timers=new WeakMap();
+
+    function setOpen(el, on){
+      if(!el) return;
+      el.classList.toggle('open', !!on);
+      const btn=el.querySelector('button.chip');
+      if(btn) btn.setAttribute('aria-expanded', on?'true':'false');
+    }
+    function clearTimer(el){ const t=timers.get(el); if(t){ clearTimeout(t); timers.delete(el);} }
+    function closeAll(except){ groups.forEach(g=>{ if(g!==except){ clearTimer(g); setOpen(g,false);} }); }
+
+    groups.forEach(g=>{
+      const btn=g.querySelector('button.chip');
+      const menu=g.querySelector('.menu');
+      if(!btn||!menu) return;
+
+      btn.addEventListener('click', e=>{
+        e.preventDefault(); e.stopPropagation();
+        const on=g.classList.contains('open');
+        closeAll(g); setOpen(g,!on);
+        if(!on){ (menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')||btn).focus({preventScroll:true}); }
+      });
+
+      btn.addEventListener('keydown', e=>{
+        if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(g,true); (menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')||btn).focus({preventScroll:true}); }
+        if(e.key==='Escape'){ setOpen(g,false); btn.focus({preventScroll:true}); }
+      });
+      g.addEventListener('keydown', e=>{
+        if(e.key==='Escape'){ setOpen(g,false); (g.querySelector('button.chip')||document.body).focus?.({preventScroll:true}); }
+      });
+
+      g.addEventListener('pointerenter', ()=>{
+        clearTimer(g);
+        timers.set(g, setTimeout(()=>{ closeAll(g); setOpen(g,true); }, OPEN_DELAY));
+      });
+      g.addEventListener('pointerleave', (e)=>{
+        clearTimer(g);
+        const toEl=e.relatedTarget;
+        if(toEl && g.contains(toEl)) return;
+        timers.set(g, setTimeout(()=> setOpen(g,false), CLOSE_DELAY));
+      });
+      menu.addEventListener('pointerenter', ()=> clearTimer(g));
+    });
+
+    document.addEventListener('click', e=>{
+      if(!e.target.closest('.nav-item[aria-haspopup]')) closeAll();
     });
   })();
   </script>
 
   <!-- Service Worker -->
   <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.008.023').catch(()=>{}));
-  }
+    if('serviceWorker' in navigator){
+      window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.010.070').catch(()=>{}));
+    }
   </script>
 
   <!-- Invocation -->
-  <!--
-    Invocation · Soli Deo Gloria
-    Steward: abondservant · Path: /disability-at-sea.html · Version: v3.008.023 · Timestamp (UTC): 2025-10-19T00:00:00Z
-  -->
+  <!-- Soli Deo Gloria · Steward: abondservant · Path: /disability-at-sea.html · Version: v3.010.070 -->
 </body>
 </html>
