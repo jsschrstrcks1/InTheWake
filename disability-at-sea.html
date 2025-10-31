@@ -270,6 +270,33 @@ footer.wrap{font-size:.92rem}
       <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
       <p>We typically respond within 48 hours. Your feedback directly shapes how we improve — because this isn’t just a site, it’s a shared voyage toward inclusion.</p>
     </section>
+    <!-- RIGHT RAIL -->
+<aside class="rail" aria-label="Right rail">
+  <section class="card" aria-labelledby="jr-title">
+    <h3 id="jr-title">From the Journal</h3>
+    <p class="tiny muted">Articles related to accessibility & inclusion.</p>
+    <div class="rail" id="journal-rail"></div>
+    <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
+  </section>
+
+  <section class="card" aria-labelledby="author-title">
+    <h3 id="author-title">About the Author</h3>
+    <article class="rail-item" role="article">
+      <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.070" type="image/webp">
+          <source srcset="/authors/img/ken1.jpg?v=3.010.070" type="image/jpeg">
+          <img src="/authors/img/ken1.png?v=3.010.070" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
+        </picture>
+      </a>
+      <div class="meta">
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
+        <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a></p>
+      </div>
+    </article>
+  </section>
+</aside>
   </main>
 
   <!-- ===== Footer ===== -->
@@ -288,59 +315,64 @@ footer.wrap{font-size:.92rem}
 
   <!-- Unified Nav a11y behavior (hover+click+keyboard; same as Planning) -->
   <script>
-  (function(){
-    const groups=[...document.querySelectorAll('.nav-item[aria-haspopup]')];
-    if(!groups.length) return;
-    const OPEN_DELAY=120, CLOSE_DELAY=240;
-    const timers=new WeakMap();
+(function initUnifiedNav(){
+  function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn,{once:true}); }
+  ready(function(){
+    try{
+      const groups=[...document.querySelectorAll('.nav-item[aria-haspopup]')];
+      if(!groups.length) return;
+      const OPEN_DELAY=120, CLOSE_DELAY=240;
+      const timers=new WeakMap();
+      const firstFocusable=(root)=> root.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
 
-    function setOpen(el, on){
-      if(!el) return;
-      el.classList.toggle('open', !!on);
-      const btn=el.querySelector('button.chip');
-      if(btn) btn.setAttribute('aria-expanded', on?'true':'false');
-    }
-    function clearTimer(el){ const t=timers.get(el); if(t){ clearTimeout(t); timers.delete(el);} }
-    function closeAll(except){ groups.forEach(g=>{ if(g!==except){ clearTimer(g); setOpen(g,false);} }); }
+      function setOpen(el,on){
+        el.classList.toggle('open', !!on);
+        const btn=el.querySelector('button.chip');
+        if(btn) btn.setAttribute('aria-expanded', on?'true':'false');
+      }
+      function clearTimer(el){ const t=timers.get(el); if(t){ clearTimeout(t); timers.delete(el);} }
+      function closeAll(except){ groups.forEach(g=>{ if(g!==except){ clearTimer(g); setOpen(g,false);} }); }
 
-    groups.forEach(g=>{
-      const btn=g.querySelector('button.chip');
-      const menu=g.querySelector('.menu');
-      if(!btn||!menu) return;
+      groups.forEach(g=>{
+        const btn=g.querySelector('button.chip');
+        const menu=g.querySelector('.menu');
+        if(!btn||!menu) return;
 
-      btn.addEventListener('click', e=>{
-        e.preventDefault(); e.stopPropagation();
-        const on=g.classList.contains('open');
-        closeAll(g); setOpen(g,!on);
-        if(!on){ (menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')||btn).focus({preventScroll:true}); }
+        btn.addEventListener('click', e=>{
+          e.preventDefault(); e.stopPropagation();
+          const on=g.classList.contains('open');
+          closeAll(g); setOpen(g,!on);
+          if(!on){ (firstFocusable(menu)||btn).focus({preventScroll:true}); }
+        });
+
+        btn.addEventListener('keydown', e=>{
+          if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(g,true); (firstFocusable(menu)||btn).focus({preventScroll:true}); }
+          if(e.key==='Escape'){ setOpen(g,false); btn.focus({preventScroll:true}); }
+        });
+        g.addEventListener('keydown', e=>{
+          if(e.key==='Escape'){ setOpen(g,false); (g.querySelector('button.chip')||document.body).focus?.({preventScroll:true}); }
+        });
+
+        g.addEventListener('pointerenter', ()=>{
+          clearTimer(g);
+          timers.set(g, setTimeout(()=>{ closeAll(g); setOpen(g,true); }, OPEN_DELAY));
+        });
+        g.addEventListener('pointerleave', (e)=>{
+          clearTimer(g);
+          const toEl=e.relatedTarget;
+          if(toEl && g.contains(toEl)) return;
+          timers.set(g, setTimeout(()=> setOpen(g,false), CLOSE_DELAY));
+        });
+        menu.addEventListener('pointerenter', ()=> clearTimer(g));
       });
 
-      btn.addEventListener('keydown', e=>{
-        if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(g,true); (menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')||btn).focus({preventScroll:true}); }
-        if(e.key==='Escape'){ setOpen(g,false); btn.focus({preventScroll:true}); }
+      document.addEventListener('click', e=>{
+        if(!e.target.closest('.nav-item[aria-haspopup]')) closeAll();
       });
-      g.addEventListener('keydown', e=>{
-        if(e.key==='Escape'){ setOpen(g,false); (g.querySelector('button.chip')||document.body).focus?.({preventScroll:true}); }
-      });
-
-      g.addEventListener('pointerenter', ()=>{
-        clearTimer(g);
-        timers.set(g, setTimeout(()=>{ closeAll(g); setOpen(g,true); }, OPEN_DELAY));
-      });
-      g.addEventListener('pointerleave', (e)=>{
-        clearTimer(g);
-        const toEl=e.relatedTarget;
-        if(toEl && g.contains(toEl)) return;
-        timers.set(g, setTimeout(()=> setOpen(g,false), CLOSE_DELAY));
-      });
-      menu.addEventListener('pointerenter', ()=> clearTimer(g));
-    });
-
-    document.addEventListener('click', e=>{
-      if(!e.target.closest('.nav-item[aria-haspopup]')) closeAll();
-    });
-  })();
-  </script>
+    }catch(_){}
+  });
+})();
+</script>
 
   <!-- Service Worker -->
   <script>
