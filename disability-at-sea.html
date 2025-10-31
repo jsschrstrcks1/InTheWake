@@ -130,11 +130,11 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 }
 
 /* ===== Header / Nav ===== */
-.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;isolation:isolate}
+.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;isolation:isolate;overflow:visible}
 .navbar{
   max-width:1100px;margin:0 auto;display:flex;gap:.6rem;
   padding:.35rem .9rem .45rem;align-items:center;position:relative;
-  z-index:3000;min-height:56px;background:#eaf6f6;overflow-y:visible;
+  z-index:3000;min-height:56px;background:#eaf6f6;overflow:visible;
 }
 .brand{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
 .brand img{height:40px;width:auto;display:block}
@@ -144,7 +144,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 .main-nav{
   display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;
   white-space:nowrap;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
-  padding-inline:.75rem;padding-bottom:1px;
+  padding-inline:.75rem;padding-bottom:1px;position:relative;
 }
 .nav-item{position:relative}
 .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
@@ -154,7 +154,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 /* Dropdown Menus */
 .nav-item .menu{
   position:absolute;left:0;top:100%;transform:translateY(.35rem);min-width:240px;background:#fff;
-  border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;z-index:4000;pointer-events:auto
+  border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;z-index:10000;pointer-events:auto
 }
 .main-nav .nav-item.open>.menu,.main-nav .nav-item:focus-within>.menu{display:block!important}
 .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
@@ -182,6 +182,17 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 /* ===== Layout ===== */
 .prose p{margin:.6rem 0}
 footer.wrap{font-size:.92rem}
+
+/* Global rail modes */
+.rail{ display:grid; gap:.9rem; }                     /* default = vertical stack */
+.rail--scroll{ display:flex; gap:.75rem;
+               overflow-x:auto; -webkit-overflow-scrolling:touch;
+               scroll-snap-type:x mandatory; }
+.rail--scroll > *{ flex:0 0 auto; scroll-snap-align:start; }
+
+/* Right-rail local safety */
+aside.rail{ display:grid; gap:.9rem; overflow:visible; }
+aside.rail > .card{ min-width:0; }
   </style>
 </head>
 
@@ -270,33 +281,34 @@ footer.wrap{font-size:.92rem}
       <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
       <p>We typically respond within 48 hours. Your feedback directly shapes how we improve — because this isn’t just a site, it’s a shared voyage toward inclusion.</p>
     </section>
-    <!-- RIGHT RAIL -->
-<aside class="rail" aria-label="Right rail">
-  <section class="card" aria-labelledby="jr-title">
-    <h3 id="jr-title">From the Journal</h3>
-    <p class="tiny muted">Articles related to accessibility & inclusion.</p>
-    <div class="rail" id="journal-rail"></div>
-    <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
-  </section>
 
-  <section class="card" aria-labelledby="author-title">
-    <h3 id="author-title">About the Author</h3>
-    <article class="rail-item" role="article">
-      <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
-        <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.071" type="image/webp">
-          <source srcset="/authors/img/ken1.jpg?v=3.010.071" type="image/jpeg">
-          <img src="/authors/img/ken1.png?v=3.010.071" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
-        </picture>
-      </a>
-      <div class="meta">
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
-        <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a></p>
-      </div>
-    </article>
-  </section>
-</aside>
+    <!-- RIGHT RAIL -->
+    <aside class="rail" aria-label="Right rail">
+      <section class="card" aria-labelledby="jr-title">
+        <h3 id="jr-title">From the Journal</h3>
+        <p class="tiny muted">Articles related to accessibility &amp; inclusion.</p>
+        <div class="rail" id="journal-rail"></div>
+        <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
+      </section>
+
+      <section class="card" aria-labelledby="author-title">
+        <h3 id="author-title">About the Author</h3>
+        <article class="rail-item" role="article">
+          <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
+            <picture>
+              <source srcset="/authors/img/ken1.webp?v=3.010.071" type="image/webp">
+              <source srcset="/authors/img/ken1.jpg?v=3.010.071" type="image/jpeg">
+              <img src="/authors/img/ken1.png?v=3.010.071" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
+            </picture>
+          </a>
+          <div class="meta">
+            <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+            <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
+            <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a></p>
+          </div>
+        </article>
+      </section>
+    </aside>
   </main>
 
   <!-- ===== Footer ===== -->
@@ -313,12 +325,11 @@ footer.wrap{font-size:.92rem}
     data-acc-host="delivery.consentmanager.net"
     data-acc-cdn="cdn.consentmanager.net"></script>
 
-  <!-- Unified Nav a11y behavior (hover+click+keyboard; same as Planning) -->
+  <!-- Unified Nav a11y behavior (hover+click+keyboard) -->
   <script>
-(function initUnifiedNav(){
-  function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn,{once:true}); }
-  ready(function(){
-    try{
+  (function initUnifiedNav(){
+    function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn,{once:true}); }
+    ready(function(){
       const groups=[...document.querySelectorAll('.nav-item[aria-haspopup]')];
       if(!groups.length) return;
       const OPEN_DELAY=120, CLOSE_DELAY=240;
@@ -369,10 +380,94 @@ footer.wrap{font-size:.92rem}
       document.addEventListener('click', e=>{
         if(!e.target.closest('.nav-item[aria-haspopup]')) closeAll();
       });
-    }catch(_){}
-  });
-})();
-</script>
+    });
+  })();
+  </script>
+
+  <!-- Journal Rail: filter for the "disability" tag (safe if tags missing) -->
+  <script>
+  (function(){
+    const V='3.010.071';
+    const MOUNT=document.getElementById('journal-rail');
+    const FALL=document.getElementById('journal-rail-fallback');
+    if(!MOUNT) return;
+
+    const SOURCES=[
+      '/assets/data/articles/index.json?v='+V,
+      '/travel/articles/index.json?v='+V,
+      '/solo/articles/index.json?v='+V
+    ];
+
+    function normalize(payload){
+      const list = Array.isArray(payload?.articles) ? payload.articles
+                 : Array.isArray(payload) ? payload : [];
+      return list.map(a=>({
+        url: a.url||a.permalink||'#',
+        title: a.title||a.headline||'Article',
+        dek: a.dek||a.description||a.excerpt||'',
+        date: a.datePublished||a.date||'',
+        image: a.image||'',
+        tags: Array.isArray(a.tags) ? a.tags.map(t=>String(t).toLowerCase()) : [],
+        author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
+      })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
+    }
+
+    function chooseImage(rec){
+      if (rec.image) return rec.image;
+      const t=(rec.title||'').toLowerCase();
+      if (/top\s*20.*first.*cruise.*questions/.test(t))
+        return '/assets/articles/top-20-questions/cover.jpg';
+      return '/assets/placeholders/article-thumb.jpg?v='+encodeURIComponent(V);
+    }
+
+    const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
+    function card(a){
+      const img=chooseImage(a);
+      const name=a.author?.name||'';
+      const authorUrl=a.author?.url||'';
+      const dt=Date.parse(a.date||'');
+      const dateTxt = isNaN(dt)?'':(new Date(a.date)).toLocaleDateString()+' · ';
+      return `
+        <article class="rail-item">
+          <a class="thumb" href="${a.url}">
+            <img src="${img}" alt="" loading="lazy"
+                 onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=${encodeURIComponent(V)}';">
+          </a>
+          <div class="meta">
+            <h4><a href="${a.url}">${esc(a.title)}</a></h4>
+            <p class="tiny muted">${dateTxt}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
+            ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
+          </div>
+        </article>`;
+    }
+
+    async function get(u){
+      try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
+      catch(_){ return []; }
+    }
+
+    (async function boot(){
+      if(FALL) FALL.style.display='';
+      let all=[];
+      for(const s of SOURCES){ all = all.concat(await get(s)); }
+
+      // Filter for the disability tag when present; if tags not present, show none (safe)
+      const filtered = all.filter(a => (a.tags||[]).includes('disability'));
+
+      if(!filtered.length){
+        MOUNT.innerHTML = `<p class="tiny muted">New stories are coming soon.</p>`;
+        if(FALL) FALL.style.display='none';
+        return;
+      }
+
+      MOUNT.innerHTML = filtered
+        .sort((a,b)=>(Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0))
+        .slice(0,4).map(card).join('');
+
+      if(FALL) FALL.style.display='none';
+    })();
+  })();
+  </script>
 
   <!-- Service Worker -->
   <script>
