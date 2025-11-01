@@ -4,13 +4,13 @@
   <!--
   Soli Deo Gloria — may every pixel and paragraph bear His reflection.
 
-  STANDARDS (v3.010.073):
+  STANDARDS (v3.010.075):
     • Every Page v3.010
     • Unified Nav v3.010 (dropdowns fixed; hover/click/keyboard)
     • A11y/WCAG Addendum v3.100
     • CMP/Consent v3.008.020
     • FB Domain Verification v3.008.021
-  PAGE: /disability-at-sea.html · VERSION: v3.010.073
+  PAGE: /disability-at-sea.html · VERSION: v3.010.075
   -->
 
   <!-- Consent Manager (must be first) -->
@@ -28,10 +28,10 @@
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
   <!-- Title / Version -->
-  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.073)</title>
-  <meta name="version" content="v3.010.073"/>
-  <meta name="page:version" content="v3.010.073"/>
-  <meta name="standards:baseline" content="3.010.073"/>
+  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.075)</title>
+  <meta name="version" content="v3.010.075"/>
+  <meta name="page:version" content="v3.010.075"/>
+  <meta name="standards:baseline" content="3.010.075"/>
 
   <!-- Canonical & Description -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/disability-at-sea.html"/>
@@ -44,11 +44,11 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
   <meta property="og:title" content="Accessibility &amp; Inclusion — In the Wake"/>
   <meta property="og:description" content="Our mission is full digital accessibility for all travelers — a site built with empathy and conviction, following WCAG 2.1 AA and ADA standards."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.073"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.075"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Preload Hero -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.073" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.075" fetchpriority="high"/>
 
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -60,43 +60,47 @@
 
   <!-- Absolute URL Normalizer -->
   <script>
-  (function(){
-    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
-    function normalize(){
-      const sel=['a[href^="https://www.cruisinginthewake.com/"]','img[src^="https://www.cruisinginthewake.com/"]','link[href^="https://www.cruisinginthewake.com/"]','script[src^="https://www.cruisinginthewake.com/"]'].join(',');
-      document.querySelectorAll(sel).forEach(el=>{
-        const attr=el.hasAttribute('href')?'href':'src';
-        try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
-      });
-    }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
-  })();
+  try {
+    (function(){
+      const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+      window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
+      function normalize(){
+        const sel=['a[href^="https://www.cruisinginthewake.com/"]','img[src^="https://www.cruisinginthewake.com/"]','link[href^="https://www.cruisinginthewake.com/"]','script[src^="https://www.cruisinginthewake.com/"]'].join(',');
+        document.querySelectorAll(sel).forEach(el=>{
+          const attr=el.hasAttribute('href')?'href':'src';
+          try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
+        });
+      }
+      if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
+    })();
+  } catch(err) { console.warn('URL normalizer error:', err); }
   </script>
 
   <!-- External link hardener -->
   <script>
-  (function(){
-    const here=location.hostname.replace(/^www\./,'');
-    function upgrade(){
-      document.querySelectorAll('a[href]').forEach(a=>{
-        const href=a.getAttribute('href')||'';
-        if(/^(#|mailto:|tel:)/i.test(href))return;
-        try{
-          const u=new URL(href,location.href);
-          const host=u.hostname.replace(/^www\./,'');
-          if(host!==here||a.rel==='external'){
-            a.target='_blank';
-            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
-          }
-        }catch(_){}
-      });
-    }
-    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}else{upgrade();}
-  })();
+  try {
+    (function(){
+      const here=location.hostname.replace(/^www\./,'');
+      function upgrade(){
+        document.querySelectorAll('a[href]').forEach(a=>{
+          const href=a.getAttribute('href')||'';
+          if(/^(#|mailto:|tel:)/i.test(href))return;
+          try{
+            const u=new URL(href,location.href);
+            const host=u.hostname.replace(/^www\./,'');
+            if(host!==here||a.rel==='external'){
+              a.target='_blank';
+              a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+            }
+          }catch(_){}
+        });
+      }
+      if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}else{upgrade();}
+    })();
+  } catch(err) { console.warn('Link hardener error:', err); }
   </script>
 
-  <!-- ===== Inline CSS (unified with Planning page) ===== -->
+  <!-- ===== Inline CSS (unified + fixes) ===== -->
   <style>
 :root{
   --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
@@ -115,7 +119,7 @@ a:hover{text-decoration:underline}
 .center{text-align:center}
 .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
 .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
-.card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.010.073') center/contain no-repeat;opacity:.06;pointer-events:none}
+.card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.010.075') center/contain no-repeat;opacity:.06;pointer-events:none}
 h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
 /* A11y */
@@ -129,12 +133,18 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
   border-radius:10px;z-index:2147483647
 }
 
-/* ===== Header / Nav ===== */
-.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;isolation:isolate}
+/* ===== Header / Nav (fixed) ===== */
+.hero-header{
+  position:relative;
+  border-bottom:6px double var(--rope);
+  background:#eaf6f6;
+  /* removed isolation:isolate (was trapping menus) */
+}
 .navbar{
   max-width:1100px;margin:0 auto;display:flex;gap:.6rem;
   padding:.35rem .9rem .45rem;align-items:center;position:relative;
-  z-index:3000;min-height:56px;background:#eaf6f6;overflow-y:visible;
+  z-index:9000;
+  min-height:56px;background:#eaf6f6;overflow-y:visible;
 }
 .brand{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
 .brand img{height:40px;width:auto;display:block}
@@ -153,10 +163,14 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
 /* Dropdown Menus */
 .nav-item .menu{
-  position:absolute;left:0;top:100%;transform:translateY(.35rem);min-width:240px;background:#fff;
-  border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;z-index:4000;pointer-events:auto
+  position:absolute;left:0;top:100%;margin-top:.35rem;
+  min-width:240px;background:#fff;
+  border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);
+  padding:.6rem;display:none;z-index:10000;pointer-events:auto
 }
-.main-nav .nav-item.open>.menu,.main-nav .nav-item:focus-within>.menu{display:block!important}
+.main-nav .nav-item.open > .menu,
+.main-nav .nav-item:focus-within > .menu,
+.main-nav .nav-item:hover > .menu{display:block!important}
 .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
 .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
 .menu a:hover{background:#f2f7fa;text-decoration:none}
@@ -164,7 +178,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 /* ===== Hero ===== */
 .hero{
   position:relative;width:100%;min-height:clamp(200px,24vw,340px);
-  background:url('/assets/index_hero.jpg?v=3.010.073') center/cover no-repeat;
+  background:url('/assets/index_hero.jpg?v=3.010.075') center/cover no-repeat;
   display:flex;align-items:flex-end;overflow:hidden;z-index:0
 }
 .hero-title{
@@ -183,21 +197,24 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 .prose p{margin:.6rem 0}
 footer.wrap{font-size:.92rem}
 
-/* Global rail modes */
-.rail{ display:grid; gap:.9rem; }                     /* default = vertical stack */
-.rail--scroll{ display:flex; gap:.75rem; 
-               overflow-x:auto; -webkit-overflow-scrolling:touch;
-               scroll-snap-type:x mandatory; }
+/* rail items */
+.rail{ display:grid; gap:.9rem; }
+.rail--scroll{ display:flex; gap:.75rem; overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; }
 .rail--scroll > *{ flex:0 0 auto; scroll-snap-align:start; }
-
-/* Right-rail stack override for this page (safety) */
-aside.rail{ display:grid; gap:.9rem; overflow:visible; }
-aside.rail > .card{ min-width:0; }
-
-/* Rail items (thumb + meta) */
 .rail-item{ display:grid; grid-template-columns:112px 1fr; gap:.75rem; align-items:start; }
 .rail-item .thumb{ width:112px; height:72px; border-radius:10px; background:#eef4f7; overflow:hidden; }
 .rail-item .thumb img{ width:100%; height:100%; object-fit:cover; }
+
+/* Two-column layout (Planning-standard with wrapper) */
+.planning-grid{ display:block; } /* mobile default: stacked */
+@media (min-width:768px){
+  .planning-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 360px;
+    gap:1.5rem;
+    align-items:start;
+  }
+}
   </style>
 </head>
 
@@ -208,8 +225,8 @@ aside.rail > .card{ min-width:0; }
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.073" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.010.073</span>
+        <img src="/assets/logo_wake.png?v=3.010.075" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.010.075</span>
       </div>
 
       <nav class="main-nav" aria-label="Primary">
@@ -250,42 +267,45 @@ aside.rail > .card{ min-width:0; }
     <!-- Hero -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.073" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.075" width="256" height="64" alt="In the Wake">
         <div class="tagline">Accessible Seas for Every Traveler</div>
       </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.073" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.075" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-credit">
         Photo © <a class="pill" href="https://flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <!-- ===== Main ===== -->
-  <main id="content" class="wrap" role="main">
-    <section class="card prose" aria-labelledby="a11y-commit">
-      <h1 id="a11y-commit">Accessibility &amp; Inclusion Commitment</h1>
-      <p><em>In the Wake</em> exists to ensure that every traveler — regardless of ability, age, or circumstance — can explore the wonder of cruising without barriers. We believe accessibility is not simply a regulation to meet, but an act of love and respect. The sea calls to everyone, and our mission is to make sure every person can answer that call with confidence and dignity.</p>
-      <p>Our team approaches accessibility as both a technical and moral standard. We continually test and refine our website against the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> and the <strong>Americans with Disabilities Act (ADA)</strong>, ensuring full keyboard navigation, assistive technology support, and readable design. When feedback comes, we listen — because accessibility is not a finish line, but a voyage we’re all on together.</p>
-    </section>
+  <!-- ===== Main (Planning-standard layout) ===== -->
+  <main id="content" class="wrap planning-grid" role="main">
+    <!-- LEFT COLUMN -->
+    <div>
+      <section class="card prose" aria-labelledby="a11y-commit">
+        <h1 id="a11y-commit">Accessibility &amp; Inclusion Commitment</h1>
+        <p><em>In the Wake</em> exists to ensure that every traveler — regardless of ability, age, or circumstance — can explore the wonder of cruising without barriers. We believe accessibility is not simply a regulation to meet, but an act of love and respect. The sea calls to everyone, and our mission is to make sure every person can answer that call with confidence and dignity.</p>
+        <p>Our team approaches accessibility as both a technical and moral standard. We continually test and refine our website against the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> and the <strong>Americans with Disabilities Act (ADA)</strong>, ensuring full keyboard navigation, assistive technology support, and readable design. When feedback comes, we listen — because accessibility is not a finish line, but a voyage we’re all on together.</p>
+      </section>
 
-    <section class="card prose" aria-labelledby="every-voyager">
-      <h2 id="every-voyager">Ensuring Access for Every Voyager</h2>
-      <p>From visual clarity to cognitive simplicity, every choice we make — from color contrast to content structure — aims to serve travelers of every ability. We’re committed to designing pages that are perceivable, operable, understandable, and robust. Our goal is a website where every reader feels welcomed, seen, and supported, no matter how they navigate or communicate.</p>
-      <p>For those journeying through life with disabilities, chronic conditions, or neurodivergence, we recognize the additional challenges that come with travel. You matter deeply to us. Your feedback, your perspective, and your presence enrich everything we do here. We strive to build a community that reflects not perfection, but compassion.</p>
-    </section>
+      <section class="card prose" aria-labelledby="every-voyager">
+        <h2 id="every-voyager">Ensuring Access for Every Voyager</h2>
+        <p>From visual clarity to cognitive simplicity, every choice we make — from color contrast to content structure — aims to serve travelers of every ability. We’re committed to designing pages that are perceivable, operable, understandable, and robust. Our goal is a website where every reader feels welcomed, seen, and supported, no matter how they navigate or communicate.</p>
+        <p>For those journeying through life with disabilities, chronic conditions, or neurodivergence, we recognize the additional challenges that come with travel. You matter deeply to us. Your feedback, your perspective, and your presence enrich everything we do here. We strive to build a community that reflects not perfection, but compassion.</p>
+      </section>
 
-    <section class="card prose" aria-labelledby="aots">
-      <h2 id="aots">Provider Spotlight: Autism on the Seas</h2>
-      <p>We’re proud to recommend <a href="https://autismontheseas.com" target="_blank" rel="noopener noreferrer"><strong>Autism on the Seas</strong></a>, an international organization that partners with major cruise lines — including Royal Caribbean, Carnival, and Disney — to provide dedicated services for travelers with autism, Down syndrome, Tourette syndrome, cerebral palsy, and other cognitive or developmental disabilities. Since 2007, they’ve helped families and individuals experience cruising with the dignity, joy, and peace of mind every traveler deserves.</p>
-      <p>Their staff-assisted cruises, sensory supports, and compassionate approach make the ocean a more welcoming place. We celebrate their work and encourage families on the spectrum to explore their sailings. No one should ever feel that the horizon is out of reach — and thanks to partners like Autism on the Seas, it isn’t. While we have not personally sailed with them and receive no benefit from this mention, we believe in their mission and know families who’ve benefitted from their services — so we gladly commend them to you.</p>
-    </section>
+      <section class="card prose" aria-labelledby="aots">
+        <h2 id="aots">Provider Spotlight: Autism on the Seas</h2>
+        <p>We’re proud to recommend <a href="https://autismontheseas.com" target="_blank" rel="noopener noreferrer"><strong>Autism on the Seas</strong></a>, an international organization that partners with major cruise lines — including Royal Caribbean, Carnival, and Disney — to provide dedicated services for travelers with autism, Down syndrome, Tourette syndrome, cerebral palsy, and other cognitive or developmental disabilities. Since 2007, they’ve helped families and individuals experience cruising with the dignity, joy, and peace of mind every traveler deserves.</p>
+        <p>Their staff-assisted cruises, sensory supports, and compassionate approach make the ocean a more welcoming place. We celebrate their work and encourage families on the spectrum to explore their sailings. No one should ever feel that the horizon is out of reach — and thanks to partners like Autism on the Seas, it isn’t. While we have not personally sailed with them and receive no benefit from this mention, we believe in their mission and know families who’ve benefitted from their services — so we gladly commend them to you.</p>
+      </section>
 
-    <section class="card prose" aria-labelledby="feedback">
-      <h2 id="feedback">Contact &amp; Feedback</h2>
-      <p>If you encounter any accessibility barrier while visiting our site, please let us know so we can correct it promptly.</p>
-      <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
-      <p>We typically respond within 48 hours. Your feedback directly shapes how we improve — because this isn’t just a site, it’s a shared voyage toward inclusion.</p>
-    </section>
+      <section class="card prose" aria-labelledby="feedback">
+        <h2 id="feedback">Contact &amp; Feedback</h2>
+        <p>If you encounter any accessibility barrier while visiting our site, please let us know so we can correct it promptly.</p>
+        <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
+        <p>We typically respond within 48 hours. Your feedback directly shapes how we improve — because this isn’t just a site, it’s a shared voyage toward inclusion.</p>
+      </section>
+    </div>
 
     <!-- RIGHT RAIL -->
     <aside class="rail" aria-label="Right rail">
@@ -301,9 +321,9 @@ aside.rail > .card{ min-width:0; }
         <article class="rail-item" role="article">
           <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
             <picture>
-              <source srcset="/authors/img/ken1.webp?v=3.010.073" type="image/webp">
-              <source srcset="/authors/img/ken1.jpg?v=3.010.073" type="image/jpeg">
-              <img src="/authors/img/ken1.png?v=3.010.073" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
+              <source srcset="/authors/img/ken1.webp?v=3.010.075" type="image/webp">
+              <source srcset="/authors/img/ken1.jpg?v=3.010.075" type="image/jpeg">
+              <img src="/authors/img/ken1.png?v=3.010.075" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
             </picture>
           </a>
           <div class="meta">
@@ -330,12 +350,11 @@ aside.rail > .card{ min-width:0; }
     data-acc-host="delivery.consentmanager.net"
     data-acc-cdn="cdn.consentmanager.net"></script>
 
-  <!-- Unified Nav a11y behavior (hover+click+keyboard) -->
+  <!-- Unified Nav a11y behavior (hover+click+keyboard; hardened) -->
   <script>
-  (function initUnifiedNav(){
-    function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn,{once:true}); }
-    ready(function(){
-      try{
+  try {
+    (function initUnifiedNav(){
+      function run(){
         const groups=[...document.querySelectorAll('.nav-item[aria-haspopup]')];
         if(!groups.length) return;
         const OPEN_DELAY=120, CLOSE_DELAY=240;
@@ -386,113 +405,126 @@ aside.rail > .card{ min-width:0; }
         document.addEventListener('click', e=>{
           if(!e.target.closest('.nav-item[aria-haspopup]')) closeAll();
         });
-      }catch(_){}
-    });
-  })();
-  </script>
-
-  <!-- Journal Rail (filter by disability tag; graceful if none yet) -->
-  <script>
-  (function(){
-    const V='3.010.073';
-    const MOUNT=document.getElementById('journal-rail');
-    const FALL=document.getElementById('journal-rail-fallback');
-    if(!MOUNT) return;
-
-    const HERE = (function normPath(u){
-      try{const url=new URL(u, location.href);let p=url.pathname.toLowerCase();
-        return p.replace(/\/index\.html$/i,'/').replace(/\/+$/,'').replace(/#.*/,'').replace(/\?.*/,'');
-      }catch(_){return String(u||'').toLowerCase();}
-    })(location.href);
-
-    function normalize(payload){
-      const list = Array.isArray(payload?.articles) ? payload.articles
-                 : Array.isArray(payload) ? payload : [];
-      return list.map(a=>({
-        url: a.url||a.permalink||'#',
-        title: a.title||a.headline||'Article',
-        dek: a.dek||a.description||a.excerpt||'',
-        date: a.datePublished||a.date||'',
-        image: a.image||'',
-        tags: (a.tags||a.categories||[]).map(t=>String(t).toLowerCase()),
-        author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
-      })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
-    }
-
-    function chooseImage(rec){
-      if (rec.image) return rec.image;
-      return '/assets/placeholders/article-thumb.jpg?v='+V;
-    }
-
-    const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
-
-    function card(a){
-      const img=chooseImage(a);
-      const name=a.author?.name||'';
-      const authorUrl=a.author?.url||'';
-      const dt=Date.parse(a.date||'');
-      const dateTxt = isNaN(dt)?'':(new Date(a.date)).toLocaleDateString()+' · ';
-      return `
-        <article class="rail-item">
-          <a class="thumb" href="${a.url}">
-            <img src="${img}" alt="" loading="lazy"
-                 onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=${encodeURIComponent(V)}';">
-          </a>
-          <div class="meta">
-            <h4><a href="${a.url}">${esc(a.title)}</a></h4>
-            <p class="tiny muted">${dateTxt}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
-            ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
-          </div>
-        </article>`;
-    }
-
-    async function get(u){
-      try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
-      catch(_){ return []; }
-    }
-
-    (async function boot(){
-      if(FALL) FALL.style.display='';
-      const SOURCES=[
-        '/assets/data/articles/index.json?v='+V,
-        '/travel/articles/index.json?v='+V,
-        '/solo/articles/index.json?v='+V
-      ];
-
-      let all=[];
-      for(const s of SOURCES){ all = all.concat(await get(s)); }
-
-      // filter to tag "disability"
-      const DISABLED_TAG = 'disability';
-      all = all.filter(a => Array.isArray(a.tags) && a.tags.map(t=>String(t).toLowerCase()).includes(DISABLED_TAG));
-
-      // unique + exclude self
-      const seen=new Set();
-      all = all.filter(a=>{
-        try{
-          const p=new URL(a.url, location.href).pathname.toLowerCase().replace(/\/index\.html$/,'/').replace(/\/+$/,'');
-          if (p===HERE) return false;
-          if (seen.has(p)) return false;
-          seen.add(p);
-          return true;
-        }catch(_){return false;}
-      });
-
-      all.sort((a,b)=>(Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0));
-      MOUNT.innerHTML = all.slice(0,4).map(card).join('') || '<p class="tiny muted">More disability &amp; inclusion articles coming soon.</p>';
-      if(FALL) FALL.style.display='none';
+      }
+      if (document.readyState !== 'loading') run();
+      else {
+        document.addEventListener('DOMContentLoaded', run, {once:true});
+        window.addEventListener('load', run, {once:true});
+      }
     })();
-  })();
+  } catch(err) { console.warn('Nav init error:', err); }
   </script>
 
-  <!-- Service Worker -->
+  <!-- Journal Rail (tag: disability, with graceful fallback) -->
+  <script>
+  try {
+    (function(){
+      const V='3.010.075';
+      const MOUNT=document.getElementById('journal-rail');
+      const FALL=document.getElementById('journal-rail-fallback');
+      if(!MOUNT) return;
+
+      function normPath(u){
+        try{
+          const url=new URL(u, location.href);
+          let p=url.pathname.toLowerCase();
+          return p.replace(/\/index\.html$/i,'/').replace(/\/+$/,'').replace(/#.*/,'').replace(/\?.*/,'');
+        }catch(_){ return String(u||'').toLowerCase(); }
+      }
+      const HERE = normPath(location.href);
+
+      function normalize(payload){
+        const list = Array.isArray(payload?.articles) ? payload.articles
+                   : Array.isArray(payload) ? payload : [];
+        return list.map(a=>({
+          url: a.url||a.permalink||'#',
+          title: a.title||a.headline||'Article',
+          dek: a.dek||a.description||a.excerpt||'',
+          date: a.datePublished||a.date||'',
+          image: a.image||'',
+          tags: (a.tags||a.categories||[]).map(t=>String(t).toLowerCase()),
+          author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
+        })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
+      }
+      function chooseImage(rec){
+        if (rec.image) return rec.image;
+        return '/assets/placeholders/article-thumb.jpg?v='+V;
+      }
+      const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
+      function card(a){
+        const img=chooseImage(a);
+        const name=a.author?.name||'';
+        const authorUrl=a.author?.url||'';
+        const dt=Date.parse(a.date||'');
+        const dateTxt = isNaN(dt)?'':(new Date(a.date)).toLocaleDateString()+' · ';
+        return `
+          <article class="rail-item">
+            <a class="thumb" href="${a.url}">
+              <img src="${img}" alt="" loading="lazy"
+                   onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=${encodeURIComponent(V)}';">
+            </a>
+            <div class="meta">
+              <h4><a href="${a.url}">${esc(a.title)}</a></h4>
+              <p class="tiny muted">${dateTxt}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
+              ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
+            </div>
+          </article>`;
+      }
+      async function get(u){
+        try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
+        catch(_){ return []; }
+      }
+
+      (async function boot(){
+        if(FALL) FALL.style.display='';
+        const SOURCES=[
+          '/assets/data/articles/index.json?v='+V,
+          '/travel/articles/index.json?v='+V,
+          '/solo/articles/index.json?v='+V
+        ];
+        let all=[];
+        for(const s of SOURCES){ all = all.concat(await get(s)); }
+
+        const wantedTag='disability';
+        all = all.filter(a=>{
+          const tagged = Array.isArray(a.tags) && a.tags.includes(wantedTag);
+          const titleMatch = /accessib|inclusion|disab/i.test(a.title||''); // graceful fallback until tags land
+          return tagged || titleMatch;
+        });
+
+        // unique + exclude self
+        const seen=new Set();
+        all = all.filter(a=>{
+          try{
+            const p=normPath(a.url);
+            if (p===HERE) return false;
+            if (seen.has(p)) return false;
+            seen.add(p);
+            return true;
+          }catch(_){return false;}
+        });
+
+        all.sort((a,b)=>(Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0));
+        MOUNT.innerHTML = all.slice(0,4).map(card).join('') || '<p class="tiny muted">More disability &amp; inclusion articles coming soon.</p>';
+        if(FALL) FALL.style.display='none';
+      })();
+    })();
+  } catch(err) { console.warn('Journal rail error:', err); }
+  </script>
+
+  <!-- Service Worker (BUMPED) -->
   <script>
     if('serviceWorker' in navigator){
-      window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.010.073').catch(()=>{}));
+      window.addEventListener('load',()=>{
+        navigator.serviceWorker.register('/sw.js?v=3.010.075').then(reg=>{
+          // Encourage fresh SW
+          if (reg.update) { try { reg.update(); } catch(_){} }
+        }).catch(()=>{});
+      });
     }
   </script>
 
   <!-- Invocation -->
-  <!-- Soli Deo Gloria · Steward: abondservant · Path: /disability-at-sea.html · Version: v3.010.073 -->
+  <!-- Soli Deo Gloria · Steward: abondservant · Path: /disability-at-sea.html · Version: v3.010.075 -->
 </body>
 </html>
