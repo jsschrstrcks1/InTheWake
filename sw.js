@@ -1,51 +1,56 @@
-
-
-javascript
-/* sw.js — In the Wake Service Worker (v15)
-   Changes vs v14:
-   - Added dedicated 'cacheFirst' strategy for fonts (FONT_CACHE)
-   - Added 'staleWhileRevalidate' for JSON data (DATA_CACHE)
-   - Fixed bug where precached JSON was not served from cache
+/* sw.js — In the Wake Service Worker (v17)
+   Changes vs v16:
+   - Incremented to v17
+   - Patched 'seedURLs' to prevent double cache-busting (Claude's Bug #2)
+   - Patched 'copyPrecacheToRuntime' to await prune (Claude's Bug #3)
+   - Patched 'handleHTML' to prevent fallback to stale cache on
+     a failed version bypass (Claude's Bug #4)
+   
+   Changes vs v15:
+   - Replaced handleHTML() with a Cache-First, Network-Bypass strategy
+     to fix the "stale inline JS" bug and improve page load performance.
+   - Versioned FONT_CACHE to align with SW_VERSION to prevent stale fonts.
 */
 
-const SW_VERSION   = "v15"; // NEW: Incremented version
-const PREFIX       = "itw";
-const PAGE_CACHE   = `${PREFIX}-page-${SW_VERSION}`;
-const ASSET_CACHE  = `${PREFIX}-asset-${SW_VERSION}`;
-const IMG_CACHE    = `${PREFIX}-img-${SW_VERSION}`;
-const PRECACHE     = `${PREFIX}-pre-${SW_VERSION}`;
-const FONT_CACHE   = `${PREFIX}-font-v1`; // NEW: Static cache for fonts
-const DATA_CACHE   = `${PREFIX}-data-${SW_VERSION}`; // NEW: Cache for JSON data
+const SW_VERSION = "v17"; // <--- CHANGED: Incremented version
+const PREFIX = "itw";
+const PAGE_CACHE = `${PREFIX}-page-${SW_VERSION}`;
+const ASSET_CACHE = `${PREFIX}-asset-${SW_VERSION}`;
+const IMG_CACHE = `${PREFIX}-img-${SW_VERSION}`;
+const PRECACHE = `${PREFIX}-pre-${SW_VERSION}`;
+const FONT_CACHE = `${PREFIX}-font-${SW_VERSION}`; // (Fixed in v16)
+const DATA_CACHE = `${PREFIX}-data-${SW_VERSION}`;
 
-const MAX_PAGES    = 60;
-const MAX_ASSETS   = 60;
-const MAX_IMAGES   = 360;
-const MAX_FONTS    = 30; // NEW: Max fonts to cache
-const MAX_DATA     = 30; // NEW: Max JSON files to cache
+const MAX_PAGES = 60;
+const MAX_ASSETS = 60;
+const MAX_IMAGES = 360;
+const MAX_FONTS = 30;
+const MAX_DATA = 30;
 
 const BUST = () => `v=${SW_VERSION}-${Date.now()}`;
 
-// Manifest sources (feel free to change the filename/version here)
+// Manifest sources
 const MANIFEST_SOURCES = [
   "/precache-manifest.json",
-  "/prefetch-images.json" // optional; if missing, we skip it
+  "/prefetch-images.json", // optional; if missing, we skip it
 ];
 
 // Utils --------------------------------------------------------------------
 function sameOrigin(u) {
-  try { return new URL(u, location.origin).origin === location.origin; }
-  catch (_) { return false; }
+  try {
+    return new URL(u, location.origin).origin === location.origin;
+  } catch (_) {
+    return false;
+  }
 }
 function isImageURL(url) {
   return /\.(?:avif|webp|jpg|jpeg|png|gif|svg)(\?.*)?$/i.test(url);
 }
-// NEW: Utility to check for font requests
 function isFontRequest(request) {
   if (request.destination === "font") return true;
   const url = new URL(request.url);
   return /\.(?:woff2|woff|ttf|otf)(\?.*)?$/i.test(url.href);
 }
-// NEW: Utility to check for JSON data requests
 function isJSONRequest(request) {
   if (request.destination === "script") return false; // Exclude JS
   const url = new URL(request.url);
@@ -81,9 +86,10 @@ self.addEventListener("activate", (e) => {
   e.waitUntil((async () => {
     await self.clients.claim();
     if (self.registration.navigationPreload) {
-      try { await self.registration.navigationPreload.enable(); } catch(_) {}
+      try {
+        await self.registration.navigationPreload.enable();
+      } catch (_) {}
     }
-    // NEW: Added FONT_CACHE and DATA_CACHE to the keep list
     const keep = new Set([PAGE_CACHE, ASSET_CACHE, IMG_CACHE, PRECACHE, FONT_CACHE, DATA_CACHE]);
     const names = await caches.keys();
     await Promise.all(names
@@ -91,7 +97,7 @@ self.addEventListener("activate", (e) => {
       .map(n => caches.delete(n)));
 
     // Warmup in background
-    warmPrecache().catch(()=>{});
+    warmPrecache().catch(() => {});
   })());
 });
 
@@ -99,7 +105,7 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("message", (event) => {
   const data = event.data || {};
   if (data && data.type === "SEED_URLS" && Array.isArray(data.urls)) {
-    seedURLs(data.urls).catch(()=>{});
+    seedURLs(data.urls).catch(() => {});
   }
 });
 
@@ -117,15 +123,16 @@ async function warmPrecache() {
       let res;
       try {
         res = await fetch(url.href, { cache: "no-store", credentials: "omit" });
-      } catch { res = null; }
+      } catch {
+        res = null;
+      }
       if (!res || !res.ok) continue;
 
-      // Each manifest may have a different shape; handle both
       const data = await res.json();
 
       // 1) Original precache-manifest.json shape
-      if (Array.isArray(data.pages) || Array.isArray(data.assets) || Array.isArray(data.images) || Array.isArray(data.data)) { // NEW: Check for 'data' array
-        const pushList = (arr=[]) => arr.forEach(u => {
+      if (Array.isArray(data.pages) || Array.isArray(data.assets) || Array.isArray(data.images) || Array.isArray(data.data)) {
+        const pushList = (arr = []) => arr.forEach(u => {
           if (!sameOrigin(u)) return;
           const uo = new URL(u, location.origin);
           if (!excludePaths.has(uo.pathname)) allURLs.add(uo.pathname + uo.search);
@@ -133,7 +140,7 @@ async function warmPrecache() {
         pushList(data.pages);
         pushList(data.assets);
         pushList(data.images);
-        pushList(data.data); // NEW: Add data files from manifest
+        pushList(data.data);
 
         // handle sitemaps from main manifest
         if (src.includes("precache-manifest")) {
@@ -144,10 +151,9 @@ async function warmPrecache() {
 
       // 2) Image prefetch file shape: { authors:[], ships:[], other:[] }
       if (Array.isArray(data.authors) || Array.isArray(data.ships) || Array.isArray(data.other)) {
-        const pushList2 = (arr=[]) => arr.forEach(u => {
+        const pushList2 = (arr = []) => arr.forEach(u => {
           if (!sameOrigin(u)) return;
           const uo = new URL(u, location.origin);
-          // these are mostly images; we do not exclude "/" checks here since they’re files
           allURLs.add(uo.pathname + uo.search);
         });
         pushList2(data.authors);
@@ -161,7 +167,9 @@ async function warmPrecache() {
 
     // Seed sitemaps (if any were discovered)
     for (const sm of (sitemaps && sitemaps.length ? sitemaps : ["/sitemap.xml"])) {
-      try { await seedFromSitemap(sm); } catch (_) {}
+      try {
+        await seedFromSitemap(sm);
+      } catch (_) {}
     }
   } catch (_) {}
 }
@@ -199,7 +207,12 @@ async function seedURLs(urls) {
     try {
       const abs = new URL(u, location.origin);
       const fetchURL = new URL(abs.href);
-      fetchURL.search += (fetchURL.search ? "&" : "?") + BUST();
+      
+      // <--- CHANGED (v17): Fix for Claude's Bug #2
+      // Only add cache-bust if no version param exists
+      if (!/[?&]v=/i.test(fetchURL.href)) {
+        fetchURL.search += (fetchURL.search ? "&" : "?") + BUST();
+      }
 
       const reqPut = new Request(abs.href, { method: "GET" }); // cache key
       const hit = await pre.match(reqPut);
@@ -211,18 +224,18 @@ async function seedURLs(urls) {
       }
     } catch (_) {}
   }));
-  copyPrecacheToRuntime().catch(()=>{});
+  copyPrecacheToRuntime().catch(() => {});
 }
 
 async function copyPrecacheToRuntime() {
   try {
-    const pre    = await caches.open(PRECACHE);
-    const keys   = await pre.keys();
-    const pageC  = await caches.open(PAGE_CACHE);
+    const pre = await caches.open(PRECACHE);
+    const keys = await pre.keys();
+    const pageC = await caches.open(PAGE_CACHE);
     const assetC = await caches.open(ASSET_CACHE);
-    const imgC   = await caches.open(IMG_CACHE);
-    const fontC  = await caches.open(FONT_CACHE); // NEW: Open font cache
-    const dataC  = await caches.open(DATA_CACHE); // NEW: Open data cache
+    const imgC = await caches.open(IMG_CACHE);
+    const fontC = await caches.open(FONT_CACHE);
+    const dataC = await caches.open(DATA_CACHE);
 
     for (const req of keys) {
       const url = new URL(req.url);
@@ -231,21 +244,27 @@ async function copyPrecacheToRuntime() {
 
       if (isVersionedAsset(url.href)) {
         await assetC.put(req, res.clone());
-      } else if (isFontRequest(req)) { // NEW: Check for fonts
+      } else if (isFontRequest(req)) {
         await fontC.put(req, res.clone());
       } else if (isImageURL(url.href)) {
         await imgC.put(req, res.clone());
-      } else if (isJSONRequest(req)) { // NEW: Check for JSON
+      } else if (isJSONRequest(req)) {
         await dataC.put(req, res.clone());
       } else if (url.pathname.endsWith(".html") || url.pathname === "/") {
         await pageC.put(req, res.clone());
       }
     }
-    prune(pageC, MAX_PAGES); 
-    prune(assetC, MAX_ASSETS); 
-    prune(imgC, MAX_IMAGES);
-    prune(fontC, MAX_FONTS); // NEW: Prune font cache
-    prune(dataC, MAX_DATA); // NEW: Prune data cache
+    
+    // <--- CHANGED (v17): Fix for Claude's Bug #3
+    // Await all prunes to prevent race conditions
+    await Promise.all([
+      prune(pageC, MAX_PAGES),
+      prune(assetC, MAX_ASSETS),
+      prune(imgC, MAX_IMAGES),
+      prune(fontC, MAX_FONTS),
+      prune(dataC, MAX_DATA)
+    ]);
+
   } catch (_) {}
 }
 
@@ -265,7 +284,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // NEW: Fonts
+  // Fonts
   if (isFontRequest(req)) {
     event.respondWith(cacheFirst(req, FONT_CACHE, MAX_FONTS));
     return;
@@ -277,7 +296,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // NEW: JSON Data
+  // JSON Data
   if (isJSONRequest(req)) {
     event.respondWith(staleWhileRevalidate(req, DATA_CACHE, MAX_DATA));
     return;
@@ -292,62 +311,114 @@ self.addEventListener("fetch", (event) => {
   // passthrough for everything else
 });
 
-async function handleHTML(event, request) {
-  const cc = (request.headers && request.headers.get("cache-control")) || "";
-  const pragma = (request.headers && request.headers.get("pragma")) || "";
-  const hardReload = /\bno-cache\b/i.test(cc) || /\bno-cache\b/i.test(pragma);
 
-  const cache = await caches.open(PAGE_CACHE);
-  const key   = cacheKey(request);
-
+// <--- CHANGED (v17): Patched to handle 'forceNetwork'
+// Fix for Claude's Bug #4
+async function networkFirstHTML(event, request, cache, key, forceNetwork = false) {
   try {
     const preload = event.preloadResponse ? (await event.preloadResponse) : null;
-    if (!hardReload && preload && (preload.ok || preload.type === "opaque")) {
-      cache.put(key, preload.clone()).catch(()=>{});
-      prune(cache, MAX_PAGES).catch(()=>{});
+    if (preload && (preload.ok || preload.type === "opaque")) {
+      cache.put(key, preload.clone()).catch(() => {});
+      prune(cache, MAX_PAGES).catch(() => {});
       return preload;
     }
 
     const res = await fetch(request);
     if (res && (res.ok || res.type === "opaque")) {
-      cache.put(key, res.clone()).catch(()=>{});
-      prune(cache, MAX_PAGES).catch(()=>{});
+      cache.put(key, res.clone()).catch(() => {});
+      prune(cache, MAX_PAGES).catch(() => {});
     }
     return res;
-  } catch (_) {
+  } catch (err) {
+    // If we were forced to go to the network (bypass), do NOT
+    // fall back to the cache, as it's stale. Let it fail.
+    if (forceNetwork) {
+      throw err; // This will trigger the final catch block in handleHTML
+    }
+
+    // Standard fallback logic (not a forced bypass)
     const cached = await cache.match(key);
     if (cached) return cached;
     const pre = await caches.open(PRECACHE);
     const preHit = await pre.match(key);
     if (preHit) return preHit;
-    return new Response("", { status: 504 });
+    
+    // Re-throw the original error if nothing is found
+    throw err;
   }
 }
+
+// <--- CHANGED (v16/v17): Core bug fix logic
+async function handleHTML(event, request) {
+  const cache = await caches.open(PAGE_CACHE);
+  const key = cacheKey(request);
+  const url = new URL(request.url);
+
+  // Check for hard reload headers
+  const cc = (request.headers && request.headers.get("cache-control")) || "";
+  const pragma = (request.headers && request.headers.get("pragma")) || "";
+  const isHardReload = /\bno-cache\b/i.test(cc) || /\bno-cache\b/i.test(pragma);
+
+  // Check for version bypass
+  const isVersionBypass = url.searchParams.has('v');
+  const forceNetwork = isHardReload || isVersionBypass;
+
+  try {
+    // If it's a hard reload or version bypass, go Network-First
+    if (forceNetwork) {
+      return await networkFirstHTML(event, request, cache, key, true); // Pass true
+    }
+
+    // --- Default: Cache-First ---
+    // Try to serve from cache for speed
+    const cached = await cache.match(key);
+    if (cached) return cached;
+
+    // Not in cache, go to network (which will also cache it)
+    return await networkFirstHTML(event, request, cache, key, false); // Pass false
+  
+  } catch (err) {
+    // This catch block handles all failures, including the
+    // thrown error from a failed 'forceNetwork' attempt.
+    console.error(`[SW ${SW_VERSION}] HTML Fetch failed, serving precache fallback. Err:`, err.message);
+    const pre = await caches.open(PRECACHE);
+    const preHit = await pre.match(key);
+    if (preHit) return preHit;
+    
+    // You should have an OFFLINE_URL defined at the top
+    // const OFFLINE_URL = "/offline.html";
+    // const offline = await pre.match(OFFLINE_URL) || await cache.match(OFFLINE_URL);
+    // if (offline) return offline;
+    
+    return new Response("Network error. You appear to be offline.", { status: 504 });
+  }
+}
+
 
 // Strategies ---------------------------------------------------------------
 async function cacheFirst(request, cacheName, maxItems) {
   const cache = await caches.open(cacheName);
-  const key   = cacheKey(request);
+  const key = cacheKey(request);
   const cached = await cache.match(key);
   if (cached) return cached;
   const res = await fetch(request);
   if (res && (res.ok || res.type === "opaque")) {
-    cache.put(key, res.clone()).catch(()=>{});
-    prune(cache, maxItems).catch(()=>{});
+    cache.put(key, res.clone()).catch(() => {});
+    prune(cache, maxItems).catch(() => {});
   }
   return res;
 }
 
 async function staleWhileRevalidate(request, cacheName, maxItems) {
   const cache = await caches.open(cacheName);
-  const key   = cacheKey(request);
+  const key = cacheKey(request);
   const cachedPromise = cache.match(key);
 
   const networkPromise = fetch(request)
     .then(res => {
       if (res && (res.ok || res.type === "opaque")) {
-        cache.put(key, res.clone()).catch(()=>{});
-        prune(cache, maxItems).catch(()=>{});
+        cache.put(key, res.clone()).catch(() => {});
+        prune(cache, maxItems).catch(() => {});
       }
       return res;
     })
