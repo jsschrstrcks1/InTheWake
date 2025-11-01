@@ -1,9 +1,9 @@
 <!--
-Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
+Soli Deo Gloria — Every pixel and part of this project is offered as worship to God.
 
-STANDARDS (INLINE): Core v3.009 · Unified Nav v3.009 (dropdowns)
+STANDARDS (INLINE): Core v3.010 · Unified Nav v3.010 (portal dropdowns)
 A11y/WCAG Addendum v3.100 · Cache/SW v3.x · JSON-LD Breadcrumbs
-Page: /drink-packages.html · v3.009.004 (inline)
+Page: /drink-packages.html · v3.010.150 (inline)
 -->
 <!doctype html>
 <html lang="en">
@@ -14,11 +14,7 @@ Page: /drink-packages.html · v3.009.004 (inline)
     data-cmp-host="a.delivery.consentmanager.net"
     data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
 
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-  <link rel="preconnect" href="https://cloud.umami.is" crossorigin>
-
-  <!-- Google Analytics -->
+  <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
@@ -26,30 +22,28 @@ Page: /drink-packages.html · v3.009.004 (inline)
     gtag('js',new Date());
     gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
   </script>
-
-  <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- Standards: absolute URL normalizer -->
+  <!-- Absolute URL normalizer + external link hardener -->
   <script>
   (function(){
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
-    document.addEventListener('DOMContentLoaded',function(){
+    window._abs=p=>{p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p;};
+    const normalize=()=>{
       const sel=['a[href^="https://www.cruisinginthewake.com/"]','img[src^="https://www.cruisinginthewake.com/"]','link[href^="https://www.cruisinginthewake.com/"]','script[src^="https://www.cruisinginthewake.com/"]'].join(',');
-      document.querySelectorAll(sel).forEach(function(el){
+      document.querySelectorAll(sel).forEach(el=>{
         const attr=el.hasAttribute('href')?'href':'src';
-        try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+        try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
       });
-    },{once:true});
+    };
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
 
-    // External link hardening
-    document.addEventListener('click',function(e){
-      const a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
+    addEventListener('click',e=>{
+      const a=e.target && e.target.closest && e.target.closest('a[href]');
       if(!a) return;
       try{
-        const u=new URL(a.href,location.href);
-        if(u.origin!==location.origin){ a.setAttribute('target','_blank'); a.setAttribute('rel','noopener noreferrer'); }
+        const u=new URL(a.getAttribute('href'), location.href);
+        if(u.origin!==location.origin){ a.target='_blank'; a.rel='noopener noreferrer'; }
       }catch(_){}
     },{capture:true});
   })();
@@ -60,9 +54,9 @@ Page: /drink-packages.html · v3.009.004 (inline)
   <meta name="theme-color" content="#0e6e8e"/>
   <meta name="robots" content="index,follow"/>
 
-  <title>Drink Packages — In the Wake (v3.009.004)</title>
-  <meta name="version" content="v3.009.004"/>
-  <meta name="description" content="Learn about cruise line drink packages, beverage policies, and price calculators. A clear-eyed guide to saving money at sea — coming soon."/>
+  <title>Drink Packages — In the Wake (v3.010.150)</title>
+  <meta name="version" content="v3.010.150"/>
+  <meta name="description" content="Compare Royal Caribbean drink packages with a live value calculator. Enter your daily drinks and see which package (if any) saves money."/>
 
   <!-- Canonical & Social -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/drink-packages.html"/>
@@ -70,251 +64,569 @@ Page: /drink-packages.html · v3.009.004 (inline)
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/drink-packages.html"/>
   <meta property="og:title" content="Drink Packages — In the Wake"/>
-  <meta property="og:description" content="Comparing drink packages across cruise lines — simplified explanations, calculators, and honest insights. Coming soon."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/drinks-hero.jpg?v=3.009.004"/>
+  <meta property="og:description" content="Enter your daily drinks to see if Soda, Refreshment, or Deluxe packages are worth it for your sailing."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/drinks-hero.jpg?v=3.010.150"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Structured Data: Breadcrumbs -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
-      {"@type":"ListItem","position":2,"name":"Drink Packages","item":"https://www.cruisinginthewake.com/drink-packages.html"}
-    ]
-  }
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
+    {"@type":"ListItem","position":2,"name":"Drink Packages","item":"https://www.cruisinginthewake.com/drink-packages.html"}
+  ]}
   </script>
 
   <!-- Unified CSS (global) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.009.004"/>
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.010.150"/>
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/index_hero.jpg?v=3.010.150" fetchpriority="high"/>
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg"/>
 
-  <!-- Critical asset preloads (same-origin for SW control) -->
-  <link rel="preload" as="image" href="/assets/logo_wake.png?v=3.009.004" imagesrcset="/assets/logo_wake.png?v=3.009.004 1x" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.009.004" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.009.004"/>
+  <!-- Site Cache helper + SW registration -->
+  <script defer src="https://www.cruisinginthewake.com/assets/js/site-cache.js?v=3.010.150"></script>
+  <script>
+    if('serviceWorker' in navigator){
+      addEventListener('load', ()=> {
+        navigator.serviceWorker.register('/sw.js?v=3.010.150').catch(()=>{});
+      });
+    }
+  </script>
 
-  <!-- Page-local a11y + Unified Nav additions -->
+  <!-- Page-local styles (portal nav + hero + calculator) -->
   <style>
-    :root{ --rope:#d9b382; --accent:#0e6e8e; --ink:#083041; --foam:#e6f4f8; }
+    :root{
+      --rope:#d9b382; --accent:#0e6e8e; --ink:#083041; --foam:#e6f4f8;
+      --ok:#0f7b3b; --ok-bg:#e6f9ea; --ok-border:#7fc98a;
+      --warn:#9a6700; --muted:#687b86;
+    }
     html,body{overflow-x:hidden}
-    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip-link:focus{left:12px;top:12px;width:auto;height:auto;background:#0e6e8e;color:#fff;border:0;padding:.45rem .7rem;z-index:10000;border-radius:10px}
 
-    /* Header rope above hero; prevent 100vw bleed */
+    /* Header rope + hero */
     .hero-header{position:relative;border-bottom:6px double var(--rope);z-index:0}
-    .hero-header > .hero{position:relative;z-index:-1;width:100% !important;margin-left:0 !important;overflow-x:clip !important}
-
-    /* Unified Nav v3.009 (grouped pills + dropdowns) */
-    .navbar{display:flex;align-items:flex-end;gap:.6rem;max-width:1100px;margin:0 auto;padding:.5rem .9rem .35rem;position:relative;z-index:6}
-    .brand{display:flex;align-items:flex-end;gap:.6rem;flex:0 0 auto}
+    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:20;overflow:visible}
+    .brand{display:flex;align-items:flex-end;gap:.6rem}
     .brand img{height:28px;width:auto}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-    .main-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-inline:.75rem;scroll-padding-inline:.75rem;
-      mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-      -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-    }
-    .nav-item{position:relative;display:inline-block}
-    .chip,.nav-disclosure{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none}
-    .main-nav a[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-    .submenu{position:absolute;left:0;top:calc(100% + 6px);min-width:220px;background:#fff;border:1px solid var(--rope);border-radius:12px;padding:.35rem;box-shadow:0 8px 24px rgba(8,48,65,.12);display:none;z-index:20}
-    .submenu a{display:block;padding:.35rem .6rem;border-radius:8px;border:1px solid transparent;color:inherit;white-space:nowrap}
-    .submenu a:hover{background:#f9fdfd;border-color:#ecd7b7;text-decoration:none}
-    .nav-group[data-open="true"] .submenu{display:block}
-    @media (hover:hover){ .nav-group:hover .submenu{display:block} }
 
-    /* Hero: responsive, no CLS, eager decode */
-    .hero{position:relative;min-height:clamp(200px,24vw,340px);display:flex;align-items:flex-end;background:#eaf6f6}
-    .hero::before{
-      content:""; position:absolute; inset:0;
-      background: url('/assets/index_hero.jpg?v=3.009.004') center/cover no-repeat;
+    /* Pill nav (portal dropdowns) */
+    .pill-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem}
+    .pill-nav > a,
+    .pill-nav > .nav-group > .nav-disclosure{
+      display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
+      border:1px solid var(--rope);color:var(--accent);font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
     }
-    .hero .latlon-grid{position:absolute;inset:0;pointer-events:none}
-    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
-    .hero .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
-    .hero .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
+    .pill-nav > a:focus-visible,
+    .pill-nav > .nav-group > .nav-disclosure:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    .nav-group{position:relative;display:inline-block}
 
-    /* Page visuals (subtle background) */
-    body.page{background:linear-gradient(var(--foam),#fff 240px);color:var(--ink);}
+    /* Portal root & menu panel */
+    #nav-portal{position:fixed;inset:0;z-index:2147483000;pointer-events:none}
+    .submenu{min-width:240px;background:#fff;border:1px solid var(--rope);border-radius:12px;padding:.5rem;box-shadow:0 12px 28px rgba(8,48,65,.16);display:block;opacity:1;visibility:visible}
+    .submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem;border:0;background:transparent;color:var(--ink);text-decoration:none}
+    .submenu a:hover,.submenu a:focus{background:#f2f7fa;outline:2px solid transparent}
+
+    /* Hero */
+    .hero{position:relative;min-height:clamp(200px,24vw,340px);display:flex;align-items:flex-end;background:url('/assets/index_hero.jpg?v=3.010.150') center/cover no-repeat}
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;flex-direction:column;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
+    .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
+    .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;pointer-events:none}
+
+    /* Cards & calculator visuals */
+    .calc-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+    .calc-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+    .card.calc{border:2px solid #e3ebef}
+    .calc-row{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:.6rem;align-items:center;margin:.35rem 0}
+    .calc-row label{font-weight:600;color:var(--accent)}
+    .calc-row input[type="number"]{width:100%;padding:.45rem .5rem;border:1px solid #cdd9df;border-radius:.6rem}
+    .calc-row .price{color:var(--muted)}
+    .muted{color:var(--muted)}
+    .free-note{font-size:.85rem;color:#375}
+    .pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .pkg{border:2px solid #e3ebef;border-radius:12px;padding:0}
+    .pkg header{display:flex;align-items:center;justify-content:space-between;padding:.6rem .8rem;border-bottom:1px solid #e9eef1}
+    .pkg .body{padding:.8rem}
+    .pkg .price{font-weight:700}
+    .pkg .override{font-size:.85rem}
+    .pkg.highlight{background:var(--ok-bg);border-color:var(--ok-border)}
+    .pkg .ribbon{display:none;position:absolute;margin:.4rem .6rem;padding:.18rem .45rem;border-radius:.5rem;background:var(--ok);color:#fff;font-size:.75rem}
+    .pkg.highlight .ribbon{display:inline-block}
+    .pill-row{display:flex;gap:.5rem;flex-wrap:wrap}
+    .pill{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);color:var(--accent);cursor:pointer;text-decoration:none}
+    .pill[aria-current="true"]{background:#f0f6f9}
+    .tiny{font-size:.88rem;color:#456}
   </style>
 </head>
 
-<body class="page no-hero-filter">
-  <!-- Unified Nav behavior -->
-  <script src="/assets/js/newnav.js?v=3.009.004" defer></script>
-
-  <!-- Skip link -->
+<body class="page">
   <a class="skip-link" href="#content">Skip to main content</a>
 
-  <header class="site-header hero-header">
+  <!-- ===== HEADER (portal nav + hero) ===== -->
+  <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.009.004"
-             alt="In the Wake" width="256" height="64"
-             decoding="async" fetchpriority="high" />
-        <span class="version-badge">v3.009.004 (inline)</span>
+        <img src="/assets/logo_wake.png?v=3.010.150" alt="In the Wake"/>
+        <span class="version-badge">v3.010.150</span>
       </div>
 
-      <!-- Unified dropdown nav -->
-      <nav class="main-nav" aria-label="Primary">
-        <div class="nav-item"><a class="chip" href="/">Home</a></div>
+      <nav class="pill-nav" aria-label="Primary">
+        <a href="/">Home</a>
 
-        <div class="nav-item nav-group" id="nav-planning">
-          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
-          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning" hidden>
+            <div class="tiny" style="margin:.1rem .25rem .35rem;color:#234;font-weight:700">Plan your cruise</div>
             <a role="menuitem" href="/planning.html">Planning (overview)</a>
             <a role="menuitem" href="/ports.html">Ports</a>
             <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
             <a role="menuitem" href="/ships.html">Ships</a>
             <a role="menuitem" href="/drink-packages.html" aria-current="page">Drink Packages</a>
-            <a role="menuitem" href="/cruise-lines/">Cruise Lines</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
             <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
             <a role="menuitem" href="/accessibility.html">Accessibility</a>
           </div>
         </div>
 
-        <div class="nav-item nav-group" id="nav-travel">
-          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
-          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel" hidden>
+            <div class="tiny" style="margin:.1rem .25rem .35rem;color:#234;font-weight:700">On the move</div>
             <a role="menuitem" href="/travel.html">Travel (overview)</a>
             <a role="menuitem" href="/solo.html">Solo</a>
           </div>
         </div>
 
-        <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
+        <a href="/about-us.html">About</a>
       </nav>
     </div>
 
-    <!-- Hero (tagline beneath the ship/logo) -->
-    <div class="hero" role="img" aria-label="Colorful cocktail glasses against an ocean backdrop">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.009.004" alt="" width="180" height="180" decoding="async" aria-hidden="true"/>
+    <div class="hero" role="img" aria-label="Colorful drinks on a cruise ship bar">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.150" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo"
-             src="/assets/logo_wake.png?v=3.009.004"
-             alt="In the Wake" width="560" height="144"
-             decoding="async" fetchpriority="high">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.150" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
     </div>
   </header>
 
+  <!-- Portal root (fixed layer for menus) -->
+  <div id="nav-portal" aria-hidden="true"></div>
+
+  <!-- ============================ MAIN ============================ -->
   <main class="wrap" id="content" role="main" tabindex="-1" aria-label="Main content">
     <section class="card" aria-labelledby="drink-packages">
       <h1 id="drink-packages">Cruise Drink Packages</h1>
-      <p>Every cruise line approaches beverages differently — from “classic” packages to tiered premium options, from soda-only plans to all-inclusive beverage programs. Prices shift often, and what’s included varies widely between lines.</p>
-      <p><em>In the Wake</em> is developing clear, side-by-side explanations of every major cruise line’s drink package systems, plus <strong>interactive calculators</strong> to help you decide whether the math works out for your sailing style.</p>
+      <p>Enter how many drinks you typically order per day. We’ll compare your daily spend to the beverage packages and highlight when a package is a better value. You can also override package prices if your Cruise Planner shows something different.</p>
     </section>
 
-    <section class="card" aria-labelledby="coming-soon">
-      <h2 id="coming-soon">Coming Soon</h2>
+    <!-- Instruction Card -->
+    <section class="card" aria-labelledby="how-to">
+      <h2 id="how-to">How the Calculator Works</h2>
       <ul>
-        <li>Per-line package breakdowns (Royal Caribbean, Carnival, NCL, MSC, and more)</li>
-        <li>Cost-per-drink comparisons and onboard price data</li>
-        <li>Interactive “Worth It?” calculators for each cruise line</li>
-        <li>Accessibility notes for guests with dietary or medical beverage restrictions</li>
+        <li>Set the number of days and enter your <strong>per-day</strong> drinks. Free items (water, lemonade, basic tea, juice from concentrate) are tracked but cost $0.</li>
+        <li>We total the cost of the drinks that each package actually <em>includes</em>. When that total exceeds a package price, the package turns green. If multiple qualify, the lowest-cost qualifying package is marked “Best value”.</li>
+        <li>Prices are 2025 Royal Caribbean averages and ranges; they vary by ship and sale. Use <em>Edit Prices</em> to match your Cruise Planner.</li>
       </ul>
-      <p>These tools are in progress and will roll out line by line. Our goal is transparency: no fluff, no pressure — just the truth about what’s in your glass and what it really costs.</p>
+      <div class="tiny muted">Transparency: Averages include typical onboard menus; package prices include gratuity, individual drink prices do not.</div>
     </section>
 
-    <section class="card" aria-labelledby="philosophy">
-      <h2 id="philosophy">Why This Matters</h2>
-      <p>The average cruiser spends more on beverages than on excursions — yet drink packages remain one of the most confusing parts of booking. We’re building resources that put clarity ahead of marketing, helping you understand value before you swipe your card.</p>
-      <p>Because calm seas — and calm decisions — are what we’re all about.</p>
+    <!-- Line switcher pill row (future expansion) -->
+    <section class="card" aria-labelledby="line-data">
+      <h2 id="line-data">Choose a Cruise Line Dataset</h2>
+      <div class="pill-row">
+        <button class="pill" id="pill-rccl" type="button" aria-current="true" data-src="/assets/data/royal-caribbean-beverages.json?v=3.010.150">Royal Caribbean</button>
+        <!-- Future: <button class="pill" data-src="/assets/data/carnival-beverages.json">Carnival</button> -->
+        <!-- Future: <button class="pill" data-src="/assets/data/virgin-beverages.json">Virgin</button> -->
+      </div>
+      <p class="tiny">Data file is fetched and cached for offline use when your service worker is active.</p>
+    </section>
+
+    <!-- Calculator Card (separate, per your request) -->
+    <section class="card calc" aria-labelledby="calc-title">
+      <h2 id="calc-title">Daily Drink Value Calculator</h2>
+
+      <div class="calc-grid">
+        <!-- Days + subtotals -->
+        <div class="calc-row" style="grid-template-columns:1fr 1fr 1fr">
+          <label for="days">Cruise length (days)</label>
+          <input id="days" name="days" type="number" min="1" step="1" value="7" inputmode="numeric" />
+          <div class="price muted" id="totals-line">Daily total: $0.00 · Trip total: $0.00</div>
+        </div>
+
+        <!-- Beverage inputs -->
+        <div class="calc-cards" id="beverage-inputs">
+          <!-- rows injected by JS using dataset -->
+        </div>
+
+        <!-- Packages -->
+        <div>
+          <h3 style="margin:.4rem 0 .6rem">Packages (per person per day)</h3>
+          <div class="pkg-grid" id="package-cards" aria-live="polite">
+            <!-- package cards injected -->
+          </div>
+          <div class="tiny muted" style="margin-top:.5rem">Tip: Click <em>Edit Prices</em> to override package prices. Overrides are saved to your browser.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- “Averages” content card (optional context) -->
+    <section class="card" aria-labelledby="averages">
+      <h2 id="averages">Average Individual Beverage Prices (Royal Caribbean · 2025)</h2>
+      <ul class="tiny">
+        <li>Soda $3.50 · Premium coffee $4.50–$5 · Milkshake $6–$8 · Fresh-squeezed juice $4–$5</li>
+        <li>Beer ~$8 · Wine by the glass ~$12 · Cocktails ~$13.50 · Whiskey/spirits ~$11–$12</li>
+        <li class="muted">Individual purchase prices exclude the automatic 18% gratuity; packages include it.</li>
+      </ul>
     </section>
   </main>
 
   <footer class="wrap" role="contentinfo" style="text-align:center">
-    <div class="tiny" style="margin-bottom:.35rem">v3.009.004</div>
+    <div class="tiny" style="margin-bottom:.35rem">v3.010.150</div>
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <p class="tiny center" style="margin-top:.5rem">
-      Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.
-    </p>
   </footer>
 
-  <!-- Site Cache helper + SW registration (same-origin for SW) -->
-  <script defer src="/assets/js/site-cache.js?v=3.009.004"></script>
-  <script>
-    if('serviceWorker' in navigator){
-      addEventListener('load', ()=> {
-        navigator.serviceWorker.register('/sw.js?v=3.009.004').catch(()=>{});
-      });
-    }
-  </script>
-
-  <!-- Smart Warmup & Cache -->
+  <!-- ===== Unified Nav controller (portal dropdowns) ===== -->
   <script>
   (function(){
-    const abs=p=>(typeof window._abs==='function'?_abs(p):p);
-    const ready=f=>document.readyState==='loading'
-      ?document.addEventListener('DOMContentLoaded',f,{once:true}):f();
-    const idle=f=>('requestIdleCallback'in window?requestIdleCallback(f,{timeout:2500}):setTimeout(f,200));
+    "use strict";
+    const portal = document.getElementById('nav-portal');
+    const groups = Array.from(document.querySelectorAll('.nav-group'));
+    if (!portal || !groups.length) return;
 
-    async function ensureSiteCache(){
-      if(window.SiteCache && typeof SiteCache.getJSON==='function') return;
-      await new Promise(r=>{
-        const s=document.createElement('script');
-        s.src=abs('/assets/js/site-cache.js?v=3.009.004'); s.defer=true; s.onload=r; s.onerror=r;
-        document.head.appendChild(s);
-      });
+    let openGroup=null, openMenu=null, homeSlot=null;
+
+    const setAria=(g,on)=>{
+      const b=g.querySelector('.nav-disclosure');
+      if(b) b.setAttribute('aria-expanded', on?'true':'false');
+      g.dataset.open = on ? "true" : "false";
+      g.classList.toggle('open', !!on);
+    };
+
+    function positionMenu(menu, btn){
+      const r = btn.getBoundingClientRect();
+      const prevVis = menu.style.visibility, prevDisp = menu.style.display;
+      menu.style.visibility='hidden'; menu.style.display='block';
+      const vw = document.documentElement.clientWidth;
+      const pw = menu.offsetWidth || 240;
+      let left = Math.round(r.right - pw);
+      left = Math.max(8, Math.min(left, vw - pw - 8));
+      const top  = Math.round(r.bottom + 8);
+      menu.style.left = left+'px';
+      menu.style.top  = top +'px';
+      menu.style.position='fixed';
+      menu.style.maxWidth='min(92vw, 360px)';
+      menu.style.pointerEvents='auto';
+      menu.style.visibility = prevVis || 'visible';
+      menu.style.display    = prevDisp || 'block';
     }
 
-    ready(()=>{
-      // Warm brand assets (same-origin so SW can serve fast)
-      [ '/assets/logo_wake.png?v=3.009.004', '/assets/compass_rose.svg?v=3.009.004', '/assets/index_hero.jpg?v=3.009.004' ]
-        .map(abs).forEach(u=>{ try{ fetch(u,{cache:'no-store',mode:'no-cors'}).catch(()=>{});}catch(_){}});
+    function placeInPortal(menu, btn){
+      homeSlot = homeSlot || document.createComment('menu-home-slot');
+      if (!menu.previousSibling || menu.previousSibling !== homeSlot){
+        menu.parentNode.insertBefore(homeSlot, menu);
+      }
+      menu.hidden=false;
+      portal.appendChild(menu);
+      positionMenu(menu, btn);
+      portal.setAttribute('aria-hidden','false');
+      portal.style.pointerEvents='none';
+    }
 
-      // Encourage early cache hydration
-      try{ fetch('/assets/cache-manifest.json',{cache:'no-store'}).catch(()=>{});}catch(_){}
+    function restoreHome(menu){
+      if (!menu || !homeSlot || !homeSlot.parentNode) return;
+      homeSlot.parentNode.insertBefore(menu, homeSlot.nextSibling);
+      menu.hidden=true;
+      menu.removeAttribute('style');
+      portal.setAttribute('aria-hidden','true');
+    }
 
-      idle(async ()=>{
-        try{
-          await ensureSiteCache();
-          await Promise.allSettled([
-            SiteCache.getJSON(abs('/assets/data/fleet_index.json'), { ttlDays:7, versionPath:['version'] }),
-            SiteCache.getJSON(abs('/assets/data/venues.json'),      { ttlDays:7, versionPath:['meta','version'] }),
-            SiteCache.getJSON(abs('/assets/data/personas/index.json'),{ ttlDays:7, versionPath:['version'] })
-          ]);
-        }catch(_){}
+    function closeAll(){
+      if (openGroup && openMenu){ restoreHome(openMenu); setAria(openGroup,false); }
+      openGroup=openMenu=null;
+    }
+
+    groups.forEach(g=>{
+      const btn  = g.querySelector('.nav-disclosure');
+      const menu = g.querySelector('.submenu');
+      if(!btn||!menu) return;
+
+      btn.addEventListener('click',(e)=>{
+        e.preventDefault(); e.stopPropagation();
+        const isOpen = (openGroup===g);
+        closeAll();
+        if(!isOpen){ setAria(g,true); placeInPortal(menu,btn); openGroup=g; openMenu=menu; }
+      });
+
+      btn.addEventListener('keydown',(e)=>{
+        if(e.key==='ArrowDown' || e.key==='ArrowUp'){
+          e.preventDefault(); closeAll(); setAria(g,true); placeInPortal(menu,btn); openGroup=g; openMenu=menu;
+          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+          if(first) first.focus({preventScroll:true});
+        }else if(e.key==='Escape'){ e.preventDefault(); closeAll(); btn.focus({preventScroll:true}); }
+      });
+
+      g.addEventListener('keydown',(e)=>{
+        if(e.key==='Escape'){ const b=g.querySelector('.nav-disclosure'); closeAll(); b&&b.focus({preventScroll:true}); }
+      });
+
+      menu.addEventListener('focusout',()=>{
+        setTimeout(()=>{ if(!document.activeElement || !menu.contains(document.activeElement)) closeAll(); },120);
       });
     });
+
+    const reflow=()=>{ if(openGroup&&openMenu){ const btn=openGroup.querySelector('.nav-disclosure'); if(btn) positionMenu(openMenu,btn); } };
+    window.addEventListener('resize', reflow, {passive:true});
+    window.addEventListener('scroll',  reflow, {passive:true});
+    document.addEventListener('click',(e)=>{ if(openMenu && !e.target.closest('.submenu') && !e.target.closest('.nav-disclosure')) closeAll(); });
+    window.addEventListener('blur', closeAll);
   })();
   </script>
 
-  <!-- Floating Social Share Bar -->
+  <!-- ===== Calculator logic ===== -->
+  <script>
+  (function(){
+    "use strict";
+
+    // Defaults (fallback until JSON loads)
+    const defaults = {
+      line: "Royal Caribbean",
+      items: [
+        {id:'water',    name:'Tap Water',                 avgPrice:0, free:true},
+        {id:'lemonade', name:'Lemonade',                  avgPrice:0, free:true},
+        {id:'tea',      name:'Tea (hot/cold)',            avgPrice:0, free:true},
+        {id:'juiceconc',name:'Juice (from concentrate)',  avgPrice:0, free:true},
+        {id:'soda',     name:'Soda (can/fountain)',       avgPrice:3.50},
+        {id:'coffee',   name:'Premium Coffee',            avgPrice:4.75},
+        {id:'milkshake',name:'Milkshake',                 avgPrice:6.50},
+        {id:'juice',    name:'Fresh-squeezed Juice',      avgPrice:4.50},
+        {id:'beer',     name:'Beer',                      avgPrice:8.00},
+        {id:'wine',     name:'Wine (glass)',              avgPrice:12.00},
+        {id:'cocktail', name:'Cocktail',                  avgPrice:13.50},
+        {id:'liquor',   name:'Whiskey/Spirit',            avgPrice:11.50},
+      ],
+      packages: [
+        {id:'soda', name:'Classic Soda Package',    priceRange:[9.99,16],  avg:13, includes:['soda']},
+        {id:'refreshment', name:'Refreshment Package', priceRange:[29,40], avg:35, includes:['soda','coffee','juice','milkshake','water','tea','lemonade','juiceconc','mocktail']},
+        {id:'deluxe', name:'Deluxe Beverage Package',   priceRange:[56,115], avg:80, includes:['soda','coffee','juice','milkshake','water','tea','lemonade','juiceconc','mocktail','beer','wine','cocktail','liquor']}
+      ]
+    };
+
+    const state = {
+      days: 7,
+      items: new Map(),   // id -> {meta, qtyPerDay}
+      packages: new Map(),// id -> {meta, price, override?}
+      order: [],          // item order for rendering
+      line: defaults.line
+    };
+
+    const els = {
+      inputsHost: document.getElementById('beverage-inputs'),
+      packageHost: document.getElementById('package-cards'),
+      totalsLine: document.getElementById('totals-line'),
+      days: document.getElementById('days'),
+      pillRccl: document.getElementById('pill-rccl')
+    };
+
+    // ----- helpers
+    const fmt = n => '$' + (Math.round(n*100)/100).toFixed(2);
+    const getLS = (k,d)=>{ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(_){ return d; } };
+    const setLS = (k,v)=>{ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){ } };
+
+    function seedSW(urls){
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller){
+        try{ navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls}); }catch(_){}
+      }
+    }
+
+    // ----- rendering
+    function renderInputs(){
+      els.inputsHost.innerHTML = state.order.map(id=>{
+        const it = state.items.get(id);
+        const priceNote = it.meta.free ? '<span class="free-note">(Included · $0)</span>' : `<span class="price">avg ${fmt(it.meta.avgPrice)}</span>`;
+        return `
+          <div class="card" style="padding:.7rem .8rem">
+            <div class="calc-row">
+              <label for="qty-${id}">${it.meta.name}</label>
+              <input id="qty-${id}" type="number" inputmode="numeric" min="0" step="1" value="${it.qtyPerDay||0}" data-item="${id}" aria-describedby="help-${id}" />
+              <div class="price" id="help-${id}">${priceNote}</div>
+            </div>
+          </div>`;
+      }).join('');
+
+      els.inputsHost.querySelectorAll('input[type="number"]').forEach(inp=>{
+        inp.addEventListener('input', ()=>{
+          const id = inp.dataset.item;
+          const ent = state.items.get(id);
+          ent.qtyPerDay = Math.max(0, parseInt(inp.value||'0',10));
+          computeAndRender();
+        });
+      });
+    }
+
+    function pkgPriceDisplay(p){
+      const ov = getLS('pkgOverride:'+state.line+':'+p.id, null);
+      const value = ov!=null ? Number(ov) : (p.avg ?? p.priceRange?.[0] ?? 0);
+      return {value, overridden: ov!=null};
+    }
+
+    function renderPackages(){
+      els.packageHost.innerHTML = Array.from(state.packages.values()).map(p=>{
+        const {value, overridden} = pkgPriceDisplay(p.meta);
+        const range = p.meta.priceRange ? ` (${fmt(p.meta.priceRange[0])}–${fmt(p.meta.priceRange[1])})` : '';
+        return `
+          <article class="pkg" id="pkg-${p.meta.id}" aria-live="polite">
+            <span class="ribbon" role="status">Best value</span>
+            <header>
+              <div><strong>${p.meta.name}</strong> <span class="tiny muted">${range}</span></div>
+              <div class="price" data-price="${p.meta.id}">${fmt(value)}</div>
+            </header>
+            <div class="body">
+              <button class="pill override" data-ov="${p.meta.id}" type="button">${overridden?'Edit Price (overridden)':'Edit Price'}</button>
+              <div class="tiny muted" style="margin-top:.4rem">Includes: ${p.meta.includes.map(x=>state.items.get(x)?.meta.name||x).join(', ')}</div>
+            </div>
+          </article>`;
+      }).join('');
+
+      els.packageHost.querySelectorAll('button[data-ov]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id = btn.dataset.ov;
+          const key = 'pkgOverride:'+state.line+':'+id;
+          const current = getLS(key, null);
+          const suggested = current ?? state.packages.get(id).meta.avg ?? state.packages.get(id).meta.priceRange?.[0] ?? 0;
+          const v = prompt('Enter your package price per person per day (USD).', String(suggested));
+          if (v==null) return;
+          const num = Number(v);
+          if (!Number.isFinite(num) || num<0) { alert('Please enter a valid non-negative number.'); return; }
+          setLS(key, num);
+          computeAndRender();
+        });
+      });
+    }
+
+    // ----- compute
+    function computeAndRender(){
+      // daily item totals
+      let dailyTotal = 0;
+      const perItemSpend = {};
+      state.items.forEach((it,id)=>{
+        const spend = (it.meta.avgPrice||0) * (it.qtyPerDay||0);
+        perItemSpend[id] = spend;
+        dailyTotal += spend;
+      });
+
+      const days = Math.max(1, parseInt(els.days.value||'1',10));
+      state.days = days;
+      const tripTotal = dailyTotal * days;
+      els.totalsLine.textContent = `Daily total: ${fmt(dailyTotal)} · Trip total: ${fmt(tripTotal)}`;
+
+      // per-package included spend
+      const packages = Array.from(state.packages.values()).map(p=>{
+        const {value} = pkgPriceDisplay(p.meta);
+        const includedDaily = p.meta.includes.reduce((sum,id)=> sum + (perItemSpend[id]||0), 0);
+        const qualifies = includedDaily >= value - 1e-6; // allow tiny float tolerance
+        return {id:p.meta.id, price:value, includedDaily, qualifies};
+      });
+
+      // choose cheapest qualifying as "best"
+      const qualifying = packages.filter(p=>p.qualifies).sort((a,b)=>a.price-b.price);
+      const bestId = qualifying.length ? qualifying[0].id : null;
+
+      // paint cards
+      packages.forEach(p=>{
+        const el = document.getElementById('pkg-'+p.id);
+        if (!el) return;
+        el.classList.toggle('highlight', p.qualifies);
+        const rub = el.querySelector('.ribbon');
+        if (rub) rub.style.display = (bestId===p.id)?'inline-block':'none';
+      });
+    }
+
+    // ----- data loader
+    async function loadDataset(url){
+      try{
+        const r = await fetch(url, {cache:'no-store', credentials:'omit'});
+        if(!r.ok) throw new Error('Bad response');
+        const data = await r.json();
+
+        state.line = data.line || defaults.line;
+
+        // items
+        state.items = new Map();
+        // Ensure free items are present even if not in JSON
+        const ensure = (arr, id)=> arr.find(x=>x.id===id);
+        const baseItems = [...(data.items||[])];
+
+        // inject free lineup (always keep even if not listed)
+        ['water','lemonade','tea','juiceconc'].forEach(fid=>{
+          if(!ensure(baseItems,fid)) baseItems.unshift(
+            fid==='water'    ? {id:'water',    name:'Tap Water',                avgPrice:0, free:true} :
+            fid==='lemonade' ? {id:'lemonade', name:'Lemonade',                 avgPrice:0, free:true} :
+            fid==='tea'      ? {id:'tea',      name:'Tea (hot/cold)',           avgPrice:0, free:true} :
+                               {id:'juiceconc',name:'Juice (from concentrate)', avgPrice:0, free:true}
+          );
+        });
+
+        baseItems.forEach(it=> state.items.set(it.id, {meta:it, qtyPerDay:0}));
+        state.order = Array.from(state.items.keys());
+
+        // packages
+        state.packages = new Map();
+        (data.packages||defaults.packages).forEach(p=>{
+          state.packages.set(p.id, {meta:p});
+        });
+
+        renderInputs();
+        renderPackages();
+        computeAndRender();
+
+        // SW prefetch seed
+        seedSW([url]);
+      }catch(_){
+        // fallback to defaults
+        state.line = defaults.line;
+        state.items = new Map();
+        defaults.items.forEach(it=> state.items.set(it.id, {meta:it, qtyPerDay:0}));
+        state.order = defaults.items.map(i=>i.id);
+        state.packages = new Map();
+        defaults.packages.forEach(p=> state.packages.set(p.id, {meta:p}));
+        renderInputs();
+        renderPackages();
+        computeAndRender();
+      }
+    }
+
+    // Days change
+    els.days.addEventListener('input', computeAndRender);
+
+    // Pill click (RCCL)
+    els.pillRccl.addEventListener('click', (e)=>{
+      document.querySelectorAll('.pill-row .pill').forEach(p=>p.setAttribute('aria-current','false'));
+      e.currentTarget.setAttribute('aria-current','true');
+      const src = e.currentTarget.getAttribute('data-src');
+      if (src) loadDataset(src);
+    });
+
+    // boot
+    loadDataset(els.pillRccl.getAttribute('data-src'));
+  })();
+  </script>
+
+  <!-- Floating Social Share Bar (optional) -->
   <div id="share-bar" class="share-bar" aria-label="Share this page">
     <a class="share twitter"   href="https://twitter.com/intent/tweet?url=https://www.cruisinginthewake.com/drink-packages.html" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X</a>
     <a class="share facebook"  href="https://www.facebook.com/sharer/sharer.php?u=https://www.cruisinginthewake.com/drink-packages.html" target="_blank" rel="noopener" aria-label="Share on Facebook">Fb</a>
     <a class="share instagram" href="#" onclick="navigator.clipboard.writeText(window.location.href);alert('Link copied to clipboard!')" aria-label="Copy link for Instagram">Ig</a>
     <a class="share whatsapp"  href="https://wa.me/?text=https://www.cruisinginthewake.com/drink-packages.html" target="_blank" rel="noopener" aria-label="Share on WhatsApp">Wa</a>
-    <a class="share wechat"    href="weixin://" aria-label="Share on WeChat">WeChat</a>
   </div>
-
   <script>
-  (function(){
-    const bar=document.getElementById('share-bar');
-    if(!bar) return;
-    const toggle=()=>{ window.scrollY>150 ? bar.classList.add('visible') : bar.classList.remove('visible'); };
-    addEventListener('scroll',toggle,{passive:true});
-    toggle();
-  })();
-  </script>
-
-  <!-- aria-current safety for mirrors/subpaths -->
-  <script>
-  (function(){
-    const nav=document.querySelector('.main-nav[aria-label="Primary"]'); if(!nav) return;
-    const here=location.pathname.replace(/\/+$/,'').toLowerCase();
-    nav.querySelectorAll('a[href]').forEach(a=>{
-      try{
-        const p=new URL(a.getAttribute('href'), location.origin).pathname.replace(/\/+$/,'').toLowerCase();
-        if(p===here){ a.setAttribute('aria-current','page'); a.classList.add('is-current'); }
-      }catch(_){}
-    });
-  })();
+    (function(){
+      const bar=document.getElementById('share-bar');
+      if(!bar) return;
+      const toggle=()=>{ window.scrollY>150 ? bar.classList.add('visible') : bar.classList.remove('visible'); };
+      addEventListener('scroll',toggle,{passive:true}); toggle();
+    })();
   </script>
 </body>
 </html>
