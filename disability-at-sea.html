@@ -21,9 +21,9 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
   <!-- Title / Version Trinity -->
-  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.099)</title>
-  <meta name="version" content="v3.010.099"/>
-  <meta name="page:version" content="v3.010.099"/>
+  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.100)</title>
+  <meta name="version" content="v3.010.100"/>
+  <meta name="page:version" content="v3.010.100"/>
   <meta name="standards:baseline" content="3.008"/>
 
   <!-- Canonical & Description -->
@@ -37,14 +37,14 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
   <meta property="og:title" content="Accessibility &amp; Inclusion — In the Wake"/>
   <meta property="og:description" content="Our mission is full digital accessibility for all travelers — a site built with empathy and conviction, following WCAG 2.1 AA and ADA standards."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.099"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.100"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Global styles -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010.099"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.100"/>
 
   <!-- Preload Hero -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.099" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.100" fetchpriority="high"/>
 
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -92,7 +92,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   })();
   </script>
 
-  <!-- Page-local styles (skip link, unified nav + hero sizing) -->
+  <!-- Page-local styles (skip link, unified nav + hero sizing + rails) -->
   <style>
     .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .visually-hidden-focusable:focus{
@@ -126,8 +126,15 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     .submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem;border:0;background:transparent;color:#083041;text-decoration:none}
     .submenu a:hover,.submenu a:focus{background:#f2f7fa;outline:2px solid transparent}
 
-    /* Hero sizing — prevents the “too tall blank” when duplicates existed */
-    .hero{background:url('/assets/index_hero.jpg?v=3.010.099') center/cover no-repeat!important;min-height:clamp(180px,20vw,340px)}
+    /* Hero sizing */
+    .hero{background:url('/assets/index_hero.jpg?v=3.010.100') center/cover no-repeat!important;min-height:clamp(180px,20vw,340px)}
+
+    /* Right rail layout */
+    .wrap.page-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,360px);gap:2rem;align-items:start}
+    @media (max-width:979.98px){.wrap.page-grid{grid-template-columns:1fr}}
+    .card.rail-card h2.tiny{margin:.25rem 0 .5rem;color:#0a3d62}
+    .rail-list{display:grid;gap:.8rem}
+    .author-avatar{display:block;width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center;flex:0 0 48px}
   </style>
 </head>
 
@@ -138,8 +145,8 @@ ADDENDUM: Facebook Domain Verification v3.008.021
       <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
 
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.099" width="256" height="64" alt="In the Wake wordmark"/>
-        <span class="version-badge">v3.010.099</span>
+        <img src="/assets/logo_wake.png?v=3.010.100" width="256" height="64" alt="In the Wake wordmark"/>
+        <span class="version-badge">v3.010.100</span>
       </div>
 
       <nav class="pill-nav" aria-label="Primary">
@@ -174,9 +181,9 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.099" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.100" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.099" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.100" width="256" height="64" alt="In the Wake">
         <div class="tagline">Accessible Seas for Every Traveler</div>
       </div>
       <div class="hero-credit">
@@ -189,31 +196,51 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <div id="nav-portal" aria-hidden="true"></div>
 
   <!-- MAIN -->
-  <main id="content" class="wrap" role="main">
-    <section class="card">
-      <h1>Accessibility &amp; Inclusion Commitment</h1>
-      <p><em>In the Wake</em> exists to ensure that every traveler — regardless of ability, age, or circumstance — can explore the wonder of cruising without barriers. We believe accessibility is not simply a regulation to meet, but an act of love and respect. The sea calls to everyone, and our mission is to make sure every person can answer that call with confidence and dignity.</p>
-      <p>Our team approaches accessibility as both a technical and moral standard. We continually test and refine our website against the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> and the <strong>Americans with Disabilities Act (ADA)</strong>, ensuring full keyboard navigation, assistive technology support, and readable design. When feedback comes, we listen — because accessibility is not a finish line, but a voyage we’re all on together.</p>
+  <main id="content" class="wrap page-grid" role="main" aria-label="Main content">
+    <!-- LEFT COLUMN -->
+    <section aria-label="Accessibility content">
+      <section class="card">
+        <h1>Accessibility &amp; Inclusion Commitment</h1>
+        <p><em>In the Wake</em> exists to ensure that every traveler — regardless of ability, age, or circumstance — can explore the wonder of cruising without barriers. We believe accessibility is not simply a regulation to meet, but an act of love and respect. The sea calls to everyone, and our mission is to make sure every person can answer that call with confidence and dignity.</p>
+        <p>Our team approaches accessibility as both a technical and moral standard. We continually test and refine our website against the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> and the <strong>Americans with Disabilities Act (ADA)</strong>, ensuring full keyboard navigation, assistive technology support, and readable design. When feedback comes, we listen — because accessibility is not a finish line, but a voyage we’re all on together.</p>
+      </section>
+
+      <section class="card">
+        <h2>Ensuring Access for Every Voyager</h2>
+        <p>From visual clarity to cognitive simplicity, every choice we make — from color contrast to content structure — aims to serve travelers of every ability. We’re committed to designing pages that are perceivable, operable, understandable, and robust. Our goal is a website where every reader feels welcomed, seen, and supported, no matter how they navigate or communicate.</p>
+        <p>For those journeying through life with disabilities, chronic conditions, or neurodivergence, we recognize the additional challenges that come with travel. You matter deeply to us. Your feedback, your perspective, and your presence enrich everything we do here. We strive to build a community that reflects not perfection, but compassion.</p>
+      </section>
+
+      <section class="card">
+        <h2>Provider Spotlight: Autism on the Seas</h2>
+        <p>We’re proud to recommend <a href="https://autismontheseas.com" target="_blank" rel="noopener noreferrer"><strong>Autism on the Seas</strong></a>, an international organization that partners with major cruise lines — including Royal Caribbean, Carnival, and Disney — to provide dedicated services for travelers with autism, Down syndrome, Tourette syndrome, cerebral palsy, and other cognitive or developmental disabilities. Since 2007, they’ve helped families and individuals experience cruising with the dignity, joy, and peace of mind every traveler deserves.</p>
+        <p>Their staff-assisted cruises, sensory supports, and compassionate approach make the ocean a more welcoming place. We celebrate their work and encourage families on the spectrum to explore their sailings. No one should ever feel that the horizon is out of reach — and thanks to partners like Autism on the Seas, it isn’t. While we have not personally sailed with them and receive no benefit from this mention, we believe in their mission and know families who’ve benefitted from their services — so we gladly commend them to you.</p>
+      </section>
+
+      <section class="card">
+        <h2>Contact &amp; Feedback</h2>
+        <p>If you encounter any accessibility barrier while visiting our site, please let us know so we can correct it promptly.</p>
+        <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
+        <p>We typically respond within 48 hours. Your feedback directly shapes how we improve — because this isn’t just a site, it’s a shared voyage toward inclusion.</p>
+      </section>
     </section>
 
-    <section class="card">
-      <h2>Ensuring Access for Every Voyager</h2>
-      <p>From visual clarity to cognitive simplicity, every choice we make — from color contrast to content structure — aims to serve travelers of every ability. We’re committed to designing pages that are perceivable, operable, understandable, and robust. Our goal is a website where every reader feels welcomed, seen, and supported, no matter how they navigate or communicate.</p>
-      <p>For those journeying through life with disabilities, chronic conditions, or neurodivergence, we recognize the additional challenges that come with travel. You matter deeply to us. Your feedback, your perspective, and your presence enrich everything we do here. We strive to build a community that reflects not perfection, but compassion.</p>
-    </section>
+    <!-- RIGHT RAIL -->
+    <aside class="rail" role="complementary" aria-label="Author & articles">
+      <!-- Author -->
+      <section id="author-rail" class="card rail-card" aria-label="About the Author">
+        <h2 class="tiny">About the Author</h2>
+        <div class="author-card" style="display:flex;gap:.75rem;align-items:center;">
+          <!-- populated by JS -->
+        </div>
+      </section>
 
-    <section class="card">
-      <h2>Provider Spotlight: Autism on the Seas</h2>
-      <p>We’re proud to recommend <a href="https://autismontheseas.com" target="_blank" rel="noopener noreferrer"><strong>Autism on the Seas</strong></a>, an international organization that partners with major cruise lines — including Royal Caribbean, Carnival, and Disney — to provide dedicated services for travelers with autism, Down syndrome, Tourette syndrome, cerebral palsy, and other cognitive or developmental disabilities. Since 2007, they’ve helped families and individuals experience cruising with the dignity, joy, and peace of mind every traveler deserves.</p>
-      <p>Their staff-assisted cruises, sensory supports, and compassionate approach make the ocean a more welcoming place. We celebrate their work and encourage families on the spectrum to explore their sailings. No one should ever feel that the horizon is out of reach — and thanks to partners like Autism on the Seas, it isn’t. While we have not personally sailed with them and receive no benefit from this mention, we believe in their mission and know families who’ve benefitted from their services — so we gladly commend them to you.</p>
-    </section>
-
-    <section class="card">
-      <h2>Contact &amp; Feedback</h2>
-      <p>If you encounter any accessibility barrier while visiting our site, please let us know so we can correct it promptly.</p>
-      <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
-      <p>We typically respond within 48 hours. Your feedback directly shapes how we improve — because this isn’t just a site, it’s a shared voyage toward inclusion.</p>
-    </section>
+      <!-- Recent “disability” Articles -->
+      <section class="card rail-card" aria-labelledby="recent-rail-title">
+        <h2 id="recent-rail-title" class="tiny">From the Journal (Disability)</h2>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      </section>
+    </aside>
   </main>
 
   <!-- FOOTER -->
@@ -246,10 +273,10 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   })();
   </script>
 
-  <!-- Service Worker -->
+  <!-- Service Worker (versioned to help bust) -->
   <script>
   if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.010.099').catch(()=>{}));
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.010.100').catch(()=>{}));
   }
   </script>
 
@@ -350,7 +377,97 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   })();
   </script>
 
+  <!-- Rails population -->
+  <script>
+  /* ---------- Author rail (Ken default) ---------- */
+  (function authorRail(){
+    const rail = document.getElementById('author-rail');
+    const host = rail && rail.querySelector('.author-card');
+    if(!host) return;
+    host.innerHTML = `
+      <picture>
+        <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.100">
+        <source type="image/jpeg" srcset="/authors/img/ken1.jpg?v=3.010.100">
+        <img class="author-avatar" src="/authors/img/ken1.png?v=3.010.100" width="48" height="48" alt="Author — Ken Baker" decoding="async">
+      </picture>
+      <div>
+        <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
+        Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.<br/>
+        <a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a>
+      </div>`;
+  })();
+  </script>
+
+  <script>
+  /* ---------- Recent articles rail (filter: keyword "disability") ---------- */
+  (async function recentRail(){
+    const host = document.getElementById('recent-rail'); if(!host) return;
+
+    const pick = (o, keys, d=null)=>{ for(const k of keys){ if(o && o[k]!=null) return o[k]; } return d; };
+    const toArray = (v)=>{
+      if (!v) return [];
+      if (Array.isArray(v)) return v;
+      if (typeof v === 'string') return v.split(',').map(s=>s.trim()).filter(Boolean);
+      return [];
+    };
+
+    // Case-insensitive token check for "disability"
+    const hasDisability = (item)=>{
+      const pools = [];
+      pools.push(...toArray(item.keywords));
+      pools.push(...toArray(item.tags));
+      pools.push(...toArray(item.categories));
+      // Normalize and check
+      return pools.some(t => String(t).toLowerCase() === 'disability' || String(t).toLowerCase().includes('disability'));
+    };
+
+    try{
+      // Prefer new location, fall back to legacy
+      const sources = ['/assets/data/articles/index.json?v=3.010.100','/assets/data/articles.json?v=3.010.100'];
+      let data=null;
+      for (const u of sources){
+        try{
+          const r = await fetch(u, {cache:'no-store', credentials:'omit'});
+          if(r.ok){ data = await r.json(); break; }
+        }catch(_){}
+      }
+      const list = Array.isArray(data?.articles) ? data.articles : (Array.isArray(data) ? data : []);
+      // filter by keyword
+      const filtered = list.filter(hasDisability);
+
+      if(!filtered.length){
+        host.innerHTML = '<p class="tiny">Disability-focused articles are coming soon.</p>';
+        return;
+      }
+
+      const here = location.pathname.replace(/\/+$/,'').toLowerCase();
+      const view = filtered.filter(a=>{
+        try{
+          const href = pick(a, ['url','permalink','path'],'#');
+          const p = new URL(href, location.href).pathname.toLowerCase().replace(/\/+$/,'');
+          return p && p !== here;
+        }catch(_){ return false; }
+      }).slice(0,6);
+
+      host.innerHTML = view.map(a=>{
+        const title = pick(a,['title','headline'],'Article');
+        const href  = pick(a,['url','permalink','path'],'#');
+        const img   = pick(a,['image','cover','thumb'], '/assets/index_hero.jpg?v=3.010.100');
+        return `
+          <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
+            <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
+              <img alt="" decoding="async" style="width:100%;height:100%;object-fit:cover" src="${img}">
+            </div>
+            <div class="tiny" style="line-height:1.35">${title}</div>
+          </a>`;
+      }).join('');
+    }catch(_){
+      host.innerHTML = '<p class="tiny">Unable to load recent articles right now.</p>';
+    }
+  })();
+  </script>
+
   <!-- Invocation (Soli Deo Gloria) -->
-  <!-- Steward: abondservant · Path: /disability-at-sea.html · Version: v3.010.099 -->
+  <!-- Steward: abondservant · Path: /disability-at-sea.html · Version: v3.010.100 -->
 </body>
 </html>
