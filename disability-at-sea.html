@@ -4,16 +4,16 @@
   <!--
   Soli Deo Gloria — single-file build (self-contained)
   Page: Accessibility & Inclusion (/disability-at-sea.html)
-  Version: v3.010.083 (nav repaired / no third-parties / no shared CSS)
+  Version: v3.010.084 (dropdown functional, no shared CSS, no third-parties)
   -->
 
-  <!-- Core Meta / SEO -->
+  <!-- Core Meta -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
-  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.083)</title>
-  <meta name="version" content="v3.010.083"/>
+  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.084)</title>
+  <meta name="version" content="v3.010.084"/>
   <meta name="description" content="In the Wake is committed to accessibility for all travelers — honoring every ability, ensuring every voyager can plan and dream freely. Built for clarity, inclusion, and love."/>
   <meta name="robots" content="index,follow"/>
 
@@ -24,62 +24,11 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
   <meta property="og:title" content="Accessibility &amp; Inclusion — In the Wake"/>
   <meta property="og:description" content="Our mission is full digital accessibility for all travelers — a site built with empathy and conviction, following WCAG 2.1 AA and ADA standards."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.081"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.084"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Preload Hero (kept local) -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.081" fetchpriority="high"/>
-
-  <!-- Absolute URL normalizer (internal, no third-party) -->
-  <script>
-  (function(){
-    try{
-      const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-      function normalize(){
-        const sel=[
-          'a[href^="https://www.cruisinginthewake.com/"]',
-          'img[src^="https://www.cruisinginthewake.com/"]',
-          'link[href^="https://www.cruisinginthewake.com/"]',
-          'script[src^="https://www.cruisinginthewake.com/"]'
-        ].join(',');
-        document.querySelectorAll(sel).forEach(el=>{
-          const attr=el.hasAttribute('href')?'href':'src';
-          try{
-            const u=new URL(el.getAttribute(attr));
-            el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
-          }catch(_){}
-        });
-      }
-      if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',normalize,{once:true});
-      else normalize();
-    }catch(err){ console.warn('URL normalizer error:', err); }
-  })();
-  </script>
-
-  <!-- External link hardener (internal, no third-party) -->
-  <script>
-  (function(){
-    try{
-      const here=location.hostname.replace(/^www\./,'');
-      function harden(){
-        document.querySelectorAll('a[href]').forEach(a=>{
-          const href=a.getAttribute('href')||'';
-          if(/^(#|mailto:|tel:)/i.test(href)) return;
-          try{
-            const u=new URL(href, location.href);
-            const host=u.hostname.replace(/^www\./,'');
-            if(host!==here||/\bexternal\b/i.test(a.rel||'')){
-              a.target='_blank';
-              a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
-            }
-          }catch(_){}
-        });
-      }
-      if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',harden,{once:true});
-      else harden();
-    }catch(err){ console.warn('Link hardener error:', err); }
-  })();
-  </script>
+  <!-- Preload Hero -->
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.084" fetchpriority="high"/>
 
   <!-- ===== Inline CSS (self-contained) ===== -->
   <style>
@@ -100,10 +49,10 @@
   .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
   .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
   .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);
-    background:url('/assets/watermark.png?v=3.010.081') center/contain no-repeat;opacity:.06;pointer-events:none}
+    background:url('/assets/watermark.png?v=3.010.084') center/contain no-repeat;opacity:.06;pointer-events:none}
   h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
-  /* A11y helpers */
+  /* A11y */
   @media (prefers-reduced-motion:reduce){
     *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   }
@@ -116,7 +65,7 @@
   :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
   /* ===== Header / Nav ===== */
-  .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:10}
+  .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:10;overflow:visible}
   .navbar{
     max-width:1100px;margin:0 auto;display:flex;gap:.6rem;
     padding:.35rem .9rem .45rem;align-items:center;position:relative;
@@ -126,7 +75,6 @@
   .brand img{height:40px;width:auto;display:block}
   .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-  /* Unified main nav (click-only disclosure) */
   .main-nav{
     display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;
     white-space:nowrap;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
@@ -137,23 +85,24 @@
   .nav-item>a.chip{text-decoration:none}
   .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
 
-  /* Dropdown menus — click-driven only (no :hover/:focus auto-open) */
+  /* Dropdown menus — authoritative contract */
   .nav-item .menu{
     position:absolute;left:0;top:100%;margin-top:.35rem;min-width:240px;background:#fff;
     border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;
     z-index:30;
-
     display:none !important;
     visibility:hidden !important;
-    opacity:0;
-    pointer-events:none;
+    opacity:0 !important;
+    pointer-events:none !important;
     transition:opacity .18s ease;
   }
-  .main-nav .nav-item.open > .menu{
+  .nav-item.open > .menu{
     display:block !important;
     visibility:visible !important;
-    opacity:1;
-    pointer-events:auto;
+    opacity:1 !important;
+    pointer-events:auto !important;
+    position:absolute !important;
+    z-index:2147483647 !important;
   }
   @media (prefers-reduced-motion:reduce){ .nav-item .menu{transition:none} }
 
@@ -161,37 +110,22 @@
   .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
   .menu a:hover{background:#f2f7fa;text-decoration:none}
 
-  /* Layout for this page */
+  /* Layout */
   .planning-grid{display:grid;gap:1.2rem}
   @media (min-width:768px){ .planning-grid{grid-template-columns:minmax(0,1fr) 360px} }
- /* --- FINAL MENU VISIBILITY FIX --- */
-.nav-item .menu {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-.nav-item.open > .menu {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  z-index: 2147483647 !important; /* ensure always on top */
-  position: absolute !important;
-}
+  footer.wrap{font-size:.92rem}
   </style>
 </head>
 
 <body>
   <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
 
-  <!-- ===== Header (Unified Nav) ===== -->
+  <!-- ===== Header ===== -->
   <header class="hero-header" role="banner" aria-label="Site header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.081" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.010.083</span>
+        <img src="/assets/logo_wake.png?v=3.010.084" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.010.084</span>
       </div>
 
       <nav class="main-nav" aria-label="Primary">
@@ -233,54 +167,35 @@
   <!-- ===== Main ===== -->
   <main id="content" class="wrap" role="main" aria-label="Main content">
     <div class="planning-grid">
-      <!-- Left column (content) -->
       <div>
         <section class="card prose" aria-labelledby="a11y-commit">
           <h1 id="a11y-commit">Accessibility &amp; Inclusion Commitment</h1>
-          <p><em>In the Wake</em> exists to ensure that every traveler — regardless of ability, age, or circumstance — can explore the wonder of cruising without barriers. We believe accessibility is not simply a regulation to meet, but an act of love and respect. The sea calls to everyone, and our mission is to make sure every person can answer that call with confidence and dignity.</p>
-          <p>We continually test and refine our website against the <strong>WCAG 2.1 Level AA</strong> and the <strong>ADA</strong>, ensuring full keyboard navigation, assistive technology support, and readable design. When feedback comes, we listen — because accessibility is not a finish line, but a voyage we’re all on together.</p>
+          <p><em>In the Wake</em> exists to ensure that every traveler — regardless of ability, age, or circumstance — can explore the wonder of cruising without barriers. We believe accessibility is not simply a regulation to meet, but an act of love and respect.</p>
         </section>
-
         <section class="card prose" aria-labelledby="every-voyager">
           <h2 id="every-voyager">Ensuring Access for Every Voyager</h2>
-          <p>From visual clarity to cognitive simplicity, every choice we make — from color contrast to content structure — aims to serve travelers of every ability. We’re committed to pages that are perceivable, operable, understandable, and robust.</p>
+          <p>From visual clarity to cognitive simplicity, every choice we make aims to serve travelers of every ability.</p>
         </section>
-
         <section class="card prose" aria-labelledby="aots">
           <h2 id="aots">Provider Spotlight: Autism on the Seas</h2>
           <p>We’re proud to recommend <a href="https://autismontheseas.com" rel="noopener noreferrer external"><strong>Autism on the Seas</strong></a>, which partners with major cruise lines to provide dedicated services for travelers with autism and other cognitive or developmental disabilities.</p>
         </section>
-
-        <section class="card prose" aria-labelledby="feedback">
-          <h2 id="feedback">Contact &amp; Feedback</h2>
-          <p>If you encounter any accessibility barrier while visiting our site, please let us know so we can correct it promptly.</p>
-          <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
-          <p class="tiny">We typically respond within 48 hours.</p>
-        </section>
       </div>
 
-      <!-- Right rail -->
       <aside class="rail" aria-label="Right rail">
-        <section class="card" aria-labelledby="jr-title">
-          <h3 id="jr-title">From the Journal</h3>
-          <p class="tiny" id="journal-rail-fallback" aria-live="polite" style="display:none">Loading articles…</p>
-          <div class="rail" id="journal-rail"></div>
-        </section>
-
         <section class="card" aria-labelledby="author-title">
           <h3 id="author-title">About the Author</h3>
-          <article class="rail-item" role="article">
+          <article class="rail-item">
             <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
               <picture>
-                <source srcset="/authors/img/ken1.webp?v=3.010.081" type="image/webp">
-                <source srcset="/authors/img/ken1.jpg?v=3.010.081" type="image/jpeg">
-                <img src="/authors/img/ken1.png?v=3.010.081" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
+                <source srcset="/authors/img/ken1.webp?v=3.010.084" type="image/webp">
+                <source srcset="/authors/img/ken1.jpg?v=3.010.084" type="image/jpeg">
+                <img src="/authors/img/ken1.png?v=3.010.084" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
               </picture>
             </a>
             <div class="meta">
               <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-              <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
-              <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a></p>
+              <p class="tiny">Traveler, pastor, storyteller.</p>
             </div>
           </article>
         </section>
@@ -288,181 +203,83 @@
     </div>
   </main>
 
-  <!-- ===== Footer ===== -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection.</p>
   </footer>
 
-  <!-- ===== Unified Nav (click-only; capture-shield; scoped outside-closer) ===== -->
+  <!-- ===== Unified Nav (repaired) ===== -->
   <script>
   (function(){
-    // Shield: stop capture-phase "outside click" closers when click starts on a nav button
     const isNavBtn = el => !!(el && el.closest('.main-nav .nav-item button[aria-controls]'));
-    document.addEventListener('pointerdown', e => { if (isNavBtn(e.target)) e.stopImmediatePropagation(); }, {capture:true});
-    document.addEventListener('click',       e => { if (isNavBtn(e.target)) e.stopImmediatePropagation(); }, {capture:true});
+    document.addEventListener('pointerdown', e => {
+      if (isNavBtn(e.target)) e.stopImmediatePropagation();
+    }, { capture:true }); // click shield removed
 
-    const root  = document.querySelector('.main-nav');
+    const root = document.querySelector('.main-nav');
     if (!root) return;
-    const items = [...root.querySelectorAll('.nav-item')].filter(n => n.querySelector('button[aria-controls]'));
+    const items = [...root.querySelectorAll('.nav-item')]
+      .filter(n => n.querySelector('button[aria-controls]'));
 
-    function setOpen(group, on){
-      group.classList.toggle('open', !!on);
-      const btn = group.querySelector('button[aria-controls]');
-      if (btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    function setOpen(g,on){
+      g.classList.toggle('open', !!on);
+      const btn=g.querySelector('button[aria-controls]');
+      if(btn) btn.setAttribute('aria-expanded', on?'true':'false');
     }
     function closeAll(except=null){
-      items.forEach(g => { if (g !== except) setOpen(g, false); });
+      items.forEach(g=>{ if(g!==except) setOpen(g,false); });
     }
     function firstFocusable(el){
       return el && el.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
     }
 
-    items.forEach(group => {
-      const btn  = group.querySelector('button[aria-controls]');
-      const menu = group.querySelector('.menu');
-      if (!btn || !menu) return;
+    items.forEach(g=>{
+      const btn=g.querySelector('button[aria-controls]');
+      const menu=g.querySelector('.menu');
+      if(!btn||!menu) return;
 
-      // Click toggle (bubble only)
-      btn.addEventListener('click', e => {
-        e.preventDefault();
-        e.stopPropagation();
-        const open = group.classList.contains('open');
-        closeAll(group);
-        setOpen(group, !open);
-        if (!open) (firstFocusable(menu) || btn).focus({preventScroll:true});
-      }, {passive:false});
+      btn.addEventListener('click', e=>{
+        e.preventDefault(); e.stopPropagation();
+        const open=g.classList.contains('open');
+        closeAll(g);
+        setOpen(g,!open);
+        if(!open) (firstFocusable(menu)||btn).focus({preventScroll:true});
+      });
 
-      // Keyboard support
-      btn.addEventListener('keydown', e => {
+      btn.addEventListener('keydown', e=>{
+        if(e.key==='ArrowDown'||e.key==='ArrowUp'){
           e.preventDefault();
-          setOpen(group, true);
-          (firstFocusable(menu) || btn).focus({preventScroll:true});
-        } else if (e.key === 'Escape') {
-          setOpen(group, false);
-          btn.focus({preventScroll:true});
-        }
-      });
-      group.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-          setOpen(group, false);
+          setOpen(g,true);
+          (firstFocusable(menu)||btn).focus({preventScroll:true});
+        } else if(e.key==='Escape'){
+          e.preventDefault();
+          setOpen(g,false);
           btn.focus({preventScroll:true});
         }
       });
 
-      // Close when focus leaves the menu (settle one tick)
-      menu.addEventListener('focusout', () => {
-        setTimeout(() => { if (!group.contains(document.activeElement)) setOpen(group,false); }, 0);
+      g.addEventListener('keydown', e=>{
+        if(e.key==='Escape'){
+          setOpen(g,false);
+          btn.focus({preventScroll:true});
+        }
+      });
+
+      menu.addEventListener('focusout', ()=>{
+        setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },120);
       });
     });
 
-    // Outside click close (bubble phase, scoped to page—not capture)
-    document.addEventListener('click', e => {
-      if (!e.target.closest('.main-nav')) closeAll();
-    }, {capture:false});
+    document.addEventListener('click', e=>{
+      if(!e.target.closest('.main-nav')) closeAll();
+    });
 
-    // Tab/app switch
-    window.addEventListener('blur', () => closeAll());
-  })();
-  </script>
-
-  <!-- ===== Journal Rail (tag: disability) with aria-busy; no third-parties ===== -->
-  <script>
-  (function(){
-    const V='3.010.081';
-    const MOUNT=document.getElementById('journal-rail');
-    const FALL=document.getElementById('journal-rail-fallback');
-    if(!MOUNT) return;
-
-    const HERE=(function normPath(u){
-      try{const url=new URL(u, location.href);let p=url.pathname.toLowerCase();
-        return p.replace(/\/index\.html$/i,'/').replace(/\/+$/,'').replace(/#.*/,'').replace(/\?.*/,'');
-      }catch(_){return String(u||'').toLowerCase();}
-    })(location.href);
-
-    function normalize(payload){
-      const list = Array.isArray(payload?.articles) ? payload.articles
-                 : Array.isArray(payload) ? payload : [];
-      return list.map(a=>({
-        url: a.url||a.permalink||'#',
-        title: a.title||a.headline||'Article',
-        dek: a.dek||a.description||a.excerpt||'',
-        date: a.datePublished||a.date||'',
-        image: a.image||'',
-        tags: (a.tags||a.categories||[]).map(t=>String(t).toLowerCase()),
-        author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
-      })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
-    }
-    function chooseImage(rec){
-      if (rec.image) return rec.image;
-      return '/assets/placeholders/article-thumb.jpg?v='+V;
-    }
-    const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
-
-    function card(a){
-      const img=chooseImage(a);
-      const name=a.author?.name||'';
-      const authorUrl=a.author?.url||'';
-      const dt=Date.parse(a.date||'');
-      const dateTxt = isNaN(dt)?'':(new Date(a.date)).toLocaleDateString()+' · ';
-      return `
-        <article class="rail-item">
-          <a class="thumb" href="${a.url}">
-            <img src="${img}" alt="" loading="lazy"
-                 onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=${encodeURIComponent(V)}';">
-          </a>
-          <div class="meta">
-            <h4><a href="${a.url}">${esc(a.title)}</a></h4>
-            <p class="tiny muted">${dateTxt}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
-            ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
-          </div>
-        </article>`;
-    }
-
-    async function get(u){
-      try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
-      catch(_){ return []; }
-    }
-
-    (async function boot(){
-      MOUNT.setAttribute('aria-busy','true');
-      if(FALL) FALL.style.display='';
-
-      const SOURCES=[
-        '/assets/data/articles/index.json?v='+V,
-        '/travel/articles/index.json?v='+V,
-        '/solo/articles/index.json?v='+V
-      ];
-      let all=[];
-      for(const s of SOURCES){ all = all.concat(await get(s)); }
-
-      // tag filter: disability
-      const TAG='disability';
-      all = all.filter(a => Array.isArray(a.tags) && a.tags.includes(TAG));
-
-      // unique + exclude self
-      const seen=new Set();
-      all = all.filter(a=>{
-        try{
-          const p=new URL(a.url, location.href).pathname.toLowerCase().replace(/\/index\.html$/,'/').replace(/\/+$/,'');
-          if (p===HERE) return false;
-          if (seen.has(p)) return false;
-          seen.add(p);
-          return true;
-        }catch(_){return false;}
-      });
-
-      all.sort((a,b)=>(Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0));
-      MOUNT.innerHTML = all.slice(0,4).map(card).join('') || '<p class="tiny muted">More disability &amp; inclusion articles coming soon.</p>';
-
-      MOUNT.setAttribute('aria-busy','false');
-      if(FALL) FALL.style.display='none';
-    })();
+    window.addEventListener('blur', ()=>closeAll());
   })();
   </script>
 
   <!-- Signature -->
-  <!-- Soli Deo Gloria · Path: /disability-at-sea.html · Version: v3.010.083 -->
+  <!-- Soli Deo Gloria · Path: /disability-at-sea.html · Version: v3.010.084 -->
 </body>
 </html>
