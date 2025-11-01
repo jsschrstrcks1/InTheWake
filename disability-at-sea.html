@@ -3,14 +3,13 @@
 <head>
   <!--
   Soli Deo Gloria — may every pixel and paragraph bear His reflection.
-
-  STANDARDS (v3.010.075):
+  STANDARDS (v3.010.077):
     • Every Page v3.010
-    • Unified Nav v3.010 (dropdowns fixed; hover/click/keyboard)
+    • Unified Nav v3.010 (dropdowns fixed; hover/click/keyboard; race-safe)
     • A11y/WCAG Addendum v3.100
     • CMP/Consent v3.008.020
     • FB Domain Verification v3.008.021
-  PAGE: /disability-at-sea.html · VERSION: v3.010.075
+  PAGE: /disability-at-sea.html · VERSION: v3.010.077
   -->
 
   <!-- Consent Manager (must be first) -->
@@ -28,10 +27,10 @@
   <meta name="facebook-domain-verification" content="18im6oc23fy1oy8f8clbsb8bxniv4x">
 
   <!-- Title / Version -->
-  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.075)</title>
-  <meta name="version" content="v3.010.075"/>
-  <meta name="page:version" content="v3.010.075"/>
-  <meta name="standards:baseline" content="3.010.075"/>
+  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.077)</title>
+  <meta name="version" content="v3.010.077"/>
+  <meta name="page:version" content="v3.010.077"/>
+  <meta name="standards:baseline" content="3.010.077"/>
 
   <!-- Canonical & Description -->
   <link rel="canonical" href="https://www.cruisinginthewake.com/disability-at-sea.html"/>
@@ -44,11 +43,11 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
   <meta property="og:title" content="Accessibility &amp; Inclusion — In the Wake"/>
   <meta property="og:description" content="Our mission is full digital accessibility for all travelers — a site built with empathy and conviction, following WCAG 2.1 AA and ADA standards."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.075"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.077"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Preload Hero -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.075" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.077" fetchpriority="high"/>
 
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -60,7 +59,7 @@
 
   <!-- Absolute URL Normalizer -->
   <script>
-  try {
+  try{
     (function(){
       const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
       window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
@@ -73,12 +72,12 @@
       }
       if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
     })();
-  } catch(err) { console.warn('URL normalizer error:', err); }
+  }catch(err){ console.warn('URL normalizer error:', err); }
   </script>
 
   <!-- External link hardener -->
   <script>
-  try {
+  try{
     (function(){
       const here=location.hostname.replace(/^www\./,'');
       function upgrade(){
@@ -97,7 +96,7 @@
       }
       if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}else{upgrade();}
     })();
-  } catch(err) { console.warn('Link hardener error:', err); }
+  }catch(err){ console.warn('Link hardener error:', err); }
   </script>
 
   <!-- ===== Inline CSS (unified + fixes) ===== -->
@@ -119,7 +118,7 @@ a:hover{text-decoration:underline}
 .center{text-align:center}
 .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
 .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
-.card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.010.075') center/contain no-repeat;opacity:.06;pointer-events:none}
+.card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.010.077') center/contain no-repeat;opacity:.06;pointer-events:none}
 h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
 /* A11y */
@@ -133,18 +132,18 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
   border-radius:10px;z-index:2147483647
 }
 
-/* ===== Header / Nav (fixed) ===== */
+/* ===== Header / Nav (stacking fixed) ===== */
 .hero-header{
   position:relative;
   border-bottom:6px double var(--rope);
   background:#eaf6f6;
-  /* removed isolation:isolate (was trapping menus) */
+  z-index:9999;            /* explicit stacking context */
+  /* isolation:isolate;    <-- keep removed */
 }
 .navbar{
   max-width:1100px;margin:0 auto;display:flex;gap:.6rem;
   padding:.35rem .9rem .45rem;align-items:center;position:relative;
-  z-index:9000;
-  min-height:56px;background:#eaf6f6;overflow-y:visible;
+  z-index:10000;min-height:56px;background:#eaf6f6;overflow-y:visible;
 }
 .brand{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
 .brand img{height:40px;width:auto;display:block}
@@ -163,14 +162,13 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
 /* Dropdown Menus */
 .nav-item .menu{
-  position:absolute;left:0;top:100%;margin-top:.35rem;
-  min-width:240px;background:#fff;
-  border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);
-  padding:.6rem;display:none;z-index:10000;pointer-events:auto
+  position:absolute;left:0;top:100%;margin-top:.35rem;min-width:240px;background:#fff;
+  border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;
+  z-index:11000;pointer-events:auto
 }
-.main-nav .nav-item.open > .menu,
-.main-nav .nav-item:focus-within > .menu,
-.main-nav .nav-item:hover > .menu{display:block!important}
+.main-nav .nav-item.open>.menu,
+.main-nav .nav-item:focus-within>.menu,
+.main-nav .nav-item:hover>.menu{display:block!important}
 .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
 .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
 .menu a:hover{background:#f2f7fa;text-decoration:none}
@@ -178,7 +176,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 /* ===== Hero ===== */
 .hero{
   position:relative;width:100%;min-height:clamp(200px,24vw,340px);
-  background:url('/assets/index_hero.jpg?v=3.010.075') center/cover no-repeat;
+  background:url('/assets/index_hero.jpg?v=3.010.077') center/cover no-repeat;
   display:flex;align-items:flex-end;overflow:hidden;z-index:0
 }
 .hero-title{
@@ -197,23 +195,27 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 .prose p{margin:.6rem 0}
 footer.wrap{font-size:.92rem}
 
-/* rail items */
-.rail{ display:grid; gap:.9rem; }
-.rail--scroll{ display:flex; gap:.75rem; overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; }
+/* Global rail modes */
+.rail{ display:grid; gap:.9rem; } /* default vertical */
+.rail--scroll{
+  display:flex; gap:.75rem; overflow-x:auto; -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+}
 .rail--scroll > *{ flex:0 0 auto; scroll-snap-align:start; }
+
+/* Right-rail stack override */
+aside.rail{ display:grid !important; gap:.9rem; overflow:visible; }
+aside.rail > .card{ min-width:0; }
+
+/* Rail items */
 .rail-item{ display:grid; grid-template-columns:112px 1fr; gap:.75rem; align-items:start; }
 .rail-item .thumb{ width:112px; height:72px; border-radius:10px; background:#eef4f7; overflow:hidden; }
 .rail-item .thumb img{ width:100%; height:100%; object-fit:cover; }
 
-/* Two-column layout (Planning-standard with wrapper) */
-.planning-grid{ display:block; } /* mobile default: stacked */
+/* Two-column grid (wrapper) */
+.planning-grid{display:grid;gap:1.2rem}
 @media (min-width:768px){
-  .planning-grid{
-    display:grid;
-    grid-template-columns:minmax(0,1fr) 360px;
-    gap:1.5rem;
-    align-items:start;
-  }
+  .planning-grid{grid-template-columns:minmax(0,1fr) 360px}
 }
   </style>
 </head>
@@ -225,8 +227,8 @@ footer.wrap{font-size:.92rem}
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.075" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.010.075</span>
+        <img src="/assets/logo_wake.png?v=3.010.077" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.010.077</span>
       </div>
 
       <nav class="main-nav" aria-label="Primary">
@@ -267,19 +269,18 @@ footer.wrap{font-size:.92rem}
     <!-- Hero -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.075" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.077" width="256" height="64" alt="In the Wake">
         <div class="tagline">Accessible Seas for Every Traveler</div>
       </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.075" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.077" width="180" height="180" alt="" aria-hidden="true">
       <div class="hero-credit">
         Photo © <a class="pill" href="https://flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
-  <!-- ===== Main (Planning-standard layout) ===== -->
+  <!-- ===== Main ===== -->
   <main id="content" class="wrap planning-grid" role="main">
-    <!-- LEFT COLUMN -->
     <div>
       <section class="card prose" aria-labelledby="a11y-commit">
         <h1 id="a11y-commit">Accessibility &amp; Inclusion Commitment</h1>
@@ -321,9 +322,9 @@ footer.wrap{font-size:.92rem}
         <article class="rail-item" role="article">
           <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
             <picture>
-              <source srcset="/authors/img/ken1.webp?v=3.010.075" type="image/webp">
-              <source srcset="/authors/img/ken1.jpg?v=3.010.075" type="image/jpeg">
-              <img src="/authors/img/ken1.png?v=3.010.075" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
+              <source srcset="/authors/img/ken1.webp?v=3.010.077" type="image/webp">
+              <source srcset="/authors/img/ken1.jpg?v=3.010.077" type="image/jpeg">
+              <img src="/authors/img/ken1.png?v=3.010.077" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
             </picture>
           </a>
           <div class="meta">
@@ -350,181 +351,199 @@ footer.wrap{font-size:.92rem}
     data-acc-host="delivery.consentmanager.net"
     data-acc-cdn="cdn.consentmanager.net"></script>
 
-  <!-- Unified Nav a11y behavior (hover+click+keyboard; hardened) -->
+  <!-- Unified Nav (race-safe; single-run guard) -->
   <script>
-  try {
-    (function initUnifiedNav(){
-      function run(){
+  (function(){
+    // Prevent double init from mixed DOMContentLoaded/load/CMP timing
+    if (window._unifiedNavInitDone) return;
+    window._unifiedNavInitDone = true;
+
+    function run(){
+      try{
         const groups=[...document.querySelectorAll('.nav-item[aria-haspopup]')];
         if(!groups.length) return;
+
         const OPEN_DELAY=120, CLOSE_DELAY=240;
         const timers=new WeakMap();
         const firstFocusable=(root)=> root.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
 
-        function setOpen(el,on){
+        const setOpen=(el,on)=>{
           el.classList.toggle('open', !!on);
           const btn=el.querySelector('button.chip');
           if(btn) btn.setAttribute('aria-expanded', on?'true':'false');
-        }
-        function clearTimer(el){ const t=timers.get(el); if(t){ clearTimeout(t); timers.delete(el);} }
-        function closeAll(except){ groups.forEach(g=>{ if(g!==except){ clearTimer(g); setOpen(g,false);} }); }
+        };
+        const clearTimer=(el)=>{
+          const t=timers.get(el);
+          if(t){ clearTimeout(t); timers.delete(el); }
+        };
+        const closeAll=(except=null)=>{
+          groups.forEach(g=>{ if(g!==except){ clearTimer(g); setOpen(g,false);} });
+        };
+
+        const isTouch=('ontouchstart' in window) || (navigator.maxTouchPoints>0);
 
         groups.forEach(g=>{
           const btn=g.querySelector('button.chip');
           const menu=g.querySelector('.menu');
           if(!btn||!menu) return;
 
-          btn.addEventListener('click', e=>{
-            e.preventDefault(); e.stopPropagation();
+          // Click toggle (also works for touch)
+          btn.addEventListener('click', (e)=>{
+            e.preventDefault();
             const on=g.classList.contains('open');
-            closeAll(g); setOpen(g,!on);
+            closeAll(g);
+            setOpen(g,!on);
             if(!on){ (firstFocusable(menu)||btn).focus({preventScroll:true}); }
+          }, {passive:false});
+
+          // Keyboard
+          btn.addEventListener('keydown', (e)=>{
+            if(e.key==='ArrowDown'){
+              e.preventDefault();
+              setOpen(g,true);
+              (firstFocusable(menu)||btn).focus({preventScroll:true});
+            } else if(e.key==='Escape'){
+              setOpen(g,false);
+              btn.focus({preventScroll:true});
+            }
+          });
+          g.addEventListener('keydown', (e)=>{
+            if(e.key==='Escape'){
+              setOpen(g,false);
+              (g.querySelector('button.chip')||document.body).focus?.({preventScroll:true});
+            }
           });
 
-          btn.addEventListener('keydown', e=>{
-            if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(g,true); (firstFocusable(menu)||btn).focus({preventScroll:true}); }
-            if(e.key==='Escape'){ setOpen(g,false); btn.focus({preventScroll:true}); }
-          });
-          g.addEventListener('keydown', e=>{
-            if(e.key==='Escape'){ setOpen(g,false); (g.querySelector('button.chip')||document.body).focus?.({preventScroll:true}); }
-          });
-
-          g.addEventListener('pointerenter', ()=>{
-            clearTimer(g);
-            timers.set(g, setTimeout(()=>{ closeAll(g); setOpen(g,true); }, OPEN_DELAY));
-          });
-          g.addEventListener('pointerleave', (e)=>{
-            clearTimer(g);
-            const toEl=e.relatedTarget;
-            if(toEl && g.contains(toEl)) return;
-            timers.set(g, setTimeout(()=> setOpen(g,false), CLOSE_DELAY));
-          });
-          menu.addEventListener('pointerenter', ()=> clearTimer(g));
+          // Pointer hover (desktop)
+          if(!isTouch){
+            g.addEventListener('pointerenter', ()=>{
+              clearTimer(g);
+              timers.set(g, setTimeout(()=>{ closeAll(g); setOpen(g,true); }, OPEN_DELAY));
+            });
+            g.addEventListener('pointerleave', (e)=>{
+              const toEl=e.relatedTarget;
+              if(toEl && (g===toEl || g.contains(toEl))) return; // stable leave
+              clearTimer(g);
+              timers.set(g, setTimeout(()=> setOpen(g,false), CLOSE_DELAY));
+            });
+            menu.addEventListener('pointerenter', ()=> clearTimer(g));
+          }
         });
 
-        document.addEventListener('click', e=>{
-          if(!e.target.closest('.nav-item[aria-haspopup]')) closeAll();
-        });
+        // Global close — capture + microdelay avoids open→immediate close on mobile
+        document.addEventListener('click', (e)=>{
+          setTimeout(()=>{
+            if(!e.target.closest('.nav-item[aria-haspopup]')) closeAll();
+          }, 0);
+        }, {capture:true});
+      }catch(err){
+        console.warn('UnifiedNav init error:', err);
       }
-      if (document.readyState !== 'loading') run();
-      else {
-        document.addEventListener('DOMContentLoaded', run, {once:true});
-        window.addEventListener('load', run, {once:true});
-      }
-    })();
-  } catch(err) { console.warn('Nav init error:', err); }
+    }
+
+    // Run late (CMP-safe). If already complete, run now.
+    if (document.readyState === 'complete') run();
+    else window.addEventListener('load', run, {once:true});
+  })();
   </script>
 
-  <!-- Journal Rail (tag: disability, with graceful fallback) -->
+  <!-- Journal Rail (strict tag filter; graceful empty) -->
   <script>
-  try {
-    (function(){
-      const V='3.010.075';
-      const MOUNT=document.getElementById('journal-rail');
-      const FALL=document.getElementById('journal-rail-fallback');
-      if(!MOUNT) return;
+  (function(){
+    const V='3.010.077';
+    const MOUNT=document.getElementById('journal-rail');
+    const FALL=document.getElementById('journal-rail-fallback');
+    if(!MOUNT) return;
 
-      function normPath(u){
+    const HERE = (function normPath(u){
+      try{const url=new URL(u, location.href);let p=url.pathname.toLowerCase();
+        return p.replace(/\/index\.html$/i,'/').replace(/\/+$/,'').replace(/#.*/,'').replace(/\?.*/,'');
+      }catch(_){return String(u||'').toLowerCase();}
+    })(location.href);
+
+    const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
+    function normalize(payload){
+      const list = Array.isArray(payload?.articles) ? payload.articles
+                 : Array.isArray(payload) ? payload : [];
+      return list.map(a=>({
+        url: a.url||a.permalink||'#',
+        title: a.title||a.headline||'Article',
+        dek: a.dek||a.description||a.excerpt||'',
+        date: a.datePublished||a.date||'',
+        image: a.image||'',
+        tags: (a.tags||a.categories||[]).map(t=>String(t).toLowerCase()),
+        author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
+      })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
+    }
+    function chooseImage(rec){
+      if (rec.image) return rec.image;
+      return '/assets/placeholders/article-thumb.jpg?v='+V;
+    }
+    function card(a){
+      const img=chooseImage(a);
+      const name=a.author?.name||'';
+      const authorUrl=a.author?.url||'';
+      const dt=Date.parse(a.date||'');
+      const dateTxt = isNaN(dt)?'':(new Date(a.date)).toLocaleDateString()+' · ';
+      return `
+        <article class="rail-item">
+          <a class="thumb" href="${a.url}">
+            <img src="${img}" alt="" loading="lazy"
+                 onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=${encodeURIComponent(V)}';">
+          </a>
+          <div class="meta">
+            <h4><a href="${a.url}">${esc(a.title)}</a></h4>
+            <p class="tiny muted">${dateTxt}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
+            ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
+          </div>
+        </article>`;
+    }
+    async function get(u){
+      try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
+      catch(_){ return []; }
+    }
+
+    (async function boot(){
+      if(FALL) FALL.style.display='';
+      const SOURCES=[
+        '/assets/data/articles/index.json?v='+V,
+        '/travel/articles/index.json?v='+V,
+        '/solo/articles/index.json?v='+V
+      ];
+      let all=[];
+      for(const s of SOURCES){ all = all.concat(await get(s)); }
+      // tag filter
+      const TAG = 'disability';
+      all = all.filter(a => Array.isArray(a.tags) && a.tags.includes(TAG));
+      // unique + exclude self
+      const seen=new Set();
+      all = all.filter(a=>{
         try{
-          const url=new URL(u, location.href);
-          let p=url.pathname.toLowerCase();
-          return p.replace(/\/index\.html$/i,'/').replace(/\/+$/,'').replace(/#.*/,'').replace(/\?.*/,'');
-        }catch(_){ return String(u||'').toLowerCase(); }
-      }
-      const HERE = normPath(location.href);
-
-      function normalize(payload){
-        const list = Array.isArray(payload?.articles) ? payload.articles
-                   : Array.isArray(payload) ? payload : [];
-        return list.map(a=>({
-          url: a.url||a.permalink||'#',
-          title: a.title||a.headline||'Article',
-          dek: a.dek||a.description||a.excerpt||'',
-          date: a.datePublished||a.date||'',
-          image: a.image||'',
-          tags: (a.tags||a.categories||[]).map(t=>String(t).toLowerCase()),
-          author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
-        })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
-      }
-      function chooseImage(rec){
-        if (rec.image) return rec.image;
-        return '/assets/placeholders/article-thumb.jpg?v='+V;
-      }
-      const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
-      function card(a){
-        const img=chooseImage(a);
-        const name=a.author?.name||'';
-        const authorUrl=a.author?.url||'';
-        const dt=Date.parse(a.date||'');
-        const dateTxt = isNaN(dt)?'':(new Date(a.date)).toLocaleDateString()+' · ';
-        return `
-          <article class="rail-item">
-            <a class="thumb" href="${a.url}">
-              <img src="${img}" alt="" loading="lazy"
-                   onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=${encodeURIComponent(V)}';">
-            </a>
-            <div class="meta">
-              <h4><a href="${a.url}">${esc(a.title)}</a></h4>
-              <p class="tiny muted">${dateTxt}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
-              ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
-            </div>
-          </article>`;
-      }
-      async function get(u){
-        try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
-        catch(_){ return []; }
-      }
-
-      (async function boot(){
-        if(FALL) FALL.style.display='';
-        const SOURCES=[
-          '/assets/data/articles/index.json?v='+V,
-          '/travel/articles/index.json?v='+V,
-          '/solo/articles/index.json?v='+V
-        ];
-        let all=[];
-        for(const s of SOURCES){ all = all.concat(await get(s)); }
-
-        const wantedTag='disability';
-        all = all.filter(a=>{
-          const tagged = Array.isArray(a.tags) && a.tags.includes(wantedTag);
-          const titleMatch = /accessib|inclusion|disab/i.test(a.title||''); // graceful fallback until tags land
-          return tagged || titleMatch;
-        });
-
-        // unique + exclude self
-        const seen=new Set();
-        all = all.filter(a=>{
-          try{
-            const p=normPath(a.url);
-            if (p===HERE) return false;
-            if (seen.has(p)) return false;
-            seen.add(p);
-            return true;
-          }catch(_){return false;}
-        });
-
-        all.sort((a,b)=>(Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0));
-        MOUNT.innerHTML = all.slice(0,4).map(card).join('') || '<p class="tiny muted">More disability &amp; inclusion articles coming soon.</p>';
-        if(FALL) FALL.style.display='none';
-      })();
+          const p=new URL(a.url, location.href).pathname.toLowerCase().replace(/\/index\.html$/,'/').replace(/\/+$/,'');
+          if (p===HERE) return false;
+          if (seen.has(p)) return false;
+          seen.add(p); return true;
+        }catch(_){return false;}
+      });
+      all.sort((a,b)=>(Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0));
+      MOUNT.innerHTML = all.slice(0,4).map(card).join('') || '<p class="tiny muted">More disability &amp; inclusion articles coming soon.</p>';
+      if(FALL) FALL.style.display='none';
     })();
-  } catch(err) { console.warn('Journal rail error:', err); }
+  })();
   </script>
 
-  <!-- Service Worker (BUMPED) -->
+  <!-- Service Worker (bumped; gentle update) -->
   <script>
     if('serviceWorker' in navigator){
       window.addEventListener('load',()=>{
-        navigator.serviceWorker.register('/sw.js?v=3.010.075').then(reg=>{
-          // Encourage fresh SW
-          if (reg.update) { try { reg.update(); } catch(_){} }
-        }).catch(()=>{});
+        navigator.serviceWorker.register('/sw.js?v=3.010.077')
+          .then(reg=>{ try{ reg.update && reg.update(); }catch(_){ } })
+          .catch(()=>{});
       });
     }
   </script>
 
   <!-- Invocation -->
-  <!-- Soli Deo Gloria · Steward: abondservant · Path: /disability-at-sea.html · Version: v3.010.075 -->
+  <!-- Soli Deo Gloria · Steward: abondservant · Path: /disability-at-sea.html · Version: v3.010.077 -->
 </body>
 </html>
