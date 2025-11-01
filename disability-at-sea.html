@@ -1,11 +1,5 @@
-how about we just bring this versions nav bar up to code? 
-
 <!--
 Soli Deo Gloria
-All work on this project is offered as a gift to God.
-“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
-“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
-
 STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · A11y/WCAG Addendum v3.100
 ADDENDUM: Facebook Domain Verification v3.008.021
 -->
@@ -46,7 +40,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.008.023"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Styles -->
+  <!-- Global styles -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.008.023"/>
 
   <!-- Preload Hero -->
@@ -98,125 +92,85 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   })();
   </script>
 
-  <!-- Topbar + Skip styles (override global nav centering) -->
+  <!-- Page-local styles (skip link, unified nav + hero sizing) -->
   <style>
-    .visually-hidden-focusable{
-      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden
-    }
+    .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .visually-hidden-focusable:focus{
       position:static;left:auto;width:auto;height:auto;padding:.5rem .75rem;background:#fff;
       border:2px solid var(--sea,#0e6e8e);border-radius:8px;z-index:1000
     }
-    .topbar{
-      display:flex;align-items:center;gap:.75rem;padding:.4rem .9rem;
-      border-bottom:1px solid rgba(8,48,65,.08);background:#fff;position:relative;z-index:5
-    }
-    .topbar .pill-nav{
-      display:flex;gap:.35rem .45rem;margin-left:auto;flex-wrap:nowrap;white-space:nowrap;
-      overflow:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch;max-width:100%;
-    }
-    .topbar .pill-nav.pills{justify-content:flex-start;width:auto;max-width:none;text-align:left}
-    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:.5rem;padding:.45rem .9rem}
+
+    .navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:20;overflow:visible}
     .brand img{height:24px}
     .version-badge{font-size:.7rem;opacity:.8;margin-left:.5rem}
-    .hero{background:url('/assets/index_hero.jpg?v=3.008.023') center/cover no-repeat!important;filter:saturate(1.35) contrast(1.12) brightness(1.05);}
-    .hero::before,.hero::after{content:none!important;}
-    <style>
-/* === Unified Nav (portal dropdowns) — v3.008 === */
-.navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem;position:relative;z-index:20;overflow:visible}
-.brand img{height:24px}
-.version-badge{font-size:.7rem;opacity:.8;margin-left:.5rem}
-.pill-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem}
-.pill-nav > a,
-.pill-nav > .nav-group > .nav-disclosure{
-  display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
-  border:1px solid var(--rope,#d9b382);color:#0e6e8e;font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
-}
-.pill-nav > a:focus-visible,
-.pill-nav > .nav-group > .nav-disclosure:focus-visible{outline:2px solid #0e6e8e;outline-offset:2px}
-.nav-group{position:relative;display:inline-block}
 
-/* Portal root: menus render here (fixed layer) */
-#nav-portal{position:fixed;inset:0;z-index:2147483000;pointer-events:none}
+    .pill-nav{flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem}
+    .pill-nav > a,
+    .pill-nav > .nav-group > .nav-disclosure{
+      display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
+      border:1px solid var(--rope,#d9b382);color:#0e6e8e;font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
+    }
+    .pill-nav > a:focus-visible,
+    .pill-nav > .nav-group > .nav-disclosure:focus-visible{outline:2px solid #0e6e8e;outline-offset:2px}
+    .nav-group{position:relative;display:inline-block}
 
-/* Menu panel */
-.submenu{
-  min-width:240px;background:#fff;border:1px solid var(--rope,#d9b382);
-  border-radius:12px;padding:.5rem;box-shadow:0 12px 28px rgba(8,48,65,.16);
-  display:block;opacity:1;visibility:visible
-}
-.submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem;border:0;background:transparent;color:#083041;text-decoration:none}
-.submenu a:hover,.submenu a:focus{background:#f2f7fa;outline:2px solid transparent}
+    /* Portal root: menus render here (fixed layer) */
+    #nav-portal{position:fixed;inset:0;z-index:2147483000;pointer-events:none}
 
-/* Keep your hero look but ensure normal height */
-.hero{background:url('/assets/index_hero.jpg?v=3.008.023') center/cover no-repeat!important;min-height:clamp(180px,20vw,340px)}
-</style>
+    /* Menu panel */
+    .submenu{
+      min-width:240px;background:#fff;border:1px solid var(--rope,#d9b382);
+      border-radius:12px;padding:.5rem;box-shadow:0 12px 28px rgba(8,48,65,.16);
+      display:block;opacity:1;visibility:visible
+    }
+    .submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem;border:0;background:transparent;color:#083041;text-decoration:none}
+    .submenu a:hover,.submenu a:focus{background:#f2f7fa;outline:2px solid transparent}
+
+    /* Hero sizing — prevents the “too tall blank” when duplicates existed */
+    .hero{background:url('/assets/index_hero.jpg?v=3.008.023') center/cover no-repeat!important;min-height:clamp(180px,20vw,340px)}
   </style>
 </head>
 
 <body class="page">
-  <!-- Topbar: Skip + Primary nav on one line -->
-<header class="hero-header">
-  <div class="navbar">
-    <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
-    <div class="brand">
-      <img src="/assets/logo_wake.png?v=3.008.023" width="256" height="64" alt="In the Wake wordmark"/>
-      <span class="version-badge">v3.008.023</span>
-    </div>
-
-    <nav class="pill-nav" aria-label="Primary">
-      <a href="/">Home</a>
-
-      <div class="nav-item nav-group" id="nav-planning" data-open="false">
-        <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
-        <div id="menu-planning" class="submenu" role="menu" aria-label="Planning" hidden>
-          <div class="tiny" style="margin:.1rem .25rem .35rem;color:#234;font-weight:700">Plan your cruise</div>
-          <a role="menuitem" href="/planning.html">Planning (overview)</a>
-          <a role="menuitem" href="/ships/">Ships</a>
-          <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-          <a role="menuitem" href="/ports.html">Ports</a>
-          <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-          <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-          <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
-          <a role="menuitem" href="/disability-at-sea.html" aria-current="page">Accessibility</a>
-        </div>
-      </div>
-
-      <div class="nav-item nav-group" id="nav-travel" data-open="false">
-        <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
-        <div id="menu-travel" class="submenu" role="menu" aria-label="Travel" hidden>
-          <div class="tiny" style="margin:.1rem .25rem .35rem;color:#234;font-weight:700">On the move</div>
-          <a role="menuitem" href="/travel.html">Travel (overview)</a>
-          <a role="menuitem" href="/solo.html">Solo</a>
-        </div>
-      </div>
-
-      <a href="/about-us.html">About</a>
-    </nav>
-  </div>
-
-  <div class="hero" role="img" aria-label="Ship wake at sunrise">
-    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.023" width="180" height="180" alt="" aria-hidden="true">
-    <div class="hero-title">
-      <img class="logo" src="/assets/logo_wake.png?v=3.008.023" width="256" height="64" alt="In the Wake">
-      <div class="tagline">Accessible Seas for Every Traveler</div>
-    </div>
-    <div class="hero-credit">
-      Photo © <a href="https://flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
-    </div>
-  </div>
-</header>
-
-<!-- Portal root (fixed layer for menus) -->
-<div id="nav-portal" aria-hidden="true"></div>
-
-  <!-- Header (brand + hero only) -->
+  <!-- HEADER (brand + unified dropdown nav + hero) -->
   <header class="hero-header">
     <div class="navbar">
+      <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
+
       <div class="brand">
         <img src="/assets/logo_wake.png?v=3.008.023" width="256" height="64" alt="In the Wake wordmark"/>
         <span class="version-badge">v3.008.023</span>
       </div>
+
+      <nav class="pill-nav" aria-label="Primary">
+        <a href="/">Home</a>
+
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning" hidden>
+            <div class="tiny" style="margin:.1rem .25rem .35rem;color:#234;font-weight:700">Plan your cruise</div>
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships/">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/disability-at-sea.html" aria-current="page">Accessibility</a>
+          </div>
+        </div>
+
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel" hidden>
+            <div class="tiny" style="margin:.1rem .25rem .35rem;color:#234;font-weight:700">On the move</div>
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a href="/about-us.html">About</a>
+      </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
@@ -231,7 +185,10 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     </div>
   </header>
 
-  <!-- Main -->
+  <!-- Portal root (fixed layer for menus) -->
+  <div id="nav-portal" aria-hidden="true"></div>
+
+  <!-- MAIN -->
   <main id="content" class="wrap" role="main">
     <section class="card">
       <h1>Accessibility &amp; Inclusion Commitment</h1>
@@ -259,7 +216,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
@@ -273,10 +230,10 @@ ADDENDUM: Facebook Domain Verification v3.008.021
     data-acc-host="delivery.consentmanager.net"
     data-acc-cdn="cdn.consentmanager.net"></script>
 
-  <!-- aria-current safety (in case of mirrors/subpaths) -->
+  <!-- aria-current safety (targets the new nav, not the old .topbar) -->
   <script>
   (function(){
-    var nav=document.querySelector('.topbar .pill-nav[aria-label="Primary"]'); if(!nav) return;
+    var nav=document.querySelector('.pill-nav[aria-label="Primary"]'); if(!nav) return;
     var here=location.pathname.replace(/\/+$/,'').toLowerCase();
     nav.querySelectorAll('a[href]').forEach(function(a){
       try{
@@ -296,108 +253,104 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   }
   </script>
 
-  <!-- Invocation -->
-  <!--
-    Invocation · Soli Deo Gloria
-    Steward: abondservant · Path: /disability-at-sea.html · Version: v3.008.023 · Timestamp (UTC): 2025-10-19T00:00:00Z
-  -->
+  <!-- Unified Nav controller (portal dropdowns) -->
   <script>
-(function(){
-  "use strict";
-  const portal = document.getElementById('nav-portal');
-  const groups = Array.from(document.querySelectorAll('.nav-group'));
-  if (!portal || !groups.length) return;
+  (function(){
+    "use strict";
+    const portal = document.getElementById('nav-portal');
+    const groups = Array.from(document.querySelectorAll('.nav-group'));
+    if (!portal || !groups.length) return;
 
-  let openGroup=null, openMenu=null, homeSlot=null;
+    let openGroup=null, openMenu=null, homeSlot=null;
 
-  const setAria=(g,on)=>{
-    const b=g.querySelector('.nav-disclosure');
-    if(b) b.setAttribute('aria-expanded', on?'true':'false');
-    g.dataset.open = on ? "true" : "false";
-    g.classList.toggle('open', !!on);
-  };
+    const setAria=(g,on)=>{
+      const b=g.querySelector('.nav-disclosure');
+      if(b) b.setAttribute('aria-expanded', on?'true':'false');
+      g.dataset.open = on ? "true" : "false";
+      g.classList.toggle('open', !!on);
+    };
 
-  function positionMenu(menu, btn){
-    const r = btn.getBoundingClientRect();
-    const prevVis = menu.style.visibility, prevDisp = menu.style.display;
-    menu.style.visibility='hidden'; menu.style.display='block';
-    const vw = document.documentElement.clientWidth;
-    const pw = menu.offsetWidth || 240;
-
-    // right-align to the pill, clamp within viewport, drop 8px
-    let left = Math.round(r.right - pw);
-    left = Math.max(8, Math.min(left, vw - pw - 8));
-    const top  = Math.round(r.bottom + 8);
-
-    menu.style.left = left+'px';
-    menu.style.top  = top +'px';
-    menu.style.visibility = prevVis || 'visible';
-    menu.style.display    = prevDisp || 'block';
-  }
-
-  function placeInPortal(menu, btn){
-    homeSlot = homeSlot || document.createComment('menu-home-slot');
-    if (!menu.previousSibling || menu.previousSibling !== homeSlot){
-      menu.parentNode.insertBefore(homeSlot, menu);
+    function positionMenu(menu, btn){
+      const r = btn.getBoundingClientRect();
+      const prevVis = menu.style.visibility, prevDisp = menu.style.display;
+      menu.style.visibility='hidden'; menu.style.display='block';
+      const vw = document.documentElement.clientWidth;
+      const pw = menu.offsetWidth || 240;
+      let left = Math.round(r.right - pw);
+      left = Math.max(8, Math.min(left, vw - pw - 8));
+      const top  = Math.round(r.bottom + 8);
+      menu.style.left = left+'px';
+      menu.style.top  = top +'px';
+      menu.style.visibility = prevVis || 'visible';
+      menu.style.display    = prevDisp || 'block';
     }
-    menu.hidden=false;
-    portal.appendChild(menu);
-    menu.style.position='fixed';
-    menu.style.maxWidth='min(92vw,360px)';
-    menu.style.pointerEvents='auto';
-    positionMenu(menu, btn);
-    portal.setAttribute('aria-hidden','false');
-    portal.style.pointerEvents='none';
-  }
 
-  function restoreHome(menu){
-    if (!menu || !homeSlot || !homeSlot.parentNode) return;
-    homeSlot.parentNode.insertBefore(menu, homeSlot.nextSibling);
-    menu.hidden=true;
-    menu.removeAttribute('style');
-    portal.setAttribute('aria-hidden','true');
-  }
+    function placeInPortal(menu, btn){
+      homeSlot = homeSlot || document.createComment('menu-home-slot');
+      if (!menu.previousSibling || menu.previousSibling !== homeSlot){
+        menu.parentNode.insertBefore(homeSlot, menu);
+      }
+      menu.hidden=false;
+      portal.appendChild(menu);
+      menu.style.position='fixed';
+      menu.style.maxWidth='min(92vw,360px)';
+      menu.style.pointerEvents='auto';
+      positionMenu(menu, btn);
+      portal.setAttribute('aria-hidden','false');
+      portal.style.pointerEvents='none';
+    }
 
-  function closeAll(){
-    if (openGroup && openMenu){ restoreHome(openMenu); setAria(openGroup,false); }
-    openGroup=openMenu=null;
-  }
+    function restoreHome(menu){
+      if (!menu || !homeSlot || !homeSlot.parentNode) return;
+      homeSlot.parentNode.insertBefore(menu, homeSlot.nextSibling);
+      menu.hidden=true;
+      menu.removeAttribute('style');
+      portal.setAttribute('aria-hidden','true');
+    }
 
-  groups.forEach(g=>{
-    const btn  = g.querySelector('.nav-disclosure');
-    const menu = g.querySelector('.submenu');
-    if(!btn||!menu) return;
+    function closeAll(){
+      if (openGroup && openMenu){ restoreHome(openMenu); setAria(openGroup,false); }
+      openGroup=openMenu=null;
+    }
 
-    btn.addEventListener('click',(e)=>{
-      e.preventDefault(); e.stopPropagation();
-      const isOpen = (openGroup===g);
-      closeAll();
-      if(!isOpen){ setAria(g,true); placeInPortal(menu,btn); openGroup=g; openMenu=menu; }
+    groups.forEach(g=>{
+      const btn  = g.querySelector('.nav-disclosure');
+      const menu = g.querySelector('.submenu');
+      if(!btn||!menu) return;
+
+      btn.addEventListener('click',(e)=>{
+        e.preventDefault(); e.stopPropagation();
+        const isOpen = (openGroup===g);
+        closeAll();
+        if(!isOpen){ setAria(g,true); placeInPortal(menu,btn); openGroup=g; openMenu=menu; }
+      });
+
+      btn.addEventListener('keydown',(e)=>{
+        if(e.key==='ArrowDown' || e.key==='ArrowUp'){
+          e.preventDefault(); closeAll(); setAria(g,true); placeInPortal(menu,btn); openGroup=g; openMenu=menu;
+          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+          if(first) first.focus({preventScroll:true});
+        }else if(e.key==='Escape'){ e.preventDefault(); closeAll(); btn.focus({preventScroll:true}); }
+      });
+
+      g.addEventListener('keydown',(e)=>{
+        if(e.key==='Escape'){ const b=g.querySelector('.nav-disclosure'); closeAll(); b&&b.focus({preventScroll:true}); }
+      });
+
+      menu.addEventListener('focusout',()=>{
+        setTimeout(()=>{ if(!document.activeElement || !menu.contains(document.activeElement)) closeAll(); },120);
+      });
     });
 
-    btn.addEventListener('keydown',(e)=>{
-      if(e.key==='ArrowDown' || e.key==='ArrowUp'){
-        e.preventDefault(); closeAll(); setAria(g,true); placeInPortal(menu,btn); openGroup=g; openMenu=menu;
-        const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-        if(first) first.focus({preventScroll:true});
-      }else if(e.key==='Escape'){ e.preventDefault(); closeAll(); btn.focus({preventScroll:true}); }
-    });
+    const reflow=()=>{ if(openGroup&&openMenu){ const btn=openGroup.querySelector('.nav-disclosure'); if(btn) positionMenu(openMenu,btn); } };
+    window.addEventListener('resize', reflow, {passive:true});
+    window.addEventListener('scroll',  reflow, {passive:true});
+    document.addEventListener('click',(e)=>{ if(openMenu && !e.target.closest('.submenu') && !e.target.closest('.nav-disclosure')) closeAll(); });
+    window.addEventListener('blur', closeAll);
+  })();
+  </script>
 
-    g.addEventListener('keydown',(e)=>{
-      if(e.key==='Escape'){ const b=g.querySelector('.nav-disclosure'); closeAll(); b&&b.focus({preventScroll:true}); }
-    });
-
-    menu.addEventListener('focusout',()=>{
-      setTimeout(()=>{ if(!document.activeElement || !menu.contains(document.activeElement)) closeAll(); },120);
-    });
-  });
-
-  const reflow=()=>{ if(openGroup&&openMenu){ const btn=openGroup.querySelector('.nav-disclosure'); if(btn) positionMenu(openMenu,btn); } };
-  window.addEventListener('resize', reflow, {passive:true});
-  window.addEventListener('scroll',  reflow, {passive:true});
-  document.addEventListener('click',(e)=>{ if(openMenu && !e.target.closest('.submenu') && !e.target.closest('.nav-disclosure')) closeAll(); });
-  window.addEventListener('blur', closeAll);
-})();
-</script>
+  <!-- Invocation (Soli Deo Gloria) -->
+  <!-- Steward: abondservant · Path: /disability-at-sea.html · Version: v3.008.023 -->
 </body>
 </html>
