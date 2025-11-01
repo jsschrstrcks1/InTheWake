@@ -1,24 +1,24 @@
-/* sw.js — In the Wake Service Worker (v17)
-   Changes vs v16:
-   - Incremented to v17
-   - Patched 'seedURLs' to prevent double cache-busting (Claude's Bug #2)
-   - Patched 'copyPrecacheToRuntime' to await prune (Claude's Bug #3)
-   - Patched 'handleHTML' to prevent fallback to stale cache on
-     a failed version bypass (Claude's Bug #4)
-   
-   Changes vs v15:
-   - Replaced handleHTML() with a Cache-First, Network-Bypass strategy
-     to fix the "stale inline JS" bug and improve page load performance.
-   - Versioned FONT_CACHE to align with SW_VERSION to prevent stale fonts.
+/* sw.js — In the Wake Service Worker (v19)
+   Changes vs v18:
+   - Incremented to v19
+   - Fixed "Real Bug" (ChatGPT): warmPrecache() now uses separate push
+     functions and does NOT normalize versioned assets (CSS/JS/Images).
+   - Fixed "Cache Bloat" (Grok): handleHTML() now writes to the
+     PAGE_CACHE using a normalized key, preventing 'utm_' bloat.
+   - Fixed "Redundant Cache" (ChatGPT): Removed OFFLINE_URL from
+     warmPrecache() as it's already handled in 'activate'.
 */
 
-const SW_VERSION = "v17"; // <--- CHANGED: Incremented version
+const SW_VERSION = "v19";
+const DEBUG = false; // Set to true for local debugging
 const PREFIX = "itw";
+const OFFLINE_URL = "/offline.html"; // Your branded offline page
+
 const PAGE_CACHE = `${PREFIX}-page-${SW_VERSION}`;
 const ASSET_CACHE = `${PREFIX}-asset-${SW_VERSION}`;
 const IMG_CACHE = `${PREFIX}-img-${SW_VERSION}`;
 const PRECACHE = `${PREFIX}-pre-${SW_VERSION}`;
-const FONT_CACHE = `${PREFIX}-font-${SW_VERSION}`; // (Fixed in v16)
+const FONT_CACHE = `${PREFIX}-font-${SW_VERSION}`;
 const DATA_CACHE = `${PREFIX}-data-${SW_VERSION}`;
 
 const MAX_PAGES = 60;
@@ -32,10 +32,22 @@ const BUST = () => `v=${SW_VERSION}-${Date.now()}`;
 // Manifest sources
 const MANIFEST_SOURCES = [
   "/precache-manifest.json",
-  "/prefetch-images.json", // optional; if missing, we skip it
+  "/prefetch-images.json",
 ];
 
 // Utils --------------------------------------------------------------------
+
+/**
+ * Strips known tracking/noise params from a URL.
+ */
+function normalizeURLForCache(u) {
+  const url = new URL(u, location.origin);
+  // Strip tracking/noisy params
+  ['v','utm_source','utm_medium','utm_campaign','utm_term','utm_content','fbclid','gclid','mc_cid','mc_eid'].forEach(p => url.searchParams.delete(p));
+  url.hash = '';
+  // Return the full URL object
+  return new URL(url.pathname + url.search, location.origin);
+}
 function sameOrigin(u) {
   try {
     return new URL(u, location.origin).origin === location.origin;
@@ -82,6 +94,18 @@ self.addEventListener("install", (e) => {
   self.skipWaiting();
 });
 
+/**
+ * Caches the offline page during activation
+ */
+async function cacheOfflinePage() {
+  try {
+    const cache = await caches.open(PRECACHE);
+    await cache.add(new Request(OFFLINE_URL, { cache: "reload" }));
+  } catch (err) {
+    if (DEBUG) console.warn(`[SW ${SW_VERSION}] Failed to precache offline page:`, err);
+  }
+}
+
 self.addEventListener("activate", (e) => {
   e.waitUntil((async () => {
     await self.clients.claim();
@@ -96,6 +120,8 @@ self.addEventListener("activate", (e) => {
       .filter(n => n.startsWith(`${PREFIX}-`) && !keep.has(n))
       .map(n => caches.delete(n)));
 
+    // Precache offline page
+    await cacheOfflinePage();
     // Warmup in background
     warmPrecache().catch(() => {});
   })());
@@ -115,6 +141,9 @@ async function warmPrecache() {
     const excludePaths = new Set(["/", "/index.html"]);
     const allURLs = new Set();
     let sitemaps = [];
+    
+    // <--- CHANGED (v19): Removed redundant OFFLINE_URL add.
+    // It is now handled 100% in the 'activate' event.
 
     // Load/merge every manifest source
     for (const src of MANIFEST_SOURCES) {
@@ -129,18 +158,43 @@ async function warmPrecache() {
       if (!res || !res.ok) continue;
 
       const data = await res.json();
+      
+      // <--- CHANGED (v19): Start of ChatGPT's "Real Bug" fix.
+      // Separate push functions to control normalization.
+      const pushPages = (arr = []) => arr.forEach(u => {
+        if (!sameOrigin(u)) return;
+        const cleanURL = normalizeURLForCache(u); // NORMALIZE pages
+        if (!excludePaths.has(cleanURL.pathname)) {
+          allURLs.add(cleanURL.href);
+        }
+      });
+      
+      const pushAssets = (arr = []) => arr.forEach(u => {
+        if (!sameOrigin(u)) return;
+        const uo = new URL(u, location.origin); // DO NOT normalize assets
+        allURLs.add(uo.pathname + uo.search);
+      });
+      
+      const pushImages = (arr = []) => arr.forEach(u => {
+        if (!sameOrigin(u)) return;
+        const uo = new URL(u, location.origin); // DO NOT normalize images
+        allURLs.add(uo.pathname + uo.search);
+      });
+      
+      const pushData = (arr = []) => arr.forEach(u => {
+        if (!sameOrigin(u)) return;
+        const cleanURL = normalizeURLForCache(u); // NORMALIZE data files
+        allURLs.add(cleanURL.href);
+      });
+      // <--- End of v19 fix block.
 
       // 1) Original precache-manifest.json shape
       if (Array.isArray(data.pages) || Array.isArray(data.assets) || Array.isArray(data.images) || Array.isArray(data.data)) {
-        const pushList = (arr = []) => arr.forEach(u => {
-          if (!sameOrigin(u)) return;
-          const uo = new URL(u, location.origin);
-          if (!excludePaths.has(uo.pathname)) allURLs.add(uo.pathname + uo.search);
-        });
-        pushList(data.pages);
-        pushList(data.assets);
-        pushList(data.images);
-        pushList(data.data);
+        // <--- CHANGED (v19): Call new functions
+        pushPages(data.pages);
+        pushAssets(data.assets);
+        pushImages(data.images);
+        pushData(data.data);
 
         // handle sitemaps from main manifest
         if (src.includes("precache-manifest")) {
@@ -149,9 +203,9 @@ async function warmPrecache() {
         }
       }
 
-      // 2) Image prefetch file shape: { authors:[], ships:[], other:[] }
+      // 2) Image prefetch file shape (Assumed no normalization needed)
       if (Array.isArray(data.authors) || Array.isArray(data.ships) || Array.isArray(data.other)) {
-        const pushList2 = (arr = []) => arr.forEach(u => {
+         const pushList2 = (arr = []) => arr.forEach(u => {
           if (!sameOrigin(u)) return;
           const uo = new URL(u, location.origin);
           allURLs.add(uo.pathname + uo.search);
@@ -192,11 +246,16 @@ async function seedFromSitemap(path) {
     const xml = await res.text();
     urls = Array.from(xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)).map(m => m[1]);
   }
-  const same = urls.filter(u => {
-    if (!sameOrigin(u)) return false;
-    const p = new URL(u, location.origin).pathname;
-    return p !== "/" && p !== "/index.html";
-  });
+  
+  // (Fixed in v18): Normalize URLs from sitemap
+  const same = urls
+    .filter(u => sameOrigin(u))
+    .map(u => normalizeURLForCache(u).href) // Normalize
+    .filter(u => {
+      const p = new URL(u, location.origin).pathname;
+      return p !== "/" && p !== "/index.html";
+    });
+
   await seedURLs(same);
 }
 
@@ -205,11 +264,11 @@ async function seedURLs(urls) {
   const pre = await caches.open(PRECACHE);
   await Promise.all(urls.map(async (u) => {
     try {
+      // URL 'u' is now assumed to be normalized (if page/data) or original (if asset/image)
       const abs = new URL(u, location.origin);
       const fetchURL = new URL(abs.href);
       
-      // <--- CHANGED (v17): Fix for Claude's Bug #2
-      // Only add cache-bust if no version param exists
+      // (Fixed in v17): Only add cache-bust if no version param
       if (!/[?&]v=/i.test(fetchURL.href)) {
         fetchURL.search += (fetchURL.search ? "&" : "?") + BUST();
       }
@@ -250,13 +309,12 @@ async function copyPrecacheToRuntime() {
         await imgC.put(req, res.clone());
       } else if (isJSONRequest(req)) {
         await dataC.put(req, res.clone());
-      } else if (url.pathname.endsWith(".html") || url.pathname === "/") {
+      } else if (url.pathname.endsWith(".html") || url.pathname === "/" || url.pathname === OFFLINE_URL) {
         await pageC.put(req, res.clone());
       }
     }
     
-    // <--- CHANGED (v17): Fix for Claude's Bug #3
-    // Await all prunes to prevent race conditions
+    // (Fixed in v17): Await all prunes
     await Promise.all([
       prune(pageC, MAX_PAGES),
       prune(assetC, MAX_ASSETS),
@@ -283,113 +341,116 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(cacheFirst(req, ASSET_CACHE, MAX_ASSETS));
     return;
   }
-
   // Fonts
   if (isFontRequest(req)) {
     event.respondWith(cacheFirst(req, FONT_CACHE, MAX_FONTS));
     return;
   }
-
   // Images
   if (dest === "image" || isImageURL(url.href)) {
     event.respondWith(staleWhileRevalidate(req, IMG_CACHE, MAX_IMAGES));
     return;
   }
-
   // JSON Data
   if (isJSONRequest(req)) {
     event.respondWith(staleWhileRevalidate(req, DATA_CACHE, MAX_DATA));
     return;
   }
-
   // Pages (HTML / navigation)
   if (isHTMLLike(req)) {
     event.respondWith(handleHTML(event, req));
     return;
   }
-
-  // passthrough for everything else
+  // passthrough
 });
 
 
-// <--- CHANGED (v17): Patched to handle 'forceNetwork'
-// Fix for Claude's Bug #4
+// (Fixed in v17)
 async function networkFirstHTML(event, request, cache, key, forceNetwork = false) {
   try {
     const preload = event.preloadResponse ? (await event.preloadResponse) : null;
     if (preload && (preload.ok || preload.type === "opaque")) {
-      cache.put(key, preload.clone()).catch(() => {});
+      cache.put(key, preload.clone()).catch(() => {}); // Writes normalized key
       prune(cache, MAX_PAGES).catch(() => {});
       return preload;
     }
 
     const res = await fetch(request);
     if (res && (res.ok || res.type === "opaque")) {
-      cache.put(key, res.clone()).catch(() => {});
+      cache.put(key, res.clone()).catch(() => {}); // Writes normalized key
       prune(cache, MAX_PAGES).catch(() => {});
     }
     return res;
   } catch (err) {
-    // If we were forced to go to the network (bypass), do NOT
-    // fall back to the cache, as it's stale. Let it fail.
     if (forceNetwork) {
-      throw err; // This will trigger the final catch block in handleHTML
+      throw err; 
     }
-
-    // Standard fallback logic (not a forced bypass)
-    const cached = await cache.match(key);
+    const cached = await cache.match(key); // Tries normalized key
     if (cached) return cached;
-    const pre = await caches.open(PRECACHE);
-    const preHit = await pre.match(key);
-    if (preHit) return preHit;
-    
-    // Re-throw the original error if nothing is found
+    // Fallback to precache (will be checked in outer handleHTML)
     throw err;
   }
 }
 
-// <--- CHANGED (v16/v17): Core bug fix logic
+// (Core v16 fix + v18/v19 polish)
 async function handleHTML(event, request) {
   const cache = await caches.open(PAGE_CACHE);
-  const key = cacheKey(request);
-  const url = new URL(request.url);
+  
+  // <--- CHANGED (v19): Create one normalized key for PAGE_CACHE
+  // and keep the original for PRECACHE fallback.
+  const normalizedKey = new Request(normalizeURLForCache(request.url).href, { method:'GET' });
+  const originalKey = cacheKey(request); // For precache fallback
 
   // Check for hard reload headers
   const cc = (request.headers && request.headers.get("cache-control")) || "";
   const pragma = (request.headers && request.headers.get("pragma")) || "";
   const isHardReload = /\bno-cache\b/i.test(cc) || /\bno-cache\b/i.test(pragma);
 
-  // Check for version bypass
-  const isVersionBypass = url.searchParams.has('v');
+  // Check for version bypass (from original URL, not normalized one)
+  const isVersionBypass = (new URL(request.url)).searchParams.has('v');
   const forceNetwork = isHardReload || isVersionBypass;
 
   try {
     // If it's a hard reload or version bypass, go Network-First
     if (forceNetwork) {
-      return await networkFirstHTML(event, request, cache, key, true); // Pass true
+      // Pass the NORMALIZED key for writing to the PAGE_CACHE
+      return await networkFirstHTML(event, request, cache, normalizedKey, true);
     }
 
     // --- Default: Cache-First ---
-    // Try to serve from cache for speed
-    const cached = await cache.match(key);
+    // Read from PAGE_CACHE using the NORMALIZED key
+    const cached = await cache.match(normalizedKey);
     if (cached) return cached;
 
     // Not in cache, go to network (which will also cache it)
-    return await networkFirstHTML(event, request, cache, key, false); // Pass false
+    // Pass the NORMALIZED key for writing to the PAGE_CACHE
+    return await networkFirstHTML(event, request, cache, normalizedKey, false);
   
   } catch (err) {
-    // This catch block handles all failures, including the
-    // thrown error from a failed 'forceNetwork' attempt.
-    console.error(`[SW ${SW_VERSION}] HTML Fetch failed, serving precache fallback. Err:`, err.message);
-    const pre = await caches.open(PRECACHE);
-    const preHit = await pre.match(key);
-    if (preHit) return preHit;
+    if (DEBUG) {
+      console.error(`[SW ${SW_VERSION}] HTML Fetch failed. ForceNetwork: ${forceNetwork}. Err:`, err.message);
+    }
     
-    // You should have an OFFLINE_URL defined at the top
-    // const OFFLINE_URL = "/offline.html";
-    // const offline = await pre.match(OFFLINE_URL) || await cache.match(OFFLINE_URL);
-    // if (offline) return offline;
+    // (Fixed in v18)
+    // DON'T serve stale precache if user forced a refresh.
+    if (!forceNetwork) {
+      const pre = await caches.open(PRECACHE);
+      
+      // <--- CHANGED (v19): Check both keys in PRECACHE
+      // 1. Try normalized key (v19+ standard)
+      let preHit = await pre.match(normalizedKey);
+      // 2. Try original key (for older/non-normalized precache entries)
+      if (!preHit) preHit = await pre.match(originalKey);
+      
+      if (preHit) return preHit;
+    }
     
+    // Final fallback: The offline page
+    const cacheOffline = await caches.open(PRECACHE); // Use PRECACHE
+    const offlinePage = await cacheOffline.match(OFFLINE_URL);
+    if (offlinePage) return offlinePage;
+
+    // Absolute final fallback
     return new Response("Network error. You appear to be offline.", { status: 504 });
   }
 }
