@@ -207,6 +207,23 @@
     © 2025 In the Wake — A Cruise Traveler’s Logbook ·
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection.</p>
+<style> /* --- ABSOLUTE VISIBILITY OVERRIDE --- */
+.main-nav .nav-item.open > .menu {
+    /* Test 1: Override Display */
+    display: block !important;
+
+    /* Test 2: Override Position and Clipping */
+    position: fixed !important; /* Forces it out of any parent clipping context */
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    
+    /* Test 3: Override Z-index and Opacity */
+    opacity: 1 !important;
+    z-index: 2147483647 !important; /* Max Z-index */
+    background: red !important; /* Make it undeniably visible */
+}
+/* ------------------------------------ */</style>
   </footer>
 
   <!-- ===== Unified Nav (repaired) ===== -->
