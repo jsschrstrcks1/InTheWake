@@ -246,8 +246,6 @@
 
     function positionMenu(menu, btn){
       const r = btn.getBoundingClientRect();
-      const hero = document.querySelector('.hero');
-      const heroTop = hero ? hero.getBoundingClientRect().top : 0;
 
       // ensure we can measure width
       const prevVis = menu.style.visibility;
@@ -262,10 +260,8 @@
       let left = Math.round(r.right - pw);
       left = Math.max(8, Math.min(left, vw - pw - 8));
 
-      // Drop 8px below pill, but never render above the hero image area
-      const desiredTop = Math.round(r.bottom + 8);
-      const floorTop   = Math.round((heroTop || 0) + 8);
-      const top        = Math.max(desiredTop, floorTop);
+      // Drop 8px below pill — do NOT clamp to hero
+      const top = Math.round(r.bottom + 8);
 
       menu.style.left = left + 'px';
       menu.style.top  = top  + 'px';
@@ -420,18 +416,6 @@
   (function defer3PAndSW(){
     const onIdle = (fn)=> (window.requestIdleCallback ? requestIdleCallback(fn,{timeout:3000}) : setTimeout(fn, 1200));
     onIdle(()=>{
-      // Example: Social share
-      // const s = document.createElement('script');
-      // s.src = 'https://static.addtoany.com/menu/page.js';
-      // s.async = true; document.head.appendChild(s);
-
-      // Example: Analytics
-      // const ga = document.createElement('script');
-      // ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX';
-      // ga.async = true; document.head.appendChild(ga);
-      // window.dataLayer = window.dataLayer || [];
-      // function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXX');
-
       // Service worker
       if ('serviceWorker' in navigator){
         navigator.serviceWorker.register('/sw.js').catch(()=>{});
