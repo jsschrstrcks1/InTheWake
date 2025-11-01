@@ -1,516 +1,414 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!--
-    In the Wake — Accessibility & Inclusion
-    Path: /disability-at-sea.html
-    Version: v3.010.088
-    Single-file build (self-contained). Soli Deo Gloria.
-  -->
+  <!-- ======================================================
+       In the Wake — Accessibility & Inclusion (standalone)
+       Version: v3.010.090  |  Standards baseline: 3.010.x
+       ====================================================== -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer"/>
+  <meta name="robots" content="index,follow,max-image-preview:large"/>
+  <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.088)</title>
-  <meta name="version" content="v3.010.088"/>
-  <meta name="description" content="In the Wake is committed to accessibility for all travelers — honoring every ability, ensuring every voyager can plan and dream freely. Built for clarity, inclusion, and love."/>
-  <meta name="robots" content="index,follow"/>
+  <meta name="version" content="v3.010.090"/>
 
-  <!-- Canonical & OG/Twitter -->
+  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.090)</title>
+  <meta name="description" content="Our commitment to accessibility: WCAG 2.1 AA and ADA-informed design so every traveler can plan and cruise with confidence."/>
   <link rel="canonical" href="https://www.cruisinginthewake.com/disability-at-sea.html"/>
+
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
   <meta property="og:title" content="Accessibility &amp; Inclusion — In the Wake"/>
-  <meta property="og:description" content="Our mission is full digital accessibility for all travelers — a site built with empathy and conviction, following WCAG 2.1 AA and ADA standards."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.088"/>
+  <meta property="og:description" content="WCAG 2.1 AA, ADA, and real-world testing so every voyager can plan freely."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.090"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Optional org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"In the Wake",
-    "url":"https://www.cruisinginthewake.com",
-    "logo":"https://www.cruisinginthewake.com/assets/logo_wake.png"
-  }
-  </script>
-
-  <!-- Preload hero image (local) -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.088" fetchpriority="high"/>
+  <!-- Preload hero -->
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.090" fetchpriority="high"/>
 
   <style>
+  /* ===== Page Styles v3.010.090 ===== */
   :root{
     --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-    --shadow:0 2px 6px rgba(8,48,65,.08);
-    --shadow-lg:0 10px 28px rgba(8,48,65,.14);
+    --shadow:0 6px 22px rgba(8,48,65,.08);
+    --shadow-lg:0 12px 28px rgba(8,48,65,.16);
+    --rail: 360px;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;overflow-x:hidden;background:var(--sky);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial}
-  a{color:var(--accent);text-decoration:none}
-  a:hover{text-decoration:underline}
+  html,body{margin:0;padding:0}
+  body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
   img{max-width:100%;height:auto;display:block}
   .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-  .tiny{font-size:.9rem;color:#456}
-  .muted{color:#667}
-  .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
-  .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
-  .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);
-    background:url('/assets/watermark.png?v=3.010.088') center/contain no-repeat;opacity:.06;pointer-events:none}
-  h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
-  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-  .visually-hidden-focusable:focus{
-    position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--sea);
-    border-radius:10px;z-index:2147483647
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-  }
+  .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
+  h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456}
 
-  /* Header / Nav / Hero */
-  .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:10;overflow:visible}
+  /* Skip link */
+  .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:3000;outline:0}
+
+  /* ===== Header / hero (classic) ===== */
+  .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:0}
   .navbar{
-    max-width:1100px;margin:0 auto;display:flex;gap:.6rem;align-items:center;position:relative;
-    padding:.35rem .9rem .45rem;min-height:56px;background:#eaf6f6;z-index:20
+    max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
+    padding:.5rem .9rem .35rem;position:relative;z-index:2000;overflow:visible;
   }
-  .brand{display:flex;align-items:center;gap:.5rem}
+  .brand{display:flex;align-items:flex-end;gap:.6rem}
   .brand img{height:28px;width:auto}
   .version-badge{font-size:.72rem;opacity:.8}
-  .main-nav{
-    display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;
-    white-space:nowrap;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
-    padding-inline:.75rem
-  }
-  .nav-item{position:relative}
-  .chip{
-    display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;
-    background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer
-  }
-  .nav-item>a.chip{text-decoration:none}
-  .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
 
-  .hero{position:relative}
-  .hero img{width:100%;height:auto;object-fit:cover}
-  .hero .photo-credit{
-    position:absolute; right:14px; bottom:14px;
-    background:#fff; border:1px solid var(--rope); border-radius:999px; padding:.45rem .75rem;
-    box-shadow:var(--shadow)
+  /* Top-level pill nav */
+  .pill-nav{
+    flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
+    gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem;
   }
+  .pill-nav > a,
+  .pill-nav > .nav-group > .nav-disclosure{
+    display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
+    border:1px solid var(--rope);color:#0e6e8e;font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
+  }
+  .pill-nav > a:focus-visible,
+  .pill-nav > .nav-group > .nav-disclosure:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .nav-group{position:relative;display:inline-block}
 
-  /* Dropdown menus — resilient to being "portaled" */
-  .nav-menu{
-    position:absolute; /* in-place (when not portaled) */
-    top:100%; left:0; margin-top:.35rem;
-    min-width:240px; background:#fff; border:1px solid var(--rope);
-    border-radius:12px; box-shadow:var(--shadow-lg); padding:.6rem;
-    z-index:1000;
-    display:none !important; visibility:hidden !important; opacity:0; pointer-events:none;
-    transition:opacity .18s ease;
+  /* Hero banner */
+  .hero{
+    position:relative;width:100%;min-height:clamp(200px,24vw,340px);
+    background:url('/assets/index_hero.jpg?v=3.010.090') 50% 50%/cover no-repeat;
+    display:flex;align-items:flex-end;overflow-x:clip;z-index:0;
   }
-  .nav-menu[data-open="true"]{
-    display:block !important; visibility:visible !important; opacity:1; pointer-events:auto;
+  .hero *{filter:none!important;mix-blend-mode:normal!important;opacity:1!important}
+  .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2;pointer-events:none}
+  .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+  .hero-title .logo{display:block;width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
+  .tagline{
+    position:absolute;left:min(3vw,1rem);bottom:clamp(.55rem,1.6vw,1.1rem);
+    transform:none;font-weight:700;letter-spacing:.2px;color:#e6f4f8;
+    font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3;
   }
-  .nav-menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
-  .nav-menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
-  .nav-menu a:hover{background:#f2f7fa;text-decoration:none}
+  .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
+  .hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
 
-  /* Page layout */
-  .planning-grid{display:grid;gap:1.2rem}
-  @media (min-width:768px){ .planning-grid{grid-template-columns:minmax(0,1fr) 360px} }
-  footer.wrap{font-size:.92rem}
+  /* ===== NAV PORTAL (menus render here to avoid clipping) ===== */
+  #nav-portal{
+    position:fixed;inset:0;z-index:2500;pointer-events:none; /* clicks pass through except the menu */
+  }
+  .submenu{
+    min-width:240px;background:#fff;border:1px solid var(--rope);
+    border-radius:12px;padding:.5rem;box-shadow:var(--shadow-lg);
+    display:block;opacity:1;visibility:visible;pointer-events:auto; /* when in portal */
+  }
+  .submenu a{
+    display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem;border:0;background:transparent;color:var(--ink);text-decoration:none
+  }
+  .submenu a:hover,.submenu a:focus{background:#f2f7fa;outline:2px solid transparent}
+
+  /* ===== Page grid ===== */
+  .page-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,var(--rail));gap:2rem;align-items:start}
+  @media (max-width:979.98px){ .page-grid{grid-template-columns:1fr} }
+
+  .author-avatar{display:block;width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center;flex:0 0 48px}
+
+  footer .version-badge{font-size:.8rem;opacity:.75;margin-left:.5rem}
   </style>
 </head>
+<body class="page">
+  <a href="#content" class="skip-link">Skip to main content</a>
 
-<body>
-  <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
-
-  <!-- ===== Header (Nav + Hero) ===== -->
-  <header class="hero-header" role="banner" aria-label="Site header">
+  <!-- =========================== HEADER ============================ -->
+  <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.088" alt="In the Wake logo" width="112" height="24">
-        <span class="tiny version-badge">v3.010.088</span>
+        <img src="/assets/logo_wake.png?v=3.010.090" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
+        <span class="tiny version-badge">v3.010.090</span>
       </div>
 
-      <nav class="main-nav" aria-label="Primary">
-        <div class="nav-item"><a class="chip" href="/">Home</a></div>
+      <!-- Pill nav w/ disclosure groups (menus are portaled) -->
+      <nav class="nav pill-nav" aria-label="Primary">
+        <a href="/">Home</a>
 
-        <div class="nav-item">
-          <button class="chip" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-planning">
-            Planning <span aria-hidden="true">▾</span>
-          </button>
-          <div id="menu-planning" class="nav-menu" aria-label="Planning">
-            <div class="label tiny">Plan your cruise</div>
-            <a href="/planning.html">Planning (overview)</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ships.html">Ships</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/cruise-lines.html">Cruise Lines</a>
-            <a href="/packing-lists.html">Packing Lists</a>
-            <a href="/accessibility.html" aria-current="page">Accessibility</a>
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
+          <!-- Menu lives here in DOM but will be moved into #nav-portal on open -->
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning" hidden>
+            <div class="tiny" style="margin:.1rem .25rem .35rem;color:#234;font-weight:700">Plan your cruise</div>
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html" aria-current="page">Accessibility</a>
           </div>
         </div>
 
-        <div class="nav-item">
-          <button class="chip" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-travel">
-            Travel <span aria-hidden="true">▾</span>
-          </button>
-          <div id="menu-travel" class="nav-menu" aria-label="Travel">
-            <div class="label tiny">On the move</div>
-            <a href="/travel.html">Travel (overview)</a>
-            <a href="/solo.html">Solo</a>
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel" hidden>
+            <div class="tiny" style="margin:.1rem .25rem .35rem;color:#234;font-weight:700">On the move</div>
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
           </div>
         </div>
 
-        <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
+        <a href="/about-us.html">About</a>
       </nav>
     </div>
 
-    <figure class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img src="/assets/index_hero.jpg?v=3.010.088" width="2400" height="900" alt="Ocean at sunrise with a ship's wake">
-      <figcaption class="photo-credit pill">Photo © Flickers of Majesty</figcaption>
-    </figure>
+    <!-- Classic hero -->
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.090" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.090" width="560" height="144" alt="In the Wake" decoding="async"/>
+      </div>
+      <div class="tagline">A Cruise Traveler’s Logbook</div>
+      <div class="hero-credit">
+        <span class="pill long">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span>
+      </div>
+    </div>
   </header>
 
-  <!-- ===== Main ===== -->
-  <main id="content" class="wrap" role="main" aria-label="Main content">
-    <div class="planning-grid">
-      <!-- Content -->
-      <div>
-        <section class="card prose" aria-labelledby="a11y-commit">
-          <h1 id="a11y-commit">Accessibility &amp; Inclusion Commitment</h1>
-          <p><em>In the Wake</em> exists to ensure that every traveler — regardless of ability, age, or circumstance — can explore the wonder of cruising without barriers. We believe accessibility is not simply a regulation to meet, but an act of love and respect. The sea calls to everyone, and our mission is to make sure every person can answer that call with confidence and dignity.</p>
-          <p>We continually test and refine our website against the <strong>WCAG 2.1 Level AA</strong> and the <strong>ADA</strong>, ensuring full keyboard navigation, assistive technology support, and readable design. When feedback comes, we listen — because accessibility is not a finish line, but a voyage we’re all on together.</p>
-        </section>
-
-        <section class="card prose" aria-labelledby="every-voyager">
-          <h2 id="every-voyager">Ensuring Access for Every Voyager</h2>
-          <p>From visual clarity to cognitive simplicity, every choice we make — from color contrast to content structure — aims to serve travelers of every ability. We’re committed to pages that are perceivable, operable, understandable, and robust.</p>
-        </section>
-
-        <section class="card prose" aria-labelledby="aots">
-          <h2 id="aots">Provider Spotlight: Autism on the Seas</h2>
-          <p>We’re proud to recommend <a href="https://autismontheseas.com" rel="noopener noreferrer external"><strong>Autism on the Seas</strong></a>, which partners with major cruise lines to provide dedicated services for travelers with autism and other cognitive or developmental disabilities.</p>
-        </section>
-
-        <section class="card prose" aria-labelledby="feedback">
-          <h2 id="feedback">Contact &amp; Feedback</h2>
-          <p>If you encounter any accessibility barrier while visiting our site, please let us know so we can correct it promptly.</p>
-          <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
-          <p class="tiny">We typically respond within 48 hours.</p>
-        </section>
-      </div>
-
-      <!-- Rail -->
-      <aside class="rail" aria-label="Right rail">
-        <section class="card" aria-labelledby="jr-title">
-          <h3 id="jr-title">From the Journal</h3>
-          <p class="tiny" id="journal-rail-fallback" aria-live="polite" style="display:none">Loading articles…</p>
-          <div class="rail" id="journal-rail"></div>
-        </section>
-
-        <section class="card" aria-labelledby="author-title">
-          <h3 id="author-title">About the Author</h3>
-          <article class="rail-item" role="article" style="display:flex;gap:.8rem;align-items:flex-start">
-            <picture class="author-thumb" aria-hidden="true">
-              <source srcset="/authors/img/ken1.webp?v=3.010.088" type="image/webp">
-              <source srcset="/authors/img/ken1.jpg?v=3.010.088" type="image/jpeg">
-              <img src="/authors/img/ken1.png?v=3.010.088" width="96" height="96" alt="" loading="lazy"
-                   style="width:96px;height:96px;border-radius:12px;object-fit:cover">
-            </picture>
-            <div class="meta">
-              <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-              <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-              <p class="tiny"><a href="https://www.instagram.com/flickersofmajesty" rel="noopener noreferrer external">Flickers of Majesty</a> · <a href="https://x.com/flickersofmajesty" rel="noopener noreferrer external">@flickersofmajesty</a></p>
-            </div>
-          </article>
-        </section>
-      </aside>
-    </div>
-  </main>
-
-  <!-- ===== Footer ===== -->
-  <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
-    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <p class="tiny" style="margin-top:.5rem;text-align:center">Soli Deo Gloria — may every pixel and paragraph bear His reflection.</p>
-  </footer>
-
-  <!-- ===== Nav portal root ===== -->
+  <!-- Portal root (fixed, top-layer) -->
   <div id="nav-portal" aria-hidden="true"></div>
 
-  <!-- ===== Navigation script (portal-safe dropdowns) ===== -->
+  <!-- ============================ MAIN ============================ -->
+  <main id="content" class="wrap page-grid" role="main" aria-label="Main content">
+    <section aria-label="Accessibility content">
+      <article class="card">
+        <h1>Accessibility &amp; Inclusion Commitment</h1>
+        <p><em>In the Wake</em> exists to ensure that every traveler — regardless of ability, age, or circumstance — can explore the wonder of cruising without barriers. Accessibility isn’t a checkbox; it’s a promise kept over time.</p>
+        <p>We continually test and refine our website against <strong>WCAG 2.1 Level AA</strong> and the <strong>ADA</strong>, ensuring full keyboard navigation, assistive technology support, and clear, readable design. When feedback comes, we listen—because accessibility is not a finish line, but a voyage we’re on together.</p>
+      </article>
+
+      <article class="card">
+        <h2>Ensuring Access for Every Voyager</h2>
+        <p>From visual clarity to cognitive simplicity, every choice we make—from color contrast to content structure—aims to serve travelers of every ability. We strive for pages that are perceivable, operable, understandable, and robust.</p>
+      </article>
+
+      <article class="card">
+        <h2>Provider Spotlight: Autism on the Seas</h2>
+        <p>We’re proud to recommend <a href="https://autismontheseas.com" rel="noopener external">Autism on the Seas</a>, partnering with major cruise lines to provide dedicated services for travelers with autism and other cognitive or developmental disabilities.</p>
+      </article>
+
+      <article class="card">
+        <h2>Contact &amp; Feedback</h2>
+        <p>If you encounter any accessibility barrier while visiting our site, please let us know so we can correct it promptly.</p>
+        <p><a class="pill" href="mailto:accessibility@cruisinginthewake.com">accessibility@cruisinginthewake.com</a></p>
+        <p class="tiny">We typically respond within 48 hours.</p>
+      </article>
+    </section>
+
+    <!-- RIGHT RAIL -->
+    <aside class="rail" role="complementary" aria-label="Author &amp; articles">
+      <section id="author-rail" class="card" aria-label="Author information">
+        <h2 class="tiny" style="margin-bottom:.25rem;color:#0a3d62">About the Author</h2>
+        <div class="author-card" style="display:flex;gap:.75rem;align-items:center;">
+          <!-- populated by JS -->
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h2 id="recent-rail-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">From the Journal</h2>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- =========================== FOOTER ============================ -->
+  <footer class="wrap" role="contentinfo">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook
+    <span class="version-badge">v3.010.090</span>
+  </footer>
+
+  <!-- ============================ JS =============================== -->
   <script>
   (function(){
-    // Helpers
-    const root = document.querySelector('.main-nav');
-    if (!root) return;
+    "use strict";
 
-    const groups = [...root.querySelectorAll('.nav-item')].filter(n => n.querySelector('button[aria-controls]'));
+    /* ---------- NAV: portal-based dropdowns (no clipping) ---------- */
     const portal = document.getElementById('nav-portal');
+    const groups = Array.from(document.querySelectorAll('.nav-group'));
+    if (portal && groups.length){
+      let openGroup = null;
+      let openMenu  = null;
+      let homeSlot  = null;
 
-    // Keep track of original parents so we can restore on close
-    const originalParent = new WeakMap();
-    const originalNext   = new WeakMap();
+      const setAria = (g,on)=>{
+        const b = g.querySelector('.nav-disclosure');
+        if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+        g.dataset.open = on ? "true" : "false";
+        g.classList.toggle('open', !!on);
+      };
 
-    function setAria(btn, on){ if(btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false'); }
-
-    function setOpen(group, on){
-      const btn  = group.querySelector('button[aria-controls]');
-      const menu = group.querySelector('.nav-menu');
-      if (!menu || !btn) return;
-
-      // Toggle attribute for CSS (works whether portaled or not)
-      menu.setAttribute('data-open', on ? 'true' : 'false');
-      group.classList.toggle('open', !!on);
-      setAria(btn, on);
-
-      // Move into/out of portal to escape all stacking contexts
-      if (on) {
-        if (!originalParent.has(menu)) {
-          originalParent.set(menu, menu.parentElement);
-          originalNext.set(menu, menu.nextSibling);
+      const placeInPortal = (menu, btn)=>{
+        // Move the menu node into the portal and position it relative to the button
+        if (!menu || !portal || !btn) return;
+        homeSlot = homeSlot || document.createComment('menu-home-slot');
+        if (!menu.previousSibling || menu.previousSibling !== homeSlot){
+          menu.parentNode.insertBefore(homeSlot, menu);
         }
-        // Compute position anchored to button
-        const b = btn.getBoundingClientRect();
-        const top = Math.round(b.bottom + 6);
-        const left = Math.round(b.left);
-        menu.style.position = 'fixed';
-        menu.style.top = top + 'px';
-        menu.style.left = left + 'px';
-        menu.style.right = '';
+        menu.hidden = false;
         portal.appendChild(menu);
-      } else {
-        const p = originalParent.get(menu);
-        const n = originalNext.get(menu);
-        if (p) (n ? p.insertBefore(menu, n) : p.appendChild(menu));
-        menu.style.position = ''; menu.style.top = ''; menu.style.left = ''; menu.style.right = '';
-      }
+        const r = btn.getBoundingClientRect();
+        // Right-align to button; offset 8px below
+        menu.style.position = 'fixed';
+        menu.style.top  = Math.round(r.bottom + 8) + 'px';
+        menu.style.left = Math.round(r.right - menu.offsetWidth) + 'px';
+        menu.style.maxWidth = 'min(92vw, 360px)';
+        menu.style.pointerEvents = 'auto';
+        portal.setAttribute('aria-hidden','false');
+        portal.style.pointerEvents = 'none'; // only menu itself is interactive
+      };
+
+      const restoreHome = (menu)=>{
+        if (!menu || !homeSlot || !homeSlot.parentNode) return;
+        homeSlot.parentNode.insertBefore(menu, homeSlot.nextSibling);
+        menu.hidden = true;
+        menu.removeAttribute('style');
+        portal.setAttribute('aria-hidden','true');
+      };
+
+      const closeAll = ()=>{
+        if (openGroup && openMenu){
+          restoreHome(openMenu);
+          setAria(openGroup,false);
+        }
+        openGroup = openMenu = null;
+      };
+
+      groups.forEach(g=>{
+        const btn  = g.querySelector('.nav-disclosure');
+        const menu = g.querySelector('.submenu');
+        if (!btn || !menu) return;
+
+        // Toggle on click
+        btn.addEventListener('click',(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          const isOpen = openGroup === g;
+          closeAll();
+          if (!isOpen){
+            setAria(g,true);
+            placeInPortal(menu, btn);
+            openGroup = g; openMenu = menu;
+            // Focus first item for keyboard open via ArrowDown handled below
+          }
+        });
+
+        // Keyboard support
+        btn.addEventListener('keydown',(e)=>{
+          if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+            e.preventDefault();
+            closeAll();
+            setAria(g,true);
+            placeInPortal(menu, btn);
+            openGroup = g; openMenu = menu;
+            const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+            if (first) first.focus({preventScroll:true});
+          } else if (e.key === 'Escape'){
+            e.preventDefault(); closeAll(); btn.focus({preventScroll:true});
+          }
+        });
+
+        g.addEventListener('keydown',(e)=>{
+          if (e.key === 'Escape'){
+            const b = g.querySelector('.nav-disclosure');
+            closeAll(); b && b.focus({preventScroll:true});
+          }
+        });
+
+        // Close when focus leaves the menu
+        menu.addEventListener('focusout',()=>{
+          setTimeout(()=>{ if (!document.activeElement || !menu.contains(document.activeElement)){ closeAll(); } }, 120);
+        });
+      });
+
+      // Outside click close
+      document.addEventListener('click',(e)=>{
+        if (openMenu && !e.target.closest('.submenu') && !e.target.closest('.nav-disclosure')) closeAll();
+      });
+      window.addEventListener('blur', closeAll);
+      window.addEventListener('resize', closeAll);
+      window.addEventListener('scroll', closeAll, { passive:true });
     }
 
-    function closeAll(except=null){
-      groups.forEach(g => { if (g !== except) setOpen(g, false); });
-    }
-    function firstFocusable(el){
-      return el && el.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-    }
+    /* ---------- Author rail (Ken) ---------- */
+    (function authorRail(){
+      const rail = document.getElementById('author-rail');
+      const host = rail && rail.querySelector('.author-card');
+      if(!host) return;
+      host.innerHTML = `
+        <picture>
+          <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.090">
+          <source type="image/jpeg" srcset="/authors/img/ken1.jpg?v=3.010.090">
+          <img class="author-avatar" src="/authors/img/ken1.png?v=3.010.090" width="48" height="48" alt="Author — Ken Baker" decoding="async">
+        </picture>
+        <div>
+          <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
+          Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.<br/>
+          <a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a>
+        </div>`;
+    })();
 
-    // Guard: stop outside-closers when tap starts on a nav button (capture)
-    const isNavBtn = el => !!(el && el.closest('.main-nav .nav-item button[aria-controls]'));
-    document.addEventListener('pointerdown', e => { if (isNavBtn(e.target)) e.stopImmediatePropagation(); }, {capture:true});
+    /* ---------- Recent rail (basic loader, same pattern as index) ---------- */
+    (async function recentRail(){
+      const rail = document.getElementById('recent-rail'); if(!rail) return;
+      try{
+        const r = await fetch('/assets/data/articles/index.json?v=3.010.090',{cache:'no-store'});
+        if(!r.ok) return;
+        const data = await r.json();
+        const list = Array.isArray(data?.articles) ? data.articles : (Array.isArray(data) ? data : []);
+        const here = location.pathname.replace(/\/+$/,'').toLowerCase();
+        const view = list.filter(a=>{
+          try{
+            const url = new URL(a.url||a.permalink||a.path||'#', location.href);
+            const p = url.pathname.toLowerCase().replace(/\/+$/,'');
+            return p && p !== here;
+          }catch(_){ return false; }
+        }).slice(0,4);
 
-    // Bind each group
-    groups.forEach(group => {
-      const btn  = group.querySelector('button[aria-controls]');
-      const menu = group.querySelector('.nav-menu');
-      if (!btn || !menu) return;
+        rail.innerHTML = view.map(a=>{
+          const title = a.title || a.headline || 'Article';
+          const href  = a.url || a.permalink || a.path || '#';
+          return `
+            <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
+              <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
+                <img alt="" decoding="async" style="width:100%;height:100%;object-fit:cover" src="${a.image||'/assets/index_hero.jpg?v=3.010.090'}">
+              </div>
+              <div class="tiny" style="line-height:1.35">${title}</div>
+            </a>`;
+        }).join('') || '<p class="tiny">More disability &amp; inclusion articles coming soon.</p>';
+      }catch(_){}
+    })();
 
-      btn.addEventListener('click', e => {
-        e.preventDefault(); e.stopPropagation();
-        const isOpen = menu.getAttribute('data-open') === 'true';
-        closeAll(group);
-        setOpen(group, !isOpen);
-        if (!isOpen) (firstFocusable(menu) || btn).focus({preventScroll:true});
-      }, {passive:false});
+    /* ---------- Third-party & SW: defer to idle ---------- */
+    (function defer3PAndSW(){
+      const onIdle = (fn)=> (window.requestIdleCallback ? requestIdleCallback(fn,{timeout:3000}) : setTimeout(fn, 1200));
 
-      // Keyboard: ArrowDown/Up opens & focuses; Esc closes
-      btn.addEventListener('keydown', e => {
-        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-          e.preventDefault(); setOpen(group, true);
-          (firstFocusable(menu) || btn).focus({preventScroll:true});
-        } else if (e.key === 'Escape') {
-          e.preventDefault(); setOpen(group, false); btn.focus({preventScroll:true});
+      onIdle(()=>{
+        // Example: Social share (placeholder — keep if you use one)
+        // const s = document.createElement('script');
+        // s.src = 'https://static.addtoany.com/menu/page.js';
+        // s.async = true; document.head.appendChild(s);
+
+        // Example: Analytics (placeholder)
+        // const ga = document.createElement('script');
+        // ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX';
+        // ga.async = true; document.head.appendChild(ga);
+        // window.dataLayer = window.dataLayer || [];
+        // function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXX');
+
+        // Service worker
+        if ('serviceWorker' in navigator){
+          navigator.serviceWorker.register('/sw.js').catch(()=>{});
         }
       });
-      group.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { setOpen(group, false); btn.focus({preventScroll:true}); }
-      });
-
-      // Close when focus leaves the menu
-      menu.addEventListener('focusout', () => {
-        setTimeout(() => { if (!group.contains(document.activeElement) && !portal.contains(document.activeElement)) setOpen(group,false); }, 120);
-      });
-    });
-
-    // Outside click close (bubble)
-    document.addEventListener('click', e => {
-      if (!e.target.closest('.main-nav') && !e.target.closest('#nav-portal')) closeAll();
-    });
-
-    // App/tab switch
-    window.addEventListener('blur', () => closeAll());
-  })();
-  </script>
-
-  <!-- ===== Absolute URL normalizer (internal) ===== -->
-  <script>
-  (function(){
-    try{
-      const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-      function normalize(){
-        const sel=['a[href^="https://www.cruisinginthewake.com/"]','img[src^="https://www.cruisinginthewake.com/"]','link[href^="https://www.cruisinginthewake.com/"]','script[src^="https://www.cruisinginthewake.com/"]'].join(',');
-        document.querySelectorAll(sel).forEach(el=>{
-          const attr=el.hasAttribute('href')?'href':'src';
-          try{const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);}catch(_){}
-        });
-      }
-      if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',normalize,{once:true}); else normalize();
-    }catch(err){ console.warn('URL normalizer error:', err); }
-  })();
-  </script>
-
-  <!-- ===== External link hardener (internal) ===== -->
-  <script>
-  (function(){
-    try{
-      const here=location.hostname.replace(/^www\./,'');
-      function harden(){
-        document.querySelectorAll('a[href]').forEach(a=>{
-          const href=a.getAttribute('href')||'';
-          if(/^(#|mailto:|tel:)/i.test(href)) return;
-          try{
-            const u=new URL(href, location.href);
-            const host=u.hostname.replace(/^www\./,'');
-            if(host!==here||/\bexternal\b/i.test(a.rel||'')){
-              a.target='_blank';
-              a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
-            }
-          }catch(_){}
-        });
-      }
-      if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',harden,{once:true}); else harden();
-    }catch(err){ console.warn('Link hardener error:', err); }
-  })();
-  </script>
-
-  <!-- ===== Journal Rail (no third-parties) ===== -->
-  <script>
-  (function(){
-    const V='3.010.088';
-    const MOUNT=document.getElementById('journal-rail');
-    const FALL=document.getElementById('journal-rail-fallback');
-    if(!MOUNT) return;
-
-    const HERE=(function normPath(u){
-      try{const url=new URL(u, location.href);let p=url.pathname.toLowerCase();
-        return p.replace(/\/index\.html$/i,'/').replace(/\/+$/,'').replace(/#.*/,'').replace(/\?.*/,'');
-      }catch(_){return String(u||'').toLowerCase();}
-    })(location.href);
-
-    function normalize(payload){
-      const list = Array.isArray(payload?.articles) ? payload.articles
-                 : Array.isArray(payload) ? payload : [];
-      return list.map(a=>({
-        url: a.url||a.permalink||'#',
-        title: a.title||a.headline||'Article',
-        dek: a.dek||a.description||a.excerpt||'',
-        date: a.datePublished||a.date||'',
-        image: a.image||'',
-        tags: (a.tags||a.categories||[]).map(t=>String(t).toLowerCase()),
-        author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
-      })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
-    }
-    function chooseImage(rec){ return rec.image || '/assets/placeholders/article-thumb.jpg?v='+V; }
-    const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
-    function card(a){
-      const img=chooseImage(a);
-      const name=a.author?.name||'';
-      const authorUrl=a.author?.url||'';
-      const dt=Date.parse(a.date||'');
-      const dateTxt = isNaN(dt)?'':(new Date(a.date)).toLocaleDateString()+' · ';
-      return `
-        <article class="rail-item" style="display:flex;gap:.6rem;align-items:flex-start">
-          <a class="thumb" href="${a.url}">
-            <img src="${img}" alt="" loading="lazy"
-                 style="width:96px;height:64px;object-fit:cover;border-radius:10px"
-                 onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=${encodeURIComponent(V)}';">
-          </a>
-          <div class="meta">
-            <h4 style="margin:.1rem 0 .2rem"><a href="${a.url}">${esc(a.title)}</a></h4>
-            <p class="tiny muted">${dateTxt}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
-            ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
-          </div>
-        </article>`;
-    }
-
-    async function get(u){
-      try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
-      catch(_){ return []; }
-    }
-
-    (async function boot(){
-      MOUNT.setAttribute('aria-busy','true');
-      if(FALL) FALL.style.display='';
-      const SOURCES=[
-        '/assets/data/articles/index.json?v='+V,
-        '/travel/articles/index.json?v='+V,
-        '/solo/articles/index.json?v='+V
-      ];
-      let all=[];
-      for(const s of SOURCES){ all = all.concat(await get(s)); }
-      const TAG='disability';
-      all = all.filter(a => Array.isArray(a.tags) && a.tags.includes(TAG));
-      const seen=new Set();
-      all = all.filter(a=>{
-        try{
-          const p=new URL(a.url, location.href).pathname.toLowerCase().replace(/\/index\.html$/,'/').replace(/\/+$/,'');
-          if (p===HERE) return false;
-          if (seen.has(p)) return false;
-          seen.add(p);
-          return true;
-        }catch(_){return false;}
-      });
-      all.sort((a,b)=>(Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0));
-      MOUNT.innerHTML = all.slice(0,4).map(card).join('') || '<p class="tiny muted">More disability &amp; inclusion articles coming soon.</p>';
-      MOUNT.setAttribute('aria-busy','false');
-      if(FALL) FALL.style.display='none';
     })();
   })();
   </script>
-
-  <!-- ===== Service Worker (after interactive) ===== -->
-  <script>
-  window.addEventListener('load', () => {
-    if ('serviceWorker' in navigator) {
-      const v='3.010.088';
-      navigator.serviceWorker.register('/sw.js?v='+v, {scope:'/'})
-        .catch(err=>console.warn('SW register failed:', err));
-    }
-  });
-  </script>
-
-  <!-- ===== Lazy third-parties (CMP, Analytics, Sharing) ===== -->
-  <script>
-  (function lazyVendors(){
-    const load = (src, attrs={}) => new Promise(res=>{
-      const s = document.createElement('script');
-      s.src = src; s.async = true; Object.assign(s, attrs);
-      s.onload = res; document.head.appendChild(s);
-    });
-
-    function afterNav(){
-      // 1) CMP (replace URL with your CMP)
-      load('https://cdn.example-cmp.com/cmp.min.js') // <-- TODO: set your CMP URL
-      // 2) Analytics (GA4 as example; set your property)
-      .then(()=> load('https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX')) // <-- TODO: G-XXXXXXX
-      .then(()=> {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);} window.gtag = gtag;
-        gtag('js', new Date()); gtag('config', 'G-XXXXXXX', { anonymize_ip: true });
-      })
-      // 3) Social share script (your own or a vendor)
-      .then(()=> load('/assets/share-buttons.js?v=3.010.088')).catch(()=>{});
-    }
-
-    if ('requestIdleCallback' in window) requestIdleCallback(afterNav, {timeout:3000});
-    else setTimeout(afterNav, 1500);
-  })();
-  </script>
-
-  <!-- Signature -->
-  <!-- Soli Deo Gloria · Version: v3.010.088 · End of file -->
 </body>
 </html>
