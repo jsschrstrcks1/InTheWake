@@ -1,23 +1,27 @@
-/* sw.js — In the Wake Service Worker (v14)
-   Changes vs v13:
-   - Supports multiple precache sources:
-     1) /precache-manifest.json  (pages/assets/images/sitemaps)
-     2) /prefetch-images-*.json  (authors/ships/other)
-   - Merges & de-dupes URLs before seeding
-   - Still excludes "/" and "/index.html" from manifest/sitemap seeding
-   - Keeps navigation preload + HTML hard-reload behavior
+
+
+javascript
+/* sw.js — In the Wake Service Worker (v15)
+   Changes vs v14:
+   - Added dedicated 'cacheFirst' strategy for fonts (FONT_CACHE)
+   - Added 'staleWhileRevalidate' for JSON data (DATA_CACHE)
+   - Fixed bug where precached JSON was not served from cache
 */
 
-const SW_VERSION   = "v14";
+const SW_VERSION   = "v15"; // NEW: Incremented version
 const PREFIX       = "itw";
 const PAGE_CACHE   = `${PREFIX}-page-${SW_VERSION}`;
 const ASSET_CACHE  = `${PREFIX}-asset-${SW_VERSION}`;
 const IMG_CACHE    = `${PREFIX}-img-${SW_VERSION}`;
 const PRECACHE     = `${PREFIX}-pre-${SW_VERSION}`;
+const FONT_CACHE   = `${PREFIX}-font-v1`; // NEW: Static cache for fonts
+const DATA_CACHE   = `${PREFIX}-data-${SW_VERSION}`; // NEW: Cache for JSON data
 
 const MAX_PAGES    = 60;
 const MAX_ASSETS   = 60;
 const MAX_IMAGES   = 360;
+const MAX_FONTS    = 30; // NEW: Max fonts to cache
+const MAX_DATA     = 30; // NEW: Max JSON files to cache
 
 const BUST = () => `v=${SW_VERSION}-${Date.now()}`;
 
@@ -34,6 +38,18 @@ function sameOrigin(u) {
 }
 function isImageURL(url) {
   return /\.(?:avif|webp|jpg|jpeg|png|gif|svg)(\?.*)?$/i.test(url);
+}
+// NEW: Utility to check for font requests
+function isFontRequest(request) {
+  if (request.destination === "font") return true;
+  const url = new URL(request.url);
+  return /\.(?:woff2|woff|ttf|otf)(\?.*)?$/i.test(url.href);
+}
+// NEW: Utility to check for JSON data requests
+function isJSONRequest(request) {
+  if (request.destination === "script") return false; // Exclude JS
+  const url = new URL(request.url);
+  return url.pathname.endsWith(".json");
 }
 function isVersionedAsset(url) {
   return (/\.(?:css|js)(\?.*)?$/i.test(url) && /[?&]v=/.test(url));
@@ -67,7 +83,8 @@ self.addEventListener("activate", (e) => {
     if (self.registration.navigationPreload) {
       try { await self.registration.navigationPreload.enable(); } catch(_) {}
     }
-    const keep = new Set([PAGE_CACHE, ASSET_CACHE, IMG_CACHE, PRECACHE]);
+    // NEW: Added FONT_CACHE and DATA_CACHE to the keep list
+    const keep = new Set([PAGE_CACHE, ASSET_CACHE, IMG_CACHE, PRECACHE, FONT_CACHE, DATA_CACHE]);
     const names = await caches.keys();
     await Promise.all(names
       .filter(n => n.startsWith(`${PREFIX}-`) && !keep.has(n))
@@ -107,7 +124,7 @@ async function warmPrecache() {
       const data = await res.json();
 
       // 1) Original precache-manifest.json shape
-      if (Array.isArray(data.pages) || Array.isArray(data.assets) || Array.isArray(data.images)) {
+      if (Array.isArray(data.pages) || Array.isArray(data.assets) || Array.isArray(data.images) || Array.isArray(data.data)) { // NEW: Check for 'data' array
         const pushList = (arr=[]) => arr.forEach(u => {
           if (!sameOrigin(u)) return;
           const uo = new URL(u, location.origin);
@@ -116,6 +133,7 @@ async function warmPrecache() {
         pushList(data.pages);
         pushList(data.assets);
         pushList(data.images);
+        pushList(data.data); // NEW: Add data files from manifest
 
         // handle sitemaps from main manifest
         if (src.includes("precache-manifest")) {
@@ -198,11 +216,13 @@ async function seedURLs(urls) {
 
 async function copyPrecacheToRuntime() {
   try {
-    const pre   = await caches.open(PRECACHE);
-    const keys  = await pre.keys();
-    const pageC = await caches.open(PAGE_CACHE);
-    const assetC= await caches.open(ASSET_CACHE);
-    const imgC  = await caches.open(IMG_CACHE);
+    const pre    = await caches.open(PRECACHE);
+    const keys   = await pre.keys();
+    const pageC  = await caches.open(PAGE_CACHE);
+    const assetC = await caches.open(ASSET_CACHE);
+    const imgC   = await caches.open(IMG_CACHE);
+    const fontC  = await caches.open(FONT_CACHE); // NEW: Open font cache
+    const dataC  = await caches.open(DATA_CACHE); // NEW: Open data cache
 
     for (const req of keys) {
       const url = new URL(req.url);
@@ -211,13 +231,21 @@ async function copyPrecacheToRuntime() {
 
       if (isVersionedAsset(url.href)) {
         await assetC.put(req, res.clone());
+      } else if (isFontRequest(req)) { // NEW: Check for fonts
+        await fontC.put(req, res.clone());
       } else if (isImageURL(url.href)) {
         await imgC.put(req, res.clone());
+      } else if (isJSONRequest(req)) { // NEW: Check for JSON
+        await dataC.put(req, res.clone());
       } else if (url.pathname.endsWith(".html") || url.pathname === "/") {
         await pageC.put(req, res.clone());
       }
     }
-    prune(pageC, MAX_PAGES); prune(assetC, MAX_ASSETS); prune(imgC, MAX_IMAGES);
+    prune(pageC, MAX_PAGES); 
+    prune(assetC, MAX_ASSETS); 
+    prune(imgC, MAX_IMAGES);
+    prune(fontC, MAX_FONTS); // NEW: Prune font cache
+    prune(dataC, MAX_DATA); // NEW: Prune data cache
   } catch (_) {}
 }
 
@@ -237,9 +265,21 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // NEW: Fonts
+  if (isFontRequest(req)) {
+    event.respondWith(cacheFirst(req, FONT_CACHE, MAX_FONTS));
+    return;
+  }
+
   // Images
   if (dest === "image" || isImageURL(url.href)) {
     event.respondWith(staleWhileRevalidate(req, IMG_CACHE, MAX_IMAGES));
+    return;
+  }
+
+  // NEW: JSON Data
+  if (isJSONRequest(req)) {
+    event.respondWith(staleWhileRevalidate(req, DATA_CACHE, MAX_DATA));
     return;
   }
 
