@@ -2,27 +2,18 @@
 <html lang="en">
 <head>
   <!--
-  Soli Deo Gloria — may every pixel and paragraph bear His reflection.
-  STANDARDS (v3.010.080):
-    • Unified Nav: disclosure pattern; hover/click/keyboard; pointer-stable; capture close; focusin close; late-init; single-run guard
-    • A11y/WCAG Addendum v3.100
-    • CMP/Consent v3.008.020
+  Soli Deo Gloria — single-file build (self-contained)
+  Page: Accessibility & Inclusion (/disability-at-sea.html)
+  Version: v3.010.081 (nav repaired / no third-parties / no shared CSS)
   -->
 
-  <!-- Consent Manager (must be first) -->
-  <script type="text/javascript" data-cmp-ab="1"
-    src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
-    data-cmp-host="a.delivery.consentmanager.net"
-    data-cmp-cdn="cdn.consentmanager.net"
-    data-cmp-codesrc="16"></script>
-
-  <!-- Core Meta -->
+  <!-- Core Meta / SEO -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0e6e8e">
-  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.080)</title>
-  <meta name="version" content="v3.010.080"/>
+  <title>Accessibility &amp; Inclusion — In the Wake (v3.010.081)</title>
+  <meta name="version" content="v3.010.081"/>
   <meta name="description" content="In the Wake is committed to accessibility for all travelers — honoring every ability, ensuring every voyager can plan and dream freely. Built for clarity, inclusion, and love."/>
   <meta name="robots" content="index,follow"/>
 
@@ -33,165 +24,166 @@
   <meta property="og:url" content="https://www.cruisinginthewake.com/disability-at-sea.html"/>
   <meta property="og:title" content="Accessibility &amp; Inclusion — In the Wake"/>
   <meta property="og:description" content="Our mission is full digital accessibility for all travelers — a site built with empathy and conviction, following WCAG 2.1 AA and ADA standards."/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.080"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/disability-hero.jpg?v=3.010.081"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- Preload Hero -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.080" fetchpriority="high"/>
+  <!-- Preload Hero (kept local) -->
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.081" fetchpriority="high"/>
 
-  <!-- Analytics (deferred) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <!-- Absolute URL normalizer (internal, no third-party) -->
   <script>
-    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-    gtag('js',new Date());gtag('config','G-WZP891PZXJ');
-  </script>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-
-  <!-- Absolute URL Normalizer -->
-  <script>
-  try {
-    (function(){
+  (function(){
+    try{
       const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-      window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
       function normalize(){
-        const sel=['a[href^="https://www.cruisinginthewake.com/"]','img[src^="https://www.cruisinginthewake.com/"]','link[href^="https://www.cruisinginthewake.com/"]','script[src^="https://www.cruisinginthewake.com/"]'].join(',');
+        const sel=[
+          'a[href^="https://www.cruisinginthewake.com/"]',
+          'img[src^="https://www.cruisinginthewake.com/"]',
+          'link[href^="https://www.cruisinginthewake.com/"]',
+          'script[src^="https://www.cruisinginthewake.com/"]'
+        ].join(',');
         document.querySelectorAll(sel).forEach(el=>{
           const attr=el.hasAttribute('href')?'href':'src';
-          try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}
+          try{
+            const u=new URL(el.getAttribute(attr));
+            el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
+          }catch(_){}
         });
       }
-      if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',normalize,{once:true});}else{normalize();}
-    })();
-  } catch(err) { console.warn('URL normalizer error:', err); }
+      if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',normalize,{once:true});
+      else normalize();
+    }catch(err){ console.warn('URL normalizer error:', err); }
+  })();
   </script>
 
-  <!-- External link hardener -->
+  <!-- External link hardener (internal, no third-party) -->
   <script>
-  try {
-    (function(){
+  (function(){
+    try{
       const here=location.hostname.replace(/^www\./,'');
-      function upgrade(){
+      function harden(){
         document.querySelectorAll('a[href]').forEach(a=>{
           const href=a.getAttribute('href')||'';
-          if(/^(#|mailto:|tel:)/i.test(href))return;
+          if(/^(#|mailto:|tel:)/i.test(href)) return;
           try{
-            const u=new URL(href,location.href);
+            const u=new URL(href, location.href);
             const host=u.hostname.replace(/^www\./,'');
-            if(host!==here||a.rel==='external'){
+            if(host!==here||/\bexternal\b/i.test(a.rel||'')){
               a.target='_blank';
               a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
             }
           }catch(_){}
         });
       }
-      if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}else{upgrade();}
-    })();
-  } catch(err) { console.warn('Link hardener error:', err); }
+      if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',harden,{once:true});
+      else harden();
+    }catch(err){ console.warn('Link hardener error:', err); }
+  })();
   </script>
 
-  <!-- ===== Inline CSS ===== -->
+  <!-- ===== Inline CSS (self-contained) ===== -->
   <style>
-:root{
-  --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-  --shadow:0 2px 6px rgba(8,48,65,.08);
-  --shadow-lg:0 10px 28px rgba(8,48,65,.14);
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;overflow-x:hidden}
-body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
-img{max-width:100%;height:auto;display:block}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-.tiny{font-size:.9rem;color:#456}
-.center{text-align:center}
-.pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
-.card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);background:url('/assets/watermark.png?v=3.010.080') center/contain no-repeat;opacity:.06;pointer-events:none}
-h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
+  :root{
+    --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
+    --shadow:0 2px 6px rgba(8,48,65,.08);
+    --shadow-lg:0 10px 28px rgba(8,48,65,.14);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;overflow-x:hidden}
+  body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+  img{max-width:100%;height:auto;display:block}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+  .tiny{font-size:.9rem;color:#456}
+  .center{text-align:center}
+  .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
+  .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
+  .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);
+    background:url('/assets/watermark.png?v=3.010.081') center/contain no-repeat;opacity:.06;pointer-events:none}
+  h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
-/* A11y */
-@media (prefers-reduced-motion:reduce){
-  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-}
-.visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-.visually-hidden-focusable:focus{
-  position:fixed;left:12px;top:12px;width:auto;height:auto;
-  padding:.45rem .7rem;background:#fff;border:2px solid var(--sea);
-  border-radius:10px;z-index:2147483647
-}
+  /* A11y helpers */
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  }
+  .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  .visually-hidden-focusable:focus{
+    position:fixed;left:12px;top:12px;width:auto;height:auto;
+    padding:.45rem .7rem;background:#fff;border:2px solid var(--sea);
+    border-radius:10px;z-index:2147483647
+  }
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-/* ===== Header / Nav ===== */
-.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:9999;}
-.navbar{
-  max-width:1100px;margin:0 auto;display:flex;gap:.6rem;
-  padding:.35rem .9rem .45rem;align-items:center;position:relative;
-  z-index:10000;min-height:56px;background:#eaf6f6;overflow-y:visible;
-}
-.brand{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
-.brand img{height:40px;width:auto;display:block}
-.version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
+  /* ===== Header / Nav ===== */
+  .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:10}
+  .navbar{
+    max-width:1100px;margin:0 auto;display:flex;gap:.6rem;
+    padding:.35rem .9rem .45rem;align-items:center;position:relative;
+    z-index:20;min-height:56px;background:#eaf6f6;overflow:visible;
+  }
+  .brand{display:flex;align-items:center;gap:.6rem;flex:0 0 auto}
+  .brand img{height:40px;width:auto;display:block}
+  .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
 
-/* Main Nav (unified dropdowns) */
-.main-nav{
-  display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;
-  white-space:nowrap;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
-  padding-inline:.75rem;padding-bottom:1px;
-}
-.nav-item{position:relative}
-.chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
-.nav-item>a.chip{text-decoration:none}
-.chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
+  /* Unified main nav (click-only disclosure) */
+  .main-nav{
+    display:flex;gap:.5rem;flex:1 1 auto;min-width:0;align-items:center;justify-content:center;
+    white-space:nowrap;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
+    padding-inline:.75rem;padding-bottom:1px;
+  }
+  .nav-item{position:relative}
+  .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
+  .nav-item>a.chip{text-decoration:none}
+  .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
 
-/* Dropdown Menus: visibility/opacity (animation-friendly, no layout shift) */
-.nav-item .menu{
-  position:absolute;left:0;top:100%;margin-top:.35rem;min-width:240px;background:#fff;
-  border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;
-  z-index:11000;pointer-events:auto;
+  /* Dropdown menus — click-driven only (no :hover/:focus auto-open) */
+  .nav-item .menu{
+    position:absolute;left:0;top:100%;margin-top:.35rem;min-width:240px;background:#fff;
+    border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;
+    z-index:30;
 
-  /* new show/hide */
-  visibility:hidden; opacity:0; transition:opacity .18s ease;
-}
-.main-nav .nav-item.open>.menu,
-.main-nav .nav-item:focus-within>.menu,
-.main-nav .nav-item:hover>.menu{
-  visibility:visible !important; opacity:1;
-}
-@media (prefers-reduced-motion:reduce){
-  .nav-item .menu{transition:none}
-}
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .18s ease;
+  }
+  .main-nav .nav-item.open > .menu{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1;
+    pointer-events:auto;
+  }
+  @media (prefers-reduced-motion:reduce){ .nav-item .menu{transition:none} }
 
-.menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
-.menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
-.menu a:hover{background:#f2f7fa;text-decoration:none}
+  .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
+  .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
+  .menu a:hover{background:#f2f7fa;text-decoration:none}
 
-/* ===== Layout: explicit 2-col grid with wrapper ===== */
-.planning-grid{display:grid;gap:1.2rem}
-@media (min-width:768px){
-  .planning-grid{grid-template-columns:minmax(0,1fr) 360px}
-}
+  /* Layout for this page */
+  .planning-grid{display:grid;gap:1.2rem}
+  @media (min-width:768px){ .planning-grid{grid-template-columns:minmax(0,1fr) 360px} }
   </style>
 </head>
+
 <body>
   <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
 
   <!-- ===== Header (Unified Nav) ===== -->
-  <header class="hero-header" role="banner">
+  <header class="hero-header" role="banner" aria-label="Site header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.080" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.010.080</span>
+        <img src="/assets/logo_wake.png?v=3.010.081" width="256" height="64" alt="In the Wake wordmark">
+        <span class="tiny version-badge">v3.010.081</span>
       </div>
 
       <nav class="main-nav" aria-label="Primary">
-        <div class="nav-item">
-          <a class="chip" href="/">Home</a>
-        </div>
+        <div class="nav-item"><a class="chip" href="/">Home</a></div>
 
         <div class="nav-item">
-          <button class="chip" type="button"
-            aria-haspopup="menu" aria-expanded="false" aria-controls="menu-planning">
-            Planning <span class="caret">▾</span>
+          <button class="chip" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-planning">
+            Planning <span aria-hidden="true">▾</span>
           </button>
           <div id="menu-planning" class="menu" aria-label="Planning">
             <div class="label tiny">Plan your cruise</div>
@@ -207,9 +199,8 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
         </div>
 
         <div class="nav-item">
-          <button class="chip" type="button"
-            aria-haspopup="menu" aria-expanded="false" aria-controls="menu-travel">
-            Travel <span class="caret">▾</span>
+          <button class="chip" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-travel">
+            Travel <span aria-hidden="true">▾</span>
           </button>
           <div id="menu-travel" class="menu" aria-label="Travel">
             <div class="label tiny">On the move</div>
@@ -218,16 +209,13 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
           </div>
         </div>
 
-        <div class="nav-item">
-          <a class="chip" href="/about-us.html">About</a>
-        </div>
+        <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
       </nav>
     </div>
-    <!-- Optional hero can be inserted here -->
   </header>
 
   <!-- ===== Main ===== -->
-  <main id="content" class="wrap" role="main">
+  <main id="content" class="wrap" role="main" aria-label="Main content">
     <div class="planning-grid">
       <!-- Left column (content) -->
       <div>
@@ -244,7 +232,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
         <section class="card prose" aria-labelledby="aots">
           <h2 id="aots">Provider Spotlight: Autism on the Seas</h2>
-          <p>We’re proud to recommend <a href="https://autismontheseas.com" target="_blank" rel="noopener noreferrer"><strong>Autism on the Seas</strong></a>, which partners with major cruise lines to provide dedicated services for travelers with autism and other cognitive or developmental disabilities.</p>
+          <p>We’re proud to recommend <a href="https://autismontheseas.com" rel="noopener noreferrer external"><strong>Autism on the Seas</strong></a>, which partners with major cruise lines to provide dedicated services for travelers with autism and other cognitive or developmental disabilities.</p>
         </section>
 
         <section class="card prose" aria-labelledby="feedback">
@@ -268,9 +256,9 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
           <article class="rail-item" role="article">
             <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
               <picture>
-                <source srcset="/authors/img/ken1.webp?v=3.010.080" type="image/webp">
-                <source srcset="/authors/img/ken1.jpg?v=3.010.080" type="image/jpeg">
-                <img src="/authors/img/ken1.png?v=3.010.080" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
+                <source srcset="/authors/img/ken1.webp?v=3.010.081" type="image/webp">
+                <source srcset="/authors/img/ken1.jpg?v=3.010.081" type="image/jpeg">
+                <img src="/authors/img/ken1.png?v=3.010.081" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
               </picture>
             </a>
             <div class="meta">
@@ -291,115 +279,83 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
     <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection.</p>
   </footer>
 
-  <!-- Accessibility Script -->
-  <script type="text/javascript"
-    src="https://cdn.consentmanager.net/delivery/js/accessibility.min.js"
-    data-acc-accid="774c13e29978"
-    data-acc-host="delivery.consentmanager.net"
-    data-acc-cdn="cdn.consentmanager.net"></script>
-
-  <!-- Unified Nav (disclosure pattern; hardened) -->
+  <!-- ===== Unified Nav (click-only; capture-shield; scoped outside-closer) ===== -->
   <script>
   (function(){
-    if(window._unifiedNavInitDone) return;
-    window._unifiedNavInitDone = true;
+    // Shield: stop capture-phase "outside click" closers when click starts on a nav button
+    const isNavBtn = el => !!(el && el.closest('.main-nav .nav-item button[aria-controls]'));
+    document.addEventListener('pointerdown', e => { if (isNavBtn(e.target)) e.stopImmediatePropagation(); }, {capture:true});
+    document.addEventListener('click',       e => { if (isNavBtn(e.target)) e.stopImmediatePropagation(); }, {capture:true});
 
-    function run(){
-      try{
-        const groups=[...document.querySelectorAll('.nav-item')].filter(n=>n.querySelector('button.chip'));
-        if(!groups.length) return;
+    const root  = document.querySelector('.main-nav');
+    if (!root) return;
+    const items = [...root.querySelectorAll('.nav-item')].filter(n => n.querySelector('button[aria-controls]'));
 
-        const OPEN_DELAY=120, CLOSE_DELAY=240;
-        const timers=new WeakMap();
-        const firstFocusable=(root)=> root.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-        const isTouch=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
-
-        const setOpen=(el,on)=>{
-          el.classList.toggle('open', !!on);
-          const btn=el.querySelector('button.chip');
-          if(btn) btn.setAttribute('aria-expanded', on?'true':'false');
-        };
-        const clearTimer=(el)=>{ const t=timers.get(el); if(t){ clearTimeout(t); timers.delete(el);} };
-        const closeAll=(except=null)=>{ groups.forEach(g=>{ if(g!==except){ clearTimer(g); setOpen(g,false);} }); };
-
-        groups.forEach(g=>{
-          const btn=g.querySelector('button.chip');
-          const menu=g.querySelector('.menu');
-          if(!btn||!menu) return;
-
-          // Click/tap toggle
-          btn.addEventListener('click', e=>{
-            e.preventDefault();
-            const on=g.classList.contains('open');
-            closeAll(g);
-            setOpen(g,!on);
-            if(!on){ (firstFocusable(menu)||btn).focus({preventScroll:true}); }
-          }, {passive:false});
-
-          // Keyboard
-          btn.addEventListener('keydown', e=>{
-            if(e.key==='ArrowDown' || e.key==='ArrowUp'){
-              e.preventDefault();
-              setOpen(g,true);
-              (firstFocusable(menu)||btn).focus({preventScroll:true});
-            }else if(e.key==='Escape'){
-              setOpen(g,false);
-              btn.focus({preventScroll:true});
-            }
-          });
-          g.addEventListener('keydown', e=>{
-            if(e.key==='Escape'){
-              setOpen(g,false);
-              (g.querySelector('button.chip')||document.body).focus?.({preventScroll:true});
-            }
-          });
-
-          // Open on focus (desktop)
-          btn.addEventListener('focus', ()=>{
-            if(!isTouch){ closeAll(g); setOpen(g,true); }
-          });
-
-          // Hover (desktop only)
-          if(!isTouch){
-            g.addEventListener('pointerenter', ()=>{
-              clearTimer(g);
-              timers.set(g, setTimeout(()=>{ closeAll(g); setOpen(g,true); }, OPEN_DELAY));
-            });
-            g.addEventListener('pointerleave', (e)=>{
-              const toEl=e.relatedTarget;
-              if(toEl && (g===toEl || g.contains(toEl))) return;
-              clearTimer(g);
-              timers.set(g, setTimeout(()=> setOpen(g,false), CLOSE_DELAY));
-            });
-            menu.addEventListener('pointerenter', ()=> clearTimer(g));
-          }
-        });
-
-        // Close on outside click (capture + microdelay to avoid open→close on mobile)
-        document.addEventListener('click', (e)=>{
-          setTimeout(()=>{ if(!e.target.closest('.nav-item')) closeAll(); }, 0);
-        }, {capture:true});
-
-        // Close when focus leaves nav (keyboard tab-away)
-        document.addEventListener('focusin', (e)=>{
-          if(!e.target.closest('.main-nav')) closeAll();
-        }, {capture:true});
-
-      }catch(err){ console.warn('UnifiedNav init error:', err); }
+    function setOpen(group, on){
+      group.classList.toggle('open', !!on);
+      const btn = group.querySelector('button[aria-controls]');
+      if (btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    }
+    function closeAll(except=null){
+      items.forEach(g => { if (g !== except) setOpen(g, false); });
+    }
+    function firstFocusable(el){
+      return el && el.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
     }
 
-    if(document.readyState==='complete') run();
-    else {
-      window.addEventListener('load', run, {once:true});
-      document.addEventListener('DOMContentLoaded', run, {once:true});
-    }
+    items.forEach(group => {
+      const btn  = group.querySelector('button[aria-controls]');
+      const menu = group.querySelector('.menu');
+      if (!btn || !menu) return;
+
+      // Click toggle (bubble only)
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const open = group.classList.contains('open');
+        closeAll(group);
+        setOpen(group, !open);
+        if (!open) (firstFocusable(menu) || btn).focus({preventScroll:true});
+      }, {passive:false});
+
+      // Keyboard support
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          setOpen(group, true);
+          (firstFocusable(menu) || btn).focus({preventScroll:true});
+        } else if (e.key === 'Escape') {
+          setOpen(group, false);
+          btn.focus({preventScroll:true});
+        }
+      });
+      group.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          setOpen(group, false);
+          btn.focus({preventScroll:true});
+        }
+      });
+
+      // Close when focus leaves the menu (settle one tick)
+      menu.addEventListener('focusout', () => {
+        setTimeout(() => { if (!group.contains(document.activeElement)) setOpen(group,false); }, 0);
+      });
+    });
+
+    // Outside click close (bubble phase, scoped to page—not capture)
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.main-nav')) closeAll();
+    }, {capture:false});
+
+    // Tab/app switch
+    window.addEventListener('blur', () => closeAll());
   })();
   </script>
 
-  <!-- Journal Rail (tag: disability) with aria-busy -->
+  <!-- ===== Journal Rail (tag: disability) with aria-busy; no third-parties ===== -->
   <script>
   (function(){
-    const V='3.010.080';
+    const V='3.010.081';
     const MOUNT=document.getElementById('journal-rail');
     const FALL=document.getElementById('journal-rail-fallback');
     if(!MOUNT) return;
@@ -455,7 +411,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
     }
 
     (async function boot(){
-      // aria-busy on while loading
       MOUNT.setAttribute('aria-busy','true');
       if(FALL) FALL.style.display='';
 
@@ -486,21 +441,13 @@ h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
       all.sort((a,b)=>(Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0));
       MOUNT.innerHTML = all.slice(0,4).map(card).join('') || '<p class="tiny muted">More disability &amp; inclusion articles coming soon.</p>';
 
-      // clear busy state
       MOUNT.setAttribute('aria-busy','false');
       if(FALL) FALL.style.display='none';
     })();
   })();
   </script>
 
-  <!-- Service Worker (cache-busted) -->
-  <script>
-    if('serviceWorker' in navigator){
-      window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.010.080').catch(()=>{}));
-    }
-  </script>
-
-  <!-- Invocation -->
-  <!-- Soli Deo Gloria · Path: /disability-at-sea.html · Version: v3.010.080 -->
+  <!-- Signature -->
+  <!-- Soli Deo Gloria · Path: /disability-at-sea.html · Version: v3.010.081 -->
 </body>
 </html>
