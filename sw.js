@@ -1,14 +1,24 @@
-/* sw.js — In the Wake Service Worker (v19a)
-   Changes vs v19:
-   - Added keysFor() so runtime cache reads/writes try BOTH keys:
-     the full request URL and a normalized URL (no v/utm/etc).
-     This fixes slow/missing hero/logo when prior caches used
-     normalized keys.
-   - Hooked keysFor() into cacheFirst() and staleWhileRevalidate().
-   - Kept your v19 warmPrecache rules (normalize pages/data only).
+/* sw.js — In the Wake Service Worker (v20)
+   Changes vs v19a:
+   - CRITICAL FIX 1: (The "Thundering Herd" Fix)
+     Removed "/prefetch-images.json" from MANIFEST_SOURCES.
+     We will NOT precache all 91+ images. We will ONLY
+     precache the critical App Shell from "precache-manifest.json".
+     The other images will be cached at runtime by staleWhileRevalidate.
+     This will solve the "literal minutes" slow download.
+
+   - CRITICAL FIX 2: (The "Versioning Bug" Fix)
+     Removed 'v' from the normalizeURLForCache() function.
+     That function MUST NOT strip the ?v= parameter,
+     otherwise it breaks our entire versioning strategy.
+
+   - REVERTED: Removed the 'keysFor()' function and reverted
+     cacheFirst() and staleWhileRevalidate() to their
+     simpler v19 state. This complex patch is no longer
+     needed now that the "Thundering Herd" is gone.
 */
 
-const SW_VERSION = "v19a";
+const SW_VERSION = "v20";
 const DEBUG = false; // Set to true for local debugging
 const PREFIX = "itw";
 const OFFLINE_URL = "/offline.html"; // Your branded offline page
@@ -31,15 +41,17 @@ const BUST = () => `v=${SW_VERSION}-${Date.now()}`;
 // Manifest sources
 const MANIFEST_SOURCES = [
   "/precache-manifest.json",
-  "/prefetch-images.json",
+  // <--- CRITICAL FIX 1: "/prefetch-images.json" REMOVED
+  // We do not want to precache all 91+ images.
 ];
 
 // Utils --------------------------------------------------------------------
 
-/** Strip tracking/noise params for a stable cache key (do NOT use for asset/image warmup) */
+/** Strip tracking/noise params for a stable cache key */
 function normalizeURLForCache(u) {
   const url = new URL(u, location.origin);
-  ['v','utm_source','utm_medium','utm_campaign','utm_term','utm_content','fbclid','gclid','mc_cid','mc_eid'].forEach(p => url.searchParams.delete(p));
+  // <--- CRITICAL FIX 2: 'v' has been REMOVED from this list.
+  ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','fbclid','gclid','mc_cid','mc_eid'].forEach(p => url.searchParams.delete(p));
   url.hash = '';
   return new URL(url.pathname + url.search, location.origin);
 }
@@ -61,15 +73,13 @@ function isHTMLLike(request) {
   if (request.destination === "document") return true;
   const url = new URL(request.url); return url.pathname.endsWith(".html");
 }
-function cacheKey(request) { return new Request(new URL(request.url).href, { method: "GET" }); }
-
-/** NEW: generate both keys (full + normalized) for runtime compatibility */
-function keysFor(request){
-  const full = new Request(new URL(request.url, location.origin).href, { method:"GET" });
-  const normUrl = normalizeURLForCache(request.url).href;
-  const norm = normUrl !== full.url ? new Request(normUrl, { method:"GET" }) : null;
-  return [full, norm].filter(Boolean);
+// Reverted to simple v19 cacheKey.
+function cacheKey(request) {
+  const url = new URL(request.url);
+  return new Request(url.href, { method: "GET" });
 }
+
+// <--- REVERTED: 'keysFor()' function removed.
 
 async function prune(cache, max) {
   try {
@@ -104,8 +114,8 @@ self.addEventListener("activate", (e) => {
       .filter(n => n.startsWith(`${PREFIX}-`) && !keep.has(n))
       .map(n => caches.delete(n)));
 
-    await cacheOfflinePage();       // offline page
-    warmPrecache().catch(() => {}); // warmup (background)
+    await cacheOfflinePage();
+    warmPrecache().catch(() => {});
   })());
 });
 
@@ -124,6 +134,8 @@ async function warmPrecache() {
     const allURLs = new Set();
     let sitemaps = [];
 
+    // NOTE: This loop now ONLY runs for "/precache-manifest.json"
+    // The 91+ image manifest is no longer processed here.
     for (const src of MANIFEST_SOURCES) {
       const url = new URL(src, location.origin);
       url.search += (url.search ? "&" : "?") + BUST();
@@ -133,25 +145,28 @@ async function warmPrecache() {
 
       const data = await res.json();
 
-      // v19 rule: normalize pages/data, keep original for assets/images
+      // v19 rules: normalize pages/data, keep original for assets/images
       const pushPages = (arr = []) => arr.forEach(u => {
         if (!sameOrigin(u)) return;
-        const clean = normalizeURLForCache(u);
-        if (!excludePaths.has(clean.pathname)) allURLs.add(clean.href);
+        const cleanURL = normalizeURLForCache(u); // NORMALIZE pages
+        if (!excludePaths.has(cleanURL.pathname)) {
+          allURLs.add(cleanURL.href);
+        }
       });
       const pushAssets = (arr = []) => arr.forEach(u => {
         if (!sameOrigin(u)) return;
-        const uo = new URL(u, location.origin);
+        const uo = new URL(u, location.origin); // DO NOT normalize assets
         allURLs.add(uo.pathname + uo.search);
       });
       const pushImages = (arr = []) => arr.forEach(u => {
         if (!sameOrigin(u)) return;
-        const uo = new URL(u, location.origin);
+        const uo = new URL(u, location.origin); // DO NOT normalize images
         allURLs.add(uo.pathname + uo.search);
       });
       const pushData = (arr = []) => arr.forEach(u => {
         if (!sameOrigin(u)) return;
-        allURLs.add(normalizeURLForCache(u).href);
+        const cleanURL = normalizeURLForCache(u); // NORMALIZE data files
+        allURLs.add(cleanURL.href);
       });
 
       if (Array.isArray(data.pages) || Array.isArray(data.assets) || Array.isArray(data.images) || Array.isArray(data.data)) {
@@ -166,9 +181,10 @@ async function warmPrecache() {
         }
       }
 
-      // image prefetch {authors, ships, other}
+      // This logic will now be skipped, as 'prefetch-images.json'
+      // is no longer in MANIFEST_SOURCES.
       if (Array.isArray(data.authors) || Array.isArray(data.ships) || Array.isArray(data.other)) {
-        const pushList2 = (arr = []) => arr.forEach(u => {
+         const pushList2 = (arr = []) => arr.forEach(u => {
           if (!sameOrigin(u)) return;
           const uo = new URL(u, location.origin);
           allURLs.add(uo.pathname + uo.search);
@@ -179,6 +195,7 @@ async function warmPrecache() {
       }
     }
 
+    // This will now only seed the small, critical app shell.
     await seedURLs([...allURLs]);
 
     for (const sm of (sitemaps && sitemaps.length ? sitemaps : ["/sitemap.xml"])) {
@@ -207,7 +224,7 @@ async function seedFromSitemap(path) {
 
   const same = urls
     .filter(u => sameOrigin(u))
-    .map(u => normalizeURLForCache(u).href)
+    .map(u => normalizeURLForCache(u).href) // Normalize
     .filter(u => {
       const p = new URL(u, location.origin).pathname;
       return p !== "/" && p !== "/index.html";
@@ -223,13 +240,12 @@ async function seedURLs(urls) {
     try {
       const abs = new URL(u, location.origin);
       const fetchURL = new URL(abs.href);
-
-      // only add cache-bust if no version param
+      
       if (!/[?&]v=/i.test(fetchURL.href)) {
         fetchURL.search += (fetchURL.search ? "&" : "?") + BUST();
       }
 
-      const reqPut = new Request(abs.href, { method: "GET" }); // cache key as provided
+      const reqPut = new Request(abs.href, { method: "GET" }); // cache key
       const hit = await pre.match(reqPut);
       if (hit) return;
 
@@ -266,12 +282,12 @@ async function copyPrecacheToRuntime() {
       } else if (isJSONRequest(req)) {
         await dataC.put(req, res.clone());
       } else if (url.pathname.endsWith(".html") || url.pathname === "/" || url.pathname === OFFLINE_URL) {
-        // Write page HTML using *normalized* key to avoid UTM bloat
+        // v19a had a good idea: write to PAGE_CACHE with normalized key
         const norm = new Request(normalizeURLForCache(req.url).href, { method: 'GET' });
         await pageC.put(norm, res.clone());
       }
     }
-
+    
     await Promise.all([
       prune(pageC, MAX_PAGES),
       prune(assetC, MAX_ASSETS),
@@ -343,9 +359,9 @@ async function networkFirstHTML(event, request, cache, key, forceNetwork = false
 async function handleHTML(event, request) {
   const cache = await caches.open(PAGE_CACHE);
 
-  // Write/read PAGE_CACHE with normalized key to eliminate UTM bloat
+  // v19 logic: Use normalized key for PAGE_CACHE to prevent bloat
   const normalizedKey = new Request(normalizeURLForCache(request.url).href, { method:'GET' });
-  const originalKey = cacheKey(request); // used only for precache fallback choice
+  const originalKey = cacheKey(request); // For precache fallback
 
   const cc = (request.headers && request.headers.get("cache-control")) || "";
   const pragma = (request.headers && request.headers.get("pragma")) || "";
@@ -369,7 +385,6 @@ async function handleHTML(event, request) {
 
     if (!forceNetwork) {
       const pre = await caches.open(PRECACHE);
-      // Try normalized then original for backward compat
       let preHit = await pre.match(normalizedKey);
       if (!preHit) preHit = await pre.match(originalKey);
       if (preHit) return preHit;
@@ -384,21 +399,15 @@ async function handleHTML(event, request) {
 }
 
 
-// Generic strategies (now compat with mixed keys) --------------------------
+// Generic strategies (Reverted to simple v19 state) --------------------------
 async function cacheFirst(request, cacheName, maxItems) {
   const cache = await caches.open(cacheName);
-  const keys = keysFor(request);
-
-  // Try both keys: full then normalized
-  for (const k of keys) {
-    const hit = await cache.match(k);
-    if (hit) return hit;
-  }
-
+  const key = cacheKey(request);
+  const cached = await cache.match(key);
+  if (cached) return cached;
   const res = await fetch(request);
   if (res && (res.ok || res.type === "opaque")) {
-    // Store under both keys to avoid future misses
-    await Promise.all(keys.map(k => cache.put(k, res.clone()).catch(()=>{})));
+    cache.put(key, res.clone()).catch(() => {});
     prune(cache, maxItems).catch(() => {});
   }
   return res;
@@ -406,21 +415,14 @@ async function cacheFirst(request, cacheName, maxItems) {
 
 async function staleWhileRevalidate(request, cacheName, maxItems) {
   const cache = await caches.open(cacheName);
-  const keys = keysFor(request);
-
-  const cachedPromise = (async () => {
-    for (const k of keys) {
-      const hit = await cache.match(k);
-      if (hit) return hit;
-    }
-    return null;
-  })();
+  const key = cacheKey(request);
+s
+  const cachedPromise = cache.match(key);
 
   const networkPromise = fetch(request)
     .then(res => {
       if (res && (res.ok || res.type === "opaque")) {
-        // Write under both keys
-        Promise.all(keys.map(k => cache.put(k, res.clone()).catch(()=>{})));
+        cache.put(key, res.clone()).catch(() => {});
         prune(cache, maxItems).catch(() => {});
       }
       return res;
