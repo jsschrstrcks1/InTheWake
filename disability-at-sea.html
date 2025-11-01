@@ -164,6 +164,22 @@
   /* Layout for this page */
   .planning-grid{display:grid;gap:1.2rem}
   @media (min-width:768px){ .planning-grid{grid-template-columns:minmax(0,1fr) 360px} }
+ /* --- FINAL MENU VISIBILITY FIX --- */
+.nav-item .menu {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.nav-item.open > .menu {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 2147483647 !important; /* ensure always on top */
+  position: absolute !important;
+}
   </style>
 </head>
 
