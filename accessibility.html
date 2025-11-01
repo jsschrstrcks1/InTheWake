@@ -224,203 +224,221 @@
   </footer>
 
   <!-- ============================ JS =============================== -->
-  <script>
-  (function(){
-    "use strict";
+<script>
+(function(){
+  "use strict";
 
-    /* ---------- NAV: portal-based dropdowns (no clipping) ---------- */
-    const portal = document.getElementById('nav-portal');
-    const groups = Array.from(document.querySelectorAll('.nav-group'));
-    if (portal && groups.length){
-      let openGroup = null, openMenu = null, homeSlot = null, backdrop = null;
+  /* ---------- NAV: portal-based dropdowns (no clipping) ---------- */
+  const portal = document.getElementById('nav-portal');
+  const groups = Array.from(document.querySelectorAll('.nav-group'));
 
-      const setAria = (g,on)=>{
-        const b = g.querySelector('.nav-disclosure');
-        if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
-        g.dataset.open = on ? "true" : "false";
-        g.classList.toggle('open', !!on);
-      };
+  if (portal && groups.length){
+    let openGroup = null;
+    let openMenu  = null;
+    let homeSlot  = null;
 
-      function ensureBackdrop(){
-        if (!backdrop){
-          backdrop = document.createElement('div');
-          backdrop.className = 'nav-portal-backdrop';
-          backdrop.addEventListener('click', closeAll);
-        }
-        if (!backdrop.parentNode) portal.appendChild(backdrop);
-      }
+    const setAria = (g,on)=>{
+      const b = g.querySelector('.nav-disclosure');
+      if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+      g.dataset.open = on ? "true" : "false";
+      g.classList.toggle('open', !!on);
+    };
 
-      function positionMenu(menu, btn){
-        const r = btn.getBoundingClientRect();
-        // make sure it can measure
-        menu.style.visibility = 'hidden';
-        menu.style.display = 'block';
-        // right-align to the pill, 8px below
-        const vw = document.documentElement.clientWidth;
-        const pw = menu.offsetWidth || 240;
-        let left = Math.round(r.right - pw);
-        left = Math.max(8, Math.min(left, vw - pw - 8));
-        const top = Math.round(r.bottom + 8);
-        menu.style.left = left + 'px';
-        menu.style.top  = top  + 'px';
-        menu.style.visibility = 'visible';
-      }
+    function positionMenu(menu, btn){
+      const r = btn.getBoundingClientRect();
+      const hero = document.querySelector('.hero');
+      const heroTop = hero ? hero.getBoundingClientRect().top : 0;
 
-      function openViaPortal(group, menu, btn){
-        // save home slot and move
-        if (!homeSlot) homeSlot = document.createComment('menu-home-slot');
-        if (!menu.previousSibling || menu.previousSibling !== homeSlot){
-          menu.parentNode.insertBefore(homeSlot, menu);
-        }
-        menu.hidden = false;
-        portal.appendChild(menu);
-        portal.setAttribute('aria-hidden','false');
-        portal.style.pointerEvents = 'auto';     // activate overlay
-        menu.style.position = 'fixed';
-        menu.style.pointerEvents = 'auto';
-        ensureBackdrop();
-        positionMenu(menu, btn);
-        window.addEventListener('resize', closeAll);
-        window.addEventListener('scroll', closeAll, {passive:true});
-      }
+      // ensure we can measure width
+      const prevVis = menu.style.visibility;
+      const prevDisp = menu.style.display;
+      menu.style.visibility = 'hidden';
+      menu.style.display = 'block';
 
-      function restoreHome(menu){
-        if (menu && homeSlot && homeSlot.parentNode){
-          homeSlot.parentNode.insertBefore(menu, homeSlot.nextSibling);
-        }
-        if (backdrop && backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
-        portal.style.pointerEvents = 'none';
-        portal.setAttribute('aria-hidden','true');
-        menu.hidden = true;
-        menu.removeAttribute('style');
-        window.removeEventListener('resize', closeAll);
-        window.removeEventListener('scroll', closeAll);
-      }
+      const vw = document.documentElement.clientWidth;
+      const pw = menu.offsetWidth || 240;
 
-      function closeAll(){
-        if (openGroup && openMenu){
-          restoreHome(openMenu);
-          setAria(openGroup,false);
-        }
-        openGroup = openMenu = null;
-      }
+      // RIGHT-ALIGN to pill (what we've been doing)
+      let left = Math.round(r.right - pw);
+      left = Math.max(8, Math.min(left, vw - pw - 8));
 
-      groups.forEach(g=>{
-        const btn  = g.querySelector('.nav-disclosure');
-        const menu = g.querySelector('.submenu');
-        if (!btn || !menu) return;
+      // Drop 8px below pill, but never render above the hero image area
+      const desiredTop = Math.round(r.bottom + 8);
+      const floorTop   = Math.round((heroTop || 0) + 8);
+      const top        = Math.max(desiredTop, floorTop);
 
-        btn.addEventListener('click',(e)=>{
-          e.preventDefault(); e.stopPropagation();
-          const wasOpen = openGroup === g;
-          closeAll();
-          if (!wasOpen){
-            setAria(g,true);
-            openViaPortal(g, menu, btn);
-            openGroup = g; openMenu = menu;
-          }
-        });
+      menu.style.left = left + 'px';
+      menu.style.top  = top  + 'px';
 
-        // Keyboard support
-        btn.addEventListener('keydown',(e)=>{
-          if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){
-            e.preventDefault();
-            const wasOpen = openGroup === g;
-            closeAll();
-            if (!wasOpen){
-              setAria(g,true);
-              openViaPortal(g, menu, btn);
-              openGroup = g; openMenu = menu;
-              const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-              first && first.focus({preventScroll:true});
-            }
-          } else if (e.key === 'Escape'){
-            e.preventDefault(); closeAll(); btn.focus({preventScroll:true});
-          }
-        });
-
-        g.addEventListener('keydown',(e)=>{
-          if (e.key === 'Escape'){
-            const b = g.querySelector('.nav-disclosure');
-            closeAll(); b && b.focus({preventScroll:true});
-          }
-        });
-
-        menu.addEventListener('focusout',()=>{
-          setTimeout(()=>{ if (!document.activeElement || !menu.contains(document.activeElement)) closeAll(); }, 120);
-        });
-      });
-
-      document.addEventListener('click',(e)=>{
-        if (openMenu && !e.target.closest('.submenu') && !e.target.closest('.nav-disclosure')) closeAll();
-      });
-      window.addEventListener('blur', closeAll);
+      // restore visible
+      menu.style.visibility = prevVis || 'visible';
+      menu.style.display = prevDisp || 'block';
     }
 
-    /* ---------- Author rail (Ken) ---------- */
-    (function authorRail(){
-      const rail = document.getElementById('author-rail');
-      const host = rail && rail.querySelector('.author-card');
-      if(!host) return;
-      host.innerHTML = `
-        <picture>
-          <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.091">
-          <source type="image/jpeg" srcset="/authors/img/ken1.jpg?v=3.010.091">
-          <img class="author-avatar" src="/authors/img/ken1.png?v=3.010.091" width="48" height="48" alt="Author — Ken Baker" decoding="async">
-        </picture>
-        <div>
-          <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
-          Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.<br/>
-          <a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a>
-        </div>`;
-    })();
+    const placeInPortal = (menu, btn)=>{
+      if (!menu || !portal || !btn) return;
+      homeSlot = homeSlot || document.createComment('menu-home-slot');
+      if (!menu.previousSibling || menu.previousSibling !== homeSlot){
+        menu.parentNode.insertBefore(homeSlot, menu);
+      }
+      menu.hidden = false;
+      portal.appendChild(menu);
 
-    /* ---------- Recent rail (basic loader, same pattern as index) ---------- */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail'); if(!rail) return;
-      try{
-        const r = await fetch('/assets/data/articles/index.json?v=3.010.091',{cache:'no-store'});
-        if(!r.ok) return;
-        const data = await r.json();
-        const list = Array.isArray(data?.articles) ? data.articles : (Array.isArray(data) ? data : []);
-        const here = location.pathname.replace(/\/+$/,'').toLowerCase();
-        const view = list.filter(a=>{
-          try{
-            const url = new URL(a.url||a.permalink||a.path||'#', location.href);
-            const p = url.pathname.toLowerCase().replace(/\/+$/,'');
-            return p && p !== here;
-          }catch(_){ return false; }
-        }).slice(0,4);
+      // menu lives fixed in the portal
+      menu.style.position = 'fixed';
+      menu.style.maxWidth = 'min(92vw, 360px)';
+      menu.style.pointerEvents = 'auto';
 
-        rail.innerHTML = view.map(a=>{
-          const title = a.title || a.headline || 'Article';
-          const href  = a.url || a.permalink || a.path || '#';
-          return `
-            <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
-              <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
-                <img alt="" decoding="async" style="width:100%;height:100%;object-fit:cover" src="${a.image||'/assets/index_hero.jpg?v=3.010.091'}">
-              </div>
-              <div class="tiny" style="line-height:1.35">${title}</div>
-            </a>`;
-        }).join('') || '<p class="tiny">More disability &amp; inclusion articles coming soon.</p>';
-      }catch(_){}
-    })();
+      positionMenu(menu, btn);
 
-    /* ---------- Third-party & SW: defer to idle ---------- */
-    (function defer3PAndSW(){
-      const onIdle = (fn)=> (window.requestIdleCallback ? requestIdleCallback(fn,{timeout:3000}) : setTimeout(fn, 1200));
-      onIdle(()=>{
-        // Example placeholders for share/analytics — keep disabled unless configured.
-        // const s = document.createElement('script'); s.src='https://static.addtoany.com/menu/page.js'; s.async=true; document.head.appendChild(s);
-        // const ga = document.createElement('script'); ga.src='https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX'; ga.async=true; document.head.appendChild(ga);
-        // window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXX');
+      portal.setAttribute('aria-hidden','false');
+      portal.style.pointerEvents = 'none'; // only the menu accepts events
+    };
 
-        if ('serviceWorker' in navigator){
-          navigator.serviceWorker.register('/sw.js').catch(()=>{});
+    const restoreHome = (menu)=>{
+      if (!menu || !homeSlot || !homeSlot.parentNode) return;
+      homeSlot.parentNode.insertBefore(menu, homeSlot.nextSibling);
+      menu.hidden = true;
+      menu.removeAttribute('style');
+      portal.setAttribute('aria-hidden','true');
+    };
+
+    const closeAll = ()=>{
+      if (openGroup && openMenu){
+        restoreHome(openMenu);
+        setAria(openGroup,false);
+      }
+      openGroup = openMenu = null;
+    };
+
+    groups.forEach(g=>{
+      const btn  = g.querySelector('.nav-disclosure');
+      const menu = g.querySelector('.submenu');
+      if (!btn || !menu) return;
+
+      // Toggle on click
+      btn.addEventListener('click',(e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = openGroup === g;
+        closeAll();
+        if (!isOpen){
+          setAria(g,true);
+          placeInPortal(menu, btn);
+          openGroup = g; openMenu = menu;
         }
       });
-    })();
+
+      // Keyboard support
+      btn.addEventListener('keydown',(e)=>{
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+          e.preventDefault();
+          closeAll();
+          setAria(g,true);
+          placeInPortal(menu, btn);
+          openGroup = g; openMenu = menu;
+          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+          if (first) first.focus({preventScroll:true});
+        } else if (e.key === 'Escape'){
+          e.preventDefault(); closeAll(); btn.focus({preventScroll:true});
+        }
+      });
+
+      g.addEventListener('keydown',(e)=>{
+        if (e.key === 'Escape'){
+          const b = g.querySelector('.nav-disclosure');
+          closeAll(); b && b.focus({preventScroll:true});
+        }
+      });
+
+      // Close when focus leaves the menu
+      menu.addEventListener('focusout',()=>{
+        setTimeout(()=>{ if (!document.activeElement || !menu.contains(document.activeElement)){ closeAll(); } }, 120);
+      });
+    });
+
+    // Reposition on resize/scroll; close on outside click
+    const reflow = ()=>{ if (openGroup && openMenu){ const btn=openGroup.querySelector('.nav-disclosure'); if (btn) positionMenu(openMenu, btn); } };
+    window.addEventListener('resize', reflow, {passive:true});
+    window.addEventListener('scroll',  reflow, {passive:true});
+    document.addEventListener('click',(e)=>{
+      if (openMenu && !e.target.closest('.submenu') && !e.target.closest('.nav-disclosure')) closeAll();
+    });
+    window.addEventListener('blur', closeAll);
+  }
+
+  /* ---------- Author rail (Ken) ---------- */
+  (function authorRail(){
+    const rail = document.getElementById('author-rail');
+    const host = rail && rail.querySelector('.author-card');
+    if(!host) return;
+    host.innerHTML = `
+      <picture>
+        <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.091">
+        <source type="image/jpeg" srcset="/authors/img/ken1.jpg?v=3.010.091">
+        <img class="author-avatar" src="/authors/img/ken1.png?v=3.010.091" width="48" height="48" alt="Author — Ken Baker" decoding="async">
+      </picture>
+      <div>
+        <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
+        Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.<br/>
+        <a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a>
+      </div>`;
   })();
-  </script>
+
+  /* ---------- Recent rail (basic loader) ---------- */
+  (async function recentRail(){
+    const rail = document.getElementById('recent-rail'); if(!rail) return;
+    try{
+      const r = await fetch('/assets/data/articles/index.json?v=3.010.091',{cache:'no-store'});
+      if(!r.ok) return;
+      const data = await r.json();
+      const list = Array.isArray(data?.articles) ? data.articles : (Array.isArray(data) ? data : []);
+      const here = location.pathname.replace(/\/+$/,'').toLowerCase();
+      const view = list.filter(a=>{
+        try{
+          const url = new URL(a.url||a.permalink||a.path||'#', location.href);
+          const p = url.pathname.toLowerCase().replace(/\/+$/,'');
+          return p && p !== here;
+        }catch(_){ return false; }
+      }).slice(0,4);
+
+      rail.innerHTML = view.map(a=>{
+        const title = a.title || a.headline || 'Article';
+        const href  = a.url || a.permalink || a.path || '#';
+        return `
+          <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
+            <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
+              <img alt="" decoding="async" style="width:100%;height:100%;object-fit:cover" src="${a.image||'/assets/index_hero.jpg?v=3.010.091'}">
+            </div>
+            <div class="tiny" style="line-height:1.35">${title}</div>
+          </a>`;
+      }).join('') || '<p class="tiny">More disability &amp; inclusion articles coming soon.</p>';
+    }catch(_){}
+  })();
+
+  /* ---------- Third-party & SW: defer to idle ---------- */
+  (function defer3PAndSW(){
+    const onIdle = (fn)=> (window.requestIdleCallback ? requestIdleCallback(fn,{timeout:3000}) : setTimeout(fn, 1200));
+    onIdle(()=>{
+      // Example: Social share
+      // const s = document.createElement('script');
+      // s.src = 'https://static.addtoany.com/menu/page.js';
+      // s.async = true; document.head.appendChild(s);
+
+      // Example: Analytics
+      // const ga = document.createElement('script');
+      // ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX';
+      // ga.async = true; document.head.appendChild(ga);
+      // window.dataLayer = window.dataLayer || [];
+      // function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXX');
+
+      // Service worker
+      if ('serviceWorker' in navigator){
+        navigator.serviceWorker.register('/sw.js').catch(()=>{});
+      }
+    });
+  })();
+})();
+</script>
 </body>
 </html>
