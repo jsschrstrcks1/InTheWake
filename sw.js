@@ -1,4 +1,4 @@
-/* sw.js — In the Wake Service Worker (v20.1)
+/* sw.js — In the Wake Service Worker (v20.1a)
    Key features:
    - Correct versioning: preserves ?v= and never double-appends
    - Normalizes "/" to "/index.html" for PAGE cache keys
@@ -11,7 +11,7 @@
    - Health endpoint: /__sw_health (JSON)
 */
 
-const SW_VERSION = "v20.1";
+const SW_VERSION = "v20.1a";
 let DEBUG = false; // You can toggle via site-cache.js message: {type:'SET_DEBUG', enabled:true}
 
 const PREFIX = "itw";
