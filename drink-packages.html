@@ -2,63 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <title>Drink Packages Calculator — In the Wake</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Versioning / Standards -->
-  <meta name="page:version" content="v3.010.102">
-  <meta name="version" content="v3.010.102">
+  <meta name="page:version" content="v3.010.104">
+  <meta name="version" content="v3.010.104">
   <meta name="standards:baseline" content="3.009">
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#083041">
 
-  <!-- Analytics (placeholder – drop in your Umami snippet here) -->
-  <!-- <script defer src="...umami.js" data-website-id="..."></script> -->
-
-  <!-- _abs() helper (must appear before we build absolute asset/canonical URLs) -->
-  <script>
-    (function(){
-      window._abs = function(path){
-        try { return new URL(path, location.origin + '/').href; }
-        catch(_) { return path; }
-      };
-      // Canonicalize apex -> www (session-guarded if you need)
-      var h = location.hostname;
-      if (h === 'cruisinginthewake.com') {
-        location.replace(location.href.replace('://cruisinginthewake.com','://www.cruisinginthewake.com'));
-      }
-    })();
-  </script>
-
-  <title>Drink Packages Calculator — In the Wake (v3.010.102)</title>
-  <link rel="canonical" id="canon" href="">
-  <script>
-    // set canonical to absolute on DOM-ready-ish
-    (function(){
-      var el = document.getElementById('canon');
-      if (el) el.href = _abs(location.pathname);
-    })();
-  </script>
-
-  <!-- SEO -->
-  <meta name="description" content="Figure out whether a cruise drink package is worth it. Enter your daily drinks and compare à-la-carte vs. packages.">
+  <!-- Canonical & OpenGraph (static, no race) -->
+  <link rel="canonical" href="https://cruisinginthewake.com/drink-packages.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Drink Packages Calculator — In the Wake">
-  <meta property="og:description" content="Enter your daily drinks; we’ll compare à-la-carte vs. packages.">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="/assets/index_hero.jpg?v=3.010.102">
+  <meta property="og:description" content="Enter your daily drinks and we’ll compare à-la-carte vs. packages.">
+  <meta property="og:url" content="https://cruisinginthewake.com/drink-packages.html">
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.104">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Drink Packages Calculator — In the Wake">
   <meta name="twitter:description" content="A quick way to check if a cruise drink package pays off for you.">
-  <meta name="twitter:image" content="/assets/index_hero.jpg?v=3.010.102">
-  <script>document.querySelector('meta[property="og:url"]').setAttribute('content', location.href);</script>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.104">
+
+  <!-- JSON-LD (static, no race) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"Drink Packages Calculator",
+    "url":"https://cruisinginthewake.com/drink-packages.html",
+    "description":"Compare à-la-carte drink costs vs package prices on your cruise.",
+    "isPartOf": { "@type":"WebSite", "name":"In the Wake", "url":"https://cruisinginthewake.com/" }
+  }
+  </script>
 
   <!-- Site CSS (version-coupled) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010.102">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.104">
 
   <style>
-    /* Page-scoped add-ons (kept lean; global lives in /assets/styles.css?v=...) */
+    /* Page-scoped add-ons (global in /assets/styles.css) */
     :root{
       --ink:#0a3d62; --muted:#5f6b72; --bg:#f7f9fa; --card:#ffffff; --line:#dfe7ea; --accent:#0e6e8e; --good:#0b7a43;
+      --bad:#9b1c1c;
     }
     html, body { overflow-x:hidden; background:var(--bg); color:var(--ink); }
     .wrap{ max-width: 1140px; margin:0 auto; padding:0 1rem; }
@@ -70,11 +55,11 @@
     .skip:focus{ position:static; width:auto; height:auto; padding:.4rem .6rem; background:#083041; color:#fff; border-radius:8px; margin:.5rem; }
     .brand{ display:flex; align-items:center; gap:.5rem; padding:.75rem 0; }
     .brand a{ color:inherit; text-decoration:none; font-weight:700; }
+
     nav[aria-label="Primary"] a{ text-decoration:none; color:var(--ink); padding:.5rem .65rem; border-radius:8px; }
     nav[aria-label="Primary"] a:hover, nav[aria-label="Primary"] a:focus { background:rgba(14,110,142,.08); }
-    header.page{
-      padding:1.25rem 0 1rem;
-    }
+
+    header.page{ padding:1.25rem 0 1rem; }
 
     /* 12-col grid with sticky right rail */
     .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:1rem; align-items:start; }
@@ -93,16 +78,17 @@
     .pill-row{ display:flex; gap:.5rem; flex-wrap:wrap; margin:.35rem 0 .75rem }
     .pill{
       border:1px solid var(--line); background:#fff; color:var(--ink);
-      padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-weight:600;
+      padding:.5rem .8rem; border-radius:999px; cursor:pointer; font-weight:600; min-height:44px;
     }
-    .pill[aria-current="true"]{ background:var(--accent); color:#fff; border-color:var(--accent) }
+    .pill[aria-selected="true"]{ background:var(--accent); color:#fff; border-color:var(--accent) }
 
     /* Calculator */
     .calc-row{ display:grid; grid-template-columns:1fr auto; gap:.5rem; align-items:center; }
     input[type="number"]{
-      width:6rem; font:inherit; padding:.4rem .5rem; border-radius:8px;
+      width:6rem; font:inherit; padding:.55rem .6rem; border-radius:8px;
       border:1px solid var(--line); background:#fff;
     }
+    input[type="number"][aria-invalid="true"]{ border-color:var(--bad); }
     #beverage-inputs .card{ margin-bottom:.6rem }
     #package-cards{ display:grid; gap:.75rem }
     @media (min-width:720px){ #package-cards{ grid-template-columns:repeat(3, 1fr) } }
@@ -115,10 +101,12 @@
     .pkg.highlight{ outline:2px solid var(--good); outline-offset:2px; }
     .pkg header{ display:flex; align-items:flex-start; justify-content:space-between; gap:.65rem; margin-bottom:.35rem }
     .pkg header .price{ white-space:nowrap }
+
     button{
-      background:#fff; border:1px solid var(--line); border-radius:999px; padding:.4rem .65rem;
-      color:var(--ink); font-weight:600; cursor:pointer;
+      background:#fff; border:1px solid var(--line); border-radius:999px; padding:.5rem .8rem;
+      color:var(--ink); font-weight:600; cursor:pointer; min-height:44px;
     }
+    button.inline{ border-radius:8px }
     button.override{ border-color:var(--accent); color:var(--accent); }
     button.override:hover{ background:rgba(14,110,142,.06) }
     .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
@@ -130,38 +118,39 @@
     .rail-list li + li{ margin-top:.5rem }
     .rail-list a{ color:var(--ink); text-decoration:none; }
     .rail-list a:hover{ text-decoration:underline; }
+
+    /* Share cluster */
+    .share-row{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.5rem }
+    .share-row .share{ display:inline-flex; align-items:center; gap:.4rem; padding:.5rem .8rem; border:1px solid var(--line); border-radius:10px; background:#fff; text-decoration:none; color:var(--ink); }
+    .share small{ font-weight:700 }
+
+    /* Price override modal */
+    .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.35); display:none; align-items:center; justify-content:center; z-index:999; }
+    .modal{ background:#fff; border-radius:12px; max-width:360px; width:90%; padding:1rem; border:1px solid var(--line); box-shadow:0 6px 28px rgba(0,0,0,.15); }
+    .modal h3{ margin:.25rem 0 .25rem }
+    .modal .row{ display:grid; grid-template-columns:1fr; gap:.5rem; margin-top:.5rem }
+    .modal input{ width:100%; padding:.6rem .65rem; border:1px solid var(--line); border-radius:8px; font:inherit; }
+    .modal .actions{ display:flex; justify-content:flex-end; gap:.5rem; margin-top:.75rem }
   </style>
 
-  <!-- JSON-LD (WebPage) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebPage",
-    "name":"Drink Packages Calculator",
-    "url": "",
-    "description":"Compare à-la-carte drink costs vs package prices on your cruise.",
-    "isPartOf": { "@type":"WebSite", "name":"In the Wake", "url":"https://www.cruisinginthewake.com/" }
-  }
+  <script>
+    // www -> apex guard (prod only), minimal and dev-safe
+    (function(){
+      var h = location.hostname;
+      if (h === 'www.cruisinginthewake.com') {
+        location.replace('https://cruisinginthewake.com' + location.pathname + location.search + location.hash);
+      }
+    })();
   </script>
-  <script>document.currentScript.previousElementSibling.textContent = document.currentScript.previousElementSibling.textContent.replace(/"url": ""/,'"url": "'+location.href.replace(/"/g,'\\"')+'"');</script>
 </head>
 
 <body>
-  <!-- Hidden Invocation / Dedication -->
-  <!--
-  Soli Deo Gloria — Every pixel and paragraph for His glory.
-  This site is dedicated as a 'blank check' — wherever He would send us.
-  (c) In the Wake Project
-  -->
-
-  <!-- Topbar / Unified Nav hooks -->
   <div class="topbar wrap" role="navigation" aria-label="Site">
     <a class="skip" href="#main">Skip to main content</a>
     <div class="brand">
       <a href="/" data-portal-nav="home">In the Wake</a>
     </div>
     <nav aria-label="Primary">
-      <!-- These anchors are placeholders; your unified_nav script can hydrate -->
       <a href="/planning.html" data-portal-nav="planning">Planning</a>
       <a href="/ports.html" data-portal-nav="ports">Ports</a>
       <a href="/restaurants.html" data-portal-nav="dining">Dining</a>
@@ -173,17 +162,26 @@
     <h1 style="margin:0 0 .35rem">Beverage Calculator</h1>
     <p class="muted tiny">Pick your daily drinks and we’ll compare à-la-carte vs. packages.</p>
 
-    <div class="pill-row" role="tablist" aria-label="Cruise line">
-      <button id="pill-rccl" class="pill" data-src="/assets/data/lines/royal-caribbean.json" aria-current="true" role="tab">
-        Royal Caribbean
-      </button>
-      <!-- Future lines -->
-      <!-- <button class="pill" data-src="/assets/data/lines/carnival.json" role="tab">Carnival</button> -->
+    <!-- Share cluster -->
+    <div class="share-row" aria-label="Share this calculator">
+      <a class="share" id="share-x" href="#" rel="noopener"><small>Share</small> X</a>
+      <a class="share" id="share-fb" href="#" rel="noopener"><small>Share</small> Facebook</a>
+      <a class="share" id="share-wa" href="#" rel="noopener"><small>Share</small> WhatsApp</a>
+      <a class="share" id="share-mail" href="#" rel="noopener"><small>Send</small> Email</a>
+      <button class="share inline" id="share-copy" type="button"><small>Copy</small> Link</button>
+    </div>
+
+    <!-- Line tabs -->
+    <div class="pill-row" role="tablist" aria-label="Cruise line" id="line-tabs">
+      <button id="pill-rccl" class="pill" data-src="/assets/data/lines/royal-caribbean.json"
+              role="tab" aria-selected="true" aria-controls="calc-panel">Royal Caribbean</button>
+      <!-- Future tabs -->
+      <!-- <button class="pill" data-src="/assets/data/lines/carnival.json" role="tab" aria-selected="false" aria-controls="calc-panel">Carnival</button> -->
     </div>
 
     <div class="calc-row" style="max-width:420px">
       <label for="days"><strong>Trip length</strong></label>
-      <input id="days" type="number" inputmode="numeric" min="1" step="1" value="7" aria-describedby="days-help" />
+      <input id="days" type="number" inputmode="decimal" pattern="[0-9]*" min="1" step="1" value="7" aria-describedby="days-help" />
     </div>
     <div id="days-help" class="tiny muted" style="margin-top:.25rem">People often book 5–7 nights. Adjust as needed.</div>
     <div id="totals" class="tiny" aria-live="polite" style="margin-top:.35rem"></div>
@@ -193,7 +191,7 @@
   <main id="main" class="wrap" role="main">
     <div class="grid">
       <!-- Main column (calculator) -->
-      <section class="col-7" aria-labelledby="calc-heading">
+      <section class="col-7" aria-labelledby="calc-heading" id="calc-panel" role="tabpanel">
         <h2 id="calc-heading" class="sr-only">Your picks</h2>
         <div id="beverage-inputs"></div>
 
@@ -230,14 +228,33 @@
     © In the Wake — <a href="/accessibility.html">Accessibility</a>
   </footer>
 
+  <!-- Inline override modal -->
+  <div id="override-modal" class="modal-backdrop" aria-hidden="true" aria-labelledby="ov-title" role="dialog">
+    <div class="modal" role="document">
+      <h3 id="ov-title">Override package price (per person per day)</h3>
+      <div class="row">
+        <label class="tiny muted" for="override-input">USD</label>
+        <input id="override-input" type="number" inputmode="decimal" step="0.01" min="0" placeholder="e.g., 58.00">
+        <div id="override-error" class="tiny" style="color:var(--bad); display:none">Enter a valid non-negative number.</div>
+      </div>
+      <div class="actions">
+        <button id="override-cancel" class="inline" type="button">Cancel</button>
+        <button id="override-save" class="inline" style="background:var(--accent); color:#fff" type="button">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Runtime seed helper (must be before calculator) -->
+  <script src="/assets/js/site-cache.js?v=3.010.104" defer></script>
+
   <script>
   (function(){
     "use strict";
-    // Version coupling guard if needed elsewhere
+
     const PAGE_VERSION = document.querySelector('meta[name="page:version"]').content || 'v0';
 
-    // Prefetch on-hover (articles, author links) via SW if available
-    (function hoverPrefetch(){
+    // ---------- Hover prefetch (rails, author, etc.) ----------
+    function wireHoverPrefetch(){
       const seed = (urls) => { try{ window.itwSeedSW && window.itwSeedSW(urls, 'low'); }catch(_){ } };
       const linkHrefs = new Set();
       function onOver(e){
@@ -251,16 +268,59 @@
         a.addEventListener('mouseenter', onOver, { once:true, passive:true });
         a.addEventListener('focus', onOver, { once:true, passive:true });
       });
-    })();
+    }
 
-    // ---------------- Calculator ----------------
+    // ---------- Social share ----------
+    function wireShare(){
+      const getURL = ()=> location.origin + location.pathname + location.search;
+      const title = 'Drink Packages Calculator — In the Wake';
+
+      function openWin(url){ window.open(url, '_blank', 'noopener,noreferrer'); }
+      document.getElementById('share-x').onclick = (e)=>{ e.preventDefault(); openWin('https://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&url=' + encodeURIComponent(getURL())); };
+      document.getElementById('share-fb').onclick = (e)=>{ e.preventDefault(); openWin('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(getURL())); };
+      document.getElementById('share-wa').onclick = (e)=>{ e.preventDefault(); openWin('https://api.whatsapp.com/send?text=' + encodeURIComponent(title + ' ' + getURL())); };
+      document.getElementById('share-mail').onclick = (e)=>{ e.preventDefault(); location.href = 'mailto:?subject=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(getURL()); };
+      document.getElementById('share-copy').onclick = async (e)=>{
+        try{
+          await navigator.clipboard.writeText(getURL());
+          e.currentTarget.textContent = 'Copied!';
+          setTimeout(()=> e.currentTarget.textContent = 'Copy Link', 1200);
+        }catch(_){}
+      };
+      // Web Share API (progressive)
+      if (navigator.share){
+        document.getElementById('share-copy').insertAdjacentHTML('afterend', '<button class="share inline" id="share-native" type="button"><small>Share</small> App</button>');
+        document.getElementById('share-native').onclick = ()=> navigator.share({ title, url: getURL() }).catch(()=>{});
+      }
+    }
+
+    // ---------- Tabs (line pills) a11y ----------
+    function wireTabs(){
+      const list = document.getElementById('line-tabs');
+      const tabs = Array.from(list.querySelectorAll('[role="tab"]'));
+      function setSelected(idx){
+        tabs.forEach((t,i)=> t.setAttribute('aria-selected', i===idx ? 'true' : 'false'));
+        tabs[idx].focus();
+        tabs[idx].click();
+      }
+      list.addEventListener('keydown', (e)=>{
+        const i = tabs.findIndex(t=>t===document.activeElement);
+        if (i<0) return;
+        if (e.key==='ArrowRight'){ e.preventDefault(); setSelected((i+1)%tabs.length); }
+        else if (e.key==='ArrowLeft'){ e.preventDefault(); setSelected((i-1+tabs.length)%tabs.length); }
+        else if (e.key==='Home'){ e.preventDefault(); setSelected(0); }
+        else if (e.key==='End'){ e.preventDefault(); setSelected(tabs.length-1); }
+      });
+    }
+
+    // ---------- Calculator core ----------
     const state = {
       days: 7,
       epsilon: 0.02,
-      items: new Map(),
+      items: new Map(),           // id -> { meta, qtyPerDay }
       order: [],
       sets: { soda: new Set(), refresh: new Set(), alcohol: new Set() },
-      packages: new Map(),
+      packages: new Map(),        // 'soda' | 'refreshment' | 'deluxe'
       lineId: '',
       lineTitle: ''
     };
@@ -273,10 +333,19 @@
       totals:      document.getElementById('totals'),
       totalsLine:  document.getElementById('totals-line'),
       days:        document.getElementById('days'),
-      pillRccl:    document.getElementById('pill-rccl')
+      pillRccl:    document.getElementById('pill-rccl'),
+      modal:       document.getElementById('override-modal'),
+      modalInput:  document.getElementById('override-input'),
+      modalErr:    document.getElementById('override-error'),
+      modalSave:   document.getElementById('override-save'),
+      modalCancel: document.getElementById('override-cancel')
     };
 
-    const fmt = n => '$' + (Math.round(n * 100) / 100).toFixed(2);
+    const fmt = n => {
+      if (!Number.isFinite(n)) return '$?.??';
+      const s = Math.abs(n).toFixed(2);
+      return (n < 0 ? '-$' : '$') + s;
+    };
     const getLS = (k,d)=>{ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(_){ return d; } };
     const setLS = (k,v)=>{ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){ } };
     const seedSW = (urls, priority='normal')=>{ try{ if (window.itwSeedSW) window.itwSeedSW(urls, priority); }catch(_){} };
@@ -286,6 +355,31 @@
       div.querySelectorAll('script,style').forEach(n=>n.remove());
       return div.innerHTML;
     }
+
+    // URL state sync (shareable)
+    function syncURLFromState(){
+      const params = new URLSearchParams();
+      params.set('days', String(state.days));
+      state.items.forEach((it, id)=>{ if ((it.qtyPerDay||0) > 0) params.set(id, String(it.qtyPerDay)); });
+      const qs = params.toString();
+      history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
+    function restoreStateFromURL(){
+      const params = new URLSearchParams(location.search);
+      if (params.has('days')) {
+        const d = Math.max(1, parseInt(params.get('days')||'1',10));
+        els.days.value = state.days = d;
+      }
+      state.items.forEach((it, id)=>{
+        if (params.has(id)) {
+          const q = Math.max(0, parseInt(params.get(id)||'0',10));
+          it.qtyPerDay = q;
+        }
+      });
+    }
+
+    // Debounce helper
+    function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn.apply(null,a), ms); }; }
 
     function renderInputs(){
       els.inputsHost.innerHTML = state.order.map(id=>{
@@ -297,38 +391,54 @@
           <div class="card" style="padding:.7rem .8rem">
             <div class="calc-row">
               <label for="qty-${id}">${it.meta.name}</label>
-              <input id="qty-${id}" type="number" inputmode="numeric" min="0" step="1" value="${it.qtyPerDay||0}" data-item="${id}" aria-describedby="help-${id}" />
+              <input id="qty-${id}" type="number" inputmode="decimal" pattern="[0-9]*"
+                     min="0" step="1" value="${it.qtyPerDay||0}" data-item="${id}" aria-describedby="help-${id}" />
               <div class="tiny muted" id="help-${id}">${priceNote}</div>
             </div>
             ${it.meta.notes ? `<div class="tiny muted" style="margin-top:.35rem">${it.meta.notes}</div>` : ``}
           </div>`;
       }).join('');
 
+      const onInput = debounce((inp)=>{
+        const id = inp.dataset.item;
+        const v = inp.value.trim();
+        const n = v === '' ? 0 : Number(v);
+        const valid = Number.isFinite(n) && n >= 0;
+        inp.setAttribute('aria-invalid', valid ? 'false' : 'true');
+        if (!valid) return;
+        const ent = state.items.get(id);
+        ent.qtyPerDay = Math.max(0, Math.floor(n));
+        computeAndRender();
+        syncURLFromState();
+      }, 150);
+
       els.inputsHost.querySelectorAll('input[type="number"]').forEach(inp=>{
-        inp.addEventListener('input', ()=>{
-          const id = inp.dataset.item;
-          const ent = state.items.get(id);
-          ent.qtyPerDay = Math.max(0, parseInt(inp.value || '0', 10));
-          computeAndRender();
-        });
+        inp.addEventListener('input', ()=>onInput(inp));
       });
     }
 
     function pkgPriceDisplay(pmeta){
-      const key = 'pkgOverride:'+state.lineId+':'+pmeta.id;
+      const key = 'pkgOverride:'+state.lineId+':'+(pmeta.id || pmeta.name);
       const ov = getLS(key, null);
-      const value = ov!=null ? Number(ov) : (Number(pmeta.avg) || (pmeta.priceRange?.[0] ?? 0));
-      return { value, overridden: ov!=null };
+      // choose: override → explicit price → range min → 0
+      const basePrice = Number(pmeta.price ?? (pmeta.priceRange?.[0]) ?? 0);
+      const value = ov!=null ? Number(ov) : basePrice;
+      return { value, overridden: ov!=null, key };
     }
 
     function renderPackages(view){
       const frag = document.createDocumentFragment();
 
       state.packages.forEach(p=>{
-        const { value, overridden } = pkgPriceDisplay(p.meta);
-        const range = p.meta.priceRange ? ` (${fmt(p.meta.priceRange[0])}–${fmt(p.meta.priceRange[1])})` : '';
-        const strategyCost = view[p.meta.id+'Daily'] ?? null;
+        const { value, overridden, key } = pkgPriceDisplay(p.meta);
+        const range = (Array.isArray(p.meta.priceRange) && p.meta.priceRange.length === 2)
+          ? (p.meta.priceRange[0] === p.meta.priceRange[1]
+              ? ` (${fmt(p.meta.priceRange[0])})`
+              : ` (${fmt(p.meta.priceRange[0])}–${fmt(p.meta.priceRange[1])})`)
+          : '';
+
         const includeVal = view.includedDaily[p.meta.id] ?? 0;
+        const strategyCost = view[p.meta.id+'Daily'] ?? null;
 
         const el = document.createElement('article');
         el.className = `pkg card ${view.bestIds.has(p.meta.id)?'highlight':''}`;
@@ -350,7 +460,7 @@
               Included value (your picks): <strong>${fmt(includeVal)}</strong> /day
               ${strategyCost!=null ? `<span class="muted">· With this package you’d pay <strong>${fmt(strategyCost)}</strong> /day</span>` : ``}
             </div>
-            <button class="pill override" data-ov="${p.meta.id}" type="button">${overridden?'Edit Price (overridden)':'Edit Price'}</button>
+            <button class="pill override" data-ov="${p.meta.id}" data-ovkey="${key}" type="button">${overridden?'Edit Price (overridden)':'Edit Price'}</button>
             ${descList}
           </div>`;
 
@@ -360,16 +470,17 @@
       els.packageHost.innerHTML = '';
       els.packageHost.appendChild(frag);
 
+      // inline override editor
       els.packageHost.querySelectorAll('button[data-ov]').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
+        btn.addEventListener('click', async ()=>{
           const id = btn.dataset.ov;
-          const key = 'pkgOverride:'+state.lineId+':'+id;
+          const key = btn.dataset.ovkey;
           const pmeta = state.packages.get(id).meta;
-          const suggested = getLS(key, null) ?? (Number(pmeta.avg) || (pmeta.priceRange?.[0] ?? 0));
-          const v = prompt('Enter your package price per person per day (USD).', String(suggested));
-          if (v==null) return;
-          const num = Number(v);
-          if (!Number.isFinite(num) || num<0) { alert('Please enter a valid non-negative number.'); return; }
+          const suggested = getLS(key, null) ?? Number(pmeta.price ?? (pmeta.priceRange?.[0]) ?? 0);
+          const val = await showOverrideModal(suggested);
+          if (val == null) return;
+          const num = Number(val);
+          if (!Number.isFinite(num) || num<0) return;
           setLS(key, num);
           computeAndRender();
         });
@@ -393,17 +504,18 @@
       const tripTotal = dailyTotal * days;
       els.totals.textContent = `Daily total (à la carte): ${fmt(dailyTotal)} · Trip total: ${fmt(tripTotal)}`;
       els.totalsLine.textContent = `Tip: You can override package prices to match the sale you see in your planner.`;
+      syncURLFromState();
 
       const pkg = {};
       ['soda','refreshment','deluxe'].forEach(pid=>{
         const meta = state.packages.get(pid)?.meta;
-        if (meta) pkg[pid] = pkgPriceDisplay(meta).value;
+        pkg[pid] = meta ? pkgPriceDisplay(meta).value : Infinity;
       });
 
       const noneDaily    = dailyTotal;
-      const sodaDaily    = (pkg.soda ?? Infinity) + (dailyTotal - sodaSpend);
-      const refreshDaily = (pkg.refreshment ?? Infinity) + alcoholSpend;
-      const deluxeDaily  = (pkg.deluxe ?? Infinity);
+      const sodaDaily    = (pkg.soda) + (dailyTotal - sodaSpend);
+      const refreshDaily = (pkg.refreshment) + alcoholSpend; // refresh covers refresh set only
+      const deluxeDaily  = (pkg.deluxe); // deluxe covers all
 
       const includedDaily = {
         soda: sodaSpend,
@@ -428,6 +540,34 @@
       renderPackages({ noneDaily, sodaDaily, refreshDaily, deluxeDaily, includedDaily, bestIds });
     }
 
+    function parseRange(s){
+      if (!s) return null;
+      if (typeof s === 'number' && Number.isFinite(s)) return [s, s];
+      if (typeof s !== 'string') return null;
+      const m = s.match(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)/);
+      if (m) {
+        const a = Number(m[1]), b = Number(m[2]);
+        if (Number.isFinite(a) && Number.isFinite(b)) return [Math.min(a,b), Math.max(a,b)];
+      }
+      const single = Number(s);
+      return Number.isFinite(single) ? [single, single] : null;
+    }
+
+    // Fallback refresh classifier when JSON omits sets.refresh
+    function buildRefreshFallbackSet(){
+      const want = ['soda','specialty coffee','coffee','tea','juice','mocktail','bottled water','bottle water','water bottle'];
+      const block = ['starbucks']; // exclude Starbucks
+      const alcoholHints = ['irish coffee','baileys','rum','whiskey','bourbon','liqueur'];
+      const set = new Set();
+      state.items.forEach((it,id)=>{
+        const name = (it.meta.name || '').toLowerCase();
+        const include = want.some(w => name.includes(w));
+        const excluded = block.some(w => name.includes(w)) || alcoholHints.some(w => name.includes(w));
+        if (include && !excluded) set.add(id);
+      });
+      return set;
+    }
+
     async function loadDataset(src){
       try{
         let data = null;
@@ -436,18 +576,22 @@
           if (!tag) throw new Error('missing inline JSON');
           data = JSON.parse(tag.textContent);
         }else{
-          const r = await fetch(src + (src.includes('?') ? '&' : '?') + 'v=' + PAGE_VERSION, { cache:'no-store', credentials:'omit' });
-          if(!r.ok) throw new Error('Bad response');
+          const sep = src.includes('?') ? '&' : '?';
+          const r = await fetch(src + sep + 'v=' + PAGE_VERSION, { cache:'default', credentials:'omit' });
+          if(!r.ok) throw new Error('Bad response ' + r.status);
           data = await r.json();
         }
 
+        // Titles / text
         state.lineId   = data.lineId || data.line || 'unknown-line';
         state.lineTitle= data.text?.lineTitle || data.text?.line || 'Cruise Line';
         els.packagesTitle.textContent = data.text?.packagesTitle || (state.lineTitle + ' Beverage Packages');
         els.packagesExpl.innerHTML = sanitizedHTML(data.text?.packagesExplHtml || '');
 
+        // epsilon override
         if (typeof data.rules?.epsilon === 'number') state.epsilon = data.rules.epsilon;
 
+        // Items
         state.items = new Map();
         (data.items || []).forEach(it=>{
           state.items.set(it.id, {
@@ -462,69 +606,121 @@
           });
         });
 
+        // Input order: paid desc, then free alpha
         const paid = [], free = [];
         state.items.forEach((v,k)=> (v.meta.free?free:paid).push([k,v]));
         paid.sort((a,b)=> (b[1].meta.avgPrice - a[1].meta.avgPrice));
         free.sort((a,b)=> a[1].meta.name.localeCompare(b[1].meta.name));
         state.order = [...paid.map(x=>x[0]), ...free.map(x=>x[0])];
 
+        // Sets
         state.sets = {
-          soda:    new Set(data.sets?.soda    || ['soda']),
-          refresh: new Set(data.sets?.refresh || []),
+          soda:    new Set(data.sets?.soda    || ['soda']), // minimal default
+          refresh: new Set(data.sets?.refresh || Array.from(buildRefreshFallbackSet())),
           alcohol: new Set(data.sets?.alcohol || [])
         };
 
+        // Packages (JSON is authoritative); normalize single price to range
         state.packages = new Map();
         const pkgObj = data.packages || {};
-        Object.keys(pkgObj).forEach(k=>{
-          const p = pkgObj[k];
-          const pr = parseRange(p.range);
-          state.packages.set(k, {
+        const idMap = { soda: 'soda', refreshment: 'refreshment', deluxe: 'deluxe' };
+        Object.entries(pkgObj).forEach(([jsonId, p]) => {
+          const canonicalId = idMap[jsonId] || jsonId;
+          const pr = parseRange(p.range ?? p.price);
+          state.packages.set(canonicalId, {
             meta: {
-              id: k,
-              name: p.name || k,
-              avg: Number(p.price || p.avg || 0),
-              priceRange: pr,
+              id: canonicalId,
+              name: p.name || jsonId,
+              price: Number(p.price ?? p.avg ?? (Array.isArray(pr) ? pr[0] : 0)),
+              priceRange: pr || null,
               description: Array.isArray(p.includes) ? p.includes.slice() : []
             }
           });
         });
 
-        // seed SW softly with dataset + this page
-        seedSW([typeof src==='string' ? src : (location.pathname + src), location.pathname], 'low');
+        // Prefill from URL (after items exist)
+        restoreStateFromURL();
 
+        // Render + seed dataset softly
         renderInputs();
         computeAndRender();
+        if (typeof src === 'string') seedSW([src], 'low');
       }catch(err){
         console.warn('Dataset load failed:', err?.message||err);
         els.packagesExpl.textContent = 'Could not load data. Try refreshing the page.';
       }
     }
 
-    function parseRange(s){
-      if (!s || typeof s!=='string') return null;
-      const m = s.match(/(\d+(\.\d+)?)\s*[–-]\s*(\d+(\.\d+)?)/);
-      if (!m) return null;
-      const a = Number(m[1]), b = Number(m[3]);
-      if (!Number.isFinite(a) || !Number.isFinite(b)) return null;
-      return [Math.min(a,b), Math.max(a,b)];
+    // ------- Override modal -------
+    function showOverrideModal(current){
+      els.modalInput.value = (Number.isFinite(current) && current>=0) ? String(current) : '';
+      els.modal.style.display = 'flex';
+      els.modal.setAttribute('aria-hidden','false');
+      els.modalInput.focus();
+
+      return new Promise(resolve=>{
+        function close(v){
+          els.modal.style.display = 'none';
+          els.modal.setAttribute('aria-hidden','true');
+          els.modalErr.style.display = 'none';
+          resolve(v);
+        }
+        function onSave(){
+          const v = els.modalInput.value.trim();
+          const n = Number(v);
+          if (!Number.isFinite(n) || n<0){
+            els.modalErr.style.display = 'block';
+            return;
+          }
+          cleanup(); close(n);
+        }
+        function onCancel(){ cleanup(); close(null); }
+        function onKey(e){ if (e.key==='Escape'){ e.preventDefault(); onCancel(); } }
+
+        function cleanup(){
+          els.modalSave.removeEventListener('click', onSave);
+          els.modalCancel.removeEventListener('click', onCancel);
+          document.removeEventListener('keydown', onKey, true);
+        }
+        els.modalSave.addEventListener('click', onSave);
+        els.modalCancel.addEventListener('click', onCancel);
+        document.addEventListener('keydown', onKey, true);
+      });
     }
 
-    // events
-    els.days.addEventListener('input', computeAndRender);
+    // ------- Events -------
+    els.days.addEventListener('input', debounce(()=>{
+      const v = els.days.value.trim();
+      const n = Number(v);
+      const valid = Number.isFinite(n) && n >= 1;
+      els.days.setAttribute('aria-invalid', valid ? 'false' : 'true');
+      if (!valid) return;
+      state.days = Math.floor(n);
+      computeAndRender();
+      syncURLFromState();
+    }, 150));
 
     document.getElementById('pill-rccl').addEventListener('click', (e)=>{
-      document.querySelectorAll('.pill-row .pill').forEach(p=>p.setAttribute('aria-current','false'));
-      e.currentTarget.setAttribute('aria-current','true');
+      document.querySelectorAll('#line-tabs [role="tab"]').forEach(p=>p.setAttribute('aria-selected','false'));
+      e.currentTarget.setAttribute('aria-selected','true');
       const src = e.currentTarget.getAttribute('data-src');
-      // pre-warm dataset
       seedSW([src], 'high');
       loadDataset(src);
     });
 
-    // boot
-    loadDataset(els.pillRccl.getAttribute('data-src'));
+    // ------- Boot -------
+    document.addEventListener('DOMContentLoaded', ()=>{
+      wireHoverPrefetch();
+      wireShare();
+      wireTabs();
+      const src = els.pillRccl?.getAttribute('data-src');
+      if (src) loadDataset(src);
+    });
+
   })();
   </script>
+
+  <!-- Hidden Invocation / Dedication -->
+  <!-- Soli Deo Gloria -->
 </body>
 </html>
