@@ -1,33 +1,44 @@
 {
-  "version": "v3.009.020",
+  "version": "v3.010.102",
+  "generated": "2025-01-15T12:00:00Z",
+  "config": {
+    "maxPages": 60,
+    "maxAssets": 60,
+    "maxImages": 360,
+    "maxFonts": 30,
+    "maxData": 30,
+    "staleMaxAge": 3600000,
+    "debug": false
+  },
   "pages": [
-    "/solo.html",
-    "/ships/",
-    "/restaurants.html",
-    "/ports.html",
-    "/accessibility.html",
-    "/drink-packages.html",
-    "/packing-lists.html",
-    "/planning.html",
-    "/travel.html",
-    "/cruise-lines/",
-    "/about-us.html",
-    "/solo/why-i-started-solo-cruising.html",
-    "/solo/freedom-of-your-own-wake.html"
+    { "url": "/",                          "priority": "critical", "revision": "v3.010.102" },
+    { "url": "/drink-packages.html",       "priority": "critical", "revision": "v3.010.102" },
+    { "url": "/planning.html",             "priority": "high",     "revision": "v3.010.102" },
+    { "url": "/restaurants.html",          "priority": "high",     "revision": "v3.010.102" },
+    { "url": "/ports.html",                "priority": "high",     "revision": "v3.010.102" },
+    { "url": "/ships/",                    "priority": "normal",   "revision": "v3.010.102" },
+    { "url": "/solo.html",                 "priority": "high",     "revision": "v3.010.102" },
+    { "url": "/travel.html",               "priority": "normal",   "revision": "v3.010.102" },
+    { "url": "/about-us.html",             "priority": "low",      "revision": "v3.010.102" },
+    { "url": "/accessibility.html",        "priority": "normal",   "revision": "v3.010.102" },
+    { "url": "/offline.html",              "priority": "critical", "revision": "v3.010.102" }
   ],
   "assets": [
-    "/assets/js/share-bar.js?v=3.009.020",
-    "/assets/compass_rose.svg"
-    /* If you actually reference a stylesheet, add it here as versioned:
-       "/assets/styles.css?v=3.009.020" */
+    { "url": "/assets/styles.css?v=3.010.102",   "priority": "critical", "type": "stylesheet" },
+    { "url": "/assets/js/site-cache.js?v=3.010.102", "priority": "critical", "type": "script" },
+    { "url": "/assets/critical.css",            "priority": "high",     "type": "stylesheet" },
+    { "url": "/assets/compass_rose.svg",        "priority": "high",     "type": "image" },
+    { "url": "/assets/logo_wake.png?v=3.010.102","priority": "high",    "type": "image" }
   ],
   "images": [
-    "/assets/index_hero.jpg?v=3.009.020",
-    "/assets/watermark.png?v=3.007.070",
-    "/authors/img/ken1.jpg",
-    "/authors/img/tina3.webp",
-    "/authors/tinas-images/ncl-jade.webp",
-    "/authors/tinas-images/tinastanding.webp"
+    { "url": "/assets/index_hero.jpg?v=3.010.102", "priority": "high" },
+    { "url": "/authors/img/ken1.jpg",              "priority": "normal" },
+    { "url": "/authors/img/tina3.webp",            "priority": "normal" },
+    { "url": "/authors/tinas-images/tinastanding.webp", "priority": "normal" }
+  ],
+  "data": [
+    { "url": "/assets/data/lines/royal-caribbean.json?v=3.010.102", "priority": "critical", "staleWhileRevalidate": true, "maxAge": 3600000 },
+    { "url": "/assets/data/articles/index.json?v=3.010.102",        "priority": "normal",   "staleWhileRevalidate": true, "maxAge": 1800000 }
   ],
   "sitemaps": [
     "/sitemap.xml",
