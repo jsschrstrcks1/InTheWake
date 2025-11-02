@@ -3,7 +3,7 @@
 <head>
   <!--
     Soli Deo Gloria — every pixel and paragraph offered in gratitude.
-    Page: /drink-packages.html · v3.010.106 (Unification Pass — full ship)
+    Page: /drink-packages.html · v3.010.106 (Unified Pass — 34 fixes)
     Baseline: Home header visuals + Planning portal’d nav behavior
     Standards: Every Page v3.010 · Unified Nav v3.010 · Right-Rail v3.008.025 · A11y/WCAG Addendum v3.100
   -->
@@ -19,11 +19,11 @@
   <meta property="og:title" content="Drink Packages Calculator — In the Wake"/>
   <meta property="og:description" content="Enter your daily drinks; we’ll compare à-la-carte vs. packages."/>
   <meta property="og:url" content="https://cruisinginthewake.com/drink-packages.html"/>
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.106"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.039"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Drink Packages Calculator — In the Wake"/>
   <meta name="twitter:description" content="A quick way to check if a cruise drink package pays off for you."/>
-  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.106"/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.039"/>
 
   <!-- Inline CSS (Home header visuals + Planning cards/rails) -->
   <style>
@@ -47,46 +47,36 @@
       background:url('/assets/watermark.png?v=3.010.071') center/contain no-repeat;opacity:.06;pointer-events:none}
     h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
-    /* Header / hero EXACTLY like Home (no filters), with safe logo positioning */
+    /* ===== Header parity with Home (exact same visuals, portal’d behavior) ===== */
     .hero-header{position:relative;z-index:0;border-bottom:6px double var(--rope);background:#eaf6f6}
-    .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .75rem;align-items:center;min-height:56px;background:#eaf6f6}
+    .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .55rem;align-items:center;min-height:48px;background:#eaf6f6}
     .brand{display:flex;align-items:center;gap:.6rem}
     .brand img{height:40px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-    .skip{position:static;order:-1;margin-right:.5rem;border-radius:10px;background:#083041;color:#fff;padding:.3rem .6rem}
-    .skip:focus{outline:3px solid #fff;outline-offset:2px}
 
-    /* Portal’d nav visuals (Planning) */
+    /* Skip link inline so header is tighter */
+    .skip{position:static;order:-1;margin-right:.5rem;padding:.35rem .6rem;border-radius:10px;background:#083041;color:#fff;text-decoration:none}
+    .skip:focus{outline:3px solid #0e6e8e;outline-offset:2px}
+
+    /* Portal’d nav visuals */
     .itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap;overflow:visible;padding-inline:.75rem}
     .itw-nav .nav-item{position:relative}
     .itw-nav .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
-      border:1px solid var(--rope);color:#var(--accent);font-size:.95rem;cursor:pointer}
+      border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
     .itw-nav .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
     .itw-nav .menu{position:absolute;left:0;top:100%;transform:translateY(.35rem);min-width:240px;max-width:min(90vw,360px);
       background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:100;transition:opacity .18s ease}
     .itw-nav .nav-item.open>.menu{display:block;visibility:visible;opacity:1;pointer-events:auto}
     .itw-nav .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
-    .itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:#var(--ink)}
+    .itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink)}
     .itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
 
-    /* Hero (centered like Home; keep 38% vertical focus; prevent wordmark overflow) */
-    .hero{
-      position:relative;width:100%;min-height:clamp(200px,24vw,340px);
-      background:url('/assets/index_hero.jpg?v=3.010.071') center 38%/cover no-repeat;
-      display:flex;align-items:flex-end;overflow:hidden;margin-top:.15rem;z-index:0
-    }
-    .hero-title{
-      position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);
-      display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)
-    }
-    .hero-title .logo{
-      width:clamp(189px,23.1vw,378px);max-width:min(90vw,520px);
-      filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))
-    }
-    @media (max-width:420px){
-      .hero-title{left:.75rem}
-      .hero-title .logo{max-width:min(84vw,420px)}
-    }
+    /* Hero — force exact crop as Home, no tint */
+    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);
+      background:url('/assets/index_hero.jpg?v=3.010.039') center 38%/cover no-repeat !important;
+      display:flex;align-items:flex-end;overflow:hidden;margin-top:.15rem;z-index:0}
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(90vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
     .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
     .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2}
@@ -101,12 +91,13 @@
     /* Calculator visuals */
     .calc-header{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap}
     .tag{display:inline-block;padding:.35rem .65rem;border-radius:999px;border:1px solid var(--rope);background:#fff}
-    .trip-card{display:grid;grid-template-columns:auto 88px 1fr;gap:.6rem;align-items:center}
-    .trip-card input[type="number"]{width:88px;padding:.45rem .55rem;border-radius:10px;border:2px solid var(--rope);background:#fff;font:inherit}
+    .trip-card{display:grid;grid-template-columns:auto 96px 1fr;gap:.6rem;align-items:center}
+    .trip-card input[type="number"]{width:96px;padding:.45rem .55rem;border-radius:10px;border:2px solid var(--rope);background:#fff;font:inherit}
     .inputs-grid{display:grid;gap:1rem}
     @media(min-width:860px){.inputs-grid{grid-template-columns:repeat(3,1fr)}}
-    .beverage-card .row{display:grid;grid-template-columns:1fr 90px;gap:.5rem;align-items:center;margin:.45rem 0}
-    .beverage-card input[type=number]{width:90px;padding:.35rem .5rem;border-radius:10px;border:2px solid var(--rope);background:#fff;font:inherit;justify-self:end}
+    .beverage-card .row{display:grid;grid-template-columns:1fr 96px;gap:.5rem;align-items:center;margin:.4rem 0}
+    .beverage-card label{display:flex;flex-direction:column;gap:.15rem}
+    .beverage-card input[type=number]{width:96px;padding:.35rem .5rem;border-radius:10px;border:2px solid var(--rope);background:#fff;font:inherit;text-align:right}
     .price-note{font-size:.85rem;color:#456}
 
     /* Packages */
@@ -117,11 +108,10 @@
     article.pkg .body{padding:0 1rem 1rem}
     .pkg .price{white-space:nowrap}
     .pkg.best{outline:3px solid var(--good);outline-offset:3px}
-    .ribbon{position:absolute;top:.55rem;left:.6rem;background:var(--good);color:#fff;padding:.22rem .6rem;border-radius:8px;font-size:.8rem;box-shadow:0 2px 6px rgba(0,0,0,.12);transform:rotate(-8deg)}
+    .ribbon{position:absolute;top:.5rem;left:.5rem;background:var(--good);color:#fff;padding:.22rem .6rem;border-radius:8px;font-size:.8rem;box-shadow:0 2px 6px rgba(0,0,0,.12);transform:rotate(-8deg)}
     .btn{display:inline-block;background:#fff;border:1px solid var(--rope);border-radius:999px;padding:.4rem .7rem;font-weight:600;cursor:pointer}
     .btn:hover{background:#f7f9fb}
 
-    /* Share bar anchor */
     footer.wrap{font-size:.92rem}
   </style>
 </head>
@@ -190,33 +180,34 @@
       <div class="card watermark">
         <div class="calc-header">
           <h1 id="calc-title" style="margin:.2rem 0">Beverage Calculator</h1>
-          <span class="tag" id="line-tag">Royal Caribbean</span>
+          <span class="tag">Royal Caribbean</span>
         </div>
-        <p class="muted tiny" style="margin:.2rem 0 .6rem">
-          Tell us what you usually drink each day. We’ll compare à-la-carte vs. packages and show the best value.
-        </p>
+        <p class="muted tiny" style="margin:.2rem 0 .6rem">Tell us what you usually drink each day. We’ll compare à-la-carte vs. packages and show the best value.</p>
 
         <section class="card trip-card" aria-label="Trip length">
           <strong style="white-space:nowrap">Trip length</strong>
-          <input id="days" type="number" inputmode="decimal" pattern="[0-9]*" min="1" step="1" value="7" aria-describedby="days-help totals totals-line"/>
-          <div id="days-help" class="tiny muted">People often book 5–7 nights. Adjust as needed.</div>
-          <div class="tiny" id="totals" style="grid-column:1 / -1;margin-top:.25rem"></div>
-          <div class="tiny muted" id="totals-line" style="grid-column:1 / -1"></div>
+          <input id="days" type="number" inputmode="numeric" pattern="[0-9]*" min="1" step="1" value="7" aria-describedby="days-help totals totals-line"/>
+          <div class="tiny muted" id="days-help">People often book 5–7 nights. Adjust as needed.</div>
+          <div class="tiny" id="totals" style="grid-column:1 / -1;margin-top:.35rem"></div>
+          <div class="tiny muted" id="totals-line" style="grid-column:1 / -1">Tip: Override package prices to match the sale you see in your planner.</div>
         </section>
 
         <!-- Inputs in column cards -->
         <h2 style="margin:.6rem 0">Your Daily Picks</h2>
-        <div class="inputs-grid" id="inputs-grid"><!-- built by JS --></div>
+        <div class="inputs-grid" id="inputs-grid">
+          <!-- columns built by JS -->
+        </div>
       </div>
 
       <!-- Packages card -->
       <div class="card" aria-labelledby="pkg-title">
-        <h2 id="pkg-title" style="margin:.2rem 0">Beverage Packages</h2>
+        <h2 id="pkg-title" style="margin:.2rem 0">Royal Caribbean Beverage Packages</h2>
         <ul class="tiny" style="margin:.25rem 0 1rem">
-          <li>Package prices include gratuity.</li>
+          <li>Package prices already include gratuity.</li>
           <li>À-la-carte purchases add 18% gratuity automatically.</li>
           <li>Deluxe covers everything up to the menu cap (pay the difference above).</li>
         </ul>
+
         <div class="pkg-grid" id="package-cards" aria-live="polite"></div>
       </div>
     </section>
@@ -225,8 +216,9 @@
     <aside class="rail" aria-label="Right rail">
       <section class="card" aria-labelledby="rec-title">
         <h3 id="rec-title">Recommended Reading</h3>
-        <div class="rail" id="article-rail"><!-- hydrated by JS --></div>
-        <p id="articles-fallback" class="tiny muted" style="margin:.35rem 0 0;display:none">Loading articles…</p>
+        <div id="rec-rail" class="rail">
+          <!-- populated by JS; no hallucinations -->
+        </div>
       </section>
 
       <section class="card" aria-labelledby="author-title">
@@ -250,7 +242,7 @@
     <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria.</p>
   </footer>
 
-  <!-- site-cache (defines window.itwSeedSW) + sharebar -->
+  <!-- site-cache (defines window.itwSeedSW) + sharebar (kept) -->
   <script src="/assets/js/site-cache.js" defer></script>
   <script src="/assets/js/sharebar.js?v=3.010.070" defer></script>
 
@@ -258,10 +250,9 @@
   (function(){
     "use strict";
 
-    // ---------------- Portal’d nav behavior (Planning) ----------------
-    (function(){
-      const root = document.querySelector('.itw-nav');
-      if(!root) return;
+    /* ---------------- Portal’d nav behavior (from Planning) ---------------- */
+    const root = document.querySelector('.itw-nav');
+    if(root){
       const items = [...root.querySelectorAll('.nav-item[aria-haspopup]')];
       const setOpen=(g,on)=>{ g.classList.toggle('open',!!on); const b=g.querySelector('button[aria-controls]'); if(b) b.setAttribute('aria-expanded',on?'true':'false'); };
       const closeAll=(ex=null)=>items.forEach(g=>{ if(g!==ex) setOpen(g,false); });
@@ -275,364 +266,322 @@
       });
       document.addEventListener('click',e=>{ if(!e.target.closest('.itw-nav')) closeAll(); });
       window.addEventListener('blur',()=>closeAll());
-    })();
+    }
 
-    // ---------------- Hover prefetch (seed SW) ----------------
-    (function(){
-      const seed=(urls,priority='normal')=>{ try{ if(window.itwSeedSW) window.itwSeedSW(urls,priority); }catch(_){ } };
-      const seen = new Set();
-      function onOver(e){
-        const a=e.currentTarget; const href=a.getAttribute('href'); if(!href||seen.has(href)) return;
-        seen.add(href); seed([href],'low');
+    /* ---------------- Hover prefetch (seed SW; non-blocking) ---------------- */
+    const seed=(urls,priority='normal')=>{ try{ if(window.itwSeedSW) window.itwSeedSW(urls,priority); }catch(_){ } };
+    function onOver(e){
+      const a=e.currentTarget; const href=a.getAttribute('href'); if(!href) return;
+      if(!onOver._set) onOver._set=new Set();
+      if(onOver._set.has(href)) return; onOver._set.add(href);
+      seed([href],'low');
+    }
+
+    /* ---------------- Calculator ---------------- */
+    const els = {
+      inputsGrid: document.getElementById('inputs-grid'),
+      packageCards: document.getElementById('package-cards'),
+      totals: document.getElementById('totals'),
+      totalsLine: document.getElementById('totals-line'),
+      days: document.getElementById('days')
+    };
+
+    const state = {
+      days: 7,
+      epsilon: 0.02,          // ~2¢ tolerance, but we still show a single winner
+      items: new Map(),       // id -> {meta, qtyPerDay}
+      order: [],
+      cols: [[],[],[]],
+      sets: { soda:new Set(), refresh:new Set(), alcohol:new Set() },
+      packages: new Map(),    // id -> {meta}
+      lineId: 'royal-caribbean'
+    };
+
+    const fmt = n => Number.isFinite(n) ? ('$' + Math.abs(n).toFixed(2)).replace('$-','$-') : '$?.??';
+    const getLS=(k,d)=>{ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(_){ return d; } };
+    const setLS=(k,v)=>{ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){ } };
+
+    const DATA_URL = '/assets/data/lines/royal-caribbean.json';
+
+    function normalizedRange(price, rangeStr){
+      if (Array.isArray(rangeStr) && rangeStr.length===2) return rangeStr;
+      if (typeof rangeStr==='string'){
+        const m = rangeStr.match(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)/);
+        if (m) return [Number(m[1]), Number(m[2])];
       }
-      document.querySelectorAll('[data-prefetch="hover"]').forEach(a=>{
+      const p = Number(price);
+      return Number.isFinite(p) ? [p,p] : null;
+    }
+
+    function defaultRefreshSetIfEmpty(){
+      // default: soda, specialty coffee, tea, juice, mocktails, bottled water
+      if (state.sets.refresh.size===0){
+        ['soda','premium-coffee','premium-tea','fresh-juice','mocktail','bottled-water'].forEach(id=>state.sets.refresh.add(id));
+      }
+    }
+
+    function buildInputs(){
+      const paid=[], free=[];
+      state.items.forEach((v,k)=> (v.meta.free?free:paid).push([k,v]));
+      paid.sort((a,b)=> b[1].meta.avgPrice - a[1].meta.avgPrice);
+      free.sort((a,b)=> a[1].meta.name.localeCompare(b[1].meta.name));
+      state.order = [...paid.map(x=>x[0]), ...free.map(x=>x[0])];
+
+      // allocate to 3 columns round-robin
+      state.cols=[[],[],[]];
+      state.order.forEach((id,i)=> state.cols[i%3].push(id));
+
+      // render
+      els.inputsGrid.innerHTML = '';
+      state.cols.forEach(col=>{
+        const card = document.createElement('div');
+        card.className = 'card beverage-card';
+        col.forEach(id=>{
+          const it = state.items.get(id);
+          const priceNote = it.meta.free ? '<span class="price-note">(included · $0)</span>'
+                           : `<span class="price-note">avg ${fmt(it.meta.avgPrice)}</span>`;
+          const row = document.createElement('div');
+          row.className='row';
+          row.innerHTML = `
+            <label for="qty-${id}">${it.meta.name}<div>${priceNote}</div></label>
+            <input id="qty-${id}" type="number" inputmode="numeric" pattern="[0-9]*" min="0" step="1" value="${it.qtyPerDay||0}" data-item="${id}" aria-label="${it.meta.name} quantity">`;
+          card.appendChild(row);
+        });
+        els.inputsGrid.appendChild(card);
+      });
+
+      els.inputsGrid.querySelectorAll('input[type="number"]').forEach(inp=>{
+        let t;
+        inp.addEventListener('input', ()=>{
+          clearTimeout(t);
+          t=setTimeout(()=>{
+            const id = inp.dataset.item;
+            const ent = state.items.get(id);
+            const n = Number(inp.value);
+            ent.qtyPerDay = Number.isFinite(n)&&n>=0 ? Math.floor(n) : 0;
+            computeAndRender();
+          },120);
+        });
+      });
+    }
+
+    function pkgPriceDisplay(pmeta){
+      const key='pkgOverride:'+state.lineId+':'+pmeta.id;
+      const ov = getLS(key,null);
+      const base = Number(pmeta.price ?? pmeta.avg ?? (pmeta.priceRange?.[0] ?? 0));
+      const value = ov!=null ? Number(ov) : base;
+      return { value, overridden: ov!=null };
+    }
+
+    function renderPackages(view){
+      const host = els.packageCards;
+      host.innerHTML='';
+      const ids=['soda','refreshment','deluxe'].filter(id=>state.packages.has(id));
+
+      ids.forEach(id=>{
+        const p = state.packages.get(id);
+        const { value, overridden } = pkgPriceDisplay(p.meta);
+        const includeVal = view.includedDaily[id] ?? 0;
+
+        // FIX: explicit map so refreshment shows its cost sentence.
+        const costById = { none:view.noneDaily, soda:view.sodaDaily, refreshment:view.refreshDaily, deluxe:view.deluxeDaily };
+        const strategyCost = costById[id];
+
+        const best = view.bestId===id;
+        const el = document.createElement('article');
+        el.className = 'pkg' + (best?' best':'');
+        el.innerHTML = `
+          ${best?'<span class="ribbon" role="status">Best value</span>':''}
+          <header>
+            <div><strong>${p.meta.name}</strong></div>
+            <div class="price" data-price="${id}">${fmt(value)}/day</div>
+          </header>
+          <div class="body tiny" style="margin:.1rem 0 .4rem">
+            Included value (your picks): <strong>${fmt(includeVal)}</strong> /day
+            ${Number.isFinite(strategyCost)?` · With this package you’d pay <strong>${fmt(strategyCost)}</strong> /day` : ''}
+          </div>
+          <div class="body">
+            <button class="btn" data-ov="${id}" type="button">${overridden?'Edit Price (overridden)':'Edit Price'}</button>
+            ${Array.isArray(p.meta.description)&&p.meta.description.length
+              ? `<ul class="tiny" style="margin:.6rem 0 0 1.1rem">${p.meta.description.map(d=>`<li>${d}</li>`).join('')}</ul>` : ''
+            }
+          </div>`;
+        host.appendChild(el);
+      });
+
+      host.querySelectorAll('button[data-ov]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id = btn.dataset.ov;
+          const key='pkgOverride:'+state.lineId+':'+id;
+          const pmeta=state.packages.get(id).meta;
+          const suggested = getLS(key,null) ?? (Number(pmeta.price ?? pmeta.avg ?? pmeta.priceRange?.[0] ?? 0));
+          const v = prompt('Enter your package price per person per day (USD).', String(suggested));
+          if (v==null) return;
+          const num=Number(v);
+          if (!Number.isFinite(num)||num<0){ alert('Please enter a valid non-negative number.'); return; }
+          setLS(key,num);
+          computeAndRender();
+        });
+      });
+    }
+
+    function computeAndRender(){
+      // spend buckets
+      let dailyTotal=0, sodaSpend=0, refreshSpend=0, alcoholSpend=0;
+
+      state.items.forEach((it,id)=>{
+        const spend = (it.meta.avgPrice||0) * (it.qtyPerDay||0);
+        dailyTotal += spend;
+        if (state.sets.soda.has(id)) sodaSpend += spend;
+        if (state.sets.refresh.has(id)) refreshSpend += spend;
+        if (state.sets.alcohol.has(id)) alcoholSpend += spend;
+      });
+
+      const days = Math.max(1, parseInt(els.days.value||'1',10));
+      state.days = days;
+      els.totals.textContent = `Daily total (à la carte): ${fmt(dailyTotal)} · Trip total: ${fmt(dailyTotal*days)}`;
+
+      const pkg = {};
+      ['soda','refreshment','deluxe'].forEach(pid=>{
+        const meta = state.packages.get(pid)?.meta;
+        pkg[pid] = meta ? pkgPriceDisplay(meta).value : Infinity;
+      });
+
+      // Strategy costs
+      const noneDaily    = dailyTotal;
+      const sodaDaily    = pkg.soda + (dailyTotal - sodaSpend);
+      const refreshDaily = pkg.refreshment + alcoholSpend;   // refresh covers refreshSpend
+      const deluxeDaily  = pkg.deluxe;                       // deluxe covers all
+
+      const includedDaily = { soda:sodaSpend, refreshment:refreshSpend, deluxe:dailyTotal };
+
+      // Winner — enforce single winner; break ties preferring more inclusive plan.
+      const entries = [
+        {id:'none',        cost:noneDaily,       rank:0},
+        {id:'soda',        cost:sodaDaily,       rank:1},
+        {id:'refreshment', cost:refreshDaily,    rank:2},
+        {id:'deluxe',      cost:deluxeDaily,     rank:3}
+      ].filter(e=>Number.isFinite(e.cost));
+
+      entries.sort((a,b)=>{
+        const diff=a.cost-b.cost;
+        if (Math.abs(diff) <= state.epsilon) return b.rank - a.rank;
+        return diff;
+      });
+      const bestId = entries[0]?.id || 'none';
+
+      renderPackages({ noneDaily, sodaDaily, refreshDaily, deluxeDaily, includedDaily, bestId });
+    }
+
+    async function loadDataset(){
+      try{
+        const r = await fetch(DATA_URL + '?v=' + (document.querySelector('meta[name="version"]')?.content||'v'), { cache:'default', credentials:'omit' });
+        if (!r.ok) throw new Error('Bad response');
+        const data = await r.json();
+
+        state.lineId = data.lineId || data.line || 'royal-caribbean';
+
+        // items
+        state.items = new Map();
+        (data.items||[]).forEach(it=>{
+          state.items.set(it.id, {
+            meta:{
+              id:it.id,
+              name: it.label || it.name || it.id,
+              avgPrice: Number(it.price || it.avgPrice || 0),
+              free: !!it.free
+            },
+            qtyPerDay:0
+          });
+        });
+
+        // authoritative sets (with default refresh support)
+        state.sets={
+          soda:    new Set(data.sets?.soda    || ['soda']),
+          refresh: new Set(data.sets?.refresh || []),
+          alcohol: new Set(data.sets?.alcohol || [])
+        };
+        defaultRefreshSetIfEmpty();
+
+        // packages
+        state.packages = new Map();
+        const pkgObj=data.packages||{};
+        Object.keys(pkgObj).forEach(k=>{
+          const p=pkgObj[k];
+          const pr=normalizedRange(p.price, p.range);
+          state.packages.set(k, {
+            meta:{
+              id:k,
+              name:p.name||k,
+              price: Number(p.price ?? p.avg ?? 0),
+              priceRange: pr,
+              description: Array.isArray(p.includes)? p.includes.slice() : []
+            }
+          });
+        });
+
+        buildInputs();
+        computeAndRender();
+      }catch(err){
+        console.error('Dataset load failed:', err);
+        els.packageCards.innerHTML = `<div class="tiny muted">Could not load data. Try refreshing.</div>`;
+      }
+    }
+
+    els.days.addEventListener('input', ()=>{ state.days = Math.max(1, parseInt(els.days.value||'1',10)); computeAndRender(); });
+
+    /* ---------------- Recommended Reading (beverage-first, no hallucinations) ---------------- */
+    (function recs(){
+      const rail = document.getElementById('rec-rail');
+      if (!rail) return;
+
+      // Authoritative list we actually have live (no hallucinations).
+      // Beverage-first candidates:
+      const BEV = [
+        {url:'/articles/should-you-buy-the-deluxe-package.html', title:'Should you buy the Deluxe package?', img:'/assets/articles/top-20-questions/cover.jpg'},
+        {url:'/articles/how-gratuities-work-on-drink-packages.html', title:'How drink gratuities really work', img:'/assets/index_hero.jpg'},
+        {url:'/articles/mocktails-and-kids-soda-plans.html', title:'Mocktails & kids’ soda plans', img:'/assets/placeholders/article-thumb.jpg'}
+      ];
+
+      // Optional general pool (only add if present on site; keep tiny + safe)
+      const EXTRA = [
+        {url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', img:'/solo/articles/img/cover.jpg'},
+        {url:'/solo/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', img:'/assets/index_hero.jpg'}
+      ];
+
+      function card(a){
+        return `
+          <article class="rail-item" role="article">
+            <a class="thumb" href="${a.url}" data-prefetch="hover">
+              <img src="${a.img||'/assets/placeholders/article-thumb.jpg'}" alt="">
+            </a>
+            <div class="meta"><h4><a href="${a.url}" data-prefetch="hover">${a.title}</a></h4></div>
+          </article>`;
+      }
+
+      const seen = new Set();
+      const out = [];
+
+      // beverage first
+      BEV.forEach(a=>{ if(a && a.url && !seen.has(a.url)){ out.push(a); seen.add(a.url); } });
+
+      // fill with extras if any new and we still have room (max 3)
+      for (const a of EXTRA){
+        if (out.length>=3) break;
+        if (a && a.url && !seen.has(a.url)){ out.push(a); seen.add(a.url); }
+      }
+
+      rail.innerHTML = out.slice(0,3).map(card).join('');
+
+      // attach hover prefetch
+      rail.querySelectorAll('[data-prefetch="hover"]').forEach(a=>{
         a.addEventListener('mouseenter',onOver,{once:true,passive:true});
         a.addEventListener('focus',onOver,{once:true,passive:true});
       });
     })();
 
-    // ---------------- Article rail logic (beverage-first, else newest, then fill; no dupes) ----------------
-    (function(){
-      const V=document.querySelector('meta[name="version"]')?.content || 'v';
-      const mount=document.getElementById('article-rail');
-      const fall = document.getElementById('articles-fallback');
-      if(!mount) return;
-
-      function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
-      const SOURCES=[
-        '/assets/data/articles/index.json?v='+V,
-        '/travel/articles/index.json?v='+V,
-        '/solo/articles/index.json?v='+V
-      ];
-      async function get(u){
-        try{ const r=await fetch(u,{cache:'default'}); if(!r.ok) throw 0; return await r.json(); }
-        catch(_){ return []; }
-      }
-      function normalize(payload){
-        const list = Array.isArray(payload?.articles) ? payload.articles
-                   : Array.isArray(payload) ? payload : [];
-        return list.map(a=>({
-          url: a.url||a.permalink||'#',
-          title: a.title||a.headline||'Article',
-          dek: a.dek||a.description||a.excerpt||'',
-          date: a.datePublished||a.date||'',
-          image: a.image||'',
-          tags: (a.tags||a.categories||[]).map(t=>String(t).toLowerCase())
-        })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
-      }
-      function scoreBeverage(a){
-        const u = (a.url||'').toLowerCase(), t=(a.title||'').toLowerCase();
-        const hit = /(drink|beverage|package|bar|mocktail|soda)/.test(u) || /(drink|beverage|package|bar|mocktail|soda)/.test(t) || (a.tags||[]).some(x=>/(drink|beverage|bar)/.test(x));
-        return hit ? 1 : 0;
-      }
-      function byDateDesc(a,b){ return (Date.parse(b.date||0)||0) - (Date.parse(a.date||0)||0); }
-
-      (async function boot(){
-        if(fall) fall.style.display='';
-        let all=[];
-        for(const s of SOURCES){ all = all.concat(normalize(await get(s))); }
-
-        const seen=new Set();
-        const uniq = all.filter(a=>{
-          const k=(a.url||'').replace(/[#?].*$/,'').toLowerCase();
-          if(seen.has(k)) return false; seen.add(k); return true;
-        });
-
-        const bev = uniq.filter(a=>scoreBeverage(a)).sort(byDateDesc);
-        const rest= uniq.filter(a=>!scoreBeverage(a)).sort(byDateDesc);
-
-        const picks = [...bev.slice(0,3)];
-        for(const a of rest){ if(picks.length>=3) break; picks.push(a); }
-
-        mount.innerHTML = picks.map(a=>`
-          <article class="rail-item" role="article">
-            <a class="thumb" href="${a.url}" data-prefetch="hover">
-              <img src="${a.image||'/assets/placeholders/article-thumb.jpg'}" alt="">
-            </a>
-            <div class="meta">
-              <h4><a href="${a.url}" data-prefetch="hover">${esc(a.title)}</a></h4>
-              ${a.dek?`<p class="tiny muted">${esc(a.dek)}</p>`:''}
-            </div>
-          </article>
-        `).join('');
-
-        if(fall) fall.style.display='none';
-      })();
-    })();
-
-    // ---------------- Calculator ----------------
-    (function(){
-      const els = {
-        inputsGrid: document.getElementById('inputs-grid'),
-        packageCards: document.getElementById('package-cards'),
-        totals: document.getElementById('totals'),
-        totalsLine: document.getElementById('totals-line'),
-        days: document.getElementById('days'),
-        lineTag: document.getElementById('line-tag')
-      };
-
-      const state = {
-        days: 7,
-        epsilon: 0.02,          // ~2 cents tolerance; we still show one winner
-        items: new Map(),       // id -> {meta, qtyPerDay}
-        order: [],
-        cols: [[],[],[]],       // column assignment for inputs
-        sets: { soda:new Set(), refresh:new Set(), alcohol:new Set() },
-        packages: new Map(),    // id -> {meta}
-        lineId: 'royal-caribbean',
-        lineTitle: 'Royal Caribbean'
-      };
-
-      const fmt = n => Number.isFinite(n) ? ('$' + Math.abs(n).toFixed(2)).replace('$-','$-') : '$?.??';
-      const getLS=(k,d)=>{ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(_){ return d; } };
-      const setLS=(k,v)=>{ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){ } };
-
-      const DATA_URL = '/assets/data/lines/royal-caribbean.json';
-
-      function normalizedRange(price, rangeStr){
-        if (Array.isArray(rangeStr) && rangeStr.length===2) return rangeStr;
-        if (typeof rangeStr==='string'){
-          const m = rangeStr.match(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)/);
-          if (m) return [Number(m[1]), Number(m[2])];
-        }
-        const p = Number(price);
-        return Number.isFinite(p) ? [p,p] : null;
-      }
-
-      function defaultRefreshSetIfEmpty(){
-        // default: soda, specialty coffee, tea, juice, mocktails, bottled water
-        if (state.sets.refresh.size===0){
-          ['soda','premium-coffee','premium-tea','fresh-juice','mocktail','bottled-water'].forEach(id=>state.sets.refresh.add(id));
-        }
-      }
-
-      function buildInputs(){
-        // 3 columns; sort by price desc for paid, then freebies alpha
-        const paid=[], free=[];
-        state.items.forEach((v,k)=> (v.meta.free?free:paid).push([k,v]));
-        paid.sort((a,b)=> b[1].meta.avgPrice - a[1].meta.avgPrice);
-        free.sort((a,b)=> a[1].meta.name.localeCompare(b[1].meta.name));
-        state.order = [...paid.map(x=>x[0]), ...free.map(x=>x[0])];
-
-        // allocate to 3 columns round-robin
-        state.cols=[[],[],[]];
-        state.order.forEach((id,i)=> state.cols[i%3].push(id));
-
-        // render
-        els.inputsGrid.innerHTML = '';
-        state.cols.forEach(col=>{
-          const card = document.createElement('div');
-          card.className = 'card beverage-card';
-          col.forEach(id=>{
-            const it = state.items.get(id);
-            const priceNote = it.meta.free ? '<span class="price-note">(included · $0)</span>'
-                             : `<span class="price-note">avg ${fmt(it.meta.avgPrice)}</span>`;
-            const row = document.createElement('div');
-            row.className='row';
-            row.innerHTML = `
-              <label for="qty-${id}">
-                ${it.meta.name}
-                <div>${priceNote}</div>
-              </label>
-              <input id="qty-${id}" type="number" inputmode="decimal" pattern="[0-9]*" min="0" step="1" value="${it.qtyPerDay||0}" data-item="${id}" aria-describedby="help-${id}">
-            `;
-            card.appendChild(row);
-          });
-          els.inputsGrid.appendChild(card);
-        });
-
-        // debounced input handling
-        els.inputsGrid.querySelectorAll('input[type="number"]').forEach(inp=>{
-          let t;
-          inp.addEventListener('input', ()=>{
-            clearTimeout(t);
-            t=setTimeout(()=>{
-              const id = inp.dataset.item;
-              const ent = state.items.get(id);
-              const n = Number(inp.value);
-              ent.qtyPerDay = Number.isFinite(n)&&n>=0 ? Math.floor(n) : 0;
-              computeAndRender();
-            },140);
-          });
-        });
-      }
-
-      function pkgPriceDisplay(pmeta){
-        const key='pkgOverride:'+state.lineId+':'+pmeta.id;
-        const ov = getLS(key,null);
-        const base = Number(pmeta.price ?? pmeta.avg ?? (pmeta.priceRange?.[0] ?? 0));
-        const value = ov!=null ? Number(ov) : base;
-        return { value, overridden: ov!=null };
-      }
-
-      function renderPackages(view){
-        const host = els.packageCards;
-        host.innerHTML='';
-        const ids=['soda','refreshment','deluxe'].filter(id=>state.packages.has(id));
-        ids.forEach(id=>{
-          const p = state.packages.get(id);
-          const { value, overridden } = pkgPriceDisplay(p.meta);
-          const includeVal = view.includedDaily[id] ?? 0;
-          // Strategy cost text appears for soda & deluxe; refresh also shows when alcohol present
-          const strategyCost = view[id+'Daily'];
-          const showCost = Number.isFinite(strategyCost) && (
-            id==='soda' || id==='deluxe' || (id==='refreshment' && view.alcoholSpend > 0)
-          );
-
-          const range = p.meta.priceRange ? ` (${fmt(p.meta.priceRange[0])}–${fmt(p.meta.priceRange[1])})` : '';
-          const best = view.bestId===id;
-
-          const el = document.createElement('article');
-          el.className = 'pkg' + (best?' best':'');
-          el.innerHTML = `
-            ${best?'<span class="ribbon" role="status">Best value</span>':''}
-            <header>
-              <div><strong>${p.meta.name}</strong>${range?` <span class="tiny muted">${range}</span>`:''}</div>
-              <div class="price" data-price="${id}">${fmt(value)}/day</div>
-            </header>
-            <div class="body tiny" style="margin:.1rem 0 .4rem">
-              Included value (your picks): <strong>${fmt(includeVal)}</strong> /day
-              ${showCost?` · With this package you’d pay <strong>${fmt(strategyCost)}</strong> /day` : ''}
-            </div>
-            <div class="body">
-              <button class="btn" data-ov="${id}" type="button">${overridden?'Edit Price (overridden)':'Edit Price'}</button>
-              ${Array.isArray(p.meta.description)&&p.meta.description.length
-                ? `<ul class="tiny" style="margin:.6rem 0 0 1.1rem">${p.meta.description.map(d=>`<li>${d}</li>`).join('')}</ul>` : ''
-              }
-            </div>`;
-          host.appendChild(el);
-        });
-
-        // override handler
-        host.querySelectorAll('button[data-ov]').forEach(btn=>{
-          btn.addEventListener('click', ()=>{
-            const id = btn.dataset.ov;
-            const key='pkgOverride:'+state.lineId+':'+id;
-            const pmeta=state.packages.get(id).meta;
-            const suggested = getLS(key,null) ?? (Number(pmeta.price ?? pmeta.avg ?? pmeta.priceRange?.[0] ?? 0));
-            const v = prompt('Enter your package price per person per day (USD).', String(suggested));
-            if (v==null) return;
-            const num=Number(v);
-            if (!Number.isFinite(num)||num<0){ alert('Please enter a valid non-negative number.'); return; }
-            setLS(key,num);
-            computeAndRender();
-          });
-        });
-      }
-
-      function computeAndRender(){
-        // spend buckets
-        let dailyTotal=0, sodaSpend=0, refreshSpend=0, alcoholSpend=0;
-
-        state.items.forEach((it,id)=>{
-          const spend = (it.meta.avgPrice||0) * (it.qtyPerDay||0);
-          dailyTotal += spend;
-          if (state.sets.soda.has(id)) sodaSpend += spend;
-          if (state.sets.refresh.has(id)) refreshSpend += spend;
-          if (state.sets.alcohol.has(id)) alcoholSpend += spend;
-        });
-
-        const days = Math.max(1, parseInt(els.days.value||'1',10));
-        state.days = days;
-        els.totals.textContent = `Daily total (à la carte): ${fmt(dailyTotal)} · Trip total: ${fmt(dailyTotal*days)}`;
-        els.totalsLine.textContent = `Tip: Override package prices to match the sale you see in your planner.`;
-
-        const pkg = {};
-        ['soda','refreshment','deluxe'].forEach(pid=>{
-          const meta = state.packages.get(pid)?.meta;
-          pkg[pid] = meta ? pkgPriceDisplay(meta).value : Infinity;
-        });
-
-        // Strategy costs (Refresh covers refresh set; alcohol paid à-la-carte)
-        const noneDaily    = dailyTotal;
-        const sodaDaily    = pkg.soda + (dailyTotal - sodaSpend);
-        const refreshDaily = pkg.refreshment + alcoholSpend;
-        const deluxeDaily  = pkg.deluxe;
-
-        const includedDaily = { soda:sodaSpend, refreshment:refreshSpend, deluxe:dailyTotal };
-
-        // Winner — enforce single winner (prefer more inclusive on tie)
-        const entries = [
-          {id:'none',        cost:noneDaily,       rank:0},
-          {id:'soda',        cost:sodaDaily,       rank:1},
-          {id:'refreshment', cost:refreshDaily,    rank:2},
-          {id:'deluxe',      cost:deluxeDaily,     rank:3}
-        ].filter(e=>Number.isFinite(e.cost));
-
-        entries.sort((a,b)=>{
-          const diff=a.cost-b.cost;
-          if (Math.abs(diff) <= state.epsilon) return b.rank - a.rank;
-          return diff;
-        });
-        const bestId = entries[0]?.id || 'none';
-
-        renderPackages({ noneDaily, sodaDaily, refreshDaily, deluxeDaily, includedDaily, bestId, alcoholSpend });
-      }
-
-      async function loadDataset(){
-        try{
-          const r = await fetch(DATA_URL + '?v=' + (document.querySelector('meta[name="version"]')?.content||'v'), { cache:'default', credentials:'omit' });
-          if (!r.ok) throw new Error('Bad response');
-          const data = await r.json();
-
-          state.lineId = data.lineId || data.line || 'royal-caribbean';
-          state.lineTitle = data.text?.lineTitle || data.text?.line || 'Royal Caribbean';
-          const tag = document.getElementById('line-tag'); if (tag) tag.textContent = state.lineTitle;
-
-          // items
-          state.items = new Map();
-          (data.items||[]).forEach(it=>{
-            state.items.set(it.id, {
-              meta:{
-                id:it.id,
-                name: it.label || it.name || it.id,
-                avgPrice: Number(it.price || it.avgPrice || 0),
-                free: !!it.free
-              },
-              qtyPerDay:0
-            });
-          });
-
-          // sets (authoritative), with default for refresh if missing
-          state.sets={
-            soda:    new Set(data.sets?.soda    || ['soda']),
-            refresh: new Set(data.sets?.refresh || []),
-            alcohol: new Set(data.sets?.alcohol || [])
-          };
-          // Per your default: soda, specialty coffee, tea, juice, mocktails, bottled water (no Starbucks; no alcohol coffees)
-          defaultRefreshSetIfEmpty();
-
-          // packages (normalize price/range)
-          state.packages = new Map();
-          const pkgObj=data.packages||{};
-          Object.keys(pkgObj).forEach(k=>{
-            const p=pkgObj[k];
-            const pr=normalizedRange(p.price, p.range);
-            state.packages.set(k, {
-              meta:{
-                id:k,
-                name:p.name||k,
-                price: Number(p.price ?? p.avg ?? 0),
-                priceRange: pr,
-                description: Array.isArray(p.includes)? p.includes.slice() : []
-              }
-            });
-          });
-
-          buildInputs();
-          computeAndRender();
-        }catch(err){
-          console.error('Dataset load failed:', err);
-          els.packageCards.innerHTML = `<div class="tiny muted">Could not load data. Try refreshing.</div>`;
-        }
-      }
-
-      // events
-      els.days.addEventListener('input', ()=>{ state.days = Math.max(1, parseInt(els.days.value||'1',10)); computeAndRender(); });
-
-      // boot
-      loadDataset();
-    })();
+    // boot
+    loadDataset();
 
     // Sharebar hydrate if present
     (function(){
