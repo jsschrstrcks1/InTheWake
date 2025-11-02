@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Service Worker Cache Health — In the Wake</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --ink:#0a3d62;
+      --muted:#6b7c8a;
+      --bg:#f7f9fb;
+      --card:#ffffff;
+      --accent:#0e6e8e;
+      --accent-2:#0a5a75;
+      --danger:#8a1d1d;
+      --ok:#136f3a;
+      --border:#dfe7ea;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --round: 12px;
+    }
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    header{
+      padding: 1.25rem 1rem;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top:0; z-index:10;
+    }
+    .wrap{ max-width: 1000px; margin: 0 auto; }
+    h1{ margin:0 0 .25rem; font-size: 1.35rem; }
+    .sub{ color: var(--muted); font-size: .95rem; }
+    main{ padding: 1rem; }
+    .grid{ display:grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--round);
+      padding: 1rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    }
+    .card h3{ margin:.2rem 0 .7rem; font-size:1rem; }
+    .stat{ display:flex; justify-content:space-between; margin:.35rem 0; }
+    .muted{ color: var(--muted); }
+    .mono{ font-family: var(--mono); font-size: .92rem; }
+    .pill{
+      display:inline-block; padding:.25rem .6rem; border-radius:999px; border:1px solid var(--border); background:#fff; margin:.2rem .2rem .2rem 0;
+      font-size:.85rem;
+    }
+    .btn{
+      appearance:none; border:1px solid var(--border); background: var(--accent); color:#fff; padding:.5rem .8rem; border-radius:10px; cursor:pointer;
+      font-weight:600;
+    }
+    .btn.secondary{ background:#fff; color:var(--accent); }
+    .btn.danger{ background: var(--danger); border-color: #b74444; }
+    .row{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+    pre{ white-space:pre-wrap; word-break:break-word; background:#f4f6f8; border:1px solid var(--border); padding:.75rem; border-radius:8px; margin:.5rem 0 0; }
+    table{ width:100%; border-collapse:collapse; }
+    td,th{ border-bottom:1px solid var(--border); padding:.4rem .5rem; text-align:left; font-size:.95rem; }
+    th{ color:var(--muted); font-weight:600; }
+    footer{ padding: 2rem 1rem; color: var(--muted); }
+    code{ background:#f4f6f8; border:1px solid var(--border); padding:.15rem .35rem; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Service Worker Cache Health</h1>
+      <div class="sub">Admin · <span class="mono">/admin/reports/sw-health.html</span></div>
+    </div>
+  </header>
+
+  <main class="wrap" id="app">
+    <section class="grid" aria-label="summary">
+      <div class="card">
+        <h3>Overview</h3>
+        <div class="stat"><span>SW Version</span><strong id="swver" class="mono">—</strong></div>
+        <div class="stat"><span>Storage Used</span><strong id="usage">—</strong></div>
+        <div class="stat"><span>Quota</span><strong id="quota">—</strong></div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="btn" id="refresh">Refresh</button>
+          <button class="btn secondary" id="view-errors">View Errors</button>
+          <button class="btn danger" id="clear-nonpre">Clear Non-Precache</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Buckets</h3>
+        <table>
+          <thead><tr><th>Bucket</th><th>Cache Name</th><th>Count</th></tr></thead>
+          <tbody id="bucket-rows">
+            <tr><td colspan="3" class="muted">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Health Probe</h3>
+        <div class="muted">Raw <code>/__sw_health</code> response</div>
+        <pre id="health">—</pre>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:1rem">
+      <h3>Sample URLs (first 10 per bucket)</h3>
+      <div id="samples" class="muted">No sample listing in this view. Use DevTools Application → Cache Storage for full inspection.</div>
+    </section>
+
+    <section class="card" style="margin-top:1rem">
+      <h3>Error Log</h3>
+      <div class="muted">Click <b>View Errors</b> to load the last entries captured by <code>sw.js</code>.</div>
+      <pre id="errors" style="display:none"></pre>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    Tip: Open DevTools → <b>Application</b> → <b>Service Workers</b> to manually inspect/ unregister.  
+    Use <code>caches.keys()</code> in Console to list all cache names.
+  </footer>
+
+  <script>
+    (function(){
+      const els = {
+        swver: document.getElementById("swver"),
+        usage: document.getElementById("usage"),
+        quota: document.getElementById("quota"),
+        rows:  document.getElementById("bucket-rows"),
+        health:document.getElementById("health"),
+        errorsBtn: document.getElementById("view-errors"),
+        errorsPre: document.getElementById("errors"),
+        refresh: document.getElementById("refresh"),
+        clear: document.getElementById("clear-nonpre")
+      };
+
+      function fmtBytes(n){
+        if (!n && n !== 0) return "—";
+        const u = ["B","KB","MB","GB","TB"];
+        let i=0, v=n;
+        while (v>=1024 && i<u.length-1){ v/=1024; i++; }
+        return v.toFixed( (i===0)?0:2 )+" "+u[i];
+      }
+
+      async function fetchHealth(){
+        try{
+          const r = await fetch("/__sw_health", { cache:"no-store" });
+          if (!r.ok) throw new Error("HTTP "+r.status);
+          const data = await r.json();
+          els.health.textContent = JSON.stringify(data, null, 2);
+          if (data.version) els.swver.textContent = data.version;
+        }catch(err){
+          els.health.textContent = "Failed: "+err.message;
+        }
+      }
+
+      async function fetchStatsViaSW(){
+        return new Promise((resolve) => {
+          if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller){
+            resolve(null); return;
+          }
+          const mc = new MessageChannel();
+          mc.port1.onmessage = (e) => resolve(e.data?.stats || null);
+          navigator.serviceWorker.controller.postMessage({ type:"GET_CACHE_STATS" }, [mc.port2]);
+          setTimeout(()=> resolve(null), 3000);
+        });
+      }
+
+      async function fetchErrorsViaSW(){
+        return new Promise((resolve) => {
+          if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller){
+            resolve([]); return;
+          }
+          const mc = new MessageChannel();
+          mc.port1.onmessage = (e) => resolve(e.data?.errors || []);
+          navigator.serviceWorker.controller.postMessage({ type:"GET_ERROR_LOG" }, [mc.port2]);
+          setTimeout(()=> resolve([]), 3000);
+        });
+      }
+
+      async function render(){
+        // Health probe
+        await fetchHealth();
+
+        // Cache stats (SW message)
+        const stats = await fetchStatsViaSW();
+        els.rows.innerHTML = "";
+        if (!stats){
+          els.rows.innerHTML = `<tr><td colspan="3" class="muted">No stats available (no controller?)</td></tr>`;
+        } else {
+          // Storage
+          if (stats.storage){
+            els.usage.textContent = fmtBytes(stats.storage.usageBytes);
+            els.quota.textContent = fmtBytes(stats.storage.quotaBytes);
+          } else {
+            // Fallback estimate from StorageManager (page context)
+            if (navigator.storage?.estimate) {
+              try{
+                const est = await navigator.storage.estimate();
+                els.usage.textContent = fmtBytes(est.usage||0);
+                els.quota.textContent = fmtBytes(est.quota||0);
+              }catch(_){}
+            }
+          }
+
+          const order = ["PAGE","ASSET","IMG","FONT","DATA","PRECACHE","META"];
+          order.forEach(key => {
+            if (!stats[key]) return;
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td><span class="pill">${key}</span></td>
+              <td class="mono">${stats[key].name||"—"}</td>
+              <td>${("count" in stats[key]) ? stats[key].count : "—"}</td>
+            `;
+            els.rows.appendChild(tr);
+          });
+        }
+      }
+
+      async function clearNonPrecache() {
+        if (!confirm("Clear all non-precache buckets? This frees space but will require re-downloading content.")) return;
+        try{
+          const names = await caches.keys();
+          const deleted = [];
+          for (const n of names){
+            if (n.includes("-pre-")) continue; // keep precache
+            if (n.startsWith("itw-")){
+              await caches.delete(n);
+              deleted.push(n);
+            }
+          }
+          alert(`Cleared ${deleted.length} caches:\n\n${deleted.join("\n")}`);
+          render();
+        }catch(err){
+          alert("Failed to clear: "+err.message);
+        }
+      }
+
+      // Wire up
+      els.refresh.addEventListener("click", render);
+      els.clear.addEventListener("click", clearNonPrecache);
+      els.errorsBtn.addEventListener("click", async () => {
+        const list = await fetchErrorsViaSW();
+        els.errorsPre.style.display = "block";
+        els.errorsPre.textContent = list.length ? JSON.stringify(list, null, 2) : "(no errors)";
+      });
+
+      // First load
+      render();
+
+      // Light auto-refresh
+      setInterval(()=> render(), 15000);
+    })();
+  </script>
+</body>
+</html>
