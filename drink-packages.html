@@ -2,28 +2,30 @@
 <html lang="en">
 <head>
   <!--
-    Soli Deo Gloria — every pixel and paragraph offered in gratitude.
-    Page: /drink-packages.html · v3.010.107 (Step B + AI Chorus keeps)
-    Baseline: Home header visuals + Planning portal’d nav behavior
-    Standards: Every Page v3.010 · Unified Nav v3.010 · Right-Rail v3.008.025 · A11y/WCAG Addendum v3.100
+    In the Wake — Drink Packages · v3.010.107 (Step-B merge)
+    Adds: à-la-carte best-value callout, inputs ARIA live, price ranges,
+          refreshed SEO (title/desc + FAQ/HowTo + Breadcrumb/WebApp JSON-LD),
+          OG/Twitter image hard path, BEV-only rec rail.
+    Parity: Home header visuals + Planning portal’d nav behavior
   -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="version" content="3.010.107"/>
-
   <title>Royal Caribbean Drink Package Calculator (Is It Worth It?) | In the Wake</title>
   <link rel="canonical" href="https://cruisinginthewake.com/drink-packages.html"/>
-  <meta name="description" content="Free Royal Caribbean beverage package calculator. Compare Soda, Refreshment, and Deluxe vs. à-la-carte with gratuities. See which option is actually worth it for your cruise."/>
 
   <!-- Social / SEO -->
+  <meta name="description" content="Free Royal Caribbean beverage package calculator. Compare Soda, Refreshment, and Deluxe vs. à-la-carte (with gratuity). See which option is actually worth it for your cruise."/>
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"/>
+
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Royal Caribbean Drink Package Calculator — In the Wake"/>
-  <meta property="og:description" content="Enter your daily drinks and see whether Soda, Refreshment, Deluxe, or à-la-carte is cheapest—gratuities included."/>
+  <meta property="og:description" content="Enter your daily drinks; we’ll compare à-la-carte vs. packages and show the cheapest strategy."/>
   <meta property="og:url" content="https://cruisinginthewake.com/drink-packages.html"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Royal Caribbean Drink Package Calculator — Worth It?"/>
-  <meta name="twitter:description" content="Compare packages vs. paying as you go using your actual habits. Includes 18% gratuity math."/>
+  <meta name="twitter:title" content="Royal Caribbean Drink Package Calculator — In the Wake"/>
+  <meta name="twitter:description" content="A quick way to check if a cruise drink package pays off for you."/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg"/>
 
   <!-- Inline CSS (Home header visuals + Planning cards/rails) -->
@@ -31,7 +33,7 @@
     :root{
       --sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e;
       --shadow:0 2px 6px rgba(8,48,65,.08);--shadow-lg:0 10px 28px rgba(8,48,65,.14);
-      --good:#0b7a43; --line:#d9e6eb; --warn:#ffc107;
+      --good:#0b7a43; --line:#d9e6eb; --warn:#b08900;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;overflow-x:hidden;background:var(--sky);color:var(--ink)}
@@ -47,7 +49,6 @@
     .card.watermark::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);
       background:url('/assets/watermark.png?v=3.010.071') center/contain no-repeat;opacity:.06;pointer-events:none}
     h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
-    .visually-hidden{position:absolute!important;clip:rect(1px,1px,1px,1px);clip-path:inset(50%);height:1px;width:1px;overflow:hidden;white-space:nowrap}
 
     /* ===== Header parity with Home (exact same visuals, portal’d behavior) ===== */
     .hero-header{position:relative;z-index:0;border-bottom:6px double var(--rope);background:#eaf6f6}
@@ -55,12 +56,9 @@
     .brand{display:flex;align-items:center;gap:.6rem}
     .brand img{height:40px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-
-    /* Skip link inline so header is tighter */
     .skip{position:static;order:-1;margin-right:.5rem;padding:.35rem .6rem;border-radius:10px;background:#083041;color:#fff;text-decoration:none}
     .skip:focus{outline:3px solid #0e6e8e;outline-offset:2px}
 
-    /* Portal’d nav visuals */
     .itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap;overflow:visible;padding-inline:.75rem}
     .itw-nav .nav-item{position:relative}
     .itw-nav .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
@@ -73,7 +71,7 @@
     .itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink)}
     .itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
 
-    /* Hero — force exact crop as Home, no tint */
+    /* Hero */
     .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);
       background:url('/assets/index_hero.jpg?v=3.010.039') center 38%/cover no-repeat !important;
       display:flex;align-items:flex-end;overflow:hidden;margin-top:.15rem;z-index:0}
@@ -83,7 +81,12 @@
     .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2}
 
-    /* Layout: content + rail like Planning */
+    /* Breadcrumbs (visible + semantic) */
+    .breadcrumb-nav{margin:0 0 1rem;font-size:.9rem}
+    .breadcrumb-nav a{color:var(--accent)}
+    .breadcrumb-nav ol{list-style:none;display:flex;gap:.5rem;padding:0;margin:0;flex-wrap:wrap}
+
+    /* Layout: content + rail */
     .grid{display:grid;gap:1.2rem}
     @media(min-width:1060px){.grid{grid-template-columns:minmax(0,1fr) 360px}}
     .rail .rail-item{display:grid;grid-template-columns:96px 1fr;gap:.75rem;margin:.6rem 0}
@@ -101,10 +104,7 @@
     .beverage-card label{display:flex;flex-direction:column;gap:.15rem}
     .beverage-card input[type=number]{width:96px;padding:.35rem .5rem;border-radius:10px;border:2px solid var(--rope);background:#fff;font:inherit;text-align:right}
     .price-note{font-size:.85rem;color:#456}
-
-    /* Breadcrumbs */
-    .breadcrumb-nav{margin:0 0 1rem;font-size:.9rem}
-    .breadcrumb-nav a{color:var(--accent)}
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
 
     /* Packages */
     .pkg-grid{display:grid;gap:1rem}
@@ -118,21 +118,18 @@
     .btn{display:inline-block;background:#fff;border:1px solid var(--rope);border-radius:999px;padding:.4rem .7rem;font-weight:600;cursor:pointer}
     .btn:hover{background:#f7f9fb}
 
-    /* Informational banners */
-    .callout{background:#f8fff9;border:2px solid var(--good);border-radius:12px;padding:.6rem 1rem;margin:.5rem 0}
-
     footer.wrap{font-size:.92rem}
   </style>
 
-  <!-- FAQ & HowTo JSON-LD (restored) -->
+  <!-- JSON-LD (FAQ, HowTo, WebApplication, BreadcrumbList) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"FAQPage",
     "mainEntity":[
-      {"@type":"Question","name":"Is the Royal Caribbean drink package worth it?","acceptedAnswer":{"@type":"Answer","text":"It’s worth it if you average about 5–6 alcoholic drinks per day. The calculator compares à-la-carte, Soda, Refreshment, and Deluxe—factoring gratuity—to show your cheapest strategy."}},
-      {"@type":"Question","name":"Does the drink package include gratuity?","acceptedAnswer":{"@type":"Answer","text":"Yes. Package prices already include the 18% service charge. À-la-carte drinks add 18% automatically. The calculator compares apples-to-apples with gratuity."}},
-      {"@type":"Question","name":"How do I use sale pricing from Cruise Planner?","acceptedAnswer":{"@type":"Answer","text":"Click Edit Price on a package card and enter your per-day sale rate. We’ll recalc totals instantly."}}
+      {"@type":"Question","name":"Is the Royal Caribbean drink package worth it?","acceptedAnswer":{"@type":"Answer","text":"It’s worth it if you average about 5–6 alcoholic drinks per day. The calculator compares à-la-carte, Soda, Refreshment, and Deluxe—with gratuity—to show your cheapest option."}},
+      {"@type":"Question","name":"Does the drink package include gratuity?","acceptedAnswer":{"@type":"Answer","text":"Yes. Package prices already include the 18% service charge. À-la-carte drinks add 18% automatically."}},
+      {"@type":"Question","name":"How do I handle sale prices from Cruise Planner?","acceptedAnswer":{"@type":"Answer","text":"Use Edit Price on any package to enter your sale rate; results update instantly."}}
     ]
   }
   </script>
@@ -144,9 +141,35 @@
     "totalTime":"PT3M",
     "step":[
       {"@type":"HowToStep","name":"Enter trip length","text":"Set cruise days (e.g., 7)."},
-      {"@type":"HowToStep","name":"Add daily drinks","text":"Enter sodas, coffees, beers, cocktails, etc."},
-      {"@type":"HowToStep","name":"Review results","text":"See which strategy is cheapest per day and for the whole trip."},
+      {"@type":"HowToStep","name":"Add daily drinks","text":"Enter how many sodas, coffees, beers, cocktails, etc."},
+      {"@type":"HowToStep","name":"Review results","text":"See which strategy is cheapest and the per-day cost."},
       {"@type":"HowToStep","name":"Adjust sale prices","text":"Use Edit Price to match Cruise Planner sales."}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Royal Caribbean Drink Package Calculator",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"Any",
+    "url":"https://cruisinginthewake.com/drink-packages.html",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "inLanguage":"en-US",
+    "isAccessibleForFree":true,
+    "publisher":{"@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com/"},
+    "description":"Compare Royal Caribbean beverage packages (Soda, Refreshment, Deluxe) vs. à-la-carte with correct gratuity."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},
+      {"@type":"ListItem","position":2,"name":"Planning","item":"https://cruisinginthewake.com/planning.html"},
+      {"@type":"ListItem","position":3,"name":"Drink Packages","item":"https://cruisinginthewake.com/drink-packages.html"}
     ]
   }
   </script>
@@ -211,26 +234,26 @@
   <div id="sharebar" class="wrap" aria-label="Share this page"></div>
 
   <main id="content" class="wrap grid" role="main">
+    <!-- BREADCRUMBS -->
+    <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+      <ol vocab="https://schema.org/" typeof="BreadcrumbList">
+        <li property="itemListElement" typeof="ListItem">
+          <a property="item" typeof="WebPage" href="/"><span property="name">Home</span></a>
+          <meta property="position" content="1"><span aria-hidden="true">›</span>
+        </li>
+        <li property="itemListElement" typeof="ListItem">
+          <a property="item" typeof="WebPage" href="/planning.html"><span property="name">Planning</span></a>
+          <meta property="position" content="2"><span aria-hidden="true">›</span>
+        </li>
+        <li property="itemListElement" typeof="ListItem" aria-current="page">
+          <span property="name">Drink Packages</span>
+          <meta property="position" content="3">
+        </li>
+      </ol>
+    </nav>
+
     <!-- LEFT: Calculator -->
     <section aria-labelledby="calc-title">
-      <!-- Visible breadcrumbs + microdata -->
-      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
-        <ol vocab="https://schema.org/" typeof="BreadcrumbList" style="list-style:none;display:flex;gap:.5rem;padding:0;margin:0;flex-wrap:wrap">
-          <li property="itemListElement" typeof="ListItem">
-            <a property="item" typeof="WebPage" href="/"><span property="name">Home</span></a>
-            <meta property="position" content="1"><span aria-hidden="true">›</span>
-          </li>
-          <li property="itemListElement" typeof="ListItem">
-            <a property="item" typeof="WebPage" href="/planning.html"><span property="name">Planning</span></a>
-            <meta property="position" content="2"><span aria-hidden="true">›</span>
-          </li>
-          <li property="itemListElement" typeof="ListItem" aria-current="page">
-            <span property="name">Drink Packages</span>
-            <meta property="position" content="3">
-          </li>
-        </ol>
-      </nav>
-
       <div class="card watermark">
         <div class="calc-header">
           <h1 id="calc-title" style="margin:.2rem 0">Beverage Calculator</h1>
@@ -243,8 +266,8 @@
           <input id="days" type="number" inputmode="numeric" pattern="[0-9]*" min="1" step="1" value="7" aria-describedby="days-help totals totals-line a11y-status"/>
           <div class="tiny muted" id="days-help">People often book 5–7 nights. Adjust as needed.</div>
           <div class="tiny" id="totals" style="grid-column:1 / -1;margin-top:.35rem"></div>
-          <div class="tiny muted" id="totals-line" style="grid-column:1 / -1">Tip: Override package prices to match the sale you see in your planner.</div>
           <div class="visually-hidden" aria-live="polite" id="a11y-status"></div>
+          <div class="tiny muted" id="totals-line" style="grid-column:1 / -1">Tip: Override package prices to match the sale you see in your planner.</div>
         </section>
 
         <!-- Inputs in column cards -->
@@ -263,13 +286,14 @@
           <li>Deluxe covers everything up to the menu cap (pay the difference above).</li>
         </ul>
 
-        <!-- À-la-carte banner will be injected above cards if it wins -->
+        <!-- À-la-carte winner banner mounts before grid -->
+        <div id="none-winner" class="tiny" style="display:none;margin:.4rem 0 1rem;padding:.6rem .75rem;border-radius:10px;background:#e9f7ef;border:1px solid #bfe3ce;color:#0b5f3b"></div>
+
         <div class="pkg-grid" id="package-cards" aria-live="polite"></div>
 
-        <!-- small FAQ teaser -->
-        <details class="card tiny" style="margin-top:1rem;background:#fffaed;border-color:var(--warn)">
+        <details class="card tiny" style="background:#fffaf0;border-color:#f5d58a;margin-top:1rem">
           <summary><strong>FAQ:</strong> Is the drink package worth it? What about the Soda package?</summary>
-          <div style="margin-top:.5rem">Short answer: Deluxe breaks even around 5–6 alcoholic drinks/day; Soda pays off at ~4 sodas/day. Use Edit Price to match your Cruise Planner sale and re-check.</div>
+          <p style="margin:.6rem 0 0">Short answer: Deluxe breaks even around 5–6 alcoholic drinks/day; Soda pays off at ~4 sodas/day. Use Edit Price to match your Cruise Planner sale and re-check.</p>
         </details>
       </div>
     </section>
@@ -278,16 +302,14 @@
     <aside class="rail" aria-label="Right rail">
       <section class="card" aria-labelledby="rec-title">
         <h3 id="rec-title">Recommended Reading</h3>
-        <div id="rec-rail" class="rail">
-          <!-- populated by JS; beverage-only -->
-        </div>
+        <div id="rec-rail" class="rail"></div>
       </section>
 
       <section class="card" aria-labelledby="author-title">
         <h3 id="author-title">About the Author</h3>
         <article class="rail-item" role="article">
           <a class="thumb" href="/authors/ken-baker.html">
-            <img src="/authors/img/ken1.jpg?v=3.010.070" width="96" height="96" alt="Ken Baker" loading="lazy" decoding="async">
+            <img src="/authors/img/ken1.jpg?v=3.010.070" alt="Ken Baker">
           </a>
           <div class="meta">
             <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -343,6 +365,7 @@
     const els = {
       inputsGrid: document.getElementById('inputs-grid'),
       packageCards: document.getElementById('package-cards'),
+      noneBanner: document.getElementById('none-winner'),
       totals: document.getElementById('totals'),
       totalsLine: document.getElementById('totals-line'),
       days: document.getElementById('days')
@@ -376,7 +399,6 @@
     }
 
     function defaultRefreshSetIfEmpty(){
-      // default: soda, specialty coffee, tea, juice, mocktails, bottled water
       if (state.sets.refresh.size===0){
         ['soda','premium-coffee','premium-tea','fresh-juice','mocktail','bottled-water'].forEach(id=>state.sets.refresh.add(id));
       }
@@ -389,11 +411,9 @@
       free.sort((a,b)=> a[1].meta.name.localeCompare(b[1].meta.name));
       state.order = [...paid.map(x=>x[0]), ...free.map(x=>x[0])];
 
-      // allocate to 3 columns round-robin
       state.cols=[[],[],[]];
       state.order.forEach((id,i)=> state.cols[i%3].push(id));
 
-      // render
       els.inputsGrid.innerHTML = '';
       state.cols.forEach(col=>{
         const card = document.createElement('div');
@@ -439,13 +459,13 @@
       const host = els.packageCards;
       host.innerHTML='';
 
-      // À-la-carte winner callout (UX)
+      // Winner banner for 'none'
       if(view.bestId === 'none'){
-        const note = document.createElement('div');
-        note.className = 'callout tiny';
-        note.setAttribute('role','status');
-        note.innerHTML = `<strong>Best value: Pay as you go (à-la-carte).</strong> You spend ${fmt(view.noneDaily)} per day on your current picks.`;
-        host.appendChild(note);
+        els.noneBanner.style.display='block';
+        els.noneBanner.textContent = `Best value: Pay as you go (à-la-carte). You spend ${fmt(view.noneDaily)} per day on your current picks.`;
+      }else{
+        els.noneBanner.style.display='none';
+        els.noneBanner.textContent='';
       }
 
       const ids=['soda','refreshment','deluxe'].filter(id=>state.packages.has(id));
@@ -457,19 +477,17 @@
 
         const costById = { none:view.noneDaily, soda:view.sodaDaily, refreshment:view.refreshDaily, deluxe:view.deluxeDaily };
         const strategyCost = costById[id];
-        const best = view.bestId===id;
 
+        const best = view.bestId===id;
         const el = document.createElement('article');
         el.className = 'pkg' + (best?' best':'');
+        const pr = (Array.isArray(p.meta.priceRange) && p.meta.priceRange[0]!==p.meta.priceRange[1])
+          ? `<span class="tiny muted" style="display:block;line-height:1.2">range ${fmt(p.meta.priceRange[0])}–${fmt(p.meta.priceRange[1])}</span>` : '';
         el.innerHTML = `
           ${best?'<span class="ribbon" role="status">Best value</span>':''}
           <header>
             <div><strong>${p.meta.name}</strong></div>
-            <div class="price" data-price="${id}">
-              ${fmt(value)}/day
-              ${Array.isArray(p.meta.priceRange)&&p.meta.priceRange[0]!==p.meta.priceRange[1]
-                ? `<span class="tiny muted" style="display:block;line-height:1.2">range ${fmt(p.meta.priceRange[0])}–${fmt(p.meta.priceRange[1])}</span>` : ''}
-            </div>
+            <div class="price" data-price="${id}">${fmt(value)}/day${pr}</div>
           </header>
           <div class="body tiny" style="margin:.1rem 0 .4rem">
             Included value (your picks): <strong>${fmt(includeVal)}</strong> /day
@@ -572,7 +590,7 @@
           });
         });
 
-        // authoritative sets (with default refresh support)
+        // authoritative sets
         state.sets={
           soda:    new Set(data.sets?.soda    || ['soda']),
           refresh: new Set(data.sets?.refresh || []),
@@ -607,23 +625,22 @@
 
     els.days.addEventListener('input', ()=>{ state.days = Math.max(1, parseInt(els.days.value||'1',10)); computeAndRender(); });
 
-    /* ---------------- Recommended Reading (beverage-only, hardened images) ---------------- */
+    /* ---------------- Recommended Reading (BEV-only, no extras) ---------------- */
     (function recs(){
       const rail = document.getElementById('rec-rail');
       if (!rail) return;
 
       const BEV = [
         {url:'/articles/should-you-buy-the-deluxe-package.html', title:'Should you buy the Deluxe package?', img:'/assets/articles/top-20-questions/cover.jpg'},
-        {url:'/articles/how-gratuities-work-on-drink-packages.html', title:'How drink gratuities really work', img:'/assets/articles/top-20-questions/cover.jpg'},
+        {url:'/articles/how-gratuities-work-on-drink-packages.html', title:'How drink gratuities really work', img:'/assets/index_hero.jpg'},
         {url:'/articles/mocktails-and-kids-soda-plans.html', title:'Mocktails & kids’ soda plans', img:'/assets/placeholders/article-thumb.jpg'}
       ];
 
       function card(a){
-        const img = a.img || '/assets/placeholders/article-thumb.jpg';
         return `
           <article class="rail-item" role="article">
             <a class="thumb" href="${a.url}" data-prefetch="hover">
-              <img src="${img}" alt="" loading="lazy" decoding="async" onerror="this.src='/assets/placeholders/article-thumb.jpg'">
+              <img src="${a.img||'/assets/placeholders/article-thumb.jpg'}" alt="">
             </a>
             <div class="meta"><h4><a href="${a.url}" data-prefetch="hover">${a.title}</a></h4></div>
           </article>`;
