@@ -4,100 +4,169 @@
   <meta charset="utf-8" />
   <title>Drink Packages Calculator • In the Wake</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Pick your daily drinks and we’ll compare à-la-carte vs. cruise line beverage packages.">
+  <meta name="theme-color" content="#0e6e8e">
 
   <style>
     :root{
-      --ink:#0a3d62; --muted:#5f6b72; --bg:#f7f9fa; --card:#ffffff; --line:#dfe7ea; --accent:#0e6e8e; --good:#0b7a43;
+      /* Palette */
+      --ink:#0a3d62; --muted:#5f6b72; --bg:#f7f9fa; --card:#ffffff; --line:#dfe7ea;
+      --accent:#0e6e8e; --accent-2:#0a5a75; --good:#0b7a43; --warn:#8a1d1d;
+
+      /* Typescale & rhythm */
+      --fs-1: clamp(1.25rem, 2.4vw, 1.75rem);
+      --fs-2: 1.05rem;
+      --fs-3: .95rem;
+      --fs-4: .88rem;
+      --rh: .75rem;
+
+      /* Shape & shadow */
+      --r: 12px;
+      --shadow: 0 1px 2px rgba(10,61,98,.04);
+      --focus: 0 0 0 3px rgba(14,110,142,.25);
     }
+
     *{ box-sizing:border-box }
+    html,body{ height:100% }
     body{
-      margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--ink); background:var(--bg);
+      margin:0;
+      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
+
     header.wrap, main.wrap, footer.wrap{
-      max-width:980px; margin:0 auto; padding:1rem 1rem 1.25rem;
+      max-width:980px; margin-inline:auto; padding:1rem 1rem 1.25rem;
     }
     header.wrap{ padding-top:1.25rem }
-    h1{ margin:0 0 .35rem; font-size:clamp(1.25rem, 2.4vw, 1.75rem) }
+    h1{ margin:0 0 .35rem; font-size:var(--fs-1) }
+    h2{ margin:.25rem 0 .35rem; font-size:var(--fs-2) }
     .muted{ color:var(--muted) }
-    .tiny{ font-size:.88rem }
+    .tiny{ font-size:var(--fs-4) }
+
+    /* Controls */
     .pill-row{ display:flex; gap:.5rem; flex-wrap:wrap; margin:.35rem 0 .75rem }
     .pill{
       border:1px solid var(--line); background:#fff; color:var(--ink);
-      padding:.35rem .6rem; border-radius:999px; cursor:pointer; font-weight:600;
+      padding:.45rem .75rem; border-radius:999px; cursor:pointer; font-weight:700;
+      transition: background-color .15s ease, color .15s ease, border-color .15s ease;
     }
+    .pill:focus-visible{ outline:none; box-shadow:var(--focus) }
+    .pill:hover{ background:#f2f7f9 }
     .pill[aria-current="true"]{ background:var(--accent); color:#fff; border-color:var(--accent) }
+
     .grid{
       display:grid; grid-template-columns:repeat(12, 1fr); gap:1rem; align-items:start;
     }
     .col-5{ grid-column:span 5 }
     .col-7{ grid-column:span 7 }
     @media (max-width:900px){ .col-5, .col-7{ grid-column:1 / -1 } }
+
     .card{
-      background:var(--card); border:1px solid var(--line); border-radius:12px;
-      padding:1rem; box-shadow:0 1px 2px rgba(10,61,98,0.04);
+      background:var(--card); border:1px solid var(--line); border-radius:var(--r);
+      padding:1rem; box-shadow:var(--shadow);
     }
+
     .calc-row{
       display:grid; grid-template-columns:1fr auto; gap:.5rem; align-items:center;
     }
+    label{ font-weight:700 }
     input[type="number"]{
-      width:6rem; font:inherit; padding:.4rem .5rem; border-radius:8px;
+      width:6.25rem; font:inherit; padding:.5rem .6rem; border-radius:8px;
       border:1px solid var(--line); background:#fff;
     }
+    input[type="number"]:focus-visible{ outline:none; box-shadow:var(--focus) }
+
     #beverage-inputs .card{ margin-bottom:.6rem }
-    .price{ font-weight:700 }
+
+    .price{ font-weight:800; white-space:nowrap }
+
     #package-cards{ display:grid; gap:.75rem }
     @media (min-width:720px){ #package-cards{ grid-template-columns:repeat(3, 1fr) } }
+
     article.pkg{ position:relative; overflow:hidden }
     .pkg .ribbon{
       position:absolute; top:.75rem; right:-.5rem; transform:rotate(12deg);
       background:var(--good); color:#fff; padding:.25rem .65rem; border-radius:6px;
       font-size:.8rem; box-shadow:0 2px 6px rgba(0,0,0,.12);
     }
-    .pkg.highlight{ outline:2px solid var(--good); }
-    .pkg header{ display:flex; align-items:flex-start; justify-content:space-between; gap:.65rem; margin-bottom:.35rem }
-    .pkg header .price{ white-space:nowrap }
-    .pkg .body{ color:var(--ink) }
-    .override{ margin-top:.35rem }
-    button{
-      background:#fff; border:1px solid var(--line); border-radius:999px; padding:.4rem .65rem;
-      color:var(--ink); font-weight:600; cursor:pointer;
+    @media (prefers-reduced-motion: reduce){
+      .pkg .ribbon{ transform:none }
     }
-    button.override{ border-color:var(--accent); color:var(--accent); }
-    button.override:hover{ background:rgba(14,110,142,.06) }
+    .pkg.highlight{ outline:2px solid var(--good); outline-offset:2px }
+    .pkg header{ display:flex; align-items:flex-start; justify-content:space-between; gap:.65rem; margin-bottom:.35rem }
+    .pkg .body{ color:var(--ink) }
+    .pkg ul{ margin:.5rem 0 0 1.25rem }
+    .pkg li{ margin:.15rem 0 }
+
+    .override-row{ margin-top:.45rem; display:flex; gap:.35rem; align-items:center; flex-wrap:wrap }
+    .btn{
+      background:#fff; border:1px solid var(--line); border-radius:999px; padding:.5rem .75rem;
+      color:var(--ink); font-weight:700; cursor:pointer;
+      transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .btn:hover{ background:#f2f7f9 }
+    .btn:focus-visible{ outline:none; box-shadow:var(--focus) }
+    .btn.primary{ background:var(--accent); color:#fff; border-color:var(--accent) }
+    .btn.primary:hover{ background:var(--accent-2) }
+    .btn.link{ border-color:transparent; padding:.25rem .4rem; color:var(--accent) }
+    .btn.link:hover{ background:rgba(14,110,142,.06) }
+
     .hr{ height:1px; background:var(--line); margin:.75rem 0 }
     .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+
+    /* Print */
+    @media print{
+      header.wrap, footer.wrap{ display:none }
+      main.wrap{ max-width:none; padding:0 }
+      body{ background:#fff }
+      .grid{ display:block }
+      .card{ border:none; box-shadow:none; padding:0 }
+      .pkg .ribbon{ display:none }
+      #package-cards{ display:block }
+      article.pkg{ break-inside:avoid; margin:0 0 1rem }
+    }
   </style>
 </head>
 <body>
+  <a class="sr-only" href="#main">Skip to main content</a>
+
   <header class="wrap" role="banner">
     <h1>Beverage Calculator</h1>
     <p class="muted tiny">Pick your daily drinks and we’ll compare à-la-carte vs. packages.</p>
 
-    <div class="pill-row">
-      <button id="pill-rccl" class="pill" data-src="/assets/data/lines/royal-caribbean.json" aria-current="true">
-        Royal Caribbean
-      </button>
-      <!-- Future lines can be added here as more JSONs land -->
-    </div>
+    <nav aria-label="Cruise line">
+      <div class="pill-row" role="tablist" aria-orientation="horizontal">
+        <button id="pill-rccl" class="pill" role="tab" aria-selected="true" aria-current="true"
+                data-src="/assets/data/lines/royal-caribbean.json">
+          Royal Caribbean
+        </button>
+        <!-- Add more lines when ready:
+        <button class="pill" role="tab" aria-selected="false" data-src="/assets/data/lines/carnival.json" data-cruise-line="carnival">Carnival</button>
+        -->
+      </div>
+    </nav>
 
-    <div class="calc-row" style="max-width:420px">
+    <form class="calc-row" style="max-width:480px" aria-describedby="days-help">
       <label for="days"><strong>Trip length</strong></label>
       <input id="days" type="number" inputmode="numeric" min="1" step="1" value="7" aria-describedby="days-help" />
-    </div>
-    <!-- You asked “where does this go?” — right here under the day selector: -->
-    <div id="totals" class="tiny" aria-live="polite" style="margin-top:.35rem"></div>
+    </form>
+    <p id="days-help" class="tiny muted" style="margin:.25rem 0 0">Enter total cruise nights per person.</p>
+
+    <div id="totals" class="tiny" aria-live="polite" style="margin-top:.45rem"></div>
     <div id="totals-line" class="tiny muted" aria-live="polite" style="margin-top:.15rem"></div>
   </header>
 
-  <main class="wrap" role="main">
-    <div class="grid">
-      <section class="col-5">
-        <h2 class="sr-only">Your picks</h2>
-        <div id="beverage-inputs"></div>
+  <main id="main" class="wrap" role="main">
+    <div class="grid" style="margin-top:.25rem">
+      <section class="col-5" aria-labelledby="your-picks">
+        <h2 id="your-picks">Your picks</h2>
+        <div id="beverage-inputs" aria-live="polite"></div>
       </section>
 
-      <section class="col-7">
+      <section class="col-7" aria-labelledby="packages-title">
         <h2 id="packages-title">Beverage Packages</h2>
         <div class="tiny muted" id="packages-expl" style="margin:-.35rem 0 .5rem"></div>
         <div id="package-cards"></div>
@@ -113,81 +182,116 @@
   (function(){
     "use strict";
 
-    // --- App State ----------------------------------------------------------
+    /* -----------------------------------------------------------------------
+       State & constants
+    ----------------------------------------------------------------------- */
+    const VERSION = "v3.010.102";
+    const DEFAULT_EPSILON = 0.02; // daily-cost tie threshold in USD
     const state = {
       days: 7,
-      epsilon: 0.02,            // tie threshold (can be overridden by dataset.rules.epsilon)
-      items: new Map(),         // id -> { meta, qtyPerDay }
-      order: [],                // input ordering
-      sets: { soda: new Set(), refresh: new Set(), alcohol: new Set() },
-      packages: new Map(),      // id -> { meta }
-      lineId: '',
-      lineTitle: ''
+      epsilon: DEFAULT_EPSILON,
+      items: new Map(),   // id -> { meta, qtyPerDay }
+      order: [],
+      sets: { soda:new Set(), refresh:new Set(), alcohol:new Set() },
+      packages: new Map(),// id -> { meta }
+      lineId: 'royal-caribbean',
+      lineTitle: 'Royal Caribbean'
     };
 
-    // --- Elements -----------------------------------------------------------
     const els = {
       inputsHost:  document.getElementById('beverage-inputs'),
       packageHost: document.getElementById('package-cards'),
       packagesTitle: document.getElementById('packages-title'),
       packagesExpl: document.getElementById('packages-expl'),
-      totals:      document.getElementById('totals'),
-      totalsLine:  document.getElementById('totals-line'),
-      days:        document.getElementById('days'),
-      pillRccl:    document.getElementById('pill-rccl')
+      totals: document.getElementById('totals'),
+      totalsLine: document.getElementById('totals-line'),
+      days: document.getElementById('days'),
+      pillRccl: document.getElementById('pill-rccl')
     };
 
-    // --- Utils --------------------------------------------------------------
+    /* -----------------------------------------------------------------------
+       Utilities
+    ----------------------------------------------------------------------- */
     const fmt = n => '$' + (Math.round(n * 100) / 100).toFixed(2);
     const getLS = (k,d)=>{ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(_){ return d; } };
     const setLS = (k,v)=>{ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){ } };
+    const clampInt = (v,min=0)=> Math.max(min, Number.isFinite(+v) ? Math.trunc(+v) : min);
 
     // If site-cache.js is present it exposes window.itwSeedSW; otherwise no-op
-    const seedSW = (urls, priority='normal')=>{
-      try{ if (window.itwSeedSW) window.itwSeedSW(urls, priority); }catch(_){}
-    };
+    const seedSW = (urls, priority='normal')=>{ try{ window.itwSeedSW && window.itwSeedSW(urls, priority); }catch(_){} };
 
     function sanitizedHTML(str=''){
-      // very light sanitizer for known-safe snippets we control
       const div = document.createElement('div');
       div.innerHTML = str;
-      // strip script/style
       div.querySelectorAll('script,style').forEach(n=>n.remove());
+      [...div.querySelectorAll('*')].forEach(n=>{
+        [...n.attributes].forEach(a=>{
+          if (/^on/i.test(a.name)) n.removeAttribute(a.name);
+        });
+      });
       return div.innerHTML;
     }
 
-    // --- Rendering ----------------------------------------------------------
+    // URL state: share days and any non-zero quantities
+    function syncURLState(){
+      const params = new URLSearchParams();
+      params.set('days', String(state.days));
+      state.items.forEach((it, id) => {
+        if ((it.qtyPerDay|0) > 0) params.set(id, String(it.qtyPerDay|0));
+      });
+      history.replaceState(null, '', '?' + params.toString());
+    }
+
+    function restoreFromURL(){
+      const params = new URLSearchParams(location.search);
+      if (params.has('days')) {
+        const d = clampInt(params.get('days'), 1);
+        els.days.value = state.days = Math.max(1, d);
+      }
+      state.items.forEach((it, id) => {
+        if (params.has(id)) {
+          const q = clampInt(params.get(id), 0);
+          it.qtyPerDay = q;
+        }
+      });
+    }
+
+    /* -----------------------------------------------------------------------
+       Rendering
+    ----------------------------------------------------------------------- */
     function renderInputs(){
-      els.inputsHost.innerHTML = state.order.map(id=>{
+      const html = state.order.map(id=>{
         const it = state.items.get(id);
         const priceNote = it.meta.free
           ? '<span class="muted">(included · $0)</span>'
           : `<span class="price tiny">avg ${fmt(it.meta.avgPrice)}</span>`;
+        const helpId = `help-${id}`;
         return `
-          <div class="card" style="padding:.7rem .8rem">
+          <div class="card" style="padding:.85rem .9rem">
             <div class="calc-row">
               <label for="qty-${id}">${it.meta.name}</label>
-              <input id="qty-${id}" type="number" inputmode="numeric" min="0" step="1" value="${it.qtyPerDay||0}" data-item="${id}" aria-describedby="help-${id}" />
-              <div class="tiny muted" id="help-${id}">${priceNote}</div>
+              <input id="qty-${id}" type="number" inputmode="numeric" min="0" step="1" value="${it.qtyPerDay||0}" data-item="${id}" aria-describedby="${helpId}" />
+              <div class="tiny muted" id="${helpId}">${priceNote}</div>
             </div>
             ${it.meta.notes ? `<div class="tiny muted" style="margin-top:.35rem">${it.meta.notes}</div>` : ``}
           </div>`;
       }).join('');
+      els.inputsHost.innerHTML = html;
 
       els.inputsHost.querySelectorAll('input[type="number"]').forEach(inp=>{
         inp.addEventListener('input', ()=>{
           const id = inp.dataset.item;
           const ent = state.items.get(id);
-          ent.qtyPerDay = Math.max(0, parseInt(inp.value || '0', 10));
+          ent.qtyPerDay = clampInt(inp.value, 0);
           computeAndRender();
         });
+        inp.addEventListener('blur', ()=>{ inp.value = String(clampInt(inp.value, 0)); });
       });
     }
 
     function pkgPriceDisplay(pmeta){
       const key = 'pkgOverride:'+state.lineId+':'+pmeta.id;
       const ov = getLS(key, null);
-      // choose: override → avg → lower bound → 0
       const value = ov!=null ? Number(ov) : (Number(pmeta.avg) || (pmeta.priceRange?.[0] ?? 0));
       return { value, overridden: ov!=null };
     }
@@ -199,39 +303,41 @@
         const { value, overridden } = pkgPriceDisplay(p.meta);
         const range = p.meta.priceRange ? ` (${fmt(p.meta.priceRange[0])}–${fmt(p.meta.priceRange[1])})` : '';
         const strategyCost = view[p.meta.id+'Daily'] ?? null;
-
         const includeVal = view.includedDaily[p.meta.id] ?? 0;
-        const qualifies = includeVal >= value - 1e-6;
 
         const el = document.createElement('article');
         el.className = `pkg card ${view.bestIds.has(p.meta.id)?'highlight':''}`;
         el.id = `pkg-${p.meta.id}`;
-        el.setAttribute('aria-live','polite');
+        el.setAttribute('tabindex','0');
+        el.setAttribute('aria-label', `${p.meta.name} package`);
 
         const descList = Array.isArray(p.meta.description)&&p.meta.description.length
-          ? `<ul class="tiny" style="margin:.5rem 0 0 1.25rem">${p.meta.description.map(d=>`<li>${d}</li>`).join('')}</ul>`
+          ? `<ul class="tiny">${p.meta.description.map(d=>`<li>${d}</li>`).join('')}</ul>`
           : '';
 
         el.innerHTML = `
-          <span class="ribbon" role="status" style="display:${view.bestIds.has(p.meta.id)?'inline-block':'none'}">Best value</span>
+          <span class="ribbon" role="status" aria-hidden="${!view.bestIds.has(p.meta.id)}"
+                style="display:${view.bestIds.has(p.meta.id)?'inline-block':'none'}">Best value</span>
           <header>
             <div><strong>${p.meta.name}</strong> <span class="tiny muted">${range}</span></div>
-            <div class="price" data-price="${p.meta.id}">${fmt(value)}</div>
+            <div class="price" data-price="${p.meta.id}" title="Your price per person per day">${fmt(value)}</div>
           </header>
           <div class="body">
             <div class="tiny" style="margin:.1rem 0 .4rem">
               Included value (your picks): <strong>${fmt(includeVal)}</strong> /day
               ${strategyCost!=null ? `<span class="muted">· With this package you’d pay <strong>${fmt(strategyCost)}</strong> /day</span>` : ``}
             </div>
-            <button class="pill override" data-ov="${p.meta.id}" type="button">${overridden?'Edit Price (overridden)':'Edit Price'}</button>
+            <div class="override-row">
+              <button class="btn link" data-reset="${p.meta.id}" type="button" aria-label="Reset ${p.meta.name} price to default" ${overridden?'':'hidden'}>Reset</button>
+              <button class="btn" data-ov="${p.meta.id}" type="button" aria-label="Edit ${p.meta.name} price">${overridden?'Edit Price (overridden)':'Edit Price'}</button>
+            </div>
             ${descList}
           </div>`;
 
         frag.appendChild(el);
       });
 
-      els.packageHost.innerHTML = '';
-      els.packageHost.appendChild(frag);
+      els.packageHost.replaceChildren(frag);
 
       els.packageHost.querySelectorAll('button[data-ov]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
@@ -247,41 +353,55 @@
           computeAndRender();
         });
       });
+      els.packageHost.querySelectorAll('button[data-reset]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id = btn.dataset.reset;
+          const key = 'pkgOverride:'+state.lineId+':'+id;
+          localStorage.removeItem(key);
+          computeAndRender();
+        });
+      });
     }
 
     function computeAndRender(){
-      // daily spend by item
-      let dailyTotal = 0;
-      let sodaSpend = 0, refreshNonAlcoholSpend = 0, alcoholSpend = 0;
+      // Sanitize days
+      state.days = Math.max(1, clampInt(els.days.value || 1, 1));
+      els.days.value = String(state.days);
 
+      // daily spend by item
+      let dailyTotal = 0, sodaSpend = 0, refreshSpend = 0, alcoholSpend = 0;
       state.items.forEach((it,id)=>{
         const spend = (it.meta.avgPrice||0) * (it.qtyPerDay||0);
         dailyTotal += spend;
         if (state.sets.soda.has(id))     sodaSpend += spend;
-        if (state.sets.refresh.has(id))  refreshNonAlcoholSpend += spend;
+        if (state.sets.refresh.has(id))  refreshSpend += spend;
         if (state.sets.alcohol.has(id))  alcoholSpend += spend;
       });
 
-      const days = Math.max(1, parseInt(els.days.value||'1',10));
-      state.days = days;
-      const tripTotal = dailyTotal * days;
+      const tripTotal = dailyTotal * state.days;
       els.totals.textContent = `Daily total (à la carte): ${fmt(dailyTotal)} · Trip total: ${fmt(tripTotal)}`;
-      els.totalsLine.textContent = `Tip: You can override package prices to match the sale you see in your planner.`;
+      els.totalsLine.textContent = `Tip: override package prices to match any sale you see in your planner.`;
 
+      // package daily values
       const pkg = {};
       ['soda','refreshment','deluxe'].forEach(pid=>{
         const meta = state.packages.get(pid)?.meta;
         if (meta) pkg[pid] = pkgPriceDisplay(meta).value;
       });
 
+      // What each strategy costs per-day with current picks:
+      // none: pay all a-la-carte
       const noneDaily    = dailyTotal;
-      const sodaDaily    = (pkg.soda ?? Infinity) + (dailyTotal - sodaSpend);
-      const refreshDaily = (pkg.refreshment ?? Infinity) + alcoholSpend; // refresh covers refresh set only
-      const deluxeDaily  = (pkg.deluxe ?? Infinity); // deluxe covers all
+      // soda: pay package + everything not covered by soda set
+      const sodaDaily    = (pkg.soda ?? Number.POSITIVE_INFINITY) + (dailyTotal - sodaSpend);
+      // refreshment: package covers refresh set only, pay alcohol a-la-carte
+      const refreshDaily = (pkg.refreshment ?? Number.POSITIVE_INFINITY) + alcoholSpend;
+      // deluxe: package covers all, so just the package price
+      const deluxeDaily  = (pkg.deluxe ?? Number.POSITIVE_INFINITY);
 
       const includedDaily = {
         soda: sodaSpend,
-        refreshment: refreshNonAlcoholSpend,
+        refreshment: refreshSpend,
         deluxe: dailyTotal
       };
 
@@ -291,46 +411,49 @@
         {id:'refreshment', cost:refreshDaily,    rank:2},
         {id:'deluxe',      cost:deluxeDaily,     rank:3}
       ];
-
       entries.sort((a,b)=>{
-        if (Math.abs(a.cost-b.cost) <= state.epsilon) return b.rank - a.rank; // prefer more inclusive on tie
+        if (Math.abs(a.cost-b.cost) <= state.epsilon) return b.rank - a.rank; // prefer more inclusive package on tie
         return a.cost - b.cost;
       });
       const bestCost = entries[0].cost;
       const bestIds = new Set(entries.filter(e=>Math.abs(e.cost-bestCost) <= state.epsilon).map(e=>e.id));
 
       renderPackages({ noneDaily, sodaDaily, refreshDaily, deluxeDaily, includedDaily, bestIds });
+      syncURLState();
     }
 
-    // --- Dataset Loader (adapts your JSON schema) ---------------------------
+    /* -----------------------------------------------------------------------
+       Dataset loader (adapts your JSON schema)
+    ----------------------------------------------------------------------- */
     async function loadDataset(src){
       try{
-        let data = null;
-        if (src && src.startsWith('#')){
-          const tag = document.querySelector(src);
-          if (!tag) throw new Error('missing inline JSON');
-          data = JSON.parse(tag.textContent);
-        }else{
-          const r = await fetch(src, { cache:'no-store', credentials:'omit' });
-          if(!r.ok) throw new Error('Bad response');
-          data = await r.json();
-        }
+        // Hint the SW to warm this dataset
+        if (typeof src === 'string') seedSW([src], 'high');
 
-        // titles / text
-        state.lineId   = data.lineId || data.line || 'unknown-line';
-        state.lineTitle= data.text?.lineTitle || data.text?.line || 'Cruise Line';
+        const data = await (async ()=>{
+          if (src && src.startsWith('#')){
+            const tag = document.querySelector(src);
+            if (!tag) throw new Error('missing inline JSON');
+            return JSON.parse(tag.textContent);
+          }else{
+            const r = await fetch(src, { cache:'no-store', credentials:'omit' });
+            if(!r.ok) throw new Error('Bad response '+r.status);
+            return r.json();
+          }
+        })();
+
+        // titles
+        state.lineId   = data.lineId || data.line || state.lineId;
+        state.lineTitle= data.text?.lineTitle || data.text?.line || state.lineTitle;
         els.packagesTitle.textContent = data.text?.packagesTitle || (state.lineTitle + ' Beverage Packages');
         els.packagesExpl.innerHTML = sanitizedHTML(data.text?.packagesExplHtml || '');
 
-        // epsilon (tie preference)
-        if (typeof data.rules?.epsilon === 'number') state.epsilon = data.rules.epsilon;
+        // epsilon
+        state.epsilon = typeof data.rules?.epsilon === 'number' ? data.rules.epsilon : DEFAULT_EPSILON;
 
-        // items: adapt from {id, label, price, free?}
+        // items
         state.items = new Map();
-        const baseItems = [...(data.items || [])];
-
-        // Map to internal
-        baseItems.forEach(it=>{
+        for (const it of (data.items || [])){
           state.items.set(it.id, {
             meta: {
               id: it.id,
@@ -341,10 +464,10 @@
             },
             qtyPerDay: 0
           });
-        });
+        }
 
-        // input order: paid items first (descending price), then free alpha
-        const paid = [], free = [];
+        // order: paid items by price desc, then free alpha
+        const paid=[], free=[];
         state.items.forEach((v,k)=> (v.meta.free?free:paid).push([k,v]));
         paid.sort((a,b)=> (b[1].meta.avgPrice - a[1].meta.avgPrice));
         free.sort((a,b)=> a[1].meta.name.localeCompare(b[1].meta.name));
@@ -357,28 +480,25 @@
           alcohol: new Set(data.sets?.alcohol || [])
         };
 
-        // packages (object keyed by id)
+        // packages
         state.packages = new Map();
         const pkgObj = data.packages || {};
-        Object.keys(pkgObj).forEach(k=>{
+        for (const k of Object.keys(pkgObj)){
           const p = pkgObj[k];
-          const pr = parseRange(p.range);
           state.packages.set(k, {
             meta: {
               id: k,
               name: p.name || k,
               avg: Number(p.price || p.avg || 0),
-              priceRange: pr,
-              // Let description be a nice blend of their "includes"
+              priceRange: parseRange(p.range),
               description: Array.isArray(p.includes) ? p.includes.slice() : []
             }
           });
-        });
+        }
 
-        // seed SW with the dataset + likely next pages/images (low priority)
-        seedSW([typeof src==='string' ? src : location.pathname + src], 'low');
-
+        // Render
         renderInputs();
+        restoreFromURL();
         computeAndRender();
       }catch(err){
         console.warn('Dataset load failed:', err?.message||err);
@@ -395,19 +515,27 @@
       return [Math.min(a,b), Math.max(a,b)];
     }
 
-    // --- Events -------------------------------------------------------------
-    els.days.addEventListener('input', computeAndRender);
+    /* -----------------------------------------------------------------------
+       Events
+    ----------------------------------------------------------------------- */
+    // Trip length changes
+    els.days.addEventListener('input', ()=>{ els.days.value = String(clampInt(els.days.value,1)); computeAndRender(); });
+    els.days.addEventListener('blur',  ()=>{ els.days.value = String(clampInt(els.days.value,1)); computeAndRender(); });
 
+    // Line pills (only RCCL active here)
     document.getElementById('pill-rccl').addEventListener('click', (e)=>{
-      document.querySelectorAll('.pill-row .pill').forEach(p=>p.setAttribute('aria-current','false'));
+      document.querySelectorAll('.pill-row .pill').forEach(p=>{
+        p.setAttribute('aria-selected','false');
+        p.setAttribute('aria-current','false');
+      });
+      e.currentTarget.setAttribute('aria-selected','true');
       e.currentTarget.setAttribute('aria-current','true');
       const src = e.currentTarget.getAttribute('data-src');
-      // pre-warm this dataset & page
-      seedSW([src, '/drink-packages.html'], 'high');
+      seedSW([src, location.pathname], 'high');
       loadDataset(src);
     });
 
-    // --- Boot with Royal dataset -------------------------------------------
+    // Boot with Royal dataset
     loadDataset(els.pillRccl.getAttribute('data-src'));
   })();
   </script>
