@@ -1,19 +1,24 @@
 /* sw.js — In the Wake Service Worker (v20.1)
-   Fixes: no giant image precache; preserve ?v=; no double-?v; normalize '/'→'/index.html'
-   Adds: dedup seeding; error log; cache stats; LRU-ish prune; stale-if-error(JSON);
-         WebP-first images; offline fallback; priority warmup; copy precache→runtime
+   Key features:
+   - Correct versioning: preserves ?v= and never double-appends
+   - Normalizes "/" to "/index.html" for PAGE cache keys
+   - Cache partitioning + LRU-style pruning via metadata cache
+   - Strategies: cacheFirst(assets/fonts), SWR(images/json), networkFirst(html)
+   - WebP-first image serving with graceful fallback
+   - JSON stale-if-error (default 1h)
+   - Warm-up from precache-manifest.json + sitemap; dedupbed seeding
+   - Message API: SEED_URLS, GET_CACHE_STATS, GET_ERROR_LOG
+   - Health endpoint: /__sw_health (JSON)
 */
 
 const SW_VERSION = "v20.1";
-let DEBUG = false; // can be toggled via a message if you want to add that later
+let DEBUG = false; // You can toggle via site-cache.js message: {type:'SET_DEBUG', enabled:true}
+
 const PREFIX = "itw";
 const OFFLINE_URL = "/offline.html";
+const MANIFEST_URL = "/precache-manifest.json";
 
-let CONFIG = {
-  maxPages: 60, maxAssets: 60, maxImages: 360, maxFonts: 30, maxData: 30,
-  staleMaxAge: 3600000 // 1h acceptable staleness for JSON
-};
-
+// Cache names
 const CACHE = {
   PAGE:     `${PREFIX}-page-${SW_VERSION}`,
   ASSET:    `${PREFIX}-asset-${SW_VERSION}`,
@@ -24,230 +29,252 @@ const CACHE = {
   META:     `${PREFIX}-meta-${SW_VERSION}` // LRU metadata store
 };
 
-const MANIFEST_URL = "/precache-manifest.json";
+// Defaults (overridable by manifest.config)
+let CONFIG = {
+  maxPages: 60,
+  maxAssets: 60,
+  maxImages: 360,
+  maxFonts: 30,
+  maxData: 30,
+  staleMaxAge: 3600000 // 1h JSON stale-if-error
+};
+
 const ERROR_LOG = [];
 const MAX_ERRORS = 50;
 
-// ---------------- Lifecycle ----------------
+// ---------- Utils ----------
+function logError(context, error, url = "") {
+  ERROR_LOG.push({
+    time: Date.now(),
+    context,
+    message: error?.message || String(error),
+    name: error?.name || "Error",
+    url,
+    sw_version: SW_VERSION
+  });
+  if (ERROR_LOG.length > MAX_ERRORS) ERROR_LOG.shift();
+  if (DEBUG) console.warn(`[SW ${SW_VERSION}] ${context}:`, error, url);
+}
+
+function sameOrigin(u) {
+  try { return new URL(u, location.origin).origin === location.origin; } catch { return false; }
+}
+
+function normalizeURLForCache(u) {
+  const url = new URL(u, location.origin);
+  if (url.pathname === "/") url.pathname = "/index.html"; // normalize root
+  // strip only marketing noise, keep version pins
+  ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid","gclid","mc_cid","mc_eid"]
+    .forEach(p => url.searchParams.delete(p));
+  url.hash = "";
+  return new URL(url.pathname + url.search, location.origin);
+}
+
+function isImageURL(url) { return /\.(?:avif|webp|jpg|jpeg|png|gif|svg)(\?.*)?$/i.test(url); }
+function isFontRequest(req) { return req.destination === "font" || /\.(?:woff2?|ttf|otf)(\?.*)?$/i.test(req.url); }
+function isJSONRequest(req) {
+  if (req.destination === "script") return false;
+  return /\.json(\?.*)?$/i.test(req.url);
+}
+function isHTMLLike(req) {
+  if (req.destination === "document") return true;
+  const url = new URL(req.url);
+  return url.pathname.endsWith(".html") || url.pathname === "/";
+}
+function isVersionedAsset(url) {
+  return /\.(?:css|js)(\?.*)?$/i.test(url) && /[?&]v=[^&]+/i.test(url);
+}
+function cacheKey(request) {
+  const url = new URL(request.url);
+  return new Request(url.href, { method: "GET" });
+}
+
+async function fetchWithTimeout(request, ms = 8000) {
+  const controller = new AbortController();
+  const t = setTimeout(() => controller.abort(), ms);
+  try {
+    const res = await fetch(request, { signal: controller.signal });
+    clearTimeout(t);
+    return res;
+  } catch (err) {
+    clearTimeout(t);
+    throw err;
+  }
+}
+
+// ---------- LRU helpers ----------
+async function updateLRU(cacheName, url) {
+  try {
+    const meta = await caches.open(CACHE.META);
+    await meta.put(new Request(url + ":lru"), new Response(JSON.stringify({ lastAccess: Date.now() })));
+  } catch (_) {}
+}
+
+async function prune(cacheName, max) {
+  try {
+    const cache = await caches.open(cacheName);
+    const keys = await cache.keys();
+    if (keys.length <= max) return;
+
+    const meta = await caches.open(CACHE.META);
+    const items = await Promise.all(keys.map(async k => {
+      const mk = await meta.match(k.url + ":lru");
+      const data = mk ? await mk.json() : { lastAccess: 0 };
+      return { key: k, lastAccess: data.lastAccess || 0 };
+    }));
+
+    items.sort((a, b) => a.lastAccess - b.lastAccess);
+    const toDelete = items.slice(0, items.length - max);
+    await Promise.all(toDelete.map(i => Promise.all([
+      cache.delete(i.key),
+      meta.delete(i.key.url + ":lru")
+    ])));
+  } catch (_) {}
+}
+
+// ---------- Install / Activate ----------
 self.addEventListener("install", (e) => {
   e.waitUntil((async () => {
     await self.skipWaiting();
-    await cacheOfflinePage().catch(()=>{});
+    try {
+      const c = await caches.open(CACHE.PRECACHE);
+      await c.add(new Request(OFFLINE_URL, { cache: "reload" }));
+    } catch (_) {}
   })());
 });
 
 self.addEventListener("activate", (e) => {
   e.waitUntil((async () => {
-    await self.clients.claim();
-    if (self.registration.navigationPreload) {
-      try { await self.registration.navigationPreload.enable(); } catch(_) {}
+    try {
+      await self.clients.claim();
+      if (self.registration.navigationPreload) {
+        try { await self.registration.navigationPreload.enable(); } catch (_) {}
+      }
+      // cleanup old caches
+      const keep = new Set(Object.values(CACHE));
+      const names = await caches.keys();
+      await Promise.all(names.filter(n => n.startsWith(PREFIX) && !keep.has(n)).map(n => caches.delete(n)));
+
+      // load config & warm precache
+      await loadConfig();
+      await warmPrecache().catch(() => {});
+    } catch (err) {
+      logError("activate", err);
     }
-    await cleanupOldCaches();
-    await loadConfig();
-    await warmPrecache().catch(()=>{});
   })());
 });
 
-async function cacheOfflinePage(){
-  const c = await caches.open(CACHE.PRECACHE);
-  await c.add(new Request(OFFLINE_URL, { cache: "reload" })).catch(()=>{});
-}
-
-async function cleanupOldCaches(){
-  const keep = new Set(Object.values(CACHE));
-  const names = await caches.keys();
-  await Promise.all(
-    names.filter(n => n.startsWith(PREFIX) && !keep.has(n))
-         .map(n => caches.delete(n))
-  );
-}
-
-async function loadConfig(){
-  try{
-    const res = await fetch(MANIFEST_URL, { cache:"no-store", credentials:"omit" });
-    if (res.ok){
-      const data = await res.json();
-      if (data && data.config) {
-        CONFIG = { ...CONFIG, ...data.config };
-        if (typeof CONFIG.debug === 'boolean') DEBUG = CONFIG.debug;
-      }
+async function loadConfig() {
+  try {
+    const r = await fetch(MANIFEST_URL, { cache: "no-store", credentials: "omit" });
+    if (!r.ok) return;
+    const data = await r.json();
+    if (data && data.config) {
+      CONFIG = { ...CONFIG, ...data.config };
+      if (typeof CONFIG.debug === "boolean") DEBUG = CONFIG.debug;
     }
-  }catch(_){}
+  } catch (err) {
+    logError("loadConfig", err);
+  }
 }
 
-// ---------------- Messaging ----------------
-self.addEventListener("message", (event)=>{
+// ---------- Messaging ----------
+self.addEventListener("message", (event) => {
   const data = event.data || {};
   if (data.type === "SEED_URLS" && Array.isArray(data.urls)) {
-    seedURLs(data.urls, data.priority || "normal").catch(()=>{});
+    seedURLs(data.urls, data.priority || "normal").catch(() => {});
+    return;
   }
   if (data.type === "GET_CACHE_STATS" && event.ports[0]) {
-    getCacheStats().then(stats => event.ports[0].postMessage({ type:"CACHE_STATS", stats }));
+    getCacheStats().then(stats => event.ports[0].postMessage({ type: "CACHE_STATS", stats }));
+    return;
   }
   if (data.type === "GET_ERROR_LOG" && event.ports[0]) {
-    event.ports[0].postMessage({ type:"ERROR_LOG", errors: ERROR_LOG });
+    event.ports[0].postMessage({ type: "ERROR_LOG", errors: ERROR_LOG });
+    return;
+  }
+  if (data.type === "SET_DEBUG") {
+    DEBUG = !!data.enabled;
+    return;
   }
 });
 
-// ---------------- Fetch routing ----------------
-self.addEventListener("fetch", (event)=>{
+// ---------- Health endpoint ----------
+self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
+
   const url = new URL(req.url);
   if (url.origin !== location.origin) return;
 
-  // Health check endpoint
   if (url.pathname === "/__sw_health") {
-    event.respondWith((async ()=>{
+    event.respondWith((async () => {
       const stats = await getCacheStats();
-      return new Response(JSON.stringify({
-        version: SW_VERSION,
-        caches: Object.fromEntries(Object.entries(stats).map(([k,v])=>[k, v.count]))
-      }), { headers: { "Content-Type":"application/json", "Cache-Control":"no-store" }});
+      const body = { version: SW_VERSION, time: Date.now(), stats };
+      return new Response(JSON.stringify(body), {
+        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+      });
     })());
     return;
   }
 
+  // routing
   const dest = req.destination || "";
 
   if (isVersionedAsset(url.href)) {
-    event.respondWith(cacheFirst(req, CACHE.ASSET, CONFIG.maxAssets)); return;
+    event.respondWith(cacheFirst(req, CACHE.ASSET, CONFIG.maxAssets));
+    return;
   }
   if (isFontRequest(req)) {
-    event.respondWith(cacheFirst(req, CACHE.FONT, CONFIG.maxFonts)); return;
+    event.respondWith(cacheFirst(req, CACHE.FONT, CONFIG.maxFonts));
+    return;
   }
   if (dest === "image" || isImageURL(url.href)) {
-    event.respondWith(handleImage(req)); return;
+    event.respondWith(handleImage(req));
+    return;
   }
   if (isJSONRequest(req)) {
-    event.respondWith(staleIfError(req, CACHE.DATA, CONFIG.maxData, CONFIG.staleMaxAge)); return;
+    event.respondWith(staleIfError(req, CACHE.DATA, CONFIG.maxData, CONFIG.staleMaxAge));
+    return;
   }
   if (isHTMLLike(req)) {
-    event.respondWith(handleHTML(event, req)); return;
+    event.respondWith(handleHTML(event, req));
+    return;
   }
   // passthrough for everything else
 });
 
-// ---------------- Strategies: HTML ----------------
-async function handleHTML(event, request){
-  const pageCache = await caches.open(CACHE.PAGE);
-  const normalized = normalizeURLForCache(request.url);
-  const key = new Request(normalized.href, { method:"GET" });
-
-  const isHardReload = /\bno-cache\b/i.test(request.headers.get("cache-control")||"")
-                    || /\bno-cache\b/i.test(request.headers.get("pragma")||"");
-  const forceNetwork = isHardReload || new URL(request.url).searchParams.has('v');
-
-  try{
-    const preload = event.preloadResponse ? (await event.preloadResponse) : null;
-    if (preload && (preload.ok || preload.type === "opaque")) {
-      pageCache.put(key, preload.clone()).catch(()=>{});
-      updateLRU(CACHE.PAGE, key.url);
-      prune(CACHE.PAGE, CONFIG.maxPages).catch(()=>{});
-      return preload;
-    }
-
-    const res = await fetchWithTimeout(request, 8000);
-    if (res && (res.ok || res.type === "opaque")) {
-      // optional: inject critical CSS if you ship /assets/critical.css
-      const enhanced = await maybeInjectCriticalCSS(res.clone());
-      pageCache.put(key, enhanced).catch(()=>{});
-      updateLRU(CACHE.PAGE, key.url);
-      prune(CACHE.PAGE, CONFIG.maxPages).catch(()=>{});
-    }
-    return res;
-  }catch(err){
-    logError("handleHTML", err, request.url);
-    const cached = await pageCache.match(key);
-    if (cached) return cached;
-
-    // Try precache, then offline page
-    const pre = await caches.open(CACHE.PRECACHE);
-    const preHit = (await pre.match(key)) || (await pre.match(OFFLINE_URL));
-    return preHit || new Response("Offline", { status: 503 });
-  }
-}
-
-async function maybeInjectCriticalCSS(response){
-  try{
-    const ct = (response.headers.get("content-type")||"").toLowerCase();
-    if (!ct.includes("text/html")) return response;
-    const assetC = await caches.open(CACHE.ASSET);
-    const crit = await assetC.match("/assets/critical.css");
-    if (!crit) return response;
-
-    const [html, css] = await Promise.all([response.text(), crit.text()]);
-    if (html.includes("<!-- critical-css-injected -->")) return new Response(html, { headers: response.headers, status: response.status });
-
-    const enhanced = html.replace(
-      "</head>",
-      `<style>/* critical-css-injected */${css}</style></head>`
-    );
-    return new Response(enhanced, { headers: response.headers, status: response.status });
-  }catch(_){
-    return response;
-  }
-}
-
-// ---------------- Strategies: Images ----------------
-async function handleImage(request){
-  const acceptsWebP = request.headers.get("accept")?.includes("image/webp");
-  const url = new URL(request.url);
-  if (acceptsWebP && /\.(jpe?g|png)$/i.test(url.pathname)) {
-    const webpURL = url.pathname.replace(/\.(jpe?g|png)$/i, ".webp") + url.search;
-    const webpReq = new Request(new URL(webpURL, location.origin).href);
-    const imgCache = await caches.open(CACHE.IMG);
-    const cached = await imgCache.match(webpReq);
-    if (cached) {
-      updateLRU(CACHE.IMG, webpReq.url);
-      return cached;
-    }
-    try{
-      const res = await fetch(webpReq);
-      if (res && (res.ok || res.type === "opaque")) {
-        imgCache.put(webpReq, res.clone()).catch(()=>{});
-        updateLRU(CACHE.IMG, webpReq.url);
-        prune(CACHE.IMG, CONFIG.maxImages).catch(()=>{});
-        return res;
-      }
-    }catch(_){}
-  }
-  // Fallback to original format with SWR
-  return staleWhileRevalidate(request, CACHE.IMG, CONFIG.maxImages);
-}
-
-// ---------------- Generic Strategies ----------------
-async function cacheFirst(request, cacheName, maxItems){
+// ---------- Strategies ----------
+async function cacheFirst(request, cacheName, maxItems) {
   const cache = await caches.open(cacheName);
   const key = cacheKey(request);
-  const hit = await cache.match(key);
-  if (hit) {
+  const cached = await cache.match(key);
+  if (cached) {
     updateLRU(cacheName, key.url);
-    return hit;
+    return cached;
   }
   const res = await fetchWithTimeout(request);
   if (res && (res.ok || res.type === "opaque")) {
-    cache.put(key, res.clone()).catch(()=>{});
-    updateLRU(cacheName, key.url);
-    prune(cacheName, maxItems).catch(()=>{});
+    cache.put(key, res.clone()).catch(() => {});
+    prune(cacheName, maxItems).catch(() => {});
   }
   return res;
 }
 
-async function staleWhileRevalidate(request, cacheName, maxItems){
+async function staleWhileRevalidate(request, cacheName, maxItems) {
   const cache = await caches.open(cacheName);
   const key = cacheKey(request);
+
   const cachedPromise = cache.match(key);
   const networkPromise = fetchWithTimeout(request)
-    .then(res=>{
+    .then(res => {
       if (res && (res.ok || res.type === "opaque")) {
-        cache.put(key, res.clone()).catch(()=>{});
-        updateLRU(cacheName, key.url);
-        prune(cacheName, maxItems).catch(()=>{});
+        cache.put(key, res.clone()).catch(() => {});
+        prune(cacheName, maxItems).catch(() => {});
       }
       return res;
     })
-    .catch(()=>null);
+    .catch(() => null);
 
   const cached = await cachedPromise;
   if (cached) {
@@ -257,21 +284,19 @@ async function staleWhileRevalidate(request, cacheName, maxItems){
   return (await networkPromise) || new Response("", { status: 504 });
 }
 
-async function staleIfError(request, cacheName, maxItems, maxAge){
+async function staleIfError(request, cacheName, maxItems, maxAge) {
   const cache = await caches.open(cacheName);
   const key = cacheKey(request);
-  try{
+  try {
     const res = await fetchWithTimeout(request);
     if (res && (res.ok || res.type === "opaque")) {
-      cache.put(key, res.clone()).catch(()=>{});
-      updateLRU(cacheName, key.url);
-      prune(cacheName, maxItems).catch(()=>{});
+      cache.put(key, res.clone()).catch(() => {});
+      prune(cacheName, maxItems).catch(() => {});
     }
     return res;
-  }catch(err){
+  } catch (err) {
     const cached = await cache.match(key);
     if (cached) {
-      // best-effort age check using Date header if present
       const dateHdr = cached.headers.get("date");
       const age = dateHdr ? (Date.now() - new Date(dateHdr).getTime()) : 0;
       if (!age || age < maxAge) {
@@ -283,240 +308,256 @@ async function staleIfError(request, cacheName, maxItems, maxAge){
   }
 }
 
-// ---------------- LRU helpers ----------------
-async function updateLRU(cacheName, url){
-  try{
-    const meta = await caches.open(CACHE.META);
-    const metaKey = new Request(url + ":lru");
-    await meta.put(metaKey, new Response(JSON.stringify({ lastAccess: Date.now(), cache: cacheName })));
-  }catch(_){}
+async function handleHTML(event, request) {
+  const pageCache = await caches.open(CACHE.PAGE);
+
+  // normalized key for pages
+  const norm = normalizeURLForCache(request.url);
+  const key = new Request(norm.href, { method: "GET" });
+
+  const cc = (request.headers.get("cache-control") || "") + " " + (request.headers.get("pragma") || "");
+  const hardReload = /\bno-cache\b/i.test(cc);
+  const forceNetwork = hardReload || new URL(request.url).searchParams.has("v");
+
+  try {
+    // navigation preload has priority
+    const preload = event.preloadResponse ? (await event.preloadResponse) : null;
+    if (!forceNetwork && preload && (preload.ok || preload.type === "opaque")) {
+      pageCache.put(key, preload.clone()).catch(() => {});
+      prune(CACHE.PAGE, CONFIG.maxPages).catch(() => {});
+      return preload;
+    }
+
+    const res = await fetchWithTimeout(request);
+    if (res && (res.ok || res.type === "opaque")) {
+      // Optionally inject critical CSS if you cache /assets/critical.css
+      const enhanced = await maybeInjectCriticalCSS(res.clone());
+      pageCache.put(key, enhanced).catch(() => {});
+      prune(CACHE.PAGE, CONFIG.maxPages).catch(() => {});
+    }
+    return res;
+  } catch (err) {
+    logError("handleHTML", err, request.url);
+    const cached = await pageCache.match(key);
+    if (cached) return cached;
+
+    const pre = await caches.open(CACHE.PRECACHE);
+    const fallback = await pre.match(key) || await pre.match(OFFLINE_URL);
+    return fallback || new Response("Offline", { status: 503 });
+  }
 }
 
-async function prune(cacheName, maxItems){
-  try{
-    const cache = await caches.open(cacheName);
-    const keys = await cache.keys();
-    if (keys.length <= maxItems) return;
+async function maybeInjectCriticalCSS(response) {
+  try {
+    const ct = (response.headers.get("content-type") || "").toLowerCase();
+    if (!ct.includes("text/html")) return response;
+    const assetCache = await caches.open(CACHE.ASSET);
+    const critical = await assetCache.match("/assets/critical.css");
+    if (!critical) return response;
 
-    const meta = await caches.open(CACHE.META);
-    const entries = await Promise.all(keys.map(async k=>{
-      const m = await meta.match(k.url + ":lru");
-      const data = m ? await m.json() : { lastAccess: 0 };
-      return { key:k, url:k.url, lastAccess:data.lastAccess||0 };
-    }));
-    entries.sort((a,b)=> a.lastAccess - b.lastAccess); // oldest first
-    const remove = entries.slice(0, entries.length - maxItems);
-    await Promise.all(remove.map(ent=>Promise.all([
-      cache.delete(ent.key),
-      meta.delete(ent.url + ":lru")
-    ])));
-  }catch(_){}
+    const [html, css] = await Promise.all([response.text(), critical.text()]);
+    if (html.includes("<!-- critical-css-injected -->")) {
+      return new Response(html, { headers: response.headers, status: response.status });
+    }
+    const enhanced = html.replace(
+      "</head>",
+      `<style>/* critical-css-injected */\n${css}\n</style></head>`
+    );
+    return new Response(enhanced, { headers: response.headers, status: response.status });
+  } catch (_) {
+    return response;
+  }
 }
 
-// ---------------- Warmup & seeding ----------------
-async function warmPrecache(){
-  try{
-    const res = await fetch(MANIFEST_URL, { cache:"no-store", credentials:"omit" });
-    if (!res.ok) return;
+// WebP-first images, fallback to original + SWR
+async function handleImage(request) {
+  const acceptsWebP = request.headers.get("accept")?.includes("image/webp");
+  const url = new URL(request.url);
+  if (acceptsWebP && /\.(jpe?g|png)(\?.*)?$/i.test(url.pathname)) {
+    const webpURL = url.pathname.replace(/\.(jpe?g|png)$/i, ".webp") + url.search;
+    try {
+      const res = await fetchWithTimeout(webpURL);
+      if (res && res.ok) {
+        const c = await caches.open(CACHE.IMG);
+        await c.put(new Request(new URL(webpURL, location.origin).href), res.clone());
+        prune(CACHE.IMG, CONFIG.maxImages).catch(() => {});
+        return res;
+      }
+    } catch (_) { /* fall through */ }
+  }
+  return staleWhileRevalidate(request, CACHE.IMG, CONFIG.maxImages);
+}
 
-    const data = await res.json();
+// ---------- Warmup / Seeding ----------
+async function warmPrecache() {
+  try {
+    const r = await fetch(MANIFEST_URL, { cache: "no-store", credentials: "omit" });
+    if (!r.ok) return;
+    const data = await r.json();
+
+    // optional: adjust config
+    if (data.config) {
+      CONFIG = { ...CONFIG, ...data.config };
+      if (typeof CONFIG.debug === "boolean") DEBUG = CONFIG.debug;
+    }
+
+    // gather URLs (pages/assets/images/data)
     const urls = new Set();
 
-    const push = (arr=[]) => arr.forEach(item=>{
-      const u = typeof item === 'string' ? item : item.url;
-      if (!u || !sameOrigin(u)) return;
-      const urlObj = new URL(u, location.origin);
-      urls.add(urlObj.pathname + urlObj.search);
-    });
+    const push = (arr = [], normalize = true) => {
+      arr.forEach(entry => {
+        const href = typeof entry === "string" ? entry : entry.url;
+        if (!sameOrigin(href)) return;
+        const u = normalize ? normalizeURLForCache(href).href : new URL(href, location.origin).href;
+        urls.add(u);
+      });
+    };
 
-    // Priority: pages (critical first if present), then assets/images/data
-    const criticalPages = (data.pages||[]).filter(p=>p.priority==='critical');
-    push(criticalPages);
-    push(data.pages||[]);
-    push(data.assets||[]);
-    push(data.images||[]);
-    push(data.data||[]);
+    if (Array.isArray(data.pages))  push(data.pages);
+    if (Array.isArray(data.assets)) push(data.assets, false);
+    if (Array.isArray(data.images)) push(data.images, false);
+    if (Array.isArray(data.data))   push(data.data);
 
     await seedURLs([...urls], "high");
 
+    // sitemaps
     const sitemaps = Array.isArray(data.sitemaps) ? data.sitemaps : ["/sitemap.xml"];
     for (const sm of sitemaps) {
-      try { await seedFromSitemap(sm); } catch(_){}
+      try { await seedFromSitemap(sm); } catch (err) { logError("seedFromSitemap", err, sm); }
     }
-  }catch(err){
+  } catch (err) {
     logError("warmPrecache", err);
   }
 }
 
-async function seedFromSitemap(path){
+async function seedFromSitemap(path) {
   if (!sameOrigin(path)) return;
-  const bust = path.includes("?") ? "&" : "?";
-  const res = await fetch(path + bust + `v=${SW_VERSION}`, { cache:"no-store", credentials:"omit" });
+  const u = new URL(path, location.origin);
+  u.search += (u.search ? "&" : "?") + `sv=${SW_VERSION}`;
+
+  const res = await fetch(u.href, { cache: "no-store", credentials: "omit" });
   if (!res.ok) return;
 
   let urls = [];
-  const ct = (res.headers.get("content-type")||"").toLowerCase();
-  if (ct.includes("json")){
+  const ct = (res.headers.get("content-type") || "").toLowerCase();
+  if (ct.includes("application/json")) {
     const data = await res.json();
     urls = Array.isArray(data) ? data : (Array.isArray(data.urls) ? data.urls : []);
-  }else{
-    const xml = await res.text();
-    try{
-      const doc = new DOMParser().parseFromString(xml, "text/xml");
-      urls = Array.from(doc.querySelectorAll("loc")).map(n => (n.textContent||"").trim());
-    }catch(_){
-      urls = Array.from(xml.matchAll(/<loc>\s*([^<]+)\s*<\/loc>/gi)).map(m=>m[1].trim());
+  } else {
+    const text = await res.text();
+    // DOMParser is supported in SW; fall back to regex if needed
+    try {
+      const doc = new DOMParser().parseFromString(text, "text/xml");
+      urls = Array.from(doc.querySelectorAll("loc")).map(n => (n.textContent || "").trim());
+    } catch {
+      urls = Array.from(text.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/gi)).map(m => m[1]);
     }
   }
 
-  const filtered = urls
-    .filter(u=>sameOrigin(u))
-    .map(u=>normalizeURLForCache(u).href)
-    .filter(u=>{
-      const p = new URL(u, location.origin).pathname;
+  const clean = urls
+    .filter(u => sameOrigin(u))
+    .map(u => normalizeURLForCache(u).href)
+    .filter(u => {
+      const p = new URL(u).pathname;
       return p !== "/" && p !== "/index.html";
     });
 
-  await seedURLs(filtered, "normal");
+  await seedURLs(clean, "normal");
 }
 
-async function seedURLs(urls, priority="normal"){
+async function seedURLs(urls, priority = "normal") {
   if (!urls || !urls.length) return;
 
-  const unique = [...new Set(urls.map(u=>{ try{ return new URL(u, location.origin).href; }catch{ return null; } }).filter(Boolean))];
+  // dedupe and absolutize
+  const unique = [...new Set(urls.map(u => {
+    try { return new URL(u, location.origin).href; } catch { return null; }
+  }).filter(Boolean))];
+
   if (DEBUG) console.log(`[SW ${SW_VERSION}] Seeding ${unique.length} URLs (priority: ${priority})`);
 
   const pre = await caches.open(CACHE.PRECACHE);
-
-  await Promise.all(unique.map(async (u)=>{
-    try{
-      const abs = new URL(u, location.origin);
-      const fetchURL = new URL(abs.href);
-
-      // Only add ?v= if the URL has no query at all (prevents ?v=x&v=y)
-      if (!fetchURL.search) fetchURL.search = `?v=${SW_VERSION}`;
-
-      const reqKey = new Request(abs.href, { method:"GET" }); // cache key = normalized original
+  await Promise.all(unique.map(async (href) => {
+    try {
+      const reqKey = new Request(href, { method: "GET" });
       const hit = await pre.match(reqKey);
       if (hit) return;
 
-      const res = await fetch(fetchURL.href, { cache:"no-store" });
+      // cache-bust ONLY if no query at all (avoid double ?v=)
+      const fetchURL = new URL(href);
+      if (!fetchURL.search) fetchURL.search = `?v=${SW_VERSION}`;
+
+      const res = await fetch(fetchURL.href, { cache: "no-store", credentials: "omit" });
       if (res && (res.ok || res.type === "opaque")) {
         await pre.put(reqKey, res.clone());
       }
-    }catch(err){
-      logError("seedURLs", err, u);
+    } catch (err) {
+      logError("seedURLs", err, href);
     }
   }));
 
-  await copyPrecacheToRuntime().catch(()=>{});
+  await copyPrecacheToRuntime().catch(err => logError("copyPrecacheToRuntime", err));
 }
 
-async function copyPrecacheToRuntime(){
-  try{
-    const pre = await caches.open(CACHE.PRECACHE);
-    const keys = await pre.keys();
+async function copyPrecacheToRuntime() {
+  const pre = await caches.open(CACHE.PRECACHE);
+  const keys = await pre.keys();
 
-    const pageC  = await caches.open(CACHE.PAGE);
-    const assetC = await caches.open(CACHE.ASSET);
-    const imgC   = await caches.open(CACHE.IMG);
-    const fontC  = await caches.open(CACHE.FONT);
-    const dataC  = await caches.open(CACHE.DATA);
+  const pageC = await caches.open(CACHE.PAGE);
+  const assetC = await caches.open(CACHE.ASSET);
+  const imgC  = await caches.open(CACHE.IMG);
+  const fontC = await caches.open(CACHE.FONT);
+  const dataC = await caches.open(CACHE.DATA);
 
-    for (const req of keys){
-      const url = new URL(req.url);
-      const res = await pre.match(req);
-      if (!res) continue;
+  for (const req of keys) {
+    const res = await pre.match(req);
+    if (!res) continue;
 
-      if (isVersionedAsset(url.href)) {
-        await assetC.put(req, res.clone());
-        updateLRU(CACHE.ASSET, req.url);
-      } else if (isFontPath(url.pathname)) {
-        await fontC.put(req, res.clone());
-        updateLRU(CACHE.FONT, req.url);
-      } else if (isImageURL(url.href)) {
-        await imgC.put(req, res.clone());
-        updateLRU(CACHE.IMG, req.url);
-      } else if (url.pathname.endsWith(".json")) {
-        await dataC.put(req, res.clone());
-        updateLRU(CACHE.DATA, req.url);
-      } else if (url.pathname.endsWith(".html") || url.pathname === "/" || url.pathname === OFFLINE_URL) {
-        const norm = new Request(normalizeURLForCache(req.url).href, { method:"GET" });
-        await pageC.put(norm, res.clone());
-        updateLRU(CACHE.PAGE, norm.url);
-      }
+    const url = new URL(req.url);
+
+    if (isVersionedAsset(url.href)) {
+      await assetC.put(req, res.clone()).catch(() => {});
+    } else if (isFontRequest(req)) {
+      await fontC.put(req, res.clone()).catch(() => {});
+    } else if (isImageURL(url.href)) {
+      await imgC.put(req, res.clone()).catch(() => {});
+    } else if (isJSONRequest(req)) {
+      await dataC.put(req, res.clone()).catch(() => {});
+    } else if (url.pathname.endsWith(".html") || url.pathname === "/" || url.pathname === OFFLINE_URL) {
+      const norm = new Request(normalizeURLForCache(req.url).href, { method: "GET" });
+      await pageC.put(norm, res.clone()).catch(() => {});
     }
-
-    await Promise.all([
-      prune(CACHE.PAGE,  CONFIG.maxPages),
-      prune(CACHE.ASSET, CONFIG.maxAssets),
-      prune(CACHE.IMG,   CONFIG.maxImages),
-      prune(CACHE.FONT,  CONFIG.maxFonts),
-      prune(CACHE.DATA,  CONFIG.maxData),
-    ]);
-  }catch(err){
-    logError("copyPrecacheToRuntime", err);
   }
+
+  await Promise.all([
+    prune(CACHE.PAGE,  CONFIG.maxPages),
+    prune(CACHE.ASSET, CONFIG.maxAssets),
+    prune(CACHE.IMG,   CONFIG.maxImages),
+    prune(CACHE.FONT,  CONFIG.maxFonts),
+    prune(CACHE.DATA,  CONFIG.maxData)
+  ]);
 }
 
-// ---------------- Utils ----------------
-function normalizeURLForCache(u){
-  const url = new URL(u, location.origin);
-  // Normalize root to /index.html for PAGE cache keys
-  if (url.pathname === "/") url.pathname = "/index.html";
-  // strip tracking params (keep versioning)
-  ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','fbclid','gclid','mc_cid','mc_eid']
-    .forEach(p => url.searchParams.delete(p));
-  url.hash = "";
-  return new URL(url.pathname + url.search, location.origin);
-}
-
-function sameOrigin(u){ try{ return new URL(u, location.origin).origin === location.origin; }catch{ return false; } }
-function isImageURL(href){ return /\.(?:avif|webp|jpg|jpeg|png|gif|svg)(\?.*)?$/i.test(href); }
-function isFontRequest(request){ if (request.destination === "font") return true; return isFontPath(new URL(request.url).pathname); }
-function isFontPath(pathname){ return /\.(?:woff2|woff|ttf|otf)(\?.*)?$/i.test(pathname); }
-function isJSONRequest(request){ if (request.destination === "script") return false; const url = new URL(request.url); return url.pathname.endsWith(".json"); }
-function isVersionedAsset(href){ return /\.(?:css|js)(\?.*)?$/i.test(href) && /[?&]v=[^&]+/i.test(href); }
-function isHTMLLike(request){ if (request.destination === "document") return true; const url = new URL(request.url); return url.pathname.endsWith(".html") || url.pathname === "/"; }
-function cacheKey(request){ const url = new URL(request.url); return new Request(url.href, { method:"GET" }); }
-
-async function fetchWithTimeout(req, ms=8000){
-  const controller = new AbortController();
-  const t = setTimeout(()=>controller.abort(), ms);
-  try{
-    const res = await fetch(req, { signal: controller.signal });
-    clearTimeout(t);
-    return res;
-  }catch(err){
-    clearTimeout(t);
-    throw err;
-  }
-}
-
-function logError(context, error, url=""){
-  try{
-    ERROR_LOG.push({
-      time: new Date().toISOString(),
-      context,
-      message: error?.message || String(error),
-      url,
-      sw_version: SW_VERSION
-    });
-    if (ERROR_LOG.length > MAX_ERRORS) ERROR_LOG.shift();
-    if (DEBUG) console.warn(`[SW ${SW_VERSION}] ${context}:`, error, url);
-  }catch(_){}
-}
-
-async function getCacheStats(){
-  const stats = {};
-  for (const [key, name] of Object.entries(CACHE)){
-    try{
+// ---------- Cache stats ----------
+async function getCacheStats() {
+  const out = {};
+  for (const [label, name] of Object.entries(CACHE)) {
+    try {
       const c = await caches.open(name);
       const keys = await c.keys();
-      stats[key] = { count: keys.length };
-    }catch(_){
-      stats[key] = { error: "unavailable" };
+      out[label] = { name, count: keys.length };
+    } catch {
+      out[label] = { name, error: true };
     }
   }
-  return stats;
+  // Storage estimate if available
+  try {
+    if ("estimate" in navigator.storage) {
+      const est = await navigator.storage.estimate();
+      out.storage = {
+        usageBytes: est.usage || 0,
+        quotaBytes: est.quota || 0
+      };
+    }
+  } catch (_) {}
+  return out;
 }
