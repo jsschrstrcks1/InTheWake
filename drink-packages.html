@@ -194,7 +194,7 @@
         <h2>Daily Drinks Calculator</h2>
         <div class="calc-grid">
           <div class="calc-rows" id="beverage-inputs" aria-live="polite"></div>
-
+<div id="totals" class="tiny" aria-live="polite" style="margin-top:.35rem"></div>
           <div class="note">
             <label for="days"><strong>Days on your cruise:</strong></label>
             <input id="days" type="number" min="1" step="1" value="7" style="width:96px;margin-left:.6rem"/>
@@ -512,243 +512,277 @@
   </script>
 
   <!-- ============== Calculator logic (strategy-based) ============== -->
-  <script>
-  (function(){
-    "use strict";
+<script>
+(function(){
+  "use strict";
 
-    // Sets used for strategy math
-    const alcoholSet  = new Set(['beer','wine','cocktail','liquor']);
-    const refreshSet  = new Set(['soda','coffee','juice','milkshake','water','tea','lemonade','juiceconc','mocktail']);
+  // --- Elements -------------------------------------------------------------
+  const els = {
+    inputsHost:  document.getElementById('beverage-inputs'),
+    packageHost: document.getElementById('package-cards'),
+    packagesTitle: document.getElementById('packages-title'),
+    totalsLine:  document.getElementById('totals-line'),
+    days:        document.getElementById('days'),
+    pillRccl:    document.getElementById('pill-rccl')
+  };
 
-    const state = {
-      days: 7,
-      items: new Map(),   // id -> {meta, qtyPerDay}
-      packages: new Map(),// id -> {meta}
-      order: [],
-      line: ''
-    };
+  // --- Utils ----------------------------------------------------------------
+  const money = n => {
+    const neg = n < 0;
+    const v = Math.round(Math.abs(n) * 100) / 100;
+    return (neg ? '-' : '') + '$' + v.toFixed(2);
+  };
+  const getLS = (k, d)=>{ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(_){ return d; } };
+  const setLS = (k,v)=>{ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){ } };
 
-    const els = {
-      inputsHost:  document.getElementById('beverage-inputs'),
-      packageHost: document.getElementById('package-cards'),
-      packagesTitle: document.getElementById('packages-title'),
-      totalsLine:  document.getElementById('totals-line'),
-      days:        document.getElementById('days'),
-      pillRccl:    document.getElementById('pill-rccl')
-    };
+  // --- State ----------------------------------------------------------------
+  const STATE = {
+    lineId: null,
+    rules: { gratuity: 0.18, epsilon: 0.02 },
+    days: 7,
+    items: [],             // [{id,label,price,free}]
+    qty: {},               // {id:number}
+    sets: { soda:new Set(), refresh:new Set(), alcohol:new Set() },
+    packages: {},          // keyed by id: soda|refreshment|deluxe
+    overrides: {}          // {pkgId: dailyPrice}
+  };
 
-    const fmt = n => '$' + (Math.round(n*100)/100).toFixed(2);
-    const getLS = (k,d)=>{ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(_){ return d; } };
-    const setLS = (k,v)=>{ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){ } };
-    const epsilon = 0.02; // tie threshold
+  // --- Render: inputs -------------------------------------------------------
+  function renderInputs(){
+    const rows = STATE.items.map(it=>{
+      const priceNote = it.price>0 ? `<span class="price">avg ${money(it.price)}</span>` : `<span class="muted">(included · $0)</span>`;
+      return `
+        <div class="card" style="padding:.7rem .8rem">
+          <div class="calc-row">
+            <label for="qty-${it.id}">${it.label}</label>
+            <input id="qty-${it.id}" type="number" inputmode="numeric" min="0" step="1"
+                   value="${STATE.qty[it.id]||0}" data-item="${it.id}"
+                   aria-describedby="help-${it.id}" />
+            <div class="price tiny" id="help-${it.id}">${priceNote}</div>
+          </div>
+        </div>`;
+    }).join('');
+    els.inputsHost.innerHTML = rows;
 
-    function seedSW(urls){
-      if ('serviceWorker' in navigator && navigator.serviceWorker.controller){
-        try{ navigator.serviceWorker.controller.postMessage({type:'SEED_URLS', urls}); }catch(_){}
-      }
-    }
-
-    function renderInputs(){
-      els.inputsHost.innerHTML = state.order.map(id=>{
-        const it = state.items.get(id);
-        const priceNote = it.meta.free ? '<span class="muted">(included · $0)</span>' : `<span class="price">avg ${fmt(it.meta.avgPrice)}</span>`;
-        return `
-          <div class="card" style="padding:.7rem .8rem">
-            <div class="calc-row">
-              <label for="qty-${id}">${it.meta.name}</label>
-              <input id="qty-${id}" type="number" inputmode="numeric" min="0" step="1" value="${it.qtyPerDay||0}" data-item="${id}" aria-describedby="help-${id}" />
-              <div class="price tiny" id="help-${id}">${priceNote}</div>
-            </div>
-            ${it.meta.notes ? `<div class="tiny muted" style="margin-top:.35rem">${it.meta.notes}</div>` : ``}
-          </div>`;
-      }).join('');
-
-      els.inputsHost.querySelectorAll('input[type="number"]').forEach(inp=>{
-        inp.addEventListener('input', ()=>{
-          const id = inp.dataset.item;
-          const ent = state.items.get(id);
-          ent.qtyPerDay = Math.max(0, parseInt(inp.value||'0',10));
-          computeAndRender();
-        });
-      });
-    }
-
-    function pkgPriceDisplay(p){
-      const ov = getLS('pkgOverride:'+state.line+':'+p.id, null);
-      const value = ov!=null ? Number(ov) : (p.avg ?? p.priceRange?.[0] ?? 0);
-      return {value, overridden: ov!=null};
-    }
-
-    function renderPackages(strategyOut){
-      const frag = document.createDocumentFragment();
-
-      state.packages.forEach(p=>{
-        const {value, overridden} = pkgPriceDisplay(p.meta);
-        const range = p.meta.priceRange ? ` (${fmt(p.meta.priceRange[0])}–${fmt(p.meta.priceRange[1])})` : '';
-        const strategyCost = (p.meta.id==='soda' ? strategyOut.sodaDaily :
-                             (p.meta.id==='refreshment' ? strategyOut.refreshDaily :
-                             (p.meta.id==='deluxe' ? strategyOut.deluxeDaily : null)));
-
-        const includeVal = strategyOut.includedDaily[p.meta.id] ?? 0;
-        const qualifies = includeVal >= value - 1e-6;
-
-        const el = document.createElement('article');
-        el.className = `pkg ${qualifies?'highlight':''}`;
-        el.id = `pkg-${p.meta.id}`;
-        el.setAttribute('aria-live','polite');
-        el.innerHTML = `
-          <span class="ribbon" role="status" style="display:${strategyOut.bestIds.has(p.meta.id)?'inline-block':'none'}">Best value</span>
-          <header>
-            <div><strong>${p.meta.name}</strong> <span class="tiny muted">${range}</span></div>
-            <div class="price" data-price="${p.meta.id}">${fmt(value)}</div>
-          </header>
-          <div class="body">
-            <div class="tiny" style="margin:.1rem 0 .4rem">
-              Included value (your picks): <strong>${fmt(includeVal)}</strong> /day
-              <span class="muted">· With this package you’d pay <strong>${fmt(strategyCost)}</strong> /day</span>
-            </div>
-            <button class="pill override" data-ov="${p.meta.id}" type="button">${overridden?'Edit Price (overridden)':'Edit Price'}</button>
-            ${Array.isArray(p.meta.description)&&p.meta.description.length
-              ? `<ul class="tiny" style="margin:.5rem 0 0 1.25rem">${p.meta.description.map(d=>`<li>${d}</li>`).join('')}</ul>` : ''}
-            <div class="tiny muted" style="margin-top:.4rem">Includes: ${p.meta.includes.map(x=>state.items.get(x)?.meta.name||x).join(', ')}</div>
-          </div>`;
-
-        frag.appendChild(el);
-      });
-
-      els.packageHost.innerHTML = '';
-      els.packageHost.appendChild(frag);
-
-      els.packageHost.querySelectorAll('button[data-ov]').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          const id = btn.dataset.ov;
-          const key = 'pkgOverride:'+state.line+':'+id;
-          const current = getLS(key, null);
-          const pmeta = state.packages.get(id).meta;
-          const suggested = current ?? pmeta.avg ?? pmeta.priceRange?.[0] ?? 0;
-          const v = prompt('Enter your package price per person per day (USD).', String(suggested));
-          if (v==null) return;
-          const num = Number(v);
-          if (!Number.isFinite(num) || num<0) { alert('Please enter a valid non-negative number.'); return; }
-          setLS(key, num);
-          computeAndRender();
-        });
-      });
-    }
-
-    function computeAndRender(){
-      // daily spend by item
-      let dailyTotal = 0;
-      let sodaSpend = 0, refreshNonAlcoholSpend = 0, alcoholSpend = 0;
-
-      state.items.forEach((it,id)=>{
-        const spend = (it.meta.avgPrice||0) * (it.qtyPerDay||0);
-        dailyTotal += spend;
-        if (id === 'soda') sodaSpend += spend;
-        if (refreshSet.has(id)) refreshNonAlcoholSpend += spend;
-        if (alcoholSet.has(id))  alcoholSpend += spend;
-      });
-
-      const days = Math.max(1, parseInt(els.days.value||'1',10));
-      state.days = days;
-      const tripTotal = dailyTotal * days;
-      els.totalsLine.textContent = `Daily total (à la carte): ${fmt(dailyTotal)} · Trip total: ${fmt(tripTotal)}`;
-
-      const pkg = {};
-      ['soda','refreshment','deluxe'].forEach(pid=>{
-        const meta = state.packages.get(pid)?.meta;
-        if (meta) pkg[pid] = pkgPriceDisplay(meta).value;
-      });
-
-      const noneDaily = dailyTotal;
-      const sodaDaily = (pkg.soda ?? Infinity) + (dailyTotal - sodaSpend);
-      const refreshDaily = (pkg.refreshment ?? Infinity) + alcoholSpend;
-      const deluxeDaily = (pkg.deluxe ?? Infinity);
-
-      const includedDaily = {
-        soda: sodaSpend,
-        refreshment: refreshNonAlcoholSpend,
-        deluxe: dailyTotal
-      };
-
-      const entries = [
-        {id:'none',        cost:noneDaily,       rank:0},
-        {id:'soda',        cost:sodaDaily,       rank:1},
-        {id:'refreshment', cost:refreshDaily,    rank:2},
-        {id:'deluxe',      cost:deluxeDaily,     rank:3}
-      ];
-      entries.sort((a,b)=>{
-        if (Math.abs(a.cost-b.cost) <= epsilon) return b.rank - a.rank; // prefer more inclusive on tie
-        return a.cost - b.cost;
-      });
-      const bestCost = entries[0].cost;
-      const bestIds = new Set(entries.filter(e=>Math.abs(e.cost-bestCost) <= epsilon).map(e=>e.id));
-
-      renderPackages({ noneDaily, sodaDaily, refreshDaily, deluxeDaily, includedDaily, bestIds });
-    }
-
-    async function loadDataset(src){
-      try{
-        let data = null;
-        if (src && src.startsWith('#')){
-          const tag = document.querySelector(src);
-          if (!tag) throw new Error('missing inline JSON');
-          data = JSON.parse(tag.textContent);
-        }else{
-          const r = await fetch(src, {cache:'no-store', credentials:'omit'});
-          if(!r.ok) throw new Error('Bad response');
-          data = await r.json();
-        }
-
-        state.line = data.line || 'Cruise Line';
-        els.packagesTitle.textContent = data.packagesCardTitle || (state.line + ' Beverage Packages');
-
-        // items
-        state.items = new Map();
-        const ensure = (arr, id)=> arr.find(x=>x.id===id);
-        const baseItems = [...(data.items||[])];
-
-        // ensure baseline free items exist
-        ['water','lemonade','tea','juiceconc'].forEach(fid=>{
-          if(!ensure(baseItems,fid)) baseItems.unshift(
-            fid==='water'    ? {id:'water',    name:'Tap Water',                avgPrice:0, free:true} :
-            fid==='lemonade' ? {id:'lemonade', name:'Lemonade',                 avgPrice:0, free:true} :
-            fid==='tea'      ? {id:'tea',      name:'Tea (hot/cold)',           avgPrice:0, free:true} :
-                               {id:'juiceconc',name:'Juice (from concentrate)', avgPrice:0, free:true}
-          );
-        });
-
-        baseItems.forEach(it=> state.items.set(it.id, {meta:it, qtyPerDay:0}));
-        state.order = Array.from(state.items.keys());
-
-        // packages
-        state.packages = new Map();
-        (data.packages||[]).forEach(p=> state.packages.set(p.id, {meta:p}));
-
-        // Render
-        renderInputs();
+    // bind
+    STATE.items.forEach(it=>{
+      const inp = document.getElementById(`qty-${it.id}`);
+      inp.addEventListener('input', ()=>{
+        const n = Math.max(0, Math.floor(parseInt(inp.value||'0',10) || 0));
+        inp.value = n;
+        STATE.qty[it.id] = n;
         computeAndRender();
+      });
+    });
+  }
 
-        // SW prefetch
-        seedSW([typeof src==='string' ? src : location.pathname + src]);
-      }catch(err){
-        console.warn('Dataset load failed:', err?.message||err);
+  // --- Strategy math --------------------------------------------------------
+  function computeAndRender(){
+    const G = Number(STATE.rules.gratuity||0);
+    const EPS = Number(STATE.rules.epsilon||0.02);
+
+    STATE.days = Math.max(1, Math.floor(parseInt(els.days.value||'7',10)||7));
+    els.days.value = STATE.days;
+
+    const qty = id => +STATE.qty[id]||0;
+    const price = id => Math.max(0, STATE.items.find(x=>x.id===id)?.price || 0);
+
+    const spendOf = set => Array.from(set).reduce((s,id)=> s + price(id)*qty(id), 0);
+
+    // raw (pre-grat) subtotals
+    const preSub = STATE.items.reduce((s,it)=> s + (it.price||0)*qty(it.id), 0);
+    const paygoDaily = preSub * (1+G);               // à-la-carte shows with gratuity
+    const paygoCruise = paygoDaily * STATE.days;
+
+    // Included spends by set (pre-grat → convert to with-grat where needed)
+    const sodaPre      = spendOf(STATE.sets.soda);
+    const refreshPre   = spendOf(STATE.sets.refresh);    // all non-alc covered by Refreshment
+    const alcoholPre   = spendOf(STATE.sets.alcohol);
+
+    // Package prices (with overrides)
+    const getPkg = id => {
+      const ov = STATE.overrides?.[id];
+      return (ov!=null && ov>=0) ? +ov : (+STATE.packages?.[id]?.price || Infinity);
+    };
+
+    // Strategy per-day costs (package price already includes gratuity)
+    const sodaDaily       = getPkg('soda')        + (paygoDaily - sodaPre * (1+G));
+    const refreshDaily    = getPkg('refreshment') + (alcoholPre * (1+G));
+    const deluxeDaily     = getPkg('deluxe');
+
+    // For cards: “value you get” (with gratuity)
+    const includedDaily = {
+      soda:         sodaPre    * (1+G),
+      refreshment:  refreshPre * (1+G),
+      deluxe:       paygoDaily
+    };
+
+    // Best strategy (prefer more inclusive on tiny ties)
+    const entries = [
+      {id:'paygo',        name:'Pay as you go',      perDay:paygoDaily,   rank:0},
+      {id:'soda',         name:'Soda + others',      perDay:sodaDaily,    rank:1},
+      {id:'refreshment',  name:'Refreshment + alc',  perDay:refreshDaily, rank:2},
+      {id:'deluxe',       name:'Deluxe (all-in)',    perDay:deluxeDaily,  rank:3}
+    ];
+    entries.sort((a,b)=>{
+      if (Math.abs(a.perDay-b.perDay) <= EPS) return b.rank - a.rank;
+      return a.perDay - b.perDay;
+    });
+    const bestPerDay = entries[0].perDay;
+    const bestIds = new Set(entries.filter(e=>Math.abs(e.perDay-bestPerDay)<=EPS).map(e=>e.id));
+
+    // Totals line (clarify gratuity)
+    els.totalsLine.innerHTML =
+      `À la carte daily: <strong>${money(paygoDaily)}</strong> <span class="tiny muted">(includes ${Math.round(G*100)}% gratuity)</span>` +
+      ` · Trip total: <strong>${money(paygoCruise)}</strong>`;
+
+    renderPackages({paygoDaily, paygoCruise, sodaDaily, refreshDaily, deluxeDaily, includedDaily, bestIds});
+  }
+
+  // --- Render: packages -----------------------------------------------------
+  function renderPackages(ctx){
+    const { paygoDaily, paygoCruise, sodaDaily, refreshDaily, deluxeDaily, includedDaily, bestIds } = ctx;
+    const order = ['soda','refreshment','deluxe'];
+    els.packageHost.innerHTML = '';
+
+    order.forEach(pid=>{
+      const meta = STATE.packages?.[pid];
+      if(!meta) return;
+
+      const perDayWithPkg = pid==='soda' ? sodaDaily : pid==='refreshment' ? refreshDaily : deluxeDaily;
+      const perCruiseWithPkg = perDayWithPkg * STATE.days;
+      const saveDay = paygoDaily - perDayWithPkg;
+      const saveCruise = paygoCruise - perCruiseWithPkg;
+      const pkgPrice = getCurrentPkgPrice(pid);
+
+      const card = document.createElement('article');
+      card.className = 'pkg' + (bestIds.has(pid) ? ' best' : '');
+      card.setAttribute('aria-live','polite');
+
+      if(bestIds.has(pid)){
+        const badge = document.createElement('div');
+        badge.className = 'badge-best';
+        badge.setAttribute('role','status');
+        badge.setAttribute('aria-live','assertive');
+        badge.textContent = 'Best value';
+        card.appendChild(badge);
       }
-    }
 
-    // Events
-    els.days.addEventListener('input', computeAndRender);
+      const h = document.createElement('h3');
+      h.innerHTML = `${meta.name} ${meta.range?`<span class="muted">(${meta.range})</span>`:''}
+                     <span style="float:right">${Number.isFinite(pkgPrice)?money(pkgPrice):'—'}/day</span>`;
+      card.appendChild(h);
 
-    document.getElementById('pill-rccl').addEventListener('click', (e)=>{
-      document.querySelectorAll('.pill-row .pill').forEach(p=>p.setAttribute('aria-current','false'));
-      e.currentTarget.setAttribute('aria-current','true');
-      loadDataset(e.currentTarget.getAttribute('data-src'));
+      const pIncl = document.createElement('p');
+      pIncl.innerHTML =
+        `Package covers <strong>${money(includedDaily[pid]||0)}</strong> /day of your picks · ` +
+        `Total daily cost: <strong>${money(perDayWithPkg)}</strong> ` +
+        `(<strong>${money(perCruiseWithPkg)}</strong> for ${STATE.days} days).`;
+      card.appendChild(pIncl);
+
+      // Inline override (kept simple: prompt-based for now)
+      const editWrap = document.createElement('div');
+      editWrap.className='edit-wrap';
+      const overridden = STATE.overrides?.[pid] != null;
+      editWrap.innerHTML = `
+        <button type="button" class="pill tiny" aria-label="Edit ${meta.name} price" data-pkg="${pid}">
+          Edit price ${overridden ? '<span class="tiny" style="opacity:.8">(custom)</span>' : ''}
+        </button>`;
+      card.appendChild(editWrap);
+
+      const ul = document.createElement('ul');
+      (meta.includes||[]).forEach(t=>{ const li=document.createElement('li'); li.textContent=t; ul.appendChild(li); });
+      card.appendChild(ul);
+
+      // Delta line
+      const delta = document.createElement('div');
+      const saving = saveDay >= 0;
+      delta.className = 'delta ' + (saving?'':'bad');
+      delta.innerHTML = saving
+        ? `You’d save <strong>${money(saveDay)}</strong>/day · <strong>${money(saveCruise)}</strong> per cruise vs à la carte.`
+        : `This is <strong>${money(-saveDay)}</strong>/day more than à la carte.`;
+      card.appendChild(delta);
+
+      // Bind override
+      const btn = editWrap.querySelector('button[data-pkg]');
+      btn.addEventListener('click',()=>{
+        const suggested = Number.isFinite(pkgPrice)?pkgPrice:0;
+        const v = prompt(`Enter ${meta.name} daily price (USD)`, String(suggested));
+        if (v==null) return;
+        const num = Number(v);
+        if (!Number.isFinite(num) || num<0){ alert('Enter a non-negative number.'); return; }
+        const key = `itw:pkgOverrides:${STATE.lineId}`;
+        STATE.overrides[pid] = num;
+        setLS(key, STATE.overrides);
+        computeAndRender();
+      });
+
+      els.packageHost.appendChild(card);
     });
 
-    // Boot with Royal dataset
+    function getCurrentPkgPrice(id){
+      const ov = STATE.overrides?.[id];
+      return (ov!=null && ov>=0) ? +ov : (+STATE.packages?.[id]?.price || Infinity);
+    }
+  }
+
+  // --- Dataset loader -------------------------------------------------------
+  async function loadDataset(src){
+    try{
+      const r = await fetch(src, {cache:'default', credentials:'omit'});
+      if(!r.ok) throw new Error('bad response');
+      const data = await r.json();
+
+      // rules / ids / titles
+      STATE.lineId = data.lineId || 'unknown';
+      STATE.rules = { gratuity: data.rules?.gratuity ?? 0.18, epsilon: data.rules?.epsilon ?? 0.02 };
+      els.packagesTitle.textContent = data.text?.packagesTitle || 'Beverage Packages';
+
+      // items
+      STATE.items = (data.items||[]).map(i=>({id:i.id, label:i.label, price:+i.price||0, free:!!i.free}));
+      // qty: restore or init
+      const qtyKey = `itw:qty:${STATE.lineId}`;
+      STATE.qty = getLS(qtyKey, {});
+      STATE.items.forEach(i=>{ if(!(i.id in STATE.qty)) STATE.qty[i.id]=0; });
+
+      // sets
+      STATE.sets = {
+        soda: new Set(data.sets?.soda||[]),
+        refresh: new Set(data.sets?.refresh||[]),
+        alcohol: new Set(data.sets?.alcohol||[])
+      };
+
+      // packages keyed by id
+      STATE.packages = data.packages || {};
+
+      // overrides
+      STATE.overrides = getLS(`itw:pkgOverrides:${STATE.lineId}`, {});
+
+      renderInputs();
+      computeAndRender();
+
+      // persist qty on unload
+      addEventListener('beforeunload', ()=> setLS(qtyKey, STATE.qty));
+    }catch(err){
+      console.warn('Dataset load failed:', err?.message||err);
+      els.totalsLine.innerHTML = '<span class="tiny muted">Failed to load pricing dataset. Please refresh.</span>';
+    }
+  }
+
+  // --- Events ---------------------------------------------------------------
+  els.days.addEventListener('change', computeAndRender);
+  els.pillRccl.addEventListener('click', (e)=>{
+    document.querySelectorAll('.pill-row .pill').forEach(p=>p.setAttribute('aria-current','false'));
+    e.currentTarget.setAttribute('aria-current','true');
+    loadDataset(e.currentTarget.getAttribute('data-src'));
+  });
+
+  // --- Boot with Royal dataset ---------------------------------------------
+  if (els.pillRccl?.getAttribute('data-src')) {
     loadDataset(els.pillRccl.getAttribute('data-src'));
-  })();
-  </script>
+  }
+})();
+</script>
 
   <!-- ============================ SW REGISTER ====================== -->
   <script>
