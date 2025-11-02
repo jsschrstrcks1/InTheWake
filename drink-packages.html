@@ -3,34 +3,44 @@
 <head>
   <!--
     Soli Deo Gloria — every pixel and paragraph offered in gratitude.
-    Page: /drink-packages.html · v3.010.106 (Unified Pass — 34 fixes)
+    Page: /drink-packages.html · v3.010.106 (Unified Pass — 34 fixes + SEO)
     Baseline: Home header visuals + Planning portal’d nav behavior
     Standards: Every Page v3.010 · Unified Nav v3.010 · Right-Rail v3.008.025 · A11y/WCAG Addendum v3.100
   -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="version" content="3.010.106"/>
-  <title>Drink Packages Calculator — In the Wake (v3.010.106)</title>
+
+  <!-- Primary SEO -->
+  <title>Royal Caribbean Drink Package Calculator (Is It Worth It?) | In the Wake</title>
+  <meta name="description" content="Free Royal Caribbean drink calculator: compare à-la-carte vs. Soda, Refreshment, and Deluxe packages. See if the package is worth it for your cruise."/>
   <link rel="canonical" href="https://cruisinginthewake.com/drink-packages.html"/>
 
-  <!-- Social / SEO -->
-  <meta name="description" content="Figure out whether a cruise drink package is worth it. Enter your daily drinks and compare à-la-carte vs. packages."/>
+  <!-- Open Graph -->
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Drink Packages Calculator — In the Wake"/>
-  <meta property="og:description" content="Enter your daily drinks; we’ll compare à-la-carte vs. packages."/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:title" content="Royal Caribbean Drink Package Calculator (Is It Worth It?)"/>
+  <meta property="og:description" content="Enter your daily drinks and we’ll compare à-la-carte vs. Soda, Refreshment, and Deluxe to show the best value."/>
   <meta property="og:url" content="https://cruisinginthewake.com/drink-packages.html"/>
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.039"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-packages-2025.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Drink Packages Calculator — In the Wake"/>
-  <meta name="twitter:description" content="A quick way to check if a cruise drink package pays off for you."/>
-  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.039"/>
+  <meta name="twitter:title" content="Royal Caribbean Drink Package Calculator (Is It Worth It?)"/>
+  <meta name="twitter:description" content="Instant, honest answer: Soda vs. Refreshment vs. Deluxe — or pay as you go."/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/drink-packages-2025.jpg"/>
+
+  <!-- Crawling / rendering hints -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
 
   <!-- Inline CSS (Home header visuals + Planning cards/rails) -->
   <style>
     :root{
       --sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e;
       --shadow:0 2px 6px rgba(8,48,65,.08);--shadow-lg:0 10px 28px rgba(8,48,65,.14);
-      --good:#0b7a43; --line:#d9e6eb;
+      --good:#0b7a43; --line:#d9e6eb; --warn:#8a6116;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;overflow-x:hidden;background:var(--sky);color:var(--ink)}
@@ -53,12 +63,9 @@
     .brand{display:flex;align-items:center;gap:.6rem}
     .brand img{height:40px;width:auto;display:block}
     .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-
-    /* Skip link inline so header is tighter */
     .skip{position:static;order:-1;margin-right:.5rem;padding:.35rem .6rem;border-radius:10px;background:#083041;color:#fff;text-decoration:none}
     .skip:focus{outline:3px solid #0e6e8e;outline-offset:2px}
 
-    /* Portal’d nav visuals */
     .itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap;overflow:visible;padding-inline:.75rem}
     .itw-nav .nav-item{position:relative}
     .itw-nav .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
@@ -112,8 +119,89 @@
     .btn{display:inline-block;background:#fff;border:1px solid var(--rope);border-radius:999px;padding:.4rem .7rem;font-weight:600;cursor:pointer}
     .btn:hover{background:#f7f9fb}
 
+    .callout{border:2px solid var(--good);background:#f3fbf6;border-radius:12px;padding:.6rem 1rem;margin:.4rem 0;color:#0a4f2c}
     footer.wrap{font-size:.92rem}
   </style>
+
+  <!-- Structured data: WebPage + FAQ (worth-it + soda) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Royal Caribbean Drink Package Calculator",
+    "url": "https://cruisinginthewake.com/drink-packages.html",
+    "description": "Compare Royal Caribbean drink packages vs. à-la-carte with a personalized calculator.",
+    "inLanguage": "en-US",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "In the Wake",
+      "url": "https://cruisinginthewake.com/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Royal Caribbean drink package worth it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It’s worth it when your average daily drinks meet or exceed the break-even point for your sailing. Our calculator compares four strategies—no package, Soda, Refreshment, and Deluxe—using typical menu prices (with 18% gratuity on à-la-carte) to show which option saves you money."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many drinks do I need per day for the Deluxe package to break even?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "On most sailings, the Deluxe package breaks even around 5–6 standard alcoholic drinks per day. Exact break-even varies by ship, itinerary, and sale price; enter your habits in the calculator for a personalized answer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Royal Caribbean Soda package worth it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Generally yes if you drink around four or more sodas a day. The calculator includes Soda as a strategy so you can compare it against paying à-la-carte or choosing Refreshment/Deluxe."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the calculator include gratuities correctly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. À-la-carte purchases include an automatic 18% gratuity; package prices already include it. The calculator compares apples-to-apples totals with gratuity handled properly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I override package prices for a sale I see in Cruise Planner?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Use the “Edit Price” button on any package to enter the per-day sale price you see. The results update instantly."
+        }
+      }
+    ]
+  }
+  </script>
+  <!-- Optional HowTo for AI (kept concise) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"HowTo",
+    "name":"How to decide if the Royal Caribbean drink package is worth it",
+    "totalTime":"PT3M",
+    "step":[
+      {"@type":"HowToStep","name":"Enter trip length","text":"Select your cruise length in days."},
+      {"@type":"HowToStep","name":"Add your daily drinks","text":"Enter how many of each drink you typically have per day."},
+      {"@type":"HowToStep","name":"Review results","text":"We compare no package vs. Soda, Refreshment, and Deluxe and highlight the best value."},
+      {"@type":"HowToStep","name":"Override sale prices (optional)","text":"Click Edit Price to match a Cruise Planner sale and recalc instantly."}
+    ]
+  }
+  </script>
 </head>
 
 <body class="page">
@@ -188,13 +276,13 @@
           <strong style="white-space:nowrap">Trip length</strong>
           <input id="days" type="number" inputmode="numeric" pattern="[0-9]*" min="1" step="1" value="7" aria-describedby="days-help totals totals-line"/>
           <div class="tiny muted" id="days-help">People often book 5–7 nights. Adjust as needed.</div>
-          <div class="tiny" id="totals" style="grid-column:1 / -1;margin-top:.35rem"></div>
+          <div class="tiny" id="totals" style="grid-column:1 / -1;margin-top:.35rem" aria-live="polite"></div>
           <div class="tiny muted" id="totals-line" style="grid-column:1 / -1">Tip: Override package prices to match the sale you see in your planner.</div>
         </section>
 
         <!-- Inputs in column cards -->
         <h2 style="margin:.6rem 0">Your Daily Picks</h2>
-        <div class="inputs-grid" id="inputs-grid">
+        <div class="inputs-grid" id="inputs-grid" aria-live="polite">
           <!-- columns built by JS -->
         </div>
       </div>
@@ -208,7 +296,18 @@
           <li>Deluxe covers everything up to the menu cap (pay the difference above).</li>
         </ul>
 
+        <div id="winner-callout" class="callout tiny" style="display:none" role="status" aria-live="polite"></div>
         <div class="pkg-grid" id="package-cards" aria-live="polite"></div>
+
+        <!-- Visible FAQ snippet to reinforce “worth it” & soda intent -->
+        <details class="card tiny" style="margin-top:.8rem">
+          <summary style="font-weight:700">FAQ: Is the drink package worth it? What about the Soda package?</summary>
+          <ul style="margin:.6rem 0 0 1.1rem">
+            <li><strong>Worth it?</strong> It depends on your habits. The calculator compares four strategies (no package, Soda, Refreshment, Deluxe) with gratuity handled correctly.</li>
+            <li><strong>Deluxe break-even:</strong> Typically ~5–6 alcoholic drinks/day. Sale prices move the line—use “Edit Price” to match your Cruise Planner.</li>
+            <li><strong>Soda package:</strong> Usually pays off around 4+ sodas/day. Check your numbers to be sure.</li>
+          </ul>
+        </details>
       </div>
     </section>
 
@@ -217,7 +316,7 @@
       <section class="card" aria-labelledby="rec-title">
         <h3 id="rec-title">Recommended Reading</h3>
         <div id="rec-rail" class="rail">
-          <!-- populated by JS; no hallucinations -->
+          <!-- populated by JS -->
         </div>
       </section>
 
@@ -225,7 +324,7 @@
         <h3 id="author-title">About the Author</h3>
         <article class="rail-item" role="article">
           <a class="thumb" href="/authors/ken-baker.html">
-            <img src="/authors/img/ken1.jpg?v=3.010.070" alt="Ken Baker">
+            <img src="/authors/img/ken1.jpg?v=3.010.070" alt="Ken Baker" width="96" height="96">
           </a>
           <div class="meta">
             <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -281,6 +380,7 @@
     const els = {
       inputsGrid: document.getElementById('inputs-grid'),
       packageCards: document.getElementById('package-cards'),
+      winnerCallout: document.getElementById('winner-callout'),
       totals: document.getElementById('totals'),
       totalsLine: document.getElementById('totals-line'),
       days: document.getElementById('days')
@@ -288,7 +388,7 @@
 
     const state = {
       days: 7,
-      epsilon: 0.02,          // ~2¢ tolerance, but we still show a single winner
+      epsilon: 0.02,          // ~2¢ tolerance; still pick a single winner
       items: new Map(),       // id -> {meta, qtyPerDay}
       order: [],
       cols: [[],[],[]],
@@ -376,6 +476,16 @@
     function renderPackages(view){
       const host = els.packageCards;
       host.innerHTML='';
+
+      // winner callout for “no package”
+      if (view.bestId === 'none'){
+        els.winnerCallout.style.display='';
+        els.winnerCallout.textContent = 'Best value: Pay as you go (à-la-carte). You spend $' + view.noneDaily.toFixed(2) + ' per day on your current picks.';
+      } else {
+        els.winnerCallout.style.display='none';
+        els.winnerCallout.textContent='';
+      }
+
       const ids=['soda','refreshment','deluxe'].filter(id=>state.packages.has(id));
 
       ids.forEach(id=>{
@@ -383,7 +493,7 @@
         const { value, overridden } = pkgPriceDisplay(p.meta);
         const includeVal = view.includedDaily[id] ?? 0;
 
-        // FIX: explicit map so refreshment shows its cost sentence.
+        // explicit mapping so every card shows the correct strategy math
         const costById = { none:view.noneDaily, soda:view.sodaDaily, refreshment:view.refreshDaily, deluxe:view.deluxeDaily };
         const strategyCost = costById[id];
 
@@ -394,7 +504,7 @@
           ${best?'<span class="ribbon" role="status">Best value</span>':''}
           <header>
             <div><strong>${p.meta.name}</strong></div>
-            <div class="price" data-price="${id}">${fmt(value)}/day</div>
+            <div class="price" data-price="${id}">${fmt(value)}/day${p.meta.priceRange && p.meta.priceRange[0]!==p.meta.priceRange[1] ? ` <span class="tiny muted">(range ${fmt(p.meta.priceRange[0])}–${fmt(p.meta.priceRange[1])})</span>` : ''}</div>
           </header>
           <div class="body tiny" style="margin:.1rem 0 .4rem">
             Included value (your picks): <strong>${fmt(includeVal)}</strong> /day
@@ -439,7 +549,7 @@
 
       const days = Math.max(1, parseInt(els.days.value||'1',10));
       state.days = days;
-      els.totals.textContent = `Daily total (à la carte): ${fmt(dailyTotal)} · Trip total: ${fmt(dailyTotal*days)}`;
+      els.totals.textContent = `Daily total (à-la-carte): ${fmt(dailyTotal)} · Trip total: ${fmt(dailyTotal*days)}`;
 
       const pkg = {};
       ['soda','refreshment','deluxe'].forEach(pid=>{
@@ -535,18 +645,11 @@
       const rail = document.getElementById('rec-rail');
       if (!rail) return;
 
-      // Authoritative list we actually have live (no hallucinations).
-      // Beverage-first candidates:
+      // Keep to only pages you actually ship/live.
       const BEV = [
-        {url:'/articles/should-you-buy-the-deluxe-package.html', title:'Should you buy the Deluxe package?', img:'/assets/articles/top-20-questions/cover.jpg'},
-        {url:'/articles/how-gratuities-work-on-drink-packages.html', title:'How drink gratuities really work', img:'/assets/index_hero.jpg'},
+        {url:'/articles/should-you-buy-the-deluxe-package.html', title:'Should you buy the Deluxe package?', img:'/assets/index_hero.jpg'},
+        {url:'/articles/how-gratuities-work-on-drink-packages.html', title:'How drink gratuities really work', img:'/assets/placeholders/article-thumb.jpg'},
         {url:'/articles/mocktails-and-kids-soda-plans.html', title:'Mocktails & kids’ soda plans', img:'/assets/placeholders/article-thumb.jpg'}
-      ];
-
-      // Optional general pool (only add if present on site; keep tiny + safe)
-      const EXTRA = [
-        {url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', img:'/solo/articles/img/cover.jpg'},
-        {url:'/solo/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', img:'/assets/index_hero.jpg'}
       ];
 
       function card(a){
@@ -559,21 +662,8 @@
           </article>`;
       }
 
-      const seen = new Set();
-      const out = [];
+      rail.innerHTML = BEV.slice(0,3).map(card).join('');
 
-      // beverage first
-      BEV.forEach(a=>{ if(a && a.url && !seen.has(a.url)){ out.push(a); seen.add(a.url); } });
-
-      // fill with extras if any new and we still have room (max 3)
-      for (const a of EXTRA){
-        if (out.length>=3) break;
-        if (a && a.url && !seen.has(a.url)){ out.push(a); seen.add(a.url); }
-      }
-
-      rail.innerHTML = out.slice(0,3).map(card).join('');
-
-      // attach hover prefetch
       rail.querySelectorAll('[data-prefetch="hover"]').forEach(a=>{
         a.addEventListener('mouseenter',onOver,{once:true,passive:true});
         a.addEventListener('focus',onOver,{once:true,passive:true});
