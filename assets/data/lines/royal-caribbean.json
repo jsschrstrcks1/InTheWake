@@ -1,92 +1,74 @@
 {
-  "line": "Royal Caribbean",
-  "packagesCardTitle": "Royal Caribbean Beverage Packages",
-  "meta": {
-    "version": "2025.11.01-rccl-1",
-    "currency": "USD",
-    "gratuityPercentAlaCarte": 18,
-    "gratuityIncludedInPackages": true,
-    "updated": "2025-11-01T00:00:00Z",
-    "priceNotes": [
-      "Averages from 2025 menus and recent cruiser reports; ship/itinerary can vary by ~$0.50–$1.00 per item.",
-      "Starbucks-branded venues and Desserted milkshake shops are excluded from package coverage.",
-      "Package pricing is dynamic; use the page's 'Edit Price' to override per-day cost for your sailing."
+  "schemaVersion": "1.0",
+  "updated": "2025-11-01",
+  "_comment": {
+    "what": "Dataset powering the beverage calculator. Prices are typical onboard averages; real package prices are editable in the UI.",
+    "how_to_extend": [
+      "Copy this file, change lineId/text/items/sets/packages for the new cruise line.",
+      "Keep `sets` strictly as item IDs. `includes` in packages can stay human-readable bullets for the card.",
+      "If a line has different gratuity or tie epsilon, override in `rules`.",
+      "Add more items freely; if they belong to a package coverage set, add the item id to the appropriate set."
     ]
   },
+
+  "lineId": "royal-caribbean",
+  "rules": { "gratuity": 0.18, "epsilon": 0.02 },
+
+  "text": {
+    "lineTitle": "Royal Caribbean",
+    "packagesTitle": "Royal Caribbean Beverage Packages",
+    "packagesExplTitle": "Package details",
+    "packagesExplHtml": "<ul><li>Package prices already include gratuity.</li><li>À-la-carte purchases add 18% gratuity automatically.</li><li>Deluxe covers everything up to the menu cap (pay the difference above).</li></ul>"
+  },
+
   "items": [
-    { "id": "water",     "name": "Tap Water",                       "avgPrice": 0,    "free": true, "notes": "Included on all ships." },
-    { "id": "lemonade",  "name": "Lemonade",                        "avgPrice": 0,    "free": true, "notes": "Included (buffet/self-serve)." },
-    { "id": "tea",       "name": "Tea (hot/cold)",                  "avgPrice": 0,    "free": true, "notes": "Included (various venues)." },
-    { "id": "juiceconc", "name": "Juice (from concentrate)",        "avgPrice": 0,    "free": true, "notes": "Included at breakfast; varieties vary." },
+    { "id": "soda",         "label": "Soda (can/fountain)",  "price": 3.50 },
+    { "id": "coffee",       "label": "Premium Coffee",       "price": 4.75 },
+    { "id": "tea",          "label": "Premium Tea",          "price": 4.50 },
+    { "id": "juice",        "label": "Fresh Juice",          "price": 4.75 },
+    { "id": "mocktail",     "label": "Mocktail",             "price": 5.50 },
+    { "id": "milkshake",    "label": "Milkshake",            "price": 6.95 },
+    { "id": "bottledwater", "label": "Bottled Water",        "price": 3.50 },
+    { "id": "beer",         "label": "Beer",                 "price": 8.00 },
+    { "id": "wine",         "label": "Wine (glass)",         "price": 12.00 },
+    { "id": "cocktail",     "label": "Cocktail",             "price": 13.50 },
+    { "id": "spirits",      "label": "Whiskey/Spirits",      "price": 11.50 },
 
-    { "id": "soda",      "name": "Soda (can/fountain)",             "avgPrice": 3.50, "notes": "Coca-Cola products; à-la-carte adds 18% gratuity." },
-    { "id": "coffee",    "name": "Premium Coffee",                  "avgPrice": 4.75, "notes": "Lattes/capps/espresso; Starbucks-branded venues excluded." },
-    { "id": "milkshake", "name": "Milkshake",                       "avgPrice": 6.50, "notes": "Johnny Rockets typical; Desserted on Icon-class may be higher." },
-    { "id": "juice",     "name": "Fresh-squeezed Juice",            "avgPrice": 4.50, "notes": "Orange, grapefruit, mixed blends; ~8–12 oz servings." },
-    { "id": "mocktail",  "name": "Mocktail / Non-alcoholic Cocktail","avgPrice": 5.50, "notes": "Virgin mixed drinks; included in Refreshment/Deluxe." },
-
-    { "id": "beer",      "name": "Beer",                            "avgPrice": 8.00, "notes": "Draft/bottle; premiums higher." },
-    { "id": "wine",      "name": "Wine (by the glass)",             "avgPrice": 12.00,"notes": "House to premium by the glass." },
-    { "id": "cocktail",  "name": "Cocktail",                        "avgPrice": 13.50,"notes": "Standard mixed drinks; super-premium above cap may cost extra." },
-    { "id": "liquor",    "name": "Whiskey/Spirit (single pour)",    "avgPrice": 11.50,"notes": "Neat or on rocks; premium brands higher." }
+    { "id": "tapwater",     "label": "Tap Water",            "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",     "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)", "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",  "price": 0, "free": true }
   ],
-  "packages": [
-    {
-      "id": "soda",
+
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","tea","juice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc"],
+    "alcohol": ["beer","wine","cocktail","spirits"]
+  },
+
+  "packages": {
+    "soda": {
       "name": "Classic Soda Package",
-      "priceRange": [9.99, 16.00],
-      "avg": 13.00,
-      "includes": ["soda"],
-      "description": [
-        "Unlimited fountain sodas & Coca-Cola Freestyle refills",
-        "Souvenir cup included",
-        "Excludes premium coffee/tea, fresh juice, milkshakes, bottled water, alcohol"
-      ],
-      "caps": { "alcoholPerDrinkCapUSD": 0 },
-      "exclusions": ["Starbucks-branded venues", "Alcoholic beverages", "Milkshakes", "Bottled water"]
+      "price": 13.00,
+      "range": "$9.99–$16/day",
+      "includes": ["Soda (can/fountain)", "Coca-Cola Freestyle", "Souvenir cup"]
     },
-    {
-      "id": "refreshment",
+    "refreshment": {
       "name": "Refreshment Package",
-      "priceRange": [29.00, 40.00],
-      "avg": 35.00,
-      "includes": ["soda","coffee","juice","milkshake","water","tea","lemonade","juiceconc","mocktail"],
-      "description": [
-        "All Soda items plus premium coffees/teas, fresh-squeezed juices",
-        "Bottled still/sparkling water; smoothies & shakes (venue dependent)",
-        "Non-alcoholic cocktails (mocktails)",
-        "No alcohol; Starbucks/Desserted specifics excluded"
-      ],
-      "caps": { "alcoholPerDrinkCapUSD": 0 },
-      "exclusions": ["Alcoholic beverages", "Starbucks-branded venues", "Some specialty dessert/milkshake shops"]
+      "price": 35.00,
+      "range": "$29–$40/day",
+      "includes": ["All soda items", "Premium coffees/teas", "Fresh juices", "Bottled water", "Mocktails/smoothies"]
     },
-    {
-      "id": "deluxe",
+    "deluxe": {
       "name": "Deluxe Beverage Package",
-      "priceRange": [56.00, 115.00],
-      "avg": 80.00,
-      "includes": ["soda","coffee","juice","milkshake","water","tea","lemonade","juiceconc","mocktail","beer","wine","cocktail","liquor"],
-      "description": [
-        "All Refreshment items plus beer, wine by the glass (up to price cap), cocktails/spirits/liqueurs",
-        "Typical per-drink cap around $14; pay the difference above cap",
-        "40% off bottled wine under $100; 20% off $100+",
-        "Venue exceptions apply (e.g., Starbucks, Desserted milkshakes)"
-      ],
-      "caps": { "alcoholPerDrinkCapUSD": 14 },
-      "exclusions": ["Starbucks-branded venues", "Super-premium drinks above cap pay difference"]
+      "price": 80.00,
+      "range": "$56–$115/day",
+      "includes": ["All Refreshment items", "Beer", "Wine by the glass", "Cocktails/spirits (to $14)", "% off bottled wine"]
     }
-  ],
-  "_comment": {
-    "about": "JSON-first dataset for the drink calculator. Clone this file for other lines.",
-    "how_to_add_a_line": [
-      "Copy this file to /assets/data/lines/{slug}.json (e.g., carnival.json).",
-      "Update 'line', 'packagesCardTitle', 'items', and 'packages' with that line's details.",
-      "Wire the cruise line pill's data-src to the new JSON path so it loads on click.",
-      "Service worker can prefetch these JSON URLs for offline-friendly performance."
-    ],
-    "prompts": {
-      "for_chatgpt": "Summarize {CRUISE_LINE} 2025 beverage package tiers (names, per-day price range, inclusions/exclusions, caps/limits, venue exceptions) and typical individual drink prices (soda, specialty coffee, milkshake, fresh juice, beer, wine by glass, cocktail, whiskey). Return JSON in the provided schema.",
-      "for_grok": "Collect latest menus and 2025 price reports for {CRUISE_LINE}. Confirm dynamic ranges for each package tier and average à-la-carte drink prices. Note ship-class/venue exceptions. Provide short bullet points suitable for the 'description' arrays."
-    }
+  },
+
+  "prompts": {
+    "for_chatgpt": "Summarize {CRUISE_LINE} 2025 beverage package tiers (names, per-day price range, inclusions/exclusions, caps/limits, venue exceptions) and typical individual drink prices (soda, specialty coffee, milkshake, fresh juice, beer, wine by glass, cocktail, whiskey). Return JSON in the provided schema.",
+    "for_grok": "Collect latest menus and 2025 price reports for {CRUISE_LINE}. Confirm dynamic ranges for each package tier and average à-la-carte drink prices. Note ship-class/venue exceptions. Provide short bullet points suitable for the 'includes' arrays."
   }
 }
