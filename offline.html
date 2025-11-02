@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Offline • In the Wake</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root{
+      --bg: #f7fafc;
+      --card: #ffffff;
+      --text: #0b1f2a;
+      --muted: #5b6b75;
+      --brand: #0e6e8e;
+      --brand-2: #0a3d62;
+      --ok: #1b8c5a;
+      --warn: #a85612;
+      --shadow: 0 6px 24px rgba(0,0,0,.08);
+      --radius: 16px;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0b1216;
+        --card: #0f171c;
+        --text: #e7eef2;
+        --muted: #9fb0bb;
+        --brand: #56b6d5;
+        --brand-2: #6fc3dc;
+        --shadow: 0 10px 30px rgba(0,0,0,.4);
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(14,110,142,.05), transparent 60%),
+                  radial-gradient(1000px 500px at 110% 10%, rgba(10,61,98,.05), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      display:grid;
+      place-items:center;
+      padding:2rem 1rem;
+    }
+    .wrap{
+      width:min(720px, 100%);
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:clamp(1rem, 2vw + 1rem, 2rem);
+      border: 1px solid color-mix(in oklab, var(--brand) 12%, transparent);
+    }
+    header{
+      display:flex; gap:1rem; align-items:flex-start; margin-bottom:1rem;
+    }
+    .logo{
+      width:52px; height:52px; border-radius:50%;
+      display:grid; place-items:center;
+      background: radial-gradient(100% 100% at 50% 35%, var(--brand-2), var(--brand));
+      color:#fff; box-shadow: var(--shadow);
+    }
+    .logo svg{ width:28px; height:28px; opacity:.95; }
+    h1{ font-size:clamp(1.25rem, 1rem + 1.2vw, 1.75rem); margin:.15rem 0 .35rem; letter-spacing:.2px }
+    .muted{ color:var(--muted) }
+    p{ margin:.5rem 0 0 }
+    .card{
+      background: color-mix(in oklab, var(--card) 92%, var(--bg));
+      border:1px dashed color-mix(in oklab, var(--brand) 20%, transparent);
+      border-radius:12px;
+      padding: .9rem 1rem;
+      margin:.75rem 0 0;
+    }
+    .btns{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem }
+    .btn{
+      appearance:none; border:0; cursor:pointer;
+      border-radius:999px; padding:.6rem 1rem; font-weight:600;
+      background:var(--brand); color:#fff; box-shadow: var(--shadow);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:active{ transform: translateY(1px) }
+    .btn.secondary{ background:transparent; color:var(--brand); border:1px solid color-mix(in oklab, var(--brand) 65%, transparent) }
+    .tiny{ font-size:.9rem }
+    ul{ margin:.5rem 0 0 1.25rem }
+    code{
+      background: color-mix(in oklab, var(--brand) 6%, transparent);
+      padding:.1rem .35rem; border-radius:6px; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    footer{
+      margin-top:1.25rem; display:flex; justify-content:space-between; gap:1rem; align-items:center;
+      color:var(--muted); font-size:.9rem
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main" aria-labelledby="title">
+    <header>
+      <div class="logo" aria-hidden="true">
+        <!-- Inline compass-rose icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+          <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+          <path d="M12 6l3.5 7.5L8 12l4-6z"/>
+          <circle cx="12" cy="12" r="1.25" />
+        </svg>
+      </div>
+      <div>
+        <h1 id="title">You’re offline</h1>
+        <p class="muted">We can’t reach <strong>In the Wake</strong> right now. Some pages are available offline—try again when you’re back online.</p>
+      </div>
+    </header>
+
+    <section class="card" aria-live="polite">
+      <p class="tiny">Status: <span id="net-status" data-online="unknown">checking…</span></p>
+      <div class="btns">
+        <button class="btn" id="retry">Try again</button>
+        <a class="btn secondary" href="/" id="home">Go to Home</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <p><strong>What you can try</strong></p>
+      <ul class="tiny">
+        <li>Check your Wi-Fi or cellular connection.</li>
+        <li>Use the <em>Try again</em> button to reload this page.</li>
+        <li>Open a page that’s cached for offline use:
+          <ul style="margin-top:.3rem">
+            <li><a href="/drink-packages.html">Beverage Packages Calculator</a></li>
+            <li><a href="/planning.html">Cruise Planning</a></li>
+            <li><a href="/ports.html">Ports</a></li>
+            <li><a href="/restaurants.html">Restaurants</a></li>
+            <li><a href="/solo.html">Solo Cruising</a></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> In the Wake</div>
+      <div class="tiny">This is a built-in offline page.</div>
+    </footer>
+  </main>
+
+  <script>
+    (function(){
+      "use strict";
+
+      const $ = (sel)=>document.querySelector(sel);
+      const statusEl = $("#net-status");
+      const retryBtn = $("#retry");
+      const yearEl = $("#year");
+      yearEl.textContent = new Date().getFullYear();
+
+      function paintStatus(){
+        const ok = navigator.onLine;
+        statusEl.textContent = ok ? "online" : "offline";
+        statusEl.style.color = ok ? "var(--ok)" : "var(--warn)";
+        statusEl.setAttribute("data-online", ok ? "true" : "false");
+      }
+
+      // Initial & reactive status
+      paintStatus();
+      window.addEventListener("online", paintStatus);
+      window.addEventListener("offline", paintStatus);
+
+      retryBtn.addEventListener("click", ()=>{
+        // Try a quick HEAD ping to the homepage; if it works, reload this doc
+        const ctrl = new AbortController();
+        setTimeout(()=>ctrl.abort(), 3500);
+        fetch("/", { method:"HEAD", cache:"no-store", signal:ctrl.signal }).then(()=>{
+          location.reload();
+        }).catch(()=>{
+          // If still offline, give subtle feedback
+          retryBtn.animate([{ transform:"none" },{ transform:"translateY(2px)" },{ transform:"none" }], { duration: 240 });
+        });
+      });
+
+      // Keyboard a11y: press "r" to retry, "h" for home
+      window.addEventListener("keydown", (e)=>{
+        if (e.key === "r" || e.key === "R"){ e.preventDefault(); retryBtn.click(); }
+        if (e.key === "h" || e.key === "H"){ e.preventDefault(); $("#home").click(); }
+      });
+    })();
+  </script>
+</body>
+</html>
