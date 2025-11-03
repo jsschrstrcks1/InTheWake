@@ -1,185 +1,337 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Royal Caribbean Drink Package Calculator (Is It Worth It?)</title>
-<meta name="description" content="Compare Soda, Refreshment, and Deluxe packages vs. à-la-carte. Includes 18% gratuity for both package prices and individual drinks.">
-<meta name="version" content="v3.010.111">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Royal Caribbean Drink Package Calculator — In the Wake</title>
+  <meta name="description" content="Figure out if Royal Caribbean’s drink packages are worth it. Compare à-la-carte vs Classic Soda, Refreshment, and Deluxe (Alcohol). Prices include gratuity." />
+  <link rel="canonical" href="https://cruisinginthewake.com/royal-caribbean-drink-package-calculator.html" />
 
-<style>
-:root{--sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e;--success-bg:#e6f4ec;--success-ink:#0e5a2e;--shadow:0 6px 22px rgba(8,48,65,.08)}
-*{box-sizing:border-box} body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)} a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-.wrap{max-width:1100px;margin:0 auto;padding:18px 14px 40px}
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;box-shadow:0 2px 6px rgba(8,48,65,.08);padding:1rem}
-.tiny{font-size:.88rem;color:#456}
-.hero-header{border-bottom:6px double var(--rope);background:#eaf6f6}
-.navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;padding:.5rem .9rem .35rem}
-.pill-nav{display:flex;gap:.45rem;flex:1;justify-content:center}
-.pill-nav a,.pill-nav .nav-disclosure{padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:#0e6e8e}
-.hero{position:relative;min-height:clamp(170px,22vw,320px);background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat}
-.hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px}
-.hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem)}
-.hero-title .logo{width:clamp(189px,23.1vw,378px)}
-.tagline{position:absolute;left:min(3vw,1rem);bottom:clamp(.55rem,1.6vw,1.1rem);font-weight:700;color:#e6f4f8}
-.hero-credit{position:absolute;right:.85rem;bottom:.85rem}
-.pill{display:inline-block;padding:.35rem .6rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:var(--sea)}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:1.25rem;align-items:start} @media (max-width:959.98px){.grid{grid-template-columns:1fr}}
-.banner{display:flex;gap:.6rem;align-items:center;border-radius:12px;padding:.55rem .75rem;border:1px solid #cfead6;background:var(--success-bg);color:var(--success-ink);margin:.75rem 0}
-.badge{display:inline-block;border-radius:999px;padding:.25rem .5rem;border:1px solid #cfead6;background:#fff;color:var(--success-ink);font-weight:700}
-.row{display:grid;grid-template-columns:1fr 140px;align-items:center;border-top:1px dashed #dfe7ea;padding:.6rem .35rem}.row:first-child{border-top:0}
-.n{display:flex;gap:.4rem;justify-content:flex-end}
-input[type=number]{width:100%;padding:.4rem;border:1px solid #cbd6da;border-radius:10px}
-.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:.9rem} @media (max-width:959.98px){.pkg-grid{grid-template-columns:1fr}}
-.pkg{padding:0} .pkg header{background:#0f2f44;color:#fff;border-radius:12px 12px 0 0;padding:.75rem 1rem}
-.pkg .body{padding:.9rem 1rem} .hint{font-size:.8rem;color:#567} .edit-price{margin-top:.4rem}
-#price-popover{position:fixed;inset:auto auto 1rem 1rem;max-width:260px;z-index:50} [hidden]{display:none!important}
-.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden} .skip-link:focus{left:1rem;top:1rem;width:auto;height:auto;background:#fff;border:2px solid var(--rope);padding:.4rem .6rem;border-radius:10px}
-</style>
-
-<!-- Linked entities + breadcrumbs -->
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"Royal Caribbean Drink Package Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","isAccessibleForFree":true,"url":"https://www.cruisinginthewake.com/drink-packages.html","author":{"@id":"https://www.cruisinginthewake.com/authors/ken-baker.html#person"},"publisher":{"@id":"https://www.cruisinginthewake.com/#organization"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"en-US","description":"Compare beverage packages vs. à-la-carte with gratuity included."}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-{"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
-{"@type":"ListItem","position":2,"name":"Planning","item":"https://www.cruisinginthewake.com/planning.html"},
-{"@type":"ListItem","position":3,"name":"Drink Packages","item":"https://www.cruisinginthewake.com/drink-packages.html"}]}
-</script>
+  <style>
+    :root{
+      --ink:#0f2f47; --ink-2:#10324a; --muted:#6f8393; --line:#e3e8ef;
+      --bg:#f7fbff; --card:#fff; --chip:#dff6e6; --chip-b:#bee6c9; --chip-ink:#0d6a33;
+      --accent:#2db35d; --accent-weak:#e1f7ea;
+    }
+    html,body{background:#f6fbff;color:#0f2f47;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;margin:0}
+    .sr-only{position:absolute;width:1px;height:1px;clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+    /* Header */
+    .itw-header{position:sticky;top:0;z-index:50;background:#f6fbff;border-bottom:1px solid #e2edf5}
+    .itw-wrap{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:10px 16px}
+    .itw-brand{display:flex;align-items:center;gap:10px}
+    .itw-nav{margin-left:auto;display:flex;gap:20px}
+    .itw-navlink{padding:8px 10px;border-radius:10px;color:#10324a;text-decoration:none}
+    .itw-navlink:focus,.itw-navlink:hover{background:#e8f4ff;outline:none}
+    .itw-version{font-size:.85rem;color:#5c7286}
+    /* Layout */
+    .page-wrap{max-width:1200px;margin:18px auto;display:grid;grid-template-columns:1fr 320px;gap:20px;padding:0 16px}
+    @media (max-width:980px){.page-wrap{grid-template-columns:1fr}}
+    .rail{display:flex;flex-direction:column;gap:14px}
+    .card{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--card);box-shadow:0 1px 0 #eef2f6}
+    .card h3{margin:0 0 8px 0;font-size:1.05rem}
+    .muted{color:var(--muted)}
+    /* Banner */
+    #best-banner{display:flex;gap:10px;align-items:center;background:#ecf8ef;border:1px solid #d8f0dd}
+    .chip{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.85rem;border:1px solid transparent}
+    .chip-success{background:var(--chip);border-color:var(--chip-b);color:var(--chip-ink)}
+    /* Inputs */
+    .input-grid{display:grid;grid-template-columns:1fr 140px;gap:10px 14px}
+    .row{display:contents}
+    .row > span{align-self:center}
+    .row > input{width:100%;height:36px;border:1px solid #d7e1ea;border-radius:10px;padding:0 10px}
+    .row-free > span.muted{justify-self:end}
+    /* Packages */
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(240px,1fr));gap:14px;margin-block:14px}
+    @media (max-width:980px){.cards{grid-template-columns:1fr}}
+    .pkg-hd{background:var(--ink);color:#fff;padding:10px;border-radius:12px;margin:-6px -6px 8px -6px}
+    .pkg.winner{outline:2px solid var(--accent);box-shadow:0 0 0 4px var(--accent-weak)}
+    .save{color:var(--chip-ink);font-weight:600}
+    .right-rail{display:flex;flex-direction:column;gap:16px}
+  </style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
 
-<header class="hero-header">
-  <div class="navbar">
-    <div class="brand">
-      <img src="/assets/logo_wake.png?v=v3.010.111" alt="In the Wake" width="256" height="64">
-      <span class="tiny version-badge">vv3.010.111</span>
+  <!-- Header (no dropdown JS; portal friendly) -->
+  <header class="itw-header" role="banner">
+    <div class="itw-wrap">
+      <a class="itw-brand" href="/">
+        <img src="/assets/logo_wake.png?v=3.010.070" alt="In the Wake" height="40" />
+      </a>
+      <nav class="itw-nav" aria-label="Primary">
+        <a class="itw-navlink" href="/">Home</a>
+        <a class="itw-navlink" href="/planning/">Planning</a>
+        <a class="itw-navlink" href="/travel/">Travel</a>
+        <a class="itw-navlink" href="/about/">About</a>
+      </nav>
+      <div class="itw-version">v3.010.110</div>
     </div>
-    <nav class="pill-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <button type="button" class="nav-disclosure" data-open-portal="planning">Planning ▾</button>
-      <button type="button" class="nav-disclosure" data-open-portal="travel">Travel ▾</button>
-      <a href="/about-us.html">About</a>
-    </nav>
-  </div>
-  <div class="hero" role="img" aria-label="Ocean horizon at sunrise">
-    <img class="hero-compass" src="/assets/compass_rose.svg?v=v3.010.111" width="180" height="180" alt="" aria-hidden="true">
-    <div class="hero-title"><img class="logo" src="/assets/logo_wake.png?v=v3.010.111" width="560" height="144" alt="In the Wake"></div>
-    <div class="tagline">A Cruise Traveler’s Logbook</div>
-    <div class="hero-credit"><span class="pill">Photo © Flickers of Majesty</span></div>
-  </div>
-</header>
+  </header>
 
-<main id="main" class="wrap grid" role="main" aria-label="Drink packages calculator">
-  <section aria-label="Calculator">
-    <div id="winner-banner" class="banner" aria-live="polite">
-      <span class="badge">Best value: à-la-carte</span>
-      <span>Your daily picks are cheapest without a package.</span>
-    </div>
+  <div class="page-wrap">
 
-    <div class="card" role="region" aria-labelledby="totals">
-      <div id="totals" class="tiny" aria-live="polite">$0.00/day • $0.00 trip — includes gratuity for packages and à-la-carte.</div>
+    <!-- Main column -->
+    <main id="main" aria-labelledby="page-title">
+      <h1 id="page-title" class="sr-only">Royal Caribbean Drink Package Calculator</h1>
 
-      <!-- snapshot (hydrated by JS) -->
-      <div class="row"><div>Cruise days</div><div class="n"><input id="inp-days" type="number" min="1" value="7"></div></div>
-      <div class="row"><div>Soda per day</div><div class="n"><input id="inp-soda" type="number" min="0" value="0"></div></div>
-      <div class="row"><div>Premium coffee per day</div><div class="n"><input id="inp-coffee" type="number" min="0" value="0"></div></div>
-      <div class="row"><div>Beer per day</div><div class="n"><input id="inp-beer" type="number" min="0" value="0"></div></div>
-      <div class="row"><div>Wine per day</div><div class="n"><input id="inp-wine" type="number" min="0" value="0"></div></div>
-      <div class="row"><div>Cocktail per day</div><div class="n"><input id="inp-cocktail" type="number" min="0" value="0"></div></div>
-      <div class="row"><div>Mocktail/juice per day</div><div class="n"><input id="inp-mocktail" type="number" min="0" value="0"></div></div>
-      <div class="row"><div>Tap water</div><div class="n tiny">Included · $0</div></div>
-      <div class="row"><div>Basic tea / lemonade</div><div class="n tiny">Included · $0</div></div>
-    </div>
+      <!-- Banner & totals -->
+      <section class="card" id="best-banner" role="status" aria-live="polite">
+        <span id="best-chip" class="chip chip-success">Best value: à-la-carte</span>
+        <span id="best-text">Your daily picks are cheapest without a package.</span>
+      </section>
 
-    <div class="pkg-grid">
-      <article class="card pkg" id="pkg-soda">
-        <header>Classic Soda</header>
-        <div class="body">
-          <div class="price"><strong>$13.00/day</strong> <span class="hint">range $9.99–$16/day</span></div>
-          <ul class="hint"><li>Soda</li></ul>
-          <div class="hint" id="covered-soda">Included value from your picks: $0.00/day</div>
-          <button class="edit-price pill" data-pkg="soda">Edit price</button>
+      <section class="card">
+        <p id="totals" class="muted">$0.00/day • $0.00 trip · includes gratuity for packages and à-la-carte.</p>
+
+        <!-- INPUTS (includes free items) -->
+        <div class="input-grid" id="inputs-grid">
+          <label class="row"><span>Cruise days</span><input id="inp-days" type="number" min="1" step="1" value="7" inputmode="numeric" /></label>
+
+          <label class="row"><span>Soda per day</span><input id="inp-soda" type="number" min="0" step="1" value="0" /></label>
+          <label class="row"><span>Premium coffee per day</span><input id="inp-coffee" type="number" min="0" step="1" value="0" /></label>
+          <label class="row"><span>Beer per day</span><input id="inp-beer" type="number" min="0" step="1" value="0" /></label>
+          <label class="row"><span>Wine per day</span><input id="inp-wine" type="number" min="0" step="1" value="0" /></label>
+          <label class="row"><span>Cocktail per day</span><input id="inp-cocktail" type="number" min="0" step="1" value="0" /></label>
+          <label class="row"><span>Mocktail/juice per day</span><input id="inp-mocktail" type="number" min="0" step="1" value="0" /></label>
+
+          <div class="row row-free"><span>Tap water</span><span class="muted">Included · $0</span></div>
+          <label class="row row-free"><span>Tap water per day</span><input id="inp-tap" type="number" min="0" step="1" value="0" /></label>
+
+          <div class="row row-free"><span>Basic tea / lemonade</span><span class="muted">Included · $0</span></div>
+          <label class="row row-free"><span>Basic tea/lemonade per day</span><input id="inp-basic" type="number" min="0" step="1" value="0" /></label>
+
+          <div class="row row-free"><span>Juice (concentrate)</span><span class="muted">Included · $0</span></div>
+          <label class="row row-free"><span>Juice (concentrate) per day</span><input id="inp-juiceconc" type="number" min="0" step="1" value="0" /></label>
         </div>
-      </article>
-      <article class="card pkg" id="pkg-refreshment">
-        <header>Refreshment</header>
-        <div class="body">
-          <div class="price"><strong>$35.00/day</strong> <span class="hint">range $29–$40/day</span></div>
-          <ul class="hint"><li>Soda + non-alcoholic</li></ul>
-          <div class="hint" id="covered-refreshment">Included value from your picks: $0.00/day</div>
-          <button class="edit-price pill" data-pkg="refreshment">Edit price</button>
-        </div>
-      </article>
-      <article class="card pkg" id="pkg-deluxe">
-        <header>Deluxe (Alcohol)</header>
-        <div class="body">
-          <div class="price"><strong>$80.00/day</strong> <span class="hint">range $56–$115/day</span></div>
-          <ul class="hint"><li>Alcoholic drinks up to cap</li></ul>
-          <div class="hint" id="covered-deluxe">Included value from your picks: $0.00/day</div>
-          <button class="edit-price pill" data-pkg="deluxe">Edit price</button>
-        </div>
-      </article>
-    </div>
-  </section>
+      </section>
 
-  <aside class="card" aria-label="Helpful links">
-    <h3 class="tiny">Recommended Reading</h3>
-    <ul>
-      <li><a href="/articles/refreshment-package-whats-included.html">Royal Caribbean Refreshment Package: What’s Included</a></li>
-      <li><a href="/articles/how-gratuity-works.html">How gratuity works on drinks & packages</a></li>
-      <li><a href="/articles/when-deluxe-is-worth-it.html">Deluxe Beverage Package: When it’s worth it</a></li>
-    </ul>
-  </aside>
-</main>
+      <!-- PACKAGE CARDS -->
+      <section id="package-cards" class="cards">
+        <article class="card pkg" data-card="soda">
+          <header class="pkg-hd">Classic Soda</header>
+          <p><strong>$13.00/day</strong> <span class="muted">range $9.99–$16/day</span></p>
+          <ul><li>Soda</li></ul>
+          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
+          <p class="save" data-saves hidden></p>
+        </article>
 
-<!-- Edit-price dialog -->
-<div id="price-popover" class="card" role="dialog" aria-modal="true" hidden>
-  <h3 class="tiny" id="pp-title">Edit package price</h3>
-  <label for="pp-input" class="tiny">Price per day (USD)</label>
-  <input id="pp-input" type="number" step="0.01" inputmode="decimal" style="width:140px">
-  <div style="display:flex;gap:.5rem;margin-top:.5rem">
-    <button id="pp-save" class="pill">Save</button>
-    <button id="pp-cancel" class="pill">Cancel</button>
-    <button id="pp-reset" class="pill">Reset</button>
-  </div>
-</div>
+        <article class="card pkg" data-card="refresh">
+          <header class="pkg-hd">Refreshment</header>
+          <p><strong>$35.00/day</strong> <span class="muted">range $29–$40/day</span></p>
+          <ul><li>Soda + non-alcoholic</li></ul>
+          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
+          <p class="save" data-saves hidden></p>
+        </article>
 
-<script>
-let RULES={gratuity:0.18,epsilon:0.02},PACKAGES={},SETS={},ITEMS={},state={days:7,picks:{},overrides:{}};
-const money=x=>`$${x.toFixed(2)}`,withGratuity=x=>x*(1+RULES.gratuity);
+        <article class="card pkg" data-card="deluxe">
+          <header class="pkg-hd">Deluxe (Alcohol)</header>
+          <p><strong>$80.00/day</strong> <span class="muted">range $56–$115/day</span></p>
+          <ul><li>Alcoholic drinks up to cap</li></ul>
+          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
+          <p class="save" data-saves hidden></p>
+        </article>
+      </section>
 
-function bindInputs(){
-  const M=[['days','inp-days'],['soda','inp-soda'],['coffee','inp-coffee'],['beer','inp-beer'],['wine','inp-wine'],['cocktail','inp-cocktail'],['mocktail','inp-mocktail']];
-  M.forEach(([k,id])=>{const el=document.getElementById(id);el?.addEventListener('input',()=>{if(k==='days'){state.days=Math.max(1,Number(el.value||1));}else{state.picks[k]=Math.max(0,Number(el.value||0));}renderWinner();renderCards();});});
-}
+      <p id="a11y-status" class="sr-only" aria-live="polite"></p>
+    </main>
 
-function aLaCartePerDay(){let t=0;for(const [id,qty] of Object.entries(state.picks)){const it=ITEMS[id];if(!it||it.free)continue;t+=(qty|0)*withGratuity(it.price||0);}return t;}
-function coveredPerDay(pkg){const setIds=new Set(SETS[pkg==='soda'?'soda':pkg==='refreshment'?'refresh':'alcohol']||[]);let v=0;for(const [id,qty] of Object.entries(state.picks)){const it=ITEMS[id];if(!it||it.free)continue;if(setIds.has(id))v+=(qty|0)*withGratuity(it.price||0);}return v;}
-function netPerDay(pkg){const price=Number(state.overrides[pkg]??PACKAGES[pkg]?.price||0);return price-coveredPerDay(pkg);}
-function computeWinner(){const nets={soda:netPerDay('soda'),refreshment:netPerDay('refreshment'),deluxe:netPerDay('deluxe')};let best='a-la-carte',bestNet=Infinity;for(const [k,v] of Object.entries(nets)){if(v<bestNet-RULES.epsilon){bestNet=v;best=k;}}const allPos=Object.values(nets).every(v=>v>0+RULES.epsilon);if(allPos)return{winner:'a-la-carte',badge:'Best value: à-la-carte',delta:0};return{winner:best,badge:`Best value: ${PACKAGES[best].name}`,delta:Math.abs(bestNet),saves:bestNet<0};}
-function renderWinner(){const a=aLaCartePerDay();const {winner,badge,delta,saves}=computeWinner();const banner=document.getElementById('winner-banner');const msg=(winner==='a-la-carte')?'Your daily picks are cheapest without a package.':(saves?`Saves ${money(delta)}/day vs à-la-carte.`:`Costs ${money(delta)}/day more than à-la-carte.`);banner.innerHTML=`<span class="badge">${badge}</span><span>${msg}</span>`;document.getElementById('totals').textContent=`${money(a)}/day • ${money(a*state.days)} trip — includes gratuity for packages and à-la-carte.`;}
-function renderCards(){['soda','refreshment','deluxe'].forEach(id=>{const cov=coveredPerDay(id);const el=document.getElementById(`covered-${id}`);if(el)el.textContent=`Included value from your picks: ${money(cov)}/day`;const card=document.getElementById(`pkg-${id}`);if(card){const strong=card.querySelector('.price strong');const p=Number(state.overrides[id]??PACKAGES[id]?.price||0);if(strong)strong.textContent=`${money(p)}/day`;}});}
+    <!-- Right rail -->
+    <aside class="right-rail" aria-label="Sidebar">
+      <section class="card" aria-labelledby="rec-title">
+        <h3 id="rec-title">Recommended Reading</h3>
+        <ul class="rail">
+          <li><a href="/planning/royal-refreshment-whats-included.html">Royal Caribbean Refreshment Package: What’s Included</a></li>
+          <li><a href="/planning/gratuity-on-drinks.html">How gratuity works on drinks &amp; packages</a></li>
+          <li><a href="/planning/royal-deluxe-worth-it.html">Deluxe Beverage Package: When it’s worth it</a></li>
+        </ul>
+      </section>
 
-(function priceEditor(){const dlg=document.getElementById('price-popover');const input=document.getElementById('pp-input');window.pp_save=document.getElementById('pp-save');window.pp_reset=document.getElementById('pp-reset');window.pp_cancel=document.getElementById('pp-cancel');let current=null;function open(pkg){current=pkg;input.value=Number(state.overrides[pkg]??PACKAGES[pkg]?.price||0).toFixed(2);dlg.hidden=false;input.focus();}function close(){dlg.hidden=true;current=null;}document.addEventListener('click',(e)=>{const btn=e.target.closest('.edit-price');if(btn)open(btn.dataset.pkg);});pp_save.onclick=()=>{if(!current)return;state.overrides[current]=Number(input.value||0);localStorage.setItem('itw:drink:overrides',JSON.stringify(state.overrides));close();renderWinner();renderCards();};pp_reset.onclick=()=>{if(!current)return;delete state.overrides[current];localStorage.setItem('itw:drink:overrides',JSON.stringify(state.overrides));close();renderWinner();renderCards();};pp_cancel.onclick=close;document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&!dlg.hidden)close();});})();
+      <section class="card" aria-labelledby="other-title">
+        <h3 id="other-title">Other Calculators</h3>
+        <ul class="rail">
+          <li><a href="/carnival-drink-package-calculator.html">Carnival Drink Package Calculator</a></li>
+          <li><a href="/ncl-drink-package-calculator.html">NCL Drink Package Calculator</a></li>
+        </ul>
+      </section>
 
-async function loadDataset(){
-  const res=await fetch('/data/royal-caribbean.json',{cache:'default',credentials:'omit'});
-  const data=await res.json();
-  RULES=data.rules||RULES; PACKAGES=data.packages||PACKAGES;
-  SETS={soda:data.sets?.soda||[],refresh:data.sets?.refresh||[],alcohol:data.sets?.alcohol||[]};
-  ITEMS=Object.fromEntries((data.items||[]).map(it=>[it.id,it]));
-  // default picks; make sure free entries exist for UI parity
-  state.picks={soda:0,coffee:0,beer:0,wine:0,cocktail:0,mocktail:0, ...(Object.fromEntries(Object.values(ITEMS).filter(i=>i.free).map(i=>[i.id,0])) )};
-  try{state.overrides=JSON.parse(localStorage.getItem('itw:drink:overrides')||'{}')||{};}catch(_){}
-  renderWinner(); renderCards();
-}
+      <section class="card" aria-labelledby="author-title">
+        <h3 id="author-title">About the author</h3>
+        <p>By <a href="/authors/ken-baker.html">Ken Baker</a>. Pastor, coder, cruiser. Soli Deo Gloria.</p>
+      </section>
+    </aside>
 
-bindInputs(); loadDataset();
+  </div><!-- /page-wrap -->
 
-// polite SW seeding for sibling calculators
-document.querySelectorAll('a[href*="carnival-drink"],a[href*="ncl-drink"]').forEach(a=>a.addEventListener('mouseenter',()=>window.itwSeedSW?.(['/carnival-drink-package-calculator.html','/ncl-drink-package-calculator.html'])));
-</script>
+  <!-- ===== Dataset loader (works with SW; emits ready event) ===== -->
+  <script>
+    (async () => {
+      try {
+        const res = await fetch('/data/royal-caribbean.json', { cache: 'default' });
+        if (!res.ok) throw new Error('Dataset fetch failed: ' + res.status);
+        window.itwDataset = await res.json();
+        window.dispatchEvent(new CustomEvent('itw:dataset-ready'));
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  </script>
+
+  <!-- ===== Calculator recompute + wiring ===== -->
+  <script>
+  (() => {
+    const INPUT_IDS = {
+      days:'#inp-days',
+      soda:'#inp-soda', coffee:'#inp-coffee',
+      beer:'#inp-beer', wine:'#inp-wine', cocktail:'#inp-cocktail',
+      mocktail:'#inp-mocktail',
+      tap:'#inp-tap', basic:'#inp-basic', juiceconc:'#inp-juiceconc'
+    };
+
+    const EL = {
+      totals: document.querySelector('#totals'),
+      chip:   document.querySelector('#best-chip'),
+      text:   document.querySelector('#best-text'),
+      card: {
+        soda: document.querySelector('[data-card="soda"]'),
+        refresh: document.querySelector('[data-card="refresh"]'),
+        deluxe: document.querySelector('[data-card="deluxe"]')
+      }
+    };
+
+    const n = v => { const x = Number(v); return Number.isFinite(x) ? x : 0; };
+    const money = v => `$${(Math.round(v*100)/100).toFixed(2)}`;
+
+    function pricesFrom(ds){ const m={}; (ds.items||[]).forEach(i=>m[i.id]=n(i.price)); return m; }
+    function setsFrom(ds){
+      const s=ds.sets||{};
+      return { soda:new Set(s.soda||[]), refresh:new Set(s.refresh||[]), alcohol:new Set(s.alcohol||[]) };
+    }
+    function pkgFrom(ds){
+      const p=ds.packages||{};
+      return { soda:n(p.soda?.price), refresh:n(p.refreshment?.price), deluxe:n(p.deluxe?.price) };
+    }
+    function picks(){
+      const q = sel => document.querySelector(sel);
+      return {
+        days: n(q(INPUT_IDS.days)?.value),
+        list: [
+          ['soda',     n(q(INPUT_IDS.soda)?.value)],
+          ['coffee',   n(q(INPUT_IDS.coffee)?.value)],
+          ['beer',     n(q(INPUT_IDS.beer)?.value)],
+          ['wine',     n(q(INPUT_IDS.wine)?.value)],
+          ['cocktail', n(q(INPUT_IDS.cocktail)?.value)],
+          ['mocktail', n(q(INPUT_IDS.mocktail)?.value)],
+          ['tapwater', n(q(INPUT_IDS.tap)?.value)],
+          ['basictea', n(q(INPUT_IDS.basic)?.value)],
+          ['juiceconc',n(q(INPUT_IDS.juiceconc)?.value)]
+        ]
+      };
+    }
+
+    function alcPerDay(list, price, gratuity){
+      let sum=0;
+      for(const [id,qty] of list){
+        if(qty<=0) continue;
+        const p = n(price[id]);
+        if(p>0) sum += qty * p * (1+gratuity); // free items contribute 0
+      }
+      return sum;
+    }
+    function included(list, price, coverageSet){
+      let inc=0;
+      for(const [id,qty] of list){
+        if(qty<=0) continue;
+        if(!coverageSet.has(id)) continue;
+        const p = n(price[id]);
+        if(p>0) inc += qty * p; // ignore $0 so packages don’t gain fake value
+      }
+      return inc;
+    }
+    function winnerFrom(nets){
+      const arr = Object.entries(nets);
+      if(arr.every(([,v])=>v>0)) return {key:'alc', net:0};
+      let mk='soda', mv=Infinity;
+      for(const [k,v] of arr){ if(v<mv){mv=v; mk=k;} }
+      return {key:mk, net:mv};
+    }
+    function setCard(el, inc, saves, isWinner){
+      if(!el) return;
+      const incEl = el.querySelector('[data-inc]');
+      const svEl  = el.querySelector('[data-saves]');
+      if(incEl) incEl.textContent = money(inc)+'/day';
+      if(svEl){
+        if(saves>0){ svEl.textContent = `Saves ${money(saves)}/day`; svEl.hidden=false; }
+        else{ svEl.textContent=''; svEl.hidden=true; }
+      }
+      el.classList.toggle('winner', !!isWinner);
+    }
+
+    function recompute(){
+      const ds = window.itwDataset; if(!ds) return;
+      const rules = { gratuity: n(ds.rules?.gratuity ?? 0.18), epsilon: n(ds.rules?.epsilon ?? 0.02) };
+      const price = pricesFrom(ds);
+      const sets  = setsFrom(ds);
+      const pkg   = pkgFrom(ds);
+      const pk    = picks();
+
+      const alc = alcPerDay(pk.list, price, rules.gratuity);
+      const deluxeSet = new Set([...sets.refresh, ...sets.alcohol]);
+
+      const incSoda    = included(pk.list, price, sets.soda);
+      const incRefresh = included(pk.list, price, sets.refresh);
+      const incDeluxe  = included(pk.list, price, deluxeSet);
+
+      const nets = {
+        soda:    pkg.soda    - incSoda,
+        refresh: pkg.refresh - incRefresh,
+        deluxe:  pkg.deluxe  - incDeluxe
+      };
+
+      const w = winnerFrom(nets);
+
+      const perDayWinner =
+        w.key==='alc'     ? alc :
+        w.key==='soda'    ? pkg.soda :
+        w.key==='refresh' ? pkg.refresh :
+                            pkg.deluxe;
+
+      const trip = perDayWinner * Math.max(1, pk.days || 1);
+
+      if(EL.totals) EL.totals.textContent = `${money(perDayWinner)}/day • ${money(trip)} trip · includes gratuity for packages and à-la-carte.`;
+
+      if(EL.chip && EL.text){
+        if(w.key==='alc'){
+          EL.chip.textContent='Best value: à-la-carte';
+          EL.text.textContent='Your daily picks are cheapest without a package.';
+        }else{
+          const name = w.key==='soda' ? 'Classic Soda' : w.key==='refresh' ? 'Refreshment' : 'Deluxe (Alcohol)';
+          const pkgDaily = w.key==='soda' ? pkg.soda : w.key==='refresh' ? pkg.refresh : pkg.deluxe;
+          const saves = Math.max(0, alc - pkgDaily);
+          EL.chip.textContent = `Best value: ${name}`;
+          EL.text.textContent = saves>0 ? `Saves ${money(saves)}/day vs. à-la-carte for your current picks.` : `This beats à-la-carte for your current picks.`;
+        }
+      }
+
+      setCard(EL.card.soda,    incSoda,    Math.max(0, alc - pkg.soda),    w.key==='soda');
+      setCard(EL.card.refresh, incRefresh, Math.max(0, alc - pkg.refresh), w.key==='refresh');
+      setCard(EL.card.deluxe,  incDeluxe,  Math.max(0, alc - pkg.deluxe),  w.key==='deluxe');
+
+      const a11y = document.querySelector('#a11y-status');
+      if(a11y){ a11y.textContent = `Totals updated. ${money(perDayWinner)} per day, ${money(trip)} for the trip.`; }
+    }
+
+    function wire(){
+      Object.values(INPUT_IDS).forEach(sel=>{
+        const el=document.querySelector(sel);
+        if(!el) return;
+        el.addEventListener('input', recompute);
+        el.addEventListener('change', recompute);
+      });
+      if(window.itwDataset) recompute();
+      else window.addEventListener('itw:dataset-ready', recompute, {once:true});
+    }
+
+    document.addEventListener('DOMContentLoaded', wire);
+  })();
+  </script>
 </body>
 </html>
