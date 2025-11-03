@@ -52,6 +52,24 @@
   font-weight:600;
 }
 .row.included small{ color:#475569; } /* slightly darker than --muted so it reads as a chip */
+    .row.included > div:first-child{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+}
+.row.included .pill{ white-space:nowrap; }
+    @media (max-width:520px){
+  .row{ grid-template-columns:1fr 100px; }
+}
+    /* Quick Start presets */
+.qs {background:#fde68a20;border:1px solid #f59e0b50;border-radius:12px;padding:14px 16px;margin:16px 0}
+.qs .qs-hd{display:flex;align-items:center;gap:10px;font-weight:800;color:#7c2d12}
+.qs .qs-sub{color:#6b7280;margin:6px 0 12px}
+.qs .qs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.qs .qs-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  background:#ecfeff;border:1px solid #bae6fd;border-radius:12px;padding:10px;cursor:pointer;
+  font-weight:700;color:#0f172a;text-align:center}
+.qs .qs-btn small{font-weight:600;color:#475569}
+.qs .qs-btn:focus,.qs .qs-btn:hover{outline:3px solid #38bdf8;outline-offset:2px;background:#e0f2fe}
+@media (max-width:960px){ .qs .qs-grid{grid-template-columns:repeat(2,1fr);} }
   </style>
 </head>
 <body>
@@ -70,6 +88,28 @@
   </header>
 
   <main class="container" id="main">
+    <section class="qs" aria-labelledby="qs-title">
+  <div class="qs-hd" id="qs-title">🚀 Quick Start: Load a Preset</div>
+  <p class="qs-sub">Not sure where to start? Try one of these common patterns:</p>
+
+  <div class="qs-grid">
+    <button class="qs-btn" type="button" onclick="window.loadPreset && loadPreset('light')">
+      <span>🌤️ Light Drinker</span><small>2–3 drinks/day</small>
+    </button>
+
+    <button class="qs-btn" type="button" onclick="window.loadPreset && loadPreset('moderate')">
+      <span>🍹 Moderate</span><small>5–6 drinks/day</small>
+    </button>
+
+    <button class="qs-btn" type="button" onclick="window.loadPreset && loadPreset('heavy')">
+      <span>🎉 Party Mode</span><small>8–10 drinks/day</small>
+    </button>
+
+    <button class="qs-btn" type="button" onclick="window.loadPreset && loadPreset('coffee')">
+      <span>☕ Coffee Lover</span><small>4 coffees, no alcohol</small>
+    </button>
+  </div>
+</section>
     <div class="banner" role="status" aria-live="polite">
       <span id="best-chip" class="chip">Best value: à-la-carte</span>
       <span id="best-text">Your daily picks are cheapest without a package.</span>
