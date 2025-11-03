@@ -63,6 +63,39 @@
   --bg:#f8fbfc; --card:#fff; --bd:#e5e7eb; --muted:#6b7280; --chip:#e7f6ea; --chipText:#0a7b3e;
   --good:#10b981; --warn:#f59e0b; --bad:#ef4444; --ink:#0f172a;
 }
+  /* Add this to your existing <style> block */
+@media print {
+  body {
+    font-size: 12pt;
+    background: var(--card); /* Use white background */
+  }
+
+  /* Hide everything that ISN'T the main results */
+  header.navbar,
+  .qs,
+  .banner,
+  .rail,
+  .card:not(.inputs), /* Hides 'How to use' card */
+  .controls-inline .btn { /* Hides the Print/Reset buttons */
+    display: none;
+  }
+
+  /* Expand the main results card to full width */
+  main.container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Remove shadows/borders for printing */
+  .card {
+    border: none;
+    box-shadow: none;
+  }
+}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:#111;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
 a{color:#0369a1}
@@ -133,8 +166,6 @@ header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
 </style>
 
 <!-- libs -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
@@ -253,7 +284,7 @@ header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
         </div>
 
         <div class="controls-inline" style="margin-top:12px">
-          <button class="btn" type="button" onclick="exportToPDF()">Export PDF</button>
+          <button class="btn" type="button" onclick="exportToPDF()<button class="btn" type="button" onclick="printResults()">Print / Save Results</button>>Export PDF</button>
           <button class="btn" type="button" onclick="resetInputs()" style="background:var(--bad)">Reset All</button>
         </div>
       </div>
