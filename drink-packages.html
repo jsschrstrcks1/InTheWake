@@ -186,7 +186,7 @@
   <!-- Load canonical dataset (single source of truth) -->
   <script>
   (function loadDataset(){
-    const url = '/data/royal-caribbean.json?v=3.011.0';
+    const url = '/assets/data/lines/royal-caribbean.json?v=3.011.0';
     fetch(url, { cache:'force-cache' })
       .then(r => r.ok ? r.json() : Promise.reject(new Error('Dataset HTTP '+r.status)))
       .then(j => { window.itwDataset = j; document.dispatchEvent(new Event('itw:dataset-ready')); })
