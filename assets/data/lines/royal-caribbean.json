@@ -3,67 +3,89 @@
   "updated": "2025-11-03",
 
   "lineId": "royal-caribbean",
-  "rules": { "gratuity": 0.18, "epsilon": 0.02, "caps": { "deluxeAlcohol": 14 } },
+
+  "rules": {
+    "gratuity": 0.18,
+    "epsilon": 0.02,
+    "caps": { "deluxeAlcohol": 14 }
+  },
 
   "items": [
-    { "id":"soda",      "label":"Soda (can/fountain)", "price":3.50,
-      "priceMin":3.50, "priceMax":3.50, "priceMid":3.50, "category":"soda" },
+    { "id": "soda",         "label": "Soda (can/fountain)",   "price": 3.50,  "rangeMin": 3.50, "rangeMax": 3.50 },
 
-    { "id":"coffee",    "label":"Premium Coffee", "price":4.75,
-      "priceMin":4.00, "priceMax":5.50, "priceMid":4.75, "category":"coffee" },
+    { "id": "coffee",       "label": "Premium Coffee",        "price": 5.00,  "rangeMin": 4.00, "rangeMax": 5.50 },
+    { "id": "teaprem",      "label": "Specialty Tea",         "price": 2.25,  "rangeMin": 2.00, "rangeMax": 2.50 },
 
-    { "id":"mocktail",  "label":"Mocktail / Fresh Juice*", "price":6.50,
-      "priceMin":6.00, "priceMax":10.00, "priceMid":8.00, "category":"nonalcohol" },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",  "price": 8.25,  "rangeMin": 8.25, "rangeMax": 8.25 },
+    { "id": "mocktail",     "label": "Mocktail",              "price": 7.50,  "rangeMin": 6.00, "rangeMax": 10.00 },
+    { "id": "energy",       "label": "Energy Drink",          "price": 4.75,  "rangeMin": 4.00, "rangeMax": 5.00 },
+    { "id": "milkshake",    "label": "Milkshake",             "price": 13.50, "rangeMin": 9.00, "rangeMax": 18.00 },
+    { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 2.90,  "rangeMin": 2.25, "rangeMax": 3.50 },
 
-    { "id":"beer",      "label":"Beer", "price":8.00,
-      "priceMin":7.00, "priceMax":9.75, "priceMid":8.40, "category":"alcohol" },
+    { "id": "beer",         "label": "Beer",                  "price": 8.50,  "rangeMin": 7.00, "rangeMax": 9.75 },
+    { "id": "wine",         "label": "Wine (glass)",          "price": 11.00, "rangeMin": 8.00, "rangeMax": 16.00 },
+    { "id": "cocktail",     "label": "Cocktail",              "price": 12.00, "rangeMin": 10.00, "rangeMax": 14.00 },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 11.50, "rangeMin": 9.00, "rangeMax": 14.00 },
 
-    { "id":"wine",      "label":"Wine (glass)", "price":12.00,
-      "priceMin":8.00, "priceMax":16.00, "priceMid":12.00, "category":"alcohol" },
-
-    { "id":"cocktail",  "label":"Cocktail", "price":12.00,
-      "priceMin":10.00, "priceMax":14.00, "priceMid":12.00, "category":"alcohol" },
-
-    { "id":"spirits",   "label":"Whiskey/Spirits", "price":12.00,
-      "priceMin":9.99, "priceMax":14.00, "priceMid":12.00, "category":"alcohol" },
-
-    { "id":"tapwater",  "label":"Tap Water", "price":0, "free":true },
-    { "id":"basictea",  "label":"Basic Tea (hot/cold)", "price":0, "free":true },
-    { "id":"juiceconc", "label":"Juice (concentrate)", "price":0, "free":true }
+    { "id": "tapwater",     "label": "Tap Water",             "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",      "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",  "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",   "price": 0, "free": true }
   ],
 
   "sets": {
     "soda":    ["soda"],
-    "refresh": ["soda","coffee","mocktail","tapwater","basictea","juiceconc"],
+    "refresh": [
+      "soda","coffee","teaprem","freshjuice","mocktail","milkshake",
+      "bottledwater","tapwater","lemonade","basictea","juiceconc"
+    ],
     "alcohol": ["beer","wine","cocktail","spirits"]
   },
 
   "packages": {
     "soda": {
-      "name":"Classic Soda Package",
-      "price":10.99,
-      "range":"$8.99–$15/day",
-      "priceMin":8.99, "priceMax":15.00, "priceMid":10.99,
-      "includes":["Unlimited fountain soda & Coca-Cola Freestyle","Souvenir cup"]
+      "name": "Classic Soda Package",
+      "price": 10.99,
+      "range": "$8.99–$15/day",
+      "priceMin": 8.99,
+      "priceMax": 15.00,
+      "priceMid": 10.99,
+      "includes": [
+        "Unlimited fountain soda & Coca-Cola Freestyle",
+        "Souvenir cup"
+      ]
     },
     "refreshment": {
-      "name":"Refreshment Package",
-      "price":35.00,
-      "range":"$28–$48/day",
-      "priceMin":28.00, "priceMax":48.00, "priceMid":34.50,
-      "includes":["All soda items","Premium coffees/teas (excl. Starbucks)","Fresh juices & mocktails","Bottled water"]
+      "name": "Refreshment Package",
+      "price": 35.00,
+      "range": "$28–$48/day",
+      "priceMin": 28.00,
+      "priceMax": 48.00,
+      "priceMid": 34.50,
+      "includes": [
+        "All soda items",
+        "Premium coffees/teas (excl. Starbucks)",
+        "Fresh juices & mocktails",
+        "Bottled water"
+      ]
     },
     "deluxe": {
-      "name":"Deluxe Beverage Package",
-      "price":80.00,
-      "range":"$56–$115/day",
-      "priceMin":55.00, "priceMax":115.00, "priceMid":85.00,
-      "includes":["All Refreshment items","Beer, wine, cocktails & spirits up to $14/drink (pay difference above)","~40% off select bottled wines"]
+      "name": "Deluxe Beverage Package",
+      "price": 80.00,
+      "range": "$56–$115/day",
+      "priceMin": 55.00,
+      "priceMax": 115.00,
+      "priceMid": 85.00,
+      "includes": [
+        "All Refreshment items",
+        "Beer, wine, cocktails & spirits up to $14 each (pay difference above)",
+        "≈ 40% off select bottled wines"
+      ]
     }
   },
 
   "_notes": {
-    "mocktail_label":"We kept a single input for 'Mocktail / Fresh Juice*' for simplicity; the range (6–10) transparently spans standard mocktails (~$6–7) and fresh juices/smoothies (~$8.25–10). If you later want separate inputs, keep the same math and split IDs.",
-    "apples_to_apples":"Included value is now calculated as avoided a-la-carte spend = (per-drink base * 1.18) so comparisons to package daily price are consistent."
+    "mocktail_label": "We kept a single input for 'Mocktail / Fresh Juice*' for simplicity; the range (6–10) transparently spans standard mocktails (~$6–7) and fresh juices/smoothies (~$8.25–10). If you later want separate inputs, keep the same math and split IDs.",
+    "apples_to_apples": "Included value is now calculated as avoided à-la-carte spend = (per-drink base × 1.18) so comparisons to package daily price are consistent."
   }
 }
