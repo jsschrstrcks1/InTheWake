@@ -163,6 +163,107 @@ header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
   .health{background:#92400e;border-color:#c05621;color:#feebc8}
   .tooltip [role="tooltip"]{background:#2d3748;color:#e2e8f0}
 }
+  /* Add this to your main <style> block */
+.input-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Aligns to the right */
+  gap: 4px;
+}
+.input-stepper .btn-step {
+  all: unset; /* Reset button styles */
+  cursor: pointer;
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  color: var(--ink);
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Circle shape */
+  font-weight: 800;
+  line-height: 1;
+}
+.input-stepper .btn-step:hover,
+.input-stepper .btn-step:focus-visible {
+  background: #e0f2fe; /* Light blue hover */
+  border-color: #0ea5e9;
+}
+.input-stepper input {
+  width: 45px !important; /* Override the default 110px */
+  text-align: center;
+  padding: 6px 4px !important; /* Adjust padding */
+  -moz-appearance: textfield; /* Hide number arrows in Firefox */
+}
+/* Hide number arrows in Chrome/Safari */
+.input-stepper input::-webkit-outer-spin-button,
+.input-stepper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Adjust the grid layout for the new stepper */
+.row.row--stepper {
+  grid-template-columns: 1fr 120px; /* Keep original */
+}
+
+/* On mobile, give stepper more space */
+@media (max-width: 960px) {
+  .row.row--stepper {
+    grid-template-columns: 1fr 120px;
+  }
+}
+  /* --- Stepper Component CSS --- */
+.input-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Aligns to the right */
+  gap: 4px;
+}
+.input-stepper .btn-step {
+  all: unset; /* Reset button styles */
+  cursor: pointer;
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  color: var(--ink);
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Circle shape */
+  font-weight: 800;
+  line-height: 1;
+  user-select: none; /* Prevents text selection on double-click */
+}
+.input-stepper .btn-step:hover,
+.input-stepper .btn-step:focus-visible {
+  background: #e0f2fe; /* Light blue hover */
+  border-color: #0ea5e9;
+  outline: none;
+}
+.input-stepper input {
+  width: 45px !important; /* Override the default 110px */
+  text-align: center;
+  padding: 6px 4px !important; /* Adjust padding */
+  -moz-appearance: textfield; /* Hide number arrows in Firefox */
+}
+/* Hide number arrows in Chrome/Safari */
+.input-stepper input::-webkit-outer-spin-button,
+.input-stepper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Adjust grid for stepper */
+.row.row--stepper {
+  grid-template-columns: 1fr 120px; 
+}
+@media (max-width: 960px) {
+  .row.row--stepper {
+    grid-template-columns: 1fr 120px;
+  }
+}
 </style>
 
 <!-- libs -->
@@ -267,19 +368,102 @@ header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
         </fieldset>
 
         <!-- Drinks -->
-        <div class="row"><label>Soda per day <small class="pill" data-price-pill="soda"></small></label><input id="input-soda" type="text" inputmode="decimal" value="0" data-input="soda"></div>
-        <div class="row"><label>Premium coffee per day <small class="pill" data-price-pill="coffee"></small></label><input id="input-coffee" type="text" inputmode="decimal" value="0" data-input="coffee"></div>
-        <div class="row"><label>Specialty tea per day <small class="pill" data-price-pill="teaprem"></small></label><input id="input-teaprem" type="text" inputmode="decimal" value="0" data-input="teaprem"></div>
-        <div class="row"><label>Fresh juice/smoothie per day <small class="pill" data-price-pill="freshjuice"></small></label><input id="input-freshjuice" type="text" inputmode="decimal" value="0" data-input="freshjuice"></div>
-        <div class="row"><label>Mocktail per day <small class="pill" data-price-pill="mocktail"></small></label><input id="input-mocktail" type="text" inputmode="decimal" value="0" data-input="mocktail"></div>
-        <div class="row"><label>Energy drink per day <small class="pill" data-price-pill="energy"></small></label><input id="input-energy" type="text" inputmode="decimal" value="0" data-input="energy"></div>
-        <div class="row"><label>Milkshake per day <small class="pill" data-price-pill="milkshake"></small></label><input id="input-milkshake" type="text" inputmode="decimal" value="0" data-input="milkshake"></div>
-        <div class="row"><label>Bottled water per day <small class="pill" data-price-pill="bottledwater"></small></label><input id="input-bottledwater" type="text" inputmode="decimal" value="0" data-input="bottledwater"></div>
-        <div class="row"><label>Beer per day <small class="pill" data-price-pill="beer"></small></label><input id="input-beer" type="text" inputmode="decimal" value="0" data-input="beer"></div>
-        <div class="row"><label>Wine per day <small class="pill" data-price-pill="wine"></small></label><input id="input-wine" type="text" inputmode="decimal" value="0" data-input="wine"></div>
-        <div class="row"><label>Cocktail per day <small class="pill" data-price-pill="cocktail"></small></label><input id="input-cocktail" type="text" inputmode="decimal" value="0" data-input="cocktail"></div>
-        <div class="row"><label>Spirits/shot per day <small class="pill" data-price-pill="spirits"></small></label><input id="input-spirits" type="text" inputmode="decimal" value="0" data-input="spirits"></div>
-
+       <div class="row row--stepper">
+  <label for="input-soda">Soda per day <small class="pill" data-price-pill="soda"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('soda', -1)" aria-label="Decrease soda by 1">−</button>
+    <input id="input-soda" type="text" inputmode="decimal" value="0" data-input="soda" aria-label="Soda per day">
+    <button class="btn-step" type="button" onclick="stepInput('soda', 1)" aria-label="Increase soda by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-coffee">Premium coffee per day <small class="pill" data-price-pill="coffee"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('coffee', -1)" aria-label="Decrease coffee by 1">−</button>
+    <input id="input-coffee" type="text" inputmode="decimal" value="0" data-input="coffee" aria-label="Premium coffee per day">
+    <button class="btn-step" type="button" onclick="stepInput('coffee', 1)" aria-label="Increase coffee by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-teaprem">Specialty tea per day <small class="pill" data-price-pill="teaprem"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('teaprem', -1)" aria-label="Decrease tea by 1">−</button>
+    <input id="input-teaprem" type="text" inputmode="decimal" value="0" data-input="teaprem" aria-label="Specialty tea per day">
+    <button class="btn-step" type="button" onclick="stepInput('teaprem', 1)" aria-label="Increase tea by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-freshjuice">Fresh juice/smoothie per day <small class="pill" data-price-pill="freshjuice"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('freshjuice', -1)" aria-label="Decrease juice by 1">−</button>
+    <input id="input-freshjuice" type="text" inputmode="decimal" value="0" data-input="freshjuice" aria-label="Fresh juice/smoothie per day">
+    <button class="btn-step" type="button" onclick="stepInput('freshjuice', 1)" aria-label="Increase juice by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-mocktail">Mocktail per day <small class="pill" data-price-pill="mocktail"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('mocktail', -1)" aria-label="Decrease mocktail by 1">−</button>
+    <input id="input-mocktail" type="text" inputmode="decimal" value="0" data-input="mocktail" aria-label="Mocktail per day">
+    <button class="btn-step" type="button" onclick="stepInput('mocktail', 1)" aria-label="Increase mocktail by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-energy">Energy drink per day <small class="pill" data-price-pill="energy"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('energy', -1)" aria-label="Decrease energy drink by 1">−</button>
+    <input id="input-energy" type="text" inputmode="decimal" value="0" data-input="energy" aria-label="Energy drink per day">
+    <button class="btn-step" type="button" onclick="stepInput('energy', 1)" aria-label="Increase energy drink by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-milkshake">Milkshake per day <small class="pill" data-price-pill="milkshake"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('milkshake', -1)" aria-label="Decrease milkshake by 1">−</button>
+    <input id="input-milkshake" type="text" inputmode="decimal" value="0" data-input="milkshake" aria-label="Milkshake per day">
+    <button class="btn-step" type="button" onclick="stepInput('milkshake', 1)" aria-label="Increase milkshake by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-bottledwater">Bottled water per day <small class="pill" data-price-pill="bottledwater"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('bottledwater', -1)" aria-label="Decrease bottled water by 1">−</button>
+    <input id="input-bottledwater" type="text" inputmode="decimal" value="0" data-input="bottledwater" aria-label="Bottled water per day">
+    <button class="btn-step" type="button" onclick="stepInput('bottledwater', 1)" aria-label="Increase bottled water by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-beer">Beer per day <small class="pill" data-price-pill="beer"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('beer', -1)" aria-label="Decrease beer by 1">−</button>
+    <input id="input-beer" type="text" inputmode="decimal" value="0" data-input="beer" aria-label="Beer per day">
+    <button class="btn-step" type="button" onclick="stepInput('beer', 1)" aria-label="Increase beer by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-wine">Wine per day <small class="pill" data-price-pill="wine"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('wine', -1)" aria-label="Decrease wine by 1">−</button>
+    <input id="input-wine" type="text" inputmode="decimal" value="0" data-input="wine" aria-label="Wine per day">
+    <button class="btn-step" type="button" onclick="stepInput('wine', 1)" aria-label="Increase wine by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-cocktail">Cocktail per day <small class="pill" data-price-pill="cocktail"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('cocktail', -1)" aria-label="Decrease cocktail by 1">−</button>
+    <input id="input-cocktail" type="text" inputmode="decimal" value="0" data-input="cocktail" aria-label="Cocktail per day">
+    <button class="btn-step" type="button" onclick="stepInput('cocktail', 1)" aria-label="Increase cocktail by 1">+</button>
+  </div>
+</div>
+<div class="row row--stepper">
+  <label for="input-spirits">Spirits/shot per day <small class="pill" data-price-pill="spirits"></small></label>
+  <div class="input-stepper">
+    <button class="btn-step" type="button" onclick="stepInput('spirits', -1)" aria-label="Decrease spirits by 1">−</button>
+    <input id="input-spirits" type="text" inputmode="decimal" value="0" data-input="spirits" aria-label="Spirits/shot per day">
+    <button class="btn-step" type="button" onclick="stepInput('spirits', 1)" aria-label="Increase spirits by 1">+</button>
+  </div>
+</div>
         <div id="breakeven-wrap">
           <canvas id="breakeven-chart" width="900" height="280" aria-label="Break-even comparison chart"></canvas>
         </div>
