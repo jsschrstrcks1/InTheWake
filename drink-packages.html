@@ -71,25 +71,37 @@
           <span id="totals">$0.00/day • $0.00 trip</span>
           <small class="muted">– includes gratuity for packages and à-la-carte.</small>
         </h2>
-        <div class="bd">
-          <div class="row"><div>Cruise days</div><div><input type="number" min="1" step="1" value="7" data-input="days"></div></div>
-          <div class="row"><div>Soda per day</div><div><input type="number" min="0" step="1" value="0" data-input="soda"></div></div>
-          <div class="row"><div>Premium coffee per day</div><div><input type="number" min="0" step="1" value="0" data-input="coffee"></div></div>
-          <div class="row"><div>Beer per day</div><div><input type="number" min="0" step="1" value="0" data-input="beer"></div></div>
-          <div class="row"><div>Wine per day</div><div><input type="number" min="0" step="1" value="0" data-input="wine"></div></div>
-          <div class="row"><div>Cocktail per day</div><div><input type="number" min="0" step="1" value="0" data-input="cocktail"></div></div>
-          <div class="row"><div>Mocktail/juice per day</div><div><input type="number" min="0" step="1" value="0" data-input="mocktail"></div></div>
-          <div class="row"><div>Tap water</div><div><small>Included · $0</small></div></div>
-          <div class="row"><div>Tap water per day</div><div><input type="number" min="0" step="1" value="0" data-input="tapwater"></div></div>
-          <div class="row"><div>Basic tea / lemonade</div><div><small>Included · $0</small></div></div>
-          <div class="row"><div>Basic tea/lemonade per day</div><div><input type="number" min="0" step="1" value="0" data-input="basict"></div></div>
-          <div class="row"><div>Juice (concentrate)</div><div><small>Included · $0</small></div></div>
-          <div class="row"><div>Juice (concentrate) per day</div><div><input type="number" min="0" step="1" value="0" data-input="juiceconc"></div></div>
+       <div class="bd">
+  <div class="row"><div>Cruise days</div><div><input type="number" min="1" step="1" value="7" data-input="days"></div></div>
 
-          <div id="breakeven-wrap">
-            <canvas id="breakeven-chart" width="900" height="280" aria-label="Break-even chart"></canvas>
-          </div>
-        </div>
+  <!-- Non-alcoholic, chargeable -->
+  <div class="row"><div>Soda per day</div><div><input type="number" min="0" step="1" value="0" data-input="soda"></div></div>
+  <div class="row"><div>Premium coffee per day</div><div><input type="number" min="0" step="1" value="0" data-input="coffee"></div></div>
+  <div class="row"><div>Specialty tea per day</div><div><input type="number" min="0" step="1" value="0" data-input="teaprem"></div></div>
+  <div class="row"><div>Fresh-squeezed juice / smoothie per day</div><div><input type="number" min="0" step="1" value="0" data-input="freshjuice"></div></div>
+  <div class="row"><div>Mocktail (zero-proof cocktail) per day</div><div><input type="number" min="0" step="1" value="0" data-input="mocktail"></div></div>
+  <div class="row"><div>Energy drink per day</div><div><input type="number" min="0" step="1" value="0" data-input="energy"></div></div>
+  <div class="row"><div>Milkshake per day</div><div><input type="number" min="0" step="1" value="0" data-input="milkshake"></div></div>
+  <div class="row"><div>Bottled water (500ml) per day</div><div><input type="number" min="0" step="1" value="0" data-input="bottledwater"></div></div>
+
+  <!-- Alcoholic -->
+  <div class="row"><div>Beer per day</div><div><input type="number" min="0" step="1" value="0" data-input="beer"></div></div>
+  <div class="row"><div>Wine per day</div><div><input type="number" min="0" step="1" value="0" data-input="wine"></div></div>
+  <div class="row"><div>Cocktail per day</div><div><input type="number" min="0" step="1" value="0" data-input="cocktail"></div></div>
+  <div class="row"><div>Spirits/shot (+mixer) per day</div><div><input type="number" min="0" step="1" value="0" data-input="spirits"></div></div>
+
+  <!-- Included/free -->
+  <div class="row"><div>Tap water</div><div><small>Included · $0</small></div></div>
+  <div class="row"><div>Tap water per day</div><div><input type="number" min="0" step="1" value="0" data-input="tapwater"></div></div>
+  <div class="row"><div>Basic tea / lemonade</div><div><small>Included · $0</small></div></div>
+  <div class="row"><div>Basic tea/lemonade per day</div><div><input type="number" min="0" step="1" value="0" data-input="basict"></div></div>
+  <div class="row"><div>Juice (from concentrate)</div><div><small>Included · $0</small></div></div>
+  <div class="row"><div>Juice (concentrate) per day</div><div><input type="number" min="0" step="1" value="0" data-input="juiceconc"></div></div>
+
+  <div id="breakeven-wrap">
+    <canvas id="breakeven-chart" width="900" height="280" aria-label="Break-even chart"></canvas>
+  </div>
+</div>
       </section>
 
       <aside aria-label="Sidebar" class="rail">
@@ -195,314 +207,366 @@
   </script>
 
   <!-- Calculator + Nav + overrides + share + chart -->
-  <script>
-  (() => {
-    const $ = s => document.querySelector(s);
-    const $$ = s => Array.from(document.querySelectorAll(s));
-    const money = v => `$${(Number(v)||0).toFixed(2)}`;
-    const n = v => { v = Number(v); return Number.isFinite(v) ? v : 0; };
+ <script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const money = v => `$${(Number(v)||0).toFixed(2)}`;
+  const n = v => { v = Number(v); return Number.isFinite(v) ? v : 0; };
 
-    // ===== Accessible Nav =====
-    const menuBtn = document.querySelector('.itw-menu-btn');
-    const nav = document.getElementById('itw-primary-nav');
-    const menuItems = Array.from(document.querySelectorAll('[data-menu]'));
-    menuBtn?.addEventListener('click', () => {
-      const open = nav.classList.toggle('is-open');
-      menuBtn.setAttribute('aria-expanded', String(open));
-      if (open) nav.querySelector('a,button')?.focus();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && nav.classList.contains('is-open')) {
-        nav.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); menuBtn.focus();
-      }
-    });
-    document.addEventListener('click', (e) => {
-      if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
-        nav.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false');
-      }
-    });
-    // active link state + SW hover prefetch
-    const here = location.pathname.replace(/\/+$/,'');
-    $$('.itw-nav__link').forEach(a => {
-      const href = a.getAttribute('href')?.replace(/\/+$/,'');
-      if (href && href === here) a.setAttribute('aria-current','page');
-    });
-    $$('#itw-primary-nav [data-prefetch="hover"], .rail [data-prefetch="hover"]').forEach(a => {
-      a.addEventListener('mouseenter', () => {
-        try { navigator.serviceWorker?.controller?.postMessage({ type:'SEED_URLS', urls:[a.href], priority:'high' }); } catch {}
-      }, { passive:true });
-    });
+  // ===== Accessible Nav (existing wiring kept) =====
+  const menuBtn = document.querySelector('.itw-menu-btn');
+  const nav = document.getElementById('itw-primary-nav');
+  const menuItems = Array.from(document.querySelectorAll('[data-menu]'));
+  menuBtn?.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+    if (open) nav.querySelector('a,button')?.focus();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+      nav.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false'); menuBtn.focus();
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
+      nav.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false');
+    }
+  });
+  const here = location.pathname.replace(/\/+$/,'');
+  $$('.itw-nav__link').forEach(a => {
+    const href = a.getAttribute('href')?.replace(/\/+$/,'');
+    if (href && href === here) a.setAttribute('aria-current','page');
+  });
+  $$('#itw-primary-nav [data-prefetch="hover"], .rail [data-prefetch="hover"]').forEach(a => {
+    a.addEventListener('mouseenter', () => {
+      try { navigator.serviceWorker?.controller?.postMessage({ type:'SEED_URLS', urls:[a.href], priority:'high' }); } catch {}
+    }, { passive:true });
+  });
 
-    // ===== Calculator =====
-    const EL = {
-      totals: $('#totals'),
-      chip:   $('#best-chip'),
-      text:   $('#best-text'),
-      cards: {
-        soda:    document.querySelector('[data-card="soda"]'),
-        refresh: document.querySelector('[data-card="refresh"]'),
-        deluxe:  document.querySelector('[data-card="deluxe"]')
-      }
+  // ===== Calculator =====
+  const EL = {
+    totals: $('#totals'),
+    chip:   $('#best-chip'),
+    text:   $('#best-text'),
+    cards: {
+      soda:    document.querySelector('[data-card="soda"]'),
+      refresh: document.querySelector('[data-card="refresh"]'),
+      deluxe:  document.querySelector('[data-card="deluxe"]')
+    }
+  };
+
+  function readPicks(){
+    const p = {};
+    $$('[data-input]').forEach(inp => p[inp.dataset.input] = n(inp.value));
+    p.days = Math.max(1, n(p.days || 1));
+    return p;
+  }
+
+  function priceTable(ds){ const t={}; (ds.items||[]).forEach(it=>t[it.id]=n(it.price)); return t; }
+  function setsFrom(ds){
+    const s = ds.sets||{};
+    return { soda:new Set(s.soda||[]), refresh:new Set(s.refresh||[]), alcohol:new Set(s.alcohol||[]) };
+  }
+  function pkgFrom(ds){
+    const p = ds.packages||{};
+    const get = (id) => {
+      const key = `pkgOverride:${ds.lineId}:${id}`;
+      const ovr = localStorage.getItem(key);
+      return ovr ? Number(ovr) : n(p[id]?.price);
     };
+    return { soda:get('soda'), refresh:get('refreshment'), deluxe:get('deluxe') };
+  }
+  function capsFrom(ds){
+    const c = ds.rules?.caps?.deluxeAlcohol;
+    return { deluxeAlcohol: Number.isFinite(c) ? c : 14 };
+  }
 
-    function readPicks(){
-      const p = {};
-      $$('[data-input]').forEach(inp => p[inp.dataset.input] = n(inp.value));
-      p.days = Math.max(1, n(p.days || 1));
-      return p;
-    }
-    function priceTable(ds){ const t={}; (ds.items||[]).forEach(it=>t[it.id]=n(it.price)); return t; }
-    function setsFrom(ds){ const s = ds.sets||{}; return { soda:new Set(s.soda||[]), refresh:new Set(s.refresh||[]), alcohol:new Set(s.alcohol||[]) }; }
-    function pkgFrom(ds){
-      const p = ds.packages||{};
-      const get = (id) => {
-        const key = `pkgOverride:${ds.lineId}:${id}`;
-        const ovr = localStorage.getItem(key);
-        return ovr ? Number(ovr) : n(p[id]?.price);
-      };
-      return { soda:get('soda'), refresh:get('refreshment'), deluxe:get('deluxe') };
-    }
-    function capsFrom(ds){
-      const c = ds.rules?.caps||{};
-      return { deluxeAlcohol: Number.isFinite(c.deluxeAlcohol) ? c.deluxeAlcohol : 14 };
-    }
+  // Map each UI input to its item id (1:1, transparent)
+  function picksList(p){
+    return [
+      // Non-alc paid
+      ['soda', p.soda],
+      ['coffee', p.coffee],
+      ['teaprem', p.teaprem],
+      ['freshjuice', p.freshjuice],
+      ['mocktail', p.mocktail],
+      ['energy', p.energy],
+      ['milkshake', p.milkshake],
+      ['bottledwater', p.bottledwater],
+      // Alcohol
+      ['beer', p.beer],
+      ['wine', p.wine],
+      ['cocktail', p.cocktail],
+      ['spirits', p.spirits],
+      // Included
+      ['tapwater', p.tapwater],
+      ['basictea', p.basict],
+      ['juiceconc', p.juiceconc]
+    ];
+  }
 
-    function picksList(p){
-      return [
-        ['soda', p.soda], ['coffee', p.coffee], ['beer', p.beer], ['wine', p.wine],
-        ['cocktail', p.cocktail], ['mocktail', p.mocktail],
-        ['tapwater', p.tapwater], ['basictea', p.basict], ['juiceconc', p.juiceconc]
-      ];
+  // À-la-carte baseline (adds 18% to paid items)
+  function alcPerDay(list, price, grat){
+    let sum = 0;
+    for (const [id, qty] of list){
+      if (qty<=0) continue;
+      const base = n(price[id]);
+      sum += qty * base * (base>0 ? (1+grat) : 1);
     }
+    return sum;
+  }
 
-    function alcPerDay(list, price, grat){
-      let sum = 0;
-      for (const [id, qty] of list){
-        if (qty<=0) continue;
+  // Included value with gratuity
+  function includedWithGrat(list, price, set, grat){
+    let inc=0;
+    for (const [id, qty] of list){
+      if (qty>0 && set.has(id)) {
         const base = n(price[id]);
-        sum += qty * base * (base>0 ? (1+grat) : 1);
+        inc += qty * base * (base>0 ? (1+grat) : 1);
       }
-      return sum;
     }
-    function included(list, price, set){
-      let inc=0; for (const [id, qty] of list){ if(qty>0 && set.has(id)) inc += qty * n(price[id]); } return inc;
-    }
-    function includedDeluxeWithCaps(list, price, sets, caps){
-      let inc=0;
-      for (const [id, qty] of list){
-        if (qty<=0) continue;
-        const p = n(price[id]);
-        if (sets.refresh.has(id)) inc += qty * p;                 // fully included non-alcohol
-        else if (sets.alcohol.has(id)) inc += qty * Math.min(p, caps.deluxeAlcohol); // capped alcohol
+    return inc;
+  }
+
+  // Deluxe: non-alc fully covered; alcohol covered up to cap — all with gratuity
+  function includedDeluxeWithCapsAndGrat(list, price, sets, caps, grat){
+    let inc=0;
+    for (const [id, qty] of list){
+      if (qty<=0) continue;
+      const base = n(price[id]);
+      if (sets.refresh.has(id)) {
+        inc += qty * base * (base>0 ? (1+grat) : 1);
+      } else if (sets.alcohol.has(id)) {
+        const covered = Math.min(base, caps.deluxeAlcohol);
+        inc += qty * covered * (covered>0 ? (1+grat) : 1);
       }
-      return inc;
     }
-    function overCapAddOn(list, price, sets, caps, grat){
-      let add=0;
-      for (const [id, qty] of list){
-        if (qty<=0 || !sets.alcohol.has(id)) continue;
-        const over = Math.max(0, n(price[id]) - caps.deluxeAlcohol);
-        if (over>0) add += qty * over * (1+grat);
-      }
-      return add;
+    return inc;
+  }
+
+  // Deluxe over-cap surcharges (with gratuity)
+  function overCapAddOn(list, price, sets, caps, grat){
+    let add=0;
+    for (const [id, qty] of list){
+      if (qty<=0 || !sets.alcohol.has(id)) continue;
+      const over = Math.max(0, n(price[id]) - caps.deluxeAlcohol);
+      if (over>0) add += qty * over * (1+grat);
     }
-    function winner(nets){
-      const entries = Object.entries(nets);
-      if (entries.every(([,v]) => v>0)) return { key:'alc', net:0 };
-      let bestK='soda', bestV=Infinity;
-      for (const [k,v] of entries){ if (v<bestV){ bestV=v; bestK=k; } }
-      return { key:bestK, net:bestV };
+    return add;
+  }
+
+  function winner(nets){
+    const entries = Object.entries(nets);
+    if (entries.every(([,v]) => v>0)) return { key:'alc', net:0 };
+    let bestK='soda', bestV=Infinity;
+    for (const [k,v] of entries){ if (v<bestV){ bestV=v; bestK=k; } }
+    return { key:bestK, net:bestV };
+  }
+
+  function paintCard(card, incPerDay, savesPerDay, isWinner, overcap=0){
+    if (!card) return;
+    const inc = card.querySelector('[data-inc]');
+    const sav = card.querySelector('[data-saves]');
+    const oc  = card.querySelector('[data-overcap]');
+    const ocv = card.querySelector('[data-overcap-val]');
+    if (inc) inc.textContent = `${money(incPerDay)}/day`;
+    if (sav){
+      if (savesPerDay>0){ sav.textContent = `Saves ${money(savesPerDay)}/day`; sav.hidden = false; }
+      else { sav.textContent=''; sav.hidden=true; }
     }
-    function paintCard(card, incPerDay, savesPerDay, isWinner, overcap=0){
-      if (!card) return;
-      const inc = card.querySelector('[data-inc]');
-      const sav = card.querySelector('[data-saves]');
-      const oc  = card.querySelector('[data-overcap]');
-      const ocv = card.querySelector('[data-overcap-val]');
-      if (inc) inc.textContent = `${money(incPerDay)}/day`;
-      if (sav){ if (savesPerDay>0){ sav.textContent = `Saves ${money(savesPerDay)}/day`; sav.hidden = false; } else { sav.textContent=''; sav.hidden=true; } }
-      if (oc && ocv){ if (overcap>0){ ocv.textContent = `${money(overcap)}/day`; oc.hidden=false; } else { oc.hidden=true; } }
-      card.classList.toggle('winner', !!isWinner);
+    if (oc && ocv){
+      if (overcap>0){ ocv.textContent = `${money(overcap)}/day`; oc.hidden=false; }
+      else { oc.hidden=true; }
     }
+    card.classList.toggle('winner', !!isWinner);
+  }
 
-    function drawBreakEvenChart(alcDaily, sodaPkg, refreshPkg, deluxePkg){
-      const canvas = document.getElementById('breakeven-chart');
-      if (!canvas?.getContext) return;
-      const ctx = canvas.getContext('2d');
-      const width = canvas.width, height = canvas.height, padding = 60;
-      ctx.clearRect(0,0,width,height);
-      const data = [
-        { label:'Your Drinks (à-la-carte)', value:alcDaily, color:'#6b7280' },
-        { label:'Soda Package', value:sodaPkg, color:'#3b82f6' },
-        { label:'Refreshment', value:refreshPkg, color:'#8b5cf6' },
-        { label:'Deluxe', value:deluxePkg, color:'#ef4444' }
-      ];
-      const maxVal = Math.max(...data.map(d=>d.value), 1);
-      const scale = (width - padding * 2) / maxVal;
-      const barH = 50, gap = 20;
-      data.forEach((item, i) => {
-        const y = padding + i * (barH + gap);
-        const barW = item.value * scale;
-        ctx.fillStyle = '#111'; ctx.font='14px system-ui'; ctx.textAlign='right';
-        ctx.fillText(item.label, padding - 10, y + barH/2 + 5);
-        ctx.fillStyle = item.color; ctx.fillRect(padding, y, barW, barH);
-        ctx.fillStyle = '#fff'; ctx.textAlign='left'; ctx.font='bold 16px system-ui';
-        ctx.fillText(`$${item.value.toFixed(2)}`, padding + 10, y + barH/2 + 6);
-      });
-      const bex = padding + (alcDaily * scale);
-      ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3; ctx.setLineDash([5,5]);
-      ctx.beginPath(); ctx.moveTo(bex, padding - 20); ctx.lineTo(bex, height - 20); ctx.stroke(); ctx.setLineDash([]);
-      ctx.fillStyle = '#10b981'; ctx.font='bold 14px system-ui'; ctx.textAlign='center';
-      ctx.fillText('Break-Even', bex, padding - 25);
-    }
+  function drawBreakEvenChart(alcDaily, sodaPkg, refreshPkg, deluxePkgPlusOver){
+    const canvas = document.getElementById('breakeven-chart');
+    if (!canvas?.getContext) return;
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width, height = canvas.height, padding = 60;
+    ctx.clearRect(0,0,width,height);
+    const data = [
+      { label:'Your Drinks (à-la-carte)', value:alcDaily, color:'#6b7280' },
+      { label:'Soda Package', value:sodaPkg, color:'#3b82f6' },
+      { label:'Refreshment', value:refreshPkg, color:'#8b5cf6' },
+      { label:'Deluxe', value:deluxePkgPlusOver, color:'#ef4444' }
+    ];
+    const maxVal = Math.max(...data.map(d=>d.value), 1);
+    const scale = (width - padding * 2) / maxVal;
+    const barH = 50, gap = 20;
+    data.forEach((item, i) => {
+      const y = padding + i * (barH + gap);
+      const barW = item.value * scale;
+      ctx.fillStyle = '#111'; ctx.font='14px system-ui'; ctx.textAlign='right';
+      ctx.fillText(item.label, padding - 10, y + barH/2 + 5);
+      ctx.fillStyle = item.color; ctx.fillRect(padding, y, barW, barH);
+      ctx.fillStyle = '#fff'; ctx.textAlign='left'; ctx.font='bold 16px system-ui';
+      ctx.fillText(`$${item.value.toFixed(2)}`, padding + 10, y + barH/2 + 6);
+    });
+    const bex = padding + (alcDaily * scale);
+    ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3; ctx.setLineDash([5,5]);
+    ctx.beginPath(); ctx.moveTo(bex, padding - 20); ctx.lineTo(bex, height - 20); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = '#10b981'; ctx.font='bold 14px system-ui'; ctx.textAlign='center';
+    ctx.fillText('Break-Even', bex, padding - 25);
+  }
 
-    function recompute(){
-      const ds    = window.itwDataset; if (!ds) return;
-      const rules = { gratuity: Number(ds.rules?.gratuity ?? 0.18) };
-      const caps  = capsFrom(ds);
-      const price = priceTable(ds);
-      const sets  = setsFrom(ds);
-      const pkg   = pkgFrom(ds);
-      const picks = readPicks();
-      const list  = picksList(picks);
+  function recompute(){
+    const ds    = window.itwDataset; if (!ds) return;
+    const rules = { gratuity: Number(ds.rules?.gratuity ?? 0.18) };
+    const caps  = capsFrom(ds);
+    const price = priceTable(ds);
+    const sets  = setsFrom(ds);
+    const pkg   = pkgFrom(ds);
+    const picks = readPicks();
+    const list  = picksList(picks);
 
-      const alc   = alcPerDay(list, price, rules.gratuity);
-      const incS  = included(list, price, sets.soda);
-      const incR  = included(list, price, sets.refresh);
-      const incD  = includedDeluxeWithCaps(list, price, sets, caps);
-      const ocD   = overCapAddOn(list, price, sets, caps, rules.gratuity);
+    const alc   = alcPerDay(list, price, rules.gratuity);
+    const incS  = includedWithGrat(list, price, sets.soda,    rules.gratuity);
+    const incR  = includedWithGrat(list, price, sets.refresh, rules.gratuity);
+    const incD  = includedDeluxeWithCapsAndGrat(list, price, sets, caps, rules.gratuity);
+    const ocD   = overCapAddOn(list, price, sets, caps, rules.gratuity);
 
-      const nets = { soda:pkg.soda - incS, refresh:pkg.refresh - incR, deluxe:pkg.deluxe - incD };
-      const w = winner(nets);
-
-      const perDay =
-        w.key==='alc'     ? alc :
-        w.key==='soda'    ? pkg.soda :
-        w.key==='refresh' ? pkg.refresh :
-                            pkg.deluxe;
-
-      const trip = perDay * picks.days;
-      EL.totals.textContent = `${money(perDay)}/day • ${money(trip)} trip`;
-
-      if (w.key==='alc'){
-        EL.chip.textContent = 'Best value: à-la-carte';
-        EL.text.textContent = 'Your daily picks are cheapest without a package.';
-      } else {
-        const name = w.key==='soda' ? 'Classic Soda' : w.key==='refresh' ? 'Refreshment' : 'Deluxe';
-        const pkgDaily = w.key==='soda' ? pkg.soda : w.key==='refresh' ? pkg.refresh : pkg.deluxe;
-        const saves = Math.max(0, alc - pkgDaily);
-        EL.chip.textContent = `Best value: ${name}`;
-        EL.text.textContent = saves>0 ? `Saves ${money(saves)}/day vs. à-la-carte.` : `This beats à-la-carte for your picks.`;
-      }
-
-      paintCard(EL.cards.soda,    incS, Math.max(0, alc - pkg.soda),    w.key==='soda');
-      paintCard(EL.cards.refresh, incR, Math.max(0, alc - pkg.refresh), w.key==='refresh');
-      paintCard(EL.cards.deluxe,  incD, Math.max(0, alc - pkg.deluxe),  w.key==='deluxe', ocD);
-
-      drawBreakEvenChart(alc, pkg.soda, pkg.refresh, pkg.deluxe);
-
-      const a11y = $('#a11y-status');
-      if (a11y) a11y.textContent = `Totals updated. ${money(perDay)} per day, ${money(trip)} for the trip.`;
-
-      saveToURL();
-    }
-
-    function saveToURL(){
-      const p = readPicks(); const u = new URLSearchParams();
-      if (p.days !== 7) u.set('days', p.days);
-      ['soda','coffee','beer','wine','cocktail','mocktail','tapwater','basict','juiceconc'].forEach(k => {
-        if (p[k] > 0) u.set(k, p[k]);
-      });
-      const newURL = u.toString() ? `?${u.toString()}` : location.pathname;
-      history.replaceState(null, '', newURL);
-    }
-    function loadFromURL(){
-      const q = new URLSearchParams(location.search);
-      $$('[data-input]').forEach(inp => {
-        const key = inp.dataset.input;
-        if (q.has(key)) inp.value = q.get(key);
-      });
-    }
-
-    function wire(){
-      loadFromURL();
-      $$('[data-input]').forEach(el => { el.addEventListener('input', recompute); el.addEventListener('change', recompute); });
-      if (window.itwDataset?.items) recompute();
-      else document.addEventListener('itw:dataset-ready', recompute, { once:true });
-    }
-    document.addEventListener('DOMContentLoaded', wire);
-
-    // ===== Presets =====
-    window.PRESETS = {
-      light:    { days:7, soda:1, coffee:1, beer:1, wine:1, cocktail:0, mocktail:0, tapwater:3, basict:1, juiceconc:0 },
-      moderate: { days:7, soda:2, coffee:2, beer:2, wine:1, cocktail:2, mocktail:1, tapwater:4, basict:1, juiceconc:1 },
-      heavy:    { days:7, soda:3, coffee:2, beer:3, wine:2, cocktail:3, mocktail:1, tapwater:5, basict:2, juiceconc:1 },
-      coffee:   { days:7, soda:2, coffee:4, beer:0, wine:0, cocktail:0, mocktail:2, tapwater:4, basict:2, juiceconc:1 }
-    };
-    window.loadPreset = function(name){
-      const preset = window.PRESETS[name]; if (!preset) return;
-      $$('[data-input]').forEach(inp => {
-        const key = inp.dataset.input;
-        if (key in preset) {
-          inp.value = preset[key];
-          inp.style.background = '#fef3c7';
-          setTimeout(() => { inp.style.background = ''; }, 600);
-        }
-      });
-      recompute();
-      document.querySelector('.packages')?.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    const nets = {
+      soda:    pkg.soda    - incS,
+      refresh: pkg.refresh - incR,
+      deluxe:  (pkg.deluxe + ocD) - incD
     };
 
-    // ===== Price override modal =====
-    let currentPkgId = null;
-    window.openPriceModal = function(pkgId){
-      currentPkgId = pkgId;
-      const modal = document.getElementById('price-modal');
-      const input = document.getElementById('modal-price-input');
-      const title = document.getElementById('modal-title');
-      const desc = document.getElementById('modal-description');
-      const pkg = window.itwDataset.packages[pkgId === 'refresh' ? 'refreshment' : pkgId];
-      const key = `pkgOverride:${window.itwDataset.lineId}:${pkgId}`;
-      const current = localStorage.getItem(key);
-      const suggested = current || pkg.price;
-      title.textContent = `Edit ${pkg.name} Price`;
-      desc.textContent = `Default: $${pkg.price}/day • Range: ${pkg.range}`;
-      input.value = suggested;
-      modal.style.display = 'flex'; input.focus(); input.select();
-    };
-    window.closePriceModal = function(){
-      document.getElementById('price-modal').style.display = 'none';
-      currentPkgId = null;
-    };
-    window.savePriceOverride = function(){
-      const input = document.getElementById('modal-price-input');
-      const value = parseFloat(input.value);
-      if (!isFinite(value) || value < 0) { alert('Please enter a valid price (e.g., 65.00)'); return; }
-      const key = `pkgOverride:${window.itwDataset.lineId}:${currentPkgId}`;
-      localStorage.setItem(key, value);
-      closePriceModal(); recompute();
-    };
-    document.addEventListener('keydown', (e) => {
-      const modal = document.getElementById('price-modal');
-      if (modal.style.display === 'flex'){
-        if (e.key === 'Escape') closePriceModal();
-        else if (e.key === 'Enter') savePriceOverride();
+    const w = winner(nets);
+
+    const perDay =
+      w.key==='alc'     ? alc :
+      w.key==='soda'    ? pkg.soda :
+      w.key==='refresh' ? pkg.refresh :
+                          (pkg.deluxe + ocD);
+
+    const trip = perDay * picks.days;
+    EL.totals.textContent = `${money(perDay)}/day • ${money(trip)} trip`;
+
+    if (w.key==='alc'){
+      EL.chip.textContent = 'Best value: à-la-carte';
+      EL.text.textContent = 'Your daily picks are cheapest without a package.';
+    } else {
+      const name = w.key==='soda' ? 'Classic Soda' : w.key==='refresh' ? 'Refreshment' : 'Deluxe';
+      const pkgDaily = w.key==='soda' ? pkg.soda : w.key==='refresh' ? pkg.refresh : (pkg.deluxe + ocD);
+      const saves = Math.max(0, alc - pkgDaily);
+      EL.chip.textContent = `Best value: ${name}`;
+      EL.text.textContent = saves>0 ? `Saves ${money(saves)}/day vs. à-la-carte.` : `This beats à-la-carte for your picks.`;
+    }
+
+    paintCard(EL.cards.soda,    incS, Math.max(0, alc - pkg.soda),              w.key==='soda');
+    paintCard(EL.cards.refresh, incR, Math.max(0, alc - pkg.refresh),           w.key==='refresh');
+    paintCard(EL.cards.deluxe,  incD, Math.max(0, alc - (pkg.deluxe + ocD)),    w.key==='deluxe', ocD);
+
+    drawBreakEvenChart(alc, pkg.soda, pkg.refresh, (pkg.deluxe + ocD));
+
+    const a11y = $('#a11y-status');
+    if (a11y) a11y.textContent = `Totals updated. ${money(perDay)} per day, ${money(trip)} for the trip.`;
+
+    saveToURL();
+  }
+
+  function saveToURL(){
+    const p = readPicks(); const u = new URLSearchParams();
+    if (p.days !== 7) u.set('days', p.days);
+    [
+      // Non-alc paid
+      'soda','coffee','teaprem','freshjuice','mocktail','energy','milkshake','bottledwater',
+      // Alcohol
+      'beer','wine','cocktail','spirits',
+      // Included
+      'tapwater','basict','juiceconc'
+    ].forEach(k => { if (p[k] > 0) u.set(k, p[k]); });
+    const newURL = u.toString() ? `?${u.toString()}` : location.pathname;
+    history.replaceState(null, '', newURL);
+  }
+  function loadFromURL(){
+    const q = new URLSearchParams(location.search);
+    $$('[data-input]').forEach(inp => {
+      const key = inp.dataset.input;
+      if (q.has(key)) inp.value = q.get(key);
+    });
+  }
+
+  function wire(){
+    loadFromURL();
+    $$('[data-input]').forEach(el => { el.addEventListener('input', recompute); el.addEventListener('change', recompute); });
+    if (window.itwDataset?.items) recompute();
+    else document.addEventListener('itw:dataset-ready', recompute, { once:true });
+  }
+  document.addEventListener('DOMContentLoaded', wire);
+
+  // ===== Presets (now include new inputs) =====
+  window.PRESETS = {
+    light:    { days:7, soda:1, coffee:1, teaprem:0, freshjuice:0, mocktail:0, energy:0, milkshake:0, bottledwater:0, beer:1, wine:1, cocktail:0, spirits:0, tapwater:3, basict:1, juiceconc:0 },
+    moderate: { days:7, soda:2, coffee:2, teaprem:1, freshjuice:1, mocktail:1, energy:0, milkshake:0, bottledwater:1, beer:2, wine:1, cocktail:2, spirits:0, tapwater:4, basict:1, juiceconc:1 },
+    heavy:    { days:7, soda:3, coffee:2, teaprem:1, freshjuice:1, mocktail:2, energy:1, milkshake:0, bottledwater:1, beer:3, wine:2, cocktail:3, spirits:1, tapwater:5, basict:2, juiceconc:1 },
+    coffee:   { days:7, soda:1, coffee:4, teaprem:1, freshjuice:0, mocktail:0, energy:0, milkshake:0, bottledwater:0, beer:0, wine:0, cocktail:0, spirits:0, tapwater:4, basict:2, juiceconc:1 }
+  };
+  window.loadPreset = function(name){
+    const preset = window.PRESETS[name]; if (!preset) return;
+    $$('[data-input]').forEach(inp => {
+      const key = inp.dataset.input;
+      if (key in preset) {
+        inp.value = preset[key];
+        inp.style.background = '#fef3c7';
+        setTimeout(() => { inp.style.background = ''; }, 600);
       }
     });
+    recompute();
+    document.querySelector('.packages')?.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  };
 
-    // ===== Share =====
-    window.shareResults = function(platform){
-      const url = encodeURIComponent(location.href);
-      const text = encodeURIComponent('Royal Caribbean drink package calculator - find out if packages save you money! 🚢🍹');
-      if (platform === 'copy'){ navigator.clipboard.writeText(location.href).then(() => alert('Link copied!')); return; }
-      const u = {
-        facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-        twitter:  `https://twitter.com/intent/tweet?url=${url}&text=${text}`
-      }[platform];
-      if (u) window.open(u, '_blank', 'width=600,height=400');
-    };
-  })();
-  </script>
+  // ===== Price override modal (unchanged) =====
+  let currentPkgId = null;
+  window.openPriceModal = function(pkgId){
+    currentPkgId = pkgId;
+    const modal = document.getElementById('price-modal');
+    const input = document.getElementById('modal-price-input');
+    const title = document.getElementById('modal-title');
+    const desc = document.getElementById('modal-description');
+    const pkg = window.itwDataset.packages[pkgId === 'refresh' ? 'refreshment' : pkgId];
+    const key = `pkgOverride:${window.itwDataset.lineId}:${pkgId}`;
+    const current = localStorage.getItem(key);
+    const suggested = current || pkg.price;
+    title.textContent = `Edit ${pkg.name} Price`;
+    desc.textContent = `Default: $${pkg.price}/day • Range: ${pkg.range ?? (pkg.priceMin && pkg.priceMax ? `$${pkg.priceMin}–$${pkg.priceMax}/day` : '—')}`;
+    input.value = suggested;
+    modal.style.display = 'flex'; input.focus(); input.select();
+  };
+  window.closePriceModal = function(){ document.getElementById('price-modal').style.display = 'none'; currentPkgId = null; };
+  window.savePriceOverride = function(){
+    const input = document.getElementById('modal-price-input');
+    const value = parseFloat(input.value);
+    if (!isFinite(value) || value < 0) { alert('Please enter a valid price (e.g., 65.00)'); return; }
+    const key = `pkgOverride:${window.itwDataset.lineId}:${currentPkgId}`;
+    localStorage.setItem(key, value);
+    closePriceModal(); recompute();
+  };
+  document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('price-modal');
+    if (modal.style.display === 'flex'){
+      if (e.key === 'Escape') closePriceModal();
+      else if (e.key === 'Enter') savePriceOverride();
+    }
+  });
+
+  // ===== Share (unchanged) =====
+  window.shareResults = function(platform){
+    const url = encodeURIComponent(location.href);
+    const text = encodeURIComponent('Royal Caribbean drink package calculator - find out if packages save you money! 🚢🍹');
+    if (platform === 'copy'){ navigator.clipboard.writeText(location.href).then(() => alert('Link copied!')); return; }
+    const u = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      twitter:  `https://twitter.com/intent/tweet?url=${url}&text=${text}`
+    }[platform];
+    if (u) window.open(u, '_blank', 'width=600,height=400');
+  };
+})();
+</script>
 
   <!-- Simple price override modal -->
   <div id="price-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description"
