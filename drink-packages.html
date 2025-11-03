@@ -134,61 +134,76 @@
     </div>
 
     <section class="packages" aria-label="Packages">
-      <article class="pkg card" data-card="soda">
-        <header class="phd">
-          <span>Classic Soda</span>
-          <span class="tooltip">
-            <button class="help" aria-describedby="tt-soda" aria-label="Soda package help">?</button>
-            <span id="tt-soda" role="tooltip">Unlimited fountain soda + Coca-Cola Freestyle. One drink served at a time. Non-transferable.</span>
-          </span>
-        </header>
-        <div class="pbd">
-          <div class="muted"><strong>$13.00/day</strong> <span class="muted">range $9.99–$16/day</span></div>
-          <ul><li>Soda</li></ul>
-          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
-          <p class="save" data-saves hidden></p>
-          <p><button onclick="openPriceModal('soda')" style="all:unset;cursor:pointer;color:#0369a1;font-weight:700">Edit price…</button></p>
-        </div>
-      </article>
+ <!-- Soda -->
+<article class="pkg card" data-card="soda">
+  <header class="phd">
+    <span>Classic Soda</span>
+    <span class="tooltip">
+      <button class="help" aria-describedby="tt-soda" aria-label="Soda package help">?</button>
+      <span id="tt-soda" role="tooltip">Unlimited fountain soda + Coca-Cola Freestyle. One drink served at a time. Non-transferable.</span>
+    </span>
+  </header>
+  <div class="pbd">
+    <div class="muted">
+      <strong data-pkg-price="soda">$13.00/day</strong>
+      <span class="muted">range <span data-pkg-range="soda">$9.99–$16/day</span></span>
+    </div>
+    <ul><li>Soda</li></ul>
+    <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
+    <p class="save" data-saves hidden></p>
+    <p><button onclick="openPriceModal('soda')" style="all:unset;cursor:pointer;color:#0369a1;font-weight:700">Edit price…</button></p>
+  </div>
+</article>
 
-      <article class="pkg card" data-card="refresh">
-        <header class="phd">
-          <span>Refreshment</span>
-          <span class="tooltip">
-            <button class="help" aria-describedby="tt-refresh" aria-label="Refreshment package help">?</button>
-            <span id="tt-refresh" role="tooltip">
-  Unlimited non-alcoholic drinks: soda, mocktails, fresh-squeezed juices/smoothies, premium coffees/teas (excludes Starbucks), 
-  energy drinks (e.g., Red Bull), bottled water, and milkshakes at Johnny Rockets. One drink at a time.
-</span>
-        </header>
-        <div class="pbd">
-          <div class="muted"><strong>$35.00/day</strong> <span class="muted">range $29–$40/day</span></div>
-          <ul><li>Soda + non-alcoholic</li></ul>
-          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
-          <p class="save" data-saves hidden></p>
-          <p><button onclick="openPriceModal('refresh')" style="all:unset;cursor:pointer;color:#0369a1;font-weight:700">Edit price…</button></p>
-        </div>
-      </article>
+<!-- Refreshment -->
+<article class="pkg card" data-card="refresh">
+  <header class="phd">
+    <span>Refreshment</span>
+    <span class="tooltip">
+      <button class="help" aria-describedby="tt-refresh" aria-label="Refreshment package help">?</button>
+      <span id="tt-refresh" role="tooltip">
+        Unlimited non-alcoholic drinks: soda, mocktails/zero-proof cocktails, fresh-squeezed juices &amp; smoothies,
+        premium coffees/teas (excludes Starbucks), energy drinks (e.g., Red Bull), bottled water, and milkshakes at Johnny Rockets.
+        One drink at a time.
+      </span>
+    </span>
+  </header>
+  <div class="pbd">
+    <div class="muted">
+      <strong data-pkg-price="refresh">$35.00/day</strong>
+      <span class="muted">range <span data-pkg-range="refresh">$29–$40/day</span></span>
+    </div>
+    <ul><li>Soda + non-alcoholic</li></ul>
+    <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
+    <p class="save" data-saves hidden></p>
+    <p><button onclick="openPriceModal('refresh')" style="all:unset;cursor:pointer;color:#0369a1;font-weight:700">Edit price…</button></p>
+  </div>
+</article>
 
-      <article class="pkg card" data-card="deluxe">
-        <header class="phd">
-          <span>Deluxe (Alcohol)</span>
-          <span class="tooltip">
-            <button class="help" aria-describedby="tt-deluxe" aria-label="Deluxe package help">?</button>
-            <span id="tt-deluxe" role="tooltip">
-              Unlimited drinks. Alcoholic drinks covered up to <strong>$14</strong> each; pay the difference above. Excludes Starbucks, mini-bar, room service, and <strong>top-shelf</strong>.
-            </span>
-          </span>
-        </header>
-        <div class="pbd">
-          <div class="muted"><strong>$80.00/day</strong> <span class="muted">range $56–$115/day</span></div>
-          <ul><li>Alcoholic drinks up to cap</li></ul>
-          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
-          <p class="muted" data-overcap hidden>Est. over-cap add-on: <strong data-overcap-val>$0.00/day</strong></p>
-          <p class="save" data-saves hidden></p>
-          <p><button onclick="openPriceModal('deluxe')" style="all:unset;cursor:pointer;color:#0369a1;font-weight:700">Edit price…</button></p>
-        </div>
-      </article>
+<!-- Deluxe -->
+<article class="pkg card" data-card="deluxe">
+  <header class="phd">
+    <span>Deluxe (Alcohol)</span>
+    <span class="tooltip">
+      <button class="help" aria-describedby="tt-deluxe" aria-label="Deluxe package help">?</button>
+      <span id="tt-deluxe" role="tooltip">
+        Unlimited drinks. Alcoholic drinks covered up to <strong>$14</strong> each; pay the difference above.
+        Excludes Starbucks, mini-bar, room service, and <strong>top-shelf</strong>.
+      </span>
+    </span>
+  </header>
+  <div class="pbd">
+    <div class="muted">
+      <strong data-pkg-price="deluxe">$80.00/day</strong>
+      <span class="muted">range <span data-pkg-range="deluxe">$56–$115/day</span></span>
+    </div>
+    <ul><li>Alcoholic drinks up to cap</li></ul>
+    <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
+    <p class="muted" data-overcap hidden>Est. over-cap add-on: <strong data-overcap-val>$0.00/day</strong></p>
+    <p class="save" data-saves hidden></p>
+    <p><button onclick="openPriceModal('deluxe')" style="all:unset;cursor:pointer;color:#0369a1;font-weight:700">Edit price…</button></p>
+  </div>
+</article>
     </section>
 
     <p id="a11y-status" class="sr-only" aria-live="polite"></p>
@@ -197,18 +212,18 @@
   <!-- Minimal stub; real data loaded below -->
   <script>window.itwDataset = { lineId: "royal-caribbean" };</script>
 
-  <!-- Load canonical dataset (single source of truth) -->
-  <script>
-  (function loadDataset(){
-    const url = '/assets/data/lines/royal-caribbean.json?v=3.011.0';
-    fetch(url, { cache:'force-cache' })
-      .then(r => r.ok ? r.json() : Promise.reject(new Error('Dataset HTTP '+r.status)))
-      .then(j => { window.itwDataset = j; document.dispatchEvent(new Event('itw:dataset-ready')); })
-      .catch(err => { console.warn('Dataset load failed', err); /* UI stays usable with defaults */ });
-  })();
-  </script>
+  
 
-  <!-- Calculator + Nav + overrides + share + chart -->
+  <!-- Load canonical dataset (single source of truth) -->
+<script>
+(function loadDataset(){
+  const url = '/assets/data/lines/royal-caribbean.json?v=3.011.0';
+  fetch(url, { cache:'force-cache' })
+    .then(r => r.ok ? r.json() : Promise.reject(new Error('Dataset HTTP '+r.status)))
+    .then(j => { window.itwDataset = j; document.dispatchEvent(new Event('itw:dataset-ready')); })
+    .catch(err => { console.warn('Dataset load failed', err); /* UI stays usable with defaults */ });
+})();
+</script>
  <script>
 (() => {
   const $ = s => document.querySelector(s);
@@ -284,6 +299,25 @@
     return { deluxeAlcohol: Number.isFinite(c) ? c : 14 };
   }
 
+  // Keep card headers in sync with JSON + overrides
+  function paintPkgHeaders(ds, pkg){
+    const map = [
+      { key:'soda',    jsonKey:'soda' },
+      { key:'refresh', jsonKey:'refreshment' },
+      { key:'deluxe',  jsonKey:'deluxe' }
+    ];
+    for (const {key, jsonKey} of map){
+      const priceEl = document.querySelector(`[data-pkg-price="${key}"]`);
+      const rangeEl = document.querySelector(`[data-pkg-range="${key}"]`);
+      if (priceEl) priceEl.textContent = `$${(pkg[key]??0).toFixed(2)}/day`;
+      if (rangeEl) {
+        const p = ds.packages?.[jsonKey];
+        const txt = p?.range ?? (p?.priceMin && p?.priceMax ? `$${p.priceMin}–$${p.priceMax}/day` : '—');
+        rangeEl.textContent = txt;
+      }
+    }
+  }
+
   // Map each UI input to its item id (1:1, transparent)
   function picksList(p){
     return [
@@ -331,7 +365,7 @@
     return inc;
   }
 
-  // Deluxe: non-alc fully covered; alcohol covered up to cap — all with gratuity
+  // Deluxe: non-alc fully covered; alcohol up to cap — all with gratuity
   function includedDeluxeWithCapsAndGrat(list, price, sets, caps, grat){
     let inc=0;
     for (const [id, qty] of list){
@@ -422,6 +456,10 @@
     const price = priceTable(ds);
     const sets  = setsFrom(ds);
     const pkg   = pkgFrom(ds);
+
+    // keep visible card headers synced to dataset + overrides
+    paintPkgHeaders(ds, pkg);
+
     const picks = readPicks();
     const list  = picksList(picks);
 
@@ -446,17 +484,19 @@
                           (pkg.deluxe + ocD);
 
     const trip = perDay * picks.days;
-    EL.totals.textContent = `${money(perDay)}/day • ${money(trip)} trip`;
+    if (EL.totals) EL.totals.textContent = `${money(perDay)}/day • ${money(trip)} trip`;
 
-    if (w.key==='alc'){
-      EL.chip.textContent = 'Best value: à-la-carte';
-      EL.text.textContent = 'Your daily picks are cheapest without a package.';
-    } else {
-      const name = w.key==='soda' ? 'Classic Soda' : w.key==='refresh' ? 'Refreshment' : 'Deluxe';
-      const pkgDaily = w.key==='soda' ? pkg.soda : w.key==='refresh' ? pkg.refresh : (pkg.deluxe + ocD);
-      const saves = Math.max(0, alc - pkgDaily);
-      EL.chip.textContent = `Best value: ${name}`;
-      EL.text.textContent = saves>0 ? `Saves ${money(saves)}/day vs. à-la-carte.` : `This beats à-la-carte for your picks.`;
+    if (EL.chip && EL.text){
+      if (w.key==='alc'){
+        EL.chip.textContent = 'Best value: à-la-carte';
+        EL.text.textContent = 'Your daily picks are cheapest without a package.';
+      } else {
+        const name = w.key==='soda' ? 'Classic Soda' : w.key==='refresh' ? 'Refreshment' : 'Deluxe';
+        const pkgDaily = w.key==='soda' ? pkg.soda : w.key==='refresh' ? pkg.refresh : (pkg.deluxe + ocD);
+        const saves = Math.max(0, alc - pkgDaily);
+        EL.chip.textContent = `Best value: ${name}`;
+        EL.text.textContent = saves>0 ? `Saves ${money(saves)}/day vs. à-la-carte.` : `This beats à-la-carte for your picks.`;
+      }
     }
 
     paintCard(EL.cards.soda,    incS, Math.max(0, alc - pkg.soda),              w.key==='soda');
@@ -501,7 +541,7 @@
   }
   document.addEventListener('DOMContentLoaded', wire);
 
-  // ===== Presets (now include new inputs) =====
+  // ===== Presets (include new inputs) =====
   window.PRESETS = {
     light:    { days:7, soda:1, coffee:1, teaprem:0, freshjuice:0, mocktail:0, energy:0, milkshake:0, bottledwater:0, beer:1, wine:1, cocktail:0, spirits:0, tapwater:3, basict:1, juiceconc:0 },
     moderate: { days:7, soda:2, coffee:2, teaprem:1, freshjuice:1, mocktail:1, energy:0, milkshake:0, bottledwater:1, beer:2, wine:1, cocktail:2, spirits:0, tapwater:4, basict:1, juiceconc:1 },
@@ -522,7 +562,7 @@
     document.querySelector('.packages')?.scrollIntoView({ behavior:'smooth', block:'nearest' });
   };
 
-  // ===== Price override modal (unchanged) =====
+  // ===== Price override modal (unchanged logic) =====
   let currentPkgId = null;
   window.openPriceModal = function(pkgId){
     currentPkgId = pkgId;
