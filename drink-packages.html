@@ -70,6 +70,10 @@
 .qs .qs-btn small{font-weight:600;color:#475569}
 .qs .qs-btn:focus,.qs .qs-btn:hover{outline:3px solid #38bdf8;outline-offset:2px;background:#e0f2fe}
 @media (max-width:960px){ .qs .qs-grid{grid-template-columns:repeat(2,1fr);} }
+    .health {display:none;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;
+  border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.health.show{display:block}
+.health strong{font-weight:800}
   </style>
 </head>
 <body>
@@ -113,6 +117,7 @@
     <div class="banner" role="status" aria-live="polite">
       <span id="best-chip" class="chip">Best value: à-la-carte</span>
       <span id="best-text">Your daily picks are cheapest without a package.</span>
+      <p id="health-note" class="health" role="status" aria-live="polite"></p>
     </div>
 
     <div class="grid">
@@ -300,17 +305,16 @@
     .catch(err => { console.warn('Dataset load failed', err); /* UI stays usable with defaults */ });
 })();
 </script>
- <script>
+<script>
 (() => {
-  const $ = s => document.querySelector(s);
+  const $  = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
   const money = v => `$${(Number(v)||0).toFixed(2)}`;
   const n = v => { v = Number(v); return Number.isFinite(v) ? v : 0; };
 
-  // ===== Accessible Nav (existing wiring kept) =====
+  // ===== Accessible Nav (unchanged) =====
   const menuBtn = document.querySelector('.itw-menu-btn');
   const nav = document.getElementById('itw-primary-nav');
-  const menuItems = Array.from(document.querySelectorAll('[data-menu]'));
   menuBtn?.addEventListener('click', () => {
     const open = nav.classList.toggle('is-open');
     menuBtn.setAttribute('aria-expanded', String(open));
@@ -337,11 +341,12 @@
     }, { passive:true });
   });
 
-  // ===== Calculator =====
+  // ===== Calculator elements =====
   const EL = {
     totals: $('#totals'),
     chip:   $('#best-chip'),
     text:   $('#best-text'),
+    health: $('#health-note'),
     cards: {
       soda:    document.querySelector('[data-card="soda"]'),
       refresh: document.querySelector('[data-card="refresh"]'),
@@ -349,6 +354,7 @@
     }
   };
 
+  // ===== Helpers =====
   function readPicks(){
     const p = {};
     $$('[data-input]').forEach(inp => p[inp.dataset.input] = n(inp.value));
@@ -394,7 +400,7 @@
     }
   }
 
-  // Map each UI input to its item id (1:1, transparent)
+  // Map inputs -> item ids
   function picksList(p){
     return [
       // Non-alc paid
@@ -418,7 +424,7 @@
     ];
   }
 
-  // À-la-carte baseline (adds 18% to paid items)
+  // À-la-carte baseline (adds gratuity to paid items)
   function alcPerDay(list, price, grat){
     let sum = 0;
     for (const [id, qty] of list){
@@ -545,14 +551,15 @@
     const incD  = includedDeluxeWithCapsAndGrat(list, price, sets, caps, rules.gratuity);
     const ocD   = overCapAddOn(list, price, sets, caps, rules.gratuity);
 
+    // Net “distance from breakeven” (lower is better)
     const nets = {
       soda:    pkg.soda    - incS,
       refresh: pkg.refresh - incR,
       deluxe:  (pkg.deluxe + ocD) - incD
     };
-
     const w = winner(nets);
 
+    // Daily cost for chosen “best value” path
     const perDay =
       w.key==='alc'     ? alc :
       w.key==='soda'    ? pkg.soda :
@@ -562,6 +569,7 @@
     const trip = perDay * picks.days;
     if (EL.totals) EL.totals.textContent = `${money(perDay)}/day • ${money(trip)} trip`;
 
+    // Best value banner text
     if (EL.chip && EL.text){
       if (w.key==='alc'){
         EL.chip.textContent = 'Best value: à-la-carte';
@@ -569,20 +577,41 @@
       } else {
         const name = w.key==='soda' ? 'Classic Soda' : w.key==='refresh' ? 'Refreshment' : 'Deluxe';
         const pkgDaily = w.key==='soda' ? pkg.soda : w.key==='refresh' ? pkg.refresh : (pkg.deluxe + ocD);
-        const saves = Math.max(0, alc - pkgDaily);
+        const savesVsAlc = Math.max(0, alc - pkgDaily);
         EL.chip.textContent = `Best value: ${name}`;
-        EL.text.textContent = saves>0 ? `Saves ${money(saves)}/day vs. à-la-carte.` : `This beats à-la-carte for your picks.`;
+        EL.text.textContent = savesVsAlc>0 ? `Saves ${money(savesVsAlc)}/day vs. à-la-carte.` : `This beats à-la-carte for your picks.`;
       }
     }
 
-    paintCard(EL.cards.soda,    incS, Math.max(0, alc - pkg.soda),              w.key==='soda');
-    paintCard(EL.cards.refresh, incR, Math.max(0, alc - pkg.refresh),           w.key==='refresh');
-    paintCard(EL.cards.deluxe,  incD, Math.max(0, alc - (pkg.deluxe + ocD)),    w.key==='deluxe', ocD);
+    // ✅ Correct savings math: compare only covered items
+    const savS = Math.max(0, incS - pkg.soda);
+    const savR = Math.max(0, incR - pkg.refresh);
+    const savD = Math.max(0, incD - (pkg.deluxe + ocD));
+
+    paintCard(EL.cards.soda,    incS, savS, w.key==='soda');
+    paintCard(EL.cards.refresh, incR, savR, w.key==='refresh');
+    paintCard(EL.cards.deluxe,  incD, savD, w.key==='deluxe', ocD);
 
     drawBreakEvenChart(alc, pkg.soda, pkg.refresh, (pkg.deluxe + ocD));
 
     const a11y = $('#a11y-status');
     if (a11y) a11y.textContent = `Totals updated. ${money(perDay)} per day, ${money(trip)} for the trip.`;
+
+    // ⚕️ CDC-style guidance notice
+    const drinksPerDay = n(picks.beer) + n(picks.wine) + n(picks.cocktail) + n(picks.spirits);
+    if (EL.health){
+      let msg = '';
+      // Moderate: up to 2/day (men), 1/day (women). Heavy (context): 5+ in a day is concerning.
+      if (drinksPerDay >= 15){
+        msg = '⚠️ Your entry exceeds 15 alcoholic drinks per day. Consider CDC guidance on binge/heavy drinking.';
+      } else if (drinksPerDay > 2){
+        msg = '⚠️ Your entry is above moderate drinking (CDC: up to 2/day for men, 1/day for women).';
+      } else if (drinksPerDay > 0){
+        msg = 'ℹ️ Remember: CDC defines moderate drinking as up to 2/day for men, 1/day for women.';
+      }
+      if (msg){ EL.health.textContent = msg; EL.health.classList.add('show'); }
+      else { EL.health.textContent = ''; EL.health.classList.remove('show'); }
+    }
 
     saveToURL();
   }
@@ -591,11 +620,8 @@
     const p = readPicks(); const u = new URLSearchParams();
     if (p.days !== 7) u.set('days', p.days);
     [
-      // Non-alc paid
       'soda','coffee','teaprem','freshjuice','mocktail','energy','milkshake','bottledwater',
-      // Alcohol
       'beer','wine','cocktail','spirits',
-      // Included
       'tapwater','basict','juiceconc'
     ].forEach(k => { if (p[k] > 0) u.set(k, p[k]); });
     const newURL = u.toString() ? `?${u.toString()}` : location.pathname;
@@ -617,7 +643,7 @@
   }
   document.addEventListener('DOMContentLoaded', wire);
 
-  // ===== Presets (include new inputs) =====
+  // ===== Presets =====
   window.PRESETS = {
     light:    { days:7, soda:1, coffee:1, teaprem:0, freshjuice:0, mocktail:0, energy:0, milkshake:0, bottledwater:0, beer:1, wine:1, cocktail:0, spirits:0, tapwater:3, basict:1, juiceconc:0 },
     moderate: { days:7, soda:2, coffee:2, teaprem:1, freshjuice:1, mocktail:1, energy:0, milkshake:0, bottledwater:1, beer:2, wine:1, cocktail:2, spirits:0, tapwater:4, basict:1, juiceconc:1 },
@@ -638,7 +664,7 @@
     document.querySelector('.packages')?.scrollIntoView({ behavior:'smooth', block:'nearest' });
   };
 
-  // ===== Price override modal (unchanged logic) =====
+  // ===== Price override modal (unchanged) =====
   let currentPkgId = null;
   window.openPriceModal = function(pkgId){
     currentPkgId = pkgId;
@@ -672,7 +698,7 @@
     }
   });
 
-  // ===== Share (unchanged) =====
+  // ===== Share =====
   window.shareResults = function(platform){
     const url = encodeURIComponent(location.href);
     const text = encodeURIComponent('Royal Caribbean drink package calculator - find out if packages save you money! 🚢🍹');
