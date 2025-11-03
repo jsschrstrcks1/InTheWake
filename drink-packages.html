@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Royal Caribbean Drink Package Calculator (Is It Worth It?)</title>
+<title>Royal Caribbean Drink Package Calculator (Is It Worth It?) v3.010.110</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Compare Royal Caribbean’s Soda, Refreshment, and Deluxe packages vs à-la-carte with gratuity included. See the break-even and savings.">
 <link rel="icon" href="/assets/favicon.png">
@@ -65,7 +65,7 @@ footer{max-width:var(--maxw);margin:28px auto;padding:8px 16px;color:#6b7280}
 
     <div class="card" style="padding:12px 14px;margin-bottom:14px">
       <p id="totals" aria-live="polite" style="margin:0"><strong>$0.00/day • $0.00 trip</strong>
-        <span class="tiny" style="color:#6b7280"> v3.010.109 · includes gratuity for packages and à-la-carte.</span>
+        <span class="tiny" style="color:#6b7280"> v3.010.110 · includes gratuity for packages and à-la-carte.</span>
       </p>
     </div>
 
@@ -174,7 +174,7 @@ function calcAlaCartePerDay(){const c={soda:val("soda"),coffee:val("coffee"),bee
 function packageCoverage(key){const k="deluxe"===key?["refresh","alcohol"]:[DATA.packages[key].set];const covered=new Set();k.flat().forEach(s=>(DATA.sets[s]||[]).forEach(x=>covered.add(x)));return covered}
 function calcPackage(key){const covered=packageCoverage(key);const c={soda:val("soda"),coffee:val("coffee"),tea:0,juice:0,milkshake:0,bottledwater:0,mocktail:val("mocktail"),beer:val("beer"),wine:val("wine"),cocktail:val("cocktail"),spirits:0};let inc=0,out=0;for(const[i,n]of Object.entries(c)){if(n<=0)continue;const p=DATA.items[i]||0;if(covered.has(i))inc+=n*p*(1+g);else out+=n*p*(1+g)}const price=Number(localStorage.getItem(`pkg.${key}.price`)??DATA.packages[key].price);const dailyTotal=price+out;const netVsAla=dailyTotal-calcAlaCartePerDay();return{dailyTotal,includedValue:inc,netVsAla,pkgPrice:price}}
 function pickWinner(){const nets={soda:calcPackage("soda").netVsAla,refreshment:calcPackage("refreshment").netVsAla,deluxe:calcPackage("deluxe").netVsAla};let bestKey="alacarte",bestNet=0;const allPos=Object.values(nets).every(n=>n>0+DATA.rules.epsilon);if(!allPos){for(const[k,n]of Object.entries(nets)){if(n<bestNet-DATA.rules.epsilon){bestNet=n;bestKey=k}}}return{bestKey,bestNet}}
-function render(){const per=calcAlaCartePerDay();const trip=per*days();$("#totals").innerHTML=`<strong>${fmt(per)}/day • ${fmt(trip)} trip</strong><span class="tiny" style="color:#6b7280"> v3.010.109 · includes gratuity for packages and à-la-carte.</span>`;
+function render(){const per=calcAlaCartePerDay();const trip=per*days();$("#totals").innerHTML=`<strong>${fmt(per)}/day • ${fmt(trip)} trip</strong><span class="tiny" style="color:#6b7280"> v3.010.110 · includes gratuity for packages and à-la-carte.</span>`;
 for(const key of["soda","refreshment","deluxe"]){const node=document.querySelector(`.pkg[data-key="${key}"]`);if(!node)continue;const calc=calcPackage(key);node.querySelector("[data-price]").textContent=`${fmt(calc.pkgPrice)}/day`;node.querySelector("[data-value]").textContent=`Included value from your picks: ${fmt(calc.includedValue)}/day`;const saves=per-calc.dailyTotal;const tgt=node.querySelector("[data-saves]");tgt.textContent=saves>0.009?`Saves ${fmt(saves)}/day`:""}
 const {bestKey}=pickWinner();const banner=$("#winner");banner.hidden=false;const label=k=>"alacarte"===k?"à-la-carte":DATA.packages[k].name;$("#winnerBadge").textContent=`Best value: ${label(bestKey)}`;$("#winnerMsg").textContent="alacarte"===bestKey?`Best value: ${label(bestKey)}. Your daily picks are cheapest without a package.`:`Best value: ${label(bestKey)}. This beats à-la-carte for your current picks.`;document.querySelectorAll(".pkg").forEach(el=>el.style.outline="none");if("alacarte"!==bestKey){const win=document.querySelector(`.pkg[data-key="${bestKey}"]`);if(win)win.style.outline="3px solid #22c55e"}}
 ["cruiseDays","soda","coffee","beer","wine","cocktail","mocktail"].forEach(id=>document.getElementById(id)?.addEventListener("input",render));
@@ -183,6 +183,36 @@ document.getElementById("editCancel").addEventListener("click",()=>document.getE
 document.getElementById("editSave").addEventListener("click",()=>{const v=Math.max(0,Number(document.getElementById("editInput").value||0));if(editingKey)localStorage.setItem(`pkg.${editingKey}.price`,String(v));document.getElementById("editModal").removeAttribute("open");render()});
 document.getElementById("editModal")?.addEventListener("click",e=>{if(e.target.id==="editModal")e.currentTarget.removeAttribute("open")});
 render();
+</script>
+  <script src="/assets/js/site-cache.js?v=3.010.102" defer></script>
+<script>
+(function connectToSW(){
+  if (!('serviceWorker' in navigator)) return;
+
+  // Register current worker (v20.1a)
+  navigator.serviceWorker.register('/sw.js?v=20.1a', { scope: '/' }).catch(()=>{});
+
+  // Wait for control, then seed critical URLs
+  const ver = '3.010.109';  // page build version
+  const seedList = [
+    location.pathname + '?v=' + ver,
+    '/data/royal-caribbean.json?v=' + ver,
+    '/assets/js/site-cache.js?v=3.010.102',
+    '/assets/hero-sunrise-rccl.jpg?v=' + ver,
+    '/assets/social/drink-calculator-2025.jpg?v=' + ver
+  ];
+
+  // use global helper from site-cache.js
+  const trySeed = () => {
+    try { window.itwSeedSW(seedList, 'high'); } catch(_) {}
+  };
+
+  if (navigator.serviceWorker.controller) {
+    trySeed();
+  } else {
+    navigator.serviceWorker.addEventListener('controllerchange', trySeed, { once:true });
+  }
+})();
 </script>
 </body>
 </html>
