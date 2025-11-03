@@ -42,6 +42,16 @@
     /* simple canvas area for break-even */
     #breakeven-wrap{margin-top:18px}
     #breakeven-chart{width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px}
+    .row.included .pill{
+  background:#eef2ff; /* subtle badge */
+  color:#334155;
+  border:1px solid #e5e7eb;
+  border-radius:999px;
+  padding:2px 8px;
+  margin-left:8px;
+  font-weight:600;
+}
+.row.included small{ color:#475569; } /* slightly darker than --muted so it reads as a chip */
   </style>
 </head>
 <body>
@@ -91,13 +101,39 @@
   <div class="row"><div>Spirits/shot (+mixer) per day</div><div><input type="number" min="0" step="1" value="0" data-input="spirits"></div></div>
 
   <!-- Included/free -->
-  <div class="row"><div>Tap water</div><div><small>Included · $0</small></div></div>
-  <div class="row"><div>Tap water per day</div><div><input type="number" min="0" step="1" value="0" data-input="tapwater"></div></div>
-  <div class="row"><div>Basic tea / lemonade</div><div><small>Included · $0</small></div></div>
-  <div class="row"><div>Basic tea/lemonade per day</div><div><input type="number" min="0" step="1" value="0" data-input="basict"></div></div>
-  <div class="row"><div>Juice (from concentrate)</div><div><small>Included · $0</small></div></div>
-  <div class="row"><div>Juice (concentrate) per day</div><div><input type="number" min="0" step="1" value="0" data-input="juiceconc"></div></div>
+<!-- Included/free (single-row style) -->
+<div class="row included">
+  <div>
+    <span>Tap water</span>
+    <small class="pill">Included · $0</small>
+  </div>
+  <div>
+    <label class="sr-only" for="tapwater-per-day">Tap water servings per day</label>
+    <input id="tapwater-per-day" type="number" min="0" step="1" value="0" data-input="tapwater" />
+  </div>
+</div>
 
+<div class="row included">
+  <div>
+    <span>Basic tea / lemonade</span>
+    <small class="pill">Included · $0</small>
+  </div>
+  <div>
+    <label class="sr-only" for="basict-per-day">Basic tea/lemonade servings per day</label>
+    <input id="basict-per-day" type="number" min="0" step="1" value="0" data-input="basict" />
+  </div>
+</div>
+
+<div class="row included">
+  <div>
+    <span>Juice (from concentrate)</span>
+    <small class="pill">Included · $0</small>
+  </div>
+  <div>
+    <label class="sr-only" for="juiceconc-per-day">Concentrate juice servings per day</label>
+    <input id="juiceconc-per-day" type="number" min="0" step="1" value="0" data-input="juiceconc" />
+  </div>
+</div>
   <div id="breakeven-wrap">
     <canvas id="breakeven-chart" width="900" height="280" aria-label="Break-even chart"></canvas>
   </div>
