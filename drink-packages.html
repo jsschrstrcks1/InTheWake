@@ -2,328 +2,140 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="version" content="3.010.112" />
-  <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It? Free Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Royal Caribbean Drink Package Calculator | In the Wake</title>
   <link rel="canonical" href="https://cruisinginthewake.com/planning/drink-packages.html" />
-  <link rel="preload" as="image" href="/assets/logo_wake.png" />
-  <link rel="stylesheet" href="/assets/css/itw.css?v=3.010.112" />
-
-  <!-- Primary SEO -->
-  <meta name="description" content="Free Royal Caribbean drink package calculator. Compare Soda ($13/day), Refreshment ($35/day), Deluxe ($80/day) vs. à-la-carte with 18% gratuity. Find your break-even point instantly." />
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="In the Wake" />
-  <meta property="og:title" content="Royal Caribbean Drink Package Calculator | Is It Worth It?" />
-  <meta property="og:description" content="Enter your daily drinks; instantly see if Soda, Refreshment, or Deluxe saves you money vs. à-la-carte." />
-  <meta property="og:url" content="https://cruisinginthewake.com/planning/drink-packages.html" />
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="RCL Drink Package Calculator" />
-  <meta name="twitter:description" content="Instant answer: Enter drinks/day, see which package saves money." />
-  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg" />
-
-  <!-- Minimal guard styles (safe even if main sheet fails) -->
+  <link rel="stylesheet" href="/assets/css/itw.css?v=3.011.0" />
   <style>
-    :root{--bg:#f8fbfc;--chip:#e7f6ea;--chipText:#0a7b3e;--card:#fff;--muted:#6b7280;--bd:#e5e7eb;}
-    html,body{background:var(--bg);color:#111;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0}
-    .container{max-width:1200px;margin:0 auto;padding:0 16px}
+    :root{--bg:#f5faf7;--chip:#e7f6ea;--chipText:#0a7b3e;--card:#fff;--muted:#6b7280;--bd:#e5e7eb;}
+    body{background:#f8fbfc;color:#111;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+    .container{max-width:1200px;margin:0 auto;padding:0 16px;}
+    header.navbar{position:sticky;top:0;background:#0f172a;color:#fff;border-bottom:3px solid #d4af37;z-index:40;}
+    header .inner{display:flex;align-items:center;gap:16px;padding:8px 16px;}
+    header .brand img{height:28px}
+    header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
+    .banner{background:var(--chip);color:#111;border:1px solid #cfe8d7;border-radius:10px;padding:10px 14px;margin:18px 0}
+    .chip{background:#bfe8c8;color:var(--chipText);border-radius:999px;padding:3px 10px;font-weight:700;margin-right:10px;display:inline-block}
+    .grid{display:grid;grid-template-columns:1.4fr .8fr;gap:24px}
     .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.03)}
     .card .hd{padding:12px 16px;border-bottom:1px dashed var(--bd);font-weight:700}
     .card .bd{padding:12px 16px}
-    .grid{display:grid;grid-template-columns:1.4fr .8fr;gap:24px}
-    .inputs .row{display:grid;grid-template-columns:1fr 120px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd)}
-    .inputs .row:last-child{border-bottom:0}
-    .inputs input[type=number]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;font:inherit}
-    .banner{background:var(--chip);border:1px solid #cfe8d7;border-radius:10px;padding:10px 14px;margin:18px 0}
-    .chip{background:#bfe8c8;color:var(--chipText);border-radius:999px;padding:3px 10px;font-weight:700;margin-right:10px;display:inline-block}
-    .packages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
-    .pkg{border-radius:14px;overflow:hidden;position:relative}
+    .row{display:grid;grid-template-columns:1fr 120px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd)}
+    .row:last-child{border-bottom:0}
+    .row small{color:var(--muted)}
+    .inputs input[type=number]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px}
+    .packages{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:18px}
+    .pkg{border-radius:14px;overflow:hidden}
     .pkg .phd{background:#0b2940;color:#fff;padding:12px 14px;font-weight:800;display:flex;gap:8px;align-items:center;justify-content:space-between}
     .pkg .pbd{padding:14px}
     .pkg ul{margin:6px 0 10px 18px}
-    .pkg .muted{color:var(--muted);font-size:.9rem;margin:6px 0}
-    .pkg .save{font-weight:700;margin-top:6px;color:#059669}
+    .pkg .muted{color:var(--muted);font-size:0.9rem;margin:6px 0}
+    .pkg .save{font-weight:700;margin-top:6px}
     .pkg.winner{outline:3px solid #34d399;box-shadow:0 0 0 6px rgba(52,211,153,.15)}
     .rail .card{padding:10px 12px}
     .sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
     .help{all:unset;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#0ea5e9;color:#fff;font-weight:800;line-height:1}
     .tooltip{position:relative}
-    .tooltip [role="tooltip"]{position:absolute;inset:auto auto 100% 0;transform:translateY(-8px);background:#0f172a;color:#fff;padding:8px 10px;border-radius:8px;min-width:220px;box-shadow:0 6px 18px rgba(0,0,0,.2);font-size:.9rem;display:none;z-index:10}
+    .tooltip [role="tooltip"]{position:absolute;inset:auto auto 100% 0;transform:translateY(-8px);background:#0f172a;color:#fff;padding:8px 10px;border-radius:8px;min-width:220px;box-shadow:0 6px 18px rgba(0,0,0,.2);font-size:.9rem;display:none}
     .tooltip:focus-within [role="tooltip"], .tooltip:hover [role="tooltip"]{display:block}
-    /* ===== Accessible Header / Nav ===== */
-    .skip-link{position:absolute;top:-40px;left:8px;background:#0f172a;color:#fff;padding:8px 10px;border-radius:8px;z-index:1000}
-    .skip-link:focus{top:8px}
-    .itw-header{position:sticky;top:0;z-index:50;background:#0f172a;color:#fff;border-bottom:3px solid #d4af37}
-    .itw-header__inner{display:flex;align-items:center;gap:12px;min-height:56px}
-    .itw-brand img{display:block;height:40px;width:auto}
-    .itw-menu-btn{margin-left:auto;display:flex;align-items:center;gap:8px;border:1px solid #334155;background:#111827;color:#fff;border-radius:8px;padding:6px 10px}
-    .itw-nav__list{list-style:none;margin:0;padding:0;display:flex;gap:6px;align-items:center}
-    .itw-nav__link{display:inline-flex;align-items:center;gap:6px;color:#dbeafe;text-decoration:none;padding:8px 10px;border-radius:10px}
-    .itw-nav__link:hover,.itw-nav__link:focus{background:#1f2937;outline:none}
-    .itw-nav__link[aria-current="page"]{box-shadow:inset 0 0 0 2px #d4af37;background:#1f2937}
-    .itw-nav__item--hasmenu{position:relative}
-    .itw-nav__btn{background:transparent;border:0;color:#dbeafe;cursor:pointer}
-    .itw-submenu{position:absolute;left:0;top:100%;min-width:240px;background:#0b1220;border:1px solid #334155;border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.3);padding:8px;display:none}
-    .itw-submenu__link{display:block;color:#e5e7eb;text-decoration:none;padding:8px 10px;border-radius:8px}
-    .itw-submenu__link:hover,.itw-submenu__link:focus{background:#111827}
-    .itw-nav__item--open>.itw-submenu{display:block}
-    .itw-breadcrumbs{margin:12px auto}
-    .itw-breadcrumbs ol{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0}
-    .itw-breadcrumbs a{color:#0ea5e9;text-decoration:none}
-    .itw-breadcrumbs li+li:before{content:"›";color:#94a3b8;margin:0 4px}
-    @media (max-width:960px){
-      .grid{grid-template-columns:1fr}
-      .packages{grid-template-columns:1fr}
-      .itw-menu-btn{display:flex}
-      .itw-nav{position:fixed;inset:56px 0 auto 0;background:#0f172a;border-top:1px solid #334155;display:none}
-      .itw-nav.is-open{display:block}
-      .itw-nav__list{flex-direction:column;align-items:stretch;padding:8px}
-      .itw-nav__item--hasmenu>.itw-submenu{position:static;display:none;margin:6px 0 8px;border:1px solid #334155}
-      .itw-nav__item--open>.itw-submenu{display:block}
-    }
-    @media (min-width:961px){ .itw-menu-btn{display:none} }
+    @media (max-width:960px){ .grid{grid-template-columns:1fr} .packages{grid-template-columns:1fr} }
+    /* simple canvas area for break-even */
+    #breakeven-wrap{margin-top:18px}
+    #breakeven-chart{width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px}
   </style>
-
-  <!-- JSON-LD: Organization, Person, WebApplication, FAQ, Breadcrumb -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "@id":"https://cruisinginthewake.com/#organization",
-    "name":"In the Wake",
-    "url":"https://cruisinginthewake.com/",
-    "logo":{"@type":"ImageObject","url":"https://cruisinginthewake.com/assets/logo_wake.png","width":256,"height":64},
-    "description":"Expert cruise travel guides, calculators, and planning tools"
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Person",
-    "@id":"https://cruisinginthewake.com/authors/ken-baker.html#person",
-    "name":"Ken Baker",
-    "url":"https://cruisinginthewake.com/authors/ken-baker.html",
-    "jobTitle":"Cruise Expert & Editor",
-    "image":"https://cruisinginthewake.com/authors/img/ken1.jpg",
-    "worksFor":{"@id":"https://cruisinginthewake.com/#organization"}
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebApplication",
-    "name":"Royal Caribbean Drink Package Calculator",
-    "applicationCategory":"FinanceApplication",
-    "operatingSystem":"Any",
-    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-    "description":"Free calculator comparing Royal Caribbean beverage packages (Soda, Refreshment, Deluxe) against à-la-carte with 18% gratuity calculations.",
-    "url":"https://cruisinginthewake.com/planning/drink-packages.html",
-    "author":{"@id":"https://cruisinginthewake.com/authors/ken-baker.html#person"},
-    "publisher":{"@id":"https://cruisinginthewake.com/#organization"},
-    "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"320","bestRating":"5"}
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "author":{"@id":"https://cruisinginthewake.com/authors/ken-baker.html#person"},
-    "publisher":{"@id":"https://cruisinginthewake.com/#organization"},
-    "mainEntity":[
-      {"@type":"Question","name":"Is the Deluxe Beverage Package worth it?","acceptedAnswer":{"@type":"Answer","text":"The Deluxe package (~$80/day average) typically breaks even around 5–6 alcoholic drinks per day. Enter your habits for a personalized break-even."}},
-      {"@type":"Question","name":"Does the package price include gratuity?","acceptedAnswer":{"@type":"Answer","text":"Yes. Packages include gratuity. À-la-carte purchases add 18% automatically."}},
-      {"@type":"Question","name":"Can I edit package prices for sales?","acceptedAnswer":{"@type":"Answer","text":"Yes—use the 'Edit Price' buttons to input your sale pricing for accurate calculations."}},
-      {"@type":"Question","name":"Can drink packages be shared among cabins?","acceptedAnswer":{"@type":"Answer","text":"No. Royal Caribbean requires all adults in a cabin to purchase the same package level; sharing is prohibited."}}
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"BreadcrumbList",
-    "itemListElement":[
-      {"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},
-      {"@type":"ListItem","position":2,"name":"Planning","item":"https://cruisinginthewake.com/planning/"},
-      {"@type":"ListItem","position":3,"name":"Drink Package Calculator","item":"https://cruisinginthewake.com/planning/drink-packages.html"}
-    ]
-  }
-  </script>
 </head>
 <body>
-  <!-- ===== Site Header ===== -->
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="itw-header" role="banner">
-    <div class="itw-header__inner container">
-      <a class="itw-brand" href="/" aria-label="In the Wake home">
-        <img src="/assets/logo_wake.png" alt="In the Wake" width="160" height="40" />
-      </a>
-
-      <button class="itw-menu-btn" aria-expanded="false" aria-controls="itw-primary-nav">
-        <span class="itw-menu-btn__icon" aria-hidden="true">☰</span>
-        <span class="itw-menu-btn__label">Menu</span>
-      </button>
-
-      <nav id="itw-primary-nav" class="itw-nav" aria-label="Primary">
-        <ul class="itw-nav__list" role="menubar">
-          <li class="itw-nav__item">
-            <a class="itw-nav__link" href="/" data-prefetch="hover" role="menuitem">Home</a>
-          </li>
-
-          <li class="itw-nav__item itw-nav__item--hasmenu" data-menu>
-            <button class="itw-nav__link itw-nav__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
-              Planning <span class="itw-caret" aria-hidden="true">▾</span>
-            </button>
-            <div class="itw-submenu" role="menu">
-              <a role="menuitem" class="itw-submenu__link" href="/planning/" data-prefetch="hover">All Planning Guides</a>
-              <a role="menuitem" class="itw-submenu__link" href="/planning/drink-packages.html" data-prefetch="hover" aria-current="page">Drink Package Calculator</a>
-              <a role="menuitem" class="itw-submenu__link" href="/planning/royal-refreshment-included.html" data-prefetch="hover">Refreshment: What’s included</a>
-              <a role="menuitem" class="itw-submenu__link" href="/planning/gratuity-on-drinks.html" data-prefetch="hover">Drink gratuity explained</a>
-            </div>
-          </li>
-
-          <li class="itw-nav__item itw-nav__item--hasmenu" data-menu>
-            <button class="itw-nav__link itw-nav__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
-              Travel <span class="itw-caret" aria-hidden="true">▾</span>
-            </button>
-            <div class="itw-submenu" role="menu">
-              <a role="menuitem" class="itw-submenu__link" href="/travel/" data-prefetch="hover">All Travel</a>
-              <a role="menuitem" class="itw-submenu__link" href="/travel/packing-list.html" data-prefetch="hover">Packing List</a>
-            </div>
-          </li>
-
-          <li class="itw-nav__item">
-            <a class="itw-nav__link" href="/about/" data-prefetch="hover" role="menuitem">About</a>
-          </li>
-        </ul>
+  <header class="navbar">
+    <div class="inner container">
+      <a class="brand" href="/"><img src="/assets/logo_wake.png" alt="In the Wake" /></a>
+      <nav aria-label="Primary" id="itw-primary-nav">
+        <a class="itw-nav__link" href="/">Home</a>
+        <a class="itw-nav__link" href="/planning/">Planning</a>
+        <a class="itw-nav__link" href="/travel/">Travel</a>
+        <a class="itw-nav__link" href="/about/">About</a>
       </nav>
-
-      <div style="margin-left:8px;color:#cbd5e1;font-size:.9rem">v3.010.112</div>
+      <button class="itw-menu-btn" aria-expanded="false" aria-controls="itw-primary-nav" style="margin-left:auto;background:#1f2937;color:#fff;border:1px solid #334155;border-radius:8px;padding:6px 10px">Menu</button>
+      <div style="color:#cbd5e1;font-size:.9rem">v3.011.0</div>
     </div>
   </header>
 
-  <!-- ===== Breadcrumbs ===== -->
-  <nav class="itw-breadcrumbs container" aria-label="Breadcrumb">
-    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="/"><span itemprop="name">Home</span></a>
-        <meta itemprop="position" content="1" />
-      </li>
-      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="/planning/"><span itemprop="name">Planning</span></a>
-        <meta itemprop="position" content="2" />
-      </li>
-      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
-        <span itemprop="name">Drink Package Calculator</span>
-        <meta itemprop="position" content="3" />
-      </li>
-    </ol>
-  </nav>
-
   <main class="container" id="main">
-    <!-- Intro / Presets -->
-    <section class="card" style="background:#fef3c7;border-color:#fbbf24;margin-bottom:16px">
-      <h2 class="hd" style="background:#f59e0b;color:#fff;margin:-1px;margin-bottom:0;border-radius:11px 11px 0 0">🚀 Quick Start: Load a Preset</h2>
-      <div class="bd">
-        <p class="muted" style="margin-bottom:12px;font-size:.9rem">Not sure where to start? Try one of these common patterns:</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">
-          <button onclick="loadPreset('light')" class="card" style="padding:12px;border:2px solid #10b981;background:#d1fae5;cursor:pointer"><strong>☕ Light Drinker</strong><br><small class="muted">2–3 drinks/day</small></button>
-          <button onclick="loadPreset('moderate')" class="card" style="padding:12px;border:2px solid #f59e0b;background:#fed7aa;cursor:pointer"><strong>🍹 Moderate</strong><br><small class="muted">5–6 drinks/day</small></button>
-          <button onclick="loadPreset('heavy')" class="card" style="padding:12px;border:2px solid #ef4444;background:#fecaca;cursor:pointer"><strong>🎉 Party Mode</strong><br><small class="muted">8–10 drinks/day</small></button>
-          <button onclick="loadPreset('coffee')" class="card" style="padding:12px;border:2px solid #8b5cf6;background:#ddd6fe;cursor:pointer"><strong>☕ Coffee Lover</strong><br><small class="muted">4 coffees, no alcohol</small></button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Best-value banner -->
     <div class="banner" role="status" aria-live="polite">
       <span id="best-chip" class="chip">Best value: à-la-carte</span>
       <span id="best-text">Your daily picks are cheapest without a package.</span>
     </div>
 
-    <!-- Main grid -->
     <div class="grid">
-      <!-- Inputs -->
       <section class="card inputs" aria-labelledby="calc-title">
         <h2 id="calc-title" class="hd">
           <span id="totals">$0.00/day • $0.00 trip</span>
-          <small class="muted">– includes 18% gratuity</small>
+          <small class="muted">– includes gratuity for packages and à-la-carte.</small>
         </h2>
         <div class="bd">
-          <div class="row">
-            <label for="input-days">Cruise days</label>
-            <input id="input-days" type="number" min="1" step="1" value="7" data-input="days">
+          <div class="row"><div>Cruise days</div><div><input type="number" min="1" step="1" value="7" data-input="days"></div></div>
+          <div class="row"><div>Soda per day</div><div><input type="number" min="0" step="1" value="0" data-input="soda"></div></div>
+          <div class="row"><div>Premium coffee per day</div><div><input type="number" min="0" step="1" value="0" data-input="coffee"></div></div>
+          <div class="row"><div>Beer per day</div><div><input type="number" min="0" step="1" value="0" data-input="beer"></div></div>
+          <div class="row"><div>Wine per day</div><div><input type="number" min="0" step="1" value="0" data-input="wine"></div></div>
+          <div class="row"><div>Cocktail per day</div><div><input type="number" min="0" step="1" value="0" data-input="cocktail"></div></div>
+          <div class="row"><div>Mocktail/juice per day</div><div><input type="number" min="0" step="1" value="0" data-input="mocktail"></div></div>
+          <div class="row"><div>Tap water</div><div><small>Included · $0</small></div></div>
+          <div class="row"><div>Tap water per day</div><div><input type="number" min="0" step="1" value="0" data-input="tapwater"></div></div>
+          <div class="row"><div>Basic tea / lemonade</div><div><small>Included · $0</small></div></div>
+          <div class="row"><div>Basic tea/lemonade per day</div><div><input type="number" min="0" step="1" value="0" data-input="basict"></div></div>
+          <div class="row"><div>Juice (concentrate)</div><div><small>Included · $0</small></div></div>
+          <div class="row"><div>Juice (concentrate) per day</div><div><input type="number" min="0" step="1" value="0" data-input="juiceconc"></div></div>
+
+          <div id="breakeven-wrap">
+            <canvas id="breakeven-chart" width="900" height="280" aria-label="Break-even chart"></canvas>
           </div>
-
-          <div class="row"><label for="input-soda">Soda per day <small>(avg $3.50 + grat)</small></label><input id="input-soda" type="number" min="0" step="1" value="0" data-input="soda"></div>
-          <div class="row"><label for="input-coffee">Premium coffee per day <small>(avg $4.75 + grat)</small></label><input id="input-coffee" type="number" min="0" step="1" value="0" data-input="coffee"></div>
-          <div class="row"><label for="input-beer">Beer per day <small>(avg $8.00 + grat)</small></label><input id="input-beer" type="number" min="0" step="1" value="0" data-input="beer"></div>
-          <div class="row"><label for="input-wine">Wine per day <small>(avg $12.00 + grat)</small></label><input id="input-wine" type="number" min="0" step="1" value="0" data-input="wine"></div>
-          <div class="row"><label for="input-cocktail">Cocktail per day <small>(avg $13.50 + grat)</small></label><input id="input-cocktail" type="number" min="0" step="1" value="0" data-input="cocktail"></div>
-          <div class="row"><label for="input-mocktail">Mocktail/juice per day <small>(avg $5.50 + grat)</small></label><input id="input-mocktail" type="number" min="0" step="1" value="0" data-input="mocktail"></div>
-
-          <div class="row"><label for="input-tapwater">Tap water per day <small>(Included)</small></label><input id="input-tapwater" type="number" min="0" step="1" value="0" data-input="tapwater"></div>
-          <div class="row"><label for="input-basict">Basic tea/lemonade per day <small>(Included)</small></label><input id="input-basict" type="number" min="0" step="1" value="0" data-input="basict"></div>
-          <div class="row"><label for="input-juiceconc">Juice (concentrate) per day <small>(Included)</small></label><input id="input-juiceconc" type="number" min="0" step="1" value="0" data-input="juiceconc"></div>
         </div>
       </section>
 
-      <!-- Right rail -->
       <aside aria-label="Sidebar" class="rail">
         <section class="card">
           <h3 class="hd">Recommended Reading</h3>
           <div class="bd">
-            <ul style="margin:0 0 0 18px">
-              <li><a href="/planning/royal-refreshment-included.html" data-prefetch="hover">Refreshment Package: What’s included</a></li>
-              <li><a href="/planning/gratuity-on-drinks.html" data-prefetch="hover">How gratuity works on drinks</a></li>
-              <li><a href="/planning/deluxe-beverage-worth-it.html" data-prefetch="hover">Deluxe Package: When it’s worth it</a></li>
+            <ul>
+              <li><a href="/planning/royal-refreshment-included.html" data-prefetch="hover">Royal Caribbean Refreshment Package: What’s Included</a></li>
+              <li><a href="/planning/gratuity-on-drinks.html" data-prefetch="hover">How gratuity works on drinks &amp; packages</a></li>
+              <li><a href="/planning/deluxe-beverage-worth-it.html" data-prefetch="hover">Deluxe Beverage Package: When it’s worth it</a></li>
             </ul>
           </div>
         </section>
 
         <section class="card">
-          <h3 class="hd">Other Cruise Lines</h3>
+          <h3 class="hd">Other Calculators</h3>
           <div class="bd">
-            <a href="/planning/carnival-drink-packages.html" class="card" data-prefetch="hover" style="display:block;padding:10px;text-decoration:none;color:inherit">
-              <strong style="display:block">Carnival CHEERS!</strong><small class="muted">$55–70/day calculator</small>
-            </a>
-            <a href="/planning/ncl-drink-packages.html" class="card" data-prefetch="hover" style="display:block;padding:10px;text-decoration:none;color:inherit;margin-top:8px">
-              <strong style="display:block">Norwegian (NCL)</strong><small class="muted">Premium Plus calculator</small>
-            </a>
+            <ul>
+              <li><a href="/carnival-drink-package-calculator.html" data-prefetch="hover">Carnival Drink Package Calculator</a></li>
+              <li><a href="/ncl-drink-package-calculator.html" data-prefetch="hover">NCL Drink Package Calculator</a></li>
+            </ul>
           </div>
         </section>
 
         <section class="card">
-          <h3 class="hd">About the Author</h3>
-          <div class="bd">
-            <p class="muted">By <a href="/authors/ken-baker.html">Ken Baker</a>. Pastor, coder, cruiser with 15+ sailings. Soli Deo Gloria.</p>
-          </div>
+          <h3 class="hd">About the author</h3>
+          <div class="bd"><p class="muted">By <a href="/authors/ken-baker.html">Ken Baker</a>. Pastor, coder, cruiser. Soli Deo Gloria.</p></div>
         </section>
       </aside>
     </div>
 
-    <!-- Packages -->
     <section class="packages" aria-label="Packages">
       <article class="pkg card" data-card="soda">
         <header class="phd">
           <span>Classic Soda</span>
           <span class="tooltip">
             <button class="help" aria-describedby="tt-soda" aria-label="Soda package help">?</button>
-            <span id="tt-soda" role="tooltip">Unlimited fountain soda + Coca-Cola Freestyle. One drink at a time. Non-transferable.</span>
+            <span id="tt-soda" role="tooltip">Unlimited fountain soda + Coca-Cola Freestyle. One drink served at a time. Non-transferable.</span>
           </span>
         </header>
         <div class="pbd">
           <div class="muted"><strong>$13.00/day</strong> <span class="muted">range $9.99–$16/day</span></div>
-          <ul><li>Unlimited sodas</li><li>Freestyle machines</li><li>Souvenir cup</li></ul>
-          <p class="muted">Included value: <strong data-inc>$0.00/day</strong></p>
+          <ul><li>Soda</li></ul>
+          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
           <p class="save" data-saves hidden></p>
-          <button onclick="openPriceModal('soda')" style="margin-top:8px;padding:6px 12px;background:#0ea5e9;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600">📝 Edit Price</button>
+          <p><button onclick="openPriceModal('soda')" style="all:unset;cursor:pointer;color:#0369a1;font-weight:700">Edit price…</button></p>
         </div>
       </article>
 
@@ -332,15 +144,15 @@
           <span>Refreshment</span>
           <span class="tooltip">
             <button class="help" aria-describedby="tt-refresh" aria-label="Refreshment package help">?</button>
-            <span id="tt-refresh" role="tooltip">Unlimited non-alcoholic drinks: soda, mocktails, fresh juices, premium coffees/teas (excludes Starbucks).</span>
+            <span id="tt-refresh" role="tooltip">Unlimited non-alcoholic drinks: soda, mocktails, fresh juices, premium coffees/teas (excludes Starbucks). One at a time.</span>
           </span>
         </header>
         <div class="pbd">
           <div class="muted"><strong>$35.00/day</strong> <span class="muted">range $29–$40/day</span></div>
-          <ul><li>All Soda items</li><li>Premium coffee/tea</li><li>Fresh juice & mocktails</li><li>Bottled water</li></ul>
-          <p class="muted">Included value: <strong data-inc>$0.00/day</strong></p>
+          <ul><li>Soda + non-alcoholic</li></ul>
+          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
           <p class="save" data-saves hidden></p>
-          <button onclick="openPriceModal('refresh')" style="margin-top:8px;padding:6px 12px;background:#0ea5e9;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600">📝 Edit Price</button>
+          <p><button onclick="openPriceModal('refresh')" style="all:unset;cursor:pointer;color:#0369a1;font-weight:700">Edit price…</button></p>
         </div>
       </article>
 
@@ -349,89 +161,40 @@
           <span>Deluxe (Alcohol)</span>
           <span class="tooltip">
             <button class="help" aria-describedby="tt-deluxe" aria-label="Deluxe package help">?</button>
-            <span id="tt-deluxe" role="tooltip">Alcoholic drinks covered up to <strong>$14</strong>/drink (pay the difference above). Excludes Starbucks, mini-bar, room service, top-shelf.</span>
+            <span id="tt-deluxe" role="tooltip">
+              Unlimited drinks. Alcoholic drinks covered up to <strong>$14</strong> each; pay the difference above. Excludes Starbucks, mini-bar, room service, and <strong>top-shelf</strong>.
+            </span>
           </span>
         </header>
         <div class="pbd">
           <div class="muted"><strong>$80.00/day</strong> <span class="muted">range $56–$115/day</span></div>
-          <ul><li>All Refreshment items</li><li>Beer, wine, cocktails</li><li>Spirits up to $14/drink</li></ul>
-          <p class="muted">Included value: <strong data-inc>$0.00/day</strong></p>
-          <p class="muted" data-overcap hidden>Over-cap add-on: <strong data-overcap-val>$0.00/day</strong></p>
+          <ul><li>Alcoholic drinks up to cap</li></ul>
+          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
+          <p class="muted" data-overcap hidden>Est. over-cap add-on: <strong data-overcap-val>$0.00/day</strong></p>
           <p class="save" data-saves hidden></p>
-          <button onclick="openPriceModal('deluxe')" style="margin-top:8px;padding:6px 12px;background:#0ea5e9;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600">📝 Edit Price</button>
+          <p><button onclick="openPriceModal('deluxe')" style="all:unset;cursor:pointer;color:#0369a1;font-weight:700">Edit price…</button></p>
         </div>
       </article>
-    </section>
-
-    <!-- Break-even Visualization -->
-    <section class="card" style="margin-top:24px">
-      <h3 class="hd">📊 Break-Even Analysis</h3>
-      <div class="bd">
-        <canvas id="breakeven-chart" width="600" height="300" aria-label="Break-even comparison chart"></canvas>
-        <p class="muted" style="margin-top:12px;font-size:.9rem">Bars compare your daily à-la-carte cost vs. each package. The green line marks your break-even.</p>
-      </div>
-    </section>
-
-    <!-- Share -->
-    <section class="card" style="margin-top:24px;background:#eff6ff;border-color:#3b82f6">
-      <h3 class="hd">📤 Share Your Results</h3>
-      <div class="bd">
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button onclick="shareResults('copy')" style="padding:8px 16px;background:#3b82f6;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600">📋 Copy Link</button>
-          <button onclick="shareResults('facebook')" style="padding:8px 16px;background:#1877f2;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600">Share on Facebook</button>
-          <button onclick="shareResults('twitter')" style="padding:8px 16px;background:#1da1f2;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600">Share on X</button>
-        </div>
-      </div>
     </section>
 
     <p id="a11y-status" class="sr-only" aria-live="polite"></p>
   </main>
 
-  <!-- Price Override Modal -->
-  <div id="price-modal" class="modal-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:1000">
-    <div class="modal-card" style="background:#fff;border-radius:12px;max-width:420px;width:90%;padding:24px;box-shadow:0 10px 40px rgba(0,0,0,.3)">
-      <h3 id="modal-title" style="margin-top:0;color:#0369a1">Edit Package Price</h3>
-      <p id="modal-description" class="muted"></p>
-      <label for="modal-price-input" class="sr-only">Price per day in USD</label>
-      <input id="modal-price-input" type="number" min="0" step="0.01" placeholder="0.00" style="width:100%;padding:10px;border:2px solid #e5e7eb;border-radius:8px;font-size:1.1rem;margin:12px 0;font:inherit" />
-      <div class="btn-group" style="display:flex;gap:10px;margin-top:16px">
-        <button class="btn-secondary" onclick="closePriceModal()" style="flex:1;padding:10px;border:none;border-radius:8px;background:#e5e7eb;color:#111;font-weight:600;cursor:pointer">Cancel</button>
-        <button class="btn-primary" onclick="savePriceOverride()" style="flex:1;padding:10px;border:none;border-radius:8px;background:#0ea5e9;color:#fff;font-weight:600;cursor:pointer">Save Price</button>
-      </div>
-    </div>
-  </div>
+  <!-- Minimal stub; real data loaded below -->
+  <script>window.itwDataset = { lineId: "royal-caribbean" };</script>
 
-  <!-- Inline dataset (Royal) -->
+  <!-- Load canonical dataset (single source of truth) -->
   <script>
-    window.itwDataset = {
-      lineId: "royal-caribbean",
-      rules: { gratuity: 0.18, epsilon: 0.02, caps: { deluxeAlcohol: 14 } },
-      items: [
-        { id:"soda",      label:"Soda (can/fountain)", price:3.50 },
-        { id:"coffee",    label:"Premium Coffee",      price:4.75 },
-        { id:"mocktail",  label:"Mocktail",            price:5.50 },
-        { id:"beer",      label:"Beer",                price:8.00 },
-        { id:"wine",      label:"Wine (glass)",        price:12.00 },
-        { id:"cocktail",  label:"Cocktail",            price:13.50 },
-        { id:"spirits",   label:"Whiskey/Spirits",     price:11.50 },
-        { id:"tapwater",  label:"Tap Water",           price:0, free:true },
-        { id:"basictea",  label:"Basic Tea/Lemonade",  price:0, free:true },
-        { id:"juiceconc", label:"Juice (concentrate)", price:0, free:true }
-      ],
-      sets: {
-        soda:    ["soda"],
-        refresh: ["soda","coffee","mocktail","tapwater","basictea","juiceconc"],
-        alcohol: ["beer","wine","cocktail","spirits"]
-      },
-      packages: {
-        soda:        { name:"Classic Soda Package",  price:13.00, range:"$9.99–$16/day" },
-        refreshment: { name:"Refreshment Package",   price:35.00, range:"$29–$40/day" },
-        deluxe:      { name:"Deluxe Beverage Package", price:80.00, range:"$56–$115/day" }
-      }
-    };
+  (function loadDataset(){
+    const url = '/data/royal-caribbean.json?v=3.011.0';
+    fetch(url, { cache:'force-cache' })
+      .then(r => r.ok ? r.json() : Promise.reject(new Error('Dataset HTTP '+r.status)))
+      .then(j => { window.itwDataset = j; document.dispatchEvent(new Event('itw:dataset-ready')); })
+      .catch(err => { console.warn('Dataset load failed', err); /* UI stays usable with defaults */ });
+  })();
   </script>
 
-  <!-- Calculator logic + chart + presets + share + nav wiring -->
+  <!-- Calculator + Nav + overrides + share + chart -->
   <script>
   (() => {
     const $ = s => document.querySelector(s);
@@ -439,7 +202,7 @@
     const money = v => `$${(Number(v)||0).toFixed(2)}`;
     const n = v => { v = Number(v); return Number.isFinite(v) ? v : 0; };
 
-    // ===== Nav wiring (accessible) =====
+    // ===== Accessible Nav =====
     const menuBtn = document.querySelector('.itw-menu-btn');
     const nav = document.getElementById('itw-primary-nav');
     const menuItems = Array.from(document.querySelectorAll('[data-menu]'));
@@ -458,39 +221,15 @@
         nav.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded','false');
       }
     });
-    menuItems.forEach(item => {
-      const btn = item.querySelector('.itw-nav__btn');
-      const submenu = item.querySelector('.itw-submenu');
-      const open = () => { item.classList.add('itw-nav__item--open'); btn?.setAttribute('aria-expanded','true'); };
-      const close = () => { item.classList.remove('itw-nav__item--open'); btn?.setAttribute('aria-expanded','false'); };
-      btn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = item.classList.contains('itw-nav__item--open');
-        menuItems.forEach(i => i.classList.remove('itw-nav__item--open'));
-        isOpen ? close() : open();
-      });
-      item.addEventListener('mouseenter', () => { if (window.matchMedia('(hover:hover)').matches) open(); });
-      item.addEventListener('mouseleave', close);
-      btn?.addEventListener('keydown', (e) => {
-        if (['Enter',' '].includes(e.key)) { e.preventDefault(); btn.click(); }
-        if (e.key === 'ArrowDown') { e.preventDefault(); open(); submenu?.querySelector('a,button')?.focus(); }
-        if (e.key === 'Escape') { e.preventDefault(); close(); btn.focus(); }
-      });
-    });
-    // active link
+    // active link state + SW hover prefetch
     const here = location.pathname.replace(/\/+$/,'');
     $$('.itw-nav__link').forEach(a => {
       const href = a.getAttribute('href')?.replace(/\/+$/,'');
       if (href && href === here) a.setAttribute('aria-current','page');
     });
-    // prefetch via SW
     $$('#itw-primary-nav [data-prefetch="hover"], .rail [data-prefetch="hover"]').forEach(a => {
       a.addEventListener('mouseenter', () => {
-        try {
-          if (navigator.serviceWorker?.controller) {
-            navigator.serviceWorker.controller.postMessage({ type:'SEED_URLS', urls:[a.href], priority:'high' });
-          }
-        } catch {}
+        try { navigator.serviceWorker?.controller?.postMessage({ type:'SEED_URLS', urls:[a.href], priority:'high' }); } catch {}
       }, { passive:true });
     });
 
@@ -505,6 +244,7 @@
         deluxe:  document.querySelector('[data-card="deluxe"]')
       }
     };
+
     function readPicks(){
       const p = {};
       $$('[data-input]').forEach(inp => p[inp.dataset.input] = n(inp.value));
@@ -522,7 +262,11 @@
       };
       return { soda:get('soda'), refresh:get('refreshment'), deluxe:get('deluxe') };
     }
-    function capsFrom(ds){ const c = ds.rules?.caps||{}; return { deluxeAlcohol: Number.isFinite(c.deluxeAlcohol) ? c.deluxeAlcohol : 14 }; }
+    function capsFrom(ds){
+      const c = ds.rules?.caps||{};
+      return { deluxeAlcohol: Number.isFinite(c.deluxeAlcohol) ? c.deluxeAlcohol : 14 };
+    }
+
     function picksList(p){
       return [
         ['soda', p.soda], ['coffee', p.coffee], ['beer', p.beer], ['wine', p.wine],
@@ -530,6 +274,7 @@
         ['tapwater', p.tapwater], ['basictea', p.basict], ['juiceconc', p.juiceconc]
       ];
     }
+
     function alcPerDay(list, price, grat){
       let sum = 0;
       for (const [id, qty] of list){
@@ -547,8 +292,8 @@
       for (const [id, qty] of list){
         if (qty<=0) continue;
         const p = n(price[id]);
-        if (sets.refresh.has(id)) inc += qty * p;
-        else if (sets.alcohol.has(id)) inc += qty * Math.min(p, caps.deluxeAlcohol);
+        if (sets.refresh.has(id)) inc += qty * p;                 // fully included non-alcohol
+        else if (sets.alcohol.has(id)) inc += qty * Math.min(p, caps.deluxeAlcohol); // capped alcohol
       }
       return inc;
     }
@@ -579,6 +324,7 @@
       if (oc && ocv){ if (overcap>0){ ocv.textContent = `${money(overcap)}/day`; oc.hidden=false; } else { oc.hidden=true; } }
       card.classList.toggle('winner', !!isWinner);
     }
+
     function drawBreakEvenChart(alcDaily, sodaPkg, refreshPkg, deluxePkg){
       const canvas = document.getElementById('breakeven-chart');
       if (!canvas?.getContext) return;
@@ -603,15 +349,15 @@
         ctx.fillStyle = '#fff'; ctx.textAlign='left'; ctx.font='bold 16px system-ui';
         ctx.fillText(`$${item.value.toFixed(2)}`, padding + 10, y + barH/2 + 6);
       });
-      // break-even = alcDaily line
       const bex = padding + (alcDaily * scale);
       ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3; ctx.setLineDash([5,5]);
       ctx.beginPath(); ctx.moveTo(bex, padding - 20); ctx.lineTo(bex, height - 20); ctx.stroke(); ctx.setLineDash([]);
       ctx.fillStyle = '#10b981'; ctx.font='bold 14px system-ui'; ctx.textAlign='center';
       ctx.fillText('Break-Even', bex, padding - 25);
     }
+
     function recompute(){
-      const ds = window.itwDataset; if (!ds) return;
+      const ds    = window.itwDataset; if (!ds) return;
       const rules = { gratuity: Number(ds.rules?.gratuity ?? 0.18) };
       const caps  = capsFrom(ds);
       const price = priceTable(ds);
@@ -660,6 +406,7 @@
 
       saveToURL();
     }
+
     function saveToURL(){
       const p = readPicks(); const u = new URLSearchParams();
       if (p.days !== 7) u.set('days', p.days);
@@ -676,10 +423,12 @@
         if (q.has(key)) inp.value = q.get(key);
       });
     }
+
     function wire(){
       loadFromURL();
       $$('[data-input]').forEach(el => { el.addEventListener('input', recompute); el.addEventListener('change', recompute); });
-      recompute();
+      if (window.itwDataset?.items) recompute();
+      else document.addEventListener('itw:dataset-ready', recompute, { once:true });
     }
     document.addEventListener('DOMContentLoaded', wire);
 
@@ -755,11 +504,26 @@
   })();
   </script>
 
-  <!-- Service Worker register (robust seeding + health check) -->
+  <!-- Simple price override modal -->
+  <div id="price-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description"
+       style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);align-items:center;justify-content:center;z-index:60">
+    <div style="background:#fff;border-radius:12px;min-width:320px;max-width:90vw;padding:16px;border:1px solid #e5e7eb">
+      <h3 id="modal-title" style="margin:0 0 6px 0;font-weight:800">Edit Price</h3>
+      <p id="modal-description" class="muted" style="margin-top:0">Default: $—/day • Range: —</p>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+        <label for="modal-price-input" class="sr-only">Price per day</label>
+        <input id="modal-price-input" type="number" step="0.01" min="0" style="flex:1;padding:8px;border:1px solid #e5e7eb;border-radius:8px" />
+        <button onclick="savePriceOverride()" style="background:#0ea5e9;color:#fff;border:0;border-radius:8px;padding:8px 12px;font-weight:700;cursor:pointer">Save</button>
+        <button onclick="closePriceModal()" style="background:#e5e7eb;color:#111;border:0;border-radius:8px;padding:8px 12px;cursor:pointer">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Worker register -->
   <script>
   (() => {
     if (!('serviceWorker' in navigator)) return;
-    const SW_URL = '/sw.js?v=3.010.112';
+    const SW_URL = '/sw.js?v=3.011.0';
     function register(){
       navigator.serviceWorker.register(SW_URL, { scope:'/' })
         .then(async reg => {
@@ -784,9 +548,7 @@
       setTimeout(() => navigator.serviceWorker.ready.then(send), 1500);
     }
     window.addEventListener('load', register);
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState==='visible' && !navigator.serviceWorker.controller) register();
-    });
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState==='visible' && !navigator.serviceWorker.controller) register(); });
   })();
   </script>
 </body>
