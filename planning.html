@@ -1,630 +1,407 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!--
-  Soli Deo Gloria — every pixel and paragraph offered in gratitude.
-
-  STANDARDS: Every Page v3.010 · Unified Nav v3.010 (dropdowns hardened)
-  Right-Rail v3.008.025 (patched) · A11y/WCAG Addendum v3.100
-  CMP v3.008.020 · FB Verification v3.008.021
-  Page: /planning.html · v3.010.072(self-contained)
-  -->
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="version" content="3.010.071"/>
-  <title>Planning — In the Wake (v3.010.071)</title>
-  <link rel="canonical" href="https://www.cruisinginthewake.com/planning.html"/>
-
-  <!-- ===== Inline CSS (scoped nav + no-flicker) ===== -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Royal Caribbean Drink Package Calculator | In the Wake</title>
+  <link rel="canonical" href="https://cruisinginthewake.com/planning/drink-packages.html" />
+  <link rel="stylesheet" href="/assets/css/itw.css?v=3.010.110" />
   <style>
-  :root{
-    --sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e;
-    --shadow:0 2px 6px rgba(8,48,65,.08);
-    --shadow-lg:0 10px 28px rgba(8,48,65,.14);
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;overflow-x:hidden}
-  /* Stabilize horizontal scrollbar to eliminate “flicker” when menus appear */
-  html{scrollbar-gutter:stable both-edges}
-  body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
-  img{max-width:100%;height:auto;display:block}
-  a{color:var(--accent);text-decoration:none}
-  a:hover{text-decoration:underline}
-  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-  .tiny{font-size:.9rem;color:#456}.muted{opacity:.85}.center{text-align:center}
-  .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
-  .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
-  .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);
-    background:url('/assets/watermark.png?v=3.010.071') center/contain no-repeat;opacity:.06;pointer-events:none}
-  h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
-
-  /* ===== Header / Nav (SCOPED) ===== */
-  .hero-header{position:relative;z-index:0;border-bottom:6px double var(--rope);background:#eaf6f6;overflow:visible}
-  .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .75rem;align-items:center;
-    position:relative;z-index:10;min-height:56px;background:#eaf6f6;overflow:visible}
-  .brand{display:flex;align-items:center;gap:.6rem}
-  .brand img{height:40px;width:auto;display:block}
-  .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-
-  /* Local nav scope */
-  .itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap;
-    overflow:visible;padding-inline:.75rem;padding-bottom:1px;scrollbar-width:thin}
-  .itw-nav .nav-item{position:relative}
-  .itw-nav .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
-    border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
-  .itw-nav .nav-item>a.chip{text-decoration:none}
-  .itw-nav .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;
-    box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-
-  /* Menus are absolutely positioned overlays, never affecting layout width/height */
-  .itw-nav .menu{
-    position:absolute; left:0; top:100%; transform:translateY(.35rem);
-    min-width:240px; max-width:min(90vw,360px);
-    background:#fff; border:1px solid var(--rope); border-radius:12px; box-shadow:var(--shadow-lg);
-    padding:.6rem;
-    /* hidden by default — NO global hover/focus rules */
-    display:none; visibility:hidden; opacity:0; pointer-events:none;
-    z-index:100; /* local layer; header already above page visuals */
-    transition:opacity .18s ease;
-  }
-  .itw-nav .nav-item.open > .menu{
-    display:block; visibility:visible; opacity:1; pointer-events:auto;
-  }
-  /* Menu content */
-  .itw-nav .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
-  .itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
-  .itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
-
-  /* ===== Hero ===== */
-  .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);
-    background:url('/assets/index_hero.jpg?v=3.010.071') center 38%/cover no-repeat;
-    display:flex;align-items:flex-end;overflow:hidden;margin-top:.15rem;z-index:0}
-  .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);
-    display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-  .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(90vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
-  .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
-  .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;
-    filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
-  .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2}
-
-  /* ===== Layout ===== */
-  .planning-grid{display:grid;gap:1.2rem}
-  @media(min-width:1060px){.planning-grid{grid-template-columns:minmax(0,1fr) 360px}}
-  footer.wrap{font-size:.92rem}
+    /* Minimal guard styles if the main sheet hasn’t loaded yet */
+    :root{--bg:#f5faf7;--chip:#e7f6ea;--chipText:#0a7b3e;--card:#fff;--muted:#6b7280;--bd:#e5e7eb;}
+    body{background:#f8fbfc;color:#111;font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;}
+    .container{max-width:1200px;margin:0 auto;padding:0 16px;}
+    header.navbar{position:sticky;top:0;background:#0f172a;color:#fff;border-bottom:3px solid #d4af37;z-index:40;}
+    header .inner{display:flex;align-items:center;gap:16px;padding:8px 16px;}
+    header .brand img{height:28px}
+    header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
+    .banner{background:var(--chip);color:#111;border:1px solid #cfe8d7;border-radius:10px;padding:10px 14px;margin:18px 0}
+    .chip{background:#bfe8c8;color:var(--chipText);border-radius:999px;padding:3px 10px;font-weight:700;margin-right:10px;display:inline-block}
+    .grid{display:grid;grid-template-columns:1.4fr .8fr;gap:24px}
+    .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+    .card .hd{padding:12px 16px;border-bottom:1px dashed var(--bd);font-weight:700}
+    .card .bd{padding:12px 16px}
+    .row{display:grid;grid-template-columns:1fr 120px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd)}
+    .row:last-child{border-bottom:0}
+    .row small{color:var(--muted)}
+    .inputs input[type=number]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px}
+    .packages{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:18px}
+    .pkg{border-radius:14px;overflow:hidden}
+    .pkg .phd{background:#0b2940;color:#fff;padding:12px 14px;font-weight:800;display:flex;gap:8px;align-items:center;justify-content:space-between}
+    .pkg .pbd{padding:14px}
+    .pkg ul{margin:6px 0 10px 18px}
+    .pkg .muted{color:var(--muted);font-size:0.9rem;margin:6px 0}
+    .pkg .save{font-weight:700;margin-top:6px}
+    .pkg.winner{outline:3px solid #34d399;box-shadow:0 0 0 6px rgba(52,211,153,.15)}
+    .rail .card{padding:10px 12px}
+    .sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+    .help{all:unset;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#0ea5e9;color:#fff;font-weight:800;line-height:1}
+    .tooltip{position:relative}
+    .tooltip [role="tooltip"]{position:absolute;inset:auto auto 100% 0;transform:translateY(-8px);background:#0f172a;color:#fff;padding:8px 10px;border-radius:8px;min-width:220px;box-shadow:0 6px 18px rgba(0,0,0,.2);font-size:.9rem;display:none}
+    .tooltip:focus-within [role="tooltip"], .tooltip:hover [role="tooltip"]{display:block}
+    @media (max-width:960px){ .grid{grid-template-columns:1fr} .packages{grid-template-columns:1fr} }
   </style>
 </head>
-
-<body class="page">
-  <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
-
-  <!-- ===== Header (Scoped Nav) ===== -->
-  <header class="hero-header" role="banner" style="padding-top:.15rem">
-    <div class="navbar">
-      <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.070" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge">v3.010.070</span>
-      </div>
-
-      <!-- NOTE: nav is now locally scoped via .itw-nav -->
-      <nav class="itw-nav" aria-label="Primary">
-        <div class="nav-item"><a class="chip" href="/">Home</a></div>
-
-        <div class="nav-item" aria-haspopup="menu">
-          <button class="chip" type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="menu-planning">
-            Planning <span class="caret">▾</span>
-          </button>
-          <div id="menu-planning" class="menu" aria-label="Planning">
-            <div class="label tiny">Plan your cruise</div>
-            <a href="/planning.html" aria-current="page">Planning (overview)</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ships.html">Ships</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/cruise-lines.html">Cruise Lines</a>
-            <a href="/packing-lists.html">Packing Lists</a>
-            <a href="/accessibility.html">Accessibility</a>
-          </div>
-        </div>
-
-        <div class="nav-item" aria-haspopup="menu">
-          <button class="chip" type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="menu-travel">
-            Travel <span class="caret">▾</span>
-          </button>
-          <div id="menu-travel" class="menu" aria-label="Travel">
-            <div class="label tiny">On the move</div>
-            <a href="/travel.html">Travel (overview)</a>
-            <a href="/solo.html">Solo</a>
-          </div>
-        </div>
-
-        <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
+<body>
+  <!-- Header (no dropdown logic; plain links/portaled elsewhere) -->
+  <header class="navbar">
+    <div class="inner container">
+      <a class="brand" href="/"><img src="/assets/logo_wake.png" alt="In the Wake" /></a>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/planning/">Planning</a>
+        <a href="/travel/">Travel</a>
+        <a href="/about/">About</a>
       </nav>
-    </div>
-
-    <!-- Hero -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.070" width="256" height="64" alt="In the Wake">
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
-      </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.070" width="180" height="180" alt="" aria-hidden="true">
-      <div class="hero-credit">
-        <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
+      <div style="margin-left:auto;color:#cbd5e1;font-size:.9rem">v3.010.110</div>
     </div>
   </header>
 
-  <!-- Social share bar -->
-  <div id="sharebar" class="wrap" aria-label="Share this page"></div>
-
-  <!-- ===== Main: content + RIGHT RAIL ===== -->
-  <main id="content" class="wrap planning-grid" role="main">
-    <!-- LEFT -->
-    <div>
-      <section class="card prose" aria-labelledby="planning-intro">
-        <h1 id="planning-intro">Planning That Feels Like Smooth Water</h1>
-        <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
-        <p>Good planning trades hurry for margin. Fly in a day early when you can, keep documents backed up, and give yourself a little space at every hand-off. Our goal is to help you tuck in behind a steady hull—so the chop softens, the course steadies, and decisions feel easy.</p>
-        <div class="banner">
-          <strong>Quick Tips:</strong>
-          <ul>
-            <li>Arrive the day before embarkation; sleep near the port when possible.</li>
-            <li>Keep cloud copies of IDs and tickets.</li>
-            <li>Prefer nonstops—delay risk compounds.</li>
-            <li>Pad transfers around rush hour and school breaks.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="card" aria-labelledby="state-port-selector">
-        <h2 id="state-port-selector">Find Your Departure</h2>
-        <p class="tiny muted">Click a <strong>button</strong> for your state or country, then pick your port. We’ll show nearby airports, typical drives, and gentle cautions.</p>
-
-        <nav class="buttons" id="state-buttons" aria-label="States & Countries"></nav>
-        <nav class="buttons" id="port-buttons" aria-label="Ports by Selection" style="margin-top:.6rem"></nav>
-
-        <div id="port-panel" style="margin-top:1rem">
-          <section class="prose" id="port-blurb"></section>
-          <div class="banner warn tiny" id="seasonal-banner" style="display:none;margin-top:.6rem"></div>
-
-          <h3 style="margin-top:1rem">Nearby Airports &amp; Typical Drives</h3>
-          <div class="grid-airports" id="airports"></div>
-
-          <h3 style="margin-top:1rem">Gentle Cautions</h3>
-          <ul id="warnings" class="tiny"></ul>
-
-          <h3 style="margin-top:1rem">Steady Answers</h3>
-          <div id="qa"></div>
-        </div>
-      </section>
-
-      <section class="card" aria-labelledby="timing">
-        <h2 id="timing">Timing That Loves Your Future Self</h2>
-        <div class="banner tiny" id="school-breaks"></div>
-      </section>
-
-      <section class="card" aria-labelledby="space-launch">
-        <h2 id="space-launch">Space Coast Launches</h2>
-        <p class="tiny muted">Sailing from Port Canaveral? You might catch a rocket. Check the live schedule:</p>
-        <p><a class="pill" href="https://spaceflightnow.com/launch-schedule/" rel="noopener external">Spaceflight Now — Launch Schedule</a></p>
-      </section>
+  <main class="container" id="main">
+    <!-- Green best-value banner -->
+    <div class="banner" role="status" aria-live="polite">
+      <span id="best-chip" class="chip">Best value: à-la-carte</span>
+      <span id="best-text">Your daily picks are cheapest without a package.</span>
     </div>
 
-    <!-- RIGHT RAIL -->
-    <aside class="rail" aria-label="Right rail">
-      <section class="card" aria-labelledby="jr-title">
-        <h3 id="jr-title">From the Journal</h3>
-        <p class="tiny muted">Articles from our writers’ wakes.</p>
-        <div class="rail" id="journal-rail"></div>
-        <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
+    <div class="grid">
+      <!-- Inputs column -->
+      <section class="card inputs" aria-labelledby="calc-title">
+        <h2 id="calc-title" class="hd"><span id="totals">$0.00/day • $0.00 trip</span> <small class="muted">– includes gratuity for packages and à-la-carte.</small></h2>
+        <div class="bd">
+          <div class="row">
+            <div>Cruise days</div>
+            <div><input type="number" min="1" step="1" value="7" data-input="days"></div>
+          </div>
+
+          <div class="row"><div>Soda per day</div><div><input type="number" min="0" step="1" value="0" data-input="soda"></div></div>
+          <div class="row"><div>Premium coffee per day</div><div><input type="number" min="0" step="1" value="0" data-input="coffee"></div></div>
+          <div class="row"><div>Beer per day</div><div><input type="number" min="0" step="1" value="0" data-input="beer"></div></div>
+          <div class="row"><div>Wine per day</div><div><input type="number" min="0" step="1" value="0" data-input="wine"></div></div>
+          <div class="row"><div>Cocktail per day</div><div><input type="number" min="0" step="1" value="0" data-input="cocktail"></div></div>
+          <div class="row"><div>Mocktail/juice per day</div><div><input type="number" min="0" step="1" value="0" data-input="mocktail"></div></div>
+
+          <div class="row"><div>Tap water</div><div><small>Included · $0</small></div></div>
+          <div class="row"><div>Tap water per day</div><div><input type="number" min="0" step="1" value="0" data-input="tapwater"></div></div>
+
+          <div class="row"><div>Basic tea / lemonade</div><div><small>Included · $0</small></div></div>
+          <div class="row"><div>Basic tea/lemonade per day</div><div><input type="number" min="0" step="1" value="0" data-input="basict"></div></div>
+
+          <div class="row"><div>Juice (concentrate)</div><div><small>Included · $0</small></div></div>
+          <div class="row"><div>Juice (concentrate) per day</div><div><input type="number" min="0" step="1" value="0" data-input="juiceconc"></div></div>
+        </div>
       </section>
 
-      <section class="card" aria-labelledby="author-title">
-        <h3 id="author-title">About the Author</h3>
-        <article class="rail-item" role="article">
-          <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
-            <picture>
-              <source srcset="/authors/img/ken1.webp?v=3.010.070" type="image/webp">
-              <source srcset="/authors/img/ken1.jpg?v=3.010.070" type="image/jpeg">
-              <img src="/authors/img/ken1.png?v=3.010.070" width="96" height="96" alt="Ken Baker" style="width:100%;height:100%;object-fit:cover">
-            </picture>
-          </a>
-          <div class="meta">
-            <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-            <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
-            <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a></p>
+      <!-- Right rail -->
+      <aside aria-label="Sidebar" class="rail">
+        <section class="card">
+          <h3 class="hd">Recommended Reading</h3>
+          <div class="bd">
+            <ul>
+              <li><a href="/planning/royal-refreshment-included.html" data-prefetch="hover">Royal Caribbean Refreshment Package: What’s Included</a></li>
+              <li><a href="/planning/gratuity-on-drinks.html" data-prefetch="hover">How gratuity works on drinks &amp; packages</a></li>
+              <li><a href="/planning/deluxe-beverage-worth-it.html" data-prefetch="hover">Deluxe Beverage Package: When it’s worth it</a></li>
+            </ul>
           </div>
-        </article>
-      </section>
-    </aside>
+        </section>
+
+        <section class="card">
+          <h3 class="hd">Other Calculators</h3>
+          <div class="bd">
+            <ul>
+              <li><a href="/carnival-drink-package-calculator.html" data-prefetch="hover">Carnival Drink Package Calculator</a></li>
+              <li><a href="/ncl-drink-package-calculator.html" data-prefetch="hover">NCL Drink Package Calculator</a></li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="card">
+          <h3 class="hd">About the author</h3>
+          <div class="bd"><p class="muted">By <a href="/authors/ken-baker.html">Ken Baker</a>. Pastor, coder, cruiser. Soli Deo Gloria.</p></div>
+        </section>
+      </aside>
+    </div>
+
+    <!-- Package cards -->
+    <section class="packages" aria-label="Packages">
+      <!-- Soda -->
+      <article class="pkg card" data-card="soda">
+        <header class="phd">
+          <span>Classic Soda</span>
+          <span class="tooltip">
+            <button class="help" aria-describedby="tt-soda" aria-label="Soda package help">?</button>
+            <span id="tt-soda" role="tooltip">Unlimited fountain soda + Coca-Cola Freestyle. One drink served at a time. Non-transferable.</span>
+          </span>
+        </header>
+        <div class="pbd">
+          <div class="muted"><strong>$13.00/day</strong> <span class="muted">range $9.99–$16/day</span></div>
+          <ul><li>Soda</li></ul>
+          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
+          <p class="save" data-saves hidden></p>
+        </div>
+      </article>
+
+      <!-- Refreshment -->
+      <article class="pkg card" data-card="refresh">
+        <header class="phd">
+          <span>Refreshment</span>
+          <span class="tooltip">
+            <button class="help" aria-describedby="tt-refresh" aria-label="Refreshment package help">?</button>
+            <span id="tt-refresh" role="tooltip">Unlimited non-alcoholic drinks: soda, mocktails, fresh juices, premium coffees/teas (excludes Starbucks). One at a time.</span>
+          </span>
+        </header>
+        <div class="pbd">
+          <div class="muted"><strong>$35.00/day</strong> <span class="muted">range $29–$40/day</span></div>
+          <ul><li>Soda + non-alcoholic</li></ul>
+          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
+          <p class="save" data-saves hidden></p>
+        </div>
+      </article>
+
+      <!-- Deluxe -->
+      <article class="pkg card" data-card="deluxe">
+        <header class="phd">
+          <span>Deluxe (Alcohol)</span>
+          <span class="tooltip">
+            <button class="help" aria-describedby="tt-deluxe" aria-label="Deluxe package help">?</button>
+            <span id="tt-deluxe" role="tooltip">
+              Unlimited drinks. Alcoholic drinks covered up to <strong>$14</strong> each; pay the difference above. Excludes Starbucks, mini-bar, room service, and <strong>top-shelf</strong>.
+            </span>
+          </span>
+        </header>
+        <div class="pbd">
+          <div class="muted"><strong>$80.00/day</strong> <span class="muted">range $56–$115/day</span></div>
+          <ul><li>Alcoholic drinks up to cap</li></ul>
+          <p class="muted">Included value from your picks: <strong data-inc>$0.00/day</strong></p>
+          <p class="muted" data-overcap hidden>Est. over-cap add-on: <strong data-overcap-val>$0.00/day</strong></p>
+          <p class="save" data-saves hidden></p>
+        </div>
+      </article>
+    </section>
+
+    <p id="a11y-status" class="sr-only" aria-live="polite"></p>
   </main>
 
-  <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
-    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <p class="tiny center" style="margin-top:.5rem">Soli Deo Gloria — may every pixel and paragraph bear His reflection, this site is offered as worship to God.</p>
-  </footer>
-
-  <!-- ====== DATASET (single source of truth) ====== -->
-  <script id="planning-dataset" type="application/json">{"version":"0.7","last_updated":"2025-10-20T00:00:00Z","signals":{"spring_break":{"window":"mid-Feb → early Apr","notes":"K-12 varies by district (most in March). Colleges peak early–mid March."},"fall_break":{"window":"late Sep → mid-Oct","notes":"Observed by some districts; long weekends add demand."},"busy_days":["Thanksgiving week","Christmas–New Year’s","MLK","Presidents’ Day","Memorial Day","Labor Day","Indigenous/Columbus Day","Veterans Day"],"disclaimer":"Drive times are typical in light–moderate traffic; weather, events, or incidents can extend them."},"ports":[{"slug":"port-miami","name":"PortMiami","city":"Miami","state":"FL","state_full":"Florida","country":"USA","blurb":["PortMiami is polished and busy with the widest itinerary choice.","Traffic + causeways surge on embark Sundays—build margin."],"tips":["Prefer MIA for day-of flights; FLL can be cheaper.","Stay Downtown/Brickell for easy mornings."],"warnings":["Rush hour + cruise surges can double drive times.","Spring Break spikes demand.","Art Basel/Ultra/F1 weekends snarl routes."],"airports":[{"code":"MIA","name":"Miami Intl","distance_miles":9,"typical_drive":"20–35 min","notes":"Closest; rail/Brightline nearby."},{"code":"FLL","name":"Fort Lauderdale","distance_miles":28,"typical_drive":"35–60 min","notes":"Often cheaper; I-95 variability."},{"code":"PBI","name":"Palm Beach","distance_miles":70,"typical_drive":"75–110 min","notes":"Smaller network; Brightline + rideshare is viable."}],"qa":[{"q":"MIA or FLL?","a":"MIA is closest. FLL can be cheaper—add 45–60+ minutes. If flying day-of, choose MIA."}]},{"slug":"port-everglades","name":"Port Everglades","city":"Fort Lauderdale","state":"FL","state_full":"Florida","country":"USA","blurb":["Efficient transfers and quick airport hop.","Stay near 17th Street for painless mornings."],"tips":["FLL→port ~10–15 min; rideshare is simplest.","Hotels on 17th St often bundle shuttles."],"warnings":["Sundays stack multiple turnarounds.","Spring Break weeks spike prices/traffic.","17th St bridge lifts bunch traffic."],"airports":[{"code":"FLL","name":"Fort Lauderdale","distance_miles":3,"typical_drive":"10–15 min","notes":"Closest/simplest hop."},{"code":"MIA","name":"Miami Intl","distance_miles":28,"typical_drive":"40–70 min","notes":"More nonstops; Brightline option."}],"qa":[{"q":"Port parking or hotel?","a":"Port parking is easiest up to ~5 nights; ‘park & cruise’ hotel bundles can win on week-long trips."}],"lodging":[{"name":"Holiday Inn Express Fort Lauderdale Cruise-Airport","url":"https://www.ihg.com/holidayinnexpress/hotels/us/en/fort-lauderdale/fllwc/hoteldetail","notes":"Close to the port and FLL; reasonable, clean, and consistently a good pre-cruise stay."}]},{"slug":"port-canaveral","name":"Port Canaveral","city":"Cape Canaveral","state":"FL","state_full":"Florida","country":"USA","blurb":["Clean terminals + space-coast energy.","Orlando (MCO) gives the flight choice; shuttles/private cars are common."],"tips":["If flying into MCO, target before-noon arrivals.","Shared shuttles are cost-effective; private cars save time.","Stay Cocoa Beach the night before."],"warnings":["SR-528 weekend traffic can add 20–40 min.","Holiday weeks, Spring Break, and launches surge demand."],"airports":[{"code":"MCO","name":"Orlando Intl","distance_miles":45,"typical_drive":"45–70 min","notes":"Tolls on 528; SunPass/e-toll."},{"code":"MLB","name":"Melbourne","distance_miles":26,"typical_drive":"35–50 min","notes":"Small/easy; limited routes."},{"code":"SFB","name":"Orlando Sanford","distance_miles":60,"typical_drive":"60–90 min","notes":"Budget carriers; longer drive."}],"qa":[{"q":"Same-day flight safe?","a":"Safer to arrive a day early. If same-day, book an early nonstop—weather and I-4 delays stack quickly."}]},{"slug":"port-tampa-bay","name":"Port Tampa Bay","city":"Tampa","state":"FL","state_full":"Florida","country":"USA","blurb":["Compact terminals, friendly logistics, and a waterfront that puts hotels and food within easy reach."],"tips":["Arrive a day early; weather anywhere can ripple.","Compare hotel ‘park & cruise’ vs. port parking."],"warnings":["Winter a.m. fog can slow channel transits.","I-275/I-4/Selmon rush can add 20–45 min."],"airports":[{"code":"TPA","name":"Tampa Intl","distance_miles":9,"typical_drive":"18–30 min","notes":"Excellent rideshare flow."},{"code":"PIE","name":"St. Pete–Clearwater","distance_miles":20,"typical_drive":"30–50 min","notes":"More budget carriers."},{"code":"SRQ","name":"Sarasota–Bradenton","distance_miles":48,"typical_drive":"55–80 min","notes":"Smaller; workable."},{"code":"MCO","name":"Orlando Intl","distance_miles":85,"typical_drive":"90–120 min","notes":"I-4 work zones add time."}],"qa":[{"q":"Budget transfer from TPA?","a":"Rideshare is simplest for 1–3; families compare hotel shuttle bundles vs. private transfers."}]},{"slug":"los-angeles","name":"Los Angeles World Cruise Center (San Pedro)","city":"Los Angeles","state":"CA","state_full":"California","country":"USA","blurb":["San Pedro serves many LA-area sailings. Pick airports based on traffic windows as much as fares."],"tips":["LAX has most nonstops; LGB is nearer with fewer routes; SNA is calm but farther.","Arrive outside peak rush (7–10a, 3–7p)."],"warnings":["405/110 rush can double times.","Sports/concert weekends spike congestion."],"airports":[{"code":"LAX","name":"Los Angeles Intl","distance_miles":20,"typical_drive":"30–65 min"},{"code":"LGB","name":"Long Beach","distance_miles":14,"typical_drive":"25–45 min"},{"code":"SNA","name":"John Wayne (Orange County)","distance_miles":36,"typical_drive":"45–80 min"}]},{"slug":"san-diego","name":"Port of San Diego","city":"San Diego","state":"CA","state_full":"California","country":"USA","blurb":["Downtown-adjacent and walkable waterfront; great option for shorter West Coast itineraries."],"tips":["SAN is minutes away—rental car rarely needed."],"warnings":["Comic-Con/marathons swell demand."],"airports":[{"code":"SAN","name":"San Diego Intl","distance_miles":3,"typical_drive":"8–15 min"}]},{"slug":"galveston","name":"Port of Galveston","city":"Galveston","state":"TX","state_full":"Texas","country":"USA","blurb":["Small-island charm with big-ship choices. Parking and shuttles are abundant."],"tips":["HOU usually shorter drives; IAH has more nonstops.","Book parking early on sold-out weekends."],"warnings":["I-45 construction/incidents can add 30–60 min.","Fog delays possible in winter."],"airports":[{"code":"HOU","name":"Houston Hobby","distance_miles":42,"typical_drive":"50–75 min"},{"code":"IAH","name":"Bush Intercontinental","distance_miles":70,"typical_drive":"75–110 min"}]},{"slug":"cape-liberty","name":"Cape Liberty (Bayonne)","city":"Bayonne","state":"NJ","state_full":"New Jersey","country":"USA","blurb":["Skyline sail-aways without Manhattan chaos; closer to EWR than JFK/LGA."],"tips":["Prefer EWR for proximity; pre-book car service.","Check game/convention schedules."],"warnings":["Bridge/tunnel traffic + closures extend drives.","Winter weather impacts schedules."],"airports":[{"code":"EWR","name":"Newark Liberty","distance_miles":10,"typical_drive":"20–35 min"},{"code":"JFK","name":"JFK","distance_miles":34,"typical_drive":"60–100 min"},{"code":"LGA","name":"LaGuardia","distance_miles":24,"typical_drive":"50–85 min"}]},{"slug":"baltimore","name":"Port of Baltimore (South Locust Point)","city":"Baltimore","state":"MD","state_full":"Maryland","country":"USA","blurb":["Straightforward terminal with on-site parking; drivable for many in the Mid-Atlantic."],"tips":["BWI is closest; Amtrak to Baltimore Penn + rideshare works."],"warnings":["I-95/I-695 incidents extend drives; winter storms ripple."],"airports":[{"code":"BWI","name":"Baltimore/Washington","distance_miles":11,"typical_drive":"20–30 min"},{"code":"DCA","name":"Reagan National","distance_miles":45,"typical_drive":"55–85 min"},{"code":"IAD","name":"Dulles","distance_miles":60,"typical_drive":"70–110 min"}]},{"slug":"boston","name":"Flynn Cruiseport Boston (Black Falcon)","city":"Boston","state":"MA","state_full":"Massachusetts","country":"USA","blurb":["Gateway to Canada/New England with lively neighborhoods nearby; autumn foliage season is magic."],"tips":["BOS is close; plan for tunnel tolls.","Consider a North End stay the night before."],"warnings":["Leaf-peeping raises fares/occupancy.","Tunnels/bridges concentrate traffic."],"airports":[{"code":"BOS","name":"Logan Intl","distance_miles":4,"typical_drive":"12–25 min"}]},{"slug":"new-orleans","name":"Port NOLA (Erato/Julia)","city":"New Orleans","state":"LA","state_full":"Louisiana","country":"USA","blurb":["Walkable and flavorful; staying in the Warehouse District trims morning stress."],"tips":["MSY ~25–35 min; avoid tight connections.","Festival season swings pricing/traffic."],"warnings":["Parades/festivals reshape routes; river fog happens."],"airports":[{"code":"MSY","name":"Luis Armstrong New Orleans","distance_miles":15,"typical_drive":"25–40 min"}]},{"slug":"mobile","name":"Port of Mobile (Alabama)","city":"Mobile","state":"AL","state_full":"Alabama","country":"USA","blurb":["Compact and friendly; a good drive-market choice."],"tips":["If flying, use MOB; many guests drive."],"warnings":["Summer thunderstorms slow interstates.","Event weekends spike demand downtown."],"airports":[{"code":"MOB","name":"Mobile Regional","distance_miles":17,"typical_drive":"25–40 min"},{"code":"PNS","name":"Pensacola","distance_miles":58,"typical_drive":"65–90 min"}]},{"slug":"seattle","name":"Port of Seattle (Pier 66/91)","city":"Seattle","state":"WA","state_full":"Washington","country":"USA","blurb":["Smooth Alaska gateway; hotels in Belltown/Waterfront simplify mornings."],"tips":["SEA has the flights; plan for security peaks.","Stadium events add time; check schedules."],"warnings":["Summer events spike downtown traffic; drizzle/fog is normal."],"airports":[{"code":"SEA","name":"Seattle–Tacoma Intl","distance_miles":15,"typical_drive":"25–45 min"},{"code":"PAE","name":"Paine Field","distance_miles":27,"typical_drive":"35–60 min"}]},{"slug":"san-juan","name":"San Juan Cruise Port","city":"San Juan","state":"PR","state_full":"Puerto Rico","country":"USA","blurb":["Deep-Caribbean itineraries with Old San Juan steps away."],"tips":["SJU has broad service; arrive daytime if possible."],"warnings":["Festivals (SanSe) fill rooms; tropical weather affects flights."],"airports":[{"code":"SJU","name":"Luis Muñoz Marín Intl","distance_miles":8,"typical_drive":"15–30 min"}]},{"slug":"vancouver","name":"Canada Place (Vancouver)","city":"Vancouver","state":"BC","state_full":"British Columbia","country":"Canada","blurb":["Premier Alaska gateway with a spectacular sail-away under Lions Gate Bridge."],"tips":["YVR has excellent transit; consider SkyTrain + short taxi.","Arrive a day early for border/ATC margin."],"warnings":["Peak summer + cruise clusters crowd downtown; convention days raise rates."],"airports":[{"code":"YVR","name":"Vancouver Intl","distance_miles":9,"typical_drive":"20–35 min","notes":"SkyTrain to Waterfront + 10–12 min walk."}]},{"slug":"sydney","name":"Overseas Passenger Terminal (Circular Quay)","city":"Sydney","state":"NSW","state_full":"New South Wales","country":"Australia","blurb":["Sail past the Opera House/Harbour Bridge—arguably the world’s best sail-away."],"tips":["SYD has rail to Circular Quay; consider a CBD/Quay hotel.","Arrive day-early—international recovery buffers are kind."],"warnings":["Event days around the Quay increase traffic and pedestrian congestion."],"airports":[{"code":"SYD","name":"Sydney (Kingsford Smith)","distance_miles":10,"typical_drive":"25–40 min","notes":"Airport rail → Circular Quay."}]},{"slug":"brisbane","name":"Brisbane International Cruise Terminal (Pinkenba)","city":"Brisbane","state":"QLD","state_full":"Queensland","country":"Australia","blurb":["Purpose-built terminal with straightforward road access."],"tips":["BNE is close; rideshare is easiest.","Check ship/terminal assignments for suburban berths."],"warnings":["Peak hour on Gateway Motorway can add time."],"airports":[{"code":"BNE","name":"Brisbane","distance_miles":7,"typical_drive":"15–25 min"}]},{"slug":"melbourne","name":"Station Pier (Port Melbourne)","city":"Melbourne","state":"VIC","state_full":"Victoria","country":"Australia","blurb":["Historic pier close to the CBD and St Kilda."],"tips":["MEL has the lift; rideshare/tram to CBD is simple."],"warnings":["Event weekends can tighten hotel supply."],"airports":[{"code":"MEL","name":"Melbourne (Tullamarine)","distance_miles":17,"typical_drive":"25–45 min"}]}]}
+  <!-- Inline dataset (Royal) so this file works standalone) -->
+  <script>
+    window.itwDataset = {
+      lineId: "royal-caribbean",
+      rules: { gratuity: 0.18, epsilon: 0.02, caps: { deluxeAlcohol: 14 } },
+      items: [
+        { id:"soda",         label:"Soda (can/fountain)",   price:3.50 },
+        { id:"coffee",       label:"Premium Coffee",        price:4.75 },
+        { id:"mocktail",     label:"Mocktail",              price:5.50 },
+        { id:"beer",         label:"Beer",                  price:8.00 },
+        { id:"wine",         label:"Wine (glass)",          price:12.00 },
+        { id:"cocktail",     label:"Cocktail",              price:13.50 },
+        { id:"spirits",      label:"Whiskey/Spirits",       price:11.50 },
+        { id:"tapwater",     label:"Tap Water",             price:0, free:true },
+        { id:"basictea",     label:"Basic Tea/Lemonade",    price:0, free:true },
+        { id:"juiceconc",    label:"Juice (concentrate)",   price:0, free:true }
+      ],
+      sets: {
+        soda:    ["soda"],
+        refresh: ["soda","coffee","mocktail","tapwater","basictea","juiceconc"],
+        alcohol: ["beer","wine","cocktail","spirits"]
+      },
+      packages: {
+        soda: { name:"Classic Soda Package", price:13.00, range:"$9.99–$16/day",
+          includes:["Soda (can/fountain)","Coca-Cola Freestyle","Souvenir cup (on select sailings)"] },
+        refreshment: { name:"Refreshment Package", price:35.00, range:"$29–$40/day",
+          includes:["All soda items","Mocktails & fresh juices","Premium coffees/teas (excludes Starbucks)","Bottled water"] },
+        deluxe: { name:"Deluxe Beverage Package", price:80.00, range:"$56–$115/day",
+          includes:["All Refreshment items","Beer, wine, cocktails/spirits up to $14 (pay the difference above)","Excludes Starbucks, mini-bar, room service, top-shelf items"] }
+      }
+    };
   </script>
 
-  <!-- ===== Sharebar (mount-only; script below hydrates) ===== -->
-  <script src="/assets/js/sharebar.js?v=3.010.070" defer></script>
-
-  <!-- ===== Journal Rail (unchanged) ===== -->
+  <!-- Calculator logic: wiring + per-drink cap + winner rule + savings -->
   <script>
-  (function(){
-    const V='3.010.070';
-    const MOUNT=document.getElementById('journal-rail');
-    const FALL=document.getElementById('journal-rail-fallback');
-    if(!MOUNT) return;
+  (() => {
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+    const money = v => `$${(Number(v)||0).toFixed(2)}`;
+    const n = v => { v = Number(v); return Number.isFinite(v) ? v : 0; };
 
-    function rewriteToFull(u){
-      try{
-        const url=new URL(u, location.href);
-        url.pathname = url.pathname.replace(/^\/(solo|travel)\/articles\/([a-z0-9\-]+)(?:\.html)?$/i,'/$1/$2.html');
-        url.pathname = url.pathname.replace(/\/index\.html$/i,'/');
-        if(/^\/(solo|travel)\/[a-z0-9\-]+(?:\.html)?$/i.test(url.pathname)) url.hash='';
-        return url.pathname + url.search;
-      }catch(_){ return u; }
-    }
-    function normPath(u){
-      try{
-        const url=new URL(u, location.href);
-        let p=url.pathname.toLowerCase();
-        p=p.replace(/\/index\.html$/i,'/').replace(/\/+$/,'').replace(/#.*/,'').replace(/\?.*/,'');
-        p=p.replace(/^\/(solo|travel)\/articles\/([a-z0-9\-]+)\.html$/i,'/$1/$2.html');
-        return p;
-      }catch(_){ return String(u||'').toLowerCase(); }
-    }
-    const HERE = normPath(location.href);
+    const EL = {
+      totals: $('#totals'),
+      chip:   $('#best-chip'),
+      text:   $('#best-text'),
+      cards: {
+        soda:    document.querySelector('[data-card="soda"]'),
+        refresh: document.querySelector('[data-card="refresh"]'),
+        deluxe:  document.querySelector('[data-card="deluxe"]')
+      }
+    };
 
-    function chooseImage(rec){
-      if (rec.image && typeof rec.image === 'string' && rec.image.trim()) return rec.image;
-      const t=(rec.title||'').toLowerCase();
-      if (/top\s*20.*first.*cruise.*questions/.test(t)) return '/assets/articles/top-20-questions/cover.jpg';
-      return '/assets/placeholders/article-thumb.jpg?v='+V;
+    function readPicks(){
+      const p = {};
+      $$('[data-input]').forEach(inp => p[inp.dataset.input] = n(inp.value));
+      p.days = Math.max(1, n(p.days || 1));
+      return p;
     }
+    function priceTable(ds){ const t={}; (ds.items||[]).forEach(it=>t[it.id]=n(it.price)); return t; }
+    function setsFrom(ds){ const s = ds.sets||{}; return { soda:new Set(s.soda||[]), refresh:new Set(s.refresh||[]), alcohol:new Set(s.alcohol||[]) }; }
+    function pkgFrom(ds){ const p = ds.packages||{}; return { soda:n(p.soda?.price), refresh:n(p.refreshment?.price), deluxe:n(p.deluxe?.price) }; }
+    function capsFrom(ds){ const c = ds.rules?.caps||{}; return { deluxeAlcohol: Number.isFinite(c.deluxeAlcohol) ? c.deluxeAlcohol : 14 }; }
 
-    function normalize(payload){
-      const list = Array.isArray(payload?.articles) ? payload.articles
-                 : Array.isArray(payload) ? payload : [];
-      return list.map(a=>({
-        url: rewriteToFull(a.url||a.permalink||'#'),
-        title: a.title||a.headline||'Article',
-        dek: a.dek||a.description||a.excerpt||'',
-        date: a.datePublished||a.date||'',
-        image: a.image||'',
-        author: typeof a.author==='string' ? {name:a.author} : (a.author||a.by||null)
-      })).filter(a=> a.url && (a.url.startsWith('/') || /^https?:\/\//.test(a.url)));
+    function picksList(p){
+      return [
+        ['soda', p.soda], ['coffee', p.coffee], ['beer', p.beer], ['wine', p.wine],
+        ['cocktail', p.cocktail], ['mocktail', p.mocktail],
+        ['tapwater', p.tapwater], ['basictea', p.basict], ['juiceconc', p.juiceconc]
+      ];
     }
 
-    function uniqueAndExclude(list){
-      const seen=new Set();
-      return list.filter(a=>{
-        const p=normPath(a.url);
-        if (p===HERE) return false;
-        if (seen.has(p)) return false;
-        seen.add(p);
-        return true;
-      });
+    function alcPerDay(list, price, grat){
+      let sum = 0;
+      for (const [id, qty] of list){
+        if (qty<=0) continue;
+        const base = n(price[id]);
+        sum += qty * base * (base>0 ? (1+grat) : 1);
+      }
+      return sum;
     }
 
-    const SOURCES=[
-      '/assets/data/articles/index.json?v='+V,
-      '/travel/articles/index.json?v='+V,
-      '/solo/articles/index.json?v='+V
-    ];
-    const SEED = normalize([
-      {url:'/articles/top-20-questions/', title:'Top 20 First-Cruise Questions (Answered)', date:'2025-10-16', image:'/assets/articles/top-20-questions/cover.jpg', author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
-      {url:'/solo/freedom-of-your-own-wake.html', title:'Freedom of Your Own Wake', date:'2024-08-13', image:'/assets/index_hero.jpg?v='+V, author:{name:'Ken Baker',url:'/authors/ken-baker.html'}},
-      {url:'/solo/why-i-started-solo-cruising.html', title:'Why I Started Solo Cruising', date:'2024-05-31', image:'', author:{name:'Tina Maulsby',url:'/authors/tina-maulsby.html'}}
-    ]);
-
-    const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
-    function card(a){
-      const img=chooseImage(a);
-      const name=a.author?.name||'';
-      const authorUrl=a.author?.url||'';
-      const dt=Date.parse(a.date||'');
-      const dateTxt = isNaN(dt)?'':(new Date(a.date)).toLocaleDateString()+' · ';
-      return `
-        <article class="rail-item">
-          <a class="thumb" href="${a.url}">
-            <img src="${img}" alt="" loading="lazy"
-                 onerror="this.onerror=null;this.src='/assets/placeholders/article-thumb.jpg?v=${encodeURIComponent(V)}';">
-          </a>
-          <div class="meta">
-            <h4><a href="${a.url}">${esc(a.title)}</a></h4>
-            <p class="tiny muted">${dateTxt}${name?`<a class="author" href="${authorUrl}">${esc(name)}</a>`:''}</p>
-            ${a.dek?`<p class="tiny">${esc(a.dek)}</p>`:''}
-          </div>
-        </article>`;
+    function included(list, price, set){
+      let inc=0; for (const [id, qty] of list){ if(qty>0 && set.has(id)) inc += qty * n(price[id]); } return inc;
     }
 
-    async function get(u){
-      try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return normalize(await r.json()); }
-      catch(_){ return []; }
+    function includedDeluxeWithCaps(list, price, sets, caps){
+      let inc=0;
+      for (const [id, qty] of list){
+        if (qty<=0) continue;
+        const p = n(price[id]);
+        if (sets.refresh.has(id)) inc += qty * p; // fully included (non-alcohol)
+        else if (sets.alcohol.has(id)) inc += qty * Math.min(p, caps.deluxeAlcohol); // cap per drink
+      }
+      return inc;
     }
 
-    (async function boot(){
-      if(FALL) FALL.style.display='';
-      let all=[];
-      for(const s of SOURCES){ all = all.concat(await get(s)); }
-      if(!all.length) all = SEED;
-      all = uniqueAndExclude(all)
-        .sort((a,b)=>(Date.parse(b.date||'0')||0)-(Date.parse(a.date||'0')||0));
-      MOUNT.innerHTML = all.slice(0,4).map(card).join('');
-      if(FALL) FALL.style.display='none';
-    })();
-  })();
-  </script>
-
-  <!-- ===== Planner Runtime (unchanged) ===== -->
-  <script>
-  (function(){
-    const dataEl=document.getElementById('planning-dataset');
-    if(!dataEl) return;
-
-    function parseJSONC(txt){
-      const noBlock = txt.replace(/\/\*[\s\S]*?\*\//g,'');
-      const noLine  = noBlock.replace(/(^|[^:\\])\/\/.*$/gm,'$1');
-      return JSON.parse(noLine);
+    function overCapAddOn(list, price, sets, caps, grat){
+      let add=0;
+      for (const [id, qty] of list){
+        if (qty<=0 || !sets.alcohol.has(id)) continue;
+        const over = Math.max(0, n(price[id]) - caps.deluxeAlcohol);
+        if (over>0) add += qty * over * (1+grat);
+      }
+      return add;
     }
 
-    let data={};
-    try{ data=parseJSONC(dataEl.textContent||'{}'); }
-    catch(e){ console.error('Planning dataset parse error:', e); data={ports:[],signals:{}}; }
-
-    const stateBtns = document.getElementById('state-buttons');
-    const portBtns  = document.getElementById('port-buttons');
-    const blurb     = document.getElementById('port-blurb');
-    const airports  = document.getElementById('airports');
-    const warns     = document.getElementById('warnings');
-    const qaMount   = document.getElementById('qa');
-    const seasonal  = document.getElementById('seasonal-banner');
-    const breaksEl  = document.getElementById('school-breaks');
-
-    const STATE_NAMES={AL:'Alabama',CA:'California',FL:'Florida',LA:'Louisiana',MD:'Maryland',
-                       MA:'Massachusetts',NJ:'New Jersey',PR:'Puerto Rico',TX:'Texas',WA:'Washington',
-                       BC:'British Columbia',NSW:'New South Wales'};
-
-    function group(){
-      const by=new Map();
-      (data.ports||[]).forEach(p=>{
-        const label = p.country && p.country!=='USA' ? p.country : (p.state_full || STATE_NAMES[p.state] || p.state || '—');
-        if(!by.has(label)) by.set(label, []);
-        by.get(label).push(p);
-      });
-      for(const [k,list] of by){ list.sort((a,b)=>(a.name||'').localeCompare(b.name||'')); }
-      return by;
-    }
-    const byRegion = group();
-
-    function E(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
-    function button(label,current,onclick){
-      const a=document.createElement('a'); a.href='#'; a.className='pill'; a.textContent=label;
-      if(current) a.setAttribute('aria-current','true');
-      a.addEventListener('click',e=>{e.preventDefault(); onclick&&onclick();});
-      return a;
+    function winner(nets){
+      const entries = Object.entries(nets);
+      if (entries.every(([,v]) => v>0)) return { key:'alc', net:0 };
+      let bestK='soda', bestV=Infinity;
+      for (const [k,v] of entries){ if (v<bestV){ bestV=v; bestK=k; } }
+      return { key:bestK, net:bestV };
     }
 
-    function renderStateButtons(active){
-      stateBtns.innerHTML='';
-      Array.from(byRegion.keys())
-        .sort((a,b)=> (a==='Florida'?-1:b==='Florida'?1:a.localeCompare(b)))
-        .forEach(label=> stateBtns.appendChild(button(label, label===active, ()=>selectState(label))));
-    }
-    function renderPortButtons(list, activeSlug){
-      portBtns.innerHTML='';
-      list.forEach(p=> portBtns.appendChild(button(p.name, p.slug===activeSlug, ()=>selectPort(p.slug))));
-    }
-    function renderBreaks(){
-      const s=data.signals||{};
-      const parts=[
-        `<strong>Spring Break:</strong> ${E(s.spring_break?.window||'varies')} — ${E(s.spring_break?.notes||'')}`,
-        `<strong>Fall Break:</strong> ${E(s.fall_break?.window||'varies')} — ${E(s.fall_break?.notes||'')}`,
-        s.busy_days?.length? `<strong>Also Busy:</strong> ${s.busy_days.join(', ')}` : ''
-      ].filter(Boolean);
-      breaksEl.innerHTML=parts.map(x=>`<div>${x}</div>`).join('') + (s.disclaimer?`<div class="tiny muted" style="margin-top:.35rem">${E(s.disclaimer)}</div>`:'');
+    function paintCard(card, incPerDay, savesPerDay, isWinner, overcap=0){
+      if (!card) return;
+      const inc = card.querySelector('[data-inc]');
+      const sav = card.querySelector('[data-saves]');
+      const oc  = card.querySelector('[data-overcap]');
+      const ocv = card.querySelector('[data-overcap-val]');
+      if (inc) inc.textContent = `${money(incPerDay)}/day`;
+      if (sav){ if (savesPerDay>0){ sav.textContent = `Saves ${money(savesPerDay)}/day`; sav.hidden = false; } else { sav.textContent=''; sav.hidden=true; } }
+      if (oc && ocv){ if (overcap>0){ ocv.textContent = `${money(overcap)}/day`; oc.hidden=false; } else { oc.hidden=true; } }
+      card.classList.toggle('winner', !!isWinner);
     }
 
-    function renderPort(p){
-      blurb.innerHTML=(p.blurb||[]).map(par=>`<p>${E(par)}</p>`).join('') || `<p>${E(p.name)} — ${E(p.city)}</p>`;
-      const sig=data.signals||{};
-      seasonal.style.display='';
-      seasonal.innerHTML=`<strong>Heads-up:</strong> Spring Break (${E(sig.spring_break?.window||'varies')}) and Fall Break (${E(sig.fall_break?.window||'varies')}). ${E(sig.spring_break?.notes||'')}`;
+    function recompute(){
+      const ds    = window.itwDataset; if(!ds) return;
+      const rules = { gratuity: Number(ds.rules?.gratuity ?? 0.18) };
+      const caps  = capsFrom(ds);
+      const price = priceTable(ds);
+      const sets  = setsFrom(ds);
+      const pkg   = pkgFrom(ds);
+      const picks = readPicks();
+      const list  = picksList(picks);
 
-      airports.innerHTML=(p.airports||[]).map(a=>`
-        <div class="airport">
-          <div><span class="code">${E(a.code)}</span> — ${E(a.name)}</div>
-          <div class="tiny">${E(a.distance_miles)} mi · ${E(a.typical_drive||a.typical_drive_minutes||'—')}</div>
-          ${a.notes?`<div class="tiny muted">${E(a.notes)}</div>`:''}
-        </div>`).join('') || `<div class="tiny muted">No airport data.</div>`;
+      const alc   = alcPerDay(list, price, rules.gratuity);
+      const incS  = included(list, price, sets.soda);
+      const incR  = included(list, price, sets.refresh);
+      const incD  = includedDeluxeWithCaps(list, price, sets, caps);
+      const ocD   = overCapAddOn(list, price, sets, caps, rules.gratuity);
 
-      warns.innerHTML=(p.warnings||[]).map(w=>`<li>${E(w)}</li>`).join('') || `<li class="tiny muted">No special cautions.</li>`;
+      const nets = {
+        soda:    pkg.soda    - incS,
+        refresh: pkg.refresh - incR,
+        deluxe:  pkg.deluxe  - incD
+      };
 
-      const hotels = Array.isArray(p.lodging) ? p.lodging : [];
-      const old = document.getElementById('lodging-block');
-      if (old) old.remove();
-      if (hotels.length){
-        const lodgingHTML = `
-          <div id="lodging-block">
-            <h3 style="margin-top:1rem">Where to Stay</h3>
-            <ul class="tiny">
-              ${hotels.map(h => `<li><a href="${E(h.url)}" rel="noopener external" target="_blank">${E(h.name)}</a>${h.notes ? ` — ${E(h.notes)}` : ''}</li>`).join('')}
-            </ul>
-          </div>`;
-        const qaEl = document.getElementById('qa');
-        if (qaEl) qaEl.insertAdjacentHTML('beforebegin', lodgingHTML);
+      const w = winner(nets);
+      const perDay =
+        w.key==='alc'     ? alc :
+        w.key==='soda'    ? pkg.soda :
+        w.key==='refresh' ? pkg.refresh :
+                            pkg.deluxe;
+
+      const trip = perDay * picks.days;
+
+      if (EL.totals) EL.totals.textContent = `${money(perDay)}/day • ${money(trip)} trip`;
+
+      if (EL.chip && EL.text){
+        if (w.key==='alc'){
+          EL.chip.textContent = 'Best value: à-la-carte';
+          EL.text.textContent = 'Your daily picks are cheapest without a package.';
+        } else {
+          const name = w.key==='soda' ? 'Classic Soda' : w.key==='refresh' ? 'Refreshment' : 'Deluxe (Alcohol)';
+          const pkgDaily = w.key==='soda' ? pkg.soda : w.key==='refresh' ? pkg.refresh : pkg.deluxe;
+          const saves = Math.max(0, alc - pkgDaily);
+          EL.chip.textContent = `Best value: ${name}`;
+          EL.text.textContent = saves>0 ? `Saves ${money(saves)}/day vs. à-la-carte.` : `This beats à-la-carte for your picks.`;
+        }
       }
 
-      qaMount.innerHTML=(p.qa||[]).map(q=>`<details class="qa"><summary>${E(q.q)}</summary><div class="tiny">${E(q.a)}</div></details>`).join('') || `<p class="tiny muted">No questions yet.</p>`;
+      paintCard(EL.cards.soda,    incS, Math.max(0, alc - pkg.soda),    w.key==='soda');
+      paintCard(EL.cards.refresh, incR, Math.max(0, alc - pkg.refresh), w.key==='refresh');
+      paintCard(EL.cards.deluxe,  incD, Math.max(0, alc - pkg.deluxe),  w.key==='deluxe', ocD);
+
+      const a11y = $('#a11y-status');
+      if (a11y) a11y.textContent = `Totals updated. ${money(perDay)} per day, ${money(trip)} for the trip.`;
     }
 
-    // selection logic
-    let currentLabel = byRegion.has('Florida') ? 'Florida' : Array.from(byRegion.keys())[0] || '';
-    let currentSlug  = (byRegion.get(currentLabel)||[])[0]?.slug || '';
-
-    function selectState(label){
-      currentLabel=label;
-      const list=byRegion.get(label)||[];
-      currentSlug=list[0]?.slug||'';
-      renderStateButtons(currentLabel);
-      renderPortButtons(list,currentSlug);
-      if(list[0]) renderPort(list[0]);
-    }
-    function selectPort(slug){
-      currentSlug=slug;
-      const list=byRegion.get(currentLabel)||[];
-      renderPortButtons(list,currentSlug);
-      const p=list.find(x=>x.slug===slug);
-      if(p) renderPort(p);
+    function wire(){
+      $$('[data-input]').forEach(el => { el.addEventListener('input', recompute); el.addEventListener('change', recompute); });
+      if (window.itwDataset) recompute(); else window.addEventListener('itw:dataset-ready', recompute, { once:true });
     }
 
-    renderBreaks();
-    renderStateButtons(currentLabel);
-    selectState(currentLabel);
-    selectPort(currentSlug);
+    document.addEventListener('DOMContentLoaded', wire);
   })();
   </script>
 
-  <!-- ===== Scoped Nav Behavior (click-only, no global hover; a11y preserved) ===== -->
+  <!-- Service Worker register (robust, seed + health check). Keep no dropdown logic. -->
   <script>
-  (function(){
-    const root = document.querySelector('.itw-nav');
-    if(!root) return;
+  (() => {
+    if (!('serviceWorker' in navigator)) return;
+    const SW_URL = '/sw.js?v=3.010.110a';
 
-    const items = [...root.querySelectorAll('.nav-item[aria-haspopup]')];
-
-    function setOpen(group, on){
-      group.classList.toggle('open', !!on);
-      const btn = group.querySelector('button[aria-controls]');
-      if(btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    function register(){
+      navigator.serviceWorker.register(SW_URL, { scope:'/' })
+        .then(async reg => {
+          if (!navigator.serviceWorker.controller) await navigator.serviceWorker.ready;
+          seed();
+          fetch('/__sw_health', { cache:'no-store' })
+            .then(r => r.ok ? r.json() : null)
+            .then(j => console.log('[SW] healthy', j?.version||'n/a'))
+            .catch(() => console.warn('[SW] health check failed'));
+        })
+        .catch(err => console.warn('[SW] register failed', err));
     }
-    function closeAll(except=null){
-      items.forEach(g => { if(g!==except) setOpen(g, false); });
+    function seed(){
+      const urls = Array.from(document.querySelectorAll('[data-prefetch="hover"]')).map(a => a.getAttribute('href')).filter(Boolean);
+      const send = () => {
+        const c = navigator.serviceWorker.controller;
+        if (!c) return false;
+        try { c.postMessage({ type:'SEED_URLS', urls, priority:'normal' }); return true; } catch { return false; }
+      };
+      if (send()) return;
+      navigator.serviceWorker.addEventListener('controllerchange', () => send(), { once:true });
+      setTimeout(() => navigator.serviceWorker.ready.then(send), 1500);
     }
-    function firstFocusable(el){
-      return el && el.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-    }
-
-    items.forEach(group=>{
-      const btn  = group.querySelector('button[aria-controls]');
-      const menu = group.querySelector('.menu');
-      if(!btn || !menu) return;
-
-      // Toggle on click
-      btn.addEventListener('click', (e)=>{
-        e.preventDefault();
-        e.stopPropagation();               // never bubble into outside-closer
-        const open = group.classList.contains('open');
-        closeAll(group);
-        setOpen(group, !open);
-        if(!open){
-          (firstFocusable(menu) || btn).focus({preventScroll:true});
-        }
-      });
-
-      // Keyboard on button
-      btn.addEventListener('keydown', (e)=>{
-        if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
-          e.preventDefault();
-          setOpen(group, true);
-          (firstFocusable(menu) || btn).focus({preventScroll:true});
-        } else if(e.key === 'Escape'){
-          setOpen(group,false);
-          btn.focus({preventScroll:true});
-        }
-      });
-
-      // Escape within group
-      group.addEventListener('keydown', (e)=>{
-        if(e.key === 'Escape'){
-          setOpen(group,false);
-          btn.focus({preventScroll:true});
-        }
-      });
-
-      // Close when tabbing away from the menu (local scope; zero-delay settle)
-      menu.addEventListener('focusout', ()=>{
-        setTimeout(()=>{ if(!group.contains(document.activeElement)) setOpen(group,false); }, 0);
-      });
-    });
-
-    // Outside click: close menus unless click originated inside .itw-nav
-    document.addEventListener('click', (e)=>{
-      if(!e.target.closest('.itw-nav')) closeAll();
-    });
-
-    // Defensive: close on window blur
-    window.addEventListener('blur', ()=> closeAll());
-  })();
-  </script>
-
-  <!-- Sharebar hydrate (unchanged) -->
-  <script>
-    (function(){
-      if(!document.getElementById('sharebar')) return;
-      if(typeof window.initSharebar==='function'){ window.initSharebar('#sharebar'); }
-      else{ window.addEventListener('load',()=>window.initSharebar&&window.initSharebar('#sharebar')); }
-    })();
-  </script>
-
-  <!-- Signature -->
-  <!-- Soli Deo Gloria · Steward: abondservant · Path: /planning.html · Version: v3.010.070 -->
-  <script>
-  (function(){
-    const FORCE_IMG = "https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg";
-    function normalizePath(u){
-      try{
-        const url = new URL(u, location.href);
-        let p = url.pathname.toLowerCase();
-        p = p.replace(/\/index\.html$/,'/');
-        p = p.replace(/^\/(solo|travel)\/articles\/([a-z0-9\-]+)\.html$/,'/$1/$2.html');
-        p = p.replace(/\/+$/,'/');
-        return p;
-      }catch(_){ return String(u||"").toLowerCase(); }
-    }
-    function isTop20(href){
-      const p = normalizePath(href);
-      return /\/articles\/top-20-questions\/$/.test(p);
-    }
-    function fixIn(container){
-      const anchors = container.querySelectorAll('a.thumb, a[href]');
-      anchors.forEach(a=>{
-        const href = a.getAttribute('href')||'';
-        if(!isTop20(href)) return;
-        const img = a.querySelector('img') || a.closest('.rail-item')?.querySelector('img');
-        if(!img) return;
-        const src = (img.getAttribute('src')||'').trim();
-        const looksPlaceholder = !src || /placeholders\/article-thumb/i.test(src);
-        if (looksPlaceholder || img.dataset.force20 !== '1'){
-          img.src = FORCE_IMG;
-          img.removeAttribute('srcset');
-          img.removeAttribute('onerror');
-          img.loading = 'lazy';
-          img.decoding = 'async';
-          if (!img.hasAttribute('alt')) img.alt = "";
-          img.dataset.force20 = '1';
-        }
-      });
-    }
-    const mount = document.getElementById('journal-rail') || document;
-    if (document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', ()=>fixIn(mount));
-    } else {
-      fixIn(mount);
-    }
-    const mo = new MutationObserver(muts=>{
-      muts.forEach(m=>{
-        m.addedNodes.forEach(n=>{
-          if (n.nodeType === 1) fixIn(n);
-        });
-      });
-    });
-    mo.observe(mount, {childList:true, subtree:true});
+    window.addEventListener('load', register);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState==='visible' && !navigator.serviceWorker.controller) register(); });
   })();
   </script>
 </body>
