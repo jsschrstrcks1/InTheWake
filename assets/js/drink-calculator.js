@@ -1,8 +1,8 @@
-/* drink-calculator.app.js — T3 architecture + T2 steppers/print */
+/* drink-calculator.app.js — v3.013.2 (Worker disabled + code clean-up) */
 
 /* ------------------------- Config ------------------------- */
-const USE_WORKER = true;  // flip to false to run calc on main thread
-const VERSION = '3.013.1'; // Bumped version
+const USE_WORKER = false;  // flip to false to run calc on main thread
+const VERSION = '3.013.2'; // Bumped version
 const DS_URL = `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
 
 const FALLBACK_DATASET = {
@@ -124,7 +124,8 @@ const initialState = {
     trip: 0,
     groupRows: [], // [{who, pkg, perDay, trip}]
     included: { soda:0, refresh:0, deluxe:0 },
-    overcap: 0
+    overcap: 0,
+    deluxeRequired: false
   },
   ui: {
     fallbackBanner: false,
@@ -274,7 +275,7 @@ function compute(inputs, economics, dataset){
   const alcMin  = alc(minL),  alcMean = alc(meanL),  alcMax  = alc(maxL);
   const incSMin = inc(minL, sets.soda),  incSMean = inc(meanL, sets.soda),  incSMax = inc(maxL, sets.soda);
   const incRMin = inc(minL, sets.refresh),incRMean = inc(meanL, sets.refresh),incRMax = inc(maxL, sets.refresh);
-all  const delMin  = del(minL),  delMean  = del(meanL),  delMax  = del(maxL);
+  const delMin  = del(minL),  delMean  = del(meanL),  delMax  = del(maxL);
 
   const soda   = { min:economics.pkg.soda,   mean:economics.pkg.soda,   max:economics.pkg.soda };
   const refresh= { min:economics.pkg.refresh,mean:economics.pkg.refresh,max:economics.pkg.refresh };
@@ -282,7 +283,7 @@ all  const delMin  = del(minL),  delMean  = del(meanL),  delMax  = del(max
 
   const netS = { min: soda.min - incSMin, mean: soda.mean - incSMean, max: soda.max - incSMax };
   const netR = { min: refresh.min - incRMin, mean: refresh.mean - incRMean, max: refresh.max - incRMax };
-is  const netD = { min: deluxe.min - delMin.included, mean: deluxe.mean - delMean.included, max: deluxe.max - delMax.included };
+  const netD = { min: deluxe.min - delMin.included, mean: deluxe.mean - delMean.included, max: deluxe.max - delMax.included };
 
   const candidates = [{key:'alc',val:alcMean},{key:'soda',val:netS.mean},{key:'refresh',val:netR.mean},{key:'deluxe',val:netD.mean}];
   const winnerKey = candidates.reduce((a,c)=> c.val<a.val?c:a, {key:'alc',val:Infinity}).key;
@@ -291,13 +292,13 @@ is  const netD = { min: deluxe.min - delMin.included, mean: deluxe.mean - delMe
   const alcoholQty = sum(meanL.filter(([id])=>sets.alcoholic.includes(id)).map(([id,qty])=>qty));
   const deluxeRequired = (alcoholQty>0 && inputs.adults>1);
   const adultStrategy = deluxeRequired ? 'deluxe' : winnerKey;
-  const perDay = (adultStrategy==='alc')? alcMean : (adultStrategy==='soda'? netS.mean : (adultStrategy==='refresh'? netR.mean : (adultStrategy==='deluxe'? netD.mean : alcMean));
+  const perDay = (adultStrategy==='alc')? alcMean : (adultStrategy==='soda'? netS.mean : (adultStrategy==='refresh'? netR.mean : (adultStrategy==='deluxe'? netD.mean : alcMean)));
 
   const rows = [];
   let mult = 0;
   for (let i=1;i<=inputs.adults;i++){
     rows.push({ who:`Adult ${i}`, pkg: adultStrategy, perDay, trip: perDay*inputs.days });
-Read    mult += 1;
+    mult += 1;
   }
   for (let i=1;i<=inputs.minors;i++){
     const k = (adultStrategy==='deluxe' || winnerKey==='deluxe') ? 'refresh' : winnerKey;
@@ -308,7 +309,7 @@ Read    mult += 1;
   const trip = perDay * inputs.days * mult;
 
   return {
-s    hasRange,
+    hasRange,
     bars: { alc:{min:alcMin,mean:alcMean,max:alcMax}, soda:netS, refresh:netR, deluxe:netD },
     winnerKey,
     perDay,
@@ -341,7 +342,7 @@ function createCalcWorker(){
       const base = keys.map(k => [k, inputs.drinks[k]||0]);
       const hasRange = base.some(([,_v])=> typeof _v==='object');
       const lists = ['min','mean','max'].map(mode=>applyWeight(base.map(([k,v])=>[k,scalarize(v,mode)]), inputs.days, inputs.seaDays, inputs.seaApply, inputs.seaWeight));
-      const [minL, meanL, maxL] = lists;
+	  const [minL, meanL, maxL] = lists;
       const alc = L => sum(L.map(([id,q])=> q*(prices[id]||0)*(1+grat)));
       const inc = (L, set) => sum(L.filter(([id])=>set.includes(id)).map(([id,q])=> q*(prices[id]||0)*(1+grat)));
       const del = L => {
@@ -364,16 +365,16 @@ function createCalcWorker(){
       const soda={min:economics.pkg.soda,mean:economics.pkg.soda,max:economics.pkg.soda};
       const refresh={min:economics.pkg.refresh,mean:economics.pkg.refresh,max:economics.pkg.refresh};
       const deluxe={min:economics.pkg.deluxe+delMin.overcap,mean:economics.pkg.deluxe+delMean.overcap,max:economics.pkg.deluxe+delMax.overcap};
-source      const netS={min:soda.min-incSMin,mean:soda.mean-incSMean,max:soda.max-incSMax};
+      const netS={min:soda.min-incSMin,mean:soda.mean-incSMean,max:soda.max-incSMax};
       const netR={min:refresh.min-incRMin,mean:refresh.mean-incRMean,max:refresh.max-incRMax};
       const netD={min:deluxe.min-delMin.included,mean:deluxe.mean-delMean.included,max:deluxe.max-delMax.included};
       const c=[{k:'alc',v:alcMean},{k:'soda',v:netS.mean},{k:'refresh',v:netR.mean},{k:'deluxe',v:netD.mean}];
       const winnerKey=c.reduce((a,b)=> b.v<a.v?b:a, {k:'alc',v:Infinity}).k;
       const alcoholQty = sum(meanL.filter(([id])=>sets.alcoholic.includes(id)).map(([id,q])=>q));
-Â      const deluxeRequired = (alcoholQty>0 && inputs.adults>1);
+      const deluxeRequired = (alcoholQty>0 && inputs.adults>1);
       const adultStrategy = deluxeRequired ? 'deluxe' : winnerKey;
       const perDay = (adultStrategy==='alc')? alcMean : (adultStrategy==='soda'? netS.mean : (adultStrategy==='refresh'? netR.mean : (adultStrategy==='deluxe'? netD.mean : alcMean)));
-      const rows=[], days=inputs.days; let mult=0;
+*     const rows=[], days=inputs.days; let mult=0;
       for(let i=1;i<=inputs.adults;i++){ rows.push({who:'Adult '+i, pkg:adultStrategy, perDay, trip:perDay*days}); mult+=1; }
       for(let i=1;i<=inputs.minors;i++){
         const k=(adultStrategy==='deluxe'||winnerKey==='deluxe')?'refresh':winnerKey;
@@ -383,7 +384,7 @@ source      const netS={min:soda.min-incSMin,mean:soda.mean-incSMean,max:soda
       const trip = perDay * days * mult;
       postMessage({
         hasRange, bars:{alc:{min:alcMin,mean:alcMean,max:alcMax},soda:netS,refresh:netR,deluxe:netD},
-Â        winnerKey, perDay, trip, groupRows:rows, included:{soda:incSMean,refresh:incRMean,deluxe:delMean.included}, overcap:delMean.overcap, deluxeRequired
+        winnerKey, perDay, trip, groupRows:rows, included:{soda:incSMean,refresh:incRMean,deluxe:delMean.included}, overcap:delMean.overcap, deluxeRequired
       });
     };
   `;
@@ -461,7 +462,7 @@ function renderResults(r){
     d.push({label:'Daily cost', data:[r.bars.alc.mean, r.bars.soda.mean, r.bars.refresh.mean, r.bars.deluxe.mean], backgroundColor:'#60a5fa'});
     if (r.hasRange){
       d.push({label:'(max)', data:[r.bars.alc.max, r.bars.soda.max, r.bars.refresh.max, r.bars.deluxe.max], type:'line', borderWidth:2, pointRadius:0, borderColor:'rgba(0,0,0,.35)'});
-T      d.push({label:'(min)', data:[r.bars.alc.min, r.bars.soda.min, r.bars.refresh.min, r.bars.deluxe.min], type:'line', borderDash:[6,4], borderWidth:2, pointRadius:0, borderColor:'rgba(0,0,0,.2)'});
+      d.push({label:'(min)', data:[r.bars.alc.min, r.bars.soda.min, r.bars.refresh.min, r.bars.deluxe.min], type:'line', borderDash:[6,4], borderWidth:2, pointRadius:0, borderColor:'rgba(0,0,0,.2)'});
       const rn = $('#range-note'); if (rn) rn.textContent = 'Range bars show min/max based on your ranges.';
     } else {
       const rn = $('#range-note'); if (rn) rn.textContent = '';
@@ -498,7 +499,7 @@ function scheduleCalc(){
     const results = compute(inputs, economics, dataset||FALLBACK_DATASET);
     store.patch('results', results);
     return;
-  }
+ }
   if (!calcWorker) calcWorker = createCalcWorker();
   calcWorker.onmessage = (e)=> store.patch('results', e.data);
   calcWorker.postMessage({ inputs, economics, dataset: (dataset||FALLBACK_DATASET) });
@@ -559,7 +560,7 @@ function wireInputs(){
   // reset
   window.resetInputs = ()=>{
     store.patch('inputs', structuredClone(initialState.inputs));
-  t   store.patch('economics', structuredClone({ ...initialState.economics,
+    store.patch('economics', structuredClone({ ...initialState.economics,
       pkg: { ...initialState.economics.pkg, ...((store.get().dataset||FALLBACK_DATASET).packages) }
     }));
     scheduleCalc(); syncURL(); persistNow(); announce('All inputs reset');
@@ -582,7 +583,7 @@ function wireInputs(){
     let currentVal;
     if (typeof currentDrinkVal === 'object') {
       currentVal = scalarize(currentDrinkVal, 'mean');
-S   } else {
+    } else {
       currentVal = parseNum(String(currentDrinkVal)); // force to string for parseNum
     }
 
@@ -611,7 +612,7 @@ S   } else {
       moderate:{ beer:'2', wine:'1', cocktail:'2', coffee:'1' },
       heavy:   { beer:'3', cocktail:'3', spirits:'2', bottledwater:'2' },
       coffee:  { coffee:'4', soda:'0', beer:'0', wine:'0', cocktail:'0', spirits:'0' }
-s    }[name] || {};
+    }[name] || {};
     const next = structuredClone(store.get().inputs);
     // Clear all drinks first
     Object.keys(next.drinks).forEach(k => next.drinks[k] = 0);
@@ -637,9 +638,9 @@ s    }[name] || {};
 }
 
 /**
- * [FIXED] This function now uses .value instead of setAttribute
- * to correctly update live form field values.
- */
+ * [FIXED] This function now uses .value instead of setAttribute
+ * to correctly update live form field values.
+ */
 function reflectInputsToDOM(){
   const { inputs } = store.get();
   
@@ -654,7 +655,7 @@ function reflectInputsToDOM(){
   Object.entries(inputs.drinks).forEach(([k,v])=>{
     const el = document.querySelector(`[data-input="${k}"]`);
     if (el) el.value = (typeof v==='object') ? `${v.min||0}-${v.max||0}` : String(v||0);
-Please   });
+D  });
 }
 
 /* ------------------------- Subscriptions ------------------------- */
