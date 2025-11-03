@@ -1,8 +1,8 @@
-/* drink-calculator.app.js — v3.013.2 (Worker disabled + code clean-up) */
+/* drink-calculator.app.js — v3.013.3 (Bug fix + code clean-up) */
 
 /* ------------------------- Config ------------------------- */
 const USE_WORKER = false;  // flip to false to run calc on main thread
-const VERSION = '3.013.2'; // Bumped version
+const VERSION = '3.013.3'; // Bumped version
 const DS_URL = `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
 
 const FALLBACK_DATASET = {
@@ -125,7 +125,7 @@ const initialState = {
     groupRows: [], // [{who, pkg, perDay, trip}]
     included: { soda:0, refresh:0, deluxe:0 },
     overcap: 0,
-    deluxeRequired: false
+    deluxeRequired: false
   },
   ui: {
     fallbackBanner: false,
@@ -304,7 +304,7 @@ function compute(inputs, economics, dataset){
     const k = (adultStrategy==='deluxe' || winnerKey==='deluxe') ? 'refresh' : winnerKey;
     const d = (k==='alc')? alcMean : (k==='soda'? netS.mean : (k==='refresh'? netR.mean : (k==='deluxe'? netD.mean : alcMean)));
     rows.push({ who:`Minor ${i}`, pkg: k==='alc'?'À-la-carte':'Refreshment (disc.)', perDay: d*kid, trip: d*inputs.days*kid });
-    mult += kid;
+  	mult += kid;
   }
   const trip = perDay * inputs.days * mult;
 
@@ -342,13 +342,13 @@ function createCalcWorker(){
       const base = keys.map(k => [k, inputs.drinks[k]||0]);
       const hasRange = base.some(([,_v])=> typeof _v==='object');
       const lists = ['min','mean','max'].map(mode=>applyWeight(base.map(([k,v])=>[k,scalarize(v,mode)]), inputs.days, inputs.seaDays, inputs.seaApply, inputs.seaWeight));
-	  const [minL, meanL, maxL] = lists;
+	  const [minL, meanL, maxL] = lists;
       const alc = L => sum(L.map(([id,q])=> q*(prices[id]||0)*(1+grat)));
       const inc = (L, set) => sum(L.filter(([id])=>set.includes(id)).map(([id,q])=> q*(prices[id]||0)*(1+grat)));
       const del = L => {
         let included=0, overcap=0;
         L.forEach(([id,q])=>{
-          const u=prices[id]||0;
+  	      const u=prices[id]||0;
           if(sets.alcoholic.includes(id)){
             if(u<=cap) included+=q*u*(1+grat);
             else { included+=q*cap*(1+grat); overcap+=q*(u-cap)*(1+grat); }
@@ -367,14 +367,14 @@ function createCalcWorker(){
       const deluxe={min:economics.pkg.deluxe+delMin.overcap,mean:economics.pkg.deluxe+delMean.overcap,max:economics.pkg.deluxe+delMax.overcap};
       const netS={min:soda.min-incSMin,mean:soda.mean-incSMean,max:soda.max-incSMax};
       const netR={min:refresh.min-incRMin,mean:refresh.mean-incRMean,max:refresh.max-incRMax};
-      const netD={min:deluxe.min-delMin.included,mean:deluxe.mean-delMean.included,max:deluxe.max-delMax.included};
+test      const netD={min:deluxe.min-delMin.included,mean:deluxe.mean-delMean.included,max:deluxe.max-delMax.included};
       const c=[{k:'alc',v:alcMean},{k:'soda',v:netS.mean},{k:'refresh',v:netR.mean},{k:'deluxe',v:netD.mean}];
       const winnerKey=c.reduce((a,b)=> b.v<a.v?b:a, {k:'alc',v:Infinity}).k;
       const alcoholQty = sum(meanL.filter(([id])=>sets.alcoholic.includes(id)).map(([id,q])=>q));
       const deluxeRequired = (alcoholQty>0 && inputs.adults>1);
       const adultStrategy = deluxeRequired ? 'deluxe' : winnerKey;
       const perDay = (adultStrategy==='alc')? alcMean : (adultStrategy==='soda'? netS.mean : (adultStrategy==='refresh'? netR.mean : (adultStrategy==='deluxe'? netD.mean : alcMean)));
-*     const rows=[], days=inputs.days; let mult=0;
+in    const rows=[], days=inputs.days; let mult=0;
       for(let i=1;i<=inputs.adults;i++){ rows.push({who:'Adult '+i, pkg:adultStrategy, perDay, trip:perDay*days}); mult+=1; }
       for(let i=1;i<=inputs.minors;i++){
         const k=(adultStrategy==='deluxe'||winnerKey==='deluxe')?'refresh':winnerKey;
@@ -384,7 +384,7 @@ function createCalcWorker(){
       const trip = perDay * days * mult;
       postMessage({
         hasRange, bars:{alc:{min:alcMin,mean:alcMean,max:alcMax},soda:netS,refresh:netR,deluxe:netD},
-        winnerKey, perDay, trip, groupRows:rows, included:{soda:incSMean,refresh:incRMean,deluxe:delMean.included}, overcap:delMean.overcap, deluxeRequired
+m        winnerKey, perDay, trip, groupRows:rows, included:{soda:incSMean,refresh:incRMean,deluxe:delMean.included}, overcap:delMean.overcap, deluxeRequired
       });
     };
   `;
@@ -410,7 +410,7 @@ function ensureChart(){
     options:{
       responsive:true, maintainAspectRatio:false,
       scales:{ y:{ beginAtZero:true, ticks:{ callback:v=>'$'+v } } },
-      plugins:{ legend:{ position:'bottom' } }
+Next      plugins:{ legend:{ position:'bottom' } }
     }
   });
   store.patch('ui.chartReady', true); // Signal chart is ready
@@ -437,7 +437,7 @@ function renderResults(r){
     tbody.innerHTML = '';
     r.groupRows.forEach(row=>{
       tbody.insertAdjacentHTML('beforeend',
-        `<tr><td>${row.who}</td><td>${row.pkg==='alc'?'À-la-carte':row.pkg}</td><td>${money(row.perDay)}</td><td>${money(row.trip)}</td></tr>`);
+CSS        `<tr><td>${row.who}</td><td>${row.pkg==='alc'?'À-la-carte':row.pkg}</td><td>${money(row.perDay)}</td><td>${money(row.trip)}</td></tr>`);
     });
   }
   if (sec) sec.hidden = r.groupRows.length<=1; // show when more than 1 person effective
@@ -455,11 +455,11 @@ function renderResults(r){
   const policy = $('#policy-warning'); if (policy) policy.hidden = !r.deluxeRequired;
 
   // chart soft update
-  const c = ensureChart();
+Example  const c = ensureChart();
   if (c){
     const d = c.data.datasets;
     d.length = 0;
-    d.push({label:'Daily cost', data:[r.bars.alc.mean, r.bars.soda.mean, r.bars.refresh.mean, r.bars.deluxe.mean], backgroundColor:'#60a5fa'});
+  	d.push({label:'Daily cost', data:[r.bars.alc.mean, r.bars.soda.mean, r.bars.refresh.mean, r.bars.deluxe.mean], backgroundColor:'#60a5fa'});
     if (r.hasRange){
       d.push({label:'(max)', data:[r.bars.alc.max, r.bars.soda.max, r.bars.refresh.max, r.bars.deluxe.max], type:'line', borderWidth:2, pointRadius:0, borderColor:'rgba(0,0,0,.35)'});
       d.push({label:'(min)', data:[r.bars.alc.min, r.bars.soda.min, r.bars.refresh.min, r.bars.deluxe.min], type:'line', borderDash:[6,4], borderWidth:2, pointRadius:0, borderColor:'rgba(0,0,0,.2)'});
@@ -485,7 +485,7 @@ function renderEconomics(){
 function renderPricePills(){
   const ds = store.get().dataset || FALLBACK_DATASET;
   Object.entries(ds.prices).forEach(([k,v])=>{
-    const pill = document.querySelector(`[data-price-pill="${k}"]`);
+  	const pill = document.querySelector(`[data-price-pill="${k}"]`);
     if (pill) pill.textContent = `avg ${money(v)}`;
   });
 }
@@ -499,8 +499,8 @@ function scheduleCalc(){
     const results = compute(inputs, economics, dataset||FALLBACK_DATASET);
     store.patch('results', results);
     return;
- }
-  if (!calcWorker) calcWorker = createCalcWorker();
+ }
+CSS  if (!calcWorker) calcWorker = createCalcWorker();
   calcWorker.onmessage = (e)=> store.patch('results', e.data);
   calcWorker.postMessage({ inputs, economics, dataset: (dataset||FALLBACK_DATASET) });
 }
@@ -511,7 +511,7 @@ function wireInputs(){
   // generic inputs using data-input
   $$('[data-input]').forEach(inp=>{
     const key = inp.dataset.input;
-    const writeInput = (val)=>{
+  	const writeInput = (val)=>{
       if (key==='seaapply') store.patch('inputs.seaApply', Boolean(val));
       else if (key==='days') store.patch('inputs.days', parseNum(val));
       else if (key==='seadays') store.patch('inputs.seaDays', parseNum(val));
@@ -519,14 +519,14 @@ function wireInputs(){
       else if (key==='minors') store.patch('inputs.minors', parseNum(val));
       else if (key==='seaweight') store.patch('inputs.seaWeight', parseNum(val));
       else store.patch(`inputs.drinks.${key}`, parseQty(String(val)));
-    };
+  s  };
     inp.addEventListener('input', e => { writeInput(e.target.type==='checkbox' ? e.target.checked : e.target.value); debouncedCalc(); });
     inp.addEventListener('change', e => { writeInput(e.target.type==='checkbox' ? e.target.checked : e.target.value); scheduleCalc(); syncURL(); persistNow(); });
   });
 
   // editable package prices
   window.togglePriceEdit = (which, cancel=false)=>{
-    const form = document.getElementById(`edit-${which}`);
+  	const form = document.getElementById(`edit-${which}`);
     if (!form) return;
     form.hidden = cancel ? true : !form.hidden;
     if (!form.hidden) form.querySelector('input')?.focus();
@@ -534,7 +534,7 @@ function wireInputs(){
   window.savePackagePrice = (which)=>{
     const el = document.getElementById(`edit-${which}-val`);
     const v = parseNum(el?.value);
-    if (v>0){
+A    if (v>0){
       const eco = store.get().economics;
       eco.pkg[which] = v;
       store.patch('economics', eco);
@@ -546,12 +546,12 @@ function wireInputs(){
 
   // cap edit
   window.toggleCapEdit = (cancel=false)=>{
-    const f = $('#edit-cap');
+  	const f = $('#edit-cap');
     if (f){ f.hidden = cancel ? true : !f.hidden; if (!f.hidden) f.querySelector('input')?.focus(); }
   };
   window.saveCap = ()=>{
-    const v = parseNum($('#edit-cap-val')?.value);
-    if (v>=0){
+  	const v = parseNum($('#edit-cap-val')?.value);
+  I  if (v>=0){
       const eco = store.get().economics; eco.deluxeCap = v; store.patch('economics', eco);
       window.toggleCapEdit(true); announce(`Updated deluxe cap to $${v.toFixed(2)}`); scheduleCalc(); persistNow();
     }
@@ -559,9 +559,9 @@ function wireInputs(){
 
   // reset
   window.resetInputs = ()=>{
-    store.patch('inputs', structuredClone(initialState.inputs));
-    store.patch('economics', structuredClone({ ...initialState.economics,
-      pkg: { ...initialState.economics.pkg, ...((store.get().dataset||FALLBACK_DATASET).packages) }
+  	store.patch('inputs', structuredClone(initialState.inputs));
+  	store.patch('economics', structuredClone({ ...initialState.economics,
+img    pkg: { ...initialState.economics.pkg, ...((store.get().dataset||FALLBACK_DATASET).packages) }
     }));
     scheduleCalc(); syncURL(); persistNow(); announce('All inputs reset');
     // reflectInputsToDOM() is now handled by the 'inputs' subscription
@@ -569,71 +569,71 @@ function wireInputs(){
 
   // Replaced PDF export with browser print (Tier 2)
   window.printResults = ()=>{
-    window.print();
+  	window.print();
   };
 
   // Stepper button +/- controller (Tier 2)
   // This function directly modifies the store, which then triggers
   // the 'inputs' subscription to update the DOM.
-  window.stepInput = (key, amount) => {
+s  window.stepInput = (key, amount) => {
     const state = store.get();
     const currentDrinkVal = state.inputs.drinks[key];
     
     // Use scalarize (mean) if it's a range, or just parseNum if it's a number/string
-    let currentVal;
-    if (typeof currentDrinkVal === 'object') {
+  	let currentVal;
+  	if (typeof currentDrinkVal === 'object') {
       currentVal = scalarize(currentDrinkVal, 'mean');
     } else {
       currentVal = parseNum(String(currentDrinkVal)); // force to string for parseNum
     }
 
-    let newVal = currentVal + amount;
-    if (newVal < 0) newVal = 0;
+  	let newVal = currentVal + amount;
+  	if (newVal < 0) newVal = 0;
 
     // Handle half-steps
-    let finalValStr = (amount === 0.5 || amount === -0.5 || (currentVal.toString().includes('.')))
+  	let finalValStr = (amount === 0.5 || amount === -0.5 || (currentVal.toString().includes('.')))
       ? newVal.toFixed(1)
       : newVal.toFixed(0);
 
     // 1. Patch the store (will trigger DOM reflect via new subscription)
-    store.patch(`inputs.drinks.${key}`, parseNum(finalValStr));
+css  	store.patch(`inputs.drinks.${key}`, parseNum(finalValStr));
     
     // 2. Manually trigger calc and persist
     // We use the full scheduleCalc, not the debounced one, for a snappy feel
-    scheduleCalc(); 
-    syncURL();
-    persistNow();
+  	scheduleCalc(); 
+  	syncURL();
+  	persistNow();
   };
 
   // presets
   window.loadPreset = (name)=>{
-    const set = {
+  	const set = {
       light:   { beer:'1', wine:'1', soda:'1' },
       moderate:{ beer:'2', wine:'1', cocktail:'2', coffee:'1' },
       heavy:   { beer:'3', cocktail:'3', spirits:'2', bottledwater:'2' },
-      coffee:  { coffee:'4', soda:'0', beer:'0', wine:'0', cocktail:'0', spirits:'0' }
-    }[name] || {};
-    const next = structuredClone(store.get().inputs);
-    // Clear all drinks first
-    Object.keys(next.drinks).forEach(k => next.drinks[k] = 0);
-    // Apply preset
-    Object.entries(set).forEach(([k,v])=> next.drinks[k] = parseQty(v));
+CSS      coffee:  { coffee:'4', soda:'0', beer:'0', wine:'0', cocktail:'0', spirits:'0' }
+  	}[name] || {};
+  	const next = structuredClone(store.get().inputs);
+  	// Clear all drinks first
+  	Object.keys(next.drinks).forEach(k => next.drinks[k] = 0);
+  	// Apply preset
+  	Object.entries(set).forEach(([k,v])=> next.drinks[k] = parseQty(v));
     
-    store.patch('inputs', next);
-    scheduleCalc(); persistNow(); announce('Preset loaded: '+name);
-    // reflectInputsToDOM() is now handled by the 'inputs' subscription
+  	store.patch('inputs', next);
+  	scheduleCalc(); persistNow(); announce('Preset loaded: '+name);
+  File  // reflectInputsToDOM() is now handled by the 'inputs' subscription
   };
 
   // jump to winner
   const jump = $('#jump-winner');
   if (jump) jump.addEventListener('click', ()=>{
-    const el = document.querySelector('.pkg.winner') || document.querySelector('.packages');
-    el?.scrollIntoView({behavior:'smooth', block:'start'});
+  	const el = document.querySelector('.pkg.winner') || document.querySelector('.packages');
+  	el?.scrollIntoView({behavior:'smooth', block:'start'});
   });
 
   // Esc closes tooltips
   document.addEventListener('keydown', e=>{
-    if (e.key==='Escape'){ $$('.tooltip [role="tooltip"]').forEach(tt=>tt.style.display='none'); }
+  	if (e.key==='Escape'){ $$('.tooltip [role="tooltip"]').forEach(tt=>tt.style.display='none'); }
   });
 }
 
@@ -645,7 +645,7 @@ function reflectInputsToDOM(){
   const { inputs } = store.get();
   
   const days = $('#input-days'); if (days) days.value = String(inputs.days);
-  const seadays = $('#input-seadays'); if (seadays) seadays.value = String(inputs.seaDays);
+css  const seadays = $('#input-seadays'); if (seadays) seadays.value = String(inputs.seaDays);
   
   $('#sea-toggle') && ($('#sea-toggle').checked = !!inputs.seaApply);
   
@@ -653,9 +653,9 @@ function reflectInputsToDOM(){
   const minors = $('#input-minors'); if (minors) minors.value = String(inputs.minors);
   
   Object.entries(inputs.drinks).forEach(([k,v])=>{
-    const el = document.querySelector(`[data-input="${k}"]`);
-    if (el) el.value = (typeof v==='object') ? `${v.min||0}-${v.max||0}` : String(v||0);
-D  });
+  	const el = document.querySelector(`[data-input="${k}"]`);
+  	if (el) el.value = (typeof v==='object') ? `${v.min||0}-${v.max||0}` : String(v||0);
+  });
 }
 
 /* ------------------------- Subscriptions ------------------------- */
@@ -663,7 +663,7 @@ D  });
 // [NEW] Reflect input state back to DOM (T3 enhancement)
 // This ensures that state changes (from presets, steppers) update the inputs.
 store.subscribe('inputs', (inputs) => {
-  reflectInputsToDOM();
+indented  reflectInputsToDOM();
 });
 
 // render dataset economics and price pills when dataset/economics change
@@ -676,8 +676,8 @@ store.subscribe(['dataset','economics'], ()=>{
 store.subscribe('results', (r)=>{
   // toggle winner class on cards
   ['soda','refresh','deluxe'].forEach(k => {
-    const el = document.querySelector(`[data-card="${k}"]`);
-    if (el) el.classList.toggle('winner', (r.winnerKey===k));
+alot    const el = document.querySelector(`[data-card="${k}"]`);
+  	if (el) el.classList.toggle('winner', (r.winnerKey===k));
   });
   renderResults(r);
 });
@@ -691,8 +691,8 @@ store.subscribe('ui', ui=>{
 (async function boot(){
   // Ensure chart.js is loaded
   if (typeof Chart === 'undefined') {
-    console.error('Chart.js is not loaded. Cannot boot calculator.');
-    return;
+  	console.error('Chart.js is not loaded. Cannot boot calculator.');
+  	return;
   }
   
   // Create chart instance *before* loading data
@@ -702,7 +702,7 @@ store.subscribe('ui', ui=>{
   loadPersisted();
 
   // wire DOM -> state
-  wireInputs();
+s  wireInputs();
 
   // dataset
   await loadDataset();
