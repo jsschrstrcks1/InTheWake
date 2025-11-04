@@ -458,6 +458,8 @@ function renderResults(r){
   const srSoda = $('#sr-soda'); if (srSoda) srSoda.textContent = money(r.bars.soda.mean);
   const srRefresh = $('#sr-refresh'); if (srRefresh) srRefresh.textContent = money(r.bars.refresh.mean);
   const srDeluxe = $('#sr-deluxe'); if (srDeluxe) srDeluxe.textContent = money(r.bars.deluxe.mean);
+
+  // Note: Smart Break-Even monitors will be added after you place the new HTML blocks.
 }
 
 function renderEconomics(){
@@ -620,6 +622,30 @@ function wireInputs(){
 
   /* ---------- Print ---------- */
   window.printResults = ()=> window.print();
+
+  /* ---------- Share Scenario Button ---------- */
+  window.shareScenario = () => {
+    try {
+      // syncURL already runs on 'change', but we force one more ensure here for safety
+      syncURL();
+      navigator.clipboard.writeText(location.href);
+
+      // Provide visual feedback
+      const btn = document.querySelector('[onclick="shareScenario()"]');
+      if (btn) {
+        const originalText = btn.textContent;
+        btn.textContent = '✅ Link Copied!';
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.disabled = false;
+        }, 2000);
+      }
+    } catch (e) {
+      console.error('Failed to copy scenario link:', e);
+      alert('Failed to copy link. Please copy the URL from your browser bar.');
+    }
+  };
 
   /* ---------- Steppers (supports ±0.5) ---------- */
   window.stepInput = (key, amount)=>{
