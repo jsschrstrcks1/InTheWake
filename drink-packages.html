@@ -197,6 +197,22 @@
   @media (prefers-color-scheme: dark){
     .breakeven-monitor{ background:#1a202c; }
   }
+    .itw-info{position:fixed;right:12px;bottom:12px;z-index:2147483647;font:13px/1.3 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;color:#222}
+.itw-toggle{width:28px;height:28px;border-radius:9999px;border:1px solid #ccc;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:pointer}
+.itw-body{margin-top:8px;width:260px;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:10px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.itw-row{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.itw-title{font-weight:600}
+.itw-sub{color:#666;font-size:12px;margin:2px 0 6px}
+.itw-pill{padding:2px 8px;border-radius:9999px;background:#eee;font-size:12px;border:1px solid #ddd}
+.itw-pill.ok{background:#e8f7ee;border-color:#c2e7cf;color:#0f6e3d}
+.itw-pill.warn{background:#fff6e6;border-color:#ffe0a8;color:#8a5b00}
+.itw-pill.bad{background:#ffeaea;border-color:#ffc9c9;color:#8a0f0f}
+.itw-refresh{margin-top:8px;width:100%;padding:6px 10px;border-radius:8px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
+.itw-refresh:hover{background:#f2f2f2}
+    .fx-drift{margin:12px 0 16px;font:14px/1.3 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#222;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#fx-drift-range{width:220px}
+.fx-drift-reset{padding:4px 8px;border-radius:8px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
+.fx-drift-reset:hover{background:#f2f2f2}
   </style>
 
   <!-- Chart.js -->
@@ -227,7 +243,7 @@
       <a class="itw-nav__link" href="/about/">About</a>
     </nav>
     <button class="itw-menu-btn btn ghost" aria-expanded="false" aria-controls="itw-primary-nav" style="margin-left:auto">Menu</button>
-    <div class="small">vv.9.000.003</div>
+    <div class="small">v.9.000.003</div>
 
     <!-- Moved currency block into this header -->
     <span id="offline-chip" class="chip" style="display:none">Offline</span>
@@ -237,6 +253,11 @@
       <option>AUD</option><option>INR</option><option>CNY</option><option>MXN</option><option>BRL</option>
     </select>
     <span id="currency-note" class="small"></span>
+    <!-- Exchange rate drift (display-only sensitivity) -->
+<span class="small" style="margin-left:14px;">Exchange rate drift</span>
+<input id="fx-drift" type="range" min="-20" max="20" step="1" value="0" aria-label="Exchange rate drift percent" style="vertical-align:middle; width:120px; margin:0 6px;">
+<span id="fx-drift-val" class="small">0%</span>
+<button id="fx-drift-reset" class="btn ghost small" type="button" style="margin-left:6px;">reset to 0%</button>
   </div>
 </header>
 
@@ -269,9 +290,6 @@
   margin:10px 0;
   font-size:.9rem;
 ">
-<p class="small" role="note" style="
-  background:#ecfdf5;border:1px solid #bbf7d0;border-radius:8px;
-  padding:10px;margin:10px 0;font-size:.9rem;">
   <strong>Stewardship & Responsible Use:</strong>
   This tool is for planning wisely — not indulging carelessly.
   Drink packages include much more than alcohol, like water, coffee, and juice.
@@ -631,6 +649,147 @@
       '/assets/logo_wake.png'
     ]
   });
+})();
+</script>
+  <!-- Exchange rate drift (what-if) -->
+<div id="fx-drift-wrap" class="fx-drift" role="group" aria-label="Exchange rate drift control">
+  <label for="fx-drift-range">
+    Exchange rate drift: <span id="fx-drift-label">0%</span>
+  </label>
+  <input id="fx-drift-range" type="range" min="-10" max="10" step="0.5" value="0" />
+  <button id="fx-drift-reset" type="button" class="fx-drift-reset" title="Reset to 0%">Reset</button>
+</div>
+  <div id="itw-info-drawer" class="itw-info">
+  <button class="itw-toggle" aria-expanded="false" aria-controls="itw-info-body" aria-label="Data freshness & source">i</button>
+  <div id="itw-info-body" class="itw-body" hidden>
+    <div class="itw-row">
+      <span class="itw-title">Pricing</span>
+      <span class="itw-pill" id="itw-pricing-pill">—</span>
+    </div>
+    <div class="itw-sub" id="itw-pricing-sub">source: — • updated: —</div>
+
+    <div class="itw-row">
+      <span class="itw-title">FX</span>
+      <span class="itw-pill" id="itw-fx-pill">—</span>
+    </div>
+    <div class="itw-sub" id="itw-fx-sub">source: — • updated: —</div>
+
+    <button id="itw-refresh" class="itw-refresh" title="Force a fresh fetch">Refresh now</button>
+  </div>
+</div>
+  <script>
+(() => {
+  const el = (id)=>document.getElementById(id);
+  const fmtRel = (ms) => {
+    if (!ms) return "—";
+    const s = Math.floor(ms/1000);
+    if (s < 60) return `${s}s ago`;
+    const m = Math.floor(s/60);
+    if (m < 60) return `${m}m ago`;
+    const h = Math.floor(m/60);
+    if (h < 24) return `${h}h ago`;
+    const d = Math.floor(h/24);
+    return `${d}d ago`;
+  };
+
+  const bucket = (ageMs, kind) => {
+    if (ageMs == null) return {label:"—", cls:""};
+    if (kind === "pricing") {
+      if (ageMs < 24*3600e3) return {label:"fresh", cls:"ok"};
+      if (ageMs < 3*24*3600e3) return {label:"1–3d", cls:"warn"};
+      if (ageMs <= 7*24*3600e3) return {label:"3–7d", cls:"warn"};
+      return {label:">7d", cls:"bad"};
+    } else { // fx
+      if (ageMs < 1*3600e3) return {label:"<1h", cls:"ok"};
+      if (ageMs < 6*3600e3) return {label:"1–6h", cls:"warn"};
+      if (ageMs <= 12*3600e3) return {label:"6–12h", cls:"warn"};
+      return {label:">12h", cls:"bad"};
+    }
+  };
+
+  function applyPill(id, ageMs, kind, isFallback, confidence) {
+    const elP = el(id);
+    const b = bucket(ageMs, kind);
+    elP.textContent = (isFallback ? "cached " : "") + b.label + (confidence ? ` · ${confidence}` : "");
+    elP.className = `itw-pill ${b.cls}`;
+  }
+
+  function updateRow(kind, info) {
+    const { ageMs, cachedAt, isFallback, source, confidence } = info || {};
+    applyPill(kind === "pricing" ? "itw-pricing-pill" : "itw-fx-pill", ageMs, kind, isFallback, confidence);
+    const sub = el(kind === "pricing" ? "itw-pricing-sub" : "itw-fx-sub");
+    const src = source || (kind === "pricing" ? "/assets/data/lines/royal-caribbean.json" : "FX API");
+    sub.textContent = `source: ${src} • updated: ${fmtRel(ageMs)}${isFallback ? " (cached)" : ""}`;
+  }
+
+  function infoFromResponse(res, sourceHint) {
+    if (!res) return null;
+    const ageMs = Number(res.headers.get("X-SW-Age-MS") || "") || null;
+    const cachedAt = Number(res.headers.get("X-SW-Cached-At") || "") || null;
+    const isFallback = !!res.headers.get("X-SW-Fallback");
+    const confidence = res.headers.get("X-SW-Confidence") || "";
+    return { ageMs, cachedAt, isFallback, source: sourceHint || res.url, confidence };
+  }
+
+  // Toggle behavior
+  const btn = document.querySelector("#itw-info-drawer .itw-toggle");
+  const body = document.getElementById("itw-info-body");
+  btn?.addEventListener("click", () => {
+    const open = body.hasAttribute("hidden") ? false : true;
+    if (open) { body.setAttribute("hidden",""); btn.setAttribute("aria-expanded","false"); }
+    else { body.removeAttribute("hidden"); btn.setAttribute("aria-expanded","true"); }
+  });
+
+  // Public API
+  window.itwInfo = {
+    update({ pricingResponse, fxResponse, pricingSource, fxSource } = {}) {
+      if (pricingResponse) updateRow("pricing", infoFromResponse(pricingResponse, pricingSource));
+      if (fxResponse) updateRow("fx", infoFromResponse(fxResponse, fxSource));
+    },
+    forceRefresh: async () => {
+      try {
+        await Promise.allSettled([
+          fetch("/assets/data/lines/royal-caribbean.json", { cache: "reload" }),
+          // If you use a batch FX endpoint, trigger it here:
+          // fetch("https://api.frankfurter.app/latest?from=USD&to=GBP,EUR,...", { cache: "reload" })
+        ]);
+        location.reload();
+      } catch(_) {}
+    }
+  };
+
+  // Refresh button
+  document.getElementById("itw-refresh")?.addEventListener("click", ()=> itwInfo.forceRefresh());
+})();
+</script>
+  <script>
+(function wireFXDriftUI(){
+  const range = document.getElementById('fx-drift-range');
+  const label = document.getElementById('fx-drift-label');
+  const reset = document.getElementById('fx-drift-reset');
+  if (!range || !label || !reset) return;
+
+  const updateLabel = () => {
+    const v = Number(range.value);
+    label.textContent = (v>0?'+':'') + v + '%';
+  };
+
+  range.addEventListener('input', () => {
+    window.fxDriftPct = Number(range.value);   // app reads this
+    updateLabel();
+    window.renderAll?.();                      // nudge re-render if defined
+  });
+
+  reset.addEventListener('click', () => {
+    window.fxDriftPct = 0;
+    range.value = '0';
+    updateLabel();
+    window.renderAll?.();
+  });
+
+  // init
+  window.fxDriftPct = 0;
+  updateLabel();
 })();
 </script>
 </body>
