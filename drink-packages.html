@@ -612,5 +612,26 @@
 
   <p id="a11y-status" class="sr-only" aria-live="polite"></p>
 </main>
+  <script>
+(function(){
+  if (!('serviceWorker' in navigator)) return;
+  if (!navigator.serviceWorker.controller) return;
+
+  const V = 'v.9.000.003';
+  navigator.serviceWorker.controller.postMessage({
+    type: 'SEED_URLS',
+    priority: 'high',
+    urls: [
+      '/drinks-package.html',
+      `/assets/js/drink-calculator.app.js?v=${V}`,
+      `/assets/js/drink-math.js?v=${V}`,
+      `/assets/js/drink-worker.js?v=${V}`,
+      // self-host Chart.js if you prefer; otherwise CDN is now allowedlisted
+      // '/assets/vendor/chart.umd.min.js?v=4.4.1',
+      '/assets/logo_wake.png'
+    ]
+  });
+})();
+</script>
 </body>
 </html>
