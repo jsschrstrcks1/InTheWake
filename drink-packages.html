@@ -4,24 +4,28 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="version" content="3.014.0" />
+
   <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
   <meta name="description" content="Free Royal Caribbean drink calculator with break-even chart, sea/port weighting, and transparent price assumptions. Compare Soda, Refreshment, and Deluxe vs. à-la-carte." />
   <link rel="canonical" href="https://cruisinginthewake.com/planning/drink-packages.html" />
 
-  <!-- (optional) preconnects for FX APIs if you plan to use them on this page -->
+  <!-- (optional) preconnects for FX APIs -->
   <!-- <link rel="preconnect" href="https://api.frankfurter.app"> -->
   <!-- <link rel="preconnect" href="https://api.exchangerate.host"> -->
 
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Royal Caribbean Drink Package Calculator" />
   <meta property="og:description" content="Break-even chart + sea/port day weighting. Find out if a package saves money." />
   <meta property="og:url" content="https://cruisinginthewake.com/planning/drink-packages.html" />
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg" />
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="RCL Drink Package Calculator" />
   <meta name="twitter:description" content="See your cheapest option with gratuity included and break-even math." />
 
+  <!-- Structured data -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -57,220 +61,159 @@
   }
   </script>
 
+  <!-- Styles (newer rules later = override friendly) -->
   <style>
-:root{
-  --bg:#f8fbfc; --card:#fff; --bd:#e5e7eb; --muted:#525a66; --chip:#e7f6ea; --chipText:#0a7b3e;
-  --good:#10b981; --warn:#f59e0b; --bad:#ef4444; --ink:#0f172a;
-}
-/* --- Print Styles --- */
-@media print {
-  body { font-size: 12pt; background: var(--card); }
-  header.navbar, .qs, .banner, .rail, .card:not(.inputs), .controls-inline .btn { display: none; }
-  main.container { max-width: 100%; margin: 0; padding: 0; }
-  .grid, .packages { grid-template-columns: 1fr; }
-  .card { border: none; box-shadow: none; }
-}
+  :root{
+    --bg:#f8fbfc; --card:#fff; --bd:#e5e7eb; --muted:#525a66; --chip:#e7f6ea; --chipText:#0a7b3e;
+    --good:#10b981; --warn:#f59e0b; --bad:#ef4444; --ink:#0f172a;
+  }
+  @media print {
+    body { font-size: 12pt; background: var(--card); }
+    header.navbar, .qs, .banner, .rail, .card:not(.inputs), .controls-inline .btn { display: none; }
+    main.container { max-width: 100%; margin: 0; padding: 0; }
+    .grid, .packages { grid-template-columns: 1fr; }
+    .card { border: none; box-shadow: none; }
+  }
 
-/* --- Base Styles --- */
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:#111;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-a{color:#0369a1}
-.container{max-width:1200px;margin:0 auto;padding:0 16px}
-header.navbar{position:sticky;top:0;background:#0f172a;color:#fff;border-bottom:3px solid #d4af37;z-index:40}
-header .inner{display:flex;align-items:center;gap:16px;padding:10px 12px}
-header .brand img{height:32px}
-header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
-.sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.banner{background:var(--chip);color:#111;border:1px solid #cfe8d7;border-radius:10px;padding:10px 14px;margin:18px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.chip{background:#bfe8c8;color:var(--chipText);border-radius:999px;padding:3px 10px;font-weight:800}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.03)}
-.card .hd{
-  padding:12px 16px;
-  border-bottom:1px dashed var(--bd);
-  font-weight:800;
-  position: sticky; top: 0; background: var(--card); z-index: 10;
-}
-.card .bd{padding:12px 16px}
-.row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
-.row:last-child{border-bottom:0}
-.inputs .row label { line-height: 1.2; }
-.inputs input[type="number"], .inputs input[type="text"]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;font:inherit}
-.inputs .pill{background:#ecfeff;border:1px solid #bae6fd;border-radius:999px;padding:2px 8px;margin-left:8px;font-weight:700;color:#0f172a}
-.inputs .included .pill{background:#eef2ff;border:1px solid #e5e7eb;color:#334155}
-.qs{background:#fde68a20;border:1px solid #f59e0b50;border-radius:12px;padding:14px 16px;margin:16px 0}
-.qs .qs-hd{font-weight:800;color:#7c2d12}
-.qs .qs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.qs .qs-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:#ecfeff;border:1px solid #bae6fd;border-radius:12px;padding:10px;cursor:pointer;font-weight:700;color:#0f172a;text-align:center;font:inherit}
-.qs .qs-btn small{font-weight:600;color:#475569}
-.health{display:none;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.95rem}
-.health.show{display:block}
-.pkg{border-radius:14px;overflow:hidden;position:relative;scroll-snap-align:start}
-.pkg .phd{background:#0b2940;color:#fff;padding:12px 14px;font-weight:800;display:flex;gap:8px;align-items:center;justify-content:space-between}
-.pkg.winner{outline:3px solid #34d399;box-shadow:0 0 0 6px rgba(52,211,153,.15)}
-.pkg.winner .phd{background:linear-gradient(135deg, #059669 0%, #10b981 100%)}
-.pkg.winner::before{content:'🏆 Best Value';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#fbbf24;color:#78350f;padding:4px 12px;border-radius:999px;font-size:.8rem;font-weight:800;box-shadow:0 4px 12px rgba(251,191,36,.5)}
-.pkg .pbd{padding:14px}
-.pkg .muted{color:var(--muted);font-size:.9rem}
-.pkg .save{font-weight:700;margin-top:6px;color:#059669}
-.help{all:unset;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#0ea5e9;color:#fff;font-weight:800;line-height:1}
-.tooltip{position:relative}
-.tooltip [role="tooltip"]{position:absolute;inset:auto auto 100% 0;transform:translateY(-8px);background:#0f172a;color:#fff;padding:8px 10px;border-radius:8px;min-width:220px;box-shadow:0 6px 18px rgba(0,0,0,.2);font-size:.9rem;display:none;z-index:100}
-.tooltip:focus-within [role="tooltip"], .tooltip:hover [role="tooltip"]{display:block}
-#breakeven-wrap{margin-top:18px}
-#breakeven-chart{width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px}
-.controls-inline{display:flex;gap:10px;flex-wrap:wrap}
-.badge{background:#fbbf24;color:#78350f;padding:4px 10px;border-radius:999px;font-weight:800}
-.btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700}
-.btn.ghost{background:#fff;color:#0f172a}
-.small{font-size:.9rem;color:var(--muted)}
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{padding:8px;border-bottom:1px solid var(--bd);text-align:left}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:#111;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  a{color:#0369a1}
+  .container{max-width:1200px;margin:0 auto;padding:0 16px}
+  header.navbar{position:sticky;top:0;background:#0f172a;color:#fff;border-bottom:3px solid #d4af37;z-index:40}
+  header .inner{display:flex;align-items:center;gap:16px;padding:10px 12px}
+  header .brand img{height:32px}
+  header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
+  .sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .banner{background:var(--chip);color:#111;border:1px solid #cfe8d7;border-radius:10px;padding:10px 14px;margin:18px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .chip{background:#bfe8c8;color:var(--chipText);border-radius:999px;padding:3px 10px;font-weight:800}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+  .card .hd{
+    padding:12px 16px;
+    border-bottom:1px dashed var(--bd);
+    font-weight:800;
+    position: sticky; top: 0; background: var(--card); z-index: 10;
+  }
+  .card .bd{padding:12px 16px}
+  .row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
+  .row:last-child{border-bottom:0}
+  .inputs .row label { line-height: 1.2; }
+  .inputs input[type="number"], .inputs input[type="text"]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;font:inherit}
+  .inputs .pill{background:#ecfeff;border:1px solid #bae6fd;border-radius:999px;padding:2px 8px;margin-left:8px;font-weight:700;color:#0f172a}
+  .inputs .included .pill{background:#eef2ff;border:1px solid #e5e7eb;color:#334155}
+  .qs{background:#fde68a20;border:1px solid #f59e0b50;border-radius:12px;padding:14px 16px;margin:16px 0}
+  .qs .qs-hd{font-weight:800;color:#7c2d12}
+  .qs .qs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .qs .qs-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:#ecfeff;border:1px solid #bae6fd;border-radius:12px;padding:10px;cursor:pointer;font-weight:700;color:#0f172a;text-align:center;font:inherit}
+  .qs .qs-btn small{font-weight:600;color:#475569}
+  .health{display:none;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+  .health.show{display:block}
+  .pkg{border-radius:14px;overflow:hidden;position:relative;scroll-snap-align:start}
+  .pkg .phd{background:#0b2940;color:#fff;padding:12px 14px;font-weight:800;display:flex;gap:8px;align-items:center;justify-content:space-between}
+  .pkg.winner{outline:3px solid #34d399;box-shadow:0 0 0 6px rgba(52,211,153,.15)}
+  .pkg.winner .phd{background:linear-gradient(135deg, #059669 0%, #10b981 100%)}
+  .pkg.winner::before{content:'🏆 Best Value';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#fbbf24;color:#78350f;padding:4px 12px;border-radius:999px;font-size:.8rem;font-weight:800;box-shadow:0 4px 12px rgba(251,191,36,.5)}
+  .pkg .pbd{padding:14px}
+  .pkg .muted{color:var(--muted);font-size:.9rem}
+  .pkg .save{font-weight:700;margin-top:6px;color:#059669}
+  .help{all:unset;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#0ea5e9;color:#fff;font-weight:800;line-height:1}
+  .tooltip{position:relative}
+  .tooltip [role="tooltip"]{position:absolute;inset:auto auto 100% 0;transform:translateY(-8px);background:#0f172a;color:#fff;padding:8px 10px;border-radius:8px;min-width:220px;box-shadow:0 6px 18px rgba(0,0,0,.2);font-size:.9rem;display:none;z-index:100}
+  .tooltip:focus-within [role="tooltip"], .tooltip:hover [role="tooltip"]{display:block}
+  #breakeven-wrap{margin-top:18px}
+  #breakeven-chart{width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px}
+  .controls-inline{display:flex;gap:10px;flex-wrap:wrap}
+  .badge{background:#fbbf24;color:#78350f;padding:4px 10px;border-radius:999px;font-weight:800}
+  .btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700}
+  .btn.ghost{background:#fff;color:#0f172a}
+  .small{font-size:.9rem;color:var(--muted)}
+  .table{width:100%;border-collapse:collapse}
+  .table th,.table td{padding:8px;border-bottom:1px solid var(--bd);text-align:left}
 
-/* --- Stepper Component CSS --- */
-.input-stepper{display:flex;align-items:center;justify-content:flex-end;gap:4px}
-.input-stepper .btn-step{all:unset;cursor:pointer;background:var(--bg);border:1px solid var(--bd);color:var(--ink);width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;line-height:1;user-select:none}
-.input-stepper .btn-step:hover,.input-stepper .btn-step:focus-visible{background:#e0f2fe;border-color:#0ea5e9;outline:none}
-.input-stepper input{width:45px !important;text-align:center;padding:6px 4px !important;-moz-appearance:textfield}
-.input-stepper input::-webkit-outer-spin-button,.input-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .input-stepper{display:flex;align-items:center;justify-content:flex-end;gap:4px}
+  .input-stepper .btn-step{all:unset;cursor:pointer;background:var(--bg);border:1px solid var(--bd);color:var(--ink);width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;line-height:1;user-select:none}
+  .input-stepper .btn-step:hover,.input-stepper .btn-step:focus-visible{background:#e0f2fe;border-color:#0ea5e9;outline:none}
+  .input-stepper input{width:45px !important;text-align:center;padding:6px 4px !important;-moz-appearance:textfield}
+  .input-stepper input::-webkit-outer-spin-button,.input-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
-/* --- Page Layout & Grid CSS --- */
-.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px}
-.row.row--stepper{grid-template-columns:1fr 140px}
+  .grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px}
+  .row.row--stepper{grid-template-columns:1fr 140px}
+  .inputs .row{align-items:start}
+  .inputs .row > :not(:first-child){justify-self:end}
 
-/* Guard: prevent anonymous text nodes from stretching rows */
-.inputs .row{align-items:start}
-.inputs .row > :not(:first-child){justify-self:end}
+  @media (max-width: 960px){
+    .grid{ grid-template-columns:1fr; }
+    .packages{ grid-template-columns:repeat(2, minmax(200px,1fr)); }
+    .row.row--stepper { grid-template-columns: 1fr 120px; }
+    .row { grid-template-columns: 1fr 110px; }
+  }
+  @media (max-width: 640px){
+    .packages{ grid-template-columns:1fr; }
+    .qs .qs-grid{ grid-template-columns:1fr; }
+  }
 
-@media (max-width: 960px){
-  .grid{ grid-template-columns:1fr; }
-  .packages{ grid-template-columns:repeat(2, minmax(200px,1fr)); }
-  .row.row--stepper { grid-template-columns: 1fr 120px; }
-  .row { grid-template-columns: 1fr 110px; }
-}
-@media (max-width: 640px){
-  .packages{ grid-template-columns:1fr; }
-  .qs .qs-grid{ grid-template-columns:1fr; }
-}
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#1a202c;--card:#2d3748;--bd:#4a5568;--muted:#a0aec0}
+    body{color:#e2e8f0}
+    .card{box-shadow:0 1px 4px rgba(0,0,0,.2)}
+    .card .hd { background: var(--card); }
+    .health{background:#92400e;border-color:#c05621;color:#feebc8}
+    .tooltip [role="tooltip"]{background:#2d3748;color:#e2e8f0}
+  }
 
-/* dark mode */
-@media (prefers-color-scheme: dark){
-  :root{--bg:#1a202c;--card:#2d3748;--bd:#4a5568;--muted:#a0aec0}
-  body{color:#e2e8f0}
-  .card{box-shadow:0 1px 4px rgba(0,0,0,.2)}
-  .card .hd { background: var(--card); }
-  .health{background:#92400e;border-color:#c05621;color:#feebc8}
-  .tooltip [role="tooltip"]{background:#2d3748;color:#e2e8f0}
-}
-     /* Prevent stray text nodes or anonymous blocks from stretching chart area */
-#breakeven-wrap {
-  position: relative;
-  overflow: hidden; /* stop empty blocks from expanding it */
-}
-#breakeven-wrap *:empty {
-  display: none !important; /* hide anonymous empty nodes */
-}
-    canvas { display: block; }
-    /* Kill baseline/whitespace line boxes in the chart wrapper */
-#breakeven-wrap {
-  position: relative;
-  line-height: 0;           /* ← key: prevents anonymous inline line height */
-  overflow: hidden;         /* keeps it tidy if anything slips through */
-}
+  /* chart/overflow hardening (newer overrides) */
+  #breakeven-wrap { position: relative; overflow: hidden; line-height: 0; }
+  #breakeven-wrap *:empty { display: none !important; }
+  #breakeven-wrap canvas { display:block; inline-size:100%; block-size:280px; }
+  img, canvas, svg, video { display:block; max-width:100%; height:auto; }
+  .packages { overflow-x: hidden; }
+  .pkg { overflow: hidden; position: relative; }
+  .pkg.winner::before { content: none; }
+  .pkg.winner .phd::after{
+    content:'🏆 Best Value'; margin-left:auto; background:#fbbf24; color:#78350f;
+    padding:4px 10px; border-radius:999px; font-size:.8rem; font-weight:800;
+  }
+  .tooltip [role="tooltip"]{ max-width: 280px; word-wrap: break-word; }
+  #breakeven-chart{ width:100% !important; max-width:100%; height:280px; }
 
-/* Make the canvas a block so it doesn’t sit on a text baseline */
-#breakeven-wrap canvas {
-  display: block;
-  inline-size: 100%;        /* width:100% with logical prop */
-  block-size: 280px;        /* matches your height attr; keeps aspect solid */
-}
+  /* force vertical stack for packages (mobile hardening) */
+  .packages{
+    display:grid; grid-template-columns: 1fr; gap:16px; margin-top:18px;
+    padding-inline:0; overflow-x: clip;
+  }
+  .pkg{ scroll-snap-align: none; }
+  .pkg.winner::before{ left:50%; transform:translateX(-50%); max-width:90%; white-space:nowrap; }
+  @media (max-width: 960px){ .packages{ grid-template-columns: 1fr; } }
+  @media (max-width: 640px){ .packages{ grid-template-columns: 1fr; } }
+  .container { overflow-x: clip; }
 
-/* Optional, but helps everywhere images/canvases live */
-img, canvas, svg, video { display:block; max-width:100%; height:auto; }
-    /* Keep packages contained and prevent horizontal scroll on narrow viewports */
-.packages { overflow-x: hidden; }
-
-/* Contain the winner badge so it doesn’t fly outside the card */
-.pkg { overflow: hidden; position: relative; }
-
-/* Move the badge inside the header instead of outside the card box */
-.pkg.winner::before { content: none; }
-.pkg.winner .phd::after{
-  content:'🏆 Best Value';
-  margin-left:auto;
-  background:#fbbf24; color:#78350f;
-  padding:4px 10px; border-radius:999px; font-size:.8rem; font-weight:800;
-}
-
-/* Tooltips shouldn’t push layout */
-.tooltip [role="tooltip"]{ max-width: 280px; word-wrap: break-word; }
-
-/* Chart should never force a wide layout */
-#breakeven-chart{ width:100% !important; max-width:100%; height:280px; }
-    /* --- Packages: force vertical stack, no horizontal scroll --- */
-.packages{
-  display:grid;
-  grid-template-columns: 1fr;   /* one card per row */
-  gap:16px;
-  margin-top:18px;
-  padding-inline:0;             /* no extra horizontal padding */
-  overflow-x: clip;             /* prevent sideways scrollbar */
-}
-
-/* remove any horizontal snapping that could push overflow */
-.pkg{ scroll-snap-align: none; }
-
-/* keep the winner badge from creating width overflow */
-.pkg.winner::before{
-  left:50%;
-  transform:translateX(-50%);
-  max-width: 90%;
-  white-space: nowrap;
-}
-
-/* make sure responsive overrides don't re-introduce columns */
-@media (max-width: 960px){
-  .packages{ grid-template-columns: 1fr; }
-}
-@media (max-width: 640px){
-  .packages{ grid-template-columns: 1fr; }
-}
-    .container { overflow-x: clip; }
-   
-/* --- Break-Even Monitor Styles --- */
-.breakeven-monitor{
-  background: var(--bg);
-  border: 1px dashed var(--bd);
-  border-radius: 8px;
-  padding: 8px 10px;
-}
-.breakeven-monitor .small{
-  display:block;
-  margin:4px 0;
-  line-height:1.3;
-}
-@media (prefers-color-scheme: dark){
-  .breakeven-monitor{ background:#1a202c; }
-}
-
-
+  /* Break-Even Monitor Styles */
+  .breakeven-monitor{
+    background: var(--bg);
+    border: 1px dashed var(--bd);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+  .breakeven-monitor .small{ display:block; margin:4px 0; line-height:1.3; }
+  @media (prefers-color-scheme: dark){
+    .breakeven-monitor{ background:#1a202c; }
+  }
   </style>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-  <!-- Preload the shared math module and worker so the main app can start fast -->
+  <!-- Preload the shared math module and worker -->
   <link rel="modulepreload" href="/assets/js/drink-math.js?v=3.014.0">
   <link rel="preload" href="/assets/js/drink-worker.js?v=3.014.0" as="worker" />
 
-  <!-- Main app (expects /assets/js/drink-worker.js?v=3.014.0 to exist and be type: 'module') -->
+  <!-- Expose compute() for inline fallback BEFORE app boots -->
+  <script type="module">
+    import { compute } from "/assets/js/drink-math.js?v=3.014.0";
+    window.ITW_MATH = Object.assign({}, window.ITW_MATH || {}, { compute });
+  </script>
+
+  <!-- Main app -->
   <script src="/assets/js/drink-calculator.app.js?v=3.014.0" defer></script>
-  <span id="offline-chip" class="chip" style="display:none">Offline</span>
-<label for="currency-select" class="small" style="margin-left:auto">Currency</label>
-<select id="currency-select" class="btn ghost small" aria-label="Currency select">
-  <option>USD</option><option>GBP</option><option>EUR</option><option>CAD</option>
-  <option>AUD</option><option>INR</option><option>CNY</option><option>MXN</option><option>BRL</option>
-</select>
-<span id="currency-note" class="small"></span>
 </head>
 <body>
 <a href="#main" class="sr-only">Skip to main content</a>
@@ -285,6 +228,15 @@ img, canvas, svg, video { display:block; max-width:100%; height:auto; }
     </nav>
     <button class="itw-menu-btn btn ghost" aria-expanded="false" aria-controls="itw-primary-nav" style="margin-left:auto">Menu</button>
     <div class="small">v3.014.0</div>
+
+    <!-- Moved currency block into this header -->
+    <span id="offline-chip" class="chip" style="display:none">Offline</span>
+    <label for="currency-select" class="small">Currency</label>
+    <select id="currency-select" class="btn ghost small" aria-label="Currency select">
+      <option>USD</option><option>GBP</option><option>EUR</option><option>CAD</option>
+      <option>AUD</option><option>INR</option><option>CNY</option><option>MXN</option><option>BRL</option>
+    </select>
+    <span id="currency-note" class="small"></span>
   </div>
 </header>
 
@@ -487,13 +439,9 @@ img, canvas, svg, video { display:block; max-width:100%; height:auto; }
         </div>
 
         <div class="controls-inline" style="margin-top:12px">
-      
-<!-- In drink-packages.html, inside the controls-inline under the chart -->
-<button class="btn" type="button" onclick="printResults()">Print / Save Results</button>
-<button class="btn ghost" type="button" onclick="shareScenario()">Share Scenario</button>
-<button class="btn" type="button" onclick="resetInputs()" style="background:var(--bad)">Reset All</button>
-
-
+          <button class="btn" type="button" onclick="printResults()">Print / Save Results</button>
+          <button class="btn ghost" type="button" onclick="shareScenario()">Share Scenario</button>
+          <button class="btn" type="button" onclick="resetInputs()" style="background:var(--bad)">Reset All</button>
         </div>
       </div>
     </section>
@@ -539,9 +487,12 @@ img, canvas, svg, video { display:block; max-width:100%; height:auto; }
               <p class="muted"><strong data-pkg-price="refresh">$34.00/day</strong> <span class="small">range $29–$38</span></p>
               <p class="small">Included value: <strong data-inc="refresh">$0.00/day</strong></p>
               <p class="save small" data-saves="refresh" hidden></p>
+
+              <!-- Moved monitor ABOVE the edit controls for consistency -->
+              <div class="breakeven-monitor" id="refresh-breakeven" aria-live="polite" style="margin-top:10px;"></div>
+
               <div class="controls-inline" style="margin-top:6px">
                 <button class="btn ghost" type="button" onclick="togglePriceEdit('refresh')">📝 Edit price…</button>
-                <div class="breakeven-monitor" id="refresh-breakeven" aria-live="polite" style="margin-top:10px;"></div>
                 <form class="controls-inline small" id="edit-refresh" hidden onsubmit="return false;">
                   <label>$/day</label>
                   <input type="number" step="0.01" min="0" value="34.00" id="edit-refresh-val" style="width:90px">
