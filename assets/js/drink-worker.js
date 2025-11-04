@@ -1,4 +1,4 @@
-/* drink-worker.js — v3.014.0 (module worker, last-message-wins, safe fallbacks) */
+/* drink-worker.js — v.9.000.002 (module worker, last-message-wins, safe fallbacks) */
 
 /* ------------------------- Versioned import ------------------------- */
 // Derive version query (?v=...) from the worker URL so we import the same math version.
