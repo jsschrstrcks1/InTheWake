@@ -1,6 +1,6 @@
-/* sw.js — In the Wake Service Worker (v20.1a) */
+/* sw.js — In the Wake Service Worker (v20.2) */
 
-const SW_VERSION = "v20.1a";
+const SW_VERSION = "v20.2";
 const PREFIX = "itw";
 const OFFLINE_URL = "/offline.html";
 
@@ -85,6 +85,8 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
 
   const url = new URL(req.url);
+
+  // Same-origin only (keep SW tight to your site)
   if (url.origin !== location.origin) return;
 
   // Health probe
@@ -98,6 +100,18 @@ self.addEventListener("fetch", (event) => {
     })());
     return;
   }
+
+  /* ---------- Drinks calculator: force network for live data/APIs ---------- */
+  // Keep the calculator's pricing JSON + FX endpoints OUT of SW caches.
+  // Your app handles offline/fallback UX; SW should not serve stale data here.
+  if (
+    url.pathname.endsWith('/assets/data/lines/royal-caribbean.json') ||
+    url.hostname.includes('frankfurter.app') ||
+    url.hostname.includes('exchangerate.host')
+  ) {
+    return; // passthrough to network (no respondWith) -> normal fetch behavior
+  }
+  /* ------------------------------------------------------------------------ */
 
   const dest = req.destination || "";
 
