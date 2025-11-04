@@ -166,7 +166,7 @@ export function compute(inputs, economics, dataset) {
   const adults = clamp(inputs?.adults, 1, 20) || 1;
   const minors = clamp(inputs?.minors, 0, 20) || 0;
 
-  // Drinks (normalize)
+    // Drinks (normalize)
   const drinks = {};
   for (const k of keys) {
     const v = inputs?.drinks?.[k];
@@ -175,14 +175,39 @@ export function compute(inputs, economics, dataset) {
       : Math.max(0, toNum(v));
   }
 
-  // Build min/mean/max lists and apply weighting
-  const base = keys.map(k => [k, drinks[k]]);
-  const hasRange = base.some(([, v]) => v && typeof v === 'object');
+  // --- Build per-day base list (supports itinerary mode) ---
+  let base;
+  let hasRange;
+
+  const isItinerary = (inputs?.calcMode === 'itinerary') &&
+                      Array.isArray(inputs?.itinerary) &&
+                      inputs.itinerary.length > 0;
+
+  if (isItinerary) {
+    // Sum each day's quantities, then average back to per-day
+    const totals = Object.fromEntries(keys.map(k => [k, 0]));
+    for (const day of inputs.itinerary) {
+      for (const k of keys) {
+        totals[k] += toNum(day?.drinks?.[k]);
+      }
+    }
+    const denom = Math.max(1, (inputs?.itinerary?.length || 0));
+    base = keys.map(k => [k, totals[k] / denom]);
+    hasRange = false; // day-by-day entries are scalar
+  } else {
+    base = keys.map(k => [k, drinks[k]]);
+    hasRange = base.some(([, v]) => v && typeof v === 'object');
+  }
+
+  // Build min/mean/max lists and apply weighting unless itinerary
   const lists = ['min', 'mean', 'max'].map(mode => {
     const L = base.map(([k, v]) => [k, scalarize(v, mode)]);
-    return applyWeight(L, days, seaDays, seaApply, seaWeight);
+    return isItinerary
+      ? L
+      : applyWeight(L, days, seaDays, seaApply, seaWeight);
   });
   const [minL, meanL, maxL] = lists;
+
 
   // --- Totals ---
   const alcMin = round2(alcTotal(minL, dsPrices, grat));
