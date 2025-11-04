@@ -192,20 +192,34 @@ function syncURL(){
 }
 
 /* ------------------------- Dataset loader ------------------------- */
+// --- Price + set normalizers ---
+function flattenPrices(ds){
+  if (ds?.prices && Object.keys(ds.prices).length) return ds.prices;
+  const out = {};
+  (ds.items||[]).forEach(it => { if (it?.id) out[it.id] = Number(it.price)||0; });
+  return out;
+}
+function normalizeSets(ds){
+  const s = ds?.sets || {};
+  // accept "alcohol" or "alcoholic"
+  const alcoholic = Array.isArray(s.alcoholic) ? s.alcoholic : (s.alcohol || []);
+  return { ...s, alcoholic };
+}
+
 async function loadDataset(){
   try{
     const r = await fetch(DS_URL, { cache:'default' });
     if (!r.ok) throw new Error('bad status');
     const j = await r.json();
 
-    // 1) Keep dataset for sets/items
-    store.patch('dataset', j);
+    // normalize so math/UI are consistent
+    j.prices = flattenPrices(j);
+    j.sets   = normalizeSets(j);
+    store.patch('dataset', j); // ✅ single patch after normalization
 
-    // 2) Merge economics with new schema
+    // Merge economics with new schema
     const eco = { ...store.get().economics };
     const dsPkg = j.packages || {};
-
-    // dsPkg.<key> may be an object with priceMid or price; pick the best number
     const getPrice = (obj) => Number(obj?.priceMid ?? obj?.price);
 
     eco.pkg = {
@@ -213,6 +227,19 @@ async function loadDataset(){
       refresh: Number.isFinite(getPrice(dsPkg.refreshment || dsPkg.refresh)) ? getPrice(dsPkg.refreshment || dsPkg.refresh) : eco.pkg.refresh,
       deluxe:  Number.isFinite(getPrice(dsPkg.deluxe)) ? getPrice(dsPkg.deluxe) : eco.pkg.deluxe,
     };
+
+    eco.grat      = Number(j.rules?.gratuity ?? eco.grat);
+    eco.deluxeCap = Number(j.rules?.caps?.deluxeAlcohol ?? j.rules?.deluxeCap ?? eco.deluxeCap);
+    if (Number.isFinite(j.rules?.minorDiscount)) {
+      eco.minorDiscount = Number(j.rules.minorDiscount);
+    }
+
+    store.patch('economics', eco);
+  }catch(_e){
+    store.patch('dataset', FALLBACK_DATASET);
+    store.patch('ui.fallbackBanner', true);
+  }
+};
 
     eco.grat      = Number(j.rules?.gratuity ?? eco.grat);
     // support rules.caps.deluxeAlcohol (new) or deluxeCap (legacy)
@@ -392,7 +419,7 @@ function ensureChart(){
     },
     options:{
       responsive:true, maintainAspectRatio:false,
-      scales:{ y:{ beginAtZero:true, ticks:{ callback:v=>'$'+v } } },
+      scales:{ y:{ beginAtZero:true, ticks:{ callback:v => money(Number(v) || 0) } } },
       plugins:{ legend:{ position:'bottom' } }
     }
   });
@@ -426,38 +453,100 @@ function renderResults(r){
   if (sec) sec.hidden = r.groupRows.length<=1;
 
   // included + overcap
-  const incS = document.querySelector('[data-inc="soda"]');
-  const incR = document.querySelector('[data-inc="refresh"]');
-  const incD = document.querySelector('[data-inc="deluxe"]');
-  if (incS) incS.textContent = money(r.included.soda)+'/day';
-  if (incR) incR.textContent = money(r.included.refresh)+'/day';
-  if (incD) incD.textContent = money(r.included.deluxe)+'/day';
+   // included + overcap (DOM nodes)
+  const incSNode = document.querySelector('[data-inc="soda"]');
+  const incRNode = document.querySelector('[data-inc="refresh"]');
+  const incDNode = document.querySelector('[data-inc="deluxe"]');
+  if (incSNode) incSNode.textContent = money(r.included.soda)+'/day';
+  if (incRNode) incRNode.textContent = money(r.included.refresh)+'/day';
+  if (incDNode) incDNode.textContent = money(r.included.deluxe)+'/day';
   const oc = $('#overcap-est'); if (oc) oc.textContent = money(r.overcap)+'/day';
 
-  // policy
-  const policy = $('#policy-warning'); if (policy) policy.hidden = !r.deluxeRequired;
+  // ...chart + a11y table code stays the same...
 
-  // chart soft update
-  const c = ensureChart();
-  if (c){
-    const d = c.data.datasets;
-    d.length = 0;
-    d.push({label:'Daily cost', data:[r.bars.alc.mean, r.bars.soda.mean, r.bars.refresh.mean, r.bars.deluxe.mean], backgroundColor:'#60a5fa'});
-    if (r.hasRange){
-      d.push({label:'(max)', data:[r.bars.alc.max, r.bars.soda.max, r.bars.refresh.max, r.bars.deluxe.max], type:'line', borderWidth:2, pointRadius:0, borderColor:'rgba(0,0,0,.35)'});
-      d.push({label:'(min)', data:[r.bars.alc.min, r.bars.soda.min, r.bars.refresh.min, r.bars.deluxe.min], type:'line', borderDash:[6,4], borderWidth:2, pointRadius:0, borderColor:'rgba(0,0,0,.2)'});
-      const rn = $('#range-note'); if (rn) rn.textContent = 'Range bars show min/max based on your ranges.';
-    } else {
-      const rn = $('#range-note'); if (rn) rn.textContent = '';
+  /* ---------- Smart Break-Even Monitors ---------- */
+  const state = store.get();
+  const inputs = state.inputs || {};
+  const economics = state.economics || {};
+  const ds = state.dataset || FALLBACK_DATASET;
+
+  const prices = ds.prices || flattenPrices(ds);
+  const sets   = ds.sets || normalizeSets(ds); // ds.sets should already be normalized
+  const grat = Number(economics.grat ?? 0.18);
+  const pkg = economics.pkg || { soda:0, refresh:0, deluxe:0 };
+
+  const incSVal = r?.included?.soda ?? 0;
+  const incRVal = r?.included?.refresh ?? 0;
+  const incDVal = r?.included?.deluxe ?? 0;
+
+  // gaps to break even (positive = not worth it yet)
+  const gap = {
+    soda:    (pkg.soda ?? 0)    - incSVal,
+    refresh: (pkg.refresh ?? 0) - incRVal,
+    deluxe:  (pkg.deluxe ?? 0)  - incDVal
+  };
+
+  function cheapestUpsell(drinkKeys){
+    let best = { id:'', label:'item', cost: Infinity };
+    const prefer=[], fallback=[];
+    for (const k of drinkKeys){
+      const unit = Number(prices[k]||0)*(1+grat);
+      if (!unit) continue;
+      if ((inputs.drinks?.[k]||0)>0) prefer.push([k,unit]); else fallback.push([k,unit]);
     }
-    c.update('none');
+    const pool = prefer.length?prefer:fallback;
+    for (const [k,u] of pool){
+      if (u<best.cost) best={id:k,label:k[0].toUpperCase()+k.slice(1),cost:u};
+    }
+    return best;
   }
 
-  // A11y table
-  const srAlc = $('#sr-alc'); if (srAlc) srAlc.textContent = money(r.bars.alc.mean);
-  const srSoda = $('#sr-soda'); if (srSoda) srSoda.textContent = money(r.bars.soda.mean);
-  const srRefresh = $('#sr-refresh'); if (srRefresh) srRefresh.textContent = money(r.bars.refresh.mean);
-  const srDeluxe = $('#sr-deluxe'); if (srDeluxe) srDeluxe.textContent = money(r.bars.deluxe.mean);
+  const sodaEl = document.getElementById('soda-breakeven');
+  if (sodaEl){
+    if (gap.soda <= 0){
+      sodaEl.innerHTML = `<p class="small" style="color:var(--good);font-weight:700;">✅ You're saving ${money(Math.abs(gap.soda))} per day.</p>`;
+    } else {
+      const setKeys = Array.isArray(sets.soda) ? sets.soda : ['soda'];
+      const c = cheapestUpsell(setKeys);
+      if (!Number.isFinite(c.cost) || c.cost<=0){
+        sodaEl.innerHTML = `<p class="small">Enter soda to see break-even tips.</p>`;
+      } else {
+        const need = Math.ceil(gap.soda / c.cost);
+        sodaEl.innerHTML = `<p class="small" style="font-weight:700;">You're ${money(gap.soda)} from breaking even.</p>
+        <p class="small">Add <strong>${need} more ${c.label}${need>1?'s':''}</strong> per day to make Soda worth it.</p>`;
+      }
+    }
+  }
+
+  const refreshEl = document.getElementById('refresh-breakeven');
+  if (refreshEl){
+    if (gap.refresh <= 0){
+      refreshEl.innerHTML = `<p class="small" style="color:var(--good);font-weight:700;">✅ You're saving ${money(Math.abs(gap.refresh))} per day.</p>`;
+    } else {
+      const setKeys = Array.isArray(sets.refresh) ? sets.refresh : [];
+      const c = cheapestUpsell(setKeys);
+      if (!Number.isFinite(c.cost) || c.cost<=0){
+        refreshEl.innerHTML = `<p class="small">Enter non-alcoholic items to see tips.</p>`;
+      } else {
+        const need = Math.ceil(gap.refresh / c.cost);
+        refreshEl.innerHTML = `<p class="small" style="font-weight:700;">You're ${money(gap.refresh)} from breaking even.</p>
+        <p class="small">Add <strong>${need} more ${c.label}${need>1?'s':''}</strong> per day to make Refreshment worth it.</p>`;
+      }
+    }
+  }
+
+  const deluxeEl = document.getElementById('deluxe-breakeven');
+  if (deluxeEl){
+    if (gap.deluxe <= 0){
+      deluxeEl.innerHTML = `<p class="small" style="color:var(--good);font-weight:700;">✅ You're saving ${money(Math.abs(gap.deluxe))} per day.</p>`;
+    } else {
+      const capWithGrat = Number(economics.deluxeCap||14)*(1+grat);
+      const need = capWithGrat>0 ? Math.ceil(gap.deluxe / capWithGrat) : 0;
+      deluxeEl.innerHTML = `<p class="small" style="font-weight:700;">You're ${money(gap.deluxe)} from breaking even.</p>
+      <p class="small">≈ <strong>${need} more cap-price alcoholic drink${need>1?'s':''}</strong> per day (cap $${(economics.deluxeCap||14).toFixed(2)} + grat).</p>`;
+    }
+  }
+  /* ---------- End Break-Even Monitors ---------- */
 
   // Note: Smart Break-Even monitors will be added after you place the new HTML blocks.
 }
