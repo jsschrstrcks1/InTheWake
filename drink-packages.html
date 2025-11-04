@@ -171,6 +171,22 @@ header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
   display: none !important; /* hide anonymous empty nodes */
 }
     canvas { display: block; }
+    /* Kill baseline/whitespace line boxes in the chart wrapper */
+#breakeven-wrap {
+  position: relative;
+  line-height: 0;           /* ← key: prevents anonymous inline line height */
+  overflow: hidden;         /* keeps it tidy if anything slips through */
+}
+
+/* Make the canvas a block so it doesn’t sit on a text baseline */
+#breakeven-wrap canvas {
+  display: block;
+  inline-size: 100%;        /* width:100% with logical prop */
+  block-size: 280px;        /* matches your height attr; keeps aspect solid */
+}
+
+/* Optional, but helps everywhere images/canvases live */
+img, canvas, svg, video { display:block; max-width:100%; height:auto; }
   </style>
 
   <!-- Chart.js -->
