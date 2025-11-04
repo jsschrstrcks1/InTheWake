@@ -1,7 +1,7 @@
-/* drink-calculator.app.js — v3.014.0 (Worker-enabled, Offline-First FX) */
+/* drink-calculator.app.js — v.9.000.003 (Worker-enabled, Offline-First FX) */
 
 /* ------------------------- Config ------------------------- */
-const VERSION = 'v.9.000.002';
+const VERSION = 'v.9.000.003';
 // ---------- Sanitize and clamp utilities ----------
 function num(v) {
   const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d. -]/g, ''));
