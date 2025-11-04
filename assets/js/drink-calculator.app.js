@@ -1,7 +1,7 @@
 /* drink-calculator.app.js — v3.014.0 (Worker-enabled, Offline-First FX) */
 
 /* ------------------------- Config ------------------------- */
-const VERSION = '3.014.0';
+const VERSION = '.9.000.001';
 // ---------- Sanitize and clamp utilities ----------
 function num(v) {
   const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d. -]/g, ''));
@@ -229,6 +229,7 @@ async function loadDataset(){
     };
 
     eco.grat      = Number(j.rules?.gratuity ?? eco.grat);
+    // support rules.caps.deluxeAlcohol (new) or deluxeCap (legacy)
     eco.deluxeCap = Number(j.rules?.caps?.deluxeAlcohol ?? j.rules?.deluxeCap ?? eco.deluxeCap);
     if (Number.isFinite(j.rules?.minorDiscount)) {
       eco.minorDiscount = Number(j.rules.minorDiscount);
@@ -238,6 +239,67 @@ async function loadDataset(){
   }catch(_e){
     store.patch('dataset', FALLBACK_DATASET);
     store.patch('ui.fallbackBanner', true);
+  }
+}
+
+/* ------------------------- FX (display-only) ------------------------- */
+const FX_KEY = 'itw:fx:v1';
+const FX_MAX_AGE_MS = 12 * 60 * 60 * 1000; // 12h refresh
+const FX_STALE_MS   = 48 * 60 * 60 * 1000; // 48h = warn stale
+const SUPPORTED_CCYS = ['USD','GBP','EUR','CAD','AUD','INR','CNY','MXN','BRL'];
+
+let currentCurrency = (localStorage.getItem('itw:currency') || 'USD').toUpperCase();
+if (!SUPPORTED_CCYS.includes(currentCurrency)) currentCurrency = 'USD';
+
+let FX = { base:'USD', asOf:null, source:null, rates:{ USD:1 }, _ts:null };
+
+async function fetchFrankfurter(){
+  const to = SUPPORTED_CCYS.filter(c=>c!=='USD').join(',');
+  const url = `https://api.frankfurter.app/latest?from=USD&to=${encodeURIComponent(to)}`;
+  const r = await fetch(url, { cache:'no-store' });
+  if (!r.ok) throw new Error('Frankfurter failed');
+  const j = await r.json();
+  const rates = Object.assign({ USD:1 }, j && j.rates ? j.rates : {});
+  return { base: (j && j.base) || 'USD', asOf: j && j.date, source:'ECB (Frankfurter)', rates };
+}
+async function fetchHost(){
+  const to = SUPPORTED_CCYS.filter(c=>c!=='USD').join(',');
+  const url = `https://api.exchangerate.host/latest?base=USD&symbols=${encodeURIComponent(to)}`;
+  const r = await fetch(url, { cache:'no-store' });
+  if (!r.ok) throw new Error('exchangerate.host failed');
+  const j = await r.json();
+  const rates = Object.assign({ USD:1 }, j && j.rates ? j.rates : {});
+  return { base: (j && j.base) || 'USD', asOf: j && j.date, source:'ECB (exchangerate.host)', rates };
+}
+function safeJSON(s){ try { return JSON.parse(s||''); } catch { return null; } }
+
+async function loadFx() {
+  const cached = safeJSON(localStorage.getItem(FX_KEY));
+
+  if (isOffline()) {
+    if (cached) { FX = cached; renderFxNote(true); }
+    else { FX = { base:'USD', asOf:null, source:'USD only (offline)', rates:{USD:1}, _ts:null }; renderFxNote(true); }
+    return;
+  }
+
+  const freshEnough = cached && (Date.now() - new Date(cached._ts||0).getTime() < FX_MAX_AGE_MS);
+  if (freshEnough) { FX = cached; renderFxNote(); }
+
+  try {
+    const latest = await fetchFrankfurter();
+    FX = { ...latest, _ts: new Date().toISOString() };
+    localStorage.setItem(FX_KEY, JSON.stringify(FX));
+    renderFxNote();
+  } catch {
+    try {
+      const fallback = await fetchHost();
+      FX = { ...fallback, _ts: new Date().toISOString() };
+      localStorage.setItem(FX_KEY, JSON.stringify(FX));
+      renderFxNote();
+    } catch {
+      if (cached) { FX = cached; renderFxNote(true); }
+      else { FX = { base:'USD', asOf:null, source:'USD only', rates:{USD:1}, _ts:null }; renderFxNote(true); }
+    }
   }
 }
 
