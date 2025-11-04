@@ -313,6 +313,22 @@
             <input id="input-minors" type="text" inputmode="numeric" value="0" data-input="minors" aria-label="Number of minors">
           </div>
         </fieldset>
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+  <legend style="font-weight:800;padding:0 6px">Calculation Mode</legend>
+  <div class="controls-inline">
+    <label class="small">
+      <input type="radio" name="calc-mode" id="mode-simple" value="simple" checked>
+      Use Daily Averages
+    </label>
+    <label class="small">
+      <input type="radio" name="calc-mode" id="mode-itinerary" value="itinerary">
+      Plan Day-by-Day
+    </label>
+  </div>
+</fieldset>
+
+<!-- Built dynamically when “itinerary” is selected -->
+<div id="itinerary-inputs" style="display:none; margin-top: 12px;"></div>
 
         <div class="row row--stepper">
           <label for="input-soda">Soda per day <small class="pill" data-price-pill="soda"></small></label>
