@@ -135,7 +135,6 @@ header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
 
 /* --- Page Layout & Grid CSS --- */
 .grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px}
-.packages{display:grid;grid-template-columns:repeat(3, minmax(220px,1fr));gap:16px;margin-top:18px;overflow:visible;padding-inline:8px}
 .row.row--stepper{grid-template-columns:1fr 140px}
 
 /* Guard: prevent anonymous text nodes from stretching rows */
@@ -207,6 +206,35 @@ img, canvas, svg, video { display:block; max-width:100%; height:auto; }
 
 /* Chart should never force a wide layout */
 #breakeven-chart{ width:100% !important; max-width:100%; height:280px; }
+    /* --- Packages: force vertical stack, no horizontal scroll --- */
+.packages{
+  display:grid;
+  grid-template-columns: 1fr;   /* one card per row */
+  gap:16px;
+  margin-top:18px;
+  padding-inline:0;             /* no extra horizontal padding */
+  overflow-x: clip;             /* prevent sideways scrollbar */
+}
+
+/* remove any horizontal snapping that could push overflow */
+.pkg{ scroll-snap-align: none; }
+
+/* keep the winner badge from creating width overflow */
+.pkg.winner::before{
+  left:50%;
+  transform:translateX(-50%);
+  max-width: 90%;
+  white-space: nowrap;
+}
+
+/* make sure responsive overrides don't re-introduce columns */
+@media (max-width: 960px){
+  .packages{ grid-template-columns: 1fr; }
+}
+@media (max-width: 640px){
+  .packages{ grid-template-columns: 1fr; }
+}
+    .container { overflow-x: clip; }
   </style>
 
   <!-- Chart.js -->
