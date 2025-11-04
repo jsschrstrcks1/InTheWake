@@ -2,6 +2,15 @@
 
 /* ------------------------- Config ------------------------- */
 const VERSION = '3.014.0';
+// ---------- Sanitize and clamp utilities ----------
+function num(v) {
+  const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d. -]/g, ''));
+  return Number.isFinite(n) ? n : 0;
+}
+
+function clamp(n, lo, hi) {
+  return Math.min(hi, Math.max(lo, n));
+}
 const USE_WORKER = true; // ✅ enable worker by default
 const WORKER_URL = `/assets/js/drink-worker.js?v=${VERSION}`;
 const DS_URL = `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
@@ -442,7 +451,8 @@ function renderEconomics(){
   if (pS) pS.textContent = money(economics.pkg.soda)+'/day';
   if (pR) pR.textContent = money(economics.pkg.refresh)+'/day';
   if (pD) pD.textContent = money(economics.pkg.deluxe)+'/day';
-  const cap = $('#cap-badge'); if (cap) cap.textContent = economics.deluxeCap.toFixed(2);
+  const cap = $('#cap-badge'); 
+  if (cap) cap.textContent = `$${economics.deluxeCap.toFixed(2)}`; // <-- add $
 }
 
 function renderPricePills(){
@@ -454,51 +464,103 @@ function renderPricePills(){
 }
 
 /* ------------------------- Inputs & UI Wiring ------------------------- */
-const debouncedInput = (fn, ms=250)=>{let t; return (...a)=>{clearTimeout(t); t=setTimeout(()=>fn(...a),ms);}};
-
 function wireInputs(){
-  // generic inputs using data-input
-  $$('[data-input]').forEach(inp=>{
+  // small debounce used for 'input' (live typing); we still do a full calc on 'change'
+  const debouncedInput = (fn, ms=250)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms);} };
+  // writer that sanitizes + clamps before patching store
+  function writeInput(inp, rawVal){
     const key = inp.dataset.input;
-    const writeInput = (val)=>{
-      if (key==='seaapply') store.patch('inputs.seaApply', Boolean(val));
-      else if (key==='days') store.patch('inputs.days', parseNum(val));
-      else if (key==='seadays') store.patch('inputs.seaDays', parseNum(val));
-      else if (key==='adults') store.patch('inputs.adults', parseNum(val));
-      else if (key==='minors') store.patch('inputs.minors', parseNum(val));
-      else if (key==='seaweight') store.patch('inputs.seaWeight', parseNum(val));
-      else store.patch(`inputs.drinks.${key}`, parseQty(String(val)));
+    const isCheckbox = inp.type === 'checkbox';
+
+    const num = (v)=>{
+      const n = parseFloat(String(v).replace(/[^\d.-]/g,''));
+      return Number.isFinite(n) ? n : 0;
     };
-    inp.addEventListener('input', e => {
-      const val = e.target.type==='checkbox' ? e.target.checked : e.target.value;
-      writeInput(val);
-      debouncedCalc();
-      if (key === 'seaweight') {
+    const clamp = (v, lo, hi)=> Math.min(hi, Math.max(lo, v));
+
+    const parsed = isCheckbox ? Boolean(rawVal) : num(rawVal);
+
+    switch (key) {
+      case 'seaapply':
+        store.patch('inputs.seaApply', parsed);
+        break;
+      case 'days': {
+        const days = clamp(Math.round(parsed), 1, 365);
+        store.patch('inputs.days', days);
+
+        // keep seaDays <= days if trip length shrinks
+        const s = store.get();
+        if ((s.inputs.seaDays ?? 0) > days) {
+          store.patch('inputs.seaDays', days);
+        }
+        break;
+      }
+
+      case 'seadays': {
+        const days = (store.get().inputs.days || 7);
+        const sea = clamp(Math.round(parsed), 0, days);
+        store.patch('inputs.seaDays', sea);
+        break;
+      }
+
+      case 'seaweight':
+        store.patch('inputs.seaWeight', clamp(parsed, 0, 40));
+        break;
+
+      case 'adults':
+        store.patch('inputs.adults', clamp(Math.round(parsed), 1, 20));
+        break;
+
+      case 'minors':
+        store.patch('inputs.minors', clamp(Math.round(parsed), 0, 20));
+        break;
+
+      default:
+        // per-drink inputs: never negative
+        store.patch(`inputs.drinks.${key}`, Math.max(0, parsed));
+        break;
+    }
+  }
+
+  // Hook all [data-input] controls once
+  $$('[data-input]').forEach(inp=>{
+    // live updates while typing/dragging
+    inp.addEventListener('input', (e)=>{
+      const val = (inp.type === 'checkbox') ? e.target.checked : e.target.value;
+      writeInput(inp, val);
+
+      // reflect seaweight slider label live
+      if (inp.dataset.input === 'seaweight') {
         const out = document.getElementById('sea-weight-val');
         if (out) out.textContent = `${parseNum(val)}%`;
       }
+
+      debouncedCalc();
     });
-    inp.addEventListener('change', e => {
-      writeInput(e.target.type==='checkbox' ? e.target.checked : e.target.value);
+
+    // commit: recompute, sync URL, persist
+    inp.addEventListener('change', (e)=>{
+      const val = (inp.type === 'checkbox') ? e.target.checked : e.target.value;
+      writeInput(inp, val);
       scheduleCalc();
       syncURL();
       persistNow();
     });
   });
 
-  // editable package prices
+  /* ---------- Editable package prices ---------- */
   window.togglePriceEdit = (which, cancel=false)=>{
     const form = document.getElementById(`edit-${which}`);
     if (!form) return;
     form.hidden = cancel ? true : !form.hidden;
     if (!form.hidden) form.querySelector('input')?.focus();
   };
+
   window.savePackagePrice = (which)=>{
     const el = document.getElementById(`edit-${which}-val`);
     const v = parseNum(el?.value);
-    if (v>0){
-      const eco = store.get().economics;
-      eco.pkg[which] = v;
+    if (v > 0){
+      const eco = { ...store.get().economics, pkg: { ...store.get().economics.pkg, [which]: v } };
       store.patch('economics', eco);
       window.togglePriceEdit(which, true);
       announce(`Updated ${which} to ${money(v)}/day`);
@@ -506,44 +568,60 @@ function wireInputs(){
     }
   };
 
-  // cap edit
+  /* ---------- Deluxe cap edit ---------- */
   window.toggleCapEdit = (cancel=false)=>{
     const f = $('#edit-cap');
     if (f){ f.hidden = cancel ? true : !f.hidden; if (!f.hidden) f.querySelector('input')?.focus(); }
   };
+
   window.saveCap = ()=>{
     const v = parseNum($('#edit-cap-val')?.value);
-    if (v>=0){
-      const eco = store.get().economics; eco.deluxeCap = v; store.patch('economics', eco);
-      window.toggleCapEdit(true); announce(`Updated deluxe cap to $${v.toFixed(2)}`); scheduleCalc(); persistNow();
+    if (v >= 0){
+      const eco = { ...store.get().economics, deluxeCap: v };
+      store.patch('economics', eco);
+      window.toggleCapEdit(true);
+      announce(`Updated deluxe cap to $${v.toFixed(2)}`);
+      scheduleCalc(); persistNow();
     }
   };
 
-  // reset
+  /* ---------- Reset ---------- */
   window.resetInputs = ()=>{
+    // reset inputs hard, keep dataset-driven defaults for prices if available
+    const ds = store.get().dataset || FALLBACK_DATASET;
     store.patch('inputs', structuredClone(initialState.inputs));
-    store.patch('economics', structuredClone({ ...initialState.economics,
-      pkg: { ...initialState.economics.pkg, ...((store.get().dataset||FALLBACK_DATASET).packages) }
-    }));
+    store.patch('economics', {
+      ...structuredClone(initialState.economics),
+      pkg: { ...initialState.economics.pkg, ...(ds.packages || {}) }
+    });
     scheduleCalc(); syncURL(); persistNow(); announce('All inputs reset');
   };
 
-  // print
+  /* ---------- Print ---------- */
   window.printResults = ()=> window.print();
 
-  // steppers
-  window.stepInput = (key, amount) => {
-    const state = store.get();
-    const currentDrinkVal = state.inputs.drinks[key];
-    let currentVal = (typeof currentDrinkVal === 'object') ? ((currentDrinkVal.min||0)+(currentDrinkVal.max||0))/2 : parseNum(String(currentDrinkVal));
-    let newVal = currentVal + amount; if (newVal < 0) newVal = 0;
-    const finalValStr = (amount === 0.5 || amount === -0.5 || (currentVal.toString().includes('.')))
-      ? newVal.toFixed(1) : newVal.toFixed(0);
-    store.patch(`inputs.drinks.${key}`, parseNum(finalValStr));
+  /* ---------- Steppers (supports ±0.5) ---------- */
+  window.stepInput = (key, amount)=>{
+    const s = store.get();
+    if (!s.inputs.drinks.hasOwnProperty(key)) return;
+
+    const cur = s.inputs.drinks[key];
+    const currentVal = (typeof cur === 'object')
+      ? ((Number(cur.min)||0) + (Number(cur.max)||0))/2
+      : parseNum(String(cur));
+
+    let next = currentVal + Number(amount || 0);
+    if (next < 0) next = 0;
+
+    // preserve halves for cocktails; otherwise snap to integer if not fractional
+    const needsHalf = (Math.abs(amount) === 0.5) || String(currentVal).includes('.');
+    const finalStr = needsHalf ? next.toFixed(1) : next.toFixed(0);
+
+    store.patch(`inputs.drinks.${key}`, parseNum(finalStr));
     scheduleCalc(); syncURL(); persistNow();
   };
 
-  // presets
+  /* ---------- Presets ---------- */
   window.loadPreset = (name)=>{
     const set = {
       light:    { beer:'1', wine:'1', soda:'1' },
@@ -551,23 +629,27 @@ function wireInputs(){
       heavy:    { beer:'3', cocktail:'3', spirits:'2', bottledwater:'2' },
       coffee:   { coffee:'4', soda:'0', beer:'0', wine:'0', cocktail:'0', spirits:'0' }
     }[name] || {};
+
     const next = structuredClone(store.get().inputs);
     Object.keys(next.drinks).forEach(k => next.drinks[k] = 0);
     Object.entries(set).forEach(([k,v])=> next.drinks[k] = parseQty(v));
+
     store.patch('inputs', next);
     scheduleCalc(); persistNow(); announce('Preset loaded: '+name);
   };
 
-  // jump to winner
+  /* ---------- Jump to best value ---------- */
   const jump = $('#jump-winner');
   if (jump) jump.addEventListener('click', ()=>{
     const el = document.querySelector('.pkg.winner') || document.querySelector('.packages');
-    el?.scrollIntoView({behavior:'smooth', block:'start'});
+    el?.scrollIntoView({ behavior:'smooth', block:'start' });
   });
 
-  // ESC closes tooltips
+  /* ---------- ESC closes tooltips ---------- */
   document.addEventListener('keydown', e=>{
-    if (e.key==='Escape'){ $$('.tooltip [role="tooltip"]').forEach(tt=>tt.style.display='none'); }
+    if (e.key === 'Escape'){
+      $$('.tooltip [role="tooltip"]').forEach(tt => tt.style.display = 'none');
+    }
   });
 }
 
