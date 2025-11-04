@@ -303,65 +303,6 @@ async function loadFx() {
   }
 }
 
-/* ------------------------- FX (display-only) ------------------------- */
-const FX_KEY = 'itw:fx:v1';
-const FX_MAX_AGE_MS = 12 * 60 * 60 * 1000; // 12h refresh
-const FX_STALE_MS   = 48 * 60 * 60 * 1000; // 48h = warn stale
-const SUPPORTED_CCYS = ['USD','GBP','EUR','CAD','AUD','INR','CNY','MXN','BRL'];
-
-let currentCurrency = (localStorage.getItem('itw:currency') || 'USD').toUpperCase();
-if (!SUPPORTED_CCYS.includes(currentCurrency)) currentCurrency = 'USD';
-
-let FX = { base:'USD', asOf:null, source:null, rates:{ USD:1 }, _ts:null };
-
-async function fetchFrankfurter(){
-  const to = SUPPORTED_CCYS.filter(c=>c!=='USD').join(',');
-  const url = `https://api.frankfurter.app/latest?from=USD&to=${encodeURIComponent(to)}`;
-  const r = await fetch(url, { cache:'no-store' });
-  if (!r.ok) throw new Error('Frankfurter failed');
-  const j = await r.json();
-  return { base:j.base||'USD', asOf:j.date, source:'ECB (Frankfurter)', rates:{ USD:1, ...(j.rates||{}) } };
-}
-async function fetchHost(){
-  const to = SUPPORTED_CCYS.filter(c=>c!=='USD').join(',');
-  const url = `https://api.exchangerate.host/latest?base=USD&symbols=${encodeURIComponent(to)}`;
-  const r = await fetch(url, { cache:'no-store' });
-  if (!r.ok) throw new Error('exchangerate.host failed');
-  const j = await r.json();
-  return { base:j.base||'USD', asOfj.date, source:'ECB (exchangerate.host)', rates:{ USD:1, ...(j.rates||{}) } };
-}
-function safeJSON(s){ try { return JSON.parse(s||''); } catch { return null; } }
-
-async function loadFx() {
-  const cached = safeJSON(localStorage.getItem(FX_KEY));
-
-  if (isOffline()) {
-    if (cached) { FX = cached; renderFxNote(true); }
-    else { FX = { base:'USD', asOf:null, source:'USD only (offline)', rates:{USD:1}, _ts:null }; renderFxNote(true); }
-    return;
-  }
-
-  const freshEnough = cached && (Date.now() - new Date(cached._ts||0).getTime() < FX_MAX_AGE_MS);
-  if (freshEnough) { FX = cached; renderFxNote(); }
-
-  try {
-    const latest = await fetchFrankfurter();
-    FX = { ...latest, _ts: new Date().toISOString() };
-    localStorage.setItem(FX_KEY, JSON.stringify(FX));
-    renderFxNote();
-  } catch {
-    try {
-      const fallback = await fetchHost();
-      FX = { ...fallback, _ts: new Date().toISOString() };
-      localStorage.setItem(FX_KEY, JSON.stringify(FX));
-      renderFxNote();
-    } catch {
-      if (cached) { FX = cached; renderFxNote(true); }
-      else { FX = { base:'USD', asOf:null, source:'USD only', rates:{USD:1}, _ts:null }; renderFxNote(true); }
-    }
-  }
-}
-
 function convertUSD(amount, to = currentCurrency){
   const r = (FX.rates && FX.rates[to]) || 1;
   return amount * r;
