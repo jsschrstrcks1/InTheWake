@@ -1,4 +1,4 @@
-/* drink-math.js — v.9.000.002 (shared pure math, schema-adaptive & hardened) */
+/* drink-math.js — v.9.000.003 (shared pure math, schema-adaptive & hardened) */
 
 /* ------------------------- tiny utils ------------------------- */
 const toNum = (v) => {
