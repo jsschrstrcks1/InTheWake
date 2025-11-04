@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="version" content=".9.000.001" />
+  <meta name="version" content="v.9.000.002" />
 
   <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
   <meta name="description" content="Free Royal Caribbean drink calculator with break-even chart, sea/port weighting, and transparent price assumptions. Compare Soda, Refreshment, and Deluxe vs. à-la-carte." />
@@ -203,17 +203,17 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
   <!-- Preload the shared math module and worker -->
-  <link rel="modulepreload" href="/assets/js/drink-math.js?v=.9.000.001">
-  <link rel="preload" href="/assets/js/drink-worker.js?v=.9.000.001" as="worker" />
+  <link rel="modulepreload" href="/assets/js/drink-math.js?v=v.9.000.002">
+  <link rel="preload" href="/assets/js/drink-worker.js?v=v.9.000.002" as="worker" />
 
   <!-- Expose compute() for inline fallback BEFORE app boots -->
   <script type="module">
-    import { compute } from "/assets/js/drink-math.js?v=.9.000.001";
+    import { compute } from "/assets/js/drink-math.js?v=v.9.000.002";
     window.ITW_MATH = Object.assign({}, window.ITW_MATH || {}, { compute });
   </script>
 
   <!-- Main app -->
-  <script src="/assets/js/drink-calculator.app.js?v=.9.000.001" defer></script>
+  <script src="/assets/js/drink-calculator.app.js?v=v.9.000.002" defer></script>
 </head>
 <body>
 <a href="#main" class="sr-only">Skip to main content</a>
@@ -227,7 +227,7 @@
       <a class="itw-nav__link" href="/about/">About</a>
     </nav>
     <button class="itw-menu-btn btn ghost" aria-expanded="false" aria-controls="itw-primary-nav" style="margin-left:auto">Menu</button>
-    <div class="small">v.9.000.001</div>
+    <div class="small">vv.9.000.002</div>
 
     <!-- Moved currency block into this header -->
     <span id="offline-chip" class="chip" style="display:none">Offline</span>
