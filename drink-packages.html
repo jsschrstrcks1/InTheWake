@@ -122,7 +122,7 @@ header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
 .badge{background:#fbbf24;color:#78350f;padding:4px 10px;border-radius:999px;font-weight:800}
 .btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700}
 .btn.ghost{background:#fff;color:#0f172a}
-.small{font-size:.9rem;color:#muted}
+.small{font-size:.9rem;color:var(--muted)}
 .table{width:100%;border-collapse:collapse}
 .table th,.table td{padding:8px;border-bottom:1px solid var(--bd);text-align:left}
 
@@ -162,6 +162,15 @@ header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
   .health{background:#92400e;border-color:#c05621;color:#feebc8}
   .tooltip [role="tooltip"]{background:#2d3748;color:#e2e8f0}
 }
+     /* Prevent stray text nodes or anonymous blocks from stretching chart area */
+#breakeven-wrap {
+  position: relative;
+  overflow: hidden; /* stop empty blocks from expanding it */
+}
+#breakeven-wrap *:empty {
+  display: none !important; /* hide anonymous empty nodes */
+}
+    canvas { display: block; }
   </style>
 
   <!-- Chart.js -->
