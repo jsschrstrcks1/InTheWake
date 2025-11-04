@@ -127,7 +127,8 @@ const initialState = {
   },
   ui: {
     fallbackBanner: false,
-    chartReady: false
+    chartReady: false,
+    fxDriftPct: 0   // 👈 added line — simulates exchange-rate drift %
   }
 };
 
