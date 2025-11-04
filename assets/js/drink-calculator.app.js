@@ -91,23 +91,23 @@ function createStore(initial){
 const initialState = {
   version: VERSION,
   dataset: null,
- inputs: {
-  days: 7,
-  seaDays: 3,
-  seaApply: true,
-  seaWeight: 20,
-  adults: 1,
-  minors: 0,
+  inputs: {
+    days: 7,
+    seaDays: 3,
+    seaApply: true,
+    seaWeight: 20,
+    adults: 1,
+    minors: 0,
 
-  // [NEW]
-  calcMode: 'simple', // 'simple' or 'itinerary'
-  itinerary: [],      // [{ day:1, type:'sea', drinks:{...}}]
+    // [NEW]
+    calcMode: 'simple', // 'simple' or 'itinerary'
+    itinerary: [],      // [{ day:1, type:'sea', drinks:{...}}]
 
-  drinks: {
-    soda: 0, coffee: 0, teaprem: 0, freshjuice: 0, mocktail: 0, energy: 0,
-    milkshake: 0, bottledwater: 0, beer: 0, wine: 0, cocktail: 0, spirits: 0
-  }
-},
+    drinks: {
+      soda: 0, coffee: 0, teaprem: 0, freshjuice: 0, mocktail: 0, energy: 0,
+      milkshake: 0, bottledwater: 0, beer: 0, wine: 0, cocktail: 0, spirits: 0
+    }
+  },
   economics: {
     pkg: { soda: 13.99, refresh: 34.0, deluxe: 85.0 },
     grat: 0.18,
@@ -128,7 +128,7 @@ const initialState = {
   ui: {
     fallbackBanner: false,
     chartReady: false,
-    fxDriftPct: 0   // 👈 added line — simulates exchange-rate drift %
+    fxDriftPct: 0   // 👈 simulates exchange-rate drift %
   }
 };
 
@@ -198,7 +198,6 @@ function syncURL(){
 }
 
 /* ------------------------- Dataset loader ------------------------- */
-// --- Price + set normalizers ---
 function flattenPrices(ds){
   if (ds?.prices && Object.keys(ds.prices).length) return ds.prices;
   const out = {};
@@ -207,7 +206,6 @@ function flattenPrices(ds){
 }
 function normalizeSets(ds){
   const s = ds?.sets || {};
-  // accept "alcohol" or "alcoholic"
   const alcoholic = Array.isArray(s.alcoholic) ? s.alcoholic : (s.alcohol || []);
   return { ...s, alcoholic };
 }
@@ -218,15 +216,12 @@ async function loadDataset(){
     if (!r.ok) throw new Error('bad status');
     const j = await r.json();
 
-    // report pricing fetch to the info drawer
     window.itwInfo?.update({ pricingResponse: r, pricingSource: '/assets/data/lines/royal-caribbean.json' });
 
-    // normalize so math/UI are consistent
     j.prices = flattenPrices(j);
     j.sets   = normalizeSets(j);
-    store.patch('dataset', j); // ✅ single patch after normalization
+    store.patch('dataset', j);
 
-    // Merge economics with new schema
     const eco = { ...store.get().economics };
     const dsPkg = j.packages || {};
     const getPrice = (obj) => Number(obj?.priceMid ?? obj?.price);
@@ -268,15 +263,8 @@ async function fetchFrankfurter(){
   if (!r.ok) throw new Error('Frankfurter failed');
   const j = await r.json();
   const rates = Object.assign({ USD:1 }, j && j.rates ? j.rates : {});
-  return {
-    base: (j && j.base) || 'USD',
-    asOf: j && j.date,
-    source:'ECB (Frankfurter)',
-    rates,
-    _response: r // 👈 keep the Response for the info drawer
-  };
+  return { base:(j&&j.base)||'USD', asOf:j&&j.date, source:'ECB (Frankfurter)', rates, _response:r };
 }
-
 async function fetchHost(){
   const to = SUPPORTED_CCYS.filter(c=>c!=='USD').join(',');
   const url = `https://api.exchangerate.host/latest?base=USD&symbols=${encodeURIComponent(to)}`;
@@ -284,13 +272,7 @@ async function fetchHost(){
   if (!r.ok) throw new Error('exchangerate.host failed');
   const j = await r.json();
   const rates = Object.assign({ USD:1 }, j && j.rates ? j.rates : {});
-  return {
-    base: (j && j.base) || 'USD',
-    asOf: j && j.date,
-    source:'ECB (exchangerate.host)',
-    rates,
-    _response: r // 👈 keep the Response
-  };
+  return { base:(j&&j.base)||'USD', asOf:j&&j.date, source:'ECB (exchangerate.host)', rates, _response:r };
 }
 function safeJSON(s){ try { return JSON.parse(s||''); } catch { return null; } }
 
@@ -307,29 +289,33 @@ async function loadFx() {
   if (freshEnough) { FX = cached; renderFxNote(); }
 
   try {
-  const latest = await fetchFrankfurter();
-  const { _response, ...rest } = latest;             // ⬅️ strip the Response
-  FX = { ...rest, _ts: new Date().toISOString() };
-  localStorage.setItem(FX_KEY, JSON.stringify(FX));
-  renderFxNote();
-  window.itwInfo?.update({ fxResponse: _response, fxSource: 'Frankfurter' });
-} catch {
-  try {
-    const fallback = await fetchHost();
-    const { _response, ...rest } = fallback;         // ⬅️ strip the Response
+    const latest = await fetchFrankfurter();
+    const { _response, ...rest } = latest;
     FX = { ...rest, _ts: new Date().toISOString() };
     localStorage.setItem(FX_KEY, JSON.stringify(FX));
     renderFxNote();
-    window.itwInfo?.update({ fxResponse: _response, fxSource: 'exchangerate.host' });
+    window.itwInfo?.update({ fxResponse: _response, fxSource: 'Frankfurter' });
   } catch {
-    // unchanged…
+    try {
+      const fallback = await fetchHost();
+      const { _response, ...rest } = fallback;
+      FX = { ...rest, _ts: new Date().toISOString() };
+      localStorage.setItem(FX_KEY, JSON.stringify(FX));
+      renderFxNote();
+      window.itwInfo?.update({ fxResponse: _response, fxSource: 'exchangerate.host' });
+    } catch {
+      // ✅ final fallback restored
+      if (cached) { FX = cached; renderFxNote(true); }
+      else { FX = { base:'USD', asOf:null, source:'USD only', rates:{USD:1}, _ts:null }; renderFxNote(true); }
+    }
   }
-}
 }
 
 function convertUSD(amount, to = currentCurrency){
-  const r = (FX.rates && FX.rates[to]) || 1;
-  return amount * r;
+  const baseRate = (FX.rates && FX.rates[to]) || 1;
+  const driftPct = Number(window.fxDriftPct || 0);   // from the slider UI
+  const driftMultiplier = 1 + (driftPct / 100);
+  return amount * baseRate * driftMultiplier;
 }
 function money(n){
   const amt = convertUSD(n, currentCurrency);
@@ -364,9 +350,7 @@ function wireCurrencyUI(){
     currentCurrency = (sel.value || 'USD').toUpperCase();
     if (!SUPPORTED_CCYS.includes(currentCurrency)) currentCurrency = 'USD';
     localStorage.setItem('itw:currency', currentCurrency);
-    renderEconomics();
-    renderPricePills();
-    renderResults(store.get().results);
+    window.renderAll();
   });
 }
 
@@ -384,7 +368,6 @@ function ensureWorker(){
       if (type === 'result') { store.patch('results', payload); return; }
     };
     calcWorker.onerror = ()=>{
-      // disable worker silently and fall back
       workerReady = false;
       calcWorker.terminate();
       calcWorker = null;
@@ -406,12 +389,10 @@ function scheduleCalc(){
     return;
   }
 
-  // Fallback to inline compute (from worker’s shared module signature)
   if (window.ITW_MATH && typeof window.ITW_MATH.compute === 'function') {
     const results = window.ITW_MATH.compute(inputs, economics, dataset||FALLBACK_DATASET);
     store.patch('results', results);
   } else {
-    // absolute worst-case: no math module loaded; show zeros
     store.patch('results', initialState.results);
   }
 }
@@ -440,7 +421,6 @@ function ensureChart(){
 }
 
 function renderResults(r){
-  // winner banner
   const chip = $('#best-chip'), text = $('#best-text');
   const label = r.winnerKey==='alc' ? 'à-la-carte' : (r.winnerKey==='deluxe'?'Deluxe':r.winnerKey.charAt(0).toUpperCase()+r.winnerKey.slice(1));
   if (chip) chip.textContent = `Best value: ${label}`;
@@ -449,11 +429,9 @@ function renderResults(r){
     : `Your daily picks are cheapest with the ${label} package.`;
   announce('Best value: ' + label);
 
-  // totals
   const totals = $('#totals');
   if (totals) totals.textContent = `${money(r.perDay)}/day • ${money(r.trip)} trip`;
 
-  // group breakdown
   const tbody = $('#group-table-body'), sec = $('#group-breakdown');
   if (tbody) {
     tbody.innerHTML = '';
@@ -464,7 +442,6 @@ function renderResults(r){
   }
   if (sec) sec.hidden = r.groupRows.length<=1;
 
-  // included + overcap (DOM nodes)
   const incSNode = document.querySelector('[data-inc="soda"]');
   const incRNode = document.querySelector('[data-inc="refresh"]');
   const incDNode = document.querySelector('[data-inc="deluxe"]');
@@ -473,38 +450,16 @@ function renderResults(r){
   if (incDNode) incDNode.textContent = money(r.included.deluxe)+'/day';
   const oc = $('#overcap-est'); if (oc) oc.textContent = money(r.overcap)+'/day';
 
-  // update chart if present
   const c = ensureChart();
   if (c){
-    // base bars
     c.data.datasets = [
-      {
-        label: 'Daily cost',
-        data: [r.bars.alc.mean, r.bars.soda.mean, r.bars.refresh.mean, r.bars.deluxe.mean],
-        backgroundColor: '#60a5fa'
-      }
+      { label: 'Daily cost', data: [r.bars.alc.mean, r.bars.soda.mean, r.bars.refresh.mean, r.bars.deluxe.mean], backgroundColor: '#60a5fa' }
     ];
 
-    // optional min/max lines
     if (r.hasRange){
       c.data.datasets.push(
-        {
-          label: '(max)',
-          data: [r.bars.alc.max, r.bars.soda.max, r.bars.refresh.max, r.bars.deluxe.max],
-          type: 'line',
-          borderWidth: 2,
-          pointRadius: 0,
-          borderColor: 'rgba(0,0,0,.35)'
-        },
-        {
-          label: '(min)',
-          data: [r.bars.alc.min, r.bars.soda.min, r.bars.refresh.min, r.bars.deluxe.min],
-          type: 'line',
-          borderDash: [6,4],
-          borderWidth: 2,
-          pointRadius: 0,
-          borderColor: 'rgba(0,0,0,.2)'
-        }
+        { label:'(max)', data:[r.bars.alc.max, r.bars.soda.max, r.bars.refresh.max, r.bars.deluxe.max], type:'line', borderWidth:2, pointRadius:0, borderColor:'rgba(0,0,0,.35)' },
+        { label:'(min)', data:[r.bars.alc.min, r.bars.soda.min, r.bars.refresh.min, r.bars.deluxe.min], type:'line', borderDash:[6,4], borderWidth:2, pointRadius:0, borderColor:'rgba(0,0,0,.2)' }
       );
       const rn = document.getElementById('range-note');
       if (rn) rn.textContent = 'Range bars show min/max based on your ranges.';
@@ -531,7 +486,6 @@ function renderResults(r){
   const incRVal = r?.included?.refresh ?? 0;
   const incDVal = r?.included?.deluxe ?? 0;
 
-  // gaps to break even (positive = not worth it yet)
   const gap = {
     soda:    (pkg.soda ?? 0)    - incSVal,
     refresh: (pkg.refresh ?? 0) - incRVal,
@@ -598,9 +552,9 @@ function renderResults(r){
       <p class="small">≈ <strong>${need} more cap-price alcoholic drink${need>1?'s':''}</strong> per day (cap $${(economics.deluxeCap||14).toFixed(2)} + grat).</p>`;
     }
   }
-  /* ---------- End Break-Even Monitors ---------- */
 }
 
+/* ------------------------- Economics/Prices UI ------------------------- */
 function renderEconomics(){
   const { economics } = store.get();
   const pS = $('[data-pkg-price="soda"]');
@@ -610,13 +564,11 @@ function renderEconomics(){
   if (pR) pR.textContent = money(economics.pkg.refresh)+'/day';
   if (pD) pD.textContent = money(economics.pkg.deluxe)+'/day';
   const cap = $('#cap-badge');
-  if (cap) cap.textContent = `$${economics.deluxeCap.toFixed(2)}`; // with $ for clarity
+  if (cap) cap.textContent = `$${economics.deluxeCap.toFixed(2)}`;
 }
 
 function renderPricePills(){
   const ds = store.get().dataset || FALLBACK_DATASET;
-
-  // Prefer new schema: items[] -> price map
   let priceMap = ds.prices;
   if (!priceMap && Array.isArray(ds.items)) {
     priceMap = {};
@@ -629,6 +581,14 @@ function renderPricePills(){
     if (pill) pill.textContent = `avg ${money(v)}`;
   });
 }
+
+/* ---------- Global re-render helper (for currency & FX drift) ---------- */
+window.renderAll = () => {
+  renderEconomics();                  // package price badges
+  renderPricePills();                 // “avg $X” pills
+  renderResults(store.get().results); // totals + chart via money()
+};
+
 /* ------------------------- Itinerary Mode UI ------------------------- */
 const DRINK_KEYS = ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater","beer","wine","cocktail","spirits"];
 const DAY_TYPES  = [["sea","Sea Day"],["port","Port Day"],["embark","Embark/Debark"]];
@@ -644,7 +604,6 @@ function ensureItineraryArray(){
   const s = store.get();
   const days = Math.max(1, Math.min(365, Number(s.inputs.days||7)));
   let it = Array.isArray(s.inputs.itinerary) ? structuredClone(s.inputs.itinerary) : [];
-  // grow/shrink to match days
   if (it.length !== days){
     const baseDrinks = structuredClone(s.inputs.drinks || {});
     const out = [];
@@ -665,12 +624,10 @@ function toggleModeUI(mode){
   const seaFieldset = document.getElementById('sea-toggle')?.closest('fieldset');
   if (seaFieldset) seaFieldset.style.display = showItin ? 'none' : 'block';
 
-  // hide the simple steppers when in itinerary
   document.querySelectorAll('.row--stepper').forEach(el=>{
     el.style.display = showItin ? 'none' : 'grid';
   });
 
-  // set radio states (in case we flipped programmatically)
   const rSimple = document.getElementById('mode-simple');
   const rItin   = document.getElementById('mode-itinerary');
   if (rSimple) rSimple.checked = !showItin;
@@ -689,7 +646,6 @@ function renderItineraryUI(){
     fs.className = 'day-row';
     fs.style.cssText = 'border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px';
 
-    // legend with type select
     fs.insertAdjacentHTML('afterbegin', `
       <legend style="font-weight:800;padding:0 6px">
         <span class="day-label">Day ${idx+1}</span>
@@ -699,7 +655,6 @@ function renderItineraryUI(){
       </legend>
     `);
 
-    // drink steppers
     DRINK_KEYS.forEach(key=>{
       const val = Number(day.drinks?.[key]||0);
       const row = document.createElement('div');
@@ -718,7 +673,6 @@ function renderItineraryUI(){
     container.appendChild(fs);
   });
 
-  // event delegation (single set of listeners)
   container.removeEventListener('click', _handleItinClick);
   container.addEventListener('click', _handleItinClick);
   container.removeEventListener('change', _handleItinChange);
@@ -745,7 +699,6 @@ function _handleItinClick(e){
   it[dayIndex].drinks[key] = next;
   store.patch('inputs.itinerary', it);
 
-  // update the input visible value
   const input = document.querySelector(`.day-input[data-day-index="${dayIndex}"][data-day-key="${key}"]`);
   if (input) input.value = String(next);
 
@@ -787,11 +740,11 @@ function _handleItinInput(e){
   store.patch('inputs.itinerary', it);
   _debouncedItin();
 }
+
 /* ------------------------- Inputs & UI Wiring ------------------------- */
 function wireInputs(){
   const debouncedInput = (fn, ms=250)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms);} };
 
-  // writer that sanitizes + clamps before patching store
   function writeInput(inp, rawVal){
     const key = inp.dataset.input;
     const isCheckbox = inp.type === 'checkbox';
@@ -811,8 +764,6 @@ function wireInputs(){
       case 'days': {
         const days = clamp(Math.round(parsed), 1, 365);
         store.patch('inputs.days', days);
-
-        // keep seaDays <= days if trip length shrinks
         const s = store.get();
         if ((s.inputs.seaDays ?? 0) > days) {
           store.patch('inputs.seaDays', days);
@@ -835,61 +786,57 @@ function wireInputs(){
         store.patch('inputs.minors', clamp(Math.round(parsed), 0, 20));
         break;
       default:
-        // per-drink inputs: never negative
         store.patch(`inputs.drinks.${key}`, Math.max(0, parsed));
         break;
-  }// <-- closes switch
-}   // <-- closes writeInput()
-
-// Hook all [data-input] controls once
-$$('[data-input]').forEach((inp)=>{
-  inp.addEventListener('input', (e)=>{
-    const val = (inp.type === 'checkbox') ? e.target.checked : e.target.value;
-    writeInput(inp, val);
-
-    // reflect seaweight slider label live
-    if (inp.dataset.input === 'seaweight') {
-      const out = document.getElementById('sea-weight-val');
-      if (out) out.textContent = `${parseNum(val)}%`;
     }
+  }
 
-    debouncedCalc();
+  $$('[data-input]').forEach((inp)=>{
+    inp.addEventListener('input', (e)=>{
+      const val = (inp.type === 'checkbox') ? e.target.checked : e.target.value;
+      writeInput(inp, val);
+
+      if (inp.dataset.input === 'seaweight') {
+        const out = document.getElementById('sea-weight-val');
+        if (out) out.textContent = `${parseNum(val)}%`;
+      }
+
+      debouncedCalc();
+    });
+
+    inp.addEventListener('change', (e)=>{
+      const val = (inp.type === 'checkbox') ? e.target.checked : e.target.value;
+      writeInput(inp, val);
+      scheduleCalc();
+      syncURL();
+      persistNow();
+    });
   });
 
-  inp.addEventListener('change', (e)=>{
-    const val = (inp.type === 'checkbox') ? e.target.checked : e.target.value;
-    writeInput(inp, val);
-    scheduleCalc();
-    syncURL();
-    persistNow();
-  });
-});
+  const modeSimple = document.getElementById('mode-simple');
+  const modeItinerary = document.getElementById('mode-itinerary');
 
-/* ---------- Mode toggle (simple vs itinerary) ---------- */
-const modeSimple = document.getElementById('mode-simple');
-const modeItinerary = document.getElementById('mode-itinerary');
+  if (modeSimple) {
+    modeSimple.addEventListener('change', ()=>{
+      store.patch('inputs.calcMode', 'simple');
+      toggleModeUI('simple');
+      scheduleCalc();
+      syncURL();
+      persistNow();
+    });
+  }
 
-if (modeSimple) {
-  modeSimple.addEventListener('change', ()=>{
-    store.patch('inputs.calcMode', 'simple');
-    toggleModeUI('simple');
-    scheduleCalc();
-    syncURL();
-    persistNow();
-  });
-}
-
-if (modeItinerary) {
-  modeItinerary.addEventListener('change', ()=>{
-    ensureItineraryArray();
-    store.patch('inputs.calcMode', 'itinerary');
-    renderItineraryUI();
-    toggleModeUI('itinerary');
-    scheduleCalc();
-    syncURL();
-    persistNow();
-  });
-}
+  if (modeItinerary) {
+    modeItinerary.addEventListener('change', ()=>{
+      ensureItineraryArray();
+      store.patch('inputs.calcMode', 'itinerary');
+      renderItineraryUI();
+      toggleModeUI('itinerary');
+      scheduleCalc();
+      syncURL();
+      persistNow();
+    });
+  }
 
   /* ---------- Editable package prices ---------- */
   window.togglePriceEdit = (which, cancel=false)=>{
@@ -930,7 +877,6 @@ if (modeItinerary) {
 
   /* ---------- Reset ---------- */
   window.resetInputs = ()=>{
-    // reset inputs hard, keep dataset-driven defaults for prices if available
     const ds = store.get().dataset || FALLBACK_DATASET;
     store.patch('inputs', structuredClone(initialState.inputs));
     store.patch('economics', {
@@ -946,20 +892,14 @@ if (modeItinerary) {
   /* ---------- Share Scenario Button ---------- */
   window.shareScenario = () => {
     try {
-      // syncURL already runs on 'change', but we force one more ensure here for safety
       syncURL();
       navigator.clipboard.writeText(location.href);
-
-      // Provide visual feedback
       const btn = document.querySelector('[onclick="shareScenario()"]');
       if (btn) {
         const originalText = btn.textContent;
         btn.textContent = '✅ Link Copied!';
         btn.disabled = true;
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.disabled = false;
-        }, 2000);
+        setTimeout(() => { btn.textContent = originalText; btn.disabled = false; }, 2000);
       }
     } catch (e) {
       console.error('Failed to copy scenario link:', e);
@@ -980,7 +920,6 @@ if (modeItinerary) {
     let next = currentVal + Number(amount || 0);
     if (next < 0) next = 0;
 
-    // preserve halves for cocktails; otherwise snap to integer if not fractional
     const needsHalf = (Math.abs(amount) === 0.5) || String(currentVal).includes('.');
     const finalStr = needsHalf ? next.toFixed(1) : next.toFixed(0);
 
@@ -1059,39 +998,34 @@ store.subscribe('ui', ui=>{
     return;
   }
 
-  ensureChart();         // chart instance early
-  loadPersisted();       // restore state
-  wireInputs();          // wire form controls
-  wireCurrencyUI();      // currency selector
-  await loadFx();        // fetch FX (non-blocking rendering)
+  ensureChart();
+  loadPersisted();
+  wireInputs();
+  wireCurrencyUI();
+  await loadFx();
   renderFxNote();
 
-  await loadDataset();   // prices dataset
+  await loadDataset();
 
   reflectInputsToDOM();
   renderPricePills();
   renderEconomics();
-  // Itinerary boot
-const m = store.get().inputs.calcMode || 'simple';
-if (m === 'itinerary') { ensureItineraryArray(); renderItineraryUI(); }
-toggleModeUI(m);
-  // start/prime worker
+
+  const m = store.get().inputs.calcMode || 'simple';
+  if (m === 'itinerary') { ensureItineraryArray(); renderItineraryUI(); }
+  toggleModeUI(m);
+
   if (USE_WORKER) ensureWorker();
 
-  // first calc
   scheduleCalc();
 
-  // persist/sync
   window.addEventListener('beforeunload', persistNow);
   const throttledURL = (fn => { let t; return ()=>{ clearTimeout(t); t=setTimeout(fn, 300);} })(syncURL);
   store.subscribe(['inputs','economics'], throttledURL);
 
-  // network changes
   window.addEventListener('online', async ()=>{
     await loadFx();
-    renderResults(store.get().results);
-    renderEconomics();
-    renderPricePills();
+    window.renderAll();
   });
   window.addEventListener('offline', ()=>{ renderFxNote(true); });
 })();
