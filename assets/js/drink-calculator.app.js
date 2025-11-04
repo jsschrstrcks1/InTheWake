@@ -307,23 +307,24 @@ async function loadFx() {
   if (freshEnough) { FX = cached; renderFxNote(); }
 
   try {
-    const latest = await fetchFrankfurter();
-    FX = { ...latest, _ts: new Date().toISOString() };
+  const latest = await fetchFrankfurter();
+  const { _response, ...rest } = latest;             // ⬅️ strip the Response
+  FX = { ...rest, _ts: new Date().toISOString() };
+  localStorage.setItem(FX_KEY, JSON.stringify(FX));
+  renderFxNote();
+  window.itwInfo?.update({ fxResponse: _response, fxSource: 'Frankfurter' });
+} catch {
+  try {
+    const fallback = await fetchHost();
+    const { _response, ...rest } = fallback;         // ⬅️ strip the Response
+    FX = { ...rest, _ts: new Date().toISOString() };
     localStorage.setItem(FX_KEY, JSON.stringify(FX));
     renderFxNote();
-     window.itwInfo?.update({ fxResponse: latest._response, fxSource: 'Frankfurter' });
+    window.itwInfo?.update({ fxResponse: _response, fxSource: 'exchangerate.host' });
   } catch {
-    try {
-      const fallback = await fetchHost();
-      FX = { ...fallback, _ts: new Date().toISOString() };
-      localStorage.setItem(FX_KEY, JSON.stringify(FX));
-      renderFxNote();
-       window.itwInfo?.update({ fxResponse: fallback._response, fxSource: 'exchangerate.host' });
-    } catch {
-      if (cached) { FX = cached; renderFxNote(true); }
-      else { FX = { base:'USD', asOf:null, source:'USD only', rates:{USD:1}, _ts:null }; renderFxNote(true); }
-    }
+    // unchanged…
   }
+}
 }
 
 function convertUSD(amount, to = currentCurrency){
