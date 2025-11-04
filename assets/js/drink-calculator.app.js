@@ -239,20 +239,6 @@ async function loadDataset(){
     store.patch('dataset', FALLBACK_DATASET);
     store.patch('ui.fallbackBanner', true);
   }
-};
-
-    eco.grat      = Number(j.rules?.gratuity ?? eco.grat);
-    // support rules.caps.deluxeAlcohol (new) or deluxeCap (legacy)
-    eco.deluxeCap = Number(j.rules?.caps?.deluxeAlcohol ?? j.rules?.deluxeCap ?? eco.deluxeCap);
-    if (Number.isFinite(j.rules?.minorDiscount)) {
-      eco.minorDiscount = Number(j.rules.minorDiscount);
-    }
-
-    store.patch('economics', eco);
-  }catch(_e){
-    store.patch('dataset', FALLBACK_DATASET);
-    store.patch('ui.fallbackBanner', true);
-  }
 }
 
 /* ------------------------- FX (display-only) ------------------------- */
@@ -280,7 +266,7 @@ async function fetchHost(){
   const r = await fetch(url, { cache:'no-store' });
   if (!r.ok) throw new Error('exchangerate.host failed');
   const j = await r.json();
-  return { base:j.base||'USD', asOf:j.date, source:'ECB (exchangerate.host)', rates:{ USD:1, ...(j.rates||{}) } };
+  return { base:j.base||'USD', asOf*j.date, source:'ECB (exchangerate.host)', rates:{ USD:1, ...(j.rates||{}) } };
 }
 function safeJSON(s){ try { return JSON.parse(s||''); } catch { return null; } }
 
@@ -394,7 +380,6 @@ function scheduleCalc(){
   }
 
   // Fallback to inline compute (from worker’s shared module signature)
-  // Minimal inline version: load math in Part B normally; here we only fallback if worker not ready.
   if (window.ITW_MATH && typeof window.ITW_MATH.compute === 'function') {
     const results = window.ITW_MATH.compute(inputs, economics, dataset||FALLBACK_DATASET);
     store.patch('results', results);
@@ -452,8 +437,7 @@ function renderResults(r){
   }
   if (sec) sec.hidden = r.groupRows.length<=1;
 
-  // included + overcap
-   // included + overcap (DOM nodes)
+  // included + overcap (DOM nodes)
   const incSNode = document.querySelector('[data-inc="soda"]');
   const incRNode = document.querySelector('[data-inc="refresh"]');
   const incDNode = document.querySelector('[data-inc="deluxe"]');
@@ -462,7 +446,48 @@ function renderResults(r){
   if (incDNode) incDNode.textContent = money(r.included.deluxe)+'/day';
   const oc = $('#overcap-est'); if (oc) oc.textContent = money(r.overcap)+'/day';
 
-  // ...chart + a11y table code stays the same...
+  // update chart if present
+  const c = ensureChart();
+  if (c){
+    // base bars
+    c.data.datasets = [
+      {
+        label: 'Daily cost',
+        data: [r.bars.alc.mean, r.bars.soda.mean, r.bars.refresh.mean, r.bars.deluxe.mean],
+        backgroundColor: '#60a5fa'
+      }
+    ];
+
+    // optional min/max lines
+    if (r.hasRange){
+      c.data.datasets.push(
+        {
+          label: '(max)',
+          data: [r.bars.alc.max, r.bars.soda.max, r.bars.refresh.max, r.bars.deluxe.max],
+          type: 'line',
+          borderWidth: 2,
+          pointRadius: 0,
+          borderColor: 'rgba(0,0,0,.35)'
+        },
+        {
+          label: '(min)',
+          data: [r.bars.alc.min, r.bars.soda.min, r.bars.refresh.min, r.bars.deluxe.min],
+          type: 'line',
+          borderDash: [6,4],
+          borderWidth: 2,
+          pointRadius: 0,
+          borderColor: 'rgba(0,0,0,.2)'
+        }
+      );
+      const rn = document.getElementById('range-note');
+      if (rn) rn.textContent = 'Range bars show min/max based on your ranges.';
+    } else {
+      const rn = document.getElementById('range-note');
+      if (rn) rn.textContent = '';
+    }
+
+    c.update('none');
+  }
 
   /* ---------- Smart Break-Even Monitors ---------- */
   const state = store.get();
@@ -471,7 +496,7 @@ function renderResults(r){
   const ds = state.dataset || FALLBACK_DATASET;
 
   const prices = ds.prices || flattenPrices(ds);
-  const sets   = ds.sets || normalizeSets(ds); // ds.sets should already be normalized
+  const sets   = ds.sets || normalizeSets(ds);
   const grat = Number(economics.grat ?? 0.18);
   const pkg = economics.pkg || { soda:0, refresh:0, deluxe:0 };
 
@@ -547,8 +572,6 @@ function renderResults(r){
     }
   }
   /* ---------- End Break-Even Monitors ---------- */
-
-  // Note: Smart Break-Even monitors will be added after you place the new HTML blocks.
 }
 
 function renderEconomics(){
