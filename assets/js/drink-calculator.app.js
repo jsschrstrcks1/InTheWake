@@ -7,7 +7,6 @@ function num(v) {
   const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d. -]/g, ''));
   return Number.isFinite(n) ? n : 0;
 }
-
 function clamp(n, lo, hi) {
   return Math.min(hi, Math.max(lo, n));
 }
@@ -198,12 +197,30 @@ async function loadDataset(){
     const r = await fetch(DS_URL, { cache:'default' });
     if (!r.ok) throw new Error('bad status');
     const j = await r.json();
+
+    // 1) Keep dataset for sets/items
     store.patch('dataset', j);
-    const eco = store.get().economics;
-    eco.pkg = { ...eco.pkg, ...j.packages };
-    eco.grat = Number(j.rules?.gratuity ?? eco.grat);
-    eco.deluxeCap = Number(j.rules?.deluxeCap ?? eco.deluxeCap);
-    eco.minorDiscount = Number(j.rules?.minorDiscount ?? eco.minorDiscount);
+
+    // 2) Merge economics with new schema
+    const eco = { ...store.get().economics };
+    const dsPkg = j.packages || {};
+
+    // dsPkg.<key> may be an object with priceMid or price; pick the best number
+    const getPrice = (obj) => Number(obj?.priceMid ?? obj?.price);
+
+    eco.pkg = {
+      soda:    Number.isFinite(getPrice(dsPkg.soda)) ? getPrice(dsPkg.soda) : eco.pkg.soda,
+      refresh: Number.isFinite(getPrice(dsPkg.refreshment || dsPkg.refresh)) ? getPrice(dsPkg.refreshment || dsPkg.refresh) : eco.pkg.refresh,
+      deluxe:  Number.isFinite(getPrice(dsPkg.deluxe)) ? getPrice(dsPkg.deluxe) : eco.pkg.deluxe,
+    };
+
+    eco.grat      = Number(j.rules?.gratuity ?? eco.grat);
+    // support rules.caps.deluxeAlcohol (new) or deluxeCap (legacy)
+    eco.deluxeCap = Number(j.rules?.caps?.deluxeAlcohol ?? j.rules?.deluxeCap ?? eco.deluxeCap);
+    if (Number.isFinite(j.rules?.minorDiscount)) {
+      eco.minorDiscount = Number(j.rules.minorDiscount);
+    }
+
     store.patch('economics', eco);
   }catch(_e){
     store.patch('dataset', FALLBACK_DATASET);
@@ -451,13 +468,22 @@ function renderEconomics(){
   if (pS) pS.textContent = money(economics.pkg.soda)+'/day';
   if (pR) pR.textContent = money(economics.pkg.refresh)+'/day';
   if (pD) pD.textContent = money(economics.pkg.deluxe)+'/day';
-  const cap = $('#cap-badge'); 
-  if (cap) cap.textContent = `$${economics.deluxeCap.toFixed(2)}`; // <-- add $
+  const cap = $('#cap-badge');
+  if (cap) cap.textContent = `$${economics.deluxeCap.toFixed(2)}`; // with $ for clarity
 }
 
 function renderPricePills(){
   const ds = store.get().dataset || FALLBACK_DATASET;
-  Object.entries(ds.prices).forEach(([k,v])=>{
+
+  // Prefer new schema: items[] -> price map
+  let priceMap = ds.prices;
+  if (!priceMap && Array.isArray(ds.items)) {
+    priceMap = {};
+    ds.items.forEach(it => { if (it && it.id) priceMap[it.id] = Number(it.price) || 0; });
+  }
+  if (!priceMap) return;
+
+  Object.entries(priceMap).forEach(([k,v])=>{
     const pill = document.querySelector(`[data-price-pill="${k}"]`);
     if (pill) pill.textContent = `avg ${money(v)}`;
   });
@@ -465,8 +491,8 @@ function renderPricePills(){
 
 /* ------------------------- Inputs & UI Wiring ------------------------- */
 function wireInputs(){
-  // small debounce used for 'input' (live typing); we still do a full calc on 'change'
   const debouncedInput = (fn, ms=250)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms);} };
+
   // writer that sanitizes + clamps before patching store
   function writeInput(inp, rawVal){
     const key = inp.dataset.input;
@@ -495,26 +521,21 @@ function wireInputs(){
         }
         break;
       }
-
       case 'seadays': {
         const days = (store.get().inputs.days || 7);
         const sea = clamp(Math.round(parsed), 0, days);
         store.patch('inputs.seaDays', sea);
         break;
       }
-
       case 'seaweight':
         store.patch('inputs.seaWeight', clamp(parsed, 0, 40));
         break;
-
       case 'adults':
         store.patch('inputs.adults', clamp(Math.round(parsed), 1, 20));
         break;
-
       case 'minors':
         store.patch('inputs.minors', clamp(Math.round(parsed), 0, 20));
         break;
-
       default:
         // per-drink inputs: never negative
         store.patch(`inputs.drinks.${key}`, Math.max(0, parsed));
