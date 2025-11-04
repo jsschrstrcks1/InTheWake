@@ -91,18 +91,23 @@ function createStore(initial){
 const initialState = {
   version: VERSION,
   dataset: null,
-  inputs: {
-    days: 7,
-    seaDays: 3,
-    seaApply: true,
-    seaWeight: 20,
-    adults: 1,
-    minors: 0,
-    drinks: {
-      soda: 0, coffee: 0, teaprem: 0, freshjuice: 0, mocktail: 0, energy: 0,
-      milkshake: 0, bottledwater: 0, beer: 0, wine: 0, cocktail: 0, spirits: 0
-    }
-  },
+ inputs: {
+  days: 7,
+  seaDays: 3,
+  seaApply: true,
+  seaWeight: 20,
+  adults: 1,
+  minors: 0,
+
+  // [NEW]
+  calcMode: 'simple', // 'simple' or 'itinerary'
+  itinerary: [],      // [{ day:1, type:'sea', drinks:{...}}]
+
+  drinks: {
+    soda: 0, coffee: 0, teaprem: 0, freshjuice: 0, mocktail: 0, energy: 0,
+    milkshake: 0, bottledwater: 0, beer: 0, wine: 0, cocktail: 0, spirits: 0
+  }
+},
   economics: {
     pkg: { soda: 13.99, refresh: 34.0, deluxe: 85.0 },
     grat: 0.18,
@@ -605,7 +610,164 @@ function renderPricePills(){
     if (pill) pill.textContent = `avg ${money(v)}`;
   });
 }
+/* ------------------------- Itinerary Mode UI ------------------------- */
+const DRINK_KEYS = ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater","beer","wine","cocktail","spirits"];
+const DAY_TYPES  = [["sea","Sea Day"],["port","Port Day"],["embark","Embark/Debark"]];
 
+function prettyName(k){
+  return (k==='teaprem' ? 'Specialty tea' :
+         k==='freshjuice' ? 'Fresh juice/smoothie' :
+         k==='bottledwater' ? 'Bottled water' :
+         k.charAt(0).toUpperCase() + k.slice(1));
+}
+
+function ensureItineraryArray(){
+  const s = store.get();
+  const days = Math.max(1, Math.min(365, Number(s.inputs.days||7)));
+  let it = Array.isArray(s.inputs.itinerary) ? structuredClone(s.inputs.itinerary) : [];
+  // grow/shrink to match days
+  if (it.length !== days){
+    const baseDrinks = structuredClone(s.inputs.drinks || {});
+    const out = [];
+    for (let i=0;i<days;i++){
+      out.push(it[i] || { day:i+1, type:'sea', drinks: i===0 ? baseDrinks : {} });
+    }
+    store.patch('inputs.itinerary', out);
+    return out;
+  }
+  return it;
+}
+
+function toggleModeUI(mode){
+  const showItin = (mode === 'itinerary');
+  const itinBox = document.getElementById('itinerary-inputs');
+  if (itinBox) itinBox.style.display = showItin ? 'block' : 'none';
+
+  const seaFieldset = document.getElementById('sea-toggle')?.closest('fieldset');
+  if (seaFieldset) seaFieldset.style.display = showItin ? 'none' : 'block';
+
+  // hide the simple steppers when in itinerary
+  document.querySelectorAll('.row--stepper').forEach(el=>{
+    el.style.display = showItin ? 'none' : 'grid';
+  });
+
+  // set radio states (in case we flipped programmatically)
+  const rSimple = document.getElementById('mode-simple');
+  const rItin   = document.getElementById('mode-itinerary');
+  if (rSimple) rSimple.checked = !showItin;
+  if (rItin)   rItin.checked   = showItin;
+}
+
+function renderItineraryUI(){
+  const container = document.getElementById('itinerary-inputs');
+  if (!container) return;
+
+  const it = ensureItineraryArray();
+  container.innerHTML = '';
+
+  it.forEach((day, idx)=>{
+    const fs = document.createElement('fieldset');
+    fs.className = 'day-row';
+    fs.style.cssText = 'border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px';
+
+    // legend with type select
+    fs.insertAdjacentHTML('afterbegin', `
+      <legend style="font-weight:800;padding:0 6px">
+        <span class="day-label">Day ${idx+1}</span>
+        <select class="day-type-select small" data-day-index="${idx}" aria-label="Day type" style="margin-left:8px;">
+          ${DAY_TYPES.map(([v,l])=>`<option value="${v}" ${day.type===v?'selected':''}>${l}</option>`).join('')}
+        </select>
+      </legend>
+    `);
+
+    // drink steppers
+    DRINK_KEYS.forEach(key=>{
+      const val = Number(day.drinks?.[key]||0);
+      const row = document.createElement('div');
+      row.className = 'row row--stepper';
+      row.innerHTML = `
+        <label class="small" style="line-height:1.2;">${prettyName(key)}</label>
+        <div class="input-stepper">
+          <button class="btn-step" type="button" data-day-index="${idx}" data-day-key="${key}" data-day-op="dec" aria-label="Decrease ${prettyName(key)} for day ${idx+1}">−</button>
+          <input type="text" inputmode="decimal" value="${val}" class="day-input" data-day-index="${idx}" data-day-key="${key}" aria-label="${prettyName(key)} for day ${idx+1}">
+          <button class="btn-step" type="button" data-day-index="${idx}" data-day-key="${key}" data-day-op="inc" aria-label="Increase ${prettyName(key)} for day ${idx+1}">+</button>
+        </div>
+      `;
+      fs.appendChild(row);
+    });
+
+    container.appendChild(fs);
+  });
+
+  // event delegation (single set of listeners)
+  container.removeEventListener('click', _handleItinClick);
+  container.addEventListener('click', _handleItinClick);
+  container.removeEventListener('change', _handleItinChange);
+  container.addEventListener('change', _handleItinChange);
+  container.removeEventListener('input', _handleItinInput);
+  container.addEventListener('input', _handleItinInput);
+}
+
+// delegated handlers
+function _handleItinClick(e){
+  const btn = e.target.closest('.btn-step');
+  if (!btn) return;
+  const dayIndex = Number(btn.dataset.dayIndex);
+  const key = btn.dataset.dayKey;
+  const op  = btn.dataset.dayOp;
+  const amount = op==='inc' ? 1 : -1;
+
+  const s = store.get();
+  const it = structuredClone(s.inputs.itinerary || []);
+  if (!it[dayIndex]) return;
+
+  const cur = Number(it[dayIndex].drinks?.[key]||0);
+  const next = Math.max(0, cur + amount);
+  it[dayIndex].drinks[key] = next;
+  store.patch('inputs.itinerary', it);
+
+  // update the input visible value
+  const input = document.querySelector(`.day-input[data-day-index="${dayIndex}"][data-day-key="${key}"]`);
+  if (input) input.value = String(next);
+
+  scheduleCalc(); syncURL(); persistNow();
+}
+
+function _handleItinChange(e){
+  const t = e.target;
+  const dayIndex = Number(t.dataset.dayIndex);
+  if (!Number.isFinite(dayIndex)) return;
+
+  const s = store.get();
+  const it = structuredClone(s.inputs.itinerary || []);
+  if (!it[dayIndex]) return;
+
+  if (t.classList.contains('day-type-select')){
+    it[dayIndex].type = t.value;
+  } else if (t.classList.contains('day-input')){
+    const key = t.dataset.dayKey;
+    it[dayIndex].drinks[key] = Math.max(0, parseNum(t.value));
+  }
+  store.patch('inputs.itinerary', it);
+  scheduleCalc(); syncURL(); persistNow();
+}
+
+const _debouncedItin = ((fn,ms=250)=>{let h;return(...a)=>{clearTimeout(h);h=setTimeout(()=>fn(...a),ms);} })(()=>{ scheduleCalc(); syncURL(); persistNow(); });
+
+function _handleItinInput(e){
+  const t = e.target;
+  if (!t.classList.contains('day-input')) return;
+  const dayIndex = Number(t.dataset.dayIndex);
+  const key = t.dataset.dayKey;
+
+  const s = store.get();
+  const it = structuredClone(s.inputs.itinerary || []);
+  if (!it[dayIndex]) return;
+
+  it[dayIndex].drinks[key] = Math.max(0, parseNum(t.value));
+  store.patch('inputs.itinerary', it);
+  _debouncedItin();
+}
 /* ------------------------- Inputs & UI Wiring ------------------------- */
 function wireInputs(){
   const debouncedInput = (fn, ms=250)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms);} };
@@ -657,34 +819,57 @@ function wireInputs(){
         // per-drink inputs: never negative
         store.patch(`inputs.drinks.${key}`, Math.max(0, parsed));
         break;
-    }
   }
 
-  // Hook all [data-input] controls once
-  $$('[data-input]').forEach(inp=>{
-    // live updates while typing/dragging
-    inp.addEventListener('input', (e)=>{
-      const val = (inp.type === 'checkbox') ? e.target.checked : e.target.value;
-      writeInput(inp, val);
+// Hook all [data-input] controls once
+$$('[data-input]').forEach((inp)=>{
+  inp.addEventListener('input', (e)=>{
+    const val = (inp.type === 'checkbox') ? e.target.checked : e.target.value;
+    writeInput(inp, val);
 
-      // reflect seaweight slider label live
-      if (inp.dataset.input === 'seaweight') {
-        const out = document.getElementById('sea-weight-val');
-        if (out) out.textContent = `${parseNum(val)}%`;
-      }
+    // reflect seaweight slider label live
+    if (inp.dataset.input === 'seaweight') {
+      const out = document.getElementById('sea-weight-val');
+      if (out) out.textContent = `${parseNum(val)}%`;
+    }
 
-      debouncedCalc();
-    });
-
-    // commit: recompute, sync URL, persist
-    inp.addEventListener('change', (e)=>{
-      const val = (inp.type === 'checkbox') ? e.target.checked : e.target.value;
-      writeInput(inp, val);
-      scheduleCalc();
-      syncURL();
-      persistNow();
-    });
+    debouncedCalc();
   });
+
+  inp.addEventListener('change', (e)=>{
+    const val = (inp.type === 'checkbox') ? e.target.checked : e.target.value;
+    writeInput(inp, val);
+    scheduleCalc();
+    syncURL();
+    persistNow();
+  });
+});
+
+/* ---------- Mode toggle (simple vs itinerary) ---------- */
+const modeSimple = document.getElementById('mode-simple');
+const modeItinerary = document.getElementById('mode-itinerary');
+
+if (modeSimple) {
+  modeSimple.addEventListener('change', ()=>{
+    store.patch('inputs.calcMode', 'simple');
+    toggleModeUI('simple');
+    scheduleCalc();
+    syncURL();
+    persistNow();
+  });
+}
+
+if (modeItinerary) {
+  modeItinerary.addEventListener('change', ()=>{
+    ensureItineraryArray();
+    store.patch('inputs.calcMode', 'itinerary');
+    renderItineraryUI();
+    toggleModeUI('itinerary');
+    scheduleCalc();
+    syncURL();
+    persistNow();
+  });
+}
 
   /* ---------- Editable package prices ---------- */
   window.togglePriceEdit = (which, cancel=false)=>{
@@ -866,7 +1051,10 @@ store.subscribe('ui', ui=>{
   reflectInputsToDOM();
   renderPricePills();
   renderEconomics();
-
+  // Itinerary boot
+const m = store.get().inputs.calcMode || 'simple';
+if (m === 'itinerary') { ensureItineraryArray(); renderItineraryUI(); }
+toggleModeUI(m);
   // start/prime worker
   if (USE_WORKER) ensureWorker();
 
