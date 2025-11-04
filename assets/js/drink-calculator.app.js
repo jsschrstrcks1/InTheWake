@@ -217,6 +217,9 @@ async function loadDataset(){
     if (!r.ok) throw new Error('bad status');
     const j = await r.json();
 
+    // report pricing fetch to the info drawer
+    window.itwInfo?.update({ pricingResponse: r, pricingSource: '/assets/data/lines/royal-caribbean.json' });
+
     // normalize so math/UI are consistent
     j.prices = flattenPrices(j);
     j.sets   = normalizeSets(j);
@@ -234,7 +237,6 @@ async function loadDataset(){
     };
 
     eco.grat      = Number(j.rules?.gratuity ?? eco.grat);
-    // support rules.caps.deluxeAlcohol (new) or deluxeCap (legacy)
     eco.deluxeCap = Number(j.rules?.caps?.deluxeAlcohol ?? j.rules?.deluxeCap ?? eco.deluxeCap);
     if (Number.isFinite(j.rules?.minorDiscount)) {
       eco.minorDiscount = Number(j.rules.minorDiscount);
@@ -265,8 +267,15 @@ async function fetchFrankfurter(){
   if (!r.ok) throw new Error('Frankfurter failed');
   const j = await r.json();
   const rates = Object.assign({ USD:1 }, j && j.rates ? j.rates : {});
-  return { base: (j && j.base) || 'USD', asOf: j && j.date, source:'ECB (Frankfurter)', rates };
+  return {
+    base: (j && j.base) || 'USD',
+    asOf: j && j.date,
+    source:'ECB (Frankfurter)',
+    rates,
+    _response: r // 👈 keep the Response for the info drawer
+  };
 }
+
 async function fetchHost(){
   const to = SUPPORTED_CCYS.filter(c=>c!=='USD').join(',');
   const url = `https://api.exchangerate.host/latest?base=USD&symbols=${encodeURIComponent(to)}`;
@@ -274,7 +283,13 @@ async function fetchHost(){
   if (!r.ok) throw new Error('exchangerate.host failed');
   const j = await r.json();
   const rates = Object.assign({ USD:1 }, j && j.rates ? j.rates : {});
-  return { base: (j && j.base) || 'USD', asOf: j && j.date, source:'ECB (exchangerate.host)', rates };
+  return {
+    base: (j && j.base) || 'USD',
+    asOf: j && j.date,
+    source:'ECB (exchangerate.host)',
+    rates,
+    _response: r // 👈 keep the Response
+  };
 }
 function safeJSON(s){ try { return JSON.parse(s||''); } catch { return null; } }
 
@@ -295,12 +310,14 @@ async function loadFx() {
     FX = { ...latest, _ts: new Date().toISOString() };
     localStorage.setItem(FX_KEY, JSON.stringify(FX));
     renderFxNote();
+     window.itwInfo?.update({ fxResponse: latest._response, fxSource: 'Frankfurter' });
   } catch {
     try {
       const fallback = await fetchHost();
       FX = { ...fallback, _ts: new Date().toISOString() };
       localStorage.setItem(FX_KEY, JSON.stringify(FX));
       renderFxNote();
+       window.itwInfo?.update({ fxResponse: fallback._response, fxSource: 'exchangerate.host' });
     } catch {
       if (cached) { FX = cached; renderFxNote(true); }
       else { FX = { base:'USD', asOf:null, source:'USD only', rates:{USD:1}, _ts:null }; renderFxNote(true); }
