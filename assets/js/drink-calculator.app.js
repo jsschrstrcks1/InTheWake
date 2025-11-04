@@ -266,7 +266,7 @@ async function fetchHost(){
   const r = await fetch(url, { cache:'no-store' });
   if (!r.ok) throw new Error('exchangerate.host failed');
   const j = await r.json();
-  return { base:j.base||'USD', asOf*j.date, source:'ECB (exchangerate.host)', rates:{ USD:1, ...(j.rates||{}) } };
+  return { base:j.base||'USD', asOfj.date, source:'ECB (exchangerate.host)', rates:{ USD:1, ...(j.rates||{}) } };
 }
 function safeJSON(s){ try { return JSON.parse(s||''); } catch { return null; } }
 
