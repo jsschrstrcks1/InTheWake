@@ -819,7 +819,8 @@ function wireInputs(){
         // per-drink inputs: never negative
         store.patch(`inputs.drinks.${key}`, Math.max(0, parsed));
         break;
-  }
+  }// <-- closes switch
+}   // <-- closes writeInput()
 
 // Hook all [data-input] controls once
 $$('[data-input]').forEach((inp)=>{
