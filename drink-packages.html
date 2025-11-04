@@ -235,6 +235,24 @@ img, canvas, svg, video { display:block; max-width:100%; height:auto; }
   .packages{ grid-template-columns: 1fr; }
 }
     .container { overflow-x: clip; }
+    <open>
+/* --- Break-Even Monitor Styles --- */
+.breakeven-monitor{
+  background: var(--bg);
+  border: 1px dashed var(--bd);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.breakeven-monitor .small{
+  display:block;
+  margin:4px 0;
+  line-height:1.3;
+}
+@media (prefers-color-scheme: dark){
+  .breakeven-monitor{ background:#1a202c; }
+}
+</open>
+
   </style>
 
   <!-- Chart.js -->
@@ -469,8 +487,13 @@ img, canvas, svg, video { display:block; max-width:100%; height:auto; }
         </div>
 
         <div class="controls-inline" style="margin-top:12px">
-          <button class="btn" type="button" onclick="printResults()">Print / Save Results</button>
-          <button class="btn" type="button" onclick="resetInputs()" style="background:var(--bad)">Reset All</button>
+      
+<!-- In drink-packages.html, inside the controls-inline under the chart -->
+<button class="btn" type="button" onclick="printResults()">Print / Save Results</button>
+<button class="btn ghost" type="button" onclick="shareScenario()">Share Scenario</button>
+<button class="btn" type="button" onclick="resetInputs()" style="background:var(--bad)">Reset All</button>
+
+
         </div>
       </div>
     </section>
@@ -491,6 +514,7 @@ img, canvas, svg, video { display:block; max-width:100%; height:auto; }
               <p class="muted"><strong data-pkg-price="soda">$13.99/day</strong> <span class="small">range $12.99–$15</span></p>
               <p class="small">Included value (your picks): <strong data-inc="soda">$0.00/day</strong></p>
               <p class="save small" data-saves="soda" hidden></p>
+              <div class="breakeven-monitor" id="soda-breakeven" aria-live="polite" style="margin-top:10px;"></div>
               <div class="controls-inline" style="margin-top:6px">
                 <button class="btn ghost" type="button" onclick="togglePriceEdit('soda')">📝 Edit price…</button>
                 <form class="controls-inline small" id="edit-soda" hidden onsubmit="return false;">
@@ -517,6 +541,7 @@ img, canvas, svg, video { display:block; max-width:100%; height:auto; }
               <p class="save small" data-saves="refresh" hidden></p>
               <div class="controls-inline" style="margin-top:6px">
                 <button class="btn ghost" type="button" onclick="togglePriceEdit('refresh')">📝 Edit price…</button>
+                <div class="breakeven-monitor" id="refresh-breakeven" aria-live="polite" style="margin-top:10px;"></div>
                 <form class="controls-inline small" id="edit-refresh" hidden onsubmit="return false;">
                   <label>$/day</label>
                   <input type="number" step="0.01" min="0" value="34.00" id="edit-refresh-val" style="width:90px">
@@ -538,6 +563,8 @@ img, canvas, svg, video { display:block; max-width:100%; height:auto; }
             <div class="pbd">
               <p class="muted"><strong data-pkg-price="deluxe">$85.00/day</strong> <span class="small">range $55–$115</span></p>
               <p class="small">Price cap: <strong id="cap-badge">$14.00</strong> <button class="btn ghost" type="button" onclick="toggleCapEdit()">Edit cap…</button></p>
+              <div class="breakeven-monitor" id="deluxe-breakeven" aria-live="polite" style="margin-bottom:10px;"></div>
+
               <form class="controls-inline small" id="edit-cap" hidden onsubmit="return false;">
                 <label>Cap $</label><input type="number" step="0.01" min="0" value="14.00" id="edit-cap-val" style="width:90px">
                 <button class="btn" type="button" onclick="saveCap()">Save</button>
