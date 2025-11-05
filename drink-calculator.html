@@ -79,6 +79,9 @@
   tbody td:first-child{border-top-left-radius:8px;border-bottom-left-radius:8px}
   tbody td:last-child{border-top-right-radius:8px;border-bottom-right-radius:8px}
   .tooltip [role="tooltip"]{display:none}
+    /* Chart sizing fix */
+.chart-wrap{ position:relative; height:260px; }
+#breakeven-chart{ width:100% !important; height:100% !important; max-height:260px; display:block; }
   </style>
 </head>
 
@@ -366,10 +369,15 @@
     (function(){
       const host=document.getElementById('author-rail'); if(!host) return;
       host.innerHTML = `
-        <picture>
-          <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.070">
-          <img src="/authors/img/ken1.jpg?v=3.010.070" width="48" height="48" alt="Author — Ken Baker" style="width:48px;height:48px;border-radius:50%;object-fit:cover">
-        </picture>
+<!-- in the author rail builder -->
+<picture>
+  <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.070">
+  <img
+    src="/authors/img/ken1.jpg?v=3.010.070"
+    width="64" height="64" alt="Author — Ken Baker"
+    style="width:64px;height:64px;border-radius:12px;object-fit:cover;display:block"
+  >
+</picture>
         <div class="small">
           <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
           Founder of <em>In the Wake</em>; writer and editor of the logbook.<br>
