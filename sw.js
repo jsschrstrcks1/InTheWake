@@ -80,35 +80,30 @@ self.addEventListener("message", (event) => {
   if (data.type === "GET_ERROR_LOG" && event.ports[0]) {
     event.ports[0].postMessage({ type:"ERROR_LOG", errors: ERROR_LOG });
   }
-  // Accept BOTH spellings from the page (bridge uses FORCE_DATA_REFRESH)
   if (data.type === "FORCE_REFRESH_DATA" || data.type === "FORCE_DATA_REFRESH") {
     event.waitUntil(refreshAndNotify(CALC_JSON_PATH));
   }
 });
 
-/* ---------------- Fetch routing (with small allowlist for cross-origin) ---------------- */
+/* ---------------- Fetch routing (small allowlist for cross-origin) ---------------- */
 
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
   const url = new URL(req.url);
 
-  // --- Allowlist a couple cross-origin resources (optional QoL) ---
+  // Allowlist a couple of cross-origin resources
   if (url.origin !== location.origin) {
-    // FX APIs: network-first with bounded-stale fallback (12h)
     if (url.hostname.includes("frankfurter.app") || url.hostname.includes("exchangerate.host")) {
       event.respondWith(staleIfErrorTimestamped(req, CACHE.DATA, CONFIG.maxData, 12*60*60*1000, { event }));
       return;
     }
-    // Chart.js CDN: cache-first (so it works offline)
     if (url.hostname.includes("cdn.jsdelivr.net")) {
       event.respondWith(cacheFirst(req, CACHE.ASSET, CONFIG.maxAssets));
       return;
     }
-    return; // ignore all other cross-origin (browser handles normally)
+    return;
   }
-
-  // --- From here: same-origin only ---
 
   // Health probe
   if (url.pathname === "/__sw_health") {
@@ -124,7 +119,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // ---------- Calculator: bounded-stale JSON + headers + background refresh ----------
+  // Calculator JSON: network-first with bounded-stale + timestamp headers
   if (isCalculatorData(url)) {
     event.respondWith(staleIfErrorTimestamped(req, CACHE.DATA, CONFIG.maxData, CALC_JSON_MAX_AGE, { event }));
     return;
@@ -145,9 +140,8 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(staleIfError(req, CACHE.DATA, CONFIG.maxData, CONFIG.staleMaxAge)); return;
   }
   if (isHTMLLike(req)) {
-    // Opportunistic warmup when user visits the calculator page (no /planning/)
-    const p = url.pathname;
-    if (p === "/drinks-calculator.html" || p === "/drinks-calculator" || p === "/drinks/") {
+    // ✅ Standardized: only watch /drinks-calculator.html for warmup
+    if (url.pathname === "/drinks-calculator.html") {
       event.waitUntil(warmCalculatorCache());
     }
     event.respondWith(handleHTML(event, req)); return;
@@ -176,7 +170,7 @@ async function handleHTML(event, request){
       return preload;
     }
 
-    const res = forceNetwork ? await fetchWithTimeout(request, 8000) : await fetchWithTimeout(request, 8000);
+    const res = await fetchWithTimeout(request, 8000);
     if (res && (res.ok || res.type === "opaque" || res.type === "cors")) {
       const enhanced = await injectCriticalCSS(res.clone());
       pageCache.put(key, enhanced).catch(()=>{});
@@ -482,7 +476,6 @@ async function refreshAndNotify(urlOrRequest){
     const stamped = await withTimestamp(res.clone());
     const dataCache = await caches.open(CACHE.DATA);
     await dataCache.put(new Request(url, { method:"GET" }), stamped);
-    // Tell all open tabs (align with sw-bridge.js expectations)
     const cs = await clients.matchAll({ type: "window", includeUncontrolled: true });
     cs.forEach(c => c.postMessage({ type: "DATA_REFRESHED", resource: "pricing", url }));
   }catch(err){
@@ -564,30 +557,7 @@ function logError(context, error, url=""){
   }catch(_){}
 }
 
-async function getCacheStats(){
-  const out = {};
-  for (const [label, name] of Object.entries(CACHE)){
-    try{
-      const c = await caches.open(name);
-      const k = await c.keys();
-      out[label] = { name, count: k.length };
-    }catch(_){
-      out[label] = { name, error: true };
-    }
-  }
-  try{
-    if (navigator.storage && navigator.storage.estimate){
-      const est = await navigator.storage.estimate();
-      out.storage = {
-        usageBytes: est.usage || 0,
-        quotaBytes: est.quota || 0
-      };
-    }
-  }catch(_){}
-  return out;
-}
-
-/* --------- Timestamp helpers (adds Date header + exposes age/confidence) ---------- */
+/* --------- Timestamp helpers ---------- */
 
 async function withTimestamp(response){
   try{
