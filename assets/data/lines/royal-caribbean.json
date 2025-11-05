@@ -1,47 +1,35 @@
 {
   "schemaVersion": "1.1",
   "updated": "2025-11-03",
-
   "lineId": "royal-caribbean",
-
   "rules": {
     "gratuity": 0.18,
     "epsilon": 0.02,
     "caps": { "deluxeAlcohol": 14 }
   },
-
   "items": [
-    { "id": "soda",         "label": "Soda (can/fountain)",   "price": 3.50,  "rangeMin": 3.50, "rangeMax": 3.50 },
-
-    { "id": "coffee",       "label": "Premium Coffee",        "price": 5.00,  "rangeMin": 4.00, "rangeMax": 5.50 },
-    { "id": "teaprem",      "label": "Specialty Tea",         "price": 2.25,  "rangeMin": 2.00, "rangeMax": 2.50 },
-
-    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",  "price": 8.25,  "rangeMin": 8.25, "rangeMax": 8.25 },
-    { "id": "mocktail",     "label": "Mocktail",              "price": 7.50,  "rangeMin": 6.00, "rangeMax": 10.00 },
-    { "id": "energy",       "label": "Energy Drink",          "price": 4.75,  "rangeMin": 4.00, "rangeMax": 5.00 },
-    { "id": "milkshake",    "label": "Milkshake",             "price": 13.50, "rangeMin": 9.00, "rangeMax": 18.00 },
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.50,  "rangeMin": 3.50, "rangeMax": 3.50 },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 5.00,  "rangeMin": 4.00, "rangeMax": 5.50 },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 2.25,  "rangeMin": 2.00, "rangeMax": 2.50 },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 8.25,  "rangeMin": 8.25, "rangeMax": 8.25 },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 7.50,  "rangeMin": 6.00, "rangeMax": 10.00 },
+    { "id": "energy",       "label": "Energy Drink",           "price": 4.75,  "rangeMin": 4.00, "rangeMax": 5.00 },
+    { "id": "milkshake",    "label": "Milkshake",              "price": 13.50, "rangeMin": 9.00, "rangeMax": 18.00 },
     { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 2.90,  "rangeMin": 2.25, "rangeMax": 3.50 },
-
-    { "id": "beer",         "label": "Beer",                  "price": 8.50,  "rangeMin": 7.00, "rangeMax": 9.75 },
-    { "id": "wine",         "label": "Wine (glass)",          "price": 11.00, "rangeMin": 8.00, "rangeMax": 16.00 },
-    { "id": "cocktail",     "label": "Cocktail",              "price": 12.00, "rangeMin": 10.00, "rangeMax": 14.00 },
+    { "id": "beer",         "label": "Beer",                   "price": 8.50,  "rangeMin": 7.00, "rangeMax": 9.75 },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 11.00, "rangeMin": 8.00, "rangeMax": 16.00 },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 12.00, "rangeMin": 10.00, "rangeMax": 14.00 },
     { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 11.50, "rangeMin": 9.00, "rangeMax": 14.00 },
-
-    { "id": "tapwater",     "label": "Tap Water",             "price": 0, "free": true },
-    { "id": "lemonade",     "label": "Lemonade (basic)",      "price": 0, "free": true },
-    { "id": "basictea",     "label": "Basic Tea (hot/cold)",  "price": 0, "free": true },
-    { "id": "juiceconc",    "label": "Juice (concentrate)",   "price": 0, "free": true }
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
   ],
-
   "sets": {
     "soda":    ["soda"],
-    "refresh": [
-      "soda","coffee","teaprem","freshjuice","mocktail","milkshake",
-      "bottledwater","tapwater","lemonade","basictea","juiceconc","energy"
-    ],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
     "alcohol": ["beer","wine","cocktail","spirits"]
   },
-
   "packages": {
     "soda": {
       "name": "Classic Soda Package",
@@ -50,10 +38,7 @@
       "priceMin": 8.99,
       "priceMax": 15.00,
       "priceMid": 10.99,
-      "includes": [
-        "Unlimited fountain soda & Coca-Cola Freestyle",
-        "Souvenir cup"
-      ]
+      "includes": ["Unlimited fountain soda & Coca-Cola Freestyle","Souvenir cup"]
     },
     "refreshment": {
       "name": "Refreshment Package",
@@ -63,12 +48,8 @@
       "priceMax": 48.00,
       "priceMid": 34.50,
       "includes": [
-        "All soda items",
-        "Premium coffees/teas (excl. Starbucks)",
-        "Fresh-squeezed juices & smoothies",
-        "Mocktails / zero-proof cocktails",
-        "Energy drinks (e.g., Red Bull)",
-        "Milkshakes at Johnny Rockets",
+        "All soda items","Premium coffees/teas (excl. Starbucks)","Fresh-squeezed juices & smoothies",
+        "Mocktails / zero-proof cocktails","Energy drinks (e.g., Red Bull)","Milkshakes at Johnny Rockets",
         "Bottled still/sparkling water"
       ]
     },
@@ -79,14 +60,9 @@
       "priceMin": 55.00,
       "priceMax": 115.00,
       "priceMid": 85.00,
-      "includes": [
-        "All Refreshment items",
-        "Beer, wine, cocktails & spirits up to $14 each (pay difference for top shelf)",
-        "≈ 40% off select bottled wines"
-      ]
+      "includes": ["All Refreshment items","Beer, wine, cocktails & spirits up to $14 each (pay difference for top shelf)","≈ 40% off select bottled wines"]
     }
   },
-
   "_notes": {
     "apples_to_apples": "Included value is now calculated as avoided à-la-carte spend = (per-drink base × 1.18) so comparisons to package daily price are consistent."
   }
