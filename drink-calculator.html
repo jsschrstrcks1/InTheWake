@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Drink Packages — Break-Even Calculator • In the Wake</title>
 
-  <!-- Inline skin (no external CSS file) -->
+  <!-- Inline skin -->
   <style id="itw-skin-v3.010">
   :root{
     --sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e;
@@ -21,6 +21,7 @@
   .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:var(--shadow)}
   h1,h2,h3{color:var(--sea)} .tiny{font-size:.9rem;color:#456} .small{font-size:.88rem;color:#334}
   .muted{opacity:.75}
+  .sr-only{position:absolute;left:-9999px}
 
   /* Header / Nav */
   .hero-header{position:relative;z-index:0;border-bottom:6px double var(--rope);background:#eaf6f6;overflow:visible}
@@ -29,9 +30,11 @@
   .brand img{height:40px;width:auto}
   .version-badge{font-size:.72rem;opacity:.8}
   .itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap}
-  .itw-nav .nav-item{position:relative}
   .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
     border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer;text-decoration:none}
+
+  /* Dropdown (portal style) */
+  .itw-nav .nav-item{position:relative}
   .menu{position:absolute;left:0;top:100%;transform:translateY(.4rem);min-width:240px;max-width:min(90vw,360px);
     background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;
     display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:2100;transition:opacity .18s ease}
@@ -49,7 +52,7 @@
   .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
   .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95}
   .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2}
-  .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
+  .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:14px;background:#fff;line-height:1.1}
 
   /* Grid */
   .page-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,var(--rail));gap:2rem;align-items:start}
@@ -59,6 +62,12 @@
   .rail-list{display:grid;gap:1rem}
   .rail-card{display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center;border:1px solid #e2e9ed;border-radius:12px;padding:.6rem;background:#fff}
   .rail-card .thumb{width:72px;height:48px;border-radius:10px;overflow:hidden;background:#eef4f6;border:1px solid #dfe7ea}
+
+  /* Personas */
+  .persona-grid{display:grid;grid-template-columns:1fr;gap:.45rem}
+  .persona{display:flex;align-items:center;gap:.55rem;padding:.45rem .6rem;border:1px solid var(--bd);border-radius:10px;background:#fff;cursor:pointer}
+  .persona:hover{background:#f7fbfd}
+  .persona .tag{font-size:.75rem;border:1px solid #dbe7ec;border-radius:999px;padding:.1rem .5rem;background:#f8fbfd}
 
   /* Calculator bits */
   .banner{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:0 0 .75rem}
@@ -78,10 +87,10 @@
   tbody td{background:#fff;padding:.5rem .6rem;border:1px solid var(--bd)}
   tbody td:first-child{border-top-left-radius:8px;border-bottom-left-radius:8px}
   tbody td:last-child{border-top-right-radius:8px;border-bottom-right-radius:8px}
-  .tooltip [role="tooltip"]{display:none}
-    /* Chart sizing fix */
-.chart-wrap{ position:relative; height:260px; }
-#breakeven-chart{ width:100% !important; height:100% !important; max-height:260px; display:block; }
+
+  /* Chart sizing fix */
+  .chart-wrap{position:relative;height:260px}
+  #breakeven-chart{width:100% !important;height:100% !important;max-height:260px;display:block}
   </style>
 </head>
 
@@ -136,8 +145,13 @@
 
   <!-- Main grid -->
   <main class="wrap page-grid" role="main" aria-label="Calculator and articles">
-    <!-- LEFT: Calculator (full surface, config at top) -->
+    <!-- LEFT: Calculator -->
     <section class="card calc-card" id="calc-root">
+      <h1 style="margin-top:.2rem">Drink Packages — Break-Even Calculator</h1>
+      <p class="tiny muted">
+        Compare à-la-carte vs Soda, Refreshment, and Deluxe. Add minors (50% off), sea/port weighting, and currency display. Works offline.
+      </p>
+
       <div class="banner">
         <strong id="best-chip">Best value: —</strong>
         <span id="best-text" class="small muted">—</span>
@@ -207,11 +221,11 @@
 
       <!-- Chart -->
       <div class="card" style="border-color:#e5e7eb">
-        <canvas id="breakeven-chart" height="220"></canvas>
+        <div class="chart-wrap"><canvas id="breakeven-chart"></canvas></div>
         <div id="range-note" class="tiny muted" style="margin-top:.35rem"></div>
       </div>
 
-      <!-- Controls (config at top) -->
+      <!-- Controls -->
       <fieldset class="card" style="border-color:#e5e7eb">
         <legend class="tiny">Trip setup</legend>
         <div class="row">
@@ -250,11 +264,10 @@
         <div id="itinerary-inputs" style="display:none"></div>
       </fieldset>
 
-      <!-- Per-drink inputs (steppers) -->
+      <!-- Per-drink inputs -->
       <fieldset class="card" style="border-color:#e5e7eb">
         <legend class="tiny">Daily picks (average)</legend>
 
-        <!-- Example rows; the app JS wires all by [data-input] and stepInput() -->
         <div class="row row--stepper">
           <label class="small">Soda avg</label>
           <div class="input-stepper">
@@ -284,8 +297,6 @@
           </div>
           <span class="tiny muted" data-price-pill="cocktail" style="grid-column:1/-1"></span>
         </div>
-
-        <!-- Add the rest as needed; JS supports all keys -->
       </fieldset>
 
       <!-- Actions -->
@@ -313,11 +324,18 @@
       </section>
 
       <div id="fallback-banner" class="tiny" hidden>Using built-in fallback data.</div>
-      <div id="a11y-status" class="tiny" aria-live="polite" style="position:absolute;left:-9999px">—</div>
+      <div id="a11y-status" class="tiny sr-only" aria-live="polite">—</div>
     </section>
 
     <!-- RIGHT: Rails -->
-    <aside aria-label="Recent articles & author">
+    <aside aria-label="Recent articles, personas & author">
+      <!-- Personas (Presets) -->
+      <section class="card" id="personas-card">
+        <h2 class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">Personas</h2>
+        <div class="persona-grid" id="persona-list" aria-live="polite"></div>
+        <p class="tiny muted" style="margin:.5rem 0 0">Click a preset to pre-fill the calculator.</p>
+      </section>
+
       <section class="card">
         <h2 class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">Recent Articles</h2>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
@@ -333,15 +351,15 @@
   <!-- JS deps -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="" crossorigin="anonymous"></script>
 
-  <!-- YOUR existing app (kept external, as requested — no duplication here) -->
+  <!-- Your calculator app -->
   <script defer src="/assets/js/drink-calculator.app.js?v=9.000.004"></script>
 
-  <!-- Site integration glue: portaled menus + rails + Top-20 override (inline) -->
+  <!-- Integration glue: dropdowns, rails, personas, Top-20 override -->
   <script>
   (function(){
     "use strict";
 
-    /* ===== Portaled dropdowns ===== */
+    /* ===== Dropdowns (portal behavior) ===== */
     (function(){
       const root=document.querySelector('.itw-nav'); if(!root) return;
       const items=[...root.querySelectorAll('.nav-item[aria-haspopup]')];
@@ -357,36 +375,100 @@
       window.addEventListener('blur',()=>closeAll());
     })();
 
-    /* ===== Normalize legacy solo links ===== */
-    (function(){
-      const fix = href => href ? href.replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i,'/solo/$1.html') : href;
-      document.querySelectorAll('a[href]').forEach(a=>{
-        const old=a.getAttribute('href'); const neu=fix(old); if(neu&&neu!==old) a.setAttribute('href',neu);
-      });
-    })();
-
-    /* ===== Author rail (Ken) ===== */
+    /* ===== Author rail ===== */
     (function(){
       const host=document.getElementById('author-rail'); if(!host) return;
       host.innerHTML = `
-<!-- in the author rail builder -->
 <picture>
   <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.070">
-  <img
-    src="/authors/img/ken1.jpg?v=3.010.070"
-    width="64" height="64" alt="Author — Ken Baker"
-    style="width:64px;height:64px;border-radius:12px;object-fit:cover;display:block"
-  >
+  <img src="/authors/img/ken1.jpg?v=3.010.070" width="64" height="64" alt="Author — Ken Baker"
+       style="width:64px;height:64px;border-radius:12px;object-fit:cover;display:block">
 </picture>
-        <div class="small">
-          <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
-          Founder of <em>In the Wake</em>; writer and editor of the logbook.<br>
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
-          <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
-        </div>`;
+<div class="small">
+  <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
+  Founder of <em>In the Wake</em>; writer and editor of the logbook.<br>
+  <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+  <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+</div>`;
     })();
 
-    /* ===== Rails (Recent) + Top-20 image override ===== */
+    /* ===== Personas (presets that write to inputs) ===== */
+    (function(){
+      const listEl = document.getElementById('persona-list'); if(!listEl) return;
+
+      // Helper: set value for an input wired by data-input and emit events your app listens for
+      function setByKey(key, val){
+        const el = document.querySelector(`[data-input="${key}"]`);
+        if(!el) return;
+        el.value = String(val);
+        el.dispatchEvent(new Event('input', {bubbles:true}));
+        el.dispatchEvent(new Event('change', {bubbles:true}));
+      }
+      function setRange(key, val){
+        const el = document.querySelector(`[data-input="${key}"]`);
+        if(!el) return;
+        el.value = String(val);
+        el.dispatchEvent(new Event('input', {bubbles:true}));
+      }
+      function setChecked(id, on){
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.checked = !!on;
+        el.dispatchEvent(new Event('change', {bubbles:true}));
+      }
+
+      // Persona definitions (tune as you like)
+      const PERSONAS = [
+        {
+          id:'solo', name:'Solo traveler', tag:'independent',
+          set:()=>{ setByKey('adults',1); setByKey('minors',0); setByKey('soda',1); setByKey('coffee',1); setByKey('cocktail',1); setChecked('mode-simple', true); }
+        },
+        {
+          id:'girls', name:'Girls’ trip', tag:'group fun',
+          set:()=>{ setByKey('adults',4); setByKey('minors',0); setByKey('soda',1); setByKey('coffee',1); setByKey('cocktail',3); setRange('seaweight',15); document.getElementById('sea-weight-val').textContent='15%'; }
+        },
+        {
+          id:'heavy', name:'Heavy drinker', tag:'deluxe-leaning',
+          set:()=>{ setByKey('adults',2); setByKey('minors',0); setByKey('cocktail',5); setByKey('beer',2); setByKey('wine',2); setByKey('coffee',1); }
+        },
+        {
+          id:'mocktails', name:'Mocktails + Coffee', tag:'refreshment',
+          set:()=>{ setByKey('adults',2); setByKey('minors',0); setByKey('mocktail',3); setByKey('coffee',2); setByKey('soda',1); }
+        },
+        {
+          id:'family', name:'Family with teens', tag:'50% minors',
+          set:()=>{ setByKey('adults',2); setByKey('minors',2); setByKey('soda',3); setByKey('mocktail',1); setByKey('coffee',1); }
+        },
+        {
+          id:'teetotal', name:'Teetotal', tag:'à-la-carte',
+          set:()=>{ ['cocktail','beer','wine','mocktail'].forEach(k=>setByKey(k,0)); setByKey('soda',1); setByKey('coffee',1); }
+        },
+        {
+          id:'beerlover', name:'Beer lover', tag:'casual',
+          set:()=>{ setByKey('beer',4); setByKey('cocktail',1); setByKey('wine',1); }
+        },
+        {
+          id:'coffee', name:'Coffee fiend', tag:'latte life',
+          set:()=>{ setByKey('coffee',4); setByKey('soda',1); }
+        }
+      ];
+
+      listEl.innerHTML = PERSONAS.map(p => `
+        <button class="persona" type="button" data-id="${p.id}">
+          <span class="tag">${p.tag}</span>
+          <strong class="small">${p.name}</strong>
+        </button>`).join('');
+
+      listEl.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.persona'); if(!btn) return;
+        const p = PERSONAS.find(x => x.id === btn.dataset.id); if(!p) return;
+        p.set();
+        // Optional: jump banner into view for feedback
+        document.querySelector('#best-chip')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+      });
+    })();
+
+    /* ===== Recent Articles + Top-20 cover override ===== */
     (async function recentRail(){
       const rail=document.getElementById('recent-rail'); if(!rail) return;
 
