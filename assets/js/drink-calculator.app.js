@@ -1,7 +1,11 @@
-/* drink-calculator.app.js — v.9.000.003 (Worker-enabled, Offline-First FX) */
+/* drink-calculator.app.js — v.9.000.004 (Worker-enabled, Offline-First FX)
+   Changes from v.9.000.003:
+   - renderResults(): kids hint under Best Value (handles Soda/Refresh/À-la-carte).
+   - renderResults(): group table uses row.pkg label as-is (no false “Refreshment (disc.)” for Soda).
+   - renderResults(): adds on-card teal “Recommended for kids” chip on Soda/Refresh when applicable.
+*/
 
-/* ------------------------- Config ------------------------- */
-const VERSION = 'v.9.000.003';
+const VERSION = 'v.9.000.004';
 // ---------- Sanitize and clamp utilities ----------
 function num(v) {
   const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d. -]/g, ''));
@@ -304,7 +308,6 @@ async function loadFx() {
       renderFxNote();
       window.itwInfo?.update({ fxResponse: _response, fxSource: 'exchangerate.host' });
     } catch {
-      // ✅ final fallback restored
       if (cached) { FX = cached; renderFxNote(true); }
       else { FX = { base:'USD', asOf:null, source:'USD only', rates:{USD:1}, _ts:null }; renderFxNote(true); }
     }
@@ -313,7 +316,7 @@ async function loadFx() {
 
 function convertUSD(amount, to = currentCurrency){
   const baseRate = (FX.rates && FX.rates[to]) || 1;
-  const driftPct = Number(window.fxDriftPct || 0);   // app reads this
+  const driftPct = Number(window.fxDriftPct || 0);
   const driftMultiplier = 1 + (driftPct / 100);
   return amount * baseRate * driftMultiplier;
 }
@@ -424,24 +427,63 @@ function renderResults(r){
   const chip = $('#best-chip'), text = $('#best-text');
   const label = r.winnerKey==='alc' ? 'à-la-carte' : (r.winnerKey==='deluxe'?'Deluxe':r.winnerKey.charAt(0).toUpperCase()+r.winnerKey.slice(1));
   if (chip) chip.textContent = `Best value: ${label}`;
-  if (text) text.textContent = (r.winnerKey==='alc')
-    ? 'Your daily picks are cheapest without a package.'
-    : `Your daily picks are cheapest with the ${label} package.`;
+  if (text) {
+    text.textContent = (r.winnerKey==='alc')
+      ? 'Your daily picks are cheapest without a package.'
+      : `Your daily picks are cheapest with the ${label} package.`;
+  }
   announce('Best value: ' + label);
 
+  // --- Kids package hint (Soda / Refreshment / À-la-carte) ---
+  (function showKidsHint(){
+    const container = document.querySelector('.banner #best-text');
+    if (!container) return;
+    // Remove prior hint(s)
+    Array.from(container.querySelectorAll('.kids-hint')).forEach(n => n.remove());
+
+    const minors = (r.groupRows || []).filter(x => x && (x.isMinor || /Minor\s+\d+/.test(x.who||'')));
+    if (!minors.length) return;
+
+    const keys = new Set(minors.map(m => m.pkgKey || (
+      /refresh/i.test(m.pkg||'') ? 'refresh' :
+      /soda/i.test(m.pkg||'') ? 'soda' :
+      /à[-\s]?la[-\s]?carte/i.test(m.pkg||'') ? 'alc' : ''
+    )));
+
+    let kidsMsg = '';
+    if (keys.has('refresh')) {
+      kidsMsg = 'Kids would be best served by the Refreshment Package (50% off).';
+    } else if (keys.has('soda')) {
+      kidsMsg = 'Kids would be best served by the Soda Package.';
+    } else if (keys.has('alc')) {
+      kidsMsg = 'Kids are best on à-la-carte based on your inputs.';
+    }
+
+    if (kidsMsg) {
+      const add = document.createElement('div');
+      add.className = 'small kids-hint';
+      add.style.marginTop = '4px';
+      add.textContent = kidsMsg;
+      container.appendChild(add);
+    }
+  })();
+
+  // Totals
   const totals = $('#totals');
   if (totals) totals.textContent = `${money(r.perDay)}/day • ${money(r.trip)} trip`;
 
+  // Group breakdown table
   const tbody = $('#group-table-body'), sec = $('#group-breakdown');
   if (tbody) {
     tbody.innerHTML = '';
     r.groupRows.forEach(row=>{
       tbody.insertAdjacentHTML('beforeend',
-        `<tr><td>${row.who}</td><td>${row.pkg==='alc'?'À-la-carte':row.pkg}</td><td>${money(row.perDay)}</td><td>${money(row.trip)}</td></tr>`);
+        `<tr><td>${row.who}</td><td>${row.pkg}</td><td>${money(row.perDay)}</td><td>${money(row.trip)}</td></tr>`);
     });
   }
   if (sec) sec.hidden = r.groupRows.length<=1;
 
+  // Included value badges
   const incSNode = document.querySelector('[data-inc="soda"]');
   const incRNode = document.querySelector('[data-inc="refresh"]');
   const incDNode = document.querySelector('[data-inc="deluxe"]');
@@ -450,6 +492,7 @@ function renderResults(r){
   if (incDNode) incDNode.textContent = money(r.included.deluxe)+'/day';
   const oc = $('#overcap-est'); if (oc) oc.textContent = money(r.overcap)+'/day';
 
+  // Chart
   const c = ensureChart();
   if (c){
     c.data.datasets = [
@@ -552,6 +595,36 @@ function renderResults(r){
       <p class="small">≈ <strong>${need} more cap-price alcoholic drink${need>1?'s':''}</strong> per day (cap $${(economics.deluxeCap||14).toFixed(2)} + grat).</p>`;
     }
   }
+
+  // --- Kids "Recommended" chips on Soda/Refreshment cards
+  (function kidsChips(){
+    // Clear any previous chips
+    $$('.pkg .kids-chip').forEach(el => el.remove());
+
+    const minors = (r.groupRows || []).filter(x => x && (x.isMinor || /Minor\s+\d+/.test(x.who||'')));
+    if (!minors.length) return;
+
+    const keys = new Set(minors.map(m => m.pkgKey || (
+      /refresh/i.test(m.pkg||'') ? 'refresh' :
+      /soda/i.test(m.pkg||'') ? 'soda' :
+      ''
+    )));
+    const targetIds = [];
+    if (keys.has('soda')) targetIds.push('#pkg-soda');
+    if (keys.has('refresh')) targetIds.push('#pkg-refresh');
+
+    targetIds.forEach(sel => {
+      const card = document.querySelector(sel);
+      if (!card) return;
+      const hd = card.querySelector('.phd');
+      if (!hd) return;
+      const chipEl = document.createElement('span');
+      chipEl.className = 'kids-chip';
+      chipEl.textContent = '👧 Recommended for kids';
+      chipEl.style.cssText = 'margin-left:8px;background:#ccfbf1;color:#115e59;border:1px solid #99f6e4;padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;';
+      hd.appendChild(chipEl);
+    });
+  })();
 }
 
 /* ------------------------- Economics/Prices UI ------------------------- */
@@ -951,7 +1024,12 @@ function wireInputs(){
     el?.scrollIntoView({ behavior:'smooth', block:'start' });
   });
 
-  // (Removed: ESC-to-hide tooltips inline style hack)
+  /* ---------- ESC closes tooltips ---------- */
+  document.addEventListener('keydown', e=>{
+    if (e.key === 'Escape'){
+      $$('.tooltip [role="tooltip"]').forEach(tt => tt.style.display = 'none');
+    }
+  });
 }
 
 /* ------------------------- Reflect inputs to DOM ------------------------- */
