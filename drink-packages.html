@@ -7,9 +7,7 @@
 
   <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
   <meta name="description" content="Free Royal Caribbean drink calculator with break-even chart, sea/port weighting, and transparent price assumptions. Compare Soda, Refreshment, and Deluxe vs. à-la-carte." />
-
-  <!-- ✅ fixed canonical/og URLs -->
-  <link rel="canonical" href="https://cruisinginthewake.com/drinks-calculator.html" />
+  <link rel="canonical" href="https://cruisinginthewake.com/planning/drink-packages.html" />
 
   <!-- (optional) preconnects for FX APIs -->
   <!-- <link rel="preconnect" href="https://api.frankfurter.app"> -->
@@ -19,7 +17,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Royal Caribbean Drink Package Calculator" />
   <meta property="og:description" content="Break-even chart + sea/port day weighting. Find out if a package saves money." />
-  <meta property="og:url" content="https://cruisinginthewake.com/drinks-calculator.html" />
+  <meta property="og:url" content="https://cruisinginthewake.com/planning/drink-packages.html" />
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg" />
 
   <!-- Twitter -->
@@ -33,8 +31,8 @@
     "@context":"https://schema.org",
     "@type":"BreadcrumbList",
     "itemListElement":[
-      {"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},
-      {"@type":"ListItem","position":2,"name":"Royal Caribbean Drink Package Calculator","item":"https://cruisinginthewake.com/drinks-calculator.html"}
+      {"@type":"ListItem","position":1,"name":"Planning","item":"https://cruisinginthewake.com/planning/"},
+      {"@type":"ListItem","position":2,"name":"Royal Caribbean Drink Package Calculator","item":"https://cruisinginthewake.com/planning/drink-packages.html"}
     ]
   }
   </script>
@@ -45,7 +43,7 @@
     "@type":"FAQPage",
     "mainEntity":[
       {"@type":"Question","name":"Is the Royal Caribbean drink package worth it?","acceptedAnswer":{"@type":"Answer","text":"It can be worth it if you typically average ~5–6 alcoholic drinks per day. Use the calculator to compare à-la-carte to Soda, Refreshment, and Deluxe, with gratuity included."}},
-      {"@type":"Question","name":"Does the drink package include gratuity?","acceptedAnswer":{"@type":"Answer","text":"Yes. Package prices include the 18 percent service charge. À-la-carte drinks add 18 percent at checkout."}},
+      {"@type":"Question","name":"Does the drink package include gratuity?","acceptedAnswer":{"@type":"Answer","text":"Yes. Package prices include the 18% service charge. À-la-carte drinks add 18% at checkout."}},
       {"@type":"Question","name":"How do I enter sale prices from Cruise Planner?","acceptedAnswer":{"@type":"Answer","text":"Click “Edit price…” on any package to type your sale rate; results update instantly."}}
     ]
   }
@@ -56,36 +54,184 @@
     "@context":"https://schema.org",
     "@type":"WebPage",
     "name":"Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?",
-    "url":"https://cruisinginthewake.com/drinks-calculator.html",
+    "url":"https://cruisinginthewake.com/planning/drink-packages.html",
     "description":"Free Royal Caribbean drink calculator with break-even chart, sea/port day weighting, and transparent price assumptions.",
     "inLanguage":"en-US",
-    "isPartOf":{"@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com/"}
+    "isPartOf": {"@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com/"}
   }
   </script>
 
-  <!-- Styles -->
+  <!-- Styles (newer rules later = override friendly) -->
   <style>
-    /* keep your existing CSS — unchanged from working version */
+  :root{
+    --bg:#f8fbfc; --card:#fff; --bd:#e5e7eb; --muted:#525a66; --chip:#e7f6ea; --chipText:#0a7b3e;
+    --good:#10b981; --warn:#f59e0b; --bad:#ef4444; --ink:#0f172a;
+  }
+  @media print {
+    body { font-size: 12pt; background: var(--card); }
+    header.navbar, .qs, .banner, .rail, .card:not(.inputs), .controls-inline .btn { display: none; }
+    main.container { max-width: 100%; margin: 0; padding: 0; }
+    .grid, .packages { grid-template-columns: 1fr; }
+    .card { border: none; box-shadow: none; }
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:#111;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  a{color:#0369a1}
+  .container{max-width:1200px;margin:0 auto;padding:0 16px}
+  header.navbar{position:sticky;top:0;background:#0f172a;color:#fff;border-bottom:3px solid #d4af37;z-index:40}
+  header .inner{display:flex;align-items:center;gap:16px;padding:10px 12px}
+  header .brand img{height:32px}
+  header nav a{color:#dbeafe;text-decoration:none;margin:0 8px;font-weight:600}
+  .sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .banner{background:var(--chip);color:#111;border:1px solid #cfe8d7;border-radius:10px;padding:10px 14px;margin:18px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .chip{background:#bfe8c8;color:var(--chipText);border-radius:999px;padding:3px 10px;font-weight:800}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+  .card .hd{
+    padding:12px 16px;
+    border-bottom:1px dashed var(--bd);
+    font-weight:800;
+    position: sticky; top: 0; background: var(--card); z-index: 10;
+  }
+  .card .bd{padding:12px 16px}
+  .row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
+  .row:last-child{border-bottom:0}
+  .inputs .row label { line-height: 1.2; }
+  .inputs input[type="number"], .inputs input[type="text"]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;font:inherit}
+  .inputs .pill{background:#ecfeff;border:1px solid #bae6fd;border-radius:999px;padding:2px 8px;margin-left:8px;font-weight:700;color:#0f172a}
+  .inputs .included .pill{background:#eef2ff;border:1px solid #e5e7eb;color:#334155}
+  .qs{background:#fde68a20;border:1px solid #f59e0b50;border-radius:12px;padding:14px 16px;margin:16px 0}
+  .qs .qs-hd{font-weight:800;color:#7c2d12}
+  .qs .qs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .qs .qs-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:#ecfeff;border:1px solid #bae6fd;border-radius:12px;padding:10px;cursor:pointer;font-weight:700;color:#0f172a;text-align:center;font:inherit}
+  .qs .qs-btn small{font-weight:600;color:#475569}
+  .health{display:none;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+  .health.show{display:block}
+  .pkg{border-radius:14px;overflow:hidden;position:relative;scroll-snap-align:start}
+  .pkg .phd{background:#0b2940;color:#fff;padding:12px 14px;font-weight:800;display:flex;gap:8px;align-items:center;justify-content:space-between}
+  .pkg.winner{outline:3px solid #34d399;box-shadow:0 0 0 6px rgba(52,211,153,.15)}
+  .pkg.winner .phd{background:linear-gradient(135deg, #059669 0%, #10b981 100%)}
+  .pkg.winner::before{content:'🏆 Best Value';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#fbbf24;color:#78350f;padding:4px 12px;border-radius:999px;font-size:.8rem;font-weight:800;box-shadow:0 4px 12px rgba(251,191,36,.5)}
+  .pkg .pbd{padding:14px}
+  .pkg .muted{color:var(--muted);font-size:.9rem}
+  .pkg .save{font-weight:700;margin-top:6px;color:#059669}
+  .help{all:unset;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#0ea5e9;color:#fff;font-weight:800;line-height:1}
+  .tooltip{position:relative}
+  .tooltip [role="tooltip"]{position:absolute;inset:auto auto 100% 0;transform:translateY(-8px);background:#0f172a;color:#fff;padding:8px 10px;border-radius:8px;min-width:220px;box-shadow:0 6px 18px rgba(0,0,0,.2);font-size:.9rem;display:none;z-index:100}
+  .tooltip:focus-within [role="tooltip"], .tooltip:hover [role="tooltip"]{display:block}
+  #breakeven-wrap{margin-top:18px}
+  #breakeven-chart{width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px}
+  .controls-inline{display:flex;gap:10px;flex-wrap:wrap}
+  .badge{background:#fbbf24;color:#78350f;padding:4px 10px;border-radius:999px;font-weight:800}
+  .btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700}
+  .btn.ghost{background:#fff;color:#0f172a}
+  .small{font-size:.9rem;color:var(--muted)}
+  .table{width:100%;border-collapse:collapse}
+  .table th,.table td{padding:8px;border-bottom:1px solid var(--bd);text-align:left}
+
+  .input-stepper{display:flex;align-items:center;justify-content:flex-end;gap:4px}
+  .input-stepper .btn-step{all:unset;cursor:pointer;background:var(--bg);border:1px solid var(--bd);color:var(--ink);width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;line-height:1;user-select:none}
+  .input-stepper .btn-step:hover,.input-stepper .btn-step:focus-visible{background:#e0f2fe;border-color:#0ea5e9;outline:none}
+  .input-stepper input{width:45px !important;text-align:center;padding:6px 4px !important;-moz-appearance:textfield}
+  .input-stepper input::-webkit-outer-spin-button,.input-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+  .grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px}
+  .row.row--stepper{grid-template-columns:1fr 140px}
+  .inputs .row{align-items:start}
+  .inputs .row > :not(:first-child){justify-self:end}
+
+  @media (max-width: 960px){
+    .grid{ grid-template-columns:1fr; }
+    .packages{ grid-template-columns:repeat(2, minmax(200px,1fr)); }
+    .row.row--stepper { grid-template-columns: 1fr 120px; }
+    .row { grid-template-columns: 1fr 110px; }
+  }
+  @media (max-width: 640px){
+    .packages{ grid-template-columns:1fr; }
+    .qs .qs-grid{ grid-template-columns:1fr; }
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#1a202c;--card:#2d3748;--bd:#4a5568;--muted:#a0aec0}
+    body{color:#e2e8f0}
+    .card{box-shadow:0 1px 4px rgba(0,0,0,.2)}
+    .card .hd { background: var(--card); }
+    .health{background:#92400e;border-color:#c05621;color:#feebc8}
+    .tooltip [role="tooltip"]{background:#2d3748;color:#e2e8f0}
+  }
+
+  /* chart/overflow hardening (newer overrides) */
+  #breakeven-wrap { position: relative; overflow: hidden; line-height: 0; }
+  #breakeven-wrap *:empty { display: none !important; }
+  #breakeven-wrap canvas { display:block; inline-size:100%; block-size:280px; }
+  img, canvas, svg, video { display:block; max-width:100%; height:auto; }
+  .packages { overflow-x: hidden; }
+  .pkg { overflow: hidden; position: relative; }
+  .pkg.winner::before { content: none; }
+  .pkg.winner .phd::after{
+    content:'🏆 Best Value'; margin-left:auto; background:#fbbf24; color:#78350f;
+    padding:4px 10px; border-radius:999px; font-size:.8rem; font-weight:800;
+  }
+  .tooltip [role="tooltip"]{ max-width: 280px; word-wrap: break-word; }
+  #breakeven-chart{ width:100% !important; max-width:100%; height:280px; }
+
+  /* force vertical stack for packages (mobile hardening) */
+  .packages{
+    display:grid; grid-template-columns: 1fr; gap:16px; margin-top:18px;
+    padding-inline:0; overflow-x: clip;
+  }
+  .pkg{ scroll-snap-align: none; }
+  .pkg.winner::before{ left:50%; transform:translateX(-50%); max-width:90%; white-space:nowrap; }
+  @media (max-width: 960px){ .packages{ grid-template-columns: 1fr; } }
+  @media (max-width: 640px){ .packages{ grid-template-columns: 1fr; } }
+  .container { overflow-x: clip; }
+
+  /* Break-Even Monitor Styles */
+  .breakeven-monitor{
+    background: var(--bg);
+    border: 1px dashed var(--bd);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+  .breakeven-monitor .small{ display:block; margin:4px 0; line-height:1.3; }
+  @media (prefers-color-scheme: dark){
+    .breakeven-monitor{ background:#1a202c; }
+  }
+    .itw-info{position:fixed;right:12px;bottom:12px;z-index:2147483647;font:13px/1.3 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;color:#222}
+.itw-toggle{width:28px;height:28px;border-radius:9999px;border:1px solid #ccc;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:pointer}
+.itw-body{margin-top:8px;width:260px;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:10px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.itw-row{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.itw-title{font-weight:600}
+.itw-sub{color:#666;font-size:12px;margin:2px 0 6px}
+.itw-pill{padding:2px 8px;border-radius:9999px;background:#eee;font-size:12px;border:1px solid #ddd}
+.itw-pill.ok{background:#e8f7ee;border-color:#c2e7cf;color:#0f6e3d}
+.itw-pill.warn{background:#fff6e6;border-color:#ffe0a8;color:#8a5b00}
+.itw-pill.bad{background:#ffeaea;border-color:#ffc9c9;color:#8a0f0f}
+.itw-refresh{margin-top:8px;width:100%;padding:6px 10px;border-radius:8px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
+.itw-refresh:hover{background:#f2f2f2}
+    .fx-drift{margin:12px 0 16px;font:14px/1.3 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#222;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#fx-drift-range{width:220px}
+.fx-drift-reset{padding:4px 8px;border-radius:8px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
+.fx-drift-reset:hover{background:#f2f2f2}
   </style>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-  <!-- Preload math + worker -->
+  <!-- Preload the shared math module and worker -->
   <link rel="modulepreload" href="/assets/js/drink-math.js?v=v.9.000.003">
   <link rel="preload" href="/assets/js/drink-worker.js?v=v.9.000.003" as="worker" />
 
-  <!-- Expose compute() early -->
+  <!-- Expose compute() for inline fallback BEFORE app boots -->
   <script type="module">
     import { compute } from "/assets/js/drink-math.js?v=v.9.000.003";
     window.ITW_MATH = Object.assign({}, window.ITW_MATH || {}, { compute });
   </script>
 
-  <!-- Main app + SW bridge -->
+  <!-- Main app -->
   <script src="/assets/js/drink-calculator.app.js?v=v.9.000.003" defer></script>
-  <script src="/assets/js/sw-bridge.js?v=20.4" defer></script>
+ <script src="/assets/js/sw-bridge.js?v=20.4" defer></script>
 </head>
-
 <body>
 <a href="#main" class="sr-only">Skip to main content</a>
 
@@ -94,13 +240,13 @@
     <a class="brand" href="/"><img src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64" loading="eager"></a>
     <nav aria-label="Primary" id="itw-primary-nav">
       <a class="itw-nav__link" href="/">Home</a>
-      <!-- ✅ removed /planning/ -->
-      <a class="itw-nav__link" href="/drinks-calculator.html">Calculator</a>
+      <a class="itw-nav__link" href="/planning/">Planning</a>
       <a class="itw-nav__link" href="/about/">About</a>
     </nav>
     <button class="itw-menu-btn btn ghost" aria-expanded="false" aria-controls="itw-primary-nav" style="margin-left:auto">Menu</button>
     <div class="small">v.9.000.003</div>
 
+    <!-- Moved currency block into this header -->
     <span id="offline-chip" class="chip" style="display:none">Offline</span>
     <label for="currency-select" class="small">Currency</label>
     <select id="currency-select" class="btn ghost small" aria-label="Currency select">
@@ -108,37 +254,545 @@
       <option>AUD</option><option>INR</option><option>CNY</option><option>MXN</option><option>BRL</option>
     </select>
     <span id="currency-note" class="small"></span>
-    <button id="fx-drift-reset" class="btn ghost small" type="button" style="margin-left:6px;">reset to 0%</button>
+    <!-- Exchange rate drift (display-only sensitivity) -->
+<button id="fx-drift-reset" class="btn ghost small" type="button" style="margin-left:6px;">reset to 0%</button>
   </div>
-
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta name="theme-color" content="#0e6e8e">
-  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+ <link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0e6e8e">
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
 </header>
 
-<!-- 🧮 main body unchanged (calculator UI, cards, etc.) -->
+<main class="container" id="main">
+  <p id="fallback-banner" class="health" role="status" hidden>⚠️ We couldn't load live prices; using defaults.</p>
 
-<!-- ✅ fixed SEED_URLS -->
-<script>
+  <section class="qs" aria-labelledby="qs-title">
+    <div class="qs-hd" id="qs-title">🚀 Quick Start: Load a Preset</div>
+    <p class="small">Try a common pattern:</p>
+    <div class="qs-grid">
+      <button class="qs-btn" type="button" onclick="loadPreset('light')"><span>🌤️ Light Drinker</span><small>2–3 drinks/day</small></button>
+      <button class="qs-btn" type="button" onclick="loadPreset('moderate')"><span>🍹 Moderate</span><small>5–6 drinks/day</small></button>
+      <button class="qs-btn" type="button" onclick="loadPreset('heavy')"><span>🎉 Party Mode</span><small>8–10 drinks/day</small></button>
+      <button class="qs-btn" type="button" onclick="loadPreset('coffee')"><span>☕ Coffee Lover</span><small>4 coffees, no alcohol</small></button>
+    </div>
+  </section>
+
+  <div class="banner" role="status" aria-live="polite">
+    <span id="best-chip" class="chip">Best value: à-la-carte</span>
+    <span id="best-text">Your daily picks are cheapest without a package.</span>
+    <button id="jump-winner" class="btn ghost" type="button">Jump to Best Value</button>
+  </div>
+
+  <p id="health-note" class="health" role="status" aria-live="assertive"></p>
+<p class="small" style="
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+  border-radius:8px;
+  padding:10px;
+  margin:10px 0;
+  font-size:.9rem;
+">
+  <strong>Stewardship & Responsible Use:</strong>
+  This tool is for planning wisely — not indulging carelessly.
+  Drink packages include much more than alcohol, like water, coffee, and juice.
+  <em>Drink responsibly. Moderation honors both your wallet and your walk.</em>
+</p>
+  <section class="card" aria-label="How to use">
+    <div class="hd">How to use this calculator</div>
+    <div class="bd">
+      <ol>
+        <li>Enter your cruise length and typical daily drinks.</li>
+        <li>Optionally tune sea/port weighting and edit package prices or caps.</li>
+        <li>See which option is cheapest per day and for the whole trip.</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="card inputs" aria-labelledby="calc-title">
+      <h2 id="calc-title" class="hd">
+        <span id="totals">$0.00/day • $0.00 trip</span>
+        <small class="small">– includes 18% gratuity</small>
+        <div id="range-note" class="small" style="margin-top:6px;font-weight:700;"></div>
+      </h2>
+      <div class="bd">
+        <div class="row">
+          <label for="input-days">Cruise days</label>
+          <input id="input-days" type="text" inputmode="numeric" value="7" data-input="days" aria-label="Cruise length in days">
+        </div>
+
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:8px">
+          <legend style="font-weight:800;padding:0 6px">Sea/Port variability</legend>
+          <div class="row">
+            <label for="input-seadays">Number of sea days</label>
+            <input id="input-seadays" type="text" inputmode="numeric" value="3" data-input="seadays" aria-label="Number of sea days">
+          </div>
+          <div class="row" style="grid-template-columns:1fr 1fr">
+            <label><input type="checkbox" id="sea-toggle" checked data-input="seaapply"> Apply weighting</label>
+            <div class="controls-inline">
+              <label for="sea-weight" class="small">Weight ±%</label>
+              <input id="sea-weight" type="range" min="0" max="40" value="20" data-input="seaweight" aria-label="Sea day weighting percent">
+              <span id="sea-weight-val" class="small">20%</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+          <legend style="font-weight:800;padding:0 6px">Group in stateroom</legend>
+          <div class="row">
+            <label for="input-adults">Adults (21+)</label>
+            <input id="input-adults" type="text" inputmode="numeric" value="1" data-input="adults" aria-label="Number of adults">
+          </div>
+          <div class="row">
+            <label for="input-minors">Minors (under 21)</label>
+            <input id="input-minors" type="text" inputmode="numeric" value="0" data-input="minors" aria-label="Number of minors">
+          </div>
+        </fieldset>
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+  <legend style="font-weight:800;padding:0 6px">Calculation Mode</legend>
+  <div class="controls-inline">
+    <label class="small">
+      <input type="radio" name="calc-mode" id="mode-simple" value="simple" checked>
+      Use Daily Averages
+    </label>
+    <label class="small">
+      <input type="radio" name="calc-mode" id="mode-itinerary" value="itinerary">
+      Plan Day-by-Day
+    </label>
+  </div>
+</fieldset>
+
+<!-- Built dynamically when “itinerary” is selected -->
+<div id="itinerary-inputs" style="display:none; margin-top: 12px;"></div>
+
+        <div class="row row--stepper">
+          <label for="input-soda">Soda per day <small class="pill" data-price-pill="soda"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('soda', -1)" aria-label="Decrease soda by 1">−</button>
+            <input id="input-soda" type="text" inputmode="decimal" value="0" data-input="soda" aria-label="Soda per day">
+            <button class="btn-step" type="button" onclick="stepInput('soda', 1)" aria-label="Increase soda by 1">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-coffee">Premium coffee per day <small class="pill" data-price-pill="coffee"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('coffee', -1)" aria-label="Decrease coffee by 1">−</button>
+            <input id="input-coffee" type="text" inputmode="decimal" value="0" data-input="coffee" aria-label="Premium coffee per day">
+            <button class="btn-step" type="button" onclick="stepInput('coffee', 1)" aria-label="Increase coffee by 1">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-teaprem">Specialty tea per day <small class="pill" data-price-pill="teaprem"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('teaprem', -1)" aria-label="Decrease tea by 1">−</button>
+            <input id="input-teaprem" type="text" inputmode="decimal" value="0" data-input="teaprem" aria-label="Specialty tea per day">
+            <button class="btn-step" type="button" onclick="stepInput('teaprem', 1)" aria-label="Increase tea by 1">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-freshjuice">Fresh juice/smoothie per day <small class="pill" data-price-pill="freshjuice"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('freshjuice', -1)" aria-label="Decrease juice by 1">−</button>
+            <input id="input-freshjuice" type="text" inputmode="decimal" value="0" data-input="freshjuice" aria-label="Fresh juice/smoothie per day">
+            <button class="btn-step" type="button" onclick="stepInput('freshjuice', 1)" aria-label="Increase juice by 1">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-mocktail">Mocktail per day <small class="pill" data-price-pill="mocktail"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('mocktail', -1)" aria-label="Decrease mocktail by 1">−</button>
+            <input id="input-mocktail" type="text" inputmode="decimal" value="0" data-input="mocktail" aria-label="Mocktail per day">
+            <button class="btn-step" type="button" onclick="stepInput('mocktail', 1)" aria-label="Increase mocktail by 1">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-energy">Energy drink per day <small class="pill" data-price-pill="energy"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('energy', -1)" aria-label="Decrease energy drink by 1">−</button>
+            <input id="input-energy" type="text" inputmode="decimal" value="0" data-input="energy" aria-label="Energy drink per day">
+            <button class="btn-step" type="button" onclick="stepInput('energy', 1)" aria-label="Increase energy drink by 1">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-milkshake">Milkshake per day <small class="pill" data-price-pill="milkshake"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('milkshake', -1)" aria-label="Decrease milkshake by 1">−</button>
+            <input id="input-milkshake" type="text" inputmode="decimal" value="0" data-input="milkshake" aria-label="Milkshake per day">
+            <button class="btn-step" type="button" onclick="stepInput('milkshake', 1)" aria-label="Increase milkshake by 1">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-bottledwater">Bottled water per day <small class="pill" data-price-pill="bottledwater"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('bottledwater', -1)" aria-label="Decrease bottled water by 1">−</button>
+            <input id="input-bottledwater" type="text" inputmode="decimal" value="0" data-input="bottledwater" aria-label="Bottled water per day">
+            <button class="btn-step" type="button" onclick="stepInput('bottledwater', 1)" aria-label="Increase bottled water by 1">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-beer">Beer per day <small class="pill" data-price-pill="beer"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('beer', -1)" aria-label="Decrease beer by 1">−</button>
+            <input id="input-beer" type="text" inputmode="decimal" value="0" data-input="beer" aria-label="Beer per day">
+            <button class="btn-step" type="button" onclick="stepInput('beer', 1)" aria-label="Increase beer by 1">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-wine">Wine per day <small class="pill" data-price-pill="wine"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('wine', -1)" aria-label="Decrease wine by 1">−</button>
+            <input id="input-wine" type="text" inputmode="decimal" value="0" data-input="wine" aria-label="Wine per day">
+            <button class="btn-step" type="button" onclick="stepInput('wine', 1)" aria-label="Increase wine by 1">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-cocktail">Cocktail per day <small class="pill" data-price-pill="cocktail"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('cocktail', -0.5)" aria-label="Decrease cocktail by 0.5">−</button>
+            <input id="input-cocktail" type="text" inputmode="decimal" value="0" data-input="cocktail" aria-label="Cocktail per day">
+            <button class="btn-step" type="button" onclick="stepInput('cocktail', 0.5)" aria-label="Increase cocktail by 0.5">+</button>
+          </div>
+        </div>
+
+        <div class="row row--stepper">
+          <label for="input-spirits">Spirits/shot per day <small class="pill" data-price-pill="spirits"></small></label>
+          <div class="input-stepper">
+            <button class="btn-step" type="button" onclick="stepInput('spirits', -1)" aria-label="Decrease spirits by 1">−</button>
+            <input id="input-spirits" type="text" inputmode="decimal" value="0" data-input="spirits" aria-label="Spirits/shot per day">
+            <button class="btn-step" type="button" onclick="stepInput('spirits', 1)" aria-label="Increase spirits by 1">+</button>
+          </div>
+        </div>
+
+        <div id="breakeven-wrap">
+          <table id="chart-desc" class="sr-only">
+            <caption>Daily cost comparison</caption>
+            <thead>
+              <tr><th>Package</th><th>Cost per day</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>À-la-carte</td><td id="sr-alc">$0.00</td></tr>
+              <tr><td>Soda</td><td id="sr-soda">$0.00</td></tr>
+              <tr><td>Refreshment</td><td id="sr-refresh">$0.00</td></tr>
+              <tr><td>Deluxe</td><td id="sr-deluxe">$0.00</td></tr>
+            </tbody>
+          </table>
+          <canvas id="breakeven-chart" width="900" height="280" aria-label="Break-even comparison chart" aria-describedby="chart-desc"></canvas>
+        </div>
+
+        <div class="controls-inline" style="margin-top:12px">
+          <button class="btn" type="button" onclick="printResults()">Print / Save Results</button>
+          <button class="btn ghost" type="button" onclick="shareScenario()">Share Scenario</button>
+          <button class="btn" type="button" onclick="resetInputs()" style="background:var(--bad)">Reset All</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="hd">Packages</div>
+      <div class="bd">
+        <section class="packages" id="packages">
+          <article class="pkg card" data-card="soda" id="pkg-soda">
+            <header class="phd">
+              <span>Classic Soda</span>
+              <span class="tooltip">
+                <button class="help" aria-describedby="tt-soda" aria-label="Soda package help" type="button">?</button>
+                <span id="tt-soda" role="tooltip">Unlimited fountain soda + Coca-Cola Freestyle. One drink at a time.</span>
+              </span>
+            </header>
+            <div class="pbd">
+              <p class="muted"><strong data-pkg-price="soda">$13.99/day</strong> <span class="small">range $12.99–$15</span></p>
+              <p class="small">Included value (your picks): <strong data-inc="soda">$0.00/day</strong></p>
+              <p class="save small" data-saves="soda" hidden></p>
+              <div class="breakeven-monitor" id="soda-breakeven" aria-live="polite" style="margin-top:10px;"></div>
+              <div class="controls-inline" style="margin-top:6px">
+                <button class="btn ghost" type="button" onclick="togglePriceEdit('soda')">📝 Edit price…</button>
+                <form class="controls-inline small" id="edit-soda" hidden onsubmit="return false;">
+                  <label>$/day</label>
+                  <input type="number" step="0.01" min="0" value="13.99" id="edit-soda-val" style="width:90px">
+                  <button class="btn" type="button" onclick="savePackagePrice('soda')">Save</button>
+                  <button class="btn ghost" type="button" onclick="togglePriceEdit('soda',true)">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </article>
+
+          <article class="pkg card" data-card="refresh" id="pkg-refresh">
+            <header class="phd">
+              <span>Refreshment</span>
+              <span class="tooltip">
+                <button class="help" aria-describedby="tt-refresh" aria-label="Refreshment help" type="button">?</button>
+                <span id="tt-refresh" role="tooltip">Covers non-alcoholic specials: premium coffee, tea, fresh juice, mocktails, energy, milkshakes, bottled water, soda.</span>
+              </span>
+            </header>
+            <div class="pbd">
+              <p class="muted"><strong data-pkg-price="refresh">$34.00/day</strong> <span class="small">range $29–$38</span></p>
+              <p class="small">Included value: <strong data-inc="refresh">$0.00/day</strong></p>
+              <p class="save small" data-saves="refresh" hidden></p>
+
+              <!-- Moved monitor ABOVE the edit controls for consistency -->
+              <div class="breakeven-monitor" id="refresh-breakeven" aria-live="polite" style="margin-top:10px;"></div>
+
+              <div class="controls-inline" style="margin-top:6px">
+                <button class="btn ghost" type="button" onclick="togglePriceEdit('refresh')">📝 Edit price…</button>
+                <form class="controls-inline small" id="edit-refresh" hidden onsubmit="return false;">
+                  <label>$/day</label>
+                  <input type="number" step="0.01" min="0" value="34.00" id="edit-refresh-val" style="width:90px">
+                  <button class="btn" type="button" onclick="savePackagePrice('refresh')">Save</button>
+                  <button class="btn ghost" type="button" onclick="togglePriceEdit('refresh',true)">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </article>
+
+          <article class="pkg card" data-card="deluxe" id="pkg-deluxe">
+            <header class="phd">
+  <span>Deluxe (Alcoholic)</span>
+
+  <!-- Deluxe help -->
+  <span class="tooltip">
+    <button class="help" aria-describedby="tt-deluxe" aria-label="Deluxe help" type="button">?</button>
+    <span id="tt-deluxe" role="tooltip">
+      Covers alcoholic drinks up to the price cap + all non-alcoholic items. Over-cap drinks add the difference.
+    </span>
+  </span>
+
+  <!-- Stewardship (separate tooltip) -->
+  <span class="tooltip">
+    <button class="help" aria-describedby="tt-steward-deluxe" aria-label="Stewardship & Responsible Use" type="button">?</button>
+    <span id="tt-steward-deluxe" role="tooltip" style="max-width:320px;">
+      <strong>Stewardship & Responsible Use</strong><br>
+      This calculator is meant for budgeting and wise stewardship — not to encourage over-consumption.<br><br>
+      Packages include more than alcohol: bottled water, coffees, juices, and energy drinks all add value.<br><br>
+      <em>Drink responsibly. Moderation honors your wallet, your body, and your spiritual health.</em>
+    </span>
+  </span>
+</header>
+            <div class="pbd">
+              <p class="muted"><strong data-pkg-price="deluxe">$85.00/day</strong> <span class="small">range $55–$115</span></p>
+              <p class="small">Price cap: <strong id="cap-badge">$14.00</strong> <button class="btn ghost" type="button" onclick="toggleCapEdit()">Edit cap…</button></p>
+              <div class="breakeven-monitor" id="deluxe-breakeven" aria-live="polite" style="margin-bottom:10px;"></div>
+
+              <form class="controls-inline small" id="edit-cap" hidden onsubmit="return false;">
+                <label>Cap $</label><input type="number" step="0.01" min="0" value="14.00" id="edit-cap-val" style="width:90px">
+                <button class="btn" type="button" onclick="saveCap()">Save</button>
+                <button class="btn ghost" type="button" onclick="toggleCapEdit(true)">Cancel</button>
+              </form>
+              <p class="small">Included value: <strong data-inc="deluxe">$0.00/day</strong></p>
+              <p class="small">Over-cap add-on (est.): <strong id="overcap-est">$0.00/day</strong></p>
+              <p class="save small" data-saves="deluxe" hidden></p>
+              <div class="controls-inline" style="margin-top:6px">
+                <button class="btn ghost" type="button" onclick="togglePriceEdit('deluxe')">📝 Edit price…</button>
+                <form class="controls-inline small" id="edit-deluxe" hidden onsubmit="return false;">
+                  <label>$/day</label>
+                  <input type="number" step="0.01" min="0" value="85.00" id="edit-deluxe-val" style="width:90px">
+                  <button class="btn" type="button" onclick="savePackagePrice('deluxe')">Save</button>
+                  <button class="btn ghost" type="button" onclick="togglePriceEdit('deluxe',true)">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </section>
+
+    <aside class="rail" aria-label="Sidebar">
+      <section class="card">
+        <div class="hd">Group breakdown</div>
+        <div class="bd">
+          <p id="policy-warning" class="health show" role="alert" hidden>⚠️ Policy: If one adult buys Deluxe, all adults must. Minors typically get ~50% off non-alcoholic.</p>
+          <section id="group-breakdown" hidden>
+            <table class="table">
+              <thead><tr><th>Person</th><th>Package</th><th>Daily</th><th>Trip</th></tr></thead>
+              <tbody id="group-table-body"></tbody>
+            </table>
+          </section>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="hd">FAQ (quick)</div>
+        <div class="bd small">
+          <p><strong>Is it worth it?</strong> Often if you average ~5–6 alcoholic drinks/day. Use the chart to compare.</p>
+          <p><strong>Includes gratuity?</strong> Yes, packages include 18%. À-la-carte adds 18% per drink.</p>
+          <p><strong>Sale prices?</strong> Click “Edit price…” on any package to enter your rate.</p>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <p id="a11y-status" class="sr-only" aria-live="polite"></p>
+</main>
+  <script>
 (function(){
   if (!('serviceWorker' in navigator)) return;
   if (!navigator.serviceWorker.controller) return;
+
   const V = 'v.9.000.003';
   navigator.serviceWorker.controller.postMessage({
     type: 'SEED_URLS',
     priority: 'high',
     urls: [
-      '/drinks-calculator.html',
+      '/drinks-package.html',
       `/assets/js/drink-calculator.app.js?v=${V}`,
       `/assets/js/drink-math.js?v=${V}`,
       `/assets/js/drink-worker.js?v=${V}`,
+      // self-host Chart.js if you prefer; otherwise CDN is now allowedlisted
+      // '/assets/vendor/chart.umd.min.js?v=4.4.1',
       '/assets/logo_wake.png'
     ]
   });
 })();
 </script>
+  <!-- Exchange rate drift (what-if) -->
+<div id="fx-drift-wrap" class="fx-drift" role="group" aria-label="Exchange rate drift control">
+  <label for="fx-drift-range">
+    Exchange rate drift: <span id="fx-drift-label">0%</span>
+  </label>
+  <input id="fx-drift-range" type="range" min="-10" max="10" step="0.5" value="0" />
+  <button id="fx-drift-reset" type="button" class="fx-drift-reset" title="Reset to 0%">Reset</button>
+</div>
+  <div id="itw-info-drawer" class="itw-info">
+  <button class="itw-toggle" aria-expanded="false" aria-controls="itw-info-body" aria-label="Data freshness & source">i</button>
+  <div id="itw-info-body" class="itw-body" hidden>
+    <div class="itw-row">
+      <span class="itw-title">Pricing</span>
+      <span class="itw-pill" id="itw-pricing-pill">—</span>
+    </div>
+    <div class="itw-sub" id="itw-pricing-sub">source: — • updated: —</div>
 
-<!-- existing info-drawer, FX drift, and install.js blocks remain identical -->
-<script src="/assets/js/install.js?v=20.4" defer></script>
+    <div class="itw-row">
+      <span class="itw-title">FX</span>
+      <span class="itw-pill" id="itw-fx-pill">—</span>
+    </div>
+    <div class="itw-sub" id="itw-fx-sub">source: — • updated: —</div>
+
+    <button id="itw-refresh" class="itw-refresh" title="Force a fresh fetch">Refresh now</button>
+  </div>
+</div>
+  <script>
+(() => {
+  const el = (id)=>document.getElementById(id);
+  const fmtRel = (ms) => {
+    if (!ms) return "—";
+    const s = Math.floor(ms/1000);
+    if (s < 60) return `${s}s ago`;
+    const m = Math.floor(s/60);
+    if (m < 60) return `${m}m ago`;
+    const h = Math.floor(m/60);
+    if (h < 24) return `${h}h ago`;
+    const d = Math.floor(h/24);
+    return `${d}d ago`;
+  };
+
+  const bucket = (ageMs, kind) => {
+    if (ageMs == null) return {label:"—", cls:""};
+    if (kind === "pricing") {
+      if (ageMs < 24*3600e3) return {label:"fresh", cls:"ok"};
+      if (ageMs < 3*24*3600e3) return {label:"1–3d", cls:"warn"};
+      if (ageMs <= 7*24*3600e3) return {label:"3–7d", cls:"warn"};
+      return {label:">7d", cls:"bad"};
+    } else { // fx
+      if (ageMs < 1*3600e3) return {label:"<1h", cls:"ok"};
+      if (ageMs < 6*3600e3) return {label:"1–6h", cls:"warn"};
+      if (ageMs <= 12*3600e3) return {label:"6–12h", cls:"warn"};
+      return {label:">12h", cls:"bad"};
+    }
+  };
+
+  function applyPill(id, ageMs, kind, isFallback, confidence) {
+    const elP = el(id);
+    const b = bucket(ageMs, kind);
+    elP.textContent = (isFallback ? "cached " : "") + b.label + (confidence ? ` · ${confidence}` : "");
+    elP.className = `itw-pill ${b.cls}`;
+  }
+
+  function updateRow(kind, info) {
+    const { ageMs, cachedAt, isFallback, source, confidence } = info || {};
+    applyPill(kind === "pricing" ? "itw-pricing-pill" : "itw-fx-pill", ageMs, kind, isFallback, confidence);
+    const sub = el(kind === "pricing" ? "itw-pricing-sub" : "itw-fx-sub");
+    const src = source || (kind === "pricing" ? "/assets/data/lines/royal-caribbean.json" : "FX API");
+    sub.textContent = `source: ${src} • updated: ${fmtRel(ageMs)}${isFallback ? " (cached)" : ""}`;
+  }
+
+  function infoFromResponse(res, sourceHint) {
+    if (!res) return null;
+    const ageMs = Number(res.headers.get("X-SW-Age-MS") || "") || null;
+    const cachedAt = Number(res.headers.get("X-SW-Cached-At") || "") || null;
+    const isFallback = !!res.headers.get("X-SW-Fallback");
+    const confidence = res.headers.get("X-SW-Confidence") || "";
+    return { ageMs, cachedAt, isFallback, source: sourceHint || res.url, confidence };
+  }
+
+  // Toggle behavior
+  const btn = document.querySelector("#itw-info-drawer .itw-toggle");
+  const body = document.getElementById("itw-info-body");
+  btn?.addEventListener("click", () => {
+    const open = body.hasAttribute("hidden") ? false : true;
+    if (open) { body.setAttribute("hidden",""); btn.setAttribute("aria-expanded","false"); }
+    else { body.removeAttribute("hidden"); btn.setAttribute("aria-expanded","true"); }
+  });
+
+  // Public API
+  window.itwInfo = {
+    update({ pricingResponse, fxResponse, pricingSource, fxSource } = {}) {
+      if (pricingResponse) updateRow("pricing", infoFromResponse(pricingResponse, pricingSource));
+      if (fxResponse) updateRow("fx", infoFromResponse(fxResponse, fxSource));
+    },
+    forceRefresh: async () => {
+      try {
+        await Promise.allSettled([
+          fetch("/assets/data/lines/royal-caribbean.json", { cache: "reload" }),
+          // If you use a batch FX endpoint, trigger it here:
+          // fetch("https://api.frankfurter.app/latest?from=USD&to=GBP,EUR,...", { cache: "reload" })
+        ]);
+        location.reload();
+      } catch(_) {}
+    }
+  };
+
+  // Refresh button
+  document.getElementById("itw-refresh")?.addEventListener("click", ()=> itwInfo.forceRefresh());
+})();
+</script>
+  <script>
+(function wireFXDriftUI(){
+  const range = document.getElementById('fx-drift-range');
+  const label = document.getElementById('fx-drift-label');
+  const reset = document.getElementById('fx-drift-reset');
+  if (!range || !label || !reset) return;
+
+  const updateLabel = () => {
+    const v = Number(range.value);
+    label.textContent = (v>0?'+':'') + v + '%';
+  };
+
+  range.addEventListener('input', () => {
+    window.fxDriftPct = Number(range.value);   // app reads this
+    updateLabel();
+    window.renderAll?.();                      // nudge re-render if defined
+  });
+
+  reset.addEventListener('click', () => {
+    window.fxDriftPct = 0;
+    range.value = '0';
+    updateLabel();
+    window.renderAll?.();
+  });
+
+  // init
+  window.fxDriftPct = 0;
+  updateLabel();
+})();
+</script>
+ <script src="/assets/js/install.js?v=20.4" defer></script>
 </body>
 </html>
