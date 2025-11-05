@@ -1016,7 +1016,84 @@ function wireInputs(){
     store.patch('inputs', next);
     scheduleCalc(); persistNow(); announce('Preset loaded: '+name);
   };
+/* ---------- Personas (per-person daily averages) ---------- */
+/* Values are midpoints from your brief; adults/minors set where noted. */
+const PERSONAS = {
+  family: {
+    label: "Family with Kids",
+    adults: 2, minors: 2,
+    drinks: {
+      soda: 3.5, freshjuice: 2, mocktail: 1.5, energy: 0.5, bottledwater: 4.5, coffee: 1.5,
+      beer: 1.0, wine: 1.5, cocktail: 0, spirits: 0, teaprem: 0, milkshake: 0
+    }
+  },
+  girls: {
+    label: "Girls Trip",
+    adults: 4, minors: 0,
+    drinks: {
+      soda: 1.5, freshjuice: 2.5, mocktail: 2, energy: 1, bottledwater: 3.5, coffee: 2,
+      beer: 0.5, wine: 1.5, cocktail: 1.5, spirits: 0, teaprem: 0.3, milkshake: 0
+    }
+  },
+  boys: {
+    label: "Boys Trip",
+    adults: 3, minors: 0,
+    drinks: {
+      soda: 2.5, freshjuice: 1, mocktail: 1, energy: 2, bottledwater: 4, coffee: 1,
+      beer: 3, wine: 0.5, cocktail: 0.8, spirits: 0.7, teaprem: 0, milkshake: 0
+    }
+  },
+  romance: {
+    label: "Romantic Couple",
+    adults: 2, minors: 0,
+    drinks: {
+      soda: 1, freshjuice: 2, mocktail: 1.5, energy: 0, bottledwater: 3, coffee: 2,
+      beer: 0.3, wine: 1.3, cocktail: 0.7, spirits: 0, teaprem: 0.2, milkshake: 0
+    }
+  },
+  solo: {
+    label: "Health-Conscious Solo",
+    adults: 1, minors: 0,
+    drinks: {
+      soda: 0.5, freshjuice: 3.5, mocktail: 2, energy: 1, bottledwater: 5.5, coffee: 2,
+      beer: 0.3, wine: 0.7, cocktail: 0, spirits: 0, teaprem: 0.3, milkshake: 0
+    }
+  },
+  seniors: {
+    label: "Senior Group Outing",
+    adults: 4, minors: 0,
+    drinks: {
+      soda: 2, freshjuice: 2, mocktail: 1, energy: 0, bottledwater: 4, coffee: 3,
+      beer: 0.7, wine: 1.3, cocktail: 0, spirits: 0, teaprem: 0.4, milkshake: 0
+    }
+  }
+};
+   /* ---------- Apply Persona ---------- */
+window.applyPersona = (key) => {
+  const p = PERSONAS[key];
+  if (!p) return;
 
+  // Start from current state to preserve non-persona fields (days, weighting, etc.)
+  const next = structuredClone(store.get().inputs);
+
+  // Set group
+  next.adults = Math.max(1, Math.min(20, Math.round(p.adults ?? next.adults)));
+  next.minors = Math.max(0, Math.min(20, Math.round(p.minors ?? next.minors)));
+
+  // Replace drinks with persona mix
+  Object.keys(next.drinks).forEach(k => next.drinks[k] = 0);
+  Object.entries(p.drinks || {}).forEach(([k,v]) => {
+    if (k in next.drinks) next.drinks[k] = Math.max(0, Number(v) || 0);
+  });
+
+  // Keep calc mode as-is (simple). If user was on itinerary mode, keep that too.
+  store.patch('inputs', next);
+
+  // Calculate + persist
+  scheduleCalc(); persistNow(); announce(`Loaded persona: ${p.label}`);
+  // Scroll to best value for nice feedback
+  document.getElementById('jump-winner')?.click();
+};
   /* ---------- Jump to best value ---------- */
   const jump = $('#jump-winner');
   if (jump) jump.addEventListener('click', ()=>{
