@@ -233,30 +233,238 @@
 <body>
 <a href="#main" class="sr-only">Skip to main content</a>
 
-<header class="navbar">
+<!-- ====== DROP-IN: Unified Header (Index look + Planning overlay menus) ====== -->
+<header class="navbar itw-header" role="banner">
   <div class="inner container">
-    <a class="brand" href="/"><img src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64" loading="eager"></a>
-    <nav aria-label="Primary" id="itw-primary-nav">
-      <a class="itw-nav__link" href="/">Home</a>
-      <a class="itw-nav__link" href="/planning/">Planning</a>
-      <a class="itw-nav__link" href="/about/">About</a>
-    </nav>
-    <button class="itw-menu-btn btn ghost" aria-expanded="false" aria-controls="itw-primary-nav" style="margin-left:auto">Menu</button>
-    <div class="small">v.9.000.005</div>
+    <!-- Brand -->
+    <a class="brand" href="/" aria-label="In the Wake — home">
+      <img src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64" loading="eager">
+    </a>
 
-    <!-- Currency -->
-    <span id="offline-chip" class="chip" style="display:none">Offline</span>
-    <label for="currency-select" class="small">Currency</label>
-    <select id="currency-select" class="btn ghost small" aria-label="Currency select">
-      <option>USD</option><option>GBP</option><option>EUR</option><option>CAD</option>
-      <option>AUD</option><option>INR</option><option>CNY</option><option>MXN</option><option>BRL</option>
-    </select>
-    <span id="currency-note" class="small"></span>
+    <!-- Primary nav (overlay menus) -->
+    <nav class="itw-nav" aria-label="Primary" id="itw-primary-nav">
+      <div class="nav-item"><a class="chip" href="/">Home</a></div>
+
+      <!-- Planning menu -->
+      <div class="nav-item" aria-haspopup="menu">
+        <button class="chip" type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="menu-planning">
+          Planning <span class="caret" aria-hidden="true">▾</span>
+        </button>
+        <div id="menu-planning" class="menu" aria-label="Planning" role="menu" hidden>
+          <div class="label tiny">Plan your cruise</div>
+          <a role="menuitem" href="/planning.html">Planning (overview)</a>
+          <a role="menuitem" href="/ships.html">Ships</a>
+          <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+          <a role="menuitem" href="/ports.html">Ports</a>
+          <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+          <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+          <a role="menuitem" href="/accessibility.html">Accessibility</a>
+        </div>
+      </div>
+
+      <!-- Travel menu -->
+      <div class="nav-item" aria-haspopup="menu">
+        <button class="chip" type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="menu-travel">
+          Travel <span class="caret" aria-hidden="true">▾</span>
+        </button>
+        <div id="menu-travel" class="menu" aria-label="Travel" role="menu" hidden>
+          <div class="label tiny">On the move</div>
+          <a role="menuitem" href="/travel.html">Travel (overview)</a>
+          <a role="menuitem" href="/solo.html">Solo</a>
+        </div>
+      </div>
+
+      <div class="nav-item"><a class="chip" href="/about.html">About</a></div>
+    </nav>
+
+    <!-- Right side controls (keeps calculator bits) -->
+    <div class="itw-right">
+      <div class="small ver">v.9.000.005</div>
+      <span id="offline-chip" class="chip" style="display:none">Offline</span>
+
+      <label for="currency-select" class="small sr-only">Currency</label>
+      <select id="currency-select" class="btn ghost small" aria-label="Currency select">
+        <option>USD</option><option>GBP</option><option>EUR</option><option>CAD</option>
+        <option>AUD</option><option>INR</option><option>CNY</option><option>MXN</option><option>BRL</option>
+      </select>
+      <span id="currency-note" class="small"></span>
+
+      <!-- Mobile menu toggle -->
+      <button class="itw-menu-btn btn ghost" type="button" aria-expanded="false" aria-controls="itw-primary-nav">
+        Menu
+      </button>
+    </div>
   </div>
+
+  <!-- PWA bits (kept from your pages) -->
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#0e6e8e">
   <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
 </header>
+
+<!-- ====== Scoped styles (header-only) ====== -->
+<style>
+/* Layout tokens (match Index look) */
+.itw-header{position:sticky;top:0;background:#0f172a;color:#fff;border-bottom:3px solid #d4af37;z-index:40}
+.itw-header .inner{display:flex;align-items:center;gap:12px;padding:10px 12px}
+.itw-header .brand img{height:32px}
+
+/* Pills + chips */
+.itw-nav .chip, .itw-header .chip{
+  display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;
+  background:#fff;border:1px solid #d9b382;color:#0e6e8e;font-weight:700;text-decoration:none;cursor:pointer
+}
+.itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap}
+.itw-nav .nav-item{position:relative}
+
+/* Overlay dropdowns */
+.itw-nav .menu{
+  position:absolute;left:0;top:100%;transform:translateY(.35rem);
+  min-width:240px;max-width:min(90vw,360px);background:#fff;color:#0f172a;
+  border:1px solid #d9b382;border-radius:12px;box-shadow:0 10px 28px rgba(8,48,65,.14);
+  padding:.6rem;display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:2100;
+  transition:opacity .18s ease
+}
+.itw-nav .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
+.itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:#0f172a;text-decoration:none}
+.itw-nav .menu a:hover{background:#f2f7fa}
+
+/* Open state */
+.itw-nav .nav-item.open > .menu{display:block;visibility:visible;opacity:1;pointer-events:auto}
+.itw-nav .nav-item.open > button .caret{transform:rotate(180deg)}
+.itw-header .itw-right{display:flex;gap:10px;align-items:center;margin-left:auto}
+.itw-header .ver{opacity:.85}
+
+/* Buttons reused from your calculator */
+.itw-header .btn{cursor:pointer;padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px;background:#0f172a;color:#fff;font-weight:700}
+.itw-header .btn.ghost{background:#fff;color:#0f172a}
+
+/* Mobile */
+@media (max-width: 880px){
+  .itw-nav{position:fixed;inset:56px 10px auto 10px;flex-direction:column;align-items:stretch;
+    padding:10px;background:#fff;color:#0f172a;border:1px solid #d9b382;border-radius:12px;box-shadow:0 10px 28px rgba(8,48,65,.14);
+    display:none;z-index:2100}
+  .itw-header .itw-menu-btn{display:inline-flex}
+  .itw-header .inner{gap:8px}
+  .itw-header .brand{margin-right:auto}
+  .itw-nav.open{display:flex}
+  .itw-nav .nav-item{position:static}
+  .itw-nav .menu{position:static;transform:none;display:block;visibility:visible;opacity:1;pointer-events:auto;box-shadow:none;border:none;padding:0;margin:.25rem 0}
+  .itw-nav .menu .label{margin:.35rem .1rem}
+}
+@media (min-width: 881px){
+  .itw-header .itw-menu-btn{display:none}
+}
+
+/* Dark scheme polish */
+@media (prefers-color-scheme: dark){
+  .itw-nav .chip, .itw-header .chip{background:#0f172a;color:#e2e8f0;border-color:#3a4453}
+  .itw-nav .menu{background:#0f172a;color:#e2e8f0;border-color:#3a4453}
+  .itw-nav .menu a{color:#e2e8f0}
+  .itw-nav .menu a:hover{background:#1d2430}
+  .itw-header .btn.ghost{background:#0f172a;color:#fff;border-color:#3a4453}
+}
+  /* Scoped to Index header; safe to paste */
+.itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap}
+.itw-nav .nav-item{position:relative}
+.itw-nav .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
+  border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer;text-decoration:none}
+.itw-nav .menu{
+  position:absolute;left:0;top:100%;transform:translateY(.35rem);
+  min-width:240px;max-width:min(90vw,360px);
+  background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:0 10px 28px rgba(8,48,65,.14);
+  padding:.6rem;display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:2100;transition:opacity .18s ease;
+}
+.itw-nav .nav-item.open > .menu{display:block;visibility:visible;opacity:1;pointer-events:auto}
+.itw-nav .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
+.itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
+.itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
+</style>
+
+<!-- ====== Behavior (click/ARIA/keyboard, overlay; no layout shift) ====== -->
+<script>
+(function(){
+  const root = document.querySelector('.itw-header');
+  if(!root) return;
+
+  const nav  = root.querySelector('.itw-nav');
+  const menuBtn = root.querySelector('.itw-menu-btn');
+  const groups = [...nav.querySelectorAll('.nav-item[aria-haspopup="menu"]')];
+
+  function setOpen(group, on){
+    group.classList.toggle('open', !!on);
+    const btn = group.querySelector('button[aria-controls]');
+    if(btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    const menu = group.querySelector('.menu');
+    if(menu) menu.hidden = !on;
+  }
+  function closeAll(except=null){ groups.forEach(g=>{ if(g!==except) setOpen(g,false); }); }
+
+  // Desktop dropdowns
+  groups.forEach(group=>{
+    const btn  = group.querySelector('button[aria-controls]');
+    const menu = group.querySelector('.menu');
+    if(!btn || !menu) return;
+
+    btn.addEventListener('click', e=>{
+      e.preventDefault(); e.stopPropagation();
+      const isOpen = group.classList.contains('open');
+      closeAll(group);
+      setOpen(group, !isOpen);
+      if(!isOpen){
+        // focus first item
+        const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+        first && first.focus();
+      }
+    });
+
+    group.addEventListener('keydown', e=>{
+      if(e.key==='Escape'){ setOpen(group,false); btn.focus(); }
+      if(e.key==='ArrowDown' && document.activeElement===btn){
+        e.preventDefault();
+        setOpen(group,true);
+        const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+        first && first.focus();
+      }
+    });
+
+    menu.addEventListener('focusout', ()=>{
+      // close when focus fully leaves
+      setTimeout(()=>{ if(!group.contains(document.activeElement)) setOpen(group,false); }, 0);
+    });
+  });
+
+  // Click outside closes
+  document.addEventListener('click', e=>{
+    if(!e.target.closest('.itw-nav')) closeAll();
+  });
+  window.addEventListener('blur', ()=> closeAll());
+
+  // Mobile menu toggle (collapses entire nav into sheet)
+  function setMobileOpen(on){
+    const open = !!on;
+    nav.classList.toggle('open', open);
+    menuBtn?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if(!open) closeAll();
+  }
+  menuBtn?.addEventListener('click', ()=>{
+    setMobileOpen(!nav.classList.contains('open'));
+  });
+  // Close mobile on route click
+  nav.addEventListener('click', e=>{
+    if(e.target.closest('a')) setMobileOpen(false);
+  });
+
+  // Respect “Esc” for mobile sheet as well
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape'){
+      if(nav.classList.contains('open')) setMobileOpen(false);
+      closeAll();
+    }
+  });
+})();
+</script>
+<!-- ====== /END DROP-IN ====== -->
 
 <main class="container" id="main">
   <p id="fallback-banner" class="health" role="status" hidden>⚠️ We couldn't load live prices; using defaults.</p>
@@ -1257,7 +1465,57 @@
   if (y) y.textContent = new Date().getFullYear();
 })();
 </script>
+<script>
+(function(){
+  const root = document.querySelector('.itw-nav');
+  if(!root) return;
 
+  const groups = [...root.querySelectorAll('.nav-item[aria-haspopup]')];
+
+  function setOpen(group, on){
+    group.classList.toggle('open', !!on);
+    const btn = group.querySelector('button[aria-controls]');
+    if(btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  function closeAll(except=null){
+    groups.forEach(g => { if(g!==except) setOpen(g, false); });
+  }
+
+  groups.forEach(group=>{
+    const btn  = group.querySelector('button[aria-controls]');
+    const menu = group.querySelector('.menu');
+    if(!btn || !menu) return;
+
+    // Toggle on click
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault(); e.stopPropagation();
+      const open = group.classList.contains('open');
+      closeAll(group);
+      setOpen(group, !open);
+    });
+
+    // Keyboard niceties
+    group.addEventListener('keydown',(e)=>{
+      if(e.key==='Escape'){ setOpen(group,false); btn && btn.focus(); }
+      if(e.key==='ArrowDown' && document.activeElement===btn){
+        e.preventDefault();
+        setOpen(group,true);
+        const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+        first && first.focus();
+      }
+    });
+
+    // Close if focus leaves the menu entirely
+    menu.addEventListener('focusout',()=>{
+      setTimeout(()=>{ if(!group.contains(document.activeElement)) setOpen(group,false); },0);
+    });
+  });
+
+  // Click outside / window blur closes menus
+  document.addEventListener('click', e => { if(!e.target.closest('.itw-nav')) closeAll(); });
+  window.addEventListener('blur', () => closeAll());
+})();
+</script>
 <script src="/assets/js/install.js?v=20.4" defer></script>
 </body>
 </html>
