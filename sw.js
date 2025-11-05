@@ -1,6 +1,6 @@
-/* sw.js — In the Wake Service Worker (v20.2) */
+/* sw.js — In the Wake Service Worker (v20.3) */
 
-const SW_VERSION = "v20.2";
+const SW_VERSION = "v20.3";
 const PREFIX = "itw";
 const OFFLINE_URL = "/offline.html";
 
@@ -11,7 +11,7 @@ const CACHE = {
   FONT:     `${PREFIX}-font-${SW_VERSION}`,
   DATA:     `${PREFIX}-data-${SW_VERSION}`,
   PRECACHE: `${PREFIX}-pre-${SW_VERSION}`,
-  META:     `${PREFIX}-meta-${SW_VERSION}` // LRU timestamps
+  META:     `${PREFIX}-meta-${SW_VERSION}` // LRU + timestamps
 };
 
 let CONFIG = {
@@ -20,12 +20,16 @@ let CONFIG = {
   maxImages: 360,
   maxFonts: 30,
   maxData: 30,
-  staleMaxAge: 60 * 60 * 1000 // 1h for JSON
+  staleMaxAge: 60 * 60 * 1000 // 1h default for JSON (non-calculator)
 };
 
 const MANIFEST_URL = "/precache-manifest.json";
 const ERROR_LOG = [];
 const MAX_ERRORS = 50;
+
+// Calculator data + helpers
+const CALC_JSON_PATH = "/assets/data/lines/royal-caribbean.json";
+const CALC_JSON_MAX_AGE = 7 * 24 * 60 * 60 * 1000; // 7 days bounded-stale
 
 /* ---------------- Lifecycle ---------------- */
 
@@ -76,6 +80,10 @@ self.addEventListener("message", (event) => {
   if (data.type === "GET_ERROR_LOG" && event.ports[0]) {
     event.ports[0].postMessage({ type:"ERROR_LOG", errors: ERROR_LOG });
   }
+  // Manual refresh from the app (button)
+  if (data.type === "FORCE_REFRESH_DATA") {
+    event.waitUntil(refreshAndNotify(CALC_JSON_PATH));
+  }
 });
 
 /* ---------------- Fetch routing ---------------- */
@@ -86,7 +94,7 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(req.url);
 
-  // Same-origin only (keep SW tight to your site)
+  // Same-origin only for request interception (keeps SW tight to your site)
   if (url.origin !== location.origin) return;
 
   // Health probe
@@ -101,17 +109,13 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  /* ---------- Drinks calculator: force network for live data/APIs ---------- */
-  // Keep the calculator's pricing JSON + FX endpoints OUT of SW caches.
-  // Your app handles offline/fallback UX; SW should not serve stale data here.
-  if (
-    url.pathname.endsWith('/assets/data/lines/royal-caribbean.json') ||
-    url.hostname.includes('frankfurter.app') ||
-    url.hostname.includes('exchangerate.host')
-  ) {
-    return; // passthrough to network (no respondWith) -> normal fetch behavior
+  // ---------- Calculator: bounded-stale JSON with headers + background refresh ----------
+  if (isCalculatorData(url)) {
+    event.respondWith(staleIfErrorTimestamped(req, CACHE.DATA, CONFIG.maxData, CALC_JSON_MAX_AGE, { event }));
+    return;
   }
-  /* ------------------------------------------------------------------------ */
+  // NOTE: FX APIs are still fetched by the page code (localStorage based).
+  // We don't intercept them here, but SW can fetch them when FORCE_REFRESH_DATA runs.
 
   const dest = req.destination || "";
 
@@ -128,6 +132,11 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(staleIfError(req, CACHE.DATA, CONFIG.maxData, CONFIG.staleMaxAge)); return;
   }
   if (isHTMLLike(req)) {
+    // Opportunistic warmup when user visits the calculator page
+    const p = url.pathname;
+    if (p === "/drinks-calculator.html" || p === "/drinks-calculator" || p === "/drinks/") {
+      event.waitUntil(warmCalculatorCache());
+    }
     event.respondWith(handleHTML(event, req)); return;
   }
   // passthrough
@@ -147,7 +156,7 @@ async function handleHTML(event, request){
 
   try{
     const preload = event.preloadResponse ? (await event.preloadResponse) : null;
-    if (preload && (preload.ok || preload.type === "opaque")) {
+    if (preload && (preload.ok || preload.type === "opaque" || preload.type === "cors")) {
       pageCache.put(key, preload.clone()).catch(()=>{});
       updateLRU(CACHE.PAGE, key.url);
       prune(CACHE.PAGE, CONFIG.maxPages).catch(()=>{});
@@ -155,7 +164,7 @@ async function handleHTML(event, request){
     }
 
     const res = await fetchWithTimeout(request, 8000);
-    if (res && (res.ok || res.type === "opaque")) {
+    if (res && (res.ok || res.type === "opaque" || res.type === "cors")) {
       // Optional critical CSS injection if present in cache
       const enhanced = await injectCriticalCSS(res.clone());
       pageCache.put(key, enhanced).catch(()=>{});
@@ -202,7 +211,7 @@ async function handleImage(request){
     const webpURL = url.pathname.replace(/\.(jpe?g|png)$/i, ".webp") + url.search;
     try{
       const res = await fetchWithTimeout(webpURL, 8000);
-      if (res && (res.ok || res.type === "opaque")) {
+      if (res && (res.ok || res.type === "opaque" || res.type === "cors")) {
         const imgCache = await caches.open(CACHE.IMG);
         const key = new Request(new URL(webpURL, location.origin).href, { method:"GET" });
         imgCache.put(key, res.clone()).catch(()=>{});
@@ -223,7 +232,7 @@ async function cacheFirst(request, cacheName, maxItems){
   const cached = await cache.match(key);
   if (cached){ updateLRU(cacheName, key.url); return cached; }
   const res = await fetchWithTimeout(request, 8000);
-  if (res && (res.ok || res.type === "opaque")){
+  if (res && (res.ok || res.type === "opaque" || res.type === "cors")){
     cache.put(key, res.clone()).catch(()=>{});
     updateLRU(cacheName, key.url);
     prune(cacheName, maxItems).catch(()=>{});
@@ -237,7 +246,7 @@ async function staleWhileRevalidate(request, cacheName, maxItems){
   const cachedPromise = cache.match(key);
   const networkPromise = fetchWithTimeout(request, 8000)
     .then(res => {
-      if (res && (res.ok || res.type === "opaque")){
+      if (res && (res.ok || res.type === "opaque" || res.type === "cors")){
         cache.put(key, res.clone()).catch(()=>{});
         updateLRU(cacheName, key.url);
         prune(cacheName, maxItems).catch(()=>{});
@@ -254,8 +263,9 @@ async function staleIfError(request, cacheName, maxItems, maxAge){
   const key = cacheKey(request);
   try{
     const res = await fetchWithTimeout(request, 8000);
-    if (res && (res.ok || res.type === "opaque")){
-      cache.put(key, res.clone()).catch(()=>{});
+    if (res && (res.ok || res.type === "opaque" || res.type === "cors")){
+      const stamped = await withTimestamp(res.clone());
+      cache.put(key, stamped.clone()).catch(()=>{});
       updateLRU(cacheName, key.url);
       prune(cacheName, maxItems).catch(()=>{});
     }
@@ -263,13 +273,51 @@ async function staleIfError(request, cacheName, maxItems, maxAge){
   }catch(err){
     const cached = await cache.match(key);
     if (cached){
-      const date = cached.headers.get("date");
-      const age = date ? (Date.now() - new Date(date).getTime()) : 0;
-      if (!date || age < maxAge){
+      const age = await ageMsOf(cached);
+      if (age < maxAge){
         updateLRU(cacheName, key.url);
         return cached;
       }
     }
+    throw err;
+  }
+}
+
+/* ---------- Network-first with bounded-stale + headers + background refresh ---------- */
+async function staleIfErrorTimestamped(request, cacheName, maxItems, maxAge, { event } = {}){
+  const cache = await caches.open(cacheName);
+  const key = cacheKey(request);
+
+  try{
+    const res = await fetchWithTimeout(request, 8000);
+    if (res && (res.ok || res.type === "opaque" || res.type === "cors")){
+      const stamped = await withTimestamp(res.clone());
+      cache.put(key, stamped.clone()).catch(()=>{});
+      updateLRU(cacheName, key.url);
+      prune(cacheName, maxItems).catch(()=>{});
+      return stamped;
+    }
+    // non-ok falls back below
+    throw new Error("non-ok");
+  }catch(err){
+    const cached = await cache.match(key);
+    if (cached){
+      const age = await ageMsOf(cached);
+      if (age < maxAge){
+        // Decorate with transparency headers
+        const conf = confidenceFromAge(age, maxAge);
+        const decorated = await withExtraHeaders(cached, {
+          "X-SW-Fallback": "1",
+          "X-SW-Age-MS": String(age),
+          "X-SW-Confidence": conf
+        });
+        // Silent background refresh for next time
+        if (event) event.waitUntil(refreshAndNotify(request.url));
+        updateLRU(cacheName, key.url);
+        return decorated;
+      }
+    }
+    logError("staleIfErrorTimestamped", err, request.url);
     throw err;
   }
 }
@@ -295,6 +343,18 @@ async function warmPrecache(){
     for (const sm of (data.sitemaps || ["/sitemap.xml"])) {
       await seedFromSitemap(sm).catch(()=>{});
     }
+  }catch(_){}
+}
+
+async function warmCalculatorCache(){
+  try{
+    const urls = [
+      "/drinks-calculator.html",
+      "/assets/js/drink-calculator.app.js",
+      "/assets/js/drink-worker.js",
+      CALC_JSON_PATH
+    ];
+    await seedURLs(urls, "high");
   }catch(_){}
 }
 
@@ -346,7 +406,7 @@ async function seedURLs(urls, _priority){
       if (!fetchURL.search) fetchURL.search = `?v=${SW_VERSION}`; // only when no query
 
       const res = await fetch(fetchURL.href, { cache:"no-store", credentials:"omit" });
-      if (res && (res.ok || res.type === "opaque")) {
+      if (res && (res.ok || res.type === "opaque" || res.type === "cors")) {
         await pre.put(reqKey, res.clone());
       }
     }catch(err){
@@ -382,7 +442,7 @@ async function copyPrecacheToRuntime(){
         await imgC.put(req, res.clone());
         updateLRU(CACHE.IMG, req.url);
       } else if (url.pathname.endsWith(".json")) {
-        await dataC.put(req, res.clone());
+        await dataC.put(req, (await withTimestamp(res.clone())));
         updateLRU(CACHE.DATA, req.url);
       } else if (url.pathname.endsWith(".html") || url.pathname === "/" || url.pathname === OFFLINE_URL) {
         const norm = new Request(normalizeURLForCache(req.url).href, { method:"GET" });
@@ -400,6 +460,24 @@ async function copyPrecacheToRuntime(){
     ]);
   }catch(err){
     logError("copyPrecacheToRuntime", err);
+  }
+}
+
+/* ---------------- Background refresh + notify ---------------- */
+
+async function refreshAndNotify(urlOrRequest){
+  try{
+    const url = typeof urlOrRequest === "string" ? urlOrRequest : new URL(urlOrRequest.url, location.origin).href;
+    const res = await fetch(url, { cache: "no-store", credentials: "omit" });
+    if (!res.ok) throw new Error("refresh non-ok");
+    const stamped = await withTimestamp(res.clone());
+    const dataCache = await caches.open(CACHE.DATA);
+    await dataCache.put(new Request(url, { method:"GET" }), stamped);
+    // Tell all open tabs
+    const cs = await clients.matchAll({ type: "window", includeUncontrolled: true });
+    cs.forEach(c => c.postMessage({ type: "DATA_REFRESHED", url }));
+  }catch(err){
+    logError("refreshAndNotify", err, String(urlOrRequest || ""));
   }
 }
 
@@ -438,9 +516,7 @@ async function prune(cacheName, max){
 
 function normalizeURLForCache(u){
   const url = new URL(u, location.origin);
-  // Normalize root to /index.html
   if (url.pathname === "/") url.pathname = "/index.html";
-  // Strip tracking params (keep version pins)
   ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid","gclid","mc_cid","mc_eid"].forEach(p=> url.searchParams.delete(p));
   url.hash = "";
   return new URL(url.pathname + url.search, location.origin);
@@ -454,6 +530,11 @@ function isJSONRequest(req){ const u = new URL(req.url); return u.pathname.endsW
 function isVersionedAsset(href){ return /\.(css|js)(\?.*)?$/i.test(href) && /[?&]v=[^&]+/i.test(href); }
 function isHTMLLike(req){ return req.destination === "document" || /\.html$/i.test(new URL(req.url).pathname) || req.url.endsWith("/"); }
 function cacheKey(req){ return new Request(new URL(req.url).href, { method:"GET" }); }
+function isCalculatorData(url){
+  if (url.pathname === CALC_JSON_PATH) return true;
+  // Expandable: any /assets/data/lines/*.json
+  return /^\/assets\/data\/lines\/[^/]+\.json$/i.test(url.pathname);
+}
 
 async function fetchWithTimeout(input, ms=8000){
   const controller = new AbortController();
@@ -496,4 +577,43 @@ async function getCacheStats(){
     }
   }catch(_){}
   return out;
+}
+
+/* --------- Timestamp helpers (adds Date header + exposes age/confidence) ---------- */
+
+async function withTimestamp(response){
+  try{
+    const headers = new Headers(response.headers);
+    headers.set("date", new Date().toUTCString());
+    // Rebuild response with same body + stamped header
+    const body = await response.clone().arrayBuffer();
+    return new Response(body, { status: response.status, statusText: response.statusText, headers });
+  }catch{
+    return response;
+  }
+}
+
+async function ageMsOf(response){
+  try{
+    const date = response.headers.get("date");
+    return date ? (Date.now() - new Date(date).getTime()) : 0;
+  }catch{ return 0; }
+}
+
+function confidenceFromAge(ageMs, maxAgeMs){
+  const pct = ageMs / maxAgeMs;
+  if (pct < 0.25) return "high";
+  if (pct < 0.75) return "medium";
+  return "low";
+}
+
+async function withExtraHeaders(response, extra){
+  try{
+    const headers = new Headers(response.headers);
+    Object.entries(extra || {}).forEach(([k,v]) => headers.set(k, String(v)));
+    const body = await response.clone().arrayBuffer();
+    return new Response(body, { status: response.status, statusText: response.statusText, headers });
+  }catch{
+    return response;
+  }
 }
