@@ -1,6 +1,6 @@
-/* sw.js — In the Wake Service Worker (v20.3) */
+/* sw.js — In the Wake Service Worker (v20.4) */
 
-const SW_VERSION = "v20.3";
+const SW_VERSION = "v20.4";
 const PREFIX = "itw";
 const OFFLINE_URL = "/offline.html";
 
@@ -80,24 +80,37 @@ self.addEventListener("message", (event) => {
   if (data.type === "GET_ERROR_LOG" && event.ports[0]) {
     event.ports[0].postMessage({ type:"ERROR_LOG", errors: ERROR_LOG });
   }
-  // Manual refresh from the app (button)
+  // Accept BOTH spellings from the page (bridge uses FORCE_DATA_REFRESH)
   if (data.type === "FORCE_REFRESH_DATA" || data.type === "FORCE_DATA_REFRESH") {
-    event.waitUntil(refreshPricingAndNotify());
+    event.waitUntil(refreshAndNotify(CALC_JSON_PATH));
   }
 });
 
-/* ---------------- Fetch routing ---------------- */
+/* ---------------- Fetch routing (with small allowlist for cross-origin) ---------------- */
 
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
-
   const url = new URL(req.url);
 
-  // Same-origin only for request interception (keeps SW tight to your site)
-  if (url.origin !== location.origin) return;
+  // --- Allowlist a couple cross-origin resources (optional QoL) ---
+  if (url.origin !== location.origin) {
+    // FX APIs: network-first with bounded-stale fallback (12h)
+    if (url.hostname.includes("frankfurter.app") || url.hostname.includes("exchangerate.host")) {
+      event.respondWith(staleIfErrorTimestamped(req, CACHE.DATA, CONFIG.maxData, 12*60*60*1000, { event }));
+      return;
+    }
+    // Chart.js CDN: cache-first (so it works offline)
+    if (url.hostname.includes("cdn.jsdelivr.net")) {
+      event.respondWith(cacheFirst(req, CACHE.ASSET, CONFIG.maxAssets));
+      return;
+    }
+    return; // ignore all other cross-origin (browser handles normally)
+  }
 
-  // Health probe (+ calculator freshness)
+  // --- From here: same-origin only ---
+
+  // Health probe
   if (url.pathname === "/__sw_health") {
     event.respondWith((async ()=>{
       const stats = await getCacheStats();
@@ -111,12 +124,11 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // ---------- Calculator: bounded-stale JSON with headers + background refresh ----------
+  // ---------- Calculator: bounded-stale JSON + headers + background refresh ----------
   if (isCalculatorData(url)) {
     event.respondWith(staleIfErrorTimestamped(req, CACHE.DATA, CONFIG.maxData, CALC_JSON_MAX_AGE, { event }));
     return;
   }
-  // NOTE: FX APIs are still fetched by the page code (localStorage based).
 
   const dest = req.destination || "";
 
@@ -133,7 +145,7 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(staleIfError(req, CACHE.DATA, CONFIG.maxData, CONFIG.staleMaxAge)); return;
   }
   if (isHTMLLike(req)) {
-    // Opportunistic warmup when user visits the calculator page
+    // Opportunistic warmup when user visits the calculator page (no /planning/)
     const p = url.pathname;
     if (p === "/drinks-calculator.html" || p === "/drinks-calculator" || p === "/drinks/") {
       event.waitUntil(warmCalculatorCache());
@@ -164,9 +176,8 @@ async function handleHTML(event, request){
       return preload;
     }
 
-    const res = await fetchWithTimeout(request, 8000);
+    const res = forceNetwork ? await fetchWithTimeout(request, 8000) : await fetchWithTimeout(request, 8000);
     if (res && (res.ok || res.type === "opaque" || res.type === "cors")) {
-      // Optional critical CSS injection if present in cache
       const enhanced = await injectCriticalCSS(res.clone());
       pageCache.put(key, enhanced).catch(()=>{});
       updateLRU(CACHE.PAGE, key.url);
@@ -304,15 +315,13 @@ async function staleIfErrorTimestamped(request, cacheName, maxItems, maxAge, { e
     if (cached){
       const age = await ageMsOf(cached);
       if (age < maxAge){
-        // Decorate with transparency headers
         const conf = confidenceFromAge(age, maxAge);
         const decorated = await withExtraHeaders(cached, {
           "X-SW-Fallback": "1",
           "X-SW-Age-MS": String(age),
           "X-SW-Confidence": conf
         });
-        // Silent background refresh for next time
-        if (event) event.waitUntil(refreshPricingAndNotify());
+        if (event) event.waitUntil(refreshAndNotify(request.url));
         updateLRU(cacheName, key.url);
         return decorated;
       }
@@ -465,47 +474,19 @@ async function copyPrecacheToRuntime(){
 
 /* ---------------- Background refresh + notify ---------------- */
 
-async function refreshPricingAndNotify(){
+async function refreshAndNotify(urlOrRequest){
   try{
-    const url = new URL(CALC_JSON_PATH, location.origin).href;
-    const res = await fetch(url, { cache: "reload", credentials: "omit" });
-    if (!res.ok) throw new Error("refresh non-ok: " + res.status);
+    const url = typeof urlOrRequest === "string" ? urlOrRequest : new URL(urlOrRequest.url, location.origin).href;
+    const res = await fetch(url, { cache: "no-store", credentials: "omit" });
+    if (!res.ok) throw new Error("refresh non-ok");
     const stamped = await withTimestamp(res.clone());
     const dataCache = await caches.open(CACHE.DATA);
     await dataCache.put(new Request(url, { method:"GET" }), stamped);
-
-    // Tell all open tabs (bridge expects resource:'pricing')
+    // Tell all open tabs (align with sw-bridge.js expectations)
     const cs = await clients.matchAll({ type: "window", includeUncontrolled: true });
     cs.forEach(c => c.postMessage({ type: "DATA_REFRESHED", resource: "pricing", url }));
   }catch(err){
-    logError("refreshPricingAndNotify", err, CALC_JSON_PATH);
-  }
-}
-
-/* ---------------- Calculator freshness for /__sw_health ---------------- */
-
-async function getCalculatorFreshness(){
-  try{
-    const dataC = await caches.open(CACHE.DATA);
-    const key = new Request(new URL(CALC_JSON_PATH, location.origin).href, { method:"GET" });
-    const hit = await dataC.match(key);
-    if (!hit) return { pricing: { cached:false } };
-
-    const ageMs = await ageMsOf(hit);
-    let confidence = "high";
-    if (ageMs > 6*3600e3) confidence = "medium";
-    if (ageMs > 12*3600e3) confidence = "low";
-
-    return {
-      pricing: {
-        cached: true,
-        ageMs,
-        maxAgeMs: CALC_JSON_MAX_AGE,
-        confidence
-      }
-    };
-  }catch(_){
-    return { pricing: { cached:false } };
+    logError("refreshAndNotify", err, String(urlOrRequest || ""));
   }
 }
 
@@ -560,7 +541,6 @@ function isHTMLLike(req){ return req.destination === "document" || /\.html$/i.te
 function cacheKey(req){ return new Request(new URL(req.url).href, { method:"GET" }); }
 function isCalculatorData(url){
   if (url.pathname === CALC_JSON_PATH) return true;
-  // Expandable: any /assets/data/lines/*.json
   return /^\/assets\/data\/lines\/[^/]+\.json$/i.test(url.pathname);
 }
 
@@ -613,7 +593,6 @@ async function withTimestamp(response){
   try{
     const headers = new Headers(response.headers);
     headers.set("date", new Date().toUTCString());
-    // Rebuild response with same body + stamped header
     const body = await response.clone().arrayBuffer();
     return new Response(body, { status: response.status, statusText: response.statusText, headers });
   }catch{
@@ -643,5 +622,24 @@ async function withExtraHeaders(response, extra){
     return new Response(body, { status: response.status, statusText: response.statusText, headers });
   }catch{
     return response;
+  }
+}
+
+async function getCalculatorFreshness(){
+  try{
+    const c = await caches.open(CACHE.DATA);
+    const r = await c.match(new Request(new URL(CALC_JSON_PATH, location.origin).href, { method:"GET" }));
+    if (!r) return { pricing: { cached:false } };
+    const ageMs = await ageMsOf(r);
+    return {
+      pricing: {
+        cached: true,
+        ageMs,
+        confidence: confidenceFromAge(ageMs, CALC_JSON_MAX_AGE),
+        maxAgeMs: CALC_JSON_MAX_AGE
+      }
+    };
+  }catch{
+    return { pricing: { cached:false } };
   }
 }
