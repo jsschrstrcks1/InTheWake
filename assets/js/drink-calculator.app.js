@@ -353,7 +353,32 @@ function wireCurrencyUI(){
     window.renderAll();
   });
 }
+/* ------------------------- SW refresh hooks ------------------------- */
+// Listen for DATA_REFRESHED from the service worker, then re-hydrate pricing + FX
+navigator.serviceWorker?.addEventListener('message', (e)=>{
+  if (e.data?.type !== 'DATA_REFRESHED') return;
 
+  // Re-fetch pricing and FX; ordinary fetch will hit fresh cache/network
+  Promise.all([
+    fetch('/assets/data/lines/royal-caribbean.json', { cache:'no-store' })
+      .then(r => r.json())
+      .then(j => {
+        j.prices = flattenPrices(j);
+        j.sets   = normalizeSets(j);
+        store.patch('dataset', j);
+      }),
+    loadFx()
+  ]).then(()=>{
+    renderFxNote();
+    scheduleCalc();
+    const hint = document.getElementById('refresh-hint');
+    if (hint) {
+      hint.textContent = 'Updated just now';
+      setTimeout(()=> hint.textContent = '', 4000);
+    }
+    announce('Pricing/FX refreshed.');
+  }).catch(()=>{ /* no-op: UI stays on last-known data */ });
+});
 /* ------------------------- Worker Bridge ------------------------- */
 let calcWorker = null;
 let workerReady = false;
@@ -1028,4 +1053,6 @@ store.subscribe('ui', ui=>{
     window.renderAll();
   });
   window.addEventListener('offline', ()=>{ renderFxNote(true); });
+  <button id="btn-refresh-data" class="btn small">Refresh data</button>
+<span id="refresh-hint" class="small muted" style="margin-left:.5rem"></span>
 })();
