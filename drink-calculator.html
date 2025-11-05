@@ -1,342 +1,437 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- ===== CONFIG (keep at top) ===== -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Drink Packages — Break-Even Calculator • In the Wake</title>
-  <meta name="theme-color" content="#0b5">
 
-  <!-- ===== Inline “site” tokens + layout (trimmed to what this page needs) ===== -->
-  <style>
-    /* ---------- tokens ---------- */
-    :root{
-      --bg: #f6fafc;
-      --panel: #ffffff;
-      --ink: #0f172a;
-      --muted: #334155;
-      --bd: rgba(15,23,42,.12);
-      --ring: #3b82f6;
-      --pill-bg: rgba(255,255,255,.75);
-      --pill-bd: rgba(15,23,42,.18);
-      --shadow: 0 8px 24px rgba(2,6,23,.12);
-      --radius: 14px;
-    }
+  <!-- Inline skin (no external CSS file) -->
+  <style id="itw-skin-v3.010">
+  :root{
+    --sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;--accent:#0e6e8e;
+    --shadow:0 2px 6px rgba(8,48,65,.08); --shadow-lg:0 10px 28px rgba(8,48,65,.14);
+    --rail:320px; --bd:#e5e7eb; --good:#047857;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+  img{max-width:100%;height:auto;display:block}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+  .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:var(--shadow)}
+  h1,h2,h3{color:var(--sea)} .tiny{font-size:.9rem;color:#456} .small{font-size:.88rem;color:#334}
+  .muted{opacity:.75}
 
-    /* ---------- globals ---------- */
-    html,body{height:100%}
-    body{
-      margin:0; color:var(--ink); background:var(--bg);
-      font: 16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    }
-    img{max-width:100%;display:block}
-    .sr-only{position:absolute!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important;width:1px!important;height:1px!important;overflow:hidden!important;margin:-1px!important;padding:0!important;border:0!important}
+  /* Header / Nav */
+  .hero-header{position:relative;z-index:0;border-bottom:6px double var(--rope);background:#eaf6f6;overflow:visible}
+  .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .6rem;align-items:center}
+  .brand{display:flex;align-items:center;gap:.6rem}
+  .brand img{height:40px;width:auto}
+  .version-badge{font-size:.72rem;opacity:.8}
+  .itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap}
+  .itw-nav .nav-item{position:relative}
+  .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
+    border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer;text-decoration:none}
+  .menu{position:absolute;left:0;top:100%;transform:translateY(.4rem);min-width:240px;max-width:min(90vw,360px);
+    background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;
+    display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:2100;transition:opacity .18s ease}
+  .nav-item.open>.menu{display:block;visibility:visible;opacity:1;pointer-events:auto}
+  .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
+  .menu a:hover{background:#f2f7fa;text-decoration:none}
 
-    /* ---------- header + hero ---------- */
-    .topbar{position:sticky;top:0;z-index:20;backdrop-filter:saturate(1.2) blur(8px); background:rgba(255,255,255,.7); border-bottom:1px solid var(--bd)}
-    .container{max-width:1128px;margin-inline:auto;padding:10px 16px}
-    .row{display:flex;gap:.75rem}
-    .between{justify-content:space-between}.center{align-items:center}
-    .pillnav .pill, .pillnav .dropdown>button{
-      appearance:none;border:1px solid var(--pill-bd); background:var(--pill-bg); color:var(--ink);
-      border-radius:999px; padding:.45rem .9rem; font-weight:600; cursor:pointer; text-decoration:none;
-      box-shadow:0 2px 8px rgba(2,6,23,.06);
-    }
-    .pillnav a.active{outline:2px solid var(--ring)}
-    .dropdown .menu{
-      position:fixed; min-width:220px; background:#fff; border:1px solid var(--bd); border-radius:12px;
-      box-shadow:var(--shadow); padding:.4rem; display:block;
-    }
-    .dropdown .menu a{display:block;padding:.45rem .6rem;border-radius:8px;color:inherit;text-decoration:none}
-    .dropdown .menu a:hover{background:#f1f5f9}
-    .dropdown .menu[hidden]{display:none}
+  /* Hero */
+  .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);
+    background:url('/assets/index_hero.jpg?v=3.010.070') center 38%/cover no-repeat;
+    display:flex;align-items:flex-end;overflow:hidden;margin-top:.15rem}
+  .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);
+    display:flex;flex-direction:column;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+  .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(90vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+  .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
+  .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95}
+  .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2}
+  .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
 
-    .hero-viewport{position:relative; height:40vh; min-height:320px; overflow:hidden; border-bottom:1px solid var(--bd)}
-    .hero-img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.02)}
-    .hero-overlay{position:relative; z-index:1; height:100%; display:flex; align-items:flex-end; padding-bottom:18px}
-    .hero-logo img{height:112px; filter: drop-shadow(0 12px 30px rgba(0,0,0,.2))}
-    .tagline{color:#fff; text-shadow:0 2px 12px rgba(0,0,0,.45); font-size:1.1rem; font-weight:700; margin:8px 0 0}
-    .hero-credit{position:absolute;right:18px;bottom:14px;z-index:1;background:rgba(255,255,255,.85);
-      border:1px solid var(--bd); border-radius:999px; padding:.35rem .7rem; font-weight:700}
-    .build-pill{border:1px solid var(--pill-bd); background:var(--pill-bg); padding:.2rem .5rem; border-radius:999px; font-size:.85rem;font-weight:700}
+  /* Grid */
+  .page-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,var(--rail));gap:2rem;align-items:start}
+  @media (max-width:979.98px){.page-grid{grid-template-columns:1fr}}
 
-    /* ---------- page grid ---------- */
-    main{margin:28px 0 56px}
-    .shell{display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px}
-    @media (max-width:1060px){ .shell{grid-template-columns:1fr} }
+  /* Right rail */
+  .rail-list{display:grid;gap:1rem}
+  .rail-card{display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center;border:1px solid #e2e9ed;border-radius:12px;padding:.6rem;background:#fff}
+  .rail-card .thumb{width:72px;height:48px;border-radius:10px;overflow:hidden;background:#eef4f6;border:1px solid #dfe7ea}
 
-    /* ---------- panels/cards ---------- */
-    .card{background:var(--panel); border:1px solid var(--bd); border-radius:var(--radius); box-shadow:0 2px 12px rgba(2,6,23,.04)}
-    .pad{padding:16px}
-    .banner{font-weight:800; color:var(--ink); font-size:1.25rem}
-    .small{font-size:.92rem; color:var(--muted)}
-    .tiny{font-size:.82rem; color:var(--muted)}
-    .badge{border:1px solid var(--bd);background:#f8fafc;border-radius:999px;padding:.2rem .55rem;font-weight:700}
-
-    /* ---------- calculator bits ---------- */
-    .pkg{border:1px solid var(--bd); border-radius:12px; padding:12px 14px; background:#fff}
-    .pkg.winner{box-shadow:0 0 0 2px var(--ring) inset}
-    .stack-3{display:grid; gap:12px}
-    #breakeven-chart{width:100%; height:280px}
-    .pill-input{display:grid; gap:4px}
-    .pill-input input[type="number"], .pill-input input[type="text"]{
-      appearance:textfield; border:1px solid var(--bd); background:#fff; border-radius:10px; padding:.45rem .6rem; width:80px
-    }
-    input[type="range"]{width:180px}
-    .chip{appearance:none;border:1px solid var(--bd);background:#fff;border-radius:10px;padding:.25rem .55rem;cursor:pointer}
-
-    /* ---------- rails ---------- */
-    .rail-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-    .rail-card{display:grid; grid-template-columns:112px 1fr; gap:10px; align-items:center;
-      border:1px solid var(--bd); border-radius:12px; padding:8px; text-decoration:none; color:inherit; background:#fff}
-    .rail-card:hover{box-shadow:0 2px 10px rgba(2,6,23,.08)}
-    .rail-card img{border-radius:8px; border:1px solid var(--bd)}
-
-    /* ---------- footer ---------- */
-    .site-footer{border-top:1px solid var(--bd); padding:16px 0; color:var(--muted)}
-    .center{text-align:center}
+  /* Calculator bits */
+  .banner{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:0 0 .75rem}
+  .banner #best-chip{font-weight:800;color:var(--sea)}
+  .pkg{border:1px solid var(--bd);border-radius:12px;padding:.8rem 1rem;margin:.6rem 0;background:#fff}
+  .pkg .phd{display:flex;align-items:center;gap:.5rem;font-weight:800}
+  .inc-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:.35rem}
+  .inc-badge{display:inline-block;background:#ecfeff;border:1px solid #a5f3fc;border-radius:999px;padding:.15rem .55rem;font-size:.8rem}
+  .winner{outline:3px solid #86efac}
+  .calc-card{overflow:visible}
+  .row{display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:center}
+  .row--stepper{grid-template-columns:1fr auto}
+  .input-stepper{display:inline-grid;grid-template-columns:auto 60px auto;border:1px solid var(--bd);border-radius:8px;overflow:hidden}
+  .input-stepper input{width:60px;height:34px;border:0;text-align:center}
+  .btn-step{height:34px;border:0;background:#f8fafc;padding:0 .6rem;cursor:pointer}
+  table{width:100%;border-collapse:separate;border-spacing:0 6px}
+  tbody td{background:#fff;padding:.5rem .6rem;border:1px solid var(--bd)}
+  tbody td:first-child{border-top-left-radius:8px;border-bottom-left-radius:8px}
+  tbody td:last-child{border-top-right-radius:8px;border-bottom-right-radius:8px}
+  .tooltip [role="tooltip"]{display:none}
   </style>
-
-  <!-- Chart.js (for the bar/line combo) -->
-  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
-<body>
 
-  <!-- ===== Header / Nav ===== -->
-  <div class="topbar">
-    <div class="container row between center">
-      <div class="row center">
-        <a href="/" class="brand-lockup" aria-label="In the Wake">
-          <img src="/assets/brand/in-the-wake-lockup.svg" alt="" height="32">
-        </a>
-        <span class="build-pill">v.9.000.005</span>
+<body>
+  <!-- Header + Hero -->
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png?v=3.010.070" width="256" height="64" alt="In the Wake">
+        <span class="tiny version-badge">v3.010.070</span>
       </div>
-      <nav class="pillnav" aria-label="Main">
-        <a class="pill" href="/">Home</a>
-        <div class="pill dropdown" data-portal="menu">
-          <button type="button" class="pill">Planning ▾</button>
-          <div class="menu" hidden>
-            <a href="/overview.html">Overview</a>
-            <a href="/ships/">Ships</a>
-            <a href="/restaurants.html">Restaurants</a>
+
+      <nav class="itw-nav" aria-label="Primary">
+        <div class="nav-item"><a class="chip" href="/">Home</a></div>
+
+        <div class="nav-item" aria-haspopup="menu">
+          <button class="chip" type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="menu-planning">Planning ▾</button>
+          <div id="menu-planning" class="menu" aria-label="Planning">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/ports.html">Ports</a>
-            <a href="/drink-calculator.html" class="active">Drink Packages</a>
-          </div>
-        </div>
-        <div class="pill dropdown" data-portal="menu">
-          <button type="button" class="pill">Travel ▾</button>
-          <div class="menu" hidden>
-            <a href="/solo.html">Solo</a>
+            <a href="/drink-packages.html">Drink Packages</a>
             <a href="/packing-lists.html">Packing Lists</a>
-            <a href="/travel.html">All Travel</a>
+            <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-        <a class="pill" href="/about.html">About</a>
+
+        <div class="nav-item" aria-haspopup="menu">
+          <button class="chip" type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="menu-travel">Travel ▾</button>
+          <div id="menu-travel" class="menu" aria-label="Travel">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
       </nav>
     </div>
-  </div>
 
-  <section class="hero-viewport">
-    <img class="hero-img" src="/assets/hero/ocean-sunrise-2560.jpg" alt="" decoding="async">
-    <div class="hero-overlay container">
-      <div>
-        <div class="hero-logo"><img src="/assets/brand/in-the-wake-shipmark.svg" alt=""></div>
-        <p class="tagline">A Cruise Traveler’s Logbook</p>
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.070" width="560" height="144" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.070" width="180" height="180" alt="" aria-hidden="true">
+      <div class="hero-credit">
+        <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
-    <div class="hero-credit">Photo © <a href="https://instagram.com/flickersofmajesty" rel="noopener">Flickers of Majesty</a></div>
-  </section>
+  </header>
 
-  <!-- ===== Body ===== -->
-  <main class="container">
-    <div class="shell">
-      <!-- LEFT: Calculator -->
-      <section class="card pad" id="calc">
-        <h1 class="banner">Drink Packages — Break-Even Calculator</h1>
-        <p class="small">
-          Compare à-la-carte vs Soda, Refreshment, and Deluxe. Add minors (50% off),
-          sea/port weighting, and currency display. Works offline.
-        </p>
-        <p id="currency-note" class="small">Rates loading…</p>
+  <!-- Main grid -->
+  <main class="wrap page-grid" role="main" aria-label="Calculator and articles">
+    <!-- LEFT: Calculator (full surface, config at top) -->
+    <section class="card calc-card" id="calc-root">
+      <div class="banner">
+        <strong id="best-chip">Best value: —</strong>
+        <span id="best-text" class="small muted">—</span>
+        <span class="small muted" id="totals" style="margin-left:auto"></span>
+      </div>
 
-        <div class="stack-3" style="margin-top:12px">
-          <div class="pkg" data-card="soda" id="pkg-soda">
-            <div class="row between center phd">
-              <strong>Soda</strong>
-              <span data-pkg-price="soda" class="badge">—</span>
-            </div>
-            <div class="small">Included value: <span data-inc="soda">—</span></div>
-            <div id="soda-breakeven" class="small" style="margin-top:8px"></div>
-          </div>
+      <p class="tiny muted">
+        Rates as of · <span id="currency-note">—</span> ·
+        <span id="offline-chip" class="pill" style="display:none">Offline</span>
+        • display only; onboard charges in USD
+      </p>
 
-          <div class="pkg" data-card="refresh" id="pkg-refresh">
-            <div class="row between center phd">
-              <strong>Refreshment</strong>
-              <span data-pkg-price="refresh" class="badge">—</span>
-            </div>
-            <div class="small">Included value: <span data-inc="refresh">—</span></div>
-            <div id="refresh-breakeven" class="small" style="margin-top:8px"></div>
-          </div>
+      <!-- Package cards -->
+      <div class="pkg" id="pkg-soda" data-card="soda">
+        <div class="phd">
+          <span>Soda</span>
+          <span class="inc-badge">Price: <strong data-pkg-price="soda">—/day</strong></span>
+          <button class="chip tiny" type="button" onclick="togglePriceEdit('soda')">Edit</button>
+        </div>
+        <div class="inc-badges">
+          <span class="inc-badge">Included value: <strong data-inc="soda">—/day</strong></span>
+        </div>
+        <form id="edit-soda" hidden class="small" onsubmit="event.preventDefault();savePackagePrice('soda')">
+          <label>New price/day <input id="edit-soda-val" type="text" inputmode="decimal" style="width:100px"></label>
+          <button type="submit" class="chip tiny">Save</button>
+          <button type="button" class="chip tiny" onclick="togglePriceEdit('soda',true)">Cancel</button>
+        </form>
+        <div id="soda-breakeven" class="small muted" style="margin-top:.4rem"></div>
+      </div>
 
-          <div class="pkg" data-card="deluxe" id="pkg-deluxe">
-            <div class="row between center phd">
-              <strong>Deluxe <span id="cap-badge" class="tiny badge">$14.00 cap</span></strong>
-              <span data-pkg-price="deluxe" class="badge">—</span>
-            </div>
-            <div class="small">Included value: <span data-inc="deluxe">—</span> • Over-cap est: <span id="overcap-est">—</span></div>
-            <div id="deluxe-breakeven" class="small" style="margin-top:8px"></div>
+      <div class="pkg" id="pkg-refresh" data-card="refresh">
+        <div class="phd">
+          <span>Refreshment</span>
+          <span class="inc-badge">Price: <strong data-pkg-price="refresh">—/day</strong></span>
+          <button class="chip tiny" type="button" onclick="togglePriceEdit('refresh')">Edit</button>
+        </div>
+        <div class="inc-badges">
+          <span class="inc-badge">Included value: <strong data-inc="refresh">—/day</strong></span>
+        </div>
+        <form id="edit-refresh" hidden class="small" onsubmit="event.preventDefault();savePackagePrice('refresh')">
+          <label>New price/day <input id="edit-refresh-val" type="text" inputmode="decimal" style="width:100px"></label>
+          <button type="submit" class="chip tiny">Save</button>
+          <button type="button" class="chip tiny" onclick="togglePriceEdit('refresh',true)">Cancel</button>
+        </form>
+        <div id="refresh-breakeven" class="small muted" style="margin-top:.4rem"></div>
+      </div>
+
+      <div class="pkg" id="pkg-deluxe" data-card="deluxe">
+        <div class="phd">
+          <span>Deluxe</span>
+          <span class="inc-badge">Price: <strong data-pkg-price="deluxe">—/day</strong></span>
+          <button class="chip tiny" type="button" onclick="togglePriceEdit('deluxe')">Edit</button>
+        </div>
+        <div class="inc-badges">
+          <span class="inc-badge">Included value: <strong data-inc="deluxe">—/day</strong></span>
+          <span class="inc-badge">Over-cap est: <strong id="overcap-est">—/day</strong></span>
+          <span class="inc-badge">Cap: <strong id="cap-badge">$14.00</strong></span>
+          <button class="chip tiny" type="button" onclick="toggleCapEdit()">Edit cap</button>
+        </div>
+        <form id="edit-cap" hidden class="small" onsubmit="event.preventDefault();saveCap()">
+          <label>Deluxe cap <input id="edit-cap-val" type="text" inputmode="decimal" style="width:100px" value="14.00"></label>
+          <button type="submit" class="chip tiny">Save</button>
+          <button type="button" class="chip tiny" onclick="toggleCapEdit(true)">Cancel</button>
+        </form>
+        <div id="deluxe-breakeven" class="small muted" style="margin-top:.4rem"></div>
+      </div>
+
+      <!-- Chart -->
+      <div class="card" style="border-color:#e5e7eb">
+        <canvas id="breakeven-chart" height="220"></canvas>
+        <div id="range-note" class="tiny muted" style="margin-top:.35rem"></div>
+      </div>
+
+      <!-- Controls (config at top) -->
+      <fieldset class="card" style="border-color:#e5e7eb">
+        <legend class="tiny">Trip setup</legend>
+        <div class="row">
+          <label class="small">Days</label>
+          <input id="input-days" data-input="days" type="text" inputmode="numeric" value="7" />
+        </div>
+        <div class="row">
+          <label class="small">Sea days</label>
+          <input id="input-seadays" data-input="seadays" type="text" inputmode="numeric" value="3" />
+        </div>
+        <div class="row" id="sea-toggle-row">
+          <label class="small">Weight sea/port <span id="sea-weight-val">20%</span></label>
+          <div>
+            <label class="small"><input id="sea-toggle" data-input="seaapply" type="checkbox" checked /> apply</label>
+            <input style="vertical-align:middle;margin-left:.5rem" type="range" min="0" max="40" step="1" value="20" data-input="seaweight" />
           </div>
         </div>
-
-        <canvas id="breakeven-chart" aria-label="Break-even chart" role="img"></canvas>
-        <div id="range-note" class="tiny" style="margin:6px 0 12px"></div>
-
-        <fieldset class="card pad" style="margin-top:12px">
-          <div class="row wrap gap-3 center">
-            <label class="pill-input">Days
-              <input id="input-days" data-input="days" type="number" min="1" max="365" value="7" />
-            </label>
-            <label class="pill-input">Sea days
-              <input id="input-seadays" data-input="seadays" type="number" min="0" max="365" value="3" />
-            </label>
-            <label class="pill-input">
-              <input id="sea-toggle" data-input="seaapply" type="checkbox" checked />
-              <span class="tiny">Weight sea/port • Sea bias <span id="sea-weight-val">20%</span></span>
-              <input data-input="seaweight" type="range" min="0" max="40" step="1" value="20" />
-            </label>
-          </div>
-
-          <div class="row wrap gap-3" style="margin-top:10px">
-            <label class="pill-input">Adults
-              <input id="input-adults" data-input="adults" type="number" min="1" max="20" value="1" />
-            </label>
-            <label class="pill-input">Minors
-              <input id="input-minors" data-input="minors" type="number" min="0" max="20" value="0" />
-            </label>
-          </div>
-
-          <div class="row wrap gap-3" style="margin-top:10px">
-            <label><input type="radio" id="mode-simple" name="mode" checked> Simple</label>
-            <label><input type="radio" id="mode-itinerary" name="mode"> Itinerary (per-day)</label>
-            <button id="jump-winner" type="button" class="pill">Jump to Best Value</button>
-          </div>
-        </fieldset>
-
-        <div class="card pad" style="margin-top:12px">
-          <div class="row between center">
-            <div>Soda avg <span class="tiny" data-price-pill="soda">avg —</span></div>
-            <div class="row center" style="gap:.5rem">
-              <button type="button" class="chip" onclick="stepInput('soda',-1)">−</button>
-              <input data-input="soda" type="text" inputmode="decimal" value="2" style="width:56px;text-align:center">
-              <button type="button" class="chip" onclick="stepInput('soda',+1)">+</button>
-            </div>
-          </div>
-
-          <div class="row between center" style="margin-top:8px">
-            <div>Cocktail avg <span class="tiny" data-price-pill="cocktail">avg —</span></div>
-            <div class="row center" style="gap:.5rem">
-              <button type="button" class="chip" onclick="stepInput('cocktail',-1)">−</button>
-              <input data-input="cocktail" type="text" inputmode="decimal" value="0" style="width:56px;text-align:center">
-              <button type="button" class="chip" onclick="stepInput('cocktail',+1)">+</button>
-            </div>
-          </div>
-
-          <div class="row wrap" style="gap:.5rem; margin-top:12px">
-            <button type="button" class="pill" onclick="resetInputs()">Reset</button>
-            <button type="button" class="pill" onclick="shareScenario()">Share Scenario</button>
-            <button type="button" class="pill" onclick="printResults()">Print</button>
+        <div class="row">
+          <label class="small">Adults</label>
+          <input id="input-adults" data-input="adults" type="text" inputmode="numeric" value="1" />
+        </div>
+        <div class="row">
+          <label class="small">Minors</label>
+          <input id="input-minors" data-input="minors" type="text" inputmode="numeric" value="0" />
+        </div>
+        <div class="row">
+          <label class="small">Mode</label>
+          <div class="small">
+            <label><input id="mode-simple" type="radio" name="mode" checked /> Simple</label>
+            &nbsp; &nbsp;
+            <label><input id="mode-itinerary" type="radio" name="mode" /> Itinerary (per-day)</label>
+            &nbsp; &nbsp;
+            <button id="jump-winner" type="button" class="chip tiny">Jump to Best Value</button>
           </div>
         </div>
+        <div id="itinerary-inputs" style="display:none"></div>
+      </fieldset>
 
-        <div id="a11y-status" class="sr-only" role="status" aria-live="polite"></div>
+      <!-- Per-drink inputs (steppers) -->
+      <fieldset class="card" style="border-color:#e5e7eb">
+        <legend class="tiny">Daily picks (average)</legend>
+
+        <!-- Example rows; the app JS wires all by [data-input] and stepInput() -->
+        <div class="row row--stepper">
+          <label class="small">Soda avg</label>
+          <div class="input-stepper">
+            <button type="button" class="btn-step" onclick="stepInput('soda',-1)">−</button>
+            <input type="text" data-input="soda" value="0" inputmode="decimal">
+            <button type="button" class="btn-step" onclick="stepInput('soda',+1)">+</button>
+          </div>
+          <span class="tiny muted" data-price-pill="soda" style="grid-column:1/-1"></span>
+        </div>
+
+        <div class="row row--stepper">
+          <label class="small">Coffee</label>
+          <div class="input-stepper">
+            <button type="button" class="btn-step" onclick="stepInput('coffee',-1)">−</button>
+            <input type="text" data-input="coffee" value="0" inputmode="decimal">
+            <button type="button" class="btn-step" onclick="stepInput('coffee',+1)">+</button>
+          </div>
+          <span class="tiny muted" data-price-pill="coffee" style="grid-column:1/-1"></span>
+        </div>
+
+        <div class="row row--stepper">
+          <label class="small">Cocktail</label>
+          <div class="input-stepper">
+            <button type="button" class="btn-step" onclick="stepInput('cocktail',-1)">−</button>
+            <input type="text" data-input="cocktail" value="0" inputmode="decimal">
+            <button type="button" class="btn-step" onclick="stepInput('cocktail',+1)">+</button>
+          </div>
+          <span class="tiny muted" data-price-pill="cocktail" style="grid-column:1/-1"></span>
+        </div>
+
+        <!-- Add the rest as needed; JS supports all keys -->
+      </fieldset>
+
+      <!-- Actions -->
+      <div class="small" style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button type="button" class="chip tiny" onclick="resetInputs()">Reset</button>
+        <button type="button" class="chip tiny" onclick="shareScenario()">Share Scenario</button>
+        <button type="button" class="chip tiny" onclick="printResults()">Print</button>
+
+        <label class="small" style="margin-left:auto">Currency
+          <select id="currency-select">
+            <option>USD</option><option>GBP</option><option>EUR</option><option>CAD</option>
+            <option>AUD</option><option>INR</option><option>CNY</option><option>MXN</option><option>BRL</option>
+          </select>
+        </label>
+      </div>
+
+      <!-- Group breakdown -->
+      <section id="group-breakdown" class="card" style="border-color:#e5e7eb" hidden>
+        <h3 class="tiny" style="margin-top:0">Group breakdown</h3>
+        <div class="small muted" style="margin-bottom:.4rem">Per-person totals and trip totals</div>
+        <table>
+          <thead class="tiny muted"><tr><th align="left">Who</th><th align="left">Package</th><th align="right">Per-day</th><th align="right">Trip</th></tr></thead>
+          <tbody id="group-table-body"></tbody>
+        </table>
       </section>
 
-      <!-- RIGHT: Rails -->
-      <aside class="stack-3">
-        <section class="card pad">
-          <h2 style="margin:0 0 8px">Recent Articles</h2>
-          <ul class="rail-list" id="recent-articles"></ul>
-        </section>
+      <div id="fallback-banner" class="tiny" hidden>Using built-in fallback data.</div>
+      <div id="a11y-status" class="tiny" aria-live="polite" style="position:absolute;left:-9999px">—</div>
+    </section>
 
-        <section class="card pad">
-          <h2 style="margin:0 0 8px">About the Author</h2>
-          <div class="row" style="gap:12px">
-            <img src="/assets/authors/ken-baker-128.jpg" width="64" height="64" alt="Ken Baker"
-                 style="border-radius:12px;border:1px solid var(--bd)">
-            <div>
-              <strong>Ken Baker</strong>
-              <p class="small" style="margin:.25rem 0 .35rem">
-                Founder of <em>In the Wake</em>; writer and editor of the logbook.
-              </p>
-              <a href="https://instagram.com/flickersofmajesty">@flickersofmajesty</a>
-            </div>
-          </div>
-        </section>
-      </aside>
-    </div>
+    <!-- RIGHT: Rails -->
+    <aside aria-label="Recent articles & author">
+      <section class="card">
+        <h2 class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">Recent Articles</h2>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      </section>
+
+      <section class="card">
+        <h2 class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">About the Author</h2>
+        <div id="author-rail" style="display:flex;gap:.75rem;align-items:center"></div>
+      </section>
+    </aside>
   </main>
 
-  <footer class="site-footer center tiny">© <span id="year"></span> In the Wake.</footer>
+  <!-- JS deps -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="" crossorigin="anonymous"></script>
 
-  <!-- ===== Calculator bundles (yours) ===== -->
-  <script>
-    // if you want to simulate FX drift visually
-    window.fxDriftPct = 0;
-  </script>
-  <script type="module" src="/assets/js/drink-worker.js?v=.9.000.005"></script>
-  <script defer src="/assets/js/drink-math.js?v=.9.000.005"></script>
-  <script defer src="/assets/js/drink-calculator.app.js?v=.9.000.005"></script>
+  <!-- YOUR existing app (kept external, as requested — no duplication here) -->
+  <script defer src="/assets/js/drink-calculator.app.js?v=9.000.004"></script>
 
-  <!-- ===== Portal menus (dropdowns render “above” everything) ===== -->
+  <!-- Site integration glue: portaled menus + rails + Top-20 override (inline) -->
   <script>
-    (function portalMenus(){
-      const root = document.body;
-      function closeAll(){ document.querySelectorAll('.dropdown .menu:not([hidden])').forEach(m => m.hidden = true); }
-      document.addEventListener('click', (e)=>{
-        const dd = e.target.closest('.dropdown');
-        if(!dd){ closeAll(); return; }
-        const btn = dd.querySelector('button'); const menu = dd.querySelector('.menu'); if(!menu) return;
-        if(menu.parentElement !== root) root.appendChild(menu);
-        const r = btn.getBoundingClientRect();
-        menu.style.top = (r.bottom + 6) + 'px';
-        menu.style.left = r.left + 'px';
-        menu.style.zIndex = 9999;
-        menu.hidden = !menu.hidden;
-        e.stopPropagation();
+  (function(){
+    "use strict";
+
+    /* ===== Portaled dropdowns ===== */
+    (function(){
+      const root=document.querySelector('.itw-nav'); if(!root) return;
+      const items=[...root.querySelectorAll('.nav-item[aria-haspopup]')];
+      function setOpen(g,on){ g.classList.toggle('open',!!on); const b=g.querySelector('button[aria-controls]'); if(b) b.setAttribute('aria-expanded',on?'true':'false'); }
+      function closeAll(except){ items.forEach(g=>{ if(g!==except) setOpen(g,false); }); }
+      items.forEach(g=>{
+        const btn=g.querySelector('button[aria-controls]'); const menu=g.querySelector('.menu'); if(!btn||!menu) return;
+        btn.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); const open=g.classList.contains('open'); closeAll(g); setOpen(g,!open); if(!open) (menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')||btn).focus({preventScroll:true}); });
+        btn.addEventListener('keydown',e=>{ if(e.key==='ArrowDown'||e.key==='ArrowUp'){ e.preventDefault(); setOpen(g,true); (menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')||btn).focus({preventScroll:true}); } else if(e.key==='Escape'){ setOpen(g,false); btn.focus({preventScroll:true}); }});
+        menu.addEventListener('focusout',()=>{ setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0); });
       });
-      window.addEventListener('resize', closeAll);
+      document.addEventListener('click',e=>{ if(!e.target.closest('.itw-nav')) closeAll(); });
+      window.addEventListener('blur',()=>closeAll());
     })();
-  </script>
 
-  <!-- ===== Recent rail + Top-20 image fix (hard override) ===== -->
-  <script>
-    (function rails(){
-      const items = [
-        { href:"/freedom-of-your-own-wake.html", title:"Freedom of Your Own Wake", img:"/assets/articles/freedom-of-your-own-wake-360.jpg" },
-        { href:"/why-i-started-solo-cruising.html", title:"Why I Started Solo Cruising", img:"/assets/articles/why-i-started-solo-cruising-360.jpg" },
-        // 🔧 Special case: this article’s usual logic is flaky; force the known-good thumbnail:
-        { href:"/top-20-first-cruise-questions.html", title:"Top 20 First-Cruise Questions", img:"/assets/articles/top-20-first-cruise-questions-360.jpg" }
-      ];
-      const ul = document.getElementById('recent-articles');
-      items.forEach(it=>{
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <a class="rail-card" href="${it.href}">
-            <img loading="lazy" decoding="async" src="${it.img}" alt="" width="112" height="64">
-            <span>${it.title}</span>
+    /* ===== Normalize legacy solo links ===== */
+    (function(){
+      const fix = href => href ? href.replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i,'/solo/$1.html') : href;
+      document.querySelectorAll('a[href]').forEach(a=>{
+        const old=a.getAttribute('href'); const neu=fix(old); if(neu&&neu!==old) a.setAttribute('href',neu);
+      });
+    })();
+
+    /* ===== Author rail (Ken) ===== */
+    (function(){
+      const host=document.getElementById('author-rail'); if(!host) return;
+      host.innerHTML = `
+        <picture>
+          <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.070">
+          <img src="/authors/img/ken1.jpg?v=3.010.070" width="48" height="48" alt="Author — Ken Baker" style="width:48px;height:48px;border-radius:50%;object-fit:cover">
+        </picture>
+        <div class="small">
+          <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
+          Founder of <em>In the Wake</em>; writer and editor of the logbook.<br>
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+          <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+        </div>`;
+    })();
+
+    /* ===== Rails (Recent) + Top-20 image override ===== */
+    (async function recentRail(){
+      const rail=document.getElementById('recent-rail'); if(!rail) return;
+
+      function cb(u){ return u ? (u+(u.includes('?')?'&':'?')+'v=3.010.070') : u; }
+      function pick(o, keys, d=null){ for(const k of keys){ if(o && o[k]!=null) return o[k]; } return d; }
+      function isTop20(s){ s=(s||'').toLowerCase(); return /top[\s-]*20/.test(s) && /first.*cruise.*questions/.test(s); }
+      const TOP20_IMG='/assets/articles/top-20-questions/cover.jpg';
+
+      function setImgFallback(img, primary, alts=[]){
+        if(!img) return;
+        const q=[primary,...alts].filter(Boolean).map(cb); const tried=new Set();
+        function next(){ const n=q.shift(); if(!n){ img.onerror=null; return; } if(tried.has(n)) return next(); tried.add(n); img.src=n; }
+        img.onerror=next; next();
+      }
+
+      async function get(u){
+        try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return await r.json(); }
+        catch(_){ return null; }
+      }
+      const raw = await (async ()=>{
+        for (const u of ['/assets/data/articles/index.json','/assets/data/articles.json']) {
+          const j=await get(u); if(j) return j;
+        }
+        return null;
+      })();
+
+      const list = Array.isArray(raw?.articles)? raw.articles : (Array.isArray(raw)? raw : []);
+      rail.innerHTML = (list.slice(0,6)).map(p=>{
+        const href = pick(p,['url','path'],'#');
+        const title= pick(p,['title','name'],'Article');
+        return `
+          <a class="rail-card" href="${href}">
+            <div class="thumb"><img alt="" style="width:100%;height:100%;object-fit:cover"></div>
+            <div class="tiny" style="line-height:1.35">${title}</div>
           </a>`;
-        ul.appendChild(li);
+      }).join('');
+
+      [...rail.querySelectorAll('.rail-card')].forEach((a,i)=>{
+        const p=list[i]||{}; const img=a.querySelector('img');
+        const href=(pick(p,['url','path'],'')||'').toLowerCase(); const title=(pick(p,['title','name'],'')||'').toLowerCase();
+        let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
+        if (isTop20(href) || isTop20(title)) primary = TOP20_IMG;
+        if(!primary){
+          if(/freedom-of-your-own-wake/.test(href)||/freedom of your own wake/.test(title)) primary='/assets/articles/freedom-of-your-own-wake/cover.jpg';
+          else if(/why-i-started-solo-cruising/.test(href)||/why i started solo cruising/.test(title)) primary='/assets/articles/why-i-started-solo-cruising.jpg';
+        }
+        const alts = primary ? [primary.replace(/\.(jpg|jpeg|png|webp)$/i,'.jpeg'),
+                                primary.replace(/\.(jpg|jpeg|png|webp)$/i,'.webp'),
+                                primary.replace(/\.(jpg|jpeg|png|webp)$/i,'.png')] : [];
+        setImgFallback(img, primary || '/assets/index_hero.jpg', alts);
       });
     })();
-  </script>
-
-  <!-- ===== Small helpers / expose some globals the app expects ===== -->
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    window.printResults ||= (()=> window.print());
-    window.shareScenario ||= (async()=>{ try{ await navigator.clipboard.writeText(location.href); }catch{} });
-    window.renderAll ||= (()=>{});
+  })();
   </script>
 </body>
 </html>
