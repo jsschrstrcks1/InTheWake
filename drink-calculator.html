@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="version" content="v.9.000.004" />
+  <meta name="version" content="v.9.000.005" />
 
   <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
   <meta name="description" content="Free Royal Caribbean drink calculator with break-even chart, sea/port weighting, and transparent price assumptions. Compare Soda, Refreshment, and Deluxe vs. à-la-carte." />
@@ -244,17 +244,17 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 
   <!-- Preload the shared math module and worker -->
-  <link rel="modulepreload" href="/assets/js/drink-math.js?v=v.9.000.004">
-  <link rel="preload" href="/assets/js/drink-worker.js?v=v.9.000.004" as="worker" />
+  <link rel="modulepreload" href="/assets/js/drink-math.js?v=v.9.000.005">
+  <link rel="preload" href="/assets/js/drink-worker.js?v=v.9.000.005" as="worker" />
 
   <!-- Expose compute() for inline fallback BEFORE app boots -->
   <script type="module">
-    import { compute } from "/assets/js/drink-math.js?v=v.9.000.004";
+    import { compute } from "/assets/js/drink-math.js?v=v.9.000.005";
     window.ITW_MATH = Object.assign({}, window.ITW_MATH || {}, { compute });
   </script>
 
   <!-- Main app -->
-  <script src="/assets/js/drink-calculator.app.js?v=v.9.000.004" defer></script>
+  <script src="/assets/js/drink-calculator.app.js?v=v.9.000.005" defer></script>
   <script src="/assets/js/sw-bridge.js?v=20.4" defer></script>
 </head>
 <body>
@@ -275,7 +275,7 @@
       <a class="itw-nav__link" href="/about/">About</a>
     </nav>
     <button class="itw-menu-btn btn ghost" aria-expanded="false" aria-controls="itw-primary-nav" style="margin-left:auto">Menu</button>
-    <div class="small">v.9.000.004</div>
+    <div class="small">v.9.000.005</div>
 
     <!-- Moved currency block into this header -->
     <span id="offline-chip" class="chip" style="display:none">Offline</span>
@@ -838,7 +838,7 @@
   if (!('serviceWorker' in navigator)) return;
   if (!navigator.serviceWorker.controller) return;
 
-  const V = 'v.9.000.004';
+  const V = 'v.9.000.005';
   navigator.serviceWorker.controller.postMessage({
     type: 'SEED_URLS',
     priority: 'high',
