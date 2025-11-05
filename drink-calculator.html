@@ -1,289 +1,342 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <!-- ========================== CONFIG (keep at top) ========================== -->
-  <script>
-    window.ITW_PAGE = {
-      id: "drinks-calculator",
-      title: "Drink Packages — Break-Even Calculator",
-      version: "v3.010.102",
-      hero: { image: "/assets/img/sea-hero.jpg", creditHTML: 'Photo © Flickers of Majesty' },
-      navActive: "Planning",           // highlights Planning in navbar
-      rail: { showRecent: true, showAuthor: true },
-      calculator: {
-        useWorker: true,
-        datasetURL: "/assets/data/lines/royal-caribbean.json",
-        fx: { supported: ["USD","GBP","EUR","CAD","AUD","INR","CNY","MXN","BRL"] }
-      }
-    };
-  </script>
-  <!-- ======================================================================== -->
-
+  <!-- ===== CONFIG (keep at top) ===== -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Drink Packages — Break-Even Calculator | In the Wake</title>
-  <meta name="description" content="Find your break-even for Soda, Refreshment, and Deluxe packages, with kid discounts, gratuity, and per-day ranges. Works offline." />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Drink Packages — Break-Even Calculator • In the Wake</title>
+  <meta name="theme-color" content="#0b5">
 
-  <!-- Site styles (reuse your existing bundle) -->
-  <link rel="stylesheet" href="/assets/styles.css?v=v3.010.102" />
-  <!-- (Optional) calculator tweak styles -->
+  <!-- ===== Inline “site” tokens + layout (trimmed to what this page needs) ===== -->
   <style>
-    /* Hero image keeps ship-lockup from overflowing on small screens */
-    .hero-viewport { position: relative; max-height: min(52vh, 640px); overflow: clip; }
-    .hero-viewport img { width: 100%; height: auto; display:block; object-fit: cover; }
+    /* ---------- tokens ---------- */
+    :root{
+      --bg: #f6fafc;
+      --panel: #ffffff;
+      --ink: #0f172a;
+      --muted: #334155;
+      --bd: rgba(15,23,42,.12);
+      --ring: #3b82f6;
+      --pill-bg: rgba(255,255,255,.75);
+      --pill-bd: rgba(15,23,42,.18);
+      --shadow: 0 8px 24px rgba(2,6,23,.12);
+      --radius: 14px;
+    }
 
-    /* Page grid mirrors planning.html: main + rail */
-    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 20px 16px 48px; display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
-    @media (max-width: 1100px){ .page-wrap{ grid-template-columns: 1fr; } }
+    /* ---------- globals ---------- */
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink); background:var(--bg);
+      font: 16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    img{max-width:100%;display:block}
+    .sr-only{position:absolute!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important;width:1px!important;height:1px!important;overflow:hidden!important;margin:-1px!important;padding:0!important;border:0!important}
 
-    /* Calculator card */
-    .calc-card { background:#fff; border:1px solid var(--bd, #e5e7eb); border-radius:16px; padding:18px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+    /* ---------- header + hero ---------- */
+    .topbar{position:sticky;top:0;z-index:20;backdrop-filter:saturate(1.2) blur(8px); background:rgba(255,255,255,.7); border-bottom:1px solid var(--bd)}
+    .container{max-width:1128px;margin-inline:auto;padding:10px 16px}
+    .row{display:flex;gap:.75rem}
+    .between{justify-content:space-between}.center{align-items:center}
+    .pillnav .pill, .pillnav .dropdown>button{
+      appearance:none;border:1px solid var(--pill-bd); background:var(--pill-bg); color:var(--ink);
+      border-radius:999px; padding:.45rem .9rem; font-weight:600; cursor:pointer; text-decoration:none;
+      box-shadow:0 2px 8px rgba(2,6,23,.06);
+    }
+    .pillnav a.active{outline:2px solid var(--ring)}
+    .dropdown .menu{
+      position:fixed; min-width:220px; background:#fff; border:1px solid var(--bd); border-radius:12px;
+      box-shadow:var(--shadow); padding:.4rem; display:block;
+    }
+    .dropdown .menu a{display:block;padding:.45rem .6rem;border-radius:8px;color:inherit;text-decoration:none}
+    .dropdown .menu a:hover{background:#f1f5f9}
+    .dropdown .menu[hidden]{display:none}
 
-    /* Winner “packages” row harmonized with site pills */
-    .packages .pkg { border:1px solid var(--bd,#e5e7eb); border-radius:14px; padding:12px; }
-    .packages .pkg.winner { border-color:#059669; box-shadow: 0 0 0 2px rgba(5,150,105,.15); }
+    .hero-viewport{position:relative; height:40vh; min-height:320px; overflow:hidden; border-bottom:1px solid var(--bd)}
+    .hero-img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.02)}
+    .hero-overlay{position:relative; z-index:1; height:100%; display:flex; align-items:flex-end; padding-bottom:18px}
+    .hero-logo img{height:112px; filter: drop-shadow(0 12px 30px rgba(0,0,0,.2))}
+    .tagline{color:#fff; text-shadow:0 2px 12px rgba(0,0,0,.45); font-size:1.1rem; font-weight:700; margin:8px 0 0}
+    .hero-credit{position:absolute;right:18px;bottom:14px;z-index:1;background:rgba(255,255,255,.85);
+      border:1px solid var(--bd); border-radius:999px; padding:.35rem .7rem; font-weight:700}
+    .build-pill{border:1px solid var(--pill-bd); background:var(--pill-bg); padding:.2rem .5rem; border-radius:999px; font-size:.85rem;font-weight:700}
 
-    /* Right rail cards (match Planning) */
-    .rail .card { background:#fff; border:1px solid var(--bd,#e5e7eb); border-radius:14px; padding:12px; margin-bottom:14px; }
+    /* ---------- page grid ---------- */
+    main{margin:28px 0 56px}
+    .shell{display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px}
+    @media (max-width:1060px){ .shell{grid-template-columns:1fr} }
 
-    /* Tiny header tweaks so the logo lockup never runs off-screen */
-    .site-brand img { max-width: clamp(160px, 28vw, 360px); height: auto; }
-    .nav-wrap { overflow: visible; }
+    /* ---------- panels/cards ---------- */
+    .card{background:var(--panel); border:1px solid var(--bd); border-radius:var(--radius); box-shadow:0 2px 12px rgba(2,6,23,.04)}
+    .pad{padding:16px}
+    .banner{font-weight:800; color:var(--ink); font-size:1.25rem}
+    .small{font-size:.92rem; color:var(--muted)}
+    .tiny{font-size:.82rem; color:var(--muted)}
+    .badge{border:1px solid var(--bd);background:#f8fafc;border-radius:999px;padding:.2rem .55rem;font-weight:700}
+
+    /* ---------- calculator bits ---------- */
+    .pkg{border:1px solid var(--bd); border-radius:12px; padding:12px 14px; background:#fff}
+    .pkg.winner{box-shadow:0 0 0 2px var(--ring) inset}
+    .stack-3{display:grid; gap:12px}
+    #breakeven-chart{width:100%; height:280px}
+    .pill-input{display:grid; gap:4px}
+    .pill-input input[type="number"], .pill-input input[type="text"]{
+      appearance:textfield; border:1px solid var(--bd); background:#fff; border-radius:10px; padding:.45rem .6rem; width:80px
+    }
+    input[type="range"]{width:180px}
+    .chip{appearance:none;border:1px solid var(--bd);background:#fff;border-radius:10px;padding:.25rem .55rem;cursor:pointer}
+
+    /* ---------- rails ---------- */
+    .rail-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+    .rail-card{display:grid; grid-template-columns:112px 1fr; gap:10px; align-items:center;
+      border:1px solid var(--bd); border-radius:12px; padding:8px; text-decoration:none; color:inherit; background:#fff}
+    .rail-card:hover{box-shadow:0 2px 10px rgba(2,6,23,.08)}
+    .rail-card img{border-radius:8px; border:1px solid var(--bd)}
+
+    /* ---------- footer ---------- */
+    .site-footer{border-top:1px solid var(--bd); padding:16px 0; color:var(--muted)}
+    .center{text-align:center}
   </style>
 
-  <!-- Chart.js (required by the calculator’s chart) -->
+  <!-- Chart.js (for the bar/line combo) -->
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-
-  <!-- Your site shell helpers (reuse existing) -->
-  <script defer src="/assets/js/site-cache.js?v=v3.010.102"></script>
-  <script defer src="/assets/js/sw-bridge.js?v=v3.010.102"></script>
-  <script defer src="/assets/js/install.js?v=v3.010.102"></script>
-
-  <!-- Calculator core (reuse your actual files/paths) -->
-  <script type="module" defer src="/assets/js/drink-calculator.app.js?v=v.9.000.004"></script>
 </head>
+<body>
 
-<body class="theme-in-the-wake">
-  <!-- ===== Top Nav / Header (same skeleton as index/planning; portal-ready) ===== -->
-  <header class="site-header">
-    <div class="nav-bar">
-      <a class="site-brand" href="/" aria-label="In the Wake — Home">
-        <img src="/assets/img/lockups/in-the-wake.svg" alt="In the Wake" />
-      </a>
-      <div class="nav-wrap">
-        <nav class="nav">
-          <a class="btn" href="/">Home</a>
-
-          <!-- Planning (portal dropdown) -->
-          <div class="menu-portal">
-            <button class="btn has-caret" data-portal="planning">Planning</button>
-            <div class="menu" data-portal-target="planning">
-              <a href="/planning.html">Overview</a>
-              <a href="/ships/">Ships</a>
-              <a href="/restaurants.html">Restaurants</a>
-              <a href="/ports.html">Ports</a>
-              <a class="active" href="/drinks-calculator.html">Drink Packages</a>
-            </div>
+  <!-- ===== Header / Nav ===== -->
+  <div class="topbar">
+    <div class="container row between center">
+      <div class="row center">
+        <a href="/" class="brand-lockup" aria-label="In the Wake">
+          <img src="/assets/brand/in-the-wake-lockup.svg" alt="" height="32">
+        </a>
+        <span class="build-pill">v3.010.102</span>
+      </div>
+      <nav class="pillnav" aria-label="Main">
+        <a class="pill" href="/">Home</a>
+        <div class="pill dropdown" data-portal="menu">
+          <button type="button" class="pill">Planning ▾</button>
+          <div class="menu" hidden>
+            <a href="/overview.html">Overview</a>
+            <a href="/ships/">Ships</a>
+            <a href="/restaurants.html">Restaurants</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-calculator.html" class="active">Drink Packages</a>
           </div>
-
-          <!-- Travel (portal dropdown) -->
-          <div class="menu-portal">
-            <button class="btn has-caret" data-portal="travel">Travel</button>
-            <div class="menu" data-portal-target="travel">
-              <a href="/solo.html">Solo</a>
-              <a href="/packing-lists.html">Packing Lists</a>
-              <a href="/travel.html">All Travel</a>
-            </div>
-          </div>
-
-          <a class="btn" href="/about.html">About</a>
-        </nav>
-        <div class="build-pill">
-          <img src="/assets/img/lockups/itw-mini.svg" alt="" aria-hidden="true" />
-          <span id="build-version">v3.010.102</span>
         </div>
+        <div class="pill dropdown" data-portal="menu">
+          <button type="button" class="pill">Travel ▾</button>
+          <div class="menu" hidden>
+            <a href="/solo.html">Solo</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/travel.html">All Travel</a>
+          </div>
+        </div>
+        <a class="pill" href="/about.html">About</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="hero-viewport">
+    <img class="hero-img" src="/assets/hero/ocean-sunrise-2560.jpg" alt="" decoding="async">
+    <div class="hero-overlay container">
+      <div>
+        <div class="hero-logo"><img src="/assets/brand/in-the-wake-shipmark.svg" alt=""></div>
+        <p class="tagline">A Cruise Traveler’s Logbook</p>
       </div>
     </div>
-  </header>
-
-  <!-- ============================= Hero ============================= -->
-  <section class="hero-viewport">
-    <img src="/assets/img/sea-hero-wide.jpg" alt="" />
-    <div class="hero-credit pill">
-      <span id="hero-credit">Photo © Flickers of Majesty</span>
-    </div>
+    <div class="hero-credit">Photo © <a href="https://instagram.com/flickersofmajesty" rel="noopener">Flickers of Majesty</a></div>
   </section>
 
-  <!-- ===================== Main Content + Right Rail ===================== -->
-  <main class="page-wrap">
-    <!-- Main column -->
-    <article class="calc-card">
-      <h1>Drink Packages — Break-Even Calculator</h1>
-      <p class="lede">Compare à-la-carte vs Soda, Refreshment, and Deluxe. Add minors (50% off), sea/port weighting, and currency display. Works offline.</p>
+  <!-- ===== Body ===== -->
+  <main class="container">
+    <div class="shell">
+      <!-- LEFT: Calculator -->
+      <section class="card pad" id="calc">
+        <h1 class="banner">Drink Packages — Break-Even Calculator</h1>
+        <p class="small">
+          Compare à-la-carte vs Soda, Refreshment, and Deluxe. Add minors (50% off),
+          sea/port weighting, and currency display. Works offline.
+        </p>
+        <p id="currency-note" class="small">Rates loading…</p>
 
-      <!-- FX note & offline chip (from your app) -->
-      <p id="currency-note" class="small" style="margin:.25rem 0 .75rem">
-        <!-- populated by renderFxNote() -->
-      </p>
-      <span id="offline-chip" class="pill" style="display:none">Offline</span>
-
-      <!-- Calculator UI (mount points your app expects) -->
-      <section id="calculator">
-        <!-- Best value banner -->
-        <div class="banner">
-          <span id="best-chip" class="pill">Best value: —</span>
-          <div id="best-text" class="small"></div>
-        </div>
-
-        <!-- Totals -->
-        <p id="totals" class="totals strong" aria-live="polite"></p>
-
-        <!-- Packages row (the app toggles .winner) -->
-        <div class="packages">
-          <div id="pkg-soda" class="pkg" data-card="soda">
-            <div class="phd"><strong>Soda</strong> <span data-pkg-price="soda" class="pill"></span></div>
+        <div class="stack-3" style="margin-top:12px">
+          <div class="pkg" data-card="soda" id="pkg-soda">
+            <div class="row between center phd">
+              <strong>Soda</strong>
+              <span data-pkg-price="soda" class="badge">—</span>
+            </div>
             <div class="small">Included value: <span data-inc="soda">—</span></div>
-            <div id="soda-breakeven" class="small"></div>
+            <div id="soda-breakeven" class="small" style="margin-top:8px"></div>
           </div>
-          <div id="pkg-refresh" class="pkg" data-card="refresh">
-            <div class="phd"><strong>Refreshment</strong> <span data-pkg-price="refresh" class="pill"></span></div>
+
+          <div class="pkg" data-card="refresh" id="pkg-refresh">
+            <div class="row between center phd">
+              <strong>Refreshment</strong>
+              <span data-pkg-price="refresh" class="badge">—</span>
+            </div>
             <div class="small">Included value: <span data-inc="refresh">—</span></div>
-            <div id="refresh-breakeven" class="small"></div>
+            <div id="refresh-breakeven" class="small" style="margin-top:8px"></div>
           </div>
-          <div id="pkg-deluxe" class="pkg" data-card="deluxe">
-            <div class="phd"><strong>Deluxe</strong> <span data-pkg-price="deluxe" class="pill"></span> <span id="cap-badge" class="pill">$14.00</span></div>
+
+          <div class="pkg" data-card="deluxe" id="pkg-deluxe">
+            <div class="row between center phd">
+              <strong>Deluxe <span id="cap-badge" class="tiny badge">$14.00 cap</span></strong>
+              <span data-pkg-price="deluxe" class="badge">—</span>
+            </div>
             <div class="small">Included value: <span data-inc="deluxe">—</span> • Over-cap est: <span id="overcap-est">—</span></div>
-            <div id="deluxe-breakeven" class="small"></div>
+            <div id="deluxe-breakeven" class="small" style="margin-top:8px"></div>
           </div>
         </div>
 
-        <!-- Chart -->
-        <div class="chart-wrap" style="height:280px;margin-top:10px">
-          <canvas id="breakeven-chart" aria-label="Daily cost comparison chart"></canvas>
-        </div>
-        <p id="range-note" class="small muted"></p>
+        <canvas id="breakeven-chart" aria-label="Break-even chart" role="img"></canvas>
+        <div id="range-note" class="tiny" style="margin:6px 0 12px"></div>
 
-        <!-- Inputs and controls (your app wires these by [data-input]) -->
-        <section class="inputs">
-          <!-- Trip -->
-          <fieldset class="row">
-            <label for="input-days">Days</label>
-            <input id="input-days" data-input="days" type="number" inputmode="numeric" min="1" max="365" value="7" />
-            <label for="input-seadays">Sea days</label>
-            <input id="input-seadays" data-input="seadays" type="number" inputmode="numeric" min="0" max="365" value="3" />
-            <label class="switch"><input id="sea-toggle" type="checkbox" data-input="seaapply" checked />Weight sea/port</label>
-            <label>Sea bias <span id="sea-weight-val">20%</span></label>
-            <input type="range" min="0" max="40" step="1" value="20" data-input="seaweight" />
-          </fieldset>
+        <fieldset class="card pad" style="margin-top:12px">
+          <div class="row wrap gap-3 center">
+            <label class="pill-input">Days
+              <input id="input-days" data-input="days" type="number" min="1" max="365" value="7" />
+            </label>
+            <label class="pill-input">Sea days
+              <input id="input-seadays" data-input="seadays" type="number" min="0" max="365" value="3" />
+            </label>
+            <label class="pill-input">
+              <input id="sea-toggle" data-input="seaapply" type="checkbox" checked />
+              <span class="tiny">Weight sea/port • Sea bias <span id="sea-weight-val">20%</span></span>
+              <input data-input="seaweight" type="range" min="0" max="40" step="1" value="20" />
+            </label>
+          </div>
 
-          <!-- Group -->
-          <fieldset class="row">
-            <label for="input-adults">Adults</label>
-            <input id="input-adults" data-input="adults" type="number" min="1" max="20" value="1" />
-            <label for="input-minors">Minors</label>
-            <input id="input-minors" data-input="minors" type="number" min="0" max="20" value="0" />
-          </fieldset>
+          <div class="row wrap gap-3" style="margin-top:10px">
+            <label class="pill-input">Adults
+              <input id="input-adults" data-input="adults" type="number" min="1" max="20" value="1" />
+            </label>
+            <label class="pill-input">Minors
+              <input id="input-minors" data-input="minors" type="number" min="0" max="20" value="0" />
+            </label>
+          </div>
 
-          <!-- Mode -->
-          <fieldset class="row">
-            <label class="radio"><input type="radio" name="mode" id="mode-simple" checked /> Simple</label>
-            <label class="radio"><input type="radio" name="mode" id="mode-itinerary" /> Itinerary (per-day)</label>
+          <div class="row wrap gap-3" style="margin-top:10px">
+            <label><input type="radio" id="mode-simple" name="mode" checked> Simple</label>
+            <label><input type="radio" id="mode-itinerary" name="mode"> Itinerary (per-day)</label>
             <button id="jump-winner" type="button" class="pill">Jump to Best Value</button>
-          </fieldset>
-
-          <!-- Drinks (steppers use window.stepInput) -->
-          <fieldset class="grid">
-            <!-- a few examples; the app supports all keys -->
-            <div class="row row--stepper">
-              <label>Soda <span data-price-pill="soda" class="pill small"></span></label>
-              <div class="input-stepper">
-                <button type="button" onclick="stepInput('soda',-1)">−</button>
-                <input data-input="soda" value="0" inputmode="decimal" />
-                <button type="button" onclick="stepInput('soda',+1)">+</button>
-              </div>
-            </div>
-            <div class="row row--stepper">
-              <label>Cocktail <span data-price-pill="cocktail" class="pill small"></span></label>
-              <div class="input-stepper">
-                <button type="button" onclick="stepInput('cocktail',-1)">−</button>
-                <input data-input="cocktail" value="0" inputmode="decimal" />
-                <button type="button" onclick="stepInput('cocktail',+1)">+</button>
-              </div>
-            </div>
-            <!-- …repeat for remaining types your app knows… -->
-          </fieldset>
-
-          <!-- Actions -->
-          <div class="row">
-            <button type="button" class="btn" onclick="resetInputs()">Reset</button>
-            <button type="button" class="btn" onclick="shareScenario()">Share Scenario</button>
-            <button type="button" class="btn" onclick="printResults()">Print</button>
           </div>
-        </section>
+        </fieldset>
 
-        <!-- Group breakdown -->
-        <section id="group-breakdown" hidden>
-          <h2>Group Breakdown</h2>
-          <table class="table">
-            <thead><tr><th>Who</th><th>Package</th><th>Per-day</th><th>Trip</th></tr></thead>
-            <tbody id="group-table-body"></tbody>
-          </table>
-        </section>
+        <div class="card pad" style="margin-top:12px">
+          <div class="row between center">
+            <div>Soda avg <span class="tiny" data-price-pill="soda">avg —</span></div>
+            <div class="row center" style="gap:.5rem">
+              <button type="button" class="chip" onclick="stepInput('soda',-1)">−</button>
+              <input data-input="soda" type="text" inputmode="decimal" value="2" style="width:56px;text-align:center">
+              <button type="button" class="chip" onclick="stepInput('soda',+1)">+</button>
+            </div>
+          </div>
 
-        <!-- a11y live region -->
-        <div id="a11y-status" class="sr-only" aria-live="polite"></div>
-      </section>
-    </article>
+          <div class="row between center" style="margin-top:8px">
+            <div>Cocktail avg <span class="tiny" data-price-pill="cocktail">avg —</span></div>
+            <div class="row center" style="gap:.5rem">
+              <button type="button" class="chip" onclick="stepInput('cocktail',-1)">−</button>
+              <input data-input="cocktail" type="text" inputmode="decimal" value="0" style="width:56px;text-align:center">
+              <button type="button" class="chip" onclick="stepInput('cocktail',+1)">+</button>
+            </div>
+          </div>
 
-    <!-- Right rail (borrows Planning layout) -->
-    <aside class="rail">
-      <section class="card">
-        <h3>Recent Articles</h3>
-        <ul class="list-media">
-          <li><a href="/solo/freedom-of-your-own-wake.html"><img src="/assets/img/articles/freedom-thumb.jpg" alt="" /> Freedom of Your Own Wake</a></li>
-          <li><a href="/solo/why-i-started-solo-cruising.html"><img src="/assets/img/articles/solo-started-thumb.jpg" alt="" /> Why I Started Solo Cruising</a></li>
-          <li><a href="/planning/top-20-first-cruise-questions.html"><img src="/assets/img/articles/top20-thumb.jpg" alt="" /> Top 20 First-Cruise Questions</a></li>
-        </ul>
-      </section>
-
-      <section class="card">
-        <h3>About the Author</h3>
-        <div class="media">
-          <img class="avatar" src="/assets/img/authors/ken-baker.jpg" alt="Ken Baker" />
-          <div>
-            <strong>Ken Baker</strong>
-            <p class="small">Founder of <em>In the Wake</em>; writer and editor of the logbook.</p>
-            <p class="small"><a href="https://instagram.com/flickersofmajesty">@flickersofmajesty</a></p>
+          <div class="row wrap" style="gap:.5rem; margin-top:12px">
+            <button type="button" class="pill" onclick="resetInputs()">Reset</button>
+            <button type="button" class="pill" onclick="shareScenario()">Share Scenario</button>
+            <button type="button" class="pill" onclick="printResults()">Print</button>
           </div>
         </div>
+
+        <div id="a11y-status" class="sr-only" role="status" aria-live="polite"></div>
       </section>
-    </aside>
+
+      <!-- RIGHT: Rails -->
+      <aside class="stack-3">
+        <section class="card pad">
+          <h2 style="margin:0 0 8px">Recent Articles</h2>
+          <ul class="rail-list" id="recent-articles"></ul>
+        </section>
+
+        <section class="card pad">
+          <h2 style="margin:0 0 8px">About the Author</h2>
+          <div class="row" style="gap:12px">
+            <img src="/assets/authors/ken-baker-128.jpg" width="64" height="64" alt="Ken Baker"
+                 style="border-radius:12px;border:1px solid var(--bd)">
+            <div>
+              <strong>Ken Baker</strong>
+              <p class="small" style="margin:.25rem 0 .35rem">
+                Founder of <em>In the Wake</em>; writer and editor of the logbook.
+              </p>
+              <a href="https://instagram.com/flickersofmajesty">@flickersofmajesty</a>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
   </main>
 
-  <!-- Footer matches the rest of the site -->
-  <footer class="site-footer">
-    <p class="small">© <span id="year"></span> In the Wake.</p>
-  </footer>
+  <footer class="site-footer center tiny">© <span id="year"></span> In the Wake.</footer>
 
+  <!-- ===== Calculator bundles (yours) ===== -->
   <script>
-    // Tiny page boot that reuses your existing calculator app and site chrome
-    (function(){
-      // version badge + year
-      document.getElementById('build-version').textContent = window.ITW_PAGE?.version || 'v';
-      document.getElementById('year').textContent = new Date().getFullYear();
-      // hero credit
-      const c = document.getElementById('hero-credit'); if (c) c.innerHTML = window.ITW_PAGE?.hero?.creditHTML || '';
-      // mark active nav
-      const active = (window.ITW_PAGE && ITW_PAGE.navActive) || '';
-      document.querySelectorAll('.nav a, .menu a').forEach(a=>{
-        if (active && a.textContent.trim()===active) a.classList.add('active');
+    // if you want to simulate FX drift visually
+    window.fxDriftPct = 0;
+  </script>
+  <script type="module" src="/assets/js/drink-worker.js?v=v.9.000.004"></script>
+  <script defer src="/assets/js/drink-math.js?v=v.9.000.004"></script>
+  <script defer src="/assets/js/drink-calculator.app.js?v=v.9.000.004"></script>
+
+  <!-- ===== Portal menus (dropdowns render “above” everything) ===== -->
+  <script>
+    (function portalMenus(){
+      const root = document.body;
+      function closeAll(){ document.querySelectorAll('.dropdown .menu:not([hidden])').forEach(m => m.hidden = true); }
+      document.addEventListener('click', (e)=>{
+        const dd = e.target.closest('.dropdown');
+        if(!dd){ closeAll(); return; }
+        const btn = dd.querySelector('button'); const menu = dd.querySelector('.menu'); if(!menu) return;
+        if(menu.parentElement !== root) root.appendChild(menu);
+        const r = btn.getBoundingClientRect();
+        menu.style.top = (r.bottom + 6) + 'px';
+        menu.style.left = r.left + 'px';
+        menu.style.zIndex = 9999;
+        menu.hidden = !menu.hidden;
+        e.stopPropagation();
       });
-      // if your portal menu JS needs a hook, it can target [data-portal]/[data-portal-target]
-      // Calculator flags
-      if (window.ITW_PAGE?.calculator) {
-        window.fxDriftPct = 0; // keep default, your app reads this
-      }
+      window.addEventListener('resize', closeAll);
     })();
+  </script>
+
+  <!-- ===== Recent rail + Top-20 image fix (hard override) ===== -->
+  <script>
+    (function rails(){
+      const items = [
+        { href:"/freedom-of-your-own-wake.html", title:"Freedom of Your Own Wake", img:"/assets/articles/freedom-of-your-own-wake-360.jpg" },
+        { href:"/why-i-started-solo-cruising.html", title:"Why I Started Solo Cruising", img:"/assets/articles/why-i-started-solo-cruising-360.jpg" },
+        // 🔧 Special case: this article’s usual logic is flaky; force the known-good thumbnail:
+        { href:"/top-20-first-cruise-questions.html", title:"Top 20 First-Cruise Questions", img:"/assets/articles/top-20-first-cruise-questions-360.jpg" }
+      ];
+      const ul = document.getElementById('recent-articles');
+      items.forEach(it=>{
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <a class="rail-card" href="${it.href}">
+            <img loading="lazy" decoding="async" src="${it.img}" alt="" width="112" height="64">
+            <span>${it.title}</span>
+          </a>`;
+        ul.appendChild(li);
+      });
+    })();
+  </script>
+
+  <!-- ===== Small helpers / expose some globals the app expects ===== -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    window.printResults ||= (()=> window.print());
+    window.shareScenario ||= (async()=>{ try{ await navigator.clipboard.writeText(location.href); }catch{} });
+    window.renderAll ||= (()=>{});
   </script>
 </body>
 </html>
