@@ -228,6 +228,25 @@
   #fx-drift-range{width:220px}
   .fx-drift-reset{padding:4px 8px;border-radius:8px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
   .fx-drift-reset:hover{background:#f2f2f2}
+    /* Personas layout */
+.qs-grid--personas { grid-template-columns: repeat(3, minmax(220px,1fr)); }
+.persona-card { align-items: flex-start; text-align: left; gap: 6px; }
+.persona-card span { font-size: 1rem; font-weight: 800; }
+.persona-descs {
+  display:grid; grid-template-columns: repeat(3, minmax(260px,1fr));
+  gap:12px; margin-top:12px;
+}
+.persona-desc {
+  background: #fff; border:1px solid var(--bd); border-radius:12px; padding:12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.03); cursor: pointer;
+}
+.persona-desc:hover { outline:2px solid #bae6fd; }
+.persona-desc h3 { margin:0 0 4px 0; font-size:1rem; }
+.persona-cta { display:inline-block; margin-top:6px; font-weight:800; color:#0369a1; }
+@media (max-width: 960px){
+  .qs-grid--personas { grid-template-columns: repeat(2, minmax(200px,1fr)); }
+  .persona-descs { grid-template-columns: 1fr; }
+}
   </style>
 
   <!-- Chart.js -->
@@ -281,9 +300,124 @@
   <p id="fallback-banner" class="health" role="status" hidden>⚠️ We couldn't load live prices; using defaults.</p>
 
   <!-- Quick Start + Personas -->
-  <section class="qs" aria-labelledby="qs-title">
-    <div class="qs-hd" id="qs-title">🚀 Quick Start: Load a Preset</div>
-    <p class="small">Try a common pattern:</p>
+ <section class="qs" aria-labelledby="qs-title">
+  <div class="qs-hd" id="qs-title">🚀 Quick Start: Load a Persona</div>
+  <p class="small">Tap a card to pre-fill the calculator. Descriptions are below each card.</p>
+
+  <!-- Persona Cards Grid -->
+  <div class="qs-grid qs-grid--personas" role="list">
+    <button class="qs-btn persona-card" role="listitem" type="button" data-persona="family"
+      onclick="applyPersona('family')">
+      <span>👨‍👩‍👧‍👦 Family with Kids</span>
+      <small>2 adults + 2 kids • light alcohol</small>
+    </button>
+
+    <button class="qs-btn persona-card" role="listitem" type="button" data-persona="girls"
+      onclick="applyPersona('girls')">
+      <span>👯‍♀️ Girls Trip</span>
+      <small>light–moderate, fruity + wellness</small>
+    </button>
+
+    <button class="qs-btn persona-card" role="listitem" type="button" data-persona="boys"
+      onclick="applyPersona('boys')">
+      <span>🕶️ Boys Trip</span>
+      <small>moderate, beers + simple spirits</small>
+    </button>
+
+    <button class="qs-btn persona-card" role="listitem" type="button" data-persona="romance"
+      onclick="applyPersona('romance')">
+      <span>💞 Romantic Couple</span>
+      <small>light, quality-over-quantity</small>
+    </button>
+
+    <button class="qs-btn persona-card" role="listitem" type="button" data-persona="solo"
+      onclick="applyPersona('solo')">
+      <span>🏃 Health-Conscious Solo</span>
+      <small>very light alcohol, high hydration</small>
+    </button>
+
+    <button class="qs-btn persona-card" role="listitem" type="button" data-persona="seniors"
+      onclick="applyPersona('seniors')">
+      <span>🧓 Senior Group Outing</span>
+      <small>light, steady pacing</small>
+    </button>
+  </div>
+
+  <!-- Persona Descriptions (clickable boxes) -->
+  <div class="persona-descs">
+    <article class="persona-desc" data-for="family" onclick="applyPersona('family')">
+      <h3>👨‍👩‍👧‍👦 Family with Kids</h3>
+      <p class="small">
+        Budget-conscious hydration with fun non-alcoholic options for kids; light adult drinks to unwind.
+      </p>
+      <ul class="small">
+        <li>Sodas: 3–4 • Fresh juice: 2 • Mocktails: 1–2 • Energy: 0–1</li>
+        <li>Bottled water: 4–5 • Coffee/Tea: 1–2 • Alcohol (parents): 2–3 total</li>
+      </ul>
+      <span class="persona-cta">Load this preset</span>
+    </article>
+
+    <article class="persona-desc" data-for="girls" onclick="applyPersona('girls')">
+      <h3>👯‍♀️ Girls Trip</h3>
+      <p class="small">
+        Social, celebratory, fruity drinks and wellness touches — light to moderate.
+      </p>
+      <ul class="small">
+        <li>Sodas: 1–2 • Fresh juice: 2–3 • Mocktails: 2 • Energy: 1</li>
+        <li>Bottled water: 3–4 • Coffee/Tea: 2 • Alcohol: 3–4</li>
+      </ul>
+      <span class="persona-cta">Load this preset</span>
+    </article>
+
+    <article class="persona-desc" data-for="boys" onclick="applyPersona('boys')">
+      <h3>🕶️ Boys Trip</h3>
+      <p class="small">
+        Laid-back, adventure-forward; beers and simple spirits with moderation for activities.
+      </p>
+      <ul class="small">
+        <li>Sodas: 2–3 • Fresh juice: 1 • Mocktails: 1 • Energy: 2</li>
+        <li>Bottled water: 4 • Coffee/Tea: 1 • Alcohol: 4–5</li>
+      </ul>
+      <span class="persona-cta">Load this preset</span>
+    </article>
+
+    <article class="persona-desc" data-for="romance" onclick="applyPersona('romance')">
+      <h3>💞 Romantic Couple</h3>
+      <p class="small">
+        Intimate, upscale experiences; quality over quantity in a light style.
+      </p>
+      <ul class="small">
+        <li>Sodas: 1 • Fresh juice: 2 • Mocktails: 1–2 • Energy: 0</li>
+        <li>Bottled water: 3 • Coffee/Tea: 2 • Alcohol: 2–3</li>
+      </ul>
+      <span class="persona-cta">Load this preset</span>
+    </article>
+
+    <article class="persona-desc" data-for="solo" onclick="applyPersona('solo')">
+      <h3>🏃 Health-Conscious Solo</h3>
+      <p class="small">
+        Wellness-focused, minimal alcohol, nourishing low-cal options, high hydration.
+      </p>
+      <ul class="small">
+        <li>Sodas: 0–1 • Fresh juice: 3–4 • Mocktails: 2 • Energy: 1</li>
+        <li>Bottled water: 5–6 • Coffee/Tea: 2 • Alcohol: 1–2</li>
+      </ul>
+      <span class="persona-cta">Load this preset</span>
+    </article>
+
+    <article class="persona-desc" data-for="seniors" onclick="applyPersona('seniors')">
+      <h3>🧓 Senior Group Outing</h3>
+      <p class="small">
+        Leisurely pacing for shows and games; light social sipping.
+      </p>
+      <ul class="small">
+        <li>Sodas: 2 • Fresh juice: 2 • Mocktails: 1 • Energy: 0</li>
+        <li>Bottled water: 4 • Coffee/Tea: 3 • Alcohol: 2</li>
+      </ul>
+      <span class="persona-cta">Load this preset</span>
+    </article>
+  </div>
+</section>
 
     <!-- existing 4 buttons (wired to app.js loadPreset) -->
     <div class="qs-grid" role="group" aria-label="Quick presets">
