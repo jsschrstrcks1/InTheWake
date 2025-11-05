@@ -61,10 +61,11 @@
   }
   </script>
 
-  <!-- Styles (newer rules later = override friendly) -->
+  <!-- Styles (inline only; no external CSS) -->
   <style>
   :root{
-    --bg:#f8fbfc; --card:#fff; --bd:#e5e7eb; --muted:#525a66; --chip:#e7f6ea; --chipText:#0a7b3e;
+    /* Darkened cards & stronger borders for readability */
+    --bg:#f8fbfc; --card:#eef2f7; --bd:#cbd5e1; --muted:#525a66; --chip:#e7f6ea; --chipText:#0a7b3e;
     --good:#10b981; --warn:#f59e0b; --bad:#ef4444; --ink:#0f172a;
   }
   @media print {
@@ -98,29 +99,21 @@
   .row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
   .row:last-child{border-bottom:0}
   .inputs .row label { line-height: 1.2; }
-  .inputs input[type="number"], .inputs input[type="text"]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;font:inherit}
+  .inputs input[type="number"], .inputs input[type="text"]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;font:inherit;background:#fff}
   .inputs .pill{background:#ecfeff;border:1px solid #bae6fd;border-radius:999px;padding:2px 8px;margin-left:8px;font-weight:700;color:#0f172a}
   .inputs .included .pill{background:#eef2ff;border:1px solid #e5e7eb;color:#334155}
   .qs{background:#fde68a20;border:1px solid #f59e0b50;border-radius:12px;padding:14px 16px;margin:16px 0}
   .qs .qs-hd{font-weight:800;color:#7c2d12}
-  .qs .qs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  .qs .qs-btn{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;background:#ecfeff;border:1px solid #bae6fd;border-radius:12px;padding:10px;cursor:pointer;font-weight:700;color:#0f172a;text-align:left;font:inherit}
-  .qs .qs-btn small{font-weight:600;color:#475569}
-  /* Persona cards */
-  .persona-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:12px}
-  .persona{display:flex;flex-direction:column;gap:8px;border:1px solid var(--bd);border-radius:14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.04);padding:12px}
-  .persona .title{font-weight:800;display:flex;align-items:center;gap:8px}
-  .persona .desc{color:var(--muted);font-size:.92rem}
-  .persona .chips{display:flex;flex-wrap:wrap;gap:6px}
-  .persona .chip-mini{background:#eef2ff;border:1px solid #e5e7eb;color:#334155;border-radius:999px;padding:2px 8px;font-size:.75rem;font-weight:700}
-  .persona .actions{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
-  .persona .btn-apply{cursor:pointer;padding:8px 10px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700}
-  .persona .btn-ghost{background:#fff;color:#0f172a}
-  .persona .stat{font-size:.82rem;color:#475569}
-  .persona .stat b{color:#111}
+  .qs .qs-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .qs details{border:1px solid var(--bd); border-radius:12px; background:#fff; box-shadow:0 1px 6px rgba(0,0,0,.04)}
+  .qs summary{list-style:none; display:flex; flex-direction:column; gap:4px; padding:10px; cursor:pointer; font-weight:800}
+  .qs summary::-webkit-details-marker{display:none}
+  .qs summary small{font-weight:600;color:#475569}
+  .persona-content{padding:10px;border-top:1px dashed var(--bd);background:var(--card)}
+  .persona-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
   .health{display:none;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.95rem}
   .health.show{display:block}
-  .pkg{border-radius:14px;overflow:hidden;position:relative;scroll-snap-align:start}
+  .pkg{border-radius:14px;overflow:hidden;position:relative;scroll-snap-align:start;background:#fff}
   .pkg .phd{background:#0b2940;color:#fff;padding:12px 14px;font-weight:800;display:flex;gap:8px;align-items:center;justify-content:space-between}
   .pkg.winner{outline:3px solid #34d399;box-shadow:0 0 0 6px rgba(52,211,153,.15)}
   .pkg.winner .phd{background:linear-gradient(135deg, #059669 0%, #10b981 100%)}
@@ -132,20 +125,20 @@
   .tooltip [role="tooltip"]{position:absolute;inset:auto auto 100% 0;transform:translateY(-8px);background:#0f172a;color:#fff;padding:8px 10px;border-radius:8px;min-width:220px;box-shadow:0 6px 18px rgba(0,0,0,.2);font-size:.9rem;display:none;z-index:100}
   .tooltip:focus-within [role="tooltip"], .tooltip:hover [role="tooltip"]{display:block}
   #breakeven-wrap{margin-top:18px; position:relative;}
-  #breakeven-chart{width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px}
+  #breakeven-chart{width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px;background:#fff}
   #voucher-badge{ position:absolute; top:-8px; right:0; transform:translateY(-100%); }
   .controls-inline{display:flex;gap:10px;flex-wrap:wrap}
   .badge{background:#fbbf24;color:#78350f;padding:4px 10px;border-radius:999px;font-weight:800}
   .btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700}
   .btn.ghost{background:#fff;color:#0f172a}
-  .small{font-size:.9rem;color:var(--muted)}
-  .table{width:100%;border-collapse:collapse}
+  .small{font-size:.9rem;color:#475569}
+  .table{width:100%;border-collapse:collapse;background:#fff}
   .table th,.table td{padding:8px;border-bottom:1px solid var(--bd);text-align:left}
 
   .input-stepper{display:flex;align-items:center;justify-content:flex-end;gap:4px}
-  .input-stepper .btn-step{all:unset;cursor:pointer;background:var(--bg);border:1px solid var(--bd);color:var(--ink);width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;line-height:1;user-select:none}
+  .input-stepper .btn-step{all:unset;cursor:pointer;background:var(--bg);border:1px solid var(--bd);color:#111;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;line-height:1;user-select:none}
   .input-stepper .btn-step:hover,.input-stepper .btn-step:focus-visible{background:#e0f2fe;border-color:#0ea5e9;outline:none}
-  .input-stepper input{width:45px !important;text-align:center;padding:6px 4px !important;-moz-appearance:textfield}
+  .input-stepper input{width:45px !important;text-align:center;padding:6px 4px !important;-moz-appearance:textfield;background:#fff}
   .input-stepper input::-webkit-outer-spin-button,.input-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
   .grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px}
@@ -154,27 +147,27 @@
   .inputs .row > :not(:first-child){justify-self:end}
 
   @media (max-width: 1100px){
-    .persona-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .qs .qs-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
   }
   @media (max-width: 760px){
     .qs .qs-grid{ grid-template-columns:1fr; }
-    .persona-grid{grid-template-columns:1fr;}
     .row.row--stepper { grid-template-columns: 1fr 120px; }
     .row { grid-template-columns: 1fr 110px; }
   }
 
   @media (prefers-color-scheme: dark){
-    :root{--bg:#1a202c;--card:#2d3748;--bd:#4a5568;--muted:#a0aec0}
+    :root{--bg:#121721;--card:#1d2430;--bd:#3a4453;--muted:#b7c0cc}
     body{color:#e2e8f0}
     .card{box-shadow:0 1px 4px rgba(0,0,0,.2)}
     .card .hd { background: var(--card); }
     .health{background:#92400e;border-color:#c05621;color:#feebc8}
     .tooltip [role="tooltip"]{background:#2d3748;color:#e2e8f0}
-    .persona{background:#2d3748}
-    .persona .chip-mini{background:#1f2937;border-color:#374151;color:#cbd5e1}
+    .pkg{background:#0f1720}
+    .table{background:#0f1720}
+    .inputs input[type="text"], .inputs input[type="number"]{background:#0f1720;color:#e2e8f0;border-color:#3a4453}
   }
 
-  /* chart/overflow hardening (newer overrides) */
+  /* chart/overflow hardening */
   #breakeven-wrap *:empty { display: none !important; }
   #breakeven-wrap canvas { display:block; inline-size:100%; block-size:280px; }
   img, canvas, svg, video { display:block; max-width:100%; height:auto; }
@@ -202,10 +195,10 @@
   }
   .breakeven-monitor .small{ display:block; margin:4px 0; line-height:1.3; }
   @media (prefers-color-scheme: dark){
-    .breakeven-monitor{ background:#1a202c; }
+    .breakeven-monitor{ background:#121721; }
   }
 
-  /* Info drawer + FX drift (existing styles preserved) */
+  /* Info drawer + FX drift */
   .itw-info{position:fixed;right:12px;bottom:12px;z-index:2147483647;font:13px/1.3 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;color:#222}
   .itw-toggle{width:28px;height:28px;border-radius:9999px;border:1px solid #ccc;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:pointer}
   .itw-body{margin-top:8px;width:260px;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:10px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
@@ -218,57 +211,31 @@
   .itw-pill.bad{background:#ffeaea;border-color:#ffc9c9;color:#8a0f0f}
   .itw-refresh{margin-top:8px;width:100%;padding:6px 10px;border-radius:8px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
   .itw-refresh:hover{background:#f2f2f2}
-
-  /* Personas layout helpers */
-  .qs-grid--personas { grid-template-columns: repeat(3, minmax(220px,1fr)); }
-  .persona-card { align-items: flex-start; text-align: left; gap: 6px; }
-  .persona-card span { font-size: 1rem; font-weight: 800; }
-  .persona-descs {
-    display:grid; grid-template-columns: repeat(3, minmax(260px,1fr));
-    gap:12px; margin-top:12px;
-  }
-  .persona-desc {
-    background: #fff; border:1px solid var(--bd); border-radius:12px; padding:12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,.03); cursor: pointer;
-  }
-  .persona-desc:hover { outline:2px solid #bae6fd; }
-  .persona-desc h3 { margin:0 0 4px 0; font-size:1rem; }
-  .persona-cta { display:inline-block; margin-top:6px; font-weight:800; color:#0369a1; }
-  @media (max-width: 960px){
-    .qs-grid--personas { grid-template-columns: repeat(2, minmax(200px,1fr)); }
-    .persona-descs { grid-template-columns: 1fr; }
-  }
   </style>
 
   <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
   <!-- Preload the shared math module and worker -->
-  <link rel="modulepreload" href="/assets/js/drink-math.js?v=v.9.000.005">
-  <link rel="preload" href="/assets/js/drink-worker.js?v=v.9.000.005" as="worker" />
+  <link rel="modulepreload" href="/assets/js/drink-math.js?v=v.9.000.004">
+  <link rel="preload" href="/assets/js/drink-worker.js?v=v.9.000.004" as="worker" />
 
   <!-- Expose compute() for inline fallback BEFORE app boots -->
   <script type="module">
-    import { compute } from "/assets/js/drink-math.js?v=v.9.000.005";
+    import { compute } from "/assets/js/drink-math.js?v=v.9.000.004";
     window.ITW_MATH = Object.assign({}, window.ITW_MATH || {}, { compute });
   </script>
 
   <!-- Main app -->
-  <script src="/assets/js/drink-calculator.app.js?v=v.9.000.005" defer></script>
+  <script src="/assets/js/drink-calculator.app.js?v=v.9.000.004" defer></script>
   <script src="/assets/js/sw-bridge.js?v=20.4" defer></script>
 </head>
 <body>
 <a href="#main" class="sr-only">Skip to main content</a>
 
-<noscript>
-  <div style="max-width:1200px;margin:8px auto;padding:10px 16px;background:#fff3cd;border:1px solid #ffeeba;border-radius:10px;color:#6b4e00;font:16px/1.4 system-ui">
-    This calculator needs JavaScript. Please enable it to see live results and the break-even chart.
-  </div>
-</noscript>
-
 <header class="navbar">
   <div class="inner container">
-    <a class="brand" href="/"><img src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64" loading="eager" decoding="async"></a>
+    <a class="brand" href="/"><img src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64" loading="eager"></a>
     <nav aria-label="Primary" id="itw-primary-nav">
       <a class="itw-nav__link" href="/">Home</a>
       <a class="itw-nav__link" href="/planning/">Planning</a>
@@ -277,7 +244,7 @@
     <button class="itw-menu-btn btn ghost" aria-expanded="false" aria-controls="itw-primary-nav" style="margin-left:auto">Menu</button>
     <div class="small">v.9.000.005</div>
 
-    <!-- Moved currency block into this header -->
+    <!-- Currency -->
     <span id="offline-chip" class="chip" style="display:none">Offline</span>
     <label for="currency-select" class="small">Currency</label>
     <select id="currency-select" class="btn ghost small" aria-label="Currency select">
@@ -285,7 +252,6 @@
       <option>AUD</option><option>INR</option><option>CNY</option><option>MXN</option><option>BRL</option>
     </select>
     <span id="currency-note" class="small"></span>
-    <!-- Exchange rate drift (display-only sensitivity) -->
   </div>
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#0e6e8e">
@@ -295,143 +261,190 @@
 <main class="container" id="main">
   <p id="fallback-banner" class="health" role="status" hidden>⚠️ We couldn't load live prices; using defaults.</p>
 
-  <!-- Quick Start + Personas -->
- <section class="qs" aria-labelledby="qs-title">
-  <div class="qs-hd" id="qs-title">🚀 Quick Start: Load a Persona</div>
-  <p class="small">Tap a card to pre-fill the calculator. Descriptions are below each card.</p>
+  <!-- Pricing Disclaimer (top) -->
+  <section class="card" aria-label="Pricing disclaimer (top)" style="margin-top:14px">
+    <div class="bd small">
+      <strong>Pricing Disclaimer:</strong>
+      Prices and caps shown are <em>estimates</em> derived from recent public promos and community reports. They vary by ship, itinerary, and sale. Gratuities and taxes may change. Nothing here is financial or legal advice. Always verify in your Royal Caribbean <em>Cruise Planner</em> before purchasing. Packages can only be purchased directly from Royal Caribbean:
+      <strong>royalcaribbean.com → Sign In → Plan My Cruise → Beverage Packages</strong>.
+    </div>
+  </section>
 
-  <!-- 3×3 Persona Cards Grid (6 trip types + 3 intensities) -->
-  <div class="qs-grid qs-grid--personas" role="list">
-    <button class="qs-btn persona-card" role="listitem" type="button" onclick="applyPersona('family')">
-      <span>👨‍👩‍👧‍👦 Family with Kids</span>
-      <small>2 adults + 2 kids • light alcohol</small>
-    </button>
-    <button class="qs-btn persona-card" role="listitem" type="button" onclick="applyPersona('girls')">
-      <span>👯‍♀️ Girls Trip</span>
-      <small>light–moderate, fruity + wellness</small>
-    </button>
-    <button class="qs-btn persona-card" role="listitem" type="button" onclick="applyPersona('boys')">
-      <span>🕶️ Boys Trip</span>
-      <small>moderate, beers + simple spirits</small>
-    </button>
-    <button class="qs-btn persona-card" role="listitem" type="button" onclick="applyPersona('couple')">
-      <span>💞 Romantic Couple</span>
-      <small>light, quality-over-quantity</small>
-    </button>
-    <button class="qs-btn persona-card" role="listitem" type="button" onclick="applyPersona('solo')">
-      <span>🏃 Health-Conscious Solo</span>
-      <small>very light alcohol, high hydration</small>
-    </button>
-    <button class="qs-btn persona-card" role="listitem" type="button" onclick="applyPersona('seniors')">
-      <span>🧓 Senior Group Outing</span>
-      <small>light, steady pacing</small>
-    </button>
-    <button class="qs-btn persona-card" role="listitem" type="button" onclick="applyPersona('light')">
-      <span>🌤️ Light Drinker</span>
-      <small>~2–3 drinks/day</small>
-    </button>
-    <button class="qs-btn persona-card" role="listitem" type="button" onclick="applyPersona('moderate')">
-      <span>🍹 Moderate</span>
-      <small>~5–6 drinks/day</small>
-    </button>
-    <button class="qs-btn persona-card" role="listitem" type="button" onclick="applyPersona('soloTraveler')">
-      <span>🧳 Solo Traveler</span>
-      <small>1 adult • smart pacing</small>
-    </button>
-  </div>
+  <!-- Quick Start + Personas (details-based; no duplication) -->
+  <section class="qs" aria-labelledby="qs-title">
+    <div class="qs-hd" id="qs-title">🚀 Quick Start: Load a Persona</div>
+    <p class="small">Tap a preset to expand details, then click “Load this preset.” Values are integers (no decimals).</p>
 
-  <!-- Persona Descriptions (clickable boxes) -->
-  <div class="persona-descs">
-    <article class="persona-desc" onclick="applyPersona('family')">
-      <h3>👨‍👩‍👧‍👦 Family with Kids</h3>
-      <p class="small">Budget-conscious hydration with fun non-alcoholic options for kids; light adult drinks to unwind.</p>
-      <ul class="small">
-        <li>Sodas: 3–4 • Fresh juice: 2 • Mocktails: 1–2 • Energy: 0–1</li>
-        <li>Bottled water: 4–5 • Coffee/Tea: 1–2 • Alcohol (parents): 2–3 total</li>
-      </ul>
-      <span class="persona-cta">Load this preset</span>
-    </article>
+    <div class="qs-grid" role="list">
+      <!-- Family -->
+      <details role="listitem" data-persona="family">
+        <summary>
+          <span>👨‍👩‍👧‍👦 Family with Kids</span>
+          <small>2 adults + 2 kids • light alcohol</small>
+        </summary>
+        <div class="persona-content small">
+          <p>Budget-conscious hydration with fun non-alcoholic options for kids; light adult drinks to unwind.</p>
+          <ul>
+            <li>Sodas: 4 • Fresh juice: 2 • Mocktails: 2 • Energy: 1</li>
+            <li>Bottled water: 5 • Coffee/Tea: 2 • Alcohol (parents): 2–3 total</li>
+          </ul>
+          <div class="persona-actions">
+            <button class="btn" type="button" onclick="applyPersona('family')">Load this preset</button>
+            <button class="btn ghost" type="button" onclick="this.closest('details').open=false">Close</button>
+          </div>
+        </div>
+      </details>
 
-    <article class="persona-desc" onclick="applyPersona('girls')">
-      <h3>👯‍♀️ Girls Trip</h3>
-      <p class="small">Social, celebratory, fruity drinks and wellness touches — light to moderate.</p>
-      <ul class="small">
-        <li>Sodas: 1–2 • Fresh juice: 2–3 • Mocktails: 2 • Energy: 1</li>
-        <li>Bottled water: 3–4 • Coffee/Tea: 2 • Alcohol: 3–4</li>
-      </ul>
-      <span class="persona-cta">Load this preset</span>
-    </article>
+      <!-- Girls -->
+      <details data-persona="girls">
+        <summary>
+          <span>👯‍♀️ Girls Trip</span>
+          <small>light–moderate, fruity + wellness</small>
+        </summary>
+        <div class="persona-content small">
+          <p>Social, celebratory, fruity drinks and wellness touches — light to moderate.</p>
+          <ul>
+            <li>Sodas: 2 • Fresh juice: 3 • Mocktails: 2 • Energy: 1</li>
+            <li>Bottled water: 4 • Coffee/Tea: 2 • Alcohol: 3–4</li>
+          </ul>
+          <div class="persona-actions">
+            <button class="btn" type="button" onclick="applyPersona('girls')">Load this preset</button>
+            <button class="btn ghost" type="button" onclick="this.closest('details').open=false">Close</button>
+          </div>
+        </div>
+      </details>
 
-    <article class="persona-desc" onclick="applyPersona('boys')">
-      <h3>🕶️ Boys Trip</h3>
-      <p class="small">Laid-back, adventure-forward; beers and simple spirits with moderation for activities.</p>
-      <ul class="small">
-        <li>Sodas: 2–3 • Fresh juice: 1 • Mocktails: 1 • Energy: 2</li>
-        <li>Bottled water: 4 • Coffee/Tea: 1 • Alcohol: 4–5</li>
-      </ul>
-      <span class="persona-cta">Load this preset</span>
-    </article>
+      <!-- Boys -->
+      <details data-persona="boys">
+        <summary>
+          <span>🕶️ Boys Trip</span>
+          <small>moderate, beers + simple spirits</small>
+        </summary>
+        <div class="persona-content small">
+          <p>Laid-back, adventure-forward; beers and simple spirits with moderation for activities.</p>
+          <ul>
+            <li>Sodas: 3 • Fresh juice: 1 • Mocktails: 1 • Energy: 2</li>
+            <li>Bottled water: 4 • Coffee/Tea: 1 • Alcohol: 4–5</li>
+          </ul>
+          <div class="persona-actions">
+            <button class="btn" type="button" onclick="applyPersona('boys')">Load this preset</button>
+            <button class="btn ghost" type="button" onclick="this.closest('details').open=false">Close</button>
+          </div>
+        </div>
+      </details>
 
-    <article class="persona-desc" onclick="applyPersona('couple')">
-      <h3>💞 Romantic Couple</h3>
-      <p class="small">Intimate, upscale experiences; quality over quantity in a light style.</p>
-      <ul class="small">
-        <li>Sodas: 1 • Fresh juice: 2 • Mocktails: 1–2 • Energy: 0</li>
-        <li>Bottled water: 3 • Coffee/Tea: 2 • Alcohol: 2–3</li>
-      </ul>
-      <span class="persona-cta">Load this preset</span>
-    </article>
+      <!-- Couple -->
+      <details data-persona="couple">
+        <summary>
+          <span>💞 Romantic Couple</span>
+          <small>light, quality-over-quantity</small>
+        </summary>
+        <div class="persona-content small">
+          <p>Intimate, upscale experiences; quality over quantity in a light style.</p>
+          <ul>
+            <li>Sodas: 1 • Fresh juice: 2 • Mocktails: 2 • Energy: 0</li>
+            <li>Bottled water: 3 • Coffee/Tea: 2 • Alcohol: 2–3</li>
+          </ul>
+          <div class="persona-actions">
+            <button class="btn" type="button" onclick="applyPersona('couple')">Load this preset</button>
+            <button class="btn ghost" type="button" onclick="this.closest('details').open=false">Close</button>
+          </div>
+        </div>
+      </details>
 
-    <article class="persona-desc" onclick="applyPersona('solo')">
-      <h3>🏃 Health-Conscious Solo</h3>
-      <p class="small">Wellness-focused, minimal alcohol, nourishing low-cal options, high hydration.</p>
-      <ul class="small">
-        <li>Sodas: 0–1 • Fresh juice: 3–4 • Mocktails: 2 • Energy: 1</li>
-        <li>Bottled water: 5–6 • Coffee/Tea: 2 • Alcohol: 1–2</li>
-      </ul>
-      <span class="persona-cta">Load this preset</span>
-    </article>
+      <!-- Solo health -->
+      <details data-persona="solo">
+        <summary>
+          <span>🏃 Health-Conscious Solo</span>
+          <small>very light alcohol, high hydration</small>
+        </summary>
+        <div class="persona-content small">
+          <p>Wellness-focused, minimal alcohol, nourishing low-cal options, high hydration.</p>
+          <ul>
+            <li>Sodas: 1 • Fresh juice: 4 • Mocktails: 2 • Energy: 1</li>
+            <li>Bottled water: 6 • Coffee/Tea: 2 • Alcohol: 1–2</li>
+          </ul>
+          <div class="persona-actions">
+            <button class="btn" type="button" onclick="applyPersona('solo')">Load this preset</button>
+            <button class="btn ghost" type="button" onclick="this.closest('details').open=false">Close</button>
+          </div>
+        </div>
+      </details>
 
-    <article class="persona-desc" onclick="applyPersona('seniors')">
-      <h3>🧓 Senior Group Outing</h3>
-      <p class="small">Leisurely pacing for shows and games; light social sipping.</p>
-      <ul class="small">
-        <li>Sodas: 2 • Fresh juice: 2 • Mocktails: 1 • Energy: 0</li>
-        <li>Bottled water: 4 • Coffee/Tea: 3 • Alcohol: 2</li>
-      </ul>
-      <span class="persona-cta">Load this preset</span>
-    </article>
+      <!-- Seniors -->
+      <details data-persona="seniors">
+        <summary>
+          <span>🧓 Senior Group Outing</span>
+          <small>light, steady pacing</small>
+        </summary>
+        <div class="persona-content small">
+          <p>Leisurely pacing for shows and games; light social sipping.</p>
+          <ul>
+            <li>Sodas: 2 • Fresh juice: 2 • Mocktails: 1 • Energy: 0</li>
+            <li>Bottled water: 4 • Coffee/Tea: 3 • Alcohol: 2</li>
+          </ul>
+          <div class="persona-actions">
+            <button class="btn" type="button" onclick="applyPersona('seniors')">Load this preset</button>
+            <button class="btn ghost" type="button" onclick="this.closest('details').open=false">Close</button>
+          </div>
+        </div>
+      </details>
 
-    <article class="persona-desc" onclick="applyPersona('light')">
-      <h3>🌤️ Light Drinker</h3>
-      <p class="small">Steady hydration, a coffee, and 2–3 total alcoholic drinks on average.</p>
-      <ul class="small">
-        <li>Water 3–4 • Soda 1–2 • Coffee 1–2 • Alc: ~2–3 (beer/wine/cocktail)</li>
-      </ul>
-      <span class="persona-cta">Load this preset</span>
-    </article>
+      <!-- Light -->
+      <details data-persona="light">
+        <summary>
+          <span>🌤️ Light Drinker</span>
+          <small>~2–3 drinks/day</small>
+        </summary>
+        <div class="persona-content small">
+          <p>Steady hydration, a coffee, and ~2–3 total alcoholic drinks on average.</p>
+          <ul>
+            <li>Water 4 • Soda 2 • Coffee 2 • Alc: ~2–3</li>
+          </ul>
+          <div class="persona-actions">
+            <button class="btn" type="button" onclick="applyPersona('light')">Load this preset</button>
+            <button class="btn ghost" type="button" onclick="this.closest('details').open=false">Close</button>
+          </div>
+        </div>
+      </details>
 
-    <article class="persona-desc" onclick="applyPersona('moderate')">
-      <h3>🍹 Moderate</h3>
-      <p class="small">Balanced hydration + ~5 alcoholic drinks across beer/wine/cocktails.</p>
-      <ul class="small">
-        <li>Water ~3 • Soda ~1 • Coffee ~1 • Alc: ~5 split across preferences</li>
-      </ul>
-      <span class="persona-cta">Load this preset</span>
-    </article>
+      <!-- Moderate -->
+      <details data-persona="moderate">
+        <summary>
+          <span>🍹 Moderate</span>
+          <small>~5–6 drinks/day</small>
+        </summary>
+        <div class="persona-content small">
+          <p>Balanced hydration + ~5 alcoholic drinks across beer/wine/cocktails.</p>
+          <ul>
+            <li>Water 3 • Soda 1 • Coffee 1 • Alc: ~5</li>
+          </ul>
+          <div class="persona-actions">
+            <button class="btn" type="button" onclick="applyPersona('moderate')">Load this preset</button>
+            <button class="btn ghost" type="button" onclick="this.closest('details').open=false">Close</button>
+          </div>
+        </div>
+      </details>
 
-    <article class="persona-desc" onclick="applyPersona('soloTraveler')">
-      <h3>🧳 Solo Traveler</h3>
-      <p class="small">One adult; smart pacing: hydration, a coffee, and ~2–3 evening drinks.</p>
-      <ul class="small">
-        <li>Water 4 • Soda 1 • Coffee 1 • Alc: ~2–3 (beer/wine/cocktail)</li>
-      </ul>
-      <span class="persona-cta">Load this preset</span>
-    </article>
-  </div>
-</section>
-
-  <!-- Removed the old 4-button quick presets to avoid duplication -->
+      <!-- Solo traveler -->
+      <details data-persona="soloTraveler">
+        <summary>
+          <span>🧳 Solo Traveler</span>
+          <small>1 adult • smart pacing</small>
+        </summary>
+        <div class="persona-content small">
+          <p>One adult; smart pacing: hydration, a coffee, and ~2–3 evening drinks.</p>
+          <ul>
+            <li>Water 4 • Soda 1 • Coffee 1 • Alc: ~2–3</li>
+          </ul>
+          <div class="persona-actions">
+            <button class="btn" type="button" onclick="applyPersona('soloTraveler')">Load this preset</button>
+            <button class="btn ghost" type="button" onclick="this.closest('details').open=false">Close</button>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
 
   <div class="banner" role="status" aria-live="polite">
     <span id="best-chip" class="chip">Best value: à-la-carte</span>
@@ -439,20 +452,7 @@
     <button id="jump-winner" class="btn ghost" type="button">Jump to Best Value</button>
   </div>
 
-  <p id="health-note" class="health" role="status" aria-live="assertive"></p>
-  <p class="small" style="
-    background:#ecfdf5;
-    border:1px solid #bbf7d0;
-    border-radius:8px;
-    padding:10px;
-    margin:10px 0;
-    font-size:.9rem;
-  ">
-    <strong>Stewardship & Responsible Use:</strong>
-    This tool is for planning wisely — not indulging carelessly.
-    Drink packages include much more than alcohol, like water, coffee, and juice.
-    <em>Drink responsibly. Moderation honors both your wallet and your walk.</em>
-  </p>
+  <!-- Stewardship + can host top disclaimer if you want both together -->
   <section class="card" aria-label="How to use">
     <div class="hd">How to use this calculator</div>
     <div class="bd">
@@ -461,6 +461,16 @@
         <li>Optionally tune sea/port weighting and edit package prices or caps.</li>
         <li>See which option is cheapest per day and for the whole trip.</li>
       </ol>
+
+      <p class="small" style="
+        background:#ecfdf5;border:1px solid #bbf7d0;border-radius:8px;
+        padding:10px;margin:10px 0;font-size:.9rem;
+      ">
+        <strong>Stewardship & Responsible Use:</strong>
+        This tool is for planning wisely — not indulging carelessly.
+        Drink packages include much more than alcohol, like water, coffee, and juice.
+        <em>Drink responsibly. Moderation honors your wallet, your body, and your spiritual health.</em>
+      </p>
     </div>
   </section>
 
@@ -477,7 +487,7 @@
           <input id="input-days" type="text" inputmode="numeric" value="7" data-input="days" aria-label="Cruise length in days">
         </div>
 
-        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:8px">
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:8px;background:#fff">
           <legend style="font-weight:800;padding:0 6px">Sea/Port variability</legend>
           <div class="row">
             <label for="input-seadays">Number of sea days</label>
@@ -493,7 +503,7 @@
           </div>
         </fieldset>
 
-        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px;background:#fff">
           <legend style="font-weight:800;padding:0 6px">Group in stateroom</legend>
           <div class="row">
             <label for="input-adults">Adults (21+)</label>
@@ -505,42 +515,53 @@
           </div>
         </fieldset>
 
-        <!-- NEW: Voucher inputs -->
-        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
-          <legend style="font-weight:800;padding:0 6px">Crown &amp; Anchor Free Drink Vouchers</legend>
-          <p class="small" style="margin:0 0 8px">
-            Per person per day • Diamond 4 • Diamond Plus 5 • Pinnacle 5.
-            Minors’ vouchers apply to non-alcoholic drinks only (e.g., mocktails).
-          </p>
-
-          <div class="row" style="grid-template-columns: 1fr 1fr">
-            <label>Adults with Diamond</label>
-            <input id="v-adults-d" type="text" inputmode="numeric" value="0" aria-label="Adults with Diamond status">
-          </div>
-          <div class="row" style="grid-template-columns: 1fr 1fr">
-            <label>Adults with Diamond Plus</label>
-            <input id="v-adults-dp" type="text" inputmode="numeric" value="0" aria-label="Adults with Diamond Plus status">
-          </div>
-          <div class="row" style="grid-template-columns: 1fr 1fr">
-            <label>Adults with Pinnacle</label>
-            <input id="v-adults-pin" type="text" inputmode="numeric" value="0" aria-label="Adults with Pinnacle status">
+        <!-- Vouchers: collapsed by default -->
+        <details id="vouchers" style="margin-top:12px">
+          <summary class="btn ghost" style="display:inline-block">
+            🎖️ Diamond or higher? Click here to apply your daily free-drink vouchers
+          </summary>
+          <div class="small" style="margin:10px 0">
+            <p><strong>For frequent Royal Caribbean cruisers only (Crown &amp; Anchor).</strong> Most guests should leave this closed.</p>
+            <p>Eligibility reference: Diamond ≈ <strong>80 nights at sea</strong> (80 points), Diamond Plus ≈ <strong>175 points</strong>, Pinnacle Club ≈ <strong>700 nights</strong>.</p>
+            <p>Adults get alcoholic or non-alcoholic vouchers; minors’ vouchers apply to non-alcoholic drinks (e.g., mocktails, juice).</p>
           </div>
 
-          <div class="row" style="grid-template-columns: 1fr 1fr">
-            <label>Minors with Diamond</label>
-            <input id="v-minors-d" type="text" inputmode="numeric" value="0" aria-label="Minors with Diamond status">
-          </div>
-          <div class="row" style="grid-template-columns: 1fr 1fr">
-            <label>Minors with Diamond Plus</label>
-            <input id="v-minors-dp" type="text" inputmode="numeric" value="0" aria-label="Minors with Diamond Plus status">
-          </div>
-          <div class="row" style="grid-template-columns: 1fr 1fr">
-            <label>Minors with Pinnacle</label>
-            <input id="v-minors-pin" type="text" inputmode="numeric" value="0" aria-label="Minors with Pinnacle status">
-          </div>
-        </fieldset>
+          <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;background:#fff">
+            <legend style="font-weight:800;padding:0 6px">Crown &amp; Anchor Free Drink Vouchers</legend>
+            <p class="small" style="margin:0 0 8px">
+              Per person per day • Diamond 4 • Diamond Plus 5 • Pinnacle 5.
+              Minors’ vouchers apply to non-alcoholic drinks only.
+            </p>
 
-        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+            <div class="row" style="grid-template-columns: 1fr 1fr">
+              <label>Adults with Diamond</label>
+              <input id="v-adults-d" type="text" inputmode="numeric" value="0" aria-label="Adults with Diamond status">
+            </div>
+            <div class="row" style="grid-template-columns: 1fr 1fr">
+              <label>Adults with Diamond Plus</label>
+              <input id="v-adults-dp" type="text" inputmode="numeric" value="0" aria-label="Adults with Diamond Plus status">
+            </div>
+            <div class="row" style="grid-template-columns: 1fr 1fr">
+              <label>Adults with Pinnacle</label>
+              <input id="v-adults-pin" type="text" inputmode="numeric" value="0" aria-label="Adults with Pinnacle status">
+            </div>
+
+            <div class="row" style="grid-template-columns: 1fr 1fr">
+              <label>Minors with Diamond</label>
+              <input id="v-minors-d" type="text" inputmode="numeric" value="0" aria-label="Minors with Diamond status">
+            </div>
+            <div class="row" style="grid-template-columns: 1fr 1fr">
+              <label>Minors with Diamond Plus</label>
+              <input id="v-minors-dp" type="text" inputmode="numeric" value="0" aria-label="Minors with Diamond Plus status">
+            </div>
+            <div class="row" style="grid-template-columns: 1fr 1fr">
+              <label>Minors with Pinnacle</label>
+              <input id="v-minors-pin" type="text" inputmode="numeric" value="0" aria-label="Minors with Pinnacle status">
+            </div>
+          </fieldset>
+        </details>
+
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px;background:#fff">
           <legend style="font-weight:800;padding:0 6px">Calculation Mode</legend>
           <div class="controls-inline">
             <label class="small">
@@ -557,7 +578,7 @@
         <!-- Built dynamically when “itinerary” is selected -->
         <div id="itinerary-inputs" style="display:none; margin-top: 12px;"></div>
 
-        <!-- Drink inputs -->
+        <!-- Drink inputs (unchanged structure) -->
         <div class="row row--stepper">
           <label for="input-soda">Soda per day <small class="pill" data-price-pill="soda"></small></label>
           <div class="input-stepper">
@@ -754,16 +775,12 @@
           <article class="pkg card" data-card="deluxe" id="pkg-deluxe">
             <header class="phd">
               <span>Deluxe (Alcoholic)</span>
-
-              <!-- Deluxe help -->
               <span class="tooltip">
                 <button class="help" aria-describedby="tt-deluxe" aria-label="Deluxe help" type="button">?</button>
                 <span id="tt-deluxe" role="tooltip">
                   Covers alcoholic drinks up to the price cap + all non-alcoholic items. Over-cap drinks add the difference.
                 </span>
               </span>
-
-              <!-- Stewardship (separate tooltip) -->
               <span class="tooltip">
                 <button class="help" aria-describedby="tt-steward-deluxe" aria-label="Stewardship & Responsible Use" type="button">?</button>
                 <span id="tt-steward-deluxe" role="tooltip" style="max-width:320px;">
@@ -828,6 +845,14 @@
       </section>
     </aside>
   </div>
+
+  <!-- Footer legal & copyright -->
+  <section class="card" aria-label="Legal & copyright" style="margin:16px 0">
+    <div class="bd small">
+      <p><strong>Pricing Disclaimer (again):</strong> Estimates only; subject to change without notice; may vary by ship, itinerary, and sale. Always verify in your Royal Caribbean Cruise Planner. Packages are sold exclusively by Royal Caribbean (royalcaribbean.com → Sign In → Plan My Cruise → Beverage Packages).</p>
+      <p><strong>Copyright Notice:</strong> © <span id="year-now"></span> In the Wake. All rights reserved. This calculator, its design, copy, and underlying methodology are proprietary. <em>Duplication, re-hosting, automated scraping, training, or derivative tools are prohibited without prior written permission.</em></p>
+    </div>
+  </section>
 
   <p id="a11y-status" class="sr-only" aria-live="polite"></p>
 </main>
@@ -920,7 +945,7 @@
   }
 
   function updateRow(kind, info) {
-    const { ageMs, cachedAt, isFallback, source, confidence } = info || {};
+    const { ageMs, isFallback, source, confidence } = info || {};
     applyPill(kind === "pricing" ? "itw-pricing-pill" : "itw-fx-pill", ageMs, kind, isFallback, confidence);
     const sub = el(kind === "pricing" ? "itw-pricing-sub" : "itw-fx-sub");
     const src = source || (kind === "pricing" ? "/assets/data/lines/royal-caribbean.json" : "FX API");
@@ -930,16 +955,15 @@
   function infoFromResponse(res, sourceHint) {
     if (!res) return null;
     const ageMs = Number(res.headers.get("X-SW-Age-MS") || "") || null;
-    const cachedAt = Number(res.headers.get("X-SW-Cached-At") || "") || null;
     const isFallback = !!res.headers.get("X-SW-Fallback");
     const confidence = res.headers.get("X-SW-Confidence") || "";
-    return { ageMs, cachedAt, isFallback, source: sourceHint || res.url, confidence };
+    return { ageMs, isFallback, source: sourceHint || res.url, confidence };
   }
 
   const btn = document.querySelector("#itw-info-drawer .itw-toggle");
   const body = document.getElementById("itw-info-body");
   btn?.addEventListener("click", () => {
-    const open = body.hasAttribute("hidden") ? false : true;
+    const open = !body.hasAttribute("hidden");
     if (open) { body.setAttribute("hidden",""); btn.setAttribute("aria-expanded","false"); }
     else { body.removeAttribute("hidden"); btn.setAttribute("aria-expanded","true"); }
   });
@@ -993,14 +1017,16 @@
 })();
 </script>
 
-<!-- Persona → input applier (no dependency on app.js internals) -->
+<!-- Persona → input applier (rounded; single-open behavior) -->
 <script>
 (function(){
   const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, Number(n)||0));
+  const round = (v) => Math.max(0, Math.round(Number(v)||0));
+
   function setVal(id, v){
     const el = document.getElementById(id);
     if (!el) return;
-    el.value = String(v);
+    el.value = String(round(v));
     el.dispatchEvent(new Event('input', { bubbles:true }));
     el.dispatchEvent(new Event('change', { bubbles:true }));
   }
@@ -1009,28 +1035,28 @@
     keys.forEach(k => setVal('input-'+k, 0));
   }
   function applyAdultsMinors(a, m){
-    setVal('input-adults', clamp(a,1,20));
-    setVal('input-minors', clamp(m,0,20));
+    setVal('input-adults', clamp(round(a),1,20));
+    setVal('input-minors', clamp(round(m),0,20));
   }
   function applyDrinks(drinks){
     for (const [k, v] of Object.entries(drinks||{})) {
       const key = (k === 'water') ? 'bottledwater' : k;
-      setVal('input-'+key, v);
+      setVal('input-'+key, round(v));
     }
   }
 
   const personas = {
-    family:  { adults:2, minors:2, drinks:{ soda:3.5, freshjuice:2, mocktail:1.5, energy:0.5, bottledwater:4.5, coffee:1.5, beer:1, wine:1.5 } },
-    girls:   { adults:4, minors:0, drinks:{ soda:1.5, freshjuice:2.5, mocktail:2, energy:1, bottledwater:3.5, coffee:2, cocktail:2, wine:1.5 } },
-    boys:    { adults:3, minors:0, drinks:{ soda:2.5, freshjuice:1, mocktail:1, energy:2, bottledwater:4, coffee:1, beer:3, spirits:1.5 } },
-    couple:  { adults:2, minors:0, drinks:{ soda:1, freshjuice:2, mocktail:1.5, bottledwater:3, coffee:2, cocktail:1, wine:1.5 } },
-    solo:    { adults:1, minors:0, drinks:{ soda:0.5,freshjuice:3.5, mocktail:2, energy:1, bottledwater:5.5, coffee:2, wine:1 } },
+    family:  { adults:2, minors:2, drinks:{ soda:4, freshjuice:2, mocktail:2, energy:1, bottledwater:5, coffee:2, beer:1, wine:2 } },
+    girls:   { adults:4, minors:0, drinks:{ soda:2, freshjuice:3, mocktail:2, energy:1, bottledwater:4, coffee:2, cocktail:2, wine:2 } },
+    boys:    { adults:3, minors:0, drinks:{ soda:3, freshjuice:1, mocktail:1, energy:2, bottledwater:4, coffee:1, beer:3, spirits:2 } },
+    couple:  { adults:2, minors:0, drinks:{ soda:1, freshjuice:2, mocktail:2, bottledwater:3, coffee:2, cocktail:1, wine:2 } },
+    solo:    { adults:1, minors:0, drinks:{ soda:1, freshjuice:4, mocktail:2, energy:1, bottledwater:6, coffee:2, wine:1 } },
     seniors: { adults:4, minors:0, drinks:{ soda:2, freshjuice:2, mocktail:1, bottledwater:4, coffee:3, beer:1, wine:1 } },
 
-    // Intensity-style (3rd row)
-    light:        { adults:2, minors:0, drinks:{ water:3.5, soda:1.5, coffee:1.5, beer:1, wine:1, cocktail:0.5 } }, // ~2.5 alc
-    moderate:     { adults:2, minors:0, drinks:{ water:3,   soda:1,   coffee:1,   beer:2, wine:2, cocktail:1 } },   // ~5 alc
-    soloTraveler: { adults:1, minors:0, drinks:{ water:4,   soda:1,   coffee:1,   beer:1, wine:1, cocktail:0.5 } }  // ~2.5 alc
+    /* intensity */
+    light:        { adults:2, minors:0, drinks:{ water:4, soda:2, coffee:2, beer:1, wine:1, cocktail:1 } },
+    moderate:     { adults:2, minors:0, drinks:{ water:3, soda:1, coffee:1, beer:2, wine:2, cocktail:1 } },
+    soloTraveler: { adults:1, minors:0, drinks:{ water:4, soda:1, coffee:1, beer:1, wine:1, cocktail:1 } }
   };
 
   window.applyPersona = function(name){
@@ -1046,6 +1072,14 @@
     const n = document.getElementById('a11y-status');
     if (n) n.textContent = 'Preset applied: ' + name;
   };
+
+  /* allow only one details open at a time */
+  const allDetails = Array.from(document.querySelectorAll('.qs details'));
+  allDetails.forEach(d => d.addEventListener('toggle', () => {
+    if (d.open) {
+      allDetails.forEach(o => { if (o!==d) o.open = false; });
+    }
+  }));
 })();
 </script>
 
@@ -1156,7 +1190,7 @@
     return res;
   };
 
-  // Make sure our badge re-renders after the app’s renderAll
+  // Hook after renderAll (if present)
   const attachRenderHook = () => {
     const orig = window.renderAll;
     if (typeof orig === 'function' && !orig.__itwVoucherHooked){
@@ -1182,15 +1216,12 @@
 })();
 </script>
 
+<!-- Force integers on the drink steppers -->
 <script>
 (function forceIntegers(){
-  const ids = [
-    'soda','coffee','teaprem','freshjuice','mocktail','energy',
-    'milkshake','bottledwater','beer','wine','cocktail','spirits'
-  ];
+  const ids = ['soda','coffee','teaprem','freshjuice','mocktail','energy','milkshake','bottledwater','beer','wine','cocktail','spirits'];
   const parseIntSafe = v => {
     if (!v) return 0;
-    // Remove commas, thin spaces, non-breaking spaces, dots as thousands separators
     const cleaned = String(v).replace(/[.,\s\u202f\u00a0]/g, '');
     const n = Number(cleaned);
     return Number.isFinite(n) ? Math.max(0, Math.round(n)) : 0;
@@ -1212,44 +1243,21 @@
     el.addEventListener('change',snap);
     el.addEventListener('blur',snap);
   });
+
+  // Jump to best value smooth scroll + focus
+  document.getElementById('jump-winner')?.addEventListener('click', ()=>{
+    const winner = document.querySelector('.pkg.winner') || document.getElementById('packages');
+    if (!winner) return;
+    winner.scrollIntoView({ behavior:'smooth', block:'start' });
+    if (winner.querySelector('header .help')) winner.querySelector('header .help').focus({preventScroll:true});
+  });
+
+  // Footer year
+  const y = document.getElementById('year-now');
+  if (y) y.textContent = new Date().getFullYear();
 })();
 </script>
 
 <script src="/assets/js/install.js?v=20.4" defer></script>
-
-<!-- Small UX helpers: mobile menu toggle + jump-to-winner -->
-<script>
-(function(){
-  // Mobile menu toggle
-  const menuBtn = document.querySelector('.itw-menu-btn');
-  const nav = document.getElementById('itw-primary-nav');
-  if (menuBtn && nav) {
-    menuBtn.addEventListener('click', () => {
-      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', String(!expanded));
-      nav.style.display = expanded ? '' : 'block';
-    });
-  }
-
-  // Jump to Best Value
-  const jump = document.getElementById('jump-winner');
-  function scrollToWinner(){
-    const winner = document.querySelector('.pkg.winner') || document.getElementById('packages');
-    winner?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-  jump?.addEventListener('click', scrollToWinner);
-
-  // If app marks a winner later, keep button useful
-  const mo = new MutationObserver((muts)=>{
-    for (const m of muts) {
-      if (m.target && m.target.matches && m.target.matches('.pkg.winner')) {
-        // noop; the button works at any time; observer mainly here in case you want auto-scroll.
-      }
-    }
-  });
-  const pkgs = document.getElementById('packages');
-  if (pkgs) mo.observe(pkgs, { subtree:true, attributes:true, attributeFilter:['class'] });
-})();
-</script>
 </body>
 </html>
