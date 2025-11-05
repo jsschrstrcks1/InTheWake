@@ -61,6 +61,11 @@
   }
   </script>
 
+  <!-- PWA bits (moved to <head>) -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#0e6e8e">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+
   <!-- Styles (newer rules later = override friendly) -->
   <style>
   :root{
@@ -246,7 +251,7 @@
     <button class="itw-menu-btn btn ghost" aria-expanded="false" aria-controls="itw-primary-nav" style="margin-left:auto">Menu</button>
     <div class="small">v.9.000.003</div>
 
-    <!-- Moved currency block into this header -->
+    <!-- Offline/fx controls moved; removed duplicate fx-drift-reset in header -->
     <span id="offline-chip" class="chip" style="display:none">Offline</span>
     <label for="currency-select" class="small">Currency</label>
     <select id="currency-select" class="btn ghost small" aria-label="Currency select">
@@ -254,12 +259,7 @@
       <option>AUD</option><option>INR</option><option>CNY</option><option>MXN</option><option>BRL</option>
     </select>
     <span id="currency-note" class="small"></span>
-    <!-- Exchange rate drift (display-only sensitivity) -->
-    <button id="fx-drift-reset" class="btn ghost small" type="button" style="margin-left:6px;">reset to 0%</button>
   </div>
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta name="theme-color" content="#0e6e8e">
-  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
 </header>
 
 <main class="container" id="main">
@@ -538,7 +538,7 @@
               <p class="small">Included value: <strong data-inc="refresh">$0.00/day</strong></p>
               <p class="save small" data-saves="refresh" hidden></p>
 
-              <!-- Moved monitor ABOVE the edit controls for consistency -->
+              <!-- Monitor above edit controls -->
               <div class="breakeven-monitor" id="refresh-breakeven" aria-live="polite" style="margin-top:10px;"></div>
 
               <div class="controls-inline" style="margin-top:6px">
@@ -631,6 +631,8 @@
 
   <p id="a11y-status" class="sr-only" aria-live="polite"></p>
 </main>
+
+  <!-- SW seed now matches this route -->
   <script>
 (function(){
   if (!('serviceWorker' in navigator)) return;
@@ -645,13 +647,12 @@
       `/assets/js/drink-calculator.app.js?v=${V}`,
       `/assets/js/drink-math.js?v=${V}`,
       `/assets/js/drink-worker.js?v=${V}`,
-      // self-host Chart.js if you prefer; otherwise CDN is now allowedlisted
-      // '/assets/vendor/chart.umd.min.js?v=4.4.1',
       '/assets/logo_wake.png'
     ]
   });
 })();
 </script>
+
   <!-- Exchange rate drift (what-if) -->
 <div id="fx-drift-wrap" class="fx-drift" role="group" aria-label="Exchange rate drift control">
   <label for="fx-drift-range">
@@ -660,6 +661,8 @@
   <input id="fx-drift-range" type="range" min="-10" max="10" step="0.5" value="0" />
   <button id="fx-drift-reset" type="button" class="fx-drift-reset" title="Reset to 0%">Reset</button>
 </div>
+
+  <!-- Info drawer -->
   <div id="itw-info-drawer" class="itw-info">
   <button class="itw-toggle" aria-expanded="false" aria-controls="itw-info-body" aria-label="Data freshness & source">i</button>
   <div id="itw-info-body" class="itw-body" hidden>
@@ -678,121 +681,21 @@
     <button id="itw-refresh" class="itw-refresh" title="Force a fresh fetch">Refresh now</button>
   </div>
 </div>
-  <script>
+
+<!-- Small nav toggle helper -->
+<script>
 (() => {
-  const el = (id)=>document.getElementById(id);
-  const fmtRel = (ms) => {
-    if (!ms) return "—";
-    const s = Math.floor(ms/1000);
-    if (s < 60) return `${s}s ago`;
-    const m = Math.floor(s/60);
-    if (m < 60) return `${m}m ago`;
-    const h = Math.floor(m/60);
-    if (h < 24) return `${h}h ago`;
-    const d = Math.floor(h/24);
-    return `${d}d ago`;
-  };
-
-  const bucket = (ageMs, kind) => {
-    if (ageMs == null) return {label:"—", cls:""};
-    if (kind === "pricing") {
-      if (ageMs < 24*3600e3) return {label:"fresh", cls:"ok"};
-      if (ageMs < 3*24*3600e3) return {label:"1–3d", cls:"warn"};
-      if (ageMs <= 7*24*3600e3) return {label:"3–7d", cls:"warn"};
-      return {label:">7d", cls:"bad"};
-    } else { // fx
-      if (ageMs < 1*3600e3) return {label:"<1h", cls:"ok"};
-      if (ageMs < 6*3600e3) return {label:"1–6h", cls:"warn"};
-      if (ageMs <= 12*3600e3) return {label:"6–12h", cls:"warn"};
-      return {label:">12h", cls:"bad"};
-    }
-  };
-
-  function applyPill(id, ageMs, kind, isFallback, confidence) {
-    const elP = el(id);
-    const b = bucket(ageMs, kind);
-    elP.textContent = (isFallback ? "cached " : "") + b.label + (confidence ? ` · ${confidence}` : "");
-    elP.className = `itw-pill ${b.cls}`;
-  }
-
-  function updateRow(kind, info) {
-    const { ageMs, cachedAt, isFallback, source, confidence } = info || {};
-    applyPill(kind === "pricing" ? "itw-pricing-pill" : "itw-fx-pill", ageMs, kind, isFallback, confidence);
-    const sub = el(kind === "pricing" ? "itw-pricing-sub" : "itw-fx-sub");
-    const src = source || (kind === "pricing" ? "/assets/data/lines/royal-caribbean.json" : "FX API");
-    sub.textContent = `source: ${src} • updated: ${fmtRel(ageMs)}${isFallback ? " (cached)" : ""}`;
-  }
-
-  function infoFromResponse(res, sourceHint) {
-    if (!res) return null;
-    const ageMs = Number(res.headers.get("X-SW-Age-MS") || "") || null;
-    const cachedAt = Number(res.headers.get("X-SW-Cached-At") || "") || null;
-    const isFallback = !!res.headers.get("X-SW-Fallback");
-    const confidence = res.headers.get("X-SW-Confidence") || "";
-    return { ageMs, cachedAt, isFallback, source: sourceHint || res.url, confidence };
-  }
-
-  // Toggle behavior
-  const btn = document.querySelector("#itw-info-drawer .itw-toggle");
-  const body = document.getElementById("itw-info-body");
-  btn?.addEventListener("click", () => {
-    const open = body.hasAttribute("hidden") ? false : true;
-    if (open) { body.setAttribute("hidden",""); btn.setAttribute("aria-expanded","false"); }
-    else { body.removeAttribute("hidden"); btn.setAttribute("aria-expanded","true"); }
+  const btn = document.querySelector('.itw-menu-btn');
+  const nav = document.getElementById('itw-primary-nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    nav.hidden = open;
   });
-
-  // Public API
-  window.itwInfo = {
-    update({ pricingResponse, fxResponse, pricingSource, fxSource } = {}) {
-      if (pricingResponse) updateRow("pricing", infoFromResponse(pricingResponse, pricingSource));
-      if (fxResponse) updateRow("fx", infoFromResponse(fxResponse, fxSource));
-    },
-    forceRefresh: async () => {
-      try {
-        await Promise.allSettled([
-          fetch("/assets/data/lines/royal-caribbean.json", { cache: "reload" })
-          // If you use a batch FX endpoint, trigger it here:
-          // fetch("https://api.frankfurter.app/latest?from=USD&to=GBP,EUR,...", { cache: "reload" })
-        ]);
-        location.reload();
-      } catch(_) {}
-    }
-  };
-
-  // Refresh button
-  document.getElementById("itw-refresh")?.addEventListener("click", ()=> itwInfo.forceRefresh());
 })();
 </script>
-  <script>
-(function wireFXDriftUI(){
-  const range = document.getElementById('fx-drift-range');
-  const label = document.getElementById('fx-drift-label');
-  const reset = document.getElementById('fx-drift-reset');
-  if (!range || !label || !reset) return;
 
-  const updateLabel = () => {
-    const v = Number(range.value);
-    label.textContent = (v>0?'+':'') + v + '%';
-  };
-
-  range.addEventListener('input', () => {
-    window.fxDriftPct = Number(range.value);   // app reads this
-    updateLabel();
-    window.renderAll?.();                      // nudge re-render if defined
-  });
-
-  reset.addEventListener('click', () => {
-    window.fxDriftPct = 0;
-    range.value = '0';
-    updateLabel();
-    window.renderAll?.();
-  });
-
-  // init
-  window.fxDriftPct = 0;
-  updateLabel();
-})();
-</script>
  <script src="/assets/js/install.js?v=20.4" defer></script>
 </body>
 </html>
