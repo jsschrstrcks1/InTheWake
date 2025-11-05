@@ -81,8 +81,8 @@ self.addEventListener("message", (event) => {
     event.ports[0].postMessage({ type:"ERROR_LOG", errors: ERROR_LOG });
   }
   // Manual refresh from the app (button)
-  if (data.type === "FORCE_REFRESH_DATA") {
-    event.waitUntil(refreshAndNotify(CALC_JSON_PATH));
+  if (data.type === "FORCE_REFRESH_DATA" || data.type === "FORCE_DATA_REFRESH") {
+    event.waitUntil(refreshPricingAndNotify());
   }
 });
 
@@ -97,13 +97,15 @@ self.addEventListener("fetch", (event) => {
   // Same-origin only for request interception (keeps SW tight to your site)
   if (url.origin !== location.origin) return;
 
-  // Health probe
+  // Health probe (+ calculator freshness)
   if (url.pathname === "/__sw_health") {
     event.respondWith((async ()=>{
       const stats = await getCacheStats();
+      const calculator = await getCalculatorFreshness();
       return new Response(JSON.stringify({
         version: SW_VERSION,
-        stats
+        stats,
+        calculator
       }), { headers: { "content-type":"application/json", "cache-control":"no-store" } });
     })());
     return;
@@ -115,7 +117,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   // NOTE: FX APIs are still fetched by the page code (localStorage based).
-  // We don't intercept them here, but SW can fetch them when FORCE_REFRESH_DATA runs.
 
   const dest = req.destination || "";
 
@@ -297,7 +298,6 @@ async function staleIfErrorTimestamped(request, cacheName, maxItems, maxAge, { e
       prune(cacheName, maxItems).catch(()=>{});
       return stamped;
     }
-    // non-ok falls back below
     throw new Error("non-ok");
   }catch(err){
     const cached = await cache.match(key);
@@ -312,7 +312,7 @@ async function staleIfErrorTimestamped(request, cacheName, maxItems, maxAge, { e
           "X-SW-Confidence": conf
         });
         // Silent background refresh for next time
-        if (event) event.waitUntil(refreshAndNotify(request.url));
+        if (event) event.waitUntil(refreshPricingAndNotify());
         updateLRU(cacheName, key.url);
         return decorated;
       }
@@ -465,19 +465,47 @@ async function copyPrecacheToRuntime(){
 
 /* ---------------- Background refresh + notify ---------------- */
 
-async function refreshAndNotify(urlOrRequest){
+async function refreshPricingAndNotify(){
   try{
-    const url = typeof urlOrRequest === "string" ? urlOrRequest : new URL(urlOrRequest.url, location.origin).href;
-    const res = await fetch(url, { cache: "no-store", credentials: "omit" });
-    if (!res.ok) throw new Error("refresh non-ok");
+    const url = new URL(CALC_JSON_PATH, location.origin).href;
+    const res = await fetch(url, { cache: "reload", credentials: "omit" });
+    if (!res.ok) throw new Error("refresh non-ok: " + res.status);
     const stamped = await withTimestamp(res.clone());
     const dataCache = await caches.open(CACHE.DATA);
     await dataCache.put(new Request(url, { method:"GET" }), stamped);
-    // Tell all open tabs
+
+    // Tell all open tabs (bridge expects resource:'pricing')
     const cs = await clients.matchAll({ type: "window", includeUncontrolled: true });
-    cs.forEach(c => c.postMessage({ type: "DATA_REFRESHED", url }));
+    cs.forEach(c => c.postMessage({ type: "DATA_REFRESHED", resource: "pricing", url }));
   }catch(err){
-    logError("refreshAndNotify", err, String(urlOrRequest || ""));
+    logError("refreshPricingAndNotify", err, CALC_JSON_PATH);
+  }
+}
+
+/* ---------------- Calculator freshness for /__sw_health ---------------- */
+
+async function getCalculatorFreshness(){
+  try{
+    const dataC = await caches.open(CACHE.DATA);
+    const key = new Request(new URL(CALC_JSON_PATH, location.origin).href, { method:"GET" });
+    const hit = await dataC.match(key);
+    if (!hit) return { pricing: { cached:false } };
+
+    const ageMs = await ageMsOf(hit);
+    let confidence = "high";
+    if (ageMs > 6*3600e3) confidence = "medium";
+    if (ageMs > 12*3600e3) confidence = "low";
+
+    return {
+      pricing: {
+        cached: true,
+        ageMs,
+        maxAgeMs: CALC_JSON_MAX_AGE,
+        confidence
+      }
+    };
+  }catch(_){
+    return { pricing: { cached:false } };
   }
 }
 
