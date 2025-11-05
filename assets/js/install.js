@@ -44,8 +44,7 @@
       if (!deferredPrompt) { bar.style.display = 'none'; return; }
       try {
         deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        // outcome: 'accepted' | 'dismissed'
+        await deferredPrompt.userChoice;
       } finally {
         deferredPrompt = null;
         bar.style.display = 'none';
@@ -62,13 +61,10 @@
     return bar;
   }
 
-  // Capture install prompt for Android/desktop Chromium
   window.addEventListener('beforeinstallprompt', (e) => {
-    // Only once per session
     e.preventDefault();
     deferredPrompt = e;
 
-    // respect recent dismiss (6 days quiet)
     let quiet = false;
     try {
       const last = Number(localStorage.getItem('itw:pwa:dismissed') || 0);
@@ -77,13 +73,11 @@
 
     if (!quiet) {
       const bar = ensureUI();
-      // don’t show on iOS Safari here (uses Add to Home Screen)
       const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
       if (!isiOS) bar.style.display = 'flex';
     }
   });
 
-  // iOS hint (since iOS doesn’t fire beforeinstallprompt)
   function maybeShowIOSHint() {
     const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
     const isSafari = /^((?!crios|fxios).)*safari/i.test(navigator.userAgent);
@@ -100,7 +94,6 @@
   }
 
   window.addEventListener('load', () => {
-    // slight delay to avoid jank on first paint
     setTimeout(maybeShowIOSHint, 1200);
   });
 })();
