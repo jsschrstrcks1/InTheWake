@@ -61,11 +61,6 @@
   }
   </script>
 
-  <!-- PWA bits (moved to <head>) -->
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta name="theme-color" content="#0e6e8e">
-  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
-
   <!-- Styles (newer rules later = override friendly) -->
   <style>
   :root{
@@ -110,6 +105,18 @@
   .qs .qs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
   .qs .qs-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:#ecfeff;border:1px solid #bae6fd;border-radius:12px;padding:10px;cursor:pointer;font-weight:700;color:#0f172a;text-align:center;font:inherit}
   .qs .qs-btn small{font-weight:600;color:#475569}
+  /* Persona cards */
+  .persona-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:12px}
+  .persona{display:flex;flex-direction:column;gap:8px;border:1px solid var(--bd);border-radius:14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.04);padding:12px}
+  .persona .title{font-weight:800;display:flex;align-items:center;gap:8px}
+  .persona .desc{color:var(--muted);font-size:.92rem}
+  .persona .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .persona .chip-mini{background:#eef2ff;border:1px solid #e5e7eb;color:#334155;border-radius:999px;padding:2px 8px;font-size:.75rem;font-weight:700}
+  .persona .actions{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
+  .persona .btn-apply{cursor:pointer;padding:8px 10px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700}
+  .persona .btn-ghost{background:#fff;color:#0f172a}
+  .persona .stat{font-size:.82rem;color:#475569}
+  .persona .stat b{color:#111}
   .health{display:none;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.95rem}
   .health.show{display:block}
   .pkg{border-radius:14px;overflow:hidden;position:relative;scroll-snap-align:start}
@@ -145,15 +152,14 @@
   .inputs .row{align-items:start}
   .inputs .row > :not(:first-child){justify-self:end}
 
-  @media (max-width: 960px){
-    .grid{ grid-template-columns:1fr; }
-    .packages{ grid-template-columns:repeat(2, minmax(200px,1fr)); }
+  @media (max-width: 1100px){
+    .persona-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+  @media (max-width: 760px){
+    .qs .qs-grid{ grid-template-columns:1fr; }
+    .persona-grid{grid-template-columns:1fr;}
     .row.row--stepper { grid-template-columns: 1fr 120px; }
     .row { grid-template-columns: 1fr 110px; }
-  }
-  @media (max-width: 640px){
-    .packages{ grid-template-columns:1fr; }
-    .qs .qs-grid{ grid-template-columns:1fr; }
   }
 
   @media (prefers-color-scheme: dark){
@@ -163,6 +169,8 @@
     .card .hd { background: var(--card); }
     .health{background:#92400e;border-color:#c05621;color:#feebc8}
     .tooltip [role="tooltip"]{background:#2d3748;color:#e2e8f0}
+    .persona{background:#2d3748}
+    .persona .chip-mini{background:#1f2937;border-color:#374151;color:#cbd5e1}
   }
 
   /* chart/overflow hardening (newer overrides) */
@@ -202,22 +210,24 @@
   @media (prefers-color-scheme: dark){
     .breakeven-monitor{ background:#1a202c; }
   }
-    .itw-info{position:fixed;right:12px;bottom:12px;z-index:2147483647;font:13px/1.3 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;color:#222}
-.itw-toggle{width:28px;height:28px;border-radius:9999px;border:1px solid #ccc;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:pointer}
-.itw-body{margin-top:8px;width:260px;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:10px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
-.itw-row{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
-.itw-title{font-weight:600}
-.itw-sub{color:#666;font-size:12px;margin:2px 0 6px}
-.itw-pill{padding:2px 8px;border-radius:9999px;background:#eee;font-size:12px;border:1px solid #ddd}
-.itw-pill.ok{background:#e8f7ee;border-color:#c2e7cf;color:#0f6e3d}
-.itw-pill.warn{background:#fff6e6;border-color:#ffe0a8;color:#8a5b00}
-.itw-pill.bad{background:#ffeaea;border-color:#ffc9c9;color:#8a0f0f}
-.itw-refresh{margin-top:8px;width:100%;padding:6px 10px;border-radius:8px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
-.itw-refresh:hover{background:#f2f2f2}
-    .fx-drift{margin:12px 0 16px;font:14px/1.3 system ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#222;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-#fx-drift-range{width:220px}
-.fx-drift-reset{padding:4px 8px;border-radius:8px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
-.fx-drift-reset:hover{background:#f2f2f2}
+
+  /* Info drawer + FX drift (existing styles preserved) */
+  .itw-info{position:fixed;right:12px;bottom:12px;z-index:2147483647;font:13px/1.3 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;color:#222}
+  .itw-toggle{width:28px;height:28px;border-radius:9999px;border:1px solid #ccc;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:pointer}
+  .itw-body{margin-top:8px;width:260px;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:10px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+  .itw-row{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+  .itw-title{font-weight:600}
+  .itw-sub{color:#666;font-size:12px;margin:2px 0 6px}
+  .itw-pill{padding:2px 8px;border-radius:9999px;background:#eee;font-size:12px;border:1px solid #ddd}
+  .itw-pill.ok{background:#e8f7ee;border-color:#c2e7cf;color:#0f6e3d}
+  .itw-pill.warn{background:#fff6e6;border-color:#ffe0a8;color:#8a5b00}
+  .itw-pill.bad{background:#ffeaea;border-color:#ffc9c9;color:#8a0f0f}
+  .itw-refresh{margin-top:8px;width:100%;padding:6px 10px;border-radius:8px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
+  .itw-refresh:hover{background:#f2f2f2}
+  .fx-drift{margin:12px 0 16px;font:14px/1.3 system ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#222;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  #fx-drift-range{width:220px}
+  .fx-drift-reset{padding:4px 8px;border-radius:8px;border:1px solid #d0d0d0;background:#fafafa;cursor:pointer}
+  .fx-drift-reset:hover{background:#f2f2f2}
   </style>
 
   <!-- Chart.js -->
@@ -251,7 +261,7 @@
     <button class="itw-menu-btn btn ghost" aria-expanded="false" aria-controls="itw-primary-nav" style="margin-left:auto">Menu</button>
     <div class="small">v.9.000.003</div>
 
-    <!-- Offline/fx controls moved; removed duplicate fx-drift-reset in header -->
+    <!-- Moved currency block into this header -->
     <span id="offline-chip" class="chip" style="display:none">Offline</span>
     <label for="currency-select" class="small">Currency</label>
     <select id="currency-select" class="btn ghost small" aria-label="Currency select">
@@ -259,20 +269,142 @@
       <option>AUD</option><option>INR</option><option>CNY</option><option>MXN</option><option>BRL</option>
     </select>
     <span id="currency-note" class="small"></span>
+    <!-- Exchange rate drift (display-only sensitivity) -->
+    <button id="fx-drift-reset" class="btn ghost small" type="button" style="margin-left:6px;">reset to 0%</button>
   </div>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#0e6e8e">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
 </header>
 
 <main class="container" id="main">
   <p id="fallback-banner" class="health" role="status" hidden>⚠️ We couldn't load live prices; using defaults.</p>
 
+  <!-- Quick Start + Personas -->
   <section class="qs" aria-labelledby="qs-title">
     <div class="qs-hd" id="qs-title">🚀 Quick Start: Load a Preset</div>
     <p class="small">Try a common pattern:</p>
-    <div class="qs-grid">
+
+    <!-- existing 4 buttons (wired to app.js loadPreset) -->
+    <div class="qs-grid" role="group" aria-label="Quick presets">
       <button class="qs-btn" type="button" onclick="loadPreset('light')"><span>🌤️ Light Drinker</span><small>2–3 drinks/day</small></button>
       <button class="qs-btn" type="button" onclick="loadPreset('moderate')"><span>🍹 Moderate</span><small>5–6 drinks/day</small></button>
       <button class="qs-btn" type="button" onclick="loadPreset('heavy')"><span>🎉 Party Mode</span><small>8–10 drinks/day</small></button>
       <button class="qs-btn" type="button" onclick="loadPreset('coffee')"><span>☕ Coffee Lover</span><small>4 coffees, no alcohol</small></button>
+    </div>
+
+    <!-- New persona cards (no dropdowns) -->
+    <div class="persona-grid" id="persona-grid" aria-label="Persona presets">
+      <!-- Family with Kids -->
+      <article class="persona">
+        <div class="title">👨‍👩‍👧‍👦 Family with Kids</div>
+        <div class="desc">Budget-conscious family prioritizing hydration and fun non-alcoholic options for kids; parents enjoy occasional treats after activities.</div>
+        <div class="chips">
+          <span class="chip-mini">Soda 3–4</span>
+          <span class="chip-mini">Fresh juice 2</span>
+          <span class="chip-mini">Mocktails 1–2</span>
+          <span class="chip-mini">Water 4–5</span>
+          <span class="chip-mini">Coffee/Tea 1–2</span>
+          <span class="chip-mini">Alcohol 2–3 (adults)</span>
+        </div>
+        <div class="actions">
+          <button class="btn-apply" type="button" onclick="applyPersona('family')">Apply preset</button>
+          <span class="stat">Adults <b>2</b> • Minors <b>2</b> • 7-day avg</span>
+        </div>
+      </article>
+
+      <!-- Girls Trip -->
+      <article class="persona">
+        <div class="title">💃 Girls Trip</div>
+        <div class="desc">Social, celebratory vibe with fruity sips and wellness touches — light/moderate, Instagram-worthy without overdoing it.</div>
+        <div class="chips">
+          <span class="chip-mini">Soda 1–2</span>
+          <span class="chip-mini">Fresh juice 2–3</span>
+          <span class="chip-mini">Mocktails 2</span>
+          <span class="chip-mini">Energy 1</span>
+          <span class="chip-mini">Water 3–4</span>
+          <span class="chip-mini">Coffee/Tea 2</span>
+          <span class="chip-mini">Alcohol 3–4</span>
+        </div>
+        <div class="actions">
+          <button class="btn-apply" type="button" onclick="applyPersona('girls')">Apply preset</button>
+          <span class="stat">Adults <b>4</b> • Minors <b>0</b> • 7-day avg</span>
+        </div>
+      </article>
+
+      <!-- Boys Trip -->
+      <article class="persona">
+        <div class="title">🏈 Boys Trip</div>
+        <div class="desc">Laid-back, adventure-oriented; hearty drinks but moderated for golf, shore excursions, and early starts.</div>
+        <div class="chips">
+          <span class="chip-mini">Soda 2–3</span>
+          <span class="chip-mini">Fresh juice 1</span>
+          <span class="chip-mini">Mocktails 1</span>
+          <span class="chip-mini">Energy 2</span>
+          <span class="chip-mini">Water 4</span>
+          <span class="chip-mini">Coffee 1</span>
+          <span class="chip-mini">Alcohol 4–5</span>
+        </div>
+        <div class="actions">
+          <button class="btn-apply" type="button" onclick="applyPersona('boys')">Apply preset</button>
+          <span class="stat">Adults <b>3</b> • Minors <b>0</b> • 7-day avg</span>
+        </div>
+      </article>
+
+      <!-- Romantic Couple -->
+      <article class="persona">
+        <div class="title">🌅 Romantic Couple</div>
+        <div class="desc">Intimate, upscale experiences emphasizing quality over quantity — sunset cocktails & wine with dinner.</div>
+        <div class="chips">
+          <span class="chip-mini">Soda 1</span>
+          <span class="chip-mini">Fresh juice 2</span>
+          <span class="chip-mini">Mocktails 1–2</span>
+          <span class="chip-mini">Water 3</span>
+          <span class="chip-mini">Coffee/Tea 2</span>
+          <span class="chip-mini">Alcohol 2–3</span>
+        </div>
+        <div class="actions">
+          <button class="btn-apply" type="button" onclick="applyPersona('couple')">Apply preset</button>
+          <span class="stat">Adults <b>2</b> • Minors <b>0</b> • 7-day avg</span>
+        </div>
+      </article>
+
+      <!-- Health-Conscious Solo -->
+      <article class="persona">
+        <div class="title">💪 Health-Conscious Solo</div>
+        <div class="desc">Wellness-focused cruiser with minimal alcohol and nourishing, low-calorie options for sustained energy.</div>
+        <div class="chips">
+          <span class="chip-mini">Soda 0–1</span>
+          <span class="chip-mini">Fresh juice 3–4</span>
+          <span class="chip-mini">Mocktails 2</span>
+          <span class="chip-mini">Energy 1</span>
+          <span class="chip-mini">Water 5–6</span>
+          <span class="chip-mini">Coffee/Tea 2</span>
+          <span class="chip-mini">Alcohol 1–2</span>
+        </div>
+        <div class="actions">
+          <button class="btn-apply" type="button" onclick="applyPersona('solo')">Apply preset</button>
+          <span class="stat">Adults <b>1</b> • Minors <b>0</b> • 7-day avg</span>
+        </div>
+      </article>
+
+      <!-- Senior Group Outing -->
+      <article class="persona">
+        <div class="title">👴👵 Senior Group Outing</div>
+        <div class="desc">Leisurely pace with shows and chats; light choices for health and steady energy.</div>
+        <div class="chips">
+          <span class="chip-mini">Soda 2</span>
+          <span class="chip-mini">Fresh juice 2</span>
+          <span class="chip-mini">Mocktails 1</span>
+          <span class="chip-mini">Water 4</span>
+          <span class="chip-mini">Coffee/Tea 3</span>
+          <span class="chip-mini">Alcohol 2</span>
+        </div>
+        <div class="actions">
+          <button class="btn-apply" type="button" onclick="applyPersona('seniors')">Apply preset</button>
+          <span class="stat">Adults <b>4</b> • Minors <b>0</b> • 7-day avg</span>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -347,22 +479,23 @@
             <input id="input-minors" type="text" inputmode="numeric" value="0" data-input="minors" aria-label="Number of minors">
           </div>
         </fieldset>
-        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
-  <legend style="font-weight:800;padding:0 6px">Calculation Mode</legend>
-  <div class="controls-inline">
-    <label class="small">
-      <input type="radio" name="calc-mode" id="mode-simple" value="simple" checked>
-      Use Daily Averages
-    </label>
-    <label class="small">
-      <input type="radio" name="calc-mode" id="mode-itinerary" value="itinerary">
-      Plan Day-by-Day
-    </label>
-  </div>
-</fieldset>
 
-<!-- Built dynamically when “itinerary” is selected -->
-<div id="itinerary-inputs" style="display:none; margin-top: 12px;"></div>
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+          <legend style="font-weight:800;padding:0 6px">Calculation Mode</legend>
+          <div class="controls-inline">
+            <label class="small">
+              <input type="radio" name="calc-mode" id="mode-simple" value="simple" checked>
+              Use Daily Averages
+            </label>
+            <label class="small">
+              <input type="radio" name="calc-mode" id="mode-itinerary" value="itinerary">
+              Plan Day-by-Day
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Built dynamically when “itinerary” is selected -->
+        <div id="itinerary-inputs" style="display:none; margin-top: 12px;"></div>
 
         <div class="row row--stepper">
           <label for="input-soda">Soda per day <small class="pill" data-price-pill="soda"></small></label>
@@ -538,7 +671,6 @@
               <p class="small">Included value: <strong data-inc="refresh">$0.00/day</strong></p>
               <p class="save small" data-saves="refresh" hidden></p>
 
-              <!-- Monitor above edit controls -->
               <div class="breakeven-monitor" id="refresh-breakeven" aria-live="polite" style="margin-top:10px;"></div>
 
               <div class="controls-inline" style="margin-top:6px">
@@ -555,27 +687,27 @@
 
           <article class="pkg card" data-card="deluxe" id="pkg-deluxe">
             <header class="phd">
-  <span>Deluxe (Alcoholic)</span>
+              <span>Deluxe (Alcoholic)</span>
 
-  <!-- Deluxe help -->
-  <span class="tooltip">
-    <button class="help" aria-describedby="tt-deluxe" aria-label="Deluxe help" type="button">?</button>
-    <span id="tt-deluxe" role="tooltip">
-      Covers alcoholic drinks up to the price cap + all non-alcoholic items. Over-cap drinks add the difference.
-    </span>
-  </span>
+              <!-- Deluxe help -->
+              <span class="tooltip">
+                <button class="help" aria-describedby="tt-deluxe" aria-label="Deluxe help" type="button">?</button>
+                <span id="tt-deluxe" role="tooltip">
+                  Covers alcoholic drinks up to the price cap + all non-alcoholic items. Over-cap drinks add the difference.
+                </span>
+              </span>
 
-  <!-- Stewardship (separate tooltip) -->
-  <span class="tooltip">
-    <button class="help" aria-describedby="tt-steward-deluxe" aria-label="Stewardship & Responsible Use" type="button">?</button>
-    <span id="tt-steward-deluxe" role="tooltip" style="max-width:320px;">
-      <strong>Stewardship & Responsible Use</strong><br>
-      This calculator is meant for budgeting and wise stewardship — not to encourage over-consumption.<br><br>
-      Packages include more than alcohol: bottled water, coffees, juices, and energy drinks all add value.<br><br>
-      <em>Drink responsibly. Moderation honors your wallet, your body, and your spiritual health.</em>
-    </span>
-  </span>
-</header>
+              <!-- Stewardship (separate tooltip) -->
+              <span class="tooltip">
+                <button class="help" aria-describedby="tt-steward-deluxe" aria-label="Stewardship & Responsible Use" type="button">?</button>
+                <span id="tt-steward-deluxe" role="tooltip" style="max-width:320px;">
+                  <strong>Stewardship & Responsible Use</strong><br>
+                  This calculator is meant for budgeting and wise stewardship — not to encourage over-consumption.<br><br>
+                  Packages include more than alcohol: bottled water, coffees, juices, and energy drinks all add value.<br><br>
+                  <em>Drink responsibly. Moderation honors your wallet, your body, and your spiritual health.</em>
+                </span>
+              </span>
+            </header>
             <div class="pbd">
               <p class="muted"><strong data-pkg-price="deluxe">$85.00/day</strong> <span class="small">range $55–$115</span></p>
               <p class="small">Price cap: <strong id="cap-badge">$14.00</strong> <button class="btn ghost" type="button" onclick="toggleCapEdit()">Edit cap…</button></p>
@@ -632,8 +764,8 @@
   <p id="a11y-status" class="sr-only" aria-live="polite"></p>
 </main>
 
-  <!-- SW seed now matches this route -->
-  <script>
+<!-- SW seeding -->
+<script>
 (function(){
   if (!('serviceWorker' in navigator)) return;
   if (!navigator.serviceWorker.controller) return;
@@ -653,7 +785,7 @@
 })();
 </script>
 
-  <!-- Exchange rate drift (what-if) -->
+<!-- Exchange rate drift (what-if) -->
 <div id="fx-drift-wrap" class="fx-drift" role="group" aria-label="Exchange rate drift control">
   <label for="fx-drift-range">
     Exchange rate drift: <span id="fx-drift-label">0%</span>
@@ -662,8 +794,8 @@
   <button id="fx-drift-reset" type="button" class="fx-drift-reset" title="Reset to 0%">Reset</button>
 </div>
 
-  <!-- Info drawer -->
-  <div id="itw-info-drawer" class="itw-info">
+<!-- Info drawer -->
+<div id="itw-info-drawer" class="itw-info">
   <button class="itw-toggle" aria-expanded="false" aria-controls="itw-info-body" aria-label="Data freshness & source">i</button>
   <div id="itw-info-body" class="itw-body" hidden>
     <div class="itw-row">
@@ -682,20 +814,181 @@
   </div>
 </div>
 
-<!-- Small nav toggle helper -->
 <script>
 (() => {
-  const btn = document.querySelector('.itw-menu-btn');
-  const nav = document.getElementById('itw-primary-nav');
-  if (!btn || !nav) return;
-  btn.addEventListener('click', () => {
-    const open = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!open));
-    nav.hidden = open;
+  const el = (id)=>document.getElementById(id);
+  const fmtRel = (ms) => {
+    if (!ms) return "—";
+    const s = Math.floor(ms/1000);
+    if (s < 60) return `${s}s ago`;
+    const m = Math.floor(s/60);
+    if (m < 60) return `${m}m ago`;
+    const h = Math.floor(m/60);
+    if (h < 24) return `${h}h ago`;
+    const d = Math.floor(h/24);
+    return `${d}d ago`;
+  };
+
+  const bucket = (ageMs, kind) => {
+    if (ageMs == null) return {label:"—", cls:""};
+    if (kind === "pricing") {
+      if (ageMs < 24*3600e3) return {label:"fresh", cls:"ok"};
+      if (ageMs < 3*24*3600e3) return {label:"1–3d", cls:"warn"};
+      if (ageMs <= 7*24*3600e3) return {label:"3–7d", cls:"warn"};
+      return {label:">7d", cls:"bad"};
+    } else { // fx
+      if (ageMs < 1*3600e3) return {label:"<1h", cls:"ok"};
+      if (ageMs < 6*3600e3) return {label:"1–6h", cls:"warn"};
+      if (ageMs <= 12*3600e3) return {label:"6–12h", cls:"warn"};
+      return {label:">12h", cls:"bad"};
+    }
+  };
+
+  function applyPill(id, ageMs, kind, isFallback, confidence) {
+    const elP = el(id);
+    const b = bucket(ageMs, kind);
+    elP.textContent = (isFallback ? "cached " : "") + b.label + (confidence ? ` · ${confidence}` : "");
+    elP.className = `itw-pill ${b.cls}`;
+  }
+
+  function updateRow(kind, info) {
+    const { ageMs, cachedAt, isFallback, source, confidence } = info || {};
+    applyPill(kind === "pricing" ? "itw-pricing-pill" : "itw-fx-pill", ageMs, kind, isFallback, confidence);
+    const sub = el(kind === "pricing" ? "itw-pricing-sub" : "itw-fx-sub");
+    const src = source || (kind === "pricing" ? "/assets/data/lines/royal-caribbean.json" : "FX API");
+    sub.textContent = `source: ${src} • updated: ${fmtRel(ageMs)}${isFallback ? " (cached)" : ""}`;
+  }
+
+  function infoFromResponse(res, sourceHint) {
+    if (!res) return null;
+    const ageMs = Number(res.headers.get("X-SW-Age-MS") || "") || null;
+    const cachedAt = Number(res.headers.get("X-SW-Cached-At") || "") || null;
+    const isFallback = !!res.headers.get("X-SW-Fallback");
+    const confidence = res.headers.get("X-SW-Confidence") || "";
+    return { ageMs, cachedAt, isFallback, source: sourceHint || res.url, confidence };
+  }
+
+  const btn = document.querySelector("#itw-info-drawer .itw-toggle");
+  const body = document.getElementById("itw-info-body");
+  btn?.addEventListener("click", () => {
+    const open = body.hasAttribute("hidden") ? false : true;
+    if (open) { body.setAttribute("hidden",""); btn.setAttribute("aria-expanded","false"); }
+    else { body.removeAttribute("hidden"); btn.setAttribute("aria-expanded","true"); }
   });
+
+  window.itwInfo = {
+    update({ pricingResponse, fxResponse, pricingSource, fxSource } = {}) {
+      if (pricingResponse) updateRow("pricing", infoFromResponse(pricingResponse, pricingSource));
+      if (fxResponse) updateRow("fx", infoFromResponse(fxResponse, fxSource));
+    },
+    forceRefresh: async () => {
+      try {
+        await Promise.allSettled([
+          fetch("/assets/data/lines/royal-caribbean.json", { cache: "reload" })
+        ]);
+        location.reload();
+      } catch(_) {}
+    }
+  };
+
+  document.getElementById("itw-refresh")?.addEventListener("click", ()=> itwInfo.forceRefresh());
 })();
 </script>
 
- <script src="/assets/js/install.js?v=20.4" defer></script>
+<script>
+(function wireFXDriftUI(){
+  const range = document.getElementById('fx-drift-range');
+  const label = document.getElementById('fx-drift-label');
+  const reset = document.getElementById('fx-drift-reset');
+  if (!range || !label || !reset) return;
+
+  const updateLabel = () => {
+    const v = Number(range.value);
+    label.textContent = (v>0?'+':'') + v + '%';
+  };
+
+  range.addEventListener('input', () => {
+    window.fxDriftPct = Number(range.value);
+    updateLabel();
+    window.renderAll?.();
+  });
+
+  reset.addEventListener('click', () => {
+    window.fxDriftPct = 0;
+    range.value = '0';
+    updateLabel();
+    window.renderAll?.();
+  });
+
+  window.fxDriftPct = 0;
+  updateLabel();
+})();
+</script>
+
+<!-- Persona → input applier (no dependency on app.js internals) -->
+<script>
+(function(){
+  const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, Number(n)||0));
+  function setVal(id, v){
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = String(v);
+    el.dispatchEvent(new Event('input', { bubbles:true }));
+    el.dispatchEvent(new Event('change', { bubbles:true }));
+  }
+  function zeroAll(){
+    const keys = ['soda','coffee','teaprem','freshjuice','mocktail','energy','milkshake','bottledwater','beer','wine','cocktail','spirits'];
+    keys.forEach(k => setVal('input-'+k, 0));
+  }
+  function applyAdultsMinors(a, m){
+    setVal('input-adults', clamp(a,1,20));
+    setVal('input-minors', clamp(m,0,20));
+  }
+  const personas = {
+    family: {
+      adults:2, minors:2,
+      drinks:{ soda:3.5, freshjuice:2, mocktail:1.5, energy:0.5, bottledwater:4.5, coffee:1.5, beer:1, wine:1.5 }
+    },
+    girls: {
+      adults:4, minors:0,
+      drinks:{ soda:1.5, freshjuice:2.5, mocktail:2, energy:1, bottledwater:3.5, coffee:2, cocktail:2, wine:1.5 }
+    },
+    boys: {
+      adults:3, minors:0,
+      drinks:{ soda:2.5, freshjuice:1, mocktail:1, energy:2, bottledwater:4, coffee:1, beer:3, spirits:1.5 }
+    },
+    couple: {
+      adults:2, minors:0,
+      drinks:{ soda:1, freshjuice:2, mocktail:1.5, bottledwater:3, coffee:2, cocktail:1, wine:1.5 }
+    },
+    solo: {
+      adults:1, minors:0,
+      drinks:{ soda:0.5, freshjuice:3.5, mocktail:2, energy:1, bottledwater:5.5, coffee:2, wine:1 }
+    },
+    seniors: {
+      adults:4, minors:0,
+      drinks:{ soda:2, freshjuice:2, mocktail:1, bottledwater:4, coffee:3, beer:1, wine:1 }
+    }
+  };
+  window.applyPersona = function(name){
+    const p = personas[name];
+    if (!p) return;
+    zeroAll();
+    applyAdultsMinors(p.adults, p.minors||0);
+    Object.entries(p.drinks||{}).forEach(([k,v]) => setVal('input-'+k, v));
+    // Ensure simple mode visible when applying persona (averages)
+    const simple = document.getElementById('mode-simple');
+    if (simple) {
+      simple.checked = true;
+      simple.dispatchEvent(new Event('change',{bubbles:true}));
+    }
+    // Announce
+    const n = document.getElementById('a11y-status');
+    if (n) n.textContent = 'Preset applied: '+name;
+  };
+})();
+</script>
+
+<script src="/assets/js/install.js?v=20.4" defer></script>
 </body>
 </html>
