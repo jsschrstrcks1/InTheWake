@@ -138,7 +138,7 @@
   .badge{background:#fbbf24;color:#78350f;padding:4px 10px;border-radius:999px;font-weight:800}
   .btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700}
   .btn.ghost{background:#fff;color:#0f172a}
-  .small{font-size:.9rem;color:#muted}
+  .small{font-size:.9rem;color:var(--muted)}
   .table{width:100%;border-collapse:collapse}
   .table th,.table td{padding:8px;border-bottom:1px solid var(--bd);text-align:left}
 
@@ -241,28 +241,34 @@
   </style>
 
   <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 
   <!-- Preload the shared math module and worker -->
-  <link rel="modulepreload" href="/assets/js/drink-math.js?v=v.9.000.003">
-  <link rel="preload" href="/assets/js/drink-worker.js?v=v.9.000.003" as="worker" />
+  <link rel="modulepreload" href="/assets/js/drink-math.js?v=v.9.000.004">
+  <link rel="preload" href="/assets/js/drink-worker.js?v=v.9.000.004" as="worker" />
 
   <!-- Expose compute() for inline fallback BEFORE app boots -->
   <script type="module">
-    import { compute } from "/assets/js/drink-math.js?v=v.9.000.003";
+    import { compute } from "/assets/js/drink-math.js?v=v.9.000.004";
     window.ITW_MATH = Object.assign({}, window.ITW_MATH || {}, { compute });
   </script>
 
   <!-- Main app -->
-  <script src="/assets/js/drink-calculator.app.js?v=v.9.000.003" defer></script>
+  <script src="/assets/js/drink-calculator.app.js?v=v.9.000.004" defer></script>
   <script src="/assets/js/sw-bridge.js?v=20.4" defer></script>
 </head>
 <body>
 <a href="#main" class="sr-only">Skip to main content</a>
 
+<noscript>
+  <div style="max-width:1200px;margin:8px auto;padding:10px 16px;background:#fff3cd;border:1px solid #ffeeba;border-radius:10px;color:#6b4e00;font:16px/1.4 system-ui">
+    This calculator needs JavaScript. Please enable it to see live results and the break-even chart.
+  </div>
+</noscript>
+
 <header class="navbar">
   <div class="inner container">
-    <a class="brand" href="/"><img src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64" loading="eager"></a>
+    <a class="brand" href="/"><img src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64" loading="eager" decoding="async"></a>
     <nav aria-label="Primary" id="itw-primary-nav">
       <a class="itw-nav__link" href="/">Home</a>
       <a class="itw-nav__link" href="/planning/">Planning</a>
@@ -280,7 +286,6 @@
     </select>
     <span id="currency-note" class="small"></span>
     <!-- Exchange rate drift (display-only sensitivity) -->
-    <button id="fx-drift-reset" class="btn ghost small" type="button" style="margin-left:6px;">reset to 0%</button>
   </div>
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#0e6e8e">
@@ -557,15 +562,7 @@
           <label for="input-soda">Soda per day <small class="pill" data-price-pill="soda"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('soda', -1)" aria-label="Decrease soda by 1">−</button>
-            <input id="input-soda"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="soda"
-       aria-label="Soda per day">
+            <input id="input-soda" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="soda" aria-label="Soda per day">
             <button class="btn-step" type="button" onclick="stepInput('soda', 1)" aria-label="Increase soda by 1">+</button>
           </div>
         </div>
@@ -574,15 +571,7 @@
           <label for="input-coffee">Premium coffee per day <small class="pill" data-price-pill="coffee"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('coffee', -1)" aria-label="Decrease coffee by 1">−</button>
-           <input id="input-coffee"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="coffee"
-       aria-label="Premium coffee per day">
+            <input id="input-coffee" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="coffee" aria-label="Premium coffee per day">
             <button class="btn-step" type="button" onclick="stepInput('coffee', 1)" aria-label="Increase coffee by 1">+</button>
           </div>
         </div>
@@ -591,15 +580,7 @@
           <label for="input-teaprem">Specialty tea per day <small class="pill" data-price-pill="teaprem"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('teaprem', -1)" aria-label="Decrease tea by 1">−</button>
-           <input id="input-teaprem"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="teaprem"
-       aria-label="Specialty tea per day">
+            <input id="input-teaprem" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="teaprem" aria-label="Specialty tea per day">
             <button class="btn-step" type="button" onclick="stepInput('teaprem', 1)" aria-label="Increase tea by 1">+</button>
           </div>
         </div>
@@ -608,15 +589,7 @@
           <label for="input-freshjuice">Fresh juice/smoothie per day <small class="pill" data-price-pill="freshjuice"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('freshjuice', -1)" aria-label="Decrease juice by 1">−</button>
-            <input id="input-freshjuice"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="freshjuice"
-       aria-label="Fresh juice or smoothie per day">
+            <input id="input-freshjuice" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="freshjuice" aria-label="Fresh juice or smoothie per day">
             <button class="btn-step" type="button" onclick="stepInput('freshjuice', 1)" aria-label="Increase juice by 1">+</button>
           </div>
         </div>
@@ -625,15 +598,7 @@
           <label for="input-mocktail">Mocktail per day <small class="pill" data-price-pill="mocktail"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('mocktail', -1)" aria-label="Decrease mocktail by 1">−</button>
-         <input id="input-mocktail"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="mocktail"
-       aria-label="Mocktail per day">
+            <input id="input-mocktail" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="mocktail" aria-label="Mocktail per day">
             <button class="btn-step" type="button" onclick="stepInput('mocktail', 1)" aria-label="Increase mocktail by 1">+</button>
           </div>
         </div>
@@ -642,15 +607,7 @@
           <label for="input-energy">Energy drink per day <small class="pill" data-price-pill="energy"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('energy', -1)" aria-label="Decrease energy drink by 1">−</button>
-           <input id="input-energy"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="energy"
-       aria-label="Energy drink per day">
+            <input id="input-energy" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="energy" aria-label="Energy drink per day">
             <button class="btn-step" type="button" onclick="stepInput('energy', 1)" aria-label="Increase energy drink by 1">+</button>
           </div>
         </div>
@@ -659,15 +616,7 @@
           <label for="input-milkshake">Milkshake per day <small class="pill" data-price-pill="milkshake"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('milkshake', -1)" aria-label="Decrease milkshake by 1">−</button>
-            <input id="input-milkshake"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="milkshake"
-       aria-label="Milkshake per day">
+            <input id="input-milkshake" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="milkshake" aria-label="Milkshake per day">
             <button class="btn-step" type="button" onclick="stepInput('milkshake', 1)" aria-label="Increase milkshake by 1">+</button>
           </div>
         </div>
@@ -676,15 +625,7 @@
           <label for="input-bottledwater">Bottled water per day <small class="pill" data-price-pill="bottledwater"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('bottledwater', -1)" aria-label="Decrease bottled water by 1">−</button>
-           <input id="input-bottledwater"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="bottledwater"
-       aria-label="Bottled water per day">
+            <input id="input-bottledwater" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="bottledwater" aria-label="Bottled water per day">
             <button class="btn-step" type="button" onclick="stepInput('bottledwater', 1)" aria-label="Increase bottled water by 1">+</button>
           </div>
         </div>
@@ -693,15 +634,7 @@
           <label for="input-beer">Beer per day <small class="pill" data-price-pill="beer"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('beer', -1)" aria-label="Decrease beer by 1">−</button>
-            <input id="input-beer"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="beer"
-       aria-label="Beer per day">
+            <input id="input-beer" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="beer" aria-label="Beer per day">
             <button class="btn-step" type="button" onclick="stepInput('beer', 1)" aria-label="Increase beer by 1">+</button>
           </div>
         </div>
@@ -710,15 +643,7 @@
           <label for="input-wine">Wine per day <small class="pill" data-price-pill="wine"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('wine', -1)" aria-label="Decrease wine by 1">−</button>
-            <input id="input-wine"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="wine"
-       aria-label="Wine per day">
+            <input id="input-wine" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="wine" aria-label="Wine per day">
             <button class="btn-step" type="button" onclick="stepInput('wine', 1)" aria-label="Increase wine by 1">+</button>
           </div>
         </div>
@@ -726,17 +651,9 @@
         <div class="row row--stepper">
           <label for="input-cocktail">Cocktail per day <small class="pill" data-price-pill="cocktail"></small></label>
           <div class="input-stepper">
-            <button class="btn-step" type="button" onclick="stepInput('cocktail', -1)" aria-label="Decrease cocktail by 0.5">−</button>
-          <input id="input-cocktail"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="cocktail"
-       aria-label="Cocktail per day">
-            <button class="btn-step" type="button" onclick="stepInput('cocktail', 1)" aria-label="Increase cocktail by 0.5">+</button>
+            <button class="btn-step" type="button" onclick="stepInput('cocktail', -1)" aria-label="Decrease cocktail by 1">−</button>
+            <input id="input-cocktail" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="cocktail" aria-label="Cocktail per day">
+            <button class="btn-step" type="button" onclick="stepInput('cocktail', 1)" aria-label="Increase cocktail by 1">+</button>
           </div>
         </div>
 
@@ -744,15 +661,7 @@
           <label for="input-spirits">Spirits/shot per day <small class="pill" data-price-pill="spirits"></small></label>
           <div class="input-stepper">
             <button class="btn-step" type="button" onclick="stepInput('spirits', -1)" aria-label="Decrease spirits by 1">−</button>
-           <input id="input-spirits"
-       type="text"
-       inputmode="numeric"
-       pattern="[0-9]*"
-       step="1"
-       min="0"
-       value="0"
-       data-input="spirits"
-       aria-label="Spirits or shots per day">
+            <input id="input-spirits" type="text" inputmode="numeric" pattern="[0-9]*" step="1" min="0" value="0" data-input="spirits" aria-label="Spirits or shots per day">
             <button class="btn-step" type="button" onclick="stepInput('spirits', 1)" aria-label="Increase spirits by 1">+</button>
           </div>
         </div>
@@ -799,7 +708,7 @@
               <p class="small">Included value (your picks): <strong data-inc="soda">$0.00/day</strong></p>
               <p class="save small" data-saves="soda" hidden></p>
               <div class="breakeven-monitor" id="soda-breakeven" aria-live="polite" style="margin-top:10px;">
-                <span class="small" data-voucher-note>A-la-carte voucher credit appears above.</span>
+                <span class="small" data-voucher-note>À-la-carte voucher credit appears above.</span>
               </div>
               <div class="controls-inline" style="margin-top:6px">
                 <button class="btn ghost" type="button" onclick="togglePriceEdit('soda')">📝 Edit price…</button>
@@ -827,7 +736,7 @@
               <p class="save small" data-saves="refresh" hidden></p>
 
               <div class="breakeven-monitor" id="refresh-breakeven" aria-live="polite" style="margin-top:10px;">
-                <span class="small" data-voucher-note>A-la-carte voucher credit appears above.</span>
+                <span class="small" data-voucher-note>À-la-carte voucher credit appears above.</span>
               </div>
 
               <div class="controls-inline" style="margin-top:6px">
@@ -869,7 +778,7 @@
               <p class="muted"><strong data-pkg-price="deluxe">$85.00/day</strong> <span class="small">range $55–$115</span></p>
               <p class="small">Price cap: <strong id="cap-badge">$14.00</strong> <button class="btn ghost" type="button" onclick="toggleCapEdit()">Edit cap…</button></p>
               <div class="breakeven-monitor" id="deluxe-breakeven" aria-live="polite" style="margin-bottom:10px;">
-                <span class="small" data-voucher-note>A-la-carte voucher credit appears above.</span>
+                <span class="small" data-voucher-note>À-la-carte voucher credit appears above.</span>
               </div>
 
               <form class="controls-inline small" id="edit-cap" hidden onsubmit="return false;">
@@ -1212,7 +1121,7 @@
     nodes.forEach(n=>{
       n.textContent = amount > 0.0001
         ? `À-la-carte voucher credit applied: −${formatMoney(amount)}/day`
-        : `A-la-carte voucher credit appears above.`;
+        : `À-la-carte voucher credit appears above.`;
     });
   }
 
@@ -1272,7 +1181,8 @@
     .forEach(id => document.getElementById(id)?.addEventListener('input', ()=> window.renderAll?.()));
 })();
 </script>
-  <script>
+
+<script>
 (function forceIntegers(){
   const ids = [
     'soda','coffee','teaprem','freshjuice','mocktail','energy',
@@ -1306,5 +1216,40 @@
 </script>
 
 <script src="/assets/js/install.js?v=20.4" defer></script>
+
+<!-- Small UX helpers: mobile menu toggle + jump-to-winner -->
+<script>
+(function(){
+  // Mobile menu toggle
+  const menuBtn = document.querySelector('.itw-menu-btn');
+  const nav = document.getElementById('itw-primary-nav');
+  if (menuBtn && nav) {
+    menuBtn.addEventListener('click', () => {
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!expanded));
+      nav.style.display = expanded ? '' : 'block';
+    });
+  }
+
+  // Jump to Best Value
+  const jump = document.getElementById('jump-winner');
+  function scrollToWinner(){
+    const winner = document.querySelector('.pkg.winner') || document.getElementById('packages');
+    winner?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  jump?.addEventListener('click', scrollToWinner);
+
+  // If app marks a winner later, keep button useful
+  const mo = new MutationObserver((muts)=>{
+    for (const m of muts) {
+      if (m.target && m.target.matches && m.target.matches('.pkg.winner')) {
+        // noop; the button works at any time; observer mainly here in case you want auto-scroll.
+      }
+    }
+  });
+  const pkgs = document.getElementById('packages');
+  if (pkgs) mo.observe(pkgs, { subtree:true, attributes:true, attributeFilter:['class'] });
+})();
+</script>
 </body>
 </html>
