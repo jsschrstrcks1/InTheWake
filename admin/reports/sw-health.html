@@ -103,6 +103,24 @@
         <div class="muted">Raw <code>/__sw_health</code> response</div>
         <pre id="health">—</pre>
       </div>
+      <div class="card">
+        <h3>Calculator Status</h3>
+        <div class="stat">
+          <span>Pricing Data</span>
+          <strong id="calc-status" class="mono">...</strong>
+        </div>
+        <div class="stat">
+          <span>Data Age</span>
+          <strong id="calc-age" class="mono">...</strong>
+        </div>
+        <div class="stat">
+          <span>Confidence</span>
+          <strong id="calc-conf" class="mono">...</strong>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="btn secondary" id="force-refresh-calc">Force Refresh Calc Data</button>
+        </div>
+      </div>
     </section>
 
     <section class="card" style="margin-top:1rem">
@@ -124,17 +142,22 @@
 
   <script>
     (function(){
-      const els = {
-        swver: document.getElementById("swver"),
-        usage: document.getElementById("usage"),
-        quota: document.getElementById("quota"),
-        rows:  document.getElementById("bucket-rows"),
-        health:document.getElementById("health"),
-        errorsBtn: document.getElementById("view-errors"),
-        errorsPre: document.getElementById("errors"),
-        refresh: document.getElementById("refresh"),
-        clear: document.getElementById("clear-nonpre")
-      };
+     const els = {
+        swver: document.getElementById("swver"),
+        usage: document.getElementById("usage"),
+        quota: document.getElementById("quota"),
+        rows:  document.getElementById("bucket-rows"),
+        health:document.getElementById("health"),
+        errorsBtn: document.getElementById("view-errors"),
+        errorsPre: document.getElementById("errors"),
+        refresh: document.getElementById("refresh"),
+        clear: document.getElementById("clear-nonpre"),
+        // [NEW] Add these new element IDs
+        calcStatus: document.getElementById("calc-status"),
+        calcAge: document.getElementById("calc-age"),
+        calcConf: document.getElementById("calc-conf"),
+        forceRefreshBtn: document.getElementById("force-refresh-calc")
+      };
 
       function fmtBytes(n){
         if (!n && n !== 0) return "—";
@@ -143,17 +166,53 @@
         while (v>=1024 && i<u.length-1){ v/=1024; i++; }
         return v.toFixed( (i===0)?0:2 )+" "+u[i];
       }
+function fmtBytes(n){
+        // ... (existing code) ...
+      }
 
-      async function fetchHealth(){
-        try{
-          const r = await fetch("/__sw_health", { cache:"no-store" });
-          if (!r.ok) throw new Error("HTTP "+r.status);
-          const data = await r.json();
-          els.health.textContent = JSON.stringify(data, null, 2);
-          if (data.version) els.swver.textContent = data.version;
-        }catch(err){
-          els.health.textContent = "Failed: "+err.message;
-        }
+      /* [NEW] Helper to format milliseconds into readable time */
+      function fmtAge(ms){
+        if (typeof ms !== 'number' || !Number.isFinite(ms)) return "—";
+        if (ms < 10000) return "< 10 sec old";
+        const sec = Math.round(ms / 1000);
+        if (sec < 60) return `${sec} sec old`;
+        const min = Math.round(sec / 60);
+        if (min < 60) return `${min} min old`;
+        const hours = Math.round(min / 60);
+        if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} old`;
+        const days = Math.round(hours / 24);
+        return `${days} day${days > 1 ? 's' : ''} old`;
+      }
+     async function fetchHealth(){
+        try{
+          const r = await fetch("/__sw_health", { cache:"no-store" });
+          if (!r.ok) throw new Error("HTTP "+r.status);
+          const data = await r.json();
+          els.health.textContent = JSON.stringify(data, null, 2);
+          if (data.version) els.swver.textContent = data.version;
+
+          // [NEW] Parse and display calculator health
+          if (data.calculator && data.calculator.pricing) {
+            const p = data.calculator.pricing;
+            if (p.cached) {
+              els.calcStatus.textContent = "Cached";
+              els.calcStatus.style.color = "var(--ok)";
+              els.calcAge.textContent = fmtAge(p.ageMs);
+              els.calcConf.textContent = p.confidence || "—";
+            } else {
+              els.calcStatus.textContent = "Not Cached";
+              els.calcStatus.style.color = "var(--danger)";
+              els.calcAge.textContent = "—";
+              els.calcConf.textContent = "—";
+            }
+          } else {
+            els.calcStatus.textContent = "Unknown";
+          }
+
+        }catch(err){
+          els.health.textContent = "Failed: "+err.message;
+        }
+      }
       }
 
       async function fetchStatsViaSW(){
@@ -239,13 +298,32 @@
       }
 
       // Wire up
-      els.refresh.addEventListener("click", render);
-      els.clear.addEventListener("click", clearNonPrecache);
-      els.errorsBtn.addEventListener("click", async () => {
-        const list = await fetchErrorsViaSW();
-        els.errorsPre.style.display = "block";
-        els.errorsPre.textContent = list.length ? JSON.stringify(list, null, 2) : "(no errors)";
+      els.refresh.addEventListener("click", render);
+      els.clear.addEventListener("click", clearNonPrecache);
+      els.errorsBtn.addEventListener("click", async () => {
+        // ... (existing code) ...
+      });
+      
+      // [NEW] Wire up the force refresh button
+      els.forceRefreshBtn.addEventListener("click", () => {
+        if (!navigator.serviceWorker.controller) {
+          alert("No active service worker controller found.");
+          return;
+        }
+        els.forceRefreshBtn.textContent = "Refreshing...";
+        els.forceRefreshBtn.disabled = true;
+        navigator.serviceWorker.controller.postMessage({ type: "FORCE_REFRESH_CALC" });
+        
+        // Re-load stats after 2 seconds to show the new data
+        setTimeout(() => {
+          render();
+          els.forceRefreshBtn.textContent = "Refresh Calc Data";
+          els.forceRefreshBtn.disabled = false;
+        }, 2000);
       });
+
+      // First load
+      render();
 
       // First load
       render();
