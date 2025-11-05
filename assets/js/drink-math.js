@@ -1,4 +1,9 @@
-/* drink-math.js — v.9.000.003 (shared pure math, schema-adaptive & hardened) */
+/* drink-math.js — v.9.000.004 (shared pure math, schema-adaptive & hardened)
+   Changes from v.9.000.003:
+   - Group rows now include pkgKey/isMinor/discountApplied.
+   - Minors can correctly be assigned Soda vs Refreshment (never Deluxe).
+   - Labeling improved for minors (Soda (disc.) / Refreshment (disc.)).
+*/
 
 /* ------------------------- tiny utils ------------------------- */
 const toNum = (v) => {
@@ -166,7 +171,7 @@ export function compute(inputs, economics, dataset) {
   const adults = clamp(inputs?.adults, 1, 20) || 1;
   const minors = clamp(inputs?.minors, 0, 20) || 0;
 
-    // Drinks (normalize)
+  // Drinks (normalize)
   const drinks = {};
   for (const k of keys) {
     const v = inputs?.drinks?.[k];
@@ -187,9 +192,7 @@ export function compute(inputs, economics, dataset) {
     // Sum each day's quantities, then average back to per-day
     const totals = Object.fromEntries(keys.map(k => [k, 0]));
     for (const day of inputs.itinerary) {
-      for (const k of keys) {
-        totals[k] += toNum(day?.drinks?.[k]);
-      }
+      for (const k of keys) totals[k] += toNum(day?.drinks?.[k]);
     }
     const denom = Math.max(1, (inputs?.itinerary?.length || 0));
     base = keys.map(k => [k, totals[k] / denom]);
@@ -208,8 +211,7 @@ export function compute(inputs, economics, dataset) {
   });
   const [minL, meanL, maxL] = lists;
 
-
-  // --- Totals ---
+  // --- Totals (à-la-carte and included values) ---
   const alcMin = round2(alcTotal(minL, dsPrices, grat));
   const alcMean = round2(alcTotal(meanL, dsPrices, grat));
   const alcMax = round2(alcTotal(maxL, dsPrices, grat));
@@ -244,7 +246,7 @@ export function compute(inputs, economics, dataset) {
   };
   const costAlc = { min: alcMin, mean: alcMean, max: alcMax };
 
-  // ------- Winner selection -------
+  // ------- Winner selection (per-person, daily) -------
   const candidates = [
     { key: 'alc', val: costAlc.mean },
     { key: 'soda', val: costSoda.mean },
@@ -254,7 +256,7 @@ export function compute(inputs, economics, dataset) {
   let best = { key: 'alc', val: Infinity };
   for (const c of candidates) if (c.val < best.val) best = c;
   if (epsilon && Number.isFinite(epsilon)) {
-    // Optional tie handling (unused)
+    // optional tie handling hook (unused)
   }
   const winnerKey = best.key;
 
@@ -269,20 +271,54 @@ export function compute(inputs, economics, dataset) {
   const deluxeRequired = (alcoholQty > 0 && adults > 1);
   const adultStrategy = deluxeRequired ? 'deluxe' : winnerKey;
 
+  function priceForKey(key) {
+    return key === 'alc' ? costAlc.mean
+         : key === 'soda' ? costSoda.mean
+         : key === 'refresh' ? costRefresh.mean
+         : costDeluxe.mean;
+  }
+  function labelForKey(key, { isMinor=false, discount=false } = {}) {
+    if (key === 'alc') return 'À-la-carte';
+    if (key === 'soda') return discount && isMinor ? 'Soda (disc.)' : 'Soda';
+    if (key === 'refresh') return discount && isMinor ? 'Refreshment (disc.)' : 'Refreshment';
+    if (key === 'deluxe') return 'Deluxe';
+    return 'À-la-carte';
+  }
+
   const rows = [];
   let multiplier = 0;
+
+  // Adults
   for (let i = 1; i <= adults; i++) {
-    rows.push({ who: `Adult ${i}`, pkg: adultStrategy, perDay, trip: round2(perDay * days) });
+    const k = adultStrategy;                 // 'alc' | 'soda' | 'refresh' | 'deluxe'
+    const d = priceForKey(k);
+    rows.push({
+      who: `Adult ${i}`,
+      pkgKey: k,
+      pkg: labelForKey(k, { isMinor:false, discount:false }),
+      perDay: round2(d),
+      trip: round2(d * days),
+      isMinor: false,
+      discountApplied: false
+    });
     multiplier += 1;
   }
+
+  // Minors: If adults (or winner) are Deluxe, minors use Refreshment; else they follow the winnerKey.
+  const minorPkgKeyBase = (adultStrategy === 'deluxe' || winnerKey === 'deluxe') ? 'refresh' : winnerKey;
+
   for (let i = 1; i <= minors; i++) {
-    const k = (adultStrategy === 'deluxe' || winnerKey === 'deluxe') ? 'refresh' : winnerKey;
-    const d = (k === 'alc') ? costAlc.mean : (k === 'soda' ? costSoda.mean : (k === 'refresh' ? costRefresh.mean : costDeluxe.mean));
+    const k = (minorPkgKeyBase === 'deluxe') ? 'refresh' : minorPkgKeyBase; // never assign Deluxe to minors
+    const dBase = priceForKey(k);
+    const d = dBase * kid;
     rows.push({
       who: `Minor ${i}`,
-      pkg: k === 'alc' ? 'À-la-carte' : 'Refreshment (disc.)',
-      perDay: round2(d * kid),
-      trip: round2(d * days * kid)
+      pkgKey: k,
+      pkg: labelForKey(k, { isMinor:true, discount:true }),
+      perDay: round2(d),
+      trip: round2(d * days),
+      isMinor: true,
+      discountApplied: true
     });
     multiplier += kid;
   }
@@ -303,8 +339,11 @@ export function compute(inputs, economics, dataset) {
     groupRows: rows.map(r => ({
       who: r.who,
       pkg: r.pkg,
+      pkgKey: r.pkgKey,
       perDay: safe(round2(r.perDay)),
-      trip: safe(round2(r.trip))
+      trip: safe(round2(r.trip)),
+      isMinor: !!r.isMinor,
+      discountApplied: !!r.discountApplied
     })),
     included: {
       soda: safe(round2(incSMean)),
@@ -315,9 +354,3 @@ export function compute(inputs, economics, dataset) {
     deluxeRequired
   };
 }
-
-/* Attach to window/self for inline fallback (non-module envs) */
-try {
-  const g = (typeof window !== 'undefined') ? window : (typeof self !== 'undefined' ? self : {});
-  g.ITW_MATH = Object.assign({}, g.ITW_MATH || {}, { compute });
-} catch (_) {}
