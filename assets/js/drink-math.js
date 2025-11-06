@@ -1,10 +1,11 @@
-/* drink-math.js — v.9.001.000 (pure math + voucher companion)
-   - Preserves v.9.000.004 behavior (ranges, weighting, itinerary, gratuity, caps, minors)
-   - Adds computeWithVouchers(inputs, economics, dataset, vouchers)
-     • Vouchers reduce ALC (à-la-carte) only.
-     • Adult vouchers: apply to alcoholic first, overflow to non-alc.
-     • Minor vouchers: non-alc only.
-     • All values assumed to include gratuity (consistent with cost model).
+/* drink-math.js — v.9.001.001 (pure math + vouchers, no minor discount)
+   - Removes minorDiscount entirely (minors pay full package price; never Deluxe).
+   - Preserves ranges, weighting, itinerary, gratuity, caps, included/overcap.
+   - Adds computeWithVouchers(inputs, economics, dataset, vouchers):
+       • Vouchers reduce À-la-carte (ALC) only.
+       • Adult vouchers: alcoholic first, overflow to non-alc.
+       • Minor vouchers: non-alc only.
+   - All values assumed to INCLUDE gratuity (consistent model).
 */
 
 /* ------------------------- tiny utils ------------------------- */
@@ -140,8 +141,7 @@ export function compute(inputs, economics, dataset) {
 
   // Economics
   const grat = clamp(economics?.grat ?? dsGrat ?? 0.18, 0, 0.5);
-  const cap = clamp(economics?.deluxeCap ?? capFromRules ?? 14.0, 0, 200);
-  const kid = clamp(economics?.minorDiscount ?? 1.0, 0, 1);
+  const cap  = clamp(economics?.deluxeCap ?? capFromRules ?? 14.0, 0, 200);
 
   // Package prices
   const pkgEco = economics?.pkg || {};
@@ -156,9 +156,9 @@ export function compute(inputs, economics, dataset) {
   };
 
   // Clamp inputs
-  const days = clamp(inputs?.days, 1, 365) || 1;
+  const days    = clamp(inputs?.days, 1, 365) || 1;
   const seaDays = clamp(inputs?.seaDays, 0, days);
-  const seaApply = !!(inputs?.seaApply ?? true);
+  const seaApply  = !!(inputs?.seaApply ?? true);
   const seaWeight = clamp(inputs?.seaWeight, 0, 40);
   const adults = clamp(inputs?.adults, 1, 20) || 1;
   const minors = clamp(inputs?.minors, 0, 20) || 0;
@@ -190,8 +190,9 @@ export function compute(inputs, economics, dataset) {
     base = keys.map(k => [k, totals[k] / denom]);
     hasRange = false; // day-by-day entries are scalar
   } else {
-    base = keys.map(k => [k, drinks[k]]);
-    hasRange = base.some(([, v]) => v && typeof v === 'object');
+    base = keys.map(([k = null] = []) => [k, drinks[k]]);
+    hasRange = Object.values(drinks).some(v => v && typeof v === 'object');
+    if (!hasRange) base = keys.map(k => [k, drinks[k]]);
   }
 
   // Build min/mean/max lists and apply weighting unless itinerary
@@ -220,19 +221,19 @@ export function compute(inputs, economics, dataset) {
 
   // ------- Effective daily total costs (what you actually pay per day) -------
   const costSoda = {
-    min: round2((pkg.soda || 0)    + Math.max(0, alcMin  - incSMin)),
-    mean: round2((pkg.soda || 0)   + Math.max(0, alcMean - incSMean)),
-    max: round2((pkg.soda || 0)    + Math.max(0, alcMax  - incSMax))
+    min:  round2((pkg.soda || 0)    + Math.max(0, alcMin  - incSMin)),
+    mean: round2((pkg.soda || 0)    + Math.max(0, alcMean - incSMean)),
+    max:  round2((pkg.soda || 0)    + Math.max(0, alcMax  - incSMax))
   };
   const costRefresh = {
-    min: round2((pkg.refresh || 0) + Math.max(0, alcMin  - incRMin)),
-    mean: round2((pkg.refresh || 0)+ Math.max(0, alcMean - incRMean)),
-    max: round2((pkg.refresh || 0) + Math.max(0, alcMax  - incRMax))
+    min:  round2((pkg.refresh || 0) + Math.max(0, alcMin  - incRMin)),
+    mean: round2((pkg.refresh || 0) + Math.max(0, alcMean - incRMean)),
+    max:  round2((pkg.refresh || 0) + Math.max(0, alcMax  - incRMax))
   };
   const costDeluxe = {
-    min: round2((pkg.deluxe || 0)  + delMin.overcap),
-    mean: round2((pkg.deluxe || 0) + delMean.overcap),
-    max: round2((pkg.deluxe || 0)  + delMax.overcap)
+    min:  round2((pkg.deluxe || 0)  + delMin.overcap),
+    mean: round2((pkg.deluxe || 0)  + delMean.overcap),
+    max:  round2((pkg.deluxe || 0)  + delMax.overcap)
   };
   const costAlc = { min: alcMin, mean: alcMean, max: alcMax };
 
@@ -254,7 +255,7 @@ export function compute(inputs, economics, dataset) {
     winnerKey === 'soda'    ? costSoda.mean    :
     winnerKey === 'refresh' ? costRefresh.mean :
     winnerKey === 'deluxe'  ? costDeluxe.mean  :
-    costAlc.mean;
+                               costAlc.mean;
 
   // ------- Policy & group -------
   const alcoholQty = safe(sum(meanL.filter(([id]) => dsSets.alcoholic.includes(id)).map(([, q]) => toNum(q))));
@@ -267,56 +268,52 @@ export function compute(inputs, economics, dataset) {
          : key === 'refresh' ? costRefresh.mean
          :                     costDeluxe.mean;
   }
-  function labelForKey(key, { isMinor=false, discount=false } = {}) {
+  function labelForKey(key, { isMinor=false } = {}) {
     if (key === 'alc')     return 'À-la-carte';
-    if (key === 'soda')    return discount && isMinor ? 'Soda (disc.)' : 'Soda';
-    if (key === 'refresh') return discount && isMinor ? 'Refreshment (disc.)' : 'Refreshment';
+    if (key === 'soda')    return 'Soda';
+    if (key === 'refresh') return 'Refreshment';
     if (key === 'deluxe')  return 'Deluxe';
     return 'À-la-carte';
   }
 
   const rows = [];
-  let multiplier = 0;
 
   // Adults
   for (let i = 1; i <= adults; i++) {
-    const k = adultStrategy;                 // 'alc' | 'soda' | 'refresh' | 'deluxe'
+    const k = adultStrategy; // 'alc' | 'soda' | 'refresh' | 'deluxe'
     const d = priceForKey(k);
     rows.push({
       who: `Adult ${i}`,
       pkgKey: k,
-      pkg: labelForKey(k, { isMinor:false, discount:false }),
+      pkg: labelForKey(k, { isMinor:false }),
       perDay: round2(d),
       trip: round2(d * days),
       isMinor: false,
       discountApplied: false
     });
-    multiplier += 1;
   }
 
-  // Minors: If adults (or winner) are Deluxe, minors use Refreshment; else they follow the winnerKey (never Deluxe).
+  // Minors: If adults (or winner) are Deluxe, minors use Refreshment; else follow winnerKey (never Deluxe).
   const minorPkgKeyBase = (adultStrategy === 'deluxe' || winnerKey === 'deluxe') ? 'refresh' : winnerKey;
-
   for (let i = 1; i <= minors; i++) {
     const k = (minorPkgKeyBase === 'deluxe') ? 'refresh' : minorPkgKeyBase;
-    const dBase = priceForKey(k);
-    const d = dBase * kid;
+    const d = priceForKey(k);
     rows.push({
       who: `Minor ${i}`,
       pkgKey: k,
-      pkg: labelForKey(k, { isMinor:true, discount:true }),
+      pkg: labelForKey(k, { isMinor:true }),
       perDay: round2(d),
       trip: round2(d * days),
       isMinor: true,
-      discountApplied: true
+      discountApplied: false
     });
-    multiplier += kid;
   }
 
-  const trip = round2(perDay * days * multiplier);
+  const perPersonMultiplier = adults + minors; // no discount factors
+  const trip = round2(perDay * days * perPersonMultiplier);
 
   // For voucher math: split mean ALC into alcoholic vs non-alc subtotal
-  const alcAlcoholicMean = round2(totalFor(meanL.filter(([id]) => dsSets.alcoholic.includes(id)), dsPrices, grat));
+  const alcAlcoholicMean    = round2(totalFor(meanL.filter(([id]) => dsSets.alcoholic.includes(id)), dsPrices, grat));
   const alcNonAlcoholicMean = round2(totalFor(meanL.filter(([id]) => !dsSets.alcoholic.includes(id)), dsPrices, grat));
 
   return {
@@ -337,7 +334,7 @@ export function compute(inputs, economics, dataset) {
       perDay: safe(round2(r.perDay)),
       trip: safe(round2(r.trip)),
       isMinor: !!r.isMinor,
-      discountApplied: !!r.discountApplied
+      discountApplied: !!r.discountApplied // always false in this build
     })),
     included: {
       soda:    safe(round2(incSMean)),
@@ -346,6 +343,7 @@ export function compute(inputs, economics, dataset) {
     },
     overcap: safe(round2(delMean.overcap)),
     deluxeRequired,
+
     // Voucher helpers
     _alcAlcoholicMean: alcAlcoholicMean,
     _alcNonAlcoholicMean: alcNonAlcoholicMean,
@@ -405,10 +403,8 @@ export function computeWithVouchers(inputs, economics, dataset, vouchers) {
   : winnerKey === 'refresh' ? base.bars.refresh.mean
   :                           base.bars.deluxe.mean;
 
-  // Trip: multiply by adult/minor multiplier rule used in base
-  // Adults count as 1 each; minors count as (minorDiscount) each.
-  const kid = clamp(economics?.minorDiscount ?? 1.0, 0, 1);
-  const multiplier = base._adults + (base._minors * kid);
+  // Trip: same multiplier as base (adults + minors)
+  const multiplier = base._adults + base._minors;
   const trip = round2(perDay * base._days * multiplier);
 
   return {
