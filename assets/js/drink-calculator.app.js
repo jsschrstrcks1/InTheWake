@@ -1,4 +1,4 @@
-/* drink-calculator.app.js — v.9.000.004 (Worker-enabled, Offline-First FX)
+/* drink-calculator.app.js — v.9.001.001 (Worker-enabled, Offline-First FX)
    Updates aligned to drink-math.js v9.001.001:
    - scheduleCalc(): calls computeWithVouchers() when vouchers are enabled; bypasses worker in that case.
    - Removed minor-discount artifacts from fallback dataset & initial economics; stop reading it from dataset.
