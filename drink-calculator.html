@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="version" content="v=.9.001.007"/>
+  <meta name="version" content="v=.9.001.008"/>
   <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
   <meta name="description" content="Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis. Plan your cruise drink budget."/>
   <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
@@ -51,6 +51,7 @@
       --accent:#0e6e8e; --shadow:0 2px 6px rgba(8,48,65,.08); --shadow-lg:0 10px 28px rgba(8,48,65,.14);
       --rail-width:320px; --bg:#f8fbfc; --card:#fff; --bd:#e5e7eb; --muted:#525a66;
       --chip:#e7f6ea; --chipText:#0a7b3e; --good:#10b981; --warn:#f59e0b; --bad:#ef4444;
+      --focus-ring:3px dashed var(--rope);
     }
     *{box-sizing:border-box}
     html{scrollbar-gutter:stable both-edges}
@@ -62,6 +63,12 @@
     h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456} .small{font-size:.9rem;color:#475569} .muted{color:var(--muted)}
     .sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
+    /* Focus polish */
+    a:focus-visible,button:focus-visible,[role="button"]:focus-visible,
+    input:focus-visible,select:focus-visible,details summary:focus-visible{
+      outline:var(--focus-ring);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
+    }
+
     .hero-header{position:relative;z-index:0;border-bottom:6px double var(--rope);background:#eaf6f6;overflow:visible}
     .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .75rem;align-items:center;position:relative;z-index:10;min-height:56px;background:#eaf6f6}
     .brand{display:flex;align-items:center;gap:.6rem}.brand img{height:40px;width:auto}
@@ -71,8 +78,8 @@
     .itw-nav .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
     .itw-nav .nav-item>a.chip{text-decoration:none}
     .itw-nav .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-    .itw-nav .menu{position:absolute;left:0;top:100%;transform:translateY(.35rem);min-width:240px;max-width:min(90vw,360px);background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:100;transition:opacity .18s ease}
-    .itw-nav .nav-item.open>.menu{display:block;visibility:visible;opacity:1;pointer-events:auto}
+    .itw-nav .menu{position:absolute;left:0;top:100%;transform:translateY(.35rem);min-width:240px;max-width:min(90vw,360px);background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:100;transition:opacity .18s ease,transform .18s ease,visibility .18s step-end}
+    .itw-nav .nav-item.open>.menu{display:block;visibility:visible;opacity:1;pointer-events:auto;transform:translateY(.25rem);transition:opacity .18s ease,transform .18s ease,visibility 0s step-start}
     .itw-nav .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
     .itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
     .itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
@@ -89,7 +96,8 @@
 
     .rail-list{display:grid;gap:1rem}
     .author-card{display:flex;gap:.75rem;align-items:center}
-    .author-avatar{display:block;width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center;flex:0 0 48px}
+    /* Author image: square with rounded corners (not oval) */
+    .author-avatar{display:block;width:48px;height:48px;border-radius:10px;object-fit:cover;object-position:center;flex:0 0 48px}
 
     .inputs .row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
     .inputs .row:last-child{border-bottom:0}
@@ -109,6 +117,23 @@
     #breakeven-chart{width:100%!important;max-width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px;background:#fff;display:block}
     #voucher-badge{position:absolute;top:-8px;right:0;transform:translateY(-100%)}
 
+    /* Winner affordance */
+    .package-card.winner,.packages .tile.winner{
+      position:relative;outline:2px solid var(--rope);box-shadow:0 0 0 3px rgba(200,163,106,.22);border-radius:12px;
+    }
+    .package-card.winner::after,.packages .tile.winner::after{
+      content:"Best value";position:absolute;top:-10px;right:10px;background:#22c55e;color:#073b22;font-weight:800;
+      padding:2px 8px;border-radius:999px;font-size:.75rem;border:2px solid #14532d;
+    }
+
+    /* Group Breakdown table */
+    #group-breakdown{background:var(--card);border-color:var(--rope)}
+    #group-breakdown .bd{padding:0;overflow-x:auto}
+    #group-breakdown table{width:100%;border-collapse:collapse;min-width:560px}
+    #group-breakdown thead{border-bottom:2px solid var(--rope);background:#f8fafc}
+    #group-breakdown th,#group-breakdown td{padding:10px 12px;border-bottom:1px solid var(--bd);text-align:left}
+    #group-breakdown [data-money]{font-variant-numeric:tabular-nums}
+
     /* Printing */
     @media print{
       body{font-size:12pt;background:var(--card)}
@@ -116,33 +141,48 @@
       main.wrap{max-width:100%;margin:0;padding:0}
       .page-grid{grid-template-columns:1fr}
       .card{border:none;box-shadow:none;page-break-inside:avoid}
+      #group-breakdown{display:block !important}
     }
 
-    /* Force brand light palette even if OS is in dark mode */
+    /* Force brand light palette even if OS is dark */
     @media (prefers-color-scheme: dark){
       :root{color-scheme:light}
       body,.card{background:var(--sky)!important;color:var(--ink)!important}
       .card{background:var(--card)!important}
     }
+
+    /* Health banners contrast tweak */
+    .health[role="status"],#stale-data-banner{color:#6a3e09}
   </style>
 
-  <!-- Chart.js (local optional + CDN fallback) -->
+  <!-- Chart.js (local optional + CDN fallback) with ready hook -->
+  <script>
+    window.__itwChartReady = function(){
+      try{
+        document.dispatchEvent(new Event('itw:chart-ready'));
+        // If your app exposes a boot function, nudge it once Chart exists
+        if (window.ITW && typeof ITW.boot === 'function') ITW.boot();
+        if (window.ITW_BOOT && typeof ITW_BOOT === 'function') ITW_BOOT();
+      }catch(e){}
+    };
+  </script>
   <script
-    src="/vendor/chart.umd.min.js?v=.9.001.007"
+    src="/vendor/chart.umd.min.js?v=.9.001.008"
     defer
-    onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js';s.defer=true;document.head.appendChild(s);})()"
+    onload="window.__itwChartReady && window.__itwChartReady()"
+    onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js';s.defer=true;s.onload=function(){window.__itwChartReady&&window.__itwChartReady()};document.head.appendChild(s);}())"
   ></script>
 
   <!-- Math & worker (versions aligned) -->
-  <link rel="modulepreload" href="/assets/js/drink-math.js?v=.9.001.007">
-  <link rel="preload" href="/assets/js/drink-worker.js?v=.9.001.007" as="worker"/>
+  <link rel="modulepreload" href="/assets/js/drink-math.js?v=.9.001.008">
+  <link rel="preload" href="/assets/js/drink-worker.js?v=.9.001.008" as="worker"/>
   <script type="module">
-    import { compute as baseCompute, computeWithVouchers } from "/assets/js/drink-math.js?v=.9.001.007";
+    import { compute as baseCompute, computeWithVouchers } from "/assets/js/drink-math.js?v=.9.001.008";
     window.ITW_MATH = { compute: baseCompute, computeWithVouchers };
   </script>
 
   <!-- App -->
-  <script src="/assets/js/drink-calculator.app.js?v=.9.001.007" defer></script>
+  <script src="/assets/js/drink-calculator.app.js?v=.9.001.008" defer></script>
 </head>
 <body>
   <a href="#content" class="sr-only">Skip to main content</a>
@@ -150,7 +190,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark">
-        <span class="tiny version-badge" id="app-version-header">v=.9.001.007</span>
+        <span class="tiny version-badge" id="app-version-header">v=.9.001.008</span>
       </div>
       <nav class="itw-nav" aria-label="Primary">
         <div class="nav-item"><a class="chip" href="/">Home</a></div>
@@ -252,7 +292,10 @@
           </fieldset>
 
           <details id="cna-vouchers" class="small" style="border:2px solid var(--rope);border-radius:8px;padding:0;margin-top:12px;background:var(--foam)">
-            <summary id="cna-title" style="cursor:pointer;font-weight:700;padding:1rem 1.25rem;list-style:none;">🎖️ <strong>Diamond or higher?</strong> Click here to apply your daily free-drink vouchers<div class="tiny muted" style="font-weight:400;margin-top:4px;">For frequent Royal Caribbean cruisers only (Crown & Anchor). Minors’ vouchers apply to non-alcoholic drinks only.</div></summary>
+            <summary id="cna-title" style="cursor:pointer;font-weight:700;padding:1rem 1.25rem;list-style:none;">
+              🎖️ <strong>Diamond or higher?</strong> Click here to apply your daily free-drink vouchers
+              <div class="tiny muted" style="font-weight:400;margin-top:4px;">For frequent Royal Caribbean cruisers only (Crown & Anchor). Minors’ vouchers apply to non-alcoholic drinks only.</div>
+            </summary>
             <div class="cna-content" style="padding:0 1.25rem 1.25rem">
               <div class="small" style="margin:10px 0;background:#fff3cd;border-left:4px solid #f59e0b;padding:.75rem 1rem;border-radius:4px;">
                 <p><strong>Eligibility reference:</strong> Diamond ≈ <strong>80 nights</strong>, Diamond Plus ≈ <strong>175 points</strong>, Pinnacle Club ≈ <strong>700 nights</strong>.</p>
@@ -310,11 +353,12 @@
       </section>
 
       <!-- Group Breakdown table (hidden until populated by app.js) -->
-      <section class="card" id="group-breakdown" hidden>
-        <h2 style="margin:0 0 1rem 0;color:var(--sea);font-size:1.5rem;">Group Breakdown (Per Person)</h2>
+      <section class="card" id="group-breakdown" hidden aria-labelledby="group-breakdown-title">
+        <h2 id="group-breakdown-title" style="margin:0 0 1rem 0;color:var(--sea);font-size:1.35rem;">Group Breakdown (Per Person)</h2>
         <div class="bd" style="padding:0;overflow-x:auto;">
-          <table style="width:100%;border-collapse:collapse;min-width:500px;">
-            <thead style="text-align:left;border-bottom:2px solid var(--rope);">
+          <table aria-describedby="group-breakdown-caption" style="width:100%;border-collapse:collapse;min-width:560px;">
+            <caption id="group-breakdown-caption" class="sr-only">Per-person package assignment, daily and trip totals.</caption>
+            <thead style="text-align:left;border-bottom:2px solid var(--rope);background:#f8fafc;">
               <tr>
                 <th style="padding:8px">Traveler</th>
                 <th style="padding:8px">Assigned Package</th>
@@ -376,7 +420,7 @@
       <section class="card" aria-labelledby="packages-rail-title">
         <div id="packages-rail-title" class="hd" style="position:static;">Packages</div>
         <div class="bd">
-          <!-- Reuse the same target ID so app.js renders here -->
+          <!-- App renders here -->
           <section class="packages" id="packages" aria-live="polite"></section>
         </div>
       </section>
@@ -404,28 +448,55 @@
   </footer>
 
   <script>
-    // Nav interactions
+    // Accessible dropdowns: click/touch/keyboard + guaranteed navigation
     (function(){
       const root=document.querySelector('.itw-nav'); if(!root) return;
-      const items=[...root.querySelectorAll('.nav-item[aria-haspopup]')];
-      function setOpen(group,on){group.classList.toggle('open',!!on);const btn=group.querySelector('button[aria-controls]');if(btn) btn.setAttribute('aria-expanded',on?'true':'false');}
-      function closeAll(except=null){items.forEach(g=>{if(g!==except) setOpen(g,false);});}
-      function firstFocusable(el){return el&&el.querySelector('a,button,[tabindex]:not([tabindex="-1"])');}
-      items.forEach(group=>{
-        const btn=group.querySelector('button[aria-controls]');const menu=group.querySelector('.menu'); if(!btn||!menu) return;
-        btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();const open=group.classList.contains('open');closeAll(group);setOpen(group,!open);if(!open){(firstFocusable(menu)||btn).focus({preventScroll:true});}});
-        btn.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();setOpen(group,true);(firstFocusable(menu)||btn).focus({preventScroll:true});} else if(e.key==='Escape'){setOpen(group,false);btn.focus({preventScroll:true});}});
-        group.addEventListener('keydown',e=>{if(e.key==='Escape'){setOpen(group,false);btn.focus({preventScroll:true});}});
-        menu.addEventListener('focusout',()=>{setTimeout(()=>{if(!group.contains(document.activeElement)) setOpen(group,false);},0);});
+      const groups=[...root.querySelectorAll('.nav-item[aria-haspopup]')];
+      function setOpen(g,on){g.classList.toggle('open',!!on);const b=g.querySelector('button[aria-controls]');if(b)b.setAttribute('aria-expanded',on?'true':'false');}
+      function closeAll(ex=null){groups.forEach(g=>{if(g!==ex) setOpen(g,false);});}
+      function firstFocusable(el){return el && el.querySelector('a,button,[tabindex]:not([tabindex="-1"])');}
+
+      groups.forEach(group=>{
+        const btn=group.querySelector('button[aria-controls]'); const menu=group.querySelector('.menu'); if(!btn||!menu) return;
+
+        btn.addEventListener('pointerdown',e=>{
+          if(e.button && e.button!==0) return;
+          e.preventDefault(); e.stopPropagation();
+          const willOpen=!group.classList.contains('open');
+          closeAll(group); setOpen(group,willOpen);
+          if(willOpen) (firstFocusable(menu)||btn).focus({preventScroll:true});
+        });
+
+        btn.addEventListener('keydown',e=>{
+          if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault(); setOpen(group,true); (firstFocusable(menu)||btn).focus({preventScroll:true});}
+          else if(e.key==='Escape'){setOpen(group,false); btn.focus({preventScroll:true});}
+        });
+
+        menu.addEventListener('keydown',e=>{ if(e.key==='Escape'){ setOpen(group,false); btn.focus({preventScroll:true}); } });
+
+        group.addEventListener('focusout',()=>{ setTimeout(()=>{ if(!group.contains(document.activeElement)) setOpen(group,false); },0); });
+
+        // Ensure clicking links actually navigates (even as menu closes)
+        menu.querySelectorAll('a[href]').forEach(a=>{
+          a.addEventListener('pointerdown',e=>{e.stopPropagation();},{passive:true});
+          a.addEventListener('click',e=>{
+            if(!(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) && e.button===0){
+              e.preventDefault(); e.stopPropagation();
+              const href=a.getAttribute('href'); closeAll();
+              setTimeout(()=>{ window.location.assign(href); },0);
+            }
+          });
+        });
       });
-      document.addEventListener('click',e=>{if(!e.target.closest('.itw-nav')) closeAll();});
+
+      document.addEventListener('pointerdown',e=>{ if(!e.target.closest('.itw-nav')) closeAll(); });
       window.addEventListener('blur',()=>closeAll());
     })();
 
     // Footer year
     const year=document.getElementById('footer-year'); if(year) year.textContent=new Date().getFullYear();
 
-    // Email telemetry
+    // Email telemetry (kept simple — adds values on submit)
     (function(){
       function itwPopulateEmailTelemetry(){
         try{
@@ -443,6 +514,45 @@
       const form=document.getElementById('email-form')||document.getElementById('email-signup-form');
       if(form){form.addEventListener('submit',function(){itwPopulateEmailTelemetry();},{capture:true});}
       window.itwPopulateEmailTelemetry=itwPopulateEmailTelemetry;
+    })();
+
+    // Winner announcer (SR) – will speak when app marks a tile .winner
+    (function () {
+      const live=document.createElement('div'); live.setAttribute('aria-live','polite'); live.className='sr-only'; document.body.appendChild(live);
+      const host=document.getElementById('packages')||document;
+      const obs=new MutationObserver(()=>{
+        const winner=host.querySelector('.winner');
+        const name=winner?.querySelector('[data-name]')?.textContent
+                 || winner?.querySelector('.title, h3, [aria-label]')?.textContent
+                 || (winner? 'Best value package':'');
+        if(winner && name) live.textContent=`${name} is currently best value.`;
+      });
+      obs.observe(host,{childList:true,subtree:true});
+    })();
+
+    // Recent Articles rail fallback (only if app didn’t populate it)
+    (function () {
+      const rail=document.getElementById('recent-rail'); if(!rail) return;
+      if (rail.querySelector('a, .rail-item')) return; // already populated
+      const list=[
+        { href:'/solo.html', title:'Why I Started Solo Cruising', img:'/authors/img/ken1.webp' },
+        { href:'/planning.html', title:'Planning Your First Cruise', img:'/assets/index_hero.jpg' },
+        { href:'/drink-packages.html', title:'Drink Packages: What’s Included', img:'/assets/social/drink-calculator-2025.jpg' }
+      ];
+      rail.innerHTML='';
+      list.forEach(({href,title,img})=>{
+        const a=document.createElement('a'); a.href=href; a.className='rail-item';
+        a.innerHTML=`<span class="thumb"><img src="${img}" alt=""></span><span class="meta"><h4>${title}</h4></span>`;
+        rail.appendChild(a);
+      });
+    })();
+
+    // Compass fallback (SVG -> PNG if not found)
+    (function () {
+      const cmp=document.querySelector('.hero-compass'); if(!cmp) return;
+      const test=new Image();
+      test.onerror=()=>{ cmp.src='/assets/compass_rose.png'; };
+      test.src='/assets/compass_rose.svg';
     })();
   </script>
 </body>
