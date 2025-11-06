@@ -1,11 +1,14 @@
 /* drink-calculator.app.js — v.9.000.004 (Worker-enabled, Offline-First FX)
-   Changes from v.9.000.003:
-   - renderResults(): kids hint under Best Value (handles Soda/Refresh/À-la-carte).
-   - renderResults(): group table uses row.pkg label as-is (no false “Refreshment (disc.)” for Soda).
-   - renderResults(): adds on-card teal “Recommended for kids” chip on Soda/Refresh when applicable.
+   Updates aligned to drink-math.js v9.001.001:
+   - scheduleCalc(): calls computeWithVouchers() when vouchers are enabled; bypasses worker in that case.
+   - Removed minor-discount artifacts from fallback dataset & initial economics; stop reading it from dataset.
+   - renderResults(): kids hint copy no longer mentions “50% off”.
+   - Accessibility: sync hidden SR table values with chart numbers.
+   - Personas: added “Light” and “Moderate”.
 */
 
 const VERSION = 'v.9.000.004';
+
 // ---------- Sanitize and clamp utilities ----------
 function num(v) {
   const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d. -]/g, ''));
@@ -20,7 +23,7 @@ const DS_URL = `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
 
 const FALLBACK_DATASET = {
   version: VERSION,
-  rules: { gratuity: 0.18, deluxeCap: 14.0, minorDiscount: 0.5 },
+  rules: { gratuity: 0.18, deluxeCap: 14.0 },
   packages: { soda: 13.99, refresh: 34.0, deluxe: 85.0 },
   prices: {
     soda: 2.00, coffee: 4.50, teaprem: 3.50, freshjuice: 6.00, mocktail: 6.50,
@@ -103,7 +106,7 @@ const initialState = {
     adults: 1,
     minors: 0,
 
-    // [NEW]
+    // Modes
     calcMode: 'simple', // 'simple' or 'itinerary'
     itinerary: [],      // [{ day:1, type:'sea', drinks:{...}}]
 
@@ -115,8 +118,7 @@ const initialState = {
   economics: {
     pkg: { soda: 13.99, refresh: 34.0, deluxe: 85.0 },
     grat: 0.18,
-    deluxeCap: 14.0,
-    minorDiscount: 0.5
+    deluxeCap: 14.0
   },
   results: {
     hasRange: false,
@@ -238,9 +240,8 @@ async function loadDataset(){
 
     eco.grat      = Number(j.rules?.gratuity ?? eco.grat);
     eco.deluxeCap = Number(j.rules?.caps?.deluxeAlcohol ?? j.rules?.deluxeCap ?? eco.deluxeCap);
-    if (Number.isFinite(j.rules?.minorDiscount)) {
-      eco.minorDiscount = Number(j.rules.minorDiscount);
-    }
+
+    // ✂️ Removed minorDiscount ingestion by design
 
     store.patch('economics', eco);
   }catch(_e){
@@ -384,20 +385,68 @@ function ensureWorker(){
 /* ------------------------- Controller ------------------------- */
 const debounced = (fn, ms=250)=>{let t; return (...a)=>{clearTimeout(t); t=setTimeout(()=>fn(...a),ms);}};
 
+// NEW: vouchers-aware scheduleCalc (bypasses worker when vouchers are on)
 function scheduleCalc(){
   const { inputs, economics, dataset } = store.get();
 
-  if (ensureWorker() && workerReady) {
+  // --- C&A vouchers: read UI (IDs from vouchers form) ---
+  const cnaDetails = document.getElementById('vouchers') || document.getElementById('cna-vouchers');
+  const vouchersEnabled = !!(cnaDetails && cnaDetails.open);
+
+  const toNum = (v)=> {
+    const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d.-]/g,''));
+    return Number.isFinite(n) ? n : 0;
+  };
+
+  const vAdultD  = toNum(document.getElementById('v-adult-d')?.value || 0);
+  const vAdultDP = toNum(document.getElementById('v-adult-dp')?.value || 0);
+  const vAdultP  = toNum(document.getElementById('v-adult-p')?.value || 0);
+  const vMinorD  = toNum(document.getElementById('v-minor-d')?.value || 0);
+  const vMinorDP = toNum(document.getElementById('v-minor-dp')?.value || 0);
+  const vMinorP  = toNum(document.getElementById('v-minor-p')?.value || 0);
+
+  const vouchers = {
+    adultCountPerDay: (vAdultD*4) + (vAdultDP*5) + (vAdultP*5),
+    minorCountPerDay: (vMinorD*4) + (vMinorDP*5) + (vMinorP*5),
+    // assumed incl. gratuity; align with your math module
+    perVoucherValue: 12.00
+  };
+
+  const wantVouchers = vouchersEnabled && (vouchers.adultCountPerDay > 0 || vouchers.minorCountPerDay > 0);
+
+  // Prefer worker only when NO vouchers (to avoid adding voucher plumbing in worker)
+  const canUseWorker = ensureWorker() && workerReady && !wantVouchers;
+
+  if (canUseWorker) {
     calcWorker.postMessage({ type:'compute', payload: { inputs, economics, dataset: (dataset||FALLBACK_DATASET) } });
     return;
   }
 
-  if (window.ITW_MATH && typeof window.ITW_MATH.compute === 'function') {
-    const results = window.ITW_MATH.compute(inputs, economics, dataset||FALLBACK_DATASET);
-    store.patch('results', results);
-  } else {
+  if (!window.ITW_MATH || typeof window.ITW_MATH.compute !== 'function') {
     store.patch('results', initialState.results);
+    return;
   }
+
+  let results;
+  if (wantVouchers && typeof window.ITW_MATH.computeWithVouchers === 'function'){
+    results = window.ITW_MATH.computeWithVouchers(inputs, economics, dataset || FALLBACK_DATASET, vouchers);
+
+    // Show voucher badge
+    const chip = document.getElementById('voucher-badge');
+    if (chip) {
+      const amt = Number(results.vouchersAppliedPerDay || 0);
+      chip.hidden = !(amt > 0);
+      chip.textContent = amt > 0 ? `C&A: −${money(amt)}/day` : '';
+    }
+  } else {
+    results = window.ITW_MATH.compute(inputs, economics, dataset || FALLBACK_DATASET);
+
+    // Hide voucher badge
+    const chip = document.getElementById('voucher-badge');
+    if (chip) chip.hidden = true;
+  }
+
+  store.patch('results', results);
 }
 const debouncedCalc = debounced(scheduleCalc, 120);
 
@@ -434,7 +483,7 @@ function renderResults(r){
   }
   announce('Best value: ' + label);
 
-  // --- Kids package hint (Soda / Refreshment / À-la-carte) ---
+  // --- Kids package hint (Soda / Refreshment / À-la-carte), copy updated
   (function showKidsHint(){
     const container = document.querySelector('.banner #best-text');
     if (!container) return;
@@ -452,9 +501,9 @@ function renderResults(r){
 
     let kidsMsg = '';
     if (keys.has('refresh')) {
-      kidsMsg = 'Kids would be best served by the Refreshment Package (50% off).';
+      kidsMsg = 'Kids are best served by the Refreshment Package based on your inputs.';
     } else if (keys.has('soda')) {
-      kidsMsg = 'Kids would be best served by the Soda Package.';
+      kidsMsg = 'Kids are best served by the Soda Package based on your inputs.';
     } else if (keys.has('alc')) {
       kidsMsg = 'Kids are best on à-la-carte based on your inputs.';
     }
@@ -512,6 +561,18 @@ function renderResults(r){
     }
 
     c.update('none');
+  }
+
+  // --- Update Screen-Reader a11y Table ---
+  {
+    const srAlc = document.getElementById('sr-alc');
+    const srSoda = document.getElementById('sr-soda');
+    const srRefresh = document.getElementById('sr-refresh');
+    const srDeluxe = document.getElementById('sr-deluxe');
+    if (srAlc && r.bars)    srAlc.textContent    = money(r.bars.alc.mean);
+    if (srSoda && r.bars)   srSoda.textContent   = money(r.bars.soda.mean);
+    if (srRefresh && r.bars)srRefresh.textContent= money(r.bars.refresh.mean);
+    if (srDeluxe && r.bars) srDeluxe.textContent = money(r.bars.deluxe.mean);
   }
 
   /* ---------- Smart Break-Even Monitors ---------- */
@@ -1016,84 +1077,97 @@ function wireInputs(){
     store.patch('inputs', next);
     scheduleCalc(); persistNow(); announce('Preset loaded: '+name);
   };
-/* ---------- Personas (per-person daily averages) ---------- */
-/* Values are midpoints from your brief; adults/minors set where noted. */
-const PERSONAS = {
-  family: {
-    label: "Family with Kids",
-    adults: 2, minors: 2,
-    drinks: {
-      soda: 3.5, freshjuice: 2, mocktail: 1.5, energy: 0.5, bottledwater: 4.5, coffee: 1.5,
-      beer: 1.0, wine: 1.5, cocktail: 0, spirits: 0, teaprem: 0, milkshake: 0
-    }
-  },
-  girls: {
-    label: "Girls Trip",
-    adults: 4, minors: 0,
-    drinks: {
-      soda: 1.5, freshjuice: 2.5, mocktail: 2, energy: 1, bottledwater: 3.5, coffee: 2,
-      beer: 0.5, wine: 1.5, cocktail: 1.5, spirits: 0, teaprem: 0.3, milkshake: 0
-    }
-  },
-  boys: {
-    label: "Boys Trip",
-    adults: 3, minors: 0,
-    drinks: {
-      soda: 2.5, freshjuice: 1, mocktail: 1, energy: 2, bottledwater: 4, coffee: 1,
-      beer: 3, wine: 0.5, cocktail: 0.8, spirits: 0.7, teaprem: 0, milkshake: 0
-    }
-  },
-  romance: {
-    label: "Romantic Couple",
-    adults: 2, minors: 0,
-    drinks: {
-      soda: 1, freshjuice: 2, mocktail: 1.5, energy: 0, bottledwater: 3, coffee: 2,
-      beer: 0.3, wine: 1.3, cocktail: 0.7, spirits: 0, teaprem: 0.2, milkshake: 0
-    }
-  },
-  solo: {
-    label: "Health-Conscious Solo",
-    adults: 1, minors: 0,
-    drinks: {
-      soda: 0.5, freshjuice: 3.5, mocktail: 2, energy: 1, bottledwater: 5.5, coffee: 2,
-      beer: 0.3, wine: 0.7, cocktail: 0, spirits: 0, teaprem: 0.3, milkshake: 0
-    }
-  },
-  seniors: {
-    label: "Senior Group Outing",
-    adults: 4, minors: 0,
-    drinks: {
-      soda: 2, freshjuice: 2, mocktail: 1, energy: 0, bottledwater: 4, coffee: 3,
-      beer: 0.7, wine: 1.3, cocktail: 0, spirits: 0, teaprem: 0.4, milkshake: 0
-    }
-  }
-};
-   /* ---------- Apply Persona ---------- */
-window.applyPersona = (key) => {
-  const p = PERSONAS[key];
-  if (!p) return;
 
-  // Start from current state to preserve non-persona fields (days, weighting, etc.)
-  const next = structuredClone(store.get().inputs);
+  /* ---------- Personas (per-person daily averages) ---------- */
+  const PERSONAS = {
+    family: {
+      label: "Family with Kids",
+      adults: 2, minors: 2,
+      drinks: {
+        soda: 3.5, freshjuice: 2, mocktail: 1.5, energy: 0.5, bottledwater: 4.5, coffee: 1.5,
+        beer: 1.0, wine: 1.5, cocktail: 0, spirits: 0, teaprem: 0, milkshake: 0
+      }
+    },
+    girls: {
+      label: "Girls Trip",
+      adults: 4, minors: 0,
+      drinks: {
+        soda: 1.5, freshjuice: 2.5, mocktail: 2, energy: 1, bottledwater: 3.5, coffee: 2,
+        beer: 0.5, wine: 1.5, cocktail: 1.5, spirits: 0, teaprem: 0.3, milkshake: 0
+      }
+    },
+    boys: {
+      label: "Boys Trip",
+      adults: 3, minors: 0,
+      drinks: {
+        soda: 2.5, freshjuice: 1, mocktail: 1, energy: 2, bottledwater: 4, coffee: 1,
+        beer: 3, wine: 0.5, cocktail: 0.8, spirits: 0.7, teaprem: 0, milkshake: 0
+      }
+    },
+    romance: {
+      label: "Romantic Couple",
+      adults: 2, minors: 0,
+      drinks: {
+        soda: 1, freshjuice: 2, mocktail: 1.5, energy: 0, bottledwater: 3, coffee: 2,
+        beer: 0.3, wine: 1.3, cocktail: 0.7, spirits: 0, teaprem: 0.2, milkshake: 0
+      }
+    },
+    solo: {
+      label: "Health-Conscious Solo",
+      adults: 1, minors: 0,
+      drinks: {
+        soda: 0.5, freshjuice: 3.5, mocktail: 2, energy: 1, bottledwater: 5.5, coffee: 2,
+        beer: 0.3, wine: 0.7, cocktail: 0, spirits: 0, teaprem: 0.3, milkshake: 0
+      }
+    },
+    seniors: {
+      label: "Senior Group Outing",
+      adults: 4, minors: 0,
+      drinks: {
+        soda: 2, freshjuice: 2, mocktail: 1, energy: 0, bottledwater: 4, coffee: 3,
+        beer: 0.7, wine: 1.3, cocktail: 0, spirits: 0, teaprem: 0.4, milkshake: 0
+      }
+    },
+    // NEW personas
+    light: {
+      label: "Light Drinker",
+      adults: 1, minors: 0,
+      drinks: { soda: 1, coffee: 1, bottledwater: 2, beer: 1, wine: 1, cocktail: 0.5 }
+    },
+    moderate: {
+      label: "Moderate Drinker",
+      adults: 1, minors: 0,
+      drinks: { soda: 1, coffee: 2, bottledwater: 2, beer: 2, wine: 2, cocktail: 2 }
+    }
+  };
 
-  // Set group
-  next.adults = Math.max(1, Math.min(20, Math.round(p.adults ?? next.adults)));
-  next.minors = Math.max(0, Math.min(20, Math.round(p.minors ?? next.minors)));
+  /* ---------- Apply Persona ---------- */
+  window.applyPersona = (key) => {
+    const p = PERSONAS[key];
+    if (!p) return;
 
-  // Replace drinks with persona mix
-  Object.keys(next.drinks).forEach(k => next.drinks[k] = 0);
-  Object.entries(p.drinks || {}).forEach(([k,v]) => {
-    if (k in next.drinks) next.drinks[k] = Math.max(0, Number(v) || 0);
-  });
+    // Start from current state to preserve non-persona fields (days, weighting, etc.)
+    const next = structuredClone(store.get().inputs);
 
-  // Keep calc mode as-is (simple). If user was on itinerary mode, keep that too.
-  store.patch('inputs', next);
+    // Set group
+    next.adults = Math.max(1, Math.min(20, Math.round(p.adults ?? next.adults)));
+    next.minors = Math.max(0, Math.min(20, Math.round(p.minors ?? next.minors)));
 
-  // Calculate + persist
-  scheduleCalc(); persistNow(); announce(`Loaded persona: ${p.label}`);
-  // Scroll to best value for nice feedback
-  document.getElementById('jump-winner')?.click();
-};
+    // Replace drinks with persona mix
+    Object.keys(next.drinks).forEach(k => next.drinks[k] = 0);
+    Object.entries(p.drinks || {}).forEach(([k,v]) => {
+      if (k in next.drinks) next.drinks[k] = Math.max(0, Number(v) || 0);
+    });
+
+    // Keep calc mode as-is (simple). If user was on itinerary mode, keep that too.
+    store.patch('inputs', next);
+
+    // Calculate + persist
+    scheduleCalc(); persistNow(); announce(`Loaded persona: ${p.label}`);
+    // Scroll to best value for nice feedback
+    document.getElementById('jump-winner')?.click();
+  };
+
   /* ---------- Jump to best value ---------- */
   const jump = $('#jump-winner');
   if (jump) jump.addEventListener('click', ()=>{
