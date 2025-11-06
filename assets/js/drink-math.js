@@ -1,8 +1,10 @@
-/* drink-math.js — v.9.000.004 (shared pure math, schema-adaptive & hardened)
-   Changes from v.9.000.003:
-   - Group rows now include pkgKey/isMinor/discountApplied.
-   - Minors can correctly be assigned Soda vs Refreshment (never Deluxe).
-   - Labeling improved for minors (Soda (disc.) / Refreshment (disc.)).
+/* drink-math.js — v.9.001.000 (pure math + voucher companion)
+   - Preserves v.9.000.004 behavior (ranges, weighting, itinerary, gratuity, caps, minors)
+   - Adds computeWithVouchers(inputs, economics, dataset, vouchers)
+     • Vouchers reduce ALC (à-la-carte) only.
+     • Adult vouchers: apply to alcoholic first, overflow to non-alc.
+     • Minor vouchers: non-alc only.
+     • All values assumed to include gratuity (consistent with cost model).
 */
 
 /* ------------------------- tiny utils ------------------------- */
@@ -11,7 +13,7 @@ const toNum = (v) => {
   return Number.isFinite(n) ? n : 0;
 };
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, toNum(n)));
-const safe = (n) => Number.isFinite(n) ? n : 0;
+const safe = (n) => (Number.isFinite(n) ? n : 0);
 const sum = (arr) => arr.reduce((a, b) => a + b, 0);
 const round2 = (n) => Math.round((Number.isFinite(n) ? n : 0) * 100) / 100;
 
@@ -49,7 +51,7 @@ function applyWeight(list, days, seaDays, seaApply, seaWeight) {
 
 /* ------------------------- dataset adapter ------------------------- */
 function adaptDataset(dataset) {
-  // Prices: prefer legacy map; else build from items[]
+  // Prices
   let prices = dataset?.prices;
   if (!prices && Array.isArray(dataset?.items)) {
     prices = {};
@@ -65,22 +67,16 @@ function adaptDataset(dataset) {
     { soda: [], refresh: [], alcoholic: [], alcohol: [] },
     dataset?.sets || {}
   );
-  const alcoholSet = Array.isArray(sets.alcohol)
-    ? sets.alcohol
-    : (sets.alcoholic || []);
+  const alcoholSet = Array.isArray(sets.alcohol) ? sets.alcohol : (sets.alcoholic || []);
 
-  // Rules: gratuity & caps
-  const grat = Number.isFinite(dataset?.rules?.gratuity)
-    ? dataset.rules.gratuity
-    : undefined;
-  const epsilon = Number.isFinite(dataset?.rules?.epsilon)
-    ? dataset.rules.epsilon
-    : 0;
+  // Rules
+  const grat = Number.isFinite(dataset?.rules?.gratuity) ? dataset.rules.gratuity : undefined;
+  const epsilon = Number.isFinite(dataset?.rules?.epsilon) ? dataset.rules.epsilon : 0;
   const capFromRules = Number.isFinite(dataset?.rules?.caps?.deluxeAlcohol)
     ? dataset.rules.caps.deluxeAlcohol
     : undefined;
 
-  // Packages: support object form (priceMid || price)
+  // Packages (object form)
   let pkgFromDataset = null;
   if (dataset?.packages && typeof dataset.packages === 'object') {
     const p = dataset.packages;
@@ -103,16 +99,11 @@ function adaptDataset(dataset) {
 }
 
 /* ------------------------- component helpers ------------------------- */
-function alcTotal(list, prices, grat) {
-  return safe(sum(list.map(([id, qty]) => {
-    const unit = toNum(prices[id]);
-    const q = toNum(qty);
-    return (q * unit) * (1 + grat);
-  })));
+function totalFor(list, prices, grat) {
+  return safe(sum(list.map(([id, qty]) => (toNum(qty) * toNum(prices[id])) * (1 + grat))));
 }
-function includedForSet(list, set, prices, grat) {
-  return safe(sum(list
-    .filter(([id]) => set.includes(id))
+function incForSet(list, set, prices, grat) {
+  return safe(sum(list.filter(([id]) => set.includes(id))
     .map(([id, qty]) => (toNum(qty) * toNum(prices[id])) * (1 + grat))));
 }
 function deluxeBreakdown(list, sets, prices, grat, cap) {
@@ -129,14 +120,15 @@ function deluxeBreakdown(list, sets, prices, grat, cap) {
         included += (q * cap) * (1 + grat);
         overcap += (q * (unit - cap)) * (1 + grat);
       }
-    } else if (sets.refresh.includes(id) || sets.soda.includes(id)) {
+    } else {
+      // Non-alc (refresh+soda) fully included on Deluxe
       included += (q * unit) * (1 + grat);
     }
   }
   return { included: safe(included), overcap: safe(overcap) };
 }
 
-/* ------------------------- compute ------------------------- */
+/* ------------------------- compute (base) ------------------------- */
 export function compute(inputs, economics, dataset) {
   const { prices: dsPrices, sets: dsSets, grat: dsGrat, capFromRules, epsilon } =
     adaptDataset(dataset || {});
@@ -205,53 +197,51 @@ export function compute(inputs, economics, dataset) {
   // Build min/mean/max lists and apply weighting unless itinerary
   const lists = ['min', 'mean', 'max'].map(mode => {
     const L = base.map(([k, v]) => [k, scalarize(v, mode)]);
-    return isItinerary
-      ? L
-      : applyWeight(L, days, seaDays, seaApply, seaWeight);
+    return isItinerary ? L : applyWeight(L, days, seaDays, seaApply, seaWeight);
   });
   const [minL, meanL, maxL] = lists;
 
   // --- Totals (à-la-carte and included values) ---
-  const alcMin = round2(alcTotal(minL, dsPrices, grat));
-  const alcMean = round2(alcTotal(meanL, dsPrices, grat));
-  const alcMax = round2(alcTotal(maxL, dsPrices, grat));
+  const alcMin  = round2(totalFor(minL,  dsPrices, grat));
+  const alcMean = round2(totalFor(meanL, dsPrices, grat));
+  const alcMax  = round2(totalFor(maxL,  dsPrices, grat));
 
-  const incSMin = round2(includedForSet(minL, dsSets.soda, dsPrices, grat));
-  const incSMean = round2(includedForSet(meanL, dsSets.soda, dsPrices, grat));
-  const incSMax = round2(includedForSet(maxL, dsSets.soda, dsPrices, grat));
+  const incSMin  = round2(incForSet(minL,  dsSets.soda,    dsPrices, grat));
+  const incSMean = round2(incForSet(meanL, dsSets.soda,    dsPrices, grat));
+  const incSMax  = round2(incForSet(maxL,  dsSets.soda,    dsPrices, grat));
 
-  const incRMin = round2(includedForSet(minL, dsSets.refresh, dsPrices, grat));
-  const incRMean = round2(includedForSet(meanL, dsSets.refresh, dsPrices, grat));
-  const incRMax = round2(includedForSet(maxL, dsSets.refresh, dsPrices, grat));
+  const incRMin  = round2(incForSet(minL,  dsSets.refresh, dsPrices, grat));
+  const incRMean = round2(incForSet(meanL, dsSets.refresh, dsPrices, grat));
+  const incRMax  = round2(incForSet(maxL,  dsSets.refresh, dsPrices, grat));
 
-  const delMin = deluxeBreakdown(minL, dsSets, dsPrices, grat, cap);
+  const delMin  = deluxeBreakdown(minL,  dsSets, dsPrices, grat, cap);
   const delMean = deluxeBreakdown(meanL, dsSets, dsPrices, grat, cap);
-  const delMax = deluxeBreakdown(maxL, dsSets, dsPrices, grat, cap);
+  const delMax  = deluxeBreakdown(maxL,  dsSets, dsPrices, grat, cap);
 
   // ------- Effective daily total costs (what you actually pay per day) -------
   const costSoda = {
-    min: round2((pkg.soda || 0) + Math.max(0, alcMin - incSMin)),
-    mean: round2((pkg.soda || 0) + Math.max(0, alcMean - incSMean)),
-    max: round2((pkg.soda || 0) + Math.max(0, alcMax - incSMax))
+    min: round2((pkg.soda || 0)    + Math.max(0, alcMin  - incSMin)),
+    mean: round2((pkg.soda || 0)   + Math.max(0, alcMean - incSMean)),
+    max: round2((pkg.soda || 0)    + Math.max(0, alcMax  - incSMax))
   };
   const costRefresh = {
-    min: round2((pkg.refresh || 0) + Math.max(0, alcMin - incRMin)),
-    mean: round2((pkg.refresh || 0) + Math.max(0, alcMean - incRMean)),
-    max: round2((pkg.refresh || 0) + Math.max(0, alcMax - incRMax))
+    min: round2((pkg.refresh || 0) + Math.max(0, alcMin  - incRMin)),
+    mean: round2((pkg.refresh || 0)+ Math.max(0, alcMean - incRMean)),
+    max: round2((pkg.refresh || 0) + Math.max(0, alcMax  - incRMax))
   };
   const costDeluxe = {
-    min: round2((pkg.deluxe || 0) + delMin.overcap),
+    min: round2((pkg.deluxe || 0)  + delMin.overcap),
     mean: round2((pkg.deluxe || 0) + delMean.overcap),
-    max: round2((pkg.deluxe || 0) + delMax.overcap)
+    max: round2((pkg.deluxe || 0)  + delMax.overcap)
   };
   const costAlc = { min: alcMin, mean: alcMean, max: alcMax };
 
   // ------- Winner selection (per-person, daily) -------
   const candidates = [
-    { key: 'alc', val: costAlc.mean },
-    { key: 'soda', val: costSoda.mean },
+    { key: 'alc',     val: costAlc.mean },
+    { key: 'soda',    val: costSoda.mean },
     { key: 'refresh', val: costRefresh.mean },
-    { key: 'deluxe', val: costDeluxe.mean }
+    { key: 'deluxe',  val: costDeluxe.mean }
   ];
   let best = { key: 'alc', val: Infinity };
   for (const c of candidates) if (c.val < best.val) best = c;
@@ -261,9 +251,9 @@ export function compute(inputs, economics, dataset) {
   const winnerKey = best.key;
 
   const perDay =
-    winnerKey === 'soda' ? costSoda.mean :
+    winnerKey === 'soda'    ? costSoda.mean    :
     winnerKey === 'refresh' ? costRefresh.mean :
-    winnerKey === 'deluxe' ? costDeluxe.mean :
+    winnerKey === 'deluxe'  ? costDeluxe.mean  :
     costAlc.mean;
 
   // ------- Policy & group -------
@@ -272,16 +262,16 @@ export function compute(inputs, economics, dataset) {
   const adultStrategy = deluxeRequired ? 'deluxe' : winnerKey;
 
   function priceForKey(key) {
-    return key === 'alc' ? costAlc.mean
-         : key === 'soda' ? costSoda.mean
+    return key === 'alc'     ? costAlc.mean
+         : key === 'soda'    ? costSoda.mean
          : key === 'refresh' ? costRefresh.mean
-         : costDeluxe.mean;
+         :                     costDeluxe.mean;
   }
   function labelForKey(key, { isMinor=false, discount=false } = {}) {
-    if (key === 'alc') return 'À-la-carte';
-    if (key === 'soda') return discount && isMinor ? 'Soda (disc.)' : 'Soda';
+    if (key === 'alc')     return 'À-la-carte';
+    if (key === 'soda')    return discount && isMinor ? 'Soda (disc.)' : 'Soda';
     if (key === 'refresh') return discount && isMinor ? 'Refreshment (disc.)' : 'Refreshment';
-    if (key === 'deluxe') return 'Deluxe';
+    if (key === 'deluxe')  return 'Deluxe';
     return 'À-la-carte';
   }
 
@@ -304,11 +294,11 @@ export function compute(inputs, economics, dataset) {
     multiplier += 1;
   }
 
-  // Minors: If adults (or winner) are Deluxe, minors use Refreshment; else they follow the winnerKey.
+  // Minors: If adults (or winner) are Deluxe, minors use Refreshment; else they follow the winnerKey (never Deluxe).
   const minorPkgKeyBase = (adultStrategy === 'deluxe' || winnerKey === 'deluxe') ? 'refresh' : winnerKey;
 
   for (let i = 1; i <= minors; i++) {
-    const k = (minorPkgKeyBase === 'deluxe') ? 'refresh' : minorPkgKeyBase; // never assign Deluxe to minors
+    const k = (minorPkgKeyBase === 'deluxe') ? 'refresh' : minorPkgKeyBase;
     const dBase = priceForKey(k);
     const d = dBase * kid;
     rows.push({
@@ -325,13 +315,17 @@ export function compute(inputs, economics, dataset) {
 
   const trip = round2(perDay * days * multiplier);
 
+  // For voucher math: split mean ALC into alcoholic vs non-alc subtotal
+  const alcAlcoholicMean = round2(totalFor(meanL.filter(([id]) => dsSets.alcoholic.includes(id)), dsPrices, grat));
+  const alcNonAlcoholicMean = round2(totalFor(meanL.filter(([id]) => !dsSets.alcoholic.includes(id)), dsPrices, grat));
+
   return {
     hasRange,
     bars: {
-      alc: { min: safe(costAlc.min), mean: safe(costAlc.mean), max: safe(costAlc.max) },
-      soda: { min: safe(costSoda.min), mean: safe(costSoda.mean), max: safe(costSoda.max) },
+      alc:     { min: safe(costAlc.min),     mean: safe(costAlc.mean),     max: safe(costAlc.max) },
+      soda:    { min: safe(costSoda.min),    mean: safe(costSoda.mean),    max: safe(costSoda.max) },
       refresh: { min: safe(costRefresh.min), mean: safe(costRefresh.mean), max: safe(costRefresh.max) },
-      deluxe: { min: safe(costDeluxe.min), mean: safe(costDeluxe.mean), max: safe(costDeluxe.max) }
+      deluxe:  { min: safe(costDeluxe.min),  mean: safe(costDeluxe.mean),  max: safe(costDeluxe.max) }
     },
     winnerKey,
     perDay: safe(round2(perDay)),
@@ -346,11 +340,95 @@ export function compute(inputs, economics, dataset) {
       discountApplied: !!r.discountApplied
     })),
     included: {
-      soda: safe(round2(incSMean)),
+      soda:    safe(round2(incSMean)),
       refresh: safe(round2(incRMean)),
-      deluxe: safe(round2(delMean.included))
+      deluxe:  safe(round2(delMean.included))
     },
     overcap: safe(round2(delMean.overcap)),
-    deluxeRequired
+    deluxeRequired,
+    // Voucher helpers
+    _alcAlcoholicMean: alcAlcoholicMean,
+    _alcNonAlcoholicMean: alcNonAlcoholicMean,
+    _days: days,
+    _adults: adults,
+    _minors: minors
+  };
+}
+
+/* ------------------------- vouchers companion ------------------------- */
+/**
+ * vouchers = {
+ *   adultCountPerDay: number,  // e.g., 4
+ *   minorCountPerDay: number,  // e.g., 4 (non-alc only)
+ *   perVoucherValue:  number   // currency incl. gratuity (e.g., 12.00)
+ * }
+ */
+export function computeWithVouchers(inputs, economics, dataset, vouchers) {
+  const base = compute(inputs, economics, dataset);
+
+  const vAdults = clamp(vouchers?.adultCountPerDay ?? 0, 0, 12);
+  const vMinors = clamp(vouchers?.minorCountPerDay ?? 0, 0, 12);
+  const vVal    = Math.max(0, toNum(vouchers?.perVoucherValue ?? 0));
+
+  // Pools (per-cabin, per-day) in currency (incl. grat)
+  const adultPool = round2(vAdults * vVal * base._adults);
+  const minorPool = round2(vMinors * vVal * base._minors);
+
+  // Split ALC mean into alcoholic + non-alc subtotals
+  const alcAlcohol = base._alcAlcoholicMean;
+  const alcNonAlc  = base._alcNonAlcoholicMean;
+
+  // Apply adults to alcoholic first, then overflow to non-alc
+  const adultOnAlcohol = Math.min(adultPool, alcAlcohol);
+  const adultOverflow  = Math.max(0, adultPool - adultOnAlcohol);
+
+  // Minors: non-alc only
+  const minorOnNonAlc = Math.min(minorPool, Math.max(0, alcNonAlc - adultOverflow));
+
+  const totalCredit = round2(adultOnAlcohol + adultOverflow + minorOnNonAlc);
+  const newAlcMean  = round2(Math.max(0, base.bars.alc.mean - totalCredit));
+
+  // Re-evaluate winner with adjusted ALC only (packages unchanged)
+  const candidates = [
+    { key: 'alc',     val: newAlcMean },
+    { key: 'soda',    val: base.bars.soda.mean },
+    { key: 'refresh', val: base.bars.refresh.mean },
+    { key: 'deluxe',  val: base.bars.deluxe.mean }
+  ];
+  let best = { key: 'alc', val: Infinity };
+  for (const c of candidates) if (c.val < best.val) best = c;
+
+  const winnerKey = best.key;
+  const perDay =
+    winnerKey === 'alc'     ? newAlcMean
+  : winnerKey === 'soda'    ? base.bars.soda.mean
+  : winnerKey === 'refresh' ? base.bars.refresh.mean
+  :                           base.bars.deluxe.mean;
+
+  // Trip: multiply by adult/minor multiplier rule used in base
+  // Adults count as 1 each; minors count as (minorDiscount) each.
+  const kid = clamp(economics?.minorDiscount ?? 1.0, 0, 1);
+  const multiplier = base._adults + (base._minors * kid);
+  const trip = round2(perDay * base._days * multiplier);
+
+  return {
+    ...base,
+    bars: {
+      ...base.bars,
+      alc: { ...base.bars.alc, mean: newAlcMean }
+    },
+    winnerKey,
+    perDay,
+    trip,
+    vouchersAppliedPerDay: totalCredit,
+    vouchers: {
+      adultPoolPerDay: adultPool,
+      minorPoolPerDay: minorPool,
+      applied: {
+        adultOnAlcohol,
+        adultOverflowToNonAlcohol: adultOverflow,
+        minorOnNonAlcohol: minorOnNonAlc
+      }
+    }
   };
 }
