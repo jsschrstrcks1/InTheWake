@@ -8,7 +8,18 @@
   <meta name="description" content="Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis. Plan your cruise drink budget."/>
   <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
 
-  <!-- Open Graph / Twitter -->
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/in_the_wake_icon_192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/in_the_wake_icon_180x180.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#0a3d62">
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://api.frankfurter.app">
+  <link rel="preconnect" href="https://api.exchangerate.host">
+
+  <!-- Social -->
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Royal Caribbean Drink Package Calculator"/>
   <meta property="og:description" content="Break-even chart + sea/port day weighting. Find out if a package saves money."/>
@@ -34,100 +45,103 @@
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Royal Caribbean Drink Package Calculator","applicationCategory":"Utilities","operatingSystem":"Any (Web)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
   </script>
 
-  <!-- PWA + Icons -->
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#0a3d62">
-  <link rel="apple-touch-icon" href="/assets/icons/in_the_wake_icon_180x180.png">
-  <link rel="icon" type="image/png" sizes="16x16"  href="/assets/icons/in_the_wake_icon_16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32"  href="/assets/icons/in_the_wake_icon_32x32.png">
-  <link rel="icon" type="image/png" sizes="48x48"  href="/assets/icons/in_the_wake_icon_48x48.png">
-  <link rel="icon" type="image/png" sizes="96x96"  href="/assets/icons/in_the_wake_icon_96x96.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/in_the_wake_icon_192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/assets/icons/in_the_wake_icon_512x512.png">
-
-  <!-- Preconnects for FX -->
-  <link rel="preconnect" href="https://api.frankfurter.app">
-  <link rel="preconnect" href="https://api.exchangerate.host">
-
   <style>
-  :root{
-    --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-    --shadow:0 2px 6px rgba(8,48,65,.08); --shadow-lg:0 10px 28px rgba(8,48,65,.14);
-    --rail-width:320px; --bg:#f8fbfc; --card:#fff; --bd:#e5e7eb; --muted:#525a66;
-    --good:#10b981; --warn:#f59e0b; --bad:#ef4444
-  }
-  *{box-sizing:border-box} html{scrollbar-gutter:stable both-edges}
-  body{margin:0;background:var(--sky);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-  img{max-width:100%;display:block;height:auto}
-  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-  .card{background:var(--card);border:2px solid var(--rope);border-radius:12px;padding:1rem;margin:.8rem 0;box-shadow:var(--shadow)}
-  h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456} .small{font-size:.9rem;color:#475569} .muted{color:var(--muted)} .sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+    :root {
+      --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff;
+      --accent:#0e6e8e; --shadow:0 2px 6px rgba(8,48,65,.08); --shadow-lg:0 10px 28px rgba(8,48,65,.14);
+      --rail-width:320px; --bg:#f8fbfc; --card:#fff; --bd:#e5e7eb; --muted:#525a66;
+      --chip:#e7f6ea; --chipText:#0a7b3e; --good:#10b981; --warn:#f59e0b; --bad:#ef4444;
+    }
+    *{box-sizing:border-box}
+    html{scrollbar-gutter:stable both-edges}
+    body{margin:0;background:var(--sky);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    img{max-width:100%;height:auto;display:block}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+    .card{background:var(--card);border:2px solid var(--rope);border-radius:12px;padding:1rem;margin:.8rem 0;box-shadow:var(--shadow)}
+    h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456} .small{font-size:.9rem;color:#475569} .muted{color:var(--muted)}
+    .sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-  /* Header / hero */
-  .hero-header{position:relative;z-index:0;border-bottom:6px double var(--rope);background:#eaf6f6}
-  .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .75rem;align-items:center;position:relative;z-index:10;min-height:56px;background:#eaf6f6}
-  .brand{display:flex;align-items:center;gap:.6rem}
-  .brand img{max-height:44px;height:44px;width:auto}
-  .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-  .itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap;padding-inline:.75rem;padding-bottom:1px}
-  .itw-nav .nav-item{position:relative}
-  .itw-nav .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
-  .itw-nav .nav-item > a.chip{text-decoration:none}
-  .itw-nav .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-  .itw-nav .menu{position:absolute;left:0;top:100%;transform:translateY(.35rem);min-width:240px;max-width:min(90vw,360px);background:#fff;color:var(--ink);border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:1000;transition:opacity .18s ease}
-  .itw-nav .nav-item.open>.menu{display:block;visibility:visible;opacity:1;pointer-events:auto}
-  .itw-nav .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
-  .itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
-  .itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
+    .hero-header{position:relative;z-index:0;border-bottom:6px double var(--rope);background:#eaf6f6;overflow:visible}
+    .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .75rem;align-items:center;position:relative;z-index:10;min-height:56px;background:#eaf6f6}
+    .brand{display:flex;align-items:center;gap:.6rem}.brand img{height:40px;width:auto}
+    .version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
+    .itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap;padding-inline:.75rem;padding-bottom:1px;overflow:visible}
+    .itw-nav .nav-item{position:relative}
+    .itw-nav .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer}
+    .itw-nav .nav-item>a.chip{text-decoration:none}
+    .itw-nav .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
+    .itw-nav .menu{position:absolute;left:0;top:100%;transform:translateY(.35rem);min-width:240px;max-width:min(90vw,360px);background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:100;transition:opacity .18s ease}
+    .itw-nav .nav-item.open>.menu{display:block;visibility:visible;opacity:1;pointer-events:auto}
+    .itw-nav .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
+    .itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
+    .itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
 
-  .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.010.071') center 38%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden;margin-top:.15rem;z-index:0}
-  .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;flex-direction:column;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-  .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(90vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
-  .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
-  .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
+    .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg?v=3.010.071') center 38%/cover no-repeat;display:flex;align-items:flex-end;overflow:hidden;margin-top:.15rem;z-index:0}
+    .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+    .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(90vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+    .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
+    .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
+    .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:2}
 
-  .page-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,var(--rail-width));gap:2rem;align-items:start}
-  @media (max-width:979.98px){.page-grid{grid-template-columns:1fr}}
+    .page-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,var(--rail-width));gap:2rem;align-items:start}
+    @media (max-width:979.98px){.page-grid{grid-template-columns:1fr}}
 
-  .inputs.card{border-color:var(--bd)}
-  .inputs .row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
-  .inputs .row:last-child{border-bottom:0}
-  .inputs input[type="text"]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;background:#fff;min-height:44px;font-size:16px}
-  .inputs select{padding:6px 8px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--ink)}
+    .rail-list{display:grid;gap:1rem}
+    .author-card{display:flex;gap:.75rem;align-items:center}
+    .author-avatar{display:block;width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center;flex:0 0 48px}
 
-  #breakeven-chart{width:100%!important;max-width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px;background:#fff;display:block}
+    .inputs .row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
+    .inputs .row:last-child{border-bottom:0}
+    .inputs .row> :not(:first-child){justify-self:end}
+    .inputs input[type="text"], .inputs input[type="number"]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;font:inherit;background:#fff;min-height:44px;font-size:16px}
+    .inputs select{padding:6px 8px;border:1px solid var(--bd);border-radius:8px;font:inherit;background:var(--card);color:var(--ink)}
+    .controls-inline{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .badge{background:#fbbf24;color:#78350f;padding:4px 10px;border-radius:999px;font-weight:800}
+    .btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700;min-height:44px;font-size:1rem}
+    .btn.ghost{background:#fff;color:#0f172a}
 
-  .packages{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:18px}
-  .pkg.winner .phd::after{content:'Best';margin-left:.5rem;padding:2px 8px;border-radius:999px;background:#d1fae5;color:#065f46;font-weight:800;font-size:.75rem;border:1px solid #a7f3d0}
+    .qs{background:#fde68a20;border:1px solid #f59e0b50;border-radius:12px;padding:14px 16px;margin:16px 0}
+    .qs .qs-hd{font-weight:800;color:#7c2d12;margin:0 0 4px 0}
+    .qs .qs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
 
-  footer.wrap{max-width:1100px;margin:0 auto}
+    #breakeven-wrap{margin-top:18px;position:relative;line-height:0;overflow:hidden}
+    #breakeven-chart{width:100%!important;max-width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px;background:#fff;display:block}
+    #voucher-badge{position:absolute;top:-8px;right:0;transform:translateY(-100%)}
 
-  @media print{
-    body{font-size:12pt;background:var(--card)}
-    header.hero-header,.qs,.banner,.rail,.card:not(.inputs),.controls-inline .btn,footer{display:none}
-    main.wrap{max-width:100%;margin:0;padding:0}
-    .page-grid,.packages{grid-template-columns:1fr}
-    .card{border:none;box-shadow:none;page-break-inside:avoid}
-  }
+    /* Printing */
+    @media print{
+      body{font-size:12pt;background:var(--card)}
+      header.hero-header,.qs,.banner,.rail,.card:not(.inputs),.controls-inline .btn,footer{display:none}
+      main.wrap{max-width:100%;margin:0;padding:0}
+      .page-grid{grid-template-columns:1fr}
+      .card{border:none;box-shadow:none;page-break-inside:avoid}
+    }
 
-  @media (prefers-color-scheme: dark){
-    :root{--bg:#121721;--card:#1d2430;--bd:#3a4453;--muted:#b7c0cc;--ink:#e2e8f0}
-    body{color:#e2e8f0;background:var(--ink)}
-    a{color:#60a5fa}
-    .card{box-shadow:0 1px 4px rgba(0,0,0,.2);background:var(--card);border-color:var(--bd)}
-    .inputs.card .hd{background:var(--card)}
-  }
+    /* Force brand light palette even if OS is in dark mode */
+    @media (prefers-color-scheme: dark){
+      :root{color-scheme:light}
+      body,.card{background:var(--sky)!important;color:var(--ink)!important}
+      .card{background:var(--card)!important}
+    }
   </style>
 
-  <!-- Scripts (aligned versions) -->
-  <script src="/assets/js/vendor/chart.umd.min.js?v=.9.001.001" defer></script>
-  <link rel="modulepreload" href="/assets/js/drink-math.js?v=.9.001.001">
-  <link rel="preload" href="/assets/js/drink-worker.js?v=.9.001.001" as="worker"/>
+  <!-- Chart.js (local optional + CDN fallback) -->
+  <script
+    src="/vendor/chart.umd.min.js?v=.9.001.006"
+    defer
+    onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js';s.defer=true;document.head.appendChild(s);})()"
+  ></script>
+
+  <!-- Math & worker (versions aligned) -->
+  <link rel="modulepreload" href="/assets/js/drink-math.js?v=.9.001.006">
+  <link rel="preload" href="/assets/js/drink-worker.js?v=.9.001.006" as="worker"/>
   <script type="module">
-    import { compute as baseCompute, computeWithVouchers } from "/assets/js/drink-math.js?v=.9.001.001";
+    import { compute as baseCompute, computeWithVouchers } from "/assets/js/drink-math.js?v=.9.001.006";
     window.ITW_MATH = { compute: baseCompute, computeWithVouchers };
   </script>
+
+  <!-- App -->
   <script src="/assets/js/drink-calculator.app.js?v=.9.001.006" defer></script>
 </head>
 <body>
@@ -169,37 +183,38 @@
         <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
         <div class="tagline">A Cruise Traveler’s Logbook</div>
       </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" alt="Compass rose" onerror="this.onerror=null;this.src='/assets/compass_rose.png';">
-      <div class="hero-credit tiny" style="position:absolute;right:.85rem;bottom:.85rem;opacity:.85;">Photo © Flickers of Majesty</div>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="Compass rose">
+      <div class="hero-credit tiny" style="display:block;opacity:.85;">Photo © Flickers of Majesty</div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="content">
     <section aria-label="Calculator">
-      <section class="qs" aria-labelledby="qs-title" style="background:#fde68a20;border:1px solid #f59e0b50;border-radius:12px;padding:14px 16px;margin:16px 0">
-        <h2 id="qs-title" class="qs-hd" style="margin:0 0 6px 0;color:#7c2d12">🚀 Quick Start: Load a Preset</h2>
-        <p class="small" style="margin:0 0 1rem 0;">Tap a preset to preview. “Load as Average” fills Simple mode. “Load Itinerary” fills Day-by-Day.</p>
-        <div class="qs-grid" id="qs-preset-buttons" role="list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px"></div>
+      <section class="qs" aria-labelledby="qs-title">
+        <h2 id="qs-title" class="qs-hd">🚀 Quick Start: Load a Preset</h2>
+        <p class="small" style="margin-bottom:1rem;">Tap a preset to preview. “Load as Average” fills Simple mode. “Load as Itinerary” fills Day-by-Day.</p>
+        <div class="qs-grid" id="qs-preset-buttons" role="list"></div>
         <div id="qs-details-host" style="margin-top:12px;"></div>
       </section>
 
-      <div class="banner" role="status" aria-live="polite" style="display:flex;gap:.75rem;align-items:center;background:#fff;border:1px solid var(--rope);border-radius:10px;padding:.6rem .8rem;margin:.4rem 0;">
+      <div class="banner" role="status" aria-live="polite">
         <span id="best-chip" class="chip">Best value: à-la-carte</span>
         <span id="best-text">Your daily picks are cheapest without a package.</span>
-        <button id="jump-winner" class="btn ghost" type="button" style="margin-left:auto;border:1px solid var(--bd);border-radius:8px;background:#fff;color:#0f172a;min-height:36px;padding:6px 10px;">Jump to Best Value</button>
+        <button id="jump-winner" class="btn ghost" type="button">Jump to Best Value</button>
       </div>
 
-      <p id="fallback-banner" class="health" role="status" hidden style="display:block;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:10px;padding:10px 14px;margin:12px 0">⚠️ We couldn't load live prices; using defaults.</p>
+      <p id="fallback-banner" class="health" role="status" hidden>⚠️ We couldn't load live prices; using defaults.</p>
       <p id="stale-data-banner" class="health" role="status" style="display:none;background:#fef3c7;border-color:#fde68a;color:#92400e;"></p>
+      <p id="health-note" class="health" role="status" aria-live="assertive"></p>
 
       <section class="card inputs" aria-labelledby="calc-title">
         <h2 id="calc-title" class="hd">
-          <span id="totals">Calculating...</span> <small class="small">– includes 18% gratuity</small>
+          <span id="totals">Calculating...</span>
+          <small class="small">– includes 18% gratuity</small>
           <div id="range-note" class="small" style="margin-top:6px;font-weight:700;"></div>
         </h2>
-
         <div class="bd">
-          <div class="controls-inline" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px;">
+          <div class="controls-inline" style="margin-top:8px;align-items:center;flex-wrap:wrap;">
             <label class="small" for="currency-select" style="font-weight:800;">Display currency</label>
             <select id="currency-select" aria-label="Display currency" class="small" style="font-weight:700;padding:4px 6px;border-radius:8px;border:1px solid var(--bd);">
               <option value="USD">USD $</option><option value="GBP">GBP £</option><option value="EUR">EUR €</option><option value="CAD">CAD $</option><option value="AUD">AUD $</option>
@@ -222,7 +237,7 @@
             </div>
             <div class="row" style="grid-template-columns:1fr 1fr">
               <label><input type="checkbox" id="sea-toggle" checked data-input="seaapply"> Apply weighting</label>
-              <div class="controls-inline" style="display:flex;align-items:center;gap:8px;justify-self:end;">
+              <div class="controls-inline">
                 <label for="sea-weight" class="small">Weight ±%</label>
                 <input id="sea-weight" type="range" min="0" max="40" value="20" data-input="seaweight" aria-label="Sea day weighting percent">
                 <span id="sea-weight-val" class="small">20%</span>
@@ -232,42 +247,33 @@
 
           <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
             <legend style="font-weight:800;padding:0 6px">Group in stateroom</legend>
-            <div class="row">
-              <label for="input-adults">Adults (21+)</label>
-              <input id="input-adults" type="text" inputmode="numeric" value="1" data-input="adults" aria-label="Number of adults">
-            </div>
-            <div class="row">
-              <label for="input-minors">Minors (under 21)</label>
-              <input id="input-minors" type="text" inputmode="numeric" value="0" data-input="minors" aria-label="Number of minors">
-            </div>
+            <div class="row"><label for="input-adults">Adults (21+)</label><input id="input-adults" type="text" inputmode="numeric" value="1" data-input="adults" aria-label="Number of adults"></div>
+            <div class="row"><label for="input-minors">Minors (under 21)</label><input id="input-minors" type="text" inputmode="numeric" value="0" data-input="minors" aria-label="Number of minors"></div>
           </fieldset>
 
-          <details id="cna-vouchers" class="small" style="border:2px solid var(--rope);border-radius:8px;background:var(--foam);margin-top:12px;">
-            <summary style="padding:1rem 1.25rem;cursor:pointer;list-style:none;border-radius:6px;font-weight:700;color:var(--sea);min-height:44px;display:block">
-              🎖️ <strong>Diamond or higher?</strong> Click here to apply your daily free-drink vouchers
-              <div class="tiny muted" style="font-weight:400;margin-top:4px;">For frequent Royal Caribbean cruisers only (Crown & Anchor). Most guests should leave this closed.</div>
-            </summary>
+          <details id="cna-vouchers" class="small" style="border:2px solid var(--rope);border-radius:8px;padding:0;margin-top:12px;background:var(--foam)">
+            <summary id="cna-title" style="cursor:pointer;font-weight:700;padding:1rem 1.25rem;list-style:none;">🎖️ <strong>Diamond or higher?</strong> Click here to apply your daily free-drink vouchers<div class="tiny muted" style="font-weight:400;margin-top:4px;">For frequent Royal Caribbean cruisers only (Crown & Anchor). Minors’ vouchers apply to non-alcoholic drinks only.</div></summary>
             <div class="cna-content" style="padding:0 1.25rem 1.25rem">
               <div class="small" style="margin:10px 0;background:#fff3cd;border-left:4px solid #f59e0b;padding:.75rem 1rem;border-radius:4px;">
                 <p><strong>Eligibility reference:</strong> Diamond ≈ <strong>80 nights</strong>, Diamond Plus ≈ <strong>175 points</strong>, Pinnacle Club ≈ <strong>700 nights</strong>.</p>
                 <p>Per person per day · Diamond 4 · Diamond Plus 5 · Pinnacle 5. Minors’ vouchers apply to non-alcoholic drinks only.</p>
               </div>
-
               <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;">
                 <legend style="font-weight:800;padding:0 6px">Adult Vouchers</legend>
-                <div class="row"><label for="v-adult-d">Adults with Diamond (4)</label><input id="v-adult-d" type="text" inputmode="numeric" value="0"></div>
-                <div class="row"><label for="v-adult-dp">Adults with Diamond+ (5)</label><input id="v-adult-dp" type="text" inputmode="numeric" value="0"></div>
-                <div class="row"><label for="v-adult-p">Adults with Pinnacle (5)</label><input id="v-adult-p" type="text" inputmode="numeric" value="0"></div>
+                <div class="row"><label for="v-adult-d">Adults with Diamond (4)</label><input id="v-adult-d" type="text" inputmode="numeric" value="0" data-voucher="adult-d"></div>
+                <div class="row"><label for="v-adult-dp">Adults with Diamond+ (5)</label><input id="v-adult-dp" type="text" inputmode="numeric" value="0" data-voucher="adult-dp"></div>
+                <div class="row"><label for="v-adult-p">Adults with Pinnacle (5)</label><input id="v-adult-p" type="text" inputmode="numeric" value="0" data-voucher="adult-p"></div>
               </fieldset>
-
               <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px;">
                 <legend style="font-weight:800;padding:0 6px">Minor Vouchers (Non-Alc Only)</legend>
-                <div class="row"><label for="v-minor-d">Minors with Diamond (4)</label><input id="v-minor-d" type="text" inputmode="numeric" value="0"></div>
-                <div class="row"><label for="v-minor-dp">Minors with Diamond+ (5)</label><input id="v-minor-dp" type="text" inputmode="numeric" value="0"></div>
-                <div class="row"><label for="v-minor-p">Minors with Pinnacle (5)</label><input id="v-minor-p" type="text" inputmode="numeric" value="0"></div>
+                <div class="row"><label for="v-minor-d">Minors with Diamond (4)</label><input id="v-minor-d" type="text" inputmode="numeric" value="0" data-voucher="minor-d"></div>
+                <div class="row"><label for="v-minor-dp">Minors with Diamond+ (5)</label><input id="v-minor-dp" type="text" inputmode="numeric" value="0" data-voucher="minor-dp"></div>
+                <div class="row"><label for="v-minor-p">Minors with Pinnacle (5)</label><input id="v-minor-p" type="text" inputmode="numeric" value="0" data-voucher="minor-p"></div>
               </fieldset>
             </div>
           </details>
+
+          <div id="cna-nudge" class="health" style="display:none;background:#e0f2fe;border-color:#0ea5e9;color:#0c4a6e;cursor:pointer;">🎖️ Are you a Diamond member? Don’t forget to <strong>click here to apply</strong> your free daily drinks!</div>
 
           <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
             <legend style="font-weight:800;padding:0 6px">Calculation Mode</legend>
@@ -277,10 +283,10 @@
             </div>
           </fieldset>
 
-          <div id="simple-inputs"><!-- stepper block rendered by app.js --></div>
+          <div id="simple-inputs"></div>
           <div id="itinerary-inputs" style="display:none;margin-top:12px;"></div>
 
-          <div id="breakeven-wrap" style="margin-top:18px;position:relative;line-height:0;overflow:hidden">
+          <div id="breakeven-wrap">
             <span id="voucher-badge" class="chip mini" aria-live="polite" hidden></span>
             <table id="chart-desc" class="sr-only">
               <caption>Daily cost comparison</caption>
@@ -295,7 +301,7 @@
             <canvas id="breakeven-chart" width="900" height="280" aria-label="Break-even comparison chart" aria-describedby="chart-desc"></canvas>
           </div>
 
-          <div class="controls-inline" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px">
+          <div class="controls-inline" style="margin-top:12px">
             <button class="btn" type="button" onclick="printResults()">Print / Save Results</button>
             <button class="btn ghost" type="button" onclick="shareScenario()">Share Scenario</button>
             <button class="btn" type="button" onclick="resetInputs()" style="background:var(--bad)">Reset All</button>
@@ -303,47 +309,37 @@
         </div>
       </section>
 
-      <!-- Group breakdown (auto-hidden for solo) -->
+      <!-- Group Breakdown table (hidden until populated by app.js) -->
       <section class="card" id="group-breakdown" hidden>
-        <div class="hd" style="position:static">Group Breakdown (Per Person)</div>
-        <div class="bd" style="padding:0">
-          <table style="width:100%;border-collapse:collapse;">
+        <h2 style="margin:0 0 1rem 0;color:var(--sea);font-size:1.5rem;">Group Breakdown (Per Person)</h2>
+        <div class="bd" style="padding:0;overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;min-width:500px;">
             <thead style="text-align:left;border-bottom:2px solid var(--rope);">
-              <tr><th style="padding:8px">Traveler</th><th style="padding:8px">Assigned Package</th><th style="padding:8px">Daily Cost</th><th style="padding:8px">Trip Total</th></tr>
+              <tr>
+                <th style="padding:8px">Traveler</th>
+                <th style="padding:8px">Assigned Package</th>
+                <th style="padding:8px">Daily Cost</th>
+                <th style="padding:8px">Trip Total</th>
+              </tr>
             </thead>
             <tbody id="group-table-body"></tbody>
           </table>
         </div>
       </section>
 
-      <!-- Stewardship / Disclaimer -->
-      <section class="card small" role="note" aria-label="Stewardship & Disclaimers" style="background:var(--foam);border-color:var(--rope)">
-        <p style="margin-top:0">
-          <strong>Stewardship & Responsible Use.</strong>
-          This calculator exists to help you plan wisely—not to encourage excess. Beverage packages
-          include far more than alcohol (water, specialty coffee, juice, smoothies). Hydrate, pace
-          yourself, and look out for your cabin mates. <em>Moderation honors your wallet, your body,
-          and your spirit.</em>
-        </p>
-        <p class="tiny" style="margin-top:1rem;">
-          <strong>Pricing & Policy Notes.</strong>
-          Figures shown are estimates based on recent promotions and community reporting. Actual prices,
-          caps, gratuities, and taxes vary by ship, itinerary, and sale window. Some venues and beverages
-          may be excluded or priced above the Deluxe cap. Nothing here is financial or legal advice.
-          <strong>Packages can only be purchased directly from Royal Caribbean</strong> in Cruise Planner
-          (My Account → Plan My Cruise → Beverages). Always verify your current Cruise Planner offer before purchasing.
-        </p>
+      <!-- Stewardship / Pricing -->
+      <section class="card small" role="note" aria-label="Disclaimers" style="background:var(--foam);border-color:var(--rope)">
+        <p><strong>Stewardship & Responsible Use:</strong> This calculator exists to help you plan wisely — not to encourage excess. Beverage packages include far more than alcohol (water, specialty coffee, juice, smoothies). Hydrate, pace yourself, and look out for your cabin mates. <em>Moderation honors your wallet, your body, and your spirit.</em></p>
+        <p class="tiny" style="margin-top:1rem;"><strong>Pricing & Policy Notes:</strong> Figures shown are estimates based on recent promotions and community reporting. Actual prices, caps, gratuities, and taxes vary by ship, itinerary, and sale window. Some venues and beverages may be excluded or priced above the Deluxe cap. Nothing here is financial or legal advice. <strong>Packages can only be purchased directly from Royal Caribbean</strong> in Cruise Planner (My Account → Plan My Cruise → Beverages). Always verify your current Cruise Planner offer before purchasing.</p>
       </section>
     </section>
 
-    <!-- Right Rail -->
     <aside class="rail" aria-label="Author & articles">
       <section id="author-rail" class="card" aria-label="Author information">
-        <div class="author-card" style="display:flex;gap:.75rem;align-items:center">
+        <div class="author-card">
           <picture>
-            <source type="image/webp" srcset="/assets/authors/ken.webp">
-            <img class="author-avatar" src="/assets/authors/ken.jpg" width="48" height="48" alt="Author — Ken Baker"
-                 onerror="this.onerror=null;this.src='/assets/logo_wake.png';" style="display:block;width:48px;height:48px;border-radius:50%;object-fit:cover;">
+            <source type="image/webp" srcset="/authors/img/ken1.webp">
+            <img class="author-avatar" src="/authors/img/ken1.jpg" width="48" height="48" alt="Author — Ken Baker" onerror="this.onerror=null;this.src='/assets/logo_wake.png';">
           </picture>
           <div>
             <strong style="color:var(--ink);"><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
@@ -352,7 +348,6 @@
         </div>
       </section>
 
-      <!-- Email card (no Planning Pass promo/checkbox) -->
       <section class="card" aria-labelledby="email-title" style="background:var(--foam);border-color:var(--rope)">
         <h3 id="email-title" style="margin-top:0;">Get Our Free Cruise Checklist!</h3>
         <p class="small" style="line-height:1.3;">Join our list for exclusive tips and get your downloadable PDF instantly.</p>
@@ -377,10 +372,13 @@
         </form>
       </section>
 
-      <!-- Packages moved to rail (below email, above articles) -->
-      <section class="card" id="packages-card-rail" aria-label="Packages">
-        <div class="hd" style="position:static;">Packages</div>
-        <div class="bd"><section class="packages" id="packages" aria-live="polite"></section></div>
+      <!-- Packages in Rail (requested placement) -->
+      <section class="card" aria-labelledby="packages-rail-title">
+        <div id="packages-rail-title" class="hd" style="position:static;">Packages</div>
+        <div class="bd">
+          <!-- Reuse the same target ID so app.js renders here -->
+          <section class="packages" id="packages" aria-live="polite"></section>
+        </div>
       </section>
 
       <section class="card" aria-labelledby="recent-rail-title">
@@ -405,60 +403,47 @@
     <p class="tiny" style="margin-top:1rem;"><a href="/terms.html">Terms of Service</a> | <a href="/privacy.html">Privacy Policy</a> | <a href="/gdpr-rights.html">GDPR Rights</a></p>
   </footer>
 
-  <!-- Nav behavior (keyboard + click already in your file; adding hover intent + focus guards) -->
   <script>
-  (function() {
-    const root = document.querySelector('.itw-nav'); if (!root) return;
-    const items = [...root.querySelectorAll('.nav-item[aria-haspopup]')];
-
-    function setOpen(group,on){ group.classList.toggle('open',!!on); const btn=group.querySelector('button[aria-controls]'); if (btn) btn.setAttribute('aria-expanded', on?'true':'false'); }
-    function closeAll(except=null){ items.forEach(g=>{ if (g!==except) setOpen(g,false); }); }
-    function firstFocusable(el){ return el && el.querySelector('a,button,[tabindex]:not([tabindex="-1"])'); }
-
-    items.forEach(group=>{
-      const btn = group.querySelector('button[aria-controls]'); const menu = group.querySelector('.menu'); if(!btn||!menu) return;
-
-      // Click / keyboard
-      btn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); const open = group.classList.contains('open'); closeAll(group); setOpen(group, !open); if (!open) (firstFocusable(menu)||btn).focus({preventScroll:true}); });
-      btn.addEventListener('keydown', (e)=>{
-        if (e.key==='ArrowDown'||e.key==='ArrowUp'){ e.preventDefault(); setOpen(group,true); (firstFocusable(menu)||btn).focus({preventScroll:true}); }
-        else if (e.key==='Escape'){ setOpen(group,false); btn.focus({preventScroll:true}); }
+    // Nav interactions
+    (function(){
+      const root=document.querySelector('.itw-nav'); if(!root) return;
+      const items=[...root.querySelectorAll('.nav-item[aria-haspopup]')];
+      function setOpen(group,on){group.classList.toggle('open',!!on);const btn=group.querySelector('button[aria-controls]');if(btn) btn.setAttribute('aria-expanded',on?'true':'false');}
+      function closeAll(except=null){items.forEach(g=>{if(g!==except) setOpen(g,false);});}
+      function firstFocusable(el){return el&&el.querySelector('a,button,[tabindex]:not([tabindex="-1"])');}
+      items.forEach(group=>{
+        const btn=group.querySelector('button[aria-controls]');const menu=group.querySelector('.menu'); if(!btn||!menu) return;
+        btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();const open=group.classList.contains('open');closeAll(group);setOpen(group,!open);if(!open){(firstFocusable(menu)||btn).focus({preventScroll:true});}});
+        btn.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();setOpen(group,true);(firstFocusable(menu)||btn).focus({preventScroll:true});} else if(e.key==='Escape'){setOpen(group,false);btn.focus({preventScroll:true});}});
+        group.addEventListener('keydown',e=>{if(e.key==='Escape'){setOpen(group,false);btn.focus({preventScroll:true});}});
+        menu.addEventListener('focusout',()=>{setTimeout(()=>{if(!group.contains(document.activeElement)) setOpen(group,false);},0);});
       });
-      group.addEventListener('keydown', (e)=>{ if (e.key==='Escape'){ setOpen(group,false); btn.focus({preventScroll:true}); }});
-      menu.addEventListener('focusout', ()=>{ setTimeout(()=>{ if(!group.contains(document.activeElement)) setOpen(group,false); },0); });
+      document.addEventListener('click',e=>{if(!e.target.closest('.itw-nav')) closeAll();});
+      window.addEventListener('blur',()=>closeAll());
+    })();
 
-      // Hover intent
-      let t;
-      group.addEventListener('mouseenter', ()=>{ clearTimeout(t); setOpen(group,true); });
-      group.addEventListener('mouseleave', ()=>{ t=setTimeout(()=>setOpen(group,false),120); });
-    });
+    // Footer year
+    const year=document.getElementById('footer-year'); if(year) year.textContent=new Date().getFullYear();
 
-    document.addEventListener('click', (e)=>{ if (!e.target.closest('.itw-nav')) closeAll(); });
-    window.addEventListener('blur', ()=> closeAll());
-  })();
-
-  // Footer year
-  const year=document.getElementById('footer-year'); if (year) year.textContent=new Date().getFullYear();
-
-  // Email telemetry (keeps your tags; PP removed)
-  (function() {
-    function itwPopulateEmailTelemetry(){
-      try{
-        const byId = id=>document.getElementById(id);
-        const form = byId('email-form') || byId('email-signup-form'); if(!form) return;
-        const rec = (window.ITW && ITW.best && ITW.best.name) || (window.ITW_BEST && ITW_BEST.name) || '';
-        const savings = (window.ITW && ITW.best && typeof ITW.best.delta==='number') ? ITW.best.delta : (window.ITW_BEST && ITW_BEST.delta) || '';
-        const days = (window.ITW && ITW.inputs && ITW.inputs.days) || (document.querySelector('[data-input="days"]')?.value) || '';
-        byId('email-rec') && (byId('email-rec').value = String(rec));
-        byId('email-savings') && (byId('email-savings').value = String(savings));
-        byId('email-days') && (byId('email-days').value = String(days));
-        byId('email-url') && (byId('email-url').value = location.href);
-      }catch(e){ console.error('Email telemetry failed:', e); }
-    }
-    const form = document.getElementById('email-form') || document.getElementById('email-signup-form');
-    if (form){ form.addEventListener('submit', function(){ itwPopulateEmailTelemetry(); }, {capture:true}); }
-    window.itwPopulateEmailTelemetry = itwPopulateEmailTelemetry;
-  })();
+    // Email telemetry
+    (function(){
+      function itwPopulateEmailTelemetry(){
+        try{
+          const byId=id=>document.getElementById(id);
+          const form=byId('email-form')||byId('email-signup-form'); if(!form) return;
+          const rec=(window.ITW&&ITW.best&&ITW.best.name)||(window.ITW_BEST&&ITW_BEST.name)||'';
+          const savings=(window.ITW&&ITW.best&&typeof ITW.best.delta==='number')?ITW.best.delta:((window.ITW_BEST&&ITW_BEST.delta)||'');
+          const days=(window.ITW&&ITW.inputs&&ITW.inputs.days)||(document.querySelector('[data-input="days"]')?.value)||'';
+          byId('email-rec')&&(byId('email-rec').value=String(rec));
+          byId('email-savings')&&(byId('email-savings').value=String(savings));
+          byId('email-days')&&(byId('email-days').value=String(days));
+          byId('email-url')&&(byId('email-url').value=location.href);
+        }catch(e){console.error('Email telemetry failed:',e);}
+      }
+      const form=document.getElementById('email-form')||document.getElementById('email-signup-form');
+      if(form){form.addEventListener('submit',function(){itwPopulateEmailTelemetry();},{capture:true});}
+      window.itwPopulateEmailTelemetry=itwPopulateEmailTelemetry;
+    })();
   </script>
 </body>
 </html>
