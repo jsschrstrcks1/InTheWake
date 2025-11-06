@@ -149,7 +149,7 @@ export function compute(inputs, economics, dataset) {
   // Economics
   const grat = clamp(economics?.grat ?? dsGrat ?? 0.18, 0, 0.5);
   const cap = clamp(economics?.deluxeCap ?? capFromRules ?? 14.0, 0, 200);
-  const kid = clamp(economics?.minorDiscount ?? 0.5, 0, 1);
+  const kid = clamp(economics?.minorDiscount ?? 1.0, 0, 1);
 
   // Package prices
   const pkgEco = economics?.pkg || {};
