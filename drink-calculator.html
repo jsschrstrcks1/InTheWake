@@ -1074,5 +1074,45 @@ else{init();}
 <script>(function(){const form=document.getElementById('email-form');if(!form)return;const labels=[...form.querySelectorAll('label.small')];const agree=labels.find(l=>/I\s*agree/i.test(l.textContent||''));const bonus=labels.find(l=>/Bonus:/i.test(l.textContent||''));if(agree&&bonus&&agree.previousElementSibling!==bonus){agree.parentNode.insertBefore(bonus,agree);}})();</script>
 
 <script>(function(){document.getElementById('year').textContent=new Date().getFullYear();})();</script>
+
+  <!-- FIX #1: Category breakdown with FRESH events + EXCLUDE voucher-value + TRUSTED-ONLY + DEBOUNCE -->
+<script>
+(function ensureCategoryBreakdownUpdates(){
+  const grid = document.getElementById('category-grid');
+  const section = document.getElementById('category-breakdown');
+  if (!grid || !section) return;
+
+  let scheduled = false;
+
+  function fireInputsChanged() {
+    scheduled = false;
+    document.dispatchEvent(new CustomEvent('itw:inputs-changed', {
+      bubbles: true,
+      composed: true,
+      detail: { source: 'category-updater' }
+    }));
+  }
+
+  ['input','change'].forEach(type => {
+    document.addEventListener(type, (e) => {
+      // Ignore non-Elements (document/window targets) and script-generated events
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+      if (e.isTrusted !== true) return; // only user-initiated events
+
+      // Only react to our calculator inputs/vouchers, never the voucher face-value field
+      if (!t.matches('[data-input],[data-voucher]')) return;
+      if (t.id === 'voucher-value') return;
+
+      // Micro-batch bursts of keypresses/changes into one custom event
+      if (!scheduled) {
+        scheduled = true;
+        queueMicrotask(fireInputsChanged);
+      }
+    }, { capture: true });
+  });
+})();
+</script>
+
 </body>
 </html>
