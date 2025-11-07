@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="version" content=".9.001.015"/>
+<meta name="version" content=".9.001.016"/>
 <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
 <meta name="description" content="Compare Soda, Refreshment, and Deluxe vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
@@ -200,7 +200,11 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;z-index:3;
 }
 </style>
-
+<script>
+  // Tell any site-wide code to skip infinite scroll on this page
+  window.ITW_PAGE = 'drink-calculator';
+  window.ITW_DISABLE_INFINITE = true;
+</script>
 <style id="reduced-motion">
 @media (prefers-reduced-motion: reduce){
   html:focus-within{scroll-behavior:auto}
@@ -216,7 +220,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 <!-- Chart + App loader -->
 <script>
 (function(){
-  const VER=document.querySelector('meta[name="version"]')?.content||'.9.001.015';
+  const VER=document.querySelector('meta[name="version"]')?.content||'.9.001.016';
   const local="/vendor/chart.umd.min.js?v="+VER;
   const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
 
@@ -276,7 +280,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <div class="navbar">
     <div class="brand">
       <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
-      <span class="tiny version-badge">v.9.001.015</span>
+      <span class="tiny version-badge">v.9.001.016</span>
     </div>
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
@@ -1027,6 +1031,62 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
     syncOnce();
     if(++attempts>10)clearInterval(warm);
   },200);
+})();
+</script>
+  <script>
+/* Kill any infinite-scroll on this page (defensive, page-scoped) */
+(function killInfiniteScroll(){
+  if (!window.ITW_DISABLE_INFINITE) return;
+
+  // 2a) Remove common sentinel nodes so observers never fire
+  var SENTINEL_SEL = '#infinite-sentinel, .infinite-sentinel, [data-infinite-sentinel]';
+  document.querySelectorAll(SENTINEL_SEL).forEach(n => { try { n.remove(); } catch(_){} });
+
+  // 2b) Disconnect any site-exposed observers if present
+  try {
+    if (window.ITW && window.ITW.infiniteObserver && typeof window.ITW.infiniteObserver.disconnect === 'function') {
+      window.ITW.infiniteObserver.disconnect();
+    }
+    if (window.ITW && Array.isArray(window.ITW.observers)) {
+      window.ITW.observers.forEach(o => o && o.disconnect && o.disconnect());
+    }
+  } catch(_) {}
+
+  // 2c) Patch IntersectionObserver callbacks to ignore infinite-scroll sentinels on this page only
+  try {
+    var NativeIO = window.IntersectionObserver;
+    if (NativeIO && !window.__itwIOPatched) {
+      window.IntersectionObserver = function(cb, opts){
+        var wrapped = function(entries, observer){
+          if (window.ITW_DISABLE_INFINITE) {
+            var block = entries && entries.some(e => {
+              var t = e && e.target;
+              return t && (t.id === 'infinite-sentinel' || t.classList?.contains('infinite-sentinel') || t.hasAttribute?.('data-infinite-sentinel'));
+            });
+            if (block) return; // swallow sentinel triggers
+          }
+          return cb && cb(entries, observer);
+        };
+        return new NativeIO(wrapped, opts);
+      };
+      window.IntersectionObserver.prototype = NativeIO.prototype;
+      window.__itwIOPatched = true;
+    }
+  } catch(_) {}
+
+  // 2d) As a final guard, nuke any new sentinels that get injected later
+  try {
+    var mo = new MutationObserver(function(muts){
+      muts.forEach(m => {
+        m.addedNodes && m.addedNodes.forEach(n => {
+          if (!(n instanceof Element)) return;
+          if (n.matches?.(SENTINEL_SEL)) { try { n.remove(); } catch(_){} }
+          n.querySelectorAll?.(SENTINEL_SEL).forEach(x => { try { x.remove(); } catch(_){} });
+        });
+      });
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+  } catch(_) {}
 })();
 </script>
 </body>
