@@ -256,6 +256,16 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;z-index:3;
 }
 </style>
+  <style>
+  /* Hide infinite scroll sentinel if it somehow appears */
+  #infinite-sentinel,
+  .infinite-sentinel,
+  [data-infinite-sentinel] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+</style>
 <script>
   // Tell any site-wide code to skip infinite scroll on this page
   window.ITW_PAGE = 'drink-calculator';
@@ -1209,6 +1219,17 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
       if (applyOnce() || ++tries > 20) clearInterval(t);
     }, 120);
   }
+})();
+</script>
+  <script>
+(function debugInfiniteScroll(){
+  // Log any IntersectionObserver creation
+  var Native = window.IntersectionObserver;
+  window.IntersectionObserver = function(cb, opts){
+    console.warn('⚠️ IntersectionObserver created:', cb, opts, new Error().stack);
+    return new Native(cb, opts);
+  };
+  window.IntersectionObserver.prototype = Native.prototype;
 })();
 </script>
 </body>
