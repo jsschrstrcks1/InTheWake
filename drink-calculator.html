@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<!-- was: content="v=.9.001.011" -->
-<meta name="version" content=".9.001.014"/>
+<meta name="version" content=".9.001.015"/>
 <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
-<meta name="description" content="Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis. Plan your cruise drink budget."/>
+<meta name="description" content="Compare Soda, Refreshment, and Deluxe vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.071" imagesrcset="/assets/index_hero.jpg?v=3.010.071" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.071" imagesrcset="/assets/index_hero.jpg?v=3.010.071" fetchpriority="high">
+
 <!-- Favicon / PWA -->
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/in_the_wake_icon_192x192.png">
@@ -19,6 +19,9 @@
 <!-- Performance -->
 <link rel="preconnect" href="https://api.frankfurter.app">
 <link rel="preconnect" href="https://api.exchangerate.host">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://api.frankfurter.app">
+<link rel="dns-prefetch" href="https://api.exchangerate.host">
 
 <!-- Social -->
 <meta property="og:type" content="website"/>
@@ -28,7 +31,7 @@
 <meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
-<!-- Structured data (condensed) -->
+<!-- Structured data -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Drink Calculator","item":"https://cruisinginthewake.com/drink-calculator.html"}]}
 </script>
@@ -50,7 +53,7 @@ img{max-width:100%;height:auto;display:block}
 h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9rem;color:#475569}.muted{color:var(--muted)}
 .sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-/* Header / hero - FIXED: 42vh max, horizon centered */
+/* Header / hero */
 .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
 .navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .75rem;align-items:center;min-height:56px}
 .brand{display:flex;align-items:center;gap:.6rem}
@@ -69,7 +72,6 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);transition:background .15s}
 .itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
 
-/* Hero: 40vh to match Planning, horizon at midpoint, logo never clips */
 .hero{
   position:relative;width:100%;height:40vh;min-height:280px;max-height:440px;
   background:url('/assets/index_hero.jpg?v=3.010.071') center 50%/cover no-repeat;
@@ -102,7 +104,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .btn:hover{background:#1e293b;transform:scale(1.02)}
 .btn.ghost{background:#fff;color:#0f172a}
 
-/* FIXED: Preset section with persona cards */
+/* Preset section */
 .qs{background:#fde68a20;border:1px solid #f59e0b50;border-radius:12px;padding:14px 16px;margin:16px 0}
 .qs .qs-hd{font-weight:800;color:#7c2d12;margin:0 0 6px 0}
 .qs .qs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:8px}
@@ -112,13 +114,13 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .persona-btn .persona-name{font-weight:800;color:var(--sea);font-size:.95rem;margin-bottom:4px}
 .persona-btn .persona-desc{font-size:.8rem;color:var(--muted);line-height:1.3}
 
-/* FIXED: Chart legend and tooltip */
+/* Chart legend and tooltip */
 .chart-legend{display:flex;gap:1.5rem;flex-wrap:wrap;margin:10px 0;padding:10px;background:var(--foam);border-radius:8px;font-size:.85rem}
 .chart-legend-item{display:flex;align-items:center;gap:.5rem}
 .chart-legend-color{width:16px;height:16px;border-radius:3px}
 .chart-help{font-size:.85rem;color:var(--muted);margin-top:8px;padding:8px;background:var(--foam);border-radius:6px;border-left:3px solid var(--accent)}
 
-/* FIXED: Per-category summary table */
+/* Category summary */
 .category-summary{margin:12px 0;padding:12px;background:var(--foam);border-radius:8px;border:1px solid var(--rope)}
 .category-summary h4{margin:0 0 8px 0;color:var(--sea);font-size:.95rem}
 .category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;font-size:.85rem}
@@ -126,14 +128,14 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .category-item .cat-name{font-weight:600;color:var(--ink)}
 .category-item .cat-cost{font-weight:700;color:var(--accent)}
 
-/* FIXED: Packages rail with inclusion bullets */
+/* Packages rail */
 .package-card{border:1px solid var(--bd);border-radius:8px;padding:12px;margin:8px 0;background:#fff}
 .package-card h4{margin:0 0 8px 0;color:var(--sea);font-size:1rem}
 .package-price{font-size:1.25rem;font-weight:800;color:var(--accent);margin-bottom:8px}
 .package-inclusions{font-size:.8rem;margin:0;padding-left:20px;color:var(--muted)}
 .package-inclusions li{margin:4px 0}
 
-/* Weighting tooltip - FIXED: visible ? icon */
+/* Weighting tooltip */
 .tooltip-trigger{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:.75rem;cursor:help;margin-left:6px}
 .tooltip-trigger:hover,.tooltip-trigger:focus{background:var(--sea);outline:2px dashed var(--rope);outline-offset:2px}
 
@@ -141,7 +143,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 #breakeven-chart{width:100%!important;max-width:100%;height:320px;border:1px dashed var(--bd);border-radius:10px;background:#fff;display:block}
 #voucher-badge{position:absolute;top:-8px;right:0;transform:translateY(-100%)}
 
-/* QUIZ MODAL - Lean, embedded */
+/* Quiz modal */
 #quiz-modal{display:none;position:fixed;inset:0;background:rgba(8,48,65,.92);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px);animation:fadeIn .3s}
 #quiz-modal.show{display:flex}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -187,76 +189,66 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   :root{color-scheme:light}
   body,.card{background:var(--sky)!important;color:var(--ink)!important}
 }
-  .inputs.card { border-color: var(--rope); }
-  /* Winner badge (non-obstructive) */
+.inputs.card{border-color:var(--rope)}
+
+/* Winner badge */
 #best-stamp{
-  position:absolute; top:-10px; right:8px;
-  background:#10b981; color:#063;
-  border:2px solid #065f46; border-radius:999px;
-  padding:.25rem .5rem; font-weight:800; font-size:.8rem;
-  box-shadow:0 4px 12px rgba(0,0,0,.12); display:none; z-index:3;
+  position:absolute;top:-10px;right:8px;
+  background:#10b981;color:#063;
+  border:2px solid #065f46;border-radius:999px;
+  padding:.25rem .5rem;font-weight:800;font-size:.8rem;
+  box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;z-index:3;
 }
 </style>
+
 <style id="reduced-motion">
-/* Respect prefers-reduced-motion: pause slide/blur and micro-animations */
 @media (prefers-reduced-motion: reduce){
-  html:focus-within { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-
-  /* Quiz: kill modal fade-in, container slide-up, question slide */
-  #quiz-modal { animation: none !important; backdrop-filter: none !important; }
-  .quiz-container { animation: none !important; }
-  .quiz-question { animation: none !important; }
-  .quiz-progress-bar { transition: none !important; }
-
-  /* Small hover nudges elsewhere */
-  .quiz-option:hover,
-  .itw-nav .chip:hover { transform: none !important; }
+  html:focus-within{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  #quiz-modal{animation:none!important;backdrop-filter:none!important}
+  .quiz-container{animation:none!important}
+  .quiz-question{animation:none!important}
+  .quiz-progress-bar{transition:none!important}
+  .quiz-option:hover,.itw-nav .chip:hover{transform:none!important}
 }
 </style>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="dns-prefetch" href="https://api.frankfurter.app">
-<link rel="dns-prefetch" href="https://api.exchangerate.host">
 
-<!-- Chart loader -->
-<!-- Chart + App loader (version-synced with <meta name="version">) -->
+<!-- Chart + App loader -->
 <script>
 (function(){
-  const VER = document.querySelector('meta[name="version"]')?.content || '.9.001.014';
-  const local = "/vendor/chart.umd.min.js?v=" + VER;
-  const cdn   = "https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
+  const VER=document.querySelector('meta[name="version"]')?.content||'.9.001.015';
+  const local="/vendor/chart.umd.min.js?v="+VER;
+  const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
 
-  function add(src, cb){
-    var s = document.createElement('script');
-    s.src = src; s.defer = true; s.onload = cb;
-    s.onerror = function(){ if(src !== cdn) add(cdn, cb); };
+  function add(src,cb){
+    var s=document.createElement('script');
+    s.src=src;s.defer=true;s.onload=cb;
+    s.onerror=function(){if(src!==cdn)add(cdn,cb);};
     document.head.appendChild(s);
   }
 
   function loadApp(){
-    // wire math by version
-    const m = document.createElement('script');
-    m.type = "module";
-    m.textContent = `
-      import { compute as baseCompute, computeWithVouchers } 
-      from '/assets/js/drink-math.js?v=${VER}';
-      window.ITW_MATH = { compute: baseCompute, computeWithVouchers };
+    const m=document.createElement('script');
+    m.type="module";
+    m.textContent=`
+      import{compute as baseCompute,computeWithVouchers}
+      from'/assets/js/drink-math.js?v=${VER}';
+      window.ITW_MATH={compute:baseCompute,computeWithVouchers};
     `;
     document.head.appendChild(m);
 
-    // keep app.js external (per instruction)
-    const app = document.createElement('script');
-    app.src = "/assets/js/drink-calculator.app.js?v=" + VER;
-    app.defer = true;
+    const app=document.createElement('script');
+    app.src="/assets/js/drink-calculator.app.js?v="+VER;
+    app.defer=true;
     document.head.appendChild(app);
   }
 
-  window.Chart ? loadApp() : add(local, loadApp);
+  window.Chart?loadApp():add(local,loadApp);
 })();
 </script>
 </head>
 <body>
-  <noscript>
+<noscript>
   <div style="position:fixed;top:0;left:0;right:0;z-index:10000;padding:1rem;background:#fef3c7;border-bottom:3px solid #f59e0b;text-align:center;font-weight:700">
     ⚠️ This calculator requires JavaScript. Please enable it and reload.
   </div>
@@ -264,8 +256,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 <a href="#content" class="sr-only">Skip to main content</a>
 
 <!-- QUIZ MODAL -->
-<div id="quiz-modal" role="dialog" aria-modal="true"
-     aria-labelledby="quiz-title" aria-describedby="quiz-subtitle">
+<div id="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="quiz-title" aria-describedby="quiz-subtitle">
   <div class="quiz-container">
     <div class="quiz-header">
       <h2 id="quiz-title">✨ Discover Your Cruise Style</h2>
@@ -285,7 +276,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <div class="navbar">
     <div class="brand">
       <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
-      <span class="tiny version-badge">v.9.001.014</span>
+      <span class="tiny version-badge">v.9.001.015</span>
     </div>
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
@@ -323,14 +314,13 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 </header>
 
 <main class="wrap page-grid" id="content">
- <h1 class="sr-only">Royal Caribbean Drink Package Calculator (2025)</h1>
+<h1 class="sr-only">Royal Caribbean Drink Package Calculator (2025)</h1>
   <section aria-label="Calculator">
-    <!-- FIXED: Preset Personas with descriptions -->
+    <!-- Preset Personas -->
     <section class="qs" aria-labelledby="qs-title">
       <h2 id="qs-title" class="qs-hd">🚀 Quick Start: Choose Your Style</h2>
       <p class="small" style="margin-bottom:8px">Select a persona to auto-fill or take the quiz for personalized defaults</p>
       <div class="qs-grid" id="qs-preset-buttons">
-        <!-- Will be populated by app.js, but provide fallback -->
         <button class="persona-btn" data-persona="light">
           <div class="persona-icon">🧘</div>
           <div class="persona-name">Light & Chill</div>
@@ -350,6 +340,11 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           <div class="persona-icon">☕</div>
           <div class="persona-name">Coffee Lover</div>
           <div class="persona-desc">Multiple specialty coffees daily</div>
+        </button>
+        <button class="persona-btn" data-persona="solo">
+          <div class="persona-icon">🧳</div>
+          <div class="persona-name">Solo Explorer</div>
+          <div class="persona-desc">Independent traveler, light drinking</div>
         </button>
       </div>
       <div style="text-align:center;margin-top:12px">
@@ -388,31 +383,31 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 
         <div class="row"><label for="input-days">Cruise days</label><input id="input-days" type="text" inputmode="numeric" value="7" data-input="days"></div>
 
-        <!-- FIXED: Weighting with visible ? tooltip -->
+        <!-- Weighting -->
         <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:8px">
           <legend style="font-weight:800;padding:0 6px;display:flex;align-items:center">
             Sea/Port variability
             <span class="tooltip-trigger" tabindex="0" aria-describedby="sea-tip">?</span>
-<span id="sea-tip" class="sr-only" role="tooltip">
-  Sea days often mean more drinks (relaxing by the pool). Port days often mean fewer (off exploring).
-  This setting adjusts estimates accordingly.
-</span>
+            <span id="sea-tip" class="sr-only" role="tooltip">
+              Sea days often mean more drinks (relaxing by the pool). Port days often mean fewer (off exploring).
+              This setting adjusts estimates accordingly.
+            </span>
           </legend>
           <div class="row"><label for="input-seadays">Sea days</label><input id="input-seadays" type="text" inputmode="numeric" value="3" data-input="seadays"></div>
           <div class="row" style="grid-template-columns:1fr 1fr">
-  <label class="small">
-    <input type="checkbox" id="sea-toggle" checked data-input="seaapply" aria-describedby="sea-weighting-help">
-    Apply weighting
-  </label>
-  <div class="controls-inline">
-    <label for="sea-weight" class="small">±%</label>
-    <input id="sea-weight" type="range" min="0" max="40" value="20" data-input="seaweight" aria-describedby="sea-weighting-help">
-    <span id="sea-weight-val" class="small">20%</span>
-  </div>
-</div>
-<p id="sea-weighting-help" class="tiny" style="margin:.25rem 0 0;color:#475569;max-width:60ch">
-  Sea days will be increased by this percentage; port days decreased by the same amount, then averaged over your itinerary.
-</p>
+            <label class="small">
+              <input type="checkbox" id="sea-toggle" checked data-input="seaapply" aria-describedby="sea-weighting-help">
+              Apply weighting
+            </label>
+            <div class="controls-inline">
+              <label for="sea-weight" class="small">±%</label>
+              <input id="sea-weight" type="range" min="0" max="40" value="20" data-input="seaweight" aria-describedby="sea-weighting-help">
+              <span id="sea-weight-val" class="small">20%</span>
+            </div>
+          </div>
+          <p id="sea-weighting-help" class="tiny" style="margin:.25rem 0 0;color:#475569;max-width:60ch">
+            Sea days will be increased by this percentage; port days decreased by the same amount, then averaged over your itinerary.
+          </p>
         </fieldset>
 
         <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
@@ -427,7 +422,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           </div>
         </fieldset>
 
-        <!-- FIXED: Voucher with face value input -->
+        <!-- Voucher with auto-sync face value -->
         <details id="cna-vouchers" class="small" style="border:2px solid var(--rope);border-radius:10px;padding:0;margin-top:12px;background:var(--foam)">
           <summary style="cursor:pointer;font-weight:700;padding:1rem;list-style:none">
             👑 Diamond or higher? Apply free drink vouchers
@@ -436,8 +431,8 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           <div style="padding:0 1rem 1rem">
             <div class="small" style="margin-bottom:10px;background:#fff3cd;border-left:3px solid var(--warn);padding:8px;border-radius:4px">
               <strong>Voucher face value:</strong>
-              <input type="text" id="voucher-value" inputmode="decimal" value="12.00" style="width:70px;margin-left:6px;padding:4px;border:1px solid var(--bd);border-radius:4px"> USD
-              <div class="tiny" style="margin-top:4px">May vary by sailing. Check your Crown & Anchor details.</div>
+              <input type="text" id="voucher-value" inputmode="decimal" value="14.00" readonly style="width:70px;margin-left:6px;padding:4px;border:1px solid var(--bd);border-radius:4px;background:#f8fafc;cursor:not-allowed"> USD
+              <div class="tiny" id="voucher-lock-note" style="margin-top:4px;font-weight:600;color:var(--muted)">(auto-synced to Deluxe cap)</div>
             </div>
             <fieldset style="border:1px solid var(--bd);padding:10px;border-radius:8px">
               <legend style="font-weight:700;padding:0 6px">Adult Vouchers</legend>
@@ -462,38 +457,6 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           </div>
         </fieldset>
 
-        <script>
-        // Mode toggle - actually switches between simple and itinerary inputs
-        (function(){
-          const simple = document.getElementById('simple-inputs');
-          const itin   = document.getElementById('itinerary-inputs');
-          const rs = document.getElementById('mode-simple');
-          const ri = document.getElementById('mode-itinerary');
-          const legend = document.getElementById('mode-legend');
-
-          function toggle(mode){
-            if(mode==='itinerary'){ 
-              simple.style.display='none'; 
-              itin.style.display=''; 
-              if(legend) legend.textContent = 'Calculation Mode: Day-by-Day';
-            } else { 
-              simple.style.display=''; 
-              itin.style.display='none'; 
-              if(legend) legend.textContent = 'Calculation Mode: Daily Averages';
-            }
-            document.dispatchEvent(new Event('itw:mode-changed'));
-          }
-          
-          if(rs && ri){
-            rs.addEventListener('change', ()=>toggle('simple'));
-            ri.addEventListener('change', ()=>toggle('itinerary'));
-          }
-          
-          // Default to simple
-          toggle('simple');
-        })();
-        </script>
-
         <div id="simple-inputs" style="margin-top:6px">
           <div class="row"><label>Soda <span class="tiny muted">(avg/day)</span></label><input data-input="soda" type="text" inputmode="decimal" value="0"></div>
           <div class="row"><label>Specialty coffee</label><input data-input="coffee" type="text" inputmode="decimal" value="0"></div>
@@ -509,9 +472,9 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           <div class="row"><label>Spirits/shot</label><input data-input="spirits" type="text" inputmode="decimal" value="0"></div>
         </div>
 
-        <div id="itinerary-inputs" style="margin-top:12px"></div>
+        <div id="itinerary-inputs" style="margin-top:12px;display:none"></div>
 
-        <!-- FIXED: Chart with enhanced legend and help text -->
+        <!-- Chart -->
         <div id="breakeven-wrap">
           <div class="chart-legend">
             <div class="chart-legend-item">
@@ -530,32 +493,27 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
               <div class="chart-legend-color" style="background:#f7b4a2"></div>
               <span>Deluxe Package</span>
             </div>
-            <div class="chart-legend-item">
-              <span class="tiny muted">📊 Bars show price range (min-max)</span>
-            </div>
           </div>
           <table id="chart-desc" class="sr-only">
-  <caption>Daily cost comparison</caption>
-  <thead><tr><th>Option</th><th>Cost per day</th></tr></thead>
-  <tbody>
-    <tr><td>À-la-carte</td><td id="sr-alc">$0.00</td></tr>
-    <tr><td>Soda</td><td id="sr-soda">$0.00</td></tr>
-    <tr><td>Refreshment</td><td id="sr-refresh">$0.00</td></tr>
-    <tr><td>Deluxe</td><td id="sr-deluxe">$0.00</td></tr>
-  </tbody>
-</table>
-      <canvas id="breakeven-chart" width="900" height="320"
-  aria-label="Package comparison chart"
-  aria-describedby="chart-desc"></canvas><div id="best-stamp" aria-hidden="true">Best value</div>
+            <caption>Daily cost comparison</caption>
+            <thead><tr><th>Option</th><th>Cost per day</th></tr></thead>
+            <tbody>
+              <tr><td>À-la-carte</td><td id="sr-alc">$0.00</td></tr>
+              <tr><td>Soda</td><td id="sr-soda">$0.00</td></tr>
+              <tr><td>Refreshment</td><td id="sr-refresh">$0.00</td></tr>
+              <tr><td>Deluxe</td><td id="sr-deluxe">$0.00</td></tr>
+            </tbody>
+          </table>
+          <canvas id="breakeven-chart" width="900" height="320" aria-label="Package comparison chart" aria-describedby="chart-desc"></canvas>
+          <div id="best-stamp" aria-hidden="true">Best value</div>
           <div class="chart-help">
             <strong>💡 How to read:</strong> Blue bar = your actual drinking cost per day (including 18% gratuity). 
             Gray bars = what you'd pay for each package. <strong>Lower = better value.</strong>
             Hover over bars to see exact dollar amounts.
           </div>
         </div>
-       
 
-        <!-- FIXED: Per-category summary -->
+        <!-- Category summary -->
         <div class="category-summary" id="category-breakdown" hidden>
           <h4>💰 Where Your Money Goes (per day)</h4>
           <div class="category-grid" id="category-grid"></div>
@@ -569,7 +527,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
       </div>
     </section>
 
-    <!-- FIXED: Group Breakdown -->
+    <!-- Group Breakdown -->
     <section class="card" id="group-breakdown" hidden>
       <h2 style="margin:0 0 1rem 0;color:var(--sea)">Group Breakdown (Per Person)</h2>
       <div style="overflow-x:auto">
@@ -590,23 +548,13 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 
   <aside class="rail">
     <section class="card">
-        <picture>
-          <source type="image/webp" srcset="/authors/img/ken1.webp">
-         <img class="author-avatar" src="/authors/img/ken1.jpg" alt="Ken Baker" width="96" height="96" onerror="this.src='/assets/logo_wake.png'">
-        </picture>
-        <div>
-          <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
-          <span class="tiny">Founder of In the Wake; calculator builder and data steward.</span>
-        </div>
-      </div>
-      
-      <!-- STRATEGIC: Planning Pass CTA -->
-      <div class="pass-cta small" style="margin-top:1rem;padding-top:1rem;border-top:2px solid var(--rope)">
-        <strong style="color:var(--sea);display:block;margin-bottom:.5rem">Get your free Cruise Planning Pass</strong>
-        <ul style="margin:0;padding-left:1.1rem;line-height:1.6">
-          <li><a href="https://flickersofmajesty.com" target="_blank" rel="noopener">Photo tips & galleries</a></li>
-          <li><a href="https://ken-baker.com" target="_blank" rel="noopener">Planning checklists & resources</a></li>
-        </ul>
+      <picture>
+        <source type="image/webp" srcset="/authors/img/ken1.webp">
+        <img class="author-avatar" src="/authors/img/ken1.jpg" alt="Ken Baker" width="96" height="96" onerror="this.src='/assets/logo_wake.png'">
+      </picture>
+      <div>
+        <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
+        <span class="tiny">Founder of In the Wake; calculator builder and data steward.</span>
       </div>
     </section>
 
@@ -620,12 +568,12 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           <button type="submit" class="btn">Get List</button>
         </div>
         <label class="small" style="display:flex;gap:.5rem;margin-top:.75rem">
-          <input type="checkbox" name="OPT_IN" required>
-          <span>I agree. <a href="/privacy.html">Privacy</a> | <a href="/gdpr-rights.html">Rights</a></span>
-        </label>
-        <label class="small" style="display:flex;gap:.5rem;margin-top:.5rem">
           <input type="checkbox" name="PLANNING_PASS_OPT_IN" value="1">
           <span><strong>Bonus:</strong> Also join the <em>Planning Pass</em> for photo tips from Flickers of Majesty.</span>
+        </label>
+        <label class="small" style="display:flex;gap:.5rem;margin-top:.5rem">
+          <input type="checkbox" name="OPT_IN" required>
+          <span>I agree. <a href="/privacy.html">Privacy</a> | <a href="/gdpr-rights.html">Rights</a></span>
         </label>
         <input type="hidden" name="SAVINGS" id="email-savings">
         <input type="hidden" name="REC" id="email-rec">
@@ -633,11 +581,10 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
       </form>
     </section>
 
-    <!-- FIXED: Packages rail with inclusions -->
+    <!-- Packages rail -->
     <section class="card">
       <h3 style="margin-top:0">Packages</h3>
       <div id="packages" style="margin-top:10px">
-        <!-- Fallback if app doesn't populate -->
         <div class="package-card">
           <h4>🥤 Soda Package</h4>
           <div class="package-price">~$15/day</div>
@@ -679,16 +626,24 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         <p class="tiny muted">Loading...</p>
       </div>
     </section>
+
+    <div class="pass-cta small" style="margin-top:1rem;padding-top:1rem;border-top:2px solid var(--rope)">
+      <strong style="color:var(--sea);display:block;margin-bottom:.5rem">Get your free Cruise Planning Pass</strong>
+      <ul style="margin:0;padding-left:1.1rem;line-height:1.6">
+        <li><a href="https://flickersofmajesty.com" target="_blank" rel="noopener">Photo tips & galleries</a></li>
+        <li><a href="https://ken-baker.com" target="_blank" rel="noopener">Planning checklists & resources</a></li>
+      </ul>
+    </div>
   </aside>
 </main>
 
 <footer class="wrap" style="border-top:2px solid var(--bd);padding-top:1.5rem;text-align:center">
-  <p>© <span id="year">2025</span> In the Wake. All rights reserved.</p> 
+  <p>© <span id="year">2025</span> In the Wake. All rights reserved.</p>
   <p class="tiny" style="margin-top:.75rem"><a href="/terms.html">Terms</a> | <a href="/privacy.html">Privacy</a> | <a href="/gdpr-rights.html">GDPR</a></p>
 </footer>
 
+<!-- QUIZ SYSTEM v2.0 - WITH CHATGPT FIX #1: EXPOSE QUIZ_QUESTIONS -->
 <script>
-// LEAN QUIZ SYSTEM v2.0 - WITH CASCADE, VOUCHER LOCK, FOCUS TRAP, ESC CLOSE
 (function(){
 'use strict';
 
@@ -752,7 +707,6 @@ const QUIZ_QUESTIONS=[
   },
   {
     id:'crown',type:'radio',q:'Crown & Anchor status?',icon:'👑',
-    showIf:ans=>ans.group!=='solo',
     opts:[
       {v:'none',l:'Not Diamond+',e:'⚓'},
       {v:'diamond',l:'Diamond (4 vouchers)',e:'💎'},
@@ -768,33 +722,31 @@ const QUIZ_QUESTIONS=[
 ];
 
 let state={idx:0,ans:{},start:Date.now()};
-
-// ------- Focus trap helpers -------
 let lastFocus=null;
+
 function getFocusable(){
   const m=document.getElementById('quiz-modal');
-  return [...m.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')]
-    .filter(el=>!el.hasAttribute('disabled') && el.offsetParent !== null);
+  return[...m.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')]
+    .filter(el=>!el.hasAttribute('disabled')&&el.offsetParent!==null);
 }
+
 function trapKeydown(e){
   const modal=document.getElementById('quiz-modal');
-  if(!modal.classList.contains('show')) return;
+  if(!modal.classList.contains('show'))return;
   const f=getFocusable();
-  if(!f.length) return;
-  const first=f[0], last=f[f.length-1];
+  if(!f.length)return;
+  const first=f[0],last=f[f.length-1];
 
   if(e.key==='Tab'){
-    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
-    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
   }else if(e.key==='Escape'){
-    // Close on Esc
     modal.classList.remove('show');
     document.removeEventListener('keydown',trapKeydown,true);
-    if(lastFocus) lastFocus.focus();
+    if(lastFocus)lastFocus.focus();
   }
 }
 
-// ------- Init / show / render -------
 function init(){
   const saved=load();
   if(saved&&!expired(saved)){
@@ -815,14 +767,13 @@ function show(){
   modal.classList.add('show');
   document.addEventListener('keydown',trapKeydown,true);
   render();
-  // Move focus into modal
-  (document.getElementById('quiz-next') || document.getElementById('quiz-title')).focus();
+  (document.getElementById('quiz-next')||document.getElementById('quiz-title')).focus();
 }
 
 function render(){
   const q=QUIZ_QUESTIONS[state.idx];
   if(!q){finish();return;}
-  if(q.showIf&&!q.showIf(state.ans)){ state.idx++; render(); return; }
+  if(q.showIf&&!q.showIf(state.ans)){state.idx++;render();return;}
 
   const prog=(state.idx+1)/QUIZ_QUESTIONS.length*100;
   document.getElementById('quiz-progress-bar').style.width=prog+'%';
@@ -848,16 +799,15 @@ function render(){
   html+='</div></div>';
   document.getElementById('quiz-content').innerHTML=html;
 
-  document.querySelectorAll('.quiz-option').forEach(el=>{ el.onclick=()=>select(el); });
+  document.querySelectorAll('.quiz-option').forEach(el=>{el.onclick=()=>select(el);});
 
   document.getElementById('quiz-back').style.display=state.idx>0?'':'none';
   document.getElementById('quiz-next').disabled=!state.ans[q.id];
   document.getElementById('quiz-next').textContent=state.idx===QUIZ_QUESTIONS.length-1?'Finish ✨':'Next →';
 }
 
-// ------- Select / nav -------
 function select(el){
-  const q=el.dataset.q, v=el.dataset.v, multi=el.dataset.multi;
+  const q=el.dataset.q,v=el.dataset.v,multi=el.dataset.multi;
   if(multi){
     if(!state.ans[q])state.ans[q]=[];
     if(v==='none'){
@@ -866,21 +816,21 @@ function select(el){
       el.classList.add('selected');
     }else{
       state.ans[q]=state.ans[q].filter(x=>x!=='none');
-      if(state.ans[q].includes(v)){ state.ans[q]=state.ans[q].filter(x=>x!==v); el.classList.remove('selected'); }
-      else{ state.ans[q].push(v); el.classList.add('selected'); }
+      if(state.ans[q].includes(v)){state.ans[q]=state.ans[q].filter(x=>x!==v);el.classList.remove('selected');}
+      else{state.ans[q].push(v);el.classList.add('selected');}
     }
   }else{
     state.ans[q]=v;
     el.parentElement.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));
     el.classList.add('selected');
-    setTimeout(()=>{ if(state.idx<QUIZ_QUESTIONS.length-1) next(); },300);
+    setTimeout(()=>{if(state.idx<QUIZ_QUESTIONS.length-1)next();},300);
   }
   document.getElementById('quiz-next').disabled=!state.ans[q]||state.ans[q].length===0;
 }
-function next(){ state.idx++; render(); }
-function back(){ state.idx--; render(); }
 
-// ------- Finish / compute -------
+function next(){state.idx++;render();}
+function back(){state.idx--;render();}
+
 function finish(){
   const profile=calc(state.ans);
   save(profile);
@@ -888,31 +838,30 @@ function finish(){
   const modal=document.getElementById('quiz-modal');
   modal.classList.remove('show');
   document.removeEventListener('keydown',trapKeydown,true);
-  if(lastFocus) lastFocus.focus();
+  if(lastFocus)lastFocus.focus();
 }
 
 function calc(ans){
-  let drinks={}, meta={};
+  let drinks={},meta={};
   QUIZ_QUESTIONS.forEach(q=>{
-    const a=ans[q.id]; if(!a)return;
+    const a=ans[q.id];if(!a)return;
     const imp=q.impact(a);
-    if(imp.drinks){ Object.keys(imp.drinks).forEach(k=>{ drinks[k]=(drinks[k]||0)+imp.drinks[k]; }); }
+    if(imp.drinks){Object.keys(imp.drinks).forEach(k=>{drinks[k]=(drinks[k]||0)+imp.drinks[k];});}
     Object.assign(meta,imp);
   });
   const mult=meta.mult||1;
   Object.keys(drinks).forEach(k=>{drinks[k]=Math.round(drinks[k]*mult*10)/10;});
-  return{ v:'2.0', ts:Date.now(), dur:Date.now()-state.start, profile:meta.profile||'balanced',
-          drinks, adults:meta.adults||1, minors:meta.minors||0, vouchers:meta.vouchers||null, answers:ans };
+  return{v:'2.0',ts:Date.now(),dur:Date.now()-state.start,profile:meta.profile||'balanced',
+         drinks,adults:meta.adults||1,minors:meta.minors||0,vouchers:meta.vouchers||null,answers:ans};
 }
 
-// ------- Storage / public -------
 function applyProfile(p){
   const get=id=>document.getElementById(id);
   if(!get('input-days')){console.error('Calculator inputs not found');return;}
   get('input-adults').value=p.adults||1;
   get('input-minors').value=p.minors||0;
   Object.entries(p.drinks||{}).forEach(([k,v])=>{
-    const inp=document.querySelector(`[data-input="${k}"]`); if(inp) inp.value=v;
+    const inp=document.querySelector(`[data-input="${k}"]`);if(inp)inp.value=v;
   });
   if(p.vouchers){
     const cna=get('cna-vouchers');
@@ -926,413 +875,158 @@ function applyProfile(p){
   if(window.scheduleCalc)window.scheduleCalc();
   if(window.announce)window.announce(`✨ ${p.profile} profile loaded!`);
 }
-function save(p){ try{localStorage.setItem(QUIZ_CONFIG.storageKey,JSON.stringify(p));}catch(e){} }
-function load(){ try{return JSON.parse(localStorage.getItem(QUIZ_CONFIG.storageKey));}catch(e){return null;} }
-function expired(p){ if(!p||!p.ts)return true; return Date.now()-p.ts>QUIZ_CONFIG.expiryDays*86400000; }
+
+function save(p){try{localStorage.setItem(QUIZ_CONFIG.storageKey,JSON.stringify(p));}catch(e){}}
+function load(){try{return JSON.parse(localStorage.getItem(QUIZ_CONFIG.storageKey));}catch(e){return null;}}
+function expired(p){if(!p||!p.ts)return true;return Date.now()-p.ts>QUIZ_CONFIG.expiryDays*86400000;}
 function skip(){
   localStorage.setItem(QUIZ_CONFIG.storageKey,JSON.stringify({skipped:true,ts:Date.now()}));
   const modal=document.getElementById('quiz-modal');
   modal.classList.remove('show');
   document.removeEventListener('keydown',trapKeydown,true);
-  if(lastFocus) lastFocus.focus();
+  if(lastFocus)lastFocus.focus();
 }
 
-// Buttons
 document.getElementById('quiz-next').onclick=next;
 document.getElementById('quiz-back').onclick=back;
 
-// Public API
 window.quizStart=show;
 window.quizSkip=skip;
 window.quizReset=()=>{localStorage.removeItem(QUIZ_CONFIG.storageKey);location.reload();};
 
-// Auto-init
-if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',init); }
-else{ init(); }
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
+else{init();}
+
+// CHATGPT FIX #1: Expose QUIZ_QUESTIONS to global scope
+window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
 
 })();
 </script>
-  <script>
-(function authorRailImageOverride(){
-  const rail = document.getElementById('recent-rail');
-  if(!rail) return;
-  const HEADS = {
-    "Tina": { webp: "/authors/img/tina1.webp",  jpg: "/authors/img/tina1.jpg", alt: "Author — Tina" },
-    "Ken":  { webp: "/authors/img/ken1.webp",   jpg: "/authors/img/ken1.jpg",  alt: "Author — Ken Baker" }
-  };
-  function apply(){
-    const cards = rail.querySelectorAll('a, article, .card, .rail-item');
-    cards.forEach(card=>{
-      const txt = (card.textContent || "");
-      const m = txt.match(/By\s+([A-Za-z]+)/i);
-      const name = m && m[1] ? m[1] : null;
-      const head = name && HEADS[name] ? HEADS[name] : null;
-      if(!head) return;
-      const img = card.querySelector('img');
-      if(!img) return;
-      img.src = head.jpg;
-      if (head.webp) img.srcset = head.webp + " 1x";
-      img.alt = head.alt;
-      img.width = 96;
-      img.height = 96;
-      img.style.width = '96px';
-      img.style.height = '96px';
-      img.style.borderRadius = '12px';
-      img.style.objectFit = 'cover';
-      img.style.objectPosition = 'center';
-    });
-  }
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(apply, 350);
-  } else {
-    window.addEventListener('DOMContentLoaded', ()=> setTimeout(apply, 350));
-  }
-})();
-</script>
-  <script>
+
+<!-- Mode toggle -->
+<script>
 (function(){
-  function fillTelemetry(){
-    try{
-      const f = document.getElementById('email-form'); 
-      if(!f) return;
+  const simple=document.getElementById('simple-inputs');
+  const itin=document.getElementById('itinerary-inputs');
+  const rs=document.getElementById('mode-simple');
+  const ri=document.getElementById('mode-itinerary');
+  const legend=document.getElementById('mode-legend');
 
-      // --- dynamic tags: Planning Pass
-      const pass = f.querySelector('input[name="PLANNING_PASS_OPT_IN"]');
-      // Dedupe any previous dynamic tag
-      f.querySelectorAll('input[name="tags[]"][value="planning-pass"]').forEach(n=>n.remove());
-      if(pass && pass.checked){
-        const tag = document.createElement('input');
-        tag.type = 'hidden';
-        tag.name = 'tags[]';
-        tag.value = 'planning-pass';
-        f.appendChild(tag);
-      }
-
-      // --- telemetry fields (best-effort, won’t throw)
-      const byId = id => document.getElementById(id);
-      const recEl = byId('email-rec');
-      const savEl = byId('email-savings');
-
-      // read from global app state if present
-      const best = (window.ITW && window.ITW.best) || (window.ITW_BEST);
-      const inputs = (window.ITW && window.ITW.inputs) || null;
-
-      if (recEl) {
-        recEl.value = (best && best.name) ? String(best.name) : '';
-      }
-      if (savEl) {
-        const delta = (best && typeof best.delta === 'number') ? best.delta : '';
-        savEl.value = String(delta);
-      }
-
-      // include days + URL if present
-      let daysVal = '';
-      const daysInput = document.querySelector('[data-input="days"]');
-      if (inputs && inputs.days) daysVal = String(inputs.days);
-      else if (daysInput) daysVal = String(daysInput.value || '');
-
-      let urlField = f.querySelector('input[name="CALC_URL"]');
-      if (!urlField) {
-        urlField = document.createElement('input');
-        urlField.type = 'hidden';
-        urlField.name = 'CALC_URL';
-        f.appendChild(urlField);
-      }
-      urlField.value = location.href;
-
-      let daysField = f.querySelector('input[name="CRUISE_DAYS"]');
-      if (!daysField) {
-        daysField = document.createElement('input');
-        daysField.type = 'hidden';
-        daysField.name = 'CRUISE_DAYS';
-        f.appendChild(daysField);
-      }
-      daysField.value = daysVal;
-
-    }catch(e){
-      console.error('Email telemetry failed:', e);
+  function toggle(mode){
+    if(mode==='itinerary'){
+      simple.style.display='none';
+      itin.style.display='';
+      if(legend)legend.textContent='Calculation Mode: Day-by-Day';
+    }else{
+      simple.style.display='';
+      itin.style.display='none';
+      if(legend)legend.textContent='Calculation Mode: Daily Averages';
     }
+    document.dispatchEvent(new Event('itw:mode-changed'));
   }
 
-  const form = document.getElementById('email-form');
-  if(form){
-    form.addEventListener('submit', fillTelemetry, {capture: true});
+  if(rs&&ri){
+    rs.addEventListener('change',()=>toggle('simple'));
+    ri.addEventListener('change',()=>toggle('itinerary'));
   }
+
+  toggle('simple');
 })();
 </script>
-  <script>
-// Safety shims so buttons never error if app.js wiring changes
-(function(){
-  if (typeof window.shareScenario !== 'function') {
-    window.shareScenario = function(){
-      try {
-        if (typeof window.syncURL === 'function') window.syncURL();
-        const url = location.href;
-        if (navigator.share) {
-          navigator.share({ title: document.title, url }).catch(()=>{});
-        } else if (navigator.clipboard) {
-          navigator.clipboard.writeText(url);
-          const msg = document.getElementById('signup-message');
-          if (msg) { msg.textContent = '✅ Link copied!'; setTimeout(()=>msg.textContent='', 2000); }
-        } else {
-          alert('Share not supported; copy the URL from your browser.');
-        }
-      } catch(e) { console.error('shareScenario fallback failed:', e); }
+
+<!-- UI Enhancement Scripts -->
+<script>(function authorRailImageOverride(){const rail=document.getElementById('recent-rail');if(!rail)return;const HEADS={"Tina":{webp:"/authors/img/tina1.webp",jpg:"/authors/img/tina1.jpg",alt:"Author — Tina"},"Ken":{webp:"/authors/img/ken1.webp",jpg:"/authors/img/ken1.jpg",alt:"Author — Ken Baker"}};function apply(){const cards=rail.querySelectorAll('a,article,.card,.rail-item');cards.forEach(card=>{const txt=(card.textContent||"");const m=txt.match(/By\s+([A-Za-z]+)/i);const name=m&&m[1]?m[1]:null;const head=name&&HEADS[name]?HEADS[name]:null;if(!head)return;const img=card.querySelector('img');if(!img)return;img.src=head.jpg;if(head.webp)img.srcset=head.webp+" 1x";img.alt=head.alt;img.width=96;img.height=96;img.style.width='96px';img.style.height='96px';img.style.borderRadius='12px';img.style.objectFit='cover';img.style.objectPosition='center'});}if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(apply,350);}else{window.addEventListener('DOMContentLoaded',()=>setTimeout(apply,350));}})();</script>
+
+<script>(function(){function fillTelemetry(){try{const f=document.getElementById('email-form');if(!f)return;const pass=f.querySelector('input[name="PLANNING_PASS_OPT_IN"]');f.querySelectorAll('input[name="tags[]"][value="planning-pass"]').forEach(n=>n.remove());if(pass&&pass.checked){const tag=document.createElement('input');tag.type='hidden';tag.name='tags[]';tag.value='planning-pass';f.appendChild(tag);}const byId=id=>document.getElementById(id);const recEl=byId('email-rec');const savEl=byId('email-savings');const best=(window.ITW&&window.ITW.best)||(window.ITW_BEST);const inputs=(window.ITW&&window.ITW.inputs)||null;if(recEl){recEl.value=(best&&best.name)?String(best.name):'';}if(savEl){const delta=(best&&typeof best.delta==='number')?best.delta:'';savEl.value=String(delta);}let daysVal='';const daysInput=document.querySelector('[data-input="days"]');if(inputs&&inputs.days)daysVal=String(inputs.days);else if(daysInput)daysVal=String(daysInput.value||'');let urlField=f.querySelector('input[name="CALC_URL"]');if(!urlField){urlField=document.createElement('input');urlField.type='hidden';urlField.name='CALC_URL';f.appendChild(urlField);}urlField.value=location.href;let daysField=f.querySelector('input[name="CRUISE_DAYS"]');if(!daysField){daysField=document.createElement('input');daysField.type='hidden';daysField.name='CRUISE_DAYS';f.appendChild(daysField);}daysField.value=daysVal;}catch(e){console.error('Email telemetry failed:',e);}}const form=document.getElementById('email-form');if(form){form.addEventListener('submit',fillTelemetry,{capture:true});}})();</script>
+
+<script>(function(){if(typeof window.shareScenario!=='function'){window.shareScenario=function(){try{if(typeof window.syncURL==='function')window.syncURL();const url=location.href;if(navigator.share){navigator.share({title:document.title,url}).catch(()=>{});}else if(navigator.clipboard){navigator.clipboard.writeText(url);const msg=document.getElementById('signup-message');if(msg){msg.textContent='✅ Link copied!';setTimeout(()=>msg.textContent='',2000);}}else{alert('Share not supported; copy the URL from your browser.');}}catch(e){console.error('shareScenario fallback failed:',e);}};}if(typeof window.resetAll!=='function'){window.resetAll=function(){try{if(typeof window.resetInputs==='function')return window.resetInputs();location.href=location.pathname;}catch(e){location.href=location.pathname;}};}})();</script>
+
+<script>(function(){const nav=document.querySelector('.itw-nav');if(!nav)return;const items=[...nav.querySelectorAll('.nav-item')].filter(g=>g.querySelector('button[aria-haspopup="menu"]'));function setOpen(g,on){g.classList.toggle('open',on);const b=g.querySelector('button');if(b)b.setAttribute('aria-expanded',on?'true':'false');}function closeAll(except){items.forEach(g=>{if(g!==except)setOpen(g,false);});}items.forEach(g=>{const btn=g.querySelector('button'),menu=g.querySelector('.menu');if(!btn||!menu)return;btn.onclick=e=>{e.preventDefault();e.stopPropagation();const open=g.classList.contains('open');closeAll(g);setOpen(g,!open);if(!open){const firstLink=menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');if(firstLink)firstLink.focus();}};menu.onclick=e=>{if(e.target.closest('a'))closeAll();};btn.onkeydown=e=>{if(e.key==='Escape'){setOpen(g,false);btn.focus();}};menu.onkeydown=e=>{if(e.key==='Escape'){setOpen(g,false);btn.focus();}};menu.addEventListener('focusout',()=>{setTimeout(()=>{if(!g.contains(document.activeElement))setOpen(g,false);},0);});});document.addEventListener('click',e=>{if(!e.target.closest('.itw-nav'))closeAll();});})();</script>
+
+<script>(function top20CoverOverride(){const rail=document.getElementById('recent-rail');if(!rail)return;const TITLE_MATCH=/Top\s*20/i;const OVERRIDE={webp:"/assets/covers/top-20.webp",jpg:"/assets/covers/top-20.jpg",alt:"Top 20 Royal Caribbean Picks"};function apply(){const cards=rail.querySelectorAll('a,article,.card,.rail-item');cards.forEach(card=>{const titleEl=card.querySelector('h3,h4,.title,.post-title,strong,b');const title=(titleEl?.textContent||card.textContent||"").trim();if(!TITLE_MATCH.test(title))return;const img=card.querySelector('img');if(!img)return;img.src=OVERRIDE.jpg;img.srcset=OVERRIDE.webp?(OVERRIDE.webp+" 1x"):"";img.alt=OVERRIDE.alt;img.width=img.width||320;img.height=img.height||180;img.style.objectFit='cover';img.style.borderRadius='12px';});}if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(apply,400);}else{window.addEventListener('DOMContentLoaded',()=>setTimeout(apply,400));}})();</script>
+
+<script>(function ensureCategoryBreakdownUpdates(){const grid=document.getElementById('category-grid');const section=document.getElementById('category-breakdown');if(!grid||!section)return;const updateEvt=new Event('itw:inputs-changed');['input','change'].forEach(t=>{document.addEventListener(t,e=>{if(e.target&&e.target.matches('[data-input],[data-voucher],#voucher-value')){document.dispatchEvent(updateEvt);}},{capture:true});});})();</script>
+
+<script>(function(){const cv=document.getElementById('breakeven-chart');if(!cv)return;cv.removeAttribute('width');cv.removeAttribute('height');let done=false;function mount(){if(done)return true;const chart=(window.ITW&&window.ITW.chart)||cv._chart||null;if(!chart||!chart.options)return false;try{chart.options.responsive=true;chart.options.maintainAspectRatio=false;chart.update('none');done=true;}catch(_){}return done;}if(!mount()){let tries=0;const t=setInterval(()=>{if(mount()||++tries>20)clearInterval(t);},150);}})();</script>
+
+<script>(function(){const cv=document.getElementById('breakeven-chart');const badge=document.getElementById('best-stamp');if(!cv||!badge)return;const WINNER={idx:null};const ringPlugin={id:'itwWinnerRing',afterDatasetsDraw(chart){if(WINNER.idx==null)return;let el=null;chart.data.datasets.some((ds,i)=>{const meta=chart.getDatasetMeta(i);const e=meta?.data?.[WINNER.idx];if(e){el=e;return true;}});if(!el)return;const{x,y,width,height}=el.getProps(['x','y','width','height'],true);const ctx=chart.ctx;ctx.save();ctx.strokeStyle='#10b981';ctx.lineWidth=4;ctx.setLineDash([6,4]);const pad=6;ctx.strokeRect(x-width/2-pad,y-height-pad,width+pad*2,height+pad*2);ctx.restore();}};function pickWinner(chart){const ds=chart.data.datasets||[];const N=ds[0]?.data?.length||0;let best={idx:null,val:Infinity};for(let i=0;i<N;i++){let min=Infinity;ds.forEach(d=>{const v=(Array.isArray(d.data)&&typeof d.data[i]==='number')?d.data[i]:Infinity;if(v>0&&v<min)min=v;});if(min<best.val){best={idx:i,val:min};}}WINNER.idx=best.idx;badge.style.display=(WINNER.idx==null)?'none':'';}function hook(){const chart=(window.ITW&&window.ITW.chart)||cv._chart||cv.__chartist||null;if(!chart||!chart.data)return false;chart.config.plugins=chart.config.plugins||[];if(!chart.config.plugins.includes(ringPlugin))chart.config.plugins.push(ringPlugin);pickWinner(chart);chart.update();document.addEventListener('itw:calc-updated',()=>{try{pickWinner(chart);chart.update();}catch(_){}});return true;}if(!hook()){let tries=0;const t=setInterval(()=>{if(hook()||++tries>20)clearInterval(t);},150);}(function(){const btn=document.getElementById('jump-winner');if(!btn)return;btn.addEventListener('click',()=>{document.getElementById('breakeven-wrap').scrollIntoView({behavior:'smooth',block:'center'});});})();})();</script>
+
+<script>(function(){const rail=document.querySelector('aside.rail');if(!rail)return;const author=rail.querySelector('.author-card')?.closest('.card');if(author)rail.appendChild(author);})();</script>
+
+<script>(function(){const form=document.getElementById('email-form');if(!form)return;const labels=[...form.querySelectorAll('label.small')];const agree=labels.find(l=>/I\s*agree/i.test(l.textContent||''));const bonus=labels.find(l=>/Bonus:/i.test(l.textContent||''));if(agree&&bonus&&agree.previousElementSibling!==bonus){agree.parentNode.insertBefore(bonus,agree);}})();</script>
+
+<script>(function(){document.getElementById('year').textContent=new Date().getFullYear();})();</script>
+
+<!-- VOUCHER AUTO-SYNC (with CHATGPT FIX #2: Retry loop) -->
+<script>
+(function voucherAutoSync(){
+  const $=sel=>document.querySelector(sel);
+
+  function detectDeluxeCap(){
+    const cands=[
+      (window.ITW&&window.ITW.prices&&window.ITW.prices.deluxeCap),
+      (window.ITW&&window.ITW.caps&&window.ITW.caps.deluxe),
+      (window.ITW&&window.ITW.packages&&window.ITW.packages.deluxe&&window.ITW.packages.deluxe.cap),
+      window.ITW&&window.ITW.deluxeCap,
+      14
+    ];
+    for(const v of cands){if(typeof v==='number'&&isFinite(v)&&v>0)return v;}
+    return 14;
+  }
+
+  function lockAndSet(value){
+    const inp=$('#voucher-value');
+    if(!inp)return;
+    inp.value=Number(value).toFixed(2);
+    inp.readOnly=true;
+    inp.setAttribute('aria-readonly','true');
+    inp.title=`Auto-synced to Deluxe cap ($${Number(value).toFixed(2)})`;
+    inp.style.cursor='not-allowed';
+    inp.dispatchEvent(new Event('input',{bubbles:true}));
+    inp.dispatchEvent(new Event('change',{bubbles:true}));
+    window.ITW_VOUCHER_FACE_VALUE=Number(value);
+    document.dispatchEvent(new CustomEvent('itw:voucher-face-value',{detail:{value:Number(value)}}));
+  }
+
+  function syncOnce(){lockAndSet(detectDeluxeCap());}
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',syncOnce);
+  }else{
+    syncOnce();
+  }
+
+  document.addEventListener('itw:calc-updated',syncOnce);
+  document.addEventListener('itw:inputs-changed',syncOnce);
+  const cur=$('#currency-select');
+  if(cur)cur.addEventListener('change',syncOnce);
+
+  (function tryPatchMath(){
+    const M=window.ITW_MATH;
+    if(!M||typeof M.computeWithVouchers!=='function')return;
+    const orig=M.computeWithVouchers;
+    M.computeWithVouchers=function(inputs,opts){
+      const cap=detectDeluxeCap();
+      const safeOpts=Object.assign({},opts,{voucherFaceValue:cap});
+      return orig.call(this,inputs,safeOpts);
     };
-  }
-
-  if (typeof window.resetAll !== 'function') {
-    window.resetAll = function(){
-      try {
-        // Prefer the app.js reset if present
-        if (typeof window.resetInputs === 'function') return window.resetInputs();
-        // Fallback: soft reload this page path (clears local state)
-        location.href = location.pathname;
-      } catch(e) {
-        location.href = location.pathname;
-      }
-    };
-  }
-})();
-</script>
-  <script>
-(function(){
-  const nav=document.querySelector('.itw-nav'); if(!nav) return;
-  const items=[...nav.querySelectorAll('.nav-item')].filter(
-    g => g.querySelector('button[aria-haspopup="menu"]')
-  );
-
-  function setOpen(g,on){
-    g.classList.toggle('open',on);
-    const b=g.querySelector('button');
-    if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
-  }
-  function closeAll(except){ items.forEach(g=>{ if(g!==except) setOpen(g,false); }); }
-
-  items.forEach(g=>{
-    const btn=g.querySelector('button'), menu=g.querySelector('.menu'); if(!btn||!menu) return;
-
-    // Toggle on click
-    btn.onclick=e=>{
-      e.preventDefault(); e.stopPropagation();
-      const open=g.classList.contains('open');
-      closeAll(g);
-      setOpen(g,!open);
-      if(!open){
-        // focus first link for keyboard users
-        const firstLink=menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-        if(firstLink) firstLink.focus();
-      }
-    };
-
-    // Close when a menu link is activated
-    menu.onclick=e=>{ if(e.target.closest('a')) closeAll(); };
-
-    // Close with Escape when focus is on the button
-    btn.onkeydown=e=>{ if(e.key==='Escape'){ setOpen(g,false); btn.focus(); } };
-
-    // Close with Escape when focus is inside the menu
-    menu.onkeydown=e=>{
-      if(e.key==='Escape'){
-        setOpen(g,false);
-        btn.focus();
-      }
-    };
-
-    // Close when focus leaves the nav-item
-    menu.addEventListener('focusout',()=>{
-      setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0);
-    });
-  });
-
-  // Click outside closes any open menu
-  document.addEventListener('click', e=>{ if(!e.target.closest('.itw-nav')) closeAll(); });
-})();
-</script>
-  <script>
-(function top20CoverOverride(){
-  const rail = document.getElementById('recent-rail');
-  if(!rail) return;
-
-  const TITLE_MATCH = /Top\s*20/i; // adjust to your exact title if needed
-  const OVERRIDE = {
-    webp: "/assets/covers/top-20.webp",
-    jpg:  "/assets/covers/top-20.jpg",
-    alt:  "Top 20 Royal Caribbean Picks"
-  };
-
-  function apply(){
-    const cards = rail.querySelectorAll('a, article, .card, .rail-item');
-    cards.forEach(card=>{
-      const titleEl = card.querySelector('h3, h4, .title, .post-title, strong, b');
-      const title = (titleEl?.textContent || card.textContent || "").trim();
-      if (!TITLE_MATCH.test(title)) return;
-      const img = card.querySelector('img');
-      if (!img) return;
-      img.src = OVERRIDE.jpg;
-      img.srcset = OVERRIDE.webp ? (OVERRIDE.webp + " 1x") : "";
-      img.alt = OVERRIDE.alt;
-      img.width = img.width || 320;
-      img.height = img.height || 180;
-      img.style.objectFit = 'cover';
-      img.style.borderRadius = '12px';
-    });
-  }
-
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(apply, 400);
-  } else {
-    window.addEventListener('DOMContentLoaded', ()=> setTimeout(apply, 400));
-  }
-})();
-</script>
-  <script>
-(function ensureCategoryBreakdownUpdates(){
-  const grid = document.getElementById('category-grid');
-  const section = document.getElementById('category-breakdown');
-  if(!grid || !section) return;
-
-  const updateEvt = new Event('itw:inputs-changed');
-  // Broadcast on common user interactions as a fallback
-  ['input','change'].forEach(t=>{
-    document.addEventListener(t, e=>{
-      if (e.target && e.target.matches('[data-input], [data-voucher], #voucher-value')) {
-        document.dispatchEvent(updateEvt);
-      }
-    }, {capture:true});
-  });
-})();
-</script>
-  <script>
-/* Chart sizing — one-time mount, no ResizeObserver (prevents layout loop) */
-(function(){
-  const cv = document.getElementById('breakeven-chart');
-  if (!cv) return;
-
-  // Let CSS control sizing
-  cv.removeAttribute('width');
-  cv.removeAttribute('height');
-
-  let done = false;
-  function mount(){
-    if (done) return true;
-    const chart = (window.ITW && window.ITW.chart) || cv._chart || null;
-    if (!chart || !chart.options) return false;
-    try {
-      chart.options.responsive = true;
-      chart.options.maintainAspectRatio = false;
-      chart.update('none'); // no animation to avoid layout thrash
-      done = true;
-    } catch(_) {}
-    return done;
-  }
-
-  if (!mount()){
-    let tries = 0;
-    const t = setInterval(()=>{
-      if (mount() || ++tries > 20) clearInterval(t);
-    }, 150);
-  }
-})();
-</script>
-  <script>
-/* Winner ring + badge */
-(function(){
-  const cv = document.getElementById('breakeven-chart');
-  const badge = document.getElementById('best-stamp');
-  if (!cv || !badge) return;
-
-  const WINNER = { idx: null };
-
-  const ringPlugin = {
-    id: 'itwWinnerRing',
-    afterDatasetsDraw(chart){
-      if (WINNER.idx == null) return;
-      // find an element for the winner index from any visible dataset
-      let el = null;
-      chart.data.datasets.some((ds, i)=>{
-        const meta = chart.getDatasetMeta(i);
-        const e = meta?.data?.[WINNER.idx];
-        if (e){ el = e; return true; }
-      });
-      if (!el) return;
-
-      const {x,y,width,height} = el.getProps(['x','y','width','height'], true);
-      const ctx = chart.ctx;
-      ctx.save();
-      ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 4;
-      ctx.setLineDash([6,4]);
-      const pad = 6;
-      ctx.strokeRect(x - width/2 - pad, y - height - pad, width + pad*2, height + pad*2);
-      ctx.restore();
-    }
-  };
-
-  function pickWinner(chart){
-    // find smallest positive value across the four category indices
-    const ds = chart.data.datasets || [];
-    const N  = ds[0]?.data?.length || 0;
-    let best = {idx:null, val:Infinity};
-
-    for (let i=0;i<N;i++){
-      let min = Infinity;
-      ds.forEach(d=>{
-        const v = (Array.isArray(d.data) && typeof d.data[i]==='number') ? d.data[i] : Infinity;
-        if (v>0 && v<min) min = v;
-      });
-      if (min < best.val){ best = {idx:i, val:min}; }
-    }
-
-    WINNER.idx = best.idx;
-    badge.style.display = (WINNER.idx==null) ? 'none' : '';
-  }
-
-  function hook(){
-    const chart = (window.ITW && window.ITW.chart) || cv._chart || cv.__chartist || null;
-    if (!chart || !chart.data) return false;
-    chart.config.plugins = chart.config.plugins || [];
-    if (!chart.config.plugins.includes(ringPlugin)) chart.config.plugins.push(ringPlugin);
-    pickWinner(chart);
-    chart.update();
-
-    // re-evaluate on any app recalculation
-    document.addEventListener('itw:calc-updated', ()=>{ try{ pickWinner(chart); chart.update(); }catch(_){}} );
-    return true;
-  }
-
-  if (!hook()){
-    let tries = 0; const t = setInterval(()=>{ if (hook() || ++tries>20) clearInterval(t); }, 150);
-  }
-
-  // “Jump to Best” focus/scroll helper
-  (function(){
-    const btn = document.getElementById('jump-winner');
-    if (!btn) return;
-    btn.addEventListener('click', ()=>{
-      document.getElementById('breakeven-wrap').scrollIntoView({behavior:'smooth', block:'center'});
-    });
   })();
-})();
-</script>
-  <script>
-(function(){
-  const rail = document.querySelector('aside.rail');
-  if (!rail) return;
-  const author = rail.querySelector('.author-card')?.closest('.card');
-  if (author) rail.appendChild(author);
-})();
-</script>
-  <script>
-(function(){
-  const form = document.getElementById('email-form');
-  if(!form) return;
-  const labels = [...form.querySelectorAll('label.small')];
-  const agree = labels.find(l=>/I\s*agree/i.test(l.textContent||''));
-  const bonus = labels.find(l=>/Bonus:/i.test(l.textContent||''));
-  if(agree && bonus && agree.previousElementSibling !== bonus){
-    agree.parentNode.insertBefore(bonus, agree); // bonus first, agree below it
-  }
+
+  (function wrapScheduleCalc(){
+    const orig=window.scheduleCalc;
+    if(typeof orig!=='function')return;
+    window.scheduleCalc=function(){
+      syncOnce();
+      return orig.apply(this,arguments);
+    };
+  })();
+
+  // CHATGPT FIX #2: Retry loop for first 2 seconds after load
+  let attempts=0;
+  const warm=setInterval(()=>{
+    syncOnce();
+    if(++attempts>10)clearInterval(warm);
+  },200);
 })();
 </script>
 </body>
