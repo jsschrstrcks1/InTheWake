@@ -1015,7 +1015,22 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
 
 <script>(function top20CoverOverride(){const rail=document.getElementById('recent-rail');if(!rail)return;const TITLE_MATCH=/Top\s*20/i;const OVERRIDE={webp:"/assets/covers/top-20.webp",jpg:"/assets/covers/top-20.jpg",alt:"Top 20 Royal Caribbean Picks"};function apply(){const cards=rail.querySelectorAll('a,article,.card,.rail-item');cards.forEach(card=>{const titleEl=card.querySelector('h3,h4,.title,.post-title,strong,b');const title=(titleEl?.textContent||card.textContent||"").trim();if(!TITLE_MATCH.test(title))return;const img=card.querySelector('img');if(!img)return;img.src=OVERRIDE.jpg;img.srcset=OVERRIDE.webp?(OVERRIDE.webp+" 1x"):"";img.alt=OVERRIDE.alt;img.width=img.width||320;img.height=img.height||180;img.style.objectFit='cover';img.style.borderRadius='12px';});}if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(apply,400);}else{window.addEventListener('DOMContentLoaded',()=>setTimeout(apply,400));}})();</script>
 
-<script>(function ensureCategoryBreakdownUpdates(){const grid=document.getElementById('category-grid');const section=document.getElementById('category-breakdown');if(!grid||!section)return;const updateEvt=new Event('itw:inputs-changed');['input','change'].forEach(t=>{document.addEventListener(t,e=>{if(e.target&&e.target.matches('[data-input],[data-voucher],#voucher-value')){document.dispatchEvent(updateEvt);}},{capture:true});});})();</script>
+<script>
+(function ensureCategoryBreakdownUpdates(){
+  const grid=document.getElementById('category-grid');
+  const section=document.getElementById('category-breakdown');
+  if(!grid||!section)return;
+  const updateEvt=new Event('itw:inputs-changed');
+  ['input','change'].forEach(t=>{
+    document.addEventListener(t,e=>{
+      // Exclude voucher-value to prevent loop
+      if(e.target&&e.target.matches('[data-input],[data-voucher]')&&e.target.id!=='voucher-value'){
+        document.dispatchEvent(updateEvt);
+      }
+    },{capture:true});
+  });
+})();
+</script>
 
 <script>(function(){const rail=document.querySelector('aside.rail');if(!rail)return;const author=rail.querySelector('.author-card')?.closest('.card');if(author)rail.appendChild(author);})();</script>
 
