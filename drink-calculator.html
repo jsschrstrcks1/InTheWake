@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="version" content=".9.001.020"/>
+<meta name="version" content=".9.001.021"/>
 <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It? (alpha testing)</title>
 <meta name="description" content="Compare Soda, Refreshment, and Deluxe vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
@@ -31,61 +31,41 @@
 <meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <script>
-  // Tell any site-wide code to skip infinite scroll on this page
-  window.ITW_PAGE = 'drink-calculator';
-  window.ITW_DISABLE_INFINITE = true;
-  
-  /* INLINE KILL SCRIPT - MUST RUN BEFORE ANYTHING ELSE */
-  (function killInfiniteScrollEarly(){
-    // 1) Patch IntersectionObserver BEFORE site code can use it
-    try {
-      var NativeIO = window.IntersectionObserver;
-      if (NativeIO && !window.__itwIOPatched) {
-        window.IntersectionObserver = function(cb, opts){
-          var wrapped = function(entries, observer){
-            // Block ALL sentinel-related intersections
-            var block = entries && entries.some(e => {
-              var t = e && e.target;
-              return t && (
-                t.id === 'infinite-sentinel' ||
-                t.classList?.contains('infinite-sentinel') ||
-                t.hasAttribute?.('data-infinite-sentinel') ||
-                t.id === 'recent-rail' // Block rail-specific sentinels
-              );
-            });
-            if (block) return; // Swallow the callback
-            return cb && cb(entries, observer);
-          };
-          return new NativeIO(wrapped, opts);
-        };
-        window.IntersectionObserver.prototype = NativeIO.prototype;
-        window.__itwIOPatched = true;
-      }
-    } catch(_) {}
+(function killInfiniteScrollEarly(){
+  try {
+    // Keep original
+    const NativeIO = window.IntersectionObserver;
+    if (!NativeIO || window.__itwIOPatched) return;
 
-    // 2) Stub out common infinite scroll functions
-    window.loadMorePosts = function(){ return false; };
-    window.infiniteScroll = function(){ return false; };
-    if (window.ITW) {
-      window.ITW.loadMore = function(){ return false; };
-      window.ITW.infiniteScroll = function(){ return false; };
+    function isSentinelTarget(t){
+      return !!t && (
+        t.id === 'infinite-sentinel' ||
+        t.classList?.contains('infinite-sentinel') ||
+        (typeof t.hasAttribute === 'function' && t.hasAttribute('data-infinite-sentinel'))
+      );
     }
 
-    // 3) Remove sentinels on DOMContentLoaded AND later
-    function removeSentinels(){
-      try {
-        document.querySelectorAll('#infinite-sentinel, .infinite-sentinel, [data-infinite-sentinel]')
-          .forEach(n => n.remove());
-      } catch(_){}
+    function PatchedIntersectionObserver(cb, opts){
+      const wrapped = function(entries, observer){
+        // swallow if any entry is for our sentinels
+        if (entries && entries.some(e => isSentinelTarget(e && e.target))) return;
+        return cb && cb(entries, observer);
+      };
+      return new NativeIO(wrapped, opts);
     }
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', removeSentinels);
-    }
-    setTimeout(removeSentinels, 100);
-    setTimeout(removeSentinels, 500);
-    setTimeout(removeSentinels, 1000);
-  })();
+    PatchedIntersectionObserver.prototype = NativeIO.prototype;
+
+    // Install the patch
+    let _installed = PatchedIntersectionObserver;
+    Object.defineProperty(window, 'IntersectionObserver', {
+      configurable: false,
+      get(){ return _installed; },
+      set(v){ /* block later overrides */ console.warn('Blocked IO override', v); }
+    });
+
+    window.__itwIOPatched = true;
+  } catch(_) {}
+})();
 </script>
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -286,7 +266,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 <!-- Chart + App loader -->
 <script>
 (function(){
-  const VER=document.querySelector('meta[name="version"]')?.content||'.9.001.020';
+  const VER=document.querySelector('meta[name="version"]')?.content||'.9.001.021';
   const local="/vendor/chart.umd.min.js?v="+VER;
   const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
 
@@ -346,7 +326,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <div class="navbar">
     <div class="brand">
       <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
-      <span class="tiny version-badge">v.9.001.020</span>
+      <span class="tiny version-badge">v.9.001.021</span>
     </div>
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
@@ -1261,16 +1241,6 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
   }
 })();
 </script>
-  <script>
-(function debugInfiniteScroll(){
-  // Log any IntersectionObserver creation
-  var Native = window.IntersectionObserver;
-  window.IntersectionObserver = function(cb, opts){
-    console.warn('⚠️ IntersectionObserver created:', cb, opts, new Error().stack);
-    return new Native(cb, opts);
-  };
-  window.IntersectionObserver.prototype = Native.prototype;
-})();
-</script>
+
 </body>
 </html>
