@@ -30,83 +30,6 @@
 <meta property="og:url" content="https://cruisinginthewake.com/drink-calculator.html"/>
 <meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<script>
-(function hardStopRailInfinite(){
-  try{
-    const NativeIO = window.IntersectionObserver;
-    if(!NativeIO || window.__itwIOPatchedRail) return;
-
-    // 1) Helper: does an entry target live in/at the rail?
-    function inRail(t){
-      try{
-        return !!t && (
-          t.id === 'recent-rail' ||
-          (typeof t.closest === 'function' && t.closest('#recent-rail'))
-        );
-      }catch(_){ return false; }
-    }
-
-    // 2) Wrap constructor to swallow entries that touch the rail subtree
-    function PatchedIntersectionObserver(cb, opts){
-      const wrapped = function(entries, observer){
-        if(entries && entries.some(e => {
-          const t = e && e.target;
-          // classic sentinels OR anything inside the rail
-          return (t &&
-            (t.id === 'infinite-sentinel' ||
-             t.classList?.contains('infinite-sentinel') ||
-             t.hasAttribute?.('data-infinite-sentinel') ||
-             inRail(t)));
-        })){
-          return; // swallow
-        }
-        return cb && cb(entries, observer);
-      };
-      const io = new NativeIO(wrapped, opts);
-
-      // 3) Patch observe/unobserve on the instance: refuse anything in the rail
-      const _observe = io.observe;
-      io.observe = function(el){
-        if(inRail(el)) return; // silently ignore
-        return _observe.call(this, el);
-      };
-      return io;
-    }
-    PatchedIntersectionObserver.prototype = NativeIO.prototype;
-
-    // 4) Replace global IO (and prevent later overrides)
-    Object.defineProperty(window, 'IntersectionObserver', {
-      configurable: false,
-      get(){ return PatchedIntersectionObserver; },
-      set(v){ /* no-op */ }
-    });
-
-    window.__itwIOPatchedRail = true;
-  }catch(_){}
-})();
-</script>
-  <script>
-(function neuterObserveOnPrototype(){
-  try{
-    const IO = window.IntersectionObserver;
-    if(!IO || window.__itwObserveGuard) return;
-
-    const _observe = IO.prototype.observe;
-    function inRail(t){ try{ return !!t && (t.id==='recent-rail' || t.closest?.('#recent-rail')); }catch(_){ return false; } }
-    IO.prototype.observe = function(el){
-      if(inRail(el) ||
-         el?.id === 'infinite-sentinel' ||
-         el?.classList?.contains('infinite-sentinel') ||
-         el?.hasAttribute?.('data-infinite-sentinel')){
-        return; // refuse
-      }
-      return _observe.call(this, el);
-    };
-
-    window.__itwObserveGuard = true;
-  }catch(_){}
-})();
-</script>
 <!-- Structured data -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Drink Calculator","item":"https://cruisinginthewake.com/drink-calculator.html"}]}
@@ -285,6 +208,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
     visibility: hidden !important;
     pointer-events: none !important;
   }
+    .hero{ min-height:clamp(200px,24vw,340px); }
 </style>
 <script>
   // Tell any site-wide code to skip infinite scroll on this page
@@ -1149,69 +1073,7 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
   },200);
 })();
 </script>
- <script>
-/* Kill any infinite-scroll on this page (defensive, page-scoped) */
-(function killInfiniteScroll(){
-  if (!window.ITW_DISABLE_INFINITE) return;
 
-  // 2a) Remove common sentinel nodes so observers never fire
-  var SENTINEL_SEL = '#infinite-sentinel, .infinite-sentinel, [data-infinite-sentinel]';
-  try {
-    document.querySelectorAll(SENTINEL_SEL).forEach(n => { try { n.remove(); } catch(_){} });
-  } catch(_) {}
-
-  // 2b) Disconnect any site-exposed observers if present
-  try {
-    if (window.ITW && window.ITW.infiniteObserver && typeof window.ITW.infiniteObserver.disconnect === 'function') {
-      window.ITW.infiniteObserver.disconnect();
-    }
-    if (window.ITW && Array.isArray(window.ITW.observers)) {
-      window.ITW.observers.forEach(o => o && o.disconnect && o.disconnect());
-    }
-  } catch(_) {}
-
-  // 2c) Patch IntersectionObserver callbacks on this page only
-  try {
-    var NativeIO = window.IntersectionObserver;
-    if (NativeIO && !window.__itwIOPatched) {
-      window.IntersectionObserver = function(cb, opts){
-        var wrapped = function(entries, observer){
-          if (window.ITW_DISABLE_INFINITE) {
-            var block = entries && entries.some(e => {
-              var t = e && e.target;
-              return t && (
-                t.id === 'infinite-sentinel' ||
-                t.classList?.contains('infinite-sentinel') ||
-                t.hasAttribute?.('data-infinite-sentinel')
-              );
-            });
-            if (block) return; // swallow sentinel triggers
-          }
-          return cb && cb(entries, observer);
-        };
-        var io = new NativeIO(wrapped, opts);
-        return io;
-      };
-      window.IntersectionObserver.prototype = NativeIO.prototype;
-      window.__itwIOPatched = true;
-    }
-  } catch(_) {}
-
-  // 2d) As a final guard, remove any new sentinels that get injected later
-  try {
-    var mo = new MutationObserver(function(muts){
-      muts.forEach(m => {
-        m.addedNodes && m.addedNodes.forEach(n => {
-          if (!(n instanceof Element)) return;
-          if (n.matches?.(SENTINEL_SEL)) { try { n.remove(); } catch(_){} }
-          n.querySelectorAll?.(SENTINEL_SEL).forEach(x => { try { x.remove(); } catch(_){} });
-        });
-      });
-    });
-    mo.observe(document.documentElement, { childList: true, subtree: true });
-  } catch(_) {}
-})();
-</script>
   <script>
 /* Chart.js stability patch: disable internal ResizeObserver and lock height */
 (function stabilizeChartJS(){
@@ -1275,6 +1137,41 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
   }
 })();
 </script>
+<script>
+/** DRINK CALC: hard kill any infinite-scroll feature, page-scoped and safe */
+(function stakeThroughInfinite(){
+  // 0) Tell any site code we're opted out
+  window.ITW_DISABLE_INFINITE = true;
 
+  // 1) Remove any sentinels that already exist
+  var SENTINELS = '#infinite-sentinel,.infinite-sentinel,[data-infinite-sentinel],[data-load-more]';
+  try { document.querySelectorAll(SENTINELS).forEach(n => n.remove()); } catch(_) {}
+
+  // 2) Disconnect any known observers that might have been attached
+  try {
+    if (window.ITW?.infiniteObserver?.disconnect) window.ITW.infiniteObserver.disconnect();
+    if (Array.isArray(window.ITW?.observers)) window.ITW.observers.forEach(o => o?.disconnect?.());
+  } catch(_) {}
+
+  // 3) Stop future sentinels from being added anywhere on this page
+  try {
+    var mo = new MutationObserver(muts => {
+      muts.forEach(m => {
+        m.addedNodes && m.addedNodes.forEach(n => {
+          if (!(n instanceof Element)) return;
+          if (n.matches?.(SENTINELS)) { n.remove(); return; }
+          n.querySelectorAll?.(SENTINELS).forEach(x => x.remove());
+        });
+      });
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+  } catch(_) {}
+
+  // 4) Hide anything that slips through (just in case)
+  var s = document.createElement('style');
+  s.textContent = SENTINELS + '{display:none!important;visibility:hidden!important;pointer-events:none!important;}';
+  document.head.appendChild(s);
+})();
+</script>
 </body>
 </html>
