@@ -188,8 +188,32 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   body,.card{background:var(--sky)!important;color:var(--ink)!important}
 }
   .inputs.card { border-color: var(--rope); }
+  /* Winner badge (non-obstructive) */
+#best-stamp{
+  position:absolute; top:-10px; right:8px;
+  background:#10b981; color:#063;
+  border:2px solid #065f46; border-radius:999px;
+  padding:.25rem .5rem; font-weight:800; font-size:.8rem;
+  box-shadow:0 4px 12px rgba(0,0,0,.12); display:none; z-index:3;
+}
 </style>
+<style id="reduced-motion">
+/* Respect prefers-reduced-motion: pause slide/blur and micro-animations */
+@media (prefers-reduced-motion: reduce){
+  html:focus-within { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 
+  /* Quiz: kill modal fade-in, container slide-up, question slide */
+  #quiz-modal { animation: none !important; backdrop-filter: none !important; }
+  .quiz-container { animation: none !important; }
+  .quiz-question { animation: none !important; }
+  .quiz-progress-bar { transition: none !important; }
+
+  /* Small hover nudges elsewhere */
+  .quiz-option:hover,
+  .itw-nav .chip:hover { transform: none !important; }
+}
+</style>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="dns-prefetch" href="https://api.frankfurter.app">
 <link rel="dns-prefetch" href="https://api.exchangerate.host">
@@ -235,7 +259,8 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 <a href="#content" class="sr-only">Skip to main content</a>
 
 <!-- QUIZ MODAL -->
-<div id="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="quiz-title">
+<div id="quiz-modal" role="dialog" aria-modal="true"
+     aria-labelledby="quiz-title" aria-describedby="quiz-subtitle">
   <div class="quiz-container">
     <div class="quiz-header">
       <h2 id="quiz-title">✨ Discover Your Cruise Style</h2>
@@ -247,7 +272,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
       <button id="quiz-back" type="button" class="quiz-btn quiz-btn-secondary" style="display:none">← Back</button>
       <button id="quiz-next" type="button" class="quiz-btn quiz-btn-primary" disabled>Next →</button>
     </div>
-    <div class="quiz-skip"><button onclick="window.quizSkip()">Skip and enter manually</button></div>
+    <div class="quiz-skip"><button type="button" onclick="window.quizSkip()">Skip and enter manually</button></div>
   </div>
 </div>
 
@@ -516,7 +541,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 </table>
       <canvas id="breakeven-chart" width="900" height="320"
   aria-label="Package comparison chart"
-  aria-describedby="chart-desc"></canvas>
+  aria-describedby="chart-desc"><div id="best-stamp" aria-hidden="true">Best value</div></canvas>
           <div class="chart-help">
             <strong>💡 How to read:</strong> Blue bar = your actual drinking cost per day (including 18% gratuity). 
             Gray bars = what you'd pay for each package. <strong>Lower = better value.</strong>
@@ -659,7 +684,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 </footer>
 
 <script>
-// LEAN QUIZ SYSTEM v2.0 - WITH CASCADE & VOUCHER LOCK
+// LEAN QUIZ SYSTEM v2.0 - WITH CASCADE, VOUCHER LOCK, FOCUS TRAP, ESC CLOSE
 (function(){
 'use strict';
 
@@ -740,13 +765,38 @@ const QUIZ_QUESTIONS=[
 
 let state={idx:0,ans:{},start:Date.now()};
 
+// ------- Focus trap helpers -------
+let lastFocus=null;
+function getFocusable(){
+  const m=document.getElementById('quiz-modal');
+  return [...m.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')]
+    .filter(el=>!el.hasAttribute('disabled') && el.offsetParent !== null);
+}
+function trapKeydown(e){
+  const modal=document.getElementById('quiz-modal');
+  if(!modal.classList.contains('show')) return;
+  const f=getFocusable();
+  if(!f.length) return;
+  const first=f[0], last=f[f.length-1];
+
+  if(e.key==='Tab'){
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  }else if(e.key==='Escape'){
+    // Close on Esc
+    modal.classList.remove('show');
+    document.removeEventListener('keydown',trapKeydown,true);
+    if(lastFocus) lastFocus.focus();
+  }
+}
+
+// ------- Init / show / render -------
 function init(){
   const saved=load();
   if(saved&&!expired(saved)){
     applyProfile(saved);
     return;
   }
-  // Auto-show quiz if first visit
   const visited=localStorage.getItem('calc_visited');
   if(!visited){
     localStorage.setItem('calc_visited','1');
@@ -756,24 +806,24 @@ function init(){
 
 function show(){
   state={idx:0,ans:{},start:Date.now()};
-  document.getElementById('quiz-modal').classList.add('show');
+  const modal=document.getElementById('quiz-modal');
+  lastFocus=document.activeElement;
+  modal.classList.add('show');
+  document.addEventListener('keydown',trapKeydown,true);
   render();
+  // Move focus into modal
+  (document.getElementById('quiz-next') || document.getElementById('quiz-title')).focus();
 }
 
 function render(){
   const q=QUIZ_QUESTIONS[state.idx];
   if(!q){finish();return;}
-  // Cascade skip
-  if(q.showIf&&!q.showIf(state.ans)){
-    state.idx++;
-    render();
-    return;
-  }
+  if(q.showIf&&!q.showIf(state.ans)){ state.idx++; render(); return; }
+
   const prog=(state.idx+1)/QUIZ_QUESTIONS.length*100;
   document.getElementById('quiz-progress-bar').style.width=prog+'%';
-  
+
   let html=`<div class="quiz-question"><h3>${q.icon} ${q.q}</h3><div class="quiz-options">`;
-  
   if(q.type==='radio'){
     q.opts.forEach(o=>{
       const sel=state.ans[q.id]===o.v;
@@ -783,33 +833,27 @@ function render(){
           <div><div>${o.l}</div>${o.d?`<div class="quiz-option-desc">${o.d}</div>`:''}</div>
         </div></div>`;
     });
-  }else if(q.type==='multi'){
+  }else{
     q.opts.forEach(o=>{
       const sel=(state.ans[q.id]||[]).includes(o.v);
       html+=`<div class="quiz-option${sel?' selected':''}" data-q="${q.id}" data-v="${o.v}" data-multi="1">
-        <div class="quiz-option-label">
-          <div class="quiz-option-icon">${o.e||''}</div>
-          <div>${o.l}</div>
-        </div></div>`;
+        <div class="quiz-option-label"><div class="quiz-option-icon">${o.e||''}</div><div>${o.l}</div></div>
+      </div>`;
     });
   }
   html+='</div></div>';
   document.getElementById('quiz-content').innerHTML=html;
-  
-  document.querySelectorAll('.quiz-option').forEach(el=>{
-    el.onclick=()=>select(el);
-  });
-  
+
+  document.querySelectorAll('.quiz-option').forEach(el=>{ el.onclick=()=>select(el); });
+
   document.getElementById('quiz-back').style.display=state.idx>0?'':'none';
   document.getElementById('quiz-next').disabled=!state.ans[q.id];
   document.getElementById('quiz-next').textContent=state.idx===QUIZ_QUESTIONS.length-1?'Finish ✨':'Next →';
 }
 
+// ------- Select / nav -------
 function select(el){
-  const q=el.dataset.q;
-  const v=el.dataset.v;
-  const multi=el.dataset.multi;
-  
+  const q=el.dataset.q, v=el.dataset.v, multi=el.dataset.multi;
   if(multi){
     if(!state.ans[q])state.ans[q]=[];
     if(v==='none'){
@@ -818,81 +862,54 @@ function select(el){
       el.classList.add('selected');
     }else{
       state.ans[q]=state.ans[q].filter(x=>x!=='none');
-      if(state.ans[q].includes(v)){
-        state.ans[q]=state.ans[q].filter(x=>x!==v);
-        el.classList.remove('selected');
-      }else{
-        state.ans[q].push(v);
-        el.classList.add('selected');
-      }
+      if(state.ans[q].includes(v)){ state.ans[q]=state.ans[q].filter(x=>x!==v); el.classList.remove('selected'); }
+      else{ state.ans[q].push(v); el.classList.add('selected'); }
     }
   }else{
     state.ans[q]=v;
     el.parentElement.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));
     el.classList.add('selected');
-    // Auto-advance
-    setTimeout(()=>{if(state.idx<QUIZ_QUESTIONS.length-1)next();},300);
+    setTimeout(()=>{ if(state.idx<QUIZ_QUESTIONS.length-1) next(); },300);
   }
   document.getElementById('quiz-next').disabled=!state.ans[q]||state.ans[q].length===0;
 }
+function next(){ state.idx++; render(); }
+function back(){ state.idx--; render(); }
 
-function next(){state.idx++;render();}
-function back(){state.idx--;render();}
-
+// ------- Finish / compute -------
 function finish(){
   const profile=calc(state.ans);
   save(profile);
   applyProfile(profile);
-  document.getElementById('quiz-modal').classList.remove('show');
+  const modal=document.getElementById('quiz-modal');
+  modal.classList.remove('show');
+  document.removeEventListener('keydown',trapKeydown,true);
+  if(lastFocus) lastFocus.focus();
 }
 
 function calc(ans){
-  let drinks={};
-  let meta={};
-  
+  let drinks={}, meta={};
   QUIZ_QUESTIONS.forEach(q=>{
-    const a=ans[q.id];
-    if(!a)return;
+    const a=ans[q.id]; if(!a)return;
     const imp=q.impact(a);
-    if(imp.drinks){
-      Object.keys(imp.drinks).forEach(k=>{
-        drinks[k]=(drinks[k]||0)+imp.drinks[k];
-      });
-    }
+    if(imp.drinks){ Object.keys(imp.drinks).forEach(k=>{ drinks[k]=(drinks[k]||0)+imp.drinks[k]; }); }
     Object.assign(meta,imp);
   });
-  
-  // Apply multiplier
   const mult=meta.mult||1;
   Object.keys(drinks).forEach(k=>{drinks[k]=Math.round(drinks[k]*mult*10)/10;});
-  
-  return{
-    v:'2.0',
-    ts:Date.now(),
-    dur:Date.now()-state.start,
-    profile:meta.profile||'balanced',
-    drinks,
-    adults:meta.adults||1,
-    minors:meta.minors||0,
-    vouchers:meta.vouchers||null,
-    answers:ans
-  };
+  return{ v:'2.0', ts:Date.now(), dur:Date.now()-state.start, profile:meta.profile||'balanced',
+          drinks, adults:meta.adults||1, minors:meta.minors||0, vouchers:meta.vouchers||null, answers:ans };
 }
 
+// ------- Storage / public -------
 function applyProfile(p){
-  // Validate inputs exist
   const get=id=>document.getElementById(id);
   if(!get('input-days')){console.error('Calculator inputs not found');return;}
-  
   get('input-adults').value=p.adults||1;
   get('input-minors').value=p.minors||0;
-  
   Object.entries(p.drinks||{}).forEach(([k,v])=>{
-    const inp=document.querySelector(`[data-input="${k}"]`);
-    if(inp)inp.value=v;
+    const inp=document.querySelector(`[data-input="${k}"]`); if(inp) inp.value=v;
   });
-  
-  // VOUCHER LOCK: Minors get non-alc value only
   if(p.vouchers){
     const cna=get('cna-vouchers');
     if(cna){
@@ -902,31 +919,21 @@ function applyProfile(p){
       if(p.vouchers.adultP)get('v-adult-p').value=p.vouchers.adultP;
     }
   }
-  
-  // Trigger recalc
   if(window.scheduleCalc)window.scheduleCalc();
   if(window.announce)window.announce(`✨ ${p.profile} profile loaded!`);
 }
-
-function save(p){
-  try{localStorage.setItem(QUIZ_CONFIG.storageKey,JSON.stringify(p));}catch(e){}
-}
-
-function load(){
-  try{return JSON.parse(localStorage.getItem(QUIZ_CONFIG.storageKey));}catch(e){return null;}
-}
-
-function expired(p){
-  if(!p||!p.ts)return true;
-  return Date.now()-p.ts>QUIZ_CONFIG.expiryDays*86400000;
-}
-
+function save(p){ try{localStorage.setItem(QUIZ_CONFIG.storageKey,JSON.stringify(p));}catch(e){} }
+function load(){ try{return JSON.parse(localStorage.getItem(QUIZ_CONFIG.storageKey));}catch(e){return null;} }
+function expired(p){ if(!p||!p.ts)return true; return Date.now()-p.ts>QUIZ_CONFIG.expiryDays*86400000; }
 function skip(){
   localStorage.setItem(QUIZ_CONFIG.storageKey,JSON.stringify({skipped:true,ts:Date.now()}));
-  document.getElementById('quiz-modal').classList.remove('show');
+  const modal=document.getElementById('quiz-modal');
+  modal.classList.remove('show');
+  document.removeEventListener('keydown',trapKeydown,true);
+  if(lastFocus) lastFocus.focus();
 }
 
-// Event listeners
+// Buttons
 document.getElementById('quiz-next').onclick=next;
 document.getElementById('quiz-back').onclick=back;
 
@@ -936,136 +943,9 @@ window.quizSkip=skip;
 window.quizReset=()=>{localStorage.removeItem(QUIZ_CONFIG.storageKey);location.reload();};
 
 // Auto-init
-if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded',init);
-}else{
-  init();
-}
+if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',init); }
+else{ init(); }
 
-})();
-
-// Nav interactions
-(function(){
-  const nav=document.querySelector('.itw-nav');if(!nav)return;
-  const items=[...nav.querySelectorAll('.nav-item')].filter(
-  g => g.querySelector('button[aria-haspopup="menu"]')
-);
-  function setOpen(g,on){g.classList.toggle('open',on);const b=g.querySelector('button');if(b)b.setAttribute('aria-expanded',on?'true':'false');}
-  function closeAll(except){items.forEach(g=>{if(g!==except)setOpen(g,false);});}
-  items.forEach(g=>{
-    const btn=g.querySelector('button'),menu=g.querySelector('.menu');if(!btn||!menu)return;
-    btn.onclick=e=>{e.preventDefault();e.stopPropagation();const open=g.classList.contains('open');closeAll(g);setOpen(g,!open);};
-    menu.onclick=e=>{if(e.target.closest('a'))closeAll();};
-    btn.onkeydown=e=>{if(e.key==='Escape'){setOpen(g,false);btn.focus();}};
-    menu.addEventListener('focusout',()=>{setTimeout(()=>{if(!g.contains(document.activeElement))setOpen(g,false);},0);});
-  });
-  document.onclick=e=>{if(!e.target.closest('.itw-nav'))closeAll();};
-})();
-
-// Persona buttons
-document.querySelectorAll('.persona-btn').forEach(btn=>{
-  btn.onclick=()=>{
-    const persona=btn.dataset.persona;
-    const profiles={
-      light:{profile:'chill',drinks:{coffee:1,soda:1,bottledwater:2},adults:1},
-      moderate:{profile:'balanced',drinks:{coffee:2,soda:2,beer:1,wine:1,cocktail:1},adults:2},
-      party:{profile:'lively',drinks:{beer:2,wine:2,cocktail:2,spirits:1,bottledwater:2},adults:2},
-      coffee:{profile:'balanced',drinks:{coffee:3,teaprem:2,soda:1},adults:1}
-    };
-    if(profiles[persona]){
-      window.quizStart=null; // Disable auto-quiz
-      applyProfile({...profiles[persona],ts:Date.now(),v:'2.0'});
-    }
-  };
-});
-
-// Recent articles fallback
-(function(){
-  const rail=document.getElementById('recent-rail');if(!rail)return;
-  setTimeout(()=>{
-    if(rail.children.length<=1){
-      rail.innerHTML='<a href="/solo.html" class="small" style="display:flex;gap:.5rem;text-decoration:none"><img src="/authors/img/tina1.webp" width="44" height="44" style="border-radius:8px;object-fit:cover" alt="Tina"><div><div style="font-weight:700">Solo Cruising Guide</div><div class="tiny muted">By Tina</div></div></a><a href="/planning.html" class="small" style="display:flex;gap:.5rem;text-decoration:none"><img src="/authors/img/tina2.webp" width="44" height="44" style="border-radius:8px" alt="Tina"><div><div style="font-weight:700">Planning Your Cruise</div><div class="tiny muted">By Tina</div></div></a>';
-    }
-  },400);
-})();
-
-// Adaptive hero horizon lock
-(function(){
-  function lockHorizon(){
-    const hero = document.querySelector('.hero');
-    if(!hero) return;
-    
-    const vh = window.innerHeight;
-    const heroH = hero.offsetHeight;
-    const ratio = heroH / vh;
-    
-    // Adaptive positioning based on viewport
-    let yPos = '50%';
-    if(ratio < 0.3) yPos = '45%';      // Short hero
-    else if(ratio > 0.5) yPos = '55%'; // Tall hero
-    else yPos = '50%';                  // Normal
-    
-    hero.style.backgroundPosition = `center ${yPos}`;
-  }
-  
-  lockHorizon();
-  window.addEventListener('resize', lockHorizon);
-})();
-
-// Enhanced category breakdown with auto-population
-(function(){
-  const grid = document.getElementById('category-grid');
-  const section = document.getElementById('category-breakdown');
-  if(!grid || !section) return;
-  
-  // Listen for input changes
-  document.addEventListener('itw:inputs-changed', updateBreakdown);
-  
-  function updateBreakdown(){
-    const categories = [];
-    const inputs = [
-      {id:'soda', name:'Soda'},
-      {id:'coffee', name:'Specialty Coffee'},
-      {id:'teaprem', name:'Premium Tea'},
-      {id:'freshjuice', name:'Fresh Juice'},
-      {id:'mocktail', name:'Mocktail'},
-      {id:'energy', name:'Energy Drink'},
-      {id:'milkshake', name:'Milkshake'},
-      {id:'bottledwater', name:'Bottled Water'},
-      {id:'beer', name:'Beer'},
-      {id:'wine', name:'Wine'},
-      {id:'cocktail', name:'Cocktail'},
-      {id:'spirits', name:'Spirits'}
-    ];
-    
-    inputs.forEach(item=>{
-      const el = document.querySelector(`[data-input="${item.id}"]`);
-      const qty = el ? parseFloat(el.value || '0') : 0;
-      if(qty > 0){
-        categories.push({
-          name: item.name,
-          qty: qty.toFixed(1)
-        });
-      }
-    });
-    
-    if(categories.length === 0){
-      section.hidden = true;
-      return;
-    }
-    
-    grid.innerHTML = categories.map(c=>`
-      <div style="display:flex;justify-content:space-between;padding:6px 10px;border-radius:8px;background:var(--foam);border:1px solid var(--bd);font-size:.9rem">
-        <span style="font-weight:600;color:var(--sea)">${c.name}</span>
-        <span style="font-weight:700;color:var(--accent)">${c.qty}/day</span>
-      </div>
-    `).join('');
-    
-    section.hidden = false;
-  }
-  
-  // Trigger on page load
-  setTimeout(updateBreakdown, 500);
 })();
 </script>
   <script>
@@ -1210,6 +1090,60 @@ document.querySelectorAll('.persona-btn').forEach(btn=>{
 })();
 </script>
   <script>
+(function(){
+  const nav=document.querySelector('.itw-nav'); if(!nav) return;
+  const items=[...nav.querySelectorAll('.nav-item')].filter(
+    g => g.querySelector('button[aria-haspopup="menu"]')
+  );
+
+  function setOpen(g,on){
+    g.classList.toggle('open',on);
+    const b=g.querySelector('button');
+    if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  function closeAll(except){ items.forEach(g=>{ if(g!==except) setOpen(g,false); }); }
+
+  items.forEach(g=>{
+    const btn=g.querySelector('button'), menu=g.querySelector('.menu'); if(!btn||!menu) return;
+
+    // Toggle on click
+    btn.onclick=e=>{
+      e.preventDefault(); e.stopPropagation();
+      const open=g.classList.contains('open');
+      closeAll(g);
+      setOpen(g,!open);
+      if(!open){
+        // focus first link for keyboard users
+        const firstLink=menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+        if(firstLink) firstLink.focus();
+      }
+    };
+
+    // Close when a menu link is activated
+    menu.onclick=e=>{ if(e.target.closest('a')) closeAll(); };
+
+    // Close with Escape when focus is on the button
+    btn.onkeydown=e=>{ if(e.key==='Escape'){ setOpen(g,false); btn.focus(); } };
+
+    // Close with Escape when focus is inside the menu
+    menu.onkeydown=e=>{
+      if(e.key==='Escape'){
+        setOpen(g,false);
+        btn.focus();
+      }
+    };
+
+    // Close when focus leaves the nav-item
+    menu.addEventListener('focusout',()=>{
+      setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0);
+    });
+  });
+
+  // Click outside closes any open menu
+  document.addEventListener('click', e=>{ if(!e.target.closest('.itw-nav')) closeAll(); });
+})();
+</script>
+  <script>
 (function top20CoverOverride(){
   const rail = document.getElementById('recent-rail');
   if(!rail) return;
@@ -1261,6 +1195,140 @@ document.querySelectorAll('.persona-btn').forEach(btn=>{
       }
     }, {capture:true});
   });
+})();
+</script>
+  <script>
+/* Chart sizing + AR fix */
+(function(){
+  const wrap = document.getElementById('breakeven-wrap');
+  const cv   = document.getElementById('breakeven-chart');
+  if (!wrap || !cv) return;
+
+  // strip hard attrs that fight CSS sizing
+  cv.removeAttribute('width'); 
+  cv.removeAttribute('height');
+
+  function tune(chart){
+    try{
+      chart.options.responsive = true;
+      chart.options.maintainAspectRatio = false;
+      chart.resize();
+    }catch(_){}
+  }
+
+  function hook(){
+    const c = (window.ITW && window.ITW.chart) || cv._chart || cv.__chartist || null;
+    if (!c || !c.resize) return false;
+    tune(c);
+    return true;
+  }
+
+  // try now and a few times after app.js mounts
+  if (!hook()){
+    let tries = 0; const t = setInterval(()=>{ if (hook() || ++tries>20) clearInterval(t); }, 150);
+  }
+
+  new ResizeObserver(()=>hook()).observe(wrap);
+})();
+</script>
+  <script>
+/* Winner ring + badge */
+(function(){
+  const cv = document.getElementById('breakeven-chart');
+  const badge = document.getElementById('best-stamp');
+  if (!cv || !badge) return;
+
+  const WINNER = { idx: null };
+
+  const ringPlugin = {
+    id: 'itwWinnerRing',
+    afterDatasetsDraw(chart){
+      if (WINNER.idx == null) return;
+      // find an element for the winner index from any visible dataset
+      let el = null;
+      chart.data.datasets.some((ds, i)=>{
+        const meta = chart.getDatasetMeta(i);
+        const e = meta?.data?.[WINNER.idx];
+        if (e){ el = e; return true; }
+      });
+      if (!el) return;
+
+      const {x,y,width,height} = el.getProps(['x','y','width','height'], true);
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 4;
+      ctx.setLineDash([6,4]);
+      const pad = 6;
+      ctx.strokeRect(x - width/2 - pad, y - height - pad, width + pad*2, height + pad*2);
+      ctx.restore();
+    }
+  };
+
+  function pickWinner(chart){
+    // find smallest positive value across the four category indices
+    const ds = chart.data.datasets || [];
+    const N  = ds[0]?.data?.length || 0;
+    let best = {idx:null, val:Infinity};
+
+    for (let i=0;i<N;i++){
+      let min = Infinity;
+      ds.forEach(d=>{
+        const v = (Array.isArray(d.data) && typeof d.data[i]==='number') ? d.data[i] : Infinity;
+        if (v>0 && v<min) min = v;
+      });
+      if (min < best.val){ best = {idx:i, val:min}; }
+    }
+
+    WINNER.idx = best.idx;
+    badge.style.display = (WINNER.idx==null) ? 'none' : '';
+  }
+
+  function hook(){
+    const chart = (window.ITW && window.ITW.chart) || cv._chart || cv.__chartist || null;
+    if (!chart || !chart.data) return false;
+    chart.config.plugins = chart.config.plugins || [];
+    if (!chart.config.plugins.includes(ringPlugin)) chart.config.plugins.push(ringPlugin);
+    pickWinner(chart);
+    chart.update();
+
+    // re-evaluate on any app recalculation
+    document.addEventListener('itw:calc-updated', ()=>{ try{ pickWinner(chart); chart.update(); }catch(_){}} );
+    return true;
+  }
+
+  if (!hook()){
+    let tries = 0; const t = setInterval(()=>{ if (hook() || ++tries>20) clearInterval(t); }, 150);
+  }
+
+  // “Jump to Best” focus/scroll helper
+  (function(){
+    const btn = document.getElementById('jump-winner');
+    if (!btn) return;
+    btn.addEventListener('click', ()=>{
+      document.getElementById('breakeven-wrap').scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  })();
+})();
+</script>
+  <script>
+(function(){
+  const rail = document.querySelector('aside.rail');
+  if (!rail) return;
+  const author = rail.querySelector('.author-card')?.closest('.card');
+  if (author) rail.appendChild(author);
+})();
+</script>
+  <script>
+(function(){
+  const form = document.getElementById('email-form');
+  if(!form) return;
+  const labels = [...form.querySelectorAll('label.small')];
+  const agree = labels.find(l=>/I\s*agree/i.test(l.textContent||''));
+  const bonus = labels.find(l=>/Bonus:/i.test(l.textContent||''));
+  if(agree && bonus && agree.previousElementSibling !== bonus){
+    agree.parentNode.insertBefore(bonus, agree); // bonus first, agree below it
+  }
 })();
 </script>
 </body>
