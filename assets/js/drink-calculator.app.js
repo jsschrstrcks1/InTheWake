@@ -1,5 +1,5 @@
-/* drink-calculator.app.js — v.9.001.001 (Worker-enabled, Offline-First FX)
-   Updates aligned to drink-math.js v9.001.001:
+/* drink-calculator.app.js — .9.001.032 (Worker-enabled, Offline-First FX)
+   Updates aligned to drink-math.js .9.001.032:
    - scheduleCalc(): calls computeWithVouchers() when vouchers are enabled; bypasses worker in that case.
    - Removed minor-discount artifacts from fallback dataset & initial economics; stop reading it from dataset.
    - renderResults(): kids hint copy no longer mentions “50% off”.
@@ -7,8 +7,14 @@
    - Personas: added “Light” and “Moderate”.
 */
 
-const VERSION = 'v.9.000.004';
+// ----- unified version from <meta name="version" content="..."> -----
+const META_VER = (document.querySelector('meta[name=".9.001.032"]')?.content || '').trim();
+// support both ".9.001.031" and "v.9.001.031"
+const VERSION = META_VER && !META_VER.startsWith('v') ? `v.9.001.032` : (META_VER || 'v.dev');
 
+const USE_WORKER = true; // ✅ enable worker by default
+const WORKER_URL = `/assets/js/drink-worker.js?v='.9.001.032`;
+const DS_URL     = `/assets/data/lines/royal-caribbean.json?v='.9.001.032`;
 // ---------- Sanitize and clamp utilities ----------
 function num(v) {
   const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d. -]/g, ''));
@@ -17,9 +23,6 @@ function num(v) {
 function clamp(n, lo, hi) {
   return Math.min(hi, Math.max(lo, n));
 }
-const USE_WORKER = true; // ✅ enable worker by default
-const WORKER_URL = `/assets/js/drink-worker.js?v=${VERSION}`;
-const DS_URL = `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
 
 const FALLBACK_DATASET = {
   version: VERSION,
@@ -139,6 +142,7 @@ const initialState = {
 };
 
 const store = createStore(initialState);
+window.ITW = Object.assign(window.ITW || {}, { store }); // expose store for helpers (voucher patch, etc.)
 
 /* ------------------------- Persistence (URL + localStorage) ------------------------- */
 const LS_KEY = 'itw:rc:state:v1';
@@ -316,10 +320,9 @@ async function loadFx() {
 }
 
 function convertUSD(amount, to = currentCurrency){
-  const baseRate = (FX.rates && FX.rates[to]) || 1;
-  const driftPct = Number(window.fxDriftPct || 0);
-  const driftMultiplier = 1 + (driftPct / 100);
-  return amount * baseRate * driftMultiplier;
+  const baseRate = FX?.rates?.[to] || 1;
+  const driftPct = Number(store?.get?.().ui?.fxDriftPct ?? 0);
+  return amount * baseRate * (1 + (driftPct / 100));
 }
 function money(n){
   const amt = convertUSD(n, currentCurrency);
@@ -369,7 +372,11 @@ function ensureWorker(){
     calcWorker.onmessage = (e)=>{
       const { type, payload } = e.data || {};
       if (type === 'ready') { workerReady = true; return; }
-      if (type === 'result') { store.patch('results', payload); return; }
+     if (type === 'result') {
+  store.patch('results', payload);
+  document.dispatchEvent(new CustomEvent('itw:calc-updated', { detail: { results: payload }}));
+  return;
+}
     };
     calcWorker.onerror = ()=>{
       workerReady = false;
@@ -405,12 +412,13 @@ function scheduleCalc(){
   const vMinorDP = toNum(document.getElementById('v-minor-dp')?.value || 0);
   const vMinorP  = toNum(document.getElementById('v-minor-p')?.value || 0);
 
-  const vouchers = {
-    adultCountPerDay: (vAdultD*4) + (vAdultDP*5) + (vAdultP*5),
-    minorCountPerDay: (vMinorD*4) + (vMinorDP*5) + (vMinorP*5),
-    // assumed incl. gratuity; align with your math module
-    perVoucherValue: 12.00
-  };
+  const face = Number((economics && economics.deluxeCap) ?? 14); // sync with Deluxe cap
+const vouchers = {
+  adultCountPerDay: (vAdultD*4) + (vAdultDP*5) + (vAdultP*5),
+  minorCountPerDay: (vMinorD*4) + (vMinorDP*5) + (vMinorP*5),
+  // assumed incl. gratuity; align with math module
+  perVoucherValue: face
+};
 
   const wantVouchers = vouchersEnabled && (vouchers.adultCountPerDay > 0 || vouchers.minorCountPerDay > 0);
 
@@ -446,7 +454,7 @@ function scheduleCalc(){
     if (chip) chip.hidden = true;
   }
 
-  store.patch('results', results);
+document.dispatchEvent(new CustomEvent('itw:calc-updated', { detail: { results }}));
 }
 const debouncedCalc = debounced(scheduleCalc, 120);
 
@@ -456,21 +464,30 @@ function ensureChart(){
   if (chart) return chart;
   const el = $('#breakeven-chart');
   if (!el) return null;
+  
+  // ===== FIX: Lock the container height BEFORE creating chart =====
+  const wrapper = el.parentElement; // #breakeven-wrap
+  if (wrapper && !wrapper.style.height) {
+    wrapper.style.height = '320px'; // Match your intended chart height
+    wrapper.style.position = 'relative';
+  }
+  
+  // Set explicit dimensions on canvas
+  el.style.width = '100%';
+  el.style.height = '320px';
+  el.style.maxHeight = '320px';
+  
   chart = new Chart(el.getContext('2d'), {
     type:'bar',
-    data:{
-      labels:['À-la-carte','Soda','Refreshment','Deluxe'],
-      datasets:[ { label:'Daily cost', data:[0,0,0,0], backgroundColor:'#60a5fa' } ]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      scales:{ y:{ beginAtZero:true, ticks:{ callback:v => money(Number(v) || 0) } } },
-      plugins:{ legend:{ position:'bottom' } }
-    }
+    ...
   });
+
+  // expose chart + store for other scripts (winner ring, telemetry, etc.)
+  window.ITW = Object.assign(window.ITW || {}, { chart, store });
+  el._chart = chart;
+
   store.patch('ui.chartReady', true);
   return chart;
-}
 
 function renderResults(r){
   const chip = $('#best-chip'), text = $('#best-text');
@@ -480,6 +497,25 @@ function renderResults(r){
     text.textContent = (r.winnerKey==='alc')
       ? 'Your daily picks are cheapest without a package.'
       : `Your daily picks are cheapest with the ${label} package.`;
+    /* ---------- Category Breakdown (render + hide when empty; exclude voucher rows) ---------- */
+  (function renderCategoryBreakdown(){
+    const section = document.getElementById('category-breakdown');
+    const grid = document.getElementById('category-grid');
+    if (!section || !grid) return;
+
+    const rows = Array.isArray(r?.categoryRows) ? r.categoryRows : [];
+    const clean = rows.filter(x => !/voucher/i.test(String(x?.id || x?.name || '')));
+
+    if (!clean.length) { section.hidden = true; grid.innerHTML = ''; return; }
+
+    grid.innerHTML = clean.map(row => `
+      <div class="category-item">
+        <span class="cat-name">${row.label || row.name || ''}</span>
+        <span class="cat-cost">${money(row.perDay ?? row.value ?? 0)}/day</span>
+      </div>
+    `).join('');
+    section.hidden = false;
+  })();
   }
   announce('Best value: ' + label);
 
@@ -895,15 +931,20 @@ function wireInputs(){
       case 'seaapply':
         store.patch('inputs.seaApply', parsed);
         break;
-      case 'days': {
-        const days = clamp(Math.round(parsed), 1, 365);
-        store.patch('inputs.days', days);
-        const s = store.get();
-        if ((s.inputs.seaDays ?? 0) > days) {
-          store.patch('inputs.seaDays', days);
-        }
-        break;
-      }
+case 'days': {
+  const days = clamp(Math.round(parsed), 1, 365);
+  store.patch('inputs.days', days);
+  const s = store.get();
+  if ((s.inputs.seaDays ?? 0) > days) {
+    store.patch('inputs.seaDays', days);
+  }
+  // ADD THESE 4 LINES:
+  if (s.inputs.calcMode === 'itinerary') {
+    ensureItineraryArray();
+    renderItineraryUI();
+  }
+  break;
+}
       case 'seadays': {
         const days = (store.get().inputs.days || 7);
         const sea = clamp(Math.round(parsed), 0, days);
