@@ -1,5 +1,5 @@
-/* drink-calculator.app.js — v.9.001.032 (Worker-enabled, Offline-First FX)
-   Updates aligned to drink-math.js v.9.001.032:
+/* drink-calculator.app.js — v.9.001.033 (Worker-enabled, Offline-First FX)
+   Updates aligned to drink-math.js v.9.001.033:
    - scheduleCalc(): calls computeWithVouchers() when vouchers are enabled; bypasses worker in that case.
    - Removed minor-discount artifacts from fallback dataset & initial economics; stop reading it from dataset.
    - renderResults(): kids hint copy no longer mentions “50% off”.
@@ -9,7 +9,7 @@
 
 // ----- unified version from <meta name="version" content="..."> -----
 const META_VER = (document.querySelector('meta[name="version"]')?.content || '').trim();
-// accept either ".9.001.032" or "v.9.001.032"
+// accept either ".9.001.033" or "v.9.001.033"
 const VERSION = META_VER ? (META_VER.startsWith('v') ? META_VER : `v${META_VER}`) : 'v.dev';
 
 const USE_WORKER = true; // ✅ enable worker by default
