@@ -464,22 +464,57 @@ function ensureChart(){
   if (chart) return chart;
   const el = $('#breakeven-chart');
   if (!el) return null;
-  
-  // ===== FIX: Lock the container height BEFORE creating chart =====
+
+  // Lock the container height BEFORE creating chart
   const wrapper = el.parentElement; // #breakeven-wrap
   if (wrapper && !wrapper.style.height) {
-    wrapper.style.height = '320px'; // Match your intended chart height
+    wrapper.style.height = '320px';
     wrapper.style.position = 'relative';
+    wrapper.style.overflow = 'hidden';
   }
-  
-  // Set explicit dimensions on canvas
+  // Explicit canvas dimensions
   el.style.width = '100%';
   el.style.height = '320px';
   el.style.maxHeight = '320px';
-  
+
   chart = new Chart(el.getContext('2d'), {
-    type:'bar',
-    ...
+    type: 'bar',
+    data: {
+      labels: ['À-la-carte','Soda','Refreshment','Deluxe'],
+      datasets: [
+        { label: 'Daily cost', data: [0,0,0,0], backgroundColor: '#60a5fa' }
+      ]
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false,
+      animation: { duration: 0 },
+      scales: {
+        x: { stacked: false, grid: { display:false } },
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(0,0,0,.08)' },
+          ticks: {
+            callback: (v)=> {
+              try { return new Intl.NumberFormat(undefined,{style:'currency',currency:currentCurrency}).format(v); }
+              catch { return v; }
+            }
+          }
+        }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true } },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const v = ctx.parsed.y;
+              try { return `${ctx.dataset.label}: ${new Intl.NumberFormat(undefined,{style:'currency',currency:currentCurrency}).format(v)}`; }
+              catch { return `${ctx.dataset.label}: ${v}`; }
+            }
+          }
+        }
+      }
+    }
   });
 
   // expose chart + store for other scripts (winner ring, telemetry, etc.)
@@ -488,7 +523,9 @@ function ensureChart(){
 
   store.patch('ui.chartReady', true);
   return chart;
+}
 
+// ⬇️ keep renderResults exactly once below this line
 function renderResults(r){
   const chip = $('#best-chip'), text = $('#best-text');
   const label = r.winnerKey==='alc' ? 'à-la-carte' : (r.winnerKey==='deluxe'?'Deluxe':r.winnerKey.charAt(0).toUpperCase()+r.winnerKey.slice(1));
