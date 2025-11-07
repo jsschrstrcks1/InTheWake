@@ -7,12 +7,12 @@
   STANDARDS: Every Page v3.010 · Unified Nav v3.010 (dropdowns hardened)
   Right-Rail v3.008.025 (patched) · A11y/WCAG Addendum v3.100
   CMP v3.008.020 · FB Verification v3.008.021
-  Page: /planning.html · v3.010.072(self-contained)
+  Page: /planning.html · v3.010.073(self-contained)
   -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="version" content="3.010.071"/>
-  <title>Planning — In the Wake (v3.010.071)</title>
+  <meta name="version" content="3.010.073"/>
+  <title>Planning — In the Wake (v3.010.073)</title>
   <link rel="canonical" href="https://www.cruisinginthewake.com/planning.html"/>
 
   <!-- ===== Inline CSS (scoped nav + no-flicker) ===== -->
@@ -35,7 +35,7 @@
   .pill{display:inline-block;padding:.45rem .75rem;border:1px solid var(--rope);border-radius:999px;background:#fff;line-height:1.1}
   .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;box-shadow:var(--shadow);margin:.8rem 0;position:relative;overflow:hidden}
   .card::after{content:"";position:absolute;inset:0;margin:auto;width:min(60%,360px);height:min(60%,360px);
-    background:url('/assets/watermark.png?v=3.010.071') center/contain no-repeat;opacity:.06;pointer-events:none}
+    background:url('/assets/watermark.png?v=3.010.073') center/contain no-repeat;opacity:.06;pointer-events:none}
   h1,h2,h3,h4{color:var(--sea);margin:.25rem 0 .5rem}
 
   /* ===== Header / Nav (SCOPED) ===== */
@@ -77,7 +77,7 @@
 
   /* ===== Hero ===== */
   .hero{position:relative;width:100%;min-height:clamp(200px,24vw,340px);
-    background:url('/assets/index_hero.jpg?v=3.010.071') center 38%/cover no-repeat;
+    background:url('/assets/index_hero.jpg?v=3.010.073') center 38%/cover no-repeat;
     display:flex;align-items:flex-end;overflow:hidden;margin-top:.15rem;z-index:0}
   .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);
     display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
@@ -91,6 +91,36 @@
   .planning-grid{display:grid;gap:1.2rem}
   @media(min-width:1060px){.planning-grid{grid-template-columns:minmax(0,1fr) 360px}}
   footer.wrap{font-size:.92rem}
+    /* Chart containment */
+#breakeven-wrap{
+  max-width: 780px;     /* keeps canvas from growing past layout */
+  margin-inline: auto;  /* centers in column */
+  overflow-x: clip;     /* just in case a plugin overdraws */
+  contain: inline-size; /* isolates size calc for Chart.js */
+}
+#breakeven-chart{
+  max-width: 100%;
+  width: 100% !important;
+  height: 320px;        /* fixed visual height, chart handles DPR */
+}
+    /* Winner badge + ring */
+#best-stamp{
+  position:absolute; top:-10px; right:8px;
+  background:#10b981; color:#063; 
+  border:2px solid #065f46; border-radius:999px;
+  padding:.25rem .5rem; font-weight:800; font-size:.8rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  display:none; z-index:3;
+}
+    /* Rounded-square avatar, enforce square shape */
+.author-avatar{
+  width:72px;height:72px;           /* square */
+  border-radius:16px;               /* rounded square */
+  object-fit:cover;object-position:center;
+}
+
+/* (Optional) soften the card’s look to match screenshot */
+aside.rail .card:first-of-type{ border-radius:12px; }
   </style>
 </head>
 
@@ -627,5 +657,130 @@
     mo.observe(mount, {childList:true, subtree:true});
   })();
   </script>
+  <script>
+/* Chart sizing + AR fix + width/height attribute cleanup */
+(function(){
+  const cv = document.getElementById('breakeven-chart');
+  if (!cv) return;
+
+  // Remove hard attrs that can fight responsive sizing
+  cv.removeAttribute('width');
+  cv.removeAttribute('height');
+
+  // If Chart is present, force modern responsive settings
+  function tuneChart(c){
+    try{
+      if (!c || !c.options) return;
+      c.options.responsive = true;
+      c.options.maintainAspectRatio = false;
+      c.resize();
+    }catch(_){}
+  }
+
+  // When app.js creates the chart, it usually exposes it. Try both.
+  function tryHook(){
+    const c = (window.ITW && window.ITW.chart) || cv.__chartist || cv._chart || null;
+    if (c && typeof c.resize === 'function'){ tuneChart(c); return true; }
+    return false;
+  }
+
+  // First pass
+  tryHook();
+
+  // Retry shortly in case app.js hasn’t mounted yet
+  let tries = 0;
+  const t = setInterval(()=>{ if (tryHook() || ++tries > 20) clearInterval(t); }, 150);
+
+  // Keep canvas in sync with container width
+  new ResizeObserver(()=>{ tryHook(); }).observe(document.getElementById('breakeven-wrap'));
+})();
+</script>
+  <script>
+/* Draw green ring around winning bar + toggle "Best value" stamp */
+(function(){
+  const cv = document.getElementById('breakeven-chart');
+  const stamp = document.getElementById('best-stamp');
+  if (!cv || !stamp) return;
+
+  // Plugin to draw an outline around the winning bar index
+  const WINNER = { idx: null };
+  const ringPlugin = {
+    id: 'itwWinnerRing',
+    afterDatasetsDraw(chart, _args, _opts){
+      if (WINNER.idx==null) return;
+      const meta = chart.getDatasetMeta(0); // category index mapping is shared
+      const ctx = chart.ctx;
+      // Find any element for that index from any visible dataset
+      let el = null;
+      chart.data.datasets.some(ds=>{
+        const m = chart.getDatasetMeta(chart.data.datasets.indexOf(ds));
+        const e = (m && m.data && m.data[WINNER.idx]) ? m.data[WINNER.idx] : null;
+        if (e){ el = e; return true; }
+      });
+      if (!el || !el.x || !el.y || !el.width) return;
+      const {x, y, width, height} = el.getProps(['x','y','width','height'], true);
+      ctx.save();
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 4;
+      ctx.setLineDash([6,4]);
+      const pad = 6;
+      ctx.strokeRect(x - width/2 - pad, y - height - pad, width + pad*2, height + pad*2);
+      ctx.restore();
+    }
+  };
+
+  function pickWinner(chart){
+    // Expect labels: ['À-la-carte','Soda','Refreshment','Deluxe']
+    // Find the lowest non-zero bar among the grouped bars for each label index,
+    // then pick the label with the lowest value overall.
+    const ds = chart.data.datasets || [];
+    const N = (ds[0]?.data?.length) || 0;
+    let best = {labelIdx:null, value:Infinity};
+
+    for(let i=0;i<N;i++){
+      // For each label index, consider every dataset’s value at i
+      let minAtI = Infinity;
+      ds.forEach(d => {
+        const v = (Array.isArray(d.data) && typeof d.data[i]==='number') ? d.data[i] : Infinity;
+        if (v > 0 && v < minAtI) minAtI = v;
+      });
+      if (minAtI < best.value){ best = {labelIdx:i, value:minAtI}; }
+    }
+    WINNER.idx = best.labelIdx;
+    if (WINNER.idx==null){ stamp.style.display='none'; return; }
+
+    // Place badge and show
+    stamp.style.display = '';
+  }
+
+  function hookChart(){
+    const chart = (window.ITW && window.ITW.chart) || cv._chart || cv.__chartist || null;
+    if (!chart || !chart.data) return false;
+    if (!chart.config.plugins) chart.config.plugins = [];
+    if (!chart.config.plugins.includes(ringPlugin)) chart.config.plugins.push(ringPlugin);
+    pickWinner(chart);
+    chart.update();
+    // Keep updated when app recalculates
+    if (!window.addEventListener._itwWinnerBound){
+      document.addEventListener('itw:calc-updated', ()=>{ try{ pickWinner(chart); chart.update(); }catch(_){}} );
+      window.addEventListener._itwWinnerBound = true;
+    }
+    return true;
+  }
+
+  let attempts = 0;
+  const t = setInterval(()=>{ if (hookChart() || ++attempts>20) clearInterval(t); }, 150);
+})();
+</script>
+  <script>
+/* Move author card to end of the right rail */
+(function(){
+  const rail = document.querySelector('aside.rail');
+  if (!rail) return;
+  const authorCard = rail.querySelector('.card .author-card')?.closest('.card');
+  if (authorCard) rail.appendChild(authorCard); // makes it last
+})();
+</script>
+
 </body>
 </html>
