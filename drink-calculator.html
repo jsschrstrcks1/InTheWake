@@ -89,7 +89,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 
 .rail-list{display:grid;gap:1rem}
 .author-card{display:flex;gap:.75rem;align-items:center}
-.author-avatar{display:block;width:56px;height:56px;border-radius:12px;object-fit:cover;flex:0 0 56px}
+.author-avatar{display:block;width:96px;height:96px;border-radius:12px;object-fit:cover;object-position:center;flex:0 0 96px}
 
 .inputs .row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
 .inputs .row:last-child{border-bottom:0}
@@ -585,7 +585,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 
   <aside class="rail">
     <section class="card">
-      <div class="author-card">
+      <img class="author-avatar" src="/authors/img/ken1.jpg" alt="Ken Baker" width="96" height="96" onerror="this.src='/assets/logo_wake.png'">
         <picture>
           <source type="image/webp" srcset="/authors/img/ken1.webp">
           <img class="author-avatar" src="/authors/img/ken1.jpg" alt="Ken Baker" onerror="this.src='/assets/logo_wake.png'">
@@ -969,8 +969,10 @@ else{ init(); }
       img.src = head.jpg;
       if (head.webp) img.srcset = head.webp + " 1x";
       img.alt = head.alt;
-      img.width = img.width || 44;
-      img.height = img.height || 44;
+      img.width = 96;
+      img.height = 96;
+      img.style.width = '96px';
+      img.style.height = '96px';
       img.style.borderRadius = '12px';
       img.style.objectFit = 'cover';
       img.style.objectPosition = 'center';
@@ -1198,37 +1200,35 @@ else{ init(); }
 })();
 </script>
   <script>
-/* Chart sizing + AR fix */
+/* Chart sizing — one-time mount, no ResizeObserver (prevents layout loop) */
 (function(){
-  const wrap = document.getElementById('breakeven-wrap');
-  const cv   = document.getElementById('breakeven-chart');
-  if (!wrap || !cv) return;
+  const cv = document.getElementById('breakeven-chart');
+  if (!cv) return;
 
-  // strip hard attrs that fight CSS sizing
-  cv.removeAttribute('width'); 
+  // Let CSS control sizing
+  cv.removeAttribute('width');
   cv.removeAttribute('height');
 
-  function tune(chart){
-    try{
+  let done = false;
+  function mount(){
+    if (done) return true;
+    const chart = (window.ITW && window.ITW.chart) || cv._chart || null;
+    if (!chart || !chart.options) return false;
+    try {
       chart.options.responsive = true;
       chart.options.maintainAspectRatio = false;
-      chart.resize();
-    }catch(_){}
+      chart.update('none'); // no animation to avoid layout thrash
+      done = true;
+    } catch(_) {}
+    return done;
   }
 
-  function hook(){
-    const c = (window.ITW && window.ITW.chart) || cv._chart || cv.__chartist || null;
-    if (!c || !c.resize) return false;
-    tune(c);
-    return true;
+  if (!mount()){
+    let tries = 0;
+    const t = setInterval(()=>{
+      if (mount() || ++tries > 20) clearInterval(t);
+    }, 150);
   }
-
-  // try now and a few times after app.js mounts
-  if (!hook()){
-    let tries = 0; const t = setInterval(()=>{ if (hook() || ++tries>20) clearInterval(t); }, 150);
-  }
-
-  new ResizeObserver(()=>hook()).observe(wrap);
 })();
 </script>
   <script>
