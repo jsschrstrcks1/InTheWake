@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="version" content=".9.001.019"/>
-<title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
+<meta name="version" content=".9.001.020"/>
+<title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It? (alpha testing)</title>
 <meta name="description" content="Compare Soda, Refreshment, and Deluxe vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
 <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.071" imagesrcset="/assets/index_hero.jpg?v=3.010.071" fetchpriority="high">
@@ -286,7 +286,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 <!-- Chart + App loader -->
 <script>
 (function(){
-  const VER=document.querySelector('meta[name="version"]')?.content||'.9.001.019';
+  const VER=document.querySelector('meta[name="version"]')?.content||'.9.001.020';
   const local="/vendor/chart.umd.min.js?v="+VER;
   const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
 
@@ -346,7 +346,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <div class="navbar">
     <div class="brand">
       <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
-      <span class="tiny version-badge">v.9.001.019</span>
+      <span class="tiny version-badge">v.9.001.020</span>
     </div>
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
@@ -1023,10 +1023,11 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
 
 <script>(function(){document.getElementById('year').textContent=new Date().getFullYear();})();</script>
 
-<!-- VOUCHER AUTO-SYNC (with CHATGPT FIX #2: Retry loop) -->
+<!-- VOUCHER AUTO-SYNC (with re-entry guard to prevent infinite loop) -->
 <script>
 (function voucherAutoSync(){
   const $=sel=>document.querySelector(sel);
+  let syncing = false; // ← CRITICAL: Prevent re-entry
 
   function detectDeluxeCap(){
     const cands=[
@@ -1043,30 +1044,53 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
   function lockAndSet(value){
     const inp=$('#voucher-value');
     if(!inp)return;
-    inp.value=Number(value).toFixed(2);
+    
+    // Only update if value actually changed
+    const newVal = Number(value).toFixed(2);
+    if (inp.value === newVal) return; // ← Skip if no change
+    
+    inp.value = newVal;
     inp.readOnly=true;
     inp.setAttribute('aria-readonly','true');
-    inp.title=`Auto-synced to Deluxe cap ($${Number(value).toFixed(2)})`;
+    inp.title=`Auto-synced to Deluxe cap ($${newVal})`;
     inp.style.cursor='not-allowed';
-    inp.dispatchEvent(new Event('input',{bubbles:true}));
-    inp.dispatchEvent(new Event('change',{bubbles:true}));
+    
+    // DON'T dispatch input/change events - causes infinite loop
+    // The voucher is readonly anyway, so no listeners need notification
+    
     window.ITW_VOUCHER_FACE_VALUE=Number(value);
+    
+    // Only dispatch custom event, not input/change
     document.dispatchEvent(new CustomEvent('itw:voucher-face-value',{detail:{value:Number(value)}}));
   }
 
-  function syncOnce(){lockAndSet(detectDeluxeCap());}
+  function syncOnce(){
+    if (syncing) return; // ← CRITICAL: Guard against re-entry
+    syncing = true;
+    try {
+      lockAndSet(detectDeluxeCap());
+    } finally {
+      syncing = false;
+    }
+  }
 
+  // Initial sync
   if(document.readyState==='loading'){
     document.addEventListener('DOMContentLoaded',syncOnce);
   }else{
     syncOnce();
   }
 
+  // Listen to app events (but guard prevents loops)
   document.addEventListener('itw:calc-updated',syncOnce);
-  document.addEventListener('itw:inputs-changed',syncOnce);
+  
+  // REMOVED: itw:inputs-changed listener (was causing loop)
+  // document.addEventListener('itw:inputs-changed',syncOnce);
+  
   const cur=$('#currency-select');
   if(cur)cur.addEventListener('change',syncOnce);
 
+  // Patch math layer
   (function tryPatchMath(){
     const M=window.ITW_MATH;
     if(!M||typeof M.computeWithVouchers!=='function')return;
@@ -1078,6 +1102,7 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
     };
   })();
 
+  // Wrap scheduleCalc
   (function wrapScheduleCalc(){
     const orig=window.scheduleCalc;
     if(typeof orig!=='function')return;
@@ -1087,10 +1112,10 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
     };
   })();
 
-  // CHATGPT FIX #2: Retry loop for first 2 seconds after load
+  // CHATGPT FIX #2: Retry loop (but limited)
   let attempts=0;
   const warm=setInterval(()=>{
-    syncOnce();
+    syncOnce(); // Guard prevents stack overflow even here
     if(++attempts>10)clearInterval(warm);
   },200);
 })();
