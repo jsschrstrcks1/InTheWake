@@ -33,7 +33,6 @@
 <script>
 (function killInfiniteScrollEarly(){
   try {
-    // Keep original
     const NativeIO = window.IntersectionObserver;
     if (!NativeIO || window.__itwIOPatched) return;
 
@@ -41,13 +40,13 @@
       return !!t && (
         t.id === 'infinite-sentinel' ||
         t.classList?.contains('infinite-sentinel') ||
-        (typeof t.hasAttribute === 'function' && t.hasAttribute('data-infinite-sentinel'))
+        (typeof t.hasAttribute === 'function' && t.hasAttribute('data-infinite-sentinel')) ||
+        t.id === 'recent-rail'          // ← add this back
       );
     }
 
     function PatchedIntersectionObserver(cb, opts){
       const wrapped = function(entries, observer){
-        // swallow if any entry is for our sentinels
         if (entries && entries.some(e => isSentinelTarget(e && e.target))) return;
         return cb && cb(entries, observer);
       };
@@ -55,12 +54,10 @@
     }
     PatchedIntersectionObserver.prototype = NativeIO.prototype;
 
-    // Install the patch
-    let _installed = PatchedIntersectionObserver;
     Object.defineProperty(window, 'IntersectionObserver', {
       configurable: false,
-      get(){ return _installed; },
-      set(v){ /* block later overrides */ console.warn('Blocked IO override', v); }
+      get(){ return PatchedIntersectionObserver; },
+      set(v){ console.warn('Blocked IO override', v); }
     });
 
     window.__itwIOPatched = true;
