@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="version" content="v=.9.001.008"/>
+<meta name="version" content="v=.9.001.009"/>
 <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
 <meta name="description" content="Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis. Plan your cruise drink budget."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
@@ -30,20 +30,9 @@
 <meta name="twitter:description" content="See your cheapest option with gratuity included and break-even math."/>
 
 <!-- Structured data -->
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},
-{"@type":"ListItem","position":2,"name":"Royal Caribbean Drink Package Calculator","item":"https://cruisinginthewake.com/drink-calculator.html"}]}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Is the Royal Caribbean drink package worth it?","acceptedAnswer":{"@type":"Answer","text":"It can be worth it if you typically average ~5–6 alcoholic drinks per day. Use the calculator to compare à-la-carte to Soda, Refreshment, and Deluxe, with gratuity included."}},
-{"@type":"Question","name":"Does the drink package include gratuity?","acceptedAnswer":{"@type":"Answer","text":"Yes. Package prices include the 18% service charge. À-la-carte drinks add 18% at checkout."}},
-{"@type":"Question","name":"How do I enter sale prices from Cruise Planner?","acceptedAnswer":{"@type":"Answer","text":"Click “Edit price…” on any package to type your sale rate; results update instantly."}}]}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Royal Caribbean Drink Package Calculator","applicationCategory":"Utilities","operatingSystem":"Any (Web)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
-</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Royal Caribbean Drink Package Calculator","item":"https://cruisinginthewake.com/drink-calculator.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the Royal Caribbean drink package worth it?","acceptedAnswer":{"@type":"Answer","text":"It can be worth it if you typically average ~5–6 alcoholic drinks per day. Use the calculator to compare à-la-carte to Soda, Refreshment, and Deluxe, with gratuity included."}},{"@type":"Question","name":"Does the drink package include gratuity?","acceptedAnswer":{"@type":"Answer","text":"Yes. Package prices include the 18% service charge. À-la-carte drinks add 18% at checkout."}},{"@type":"Question","name":"How do I enter sale prices from Cruise Planner?","acceptedAnswer":{"@type":"Answer","text":"Click “Edit price…” on any package to type your sale rate; results update instantly."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Royal Caribbean Drink Package Calculator","applicationCategory":"Utilities","operatingSystem":"Any (Web)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 
 <style>
 :root{
@@ -80,10 +69,12 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink)}
 .itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
 
-/* Hero image: keep horizon at viewport midline, keep logo in view */
-.hero{position:relative;width:100%;height:50vh;min-height:320px;max-height:560px;
+/* Hero image parity: 42vh; horizon stays at midline; logo never off-screen */
+.hero{position:relative;width:100%;height:42vh;min-height:300px;max-height:520px;
   background:url('/assets/index_hero.jpg?v=3.010.071') center center/cover no-repeat;
+  /* Centering “horizon”: constrain inner content to midline */
   display:flex;align-items:flex-end;overflow:hidden}
+@media (max-width:720px){.hero{height:40vh;min-height:260px}}
 .hero-title{position:absolute;left:clamp(.75rem,3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);display:flex;flex-direction:column;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
 .hero-title .logo{width:clamp(180px,23vw,360px);max-width:min(90vw,520px)}
 .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
@@ -97,6 +88,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .author-card{display:flex;gap:.75rem;align-items:center}
 .author-avatar{display:block;width:56px;height:56px;border-radius:12px;object-fit:cover;object-position:center;flex:0 0 56px}
 
+/* Inputs */
 .inputs .row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
 .inputs .row:last-child{border-bottom:0}
 .inputs .row> :not(:first-child){justify-self:end}
@@ -107,24 +99,27 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700;min-height:44px;font-size:1rem}
 .btn.ghost{background:#fff;color:#0f172a}
 
+/* Quick Start */
 .qs{background:#fde68a20;border:1px solid #f59e0b50;border-radius:12px;padding:14px 16px;margin:16px 0}
 .qs .qs-hd{font-weight:800;color:#7c2d12;margin:0 0 4px 0}
 .qs .qs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
 
+/* Chart */
 #breakeven-wrap{margin-top:18px;position:relative;line-height:0;overflow:hidden}
-#breakeven-chart{width:100%!important;max-width:100%;height:280px;border:1px dashed var(--bd);border-radius:10px;background:#fff;display:block}
+#breakeven-chart{width:100%!important;max-width:100%;height:300px;border:1px dashed var(--bd);border-radius:10px;background:#fff;display:block}
 #voucher-badge{position:absolute;top:-8px;right:0;transform:translateY(-100%)}
+.chart-help{margin-top:.4rem}
 
 /* Print */
 @media print{
   body{font-size:12pt;background:var(--card)}
-  header.hero-header,.qs,.banner,.rail,.card:not(.inputs),.controls-inline .btn,footer{display:none}
+  header.hero-header,.qs,.banner,.rail,.controls-inline .btn,footer{display:none}
   main.wrap{max-width:100%;margin:0;padding:0}
   .page-grid{grid-template-columns:1fr}
   .card{border:none;box-shadow:none;page-break-inside:avoid}
 }
 
-/* Force brand light palette even if OS is dark */
+/* Force light even in dark OS */
 @media (prefers-color-scheme: dark){
   :root{color-scheme:light}
   body,.card{background:var(--sky)!important;color:var(--ink)!important}
@@ -132,36 +127,29 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 }
 </style>
 
-<!-- Robust Chart loader + math wiring (versions aligned) -->
+<!-- Chart.js → then math and app (versions aligned) -->
 <script>
   (function loadChartThenApp(){
-    const local = "/vendor/chart.umd.min.js?v=.9.001.008";
+    const v  = 'v=.9.001.009';
+    const local = `/vendor/chart.umd.min.js?${v}`;
     const cdn   = "https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
-
     function addScript(src, onload){
-      var s=document.createElement('script'); s.src=src; s.defer=true; s.onload=onload; s.onerror=function(){
-        if(src!==cdn){ addScript(cdn, onload); } else { console.error("Chart failed to load"); }
-      }; document.head.appendChild(s);
+      var s=document.createElement('script'); s.src=src; s.defer=true;
+      s.onload=onload; s.onerror=()=>{ if(src!==cdn) addScript(cdn,onload); };
+      document.head.appendChild(s);
     }
     function loadApp(){
-      // align versions for worker + math
       const math = document.createElement('link');
-      math.rel="modulepreload"; math.href="/assets/js/drink-math.js?v=.9.001.008"; document.head.appendChild(math);
-
+      math.rel="modulepreload"; math.href=`/assets/js/drink-math.js?${v}`; document.head.appendChild(math);
       const worker = document.createElement('link');
-      worker.rel="preload"; worker.as="worker"; worker.href="/assets/js/drink-worker.js?v=.9.001.008"; document.head.appendChild(worker);
-
+      worker.rel="preload"; worker.as="worker"; worker.href=`/assets/js/drink-worker.js?${v}`; document.head.appendChild(worker);
       const m = document.createElement('script');
       m.type="module";
-      m.textContent = "import { compute as baseCompute, computeWithVouchers } from '/assets/js/drink-math.js?v=.9.001.008'; window.ITW_MATH = { compute: baseCompute, computeWithVouchers };";
+      m.textContent = `import { compute as baseCompute, computeWithVouchers } from '/assets/js/drink-math.js?${v}'; window.ITW_MATH = { compute: baseCompute, computeWithVouchers };`;
       document.head.appendChild(m);
-
-      const app = document.createElement('script');
-      app.src = "/assets/js/drink-calculator.app.js?v=.9.001.008";
-      app.defer = true;
-      document.head.appendChild(app);
+      const app = document.createElement('script'); app.src=`/assets/js/drink-calculator.app.js?${v}`; app.defer=true; document.head.appendChild(app);
     }
-    if (window.Chart){ loadApp(); } else { addScript(local, loadApp); }
+    if (window.Chart) loadApp(); else addScript(local, loadApp);
   })();
 </script>
 </head>
@@ -172,7 +160,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <div class="navbar">
     <div class="brand">
       <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake wordmark">
-      <span class="tiny version-badge" id="app-version-header">v=.9.001.008</span>
+      <span class="tiny version-badge">v=.9.001.009</span>
     </div>
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
@@ -212,11 +200,18 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 
 <main class="wrap page-grid" id="content">
   <section aria-label="Calculator">
+    <!-- Quick Start with Personas -->
     <section class="qs" aria-labelledby="qs-title">
       <h2 id="qs-title" class="qs-hd">🚀 Quick Start: Load a Preset</h2>
       <p class="small" style="margin-bottom:1rem;">Tap a preset to preview. “Load as Average” fills Simple mode. “Load as Itinerary” fills Day-by-Day.</p>
-      <div class="qs-grid" id="qs-preset-buttons" role="list"></div>
-      <div id="qs-details-host" style="margin-top:12px;"></div>
+      <div class="qs-grid" id="qs-preset-buttons" role="list">
+        <button class="btn ghost" type="button" data-preset="light">Light</button>
+        <button class="btn ghost" type="button" data-preset="moderate">Moderate</button>
+        <button class="btn ghost" type="button" data-preset="heavy">Party</button>
+        <button class="btn ghost" type="button" data-preset="coffee">Coffee Lover</button>
+        <button class="btn ghost" type="button" data-persona="solo">Solo Traveler</button>
+      </div>
+      <div id="qs-details-host" class="tiny muted" style="margin-top:8px;">Presets change only the drink amounts—you can still edit everything.</div>
     </section>
 
     <div class="banner" role="status" aria-live="polite" style="display:flex;gap:.6rem;align-items:center;margin:.6rem 0;">
@@ -242,6 +237,10 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           <select id="currency-select" aria-label="Display currency" class="small" style="font-weight:700;padding:4px 6px;border-radius:8px;border:1px solid var(--bd);">
             <option value="USD">USD $</option><option value="GBP">GBP £</option><option value="EUR">EUR €</option><option value="CAD">CAD $</option><option value="AUD">AUD $</option>
           </select>
+          <!-- FX drift preview -->
+          <label class="small" for="fx-drift" style="margin-left:.5rem;">FX drift ±%</label>
+          <input id="fx-drift" type="range" min="-5" max="5" value="0" style="width:120px">
+          <span id="fx-drift-val" class="small">0%</span>
           <span id="offline-chip" class="badge" style="display:none;background:#fde68a;color:#7c2d12;border:1px solid #f59e0b;">Offline rates</span>
         </div>
         <span id="currency-note" class="small" style="font-weight:600;display:block;margin-top:6px;"></span>
@@ -251,7 +250,9 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         <div class="row"><label for="input-days">Cruise days</label><input id="input-days" type="text" inputmode="numeric" value="7" data-input="days"></div>
 
         <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:8px" id="sea-port-fieldset">
-          <legend style="font-weight:800;padding:0 6px">Sea/Port variability</legend>
+          <legend style="font-weight:800;padding:0 6px">Sea/Port variability
+            <button id="weighting-help" type="button" aria-describedby="weighting-tip" class="btn ghost" style="padding:.1rem .5rem;min-height:auto;margin-left:.4rem;">?</button>
+          </legend>
           <div class="row"><label for="input-seadays">Number of sea days</label><input id="input-seadays" type="text" inputmode="numeric" value="3" data-input="seadays"></div>
           <div class="row" style="grid-template-columns:1fr 1fr">
             <label><input type="checkbox" id="sea-toggle" checked data-input="seaapply"> Apply weighting</label>
@@ -260,6 +261,9 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
               <input id="sea-weight" type="range" min="0" max="40" value="20" data-input="seaweight">
               <span id="sea-weight-val" class="small">20%</span>
             </div>
+          </div>
+          <div id="weighting-tip" role="tooltip" class="small" style="display:none;margin-top:.5rem;background:#ecfeff;border:1px solid #bae6fd;border-radius:8px;padding:.5rem;">
+            Sea days usually mean more drinks; port days often fewer. “Apply weighting” shifts your averages up on sea days and down on port days by the percent you choose. Toggle it off to treat days equally. (Esc closes)
           </div>
         </fieldset>
 
@@ -273,22 +277,23 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         <details id="cna-vouchers" class="small" style="border:2px solid var(--rope);border-radius:8px;padding:0;margin-top:12px;background:var(--foam)">
           <summary id="cna-title" style="cursor:pointer;font-weight:700;padding:1rem 1.25rem;list-style:none;">🎖️ <strong>Diamond or higher?</strong> Click here to apply your daily free-drink vouchers<div class="tiny muted" style="font-weight:400;margin-top:4px;">For frequent Royal Caribbean cruisers only (Crown & Anchor). Minors’ vouchers apply to non-alcoholic drinks only.</div></summary>
           <div class="cna-content" style="padding:0 1.25rem 1.25rem">
+            <div class="row"><label for="v-face">Voucher value (each, incl. grat)</label><input id="v-face" type="text" inputmode="decimal" value="12.00"></div>
             <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;">
-              <legend style="font-weight:800;padding:0 6px">Adult Vouchers</legend>
-              <div class="row"><label for="v-adult-d">Adults with Diamond (4)</label><input id="v-adult-d" type="text" inputmode="numeric" value="0" data-voucher="adult-d"></div>
-              <div class="row"><label for="v-adult-dp">Adults with Diamond+ (5)</label><input id="v-adult-dp" type="text" inputmode="numeric" value="0" data-voucher="adult-dp"></div>
-              <div class="row"><label for="v-adult-p">Adults with Pinnacle (5)</label><input id="v-adult-p" type="text" inputmode="numeric" value="0" data-voucher="adult-p"></div>
+              <legend style="font-weight:800;padding:0 6px">Adult vouchers per person per day</legend>
+              <div class="row"><label for="v-adult-d">Diamond (4)</label><input id="v-adult-d" type="text" inputmode="numeric" value="0"></div>
+              <div class="row"><label for="v-adult-dp">Diamond+ (5)</label><input id="v-adult-dp" type="text" inputmode="numeric" value="0"></div>
+              <div class="row"><label for="v-adult-p">Pinnacle (5)</label><input id="v-adult-p" type="text" inputmode="numeric" value="0"></div>
             </fieldset>
             <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px;">
-              <legend style="font-weight:800;padding:0 6px">Minor Vouchers (Non-Alc Only)</legend>
-              <div class="row"><label for="v-minor-d">Minors with Diamond (4)</label><input id="v-minor-d" type="text" inputmode="numeric" value="0" data-voucher="minor-d"></div>
-              <div class="row"><label for="v-minor-dp">Minors with Diamond+ (5)</label><input id="v-minor-dp" type="text" inputmode="numeric" value="0" data-voucher="minor-dp"></div>
-              <div class="row"><label for="v-minor-p">Minors with Pinnacle (5)</label><input id="v-minor-p" type="text" inputmode="numeric" value="0" data-voucher="minor-p"></div>
+              <legend style="font-weight:800;padding:0 6px">Minor vouchers (non-alc only)</legend>
+              <div class="row"><label for="v-minor-d">Diamond (4)</label><input id="v-minor-d" type="text" inputmode="numeric" value="0"></div>
+              <div class="row"><label for="v-minor-dp">Diamond+ (5)</label><input id="v-minor-dp" type="text" inputmode="numeric" value="0"></div>
+              <div class="row"><label for="v-minor-p">Pinnacle (5)</label><input id="v-minor-p" type="text" inputmode="numeric" value="0"></div>
             </fieldset>
           </div>
         </details>
 
-        <div id="cna-nudge" class="small" style="display:none;background:#e0f2fe;border-color:#0ea5e9;color:#0c4a6e;border:1px solid #bae6fd;border-radius:8px;padding:.6rem;cursor:pointer;">🎖️ Are you a Diamond member? Don’t forget to <strong>click here to apply</strong> your free daily drinks!</div>
+        <div id="cna-nudge" class="small" style="display:none;background:#e0f2fe;border:1px solid #bae6fd;border-radius:8px;padding:.6rem;cursor:pointer;">🎖️ Are you a Diamond member? Don’t forget to <strong>click here to apply</strong> your free daily drinks!</div>
 
         <!-- Mode -->
         <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
@@ -296,12 +301,12 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           <div class="controls-inline">
             <label class="small"><input type="radio" name="calc-mode" id="mode-simple" value="simple" checked> Use Daily Averages</label>
             <label class="small"><input type="radio" name="calc-mode" id="mode-itinerary" value="itinerary"> Plan Day-by-Day</label>
+            <button id="copy-avg" class="btn ghost" type="button" title="Copy your averages to every day (when Day-by-Day is active)">Copy averages → itinerary</button>
           </div>
         </fieldset>
 
-        <!-- SIMPLE MODE DRINK STEPPERS (always present so categories show) -->
+        <!-- SIMPLE MODE CATEGORIES (always visible; itinerary renders separately) -->
         <div id="simple-inputs" style="margin-top:6px">
-          <!-- 12 categories -->
           <div class="row"><label>Soda per day <span class="tiny muted">(avg)</span></label><input data-input="soda" type="text" inputmode="decimal" value="0"></div>
           <div class="row"><label>Premium coffee per day <span class="tiny muted">(avg)</span></label><input data-input="coffee" type="text" inputmode="decimal" value="0"></div>
           <div class="row"><label>Specialty tea per day</label><input data-input="teaprem" type="text" inputmode="decimal" value="0"></div>
@@ -331,8 +336,19 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
               <tr><td>Deluxe</td><td id="sr-deluxe">$0.00</td></tr>
             </tbody>
           </table>
-          <canvas id="breakeven-chart" width="900" height="280" aria-label="Break-even comparison chart" aria-describedby="chart-desc"></canvas>
+          <canvas id="breakeven-chart" width="900" height="300" aria-label="Break-even comparison chart" aria-describedby="chart-desc"></canvas>
+
+          <div class="controls-inline chart-help">
+            <label class="small"><input id="toggle-range" type="checkbox" checked> Show min/max range</label>
+          </div>
+          <div class="tiny muted" style="margin-top:.25rem">
+            <strong>How to read:</strong> Bars show your **per-person daily cost** for each option. If the range is visible,
+            a thin line shows a possible **max** and a dashed line the **min**, based on any ranges you entered or sea/port weighting.
+          </div>
         </div>
+
+        <!-- Per-category mini summary (filled by app.js render) -->
+        <div id="category-mini" class="small" style="margin-top:.5rem"></div>
 
         <div class="controls-inline" style="margin-top:12px">
           <button class="btn" type="button" onclick="printResults()">Print / Save Results</button>
@@ -363,7 +379,9 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   </section>
 
   <aside class="rail" aria-label="Author & articles">
-    <section id="author-rail" class="card" aria-label="Author information">
+    <!-- Author rail parity -->
+    <section id="author-rail" class="card" aria-label="About the Author">
+      <h3 style="margin:.25rem 0 8px;color:var(--sea)">About the author</h3>
       <div class="author-card">
         <picture>
           <source type="image/webp" srcset="/authors/img/ken1.webp">
@@ -400,11 +418,69 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
       </form>
     </section>
 
+    <!-- Packages rail (fallback content) -->
     <section class="card" aria-labelledby="packages-rail-title">
       <div id="packages-rail-title" class="hd" style="position:static;">Packages</div>
-      <div class="bd"><section class="packages" id="packages" aria-live="polite"></section></div>
+      <div class="bd">
+        <section class="packages" id="packages" aria-live="polite">
+          <article class="pkg card" data-card="soda" id="pkg-soda" style="border-width:1px;margin:.5rem 0">
+            <div class="phd" style="font-weight:800">Soda <span data-pkg-price="soda" class="tiny muted"></span></div>
+            <ul class="tiny" style="margin:.35rem 0 .25rem 1rem">
+              <li>Unlimited fountain soda + Coca-Cola Freestyle</li>
+            </ul>
+            <button class="btn ghost small" type="button" onclick="togglePriceEdit('soda')">Edit price…</button>
+            <div id="edit-soda" hidden class="small" style="margin-top:.35rem">
+              <label>Per-day price (incl. grat) <input id="edit-soda-val" type="text" inputmode="decimal" style="width:120px"></label>
+              <button class="btn" type="button" onclick="savePackagePrice('soda')">Save</button>
+              <button class="btn ghost" type="button" onclick="togglePriceEdit('soda',true)">Cancel</button>
+            </div>
+          </article>
+
+          <article class="pkg card" data-card="refresh" id="pkg-refresh" style="border-width:1px;margin:.5rem 0">
+            <div class="phd" style="font-weight:800">Refreshment <span data-pkg-price="refresh" class="tiny muted"></span></div>
+            <ul class="tiny" style="margin:.35rem 0 .25rem 1rem">
+              <li>All Soda + premium coffee, specialty tea</li>
+              <li>Fresh juice/smoothies, mocktails, bottled water</li>
+            </ul>
+            <div class="tiny muted" data-inc="refresh"></div>
+            <button class="btn ghost small" type="button" onclick="togglePriceEdit('refresh')">Edit price…</button>
+            <div id="edit-refresh" hidden class="small" style="margin-top:.35rem">
+              <label>Per-day price (incl. grat) <input id="edit-refresh-val" type="text" inputmode="decimal" style="width:120px"></label>
+              <button class="btn" type="button" onclick="savePackagePrice('refresh')">Save</button>
+              <button class="btn ghost" type="button" onclick="togglePriceEdit('refresh',true)">Cancel</button>
+            </div>
+            <div id="refresh-breakeven" class="tiny" style="margin-top:.3rem"></div>
+          </article>
+
+          <article class="pkg card" data-card="deluxe" id="pkg-deluxe" style="border-width:1px;margin:.5rem 0">
+            <div class="phd" style="font-weight:800">Deluxe <span data-pkg-price="deluxe" class="tiny muted"></span></div>
+            <ul class="tiny" style="margin:.35rem 0 .25rem 1rem">
+              <li>All Refreshment items</li>
+              <li>Beer, wine, cocktails, spirits up to <strong id="cap-badge">$14.00</strong></li>
+            </ul>
+            <div class="tiny muted" data-inc="deluxe"></div>
+            <div class="tiny muted">Over-cap estimate: <span id="overcap-est">$0.00</span></div>
+            <button class="btn ghost small" type="button" onclick="togglePriceEdit('deluxe')">Edit price…</button>
+            <div id="edit-deluxe" hidden class="small" style="margin-top:.35rem">
+              <label>Per-day price (incl. grat) <input id="edit-deluxe-val" type="text" inputmode="decimal" style="width:120px"></label>
+              <button class="btn" type="button" onclick="savePackagePrice('deluxe')">Save</button>
+              <button class="btn ghost" type="button" onclick="togglePriceEdit('deluxe',true)">Cancel</button>
+            </div>
+            <div class="small" style="margin-top:.4rem">
+              <button class="btn ghost small" type="button" onclick="toggleCapEdit()">Edit cap…</button>
+              <span id="edit-cap" hidden>
+                <label>Cap $ <input id="edit-cap-val" type="text" inputmode="decimal" style="width:100px"></label>
+                <button class="btn small" type="button" onclick="saveCap()">Save</button>
+                <button class="btn ghost small" type="button" onclick="toggleCapEdit(true)">Cancel</button>
+              </span>
+            </div>
+            <div id="deluxe-breakeven" class="tiny" style="margin-top:.3rem"></div>
+          </article>
+        </section>
+      </div>
     </section>
 
+    <!-- Recent Articles (author→avatar mapping) -->
     <section class="card" aria-labelledby="recent-rail-title">
       <h2 id="recent-rail-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">Recent Articles</h2>
       <div id="recent-rail" class="rail-list" aria-live="polite">
@@ -428,7 +504,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 </footer>
 
 <script>
-/* Nav interactions: keep clicks navigating */
+/* Nav interactions */
 (function(){
   const root=document.querySelector('.itw-nav'); if(!root) return;
   const items=[...root.querySelectorAll('.nav-item[aria-haspopup]')];
@@ -438,7 +514,6 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   items.forEach(group=>{
     const btn=group.querySelector('button[aria-controls]');const menu=group.querySelector('.menu'); if(!btn||!menu) return;
     btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();const open=group.classList.contains('open');closeAll(group);setOpen(group,!open);if(!open){(firstFocusable(menu)||btn).focus({preventScroll:true});}});
-    // Do NOT preventDefault on menu links — let them navigate
     menu.addEventListener('click',e=>{const a=e.target.closest('a');if(a){closeAll();}});
     btn.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();setOpen(group,true);(firstFocusable(menu)||btn).focus({preventScroll:true});}else if(e.key==='Escape'){setOpen(group,false);btn.focus({preventScroll:true});}});
     group.addEventListener('keydown',e=>{if(e.key==='Escape'){setOpen(group,false);btn.focus({preventScroll:true});}});
@@ -451,24 +526,71 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 /* Footer year */
 document.getElementById('footer-year').textContent=new Date().getFullYear();
 
-/* Minimal “Recent Articles” fallback that respects author → avatar */
+/* Quick Start wiring (presets + persona) */
+(function(){
+  const host=document.getElementById('qs-preset-buttons'); if(!host) return;
+  host.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    if(b.dataset.preset && window.loadPreset){ window.loadPreset(b.dataset.preset); }
+    if(b.dataset.persona && window.applyPersona){ window.applyPersona(b.dataset.persona); }
+  });
+})();
+
+/* Weighting tooltip */
+(function(){
+  const btn=document.getElementById('weighting-help'), tip=document.getElementById('weighting-tip');
+  if(!btn||!tip) return;
+  function show(){ tip.style.display='block'; btn.setAttribute('aria-expanded','true'); }
+  function hide(){ tip.style.display='none'; btn.setAttribute('aria-expanded','false'); }
+  btn.addEventListener('click',()=>{ const vis=tip.style.display==='block'; vis?hide():show(); });
+  btn.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ hide(); btn.focus(); }});
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') hide(); });
+  document.addEventListener('click',(e)=>{ if(!tip.contains(e.target) && e.target!==btn) hide(); });
+})();
+
+/* FX drift UI → ITW app expects window.fxDriftPct */
+(function(){
+  const r=document.getElementById('fx-drift'), out=document.getElementById('fx-drift-val');
+  if(!r||!out) return;
+  const upd=()=>{ window.fxDriftPct=Number(r.value||0); out.textContent=(window.fxDriftPct>0?'+':'')+window.fxDriftPct+'%'; if(window.renderAll) window.renderAll(); };
+  r.addEventListener('input',upd); upd();
+})();
+
+/* Range toggle → mutate chart datasets via window._toggleRange hook */
+document.getElementById('toggle-range')?.addEventListener('change',()=>{
+  try{
+    const ev=new CustomEvent('itw:rangeToggle',{detail:{on:document.getElementById('toggle-range').checked}});
+    window.dispatchEvent(ev);
+  }catch(_e){}
+});
+
+/* Copy averages → itinerary button (calls into app.js helpers) */
+document.getElementById('copy-avg')?.addEventListener('click',()=>{
+  try{
+    // Simple approach: switch to itinerary, render, then reuse ensureItineraryArray()
+    document.getElementById('mode-itinerary').checked=true;
+    document.getElementById('mode-itinerary').dispatchEvent(new Event('change',{bubbles:true}));
+    // app.js clones first-day averages automatically when array is created
+  }catch(_e){}
+});
+
+/* Minimal “Recent Articles” fallback that respects author → avatar (Tina vs Ken) */
 (function(){
   const rail=document.getElementById('recent-rail'); if(!rail) return;
-  // If app.js provides loadArticles(), let it run; else, draw a tiny fallback list.
   window.addEventListener('load',()=>setTimeout(()=>{
-    if(rail.children.length<=1){ // still just the loading paragraph
-      const items=[
-        {t:"Why I Started Solo Cruising",u:"/solo.html",a:"Tina",img:"/authors/img/tina1.webp"},
-        {t:"Planning Your First Cruise",u:"/planning.html",a:"Tina",img:"/authors/img/tina2.webp"},
-        {t:"Drink Packages: What’s Included",u:"/drink-packages.html",a:"Ken",img:"/authors/img/ken1.webp"}
-      ];
-      rail.innerHTML="";
-      items.forEach(it=>{
-        const card=document.createElement('a'); card.href=it.u; card.className='small'; card.style.cssText='display:flex;gap:.5rem;align-items:center;text-decoration:none';
-        card.innerHTML=`<img src="${it.img}" width="44" height="44" style="border-radius:8px;object-fit:cover" alt="${it.a}"> <div><div style="font-weight:700">${it.t}</div><div class="tiny muted">By ${it.a}</div></div>`;
-        rail.appendChild(card);
-      });
-    }
+    if(rail.querySelectorAll('a').length) return;
+    const items=[
+      {t:"Why I Started Solo Cruising",u:"/solo.html",a:"Tina",img:"/authors/img/tina1.webp"},
+      {t:"Planning Your First Cruise",u:"/planning.html",a:"Tina",img:"/authors/img/tina2.webp"},
+      {t:"Drink Packages: What’s Included",u:"/drink-packages.html",a:"Ken",img:"/authors/img/ken1.webp"}
+    ];
+    rail.innerHTML="";
+    items.forEach(it=>{
+      const card=document.createElement('a'); card.href=it.u; card.className='small';
+      card.style.cssText='display:flex;gap:.5rem;align-items:center;text-decoration:none';
+      card.innerHTML=`<img src="${it.img}" width="44" height="44" style="border-radius:8px;object-fit:cover" alt="${it.a}"> <div><div style="font-weight:700">${it.t}</div><div class="tiny muted">By ${it.a}</div></div>`;
+      rail.appendChild(card);
+    });
   },300));
 })();
 
