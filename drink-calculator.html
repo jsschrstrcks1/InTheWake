@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="version" content="v=.9.001.011"/>
+<!-- was: content="v=.9.001.011" -->
+<meta name="version" content=".9.001.012"/>
 <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
 <meta name="description" content="Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis. Plan your cruise drink budget."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
-
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.071" imagesrcset="/assets/index_hero.jpg?v=3.010.071" fetchpriority="high">
 <!-- Favicon / PWA -->
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/in_the_wake_icon_192x192.png">
@@ -186,21 +187,47 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   :root{color-scheme:light}
   body,.card{background:var(--sky)!important;color:var(--ink)!important}
 }
+  .inputs.card { border-color: var(--rope); }
 </style>
 
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://api.frankfurter.app">
+<link rel="dns-prefetch" href="https://api.exchangerate.host">
+
 <!-- Chart loader -->
+<!-- Chart + App loader (version-synced with <meta name="version">) -->
 <script>
 (function(){
-  const local="/vendor/chart.umd.min.js?v=.9.001.009";
-  const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
-  function add(src,cb){var s=document.createElement('script');s.src=src;s.defer=true;s.onload=cb;s.onerror=function(){if(src!==cdn)add(cdn,cb);};document.head.appendChild(s);}
-  function loadApp(){
-    var m=document.createElement('script');m.type="module";
-    m.textContent="import{compute as baseCompute,computeWithVouchers}from'/assets/js/drink-math.js?v=.9.001.009';window.ITW_MATH={compute:baseCompute,computeWithVouchers};";
-    document.head.appendChild(m);
-    var app=document.createElement('script');app.src="/assets/js/drink-calculator.app.js?v=.9.001.009";app.defer=true;document.head.appendChild(app);
+  const VER = document.querySelector('meta[name="version"]')?.content || '.9.001.012';
+  const local = "/vendor/chart.umd.min.js?v=" + VER;
+  const cdn   = "https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
+
+  function add(src, cb){
+    var s = document.createElement('script');
+    s.src = src; s.defer = true; s.onload = cb;
+    s.onerror = function(){ if(src !== cdn) add(cdn, cb); };
+    document.head.appendChild(s);
   }
-  window.Chart?loadApp():add(local,loadApp);
+
+  function loadApp(){
+    // wire math by version
+    const m = document.createElement('script');
+    m.type = "module";
+    m.textContent = `
+      import { compute as baseCompute, computeWithVouchers } 
+      from '/assets/js/drink-math.js?v=${VER}';
+      window.ITW_MATH = { compute: baseCompute, computeWithVouchers };
+    `;
+    document.head.appendChild(m);
+
+    // keep app.js external (per instruction)
+    const app = document.createElement('script');
+    app.src = "/assets/js/drink-calculator.app.js?v=" + VER;
+    app.defer = true;
+    document.head.appendChild(app);
+  }
+
+  window.Chart ? loadApp() : add(local, loadApp);
 })();
 </script>
 </head>
@@ -217,8 +244,8 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
     </div>
     <div class="quiz-body"><div id="quiz-content"></div></div>
     <div class="quiz-footer">
-      <button id="quiz-back" class="quiz-btn quiz-btn-secondary" style="display:none">← Back</button>
-      <button id="quiz-next" class="quiz-btn quiz-btn-primary" disabled>Next →</button>
+      <button id="quiz-back" type="button" class="quiz-btn quiz-btn-secondary" style="display:none">← Back</button>
+      <button id="quiz-next" type="button" class="quiz-btn quiz-btn-primary" disabled>Next →</button>
     </div>
     <div class="quiz-skip"><button onclick="window.quizSkip()">Skip and enter manually</button></div>
   </div>
@@ -228,12 +255,12 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <div class="navbar">
     <div class="brand">
       <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
-      <span class="tiny version-badge">v.9.001.011</span>
+      <span class="tiny version-badge">v.9.001.012</span>
     </div>
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
-      <div class="nav-item" aria-haspopup="menu">
-        <button class="chip" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
+      <div class="nav-item">
+        <button class="chip" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
         <div id="menu-planning" class="menu">
           <div class="label">Plan your cruise</div>
           <a href="/planning.html">Planning</a>
@@ -244,8 +271,8 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           <a href="/packing-lists.html">Packing Lists</a>
         </div>
       </div>
-      <div class="nav-item" aria-haspopup="menu">
-        <button class="chip" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
+      <div class="nav-item">
+        <button class="chip" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
         <div id="menu-travel" class="menu">
           <div class="label">On the way</div>
           <a href="/travel.html">Travel</a>
@@ -266,6 +293,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 </header>
 
 <main class="wrap page-grid" id="content">
+ <h1 class="sr-only">Royal Caribbean Drink Package Calculator (2025)</h1>
   <section aria-label="Calculator">
     <!-- FIXED: Preset Personas with descriptions -->
     <section class="qs" aria-labelledby="qs-title">
@@ -302,14 +330,14 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
     <div class="banner" role="status" aria-live="polite" style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;padding:10px;background:var(--foam);border-radius:8px;margin:.6rem 0">
       <span id="best-chip" class="badge">Best value: à-la-carte</span>
       <span id="best-text" class="small">Your daily picks are cheapest without a package.</span>
-      <button id="jump-winner" class="btn ghost" style="min-height:36px;padding:6px 12px">Jump to Best</button>
+      <button id="jump-winner" class="btn ghost" type="button" style="min-height:36px;padding:6px 12px">Jump to Best</button>
     </div>
 
     <p id="fallback-banner" hidden class="small" style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:.5rem">⚠️ Live prices unavailable; using defaults</p>
 
     <section class="card inputs" aria-labelledby="calc-title">
       <h2 id="calc-title" class="hd">
-        <span id="totals">Calculating...</span>
+        <span id="totals" aria-live="polite">Calculating...</span>
         <small class="small"> — includes 18% gratuity</small>
       </h2>
 
@@ -334,17 +362,27 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:8px">
           <legend style="font-weight:800;padding:0 6px;display:flex;align-items:center">
             Sea/Port variability
-            <span class="tooltip-trigger" tabindex="0" role="tooltip" title="Sea days often = more drinks (relaxing by pool). Port days = fewer (off exploring). This adjusts estimates.">?</span>
+            <span class="tooltip-trigger" tabindex="0" aria-describedby="sea-tip">?</span>
+<span id="sea-tip" class="sr-only" role="tooltip">
+  Sea days often mean more drinks (relaxing by the pool). Port days often mean fewer (off exploring).
+  This setting adjusts estimates accordingly.
+</span>
           </legend>
           <div class="row"><label for="input-seadays">Sea days</label><input id="input-seadays" type="text" inputmode="numeric" value="3" data-input="seadays"></div>
           <div class="row" style="grid-template-columns:1fr 1fr">
-            <label><input type="checkbox" id="sea-toggle" checked data-input="seaapply"> Apply weighting</label>
-            <div class="controls-inline">
-              <label for="sea-weight" class="small">±%</label>
-              <input id="sea-weight" type="range" min="0" max="40" value="20" data-input="seaweight">
-              <span id="sea-weight-val" class="small">20%</span>
-            </div>
-          </div>
+  <label class="small">
+    <input type="checkbox" id="sea-toggle" checked data-input="seaapply" aria-describedby="sea-weighting-help">
+    Apply weighting
+  </label>
+  <div class="controls-inline">
+    <label for="sea-weight" class="small">±%</label>
+    <input id="sea-weight" type="range" min="0" max="40" value="20" data-input="seaweight" aria-describedby="sea-weighting-help">
+    <span id="sea-weight-val" class="small">20%</span>
+  </div>
+</div>
+<p id="sea-weighting-help" class="tiny" style="margin:.25rem 0 0;color:#475569;max-width:60ch">
+  Sea days will be increased by this percentage; port days decreased by the same amount, then averaged over your itinerary.
+</p>
         </fieldset>
 
         <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
@@ -441,7 +479,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           <div class="row"><label>Spirits/shot</label><input data-input="spirits" type="text" inputmode="decimal" value="0"></div>
         </div>
 
-        <div id="itinerary-inputs" hidden style="margin-top:12px"></div>
+        <div id="itinerary-inputs" style="margin-top:12px"></div>
 
         <!-- FIXED: Chart with enhanced legend and help text -->
         <div id="breakeven-wrap">
@@ -466,13 +504,26 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
               <span class="tiny muted">📊 Bars show price range (min-max)</span>
             </div>
           </div>
-          <canvas id="breakeven-chart" width="900" height="320" aria-label="Package comparison chart"></canvas>
+          <table id="chart-desc" class="sr-only">
+  <caption>Daily cost comparison</caption>
+  <thead><tr><th>Option</th><th>Cost per day</th></tr></thead>
+  <tbody>
+    <tr><td>À-la-carte</td><td id="sr-alc">$0.00</td></tr>
+    <tr><td>Soda</td><td id="sr-soda">$0.00</td></tr>
+    <tr><td>Refreshment</td><td id="sr-refresh">$0.00</td></tr>
+    <tr><td>Deluxe</td><td id="sr-deluxe">$0.00</td></tr>
+  </tbody>
+</table>
+      <canvas id="breakeven-chart" width="900" height="320"
+  aria-label="Package comparison chart"
+  aria-describedby="chart-desc"></canvas>
           <div class="chart-help">
             <strong>💡 How to read:</strong> Blue bar = your actual drinking cost per day (including 18% gratuity). 
             Gray bars = what you'd pay for each package. <strong>Lower = better value.</strong>
             Hover over bars to see exact dollar amounts.
           </div>
         </div>
+       
 
         <!-- FIXED: Per-category summary -->
         <div class="category-summary" id="category-breakdown" hidden>
@@ -481,9 +532,9 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         </div>
 
         <div class="controls-inline" style="margin-top:16px">
-          <button class="btn" onclick="window.print()">Print Results</button>
-          <button class="btn ghost" onclick="shareScenario()">Share</button>
-          <button class="btn" onclick="resetAll()" style="background:var(--bad)">Reset</button>
+          <button class="btn" type="button" onclick="window.print()">Print Results</button>
+          <button class="btn ghost" type="button" onclick="shareScenario()">Share</button>
+          <button class="btn" type="button" onclick="resetAll()" style="background:var(--bad)">Reset</button>
         </div>
       </div>
     </section>
@@ -536,7 +587,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
       <form id="email-form" method="POST" style="margin-top:10px">
         <input type="text" name="b_email" tabindex="-1" style="position:absolute;left:-9999px" aria-hidden="true">
         <div style="display:flex;gap:6px">
-          <input type="email" name="EMAIL" placeholder="your@email.com" required style="flex:1;padding:8px;border:1px solid var(--bd);border-radius:6px;font-size:16px">
+          <input type="email" name="EMAIL" placeholder="your@email.com" required autocomplete="email" inputmode="email" style="flex:1;padding:8px;border:1px solid var(--bd);border-radius:6px;font-size:16px">
           <button type="submit" class="btn">Get List</button>
         </div>
         <label class="small" style="display:flex;gap:.5rem;margin-top:.75rem">
@@ -896,7 +947,9 @@ if(document.readyState==='loading'){
 // Nav interactions
 (function(){
   const nav=document.querySelector('.itw-nav');if(!nav)return;
-  const items=[...nav.querySelectorAll('.nav-item[aria-haspopup]')];
+  const items=[...nav.querySelectorAll('.nav-item')].filter(
+  g => g.querySelector('button[aria-haspopup="menu"]')
+);
   function setOpen(g,on){g.classList.toggle('open',on);const b=g.querySelector('button');if(b)b.setAttribute('aria-expanded',on?'true':'false');}
   function closeAll(except){items.forEach(g=>{if(g!==except)setOpen(g,false);});}
   items.forEach(g=>{
@@ -1014,20 +1067,53 @@ document.querySelectorAll('.persona-btn').forEach(btn=>{
   // Trigger on page load
   setTimeout(updateBreakdown, 500);
 })();
-
-// Planning Pass email telemetry
+</script>
+  <script>
+(function authorRailImageOverride(){
+  const rail = document.getElementById('recent-rail');
+  if(!rail) return;
+  const HEADS = {
+    "Tina": { webp: "/authors/img/tina1.webp",  jpg: "/authors/img/tina1.jpg", alt: "Author — Tina" },
+    "Ken":  { webp: "/authors/img/ken1.webp",   jpg: "/authors/img/ken1.jpg",  alt: "Author — Ken Baker" }
+  };
+  function apply(){
+    const cards = rail.querySelectorAll('a, article, .card, .rail-item');
+    cards.forEach(card=>{
+      const txt = (card.textContent || "");
+      const m = txt.match(/By\s+([A-Za-z]+)/i);
+      const name = m && m[1] ? m[1] : null;
+      const head = name && HEADS[name] ? HEADS[name] : null;
+      if(!head) return;
+      const img = card.querySelector('img');
+      if(!img) return;
+      img.src = head.jpg;
+      if (head.webp) img.srcset = head.webp + " 1x";
+      img.alt = head.alt;
+      img.width = img.width || 44;
+      img.height = img.height || 44;
+      img.style.borderRadius = '12px';
+      img.style.objectFit = 'cover';
+      img.style.objectPosition = 'center';
+    });
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(apply, 350);
+  } else {
+    window.addEventListener('DOMContentLoaded', ()=> setTimeout(apply, 350));
+  }
+})();
+</script>
+  <script>
 (function(){
   function fillTelemetry(){
     try{
       const f = document.getElementById('email-form'); 
       if(!f) return;
-      
+
+      // --- dynamic tags: Planning Pass
       const pass = f.querySelector('input[name="PLANNING_PASS_OPT_IN"]');
-      
-      // Remove any pre-existing dynamic tag to prevent duplicates
+      // Dedupe any previous dynamic tag
       f.querySelectorAll('input[name="tags[]"][value="planning-pass"]').forEach(n=>n.remove());
-      
-      // If Planning Pass checkbox is checked, inject the tag
       if(pass && pass.checked){
         const tag = document.createElement('input');
         tag.type = 'hidden';
@@ -1035,19 +1121,147 @@ document.querySelectorAll('.persona-btn').forEach(btn=>{
         tag.value = 'planning-pass';
         f.appendChild(tag);
       }
+
+      // --- telemetry fields (best-effort, won’t throw)
+      const byId = id => document.getElementById(id);
+      const recEl = byId('email-rec');
+      const savEl = byId('email-savings');
+
+      // read from global app state if present
+      const best = (window.ITW && window.ITW.best) || (window.ITW_BEST);
+      const inputs = (window.ITW && window.ITW.inputs) || null;
+
+      if (recEl) {
+        recEl.value = (best && best.name) ? String(best.name) : '';
+      }
+      if (savEl) {
+        const delta = (best && typeof best.delta === 'number') ? best.delta : '';
+        savEl.value = String(delta);
+      }
+
+      // include days + URL if present
+      let daysVal = '';
+      const daysInput = document.querySelector('[data-input="days"]');
+      if (inputs && inputs.days) daysVal = String(inputs.days);
+      else if (daysInput) daysVal = String(daysInput.value || '');
+
+      let urlField = f.querySelector('input[name="CALC_URL"]');
+      if (!urlField) {
+        urlField = document.createElement('input');
+        urlField.type = 'hidden';
+        urlField.name = 'CALC_URL';
+        f.appendChild(urlField);
+      }
+      urlField.value = location.href;
+
+      let daysField = f.querySelector('input[name="CRUISE_DAYS"]');
+      if (!daysField) {
+        daysField = document.createElement('input');
+        daysField.type = 'hidden';
+        daysField.name = 'CRUISE_DAYS';
+        f.appendChild(daysField);
+      }
+      daysField.value = daysVal;
+
     }catch(e){
-      console.error('Planning Pass telemetry failed:', e);
+      console.error('Email telemetry failed:', e);
     }
   }
-  
+
   const form = document.getElementById('email-form');
   if(form){
     form.addEventListener('submit', fillTelemetry, {capture: true});
   }
 })();
+</script>
+  <script>
+// Safety shims so buttons never error if app.js wiring changes
+(function(){
+  if (typeof window.shareScenario !== 'function') {
+    window.shareScenario = function(){
+      try {
+        if (typeof window.syncURL === 'function') window.syncURL();
+        const url = location.href;
+        if (navigator.share) {
+          navigator.share({ title: document.title, url }).catch(()=>{});
+        } else if (navigator.clipboard) {
+          navigator.clipboard.writeText(url);
+          const msg = document.getElementById('signup-message');
+          if (msg) { msg.textContent = '✅ Link copied!'; setTimeout(()=>msg.textContent='', 2000); }
+        } else {
+          alert('Share not supported; copy the URL from your browser.');
+        }
+      } catch(e) { console.error('shareScenario fallback failed:', e); }
+    };
+  }
 
-// Misc
-document.getElementById('year').textContent=new Date().getFullYear();
+  if (typeof window.resetAll !== 'function') {
+    window.resetAll = function(){
+      try {
+        // Prefer the app.js reset if present
+        if (typeof window.resetInputs === 'function') return window.resetInputs();
+        // Fallback: soft reload this page path (clears local state)
+        location.href = location.pathname;
+      } catch(e) {
+        location.href = location.pathname;
+      }
+    };
+  }
+})();
+</script>
+  <script>
+(function top20CoverOverride(){
+  const rail = document.getElementById('recent-rail');
+  if(!rail) return;
+
+  const TITLE_MATCH = /Top\s*20/i; // adjust to your exact title if needed
+  const OVERRIDE = {
+    webp: "/assets/covers/top-20.webp",
+    jpg:  "/assets/covers/top-20.jpg",
+    alt:  "Top 20 Royal Caribbean Picks"
+  };
+
+  function apply(){
+    const cards = rail.querySelectorAll('a, article, .card, .rail-item');
+    cards.forEach(card=>{
+      const titleEl = card.querySelector('h3, h4, .title, .post-title, strong, b');
+      const title = (titleEl?.textContent || card.textContent || "").trim();
+      if (!TITLE_MATCH.test(title)) return;
+      const img = card.querySelector('img');
+      if (!img) return;
+      img.src = OVERRIDE.jpg;
+      img.srcset = OVERRIDE.webp ? (OVERRIDE.webp + " 1x") : "";
+      img.alt = OVERRIDE.alt;
+      img.width = img.width || 320;
+      img.height = img.height || 180;
+      img.style.objectFit = 'cover';
+      img.style.borderRadius = '12px';
+    });
+  }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(apply, 400);
+  } else {
+    window.addEventListener('DOMContentLoaded', ()=> setTimeout(apply, 400));
+  }
+})();
+</script>
+  <script>
+(function ensureCategoryBreakdownUpdates(){
+  const grid = document.getElementById('category-grid');
+  const section = document.getElementById('category-breakdown');
+  if(!grid || !section) return;
+
+  const updateEvt = new Event('itw:inputs-changed');
+  // Broadcast on common user interactions as a fallback
+  ['input','change'].forEach(t=>{
+    document.addEventListener(t, e=>{
+      if (e.target && e.target.matches('[data-input], [data-voucher], #voucher-value')) {
+        document.dispatchEvent(updateEvt);
+      }
+    }, {capture:true});
+  });
+})();
 </script>
 </body>
 </html>
