@@ -489,23 +489,18 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 
         <!-- Chart -->
         <div id="breakeven-wrap">
-          <div class="chart-legend">
-            <div class="chart-legend-item">
-              <div class="chart-legend-color" style="background:#0e6e8e"></div>
-              <span>Your à-la-carte cost</span>
-            </div>
-            <div class="chart-legend-item">
-              <div class="chart-legend-color" style="background:#cbd5e1"></div>
-              <span>Soda Package</span>
-            </div>
-            <div class="chart-legend-item">
-              <div class="chart-legend-color" style="background:#a7e0f0"></div>
-              <span>Refreshment Package</span>
-            </div>
-            <div class="chart-legend-item">
-              <div class="chart-legend-color" style="background:#f7b4a2"></div>
-              <span>Deluxe Package</span>
-            </div>
+         <div class="chart-legend-item">
+  <div class="chart-legend-color" style="background:#60a5fa"></div>
+  <span>Daily cost</span>
+</div>
+<div class="chart-legend-item">
+  <div class="chart-legend-color" style="background:rgba(0,0,0,.35)"></div>
+  <span>(max)</span>
+</div>
+<div class="chart-legend-item">
+  <div class="chart-legend-color" style="background:rgba(0,0,0,.2)"></div>
+  <span>(min)</span>
+</div>
           </div>
           <table id="chart-desc" class="sr-only">
             <caption>Daily cost comparison</caption>
@@ -915,33 +910,17 @@ else{init();}
 </script>
 
 <!-- Mode toggle -->
+<!-- Mode toggle (delegate to app store) -->
 <script>
 (function(){
-  const simple=document.getElementById('simple-inputs');
-  const itin=document.getElementById('itinerary-inputs');
-  const rs=document.getElementById('mode-simple');
-  const ri=document.getElementById('mode-itinerary');
-  const legend=document.getElementById('mode-legend');
-
+  const rs = document.getElementById('mode-simple');
+  const ri = document.getElementById('mode-itinerary');
   function toggle(mode){
-    if(mode==='itinerary'){
-      simple.style.display='none';
-      itin.style.display='';
-      if(legend)legend.textContent='Calculation Mode: Day-by-Day';
-    }else{
-      simple.style.display='';
-      itin.style.display='none';
-      if(legend)legend.textContent='Calculation Mode: Daily Averages';
-    }
-    document.dispatchEvent(new Event('itw:mode-changed'));
+    window.ITW?.store?.patch?.('inputs.calcMode', mode === 'itinerary' ? 'itinerary' : 'simple');
+    // app.js will render + lock heights + recalc
   }
-
-  if(rs&&ri){
-    rs.addEventListener('change',()=>toggle('simple'));
-    ri.addEventListener('change',()=>toggle('itinerary'));
-  }
-
-  toggle('simple');
+  rs?.addEventListener('change', ()=>toggle('simple'));
+  ri?.addEventListener('change', ()=>toggle('itinerary'));
 })();
 </script>
 
