@@ -1,5 +1,5 @@
-/* drink-calculator.app.js — .9.001.032 (Worker-enabled, Offline-First FX)
-   Updates aligned to drink-math.js .9.001.032:
+/* drink-calculator.app.js — v.9.001.032 (Worker-enabled, Offline-First FX)
+   Updates aligned to drink-math.js v.9.001.032:
    - scheduleCalc(): calls computeWithVouchers() when vouchers are enabled; bypasses worker in that case.
    - Removed minor-discount artifacts from fallback dataset & initial economics; stop reading it from dataset.
    - renderResults(): kids hint copy no longer mentions “50% off”.
@@ -8,13 +8,13 @@
 */
 
 // ----- unified version from <meta name="version" content="..."> -----
-const META_VER = (document.querySelector('meta[name=".9.001.032"]')?.content || '').trim();
-// support both ".9.001.031" and "v.9.001.031"
-const VERSION = META_VER && !META_VER.startsWith('v') ? `v.9.001.032` : (META_VER || 'v.dev');
+const META_VER = (document.querySelector('meta[name="version"]')?.content || '').trim();
+// accept either ".9.001.032" or "v.9.001.032"
+const VERSION = META_VER ? (META_VER.startsWith('v') ? META_VER : `v${META_VER}`) : 'v.dev';
 
 const USE_WORKER = true; // ✅ enable worker by default
-const WORKER_URL = `/assets/js/drink-worker.js?v='.9.001.032`;
-const DS_URL     = `/assets/data/lines/royal-caribbean.json?v='.9.001.032`;
+const WORKER_URL = `/assets/js/drink-worker.js?v=${VERSION}`;
+const DS_URL     = `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
 // ---------- Sanitize and clamp utilities ----------
 function num(v) {
   const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d. -]/g, ''));
