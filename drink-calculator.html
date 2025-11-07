@@ -946,23 +946,11 @@ else{init();}
 <!-- FIX #1: Category breakdown with FRESH events + EXCLUDE voucher-value -->
 <script>
 (function ensureCategoryBreakdownUpdates(){
-  const grid=document.getElementById('category-grid');
-  const section=document.getElementById('category-breakdown');
-  if(!grid||!section)return;
-
-  // Don't create event once - create fresh each time!
+  // ... NO isTrusted check, no debounce ...
   ['input','change'].forEach(t=>{
     document.addEventListener(t,e=>{
-      // Exclude voucher-value to prevent feedback loop
       if(e.target&&e.target.matches('[data-input],[data-voucher]')&&e.target.id!=='voucher-value'){
-        try {
-          // Create a NEW event object each time (fixes InvalidStateError)
-          document.dispatchEvent(new CustomEvent('itw:inputs-changed',{
-            detail:{source:'category-updater'}
-          }));
-        } catch(err) {
-          console.warn('Event dispatch failed:', err);
-        }
+        document.dispatchEvent(new CustomEvent('itw:inputs-changed',{ detail:{source:'category-updater'} }));
       }
     },{capture:true});
   });
@@ -1113,6 +1101,17 @@ else{init();}
   });
 })();
 </script>
+<script>
+console.countReset('itw:inputs-changed');
+document.addEventListener('itw:inputs-changed', () => console.count('itw:inputs-changed'));
 
+['input','change'].forEach(t=>{
+  document.addEventListener(t, e => {
+    if (e.target && (e.target.matches('[data-input],[data-voucher]') || e.target.id==='voucher-value')) {
+      console.log('DOM event', t, 'isTrusted:', e.isTrusted, 'id:', e.target.id, 'name:', e.target.getAttribute('data-input')||e.target.getAttribute('data-voucher'));
+    }
+  }, {capture:true});
+});
+</script>
 </body>
 </html>
