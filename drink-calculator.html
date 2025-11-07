@@ -951,10 +951,6 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
 
 <script>(function ensureCategoryBreakdownUpdates(){const grid=document.getElementById('category-grid');const section=document.getElementById('category-breakdown');if(!grid||!section)return;const updateEvt=new Event('itw:inputs-changed');['input','change'].forEach(t=>{document.addEventListener(t,e=>{if(e.target&&e.target.matches('[data-input],[data-voucher],#voucher-value')){document.dispatchEvent(updateEvt);}},{capture:true});});})();</script>
 
-<script>(function(){const cv=document.getElementById('breakeven-chart');if(!cv)return;cv.removeAttribute('width');cv.removeAttribute('height');let done=false;function mount(){if(done)return true;const chart=(window.ITW&&window.ITW.chart)||cv._chart||null;if(!chart||!chart.options)return false;try{chart.options.responsive=true;chart.options.maintainAspectRatio=false;chart.update('none');done=true;}catch(_){}return done;}if(!mount()){let tries=0;const t=setInterval(()=>{if(mount()||++tries>20)clearInterval(t);},150);}})();</script>
-
-<script>(function(){const cv=document.getElementById('breakeven-chart');const badge=document.getElementById('best-stamp');if(!cv||!badge)return;const WINNER={idx:null};const ringPlugin={id:'itwWinnerRing',afterDatasetsDraw(chart){if(WINNER.idx==null)return;let el=null;chart.data.datasets.some((ds,i)=>{const meta=chart.getDatasetMeta(i);const e=meta?.data?.[WINNER.idx];if(e){el=e;return true;}});if(!el)return;const{x,y,width,height}=el.getProps(['x','y','width','height'],true);const ctx=chart.ctx;ctx.save();ctx.strokeStyle='#10b981';ctx.lineWidth=4;ctx.setLineDash([6,4]);const pad=6;ctx.strokeRect(x-width/2-pad,y-height-pad,width+pad*2,height+pad*2);ctx.restore();}};function pickWinner(chart){const ds=chart.data.datasets||[];const N=ds[0]?.data?.length||0;let best={idx:null,val:Infinity};for(let i=0;i<N;i++){let min=Infinity;ds.forEach(d=>{const v=(Array.isArray(d.data)&&typeof d.data[i]==='number')?d.data[i]:Infinity;if(v>0&&v<min)min=v;});if(min<best.val){best={idx:i,val:min};}}WINNER.idx=best.idx;badge.style.display=(WINNER.idx==null)?'none':'';}function hook(){const chart=(window.ITW&&window.ITW.chart)||cv._chart||cv.__chartist||null;if(!chart||!chart.data)return false;chart.config.plugins=chart.config.plugins||[];if(!chart.config.plugins.includes(ringPlugin))chart.config.plugins.push(ringPlugin);pickWinner(chart);chart.update();document.addEventListener('itw:calc-updated',()=>{try{pickWinner(chart);chart.update();}catch(_){}});return true;}if(!hook()){let tries=0;const t=setInterval(()=>{if(hook()||++tries>20)clearInterval(t);},150);}(function(){const btn=document.getElementById('jump-winner');if(!btn)return;btn.addEventListener('click',()=>{document.getElementById('breakeven-wrap').scrollIntoView({behavior:'smooth',block:'center'});});})();})();</script>
-
 <script>(function(){const rail=document.querySelector('aside.rail');if(!rail)return;const author=rail.querySelector('.author-card')?.closest('.card');if(author)rail.appendChild(author);})();</script>
 
 <script>(function(){const form=document.getElementById('email-form');if(!form)return;const labels=[...form.querySelectorAll('label.small')];const agree=labels.find(l=>/I\s*agree/i.test(l.textContent||''));const bonus=labels.find(l=>/Bonus:/i.test(l.textContent||''));if(agree&&bonus&&agree.previousElementSibling!==bonus){agree.parentNode.insertBefore(bonus,agree);}})();</script>
@@ -1033,14 +1029,16 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
   },200);
 })();
 </script>
-  <script>
+ <script>
 /* Kill any infinite-scroll on this page (defensive, page-scoped) */
 (function killInfiniteScroll(){
   if (!window.ITW_DISABLE_INFINITE) return;
 
   // 2a) Remove common sentinel nodes so observers never fire
   var SENTINEL_SEL = '#infinite-sentinel, .infinite-sentinel, [data-infinite-sentinel]';
-  document.querySelectorAll(SENTINEL_SEL).forEach(n => { try { n.remove(); } catch(_){} });
+  try {
+    document.querySelectorAll(SENTINEL_SEL).forEach(n => { try { n.remove(); } catch(_){} });
+  } catch(_) {}
 
   // 2b) Disconnect any site-exposed observers if present
   try {
@@ -1052,7 +1050,7 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
     }
   } catch(_) {}
 
-  // 2c) Patch IntersectionObserver callbacks to ignore infinite-scroll sentinels on this page only
+  // 2c) Patch IntersectionObserver callbacks on this page only
   try {
     var NativeIO = window.IntersectionObserver;
     if (NativeIO && !window.__itwIOPatched) {
@@ -1061,20 +1059,25 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
           if (window.ITW_DISABLE_INFINITE) {
             var block = entries && entries.some(e => {
               var t = e && e.target;
-              return t && (t.id === 'infinite-sentinel' || t.classList?.contains('infinite-sentinel') || t.hasAttribute?.('data-infinite-sentinel'));
+              return t && (
+                t.id === 'infinite-sentinel' ||
+                t.classList?.contains('infinite-sentinel') ||
+                t.hasAttribute?.('data-infinite-sentinel')
+              );
             });
             if (block) return; // swallow sentinel triggers
           }
           return cb && cb(entries, observer);
         };
-        return new NativeIO(wrapped, opts);
+        var io = new NativeIO(wrapped, opts);
+        return io;
       };
       window.IntersectionObserver.prototype = NativeIO.prototype;
       window.__itwIOPatched = true;
     }
   } catch(_) {}
 
-  // 2d) As a final guard, nuke any new sentinels that get injected later
+  // 2d) As a final guard, remove any new sentinels that get injected later
   try {
     var mo = new MutationObserver(function(muts){
       muts.forEach(m => {
@@ -1087,6 +1090,69 @@ window.QUIZ_QUESTIONS=QUIZ_QUESTIONS;
     });
     mo.observe(document.documentElement, { childList: true, subtree: true });
   } catch(_) {}
+})();
+</script>
+  <script>
+/* Chart.js stability patch: disable internal ResizeObserver and lock height */
+(function stabilizeChartJS(){
+  const cv = document.getElementById('breakeven-chart');
+  if (!cv) return;
+
+  // Ensure a predictable pixel height; CSS already sets 320px, but lock attr too
+  const FIXED_HEIGHT = 320;
+
+  function applyOnce(){
+    // Find existing chart instance created by app.js
+    const chart = (window.ITW && window.ITW.chart) || cv._chart || null;
+    if (!chart || !chart.options) return false;
+
+    try {
+      // 1) Turn off Chart.js responsiveness (kills its ResizeObserver)
+      chart.options.responsive = false;
+      chart.options.maintainAspectRatio = false;
+
+      // 2) Nuke animations & resize transitions that can jitter layout
+      chart.options.animation = false;
+      chart.options.transitions = { active: { animation: false }, resize: { animation: false } };
+      chart.options.events = ['mousemove','mouseout','click','touchstart','touchmove']; // keep interactivity
+
+      // 3) Lock canvas intrinsic size once
+      const parent = cv.parentElement || document.body;
+      const width = Math.max(320, parent.clientWidth); // min guard
+      cv.style.width = '100%';           // visual size
+      cv.style.height = FIXED_HEIGHT + 'px';
+      cv.width  = width;                 // intrinsic pixels (prevents growth)
+      cv.height = FIXED_HEIGHT;
+
+      // 4) Resize chart once without animation
+      chart.resize(width, FIXED_HEIGHT);
+      chart.update('none');
+
+      // 5) Optional: lightweight debounced width sync on window resize (no observers)
+      let raf = 0;
+      window.addEventListener('resize', function(){
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(()=>{
+          const w = Math.max(320, parent.clientWidth);
+          if (w !== cv.width) {
+            cv.width = w;
+            chart.resize(w, FIXED_HEIGHT);
+            chart.update('none');
+          }
+        });
+      }, { passive: true });
+
+      return true;
+    } catch(_) { return false; }
+  }
+
+  if (!applyOnce()){
+    // Wait for app.js to mount the chart, then patch
+    let tries = 0;
+    const t = setInterval(()=>{
+      if (applyOnce() || ++tries > 20) clearInterval(t);
+    }, 120);
+  }
 })();
 </script>
 </body>
