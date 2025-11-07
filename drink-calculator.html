@@ -31,37 +31,58 @@
 <meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <script>
-(function killInfiniteScrollEarly(){
-  try {
+(function hardStopRailInfinite(){
+  try{
     const NativeIO = window.IntersectionObserver;
-    if (!NativeIO || window.__itwIOPatched) return;
+    if(!NativeIO || window.__itwIOPatchedRail) return;
 
-    function isSentinelTarget(t){
-      return !!t && (
-        t.id === 'infinite-sentinel' ||
-        t.classList?.contains('infinite-sentinel') ||
-        (typeof t.hasAttribute === 'function' && t.hasAttribute('data-infinite-sentinel')) ||
-        t.id === 'recent-rail'          // ← add this back
-      );
+    // 1) Helper: does an entry target live in/at the rail?
+    function inRail(t){
+      try{
+        return !!t && (
+          t.id === 'recent-rail' ||
+          (typeof t.closest === 'function' && t.closest('#recent-rail'))
+        );
+      }catch(_){ return false; }
     }
 
+    // 2) Wrap constructor to swallow entries that touch the rail subtree
     function PatchedIntersectionObserver(cb, opts){
       const wrapped = function(entries, observer){
-        if (entries && entries.some(e => isSentinelTarget(e && e.target))) return;
+        if(entries && entries.some(e => {
+          const t = e && e.target;
+          // classic sentinels OR anything inside the rail
+          return (t &&
+            (t.id === 'infinite-sentinel' ||
+             t.classList?.contains('infinite-sentinel') ||
+             t.hasAttribute?.('data-infinite-sentinel') ||
+             inRail(t)));
+        })){
+          return; // swallow
+        }
         return cb && cb(entries, observer);
       };
-      return new NativeIO(wrapped, opts);
+      const io = new NativeIO(wrapped, opts);
+
+      // 3) Patch observe/unobserve on the instance: refuse anything in the rail
+      const _observe = io.observe;
+      io.observe = function(el){
+        if(inRail(el)) return; // silently ignore
+        return _observe.call(this, el);
+      };
+      return io;
     }
     PatchedIntersectionObserver.prototype = NativeIO.prototype;
 
+    // 4) Replace global IO (and prevent later overrides)
     Object.defineProperty(window, 'IntersectionObserver', {
       configurable: false,
       get(){ return PatchedIntersectionObserver; },
-      set(v){ console.warn('Blocked IO override', v); }
+      set(v){ /* no-op */ }
     });
 
-    window.__itwIOPatched = true;
-  } catch(_) {}
+    window.__itwIOPatchedRail = true;
+  }catch(_){}
 })();
 </script>
 <!-- Structured data -->
