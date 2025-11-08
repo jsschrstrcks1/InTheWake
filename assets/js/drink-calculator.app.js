@@ -383,14 +383,14 @@ async function loadFx() {
   }
 }
 
-function convertUSD(amount, to = currentCurrency){
+function  amount, to = currentCurrency){
   const baseRate = FX?.rates?.[to] || 1;
   const driftPct = Number(store?.get?.().ui?.fxDriftPct ?? 0);
   return amount * baseRate * (1 + (driftPct / 100));
 }
 
 function money(n){
-  const amt = convertUSD(n, currentCurrency);
+  const amt =  n, currentCurrency);
   try {
     return new Intl.NumberFormat(undefined, {
       style:'currency',
@@ -588,39 +588,50 @@ function ensureChart(){
       }]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: { duration: 0 },
-      scales: {
-        x: { stacked: false, grid: { display:false } },
-        y: {
-          beginAtZero: true,
-          grid: { color: 'rgba(0,0,0,.08)' },
-          ticks: {
-            // Show ticks in the currently selected currency
-            callback: (v) => {
-              try { return new Intl.NumberFormat(undefined, { style:'currency', currency: currentCurrency }).format(v); }
-              catch { return v; }
-            }
-          }
-        }
-      },
-      plugins: {
-        legend: { position: 'bottom', labels: { usePointStyle: true } },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => {
-              const name = ctx.chart.data.labels?.[ctx.dataIndex] || 'Value';
-              const v = ctx.parsed.y;
-              try {
-                const formatted = new Intl.NumberFormat(undefined, { style:'currency', currency: currentCurrency }).format(v);
-                return `${name}: ${formatted}`;
-              } catch { return `${name}: ${v}`; }
-            }
+  responsive: true,
+  maintainAspectRatio: false,
+  animation: { duration: 0 },
+  scales: {
+    x: { stacked: false, grid: { display: false } },
+    y: {
+      beginAtZero: true,
+      grid: { color: 'rgba(0,0,0,.08)' },
+      ticks: {
+        // Show ticks in the currently selected currency
+        callback: (v) => {
+          try {
+            return new Intl.NumberFormat(undefined, {
+              style: 'currency',
+              currency: currentCurrency
+            }).format(v);
+          } catch {
+            return v;
           }
         }
       }
     }
+  },
+  plugins: {
+    legend: { position: 'bottom', labels: { usePointStyle: true } },
+    tooltip: {
+      callbacks: {
+        label: (ctx) => {
+          const name = ctx.chart.data.labels?.[ctx.dataIndex] || 'Value';
+          const v = ctx.parsed.y;
+          try {
+            const formatted = new Intl.NumberFormat(undefined, {
+              style: 'currency',
+              currency: currentCurrency
+            }).format(v);
+            return `${name}: ${formatted}`;
+          } catch {
+            return `${name}: ${v}`;
+          }
+        }
+      }
+    }
+  }
+}
   });
 
   el._chart = chart;
@@ -680,7 +691,7 @@ if (chip) chip.textContent = `Best value: ${label}`;
   
   // Kids package hint
   (function showKidsHint(){
-    const container = document.querySelector('.banner #best-text');
+    const container = document.getElementById('best-text');
     if (!container) return;
     
     Array.from(container.querySelectorAll('.kids-hint')).forEach(n => n.remove());
@@ -751,10 +762,10 @@ if (chip) chip.textContent = `Best value: ${label}`;
       {
         label: 'Daily cost',
          data: [
-   convertUSD(r.bars.alc.mean),
-   convertUSD(r.bars.soda.mean),
-   convertUSD(r.bars.refresh.mean),
-   convertUSD(r.bars.deluxe.mean)
+    r.bars.alc.mean,
+    r.bars.soda.mean,
+    r.bars.refresh.mean,
+    r.bars.deluxe.mean
  ],
         backgroundColor: [
           BAR_COLORS.alc,
@@ -770,10 +781,10 @@ if (chip) chip.textContent = `Best value: ${label}`;
     {
       label: '(max)',
       data: [
-        convertUSD(r.bars.alc.max),
-        convertUSD(r.bars.soda.max),
-        convertUSD(r.bars.refresh.max),
-        convertUSD(r.bars.deluxe.max)
+         r.bars.alc.max,
+         r.bars.soda.max,
+         r.bars.refresh.max,
+         r.bars.deluxe.max
       ],
       type: 'line',
       borderWidth: 2,
@@ -784,10 +795,10 @@ if (chip) chip.textContent = `Best value: ${label}`;
     {
       label: '(min)',
       data: [
-        convertUSD(r.bars.alc.min),
-        convertUSD(r.bars.soda.min),
-        convertUSD(r.bars.refresh.min),
-        convertUSD(r.bars.deluxe.min)
+         r.bars.alc.min,
+         r.bars.soda.min,
+         r.bars.refresh.min,
+         r.bars.deluxe.min
       ],
       type: 'line',
       borderDash: [6, 4],
