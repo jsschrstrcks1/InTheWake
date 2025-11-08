@@ -37,7 +37,7 @@ root.addEventListener('click', (e)=>{
   const btn = e.target.closest('[data-persona]');
   if (!btn) return;
   const key = btn.getAttribute('data-persona');
- PPLY[key]?.();
+ APPLY[key]?.();
 
 // 🔧 ensure a results update right now
 try { window.scheduleCalc?.(); } catch (_) {}
@@ -218,9 +218,9 @@ try {
       const chart = window.ITW?.chart;
       if (!chart || !window.Chart) return;
       
-      chart.config.plugins = chart.config.plugins || [];
-      if (!chart.config.plugins.includes(ringPlugin)) {
-        chart.config.plugins.push(ringPlugin);
+     // chart.config.plugins = chart.config.plugins || [];
+     // if (!chart.config.plugins.includes(ringPlugin)) {
+    //    chart.config.plugins.push(ringPlugin);
       }
   // 🔧 FIX: register globally instead of mutating a (frozen) config path
   try { window.Chart.register(ringPlugin); } catch (_) {}
