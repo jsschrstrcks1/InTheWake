@@ -383,24 +383,18 @@ async function loadFx() {
   }
 }
 
-function  amount, to = currentCurrency){
+function convertUSD(amount, to = currentCurrency){
   const baseRate = FX?.rates?.[to] || 1;
   const driftPct = Number(store?.get?.().ui?.fxDriftPct ?? 0);
   return amount * baseRate * (1 + (driftPct / 100));
 }
 
 function money(n){
-  const amt =  n, currentCurrency);
+  const amt = convertUSD(n, currentCurrency);
   try {
-    return new Intl.NumberFormat(undefined, {
-      style:'currency',
-      currency: currentCurrency
-    }).format(amt || 0);
+    return new Intl.NumberFormat(undefined, { style:'currency', currency: currentCurrency }).format(amt || 0);
   } catch {
-    return (amt || 0).toLocaleString(undefined, {
-      minimumFractionDigits:2,
-      maximumFractionDigits:2
-    }) + ' ' + currentCurrency;
+    return (amt || 0).toLocaleString(undefined, { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' ' + currentCurrency;
   }
 }
 
@@ -753,67 +747,70 @@ if (chip) chip.textContent = `Best value: ${label}`;
   const oc = $('#overcap-est');
   if (oc) oc.textContent = money(r.overcap)+'/day';
   
-    // Chart
-  const c = ensureChart();
-  const rn = document.getElementById('range-note');
+  // Chart
+const c = ensureChart();
+const rn = document.getElementById('range-note');
 
-  if (c) {
-    c.data.datasets = [
-      {
-        label: 'Daily cost',
-         data: [
-    r.bars.alc.mean,
-    r.bars.soda.mean,
-    r.bars.refresh.mean,
-    r.bars.deluxe.mean
- ],
-        backgroundColor: [
-          BAR_COLORS.alc,
-          BAR_COLORS.soda,
-          BAR_COLORS.refresh,
-          BAR_COLORS.deluxe
-        ]
-      }
-    ];
-
- if (r.hasRange) {
-  c.data.datasets.push(
+if (c) {
+  // Base bars (converted)
+  c.data.datasets = [
     {
-      label: '(max)',
+      label: 'Daily cost',
       data: [
-         r.bars.alc.max,
-         r.bars.soda.max,
-         r.bars.refresh.max,
-         r.bars.deluxe.max
+        convertUSD(r.bars.alc.mean),
+        convertUSD(r.bars.soda.mean),
+        convertUSD(r.bars.refresh.mean),
+        convertUSD(r.bars.deluxe.mean)
       ],
-      type: 'line',
-      borderWidth: 2,
-      pointRadius: 0,
-      borderColor: BAR_COLORS.lineMax,
-      fill: false
-    },
-    {
-      label: '(min)',
-      data: [
-         r.bars.alc.min,
-         r.bars.soda.min,
-         r.bars.refresh.min,
-         r.bars.deluxe.min
-      ],
-      type: 'line',
-      borderDash: [6, 4],
-      borderWidth: 2,
-      pointRadius: 0,
-      borderColor: BAR_COLORS.lineMin,
-      fill: false
+      backgroundColor: [
+        BAR_COLORS.alc,
+        BAR_COLORS.soda,
+        BAR_COLORS.refresh,
+        BAR_COLORS.deluxe
+      ]
     }
-  );
-  if (rn) rn.textContent = 'Range lines show min/max based on your ranges.';
-} else {
-  if (rn) rn.textContent = '';
-}
-    c.update('none');
+  ];
+
+  // Optional range lines (also converted)
+  if (r.hasRange) {
+    c.data.datasets.push(
+      {
+        label: '(max)',
+        data: [
+          convertUSD(r.bars.alc.max),
+          convertUSD(r.bars.soda.max),
+          convertUSD(r.bars.refresh.max),
+          convertUSD(r.bars.deluxe.max)
+        ],
+        type: 'line',
+        borderWidth: 2,
+        pointRadius: 0,
+        borderColor: BAR_COLORS.lineMax,
+        fill: false
+      },
+      {
+        label: '(min)',
+        data: [
+          convertUSD(r.bars.alc.min),
+          convertUSD(r.bars.soda.min),
+          convertUSD(r.bars.refresh.min),
+          convertUSD(r.bars.deluxe.min)
+        ],
+        type: 'line',
+        borderDash: [6, 4],
+        borderWidth: 2,
+        pointRadius: 0,
+        borderColor: BAR_COLORS.lineMin,
+        fill: false
+      }
+    );
+    if (rn) rn.textContent = 'Range lines show min/max based on your ranges.';
+  } else {
+    if (rn) rn.textContent = '';
   }
+
+  c.update('none');
+}
   
   // Update Screen-Reader a11y Table
   const srAlc = document.getElementById('sr-alc');
