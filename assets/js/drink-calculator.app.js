@@ -770,7 +770,12 @@ function renderResults(r){
     c.data.datasets = [
       {
         label: 'Daily cost',
-        data: [r.bars.alc.mean, r.bars.soda.mean, r.bars.refresh.mean, r.bars.deluxe.mean],
+         data: [
+   convertUSD(r.bars.alc.mean),
+   convertUSD(r.bars.soda.mean),
+   convertUSD(r.bars.refresh.mean),
+   convertUSD(r.bars.deluxe.mean)
+ ],
         backgroundColor: [
           BAR_COLORS.alc,
           BAR_COLORS.soda,
@@ -780,31 +785,42 @@ function renderResults(r){
       }
     ];
 
-    if (r.hasRange) {
-      c.data.datasets.push(
-        {
-          label:'(max)',
-          data:[r.bars.alc.max, r.bars.soda.max, r.bars.refresh.max, r.bars.deluxe.max],
-          type:'line',
-          borderWidth:2,
-          pointRadius:0,
-          borderColor: BAR_COLORS.lineMax
-        },
-        {
-          label:'(min)',
-          data:[r.bars.alc.min, r.bars.soda.min, r.bars.refresh.min, r.bars.deluxe.min],
-          type:'line',
-          borderDash:[6,4],
-          borderWidth:2,
-          pointRadius:0,
-          borderColor: BAR_COLORS.lineMin
-        }
-      );
-      if (rn) rn.textContent = 'Range bars show min/max based on your ranges.';
-    } else {
-      if (rn) rn.textContent = '';
+  if (r.hasRange) {
+  c.data.datasets.push(
+    {
+      label: '(max)',
+      data: [
+        convertUSD(r.bars.alc.max),
+        convertUSD(r.bars.soda.max),
+        convertUSD(r.bars.refresh.max),
+        convertUSD(r.bars.deluxe.max)
+      ],
+      type: 'line',
+      borderWidth: 2,
+      pointRadius: 0,
+      borderColor: BAR_COLORS.lineMax,
+      fill: false
+    },
+    {
+      label: '(min)',
+      data: [
+        convertUSD(r.bars.alc.min),
+        convertUSD(r.bars.soda.min),
+        convertUSD(r.bars.refresh.min),
+        convertUSD(r.bars.deluxe.min)
+      ],
+      type: 'line',
+      borderDash: [6,4],
+      borderWidth: 2,
+      pointRadius: 0,
+      borderColor: BAR_COLORS.lineMin,
+      fill: false
     }
-
+  );
+  if (rn) rn.textContent = 'Range lines show min/max based on your ranges.';
+} else {
+  if (rn) rn.textContent = '';
+}
     c.update('none');
   }
   
@@ -1012,9 +1028,9 @@ function renderEconomics(){
   const pR = $('[data-pkg-price="refresh"]');
   const pD = $('[data-pkg-price="deluxe"]');
   
-  if (pS) pS.textContent = money(economics.pkg.soda)+'/day';
-  if (pR) pR.textContent = money(economics.pkg.refresh)+'/day';
-  if (pD) pD.textContent = money(economics.pkg.deluxe)+'/day';
+  if (pS) pS.textContent = money(economics.pkg.soda);
+  if (pR) pR.textContent = money(economics.pkg.refresh);
+  if (pD) pD.textContent = money(economics.pkg.deluxe);
   
 const cap = $('#cap-badge');
 if (cap) {
@@ -1549,7 +1565,7 @@ function wireInputs(){
   const jump = $('#jump-winner');
   if (jump) {
     jump.addEventListener('click', () => {
-      const el = document.querySelector('.pkg.winner') || document.querySelector('.packages');
+      const el = document.querySelector('.package-card.winner') || document.getElementById('packages');
       el?.scrollIntoView({ behavior:'smooth', block:'start' });
     });
   }
