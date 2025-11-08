@@ -16,8 +16,33 @@
     }
     return;
   }
-  
-  const { store, money, getCurrency } = window.ITW;
+ /* ===== QUICK START (PRESET PERSONAS) ===== */
+(function quickStartPresets(){
+  const root = document.getElementById('qs-preset-buttons');
+  if (!root) return;
+
+  // Map your HTML buttons → existing persona/preset functions
+  const APPLY = {
+    light:    () => window.applyPersona?.('light'),
+    moderate: () => window.applyPersona?.('moderate'),
+    party:    () => window.applyPersona?.('boys'),   // closest “lively” profile you already ship
+    coffee:   () => window.loadPreset?.('coffee'),   // you already export this preset
+    solo:     () => window.applyPersona?.('solo'),
+  };
+root.addEventListener('click', (e)=>{
+  const btn = e.target.closest('[data-persona]');
+  if (!btn) return;
+  const key = btn.getAttribute('data-persona');
+  APPLY[key]?.();
+  document.dispatchEvent(new CustomEvent('preset:loaded', { detail:{ name:key } }));
+  try {
+    if (window.ITW?.store) {
+      const live = document.getElementById('a11y-status');
+      if (live) live.textContent = `Preset “${key}” applied.`;
+    }
+  } catch (_) {}
+});
+})();
   
   /* ===== VOUCHER FACE-VALUE AUTO-SYNC ===== */
   (function voucherSync(){
@@ -670,13 +695,16 @@
       return Date.now() - p.ts > QUIZ_CONFIG.expiryDays * 86400000;
     }
     
-    function skip(){
-      localStorage.setItem(QUIZ_CONFIG.storageKey, JSON.stringify({ skipped:true, ts:Date.now() }));
-      const modal = document.getElementById('quiz-modal');
-      modal.classList.remove('show');
-      document.removeEventListener('keydown', trapKeydown, true);
-      if (lastFocus) lastFocus.focus();
-    }
+   function skip(){
+  localStorage.setItem(QUIZ_CONFIG.storageKey, JSON.stringify({ skipped:true, ts:Date.now() }));
+  const modal = document.getElementById('quiz-modal');
+  modal.classList.remove('show');
+  document.removeEventListener('keydown', trapKeydown, true);
+  if (lastFocus) lastFocus.focus();
+}
+
+// expose the show() so quizStart can call it
+window._itwShowQuiz = show;
     
     document.getElementById('quiz-next').onclick = next;
     document.getElementById('quiz-back').onclick = back;
@@ -690,23 +718,19 @@
     }
   }
   
-  window.quizStart = function(){
-    if (!quizLoaded) {
-      quizLoaded = true;
-      loadQuizModule();
-    }
-    
+window.quizStart = function(){
+  if (!quizLoaded) {
+    quizLoaded = true;
+    loadQuizModule();
+  }
+  if (typeof window._itwShowQuiz === 'function') {
+    window._itwShowQuiz();
+  } else {
+    // very defensive fallback
     const modal = document.getElementById('quiz-modal');
-    if (modal) {
-      quizState = { idx: 0, ans: {}, start: Date.now() };
-      modal.classList.add('show');
-      
-      // Trigger render if quiz already loaded
-      if (typeof window.quizSkip !== 'undefined') {
-        document.getElementById('quiz-next')?.click();
-      }
-    }
-  };
+    modal?.classList.add('show');
+  }
+};
   
   window.quizRetake = function(){
     localStorage.removeItem(QUIZ_CONFIG.storageKey);
