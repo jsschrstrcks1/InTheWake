@@ -1635,7 +1635,9 @@ window.formatMoney = money;
   
   if (USE_WORKER) ensureWorker();
   scheduleCalc();
-  
+  // make calculator triggers available to the UI layer
+window.scheduleCalc = scheduleCalc;
+window.debouncedCalc = debouncedCalc;
   window.addEventListener('beforeunload', persistNow);
   
   const throttledURL = (() => {
