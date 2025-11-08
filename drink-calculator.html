@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="version" content="v.9.001.032"/>
+<meta name="version" content="v.9.002.merged"/>
 <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
 <meta name="description" content="Compare Soda, Refreshment, and Deluxe vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
@@ -15,28 +15,32 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/in_the_wake_icon_180x180.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#0e6e8e">
+
 <script>
-// Lightweight config (feature flags)
+// Feature flags and configuration
 window.ITW_CFG = {
   emailCTA: { enabled: true, showWhenSavingsAbove: 30, showWhenDrinksAbove: 4, alwaysShow: false },
   analytics: { enabled: false, provider: 'none', ga4: 'G-XXXX', plausible: 'cruisinginthewake.com' },
-  presets2: true,     // enables preset details panel
-  steppers: true,     // enables +/- steppers
-  explainCard: true,  // enables one-liner summary card
+  presets2: true,
+  steppers: true,
+  explainCard: true,
   articlesFallback: true
 };
 
-// Range-aware qty parser (keeps your inputs text-friendly)
+// Range-aware quantity parser
 window.parseQty = function(input){
   if (input == null) return 0;
   let s = String(input).trim().replace(/[\u2012-\u2015\u2212]/g,'-').replace(/\s+/g,' ');
   const m = s.match(/^(\d*\.?\d+)\s*-\s*(\d*\.?\d+)$/);
-  if (m){ const a=+m[1], b=+m[2]; return (isFinite(a)&&isFinite(b)) ? Math.max(0,(a+b)/2) : 0; }
+  if (m){ 
+    const a=+m[1], b=+m[2]; 
+    return (isFinite(a)&&isFinite(b)) ? Math.max(0,(a+b)/2) : 0;
+  }
   const cleaned = s.replace(/[,\u00a0\u202f]/g,'');
   return /^\d*\.?\d+$/.test(cleaned) ? Math.max(0,+cleaned) : 0;
 };
 
-// tiny analytics shim (no-ops by default)
+// Analytics shim
 window.itwTrack = function(evt, data){
   const cfg = (window.ITW_CFG||{}).analytics||{};
   if(!cfg.enabled) return;
@@ -46,6 +50,7 @@ window.itwTrack = function(evt, data){
   }catch(_){}
 };
 </script>
+
 <!-- Performance -->
 <link rel="preconnect" href="https://api.frankfurter.app">
 <link rel="preconnect" href="https://api.exchangerate.host">
@@ -169,8 +174,8 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .tooltip-trigger{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:.75rem;cursor:help;margin-left:6px}
 .tooltip-trigger:hover,.tooltip-trigger:focus{background:var(--sea);outline:2px dashed var(--rope);outline-offset:2px}
 
-#breakeven-wrap{margin-top:18px;position:relative;line-height:0}
-#breakeven-chart{width:100%!important;max-width:100%;height:320px;border:1px dashed var(--bd);border-radius:10px;background:#fff;display:block}
+#breakeven-wrap{margin-top:18px;position:relative;line-height:0;overflow:hidden}
+#breakeven-chart{width:100%!important;height:320px!important;max-height:320px!important;border:1px dashed var(--bd);border-radius:10px;background:#fff;display:block}
 #voucher-badge{position:absolute;top:-8px;right:0;transform:translateY(-100%)}
 
 /* Quiz modal */
@@ -206,6 +211,15 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .quiz-skip{text-align:center;padding:.75rem;border-top:1px dashed var(--rope)}
 .quiz-skip button{background:none;border:none;color:#64748b;text-decoration:underline;cursor:pointer;font-size:.85rem}
 
+/* Winner badge */
+#best-stamp{
+  position:absolute;top:-10px;right:8px;
+  background:#10b981;color:#063;
+  border:2px solid #065f46;border-radius:999px;
+  padding:.25rem .5rem;font-weight:800;font-size:.8rem;
+  box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;z-index:3;
+}
+
 /* Print */
 @media print{
   body{font-size:12pt;background:var(--card)}
@@ -219,21 +233,8 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   :root{color-scheme:light}
   body,.card{background:var(--sky)!important;color:var(--ink)!important}
 }
-.inputs.card{border-color:var(--rope)}
 
-/* Winner badge */
-#best-stamp{
-  position:absolute;top:-10px;right:8px;
-  background:#10b981;color:#063;
-  border:2px solid #065f46;border-radius:999px;
-  padding:.25rem .5rem;font-weight:800;font-size:.8rem;
-  box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;z-index:3;
-}
-  #breakeven-wrap{position:relative;overflow:hidden}
-#breakeven-chart{width:100%!important;height:320px!important;max-height:320px!important}
-</style>
-
-<style id="reduced-motion">
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   html:focus-within{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -243,12 +244,14 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   .quiz-progress-bar{transition:none!important}
   .quiz-option:hover,.itw-nav .chip:hover{transform:none!important}
 }
+
+.inputs.card{border-color:var(--rope)}
 </style>
 
 <!-- Chart + App loader -->
 <script>
 (function(){
-  const VER=document.querySelector('meta[name="version"]')?.content||'v.9.001.032';
+  const VER=document.querySelector('meta[name="version"]')?.content||'v.9.002.merged';
   const local="/vendor/chart.umd.min.js?v="+VER;
   const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
 
@@ -276,92 +279,6 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   }
 
   window.Chart?loadApp():add(local,loadApp);
-})();
-</script>
-  <script>
-(function(){
-  if(!document.getElementById('qs-details-host') || !window.ITW_CFG?.presets2) return;
-
-  // Map your existing personas to a readable preview (you can refine quantities later)
-  const PRESETS = {
-    light:  { name:'Light & Chill',      d:{coffee:1, soda:1.5, mocktail:1, wine:.5, bottledwater:3} },
-    moderate:{ name:'Balanced & Social', d:{coffee:2, soda:2, beer:1.5, wine:1.5, cocktail:1.5, bottledwater:2} },
-    party:  { name:'Lively Celebration', d:{beer:3, cocktail:3, spirits:1.5, coffee:1, bottledwater:2} },
-    coffee: { name:'Coffee Lover',       d:{coffee:3, teaprem:1, soda:.5, mocktail:1, bottledwater:2} },
-    solo:   { name:'Solo Explorer',      d:{soda:1, coffee:1, beer:1, bottledwater:2} }
-  };
-
-  const host = document.getElementById('qs-details-host');
-  const grid = document.getElementById('qs-preset-buttons');
-  if(!grid) return;
-
-  grid.querySelectorAll('button[data-persona]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const key = btn.dataset.persona;
-      const p = PRESETS[key]; if(!p){ host.innerHTML=''; return; }
-
-      const bullets = Object.entries(p.d)
-        .filter(([,v])=>v>0)
-        .map(([k,v])=>`<li>${k}: ${v}/day</li>`).join('');
-
-      host.innerHTML = `
-        <div class="qs-details" style="background:var(--foam);border-radius:8px;padding:1rem;border-left:4px solid var(--accent)">
-          <h4 style="margin:0 0 .5rem;color:var(--sea)">${p.name}</h4>
-          <ul style="margin:.5rem 0 1rem 1.2rem;line-height:1.7">${bullets}</ul>
-          <button id="qs-load" class="btn" style="background:var(--accent)">Load This Preset</button>
-        </div>
-      `;
-
-      const load = document.getElementById('qs-load');
-      if(load){
-        load.onclick = ()=>{
-          Object.entries(p.d).forEach(([k,v])=>{
-            const inp = document.querySelector(`[data-input="${k}"]`);
-            if(inp) inp.value = String(v);
-          });
-          document.dispatchEvent(new CustomEvent('itw:inputs-changed',{detail:{source:'preset-details'}}));
-          load.textContent = '✓ Loaded!';
-          load.style.background = 'var(--good)';
-          setTimeout(()=>{ load.textContent='Load This Preset'; load.style.background='var(--accent)'; },1200);
-        };
-      }
-    });
-  });
-})();
-</script>
-  <script>
-(function(){
-  if(!window.ITW_CFG?.steppers) return;
-
-  function makeBtn(sign, forEl){
-    const b = document.createElement('button');
-    b.type='button';
-    b.className='btn ghost';
-    b.textContent = sign>0 ? '+' : '−';
-    b.style.minHeight='36px'; b.style.padding='6px 12px';
-    b.setAttribute('aria-label', (sign>0?'Increase ':'Decrease ') + (forEl?.getAttribute('data-input')||'value'));
-    b.addEventListener('click', ()=>{
-      const v = window.parseQty(forEl.value);
-      const next = Math.max(0, v + (sign>0?1:-1));
-      forEl.value = String(next);
-      // fire a real input event so your listeners & math run
-      forEl.dispatchEvent(new Event('input',{bubbles:true}));
-      forEl.dispatchEvent(new Event('change',{bubbles:true}));
-    });
-    return b;
-  }
-
-  document.querySelectorAll('#simple-inputs [data-input]').forEach(inp=>{
-    const row = inp.closest('.row'); if(!row) return;
-    const wrap = document.createElement('div');
-    wrap.className='controls-inline';
-    wrap.style.gap='6px';
-    // Keep your input; add stepper buttons around it
-    wrap.appendChild(makeBtn(-1, inp));
-    inp.parentNode.insertBefore(wrap, inp);
-    wrap.appendChild(inp);
-    wrap.appendChild(makeBtn(+1, inp));
-  });
 })();
 </script>
 </head>
@@ -394,13 +311,13 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <div class="navbar">
     <div class="brand">
       <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
-      <span class="tiny version-badge">vv.9.001.032</span>
+      <span class="tiny version-badge">v.9.002.merged</span>
     </div>
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
       <div class="nav-item">
         <button class="chip" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
-        <div id="menu-planning" class="menu">
+        <div id="menu-planning" class="menu" role="menu">
           <div class="label">Plan your cruise</div>
           <a href="/planning.html">Planning</a>
           <a href="/ships.html">Ships</a>
@@ -412,7 +329,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
       </div>
       <div class="nav-item">
         <button class="chip" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
-        <div id="menu-travel" class="menu">
+        <div id="menu-travel" class="menu" role="menu">
           <div class="label">On the way</div>
           <a href="/travel.html">Travel</a>
           <a href="/solo.html">Solo</a>
@@ -438,7 +355,8 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
     <section class="qs" aria-labelledby="qs-title">
       <h2 id="qs-title" class="qs-hd">🚀 Quick Start: Choose Your Style</h2>
       <p class="small" style="margin-bottom:8px">Select a persona to auto-fill or take the quiz for personalized defaults</p>
-      <div id="qs-details-host"></div><div class="qs-grid" id="qs-preset-buttons">
+      <div id="qs-details-host"></div>
+      <div class="qs-grid" id="qs-preset-buttons">
         <button class="persona-btn" data-persona="light">
           <div class="persona-icon">🧘</div>
           <div class="persona-name">Light & Chill</div>
@@ -592,15 +510,19 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 
         <div id="itinerary-inputs" style="margin-top:12px;display:none"></div>
 
-        <!-- Chart -->
+        <!-- Explain Result Card -->
         <div id="explain-result" class="card small" style="display:none;background:#dbeafe;border-left:4px solid var(--accent)">
-          <div id="email-cta-inline" class="card small" style="display:none;background:#ecfeff;border-left:4px solid var(--accent)">
-  <div><strong>Want this breakdown emailed to you?</strong></div>
-  <div class="tiny muted" style="margin:.25rem 0 .5rem">We’ll include your best option and savings.</div>
-  <button id="email-cta-btn" class="btn">Open email form ↓</button>
-</div>
-  <!-- filled by JS -->
-</div>
+          <div id="explain-text"></div>
+        </div>
+
+        <!-- Email CTA Inline -->
+        <div id="email-cta-inline" class="card small" style="display:none;background:#ecfeff;border-left:4px solid var(--accent)">
+          <div><strong>Want this breakdown emailed to you?</strong></div>
+          <div class="tiny muted" style="margin:.25rem 0 .5rem">We'll include your best option and savings.</div>
+          <button id="email-cta-btn" class="btn">Open email form ↓</button>
+        </div>
+
+        <!-- Chart -->
         <div id="breakeven-wrap">
           <div class="chart-legend">
             <div class="chart-legend-item">
@@ -674,13 +596,15 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 
   <aside class="rail">
     <section class="card">
-      <picture>
-        <source type="image/webp" srcset="/authors/img/ken1.webp">
-        <img class="author-avatar" src="/authors/img/ken1.jpg" alt="Ken Baker" width="96" height="96" onerror="this.src='/assets/logo_wake.png'">
-      </picture>
-      <div>
-        <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
-        <span class="tiny">Founder of In the Wake; calculator builder and data steward.</span>
+      <div class="author-card">
+        <picture>
+          <source type="image/webp" srcset="/authors/img/ken1.webp">
+          <img class="author-avatar" src="/authors/img/ken1.jpg" alt="Ken Baker" width="96" height="96" onerror="this.src='/assets/logo_wake.png'">
+        </picture>
+        <div>
+          <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
+          <span class="tiny">Founder of In the Wake; calculator builder and data steward.</span>
+        </div>
       </div>
     </section>
 
@@ -693,13 +617,13 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
           <input type="email" name="EMAIL" placeholder="your@email.com" required autocomplete="email" inputmode="email" style="flex:1;padding:8px;border:1px solid var(--bd);border-radius:6px;font-size:16px">
           <button type="submit" class="btn">Get List</button>
         </div>
-        <label class="small" style="display:flex;gap:.5rem;margin-top:.75rem">
-          <input type="checkbox" name="PLANNING_PASS_OPT_IN" value="1">
-          <span><strong>Bonus:</strong> Also join the <em>Planning Pass</em> for photo tips from Flickers of Majesty.</span>
-        </label>
         <label class="small" style="display:flex;gap:.5rem;margin-top:.5rem">
           <input type="checkbox" name="OPT_IN" required>
           <span>I agree. <a href="/privacy.html">Privacy</a> | <a href="/gdpr-rights.html">Rights</a></span>
+        </label>
+        <label class="small" style="display:flex;gap:.5rem;margin-top:.75rem">
+          <input type="checkbox" name="PLANNING_PASS_OPT_IN" value="1">
+          <span><strong>Bonus:</strong> Also join the <em>Planning Pass</em> for photo tips from Flickers of Majesty.</span>
         </label>
         <input type="hidden" name="SAVINGS" id="email-savings">
         <input type="hidden" name="REC" id="email-rec">
@@ -893,7 +817,9 @@ function show(){
   modal.classList.add('show');
   document.addEventListener('keydown',trapKeydown,true);
   render();
-  (document.getElementById('quiz-next')||document.getElementById('quiz-title')).focus();
+  setTimeout(()=>{
+    (document.getElementById('quiz-next')||document.getElementById('quiz-title')).focus();
+  },100);
 }
 
 function render(){
@@ -965,6 +891,12 @@ function finish(){
   modal.classList.remove('show');
   document.removeEventListener('keydown',trapKeydown,true);
   if(lastFocus)lastFocus.focus();
+  
+  // Hide preset section after quiz completion
+  const presetSection=document.querySelector('.qs');
+  if(presetSection){
+    presetSection.style.display='none';
+  }
 }
 
 function calc(ans){
@@ -999,7 +931,6 @@ function applyProfile(p){
     }
   }
   if(window.scheduleCalc)window.scheduleCalc();
-  if(window.announce)window.announce(`✨ ${p.profile} profile loaded!`);
 }
 
 function save(p){try{localStorage.setItem(QUIZ_CONFIG.storageKey,JSON.stringify(p));}catch(e){}}
@@ -1027,8 +958,94 @@ else{init();}
 })();
 </script>
 
-<!-- Mode toggle -->
-<!-- Mode toggle (store if available, else DOM fallback; defaults to Simple) -->
+<!-- Preset Details Panel -->
+<script>
+(function(){
+  if(!document.getElementById('qs-details-host') || !window.ITW_CFG?.presets2) return;
+
+  const PRESETS = {
+    light:  { name:'Light & Chill',      d:{coffee:1, soda:1.5, mocktail:1, wine:.5, bottledwater:3} },
+    moderate:{ name:'Balanced & Social', d:{coffee:2, soda:2, beer:1.5, wine:1.5, cocktail:1.5, bottledwater:2} },
+    party:  { name:'Lively Celebration', d:{beer:3, cocktail:3, spirits:1.5, coffee:1, bottledwater:2} },
+    coffee: { name:'Coffee Lover',       d:{coffee:3, teaprem:1, soda:.5, mocktail:1, bottledwater:2} },
+    solo:   { name:'Solo Explorer',      d:{soda:1, coffee:1, beer:1, bottledwater:2} }
+  };
+
+  const host = document.getElementById('qs-details-host');
+  const grid = document.getElementById('qs-preset-buttons');
+  if(!grid) return;
+
+  grid.querySelectorAll('button[data-persona]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const key = btn.dataset.persona;
+      const p = PRESETS[key]; if(!p){ host.innerHTML=''; return; }
+
+      const bullets = Object.entries(p.d)
+        .filter(([,v])=>v>0)
+        .map(([k,v])=>`<li>${k}: ${v}/day</li>`).join('');
+
+      host.innerHTML = `
+        <div class="qs-details" style="background:var(--foam);border-radius:8px;padding:1rem;border-left:4px solid var(--accent);margin-top:1rem">
+          <h4 style="margin:0 0 .5rem;color:var(--sea)">${p.name}</h4>
+          <ul style="margin:.5rem 0 1rem 1.2rem;line-height:1.7">${bullets}</ul>
+          <button id="qs-load" class="btn" style="background:var(--accent)">Load This Preset</button>
+        </div>
+      `;
+
+      const load = document.getElementById('qs-load');
+      if(load){
+        load.onclick = ()=>{
+          Object.entries(p.d).forEach(([k,v])=>{
+            const inp = document.querySelector(`[data-input="${k}"]`);
+            if(inp) inp.value = String(v);
+          });
+          document.dispatchEvent(new CustomEvent('itw:inputs-changed',{detail:{source:'preset-details'}}));
+          load.textContent = '✓ Loaded!';
+          load.style.background = 'var(--good)';
+          setTimeout(()=>{ load.textContent='Load This Preset'; load.style.background='var(--accent)'; },1200);
+        };
+      }
+    });
+  });
+})();
+</script>
+
+<!-- Stepper Buttons -->
+<script>
+(function(){
+  if(!window.ITW_CFG?.steppers) return;
+
+  function makeBtn(sign, forEl){
+    const b = document.createElement('button');
+    b.type='button';
+    b.className='btn ghost';
+    b.textContent = sign>0 ? '+' : '−';
+    b.style.minHeight='36px'; b.style.padding='6px 12px';
+    b.setAttribute('aria-label', (sign>0?'Increase ':'Decrease ') + (forEl?.getAttribute('data-input')||'value'));
+    b.addEventListener('click', ()=>{
+      const v = window.parseQty(forEl.value);
+      const next = Math.max(0, v + (sign>0?1:-1));
+      forEl.value = String(next);
+      forEl.dispatchEvent(new Event('input',{bubbles:true}));
+      forEl.dispatchEvent(new Event('change',{bubbles:true}));
+    });
+    return b;
+  }
+
+  document.querySelectorAll('#simple-inputs [data-input]').forEach(inp=>{
+    const row = inp.closest('.row'); if(!row) return;
+    const wrap = document.createElement('div');
+    wrap.className='controls-inline';
+    wrap.style.gap='6px';
+    wrap.appendChild(makeBtn(-1, inp));
+    inp.parentNode.insertBefore(wrap, inp);
+    wrap.appendChild(inp);
+    wrap.appendChild(makeBtn(+1, inp));
+  });
+})();
+</script>
+
+<!-- Mode Toggle -->
 <script>
 (function(){
   const hasStore = !!(window.ITW && window.ITW.store && window.ITW.store.patch);
@@ -1054,10 +1071,8 @@ else{init();}
 
   function toggle(mode){
     if (hasStore){
-      // Non-destructive: let app store drive; our DOM stays as-is until app renders.
       window.ITW.store.patch('inputs.calcMode', mode === 'itinerary' ? 'itinerary' : 'simple');
     } else {
-      // Guaranteed fallback so inputs never disappear.
       applyDom(mode);
     }
   }
@@ -1065,10 +1080,8 @@ else{init();}
   rs?.addEventListener('change', ()=>toggle('simple'));
   ri?.addEventListener('change', ()=>toggle('itinerary'));
 
-  // Always default to Simple so drink inputs are visible on first paint.
   (function init(){
     if (hasStore){
-      // Ask store for current; if not available, we still show Simple in DOM.
       try {
         const m = window.ITW.store.get?.().inputs?.calcMode || 'simple';
         applyDom(m);
@@ -1080,36 +1093,65 @@ else{init();}
 })();
 </script>
 
-<!-- UI Enhancement Scripts -->
-<script>(function authorRailImageOverride(){const rail=document.getElementById('recent-rail');if(!rail)return;const HEADS={"Tina":{webp:"/authors/img/tina1.webp",jpg:"/authors/img/tina1.jpg",alt:"Author — Tina"},"Ken":{webp:"/authors/img/ken1.webp",jpg:"/authors/img/ken1.jpg",alt:"Author — Ken Baker"}};function apply(){const cards=rail.querySelectorAll('a,article,.card,.rail-item');cards.forEach(card=>{const txt=(card.textContent||"");const m=txt.match(/By\s+([A-Za-z]+)/i);const name=m&&m[1]?m[1]:null;const head=name&&HEADS[name]?HEADS[name]:null;if(!head)return;const img=card.querySelector('img');if(!img)return;img.src=head.jpg;if(head.webp)img.srcset=head.webp+" 1x";img.alt=head.alt;img.width=96;img.height=96;img.style.width='96px';img.style.height='96px';img.style.borderRadius='12px';img.style.objectFit='cover';img.style.objectPosition='center'});}if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(apply,350);}else{window.addEventListener('DOMContentLoaded',()=>setTimeout(apply,350));}})();</script>
-
-<script>(function(){function fillTelemetry(){try{const f=document.getElementById('email-form');if(!f)return;const pass=f.querySelector('input[name="PLANNING_PASS_OPT_IN"]');f.querySelectorAll('input[name="tags[]"][value="planning-pass"]').forEach(n=>n.remove());if(pass&&pass.checked){const tag=document.createElement('input');tag.type='hidden';tag.name='tags[]';tag.value='planning-pass';f.appendChild(tag);}const byId=id=>document.getElementById(id);const recEl=byId('email-rec');const savEl=byId('email-savings');const best=(window.ITW&&window.ITW.best)||(window.ITW_BEST);const inputs=(window.ITW&&window.ITW.inputs)||null;if(recEl){recEl.value=(best&&best.name)?String(best.name):'';}if(savEl){const delta=(best&&typeof best.delta==='number')?best.delta:'';savEl.value=String(delta);}let daysVal='';const daysInput=document.querySelector('[data-input="days"]');if(inputs&&inputs.days)daysVal=String(inputs.days);else if(daysInput)daysVal=String(daysInput.value||'');let urlField=f.querySelector('input[name="CALC_URL"]');if(!urlField){urlField=document.createElement('input');urlField.type='hidden';urlField.name='CALC_URL';f.appendChild(urlField);}urlField.value=location.href;let daysField=f.querySelector('input[name="CRUISE_DAYS"]');if(!daysField){daysField=document.createElement('input');daysField.type='hidden';daysField.name='CRUISE_DAYS';f.appendChild(daysField);}daysField.value=daysVal;}catch(e){console.error('Email telemetry failed:',e);}}const form=document.getElementById('email-form');if(form){form.addEventListener('submit',fillTelemetry,{capture:true});}})();</script>
-
-<script>(function(){if(typeof window.shareScenario!=='function'){window.shareScenario=function(){try{if(typeof window.syncURL==='function')window.syncURL();const url=location.href;if(navigator.share){navigator.share({title:document.title,url}).catch(()=>{});}else if(navigator.clipboard){navigator.clipboard.writeText(url);const msg=document.getElementById('signup-message');if(msg){msg.textContent='✅ Link copied!';setTimeout(()=>msg.textContent='',2000);}}else{alert('Share not supported; copy the URL from your browser.');}}catch(e){console.error('shareScenario fallback failed:',e);}};}if(typeof window.resetAll!=='function'){window.resetAll=function(){try{if(typeof window.resetInputs==='function')return window.resetInputs();location.href=location.pathname;}catch(e){location.href=location.pathname;}};}})();</script>
-
-<script>(function(){const nav=document.querySelector('.itw-nav');if(!nav)return;const items=[...nav.querySelectorAll('.nav-item')].filter(g=>g.querySelector('button[aria-haspopup="menu"]'));function setOpen(g,on){g.classList.toggle('open',on);const b=g.querySelector('button');if(b)b.setAttribute('aria-expanded',on?'true':'false');}function closeAll(except){items.forEach(g=>{if(g!==except)setOpen(g,false);});}items.forEach(g=>{const btn=g.querySelector('button'),menu=g.querySelector('.menu');if(!btn||!menu)return;btn.onclick=e=>{e.preventDefault();e.stopPropagation();const open=g.classList.contains('open');closeAll(g);setOpen(g,!open);if(!open){const firstLink=menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');if(firstLink)firstLink.focus();}};menu.onclick=e=>{if(e.target.closest('a'))closeAll();};btn.onkeydown=e=>{if(e.key==='Escape'){setOpen(g,false);btn.focus();}};menu.onkeydown=e=>{if(e.key==='Escape'){setOpen(g,false);btn.focus();}};menu.addEventListener('focusout',()=>{setTimeout(()=>{if(!g.contains(document.activeElement))setOpen(g,false);},0);});});document.addEventListener('click',e=>{if(!e.target.closest('.itw-nav'))closeAll();});})();</script>
-
-<script>(function top20CoverOverride(){const rail=document.getElementById('recent-rail');if(!rail)return;const TITLE_MATCH=/Top\s*20/i;const OVERRIDE={webp:"/assets/covers/top-20.webp",jpg:"/assets/covers/top-20.jpg",alt:"Top 20 Royal Caribbean Picks"};function apply(){const cards=rail.querySelectorAll('a,article,.card,.rail-item');cards.forEach(card=>{const titleEl=card.querySelector('h3,h4,.title,.post-title,strong,b');const title=(titleEl?.textContent||card.textContent||"").trim();if(!TITLE_MATCH.test(title))return;const img=card.querySelector('img');if(!img)return;img.src=OVERRIDE.jpg;img.srcset=OVERRIDE.webp?(OVERRIDE.webp+" 1x"):"";img.alt=OVERRIDE.alt;img.width=img.width||320;img.height=img.height||180;img.style.objectFit='cover';img.style.borderRadius='12px';});}if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(apply,400);}else{window.addEventListener('DOMContentLoaded',()=>setTimeout(apply,400));}})();</script>
-
-<!-- FIX #1: Category breakdown with FRESH events + EXCLUDE voucher-value -->
+<!-- Navigation Dropdowns -->
 <script>
-(function ensureCategoryBreakdownUpdates(){
-  // ... NO isTrusted check, no debounce ...
-  ['input','change'].forEach(t=>{
-    document.addEventListener(t,e=>{
-      if(e.target&&e.target.matches('[data-input],[data-voucher]')&&e.target.id!=='voucher-value'){
-        document.dispatchEvent(new CustomEvent('itw:inputs-changed',{ detail:{source:'category-updater'} }));
+(function(){
+  const nav=document.querySelector('.itw-nav');
+  if(!nav)return;
+  const items=[...nav.querySelectorAll('.nav-item')].filter(g=>g.querySelector('button[aria-haspopup="menu"]'));
+  
+  function setOpen(g,on){
+    g.classList.toggle('open',on);
+    const b=g.querySelector('button');
+    if(b)b.setAttribute('aria-expanded',on?'true':'false');
+  }
+  
+  function closeAll(except){
+    items.forEach(g=>{if(g!==except)setOpen(g,false);});
+  }
+  
+  items.forEach(g=>{
+    const btn=g.querySelector('button'),menu=g.querySelector('.menu');
+    if(!btn||!menu)return;
+    
+    btn.onclick=e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const open=g.classList.contains('open');
+      closeAll(g);
+      setOpen(g,!open);
+      if(!open){
+        const firstLink=menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+        if(firstLink)setTimeout(()=>firstLink.focus(),50);
       }
-    },{capture:true});
+    };
+    
+    menu.onclick=e=>{if(e.target.closest('a'))closeAll();};
+    
+    btn.onkeydown=e=>{
+      if(e.key==='Escape'){setOpen(g,false);btn.focus();}
+    };
+    
+    menu.onkeydown=e=>{
+      if(e.key==='Escape'){setOpen(g,false);btn.focus();}
+    };
+    
+    menu.addEventListener('focusout',()=>{
+      setTimeout(()=>{if(!g.contains(document.activeElement))setOpen(g,false);},0);
+    });
+  });
+  
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('.itw-nav'))closeAll();
   });
 })();
 </script>
 
-<!-- FIX #2: Voucher auto-sync with re-entry guard -->
+<!-- Voucher Auto-Sync -->
 <script>
 (function voucherAutoSync(){
   const $=sel=>document.querySelector(sel);
-  let syncing=false; // Re-entry guard
+  let syncing=false;
 
   function detectDeluxeCap(){
     const cands=[
@@ -1124,22 +1166,21 @@ else{init();}
   }
 
   function lockAndSet(value){
-    if(syncing)return; // Re-entry guard
+    if(syncing)return;
     syncing=true;
     
     const inp=$('#voucher-value');
     if(!inp){syncing=false;return;}
     
     const next=Number(value).toFixed(2);
-    if(inp.value===next){syncing=false;return;} // Value unchanged, skip
+    if(inp.value===next){syncing=false;return;}
     
     inp.value=next;
     inp.readOnly=true;
     inp.setAttribute('aria-readonly','true');
-    inp.title=`Auto-synced to Deluxe cap ($${next})`;
+    inp.title=`Auto-synced to Deluxe cap (${next})`;
     inp.style.cursor='not-allowed';
     
-    // Only dispatch 'change', not both input+change
     inp.dispatchEvent(new Event('change',{bubbles:true}));
     
     window.ITW_VOUCHER_FACE_VALUE=Number(value);
@@ -1149,7 +1190,7 @@ else{init();}
   }
 
   function syncOnce(){
-    if(syncing)return; // Already syncing
+    if(syncing)return;
     lockAndSet(detectDeluxeCap());
   }
 
@@ -1159,9 +1200,8 @@ else{init();}
     syncOnce();
   }
 
-  // Listen for updates but IGNORE self-originated events
   document.addEventListener('itw:inputs-changed',(e)=>{
-    if(e.detail&&e.detail.source==='category-updater')return; // Ignore our own
+    if(e.detail&&e.detail.source==='category-updater')return;
     syncOnce();
   });
   
@@ -1170,7 +1210,6 @@ else{init();}
   const cur=$('#currency-select');
   if(cur)cur.addEventListener('change',syncOnce);
 
-  // Patch math computeWithVouchers
   (function tryPatchMath(){
     const M=window.ITW_MATH;
     if(!M||typeof M.computeWithVouchers!=='function')return;
@@ -1182,7 +1221,6 @@ else{init();}
     };
   })();
 
-  // Wrap scheduleCalc
   (function wrapScheduleCalc(){
     const orig=window.scheduleCalc;
     if(typeof orig!=='function')return;
@@ -1192,7 +1230,6 @@ else{init();}
     };
   })();
 
-  // Retry loop for first 2 seconds after load
   let attempts=0;
   const warm=setInterval(()=>{
     syncOnce();
@@ -1201,17 +1238,7 @@ else{init();}
 })();
 </script>
 
-<script>(function(){const cv=document.getElementById('breakeven-chart');if(!cv)return;cv.removeAttribute('width');cv.removeAttribute('height');let done=false;function mount(){if(done)return true;const chart=(window.ITW&&window.ITW.chart)||cv._chart||null;if(!chart||!chart.options)return false;try{chart.options.responsive=true;chart.options.maintainAspectRatio=false;chart.update('none');done=true;}catch(_){}return done;}if(!mount()){let tries=0;const t=setInterval(()=>{if(mount()||++tries>20)clearInterval(t);},150);}})();</script>
-
-<script>(function(){const cv=document.getElementById('breakeven-chart');const badge=document.getElementById('best-stamp');if(!cv||!badge)return;const WINNER={idx:null};const ringPlugin={id:'itwWinnerRing',afterDatasetsDraw(chart){if(WINNER.idx==null)return;let el=null;chart.data.datasets.some((ds,i)=>{const meta=chart.getDatasetMeta(i);const e=meta?.data?.[WINNER.idx];if(e){el=e;return true;}});if(!el)return;const{x,y,width,height}=el.getProps(['x','y','width','height'],true);const ctx=chart.ctx;ctx.save();ctx.strokeStyle='#10b981';ctx.lineWidth=4;ctx.setLineDash([6,4]);const pad=6;ctx.strokeRect(x-width/2-pad,y-height-pad,width+pad*2,height+pad*2);ctx.restore();}};function pickWinner(chart){const ds=chart.data.datasets||[];const N=ds[0]?.data?.length||0;let best={idx:null,val:Infinity};for(let i=0;i<N;i++){let min=Infinity;ds.forEach(d=>{const v=(Array.isArray(d.data)&&typeof d.data[i]==='number')?d.data[i]:Infinity;if(v>0&&v<min)min=v;});if(min<best.val){best={idx:i,val:min};}}WINNER.idx=best.idx;badge.style.display=(WINNER.idx==null)?'none':'';}function hook(){const chart=(window.ITW&&window.ITW.chart)||cv._chart||cv.__chartist||null;if(!chart||!chart.data)return false;chart.config.plugins=chart.config.plugins||[];if(!chart.config.plugins.includes(ringPlugin))chart.config.plugins.push(ringPlugin);pickWinner(chart);chart.update();document.addEventListener('itw:calc-updated',()=>{try{pickWinner(chart);chart.update();}catch(_){}});return true;}if(!hook()){let tries=0;const t=setInterval(()=>{if(hook()||++tries>20)clearInterval(t);},150);}(function(){const btn=document.getElementById('jump-winner');if(!btn)return;btn.addEventListener('click',()=>{document.getElementById('breakeven-wrap').scrollIntoView({behavior:'smooth',block:'center'});});})();})();</script>
-
-<script>(function(){const rail=document.querySelector('aside.rail');if(!rail)return;const author=rail.querySelector('.author-card')?.closest('.card');if(author)rail.appendChild(author);})();</script>
-
-<script>(function(){const form=document.getElementById('email-form');if(!form)return;const labels=[...form.querySelectorAll('label.small')];const agree=labels.find(l=>/I\s*agree/i.test(l.textContent||''));const bonus=labels.find(l=>/Bonus:/i.test(l.textContent||''));if(agree&&bonus&&agree.previousElementSibling!==bonus){agree.parentNode.insertBefore(bonus,agree);}})();</script>
-
-<script>(function(){document.getElementById('year').textContent=new Date().getFullYear();})();</script>
-
-  <!-- FIX #1: Category breakdown with FRESH events + EXCLUDE voucher-value + TRUSTED-ONLY + DEBOUNCE -->
+<!-- Category Breakdown -->
 <script>
 (function ensureCategoryBreakdownUpdates(){
   const grid = document.getElementById('category-grid');
@@ -1231,16 +1258,13 @@ else{init();}
 
   ['input','change'].forEach(type => {
     document.addEventListener(type, (e) => {
-      // Ignore non-Elements (document/window targets) and script-generated events
       const t = e.target;
       if (!(t instanceof Element)) return;
-      if (e.isTrusted !== true) return; // only user-initiated events
+      if (e.isTrusted !== true) return;
 
-      // Only react to our calculator inputs/vouchers, never the voucher face-value field
       if (!t.matches('[data-input],[data-voucher]')) return;
       if (t.id === 'voucher-value') return;
 
-      // Micro-batch bursts of keypresses/changes into one custom event
       if (!scheduled) {
         scheduled = true;
         queueMicrotask(fireInputsChanged);
@@ -1249,57 +1273,147 @@ else{init();}
   });
 })();
 </script>
-<script>
-console.countReset('itw:inputs-changed');
-document.addEventListener('itw:inputs-changed', () => console.count('itw:inputs-changed'));
 
-['input','change'].forEach(t=>{
-  document.addEventListener(t, e => {
-    if (e.target && (e.target.matches('[data-input],[data-voucher]') || e.target.id==='voucher-value')) {
-      console.log('DOM event', t, 'isTrusted:', e.isTrusted, 'id:', e.target.id, 'name:', e.target.getAttribute('data-input')||e.target.getAttribute('data-voucher'));
-    }
-  }, {capture:true});
-});
+<!-- Chart Responsive Fix -->
+<script>
+(function(){
+  const cv=document.getElementById('breakeven-chart');
+  if(!cv)return;
+  cv.removeAttribute('width');
+  cv.removeAttribute('height');
+  let done=false;
+  
+  function mount(){
+    if(done)return true;
+    const chart=(window.ITW&&window.ITW.chart)||cv._chart||null;
+    if(!chart||!chart.options)return false;
+    try{
+      chart.options.responsive=true;
+      chart.options.maintainAspectRatio=false;
+      chart.update('none');
+      done=true;
+    }catch(_){}
+    return done;
+  }
+  
+  if(!mount()){
+    let tries=0;
+    const t=setInterval(()=>{
+      if(mount()||++tries>20)clearInterval(t);
+    },150);
+  }
+})();
 </script>
-  <script>
+
+<!-- Winner Ring Plugin -->
+<script>
+(function(){
+  const cv=document.getElementById('breakeven-chart');
+  const badge=document.getElementById('best-stamp');
+  if(!cv||!badge)return;
+  
+  const WINNER={idx:null};
+  const ringPlugin={
+    id:'itwWinnerRing',
+    afterDatasetsDraw(chart){
+      if(WINNER.idx==null)return;
+      let el=null;
+      chart.data.datasets.some((ds,i)=>{
+        const meta=chart.getDatasetMeta(i);
+        const e=meta?.data?.[WINNER.idx];
+        if(e){el=e;return true;}
+      });
+      if(!el)return;
+      const{x,y,width,height}=el.getProps(['x','y','width','height'],true);
+      const ctx=chart.ctx;
+      ctx.save();
+      ctx.strokeStyle='#10b981';
+      ctx.lineWidth=4;
+      ctx.setLineDash([6,4]);
+      const pad=6;
+      ctx.strokeRect(x-width/2-pad,y-height-pad,width+pad*2,height+pad*2);
+      ctx.restore();
+    }
+  };
+  
+  function pickWinner(chart){
+    const ds=chart.data.datasets||[];
+    const N=ds[0]?.data?.length||0;
+    let best={idx:null,val:Infinity};
+    for(let i=0;i<N;i++){
+      let min=Infinity;
+      ds.forEach(d=>{
+        const v=(Array.isArray(d.data)&&typeof d.data[i]==='number')?d.data[i]:Infinity;
+        if(v>0&&v<min)min=v;
+      });
+      if(min<best.val){best={idx:i,val:min};}
+    }
+    WINNER.idx=best.idx;
+    badge.style.display=(WINNER.idx==null)?'none':'';
+  }
+  
+  function hook(){
+    const chart=(window.ITW&&window.ITW.chart)||cv._chart||cv.__chartist||null;
+    if(!chart||!chart.data)return false;
+    chart.config.plugins=chart.config.plugins||[];
+    if(!chart.config.plugins.includes(ringPlugin))chart.config.plugins.push(ringPlugin);
+    pickWinner(chart);
+    chart.update();
+    document.addEventListener('itw:calc-updated',()=>{
+      try{pickWinner(chart);chart.update();}catch(_){}
+    });
+    return true;
+  }
+  
+  if(!hook()){
+    let tries=0;
+    const t=setInterval(()=>{
+      if(hook()||++tries>20)clearInterval(t);
+    },150);
+  }
+  
+  const btn=document.getElementById('jump-winner');
+  if(btn){
+    btn.addEventListener('click',()=>{
+      document.getElementById('breakeven-wrap').scrollIntoView({behavior:'smooth',block:'center'});
+    });
+  }
+})();
+</script>
+
+<!-- Explain Result Card -->
+<script>
 (function(){
   if(!window.ITW_CFG?.explainCard) return;
   const el = document.getElementById('explain-result');
-  if(!el) return;
+  const txt = document.getElementById('explain-text');
+  if(!el||!txt) return;
 
-  // Expect your app to publish a best pick & numbers on calc
-  // If you don’t, we derive from window.ITW summaries when available.
   function updateExplain(){
-    try{
-      const best = (window.ITW && (window.ITW.best||window.ITW_BEST)) || null;
-      const totals = (window.ITW && window.ITW.totals) || null;
-
-      if(!best || !totals){ el.style.display='none'; return; }
-
-      const name = best.name || best.key || 'à-la-carte';
-      const delta = typeof best.delta==='number' ? best.delta : 0;
-
-      el.innerHTML = `<strong>Quick summary:</strong> ${delta < 0
-        ? `À-la-carte looks cheaper by <strong>${formatMoney(Math.abs(delta))}/day</strong>.`
-        : `${name} saves about <strong>${formatMoney(delta)}/day</strong> vs à-la-carte.`}`;
-
-      el.style.display='';
-    }catch(_){ el.style.display='none'; }
+    const best = (window.ITW && (window.ITW.best||window.ITW_BEST)) || null;
+    const totals = (window.ITW && window.ITW.totals) || null;
+    if(!best || !totals){ el.style.display='none'; return; }
+    const name = best.name || best.key || 'à-la-carte';
+    const delta = typeof best.delta==='number' ? best.delta : 0;
+    txt.innerHTML = `<strong>Quick summary:</strong> ${delta < 0
+      ? `À-la-carte looks cheaper by <strong>${formatMoney(Math.abs(delta))}/day</strong>.`
+      : `${name} saves about <strong>${formatMoney(delta)}/day</strong> vs à-la-carte.`}`;
+    el.style.display='';
   }
 
   function formatMoney(x){
-    // Use your selected display currency if exposed; fallback to $
     const cur = (window.ITW && ITW.currency) || 'USD';
-    const sym = cur==='GBP'?'£':cur==='EUR'?'€':cur==='USD'?'$':'$';
+    const sym = cur==='GBP'?'£':cur==='EUR'?'€':cur==='USD'?':';
     return `${sym}${Number(x).toFixed(2)}`;
   }
 
   document.addEventListener('itw:calc-updated', updateExplain);
-  // run once if already computed
   setTimeout(updateExplain, 500);
 })();
 </script>
-  <script>
+
+<!-- Email CTA Inline -->
+<script>
 (function(){
   const cfg = (window.ITW_CFG||{}).emailCTA||{};
   if(!cfg.enabled) return;
@@ -1321,12 +1435,9 @@ document.addEventListener('itw:inputs-changed', () => console.count('itw:inputs-
 
   if(btn){
     btn.addEventListener('click', ()=>{
-      // Ensure telemetry fields are refreshed
       try{
         const f = document.getElementById('email-form');
         if(f){
-          // your existing submit handler fills hidden fields on submit;
-          // we also pre-fill url and days here to be safe:
           const url = f.querySelector('input[name="CALC_URL"]');
           if(url) url.value = location.href;
         }
@@ -1339,13 +1450,222 @@ document.addEventListener('itw:inputs-changed', () => console.count('itw:inputs-
   setTimeout(maybeShow, 600);
 })();
 </script>
-  <script>
+
+<!-- Email Form Telemetry -->
+<script>
+(function(){
+  function fillTelemetry(){
+    try{
+      const f=document.getElementById('email-form');
+      if(!f)return;
+      
+      const pass=f.querySelector('input[name="PLANNING_PASS_OPT_IN"]');
+      f.querySelectorAll('input[name="tags[]"][value="planning-pass"]').forEach(n=>n.remove());
+      if(pass&&pass.checked){
+        const tag=document.createElement('input');
+        tag.type='hidden';
+        tag.name='tags[]';
+        tag.value='planning-pass';
+        f.appendChild(tag);
+      }
+      
+      const byId=id=>document.getElementById(id);
+      const recEl=byId('email-rec');
+      const savEl=byId('email-savings');
+      const best=(window.ITW&&window.ITW.best)||(window.ITW_BEST);
+      const inputs=(window.ITW&&window.ITW.inputs)||null;
+      
+      if(recEl){recEl.value=(best&&best.name)?String(best.name):'';}
+      if(savEl){
+        const delta=(best&&typeof best.delta==='number')?best.delta:'';
+        savEl.value=String(delta);
+      }
+      
+      let daysVal='';
+      const daysInput=document.querySelector('[data-input="days"]');
+      if(inputs&&inputs.days)daysVal=String(inputs.days);
+      else if(daysInput)daysVal=String(daysInput.value||'');
+      
+      let urlField=f.querySelector('input[name="CALC_URL"]');
+      if(!urlField){
+        urlField=document.createElement('input');
+        urlField.type='hidden';
+        urlField.name='CALC_URL';
+        f.appendChild(urlField);
+      }
+      urlField.value=location.href;
+      
+      let daysField=f.querySelector('input[name="CRUISE_DAYS"]');
+      if(!daysField){
+        daysField=document.createElement('input');
+        daysField.type='hidden';
+        daysField.name='CRUISE_DAYS';
+        f.appendChild(daysField);
+      }
+      daysField.value=daysVal;
+    }catch(e){
+      console.error('Email telemetry failed:',e);
+    }
+  }
+  
+  const form=document.getElementById('email-form');
+  if(form){
+    form.addEventListener('submit',fillTelemetry,{capture:true});
+  }
+})();
+</script>
+
+<!-- Share and Reset Helpers -->
+<script>
+(function(){
+  if(typeof window.shareScenario!=='function'){
+    window.shareScenario=function(){
+      try{
+        if(typeof window.syncURL==='function')window.syncURL();
+        const url=location.href;
+        if(navigator.share){
+          navigator.share({title:document.title,url}).catch(()=>{});
+        }else if(navigator.clipboard){
+          navigator.clipboard.writeText(url);
+          const msg=document.getElementById('signup-message');
+          if(msg){
+            msg.textContent='✅ Link copied!';
+            setTimeout(()=>msg.textContent='',2000);
+          }
+        }else{
+          alert('Share not supported; copy the URL from your browser.');
+        }
+      }catch(e){
+        console.error('shareScenario fallback failed:',e);
+      }
+    };
+  }
+  
+  if(typeof window.resetAll!=='function'){
+    window.resetAll=function(){
+      try{
+        if(typeof window.resetInputs==='function')return window.resetInputs();
+        location.href=location.pathname;
+      }catch(e){
+        location.href=location.pathname;
+      }
+    };
+  }
+})();
+</script>
+
+<!-- Author Rail Image Override -->
+<script>
+(function authorRailImageOverride(){
+  const rail=document.getElementById('recent-rail');
+  if(!rail)return;
+  
+  const HEADS={
+    "Tina":{webp:"/authors/img/tina1.webp",jpg:"/authors/img/tina1.jpg",alt:"Author — Tina"},
+    "Ken":{webp:"/authors/img/ken1.webp",jpg:"/authors/img/ken1.jpg",alt:"Author — Ken Baker"}
+  };
+  
+  function apply(){
+    const cards=rail.querySelectorAll('a,article,.card,.rail-item');
+    cards.forEach(card=>{
+      const txt=(card.textContent||"");
+      const m=txt.match(/By\s+([A-Za-z]+)/i);
+      const name=m&&m[1]?m[1]:null;
+      const head=name&&HEADS[name]?HEADS[name]:null;
+      if(!head)return;
+      const img=card.querySelector('img');
+      if(!img)return;
+      img.src=head.jpg;
+      if(head.webp)img.srcset=head.webp+" 1x";
+      img.alt=head.alt;
+      img.width=96;
+      img.height=96;
+      img.style.width='96px';
+      img.style.height='96px';
+      img.style.borderRadius='12px';
+      img.style.objectFit='cover';
+      img.style.objectPosition='center';
+    });
+  }
+  
+  if(document.readyState==='complete'||document.readyState==='interactive'){
+    setTimeout(apply,350);
+  }else{
+    window.addEventListener('DOMContentLoaded',()=>setTimeout(apply,350));
+  }
+})();
+</script>
+
+<!-- Top 20 Cover Override -->
+<script>
+(function top20CoverOverride(){
+  const rail=document.getElementById('recent-rail');
+  if(!rail)return;
+  
+  const TITLE_MATCH=/Top\s*20/i;
+  const OVERRIDE={
+    webp:"/assets/covers/top-20.webp",
+    jpg:"/assets/covers/top-20.jpg",
+    alt:"Top 20 Royal Caribbean Picks"
+  };
+  
+  function apply(){
+    const cards=rail.querySelectorAll('a,article,.card,.rail-item');
+    cards.forEach(card=>{
+      const titleEl=card.querySelector('h3,h4,.title,.post-title,strong,b');
+      const title=(titleEl?.textContent||card.textContent||"").trim();
+      if(!TITLE_MATCH.test(title))return;
+      const img=card.querySelector('img');
+      if(!img)return;
+      img.src=OVERRIDE.jpg;
+      img.srcset=OVERRIDE.webp?(OVERRIDE.webp+" 1x"):"";
+      img.alt=OVERRIDE.alt;
+      img.width=img.width||320;
+      img.height=img.height||180;
+      img.style.objectFit='cover';
+      img.style.borderRadius='12px';
+    });
+  }
+  
+  if(document.readyState==='complete'||document.readyState==='interactive'){
+    setTimeout(apply,400);
+  }else{
+    window.addEventListener('DOMContentLoaded',()=>setTimeout(apply,400));
+  }
+})();
+</script>
+
+<!-- Rail Reordering (Author to Bottom) -->
+<script>
+(function(){
+  const rail=document.querySelector('aside.rail');
+  if(!rail)return;
+  const author=rail.querySelector('.author-card')?.closest('.card');
+  if(author)rail.appendChild(author);
+})();
+</script>
+
+<!-- Email Form Label Reordering -->
+<script>
+(function(){
+  const form=document.getElementById('email-form');
+  if(!form)return;
+  const labels=[...form.querySelectorAll('label.small')];
+  const agree=labels.find(l=>/I\s*agree/i.test(l.textContent||''));
+  const bonus=labels.find(l=>/Bonus:/i.test(l.textContent||''));
+  if(agree&&bonus&&agree.previousElementSibling!==bonus){
+    agree.parentNode.insertBefore(bonus,agree);
+  }
+})();
+</script>
+
+<!-- Articles Fallback -->
+<script>
 (function(){
   if(!window.ITW_CFG?.articlesFallback) return;
   const rail = document.getElementById('recent-rail');
   if(!rail) return;
 
-  // If your existing loader swaps out the “Loading…” text, we bail
   setTimeout(()=>{
     if(!/Loading/i.test(rail.textContent||'')) return;
     const fallback = [
@@ -1354,12 +1674,34 @@ document.addEventListener('itw:inputs-changed', () => console.count('itw:inputs-
       {title:'Sea Days vs Port Days', url:'/planning.html#sea-port', date:'2025-01-05'}
     ];
     rail.innerHTML = fallback.map(a=>`
-      <a class="rail-article" href="${a.url}">
-        <div class="title">${a.title}</div>
+      <a class="rail-article" href="${a.url}" style="display:block;padding:0.5rem;border-radius:8px;transition:background 0.15s">
+        <div class="title" style="font-weight:600;color:var(--sea);margin-bottom:0.25rem">${a.title}</div>
         <div class="date tiny muted">${new Date(a.date).toLocaleDateString()}</div>
       </a>`).join('');
   }, 1200);
 })();
 </script>
+
+<!-- Sea Weight Display Update -->
+<script>
+(function(){
+  const slider=document.getElementById('sea-weight');
+  const display=document.getElementById('sea-weight-val');
+  if(!slider||!display)return;
+  
+  slider.addEventListener('input',()=>{
+    display.textContent=slider.value+'%';
+  });
+})();
+</script>
+
+<!-- Year Display -->
+<script>
+(function(){
+  const yearEl=document.getElementById('year');
+  if(yearEl)yearEl.textContent=new Date().getFullYear();
+})();
+</script>
+
 </body>
 </html>
