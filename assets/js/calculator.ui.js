@@ -221,7 +221,7 @@ try {
      // chart.config.plugins = chart.config.plugins || [];
      // if (!chart.config.plugins.includes(ringPlugin)) {
     //    chart.config.plugins.push(ringPlugin);
-      }
+      
   // 🔧 FIX: register globally instead of mutating a (frozen) config path
   try { window.Chart.register(ringPlugin); } catch (_) {}
        
