@@ -567,84 +567,59 @@ const BAR_COLORS = {
 
 function ensureChart(){
   if (chart) return chart;
-  
+
   const el = $('#breakeven-chart');
   if (!el) return null;
-  
-  const wrapper = el.parentElement;
-  if (wrapper && !wrapper.style.height) {
-    wrapper.style.height = '320px';
-    wrapper.style.position = 'relative';
-    wrapper.style.overflow = 'hidden';
-  }
-  
-  el.style.width = '100%';
-  el.style.height = '320px';
-  el.style.maxHeight = '320px';
-  
+
   chart = new Chart(el.getContext('2d'), {
     type: 'bar',
     data: {
       labels: ['À-la-carte','Soda','Refreshment','Deluxe'],
       datasets: [
-{
-  label: 'Daily cost',
-  data: [0,0,0,0],
-  backgroundColor: [
-    BAR_COLORS.alc,
-    BAR_COLORS.soda,
-    BAR_COLORS.refresh,
-    BAR_COLORS.deluxe
-  ]
-}
+        {
+          label: 'Daily cost',
+          data: [0,0,0,0],
+          backgroundColor: [
+            BAR_COLORS.alc,
+            BAR_COLORS.soda,
+            BAR_COLORS.refresh,
+            BAR_COLORS.deluxe
+          ]
+        }
       ]
     },
     options: {
-      responsive: false,
+      responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 0 },
       scales: {
-        x: { stacked: false, grid: { display:false } },
+        x: { stacked: false, grid: { display: false } },
         y: {
           beginAtZero: true,
           grid: { color: 'rgba(0,0,0,.08)' },
-ticks: { callback: (v) => money(v) }
-              try {
-                return new Intl.NumberFormat(undefined, {
-                  style:'currency',
-                  currency:currentCurrency
-                }).format(v);
-              } catch {
-                return v;
-              }
-            }
+          ticks: {
+            callback: (v) => money(v)
           }
         }
       },
-plugins: {
-  legend: { position: 'bottom', labels: { usePointStyle: true } },
-  tooltip: {
-    callbacks: {
-      label: ctx => {
-        const name = ctx.chart.data.labels?.[ctx.dataIndex] || 'Value';
-        const v = ctx.parsed.y;
-        try {
-          const formatted = new Intl.NumberFormat(undefined, { style:'currency', currency: currentCurrency }).format(v);
-          return `${name}: ${formatted}`;
-        } catch {
-          return `${name}: ${v}`;
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const name = ctx.chart.data.labels?.[ctx.dataIndex] || 'Value';
+              return `${name}: ${money(ctx.parsed.y)}`;
+            }
+          }
         }
       }
     }
-  }
-}
-    }
   });
-  
+
   el._chart = chart;
   store.patch('ui.chartReady', true);
-  
   return chart;
+}
 }
 
 function renderResults(r){
@@ -767,33 +742,28 @@ if (chip) chip.textContent = `Best value: ${label}`;
 
   if (c) {
     c.data.datasets = [
-      {
-        label: 'Daily cost',
-         data: [
-   r.bars.alc.mean,
-   r.bars.soda.mean,
-   r.bars.refresh.mean,
-   r.bars.deluxe.mean
- ],
-        backgroundColor: [
-          BAR_COLORS.alc,
-          BAR_COLORS.soda,
-          BAR_COLORS.refresh,
-          BAR_COLORS.deluxe
-        ]
-      }
-    ];
+  {
+    label: 'Daily cost',
+    data: [
+      r.bars.alc.mean,
+      r.bars.soda.mean,
+      r.bars.refresh.mean,
+      r.bars.deluxe.mean
+    ],
+    backgroundColor: [
+      BAR_COLORS.alc,
+      BAR_COLORS.soda,
+      BAR_COLORS.refresh,
+      BAR_COLORS.deluxe
+    ]
+  }
+];
 
- if (r.hasRange) {
+if (r.hasRange) {
   c.data.datasets.push(
     {
       label: '(max)',
-      data: [
-        r.bars.alc.max,
-        r.bars.soda.max,
-        r.bars.refresh.max,
-        r.bars.deluxe.max
-      ],
+      data: [r.bars.alc.max, r.bars.soda.max, r.bars.refresh.max, r.bars.deluxe.max],
       type: 'line',
       borderWidth: 2,
       pointRadius: 0,
@@ -802,12 +772,7 @@ if (chip) chip.textContent = `Best value: ${label}`;
     },
     {
       label: '(min)',
-      data: [
-        r.bars.alc.min,
-        r.bars.soda.min,
-        r.bars.refresh.min,
-        r.bars.deluxe.min
-      ],
+      data: [r.bars.alc.min, r.bars.soda.min, r.bars.refresh.min, r.bars.deluxe.min],
       type: 'line',
       borderDash: [6, 4],
       borderWidth: 2,
@@ -815,6 +780,8 @@ if (chip) chip.textContent = `Best value: ${label}`;
       borderColor: BAR_COLORS.lineMin,
       fill: false
     }
+  );
+}
   );
   if (rn) rn.textContent = 'Range lines show min/max based on your ranges.';
 } else {
