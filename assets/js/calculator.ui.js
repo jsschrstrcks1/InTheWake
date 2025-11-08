@@ -112,46 +112,52 @@ try {
     setTimeout(update, 100);
   })();
   
-  /* ===== EMAIL CTA INLINE ===== */
-  (function emailCTA(){
-    const cfg = window.ITW_CFG?.emailCTA;
-    if (!cfg?.enabled) return;
-    
-    const box = document.getElementById('email-cta-inline');
-    const btn = document.getElementById('email-cta-btn');
-    if (!box) return;
-    
-    function maybeShow(){
-      const results = store.get().results;
-      if (!results?.winnerKey) {
-        box.style.display = 'none';
-        return;
+ /* ===== EMAIL CTA INLINE ===== */
+(function emailCTA(){
+  const cfg = window.ITW_CFG?.emailCTA;
+  if (!cfg?.enabled) return;
+
+  const box = document.getElementById('email-cta-inline');
+  const btn = document.getElementById('email-cta-btn');
+  if (!box) return;
+
+  function maybeShow(){
+    const results = store.get().results;
+    const inputs  = store.get().inputs;
+    if (!results?.winnerKey) {
+      box.style.display = 'none';
+      return;
+    }
+
+    const savings = results.perDay - (results.bars?.alc?.mean || 0);
+
+    // ✅ handle both numbers and {min,max} objects
+    const totalDrinks = Object.values(inputs?.drinks || {}).reduce((sum, v) => {
+      if (typeof v === 'number') return sum + v;
+      if (v && typeof v === 'object') {
+        const avg = ((Number(v.min) || 0) + (Number(v.max) || 0)) / 2;
+        return sum + avg;
       }
-      
-      const savings = results.perDay - (results.bars?.alc?.mean || 0);
-      const totalDrinks = store.get().inputs?.drinks 
-        ? Object.values(store.get().inputs.drinks).reduce((a,b) => a + (typeof b === 'number' ? b : 0), 0)
-        : 0;
-      
-      const show = cfg.alwaysShow ||
-        (savings > (cfg.showWhenSavingsAbove || 30)) ||
-        (totalDrinks > (cfg.showWhenDrinksAbove || 4));
-      
-      box.style.display = show ? '' : 'none';
-    }
-    
-    store.subscribe('results', maybeShow);
-    
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const form = document.getElementById('email-form') ||
-                     document.getElementById('newsletter-form');
-        if (form) {
-          form.scrollIntoView({ behavior:'smooth', block:'nearest' });
-        }
-      });
-    }
-  })();
+      return sum;
+    }, 0);
+
+    const show = cfg.alwaysShow ||
+                 (savings > (cfg.showWhenSavingsAbove || 30)) ||
+                 (totalDrinks > (cfg.showWhenDrinksAbove || 4));
+
+    box.style.display = show ? '' : 'none';
+  }
+
+  store.subscribe('results', maybeShow);
+   store.subscribe('inputs', maybeShow);
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const form = document.getElementById('email-form') ||
+                   document.getElementById('newsletter-form');
+      if (form) form.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    });
+  }
+})();
   
   /* ===== WINNER RING CHART PLUGIN ===== */
   (function winnerRing(){
@@ -656,33 +662,42 @@ try {
       };
     }
     
-    function applyProfile(p){
-      const get = id => document.getElementById(id);
-      if (!get('input-days')) {
-        console.error('Calculator inputs not found');
-        return;
-      }
-      
-      get('input-adults').value = p.adults || 1;
-      get('input-minors').value = p.minors || 0;
-      
-      Object.entries(p.drinks || {}).forEach(([k,v]) => {
-        const inp = document.querySelector(`[data-input="${k}"]`);
-        if (inp) inp.value = v;
-      });
-      
-      if (p.vouchers) {
-        const cna = get('cna-vouchers') || get('vouchers');
-        if (cna) {
-          cna.open = true;
-          if (p.vouchers.adultD) get('v-adult-d').value = p.vouchers.adultD;
-          if (p.vouchers.adultDP) get('v-adult-dp').value = p.vouchers.adultDP;
-          if (p.vouchers.adultP) get('v-adult-p').value = p.vouchers.adultP;
-        }
-      }
-      
-      if (window.scheduleCalc) window.scheduleCalc();
+function applyProfile(p){
+  const get = id => document.getElementById(id);
+  if (!get('input-days')) {
+    console.error('Calculator inputs not found');
+    return;
+  }
+
+  get('input-adults').value = p.adults || 1;
+  get('input-minors').value = p.minors || 0;
+
+  Object.entries(p.drinks || {}).forEach(([k,v]) => {
+    const inp = document.querySelector(`[data-input="${k}"]`);
+    if (inp) inp.value = v;
+  });
+
+  if (p.vouchers) {
+    const cna = get('cna-vouchers') || get('vouchers');
+    if (cna) {
+      cna.open = true;
+      if (p.vouchers.adultD)  get('v-adult-d').value  = p.vouchers.adultD;
+      if (p.vouchers.adultDP) get('v-adult-dp').value = p.vouchers.adultDP;
+      if (p.vouchers.adultP)  get('v-adult-p').value  = p.vouchers.adultP;
     }
+  }
+
+  // Notify app.js listeners so store updates + calc runs
+  document.querySelectorAll('[data-input], [data-voucher]').forEach(el => {
+    if (el && el.id !== 'voucher-value') {
+      el.dispatchEvent(new Event('input',  { bubbles:true }));
+      el.dispatchEvent(new Event('change', { bubbles:true }));
+    }
+  });
+
+  // (Optional belt-and-suspenders) kick the calc once more
+  if (window.scheduleCalc) window.scheduleCalc();
+}
     
     function save(p){
       try {
@@ -810,5 +825,5 @@ window.quizStart = function(){
     store.subscribe('economics', update);
   })();
   
-  console.log('[ITW UI v.9.002.003] Consolidated UI glue loaded — Soli Deo Gloria');
+  console.log('[ITW UI v.9.002.005] Consolidated UI glue loaded — Soli Deo Gloria');
 })();
