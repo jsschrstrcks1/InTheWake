@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="version" content="v.9.001.033"/>
+<meta name="version" content=".9.001.031"/>
 <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
 <meta name="description" content="Compare Soda, Refreshment, and Deluxe vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
@@ -199,18 +199,6 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   padding:.25rem .5rem;font-weight:800;font-size:.8rem;
   box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;z-index:3;
 }
-  #breakeven-wrap {
-     height: 320px;
-     max-height: 320px;
-     position: relative;
-     overflow: hidden;
-   }
-   
-   #breakeven-chart {
-     width: 100% !important;
-     height: 320px !important;
-     max-height: 320px !important;
-   }
 </style>
 
 <style id="reduced-motion">
@@ -223,14 +211,12 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   .quiz-progress-bar{transition:none!important}
   .quiz-option:hover,.itw-nav .chip:hover{transform:none!important}
 }
-  #breakeven-wrap{height:320px;max-height:320px;position:relative;overflow:hidden}
-#breakeven-chart{width:100%!important;height:320px!important;max-height:320px!important}
 </style>
 
 <!-- Chart + App loader -->
 <script>
 (function(){
-  const VER=document.querySelector('meta[name="version"]')?.content||'.9.001.032';
+  const VER=document.querySelector('meta[name="version"]')?.content||'.9.001.031';
   const local="/vendor/chart.umd.min.js?v="+VER;
   const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
 
@@ -262,7 +248,6 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 </script>
 </head>
 <body>
-  <div id="a11y-status" class="sr-only" role="status" aria-live="polite"></div>
 <noscript>
   <div style="position:fixed;top:0;left:0;right:0;z-index:10000;padding:1rem;background:#fef3c7;border-bottom:3px solid #f59e0b;text-align:center;font-weight:700">
     ⚠️ This calculator requires JavaScript. Please enable it and reload.
@@ -291,7 +276,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <div class="navbar">
     <div class="brand">
       <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
-      <span class="tiny version-badge">v.9.001.033</span>
+      <span class="tiny version-badge">v.9.001.031</span>
     </div>
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
@@ -491,18 +476,23 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 
         <!-- Chart -->
         <div id="breakeven-wrap">
-          <span id="voucher-badge" class="badge" hidden style="position:absolute;top:-8px;right:0;transform:translateY(-100%)"></span></div>
-         <div class="chart-legend-item">
-  <div class="chart-legend-color" style="background:#60a5fa"></div>
-  <span>Daily cost</span>
-<div class="chart-legend-item">
-  <div class="chart-legend-color" style="background:rgba(0,0,0,.35)"></div>
-  <span>(max)</span>
-</div>
-<div class="chart-legend-item">
-  <div class="chart-legend-color" style="background:rgba(0,0,0,.2)"></div>
-  <span>(min)</span>
-</div>
+          <div class="chart-legend">
+            <div class="chart-legend-item">
+              <div class="chart-legend-color" style="background:#0e6e8e"></div>
+              <span>Your à-la-carte cost</span>
+            </div>
+            <div class="chart-legend-item">
+              <div class="chart-legend-color" style="background:#cbd5e1"></div>
+              <span>Soda Package</span>
+            </div>
+            <div class="chart-legend-item">
+              <div class="chart-legend-color" style="background:#a7e0f0"></div>
+              <span>Refreshment Package</span>
+            </div>
+            <div class="chart-legend-item">
+              <div class="chart-legend-color" style="background:#f7b4a2"></div>
+              <span>Deluxe Package</span>
+            </div>
           </div>
           <table id="chart-desc" class="sr-only">
             <caption>Daily cost comparison</caption>
@@ -520,7 +510,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
             <strong>💡 How to read:</strong> Blue bar = your actual drinking cost per day (including 18% gratuity). 
             Gray bars = what you'd pay for each package. <strong>Lower = better value.</strong>
             Hover over bars to see exact dollar amounts.
-          </div></div>
+          </div>
         </div>
 
         <!-- Category summary -->
@@ -912,17 +902,33 @@ else{init();}
 </script>
 
 <!-- Mode toggle -->
-<!-- Mode toggle (delegate to app store) -->
 <script>
 (function(){
-  const rs = document.getElementById('mode-simple');
-  const ri = document.getElementById('mode-itinerary');
+  const simple=document.getElementById('simple-inputs');
+  const itin=document.getElementById('itinerary-inputs');
+  const rs=document.getElementById('mode-simple');
+  const ri=document.getElementById('mode-itinerary');
+  const legend=document.getElementById('mode-legend');
+
   function toggle(mode){
-    window.ITW?.store?.patch?.('inputs.calcMode', mode === 'itinerary' ? 'itinerary' : 'simple');
-    // app.js will render + lock heights + recalc
+    if(mode==='itinerary'){
+      simple.style.display='none';
+      itin.style.display='';
+      if(legend)legend.textContent='Calculation Mode: Day-by-Day';
+    }else{
+      simple.style.display='';
+      itin.style.display='none';
+      if(legend)legend.textContent='Calculation Mode: Daily Averages';
+    }
+    document.dispatchEvent(new Event('itw:mode-changed'));
   }
-  rs?.addEventListener('change', ()=>toggle('simple'));
-  ri?.addEventListener('change', ()=>toggle('itinerary'));
+
+  if(rs&&ri){
+    rs.addEventListener('change',()=>toggle('simple'));
+    ri.addEventListener('change',()=>toggle('itinerary'));
+  }
+
+  toggle('simple');
 })();
 </script>
 
@@ -937,55 +943,22 @@ else{init();}
 
 <script>(function top20CoverOverride(){const rail=document.getElementById('recent-rail');if(!rail)return;const TITLE_MATCH=/Top\s*20/i;const OVERRIDE={webp:"/assets/covers/top-20.webp",jpg:"/assets/covers/top-20.jpg",alt:"Top 20 Royal Caribbean Picks"};function apply(){const cards=rail.querySelectorAll('a,article,.card,.rail-item');cards.forEach(card=>{const titleEl=card.querySelector('h3,h4,.title,.post-title,strong,b');const title=(titleEl?.textContent||card.textContent||"").trim();if(!TITLE_MATCH.test(title))return;const img=card.querySelector('img');if(!img)return;img.src=OVERRIDE.jpg;img.srcset=OVERRIDE.webp?(OVERRIDE.webp+" 1x"):"";img.alt=OVERRIDE.alt;img.width=img.width||320;img.height=img.height||180;img.style.objectFit='cover';img.style.borderRadius='12px';});}if(document.readyState==='complete'||document.readyState==='interactive'){setTimeout(apply,400);}else{window.addEventListener('DOMContentLoaded',()=>setTimeout(apply,400));}})();</script>
 
-<script>(function(){const cv=document.getElementById('breakeven-chart');const badge=document.getElementById('best-stamp');if(!cv||!badge)return;const WINNER={idx:null};const ringPlugin={id:'itwWinnerRing',afterDatasetsDraw(chart){if(WINNER.idx==null)return;let el=null;chart.data.datasets.some((ds,i)=>{const meta=chart.getDatasetMeta(i);const e=meta?.data?.[WINNER.idx];if(e){el=e;return true;}});if(!el)return;const{x,y,width,height}=el.getProps(['x','y','width','height'],true);const ctx=chart.ctx;ctx.save();ctx.strokeStyle='#10b981';ctx.lineWidth=4;ctx.setLineDash([6,4]);const pad=6;ctx.strokeRect(x-width/2-pad,y-height-pad,width+pad*2,height+pad*2);ctx.restore();}};function pickWinner(chart){const ds=chart.data.datasets||[];const N=ds[0]?.data?.length||0;let best={idx:null,val:Infinity};for(let i=0;i<N;i++){let min=Infinity;ds.forEach(d=>{const v=(Array.isArray(d.data)&&typeof d.data[i]==='number')?d.data[i]:Infinity;if(v>0&&v<min)min=v;});if(min<best.val){best={idx:i,val:min};}}WINNER.idx=best.idx;badge.style.display=(WINNER.idx==null)?'none':'';}function hook(){const chart=(window.ITW&&window.ITW.chart)||cv._chart||cv.__chartist||null;if(!chart||!chart.data)return false;chart.config.plugins=chart.config.plugins||[];if(!chart.config.plugins.includes(ringPlugin))chart.config.plugins.push(ringPlugin);pickWinner(chart);chart.update();document.addEventListener('itw:calc-updated',()=>{try{pickWinner(chart);chart.update();}catch(_){}});return true;}if(!hook()){let tries=0;const t=setInterval(()=>{if(hook()||++tries>20)clearInterval(t);},150);}(function(){const btn=document.getElementById('jump-winner');if(!btn)return;btn.addEventListener('click',()=>{document.getElementById('breakeven-wrap').scrollIntoView({behavior:'smooth',block:'center'});});})();})();</script>
-
-<script>(function(){const rail=document.querySelector('aside.rail');if(!rail)return;const author=rail.querySelector('.author-card')?.closest('.card');if(author)rail.appendChild(author);})();</script>
-
-<script>(function(){const form=document.getElementById('email-form');if(!form)return;const labels=[...form.querySelectorAll('label.small')];const agree=labels.find(l=>/I\s*agree/i.test(l.textContent||''));const bonus=labels.find(l=>/Bonus:/i.test(l.textContent||''));if(agree&&bonus&&agree.previousElementSibling!==bonus){agree.parentNode.insertBefore(bonus,agree);}})();</script>
-
-<script>(function(){document.getElementById('year').textContent=new Date().getFullYear();})();</script>
-
-  <!-- FIX #1: Category breakdown with FRESH events + EXCLUDE voucher-value + TRUSTED-ONLY + DEBOUNCE -->
+<!-- FIX #1: Category breakdown with FRESH events + EXCLUDE voucher-value -->
 <script>
 (function ensureCategoryBreakdownUpdates(){
-  const grid = document.getElementById('category-grid');
-  const section = document.getElementById('category-breakdown');
-  if (!grid || !section) return;
-
-  let scheduled = false;
-
-  function fireInputsChanged() {
-    scheduled = false;
-    document.dispatchEvent(new CustomEvent('itw:inputs-changed', {
-      bubbles: true,
-      composed: true,
-      detail: { source: 'category-updater' }
-    }));
-  }
-
-  ['input','change'].forEach(type => {
-    document.addEventListener(type, (e) => {
-      // Ignore non-Elements (document/window targets) and script-generated events
-      const t = e.target;
-      if (!(t instanceof Element)) return;
-      if (e.isTrusted !== true) return; // only user-initiated events
-
-      // Only react to our calculator inputs/vouchers, never the voucher face-value field
-      if (!t.matches('[data-input],[data-voucher]')) return;
-      if (t.id === 'voucher-value') return;
-
-      // Micro-batch bursts of keypresses/changes into one custom event
-      if (!scheduled) {
-        scheduled = true;
-        queueMicrotask(fireInputsChanged);
+  // ... NO isTrusted check, no debounce ...
+  ['input','change'].forEach(t=>{
+    document.addEventListener(t,e=>{
+      if(e.target&&e.target.matches('[data-input],[data-voucher]')&&e.target.id!=='voucher-value'){
+        document.dispatchEvent(new CustomEvent('itw:inputs-changed',{ detail:{source:'category-updater'} }));
       }
-    }, { capture: true });
+    },{capture:true});
   });
 })();
 </script>
-  <!-- FIX #2: Voucher auto-sync with re-entry guard -->
 
-  <script>
+<!-- FIX #2: Voucher auto-sync with re-entry guard -->
+<script>
 (function voucherAutoSync(){
   const $=sel=>document.querySelector(sel);
   let syncing=false; // Re-entry guard
@@ -1049,20 +1022,15 @@ else{init();}
   const cur=$('#currency-select');
   if(cur)cur.addEventListener('change',syncOnce);
 
-// Patch math computeWithVouchers — ensure perVoucherValue follows Deluxe cap
+  // Patch math computeWithVouchers
   (function tryPatchMath(){
-    const M = window.ITW_MATH;
-    if (!M || typeof M.computeWithVouchers !== 'function') return;
-    const orig = M.computeWithVouchers;
-
-    function detectCap(){
-      try { return Number(window.ITW?.store?.get?.().economics?.deluxeCap) || 0; } catch { return 0; }
-    }
-
-    M.computeWithVouchers = function(inputs, economics, dataset, vouchers){
-      const cap = detectCap() || 14;
-      const nextVouchers = Object.assign({}, vouchers, { perVoucherValue: cap });
-      return orig.call(this, inputs, economics, dataset, nextVouchers);
+    const M=window.ITW_MATH;
+    if(!M||typeof M.computeWithVouchers!=='function')return;
+    const orig=M.computeWithVouchers;
+    M.computeWithVouchers=function(inputs,opts){
+      const cap=detectDeluxeCap();
+      const safeOpts=Object.assign({},opts,{voucherFaceValue:cap});
+      return orig.call(this,inputs,safeOpts);
     };
   })();
 
@@ -1083,6 +1051,67 @@ else{init();}
     if(++attempts>10)clearInterval(warm);
   },200);
 })();
+</script>
+
+<script>(function(){const cv=document.getElementById('breakeven-chart');if(!cv)return;cv.removeAttribute('width');cv.removeAttribute('height');let done=false;function mount(){if(done)return true;const chart=(window.ITW&&window.ITW.chart)||cv._chart||null;if(!chart||!chart.options)return false;try{chart.options.responsive=true;chart.options.maintainAspectRatio=false;chart.update('none');done=true;}catch(_){}return done;}if(!mount()){let tries=0;const t=setInterval(()=>{if(mount()||++tries>20)clearInterval(t);},150);}})();</script>
+
+<script>(function(){const cv=document.getElementById('breakeven-chart');const badge=document.getElementById('best-stamp');if(!cv||!badge)return;const WINNER={idx:null};const ringPlugin={id:'itwWinnerRing',afterDatasetsDraw(chart){if(WINNER.idx==null)return;let el=null;chart.data.datasets.some((ds,i)=>{const meta=chart.getDatasetMeta(i);const e=meta?.data?.[WINNER.idx];if(e){el=e;return true;}});if(!el)return;const{x,y,width,height}=el.getProps(['x','y','width','height'],true);const ctx=chart.ctx;ctx.save();ctx.strokeStyle='#10b981';ctx.lineWidth=4;ctx.setLineDash([6,4]);const pad=6;ctx.strokeRect(x-width/2-pad,y-height-pad,width+pad*2,height+pad*2);ctx.restore();}};function pickWinner(chart){const ds=chart.data.datasets||[];const N=ds[0]?.data?.length||0;let best={idx:null,val:Infinity};for(let i=0;i<N;i++){let min=Infinity;ds.forEach(d=>{const v=(Array.isArray(d.data)&&typeof d.data[i]==='number')?d.data[i]:Infinity;if(v>0&&v<min)min=v;});if(min<best.val){best={idx:i,val:min};}}WINNER.idx=best.idx;badge.style.display=(WINNER.idx==null)?'none':'';}function hook(){const chart=(window.ITW&&window.ITW.chart)||cv._chart||cv.__chartist||null;if(!chart||!chart.data)return false;chart.config.plugins=chart.config.plugins||[];if(!chart.config.plugins.includes(ringPlugin))chart.config.plugins.push(ringPlugin);pickWinner(chart);chart.update();document.addEventListener('itw:calc-updated',()=>{try{pickWinner(chart);chart.update();}catch(_){}});return true;}if(!hook()){let tries=0;const t=setInterval(()=>{if(hook()||++tries>20)clearInterval(t);},150);}(function(){const btn=document.getElementById('jump-winner');if(!btn)return;btn.addEventListener('click',()=>{document.getElementById('breakeven-wrap').scrollIntoView({behavior:'smooth',block:'center'});});})();})();</script>
+
+<script>(function(){const rail=document.querySelector('aside.rail');if(!rail)return;const author=rail.querySelector('.author-card')?.closest('.card');if(author)rail.appendChild(author);})();</script>
+
+<script>(function(){const form=document.getElementById('email-form');if(!form)return;const labels=[...form.querySelectorAll('label.small')];const agree=labels.find(l=>/I\s*agree/i.test(l.textContent||''));const bonus=labels.find(l=>/Bonus:/i.test(l.textContent||''));if(agree&&bonus&&agree.previousElementSibling!==bonus){agree.parentNode.insertBefore(bonus,agree);}})();</script>
+
+<script>(function(){document.getElementById('year').textContent=new Date().getFullYear();})();</script>
+
+  <!-- FIX #1: Category breakdown with FRESH events + EXCLUDE voucher-value + TRUSTED-ONLY + DEBOUNCE -->
+<script>
+(function ensureCategoryBreakdownUpdates(){
+  const grid = document.getElementById('category-grid');
+  const section = document.getElementById('category-breakdown');
+  if (!grid || !section) return;
+
+  let scheduled = false;
+
+  function fireInputsChanged() {
+    scheduled = false;
+    document.dispatchEvent(new CustomEvent('itw:inputs-changed', {
+      bubbles: true,
+      composed: true,
+      detail: { source: 'category-updater' }
+    }));
+  }
+
+  ['input','change'].forEach(type => {
+    document.addEventListener(type, (e) => {
+      // Ignore non-Elements (document/window targets) and script-generated events
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+      if (e.isTrusted !== true) return; // only user-initiated events
+
+      // Only react to our calculator inputs/vouchers, never the voucher face-value field
+      if (!t.matches('[data-input],[data-voucher]')) return;
+      if (t.id === 'voucher-value') return;
+
+      // Micro-batch bursts of keypresses/changes into one custom event
+      if (!scheduled) {
+        scheduled = true;
+        queueMicrotask(fireInputsChanged);
+      }
+    }, { capture: true });
+  });
+})();
+</script>
+<script>
+console.countReset('itw:inputs-changed');
+document.addEventListener('itw:inputs-changed', () => console.count('itw:inputs-changed'));
+
+['input','change'].forEach(t=>{
+  document.addEventListener(t, e => {
+    if (e.target && (e.target.matches('[data-input],[data-voucher]') || e.target.id==='voucher-value')) {
+      console.log('DOM event', t, 'isTrusted:', e.isTrusted, 'id:', e.target.id, 'name:', e.target.getAttribute('data-input')||e.target.getAttribute('data-voucher'));
+    }
+  }, {capture:true});
+});
 </script>
 </body>
 </html>
