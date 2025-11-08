@@ -656,9 +656,9 @@ function renderResults(r){
     (r.winnerKey==='deluxe' ? 'Deluxe' :
      r.winnerKey.charAt(0).toUpperCase() + r.winnerKey.slice(1));
   
-  if (chip) chip.textContent = `Best value: ${label}`;
-  // Gratuity disclosure (once, under header)
-(function gratuityDisclosure(){
+if (chip) chip.textContent = `Best value: ${label}`;
+// Gratuity disclosure (once, under header)
+;(function gratuityDisclosure(){
   const node = document.getElementById('grat-note');
   const gratPct = Math.round((store.get().economics.grat ?? 0.18) * 100);
   if (!node) return;
@@ -987,8 +987,7 @@ if (deluxeEl) {
   deluxeEl.insertAdjacentHTML('beforeend',
     `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
   );
-}
-  )();
+})();
   (function kidsChips(){
   // remove any existing chips on the correct class
   document.querySelectorAll('.package-card .kids-chip').forEach(el => el.remove());
