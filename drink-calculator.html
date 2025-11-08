@@ -199,6 +199,8 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   padding:.25rem .5rem;font-weight:800;font-size:.8rem;
   box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;z-index:3;
 }
+  #breakeven-wrap{position:relative;overflow:hidden}
+#breakeven-chart{width:100%!important;height:320px!important;max-height:320px!important}
 </style>
 
 <style id="reduced-motion">
@@ -902,33 +904,55 @@ else{init();}
 </script>
 
 <!-- Mode toggle -->
+<!-- Mode toggle (store if available, else DOM fallback; defaults to Simple) -->
 <script>
 (function(){
-  const simple=document.getElementById('simple-inputs');
-  const itin=document.getElementById('itinerary-inputs');
-  const rs=document.getElementById('mode-simple');
-  const ri=document.getElementById('mode-itinerary');
-  const legend=document.getElementById('mode-legend');
+  const hasStore = !!(window.ITW && window.ITW.store && window.ITW.store.patch);
+  const rs = document.getElementById('mode-simple');
+  const ri = document.getElementById('mode-itinerary');
+  const simple = document.getElementById('simple-inputs');
+  const itin = document.getElementById('itinerary-inputs');
+  const legend = document.getElementById('mode-legend');
 
-  function toggle(mode){
-    if(mode==='itinerary'){
+  function applyDom(mode){
+    if(!simple || !itin) return;
+    if(mode === 'itinerary'){
       simple.style.display='none';
       itin.style.display='';
-      if(legend)legend.textContent='Calculation Mode: Day-by-Day';
+      if(legend) legend.textContent='Calculation Mode: Day-by-Day';
     }else{
       simple.style.display='';
       itin.style.display='none';
-      if(legend)legend.textContent='Calculation Mode: Daily Averages';
+      if(legend) legend.textContent='Calculation Mode: Daily Averages';
     }
     document.dispatchEvent(new Event('itw:mode-changed'));
   }
 
-  if(rs&&ri){
-    rs.addEventListener('change',()=>toggle('simple'));
-    ri.addEventListener('change',()=>toggle('itinerary'));
+  function toggle(mode){
+    if (hasStore){
+      // Non-destructive: let app store drive; our DOM stays as-is until app renders.
+      window.ITW.store.patch('inputs.calcMode', mode === 'itinerary' ? 'itinerary' : 'simple');
+    } else {
+      // Guaranteed fallback so inputs never disappear.
+      applyDom(mode);
+    }
   }
 
-  toggle('simple');
+  rs?.addEventListener('change', ()=>toggle('simple'));
+  ri?.addEventListener('change', ()=>toggle('itinerary'));
+
+  // Always default to Simple so drink inputs are visible on first paint.
+  (function init(){
+    if (hasStore){
+      // Ask store for current; if not available, we still show Simple in DOM.
+      try {
+        const m = window.ITW.store.get?.().inputs?.calcMode || 'simple';
+        applyDom(m);
+      } catch { applyDom('simple'); }
+    } else {
+      applyDom('simple');
+    }
+  })();
 })();
 </script>
 
