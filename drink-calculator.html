@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="version" content="v.9.002.001"/>
+<meta name="version" content="v.9.002.002"/>
 <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
 <meta name="description" content="Compare Soda, Refreshment, and Deluxe vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
@@ -246,12 +246,49 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 }
 
 .inputs.card{border-color:var(--rope)}
+  .hero {
+  height: 200px !important;
+  min-height: 200px !important;
+  max-height: 200px !important;
+  background-position: 50% 50% !important;  /* horizon center */
+  overflow: hidden;                          /* keep logo inside */
+}
+.hero-title .logo {
+  max-width: min(90vw, 720px);
+}
+  /* --- v.9.002.002 STEPPER INLINE ON DESKTOP --- */
+@media (min-width: 768px) {
+  .input-stepper { display:flex; align-items:center; gap:8px; }
+  .input-stepper button:last-child { order: 0; } /* + first  */
+  .input-stepper input { order: 1; max-width: 88px; text-align: right; }
+  .input-stepper button:first-child { order: 2; } /* − last  */
+}
+  /* --- v.9.002.002 C&A CTA --- */
+.cna-cta {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:12px 14px; border:1px solid #d1fae5; background:#ecfdf5; color:#065f46;
+  border-radius:12px; margin:8px 1rem 12px; font-weight:700;
+}
+.cna-cta .btn.primary { background:#10b981; color:#fff; border:none; padding:8px 12px; border-radius:10px; font-weight:800; }
+@media (max-width:480px){ .cna-cta{ flex-direction:column; align-items:stretch; } }
+  /* --- v.9.002.002 PACKAGE WINNER STYLES --- */
+.package-card.winner {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.20), var(--shadow);
+  position: relative;
+}
+.pkg-flag {
+  position:absolute; top:10px; right:10px;
+  background:#10b981; color:#064e3b; border:2px solid #064e3b;
+  border-radius:999px; padding:4px 10px; font-weight:900; font-size:.78rem;
+}
+.pkg-flag.kids { background:#ccfbf1; color:#115e59; border-color:#115e59; }
 </style>
 
 <!-- Chart + App loader -->
 <script>
 (function(){
-  const VER=document.querySelector('meta[name="version"]')?.content||'v.9.002.001';
+  const VER=document.querySelector('meta[name="version"]')?.content||'v9.003';
   const local="/vendor/chart.umd.min.js?v="+VER;
   const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
 
@@ -263,6 +300,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   }
 
   function loadApp(){
+    // 1) math module first
     const m=document.createElement('script');
     m.type="module";
     m.textContent=`
@@ -272,13 +310,20 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
     `;
     document.head.appendChild(m);
 
+    // 2) APP before UI
     const app=document.createElement('script');
     app.src="/assets/js/drink-calculator.app.js?v="+VER;
     app.defer=true;
     document.head.appendChild(app);
+
+    // 3) UI last
+    const ui=document.createElement('script');
+    ui.src="/assets/js/calculator.ui.js?v="+VER;
+    ui.defer=true;
+    document.head.appendChild(ui);
   }
 
-  window.Chart?loadApp():add(local,loadApp);
+  window.Chart ? loadApp() : add(local, loadApp);
 })();
 </script>
 </head>
@@ -311,7 +356,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <div class="navbar">
     <div class="brand">
       <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
-      <span class="tiny version-badge">v.9.002.001</span>
+      <span class="tiny version-badge">v.9.002.002</span>
     </div>
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
@@ -474,6 +519,15 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
             👑 Diamond or higher? Apply free drink vouchers
             <div class="tiny muted" style="font-weight:400;margin-top:4px">Crown & Anchor perks. Minors get non-alcoholic value only.</div>
           </summary>
+          <div id="cna-cta" class="cta cna-cta">
+  <div class="cta-copy">
+    💎 Diamond or higher? You get 4–5 free drinks per day. Add your vouchers to see the savings.
+  </div>
+  <button class="btn primary" type="button" onclick="(function(){
+    const d=document.getElementById('cna-vouchers'); if(d) d.open=true;
+    (document.getElementById('v-adult-d')||document.getElementById('v-adult-dp')||document.getElementById('v-adult-p'))?.focus();
+  })()">Add vouchers</button>
+</div>
           <div style="padding:0 1rem 1rem">
             <div class="small" style="margin-bottom:10px;background:#fff3cd;border-left:3px solid var(--warn);padding:8px;border-radius:4px">
               <strong>Voucher face value:</strong>
@@ -563,6 +617,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
             </tbody>
           </table>
           <canvas id="breakeven-chart" width="900" height="320" aria-label="Package comparison chart" aria-describedby="chart-desc"></canvas>
+         <span id="voucher-badge" hidden class="badge" style="position:absolute;top:-8px;right:0;transform:translateY(-100%)"></span>
           <div id="best-stamp" aria-hidden="true">Best value</div>
           <div class="chart-help">
             <strong>💡 How to read:</strong> Blue bar = your actual drinking cost per day (including 18% gratuity). 
@@ -580,7 +635,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         <div class="controls-inline" style="margin-top:16px">
           <button class="btn" type="button" onclick="window.print()">Print Results</button>
           <button class="btn ghost" type="button" onclick="shareScenario()">Share</button>
-          <button class="btn" type="button" onclick="resetAll()" style="background:var(--bad)">Reset</button>
+          <button class="btn" type="button" onclick="window.resetInputs()" style="background:var(--bad)">Reset</button>
         </div>
       </div>
     </section>
@@ -645,7 +700,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
     <section class="card">
       <h3 style="margin-top:0">Packages</h3>
       <div id="packages" style="margin-top:10px">
-        <div class="package-card">
+        <div class="package-card" data-card="soda">
           <h4>🥤 Soda Package</h4>
           <div class="package-price">~$15/day</div>
           <ul class="package-inclusions">
@@ -654,7 +709,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
             <li>Refillable cup</li>
           </ul>
         </div>
-        <div class="package-card">
+<div class="package-card" data-card="refresh">
           <h4>🧃 Refreshment Package</h4>
           <div class="package-price">~$38/day</div>
           <ul class="package-inclusions">
@@ -665,7 +720,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
             <li>Milkshakes & mocktails</li>
           </ul>
         </div>
-        <div class="package-card">
+        <div class="package-card" data-card="deluxe">
           <h4>🍹 Deluxe Beverage Package</h4>
           <div class="package-price">~$88/day</div>
           <ul class="package-inclusions">
@@ -702,7 +757,18 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <p class="tiny" style="margin-top:.75rem"><a href="/terms.html">Terms</a> | <a href="/privacy.html">Privacy</a> | <a href="/gdpr-rights.html">GDPR</a></p>
 </footer>
 
-
+<script>
+(function watchVoucherCTA(){
+  const ids = ['v-adult-d','v-adult-dp','v-adult-p','v-minor-d','v-minor-dp','v-minor-p'];
+  const hideIfFilled = () => {
+    const sum = ids.reduce((a,id)=>a+(+document.getElementById(id)?.value||0),0);
+    const cta = document.getElementById('cna-cta');
+    if (cta) cta.style.display = sum>0 ? 'none' : '';
+  };
+  document.addEventListener('input', e => { if (e.target && ids.includes(e.target.id)) hideIfFilled(); });
+  hideIfFilled();
+})();
+</script>
 
 <!-- Year Display -->
 <script>
