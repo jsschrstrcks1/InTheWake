@@ -1,4 +1,4 @@
-/* drink-calculator.app.js — v.9.003 (Worker-enabled, Offline-First FX, Surgical v9.003 Updates)
+/* drink-calculator.app.js — v.9.002.002 (Worker-enabled, Offline-First FX, Surgical v.9.002.002 Updates)
    Core updates:
    - CONFIG constants block for magic numbers
    - Exposed window.ITW with store, money, getCurrency
