@@ -800,7 +800,7 @@ window.quizStart = function(){
       
       badges.forEach(({ sel, val }) => {
         const el = document.querySelector(sel);
-        if (el) el.textContent = money(val) + '/day';
+        if (el) el.textContent = money(val);
       });
       
       const cap = document.getElementById('cap-badge');
