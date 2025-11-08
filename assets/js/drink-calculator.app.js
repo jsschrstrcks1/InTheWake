@@ -556,6 +556,15 @@ const debouncedCalc = debounced(scheduleCalc);
 /* ------------------------- Chart & Rendering ------------------------- */
 let chart = null;
 
+const BAR_COLORS = {
+  alc: '#0e6e8e',
+  soda: '#cbd5e1',
+  refresh: '#a7e0f0',
+  deluxe: '#f7b4a2',
+  lineMax: 'rgba(0,0,0,.35)',
+  lineMin: 'rgba(0,0,0,.20)'
+};
+
 function ensureChart(){
   if (chart) return chart;
   
@@ -578,7 +587,16 @@ function ensureChart(){
     data: {
       labels: ['À-la-carte','Soda','Refreshment','Deluxe'],
       datasets: [
-        { label: 'Daily cost', data: [0,0,0,0], backgroundColor: '#60a5fa' }
+{
+  label: 'Daily cost',
+  data: [0,0,0,0],
+  backgroundColor: [
+    BAR_COLORS.alc,
+    BAR_COLORS.soda,
+    BAR_COLORS.refresh,
+    BAR_COLORS.deluxe
+  ]
+}
       ]
     },
     options: {
@@ -604,24 +622,23 @@ function ensureChart(){
           }
         }
       },
-      plugins: {
-        legend: { position: 'bottom', labels: { usePointStyle: true } },
-        tooltip: {
-          callbacks: {
-            label: ctx => {
-              const v = ctx.parsed.y;
-              try {
-                return `${ctx.dataset.label}: ${new Intl.NumberFormat(undefined, {
-                  style:'currency',
-                  currency:currentCurrency
-                }).format(v)}`;
-              } catch {
-                return `${ctx.dataset.label}: ${v}`;
-              }
-            }
-          }
+plugins: {
+  legend: { position: 'bottom', labels: { usePointStyle: true } },
+  tooltip: {
+    callbacks: {
+      label: ctx => {
+        const name = ctx.chart.data.labels?.[ctx.dataIndex] || 'Value';
+        const v = ctx.parsed.y;
+        try {
+          const formatted = new Intl.NumberFormat(undefined, { style:'currency', currency: currentCurrency }).format(v);
+          return `${name}: ${formatted}`;
+        } catch {
+          return `${name}: ${v}`;
         }
       }
+    }
+  }
+}
     }
   });
   
@@ -745,17 +762,24 @@ function renderResults(r){
   const oc = $('#overcap-est');
   if (oc) oc.textContent = money(r.overcap)+'/day';
   
-  // Chart
+    // Chart
   const c = ensureChart();
+  const rn = document.getElementById('range-note');
+
   if (c) {
     c.data.datasets = [
       {
         label: 'Daily cost',
         data: [r.bars.alc.mean, r.bars.soda.mean, r.bars.refresh.mean, r.bars.deluxe.mean],
-        backgroundColor: '#60a5fa'
+        backgroundColor: [
+          BAR_COLORS.alc,
+          BAR_COLORS.soda,
+          BAR_COLORS.refresh,
+          BAR_COLORS.deluxe
+        ]
       }
     ];
-    
+
     if (r.hasRange) {
       c.data.datasets.push(
         {
@@ -764,7 +788,7 @@ function renderResults(r){
           type:'line',
           borderWidth:2,
           pointRadius:0,
-          borderColor:'rgba(0,0,0,.35)'
+          borderColor: BAR_COLORS.lineMax
         },
         {
           label:'(min)',
@@ -773,17 +797,14 @@ function renderResults(r){
           borderDash:[6,4],
           borderWidth:2,
           pointRadius:0,
-          borderColor:'rgba(0,0,0,.2)'
+          borderColor: BAR_COLORS.lineMin
         }
       );
-      
-      const rn = document.getElementById('range-note');
       if (rn) rn.textContent = 'Range bars show min/max based on your ranges.';
     } else {
-      const rn = document.getElementById('range-note');
       if (rn) rn.textContent = '';
     }
-    
+
     c.update('none');
   }
   
@@ -817,8 +838,7 @@ function renderResults(r){
   // Guard sets we depend on
   const sodaSet      = Array.isArray(sets.soda) ? sets.soda : ['soda'];
   const refreshSet   = Array.isArray(sets.refresh) ? sets.refresh : [];
-  const alcoholicSet = Array.isArray(sets.alcoholic) ? sets.alcoholic :
-                       (Array.isArray(sets.alcohol) ? sets.alcohol : []);
+  
 
   // Helpers
   function niceLabel(k){
@@ -953,37 +973,34 @@ if (deluxeEl) {
   );
 }
   
-  // Kids "Recommended" chips
   (function kidsChips(){
-    $$('.pkg .kids-chip').forEach(el => el.remove());
-    
-    const minors = (r.groupRows || []).filter(x =>
-      x && (x.isMinor || /Minor\s+\d+/.test(x.who||''))
-    );
-    if (!minors.length) return;
-    
-    const keys = new Set(minors.map(m => m.pkgKey || (
-      /refresh/i.test(m.pkg||'') ? 'refresh' :
-      /soda/i.test(m.pkg||'') ? 'soda' : ''
-    )));
-    
-    const targetIds = [];
-    if (keys.has('soda')) targetIds.push('#pkg-soda');
-    if (keys.has('refresh')) targetIds.push('#pkg-refresh');
-    
-    targetIds.forEach(sel => {
-      const card = document.querySelector(sel);
-      if (!card) return;
-      const hd = card.querySelector('.phd');
-      if (!hd) return;
-      
-      const chipEl = document.createElement('span');
-      chipEl.className = 'kids-chip';
-      chipEl.textContent = '👧 Recommended for kids';
-      chipEl.style.cssText = 'margin-left:8px;background:#ccfbf1;color:#115e59;border:1px solid #99f6e4;padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;';
-      hd.appendChild(chipEl);
-    });
-  })();
+  // remove any existing chips on the correct class
+  document.querySelectorAll('.package-card .kids-chip').forEach(el => el.remove());
+
+  const minors = (r.groupRows || []).filter(x =>
+    x && (x.isMinor || /Minor\s+\d+/.test(x.who||''))
+  );
+  if (!minors.length) return;
+
+  const keys = new Set(minors.map(m => m.pkgKey || (
+    /refresh/i.test(m.pkg||'') ? 'refresh' :
+    /soda/i.test(m.pkg||'') ? 'soda' : ''
+  )));
+
+  const targetEls = [];
+  if (keys.has('soda'))    targetEls.push(document.querySelector('[data-card="soda"]'));
+  if (keys.has('refresh')) targetEls.push(document.querySelector('[data-card="refresh"]'));
+
+  targetEls.filter(Boolean).forEach(card => {
+    const hd = card.querySelector('h4') || card.querySelector('.phd') || card;
+    const chipEl = document.createElement('span');
+    chipEl.className = 'kids-chip';
+    chipEl.textContent = '👧 Recommended for kids';
+    chipEl.style.cssText =
+      'margin-left:8px;background:#ccfbf1;color:#115e59;border:1px solid #99f6e4;' +
+      'padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;';
+    hd.appendChild(chipEl);
+  });
    })();
 }
 
@@ -1069,20 +1086,22 @@ function ensureItineraryArray(){
 
 function toggleModeUI(mode){
   const showItin = (mode === 'itinerary');
-  const itinBox = document.getElementById('itinerary-inputs');
-  if (itinBox) itinBox.style.display = showItin ? 'block' : 'none';
-  
+
+  // 1) Containers
+  const simpleBox = document.getElementById('simple-inputs');
+  const itinBox   = document.getElementById('itinerary-inputs');
+  if (simpleBox) simpleBox.style.display = showItin ? 'none' : '';
+  if (itinBox)   itinBox.style.display   = showItin ? '' : 'none';
+
+  // 2) Sea/Port weighting fieldset (hide in itinerary mode)
   const seaFieldset = document.getElementById('sea-toggle')?.closest('fieldset');
-  if (seaFieldset) seaFieldset.style.display = showItin ? 'none' : 'block';
-  
-  document.querySelectorAll('.row--stepper').forEach(el => {
-    el.style.display = showItin ? 'none' : 'grid';
-  });
-  
+  if (seaFieldset) seaFieldset.style.display = showItin ? 'none' : '';
+
+  // 3) Keep the radios reflecting current mode
   const rSimple = document.getElementById('mode-simple');
-  const rItin = document.getElementById('mode-itinerary');
+  const rItin   = document.getElementById('mode-itinerary');
   if (rSimple) rSimple.checked = !showItin;
-  if (rItin) rItin.checked = showItin;
+  if (rItin)   rItin.checked   = showItin;
 }
 
 function renderItineraryUI(){
@@ -1610,10 +1629,8 @@ window.formatMoney = money;
     console.error('Chart.js is not loaded. Cannot boot calculator.');
     return;
   }
-  
-  ensureChart();
+   ensureChart();
   window.ITW.chart = chart;
-  
   loadPersisted();
   wireInputs();
   wireCurrencyUI();
