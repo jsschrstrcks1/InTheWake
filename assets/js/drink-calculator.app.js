@@ -640,7 +640,14 @@ function renderResults(r){
      r.winnerKey.charAt(0).toUpperCase() + r.winnerKey.slice(1));
   
   if (chip) chip.textContent = `Best value: ${label}`;
-  
+  // Gratuity disclosure (once, under header)
+(function gratuityDisclosure(){
+  const node = document.getElementById('grat-note');
+  const gratPct = Math.round((store.get().economics.grat ?? 0.18) * 100);
+  if (!node) return;
+  node.textContent = `All prices shown include the ship’s automatic gratuity (currently ${gratPct}%).`;
+  node.hidden = false;
+})();
   if (text) {
     text.textContent = (r.winnerKey==='alc')
       ? 'Your daily picks are cheapest without a package.'
@@ -791,90 +798,160 @@ function renderResults(r){
   if (srRefresh && r.bars) srRefresh.textContent = money(r.bars.refresh.mean);
   if (srDeluxe && r.bars) srDeluxe.textContent = money(r.bars.deluxe.mean);
   
-  // Smart Break-Even Monitors
-  const state = store.get();
-  const inputs = state.inputs || {};
+  // >>> Break-even helpers (rounded, gratuity-included, deluxe-cap aware)
+(function renderBreakevenHelpers(){
+  const sodaEl     = document.getElementById('soda-breakeven');
+  const refreshEl  = document.getElementById('refresh-breakeven');
+  const deluxeEl   = document.getElementById('deluxe-breakeven');
+  if (!sodaEl && !refreshEl && !deluxeEl) return;
+
+  // Pull current state we already have available in this scope
+  const state     = store.get();
+  const inputs    = state.inputs || {};
   const economics = state.economics || {};
-  const ds = state.dataset || FALLBACK_DATASET;
-  const prices = ds.prices || flattenPrices(ds);
-  const sets = ds.sets || normalizeSets(ds);
-  const grat = Number(economics.grat ?? 0.18);
-  const pkg = economics.pkg || { soda:0, refresh:0, deluxe:0 };
-  
-  const incSVal = r?.included?.soda ?? 0;
-  const incRVal = r?.included?.refresh ?? 0;
-  const incDVal = r?.included?.deluxe ?? 0;
-  
-  const gap = {
-    soda: (pkg.soda ?? 0) - incSVal,
-    refresh: (pkg.refresh ?? 0) - incRVal,
-    deluxe: (pkg.deluxe ?? 0) - incDVal
-  };
-  
-  function cheapestUpsell(drinkKeys){
-    let best = { id:'', label:'item', cost: Infinity };
-    const prefer = [], fallback = [];
-    
-    for (const k of drinkKeys) {
-      const unit = Number(prices[k]||0) * (1+grat);
-      if (!unit) continue;
-      if ((inputs.drinks?.[k]||0) > 0) prefer.push([k,unit]);
-      else fallback.push([k,unit]);
+  const ds        = state.dataset || FALLBACK_DATASET;
+  const prices    = ds.prices || {};
+  const sets      = (ds.sets || {});
+  const grat      = Number(economics.grat ?? 0.18);
+
+  // Guard sets we depend on
+  const sodaSet      = Array.isArray(sets.soda) ? sets.soda : ['soda'];
+  const refreshSet   = Array.isArray(sets.refresh) ? sets.refresh : [];
+  const alcoholicSet = Array.isArray(sets.alcoholic) ? sets.alcoholic :
+                       (Array.isArray(sets.alcohol) ? sets.alcohol : []);
+
+  // Helpers
+  function niceLabel(k){
+    if (k === 'teaprem') return 'Premium Tea';
+    if (k === 'freshjuice') return 'Fresh Juice';
+    if (k === 'bottledwater') return 'Bottled Water';
+    return k.charAt(0).toUpperCase() + k.slice(1);
+  }
+  function unitWithGrat(k){
+    const base = Number(prices[k] || 0);
+    return base > 0 ? base * (1 + grat) : 0;
+  }
+  // Prefer items the user already drinks; otherwise take the cheapest
+  function pickCheapest(setKeys){
+    const prefer = [];
+    const fallback = [];
+    for (const key of setKeys) {
+      const unit = unitWithGrat(key);
+      if (!Number.isFinite(unit) || unit <= 0) continue;
+      const qty = Number(inputs?.drinks?.[key] || 0);
+      (qty > 0 ? prefer : fallback).push({ key, unit });
     }
-    
     const pool = prefer.length ? prefer : fallback;
-    for (const [k,u] of pool) {
-      if (u < best.cost) best = { id:k, label:k[0].toUpperCase()+k.slice(1), cost:u };
-    }
-    
-    return best;
+    pool.sort((a,b) => a.unit - b.unit);
+    return pool[0] || null;
   }
-  
-  const sodaEl = document.getElementById('soda-breakeven');
-  if (sodaEl) {
-    if (gap.soda <= 0) {
-      sodaEl.innerHTML = `<p class="small" style="color:var(--good);font-weight:700;">✅ You're saving ${money(Math.abs(gap.soda))} per day.</p>`;
+  // Build cheapest-first suggestions (primary + up to 2 alternates)
+  function topSuggestions(setKeys, max=3){
+    const rows = [];
+    for (const key of setKeys) {
+      const unit = unitWithGrat(key);
+      if (!Number.isFinite(unit) || unit <= 0) continue;
+      rows.push({ key, unit, liked: (Number(inputs?.drinks?.[key] || 0) > 0) });
+    }
+    rows.sort((a,b) => (b.liked - a.liked) || (a.unit - b.unit));
+    return rows.slice(0, max);
+  }
+
+  // GAP = (package price – included value) for each package
+  const incS = r?.included?.soda ?? 0;
+  const incR = r?.included?.refresh ?? 0;
+  const incD = r?.included?.deluxe ?? 0;
+  const pkg  = economics.pkg || { soda:0, refresh:0, deluxe:0 };
+
+  const gap = {
+    soda:    (pkg.soda    ?? 0) - incS,
+    refresh: (pkg.refresh ?? 0) - incR,
+    deluxe:  (pkg.deluxe  ?? 0) - incD
+  };
+
+// SODA
+if (sodaEl) {
+  // prevent stacking notes on re-render
+  sodaEl.querySelector('.grat-note')?.remove();
+
+  if (gap.soda <= 0) {
+    sodaEl.innerHTML =
+      `<p class="small" style="color:var(--good);font-weight:800">✅ Soda Package is already saving you ${money(Math.abs(gap.soda))}/day.</p>`;
+  } else {
+    const pick = pickCheapest(sodaSet);
+    if (!pick) {
+      sodaEl.innerHTML = `<p class="small">Enter soda items to see break-even tips.</p>`;
     } else {
-      const setKeys = Array.isArray(sets.soda) ? sets.soda : ['soda'];
-      const c = cheapestUpsell(setKeys);
-      if (!Number.isFinite(c.cost) || c.cost<=0) {
-        sodaEl.innerHTML = `<p class="small">Enter soda to see break-even tips.</p>`;
-      } else {
-        const need = Math.ceil(gap.soda / c.cost);
-        sodaEl.innerHTML = `<p class="small" style="font-weight:700;">You're ${money(gap.soda)} from breaking even.</p>
-        <p class="small">Add <strong>${need} more ${c.label}${need>1?'s':''}</strong> per day to make Soda worth it.</p>`;
-      }
+      const need = Math.ceil(gap.soda / pick.unit);
+      sodaEl.innerHTML =
+        `<p class="small" style="font-weight:800">Soda Package: You're ${money(gap.soda)} from breaking even.</p>
+         <p class="small">Add <strong>${need} more ${niceLabel(pick.key)}${need>1?'s':''}</strong> per day to make Soda worth it (${money(pick.unit)} each).</p>`;
     }
   }
-  
-  const refreshEl = document.getElementById('refresh-breakeven');
-  if (refreshEl) {
-    if (gap.refresh <= 0) {
-      refreshEl.innerHTML = `<p class="small" style="color:var(--good);font-weight:700;">✅ You're saving ${money(Math.abs(gap.refresh))} per day.</p>`;
+
+  // single, non-duplicating gratuity disclosure
+  sodaEl.insertAdjacentHTML('beforeend',
+    `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
+  );
+}
+
+  // REFRESHMENT
+if (refreshEl) {
+  // prevent stacking notes on re-render
+  refreshEl.querySelector('.grat-note')?.remove();
+
+  if (gap.refresh <= 0) {
+    refreshEl.innerHTML =
+      `<p class="small" style="color:var(--good);font-weight:800">✅ Refreshment is already saving you ${money(Math.abs(gap.refresh))}/day.</p>`;
+  } else {
+    const sugg = topSuggestions(refreshSet, 3);
+    if (!sugg.length) {
+      refreshEl.innerHTML = `<p class="small">Enter non-alcoholic items to see break-even tips.</p>`;
     } else {
-      const setKeys = Array.isArray(sets.refresh) ? sets.refresh : [];
-      const c = cheapestUpsell(setKeys);
-      if (!Number.isFinite(c.cost) || c.cost<=0) {
-        refreshEl.innerHTML = `<p class="small">Enter non-alcoholic items to see tips.</p>`;
-      } else {
-        const need = Math.ceil(gap.refresh / c.cost);
-        refreshEl.innerHTML = `<p class="small" style="font-weight:700;">You're ${money(gap.refresh)} from breaking even.</p>
-        <p class="small">Add <strong>${need} more ${c.label}${need>1?'s':''}</strong> per day to make Refreshment worth it.</p>`;
-      }
+      const needPrimary = Math.ceil(gap.refresh / sugg[0].unit);
+      const alts = sugg.slice(1).map(s => {
+        const n = Math.ceil(gap.refresh / s.unit);
+        return `${n} ${niceLabel(s.key)}${n>1?'s':''} (${money(s.unit)} each)`;
+      });
+      const altText = alts.length ? ` or ${alts.join(' or ')}` : '';
+      refreshEl.innerHTML =
+        `<p class="small" style="font-weight:800">Refreshment Package: You're ${money(gap.refresh)} from breaking even.</p>
+         <p class="small">Add <strong>${needPrimary} ${niceLabel(sugg[0].key)}${needPrimary>1?'s':''}</strong> (${money(sugg[0].unit)} each)${altText} per day to make Refreshment worth it.</p>`;
     }
   }
-  
-  const deluxeEl = document.getElementById('deluxe-breakeven');
-  if (deluxeEl) {
-    if (gap.deluxe <= 0) {
-      deluxeEl.innerHTML = `<p class="small" style="color:var(--good);font-weight:700;">✅ You're saving ${money(Math.abs(gap.deluxe))} per day.</p>`;
-    } else {
-      const capWithGrat = Number(economics.deluxeCap||CONFIG.DELUXE_CAP_FALLBACK) * (1+grat);
-      const need = capWithGrat>0 ? Math.ceil(gap.deluxe / capWithGrat) : 0;
-      deluxeEl.innerHTML = `<p class="small" style="font-weight:700;">You're ${money(gap.deluxe)} from breaking even.</p>
-      <p class="small">≈ <strong>${need} more cap-price alcoholic drink${need>1?'s':''}</strong> per day (cap $${(economics.deluxeCap||CONFIG.DELUXE_CAP_FALLBACK).toFixed(2)} + grat).</p>`;
-    }
+
+  // single, non-duplicating gratuity disclosure
+  refreshEl.insertAdjacentHTML('beforeend',
+    `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
+  );
+}
+
+// DELUXE
+if (deluxeEl) {
+  // Use cap *with* gratuity for alcoholic items
+  const cap = Number(economics.deluxeCap ?? CONFIG.DELUXE_CAP_FALLBACK);
+  const capWithGrat = cap * (1 + grat);
+  const need = capWithGrat > 0 ? Math.ceil(gap.deluxe / capWithGrat) : 0;
+
+  // Remove any previous gratuity note to avoid duplicates
+  deluxeEl.querySelector('.grat-note')?.remove();
+
+  if (gap.deluxe <= 0) {
+    // Already saving
+    deluxeEl.innerHTML =
+      `<p class="small" style="color:var(--good);font-weight:800">✅ Deluxe is already saving you ${money(Math.abs(gap.deluxe))}/day.</p>`;
+  } else {
+    // Tips to break even
+    deluxeEl.innerHTML =
+      `<p class="small" style="font-weight:800">Deluxe Package: You're ${money(gap.deluxe)} from breaking even.</p>
+       <p class="small">Add <strong>${need} cap-price alcoholic drink${need>1?'s':''}</strong> per day (cap $${cap.toFixed(2)} + grat = ${money(capWithGrat)} each).</p>`;
   }
+
+  // Gratuity disclosure (single, non-duplicating)
+  deluxeEl.insertAdjacentHTML('beforeend',
+    `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
+  );
+}
   
   // Kids "Recommended" chips
   (function kidsChips(){
@@ -907,6 +984,7 @@ function renderResults(r){
       hd.appendChild(chipEl);
     });
   })();
+   })();
 }
 
 /* ------------------------- Economics/Prices UI ------------------------- */
@@ -921,10 +999,16 @@ function renderEconomics(){
   if (pR) pR.textContent = money(economics.pkg.refresh)+'/day';
   if (pD) pD.textContent = money(economics.pkg.deluxe)+'/day';
   
-  const cap = $('#cap-badge');
-  if (cap) cap.textContent = `$${economics.deluxeCap.toFixed(2)}`;
+const cap = $('#cap-badge');
+if (cap) {
+  const c = economics.deluxeCap;
+  const g = economics.grat ?? 0.18;
+  cap.textContent = `$${c.toFixed(2)}`;
+  cap.setAttribute('title', `We use the cap plus gratuity for break-even math. Example: $${c.toFixed(2)} × (1 + ${(g*100).toFixed(0)}%) = ${money(c*(1+g))}`);
+  cap.setAttribute('aria-label', `Deluxe cap is $${c.toFixed(2)} before gratuity. With gratuity it's ${money(c*(1+g))} per drink.`);
+  cap.tabIndex = 0; // make it focusable for keyboard users
 }
-
+}
 function renderPricePills(){
   const ds = store.get().dataset || FALLBACK_DATASET;
   let priceMap = ds.prices;
