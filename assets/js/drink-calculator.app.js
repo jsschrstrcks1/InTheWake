@@ -1020,7 +1020,7 @@ if (deluxeEl) {
 }
 
 /* ------------------------- Economics/Prices UI ------------------------- */
-function renderEconomics(){
+(function renderEconomics(){
   const { economics } = store.get();
   
   const pS = $('[data-pkg-price="soda"]');
