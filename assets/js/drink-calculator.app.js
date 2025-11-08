@@ -608,8 +608,7 @@ function ensureChart(){
         y: {
           beginAtZero: true,
           grid: { color: 'rgba(0,0,0,.08)' },
-          ticks: {
-            callback: (v) => {
+ticks: { callback: (v) => money(v) }
               try {
                 return new Intl.NumberFormat(undefined, {
                   style:'currency',
@@ -771,10 +770,10 @@ if (chip) chip.textContent = `Best value: ${label}`;
       {
         label: 'Daily cost',
          data: [
-   convertUSD(r.bars.alc.mean),
-   convertUSD(r.bars.soda.mean),
-   convertUSD(r.bars.refresh.mean),
-   convertUSD(r.bars.deluxe.mean)
+   r.bars.alc.mean,
+   r.bars.soda.mean,
+   r.bars.refresh.mean,
+   r.bars.deluxe.mean
  ],
         backgroundColor: [
           BAR_COLORS.alc,
@@ -790,10 +789,10 @@ if (chip) chip.textContent = `Best value: ${label}`;
     {
       label: '(max)',
       data: [
-        convertUSD(r.bars.alc.max),
-        convertUSD(r.bars.soda.max),
-        convertUSD(r.bars.refresh.max),
-        convertUSD(r.bars.deluxe.max)
+        r.bars.alc.max,
+        r.bars.soda.max,
+        r.bars.refresh.max,
+        r.bars.deluxe.max
       ],
       type: 'line',
       borderWidth: 2,
@@ -804,10 +803,10 @@ if (chip) chip.textContent = `Best value: ${label}`;
     {
       label: '(min)',
       data: [
-        convertUSD(r.bars.alc.min),
-        convertUSD(r.bars.soda.min),
-        convertUSD(r.bars.refresh.min),
-        convertUSD(r.bars.deluxe.min)
+        r.bars.alc.min,
+        r.bars.soda.min,
+        r.bars.refresh.min,
+        r.bars.deluxe.min
       ],
       type: 'line',
       borderDash: [6, 4],
@@ -983,11 +982,15 @@ if (deluxeEl) {
        <p class="small">Add <strong>${need} cap-price alcoholic drink${need>1?'s':''}</strong> per day (cap $${cap.toFixed(2)} + grat = ${money(capWithGrat)} each).</p>`;
   }
 
-  // Gratuity disclosure (single, non-duplicating)
-  deluxeEl.insertAdjacentHTML('beforeend',
+   // Gratuity disclosure (single, non-duplicating)
+  deluxeEl.insertAdjacentHTML(
+    'beforeend',
     `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
   );
-   }
+} // closes: if (deluxeEl)
+})(); // end of renderBreakevenHelpers IIFE
+
+// Kids chips (self-invoking)
 ;(function kidsChips(){
   // remove any existing chips on the correct class
   document.querySelectorAll('.package-card .kids-chip').forEach(el => el.remove());
@@ -1016,8 +1019,7 @@ if (deluxeEl) {
       'padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;';
     hd.appendChild(chipEl);
   });
-   })();
-}
+})(); // end kidsChips IIFE
 
 /* ------------------------- Economics/Prices UI ------------------------- */
 (function renderEconomics(){
