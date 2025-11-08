@@ -14,8 +14,12 @@
         setTimeout(itwUIBundle, 50);
       });
     }
-    return;
+  return;
   }
+
+  // 🔧 NEW: use ITW exports everywhere in this file
+  const { store, money, getCurrency } = window.ITW;
+
  /* ===== QUICK START (PRESET PERSONAS) ===== */
 (function quickStartPresets(){
   const root = document.getElementById('qs-preset-buttons');
@@ -33,14 +37,16 @@ root.addEventListener('click', (e)=>{
   const btn = e.target.closest('[data-persona]');
   if (!btn) return;
   const key = btn.getAttribute('data-persona');
-  APPLY[key]?.();
-  document.dispatchEvent(new CustomEvent('preset:loaded', { detail:{ name:key } }));
-  try {
-    if (window.ITW?.store) {
-      const live = document.getElementById('a11y-status');
-      if (live) live.textContent = `Preset “${key}” applied.`;
-    }
-  } catch (_) {}
+ PPLY[key]?.();
+
+// 🔧 ensure a results update right now
+try { window.scheduleCalc?.(); } catch (_) {}
+
+document.dispatchEvent(new CustomEvent('preset:loaded', { detail:{ name:key } }));
+try {
+  const live = document.getElementById('a11y-status');
+  if (live) live.textContent = `Preset “${key}” applied.`;
+} catch (_) {}
 });
 })();
   
@@ -216,7 +222,9 @@ root.addEventListener('click', (e)=>{
       if (!chart.config.plugins.includes(ringPlugin)) {
         chart.config.plugins.push(ringPlugin);
       }
-      
+  // 🔧 FIX: register globally instead of mutating a (frozen) config path
+  try { window.Chart.register(ringPlugin); } catch (_) {}
+       
       pluginMounted = true;
       pickWinner(chart);
       chart.update('none');
