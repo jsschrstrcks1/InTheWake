@@ -288,7 +288,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 <!-- Chart + App loader -->
 <script>
 (function(){
-  const VER=document.querySelector('meta[name="version"]')?.content||'v9.003';
+  const VER=document.querySelector('meta[name="version"]')?.content||'v9.002.003';
   const local="/vendor/chart.umd.min.js?v="+VER;
   const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
 
@@ -530,7 +530,9 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 </div>
           <div style="padding:0 1rem 1rem">
             <div class="small" style="margin-bottom:10px;background:#fff3cd;border-left:3px solid var(--warn);padding:8px;border-radius:4px">
-              <strong>Voucher face value:</strong>
+             <div class="small" style="margin:8px 0 12px">
+  Cap price per alcoholic drink: <strong><span id="cap-badge">$14.00</span></strong>
+</div> <strong>Voucher face value:</strong>
               <input type="text" id="voucher-value" inputmode="decimal" value="14.00" readonly style="width:70px;margin-left:6px;padding:4px;border:1px solid var(--bd);border-radius:4px;background:#f8fafc;cursor:not-allowed"> USD
               <div class="tiny" id="voucher-lock-note" style="margin-top:4px;font-weight:600;color:var(--muted)">(auto-synced to Deluxe cap)</div>
             </div>
@@ -617,14 +619,17 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
             </tbody>
           </table>
           <canvas id="breakeven-chart" width="900" height="320" aria-label="Package comparison chart" aria-describedby="chart-desc"></canvas>
-         <span id="voucher-badge" hidden class="badge" style="position:absolute;top:-8px;right:0;transform:translateY(-100%)"></span>
+         <div id="range-note" class="tiny muted" style="margin-top:6px"></div>
+          <span id="voucher-badge" hidden class="badge" style="position:absolute;top:-8px;right:0;transform:translateY(-100%)"></span>
           <div id="best-stamp" aria-hidden="true">Best value</div>
           <div class="chart-help">
             <strong>💡 How to read:</strong> Blue bar = your actual drinking cost per day (including 18% gratuity). 
             Gray bars = what you'd pay for each package. <strong>Lower = better value.</strong>
             Hover over bars to see exact dollar amounts.
           </div>
-        </div>
+        </div><div id="soda-breakeven" class="small" style="margin-top:8px"></div>
+<div id="refresh-breakeven" class="small" style="margin-top:8px"></div>
+<div id="deluxe-breakeven" class="small" style="margin-top:8px"></div>
 
         <!-- Category summary -->
         <div class="category-summary" id="category-breakdown" hidden>
@@ -702,7 +707,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
       <div id="packages" style="margin-top:10px">
         <div class="package-card" data-card="soda">
           <h4>🥤 Soda Package</h4>
-          <div class="package-price">~$15/day</div>
+<div class="package-price">~<span data-pkg-price="soda">$15</span>/day</div>
           <ul class="package-inclusions">
             <li>Coca-Cola Freestyle sodas</li>
             <li>Juices & lemonade</li>
@@ -711,7 +716,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         </div>
 <div class="package-card" data-card="refresh">
           <h4>🧃 Refreshment Package</h4>
-          <div class="package-price">~$38/day</div>
+<div class="package-price">~<span data-pkg-price="refresh">$38</span>/day</div>
           <ul class="package-inclusions">
             <li>Everything in Soda</li>
             <li>Specialty coffees & teas</li>
@@ -722,7 +727,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         </div>
         <div class="package-card" data-card="deluxe">
           <h4>🍹 Deluxe Beverage Package</h4>
-          <div class="package-price">~$88/day</div>
+<div class="package-price">~<span data-pkg-price="deluxe">$88</span>/day</div>
           <ul class="package-inclusions">
             <li>Everything in Refreshment</li>
             <li>Beer, wine, cocktails (up to $15)</li>
