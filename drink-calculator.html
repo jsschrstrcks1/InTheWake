@@ -15,7 +15,37 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/in_the_wake_icon_180x180.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#0e6e8e">
+<script>
+// Lightweight config (feature flags)
+window.ITW_CFG = {
+  emailCTA: { enabled: true, showWhenSavingsAbove: 30, showWhenDrinksAbove: 4, alwaysShow: false },
+  analytics: { enabled: false, provider: 'none', ga4: 'G-XXXX', plausible: 'cruisinginthewake.com' },
+  presets2: true,     // enables preset details panel
+  steppers: true,     // enables +/- steppers
+  explainCard: true,  // enables one-liner summary card
+  articlesFallback: true
+};
 
+// Range-aware qty parser (keeps your inputs text-friendly)
+window.parseQty = function(input){
+  if (input == null) return 0;
+  let s = String(input).trim().replace(/[\u2012-\u2015\u2212]/g,'-').replace(/\s+/g,' ');
+  const m = s.match(/^(\d*\.?\d+)\s*-\s*(\d*\.?\d+)$/);
+  if (m){ const a=+m[1], b=+m[2]; return (isFinite(a)&&isFinite(b)) ? Math.max(0,(a+b)/2) : 0; }
+  const cleaned = s.replace(/[,\u00a0\u202f]/g,'');
+  return /^\d*\.?\d+$/.test(cleaned) ? Math.max(0,+cleaned) : 0;
+};
+
+// tiny analytics shim (no-ops by default)
+window.itwTrack = function(evt, data){
+  const cfg = (window.ITW_CFG||{}).analytics||{};
+  if(!cfg.enabled) return;
+  try{
+    if(cfg.provider==='ga4' && window.gtag) gtag('event', evt, data||{});
+    if(cfg.provider==='plausible' && window.plausible) plausible(evt, {props:data||{}});
+  }catch(_){}
+};
+</script>
 <!-- Performance -->
 <link rel="preconnect" href="https://api.frankfurter.app">
 <link rel="preconnect" href="https://api.exchangerate.host">
@@ -248,6 +278,92 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   window.Chart?loadApp():add(local,loadApp);
 })();
 </script>
+  <script>
+(function(){
+  if(!document.getElementById('qs-details-host') || !window.ITW_CFG?.presets2) return;
+
+  // Map your existing personas to a readable preview (you can refine quantities later)
+  const PRESETS = {
+    light:  { name:'Light & Chill',      d:{coffee:1, soda:1.5, mocktail:1, wine:.5, bottledwater:3} },
+    moderate:{ name:'Balanced & Social', d:{coffee:2, soda:2, beer:1.5, wine:1.5, cocktail:1.5, bottledwater:2} },
+    party:  { name:'Lively Celebration', d:{beer:3, cocktail:3, spirits:1.5, coffee:1, bottledwater:2} },
+    coffee: { name:'Coffee Lover',       d:{coffee:3, teaprem:1, soda:.5, mocktail:1, bottledwater:2} },
+    solo:   { name:'Solo Explorer',      d:{soda:1, coffee:1, beer:1, bottledwater:2} }
+  };
+
+  const host = document.getElementById('qs-details-host');
+  const grid = document.getElementById('qs-preset-buttons');
+  if(!grid) return;
+
+  grid.querySelectorAll('button[data-persona]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const key = btn.dataset.persona;
+      const p = PRESETS[key]; if(!p){ host.innerHTML=''; return; }
+
+      const bullets = Object.entries(p.d)
+        .filter(([,v])=>v>0)
+        .map(([k,v])=>`<li>${k}: ${v}/day</li>`).join('');
+
+      host.innerHTML = `
+        <div class="qs-details" style="background:var(--foam);border-radius:8px;padding:1rem;border-left:4px solid var(--accent)">
+          <h4 style="margin:0 0 .5rem;color:var(--sea)">${p.name}</h4>
+          <ul style="margin:.5rem 0 1rem 1.2rem;line-height:1.7">${bullets}</ul>
+          <button id="qs-load" class="btn" style="background:var(--accent)">Load This Preset</button>
+        </div>
+      `;
+
+      const load = document.getElementById('qs-load');
+      if(load){
+        load.onclick = ()=>{
+          Object.entries(p.d).forEach(([k,v])=>{
+            const inp = document.querySelector(`[data-input="${k}"]`);
+            if(inp) inp.value = String(v);
+          });
+          document.dispatchEvent(new CustomEvent('itw:inputs-changed',{detail:{source:'preset-details'}}));
+          load.textContent = '✓ Loaded!';
+          load.style.background = 'var(--good)';
+          setTimeout(()=>{ load.textContent='Load This Preset'; load.style.background='var(--accent)'; },1200);
+        };
+      }
+    });
+  });
+})();
+</script>
+  <script>
+(function(){
+  if(!window.ITW_CFG?.steppers) return;
+
+  function makeBtn(sign, forEl){
+    const b = document.createElement('button');
+    b.type='button';
+    b.className='btn ghost';
+    b.textContent = sign>0 ? '+' : '−';
+    b.style.minHeight='36px'; b.style.padding='6px 12px';
+    b.setAttribute('aria-label', (sign>0?'Increase ':'Decrease ') + (forEl?.getAttribute('data-input')||'value'));
+    b.addEventListener('click', ()=>{
+      const v = window.parseQty(forEl.value);
+      const next = Math.max(0, v + (sign>0?1:-1));
+      forEl.value = String(next);
+      // fire a real input event so your listeners & math run
+      forEl.dispatchEvent(new Event('input',{bubbles:true}));
+      forEl.dispatchEvent(new Event('change',{bubbles:true}));
+    });
+    return b;
+  }
+
+  document.querySelectorAll('#simple-inputs [data-input]').forEach(inp=>{
+    const row = inp.closest('.row'); if(!row) return;
+    const wrap = document.createElement('div');
+    wrap.className='controls-inline';
+    wrap.style.gap='6px';
+    // Keep your input; add stepper buttons around it
+    wrap.appendChild(makeBtn(-1, inp));
+    inp.parentNode.insertBefore(wrap, inp);
+    wrap.appendChild(inp);
+    wrap.appendChild(makeBtn(+1, inp));
+  });
+})();
+</script>
 </head>
 <body>
 <noscript>
@@ -322,7 +438,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
     <section class="qs" aria-labelledby="qs-title">
       <h2 id="qs-title" class="qs-hd">🚀 Quick Start: Choose Your Style</h2>
       <p class="small" style="margin-bottom:8px">Select a persona to auto-fill or take the quiz for personalized defaults</p>
-      <div class="qs-grid" id="qs-preset-buttons">
+      <div id="qs-details-host"></div><div class="qs-grid" id="qs-preset-buttons">
         <button class="persona-btn" data-persona="light">
           <div class="persona-icon">🧘</div>
           <div class="persona-name">Light & Chill</div>
@@ -477,6 +593,14 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         <div id="itinerary-inputs" style="margin-top:12px;display:none"></div>
 
         <!-- Chart -->
+        <div id="explain-result" class="card small" style="display:none;background:#dbeafe;border-left:4px solid var(--accent)">
+          <div id="email-cta-inline" class="card small" style="display:none;background:#ecfeff;border-left:4px solid var(--accent)">
+  <div><strong>Want this breakdown emailed to you?</strong></div>
+  <div class="tiny muted" style="margin:.25rem 0 .5rem">We’ll include your best option and savings.</div>
+  <button id="email-cta-btn" class="btn">Open email form ↓</button>
+</div>
+  <!-- filled by JS -->
+</div>
         <div id="breakeven-wrap">
           <div class="chart-legend">
             <div class="chart-legend-item">
@@ -1136,6 +1260,106 @@ document.addEventListener('itw:inputs-changed', () => console.count('itw:inputs-
     }
   }, {capture:true});
 });
+</script>
+  <script>
+(function(){
+  if(!window.ITW_CFG?.explainCard) return;
+  const el = document.getElementById('explain-result');
+  if(!el) return;
+
+  // Expect your app to publish a best pick & numbers on calc
+  // If you don’t, we derive from window.ITW summaries when available.
+  function updateExplain(){
+    try{
+      const best = (window.ITW && (window.ITW.best||window.ITW_BEST)) || null;
+      const totals = (window.ITW && window.ITW.totals) || null;
+
+      if(!best || !totals){ el.style.display='none'; return; }
+
+      const name = best.name || best.key || 'à-la-carte';
+      const delta = typeof best.delta==='number' ? best.delta : 0;
+
+      el.innerHTML = `<strong>Quick summary:</strong> ${delta < 0
+        ? `À-la-carte looks cheaper by <strong>${formatMoney(Math.abs(delta))}/day</strong>.`
+        : `${name} saves about <strong>${formatMoney(delta)}/day</strong> vs à-la-carte.`}`;
+
+      el.style.display='';
+    }catch(_){ el.style.display='none'; }
+  }
+
+  function formatMoney(x){
+    // Use your selected display currency if exposed; fallback to $
+    const cur = (window.ITW && ITW.currency) || 'USD';
+    const sym = cur==='GBP'?'£':cur==='EUR'?'€':cur==='USD'?'$':'$';
+    return `${sym}${Number(x).toFixed(2)}`;
+  }
+
+  document.addEventListener('itw:calc-updated', updateExplain);
+  // run once if already computed
+  setTimeout(updateExplain, 500);
+})();
+</script>
+  <script>
+(function(){
+  const cfg = (window.ITW_CFG||{}).emailCTA||{};
+  if(!cfg.enabled) return;
+
+  const box = document.getElementById('email-cta-inline');
+  const btn = document.getElementById('email-cta-btn');
+
+  function maybeShow(){
+    const best = (window.ITW && (window.ITW.best||window.ITW_BEST)) || null;
+    const totalDrinks = (window.ITW && window.ITW.totalDrinksPerDay) || null;
+    if(!best){ box.style.display='none'; return; }
+
+    const savings = typeof best.delta==='number' ? best.delta : 0;
+    const drinks = typeof totalDrinks==='number' ? totalDrinks : 0;
+
+    const show = cfg.alwaysShow || (savings > (cfg.showWhenSavingsAbove||30)) || (drinks > (cfg.showWhenDrinksAbove||4));
+    box.style.display = show ? '' : 'none';
+  }
+
+  if(btn){
+    btn.addEventListener('click', ()=>{
+      // Ensure telemetry fields are refreshed
+      try{
+        const f = document.getElementById('email-form');
+        if(f){
+          // your existing submit handler fills hidden fields on submit;
+          // we also pre-fill url and days here to be safe:
+          const url = f.querySelector('input[name="CALC_URL"]');
+          if(url) url.value = location.href;
+        }
+        document.querySelector('aside .card form')?.scrollIntoView({behavior:'smooth', block:'nearest'});
+      }catch(_){}
+    });
+  }
+
+  document.addEventListener('itw:calc-updated', maybeShow);
+  setTimeout(maybeShow, 600);
+})();
+</script>
+  <script>
+(function(){
+  if(!window.ITW_CFG?.articlesFallback) return;
+  const rail = document.getElementById('recent-rail');
+  if(!rail) return;
+
+  // If your existing loader swaps out the “Loading…” text, we bail
+  setTimeout(()=>{
+    if(!/Loading/i.test(rail.textContent||'')) return;
+    const fallback = [
+      {title:'Planning Your First Cruise', url:'/planning.html', date:'2025-01-15'},
+      {title:'Understanding Drink Package Types', url:'/drink-calculator.html', date:'2025-01-10'},
+      {title:'Sea Days vs Port Days', url:'/planning.html#sea-port', date:'2025-01-05'}
+    ];
+    rail.innerHTML = fallback.map(a=>`
+      <a class="rail-article" href="${a.url}">
+        <div class="title">${a.title}</div>
+        <div class="date tiny muted">${new Date(a.date).toLocaleDateString()}</div>
+      </a>`).join('');
+  }, 1200);
+})();
 </script>
 </body>
 </html>
