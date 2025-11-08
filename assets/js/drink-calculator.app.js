@@ -1035,9 +1035,19 @@ const cap = $('#cap-badge');
 if (cap) {
   const c = economics.deluxeCap;
   const g = economics.grat ?? 0.18;
+
   cap.textContent = `$${c.toFixed(2)}`;
-  cap.setAttribute('title', `We use the cap plus gratuity for break-even math. Example: $${c.toFixed(2)} × (1 + ${(g*100).toFixed(0)}%) = ${money(c*(1+g))}`);
-  cap.setAttribute('aria-label', `Deluxe cap is $${c.toFixed(2)} before gratuity. With gratuity it's ${money(c*(1+g))} per drink.`);
+
+  const titleStr =
+    `We use the cap plus gratuity for break-even math. ` +
+    `Example: $${c.toFixed(2)} × (1 + ${(g * 100).toFixed(0)}%) = ${money(c * (1 + g))}`;
+  cap.setAttribute('title', titleStr);
+
+  const ariaStr =
+    `Deluxe cap is $${c.toFixed(2)} before gratuity. ` +
+    `With gratuity it's ${money(c * (1 + g))} per drink.`;
+  cap.setAttribute('aria-label', ariaStr);
+
   cap.tabIndex = 0; // make it focusable for keyboard users
 }
 }
