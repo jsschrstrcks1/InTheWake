@@ -987,8 +987,9 @@ if (deluxeEl) {
   deluxeEl.insertAdjacentHTML('beforeend',
     `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
   );
-})();
-  ;(function kidsChips(){
+   }
+)();
+;(function kidsChips(){
   // remove any existing chips on the correct class
   document.querySelectorAll('.package-card .kids-chip').forEach(el => el.remove());
 
