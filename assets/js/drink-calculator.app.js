@@ -785,7 +785,7 @@ function renderResults(r){
       }
     ];
 
-  if (r.hasRange) {
+ if (r.hasRange) {
   c.data.datasets.push(
     {
       label: '(max)',
@@ -810,7 +810,7 @@ function renderResults(r){
         convertUSD(r.bars.deluxe.min)
       ],
       type: 'line',
-      borderDash: [6,4],
+      borderDash: [6, 4],
       borderWidth: 2,
       pointRadius: 0,
       borderColor: BAR_COLORS.lineMin,
@@ -988,7 +988,7 @@ if (deluxeEl) {
     `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
   );
 }
-  
+  )();
   (function kidsChips(){
   // remove any existing chips on the correct class
   document.querySelectorAll('.package-card .kids-chip').forEach(el => el.remove());
