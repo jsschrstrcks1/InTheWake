@@ -1,4 +1,4 @@
-/* drink-calculator.app.js — ?v=dev-<timestamp> (Worker-enabled, Offline-First FX, Surgical v.9.002.003 Updates)
+/* drink-calculator.app.js — ?v=v.9.001.007 (Worker-enabled, Offline-First FX, Surgical v.9.002.003 Updates)
    Core updates:
    - CONFIG constants block for magic numbers
    - Exposed window.ITW with store, money, getCurrency
@@ -6,6 +6,14 @@
    - Voucher input clamping (0-10)
    - 100ms debounce on currency change for FX settle
    - Preserved all existing behavior, no regressions
+   
+   🔧 EMERGENCY FIXES APPLIED:
+   - Fixed worker URL closing paren
+   - Fixed renderBreakevenHelpers closing braces
+   - Added winner highlight chart plugin
+   - Added quiz watchdog
+   - Added Deluxe sanity guard
+   - Added reset hotkey & sticky bar
 */
 
 // ----- Unified version from <meta name="version" content="..."> -----
@@ -471,6 +479,30 @@ function ensureWorker(){
   }
 }
 
+/* ------------------------- Deluxe Sanity Guard ------------------------- */
+function enforceDeluxeSanity(results) {
+  try {
+    const {economics, inputs} = store.get();
+    const grat = Number(economics?.grat ?? 0.18);
+    const cap = Number(economics?.deluxeCap ?? 14.0);
+    const capWithGrat = cap * (1 + grat);
+    const deluxePrice = Number(economics?.pkg?.deluxe ?? 85);
+    
+    const drinks = inputs?.drinks || {};
+    const alcQty = (Number(drinks.beer) || 0) + (Number(drinks.wine) || 0) + 
+                   (Number(drinks.cocktail) || 0) + (Number(drinks.spirits) || 0);
+    
+    const alcSpendAtCap = alcQty * capWithGrat;
+    
+    // If alc spend at cap meets/exceeds Deluxe price and there's no overcap, force Deluxe
+    if (alcSpendAtCap >= deluxePrice && !results.overcap && results.winnerKey !== 'deluxe') {
+      results.winnerKey = 'deluxe';
+      results.perDay = results.bars?.deluxe?.mean || deluxePrice;
+    }
+  } catch(_) {}
+  return results;
+}
+
 /* ------------------------- Controller ------------------------- */
 const debounced = (fn, ms=CONFIG.CALC_DEBOUNCE_MS) => {
   let t;
@@ -541,6 +573,9 @@ function scheduleCalc(){
     if (chip) chip.hidden = true;
   }
   
+  // Apply sanity guard before storing
+  results = enforceDeluxeSanity(results);
+  
   store.patch('results', results);
   document.dispatchEvent(new CustomEvent('itw:calc-updated', { detail: { results } }));
 }
@@ -559,11 +594,42 @@ const BAR_COLORS = {
   lineMin: 'rgba(0,0,0,.20)'
 };
 
+// Winner highlight plugin
+const winnerHighlightPlugin = {
+  id: 'winnerHighlight',
+  afterDatasetsDraw(chart) {
+    const r = store.get()?.results;
+    if (!r?.winnerKey) return;
+    
+    const barIndex = ['alc', 'soda', 'refresh', 'deluxe'].indexOf(r.winnerKey);
+    if (barIndex < 0) return;
+    
+    const meta = chart.getDatasetMeta(0);
+    const bar = meta?.data?.[barIndex];
+    if (!bar) return;
+    
+    const ctx = chart.ctx;
+    const {x, y, base, width} = bar.getProps(['x', 'y', 'base', 'width'], true);
+    
+    ctx.save();
+    ctx.strokeStyle = '#10b981';
+    ctx.lineWidth = 4;
+    ctx.setLineDash([]);
+    ctx.strokeRect(x - width/2 - 2, y - 2, width + 4, base - y + 4);
+    ctx.restore();
+  }
+};
+
 function ensureChart(){
   if (chart) return chart;
 
   const el = $('#breakeven-chart');
   if (!el) return null;
+
+  // Register winner highlight plugin once
+  if (window.Chart && !window.Chart.registry.plugins.get('winnerHighlight')) {
+    window.Chart.register(winnerHighlightPlugin);
+  }
 
   // Let CSS control sizing. Just ensure the parent has some height in CSS.
   chart = new Chart(el.getContext('2d'), {
@@ -582,50 +648,52 @@ function ensureChart(){
       }]
     },
     options: {
-  responsive: true,
-  maintainAspectRatio: false,
-  animation: { duration: 0 },
-  scales: {
-    x: { stacked: false, grid: { display: false } },
-    y: {
-      beginAtZero: true,
-      grid: { color: 'rgba(0,0,0,.08)' },
-      ticks: {
-        // Show ticks in the currently selected currency
-        callback: (v) => {
-          try {
-            return new Intl.NumberFormat(undefined, {
-              style: 'currency',
-              currency: currentCurrency
-            }).format(v);
-          } catch {
-            return v;
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 0 },
+      scales: {
+        x: { stacked: false, grid: { display: false } },
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(0,0,0,.08)' },
+          ticks: {
+            // Show ticks in the currently selected currency
+            callback: (v) => {
+              try {
+                return new Intl.NumberFormat(undefined, {
+                  style: 'currency',
+                  currency: currentCurrency
+                }).format(v);
+              } catch {
+                return v;
+              }
+            }
+          }
+        }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const name = ctx.chart.data.labels?.[ctx.dataIndex] || 'Value';
+              const v = ctx.parsed.y;
+              try {
+                const formatted = new Intl.NumberFormat(undefined, {
+                  style: 'currency',
+                  currency: currentCurrency
+                }).format(v);
+                return `${name}: ${formatted}`;
+              } catch {
+                return `${name}: ${v}`;
+              }
+            }
           }
         }
       }
     }
-  },
-  plugins: {
-    legend: { position: 'bottom', labels: { usePointStyle: true } },
-    tooltip: {
-      callbacks: {
-        label: (ctx) => {
-          const name = ctx.chart.data.labels?.[ctx.dataIndex] || 'Value';
-          const v = ctx.parsed.y;
-          try {
-            const formatted = new Intl.NumberFormat(undefined, {
-              style: 'currency',
-              currency: currentCurrency
-            }).format(v);
-            return `${name}: ${formatted}`;
-          } catch {
-            return `${name}: ${v}`;
-          }
-        }
-      }
-    }
-  }
   });
+  
   el._chart = chart;
   store.patch('ui.chartReady', true);
   return chart;
@@ -639,15 +707,17 @@ function renderResults(r){
     (r.winnerKey==='deluxe' ? 'Deluxe' :
      r.winnerKey.charAt(0).toUpperCase() + r.winnerKey.slice(1));
   
-if (chip) chip.textContent = `Best value: ${label}`;
-// Gratuity disclosure (once, under header)
-;(function gratuityDisclosure(){
-  const node = document.getElementById('grat-note');
-  const gratPct = Math.round((store.get().economics.grat ?? 0.18) * 100);
-  if (!node) return;
-  node.textContent = `All prices shown include the ship’s automatic gratuity (currently ${gratPct}%).`;
-  node.hidden = false;
-})();
+  if (chip) chip.textContent = `Best value: ${label}`;
+  
+  // Gratuity disclosure (once, under header)
+  ;(function gratuityDisclosure(){
+    const node = document.getElementById('grat-note');
+    const gratPct = Math.round((store.get().economics.grat ?? 0.18) * 100);
+    if (!node) return;
+    node.textContent = `All prices shown include the ship's automatic gratuity (currently ${gratPct}%).`;
+    node.hidden = false;
+  })();
+  
   if (text) {
     text.textContent = (r.winnerKey==='alc')
       ? 'Your daily picks are cheapest without a package.'
@@ -746,69 +816,69 @@ if (chip) chip.textContent = `Best value: ${label}`;
   if (oc) oc.textContent = money(r.overcap)+'/day';
   
   // Chart
-const c = ensureChart();
-const rn = document.getElementById('range-note');
+  const c = ensureChart();
+  const rn = document.getElementById('range-note');
 
-if (c) {
-  // Base bars (converted)
-  c.data.datasets = [
-    {
-      label: 'Daily cost',
-      data: [
-        convertUSD(r.bars.alc.mean),
-        convertUSD(r.bars.soda.mean),
-        convertUSD(r.bars.refresh.mean),
-        convertUSD(r.bars.deluxe.mean)
-      ],
-      backgroundColor: [
-        BAR_COLORS.alc,
-        BAR_COLORS.soda,
-        BAR_COLORS.refresh,
-        BAR_COLORS.deluxe
-      ]
-    }
-  ];
-
-  // Optional range lines (also converted)
-  if (r.hasRange) {
-    c.data.datasets.push(
+  if (c) {
+    // Base bars (converted)
+    c.data.datasets = [
       {
-        label: '(max)',
+        label: 'Daily cost',
         data: [
-          convertUSD(r.bars.alc.max),
-          convertUSD(r.bars.soda.max),
-          convertUSD(r.bars.refresh.max),
-          convertUSD(r.bars.deluxe.max)
+          convertUSD(r.bars.alc.mean),
+          convertUSD(r.bars.soda.mean),
+          convertUSD(r.bars.refresh.mean),
+          convertUSD(r.bars.deluxe.mean)
         ],
-        type: 'line',
-        borderWidth: 2,
-        pointRadius: 0,
-        borderColor: BAR_COLORS.lineMax,
-        fill: false
-      },
-      {
-        label: '(min)',
-        data: [
-          convertUSD(r.bars.alc.min),
-          convertUSD(r.bars.soda.min),
-          convertUSD(r.bars.refresh.min),
-          convertUSD(r.bars.deluxe.min)
-        ],
-        type: 'line',
-        borderDash: [6, 4],
-        borderWidth: 2,
-        pointRadius: 0,
-        borderColor: BAR_COLORS.lineMin,
-        fill: false
+        backgroundColor: [
+          BAR_COLORS.alc,
+          BAR_COLORS.soda,
+          BAR_COLORS.refresh,
+          BAR_COLORS.deluxe
+        ]
       }
-    );
-    if (rn) rn.textContent = 'Range lines show min/max based on your ranges.';
-  } else {
-    if (rn) rn.textContent = '';
-  }
+    ];
 
-  c.update('none');
-}
+    // Optional range lines (also converted)
+    if (r.hasRange) {
+      c.data.datasets.push(
+        {
+          label: '(max)',
+          data: [
+            convertUSD(r.bars.alc.max),
+            convertUSD(r.bars.soda.max),
+            convertUSD(r.bars.refresh.max),
+            convertUSD(r.bars.deluxe.max)
+          ],
+          type: 'line',
+          borderWidth: 2,
+          pointRadius: 0,
+          borderColor: BAR_COLORS.lineMax,
+          fill: false
+        },
+        {
+          label: '(min)',
+          data: [
+            convertUSD(r.bars.alc.min),
+            convertUSD(r.bars.soda.min),
+            convertUSD(r.bars.refresh.min),
+            convertUSD(r.bars.deluxe.min)
+          ],
+          type: 'line',
+          borderDash: [6, 4],
+          borderWidth: 2,
+          pointRadius: 0,
+          borderColor: BAR_COLORS.lineMin,
+          fill: false
+        }
+      );
+      if (rn) rn.textContent = 'Range lines show min/max based on your ranges.';
+    } else {
+      if (rn) rn.textContent = '';
+    }
+
+    c.update('none');
+  }
   
   // Update Screen-Reader a11y Table
   const srAlc = document.getElementById('sr-alc');
@@ -822,186 +892,187 @@ if (c) {
   if (srDeluxe && r.bars) srDeluxe.textContent = money(r.bars.deluxe.mean);
   
   // >>> Break-even helpers (rounded, gratuity-included, deluxe-cap aware)
-(function renderBreakevenHelpers(){
-  const sodaEl     = document.getElementById('soda-breakeven');
-  const refreshEl  = document.getElementById('refresh-breakeven');
-  const deluxeEl   = document.getElementById('deluxe-breakeven');
-  if (!sodaEl && !refreshEl && !deluxeEl) return;
+  (function renderBreakevenHelpers(){
+    const sodaEl     = document.getElementById('soda-breakeven');
+    const refreshEl  = document.getElementById('refresh-breakeven');
+    const deluxeEl   = document.getElementById('deluxe-breakeven');
+    if (!sodaEl && !refreshEl && !deluxeEl) return;
 
-  // Pull current state we already have available in this scope
-  const state     = store.get();
-  const inputs    = state.inputs || {};
-  const economics = state.economics || {};
-  const ds        = state.dataset || FALLBACK_DATASET;
-  const prices    = ds.prices || {};
-  const sets      = (ds.sets || {});
-  const grat      = Number(economics.grat ?? 0.18);
+    // Pull current state we already have available in this scope
+    const state     = store.get();
+    const inputs    = state.inputs || {};
+    const economics = state.economics || {};
+    const ds        = state.dataset || FALLBACK_DATASET;
+    const prices    = ds.prices || {};
+    const sets      = (ds.sets || {});
+    const grat      = Number(economics.grat ?? 0.18);
 
-  // Guard sets we depend on
-  const sodaSet      = Array.isArray(sets.soda) ? sets.soda : ['soda'];
-  const refreshSet   = Array.isArray(sets.refresh) ? sets.refresh : [];
-  
-
-  // Helpers
-  function niceLabel(k){
-    if (k === 'teaprem') return 'Premium Tea';
-    if (k === 'freshjuice') return 'Fresh Juice';
-    if (k === 'bottledwater') return 'Bottled Water';
-    return k.charAt(0).toUpperCase() + k.slice(1);
-  }
-  function unitWithGrat(k){
-    const base = Number(prices[k] || 0);
-    return base > 0 ? base * (1 + grat) : 0;
-  }
-  // Prefer items the user already drinks; otherwise take the cheapest
-  function pickCheapest(setKeys){
-    const prefer = [];
-    const fallback = [];
-    for (const key of setKeys) {
-      const unit = unitWithGrat(key);
-      if (!Number.isFinite(unit) || unit <= 0) continue;
-      const qty = Number(inputs?.drinks?.[key] || 0);
-      (qty > 0 ? prefer : fallback).push({ key, unit });
+    // Guard sets we depend on
+    const sodaSet      = Array.isArray(sets.soda) ? sets.soda : ['soda'];
+    const refreshSet   = Array.isArray(sets.refresh) ? sets.refresh : [];
+    
+    // Helpers
+    function niceLabel(k){
+      if (k === 'teaprem') return 'Premium Tea';
+      if (k === 'freshjuice') return 'Fresh Juice';
+      if (k === 'bottledwater') return 'Bottled Water';
+      return k.charAt(0).toUpperCase() + k.slice(1);
     }
-    const pool = prefer.length ? prefer : fallback;
-    pool.sort((a,b) => a.unit - b.unit);
-    return pool[0] || null;
-  }
-  // Build cheapest-first suggestions (primary + up to 2 alternates)
-  function topSuggestions(setKeys, max=3){
-    const rows = [];
-    for (const key of setKeys) {
-      const unit = unitWithGrat(key);
-      if (!Number.isFinite(unit) || unit <= 0) continue;
-      rows.push({ key, unit, liked: (Number(inputs?.drinks?.[key] || 0) > 0) });
+    function unitWithGrat(k){
+      const base = Number(prices[k] || 0);
+      return base > 0 ? base * (1 + grat) : 0;
     }
-    rows.sort((a,b) => (b.liked - a.liked) || (a.unit - b.unit));
-    return rows.slice(0, max);
-  }
-
-  // GAP = (package price – included value) for each package
-  const incS = r?.included?.soda ?? 0;
-  const incR = r?.included?.refresh ?? 0;
-  const incD = r?.included?.deluxe ?? 0;
-  const pkg  = economics.pkg || { soda:0, refresh:0, deluxe:0 };
-
-  const gap = {
-    soda:    (pkg.soda    ?? 0) - incS,
-    refresh: (pkg.refresh ?? 0) - incR,
-    deluxe:  (pkg.deluxe  ?? 0) - incD
-  };
-
-// SODA
-if (sodaEl) {
-  // prevent stacking notes on re-render
-  sodaEl.querySelector('.grat-note')?.remove();
-
-  if (gap.soda <= 0) {
-    sodaEl.innerHTML =
-      `<p class="small" style="color:var(--good);font-weight:800">✅ Soda Package is already saving you ${money(Math.abs(gap.soda))}/day.</p>`;
-  } else {
-    const pick = pickCheapest(sodaSet);
-    if (!pick) {
-      sodaEl.innerHTML = `<p class="small">Enter soda items to see break-even tips.</p>`;
-    } else {
-      const need = Math.ceil(gap.soda / pick.unit);
-      sodaEl.innerHTML =
-        `<p class="small" style="font-weight:800">Soda Package: You're ${money(gap.soda)} from breaking even.</p>
-         <p class="small">Add <strong>${need} more ${niceLabel(pick.key)}${need>1?'s':''}</strong> per day to make Soda worth it (${money(pick.unit)} each).</p>`;
+    // Prefer items the user already drinks; otherwise take the cheapest
+    function pickCheapest(setKeys){
+      const prefer = [];
+      const fallback = [];
+      for (const key of setKeys) {
+        const unit = unitWithGrat(key);
+        if (!Number.isFinite(unit) || unit <= 0) continue;
+        const qty = Number(inputs?.drinks?.[key] || 0);
+        (qty > 0 ? prefer : fallback).push({ key, unit });
+      }
+      const pool = prefer.length ? prefer : fallback;
+      pool.sort((a,b) => a.unit - b.unit);
+      return pool[0] || null;
     }
-  }
+    // Build cheapest-first suggestions (primary + up to 2 alternates)
+    function topSuggestions(setKeys, max=3){
+      const rows = [];
+      for (const key of setKeys) {
+        const unit = unitWithGrat(key);
+        if (!Number.isFinite(unit) || unit <= 0) continue;
+        rows.push({ key, unit, liked: (Number(inputs?.drinks?.[key] || 0) > 0) });
+      }
+      rows.sort((a,b) => (b.liked - a.liked) || (a.unit - b.unit));
+      return rows.slice(0, max);
+    }
 
-  // single, non-duplicating gratuity disclosure
-  sodaEl.insertAdjacentHTML('beforeend',
-    `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
-  );
-}
+    // GAP = (package price – included value) for each package
+    const incS = r?.included?.soda ?? 0;
+    const incR = r?.included?.refresh ?? 0;
+    const incD = r?.included?.deluxe ?? 0;
+    const pkg  = economics.pkg || { soda:0, refresh:0, deluxe:0 };
 
-  // REFRESHMENT
-if (refreshEl) {
-  // prevent stacking notes on re-render
-  refreshEl.querySelector('.grat-note')?.remove();
+    const gap = {
+      soda:    (pkg.soda    ?? 0) - incS,
+      refresh: (pkg.refresh ?? 0) - incR,
+      deluxe:  (pkg.deluxe  ?? 0) - incD
+    };
 
-  if (gap.refresh <= 0) {
-    refreshEl.innerHTML =
-      `<p class="small" style="color:var(--good);font-weight:800">✅ Refreshment is already saving you ${money(Math.abs(gap.refresh))}/day.</p>`;
-  } else {
-    const sugg = topSuggestions(refreshSet, 3);
-    if (!sugg.length) {
-      refreshEl.innerHTML = `<p class="small">Enter non-alcoholic items to see break-even tips.</p>`;
-    } else {
-      const needPrimary = Math.ceil(gap.refresh / sugg[0].unit);
-      const alts = sugg.slice(1).map(s => {
-        const n = Math.ceil(gap.refresh / s.unit);
-        return `${n} ${niceLabel(s.key)}${n>1?'s':''} (${money(s.unit)} each)`;
+    // SODA
+    if (sodaEl) {
+      // prevent stacking notes on re-render
+      sodaEl.querySelector('.grat-note')?.remove();
+
+      if (gap.soda <= 0) {
+        sodaEl.innerHTML =
+          `<p class="small" style="color:var(--good);font-weight:800">✅ Soda Package is already saving you ${money(Math.abs(gap.soda))}/day.</p>`;
+      } else {
+        const pick = pickCheapest(sodaSet);
+        if (!pick) {
+          sodaEl.innerHTML = `<p class="small">Enter soda items to see break-even tips.</p>`;
+        } else {
+          const need = Math.ceil(gap.soda / pick.unit);
+          sodaEl.innerHTML =
+            `<p class="small" style="font-weight:800">Soda Package: You're ${money(gap.soda)} <span class="tiny">(${currentCurrency})</span> from breaking even.</p>
+             <p class="small">Add <strong>${need} more ${niceLabel(pick.key)}${need>1?'s':''}</strong> per day to make Soda worth it (${money(pick.unit)} each).</p>`;
+        }
+      }
+
+      // single, non-duplicating gratuity disclosure
+      sodaEl.insertAdjacentHTML('beforeend',
+        `<p class="xsmall muted grat-note">(Each drink price shown includes the ship's automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
+      );
+    }
+
+    // REFRESHMENT
+    if (refreshEl) {
+      // prevent stacking notes on re-render
+      refreshEl.querySelector('.grat-note')?.remove();
+
+      if (gap.refresh <= 0) {
+        refreshEl.innerHTML =
+          `<p class="small" style="color:var(--good);font-weight:800">✅ Refreshment is already saving you ${money(Math.abs(gap.refresh))}/day.</p>`;
+      } else {
+        const sugg = topSuggestions(refreshSet, 3);
+        if (!sugg.length) {
+          refreshEl.innerHTML = `<p class="small">Enter non-alcoholic items to see break-even tips.</p>`;
+        } else {
+          const needPrimary = Math.ceil(gap.refresh / sugg[0].unit);
+          const alts = sugg.slice(1).map(s => {
+            const n = Math.ceil(gap.refresh / s.unit);
+            return `${n} ${niceLabel(s.key)}${n>1?'s':''} (${money(s.unit)} each)`;
+          });
+          const altText = alts.length ? ` or ${alts.join(' or ')}` : '';
+          refreshEl.innerHTML =
+            `<p class="small" style="font-weight:800">Refreshment Package: You're ${money(gap.refresh)} <span class="tiny">(${currentCurrency})</span> from breaking even.</p>
+             <p class="small">Add <strong>${needPrimary} ${niceLabel(sugg[0].key)}${needPrimary>1?'s':''}</strong> (${money(sugg[0].unit)} each)${altText} per day to make Refreshment worth it.</p>`;
+        }
+      }
+
+      // single, non-duplicating gratuity disclosure
+      refreshEl.insertAdjacentHTML('beforeend',
+        `<p class="xsmall muted grat-note">(Each drink price shown includes the ship's automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
+      );
+    }
+
+    // DELUXE
+    if (deluxeEl) {
+      // Use cap *with* gratuity for alcoholic items
+      const cap = Number(economics.deluxeCap ?? CONFIG.DELUXE_CAP_FALLBACK);
+      const capWithGrat = cap * (1 + grat);
+      const need = capWithGrat > 0 ? Math.ceil(gap.deluxe / capWithGrat) : 0;
+
+      // Remove any previous gratuity note to avoid duplicates
+      deluxeEl.querySelector('.grat-note')?.remove();
+
+      if (gap.deluxe <= 0) {
+        // Already saving
+        deluxeEl.innerHTML =
+          `<p class="small" style="color:var(--good);font-weight:800">✅ Deluxe is already saving you ${money(Math.abs(gap.deluxe))}/day.</p>`;
+      } else {
+        // Tips to break even
+        deluxeEl.innerHTML =
+          `<p class="small" style="font-weight:800">Deluxe Package: You're ${money(gap.deluxe)} <span class="tiny">(${currentCurrency})</span> from breaking even.</p>
+           <p class="small">Add <strong>${need} cap-price alcoholic drink${need>1?'s':''}</strong> per day (cap $${cap.toFixed(2)} + grat = ${money(capWithGrat)} each).</p>`;
+      }
+
+      // Gratuity disclosure (single, non-duplicating)
+      deluxeEl.insertAdjacentHTML('beforeend',
+        `<p class="xsmall muted grat-note">(Each drink price shown includes the ship's automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
+      );
+    }  // closes: if (deluxeEl)
+    
+    // --- Kids package chip -------------------------------------------------
+    ;(function kidsChips(){
+      // remove any existing chips on the correct class
+      document.querySelectorAll('.package-card .kids-chip').forEach(el => el.remove());
+
+      const minors = (r.groupRows || []).filter(x =>
+        x && (x.isMinor || /Minor\s+\d+/.test(x.who || ''))
+      );
+      if (!minors.length) return;
+
+      const keys = new Set(minors.map(m => m.pkgKey || (
+        /refresh/i.test(m.pkg || '') ? 'refresh' :
+        /soda/i.test(m.pkg || '') ? 'soda' : ''
+      )));
+
+      const targetEls = [];
+      if (keys.has('soda'))    targetEls.push(document.querySelector('[data-card="soda"]'));
+      if (keys.has('refresh')) targetEls.push(document.querySelector('[data-card="refresh"]'));
+
+      targetEls.filter(Boolean).forEach(card => {
+        const hd = card.querySelector('h4') || card.querySelector('.phd') || card;
+        const chipEl = document.createElement('span');
+        chipEl.className = 'kids-chip';
+        chipEl.textContent = '👧 Recommended for kids';
+        chipEl.style.cssText =
+          'margin-left:8px;background:#ccfbf1;color:#115e59;border:1px solid #99f6e4;' +
+          'padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;';
+        hd.appendChild(chipEl);
       });
-      const altText = alts.length ? ` or ${alts.join(' or ')}` : '';
-      refreshEl.innerHTML =
-        `<p class="small" style="font-weight:800">Refreshment Package: You're ${money(gap.refresh)} from breaking even.</p>
-         <p class="small">Add <strong>${needPrimary} ${niceLabel(sugg[0].key)}${needPrimary>1?'s':''}</strong> (${money(sugg[0].unit)} each)${altText} per day to make Refreshment worth it.</p>`;
-    }
-  }
-
-  // single, non-duplicating gratuity disclosure
-  refreshEl.insertAdjacentHTML('beforeend',
-    `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
-  );
-}
-
-// DELUXE
-if (deluxeEl) {
-  // Use cap *with* gratuity for alcoholic items
-  const cap = Number(economics.deluxeCap ?? CONFIG.DELUXE_CAP_FALLBACK);
-  const capWithGrat = cap * (1 + grat);
-  const need = capWithGrat > 0 ? Math.ceil(gap.deluxe / capWithGrat) : 0;
-
-  // Remove any previous gratuity note to avoid duplicates
-  deluxeEl.querySelector('.grat-note')?.remove();
-
-  if (gap.deluxe <= 0) {
-    // Already saving
-    deluxeEl.innerHTML =
-      `<p class="small" style="color:var(--good);font-weight:800">✅ Deluxe is already saving you ${money(Math.abs(gap.deluxe))}/day.</p>`;
-  } else {
-    // Tips to break even
-    deluxeEl.innerHTML =
-      `<p class="small" style="font-weight:800">Deluxe Package: You're ${money(gap.deluxe)} from breaking even.</p>
-       <p class="small">Add <strong>${need} cap-price alcoholic drink${need>1?'s':''}</strong> per day (cap $${cap.toFixed(2)} + grat = ${money(capWithGrat)} each).</p>`;
-  }
-
-  // Gratuity disclosure (single, non-duplicating)
-  deluxeEl.insertAdjacentHTML('beforeend',
-    `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
-  );
-   }
-  // --- Kids package chip -------------------------------------------------
-  ;(function kidsChips(){
-    // remove any existing chips on the correct class
-    document.querySelectorAll('.package-card .kids-chip').forEach(el => el.remove());
-
-    const minors = (r.groupRows || []).filter(x =>
-      x && (x.isMinor || /Minor\s+\d+/.test(x.who || ''))
-    );
-    if (!minors.length) return;
-
-    const keys = new Set(minors.map(m => m.pkgKey || (
-      /refresh/i.test(m.pkg || '') ? 'refresh' :
-      /soda/i.test(m.pkg || '') ? 'soda' : ''
-    )));
-
-    const targetEls = [];
-    if (keys.has('soda'))    targetEls.push(document.querySelector('[data-card="soda"]'));
-    if (keys.has('refresh')) targetEls.push(document.querySelector('[data-card="refresh"]'));
-
-    targetEls.filter(Boolean).forEach(card => {
-      const hd = card.querySelector('h4') || card.querySelector('.phd') || card;
-      const chipEl = document.createElement('span');
-      chipEl.className = 'kids-chip';
-      chipEl.textContent = '👧 Recommended for kids';
-      chipEl.style.cssText =
-        'margin-left:8px;background:#ccfbf1;color:#115e59;border:1px solid #99f6e4;' +
-        'padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;';
-      hd.appendChild(chipEl);
     })(); // closes kidsChips
     
   })(); // closes renderBreakevenHelpers
@@ -1020,26 +1091,27 @@ function renderEconomics(){
   if (pR) pR.textContent = money(economics.pkg.refresh);
   if (pD) pD.textContent = money(economics.pkg.deluxe);
   
-const cap = $('#cap-badge');
-if (cap) {
-  const c = economics.deluxeCap;
-  const g = economics.grat ?? 0.18;
+  const cap = $('#cap-badge');
+  if (cap) {
+    const c = economics.deluxeCap;
+    const g = economics.grat ?? 0.18;
 
-  cap.textContent = `$${c.toFixed(2)}`;
+    cap.textContent = `$${c.toFixed(2)}`;
 
-  const titleStr =
-    `We use the cap plus gratuity for break-even math. ` +
-    `Example: $${c.toFixed(2)} × (1 + ${(g * 100).toFixed(0)}%) = ${money(c * (1 + g))}`;
-  cap.setAttribute('title', titleStr);
+    const titleStr =
+      `We use the cap plus gratuity for break-even math. ` +
+      `Example: $${c.toFixed(2)} × (1 + ${(g * 100).toFixed(0)}%) = ${money(c * (1 + g))}`;
+    cap.setAttribute('title', titleStr);
 
-  const ariaStr =
-    `Deluxe cap is $${c.toFixed(2)} before gratuity. ` +
-    `With gratuity it's ${money(c * (1 + g))} per drink.`;
-  cap.setAttribute('aria-label', ariaStr);
+    const ariaStr =
+      `Deluxe cap is $${c.toFixed(2)} before gratuity. ` +
+      `With gratuity it's ${money(c * (1 + g))} per drink.`;
+    cap.setAttribute('aria-label', ariaStr);
 
-   cap.tabIndex = 0; // make it focusable for keyboard users
-}   // closes: if (cap)
+    cap.tabIndex = 0; // make it focusable for keyboard users
+  }   // closes: if (cap)
 }   // closes: function renderEconomics
+
 function renderPricePills(){
   const ds = store.get().dataset || FALLBACK_DATASET;
   let priceMap = ds.prices;
@@ -1643,7 +1715,8 @@ window.formatMoney = money;
     console.error('Chart.js is not loaded. Cannot boot calculator.');
     return;
   }
-   ensureChart();
+  
+  ensureChart();
   window.ITW.chart = chart;
   loadPersisted();
   wireInputs();
@@ -1666,9 +1739,11 @@ window.formatMoney = money;
   
   if (USE_WORKER) ensureWorker();
   scheduleCalc();
-  // make calculator triggers available to the UI layer
-window.scheduleCalc = scheduleCalc;
-window.debouncedCalc = debouncedCalc;
+  
+  // Make calculator triggers available to the UI layer
+  window.scheduleCalc = scheduleCalc;
+  window.debouncedCalc = debouncedCalc;
+  
   window.addEventListener('beforeunload', persistNow);
   
   const throttledURL = (() => {
@@ -1689,4 +1764,57 @@ window.debouncedCalc = debouncedCalc;
   window.addEventListener('offline', () => {
     renderFxNote(true);
   });
+  
+  // 🔧 NEW: Quiz watchdog
+  (function quizWatchdog() {
+    document.addEventListener('quiz:complete', () => {
+      const start = Date.now();
+      const check = setInterval(() => {
+        const elapsed = Date.now() - start;
+        const hasResults = store.get()?.results?.winnerKey;
+        
+        if (hasResults || elapsed > 800) {
+          clearInterval(check);
+          if (!hasResults && elapsed > 800) {
+            announce('Results taking longer than expected. Try clicking "Jump to Best" or reset if needed.', 'assertive');
+            const jumpBtn = document.getElementById('jump-winner');
+            if (jumpBtn) {
+              jumpBtn.style.background = '#f59e0b';
+              jumpBtn.style.animation = 'pulse 2s infinite';
+            }
+          }
+        }
+      }, 150);
+    });
+  })();
+  
+  // 🔧 NEW: Reset hotkey & sticky bar
+  (function addResetBar() {
+    if (document.getElementById('reset-bar')) return;
+    
+    const bar = document.createElement('div');
+    bar.id = 'reset-bar';
+    bar.style.cssText = 'position:fixed;bottom:16px;left:16px;z-index:9998;background:#fff;border:2px solid var(--rope);padding:10px 12px;border-radius:10px;box-shadow:var(--shadow-lg);display:flex;gap:10px;align-items:center;';
+    bar.innerHTML = `
+      <button class="btn" onclick="if(confirm('Reset all inputs?')) window.resetInputs()" style="min-height:36px;padding:6px 12px;font-size:.9rem">
+        🔄 Reset
+      </button>
+      <button class="btn ghost" onclick="window.shareScenario()" style="min-height:36px;padding:6px 12px;font-size:.9rem">
+        🔗 Share
+      </button>
+      <span class="tiny muted" style="font-weight:700">Press R to reset</span>
+    `;
+    document.body.appendChild(bar);
+    
+    // Hotkey listener
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'r' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const activeTag = document.activeElement?.tagName;
+        if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
+        e.preventDefault();
+        if (confirm('Reset all inputs (keyboard shortcut: R)?')) window.resetInputs();
+      }
+    });
+  })();
+  
 })();
