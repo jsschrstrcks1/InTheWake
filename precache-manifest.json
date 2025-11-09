@@ -1,46 +1,49 @@
 {
-  "version": "v3.010.102",
-  "generated": "2025-01-15T12:00:00Z",
+  "version": "v10.0.0",
+  "generated": "2025-11-09T00:00:00Z",
   "config": {
     "maxPages": 60,
-    "maxAssets": 60,
-    "maxImages": 360,
+    "maxAssets": 80,
+    "maxImages": 400,
     "maxFonts": 30,
     "maxData": 30,
     "staleMaxAge": 3600000,
     "debug": false
   },
   "pages": [
-    { "url": "/",                    "priority": "critical" },
-    { "url": "/drink-packages.html", "priority": "critical" },
-    { "url": "/planning.html",       "priority": "high"     },
-    { "url": "/restaurants.html",    "priority": "high"     },
-    { "url": "/ports.html",          "priority": "high"     },
-    { "url": "/ships/",              "priority": "normal"   },
-    { "url": "/solo.html",           "priority": "high"     },
-    { "url": "/travel.html",         "priority": "normal"   },
-    { "url": "/accessibility.html",  "priority": "normal"   },
-    { "url": "/about-us.html",       "priority": "low"      },
-    { "url": "/offline.html",        "priority": "critical" }
+    { "url": "/", "priority": "critical" },
+    { "url": "/drink-calculator.html", "priority": "critical" },
+    { "url": "/sw-health.html", "priority": "high" },
+    { "url": "/planning.html", "priority": "high" },
+    { "url": "/restaurants.html", "priority": "high" },
+    { "url": "/ports.html", "priority": "high" },
+    { "url": "/ships/", "priority": "normal" },
+    { "url": "/solo.html", "priority": "high" },
+    { "url": "/travel.html", "priority": "normal" },
+    { "url": "/accessibility.html", "priority": "normal" },
+    { "url": "/offline.html", "priority": "critical" }
   ],
   "assets": [
-    { "url": "/assets/styles.css?v=3.010.102",  "priority": "critical", "type": "stylesheet" },
-    { "url": "/assets/js/site-cache.js?v=3.010.102", "priority": "critical", "type": "script" },
-    { "url": "/assets/critical.css", "priority": "high", "type": "stylesheet" },
+    { "url": "/assets/js/drink-calculator.app.js?v=10.0.0", "priority": "critical", "type": "script" },
+    { "url": "/assets/js/calculator.ui-bridge.js?v=10.0.0", "priority": "critical", "type": "script" },
+    { "url": "/assets/js/drink-worker.js?v=10.0.0", "priority": "high", "type": "script" },
+    { "url": "/assets/js/drink-math.js?v=10.0.0", "priority": "high", "type": "module" },
+    { "url": "/assets/js/security.js?v=10.0.0", "priority": "normal", "type": "script" },
+    { "url": "/assets/js/install.js?v=10.0.0", "priority": "normal", "type": "script" },
+    { "url": "/assets/js/site-cache.js?v=10.0.0", "priority": "normal", "type": "script" },
+    { "url": "/assets/js/sw-bridge.js?v=10.0.0", "priority": "normal", "type": "script" },
+    { "url": "/assets/styles.css?v=10.0.0", "priority": "high", "type": "stylesheet" },
     { "url": "/assets/compass_rose.svg", "priority": "high", "type": "image" },
-    { "url": "/assets/logo_wake.png?v=3.010.102", "priority": "high", "type": "image" }
+    { "url": "/assets/logo_wake.png?v=10.0.0", "priority": "high", "type": "image" }
   ],
   "images": [
-    { "url": "/assets/index_hero.jpg?v=3.010.102", "priority": "high" },
-    { "url": "/authors/img/ken1.jpg",              "priority": "normal" },
-    { "url": "/authors/img/tina3.webp",            "priority": "normal" }
+    { "url": "/assets/index_hero.jpg?v=10.0.0", "priority": "high" },
+    { "url": "/authors/img/ken1.jpg", "priority": "normal" },
+    { "url": "/authors/img/tina3.webp", "priority": "normal" }
   ],
   "data": [
-    { "url": "/assets/data/lines/royal-caribbean.json?v=3.010.102", "priority": "critical" },
-    { "url": "/assets/data/articles/index.json?v=3.010.102",        "priority": "normal"   }
+    { "url": "/assets/data/lines/royal-caribbean.json?v=10.0.0", "priority": "critical" },
+    { "url": "/assets/data/articles/index.json?v=10.0.0", "priority": "normal" }
   ],
-  "sitemaps": [
-    "/sitemap.xml",
-    "/sitemap.json"
-  ]
+  "sitemaps": ["/sitemap.xml", "/sitemap.json"]
 }
