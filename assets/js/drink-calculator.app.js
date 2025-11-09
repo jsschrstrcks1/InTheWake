@@ -1004,8 +1004,8 @@ if (deluxeEl) {
       'padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;';
     hd.appendChild(chipEl);
   });
-   })();
-}
+})();  // <- closes the IIFE
+}       // <- closes renderResults
 
 /* ------------------------- Economics/Prices UI ------------------------- */
 function renderEconomics(){
