@@ -1,36 +1,41 @@
-/* drink-math.js — v.9.003.000 (CRITICAL FIXES: Deluxe policy + voucher groupRows)
-   
-   🔧 CRITICAL FIXES APPLIED:
-   1. Deluxe Policy: Only forces "all adults must buy" when winner IS Deluxe (not just when alcohol present)
-   2. Voucher Integration: Rebuilds groupRows after applying vouchers to match updated winner
-   3. Break-even: Ensures drink counts always use Math.ceil (no decimals)
-   
-   - Removes minorDiscount entirely (minors pay full package price; never Deluxe).
-   - Preserves ranges, weighting, itinerary, gratuity, caps, included/overcap.
-   - Adds computeWithVouchers(inputs, economics, dataset, vouchers):
-       • Vouchers reduce À-la-carte (ALC) only.
-       • Adult vouchers: alcoholic first, overflow to non-alc.
-       • Minor vouchers: non-alc only.
-   - All values assumed to INCLUDE gratuity (consistent model).
-*/
+/**
+ * Royal Caribbean Drink Package Calculator - Math Engine
+ * Version: 10.0.0
+ * Soli Deo Gloria ✝️
+ * 
+ * CONTRACTS:
+ * - Pure functions, no side effects
+ * - Idempotent (same inputs = same outputs)
+ * - All business logic lives here
+ * - UI/Worker never modify financial calculations
+ * 
+ * BUSINESS RULES:
+ * - Minors never get alcoholic packages
+ * - If any adult buys Deluxe, ALL adults must buy Deluxe (cabin rule)
+ * - When adults have Deluxe, minors must have a package (cheapest)
+ * - Vouchers offset À-la-carte only, never package prices
+ * - Sea weighting applies to consumption calculations
+ */
 
-/* ------------------------- tiny utils ------------------------- */
+// ==================== UTILITY FUNCTIONS ====================
+
 const toNum = (v) => {
   const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d.-]/g, ''));
   return Number.isFinite(n) ? n : 0;
 };
+
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, toNum(n)));
 const safe = (n) => (Number.isFinite(n) ? n : 0);
 const sum = (arr) => arr.reduce((a, b) => a + b, 0);
-const round2 = (n) => Math.round((Number.isFinite(n) ? n : 0) * 100) / 100;
+const round2 = (n) => Math.round(safe(n) * 100) / 100;
 
-/* If val is a {min,max} range, extract min/mean/max; else coerce to number */
-function scalarize(val, mode) {
-  if (val && typeof val === 'object') {
-    const mn = toNum(val.min);
-    const mx = toNum(val.max);
-    const lo = Math.max(0, Math.min(mn, mx));
-    const hi = Math.max(lo, Math.max(mn, mx));
+/**
+ * Scalarize a value or range to min/mean/max
+ */
+function scalarize(val, mode = 'mean') {
+  if (val && typeof val === 'object' && 'min' in val && 'max' in val) {
+    const lo = Math.max(0, toNum(val.min));
+    const hi = Math.max(lo, toNum(val.max));
     if (mode === 'min') return lo;
     if (mode === 'max') return hi;
     return (lo + hi) / 2;
@@ -38,52 +43,59 @@ function scalarize(val, mode) {
   return Math.max(0, toNum(val));
 }
 
-/* Apply sea/port weighting; guard against days <= 0 */
-function applyWeight(list, days, seaDays, seaApply, seaWeight) {
-  if (!seaApply) return list;
-  const D = clamp(days, 0, 365);
+/**
+ * Apply sea/port day weighting to consumption
+ * Sea days get (1 + seaWeight) multiplier, port days get (1 - seaWeight)
+ */
+function applySeaWeighting(drinkList, days, seaDays, seaApply, seaWeight) {
+  if (!seaApply) return drinkList;
+  
+  const D = clamp(days, 1, 365);
   const S = clamp(seaDays, 0, D);
-  if (D <= 0) return list;
-
-  const w = clamp(seaWeight, 0, 40) / 100; // 0–0.4
-  const seaF = 1 + w, portF = 1 - w;
+  if (D <= 0) return drinkList;
+  
+  const w = clamp(seaWeight, 0, 40) / 100; // Convert to 0-0.4
+  const seaFactor = 1 + w;
+  const portFactor = 1 - w;
   const portDays = Math.max(0, D - S);
-
-  return list.map(([id, qty]) => {
+  
+  return drinkList.map(([id, qty]) => {
     const q = toNum(qty);
-    const weighted = ((q * seaF * S) + (q * portF * portDays)) / D;
+    const weighted = ((q * seaFactor * S) + (q * portFactor * portDays)) / D;
     return [id, safe(weighted)];
   });
 }
 
-/* ------------------------- dataset adapter ------------------------- */
+// ==================== DATASET ADAPTER ====================
+
+/**
+ * Normalize dataset from various formats
+ */
 function adaptDataset(dataset) {
-  // Prices
-  let prices = dataset?.prices;
+  // Extract prices
+  let prices = dataset?.prices || {};
   if (!prices && Array.isArray(dataset?.items)) {
     prices = {};
-    for (const it of dataset.items) {
-      if (!it || !it.id) continue;
-      prices[it.id] = toNum(it.price);
+    for (const item of dataset.items) {
+      if (item?.id) prices[item.id] = toNum(item.price);
     }
   }
-  prices = prices || {};
-
-  // Sets: support new 'alcohol' or legacy 'alcoholic'
-  const sets = Object.assign(
-    { soda: [], refresh: [], alcoholic: [], alcohol: [] },
-    dataset?.sets || {}
-  );
+  
+  // Extract sets
+  const sets = {
+    soda: [],
+    refresh: [],
+    alcoholic: [],
+    ...dataset?.sets
+  };
   const alcoholSet = Array.isArray(sets.alcohol) ? sets.alcohol : (sets.alcoholic || []);
-
-  // Rules
-  const grat = Number.isFinite(dataset?.rules?.gratuity) ? dataset.rules.gratuity : undefined;
-  const epsilon = Number.isFinite(dataset?.rules?.epsilon) ? dataset.rules.epsilon : 0;
-  const capFromRules = Number.isFinite(dataset?.rules?.caps?.deluxeAlcohol)
-    ? dataset.rules.caps.deluxeAlcohol
-    : undefined;
-
-  // Packages (object form)
+  
+  // Extract rules
+  const grat = dataset?.rules?.gratuity;
+  const epsilon = dataset?.rules?.epsilon || 0;
+  const capFromRules = dataset?.rules?.caps?.deluxeAlcohol;
+  
+  // Extract packages
   let pkgFromDataset = null;
   if (dataset?.packages && typeof dataset.packages === 'object') {
     const p = dataset.packages;
@@ -94,410 +106,302 @@ function adaptDataset(dataset) {
       deluxe: pick(p.deluxe)
     };
   }
-
+  
   return {
     prices,
-    sets: { soda: sets.soda || [], refresh: sets.refresh || [], alcoholic: alcoholSet },
-    grat,
-    capFromRules,
+    sets: { 
+      soda: sets.soda || [], 
+      refresh: sets.refresh || [], 
+      alcoholic: alcoholSet 
+    },
+    grat: grat !== undefined ? grat : undefined,
     epsilon,
+    capFromRules,
     pkgFromDataset
   };
 }
 
-/* ------------------------- component helpers ------------------------- */
-function totalFor(list, prices, grat) {
-  return safe(sum(list.map(([id, qty]) => (toNum(qty) * toNum(prices[id])) * (1 + grat))));
-}
-function incForSet(list, set, prices, grat) {
-  return safe(sum(list.filter(([id]) => set.includes(id))
-    .map(([id, qty]) => (toNum(qty) * toNum(prices[id])) * (1 + grat))));
-}
-function deluxeBreakdown(list, sets, prices, grat, cap) {
-  let included = 0, overcap = 0;
-  for (const [id, qtyRaw] of list) {
-    const q = toNum(qtyRaw);
-    if (q <= 0) continue;
-    const unit = toNum(prices[id]);
+// ==================== CORE ENGINE ====================
 
-    if (sets.alcoholic.includes(id)) {
-      if (unit <= cap) {
-        included += (q * unit) * (1 + grat);
-      } else {
-        included += (q * cap) * (1 + grat);
-        overcap += (q * (unit - cap)) * (1 + grat);
-      }
-    } else {
-      // Non-alc (refresh+soda) fully included on Deluxe
-      included += (q * unit) * (1 + grat);
-    }
-  }
-  return { included: safe(included), overcap: safe(overcap) };
-}
-
-/* ------------------------- compute (base) ------------------------- */
-export function compute(inputs, economics, dataset) {
-  const { prices: dsPrices, sets: dsSets, grat: dsGrat, capFromRules, epsilon } =
-    adaptDataset(dataset || {});
-  const keys = [
-    "soda", "coffee", "teaprem", "freshjuice", "mocktail",
-    "energy", "milkshake", "bottledwater", "beer", "wine",
-    "cocktail", "spirits"
-  ];
-
-  // Economics
-  const grat = clamp(economics?.grat ?? dsGrat ?? 0.18, 0, 0.5);
-  const cap  = clamp(economics?.deluxeCap ?? capFromRules ?? 14.0, 0, 200);
-
-  // Package prices
-  const pkgEco = economics?.pkg || {};
-  const pkg = {
-    soda: toNum(pkgEco.soda) ||
-      toNum(dataset?.packages?.soda?.priceMid || dataset?.packages?.soda?.price) || 0,
-    refresh: toNum(pkgEco.refresh) ||
-      toNum((dataset?.packages?.refreshment || dataset?.packages?.refresh)?.priceMid ||
-             (dataset?.packages?.refreshment || dataset?.packages?.refresh)?.price) || 0,
-    deluxe: toNum(pkgEco.deluxe) ||
-      toNum(dataset?.packages?.deluxe?.priceMid || dataset?.packages?.deluxe?.price) || 0
-  };
-
-  // Clamp inputs
-  const days    = clamp(inputs?.days, 1, 365) || 1;
-  const seaDays = clamp(inputs?.seaDays, 0, days);
-  const seaApply  = !!(inputs?.seaApply ?? true);
-  const seaWeight = clamp(inputs?.seaWeight, 0, 40);
-  const adults = clamp(inputs?.adults, 1, 20) || 1;
-  const minors = clamp(inputs?.minors, 0, 20) || 0;
-
-  // Drinks (normalize)
-  const drinks = {};
-  for (const k of keys) {
-    const v = inputs?.drinks?.[k];
-    drinks[k] = (v && typeof v === 'object')
-      ? { min: Math.max(0, toNum(v.min)), max: Math.max(0, toNum(v.max)) }
-      : Math.max(0, toNum(v));
-  }
-
-  // --- Build per-day base list (supports itinerary mode) ---
-  let base;
-  let hasRange;
-
-  const isItinerary = (inputs?.calcMode === 'itinerary') &&
-                      Array.isArray(inputs?.itinerary) &&
-                      inputs.itinerary.length > 0;
-
-  if (isItinerary) {
-    // Sum each day's quantities, then average back to per-day
-    const totals = Object.fromEntries(keys.map(k => [k, 0]));
-    for (const day of inputs.itinerary) {
-      for (const k of keys) totals[k] += toNum(day?.drinks?.[k]);
-    }
-    const denom = Math.max(1, (inputs?.itinerary?.length || 0));
-    base = keys.map(k => [k, totals[k] / denom]);
-    hasRange = false; // day-by-day entries are scalar
-  } else {
-    base = keys.map(([k = null] = []) => [k, drinks[k]]);
-    hasRange = Object.values(drinks).some(v => v && typeof v === 'object');
-    if (!hasRange) base = keys.map(k => [k, drinks[k]]);
-  }
-
-  // Build min/mean/max lists and apply weighting unless itinerary
-  const lists = ['min', 'mean', 'max'].map(mode => {
-    const L = base.map(([k, v]) => [k, scalarize(v, mode)]);
-    return isItinerary ? L : applyWeight(L, days, seaDays, seaApply, seaWeight);
-  });
-  const [minL, meanL, maxL] = lists;
-
-  // --- Totals (à-la-carte and included values) ---
-  const alcMin  = round2(totalFor(minL,  dsPrices, grat));
-  const alcMean = round2(totalFor(meanL, dsPrices, grat));
-  const alcMax  = round2(totalFor(maxL,  dsPrices, grat));
-
-  const incSMin  = round2(incForSet(minL,  dsSets.soda,    dsPrices, grat));
-  const incSMean = round2(incForSet(meanL, dsSets.soda,    dsPrices, grat));
-  const incSMax  = round2(incForSet(maxL,  dsSets.soda,    dsPrices, grat));
-
-  const incRMin  = round2(incForSet(minL,  dsSets.refresh, dsPrices, grat));
-  const incRMean = round2(incForSet(meanL, dsSets.refresh, dsPrices, grat));
-  const incRMax  = round2(incForSet(maxL,  dsSets.refresh, dsPrices, grat));
-
-  const delMin  = deluxeBreakdown(minL,  dsSets, dsPrices, grat, cap);
-  const delMean = deluxeBreakdown(meanL, dsSets, dsPrices, grat, cap);
-  const delMax  = deluxeBreakdown(maxL,  dsSets, dsPrices, grat, cap);
-
-  // ------- Effective daily total costs (what you actually pay per day) -------
-  const costSoda = {
-    min:  round2((pkg.soda || 0)    + Math.max(0, alcMin  - incSMin)),
-    mean: round2((pkg.soda || 0)    + Math.max(0, alcMean - incSMean)),
-    max:  round2((pkg.soda || 0)    + Math.max(0, alcMax  - incSMax))
-  };
-  const costRefresh = {
-    min:  round2((pkg.refresh || 0) + Math.max(0, alcMin  - incRMin)),
-    mean: round2((pkg.refresh || 0) + Math.max(0, alcMean - incRMean)),
-    max:  round2((pkg.refresh || 0) + Math.max(0, alcMax  - incRMax))
-  };
-  const costDeluxe = {
-    min:  round2((pkg.deluxe || 0)  + delMin.overcap),
-    mean: round2((pkg.deluxe || 0)  + delMean.overcap),
-    max:  round2((pkg.deluxe || 0)  + delMax.overcap)
-  };
-  const costAlc = { min: alcMin, mean: alcMean, max: alcMax };
-
-  // ------- Winner selection (per-person, daily) -------
-  const candidates = [
-    { key: 'alc',     val: costAlc.mean },
-    { key: 'soda',    val: costSoda.mean },
-    { key: 'refresh', val: costRefresh.mean },
-    { key: 'deluxe',  val: costDeluxe.mean }
-  ];
-  let best = { key: 'alc', val: Infinity };
-  for (const c of candidates) if (c.val < best.val) best = c;
-  if (epsilon && Number.isFinite(epsilon)) {
-    // optional tie handling hook (unused)
-  }
-  const winnerKey = best.key;
-
-  const perDay =
-    winnerKey === 'soda'    ? costSoda.mean    :
-    winnerKey === 'refresh' ? costRefresh.mean :
-    winnerKey === 'deluxe'  ? costDeluxe.mean  :
-                               costAlc.mean;
-
-  // ------- Policy & group -------
-  const alcoholQty = safe(sum(meanL.filter(([id]) => dsSets.alcoholic.includes(id)).map(([, q]) => toNum(q))));
-  
-  // 🔧 CRITICAL FIX: Only force "all adults must buy Deluxe" when winner IS Deluxe
-  const deluxeRequired = (winnerKey === 'deluxe' && alcoholQty > 0 && adults > 1);
-  const adultStrategy = deluxeRequired ? 'deluxe' : winnerKey;
-
-  function priceForKey(key) {
-    return key === 'alc'     ? costAlc.mean
-         : key === 'soda'    ? costSoda.mean
-         : key === 'refresh' ? costRefresh.mean
-         :                     costDeluxe.mean;
-  }
-  function labelForKey(key, { isMinor=false } = {}) {
-    if (key === 'alc')     return 'À-la-carte';
-    if (key === 'soda')    return 'Soda';
-    if (key === 'refresh') return 'Refreshment';
-    if (key === 'deluxe')  return 'Deluxe';
-    return 'À-la-carte';
-  }
-
-  const rows = [];
-
-  // Adults
-  for (let i = 1; i <= adults; i++) {
-    const k = adultStrategy; // 'alc' | 'soda' | 'refresh' | 'deluxe'
-    const d = priceForKey(k);
-    rows.push({
-      who: `Adult ${i}`,
-      pkgKey: k,
-      pkg: labelForKey(k, { isMinor:false }),
-      perDay: round2(d),
-      trip: round2(d * days),
-      isMinor: false,
-      discountApplied: false
-    });
-  }
-
-  // Minors: If adults (or winner) are Deluxe, minors use Refreshment; else follow winnerKey (never Deluxe).
-  const minorPkgKeyBase = (adultStrategy === 'deluxe' || winnerKey === 'deluxe') ? 'refresh' : winnerKey;
-  for (let i = 1; i <= minors; i++) {
-    const k = (minorPkgKeyBase === 'deluxe') ? 'refresh' : minorPkgKeyBase;
-    const d = priceForKey(k);
-    rows.push({
-      who: `Minor ${i}`,
-      pkgKey: k,
-      pkg: labelForKey(k, { isMinor:true }),
-      perDay: round2(d),
-      trip: round2(d * days),
-      isMinor: true,
-      discountApplied: false
-    });
-  }
-
-  const perPersonMultiplier = adults + minors; // no discount factors
-  const trip = round2(perDay * days * perPersonMultiplier);
-
-  // For voucher math: split mean ALC into alcoholic vs non-alc subtotal
-  const alcAlcoholicMean    = round2(totalFor(meanL.filter(([id]) => dsSets.alcoholic.includes(id)), dsPrices, grat));
-  const alcNonAlcoholicMean = round2(totalFor(meanL.filter(([id]) => !dsSets.alcoholic.includes(id)), dsPrices, grat));
-
-  return {
-    hasRange,
-    bars: {
-      alc:     { min: safe(costAlc.min),     mean: safe(costAlc.mean),     max: safe(costAlc.max) },
-      soda:    { min: safe(costSoda.min),    mean: safe(costSoda.mean),    max: safe(costSoda.max) },
-      refresh: { min: safe(costRefresh.min), mean: safe(costRefresh.mean), max: safe(costRefresh.max) },
-      deluxe:  { min: safe(costDeluxe.min),  mean: safe(costDeluxe.mean),  max: safe(costDeluxe.max) }
-    },
-    winnerKey,
-    perDay: safe(round2(perDay)),
-    trip: safe(trip),
-    groupRows: rows.map(r => ({
-      who: r.who,
-      pkg: r.pkg,
-      pkgKey: r.pkgKey,
-      perDay: safe(round2(r.perDay)),
-      trip: safe(round2(r.trip)),
-      isMinor: !!r.isMinor,
-      discountApplied: !!r.discountApplied // always false in this build
-    })),
-    included: {
-      soda:    safe(round2(incSMean)),
-      refresh: safe(round2(incRMean)),
-      deluxe:  safe(round2(delMean.included))
-    },
-    overcap: safe(round2(delMean.overcap)),
-    deluxeRequired,
-    policyNote: deluxeRequired ? "Royal Caribbean requires all adults in your stateroom to purchase the Deluxe package." : null,
-
-    // Voucher helpers (private, for computeWithVouchers)
-    _alcAlcoholicMean: alcAlcoholicMean,
-    _alcNonAlcoholicMean: alcNonAlcoholicMean,
-    _days: days,
-    _adults: adults,
-    _minors: minors,
-    _grat: grat,
-    _cap: cap,
-    _pkg: pkg,
-    _dsSets: dsSets,
-    _dsPrices: dsPrices,
-    _meanL: meanL
-  };
-}
-
-/* ------------------------- vouchers companion ------------------------- */
 /**
- * vouchers = {
- *   adultCountPerDay: number,  // e.g., 4
- *   minorCountPerDay: number,  // e.g., 4 (non-alc only)
- *   perVoucherValue:  number   // currency incl. gratuity (e.g., 12.00)
- * }
+ * Main computation function
+ * @param {Object} inputs - User inputs (drinks, guests, days, vouchers)
+ * @param {Object} economics - Package prices, gratuity, caps
+ * @param {Object} dataset - Brand pricing data
+ * @returns {Object} Complete calculation results
  */
-export function computeWithVouchers(inputs, economics, dataset, vouchers) {
-  const base = compute(inputs, economics, dataset);
-
-  const vAdults = clamp(vouchers?.adultCountPerDay ?? 0, 0, 12);
-  const vMinors = clamp(vouchers?.minorCountPerDay ?? 0, 0, 12);
-  const vVal    = Math.max(0, toNum(vouchers?.perVoucherValue ?? 0));
-
-  // Pools (per-cabin, per-day) in currency (incl. grat)
-  const adultPool = round2(vAdults * vVal * base._adults);
-  const minorPool = round2(vMinors * vVal * base._minors);
-
-  // Split ALC mean into alcoholic + non-alc subtotals
-  const alcAlcohol = base._alcAlcoholicMean;
-  const alcNonAlc  = base._alcNonAlcoholicMean;
-
-  // Apply adults to alcoholic first, then overflow to non-alc
-  const adultOnAlcohol = Math.min(adultPool, alcAlcohol);
-  const adultOverflow  = Math.max(0, adultPool - adultOnAlcohol);
-
-  // Minors: non-alc only
-  const minorOnNonAlc = Math.min(minorPool, Math.max(0, alcNonAlc - adultOverflow));
-
-  const totalCredit = round2(adultOnAlcohol + adultOverflow + minorOnNonAlc);
-  const newAlcMean  = round2(Math.max(0, base.bars.alc.mean - totalCredit));
-
-  // Re-evaluate winner with adjusted ALC only (packages unchanged)
-  const candidates = [
-    { key: 'alc',     val: newAlcMean },
-    { key: 'soda',    val: base.bars.soda.mean },
-    { key: 'refresh', val: base.bars.refresh.mean },
-    { key: 'deluxe',  val: base.bars.deluxe.mean }
+export function compute(inputs, economics, dataset) {
+  // Sanitize and clamp inputs
+  const days = clamp(Math.round(inputs.days ?? 7), 1, 365);
+  const seaDays = clamp(Math.round(inputs.seaDays ?? 0), 0, days);
+  const seaApply = !!(inputs.seaApply ?? true);
+  const seaWeight = clamp(inputs.seaWeight ?? 20, 0, 40);
+  const adults = clamp(Math.round(inputs.adults ?? 1), 1, 20);
+  const minors = clamp(Math.round(inputs.minors ?? 0), 0, 20);
+  
+  // Adapt dataset
+  const ds = adaptDataset(dataset);
+  const dsPrices = ds.prices;
+  const dsSets = ds.sets;
+  
+  // Economics with fallbacks
+  const grat = economics.grat ?? ds.grat ?? 0.18;
+  const deluxeCap = economics.deluxeCap ?? ds.capFromRules ?? 14.0;
+  const minorDiscount = clamp(economics.minorDiscount ?? 0, 0, 1);
+  
+  const pkgPrices = {
+    soda: economics.pkg?.soda ?? ds.pkgFromDataset?.soda ?? 13.99,
+    refresh: economics.pkg?.refresh ?? ds.pkgFromDataset?.refresh ?? 34.00,
+    deluxe: economics.pkg?.deluxe ?? ds.pkgFromDataset?.deluxe ?? 85.00
+  };
+  
+  // Parse drinks input into [id, quantity] pairs
+  const drinks = inputs.drinks || {};
+  const drinkCategories = [
+    'soda', 'coffee', 'teaprem', 'freshjuice', 'mocktail', 
+    'energy', 'milkshake', 'bottledwater', 
+    'beer', 'wine', 'cocktail', 'spirits'
   ];
-  let best = { key: 'alc', val: Infinity };
-  for (const c of candidates) if (c.val < best.val) best = c;
-
-  const winnerKey = best.key;
   
-  // 🔧 CRITICAL FIX: Rebuild groupRows with updated winner
-  const alcoholQty = safe(sum(base._meanL.filter(([id]) => base._dsSets.alcoholic.includes(id)).map(([, q]) => toNum(q))));
-  const deluxeRequired = (winnerKey === 'deluxe' && alcoholQty > 0 && base._adults > 1);
-  const adultStrategy = deluxeRequired ? 'deluxe' : winnerKey;
+  let drinkList = drinkCategories.map(id => {
+    const val = drinks[id];
+    return [id, scalarize(val, 'mean')];
+  });
   
-  const minorPkgKeyBase = (adultStrategy === 'deluxe' || winnerKey === 'deluxe') ? 'refresh' : winnerKey;
+  // Get min/max ranges for bars
+  const drinkListMin = drinkCategories.map(id => [id, scalarize(drinks[id], 'min')]);
+  const drinkListMax = drinkCategories.map(id => [id, scalarize(drinks[id], 'max')]);
   
-  function priceForKey(key) {
-    const costAlc = newAlcMean; // Updated à-la-carte cost
-    const costSoda = base.bars.soda.mean;
-    const costRefresh = base.bars.refresh.mean;
-    const costDeluxe = base.bars.deluxe.mean;
+  // Apply sea weighting
+  const meanList = applySeaWeighting(drinkList, days, seaDays, seaApply, seaWeight);
+  const minList = applySeaWeighting(drinkListMin, days, seaDays, seaApply, seaWeight);
+  const maxList = applySeaWeighting(drinkListMax, days, seaDays, seaApply, seaWeight);
+  
+  // Separate alcoholic vs non-alcoholic
+  const alcoholicIds = dsSets.alcoholic;
+  const sodaIds = dsSets.soda;
+  const refreshIds = dsSets.refresh;
+  
+  const alcoholicMean = meanList.filter(([id]) => alcoholicIds.includes(id));
+  const nonAlcMean = meanList.filter(([id]) => !alcoholicIds.includes(id));
+  
+  // Calculate À-la-carte cost per day
+  const alcCostPerDay = round2(sum(meanList.map(([id, qty]) => {
+    const price = dsPrices[id] || 0;
+    return qty * price * (1 + grat);
+  })));
+  
+  const alcCostPerDayMin = round2(sum(minList.map(([id, qty]) => {
+    const price = dsPrices[id] || 0;
+    return qty * price * (1 + grat);
+  })));
+  
+  const alcCostPerDayMax = round2(sum(maxList.map(([id, qty]) => {
+    const price = dsPrices[id] || 0;
+    return qty * price * (1 + grat);
+  })));
+  
+  // Calculate package costs
+  
+  // Soda package: covers soda set items
+  const sodaIncluded = sum(meanList
+    .filter(([id]) => sodaIds.includes(id))
+    .map(([, qty]) => qty)
+  );
+  const sodaNotIncluded = sum(meanList
+    .filter(([id]) => !sodaIds.includes(id))
+    .map(([id, qty]) => {
+      const price = dsPrices[id] || 0;
+      return qty * price * (1 + grat);
+    })
+  );
+  const sodaPerDay = round2(pkgPrices.soda * (1 + grat) + sodaNotIncluded);
+  
+  // Refreshment package: covers refresh set items
+  const refreshIncluded = sum(meanList
+    .filter(([id]) => refreshIds.includes(id))
+    .map(([, qty]) => qty)
+  );
+  const refreshNotIncluded = sum(meanList
+    .filter(([id]) => !refreshIds.includes(id))
+    .map(([id, qty]) => {
+      const price = dsPrices[id] || 0;
+      return qty * price * (1 + grat);
+    })
+  );
+  const refreshPerDay = round2(pkgPrices.refresh * (1 + grat) + refreshNotIncluded);
+  
+  // Deluxe package: covers all drinks up to cap
+  const deluxeIncluded = sum(meanList.map(([, qty]) => qty));
+  let deluxeOvercap = 0;
+  const deluxeNotIncluded = sum(meanList.map(([id, qty]) => {
+    const price = dsPrices[id] || 0;
+    const pricePerDrink = price * (1 + grat);
+    if (pricePerDrink > deluxeCap) {
+      deluxeOvercap += qty * (pricePerDrink - deluxeCap);
+      return qty * (pricePerDrink - deluxeCap);
+    }
+    return 0;
+  }));
+  const deluxePerDay = round2(pkgPrices.deluxe * (1 + grat) + deluxeNotIncluded);
+  
+  // Apply vouchers if present
+  let vouchersAppliedPerDay = 0;
+  let alcCostAfterVouchers = alcCostPerDay;
+  
+  if (inputs.vouchers && Array.isArray(inputs.vouchers)) {
+    const voucherValue = {
+      'none': 0,
+      'diamond': 4,
+      'diamondplus': 5,
+      'pinnacle': 5
+    };
     
-    return key === 'alc'     ? costAlc
-         : key === 'soda'    ? costSoda
-         : key === 'refresh' ? costRefresh
-         :                     costDeluxe;
+    // Calculate total voucher credits per day
+    const totalVoucherCredits = sum(inputs.vouchers.map(v => {
+      const level = v?.level || 'none';
+      return voucherValue[level] || 0;
+    }));
+    
+    // Vouchers offset À-la-carte only
+    vouchersAppliedPerDay = Math.min(alcCostPerDay, totalVoucherCredits);
+    alcCostAfterVouchers = Math.max(0, alcCostPerDay - vouchersAppliedPerDay);
   }
   
-  function labelForKey(key, { isMinor=false } = {}) {
-    if (key === 'alc')     return 'À-la-carte';
-    if (key === 'soda')    return 'Soda';
-    if (key === 'refresh') return 'Refreshment';
-    if (key === 'deluxe')  return 'Deluxe';
-    return 'À-la-carte';
+  // Determine winner (lowest cost per day)
+  const candidates = [
+    { key: 'alc', cost: alcCostAfterVouchers },
+    { key: 'soda', cost: sodaPerDay },
+    { key: 'refresh', cost: refreshPerDay },
+    { key: 'deluxe', cost: deluxePerDay }
+  ];
+  
+  let winner = candidates[0];
+  for (const c of candidates) {
+    if (c.cost < winner.cost) winner = c;
   }
   
-  const rows = [];
+  const winnerKey = winner.key;
+  const perDay = winner.cost;
+  
+  // Build group rows (guest-by-guest breakdown)
+  const groupRows = [];
+  
+  // Determine if cabin rule applies
+  // Rule: If any adult buys Deluxe, ALL adults must buy Deluxe
+  const anyAdultNeedsDeluxe = winnerKey === 'deluxe';
+  const deluxeRequired = anyAdultNeedsDeluxe && adults > 1;
   
   // Adults
-  for (let i = 1; i <= base._adults; i++) {
-    const k = adultStrategy;
-    const d = priceForKey(k);
-    rows.push({
+  const adultStrategy = anyAdultNeedsDeluxe ? 'deluxe' : winnerKey;
+  
+  for (let i = 1; i <= adults; i++) {
+    const pkg = adultStrategy;
+    const cost = pkg === 'alc' ? alcCostAfterVouchers :
+                 pkg === 'soda' ? sodaPerDay :
+                 pkg === 'refresh' ? refreshPerDay :
+                 deluxePerDay;
+    
+    groupRows.push({
       who: `Adult ${i}`,
-      pkgKey: k,
-      pkg: labelForKey(k, { isMinor:false }),
-      perDay: round2(d),
-      trip: round2(d * base._days),
-      isMinor: false,
-      discountApplied: false
+      pkg: pkg,
+      perDay: round2(cost),
+      trip: round2(cost * days)
     });
   }
   
   // Minors
-  for (let i = 1; i <= base._minors; i++) {
-    const k = (minorPkgKeyBase === 'deluxe') ? 'refresh' : minorPkgKeyBase;
-    const d = priceForKey(k);
-    rows.push({
-      who: `Minor ${i}`,
-      pkgKey: k,
-      pkg: labelForKey(k, { isMinor:true }),
-      perDay: round2(d),
-      trip: round2(d * base._days),
-      isMinor: true,
-      discountApplied: false
-    });
+  // If any adult has Deluxe, minors must have a package (cheapest)
+  // Otherwise, minors can be À-la-carte
+  if (minors > 0) {
+    const minorNonAlcCost = sum(nonAlcMean.map(([id, qty]) => {
+      const price = dsPrices[id] || 0;
+      return qty * price * (1 + grat);
+    }));
+    
+    // Minors can choose from: À-la-carte (non-alc only), Soda, or Refreshment
+    // Never Deluxe (contains alcohol)
+    const minorOptions = [
+      { key: 'alc', cost: minorNonAlcCost },
+      { key: 'soda', cost: pkgPrices.soda * (1 + grat) * (1 - minorDiscount) },
+      { key: 'refresh', cost: pkgPrices.refresh * (1 + grat) * (1 - minorDiscount) }
+    ];
+    
+    // If adults have Deluxe, minors must have a package (not à-la-carte)
+    const minorCandidates = anyAdultNeedsDeluxe 
+      ? minorOptions.filter(o => o.key !== 'alc')
+      : minorOptions;
+    
+    // Find cheapest option for minors
+    let minorWinner = minorCandidates[0];
+    for (const c of minorCandidates) {
+      if (c.cost < minorWinner.cost) minorWinner = c;
+    }
+    
+    for (let i = 1; i <= minors; i++) {
+      groupRows.push({
+        who: `Minor ${i}`,
+        pkg: minorWinner.key,
+        perDay: round2(minorWinner.cost),
+        trip: round2(minorWinner.cost * days)
+      });
+    }
   }
   
-  // Recalculate perDay and trip from updated winner
-  const perDay = priceForKey(winnerKey);
-  const multiplier = base._adults + base._minors;
-  const trip = round2(perDay * base._days * multiplier);
-
+  // Calculate trip total
+  const trip = round2(sum(groupRows.map(r => r.trip)));
+  
+  // Build results object
   return {
-    ...base,
     bars: {
-      ...base.bars,
-      alc: { ...base.bars.alc, mean: newAlcMean }
+      alc: { min: alcCostPerDayMin, mean: alcCostAfterVouchers, max: alcCostPerDayMax },
+      soda: { min: sodaPerDay, mean: sodaPerDay, max: sodaPerDay },
+      refresh: { min: refreshPerDay, mean: refreshPerDay, max: refreshPerDay },
+      deluxe: { min: deluxePerDay, mean: deluxePerDay, max: deluxePerDay }
     },
     winnerKey,
-    perDay: safe(round2(perDay)),
-    trip: safe(trip),
-    groupRows: rows, // 🔧 Updated groupRows that match new winner
+    perDay: round2(perDay),
+    trip,
+    groupRows,
+    included: {
+      soda: round2(sodaIncluded),
+      refresh: round2(refreshIncluded),
+      deluxe: round2(deluxeIncluded)
+    },
+    overcap: round2(deluxeOvercap),
     deluxeRequired,
-    policyNote: deluxeRequired ? "Royal Caribbean requires all adults in your stateroom to purchase the Deluxe package." : null,
-    vouchersAppliedPerDay: totalCredit,
-    vouchers: {
-      adultPoolPerDay: adultPool,
-      minorPoolPerDay: minorPool,
-      applied: {
-        adultOnAlcohol,
-        adultOverflowToNonAlcohol: adultOverflow,
-        minorOnNonAlcohol: minorOnNonAlc
-      }
+    policy: {
+      anyAdultDeluxe: anyAdultNeedsDeluxe,
+      minorsRequirePackage: anyAdultNeedsDeluxe && minors > 0
+    },
+    vouchersAppliedPerDay: round2(vouchersAppliedPerDay),
+    // Store metadata for debugging
+    _meta: {
+      days,
+      adults,
+      minors,
+      seaDays,
+      seaApply,
+      seaWeight
     }
   };
 }
+
+// Safe zero fallback
+export const SAFE_ZERO = {
+  bars: {
+    alc: { min: 0, mean: 0, max: 0 },
+    soda: { min: 0, mean: 0, max: 0 },
+    refresh: { min: 0, mean: 0, max: 0 },
+    deluxe: { min: 0, mean: 0, max: 0 }
+  },
+  winnerKey: 'alc',
+  perDay: 0,
+  trip: 0,
+  groupRows: [],
+  included: { soda: 0, refresh: 0, deluxe: 0 },
+  overcap: 0,
+  deluxeRequired: false,
+  policy: { anyAdultDeluxe: false, minorsRequirePackage: false },
+  vouchersAppliedPerDay: 0
+};
