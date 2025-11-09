@@ -1,4 +1,4 @@
-/* calculator.ui.js v.9.002.005 — Consolidated UI glue layer
+/* calculator.ui.js ?v=dev-<timestamp> — Consolidated UI glue layer
    Mission: Surgical, store-driven UI enhancements
    No polling loops, no monkey-patching, no synthetic events
    Soli Deo Gloria
@@ -825,5 +825,5 @@ window.quizStart = function(){
     store.subscribe('economics', update);
   })();
   
-  console.log('[ITW UI v.9.002.005] Consolidated UI glue loaded — Soli Deo Gloria');
+  console.log('[ITW UI v=<timestamp>] Consolidated UI glue loaded — Soli Deo Gloria');
 })();
