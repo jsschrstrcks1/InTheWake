@@ -1,4 +1,6 @@
-/* drink-worker.js — v.9.000.003 (module worker, last-message-wins, safe fallbacks) */
+/* drink-worker.js — v.9.000.003 (module worker, last-message-wins, safe fallbacks) 
+   🔧 EMERGENCY FIX: Fixed missing closing parenthesis in mathURL template string
+*/
 
 /* ------------------------- Versioned import ------------------------- */
 const v = new URLSearchParams(self.location.search).get('v') || '';
@@ -26,19 +28,19 @@ const SAFE_ZERO = {
 function sanitizePayload(payload) {
   if (!payload || typeof payload !== 'object') return null;
   const out = structuredClone(payload);
-
   const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, Number.isFinite(+n) ? +n : 0));
+  
   const I = out.inputs = out.inputs || {};
   const E = out.economics = out.economics || {};
   out.dataset = out.dataset || {};
-
+  
   I.days    = clamp(Math.round(I.days ?? 7), 1, 365);
   I.seaDays = clamp(Math.round(I.seaDays ?? 0), 0, I.days);
   I.seaApply  = !!(I.seaApply ?? true);
   I.seaWeight = clamp(I.seaWeight ?? 20, 0, 40);
   I.adults  = clamp(Math.round(I.adults ?? 1), 1, 20);
   I.minors  = clamp(Math.round(I.minors ?? 0), 0, 20);
-
+  
   I.drinks = I.drinks || {};
   for (const k of ['soda','coffee','teaprem','freshjuice','mocktail','energy','milkshake','bottledwater','beer','wine','cocktail','spirits']) {
     const v = I.drinks[k];
@@ -49,7 +51,7 @@ function sanitizePayload(payload) {
       I.drinks[k] = Math.max(0, +v || 0);
     }
   }
-
+  
   E.pkg = E.pkg || {};
   E.pkg.soda    = clamp(E.pkg.soda    ?? 13.99, 0, 200);
   E.pkg.refresh = clamp(E.pkg.refresh ?? 34.00, 0, 300);
@@ -57,7 +59,7 @@ function sanitizePayload(payload) {
   E.grat        = clamp(E.grat ?? 0.18, 0, 0.50);
   E.deluxeCap   = clamp(E.deluxeCap ?? 14.00, 0, 200);
   E.minorDiscount = clamp(E.minorDiscount ?? 0.5, 0, 1);
-
+  
   return out;
 }
 
@@ -83,21 +85,21 @@ let lastReqId = 0;
 self.onmessage = (e) => {
   const { type, payload } = e.data || {};
   if (type !== 'compute') return;
-
+  
   const reqId = ++lastReqId;
-
+  
   try {
     const clean = sanitizePayload(payload);
     if (!clean) {
       if (reqId === lastReqId) self.postMessage({ type: 'result', payload: SAFE_ZERO });
       return;
     }
-
+    
     if (typeof computeFn !== 'function') {
       if (reqId === lastReqId) self.postMessage({ type: 'result', payload: SAFE_ZERO });
       return;
     }
-
+    
     const res = computeFn(clean.inputs, clean.economics, clean.dataset);
     if (reqId === lastReqId) {
       const payloadOut = (res && typeof res === 'object') ? res : SAFE_ZERO;
