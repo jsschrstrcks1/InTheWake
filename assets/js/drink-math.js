@@ -1,4 +1,10 @@
-/* drink-math.js — v.9.001.001 (pure math + vouchers, no minor discount)
+/* drink-math.js — v.9.003.000 (CRITICAL FIXES: Deluxe policy + voucher groupRows)
+   
+   🔧 CRITICAL FIXES APPLIED:
+   1. Deluxe Policy: Only forces "all adults must buy" when winner IS Deluxe (not just when alcohol present)
+   2. Voucher Integration: Rebuilds groupRows after applying vouchers to match updated winner
+   3. Break-even: Ensures drink counts always use Math.ceil (no decimals)
+   
    - Removes minorDiscount entirely (minors pay full package price; never Deluxe).
    - Preserves ranges, weighting, itinerary, gratuity, caps, included/overcap.
    - Adds computeWithVouchers(inputs, economics, dataset, vouchers):
@@ -259,7 +265,9 @@ export function compute(inputs, economics, dataset) {
 
   // ------- Policy & group -------
   const alcoholQty = safe(sum(meanL.filter(([id]) => dsSets.alcoholic.includes(id)).map(([, q]) => toNum(q))));
-  const deluxeRequired = (alcoholQty > 0 && adults > 1);
+  
+  // 🔧 CRITICAL FIX: Only force "all adults must buy Deluxe" when winner IS Deluxe
+  const deluxeRequired = (winnerKey === 'deluxe' && alcoholQty > 0 && adults > 1);
   const adultStrategy = deluxeRequired ? 'deluxe' : winnerKey;
 
   function priceForKey(key) {
@@ -343,13 +351,20 @@ export function compute(inputs, economics, dataset) {
     },
     overcap: safe(round2(delMean.overcap)),
     deluxeRequired,
+    policyNote: deluxeRequired ? "Royal Caribbean requires all adults in your stateroom to purchase the Deluxe package." : null,
 
-    // Voucher helpers
+    // Voucher helpers (private, for computeWithVouchers)
     _alcAlcoholicMean: alcAlcoholicMean,
     _alcNonAlcoholicMean: alcNonAlcoholicMean,
     _days: days,
     _adults: adults,
-    _minors: minors
+    _minors: minors,
+    _grat: grat,
+    _cap: cap,
+    _pkg: pkg,
+    _dsSets: dsSets,
+    _dsPrices: dsPrices,
+    _meanL: meanL
   };
 }
 
@@ -397,13 +412,68 @@ export function computeWithVouchers(inputs, economics, dataset, vouchers) {
   for (const c of candidates) if (c.val < best.val) best = c;
 
   const winnerKey = best.key;
-  const perDay =
-    winnerKey === 'alc'     ? newAlcMean
-  : winnerKey === 'soda'    ? base.bars.soda.mean
-  : winnerKey === 'refresh' ? base.bars.refresh.mean
-  :                           base.bars.deluxe.mean;
-
-  // Trip: same multiplier as base (adults + minors)
+  
+  // 🔧 CRITICAL FIX: Rebuild groupRows with updated winner
+  const alcoholQty = safe(sum(base._meanL.filter(([id]) => base._dsSets.alcoholic.includes(id)).map(([, q]) => toNum(q))));
+  const deluxeRequired = (winnerKey === 'deluxe' && alcoholQty > 0 && base._adults > 1);
+  const adultStrategy = deluxeRequired ? 'deluxe' : winnerKey;
+  
+  const minorPkgKeyBase = (adultStrategy === 'deluxe' || winnerKey === 'deluxe') ? 'refresh' : winnerKey;
+  
+  function priceForKey(key) {
+    const costAlc = newAlcMean; // Updated à-la-carte cost
+    const costSoda = base.bars.soda.mean;
+    const costRefresh = base.bars.refresh.mean;
+    const costDeluxe = base.bars.deluxe.mean;
+    
+    return key === 'alc'     ? costAlc
+         : key === 'soda'    ? costSoda
+         : key === 'refresh' ? costRefresh
+         :                     costDeluxe;
+  }
+  
+  function labelForKey(key, { isMinor=false } = {}) {
+    if (key === 'alc')     return 'À-la-carte';
+    if (key === 'soda')    return 'Soda';
+    if (key === 'refresh') return 'Refreshment';
+    if (key === 'deluxe')  return 'Deluxe';
+    return 'À-la-carte';
+  }
+  
+  const rows = [];
+  
+  // Adults
+  for (let i = 1; i <= base._adults; i++) {
+    const k = adultStrategy;
+    const d = priceForKey(k);
+    rows.push({
+      who: `Adult ${i}`,
+      pkgKey: k,
+      pkg: labelForKey(k, { isMinor:false }),
+      perDay: round2(d),
+      trip: round2(d * base._days),
+      isMinor: false,
+      discountApplied: false
+    });
+  }
+  
+  // Minors
+  for (let i = 1; i <= base._minors; i++) {
+    const k = (minorPkgKeyBase === 'deluxe') ? 'refresh' : minorPkgKeyBase;
+    const d = priceForKey(k);
+    rows.push({
+      who: `Minor ${i}`,
+      pkgKey: k,
+      pkg: labelForKey(k, { isMinor:true }),
+      perDay: round2(d),
+      trip: round2(d * base._days),
+      isMinor: true,
+      discountApplied: false
+    });
+  }
+  
+  // Recalculate perDay and trip from updated winner
+  const perDay = priceForKey(winnerKey);
   const multiplier = base._adults + base._minors;
   const trip = round2(perDay * base._days * multiplier);
 
@@ -414,8 +484,11 @@ export function computeWithVouchers(inputs, economics, dataset, vouchers) {
       alc: { ...base.bars.alc, mean: newAlcMean }
     },
     winnerKey,
-    perDay,
-    trip,
+    perDay: safe(round2(perDay)),
+    trip: safe(trip),
+    groupRows: rows, // 🔧 Updated groupRows that match new winner
+    deluxeRequired,
+    policyNote: deluxeRequired ? "Royal Caribbean requires all adults in your stateroom to purchase the Deluxe package." : null,
     vouchersAppliedPerDay: totalCredit,
     vouchers: {
       adultPoolPerDay: adultPool,
