@@ -1,10 +1,13 @@
 /**
- * Drink Package Calculator — Application Controller (v9.004)
+ * Drink Package Calculator — Application Controller (v9.005.1)
  * "In the Wake" — cruisinginthewake.com
  * 
- * Purpose:
- * Orchestrates state, dataset loading, FX conversion, computation (via worker or fallback),
- * rendering, and UI wiring for the Royal Caribbean drink package calculator.
+ * P0 FIXES APPLIED:
+ * - Exposed store, chart, currency for UI layer
+ * - Resilient dual selectors (totals, group rows, prices, helpers)
+ * - Input bridge with auto-sync
+ * - Voucher application hook
+ * - Chart ready flag
  * 
  * "Whatever you do, work heartily, as for the Lord and not for men."
  * — Colossians 3:23
@@ -17,27 +20,25 @@
 
   /* ========================= CONSTANTS & CONFIGURATION ========================= */
 
-  const VERSION = '9.004';
+  const VERSION = '9.005.1';
   const CONFIG = {
     DELUXE_CAP_FALLBACK: 14.00,
     GRAT_PCT_FALLBACK: 0.18,
-    FX_STALE_MS: 24 * 60 * 60 * 1000, // 24 hours
+    FX_STALE_MS: 24 * 60 * 60 * 1000,
     WORKER_TIMEOUT_MS: 3000,
     CALC_DEBOUNCE_MS: 150
   };
 
-  // Dataset and manifest URLs
-  let DS_URL = `/assets/data/lines/royal-caribbean.json?v=${VERSION}`; // Default, will be overridden by brand selection
+  let DS_URL = `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
   const BRANDS_MANIFEST_URL = `/assets/data/brands.json?v=${VERSION}`;
   const FX_URL = `/assets/data/fx-rates.json?v=${VERSION}`;
 
-  // Global state
   let DATASET = null;
   let FX = null;
   let worker = null;
   let chart = null;
   let calcTimer = null;
-  let calcId = 0; // Race protection
+  let calcId = 0;
 
   /* ========================= BRAND MANIFEST & SELECTOR ========================= */
 
@@ -46,10 +47,6 @@
   ];
   const LS_BRAND_KEY = 'itw:brand';
 
-  /**
-   * Load the brands manifest from server
-   * @returns {Promise<string>} Default brand ID from manifest
-   */
   async function loadBrandsManifest() {
     try {
       const response = await fetch(BRANDS_MANIFEST_URL, { cache: 'no-store' });
@@ -66,22 +63,15 @@
     }
   }
 
-  /**
-   * Set active brand and update DS_URL
-   * @param {string} brandId - Brand identifier
-   */
   function setBrand(brandId) {
     const chosen = BRANDS.find(b => b.id === brandId) || BRANDS[0];
     if (!chosen) return;
     
-    // Update dataset URL with version cache-buster
     const dataPath = chosen.data || '/assets/data/lines/royal-caribbean.json';
     DS_URL = dataPath.includes('?') ? dataPath : `${dataPath}?v=${VERSION}`;
     
-    // Persist to localStorage
     localStorage.setItem(LS_BRAND_KEY, chosen.id);
     
-    // Update URL parameter (keep other params intact)
     const params = new URLSearchParams(location.search);
     if (chosen.id !== 'royal-caribbean') {
       params.set('brand', chosen.id);
@@ -92,11 +82,6 @@
     history.replaceState(null, '', queryString ? `?${queryString}` : location.pathname);
   }
 
-  /**
-   * Get brand from URL param or localStorage, with fallback
-   * @param {string} defaultId - Fallback brand ID
-   * @returns {string} Brand ID to use
-   */
   function getBrandFromURLorLS(defaultId = 'royal-caribbean') {
     const params = new URLSearchParams(location.search);
     const fromURL = params.get('brand');
@@ -104,28 +89,22 @@
     return fromURL || fromLS || defaultId;
   }
 
-  /**
-   * Wire up brand selector UI
-   */
   function wireBrandUI() {
     const selector = document.getElementById('brand-select');
-    if (!selector) return; // Graceful no-op if element missing
+    if (!selector) return;
     
-    // Populate options
     selector.innerHTML = BRANDS.map(b => 
       `<option value="${b.id}">${b.label}</option>`
     ).join('');
     
-    // Set current selection
     const current = localStorage.getItem(LS_BRAND_KEY) || BRANDS[0]?.id || 'royal-caribbean';
     selector.value = current;
     
-    // Handle brand changes
     selector.addEventListener('change', async () => {
       setBrand(selector.value);
-      await loadDataset();     // Reload pricing for new brand
-      scheduleCalc();          // Force recomputation
-      window.renderAll();      // Refresh UI
+      await loadDataset();
+      scheduleCalc();
+      window.renderAll();
     });
   }
 
@@ -133,30 +112,16 @@
 
   let currentCurrency = 'USD';
 
-  /**
-   * Check if FX rates are stale
-   * @returns {boolean} True if rates are older than 24 hours
-   */
   function fxIsStaleNow() {
     const timestamp = FX?._ts ? new Date(FX._ts).getTime() : 0;
     return !timestamp || (Date.now() - timestamp) > CONFIG.FX_STALE_MS;
   }
 
-  /**
-   * Get approximate prefix for stale or drifted FX rates
-   * @returns {string} "≈ " if stale or drift slider active, else ""
-   */
   function fxApproxPrefix() {
     const driftPct = Number(store?.get?.().ui?.fxDriftPct ?? 0);
     return (driftPct !== 0 || fxIsStaleNow()) ? '≈ ' : '';
   }
 
-  /**
-   * Convert USD to target currency
-   * @param {number} usdAmount - Amount in USD
-   * @param {string} targetCurrency - Target currency code
-   * @returns {number} Converted amount
-   */
   function convertUSD(usdAmount, targetCurrency = 'USD') {
     if (targetCurrency === 'USD' || !FX) return Number(usdAmount || 0);
     const rate = Number(FX[targetCurrency] || 1);
@@ -165,11 +130,6 @@
     return Number(usdAmount || 0) * adjustedRate;
   }
 
-  /**
-   * Format money with standard symbol
-   * @param {number} usdAmount - Amount in USD
-   * @returns {string} Formatted currency
-   */
   function money(usdAmount) {
     const converted = convertUSD(usdAmount, currentCurrency);
     return new Intl.NumberFormat(undefined, {
@@ -178,11 +138,6 @@
     }).format(converted || 0);
   }
 
-  /**
-   * Format money with narrow symbol (no trailing code)
-   * @param {number} usdAmount - Amount in USD
-   * @returns {string} Formatted currency with narrow symbol
-   */
   function moneyInline(usdAmount) {
     try {
       const converted = convertUSD(usdAmount, currentCurrency);
@@ -192,23 +147,14 @@
         currencyDisplay: 'narrowSymbol'
       }).format(converted || 0);
     } catch (err) {
-      return money(usdAmount); // Fallback to standard formatter
+      return money(usdAmount);
     }
   }
 
-  /**
-   * Get currency code tag for once-per-block display
-   * @returns {string} Currency code in parentheses
-   */
   function currencyCodeTag() {
     return ` (${currentCurrency})`;
   }
 
-  /**
-   * Safe money formatter with defensive guards
-   * @param {number} n - Amount to format
-   * @returns {string} Formatted currency
-   */
   function safeMoney(n) {
     const value = Number.isFinite(n) ? n : 0;
     try {
@@ -223,12 +169,6 @@
 
   /* ========================= BREAK-EVEN HELPERS ========================= */
 
-  /**
-   * Calculate ceiling of drink count needed, with safety guards
-   * @param {number} gapAmount - Money gap to close
-   * @param {number} unitPrice - Price per drink
-   * @returns {number} Integer drink count
-   */
   function ceilDrinks(gapAmount, unitPrice) {
     const gap = Number(gapAmount || 0);
     const unit = Number(unitPrice || 0);
@@ -243,7 +183,7 @@
       inputs: {},
       economics: {},
       results: null,
-      ui: { fxDriftPct: 0 }
+      ui: { fxDriftPct: 0, chartReady: false }
     };
     const subscribers = {};
 
@@ -264,11 +204,13 @@
     };
   })();
 
+  // ============================================================================
+  // EXPOSE STORE FOR UI LAYER
+  // ============================================================================
+  window.__itwStore = store;
+
   /* ========================= DATASET & FX LOADING ========================= */
 
-  /**
-   * Load cruise line pricing dataset
-   */
   async function loadDataset() {
     try {
       const response = await fetch(DS_URL, { cache: 'no-store' });
@@ -281,9 +223,6 @@
     }
   }
 
-  /**
-   * Load FX rates
-   */
   async function loadFX() {
     try {
       const response = await fetch(FX_URL, { cache: 'no-store' });
@@ -298,19 +237,17 @@
 
   /* ========================= WEB WORKER MANAGEMENT ========================= */
 
-  /**
-   * Initialize web worker with cache-busting version
-   */
   function initWorker() {
     try {
       worker = new Worker(`/assets/js/drink-worker.js?v=${encodeURIComponent(VERSION)}`);
       worker.addEventListener('message', (e) => {
-        if (e.data?.type === 'RESULT') {
-          // Only accept results from current calculation
+        if (e.data?.type === 'result') {
           if (e.data.id === calcId) {
-            store.patch('results', e.data.payload);
+            const rawResults = e.data.payload;
+            const finalResults = applyVouchers(rawResults);
+            store.patch('results', finalResults);
           }
-        } else if (e.data?.type === 'ERROR') {
+        } else if (e.data?.type === 'error') {
           console.error('[Worker] Computation error:', e.data.message);
           computeFallback();
         }
@@ -322,12 +259,9 @@
     }
   }
 
-  /**
-   * Fallback computation when worker unavailable
-   */
   function computeFallback() {
-    if (!window.DrinkMath?.compute) {
-      console.error('[Fallback] DrinkMath not available');
+    if (!window.ITW_MATH?.compute) {
+      console.error('[Fallback] ITW_MATH not available');
       return;
     }
     
@@ -335,18 +269,78 @@
     const economics = store.get().economics;
     
     try {
-      const results = window.DrinkMath.compute(inputs, economics);
-      store.patch('results', results);
+      const rawResults = window.ITW_MATH.compute(inputs, economics);
+      const finalResults = applyVouchers(rawResults);
+      store.patch('results', finalResults);
     } catch (err) {
       console.error('[Fallback] Computation failed:', err);
     }
   }
 
+  /* ========================= VOUCHER APPLICATION HOOK ========================= */
+
+  function applyVouchers(workerResults) {
+    const voucherValueEl = document.getElementById('voucher-value');
+    const voucherValue = voucherValueEl ? parseFloat(voucherValueEl.value) || 0 : 0;
+    
+    if (voucherValue === 0) {
+      return workerResults;
+    }
+    
+    const inputs = store.get().inputs;
+    const adults = inputs.adults || 1;
+    const minors = inputs.minors || 0;
+    const nights = inputs.nights || 7;
+    
+    const perDayCounts = Array.from({ length: nights }, () => ({
+      adults: adults,
+      minors: minors
+    }));
+    
+    const voucherConfig = {
+      faceValue: voucherValue,
+      adultValue: voucherValue,
+      minorValue: voucherValue * 0.7
+    };
+    
+    if (window.ITW_MATH?.computeWithVouchers) {
+      return window.ITW_MATH.computeWithVouchers(
+        inputs,
+        store.get().economics,
+        DATASET,
+        voucherConfig
+      );
+    }
+    
+    return computeWithVouchers(workerResults, voucherConfig, perDayCounts);
+  }
+
+  function computeWithVouchers(results, voucherConfig, perDayCounts) {
+    const adjusted = JSON.parse(JSON.stringify(results));
+    
+    ['soda', 'refresh', 'deluxe'].forEach(pkg => {
+      if (!adjusted.packages?.[pkg]) return;
+      
+      let totalDiscount = 0;
+      
+      perDayCounts.forEach(day => {
+        totalDiscount += day.adults * voucherConfig.adultValue;
+        
+        if (pkg === 'soda' || pkg === 'refresh') {
+          totalDiscount += day.minors * voucherConfig.minorValue;
+        }
+      });
+      
+      adjusted.packages[pkg].total = Math.max(0, 
+        adjusted.packages[pkg].total - totalDiscount
+      );
+    });
+    
+    return adjusted;
+  }
+
   /* ========================= COMPUTATION SCHEDULING ========================= */
 
-  /**
-   * Schedule a calculation with debounce and race protection
-   */
   function scheduleCalc() {
     clearTimeout(calcTimer);
     calcTimer = setTimeout(() => {
@@ -358,17 +352,15 @@
         return;
       }
       
-      // Increment calc ID for race protection
       const thisCalcId = ++calcId;
       
       if (worker) {
         worker.postMessage({
-          type: 'COMPUTE',
+          type: 'compute',
           id: thisCalcId,
           payload: { inputs, economics }
         });
         
-        // Fallback timeout (only if this calc is still current)
         setTimeout(() => {
           if (calcId === thisCalcId && !store.get().results) {
             console.warn('[Worker] Timeout, using fallback');
@@ -383,15 +375,9 @@
 
   /* ========================= CHART MANAGEMENT ========================= */
 
-  /**
-   * Ensure chart is initialized (single source of truth)
-   * @returns {Chart|null} Chart instance or null if unavailable
-   */
   function ensureChart() {
-    // Prevent double-initialization
     if (chart) return chart;
     
-    // Defensive checks for canvas element
     const canvas = document.getElementById('breakeven-chart');
     if (!canvas) {
       console.error('[Chart] Canvas element #breakeven-chart not found');
@@ -404,7 +390,6 @@
       return null;
     }
     
-    // Chart colors (hoisted for reuse)
     const colors = {
       alc: 'rgba(59, 130, 246, 0.8)',
       soda: 'rgba(139, 92, 246, 0.8)',
@@ -450,14 +435,23 @@
       }
     });
     
+    // ============================================================================
+    // EXPOSE CHART FOR UI PLUGINS
+    // ============================================================================
+    window.ITW = window.ITW || {};
+    window.ITW.chart = chart;
+    
+    // Set ready flag in store
+    const currentUI = store.get().ui || {};
+    store.patch('ui', {
+      ...currentUI,
+      chartReady: true
+    });
+    console.log('[Chart] ✓ Ready flag set');
+    
     return chart;
   }
 
-  /**
-   * Highlight winner bar with subtle border
-   * @param {Chart} chartInstance - Chart.js instance
-   * @param {string} winnerKey - Winner package key (alc|soda|refresh|deluxe)
-   */
   function highlightWinnerBar(chartInstance, winnerKey) {
     if (!chartInstance || !chartInstance.data || !Array.isArray(chartInstance.data.labels)) return;
     
@@ -468,11 +462,9 @@
     const dataset = chartInstance.data.datasets?.[0];
     if (!dataset) return;
     
-    // Reset borders with proper length
     dataset.borderWidth = new Array(labels.length).fill(0);
     dataset.borderColor = new Array(labels.length).fill('rgba(0,0,0,0)');
     
-    // Highlight winner
     if (winnerIndex >= 0 && winnerIndex < labels.length) {
       dataset.borderWidth[winnerIndex] = 3;
       dataset.borderColor[winnerIndex] = 'rgba(24,24,27,0.55)';
@@ -481,10 +473,6 @@
     chartInstance.update('none');
   }
 
-  /**
-   * Update chart with new results
-   * @param {Object} results - Computation results
-   */
   function updateChart(results) {
     const chartInstance = ensureChart();
     if (!chartInstance) return;
@@ -502,19 +490,12 @@
 
   /* ========================= INPUT VALIDATION ========================= */
 
-  /**
-   * Sanitize numeric input value - only one decimal, only one leading minus
-   * @param {string} value - Raw input value
-   * @returns {string} Sanitized value
-   */
   function sanitizeNumericInput(value) {
     const str = String(value).replace(/[^\d.,-]/g, '');
     
-    // Keep single leading minus only
     let output = str.replace(/-/g, '');
     if (str.startsWith('-')) output = '-' + output;
     
-    // Keep at most one decimal separator (prefer first . or ,, drop rest)
     const firstDot = output.indexOf('.');
     const firstComma = output.indexOf(',');
     const firstDecimal = (firstDot === -1) ? firstComma : (firstComma === -1 ? firstDot : Math.min(firstDot, firstComma));
@@ -528,35 +509,25 @@
     return output;
   }
 
-  /**
-   * Parse numeric input handling international formats
-   * @param {string} value - Input value (may use . or , as decimal)
-   * @returns {number} Parsed number
-   */
   function parseNumericInput(value) {
     if (!value) return 0;
     
     const cleaned = String(value).trim();
     
-    // Count occurrences of separators to determine format
     const dotCount = (cleaned.match(/\./g) || []).length;
     const commaCount = (cleaned.match(/,/g) || []).length;
     
     let normalized = cleaned;
     
-    // German/European format: 1.234,56 → 1234.56
     if (commaCount === 1 && dotCount > 0) {
       normalized = cleaned.replace(/\./g, '').replace(',', '.');
     }
-    // US format with thousands: 1,234.56 → 1234.56
     else if (dotCount === 1 && commaCount > 0) {
       normalized = cleaned.replace(/,/g, '');
     }
-    // Only comma (assume decimal): 12,5 → 12.5
     else if (commaCount === 1 && dotCount === 0) {
       normalized = cleaned.replace(',', '.');
     }
-    // Multiple commas (assume thousands): 1,234,567 → 1234567
     else if (commaCount > 1) {
       normalized = cleaned.replace(/,/g, '');
     }
@@ -565,14 +536,9 @@
     return isNaN(parsed) ? 0 : parsed;
   }
 
-  /**
-   * Wire numeric input validation
-   * @param {HTMLInputElement} input - Input element
-   */
   function wireNumericValidation(input) {
     if (!input) return;
     
-    // Filter input in real-time with proper cursor handling
     input.addEventListener('input', (e) => {
       const el = e.target;
       const start = el.selectionStart ?? el.value.length;
@@ -587,45 +553,36 @@
       }
     });
     
-    // Parse and normalize on blur
     input.addEventListener('blur', (e) => {
       const parsed = parseNumericInput(e.target.value);
-      // Store the normalized value back (use standard format)
       e.target.value = parsed === 0 ? '' : String(parsed);
     });
   }
 
   /* ========================= UI RENDERING ========================= */
 
-  /**
-   * Render economics section
-   * @param {Object} economics - Economics data
-   */
   function renderEconomics(economics) {
     if (!economics) return;
     
-    // Update package prices
     ['soda', 'refresh', 'deluxe'].forEach(key => {
-      const priceEl = document.getElementById(`price-${key}`);
+      const priceEl = document.querySelector(`#price-${key}`) ||
+                      document.querySelector(`[data-pkg-price="${key}"]`);
       if (priceEl && economics.pkg?.[key] != null) {
         priceEl.textContent = money(economics.pkg[key]);
       }
     });
     
-    // Update caps
-    const capBadge = document.getElementById('deluxe-cap-badge');
+    const capBadge = document.getElementById('deluxe-cap-badge') || document.getElementById('cap-badge');
     if (capBadge && economics.deluxeCap != null) {
       const cap = Number(economics.deluxeCap);
       capBadge.textContent = `$${cap.toFixed(2)}`;
       
-      // Update voucher face value inline text
       const faceInline = document.getElementById('voucher-face-inline');
       if (faceInline) {
         faceInline.textContent = `$${cap.toFixed(2)}`;
       }
     }
     
-    // Update gratuity
     const gratBadge = document.getElementById('grat-badge');
     if (gratBadge && economics.gratPct != null) {
       const pct = Number(economics.gratPct * 100);
@@ -633,14 +590,9 @@
     }
   }
 
-  /**
-   * Render results section
-   * @param {Object} results - Computation results
-   */
   function renderResults(results) {
     if (!results) return;
     
-    // Defensive UI pass: ensure minors never show "Deluxe" label
     if (Array.isArray(results?.groupRows) && results.groupRows.length) {
       results.groupRows = results.groupRows.map(row => {
         if (row?.isMinor && /deluxe/i.test(String(row.pkg || ''))) {
@@ -650,7 +602,6 @@
       });
     }
     
-    // Update winner cards
     ['soda', 'refresh', 'deluxe'].forEach(key => {
       const card = document.querySelector(`[data-card="${key}"]`);
       if (card) {
@@ -658,8 +609,8 @@
       }
     });
     
-    // Update totals header
-    const totalsEl = document.getElementById('results-totals');
+    const totalsEl = document.querySelector('#results-totals') || 
+                     document.querySelector('#totals');
     if (totalsEl && results.bars) {
       const winner = results.winnerKey || 'alc';
       const winnerLabels = {
@@ -673,36 +624,28 @@
       totalsEl.textContent = `Total: ${approx}${moneyInline(totalSpend)}${currencyCodeTag()} · Winner: ${winnerLabels[winner]}`;
     }
     
-    // Update group rows table
-    const tableBody = document.getElementById('group-rows-body');
+    const tableBody = document.querySelector('#group-rows-body') || 
+                      document.querySelector('#group-table-body');
     if (tableBody && Array.isArray(results.groupRows)) {
       tableBody.innerHTML = results.groupRows.map(row => `
         <tr>
-          <td>${row.label || 'Guest'}</td>
+          <td>${row.who || row.label || 'Guest'}</td>
           <td>${row.pkg || '—'}</td>
           <td>${moneyInline(row.perDay || 0)}/day</td>
-          <td>${moneyInline(row.total || 0)}</td>
+          <td>${moneyInline(row.trip || row.total || 0)}</td>
         </tr>
       `).join('');
     }
     
-    // Render break-even helpers
     renderBreakevenHelpers(results);
-    
-    // Update chart
     updateChart(results);
-    
-    // Voucher-aware sanity hint (non-destructive)
     enforceDeluxeSanityHint(results);
   }
 
-  /**
-   * Render break-even helper suggestions with defensive guards
-   * @param {Object} results - Computation results
-   */
   function renderBreakevenHelpers(results) {
-    const helpersContainer = document.getElementById('breakeven-helpers');
-    if (!helpersContainer || !results || typeof results !== 'object') return;
+    const sodaHelper = document.querySelector('#soda-breakeven');
+    const refreshHelper = document.querySelector('#refresh-breakeven');
+    const deluxeHelper = document.querySelector('#deluxe-breakeven');
     
     const economics = store.get().economics;
     const cap = Number(economics?.deluxeCap || CONFIG.DELUXE_CAP_FALLBACK);
@@ -711,72 +654,120 @@
     
     const gaps = results.gaps || { soda: 0, refresh: 0, deluxe: 0 };
     const approx = fxApproxPrefix();
-    let html = '';
     
-    // Soda package helper
-    if (gaps.soda > 0.5 && results.winnerKey !== 'soda') {
-      const userSodas = Array.isArray(results.drinks?.soda?.userPresent) ? results.drinks.soda.userPresent : [];
-      if (userSodas.length > 0) {
-        const cheapest = userSodas[0];
-        const need = ceilDrinks(gaps.soda, cheapest.unit);
-        html += `
-          <div class="helper-block soda">
-            <strong>Soda Package:</strong> 
-            You're ${approx}${moneyInline(gaps.soda)} from break-even${currencyCodeTag()}.
-            ${need} more ${cheapest.name} (${approx}${moneyInline(cheapest.unit)} each) would close the gap.
+    if (sodaHelper && refreshHelper && deluxeHelper) {
+      let sodaHTML = '';
+      if (gaps.soda > 0.5 && results.winnerKey !== 'soda') {
+        const userSodas = Array.isArray(results.drinks?.soda?.userPresent) ? results.drinks.soda.userPresent : [];
+        if (userSodas.length > 0) {
+          const cheapest = userSodas[0];
+          const need = ceilDrinks(gaps.soda, cheapest.unit);
+          sodaHTML = `
+            <div class="helper-block soda">
+              <strong>Soda Package:</strong> 
+              You're ${approx}${moneyInline(gaps.soda)} from break-even${currencyCodeTag()}.
+              ${need} more ${cheapest.name} (${approx}${moneyInline(cheapest.unit)} each) would close the gap.
+            </div>
+          `;
+        }
+      }
+      
+      let refreshHTML = '';
+      if (gaps.refresh > 0.5 && results.winnerKey !== 'refresh') {
+        const suggestions = Array.isArray(results.drinks?.refresh?.suggestions) ? results.drinks.refresh.suggestions : [];
+        if (suggestions.length > 0) {
+          const best = suggestions[0];
+          const need = ceilDrinks(gaps.refresh, best.unit);
+          refreshHTML = `
+            <div class="helper-block refresh">
+              <strong>Refreshment Package:</strong> 
+              You're ${approx}${moneyInline(gaps.refresh)} from break-even${currencyCodeTag()}.
+              ${need} more ${best.name} (${approx}${moneyInline(best.unit)} each) would close the gap.
+            </div>
+          `;
+        }
+      }
+      
+      let deluxeHTML = '';
+      if (gaps.deluxe > 0.5 && results.winnerKey !== 'deluxe') {
+        const need = ceilDrinks(gaps.deluxe, capWithGrat);
+        deluxeHTML = `
+          <div class="helper-block deluxe">
+            <strong>Deluxe Package:</strong> 
+            You're ${approx}${moneyInline(gaps.deluxe)} from break-even${currencyCodeTag()}.
+            ${need} more premium drinks (cap $${cap.toFixed(2)} + grat → ${approx}${moneyInline(capWithGrat)} each) would close the gap.
           </div>
         `;
       }
-    }
-    
-    // Refreshment package helper
-    if (gaps.refresh > 0.5 && results.winnerKey !== 'refresh') {
-      const suggestions = Array.isArray(results.drinks?.refresh?.suggestions) ? results.drinks.refresh.suggestions : [];
-      if (suggestions.length > 0) {
-        const best = suggestions[0];
-        const need = ceilDrinks(gaps.refresh, best.unit);
-        html += `
-          <div class="helper-block refresh">
-            <strong>Refreshment Package:</strong> 
-            You're ${approx}${moneyInline(gaps.refresh)} from break-even${currencyCodeTag()}.
-            ${need} more ${best.name} (${approx}${moneyInline(best.unit)} each) would close the gap.
-          </div>
-        `;
+      
+      sodaHelper.innerHTML = sodaHTML;
+      refreshHelper.innerHTML = refreshHTML;
+      deluxeHelper.innerHTML = deluxeHTML;
+      console.log('[Helpers] ✓ Rendered to split containers');
+    } else {
+      const fallbackHelper = document.querySelector('#breakeven-helpers');
+      if (fallbackHelper) {
+        let html = '';
+        
+        if (gaps.soda > 0.5 && results.winnerKey !== 'soda') {
+          const userSodas = Array.isArray(results.drinks?.soda?.userPresent) ? results.drinks.soda.userPresent : [];
+          if (userSodas.length > 0) {
+            const cheapest = userSodas[0];
+            const need = ceilDrinks(gaps.soda, cheapest.unit);
+            html += `
+              <div class="helper-block soda">
+                <strong>Soda Package:</strong> 
+                You're ${approx}${moneyInline(gaps.soda)} from break-even${currencyCodeTag()}.
+                ${need} more ${cheapest.name} (${approx}${moneyInline(cheapest.unit)} each) would close the gap.
+              </div>
+            `;
+          }
+        }
+        
+        if (gaps.refresh > 0.5 && results.winnerKey !== 'refresh') {
+          const suggestions = Array.isArray(results.drinks?.refresh?.suggestions) ? results.drinks.refresh.suggestions : [];
+          if (suggestions.length > 0) {
+            const best = suggestions[0];
+            const need = ceilDrinks(gaps.refresh, best.unit);
+            html += `
+              <div class="helper-block refresh">
+                <strong>Refreshment Package:</strong> 
+                You're ${approx}${moneyInline(gaps.refresh)} from break-even${currencyCodeTag()}.
+                ${need} more ${best.name} (${approx}${moneyInline(best.unit)} each) would close the gap.
+              </div>
+            `;
+          }
+        }
+        
+        if (gaps.deluxe > 0.5 && results.winnerKey !== 'deluxe') {
+          const need = ceilDrinks(gaps.deluxe, capWithGrat);
+          html += `
+            <div class="helper-block deluxe">
+              <strong>Deluxe Package:</strong> 
+              You're ${approx}${moneyInline(gaps.deluxe)} from break-even${currencyCodeTag()}.
+              ${need} more premium drinks (cap $${cap.toFixed(2)} + grat → ${approx}${moneyInline(capWithGrat)} each) would close the gap.
+            </div>
+          `;
+        }
+        
+        fallbackHelper.innerHTML = html;
+        console.log('[Helpers] ✓ Rendered to fallback container');
+      } else {
+        console.warn('[Helpers] No helper containers found');
       }
     }
-    
-    // Deluxe package helper
-    if (gaps.deluxe > 0.5 && results.winnerKey !== 'deluxe') {
-      const need = ceilDrinks(gaps.deluxe, capWithGrat);
-      html += `
-        <div class="helper-block deluxe">
-          <strong>Deluxe Package:</strong> 
-          You're ${approx}${moneyInline(gaps.deluxe)} from break-even${currencyCodeTag()}.
-          ${need} more premium drinks (cap $${cap.toFixed(2)} + grat → ${approx}${moneyInline(capWithGrat)} each) would close the gap.
-        </div>
-      `;
-    }
-    
-    helpersContainer.innerHTML = html;
   }
 
-  /**
-   * Sanity hint for Deluxe (non-destructive, UI only)
-   * @param {Object} results - Computation results
-   */
   function enforceDeluxeSanityHint(results) {
     const hintContainer = document.getElementById('sanity-hint');
     if (!hintContainer) return;
     
-    // Skip hint when vouchers are active
     const vouchersActive = Number(results?.vouchersAppliedPerDay || 0) > 0;
     if (vouchersActive) {
       hintContainer.innerHTML = '';
       return;
     }
     
-    // Check if à-la-carte per-day exceeds Deluxe per-day
-    // FIXED: bars.alc.mean is already per-day, don't divide by nights
     const economics = store.get().economics;
     const alcPerDay = Number(results?.bars?.alc?.mean || 0);
     const deluxePerDay = Number(economics?.pkg?.deluxe || 0);
@@ -792,39 +783,108 @@
     }
   }
 
+  /* ========================= INPUT BRIDGE ========================= */
+
+  function syncInputsToStore() {
+    const inputs = {};
+    
+    document.querySelectorAll('[data-input]').forEach(el => {
+      const key = el.dataset.input;
+      let value = el.value;
+      
+      if (el.type === 'number' || el.classList.contains('numeric')) {
+        value = parseFloat(value) || 0;
+      }
+      
+      inputs[key] = value;
+    });
+    
+    const daysInput = document.getElementById('input-days');
+    const seaDaysInput = document.getElementById('input-seadays');
+    
+    if (daysInput && !inputs.nights) {
+      inputs.nights = parseFloat(daysInput.value) || 7;
+    }
+    if (seaDaysInput && !inputs.seaDays) {
+      inputs.seaDays = parseFloat(seaDaysInput.value) || 0;
+    }
+    
+    ['soda', 'juice', 'water', 'specialty', 'alcohol', 'premium'].forEach(cat => {
+      const seaEl = document.querySelector(`#sea-${cat}`);
+      if (seaEl) {
+        inputs[`sea_${cat}`] = parseFloat(seaEl.value) || 0;
+      }
+    });
+    
+    const adultsInput = document.querySelector('#input-adults') || 
+                        document.querySelector('[data-input="adults"]');
+    const minorsInput = document.querySelector('#input-minors') || 
+                        document.querySelector('[data-input="minors"]');
+    
+    if (adultsInput) inputs.adults = parseInt(adultsInput.value) || 1;
+    if (minorsInput) inputs.minors = parseInt(minorsInput.value) || 0;
+    
+    store.patch('inputs', inputs);
+    scheduleCalc();
+    
+    console.log('[Input Bridge] ✓ Synced to store:', inputs);
+  }
+
+  function initInputBridge() {
+    const inputSelectors = [
+      '[data-input]',
+      '#input-days',
+      '#input-seadays',
+      '[id^="sea-"]',
+      '#input-adults',
+      '#input-minors'
+    ].join(',');
+    
+    document.querySelectorAll(inputSelectors).forEach(el => {
+      el.addEventListener('input', syncInputsToStore);
+      el.addEventListener('change', syncInputsToStore);
+    });
+    
+    console.log('[Input Bridge] ✓ Listeners attached');
+  }
+
   /* ========================= INPUT WIRING ========================= */
 
-  /**
-   * Wire all input elements with explicit mapping
-   */
   function wireInputs() {
     const inputs = store.get().inputs;
     
-    // Explicit mapping: HTML id → state key
-    // This ensures "Specialty Coffee" displays correctly while mapping to specialtyCoffee
     const inputMap = {
       'nights': 'nights',
+      'input-days': 'nights',
       'adults': 'adults',
+      'input-adults': 'adults',
       'kids': 'kids',
+      'minors': 'minors',
+      'input-minors': 'minors',
       'beer': 'beer',
       'wine': 'wine',
       'cocktails': 'cocktails',
+      'cocktail': 'cocktail',
       'shots': 'shots',
+      'spirits': 'spirits',
       'soda': 'soda',
       'juice': 'juice',
+      'freshjuice': 'freshjuice',
       'smoothies': 'smoothies',
       'specialty-coffee': 'specialtyCoffee',
+      'coffee': 'coffee',
+      'teaprem': 'teaprem',
       'water': 'water',
+      'bottledwater': 'bottledwater',
       'energy': 'energy',
-      'mocktails': 'mocktails'
+      'mocktails': 'mocktails',
+      'mocktail': 'mocktail',
+      'milkshake': 'milkshake'
     };
     
     Object.entries(inputMap).forEach(([elementId, stateKey]) => {
       const input = document.getElementById(elementId);
-      if (!input) {
-        console.warn(`[Input] Element #${elementId} not found`);
-        return;
-      }
+      if (!input) return;
       
       wireNumericValidation(input);
       
@@ -833,13 +893,11 @@
         scheduleCalc();
       });
       
-      // Set initial value from state if exists
       if (inputs[stateKey] != null && inputs[stateKey] !== 0) {
         input.value = inputs[stateKey];
       }
     });
     
-    // Wire vouchers
     const vouchersCheckbox = document.getElementById('vouchers-enabled');
     const vouchersPerDay = document.getElementById('vouchers-per-day');
     
@@ -859,26 +917,25 @@
       });
     }
     
-    // Wire currency selector
     const currencySelect = document.getElementById('currency-select');
     if (currencySelect) {
       currencySelect.addEventListener('change', (e) => {
         currentCurrency = e.target.value;
+        // ============================================================================
+        // EXPOSE CURRENCY FOR UI BADGES
+        // ============================================================================
+        window.__itwCurrency = currentCurrency;
         scheduleCalc();
       });
     }
   }
 
-  /**
-   * Wire persona cards
-   */
   function wirePersonaCards() {
     document.querySelectorAll('[data-persona]').forEach(card => {
       card.addEventListener('click', () => {
         const personaKey = card.getAttribute('data-persona');
         if (typeof window.applyPersona === 'function' && personaKey) {
           window.applyPersona(personaKey);
-          // Ensure calculation triggers after persona applies
           setTimeout(() => scheduleCalc(), 50);
         } else {
           console.warn('[Persona] applyPersona not available or invalid key:', personaKey);
@@ -887,16 +944,12 @@
     });
   }
 
-  /**
-   * Wire preset buttons
-   */
   function wirePresetButtons() {
     document.querySelectorAll('[data-preset]').forEach(button => {
       button.addEventListener('click', () => {
         const presetKey = button.getAttribute('data-preset');
         if (typeof window.loadPreset === 'function' && presetKey) {
           window.loadPreset(presetKey);
-          // Ensure calculation triggers after preset applies
           setTimeout(() => scheduleCalc(), 50);
         } else {
           console.warn('[Preset] loadPreset not available or invalid key:', presetKey);
@@ -907,46 +960,31 @@
 
   /* ========================= STATE SUBSCRIPTIONS ========================= */
 
-  /**
-   * Subscribe to economics changes
-   */
   store.subscribe('economics', (economics) => {
     renderEconomics(economics);
     scheduleCalc();
   });
 
-  /**
-   * Subscribe to results changes
-   */
   store.subscribe('results', (results) => {
     renderResults(results);
   });
 
   /* ========================= BOOT SEQUENCE ========================= */
 
-  /**
-   * Initialize application
-   */
   async function boot() {
     console.log(`[Boot] Drink Package Calculator v${VERSION}`);
     
-    // 1. Load brand manifest and set active brand
     const defaultBrand = (await loadBrandsManifest()) || 'royal-caribbean';
     setBrand(getBrandFromURLorLS(defaultBrand));
     
-    // 2. Load dataset and FX rates
     await Promise.all([
       loadDataset(),
       loadFX()
     ]);
     
-    // 3. Initialize worker
     initWorker();
-    
-    // 4. Wire brand selector
     wireBrandUI();
     
-    // 5. Parse dataset into economics
     if (DATASET?.pricing) {
       const pricing = DATASET.pricing;
       store.patch('economics', {
@@ -960,35 +998,46 @@
       });
     }
     
-    // 6. Initialize inputs from defaults
     store.patch('inputs', {
       nights: 7,
       adults: 2,
       kids: 0,
+      minors: 0,
       beer: 0,
       wine: 0,
       cocktails: 0,
+      cocktail: 0,
       shots: 0,
+      spirits: 0,
       soda: 0,
       juice: 0,
+      freshjuice: 0,
       smoothies: 0,
       specialtyCoffee: 0,
+      coffee: 0,
+      teaprem: 0,
       water: 0,
+      bottledwater: 0,
       energy: 0,
       mocktails: 0,
+      mocktail: 0,
+      milkshake: 0,
       vouchersEnabled: false,
       vouchersPerDay: 0
     });
     
-    // 7. Wire UI
     wireInputs();
     wirePersonaCards();
     wirePresetButtons();
     
-    // 8. Initial calculation
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initInputBridge);
+    } else {
+      initInputBridge();
+    }
+    
     scheduleCalc();
     
-    // 9. Expose global helpers for external integration
     window.renderAll = () => {
       const results = store.get().results;
       const economics = store.get().economics;
@@ -999,24 +1048,31 @@
     window.updateInputs = (newInputs) => {
       const inputs = store.get().inputs;
       Object.assign(inputs, newInputs);
-      // Update UI elements
       Object.entries(newInputs).forEach(([key, value]) => {
-        // Find the element ID from our mapping
         const inputMap = {
           'nights': 'nights',
           'adults': 'adults',
           'kids': 'kids',
+          'minors': 'minors',
           'beer': 'beer',
           'wine': 'wine',
           'cocktails': 'cocktails',
+          'cocktail': 'cocktail',
           'shots': 'shots',
+          'spirits': 'spirits',
           'soda': 'soda',
           'juice': 'juice',
+          'freshjuice': 'freshjuice',
           'smoothies': 'smoothies',
           'specialtyCoffee': 'specialty-coffee',
+          'coffee': 'coffee',
+          'teaprem': 'teaprem',
           'water': 'water',
+          'bottledwater': 'bottledwater',
           'energy': 'energy',
-          'mocktails': 'mocktails'
+          'mocktails': 'mocktails',
+          'mocktail': 'mocktail',
+          'milkshake': 'milkshake'
         };
         const elementId = inputMap[key] || key;
         const element = document.getElementById(elementId);
@@ -1027,12 +1083,13 @@
       scheduleCalc();
     };
     
+    window.scheduleCalc = scheduleCalc;
+    
     console.log('[Boot] Ready');
   }
 
   /* ========================= INITIALIZATION ========================= */
 
-  // Boot when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {
@@ -1043,7 +1100,4 @@
 
 /**
  * Soli Deo Gloria
- * 
- * Every pixel and part of this project is offered as worship to God,
- * in gratitude for the beautiful things He has created for us to enjoy.
  */
