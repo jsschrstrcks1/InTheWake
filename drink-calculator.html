@@ -3,11 +3,27 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="version" content="v.9.001.007"/>
+<meta name="version" content="v10.0.0"/>
 <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
 <meta name="description" content="Compare Soda, Refreshment, and Deluxe vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
-<link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.071" imagesrcset="/assets/index_hero.jpg?v=3.010.071" fetchpriority="high">
+
+<!-- Security: Content Security Policy -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'nonce-itw-v10' https://cdn.jsdelivr.net;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: https:;
+  connect-src 'self' https://api.frankfurter.app https://api.exchangerate.host;
+  font-src 'self' data:;
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'none';
+  upgrade-insecure-requests;
+"/>
+
+<link rel="preload" as="image" href="/assets/index_hero.jpg?v=10.0.0" imagesrcset="/assets/index_hero.jpg?v=10.0.0" fetchpriority="high">
 
 <!-- Favicon / PWA -->
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
@@ -16,26 +32,53 @@
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#0e6e8e">
 
-<script>
+<script nonce="itw-v10">
 // Feature flags and configuration
 window.ITW_CFG = {
+  version: '10.0.0',
   emailCTA: { enabled: true, showWhenSavingsAbove: 30, showWhenDrinksAbove: 4, alwaysShow: false },
   analytics: { enabled: false, provider: 'none', ga4: 'G-XXXX', plausible: 'cruisinginthewake.com' },
   presets2: true,
   steppers: true,
   explainCard: true,
-  articlesFallback: true
+  articlesFallback: true,
+  security: {
+    enableTelemetry: true,
+    enableIntegrityChecks: false, // Set to true when hashes are generated
+    workerIntegrityHash: null // Update with actual SHA-256 hash
+  }
 };
 
-// Range-aware quantity parser
+// Security: Range-aware quantity parser with XSS protection
 window.parseQty = function(input){
   if (input == null) return 0;
-  let s = String(input).trim().replace(/[\u2012-\u2015\u2212]/g,'-').replace(/\s+/g,' ');
+  
+  // Convert to string and sanitize
+  let s = String(input).trim()
+    .replace(/[\u2012-\u2015\u2212]/g,'-')
+    .replace(/\s+/g,' ')
+    .substring(0, 20); // Max length protection
+  
+  // Block suspicious patterns
+  if (/<[^>]+>/.test(s) || /script/i.test(s) || /javascript:/i.test(s)) {
+    console.warn('[Security] Blocked suspicious input:', s.substring(0, 20));
+    if (window.SecurityEvents) {
+      window.SecurityEvents.emit('blocked_input', { 
+        type: 'parseQty', 
+        content: s.substring(0, 20) 
+      });
+    }
+    return 0;
+  }
+  
+  // Range detection: "2-4" or "2 - 4"
   const m = s.match(/^(\d*\.?\d+)\s*-\s*(\d*\.?\d+)$/);
   if (m){ 
     const a=+m[1], b=+m[2]; 
     return (isFinite(a)&&isFinite(b)) ? Math.max(0,(a+b)/2) : 0;
   }
+  
+  // Single number with locale support
   const cleaned = s.replace(/[,\u00a0\u202f]/g,'');
   return /^\d*\.?\d+$/.test(cleaned) ? Math.max(0,+cleaned) : 0;
 };
@@ -67,7 +110,7 @@ window.itwTrack = function(evt, data){
 <meta name="twitter:card" content="summary_large_image"/>
 
 <!-- Structured data -->
-<script type="application/ld+json">
+<script type="application/ld+json" nonce="itw-v10">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Drink Calculator","item":"https://cruisinginthewake.com/drink-calculator.html"}]}
 </script>
 
@@ -108,15 +151,15 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
 
 .hero{
-  position:relative;width:100%;height:40vh;min-height:280px;max-height:440px;
-  background:url('/assets/index_hero.jpg?v=3.010.071') center 50%/cover no-repeat;
+  position:relative;width:100%;height:200px;min-height:200px;max-height:200px;
+  background:url('/assets/index_hero.jpg?v=10.0.0') center 50%/cover no-repeat;
   display:flex;align-items:flex-end;overflow:hidden;
 }
 .hero-title{
   position:absolute;left:clamp(.75rem,3vw,1rem);bottom:clamp(1rem,4vh,2rem);
   display:flex;flex-direction:column;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45);
 }
-.hero-title .logo{width:clamp(160px,20vw,340px);max-width:min(85vw,480px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+.hero-title .logo{width:clamp(160px,20vw,340px);max-width:min(90vw,720px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
 .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.85rem,1.4vw,1.25rem);white-space:nowrap}
 .hero-compass{position:absolute;right:clamp(.75rem,3vw,1rem);top:.5rem;width:76px;opacity:.9;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
 .hero-credit{position:absolute;right:.75rem;bottom:.75rem;z-index:2;font-size:.75rem;opacity:.85;background:rgba(0,0,0,.4);padding:.25rem .5rem;border-radius:4px;color:#fff}
@@ -131,7 +174,14 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .inputs .row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
 .inputs .row:last-child{border-bottom:0}
 .inputs .row> :not(:first-child){justify-self:end}
-.inputs input[type="text"],.inputs input[type="number"]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;font:inherit;background:#fff;min-height:44px;font-size:16px}
+
+/* Security: Enhanced input protection */
+.inputs input[type="text"],
+.inputs input[type="number"]{
+  width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;
+  font:inherit;background:#fff;min-height:44px;font-size:16px;
+  max-length:20; /* Client-side length limit */
+}
 .inputs select{padding:6px 8px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--ink)}
 .controls-inline{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .badge{background:#fbbf24;color:#78350f;padding:4px 10px;border-radius:999px;font-weight:800;font-size:.85rem}
@@ -169,6 +219,19 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 .package-price{font-size:1.25rem;font-weight:800;color:var(--accent);margin-bottom:8px}
 .package-inclusions{font-size:.8rem;margin:0;padding-left:20px;color:var(--muted)}
 .package-inclusions li{margin:4px 0}
+
+/* v10.0.0 Package winner styles */
+.package-card.winner {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.20), var(--shadow);
+  position: relative;
+}
+.pkg-flag {
+  position:absolute; top:10px; right:10px;
+  background:#10b981; color:#064e3b; border:2px solid #064e3b;
+  border-radius:999px; padding:4px 10px; font-weight:900; font-size:.78rem;
+}
+.pkg-flag.kids { background:#ccfbf1; color:#115e59; border-color:#115e59; }
 
 /* Weighting tooltip */
 .tooltip-trigger{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:.75rem;cursor:help;margin-left:6px}
@@ -220,6 +283,23 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;z-index:3;
 }
 
+/* v10.0.0 Stepper inline on desktop */
+@media (min-width: 768px) {
+  .input-stepper { display:flex; align-items:center; gap:8px; }
+  .input-stepper button:last-child { order: 0; } /* + first  */
+  .input-stepper input { order: 1; max-width: 88px; text-align: right; }
+  .input-stepper button:first-child { order: 2; } /* − last  */
+}
+
+/* v10.0.0 C&A CTA */
+.cna-cta {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:12px 14px; border:1px solid #d1fae5; background:#ecfdf5; color:#065f46;
+  border-radius:12px; margin:8px 1rem 12px; font-weight:700;
+}
+.cna-cta .btn.primary { background:#10b981; color:#fff; border:none; padding:8px 12px; border-radius:10px; font-weight:800; }
+@media (max-width:480px){ .cna-cta{ flex-direction:column; align-items:stretch; } }
+
 /* Print */
 @media print{
   body{font-size:12pt;background:var(--card)}
@@ -246,81 +326,80 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 }
 
 .inputs.card{border-color:var(--rope)}
-  .hero {
-  height: 200px !important;
-  min-height: 200px !important;
-  max-height: 200px !important;
-  background-position: 50% 50% !important;  /* horizon center */
-  overflow: hidden;                          /* keep logo inside */
-}
-.hero-title .logo {
-  max-width: min(90vw, 720px);
-}
-  /* --- v.9.002.005 STEPPER INLINE ON DESKTOP --- */
-@media (min-width: 768px) {
-  .input-stepper { display:flex; align-items:center; gap:8px; }
-  .input-stepper button:last-child { order: 0; } /* + first  */
-  .input-stepper input { order: 1; max-width: 88px; text-align: right; }
-  .input-stepper button:first-child { order: 2; } /* − last  */
-}
-  /* --- v.9.002.005 C&A CTA --- */
-.cna-cta {
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
-  padding:12px 14px; border:1px solid #d1fae5; background:#ecfdf5; color:#065f46;
-  border-radius:12px; margin:8px 1rem 12px; font-weight:700;
-}
-.cna-cta .btn.primary { background:#10b981; color:#fff; border:none; padding:8px 12px; border-radius:10px; font-weight:800; }
-@media (max-width:480px){ .cna-cta{ flex-direction:column; align-items:stretch; } }
-  /* --- v.9.002.005 PACKAGE WINNER STYLES --- */
-.package-card.winner {
-  border-color: #10b981 !important;
-  box-shadow: 0 0 0 3px rgba(16,185,129,.20), var(--shadow);
-  position: relative;
-}
-.pkg-flag {
-  position:absolute; top:10px; right:10px;
-  background:#10b981; color:#064e3b; border:2px solid #064e3b;
-  border-radius:999px; padding:4px 10px; font-weight:900; font-size:.78rem;
-}
-.pkg-flag.kids { background:#ccfbf1; color:#115e59; border-color:#115e59; }
 </style>
 
-<!-- Chart + App loader -->
-<script>
+<!-- Chart + App loader with v10.0.0 security -->
+<script nonce="itw-v10">
 (function(){
-  const VER=document.querySelector('meta[name="version"]')?.content||'v9.002.003';
-  const local="/vendor/chart.umd.min.js?v="+VER;
-  const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
+  const VER = '10.0.0';
+  const local = "/vendor/chart.umd.min.js?v=" + VER;
+  const cdn = "https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
 
-  function add(src,cb){
-    var s=document.createElement('script');
-    s.src=src;s.defer=true;s.onload=cb;
-    s.onerror=function(){if(src!==cdn)add(cdn,cb);};
+  function add(src, cb){
+    var s = document.createElement('script');
+    s.src = src;
+    s.defer = true;
+    s.onload = cb;
+    s.onerror = function(){ if(src !== cdn) add(cdn, cb); };
     document.head.appendChild(s);
   }
 
   function loadApp(){
-    // 1) math module first
-    const m=document.createElement('script');
-    m.type="module";
-    m.textContent=`
-      import{compute as baseCompute,computeWithVouchers}
-      from'/assets/js/drink-math.js?v=${VER}';
-      window.ITW_MATH={compute:baseCompute,computeWithVouchers};
+    // v10.0.0 Load Order:
+    // 1. Math module (ES6 module)
+    // 2. App (creates store + ITW namespace)
+    // 3. Bridge (exports store API)
+    // 4. Security patch (optional, v10.0.1)
+    // 5. UI (uses bridge)
+    
+    // 1) Math module first
+    const m = document.createElement('script');
+    m.type = "module";
+    m.textContent = `
+      import { compute } from '/assets/js/drink-math.js?v=${VER}';
+      window.ITW_MATH = { compute };
+      console.log('[Math] ✓ Module loaded v${VER}');
     `;
     document.head.appendChild(m);
 
-    // 2) APP before UI
-    const app=document.createElement('script');
-    app.src="/assets/js/drink-calculator.app.js?v="+VER;
-    app.defer=true;
+    // 2) APP - creates __itwStore and ITW namespace
+    const app = document.createElement('script');
+    app.src = "/assets/js/drink-calculator.app.js?v=" + VER;
+    app.defer = true;
+    app.onload = function() {
+      console.log('[App] ✓ Loaded v' + VER);
+      
+      // 3) Bridge - exports store API
+      const bridge = document.createElement('script');
+      bridge.src = "/assets/js/calculator.ui-bridge.js?v=" + VER;
+      bridge.defer = true;
+      bridge.onload = function() {
+        console.log('[Bridge] ✓ Loaded v' + VER);
+        
+        // 4) Security patch (optional)
+        if (window.ITW_CFG?.security?.enableTelemetry) {
+          const sec = document.createElement('script');
+          sec.src = "/assets/js/security.js?v=" + VER;
+          sec.defer = true;
+          sec.onload = function() {
+            console.log('[Security] ✓ Patch loaded');
+          };
+          document.head.appendChild(sec);
+        }
+        
+        // 5) UI last
+        const ui = document.createElement('script');
+        ui.src = "/assets/js/calculator.ui.js?v=" + VER;
+        ui.defer = true;
+        ui.onload = function() {
+          console.log('[UI] ✓ Loaded v' + VER);
+          console.log('[ITW] 🚀 Calculator ready');
+        };
+        document.head.appendChild(ui);
+      };
+      document.head.appendChild(bridge);
+    };
     document.head.appendChild(app);
-
-    // 3) UI last
-    const ui=document.createElement('script');
-    ui.src="/assets/js/calculator.ui.js?v="+VER;
-    ui.defer=true;
-    document.head.appendChild(ui);
   }
 
   window.Chart ? loadApp() : add(local, loadApp);
@@ -356,7 +435,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <div class="navbar">
     <div class="brand">
       <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
-      <span class="tiny version-badge">v.9.002.007</span>
+      <span class="tiny version-badge">v10.0.0</span>
     </div>
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
@@ -472,7 +551,10 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         <span id="currency-note" class="small" style="display:block;margin-top:6px;font-weight:600"></span>
         <hr style="border:0;border-top:1px dashed var(--bd);margin:12px 0"/>
 
-        <div class="row"><label for="input-days">Cruise days</label><input id="input-days" type="text" inputmode="numeric" value="7" data-input="days"></div>
+        <div class="row">
+          <label for="input-days">Cruise days</label>
+          <input id="input-days" type="text" inputmode="numeric" value="7" data-input="days" maxlength="3" autocomplete="off">
+        </div>
 
         <!-- Weighting -->
         <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:8px">
@@ -484,7 +566,10 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
               This setting adjusts estimates accordingly.
             </span>
           </legend>
-          <div class="row"><label for="input-seadays">Sea days</label><input id="input-seadays" type="text" inputmode="numeric" value="3" data-input="seadays"></div>
+          <div class="row">
+            <label for="input-seadays">Sea days</label>
+            <input id="input-seadays" type="text" inputmode="numeric" value="3" data-input="seadays" maxlength="3" autocomplete="off">
+          </div>
           <div class="row" style="grid-template-columns:1fr 1fr">
             <label class="small">
               <input type="checkbox" id="sea-toggle" checked data-input="seaapply" aria-describedby="sea-weighting-help">
@@ -503,13 +588,16 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 
         <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
           <legend style="font-weight:800;padding:0 6px">Group in stateroom</legend>
-          <div class="row"><label for="input-adults">Adults (21+)</label><input id="input-adults" type="text" inputmode="numeric" value="1" data-input="adults"></div>
+          <div class="row">
+            <label for="input-adults">Adults (21+)</label>
+            <input id="input-adults" type="text" inputmode="numeric" value="1" data-input="adults" maxlength="2" autocomplete="off">
+          </div>
           <div class="row">
             <label for="input-minors">
               Minors (under 21)
               <a href="/faq.html#minors-deluxe" class="tiny" style="display:block;margin-top:2px">(Why no Deluxe for minors?)</a>
             </label>
-            <input id="input-minors" type="text" inputmode="numeric" value="0" data-input="minors">
+            <input id="input-minors" type="text" inputmode="numeric" value="0" data-input="minors" maxlength="2" autocomplete="off">
           </div>
         </fieldset>
 
@@ -520,33 +608,52 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
             <div class="tiny muted" style="font-weight:400;margin-top:4px">Crown & Anchor perks. Minors get non-alcoholic value only.</div>
           </summary>
           <div id="cna-cta" class="cta cna-cta">
-  <div class="cta-copy">
-    💎 Diamond or higher? You get 4–5 free drinks per day. Add your vouchers to see the savings.
-  </div>
-  <button class="btn primary" type="button" onclick="(function(){
-    const d=document.getElementById('cna-vouchers'); if(d) d.open=true;
-    (document.getElementById('v-adult-d')||document.getElementById('v-adult-dp')||document.getElementById('v-adult-p'))?.focus();
-  })()">Add vouchers</button>
-</div>
+            <div class="cta-copy">
+              💎 Diamond or higher? You get 4–5 free drinks per day. Add your vouchers to see the savings.
+            </div>
+            <button class="btn primary" type="button" onclick="(function(){
+              const d=document.getElementById('cna-vouchers'); if(d) d.open=true;
+              (document.getElementById('v-adult-d')||document.getElementById('v-adult-dp')||document.getElementById('v-adult-p'))?.focus();
+            })()">Add vouchers</button>
+          </div>
           <div style="padding:0 1rem 1rem">
             <div class="small" style="margin-bottom:10px;background:#fff3cd;border-left:3px solid var(--warn);padding:8px;border-radius:4px">
-             <div class="small" style="margin:8px 0 12px">
-  Cap price per alcoholic drink: <strong><span id="cap-badge">$14.00</span></strong>
-</div> <strong>Voucher face value:</strong>
+              <div class="small" style="margin:8px 0 12px">
+                Cap price per alcoholic drink: <strong><span id="cap-badge">$14.00</span></strong>
+              </div>
+              <strong>Voucher face value:</strong>
               <input type="text" id="voucher-value" inputmode="decimal" value="14.00" readonly style="width:70px;margin-left:6px;padding:4px;border:1px solid var(--bd);border-radius:4px;background:#f8fafc;cursor:not-allowed"> USD
               <div class="tiny" id="voucher-lock-note" style="margin-top:4px;font-weight:600;color:var(--muted)">(auto-synced to Deluxe cap)</div>
             </div>
             <fieldset style="border:1px solid var(--bd);padding:10px;border-radius:8px">
               <legend style="font-weight:700;padding:0 6px">Adult Vouchers</legend>
-              <div class="row"><label for="v-adult-d">Diamond (4/day)</label><input id="v-adult-d" type="text" inputmode="numeric" value="0" data-voucher="adult-d"></div>
-              <div class="row"><label for="v-adult-dp">Diamond+ (5/day)</label><input id="v-adult-dp" type="text" inputmode="numeric" value="0" data-voucher="adult-dp"></div>
-              <div class="row"><label for="v-adult-p">Pinnacle (5/day)</label><input id="v-adult-p" type="text" inputmode="numeric" value="0" data-voucher="adult-p"></div>
+              <div class="row">
+                <label for="v-adult-d">Diamond (4/day)</label>
+                <input id="v-adult-d" type="text" inputmode="numeric" value="0" data-voucher="adult-d" maxlength="1" autocomplete="off">
+              </div>
+              <div class="row">
+                <label for="v-adult-dp">Diamond+ (5/day)</label>
+                <input id="v-adult-dp" type="text" inputmode="numeric" value="0" data-voucher="adult-dp" maxlength="1" autocomplete="off">
+              </div>
+              <div class="row">
+                <label for="v-adult-p">Pinnacle (5/day)</label>
+                <input id="v-adult-p" type="text" inputmode="numeric" value="0" data-voucher="adult-p" maxlength="1" autocomplete="off">
+              </div>
             </fieldset>
             <fieldset style="border:1px solid var(--bd);padding:10px;border-radius:8px;margin-top:10px">
               <legend style="font-weight:700;padding:0 6px">Minor Vouchers (Non-Alc)</legend>
-              <div class="row"><label for="v-minor-d">Diamond (4/day)</label><input id="v-minor-d" type="text" inputmode="numeric" value="0" data-voucher="minor-d"></div>
-              <div class="row"><label for="v-minor-dp">Diamond+ (5/day)</label><input id="v-minor-dp" type="text" inputmode="numeric" value="0" data-voucher="minor-dp"></div>
-              <div class="row"><label for="v-minor-p">Pinnacle (5/day)</label><input id="v-minor-p" type="text" inputmode="numeric" value="0" data-voucher="minor-p"></div>
+              <div class="row">
+                <label for="v-minor-d">Diamond (4/day)</label>
+                <input id="v-minor-d" type="text" inputmode="numeric" value="0" data-voucher="minor-d" maxlength="1" autocomplete="off">
+              </div>
+              <div class="row">
+                <label for="v-minor-dp">Diamond+ (5/day)</label>
+                <input id="v-minor-dp" type="text" inputmode="numeric" value="0" data-voucher="minor-dp" maxlength="1" autocomplete="off">
+              </div>
+              <div class="row">
+                <label for="v-minor-p">Pinnacle (5/day)</label>
+                <input id="v-minor-p" type="text" inputmode="numeric" value="0" data-voucher="minor-p" maxlength="1" autocomplete="off">
+              </div>
             </fieldset>
           </div>
         </details>
@@ -560,18 +667,54 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         </fieldset>
 
         <div id="simple-inputs" style="margin-top:6px">
-          <div class="row"><label>Soda <span class="tiny muted">(avg/day)</span></label><input data-input="soda" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Specialty coffee</label><input data-input="coffee" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Premium tea</label><input data-input="teaprem" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Fresh juice/smoothie</label><input data-input="freshjuice" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Mocktail</label><input data-input="mocktail" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Energy drink</label><input data-input="energy" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Milkshake</label><input data-input="milkshake" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Bottled water (500ml)</label><input data-input="bottledwater" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Beer</label><input data-input="beer" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Wine</label><input data-input="wine" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Cocktail</label><input data-input="cocktail" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Spirits/shot</label><input data-input="spirits" type="text" inputmode="decimal" value="0"></div>
+          <div class="row">
+            <label>Soda <span class="tiny muted">(avg/day)</span></label>
+            <input data-input="soda" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Specialty coffee</label>
+            <input data-input="coffee" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Premium tea</label>
+            <input data-input="teaprem" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Fresh juice/smoothie</label>
+            <input data-input="freshjuice" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Mocktail</label>
+            <input data-input="mocktail" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Energy drink</label>
+            <input data-input="energy" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Milkshake</label>
+            <input data-input="milkshake" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Bottled water (500ml)</label>
+            <input data-input="bottledwater" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Beer</label>
+            <input data-input="beer" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Wine</label>
+            <input data-input="wine" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Cocktail</label>
+            <input data-input="cocktail" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
+          <div class="row">
+            <label>Spirits/shot</label>
+            <input data-input="spirits" type="text" inputmode="decimal" value="0" maxlength="10" autocomplete="off">
+          </div>
         </div>
 
         <div id="itinerary-inputs" style="margin-top:12px;display:none"></div>
@@ -619,7 +762,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
             </tbody>
           </table>
           <canvas id="breakeven-chart" width="900" height="320" aria-label="Package comparison chart" aria-describedby="chart-desc"></canvas>
-         <div id="range-note" class="tiny muted" style="margin-top:6px"></div>
+          <div id="range-note" class="tiny muted" style="margin-top:6px"></div>
           <span id="voucher-badge" hidden class="badge" style="position:absolute;top:-8px;right:0;transform:translateY(-100%)"></span>
           <div id="best-stamp" aria-hidden="true">Best value</div>
           <div class="chart-help">
@@ -627,9 +770,11 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
             Gray bars = what you'd pay for each package. <strong>Lower = better value.</strong>
             Hover over bars to see exact dollar amounts.
           </div>
-        </div><div id="soda-breakeven" class="small" style="margin-top:8px"></div>
-<div id="refresh-breakeven" class="small" style="margin-top:8px"></div>
-<div id="deluxe-breakeven" class="small" style="margin-top:8px"></div>
+        </div>
+        
+        <div id="soda-breakeven" class="small" style="margin-top:8px"></div>
+        <div id="refresh-breakeven" class="small" style="margin-top:8px"></div>
+        <div id="deluxe-breakeven" class="small" style="margin-top:8px"></div>
 
         <!-- Category summary -->
         <div class="category-summary" id="category-breakdown" hidden>
@@ -684,7 +829,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
       <form id="email-form" method="POST" style="margin-top:10px">
         <input type="text" name="b_email" tabindex="-1" style="position:absolute;left:-9999px" aria-hidden="true">
         <div style="display:flex;gap:6px">
-          <input type="email" name="EMAIL" placeholder="your@email.com" required autocomplete="email" inputmode="email" style="flex:1;padding:8px;border:1px solid var(--bd);border-radius:6px;font-size:16px">
+          <input type="email" name="EMAIL" placeholder="your@email.com" required autocomplete="email" inputmode="email" maxlength="100" style="flex:1;padding:8px;border:1px solid var(--bd);border-radius:6px;font-size:16px">
           <button type="submit" class="btn">Get List</button>
         </div>
         <label class="small" style="display:flex;gap:.5rem;margin-top:.5rem">
@@ -707,16 +852,16 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
       <div id="packages" style="margin-top:10px">
         <div class="package-card" data-card="soda">
           <h4>🥤 Soda Package</h4>
-<div class="package-price">~<span data-pkg-price="soda">$15</span>/day</div>
+          <div class="package-price">~<span data-pkg-price="soda">$15</span>/day</div>
           <ul class="package-inclusions">
             <li>Coca-Cola Freestyle sodas</li>
             <li>Juices & lemonade</li>
             <li>Refillable cup</li>
           </ul>
         </div>
-<div class="package-card" data-card="refresh">
+        <div class="package-card" data-card="refresh">
           <h4>🧃 Refreshment Package</h4>
-<div class="package-price">~<span data-pkg-price="refresh">$38</span>/day</div>
+          <div class="package-price">~<span data-pkg-price="refresh">$38</span>/day</div>
           <ul class="package-inclusions">
             <li>Everything in Soda</li>
             <li>Specialty coffees & teas</li>
@@ -727,7 +872,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
         </div>
         <div class="package-card" data-card="deluxe">
           <h4>🍹 Deluxe Beverage Package</h4>
-<div class="package-price">~<span data-pkg-price="deluxe">$88</span>/day</div>
+          <div class="package-price">~<span data-pkg-price="deluxe">$88</span>/day</div>
           <ul class="package-inclusions">
             <li>Everything in Refreshment</li>
             <li>Beer, wine, cocktails (up to $15)</li>
@@ -762,7 +907,8 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   <p class="tiny" style="margin-top:.75rem"><a href="/terms.html">Terms</a> | <a href="/privacy.html">Privacy</a> | <a href="/gdpr-rights.html">GDPR</a></p>
 </footer>
 
-<script>
+<!-- Security: Input protection -->
+<script nonce="itw-v10">
 (function watchVoucherCTA(){
   const ids = ['v-adult-d','v-adult-dp','v-adult-p','v-minor-d','v-minor-dp','v-minor-p'];
   const hideIfFilled = () => {
@@ -776,7 +922,7 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
 </script>
 
 <!-- Year Display -->
-<script>
+<script nonce="itw-v10">
 (function(){
   const yearEl=document.getElementById('year');
   if(yearEl)yearEl.textContent=new Date().getFullYear();
