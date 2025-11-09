@@ -976,36 +976,37 @@ if (deluxeEl) {
     `<p class="xsmall muted grat-note">(Each drink price shown includes the ship’s automatic gratuity of ${(grat*100).toFixed(0)}%.)</p>`
   );
    }
-;(function kidsChips(){
-  // remove any existing chips on the correct class
-  document.querySelectorAll('.package-card .kids-chip').forEach(el => el.remove());
+  // --- Kids package chip -------------------------------------------------
+  ;(function kidsChips(){
+    // remove any existing chips on the correct class
+    document.querySelectorAll('.package-card .kids-chip').forEach(el => el.remove());
 
-  const minors = (r.groupRows || []).filter(x =>
-    x && (x.isMinor || /Minor\s+\d+/.test(x.who||''))
-  );
-  if (!minors.length) return;
+    const minors = (r.groupRows || []).filter(x =>
+      x && (x.isMinor || /Minor\s+\d+/.test(x.who || ''))
+    );
+    if (!minors.length) return;
 
-  const keys = new Set(minors.map(m => m.pkgKey || (
-    /refresh/i.test(m.pkg||'') ? 'refresh' :
-    /soda/i.test(m.pkg||'') ? 'soda' : ''
-  )));
+    const keys = new Set(minors.map(m => m.pkgKey || (
+      /refresh/i.test(m.pkg || '') ? 'refresh' :
+      /soda/i.test(m.pkg || '') ? 'soda' : ''
+    )));
 
-  const targetEls = [];
-  if (keys.has('soda'))    targetEls.push(document.querySelector('[data-card="soda"]'));
-  if (keys.has('refresh')) targetEls.push(document.querySelector('[data-card="refresh"]'));
+    const targetEls = [];
+    if (keys.has('soda'))    targetEls.push(document.querySelector('[data-card="soda"]'));
+    if (keys.has('refresh')) targetEls.push(document.querySelector('[data-card="refresh"]'));
 
-  targetEls.filter(Boolean).forEach(card => {
-    const hd = card.querySelector('h4') || card.querySelector('.phd') || card;
-    const chipEl = document.createElement('span');
-    chipEl.className = 'kids-chip';
-    chipEl.textContent = '👧 Recommended for kids';
-    chipEl.style.cssText =
-      'margin-left:8px;background:#ccfbf1;color:#115e59;border:1px solid #99f6e4;' +
-      'padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;';
-    hd.appendChild(chipEl);
-  });
-})();  // <- closes the IIFE
-}       // <- closes renderResults
+    targetEls.filter(Boolean).forEach(card => {
+      const hd = card.querySelector('h4') || card.querySelector('.phd') || card;
+      const chipEl = document.createElement('span');
+      chipEl.className = 'kids-chip';
+      chipEl.textContent = '👧 Recommended for kids';
+      chipEl.style.cssText =
+        'margin-left:8px;background:#ccfbf1;color:#115e59;border:1px solid #99f6e4;' +
+        'padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;';
+      hd.appendChild(chipEl);
+    });
+  })(); // <- closes the IIFE
+}       // <- closes renderResults      // <- closes renderResults
 
 /* ------------------------- Economics/Prices UI ------------------------- */
 function renderEconomics(){
