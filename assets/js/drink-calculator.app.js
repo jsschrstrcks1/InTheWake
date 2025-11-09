@@ -1,1095 +1,1023 @@
 /**
- * Drink Package Calculator — Application Controller (v9.005.1)
- * "In the Wake" — cruisinginthewake.com
+ * Royal Caribbean Drink Package Calculator - Application Controller
+ * Version: 10.0.0
+ * Soli Deo Gloria ✝️
  * 
- * P0 FIXES APPLIED:
- * - Exposed store, chart, currency for UI layer
- * - Resilient dual selectors (totals, group rows, prices, helpers)
- * - Input bridge with auto-sync
- * - Voucher application hook
- * - Chart ready flag
+ * ARCHITECTURE:
+ * - Thin controller layer, NO business logic
+ * - All math done by engine via worker
+ * - UI reads from store, renders results
+ * - Input → Store → Worker → Engine → Store → UI
  * 
- * "Whatever you do, work heartily, as for the Lord and not for men."
- * — Colossians 3:23
- * 
- * Soli Deo Gloria
+ * CONTRACTS:
+ * - window.ITW.store: {get, subscribe, patch}
+ * - window.ITW.money: (amount, opts) => string
+ * - window.ITW.getCurrency: () => string
  */
 
-(function() {
+(() => {
   'use strict';
 
-  /* ========================= CONSTANTS & CONFIGURATION ========================= */
+  const VERSION = 'v10.0.0';
 
-  const VERSION = '9.005.1';
+  // ==================== CONFIGURATION ====================
   const CONFIG = {
-    DELUXE_CAP_FALLBACK: 14.00,
-    GRAT_PCT_FALLBACK: 0.18,
-    FX_STALE_MS: 24 * 60 * 60 * 1000,
+    WORKER_URL: `/assets/js/drink-worker.js?v=${VERSION}`,
+    DS_URL: `/assets/data/lines/royal-caribbean.json?v=${VERSION}`,
+    FX_API: 'https://api.frankfurter.app/latest?from=USD',
+    
     WORKER_TIMEOUT_MS: 3000,
-    CALC_DEBOUNCE_MS: 150
+    CALC_DEBOUNCE_MS: 100,
+    RATE_LIMIT_WINDOW_MS: 10000,
+    RATE_LIMIT_MAX_CALCS: 50,
+    
+    MAX_GUESTS_TOTAL: 6,
+    MAX_INPUT_LENGTH: 8,
+    MAX_INPUT_VALUE: 99999,
+    
+    FX_STALE_HOURS: 24,
+    DELUXE_CAP_FALLBACK: 14.0
   };
 
-  let DS_URL = `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
-  const BRANDS_MANIFEST_URL = `/assets/data/brands.json?v=${VERSION}`;
-  const FX_URL = `/assets/data/fx-rates.json?v=${VERSION}`;
+  // ==================== UTILITY FUNCTIONS ====================
+  
+  function clamp(n, lo, hi) {
+    return Math.min(hi, Math.max(lo, n));
+  }
 
-  let DATASET = null;
-  let FX = null;
-  let worker = null;
-  let chart = null;
-  let calcTimer = null;
-  let calcId = 0;
+  function round2(n) {
+    return Math.round((Number.isFinite(n) ? n : 0) * 100) / 100;
+  }
 
-  /* ========================= BRAND MANIFEST & SELECTOR ========================= */
+  /**
+   * Locale-safe number parser (C3)
+   * Handles: "1,000" "1.000" "1 000" → 1000
+   */
+  function parseNumericInput(value) {
+    if (typeof value === 'number') return value;
+    
+    let str = String(value).trim();
+    
+    // Remove currency symbols
+    str = str.replace(/[$€£¥₹]/g, '');
+    
+    // Handle thousands separators
+    // "1,000" or "1.000" or "1 000" → remove separator before 3 digits
+    str = str.replace(/[,.\s](?=\d{3}(?!\d))/g, '');
+    
+    // Replace remaining commas with dots (for decimal)
+    str = str.replace(/,/g, '.');
+    
+    // Remove non-numeric except dot and minus
+    str = str.replace(/[^\d.-]/g, '');
+    
+    const num = parseFloat(str);
+    return Number.isFinite(num) ? num : 0;
+  }
 
-  let BRANDS = [
-    { id: 'royal-caribbean', label: 'Royal Caribbean', data: '/assets/data/lines/royal-caribbean.json' }
-  ];
-  const LS_BRAND_KEY = 'itw:brand';
+  /**
+   * Sanitize text input (C11 Layer 2)
+   */
+  function sanitizeText(text) {
+    if (typeof text !== 'string') return '';
+    return text
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      .replace(/<[^>]+>/g, '')
+      .replace(/javascript:/gi, '')
+      .replace(/on\w+\s*=/gi, '')
+      .substring(0, CONFIG.MAX_INPUT_LENGTH * 10);
+  }
 
-  async function loadBrandsManifest() {
-    try {
-      const response = await fetch(BRANDS_MANIFEST_URL, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Manifest fetch failed: ${response.status}`);
-      
-      const manifest = await response.json();
-      if (Array.isArray(manifest?.brands) && manifest.brands.length) {
-        BRANDS = manifest.brands;
+  /**
+   * Sanitize input value (C11 Layer 4)
+   */
+  function sanitizeInput(value, type = 'number') {
+    if (type === 'number') {
+      const num = parseNumericInput(value);
+      return clamp(num, 0, CONFIG.MAX_INPUT_VALUE);
+    }
+    return sanitizeText(value);
+  }
+
+  /**
+   * Safe DOM element creation (C11 Layer 6)
+   */
+  function createElement(tag, attrs = {}, content = '') {
+    const el = document.createElement(tag);
+    
+    for (const [key, value] of Object.entries(attrs)) {
+      if (key === 'className') {
+        el.className = value;
+      } else if (key === 'style' && typeof value === 'object') {
+        Object.assign(el.style, value);
+      } else {
+        el.setAttribute(key, String(value));
       }
-      return manifest?.default || 'royal-caribbean';
-    } catch (err) {
-      console.warn('[Brand] Manifest unavailable, using Royal Caribbean:', err.message);
-      return 'royal-caribbean';
     }
-  }
-
-  function setBrand(brandId) {
-    const chosen = BRANDS.find(b => b.id === brandId) || BRANDS[0];
-    if (!chosen) return;
     
-    const dataPath = chosen.data || '/assets/data/lines/royal-caribbean.json';
-    DS_URL = dataPath.includes('?') ? dataPath : `${dataPath}?v=${VERSION}`;
-    
-    localStorage.setItem(LS_BRAND_KEY, chosen.id);
-    
-    const params = new URLSearchParams(location.search);
-    if (chosen.id !== 'royal-caribbean') {
-      params.set('brand', chosen.id);
-    } else {
-      params.delete('brand');
+    if (content) {
+      el.textContent = String(content);
     }
-    const queryString = params.toString();
-    history.replaceState(null, '', queryString ? `?${queryString}` : location.pathname);
-  }
-
-  function getBrandFromURLorLS(defaultId = 'royal-caribbean') {
-    const params = new URLSearchParams(location.search);
-    const fromURL = params.get('brand');
-    const fromLS = localStorage.getItem(LS_BRAND_KEY);
-    return fromURL || fromLS || defaultId;
-  }
-
-  function wireBrandUI() {
-    const selector = document.getElementById('brand-select');
-    if (!selector) return;
     
-    selector.innerHTML = BRANDS.map(b => 
-      `<option value="${b.id}">${b.label}</option>`
-    ).join('');
+    return el;
+  }
+
+  /**
+   * Money formatter - Single source of truth (C1)
+   */
+  function formatMoney(amount, options = {}) {
+    const {
+      currency = currentCurrency,
+      showSymbol = true,
+      approximate = false
+    } = options;
     
-    const current = localStorage.getItem(LS_BRAND_KEY) || BRANDS[0]?.id || 'royal-caribbean';
-    selector.value = current;
+    let prefix = '';
+    if (approximate || (currency !== 'USD' && fxIsStale())) {
+      prefix = '≈ ';
+    }
     
-    selector.addEventListener('change', async () => {
-      setBrand(selector.value);
-      await loadDataset();
-      scheduleCalc();
-      window.renderAll();
-    });
-  }
-
-  /* ========================= FX & CURRENCY HELPERS ========================= */
-
-  let currentCurrency = 'USD';
-
-  function fxIsStaleNow() {
-    const timestamp = FX?._ts ? new Date(FX._ts).getTime() : 0;
-    return !timestamp || (Date.now() - timestamp) > CONFIG.FX_STALE_MS;
-  }
-
-  function fxApproxPrefix() {
-    const driftPct = Number(store?.get?.().ui?.fxDriftPct ?? 0);
-    return (driftPct !== 0 || fxIsStaleNow()) ? '≈ ' : '';
-  }
-
-  function convertUSD(usdAmount, targetCurrency = 'USD') {
-    if (targetCurrency === 'USD' || !FX) return Number(usdAmount || 0);
-    const rate = Number(FX[targetCurrency] || 1);
-    const drift = Number(store?.get?.().ui?.fxDriftPct ?? 0);
-    const adjustedRate = rate * (1 + drift / 100);
-    return Number(usdAmount || 0) * adjustedRate;
-  }
-
-  function money(usdAmount) {
-    const converted = convertUSD(usdAmount, currentCurrency);
-    return new Intl.NumberFormat(undefined, {
-      style: 'currency',
-      currency: currentCurrency
-    }).format(converted || 0);
-  }
-
-  function moneyInline(usdAmount) {
     try {
-      const converted = convertUSD(usdAmount, currentCurrency);
-      return new Intl.NumberFormat(undefined, {
-        style: 'currency',
-        currency: currentCurrency,
-        currencyDisplay: 'narrowSymbol'
-      }).format(converted || 0);
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: showSymbol ? 'currency' : 'decimal',
+        currency: currency,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(amount);
+      
+      return prefix + formatted;
     } catch (err) {
-      return money(usdAmount);
+      console.warn('[Money] Format error:', currency, err);
+      const symbol = currency === 'USD' ? '$' :
+                     currency === 'EUR' ? '€' :
+                     currency === 'GBP' ? '£' : currency + ' ';
+      return prefix + symbol + amount.toFixed(2);
     }
   }
 
-  function currencyCodeTag() {
-    return ` (${currentCurrency})`;
-  }
-
-  function safeMoney(n) {
-    const value = Number.isFinite(n) ? n : 0;
-    try {
-      return new Intl.NumberFormat(undefined, {
-        style: 'currency',
-        currency: currentCurrency
-      }).format(convertUSD(value, currentCurrency));
-    } catch {
-      return money(value);
+  // ==================== SAFE STORAGE (C11 Layer 1) ====================
+  
+  const SafeStorage = {
+    get(key) {
+      try {
+        const item = localStorage.getItem(key);
+        if (!item) return null;
+        
+        const parsed = JSON.parse(item);
+        
+        // Prevent prototype pollution
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          delete parsed.__proto__;
+          delete parsed.constructor;
+          delete parsed.prototype;
+        }
+        
+        return parsed;
+      } catch (err) {
+        console.warn('[SafeStorage] Read error:', key, err);
+        return null;
+      }
+    },
+    
+    set(key, value) {
+      try {
+        const json = JSON.stringify(value);
+        // Check size (5MB limit typical)
+        if (json.length > 5 * 1024 * 1024) {
+          console.warn('[SafeStorage] Value too large:', key);
+          return false;
+        }
+        localStorage.setItem(key, json);
+        return true;
+      } catch (err) {
+        console.warn('[SafeStorage] Write error:', key, err);
+        return false;
+      }
+    },
+    
+    remove(key) {
+      try {
+        localStorage.removeItem(key);
+        return true;
+      } catch (err) {
+        return false;
+      }
     }
-  }
+  };
 
-  /* ========================= BREAK-EVEN HELPERS ========================= */
+  // ==================== RATE LIMITER (C11, H5) ====================
+  
+  const RateLimiter = {
+    calls: [],
+    
+    check() {
+      const now = Date.now();
+      this.calls = this.calls.filter(t => now - t < CONFIG.RATE_LIMIT_WINDOW_MS);
+      
+      if (this.calls.length >= CONFIG.RATE_LIMIT_MAX_CALCS) {
+        console.warn('[RateLimiter] Too many calculations, throttling');
+        return false;
+      }
+      
+      this.calls.push(now);
+      return true;
+    },
+    
+    reset() {
+      this.calls = [];
+    }
+  };
 
-  function ceilDrinks(gapAmount, unitPrice) {
-    const gap = Number(gapAmount || 0);
-    const unit = Number(unitPrice || 0);
-    if (!(unit > 0)) return 0;
-    return Math.max(0, Math.ceil(gap / unit));
-  }
-
-  /* ========================= STATE MANAGEMENT ========================= */
-
-  const store = (function() {
-    let state = {
-      inputs: {},
-      economics: {},
-      results: null,
-      ui: { fxDriftPct: 0, chartReady: false }
-    };
+  // ==================== STATE STORE (C5) ====================
+  
+  function createStore(initialState) {
+    let state = { ...initialState };
     const subscribers = {};
 
     return {
-      get: () => state,
-      
-      patch: (key, value) => {
+      get(key) {
+        if (key) {
+          const value = state[key];
+          // Return deep copy to prevent mutations (C5)
+          if (value && typeof value === 'object') {
+            return JSON.parse(JSON.stringify(value));
+          }
+          return value;
+        }
+        // Return snapshot of entire state
+        return JSON.parse(JSON.stringify(state));
+      },
+
+      patch(key, value) {
+        const oldValue = state[key];
         state[key] = value;
+
         if (subscribers[key]) {
-          subscribers[key].forEach(fn => fn(value));
+          subscribers[key].forEach(fn => {
+            try {
+              fn(value, oldValue);
+            } catch (err) {
+              console.error('[Store] Subscriber error:', err);
+            }
+          });
         }
       },
-      
-      subscribe: (key, callback) => {
-        if (!subscribers[key]) subscribers[key] = [];
+
+      subscribe(key, callback) {
+        if (!subscribers[key]) {
+          subscribers[key] = [];
+        }
         subscribers[key].push(callback);
+        
+        // Return unsubscribe function (H8)
+        return () => {
+          const idx = subscribers[key].indexOf(callback);
+          if (idx > -1) subscribers[key].splice(idx, 1);
+        };
       }
     };
-  })();
+  }
 
-  // ============================================================================
-  // EXPOSE STORE FOR UI LAYER
-  // ============================================================================
+  // ==================== GLOBAL STATE ====================
+  
+  const store = createStore({
+    inputs: {
+      days: 7,
+      seaDays: 7,
+      seaApply: true,
+      seaWeight: 20,
+      adults: 2,
+      minors: 0,
+      drinks: {
+        soda: 0, coffee: 0, teaprem: 0, freshjuice: 0,
+        mocktail: 0, energy: 0, milkshake: 0, bottledwater: 0,
+        beer: 0, wine: 0, cocktail: 0, spirits: 0
+      },
+      vouchers: []
+    },
+    economics: {
+      pkg: { soda: 13.99, refresh: 34.00, deluxe: 85.00 },
+      grat: 0.18,
+      deluxeCap: CONFIG.DELUXE_CAP_FALLBACK,
+      minorDiscount: 0
+    },
+    results: null,
+    ui: {
+      chartReady: false,
+      fxStale: false,
+      workerReady: false
+    }
+  });
+
+  // Expose store globally
   window.__itwStore = store;
 
-  /* ========================= DATASET & FX LOADING ========================= */
+  let currentCurrency = 'USD';
+  let dataset = null;
+  let fxRates = null;
+  let worker = null;
+  let workerReady = false;
+  let calcId = 0;
+  let calcTimeout = null;
+  let calcDebounceTimeout = null;
 
-  async function loadDataset() {
-    try {
-      const response = await fetch(DS_URL, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Dataset fetch failed: ${response.status}`);
-      DATASET = await response.json();
-      console.log('[Dataset] Loaded:', DATASET?.meta?.line || 'Unknown');
-    } catch (err) {
-      console.error('[Dataset] Load failed:', err);
-      DATASET = null;
+  // ==================== WORKER SETUP (C2, H7) ====================
+  
+  function initWorker() {
+    if (!('Worker' in window)) {
+      console.warn('[Worker] Not supported');
+      return;
     }
+
+    try {
+      worker = new Worker(CONFIG.WORKER_URL);
+      
+      worker.addEventListener('message', (e) => {
+        const { type, payload, id } = e.data || {};
+        
+        // Validate message structure (C11 Layer 7)
+        if (!type || typeof type !== 'string') {
+          console.warn('[Worker] Invalid message type');
+          return;
+        }
+        
+        if (type === 'ready') {
+          workerReady = true;
+          store.patch('ui', { ...store.get('ui'), workerReady: true });
+          console.log('[Worker] ✓ Ready');
+          return;
+        }
+        
+        if (type === 'result') {
+          clearTimeout(calcTimeout);
+          
+          if (!payload || typeof payload !== 'object') {
+            console.warn('[Worker] Invalid payload');
+            return;
+          }
+          
+          console.log(`[Worker] ✓ Result (${Date.now() - (window.__lastCalcStart || Date.now())}ms)`);
+          store.patch('results', payload);
+          render();
+        }
+        
+        if (type === 'error') {
+          clearTimeout(calcTimeout);
+          console.error('[Worker] Error:', payload);
+          // Could show error toast here
+        }
+      });
+
+      worker.addEventListener('error', (err) => {
+        console.error('[Worker] Error:', err);
+        workerReady = false;
+        store.patch('ui', { ...store.get('ui'), workerReady: false });
+      });
+
+    } catch (err) {
+      console.error('[Worker] Init failed:', err);
+    }
+  }
+
+  // ==================== CALCULATION TRIGGER ====================
+  
+  function scheduleCalc() {
+    // H5: Rate limiting
+    if (!RateLimiter.check()) {
+      console.warn('[Calc] Rate limited');
+      return;
+    }
+
+    clearTimeout(calcDebounceTimeout);
+    
+    calcDebounceTimeout = setTimeout(() => {
+      doCalc();
+    }, CONFIG.CALC_DEBOUNCE_MS);
+  }
+
+  function doCalc() {
+    calcId++;
+    const thisCalcId = calcId;
+    
+    clearTimeout(calcTimeout);
+
+    const inputs = store.get('inputs');
+    const economics = store.get('economics');
+
+    // C8: Relational validations
+    const validatedInputs = applyRelationalValidations(inputs);
+    if (JSON.stringify(validatedInputs) !== JSON.stringify(inputs)) {
+      store.patch('inputs', validatedInputs);
+      // Don't return - continue with validated inputs
+    }
+
+    const payload = {
+      inputs: validatedInputs,
+      economics,
+      dataset: dataset || getFallbackDataset()
+    };
+
+    window.__lastCalcStart = Date.now();
+
+    // H7: Worker readiness guard
+    if (worker && workerReady) {
+      worker.postMessage({
+        type: 'compute',
+        payload,
+        id: thisCalcId
+      });
+
+      // Timeout fallback
+      calcTimeout = setTimeout(() => {
+        if (calcId === thisCalcId) {
+          console.warn('[Worker] Timeout');
+          // Could show "Calculating..." message
+        }
+      }, CONFIG.WORKER_TIMEOUT_MS);
+    } else {
+      console.warn('[Calc] Worker not ready');
+    }
+  }
+
+  /**
+   * C8: Relational validations with chips (P3)
+   */
+  function applyRelationalValidations(inputs) {
+    const validated = { ...inputs };
+    const chips = [];
+
+    // SeaDays can't exceed days
+    if (validated.seaDays > validated.days) {
+      validated.seaDays = validated.days;
+      chips.push({
+        type: 'info',
+        text: `Adjusted sea days to ${validated.days} (cannot exceed cruise length)`
+      });
+    }
+
+    // Total guests max 6
+    const totalGuests = validated.adults + validated.minors;
+    if (totalGuests > CONFIG.MAX_GUESTS_TOTAL) {
+      const excess = totalGuests - CONFIG.MAX_GUESTS_TOTAL;
+      if (validated.minors >= excess) {
+        validated.minors -= excess;
+      } else {
+        const remaining = excess - validated.minors;
+        validated.minors = 0;
+        validated.adults = Math.max(1, validated.adults - remaining);
+      }
+      chips.push({
+        type: 'warning',
+        text: `Adjusted to ${CONFIG.MAX_GUESTS_TOTAL} guests maximum`
+      });
+    }
+
+    // Days must be >= 1
+    if (validated.days < 1) {
+      validated.days = 1;
+      chips.push({
+        type: 'error',
+        text: 'Cruise must be at least 1 night'
+      });
+    }
+
+    // Adults must be >= 1
+    if (validated.adults < 1) {
+      validated.adults = 1;
+      chips.push({
+        type: 'error',
+        text: 'At least 1 adult required'
+      });
+    }
+
+    // P3: Show chips
+    if (chips.length > 0) {
+      renderRelationalChips(chips);
+    } else {
+      // Clear chips if no issues
+      const container = document.getElementById('relational-chips');
+      if (container) container.innerHTML = '';
+    }
+
+    return validated;
+  }
+
+  /**
+   * P3: Render validation chips
+   */
+  function renderRelationalChips(chips) {
+    const container = document.getElementById('relational-chips');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    chips.forEach(chip => {
+      const colors = {
+        info: { bg: '#d1ecf1', color: '#0c5460', border: '#bee5eb' },
+        warning: { bg: '#fff3cd', color: '#856404', border: '#ffeeba' },
+        error: { bg: '#f8d7da', color: '#721c24', border: '#f5c6cb' }
+      };
+      
+      const c = colors[chip.type] || colors.info;
+      
+      const el = createElement('span', {
+        className: `chip chip-${chip.type}`,
+        style: {
+          display: 'inline-block',
+          padding: '4px 8px',
+          margin: '2px',
+          borderRadius: '12px',
+          fontSize: '0.85em',
+          backgroundColor: c.bg,
+          color: c.color,
+          border: `1px solid ${c.border}`
+        }
+      }, chip.text);
+      
+      container.appendChild(el);
+    });
+  }
+
+  // ==================== INPUT BRIDGE (C4) ====================
+  
+  function syncInputsToStore() {
+    const inputs = store.get('inputs');
+
+    // Days/Nights
+    const daysEl = document.getElementById('input-days') || document.getElementById('nights');
+    if (daysEl) {
+      inputs.days = sanitizeInput(daysEl.value, 'number');
+      inputs.days = clamp(Math.round(inputs.days), 1, 365);
+    }
+
+    // Sea days
+    const seaDaysEl = document.getElementById('input-seadays') || document.getElementById('seadays');
+    if (seaDaysEl) {
+      inputs.seaDays = sanitizeInput(seaDaysEl.value, 'number');
+      inputs.seaDays = clamp(Math.round(inputs.seaDays), 0, inputs.days);
+    }
+
+    // Adults
+    const adultsEl = document.getElementById('input-adults') || document.getElementById('adults');
+    if (adultsEl) {
+      inputs.adults = sanitizeInput(adultsEl.value, 'number');
+      inputs.adults = clamp(Math.round(inputs.adults), 1, 20);
+    }
+
+    // Minors
+    const minorsEl = document.getElementById('input-minors') || document.getElementById('minors');
+    if (minorsEl) {
+      inputs.minors = sanitizeInput(minorsEl.value, 'number');
+      inputs.minors = clamp(Math.round(inputs.minors), 0, 20);
+    }
+
+    // Drinks
+    const drinkInputs = document.querySelectorAll('[data-category]');
+    drinkInputs.forEach(input => {
+      const category = input.getAttribute('data-category');
+      if (category && inputs.drinks.hasOwnProperty(category)) {
+        inputs.drinks[category] = sanitizeInput(input.value, 'number');
+        inputs.drinks[category] = clamp(Math.round(inputs.drinks[category]), 0, 99);
+      }
+    });
+
+    // Sync vouchers from UI
+    syncVouchersFromUI(inputs);
+
+    store.patch('inputs', inputs);
+    scheduleCalc();
+  }
+
+  /**
+   * Sync voucher selections from UI radios
+   */
+  function syncVouchersFromUI(inputs) {
+    const totalGuests = inputs.adults + inputs.minors;
+    const vouchers = [];
+    
+    for (let i = 1; i <= Math.min(totalGuests, CONFIG.MAX_GUESTS_TOTAL); i++) {
+      const radios = document.querySelectorAll(`input[name="voucher-guest-${i}"]`);
+      let selectedLevel = 'none';
+      
+      radios.forEach(radio => {
+        if (radio.checked) {
+          selectedLevel = radio.value;
+        }
+      });
+      
+      vouchers.push({ level: selectedLevel });
+    }
+    
+    inputs.vouchers = vouchers;
+  }
+
+  /**
+   * Attach input listeners with security (C11)
+   */
+  function initInputBridge() {
+    const inputSelectors = [
+      '#input-days', '#nights',
+      '#input-seadays', '#seadays',
+      '#input-adults', '#adults',
+      '#input-minors', '#minors',
+      '[data-category]'
+    ];
+
+    const inputs = document.querySelectorAll(inputSelectors.join(','));
+
+    if (inputs.length === 0) {
+      console.warn('[Input Bridge] No inputs found, retrying in 100ms');
+      setTimeout(initInputBridge, 100);
+      return;
+    }
+
+    inputs.forEach(input => {
+      // C11 Layer 9: Prevent code injection via paste
+      input.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        const sanitized = sanitizeInput(text, 'number');
+        input.value = sanitized;
+        syncInputsToStore();
+      });
+
+      // C11 Layer 9: Prevent drag/drop attacks
+      input.addEventListener('drop', (e) => {
+        e.preventDefault();
+        console.warn('[Security] Drop blocked');
+      });
+
+      // C11 Layer 9: Filter keyboard input
+      input.addEventListener('keydown', (e) => {
+        const allowed = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight',
+                        'Tab', 'Enter', 'Escape', '.', ',', '-'];
+        if (allowed.includes(e.key) || /^\d$/.test(e.key)) {
+          return;
+        }
+        e.preventDefault();
+      });
+
+      // Normal events
+      input.addEventListener('input', syncInputsToStore);
+      input.addEventListener('change', syncInputsToStore);
+    });
+
+    console.log('[Input Bridge] ✓ Attached to', inputs.length, 'inputs');
+  }
+
+  // ==================== RENDERING ====================
+  
+  function render() {
+    const results = store.get('results');
+    if (!results) return;
+
+    renderTotals(results);
+    renderGroupBreakdown(results);
+    renderDeluxePolicyBanner(results);
+    announceResults(results);
+  }
+
+  function renderTotals(results) {
+    const totalsEl = document.getElementById('results-totals') || document.getElementById('totals');
+    if (!totalsEl) return;
+
+    totalsEl.innerHTML = '';
+
+    const fxStale = store.get('ui').fxStale;
+    const perDayText = formatMoney(results.perDay, { approximate: fxStale });
+    const tripText = formatMoney(results.trip, { approximate: fxStale });
+
+    const perDayDiv = createElement('div', { className: 'total-per-day' });
+    perDayDiv.appendChild(createElement('span', { className: 'label' }, 'Per Day: '));
+    perDayDiv.appendChild(createElement('strong', {}, perDayText));
+
+    const tripDiv = createElement('div', { className: 'total-trip' });
+    tripDiv.appendChild(createElement('span', { className: 'label' }, 'Total Trip: '));
+    tripDiv.appendChild(createElement('strong', {}, tripText));
+
+    totalsEl.appendChild(perDayDiv);
+    totalsEl.appendChild(tripDiv);
+  }
+
+  function renderGroupBreakdown(results) {
+    const tbody = document.getElementById('group-rows-body') || document.getElementById('group-table-body');
+    if (!tbody || !results.groupRows) return;
+
+    tbody.innerHTML = '';
+
+    results.groupRows.forEach(row => {
+      const tr = createElement('tr', {});
+
+      const pkgLabel = {
+        'alc': 'À-la-carte',
+        'soda': 'Soda',
+        'refresh': 'Refreshment',
+        'deluxe': 'Deluxe'
+      }[row.pkg] || row.pkg;
+
+      tr.appendChild(createElement('td', {}, row.who || ''));
+      tr.appendChild(createElement('td', {}, pkgLabel));
+      tr.appendChild(createElement('td', {}, formatMoney(row.perDay, {})));
+      tr.appendChild(createElement('td', {}, formatMoney(row.trip, {})));
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  /**
+   * P2: Deluxe policy banner
+   */
+  function renderDeluxePolicyBanner(results) {
+    const banner = document.getElementById('deluxe-policy-note') || document.getElementById('policy-banner');
+    if (!banner) return;
+
+    const shouldShow = results.policy?.anyAdultDeluxe && store.get('inputs').adults > 1;
+
+    if (shouldShow) {
+      banner.style.display = 'block';
+      banner.innerHTML = '';
+      banner.appendChild(document.createTextNode('⚠️ '));
+      banner.appendChild(createElement('strong', {}, 'Policy: '));
+      banner.appendChild(document.createTextNode("Royal Caribbean's cabin rule: if any adult purchases Deluxe, all adults in the stateroom must also purchase Deluxe."));
+    } else {
+      banner.style.display = 'none';
+    }
+  }
+
+  /**
+   * P1: Render per-guest voucher UI (max 6)
+   */
+  function renderVoucherGrid() {
+    const container = document.getElementById('voucher-grid');
+    if (!container) return;
+
+    const inputs = store.get('inputs');
+    const totalGuests = inputs.adults + inputs.minors;
+
+    // Show "too many" warning if > 6
+    const warningEl = document.getElementById('voucher-note-too-many');
+    if (warningEl) {
+      warningEl.style.display = totalGuests > CONFIG.MAX_GUESTS_TOTAL ? 'block' : 'none';
+    }
+
+    container.innerHTML = '';
+
+    const actualGuests = Math.min(totalGuests, CONFIG.MAX_GUESTS_TOTAL);
+
+    for (let i = 1; i <= actualGuests; i++) {
+      const isAdult = i <= inputs.adults;
+      const label = isAdult ? `Adult ${i}` : `Minor ${i - inputs.adults}`;
+
+      const row = createElement('div', {
+        className: 'voucher-row',
+        style: {
+          display: 'grid',
+          gridTemplateColumns: 'auto 1fr',
+          gap: '8px',
+          alignItems: 'center',
+          padding: '8px',
+          borderBottom: '1px solid #e0e0e0'
+        }
+      });
+
+      row.appendChild(createElement('strong', {}, label));
+
+      const radioGroup = createElement('div', {
+        style: { display: 'flex', gap: '12px', flexWrap: 'wrap' }
+      });
+
+      const tiers = [
+        { value: 'none', label: 'None' },
+        { value: 'diamond', label: 'Diamond (4/day)' },
+        { value: 'diamondplus', label: 'Diamond+ (5/day)' },
+        { value: 'pinnacle', label: 'Pinnacle (5/day)' }
+      ];
+
+      // Get current selection from inputs
+      const currentLevel = inputs.vouchers?.[i-1]?.level || 'none';
+
+      tiers.forEach(tier => {
+        const radioWrapper = createElement('label', {
+          style: { display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }
+        });
+
+        const radio = createElement('input', {
+          type: 'radio',
+          name: `voucher-guest-${i}`,
+          value: tier.value
+        });
+
+        if (tier.value === currentLevel) {
+          radio.checked = true;
+        }
+
+        radio.addEventListener('change', () => {
+          syncInputsToStore();
+        });
+
+        radioWrapper.appendChild(radio);
+        radioWrapper.appendChild(createElement('span', {}, tier.label));
+        radioGroup.appendChild(radioWrapper);
+      });
+
+      row.appendChild(radioGroup);
+      container.appendChild(row);
+    }
+  }
+
+  /**
+   * H3: A11y announcements
+   */
+  function announceResults(results) {
+    const announcer = document.getElementById('a11y-status');
+    if (!announcer) return;
+
+    const winnerLabel = {
+      'alc': 'À-la-carte',
+      'soda': 'Soda package',
+      'refresh': 'Refreshment package',
+      'deluxe': 'Deluxe package'
+    }[results.winnerKey] || 'Unknown';
+
+    announcer.textContent = `Best value: ${winnerLabel}, ${formatMoney(results.perDay)} per day`;
+  }
+
+  // ==================== FX & CURRENCY (C1, H2) ====================
+  
+  function fxIsStale() {
+    if (!fxRates || !fxRates.timestamp) return true;
+    const ageHours = (Date.now() - fxRates.timestamp) / (1000 * 60 * 60);
+    return ageHours > CONFIG.FX_STALE_HOURS;
   }
 
   async function loadFX() {
     try {
-      const response = await fetch(FX_URL, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`FX fetch failed: ${response.status}`);
-      FX = await response.json();
-      console.log('[FX] Loaded:', FX?._ts || 'No timestamp');
-    } catch (err) {
-      console.error('[FX] Load failed:', err);
-      FX = { USD: 1, _ts: new Date().toISOString() };
-    }
-  }
+      const response = await fetch(CONFIG.FX_API);
+      if (!response.ok) throw new Error('FX API failed');
 
-  /* ========================= WEB WORKER MANAGEMENT ========================= */
-
-  function initWorker() {
-    try {
-      worker = new Worker(`/assets/js/drink-worker.js?v=${encodeURIComponent(VERSION)}`);
-      worker.addEventListener('message', (e) => {
-        if (e.data?.type === 'result') {
-          if (e.data.id === calcId) {
-            const rawResults = e.data.payload;
-            const finalResults = applyVouchers(rawResults);
-            store.patch('results', finalResults);
-          }
-        } else if (e.data?.type === 'error') {
-          console.error('[Worker] Computation error:', e.data.message);
-          computeFallback();
-        }
-      });
-      console.log('[Worker] Initialized');
-    } catch (err) {
-      console.warn('[Worker] Unavailable, using fallback:', err.message);
-      worker = null;
-    }
-  }
-
-  function computeFallback() {
-    if (!window.ITW_MATH?.compute) {
-      console.error('[Fallback] ITW_MATH not available');
-      return;
-    }
-    
-    const inputs = store.get().inputs;
-    const economics = store.get().economics;
-    
-    try {
-      const rawResults = window.ITW_MATH.compute(inputs, economics);
-      const finalResults = applyVouchers(rawResults);
-      store.patch('results', finalResults);
-    } catch (err) {
-      console.error('[Fallback] Computation failed:', err);
-    }
-  }
-
-  /* ========================= VOUCHER APPLICATION HOOK ========================= */
-
-  function applyVouchers(workerResults) {
-    const voucherValueEl = document.getElementById('voucher-value');
-    const voucherValue = voucherValueEl ? parseFloat(voucherValueEl.value) || 0 : 0;
-    
-    if (voucherValue === 0) {
-      return workerResults;
-    }
-    
-    const inputs = store.get().inputs;
-    const adults = inputs.adults || 1;
-    const minors = inputs.minors || 0;
-    const nights = inputs.nights || 7;
-    
-    const perDayCounts = Array.from({ length: nights }, () => ({
-      adults: adults,
-      minors: minors
-    }));
-    
-    const voucherConfig = {
-      faceValue: voucherValue,
-      adultValue: voucherValue,
-      minorValue: voucherValue * 0.7
-    };
-    
-    if (window.ITW_MATH?.computeWithVouchers) {
-      return window.ITW_MATH.computeWithVouchers(
-        inputs,
-        store.get().economics,
-        DATASET,
-        voucherConfig
-      );
-    }
-    
-    return computeWithVouchers(workerResults, voucherConfig, perDayCounts);
-  }
-
-  function computeWithVouchers(results, voucherConfig, perDayCounts) {
-    const adjusted = JSON.parse(JSON.stringify(results));
-    
-    ['soda', 'refresh', 'deluxe'].forEach(pkg => {
-      if (!adjusted.packages?.[pkg]) return;
+      const data = await response.json();
       
-      let totalDiscount = 0;
-      
-      perDayCounts.forEach(day => {
-        totalDiscount += day.adults * voucherConfig.adultValue;
-        
-        if (pkg === 'soda' || pkg === 'refresh') {
-          totalDiscount += day.minors * voucherConfig.minorValue;
-        }
-      });
-      
-      adjusted.packages[pkg].total = Math.max(0, 
-        adjusted.packages[pkg].total - totalDiscount
-      );
-    });
-    
-    return adjusted;
-  }
-
-  /* ========================= COMPUTATION SCHEDULING ========================= */
-
-  function scheduleCalc() {
-    clearTimeout(calcTimer);
-    calcTimer = setTimeout(() => {
-      const inputs = store.get().inputs;
-      const economics = store.get().economics;
-      
-      if (!economics?.pkg || !inputs) {
-        console.warn('[Calc] Missing economics or inputs');
-        return;
+      // C11 Layer 10: Validate structure
+      if (!data || !data.rates || typeof data.rates !== 'object') {
+        throw new Error('Invalid FX data');
       }
-      
-      const thisCalcId = ++calcId;
-      
-      if (worker) {
-        worker.postMessage({
-          type: 'compute',
-          id: thisCalcId,
-          payload: { inputs, economics }
-        });
-        
-        setTimeout(() => {
-          if (calcId === thisCalcId && !store.get().results) {
-            console.warn('[Worker] Timeout, using fallback');
-            computeFallback();
-          }
-        }, CONFIG.WORKER_TIMEOUT_MS);
-      } else {
-        computeFallback();
-      }
-    }, CONFIG.CALC_DEBOUNCE_MS);
-  }
 
-  /* ========================= CHART MANAGEMENT ========================= */
-
-  function ensureChart() {
-    if (chart) return chart;
-    
-    const canvas = document.getElementById('breakeven-chart');
-    if (!canvas) {
-      console.error('[Chart] Canvas element #breakeven-chart not found');
-      return null;
-    }
-    
-    const ctx = canvas.getContext && canvas.getContext('2d');
-    if (!ctx) {
-      console.error('[Chart] 2D context unavailable on canvas');
-      return null;
-    }
-    
-    const colors = {
-      alc: 'rgba(59, 130, 246, 0.8)',
-      soda: 'rgba(139, 92, 246, 0.8)',
-      refresh: 'rgba(16, 185, 129, 0.8)',
-      deluxe: 'rgba(249, 115, 22, 0.8)'
-    };
-    
-    chart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['À-la-carte', 'Soda', 'Refreshment', 'Deluxe'],
-        datasets: [{
-          label: 'Total Cost',
-          data: [0, 0, 0, 0],
-          backgroundColor: [colors.alc, colors.soda, colors.refresh, colors.deluxe],
-          borderWidth: [0, 0, 0, 0],
-          borderColor: ['rgba(0,0,0,0)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (context) => {
-                const value = context.parsed.y || 0;
-                const approx = fxApproxPrefix();
-                return `${context.dataset.label}: ${approx}${moneyInline(value)}${currencyCodeTag()}`;
-              }
-            }
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              callback: (value) => moneyInline(value)
-            }
-          }
-        }
-      }
-    });
-    
-    // ============================================================================
-    // EXPOSE CHART FOR UI PLUGINS
-    // ============================================================================
-    window.ITW = window.ITW || {};
-    window.ITW.chart = chart;
-    
-    // Set ready flag in store
-    const currentUI = store.get().ui || {};
-    store.patch('ui', {
-      ...currentUI,
-      chartReady: true
-    });
-    console.log('[Chart] ✓ Ready flag set');
-    
-    return chart;
-  }
-
-  function highlightWinnerBar(chartInstance, winnerKey) {
-    if (!chartInstance || !chartInstance.data || !Array.isArray(chartInstance.data.labels)) return;
-    
-    const labels = chartInstance.data.labels;
-    const indexMap = { 'alc': 0, 'soda': 1, 'refresh': 2, 'deluxe': 3 };
-    const winnerIndex = indexMap[winnerKey] ?? -1;
-    
-    const dataset = chartInstance.data.datasets?.[0];
-    if (!dataset) return;
-    
-    dataset.borderWidth = new Array(labels.length).fill(0);
-    dataset.borderColor = new Array(labels.length).fill('rgba(0,0,0,0)');
-    
-    if (winnerIndex >= 0 && winnerIndex < labels.length) {
-      dataset.borderWidth[winnerIndex] = 3;
-      dataset.borderColor[winnerIndex] = 'rgba(24,24,27,0.55)';
-    }
-    
-    chartInstance.update('none');
-  }
-
-  function updateChart(results) {
-    const chartInstance = ensureChart();
-    if (!chartInstance) return;
-    
-    const data = [
-      results?.bars?.alc?.mean || 0,
-      results?.bars?.soda?.mean || 0,
-      results?.bars?.refresh?.mean || 0,
-      results?.bars?.deluxe?.mean || 0
-    ];
-    
-    chartInstance.data.datasets[0].data = data;
-    highlightWinnerBar(chartInstance, results?.winnerKey);
-  }
-
-  /* ========================= INPUT VALIDATION ========================= */
-
-  function sanitizeNumericInput(value) {
-    const str = String(value).replace(/[^\d.,-]/g, '');
-    
-    let output = str.replace(/-/g, '');
-    if (str.startsWith('-')) output = '-' + output;
-    
-    const firstDot = output.indexOf('.');
-    const firstComma = output.indexOf(',');
-    const firstDecimal = (firstDot === -1) ? firstComma : (firstComma === -1 ? firstDot : Math.min(firstDot, firstComma));
-    
-    if (firstDecimal !== -1) {
-      const head = output.slice(0, firstDecimal + 1);
-      const tail = output.slice(firstDecimal + 1).replace(/[.,]/g, '');
-      return head + tail;
-    }
-    
-    return output;
-  }
-
-  function parseNumericInput(value) {
-    if (!value) return 0;
-    
-    const cleaned = String(value).trim();
-    
-    const dotCount = (cleaned.match(/\./g) || []).length;
-    const commaCount = (cleaned.match(/,/g) || []).length;
-    
-    let normalized = cleaned;
-    
-    if (commaCount === 1 && dotCount > 0) {
-      normalized = cleaned.replace(/\./g, '').replace(',', '.');
-    }
-    else if (dotCount === 1 && commaCount > 0) {
-      normalized = cleaned.replace(/,/g, '');
-    }
-    else if (commaCount === 1 && dotCount === 0) {
-      normalized = cleaned.replace(',', '.');
-    }
-    else if (commaCount > 1) {
-      normalized = cleaned.replace(/,/g, '');
-    }
-    
-    const parsed = parseFloat(normalized);
-    return isNaN(parsed) ? 0 : parsed;
-  }
-
-  function wireNumericValidation(input) {
-    if (!input) return;
-    
-    input.addEventListener('input', (e) => {
-      const el = e.target;
-      const start = el.selectionStart ?? el.value.length;
-      const before = el.value;
-      const after = sanitizeNumericInput(before);
-      
-      if (before !== after) {
-        const delta = before.length - after.length;
-        el.value = after;
-        const pos = Math.max(0, start - delta);
-        el.setSelectionRange(pos, pos);
-      }
-    });
-    
-    input.addEventListener('blur', (e) => {
-      const parsed = parseNumericInput(e.target.value);
-      e.target.value = parsed === 0 ? '' : String(parsed);
-    });
-  }
-
-  /* ========================= UI RENDERING ========================= */
-
-  function renderEconomics(economics) {
-    if (!economics) return;
-    
-    ['soda', 'refresh', 'deluxe'].forEach(key => {
-      const priceEl = document.querySelector(`#price-${key}`) ||
-                      document.querySelector(`[data-pkg-price="${key}"]`);
-      if (priceEl && economics.pkg?.[key] != null) {
-        priceEl.textContent = money(economics.pkg[key]);
-      }
-    });
-    
-    const capBadge = document.getElementById('deluxe-cap-badge') || document.getElementById('cap-badge');
-    if (capBadge && economics.deluxeCap != null) {
-      const cap = Number(economics.deluxeCap);
-      capBadge.textContent = `$${cap.toFixed(2)}`;
-      
-      const faceInline = document.getElementById('voucher-face-inline');
-      if (faceInline) {
-        faceInline.textContent = `$${cap.toFixed(2)}`;
-      }
-    }
-    
-    const gratBadge = document.getElementById('grat-badge');
-    if (gratBadge && economics.gratPct != null) {
-      const pct = Number(economics.gratPct * 100);
-      gratBadge.textContent = `${pct.toFixed(0)}%`;
-    }
-  }
-
-  function renderResults(results) {
-    if (!results) return;
-    
-    if (Array.isArray(results?.groupRows) && results.groupRows.length) {
-      results.groupRows = results.groupRows.map(row => {
-        if (row?.isMinor && /deluxe/i.test(String(row.pkg || ''))) {
-          return { ...row, pkg: 'Refreshment', pkgKey: 'refresh' };
-        }
-        return row;
-      });
-    }
-    
-    ['soda', 'refresh', 'deluxe'].forEach(key => {
-      const card = document.querySelector(`[data-card="${key}"]`);
-      if (card) {
-        card.classList.toggle('winner', results.winnerKey === key);
-      }
-    });
-    
-    const totalsEl = document.querySelector('#results-totals') || 
-                     document.querySelector('#totals');
-    if (totalsEl && results.bars) {
-      const winner = results.winnerKey || 'alc';
-      const winnerLabels = {
-        alc: 'À-la-carte',
-        soda: 'Soda Package',
-        refresh: 'Refreshment Package',
-        deluxe: 'Deluxe Package'
+      fxRates = {
+        rates: data.rates,
+        timestamp: Date.now()
       };
-      const totalSpend = results.bars[winner]?.mean || 0;
-      const approx = fxApproxPrefix();
-      totalsEl.textContent = `Total: ${approx}${moneyInline(totalSpend)}${currencyCodeTag()} · Winner: ${winnerLabels[winner]}`;
-    }
-    
-    const tableBody = document.querySelector('#group-rows-body') || 
-                      document.querySelector('#group-table-body');
-    if (tableBody && Array.isArray(results.groupRows)) {
-      tableBody.innerHTML = results.groupRows.map(row => `
-        <tr>
-          <td>${row.who || row.label || 'Guest'}</td>
-          <td>${row.pkg || '—'}</td>
-          <td>${moneyInline(row.perDay || 0)}/day</td>
-          <td>${moneyInline(row.trip || row.total || 0)}</td>
-        </tr>
-      `).join('');
-    }
-    
-    renderBreakevenHelpers(results);
-    updateChart(results);
-    enforceDeluxeSanityHint(results);
-  }
 
-  function renderBreakevenHelpers(results) {
-    const sodaHelper = document.querySelector('#soda-breakeven');
-    const refreshHelper = document.querySelector('#refresh-breakeven');
-    const deluxeHelper = document.querySelector('#deluxe-breakeven');
-    
-    const economics = store.get().economics;
-    const cap = Number(economics?.deluxeCap || CONFIG.DELUXE_CAP_FALLBACK);
-    const grat = Number(economics?.gratPct || CONFIG.GRAT_PCT_FALLBACK);
-    const capWithGrat = cap * (1 + grat);
-    
-    const gaps = results.gaps || { soda: 0, refresh: 0, deluxe: 0 };
-    const approx = fxApproxPrefix();
-    
-    if (sodaHelper && refreshHelper && deluxeHelper) {
-      let sodaHTML = '';
-      if (gaps.soda > 0.5 && results.winnerKey !== 'soda') {
-        const userSodas = Array.isArray(results.drinks?.soda?.userPresent) ? results.drinks.soda.userPresent : [];
-        if (userSodas.length > 0) {
-          const cheapest = userSodas[0];
-          const need = ceilDrinks(gaps.soda, cheapest.unit);
-          sodaHTML = `
-            <div class="helper-block soda">
-              <strong>Soda Package:</strong> 
-              You're ${approx}${moneyInline(gaps.soda)} from break-even${currencyCodeTag()}.
-              ${need} more ${cheapest.name} (${approx}${moneyInline(cheapest.unit)} each) would close the gap.
-            </div>
-          `;
-        }
-      }
+      SafeStorage.set('fx-rates', fxRates);
+      updateFxStalenessIndicator();
       
-      let refreshHTML = '';
-      if (gaps.refresh > 0.5 && results.winnerKey !== 'refresh') {
-        const suggestions = Array.isArray(results.drinks?.refresh?.suggestions) ? results.drinks.refresh.suggestions : [];
-        if (suggestions.length > 0) {
-          const best = suggestions[0];
-          const need = ceilDrinks(gaps.refresh, best.unit);
-          refreshHTML = `
-            <div class="helper-block refresh">
-              <strong>Refreshment Package:</strong> 
-              You're ${approx}${moneyInline(gaps.refresh)} from break-even${currencyCodeTag()}.
-              ${need} more ${best.name} (${approx}${moneyInline(best.unit)} each) would close the gap.
-            </div>
-          `;
-        }
-      }
-      
-      let deluxeHTML = '';
-      if (gaps.deluxe > 0.5 && results.winnerKey !== 'deluxe') {
-        const need = ceilDrinks(gaps.deluxe, capWithGrat);
-        deluxeHTML = `
-          <div class="helper-block deluxe">
-            <strong>Deluxe Package:</strong> 
-            You're ${approx}${moneyInline(gaps.deluxe)} from break-even${currencyCodeTag()}.
-            ${need} more premium drinks (cap $${cap.toFixed(2)} + grat → ${approx}${moneyInline(capWithGrat)} each) would close the gap.
-          </div>
-        `;
-      }
-      
-      sodaHelper.innerHTML = sodaHTML;
-      refreshHelper.innerHTML = refreshHTML;
-      deluxeHelper.innerHTML = deluxeHTML;
-      console.log('[Helpers] ✓ Rendered to split containers');
-    } else {
-      const fallbackHelper = document.querySelector('#breakeven-helpers');
-      if (fallbackHelper) {
-        let html = '';
-        
-        if (gaps.soda > 0.5 && results.winnerKey !== 'soda') {
-          const userSodas = Array.isArray(results.drinks?.soda?.userPresent) ? results.drinks.soda.userPresent : [];
-          if (userSodas.length > 0) {
-            const cheapest = userSodas[0];
-            const need = ceilDrinks(gaps.soda, cheapest.unit);
-            html += `
-              <div class="helper-block soda">
-                <strong>Soda Package:</strong> 
-                You're ${approx}${moneyInline(gaps.soda)} from break-even${currencyCodeTag()}.
-                ${need} more ${cheapest.name} (${approx}${moneyInline(cheapest.unit)} each) would close the gap.
-              </div>
-            `;
-          }
-        }
-        
-        if (gaps.refresh > 0.5 && results.winnerKey !== 'refresh') {
-          const suggestions = Array.isArray(results.drinks?.refresh?.suggestions) ? results.drinks.refresh.suggestions : [];
-          if (suggestions.length > 0) {
-            const best = suggestions[0];
-            const need = ceilDrinks(gaps.refresh, best.unit);
-            html += `
-              <div class="helper-block refresh">
-                <strong>Refreshment Package:</strong> 
-                You're ${approx}${moneyInline(gaps.refresh)} from break-even${currencyCodeTag()}.
-                ${need} more ${best.name} (${approx}${moneyInline(best.unit)} each) would close the gap.
-              </div>
-            `;
-          }
-        }
-        
-        if (gaps.deluxe > 0.5 && results.winnerKey !== 'deluxe') {
-          const need = ceilDrinks(gaps.deluxe, capWithGrat);
-          html += `
-            <div class="helper-block deluxe">
-              <strong>Deluxe Package:</strong> 
-              You're ${approx}${moneyInline(gaps.deluxe)} from break-even${currencyCodeTag()}.
-              ${need} more premium drinks (cap $${cap.toFixed(2)} + grat → ${approx}${moneyInline(capWithGrat)} each) would close the gap.
-            </div>
-          `;
-        }
-        
-        fallbackHelper.innerHTML = html;
-        console.log('[Helpers] ✓ Rendered to fallback container');
-      } else {
-        console.warn('[Helpers] No helper containers found');
+      console.log('[FX] Rates loaded');
+    } catch (err) {
+      console.warn('[FX] Load failed, using cached:', err);
+      const cached = SafeStorage.get('fx-rates');
+      if (cached) {
+        fxRates = cached;
+        updateFxStalenessIndicator();
       }
     }
   }
 
-  function enforceDeluxeSanityHint(results) {
-    const hintContainer = document.getElementById('sanity-hint');
-    if (!hintContainer) return;
-    
-    const vouchersActive = Number(results?.vouchersAppliedPerDay || 0) > 0;
-    if (vouchersActive) {
-      hintContainer.innerHTML = '';
-      return;
-    }
-    
-    const economics = store.get().economics;
-    const alcPerDay = Number(results?.bars?.alc?.mean || 0);
-    const deluxePerDay = Number(economics?.pkg?.deluxe || 0);
-    
-    if (deluxePerDay > 0 && alcPerDay >= deluxePerDay && results.winnerKey !== 'deluxe') {
-      hintContainer.innerHTML = `
-        <div class="alert alert-info xsmall">
-          💡 Your à-la-carte spend appears to exceed Deluxe pricing. Consider reviewing your drink quantities.
-        </div>
-      `;
-    } else {
-      hintContainer.innerHTML = '';
+  /**
+   * H2: FX staleness indicator
+   */
+  function updateFxStalenessIndicator() {
+    const isStale = fxIsStale();
+    store.patch('ui', { ...store.get('ui'), fxStale: isStale });
+
+    const chip = document.getElementById('fx-staleness-chip');
+    if (chip && isStale && currentCurrency !== 'USD') {
+      chip.style.display = 'inline-block';
+      chip.textContent = '⚠️ Offline rates';
+      chip.style.cssText = 'display:inline-block;padding:2px 6px;margin-left:8px;background:#fff3cd;border-radius:4px;font-size:0.85em;';
+    } else if (chip) {
+      chip.style.display = 'none';
     }
   }
 
-  /* ========================= INPUT BRIDGE ========================= */
-
-  function syncInputsToStore() {
-    const inputs = {};
-    
-    document.querySelectorAll('[data-input]').forEach(el => {
-      const key = el.dataset.input;
-      let value = el.value;
-      
-      if (el.type === 'number' || el.classList.contains('numeric')) {
-        value = parseFloat(value) || 0;
+  // ==================== DATASET LOADING ====================
+  
+  function getFallbackDataset() {
+    return {
+      version: VERSION,
+      rules: { gratuity: 0.18, deluxeCap: CONFIG.DELUXE_CAP_FALLBACK },
+      prices: {
+        soda: 3.50, coffee: 4.00, teaprem: 4.00, freshjuice: 4.50,
+        mocktail: 6.00, energy: 5.00, milkshake: 6.00, bottledwater: 3.00,
+        beer: 7.50, wine: 10.00, cocktail: 13.00, spirits: 13.00
+      },
+      sets: {
+        soda: ['soda', 'coffee', 'teaprem'],
+        refresh: ['soda', 'coffee', 'teaprem', 'freshjuice', 'mocktail', 'energy', 'milkshake', 'bottledwater'],
+        alcoholic: ['beer', 'wine', 'cocktail', 'spirits']
+      },
+      packages: {
+        soda: { price: 13.99 },
+        refresh: { price: 34.00 },
+        deluxe: { price: 85.00 }
       }
-      
-      inputs[key] = value;
-    });
-    
-    const daysInput = document.getElementById('input-days');
-    const seaDaysInput = document.getElementById('input-seadays');
-    
-    if (daysInput && !inputs.nights) {
-      inputs.nights = parseFloat(daysInput.value) || 7;
-    }
-    if (seaDaysInput && !inputs.seaDays) {
-      inputs.seaDays = parseFloat(seaDaysInput.value) || 0;
-    }
-    
-    ['soda', 'juice', 'water', 'specialty', 'alcohol', 'premium'].forEach(cat => {
-      const seaEl = document.querySelector(`#sea-${cat}`);
-      if (seaEl) {
-        inputs[`sea_${cat}`] = parseFloat(seaEl.value) || 0;
-      }
-    });
-    
-    const adultsInput = document.querySelector('#input-adults') || 
-                        document.querySelector('[data-input="adults"]');
-    const minorsInput = document.querySelector('#input-minors') || 
-                        document.querySelector('[data-input="minors"]');
-    
-    if (adultsInput) inputs.adults = parseInt(adultsInput.value) || 1;
-    if (minorsInput) inputs.minors = parseInt(minorsInput.value) || 0;
-    
-    store.patch('inputs', inputs);
-    scheduleCalc();
-    
-    console.log('[Input Bridge] ✓ Synced to store:', inputs);
-  }
-
-  function initInputBridge() {
-    const inputSelectors = [
-      '[data-input]',
-      '#input-days',
-      '#input-seadays',
-      '[id^="sea-"]',
-      '#input-adults',
-      '#input-minors'
-    ].join(',');
-    
-    document.querySelectorAll(inputSelectors).forEach(el => {
-      el.addEventListener('input', syncInputsToStore);
-      el.addEventListener('change', syncInputsToStore);
-    });
-    
-    console.log('[Input Bridge] ✓ Listeners attached');
-  }
-
-  /* ========================= INPUT WIRING ========================= */
-
-  function wireInputs() {
-    const inputs = store.get().inputs;
-    
-    const inputMap = {
-      'nights': 'nights',
-      'input-days': 'nights',
-      'adults': 'adults',
-      'input-adults': 'adults',
-      'kids': 'kids',
-      'minors': 'minors',
-      'input-minors': 'minors',
-      'beer': 'beer',
-      'wine': 'wine',
-      'cocktails': 'cocktails',
-      'cocktail': 'cocktail',
-      'shots': 'shots',
-      'spirits': 'spirits',
-      'soda': 'soda',
-      'juice': 'juice',
-      'freshjuice': 'freshjuice',
-      'smoothies': 'smoothies',
-      'specialty-coffee': 'specialtyCoffee',
-      'coffee': 'coffee',
-      'teaprem': 'teaprem',
-      'water': 'water',
-      'bottledwater': 'bottledwater',
-      'energy': 'energy',
-      'mocktails': 'mocktails',
-      'mocktail': 'mocktail',
-      'milkshake': 'milkshake'
     };
-    
-    Object.entries(inputMap).forEach(([elementId, stateKey]) => {
-      const input = document.getElementById(elementId);
-      if (!input) return;
+  }
+
+  async function loadDataset() {
+    try {
+      const response = await fetch(CONFIG.DS_URL);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const data = await response.json();
       
-      wireNumericValidation(input);
+      // C11 Layer 10: Validate structure
+      if (!data || typeof data !== 'object') {
+        throw new Error('Invalid dataset');
+      }
+
+      dataset = data;
       
-      input.addEventListener('input', (e) => {
-        inputs[stateKey] = parseNumericInput(e.target.value);
-        scheduleCalc();
-      });
-      
-      if (inputs[stateKey] != null && inputs[stateKey] !== 0) {
-        input.value = inputs[stateKey];
+      // Update economics from dataset
+      const economics = store.get('economics');
+      if (data.packages) {
+        economics.pkg.soda = data.packages.soda?.price || economics.pkg.soda;
+        economics.pkg.refresh = data.packages.refreshment?.price || economics.pkg.refresh;
+        economics.pkg.deluxe = data.packages.deluxe?.price || economics.pkg.deluxe;
+      }
+      if (data.rules) {
+        economics.grat = data.rules.gratuity ?? economics.grat;
+        economics.deluxeCap = data.rules.caps?.deluxeAlcohol ?? economics.deluxeCap;
+      }
+      store.patch('economics', economics);
+
+      console.log('[Dataset] Loaded');
+    } catch (err) {
+      console.error('[Dataset] Load failed:', err);
+      dataset = getFallbackDataset();
+    }
+  }
+
+  // ==================== BOOT SEQUENCE ====================
+  
+  async function boot() {
+    console.log(`[Boot] Drink Calculator ${VERSION}`);
+    console.log('[Boot] Soli Deo Gloria ✝️');
+
+    // Init worker (C2, H7)
+    initWorker();
+
+    // Load FX rates (C1, H2)
+    await loadFX();
+
+    // Load dataset
+    await loadDataset();
+
+    // Attach input listeners (C4)
+    initInputBridge();
+
+    // P1: Render per-guest vouchers
+    renderVoucherGrid();
+
+    // Subscribe to guest changes to update voucher grid
+    store.subscribe('inputs', (newInputs, oldInputs) => {
+      if (newInputs.adults !== oldInputs?.adults || newInputs.minors !== oldInputs?.minors) {
+        renderVoucherGrid();
       }
     });
-    
-    const vouchersCheckbox = document.getElementById('vouchers-enabled');
-    const vouchersPerDay = document.getElementById('vouchers-per-day');
-    
-    if (vouchersCheckbox) {
-      vouchersCheckbox.addEventListener('change', (e) => {
-        inputs.vouchersEnabled = e.target.checked;
-        if (vouchersPerDay) vouchersPerDay.disabled = !e.target.checked;
-        scheduleCalc();
-      });
-    }
-    
-    if (vouchersPerDay) {
-      wireNumericValidation(vouchersPerDay);
-      vouchersPerDay.addEventListener('input', (e) => {
-        inputs.vouchersPerDay = parseNumericInput(e.target.value);
-        scheduleCalc();
-      });
-    }
-    
+
+    // H4: Currency selector
     const currencySelect = document.getElementById('currency-select');
     if (currencySelect) {
-      currencySelect.addEventListener('change', (e) => {
-        currentCurrency = e.target.value;
-        // ============================================================================
-        // EXPOSE CURRENCY FOR UI BADGES
-        // ============================================================================
-        window.__itwCurrency = currentCurrency;
-        scheduleCalc();
-      });
-    }
-  }
-
-  function wirePersonaCards() {
-    document.querySelectorAll('[data-persona]').forEach(card => {
-      card.addEventListener('click', () => {
-        const personaKey = card.getAttribute('data-persona');
-        if (typeof window.applyPersona === 'function' && personaKey) {
-          window.applyPersona(personaKey);
-          setTimeout(() => scheduleCalc(), 50);
-        } else {
-          console.warn('[Persona] applyPersona not available or invalid key:', personaKey);
+      currencySelect.addEventListener('change', async (e) => {
+        currentCurrency = sanitizeText(e.target.value).substring(0, 3);
+        
+        // H2: Reload FX if stale
+        if (fxIsStale()) {
+          await loadFX();
         }
-      });
-    });
-  }
-
-  function wirePresetButtons() {
-    document.querySelectorAll('[data-preset]').forEach(button => {
-      button.addEventListener('click', () => {
-        const presetKey = button.getAttribute('data-preset');
-        if (typeof window.loadPreset === 'function' && presetKey) {
-          window.loadPreset(presetKey);
-          setTimeout(() => scheduleCalc(), 50);
-        } else {
-          console.warn('[Preset] loadPreset not available or invalid key:', presetKey);
-        }
-      });
-    });
-  }
-
-  /* ========================= STATE SUBSCRIPTIONS ========================= */
-
-  store.subscribe('economics', (economics) => {
-    renderEconomics(economics);
-    scheduleCalc();
-  });
-
-  store.subscribe('results', (results) => {
-    renderResults(results);
-  });
-
-  /* ========================= BOOT SEQUENCE ========================= */
-
-  async function boot() {
-    console.log(`[Boot] Drink Package Calculator v${VERSION}`);
-    
-    const defaultBrand = (await loadBrandsManifest()) || 'royal-caribbean';
-    setBrand(getBrandFromURLorLS(defaultBrand));
-    
-    await Promise.all([
-      loadDataset(),
-      loadFX()
-    ]);
-    
-    initWorker();
-    wireBrandUI();
-    
-    if (DATASET?.pricing) {
-      const pricing = DATASET.pricing;
-      store.patch('economics', {
-        pkg: {
-          soda: Number(pricing.soda || 0),
-          refresh: Number(pricing.refreshment || 0),
-          deluxe: Number(pricing.deluxe || 0)
-        },
-        deluxeCap: Number(pricing.deluxe_cap || CONFIG.DELUXE_CAP_FALLBACK),
-        gratPct: Number(pricing.gratuity || CONFIG.GRAT_PCT_FALLBACK)
+        
+        render();
       });
     }
-    
-    store.patch('inputs', {
-      nights: 7,
-      adults: 2,
-      kids: 0,
-      minors: 0,
-      beer: 0,
-      wine: 0,
-      cocktails: 0,
-      cocktail: 0,
-      shots: 0,
-      spirits: 0,
-      soda: 0,
-      juice: 0,
-      freshjuice: 0,
-      smoothies: 0,
-      specialtyCoffee: 0,
-      coffee: 0,
-      teaprem: 0,
-      water: 0,
-      bottledwater: 0,
-      energy: 0,
-      mocktails: 0,
-      mocktail: 0,
-      milkshake: 0,
-      vouchersEnabled: false,
-      vouchersPerDay: 0
-    });
-    
-    wireInputs();
-    wirePersonaCards();
-    wirePresetButtons();
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initInputBridge);
-    } else {
-      initInputBridge();
-    }
-    
-    scheduleCalc();
-    
-    window.renderAll = () => {
-      const results = store.get().results;
-      const economics = store.get().economics;
-      if (economics) renderEconomics(economics);
-      if (results) renderResults(results);
+
+    // Expose ITW globals
+    window.__itwCurrency = currentCurrency;
+    window.ITW = window.ITW || {};
+    window.ITW.store = {
+      get: (key) => store.get(key),
+      subscribe: (key, fn) => store.subscribe(key, fn),
+      patch: (key, val) => store.patch(key, val)
     };
-    
-    window.updateInputs = (newInputs) => {
-      const inputs = store.get().inputs;
-      Object.assign(inputs, newInputs);
-      Object.entries(newInputs).forEach(([key, value]) => {
-        const inputMap = {
-          'nights': 'nights',
-          'adults': 'adults',
-          'kids': 'kids',
-          'minors': 'minors',
-          'beer': 'beer',
-          'wine': 'wine',
-          'cocktails': 'cocktails',
-          'cocktail': 'cocktail',
-          'shots': 'shots',
-          'spirits': 'spirits',
-          'soda': 'soda',
-          'juice': 'juice',
-          'freshjuice': 'freshjuice',
-          'smoothies': 'smoothies',
-          'specialtyCoffee': 'specialty-coffee',
-          'coffee': 'coffee',
-          'teaprem': 'teaprem',
-          'water': 'water',
-          'bottledwater': 'bottledwater',
-          'energy': 'energy',
-          'mocktails': 'mocktails',
-          'mocktail': 'mocktail',
-          'milkshake': 'milkshake'
-        };
-        const elementId = inputMap[key] || key;
-        const element = document.getElementById(elementId);
-        if (element) {
-          element.value = value || '';
-        }
-      });
-      scheduleCalc();
-    };
-    
-    window.scheduleCalc = scheduleCalc;
-    
-    console.log('[Boot] Ready');
+    window.ITW.money = formatMoney;
+    window.ITW.getCurrency = () => currentCurrency;
+    window.ITW.fxApproxPrefix = () => fxIsStale() ? '≈ ' : '';
+
+    // Initial calculation
+    scheduleCalc();
+
+    console.log('[Boot] ✓ Complete');
   }
 
-  /* ========================= INITIALIZATION ========================= */
-
+  // Start on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {
@@ -1097,7 +1025,3 @@
   }
 
 })();
-
-/**
- * Soli Deo Gloria
- */
