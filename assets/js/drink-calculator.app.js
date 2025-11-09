@@ -1,5 +1,5 @@
 /**
- * Drink Package Calculator — Application Controller (v9.003)
+ * Drink Package Calculator — Application Controller (v9.004)
  * "In the Wake" — cruisinginthewake.com
  * 
  * Purpose:
@@ -17,7 +17,7 @@
 
   /* ========================= CONSTANTS & CONFIGURATION ========================= */
 
-  const VERSION = '9.003';
+  const VERSION = '9.004';
   const CONFIG = {
     DELUXE_CAP_FALLBACK: 14.00,
     GRAT_PCT_FALLBACK: 0.18,
@@ -37,6 +37,7 @@
   let worker = null;
   let chart = null;
   let calcTimer = null;
+  let calcId = 0; // Race protection
 
   /* ========================= BRAND MANIFEST & SELECTOR ========================= */
 
@@ -298,14 +299,17 @@
   /* ========================= WEB WORKER MANAGEMENT ========================= */
 
   /**
-   * Initialize web worker
+   * Initialize web worker with cache-busting version
    */
   function initWorker() {
     try {
-      worker = new Worker('/assets/js/drink-worker.js');
+      worker = new Worker(`/assets/js/drink-worker.js?v=${encodeURIComponent(VERSION)}`);
       worker.addEventListener('message', (e) => {
         if (e.data?.type === 'RESULT') {
-          store.patch('results', e.data.payload);
+          // Only accept results from current calculation
+          if (e.data.id === calcId) {
+            store.patch('results', e.data.payload);
+          }
         } else if (e.data?.type === 'ERROR') {
           console.error('[Worker] Computation error:', e.data.message);
           computeFallback();
@@ -341,7 +345,7 @@
   /* ========================= COMPUTATION SCHEDULING ========================= */
 
   /**
-   * Schedule a calculation with debounce
+   * Schedule a calculation with debounce and race protection
    */
   function scheduleCalc() {
     clearTimeout(calcTimer);
@@ -354,15 +358,19 @@
         return;
       }
       
+      // Increment calc ID for race protection
+      const thisCalcId = ++calcId;
+      
       if (worker) {
         worker.postMessage({
           type: 'COMPUTE',
+          id: thisCalcId,
           payload: { inputs, economics }
         });
         
-        // Fallback timeout
+        // Fallback timeout (only if this calc is still current)
         setTimeout(() => {
-          if (!store.get().results) {
+          if (calcId === thisCalcId && !store.get().results) {
             console.warn('[Worker] Timeout, using fallback');
             computeFallback();
           }
@@ -412,8 +420,8 @@
           label: 'Total Cost',
           data: [0, 0, 0, 0],
           backgroundColor: [colors.alc, colors.soda, colors.refresh, colors.deluxe],
-          borderWidth: 0,
-          borderColor: []
+          borderWidth: [0, 0, 0, 0],
+          borderColor: ['rgba(0,0,0,0)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)']
         }]
       },
       options: {
@@ -460,14 +468,12 @@
     const dataset = chartInstance.data.datasets?.[0];
     if (!dataset) return;
     
-    // Reset borders
-    dataset.borderWidth = labels.map(() => 0);
-    dataset.borderColor = labels.map(() => 'rgba(0,0,0,0)');
+    // Reset borders with proper length
+    dataset.borderWidth = new Array(labels.length).fill(0);
+    dataset.borderColor = new Array(labels.length).fill('rgba(0,0,0,0)');
     
     // Highlight winner
     if (winnerIndex >= 0 && winnerIndex < labels.length) {
-      if (!Array.isArray(dataset.borderWidth)) dataset.borderWidth = [];
-      if (!Array.isArray(dataset.borderColor)) dataset.borderColor = [];
       dataset.borderWidth[winnerIndex] = 3;
       dataset.borderColor[winnerIndex] = 'rgba(24,24,27,0.55)';
     }
@@ -497,14 +503,29 @@
   /* ========================= INPUT VALIDATION ========================= */
 
   /**
-   * Sanitize numeric input value
-   * Allows: digits, decimal point, comma (for international formats), minus sign
+   * Sanitize numeric input value - only one decimal, only one leading minus
    * @param {string} value - Raw input value
    * @returns {string} Sanitized value
    */
   function sanitizeNumericInput(value) {
-    // Allow digits, decimal separators (. and ,), thousands separators, and minus
-    return String(value).replace(/[^\d.,-]/g, '');
+    const str = String(value).replace(/[^\d.,-]/g, '');
+    
+    // Keep single leading minus only
+    let output = str.replace(/-/g, '');
+    if (str.startsWith('-')) output = '-' + output;
+    
+    // Keep at most one decimal separator (prefer first . or ,, drop rest)
+    const firstDot = output.indexOf('.');
+    const firstComma = output.indexOf(',');
+    const firstDecimal = (firstDot === -1) ? firstComma : (firstComma === -1 ? firstDot : Math.min(firstDot, firstComma));
+    
+    if (firstDecimal !== -1) {
+      const head = output.slice(0, firstDecimal + 1);
+      const tail = output.slice(firstDecimal + 1).replace(/[.,]/g, '');
+      return head + tail;
+    }
+    
+    return output;
   }
 
   /**
@@ -551,16 +572,18 @@
   function wireNumericValidation(input) {
     if (!input) return;
     
-    // Filter input in real-time
+    // Filter input in real-time with proper cursor handling
     input.addEventListener('input', (e) => {
-      const cursorPos = e.target.selectionStart;
-      const oldValue = e.target.value;
-      const newValue = sanitizeNumericInput(oldValue);
+      const el = e.target;
+      const start = el.selectionStart ?? el.value.length;
+      const before = el.value;
+      const after = sanitizeNumericInput(before);
       
-      if (oldValue !== newValue) {
-        e.target.value = newValue;
-        // Restore cursor position
-        e.target.setSelectionRange(cursorPos - 1, cursorPos - 1);
+      if (before !== after) {
+        const delta = before.length - after.length;
+        el.value = after;
+        const pos = Math.max(0, start - delta);
+        el.setSelectionRange(pos, pos);
       }
     });
     
@@ -669,30 +692,30 @@
     // Update chart
     updateChart(results);
     
-    // Voucher-aware sanity guard (hint only, no forced override)
+    // Voucher-aware sanity hint (non-destructive)
     enforceDeluxeSanityHint(results);
   }
 
   /**
-   * Render break-even helper suggestions
+   * Render break-even helper suggestions with defensive guards
    * @param {Object} results - Computation results
    */
   function renderBreakevenHelpers(results) {
     const helpersContainer = document.getElementById('breakeven-helpers');
-    if (!helpersContainer || !results?.gaps) return;
+    if (!helpersContainer || !results || typeof results !== 'object') return;
     
     const economics = store.get().economics;
     const cap = Number(economics?.deluxeCap || CONFIG.DELUXE_CAP_FALLBACK);
     const grat = Number(economics?.gratPct || CONFIG.GRAT_PCT_FALLBACK);
     const capWithGrat = cap * (1 + grat);
     
-    const gaps = results.gaps;
+    const gaps = results.gaps || { soda: 0, refresh: 0, deluxe: 0 };
     const approx = fxApproxPrefix();
     let html = '';
     
     // Soda package helper
     if (gaps.soda > 0.5 && results.winnerKey !== 'soda') {
-      const userSodas = results.drinks?.soda?.userPresent || [];
+      const userSodas = Array.isArray(results.drinks?.soda?.userPresent) ? results.drinks.soda.userPresent : [];
       if (userSodas.length > 0) {
         const cheapest = userSodas[0];
         const need = ceilDrinks(gaps.soda, cheapest.unit);
@@ -708,7 +731,7 @@
     
     // Refreshment package helper
     if (gaps.refresh > 0.5 && results.winnerKey !== 'refresh') {
-      const suggestions = results.drinks?.refresh?.suggestions || [];
+      const suggestions = Array.isArray(results.drinks?.refresh?.suggestions) ? results.drinks.refresh.suggestions : [];
       if (suggestions.length > 0) {
         const best = suggestions[0];
         const need = ceilDrinks(gaps.refresh, best.unit);
@@ -752,9 +775,10 @@
       return;
     }
     
-    // Check if à-la-carte exceeds Deluxe
+    // Check if à-la-carte per-day exceeds Deluxe per-day
+    // FIXED: bars.alc.mean is already per-day, don't divide by nights
     const economics = store.get().economics;
-    const alcPerDay = Number(results?.bars?.alc?.mean || 0) / Number(store.get().inputs?.nights || 1);
+    const alcPerDay = Number(results?.bars?.alc?.mean || 0);
     const deluxePerDay = Number(economics?.pkg?.deluxe || 0);
     
     if (deluxePerDay > 0 && alcPerDay >= deluxePerDay && results.winnerKey !== 'deluxe') {
@@ -771,30 +795,47 @@
   /* ========================= INPUT WIRING ========================= */
 
   /**
-   * Wire all input elements
+   * Wire all input elements with explicit mapping
    */
   function wireInputs() {
     const inputs = store.get().inputs;
     
-    // Wire numeric inputs with validation
-    const numericInputs = [
-      'nights',
-      'adults', 'kids',
-      'beer', 'wine', 'cocktails', 'shots',
-      'soda', 'juice', 'smoothies', 'specialty-coffee',
-      'water', 'energy', 'mocktails'
-    ];
+    // Explicit mapping: HTML id → state key
+    // This ensures "Specialty Coffee" displays correctly while mapping to specialtyCoffee
+    const inputMap = {
+      'nights': 'nights',
+      'adults': 'adults',
+      'kids': 'kids',
+      'beer': 'beer',
+      'wine': 'wine',
+      'cocktails': 'cocktails',
+      'shots': 'shots',
+      'soda': 'soda',
+      'juice': 'juice',
+      'smoothies': 'smoothies',
+      'specialty-coffee': 'specialtyCoffee',
+      'water': 'water',
+      'energy': 'energy',
+      'mocktails': 'mocktails'
+    };
     
-    numericInputs.forEach(id => {
-      const input = document.getElementById(id);
-      if (input) {
-        wireNumericValidation(input);
-        
-        input.addEventListener('input', (e) => {
-          const key = id.replace(/-/g, '');
-          inputs[key] = parseNumericInput(e.target.value);
-          scheduleCalc();
-        });
+    Object.entries(inputMap).forEach(([elementId, stateKey]) => {
+      const input = document.getElementById(elementId);
+      if (!input) {
+        console.warn(`[Input] Element #${elementId} not found`);
+        return;
+      }
+      
+      wireNumericValidation(input);
+      
+      input.addEventListener('input', (e) => {
+        inputs[stateKey] = parseNumericInput(e.target.value);
+        scheduleCalc();
+      });
+      
+      // Set initial value from state if exists
+      if (inputs[stateKey] != null && inputs[stateKey] !== 0) {
+        input.value = inputs[stateKey];
       }
     });
     
@@ -837,6 +878,8 @@
         const personaKey = card.getAttribute('data-persona');
         if (typeof window.applyPersona === 'function' && personaKey) {
           window.applyPersona(personaKey);
+          // Ensure calculation triggers after persona applies
+          setTimeout(() => scheduleCalc(), 50);
         } else {
           console.warn('[Persona] applyPersona not available or invalid key:', personaKey);
         }
@@ -853,6 +896,8 @@
         const presetKey = button.getAttribute('data-preset');
         if (typeof window.loadPreset === 'function' && presetKey) {
           window.loadPreset(presetKey);
+          // Ensure calculation triggers after preset applies
+          setTimeout(() => scheduleCalc(), 50);
         } else {
           console.warn('[Preset] loadPreset not available or invalid key:', presetKey);
         }
@@ -886,7 +931,7 @@
     console.log(`[Boot] Drink Package Calculator v${VERSION}`);
     
     // 1. Load brand manifest and set active brand
-    const defaultBrand = await loadBrandsManifest();
+    const defaultBrand = (await loadBrandsManifest()) || 'royal-caribbean';
     setBrand(getBrandFromURLorLS(defaultBrand));
     
     // 2. Load dataset and FX rates
@@ -915,7 +960,7 @@
       });
     }
     
-    // 6. Initialize inputs from defaults or localStorage
+    // 6. Initialize inputs from defaults
     store.patch('inputs', {
       nights: 7,
       adults: 2,
@@ -927,7 +972,7 @@
       soda: 0,
       juice: 0,
       smoothies: 0,
-      specialtycoffee: 0,
+      specialtyCoffee: 0,
       water: 0,
       energy: 0,
       mocktails: 0,
@@ -943,12 +988,43 @@
     // 8. Initial calculation
     scheduleCalc();
     
-    // 9. Expose renderAll globally for external triggers
+    // 9. Expose global helpers for external integration
     window.renderAll = () => {
       const results = store.get().results;
       const economics = store.get().economics;
       if (economics) renderEconomics(economics);
       if (results) renderResults(results);
+    };
+    
+    window.updateInputs = (newInputs) => {
+      const inputs = store.get().inputs;
+      Object.assign(inputs, newInputs);
+      // Update UI elements
+      Object.entries(newInputs).forEach(([key, value]) => {
+        // Find the element ID from our mapping
+        const inputMap = {
+          'nights': 'nights',
+          'adults': 'adults',
+          'kids': 'kids',
+          'beer': 'beer',
+          'wine': 'wine',
+          'cocktails': 'cocktails',
+          'shots': 'shots',
+          'soda': 'soda',
+          'juice': 'juice',
+          'smoothies': 'smoothies',
+          'specialtyCoffee': 'specialty-coffee',
+          'water': 'water',
+          'energy': 'energy',
+          'mocktails': 'mocktails'
+        };
+        const elementId = inputMap[key] || key;
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.value = value || '';
+        }
+      });
+      scheduleCalc();
     };
     
     console.log('[Boot] Ready');
