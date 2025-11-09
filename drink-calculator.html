@@ -405,7 +405,29 @@ h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9r
   window.Chart ? loadApp() : add(local, loadApp);
 })();
 </script>
-  <script src="/assets/js/calculator.v10-extras.js" defer></script>
+  <script (function initWhenReady(){
+  // Prefer a custom ready event if you emit one from UI
+  if (window.addEventListener) {
+    window.addEventListener('itw:ready', initExtras, { once: true });
+  }
+
+  // Fallback polling guard (covers first load and hard refresh)
+  const ok = () => window.ITW && window.ITW.bridge && window.ITW_MATH && window.Chart;
+  if (ok()) return initExtras();
+  let tries = 0;
+  const t = setInterval(() => {
+    if (ok() || ++tries > 200) { // ~5s max
+      clearInterval(t);
+      if (ok()) initExtras();
+      else console.warn('[extras] Gave up waiting for app readiness');
+    }
+  }, 25);
+
+  function initExtras(){
+    // your bolt-on code here; safe to touch ITW / UI / Chart
+    console.log('[extras] ready');
+  }
+})();</script>
 </head>
 <body>
 <noscript>
