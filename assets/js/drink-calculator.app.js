@@ -625,7 +625,6 @@ function ensureChart(){
       }
     }
   }
-}
   });
 
   el._chart = chart;
