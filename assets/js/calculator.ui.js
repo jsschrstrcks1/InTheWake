@@ -1,4 +1,9 @@
-/* calculator.ui.js ?v=dev-<timestamp> — Consolidated UI glue layer
+/* calculator.ui.js v9.005.1 — Consolidated UI glue layer
+   P0 FIXES APPLIED:
+   - Use window.ITW exports (store, money, getCurrency)
+   - Fixed Chart.register for winner ring plugin
+   - Improved quiz apply profile with proper event dispatch
+   
    Mission: Surgical, store-driven UI enhancements
    No polling loops, no monkey-patching, no synthetic events
    Soli Deo Gloria
@@ -14,46 +19,47 @@
         setTimeout(itwUIBundle, 50);
       });
     }
-  return;
+    return;
   }
 
-  // 🔧 NEW: use ITW exports everywhere in this file
   const { store, money, getCurrency } = window.ITW;
 
- /* ===== QUICK START (PRESET PERSONAS) ===== */
-(function quickStartPresets(){
-  const root = document.getElementById('qs-preset-buttons');
-  if (!root) return;
+  /* ===== QUICK START (PRESET PERSONAS) ===== */
+  (function quickStartPresets(){
+    const root = document.getElementById('qs-preset-buttons');
+    if (!root) return;
 
-  // Map your HTML buttons → existing persona/preset functions
-  const APPLY = {
-    light:    () => window.applyPersona?.('light'),
-    moderate: () => window.applyPersona?.('moderate'),
-    party:    () => window.applyPersona?.('boys'),   // closest “lively” profile you already ship
-    coffee:   () => window.loadPreset?.('coffee'),   // you already export this preset
-    solo:     () => window.applyPersona?.('solo'),
-  };
-root.addEventListener('click', (e)=>{
-  const btn = e.target.closest('[data-persona]');
-  if (!btn) return;
-  const key = btn.getAttribute('data-persona');
- APPLY[key]?.();
+    const APPLY = {
+      light:    () => window.applyPersona?.('light'),
+      moderate: () => window.applyPersona?.('moderate'),
+      party:    () => window.applyPersona?.('boys'),
+      coffee:   () => window.loadPreset?.('coffee'),
+      solo:     () => window.applyPersona?.('solo'),
+    };
+    
+    root.addEventListener('click', (e)=>{
+      const btn = e.target.closest('[data-persona]');
+      if (!btn) return;
+      const key = btn.getAttribute('data-persona');
+      APPLY[key]?.();
 
-// 🔧 ensure a results update right now
-try { window.scheduleCalc?.(); } catch (_) {}
+      try { window.scheduleCalc?.(); } catch (_) {}
 
-document.dispatchEvent(new CustomEvent('preset:loaded', { detail:{ name:key } }));
-try {
-  const live = document.getElementById('a11y-status');
-  if (live) live.textContent = `Preset “${key}” applied.`;
-} catch (_) {}
-});
-})();
+      document.dispatchEvent(new CustomEvent('preset:loaded', { detail:{ name:key } }));
+      try {
+        const live = document.getElementById('a11y-status');
+        if (live) live.textContent = `Preset "${key}" applied.`;
+      } catch (_) {}
+    });
+  })();
   
   /* ===== VOUCHER FACE-VALUE AUTO-SYNC ===== */
   (function voucherSync(){
     function syncFaceValue(){
-      const cap = store.get().economics.deluxeCap;
+      const economics = store.get().economics;
+      if (!economics) return;
+      
+      const cap = economics.deluxeCap;
       const input = document.getElementById('voucher-value');
       if (!input) return;
       
@@ -67,10 +73,8 @@ try {
       input.style.cursor = 'not-allowed';
     }
     
-    // Subscribe to economics changes
     store.subscribe('economics', syncFaceValue);
     
-    // Initial sync
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', syncFaceValue);
     } else {
@@ -112,52 +116,51 @@ try {
     setTimeout(update, 100);
   })();
   
- /* ===== EMAIL CTA INLINE ===== */
-(function emailCTA(){
-  const cfg = window.ITW_CFG?.emailCTA;
-  if (!cfg?.enabled) return;
+  /* ===== EMAIL CTA INLINE ===== */
+  (function emailCTA(){
+    const cfg = window.ITW_CFG?.emailCTA;
+    if (!cfg?.enabled) return;
 
-  const box = document.getElementById('email-cta-inline');
-  const btn = document.getElementById('email-cta-btn');
-  if (!box) return;
+    const box = document.getElementById('email-cta-inline');
+    const btn = document.getElementById('email-cta-btn');
+    if (!box) return;
 
-  function maybeShow(){
-    const results = store.get().results;
-    const inputs  = store.get().inputs;
-    if (!results?.winnerKey) {
-      box.style.display = 'none';
-      return;
+    function maybeShow(){
+      const results = store.get().results;
+      const inputs  = store.get().inputs;
+      if (!results?.winnerKey) {
+        box.style.display = 'none';
+        return;
+      }
+
+      const savings = results.perDay - (results.bars?.alc?.mean || 0);
+
+      const totalDrinks = Object.values(inputs?.drinks || {}).reduce((sum, v) => {
+        if (typeof v === 'number') return sum + v;
+        if (v && typeof v === 'object') {
+          const avg = ((Number(v.min) || 0) + (Number(v.max) || 0)) / 2;
+          return sum + avg;
+        }
+        return sum;
+      }, 0);
+
+      const show = cfg.alwaysShow ||
+                   (savings > (cfg.showWhenSavingsAbove || 30)) ||
+                   (totalDrinks > (cfg.showWhenDrinksAbove || 4));
+
+      box.style.display = show ? '' : 'none';
     }
 
-    const savings = results.perDay - (results.bars?.alc?.mean || 0);
-
-    // ✅ handle both numbers and {min,max} objects
-    const totalDrinks = Object.values(inputs?.drinks || {}).reduce((sum, v) => {
-      if (typeof v === 'number') return sum + v;
-      if (v && typeof v === 'object') {
-        const avg = ((Number(v.min) || 0) + (Number(v.max) || 0)) / 2;
-        return sum + avg;
-      }
-      return sum;
-    }, 0);
-
-    const show = cfg.alwaysShow ||
-                 (savings > (cfg.showWhenSavingsAbove || 30)) ||
-                 (totalDrinks > (cfg.showWhenDrinksAbove || 4));
-
-    box.style.display = show ? '' : 'none';
-  }
-
-  store.subscribe('results', maybeShow);
-   store.subscribe('inputs', maybeShow);
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const form = document.getElementById('email-form') ||
-                   document.getElementById('newsletter-form');
-      if (form) form.scrollIntoView({ behavior:'smooth', block:'nearest' });
-    });
-  }
-})();
+    store.subscribe('results', maybeShow);
+    store.subscribe('inputs', maybeShow);
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const form = document.getElementById('email-form') ||
+                     document.getElementById('newsletter-form');
+        if (form) form.scrollIntoView({ behavior:'smooth', block:'nearest' });
+      });
+    }
+  })();
   
   /* ===== WINNER RING CHART PLUGIN ===== */
   (function winnerRing(){
@@ -224,30 +227,24 @@ try {
       const chart = window.ITW?.chart;
       if (!chart || !window.Chart) return;
       
-     // chart.config.plugins = chart.config.plugins || [];
-     // if (!chart.config.plugins.includes(ringPlugin)) {
-    //    chart.config.plugins.push(ringPlugin);
+      try { 
+        window.Chart.register(ringPlugin); 
+      } catch (_) {}
       
-  // 🔧 FIX: register globally instead of mutating a (frozen) config path
-  try { window.Chart.register(ringPlugin); } catch (_) {}
-       
       pluginMounted = true;
       pickWinner(chart);
       chart.update('none');
       
-      // Subscribe to results for winner updates
       store.subscribe('results', () => {
         pickWinner(chart);
         chart.update('none');
       });
     }
     
-    // Subscribe to chartReady
     store.subscribe('ui', (ui) => {
       if (ui.chartReady) mountPlugin();
     });
     
-    // Also try immediate mount if already ready
     setTimeout(mountPlugin, 200);
   })();
   
@@ -521,7 +518,6 @@ try {
       html += '</div></div>';
       document.getElementById('quiz-content').innerHTML = html;
       
-      // Add keyboard navigation for radio options
       const options = document.querySelectorAll('.quiz-option[role="radio"]');
       options.forEach((opt, i) => {
         opt.addEventListener('keydown', (e) => {
@@ -542,7 +538,6 @@ try {
         });
       });
       
-      // Click handlers with debounce for multi-select
       let multiSelectDebounce = null;
       document.querySelectorAll('.quiz-option').forEach(el => {
         el.onclick = () => {
@@ -615,11 +610,9 @@ try {
       document.removeEventListener('keydown', trapKeydown, true);
       if (lastFocus) lastFocus.focus();
       
-      // Show retake CTA
       const retakeCTA = document.getElementById('quiz-retake-cta');
       if (retakeCTA) retakeCTA.style.display = '';
       
-      // Emit analytics event
       document.dispatchEvent(new CustomEvent('quiz:complete', {
         detail: {
           profile: profile.profile,
@@ -662,42 +655,45 @@ try {
       };
     }
     
-function applyProfile(p){
-  const get = id => document.getElementById(id);
-  if (!get('input-days')) {
-    console.error('Calculator inputs not found');
-    return;
-  }
+    function applyProfile(p){
+      const get = id => document.getElementById(id);
+      if (!get('input-days') && !get('input-adults')) {
+        console.error('Calculator inputs not found');
+        return;
+      }
 
-  get('input-adults').value = p.adults || 1;
-  get('input-minors').value = p.minors || 0;
+      const adultsInput = get('input-adults') || get('adults');
+      const minorsInput = get('input-minors') || get('minors');
+      
+      if (adultsInput) adultsInput.value = p.adults || 1;
+      if (minorsInput) minorsInput.value = p.minors || 0;
 
-  Object.entries(p.drinks || {}).forEach(([k,v]) => {
-    const inp = document.querySelector(`[data-input="${k}"]`);
-    if (inp) inp.value = v;
-  });
+      Object.entries(p.drinks || {}).forEach(([k,v]) => {
+        const inp = document.querySelector(`[data-input="${k}"]`);
+        if (inp) inp.value = v;
+      });
 
-  if (p.vouchers) {
-    const cna = get('cna-vouchers') || get('vouchers');
-    if (cna) {
-      cna.open = true;
-      if (p.vouchers.adultD)  get('v-adult-d').value  = p.vouchers.adultD;
-      if (p.vouchers.adultDP) get('v-adult-dp').value = p.vouchers.adultDP;
-      if (p.vouchers.adultP)  get('v-adult-p').value  = p.vouchers.adultP;
+      if (p.vouchers) {
+        const cna = get('cna-vouchers') || get('vouchers');
+        if (cna) {
+          cna.open = true;
+          if (p.vouchers.adultD)  get('v-adult-d').value  = p.vouchers.adultD;
+          if (p.vouchers.adultDP) get('v-adult-dp').value = p.vouchers.adultDP;
+          if (p.vouchers.adultP)  get('v-adult-p').value  = p.vouchers.adultP;
+        }
+      }
+
+      document.querySelectorAll('[data-input], [data-voucher]').forEach(el => {
+        if (el && el.id !== 'voucher-value') {
+          el.dispatchEvent(new Event('input',  { bubbles:true }));
+          el.dispatchEvent(new Event('change', { bubbles:true }));
+        }
+      });
+
+      if (window.scheduleCalc) {
+        setTimeout(() => window.scheduleCalc(), 100);
+      }
     }
-  }
-
-  // Notify app.js listeners so store updates + calc runs
-  document.querySelectorAll('[data-input], [data-voucher]').forEach(el => {
-    if (el && el.id !== 'voucher-value') {
-      el.dispatchEvent(new Event('input',  { bubbles:true }));
-      el.dispatchEvent(new Event('change', { bubbles:true }));
-    }
-  });
-
-  // (Optional belt-and-suspenders) kick the calc once more
-  if (window.scheduleCalc) window.scheduleCalc();
-}
     
     function save(p){
       try {
@@ -718,16 +714,15 @@ function applyProfile(p){
       return Date.now() - p.ts > QUIZ_CONFIG.expiryDays * 86400000;
     }
     
-   function skip(){
-  localStorage.setItem(QUIZ_CONFIG.storageKey, JSON.stringify({ skipped:true, ts:Date.now() }));
-  const modal = document.getElementById('quiz-modal');
-  modal.classList.remove('show');
-  document.removeEventListener('keydown', trapKeydown, true);
-  if (lastFocus) lastFocus.focus();
-}
+    function skip(){
+      localStorage.setItem(QUIZ_CONFIG.storageKey, JSON.stringify({ skipped:true, ts:Date.now() }));
+      const modal = document.getElementById('quiz-modal');
+      modal.classList.remove('show');
+      document.removeEventListener('keydown', trapKeydown, true);
+      if (lastFocus) lastFocus.focus();
+    }
 
-// expose the show() so quizStart can call it
-window._itwShowQuiz = show;
+    window._itwShowQuiz = show;
     
     document.getElementById('quiz-next').onclick = next;
     document.getElementById('quiz-back').onclick = back;
@@ -741,19 +736,18 @@ window._itwShowQuiz = show;
     }
   }
   
-window.quizStart = function(){
-  if (!quizLoaded) {
-    quizLoaded = true;
-    loadQuizModule();
-  }
-  if (typeof window._itwShowQuiz === 'function') {
-    window._itwShowQuiz();
-  } else {
-    // very defensive fallback
-    const modal = document.getElementById('quiz-modal');
-    modal?.classList.add('show');
-  }
-};
+  window.quizStart = function(){
+    if (!quizLoaded) {
+      quizLoaded = true;
+      loadQuizModule();
+    }
+    if (typeof window._itwShowQuiz === 'function') {
+      window._itwShowQuiz();
+    } else {
+      const modal = document.getElementById('quiz-modal');
+      modal?.classList.add('show');
+    }
+  };
   
   window.quizRetake = function(){
     localStorage.removeItem(QUIZ_CONFIG.storageKey);
@@ -765,7 +759,6 @@ window.quizStart = function(){
     const cfg = window.ITW_CFG?.analytics;
     if (!cfg?.enabled) return;
     
-    // Calc updated
     store.subscribe('results', (results) => {
       if (!results?.winnerKey) return;
       window.itwTrack?.('calc_updated', {
@@ -775,7 +768,6 @@ window.quizStart = function(){
       });
     });
     
-    // Quiz complete
     document.addEventListener('quiz:complete', (e) => {
       window.itwTrack?.('quiz_complete', {
         profile: e.detail?.profile,
@@ -783,14 +775,12 @@ window.quizStart = function(){
       });
     });
     
-    // Preset loaded
     document.addEventListener('preset:loaded', (e) => {
       window.itwTrack?.('preset_load', {
         preset: e.detail?.name
       });
     });
     
-    // Share clicked
     const originalShare = window.shareScenario;
     if (typeof originalShare === 'function') {
       window.shareScenario = function(){
@@ -806,6 +796,7 @@ window.quizStart = function(){
   (function packageBadges(){
     function update(){
       const economics = store.get().economics;
+      if (!economics) return;
       
       const badges = [
         { sel: '[data-pkg-price="soda"]', val: economics.pkg.soda },
@@ -818,12 +809,12 @@ window.quizStart = function(){
         if (el) el.textContent = money(val);
       });
       
-      const cap = document.getElementById('cap-badge');
-      if (cap) cap.textContent = `$${economics.deluxeCap.toFixed(2)}`;
+      const cap = document.getElementById('cap-badge') || document.getElementById('deluxe-cap-badge');
+      if (cap && economics.deluxeCap) cap.textContent = `$${economics.deluxeCap.toFixed(2)}`;
     }
     
     store.subscribe('economics', update);
   })();
   
-  console.log('[ITW UI v=<timestamp>] Consolidated UI glue loaded — Soli Deo Gloria');
+  console.log('[ITW UI v9.005.1] Consolidated UI glue loaded — Soli Deo Gloria');
 })();
