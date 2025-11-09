@@ -654,7 +654,25 @@
       const form=document.getElementById('email-form');
       if(form){form.addEventListener('submit',function(){itwPopulateEmailTelemetry();},{capture:true});}
       window.itwPopulateEmailTelemetry=itwPopulateEmailTelemetry;
-    })();
+    })();// sw-bridge.js (v10)
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).then(reg => {
+    if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+    reg.addEventListener('updatefound', () => {
+      const sw = reg.installing;
+      sw && sw.addEventListener('statechange', () => {
+        if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+          // Option A: prompt user; Option B: auto-reload
+          // location.reload();
+        }
+      });
+    });
+  });
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    // Guard to avoid loops if you auto-reload above
+  });
+}
   </script>
 </body>
 </html>
