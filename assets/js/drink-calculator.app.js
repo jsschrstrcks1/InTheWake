@@ -1002,9 +1002,11 @@ if (deluxeEl) {
         'margin-left:8px;background:#ccfbf1;color:#115e59;border:1px solid #99f6e4;' +
         'padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;';
       hd.appendChild(chipEl);
-    });
-  })(); // <- closes the IIFE
-}       // <- closes renderResults      // <- closes renderResults
+    })(); // closes kidsChips
+    
+  })(); // closes renderBreakevenHelpers
+  
+} // closes renderResults
 
 /* ------------------------- Economics/Prices UI ------------------------- */
 function renderEconomics(){
