@@ -1,4 +1,4 @@
-/* drink-worker.js — v.9.000.003 (module worker, last-message-wins, safe fallbacks) 
+/* drink-worker.js — v.9.001.007 (module worker, last-message-wins, safe fallbacks) 
    🔧 EMERGENCY FIX: Fixed missing closing parenthesis in mathURL template string
 */
 
