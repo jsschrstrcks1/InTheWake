@@ -818,3 +818,113 @@
   
   console.log('[ITW UI v9.005.1] Consolidated UI glue loaded — Soli Deo Gloria');
 })();
+// v10 inline-price editor glue (security-aware)
+(() => {
+  const MAX_DAILY = 200;           // sane upper bound ($/day)
+  const PKGS = new Set(['soda','refresh','deluxe']);
+
+  // Bridge: one place to mutate price + trigger a recalc
+  function setPackagePrice(pkg, value){
+    if (!PKGS.has(pkg)) return;
+    // Prefer the official bridge if present
+    if (window.ITW_BRIDGE?.setPackagePrice) {
+      window.ITW_BRIDGE.setPackagePrice(pkg, value);
+    } else if (window.ITW?.actions?.setPackagePrice) {
+      window.ITW.actions.setPackagePrice(pkg, value);
+    } else if (window.__itwStore?.setPackagePrice) {
+      window.__itwStore.setPackagePrice(pkg, value);
+    } else {
+      // Fire a custom event as a last-resort hook
+      document.dispatchEvent(new CustomEvent('itw:pkgprice:set', { detail:{ pkg, value }}));
+    }
+  }
+
+  // Sanitize -> validate -> normalize -> number
+  function sanitizePrice(raw){
+    // 1) XSS-safe numeric parse (handles "2-4", locales, etc.)
+    const num = window.parseQty ? window.parseQty(raw) : Number.parseFloat(String(raw).replace(/[^\d.]/g,''));
+    if (!Number.isFinite(num)) return null;
+
+    // 2) Range limits
+    if (num < 0) return 0;
+    if (num > MAX_DAILY) return MAX_DAILY;
+
+    // 3) Two decimals
+    return Math.round(num * 100) / 100;
+  }
+
+  // Small helper to show errors accessibly
+  function announce(msg){
+    const live = document.getElementById('a11y-alerts') || document.getElementById('a11y-status');
+    if (live) { live.textContent = msg; }
+    console.warn('[Editor]', msg);
+  }
+
+  // Event delegation for all editors
+  document.addEventListener('click', (e) => {
+    // Toggle open/close
+    const toggleBtn = e.target.closest('[data-edit-toggle]');
+    if (toggleBtn){
+      const pkg = toggleBtn.getAttribute('data-edit-toggle');
+      const form = document.querySelector(`form[data-edit-form="${pkg}"]`);
+      if (form){ form.hidden = !form.hidden; }
+      return;
+    }
+
+    // Save
+    const saveBtn = e.target.closest('[data-edit-save]');
+    if (saveBtn){
+      const pkg = saveBtn.getAttribute('data-edit-save');
+      const input = document.querySelector(`input[data-edit-input="${pkg}"]`);
+      if (!input) return;
+
+      const cleaned = sanitizePrice(input.value);
+      if (cleaned == null){
+        announce('Please enter a number.');
+        input.focus(); input.select();
+        return;
+      }
+
+      setPackagePrice(pkg, cleaned);
+
+      // Reflect back to UI safely
+      input.value = cleaned.toFixed(2);
+      const pill = document.querySelector(`[data-pkg-price="${pkg}"]`);
+      if (pill) pill.textContent = `$${cleaned.toFixed(0)}`;
+
+      const form = document.querySelector(`form[data-edit-form="${pkg}"]`);
+      if (form) form.hidden = true;
+
+      // Optional analytics shim
+      try { window.itwTrack('edit_price', { pkg, value: cleaned }); } catch {}
+      return;
+    }
+
+    // Cancel
+    const cancelBtn = e.target.closest('[data-edit-cancel]');
+    if (cancelBtn){
+      const pkg = cancelBtn.getAttribute('data-edit-cancel');
+      const form = document.querySelector(`form[data-edit-form="${pkg}"]`);
+      if (form) form.hidden = true;
+    }
+  });
+
+  // Hardening: prevent non-numeric junk at input-time (still sanitized on save)
+  document.addEventListener('input', (e) => {
+    const el = e.target.closest('input[data-edit-input]');
+    if (!el) return;
+    // Trim length, allow digits . and comma/space which parseQty tolerates
+    if (el.value.length > 16) el.value = el.value.slice(0,16);
+  });
+
+  // Optional: Enter key submits
+  document.addEventListener('keydown', (e) => {
+    const el = e.target.closest('input[data-edit-input]');
+    if (!el) return;
+    if (e.key === 'Enter'){
+      const pkg = el.getAttribute('data-edit-input');
+      const btn = document.querySelector(`[data-edit-save="${pkg}"]`);
+      if (btn){ e.preventDefault(); btn.click(); }
+    }
+  });
+})();
