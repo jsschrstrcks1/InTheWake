@@ -626,7 +626,6 @@ function ensureChart(){
     }
   }
   });
-
   el._chart = chart;
   store.patch('ui.chartReady', true);
   return chart;
