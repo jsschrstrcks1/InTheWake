@@ -613,3 +613,146 @@ async function getCalculatorFreshness(){
     return { pricing: { cached:false } };
   }
 }
+// sw.js (v10)
+const ITW_VER = '10.0.0';
+const C = {
+  PRE: `itw-v10-pre-${ITW_VER}`,
+  PAGE: `itw-v10-page`,
+  ASSET: `itw-v10-asset`,
+  IMG: `itw-v10-img`,
+  FONT: `itw-v10-font`,
+  DATA: `itw-v10-data`,
+  META: `itw-v10-meta`,
+};
+
+const PRECACHE = [
+  '/drink-calculator.html',
+  '/assets/js/drink-math.js?v=10.0.0',
+  '/assets/js/drink-calculator.app.js?v=10.0.0',
+  '/assets/js/calculator.ui-bridge.js?v=10.0.0',
+  '/assets/js/calculator.ui.js?v=10.0.0',
+  '/assets/logo_wake.png',
+  '/manifest.webmanifest'
+];
+
+self.addEventListener('install', (e) => {
+  e.waitUntil((async () => {
+    const cache = await caches.open(C.PRE);
+    await cache.addAll(PRECACHE);
+    self.skipWaiting();
+  })());
+});
+
+self.addEventListener('activate', (e) => {
+  e.waitUntil((async () => {
+    const keep = new Set(Object.values(C));
+    const names = await caches.keys();
+    await Promise.all(names.map(n => (keep.has(n) || n.includes(`itw-v10-pre-`)) ? null : caches.delete(n)));
+    await self.clients.claim();
+  })());
+});
+
+// Example: NetworkFirst for pages
+async function pageHandler(req) {
+  try {
+    const net = await fetch(req);
+    const c = await caches.open(C.PAGE);
+    c.put(req, net.clone());
+    return net;
+  } catch {
+    const c = await caches.open(C.PAGE);
+    return (await c.match(req)) || (await caches.open(C.PRE).then(pc => pc.match('/drink-calculator.html')));
+  }
+}
+
+// Example: SWR for app assets
+async function assetHandler(req, bucket) {
+  const cache = await caches.open(bucket);
+  const cached = await cache.match(req);
+  const fetchAndPut = fetch(req).then(r => { cache.put(req, r.clone()); return r; }).catch(() => null);
+  return cached || await fetchAndPut || new Response('', { status: 504 });
+}
+
+self.addEventListener('fetch', (e) => {
+  const url = new URL(e.request.url);
+  // Health probe
+  if (url.pathname === '/__sw_health' && e.request.method === 'GET') {
+    e.respondWith(buildHealthJSON());
+    return;
+  }
+  if (e.request.mode === 'navigate') { e.respondWith(pageHandler(e.request)); return; }
+
+  if (url.pathname.startsWith('/assets/js/') || url.pathname.endsWith('.css')) {
+    e.respondWith(assetHandler(e.request, C.ASSET)); return;
+  }
+  if (/\.(png|jpe?g|webp|svg)$/i.test(url.pathname)) {
+    e.respondWith(assetHandler(e.request, C.IMG)); return;
+  }
+  if (/\.(woff2?|ttf|otf)$/i.test(url.pathname)) {
+    e.respondWith(assetHandler(e.request, C.FONT)); return;
+  }
+  if (url.hostname.includes('frankfurter.app') || url.hostname.includes('exchangerate.host') || url.pathname.startsWith('/api/')) {
+    e.respondWith(assetHandler(e.request, C.DATA)); return;
+  }
+});
+
+// Health JSON builder
+async function buildHealthJSON() {
+  const names = await caches.keys();
+  const counts = {};
+  for (const [key, name] of Object.entries(C)) {
+    const cache = await caches.open(name);
+    const reqs = await cache.keys();
+    counts[key] = { name, count: reqs.length };
+  }
+
+  // Calculator pricing meta (age/confidence)
+  let pricing = { cached: false };
+  try {
+    const meta = await caches.open(C.META);
+    const rec = await meta.match('/meta/calculator-pricing.json');
+    if (rec) {
+      const data = await rec.json();
+      pricing = { cached: true, ageMs: Date.now() - (data.fetchedAt || 0), confidence: data.confidence || '—' };
+    }
+  } catch {}
+
+  const body = { version: ITW_VER, buckets: counts, calculator: { pricing } };
+  return new Response(JSON.stringify(body), { headers: { 'content-type': 'application/json' } });
+}
+
+// Messaging for admin page
+const ERR = [];
+function logErr(err) { ERR.push(`[${new Date().toISOString()}] ${String(err)}`); if (ERR.length > 50) ERR.shift(); }
+
+self.addEventListener('message', async (e) => {
+  const port = e.ports && e.ports[0];
+  const msg = e.data || {};
+  try {
+    if (msg.type === 'GET_CACHE_STATS') {
+      const keys = await caches.keys();
+      const stats = {};
+      for (const [k, v] of Object.entries(C)) {
+        const cache = await caches.open(v);
+        stats[k] = { name: v, count: (await cache.keys()).length };
+      }
+      if (port) port.postMessage({ stats });
+    }
+    if (msg.type === 'GET_ERROR_LOG') {
+      if (port) port.postMessage({ errors: ERR.slice(-30) });
+    }
+    if (msg.type === 'FORCE_REFRESH_CALC') {
+      // Example: re-fetch pricing/fx and store meta
+      try {
+        // await fetch(...) -> put into C.DATA
+        const meta = await caches.open(C.META);
+        await meta.put('/meta/calculator-pricing.json',
+          new Response(JSON.stringify({ fetchedAt: Date.now(), confidence: 'fresh' }), { headers: { 'content-type': 'application/json' } })
+        );
+      } catch (err) { logErr(err); }
+    }
+  } catch (err) {
+    logErr(err);
+    if (port) port.postMessage({ error: String(err) });
+  }
+});
