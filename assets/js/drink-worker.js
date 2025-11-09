@@ -1,5 +1,5 @@
-/* drink-worker.js — v.9.001.007 (module worker, last-message-wins, safe fallbacks) 
-   🔧 EMERGENCY FIX: Fixed missing closing parenthesis in mathURL template string
+/* drink-worker.js — v.9.005.1 (module worker, last-message-wins, safe fallbacks) 
+   🔧 P0 FIX: Fixed missing closing parenthesis in mathURL template string
 */
 
 /* ------------------------- Versioned import ------------------------- */
@@ -65,7 +65,6 @@ function sanitizePayload(payload) {
 
 /* ------------------------- Dynamic import with fallback ------------------------- */
 let computeFn = null;
-
 (async function init() {
   try {
     const mod = await import(mathURL);
@@ -81,31 +80,30 @@ let computeFn = null;
 
 /* ------------------------- Last-message-wins ------------------------- */
 let lastReqId = 0;
-
 self.onmessage = (e) => {
-  const { type, payload } = e.data || {};
+  const { type, payload, id } = e.data || {};
   if (type !== 'compute') return;
   
-  const reqId = ++lastReqId;
+  const reqId = id || ++lastReqId;
   
   try {
     const clean = sanitizePayload(payload);
     if (!clean) {
-      if (reqId === lastReqId) self.postMessage({ type: 'result', payload: SAFE_ZERO });
+      if (reqId === lastReqId) self.postMessage({ type: 'result', id: reqId, payload: SAFE_ZERO });
       return;
     }
     
     if (typeof computeFn !== 'function') {
-      if (reqId === lastReqId) self.postMessage({ type: 'result', payload: SAFE_ZERO });
+      if (reqId === lastReqId) self.postMessage({ type: 'result', id: reqId, payload: SAFE_ZERO });
       return;
     }
     
     const res = computeFn(clean.inputs, clean.economics, clean.dataset);
     if (reqId === lastReqId) {
       const payloadOut = (res && typeof res === 'object') ? res : SAFE_ZERO;
-      self.postMessage({ type: 'result', payload: payloadOut });
+      self.postMessage({ type: 'result', id: reqId, payload: payloadOut });
     }
   } catch {
-    if (reqId === lastReqId) self.postMessage({ type: 'result', payload: SAFE_ZERO });
+    if (reqId === lastReqId) self.postMessage({ type: 'result', id: reqId, payload: SAFE_ZERO });
   }
 };
