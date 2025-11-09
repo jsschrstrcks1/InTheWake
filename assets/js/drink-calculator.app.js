@@ -1,4 +1,4 @@
-/* drink-calculator.app.js — ?v=v.9.001.007 (Worker-enabled, Offline-First FX, Surgical v.9.002.003 Updates)
+/* drink-calculator.app.js — ?v=dev-<timestamp> (Worker-enabled, Offline-First FX, Surgical v.9.002.003 Updates)
    Core updates:
    - CONFIG constants block for magic numbers
    - Exposed window.ITW with store, money, getCurrency
@@ -756,7 +756,16 @@ function renderResults(r){
     const container = document.getElementById('best-text');
     if (!container) return;
     
-    Array.from(container.querySelectorAll('.kids-hint')).forEach(n => n.remove());
+    Array.from(container.querySelectorAll('.kids-hint, .policy-note')).forEach(n => n.remove());
+    
+    // 🔧 NEW: Show policy note if Deluxe is required
+    if (r.policyNote) {
+      const policyDiv = document.createElement('div');
+      policyDiv.className = 'small policy-note';
+      policyDiv.style.cssText = 'margin-top:8px;padding:8px;background:#fef3c7;border:1px solid #fbbf24;border-radius:6px;font-weight:600;color:#78350f;';
+      policyDiv.textContent = `ℹ️ ${r.policyNote}`;
+      container.appendChild(policyDiv);
+    }
     
     const minors = (r.groupRows || []).filter(x =>
       x && (x.isMinor || /Minor\s+\d+/.test(x.who||''))
@@ -1624,9 +1633,31 @@ function wireInputs(){
     });
     
     store.patch('inputs', next);
+    
+    // 🔧 NEW: Show preset summary
+    const drinkSummary = Object.entries(next.drinks)
+      .filter(([k,v]) => v > 0)
+      .map(([k,v]) => `${k} ${v}`)
+      .slice(0, 5) // Limit to first 5 drinks
+      .join(', ');
+    
+    const summary = `Loaded "${p.label}" → ${next.adults} adult${next.adults>1?'s':''}, ${next.minors} minor${next.minors>1?'s':''}${drinkSummary ? `; ${drinkSummary}` : ''}`;
+    
+    const summaryEl = document.getElementById('preset-summary') || (() => {
+      const el = document.createElement('div');
+      el.id = 'preset-summary';
+      el.className = 'small muted';
+      el.style.cssText = 'margin-top:8px;padding:8px;background:var(--foam);border-radius:6px;border-left:3px solid var(--accent);';
+      const qsSection = document.querySelector('.qs');
+      if (qsSection) qsSection.appendChild(el);
+      return el;
+    })();
+    
+    summaryEl.textContent = summary;
+    
     scheduleCalc();
     persistNow();
-    announce(`Loaded persona: ${p.label}`);
+    announce(summary);
     
     document.getElementById('jump-winner')?.click();
   };
