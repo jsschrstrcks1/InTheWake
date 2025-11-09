@@ -73,6 +73,13 @@
       <div class="sub">Admin · <span class="mono">/admin/reports/sw-health.html</span></div>
     </div>
   </header>
+  <!-- Tab button -->
+<button class="tab-btn" id="tab-security-btn" data-tab="security" type="button">Security</button>
+
+<!-- Panel container (starts hidden; JS will fill it) -->
+<section id="tab-security" class="tab-panel" hidden>
+  <div id="security-root" class="card"></div>
+</section>
 
   <main class="wrap" id="app">
     <section class="grid" aria-label="summary">
@@ -332,5 +339,6 @@ function fmtBytes(n){
       setInterval(()=> render(), 15000);
     })();
   </script>
+  <script src="/assets/js/sw-health.security.js?v=10.0.0" defer></script>
 </body>
 </html>
