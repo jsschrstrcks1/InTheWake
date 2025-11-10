@@ -1,6 +1,6 @@
 /**
  * Validation Module - Input Validation & Sanitization
- * Version: 1.0.0
+ * Version: 1.0.0 assets/js/modules/validation.js
  */
 
 import { Security } from './security.js';
