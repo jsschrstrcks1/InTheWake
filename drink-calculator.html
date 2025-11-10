@@ -353,7 +353,14 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
           <button class="btn ghost" data-preset="coffee">Coffee Lover</button>
           <button class="btn ghost" data-preset="nonalc">Non-Alcoholic</button>
         </div>
-        
+        <div id="preset-explanation" style="display:none;margin-top:1rem;background:#e6f4f8;border:2px solid #0e6e8e;border-radius:10px;padding:1rem;">
+5  <h4 style="margin-top:0;">📋 <span id="preset-name">Preset</span> Breakdown</h4>
+6  <p class="small" id="preset-desc" style="color:#456;"></p>
+7  <div id="preset-drinks" style="display:grid;gap:.5rem;margin-top:.75rem;"></div>
+8  <p class="tiny muted" style="margin-top:.75rem;border-top:1px dashed #cbd5e1;padding-top:.75rem;">
+9    <strong>💡 Tip:</strong> These are averages. Adjust any field above to match your exact preferences.
+10  </p>
+11</div>
         <hr style="border:0;border-top:1px dashed var(--bd);margin:12px 0"/>
         
         <!-- Basic Inputs -->
@@ -397,31 +404,84 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
         </details>
         
         <!-- Vouchers (Crown & Anchor) -->
-        <details id="cna-vouchers">
-          <summary style="cursor:pointer;font-weight:700;margin:12px 0">
-            Crown & Anchor Vouchers 
-            <span class="tiny muted">(optional)</span>
-          </summary>
-          <div class="banner" style="background:#dbeafe">
-            <p class="small"><strong>Loyalty perks?</strong> Enter your daily voucher counts below. We'll apply them to your à-la-carte cost.</p>
-            <p class="tiny muted">Face value: <span id="voucher-value" style="font-weight:700">$8.00</span> per voucher</p>
-          </div>
-          
-          <div class="row">
-            <label for="input-voucher-adult">Adult vouchers/day</label>
-            <input id="input-voucher-adult" type="text" inputmode="numeric" value="0" data-input="voucher-adult" min="0" max="10">
-          </div>
-          <div class="row">
-            <label for="input-voucher-minor">Minor vouchers/day</label>
-            <input id="input-voucher-minor" type="text" inputmode="numeric" value="0" data-input="voucher-minor" min="0" max="10">
-          </div>
-          
-          <p class="tiny muted">
-            <strong>Deluxe cap:</strong> 
-            <span id="cap-badge" style="display:inline-block;padding:.2rem .4rem;background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;font-weight:700">$14.00</span>
-            <span> before gratuity</span>
-          </p>
-        </details>
+        <!-- ENHANCED CROWN & ANCHOR VOUCHERS SECTION -->
+<!-- Replace your existing Crown & Anchor section with this -->
+
+<details id="cna-vouchers">
+  <summary style="cursor:pointer;font-weight:700;margin:12px 0">
+    👑 Crown & Anchor Vouchers
+    <span class="badge" style="background:#d4af37;color:#000;margin-left:.5rem;font-size:.8rem;">Diamond+ Members</span>
+  </summary>
+  
+  <div class="banner" style="background:#fff9e6;border:2px solid #d4af37;margin:.75rem 0;">
+    <h4 style="margin-top:0;color:#a67c00;">💎 Loyalty Drink Vouchers</h4>
+    <p class="small"><strong>Got 80+ cruise nights?</strong> You're probably Diamond or higher! These vouchers add up FAST.</p>
+    
+    <div style="display:grid;gap:.75rem;margin:1rem 0;">
+      <!-- Diamond Tier -->
+      <div style="background:#fff;border:2px solid #d4af37;border-radius:8px;padding:.75rem;">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
+          <span style="font-size:1.2rem;">💎</span>
+          <strong style="color:#6b5d00;font-size:1rem;">Diamond</strong>
+          <span class="tiny muted">(80-174 nights)</span>
+        </div>
+        <p class="small" style="margin:.25rem 0;"><strong style="color:#d4af37;">4 drink vouchers per day</strong>, loaded on your SeaPass</p>
+        <p class="tiny muted" style="margin:.25rem 0;">= $32/day in free drinks ($224/week cruise)</p>
+      </div>
+      
+      <!-- Diamond Plus Tier -->
+      <div style="background:#fff;border:2px solid #c9b037;border-radius:8px;padding:.75rem;">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
+          <span style="font-size:1.2rem;">💎💎</span>
+          <strong style="color:#8b6914;font-size:1rem;">Diamond Plus</strong>
+          <span class="tiny muted">(175-699 nights)</span>
+        </div>
+        <p class="small" style="margin:.25rem 0;"><strong style="color:#c9b037;">5 drink vouchers per day</strong>, loaded on your SeaPass</p>
+        <p class="tiny muted" style="margin:.25rem 0;">= $40/day in free drinks ($280/week cruise)</p>
+      </div>
+      
+      <!-- Pinnacle Tier -->
+      <div style="background:#fff;border:2px solid #b8860b;border-radius:8px;padding:.75rem;">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
+          <span style="font-size:1.2rem;">👑</span>
+          <strong style="color:#654321;font-size:1rem;">Pinnacle</strong>
+          <span class="tiny muted">(700+ nights)</span>
+        </div>
+        <p class="small" style="margin:.25rem 0;"><strong style="color:#b8860b;">5 drink vouchers per day</strong>, loaded on your SeaPass</p>
+        <p class="tiny muted" style="margin:.25rem 0;">= $40/day in free drinks ($280/week cruise)</p>
+      </div>
+    </div>
+    
+    <div style="background:#fffacd;border:1px solid #d4af37;border-radius:6px;padding:.75rem;margin-top:1rem;">
+      <p class="small" style="margin:0;"><strong>💡 Pro tip:</strong> If you're not sure whether you're Diamond, you're probably not (yet!). Check your Crown & Anchor number on royal caribbean.com or the app.</p>
+      <p class="tiny muted" style="margin:.5rem 0 0;">Each voucher = <strong>$8.00</strong> toward any beverage (alcoholic or non-alcoholic).</p>
+    </div>
+  </div>
+  
+  <!-- Voucher Inputs -->
+  <div class="row">
+    <label for="input-voucher-adult">
+      Adult vouchers/day
+      <span class="tiny muted">(4 for Diamond, 5 for Diamond+/Pinnacle)</span>
+    </label>
+    <input id="input-voucher-adult" type="text" inputmode="numeric" value="0" data-input="voucher-adult" min="0" max="10" placeholder="0-5">
+  </div>
+  
+  <div class="row">
+    <label for="input-voucher-minor">
+      Minor vouchers/day
+      <span class="tiny muted">(rarely applicable)</span>
+    </label>
+    <input id="input-voucher-minor" type="text" inputmode="numeric" value="0" data-input="voucher-minor" min="0" max="10" placeholder="0">
+  </div>
+  
+  <!-- Deluxe Cap Info -->
+  <p class="tiny muted" style="margin-top:1rem;">
+    <strong>Deluxe package cap:</strong> 
+    <span id="cap-badge" style="display:inline-block;padding:.2rem .4rem;background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;font-weight:700">$14.00</span>
+    <span> per drink before gratuity. Drinks over this, you pay the difference.</span>
+  </p>
+</details>
         
         <!-- Coffee Card Option -->
         <details id="coffee-card-section">
@@ -1131,6 +1191,7 @@ window.addEventListener('load', () => {
   }
 })();
 </script>
+  
 
 <!-- FIX: Complete Working Quiz Modal -->
 <script>
@@ -1406,6 +1467,159 @@ window.addEventListener('load', () => {
 })();
 </script>
 
+
+<!-- PRESET EXPLANATION SCRIPT -->
+<!-- Add this script near the end of your HTML, before </body> -->
+
+<script>
+(function(){
+  'use strict';
+  
+  const PRESET_INFO = {
+    light: {
+      name: 'Light Drinker 🥤',
+      desc: 'Perfect for casual sippers who want some variety without overdoing it. A couple sodas, specialty coffees, fresh juices, and maybe a glass of wine with dinner.',
+      drinks: { 
+        soda: 2, 
+        coffee: 2, 
+        teaprem: 1, 
+        freshjuice: 2, 
+        mocktail: 2, 
+        bottledwater: 3, 
+        wine: 1, 
+        cocktail: 0.5 
+      }
+    },
+    moderate: {
+      name: 'Moderate Drinker 🍷',
+      desc: 'Social drinking throughout the day - specialty coffee in the morning, a couple beers by the pool, wine with dinner, and cocktails in the evening.',
+      drinks: { 
+        soda: 1, 
+        coffee: 2, 
+        beer: 2, 
+        wine: 2, 
+        cocktail: 2, 
+        bottledwater: 2,
+        freshjuice: 1
+      }
+    },
+    party: {
+      name: 'Party Mode 🎉',
+      desc: 'Living it up! Morning coffee, energy drinks for the day, multiple beers, cocktails throughout, and spirits at night. Full vacation mode engaged.',
+      drinks: { 
+        soda: 1, 
+        coffee: 1, 
+        energy: 1, 
+        beer: 3, 
+        wine: 1, 
+        cocktail: 5, 
+        spirits: 2, 
+        bottledwater: 2 
+      }
+    },
+    coffee: {
+      name: 'Coffee Lover ☕',
+      desc: 'All about those specialty coffees and teas throughout the day. Fresh juice in the morning, mocktails in the afternoon, and maybe some wine to relax in the evening.',
+      drinks: { 
+        coffee: 4, 
+        teaprem: 1, 
+        freshjuice: 1, 
+        mocktail: 1, 
+        wine: 1, 
+        bottledwater: 2,
+        cocktail: 1
+      }
+    },
+    nonalc: {
+      name: 'Non-Alcoholic 🚫🍺',
+      desc: 'Enjoying the cruise without alcohol! Sodas throughout the day, specialty coffees, fresh juices, creative mocktails, milkshakes, and plenty of water.',
+      drinks: { 
+        soda: 2, 
+        coffee: 3, 
+        teaprem: 1, 
+        freshjuice: 2, 
+        mocktail: 2, 
+        milkshake: 1, 
+        bottledwater: 3 
+      }
+    }
+  };
+  
+  const DRINK_LABELS = {
+    soda: 'Fountain Soda',
+    coffee: 'Premium Coffee',
+    teaprem: 'Specialty Tea',
+    freshjuice: 'Fresh Juice/Smoothie',
+    mocktail: 'Mocktail',
+    energy: 'Energy Drink',
+    milkshake: 'Milkshake',
+    bottledwater: 'Bottled Water',
+    beer: 'Beer',
+    wine: 'Wine (glass)',
+    cocktail: 'Cocktail',
+    spirits: 'Spirits/Shot'
+  };
+  
+  function showPresetExplanation(key) {
+    const info = PRESET_INFO[key];
+    if (!info) {
+      console.warn('[Preset Explanation] Unknown preset:', key);
+      return;
+    }
+    
+    const explanation = document.getElementById('preset-explanation');
+    const name = document.getElementById('preset-name');
+    const desc = document.getElementById('preset-desc');
+    const drinksDiv = document.getElementById('preset-drinks');
+    
+    if (!explanation || !name || !desc || !drinksDiv) {
+      console.error('[Preset Explanation] Missing required elements');
+      return;
+    }
+    
+    // Update content
+    name.textContent = info.name;
+    desc.textContent = info.desc;
+    
+    // Build drinks list with proper formatting
+    drinksDiv.innerHTML = '';
+    Object.entries(info.drinks).forEach(([drink, qty]) => {
+      if (qty > 0) {
+        const label = DRINK_LABELS[drink] || drink;
+        const item = document.createElement('div');
+        item.style.cssText = 'background:#fff;padding:.5rem .75rem;border-radius:6px;border:1px solid #cbd5e1;display:flex;justify-content:space-between;align-items:center;';
+        item.innerHTML = `
+          <span style="font-weight:500;">${label}</span>
+          <span style="color:#0e6e8e;font-weight:700;">${qty} / day</span>
+        `;
+        drinksDiv.appendChild(item);
+      }
+    });
+    
+    // Show the explanation
+    explanation.style.display = 'block';
+    
+    // Smooth scroll to it
+    setTimeout(() => {
+      explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+    
+    console.log('[Preset Explanation] Showing:', info.name);
+  }
+  
+  // Wire up to preset buttons (works with existing preset handler)
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-preset]');
+    if (btn) {
+      const key = btn.dataset.preset;
+      // Small delay to let the preset apply first
+      setTimeout(() => showPresetExplanation(key), 200);
+    }
+  });
+  
+  console.log('[Preset Explanation] ✓ Ready');
+})();
+</script>
 <!-- 
   Expected output when everything works:
   
