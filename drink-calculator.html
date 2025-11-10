@@ -602,20 +602,97 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 </main>
 
 <!-- Quiz Modal -->
+<!-- REPLACE the existing quiz-modal div with this improved version -->
+<!-- It has working step navigation, skip button, and better UX -->
+
 <div id="quiz-modal" class="modal">
-  <div class="modal-content">
-    <button class="modal-close" id="quiz-close-btn">&times;</button>
+  <div class="modal-content" style="position:relative;">
+    <button class="modal-close" id="quiz-close-btn" aria-label="Close quiz">&times;</button>
+    
     <div id="quiz-content">
-      <h2>Find Your Perfect Package</h2>
-      <div id="quiz-step-1">
-        <p><strong>Question 1:</strong> How many days is your cruise?</p>
-        <div class="controls-inline">
-          <button class="btn ghost" data-quiz="days" data-value="3-5">3-5 days</button>
-          <button class="btn ghost" data-quiz="days" data-value="6-7">6-7 days</button>
-          <button class="btn ghost" data-quiz="days" data-value="8+">8+ days</button>
+      <h2 style="margin-top:0;">Find Your Perfect Package 🎯</h2>
+      <p class="small" style="color:#64748b;margin-bottom:1.5rem;">Answer 3 quick questions to get a personalized recommendation</p>
+      
+      <!-- Step 1 -->
+      <div id="quiz-step-1" class="quiz-step">
+        <p><strong>Question 1 of 3:</strong> What type of cruise are you taking?</p>
+        <div class="controls-inline" style="flex-direction:column;align-items:stretch;gap:.75rem;margin-top:1rem;">
+          <button class="btn ghost" data-quiz-answer="family" style="text-align:left;padding:1rem;">
+            <strong>👨‍👩‍👧‍👦 Family Vacation</strong><br>
+            <span class="tiny">Traveling with kids and family</span>
+          </button>
+          <button class="btn ghost" data-quiz-answer="party" style="text-align:left;padding:1rem;">
+            <strong>🎉 Party / Celebration</strong><br>
+            <span class="tiny">Bachelor/bachelorette, birthday, or friends trip</span>
+          </button>
+          <button class="btn ghost" data-quiz-answer="romantic" style="text-align:left;padding:1rem;">
+            <strong>💑 Romantic Getaway</strong><br>
+            <span class="tiny">Couples cruise, honeymoon, or anniversary</span>
+          </button>
+          <button class="btn ghost" data-quiz-answer="solo" style="text-align:left;padding:1rem;">
+            <strong>🧳 Solo Adventure</strong><br>
+            <span class="tiny">Traveling alone and meeting new people</span>
+          </button>
         </div>
       </div>
-      <!-- More quiz steps would go here -->
+      
+      <!-- Step 2 -->
+      <div id="quiz-step-2" class="quiz-step" style="display:none;">
+        <p><strong>Question 2 of 3:</strong> How much do you typically drink per day?</p>
+        <div class="controls-inline" style="flex-direction:column;align-items:stretch;gap:.75rem;margin-top:1rem;">
+          <button class="btn ghost" data-quiz-answer="light" style="text-align:left;padding:1rem;">
+            <strong>🥤 Light (1-2 drinks)</strong><br>
+            <span class="tiny">Occasional sipper, mostly water/soda</span>
+          </button>
+          <button class="btn ghost" data-quiz-answer="moderate" style="text-align:left;padding:1rem;">
+            <strong>🍷 Moderate (3-4 drinks)</strong><br>
+            <span class="tiny">Social drinker, wine with dinner</span>
+          </button>
+          <button class="btn ghost" data-quiz-answer="heavy" style="text-align:left;padding:1rem;">
+            <strong>🍻 Heavy (5+ drinks)</strong><br>
+            <span class="tiny">Party mode, multiple drinks per day</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Step 3 -->
+      <div id="quiz-step-3" class="quiz-step" style="display:none;">
+        <p><strong>Question 3 of 3:</strong> What's your beverage preference?</p>
+        <div class="controls-inline" style="flex-direction:column;align-items:stretch;gap:.75rem;margin-top:1rem;">
+          <button class="btn ghost" data-quiz-answer="cocktails" style="text-align:left;padding:1rem;">
+            <strong>🍹 Cocktails</strong><br>
+            <span class="tiny">Margaritas, piña coladas, mixed drinks</span>
+          </button>
+          <button class="btn ghost" data-quiz-answer="beer-wine" style="text-align:left;padding:1rem;">
+            <strong>🍺 Beer & Wine</strong><br>
+            <span class="tiny">Casual drinks, not fancy cocktails</span>
+          </button>
+          <button class="btn ghost" data-quiz-answer="coffee" style="text-align:left;padding:1rem;">
+            <strong>☕ Coffee & Specialty Drinks</strong><br>
+            <span class="tiny">Lattes, cappuccinos, mocktails</span>
+          </button>
+          <button class="btn ghost" data-quiz-answer="nonalc" style="text-align:left;padding:1rem;">
+            <strong>🚫 Non-Alcoholic Only</strong><br>
+            <span class="tiny">Soda, juice, mocktails, no alcohol</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Result -->
+      <div id="quiz-result" class="quiz-step" style="display:none;">
+        <div style="background:#e6f4f8;border:2px solid #0e6e8e;border-radius:10px;padding:1.5rem;margin:1rem 0;">
+          <h3 style="margin-top:0;color:#0a3d62;">✨ Your Recommendation</h3>
+          <p id="quiz-recommendation" style="font-size:1.1rem;line-height:1.6;"></p>
+        </div>
+        <button class="btn" id="quiz-apply-btn" style="width:100%;margin-top:1rem;">Apply These Settings & Calculate</button>
+      </div>
+      
+      <!-- Skip button always visible -->
+      <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #e5e7eb;text-align:center;">
+        <button class="btn ghost" id="quiz-skip-btn" style="background:transparent;border:0;text-decoration:underline;color:#64748b;">
+          Skip quiz — I'll enter my own drinks
+        </button>
+      </div>
     </div>
   </div>
 </div>
