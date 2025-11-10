@@ -4,7 +4,8 @@
  */
 
 /* ==================== UTILITIES ==================== */
-
+(function() {
+'use strict';
 const toNum = (v) => {
   const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d.-]/g, ''));
   return Number.isFinite(n) ? n : 0;
@@ -496,3 +497,4 @@ function computeWithVouchers(inputs, economics, dataset, vouchers) {
 if (typeof window !== 'undefined') {
   window.ITW_MATH = { compute, computeWithVouchers };
 }
+})();
