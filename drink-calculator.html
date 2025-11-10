@@ -1,346 +1,787 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Royal Caribbean Drink Package Calculator - In the Wake</title>
-  
-  <!-- 
-    ✝️ Soli Deo Gloria - v11.1.0 P0-CRITICAL-FIXES
-    
-    CRITICAL FIXES:
-    - Build-time static nonce (no runtime mutation)
-    - strict-dynamic for child scripts
-    - Service Worker integrity verification
-    - Worker result validation
-    - All inline styles moved to CSS
-    
-    BUILD-TIME PLACEHOLDER: BUILD_TIME_NONCE_PLACEHOLDER
-    This gets replaced during your build process.
-  -->
-  
-  <!-- FIXED CSP - Build-time nonce + strict-dynamic -->
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' 'nonce-BUILD_TIME_NONCE_PLACEHOLDER' 'strict-dynamic';
-    worker-src 'self';
-    style-src 'self';
-    img-src 'self' data:;
-    connect-src 'self' https://api.frankfurter.app;
-    font-src 'self';
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self';
-    frame-ancestors 'none';
-    report-to itw-csp;
-    upgrade-insecure-requests;
-  "/>
-  
-  <!-- Reporting API (optional but recommended) -->
-  <meta http-equiv="Report-To" content='{"group":"itw-csp","max_age":10886400,"endpoints":[{"url":"https://cruisinginthewake.com/csp-report"}]}' />
-  
-  <meta name="description" content="Calculate if Royal Caribbean drink packages save you money. Honest, transparent calculator for cruise travelers.">
-  <link rel="stylesheet" href="/assets/css/drink-calculator.css?v=11.1.0">
-  <link rel="manifest" href="/manifest.webmanifest">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="version" content="v.9.002.005"/>
+<title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
+<meta name="description" content="Compare Soda, Refreshment, and Deluxe vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support, sea/port day weighting, and break-even analysis."/>
+<link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
+<link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.071" imagesrcset="/assets/index_hero.jpg?v=3.010.071" fetchpriority="high">
+
+<!-- Favicon / PWA -->
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/in_the_wake_icon_192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/in_the_wake_icon_180x180.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0e6e8e">
+
+<script>
+// Feature flags and configuration
+window.ITW_CFG = {
+  emailCTA: { enabled: true, showWhenSavingsAbove: 30, showWhenDrinksAbove: 4, alwaysShow: false },
+  analytics: { enabled: false, provider: 'none', ga4: 'G-XXXX', plausible: 'cruisinginthewake.com' },
+  presets2: true,
+  steppers: true,
+  explainCard: true,
+  articlesFallback: true
+};
+
+// Range-aware quantity parser
+window.parseQty = function(input){
+  if (input == null) return 0;
+  let s = String(input).trim().replace(/[\u2012-\u2015\u2212]/g,'-').replace(/\s+/g,' ');
+  const m = s.match(/^(\d*\.?\d+)\s*-\s*(\d*\.?\d+)$/);
+  if (m){ 
+    const a=+m[1], b=+m[2]; 
+    return (isFinite(a)&&isFinite(b)) ? Math.max(0,(a+b)/2) : 0;
+  }
+  const cleaned = s.replace(/[,\u00a0\u202f]/g,'');
+  return /^\d*\.?\d+$/.test(cleaned) ? Math.max(0,+cleaned) : 0;
+};
+
+// Analytics shim
+window.itwTrack = function(evt, data){
+  const cfg = (window.ITW_CFG||{}).analytics||{};
+  if(!cfg.enabled) return;
+  try{
+    if(cfg.provider==='ga4' && window.gtag) gtag('event', evt, data||{});
+    if(cfg.provider==='plausible' && window.plausible) plausible(evt, {props:data||{}});
+  }catch(_){}
+};
+</script>
+
+<!-- Performance -->
+<link rel="preconnect" href="https://api.frankfurter.app">
+<link rel="preconnect" href="https://api.exchangerate.host">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://api.frankfurter.app">
+<link rel="dns-prefetch" href="https://api.exchangerate.host">
+
+<!-- Social -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Royal Caribbean Drink Package Calculator"/>
+<meta property="og:description" content="Break-even chart + sea/port day weighting. Find out if a package saves money."/>
+<meta property="og:url" content="https://cruisinginthewake.com/drink-calculator.html"/>
+<meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Drink Calculator","item":"https://cruisinginthewake.com/drink-calculator.html"}]}
+</script>
+
+<style>
+:root{
+  --sea:#0a3d62;--foam:#e6f4f8;--rope:#d9b382;--ink:#083041;--sky:#f7fdff;
+  --accent:#0e6e8e;--shadow:0 2px 6px rgba(8,48,65,.08);--shadow-lg:0 10px 28px rgba(8,48,65,.14);
+  --rail-width:320px;--bg:#f8fbfc;--card:#fff;--bd:#e5e7eb;--muted:#525a66;
+  --good:#10b981;--warn:#f59e0b;--bad:#ef4444;
+}
+*{box-sizing:border-box}
+html{scrollbar-gutter:stable both-edges}
+body{margin:0;background:var(--sky);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+.card{background:var(--card);border:2px solid var(--rope);border-radius:12px;padding:1rem;margin:.8rem 0;box-shadow:var(--shadow)}
+h1,h2,h3{color:var(--sea)}.tiny{font-size:.88rem;color:#456}.small{font-size:.9rem;color:#475569}.muted{color:var(--muted)}
+.sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* Header / hero */
+.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
+.navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.35rem .9rem .75rem;align-items:center;min-height:56px}
+.brand{display:flex;align-items:center;gap:.6rem}
+.brand img{height:40px;width:auto;max-width:min(42vw,240px)}
+.version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
+
+.itw-nav{display:flex;gap:.5rem;flex:1 1 auto;align-items:center;justify-content:center;white-space:nowrap}
+.itw-nav .nav-item{position:relative}
+.itw-nav .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;border:1px solid var(--rope);color:var(--accent);font-size:.95rem;cursor:pointer;transition:all .2s ease}
+.itw-nav .chip:hover{background:var(--foam);transform:translateY(-1px)}
+.itw-nav .nav-item>a.chip{text-decoration:none}
+.itw-nav .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px}
+.itw-nav .menu{position:absolute;left:0;top:100%;transform:translateY(.35rem);min-width:240px;max-width:min(90vw,360px);background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);padding:.6rem;display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:100;transition:opacity .18s ease}
+.itw-nav .nav-item.open>.menu{display:block;visibility:visible;opacity:1;pointer-events:auto}
+.itw-nav .menu .label{font-weight:700;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
+.itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);transition:background .15s}
+.itw-nav .menu a:hover{background:#f2f7fa;text-decoration:none}
+
+.hero{
+  position:relative;width:100%;height:40vh;min-height:280px;max-height:440px;
+  background:url('/assets/index_hero.jpg?v=3.010.071') center 50%/cover no-repeat;
+  display:flex;align-items:flex-end;overflow:hidden;
+}
+.hero-title{
+  position:absolute;left:clamp(.75rem,3vw,1rem);bottom:clamp(1rem,4vh,2rem);
+  display:flex;flex-direction:column;gap:.35rem;text-shadow:0 2px 6px rgba(0,0,0,.45);
+}
+.hero-title .logo{width:clamp(160px,20vw,340px);max-width:min(85vw,480px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+.tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.85rem,1.4vw,1.25rem);white-space:nowrap}
+.hero-compass{position:absolute;right:clamp(.75rem,3vw,1rem);top:.5rem;width:76px;opacity:.9;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%)}
+.hero-credit{position:absolute;right:.75rem;bottom:.75rem;z-index:2;font-size:.75rem;opacity:.85;background:rgba(0,0,0,.4);padding:.25rem .5rem;border-radius:4px;color:#fff}
+
+.page-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,var(--rail-width));gap:2rem;align-items:start}
+@media (max-width:979.98px){.page-grid{grid-template-columns:1fr}}
+
+.rail-list{display:grid;gap:1rem}
+.author-card{display:flex;gap:.75rem;align-items:center}
+.author-avatar{display:block;width:96px;height:96px;border-radius:12px;object-fit:cover;object-position:center;flex:0 0 96px}
+
+.inputs .row{display:grid;grid-template-columns:1fr 140px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);gap:10px}
+.inputs .row:last-child{border-bottom:0}
+.inputs .row> :not(:first-child){justify-self:end}
+.inputs input[type="text"],.inputs input[type="number"]{width:110px;padding:6px 8px;border:1px solid var(--bd);border-radius:8px;font:inherit;background:#fff;min-height:44px;font-size:16px}
+.inputs select{padding:6px 8px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--ink)}
+.controls-inline{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.badge{background:#fbbf24;color:#78350f;padding:4px 10px;border-radius:999px;font-weight:800;font-size:.85rem}
+.btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700;min-height:44px;font-size:1rem;transition:all .2s}
+.btn:hover{background:#1e293b;transform:scale(1.02)}
+.btn.ghost{background:#fff;color:#0f172a}
+
+/* Preset section */
+.qs{background:#fde68a20;border:1px solid #f59e0b50;border-radius:12px;padding:14px 16px;margin:16px 0}
+.qs .qs-hd{font-weight:800;color:#7c2d12;margin:0 0 6px 0}
+.qs .qs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:8px}
+.persona-btn{background:#fff;border:2px solid var(--rope);border-radius:10px;padding:12px;cursor:pointer;transition:all .2s;text-align:left}
+.persona-btn:hover{background:var(--foam);border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
+.persona-btn .persona-icon{font-size:2rem;margin-bottom:6px}
+.persona-btn .persona-name{font-weight:800;color:var(--sea);font-size:.95rem;margin-bottom:4px}
+.persona-btn .persona-desc{font-size:.8rem;color:var(--muted);line-height:1.3}
+
+/* Chart legend and tooltip */
+.chart-legend{display:flex;gap:1.5rem;flex-wrap:wrap;margin:10px 0;padding:10px;background:var(--foam);border-radius:8px;font-size:.85rem}
+.chart-legend-item{display:flex;align-items:center;gap:.5rem}
+.chart-legend-color{width:16px;height:16px;border-radius:3px}
+.chart-help{font-size:.85rem;color:var(--muted);margin-top:8px;padding:8px;background:var(--foam);border-radius:6px;border-left:3px solid var(--accent)}
+
+/* Category summary */
+.category-summary{margin:12px 0;padding:12px;background:var(--foam);border-radius:8px;border:1px solid var(--rope)}
+.category-summary h4{margin:0 0 8px 0;color:var(--sea);font-size:.95rem}
+.category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;font-size:.85rem}
+.category-item{display:flex;justify-content:space-between;padding:6px 8px;background:#fff;border-radius:4px}
+.category-item .cat-name{font-weight:600;color:var(--ink)}
+.category-item .cat-cost{font-weight:700;color:var(--accent)}
+
+/* Packages rail */
+.package-card{border:1px solid var(--bd);border-radius:8px;padding:12px;margin:8px 0;background:#fff}
+.package-card h4{margin:0 0 8px 0;color:var(--sea);font-size:1rem}
+.package-price{font-size:1.25rem;font-weight:800;color:var(--accent);margin-bottom:8px}
+.package-inclusions{font-size:.8rem;margin:0;padding-left:20px;color:var(--muted)}
+.package-inclusions li{margin:4px 0}
+
+/* Weighting tooltip */
+.tooltip-trigger{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:.75rem;cursor:help;margin-left:6px}
+.tooltip-trigger:hover,.tooltip-trigger:focus{background:var(--sea);outline:2px dashed var(--rope);outline-offset:2px}
+
+#breakeven-wrap{margin-top:18px;position:relative;line-height:0;overflow:hidden}
+#breakeven-chart{width:100%!important;height:320px!important;max-height:320px!important;border:1px dashed var(--bd);border-radius:10px;background:#fff;display:block}
+#voucher-badge{position:absolute;top:-8px;right:0;transform:translateY(-100%)}
+
+/* Quiz modal */
+#quiz-modal{display:none;position:fixed;inset:0;background:rgba(8,48,65,.92);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px);animation:fadeIn .3s}
+#quiz-modal.show{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.quiz-container{background:#fff;border:2px solid var(--rope);border-radius:16px;max-width:560px;width:90vw;max-height:85vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:slideUp .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.quiz-header{background:linear-gradient(135deg,var(--sea) 0%,var(--accent) 100%);color:#fff;padding:1.5rem;border-radius:14px 14px 0 0;position:relative}
+.quiz-header h2{margin:0 0 .5rem 0;font-size:1.5rem}
+.quiz-header p{margin:0;opacity:.9;font-size:.9rem}
+.quiz-progress{position:absolute;bottom:0;left:0;right:0;height:4px;background:rgba(255,255,255,.2)}
+.quiz-progress-bar{height:100%;background:var(--good);transition:width .3s;box-shadow:0 0 10px rgba(16,185,129,.5)}
+.quiz-body{padding:1.5rem}
+.quiz-question{animation:questionSlide .3s}
+@keyframes questionSlide{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.quiz-question h3{color:var(--sea);margin:0 0 1rem 0;font-size:1.15rem}
+.quiz-options{display:flex;flex-direction:column;gap:.75rem}
+.quiz-option{position:relative;background:var(--foam);border:2px solid var(--rope);border-radius:10px;padding:1rem;cursor:pointer;transition:all .2s}
+.quiz-option:hover{background:#e6f4f8;border-color:var(--accent);transform:translateX(4px)}
+.quiz-option.selected{background:var(--accent);border-color:var(--accent);color:#fff}
+.quiz-option input{position:absolute;opacity:0;width:0;height:0}
+.quiz-option-label{display:flex;align-items:center;gap:.75rem;font-weight:600}
+.quiz-option-icon{width:22px;height:22px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.quiz-option.selected .quiz-option-icon::after{content:'✓';font-size:13px;font-weight:800}
+.quiz-option-desc{font-size:.85rem;opacity:.85;margin-top:.25rem;margin-left:30px;font-weight:400}
+.quiz-footer{padding:1rem;border-top:2px solid var(--foam);display:flex;gap:.75rem;justify-content:space-between}
+.quiz-btn{padding:.75rem 1.25rem;border-radius:8px;font-weight:700;cursor:pointer;border:none;font-size:.95rem;min-height:44px;transition:all .2s}
+.quiz-btn-primary{background:var(--accent);color:#fff;flex:1}
+.quiz-btn-primary:hover{background:var(--sea);transform:scale(1.02)}
+.quiz-btn-primary:disabled{background:#cbd5e1;cursor:not-allowed}
+.quiz-btn-secondary{background:#fff;color:var(--ink);border:2px solid var(--rope)}
+.quiz-skip{text-align:center;padding:.75rem;border-top:1px dashed var(--rope)}
+.quiz-skip button{background:none;border:none;color:#64748b;text-decoration:underline;cursor:pointer;font-size:.85rem}
+
+/* Winner badge */
+#best-stamp{
+  position:absolute;top:-10px;right:8px;
+  background:#10b981;color:#063;
+  border:2px solid #065f46;border-radius:999px;
+  padding:.25rem .5rem;font-weight:800;font-size:.8rem;
+  box-shadow:0 4px 12px rgba(0,0,0,.12);display:none;z-index:3;
+}
+
+/* Print */
+@media print{
+  body{font-size:12pt;background:var(--card)}
+  header.hero-header,.qs,.banner,.rail,.card:not(.inputs),#quiz-modal,footer{display:none}
+  .card{border:none;box-shadow:none}
+  #breakeven-chart{border-color:#ccc}
+}
+
+/* Force light */
+@media (prefers-color-scheme:dark){
+  :root{color-scheme:light}
+  body,.card{background:var(--sky)!important;color:var(--ink)!important}
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  html:focus-within{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  #quiz-modal{animation:none!important;backdrop-filter:none!important}
+  .quiz-container{animation:none!important}
+  .quiz-question{animation:none!important}
+  .quiz-progress-bar{transition:none!important}
+  .quiz-option:hover,.itw-nav .chip:hover{transform:none!important}
+}
+
+.inputs.card{border-color:var(--rope)}
+  .hero {
+  height: 200px !important;
+  min-height: 200px !important;
+  max-height: 200px !important;
+  background-position: 50% 50% !important;  /* horizon center */
+  overflow: hidden;                          /* keep logo inside */
+}
+.hero-title .logo {
+  max-width: min(90vw, 720px);
+}
+  /* --- v.9.002.005 STEPPER INLINE ON DESKTOP --- */
+@media (min-width: 768px) {
+  .input-stepper { display:flex; align-items:center; gap:8px; }
+  .input-stepper button:last-child { order: 0; } /* + first  */
+  .input-stepper input { order: 1; max-width: 88px; text-align: right; }
+  .input-stepper button:first-child { order: 2; } /* − last  */
+}
+  /* --- v.9.002.005 C&A CTA --- */
+.cna-cta {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:12px 14px; border:1px solid #d1fae5; background:#ecfdf5; color:#065f46;
+  border-radius:12px; margin:8px 1rem 12px; font-weight:700;
+}
+.cna-cta .btn.primary { background:#10b981; color:#fff; border:none; padding:8px 12px; border-radius:10px; font-weight:800; }
+@media (max-width:480px){ .cna-cta{ flex-direction:column; align-items:stretch; } }
+  /* --- v.9.002.005 PACKAGE WINNER STYLES --- */
+.package-card.winner {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.20), var(--shadow);
+  position: relative;
+}
+.pkg-flag {
+  position:absolute; top:10px; right:10px;
+  background:#10b981; color:#064e3b; border:2px solid #064e3b;
+  border-radius:999px; padding:4px 10px; font-weight:900; font-size:.78rem;
+}
+.pkg-flag.kids { background:#ccfbf1; color:#115e59; border-color:#115e59; }
+</style>
+
+<!-- Chart + App loader -->
+<script>
+(function(){
+  const VER=document.querySelector('meta[name="version"]')?.content||'v9.002.003';
+  const local="/vendor/chart.umd.min.js?v="+VER;
+  const cdn="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js";
+
+  function add(src,cb){
+    var s=document.createElement('script');
+    s.src=src;s.defer=true;s.onload=cb;
+    s.onerror=function(){if(src!==cdn)add(cdn,cb);};
+    document.head.appendChild(s);
+  }
+
+  function loadApp(){
+    // 1) math module first
+    const m=document.createElement('script');
+    m.type="module";
+    m.textContent=`
+      import{compute as baseCompute,computeWithVouchers}
+      from'/assets/js/drink-math.js?v=${VER}';
+      window.ITW_MATH={compute:baseCompute,computeWithVouchers};
+    `;
+    document.head.appendChild(m);
+
+    // 2) APP before UI
+    const app=document.createElement('script');
+    app.src="/assets/js/drink-calculator.app.js?v="+VER;
+    app.defer=true;
+    document.head.appendChild(app);
+
+    // 3) UI last
+    const ui=document.createElement('script');
+    ui.src="/assets/js/calculator.ui.js?v="+VER;
+    ui.defer=true;
+    document.head.appendChild(ui);
+  }
+
+  window.Chart ? loadApp() : add(local, loadApp);
+})();
+</script>
 </head>
 <body>
-  <!-- App container -->
-  <div id="app">
-    <header>
-      <h1>Royal Caribbean Drink Package Calculator</h1>
-      <p>Find out if a drink package saves you money</p>
-    </header>
-    
-    <main id="calculator-main">
-      <!-- Calculator UI will be injected here by calculator.ui.js -->
-      <div id="loading">
-        <p>Loading calculator...</p>
-      </div>
-    </main>
-    
-    <footer>
-      <p>✝️ Soli Deo Gloria | <a href="/privacy">Privacy</a> | <a href="/terms">Terms</a></p>
-    </footer>
+<noscript>
+  <div style="position:fixed;top:0;left:0;right:0;z-index:10000;padding:1rem;background:#fef3c7;border-bottom:3px solid #f59e0b;text-align:center;font-weight:700">
+    ⚠️ This calculator requires JavaScript. Please enable it and reload.
   </div>
+</noscript>
+<a href="#content" class="sr-only">Skip to main content</a>
 
-  <!-- Security Lockdown Banner (hidden by default, shown on breach) -->
-  <!-- NOW USES CSS CLASSES - NO INLINE STYLES -->
-  <div id="itw-security-lockdown"></div>
+<!-- QUIZ MODAL -->
+<div id="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="quiz-title" aria-describedby="quiz-subtitle">
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <h2 id="quiz-title">✨ Discover Your Cruise Style</h2>
+      <p id="quiz-subtitle">Quick 6-question quiz to personalize defaults</p>
+      <div class="quiz-progress"><div id="quiz-progress-bar" class="quiz-progress-bar" style="width:0%"></div></div>
+    </div>
+    <div class="quiz-body"><div id="quiz-content"></div></div>
+    <div class="quiz-footer">
+      <button id="quiz-back" type="button" class="quiz-btn quiz-btn-secondary" style="display:none">← Back</button>
+      <button id="quiz-next" type="button" class="quiz-btn quiz-btn-primary" disabled>Next →</button>
+    </div>
+    <div class="quiz-skip"><button type="button" onclick="window.quizSkip()">Skip and enter manually</button></div>
+  </div>
+</div>
 
-  <!-- ==================== CONFIGURATION ==================== -->
-  <script nonce="BUILD_TIME_NONCE_PLACEHOLDER">
-    /**
-     * Application Configuration
-     * Version: 11.1.0 - P0 Critical Fixes
-     * Soli Deo Gloria ✝️
-     * 
-     * IMPORTANT: Hashes are injected at BUILD TIME
-     * Run: node build-hashes.js before deployment
-     */
-    window.ITW_CFG = {
-      version: '11.1.0',
-      
-      // Worker integrity (INJECTED AT BUILD TIME)
-      worker: {
-        expectedHash: 'BUILD_WORKER_HASH_PLACEHOLDER',
-        url: '/assets/js/drink-worker.js?v=11.1.0'
-      },
-      
-      // Service Worker integrity (INJECTED AT BUILD TIME)
-      sw: {
-        expectedHash: 'BUILD_SW_HASH_PLACEHOLDER',
-        url: '/sw.js?v=11.1.0'
-      },
-      
-      // Math module integrity (INJECTED AT BUILD TIME)
-      math: {
-        expectedHash: 'BUILD_MATH_HASH_PLACEHOLDER',
-        url: '/assets/js/drink-math.js?v=11.1.0'
-      },
-      
-      // Security settings
-      security: {
-        enableTelemetry: true,
-        enableIntegrityChecks: true,
-        enableAnomalyDetection: true,
-        enableHoneypots: true,
-        threatScoreThreshold: 100
-      },
-      
-      // API endpoints
-      api: {
-        fxRates: 'https://api.frankfurter.app/latest?from=USD',
-        dataset: '/assets/data/drink-prices.json?v=11.1.0'
-      }
-    };
-    
-    console.log('[Config] ✓ ITW_CFG loaded v' + window.ITW_CFG.version);
-  </script>
+<header class="hero-header" role="banner">
+  <div class="navbar">
+    <div class="brand">
+      <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
+      <span class="tiny version-badge">v.9.002.005</span>
+    </div>
+    <nav class="itw-nav" aria-label="Primary">
+      <div class="nav-item"><a class="chip" href="/">Home</a></div>
+      <div class="nav-item">
+        <button class="chip" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-planning">Planning ▾</button>
+        <div id="menu-planning" class="menu" role="menu">
+          <div class="label">Plan your cruise</div>
+          <a href="/planning.html">Planning</a>
+          <a href="/ships.html">Ships</a>
+          <a href="/restaurants.html">Restaurants</a>
+          <a href="/ports.html">Ports</a>
+          <a href="/drink-calculator.html" aria-current="page">Drink Packages</a>
+          <a href="/packing-lists.html">Packing Lists</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <button class="chip" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-travel">Travel ▾</button>
+        <div id="menu-travel" class="menu" role="menu">
+          <div class="label">On the way</div>
+          <a href="/travel.html">Travel</a>
+          <a href="/solo.html">Solo</a>
+        </div>
+      </div>
+      <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
+    </nav>
+  </div>
+  <div class="hero" role="img" aria-label="Ship wake at sunrise">
+    <div class="hero-title">
+      <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
+      <div class="tagline">A Cruise Traveler's Logbook</div>
+    </div>
+    <img class="hero-compass" src="/assets/compass_rose.svg" alt="" onerror="this.src='/assets/compass_rose.png'">
+    <div class="hero-credit">Photo © Flickers of Majesty</div>
+  </div>
+</header>
 
-  <!-- ==================== UTILITY: parseQty ==================== -->
-  <script nonce="BUILD_TIME_NONCE_PLACEHOLDER">
-    /**
-     * Parse user input to safe number
-     * Handles ranges (2-4 -> 3), clamps to safe values
-     * Soli Deo Gloria ✝️
-     */
-    window.parseQty = function(val) {
-      if (typeof val === 'number') {
-        return Math.max(0, val);
-      }
-      
-      const str = String(val || '').trim();
-      
-      // Length limit (P0 fix)
-      if (str.length > 20) {
-        return 0;
-      }
-      
-      // Handle range (2-4)
-      if (str.includes('-') && /^\d+\s*-\s*\d+$/.test(str)) {
-        const parts = str.split('-').map(p => parseFloat(p.trim()));
-        const min = Math.max(0, parts[0] || 0);
-        const max = Math.max(min, parts[1] || 0);
-        return (min + max) / 2;
-      }
-      
-      // Parse number - ALLOW-LIST approach (only digits and dots)
-      const cleaned = str.replace(/[^\d.]/g, '');
-      const num = parseFloat(cleaned);
-      
-      return Number.isFinite(num) ? Math.max(0, num) : 0;
-    };
-    
-    console.log('[Utils] ✓ parseQty loaded');
-  </script>
+<main class="wrap page-grid" id="content">
+    <!-- ARIA Live Regions for Accessibility -->
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-  <!-- ==================== HELPER: createScript ==================== -->
-  <script nonce="BUILD_TIME_NONCE_PLACEHOLDER">
-    /**
-     * Helper to create scripts (no nonce needed with strict-dynamic)
-     * strict-dynamic allows scripts created by nonced scripts
-     */
-    window.createScript = function(src, options = {}) {
-      const script = document.createElement('script');
-      script.src = src;
-      script.defer = true;
-      
-      if (options.type) script.type = options.type;
-      if (options.onload) script.onload = options.onload;
-      if (options.onerror) script.onerror = options.onerror;
-      
-      return script;
-    };
-    
-    console.log('[Utils] ✓ createScript helper loaded');
-  </script>
+<!-- Quiz Retake CTA (hidden until quiz complete) -->
+<div id="quiz-retake-cta" style="display:none;text-align:center;margin-top:12px">
+  <button class="btn ghost" onclick="window.quizRetake()" style="font-size:.9rem">
+    🔄 Retake Quiz
+  </button>
+</div>
+<h1 class="sr-only">Royal Caribbean Drink Package Calculator (2025)</h1>
+  <section aria-label="Calculator">
+    <!-- Preset Personas -->
+    <section class="qs" aria-labelledby="qs-title">
+      <h2 id="qs-title" class="qs-hd">🚀 Quick Start: Choose Your Style</h2>
+      <p class="small" style="margin-bottom:8px">Select a persona to auto-fill or take the quiz for personalized defaults</p>
+      <div id="qs-details-host"></div>
+      <div class="qs-grid" id="qs-preset-buttons">
+        <button class="persona-btn" data-persona="light">
+          <div class="persona-icon">🧘</div>
+          <div class="persona-name">Light & Chill</div>
+          <div class="persona-desc">Mostly non-alcoholic, 1-2 drinks/day</div>
+        </button>
+        <button class="persona-btn" data-persona="moderate">
+          <div class="persona-icon">🥂</div>
+          <div class="persona-name">Balanced & Social</div>
+          <div class="persona-desc">Mix of everything, 3-5 drinks/day</div>
+        </button>
+        <button class="persona-btn" data-persona="party">
+          <div class="persona-icon">🎉</div>
+          <div class="persona-name">Lively Celebration</div>
+          <div class="persona-desc">Living it up, 6+ drinks/day</div>
+        </button>
+        <button class="persona-btn" data-persona="coffee">
+          <div class="persona-icon">☕</div>
+          <div class="persona-name">Coffee Lover</div>
+          <div class="persona-desc">Multiple specialty coffees daily</div>
+        </button>
+        <button class="persona-btn" data-persona="solo">
+          <div class="persona-icon">🧳</div>
+          <div class="persona-name">Solo Explorer</div>
+          <div class="persona-desc">Independent traveler, light drinking</div>
+        </button>
+      </div>
+      <div style="text-align:center;margin-top:12px">
+        <button class="btn" onclick="window.quizStart()" style="background:var(--accent)">Or Take 2-Min Quiz →</button>
+      </div>
+    </section>
 
-  <!-- ==================== LOAD SECURITY LAYER ==================== -->
-  <script nonce="BUILD_TIME_NONCE_PLACEHOLDER">
-    (function loadSecurityLayer() {
-      const VER = window.ITW_CFG.version;
-      
-      // 1. Enhanced Security Module
-      const security = window.createScript('/assets/js/security-enhanced-v11.js?v=' + VER);
-      security.onload = function() {
-        console.log('[Security] ✓ Enhanced security loaded v' + VER);
-        
-        // 2. Worker Integrity Loader
-        const workerLoader = window.createScript('/assets/js/worker-integrity-loader.js?v=' + VER);
-        workerLoader.onload = function() {
-          console.log('[WorkerLoader] ✓ Integrity loader ready');
-          
-          // 3. Math Engine (ESM)
-          const math = window.createScript('/assets/js/drink-math.js?v=' + VER);
-          math.type = 'module';
-          math.onload = function() {
-            console.log('[Math] ✓ Engine loaded v' + VER);
-            
-            // 4. Load Application Core
-            loadApplicationCore();
-          };
-          document.head.appendChild(math);
-        };
-        document.head.appendChild(workerLoader);
-      };
-      document.head.appendChild(security);
-    })();
-  </script>
+    <div class="banner" role="status" aria-live="polite" style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;padding:10px;background:var(--foam);border-radius:8px;margin:.6rem 0">
+      <span id="best-chip" class="badge">Best value: à-la-carte</span>
+      <span id="best-text" class="small">Your daily picks are cheapest without a package.</span>
+      <button id="jump-winner" class="btn ghost" type="button" style="min-height:36px;padding:6px 12px">Jump to Best</button>
+    </div>
 
-  <!-- ==================== APPLICATION CORE LOADER ==================== -->
-  <script nonce="BUILD_TIME_NONCE_PLACEHOLDER">
-    function loadApplicationCore() {
-      const VER = window.ITW_CFG.version;
-      
-      // 1. App Core (creates store, loads worker with integrity check)
-      const app = window.createScript('/assets/js/drink-calculator.app.js?v=' + VER);
-      app.onload = function() {
-        console.log('[App] ✓ Core loaded v' + VER);
-        
-        // 2. Bridge (exports store API)
-        const bridge = window.createScript('/assets/js/calculator.ui-bridge.js?v=' + VER);
-        bridge.onload = function() {
-          console.log('[Bridge] ✓ API ready');
-          
-          // 3. UI Layer
-          const ui = window.createScript('/assets/js/calculator.ui.js?v=' + VER);
-          ui.onload = function() {
-            console.log('[UI] ✓ Loaded v' + VER);
-            
-            // 4. Editors (inline price editing)
-            const editors = window.createScript('/assets/js/calculator.ui-editors.js?v=' + VER);
-            editors.onload = function() {
-              console.log('[Editors] ✓ Ready');
-              
-              // 5. Install (PWA prompt)
-              const install = window.createScript('/assets/js/install.js?v=' + VER);
-              install.onload = function() {
-                console.log('[Install] ✓ PWA ready');
-                console.log('[ITW] 🚀 Calculator ready - Soli Deo Gloria ✝️');
-              };
-              document.head.appendChild(install);
-            };
-            document.head.appendChild(editors);
-          };
-          document.head.appendChild(ui);
-        };
-        document.head.appendChild(bridge);
-      };
-      document.head.appendChild(app);
-    }
-  </script>
+    <p id="fallback-banner" hidden class="small" style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:.5rem">⚠️ Live prices unavailable; using defaults</p>
 
-  <!-- ==================== SERVICE WORKER REGISTRATION (WITH INTEGRITY) ==================== -->
-  <script nonce="BUILD_TIME_NONCE_PLACEHOLDER">
-    /**
-     * P0 CRITICAL FIX: Service Worker Integrity Verification
-     * 
-     * Service Workers are network-level MitM - they can intercept ALL fetches.
-     * We MUST verify integrity before registration.
-     * 
-     * Soli Deo Gloria ✝️
-     */
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', async () => {
-        try {
-          console.log('[SW] Starting integrity verification...');
-          
-          const swURL = window.ITW_CFG.sw.url;
-          const expectedHash = window.ITW_CFG.sw.expectedHash;
-          
-          // Check if hash is configured
-          if (!expectedHash || expectedHash.includes('PLACEHOLDER')) {
-            console.warn('[SW] ⚠️ No hash configured - skipping registration');
-            console.warn('[SW] Run: node build-hashes.js to generate hash');
-            return;
-          }
-          
-          // Fetch Service Worker file
-          const response = await fetch(swURL);
-          if (!response.ok) {
-            throw new Error('SW fetch failed: ' + response.status);
-          }
-          
-          const swText = await response.text();
-          
-          // Compute SHA-256 hash
-          const encoder = new TextEncoder();
-          const data = encoder.encode(swText);
-          const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-          const hashArray = Array.from(new Uint8Array(hashBuffer));
-          const actualHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-          
-          console.log('[SW] Expected hash:', expectedHash.substring(0, 16) + '...');
-          console.log('[SW] Actual hash:  ', actualHash.substring(0, 16) + '...');
-          
-          // Verify integrity
-          if (actualHash !== expectedHash) {
-            console.error('[SW] ❌ INTEGRITY CHECK FAILED');
-            console.error('[SW] Service Worker has been tampered with!');
-            
-            // Show banner to user (using CSS class)
-            const banner = document.createElement('div');
-            banner.className = 'itw-banner itw-banner--error';
-            banner.textContent = '⚠️ Security error. Please refresh the page or contact support.';
-            document.body.insertBefore(banner, document.body.firstChild);
-            
-            // Emit security event
-            if (window.SecurityEvents) {
-              window.SecurityEvents.emit('integrity_check_failed', {
-                target: 'service_worker',
-                expectedHash: expectedHash.substring(0, 16),
-                actualHash: actualHash.substring(0, 16)
-              });
-            }
-            
-            // Trigger lockdown
-            if (window.Security) {
-              window.Security.lockdown('sw_integrity_failed');
-            }
-            
-            return; // DO NOT REGISTER
-          }
-          
-          console.log('[SW] ✓ Integrity verified');
-          
-          // Register Service Worker
-          const registration = await navigator.serviceWorker.register(swURL);
-          console.log('[SW] ✓ Registered:', registration.scope);
-          
-        } catch (err) {
-          console.error('[SW] Registration failed:', err);
-          
-          // Show user-friendly error
-          const banner = document.createElement('div');
-          banner.className = 'itw-banner itw-banner--warning';
-          banner.textContent = 'Offline features unavailable. Calculator will still work.';
-          document.body.insertBefore(banner, document.body.firstChild);
-          
-          // Remove banner after 5 seconds
-          setTimeout(() => banner.remove(), 5000);
-        }
-      });
-    }
-  </script>
+    <section class="card inputs" aria-labelledby="calc-title">
+      <h2 id="calc-title" class="hd">
+        <span id="totals" aria-live="polite">Calculating...</span>
+        <small class="small"> — includes 18% gratuity</small>
+      </h2>
+
+      <div class="bd">
+        <div class="controls-inline" style="margin-top:8px">
+          <label class="small" for="currency-select" style="font-weight:800">Display currency</label>
+          <select id="currency-select" class="small" style="font-weight:700;padding:4px 6px;border-radius:6px">
+            <option value="USD">USD $</option>
+            <option value="GBP">GBP £</option>
+            <option value="EUR">EUR €</option>
+            <option value="CAD">CAD $</option>
+            <option value="AUD">AUD $</option>
+          </select>
+          <span id="offline-chip" class="badge" hidden style="background:#fde68a;color:#7c2d12">Offline rates</span>
+        </div>
+        <span id="currency-note" class="small" style="display:block;margin-top:6px;font-weight:600"></span>
+        <hr style="border:0;border-top:1px dashed var(--bd);margin:12px 0"/>
+
+        <div class="row"><label for="input-days">Cruise days</label><input id="input-days" type="text" inputmode="numeric" value="7" data-input="days"></div>
+
+        <!-- Weighting -->
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:8px">
+          <legend style="font-weight:800;padding:0 6px;display:flex;align-items:center">
+            Sea/Port variability
+            <span class="tooltip-trigger" tabindex="0" aria-describedby="sea-tip">?</span>
+            <span id="sea-tip" class="sr-only" role="tooltip">
+              Sea days often mean more drinks (relaxing by the pool). Port days often mean fewer (off exploring).
+              This setting adjusts estimates accordingly.
+            </span>
+          </legend>
+          <div class="row"><label for="input-seadays">Sea days</label><input id="input-seadays" type="text" inputmode="numeric" value="3" data-input="seadays"></div>
+          <div class="row" style="grid-template-columns:1fr 1fr">
+            <label class="small">
+              <input type="checkbox" id="sea-toggle" checked data-input="seaapply" aria-describedby="sea-weighting-help">
+              Apply weighting
+            </label>
+            <div class="controls-inline">
+              <label for="sea-weight" class="small">±%</label>
+              <input id="sea-weight" type="range" min="0" max="40" value="20" data-input="seaweight" aria-describedby="sea-weighting-help">
+              <span id="sea-weight-val" class="small">20%</span>
+            </div>
+          </div>
+          <p id="sea-weighting-help" class="tiny" style="margin:.25rem 0 0;color:#475569;max-width:60ch">
+            Sea days will be increased by this percentage; port days decreased by the same amount, then averaged over your itinerary.
+          </p>
+        </fieldset>
+
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+          <legend style="font-weight:800;padding:0 6px">Group in stateroom</legend>
+          <div class="row"><label for="input-adults">Adults (21+)</label><input id="input-adults" type="text" inputmode="numeric" value="1" data-input="adults"></div>
+          <div class="row">
+            <label for="input-minors">
+              Minors (under 21)
+              <a href="/faq.html#minors-deluxe" class="tiny" style="display:block;margin-top:2px">(Why no Deluxe for minors?)</a>
+            </label>
+            <input id="input-minors" type="text" inputmode="numeric" value="0" data-input="minors">
+          </div>
+        </fieldset>
+
+        <!-- Voucher with auto-sync face value -->
+        <details id="cna-vouchers" class="small" style="border:2px solid var(--rope);border-radius:10px;padding:0;margin-top:12px;background:var(--foam)">
+          <summary style="cursor:pointer;font-weight:700;padding:1rem;list-style:none">
+            👑 Diamond or higher? Apply free drink vouchers
+            <div class="tiny muted" style="font-weight:400;margin-top:4px">Crown & Anchor perks. Minors get non-alcoholic value only.</div>
+          </summary>
+          <div id="cna-cta" class="cta cna-cta">
+  <div class="cta-copy">
+    💎 Diamond or higher? You get 4–5 free drinks per day. Add your vouchers to see the savings.
+  </div>
+  <button class="btn primary" type="button" onclick="(function(){
+    const d=document.getElementById('cna-vouchers'); if(d) d.open=true;
+    (document.getElementById('v-adult-d')||document.getElementById('v-adult-dp')||document.getElementById('v-adult-p'))?.focus();
+  })()">Add vouchers</button>
+</div>
+          <div style="padding:0 1rem 1rem">
+            <div class="small" style="margin-bottom:10px;background:#fff3cd;border-left:3px solid var(--warn);padding:8px;border-radius:4px">
+             <div class="small" style="margin:8px 0 12px">
+  Cap price per alcoholic drink: <strong><span id="cap-badge">$14.00</span></strong>
+</div> <strong>Voucher face value:</strong>
+              <input type="text" id="voucher-value" inputmode="decimal" value="14.00" readonly style="width:70px;margin-left:6px;padding:4px;border:1px solid var(--bd);border-radius:4px;background:#f8fafc;cursor:not-allowed"> USD
+              <div class="tiny" id="voucher-lock-note" style="margin-top:4px;font-weight:600;color:var(--muted)">(auto-synced to Deluxe cap)</div>
+            </div>
+            <fieldset style="border:1px solid var(--bd);padding:10px;border-radius:8px">
+              <legend style="font-weight:700;padding:0 6px">Adult Vouchers</legend>
+              <div class="row"><label for="v-adult-d">Diamond (4/day)</label><input id="v-adult-d" type="text" inputmode="numeric" value="0" data-voucher="adult-d"></div>
+              <div class="row"><label for="v-adult-dp">Diamond+ (5/day)</label><input id="v-adult-dp" type="text" inputmode="numeric" value="0" data-voucher="adult-dp"></div>
+              <div class="row"><label for="v-adult-p">Pinnacle (5/day)</label><input id="v-adult-p" type="text" inputmode="numeric" value="0" data-voucher="adult-p"></div>
+            </fieldset>
+            <fieldset style="border:1px solid var(--bd);padding:10px;border-radius:8px;margin-top:10px">
+              <legend style="font-weight:700;padding:0 6px">Minor Vouchers (Non-Alc)</legend>
+              <div class="row"><label for="v-minor-d">Diamond (4/day)</label><input id="v-minor-d" type="text" inputmode="numeric" value="0" data-voucher="minor-d"></div>
+              <div class="row"><label for="v-minor-dp">Diamond+ (5/day)</label><input id="v-minor-dp" type="text" inputmode="numeric" value="0" data-voucher="minor-dp"></div>
+              <div class="row"><label for="v-minor-p">Pinnacle (5/day)</label><input id="v-minor-p" type="text" inputmode="numeric" value="0" data-voucher="minor-p"></div>
+            </fieldset>
+          </div>
+        </details>
+
+        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+          <legend style="font-weight:800;padding:0 6px" id="mode-legend">Calculation Mode: Daily Averages</legend>
+          <div class="controls-inline">
+            <label class="small"><input type="radio" name="calc-mode" id="mode-simple" value="simple" checked> Daily Averages</label>
+            <label class="small"><input type="radio" name="calc-mode" id="mode-itinerary" value="itinerary"> Day-by-Day</label>
+          </div>
+        </fieldset>
+
+        <div id="simple-inputs" style="margin-top:6px">
+          <div class="row"><label>Soda <span class="tiny muted">(avg/day)</span></label><input data-input="soda" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Specialty coffee</label><input data-input="coffee" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Premium tea</label><input data-input="teaprem" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Fresh juice/smoothie</label><input data-input="freshjuice" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Mocktail</label><input data-input="mocktail" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Energy drink</label><input data-input="energy" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Milkshake</label><input data-input="milkshake" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Bottled water (500ml)</label><input data-input="bottledwater" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Beer</label><input data-input="beer" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Wine</label><input data-input="wine" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Cocktail</label><input data-input="cocktail" type="text" inputmode="decimal" value="0"></div>
+          <div class="row"><label>Spirits/shot</label><input data-input="spirits" type="text" inputmode="decimal" value="0"></div>
+        </div>
+
+        <div id="itinerary-inputs" style="margin-top:12px;display:none"></div>
+
+        <!-- Explain Result Card -->
+        <div id="explain-result" class="card small" style="display:none;background:#dbeafe;border-left:4px solid var(--accent)">
+          <div id="explain-text"></div>
+        </div>
+
+        <!-- Email CTA Inline -->
+        <div id="email-cta-inline" class="card small" style="display:none;background:#ecfeff;border-left:4px solid var(--accent)">
+          <div><strong>Want this breakdown emailed to you?</strong></div>
+          <div class="tiny muted" style="margin:.25rem 0 .5rem">We'll include your best option and savings.</div>
+          <button id="email-cta-btn" class="btn">Open email form ↓</button>
+        </div>
+
+        <!-- Chart -->
+        <div id="breakeven-wrap">
+          <div class="chart-legend">
+            <div class="chart-legend-item">
+              <div class="chart-legend-color" style="background:#0e6e8e"></div>
+              <span>Your à-la-carte cost</span>
+            </div>
+            <div class="chart-legend-item">
+              <div class="chart-legend-color" style="background:#cbd5e1"></div>
+              <span>Soda Package</span>
+            </div>
+            <div class="chart-legend-item">
+              <div class="chart-legend-color" style="background:#a7e0f0"></div>
+              <span>Refreshment Package</span>
+            </div>
+            <div class="chart-legend-item">
+              <div class="chart-legend-color" style="background:#f7b4a2"></div>
+              <span>Deluxe Package</span>
+            </div>
+          </div>
+          <table id="chart-desc" class="sr-only">
+            <caption>Daily cost comparison</caption>
+            <thead><tr><th>Option</th><th>Cost per day</th></tr></thead>
+            <tbody>
+              <tr><td>À-la-carte</td><td id="sr-alc">$0.00</td></tr>
+              <tr><td>Soda</td><td id="sr-soda">$0.00</td></tr>
+              <tr><td>Refreshment</td><td id="sr-refresh">$0.00</td></tr>
+              <tr><td>Deluxe</td><td id="sr-deluxe">$0.00</td></tr>
+            </tbody>
+          </table>
+          <canvas id="breakeven-chart" width="900" height="320" aria-label="Package comparison chart" aria-describedby="chart-desc"></canvas>
+         <div id="range-note" class="tiny muted" style="margin-top:6px"></div>
+          <span id="voucher-badge" hidden class="badge" style="position:absolute;top:-8px;right:0;transform:translateY(-100%)"></span>
+          <div id="best-stamp" aria-hidden="true">Best value</div>
+          <div class="chart-help">
+            <strong>💡 How to read:</strong> Blue bar = your actual drinking cost per day (including 18% gratuity). 
+            Gray bars = what you'd pay for each package. <strong>Lower = better value.</strong>
+            Hover over bars to see exact dollar amounts.
+          </div>
+        </div><div id="soda-breakeven" class="small" style="margin-top:8px"></div>
+<div id="refresh-breakeven" class="small" style="margin-top:8px"></div>
+<div id="deluxe-breakeven" class="small" style="margin-top:8px"></div>
+
+        <!-- Category summary -->
+        <div class="category-summary" id="category-breakdown" hidden>
+          <h4>💰 Where Your Money Goes (per day)</h4>
+          <div class="category-grid" id="category-grid"></div>
+        </div>
+
+        <div class="controls-inline" style="margin-top:16px">
+          <button class="btn" type="button" onclick="window.print()">Print Results</button>
+          <button class="btn ghost" type="button" onclick="shareScenario()">Share</button>
+          <button class="btn" type="button" onclick="window.resetInputs()" style="background:var(--bad)">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Group Breakdown -->
+    <section class="card" id="group-breakdown" hidden>
+      <h2 style="margin:0 0 1rem 0;color:var(--sea)">Group Breakdown (Per Person)</h2>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;min-width:500px">
+          <thead style="text-align:left;border-bottom:2px solid var(--rope)">
+            <tr><th style="padding:8px">Traveler</th><th>Package</th><th>Daily Cost</th><th>Trip Total</th></tr>
+          </thead>
+          <tbody id="group-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card small" style="background:var(--foam);border-color:var(--rope)">
+      <p><strong>Stewardship:</strong> This calculator helps you plan wisely—not encourage excess. Packages include far more than alcohol. Hydrate, pace yourself, look after your crew. <em>Moderation honors wallet, body, and spirit.</em></p>
+      <p class="tiny" style="margin-top:.75rem"><strong>Pricing:</strong> Estimates based on recent community data. Actual prices vary by ship/itinerary. Always verify in Cruise Planner. Not financial advice.</p>
+    </section>
+  </section>
+
+  <aside class="rail">
+    <section class="card">
+      <div class="author-card">
+        <picture>
+          <source type="image/webp" srcset="/authors/img/ken1.webp">
+          <img class="author-avatar" src="/authors/img/ken1.jpg" alt="Ken Baker" width="96" height="96" onerror="this.src='/assets/logo_wake.png'">
+        </picture>
+        <div>
+          <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br>
+          <span class="tiny">Founder of In the Wake; calculator builder and data steward.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="background:var(--foam);border-color:var(--rope)">
+      <h3 style="margin-top:0">Get Our Free Cruise Checklist!</h3>
+      <p class="small">Join for exclusive tips and instant PDF</p>
+      <form id="email-form" method="POST" style="margin-top:10px">
+        <input type="text" name="b_email" tabindex="-1" style="position:absolute;left:-9999px" aria-hidden="true">
+        <div style="display:flex;gap:6px">
+          <input type="email" name="EMAIL" placeholder="your@email.com" required autocomplete="email" inputmode="email" style="flex:1;padding:8px;border:1px solid var(--bd);border-radius:6px;font-size:16px">
+          <button type="submit" class="btn">Get List</button>
+        </div>
+        <label class="small" style="display:flex;gap:.5rem;margin-top:.5rem">
+          <input type="checkbox" name="OPT_IN" required>
+          <span>I agree. <a href="/privacy.html">Privacy</a> | <a href="/gdpr-rights.html">Rights</a></span>
+        </label>
+        <label class="small" style="display:flex;gap:.5rem;margin-top:.75rem">
+          <input type="checkbox" name="PLANNING_PASS_OPT_IN" value="1">
+          <span><strong>Bonus:</strong> Also join the <em>Planning Pass</em> for photo tips from Flickers of Majesty.</span>
+        </label>
+        <input type="hidden" name="SAVINGS" id="email-savings">
+        <input type="hidden" name="REC" id="email-rec">
+        <div id="signup-message" class="small" style="margin-top:6px;font-weight:700"></div>
+      </form>
+    </section>
+
+    <!-- Packages rail -->
+    <section class="card">
+      <h3 style="margin-top:0">Packages</h3>
+      <div id="packages" style="margin-top:10px">
+        <div class="package-card" data-card="soda">
+          <h4>🥤 Soda Package</h4>
+<div class="package-price">~<span data-pkg-price="soda">$15</span>/day</div>
+          <ul class="package-inclusions">
+            <li>Coca-Cola Freestyle sodas</li>
+            <li>Juices & lemonade</li>
+            <li>Refillable cup</li>
+          </ul>
+        </div>
+<div class="package-card" data-card="refresh">
+          <h4>🧃 Refreshment Package</h4>
+<div class="package-price">~<span data-pkg-price="refresh">$38</span>/day</div>
+          <ul class="package-inclusions">
+            <li>Everything in Soda</li>
+            <li>Specialty coffees & teas</li>
+            <li>Fresh juices & smoothies</li>
+            <li>Bottled water</li>
+            <li>Milkshakes & mocktails</li>
+          </ul>
+        </div>
+        <div class="package-card" data-card="deluxe">
+          <h4>🍹 Deluxe Beverage Package</h4>
+<div class="package-price">~<span data-pkg-price="deluxe">$88</span>/day</div>
+          <ul class="package-inclusions">
+            <li>Everything in Refreshment</li>
+            <li>Beer, wine, cocktails (up to $15)</li>
+            <li>Premium spirits</li>
+            <li>Bottles of wine up to $100</li>
+            <li>15 drink limit per day</li>
+          </ul>
+        </div>
+      </div>
+      <p class="tiny muted" style="margin-top:10px">Prices vary. Check Cruise Planner for your sailing.</p>
+    </section>
+
+    <section class="card">
+      <h3 class="tiny" style="margin:0 0 .5rem;color:var(--sea)">Recent Articles</h3>
+      <div id="recent-rail" class="rail-list">
+        <p class="tiny muted">Loading...</p>
+      </div>
+    </section>
+
+    <div class="pass-cta small" style="margin-top:1rem;padding-top:1rem;border-top:2px solid var(--rope)">
+      <strong style="color:var(--sea);display:block;margin-bottom:.5rem">Get your free Cruise Planning Pass</strong>
+      <ul style="margin:0;padding-left:1.1rem;line-height:1.6">
+        <li><a href="https://flickersofmajesty.com" target="_blank" rel="noopener">Photo tips & galleries</a></li>
+        <li><a href="https://ken-baker.com" target="_blank" rel="noopener">Planning checklists & resources</a></li>
+      </ul>
+    </div>
+  </aside>
+</main>
+
+<footer class="wrap" style="border-top:2px solid var(--bd);padding-top:1.5rem;text-align:center">
+  <p>© <span id="year">2025</span> In the Wake. All rights reserved.</p>
+  <p class="tiny" style="margin-top:.75rem"><a href="/terms.html">Terms</a> | <a href="/privacy.html">Privacy</a> | <a href="/gdpr-rights.html">GDPR</a></p>
+</footer>
+
+<script>
+(function watchVoucherCTA(){
+  const ids = ['v-adult-d','v-adult-dp','v-adult-p','v-minor-d','v-minor-dp','v-minor-p'];
+  const hideIfFilled = () => {
+    const sum = ids.reduce((a,id)=>a+(+document.getElementById(id)?.value||0),0);
+    const cta = document.getElementById('cna-cta');
+    if (cta) cta.style.display = sum>0 ? 'none' : '';
+  };
+  document.addEventListener('input', e => { if (e.target && ids.includes(e.target.id)) hideIfFilled(); });
+  hideIfFilled();
+})();
+</script>
+
+<!-- Year Display -->
+<script>
+(function(){
+  const yearEl=document.getElementById('year');
+  if(yearEl)yearEl.textContent=new Date().getFullYear();
+})();
+</script>
+
 </body>
 </html>
