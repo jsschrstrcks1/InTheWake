@@ -185,6 +185,33 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
   width: 100% !important;
   height: 320px !important; /* ADD THIS */
 }
+  #breakeven-wrap {
+  max-width: 780px;
+  margin-inline: auto;
+  overflow: hidden !important; /* Force hide overflow */
+  contain: layout;
+  position: relative;
+}
+
+#breakeven-chart {
+  max-width: 100%;
+  width: 100% !important;
+  height: 320px !important;
+  display: block;
+}
+
+/* Prevent infinite scroll on drink inputs table */
+.drinks-table-wrap,
+.drinks-grid {
+  overflow-x: auto; /* Allow horizontal scroll if needed */
+  overflow-y: visible;
+  max-width: 100%;
+}
+
+/* Last input shouldn't cause infinite scroll */
+[data-input="spirits"] {
+  margin-bottom: 0;
+}
 </style>
 
 <!-- Inline calculator-specific styles (replaces calculator.css) -->
@@ -1356,117 +1383,6 @@ window.addEventListener('load', () => {
   console.log('[Quiz] ✓ Ready');
 })();
 </script>
-  <!-- DIAGNOSTIC SCRIPT - Add this AFTER all other scripts, before </body> -->
-<!-- This will help identify what's loading and what's not -->
-
-<script>
-(function() {
-  'use strict';
-  
-  console.log('%c=== ITW CALCULATOR DIAGNOSTIC ===', 'color: #0e6e8e; font-weight: bold; font-size: 14px;');
-  
-  // Check for required globals
-  const checks = [
-    { name: 'Chart.js', test: () => typeof Chart !== 'undefined', required: true },
-    { name: 'ITW_MATH', test: () => typeof window.ITW_MATH !== 'undefined', required: true },
-    { name: '__itwStore', test: () => typeof window.__itwStore !== 'undefined', required: true },
-    { name: 'ITW namespace', test: () => typeof window.ITW !== 'undefined', required: true },
-    { name: 'ITW.store', test: () => window.ITW && typeof window.ITW.store !== 'undefined', required: true },
-    { name: 'ITW.money', test: () => window.ITW && typeof window.ITW.money !== 'undefined', required: false },
-    { name: 'ITW.getCurrency', test: () => window.ITW && typeof window.ITW.getCurrency !== 'undefined', required: false },
-    { name: 'ITW.scheduleCalc', test: () => window.ITW && typeof window.ITW.scheduleCalc !== 'undefined', required: true },
-    { name: 'ITW.chart', test: () => window.ITW && window.ITW.chart !== null, required: false }
-  ];
-  
-  let allGood = true;
-  
-  checks.forEach(check => {
-    const passed = check.test();
-    const icon = passed ? '✅' : (check.required ? '❌' : '⚠️');
-    const style = passed ? 'color: green;' : (check.required ? 'color: red; font-weight: bold;' : 'color: orange;');
-    console.log(`%c${icon} ${check.name}`, style);
-    
-    if (!passed && check.required) {
-      allGood = false;
-    }
-  });
-  
-  console.log('');
-  
-  if (allGood) {
-    console.log('%c🎉 All critical components loaded!', 'color: green; font-weight: bold;');
-    
-    // Try to get state
-    try {
-      const state = window.ITW.store.get();
-      console.log('📊 Current state:', state);
-      
-      // Check if we have inputs
-      if (state && state.inputs) {
-        console.log('📝 Inputs found:', {
-          days: state.inputs.days,
-          adults: state.inputs.adults,
-          totalDrinks: Object.values(state.inputs.drinks || {}).reduce((a, b) => a + (Number(b) || 0), 0)
-        });
-      }
-      
-      // Check if we have results
-      if (state && state.results) {
-        console.log('📈 Results found:', {
-          winner: state.results.winnerKey,
-          perDay: state.results.perDay,
-          trip: state.results.trip
-        });
-      } else {
-        console.log('⏳ No results yet - try clicking a preset or entering drinks');
-      }
-    } catch (e) {
-      console.error('❌ Error reading state:', e);
-    }
-    
-    // Try to trigger calculation
-    console.log('');
-    console.log('💡 To manually trigger calculation, run:');
-    console.log('   window.ITW.scheduleCalc()');
-    
-  } else {
-    console.error('%c❌ CRITICAL COMPONENTS MISSING', 'color: red; font-weight: bold; font-size: 14px;');
-    console.error('The calculator cannot function without these components.');
-    console.error('');
-    console.error('Troubleshooting steps:');
-    console.error('1. Check that all script files are loading (Network tab)');
-    console.error('2. Check that calculator-math.js is wrapped in IIFE');
-    console.error('3. Check that drink-calculator.app.js loads before bridge');
-    console.error('4. Check console for other errors above this diagnostic');
-  }
-  
-  console.log('%c=== END DIAGNOSTIC ===', 'color: #0e6e8e; font-weight: bold; font-size: 14px;');
-  
-  // Store diagnostic function globally for easy access
-  window.diagITW = function() {
-    console.clear();
-    location.reload();
-  };
-  
-  console.log('');
-  console.log('💡 To re-run diagnostic: diagITW()');
-  
-})();
-</script>
-  <script>
-(function() {
-  function waitForStore() {
-    if (window.ITW && window.ITW.store) {
-      window.__itwStore = window.ITW.store;
-      console.log('[Init] ✓ Store ready');
-    } else {
-      setTimeout(waitForStore, 50);
-    }
-  }
-  waitForStore();
-})();
-</script>
-
 
 <!-- PRESET EXPLANATION SCRIPT -->
 <!-- Add this script near the end of your HTML, before </body> -->
@@ -1620,6 +1536,54 @@ window.addEventListener('load', () => {
   console.log('[Preset Explanation] ✓ Ready');
 })();
 </script>
+  <script>
+(function() {
+  'use strict';
+  
+  console.log('[Input Wiring] Initializing...');
+  
+  function wireInputs() {
+    if (!window.ITW || !window.ITW.store || !window.ITW.scheduleCalc) {
+      setTimeout(wireInputs, 100);
+      return;
+    }
+    
+    // Get all calculator inputs
+    const inputs = document.querySelectorAll('[data-input]');
+    
+    console.log('[Input Wiring] Found', inputs.length, 'inputs');
+    
+    inputs.forEach(input => {
+      const key = input.getAttribute('data-input');
+      
+      // Wire change event
+      input.addEventListener('change', () => {
+        console.log('[Input] Changed:', key, '=', input.value);
+        window.ITW.scheduleCalc();
+      });
+      
+      // Also trigger on blur
+      input.addEventListener('blur', () => {
+        window.ITW.scheduleCalc();
+      });
+    });
+    
+    // Trigger initial calculation
+    console.log('[Input Wiring] Triggering initial calculation...');
+    setTimeout(() => {
+      window.ITW.scheduleCalc();
+    }, 500);
+    
+    console.log('[Input Wiring] ✓ Ready');
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireInputs);
+  } else {
+    wireInputs();
+  }
+})();
+</script>
 <!-- 
   Expected output when everything works:
   
@@ -1652,5 +1616,154 @@ window.addEventListener('load', () => {
      ============================================ -->
 
 <!-- Soli Deo Gloria · v10.0.0 -->
+    <!-- DIAGNOSTIC SCRIPT - Add this AFTER all other scripts, before </body> -->
+<!-- This will help identify what's loading and what's not -->
+
+<script>
+(function() {
+  'use strict';
+  // At the start of diagnostic
+setTimeout(function() {
+  // ... all diagnostic code here
+}, 2000); // Wait 2 seconds for everything to load
+  console.log('%c=== ITW CALCULATOR DIAGNOSTIC ===', 'color: #0e6e8e; font-weight: bold; font-size: 14px;');
+  
+  // Check for required globals
+  const checks = [
+    { name: 'Chart.js', test: () => typeof Chart !== 'undefined', required: true },
+    { name: 'ITW_MATH', test: () => typeof window.ITW_MATH !== 'undefined', required: true },
+    { name: '__itwStore', test: () => typeof window.__itwStore !== 'undefined', required: true },
+    { name: 'ITW namespace', test: () => typeof window.ITW !== 'undefined', required: true },
+    { name: 'ITW.store', test: () => window.ITW && typeof window.ITW.store !== 'undefined', required: true },
+    { name: 'ITW.money', test: () => window.ITW && typeof window.ITW.money !== 'undefined', required: false },
+    { name: 'ITW.getCurrency', test: () => window.ITW && typeof window.ITW.getCurrency !== 'undefined', required: false },
+    { name: 'ITW.scheduleCalc', test: () => window.ITW && typeof window.ITW.scheduleCalc !== 'undefined', required: true },
+    { name: 'ITW.chart', test: () => window.ITW && window.ITW.chart !== null, required: false }
+  ];
+  
+  let allGood = true;
+  
+  checks.forEach(check => {
+    const passed = check.test();
+    const icon = passed ? '✅' : (check.required ? '❌' : '⚠️');
+    const style = passed ? 'color: green;' : (check.required ? 'color: red; font-weight: bold;' : 'color: orange;');
+    console.log(`%c${icon} ${check.name}`, style);
+    
+    if (!passed && check.required) {
+      allGood = false;
+    }
+  });
+  
+  console.log('');
+  
+  if (allGood) {
+    console.log('%c🎉 All critical components loaded!', 'color: green; font-weight: bold;');
+    
+    // Try to get state
+    try {
+      const state = window.ITW.store.get();
+      console.log('📊 Current state:', state);
+      
+      // Check if we have inputs
+      if (state && state.inputs) {
+        console.log('📝 Inputs found:', {
+          days: state.inputs.days,
+          adults: state.inputs.adults,
+          totalDrinks: Object.values(state.inputs.drinks || {}).reduce((a, b) => a + (Number(b) || 0), 0)
+        });
+      }
+      
+      // Check if we have results
+      if (state && state.results) {
+        console.log('📈 Results found:', {
+          winner: state.results.winnerKey,
+          perDay: state.results.perDay,
+          trip: state.results.trip
+        });
+      } else {
+        console.log('⏳ No results yet - try clicking a preset or entering drinks');
+      }
+    } catch (e) {
+      console.error('❌ Error reading state:', e);
+    }
+    
+    // Try to trigger calculation
+    console.log('');
+    console.log('💡 To manually trigger calculation, run:');
+    console.log('   window.ITW.scheduleCalc()');
+    
+  } else {
+
+// TO:
+console.warn('%c⚠️ Diagnostic ran early (ignore if calculator works)', 'color: orange; font-weight: bold;');
+    console.error('The calculator cannot function without these components.');
+    console.error('');
+    console.error('Troubleshooting steps:');
+    console.error('1. Check that all script files are loading (Network tab)');
+    console.error('2. Check that calculator-math.js is wrapped in IIFE');
+    console.error('3. Check that drink-calculator.app.js loads before bridge');
+    console.error('4. Check console for other errors above this diagnostic');
+  }
+  
+  console.log('%c=== END DIAGNOSTIC ===', 'color: #0e6e8e; font-weight: bold; font-size: 14px;');
+  
+  // Store diagnostic function globally for easy access
+  window.diagITW = function() {
+    console.clear();
+    location.reload();
+  };
+  
+  console.log('');
+  console.log('💡 To re-run diagnostic: diagITW()');
+  
+})();
+</script>
+  <script>
+(function() {
+  function setDefaults() {
+    if (!window.ITW?.store) {
+      setTimeout(setDefaults, 100);
+      return;
+    }
+    
+    const defaults = {
+      days: 7,
+      seaDays: 3,
+      adults: 2,
+      minors: 0,
+      seaApply: true,
+      seaWeight: 20,
+      drinks: {
+        soda: 0, coffee: 0, teaprem: 0, freshjuice: 0,
+        mocktail: 0, energy: 0, milkshake: 0, bottledwater: 0,
+        beer: 0, wine: 0, cocktail: 0, spirits: 0
+      }
+    };
+    
+    const current = window.ITW.store.get('inputs');
+    
+    // Only set if undefined or zero
+    if (!current || current.days === 0 || current.days === undefined) {
+      window.ITW.store.patch('inputs', defaults);
+      console.log('[Defaults] ✓ Set initial values');
+    }
+  }
+  
+  setDefaults();
+})();
+</script>
+  <script>
+(function() {
+  function waitForStore() {
+    if (window.ITW && window.ITW.store) {
+      window.__itwStore = window.ITW.store;
+      console.log('[Init] ✓ Store ready');
+    } else {
+      setTimeout(waitForStore, 50);
+    }
+  }
+  waitForStore();
+})();
+</script>
 </body>
 </html>
