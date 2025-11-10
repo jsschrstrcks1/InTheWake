@@ -1,7 +1,5 @@
-evaluate this service worker: 
-
 /* Service Worker v10.0.0 - Royal Caribbean Drink Calculator
- * Unified caching strategy with offline support
+ * Unified caching strategy with offline support /sw.js
  * Soli Deo Gloria ✝️
  */
 
