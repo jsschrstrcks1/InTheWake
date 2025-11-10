@@ -1,6 +1,6 @@
 /**
  * Security Module - Input Sanitization & XSS Protection
- * Version: .9.005.005
+ * Version: .9.005.005 assets/js/modules/security.js
  * Soli Deo Gloria ✝️
  */
 
