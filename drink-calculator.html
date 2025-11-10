@@ -1411,6 +1411,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 </script>
 
 <!-- FORCE CALCULATION TO RUN -->
+!-- FORCE CALCULATION TO RUN -->
 <script>
 (function() {
   let calcReady = false;
@@ -1426,10 +1427,33 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
     
     console.log('[Force Calc] 🔄 Triggering calculation...');
     
-    // Method 1: Store update
+    // CRITICAL: Ensure data exists before trying to spread it
     try {
       const current = window.ITW.store.get('inputs');
-      if (current) {
+      
+      // Check if current is actually an object with data
+      if (!current || typeof current !== 'object') {
+        console.warn('[Force Calc] ⚠️ No inputs found, initializing...');
+        
+        // Initialize with defaults
+        const defaults = {
+          days: 7,
+          seaDays: 3,
+          adults: 2,
+          minors: 0,
+          seaApply: true,
+          seaWeight: 20,
+          drinks: {
+            soda: 0, coffee: 0, teaprem: 0, freshjuice: 0,
+            mocktail: 0, energy: 0, milkshake: 0, bottledwater: 0,
+            beer: 0, wine: 0, cocktail: 0, spirits: 0
+          }
+        };
+        
+        window.ITW.store.patch('inputs', defaults);
+        console.log('[Force Calc] ✓ Initialized with defaults');
+      } else {
+        // Data exists, just update it to trigger reactivity
         window.ITW.store.patch('inputs', {...current});
         console.log('[Force Calc] ✓ Store updated');
       }
@@ -1445,7 +1469,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       } catch (e) {
         console.error('[Force Calc] Event dispatch failed:', e);
       }
-    }, 100);
+    }, 200);
     
     // Method 3: Direct scheduleCalc
     setTimeout(() => {
@@ -1457,34 +1481,39 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       } catch (e) {
         console.error('[Force Calc] scheduleCalc failed:', e);
       }
-    }, 200);
+    }, 400);
     
-    // Method 4: Trigger input change
+    // Method 4: Trigger input change (only if inputs exist)
     setTimeout(() => {
       try {
         const daysInput = document.querySelector('[data-input="days"]');
-        if (daysInput) {
-          daysInput.value = daysInput.value;
+        if (daysInput && daysInput.value) {
+          const oldValue = daysInput.value;
+          daysInput.value = oldValue;
           daysInput.dispatchEvent(new Event('change', { bubbles: true }));
           console.log('[Force Calc] ✓ Input event fired');
         }
       } catch (e) {
         console.error('[Force Calc] Input trigger failed:', e);
       }
-    }, 300);
+    }, 600);
   }
   
-  // Wait for full load
+  // Wait longer for everything to fully load
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => setTimeout(forceCalc, 1000));
+    document.addEventListener('DOMContentLoaded', () => setTimeout(forceCalc, 1500));
   } else {
-    setTimeout(forceCalc, 1000);
+    setTimeout(forceCalc, 1500);
   }
   
   // Also on input changes
   document.addEventListener('change', (e) => {
     if (e.target.hasAttribute('data-input')) {
-      setTimeout(forceCalc, 50);
+      setTimeout(() => {
+        if (window.ITW && window.ITW.scheduleCalc) {
+          window.ITW.scheduleCalc();
+        }
+      }, 100);
     }
   });
   
