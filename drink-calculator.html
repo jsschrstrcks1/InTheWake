@@ -705,17 +705,22 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 
 <!-- JAVASCRIPT - FIXED PATHS -->
 
-<!-- 1. Math module (calculator-math.js NOT drink-math.js) -->
-<script src="/assets/js/calculator-math.js" defer></script>
+<!-- JAVASCRIPT - FIXED LOAD ORDER -->
+
+<!-- 1. Math module (needs type="module") -->
+<script src="/assets/js/calculator-math.js" type="module"></script>
 
 <!-- 2. Core app -->
 <script src="/assets/js/drink-calculator.app.js" defer></script>
 
-<!-- 3. UI layer (calculator-ui.js with hyphen) -->
+<!-- 3. UI bridge (MUST come before UI) -->
+<script src="/assets/js/calculator.ui-bridge.js" defer></script>
+
+<!-- 4. UI layer -->
 <script src="/assets/js/calculator-ui.js" defer></script>
 
-<!-- 4. UI bridge -->
-<script src="/assets/js/calculator.ui-bridge.js" defer></script>
+<!-- 5. V10 extras (disabled for now) -->
+<!-- <script src="/assets/js/calculator.v10-extras.js" defer></script> -->
 
 <!-- 5. V10 extras -->
 <!--  <script src="/assets/js/calculator.v10-extras.js" defer></script> -->
