@@ -1,9 +1,11 @@
+
+
 (()=> {
   'use strict';
 
   /* ============================================================
    * v10 EXTRAS — Personas, Range/Stepper, Explain, Package Cards,
-   * Email capture, Simple/Advanced modes (sea-day slider + grid)
+   * Email capture, Simple/Advanced modes (sea-day slider + grid) assets/js/calculator.v10-extras.js
    * ============================================================ */
 
   // ---- Guard (requires v10 app) ----
