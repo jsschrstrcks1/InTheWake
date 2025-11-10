@@ -1,6 +1,6 @@
 /**
  * Currency Module - FX Rate Management & Conversion
- * Version: 1.0.0
+ * Version: 1.0.0 assets/js/modules/currency.js
  */
 
 import CONFIG from './config.js';
