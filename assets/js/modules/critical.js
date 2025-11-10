@@ -1,6 +1,6 @@
 /**
  * Critical CSS - Above the fold styles
- * Version: 1.0.0
+ * Version: 1.0.0 assets/js/modules/critical.js
  * Load inline in <head> for optimal performance
  */
 
