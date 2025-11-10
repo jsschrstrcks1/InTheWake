@@ -1,6 +1,6 @@
 /**
  * Storage Module - Safe localStorage Wrapper
- * Version: 1.0.0
+ * Version: 1.0.0 assets/js/modules/storage.js
  */
 
 import { Security } from './security.js';
