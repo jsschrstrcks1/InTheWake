@@ -819,13 +819,12 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 <!-- 4. UI layer -->
 <script src="/assets/js/calculator-ui.js" defer></script>
 
-<!-- 5. V10 extras (disabled for now) -->
-<!-- <script src="/assets/js/calculator.v10-extras.js" defer></script> -->
+<!-- ============================================
+     INTEGRATED FUNCTIONALITY SCRIPTS
+     Consolidated from multiple inline scripts
+     ============================================ -->
 
-<!-- 5. V10 extras -->
-<!--  <script src="/assets/js/calculator.v10-extras.js" defer></script> -->
-
-<!-- NAV BEHAVIOR - Integrated -->
+<!-- NAV DROPDOWN BEHAVIOR -->
 <script>
 (function(){
   const items = document.querySelectorAll('[data-dropdown]');
@@ -871,17 +870,26 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       }
     });
   });
+  
+  console.log('[Nav] ✓ Dropdown behavior initialized');
 })();
 </script>
 
-<!-- Chart Sizing & Responsive - Integrated -->
+<!-- CHART SIZING & SCROLL PREVENTION -->
 <script>
 (function(){
-  const cv = document.getElementById('breakeven-chart');
-  if (!cv) return;
-
-  cv.removeAttribute('width');
-  cv.removeAttribute('height');
+  const wrap = document.getElementById('breakeven-wrap');
+  const canvas = document.getElementById('breakeven-chart');
+  
+  if(!wrap || !canvas) return;
+  
+  // Prevent infinite scrolling
+  wrap.style.overflow = 'hidden';
+  wrap.style.maxWidth = '780px';
+  wrap.style.contain = 'layout';
+  
+  canvas.removeAttribute('width');
+  canvas.removeAttribute('height');
 
   function tuneChart(c){
     try{
@@ -893,21 +901,35 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
   }
 
   function tryHook(){
-    const c = (window.ITW && window.ITW.chart) || cv.__chartist || cv._chart || null;
+    const c = (window.ITW && window.ITW.chart) || canvas.__chartist || canvas._chart || null;
     if (c && typeof c.resize === 'function'){ tuneChart(c); return true; }
     return false;
   }
 
+  const resizeChart = () => {
+    const wrapWidth = wrap.clientWidth;
+    canvas.style.width = wrapWidth + 'px';
+    canvas.style.height = '320px';
+    
+    if(window.ITW && window.ITW.chart && typeof window.ITW.chart.resize === 'function') {
+      window.ITW.chart.resize();
+    }
+  };
+
   tryHook();
+  resizeChart();
 
   let tries = 0;
   const t = setInterval(()=>{ if (tryHook() || ++tries > 20) clearInterval(t); }, 150);
 
-  new ResizeObserver(()=>{ tryHook(); }).observe(document.getElementById('breakeven-wrap'));
+  new ResizeObserver(()=>{ tryHook(); }).observe(wrap);
+  window.addEventListener('resize', resizeChart);
+  
+  console.log('[Chart] ✓ Sizing and scroll prevention active');
 })();
 </script>
 
-<!-- Winner Ring & Best Value Stamp - Integrated -->
+<!-- WINNER RING & BEST VALUE STAMP -->
 <script>
 (function(){
   const cv = document.getElementById('breakeven-chart');
@@ -973,20 +995,12 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 
   let attempts = 0;
   const t = setInterval(()=>{ if (hookChart() || ++attempts>20) clearInterval(t); }, 150);
+  
+  console.log('[Winner Ring] ✓ Initialized');
 })();
 </script>
 
-<!-- Author Card Positioning - Integrated -->
-<script>
-(function(){
-  const rail = document.querySelector('aside.rail');
-  if (!rail) return;
-  const authorCard = document.getElementById('author-card');
-  if (authorCard) rail.appendChild(authorCard);
-})();
-</script>
-
-<!-- Recent Articles with Top-20 Fix - Integrated -->
+<!-- RECENT ARTICLES WITH IMAGE FALLBACK -->
 <script>
 (async function(){
   const rail = document.getElementById('recent-rail');
@@ -1036,124 +1050,15 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
     }).join('');
     
     if(fallback) fallback.style.display='none';
+    console.log('[Recent Articles] ✓ Loaded');
   }catch(e){
     if(fallback) fallback.style.display='';
+    console.warn('[Recent Articles] Failed to load:', e);
   }
 })();
 </script>
 
-<!-- Quiz Helpers - Integrated -->
-<script>
-(function(){
-  const modal = document.getElementById('quiz-modal');
-  const openBtn = document.getElementById('quiz-open-btn');
-  const closeBtn = document.getElementById('quiz-close-btn');
-  
-  if(openBtn) openBtn.addEventListener('click', () => modal.classList.add('active'));
-  if(closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-})();
-</script>
-
-<!-- Share & Reset Buttons - Integrated -->
-<script>
-(function(){
-  const shareBtn = document.getElementById('share-btn');
-  const resetBtn = document.getElementById('reset-btn');
-  
-  if(shareBtn){
-    shareBtn.addEventListener('click', () => {
-      if(window.ITW && window.ITW.shareScenario){
-        window.ITW.shareScenario();
-      } else {
-        // Fallback: copy URL
-        navigator.clipboard.writeText(window.location.href).then(() => {
-          alert('URL copied to clipboard!');
-        });
-      }
-    });
-  }
-  
-  if(resetBtn){
-    resetBtn.addEventListener('click', () => {
-      if(window.ITW && window.ITW.resetInputs){
-        window.ITW.resetInputs();
-      } else {
-        location.reload();
-      }
-    });
-  }
-})();
-</script>
-
-<!-- Service Worker Registration - Integrated -->
-<script>
-(function(){
-  if('serviceWorker' in navigator){
-    const ver = '10.0.0';
-    navigator.serviceWorker.register(`/sw.js?v=${ver}`).then(reg => {
-      console.log('[SW] Registered');
-      navigator.serviceWorker.addEventListener('message', (e) => {
-        if(e.data?.type === 'DATA_REFRESHED' && window.ITW?.refreshDataset){
-          window.ITW.refreshDataset();
-        }
-      });
-    }).catch(err => console.warn('[SW] Failed:', err));
-  }
-})();
-</script>
-
-<!-- Show calculator after load -->
-<script>
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const loading = document.getElementById('loading-state');
-    const app = document.getElementById('calculator-app');
-    if(loading) loading.style.display = 'none';
-    if(app) app.style.display = 'block';
-    
-    if(window.ITW && window.ITW.scheduleCalc) window.ITW.scheduleCalc();
-  }, 500);
-});
-</script>
-  <!-- ============================================
-     COMPLETE WORKING SCRIPTS FOR v10.0.0
-     Add these before the closing </body> tag
-     AFTER all other scripts have loaded
-     ============================================ -->
-
-<!-- FIX: Chart Scroll Prevention -->
-<script>
-(function(){
-  const wrap = document.getElementById('breakeven-wrap');
-  const canvas = document.getElementById('breakeven-chart');
-  
-  if(!wrap || !canvas) return;
-  
-  // Prevent infinite scrolling
-  wrap.style.overflow = 'hidden';
-  wrap.style.maxWidth = '780px';
-  wrap.style.contain = 'layout';
-  
-  // Fix canvas sizing
-  const resizeChart = () => {
-    const wrapWidth = wrap.clientWidth;
-    canvas.style.width = wrapWidth + 'px';
-    canvas.style.height = '320px';
-    
-    // Trigger chart resize if it exists
-    if(window.ITW && window.ITW.chart && typeof window.ITW.chart.resize === 'function') {
-      window.ITW.chart.resize();
-    }
-  };
-  
-  resizeChart();
-  window.addEventListener('resize', resizeChart);
-  
-  console.log('[Chart Fix] ✓ Scroll prevention active');
-})();
-</script>
-
-<!-- FIX: Working Preset Buttons -->
+<!-- PRESET BUTTONS -->
 <script>
 (function(){
   const PRESETS = {
@@ -1170,35 +1075,27 @@ window.addEventListener('load', () => {
       return;
     }
     
-    console.log('[Presets] Initializing...');
-    
     document.querySelectorAll('[data-preset]').forEach(btn => {
       btn.addEventListener('click', () => {
         const key = btn.dataset.preset;
         const preset = PRESETS[key];
-        if(!preset) {
-          console.warn('[Presets] Unknown preset:', key);
-          return;
-        }
+        if(!preset) return;
         
         console.log('[Presets] Applying:', key);
         
         const inputs = window.ITW.store.get('inputs');
         const drinks = {...inputs.drinks};
         
-        // Apply preset values
         Object.entries(preset).forEach(([k, v]) => {
           drinks[k] = v;
         });
         
         window.ITW.store.patch('inputs', {...inputs, drinks});
         
-        // Trigger calculation
         if(window.ITW.scheduleCalc) {
           window.ITW.scheduleCalc();
         }
         
-        // Announce
         const status = document.getElementById('a11y-status');
         if(status) {
           status.textContent = `Applied ${key} drinker preset`;
@@ -1208,7 +1105,7 @@ window.addEventListener('load', () => {
       });
     });
     
-    console.log('[Presets] ✓ Ready - found', document.querySelectorAll('[data-preset]').length, 'buttons');
+    console.log('[Presets] ✓ Ready');
   }
   
   if(document.readyState === 'loading') {
@@ -1218,9 +1115,86 @@ window.addEventListener('load', () => {
   }
 })();
 </script>
-  
 
-<!-- FIX: Complete Working Quiz Modal -->
+<!-- PRESET EXPLANATION DISPLAY -->
+<script>
+(function(){
+  const PRESET_INFO = {
+    light: {
+      name: 'Light Drinker 🥤',
+      desc: 'Perfect for casual sippers who want some variety without overdoing it.',
+      drinks: { soda: 2, coffee: 2, teaprem: 1, freshjuice: 2, mocktail: 2, bottledwater: 3, wine: 1, cocktail: 0.5 }
+    },
+    moderate: {
+      name: 'Moderate Drinker 🍷',
+      desc: 'Social drinking throughout the day - coffee in the morning, beers by the pool, wine with dinner.',
+      drinks: { soda: 1, coffee: 2, beer: 2, wine: 2, cocktail: 2, bottledwater: 2, freshjuice: 1 }
+    },
+    party: {
+      name: 'Party Mode 🎉',
+      desc: 'Living it up! Morning coffee, energy drinks, multiple beers, cocktails, and spirits at night.',
+      drinks: { soda: 1, coffee: 1, energy: 1, beer: 3, wine: 1, cocktail: 5, spirits: 2, bottledwater: 2 }
+    },
+    coffee: {
+      name: 'Coffee Lover ☕',
+      desc: 'All about specialty coffees and teas. Fresh juice, mocktails, and maybe some wine to relax.',
+      drinks: { coffee: 4, teaprem: 1, freshjuice: 1, mocktail: 1, wine: 1, bottledwater: 2, cocktail: 1 }
+    },
+    nonalc: {
+      name: 'Non-Alcoholic 🚫🍺',
+      desc: 'Enjoying the cruise without alcohol! Sodas, coffees, juices, mocktails, milkshakes, and water.',
+      drinks: { soda: 2, coffee: 3, teaprem: 1, freshjuice: 2, mocktail: 2, milkshake: 1, bottledwater: 3 }
+    }
+  };
+  
+  const DRINK_LABELS = {
+    soda: 'Fountain Soda', coffee: 'Premium Coffee', teaprem: 'Specialty Tea',
+    freshjuice: 'Fresh Juice/Smoothie', mocktail: 'Mocktail', energy: 'Energy Drink',
+    milkshake: 'Milkshake', bottledwater: 'Bottled Water', beer: 'Beer',
+    wine: 'Wine (glass)', cocktail: 'Cocktail', spirits: 'Spirits/Shot'
+  };
+  
+  function showPresetExplanation(key) {
+    const info = PRESET_INFO[key];
+    if (!info) return;
+    
+    const explanation = document.getElementById('preset-explanation');
+    const name = document.getElementById('preset-name');
+    const desc = document.getElementById('preset-desc');
+    const drinksDiv = document.getElementById('preset-drinks');
+    
+    if (!explanation || !name || !desc || !drinksDiv) return;
+    
+    name.textContent = info.name;
+    desc.textContent = info.desc;
+    
+    drinksDiv.innerHTML = '';
+    Object.entries(info.drinks).forEach(([drink, qty]) => {
+      if (qty > 0) {
+        const label = DRINK_LABELS[drink] || drink;
+        const item = document.createElement('div');
+        item.style.cssText = 'background:#fff;padding:.5rem .75rem;border-radius:6px;border:1px solid #cbd5e1;display:flex;justify-content:space-between;';
+        item.innerHTML = `<span>${label}</span><span style="color:#0e6e8e;font-weight:700;">${qty} / day</span>`;
+        drinksDiv.appendChild(item);
+      }
+    });
+    
+    explanation.style.display = 'block';
+    setTimeout(() => explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  }
+  
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-preset]');
+    if (btn) {
+      setTimeout(() => showPresetExplanation(btn.dataset.preset), 200);
+    }
+  });
+  
+  console.log('[Preset Explanation] ✓ Ready');
+})();
+</script>
+
+<!-- QUIZ MODAL -->
 <script>
 (function(){
   const modal = document.getElementById('quiz-modal');
@@ -1229,10 +1203,7 @@ window.addEventListener('load', () => {
   const skipBtn = document.getElementById('quiz-skip-btn');
   const applyBtn = document.getElementById('quiz-apply-btn');
   
-  if(!modal) {
-    console.warn('[Quiz] Modal not found');
-    return;
-  }
+  if(!modal) return;
   
   let quizAnswers = { type: '', drinking: '', preference: '' };
   let currentStep = 1;
@@ -1242,87 +1213,52 @@ window.addEventListener('load', () => {
     const stepEl = document.getElementById(`quiz-step-${step}`);
     if(stepEl) stepEl.style.display = 'block';
     currentStep = step;
-    console.log('[Quiz] Showing step', step);
   }
   
   function closeQuiz() {
     modal.classList.remove('active');
     quizAnswers = { type: '', drinking: '', preference: '' };
     setTimeout(() => showStep(1), 300);
-    console.log('[Quiz] Closed');
   }
   
   function applyQuizResult() {
     const presets = {
       'family-light-nonalc': { soda:2, coffee:2, freshjuice:2, mocktail:1, bottledwater:3, beer:0, wine:0, cocktail:0, spirits:0 },
-      'family-moderate-cocktails': { soda:1, coffee:2, freshjuice:1, beer:1, wine:1, cocktail:2, bottledwater:2 },
-      'family-heavy-cocktails': { soda:1, coffee:2, beer:2, wine:2, cocktail:3, bottledwater:2 },
-      'party-light-cocktails': { coffee:1, beer:2, wine:1, cocktail:2, bottledwater:2 },
-      'party-moderate-cocktails': { coffee:1, beer:3, wine:1, cocktail:4, spirits:1, bottledwater:2 },
       'party-heavy-cocktails': { coffee:1, beer:3, wine:1, cocktail:5, spirits:2, bottledwater:2 },
-      'party-heavy-beer-wine': { beer:5, wine:2, cocktail:1, bottledwater:2 },
       'romantic-moderate-cocktails': { coffee:2, wine:3, cocktail:2, bottledwater:2 },
-      'solo-light-coffee': { coffee:3, teaprem:1, freshjuice:1, mocktail:1, bottledwater:2 },
-      'solo-moderate-cocktails': { coffee:2, beer:1, wine:2, cocktail:2, bottledwater:2 },
       'default': { soda:1, coffee:2, beer:2, wine:1, cocktail:2, bottledwater:2 }
     };
     
     const key = `${quizAnswers.type}-${quizAnswers.drinking}-${quizAnswers.preference}`;
     const preset = presets[key] || presets['default'];
     
-    console.log('[Quiz] Applying preset for:', key);
-    
     if(window.ITW && window.ITW.store) {
       const inputs = window.ITW.store.get('inputs');
       const drinks = {...inputs.drinks};
       
-      // Reset all to 0
       Object.keys(drinks).forEach(k => drinks[k] = 0);
-      
-      // Apply preset
-      Object.entries(preset).forEach(([k, v]) => {
-        drinks[k] = v;
-      });
+      Object.entries(preset).forEach(([k, v]) => { drinks[k] = v; });
       
       window.ITW.store.patch('inputs', {...inputs, drinks});
       
       if(window.ITW.scheduleCalc) {
         window.ITW.scheduleCalc();
       }
-      
-      console.log('[Quiz] ✓ Applied recommendation');
     }
     
     closeQuiz();
   }
   
-  // Wire up buttons
-  if(openBtn) {
-    openBtn.addEventListener('click', () => {
-      modal.classList.add('active');
-      console.log('[Quiz] Opened');
-    });
-  }
+  if(openBtn) openBtn.addEventListener('click', () => modal.classList.add('active'));
+  if(closeBtn) closeBtn.addEventListener('click', closeQuiz);
+  if(skipBtn) skipBtn.addEventListener('click', closeQuiz);
+  if(applyBtn) applyBtn.addEventListener('click', applyQuizResult);
   
-  if(closeBtn) {
-    closeBtn.addEventListener('click', closeQuiz);
-  }
-  
-  if(skipBtn) {
-    skipBtn.addEventListener('click', closeQuiz);
-  }
-  
-  if(applyBtn) {
-    applyBtn.addEventListener('click', applyQuizResult);
-  }
-  
-  // Quiz answer buttons
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-quiz-answer]');
     if(!btn || !modal.classList.contains('active')) return;
     
     const answer = btn.dataset.quizAnswer;
-    console.log('[Quiz] Answer:', answer);
     
     if(currentStep === 1) {
       quizAnswers.type = answer;
@@ -1333,392 +1269,81 @@ window.addEventListener('load', () => {
     } else if(currentStep === 3) {
       quizAnswers.preference = answer;
       
-      // Show result
       const rec = document.getElementById('quiz-recommendation');
       if(rec) {
-        const resultMap = {
-          'family-light-nonalc': 'Refreshment Package - Great for families with kids who love specialty drinks!',
-          'family-moderate-cocktails': 'Refreshment Package - Perfect balance for families who enjoy some drinks.',
-          'party-heavy-cocktails': 'Deluxe Package - Party mode activated! This will save you money.',
-          'party-heavy-beer-wine': 'Deluxe Package - Great for beer and wine lovers.',
-          'romantic-moderate-cocktails': 'Refreshment or Deluxe - Depends on your cocktail preferences.',
-          'solo-light-coffee': 'Coffee Card + Refreshment - Perfect for coffee lovers!',
-          'default': 'À-la-carte - Pay as you go gives you the most flexibility!'
-        };
-        
-        const key = `${quizAnswers.type}-${quizAnswers.drinking}-${quizAnswers.preference}`;
-        rec.textContent = resultMap[key] || resultMap['default'];
+        rec.textContent = 'Based on your answers, we recommend trying the Deluxe Package for the best value!';
       }
       
       const resultStep = document.getElementById('quiz-result');
-      if(resultStep) {
-        resultStep.style.display = 'block';
-      }
+      if(resultStep) resultStep.style.display = 'block';
     }
   });
   
-  // Close on backdrop click
   modal.addEventListener('click', (e) => {
     if(e.target === modal) closeQuiz();
   });
   
-  // Close on Escape key
   document.addEventListener('keydown', (e) => {
     if(e.key === 'Escape' && modal.classList.contains('active')) {
       closeQuiz();
     }
   });
   
-  // First load trigger (check localStorage)
-  const hasSeenQuiz = localStorage.getItem('itw-quiz-seen-v10');
-  if(!hasSeenQuiz) {
-    console.log('[Quiz] First visit - will show in 2 seconds');
-    setTimeout(() => {
-      modal.classList.add('active');
-      localStorage.setItem('itw-quiz-seen-v10', 'true');
-      console.log('[Quiz] ✓ First visit modal shown');
-    }, 2000);
-  }
-  
   console.log('[Quiz] ✓ Ready');
 })();
 </script>
 
-<!-- PRESET EXPLANATION SCRIPT -->
-<!-- Add this script near the end of your HTML, before </body> -->
-
+<!-- SHARE & RESET BUTTONS -->
 <script>
 (function(){
-  'use strict';
+  const shareBtn = document.getElementById('share-btn');
+  const resetBtn = document.getElementById('reset-btn');
   
-  const PRESET_INFO = {
-    light: {
-      name: 'Light Drinker 🥤',
-      desc: 'Perfect for casual sippers who want some variety without overdoing it. A couple sodas, specialty coffees, fresh juices, and maybe a glass of wine with dinner.',
-      drinks: { 
-        soda: 2, 
-        coffee: 2, 
-        teaprem: 1, 
-        freshjuice: 2, 
-        mocktail: 2, 
-        bottledwater: 3, 
-        wine: 1, 
-        cocktail: 0.5 
-      }
-    },
-    moderate: {
-      name: 'Moderate Drinker 🍷',
-      desc: 'Social drinking throughout the day - specialty coffee in the morning, a couple beers by the pool, wine with dinner, and cocktails in the evening.',
-      drinks: { 
-        soda: 1, 
-        coffee: 2, 
-        beer: 2, 
-        wine: 2, 
-        cocktail: 2, 
-        bottledwater: 2,
-        freshjuice: 1
-      }
-    },
-    party: {
-      name: 'Party Mode 🎉',
-      desc: 'Living it up! Morning coffee, energy drinks for the day, multiple beers, cocktails throughout, and spirits at night. Full vacation mode engaged.',
-      drinks: { 
-        soda: 1, 
-        coffee: 1, 
-        energy: 1, 
-        beer: 3, 
-        wine: 1, 
-        cocktail: 5, 
-        spirits: 2, 
-        bottledwater: 2 
-      }
-    },
-    coffee: {
-      name: 'Coffee Lover ☕',
-      desc: 'All about those specialty coffees and teas throughout the day. Fresh juice in the morning, mocktails in the afternoon, and maybe some wine to relax in the evening.',
-      drinks: { 
-        coffee: 4, 
-        teaprem: 1, 
-        freshjuice: 1, 
-        mocktail: 1, 
-        wine: 1, 
-        bottledwater: 2,
-        cocktail: 1
-      }
-    },
-    nonalc: {
-      name: 'Non-Alcoholic 🚫🍺',
-      desc: 'Enjoying the cruise without alcohol! Sodas throughout the day, specialty coffees, fresh juices, creative mocktails, milkshakes, and plenty of water.',
-      drinks: { 
-        soda: 2, 
-        coffee: 3, 
-        teaprem: 1, 
-        freshjuice: 2, 
-        mocktail: 2, 
-        milkshake: 1, 
-        bottledwater: 3 
-      }
-    }
-  };
-  
-  const DRINK_LABELS = {
-    soda: 'Fountain Soda',
-    coffee: 'Premium Coffee',
-    teaprem: 'Specialty Tea',
-    freshjuice: 'Fresh Juice/Smoothie',
-    mocktail: 'Mocktail',
-    energy: 'Energy Drink',
-    milkshake: 'Milkshake',
-    bottledwater: 'Bottled Water',
-    beer: 'Beer',
-    wine: 'Wine (glass)',
-    cocktail: 'Cocktail',
-    spirits: 'Spirits/Shot'
-  };
-  
-  function showPresetExplanation(key) {
-    const info = PRESET_INFO[key];
-    if (!info) {
-      console.warn('[Preset Explanation] Unknown preset:', key);
-      return;
-    }
-    
-    const explanation = document.getElementById('preset-explanation');
-    const name = document.getElementById('preset-name');
-    const desc = document.getElementById('preset-desc');
-    const drinksDiv = document.getElementById('preset-drinks');
-    
-    if (!explanation || !name || !desc || !drinksDiv) {
-      console.error('[Preset Explanation] Missing required elements');
-      return;
-    }
-    
-    // Update content
-    name.textContent = info.name;
-    desc.textContent = info.desc;
-    
-    // Build drinks list with proper formatting
-    drinksDiv.innerHTML = '';
-    Object.entries(info.drinks).forEach(([drink, qty]) => {
-      if (qty > 0) {
-        const label = DRINK_LABELS[drink] || drink;
-        const item = document.createElement('div');
-        item.style.cssText = 'background:#fff;padding:.5rem .75rem;border-radius:6px;border:1px solid #cbd5e1;display:flex;justify-content:space-between;align-items:center;';
-        item.innerHTML = `
-          <span style="font-weight:500;">${label}</span>
-          <span style="color:#0e6e8e;font-weight:700;">${qty} / day</span>
-        `;
-        drinksDiv.appendChild(item);
-      }
-    });
-    
-    // Show the explanation
-    explanation.style.display = 'block';
-    
-    // Smooth scroll to it
-    setTimeout(() => {
-      explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
-    
-    console.log('[Preset Explanation] Showing:', info.name);
-  }
-  
-  // Wire up to preset buttons (works with existing preset handler)
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-preset]');
-    if (btn) {
-      const key = btn.dataset.preset;
-      // Small delay to let the preset apply first
-      setTimeout(() => showPresetExplanation(key), 200);
-    }
-  });
-  
-  console.log('[Preset Explanation] ✓ Ready');
-})();
-</script>
-  <script>
-(function() {
-  'use strict';
-  
-  console.log('[Input Wiring] Initializing...');
-  
-  function wireInputs() {
-    if (!window.ITW || !window.ITW.store || !window.ITW.scheduleCalc) {
-      setTimeout(wireInputs, 100);
-      return;
-    }
-    
-    // Get all calculator inputs
-    const inputs = document.querySelectorAll('[data-input]');
-    
-    console.log('[Input Wiring] Found', inputs.length, 'inputs');
-    
-    inputs.forEach(input => {
-      const key = input.getAttribute('data-input');
-      
-      // Wire change event
-      input.addEventListener('change', () => {
-        console.log('[Input] Changed:', key, '=', input.value);
-        window.ITW.scheduleCalc();
-      });
-      
-      // Also trigger on blur
-      input.addEventListener('blur', () => {
-        window.ITW.scheduleCalc();
-      });
-    });
-    
-    // Trigger initial calculation
-    console.log('[Input Wiring] Triggering initial calculation...');
-    setTimeout(() => {
-      window.ITW.scheduleCalc();
-    }, 500);
-    
-    console.log('[Input Wiring] ✓ Ready');
-  }
-  
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wireInputs);
-  } else {
-    wireInputs();
-  }
-})();
-</script>
-<!-- 
-  Expected output when everything works:
-  
-  === ITW CALCULATOR DIAGNOSTIC ===
-  ✅ Chart.js
-  ✅ ITW_MATH
-  ✅ __itwStore
-  ✅ ITW namespace
-  ✅ ITW.store
-  ✅ ITW.money
-  ✅ ITW.getCurrency
-  ✅ ITW.scheduleCalc
-  ⚠️ ITW.chart
-  
-  🎉 All critical components loaded!
-  📊 Current state: {...}
-  📝 Inputs found: {...}
-  ⏳ No results yet - try clicking a preset or entering drinks
-  
-  💡 To manually trigger calculation, run:
-     window.ITW.scheduleCalc()
-  
-  === END DIAGNOSTIC ===
-  
-  💡 To re-run diagnostic: diagITW()
--->
-
-<!-- ============================================
-     END OF WORKING SCRIPTS
-     ============================================ -->
-
-<!-- Soli Deo Gloria · v10.0.0 -->
-    <!-- DIAGNOSTIC SCRIPT - Add this AFTER all other scripts, before </body> -->
-<!-- This will help identify what's loading and what's not -->
-
-<script>
-(function() {
-  'use strict';
-  // At the start of diagnostic
-setTimeout(function() {
-  // ... all diagnostic code here
-}, 2000); // Wait 2 seconds for everything to load
-  console.log('%c=== ITW CALCULATOR DIAGNOSTIC ===', 'color: #0e6e8e; font-weight: bold; font-size: 14px;');
-  
-  // Check for required globals
-  const checks = [
-    { name: 'Chart.js', test: () => typeof Chart !== 'undefined', required: true },
-    { name: 'ITW_MATH', test: () => typeof window.ITW_MATH !== 'undefined', required: true },
-    { name: '__itwStore', test: () => typeof window.__itwStore !== 'undefined', required: true },
-    { name: 'ITW namespace', test: () => typeof window.ITW !== 'undefined', required: true },
-    { name: 'ITW.store', test: () => window.ITW && typeof window.ITW.store !== 'undefined', required: true },
-    { name: 'ITW.money', test: () => window.ITW && typeof window.ITW.money !== 'undefined', required: false },
-    { name: 'ITW.getCurrency', test: () => window.ITW && typeof window.ITW.getCurrency !== 'undefined', required: false },
-    { name: 'ITW.scheduleCalc', test: () => window.ITW && typeof window.ITW.scheduleCalc !== 'undefined', required: true },
-    { name: 'ITW.chart', test: () => window.ITW && window.ITW.chart !== null, required: false }
-  ];
-  
-  let allGood = true;
-  
-  checks.forEach(check => {
-    const passed = check.test();
-    const icon = passed ? '✅' : (check.required ? '❌' : '⚠️');
-    const style = passed ? 'color: green;' : (check.required ? 'color: red; font-weight: bold;' : 'color: orange;');
-    console.log(`%c${icon} ${check.name}`, style);
-    
-    if (!passed && check.required) {
-      allGood = false;
-    }
-  });
-  
-  console.log('');
-  
-  if (allGood) {
-    console.log('%c🎉 All critical components loaded!', 'color: green; font-weight: bold;');
-    
-    // Try to get state
-    try {
-      const state = window.ITW.store.get();
-      console.log('📊 Current state:', state);
-      
-      // Check if we have inputs
-      if (state && state.inputs) {
-        console.log('📝 Inputs found:', {
-          days: state.inputs.days,
-          adults: state.inputs.adults,
-          totalDrinks: Object.values(state.inputs.drinks || {}).reduce((a, b) => a + (Number(b) || 0), 0)
-        });
-      }
-      
-      // Check if we have results
-      if (state && state.results) {
-        console.log('📈 Results found:', {
-          winner: state.results.winnerKey,
-          perDay: state.results.perDay,
-          trip: state.results.trip
-        });
+  if(shareBtn){
+    shareBtn.addEventListener('click', () => {
+      if(window.ITW && window.ITW.shareScenario){
+        window.ITW.shareScenario();
       } else {
-        console.log('⏳ No results yet - try clicking a preset or entering drinks');
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert('URL copied to clipboard!');
+        });
       }
-    } catch (e) {
-      console.error('❌ Error reading state:', e);
-    }
-    
-    // Try to trigger calculation
-    console.log('');
-    console.log('💡 To manually trigger calculation, run:');
-    console.log('   window.ITW.scheduleCalc()');
-    
-  } else {
-
-// TO:
-console.warn('%c⚠️ Diagnostic ran early (ignore if calculator works)', 'color: orange; font-weight: bold;');
-    console.error('The calculator cannot function without these components.');
-    console.error('');
-    console.error('Troubleshooting steps:');
-    console.error('1. Check that all script files are loading (Network tab)');
-    console.error('2. Check that calculator-math.js is wrapped in IIFE');
-    console.error('3. Check that drink-calculator.app.js loads before bridge');
-    console.error('4. Check console for other errors above this diagnostic');
+    });
   }
   
-  console.log('%c=== END DIAGNOSTIC ===', 'color: #0e6e8e; font-weight: bold; font-size: 14px;');
+  if(resetBtn){
+    resetBtn.addEventListener('click', () => {
+      if(window.ITW && window.ITW.resetInputs){
+        window.ITW.resetInputs();
+      } else {
+        location.reload();
+      }
+    });
+  }
   
-  // Store diagnostic function globally for easy access
-  window.diagITW = function() {
-    console.clear();
-    location.reload();
-  };
-  
-  console.log('');
-  console.log('💡 To re-run diagnostic: diagITW()');
-  
+  console.log('[Share/Reset] ✓ Buttons wired');
 })();
 </script>
-  <script>
+
+<!-- SERVICE WORKER -->
+<script>
+(function(){
+  if('serviceWorker' in navigator){
+    const ver = '10.0.0';
+    navigator.serviceWorker.register(`/sw.js?v=${ver}`).then(reg => {
+      console.log('[SW] ✓ Registered');
+      navigator.serviceWorker.addEventListener('message', (e) => {
+        if(e.data?.type === 'DATA_REFRESHED' && window.ITW?.refreshDataset){
+          window.ITW.refreshDataset();
+        }
+      });
+    }).catch(err => console.warn('[SW] Registration failed:', err));
+  }
+})();
+</script>
+
+<!-- SET DEFAULT VALUES -->
+<script>
 (function() {
   function setDefaults() {
     if (!window.ITW?.store) {
@@ -1742,7 +1367,6 @@ console.warn('%c⚠️ Diagnostic ran early (ignore if calculator works)', 'colo
     
     const current = window.ITW.store.get('inputs');
     
-    // Only set if undefined or zero
     if (!current || current.days === 0 || current.days === undefined) {
       window.ITW.store.patch('inputs', defaults);
       console.log('[Defaults] ✓ Set initial values');
@@ -1752,18 +1376,134 @@ console.warn('%c⚠️ Diagnostic ran early (ignore if calculator works)', 'colo
   setDefaults();
 })();
 </script>
-  <script>
+
+<!-- INPUT WIRING -->
+<script>
 (function() {
-  function waitForStore() {
-    if (window.ITW && window.ITW.store) {
-      window.__itwStore = window.ITW.store;
-      console.log('[Init] ✓ Store ready');
-    } else {
-      setTimeout(waitForStore, 50);
+  function wireInputs() {
+    if (!window.ITW || !window.ITW.store || !window.ITW.scheduleCalc) {
+      setTimeout(wireInputs, 100);
+      return;
     }
+    
+    const inputs = document.querySelectorAll('[data-input]');
+    
+    inputs.forEach(input => {
+      input.addEventListener('change', () => {
+        window.ITW.scheduleCalc();
+      });
+      
+      input.addEventListener('blur', () => {
+        window.ITW.scheduleCalc();
+      });
+    });
+    
+    console.log('[Input Wiring] ✓ Wired', inputs.length, 'inputs');
   }
-  waitForStore();
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireInputs);
+  } else {
+    wireInputs();
+  }
 })();
 </script>
+
+<!-- FORCE CALCULATION TO RUN -->
+<script>
+(function() {
+  let calcReady = false;
+  
+  function forceCalc() {
+    if (!window.ITW || !window.ITW.store) {
+      setTimeout(forceCalc, 100);
+      return;
+    }
+    
+    if (calcReady) return;
+    calcReady = true;
+    
+    console.log('[Force Calc] 🔄 Triggering calculation...');
+    
+    // Method 1: Store update
+    try {
+      const current = window.ITW.store.get('inputs');
+      if (current) {
+        window.ITW.store.patch('inputs', {...current});
+        console.log('[Force Calc] ✓ Store updated');
+      }
+    } catch (e) {
+      console.error('[Force Calc] Store update failed:', e);
+    }
+    
+    // Method 2: Custom event
+    setTimeout(() => {
+      try {
+        document.dispatchEvent(new CustomEvent('itw:calc-update'));
+        console.log('[Force Calc] ✓ Event dispatched');
+      } catch (e) {
+        console.error('[Force Calc] Event dispatch failed:', e);
+      }
+    }, 100);
+    
+    // Method 3: Direct scheduleCalc
+    setTimeout(() => {
+      try {
+        if (window.ITW && typeof window.ITW.scheduleCalc === 'function') {
+          window.ITW.scheduleCalc();
+          console.log('[Force Calc] ✓ scheduleCalc called');
+        }
+      } catch (e) {
+        console.error('[Force Calc] scheduleCalc failed:', e);
+      }
+    }, 200);
+    
+    // Method 4: Trigger input change
+    setTimeout(() => {
+      try {
+        const daysInput = document.querySelector('[data-input="days"]');
+        if (daysInput) {
+          daysInput.value = daysInput.value;
+          daysInput.dispatchEvent(new Event('change', { bubbles: true }));
+          console.log('[Force Calc] ✓ Input event fired');
+        }
+      } catch (e) {
+        console.error('[Force Calc] Input trigger failed:', e);
+      }
+    }, 300);
+  }
+  
+  // Wait for full load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(forceCalc, 1000));
+  } else {
+    setTimeout(forceCalc, 1000);
+  }
+  
+  // Also on input changes
+  document.addEventListener('change', (e) => {
+    if (e.target.hasAttribute('data-input')) {
+      setTimeout(forceCalc, 50);
+    }
+  });
+  
+})();
+</script>
+
+<!-- SHOW CALCULATOR AFTER LOAD -->
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loading = document.getElementById('loading-state');
+    const app = document.getElementById('calculator-app');
+    if(loading) loading.style.display = 'none';
+    if(app) app.style.display = 'block';
+    
+    console.log('[App] ✓ Calculator displayed');
+  }, 500);
+});
+</script>
+
+<!-- Soli Deo Gloria · v10.0.0 -->
 </body>
 </html>
