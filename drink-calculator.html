@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="version" content="10.0.0"/>
 <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
-<meta name="description" content="Compare Soda, Refreshment, and Deluxe vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support."/>
+<meta name="description" content="Compare Soda, Refreshment, Deluxe, and Coffee Card vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support."/>
 <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
 
 <!-- OpenGraph / Twitter -->
@@ -35,8 +35,8 @@
 <link rel="dns-prefetch" href="https://api.exchangerate.host">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
+<!-- Chart.js with fallback -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer onerror="this.onerror=null;this.src='/assets/vendor/chart.umd.min.js?v=10.0.0'"></script>
 
 <!-- Critical CSS -->
 <style>
@@ -58,6 +58,11 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 .tiny{font-size:.88rem;color:#456}
 .muted{color:#525a66}
 .small{font-size:.9rem}
+.row{display:grid;grid-template-columns:1fr 140px;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--bd)}
+.row:last-child{border-bottom:0}
+.controls-inline{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700;min-height:44px;font-size:1rem}
+.btn.ghost{background:#fff;color:#0f172a}
 
 /* Skip link */
 .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
@@ -73,7 +78,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 .brand img{height:28px;width:auto}
 .version-badge{font-size:.72rem;opacity:.8}
 
-/* NAV - Fixed for click behavior */
+/* NAV */
 .itw-nav{
   flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
   gap:.45rem;white-space:nowrap;overflow:visible;padding-inline:.75rem;
@@ -117,13 +122,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 /* Grid */
 .calculator-grid{display:grid;gap:1.2rem}
 @media(min-width:1060px){.calculator-grid{grid-template-columns:minmax(0,1fr) 360px}}
-
-/* Controls */
-.controls-inline{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.row{display:grid;grid-template-columns:1fr 140px;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--bd)}
-.row:last-child{border-bottom:0}
-.btn{cursor:pointer;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:#0f172a;color:#fff;font-weight:700;min-height:44px;font-size:1rem}
-.btn.ghost{background:#fff;color:#0f172a}
 
 /* Banner/Badge */
 .banner{background:var(--foam);border:2px solid var(--rope);border-radius:10px;padding:.75rem 1rem;margin:.75rem 0}
@@ -176,8 +174,42 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 .modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:0;font-size:1.5rem;cursor:pointer}
 </style>
 
-<!-- Deferred CSS -->
-<link rel="stylesheet" href="/assets/css/calculator.css?v=10.0.0">
+<!-- Inline calculator-specific styles (replaces calculator.css) -->
+<style>
+/* Additional calculator-specific styles that were in calculator.css */
+.coffee-card-explainer{
+  background:#fef3c7;
+  border:2px solid #f59e0b;
+  border-radius:10px;
+  padding:1rem;
+  margin:1rem 0;
+}
+.coffee-card-explainer h4{
+  margin-top:0;
+  color:#92400e;
+}
+.coffee-card-explainer .punch-info{
+  display:grid;
+  gap:.5rem;
+  font-size:.9rem;
+  margin:.75rem 0;
+}
+.coffee-card-explainer .punch-row{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:.5rem;
+  align-items:center;
+}
+.coffee-card-explainer .punch-badge{
+  display:inline-block;
+  background:#f59e0b;
+  color:#fff;
+  padding:.2rem .5rem;
+  border-radius:6px;
+  font-weight:700;
+  font-size:.85rem;
+}
+</style>
 </head>
 
 <body>
@@ -275,7 +307,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       <div class="card" style="background:#e0f2fe;border-color:#0284c7">
         <h3 style="margin-top:0">🎯 Not sure what you drink?</h3>
         <p class="small">Take our 60-second quiz to get personalized recommendations.</p>
-        <button class="btn" type="button" onclick="window.openQuiz && window.openQuiz()">Start Quiz</button>
+        <button class="btn" type="button" id="quiz-open-btn">Start Quiz</button>
       </div>
       
       <section class="card inputs">
@@ -378,6 +410,42 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
           </p>
         </details>
         
+        <!-- Coffee Card Option -->
+        <details id="coffee-card-section">
+          <summary style="cursor:pointer;font-weight:700;margin:12px 0">
+            ☕ Coffee Card Option
+            <span class="tiny muted">(alternative to packages)</span>
+          </summary>
+          
+          <div class="coffee-card-explainer">
+            <h4>☕ Café Select Coffee Card</h4>
+            <p class="small">Prepaid punch card for 15 specialty coffees at ~$31 + gratuity</p>
+            
+            <div class="punch-info">
+              <div class="punch-row">
+                <span class="punch-badge">1 PUNCH</span>
+                <span>Small espresso drinks, hot chocolate</span>
+              </div>
+              <div class="punch-row">
+                <span class="punch-badge">2 PUNCHES</span>
+                <span>Large drinks, iced beverages, extra shots</span>
+              </div>
+            </div>
+            
+            <p class="tiny muted"><strong>Note:</strong> Card can be shared among cabin guests. Not valid at licensed Starbucks stores but works at "We Proudly Serve" Starbucks locations. Unused punches roll over to future cruises. Can save up to 50% vs. paying individually.</p>
+          </div>
+          
+          <div class="row">
+            <label for="input-coffee-cards">Coffee Cards</label>
+            <input id="input-coffee-cards" type="text" inputmode="numeric" value="0" data-input="coffee-cards" min="0">
+          </div>
+          
+          <div class="row">
+            <label for="input-coffee-punches-per-day">Avg punches/day</label>
+            <input id="input-coffee-punches-per-day" type="text" inputmode="decimal" value="0" data-input="coffee-punches" min="0" max="5" step="0.5">
+          </div>
+        </details>
+        
         <!-- Drinks -->
         <details open>
           <summary style="cursor:pointer;font-weight:700;margin:12px 0">Daily drinks (average)</summary>
@@ -398,7 +466,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
         <!-- Chart -->
         <div id="breakeven-wrap" style="margin-top:18px">
           <div id="best-stamp" aria-hidden="true">Best value</div>
-          <canvas id="breakeven-chart" width="900" height="320" aria-describedby="chart-desc"></canvas>
+          <canvas id="breakeven-chart" aria-describedby="chart-desc"></canvas>
           
           <!-- Screen Reader Table -->
           <table id="chart-desc" class="sr-only">
@@ -406,6 +474,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
             <thead><tr><th>Option</th><th>Cost per day</th></tr></thead>
             <tbody>
               <tr><td>À-la-carte</td><td id="sr-alc">$0.00</td></tr>
+              <tr><td>Coffee Card</td><td id="sr-coffee">$0.00</td></tr>
               <tr><td>Soda</td><td id="sr-soda">$0.00</td></tr>
               <tr><td>Refreshment</td><td id="sr-refresh">$0.00</td></tr>
               <tr><td>Deluxe</td><td id="sr-deluxe">$0.00</td></tr>
@@ -433,8 +502,8 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
         <!-- Actions -->
         <div class="controls-inline" style="margin-top:16px">
           <button class="btn" type="button" onclick="window.print()">Print Results</button>
-          <button class="btn ghost" type="button" onclick="window.shareScenario && window.shareScenario()">Share</button>
-          <button class="btn" type="button" onclick="window.resetInputs && window.resetInputs()">Reset</button>
+          <button class="btn ghost" type="button" id="share-btn">Share</button>
+          <button class="btn" type="button" id="reset-btn">Reset</button>
         </div>
       </section>
       
@@ -470,6 +539,13 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
     <section>
       <h3>Package Comparison</h3>
       
+      <div class="package-card" data-card="coffee">
+        <h4>☕ Coffee Card</h4>
+        <div class="price" data-pkg-price="coffee">$31.00</div>
+        <p class="small">15 punches (~$2.07/punch)</p>
+        <p class="tiny muted">Specialty coffees, sharable</p>
+      </div>
+      
       <div class="package-card" data-card="soda">
         <h4>Classic Soda</h4>
         <div class="price" data-pkg-price="soda">$13.99</div>
@@ -497,7 +573,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
     </section>
     
     <!-- Author -->
-    <section class="card">
+    <section class="card" id="author-card">
       <h3>About the Author</h3>
       <div style="display:flex;gap:.75rem;align-items:center">
         <a href="/authors/ken-baker.html" style="flex:0 0 72px">
@@ -528,7 +604,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 <!-- Quiz Modal -->
 <div id="quiz-modal" class="modal">
   <div class="modal-content">
-    <button class="modal-close" onclick="window.closeQuiz && window.closeQuiz()">&times;</button>
+    <button class="modal-close" id="quiz-close-btn">&times;</button>
     <div id="quiz-content">
       <h2>Find Your Perfect Package</h2>
       <div id="quiz-step-1">
@@ -550,24 +626,29 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
   <p class="tiny">Soli Deo Gloria — every pixel offered in worship to God.</p>
 </footer>
 
-<!-- JAVASCRIPT - CORRECT PATHS -->
+<!-- JAVASCRIPT - FIXED PATHS -->
 
-<!-- 1. Math module -->
-<script src="/assets/js/drink-math.js" type="module" defer></script>
+<!-- 1. Math module (calculator-math.js NOT drink-math.js) -->
+<script src="/assets/js/calculator-math.js" defer></script>
 
 <!-- 2. Core app -->
 <script src="/assets/js/drink-calculator.app.js" defer></script>
 
-<!-- 3. UI layer -->
-<script src="/assets/js/calculator.ui.js" defer></script>
+<!-- 3. UI layer (calculator-ui.js with hyphen) -->
+<script src="/assets/js/calculator-ui.js" defer></script>
 
-<!-- NAV BEHAVIOR - Fixed for clicks -->
+<!-- 4. UI bridge -->
+<script src="/assets/js/calculator.ui-bridge.js" defer></script>
+
+<!-- 5. V10 extras -->
+<script src="/assets/js/calculator.v10-extras.js" defer></script>
+
+<!-- NAV BEHAVIOR - Integrated -->
 <script>
 (function(){
   const items = document.querySelectorAll('[data-dropdown]');
   if(!items.length) return;
 
-  // Close all except one
   function closeAll(except){
     items.forEach(item => {
       if(item === except) return;
@@ -582,7 +663,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
     const menu = item.querySelector('.menu');
     if(!btn || !menu) return;
 
-    // Toggle on button click
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -594,7 +674,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       }
     });
 
-    // Close on outside click
     document.addEventListener('click', (e) => {
       if(!item.contains(e.target)){
         item.classList.remove('open');
@@ -602,7 +681,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       }
     });
 
-    // Keyboard
     btn.addEventListener('keydown', (e) => {
       if(e.key === 'Escape'){
         item.classList.remove('open');
@@ -614,7 +692,119 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 })();
 </script>
 
-<!-- Recent Articles with Top-20 fix -->
+<!-- Chart Sizing & Responsive - Integrated -->
+<script>
+(function(){
+  const cv = document.getElementById('breakeven-chart');
+  if (!cv) return;
+
+  cv.removeAttribute('width');
+  cv.removeAttribute('height');
+
+  function tuneChart(c){
+    try{
+      if (!c || !c.options) return;
+      c.options.responsive = true;
+      c.options.maintainAspectRatio = false;
+      c.resize();
+    }catch(_){}
+  }
+
+  function tryHook(){
+    const c = (window.ITW && window.ITW.chart) || cv.__chartist || cv._chart || null;
+    if (c && typeof c.resize === 'function'){ tuneChart(c); return true; }
+    return false;
+  }
+
+  tryHook();
+
+  let tries = 0;
+  const t = setInterval(()=>{ if (tryHook() || ++tries > 20) clearInterval(t); }, 150);
+
+  new ResizeObserver(()=>{ tryHook(); }).observe(document.getElementById('breakeven-wrap'));
+})();
+</script>
+
+<!-- Winner Ring & Best Value Stamp - Integrated -->
+<script>
+(function(){
+  const cv = document.getElementById('breakeven-chart');
+  const stamp = document.getElementById('best-stamp');
+  if (!cv || !stamp) return;
+
+  const WINNER = { idx: null };
+  const ringPlugin = {
+    id: 'itwWinnerRing',
+    afterDatasetsDraw(chart, _args, _opts){
+      if (WINNER.idx==null) return;
+      const ctx = chart.ctx;
+      let el = null;
+      chart.data.datasets.some(ds=>{
+        const m = chart.getDatasetMeta(chart.data.datasets.indexOf(ds));
+        const e = (m && m.data && m.data[WINNER.idx]) ? m.data[WINNER.idx] : null;
+        if (e){ el = e; return true; }
+      });
+      if (!el || !el.x || !el.y || !el.width) return;
+      const {x, y, width, height} = el.getProps(['x','y','width','height'], true);
+      ctx.save();
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 4;
+      ctx.setLineDash([6,4]);
+      const pad = 6;
+      ctx.strokeRect(x - width/2 - pad, y - height - pad, width + pad*2, height + pad*2);
+      ctx.restore();
+    }
+  };
+
+  function pickWinner(chart){
+    const ds = chart.data.datasets || [];
+    const N = (ds[0]?.data?.length) || 0;
+    let best = {labelIdx:null, value:Infinity};
+
+    for(let i=0;i<N;i++){
+      let minAtI = Infinity;
+      ds.forEach(d => {
+        const v = (Array.isArray(d.data) && typeof d.data[i]==='number') ? d.data[i] : Infinity;
+        if (v > 0 && v < minAtI) minAtI = v;
+      });
+      if (minAtI < best.value){ best = {labelIdx:i, value:minAtI}; }
+    }
+    WINNER.idx = best.labelIdx;
+    if (WINNER.idx==null){ stamp.style.display='none'; return; }
+
+    stamp.style.display = '';
+  }
+
+  function hookChart(){
+    const chart = (window.ITW && window.ITW.chart) || cv._chart || cv.__chartist || null;
+    if (!chart || !chart.data) return false;
+    if (!chart.config.plugins) chart.config.plugins = [];
+    if (!chart.config.plugins.includes(ringPlugin)) chart.config.plugins.push(ringPlugin);
+    pickWinner(chart);
+    chart.update();
+    if (!window.addEventListener._itwWinnerBound){
+      document.addEventListener('itw:calc-updated', ()=>{ try{ pickWinner(chart); chart.update(); }catch(_){}} );
+      window.addEventListener._itwWinnerBound = true;
+    }
+    return true;
+  }
+
+  let attempts = 0;
+  const t = setInterval(()=>{ if (hookChart() || ++attempts>20) clearInterval(t); }, 150);
+})();
+</script>
+
+<!-- Author Card Positioning - Integrated -->
+<script>
+(function(){
+  const rail = document.querySelector('aside.rail');
+  if (!rail) return;
+  const authorCard = document.getElementById('author-card');
+  if (authorCard) rail.appendChild(authorCard);
+})();
+</script>
+
+<!-- Recent Articles with Top-20 Fix - Integrated -->
 <script>
 (async function(){
   const rail = document.getElementById('recent-rail');
@@ -650,7 +840,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       const title = item.title || 'Article';
       let img = item.image || '/assets/index_hero.jpg?v=10.0.0';
       
-      // Force Top-20 image
       if(isTop20(href) || isTop20(title)){
         img = FORCE_IMG;
       }
@@ -671,30 +860,50 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 })();
 </script>
 
-<!-- Show calculator after load -->
+<!-- Quiz Helpers - Integrated -->
 <script>
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const loading = document.getElementById('loading-state');
-    const app = document.getElementById('calculator-app');
-    if(loading) loading.style.display = 'none';
-    if(app) app.style.display = 'block';
-    
-    // Trigger initial calc
-    if(window.ITW && window.ITW.scheduleCalc) window.ITW.scheduleCalc();
-  }, 500);
-});
-
-// Quiz helpers
-window.openQuiz = () => {
-  document.getElementById('quiz-modal').classList.add('active');
-};
-window.closeQuiz = () => {
-  document.getElementById('quiz-modal').classList.remove('active');
-};
+(function(){
+  const modal = document.getElementById('quiz-modal');
+  const openBtn = document.getElementById('quiz-open-btn');
+  const closeBtn = document.getElementById('quiz-close-btn');
+  
+  if(openBtn) openBtn.addEventListener('click', () => modal.classList.add('active'));
+  if(closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+})();
 </script>
 
-<!-- Service Worker Registration -->
+<!-- Share & Reset Buttons - Integrated -->
+<script>
+(function(){
+  const shareBtn = document.getElementById('share-btn');
+  const resetBtn = document.getElementById('reset-btn');
+  
+  if(shareBtn){
+    shareBtn.addEventListener('click', () => {
+      if(window.ITW && window.ITW.shareScenario){
+        window.ITW.shareScenario();
+      } else {
+        // Fallback: copy URL
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert('URL copied to clipboard!');
+        });
+      }
+    });
+  }
+  
+  if(resetBtn){
+    resetBtn.addEventListener('click', () => {
+      if(window.ITW && window.ITW.resetInputs){
+        window.ITW.resetInputs();
+      } else {
+        location.reload();
+      }
+    });
+  }
+})();
+</script>
+
+<!-- Service Worker Registration - Integrated -->
 <script>
 (function(){
   if('serviceWorker' in navigator){
@@ -709,6 +918,20 @@ window.closeQuiz = () => {
     }).catch(err => console.warn('[SW] Failed:', err));
   }
 })();
+</script>
+
+<!-- Show calculator after load -->
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loading = document.getElementById('loading-state');
+    const app = document.getElementById('calculator-app');
+    if(loading) loading.style.display = 'none';
+    if(app) app.style.display = 'block';
+    
+    if(window.ITW && window.ITW.scheduleCalc) window.ITW.scheduleCalc();
+  }, 500);
+});
 </script>
 
 <!-- Soli Deo Gloria · v10.0.0 -->
