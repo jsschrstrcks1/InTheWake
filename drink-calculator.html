@@ -172,6 +172,19 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 .modal.active{display:flex}
 .modal-content{background:#fff;border-radius:12px;max-width:600px;width:90%;max-height:90vh;overflow-y:auto;padding:2rem}
 .modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:0;font-size:1.5rem;cursor:pointer}
+#breakeven-wrap {
+  max-width: 780px;
+  margin-inline: auto;
+  overflow: hidden; /* ADD THIS */
+  contain: layout;
+  position: relative;
+}
+
+#breakeven-chart {
+  max-width: 100%;
+  width: 100% !important;
+  height: 320px !important; /* ADD THIS */
+}
 </style>
 
 <!-- Inline calculator-specific styles (replaces calculator.css) -->
@@ -1377,6 +1390,19 @@ window.addEventListener('load', () => {
   console.log('');
   console.log('💡 To re-run diagnostic: diagITW()');
   
+})();
+</script>
+  <script>
+(function() {
+  function waitForStore() {
+    if (window.ITW && window.ITW.store) {
+      window.__itwStore = window.ITW.store;
+      console.log('[Init] ✓ Store ready');
+    } else {
+      setTimeout(waitForStore, 50);
+    }
+  }
+  waitForStore();
 })();
 </script>
 
