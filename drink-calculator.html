@@ -933,6 +933,277 @@ window.addEventListener('load', () => {
   }, 500);
 });
 </script>
+  <!-- ============================================
+     COMPLETE WORKING SCRIPTS FOR v10.0.0
+     Add these before the closing </body> tag
+     AFTER all other scripts have loaded
+     ============================================ -->
+
+<!-- FIX: Chart Scroll Prevention -->
+<script>
+(function(){
+  const wrap = document.getElementById('breakeven-wrap');
+  const canvas = document.getElementById('breakeven-chart');
+  
+  if(!wrap || !canvas) return;
+  
+  // Prevent infinite scrolling
+  wrap.style.overflow = 'hidden';
+  wrap.style.maxWidth = '780px';
+  wrap.style.contain = 'layout';
+  
+  // Fix canvas sizing
+  const resizeChart = () => {
+    const wrapWidth = wrap.clientWidth;
+    canvas.style.width = wrapWidth + 'px';
+    canvas.style.height = '320px';
+    
+    // Trigger chart resize if it exists
+    if(window.ITW && window.ITW.chart && typeof window.ITW.chart.resize === 'function') {
+      window.ITW.chart.resize();
+    }
+  };
+  
+  resizeChart();
+  window.addEventListener('resize', resizeChart);
+  
+  console.log('[Chart Fix] ✓ Scroll prevention active');
+})();
+</script>
+
+<!-- FIX: Working Preset Buttons -->
+<script>
+(function(){
+  const PRESETS = {
+    light: { soda:2, coffee:2, teaprem:1, freshjuice:2, mocktail:2, bottledwater:3, wine:1, cocktail:0.5, beer:0, spirits:0, energy:0, milkshake:0 },
+    moderate: { soda:1, coffee:2, beer:2, wine:2, cocktail:2, bottledwater:2, teaprem:0, freshjuice:1, mocktail:0, energy:0, milkshake:0, spirits:0 },
+    party: { soda:1, coffee:1, energy:1, beer:3, wine:1, cocktail:5, spirits:2, bottledwater:2, teaprem:0, freshjuice:0, mocktail:0, milkshake:0 },
+    coffee: { coffee:4, teaprem:1, freshjuice:1, mocktail:1, wine:1, bottledwater:2, soda:0, beer:0, cocktail:1, spirits:0, energy:0, milkshake:0 },
+    nonalc: { soda:2, coffee:3, teaprem:1, freshjuice:2, mocktail:2, milkshake:1, bottledwater:3, beer:0, wine:0, cocktail:0, spirits:0, energy:0 }
+  };
+  
+  function initPresets() {
+    if(!window.ITW || !window.ITW.store) {
+      setTimeout(initPresets, 100);
+      return;
+    }
+    
+    console.log('[Presets] Initializing...');
+    
+    document.querySelectorAll('[data-preset]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.preset;
+        const preset = PRESETS[key];
+        if(!preset) {
+          console.warn('[Presets] Unknown preset:', key);
+          return;
+        }
+        
+        console.log('[Presets] Applying:', key);
+        
+        const inputs = window.ITW.store.get('inputs');
+        const drinks = {...inputs.drinks};
+        
+        // Apply preset values
+        Object.entries(preset).forEach(([k, v]) => {
+          drinks[k] = v;
+        });
+        
+        window.ITW.store.patch('inputs', {...inputs, drinks});
+        
+        // Trigger calculation
+        if(window.ITW.scheduleCalc) {
+          window.ITW.scheduleCalc();
+        }
+        
+        // Announce
+        const status = document.getElementById('a11y-status');
+        if(status) {
+          status.textContent = `Applied ${key} drinker preset`;
+        }
+        
+        console.log('[Presets] ✓ Applied', key);
+      });
+    });
+    
+    console.log('[Presets] ✓ Ready - found', document.querySelectorAll('[data-preset]').length, 'buttons');
+  }
+  
+  if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPresets);
+  } else {
+    initPresets();
+  }
+})();
+</script>
+
+<!-- FIX: Complete Working Quiz Modal -->
+<script>
+(function(){
+  const modal = document.getElementById('quiz-modal');
+  const openBtn = document.getElementById('quiz-open-btn');
+  const closeBtn = document.getElementById('quiz-close-btn');
+  const skipBtn = document.getElementById('quiz-skip-btn');
+  const applyBtn = document.getElementById('quiz-apply-btn');
+  
+  if(!modal) {
+    console.warn('[Quiz] Modal not found');
+    return;
+  }
+  
+  let quizAnswers = { type: '', drinking: '', preference: '' };
+  let currentStep = 1;
+  
+  function showStep(step) {
+    document.querySelectorAll('.quiz-step').forEach(s => s.style.display = 'none');
+    const stepEl = document.getElementById(`quiz-step-${step}`);
+    if(stepEl) stepEl.style.display = 'block';
+    currentStep = step;
+    console.log('[Quiz] Showing step', step);
+  }
+  
+  function closeQuiz() {
+    modal.classList.remove('active');
+    quizAnswers = { type: '', drinking: '', preference: '' };
+    setTimeout(() => showStep(1), 300);
+    console.log('[Quiz] Closed');
+  }
+  
+  function applyQuizResult() {
+    const presets = {
+      'family-light-nonalc': { soda:2, coffee:2, freshjuice:2, mocktail:1, bottledwater:3, beer:0, wine:0, cocktail:0, spirits:0 },
+      'family-moderate-cocktails': { soda:1, coffee:2, freshjuice:1, beer:1, wine:1, cocktail:2, bottledwater:2 },
+      'family-heavy-cocktails': { soda:1, coffee:2, beer:2, wine:2, cocktail:3, bottledwater:2 },
+      'party-light-cocktails': { coffee:1, beer:2, wine:1, cocktail:2, bottledwater:2 },
+      'party-moderate-cocktails': { coffee:1, beer:3, wine:1, cocktail:4, spirits:1, bottledwater:2 },
+      'party-heavy-cocktails': { coffee:1, beer:3, wine:1, cocktail:5, spirits:2, bottledwater:2 },
+      'party-heavy-beer-wine': { beer:5, wine:2, cocktail:1, bottledwater:2 },
+      'romantic-moderate-cocktails': { coffee:2, wine:3, cocktail:2, bottledwater:2 },
+      'solo-light-coffee': { coffee:3, teaprem:1, freshjuice:1, mocktail:1, bottledwater:2 },
+      'solo-moderate-cocktails': { coffee:2, beer:1, wine:2, cocktail:2, bottledwater:2 },
+      'default': { soda:1, coffee:2, beer:2, wine:1, cocktail:2, bottledwater:2 }
+    };
+    
+    const key = `${quizAnswers.type}-${quizAnswers.drinking}-${quizAnswers.preference}`;
+    const preset = presets[key] || presets['default'];
+    
+    console.log('[Quiz] Applying preset for:', key);
+    
+    if(window.ITW && window.ITW.store) {
+      const inputs = window.ITW.store.get('inputs');
+      const drinks = {...inputs.drinks};
+      
+      // Reset all to 0
+      Object.keys(drinks).forEach(k => drinks[k] = 0);
+      
+      // Apply preset
+      Object.entries(preset).forEach(([k, v]) => {
+        drinks[k] = v;
+      });
+      
+      window.ITW.store.patch('inputs', {...inputs, drinks});
+      
+      if(window.ITW.scheduleCalc) {
+        window.ITW.scheduleCalc();
+      }
+      
+      console.log('[Quiz] ✓ Applied recommendation');
+    }
+    
+    closeQuiz();
+  }
+  
+  // Wire up buttons
+  if(openBtn) {
+    openBtn.addEventListener('click', () => {
+      modal.classList.add('active');
+      console.log('[Quiz] Opened');
+    });
+  }
+  
+  if(closeBtn) {
+    closeBtn.addEventListener('click', closeQuiz);
+  }
+  
+  if(skipBtn) {
+    skipBtn.addEventListener('click', closeQuiz);
+  }
+  
+  if(applyBtn) {
+    applyBtn.addEventListener('click', applyQuizResult);
+  }
+  
+  // Quiz answer buttons
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-quiz-answer]');
+    if(!btn || !modal.classList.contains('active')) return;
+    
+    const answer = btn.dataset.quizAnswer;
+    console.log('[Quiz] Answer:', answer);
+    
+    if(currentStep === 1) {
+      quizAnswers.type = answer;
+      showStep(2);
+    } else if(currentStep === 2) {
+      quizAnswers.drinking = answer;
+      showStep(3);
+    } else if(currentStep === 3) {
+      quizAnswers.preference = answer;
+      
+      // Show result
+      const rec = document.getElementById('quiz-recommendation');
+      if(rec) {
+        const resultMap = {
+          'family-light-nonalc': 'Refreshment Package - Great for families with kids who love specialty drinks!',
+          'family-moderate-cocktails': 'Refreshment Package - Perfect balance for families who enjoy some drinks.',
+          'party-heavy-cocktails': 'Deluxe Package - Party mode activated! This will save you money.',
+          'party-heavy-beer-wine': 'Deluxe Package - Great for beer and wine lovers.',
+          'romantic-moderate-cocktails': 'Refreshment or Deluxe - Depends on your cocktail preferences.',
+          'solo-light-coffee': 'Coffee Card + Refreshment - Perfect for coffee lovers!',
+          'default': 'À-la-carte - Pay as you go gives you the most flexibility!'
+        };
+        
+        const key = `${quizAnswers.type}-${quizAnswers.drinking}-${quizAnswers.preference}`;
+        rec.textContent = resultMap[key] || resultMap['default'];
+      }
+      
+      const resultStep = document.getElementById('quiz-result');
+      if(resultStep) {
+        resultStep.style.display = 'block';
+      }
+    }
+  });
+  
+  // Close on backdrop click
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal) closeQuiz();
+  });
+  
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && modal.classList.contains('active')) {
+      closeQuiz();
+    }
+  });
+  
+  // First load trigger (check localStorage)
+  const hasSeenQuiz = localStorage.getItem('itw-quiz-seen-v10');
+  if(!hasSeenQuiz) {
+    console.log('[Quiz] First visit - will show in 2 seconds');
+    setTimeout(() => {
+      modal.classList.add('active');
+      localStorage.setItem('itw-quiz-seen-v10', 'true');
+      console.log('[Quiz] ✓ First visit modal shown');
+    }, 2000);
+  }
+  
+  console.log('[Quiz] ✓ Ready');
+})();
+</script>
+
+<!-- ============================================
+     END OF WORKING SCRIPTS
+     ============================================ -->
 
 <!-- Soli Deo Gloria · v10.0.0 -->
 </body>
