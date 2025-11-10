@@ -18,60 +18,36 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
 <!-- Chart.js + Module Loader -->
-<script>
-// Configuration
-window.ITW_CFG = {
-  emailCTA: { enabled: true, showWhenSavingsAbove: 30, showWhenDrinksAbove: 4 },
-  analytics: { enabled: false }
-};
-
-// Module loader
-(function() {
-  const VER = '10.0.0';
+<script type="module">
+  import CONFIG from '/assets/js/modules/config.js';
+  import { Security } from '/assets/js/modules/security.js';
+  import SafeStorage from '/assets/js/modules/storage.js';
+  import Validation from '/assets/js/modules/validation.js';
+  import currency from '/assets/js/modules/currency.js';
   
-  // Load Chart.js first
-  function loadChart(callback) {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js';
-    script.defer = true;
-    script.onload = callback;
-    script.onerror = callback; // Continue even if chart fails
-    document.head.appendChild(script);
-  }
-  
-  // Load app modules
-  function loadModules() {
-    // 1. Math module (ES module)
-    const mathModule = document.createElement('script');
-    mathModule.type = 'module';
-    mathModule.textContent = `
-      import { compute, computeWithVouchers } from '/assets/js/calculator-math.js?v=${VER}';
-      window.ITW_MATH = { compute, computeWithVouchers };
-    `;
-    document.head.appendChild(mathModule);
+  // Initialize
+  document.addEventListener('DOMContentLoaded', async () => {
+    await currency.init();
     
-    // 2. Core (main controller)
-    const core = document.createElement('script');
-    core.src = `/assets/js/calculator-core.js?v=${VER}`;
-    core.defer = true;
-    document.head.appendChild(core);
+    // Expose globally
+    window.ITW = {
+      CONFIG,
+      Security,
+      SafeStorage,
+      Validation,
+      currency
+    };
     
-    // 3. UI (after core)
-    const ui = document.createElement('script');
-    ui.src = `/assets/js/calculator-ui.js?v=${VER}`;
-    ui.defer = true;
-    document.head.appendChild(ui);
-  }
-  
-  // Start loading
-  if (typeof Chart !== 'undefined') {
-    loadModules();
-  } else {
-    loadChart(loadModules);
-  }
-})();
+    // Dispatch ready event
+    document.dispatchEvent(new Event('itw:modules-ready'));
+  });
 </script>
 
+
+<!-- 4. Load calculator (after modules) -->
+<script src="/assets/js/drink-math.js" type="module" defer></script>
+<script src="/assets/js/drink-calculator.app.js" defer></script>
+<script src="/assets/js/calculator.ui.js" defer></script>
 <style>
 /* Critical CSS inline */
 :root {
