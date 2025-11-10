@@ -12,138 +12,120 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#0e6e8e">
-  <meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' 'nonce-RANDOM_NONCE' https://cdn.jsdelivr.net;
-  style-src 'self' 'unsafe-inline';
-  img-src 'self' data: https:;
-  font-src 'self' https://cdn.jsdelivr.net;
-  connect-src 'self' https://api.frankfurter.app https://api.exchangerate.host;
-  frame-ancestors 'none';
-  base-uri 'self';
-  form-action 'self';
-">
 
 <!-- Performance -->
 <link rel="preconnect" href="https://api.frankfurter.app">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-<!-- Chart.js + Module Loader -->
-<script type="module">
-  import CONFIG from '/assets/js/modules/config.js';
-  import { Security } from '/assets/js/modules/security.js';
-  import SafeStorage from '/assets/js/modules/storage.js';
-  import Validation from '/assets/js/modules/validation.js';
-  import currency from '/assets/js/modules/currency.js';
-  
-  // Initialize
-  document.addEventListener('DOMContentLoaded', async () => {
-    await currency.init();
-    
-    // Expose globally
-    window.ITW = {
-      CONFIG,
-      Security,
-      SafeStorage,
-      Validation,
-      currency
-    };
-    
-    // Dispatch ready event
-    document.dispatchEvent(new Event('itw:modules-ready'));
-  });
-</script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
 
-
-<!-- 4. Load calculator (after modules) -->
-<script src="/assets/js/drink-math.js" type="module" defer></script>
-<script src="/assets/js/drink-calculator.app.js" defer></script>
-<script src="/assets/js/calculator.ui.js" defer></script>
 <!-- Critical CSS (inline for performance) -->
 <style>
-  <?php include 'assets/css/critical.css'; ?>
+  /* ===== Index/Planning Unified Styles v3.010.039 + Calculator ===== */
+  :root{
+    --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
+    --shadow:0 6px 22px rgba(8,48,65,.08);
+    --shadow-lg:0 10px 28px rgba(8,48,65,.14);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;overflow-x:hidden}
+  html{scrollbar-gutter:stable both-edges}
+  body{font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);background:var(--sky)}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  img{max-width:100%;height:auto;display:block}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+  .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:var(--shadow)}
+  h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456}
+  
+  /* Skip link */
+  .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000}
+
+  /* Header / hero */
+  .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:0;overflow:visible}
+  .navbar{
+    max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:.6rem;
+    padding:.5rem .9rem .35rem;position:relative;z-index:2000;overflow:visible;
+  }
+  .brand{display:flex;align-items:flex-end;gap:.6rem}
+  .brand img{height:28px;width:auto}
+  .version-badge{font-size:.72rem;opacity:.8}
+
+  /* NAV (from planning.html - scoped) */
+  .itw-nav{
+    flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
+    gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem;
+  }
+  .itw-nav .nav-item{position:relative}
+  .itw-nav .chip{
+    display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
+    border:1px solid var(--rope);color:var(--accent);font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none;
+  }
+  .itw-nav .chip[aria-current="page"]{outline:3px dashed var(--rope);outline-offset:2px}
+  
+  .itw-nav .menu{
+    position:absolute;left:0;top:100%;transform:translateY(.35rem);
+    min-width:240px;max-width:min(90vw,360px);
+    background:#fff;border:1px solid var(--rope);border-radius:12px;box-shadow:var(--shadow-lg);
+    padding:.6rem;
+    display:none;visibility:hidden;opacity:0;pointer-events:none;
+    z-index:100;transition:opacity .18s ease;
+  }
+  .itw-nav .nav-item.open > .menu{
+    display:block;visibility:visible;opacity:1;pointer-events:auto;
+  }
+  .itw-nav .menu .label{font-weight:600;color:#234;margin:.15rem .2rem .35rem;font-size:.9rem}
+  .itw-nav .menu a{display:block;padding:.45rem .6rem;border-radius:.6rem;color:var(--ink);text-decoration:none}
+  .itw-nav .menu a:hover{background:#f2f7fa}
+
+  .hero{
+    position:relative;width:100%;min-height:clamp(200px,24vw,340px);
+    background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
+    display:flex;align-items:flex-end;overflow-x:clip;z-index:0;
+  }
+  .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2}
+  .hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;align-items:flex-end;gap:.6rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
+  .hero-title .logo{display:block;width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px)}
+  .tagline{
+    position:absolute;left:min(3vw,1rem);bottom:clamp(.55rem,1.6vw,1.1rem);
+    font-weight:700;letter-spacing:.2px;color:#e6f4f8;
+    font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3;
+  }
+  .hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
+  .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15)}
+
+  /* Calculator page grid */
+  .calculator-grid{display:grid;gap:1.2rem}
+  @media(min-width:1060px){.calculator-grid{grid-template-columns:minmax(0,1fr) 360px}}
+
+  /* Loading state */
+  .loading{text-align:center;padding:2rem;color:#64748b}
+  .loading::after{
+    content:'';display:inline-block;width:2rem;height:2rem;
+    border:3px solid #cbd5e1;border-top-color:var(--accent);border-radius:50%;
+    animation:spin 0.8s linear infinite;margin-left:0.5rem;vertical-align:middle;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* Banner */
+  .banner{background:var(--foam);border:2px solid var(--rope);border-radius:10px;padding:.75rem 1rem;margin:.75rem 0}
+  .badge{display:inline-block;padding:.35rem .7rem;border-radius:999px;background:#10b981;color:#fff;font-weight:700;font-size:.9rem}
+
+  /* Author card from index.html */
+  .author-avatar{display:block;width:72px;height:72px;border-radius:16px;object-fit:cover;flex:0 0 72px}
+  
+  /* Chart */
+  #breakeven-wrap{max-width:780px;margin-inline:auto;overflow-x:clip;contain:inline-size}
+  #breakeven-chart{max-width:100%;width:100%!important;height:320px}
+
+  /* Rail */
+  .rail-list{display:grid;gap:1rem}
 </style>
 
 <!-- Deferred CSS -->
-<link rel="preload" href="/assets/css/calculator.css?v=1.0.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="/assets/css/components.css?v=1.0.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-  <link rel="stylesheet" href="/assets/css/calculator.css?v=1.0.0">
-  <link rel="stylesheet" href="/assets/css/components.css?v=1.0.0">
-</noscript>
-  
-  <style>
-/* Critical CSS inline */
-:root {
-  --sea: #0a3d62;
-  --accent: #0e6e8e;
-  --card: #fff;
-  --bd: #e5e7eb;
-  --foam: #e6f4f8;
-  --rope: #d9b382;
-  --shadow: 0 2px 6px rgba(8,48,65,.08);
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  line-height: 1.5;
-  color: #083041;
-  background: #f8fbfc;
-}
-
-.wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 20px 14px;
-}
-
-.card {
-  background: var(--card);
-  border: 2px solid var(--rope);
-  border-radius: 12px;
-  padding: 1rem;
-  margin: 0.8rem 0;
-  box-shadow: var(--shadow);
-}
-
-.sr-only {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-/* Loading state */
-.loading {
-  text-align: center;
-  padding: 2rem;
-  color: #64748b;
-}
-
-.loading::after {
-  content: '';
-  display: inline-block;
-  width: 2rem;
-  height: 2rem;
-  border: 3px solid #cbd5e1;
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin-left: 0.5rem;
-  vertical-align: middle;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-</style>
-
-<!-- Full styles loaded after -->
-<link rel="stylesheet" href="/assets/css/calculator.css?v=10.0.0">
+<link rel="preload" href="/assets/css/calculator.css?v=10.0.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/assets/css/calculator.css?v=10.0.0"></noscript>
 </head>
 
 <body>
@@ -153,176 +135,404 @@ body {
   </div>
 </noscript>
 
-<a href="#content" class="sr-only">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 
 <!-- ARIA Live Regions -->
 <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
+<!-- ===== HEADER (from planning.html) ===== -->
 <header class="hero-header" role="banner">
   <div class="navbar">
     <div class="brand">
-      <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake">
+      <img src="/assets/logo_wake.png?v=10.0.0" width="256" height="64" alt="In the Wake wordmark">
       <span class="tiny version-badge">v10.0.0</span>
     </div>
+
     <nav class="itw-nav" aria-label="Primary">
       <div class="nav-item"><a class="chip" href="/">Home</a></div>
-      <div class="nav-item"><a class="chip" href="/drink-calculator.html" aria-current="page">Calculator</a></div>
+
+      <div class="nav-item" aria-haspopup="menu">
+        <button class="chip" type="button" aria-expanded="false" aria-controls="menu-planning">
+          Planning <span class="caret">▾</span>
+        </button>
+        <div id="menu-planning" class="menu" aria-label="Planning">
+          <div class="label tiny">Plan your cruise</div>
+          <a href="/planning.html">Planning (overview)</a>
+          <a href="/ports.html">Ports</a>
+          <a href="/restaurants.html">Restaurants &amp; Menus</a>
+          <a href="/ships.html">Ships</a>
+          <a href="/drink-packages.html">Drink Packages</a>
+          <a href="/cruise-lines.html">Cruise Lines</a>
+          <a href="/packing-lists.html">Packing Lists</a>
+          <a href="/accessibility.html">Accessibility</a>
+        </div>
+      </div>
+
+      <div class="nav-item" aria-haspopup="menu">
+        <button class="chip" type="button" aria-expanded="false" aria-controls="menu-travel">
+          Travel <span class="caret">▾</span>
+        </button>
+        <div id="menu-travel" class="menu" aria-label="Travel">
+          <div class="label tiny">On the move</div>
+          <a href="/travel.html">Travel (overview)</a>
+          <a href="/solo.html">Solo</a>
+        </div>
+      </div>
+
       <div class="nav-item"><a class="chip" href="/about-us.html">About</a></div>
     </nav>
   </div>
+
+  <!-- Hero -->
+  <div class="hero" role="img" aria-label="Ship wake at sunrise">
+    <img class="hero-compass" src="/assets/compass_rose.svg?v=10.0.0" width="180" height="180" alt="" aria-hidden="true">
+    <div class="hero-title">
+      <img class="logo" src="/assets/logo_wake.png?v=10.0.0" width="560" height="144" alt="In the Wake">
+      <div class="tagline">A Cruise Traveler's Logbook</div>
+    </div>
+    <div class="hero-credit">
+      <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+    </div>
+  </div>
 </header>
 
-<main class="wrap" id="content">
-  <div class="loading" id="loading-state">
-    <span>Loading calculator</span>
-  </div>
-  
-  <section id="calculator-app" style="display:none;">
-    <h1>Royal Caribbean Drink Package Calculator</h1>
-    
-    <div class="banner" role="status" aria-live="polite">
-      <span id="best-chip" class="badge">Calculating...</span>
-      <span id="best-text" class="small"></span>
+<main class="wrap calculator-grid" id="content">
+  <!-- LEFT: Calculator -->
+  <div>
+    <div class="loading" id="loading-state">
+      <span>Loading calculator</span>
     </div>
     
-    <p id="fallback-banner" hidden class="small" style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:.5rem">
-      ⚠️ Live prices unavailable; using defaults
-    </p>
-    
-    <section class="card inputs" aria-labelledby="calc-title">
-      <h2 id="calc-title">
-        <span id="totals">Calculating...</span>
-        <small class="small"> — includes 18% gratuity</small>
-      </h2>
+    <section id="calculator-app" style="display:none;">
+      <h1>Royal Caribbean Drink Package Calculator</h1>
       
-      <div class="bd">
-        <!-- Currency Selector -->
-        <div class="controls-inline">
-          <label for="currency-select">Display currency</label>
-          <select id="currency-select">
-            <option value="USD">USD $</option>
-            <option value="GBP">GBP £</option>
-            <option value="EUR">EUR €</option>
-            <option value="CAD">CAD $</option>
-            <option value="AUD">AUD $</option>
-          </select>
-        </div>
-        
-        <hr style="border:0;border-top:1px dashed var(--bd);margin:12px 0"/>
-        
-        <!-- Basic Inputs -->
-        <div class="row">
-          <label for="input-days">Cruise days</label>
-          <input id="input-days" type="text" inputmode="numeric" value="7" data-input="days">
-        </div>
-        
-        <div class="row">
-          <label for="input-seadays">Sea days</label>
-          <input id="input-seadays" type="text" inputmode="numeric" value="3" data-input="seadays">
-        </div>
-        
-        <!-- Sea Day Weighting -->
-        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
-          <legend style="font-weight:800">Sea/Port Variability</legend>
-          
-          <div class="row">
-            <label>
-              <input type="checkbox" id="sea-toggle" checked data-input="seaapply">
-              Apply weighting
-            </label>
-            <div class="controls-inline">
-              <label for="sea-weight">±%</label>
-              <input id="sea-weight" type="range" min="0" max="40" value="20" data-input="seaweight">
-              <span id="sea-weight-val">20%</span>
-            </div>
-          </div>
-        </fieldset>
-        
-        <!-- Group -->
-        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
-          <legend style="font-weight:800">Group in stateroom</legend>
-          
-          <div class="row">
-            <label for="input-adults">Adults (21+)</label>
-            <input id="input-adults" type="text" inputmode="numeric" value="1" data-input="adults">
-          </div>
-          
-          <div class="row">
-            <label for="input-minors">Minors (under 21)</label>
-            <input id="input-minors" type="text" inputmode="numeric" value="0" data-input="minors">
-          </div>
-        </fieldset>
-        
-        <!-- Drinks -->
-        <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
-          <legend style="font-weight:800">Daily drinks (average)</legend>
-          
-          <div class="row"><label>Soda</label><input data-input="soda" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Specialty coffee</label><input data-input="coffee" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Premium tea</label><input data-input="teaprem" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Fresh juice</label><input data-input="freshjuice" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Mocktail</label><input data-input="mocktail" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Energy drink</label><input data-input="energy" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Milkshake</label><input data-input="milkshake" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Bottled water</label><input data-input="bottledwater" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Beer</label><input data-input="beer" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Wine</label><input data-input="wine" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Cocktail</label><input data-input="cocktail" type="text" inputmode="decimal" value="0"></div>
-          <div class="row"><label>Spirits</label><input data-input="spirits" type="text" inputmode="decimal" value="0"></div>
-        </fieldset>
-        
-        <!-- Chart -->
-        <div id="breakeven-wrap" style="margin-top:18px">
-          <canvas id="breakeven-chart" width="900" height="320" aria-label="Package comparison chart"></canvas>
-          <div id="range-note" class="tiny muted"></div>
-        </div>
-        
-        <!-- Category Breakdown -->
-        <div id="category-breakdown" class="category-summary" hidden>
-          <h4>💰 Where Your Money Goes (per day)</h4>
-          <div class="category-grid" id="category-grid"></div>
-        </div>
-        
-        <!-- Actions -->
-        <div class="controls-inline" style="margin-top:16px">
-          <button class="btn" type="button" onclick="window.print()">Print Results</button>
-          <button class="btn ghost" type="button" onclick="window.shareScenario()">Share</button>
-          <button class="btn" type="button" onclick="window.resetInputs()">Reset</button>
-        </div>
+      <div class="banner" role="status" aria-live="polite">
+        <span id="best-chip" class="badge">Calculating...</span>
+        <span id="best-text" class="tiny"></span>
       </div>
+      
+      <p id="fallback-banner" hidden class="tiny" style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:.5rem">
+        ⚠️ Live prices unavailable; using defaults
+      </p>
+      
+      <section class="card inputs" aria-labelledby="calc-title">
+        <h2 id="calc-title">
+          <span id="totals">Calculating...</span>
+          <small class="tiny"> — includes 18% gratuity</small>
+        </h2>
+        
+        <div class="bd">
+          <!-- Currency Selector -->
+          <div class="controls-inline">
+            <label for="currency-select">Display currency</label>
+            <select id="currency-select">
+              <option value="USD">USD $</option>
+              <option value="GBP">GBP £</option>
+              <option value="EUR">EUR €</option>
+              <option value="CAD">CAD $</option>
+              <option value="AUD">AUD $</option>
+            </select>
+          </div>
+          
+          <hr style="border:0;border-top:1px dashed var(--bd);margin:12px 0"/>
+          
+          <!-- Basic Inputs -->
+          <div class="row">
+            <label for="input-days">Cruise days</label>
+            <input id="input-days" type="text" inputmode="numeric" value="7" data-input="days">
+          </div>
+          
+          <div class="row">
+            <label for="input-seadays">Sea days</label>
+            <input id="input-seadays" type="text" inputmode="numeric" value="3" data-input="seadays">
+          </div>
+          
+          <!-- Sea Day Weighting -->
+          <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+            <legend style="font-weight:800">Sea/Port Variability</legend>
+            
+            <div class="row">
+              <label>
+                <input type="checkbox" id="sea-toggle" checked data-input="seaapply">
+                Apply weighting
+              </label>
+              <div class="controls-inline">
+                <label for="sea-weight">±%</label>
+                <input id="sea-weight" type="range" min="0" max="40" value="20" data-input="seaweight">
+                <span id="sea-weight-val">20%</span>
+              </div>
+            </div>
+          </fieldset>
+          
+          <!-- Group -->
+          <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+            <legend style="font-weight:800">Group in stateroom</legend>
+            
+            <div class="row">
+              <label for="input-adults">Adults (21+)</label>
+              <input id="input-adults" type="text" inputmode="numeric" value="1" data-input="adults">
+            </div>
+            
+            <div class="row">
+              <label for="input-minors">Minors (under 21)</label>
+              <input id="input-minors" type="text" inputmode="numeric" value="0" data-input="minors">
+            </div>
+          </fieldset>
+          
+          <!-- Drinks -->
+          <fieldset style="border:1px solid var(--bd);padding:12px;border-radius:10px;margin-top:12px">
+            <legend style="font-weight:800">Daily drinks (average)</legend>
+            
+            <div class="row"><label>Soda</label><input data-input="soda" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Specialty coffee</label><input data-input="coffee" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Premium tea</label><input data-input="teaprem" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Fresh juice</label><input data-input="freshjuice" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Mocktail</label><input data-input="mocktail" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Energy drink</label><input data-input="energy" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Milkshake</label><input data-input="milkshake" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Bottled water</label><input data-input="bottledwater" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Beer</label><input data-input="beer" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Wine</label><input data-input="wine" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Cocktail</label><input data-input="cocktail" type="text" inputmode="decimal" value="0"></div>
+            <div class="row"><label>Spirits</label><input data-input="spirits" type="text" inputmode="decimal" value="0"></div>
+          </fieldset>
+          
+          <!-- Chart -->
+          <div id="breakeven-wrap" style="margin-top:18px">
+            <canvas id="breakeven-chart" width="900" height="320" aria-label="Package comparison chart"></canvas>
+            <div id="range-note" class="tiny muted"></div>
+          </div>
+          
+          <!-- Category Breakdown -->
+          <div id="category-breakdown" class="category-summary" hidden>
+            <h4>💰 Where Your Money Goes (per day)</h4>
+            <div class="category-grid" id="category-grid"></div>
+          </div>
+          
+          <!-- Actions -->
+          <div class="controls-inline" style="margin-top:16px">
+            <button class="btn" type="button" onclick="window.print()">Print Results</button>
+            <button class="btn ghost" type="button" onclick="window.shareScenario && window.shareScenario()">Share</button>
+            <button class="btn" type="button" onclick="window.resetInputs && window.resetInputs()">Reset</button>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Group Breakdown -->
+      <section class="card" id="group-breakdown" hidden>
+        <h2>Group Breakdown (Per Person)</h2>
+        <table style="width:100%;border-collapse:collapse">
+          <thead>
+            <tr><th>Traveler</th><th>Package</th><th>Daily</th><th>Trip</th></tr>
+          </thead>
+          <tbody id="group-table-body"></tbody>
+        </table>
+      </section>
     </section>
-    
-    <!-- Group Breakdown -->
-    <section class="card" id="group-breakdown" hidden>
-      <h2>Group Breakdown (Per Person)</h2>
-      <table style="width:100%;border-collapse:collapse">
-        <thead>
-          <tr><th>Traveler</th><th>Package</th><th>Daily</th><th>Trip</th></tr>
-        </thead>
-        <tbody id="group-table-body"></tbody>
-      </table>
+  </div>
+
+  <!-- RIGHT RAIL (from planning.html + index.html) -->
+  <aside class="rail" role="complementary" aria-label="Author & articles">
+    <!-- Author card -->
+    <section class="card" aria-label="Author information">
+      <h3>About the Author</h3>
+      <article class="rail-item" style="display:flex;gap:.75rem;align-items:center">
+        <a href="/authors/ken-baker.html" style="flex:0 0 72px">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=10.0.0" type="image/webp">
+            <img class="author-avatar" src="/authors/img/ken1.jpg?v=10.0.0" width="72" height="72" alt="Ken Baker">
+          </picture>
+        </a>
+        <div>
+          <h4 style="margin:0 0 .25rem"><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+          <p class="tiny" style="margin:0">Founder of In the Wake; writer and editor of the logbook.</p>
+          <p class="tiny" style="margin:.25rem 0 0">
+            <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
+            <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+          </p>
+        </div>
+      </article>
     </section>
-  </section>
+
+    <!-- Recent Articles rail -->
+    <section class="card">
+      <h3>Recent Articles</h3>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+    </section>
+  </aside>
 </main>
 
-<footer class="wrap" style="border-top:2px solid var(--bd);padding-top:1.5rem;text-align:center">
+<footer class="wrap" role="contentinfo" style="border-top:2px solid var(--bd);padding-top:1.5rem;text-align:center">
   <p>© 2025 In the Wake. All rights reserved.</p>
   <p class="tiny"><a href="/terms.html">Terms</a> | <a href="/privacy.html">Privacy</a></p>
+  <p class="tiny">Soli Deo Gloria — every pixel offered in worship to God.</p>
 </footer>
 
+<!-- ===== JAVASCRIPT (CORRECT LOAD ORDER) ===== -->
+
+<!-- 1. Math module (exports globally at end) -->
+<script src="/assets/js/calculator-math.fixed.js" type="module"></script>
+
+<!-- 2. Core app (creates ITW namespace, store, formatMoney, etc) -->
+<script src="/assets/js/drink-calculator.app.js" defer></script>
+
+<!-- 3. UI Bridge (validates & extends ITW) -->
+<script src="/assets/js/calculator.ui-bridge.fixed.js" defer></script>
+
+<!-- 4. UI layer (uses ITW.store, ITW.money) -->
+<script src="/assets/js/calculator.ui.js" defer></script>
+
+<!-- 5. Extras (personas, modes, etc) -->
+<script src="/assets/js/v10-extras.js" defer></script>
+
+<!-- ===== NAV BEHAVIOR (from planning.html) ===== -->
 <script>
-// Show calculator when core is ready
+(function(){
+  const root = document.querySelector('.itw-nav');
+  if(!root) return;
+
+  const items = [...root.querySelectorAll('.nav-item[aria-haspopup]')];
+
+  function setOpen(group, on){
+    group.classList.toggle('open', !!on);
+    const btn = group.querySelector('button[aria-controls]');
+    if(btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  function closeAll(except=null){
+    items.forEach(g => { if(g!==except) setOpen(g, false); });
+  }
+  function firstFocusable(el){
+    return el && el.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+  }
+
+  items.forEach(group=>{
+    const btn  = group.querySelector('button[aria-controls]');
+    const menu = group.querySelector('.menu');
+    if(!btn || !menu) return;
+
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const open = group.classList.contains('open');
+      closeAll(group);
+      setOpen(group, !open);
+      if(!open){
+        (firstFocusable(menu) || btn).focus({preventScroll:true});
+      }
+    });
+
+    btn.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+        e.preventDefault();
+        setOpen(group, true);
+        (firstFocusable(menu) || btn).focus({preventScroll:true});
+      } else if(e.key === 'Escape'){
+        setOpen(group,false);
+        btn.focus({preventScroll:true});
+      }
+    });
+
+    group.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        setOpen(group,false);
+        btn.focus({preventScroll:true});
+      }
+    });
+
+    menu.addEventListener('focusout', ()=>{
+      setTimeout(()=>{ if(!group.contains(document.activeElement)) setOpen(group,false); }, 0);
+    });
+  });
+
+  document.addEventListener('click', (e)=>{
+    if(!e.target.closest('.itw-nav')) closeAll();
+  });
+
+  window.addEventListener('blur', ()=> closeAll());
+})();
+</script>
+
+<!-- ===== RECENT ARTICLES RAIL (from index.html) ===== -->
+<script>
+(async function recentRail(){
+  const rail = document.getElementById('recent-rail');
+  const fallback = document.getElementById('recent-rail-fallback');
+  if(!rail) return;
+
+  async function fetchJSONWithFallback(urls){
+    for (const u of urls){
+      try{
+        const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+        if (res.ok) return await res.json();
+      }catch(_){}
+    }
+    return null;
+  }
+
+  const pick = (obj, keys, fallback=null)=>{ 
+    for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } 
+    return fallback; 
+  };
+
+  const raw = await fetchJSONWithFallback([
+    '/assets/data/articles/index.json?v=10.0.0',
+    '/assets/data/articles.json'
+  ]);
+  
+  if(!raw) {
+    if(fallback) fallback.style.display='';
+    return;
+  }
+
+  const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+  if(!items.length) return;
+
+  const here = location.pathname.replace(/\/+$/,'');
+  const view = items.filter(p=>{
+    const href = pick(p,['url','path'],'#');
+    const norm = (href||'').replace(/\/+$/,'');
+    return norm && norm !== here;
+  }).slice(0,6);
+
+  rail.innerHTML = view.map(p=>{
+    const title = pick(p,['title','name'],'Article');
+    const href  = pick(p,['url','path'],'#');
+    const img   = pick(p,['image','cover'],'') || '/assets/index_hero.jpg?v=10.0.0';
+    
+    return `
+      <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center;text-decoration:none" href="${href}">
+        <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
+          <img src="${img}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="tiny" style="line-height:1.35;color:var(--ink)">${title}</div>
+      </a>`;
+  }).join('');
+
+  if(fallback) fallback.style.display='none';
+})();
+</script>
+
+<!-- ===== SHOW CALCULATOR WHEN READY ===== -->
+<script>
 window.addEventListener('DOMContentLoaded', () => {
+  // Wait a bit for modules to load
   setTimeout(() => {
     const loading = document.getElementById('loading-state');
     const app = document.getElementById('calculator-app');
     
     if (loading) loading.style.display = 'none';
     if (app) app.style.display = 'block';
+    
+    // Trigger initial calculation if app is ready
+    if (window.ITW && window.ITW.scheduleCalc) {
+      window.ITW.scheduleCalc();
+    }
   }, 500);
 });
 </script>
 
+<!-- Soli Deo Gloria · Version: 10.0.0 -->
 </body>
 </html>
