@@ -1,7 +1,101 @@
 {
-  "version": "v9.003.000",
+  "version": "v10.0.0",
+  "schemaVersion": "1.0",
   "default": "royal-caribbean",
   "brands": [
-    { "id": "royal-caribbean", "label": "Royal Caribbean", "data": "/assets/data/lines/royal-caribbean.json" }
-  ]
+    {
+      "id": "royal-caribbean",
+      "label": "Royal Caribbean",
+      "shortLabel": "RC",
+      "active": true,
+      
+      "resources": {
+        "data": "/assets/data/lines/royal-caribbean.json",
+        "theme": "/assets/css/brands/royal-caribbean.css",
+        "logo": "/assets/brands/royal-caribbean-logo.png",
+        "icon": "/assets/brands/royal-caribbean-icon.png"
+      },
+      
+      "config": {
+        "primaryColor": "#0e6e8e",
+        "accentColor": "#d9b382",
+        "currency": "USD",
+        "voucherProgram": "Crown & Anchor",
+        "voucherEnabled": true,
+        "coffeeCardEnabled": true
+      },
+      
+      "meta": {
+        "title": "Royal Caribbean Drink Package Calculator 2025",
+        "description": "Compare Soda, Refreshment, Deluxe, and Coffee Card vs à-la-carte with live break-even chart.",
+        "canonical": "https://cruisinginthewake.com/drink-calculator.html",
+        "ogImage": "https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg"
+      }
+    },
+    {
+      "id": "carnival",
+      "label": "Carnival Cruise Line",
+      "shortLabel": "CCL",
+      "active": false,
+      
+      "resources": {
+        "data": "/assets/data/lines/carnival.json",
+        "theme": "/assets/css/brands/carnival.css",
+        "logo": "/assets/brands/carnival-logo.png",
+        "icon": "/assets/brands/carnival-icon.png"
+      },
+      
+      "config": {
+        "primaryColor": "#cc092f",
+        "accentColor": "#003f87",
+        "currency": "USD",
+        "voucherProgram": "VIFP Club",
+        "voucherEnabled": false,
+        "coffeeCardEnabled": true
+      },
+      
+      "meta": {
+        "title": "Carnival Drink Package Calculator 2025",
+        "description": "Compare Cheers!, Bubbles, and Bottomless Bubbles packages vs à-la-carte.",
+        "canonical": "https://cruisinginthewake.com/carnival-calculator.html",
+        "ogImage": "https://cruisinginthewake.com/assets/social/carnival-calculator.jpg"
+      }
+    },
+    {
+      "id": "norwegian",
+      "label": "Norwegian Cruise Line",
+      "shortLabel": "NCL",
+      "active": false,
+      
+      "resources": {
+        "data": "/assets/data/lines/norwegian.json",
+        "theme": "/assets/css/brands/norwegian.css",
+        "logo": "/assets/brands/norwegian-logo.png",
+        "icon": "/assets/brands/norwegian-icon.png"
+      },
+      
+      "config": {
+        "primaryColor": "#002d72",
+        "accentColor": "#f68d2e",
+        "currency": "USD",
+        "voucherProgram": "Latitudes",
+        "voucherEnabled": false,
+        "coffeeCardEnabled": false
+      },
+      
+      "meta": {
+        "title": "Norwegian Drink Package Calculator 2025",
+        "description": "Compare Premium Plus, Premium, and Unlimited Open Bar packages vs à-la-carte.",
+        "canonical": "https://cruisinginthewake.com/norwegian-calculator.html",
+        "ogImage": "https://cruisinginthewake.com/assets/social/norwegian-calculator.jpg"
+      }
+    }
+  ],
+  
+  "_notes": {
+    "usage": "Load this file first to determine which brand configuration and resources to use",
+    "versioning": "Update schemaVersion when structure changes; version tracks release",
+    "active": "Set active:false for brands not yet ready for production",
+    "theme": "Brand-specific CSS overrides the base calculator.css"
+  }
 }
