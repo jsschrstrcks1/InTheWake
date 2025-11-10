@@ -38,7 +38,6 @@
 <!-- Chart.js with fallback -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer onerror="this.onerror=null;this.src='/assets/vendor/chart.umd.min.js?v=10.0.0'"></script>
 
-
 <!-- Critical CSS -->
 <style>
 :root{
@@ -137,9 +136,9 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Chart */
-#breakeven-wrap{max-width:780px;margin-inline:auto;overflow-x:clip;contain:inline-size;position:relative}
-#breakeven-chart{max-width:100%;width:100%!important;height:320px}
+/* Chart (deduped + consistent) */
+#breakeven-wrap{max-width:780px;margin-inline:auto;overflow:hidden;contain:layout;position:relative}
+#breakeven-chart{max-width:100%;width:100%!important;height:320px!important;display:block}
 #best-stamp{
   position:absolute;top:-10px;right:8px;
   background:#10b981;color:#063;border:2px solid #065f46;border-radius:999px;
@@ -173,83 +172,21 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 .modal.active{display:flex}
 .modal-content{background:#fff;border-radius:12px;max-width:600px;width:90%;max-height:90vh;overflow-y:auto;padding:2rem}
 .modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:0;font-size:1.5rem;cursor:pointer}
-#breakeven-wrap {
-  max-width: 780px;
-  margin-inline: auto;
-  overflow: hidden; /* ADD THIS */
-  contain: layout;
-  position: relative;
-}
 
-#breakeven-chart {
-  max-width: 100%;
-  width: 100% !important;
-  height: 320px !important; /* ADD THIS */
+/* Coffee card explainer */
+.coffee-card-explainer{
+  background:#fef3c7;border:2px solid #f59e0b;border-radius:10px;padding:1rem;margin:1rem 0;
 }
-  #breakeven-wrap {
-  max-width: 780px;
-  margin-inline: auto;
-  overflow: hidden !important; /* Force hide overflow */
-  contain: layout;
-  position: relative;
-}
-
-#breakeven-chart {
-  max-width: 100%;
-  width: 100% !important;
-  height: 320px !important;
-  display: block;
-}
+.coffee-card-explainer h4{margin-top:0;color:#92400e}
+.coffee-card-explainer .punch-info{display:grid;gap:.5rem;font-size:.9rem;margin:.75rem 0}
+.coffee-card-explainer .punch-row{display:grid;grid-template-columns:auto 1fr;gap:.5rem;align-items:center}
+.coffee-card-explainer .punch-badge{display:inline-block;background:#f59e0b;color:#fff;padding:.2rem .5rem;border-radius:6px;font-weight:700;font-size:.85rem}
 
 /* Prevent infinite scroll on drink inputs table */
 .drinks-table-wrap,
-.drinks-grid {
-  overflow-x: auto; /* Allow horizontal scroll if needed */
-  overflow-y: visible;
-  max-width: 100%;
-}
-
+.drinks-grid { overflow-x:auto; overflow-y:visible; max-width:100% }
 /* Last input shouldn't cause infinite scroll */
-[data-input="spirits"] {
-  margin-bottom: 0;
-}
-</style>
-
-<!-- Inline calculator-specific styles (replaces calculator.css) -->
-<style>
-/* Additional calculator-specific styles that were in calculator.css */
-.coffee-card-explainer{
-  background:#fef3c7;
-  border:2px solid #f59e0b;
-  border-radius:10px;
-  padding:1rem;
-  margin:1rem 0;
-}
-.coffee-card-explainer h4{
-  margin-top:0;
-  color:#92400e;
-}
-.coffee-card-explainer .punch-info{
-  display:grid;
-  gap:.5rem;
-  font-size:.9rem;
-  margin:.75rem 0;
-}
-.coffee-card-explainer .punch-row{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:.5rem;
-  align-items:center;
-}
-.coffee-card-explainer .punch-badge{
-  display:inline-block;
-  background:#f59e0b;
-  color:#fff;
-  padding:.2rem .5rem;
-  border-radius:6px;
-  font-weight:700;
-  font-size:.85rem;
-}
+[data-input="spirits"] { margin-bottom:0 }
 </style>
 </head>
 
@@ -382,13 +319,13 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
           <button class="btn ghost" data-preset="nonalc">Non-Alcoholic</button>
         </div>
         <div id="preset-explanation" style="display:none;margin-top:1rem;background:#e6f4f8;border:2px solid #0e6e8e;border-radius:10px;padding:1rem;">
-5  <h4 style="margin-top:0;">📋 <span id="preset-name">Preset</span> Breakdown</h4>
-6  <p class="small" id="preset-desc" style="color:#456;"></p>
-7  <div id="preset-drinks" style="display:grid;gap:.5rem;margin-top:.75rem;"></div>
-8  <p class="tiny muted" style="margin-top:.75rem;border-top:1px dashed #cbd5e1;padding-top:.75rem;">
-9    <strong>💡 Tip:</strong> These are averages. Adjust any field above to match your exact preferences.
-10  </p>
-11</div>
+          <h4 style="margin-top:0;">📋 <span id="preset-name">Preset</span> Breakdown</h4>
+          <p class="small" id="preset-desc" style="color:#456;"></p>
+          <div id="preset-drinks" style="display:grid;gap:.5rem;margin-top:.75rem;"></div>
+          <p class="tiny muted" style="margin-top:.75rem;border-top:1px dashed #cbd5e1;padding-top:.75rem;">
+            <strong>💡 Tip:</strong> These are averages. Adjust any field above to match your exact preferences.
+          </p>
+        </div>
         <hr style="border:0;border-top:1px dashed var(--bd);margin:12px 0"/>
         
         <!-- Basic Inputs -->
@@ -431,85 +368,77 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
           </div>
         </details>
         
-        <!-- Vouchers (Crown & Anchor) -->
-        <!-- ENHANCED CROWN & ANCHOR VOUCHERS SECTION -->
-<!-- Replace your existing Crown & Anchor section with this -->
-
-<details id="cna-vouchers">
-  <summary style="cursor:pointer;font-weight:700;margin:12px 0">
-    👑 Crown & Anchor Vouchers
-    <span class="badge" style="background:#d4af37;color:#000;margin-left:.5rem;font-size:.8rem;">Diamond+ Members</span>
-  </summary>
-  
-  <div class="banner" style="background:#fff9e6;border:2px solid #d4af37;margin:.75rem 0;">
-    <h4 style="margin-top:0;color:#a67c00;">💎 Loyalty Drink Vouchers</h4>
-    <p class="small"><strong>Got 80+ cruise nights?</strong> You're probably Diamond or higher! These vouchers add up FAST.</p>
-    
-    <div style="display:grid;gap:.75rem;margin:1rem 0;">
-      <!-- Diamond Tier -->
-      <div style="background:#fff;border:2px solid #d4af37;border-radius:8px;padding:.75rem;">
-        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
-          <span style="font-size:1.2rem;">💎</span>
-          <strong style="color:#6b5d00;font-size:1rem;">Diamond</strong>
-          <span class="tiny muted">(80-174 nights)</span>
-        </div>
-        <p class="small" style="margin:.25rem 0;"><strong style="color:#d4af37;">4 drink vouchers per day</strong>, loaded on your SeaPass</p>
-        <p class="tiny muted" style="margin:.25rem 0;">= $32/day in free drinks ($224/week cruise)</p>
-      </div>
-      
-      <!-- Diamond Plus Tier -->
-      <div style="background:#fff;border:2px solid #c9b037;border-radius:8px;padding:.75rem;">
-        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
-          <span style="font-size:1.2rem;">💎💎</span>
-          <strong style="color:#8b6914;font-size:1rem;">Diamond Plus</strong>
-          <span class="tiny muted">(175-699 nights)</span>
-        </div>
-        <p class="small" style="margin:.25rem 0;"><strong style="color:#c9b037;">5 drink vouchers per day</strong>, loaded on your SeaPass</p>
-        <p class="tiny muted" style="margin:.25rem 0;">= $40/day in free drinks ($280/week cruise)</p>
-      </div>
-      
-      <!-- Pinnacle Tier -->
-      <div style="background:#fff;border:2px solid #b8860b;border-radius:8px;padding:.75rem;">
-        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
-          <span style="font-size:1.2rem;">👑</span>
-          <strong style="color:#654321;font-size:1rem;">Pinnacle</strong>
-          <span class="tiny muted">(700+ nights)</span>
-        </div>
-        <p class="small" style="margin:.25rem 0;"><strong style="color:#b8860b;">5 drink vouchers per day</strong>, loaded on your SeaPass</p>
-        <p class="tiny muted" style="margin:.25rem 0;">= $40/day in free drinks ($280/week cruise)</p>
-      </div>
-    </div>
-    
-    <div style="background:#fffacd;border:1px solid #d4af37;border-radius:6px;padding:.75rem;margin-top:1rem;">
-      <p class="small" style="margin:0;"><strong>💡 Pro tip:</strong> If you're not sure whether you're Diamond, you're probably not (yet!). Check your Crown & Anchor number on royal caribbean.com or the app.</p>
-      <p class="tiny muted" style="margin:.5rem 0 0;">Each voucher = <strong>$8.00</strong> toward any beverage (alcoholic or non-alcoholic).</p>
-    </div>
-  </div>
-  
-  <!-- Voucher Inputs -->
-  <div class="row">
-    <label for="input-voucher-adult">
-      Adult vouchers/day
-      <span class="tiny muted">(4 for Diamond, 5 for Diamond+/Pinnacle)</span>
-    </label>
-    <input id="input-voucher-adult" type="text" inputmode="numeric" value="0" data-input="voucher-adult" min="0" max="10" placeholder="0-5">
-  </div>
-  
-  <div class="row">
-    <label for="input-voucher-minor">
-      Minor vouchers/day
-      <span class="tiny muted">(rarely applicable)</span>
-    </label>
-    <input id="input-voucher-minor" type="text" inputmode="numeric" value="0" data-input="voucher-minor" min="0" max="10" placeholder="0">
-  </div>
-  
-  <!-- Deluxe Cap Info -->
-  <p class="tiny muted" style="margin-top:1rem;">
-    <strong>Deluxe package cap:</strong> 
-    <span id="cap-badge" style="display:inline-block;padding:.2rem .4rem;background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;font-weight:700">$14.00</span>
-    <span> per drink before gratuity. Drinks over this, you pay the difference.</span>
-  </p>
-</details>
+        <!-- Crown & Anchor Vouchers -->
+        <details id="cna-vouchers">
+          <summary style="cursor:pointer;font-weight:700;margin:12px 0">
+            👑 Crown & Anchor Vouchers
+            <span class="badge" style="background:#d4af37;color:#000;margin-left:.5rem;font-size:.8rem;">Diamond+ Members</span>
+          </summary>
+          
+          <div class="banner" style="background:#fff9e6;border:2px solid #d4af37;margin:.75rem 0;">
+            <h4 style="margin-top:0;color:#a67c00;">💎 Loyalty Drink Vouchers</h4>
+            <p class="small"><strong>Got 80+ cruise nights?</strong> You're probably Diamond or higher! These vouchers add up FAST.</p>
+            
+            <div style="display:grid;gap:.75rem;margin:1rem 0;">
+              <div style="background:#fff;border:2px solid #d4af37;border-radius:8px;padding:.75rem;">
+                <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
+                  <span style="font-size:1.2rem;">💎</span>
+                  <strong style="color:#6b5d00;font-size:1rem;">Diamond</strong>
+                  <span class="tiny muted">(80-174 nights)</span>
+                </div>
+                <p class="small" style="margin:.25rem 0;"><strong style="color:#d4af37;">4 drink vouchers per day</strong>, loaded on your SeaPass</p>
+                <p class="tiny muted" style="margin:.25rem 0;">= $32/day in free drinks ($224/week cruise)</p>
+              </div>
+              
+              <div style="background:#fff;border:2px solid #c9b037;border-radius:8px;padding:.75rem;">
+                <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
+                  <span style="font-size:1.2rem;">💎💎</span>
+                  <strong style="color:#8b6914;font-size:1rem;">Diamond Plus</strong>
+                  <span class="tiny muted">(175-699 nights)</span>
+                </div>
+                <p class="small" style="margin:.25rem 0;"><strong style="color:#c9b037;">5 drink vouchers per day</strong>, loaded on your SeaPass</p>
+                <p class="tiny muted" style="margin:.25rem 0;">= $40/day in free drinks ($280/week cruise)</p>
+              </div>
+              
+              <div style="background:#fff;border:2px solid #b8860b;border-radius:8px;padding:.75rem;">
+                <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;">
+                  <span style="font-size:1.2rem;">👑</span>
+                  <strong style="color:#654321;font-size:1rem;">Pinnacle</strong>
+                  <span class="tiny muted">(700+ nights)</span>
+                </div>
+                <p class="small" style="margin:.25rem 0;"><strong style="color:#b8860b;">5 drink vouchers per day</strong>, loaded on your SeaPass</p>
+                <p class="tiny muted" style="margin:.25rem 0;">= $40/day in free drinks ($280/week cruise)</p>
+              </div>
+            </div>
+            
+            <div style="background:#fffacd;border:1px solid #d4af37;border-radius:6px;padding:.75rem;margin-top:1rem;">
+              <p class="small" style="margin:0;"><strong>💡 Pro tip:</strong> If you're not sure whether you're Diamond, you're probably not (yet!). Check your Crown & Anchor number on royal caribbean.com or the app.</p>
+              <p class="tiny muted" style="margin:.5rem 0 0;">Each voucher = <strong>$8.00</strong> toward any beverage (alcoholic or non-alcoholic).</p>
+            </div>
+          </div>
+          
+          <div class="row">
+            <label for="input-voucher-adult">
+              Adult vouchers/day
+              <span class="tiny muted">(4 for Diamond, 5 for Diamond+/Pinnacle)</span>
+            </label>
+            <input id="input-voucher-adult" type="text" inputmode="numeric" value="0" data-input="voucher-adult" min="0" max="10" placeholder="0-5">
+          </div>
+          
+          <div class="row">
+            <label for="input-voucher-minor">
+              Minor vouchers/day
+              <span class="tiny muted">(rarely applicable)</span>
+            </label>
+            <input id="input-voucher-minor" type="text" inputmode="numeric" value="0" data-input="voucher-minor" min="0" max="10" placeholder="0">
+          </div>
+          
+          <p class="tiny muted" style="margin-top:1rem;">
+            <strong>Deluxe package cap:</strong> 
+            <span id="cap-badge" style="display:inline-block;padding:.2rem .4rem;background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;font-weight:700">$14.00</span>
+            <span> per drink before gratuity. Drinks over this, you pay the difference.</span>
+          </p>
+        </details>
         
         <!-- Coffee Card Option -->
         <details id="coffee-card-section">
@@ -703,10 +632,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 </main>
 
 <!-- Quiz Modal -->
-<!-- REPLACE the existing quiz-modal div with this improved version -->
-<!-- It has working step navigation, skip button, and better UX -->
-
-<div id="quiz-modal" class="modal">
+<div id="quiz-modal" class="modal" aria-hidden="true">
   <div class="modal-content" style="position:relative;">
     <button class="modal-close" id="quiz-close-btn" aria-label="Close quiz">&times;</button>
     
@@ -788,7 +714,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
         <button class="btn" id="quiz-apply-btn" style="width:100%;margin-top:1rem;">Apply These Settings & Calculate</button>
       </div>
       
-      <!-- Skip button always visible -->
       <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #e5e7eb;text-align:center;">
         <button class="btn ghost" id="quiz-skip-btn" style="background:transparent;border:0;text-decoration:underline;color:#64748b;">
           Skip quiz — I'll enter my own drinks
@@ -804,8 +729,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
   <p class="tiny">Soli Deo Gloria — every pixel offered in worship to God.</p>
 </footer>
 
-<!-- JAVASCRIPT - FIXED PATHS -->
-
 <!-- JAVASCRIPT - FIXED LOAD ORDER -->
 
 <!-- 1. Math module (needs type="module") -->
@@ -819,11 +742,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 
 <!-- 4. UI layer -->
 <script src="/assets/js/calculator-ui.js" defer></script>
-
-<!-- ============================================
-     INTEGRATED FUNCTIONALITY SCRIPTS
-     Consolidated from multiple inline scripts
-     ============================================ -->
 
 <!-- NAV DROPDOWN BEHAVIOR -->
 <script>
@@ -871,8 +789,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       }
     });
   });
-  
-  console.log('[Nav] ✓ Dropdown behavior initialized');
 })();
 </script>
 
@@ -881,16 +797,12 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 (function(){
   const wrap = document.getElementById('breakeven-wrap');
   const canvas = document.getElementById('breakeven-chart');
-  
   if(!wrap || !canvas) return;
-  
-  // Prevent infinite scrolling
+
   wrap.style.overflow = 'hidden';
   wrap.style.maxWidth = '780px';
   wrap.style.contain = 'layout';
-  
-  canvas.removeAttribute('width');
-  canvas.removeAttribute('height');
+  canvas.removeAttribute('width'); canvas.removeAttribute('height');
 
   function tuneChart(c){
     try{
@@ -908,10 +820,9 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
   }
 
   const resizeChart = () => {
-    const wrapWidth = wrap.clientWidth;
-    canvas.style.width = wrapWidth + 'px';
+    const w = wrap.clientWidth;
+    canvas.style.width = w + 'px';
     canvas.style.height = '320px';
-    
     if(window.ITW && window.ITW.chart && typeof window.ITW.chart.resize === 'function') {
       window.ITW.chart.resize();
     }
@@ -919,14 +830,10 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 
   tryHook();
   resizeChart();
-
   let tries = 0;
   const t = setInterval(()=>{ if (tryHook() || ++tries > 20) clearInterval(t); }, 150);
-
   new ResizeObserver(()=>{ tryHook(); }).observe(wrap);
   window.addEventListener('resize', resizeChart);
-  
-  console.log('[Chart] ✓ Sizing and scroll prevention active');
 })();
 </script>
 
@@ -940,7 +847,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
   const WINNER = { idx: null };
   const ringPlugin = {
     id: 'itwWinnerRing',
-    afterDatasetsDraw(chart, _args, _opts){
+    afterDatasetsDraw(chart){
       if (WINNER.idx==null) return;
       const ctx = chart.ctx;
       let el = null;
@@ -949,7 +856,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
         const e = (m && m.data && m.data[WINNER.idx]) ? m.data[WINNER.idx] : null;
         if (e){ el = e; return true; }
       });
-      if (!el || !el.x || !el.y || !el.width) return;
+      if (!el || !el.getProps) return;
       const {x, y, width, height} = el.getProps(['x','y','width','height'], true);
       ctx.save();
       ctx.strokeStyle = '#10b981';
@@ -965,7 +872,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
     const ds = chart.data.datasets || [];
     const N = (ds[0]?.data?.length) || 0;
     let best = {labelIdx:null, value:Infinity};
-
     for(let i=0;i<N;i++){
       let minAtI = Infinity;
       ds.forEach(d => {
@@ -975,29 +881,25 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       if (minAtI < best.value){ best = {labelIdx:i, value:minAtI}; }
     }
     WINNER.idx = best.labelIdx;
-    if (WINNER.idx==null){ stamp.style.display='none'; return; }
-
-    stamp.style.display = '';
+    stamp.style.display = (WINNER.idx==null) ? 'none' : '';
   }
 
   function hookChart(){
     const chart = (window.ITW && window.ITW.chart) || cv._chart || cv.__chartist || null;
     if (!chart || !chart.data) return false;
-    if (!chart.config.plugins) chart.config.plugins = [];
+    chart.config.plugins = chart.config.plugins || [];
     if (!chart.config.plugins.includes(ringPlugin)) chart.config.plugins.push(ringPlugin);
     pickWinner(chart);
     chart.update();
-    if (!window.addEventListener._itwWinnerBound){
+    if (!window._itwWinnerBound){
       document.addEventListener('itw:calc-updated', ()=>{ try{ pickWinner(chart); chart.update(); }catch(_){}} );
-      window.addEventListener._itwWinnerBound = true;
+      window._itwWinnerBound = true;
     }
     return true;
   }
 
   let attempts = 0;
   const t = setInterval(()=>{ if (hookChart() || ++attempts>20) clearInterval(t); }, 150);
-  
-  console.log('[Winner Ring] ✓ Initialized');
 })();
 </script>
 
@@ -1009,8 +911,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
   if(!rail) return;
 
   const FORCE_IMG = "https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg";
-  
-  function normalizePath(u){
+  const normalizePath = (u) => {
     try{
       const url = new URL(u, location.href);
       let p = url.pathname.toLowerCase();
@@ -1019,12 +920,8 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       p = p.replace(/\/+$/,'/');
       return p;
     }catch(_){ return String(u||"").toLowerCase(); }
-  }
-  
-  function isTop20(href){
-    const p = normalizePath(href);
-    return /\/articles\/top-20-questions\/$/.test(p) || /top-20/.test(p);
-  }
+  };
+  const isTop20 = (href) => /\/articles\/top-20-questions\/$/.test(normalizePath(href)) || /top-20/.test(normalizePath(href));
 
   try{
     const res = await fetch('/assets/data/articles/index.json?v=10.0.0', {cache:'no-cache'});
@@ -1036,11 +933,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       const href = item.url || item.path || '#';
       const title = item.title || 'Article';
       let img = item.image || '/assets/index_hero.jpg?v=10.0.0';
-      
-      if(isTop20(href) || isTop20(title)){
-        img = FORCE_IMG;
-      }
-      
+      if(isTop20(href) || isTop20(title)) img = FORCE_IMG;
       return `
         <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center;text-decoration:none" href="${href}">
           <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6">
@@ -1049,9 +942,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
           <div class="tiny" style="color:var(--ink)">${title}</div>
         </a>`;
     }).join('');
-    
     if(fallback) fallback.style.display='none';
-    console.log('[Recent Articles] ✓ Loaded');
   }catch(e){
     if(fallback) fallback.style.display='';
     console.warn('[Recent Articles] Failed to load:', e);
@@ -1059,7 +950,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 })();
 </script>
 
-<!-- PRESET BUTTONS -->
+<!-- PRESET BUTTONS (safe patch of drinks only) -->
 <script>
 (function(){
   const PRESETS = {
@@ -1069,46 +960,31 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
     coffee: { coffee:4, teaprem:1, freshjuice:1, mocktail:1, wine:1, bottledwater:2, soda:0, beer:0, cocktail:1, spirits:0, energy:0, milkshake:0 },
     nonalc: { soda:2, coffee:3, teaprem:1, freshjuice:2, mocktail:2, milkshake:1, bottledwater:3, beer:0, wine:0, cocktail:0, spirits:0, energy:0 }
   };
-  
-  function initPresets() {
-    if(!window.ITW || !window.ITW.store) {
-      setTimeout(initPresets, 100);
-      return;
-    }
-    
-    document.querySelectorAll('[data-preset]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const key = btn.dataset.preset;
-        const preset = PRESETS[key];
-        if(!preset) return;
-        
-        console.log('[Presets] Applying:', key);
-        
-        const inputs = window.ITW.store.get('inputs');
-        const drinks = {...inputs.drinks};
-        
-        Object.entries(preset).forEach(([k, v]) => {
-          drinks[k] = v;
-        });
-        
-        window.ITW.store.patch('inputs', {...inputs, drinks});
-        
-        if(window.ITW.scheduleCalc) {
-          window.ITW.scheduleCalc();
-        }
-        
-        const status = document.getElementById('a11y-status');
-        if(status) {
-          status.textContent = `Applied ${key} drinker preset`;
-        }
-        
-        console.log('[Presets] ✓ Applied', key);
-      });
-    });
-    
-    console.log('[Presets] ✓ Ready');
+
+  function applyPreset(key){
+    if(!window.ITW || !window.ITW.store) return;
+    const inputs = window.ITW.store.get('inputs') || {};
+    const drinks = { ...(inputs.drinks || {}) };
+    const preset = PRESETS[key]; if(!preset) return;
+
+    // zero-out unknowns to avoid “ghost” values
+    Object.keys(drinks).forEach(k => { drinks[k] = 0; });
+    Object.entries(preset).forEach(([k,v]) => { drinks[k] = v; });
+
+    window.ITW.store.patch('inputs', { ...inputs, drinks });
+    if(window.ITW.scheduleCalc) window.ITW.scheduleCalc();
+
+    const status = document.getElementById('a11y-status');
+    if(status) status.textContent = `Applied ${key} drinker preset`;
   }
-  
+
+  function initPresets() {
+    if(!window.ITW || !window.ITW.store) { setTimeout(initPresets, 100); return; }
+    document.querySelectorAll('[data-preset]').forEach(btn => {
+      btn.addEventListener('click', () => applyPreset(btn.dataset.preset));
+    });
+  }
+
   if(document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initPresets);
   } else {
@@ -1147,28 +1023,21 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       drinks: { soda: 2, coffee: 3, teaprem: 1, freshjuice: 2, mocktail: 2, milkshake: 1, bottledwater: 3 }
     }
   };
-  
   const DRINK_LABELS = {
     soda: 'Fountain Soda', coffee: 'Premium Coffee', teaprem: 'Specialty Tea',
     freshjuice: 'Fresh Juice/Smoothie', mocktail: 'Mocktail', energy: 'Energy Drink',
     milkshake: 'Milkshake', bottledwater: 'Bottled Water', beer: 'Beer',
     wine: 'Wine (glass)', cocktail: 'Cocktail', spirits: 'Spirits/Shot'
   };
-  
+
   function showPresetExplanation(key) {
-    const info = PRESET_INFO[key];
-    if (!info) return;
-    
+    const info = PRESET_INFO[key]; if (!info) return;
     const explanation = document.getElementById('preset-explanation');
     const name = document.getElementById('preset-name');
     const desc = document.getElementById('preset-desc');
     const drinksDiv = document.getElementById('preset-drinks');
-    
     if (!explanation || !name || !desc || !drinksDiv) return;
-    
-    name.textContent = info.name;
-    desc.textContent = info.desc;
-    
+    name.textContent = info.name; desc.textContent = info.desc;
     drinksDiv.innerHTML = '';
     Object.entries(info.drinks).forEach(([drink, qty]) => {
       if (qty > 0) {
@@ -1179,19 +1048,14 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
         drinksDiv.appendChild(item);
       }
     });
-    
     explanation.style.display = 'block';
     setTimeout(() => explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
   }
-  
+
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-preset]');
-    if (btn) {
-      setTimeout(() => showPresetExplanation(btn.dataset.preset), 200);
-    }
+    if (btn) setTimeout(() => showPresetExplanation(btn.dataset.preset), 200);
   });
-  
-  console.log('[Preset Explanation] ✓ Ready');
 })();
 </script>
 
@@ -1203,25 +1067,23 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
   const closeBtn = document.getElementById('quiz-close-btn');
   const skipBtn = document.getElementById('quiz-skip-btn');
   const applyBtn = document.getElementById('quiz-apply-btn');
-  
   if(!modal) return;
-  
+
   let quizAnswers = { type: '', drinking: '', preference: '' };
   let currentStep = 1;
-  
+
   function showStep(step) {
     document.querySelectorAll('.quiz-step').forEach(s => s.style.display = 'none');
     const stepEl = document.getElementById(`quiz-step-${step}`);
     if(stepEl) stepEl.style.display = 'block';
     currentStep = step;
   }
-  
   function closeQuiz() {
     modal.classList.remove('active');
+    modal.setAttribute('aria-hidden','true');
     quizAnswers = { type: '', drinking: '', preference: '' };
     setTimeout(() => showStep(1), 300);
   }
-  
   function applyQuizResult() {
     const presets = {
       'family-light-nonalc': { soda:2, coffee:2, freshjuice:2, mocktail:1, bottledwater:3, beer:0, wine:0, cocktail:0, spirits:0 },
@@ -1229,68 +1091,40 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
       'romantic-moderate-cocktails': { coffee:2, wine:3, cocktail:2, bottledwater:2 },
       'default': { soda:1, coffee:2, beer:2, wine:1, cocktail:2, bottledwater:2 }
     };
-    
     const key = `${quizAnswers.type}-${quizAnswers.drinking}-${quizAnswers.preference}`;
     const preset = presets[key] || presets['default'];
-    
     if(window.ITW && window.ITW.store) {
       const inputs = window.ITW.store.get('inputs');
-      const drinks = {...inputs.drinks};
-      
+      const drinks = { ...(inputs.drinks || {}) };
       Object.keys(drinks).forEach(k => drinks[k] = 0);
       Object.entries(preset).forEach(([k, v]) => { drinks[k] = v; });
-      
-      window.ITW.store.patch('inputs', {...inputs, drinks});
-      
-      if(window.ITW.scheduleCalc) {
-        window.ITW.scheduleCalc();
+      window.ITW.store.patch('inputs', { ...inputs, drinks });
+      window.ITW.scheduleCalc?.();
       }
-    }
-    
     closeQuiz();
   }
-  
-  if(openBtn) openBtn.addEventListener('click', () => modal.classList.add('active'));
-  if(closeBtn) closeBtn.addEventListener('click', closeQuiz);
-  if(skipBtn) skipBtn.addEventListener('click', closeQuiz);
-  if(applyBtn) applyBtn.addEventListener('click', applyQuizResult);
-  
+
+  openBtn?.addEventListener('click', () => { modal.classList.add('active'); modal.setAttribute('aria-hidden','false'); });
+  closeBtn?.addEventListener('click', closeQuiz);
+  skipBtn?.addEventListener('click', closeQuiz);
+  applyBtn?.addEventListener('click', applyQuizResult);
+
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-quiz-answer]');
     if(!btn || !modal.classList.contains('active')) return;
-    
     const answer = btn.dataset.quizAnswer;
-    
-    if(currentStep === 1) {
-      quizAnswers.type = answer;
-      showStep(2);
-    } else if(currentStep === 2) {
-      quizAnswers.drinking = answer;
-      showStep(3);
-    } else if(currentStep === 3) {
+    if(currentStep === 1) { quizAnswers.type = answer; showStep(2); }
+    else if(currentStep === 2) { quizAnswers.drinking = answer; showStep(3); }
+    else if(currentStep === 3) {
       quizAnswers.preference = answer;
-      
       const rec = document.getElementById('quiz-recommendation');
-      if(rec) {
-        rec.textContent = 'Based on your answers, we recommend trying the Deluxe Package for the best value!';
-      }
-      
+      if(rec) rec.textContent = 'Based on your answers, we recommend trying the Deluxe Package for the best value!';
       const resultStep = document.getElementById('quiz-result');
       if(resultStep) resultStep.style.display = 'block';
     }
   });
-  
-  modal.addEventListener('click', (e) => {
-    if(e.target === modal) closeQuiz();
-  });
-  
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape' && modal.classList.contains('active')) {
-      closeQuiz();
-    }
-  });
-  
-  console.log('[Quiz] ✓ Ready');
+  modal.addEventListener('click', (e) => { if(e.target === modal) closeQuiz(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('active')) closeQuiz(); });
 })();
 </script>
 
@@ -1299,30 +1133,14 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 (function(){
   const shareBtn = document.getElementById('share-btn');
   const resetBtn = document.getElementById('reset-btn');
-  
-  if(shareBtn){
-    shareBtn.addEventListener('click', () => {
-      if(window.ITW && window.ITW.shareScenario){
-        window.ITW.shareScenario();
-      } else {
-        navigator.clipboard.writeText(window.location.href).then(() => {
-          alert('URL copied to clipboard!');
-        });
-      }
-    });
-  }
-  
-  if(resetBtn){
-    resetBtn.addEventListener('click', () => {
-      if(window.ITW && window.ITW.resetInputs){
-        window.ITW.resetInputs();
-      } else {
-        location.reload();
-      }
-    });
-  }
-  
-  console.log('[Share/Reset] ✓ Buttons wired');
+  shareBtn?.addEventListener('click', () => {
+    if(window.ITW?.shareScenario){ window.ITW.shareScenario(); }
+    else { navigator.clipboard.writeText(window.location.href).then(() => alert('URL copied to clipboard!')); }
+  });
+  resetBtn?.addEventListener('click', () => {
+    if(window.ITW?.resetInputs){ window.ITW.resetInputs(); }
+    else { location.reload(); }
+  });
 })();
 </script>
 
@@ -1332,7 +1150,6 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
   if('serviceWorker' in navigator){
     const ver = '10.0.0';
     navigator.serviceWorker.register(`/sw.js?v=${ver}`).then(reg => {
-      console.log('[SW] ✓ Registered');
       navigator.serviceWorker.addEventListener('message', (e) => {
         if(e.data?.type === 'DATA_REFRESHED' && window.ITW?.refreshDataset){
           window.ITW.refreshDataset();
@@ -1343,204 +1160,11 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 })();
 </script>
 
-  <!-- INPUT WIRING -->
-<script>
-(function() {
-  function wireInputs() {
-    if (!window.ITW || !window.ITW.store || !window.ITW.scheduleCalc) {
-      setTimeout(wireInputs, 100);
-      return;
-    }
-    
-    const inputs = document.querySelectorAll('[data-input]');
-    
-    inputs.forEach(input => {
-      input.addEventListener('change', () => {
-        window.ITW.scheduleCalc();
-      });
-      
-      input.addEventListener('blur', () => {
-        window.ITW.scheduleCalc();
-      });
-    });
-    
-    console.log('[Input Wiring] ✓ Wired', inputs.length, 'inputs');
-  }
-  
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wireInputs);
-  } else {
-    wireInputs();
-  }
-})();
-</script>
+<!-- (Removed duplicate global input change listener to avoid double-fires) -->
 
-<!-- ROBUST INITIALIZATION - REPLACES DEFAULTS + FORCE CALC -->
-<script>
-(function() {
-  console.log('[Init] 🔄 Starting robust initialization...');
-  
-  let attempts = 0;
-  const MAX_ATTEMPTS = 50;
-  
-  function initializeStore() {
-    attempts++;
-    
-    // Wait for ITW and store
-    if (!window.ITW?.store || typeof window.ITW.store.get !== 'function') {
-      if (attempts < MAX_ATTEMPTS) {
-        setTimeout(initializeStore, 100);
-      } else {
-        console.error('[Init] ❌ Store never loaded');
-      }
-      return;
-    }
-    
-    console.log('[Init] ✓ Store found');
-    
-    // Define complete default structure
-    const DEFAULTS = {
-      days: 7,
-      seaDays: 3,
-      adults: 2,
-      minors: 0,
-      seaApply: true,
-      seaWeight: 20,
-      coffeeCards: 0,
-      coffeePunches: 0,
-      voucherAdult: 0,
-      voucherMinor: 0,
-      drinks: {
-        soda: 0,
-        coffee: 0,
-        teaprem: 0,
-        freshjuice: 0,
-        mocktail: 0,
-        energy: 0,
-        milkshake: 0,
-        bottledwater: 0,
-        beer: 0,
-        wine: 0,
-        cocktail: 0,
-        spirits: 0
-      }
-    };
-    
-    // Get current state
-    let current;
-    try {
-      current = window.ITW.store.get('inputs');
-    } catch (e) {
-      console.warn('[Init] Failed to get inputs:', e);
-      current = null;
-    }
-    
-    // Check if we need to initialize or repair
-    const needsInit = !current 
-      || typeof current !== 'object'
-      || !current.drinks 
-      || typeof current.drinks !== 'object'
-      || current.days === undefined
-      || current.days === 0;
-    
-    if (needsInit) {
-      console.log('[Init] 🔨 Initializing with defaults...');
-      
-      try {
-        // Use set instead of patch for initial load
-        window.ITW.store.set('inputs', DEFAULTS);
-        console.log('[Init] ✓ Defaults set via .set()');
-      } catch (e) {
-        console.error('[Init] set() failed, trying patch:', e);
-        try {
-          window.ITW.store.patch('inputs', DEFAULTS);
-          console.log('[Init] ✓ Defaults set via .patch()');
-        } catch (e2) {
-          console.error('[Init] ❌ Both methods failed:', e2);
-          return;
-        }
-      }
-    } else {
-      console.log('[Init] ✓ Data already valid');
-    }
-    
-    // Wait for store to settle, then trigger calculation
-    setTimeout(triggerCalculation, 300);
-  }
-  
-  function triggerCalculation() {
-    console.log('[Init] 🎯 Triggering calculation...');
-    
-    // Verify data one more time
-    try {
-      const inputs = window.ITW.store.get('inputs');
-      if (!inputs?.drinks) {
-        console.error('[Init] ❌ Data still broken after init');
-        return;
-      }
-      console.log('[Init] ✓ Data structure verified');
-    } catch (e) {
-      console.error('[Init] Verification failed:', e);
-      return;
-    }
-    
-    // Try scheduleCalc
-    try {
-      if (window.ITW?.scheduleCalc) {
-        window.ITW.scheduleCalc();
-        console.log('[Init] ✓ scheduleCalc() called');
-      }
-    } catch (e) {
-      console.error('[Init] scheduleCalc failed:', e);
-    }
-    
-    // Also dispatch event
-    setTimeout(() => {
-      try {
-        document.dispatchEvent(new CustomEvent('itw:calc-update'));
-        console.log('[Init] ✓ Event dispatched');
-      } catch (e) {
-        console.error('[Init] Event failed:', e);
-      }
-    }, 100);
-    
-    // And input change trigger
-    setTimeout(() => {
-      try {
-        const daysInput = document.querySelector('[data-input="days"]');
-        if (daysInput) {
-          daysInput.dispatchEvent(new Event('change', { bubbles: true }));
-          console.log('[Init] ✓ Input change triggered');
-        }
-      } catch (e) {
-        console.error('[Init] Input trigger failed:', e);
-      }
-    }, 200);
-  }
-  
-  // Wire up input changes
-  document.addEventListener('change', (e) => {
-    if (e.target.hasAttribute('data-input')) {
-      setTimeout(() => {
-        if (window.ITW?.scheduleCalc) {
-          window.ITW.scheduleCalc();
-        }
-      }, 50);
-    }
-  });
-  
-  // Start initialization after everything loads
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => setTimeout(initializeStore, 1500));
-  } else {
-    setTimeout(initializeStore, 1500);
-  }
-  
-  console.log('[Init] ✓ Initialization scheduled');
-})();
-</script>
 <!-- Share Bar -->
 <script src="https://cruisinginthewake.com/assets/js/share-bar.js?v=10.0.0"></script>
+
 <!-- SHOW CALCULATOR AFTER LOAD -->
 <script>
 window.addEventListener('load', () => {
@@ -1549,8 +1173,6 @@ window.addEventListener('load', () => {
     const app = document.getElementById('calculator-app');
     if(loading) loading.style.display = 'none';
     if(app) app.style.display = 'block';
-    
-    console.log('[App] ✓ Calculator displayed');
   }, 500);
 });
 </script>
