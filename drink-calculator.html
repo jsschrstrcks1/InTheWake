@@ -1277,6 +1277,130 @@ window.addEventListener('load', () => {
   console.log('[Quiz] ✓ Ready');
 })();
 </script>
+  <!-- DIAGNOSTIC SCRIPT - Add this AFTER all other scripts, before </body> -->
+<!-- This will help identify what's loading and what's not -->
+
+<script>
+(function() {
+  'use strict';
+  
+  console.log('%c=== ITW CALCULATOR DIAGNOSTIC ===', 'color: #0e6e8e; font-weight: bold; font-size: 14px;');
+  
+  // Check for required globals
+  const checks = [
+    { name: 'Chart.js', test: () => typeof Chart !== 'undefined', required: true },
+    { name: 'ITW_MATH', test: () => typeof window.ITW_MATH !== 'undefined', required: true },
+    { name: '__itwStore', test: () => typeof window.__itwStore !== 'undefined', required: true },
+    { name: 'ITW namespace', test: () => typeof window.ITW !== 'undefined', required: true },
+    { name: 'ITW.store', test: () => window.ITW && typeof window.ITW.store !== 'undefined', required: true },
+    { name: 'ITW.money', test: () => window.ITW && typeof window.ITW.money !== 'undefined', required: false },
+    { name: 'ITW.getCurrency', test: () => window.ITW && typeof window.ITW.getCurrency !== 'undefined', required: false },
+    { name: 'ITW.scheduleCalc', test: () => window.ITW && typeof window.ITW.scheduleCalc !== 'undefined', required: true },
+    { name: 'ITW.chart', test: () => window.ITW && window.ITW.chart !== null, required: false }
+  ];
+  
+  let allGood = true;
+  
+  checks.forEach(check => {
+    const passed = check.test();
+    const icon = passed ? '✅' : (check.required ? '❌' : '⚠️');
+    const style = passed ? 'color: green;' : (check.required ? 'color: red; font-weight: bold;' : 'color: orange;');
+    console.log(`%c${icon} ${check.name}`, style);
+    
+    if (!passed && check.required) {
+      allGood = false;
+    }
+  });
+  
+  console.log('');
+  
+  if (allGood) {
+    console.log('%c🎉 All critical components loaded!', 'color: green; font-weight: bold;');
+    
+    // Try to get state
+    try {
+      const state = window.ITW.store.get();
+      console.log('📊 Current state:', state);
+      
+      // Check if we have inputs
+      if (state && state.inputs) {
+        console.log('📝 Inputs found:', {
+          days: state.inputs.days,
+          adults: state.inputs.adults,
+          totalDrinks: Object.values(state.inputs.drinks || {}).reduce((a, b) => a + (Number(b) || 0), 0)
+        });
+      }
+      
+      // Check if we have results
+      if (state && state.results) {
+        console.log('📈 Results found:', {
+          winner: state.results.winnerKey,
+          perDay: state.results.perDay,
+          trip: state.results.trip
+        });
+      } else {
+        console.log('⏳ No results yet - try clicking a preset or entering drinks');
+      }
+    } catch (e) {
+      console.error('❌ Error reading state:', e);
+    }
+    
+    // Try to trigger calculation
+    console.log('');
+    console.log('💡 To manually trigger calculation, run:');
+    console.log('   window.ITW.scheduleCalc()');
+    
+  } else {
+    console.error('%c❌ CRITICAL COMPONENTS MISSING', 'color: red; font-weight: bold; font-size: 14px;');
+    console.error('The calculator cannot function without these components.');
+    console.error('');
+    console.error('Troubleshooting steps:');
+    console.error('1. Check that all script files are loading (Network tab)');
+    console.error('2. Check that calculator-math.js is wrapped in IIFE');
+    console.error('3. Check that drink-calculator.app.js loads before bridge');
+    console.error('4. Check console for other errors above this diagnostic');
+  }
+  
+  console.log('%c=== END DIAGNOSTIC ===', 'color: #0e6e8e; font-weight: bold; font-size: 14px;');
+  
+  // Store diagnostic function globally for easy access
+  window.diagITW = function() {
+    console.clear();
+    location.reload();
+  };
+  
+  console.log('');
+  console.log('💡 To re-run diagnostic: diagITW()');
+  
+})();
+</script>
+
+<!-- 
+  Expected output when everything works:
+  
+  === ITW CALCULATOR DIAGNOSTIC ===
+  ✅ Chart.js
+  ✅ ITW_MATH
+  ✅ __itwStore
+  ✅ ITW namespace
+  ✅ ITW.store
+  ✅ ITW.money
+  ✅ ITW.getCurrency
+  ✅ ITW.scheduleCalc
+  ⚠️ ITW.chart
+  
+  🎉 All critical components loaded!
+  📊 Current state: {...}
+  📝 Inputs found: {...}
+  ⏳ No results yet - try clicking a preset or entering drinks
+  
+  💡 To manually trigger calculation, run:
+     window.ITW.scheduleCalc()
+  
+  === END DIAGNOSTIC ===
+  
+  💡 To re-run diagnostic: diagITW()
+-->
 
 <!-- ============================================
      END OF WORKING SCRIPTS
