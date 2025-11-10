@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - UI Layer
- * Version: 10.0.0a
+ * Version: 10.0.0a assets/js/calculator-ui.js
  * Soli Deo Gloria ✝️
  * 
  * Handles all DOM interactions, rendering, and user events
