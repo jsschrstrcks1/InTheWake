@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - Web Worker
- * calculator-worker.js - Version: V.9.005.005
+ * calculator-worker.js - Version: V.9.005.005 assets/js/calculator-worker.js
  * Soli Deo Gloria ✝️
  * 
  * Handles compute-heavy operations off the main thread
