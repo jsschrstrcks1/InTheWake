@@ -223,107 +223,60 @@ function showChartFallback() {
  */
 const PRESETS = {
   light: {
-    name: 'Light Drinker',
+    name: 'Light Drinker 🧘',
     desc: 'Casual cruiser who enjoys a few drinks but isn\'t drinking all day.',
     drinks: {
-      soda: 2, coffee: 1, beer: 1, wine: 1, cocktail: 0.5,
-      spirits: 0, mocktail: 0, energy: 0, milkshake: 0,
-      freshjuice: 0, teaprem: 0, bottledwater: 1
+      soda: 2, coffee: 1, teaprem: 0, freshjuice: 0,
+      mocktail: 0, energy: 0, milkshake: 0, bottledwater: 1,
+      beer: 1, wine: 1, cocktail: 0.5, spirits: 0
     },
     tip: 'You\'ll likely save money ordering à-la-carte or with a basic package.'
   },
   
   moderate: {
-    name: 'Moderate Drinker',
+    name: 'Moderate Drinker 🥂',
     desc: 'Social drinker who enjoys multiple drinks per day, especially at dinner and by the pool.',
     drinks: {
-      soda: 2, coffee: 2, beer: 2, wine: 2, cocktail: 2,
-      spirits: 0.5, mocktail: 1, energy: 0, milkshake: 0.5,
-      freshjuice: 1, teaprem: 0, bottledwater: 2
+      soda: 2, coffee: 2, teaprem: 0, freshjuice: 1,
+      mocktail: 1, energy: 0, milkshake: 0.5, bottledwater: 2,
+      beer: 2, wine: 2, cocktail: 2, spirits: 0.5
     },
     tip: 'Refreshment or Deluxe package likely makes sense for you.'
   },
   
   party: {
-    name: 'Party Mode',
+    name: 'Party Mode 🎉',
     desc: 'Living it up! Drinks flow freely from breakfast through late-night at the bars.',
     drinks: {
-      soda: 2, coffee: 2, beer: 4, wine: 2, cocktail: 4,
-      spirits: 2, mocktail: 1, energy: 1, milkshake: 0,
-      freshjuice: 1, teaprem: 0, bottledwater: 2
+      soda: 2, coffee: 2, teaprem: 0, freshjuice: 1,
+      mocktail: 1, energy: 1, milkshake: 0, bottledwater: 2,
+      beer: 4, wine: 2, cocktail: 4, spirits: 2
     },
     tip: 'Deluxe package is almost certainly worth it for your drinking style.'
   },
   
   coffee: {
-    name: 'Coffee Lover',
+    name: 'Coffee Lover ☕',
     desc: 'Can\'t start the day without specialty coffee, maybe a latte or cappuccino mid-afternoon too.',
     drinks: {
-      soda: 1, coffee: 4, beer: 0, wine: 0, cocktail: 0,
-      spirits: 0, mocktail: 1, energy: 0, milkshake: 0.5,
-      freshjuice: 1, teaprem: 1, bottledwater: 2
+      soda: 1, coffee: 4, teaprem: 1, freshjuice: 1,
+      mocktail: 1, energy: 0, milkshake: 0.5, bottledwater: 2,
+      beer: 0, wine: 0, cocktail: 0, spirits: 0
     },
     tip: 'Coffee card or Refreshment package recommended.'
   },
   
   nonalc: {
-    name: 'Non-Alcoholic',
+    name: 'Non-Alcoholic 🚫🍺',
     desc: 'Abstaining from alcohol but love specialty drinks, sodas, and fresh juices.',
     drinks: {
-      soda: 3, coffee: 2, beer: 0, wine: 0, cocktail: 0,
-      spirits: 0, mocktail: 2, energy: 0.5, milkshake: 1,
-      freshjuice: 2, teaprem: 1, bottledwater: 2
+      soda: 3, coffee: 2, teaprem: 1, freshjuice: 2,
+      mocktail: 2, energy: 0.5, milkshake: 1, bottledwater: 2,
+      beer: 0, wine: 0, cocktail: 0, spirits: 0
     },
     tip: 'Refreshment package likely your best bet.'
   }
 };
-
-function applyPreset(presetKey) {
-  const preset = PRESETS[presetKey];
-  if (!preset) return;
-
-  // Apply drink quantities
-  Object.keys(preset.drinks).forEach(drinkKey => {
-    store.patch(`inputs.drinks.${drinkKey}`, preset.drinks[drinkKey]);
-  });
-
-  // Update explanation panel
-  const explanationDiv = $('#preset-explanation');
-  const nameSpan = $('#preset-name');
-  const descP = $('#preset-desc');
-  const drinksDiv = $('#preset-drinks');
-  
-  if (explanationDiv && nameSpan && descP && drinksDiv) {
-    nameSpan.textContent = preset.name;
-    descP.textContent = preset.desc;
-    
-    // Build drink list
-    const drinkList = Object.entries(preset.drinks)
-      .filter(([_, qty]) => qty > 0)
-      .map(([key, qty]) => {
-        const label = config.DRINK_LABELS[key] || key;
-        return `<div class="preset-drink-row">
-          <span class="drink-name">${label}</span>
-          <span class="drink-qty">${qty}/day</span>
-        </div>`;
-      })
-      .join('');
-    
-    drinksDiv.innerHTML = drinkList;
-    explanationDiv.style.display = 'block';
-  }
-
-  announce(`Applied ${preset.name} preset`);
-}
-
-function wirePresetButtons() {
-  $$('[data-preset]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const presetKey = btn.dataset.preset;
-      applyPreset(presetKey);
-    });
-  });
-}
 
 /* ==================== QUIZ SYSTEM ==================== */
 /**
