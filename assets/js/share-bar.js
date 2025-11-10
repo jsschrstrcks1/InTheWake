@@ -1,5 +1,5 @@
 /* In the Wake — Floating Share Bar (v1.2, standards v3.002)
-   - Fixed, right-aligned; fade+slide in on scroll
+   - Fixed, right-aligned; fade+slide in on scroll assets/js/share-bar.js
    - X (Twitter), Facebook, Instagram (Copy Link), WhatsApp, WeChat (QR modal)
    - Safe-area aware, WCAG/ARIA, keyboard friendly
 */
