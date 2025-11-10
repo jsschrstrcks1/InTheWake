@@ -1343,42 +1343,7 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 })();
 </script>
 
-<!-- SET DEFAULT VALUES -->
-<script>
-(function() {
-  function setDefaults() {
-    if (!window.ITW?.store) {
-      setTimeout(setDefaults, 100);
-      return;
-    }
-    
-    const defaults = {
-      days: 7,
-      seaDays: 3,
-      adults: 2,
-      minors: 0,
-      seaApply: true,
-      seaWeight: 20,
-      drinks: {
-        soda: 0, coffee: 0, teaprem: 0, freshjuice: 0,
-        mocktail: 0, energy: 0, milkshake: 0, bottledwater: 0,
-        beer: 0, wine: 0, cocktail: 0, spirits: 0
-      }
-    };
-    
-    const current = window.ITW.store.get('inputs');
-    
-    if (!current || current.days === 0 || current.days === undefined) {
-      window.ITW.store.patch('inputs', defaults);
-      console.log('[Defaults] ✓ Set initial values');
-    }
-  }
-  
-  setDefaults();
-})();
-</script>
-
-<!-- INPUT WIRING -->
+  <!-- INPUT WIRING -->
 <script>
 (function() {
   function wireInputs() {
@@ -1410,113 +1375,168 @@ h1,h2,h3,h4{color:var(--sea);margin:.5rem 0}
 })();
 </script>
 
-<!-- FORCE CALCULATION TO RUN -->
-!-- FORCE CALCULATION TO RUN -->
+<!-- ROBUST INITIALIZATION - REPLACES DEFAULTS + FORCE CALC -->
 <script>
 (function() {
-  let calcReady = false;
+  console.log('[Init] 🔄 Starting robust initialization...');
   
-  function forceCalc() {
-    if (!window.ITW || !window.ITW.store) {
-      setTimeout(forceCalc, 100);
+  let attempts = 0;
+  const MAX_ATTEMPTS = 50;
+  
+  function initializeStore() {
+    attempts++;
+    
+    // Wait for ITW and store
+    if (!window.ITW?.store || typeof window.ITW.store.get !== 'function') {
+      if (attempts < MAX_ATTEMPTS) {
+        setTimeout(initializeStore, 100);
+      } else {
+        console.error('[Init] ❌ Store never loaded');
+      }
       return;
     }
     
-    if (calcReady) return;
-    calcReady = true;
+    console.log('[Init] ✓ Store found');
     
-    console.log('[Force Calc] 🔄 Triggering calculation...');
-    
-    // CRITICAL: Ensure data exists before trying to spread it
-    try {
-      const current = window.ITW.store.get('inputs');
-      
-      // Check if current is actually an object with data
-      if (!current || typeof current !== 'object') {
-        console.warn('[Force Calc] ⚠️ No inputs found, initializing...');
-        
-        // Initialize with defaults
-        const defaults = {
-          days: 7,
-          seaDays: 3,
-          adults: 2,
-          minors: 0,
-          seaApply: true,
-          seaWeight: 20,
-          drinks: {
-            soda: 0, coffee: 0, teaprem: 0, freshjuice: 0,
-            mocktail: 0, energy: 0, milkshake: 0, bottledwater: 0,
-            beer: 0, wine: 0, cocktail: 0, spirits: 0
-          }
-        };
-        
-        window.ITW.store.patch('inputs', defaults);
-        console.log('[Force Calc] ✓ Initialized with defaults');
-      } else {
-        // Data exists, just update it to trigger reactivity
-        window.ITW.store.patch('inputs', {...current});
-        console.log('[Force Calc] ✓ Store updated');
+    // Define complete default structure
+    const DEFAULTS = {
+      days: 7,
+      seaDays: 3,
+      adults: 2,
+      minors: 0,
+      seaApply: true,
+      seaWeight: 20,
+      coffeeCards: 0,
+      coffeePunches: 0,
+      voucherAdult: 0,
+      voucherMinor: 0,
+      drinks: {
+        soda: 0,
+        coffee: 0,
+        teaprem: 0,
+        freshjuice: 0,
+        mocktail: 0,
+        energy: 0,
+        milkshake: 0,
+        bottledwater: 0,
+        beer: 0,
+        wine: 0,
+        cocktail: 0,
+        spirits: 0
       }
+    };
+    
+    // Get current state
+    let current;
+    try {
+      current = window.ITW.store.get('inputs');
     } catch (e) {
-      console.error('[Force Calc] Store update failed:', e);
+      console.warn('[Init] Failed to get inputs:', e);
+      current = null;
     }
     
-    // Method 2: Custom event
+    // Check if we need to initialize or repair
+    const needsInit = !current 
+      || typeof current !== 'object'
+      || !current.drinks 
+      || typeof current.drinks !== 'object'
+      || current.days === undefined
+      || current.days === 0;
+    
+    if (needsInit) {
+      console.log('[Init] 🔨 Initializing with defaults...');
+      
+      try {
+        // Use set instead of patch for initial load
+        window.ITW.store.set('inputs', DEFAULTS);
+        console.log('[Init] ✓ Defaults set via .set()');
+      } catch (e) {
+        console.error('[Init] set() failed, trying patch:', e);
+        try {
+          window.ITW.store.patch('inputs', DEFAULTS);
+          console.log('[Init] ✓ Defaults set via .patch()');
+        } catch (e2) {
+          console.error('[Init] ❌ Both methods failed:', e2);
+          return;
+        }
+      }
+    } else {
+      console.log('[Init] ✓ Data already valid');
+    }
+    
+    // Wait for store to settle, then trigger calculation
+    setTimeout(triggerCalculation, 300);
+  }
+  
+  function triggerCalculation() {
+    console.log('[Init] 🎯 Triggering calculation...');
+    
+    // Verify data one more time
+    try {
+      const inputs = window.ITW.store.get('inputs');
+      if (!inputs?.drinks) {
+        console.error('[Init] ❌ Data still broken after init');
+        return;
+      }
+      console.log('[Init] ✓ Data structure verified');
+    } catch (e) {
+      console.error('[Init] Verification failed:', e);
+      return;
+    }
+    
+    // Try scheduleCalc
+    try {
+      if (window.ITW?.scheduleCalc) {
+        window.ITW.scheduleCalc();
+        console.log('[Init] ✓ scheduleCalc() called');
+      }
+    } catch (e) {
+      console.error('[Init] scheduleCalc failed:', e);
+    }
+    
+    // Also dispatch event
     setTimeout(() => {
       try {
         document.dispatchEvent(new CustomEvent('itw:calc-update'));
-        console.log('[Force Calc] ✓ Event dispatched');
+        console.log('[Init] ✓ Event dispatched');
       } catch (e) {
-        console.error('[Force Calc] Event dispatch failed:', e);
+        console.error('[Init] Event failed:', e);
       }
-    }, 200);
+    }, 100);
     
-    // Method 3: Direct scheduleCalc
-    setTimeout(() => {
-      try {
-        if (window.ITW && typeof window.ITW.scheduleCalc === 'function') {
-          window.ITW.scheduleCalc();
-          console.log('[Force Calc] ✓ scheduleCalc called');
-        }
-      } catch (e) {
-        console.error('[Force Calc] scheduleCalc failed:', e);
-      }
-    }, 400);
-    
-    // Method 4: Trigger input change (only if inputs exist)
+    // And input change trigger
     setTimeout(() => {
       try {
         const daysInput = document.querySelector('[data-input="days"]');
-        if (daysInput && daysInput.value) {
-          const oldValue = daysInput.value;
-          daysInput.value = oldValue;
+        if (daysInput) {
           daysInput.dispatchEvent(new Event('change', { bubbles: true }));
-          console.log('[Force Calc] ✓ Input event fired');
+          console.log('[Init] ✓ Input change triggered');
         }
       } catch (e) {
-        console.error('[Force Calc] Input trigger failed:', e);
+        console.error('[Init] Input trigger failed:', e);
       }
-    }, 600);
+    }, 200);
   }
   
-  // Wait longer for everything to fully load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => setTimeout(forceCalc, 1500));
-  } else {
-    setTimeout(forceCalc, 1500);
-  }
-  
-  // Also on input changes
+  // Wire up input changes
   document.addEventListener('change', (e) => {
     if (e.target.hasAttribute('data-input')) {
       setTimeout(() => {
-        if (window.ITW && window.ITW.scheduleCalc) {
+        if (window.ITW?.scheduleCalc) {
           window.ITW.scheduleCalc();
         }
-      }, 100);
+      }, 50);
     }
   });
   
+  // Start initialization after everything loads
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(initializeStore, 1500));
+  } else {
+    setTimeout(initializeStore, 1500);
+  }
+  
+  console.log('[Init] ✓ Initialization scheduled');
 })();
 </script>
 <!-- Share Bar -->
