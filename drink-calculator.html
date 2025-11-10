@@ -532,6 +532,59 @@ window.addEventListener('DOMContentLoaded', () => {
   }, 500);
 });
 </script>
+  <script>
+  (function(){
+    const FORCE_IMG = "https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg";
+    function normalizePath(u){
+      try{
+        const url = new URL(u, location.href);
+        let p = url.pathname.toLowerCase();
+        p = p.replace(/\/index\.html$/,'/');
+        p = p.replace(/^\/(solo|travel)\/articles\/([a-z0-9\-]+)\.html$/,'/$1/$2.html');
+        p = p.replace(/\/+$/,'/');
+        return p;
+      }catch(_){ return String(u||"").toLowerCase(); }
+    }
+    function isTop20(href){
+      const p = normalizePath(href);
+      return /\/articles\/top-20-questions\/$/.test(p);
+    }
+    function fixIn(container){
+      const anchors = container.querySelectorAll('a.thumb, a[href]');
+      anchors.forEach(a=>{
+        const href = a.getAttribute('href')||'';
+        if(!isTop20(href)) return;
+        const img = a.querySelector('img') || a.closest('.rail-item')?.querySelector('img');
+        if(!img) return;
+        const src = (img.getAttribute('src')||'').trim();
+        const looksPlaceholder = !src || /placeholders\/article-thumb/i.test(src);
+        if (looksPlaceholder || img.dataset.force20 !== '1'){
+          img.src = FORCE_IMG;
+          img.removeAttribute('srcset');
+          img.removeAttribute('onerror');
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          if (!img.hasAttribute('alt')) img.alt = "";
+          img.dataset.force20 = '1';
+        }
+      });
+    }
+    const mount = document.getElementById('journal-rail') || document;
+    if (document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', ()=>fixIn(mount));
+    } else {
+      fixIn(mount);
+    }
+    const mo = new MutationObserver(muts=>{
+      muts.forEach(m=>{
+        m.addedNodes.forEach(n=>{
+          if (n.nodeType === 1) fixIn(n);
+        });
+      });
+    });
+    mo.observe(mount, {childList:true, subtree:true});
+  })();
+  </script>
 
 <!-- Soli Deo Gloria · Version: 10.0.0 -->
 </body>
