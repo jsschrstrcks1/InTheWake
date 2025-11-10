@@ -1,4 +1,4 @@
-/* calculator-math.js v.9.005.005
+/* calculator-math.js v10.0.0
  * Royal Caribbean Drink Package Calculation Engine
  * Soli Deo Gloria ✝️
  */
@@ -491,4 +491,9 @@ export function computeWithVouchers(inputs, economics, dataset, vouchers) {
       }
     }
   };
+}
+
+// Expose globally for fallback (when worker unavailable)
+if (typeof window !== 'undefined') {
+  window.ITW_MATH = { compute, computeWithVouchers };
 }
