@@ -98,8 +98,7 @@ function adaptDataset(dataset) {
 }
 
 /* ==================== CORE CALCULATION ==================== */
-
-export function compute(inputs, economics, dataset) {
+function compute(inputs, economics, dataset) {
   const { prices, sets, gratuity: dsGratuity, deluxeCap: dsCap } = adaptDataset(dataset || {});
   
   const drinkKeys = [
@@ -369,7 +368,7 @@ export function compute(inputs, economics, dataset) {
 
 /* ==================== VOUCHER COMPUTATION ==================== */
 
-export function computeWithVouchers(inputs, economics, dataset, vouchers) {
+function computeWithVouchers(inputs, economics, dataset, vouchers) {
   const base = compute(inputs, economics, dataset);
   
   const vAdults = clamp(vouchers?.adultCountPerDay ?? 0, 0, 50);
