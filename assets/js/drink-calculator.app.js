@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - Core Application
- * Version: 10.0.0
+ * Version: 10.0.0 assets/js/drink-calculator.app.js
  * Soli Deo Gloria ✝️
  *
  * Main orchestrator: manages state, coordinates worker, handles persistence
