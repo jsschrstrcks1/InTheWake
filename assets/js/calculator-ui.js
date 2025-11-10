@@ -1,11 +1,10 @@
 /**
  * Royal Caribbean Drink Calculator - UI Layer
- * Version: 10.0.0
+ * Version: 10.0.0a
  * Soli Deo Gloria ✝️
  * 
  * Handles all DOM interactions, rendering, and user events
  */
-
 (() => {
   'use strict';
   
@@ -318,7 +317,10 @@
   /* ==================== PACKAGE PRICES UI ==================== */
   
   function renderEconomics() {
-    const { economics } = store.get();
+    const state = store.get();
+    if (!state || !state.economics) return;
+    
+    const { economics } = state;
     
     const badges = {
       soda: document.querySelector('[data-pkg-price="soda"]'),
@@ -340,7 +342,19 @@
   /* ==================== INPUT REFLECTION ==================== */
   
   function reflectInputsToDOM() {
-    const { inputs } = store.get();
+    const state = store.get();
+    if (!state || !state.inputs) {
+      console.warn('[UI] No inputs state available');
+      return;
+    }
+    
+    const { inputs } = state;
+    
+    // CRITICAL: Check if inputs exists and has required properties
+    if (!inputs || typeof inputs !== 'object') {
+      console.warn('[UI] Invalid inputs object:', inputs);
+      return;
+    }
     
     const mappings = [
       ['input-days', inputs.days],
@@ -358,23 +372,27 @@
       if (type === 'checkbox') {
         el.checked = Boolean(value);
       } else {
-        el.value = String(value);
+        el.value = String(value !== undefined && value !== null ? value : '');
       }
     });
     
-    // Update drinks
-    Object.entries(inputs.drinks).forEach(([key, value]) => {
-      const el = document.querySelector(`[data-input="${key}"]`);
-      if (el) {
-        el.value = typeof value === 'object' 
-          ? `${value.min || 0}-${value.max || 0}` 
-          : String(value || 0);
-      }
-    });
+    // CRITICAL FIX: Check if drinks exists before using Object.entries
+    if (inputs.drinks && typeof inputs.drinks === 'object') {
+      Object.entries(inputs.drinks).forEach(([key, value]) => {
+        const el = document.querySelector(`[data-input="${key}"]`);
+        if (el) {
+          el.value = typeof value === 'object' 
+            ? `${value.min || 0}-${value.max || 0}` 
+            : String(value !== undefined && value !== null ? value : 0);
+        }
+      });
+    } else {
+      console.warn('[UI] No drinks data available');
+    }
     
     // Update sea weight display
     const seaWeightVal = $('#sea-weight-val');
-    if (seaWeightVal) {
+    if (seaWeightVal && inputs.seaWeight !== undefined) {
       seaWeightVal.textContent = `${inputs.seaWeight}%`;
     }
   }
@@ -397,8 +415,12 @@
   
   window.renderAll = () => {
     const state = store.get();
+    if (!state) return;
+    
     renderEconomics();
-    renderResults(state.results);
+    if (state.results) {
+      renderResults(state.results);
+    }
     reflectInputsToDOM();
   };
   
@@ -410,13 +432,15 @@
   // Initialize chart
   initializeChart();
   
-  // Initial render
+  // Initial render with safety check
   setTimeout(() => {
-    renderEconomics();
-    reflectInputsToDOM();
-    const results = store.get().results;
-    if (results) {
-      renderResults(results);
+    const state = store.get();
+    if (state) {
+      renderEconomics();
+      reflectInputsToDOM();
+      if (state.results) {
+        renderResults(state.results);
+      }
     }
   }, 100);
   
