@@ -495,8 +495,9 @@ function computeWithVouchers(inputs, economics, dataset, vouchers) {
   };
 }
 
-/* ==================== EXPORTS ==================== */
-// Expose globally for fallback (when worker unavailable)
-if (typeof window !== 'undefined') {
-  window.ITW_MATH = { compute, computeWithVouchers };
-}
+// Expose globally for both main thread and workers
+// Use globalThis for universal compatibility
+const globalScope = typeof globalThis !== 'undefined' ? globalThis : 
+                    (typeof window !== 'undefined' ? window : self);
+
+globalScope.ITW_MATH = { compute, computeWithVouchers };
