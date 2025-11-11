@@ -932,19 +932,29 @@ async function loadDataset() {
 
     const data = await response.json();
 
-    // Normalize prices
-    if (!data.prices && Array.isArray(data.items)) {
-      data.prices = {};
-      data.items.forEach(item => {
-        if (item && item.id) data.prices[item.id] = num(item.price);
-      });
-    }
+console.log('[Core] 📦 Raw dataset received:', data);
 
-    // Normalize sets
-    if (!data.sets) data.sets = {};
-    if (!data.sets.alcoholic && data.sets.alcohol) {
-      data.sets.alcoholic = data.sets.alcohol;
+// Normalize prices
+if (!data.prices && Array.isArray(data.items)) {
+  console.log('[Core] 🔨 Normalizing prices from items array...');
+  data.prices = {};
+  data.items.forEach(item => {
+    if (item && item.id) {
+      data.prices[item.id] = num(item.price);
+      console.log(`[Core] Price set: ${item.id} = ${item.price}`);
     }
+  });
+  console.log('[Core] ✅ Final prices:', data.prices);
+}
+
+// Normalize sets
+if (!data.sets) data.sets = {};
+console.log('[Core] 📋 Sets before normalization:', data.sets);
+
+if (!data.sets.alcoholic && data.sets.alcohol) {
+  data.sets.alcoholic = data.sets.alcohol;
+}
+console.log('[Core] ✅ Final sets:', data.sets);
 
     store.patch('dataset', data);
 
