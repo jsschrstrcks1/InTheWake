@@ -3,9 +3,10 @@
  * Soli Deo Gloria ✝️
  */
 
-/* ==================== UTILITIES ==================== */
-(function() {
 'use strict';
+
+/* ==================== UTILITIES ==================== */
+
 const toNum = (v) => {
   const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[^\d.-]/g, ''));
   return Number.isFinite(n) ? n : 0;
@@ -99,6 +100,7 @@ function adaptDataset(dataset) {
 }
 
 /* ==================== CORE CALCULATION ==================== */
+
 function compute(inputs, economics, dataset) {
   const { prices, sets, gratuity: dsGratuity, deluxeCap: dsCap } = adaptDataset(dataset || {});
   
@@ -493,8 +495,12 @@ function computeWithVouchers(inputs, economics, dataset, vouchers) {
   };
 }
 
+/* ==================== EXPORTS ==================== */
+
 // Expose globally for fallback (when worker unavailable)
 if (typeof window !== 'undefined') {
   window.ITW_MATH = { compute, computeWithVouchers };
 }
-})();
+
+// ES6 module exports for worker
+export { compute, computeWithVouchers };
