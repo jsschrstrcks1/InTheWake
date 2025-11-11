@@ -11,6 +11,9 @@ const VERSION = '10.0.0';
 let computeFn = null;
 let computeWithVouchersFn = null;
 
+// Message queue for early arrivals
+const messageQueue = [];
+
 // Safe zero result for error cases
 const SAFE_ZERO = {
   hasRange: false,
@@ -30,13 +33,9 @@ const SAFE_ZERO = {
   deluxeRequired: false
 };
 
-// Initialize worker
-let initPromise = null;
-const messageQueue = [];
-
-initPromise = (async function init() {
+// Initialize worker with queue system
+(async function init() {
   try {
-    // Dynamic import of math module
     const mathURL = `/assets/js/calculator-math.js?v=${VERSION}`;
     console.log('[Worker] Loading math module from:', mathURL);
     
@@ -51,128 +50,116 @@ initPromise = (async function init() {
     // Signal ready
     self.postMessage({ type: 'ready' });
     
-    // Process any queued messages
+    // Process queued messages
     console.log('[Worker] Processing', messageQueue.length, 'queued messages');
     while (messageQueue.length > 0) {
       const event = messageQueue.shift();
-      handleMessage(event);
+      processMessage(event);
     }
     
   } catch (error) {
     console.error('[Worker] Failed to load math module:', error);
-    // Still signal ready but operations will return safe zeros
     self.postMessage({ type: 'ready' });
   }
 })();
-// Message handler
-self.addEventListener('message', (event) => {
-  // If still initializing, queue the message
+
+// Message handler with queue
+self.addEventListener('message', function(event) {
   if (!computeFn) {
-    console.log('[Worker] 🕐 Queueing message (still initializing)...');
+    console.log('[Worker] Queueing message (still initializing)...');
     messageQueue.push(event);
     return;
   }
   
-  handleMessage(event);
+  processMessage(event);
 });
 
-// Separate message handling function
-function handleMessage(event) {
-  console.log('[Worker] 📨 Received message:', event.data);
+// Process message
+function processMessage(event) {
+  console.log('[Worker] Received message:', event.data);
   
   const { type, payload, id } = event.data;
   
   console.log('[Worker] Message type:', type);
   
   if (type === 'compute') {
-    console.log('[Worker] 🧮 Starting computation...');
+    console.log('[Worker] Starting computation...');
     handleCompute(payload, id);
   } else {
-    console.log('[Worker] ⚠️ Unknown message type:', type);
+    console.log('[Worker] Unknown message type:', type);
   }
 }
-});
 
-/**
- * Handle computation request
- */
+// Handle computation request
 function handleCompute(payload, requestId) {
-  console.log('[Worker] handleCompute called with payload:', payload);
+  console.log('[Worker] handleCompute called');
   
   try {
-    // Validate payload
     if (!payload || typeof payload !== 'object') {
-      console.warn('[Worker] Invalid payload, returning SAFE_ZERO');
+      console.warn('[Worker] Invalid payload');
       sendResult(SAFE_ZERO, requestId);
       return;
     }
     
-    // Sanitize inputs
     const clean = sanitizePayload(payload);
     
     if (!clean) {
-      console.warn('[Worker] Sanitization failed, returning SAFE_ZERO');
+      console.warn('[Worker] Sanitization failed');
       sendResult(SAFE_ZERO, requestId);
       return;
     }
     
-    // Check if compute function is available
     if (typeof computeFn !== 'function') {
-      console.error('[Worker] ❌ computeFn not available!');
+      console.error('[Worker] computeFn not available!');
       sendResult(SAFE_ZERO, requestId);
       return;
     }
     
-    console.log('[Worker] 🧮 Calling computeFn...');
+    console.log('[Worker] Calling computeFn...');
     
-    // Perform calculation
     const result = computeFn(
       clean.inputs,
       clean.economics,
       clean.dataset
     );
     
-    console.log('[Worker] ✅ Computation complete! Result:', result);
+    console.log('[Worker] Computation complete! Result:', result);
     sendResult(result || SAFE_ZERO, requestId);
     
   } catch (error) {
-    console.error('[Worker] ❌ Compute error:', error);
+    console.error('[Worker] Compute error:', error);
     sendResult(SAFE_ZERO, requestId);
   }
 }
 
-/**
- * Send result back to main thread
- */
+// Send result back to main thread
 function sendResult(result, requestId) {
-  console.log('[Worker] 📤 Sending result back to main thread');
+  console.log('[Worker] Sending result back');
   self.postMessage({
     type: 'result',
     payload: result,
     id: requestId
   });
-  console.log('[Worker] ✅ Result sent!');
+  console.log('[Worker] Result sent!');
 }
 
-/**
- * Sanitize and validate payload
- */
+// Sanitize and validate payload
 function sanitizePayload(payload) {
-  const clamp = (n, min, max) => Math.min(max, Math.max(min, Number.isFinite(+n) ? +n : 0));
+  const clamp = function(n, min, max) {
+    return Math.min(max, Math.max(min, Number.isFinite(+n) ? +n : 0));
+  };
   
   try {
     const clean = structuredClone(payload);
     
-    // Sanitize inputs
     const inputs = clean.inputs || {};
     inputs.days = clamp(Math.round(inputs.days || 7), 1, 365);
     inputs.seaDays = clamp(Math.round(inputs.seaDays || 0), 0, inputs.days);
-    inputs.seaApply = Boolean(inputs.seaApply ?? true);
+    inputs.seaApply = Boolean(inputs.seaApply !== false);
     inputs.seaWeight = clamp(inputs.seaWeight || 20, 0, 40);
     inputs.adults = clamp(Math.round(inputs.adults || 1), 1, 20);
     inputs.minors = clamp(Math.round(inputs.minors || 0), 0, 20);
     
-    // Sanitize drinks
     inputs.drinks = inputs.drinks || {};
     const drinkKeys = [
       'soda', 'coffee', 'teaprem', 'freshjuice', 'mocktail',
@@ -180,18 +167,17 @@ function sanitizePayload(payload) {
       'cocktail', 'spirits'
     ];
     
-    drinkKeys.forEach(key => {
+    drinkKeys.forEach(function(key) {
       const value = inputs.drinks[key];
       if (value && typeof value === 'object') {
         const min = Math.max(0, +value.min || 0);
         const max = Math.max(min, +value.max || 0);
-        inputs.drinks[key] = { min, max };
+        inputs.drinks[key] = { min: min, max: max };
       } else {
         inputs.drinks[key] = Math.max(0, +value || 0);
       }
     });
     
-    // Sanitize economics
     const economics = clean.economics || {};
     economics.pkg = economics.pkg || {};
     economics.pkg.soda = clamp(economics.pkg.soda || 13.99, 0, 200);
@@ -212,4 +198,4 @@ function sanitizePayload(payload) {
   }
 }
 
-console.log(`[Worker] v${VERSION} initialized`);
+console.log('[Worker] v' + VERSION + ' initialized');
