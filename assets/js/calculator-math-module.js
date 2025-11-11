@@ -7,23 +7,25 @@
  * - 1 Corinthians 12:12
  * 
  * Soli Deo Gloria ✝️
- * 
- * This wrapper bridges the main thread and worker thread,
- * enabling both contexts to access God's gift of calculation.
  */
 
-// Load the script that populates globalThis.ITW_MATH
-await import('./calculator-math.js?v=10.0.0');
+// Direct import - the functions are defined at module scope
+import('/assets/js/calculator-math.js?v=10.0.0').then(module => {
+  // For some bundlers/contexts, exports might be on default
+  if (module.compute) {
+    self.compute = module.compute;
+    self.computeWithVouchers = module.computeWithVouchers;
+  }
+});
 
-// Workers use 'self' instead of 'window'
-const globalScope = typeof window !== 'undefined' ? window : self;
+// Also check global scope as fallback
+await new Promise(resolve => setTimeout(resolve, 100)); // Give import time to complete
 
-// Re-export from global scope for worker context
-const compute = globalScope.ITW_MATH?.compute;
-const computeWithVouchers = globalScope.ITW_MATH?.computeWithVouchers;
+const compute = self.ITW_MATH?.compute;
+const computeWithVouchers = self.ITW_MATH?.computeWithVouchers;
 
 if (!compute) {
-  throw new Error('compute function not found in ITW_MATH');
+  throw new Error('compute function not found');
 }
 
 export { compute, computeWithVouchers };
