@@ -1334,6 +1334,84 @@ details[open] summary::before {
     scroll-behavior: auto !important;
   }
 }
+/* ==================== FIXES FOR v10.0.0 ==================== */
+
+/* Fix 1: Logo sizing to match original */
+.hero-title .logo {
+  display: block;
+  width: clamp(160px, 20vw, 340px);
+  max-width: min(85vw, 480px);
+  height: auto;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.45));
+}
+
+@media (max-width: 767px) {
+  .hero-title .logo {
+    width: clamp(140px, 25vw, 240px);
+  }
+}
+
+/* Fix 2: Author avatar - square with rounded corners */
+.author-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid var(--rope);
+  flex-shrink: 0;
+}
+
+/* Fix 3: Navigation dropdown hover - longer delay before closing */
+.nav-item .menu {
+  transition: opacity 0.18s ease, visibility 0s 0.3s; /* Delay hiding */
+}
+
+.nav-item:hover .menu,
+.nav-item:focus-within .menu {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s; /* Show immediately */
+}
+
+/* Keep menu open when hovering over it */
+.menu:hover {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Fix 4: Drink row inputs */
+.drink-row input[type="text"] {
+  width: 110px;
+  padding: 6px 8px;
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  font-size: 16px;
+  min-height: 44px;
+  text-align: right;
+}
+
+/* Fix 5: Preset pills with proper sizing */
+.qs-pill {
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 2px solid var(--rope);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fix 6: Author card layout */
+.author-card {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
 
 /* ==================== 23. DARK MODE (OPTIONAL) ==================== */
 @media (prefers-color-scheme: dark) {
