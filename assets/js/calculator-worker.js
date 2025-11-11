@@ -31,28 +31,53 @@ const SAFE_ZERO = {
 };
 
 // Initialize worker
-(async function init() {
+let initPromise = null;
+const messageQueue = [];
+
+initPromise = (async function init() {
   try {
     // Dynamic import of math module
     const mathURL = `/assets/js/calculator-math.js?v=${VERSION}`;
+    console.log('[Worker] Loading math module from:', mathURL);
+    
     const module = await import(mathURL);
     
     computeFn = module.compute;
     computeWithVouchersFn = module.computeWithVouchers;
     
     console.log('[Worker] Math module loaded successfully');
+    console.log('[Worker] computeFn available:', typeof computeFn);
     
     // Signal ready
     self.postMessage({ type: 'ready' });
+    
+    // Process any queued messages
+    console.log('[Worker] Processing', messageQueue.length, 'queued messages');
+    while (messageQueue.length > 0) {
+      const event = messageQueue.shift();
+      handleMessage(event);
+    }
+    
   } catch (error) {
     console.error('[Worker] Failed to load math module:', error);
     // Still signal ready but operations will return safe zeros
     self.postMessage({ type: 'ready' });
   }
 })();
-
 // Message handler
 self.addEventListener('message', (event) => {
+  // If still initializing, queue the message
+  if (!computeFn) {
+    console.log('[Worker] 🕐 Queueing message (still initializing)...');
+    messageQueue.push(event);
+    return;
+  }
+  
+  handleMessage(event);
+});
+
+// Separate message handling function
+function handleMessage(event) {
   console.log('[Worker] 📨 Received message:', event.data);
   
   const { type, payload, id } = event.data;
@@ -65,6 +90,7 @@ self.addEventListener('message', (event) => {
   } else {
     console.log('[Worker] ⚠️ Unknown message type:', type);
   }
+}
 });
 
 /**
