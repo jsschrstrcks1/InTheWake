@@ -1016,13 +1016,14 @@ function initializeWorker() {
     return false;
   }
 }
-
 /* ==================== CALCULATION SCHEDULING ==================== */
 /**
  * Single calculation scheduler - prevents race conditions
  * Never allows worker AND fallback to run simultaneously
  */
 function scheduleCalculation() {
+  console.log('[Core] 🔄 scheduleCalculation called');
+  
   // Guard: Don't calculate if already in progress
   if (calculationInProgress) {
     console.log('[Core] Calculation already in progress, skipping');
@@ -1030,6 +1031,7 @@ function scheduleCalculation() {
   }
   
   calculationInProgress = true;
+  console.log('[Core] 🎯 Starting calculation...');
   
   const state = store.get();
   const { inputs, economics, dataset } = state;
@@ -1042,8 +1044,10 @@ function scheduleCalculation() {
 
   // Try worker first
   const canUseWorker = initializeWorker() && workerReady;
+  console.log('[Core] 🤖 Worker available:', canUseWorker, '| Worker ready:', workerReady);
   
   if (canUseWorker) {
+    console.log('[Core] 📤 Sending to worker...');
     calcWorker.postMessage({
       type: 'compute',
       payload: payload
@@ -1052,32 +1056,34 @@ function scheduleCalculation() {
   }
 
   // Fallback to main thread
+  console.log('[Core] 🔧 Using fallback (main thread)...');
   if (!window.ITW_MATH || typeof window.ITW_MATH.compute !== 'function') {
-    console.warn('[Core] Math module not available');
+    console.warn('[Core] ❌ Math module not available');
     store.patch('results', initialState.results);
     calculationInProgress = false;
     return;
   }
 
   try {
+    console.log('[Core] 🧮 Computing with ITW_MATH...');
     const results = window.ITW_MATH.compute(
       payload.inputs,
       payload.economics,
       payload.dataset
     );
     
+    console.log('[Core] ✅ Results:', results);
     store.patch('results', results);
     calculationInProgress = false;
     document.dispatchEvent(new CustomEvent('itw:calc-updated'));
   } catch (error) {
-    console.error('[Core] Calculation error:', error);
+    console.error('[Core] ❌ Calculation error:', error);
     store.patch('results', initialState.results);
     calculationInProgress = false;
   }
 }
 
 const debouncedCalc = debounce(scheduleCalculation);
-
 /* ==================== INPUT HANDLING ==================== */
 /**
  * Wire inputs with separation of concerns:
@@ -1256,7 +1262,6 @@ const PRESETS = {
   }
 };
 
-/**
 /**
  * Apply a preset drink pattern
  */
