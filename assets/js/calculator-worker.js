@@ -36,7 +36,7 @@ const SAFE_ZERO = {
 // Initialize worker with queue system
 (async function init() {
   try {
-    const mathURL = `/assets/js/calculator-math.js?v=${VERSION}`;
+    const mathURL = `/assets/js/calculator-math-module.js?v=${VERSION}`;
     console.log('[Worker] Loading math module from:', mathURL);
     
     const module = await import(mathURL);
