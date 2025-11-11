@@ -496,25 +496,7 @@ function computeWithVouchers(inputs, economics, dataset, vouchers) {
 }
 
 /* ==================== EXPORTS ==================== */
-
-/* ==================== EXPORTS ==================== */
-
 // Expose globally for fallback (when worker unavailable)
 if (typeof window !== 'undefined') {
   window.ITW_MATH = { compute, computeWithVouchers };
-}
-
-// ES6 module exports for worker (only in module context)
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-  module.exports = { compute, computeWithVouchers };
-}
-
-// Try to export if we're in an ES6 module context
-try {
-  if (typeof exports !== 'undefined') {
-    exports.compute = compute;
-    exports.computeWithVouchers = computeWithVouchers;
-  }
-} catch (e) {
-  // Ignore - we're not in a module context
 }
