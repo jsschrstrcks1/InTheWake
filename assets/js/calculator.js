@@ -932,31 +932,36 @@ async function loadDataset() {
 
     const data = await response.json();
 
-console.log('[Core] 📦 Raw dataset received:', data);
+    console.log('[Core] 📦 Raw dataset received:', data);
 
-// Normalize prices
-if (!data.prices && Array.isArray(data.items)) {
-  console.log('[Core] 🔨 Normalizing prices from items array...');
-  data.prices = {};
-  data.items.forEach(item => {
-    if (item && item.id) {
-      data.prices[item.id] = num(item.price);
-      console.log(`[Core] Price set: ${item.id} = ${item.price}`);
+    // Normalize prices
+    if (!data.prices && Array.isArray(data.items)) {
+      console.log('[Core] 🔨 Normalizing prices from items array...');
+      data.prices = {};
+      data.items.forEach(item => {
+        if (item && item.id) {
+          data.prices[item.id] = num(item.price);
+          console.log(`[Core] Price set: ${item.id} = ${item.price}`);
+        }
+      });
+      console.log('[Core] ✅ Final prices:', data.prices);
     }
-  });
-  console.log('[Core] ✅ Final prices:', data.prices);
-}
 
-// Normalize sets
-if (!data.sets) data.sets = {};
-console.log('[Core] 📋 Sets before normalization:', data.sets);
+    // Normalize sets
+    if (!data.sets) data.sets = {};
+    console.log('[Core] 📋 Sets before normalization:', data.sets);
 
-if (!data.sets.alcoholic && data.sets.alcohol) {
-  data.sets.alcoholic = data.sets.alcohol;
-}
-console.log('[Core] ✅ Final sets:', data.sets);
+    if (!data.sets.alcoholic && data.sets.alcohol) {
+      data.sets.alcoholic = data.sets.alcohol;
+    }
+    console.log('[Core] ✅ Final sets:', data.sets);
 
     store.patch('dataset', data);
+
+    // ⚠️ CRITICAL DEBUG
+    console.log('[Core] 📝 Dataset stored in store:', store.get('dataset'));
+    console.log('[Core] 📝 Prices in store:', store.get('dataset')?.prices);
+    console.log('[Core] 📝 Sets in store:', store.get('dataset')?.sets);
 
     // Update economics with dataset values
     const economics = structuredClone(store.get('economics'));
@@ -979,35 +984,35 @@ console.log('[Core] ✅ Final sets:', data.sets);
     announce('Pricing data loaded');
     console.log('[Core] Dataset loaded successfully');
   } catch (error) {
-  console.warn('[Core] Dataset load failed, using fallback:', error);
-  
-  // Use fallback dataset
-  const fallback = CONFIG.FALLBACK_DATASET;
-  store.patch('dataset', fallback);
-  
-  // ⚠️ CRITICAL: Update economics from fallback
-  const economics = structuredClone(store.get('economics'));
-  
-  if (fallback.packages) {
-    const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
-    economics.pkg = {
-      soda: getPkgPrice(fallback.packages.soda) || 13.99,
-      refresh: getPkgPrice(fallback.packages.refreshment) || 34.0,
-      deluxe: getPkgPrice(fallback.packages.deluxe) || 85.0
-    };
+    console.warn('[Core] Dataset load failed, using fallback:', error);
+    
+    // Use fallback dataset
+    const fallback = CONFIG.FALLBACK_DATASET;
+    store.patch('dataset', fallback);
+    
+    // ⚠️ CRITICAL: Update economics from fallback
+    const economics = structuredClone(store.get('economics'));
+    
+    if (fallback.packages) {
+      const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
+      economics.pkg = {
+        soda: getPkgPrice(fallback.packages.soda) || 13.99,
+        refresh: getPkgPrice(fallback.packages.refreshment) || 34.0,
+        deluxe: getPkgPrice(fallback.packages.deluxe) || 85.0
+      };
+    }
+    
+    if (fallback.rules) {
+      economics.grat = num(fallback.rules.gratuity) || 0.18;
+      economics.deluxeCap = num(fallback.rules.deluxeCap) || 14.0;
+    }
+    
+    store.patch('economics', economics);
+    store.patch('ui.fallbackBanner', true);
+    announce('Using default pricing', 'polite');
+    
+    console.log('[Core] Fallback economics applied:', economics);
   }
-  
-  if (fallback.rules) {
-    economics.grat = num(fallback.rules.gratuity) || 0.18;
-    economics.deluxeCap = num(fallback.rules.deluxeCap) || 14.0;
-  }
-  
-  store.patch('economics', economics);
-  store.patch('ui.fallbackBanner', true);
-  announce('Using default pricing', 'polite');
-  
-  console.log('[Core] Fallback economics applied:', economics);
-}
 }
 
 /* ==================== WORKER INTEGRATION ==================== */
@@ -1065,7 +1070,6 @@ function initializeWorker() {
   }
 }
 
- 
 /* ==================== CALCULATION SCHEDULING ==================== */
 /**
  * Single calculation scheduler - prevents race conditions
@@ -1116,6 +1120,10 @@ function scheduleCalculation() {
 
   try {
     console.log('[Core] 🧮 Computing with ITW_MATH...');
+    console.log('[Core] 📦 Dataset being sent to compute:', payload.dataset);
+    console.log('[Core] 💰 Prices being sent:', payload.dataset?.prices);
+    console.log('[Core] 📋 Sets being sent:', payload.dataset?.sets);
+    
     const results = window.ITW_MATH.compute(
       payload.inputs,
       payload.economics,
@@ -1134,6 +1142,7 @@ function scheduleCalculation() {
 }
 
 const debouncedCalc = debounce(scheduleCalculation);
+
 /* ==================== INPUT HANDLING ==================== */
 /**
  * Wire inputs with separation of concerns:
@@ -1280,6 +1289,7 @@ async function refreshDataset() {
   await loadDataset();
   scheduleCalculation();
 }
+
 /* ==================== PRESET SYSTEM ==================== */
 /**
  * Preset drink patterns for common traveler types
@@ -1353,6 +1363,7 @@ function applyPreset(presetKey) {
   
   console.log(`[Core] Applied preset: ${presetKey}`);
 }
+
 /* ==================== API EXPORTS ==================== */
 /**
  * Public API exposed to window.ITW
@@ -1365,7 +1376,7 @@ window.ITW = Object.freeze({
   // Store access
   store,
   
-  // Currency functions (never redefine these)
+  // Currency functions
   formatMoney,
   getCurrency,
   setCurrency,
@@ -1378,7 +1389,7 @@ window.ITW = Object.freeze({
   resetInputs,
   shareScenario,
   refreshDataset,
-  applyPreset,  // ← ADD THIS LINE
+  applyPreset,
   
   // Utility functions
   announce,
