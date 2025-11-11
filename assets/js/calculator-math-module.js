@@ -12,12 +12,19 @@
  * enabling both contexts to access God's gift of calculation.
  */
 
-// Load the script that populates window.ITW_MATH
+// Load the script that populates globalThis.ITW_MATH
 await import('./calculator-math.js?v=10.0.0');
 
-// Re-export from window for worker context
-const compute = window.ITW_MATH?.compute;
-const computeWithVouchers = window.ITW_MATH?.computeWithVouchers;
+// Workers use 'self' instead of 'window'
+const globalScope = typeof window !== 'undefined' ? window : self;
+
+// Re-export from global scope for worker context
+const compute = globalScope.ITW_MATH?.compute;
+const computeWithVouchers = globalScope.ITW_MATH?.computeWithVouchers;
+
+if (!compute) {
+  throw new Error('compute function not found in ITW_MATH');
+}
 
 export { compute, computeWithVouchers };
 
