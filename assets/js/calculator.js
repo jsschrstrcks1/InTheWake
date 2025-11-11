@@ -983,21 +983,26 @@ function initializeWorker() {
   try {
     calcWorker = new Worker(CONFIG.WORKER.url, { type: 'module' });
 
-    calcWorker.onmessage = (event) => {
-      const { type, payload } = event.data || {};
+   calcWorker.onmessage = (event) => {
+  console.log('[Core] 📨 Received message from worker:', event.data);
+  
+  const { type, payload } = event.data || {};
 
-      if (type === 'ready') {
-        workerReady = true;
-        console.log('[Core] Worker ready');
-        return;
-      }
+  if (type === 'ready') {
+    workerReady = true;
+    console.log('[Core] Worker ready');
+    return;
+  }
 
-      if (type === 'result') {
-        store.patch('results', payload);
-        calculationInProgress = false;
-        document.dispatchEvent(new CustomEvent('itw:calc-updated'));
-      }
-    };
+  if (type === 'result') {
+    console.log('[Core] 📊 Received result from worker:', payload);
+    store.patch('results', payload);
+    calculationInProgress = false;
+    console.log('[Core] 🔔 Dispatching calc-updated event');
+    document.dispatchEvent(new CustomEvent('itw:calc-updated'));
+    console.log('[Core] ✅ Result processed');
+  }
+};
 
     calcWorker.onerror = (error) => {
       console.error('[Core] Worker error:', error);
