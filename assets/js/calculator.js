@@ -1026,33 +1026,7 @@ function initializeWorker() {
   }
 }
 
-  if (type === 'result') {
-    console.log('[Core] 📊 Received result from worker:', payload);
-    store.patch('results', payload);
-    calculationInProgress = false;
-    console.log('[Core] 🔔 Dispatching calc-updated event');
-    document.dispatchEvent(new CustomEvent('itw:calc-updated'));
-    console.log('[Core] ✅ Result processed');
-  }
-};
-
-    calcWorker.onerror = (error) => {
-      console.error('[Core] Worker error:', error);
-      workerReady = false;
-      calculationInProgress = false;
-      
-      if (calcWorker) {
-        calcWorker.terminate();
-        calcWorker = null;
-      }
-    };
-
-    return true;
-  } catch (error) {
-    console.warn('[Core] Worker initialization failed:', error);
-    return false;
-  }
-}
+ 
 /* ==================== CALCULATION SCHEDULING ==================== */
 /**
  * Single calculation scheduler - prevents race conditions
