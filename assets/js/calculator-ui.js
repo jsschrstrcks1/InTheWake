@@ -905,11 +905,20 @@ function initialize() {
   
   // Wire up all interactive elements
   wireNavigation();
-  wirePresetButtons();
   wireQuiz();
   wireEmailCapture();
   wireActionButtons();
-  
+  // Wire preset buttons
+document.querySelectorAll('[data-preset]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const preset = btn.dataset.preset;
+    if (window.ITW && typeof window.ITW.applyPreset === 'function') {
+      window.ITW.applyPreset(preset);
+    } else {
+      console.error('[UI] applyPreset function not found');
+    }
+  });
+});
   // Load dynamic content
   loadRecentArticles();
   
