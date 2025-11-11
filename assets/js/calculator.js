@@ -910,13 +910,18 @@ async function loadBrandConfig() {
 
 /* ==================== DATASET LOADING ==================== */
 async function loadDataset() {
+  console.log('[Core] 📂 loadDataset() called');
+  
   try {
     // Get brand config first
     const brand = store.get('brand') || await loadBrandConfig();
+    console.log('[Core] Brand:', brand);
     
     // Determine dataset URL
     const dataURL = brand?.resources?.data || 
                     `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
+    
+    console.log('[Core] 🌐 Attempting to fetch:', dataURL);
     
     const response = await fetch(dataURL, { 
       cache: 'default',
@@ -964,11 +969,35 @@ async function loadDataset() {
     announce('Pricing data loaded');
     console.log('[Core] Dataset loaded successfully');
   } catch (error) {
-    console.warn('[Core] Dataset load failed, using fallback:', error);
-    store.patch('dataset', CONFIG.FALLBACK_DATASET);
-    store.patch('ui.fallbackBanner', true);
-    announce('Using default pricing', 'polite');
+  console.warn('[Core] Dataset load failed, using fallback:', error);
+  
+  // Use fallback dataset
+  const fallback = CONFIG.FALLBACK_DATASET;
+  store.patch('dataset', fallback);
+  
+  // ⚠️ CRITICAL: Update economics from fallback
+  const economics = structuredClone(store.get('economics'));
+  
+  if (fallback.packages) {
+    const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
+    economics.pkg = {
+      soda: getPkgPrice(fallback.packages.soda) || 13.99,
+      refresh: getPkgPrice(fallback.packages.refreshment) || 34.0,
+      deluxe: getPkgPrice(fallback.packages.deluxe) || 85.0
+    };
   }
+  
+  if (fallback.rules) {
+    economics.grat = num(fallback.rules.gratuity) || 0.18;
+    economics.deluxeCap = num(fallback.rules.deluxeCap) || 14.0;
+  }
+  
+  store.patch('economics', economics);
+  store.patch('ui.fallbackBanner', true);
+  announce('Using default pricing', 'polite');
+  
+  console.log('[Core] Fallback economics applied:', economics);
+}
 }
 
 /* ==================== WORKER INTEGRATION ==================== */
