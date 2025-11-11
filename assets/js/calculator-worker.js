@@ -1,11 +1,10 @@
 /**
  * Royal Caribbean Drink Calculator - Web Worker
- * calculator-worker.js - Version: V.9.005.005 assets/js/calculator-worker.js
+ * calculator-worker.js - Version: 10.0.0
  * Soli Deo Gloria ✝️
  * 
  * Handles compute-heavy operations off the main thread
  */
-
 const VERSION = '10.0.0';
 
 // Import the math module
@@ -25,6 +24,7 @@ const SAFE_ZERO = {
   perDay: 0,
   trip: 0,
   groupRows: [],
+  categoryRows: [],
   included: { soda: 0, refresh: 0, deluxe: 0 },
   overcap: 0,
   deluxeRequired: false
@@ -40,6 +40,8 @@ const SAFE_ZERO = {
     computeFn = module.compute;
     computeWithVouchersFn = module.computeWithVouchers;
     
+    console.log('[Worker] Math module loaded successfully');
+    
     // Signal ready
     self.postMessage({ type: 'ready' });
   } catch (error) {
@@ -51,10 +53,17 @@ const SAFE_ZERO = {
 
 // Message handler
 self.addEventListener('message', (event) => {
+  console.log('[Worker] 📨 Received message:', event.data);
+  
   const { type, payload, id } = event.data;
   
+  console.log('[Worker] Message type:', type);
+  
   if (type === 'compute') {
+    console.log('[Worker] 🧮 Starting computation...');
     handleCompute(payload, id);
+  } else {
+    console.log('[Worker] ⚠️ Unknown message type:', type);
   }
 });
 
@@ -62,9 +71,12 @@ self.addEventListener('message', (event) => {
  * Handle computation request
  */
 function handleCompute(payload, requestId) {
+  console.log('[Worker] handleCompute called with payload:', payload);
+  
   try {
     // Validate payload
     if (!payload || typeof payload !== 'object') {
+      console.warn('[Worker] Invalid payload, returning SAFE_ZERO');
       sendResult(SAFE_ZERO, requestId);
       return;
     }
@@ -73,15 +85,19 @@ function handleCompute(payload, requestId) {
     const clean = sanitizePayload(payload);
     
     if (!clean) {
+      console.warn('[Worker] Sanitization failed, returning SAFE_ZERO');
       sendResult(SAFE_ZERO, requestId);
       return;
     }
     
     // Check if compute function is available
     if (typeof computeFn !== 'function') {
+      console.error('[Worker] ❌ computeFn not available!');
       sendResult(SAFE_ZERO, requestId);
       return;
     }
+    
+    console.log('[Worker] 🧮 Calling computeFn...');
     
     // Perform calculation
     const result = computeFn(
@@ -90,10 +106,11 @@ function handleCompute(payload, requestId) {
       clean.dataset
     );
     
+    console.log('[Worker] ✅ Computation complete! Result:', result);
     sendResult(result || SAFE_ZERO, requestId);
     
   } catch (error) {
-    console.error('[Worker] Compute error:', error);
+    console.error('[Worker] ❌ Compute error:', error);
     sendResult(SAFE_ZERO, requestId);
   }
 }
@@ -102,11 +119,13 @@ function handleCompute(payload, requestId) {
  * Send result back to main thread
  */
 function sendResult(result, requestId) {
+  console.log('[Worker] 📤 Sending result back to main thread');
   self.postMessage({
     type: 'result',
     payload: result,
     id: requestId
   });
+  console.log('[Worker] ✅ Result sent!');
 }
 
 /**
