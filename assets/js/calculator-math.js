@@ -494,10 +494,24 @@ function computeWithVouchers(inputs, economics, dataset, vouchers) {
     }
   };
 }
+/* ==================== EXPORTS ==================== */
 
-// Expose globally for both main thread and workers
-// Use globalThis for universal compatibility
+// Expose globally for main thread fallback
 const globalScope = typeof globalThis !== 'undefined' ? globalThis : 
                     (typeof window !== 'undefined' ? window : self);
 
 globalScope.ITW_MATH = { compute, computeWithVouchers };
+
+// Also make them available for module imports
+// Check if we're in a module context
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  // CommonJS
+  module.exports = { compute, computeWithVouchers };
+}
+
+// Make available for ES6 named imports
+// This will be ignored when loaded as a script, used when imported as module
+if (typeof exports !== 'undefined') {
+  exports.compute = compute;
+  exports.computeWithVouchers = computeWithVouchers;
+}
