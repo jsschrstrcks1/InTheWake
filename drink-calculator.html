@@ -602,24 +602,26 @@
     </p>
     <p class="tiny center">Soli Deo Gloria — every pixel offered in worship to God. ✝️</p>
   </footer>
-  <!-- JAVASCRIPT - LOAD ORDER CRITICAL -->
-  <!-- "Let all things be done decently and in order" - 1 Corinthians 14:40 -->
-  
-  <!-- 1. Math Module FIRST (ES6 module) -->
-  <script type="module">
-    import { compute } from '/assets/js/calculator-math.js?v=10.0.0';
-    window.ITW_MATH = { compute };
-    console.log('[HTML] Math module loaded successfully');
-  </script>
-  
-  <!-- 2. Core engine -->
-  <script src="/assets/js/calculator.js?v=10.0.0" defer></script>
-  
-  <!-- 3. UI layer -->
-  <script src="/assets/js/calculator-ui.js?v=10.0.0" defer></script>
-  
-  <!-- 4. Optional: Share bar -->
-  <script src="/assets/js/share-bar.js?v=10.0.0" defer></script>
-  <!-- Soli Deo Gloria · v10.0.0 -->
+ <!-- JAVASCRIPT - LOAD ORDER CRITICAL -->
+<!-- Math engine FIRST (traditional global) -->
+<script src="/assets/js/calculator-math.js?v=10.0.0"></script>
+
+<!-- Verify math loaded -->
+<script>
+  if (window.ITW_MATH?.compute) {
+    console.log('[HTML] ✓ Math engine ready');
+  } else {
+    console.error('[HTML] ✗ Math engine failed to load!');
+  }
+</script>
+
+<!-- Core engine SECOND -->
+<script src="/assets/js/calculator.js?v=10.0.0" defer></script>
+
+<!-- UI layer THIRD -->
+<script src="/assets/js/calculator-ui.js?v=10.0.0" defer></script>
+
+<!-- Optional: Share bar -->
+<script src="/assets/js/share-bar.js?v=10.0.0" defer></script>
 </body>
 </html>
