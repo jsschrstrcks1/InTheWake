@@ -1257,6 +1257,7 @@ const PRESETS = {
 };
 
 /**
+/**
  * Apply a preset drink pattern
  */
 function applyPreset(presetKey) {
@@ -1277,6 +1278,14 @@ function applyPreset(presetKey) {
   
   // Update store
   store.patch('inputs', { ...inputs, drinks });
+  
+  // Update DOM inputs (sync UI with store)
+  Object.keys(drinks).forEach(key => {
+    const input = document.querySelector(`[data-input="${key}"]`);
+    if (input) {
+      input.value = drinks[key];
+    }
+  });
   
   // Trigger calculation
   scheduleCalculation();
