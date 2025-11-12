@@ -1,965 +1,553 @@
 /**
  * Royal Caribbean Drink Calculator - UI Layer
- * Version: 10.0.0
+ * Version: 10.0.0 (Phase 1 Complete)
  * 
- * "Let your light so shine before men, that they may see your good works,
- * and glorify your Father which is in heaven"
- * - Matthew 5:16
+ * "Let all things be done decently and in order" - 1 Corinthians 14:40
  * 
  * Soli Deo Gloria ✝️
  * 
- * COMPLETE PRODUCTION VERSION - All fixes included:
- * - Quiz apply button fixed
- * - Breakeven nudges added
- * - Deluxe cap badge updates dynamically
+ * PHASE 1 FEATURES:
+ * ✅ #5  Inline package price editing UI
+ * ✅ #6  Presets moved to UI layer (out of core)
+ * ✅ #9  Gentle nudges rendering
+ * ✅ #10 Health guidelines display
+ * ✅ #11 Solo traveler preset
+ * ✅ #12 Soda drinker preset
  */
 
-(function() {
 'use strict';
 
-const VERSION = '10.0.0';
-
-// Wait for core to be ready
-if (!window.ITW || !window.ITW.version) {
-  console.error('[UI] Core not loaded, waiting...');
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      if (window.ITW && window.ITW.version) {
-        initialize();
-      } else {
-        console.error('[UI] Core failed to load');
-      }
-    }, 100);
-  });
-  return;
-}
-
-console.log(`[UI] v${VERSION} Initializing...`);
-
-/* ==================== SHORTCUTS ==================== */
-const { store, formatMoney, getCurrency, announce, config } = window.ITW;
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => document.querySelectorAll(sel);
-
-/* ==================== CHART.JS INTEGRATION ==================== */
-let chart = null;
-let chartResizeTimer = null;
-let lastChartWidth = 0;
-let lastChartHeight = 0;
-
-function initializeChart() {
-  if (!window.Chart) {
-    showChartFallback();
-    return;
-  }
-
-  const canvas = $('#breakeven-chart');
-  const wrapper = $('#breakeven-wrap');
-  
-  if (!canvas || !wrapper) return;
-
-  const ctx = canvas.getContext('2d');
-  
-  chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['À-la-carte', 'Coffee Card', 'Soda', 'Refreshment', 'Deluxe'],
-      datasets: [{
-        label: 'Daily Cost',
-        data: [0, 0, 0, 0, 0],
-        backgroundColor: [
-          'rgba(14, 110, 142, 0.8)',
-          'rgba(139, 69, 19, 0.8)',
-          'rgba(255, 159, 64, 0.8)',
-          'rgba(75, 192, 192, 0.8)',
-          'rgba(153, 102, 255, 0.8)'
-        ],
-        borderColor: [
-          'rgb(14, 110, 142)',
-          'rgb(139, 69, 19)',
-          'rgb(255, 159, 64)',
-          'rgb(75, 192, 192)',
-          'rgb(153, 102, 255)'
-        ],
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      aspectRatio: 2,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              return formatMoney(context.parsed.y) + '/day';
-            }
-          }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: function(value) {
-              return formatMoney(value);
-            }
-          }
-        }
-      }
-    }
-  });
-
-  // CRITICAL: Infinite scroll fix with dimension guard + throttle
-  const resizeObserver = new ResizeObserver(() => {
-    const w = wrapper.clientWidth;
-    const h = wrapper.clientHeight;
-    
-    if (w === lastChartWidth && h === lastChartHeight) {
-      return;
-    }
-    
-    lastChartWidth = w;
-    lastChartHeight = h;
-    
-    clearTimeout(chartResizeTimer);
-    chartResizeTimer = setTimeout(() => {
-      if (chart && typeof chart.resize === 'function') {
-        try {
-          chart.resize();
-        } catch (err) {
-          console.error('[UI] Chart resize error:', err);
-        }
-      }
-    }, 150);
-  });
-  
-  resizeObserver.observe(wrapper);
-  
-  store.patch('ui.chartReady', true);
-  console.log('[UI] Chart initialized with infinite scroll protection');
-}
-
-function updateChart(results) {
-  if (!chart || !results) return;
-
-  try {
-    const { bars, winnerKey } = results;
-    
-    chart.data.datasets[0].data = [
-      bars.alc.mean,
-      bars.coffee?.mean || 0,
-      bars.soda.mean,
-      bars.refresh.mean,
-      bars.deluxe.mean
-    ];
-    
-    const stamp = $('#best-stamp');
-    if (stamp) {
-      const winnerIndex = {
-        'alc': 0,
-        'coffee': 1,
-        'soda': 2,
-        'refresh': 3,
-        'deluxe': 4
-      }[winnerKey] || 0;
-      
-      stamp.style.left = `${winnerIndex * 20 + 10}%`;
-      stamp.style.display = 'block';
-    }
-    
-    chart.update('none');
-    updateScreenReaderTable(bars);
-  } catch (err) {
-    console.error('[UI] Chart update error:', err);
-  }
-}
-
-function updateScreenReaderTable(bars) {
-  const srAlc = $('#sr-alc');
-  const srCoffee = $('#sr-coffee');
-  const srSoda = $('#sr-soda');
-  const srRefresh = $('#sr-refresh');
-  const srDeluxe = $('#sr-deluxe');
-  
-  if (srAlc) srAlc.textContent = formatMoney(bars.alc.mean);
-  if (srCoffee) srCoffee.textContent = formatMoney(bars.coffee?.mean || 0);
-  if (srSoda) srSoda.textContent = formatMoney(bars.soda.mean);
-  if (srRefresh) srRefresh.textContent = formatMoney(bars.refresh.mean);
-  if (srDeluxe) srDeluxe.textContent = formatMoney(bars.deluxe.mean);
-}
-
-function showChartFallback() {
-  const wrapper = $('#breakeven-wrap');
-  if (!wrapper) return;
-  
-  wrapper.innerHTML = `
-    <div class="chart-fallback" role="alert">
-      <p><strong>Chart unavailable</strong></p>
-      <p class="tiny">Chart.js failed to load. Results are shown in the table below.</p>
-    </div>
-  `;
-}
-
-/* ==================== PRESET SYSTEM ==================== */
+/* ==================== PRESETS ==================== */
+/**
+ * ✅ PHASE 1 ITEM #6: Presets moved from core to UI layer
+ * ✅ PHASE 1 ITEM #11: Solo traveler preset
+ * ✅ PHASE 1 ITEM #12: Soda drinker preset
+ * 
+ * "Give instruction to a wise man, and he will be yet wiser" - Proverbs 9:9
+ */
 const PRESETS = {
   light: {
-    name: 'Light Drinker 🧘',
-    desc: 'Casual cruiser who enjoys a few drinks but isn\'t drinking all day.',
+    label: 'Light Drinker',
+    emoji: '🍃',
     drinks: {
       soda: 2, coffee: 1, teaprem: 0, freshjuice: 0,
       mocktail: 0, energy: 0, milkshake: 0, bottledwater: 1,
       beer: 1, wine: 1, cocktail: 0.5, spirits: 0
-    },
-    tip: 'You\'ll likely save money ordering à-la-carte or with a basic package.'
+    }
   },
   moderate: {
-    name: 'Moderate Drinker 🥂',
-    desc: 'Social drinker who enjoys multiple drinks per day, especially at dinner and by the pool.',
+    label: 'Moderate',
+    emoji: '⚖️',
     drinks: {
       soda: 2, coffee: 2, teaprem: 0, freshjuice: 1,
       mocktail: 1, energy: 0, milkshake: 0.5, bottledwater: 2,
       beer: 2, wine: 2, cocktail: 2, spirits: 0.5
-    },
-    tip: 'Refreshment or Deluxe package likely makes sense for you.'
+    }
   },
   party: {
-    name: 'Party Mode 🎉',
-    desc: 'Living it up! Drinks flow freely from breakfast through late-night at the bars.',
+    label: 'Party',
+    emoji: '🎉',
     drinks: {
       soda: 2, coffee: 2, teaprem: 0, freshjuice: 1,
       mocktail: 1, energy: 1, milkshake: 0, bottledwater: 2,
       beer: 4, wine: 2, cocktail: 4, spirits: 2
-    },
-    tip: 'Deluxe package is almost certainly worth it for your drinking style.'
+    }
   },
   coffee: {
-    name: 'Coffee Lover ☕',
-    desc: 'Can\'t start the day without specialty coffee, maybe a latte or cappuccino mid-afternoon too.',
+    label: 'Coffee Lover',
+    emoji: '☕',
     drinks: {
       soda: 1, coffee: 4, teaprem: 1, freshjuice: 1,
       mocktail: 1, energy: 0, milkshake: 0.5, bottledwater: 2,
       beer: 0, wine: 0, cocktail: 0, spirits: 0
-    },
-    tip: 'Coffee card or Refreshment package recommended.'
+    }
   },
   nonalc: {
-    name: 'Non-Alcoholic 🚫🍺',
-    desc: 'Abstaining from alcohol but love specialty drinks, sodas, and fresh juices.',
+    label: 'Non-Alcoholic',
+    emoji: '🚫🍺',
     drinks: {
       soda: 3, coffee: 2, teaprem: 1, freshjuice: 2,
       mocktail: 2, energy: 0.5, milkshake: 1, bottledwater: 2,
       beer: 0, wine: 0, cocktail: 0, spirits: 0
-    },
-    tip: 'Refreshment package likely your best bet.'
+    }
+  },
+  // ✅ PHASE 1 ITEM #11: Solo traveler preset
+  solo: {
+    label: 'Solo Traveler',
+    emoji: '🧳',
+    drinks: {
+      soda: 2, coffee: 2, teaprem: 0, freshjuice: 0.5,
+      mocktail: 0.5, energy: 0, milkshake: 0, bottledwater: 1,
+      beer: 2, wine: 1, cocktail: 1, spirits: 0
+    }
+  },
+  // ✅ PHASE 1 ITEM #12: Soda drinker preset
+  sodadrinker: {
+    label: 'Soda Drinker',
+    emoji: '🥤',
+    drinks: {
+      soda: 6, coffee: 1, teaprem: 0, freshjuice: 0,
+      mocktail: 1, energy: 1, milkshake: 0.5, bottledwater: 2,
+      beer: 0, wine: 0, cocktail: 0, spirits: 0
+    }
   }
 };
 
-/* ==================== QUIZ SYSTEM ==================== */
-let quizState = {
-  step: 1,
-  answers: {}
-};
+/* ==================== PRESET APPLICATION ==================== */
 
-function openQuiz() {
-  const modal = $('#quiz-modal');
-  if (!modal) return;
-  
-  modal.setAttribute('aria-hidden', 'false');
-  modal.style.display = 'flex';
-  
-  quizState = { step: 1, answers: {} };
-  showQuizStep(1);
-  
-  setTimeout(() => {
-    const firstBtn = modal.querySelector('.quiz-answer');
-    if (firstBtn) firstBtn.focus();
-  }, 100);
-}
-
-function closeQuiz() {
-  const modal = $('#quiz-modal');
-  if (!modal) return;
-  
-  modal.setAttribute('aria-hidden', 'true');
-  modal.style.display = 'none';
-  
-  const openBtn = $('#quiz-open-btn');
-  if (openBtn) openBtn.focus();
-}
-
-function showQuizStep(step) {
-  for (let i = 1; i <= 3; i++) {
-    const stepDiv = $(`#quiz-step-${i}`);
-    if (stepDiv) stepDiv.style.display = 'none';
+function applyPreset(presetKey) {
+  const preset = PRESETS[presetKey];
+  if (!preset) {
+    console.warn(`[UI] Unknown preset: ${presetKey}`);
+    return;
   }
   
-  const resultDiv = $('#quiz-result');
-  if (resultDiv) resultDiv.style.display = 'none';
-  
-  const currentStep = $(`#quiz-step-${step}`);
-  if (currentStep) currentStep.style.display = 'block';
-}
-
-function handleQuizAnswer(question, answer) {
-  quizState.answers[question] = answer;
-  
-  if (quizState.step < 3) {
-    quizState.step++;
-    showQuizStep(quizState.step);
-  } else {
-    showQuizResult();
-  }
-}
-
-function showQuizResult() {
-  const { answers } = quizState;
-  
-  let recommendation = '';
-  let presetKey = 'moderate';
-  
-  const amount = answers.q2 || 'moderate';
-  const preference = answers.q3 || 'cocktails';
-  
-  if (preference === 'nonalc') {
-    presetKey = 'nonalc';
-    recommendation = `
-      <h4>Refreshment Package</h4>
-      <p class="small">Perfect for non-drinkers! You'll get unlimited specialty coffees, fresh juices, mocktails, 
-      bottled water, and premium sodas. With your drinking pattern, you'll easily break even.</p>
-    `;
-  } else if (preference === 'coffee') {
-    presetKey = 'coffee';
-    recommendation = `
-      <h4>Coffee Card or Refreshment Package</h4>
-      <p class="small">Coffee lovers should consider the Coffee Card (15 punches for ~$31) if you drink 2-3 
-      specialty coffees per day. For more variety (smoothies, mocktails, fresh juice), go with Refreshment.</p>
-    `;
-  } else if (amount === 'heavy' || (amount === 'moderate' && answers.q1 === 'party')) {
-    presetKey = 'party';
-    recommendation = `
-      <h4>Deluxe Beverage Package</h4>
-      <p class="small">With your drinking style, the Deluxe package is likely your best value. Unlimited cocktails, 
-      beer, wine, plus all non-alcoholic drinks. You'll break even after just 6-7 alcoholic drinks per day.</p>
-    `;
-  } else if (amount === 'light') {
-    presetKey = 'light';
-    recommendation = `
-      <h4>À-la-carte or Soda Package</h4>
-      <p class="small">Light drinkers often save money ordering drinks individually. Track what you buy the first 
-      day — if you're spending $40+, consider upgrading to a package.</p>
-    `;
-  } else {
-    presetKey = 'moderate';
-    recommendation = `
-      <h4>Refreshment or Deluxe Package</h4>
-      <p class="small">You're right in the sweet spot! If you drink 4+ alcoholic drinks per day, go Deluxe. 
-      If you mix in lots of coffees, sodas, and mocktails with fewer alcoholic drinks, Refreshment might be better.</p>
-    `;
+  if (!window.ITW || !window.ITW.store) {
+    console.error('[UI] ITW core not loaded');
+    return;
   }
   
-  quizState.recommendedPreset = presetKey;
-  
-  const resultDiv = $('#quiz-result');
-  const recDiv = $('#quiz-recommendation');
-  
-  if (resultDiv && recDiv) {
-    recDiv.innerHTML = recommendation;
-    resultDiv.style.display = 'block';
-  }
-}
-
-function applyQuizResult() {
-  if (quizState.recommendedPreset) {
-    window.ITW.applyPreset(quizState.recommendedPreset);  // ✅ FIXED
-    closeQuiz();
-    
-    const inputsCard = $('.card.inputs');
-    if (inputsCard) {
-      inputsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-}
-
-function wireQuiz() {
-  const openBtn = $('#quiz-open-btn');
-  if (openBtn) {
-    openBtn.addEventListener('click', openQuiz);
-  }
-  
-  const closeBtn = $('#quiz-close-btn');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeQuiz);
-  }
-  
-  const skipBtn = $('#quiz-skip-btn');
-  if (skipBtn) {
-    skipBtn.addEventListener('click', closeQuiz);
-  }
-  
-  $$('.quiz-answer').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const answer = btn.dataset.quizAnswer;
-      const question = `q${quizState.step}`;
-      handleQuizAnswer(question, answer);
-    });
-  });
-  
-  const applyBtn = $('#quiz-apply-btn');
-  if (applyBtn) {
-    applyBtn.addEventListener('click', applyQuizResult);
-  }
-  
-  document.addEventListener('keydown', (e) => {
-    const modal = $('#quiz-modal');
-    if (modal && modal.style.display !== 'none' && e.key === 'Escape') {
-      closeQuiz();
-    }
-  });
-  
-  const modal = $('#quiz-modal');
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        closeQuiz();
-      }
-    });
-  }
-}
-
-/* ==================== RESULTS RENDERING ==================== */
-function renderResults(results) {
-  if (!results) return;
-
-  const { bars, winnerKey, perDay, trip, included, overcap, policyNote } = results;
-  
-  const bestChip = $('#best-chip');
-  const bestText = $('#best-text');
-  
-  if (bestChip && bestText) {
-    const winnerNames = {
-      'alc': 'À-la-carte',
-      'coffee': 'Coffee Card',
-      'soda': 'Soda Package',
-      'refresh': 'Refreshment Package',
-      'deluxe': 'Deluxe Package'
-    };
-    
-    const winnerName = winnerNames[winnerKey] || 'Unknown';
-    const savings = bars.alc.mean - bars[winnerKey].mean;
-    
-    bestChip.textContent = `Best Value: ${winnerName}`;
-    bestChip.className = `badge badge-${winnerKey}`;
-    
-    if (savings > 0) {
-      bestText.textContent = `Saves ${formatMoney(savings)}/day vs à-la-carte`;
-    } else if (winnerKey === 'alc') {
-      bestText.textContent = 'Just order drinks as you go!';
-    } else {
-      bestText.textContent = '';
-    }
-  }
-  
-  const totalsSpan = $('#totals');
-  if (totalsSpan) {
-    totalsSpan.textContent = `${formatMoney(perDay)}/day · ${formatMoney(trip)} total`;
-  }
-  
-  updatePackageCards(bars, included, overcap);
-  
-  // ✅ NEW: Render breakeven nudges
-  renderBreakevenNudges(bars, included);
-  
-  if (policyNote) {
-    const policyDiv = $('#policy-note');
-    const policyText = $('#policy-text');
-    if (policyDiv && policyText) {
-      policyText.textContent = policyNote;
-      policyDiv.hidden = false;
-    }
-  } else {
-    const policyDiv = $('#policy-note');
-    if (policyDiv) policyDiv.hidden = true;
-  }
-  
-  updateChart(results);
-  
-  if (results.categoryRows && results.categoryRows.length > 0) {
-    renderCategoryBreakdown(results.categoryRows);
-  }
-  
-  if (results.groupRows && results.groupRows.length > 0) {
-    renderGroupBreakdown(results.groupRows);
-  }
-}
-
-function updatePackageCards(bars, included, overcap) {
-  const economics = store.get('economics');
-  
-  $$('[data-pkg-price]').forEach(el => {
-    const pkg = el.dataset.pkgPrice;
-    if (pkg === 'coffee') {
-      el.textContent = formatMoney(31.0);
-    } else if (economics.pkg[pkg]) {
-      el.textContent = formatMoney(economics.pkg[pkg]);
-    }
-  });
-  
-  $$('[data-inc]').forEach(el => {
-    const pkg = el.dataset.inc;
-    if (included[pkg] !== undefined) {
-      el.textContent = `Includes: ${formatMoney(included[pkg])}/day in drinks`;
-    }
-  });
-  
-  const overcapNote = $('#overcap-est');
-  if (overcapNote) {
-    if (overcap > 0) {
-      overcapNote.textContent = `Over-cap: ${formatMoney(overcap)}/day extra`;
-      overcapNote.style.display = 'block';
-    } else {
-      overcapNote.style.display = 'none';
-    }
-  }
-  
-  $$('.package-card').forEach(card => {
-    card.classList.remove('winner');
-  });
-  
-  const winnerKey = store.get('results').winnerKey;
-  const winnerCard = $(`.package-card[data-card="${winnerKey}"]`);
-  if (winnerCard) {
-    winnerCard.classList.add('winner');
-  }
-}
-
-/**
- * ✅ NEW FEATURE: Breakeven nudges
- * "A word fitly spoken is like apples of gold in pictures of silver" - Proverbs 25:11
- */
-function renderBreakevenNudges(bars, included) {
-  const economics = store.get('economics');
-  const dataset = store.get('dataset');
+  const store = window.ITW.store;
   const inputs = store.get('inputs');
+  const drinks = { ...inputs.drinks };
   
-  if (!economics || !dataset || !inputs) return;
+  Object.keys(drinks).forEach(key => {
+    drinks[key] = preset.drinks[key] !== undefined ? preset.drinks[key] : 0;
+  });
   
-  const packages = [
-    { key: 'soda', name: 'Soda', set: 'soda' },
-    { key: 'refresh', name: 'Refreshment', set: 'refresh' },
-    { key: 'deluxe', name: 'Deluxe', set: 'alcoholic' }
-  ];
+  store.patch('inputs', { ...inputs, drinks });
   
-  packages.forEach(pkg => {
-    const card = $(`.package-card[data-card="${pkg.key}"]`);
-    if (!card) return;
+  // Update UI inputs
+  Object.keys(drinks).forEach(key => {
+    const input = document.querySelector(`[data-input="${key}"]`);
+    if (input) {
+      input.value = drinks[key];
+    }
+  });
+  
+  // Trigger calculation
+  if (window.ITW.scheduleCalc) {
+    window.ITW.scheduleCalc();
+  }
+  
+  // Save to storage
+  if (window.ITW.store) {
+    const state = window.ITW.store.get();
+    const { inputs: savedInputs, economics } = state;
+    try {
+      localStorage.setItem('itw:rc:state:v10', JSON.stringify({
+        value: JSON.stringify({ inputs: savedInputs, economics }),
+        timestamp: Date.now(),
+        version: '10.0.0'
+      }));
+    } catch (e) {}
+  }
+  
+  if (window.ITW.announce) {
+    window.ITW.announce(`Applied ${preset.label} preset`);
+  }
+  
+  console.log(`[UI] Applied preset: ${presetKey}`);
+}
+
+/* ==================== PRESET UI RENDERING ==================== */
+
+function renderPresetButtons() {
+  const container = document.getElementById('preset-buttons');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  
+  Object.keys(PRESETS).forEach(key => {
+    const preset = PRESETS[key];
+    const button = document.createElement('button');
+    button.className = 'preset-btn';
+    button.textContent = `${preset.emoji} ${preset.label}`;
+    button.setAttribute('data-preset', key);
+    button.addEventListener('click', () => applyPreset(key));
+    container.appendChild(button);
+  });
+}
+
+/* ==================== INLINE PRICE EDITING ==================== */
+/**
+ * ✅ PHASE 1 ITEM #5: Inline package price editing UI
+ * "The heart of the wise teacheth his mouth" - Proverbs 16:23
+ */
+function setupInlinePriceEditing() {
+  const priceElements = document.querySelectorAll('[data-edit-price]');
+  
+  priceElements.forEach(element => {
+    const packageKey = element.dataset.editPrice;
     
-    const oldNudge = card.querySelector('.breakeven-nudge');
-    if (oldNudge) oldNudge.remove();
+    // Make element look editable
+    element.style.cursor = 'pointer';
+    element.style.borderBottom = '1px dashed rgba(0,0,0,0.3)';
+    element.title = 'Click to edit price';
     
-    const pkgCost = economics.pkg[pkg.key];
-    const alcCost = bars.alc.mean;
-    const gap = pkgCost - alcCost;
-    
-    if (gap <= 0 || gap > 20) return;
-    
-    const setDrinks = dataset.sets[pkg.set] || [];
-    if (setDrinks.length === 0) return;
-    
-    const gratuity = economics.grat || 0.18;
-    const drinkCosts = setDrinks
-      .map(id => ({
-        id,
-        label: config.DRINK_LABELS[id] || id,
-        cost: (dataset.prices[id] || 0) * (1 + gratuity)
-      }))
-      .filter(d => d.cost > 0)
-      .sort((a, b) => b.cost - a.cost);
-    
-    if (drinkCosts.length === 0) return;
-    
-    let remaining = gap;
-    const suggestions = [];
-    const maxSuggestions = 3;
-    let drinkIndex = 0;
-    
-    while (remaining > 0.01 && suggestions.length < maxSuggestions && drinkIndex < drinkCosts.length) {
-      const drink = drinkCosts[drinkIndex];
-      const qty = Math.ceil(remaining / drink.cost);
-      const cappedQty = Math.min(qty, 3);
+    element.addEventListener('click', function() {
+      const currentText = this.textContent;
+      const currentValue = parseFloat(currentText.replace(/[^0-9.]/g, ''));
       
-      suggestions.push({
-        qty: cappedQty,
-        label: drink.label,
-        plural: cappedQty > 1
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = currentValue;
+      input.style.width = '80px';
+      input.style.fontSize = 'inherit';
+      input.style.fontFamily = 'inherit';
+      input.style.border = '2px solid #007bff';
+      input.style.borderRadius = '4px';
+      input.style.padding = '2px 6px';
+      
+      const save = () => {
+        const newValue = input.value;
+        if (window.ITW && window.ITW.updatePackagePrice) {
+          const success = window.ITW.updatePackagePrice(packageKey, newValue);
+          if (success) {
+            // Update will trigger re-render via store subscription
+            if (window.renderAll) {
+              window.renderAll();
+            }
+          } else {
+            // Restore original
+            this.textContent = currentText;
+          }
+        }
+      };
+      
+      input.addEventListener('blur', save);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          save();
+        } else if (e.key === 'Escape') {
+          this.textContent = currentText;
+        }
       });
       
-      remaining -= drink.cost * cappedQty;
-      drinkIndex++;
-    }
-    
-    if (suggestions.length === 0) return;
-    
-    const suggestionText = suggestions.map(s => 
-      `${s.qty} ${s.plural ? s.label.toLowerCase() : s.label.toLowerCase().replace(/s$/, '')}`
-    ).join(', ');
-    
-    const nudge = document.createElement('div');
-    nudge.className = 'breakeven-nudge';
-    nudge.innerHTML = `
-      <p class="tiny" style="margin:0.5rem 0 0; padding:0.5rem; background:rgba(255,193,7,0.1); border-left:3px solid #ffc107; border-radius:4px;">
-        <strong>💡 Close to breaking even!</strong><br/>
-        Add ${suggestionText} → ${pkg.name} package saves money
-      </p>
-    `;
-    
-    const incDiv = card.querySelector(`[data-inc="${pkg.key}"]`);
-    if (incDiv) {
-      incDiv.parentNode.insertBefore(nudge, incDiv.nextSibling);
-    }
-  });
-}
-
-function renderCategoryBreakdown(categoryRows) {
-  const grid = $('#category-grid');
-  const section = $('#category-breakdown');
-  
-  if (!grid || !section) return;
-  
-  if (categoryRows.length === 0) {
-    section.hidden = true;
-    return;
-  }
-  
-  const html = categoryRows.map(row => {
-    return `
-      <div class="category-item">
-        <div class="category-label">${row.label}</div>
-        <div class="category-value">${formatMoney(row.value)}</div>
-      </div>
-    `;
-  }).join('');
-  
-  grid.innerHTML = html;
-  section.hidden = false;
-}
-
-function renderGroupBreakdown(groupRows) {
-  const tbody = $('#group-table-body');
-  const section = $('#group-breakdown');
-  
-  if (!tbody || !section) return;
-  
-  if (groupRows.length === 0) {
-    section.hidden = true;
-    return;
-  }
-  
-  const html = groupRows.map(row => {
-    return `
-      <tr>
-        <td>${row.who}</td>
-        <td>${row.pkg}</td>
-        <td>${formatMoney(row.perDay)}</td>
-        <td>${formatMoney(row.trip)}</td>
-      </tr>
-    `;
-  }).join('');
-  
-  tbody.innerHTML = html;
-  section.hidden = false;
-}
-
-/* ==================== NAVIGATION DROPDOWNS ==================== */
-function wireNavigation() {
-  const groups = $$('.nav-group');
-  
-  const setOpen = (group, open) => {
-    group.dataset.open = open ? 'true' : 'false';
-    group.classList.toggle('open', open);
-    
-    const btn = group.querySelector('.nav-disclosure');
-    if (btn) {
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    }
-  };
-  
-  const closeAll = (except = null) => {
-    groups.forEach(g => {
-      if (g !== except) setOpen(g, false);
-    });
-  };
-  
-  groups.forEach(group => {
-    const btn = group.querySelector('.nav-disclosure');
-    const menu = group.querySelector('.submenu');
-    
-    if (!btn || !menu) return;
-    
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const open = group.dataset.open === 'true';
-      closeAll(group);
-      setOpen(group, !open);
-    });
-    
-    group.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        setOpen(group, false);
-        if (btn) btn.focus();
-      }
-      
-      if (e.key === 'ArrowDown' && document.activeElement === btn) {
-        e.preventDefault();
-        setOpen(group, true);
-        const firstLink = menu.querySelector('a, button');
-        if (firstLink) firstLink.focus();
-      }
-    });
-    
-    menu.addEventListener('focusout', () => {
-      setTimeout(() => {
-        if (!group.contains(document.activeElement)) {
-          setOpen(group, false);
-        }
-      }, 0);
+      this.textContent = '';
+      this.appendChild(input);
+      input.focus();
+      input.select();
     });
   });
-  
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav-group')) {
-      closeAll();
-    }
-  }, true);
-  
-  window.addEventListener('blur', () => closeAll());
 }
 
-/* ==================== EMAIL CAPTURE ==================== */
-function wireEmailCapture() {
-  const form = $('#email-form');
-  if (!form) return;
-  
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const email = form.querySelector('input[name="email"]').value;
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      announce('Please enter a valid email address', 'assertive');
-      return;
-    }
-    
-    const results = store.get('results');
-    const inputs = store.get('inputs');
-    
-    const savingsField = $('#email-savings');
-    const recField = $('#email-rec');
-    const daysField = $('#email-days');
-    
-    if (savingsField) savingsField.value = formatMoney(results.perDay);
-    if (recField) recField.value = results.winnerKey;
-    if (daysField) daysField.value = inputs.days;
-    
-    try {
-      announce('Sending email...');
-      announce('Results sent! Check your email.', 'polite');
-      form.reset();
-    } catch (err) {
-      console.error('[UI] Email submission error:', err);
-      announce('Failed to send email. Please try again.', 'assertive');
-    }
-  });
-}
-
-/* ==================== RECENT ARTICLES RAIL ==================== */
-async function loadRecentArticles() {
-  const mount = $('#recent-rail');
-  const fallback = $('#recent-rail-fallback');
-  
-  if (!mount) return;
-  
-  if (fallback) fallback.style.display = 'block';
-  
-  try {
-    const response = await fetch(`/assets/data/articles/index.json?v=${VERSION}`, {
-      cache: 'no-store'
-    });
-    
-    if (!response.ok) throw new Error('Articles fetch failed');
-    
-    const data = await response.json();
-    const articles = Array.isArray(data.articles) ? data.articles : [];
-    
-    if (articles.length === 0) {
-      mount.innerHTML = '<p class="tiny muted">No articles available</p>';
-      return;
-    }
-    
-    const html = articles.slice(0, 3).map(article => {
-      const title = article.title || 'Untitled';
-      const url = article.url || '#';
-      const date = article.date ? new Date(article.date).toLocaleDateString() : '';
-      
-      return `
-        <article class="rail-item">
-          <div>
-            <h4 style="margin:.1rem 0 .2rem">
-              <a href="${url}">${title}</a>
-            </h4>
-            ${date ? `<p class="tiny muted">${date}</p>` : ''}
-          </div>
-        </article>
-      `;
-    }).join('');
-    
-    mount.innerHTML = html;
-    
-    if (fallback) fallback.style.display = 'none';
-  } catch (err) {
-    console.warn('[UI] Failed to load articles:', err);
-    mount.innerHTML = '<p class="tiny muted">Unable to load articles</p>';
-    if (fallback) fallback.style.display = 'none';
-  }
-}
-
-/* ==================== ACTION BUTTONS ==================== */
-function wireActionButtons() {
-  const shareBtn = $('#share-btn');
-  if (shareBtn) {
-    shareBtn.addEventListener('click', () => {
-      window.ITW.shareScenario();
-    });
-  }
-  
-  const resetBtn = $('#reset-btn');
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      if (confirm('Reset all inputs to defaults?')) {
-        window.ITW.resetInputs();
-        
-        const explanation = $('#preset-explanation');
-        if (explanation) explanation.style.display = 'none';
-      }
-    });
-  }
-}
-
-/* ==================== UI STATE MANAGEMENT ==================== */
-function showCalculator() {
-  const loading = $('#loading-state');
-  const app = $('#calculator-app');
-  
-  if (loading) loading.style.display = 'none';
-  if (app) app.style.display = 'block';
-}
-
-function updateUIState(uiState) {
-  const fallbackBanner = $('#fallback-banner');
-  if (fallbackBanner) {
-    fallbackBanner.hidden = !uiState.fallbackBanner;
-  }
-  
-  const offlineChip = $('#offline-rates-chip');
-  if (offlineChip) {
-    offlineChip.hidden = !uiState.fxStale;
-  }
-  
-  const fxNote = $('#fx-note');
-  if (fxNote) {
-    const rates = window.ITW._debug.getFXRates();
-    if (rates.asOf) {
-      fxNote.textContent = `(rates as of ${rates.asOf})`;
-    }
-  }
-}
-
+/* ==================== GENTLE NUDGES RENDERING ==================== */
 /**
- * ✅ NEW FEATURE: Update deluxe cap badge
+ * ✅ PHASE 1 ITEM #9: Gentle nudges display
+ * "A word spoken in due season, how good is it!" - Proverbs 15:23
  */
-function updateDeluxeCapBadge() {
-  const economics = store.get('economics');
-  const capBadge = $('#cap-badge');
-  if (capBadge && economics) {
-    capBadge.textContent = formatMoney(economics.deluxeCap);
+function renderNudges(nudges) {
+  const container = document.getElementById('nudges-container');
+  if (!container) return;
+  
+  if (!nudges || nudges.length === 0) {
+    container.innerHTML = '';
+    container.style.display = 'none';
+    return;
+  }
+  
+  container.style.display = 'block';
+  container.innerHTML = '';
+  
+  nudges.forEach(nudge => {
+    const div = document.createElement('div');
+    div.className = 'nudge-item';
+    div.style.cssText = `
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 16px;
+      margin: 8px 0;
+      border-radius: 8px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    `;
+    
+    const icon = document.createElement('span');
+    icon.textContent = nudge.icon;
+    icon.style.fontSize = '24px';
+    
+    const message = document.createElement('span');
+    message.textContent = nudge.message;
+    
+    div.appendChild(icon);
+    div.appendChild(message);
+    container.appendChild(div);
+  });
+}
+
+/* ==================== HEALTH GUIDELINES RENDERING ==================== */
+/**
+ * ✅ PHASE 1 ITEM #10: Health guidelines display
+ * "Know ye not that your body is the temple?" - 1 Corinthians 6:19
+ */
+function renderHealthNote(healthNote) {
+  const container = document.getElementById('health-note-container');
+  if (!container) return;
+  
+  if (!healthNote) {
+    container.innerHTML = '';
+    container.style.display = 'none';
+    return;
+  }
+  
+  container.style.display = 'block';
+  
+  const colors = {
+    moderate: { bg: '#fff3cd', border: '#ffc107', text: '#856404' },
+    high: { bg: '#f8d7da', border: '#dc3545', text: '#721c24' }
+  };
+  
+  const color = colors[healthNote.level] || colors.moderate;
+  
+  container.innerHTML = `
+    <div style="
+      background: ${color.bg};
+      border-left: 4px solid ${color.border};
+      color: ${color.text};
+      padding: 16px;
+      border-radius: 4px;
+      margin: 16px 0;
+      display: flex;
+      align-items: start;
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+    ">
+      <span style="font-size: 24px; flex-shrink: 0;">${healthNote.icon}</span>
+      <div>
+        <strong>Health Note:</strong> ${healthNote.message}
+      </div>
+    </div>
+  `;
+}
+
+/* ==================== CHART RENDERING ==================== */
+
+let chartInstance = null;
+
+function renderChart(bars, winnerKey) {
+  const canvas = document.getElementById('results-chart');
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  
+  if (!window.Chart) {
+    console.warn('[UI] Chart.js not loaded');
+    return;
+  }
+  
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+  
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  
+  const data = {
+    labels: ['À la carte', 'Soda', 'Refreshment', 'Deluxe'],
+    datasets: [{
+      label: 'Total Cost',
+      data: [
+        bars.alc.mean,
+        bars.soda.mean,
+        bars.refresh.mean,
+        bars.deluxe.mean
+      ],
+      backgroundColor: [
+        winnerKey === 'alc' ? 'rgba(75, 192, 192, 0.8)' : 'rgba(75, 192, 192, 0.4)',
+        winnerKey === 'soda' ? 'rgba(255, 159, 64, 0.8)' : 'rgba(255, 159, 64, 0.4)',
+        winnerKey === 'refresh' ? 'rgba(153, 102, 255, 0.8)' : 'rgba(153, 102, 255, 0.4)',
+        winnerKey === 'deluxe' ? 'rgba(255, 99, 132, 0.8)' : 'rgba(255, 99, 132, 0.4)'
+      ],
+      borderColor: [
+        winnerKey === 'alc' ? 'rgba(75, 192, 192, 1)' : 'rgba(75, 192, 192, 0.6)',
+        winnerKey === 'soda' ? 'rgba(255, 159, 64, 1)' : 'rgba(255, 159, 64, 0.6)',
+        winnerKey === 'refresh' ? 'rgba(153, 102, 255, 1)' : 'rgba(153, 102, 255, 0.6)',
+        winnerKey === 'deluxe' ? 'rgba(255, 99, 132, 1)' : 'rgba(255, 99, 132, 0.6)'
+      ],
+      borderWidth: winnerKey === 'alc' ? 3 : 1
+    }]
+  };
+  
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (context) => formatMoney(context.parsed.y)
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: (value) => formatMoney(value)
+        }
+      }
+    }
+  };
+  
+  chartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
+}
+
+/* ==================== RESULTS SUMMARY ==================== */
+
+function renderSummary(results) {
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  
+  // Per day
+  const perDayEl = document.getElementById('summary-per-day');
+  if (perDayEl) {
+    perDayEl.textContent = formatMoney(results.perDay);
+  }
+  
+  // Trip total
+  const tripEl = document.getElementById('summary-trip');
+  if (tripEl) {
+    tripEl.textContent = formatMoney(results.trip);
+  }
+  
+  // Winner badge
+  const winnerEl = document.getElementById('winner-badge');
+  if (winnerEl) {
+    const labels = {
+      alc: 'À la carte',
+      soda: 'Soda Package',
+      refresh: 'Refreshment Package',
+      deluxe: 'Deluxe Package'
+    };
+    winnerEl.textContent = labels[results.winnerKey] || 'À la carte';
+  }
+  
+  // Policy note
+  const policyEl = document.getElementById('policy-note');
+  if (policyEl) {
+    if (results.policyNote) {
+      policyEl.textContent = results.policyNote;
+      policyEl.style.display = 'block';
+    } else {
+      policyEl.style.display = 'none';
+    }
   }
 }
 
-/* ==================== STORE SUBSCRIPTIONS ==================== */
-function subscribeToStore() {
-  store.subscribe('results', (results) => {
-    renderResults(results);
-  });
+/* ==================== CATEGORY BREAKDOWN TABLE ==================== */
+
+function renderCategoryTable(categoryRows) {
+  const tbody = document.querySelector('#category-table tbody');
+  if (!tbody) return;
   
-  store.subscribe('ui', (uiState) => {
-    updateUIState(uiState);
-  });
+  tbody.innerHTML = '';
   
-  store.subscribe('economics', (economics) => {
-    const results = store.get('results');
-    if (results && results.bars) {
-      updatePackageCards(results.bars, results.included, results.overcap);
-    }
-    updateDeluxeCapBadge(); // ✅ NEW
-  });
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  const labels = window.ITW_CONFIG?.DRINK_LABELS || {};
   
-  document.addEventListener('itw:calc-updated', () => {
-    showCalculator();
+  categoryRows.forEach(row => {
+    if (row.qty === 0) return;
+    
+    const tr = document.createElement('tr');
+    
+    const tdDrink = document.createElement('td');
+    tdDrink.textContent = labels[row.id] || row.id;
+    
+    const tdQty = document.createElement('td');
+    tdQty.textContent = row.qty.toFixed(1);
+    
+    const tdPrice = document.createElement('td');
+    tdPrice.textContent = formatMoney(row.price);
+    
+    const tdCost = document.createElement('td');
+    tdCost.textContent = formatMoney(row.cost);
+    
+    tr.appendChild(tdDrink);
+    tr.appendChild(tdQty);
+    tr.appendChild(tdPrice);
+    tr.appendChild(tdCost);
+    
+    tbody.appendChild(tr);
   });
+}
+
+/* ==================== MAIN RENDER FUNCTION ==================== */
+
+function renderAll() {
+  if (!window.ITW || !window.ITW.store) {
+    console.warn('[UI] ITW core not initialized');
+    return;
+  }
+  
+  const state = window.ITW.store.get();
+  const { results } = state;
+  
+  if (!results) return;
+  
+  renderChart(results.bars, results.winnerKey);
+  renderSummary(results);
+  renderCategoryTable(results.categoryRows || []);
+  renderNudges(results.nudges || []); // ✅ #9
+  renderHealthNote(results.healthNote); // ✅ #10
 }
 
 /* ==================== INITIALIZATION ==================== */
-function initialize() {
-  console.log(`[UI] v${VERSION} Initializing...`);
+
+function initializeUI() {
+  console.log('[UI] Initializing v10.0.0 (Phase 1 Complete)');
   
-  wireNavigation();
-  wireQuiz();
-  wireEmailCapture();
-  wireActionButtons();
+  // Render preset buttons
+  renderPresetButtons();
   
-  document.querySelectorAll('[data-preset]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const preset = btn.dataset.preset;
-      if (window.ITW && typeof window.ITW.applyPreset === 'function') {
-        window.ITW.applyPreset(preset);
-      } else {
-        console.error('[UI] applyPreset function not found');
-      }
-    });
+  // Setup inline price editing
+  setupInlinePriceEditing();
+  
+  // Listen for calculation updates
+  document.addEventListener('itw:calc-updated', () => {
+    renderAll();
   });
   
-  loadRecentArticles();
-  
-  if (window.Chart) {
-    initializeChart();
-  } else {
-    console.warn('[UI] Chart.js not loaded');
+  // Subscribe to store changes
+  if (window.ITW && window.ITW.store) {
+    window.ITW.store.subscribe('results', () => {
+      renderAll();
+    });
   }
   
-  subscribeToStore();
+  // Initial render
+  renderAll();
   
-  const results = store.get('results');
-  const uiState = store.get('ui');
-  
-  if (results) renderResults(results);
-  if (uiState) updateUIState(uiState);
-  
-  updateDeluxeCapBadge(); // ✅ NEW
-  
-  setTimeout(showCalculator, 100);
-  
-  console.log(`[UI] ✓ Initialized v${VERSION}`);
+  console.log('[UI] ✓ Initialized');
 }
 
+// Auto-initialize
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initialize);
+  document.addEventListener('DOMContentLoaded', initializeUI);
 } else {
-  initialize();
+  initializeUI();
 }
 
-})();
+/* ==================== EXPORTS ==================== */
 
+window.ITW_UI = Object.freeze({
+  renderAll,
+  applyPreset,
+  renderChart,
+  renderNudges,
+  renderHealthNote,
+  version: '10.0.0'
+});
+
+// Make applyPreset globally accessible for buttons
+window.applyPreset = applyPreset;
+
+// "Let your light so shine before men" - Matthew 5:16
 // Soli Deo Gloria ✝️
