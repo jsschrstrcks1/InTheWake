@@ -7,10 +7,12 @@
        "Whatever you do, work heartily, as for the Lord"
        Colossians 3:23
        ====================================================== -->
+  
   <!-- Core -->
   <meta charset="utf-8"/>
+  
   <!-- ✅ PHASE 2: Content Security Policy -->
- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.frankfurter.app; worker-src 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.frankfurter.app; worker-src 'self';">
   
   <!-- Note: 'unsafe-inline' for styles is temporary. Remove once you extract inline styles to CSS file -->
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -20,36 +22,12 @@
   <meta name="theme-color" content="#0e6e8e"/>
   <meta name="version" content="1.001.001"/>
   <meta name="author" content="In the Wake"/>
+  
   <!-- Title & SEO -->
   <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
   <meta name="description" content="Compare Soda, Refreshment, Deluxe, and Coffee Card vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support."/>
   <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
- 
-  <!-- REPLACE LINE 39 in drink-calculator.html with this: -->
-
-<!-- ✅ PHASE 2: Chart.js with SRI integrity check -->
-<script 
-  src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" 
-  integrity="ssha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
-  crossorigin="anonymous"
-  defer
-  id="chartjs-cdn"
-></script>
-
-<!-- Fallback loader (no inline onerror) -->
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-  // Check if Chart.js loaded from CDN
-  if (!window.Chart) {
-    console.warn('[HTML] Chart.js CDN failed, loading fallback');
-    const fallback = document.createElement('script');
-    fallback.src = '/assets/vendor/chart.umd.min.js?v=1.001.001';
-    fallback.defer = true;
-    document.head.appendChild(fallback);
-  }
-});
-</script>
-
+  
   <!-- OpenGraph / Twitter -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
@@ -58,6 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
   <meta property="og:url" content="https://cruisinginthewake.com/drink-calculator.html"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/drink-calculator-2025.jpg"/>
   <meta name="twitter:card" content="summary_large_image"/>
+  
   <!-- Breadcrumb JSON-LD -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
@@ -65,15 +44,38 @@ window.addEventListener('DOMContentLoaded', () => {
     {"@type":"ListItem","position":2,"name":"Drink Calculator","item":"https://cruisinginthewake.com/drink-calculator.html"}
   ]}
   </script>
+  
   <!-- Favicon / PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="manifest" href="/manifest.webmanifest"/>
+  
   <!-- Performance -->
   <link rel="preconnect" href="https://api.frankfurter.app"/>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
-  <!-- Chart.js with fallback -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer 
-          onerror="this.onerror=null;this.src='/assets/vendor/chart.umd.min.js?v=1.001.001'"></script>
+  
+  <!-- ✅ Chart.js with Fallback (Clean, No Inline Handlers) -->
+  <script 
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" 
+    defer
+    id="chartjs-cdn"
+  ></script>
+  
+  <!-- Fallback loader (event listener, not inline) -->
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    // Give CDN a moment to load
+    setTimeout(() => {
+      if (!window.Chart) {
+        console.warn('[HTML] Chart.js CDN failed, loading fallback');
+        const fallback = document.createElement('script');
+        fallback.src = '/assets/vendor/chart.umd.min.js?v=1.001.001';
+        fallback.defer = true;
+        document.head.appendChild(fallback);
+      }
+    }, 100); // 100ms grace period for CDN
+  });
+  </script>
+  
   <!-- Styles -->
   <link rel="stylesheet" href="/assets/css/calculator.css?v=1.001.001"/>
 </head>
