@@ -1,1166 +1,665 @@
 /**
- * Royal Caribbean Drink Calculator - Unified Core Engine
- * Version: 10.0.0 (Phase 1 Complete)
+ * Royal Caribbean Drink Calculator - UI Layer
+ * Version: 1.001.001 (Phase 1 Complete + All UI Functions)
  * 
- * "Whatever you do, work heartily, as for the Lord and not for men"
- * - Colossians 3:23
+ * "Let all things be done decently and in order" - 1 Corinthians 14:40
  * 
  * Soli Deo Gloria ✝️
  * 
- * PHASE 1 COMPLETE - All 12 Items:
- * ✅ #1  safeClone() replaces fake structuredClone
- * ✅ #2  hydrateAllowlist() prevents prototype pollution
- * ✅ #3  Unified math API (one compute function)
- * ✅ #4  parseQty() handles international numbers & ranges
- * ✅ #5  Inline package price editing support
- * ✅ #6  Presets moved to UI layer (removed from core)
- * ✅ #7  TTL tampering limits (90 days, no future timestamps)
- * ✅ #8  Safe render (textContent only)
- * ✅ #9  Gentle nudges system (breakeven suggestions)
- * ✅ #10 Health guidelines (CDC threshold warnings)
- * ✅ #11 Solo traveler preset (in UI layer)
- * ✅ #12 Soda drinker preset (in UI layer)
+ * PHASE 1 FEATURES:
+ * ✅ #5  Inline package price editing UI
+ * ✅ #6  Presets moved to UI layer (out of core)
+ * ✅ #9  Gentle nudges rendering
+ * ✅ #10 Health guidelines display
+ * ✅ #11 Solo traveler preset
+ * ✅ #12 Soda drinker preset
+ * 
+ * v1.001.001 ADDITIONS:
+ * ✅ Banner rendering (best value chip)
+ * ✅ Totals rendering (per day / trip total)
+ * ✅ Complete UI coverage for all HTML elements
  */
 
-(function() {
 'use strict';
 
-/* ==================== VERSION & INITIALIZATION GUARD ==================== */
-const VERSION = '1.001.001';
-
-if (window.ITW_BOOTED) {
-  console.warn('[Core] Already initialized, skipping duplicate init');
-  return;
-}
-
-console.log(`[Core] v${VERSION} Initializing (Phase 1 Complete)...`);
-
-/* ==================== CONFIGURATION ==================== */
-const CONFIG = Object.freeze({
-  VERSION: VERSION,
-  LIMITS: Object.freeze({
-    MIN_DAYS: 1, MAX_DAYS: 365, MIN_ADULTS: 1, MAX_ADULTS: 20,
-    MIN_MINORS: 0, MAX_MINORS: 20, SEA_WEIGHT_MAX: 40,
-    VOUCHER_MAX_PER_PERSON: 10, MAX_DRINK_QTY: 99,
-    PKG_PRICE_MIN: 5, PKG_PRICE_MAX: 150 // ✅ #5 inline editing
-  }),
-  RULES: Object.freeze({
-    GRATUITY: 0.18, DELUXE_CAP_FALLBACK: 14.0,
-    DELUXE_DAILY_LIMIT: 15, CALC_DEBOUNCE_MS: 120,
-    STORAGE_MAX_AGE_DAYS: 90 // ✅ #7 TTL limit
-  }),
-  API: Object.freeze({
-    brands: '/assets/data/brands.json',
-    fxFrankfurter: 'https://api.frankfurter.app/latest',
-    fxExchangeRate: 'https://api.exchangerate.host/latest'
-  }),
-  CACHE: Object.freeze({
-    FX_REFRESH_HOURS: 12, FX_STALE_HOURS: 48, PRICING_MAX_AGE_DAYS: 7
-  }),
-  STORAGE_KEYS: Object.freeze({
-    state: 'itw:rc:state:v10', currency: 'itw:currency',
-    fx: 'itw:fx:v10', brands: 'itw:brands:v10'
-  }),
-  CURRENCIES: Object.freeze(['USD', 'GBP', 'EUR', 'CAD', 'AUD']),
-  DRINK_KEYS: Object.freeze([
-    'soda', 'coffee', 'teaprem', 'freshjuice', 'mocktail', 'energy',
-    'milkshake', 'bottledwater', 'beer', 'wine', 'cocktail', 'spirits'
-  ]),
-  DRINK_LABELS: Object.freeze({
-    soda: 'Soda', coffee: 'Premium Coffee', teaprem: 'Specialty Tea',
-    freshjuice: 'Fresh Juice/Smoothie', mocktail: 'Mocktail',
-    energy: 'Energy Drink', milkshake: 'Milkshake',
-    bottledwater: 'Bottled Water', beer: 'Beer', wine: 'Wine (glass)',
-    cocktail: 'Cocktail', spirits: 'Spirits/Shot'
-  }),
-  WORKER: Object.freeze({
-    enabled: true,
-    url: `/assets/js/calculator-worker.js?v=${VERSION}`,
-    timeout: 5000
-  }),
-  FALLBACK_DATASET: Object.freeze({
-    version: VERSION,
-    rules: { gratuity: 0.18, deluxeCap: 14.0 },
-    packages: {
-      soda: { priceMid: 13.99 },
-      refreshment: { priceMid: 34.0 },
-      deluxe: { priceMid: 85.0 }
-    },
-    prices: {
-      soda: 2.00, coffee: 4.50, teaprem: 3.50, freshjuice: 6.00,
-      mocktail: 6.50, energy: 5.50, milkshake: 6.95, bottledwater: 2.95,
-      beer: 8.50, wine: 11.00, cocktail: 13.00, spirits: 10.00
-    },
-    sets: {
-      refresh: ['soda', 'coffee', 'teaprem', 'freshjuice', 'mocktail',
-                'energy', 'milkshake', 'bottledwater'],
-      soda: ['soda'],
-      alcoholic: ['beer', 'wine', 'cocktail', 'spirits']
-    }
-  })
-});
-
-window.ITW_CONFIG = CONFIG;
-
-/* ==================== UTILITIES ==================== */
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
-
+/* ==================== PRESETS ==================== */
 /**
- * ✅ PHASE 1 ITEM #1: Safe shallow clone for POJOs
- * "The LORD is my rock" - Psalm 18:2
- * Replaces fake structuredClone polyfill
- */
-function safeClone(obj) {
-  if (obj === null || typeof obj !== 'object') return obj;
-  if (Array.isArray(obj)) return obj.map(item => safeClone(item));
-  const cloned = {};
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      cloned[key] = safeClone(obj[key]);
-    }
-  }
-  return cloned;
-}
-
-/**
- * Basic number parser (simple version)
- */
-function num(value) {
-  if (typeof value === 'number' && Number.isFinite(value)) return value;
-  if (value === null || value === undefined || value === '') return 0;
-  const cleaned = String(value).replace(/[^0-9.\-]/g, '').trim();
-  const n = parseFloat(cleaned);
-  return Number.isFinite(n) ? n : 0;
-}
-
-function clamp(n, min, max) {
-  return Math.min(max, Math.max(min, num(n)));
-}
-
-function isObject(item) {
-  return item && typeof item === 'object' && !Array.isArray(item);
-}
-
-/**
- * ✅ PHASE 1 ITEM #4: International & range-aware quantity parser
- * "Trust in the LORD with all your heart" - Proverbs 3:5
+ * ✅ PHASE 1 ITEM #6: Presets moved from core to UI layer
+ * ✅ PHASE 1 ITEM #11: Solo traveler preset
+ * ✅ PHASE 1 ITEM #12: Soda drinker preset
  * 
- * Handles:
- * - Ranges: "2-3" or "2–3" → {min: 2, max: 3}
- * - EU decimals: "1,5" → 1.5
- * - EU thousands: "3.000" → 3000
- * - US format: "3,000" → 3000
- * - Currency symbols: "$12.50" → 12.5
+ * "Give instruction to a wise man, and he will be yet wiser" - Proverbs 9:9
  */
-function parseQty(value, context = 'generic') {
-  if (value === null || value === undefined || value === '') {
-    return { value: 0, isRange: false, valid: true };
-  }
-  
-  if (typeof value === 'number') {
-    return { value: Math.max(0, value), isRange: false, valid: true };
-  }
-  
-  let str = String(value).trim();
-  str = str.replace(/[$€£¥₹\s]/g, '');
-  
-  // Check for range patterns: "2-3" or "2–3"
-  const rangeMatch = str.match(/^(\d+[.,]?\d*)\s*[-–]\s*(\d+[.,]?\d*)$/);
-  if (rangeMatch) {
-    const min = parseFloat(rangeMatch[1].replace(',', '.'));
-    const max = parseFloat(rangeMatch[2].replace(',', '.'));
-    if (Number.isFinite(min) && Number.isFinite(max)) {
-      return {
-        value: { min: Math.max(0, Math.min(min, max)), max: Math.max(0, Math.max(min, max)) },
-        isRange: true,
-        valid: true
-      };
-    }
-  }
-  
-  const hasComma = str.includes(',');
-  const hasDot = str.includes('.');
-  
-  let parsed;
-  
-  if (hasComma && hasDot) {
-    const lastComma = str.lastIndexOf(',');
-    const lastDot = str.lastIndexOf('.');
-    
-    if (lastComma > lastDot) {
-      // EU format: 1.234,56 → 1234.56
-      parsed = parseFloat(str.replace(/\./g, '').replace(',', '.'));
-    } else {
-      // US format: 1,234.56 → 1234.56
-      parsed = parseFloat(str.replace(/,/g, ''));
-    }
-  } else if (hasComma) {
-    const parts = str.split(',');
-    if (parts.length === 2 && parts[1].length <= 2) {
-      // EU decimal: 1,5 → 1.5
-      parsed = parseFloat(str.replace(',', '.'));
-    } else {
-      // US thousands: 1,234 → 1234
-      parsed = parseFloat(str.replace(/,/g, ''));
-    }
-  } else if (hasDot) {
-    const parts = str.split('.');
-    if (parts.length === 2 && parts[1].length <= 2) {
-      // US decimal: 1.5 → 1.5
-      parsed = parseFloat(str);
-    } else {
-      // EU thousands: 1.234 → 1234
-      parsed = parseFloat(str.replace(/\./g, ''));
-    }
-  } else {
-    parsed = parseFloat(str);
-  }
-  
-  if (!Number.isFinite(parsed)) {
-    return { value: 0, isRange: false, valid: false, error: 'Invalid number format' };
-  }
-  
-  return { value: Math.max(0, parsed), isRange: false, valid: true };
-}
-
-/**
- * ✅ PHASE 1 ITEM #2: Allow-list hydrator (replaces deepMerge)
- * "Keep thy heart with all diligence" - Proverbs 4:23
- * 
- * Prevents prototype pollution by only accepting known keys
- */
-function hydrateAllowlist(base, stored, allowedKeys) {
-  const result = safeClone(base);
-  
-  if (!stored || typeof stored !== 'object') return result;
-  
-  for (const key of allowedKeys) {
-    if (key in stored && key !== '__proto__' && key !== 'constructor' && key !== 'prototype') {
-      const storedValue = stored[key];
-      const baseValue = base[key];
-      
-      if (isObject(storedValue) && isObject(baseValue)) {
-        const nestedKeys = Object.keys(baseValue);
-        result[key] = hydrateAllowlist(baseValue, storedValue, nestedKeys);
-      } else {
-        result[key] = storedValue;
-      }
-    }
-  }
-  
-  return result;
-}
-
-function debounce(fn, ms = CONFIG.RULES.CALC_DEBOUNCE_MS) {
-  let timeoutId;
-  return function(...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(this, args), ms);
-  };
-}
-
-/**
- * ✅ PHASE 1 ITEM #8: Safe announce (textContent only)
- */
-function announce(message, level = 'polite') {
-  const id = level === 'assertive' ? 'a11y-alerts' : 'a11y-status';
-  const element = document.getElementById(id);
-  if (element) {
-    element.textContent = String(message);
-    setTimeout(() => { element.textContent = ''; }, 3000);
-  }
-}
-
-/* ==================== SECURITY & SANITIZATION ==================== */
-const Security = {
-  sanitizeHTML(input) {
-    if (typeof input !== 'string') return '';
-    const temp = document.createElement('div');
-    temp.textContent = input;
-    return temp.innerHTML;
-  },
-  sanitizeNumber(input, min = 0, max = 999) {
-    const n = num(input);
-    return clamp(n, min, max);
-  },
-  sanitizeString(input, maxLength = 200) {
-    if (typeof input !== 'string') return '';
-    return input.slice(0, maxLength)
-      .replace(/<script[^>]*>.*?<\/script>/gi, '')
-      .replace(/<iframe[^>]*>.*?<\/iframe>/gi, '')
-      .replace(/javascript:/gi, '')
-      .replace(/on\w+\s*=/gi, '')
-      .trim();
-  },
-  isValidEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-  },
-  wireSecureInput(input) {
-    input.addEventListener('paste', (e) => {
-      e.preventDefault();
-      const text = (e.clipboardData || window.clipboardData).getData('text');
-      const sanitized = this.sanitizeString(text);
-      if (document.queryCommandSupported('insertText')) {
-        document.execCommand('insertText', false, sanitized);
-      } else {
-        input.value = sanitized;
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-      }
-    });
-    input.addEventListener('drop', (e) => e.preventDefault());
-    input.addEventListener('blur', () => {
-      input.value = this.sanitizeString(input.value);
-    });
-  }
-};
-
-/* ==================== STORAGE ==================== */
-const SafeStorage = {
-  /**
-   * ✅ PHASE 1 ITEM #7: TTL tampering limits
-   * Reject timestamps older than 90 days or in the future
-   */
-  set(key, value, ttl = null) {
-    try {
-      const item = {
-        value: JSON.stringify(value),
-        timestamp: Date.now(),
-        ttl: ttl,
-        version: VERSION
-      };
-      const sanitizedKey = Security.sanitizeString(key, 100);
-      localStorage.setItem(sanitizedKey, JSON.stringify(item));
-      return true;
-    } catch (err) {
-      console.error('[Storage] Write error:', err);
-      this.clearExpired();
-      try {
-        const item = { value: JSON.stringify(value), timestamp: Date.now(), ttl: ttl, version: VERSION };
-        localStorage.setItem(Security.sanitizeString(key, 100), JSON.stringify(item));
-        return true;
-      } catch { return false; }
-    }
-  },
-  get(key) {
-    try {
-      const sanitizedKey = Security.sanitizeString(key, 100);
-      const raw = localStorage.getItem(sanitizedKey);
-      if (!raw) return null;
-      const item = JSON.parse(raw);
-      
-      // ✅ PHASE 1 ITEM #7: TTL tampering protection
-      const now = Date.now();
-      const maxAge = CONFIG.RULES.STORAGE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
-      
-      // Reject future timestamps
-      if (item.timestamp > now) {
-        console.warn('[Storage] Rejecting future timestamp');
-        this.remove(key);
-        return null;
-      }
-      
-      // Reject timestamps older than max age
-      if (now - item.timestamp > maxAge) {
-        console.warn('[Storage] Rejecting stale data (>90 days)');
-        this.remove(key);
-        return null;
-      }
-      
-      // Check TTL if specified
-      if (item.ttl && now - item.timestamp > item.ttl) {
-        this.remove(key);
-        return null;
-      }
-      
-      return JSON.parse(item.value);
-    } catch (err) {
-      console.error('[Storage] Read error:', err);
-      return null;
-    }
-  },
-  remove(key) {
-    try {
-      const sanitizedKey = Security.sanitizeString(key, 100);
-      localStorage.removeItem(sanitizedKey);
-      return true;
-    } catch { return false; }
-  },
-  clearExpired() {
-    try {
-      const keys = Object.keys(localStorage);
-      let cleared = 0;
-      const now = Date.now();
-      const maxAge = CONFIG.RULES.STORAGE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
-      
-      for (const key of keys) {
-        try {
-          const raw = localStorage.getItem(key);
-          const item = JSON.parse(raw);
-          
-          if ((item.ttl && now - item.timestamp > item.ttl) ||
-              (now - item.timestamp > maxAge) ||
-              (item.timestamp > now)) {
-            localStorage.removeItem(key);
-            cleared++;
-          }
-        } catch {
-          localStorage.removeItem(key);
-          cleared++;
-        }
-      }
-      if (cleared > 0) console.log(`[Storage] Cleared ${cleared} expired items`);
-      return cleared;
-    } catch { return 0; }
-  },
-  isAvailable() {
-    try {
-      const test = '__storage_test__';
-      localStorage.setItem(test, test);
-      localStorage.removeItem(test);
-      return true;
-    } catch { return false; }
-  }
-};
-
-/* ==================== VALIDATION ==================== */
-const Validation = {
-  days(value) {
-    const parsed = parseQty(value);
-    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
-    const rounded = Math.round(n);
-    return {
-      value: clamp(rounded, CONFIG.LIMITS.MIN_DAYS, CONFIG.LIMITS.MAX_DAYS),
-      valid: rounded >= CONFIG.LIMITS.MIN_DAYS && rounded <= CONFIG.LIMITS.MAX_DAYS,
-      error: (rounded < CONFIG.LIMITS.MIN_DAYS || rounded > CONFIG.LIMITS.MAX_DAYS)
-        ? `Must be between ${CONFIG.LIMITS.MIN_DAYS} and ${CONFIG.LIMITS.MAX_DAYS} days` : null
-    };
-  },
-  seaDays(value, totalDays) {
-    const parsed = parseQty(value);
-    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
-    const rounded = Math.round(n);
-    return {
-      value: clamp(rounded, 0, totalDays),
-      valid: rounded >= 0 && rounded <= totalDays,
-      error: rounded > totalDays ? `Cannot exceed total cruise days (${totalDays})` : null
-    };
-  },
-  seaWeight(value) {
-    const parsed = parseQty(value);
-    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
-    const rounded = Math.round(n);
-    return {
-      value: clamp(rounded, 0, CONFIG.LIMITS.SEA_WEIGHT_MAX),
-      valid: rounded >= 0 && rounded <= CONFIG.LIMITS.SEA_WEIGHT_MAX,
-      error: (rounded < 0 || rounded > CONFIG.LIMITS.SEA_WEIGHT_MAX)
-        ? `Must be between 0 and ${CONFIG.LIMITS.SEA_WEIGHT_MAX}%` : null
-    };
-  },
-  adults(value) {
-    const parsed = parseQty(value);
-    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
-    const rounded = Math.round(n);
-    return {
-      value: clamp(rounded, CONFIG.LIMITS.MIN_ADULTS, CONFIG.LIMITS.MAX_ADULTS),
-      valid: rounded >= CONFIG.LIMITS.MIN_ADULTS && rounded <= CONFIG.LIMITS.MAX_ADULTS,
-      error: (rounded < CONFIG.LIMITS.MIN_ADULTS || rounded > CONFIG.LIMITS.MAX_ADULTS)
-        ? `Must be between ${CONFIG.LIMITS.MIN_ADULTS} and ${CONFIG.LIMITS.MAX_ADULTS}` : null
-    };
-  },
-  minors(value) {
-    const parsed = parseQty(value);
-    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
-    const rounded = Math.round(n);
-    return {
-      value: clamp(rounded, CONFIG.LIMITS.MIN_MINORS, CONFIG.LIMITS.MAX_MINORS),
-      valid: rounded >= 0 && rounded <= CONFIG.LIMITS.MAX_MINORS,
-      error: (rounded < CONFIG.LIMITS.MIN_MINORS || rounded > CONFIG.LIMITS.MAX_MINORS)
-        ? `Must be between ${CONFIG.LIMITS.MIN_MINORS} and ${CONFIG.LIMITS.MAX_MINORS}` : null
-    };
-  },
-  drinkQty(value) {
-    const parsed = parseQty(value);
-    if (parsed.isRange) {
-      return {
-        value: parsed.value,
-        valid: true,
-        error: null,
-        isRange: true
-      };
-    }
-    const n = parsed.value;
-    return {
-      value: Math.max(0, n),
-      valid: n >= 0 && n <= CONFIG.LIMITS.MAX_DRINK_QTY,
-      error: (n < 0 || n > CONFIG.LIMITS.MAX_DRINK_QTY)
-        ? `Must be between 0 and ${CONFIG.LIMITS.MAX_DRINK_QTY}` : null,
-      isRange: false
-    };
-  },
-  voucherCount(value) {
-    const parsed = parseQty(value);
-    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
-    const rounded = Math.round(n);
-    return {
-      value: clamp(rounded, 0, CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON),
-      valid: rounded >= 0 && rounded <= CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON,
-      error: (rounded < 0 || rounded > CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON)
-        ? `Must be between 0 and ${CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON}` : null
-    };
-  },
-  /**
-   * ✅ PHASE 1 ITEM #5: Package price validation for inline editing
-   */
-  packagePrice(value) {
-    const parsed = parseQty(value);
-    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
-    return {
-      value: clamp(n, CONFIG.LIMITS.PKG_PRICE_MIN, CONFIG.LIMITS.PKG_PRICE_MAX),
-      valid: n >= CONFIG.LIMITS.PKG_PRICE_MIN && n <= CONFIG.LIMITS.PKG_PRICE_MAX,
-      error: (n < CONFIG.LIMITS.PKG_PRICE_MIN || n > CONFIG.LIMITS.PKG_PRICE_MAX)
-        ? `Must be between ${CONFIG.LIMITS.PKG_PRICE_MIN} and ${CONFIG.LIMITS.PKG_PRICE_MAX}` : null
-    };
-  }
-};
-
-/* ==================== STATE MANAGEMENT ==================== */
-function createStore(initialState) {
-  let state = safeClone(initialState);
-  const subscribers = new Map();
-
-  function get(path) {
-    if (!path) return state;
-    const keys = path.split('.');
-    let value = state;
-    for (const key of keys) {
-      if (value && typeof value === 'object' && key in value) {
-        value = value[key];
-      } else {
-        return undefined;
-      }
-    }
-    return value;
-  }
-
-  function set(updates) {
-    const nextState = safeClone(state);
-    Object.keys(updates).forEach(key => {
-      nextState[key] = updates[key];
-    });
-    
-    const changedKeys = Object.keys(nextState).filter(
-      key => JSON.stringify(nextState[key]) !== JSON.stringify(state[key])
-    );
-    if (changedKeys.length === 0) return;
-    
-    state = nextState;
-    changedKeys.forEach(key => {
-      const callbacks = subscribers.get(key);
-      if (callbacks) callbacks.forEach(cb => {
-        try {
-          cb(state[key], state);
-        } catch (err) {
-          console.error(`[Store] Subscriber error for key "${key}":`, err);
-        }
-      });
-    });
-    const globalCallbacks = subscribers.get('*');
-    if (globalCallbacks) globalCallbacks.forEach(cb => {
-      try {
-        cb(state, state);
-      } catch (err) {
-        console.error('[Store] Global subscriber error:', err);
-      }
-    });
-  }
-
-  function patch(path, value) {
-    if (!path) return;
-    const keys = path.split('.');
-    if (keys.length === 1) {
-      set({ [keys[0]]: value });
-      return;
-    }
-    const nextState = safeClone(state);
-    let ref = nextState;
-    for (let i = 0; i < keys.length - 1; i++) {
-      const k = keys[i];
-      if (!ref[k] || typeof ref[k] !== 'object') ref[k] = {};
-      ref = ref[k];
-    }
-    ref[keys[keys.length - 1]] = value;
-    set(nextState);
-  }
-
-  function subscribe(keys, callback) {
-    const list = Array.isArray(keys) ? keys : [keys];
-    list.forEach(key => {
-      if (!subscribers.has(key)) subscribers.set(key, new Set());
-      subscribers.get(key).add(callback);
-    });
-    return () => {
-      list.forEach(key => subscribers.get(key)?.delete(callback));
-    };
-  }
-
-  return { get, set, patch, subscribe };
-}
-
-/* ==================== INITIAL STATE ==================== */
-const initialState = {
-  version: VERSION,
-  dataset: null,
-  brand: null,
-  inputs: {
-    days: 7, seaDays: 3, seaApply: true, seaWeight: 20,
-    adults: 2, minors: 0, coffeeCards: 0, coffeePunches: 0,
-    voucherAdult: 0, voucherMinor: 0,
+const PRESETS = {
+  light: {
+    label: 'Light Drinker',
+    emoji: '🍃',
     drinks: {
-      soda: 0, coffee: 0, teaprem: 0, freshjuice: 0,
-      mocktail: 0, energy: 0, milkshake: 0, bottledwater: 0,
+      soda: 2, coffee: 1, teaprem: 0, freshjuice: 0,
+      mocktail: 0, energy: 0, milkshake: 0, bottledwater: 1,
+      beer: 1, wine: 1, cocktail: 0.5, spirits: 0
+    }
+  },
+  moderate: {
+    label: 'Moderate',
+    emoji: '⚖️',
+    drinks: {
+      soda: 2, coffee: 2, teaprem: 0, freshjuice: 1,
+      mocktail: 1, energy: 0, milkshake: 0.5, bottledwater: 2,
+      beer: 2, wine: 2, cocktail: 2, spirits: 0.5
+    }
+  },
+  party: {
+    label: 'Party',
+    emoji: '🎉',
+    drinks: {
+      soda: 2, coffee: 2, teaprem: 0, freshjuice: 1,
+      mocktail: 1, energy: 1, milkshake: 0, bottledwater: 2,
+      beer: 4, wine: 2, cocktail: 4, spirits: 2
+    }
+  },
+  coffee: {
+    label: 'Coffee Lover',
+    emoji: '☕',
+    drinks: {
+      soda: 1, coffee: 4, teaprem: 1, freshjuice: 1,
+      mocktail: 1, energy: 0, milkshake: 0.5, bottledwater: 2,
       beer: 0, wine: 0, cocktail: 0, spirits: 0
     }
   },
-  economics: {
-    pkg: { soda: 13.99, refresh: 34.0, deluxe: 85.0 },
-    grat: 0.18,
-    deluxeCap: CONFIG.RULES.DELUXE_CAP_FALLBACK
+  nonalc: {
+    label: 'Non-Alcoholic',
+    emoji: '🚫🍺',
+    drinks: {
+      soda: 3, coffee: 2, teaprem: 1, freshjuice: 2,
+      mocktail: 2, energy: 0.5, milkshake: 1, bottledwater: 2,
+      beer: 0, wine: 0, cocktail: 0, spirits: 0
+    }
   },
-  results: {
-    hasRange: false,
-    bars: {
-      alc: { min: 0, mean: 0, max: 0 },
-      soda: { min: 0, mean: 0, max: 0 },
-      refresh: { min: 0, mean: 0, max: 0 },
-      deluxe: { min: 0, mean: 0, max: 0 }
-    },
-    winnerKey: 'alc',
-    perDay: 0,
-    trip: 0,
-    groupRows: [],
-    categoryRows: [],
-    included: { soda: 0, refresh: 0, deluxe: 0 },
-    overcap: 0,
-    deluxeRequired: false,
-    policyNote: null,
-    nudges: [], // ✅ #9 Gentle nudges
-    healthNote: null // ✅ #10 Health guidelines
+  // ✅ PHASE 1 ITEM #11: Solo traveler preset
+  solo: {
+    label: 'Solo Traveler',
+    emoji: '🧳',
+    drinks: {
+      soda: 2, coffee: 2, teaprem: 0, freshjuice: 0.5,
+      mocktail: 0.5, energy: 0, milkshake: 0, bottledwater: 1,
+      beer: 2, wine: 1, cocktail: 1, spirits: 0
+    }
   },
-  ui: {
-    fallbackBanner: false,
-    fxStale: false,
-    chartReady: false
+  // ✅ PHASE 1 ITEM #12: Soda drinker preset
+  sodadrinker: {
+    label: 'Soda Drinker',
+    emoji: '🥤',
+    drinks: {
+      soda: 6, coffee: 1, teaprem: 0, freshjuice: 0,
+      mocktail: 1, energy: 1, milkshake: 0.5, bottledwater: 2,
+      beer: 0, wine: 0, cocktail: 0, spirits: 0
+    }
   }
 };
 
-const store = createStore(initialState);
-window.__itwStore = store;
+/* ==================== PRESET APPLICATION ==================== */
 
-/* ==================== PERSISTENCE ==================== */
-/**
- * ✅ PHASE 1 ITEM #2: Uses hydrateAllowlist instead of deepMerge
- */
-function loadFromStorage() {
-  try {
-    const saved = SafeStorage.get(CONFIG.STORAGE_KEYS.state);
-    if (!saved) return;
-    
-    if (saved.inputs) {
-      const allowedInputKeys = ['days', 'seaDays', 'seaApply', 'seaWeight', 'adults', 'minors', 
-                                'coffeeCards', 'coffeePunches', 'voucherAdult', 'voucherMinor', 'drinks'];
-      const hydratedInputs = hydrateAllowlist(initialState.inputs, saved.inputs, allowedInputKeys);
-      store.patch('inputs', hydratedInputs);
-    }
-    
-    if (saved.economics) {
-      const allowedEconKeys = ['pkg', 'grat', 'deluxeCap'];
-      const hydratedEcon = hydrateAllowlist(initialState.economics, saved.economics, allowedEconKeys);
-      store.patch('economics', hydratedEcon);
-    }
-    
-    console.log('[Core] State loaded from storage (protected by allowlist)');
-  } catch (e) {
-    console.warn('[Core] Failed to load from storage:', e);
+function applyPreset(presetKey) {
+  const preset = PRESETS[presetKey];
+  if (!preset) {
+    console.warn(`[UI] Unknown preset: ${presetKey}`);
+    return;
   }
-}
-
-function saveToStorage() {
-  try {
-    const state = store.get();
-    const { inputs, economics } = state;
-    SafeStorage.set(CONFIG.STORAGE_KEYS.state, { inputs, economics });
-  } catch (e) {
-    console.warn('[Core] Failed to save to storage:', e);
+  
+  if (!window.ITW || !window.ITW.store) {
+    console.error('[UI] ITW core not loaded');
+    return;
   }
-}
-
-/* ==================== CURRENCY & FX RATES ==================== */
-let currentCurrency = 'USD';
-let fxRates = { base: 'USD', asOf: null, rates: { USD: 1 }, timestamp: null };
-
-async function loadFXRates() {
-  try {
-    const saved = SafeStorage.get(CONFIG.STORAGE_KEYS.currency);
-    if (saved && CONFIG.CURRENCIES.includes(saved.toUpperCase())) {
-      currentCurrency = saved.toUpperCase();
-    }
-  } catch (e) {}
-
-  try {
-    const cached = SafeStorage.get(CONFIG.STORAGE_KEYS.fx);
-    if (cached && cached.timestamp) {
-      const ageMs = Date.now() - cached.timestamp;
-      const maxAgeMs = CONFIG.CACHE.FX_REFRESH_HOURS * 60 * 60 * 1000;
-      if (ageMs < maxAgeMs) {
-        fxRates = cached;
-        console.log('[Core] Using cached FX rates');
-        return;
+  
+  const store = window.ITW.store;
+  const inputs = store.get('inputs');
+  const drinks = { ...inputs.drinks };
+  
+  // Apply preset values
+  Object.keys(drinks).forEach(key => {
+    drinks[key] = preset.drinks[key] !== undefined ? preset.drinks[key] : 0;
+  });
+  
+  store.patch('inputs', { ...inputs, drinks });
+  
+  // Update UI inputs with validation
+  Object.keys(drinks).forEach(key => {
+    const input = document.querySelector(`[data-input="${key}"]`);
+    if (input) {
+      const value = drinks[key];
+      // Validate: must be non-negative number
+      if (typeof value === 'number' && value >= 0) {
+        input.value = value;
       }
     }
-  } catch (e) {}
-
-  if (navigator.onLine !== false) {
+  });
+  
+  // Trigger calculation
+  if (window.ITW.scheduleCalc) {
+    window.ITW.scheduleCalc();
+  }
+  
+  // Save to storage
+  if (window.ITW.store) {
+    const state = window.ITW.store.get();
+    const { inputs: savedInputs, economics } = state;
     try {
-      const targets = CONFIG.CURRENCIES.filter(c => c !== 'USD').join(',');
-      const url = `${CONFIG.API.fxFrankfurter}?from=USD&to=${encodeURIComponent(targets)}`;
-      const response = await fetch(url, { cache: 'no-store', credentials: 'omit' });
-      if (!response.ok) throw new Error('FX fetch failed');
-      const data = await response.json();
-      fxRates = {
-        base: data.base || 'USD',
-        asOf: data.date,
-        rates: { USD: 1, ...(data.rates || {}) },
-        timestamp: Date.now()
-      };
-      SafeStorage.set(CONFIG.STORAGE_KEYS.fx, fxRates);
-      console.log('[Core] FX rates refreshed');
-    } catch (error) {
-      console.warn('[Core] FX fetch failed, using cached or defaults:', error);
-      store.patch('ui.fxStale', true);
+      localStorage.setItem('itw:rc:state:v10', JSON.stringify({
+        value: JSON.stringify({ inputs: savedInputs, economics }),
+        timestamp: Date.now(),
+        version: '1.001.001'
+      }));
+    } catch (e) {
+      console.warn('[UI] Could not save to localStorage:', e.message);
     }
-  } else {
-    console.log('[Core] Offline, using cached FX rates');
-    store.patch('ui.fxStale', true);
   }
-}
-
-function convertUSD(amount, toCurrency = currentCurrency) {
-  const rate = fxRates.rates[toCurrency] || 1;
-  return amount * rate;
-}
-
-function formatMoney(amount, options = {}) {
-  const currency = options.currency || currentCurrency;
-  const converted = convertUSD(amount, currency);
-  const value = Number.isFinite(converted) ? converted : 0;
-  try {
-    return new Intl.NumberFormat(undefined, {
-      style: 'currency',
-      currency: currency
-    }).format(value);
-  } catch (e) {
-    return `${value.toFixed(2)} ${currency}`;
-  }
-}
-
-function getCurrency() {
-  return currentCurrency;
-}
-
-function setCurrency(code) {
-  const upper = code.toUpperCase();
-  if (!CONFIG.CURRENCIES.includes(upper)) {
-    console.warn(`[Core] Unsupported currency: ${code}`);
-    return false;
-  }
-  currentCurrency = upper;
-  SafeStorage.set(CONFIG.STORAGE_KEYS.currency, upper);
-  return true;
-}
-
-function setupCurrencySelector() {
-  const selector = $('#currency-select');
-  if (!selector) return;
-  selector.value = currentCurrency;
-  selector.addEventListener('change', () => {
-    if (setCurrency(selector.value)) {
-      setTimeout(() => {
-        if (window.renderAll) window.renderAll();
-      }, 50);
-    }
-  });
-}
-
-/* ==================== BRAND CONFIGURATION ==================== */
-async function loadBrandConfig() {
-  try {
-    const response = await fetch(`${CONFIG.API.brands}?v=${VERSION}`, { cache: 'default' });
-    if (!response.ok) throw new Error('Brands config fetch failed');
-    const brandsData = await response.json();
-    const defaultBrandId = brandsData.default || 'royal-caribbean';
-    const brand = brandsData.brands.find(b => b.id === defaultBrandId && b.active);
-    if (brand) {
-      store.patch('brand', brand);
-      console.log(`[Core] Loaded brand: ${brand.label}`);
-      return brand;
-    }
-  } catch (error) {
-    console.warn('[Core] Failed to load brand config:', error);
-  }
-  return null;
-}
-
-/* ==================== DATASET LOADING ==================== */
-async function loadDataset() {
-  try {
-    const brand = store.get('brand') || await loadBrandConfig();
-    const dataURL = brand?.resources?.data || `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
-    const response = await fetch(dataURL, { cache: 'default', credentials: 'omit' });
-    if (!response.ok) throw new Error('Dataset fetch failed');
-    const data = await response.json();
-
-    if (!data.prices && Array.isArray(data.items)) {
-      data.prices = {};
-      data.items.forEach(item => {
-        if (item && item.id) {
-          data.prices[item.id] = num(item.price);
-        }
-      });
-    }
-
-    if (!data.sets) data.sets = {};
-    if (!data.sets.alcoholic && data.sets.alcohol) {
-      data.sets.alcoholic = data.sets.alcohol;
-    }
-
-    store.patch('dataset', data);
-
-    const economics = safeClone(store.get('economics'));
-    if (data.packages) {
-      const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
-      economics.pkg = {
-        soda: getPkgPrice(data.packages.soda) || economics.pkg.soda,
-        refresh: getPkgPrice(data.packages.refreshment || data.packages.refresh) || economics.pkg.refresh,
-        deluxe: getPkgPrice(data.packages.deluxe) || economics.pkg.deluxe
-      };
-    }
-    if (data.rules) {
-      economics.grat = num(data.rules.gratuity) || economics.grat;
-      economics.deluxeCap = num(data.rules.caps?.deluxeAlcohol ?? data.rules.deluxeCap) || economics.deluxeCap;
-    }
-    store.patch('economics', economics);
-    announce('Pricing data loaded');
-    console.log('[Core] Dataset loaded successfully');
-  } catch (error) {
-    console.warn('[Core] Dataset load failed, using fallback:', error);
-    const fallback = CONFIG.FALLBACK_DATASET;
-    store.patch('dataset', fallback);
-    const economics = safeClone(store.get('economics'));
-    if (fallback.packages) {
-      const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
-      economics.pkg = {
-        soda: getPkgPrice(fallback.packages.soda) || 13.99,
-        refresh: getPkgPrice(fallback.packages.refreshment) || 34.0,
-        deluxe: getPkgPrice(fallback.packages.deluxe) || 85.0
-      };
-    }
-    if (fallback.rules) {
-      economics.grat = num(fallback.rules.gratuity) || 0.18;
-      economics.deluxeCap = num(fallback.rules.deluxeCap) || 14.0;
-    }
-    store.patch('economics', economics);
-    store.patch('ui.fallbackBanner', true);
-    announce('Using default pricing', 'polite');
-  }
-}
-
-/* ==================== WORKER INTEGRATION ==================== */
-let calcWorker = null;
-let workerReady = false;
-let calculationInProgress = false;
-
-function initializeWorker() {
-  if (!CONFIG.WORKER.enabled) return false;
-  if (calcWorker) return true;
-  try {
-    calcWorker = new Worker(CONFIG.WORKER.url);
-    calcWorker.onmessage = (event) => {
-      const { type, payload } = event.data || {};
-      if (type === 'ready') {
-        workerReady = true;
-        console.log('[Core] Worker ready');
-        return;
-      }
-      if (type === 'result') {
-        store.patch('results', payload);
-        calculationInProgress = false;
-        document.dispatchEvent(new CustomEvent('itw:calc-updated'));
-      }
-    };
-    calcWorker.onerror = (error) => {
-      console.error('[Core] Worker error:', error);
-      workerReady = false;
-      calculationInProgress = false;
-      if (calcWorker) {
-        calcWorker.terminate();
-        calcWorker = null;
-      }
-    };
-    return true;
-  } catch (error) {
-    console.warn('[Core] Worker initialization failed:', error);
-    return false;
-  }
-}
-
-/* ==================== CALCULATION SCHEDULING ==================== */
-/**
- * ✅ PHASE 1 ITEM #3: Unified math API (one compute function)
- */
-function scheduleCalculation() {
-  if (calculationInProgress) return;
-  calculationInProgress = true;
   
-  const state = store.get();
-  const { inputs, economics, dataset } = state;
-  
-  const hasVouchers = (inputs.voucherAdult > 0) || (inputs.voucherMinor > 0);
-  
-  const payload = {
-    inputs,
-    economics,
-    dataset: dataset || CONFIG.FALLBACK_DATASET,
-    vouchers: hasVouchers ? {
-      adultCountPerDay: inputs.voucherAdult || 0,
-      minorCountPerDay: inputs.voucherMinor || 0,
-      perVoucherValue: economics.deluxeCap || 14.0
-    } : null
-  };
-
-  const canUseWorker = initializeWorker() && workerReady;
-  
-  if (canUseWorker) {
-    calcWorker.postMessage({ type: 'compute', payload: payload });
-    return;
+  if (window.ITW.announce) {
+    window.ITW.announce(`Applied ${preset.label} preset`);
   }
+  
+  console.log(`[UI] Applied preset: ${presetKey}`);
+}
 
-  // Fallback to main thread
-  if (!window.ITW_MATH || typeof window.ITW_MATH.compute !== 'function') {
-    console.warn('[Core] Math module not available');
-    store.patch('results', initialState.results);
-    calculationInProgress = false;
-    return;
-  }
+/* ==================== PRESET UI RENDERING ==================== */
 
-  try {
-    // ✅ PHASE 1 ITEM #3: Unified API - single compute() function
-    const results = window.ITW_MATH.compute(
-      payload.inputs,
-      payload.economics,
-      payload.dataset,
-      payload.vouchers
-    );
+function renderPresetButtons() {
+  const container = document.getElementById('preset-buttons');
+  if (!container) return;
+  
+  // Clear existing buttons
+  container.innerHTML = '';
+  
+  Object.keys(PRESETS).forEach(key => {
+    const preset = PRESETS[key];
+    const button = document.createElement('button');
+    button.className = 'preset-btn';
     
-    store.patch('results', results);
-    calculationInProgress = false;
-    document.dispatchEvent(new CustomEvent('itw:calc-updated'));
-  } catch (error) {
-    console.error('[Core] Calculation error:', error);
-    store.patch('results', initialState.results);
-    calculationInProgress = false;
-  }
-}
-
-const debouncedCalc = debounce(scheduleCalculation);
-
-/* ==================== INPUT HANDLING ==================== */
-function wireInputs() {
-  $$('[data-input]').forEach((input) => {
-    if (input.type === 'text' || input.type === 'email') {
-      Security.wireSecureInput(input);
-    }
-    input.addEventListener('input', (e) => {
-      const key = input.dataset.input;
-      const value = input.type === 'checkbox' ? e.target.checked : e.target.value;
-      updateInput(key, value);
-      debouncedCalc();
-    });
-    input.addEventListener('change', () => {
-      saveToStorage();
-    });
-    if (input.type === 'range') {
-      input.addEventListener('input', (e) => {
-        const key = input.dataset.input;
-        if (key === 'seaweight') {
-          const output = $('#sea-weight-val');
-          if (output) output.textContent = `${e.target.value}%`;
-        }
-      });
-    }
+    // ✅ Use textContent for safety
+    button.textContent = `${preset.emoji} ${preset.label}`;
+    button.setAttribute('data-preset', key);
+    
+    // Event listener (not inline)
+    button.addEventListener('click', () => applyPreset(key));
+    
+    container.appendChild(button);
   });
 }
 
-function updateInput(key, rawValue) {
-  const parsed = key === 'seaapply' ? Boolean(rawValue) : parseQty(rawValue);
-  const value = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
-  
-  const keyMap = {
-    'seaapply': 'seaApply',
-    'seadays': 'seaDays',
-    'seaweight': 'seaWeight',
-    'coffee-cards': 'coffeeCards',
-    'coffee-punches': 'coffeePunches',
-    'voucher-adult': 'voucherAdult',
-    'voucher-minor': 'voucherMinor'
-  };
-  const normalizedKey = keyMap[key] || key;
-
-  switch (normalizedKey) {
-    case 'seaApply':
-      store.patch('inputs.seaApply', Boolean(rawValue));
-      break;
-    case 'days': {
-      const days = clamp(Math.round(value), CONFIG.LIMITS.MIN_DAYS, CONFIG.LIMITS.MAX_DAYS);
-      store.patch('inputs.days', days);
-      break;
-    }
-    case 'seaDays': {
-      const days = store.get('inputs').days || 7;
-      const sea = clamp(Math.round(value), 0, days);
-      store.patch('inputs.seaDays', sea);
-      break;
-    }
-    case 'seaWeight':
-      store.patch('inputs.seaWeight', clamp(value, 0, CONFIG.LIMITS.SEA_WEIGHT_MAX));
-      break;
-    case 'adults':
-      store.patch('inputs.adults', clamp(Math.round(value), CONFIG.LIMITS.MIN_ADULTS, CONFIG.LIMITS.MAX_ADULTS));
-      break;
-    case 'minors':
-      store.patch('inputs.minors', clamp(Math.round(value), CONFIG.LIMITS.MIN_MINORS, CONFIG.LIMITS.MAX_MINORS));
-      break;
-    case 'coffeeCards':
-      store.patch('inputs.coffeeCards', clamp(Math.round(value), 0, 10));
-      break;
-    case 'coffeePunches':
-      store.patch('inputs.coffeePunches', clamp(value, 0, 5));
-      break;
-    case 'voucherAdult':
-      store.patch('inputs.voucherAdult', clamp(Math.round(value), 0, CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON));
-      break;
-    case 'voucherMinor':
-      store.patch('inputs.voucherMinor', clamp(Math.round(value), 0, CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON));
-      break;
-    default:
-      if (CONFIG.DRINK_KEYS.includes(normalizedKey)) {
-        store.patch(`inputs.drinks.${normalizedKey}`, Math.max(0, value));
-      } else {
-        console.warn(`[Core] Unknown input key: ${key}`);
-      }
-      break;
-  }
-}
-
-/* ==================== GLOBAL HELPERS ==================== */
-function resetInputs() {
-  store.patch('inputs', safeClone(initialState.inputs));
-  SafeStorage.remove(CONFIG.STORAGE_KEYS.state);
-  scheduleCalculation();
-  announce('All inputs reset');
-}
-
-function shareScenario() {
-  try {
-    navigator.clipboard.writeText(location.href);
-    announce('Link copied to clipboard');
-  } catch (e) {
-    console.error('[Core] Failed to copy link:', e);
-    announce('Unable to copy link', 'assertive');
-  }
-}
-
-async function refreshDataset() {
-  await loadDataset();
-  scheduleCalculation();
-}
-
+/* ==================== BANNER RENDERING ==================== */
 /**
- * ✅ PHASE 1 ITEM #5: Inline package price editing
- * "In all thy ways acknowledge him" - Proverbs 3:6
+ * ✅ NEW in v1.001.001: Updates top banner with best value
+ * "The LORD is my light and my salvation" - Psalm 27:1
  */
-function updatePackagePrice(packageKey, newPrice) {
-  const validated = Validation.packagePrice(newPrice);
-  if (!validated.valid) {
-    console.warn(`[Core] Invalid package price: ${newPrice}`);
-    return false;
-  }
+function renderBanner(results) {
+  const chipEl = document.getElementById('best-chip');
+  const textEl = document.getElementById('best-text');
   
-  const economics = safeClone(store.get('economics'));
-  economics.pkg[packageKey] = validated.value;
-  store.patch('economics', economics);
-  saveToStorage();
-  scheduleCalculation();
-  announce(`${packageKey} package price updated`);
-  return true;
+  if (!chipEl || !textEl || !results) return;
+  
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  
+  const labels = {
+    alc: 'À la carte',
+    soda: 'Soda Package',
+    refresh: 'Refreshment Package',
+    deluxe: 'Deluxe Package'
+  };
+  
+  const winnerLabel = labels[results.winnerKey] || 'À la carte';
+  const winnerCost = results.bars[results.winnerKey]?.mean || 0;
+  const alcCost = results.bars.alc?.mean || 0;
+  const savings = alcCost - winnerCost;
+  
+  // Update chip (✅ textContent)
+  chipEl.textContent = `Best Value: ${winnerLabel}`;
+  chipEl.className = 'badge'; // Restore proper class
+  
+  // Update text (✅ textContent)
+  if (results.winnerKey === 'alc') {
+    textEl.textContent = 'Paying as you go is your best option';
+  } else if (savings > 0) {
+    textEl.textContent = `Save ${formatMoney(savings)} over à-la-carte`;
+  } else {
+    textEl.textContent = '';
+  }
 }
 
-/* ==================== API EXPORTS ==================== */
-window.ITW = Object.freeze({
-  version: VERSION,
-  config: CONFIG,
-  store,
-  formatMoney,
-  getCurrency,
-  setCurrency,
-  scheduleCalc: scheduleCalculation,
-  debouncedCalc,
-  resetInputs,
-  shareScenario,
-  refreshDataset,
-  updatePackagePrice, // ✅ #5 inline editing
-  parseQty, // ✅ #4 export for UI use
-  announce,
-  _debug: {
-    getState: () => store.get(),
-    getFXRates: () => ({ ...fxRates }),
-    getWorkerStatus: () => ({ ready: workerReady, inProgress: calculationInProgress })
+/* ==================== TOTALS RENDERING ==================== */
+/**
+ * ✅ NEW in v1.001.001: Updates main totals display
+ * "Give, and it will be given to you" - Luke 6:38
+ */
+function renderTotals(results) {
+  const totalsEl = document.getElementById('totals');
+  if (!totalsEl || !results) return;
+  
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  
+  const perDay = formatMoney(results.perDay);
+  const trip = formatMoney(results.trip);
+  
+  // ✅ Use textContent for safety
+  totalsEl.textContent = `${perDay}/day • ${trip} total`;
+}
+
+/* ==================== INLINE PRICE EDITING ==================== */
+/**
+ * ✅ PHASE 1 ITEM #5: Inline package price editing UI
+ * "The heart of the wise teacheth his mouth" - Proverbs 16:23
+ */
+function setupInlinePriceEditing() {
+  const priceElements = document.querySelectorAll('[data-edit-price]');
+  
+  priceElements.forEach(element => {
+    const packageKey = element.dataset.editPrice;
+    
+    // Make element look editable
+    element.style.cursor = 'pointer';
+    element.style.borderBottom = '1px dashed rgba(0,0,0,0.3)';
+    element.title = 'Click to edit price';
+    
+    element.addEventListener('click', function() {
+      const currentText = this.textContent;
+      const currentValue = parseFloat(currentText.replace(/[^0-9.]/g, ''));
+      
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = currentValue;
+      input.style.width = '80px';
+      input.style.fontSize = 'inherit';
+      input.style.fontFamily = 'inherit';
+      input.style.border = '2px solid #007bff';
+      input.style.borderRadius = '4px';
+      input.style.padding = '2px 6px';
+      
+      const save = () => {
+        const newValue = input.value;
+        if (window.ITW && window.ITW.updatePackagePrice) {
+          const success = window.ITW.updatePackagePrice(packageKey, newValue);
+          if (success) {
+            // Update will trigger re-render via store subscription
+            if (window.renderAll) {
+              window.renderAll();
+            }
+          } else {
+            // Restore original
+            this.textContent = currentText;
+          }
+        }
+      };
+      
+      input.addEventListener('blur', save);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          save();
+        } else if (e.key === 'Escape') {
+          this.textContent = currentText;
+        }
+      });
+      
+      // ✅ Safe DOM: clear then append (no innerHTML)
+      this.textContent = '';
+      this.appendChild(input);
+      input.focus();
+      input.select();
+    });
+  });
+}
+
+/* ==================== GENTLE NUDGES RENDERING ==================== */
+/**
+ * ✅ PHASE 1 ITEM #9: Gentle nudges display
+ * "A word spoken in due season, how good is it!" - Proverbs 15:23
+ * 
+ * ✅ v1.001.001: Uses textContent only (no innerHTML)
+ */
+function renderNudges(nudges) {
+  const container = document.getElementById('nudges-container');
+  if (!container) return;
+  
+  if (!nudges || nudges.length === 0) {
+    container.innerHTML = '';
+    container.style.display = 'none';
+    return;
   }
-});
+  
+  container.style.display = 'block';
+  container.innerHTML = ''; // Clear
+  
+  nudges.forEach(nudge => {
+    // Validate nudge has required properties
+    if (!nudge || typeof nudge.message !== 'string') return;
+    
+    const div = document.createElement('div');
+    div.className = 'nudge-item';
+    div.style.cssText = `
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 16px;
+      margin: 8px 0;
+      border-radius: 8px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    `;
+    
+    const icon = document.createElement('span');
+    icon.textContent = nudge.icon || '💡'; // ✅ textContent
+    icon.style.fontSize = '24px';
+    
+    const message = document.createElement('span');
+    message.textContent = nudge.message; // ✅ textContent (no HTML injection)
+    
+    div.appendChild(icon);
+    div.appendChild(message);
+    container.appendChild(div);
+  });
+}
+
+/* ==================== HEALTH GUIDELINES RENDERING ==================== */
+/**
+ * ✅ PHASE 1 ITEM #10: Health guidelines display
+ * "Know ye not that your body is the temple?" - 1 Corinthians 6:19
+ * 
+ * ✅ v1.001.001: Uses textContent only (no innerHTML)
+ */
+function renderHealthNote(healthNote) {
+  const container = document.getElementById('health-note-container');
+  if (!container) return;
+  
+  if (!healthNote || typeof healthNote.message !== 'string') {
+    container.innerHTML = '';
+    container.style.display = 'none';
+    return;
+  }
+  
+  container.style.display = 'block';
+  container.innerHTML = ''; // Clear
+  
+  const colors = {
+    moderate: { bg: '#fff3cd', border: '#ffc107', text: '#856404' },
+    high: { bg: '#f8d7da', border: '#dc3545', text: '#721c24' }
+  };
+  
+  const color = colors[healthNote.level] || colors.moderate;
+  
+  // Build with DOM methods (not innerHTML)
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = `
+    background: ${color.bg};
+    border-left: 4px solid ${color.border};
+    color: ${color.text};
+    padding: 16px;
+    border-radius: 4px;
+    margin: 16px 0;
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+  `;
+  
+  const iconSpan = document.createElement('span');
+  iconSpan.textContent = healthNote.icon || '⚕️'; // ✅ textContent
+  iconSpan.style.cssText = 'font-size: 24px; flex-shrink: 0;';
+  
+  const contentDiv = document.createElement('div');
+  
+  const strongLabel = document.createElement('strong');
+  strongLabel.textContent = 'Health Note: '; // ✅ textContent
+  
+  const messageText = document.createTextNode(healthNote.message); // ✅ text node
+  
+  contentDiv.appendChild(strongLabel);
+  contentDiv.appendChild(messageText);
+  
+  wrapper.appendChild(iconSpan);
+  wrapper.appendChild(contentDiv);
+  
+  container.appendChild(wrapper);
+}
+
+/* ==================== CHART RENDERING ==================== */
+
+let chartInstance = null;
+
+function renderChart(bars, winnerKey) {
+  const canvas = document.getElementById('results-chart');
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  
+  if (!window.Chart) {
+    console.warn('[UI] Chart.js not loaded');
+    return;
+  }
+  
+  // Destroy previous chart
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+  
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  
+  // Validate bars data
+  if (!bars || typeof bars !== 'object') return;
+  
+  const data = {
+    labels: ['À la carte', 'Soda', 'Refreshment', 'Deluxe'],
+    datasets: [{
+      label: 'Total Cost',
+      data: [
+        bars.alc?.mean || 0,
+        bars.soda?.mean || 0,
+        bars.refresh?.mean || 0,
+        bars.deluxe?.mean || 0
+      ],
+      backgroundColor: [
+        winnerKey === 'alc' ? 'rgba(75, 192, 192, 0.8)' : 'rgba(75, 192, 192, 0.4)',
+        winnerKey === 'soda' ? 'rgba(255, 159, 64, 0.8)' : 'rgba(255, 159, 64, 0.4)',
+        winnerKey === 'refresh' ? 'rgba(153, 102, 255, 0.8)' : 'rgba(153, 102, 255, 0.4)',
+        winnerKey === 'deluxe' ? 'rgba(255, 99, 132, 0.8)' : 'rgba(255, 99, 132, 0.4)'
+      ],
+      borderColor: [
+        winnerKey === 'alc' ? 'rgba(75, 192, 192, 1)' : 'rgba(75, 192, 192, 0.6)',
+        winnerKey === 'soda' ? 'rgba(255, 159, 64, 1)' : 'rgba(255, 159, 64, 0.6)',
+        winnerKey === 'refresh' ? 'rgba(153, 102, 255, 1)' : 'rgba(153, 102, 255, 0.6)',
+        winnerKey === 'deluxe' ? 'rgba(255, 99, 132, 1)' : 'rgba(255, 99, 132, 0.6)'
+      ],
+      borderWidth: 2
+    }]
+  };
+  
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (context) => formatMoney(context.parsed.y)
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: (value) => formatMoney(value)
+        }
+      }
+    }
+  };
+  
+  chartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
+}
+
+/* ==================== RESULTS SUMMARY ==================== */
+
+function renderSummary(results) {
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  
+  // Per day
+  const perDayEl = document.getElementById('summary-per-day');
+  if (perDayEl && typeof results.perDay === 'number') {
+    perDayEl.textContent = formatMoney(results.perDay); // ✅ textContent
+  }
+  
+  // Trip total
+  const tripEl = document.getElementById('summary-trip');
+  if (tripEl && typeof results.trip === 'number') {
+    tripEl.textContent = formatMoney(results.trip); // ✅ textContent
+  }
+  
+  // Winner badge
+  const winnerEl = document.getElementById('winner-badge');
+  if (winnerEl && typeof results.winnerKey === 'string') {
+    const labels = {
+      alc: 'À la carte',
+      soda: 'Soda Package',
+      refresh: 'Refreshment Package',
+      deluxe: 'Deluxe Package'
+    };
+    winnerEl.textContent = labels[results.winnerKey] || 'À la carte'; // ✅ textContent
+  }
+  
+  // Policy note
+  const policyEl = document.getElementById('policy-note');
+  if (policyEl) {
+    if (results.policyNote && typeof results.policyNote === 'string') {
+      policyEl.textContent = results.policyNote; // ✅ textContent
+      policyEl.style.display = 'block';
+    } else {
+      policyEl.style.display = 'none';
+    }
+  }
+}
+
+/* ==================== CATEGORY BREAKDOWN TABLE ==================== */
+
+function renderCategoryTable(categoryRows) {
+  const tbody = document.querySelector('#category-table tbody');
+  if (!tbody) return;
+  
+  tbody.innerHTML = ''; // Clear
+  
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  const labels = window.ITW_CONFIG?.DRINK_LABELS || {};
+  
+  if (!Array.isArray(categoryRows)) return;
+  
+  categoryRows.forEach(row => {
+    // Validate row
+    if (!row || typeof row.qty !== 'number' || row.qty === 0) return;
+    
+    const tr = document.createElement('tr');
+    
+    const tdDrink = document.createElement('td');
+    tdDrink.textContent = labels[row.id] || row.id; // ✅ textContent
+    
+    const tdQty = document.createElement('td');
+    tdQty.textContent = row.qty.toFixed(1); // ✅ textContent
+    
+    const tdPrice = document.createElement('td');
+    tdPrice.textContent = formatMoney(row.price); // ✅ textContent
+    
+    const tdCost = document.createElement('td');
+    tdCost.textContent = formatMoney(row.cost); // ✅ textContent
+    
+    tr.appendChild(tdDrink);
+    tr.appendChild(tdQty);
+    tr.appendChild(tdPrice);
+    tr.appendChild(tdCost);
+    
+    tbody.appendChild(tr);
+  });
+}
+
+/* ==================== MAIN RENDER FUNCTION ==================== */
+
+function renderAll() {
+  if (!window.ITW || !window.ITW.store) {
+    console.warn('[UI] ITW core not initialized');
+    return;
+  }
+  
+  const state = window.ITW.store.get();
+  const { results } = state;
+  
+  if (!results) return;
+  
+  // ✅ NEW in v1.001.001: Render banner and totals
+  renderBanner(results);
+  renderTotals(results);
+  
+  // Existing renders
+  renderChart(results.bars, results.winnerKey);
+  renderSummary(results);
+  renderCategoryTable(results.categoryRows || []);
+  renderNudges(results.nudges || []); // ✅ #9
+  renderHealthNote(results.healthNote); // ✅ #10
+}
 
 /* ==================== INITIALIZATION ==================== */
-async function initialize() {
-  console.log(`[Core] Initializing v${VERSION} (Phase 1 Complete)`);
-  loadFromStorage();
-  await loadFXRates();
-  setupCurrencySelector();
-  await loadBrandConfig();
-  await loadDataset();
-  if (CONFIG.WORKER.enabled) {
-    initializeWorker();
-  }
-  wireInputs();
-  scheduleCalculation();
-  window.addEventListener('beforeunload', saveToStorage);
-  window.ITW_BOOTED = true;
-  console.log(`[Core] ✓ Initialized v${VERSION} - Phase 1 Complete`);
-  announce('Calculator ready');
+
+function initializeUI() {
+  console.log('[UI] Initializing v1.001.001 (Phase 1 + Complete UI)');
   
-  // ✅ Show calculator, hide loading
-  const loadingState = document.getElementById('loading-state');
-  const calculatorApp = document.getElementById('calculator-app');
-  if (loadingState) loadingState.style.display = 'none';
-  if (calculatorApp) calculatorApp.style.display = 'block';
+  // Render preset buttons
+  renderPresetButtons();
+  
+  // Setup inline price editing
+  setupInlinePriceEditing();
+  
+  // Listen for calculation updates
+  document.addEventListener('itw:calc-updated', () => {
+    renderAll();
+  });
+  
+  // Subscribe to store changes
+  if (window.ITW && window.ITW.store) {
+    window.ITW.store.subscribe('results', () => {
+      renderAll();
+    });
+  }
+  
+  // Initial render
+  renderAll();
+  
+  console.log('[UI] ✓ Initialized v1.001.001');
 }
-  // Auto-initialize on load
+
+// Auto-initialize
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initialize);
+  document.addEventListener('DOMContentLoaded', initializeUI);
 } else {
-  initialize();
+  initializeUI();
 }
 
-})();
+/* ==================== EXPORTS ==================== */
 
-// "Whatever you do, work heartily, as for the Lord" - Colossians 3:23
+window.ITW_UI = Object.freeze({
+  renderAll,
+  applyPreset,
+  renderChart,
+  renderBanner,      // ✅ NEW
+  renderTotals,      // ✅ NEW
+  renderNudges,
+  renderHealthNote,
+  version: '1.001.001'
+});
+
+// Make applyPreset globally accessible for buttons
+window.applyPreset = applyPreset;
+
+// "Let your light so shine before men" - Matthew 5:16
 // Soli Deo Gloria ✝️
