@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - Web Worker
- * Version: 10.0.1 (Phase 1 Complete + Minimal Security)
+ * Version: 1.001.001 (Phase 1 Complete + Minimal Security)
  * 
  * "Whatsoever thy hand findeth to do, do it with thy might" - Ecclesiastes 9:10
  * 
