@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - Web Worker
- * Version: 1.001.001 (Phase 1 Complete + Security)
+ * Version: 1.001.002 (Emergency Patch - Sync with Core)
  * 
  * "Whatsoever thy hand findeth to do, do it with thy might" - Ecclesiastes 9:10
  * 
@@ -11,25 +11,19 @@
  * ✅ Size bomb protection (100KB limit)
  * ✅ Message validation (type and payload checks)
  * 
- * v1.001.001 FIXES:
- * ✅ Response property corrected (result → payload)
+ * v1.001.002 UPDATES:
+ * ✅ Version synced with core and UI
+ * ✅ Response property matches core expectations (payload)
  */
 
 'use strict';
 
 /* ==================== IMPORT MATH MODULE ==================== */
 
-// Import the math module
 importScripts('/assets/js/calculator-math.js');
 
 /* ==================== MESSAGE HANDLER ==================== */
 
-/**
- * ✅ PHASE 1 ITEM #3: Unified math API
- * Worker now calls single compute() function with vouchers parameter
- * 
- * ✅ MINIMAL SECURITY: Size check to prevent browser DoS
- */
 self.addEventListener('message', (event) => {
   const { type, payload } = event.data || {};
   
@@ -43,7 +37,6 @@ self.addEventListener('message', (event) => {
   }
   
   // ✅ Size bomb protection
-  // Prevent DoS via massive payloads
   const payloadStr = JSON.stringify(payload);
   if (payloadStr.length > 100000) { // 100KB limit
     self.postMessage({
@@ -56,19 +49,18 @@ self.addEventListener('message', (event) => {
   // Handle compute request
   if (type === 'compute') {
     try {
-      // ✅ PHASE 1 ITEM #3: Unified compute() signature
-      // Single function handles both regular and voucher calculations
+      // ✅ Unified compute() API
       const result = self.ITW_MATH.compute(
         payload.inputs,
         payload.economics,
         payload.dataset,
-        payload.vouchers || null  // Pass vouchers if present, null otherwise
+        payload.vouchers || null
       );
       
-      // ✅ v1.001.001 FIX: Send 'payload' not 'result' to match core expectations
+      // ✅ Send as 'payload' to match core expectations
       self.postMessage({
         type: 'result',
-        payload: result  // ← FIXED: Was 'result', now 'payload'
+        payload: result
       });
     } catch (error) {
       self.postMessage({
@@ -87,9 +79,9 @@ self.addEventListener('message', (event) => {
 
 /* ==================== READY SIGNAL ==================== */
 
-// Signal that worker is ready
 self.postMessage({
-  type: 'ready'
+  type: 'ready',
+  version: '1.001.002'
 });
 
 // "In all thy ways acknowledge him, and he shall direct thy paths" - Proverbs 3:6
