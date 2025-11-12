@@ -1,31 +1,32 @@
 /**
  * Royal Caribbean Drink Calculator - Web Worker
- * Version: 10.0.1 (Phase 2 Security Hardening)
+ * Version: 10.0.1 (Production Ready)
  * 
  * "Whatsoever thy hand findeth to do, do it with thy might" - Ecclesiastes 9:10
  * 
  * Soli Deo Gloria ✝️
  * 
- * PHASE 2 SECURITY:
- * ✅ Message schema validation
- * ✅ Prototype pollution guards
- * ✅ Type checking on all payload fields
+ * FIXES APPLIED:
+ * ✅ Classic worker (not module) - fixes importScripts() error
+ * ✅ Message validation - prevents prototype pollution
+ * ✅ Schema validation - ensures payload integrity
+ * ✅ Error handling - graceful degradation
  */
 
 'use strict';
 
 /* ==================== IMPORT MATH MODULE ==================== */
+// This must be a classic worker (not module) to use importScripts()
 importScripts('/assets/js/calculator-math.js?v=10.0.0');
 
 /* ==================== MESSAGE VALIDATION ==================== */
 /**
- * ✅ PHASE 2: Worker message schema validation
- * "Test all things; hold fast that which is good" - 1 Thessalonians 5:21
- * 
  * Validates incoming compute payloads to prevent:
- * - Prototype pollution attacks
- * - Type confusion attacks
+ * - Prototype pollution attacks (__proto__, constructor, prototype)
+ * - Type confusion attacks (non-object payloads)
  * - Malformed data causing crashes
+ * 
+ * "Test all things; hold fast that which is good" - 1 Thessalonians 5:21
  */
 function validatePayload(payload) {
   // Type guard - must be a plain object
@@ -35,9 +36,11 @@ function validatePayload(payload) {
   
   // Block dangerous prototype pollution keys
   const dangerousKeys = ['__proto__', 'constructor', 'prototype'];
+  
+  // Check top-level payload
   for (const key of dangerousKeys) {
     if (key in payload) {
-      return { valid: false, error: 'Dangerous key detected' };
+      return { valid: false, error: 'Dangerous key detected in payload' };
     }
   }
   
@@ -46,10 +49,22 @@ function validatePayload(payload) {
     return { valid: false, error: 'inputs must be an object' };
   }
   
-  // Check for dangerous keys in inputs
+  // Check inputs for dangerous keys
   for (const key of dangerousKeys) {
     if (key in payload.inputs) {
       return { valid: false, error: 'Dangerous key in inputs' };
+    }
+  }
+  
+  // Check inputs.drinks if present
+  if (payload.inputs.drinks) {
+    if (typeof payload.inputs.drinks !== 'object' || Array.isArray(payload.inputs.drinks)) {
+      return { valid: false, error: 'inputs.drinks must be an object' };
+    }
+    for (const key of dangerousKeys) {
+      if (key in payload.inputs.drinks) {
+        return { valid: false, error: 'Dangerous key in inputs.drinks' };
+      }
     }
   }
   
@@ -58,10 +73,22 @@ function validatePayload(payload) {
     return { valid: false, error: 'economics must be an object' };
   }
   
-  // Check for dangerous keys in economics
+  // Check economics for dangerous keys
   for (const key of dangerousKeys) {
     if (key in payload.economics) {
       return { valid: false, error: 'Dangerous key in economics' };
+    }
+  }
+  
+  // Check economics.pkg if present
+  if (payload.economics.pkg) {
+    if (typeof payload.economics.pkg !== 'object' || Array.isArray(payload.economics.pkg)) {
+      return { valid: false, error: 'economics.pkg must be an object' };
+    }
+    for (const key of dangerousKeys) {
+      if (key in payload.economics.pkg) {
+        return { valid: false, error: 'Dangerous key in economics.pkg' };
+      }
     }
   }
   
@@ -70,7 +97,7 @@ function validatePayload(payload) {
     return { valid: false, error: 'dataset must be an object' };
   }
   
-  // Check for dangerous keys in dataset
+  // Check dataset for dangerous keys
   for (const key of dangerousKeys) {
     if (key in payload.dataset) {
       return { valid: false, error: 'Dangerous key in dataset' };
@@ -83,7 +110,7 @@ function validatePayload(payload) {
       return { valid: false, error: 'vouchers must be an object or null' };
     }
     
-    // Check for dangerous keys in vouchers
+    // Check vouchers for dangerous keys
     for (const key of dangerousKeys) {
       if (key in payload.vouchers) {
         return { valid: false, error: 'Dangerous key in vouchers' };
@@ -104,13 +131,14 @@ function validateMessageType(type) {
 
 /* ==================== MESSAGE HANDLER ==================== */
 self.addEventListener('message', (event) => {
-  const { type, payload } = event.data || {};
+  const { type, payload, id } = event.data || {};
   
   // Validate message type
   if (!validateMessageType(type)) {
     console.error('[Worker] Invalid message type:', type);
     self.postMessage({
       type: 'error',
+      id: id,
       payload: { message: 'Invalid message type' }
     });
     return;
@@ -123,13 +151,13 @@ self.addEventListener('message', (event) => {
         throw new Error('Math module not loaded');
       }
       
-      // ✅ PHASE 2: Schema validation
+      // Validate payload structure
       const validation = validatePayload(payload);
       if (!validation.valid) {
         throw new Error(`Invalid payload: ${validation.error}`);
       }
       
-      // ✅ PHASE 1: Call unified compute() with optional vouchers
+      // Call unified compute() with optional vouchers
       const results = self.ITW_MATH.compute(
         payload.inputs,
         payload.economics,
@@ -142,9 +170,10 @@ self.addEventListener('message', (event) => {
         throw new Error('Invalid computation results');
       }
       
-      // Send results back to main thread
+      // Send results back to main thread with ID for de-racing
       self.postMessage({
         type: 'result',
+        id: id,
         payload: results
       });
       
@@ -154,6 +183,7 @@ self.addEventListener('message', (event) => {
       // Send error back to main thread
       self.postMessage({
         type: 'error',
+        id: id,
         payload: {
           message: error.message || 'Unknown error',
           stack: error.stack
@@ -166,7 +196,7 @@ self.addEventListener('message', (event) => {
 /* ==================== INITIALIZATION ==================== */
 // Signal that worker is ready
 self.postMessage({ type: 'ready' });
-console.log('[Worker] v10.0.1 Ready (Phase 2 Security Hardening)');
+console.log('[Worker] v10.0.1 Ready (Production)');
 
 // "Commit thy works unto the LORD, and thy thoughts shall be established" - Proverbs 16:3
 // Soli Deo Gloria ✝️
