@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 10.0.0 (Phase 1 Complete)
+ * Version: 1,001.001 (Phase 1 Complete)
  * 
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  * 
@@ -370,12 +370,12 @@ function compute(inputs, economics, dataset, vouchers = null) {
 if (typeof window !== 'undefined') {
   window.ITW_MATH = Object.freeze({
     compute, // ✅ #3: Single unified API
-    version: '10.0.0'
+    version:  '1.001.001'
   });
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
-    version: '10.0.0'
+    version:  '1.001.001'
   });
 }
 
