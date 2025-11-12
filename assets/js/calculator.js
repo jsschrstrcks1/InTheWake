@@ -885,7 +885,7 @@ function initializeWorker() {
   if (!CONFIG.WORKER.enabled) return false;
   if (calcWorker) return true;
   try {
-    calcWorker = new Worker(CONFIG.WORKER.url, { type: 'module' });
+    calcWorker = new Worker(CONFIG.WORKER.url);
     calcWorker.onmessage = (event) => {
       const { type, payload } = event.data || {};
       if (type === 'ready') {
