@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - Web Worker
- * Version: 1.001.001 (Phase 1 Complete + Minimal Security)
+ * Version: 1.001.001 (Phase 1 Complete + Security)
  * 
  * "Whatsoever thy hand findeth to do, do it with thy might" - Ecclesiastes 9:10
  * 
@@ -8,9 +8,13 @@
  * 
  * PHASE 1 FEATURES:
  * ✅ #3 Unified compute() API (one function handles all cases)
- * ✅ Version number corrected
  * ✅ Size bomb protection (100KB limit)
+ * ✅ Message validation (type and payload checks)
+ * 
+ * v1.001.001 FIXES:
+ * ✅ Response property corrected (result → payload)
  */
+
 'use strict';
 
 /* ==================== IMPORT MATH MODULE ==================== */
@@ -28,7 +32,7 @@ importScripts('/assets/js/calculator-math.js');
  */
 self.addEventListener('message', (event) => {
   const { type, payload } = event.data || {};
-
+  
   // Basic validation
   if (!type || !payload) {
     self.postMessage({
@@ -37,8 +41,8 @@ self.addEventListener('message', (event) => {
     });
     return;
   }
-
-  // ✅ NEW: Size bomb protection
+  
+  // ✅ Size bomb protection
   // Prevent DoS via massive payloads
   const payloadStr = JSON.stringify(payload);
   if (payloadStr.length > 100000) { // 100KB limit
@@ -48,23 +52,23 @@ self.addEventListener('message', (event) => {
     });
     return;
   }
-
+  
   // Handle compute request
   if (type === 'compute') {
     try {
       // ✅ PHASE 1 ITEM #3: Unified compute() signature
       // Single function handles both regular and voucher calculations
-      const result = window.ITW_MATH.compute(
+      const result = self.ITW_MATH.compute(
         payload.inputs,
         payload.economics,
         payload.dataset,
         payload.vouchers || null  // Pass vouchers if present, null otherwise
       );
-
-      // Send result back to main thread
+      
+      // ✅ v1.001.001 FIX: Send 'payload' not 'result' to match core expectations
       self.postMessage({
         type: 'result',
-        result: result
+        payload: result  // ← FIXED: Was 'result', now 'payload'
       });
     } catch (error) {
       self.postMessage({
@@ -87,3 +91,6 @@ self.addEventListener('message', (event) => {
 self.postMessage({
   type: 'ready'
 });
+
+// "In all thy ways acknowledge him, and he shall direct thy paths" - Proverbs 3:6
+// Soli Deo Gloria ✝️
