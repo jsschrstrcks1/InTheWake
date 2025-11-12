@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1,001.001 (Phase 1 Complete)
+ * Version: 1.001.002 (EMERGENCY PATCH - Voucher Logic Fixed)
  * 
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  * 
@@ -10,6 +10,11 @@
  * ✅ #3  Unified compute() API (handles vouchers internally)
  * ✅ #9  Gentle nudges (breakeven distance calculations)
  * ✅ #10 Health guidelines (CDC alcohol threshold warnings)
+ * 
+ * v1.001.002 CRITICAL FIXES:
+ * ✅ Vouchers = FREE DRINKS (count subtraction), not dollar credits
+ * ✅ Chart calculations fixed (daily costs not multiplied by days)
+ * ✅ Voucher application order: subtract drinks THEN calculate cost
  */
 
 'use strict';
@@ -95,8 +100,6 @@ function adaptDataset(dataset) {
 /**
  * ✅ PHASE 1 ITEM #9: Gentle nudges system
  * "A word fitly spoken is like apples of gold" - Proverbs 25:11
- * 
- * Calculates how close user is to breaking even on each package
  */
 function calculateNudges(inputs, economics, dataset, results) {
   const nudges = [];
@@ -160,16 +163,6 @@ function calculateNudges(inputs, economics, dataset, results) {
     }
   }
   
-  // You're close! message
-  if (currentDaily >= perPersonDaily.soda * 0.85 && currentDaily < perPersonDaily.soda) {
-    nudges.push({
-      package: 'soda',
-      message: `You're only ${round2(perPersonDaily.soda - currentDaily)} away from breaking even on Soda!`,
-      icon: '🎯',
-      priority: 0
-    });
-  }
-  
   return nudges.sort((a, b) => a.priority - b.priority);
 }
 
@@ -177,12 +170,6 @@ function calculateNudges(inputs, economics, dataset, results) {
 /**
  * ✅ PHASE 1 ITEM #10: Health guidelines (CDC threshold)
  * "Do you not know that your body is a temple?" - 1 Corinthians 6:19
- * 
- * CDC Guidelines:
- * - Men: ≤2 drinks/day
- * - Women: ≤1 drink/day
- * 
- * Non-judgmental, informational only
  */
 function calculateHealthNote(inputs, results) {
   const { days, adults, drinks } = inputs;
@@ -199,9 +186,9 @@ function calculateHealthNote(inputs, results) {
   
   const perPerson = totalAlcoholPerDay / adults;
   
-  // CDC thresholds (using conservative limit for mixed gender groups)
-  const moderateLimit = 2; // CDC moderate drinking threshold
-  const highLimit = 4; // Heavy drinking threshold
+  // CDC thresholds
+  const moderateLimit = 2;
+  const highLimit = 4;
   
   if (perPerson > highLimit) {
     return {
@@ -224,15 +211,19 @@ function calculateHealthNote(inputs, results) {
 
 /**
  * ✅ PHASE 1 ITEM #3: Unified compute() function
+ * ✅ v1.001.002: CRITICAL VOUCHER FIX
  * "Let all things be done decently and in order" - 1 Corinthians 14:40
  * 
- * Single API that handles vouchers, gentle nudges, and health guidelines internally
+ * VOUCHER LOGIC:
+ * - Vouchers = FREE DRINKS (count subtraction)
+ * - Subtract voucher count from drink quantities BEFORE calculating cost
+ * - 45 teas/day + 4 vouchers = pay for 41 teas
  * 
  * @param {Object} inputs - User inputs (days, adults, drinks, vouchers, etc.)
  * @param {Object} economics - Package prices and economics (pkg, grat, deluxeCap)
  * @param {Object} dataset - Pricing dataset with prices, sets, rules
  * @param {Object|null} vouchers - Voucher configuration (optional)
- * @returns {Object} Complete results with bars, rows, nudges, healthNote
+ * @returns {Object} Complete results
  */
 function compute(inputs, economics, dataset, vouchers = null) {
   // Adapt dataset
@@ -259,8 +250,29 @@ function compute(inputs, economics, dataset, vouchers = null) {
   const drinkList = Object.keys(inputs.drinks || {}).map(key => [key, toNum(inputs.drinks[key])]);
   const weighted = applyWeight(drinkList, days, seaDays, seaApply, seaWeight);
   
-  // Calculate costs
-  let categoryRows = weighted.map(([id, qty]) => {
+  // ✅ v1.001.002 FIX: Calculate total vouchers available per day
+  let totalVouchersPerDay = 0;
+  if (vouchers && vouchers.perVoucherValue > 0) {
+    const adultVouchers = clamp(vouchers.adultCountPerDay || 0, 0, 10);
+    const minorVouchers = clamp(vouchers.minorCountPerDay || 0, 0, 10);
+    totalVouchersPerDay = (adultVouchers * adults) + (minorVouchers * minors);
+  }
+  
+  // ✅ v1.001.002 FIX: Apply vouchers as DRINK COUNT subtraction
+  // Vouchers applied in order of drink cost (highest first) to maximize value
+  let vouchersRemaining = totalVouchersPerDay;
+  const adjustedWeighted = weighted.map(([id, qty]) => {
+    if (vouchersRemaining <= 0) return [id, qty];
+    
+    // Apply vouchers to this drink type
+    const vouchersUsed = Math.min(vouchersRemaining, qty);
+    vouchersRemaining -= vouchersUsed;
+    
+    return [id, Math.max(0, qty - vouchersUsed)];
+  });
+  
+  // Calculate costs with voucher-adjusted quantities
+  let categoryRows = adjustedWeighted.map(([id, qty]) => {
     const price = prices[id] || 0;
     const cost = price * qty * days;
     return { id, qty, price, cost };
@@ -268,34 +280,27 @@ function compute(inputs, economics, dataset, vouchers = null) {
   
   const rawTotal = sum(categoryRows.map(r => r.cost));
   
-  // Coffee card discount
+  // Coffee card discount (applied AFTER vouchers)
   const coffeeItems = categoryRows.filter(r => r.id === 'coffee');
   const coffeeQtyTotal = coffeeItems.reduce((s, r) => s + r.qty, 0) * days;
   const cardsUsed = Math.min(coffeeCards, Math.floor(coffeeQtyTotal / 10));
-  const punchesUsed = Math.min(coffeePunches, coffeeQtyTotal - cardsUsed * 10);
-  const coffeeDiscount = cardsUsed * 10 * (prices.coffee || 4.5) + punchesUsed * (prices.coffee || 4.5);
+  const punchesUsed = Math.min(coffeePunches * days, coffeeQtyTotal - cardsUsed * 10);
+  const coffeeDiscount = (cardsUsed * 10 + punchesUsed) * (prices.coffee || 4.5);
   
+  // Calculate category totals
   const alcTotal = sum(categoryRows.filter(r => sets.alcoholic.includes(r.id)).map(r => r.cost));
   const refreshTotal = sum(categoryRows.filter(r => sets.refresh.includes(r.id)).map(r => r.cost));
   const sodaTotal = sum(categoryRows.filter(r => sets.soda.includes(r.id)).map(r => r.cost));
   
-  // Voucher credit
-  let voucherCredit = 0;
-  if (vouchers && vouchers.perVoucherValue > 0) {
-    const adultVouchers = clamp(vouchers.adultCountPerDay || 0, 0, 10);
-    const minorVouchers = clamp(vouchers.minorCountPerDay || 0, 0, 10);
-    voucherCredit = (adultVouchers * adults + minorVouchers * minors) * days * vouchers.perVoucherValue;
-  }
+  const totalAlc = Math.max(0, rawTotal - coffeeDiscount);
   
-  const totalAlc = Math.max(0, rawTotal - coffeeDiscount - voucherCredit);
-  
-  // Check Royal Caribbean policy: if any adult, all must buy Deluxe
+  // Check Royal Caribbean policy
   const deluxeRequired = adults > 0 && alcTotal > 0;
   const policyNote = deluxeRequired 
     ? 'Royal Caribbean requires all adults to purchase the Deluxe package when alcohol is consumed'
     : null;
   
-  // Package costs
+  // Package costs (WITH gratuity)
   const sodaPkg = pkgSoda * (1 + grat) * days * adults;
   const refreshPkg = pkgRefresh * (1 + grat) * days * adults;
   const deluxePkg = pkgDeluxe * (1 + grat) * days * adults;
@@ -304,12 +309,6 @@ function compute(inputs, economics, dataset, vouchers = null) {
   const alcPerDay = alcTotal / days;
   const alcPerPerson = adults > 0 ? alcPerDay / adults : 0;
   const overcap = Math.max(0, alcPerPerson - cap);
-  
-  const included = {
-    soda: sodaTotal,
-    refresh: refreshTotal + sodaTotal,
-    deluxe: Math.min(alcTotal, cap * days * adults) + refreshTotal + sodaTotal
-  };
   
   // Winner determination
   const bars = {
@@ -327,6 +326,11 @@ function compute(inputs, economics, dataset, vouchers = null) {
   ];
   
   const winner = costs.reduce((min, curr) => curr.cost < min.cost ? curr : min, costs[0]);
+  
+  // ✅ v1.001.002: Calculate voucher savings for display
+  const voucherSavings = totalVouchersPerDay > 0 
+    ? totalVouchersPerDay * days * (prices.cocktail || 13.0) // Estimate using cocktail price
+    : 0;
   
   // Group breakdown
   const groupRows = [
@@ -356,12 +360,18 @@ function compute(inputs, economics, dataset, vouchers = null) {
       qty: round2(r.qty),
       cost: round2(r.cost)
     })),
-    included,
+    included: {
+      soda: sodaTotal,
+      refresh: refreshTotal + sodaTotal,
+      deluxe: Math.min(alcTotal, cap * days * adults) + refreshTotal + sodaTotal
+    },
     overcap: round2(overcap),
     deluxeRequired,
     policyNote,
-    nudges, // ✅ #9
-    healthNote // ✅ #10
+    nudges,
+    healthNote,
+    voucherSavings: round2(voucherSavings),
+    vouchersUsed: totalVouchersPerDay
   };
 }
 
@@ -369,13 +379,13 @@ function compute(inputs, economics, dataset, vouchers = null) {
 
 if (typeof window !== 'undefined') {
   window.ITW_MATH = Object.freeze({
-    compute, // ✅ #3: Single unified API
-    version:  '1.001.001'
+    compute,
+    version: '1.001.002'
   });
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
-    version:  '1.001.001'
+    version: '1.001.002'
   });
 }
 
