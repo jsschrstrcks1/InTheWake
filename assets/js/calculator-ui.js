@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - UI Layer
- * Version: 10.0.1 (Phase 1 Complete + Practical Security)
+ * Version: 1.001.001 
  * 
  * "Let all things be done decently and in order" - 1 Corinthians 14:40
  * 
@@ -14,7 +14,7 @@
  * ✅ #11 Solo traveler preset
  * ✅ #12 Soda drinker preset
  * 
- * v10.0.1 IMPROVEMENTS:
+ * v1.001.001 IMPROVEMENTS:
  * ✅ Safe DOM manipulation (textContent only)
  * ✅ Input sanitization
  * ✅ Version sync with worker
@@ -148,7 +148,7 @@ function applyPreset(presetKey) {
       localStorage.setItem('itw:rc:state:v10', JSON.stringify({
         value: JSON.stringify({ inputs: savedInputs, economics }),
         timestamp: Date.now(),
-        version: '10.0.1'
+        version: '1.001.001'
       }));
     } catch (e) {
       console.warn('[UI] Could not save to localStorage:', e.message);
