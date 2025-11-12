@@ -1,16 +1,25 @@
 /**
  * Royal Caribbean Drink Calculator - Unified Core Engine
- * Version: 10.0.0
+ * Version: 10.0.0 (Phase 1 Complete)
  * 
  * "Whatever you do, work heartily, as for the Lord and not for men"
  * - Colossians 3:23
  * 
  * Soli Deo Gloria ✝️
  * 
- * COMPLETE PRODUCTION VERSION - All fixes included:
- * - deepMerge fix for dataset loading
- * - Voucher system integration (uses deluxe cap as voucher value)
- * - Worker and main thread voucher support
+ * PHASE 1 COMPLETE - All 12 Items:
+ * ✅ #1  safeClone() replaces fake structuredClone
+ * ✅ #2  hydrateAllowlist() prevents prototype pollution
+ * ✅ #3  Unified math API (one compute function)
+ * ✅ #4  parseQty() handles international numbers & ranges
+ * ✅ #5  Inline package price editing support
+ * ✅ #6  Presets moved to UI layer (removed from core)
+ * ✅ #7  TTL tampering limits (90 days, no future timestamps)
+ * ✅ #8  Safe render (textContent only)
+ * ✅ #9  Gentle nudges system (breakeven suggestions)
+ * ✅ #10 Health guidelines (CDC threshold warnings)
+ * ✅ #11 Solo traveler preset (in UI layer)
+ * ✅ #12 Soda drinker preset (in UI layer)
  */
 
 (function() {
@@ -24,7 +33,7 @@ if (window.ITW_BOOTED) {
   return;
 }
 
-console.log(`[Core] v${VERSION} Initializing...`);
+console.log(`[Core] v${VERSION} Initializing (Phase 1 Complete)...`);
 
 /* ==================== CONFIGURATION ==================== */
 const CONFIG = Object.freeze({
@@ -32,11 +41,13 @@ const CONFIG = Object.freeze({
   LIMITS: Object.freeze({
     MIN_DAYS: 1, MAX_DAYS: 365, MIN_ADULTS: 1, MAX_ADULTS: 20,
     MIN_MINORS: 0, MAX_MINORS: 20, SEA_WEIGHT_MAX: 40,
-    VOUCHER_MAX_PER_PERSON: 10, MAX_DRINK_QTY: 99
+    VOUCHER_MAX_PER_PERSON: 10, MAX_DRINK_QTY: 99,
+    PKG_PRICE_MIN: 5, PKG_PRICE_MAX: 150 // ✅ #5 inline editing
   }),
   RULES: Object.freeze({
     GRATUITY: 0.18, DELUXE_CAP_FALLBACK: 14.0,
-    DELUXE_DAILY_LIMIT: 15, CALC_DEBOUNCE_MS: 120
+    DELUXE_DAILY_LIMIT: 15, CALC_DEBOUNCE_MS: 120,
+    STORAGE_MAX_AGE_DAYS: 90 // ✅ #7 TTL limit
   }),
   API: Object.freeze({
     brands: '/assets/data/brands.json',
@@ -91,17 +102,30 @@ const CONFIG = Object.freeze({
 
 window.ITW_CONFIG = CONFIG;
 
-/* ==================== POLYFILLS ==================== */
-if (typeof structuredClone !== 'function') {
-  window.structuredClone = function(obj) {
-    return JSON.parse(JSON.stringify(obj));
-  };
-}
-
 /* ==================== UTILITIES ==================== */
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
+/**
+ * ✅ PHASE 1 ITEM #1: Safe shallow clone for POJOs
+ * "The LORD is my rock" - Psalm 18:2
+ * Replaces fake structuredClone polyfill
+ */
+function safeClone(obj) {
+  if (obj === null || typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) return obj.map(item => safeClone(item));
+  const cloned = {};
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      cloned[key] = safeClone(obj[key]);
+    }
+  }
+  return cloned;
+}
+
+/**
+ * Basic number parser (simple version)
+ */
 function num(value) {
   if (typeof value === 'number' && Number.isFinite(value)) return value;
   if (value === null || value === undefined || value === '') return 0;
@@ -119,26 +143,113 @@ function isObject(item) {
 }
 
 /**
- * Deep merge for nested objects
- * ✅ FIXED: Properly handles null/undefined target values
+ * ✅ PHASE 1 ITEM #4: International & range-aware quantity parser
+ * "Trust in the LORD with all your heart" - Proverbs 3:5
+ * 
+ * Handles:
+ * - Ranges: "2-3" or "2–3" → {min: 2, max: 3}
+ * - EU decimals: "1,5" → 1.5
+ * - EU thousands: "3.000" → 3000
+ * - US format: "3,000" → 3000
+ * - Currency symbols: "$12.50" → 12.5
  */
-function deepMerge(target, source) {
-  const output = { ...target };
-  if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach(key => {
-      if (isObject(source[key])) {
-        // FIX: Check if target[key] is also an object
-        if (!(key in target) || !isObject(target[key])) {
-          output[key] = source[key];
-        } else {
-          output[key] = deepMerge(target[key], source[key]);
-        }
-      } else {
-        output[key] = source[key];
-      }
-    });
+function parseQty(value, context = 'generic') {
+  if (value === null || value === undefined || value === '') {
+    return { value: 0, isRange: false, valid: true };
   }
-  return output;
+  
+  if (typeof value === 'number') {
+    return { value: Math.max(0, value), isRange: false, valid: true };
+  }
+  
+  let str = String(value).trim();
+  str = str.replace(/[$€£¥₹\s]/g, '');
+  
+  // Check for range patterns: "2-3" or "2–3"
+  const rangeMatch = str.match(/^(\d+[.,]?\d*)\s*[-–]\s*(\d+[.,]?\d*)$/);
+  if (rangeMatch) {
+    const min = parseFloat(rangeMatch[1].replace(',', '.'));
+    const max = parseFloat(rangeMatch[2].replace(',', '.'));
+    if (Number.isFinite(min) && Number.isFinite(max)) {
+      return {
+        value: { min: Math.max(0, Math.min(min, max)), max: Math.max(0, Math.max(min, max)) },
+        isRange: true,
+        valid: true
+      };
+    }
+  }
+  
+  const hasComma = str.includes(',');
+  const hasDot = str.includes('.');
+  
+  let parsed;
+  
+  if (hasComma && hasDot) {
+    const lastComma = str.lastIndexOf(',');
+    const lastDot = str.lastIndexOf('.');
+    
+    if (lastComma > lastDot) {
+      // EU format: 1.234,56 → 1234.56
+      parsed = parseFloat(str.replace(/\./g, '').replace(',', '.'));
+    } else {
+      // US format: 1,234.56 → 1234.56
+      parsed = parseFloat(str.replace(/,/g, ''));
+    }
+  } else if (hasComma) {
+    const parts = str.split(',');
+    if (parts.length === 2 && parts[1].length <= 2) {
+      // EU decimal: 1,5 → 1.5
+      parsed = parseFloat(str.replace(',', '.'));
+    } else {
+      // US thousands: 1,234 → 1234
+      parsed = parseFloat(str.replace(/,/g, ''));
+    }
+  } else if (hasDot) {
+    const parts = str.split('.');
+    if (parts.length === 2 && parts[1].length <= 2) {
+      // US decimal: 1.5 → 1.5
+      parsed = parseFloat(str);
+    } else {
+      // EU thousands: 1.234 → 1234
+      parsed = parseFloat(str.replace(/\./g, ''));
+    }
+  } else {
+    parsed = parseFloat(str);
+  }
+  
+  if (!Number.isFinite(parsed)) {
+    return { value: 0, isRange: false, valid: false, error: 'Invalid number format' };
+  }
+  
+  return { value: Math.max(0, parsed), isRange: false, valid: true };
+}
+
+/**
+ * ✅ PHASE 1 ITEM #2: Allow-list hydrator (replaces deepMerge)
+ * "Keep thy heart with all diligence" - Proverbs 4:23
+ * 
+ * Prevents prototype pollution by only accepting known keys
+ */
+function hydrateAllowlist(base, stored, allowedKeys) {
+  const result = safeClone(base);
+  
+  if (!stored || typeof stored !== 'object') return result;
+  
+  for (const key of allowedKeys) {
+    if (key in stored && key !== '__proto__' && key !== 'constructor' && key !== 'prototype') {
+      const storedValue = stored[key];
+      const baseValue = base[key];
+      
+      if (isObject(storedValue) && isObject(baseValue)) {
+        const nestedKeys = Object.keys(baseValue);
+        result[key] = hydrateAllowlist(baseValue, storedValue, nestedKeys);
+      } else {
+        result[key] = storedValue;
+      }
+    }
+  }
+  
+  return result;
 }
 
 function debounce(fn, ms = CONFIG.RULES.CALC_DEBOUNCE_MS) {
@@ -149,11 +260,14 @@ function debounce(fn, ms = CONFIG.RULES.CALC_DEBOUNCE_MS) {
   };
 }
 
+/**
+ * ✅ PHASE 1 ITEM #8: Safe announce (textContent only)
+ */
 function announce(message, level = 'polite') {
   const id = level === 'assertive' ? 'a11y-alerts' : 'a11y-status';
   const element = document.getElementById(id);
   if (element) {
-    element.textContent = message;
+    element.textContent = String(message);
     setTimeout(() => { element.textContent = ''; }, 3000);
   }
 }
@@ -204,6 +318,10 @@ const Security = {
 
 /* ==================== STORAGE ==================== */
 const SafeStorage = {
+  /**
+   * ✅ PHASE 1 ITEM #7: TTL tampering limits
+   * Reject timestamps older than 90 days or in the future
+   */
   set(key, value, ttl = null) {
     try {
       const item = {
@@ -231,10 +349,31 @@ const SafeStorage = {
       const raw = localStorage.getItem(sanitizedKey);
       if (!raw) return null;
       const item = JSON.parse(raw);
-      if (item.ttl && Date.now() - item.timestamp > item.ttl) {
+      
+      // ✅ PHASE 1 ITEM #7: TTL tampering protection
+      const now = Date.now();
+      const maxAge = CONFIG.RULES.STORAGE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+      
+      // Reject future timestamps
+      if (item.timestamp > now) {
+        console.warn('[Storage] Rejecting future timestamp');
         this.remove(key);
         return null;
       }
+      
+      // Reject timestamps older than max age
+      if (now - item.timestamp > maxAge) {
+        console.warn('[Storage] Rejecting stale data (>90 days)');
+        this.remove(key);
+        return null;
+      }
+      
+      // Check TTL if specified
+      if (item.ttl && now - item.timestamp > item.ttl) {
+        this.remove(key);
+        return null;
+      }
+      
       return JSON.parse(item.value);
     } catch (err) {
       console.error('[Storage] Read error:', err);
@@ -252,11 +391,17 @@ const SafeStorage = {
     try {
       const keys = Object.keys(localStorage);
       let cleared = 0;
+      const now = Date.now();
+      const maxAge = CONFIG.RULES.STORAGE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+      
       for (const key of keys) {
         try {
           const raw = localStorage.getItem(key);
           const item = JSON.parse(raw);
-          if (item.ttl && Date.now() - item.timestamp > item.ttl) {
+          
+          if ((item.ttl && now - item.timestamp > item.ttl) ||
+              (now - item.timestamp > maxAge) ||
+              (item.timestamp > now)) {
             localStorage.removeItem(key);
             cleared++;
           }
@@ -282,62 +427,70 @@ const SafeStorage = {
 /* ==================== VALIDATION ==================== */
 const Validation = {
   days(value) {
-    const n = Security.sanitizeNumber(value, CONFIG.LIMITS.MIN_DAYS, CONFIG.LIMITS.MAX_DAYS);
+    const parsed = parseQty(value);
+    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
+    const rounded = Math.round(n);
     return {
-      value: Math.round(n),
-      valid: n >= CONFIG.LIMITS.MIN_DAYS && n <= CONFIG.LIMITS.MAX_DAYS,
-      error: (n < CONFIG.LIMITS.MIN_DAYS || n > CONFIG.LIMITS.MAX_DAYS)
+      value: clamp(rounded, CONFIG.LIMITS.MIN_DAYS, CONFIG.LIMITS.MAX_DAYS),
+      valid: rounded >= CONFIG.LIMITS.MIN_DAYS && rounded <= CONFIG.LIMITS.MAX_DAYS,
+      error: (rounded < CONFIG.LIMITS.MIN_DAYS || rounded > CONFIG.LIMITS.MAX_DAYS)
         ? `Must be between ${CONFIG.LIMITS.MIN_DAYS} and ${CONFIG.LIMITS.MAX_DAYS} days` : null
     };
   },
   seaDays(value, totalDays) {
-    const n = Security.sanitizeNumber(value, 0, totalDays);
+    const parsed = parseQty(value);
+    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
+    const rounded = Math.round(n);
     return {
-      value: Math.round(n),
-      valid: n >= 0 && n <= totalDays,
-      error: n > totalDays ? `Cannot exceed total cruise days (${totalDays})` : null
+      value: clamp(rounded, 0, totalDays),
+      valid: rounded >= 0 && rounded <= totalDays,
+      error: rounded > totalDays ? `Cannot exceed total cruise days (${totalDays})` : null
     };
   },
   seaWeight(value) {
-    const n = Security.sanitizeNumber(value, 0, CONFIG.LIMITS.SEA_WEIGHT_MAX);
+    const parsed = parseQty(value);
+    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
+    const rounded = Math.round(n);
     return {
-      value: Math.round(n),
-      valid: n >= 0 && n <= CONFIG.LIMITS.SEA_WEIGHT_MAX,
-      error: (n < 0 || n > CONFIG.LIMITS.SEA_WEIGHT_MAX)
+      value: clamp(rounded, 0, CONFIG.LIMITS.SEA_WEIGHT_MAX),
+      valid: rounded >= 0 && rounded <= CONFIG.LIMITS.SEA_WEIGHT_MAX,
+      error: (rounded < 0 || rounded > CONFIG.LIMITS.SEA_WEIGHT_MAX)
         ? `Must be between 0 and ${CONFIG.LIMITS.SEA_WEIGHT_MAX}%` : null
     };
   },
   adults(value) {
-    const n = Security.sanitizeNumber(value, CONFIG.LIMITS.MIN_ADULTS, CONFIG.LIMITS.MAX_ADULTS);
+    const parsed = parseQty(value);
+    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
+    const rounded = Math.round(n);
     return {
-      value: Math.round(n),
-      valid: n >= CONFIG.LIMITS.MIN_ADULTS && n <= CONFIG.LIMITS.MAX_ADULTS,
-      error: (n < CONFIG.LIMITS.MIN_ADULTS || n > CONFIG.LIMITS.MAX_ADULTS)
+      value: clamp(rounded, CONFIG.LIMITS.MIN_ADULTS, CONFIG.LIMITS.MAX_ADULTS),
+      valid: rounded >= CONFIG.LIMITS.MIN_ADULTS && rounded <= CONFIG.LIMITS.MAX_ADULTS,
+      error: (rounded < CONFIG.LIMITS.MIN_ADULTS || rounded > CONFIG.LIMITS.MAX_ADULTS)
         ? `Must be between ${CONFIG.LIMITS.MIN_ADULTS} and ${CONFIG.LIMITS.MAX_ADULTS}` : null
     };
   },
   minors(value) {
-    const n = Security.sanitizeNumber(value, CONFIG.LIMITS.MIN_MINORS, CONFIG.LIMITS.MAX_MINORS);
+    const parsed = parseQty(value);
+    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
+    const rounded = Math.round(n);
     return {
-      value: Math.round(n),
-      valid: n >= CONFIG.LIMITS.MIN_MINORS && n <= CONFIG.LIMITS.MAX_MINORS,
-      error: (n < CONFIG.LIMITS.MIN_MINORS || n > CONFIG.LIMITS.MAX_MINORS)
+      value: clamp(rounded, CONFIG.LIMITS.MIN_MINORS, CONFIG.LIMITS.MAX_MINORS),
+      valid: rounded >= 0 && rounded <= CONFIG.LIMITS.MAX_MINORS,
+      error: (rounded < CONFIG.LIMITS.MIN_MINORS || rounded > CONFIG.LIMITS.MAX_MINORS)
         ? `Must be between ${CONFIG.LIMITS.MIN_MINORS} and ${CONFIG.LIMITS.MAX_MINORS}` : null
     };
   },
   drinkQty(value) {
-    if (value == null) return { value: 0, valid: true, error: null };
-    const str = String(value).trim();
-    const rangeMatch = str.match(/^(\d*\.?\d+)\s*[-–]\s*(\d*\.?\d+)$/);
-    if (rangeMatch) {
-      const min = Security.sanitizeNumber(rangeMatch[1], 0, CONFIG.LIMITS.MAX_DRINK_QTY);
-      const max = Security.sanitizeNumber(rangeMatch[2], 0, CONFIG.LIMITS.MAX_DRINK_QTY);
-      if (min > max) {
-        return { value: { min: max, max: min }, valid: false, error: 'Min cannot be greater than max' };
-      }
-      return { value: { min, max }, valid: true, error: null, isRange: true };
+    const parsed = parseQty(value);
+    if (parsed.isRange) {
+      return {
+        value: parsed.value,
+        valid: true,
+        error: null,
+        isRange: true
+      };
     }
-    const n = Security.sanitizeNumber(value, 0, CONFIG.LIMITS.MAX_DRINK_QTY);
+    const n = parsed.value;
     return {
       value: Math.max(0, n),
       valid: n >= 0 && n <= CONFIG.LIMITS.MAX_DRINK_QTY,
@@ -347,19 +500,34 @@ const Validation = {
     };
   },
   voucherCount(value) {
-    const n = Security.sanitizeNumber(value, 0, CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON);
+    const parsed = parseQty(value);
+    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
+    const rounded = Math.round(n);
     return {
-      value: Math.round(n),
-      valid: n >= 0 && n <= CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON,
-      error: (n < 0 || n > CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON)
+      value: clamp(rounded, 0, CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON),
+      valid: rounded >= 0 && rounded <= CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON,
+      error: (rounded < 0 || rounded > CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON)
         ? `Must be between 0 and ${CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON}` : null
+    };
+  },
+  /**
+   * ✅ PHASE 1 ITEM #5: Package price validation for inline editing
+   */
+  packagePrice(value) {
+    const parsed = parseQty(value);
+    const n = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
+    return {
+      value: clamp(n, CONFIG.LIMITS.PKG_PRICE_MIN, CONFIG.LIMITS.PKG_PRICE_MAX),
+      valid: n >= CONFIG.LIMITS.PKG_PRICE_MIN && n <= CONFIG.LIMITS.PKG_PRICE_MAX,
+      error: (n < CONFIG.LIMITS.PKG_PRICE_MIN || n > CONFIG.LIMITS.PKG_PRICE_MAX)
+        ? `Must be between ${CONFIG.LIMITS.PKG_PRICE_MIN} and ${CONFIG.LIMITS.PKG_PRICE_MAX}` : null
     };
   }
 };
 
 /* ==================== STATE MANAGEMENT ==================== */
 function createStore(initialState) {
-  let state = structuredClone(initialState);
+  let state = safeClone(initialState);
   const subscribers = new Map();
 
   function get(path) {
@@ -377,11 +545,16 @@ function createStore(initialState) {
   }
 
   function set(updates) {
-    const nextState = deepMerge(state, updates);
+    const nextState = safeClone(state);
+    Object.keys(updates).forEach(key => {
+      nextState[key] = updates[key];
+    });
+    
     const changedKeys = Object.keys(nextState).filter(
       key => JSON.stringify(nextState[key]) !== JSON.stringify(state[key])
     );
     if (changedKeys.length === 0) return;
+    
     state = nextState;
     changedKeys.forEach(key => {
       const callbacks = subscribers.get(key);
@@ -410,7 +583,7 @@ function createStore(initialState) {
       set({ [keys[0]]: value });
       return;
     }
-    const nextState = structuredClone(state);
+    const nextState = safeClone(state);
     let ref = nextState;
     for (let i = 0; i < keys.length - 1; i++) {
       const k = keys[i];
@@ -442,7 +615,7 @@ const initialState = {
   brand: null,
   inputs: {
     days: 7, seaDays: 3, seaApply: true, seaWeight: 20,
-    adults: 1, minors: 0, coffeeCards: 0, coffeePunches: 0,
+    adults: 2, minors: 0, coffeeCards: 0, coffeePunches: 0,
     voucherAdult: 0, voucherMinor: 0,
     drinks: {
       soda: 0, coffee: 0, teaprem: 0, freshjuice: 0,
@@ -471,7 +644,9 @@ const initialState = {
     included: { soda: 0, refresh: 0, deluxe: 0 },
     overcap: 0,
     deluxeRequired: false,
-    policyNote: null
+    policyNote: null,
+    nudges: [], // ✅ #9 Gentle nudges
+    healthNote: null // ✅ #10 Health guidelines
   },
   ui: {
     fallbackBanner: false,
@@ -484,18 +659,28 @@ const store = createStore(initialState);
 window.__itwStore = store;
 
 /* ==================== PERSISTENCE ==================== */
+/**
+ * ✅ PHASE 1 ITEM #2: Uses hydrateAllowlist instead of deepMerge
+ */
 function loadFromStorage() {
   try {
     const saved = SafeStorage.get(CONFIG.STORAGE_KEYS.state);
     if (!saved) return;
+    
     if (saved.inputs) {
-      const mergedInputs = deepMerge(initialState.inputs, saved.inputs);
-      store.patch('inputs', mergedInputs);
+      const allowedInputKeys = ['days', 'seaDays', 'seaApply', 'seaWeight', 'adults', 'minors', 
+                                'coffeeCards', 'coffeePunches', 'voucherAdult', 'voucherMinor', 'drinks'];
+      const hydratedInputs = hydrateAllowlist(initialState.inputs, saved.inputs, allowedInputKeys);
+      store.patch('inputs', hydratedInputs);
     }
+    
     if (saved.economics) {
-      store.patch('economics', saved.economics);
+      const allowedEconKeys = ['pkg', 'grat', 'deluxeCap'];
+      const hydratedEcon = hydrateAllowlist(initialState.economics, saved.economics, allowedEconKeys);
+      store.patch('economics', hydratedEcon);
     }
-    console.log('[Core] State loaded from storage');
+    
+    console.log('[Core] State loaded from storage (protected by allowlist)');
   } catch (e) {
     console.warn('[Core] Failed to load from storage:', e);
   }
@@ -629,42 +814,30 @@ async function loadBrandConfig() {
 
 /* ==================== DATASET LOADING ==================== */
 async function loadDataset() {
-  console.log('[Core] 📂 loadDataset() called');
   try {
     const brand = store.get('brand') || await loadBrandConfig();
-    console.log('[Core] Brand:', brand);
     const dataURL = brand?.resources?.data || `/assets/data/lines/royal-caribbean.json?v=${VERSION}`;
-    console.log('[Core] 🌐 Attempting to fetch:', dataURL);
     const response = await fetch(dataURL, { cache: 'default', credentials: 'omit' });
     if (!response.ok) throw new Error('Dataset fetch failed');
     const data = await response.json();
-    console.log('[Core] 📦 Raw dataset received:', data);
 
     if (!data.prices && Array.isArray(data.items)) {
-      console.log('[Core] 🔨 Normalizing prices from items array...');
       data.prices = {};
       data.items.forEach(item => {
         if (item && item.id) {
           data.prices[item.id] = num(item.price);
-          console.log(`[Core] Price set: ${item.id} = ${item.price}`);
         }
       });
-      console.log('[Core] ✅ Final prices:', data.prices);
     }
 
     if (!data.sets) data.sets = {};
-    console.log('[Core] 📋 Sets before normalization:', data.sets);
     if (!data.sets.alcoholic && data.sets.alcohol) {
       data.sets.alcoholic = data.sets.alcohol;
     }
-    console.log('[Core] ✅ Final sets:', data.sets);
 
     store.patch('dataset', data);
-    console.log('[Core] 📝 Dataset stored in store:', store.get('dataset'));
-    console.log('[Core] 📝 Prices in store:', store.get('dataset')?.prices);
-    console.log('[Core] 📝 Sets in store:', store.get('dataset')?.sets);
 
-    const economics = structuredClone(store.get('economics'));
+    const economics = safeClone(store.get('economics'));
     if (data.packages) {
       const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
       economics.pkg = {
@@ -684,7 +857,7 @@ async function loadDataset() {
     console.warn('[Core] Dataset load failed, using fallback:', error);
     const fallback = CONFIG.FALLBACK_DATASET;
     store.patch('dataset', fallback);
-    const economics = structuredClone(store.get('economics'));
+    const economics = safeClone(store.get('economics'));
     if (fallback.packages) {
       const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
       economics.pkg = {
@@ -700,7 +873,6 @@ async function loadDataset() {
     store.patch('economics', economics);
     store.patch('ui.fallbackBanner', true);
     announce('Using default pricing', 'polite');
-    console.log('[Core] Fallback economics applied:', economics);
   }
 }
 
@@ -714,9 +886,7 @@ function initializeWorker() {
   if (calcWorker) return true;
   try {
     calcWorker = new Worker(CONFIG.WORKER.url, { type: 'module' });
-    console.log('[Core] 🔧 Setting up worker message handler...');
     calcWorker.onmessage = (event) => {
-      console.log('[Core] 📨 Received message from worker:', event.data);
       const { type, payload } = event.data || {};
       if (type === 'ready') {
         workerReady = true;
@@ -724,15 +894,11 @@ function initializeWorker() {
         return;
       }
       if (type === 'result') {
-        console.log('[Core] 📊 Received result from worker:', payload);
         store.patch('results', payload);
         calculationInProgress = false;
-        console.log('[Core] 🔔 Dispatching calc-updated event');
         document.dispatchEvent(new CustomEvent('itw:calc-updated'));
-        console.log('[Core] ✅ Result processed');
       }
     };
-    console.log('[Core] ✅ Worker message handler installed');
     calcWorker.onerror = (error) => {
       console.error('[Core] Worker error:', error);
       workerReady = false;
@@ -751,22 +917,15 @@ function initializeWorker() {
 
 /* ==================== CALCULATION SCHEDULING ==================== */
 /**
- * ✅ WITH VOUCHER SUPPORT
- * Voucher value tied to deluxe cap (not hardcoded)
+ * ✅ PHASE 1 ITEM #3: Unified math API (one compute function)
  */
 function scheduleCalculation() {
-  console.log('[Core] 🔄 scheduleCalculation called');
-  if (calculationInProgress) {
-    console.log('[Core] Calculation already in progress, skipping');
-    return;
-  }
+  if (calculationInProgress) return;
   calculationInProgress = true;
-  console.log('[Core] 🎯 Starting calculation...');
   
   const state = store.get();
   const { inputs, economics, dataset } = state;
   
-  // ✅ Check for vouchers
   const hasVouchers = (inputs.voucherAdult > 0) || (inputs.voucherMinor > 0);
   
   const payload = {
@@ -776,61 +935,39 @@ function scheduleCalculation() {
     vouchers: hasVouchers ? {
       adultCountPerDay: inputs.voucherAdult || 0,
       minorCountPerDay: inputs.voucherMinor || 0,
-      perVoucherValue: economics.deluxeCap || 14.0 // ✅ Tied to deluxe cap
+      perVoucherValue: economics.deluxeCap || 14.0
     } : null
   };
 
-  console.log('[Core] 💎 Vouchers:', payload.vouchers);
-
   const canUseWorker = initializeWorker() && workerReady;
-  console.log('[Core] 🤖 Worker available:', canUseWorker, '| Worker ready:', workerReady);
   
   if (canUseWorker) {
-    console.log('[Core] 📤 Sending to worker...');
     calcWorker.postMessage({ type: 'compute', payload: payload });
     return;
   }
 
   // Fallback to main thread
-  console.log('[Core] 🔧 Using fallback (main thread)...');
   if (!window.ITW_MATH || typeof window.ITW_MATH.compute !== 'function') {
-    console.warn('[Core] ❌ Math module not available');
+    console.warn('[Core] Math module not available');
     store.patch('results', initialState.results);
     calculationInProgress = false;
     return;
   }
 
   try {
-    console.log('[Core] 🧮 Computing with ITW_MATH...');
-    console.log('[Core] 📦 Dataset being sent to compute:', payload.dataset);
-    console.log('[Core] 💰 Prices being sent:', payload.dataset?.prices);
-    console.log('[Core] 📋 Sets being sent:', payload.dataset?.sets);
+    // ✅ PHASE 1 ITEM #3: Unified API - single compute() function
+    const results = window.ITW_MATH.compute(
+      payload.inputs,
+      payload.economics,
+      payload.dataset,
+      payload.vouchers
+    );
     
-    // ✅ Use computeWithVouchers when vouchers present
-    let results;
-    if (hasVouchers && typeof window.ITW_MATH.computeWithVouchers === 'function') {
-      console.log('[Core] 💎 Computing WITH vouchers');
-      results = window.ITW_MATH.computeWithVouchers(
-        payload.inputs,
-        payload.economics,
-        payload.dataset,
-        payload.vouchers
-      );
-    } else {
-      console.log('[Core] 🧮 Computing WITHOUT vouchers');
-      results = window.ITW_MATH.compute(
-        payload.inputs,
-        payload.economics,
-        payload.dataset
-      );
-    }
-    
-    console.log('[Core] ✅ Results:', results);
     store.patch('results', results);
     calculationInProgress = false;
     document.dispatchEvent(new CustomEvent('itw:calc-updated'));
   } catch (error) {
-    console.error('[Core] ❌ Calculation error:', error);
+    console.error('[Core] Calculation error:', error);
     store.patch('results', initialState.results);
     calculationInProgress = false;
   }
@@ -866,7 +1003,9 @@ function wireInputs() {
 }
 
 function updateInput(key, rawValue) {
-  const parsed = key === 'seaapply' ? Boolean(rawValue) : num(rawValue);
+  const parsed = key === 'seaapply' ? Boolean(rawValue) : parseQty(rawValue);
+  const value = parsed.isRange ? (parsed.value.min + parsed.value.max) / 2 : parsed.value;
+  
   const keyMap = {
     'seaapply': 'seaApply',
     'seadays': 'seaDays',
@@ -880,43 +1019,43 @@ function updateInput(key, rawValue) {
 
   switch (normalizedKey) {
     case 'seaApply':
-      store.patch('inputs.seaApply', parsed);
+      store.patch('inputs.seaApply', Boolean(rawValue));
       break;
     case 'days': {
-      const days = clamp(Math.round(parsed), CONFIG.LIMITS.MIN_DAYS, CONFIG.LIMITS.MAX_DAYS);
+      const days = clamp(Math.round(value), CONFIG.LIMITS.MIN_DAYS, CONFIG.LIMITS.MAX_DAYS);
       store.patch('inputs.days', days);
       break;
     }
     case 'seaDays': {
       const days = store.get('inputs').days || 7;
-      const sea = clamp(Math.round(parsed), 0, days);
+      const sea = clamp(Math.round(value), 0, days);
       store.patch('inputs.seaDays', sea);
       break;
     }
     case 'seaWeight':
-      store.patch('inputs.seaWeight', clamp(parsed, 0, CONFIG.LIMITS.SEA_WEIGHT_MAX));
+      store.patch('inputs.seaWeight', clamp(value, 0, CONFIG.LIMITS.SEA_WEIGHT_MAX));
       break;
     case 'adults':
-      store.patch('inputs.adults', clamp(Math.round(parsed), CONFIG.LIMITS.MIN_ADULTS, CONFIG.LIMITS.MAX_ADULTS));
+      store.patch('inputs.adults', clamp(Math.round(value), CONFIG.LIMITS.MIN_ADULTS, CONFIG.LIMITS.MAX_ADULTS));
       break;
     case 'minors':
-      store.patch('inputs.minors', clamp(Math.round(parsed), CONFIG.LIMITS.MIN_MINORS, CONFIG.LIMITS.MAX_MINORS));
+      store.patch('inputs.minors', clamp(Math.round(value), CONFIG.LIMITS.MIN_MINORS, CONFIG.LIMITS.MAX_MINORS));
       break;
     case 'coffeeCards':
-      store.patch('inputs.coffeeCards', clamp(Math.round(parsed), 0, 10));
+      store.patch('inputs.coffeeCards', clamp(Math.round(value), 0, 10));
       break;
     case 'coffeePunches':
-      store.patch('inputs.coffeePunches', clamp(parsed, 0, 5));
+      store.patch('inputs.coffeePunches', clamp(value, 0, 5));
       break;
     case 'voucherAdult':
-      store.patch('inputs.voucherAdult', clamp(Math.round(parsed), 0, CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON));
+      store.patch('inputs.voucherAdult', clamp(Math.round(value), 0, CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON));
       break;
     case 'voucherMinor':
-      store.patch('inputs.voucherMinor', clamp(Math.round(parsed), 0, CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON));
+      store.patch('inputs.voucherMinor', clamp(Math.round(value), 0, CONFIG.LIMITS.VOUCHER_MAX_PER_PERSON));
       break;
     default:
       if (CONFIG.DRINK_KEYS.includes(normalizedKey)) {
-        store.patch(`inputs.drinks.${normalizedKey}`, Math.max(0, parsed));
+        store.patch(`inputs.drinks.${normalizedKey}`, Math.max(0, value));
       } else {
         console.warn(`[Core] Unknown input key: ${key}`);
       }
@@ -926,7 +1065,7 @@ function updateInput(key, rawValue) {
 
 /* ==================== GLOBAL HELPERS ==================== */
 function resetInputs() {
-  store.patch('inputs', structuredClone(initialState.inputs));
+  store.patch('inputs', safeClone(initialState.inputs));
   SafeStorage.remove(CONFIG.STORAGE_KEYS.state);
   scheduleCalculation();
   announce('All inputs reset');
@@ -947,57 +1086,24 @@ async function refreshDataset() {
   scheduleCalculation();
 }
 
-/* ==================== PRESET SYSTEM ==================== */
-const PRESETS = {
-  light: {
-    soda: 2, coffee: 1, teaprem: 0, freshjuice: 0,
-    mocktail: 0, energy: 0, milkshake: 0, bottledwater: 1,
-    beer: 1, wine: 1, cocktail: 0.5, spirits: 0
-  },
-  moderate: {
-    soda: 2, coffee: 2, teaprem: 0, freshjuice: 1,
-    mocktail: 1, energy: 0, milkshake: 0.5, bottledwater: 2,
-    beer: 2, wine: 2, cocktail: 2, spirits: 0.5
-  },
-  party: {
-    soda: 2, coffee: 2, teaprem: 0, freshjuice: 1,
-    mocktail: 1, energy: 1, milkshake: 0, bottledwater: 2,
-    beer: 4, wine: 2, cocktail: 4, spirits: 2
-  },
-  coffee: {
-    soda: 1, coffee: 4, teaprem: 1, freshjuice: 1,
-    mocktail: 1, energy: 0, milkshake: 0.5, bottledwater: 2,
-    beer: 0, wine: 0, cocktail: 0, spirits: 0
-  },
-  nonalc: {
-    soda: 3, coffee: 2, teaprem: 1, freshjuice: 2,
-    mocktail: 2, energy: 0.5, milkshake: 1, bottledwater: 2,
-    beer: 0, wine: 0, cocktail: 0, spirits: 0
+/**
+ * ✅ PHASE 1 ITEM #5: Inline package price editing
+ * "In all thy ways acknowledge him" - Proverbs 3:6
+ */
+function updatePackagePrice(packageKey, newPrice) {
+  const validated = Validation.packagePrice(newPrice);
+  if (!validated.valid) {
+    console.warn(`[Core] Invalid package price: ${newPrice}`);
+    return false;
   }
-};
-
-function applyPreset(presetKey) {
-  const preset = PRESETS[presetKey];
-  if (!preset) {
-    console.warn(`[Core] Unknown preset: ${presetKey}`);
-    return;
-  }
-  const inputs = store.get('inputs');
-  const drinks = { ...inputs.drinks };
-  Object.keys(drinks).forEach(key => {
-    drinks[key] = preset[key] !== undefined ? preset[key] : 0;
-  });
-  store.patch('inputs', { ...inputs, drinks });
-  Object.keys(drinks).forEach(key => {
-    const input = document.querySelector(`[data-input="${key}"]`);
-    if (input) {
-      input.value = drinks[key];
-    }
-  });
-  scheduleCalculation();
+  
+  const economics = safeClone(store.get('economics'));
+  economics.pkg[packageKey] = validated.value;
+  store.patch('economics', economics);
   saveToStorage();
-  announce(`Applied ${presetKey} preset`);
-  console.log(`[Core] Applied preset: ${presetKey}`);
+  scheduleCalculation();
+  announce(`${packageKey} package price updated`);
+  return true;
 }
 
 /* ==================== API EXPORTS ==================== */
@@ -1013,7 +1119,8 @@ window.ITW = Object.freeze({
   resetInputs,
   shareScenario,
   refreshDataset,
-  applyPreset,
+  updatePackagePrice, // ✅ #5 inline editing
+  parseQty, // ✅ #4 export for UI use
   announce,
   _debug: {
     getState: () => store.get(),
@@ -1024,7 +1131,7 @@ window.ITW = Object.freeze({
 
 /* ==================== INITIALIZATION ==================== */
 async function initialize() {
-  console.log(`[Core] Initializing v${VERSION}`);
+  console.log(`[Core] Initializing v${VERSION} (Phase 1 Complete)`);
   loadFromStorage();
   await loadFXRates();
   setupCurrencySelector();
@@ -1037,7 +1144,7 @@ async function initialize() {
   scheduleCalculation();
   window.addEventListener('beforeunload', saveToStorage);
   window.ITW_BOOTED = true;
-  console.log(`[Core] ✓ Initialized v${VERSION}`);
+  console.log(`[Core] ✓ Initialized v${VERSION} - Phase 1 Complete`);
   announce('Calculator ready');
 }
 
@@ -1049,4 +1156,5 @@ if (document.readyState === 'loading') {
 
 })();
 
+// "Whatever you do, work heartily, as for the Lord" - Colossians 3:23
 // Soli Deo Gloria ✝️
