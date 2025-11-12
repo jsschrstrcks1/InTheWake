@@ -26,7 +26,7 @@
 'use strict';
 
 /* ==================== VERSION & INITIALIZATION GUARD ==================== */
-const VERSION = 'v1.001.001';
+const VERSION = '1.001.001';
 
 if (window.ITW_BOOTED) {
   console.warn('[Core] Already initialized, skipping duplicate init');
