@@ -181,14 +181,16 @@ function isObject(item) {
 
 /**
  * Deep merge for nested objects
+ * ✅ FIXED: Handles null/undefined target values properly
  */
 function deepMerge(target, source) {
   const output = { ...target };
   if (isObject(target) && isObject(source)) {
     Object.keys(source).forEach(key => {
       if (isObject(source[key])) {
-       if (!(key in target) || !isObject(target[key])) {
-        output[key] = source[key];
+        // ✅ FIX: Check if target[key] is also an object before merging
+        if (!(key in target) || !isObject(target[key])) {
+          output[key] = source[key];
         } else {
           output[key] = deepMerge(target[key], source[key]);
         }
@@ -958,7 +960,6 @@ async function loadDataset() {
 
     store.patch('dataset', data);
 
-    // ⚠️ CRITICAL DEBUG
     console.log('[Core] 📝 Dataset stored in store:', store.get('dataset'));
     console.log('[Core] 📝 Prices in store:', store.get('dataset')?.prices);
     console.log('[Core] 📝 Sets in store:', store.get('dataset')?.sets);
@@ -990,7 +991,7 @@ async function loadDataset() {
     const fallback = CONFIG.FALLBACK_DATASET;
     store.patch('dataset', fallback);
     
-    // ⚠️ CRITICAL: Update economics from fallback
+    // Update economics from fallback
     const economics = structuredClone(store.get('economics'));
     
     if (fallback.packages) {
@@ -1074,6 +1075,7 @@ function initializeWorker() {
 /**
  * Single calculation scheduler - prevents race conditions
  * Never allows worker AND fallback to run simultaneously
+ * ✅ UPDATED: Now supports voucher calculations
  */
 function scheduleCalculation() {
   console.log('[Core] 🔄 scheduleCalculation called');
@@ -1090,11 +1092,21 @@ function scheduleCalculation() {
   const state = store.get();
   const { inputs, economics, dataset } = state;
   
+  // ✅ NEW: Check if vouchers are present
+  const hasVouchers = (inputs.voucherAdult > 0) || (inputs.voucherMinor > 0);
+  
   const payload = {
     inputs,
     economics,
-    dataset: dataset || CONFIG.FALLBACK_DATASET
+    dataset: dataset || CONFIG.FALLBACK_DATASET,
+    vouchers: hasVouchers ? {
+      adultCountPerDay: inputs.voucherAdult || 0,
+      minorCountPerDay: inputs.voucherMinor || 0,
+      perVoucherValue: economics.deluxeCap || 14.0 // ✅ Use deluxe cap for voucher value
+    } : null
   };
+
+  console.log('[Core] 💎 Vouchers:', payload.vouchers);
 
   // Try worker first
   const canUseWorker = initializeWorker() && workerReady;
@@ -1124,11 +1136,24 @@ function scheduleCalculation() {
     console.log('[Core] 💰 Prices being sent:', payload.dataset?.prices);
     console.log('[Core] 📋 Sets being sent:', payload.dataset?.sets);
     
-    const results = window.ITW_MATH.compute(
-      payload.inputs,
-      payload.economics,
-      payload.dataset
-    );
+    // ✅ NEW: Check for vouchers and use appropriate function
+    let results;
+    if (hasVouchers && typeof window.ITW_MATH.computeWithVouchers === 'function') {
+      console.log('[Core] 💎 Computing WITH vouchers');
+      results = window.ITW_MATH.computeWithVouchers(
+        payload.inputs,
+        payload.economics,
+        payload.dataset,
+        payload.vouchers
+      );
+    } else {
+      console.log('[Core] 🧮 Computing WITHOUT vouchers');
+      results = window.ITW_MATH.compute(
+        payload.inputs,
+        payload.economics,
+        payload.dataset
+      );
+    }
     
     console.log('[Core] ✅ Results:', results);
     store.patch('results', results);
