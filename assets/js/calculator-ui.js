@@ -409,7 +409,7 @@ function showQuizResult() {
 
 function applyQuizResult() {
   if (quizState.recommendedPreset) {
-    applyPreset(quizState.recommendedPreset);
+    window.ITW.applyPreset(quizState.recommendedPreset);  // ✅ Use the API
     closeQuiz();
     
     // Scroll to inputs
