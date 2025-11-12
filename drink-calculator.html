@@ -36,6 +36,32 @@
   <title>Royal Caribbean Drink Package Calculator 2025 | Is It Worth It?</title>
   <meta name="description" content="Compare Soda, Refreshment, Deluxe, and Coffee Card vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support."/>
   <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
+ 
+  <!-- REPLACE LINE 39 in drink-calculator.html with this: -->
+
+<!-- ✅ PHASE 2: Chart.js with SRI integrity check -->
+<script 
+  src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" 
+  integrity="ssha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
+  crossorigin="anonymous"
+  defer
+  id="chartjs-cdn"
+></script>
+
+<!-- Fallback loader (no inline onerror) -->
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  // Check if Chart.js loaded from CDN
+  if (!window.Chart) {
+    console.warn('[HTML] Chart.js CDN failed, loading fallback');
+    const fallback = document.createElement('script');
+    fallback.src = '/assets/vendor/chart.umd.min.js?v=10.0.0';
+    fallback.defer = true;
+    document.head.appendChild(fallback);
+  }
+});
+</script>
+
   <!-- OpenGraph / Twitter -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
