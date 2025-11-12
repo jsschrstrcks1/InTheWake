@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - UI Layer
- * Version: 1.001.001 
+ * Version: 1.001.001 (Phase 1 Complete + All UI Functions)
  * 
  * "Let all things be done decently and in order" - 1 Corinthians 14:40
  * 
@@ -14,10 +14,10 @@
  * ✅ #11 Solo traveler preset
  * ✅ #12 Soda drinker preset
  * 
- * v1.001.001 IMPROVEMENTS:
- * ✅ Safe DOM manipulation (textContent only)
- * ✅ Input sanitization
- * ✅ Version sync with worker
+ * v1.001.001 ADDITIONS:
+ * ✅ Banner rendering (best value chip)
+ * ✅ Totals rendering (per day / trip total)
+ * ✅ Complete UI coverage for all HTML elements
  */
 
 'use strict';
@@ -187,6 +187,63 @@ function renderPresetButtons() {
   });
 }
 
+/* ==================== BANNER RENDERING ==================== */
+/**
+ * ✅ NEW in v1.001.001: Updates top banner with best value
+ * "The LORD is my light and my salvation" - Psalm 27:1
+ */
+function renderBanner(results) {
+  const chipEl = document.getElementById('best-chip');
+  const textEl = document.getElementById('best-text');
+  
+  if (!chipEl || !textEl || !results) return;
+  
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  
+  const labels = {
+    alc: 'À la carte',
+    soda: 'Soda Package',
+    refresh: 'Refreshment Package',
+    deluxe: 'Deluxe Package'
+  };
+  
+  const winnerLabel = labels[results.winnerKey] || 'À la carte';
+  const winnerCost = results.bars[results.winnerKey]?.mean || 0;
+  const alcCost = results.bars.alc?.mean || 0;
+  const savings = alcCost - winnerCost;
+  
+  // Update chip (✅ textContent)
+  chipEl.textContent = `Best Value: ${winnerLabel}`;
+  chipEl.className = 'badge'; // Restore proper class
+  
+  // Update text (✅ textContent)
+  if (results.winnerKey === 'alc') {
+    textEl.textContent = 'Paying as you go is your best option';
+  } else if (savings > 0) {
+    textEl.textContent = `Save ${formatMoney(savings)} over à-la-carte`;
+  } else {
+    textEl.textContent = '';
+  }
+}
+
+/* ==================== TOTALS RENDERING ==================== */
+/**
+ * ✅ NEW in v1.001.001: Updates main totals display
+ * "Give, and it will be given to you" - Luke 6:38
+ */
+function renderTotals(results) {
+  const totalsEl = document.getElementById('totals');
+  if (!totalsEl || !results) return;
+  
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  
+  const perDay = formatMoney(results.perDay);
+  const trip = formatMoney(results.trip);
+  
+  // ✅ Use textContent for safety
+  totalsEl.textContent = `${perDay}/day • ${trip} total`;
+}
+
 /* ==================== INLINE PRICE EDITING ==================== */
 /**
  * ✅ PHASE 1 ITEM #5: Inline package price editing UI
@@ -256,7 +313,7 @@ function setupInlinePriceEditing() {
  * ✅ PHASE 1 ITEM #9: Gentle nudges display
  * "A word spoken in due season, how good is it!" - Proverbs 15:23
  * 
- * ✅ v10.0.1: Uses textContent only (no innerHTML)
+ * ✅ v1.001.001: Uses textContent only (no innerHTML)
  */
 function renderNudges(nudges) {
   const container = document.getElementById('nudges-container');
@@ -308,7 +365,7 @@ function renderNudges(nudges) {
  * ✅ PHASE 1 ITEM #10: Health guidelines display
  * "Know ye not that your body is the temple?" - 1 Corinthians 6:19
  * 
- * ✅ v10.0.1: Uses textContent only (no innerHTML)
+ * ✅ v1.001.001: Uses textContent only (no innerHTML)
  */
 function renderHealthNote(healthNote) {
   const container = document.getElementById('health-note-container');
@@ -540,6 +597,11 @@ function renderAll() {
   
   if (!results) return;
   
+  // ✅ NEW in v1.001.001: Render banner and totals
+  renderBanner(results);
+  renderTotals(results);
+  
+  // Existing renders
   renderChart(results.bars, results.winnerKey);
   renderSummary(results);
   renderCategoryTable(results.categoryRows || []);
@@ -550,7 +612,7 @@ function renderAll() {
 /* ==================== INITIALIZATION ==================== */
 
 function initializeUI() {
-  console.log('[UI] Initializing v1.001.001 Royal Caribbean Drink Package Calculator');
+  console.log('[UI] Initializing v1.001.001 (Phase 1 + Complete UI)');
   
   // Render preset buttons
   renderPresetButtons();
@@ -589,9 +651,11 @@ window.ITW_UI = Object.freeze({
   renderAll,
   applyPreset,
   renderChart,
+  renderBanner,      // ✅ NEW
+  renderTotals,      // ✅ NEW
   renderNudges,
   renderHealthNote,
-  version: 'v1.001.001'
+  version: '1.001.001'
 });
 
 // Make applyPreset globally accessible for buttons
