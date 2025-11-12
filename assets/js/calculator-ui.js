@@ -550,7 +550,7 @@ function renderAll() {
 /* ==================== INITIALIZATION ==================== */
 
 function initializeUI() {
-  console.log('[UI] Initializing v10.0.1 (Phase 1 + Security)');
+  console.log('[UI] Initializing v1.001.001 Royal Caribbean Drink Package Calculator');
   
   // Render preset buttons
   renderPresetButtons();
@@ -573,7 +573,7 @@ function initializeUI() {
   // Initial render
   renderAll();
   
-  console.log('[UI] ✓ Initialized v10.0.1');
+  console.log('[UI] ✓ Initialized v1.001.001');
 }
 
 // Auto-initialize
@@ -591,7 +591,7 @@ window.ITW_UI = Object.freeze({
   renderChart,
   renderNudges,
   renderHealthNote,
-  version: '10.0.1'
+  version: 'v1.001.001'
 });
 
 // Make applyPreset globally accessible for buttons
