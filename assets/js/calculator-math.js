@@ -1,6 +1,6 @@
 /* calculator-math.js v10.0.0 assets/js/calculator-math.js
  * Royal Caribbean Drink Package Calculation Engine
- * Soli Deo Gloria ✝️
+ * Soli Deo Gloria ✝️ :) *
  */
 
 'use strict';
