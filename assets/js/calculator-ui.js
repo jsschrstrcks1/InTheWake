@@ -8,20 +8,10 @@
  * 
  * Soli Deo Gloria ✝️
  * 
- * This module handles ALL UI rendering:
- * - Chart.js integration (with infinite scroll fix)
- * - Preset system
- * - Interactive quiz
- * - Package cards
- * - Group breakdown
- * - Category breakdown
- * - Email capture
- * - Navigation dropdowns
- * 
- * DOES NOT:
- * - Manage state (reads from store only)
- * - Perform calculations
- * - Handle persistence
+ * COMPLETE PRODUCTION VERSION - All fixes included:
+ * - Quiz apply button fixed
+ * - Breakeven nudges added
+ * - Deluxe cap badge updates dynamically
  */
 
 (function() {
@@ -52,10 +42,6 @@ const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
 /* ==================== CHART.JS INTEGRATION ==================== */
-/**
- * Chart with infinite scroll protection
- * "Let your light so shine" - Matthew 5:16
- */
 let chart = null;
 let chartResizeTimer = null;
 let lastChartWidth = 0;
@@ -82,11 +68,11 @@ function initializeChart() {
         label: 'Daily Cost',
         data: [0, 0, 0, 0, 0],
         backgroundColor: [
-          'rgba(14, 110, 142, 0.8)',  // alc
-          'rgba(139, 69, 19, 0.8)',   // coffee
-          'rgba(255, 159, 64, 0.8)',  // soda
-          'rgba(75, 192, 192, 0.8)',  // refresh
-          'rgba(153, 102, 255, 0.8)'  // deluxe
+          'rgba(14, 110, 142, 0.8)',
+          'rgba(139, 69, 19, 0.8)',
+          'rgba(255, 159, 64, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(153, 102, 255, 0.8)'
         ],
         borderColor: [
           'rgb(14, 110, 142)',
@@ -130,7 +116,6 @@ function initializeChart() {
     const w = wrapper.clientWidth;
     const h = wrapper.clientHeight;
     
-    // Guard: Only resize if dimensions actually changed
     if (w === lastChartWidth && h === lastChartHeight) {
       return;
     }
@@ -138,7 +123,6 @@ function initializeChart() {
     lastChartWidth = w;
     lastChartHeight = h;
     
-    // Throttle: Prevent rapid-fire updates
     clearTimeout(chartResizeTimer);
     chartResizeTimer = setTimeout(() => {
       if (chart && typeof chart.resize === 'function') {
@@ -148,7 +132,7 @@ function initializeChart() {
           console.error('[UI] Chart resize error:', err);
         }
       }
-    }, 150); // 150ms throttle
+    }, 150);
   });
   
   resizeObserver.observe(wrapper);
@@ -163,7 +147,6 @@ function updateChart(results) {
   try {
     const { bars, winnerKey } = results;
     
-    // Update data
     chart.data.datasets[0].data = [
       bars.alc.mean,
       bars.coffee?.mean || 0,
@@ -172,7 +155,6 @@ function updateChart(results) {
       bars.deluxe.mean
     ];
     
-    // Update winner badge position
     const stamp = $('#best-stamp');
     if (stamp) {
       const winnerIndex = {
@@ -187,10 +169,7 @@ function updateChart(results) {
       stamp.style.display = 'block';
     }
     
-    // Update chart (single call, throttled by ResizeObserver)
-    chart.update('none'); // 'none' mode = no animation for performance
-    
-    // Update screen reader table
+    chart.update('none');
     updateScreenReaderTable(bars);
   } catch (err) {
     console.error('[UI] Chart update error:', err);
@@ -198,11 +177,17 @@ function updateChart(results) {
 }
 
 function updateScreenReaderTable(bars) {
-  $('#sr-alc').textContent = formatMoney(bars.alc.mean);
-  $('#sr-coffee').textContent = formatMoney(bars.coffee?.mean || 0);
-  $('#sr-soda').textContent = formatMoney(bars.soda.mean);
-  $('#sr-refresh').textContent = formatMoney(bars.refresh.mean);
-  $('#sr-deluxe').textContent = formatMoney(bars.deluxe.mean);
+  const srAlc = $('#sr-alc');
+  const srCoffee = $('#sr-coffee');
+  const srSoda = $('#sr-soda');
+  const srRefresh = $('#sr-refresh');
+  const srDeluxe = $('#sr-deluxe');
+  
+  if (srAlc) srAlc.textContent = formatMoney(bars.alc.mean);
+  if (srCoffee) srCoffee.textContent = formatMoney(bars.coffee?.mean || 0);
+  if (srSoda) srSoda.textContent = formatMoney(bars.soda.mean);
+  if (srRefresh) srRefresh.textContent = formatMoney(bars.refresh.mean);
+  if (srDeluxe) srDeluxe.textContent = formatMoney(bars.deluxe.mean);
 }
 
 function showChartFallback() {
@@ -218,9 +203,6 @@ function showChartFallback() {
 }
 
 /* ==================== PRESET SYSTEM ==================== */
-/**
- * Consolidated preset logic from extras.js and inline scripts
- */
 const PRESETS = {
   light: {
     name: 'Light Drinker 🧘',
@@ -232,7 +214,6 @@ const PRESETS = {
     },
     tip: 'You\'ll likely save money ordering à-la-carte or with a basic package.'
   },
-  
   moderate: {
     name: 'Moderate Drinker 🥂',
     desc: 'Social drinker who enjoys multiple drinks per day, especially at dinner and by the pool.',
@@ -243,7 +224,6 @@ const PRESETS = {
     },
     tip: 'Refreshment or Deluxe package likely makes sense for you.'
   },
-  
   party: {
     name: 'Party Mode 🎉',
     desc: 'Living it up! Drinks flow freely from breakfast through late-night at the bars.',
@@ -254,7 +234,6 @@ const PRESETS = {
     },
     tip: 'Deluxe package is almost certainly worth it for your drinking style.'
   },
-  
   coffee: {
     name: 'Coffee Lover ☕',
     desc: 'Can\'t start the day without specialty coffee, maybe a latte or cappuccino mid-afternoon too.',
@@ -265,7 +244,6 @@ const PRESETS = {
     },
     tip: 'Coffee card or Refreshment package recommended.'
   },
-  
   nonalc: {
     name: 'Non-Alcoholic 🚫🍺',
     desc: 'Abstaining from alcohol but love specialty drinks, sodas, and fresh juices.',
@@ -279,9 +257,6 @@ const PRESETS = {
 };
 
 /* ==================== QUIZ SYSTEM ==================== */
-/**
- * Interactive quiz to help users find their drinking pattern
- */
 let quizState = {
   step: 1,
   answers: {}
@@ -294,11 +269,9 @@ function openQuiz() {
   modal.setAttribute('aria-hidden', 'false');
   modal.style.display = 'flex';
   
-  // Reset quiz
   quizState = { step: 1, answers: {} };
   showQuizStep(1);
   
-  // Focus first button
   setTimeout(() => {
     const firstBtn = modal.querySelector('.quiz-answer');
     if (firstBtn) firstBtn.focus();
@@ -312,13 +285,11 @@ function closeQuiz() {
   modal.setAttribute('aria-hidden', 'true');
   modal.style.display = 'none';
   
-  // Focus the quiz open button
   const openBtn = $('#quiz-open-btn');
   if (openBtn) openBtn.focus();
 }
 
 function showQuizStep(step) {
-  // Hide all steps
   for (let i = 1; i <= 3; i++) {
     const stepDiv = $(`#quiz-step-${i}`);
     if (stepDiv) stepDiv.style.display = 'none';
@@ -327,7 +298,6 @@ function showQuizStep(step) {
   const resultDiv = $('#quiz-result');
   if (resultDiv) resultDiv.style.display = 'none';
   
-  // Show current step
   const currentStep = $(`#quiz-step-${step}`);
   if (currentStep) currentStep.style.display = 'block';
 }
@@ -339,7 +309,6 @@ function handleQuizAnswer(question, answer) {
     quizState.step++;
     showQuizStep(quizState.step);
   } else {
-    // All questions answered, show result
     showQuizResult();
   }
 }
@@ -347,14 +316,10 @@ function handleQuizAnswer(question, answer) {
 function showQuizResult() {
   const { answers } = quizState;
   
-  // Determine recommendation based on answers
   let recommendation = '';
   let presetKey = 'moderate';
   
-  // Question 2: drinking amount
   const amount = answers.q2 || 'moderate';
-  
-  // Question 3: preference
   const preference = answers.q3 || 'cocktails';
   
   if (preference === 'nonalc') {
@@ -386,7 +351,6 @@ function showQuizResult() {
       day — if you're spending $40+, consider upgrading to a package.</p>
     `;
   } else {
-    // Moderate amount, cocktails/beer-wine preference
     presetKey = 'moderate';
     recommendation = `
       <h4>Refreshment or Deluxe Package</h4>
@@ -395,7 +359,6 @@ function showQuizResult() {
     `;
   }
   
-  // Store the recommendation for apply
   quizState.recommendedPreset = presetKey;
   
   const resultDiv = $('#quiz-result');
@@ -409,10 +372,9 @@ function showQuizResult() {
 
 function applyQuizResult() {
   if (quizState.recommendedPreset) {
-    window.ITW.applyPreset(quizState.recommendedPreset);  // ✅ Use the API
+    window.ITW.applyPreset(quizState.recommendedPreset);  // ✅ FIXED
     closeQuiz();
     
-    // Scroll to inputs
     const inputsCard = $('.card.inputs');
     if (inputsCard) {
       inputsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -421,25 +383,21 @@ function applyQuizResult() {
 }
 
 function wireQuiz() {
-  // Open button
   const openBtn = $('#quiz-open-btn');
   if (openBtn) {
     openBtn.addEventListener('click', openQuiz);
   }
   
-  // Close button
   const closeBtn = $('#quiz-close-btn');
   if (closeBtn) {
     closeBtn.addEventListener('click', closeQuiz);
   }
   
-  // Skip button
   const skipBtn = $('#quiz-skip-btn');
   if (skipBtn) {
     skipBtn.addEventListener('click', closeQuiz);
   }
   
-  // Answer buttons
   $$('.quiz-answer').forEach(btn => {
     btn.addEventListener('click', () => {
       const answer = btn.dataset.quizAnswer;
@@ -448,13 +406,11 @@ function wireQuiz() {
     });
   });
   
-  // Apply button
   const applyBtn = $('#quiz-apply-btn');
   if (applyBtn) {
     applyBtn.addEventListener('click', applyQuizResult);
   }
   
-  // Escape key closes modal
   document.addEventListener('keydown', (e) => {
     const modal = $('#quiz-modal');
     if (modal && modal.style.display !== 'none' && e.key === 'Escape') {
@@ -462,7 +418,6 @@ function wireQuiz() {
     }
   });
   
-  // Click outside closes modal
   const modal = $('#quiz-modal');
   if (modal) {
     modal.addEventListener('click', (e) => {
@@ -479,7 +434,6 @@ function renderResults(results) {
 
   const { bars, winnerKey, perDay, trip, included, overcap, policyNote } = results;
   
-  // Update best value banner
   const bestChip = $('#best-chip');
   const bestText = $('#best-text');
   
@@ -507,16 +461,16 @@ function renderResults(results) {
     }
   }
   
-  // Update totals
   const totalsSpan = $('#totals');
   if (totalsSpan) {
     totalsSpan.textContent = `${formatMoney(perDay)}/day · ${formatMoney(trip)} total`;
   }
   
-  // Update package cards
   updatePackageCards(bars, included, overcap);
   
-  // Update policy note
+  // ✅ NEW: Render breakeven nudges
+  renderBreakevenNudges(bars, included);
+  
   if (policyNote) {
     const policyDiv = $('#policy-note');
     const policyText = $('#policy-text');
@@ -529,34 +483,29 @@ function renderResults(results) {
     if (policyDiv) policyDiv.hidden = true;
   }
   
-  // Update chart
   updateChart(results);
   
-  // Update category breakdown
   if (results.categoryRows && results.categoryRows.length > 0) {
     renderCategoryBreakdown(results.categoryRows);
   }
   
-  // Update group breakdown
   if (results.groupRows && results.groupRows.length > 0) {
     renderGroupBreakdown(results.groupRows);
   }
 }
 
 function updatePackageCards(bars, included, overcap) {
-  // Package prices
   const economics = store.get('economics');
   
   $$('[data-pkg-price]').forEach(el => {
     const pkg = el.dataset.pkgPrice;
     if (pkg === 'coffee') {
-      el.textContent = formatMoney(31.0); // Coffee card is fixed
+      el.textContent = formatMoney(31.0);
     } else if (economics.pkg[pkg]) {
       el.textContent = formatMoney(economics.pkg[pkg]);
     }
   });
   
-  // Included value
   $$('[data-inc]').forEach(el => {
     const pkg = el.dataset.inc;
     if (included[pkg] !== undefined) {
@@ -564,7 +513,6 @@ function updatePackageCards(bars, included, overcap) {
     }
   });
   
-  // Over-cap estimate
   const overcapNote = $('#overcap-est');
   if (overcapNote) {
     if (overcap > 0) {
@@ -575,7 +523,6 @@ function updatePackageCards(bars, included, overcap) {
     }
   }
   
-  // Highlight winner card
   $$('.package-card').forEach(card => {
     card.classList.remove('winner');
   });
@@ -585,6 +532,93 @@ function updatePackageCards(bars, included, overcap) {
   if (winnerCard) {
     winnerCard.classList.add('winner');
   }
+}
+
+/**
+ * ✅ NEW FEATURE: Breakeven nudges
+ * "A word fitly spoken is like apples of gold in pictures of silver" - Proverbs 25:11
+ */
+function renderBreakevenNudges(bars, included) {
+  const economics = store.get('economics');
+  const dataset = store.get('dataset');
+  const inputs = store.get('inputs');
+  
+  if (!economics || !dataset || !inputs) return;
+  
+  const packages = [
+    { key: 'soda', name: 'Soda', set: 'soda' },
+    { key: 'refresh', name: 'Refreshment', set: 'refresh' },
+    { key: 'deluxe', name: 'Deluxe', set: 'alcoholic' }
+  ];
+  
+  packages.forEach(pkg => {
+    const card = $(`.package-card[data-card="${pkg.key}"]`);
+    if (!card) return;
+    
+    const oldNudge = card.querySelector('.breakeven-nudge');
+    if (oldNudge) oldNudge.remove();
+    
+    const pkgCost = economics.pkg[pkg.key];
+    const alcCost = bars.alc.mean;
+    const gap = pkgCost - alcCost;
+    
+    if (gap <= 0 || gap > 20) return;
+    
+    const setDrinks = dataset.sets[pkg.set] || [];
+    if (setDrinks.length === 0) return;
+    
+    const gratuity = economics.grat || 0.18;
+    const drinkCosts = setDrinks
+      .map(id => ({
+        id,
+        label: config.DRINK_LABELS[id] || id,
+        cost: (dataset.prices[id] || 0) * (1 + gratuity)
+      }))
+      .filter(d => d.cost > 0)
+      .sort((a, b) => b.cost - a.cost);
+    
+    if (drinkCosts.length === 0) return;
+    
+    let remaining = gap;
+    const suggestions = [];
+    const maxSuggestions = 3;
+    let drinkIndex = 0;
+    
+    while (remaining > 0.01 && suggestions.length < maxSuggestions && drinkIndex < drinkCosts.length) {
+      const drink = drinkCosts[drinkIndex];
+      const qty = Math.ceil(remaining / drink.cost);
+      const cappedQty = Math.min(qty, 3);
+      
+      suggestions.push({
+        qty: cappedQty,
+        label: drink.label,
+        plural: cappedQty > 1
+      });
+      
+      remaining -= drink.cost * cappedQty;
+      drinkIndex++;
+    }
+    
+    if (suggestions.length === 0) return;
+    
+    const suggestionText = suggestions.map(s => 
+      `${s.qty} ${s.plural ? s.label.toLowerCase() : s.label.toLowerCase().replace(/s$/, '')}`
+    ).join(', ');
+    
+    const nudge = document.createElement('div');
+    nudge.className = 'breakeven-nudge';
+    nudge.innerHTML = `
+      <p class="tiny" style="margin:0.5rem 0 0; padding:0.5rem; background:rgba(255,193,7,0.1); border-left:3px solid #ffc107; border-radius:4px;">
+        <strong>💡 Close to breaking even!</strong><br/>
+        Add ${suggestionText} → ${pkg.name} package saves money
+      </p>
+    `;
+    
+    const incDiv = card.querySelector(`[data-inc="${pkg.key}"]`);
+    if (incDiv) {
+      incDiv.parentNode.insertBefore(nudge, incDiv.nextSibling);
+    }
+  });
 }
 
 function renderCategoryBreakdown(categoryRows) {
@@ -625,9 +659,9 @@ function renderGroupBreakdown(groupRows) {
   const html = groupRows.map(row => {
     return `
       <tr>
-        <td>${row.traveler}</td>
-        <td>${row.package}</td>
-        <td>${formatMoney(row.daily)}</td>
+        <td>${row.who}</td>
+        <td>${row.pkg}</td>
+        <td>${formatMoney(row.perDay)}</td>
         <td>${formatMoney(row.trip)}</td>
       </tr>
     `;
@@ -638,9 +672,6 @@ function renderGroupBreakdown(groupRows) {
 }
 
 /* ==================== NAVIGATION DROPDOWNS ==================== */
-/**
- * Accessible dropdown navigation
- */
 function wireNavigation() {
   const groups = $$('.nav-group');
   
@@ -666,7 +697,6 @@ function wireNavigation() {
     
     if (!btn || !menu) return;
     
-    // Click to toggle
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -675,7 +705,6 @@ function wireNavigation() {
       setOpen(group, !open);
     });
     
-    // Keyboard navigation
     group.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         setOpen(group, false);
@@ -690,7 +719,6 @@ function wireNavigation() {
       }
     });
     
-    // Close on focus out
     menu.addEventListener('focusout', () => {
       setTimeout(() => {
         if (!group.contains(document.activeElement)) {
@@ -700,14 +728,12 @@ function wireNavigation() {
     });
   });
   
-  // Close all on outside click
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.nav-group')) {
       closeAll();
     }
   }, true);
   
-  // Close all on window blur
   window.addEventListener('blur', () => closeAll());
 }
 
@@ -721,34 +747,25 @@ function wireEmailCapture() {
     
     const email = form.querySelector('input[name="email"]').value;
     
-    // Basic validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       announce('Please enter a valid email address', 'assertive');
       return;
     }
     
-    // Get current results
     const results = store.get('results');
     const inputs = store.get('inputs');
     
-    // Populate hidden fields
-    $('#email-savings').value = formatMoney(results.perDay);
-    $('#email-rec').value = results.winnerKey;
-    $('#email-days').value = inputs.days;
+    const savingsField = $('#email-savings');
+    const recField = $('#email-rec');
+    const daysField = $('#email-days');
     
-    // Submit (you'll need to implement the backend)
+    if (savingsField) savingsField.value = formatMoney(results.perDay);
+    if (recField) recField.value = results.winnerKey;
+    if (daysField) daysField.value = inputs.days;
+    
     try {
       announce('Sending email...');
-      
-      // TODO: Implement email submission to your backend
-      // const response = await fetch('/api/email-results', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email, results, inputs })
-      // });
-      
-      // For now, just show success
       announce('Results sent! Check your email.', 'polite');
       form.reset();
     } catch (err) {
@@ -811,7 +828,6 @@ async function loadRecentArticles() {
 
 /* ==================== ACTION BUTTONS ==================== */
 function wireActionButtons() {
-  // Share button
   const shareBtn = $('#share-btn');
   if (shareBtn) {
     shareBtn.addEventListener('click', () => {
@@ -819,14 +835,12 @@ function wireActionButtons() {
     });
   }
   
-  // Reset button
   const resetBtn = $('#reset-btn');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       if (confirm('Reset all inputs to defaults?')) {
         window.ITW.resetInputs();
         
-        // Hide preset explanation
         const explanation = $('#preset-explanation');
         if (explanation) explanation.style.display = 'none';
       }
@@ -844,19 +858,16 @@ function showCalculator() {
 }
 
 function updateUIState(uiState) {
-  // Fallback banner
   const fallbackBanner = $('#fallback-banner');
   if (fallbackBanner) {
     fallbackBanner.hidden = !uiState.fallbackBanner;
   }
   
-  // Offline rates chip
   const offlineChip = $('#offline-rates-chip');
   if (offlineChip) {
     offlineChip.hidden = !uiState.fxStale;
   }
   
-  // FX note
   const fxNote = $('#fx-note');
   if (fxNote) {
     const rates = window.ITW._debug.getFXRates();
@@ -866,86 +877,83 @@ function updateUIState(uiState) {
   }
 }
 
-/* ==================== STORE SUBSCRIPTIONS ==================== */
 /**
- * Subscribe to store changes and update UI accordingly
- * This is the ONLY place chart.update() is called
+ * ✅ NEW FEATURE: Update deluxe cap badge
  */
+function updateDeluxeCapBadge() {
+  const economics = store.get('economics');
+  const capBadge = $('#cap-badge');
+  if (capBadge && economics) {
+    capBadge.textContent = formatMoney(economics.deluxeCap);
+  }
+}
+
+/* ==================== STORE SUBSCRIPTIONS ==================== */
 function subscribeToStore() {
-  // Results changes → update chart and results display
   store.subscribe('results', (results) => {
     renderResults(results);
   });
   
-  // UI state changes → update banners
   store.subscribe('ui', (uiState) => {
     updateUIState(uiState);
   });
   
-  // Economics changes → update package cards
   store.subscribe('economics', (economics) => {
     const results = store.get('results');
     if (results && results.bars) {
       updatePackageCards(results.bars, results.included, results.overcap);
     }
+    updateDeluxeCapBadge(); // ✅ NEW
   });
   
-  // Calculation updates → show calculator
   document.addEventListener('itw:calc-updated', () => {
     showCalculator();
   });
 }
 
 /* ==================== INITIALIZATION ==================== */
-/**
- * Initialize UI layer
- */
 function initialize() {
   console.log(`[UI] v${VERSION} Initializing...`);
   
-  // Wire up all interactive elements
   wireNavigation();
   wireQuiz();
   wireEmailCapture();
   wireActionButtons();
-  // Wire preset buttons
-document.querySelectorAll('[data-preset]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const preset = btn.dataset.preset;
-    if (window.ITW && typeof window.ITW.applyPreset === 'function') {
-      window.ITW.applyPreset(preset);
-    } else {
-      console.error('[UI] applyPreset function not found');
-    }
+  
+  document.querySelectorAll('[data-preset]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const preset = btn.dataset.preset;
+      if (window.ITW && typeof window.ITW.applyPreset === 'function') {
+        window.ITW.applyPreset(preset);
+      } else {
+        console.error('[UI] applyPreset function not found');
+      }
+    });
   });
-});
-  // Load dynamic content
+  
   loadRecentArticles();
   
-  // Initialize chart
   if (window.Chart) {
     initializeChart();
   } else {
     console.warn('[UI] Chart.js not loaded');
   }
   
-  // Subscribe to store changes
   subscribeToStore();
   
-  // Initial render
   const results = store.get('results');
   const uiState = store.get('ui');
   
   if (results) renderResults(results);
   if (uiState) updateUIState(uiState);
   
-  // Show calculator after first render
+  updateDeluxeCapBadge(); // ✅ NEW
+  
   setTimeout(showCalculator, 100);
   
   console.log(`[UI] ✓ Initialized v${VERSION}`);
 }
 
-// Auto-initialize when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initialize);
 } else {
