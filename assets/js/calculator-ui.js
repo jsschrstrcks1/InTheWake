@@ -18,6 +18,7 @@
  * ✅ Banner rendering (best value chip)
  * ✅ Totals rendering (per day / trip total)
  * ✅ Complete UI coverage for all HTML elements
+ * ✅ Chart canvas dual ID fallback
  */
 
 'use strict';
@@ -363,7 +364,7 @@ function renderNudges(nudges) {
 /* ==================== HEALTH GUIDELINES RENDERING ==================== */
 /**
  * ✅ PHASE 1 ITEM #10: Health guidelines display
- * "Know ye not that your body is the temple?" - 1 Corinthians 6:19
+ * "Know ye not that your body is a temple?" - 1 Corinthians 6:19
  * 
  * ✅ v1.001.001: Uses textContent only (no innerHTML)
  */
@@ -427,9 +428,19 @@ function renderHealthNote(healthNote) {
 
 let chartInstance = null;
 
+/**
+ * ✅ v1.001.001 FIX: Dual canvas ID fallback
+ * Handles both 'results-chart' and 'breakeven-chart' IDs
+ */
 function renderChart(bars, winnerKey) {
-  const canvas = document.getElementById('results-chart');
-  if (!canvas) return;
+  // ✅ NEW: Try both possible canvas IDs
+  let canvas = document.getElementById('results-chart');
+  if (!canvas) canvas = document.getElementById('breakeven-chart');
+  
+  if (!canvas) {
+    console.warn('[UI] Chart canvas not found (tried results-chart and breakeven-chart)');
+    return;
+  }
   
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
