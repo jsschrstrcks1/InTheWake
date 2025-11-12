@@ -26,7 +26,7 @@
 'use strict';
 
 /* ==================== VERSION & INITIALIZATION GUARD ==================== */
-const VERSION = '10.0.0';
+const VERSION = '1.001.001';
 
 if (window.ITW_BOOTED) {
   console.warn('[Core] Already initialized, skipping duplicate init');
@@ -1146,8 +1146,14 @@ async function initialize() {
   window.ITW_BOOTED = true;
   console.log(`[Core] ✓ Initialized v${VERSION} - Phase 1 Complete`);
   announce('Calculator ready');
+  
+  // ✅ Show calculator, hide loading
+  const loadingState = document.getElementById('loading-state');
+  const calculatorApp = document.getElementById('calculator-app');
+  if (loadingState) loadingState.style.display = 'none';
+  if (calculatorApp) calculatorApp.style.display = 'block';
 }
-
+  // Auto-initialize on load
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initialize);
 } else {
