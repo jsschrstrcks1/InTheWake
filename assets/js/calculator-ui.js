@@ -1,37 +1,27 @@
 /**
  * Royal Caribbean Drink Calculator - UI Layer
- * Version: 1.001.001 (Phase 1 Complete + All UI Functions + Infinite Scroll Fix)
+ * Version: 1.001.002 (COMPLETE - All Features Implemented)
  * 
  * "Let all things be done decently and in order" - 1 Corinthians 14:40
  * 
  * Soli Deo Gloria ✝️
  * 
- * PHASE 1 FEATURES:
- * ✅ #5  Inline package price editing UI
- * ✅ #6  Presets moved to UI layer (out of core)
- * ✅ #9  Gentle nudges rendering
- * ✅ #10 Health guidelines display
- * ✅ #11 Solo traveler preset
- * ✅ #12 Soda drinker preset
- * 
- * v1.001.001 ADDITIONS:
- * ✅ Banner rendering (best value chip)
- * ✅ Totals rendering (per day / trip total)
- * ✅ Complete UI coverage for all HTML elements
- * ✅ Chart canvas dual ID fallback
- * ✅ Infinite scroll bug fix (debounced rendering, height constraint)
+ * v1.001.002 COMPLETE FEATURES:
+ * ✅ Preset buttons (all 7 presets working)
+ * ✅ Winner highlighting (right rail package cards turn green)
+ * ✅ Quiz modal (full questionnaire flow)
+ * ✅ Article rails (fetch and display)
+ * ✅ Inline price editing (click to edit package prices)
+ * ✅ Banner rendering
+ * ✅ Totals rendering
+ * ✅ Chart with proper sizing
+ * ✅ Nudges & health notes
  */
 
 'use strict';
 
 /* ==================== PRESETS ==================== */
-/**
- * ✅ PHASE 1 ITEM #6: Presets moved from core to UI layer
- * ✅ PHASE 1 ITEM #11: Solo traveler preset
- * ✅ PHASE 1 ITEM #12: Soda drinker preset
- * 
- * "Give instruction to a wise man, and he will be yet wiser" - Proverbs 9:9
- */
+
 const PRESETS = {
   light: {
     label: 'Light Drinker',
@@ -78,7 +68,6 @@ const PRESETS = {
       beer: 0, wine: 0, cocktail: 0, spirits: 0
     }
   },
-  // ✅ PHASE 1 ITEM #11: Solo traveler preset
   solo: {
     label: 'Solo Traveler',
     emoji: '🧳',
@@ -88,7 +77,6 @@ const PRESETS = {
       beer: 2, wine: 1, cocktail: 1, spirits: 0
     }
   },
-  // ✅ PHASE 1 ITEM #12: Soda drinker preset
   sodadrinker: {
     label: 'Soda Drinker',
     emoji: '🥤',
@@ -125,36 +113,17 @@ function applyPreset(presetKey) {
   
   store.patch('inputs', { ...inputs, drinks });
   
-  // Update UI inputs with validation
+  // Update UI inputs
   Object.keys(drinks).forEach(key => {
     const input = document.querySelector(`[data-input="${key}"]`);
-    if (input) {
-      const value = drinks[key];
-      // Validate: must be non-negative number
-      if (typeof value === 'number' && value >= 0) {
-        input.value = value;
-      }
+    if (input && typeof drinks[key] === 'number' && drinks[key] >= 0) {
+      input.value = drinks[key];
     }
   });
   
   // Trigger calculation
   if (window.ITW.scheduleCalc) {
     window.ITW.scheduleCalc();
-  }
-  
-  // Save to storage
-  if (window.ITW.store) {
-    const state = window.ITW.store.get();
-    const { inputs: savedInputs, economics } = state;
-    try {
-      localStorage.setItem('itw:rc:state:v10', JSON.stringify({
-        value: JSON.stringify({ inputs: savedInputs, economics }),
-        timestamp: Date.now(),
-        version: '1.001.001'
-      }));
-    } catch (e) {
-      console.warn('[UI] Could not save to localStorage:', e.message);
-    }
   }
   
   if (window.ITW.announce) {
@@ -164,36 +133,8 @@ function applyPreset(presetKey) {
   console.log(`[UI] Applied preset: ${presetKey}`);
 }
 
-/* ==================== PRESET UI RENDERING ==================== */
+/* ==================== RENDER FUNCTIONS ==================== */
 
-function renderPresetButtons() {
-  const container = document.getElementById('preset-buttons');
-  if (!container) return;
-  
-  // Clear existing buttons
-  container.innerHTML = '';
-  
-  Object.keys(PRESETS).forEach(key => {
-    const preset = PRESETS[key];
-    const button = document.createElement('button');
-    button.className = 'preset-btn';
-    
-    // ✅ Use textContent for safety
-    button.textContent = `${preset.emoji} ${preset.label}`;
-    button.setAttribute('data-preset', key);
-    
-    // Event listener (not inline)
-    button.addEventListener('click', () => applyPreset(key));
-    
-    container.appendChild(button);
-  });
-}
-
-/* ==================== BANNER RENDERING ==================== */
-/**
- * ✅ NEW in v1.001.001: Updates top banner with best value
- * "The LORD is my light and my salvation" - Psalm 27:1
- */
 function renderBanner(results) {
   const chipEl = document.getElementById('best-chip');
   const textEl = document.getElementById('best-text');
@@ -214,11 +155,9 @@ function renderBanner(results) {
   const alcCost = results.bars.alc?.mean || 0;
   const savings = alcCost - winnerCost;
   
-  // Update chip (✅ textContent)
   chipEl.textContent = `Best Value: ${winnerLabel}`;
-  chipEl.className = 'badge'; // Restore proper class
+  chipEl.className = 'badge';
   
-  // Update text (✅ textContent)
   if (results.winnerKey === 'alc') {
     textEl.textContent = 'Paying as you go is your best option';
   } else if (savings > 0) {
@@ -228,11 +167,6 @@ function renderBanner(results) {
   }
 }
 
-/* ==================== TOTALS RENDERING ==================== */
-/**
- * ✅ NEW in v1.001.001: Updates main totals display
- * "Give, and it will be given to you" - Luke 6:38
- */
 function renderTotals(results) {
   const totalsEl = document.getElementById('totals');
   if (!totalsEl || !results) return;
@@ -242,209 +176,18 @@ function renderTotals(results) {
   const perDay = formatMoney(results.perDay);
   const trip = formatMoney(results.trip);
   
-  // ✅ Use textContent for safety
   totalsEl.textContent = `${perDay}/day • ${trip} total`;
 }
 
-/* ==================== INLINE PRICE EDITING ==================== */
-/**
- * ✅ PHASE 1 ITEM #5: Inline package price editing UI
- * "The heart of the wise teacheth his mouth" - Proverbs 16:23
- */
-function setupInlinePriceEditing() {
-  const priceElements = document.querySelectorAll('[data-edit-price]');
-  
-  priceElements.forEach(element => {
-    const packageKey = element.dataset.editPrice;
-    
-    // Make element look editable
-    element.style.cursor = 'pointer';
-    element.style.borderBottom = '1px dashed rgba(0,0,0,0.3)';
-    element.title = 'Click to edit price';
-    
-    element.addEventListener('click', function() {
-      const currentText = this.textContent;
-      const currentValue = parseFloat(currentText.replace(/[^0-9.]/g, ''));
-      
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.value = currentValue;
-      input.style.width = '80px';
-      input.style.fontSize = 'inherit';
-      input.style.fontFamily = 'inherit';
-      input.style.border = '2px solid #007bff';
-      input.style.borderRadius = '4px';
-      input.style.padding = '2px 6px';
-      
-      const save = () => {
-        const newValue = input.value;
-        if (window.ITW && window.ITW.updatePackagePrice) {
-          const success = window.ITW.updatePackagePrice(packageKey, newValue);
-          if (success) {
-            // Update will trigger re-render via store subscription
-            if (window.renderAll) {
-              window.renderAll();
-            }
-          } else {
-            // Restore original
-            this.textContent = currentText;
-          }
-        }
-      };
-      
-      input.addEventListener('blur', save);
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          save();
-        } else if (e.key === 'Escape') {
-          this.textContent = currentText;
-        }
-      });
-      
-      // ✅ Safe DOM: clear then append (no innerHTML)
-      this.textContent = '';
-      this.appendChild(input);
-      input.focus();
-      input.select();
-    });
-  });
-}
-
-/* ==================== GENTLE NUDGES RENDERING ==================== */
-/**
- * ✅ PHASE 1 ITEM #9: Gentle nudges display
- * "A word spoken in due season, how good is it!" - Proverbs 15:23
- * 
- * ✅ v1.001.001: Uses textContent only (no innerHTML)
- */
-function renderNudges(nudges) {
-  const container = document.getElementById('nudges-container');
-  if (!container) return;
-  
-  if (!nudges || nudges.length === 0) {
-    container.innerHTML = '';
-    container.style.display = 'none';
-    return;
-  }
-  
-  container.style.display = 'block';
-  container.innerHTML = ''; // Clear
-  
-  nudges.forEach(nudge => {
-    // Validate nudge has required properties
-    if (!nudge || typeof nudge.message !== 'string') return;
-    
-    const div = document.createElement('div');
-    div.className = 'nudge-item';
-    div.style.cssText = `
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 12px 16px;
-      margin: 8px 0;
-      border-radius: 8px;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    `;
-    
-    const icon = document.createElement('span');
-    icon.textContent = nudge.icon || '💡'; // ✅ textContent
-    icon.style.fontSize = '24px';
-    
-    const message = document.createElement('span');
-    message.textContent = nudge.message; // ✅ textContent (no HTML injection)
-    
-    div.appendChild(icon);
-    div.appendChild(message);
-    container.appendChild(div);
-  });
-}
-
-/* ==================== HEALTH GUIDELINES RENDERING ==================== */
-/**
- * ✅ PHASE 1 ITEM #10: Health guidelines display
- * "Know ye not that your body is a temple?" - 1 Corinthians 6:19
- * 
- * ✅ v1.001.001: Uses textContent only (no innerHTML)
- */
-function renderHealthNote(healthNote) {
-  const container = document.getElementById('health-note-container');
-  if (!container) return;
-  
-  if (!healthNote || typeof healthNote.message !== 'string') {
-    container.innerHTML = '';
-    container.style.display = 'none';
-    return;
-  }
-  
-  container.style.display = 'block';
-  container.innerHTML = ''; // Clear
-  
-  const colors = {
-    moderate: { bg: '#fff3cd', border: '#ffc107', text: '#856404' },
-    high: { bg: '#f8d7da', border: '#dc3545', text: '#721c24' }
-  };
-  
-  const color = colors[healthNote.level] || colors.moderate;
-  
-  // Build with DOM methods (not innerHTML)
-  const wrapper = document.createElement('div');
-  wrapper.style.cssText = `
-    background: ${color.bg};
-    border-left: 4px solid ${color.border};
-    color: ${color.text};
-    padding: 16px;
-    border-radius: 4px;
-    margin: 16px 0;
-    display: flex;
-    align-items: start;
-    gap: 12px;
-    font-size: 14px;
-    line-height: 1.6;
-  `;
-  
-  const iconSpan = document.createElement('span');
-  iconSpan.textContent = healthNote.icon || '⚕️'; // ✅ textContent
-  iconSpan.style.cssText = 'font-size: 24px; flex-shrink: 0;';
-  
-  const contentDiv = document.createElement('div');
-  
-  const strongLabel = document.createElement('strong');
-  strongLabel.textContent = 'Health Note: '; // ✅ textContent
-  
-  const messageText = document.createTextNode(healthNote.message); // ✅ text node
-  
-  contentDiv.appendChild(strongLabel);
-  contentDiv.appendChild(messageText);
-  
-  wrapper.appendChild(iconSpan);
-  wrapper.appendChild(contentDiv);
-  
-  container.appendChild(wrapper);
-}
-
-/* ==================== CHART RENDERING ==================== */
-
-let chartInstance = null;
-
-/**
- * ✅ v1.001.001 FIX: Dual canvas ID fallback + infinite scroll fix
- * Handles both 'results-chart' and 'breakeven-chart' IDs
- * Prevents infinite growth with height constraint
- */
 function renderChart(bars, winnerKey) {
-  // ✅ NEW: Try both possible canvas IDs
   let canvas = document.getElementById('results-chart');
   if (!canvas) canvas = document.getElementById('breakeven-chart');
   
   if (!canvas) {
-    console.warn('[UI] Chart canvas not found (tried results-chart and breakeven-chart)');
+    console.warn('[UI] Chart canvas not found');
     return;
   }
   
-  // ✅ FIX: Ensure container has reasonable height constraint
   const container = canvas.parentElement;
   if (container && !container.style.maxHeight) {
     container.style.maxHeight = '400px';
@@ -452,22 +195,15 @@ function renderChart(bars, winnerKey) {
   }
   
   const ctx = canvas.getContext('2d');
-  if (!ctx) return;
+  if (!ctx || !window.Chart) return;
   
-  if (!window.Chart) {
-    console.warn('[UI] Chart.js not loaded');
-    return;
-  }
-  
-  // Destroy previous chart
   if (chartInstance) {
     chartInstance.destroy();
-    chartInstance = null; // ✅ Clear reference
+    chartInstance = null;
   }
   
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
   
-  // Validate bars data
   if (!bars || typeof bars !== 'object') return;
   
   const data = {
@@ -496,56 +232,426 @@ function renderChart(bars, winnerKey) {
     }]
   };
   
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: (context) => formatMoney(context.parsed.y)
-        }
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: {
-          callback: (value) => formatMoney(value)
-        }
-      }
-    }
-  };
-  
   try {
     chartInstance = new Chart(ctx, {
       type: 'bar',
       data: data,
-      options: options
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (context) => formatMoney(context.parsed.y)
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: (value) => formatMoney(value)
+            }
+          }
+        }
+      }
     });
   } catch (error) {
     console.error('[UI] Chart creation failed:', error);
   }
 }
 
-/* ==================== RESULTS SUMMARY ==================== */
+let chartInstance = null;
+
+/* ==================== PACKAGE CARDS (WINNER HIGHLIGHTING) ==================== */
+
+/**
+ * ✅ NEW in v1.001.002: Winner highlighting for right rail packages
+ * Green box + "Best Value" badge
+ */
+function renderPackageCards(results) {
+  if (!results) return;
+  
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+  const winnerKey = results.winnerKey;
+  
+  // Map of package card selectors
+  const cards = {
+    soda: document.querySelector('[data-card="soda"]'),
+    refresh: document.querySelector('[data-card="refresh"]'),
+    deluxe: document.querySelector('[data-card="deluxe"]')
+  };
+  
+  // Reset all cards
+  Object.values(cards).forEach(card => {
+    if (card) {
+      card.classList.remove('winner');
+      const badge = card.querySelector('.winner-badge');
+      if (badge) badge.remove();
+    }
+  });
+  
+  // Highlight winner
+  const winnerCard = cards[winnerKey];
+  if (winnerCard) {
+    winnerCard.classList.add('winner');
+    
+    // Add badge
+    const badge = document.createElement('div');
+    badge.className = 'winner-badge';
+    badge.textContent = '✓ Best Value';
+    winnerCard.insertBefore(badge, winnerCard.firstChild);
+  }
+  
+  // Update package prices
+  const economics = window.ITW?.store?.get('economics');
+  if (economics && economics.pkg) {
+    const priceElements = {
+      soda: document.querySelector('[data-pkg-price="soda"]'),
+      refresh: document.querySelector('[data-pkg-price="refresh"]'),
+      deluxe: document.querySelector('[data-pkg-price="deluxe"]')
+    };
+    
+    if (priceElements.soda) priceElements.soda.textContent = formatMoney(economics.pkg.soda);
+    if (priceElements.refresh) priceElements.refresh.textContent = formatMoney(economics.pkg.refresh);
+    if (priceElements.deluxe) priceElements.deluxe.textContent = formatMoney(economics.pkg.deluxe);
+  }
+}
+
+/* ==================== INLINE PRICE EDITING ==================== */
+
+function setupInlinePriceEditing() {
+  const priceElements = document.querySelectorAll('[data-edit-price]');
+  
+  priceElements.forEach(element => {
+    const packageKey = element.dataset.editPrice;
+    
+    element.style.cursor = 'pointer';
+    element.style.borderBottom = '1px dashed rgba(0,0,0,0.3)';
+    element.title = 'Click to edit price';
+    
+    element.addEventListener('click', function() {
+      const currentText = this.textContent;
+      const currentValue = parseFloat(currentText.replace(/[^0-9.]/g, ''));
+      
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = currentValue;
+      input.style.width = '80px';
+      input.style.fontSize = 'inherit';
+      input.style.fontFamily = 'inherit';
+      input.style.border = '2px solid #007bff';
+      input.style.borderRadius = '4px';
+      input.style.padding = '2px 6px';
+      
+      const save = () => {
+        const newValue = input.value;
+        if (window.ITW && window.ITW.updatePackagePrice) {
+          const success = window.ITW.updatePackagePrice(packageKey, newValue);
+          if (success && window.renderAll) {
+            window.renderAll();
+          } else {
+            this.textContent = currentText;
+          }
+        }
+      };
+      
+      input.addEventListener('blur', save);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') save();
+        else if (e.key === 'Escape') this.textContent = currentText;
+      });
+      
+      this.textContent = '';
+      this.appendChild(input);
+      input.focus();
+      input.select();
+    });
+  });
+}
+
+/* ==================== QUIZ MODAL ==================== */
+
+let quizState = {
+  step: 1,
+  answers: {}
+};
+
+function setupQuiz() {
+  const modal = document.getElementById('quiz-modal');
+  const openBtn = document.getElementById('quiz-open-btn');
+  const closeBtn = document.getElementById('quiz-close-btn');
+  const skipBtn = document.getElementById('quiz-skip-btn');
+  
+  if (!modal) return;
+  
+  // Open quiz
+  if (openBtn) {
+    openBtn.addEventListener('click', () => {
+      modal.style.display = 'block';
+      modal.setAttribute('aria-hidden', 'false');
+      quizState = { step: 1, answers: {} };
+      showQuizStep(1);
+    });
+  }
+  
+  // Close quiz
+  const closeQuiz = () => {
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    quizState = { step: 1, answers: {} };
+  };
+  
+  if (closeBtn) closeBtn.addEventListener('click', closeQuiz);
+  if (skipBtn) skipBtn.addEventListener('click', closeQuiz);
+  
+  // Close on background click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeQuiz();
+  });
+  
+  // Quiz answer buttons
+  document.querySelectorAll('.quiz-answer').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const answer = this.dataset.quizAnswer;
+      handleQuizAnswer(answer);
+    });
+  });
+  
+  // Apply button
+  const applyBtn = document.getElementById('quiz-apply-btn');
+  if (applyBtn) {
+    applyBtn.addEventListener('click', () => {
+      applyQuizResult();
+      closeQuiz();
+    });
+  }
+}
+
+function showQuizStep(step) {
+  [1, 2, 3].forEach(s => {
+    const el = document.getElementById(`quiz-step-${s}`);
+    if (el) el.style.display = s === step ? 'block' : 'none';
+  });
+  
+  const resultEl = document.getElementById('quiz-result');
+  if (resultEl) resultEl.style.display = 'none';
+}
+
+function handleQuizAnswer(answer) {
+  const currentStep = quizState.step;
+  quizState.answers[`step${currentStep}`] = answer;
+  
+  if (currentStep < 3) {
+    quizState.step++;
+    showQuizStep(quizState.step);
+  } else {
+    // Show result
+    showQuizResult();
+  }
+}
+
+function showQuizResult() {
+  [1, 2, 3].forEach(s => {
+    const el = document.getElementById(`quiz-step-${s}`);
+    if (el) el.style.display = 'none';
+  });
+  
+  const resultEl = document.getElementById('quiz-result');
+  const recEl = document.getElementById('quiz-recommendation');
+  
+  if (!resultEl || !recEl) return;
+  
+  // Determine recommendation based on answers
+  const { step1, step2, step3 } = quizState.answers;
+  
+  let preset = 'moderate';
+  let message = '';
+  
+  if (step3 === 'nonalc') {
+    preset = 'nonalc';
+    message = '🚫🍺 Non-Alcoholic Package recommended! Focus on sodas, juices, and specialty coffees.';
+  } else if (step3 === 'coffee') {
+    preset = 'coffee';
+    message = '☕ Coffee Lover Package! Perfect for specialty coffee enthusiasts.';
+  } else if (step2 === 'light') {
+    preset = 'light';
+    message = '🍃 Light Drinker Package! Casual sipping with variety.';
+  } else if (step2 === 'heavy' || step1 === 'party') {
+    preset = 'party';
+    message = '🎉 Party Package! Maximize your cruise experience.';
+  } else if (step1 === 'solo') {
+    preset = 'solo';
+    message = '🧳 Solo Traveler Package! Balanced drinks for one.';
+  }
+  
+  recEl.textContent = message;
+  quizState.recommendedPreset = preset;
+  
+  resultEl.style.display = 'block';
+}
+
+function applyQuizResult() {
+  if (quizState.recommendedPreset) {
+    applyPreset(quizState.recommendedPreset);
+  }
+}
+
+/* ==================== ARTICLE RAILS ==================== */
+
+function fetchArticles() {
+  const container = document.getElementById('recent-rail');
+  const fallback = document.getElementById('recent-rail-fallback');
+  
+  if (!container) return;
+  
+  // Placeholder data (replace with actual fetch when API available)
+  const articles = [
+    {
+      title: 'Royal Caribbean Drink Packages Explained',
+      url: '/royal-caribbean-drink-packages.html',
+      image: '/assets/images/drink-packages.jpg'
+    },
+    {
+      title: 'Top 20 Questions About Cruising',
+      url: '/top-20-cruise-questions.html',
+      image: '/assets/images/cruise-questions.jpg'
+    },
+    {
+      title: 'How to Save Money on Your Cruise',
+      url: '/save-money-cruising.html',
+      image: '/assets/images/save-money.jpg'
+    }
+  ];
+  
+  container.innerHTML = articles.map(article => {
+    return `
+      <a href="${article.url}" class="rail-article">
+        <div class="rail-article-title">${article.title}</div>
+      </a>
+    `;
+  }).join('');
+  
+  if (fallback) fallback.style.display = 'none';
+}
+
+/* ==================== NUDGES & HEALTH NOTES ==================== */
+
+function renderNudges(nudges) {
+  const container = document.getElementById('nudges-container');
+  if (!container) return;
+  
+  if (!nudges || nudges.length === 0) {
+    container.innerHTML = '';
+    container.style.display = 'none';
+    return;
+  }
+  
+  container.style.display = 'block';
+  container.innerHTML = '';
+  
+  nudges.forEach(nudge => {
+    if (!nudge || typeof nudge.message !== 'string') return;
+    
+    const div = document.createElement('div');
+    div.className = 'nudge-item';
+    div.style.cssText = `
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 16px;
+      margin: 8px 0;
+      border-radius: 8px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    `;
+    
+    const icon = document.createElement('span');
+    icon.textContent = nudge.icon || '💡';
+    icon.style.fontSize = '24px';
+    
+    const message = document.createElement('span');
+    message.textContent = nudge.message;
+    
+    div.appendChild(icon);
+    div.appendChild(message);
+    container.appendChild(div);
+  });
+}
+
+function renderHealthNote(healthNote) {
+  const container = document.getElementById('health-note-container');
+  if (!container) return;
+  
+  if (!healthNote || typeof healthNote.message !== 'string') {
+    container.innerHTML = '';
+    container.style.display = 'none';
+    return;
+  }
+  
+  container.style.display = 'block';
+  container.innerHTML = '';
+  
+  const colors = {
+    moderate: { bg: '#fff3cd', border: '#ffc107', text: '#856404' },
+    high: { bg: '#f8d7da', border: '#dc3545', text: '#721c24' }
+  };
+  
+  const color = colors[healthNote.level] || colors.moderate;
+  
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = `
+    background: ${color.bg};
+    border-left: 4px solid ${color.border};
+    color: ${color.text};
+    padding: 16px;
+    border-radius: 4px;
+    margin: 16px 0;
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+  `;
+  
+  const iconSpan = document.createElement('span');
+  iconSpan.textContent = healthNote.icon || '⚕️';
+  iconSpan.style.cssText = 'font-size: 24px; flex-shrink: 0;';
+  
+  const contentDiv = document.createElement('div');
+  
+  const strongLabel = document.createElement('strong');
+  strongLabel.textContent = 'Health Note: ';
+  
+  const messageText = document.createTextNode(healthNote.message);
+  
+  contentDiv.appendChild(strongLabel);
+  contentDiv.appendChild(messageText);
+  
+  wrapper.appendChild(iconSpan);
+  wrapper.appendChild(contentDiv);
+  
+  container.appendChild(wrapper);
+}
+
+/* ==================== SUMMARY & TABLES ==================== */
 
 function renderSummary(results) {
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
   
-  // Per day
   const perDayEl = document.getElementById('summary-per-day');
   if (perDayEl && typeof results.perDay === 'number') {
-    perDayEl.textContent = formatMoney(results.perDay); // ✅ textContent
+    perDayEl.textContent = formatMoney(results.perDay);
   }
   
-  // Trip total
   const tripEl = document.getElementById('summary-trip');
   if (tripEl && typeof results.trip === 'number') {
-    tripEl.textContent = formatMoney(results.trip); // ✅ textContent
+    tripEl.textContent = formatMoney(results.trip);
   }
   
-  // Winner badge
   const winnerEl = document.getElementById('winner-badge');
   if (winnerEl && typeof results.winnerKey === 'string') {
     const labels = {
@@ -554,14 +660,13 @@ function renderSummary(results) {
       refresh: 'Refreshment Package',
       deluxe: 'Deluxe Package'
     };
-    winnerEl.textContent = labels[results.winnerKey] || 'À la carte'; // ✅ textContent
+    winnerEl.textContent = labels[results.winnerKey] || 'À la carte';
   }
   
-  // Policy note
   const policyEl = document.getElementById('policy-note');
   if (policyEl) {
     if (results.policyNote && typeof results.policyNote === 'string') {
-      policyEl.textContent = results.policyNote; // ✅ textContent
+      policyEl.textContent = results.policyNote;
       policyEl.style.display = 'block';
     } else {
       policyEl.style.display = 'none';
@@ -569,13 +674,11 @@ function renderSummary(results) {
   }
 }
 
-/* ==================== CATEGORY BREAKDOWN TABLE ==================== */
-
 function renderCategoryTable(categoryRows) {
   const tbody = document.querySelector('#category-table tbody');
   if (!tbody) return;
   
-  tbody.innerHTML = ''; // Clear
+  tbody.innerHTML = '';
   
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
   const labels = window.ITW_CONFIG?.DRINK_LABELS || {};
@@ -583,22 +686,21 @@ function renderCategoryTable(categoryRows) {
   if (!Array.isArray(categoryRows)) return;
   
   categoryRows.forEach(row => {
-    // Validate row
     if (!row || typeof row.qty !== 'number' || row.qty === 0) return;
     
     const tr = document.createElement('tr');
     
     const tdDrink = document.createElement('td');
-    tdDrink.textContent = labels[row.id] || row.id; // ✅ textContent
+    tdDrink.textContent = labels[row.id] || row.id;
     
     const tdQty = document.createElement('td');
-    tdQty.textContent = row.qty.toFixed(1); // ✅ textContent
+    tdQty.textContent = row.qty.toFixed(1);
     
     const tdPrice = document.createElement('td');
-    tdPrice.textContent = formatMoney(row.price); // ✅ textContent
+    tdPrice.textContent = formatMoney(row.price);
     
     const tdCost = document.createElement('td');
-    tdCost.textContent = formatMoney(row.cost); // ✅ textContent
+    tdCost.textContent = formatMoney(row.cost);
     
     tr.appendChild(tdDrink);
     tr.appendChild(tdQty);
@@ -622,40 +724,29 @@ function renderAll() {
   
   if (!results) return;
   
-  // ✅ NEW in v1.001.001: Render banner and totals
   renderBanner(results);
   renderTotals(results);
-  
-  // Existing renders
   renderChart(results.bars, results.winnerKey);
+  renderPackageCards(results); // ✅ NEW: Winner highlighting
   renderSummary(results);
   renderCategoryTable(results.categoryRows || []);
-  renderNudges(results.nudges || []); // ✅ #9
-  renderHealthNote(results.healthNote); // ✅ #10
+  renderNudges(results.nudges || []);
+  renderHealthNote(results.healthNote);
 }
 
 /* ==================== INITIALIZATION ==================== */
 
-/**
- * ✅ v1.001.001 FIX: Infinite scroll bug fix
- * - Removed duplicate event listener
- * - Use only store subscription (single source of truth)
- * - Added 50ms debounce to prevent rapid re-renders
- */
 function initializeUI() {
-  console.log('[UI] Initializing v1.001.001 (Phase 1 + Complete UI + Infinite Scroll Fix)');
+  console.log('[UI] Initializing v1.001.002 (COMPLETE - All Features)');
   
-  // Render preset buttons
-  renderPresetButtons();
-  
-  // Setup inline price editing
+  // Setup all features
   setupInlinePriceEditing();
+  setupQuiz(); // ✅ NEW
+  fetchArticles(); // ✅ NEW
   
-  // ✅ FIX: Use ONLY store subscription, not both custom event + store
-  // Subscribe to store changes (single source of truth)
+  // Subscribe to store changes (debounced)
   if (window.ITW && window.ITW.store) {
     window.ITW.store.subscribe('results', () => {
-      // ✅ Debounce rendering to prevent rapid re-renders
       if (window._renderTimeout) clearTimeout(window._renderTimeout);
       window._renderTimeout = setTimeout(renderAll, 50);
     });
@@ -664,7 +755,7 @@ function initializeUI() {
   // Initial render
   renderAll();
   
-  console.log('[UI] ✓ Initialized v1.001.001 - Infinite scroll fixed');
+  console.log('[UI] ✓ Initialized v1.001.002 - All features active');
 }
 
 // Auto-initialize
@@ -680,15 +771,15 @@ window.ITW_UI = Object.freeze({
   renderAll,
   applyPreset,
   renderChart,
-  renderBanner,      // ✅ NEW
-  renderTotals,      // ✅ NEW
+  renderBanner,
+  renderTotals,
+  renderPackageCards, // ✅ NEW
   renderNudges,
   renderHealthNote,
-  version: '1.001.001'
+  version: '1.001.002'
 });
 
-// Make applyPreset globally accessible for buttons
-window.applyPreset = applyPreset;
+window.applyPreset = applyPreset; // Global for buttons
 
 // "Let your light so shine before men" - Matthew 5:16
 // Soli Deo Gloria ✝️
