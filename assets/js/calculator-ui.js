@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - UI Layer
- * Version: 1.001.001 (Phase 1 Complete + All UI Functions)
+ * Version: 1.001.001 (Phase 1 Complete + All UI Functions + Infinite Scroll Fix)
  * 
  * "Let all things be done decently and in order" - 1 Corinthians 14:40
  * 
@@ -19,6 +19,7 @@
  * ✅ Totals rendering (per day / trip total)
  * ✅ Complete UI coverage for all HTML elements
  * ✅ Chart canvas dual ID fallback
+ * ✅ Infinite scroll bug fix (debounced rendering, height constraint)
  */
 
 'use strict';
@@ -429,8 +430,9 @@ function renderHealthNote(healthNote) {
 let chartInstance = null;
 
 /**
- * ✅ v1.001.001 FIX: Dual canvas ID fallback
+ * ✅ v1.001.001 FIX: Dual canvas ID fallback + infinite scroll fix
  * Handles both 'results-chart' and 'breakeven-chart' IDs
+ * Prevents infinite growth with height constraint
  */
 function renderChart(bars, winnerKey) {
   // ✅ NEW: Try both possible canvas IDs
@@ -440,6 +442,13 @@ function renderChart(bars, winnerKey) {
   if (!canvas) {
     console.warn('[UI] Chart canvas not found (tried results-chart and breakeven-chart)');
     return;
+  }
+  
+  // ✅ FIX: Ensure container has reasonable height constraint
+  const container = canvas.parentElement;
+  if (container && !container.style.maxHeight) {
+    container.style.maxHeight = '400px';
+    container.style.position = 'relative';
   }
   
   const ctx = canvas.getContext('2d');
@@ -453,6 +462,7 @@ function renderChart(bars, winnerKey) {
   // Destroy previous chart
   if (chartInstance) {
     chartInstance.destroy();
+    chartInstance = null; // ✅ Clear reference
   }
   
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
@@ -507,11 +517,15 @@ function renderChart(bars, winnerKey) {
     }
   };
   
-  chartInstance = new Chart(ctx, {
-    type: 'bar',
-    data: data,
-    options: options
-  });
+  try {
+    chartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options: options
+    });
+  } catch (error) {
+    console.error('[UI] Chart creation failed:', error);
+  }
 }
 
 /* ==================== RESULTS SUMMARY ==================== */
@@ -622,8 +636,14 @@ function renderAll() {
 
 /* ==================== INITIALIZATION ==================== */
 
+/**
+ * ✅ v1.001.001 FIX: Infinite scroll bug fix
+ * - Removed duplicate event listener
+ * - Use only store subscription (single source of truth)
+ * - Added 50ms debounce to prevent rapid re-renders
+ */
 function initializeUI() {
-  console.log('[UI] Initializing v1.001.001 (Phase 1 + Complete UI)');
+  console.log('[UI] Initializing v1.001.001 (Phase 1 + Complete UI + Infinite Scroll Fix)');
   
   // Render preset buttons
   renderPresetButtons();
@@ -631,22 +651,20 @@ function initializeUI() {
   // Setup inline price editing
   setupInlinePriceEditing();
   
-  // Listen for calculation updates
-  document.addEventListener('itw:calc-updated', () => {
-    renderAll();
-  });
-  
-  // Subscribe to store changes
+  // ✅ FIX: Use ONLY store subscription, not both custom event + store
+  // Subscribe to store changes (single source of truth)
   if (window.ITW && window.ITW.store) {
     window.ITW.store.subscribe('results', () => {
-      renderAll();
+      // ✅ Debounce rendering to prevent rapid re-renders
+      if (window._renderTimeout) clearTimeout(window._renderTimeout);
+      window._renderTimeout = setTimeout(renderAll, 50);
     });
   }
   
   // Initial render
   renderAll();
   
-  console.log('[UI] ✓ Initialized v1.001.001');
+  console.log('[UI] ✓ Initialized v1.001.001 - Infinite scroll fixed');
 }
 
 // Auto-initialize
