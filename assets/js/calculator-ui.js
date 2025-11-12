@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - UI Layer
- * Version: 10.0.0 (Phase 1 Complete)
+ * Version: 10.0.1 (Phase 1 Complete + Practical Security)
  * 
  * "Let all things be done decently and in order" - 1 Corinthians 14:40
  * 
@@ -13,6 +13,11 @@
  * ✅ #10 Health guidelines display
  * ✅ #11 Solo traveler preset
  * ✅ #12 Soda drinker preset
+ * 
+ * v10.0.1 IMPROVEMENTS:
+ * ✅ Safe DOM manipulation (textContent only)
+ * ✅ Input sanitization
+ * ✅ Version sync with worker
  */
 
 'use strict';
@@ -111,17 +116,22 @@ function applyPreset(presetKey) {
   const inputs = store.get('inputs');
   const drinks = { ...inputs.drinks };
   
+  // Apply preset values
   Object.keys(drinks).forEach(key => {
     drinks[key] = preset.drinks[key] !== undefined ? preset.drinks[key] : 0;
   });
   
   store.patch('inputs', { ...inputs, drinks });
   
-  // Update UI inputs
+  // Update UI inputs with validation
   Object.keys(drinks).forEach(key => {
     const input = document.querySelector(`[data-input="${key}"]`);
     if (input) {
-      input.value = drinks[key];
+      const value = drinks[key];
+      // Validate: must be non-negative number
+      if (typeof value === 'number' && value >= 0) {
+        input.value = value;
+      }
     }
   });
   
@@ -138,9 +148,11 @@ function applyPreset(presetKey) {
       localStorage.setItem('itw:rc:state:v10', JSON.stringify({
         value: JSON.stringify({ inputs: savedInputs, economics }),
         timestamp: Date.now(),
-        version: '10.0.0'
+        version: '10.0.1'
       }));
-    } catch (e) {}
+    } catch (e) {
+      console.warn('[UI] Could not save to localStorage:', e.message);
+    }
   }
   
   if (window.ITW.announce) {
@@ -156,15 +168,21 @@ function renderPresetButtons() {
   const container = document.getElementById('preset-buttons');
   if (!container) return;
   
+  // Clear existing buttons
   container.innerHTML = '';
   
   Object.keys(PRESETS).forEach(key => {
     const preset = PRESETS[key];
     const button = document.createElement('button');
     button.className = 'preset-btn';
+    
+    // ✅ Use textContent for safety
     button.textContent = `${preset.emoji} ${preset.label}`;
     button.setAttribute('data-preset', key);
+    
+    // Event listener (not inline)
     button.addEventListener('click', () => applyPreset(key));
+    
     container.appendChild(button);
   });
 }
@@ -224,6 +242,7 @@ function setupInlinePriceEditing() {
         }
       });
       
+      // ✅ Safe DOM: clear then append (no innerHTML)
       this.textContent = '';
       this.appendChild(input);
       input.focus();
@@ -236,6 +255,8 @@ function setupInlinePriceEditing() {
 /**
  * ✅ PHASE 1 ITEM #9: Gentle nudges display
  * "A word spoken in due season, how good is it!" - Proverbs 15:23
+ * 
+ * ✅ v10.0.1: Uses textContent only (no innerHTML)
  */
 function renderNudges(nudges) {
   const container = document.getElementById('nudges-container');
@@ -248,9 +269,12 @@ function renderNudges(nudges) {
   }
   
   container.style.display = 'block';
-  container.innerHTML = '';
+  container.innerHTML = ''; // Clear
   
   nudges.forEach(nudge => {
+    // Validate nudge has required properties
+    if (!nudge || typeof nudge.message !== 'string') return;
+    
     const div = document.createElement('div');
     div.className = 'nudge-item';
     div.style.cssText = `
@@ -267,11 +291,11 @@ function renderNudges(nudges) {
     `;
     
     const icon = document.createElement('span');
-    icon.textContent = nudge.icon;
+    icon.textContent = nudge.icon || '💡'; // ✅ textContent
     icon.style.fontSize = '24px';
     
     const message = document.createElement('span');
-    message.textContent = nudge.message;
+    message.textContent = nudge.message; // ✅ textContent (no HTML injection)
     
     div.appendChild(icon);
     div.appendChild(message);
@@ -283,18 +307,21 @@ function renderNudges(nudges) {
 /**
  * ✅ PHASE 1 ITEM #10: Health guidelines display
  * "Know ye not that your body is the temple?" - 1 Corinthians 6:19
+ * 
+ * ✅ v10.0.1: Uses textContent only (no innerHTML)
  */
 function renderHealthNote(healthNote) {
   const container = document.getElementById('health-note-container');
   if (!container) return;
   
-  if (!healthNote) {
+  if (!healthNote || typeof healthNote.message !== 'string') {
     container.innerHTML = '';
     container.style.display = 'none';
     return;
   }
   
   container.style.display = 'block';
+  container.innerHTML = ''; // Clear
   
   const colors = {
     moderate: { bg: '#fff3cd', border: '#ffc107', text: '#856404' },
@@ -303,26 +330,40 @@ function renderHealthNote(healthNote) {
   
   const color = colors[healthNote.level] || colors.moderate;
   
-  container.innerHTML = `
-    <div style="
-      background: ${color.bg};
-      border-left: 4px solid ${color.border};
-      color: ${color.text};
-      padding: 16px;
-      border-radius: 4px;
-      margin: 16px 0;
-      display: flex;
-      align-items: start;
-      gap: 12px;
-      font-size: 14px;
-      line-height: 1.6;
-    ">
-      <span style="font-size: 24px; flex-shrink: 0;">${healthNote.icon}</span>
-      <div>
-        <strong>Health Note:</strong> ${healthNote.message}
-      </div>
-    </div>
+  // Build with DOM methods (not innerHTML)
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = `
+    background: ${color.bg};
+    border-left: 4px solid ${color.border};
+    color: ${color.text};
+    padding: 16px;
+    border-radius: 4px;
+    margin: 16px 0;
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.6;
   `;
+  
+  const iconSpan = document.createElement('span');
+  iconSpan.textContent = healthNote.icon || '⚕️'; // ✅ textContent
+  iconSpan.style.cssText = 'font-size: 24px; flex-shrink: 0;';
+  
+  const contentDiv = document.createElement('div');
+  
+  const strongLabel = document.createElement('strong');
+  strongLabel.textContent = 'Health Note: '; // ✅ textContent
+  
+  const messageText = document.createTextNode(healthNote.message); // ✅ text node
+  
+  contentDiv.appendChild(strongLabel);
+  contentDiv.appendChild(messageText);
+  
+  wrapper.appendChild(iconSpan);
+  wrapper.appendChild(contentDiv);
+  
+  container.appendChild(wrapper);
 }
 
 /* ==================== CHART RENDERING ==================== */
@@ -341,21 +382,25 @@ function renderChart(bars, winnerKey) {
     return;
   }
   
+  // Destroy previous chart
   if (chartInstance) {
     chartInstance.destroy();
   }
   
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
   
+  // Validate bars data
+  if (!bars || typeof bars !== 'object') return;
+  
   const data = {
     labels: ['À la carte', 'Soda', 'Refreshment', 'Deluxe'],
     datasets: [{
       label: 'Total Cost',
       data: [
-        bars.alc.mean,
-        bars.soda.mean,
-        bars.refresh.mean,
-        bars.deluxe.mean
+        bars.alc?.mean || 0,
+        bars.soda?.mean || 0,
+        bars.refresh?.mean || 0,
+        bars.deluxe?.mean || 0
       ],
       backgroundColor: [
         winnerKey === 'alc' ? 'rgba(75, 192, 192, 0.8)' : 'rgba(75, 192, 192, 0.4)',
@@ -369,7 +414,7 @@ function renderChart(bars, winnerKey) {
         winnerKey === 'refresh' ? 'rgba(153, 102, 255, 1)' : 'rgba(153, 102, 255, 0.6)',
         winnerKey === 'deluxe' ? 'rgba(255, 99, 132, 1)' : 'rgba(255, 99, 132, 0.6)'
       ],
-      borderWidth: winnerKey === 'alc' ? 3 : 1
+      borderWidth: 2
     }]
   };
   
@@ -408,33 +453,33 @@ function renderSummary(results) {
   
   // Per day
   const perDayEl = document.getElementById('summary-per-day');
-  if (perDayEl) {
-    perDayEl.textContent = formatMoney(results.perDay);
+  if (perDayEl && typeof results.perDay === 'number') {
+    perDayEl.textContent = formatMoney(results.perDay); // ✅ textContent
   }
   
   // Trip total
   const tripEl = document.getElementById('summary-trip');
-  if (tripEl) {
-    tripEl.textContent = formatMoney(results.trip);
+  if (tripEl && typeof results.trip === 'number') {
+    tripEl.textContent = formatMoney(results.trip); // ✅ textContent
   }
   
   // Winner badge
   const winnerEl = document.getElementById('winner-badge');
-  if (winnerEl) {
+  if (winnerEl && typeof results.winnerKey === 'string') {
     const labels = {
       alc: 'À la carte',
       soda: 'Soda Package',
       refresh: 'Refreshment Package',
       deluxe: 'Deluxe Package'
     };
-    winnerEl.textContent = labels[results.winnerKey] || 'À la carte';
+    winnerEl.textContent = labels[results.winnerKey] || 'À la carte'; // ✅ textContent
   }
   
   // Policy note
   const policyEl = document.getElementById('policy-note');
   if (policyEl) {
-    if (results.policyNote) {
-      policyEl.textContent = results.policyNote;
+    if (results.policyNote && typeof results.policyNote === 'string') {
+      policyEl.textContent = results.policyNote; // ✅ textContent
       policyEl.style.display = 'block';
     } else {
       policyEl.style.display = 'none';
@@ -448,27 +493,30 @@ function renderCategoryTable(categoryRows) {
   const tbody = document.querySelector('#category-table tbody');
   if (!tbody) return;
   
-  tbody.innerHTML = '';
+  tbody.innerHTML = ''; // Clear
   
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
   const labels = window.ITW_CONFIG?.DRINK_LABELS || {};
   
+  if (!Array.isArray(categoryRows)) return;
+  
   categoryRows.forEach(row => {
-    if (row.qty === 0) return;
+    // Validate row
+    if (!row || typeof row.qty !== 'number' || row.qty === 0) return;
     
     const tr = document.createElement('tr');
     
     const tdDrink = document.createElement('td');
-    tdDrink.textContent = labels[row.id] || row.id;
+    tdDrink.textContent = labels[row.id] || row.id; // ✅ textContent
     
     const tdQty = document.createElement('td');
-    tdQty.textContent = row.qty.toFixed(1);
+    tdQty.textContent = row.qty.toFixed(1); // ✅ textContent
     
     const tdPrice = document.createElement('td');
-    tdPrice.textContent = formatMoney(row.price);
+    tdPrice.textContent = formatMoney(row.price); // ✅ textContent
     
     const tdCost = document.createElement('td');
-    tdCost.textContent = formatMoney(row.cost);
+    tdCost.textContent = formatMoney(row.cost); // ✅ textContent
     
     tr.appendChild(tdDrink);
     tr.appendChild(tdQty);
@@ -502,7 +550,7 @@ function renderAll() {
 /* ==================== INITIALIZATION ==================== */
 
 function initializeUI() {
-  console.log('[UI] Initializing v10.0.0 (Phase 1 Complete)');
+  console.log('[UI] Initializing v10.0.1 (Phase 1 + Security)');
   
   // Render preset buttons
   renderPresetButtons();
@@ -525,7 +573,7 @@ function initializeUI() {
   // Initial render
   renderAll();
   
-  console.log('[UI] ✓ Initialized');
+  console.log('[UI] ✓ Initialized v10.0.1');
 }
 
 // Auto-initialize
@@ -543,7 +591,7 @@ window.ITW_UI = Object.freeze({
   renderChart,
   renderNudges,
   renderHealthNote,
-  version: '10.0.0'
+  version: '10.0.1'
 });
 
 // Make applyPreset globally accessible for buttons
