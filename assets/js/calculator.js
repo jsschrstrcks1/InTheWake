@@ -479,7 +479,7 @@ const Validation = {
     const rounded = Math.round(n);
     return {
       value: clamp(rounded, 0, CONFIG.LIMITS.SEA_WEIGHT_MAX),
-      valid: rounded >= 0 && rounded <= CONFIG.LIMITS.MAX_SEA_WEIGHT,
+      valid: rounded >= 0 && rounded <= CONFIG.LIMITS.SEA_WEIGHT_MAX,
       error: (rounded < 0 || rounded > CONFIG.LIMITS.SEA_WEIGHT_MAX)
         ? `Must be between 0 and ${CONFIG.LIMITS.SEA_WEIGHT_MAX}%` : null
     };
