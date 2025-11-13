@@ -1,6 +1,6 @@
 /**
  * Royal Caribbean Drink Calculator - Unified Core Engine
- * Version: 1.001.001
+ * Version: 1.003.000
  * 
  * "Whatever you do, work heartily, as for the Lord and not for men"
  * - Colossians 3:23
@@ -32,7 +32,7 @@
 
 /* ==================== VERSION & INITIALIZATION GUARD ==================== */
 
-const VERSION = '1.001.001'; // ✅ FIXED: Removed 'v' prefix
+const VERSION = '1.003.000'; // ✅ FIXED: Removed 'v' prefix
 
 if (window.ITW_BOOTED) {
   console.warn('[Core] Already initialized, skipping duplicate init');
