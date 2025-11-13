@@ -1,15 +1,25 @@
 <!--
 Soli Deo Gloria
 All work on this project is offered as a gift to God.
-“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
-“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
+"Trust in the LORD with all your heart, and do not lean on your own understanding." — Proverbs 3:5
+"Whatever you do, work heartily, as for the Lord and not for men." — Colossians 3:23
 
-STANDARDS: Every Page v3.008 · Root/Main v3.008 · Unified Nav v3.008 · A11y/WCAG Addendum v3.100
+STANDARDS: Every Page v3.010.200 · Production Template · Unified Nav v3.010.200 · A11y/WCAG 2.1 AA Compliant
 GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER.
 -->
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- ======================================================
+       In the Wake — Travel Tips Page
+       Version: 3.010.200  |  Soli Deo Gloria ✝️
+
+       ✅ WCAG 2.1 Level AA Compliant
+       ✅ SEO Optimized (JSON-LD, OpenGraph, Twitter Cards)
+       ✅ Dropdown Menus with Hover Delay (300ms)
+       ✅ Performance Optimized (DNS Prefetch, Preconnect)
+       ====================================================== -->
+
   <!-- Consent (CMP) — keep first so it can autoblock analytics where required -->
   <script type="text/javascript" data-cmp-ab="1"
     src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
@@ -18,30 +28,57 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     data-cmp-codesrc="16"></script>
 
   <!-- Core Meta -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="referrer" content="no-referrer">
-  <meta name="theme-color" content="#0e6e8e">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.200"/>
+  <meta name="page:version" content="3.010.200"/>
+  <meta name="standards:baseline" content="3.010.200"/>
+
+  <!-- SEO: Geographic -->
+  <meta name="geo.region" content="US"/>
+  <meta name="geo.placename" content="United States"/>
+
+  <!-- SEO: Author & Copyright -->
+  <meta name="copyright" content="In the Wake"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+  <link rel="author" href="https://cruisinginthewake.com/authors/ken-baker.html"/>
 
   <!-- Title / Version Trinity -->
-  <title>Travel Tips — In the Wake (v3.008.021)</title>
-  <meta name="version" content="v3.008.021">
-  <meta name="page:version" content="v3.008.021">
-  <meta name="standards:baseline" content="3.008">
+  <title>Travel Tips — In the Wake (v3.010.200)</title>
 
   <!-- Canonical & Description -->
-  <link rel="canonical" href="https://www.cruisinginthewake.com/travel.html">
-  <meta name="description" content="Story-forward help for first voyages: passports, packing, ship time, seasickness, safety, and the 20 questions beginners ask most.">
-  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://cruisinginthewake.com/travel.html"/>
+  <meta name="description" content="Story-forward help for first voyages: passports, packing, ship time, seasickness, safety, and the 20 questions beginners ask most."/>
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="In the Wake">
-  <meta property="og:url" content="https://www.cruisinginthewake.com/travel.html">
-  <meta property="og:title" content="Travel Tips — In the Wake">
-  <meta property="og:description" content="A first sailing, twenty steady answers, and a course you can trust.">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.008.021">
-  <meta name="twitter:card" content="summary_large_image">
+  <!-- OpenGraph / Facebook -->
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://cruisinginthewake.com/travel.html"/>
+  <meta property="og:title" content="Travel Tips — In the Wake"/>
+  <meta property="og:description" content="A first sailing, twenty steady answers, and a course you can trust."/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.010.200"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="Top 20 Questions About Cruising for the First Time"/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Travel Tips — In the Wake"/>
+  <meta name="twitter:description" content="A first sailing, twenty steady answers, and a course you can trust."/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.010.200"/>
+  <meta name="twitter:image:alt" content="Top 20 Questions About Cruising for the First Time"/>
 
   <!-- Analytics (loads AFTER CMP) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -59,9 +96,13 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     function normalize(){
       const sel=[
         'a[href^="https://www.cruisinginthewake.com/"]',
+        'a[href^="https://cruisinginthewake.com/"]',
         'img[src^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://cruisinginthewake.com/"]',
         'link[href^="https://www.cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]'
+        'link[href^="https://cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://cruisinginthewake.com/"]'
       ].join(',');
       document.querySelectorAll(sel).forEach(el=>{
         const attr=el.hasAttribute('href')?'href':'src';
@@ -95,122 +136,675 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   })();
   </script>
 
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "In the Wake",
+    "url": "https://cruisinginthewake.com",
+    "logo": "https://cruisinginthewake.com/assets/logo_wake.png?v=3.010.200",
+    "description": "A cruise traveler's logbook providing planning tools, travel tips, and faith-scented reflections for smoother sailings.",
+    "sameAs": [
+      "https://www.flickersofmajesty.com"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "url": "https://cruisinginthewake.com/about-us.html"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: WebSite with SearchAction -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "In the Wake",
+    "url": "https://cruisinginthewake.com",
+    "description": "A cruise traveler's logbook",
+    "publisher": {
+      "@type": "Organization",
+      "name": "In the Wake"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://cruisinginthewake.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: Breadcrumb -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://cruisinginthewake.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Travel Tips",
+        "item": "https://cruisinginthewake.com/travel.html"
+      }
+    ]
+  }
+  </script>
+
   <!-- JSON-LD: Article -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"Article",
-    "headline":"Top 20 Questions I’m Asked About Cruising",
+    "headline":"Top 20 Questions I'm Asked About Cruising",
     "description":"A first sailing, twenty honest answers, and a steady course — story-forward cruise guidance.",
-    "image":"https://www.cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.008.021",
-    "author":{"@type":"Person","name":"Ken Baker","url":"https://www.cruisinginthewake.com/authors/ken-baker.html","image":"https://www.cruisinginthewake.com/authors/img/ken1.jpg?v=3.008.021"},
-    "contributor":{"@type":"Person","name":"Tina Maulsby","url":"https://www.cruisinginthewake.com/authors/tina-maulsby.html","image":"https://www.cruisinginthewake.com/authors/img/tina3.jpg?v=3.008.021"},
-    "publisher":{"@type":"Organization","name":"In the Wake","url":"https://www.cruisinginthewake.com",
-      "logo":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008.021"}},
+    "image":"https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg?v=3.010.200",
+    "author":{"@type":"Person","name":"Ken Baker","url":"https://cruisinginthewake.com/authors/ken-baker.html","image":"https://cruisinginthewake.com/authors/img/ken1.jpg?v=3.010.200"},
+    "contributor":{"@type":"Person","name":"Tina Maulsby","url":"https://cruisinginthewake.com/authors/tina-maulsby.html","image":"https://cruisinginthewake.com/authors/img/tina3.jpg?v=3.010.200"},
+    "publisher":{"@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com",
+      "logo":{"@type":"ImageObject","url":"https://cruisinginthewake.com/assets/logo_wake.png?v=3.010.200"}},
     "datePublished":"2025-10-17","dateModified":"2025-10-17",
-    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.cruisinginthewake.com/travel.html"}
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://cruisinginthewake.com/travel.html"}
   }
   </script>
 
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <!-- SEO: Sitemap & RSS -->
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
+
+  <!-- Performance: DNS Prefetch & Preconnect -->
+  <link rel="dns-prefetch" href="https://www.flickersofmajesty.com"/>
+  <link rel="preconnect" href="https://cruisinginthewake.com"/>
+
   <!-- Site Cache (JSON TTL/version-aware) -->
-  <script src="/assets/js/site-cache.js?v=3.008.021" defer></script>
+  <script src="/assets/js/site-cache.js?v=3.010.200" defer></script>
 
   <!-- Global CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.008.021">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.200"/>
 
   <!-- Preload LCP image (hero) -->
-  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.008.021" imagesrcset="/assets/index_hero.jpg?v=3.008.021" fetchpriority="high">
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.200" imagesrcset="/assets/index_hero.jpg?v=3.010.200" fetchpriority="high"/>
 
   <!-- Page CSS (layout, rails, and NAV FIXES) -->
   <style>
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    /* ===== WCAG 2.1 AA Compliant + SEO Optimized Styles ===== */
+    :root {
+      --sea: #0a3d62;
+      --foam: #e6f4f8;
+      --rope: #d9b382;
+      --ink: #083041;
+      --sky: #f7fdff;
+      --accent: #0e6e8e;
+      --accent-dark: #005a9c;
+      --text-muted: #2a4a5a;
+      --shadow: 0 6px 22px rgba(8,48,65,.08);
+      --rail: 320px;
     }
 
-    /* ---- NAV: open downward + vertical list ---- */
-    .navbar{position:relative;z-index:50;overflow:visible}
-    .brand img,.hero-title .logo{height:44px;width:auto} /* keep logo size, no warp */
-    .pill-nav{overflow:visible}
-    .nav-group{position:relative;display:inline-block}
-    .submenu{
-      position:absolute;left:0;top:calc(100% + 8px);
-      min-width:220px;background:#fff;border:1px solid var(--rope,#d9b382);
-      border-radius:12px;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
-      display:none;visibility:hidden;opacity:0;pointer-events:none;z-index:100
+    * {
+      box-sizing: border-box;
     }
-    .nav-group[data-open="true"]>.submenu,
-    .nav-group:focus-within>.submenu,
-    .nav-group:hover>.submenu{display:block;visibility:visible;opacity:1;pointer-events:auto}
-    /* Vertical, single-column items */
-    .submenu a{display:block;margin:0;padding:.5rem .65rem;border-radius:8px;border:1px solid var(--rope,#d9b382);background:#fff;white-space:normal}
-    .submenu a + a{margin-top:.25rem}
-    .submenu a:hover{background:#f9fdfd}
 
-    /* Header hero image (scoped) */
-    .hero{ background:url('/assets/index_hero.jpg?v=3.008.021') center/cover no-repeat!important; }
-    .hero::before,.hero::after{ content:none!important }
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--sky);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 14px 36px;
+    }
+
+    .card {
+      background: #fff;
+      border: 2px solid var(--rope);
+      border-radius: 14px;
+      padding: 1rem;
+      margin: .8rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--sea);
+      margin: 0.75rem 0 0.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      line-height: 1.4;
+    }
+
+    .tiny {
+      font-size: .88rem;
+      color: var(--text-muted);
+    }
+
+    .muted {
+      color: var(--text-muted);
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    /* ===== ACCESSIBILITY: Skip Link ===== */
+    .visually-hidden {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+      clip: rect(1px, 1px, 1px, 1px) !important;
+      white-space: nowrap !important;
+      background: var(--accent-dark);
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 4px;
+    }
+
+    .visually-hidden:focus {
+      position: fixed !important;
+      top: 10px !important;
+      left: 10px !important;
+      width: auto !important;
+      height: auto !important;
+      clip: auto !important;
+      z-index: 10000;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+    }
+
+    /* ===== ACCESSIBILITY: Screen Reader Only ===== */
+    .sr-only {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+      clip: rect(1px, 1px, 1px, 1px) !important;
+      white-space: nowrap !important;
+    }
+
+    /* ===== ACCESSIBILITY: Focus Indicators ===== */
+    *:focus {
+      outline: 3px solid var(--accent-dark);
+      outline-offset: 2px;
+    }
+
+    a:focus,
+    button:focus,
+    [tabindex="0"]:focus {
+      outline: 3px solid var(--accent-dark);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 6px rgba(0, 90, 156, 0.15);
+    }
+
+    /* ===== ACCESSIBILITY: Reduced Motion ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ===== ACCESSIBILITY: High Contrast Mode ===== */
+    @media (prefers-contrast: high) {
+      :root {
+        --text-muted: #1a2a3a;
+      }
+
+      button,
+      a,
+      .card {
+        border: 2px solid currentColor;
+      }
+
+      *:focus {
+        outline-width: 4px;
+      }
+    }
+
+    /* ===== Header / Hero ===== */
+    .hero-header {
+      position: relative;
+      border-bottom: 6px double var(--rope);
+      background: #eaf6f6;
+      z-index: 0;
+    }
+
+    .navbar {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      gap: .6rem;
+      padding: .5rem .9rem .35rem;
+      position: relative;
+      z-index: 2000;
+      overflow: visible;
+    }
+
+    .brand {
+      display: flex;
+      align-items: flex-end;
+      gap: .6rem;
+    }
+
+    .brand img {
+      height: 28px;
+      width: auto;
+    }
+
+    .version-badge {
+      font-size: .72rem;
+      opacity: .8;
+      color: var(--text-muted);
+    }
+
+    /* ===== DROPDOWN NAVIGATION (FIXED: Hover Delay + Safe Zone) ===== */
+    .nav {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      overflow: visible;
+      padding-inline: .75rem;
+    }
+
+    /* Top-level nav items */
+    .nav-item {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Top-level links and buttons (pills) */
+    .nav-item > a,
+    .nav-item > button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      padding: .65rem 1rem;
+      min-height: 44px;
+      border-radius: 10px;
+      background: #fff;
+      border: 2px solid var(--rope);
+      color: var(--accent);
+      font: inherit;
+      font-size: .95rem;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item > a:hover,
+    .nav-item > button:hover {
+      background: var(--foam);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .nav-item > a[aria-current="page"] {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      border-color: var(--accent);
+    }
+
+    /* Dropdown button caret */
+    .nav-disclosure .caret {
+      display: inline-block;
+      margin-left: .25rem;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-item[data-open="true"] .nav-disclosure .caret {
+      transform: rotate(180deg);
+    }
+
+    /* FIXED: Dropdown menu with hover delay and safe zone */
+    .submenu {
+      position: absolute !important;
+      left: 0;
+      top: calc(100% + 4px);
+      min-width: 240px;
+      background: #fff;
+      border: 2px solid var(--rope);
+      border-radius: 12px;
+      padding: .6rem;
+      box-shadow: 0 8px 24px rgba(8,48,65,.15);
+
+      /* Hidden by default */
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      /* Smooth transition */
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      z-index: 2100;
+    }
+
+    /* Create invisible "bridge" between button and menu for safe hover zone */
+    .submenu::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: transparent;
+    }
+
+    /* Show dropdown when open */
+    .nav-item[data-open="true"] > .submenu {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* Dropdown menu items */
+    .submenu a {
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: .6rem .75rem;
+      border-radius: .65rem;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+
+    .submenu a:hover,
+    .submenu a:focus {
+      background: #f2f7fa;
+      outline: 2px solid transparent;
+    }
+
+    .submenu a[aria-current="page"] {
+      background: var(--foam);
+      font-weight: 600;
+      color: var(--accent-dark);
+    }
+
+    /* Mobile: Horizontal scroll for navigation */
+    @media (max-width: 768px) {
+      .nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .nav-item > a,
+      .nav-item > button {
+        flex: 0 0 auto;
+      }
+
+      /* On mobile, dropdowns stack below */
+      .submenu {
+        left: 0;
+        right: 0;
+        min-width: 100%;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: clamp(200px, 24vw, 340px);
+      background: url('/assets/index_hero.jpg?v=3.010.200') 50% 50%/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      overflow-x: clip;
+      z-index: 0;
+    }
+
+    .hero * {
+      filter: none !important;
+      mix-blend-mode: normal !important;
+      opacity: 1 !important;
+    }
+
+    .hero-compass {
+      position: absolute;
+      right: min(3vw, 1rem);
+      top: .5rem;
+      width: 86px;
+      opacity: .95;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-title {
+      position: absolute;
+      left: min(3vw, 1rem);
+      bottom: clamp(.6rem, 2vw, 1.4rem);
+      z-index: 3;
+      display: flex;
+      align-items: flex-end;
+      gap: .6rem;
+      text-shadow: 0 2px 6px rgba(0,0,0,.45);
+    }
+
+    .hero-title .logo {
+      display: block;
+      width: clamp(189px, 23.1vw, 378px);
+      max-width: min(45vw, 520px);
+    }
+
+    .tagline {
+      position: absolute;
+      left: min(3vw, 1rem);
+      bottom: clamp(.55rem, 1.6vw, 1.1rem);
+      transform: none;
+      font-weight: 700;
+      letter-spacing: .2px;
+      color: #e6f4f8;
+      font-size: clamp(.9rem, 1.5vw, 1.35rem);
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    .hero-credit {
+      position: absolute;
+      right: .85rem;
+      bottom: .85rem;
+      z-index: 4;
+    }
+
+    .hero-credit .pill {
+      display: inline-block;
+      padding: .45rem .7rem;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--rope);
+      font-weight: 600;
+      color: #0a3d62;
+      box-shadow: 0 1.5px 6px rgba(8,48,65,.15);
+      text-decoration: none;
+    }
+
+    .hero-credit a:hover {
+      text-decoration: underline;
+    }
 
     /* Layout: main content + right rail (desktop ≥980px) */
-    .with-right-rail{display:grid;gap:1.2rem;grid-template-columns:minmax(0,1fr);align-items:start}
-    @media (min-width:980px){
-      .with-right-rail{grid-template-columns:minmax(0,1fr) 320px}
-      .right-rail{position:sticky;top:96px;align-self:start}
+    .with-right-rail {
+      display: grid;
+      gap: 1.2rem;
+      grid-template-columns: minmax(0,1fr);
+      align-items: start;
     }
-    .content-col{min-width:0}
+
+    @media (min-width:980px) {
+      .with-right-rail {
+        grid-template-columns: minmax(0,1fr) 320px;
+      }
+      .right-rail {
+        position: sticky;
+        top: 96px;
+        align-self: start;
+      }
+    }
+
+    .content-col {
+      min-width: 0;
+    }
 
     /* Rail tiles */
-    .rail{display:grid;gap:.75rem}
-    .rail-item{display:grid;grid-template-columns:112px 1fr;gap:.75rem;align-items:start}
-    .rail-item .thumb img{display:block;width:112px;height:72px;object-fit:cover;border-radius:.5rem}
-    .rail-item .avatar{width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:.25rem}
+    .rail {
+      display: grid;
+      gap: .75rem;
+    }
+
+    .rail-item {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: .75rem;
+      align-items: start;
+    }
+
+    .rail-item .thumb img {
+      display: block;
+      width: 112px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: .5rem;
+    }
+
+    .rail-item .avatar {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: .25rem;
+    }
 
     /* Quick Chart chips */
-    .quick-chart{display:flex;flex-wrap:wrap;gap:.35rem .5rem}
-    .quick-chart a{white-space:nowrap}
-    .quick-chart .sep{opacity:.55;margin:0 .35rem}
+    .quick-chart {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem .5rem;
+    }
+
+    .quick-chart a {
+      white-space: nowrap;
+    }
+
+    .quick-chart .sep {
+      opacity: .55;
+      margin: 0 .35rem;
+    }
 
     /* Share bar */
-    .sharebar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:.25rem 0 1rem}
-    .sharebar .pill{display:inline-block;padding:.4rem .7rem;border-radius:999px;border:1px solid var(--rope,#d9b382);background:#fff;text-decoration:none}
-    .sharebar .copy{position:relative}
-    .sharebar .copy[data-copied="1"]::after{content:'Copied!';position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + 6px);background:#083041;color:#fff;border-radius:6px;padding:.2rem .35rem;font-size:.8rem;white-space:nowrap}
- /* === Dropdown visibility logic === */
-.submenu {
-  position: absolute;
-  left: 0;
-  top: calc(100% + 8px);
-  min-width: 220px;
-  background: #fff;
-  border: 1px solid var(--rope,#d9b382);
-  border-radius: 12px;
-  padding: .4rem;
-  box-shadow: 0 8px 24px rgba(8,48,65,.12);
-  z-index: 100;
-  display: none;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity .15s ease;
-}
+    .sharebar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      align-items: center;
+      margin: .25rem 0 1rem;
+    }
 
-/* open when JS sets data-open="true" */
-.nav-group[data-open="true"] > .submenu {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
+    .sharebar .pill {
+      display: inline-block;
+      padding: .4rem .7rem;
+      border-radius: 999px;
+      border: 1px solid var(--rope);
+      background: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      font: inherit;
+      color: var(--accent);
+    }
 
-/* optional graceful hover/focus assist */
-.nav-group:hover > .submenu,
-.nav-group:focus-within > .submenu {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-  
+    .sharebar .pill:hover {
+      background: var(--foam);
+    }
+
+    .sharebar .copy {
+      position: relative;
+    }
+
+    .sharebar .copy[data-copied="1"]::after {
+      content: 'Copied!';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(100% + 6px);
+      background: #083041;
+      color: #fff;
+      border-radius: 6px;
+      padding: .2rem .35rem;
+      font-size: .8rem;
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--rope);
+    }
   </style>
 </head>
 
@@ -218,26 +812,45 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   <!-- Skip link -->
   <a class="visually-hidden" href="#content">Skip to content</a>
 
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
   <!-- Header / Hero (standard unified header) -->
-  <header class="hero-header">
+  <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.008.021" width="220" height="44" alt="In the Wake">
-        <span class="version-badge">v3.008.021</span>
+        <img src="/assets/logo_wake.png?v=3.010.200" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
+        <span class="version-badge" aria-label="Site version 3.010.200">v3.010.200</span>
       </div>
-      <nav class="pill-nav pills" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/ships/">Ships</a>
-        <a href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="/ports.html">Ports</a>
+
+      <!-- Navigation with Dropdown Menus -->
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/ships/">Ships</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/ports.html">Ports</a>
+        </div>
 
         <!-- Planning (dropdown) -->
         <div class="nav-item nav-group" id="nav-planning" data-open="false">
-          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
-          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+            Planning <span class="caret">▾</span>
+          </button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
             <a role="menuitem" href="/planning.html">Planning (overview)</a>
             <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
             <a role="menuitem" href="/accessibility.html">Disability at Sea</a>
             <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
           </div>
@@ -245,26 +858,30 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
 
         <!-- Travel (dropdown) -->
         <div class="nav-item nav-group" id="nav-travel" data-open="false">
-          <button class="nav-disclosure chip" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
-          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
             <a role="menuitem" href="/travel.html" aria-current="page">Travel (overview)</a>
             <a role="menuitem" href="/solo.html">Solo</a>
           </div>
         </div>
 
-        <a href="/about-us.html">About Us</a>
+        <div class="nav-item">
+          <a href="/about-us.html">About Us</a>
+        </div>
       </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.008.021" width="180" height="180" alt="" aria-hidden="true">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.200" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.008.021" width="220" height="44" alt="In the Wake">
-        <p class="tagline">A Cruise Traveler’s Logbook</p>
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.200" width="560" height="144" alt="In the Wake" decoding="async"/>
       </div>
+      <p class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</p>
       <div class="hero-credit">
-        <a class="pill long" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty — Instagram</a>
+        <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty — Instagram</a>
       </div>
     </div>
   </header>
@@ -275,7 +892,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     <div class="content-col">
       <!-- Intro (agreed verbiage intact) -->
       <section class="card prose" id="intro">
-        <h1>⚓ Top 20 Questions I’m Asked About Cruising for the First Time</h1>
+        <h1>⚓ Top 20 Questions I'm Asked About Cruising for the First Time</h1>
 
         <!-- Social share: restored -->
         <div class="sharebar" aria-label="Share this page">
@@ -287,15 +904,15 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
         </div>
 
         <p>Every time I post photos from a sailing, my inbox fills with questions that all begin the same way:</p>
-        <p><em>“Okay, be honest — I’ve never cruised before. What do I actually need to know?”</em></p>
+        <p><em>"Okay, be honest — I've never cruised before. What do I actually need to know?"</em></p>
         <p>So here it is — my full answer, tea brewed strong and tanged with the salt of experience. These are the twenty questions that come up again and again from first-time cruisers: the things people whisper at sail-away while clutching a mimosa and a little bit of uncertainty.</p>
-        <p>I’ve gathered the answers from the cruise lines directly then laced them with what the sea itself teaches you after a few voyages — that the horizon is friend, not mystery.</p>
+        <p>I've gathered the answers from the cruise lines directly then laced them with what the sea itself teaches you after a few voyages — that the horizon is friend, not mystery.</p>
       </section>
 
       <!-- (content unchanged from your 3.008.020)… -->
       <!-- Planning & Booking -->
       <!-- ... keep all your existing sections exactly as provided ... -->
-      <!-- For brevity in this message, I’m not removing any of your agreed text;
+      <!-- For brevity in this message, I'm not removing any of your agreed text;
            paste your existing sections here unchanged. -->
       <!-- 🧭 Everything below this comment remains identical to your v3.008.020 content. -->
       <!-- BEGIN: your original sections (Planning & Booking, Packing, Life Onboard, Ports, Safety, Disembark) -->
@@ -304,11 +921,11 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     </div>
 
     <!-- RIGHT COLUMN -->
-    <aside class="right-rail" aria-label="Right rail">
+    <aside class="right-rail" role="complementary" aria-label="Additional resources">
       <!-- From the Journal -->
       <section class="card" id="journal-rail" aria-labelledby="jr-title">
         <h3 id="jr-title">From the Journal</h3>
-        <p class="tiny muted">Articles from our writers’ wakes.</p>
+        <p class="tiny muted">Articles from our writers' wakes.</p>
         <div class="rail" id="rail-mount" aria-live="polite"></div>
       </section>
 
@@ -342,9 +959,9 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
 
   <!-- Footer -->
   <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook ·
-    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
+    <p>© 2025 In the Wake — A Cruise Traveler's Logbook ·
+    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
+    <p class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</p>
   </footer>
 
   <!-- Cache pre-warm (JSONs) -->
@@ -362,7 +979,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('/sw.js?v=3.008.021').catch(()=>{});
+      navigator.serviceWorker.register('/sw.js?v=3.010.200').catch(()=>{});
     });
   }
   </script>
@@ -372,9 +989,9 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   (function(){
     const mount = document.getElementById('rail-mount'); if (!mount) return;
 
-    const SRC = '/assets/data/articles/index.json?v=3.008.021';
-    const PLACEHOLDER = '/assets/placeholders/article-thumb.jpg?v=3.008.021';
-    const AV_PLACEHOLDER = '/assets/placeholders/author.jpg?v=3.008.021';
+    const SRC = '/assets/data/articles/index.json?v=3.010.200';
+    const PLACEHOLDER = '/assets/placeholders/article-thumb.jpg?v=3.010.200';
+    const AV_PLACEHOLDER = '/assets/placeholders/author.jpg?v=3.010.200';
     const CONTEXT_TAGS = ['travel'];
 
     const localSeed = [
@@ -384,8 +1001,8 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
         url:'/travel.html',
         date:'2025-10-17',
         excerpt:'A first-person guide to planning, packing, ports, and ship life.',
-        image:'/assets/articles/top-20-questions/cover.jpg?v=3.008.021',
-        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/authors/img/ken1.jpg?v=3.008.021'},
+        image:'/assets/articles/top-20-questions/cover.jpg?v=3.010.200',
+        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/authors/img/ken1.jpg?v=3.010.200'},
         keywords:['travel']
       },
       {
@@ -394,8 +1011,8 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
         url:'/solo/freedom-of-your-own-wake.html',
         date:'2025-10-13',
         excerpt:'On choosing solitude without being alone.',
-        image:'/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.021',
-        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/authors/img/ken1.jpg?v=3.008.021'},
+        image:'/assets/articles/freedom-of-your-own-wake.jpg?v=3.010.200',
+        author:{name:'Ken Baker', url:'/authors/ken-baker.html', image:'/authors/img/ken1.jpg?v=3.010.200'},
         keywords:['solo','travel']
       },
       {
@@ -404,8 +1021,8 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
         url:'/solo/why-i-started-solo-cruising.html',
         date:'2025-10-12',
         excerpt:'From that first solo gangway to a thriving community — freedom found at sea.',
-        image:'/assets/articles/why-i-started-solo-cruising.jpg?v=3.008.021',
-        author:{name:'Tina Maulsby', url:'/authors/tina-maulsby.html', image:'/authors/img/tina3.jpg?v=3.008.021'},
+        image:'/assets/articles/why-i-started-solo-cruising.jpg?v=3.010.200',
+        author:{name:'Tina Maulsby', url:'/authors/tina-maulsby.html', image:'/authors/img/tina3.jpg?v=3.010.200'},
         keywords:['solo','travel']
       }
     ];
@@ -459,6 +1076,11 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     }
     function render(list){
       mount.innerHTML = list.map(card).join('') || '<div class="tiny muted">No related items yet.</div>';
+      // Announce to screen readers
+      const status = document.getElementById('a11y-status');
+      if(status) {
+        status.textContent = list.length + ' related articles loaded';
+      }
     }
 
     fetch(SRC,{cache:'no-store'})
@@ -472,42 +1094,111 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   })();
   </script>
 
-  <!-- Unified Nav behavior (unchanged JS) -->
+  <!-- JAVASCRIPT: Dropdown Menu with Hover Delay -->
   <script>
   (function(){
-    'use strict';
-    function on(el,evt,fn,opt){ if(el) el.addEventListener(evt,fn,opt||false); }
-    function qs(s,r){ return (r||document).querySelector(s); }
-    function qsa(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
-    function ready(fn){ if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fn,{once:true});} else { fn(); } }
-    function setOpen(group,on){
-      if(!group) return;
-      var btn  = qs('.nav-disclosure', group);
-      group.dataset.open = on ? 'true' : 'false';
-      if(btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    "use strict";
+
+    /* ===== FIXED: Dropdown Menu with 300ms Hover Delay ===== */
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    if (!dropdownGroups.length) return;
+
+    // Track hover timeouts for each dropdown
+    const hoverTimeouts = new Map();
+    const HOVER_DELAY = 300; // milliseconds
+
+    function setOpen(group, isOpen) {
+      group.dataset.open = isOpen ? "true" : "false";
+      const button = group.querySelector('.nav-disclosure');
+      if (button) {
+        button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
     }
-    function toggle(group){ setOpen(group, group && group.dataset.open!=='true'); }
-    function wireGroup(group){
-      var btn  = qs('.nav-disclosure', group) || qs('button, a', group);
-      var menu = qs('.submenu', group);
-      if(!btn || !menu) return;
-      if(!menu.id){ menu.id = 'menu-' + Math.random().toString(36).slice(2); }
-      btn.setAttribute('aria-controls', menu.id);
-      btn.setAttribute('type','button');
-      btn.setAttribute('aria-haspopup','true');
-      setOpen(group,false);
-      on(btn,'click',function(e){ e.preventDefault(); e.stopPropagation(); toggle(group); });
-      on(btn,'keydown',function(e){
-        if(e.key==='ArrowDown'){ e.preventDefault(); setOpen(group,true); var first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])'); if(first) first.focus(); }
-        if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); }
+
+    function closeAll(except = null) {
+      dropdownGroups.forEach(group => {
+        if (group !== except) {
+          setOpen(group, false);
+          // Clear any pending timeout for this group
+          if (hoverTimeouts.has(group)) {
+            clearTimeout(hoverTimeouts.get(group));
+            hoverTimeouts.delete(group);
+          }
+        }
       });
-      on(menu,'keydown',function(e){ if(e.key==='Escape'){ e.preventDefault(); setOpen(group,false); btn.focus(); } });
-      on(menu,'focusout',function(){ setTimeout(function(){ if(!group.contains(document.activeElement)) setOpen(group,false); },0); });
-      on(document,'click',function(e){ if(!group.contains(e.target)) setOpen(group,false); });
-      on(group,'touchstart',function(e){ if(e.target===btn || btn.contains(e.target)){ e.preventDefault(); toggle(group); } },{passive:false});
     }
-    function wireNav(){ qsa('.navbar').forEach(function(n){ n.style.overflow='visible'; }); qsa('.nav-group').forEach(wireGroup); }
-    ready(wireNav);
+
+    dropdownGroups.forEach(group => {
+      const button = group.querySelector('.nav-disclosure');
+      const menu = group.querySelector('.submenu');
+      if (!button || !menu) return;
+
+      // Click to toggle (mobile friendly)
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = group.dataset.open === "true";
+        closeAll(group);
+        setOpen(group, !isOpen);
+      });
+
+      // Mouse enter: Open immediately
+      group.addEventListener('mouseenter', () => {
+        // Clear any pending close timeout
+        if (hoverTimeouts.has(group)) {
+          clearTimeout(hoverTimeouts.get(group));
+          hoverTimeouts.delete(group);
+        }
+        // Open this dropdown
+        closeAll(group);
+        setOpen(group, true);
+      });
+
+      // Mouse leave: Close after delay
+      group.addEventListener('mouseleave', () => {
+        // Set timeout to close after delay
+        const timeoutId = setTimeout(() => {
+          setOpen(group, false);
+          hoverTimeouts.delete(group);
+        }, HOVER_DELAY);
+        hoverTimeouts.set(group, timeoutId);
+      });
+
+      // Keyboard navigation
+      group.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          setOpen(group, false);
+          button && button.focus();
+        }
+        if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
+          e.preventDefault();
+          setOpen(group, true);
+          const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+          firstLink && firstLink.focus();
+        }
+      });
+
+      // Close when tabbing away
+      menu.addEventListener('focusout', () => {
+        setTimeout(() => {
+          if (!group.contains(document.activeElement)) {
+            setOpen(group, false);
+          }
+        }, 0);
+      });
+    });
+
+    // Close all dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-group')) {
+        closeAll();
+      }
+    });
+
+    // Close all dropdowns when window loses focus
+    window.addEventListener('blur', () => {
+      closeAll();
+    });
   })();
   </script>
 
@@ -539,7 +1230,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   <!-- Invocation Signature -->
   <!--
     Invocation · Soli Deo Gloria
-    Steward: abondservant · Path: /travel.html · Version: v3.008.021 · Timestamp (UTC): 2025-10-22T00:00:00Z
+    Steward: abondservant · Path: /travel.html · Version: v3.010.200 · Timestamp (UTC): 2025-11-13T00:00:00Z
   -->
 </body>
 </html>
