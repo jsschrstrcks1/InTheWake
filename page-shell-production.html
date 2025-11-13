@@ -33,10 +33,10 @@
   <meta name="geo.placename" content="United States"/>
 
   <!-- Title & SEO -->
-  <title>Packing Lists — In the Wake | Cruise Planning & Travel Tips</title>
-  <meta name="description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
-  <meta name="keywords" content="cruise packing, packing lists, cruise checklist, travel packing, cruise tips"/>
-  <link rel="canonical" href="https://cruisinginthewake.com/packing-lists.html"/>
+  <title>Page Title — In the Wake | Cruise Planning & Travel Tips</title>
+  <meta name="description" content="Page description goes here - keep between 150-160 characters for optimal display in search results."/>
+  <meta name="keywords" content="cruise planning, cruise tips, travel guide, Royal Caribbean, cruising"/>
+  <link rel="canonical" href="https://cruisinginthewake.com/page-name.html"/>
 
   <!-- SEO: Author & Copyright -->
   <meta name="copyright" content="In the Wake"/>
@@ -46,21 +46,21 @@
   <!-- OpenGraph / Facebook -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Packing Lists — In the Wake"/>
-  <meta property="og:description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
-  <meta property="og:url" content="https://cruisinginthewake.com/packing-lists.html"/>
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/packing-hero.jpg"/>
+  <meta property="og:title" content="Page Title — In the Wake"/>
+  <meta property="og:description" content="Page description goes here - keep between 150-160 characters for optimal display."/>
+  <meta property="og:url" content="https://cruisinginthewake.com/page-name.html"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/page-image.jpg"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
-  <meta property="og:image:alt" content="Cruise packing lists and travel essentials"/>
+  <meta property="og:image:alt" content="Descriptive alt text for social sharing image"/>
   <meta property="og:locale" content="en_US"/>
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Packing Lists — In the Wake"/>
-  <meta name="twitter:description" content="Cruise packing checklists for carry-on, families, and everyone — practical, accessible, and based on real sailings."/>
-  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/packing-hero.jpg"/>
-  <meta name="twitter:image:alt" content="Cruise packing lists and travel essentials"/>
+  <meta name="twitter:title" content="Page Title — In the Wake"/>
+  <meta name="twitter:description" content="Page description goes here - keep between 150-160 characters."/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/page-image.jpg"/>
+  <meta name="twitter:image:alt" content="Descriptive alt text for social sharing image"/>
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -117,8 +117,8 @@
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Packing Lists",
-        "item": "https://cruisinginthewake.com/packing-lists.html"
+        "name": "Page Name",
+        "item": "https://cruisinginthewake.com/page-name.html"
       }
     ]
   }
@@ -468,11 +468,6 @@
       outline: 2px solid transparent;
     }
 
-    .submenu a[aria-current="page"] {
-      background: var(--foam);
-      font-weight: 600;
-    }
-
     /* Mobile: Horizontal scroll for navigation */
     @media (max-width: 768px) {
       .nav {
@@ -500,7 +495,7 @@
       position: relative;
       width: 100%;
       min-height: clamp(200px, 24vw, 340px);
-      background: url('/assets/index_hero.jpg?v=3.010.200') 50% 50%/cover no-repeat;
+      background: url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
       display: flex;
       align-items: flex-end;
       overflow-x: clip;
@@ -635,66 +630,6 @@
     h4 {
       max-width: 70ch;
     }
-
-    /* Page-specific: Packing Lists */
-    .floating-note {
-      background: #fff3cd;
-      border-color: #ffc107;
-    }
-
-    .pill-nav {
-      display: flex;
-      gap: .5rem;
-      flex-wrap: wrap;
-      margin: 1rem 0;
-    }
-
-    .pill {
-      display: inline-block;
-      padding: .45rem .7rem;
-      border-radius: 999px;
-      background: #fff;
-      border: 1px solid var(--rope);
-      font-weight: 600;
-      color: #0a3d62;
-      text-decoration: none;
-      box-shadow: 0 1.5px 6px rgba(8,48,65,.15);
-    }
-
-    .pill:hover {
-      background: var(--foam);
-      text-decoration: none;
-    }
-
-    .grid-3 {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    details {
-      margin: .5rem 0;
-      padding: .5rem;
-      border: 1px solid var(--rope);
-      border-radius: 8px;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: 600;
-      padding: .35rem;
-    }
-
-    summary:hover {
-      background: var(--foam);
-      border-radius: 4px;
-    }
-
-    .tip-body {
-      padding: .5rem;
-      margin-top: .5rem;
-      border-top: 1px dashed rgba(8,48,65,.12);
-    }
   </style>
 </head>
 <body>
@@ -716,7 +651,7 @@
       <!-- Navigation with Dropdown Menus -->
       <nav class="nav" aria-label="Main site navigation">
         <div class="nav-item">
-          <a href="/">Home</a>
+          <a href="/" aria-current="page">Home</a>
         </div>
 
         <!-- Planning Dropdown -->
@@ -729,9 +664,10 @@
             <a role="menuitem" href="/ships.html">Ships</a>
             <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
             <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
             <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
             <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
-            <a role="menuitem" href="/packing-lists.html" aria-current="page">Packing Lists</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
             <a role="menuitem" href="/accessibility.html">Accessibility</a>
           </div>
         </div>
@@ -770,183 +706,15 @@
   <main class="wrap page-grid" id="main-content">
     <!-- Left Column -->
     <div>
-      <aside class="floating-note card" aria-live="polite" aria-label="Important note">
-        <h3>Important</h3>
-        <p><strong>Photograph your travel documents.</strong> Keep images of passports, IDs, visas, and insurance cards on your phone (and a cloud backup). If wallets go missing or you need embassy help, this speeds everything up.</p>
-      </aside>
+      <section class="card">
+        <h1>Page Heading</h1>
+        <p>Main content goes here...</p>
 
-      <!-- On-page pills -->
-      <nav class="pill-nav" aria-label="On-page sections" id="section-nav">
-        <a class="pill" href="#carryon">Carry-On</a>
-        <a class="pill" href="#men">Men</a>
-        <a class="pill" href="#women">Women</a>
-        <a class="pill" href="#everyone">Everyone</a>
-        <a class="pill" href="#families">Families</a>
-        <a class="pill" href="#tips">Tips</a>
-      </nav>
+        <h2>Section Heading</h2>
+        <p>Content under this section...</p>
 
-      <section class="card" aria-labelledby="carryon">
-        <h1 id="carryon">Carry-on Essentials</h1>
-        <p>Keep these with you on embarkation day and on flights. Assume checked bags might be delayed.</p>
-        <ul>
-          <li>Passport and/or birth certificate + photo ID</li>
-          <li>Cruise &amp; flight boarding passes</li>
-          <li>Travel insurance &amp; medical cards</li>
-          <li>Emergency contact list (printed)</li>
-          <li>Cash, credit/debit cards, wallet</li>
-          <li>Phone, charger &amp; power bank</li>
-          <li>Medications (original containers)</li>
-          <li>Glasses/contacts</li>
-          <li>Deodorant &amp; small toiletries (TSA-size when flying)</li>
-          <li>Change of clothes &amp; swimwear</li>
-          <li>Reusable water bottle</li>
-          <li>Seasickness medication</li>
-          <li>Snacks; hand sanitizer &amp; wipes</li>
-          <li>Headphones / ear plugs / eye mask</li>
-          <li>Hotel info &amp; keys</li>
-          <li>Document holder or money belt</li>
-          <li>Pen &amp; photocopies of ID/credit cards</li>
-        </ul>
-      </section>
-
-      <section class="grid-3" aria-label="Packing lists by audience">
-        <section class="card" aria-labelledby="men">
-          <h2 id="men">Men</h2>
-          <ul>
-            <li>Activewear; swimwear</li><li>Walking shoes; sandals; water shoes</li>
-            <li>Tees/polos; shorts; jeans</li><li>Sweater/hoodie; jacket</li>
-            <li>Socks; underwear; undershirts</li>
-            <li>Dress shirt; slacks; tie; belt</li>
-            <li>Formal wear (if required by line)</li>
-            <li>Shaving kit; hair product/comb</li>
-          </ul>
-          <p class="tiny">Cold-weather layers only for certain itineraries. See <a href="/ports.html">Ports</a> for typical weather.</p>
-        </section>
-
-        <section class="card" aria-labelledby="women">
-          <h2 id="women">Women</h2>
-          <ul>
-            <li>Activewear; swimwear</li><li>Walking shoes; sandals; water shoes</li>
-            <li>Tops (tees/tanks/blouses); shorts; jeans</li>
-            <li>Skirts/dresses; pajamas; sweater/hoodie; jacket</li>
-            <li>Socks; underwear; bras/stockings</li>
-            <li>Heels/dress shoes; belt(s); formal wear</li>
-            <li>Makeup &amp; remover; hair ties/clips/tools</li>
-            <li>Purse; pashmina/scarf; perfume</li>
-          </ul>
-        </section>
-
-        <section class="card" aria-labelledby="everyone">
-          <h2 id="everyone">Everyone</h2>
-          <ul>
-            <li>Aloe &amp; sunscreen; bug spray</li>
-            <li>First-aid kit; OTC meds; pain reliever</li>
-            <li>Moisturizer; lip balm; dental kit</li>
-            <li>Shampoo/conditioner; soap/body wash</li>
-            <li>Contacts + solution; glasses</li>
-            <li>Keycard lanyard; magnetic hooks</li>
-            <li>Laundry items (clips, dryer sheets, bag)</li>
-            <li>Rain jacket/compact umbrella; day pack</li>
-            <li>Goggles; wet/zip-top bags</li>
-            <li>Converter/adapter (for non-US stays)</li>
-          </ul>
-        </section>
-
-        <section class="card" aria-labelledby="families">
-          <h2 id="families">Families</h2>
-          <ul>
-            <li>Baby gear (diapers, wipes, formula, bottles)</li>
-            <li>Compact stroller or carrier</li>
-            <li>Portable crib/rail (if line requires)</li>
-            <li>Toys, books, tablet with offline shows</li>
-            <li>Some TVs accept HDMI; varies by ship</li>
-          </ul>
-        </section>
-      </section>
-
-      <!-- Tips -->
-      <section class="card" id="tips" aria-labelledby="tips-title">
-        <h2 id="tips-title">Tips</h2>
-        <p>Click to expand each tip.</p>
-
-        <h3 id="tips-prep">Preparation &amp; Flights</h3>
-        <details><summary>1) Plan around flights and liquid rules</summary>
-          <div class="tip-body">
-            <p>Know airline weight/count limits. TSA 3-1-1 applies: ≤100ml per container, one quart bag.</p>
-            <p>Some connections re-screen duty-free unless sealed in STEBs.</p>
-          </div>
-        </details>
-        <details><summary>2) Pack a smart carry-on</summary>
-          <div class="tip-body">
-            <p>Checked bags can arrive late. Keep meds, IDs, docs, valuables, swimwear, chargers with you.</p>
-          </div>
-        </details>
-
-        <h3 id="tips-luggage">Luggage &amp; Wardrobe</h3>
-        <details><summary>3) Edit your checked luggage</summary>
-          <div class="tip-body"><p>Remove "maybes"; mix-and-match. Split family items across bags.</p></div>
-        </details>
-        <details><summary>4) Know dress codes</summary>
-          <div class="tip-body"><p>Most lines are resort-casual; formal varies. Specialty restaurants may be stricter.</p></div>
-        </details>
-        <details><summary>5) Use packing aids</summary>
-          <div class="tip-body"><p>Packing cubes organize; compression saves space. Bring a laundry bag.</p></div>
-        </details>
-        <details><summary>6) Laundry options</summary>
-          <div class="tip-body"><p>Self-serve on some ships; otherwise paid service. Travel detergent sheets help.</p></div>
-        </details>
-        <details><summary>7) Toiletries reality check</summary>
-          <div class="tip-body"><p>Bring conditioner/lotion if you're picky. Cabin hair dryers are basic.</p></div>
-        </details>
-        <details><summary>10) Re-wear smartly</summary>
-          <div class="tip-body"><p>Repeat bottoms; refresh tops. Accessories change the look.</p></div>
-        </details>
-        <details><summary>17) Pack lighter than you think</summary>
-          <div class="tip-body"><p>Versatility over volume. Most forgotten items can be bought in port.</p></div>
-        </details>
-
-        <h3 id="tips-onboard">Onboard, Ports &amp; Tech</h3>
-        <details><summary>8) Pack for destination &amp; activities</summary>
-          <div class="tip-body"><p>Match layers to excursions; modest wear for religious sites. See <a href="/ports.html">Ports</a>.</p></div>
-        </details>
-        <details><summary>9) Leave room for souvenirs</summary>
-          <div class="tip-body"><p>Bring a foldable duffel; pad fragile items.</p></div>
-        </details>
-        <details><summary>11) Don't forget basics</summary>
-          <div class="tip-body"><p>OTC meds, sunscreen, batteries, adapters, memory cards cost more onboard.</p></div>
-        </details>
-        <details><summary>16) PPE varies by port</summary>
-          <div class="tip-body"><p>Rules change; check your line a week before sailing.</p></div>
-        </details>
-        <details><summary>18) Temperatures on board</summary>
-          <div class="tip-body"><p>Indoor spaces ~21–22 °C (low-70s °F). Bring a light layer.</p></div>
-        </details>
-        <details><summary>19) Power: adapters &amp; converters</summary>
-          <div class="tip-body"><p>Power strips w/surge are banned. Bring a multi-USB wall charger.</p></div>
-        </details>
-        <details><summary>20) Tech &amp; gaming</summary>
-          <div class="tip-body"><p>Some TVs accept HDMI; varies by ship. Download media offline.</p></div>
-        </details>
-        <details><summary>21) Theme Nights</summary>
-          <div class="tip-body"><p>Fun, optional. Check your line's app for details.</p></div>
-        </details>
-        <details><summary>22) Social Media Groups</summary>
-          <div class="tip-body"><p>Find roll calls on Cruise Critic or Facebook (use ship name + full date).</p></div>
-        </details>
-
-        <h3 id="tips-docs">Documents &amp; Safety</h3>
-        <details><summary>12) Keep IDs with you</summary>
-          <div class="tip-body"><p>Keep passports or birth-certificate+ID, visas, vax proof, cruise docs in your personal item.</p></div>
-        </details>
-        <details><summary>13) Prohibited items</summary>
-          <div class="tip-body"><p>No irons/steamers, surge strips, candles, hot plates, many drones, weapons. Check your line.</p></div>
-        </details>
-        <details><summary>14) Photo your documents</summary>
-          <div class="tip-body"><p>Store clear photos of IDs/insurance/cards on phone + cloud.</p></div>
-        </details>
-        <details><summary>15) Emergency contacts</summary>
-          <div class="tip-body"><p>Carry a printed sheet: contacts, insurer hotline, cruise line emergency number, ship name.</p></div>
-        </details>
+        <h3>Subsection Heading</h3>
+        <p>More detailed content...</p>
       </section>
     </div>
 
