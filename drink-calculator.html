@@ -3,7 +3,7 @@
 <head>
   <!-- ======================================================
        In the Wake — Royal Caribbean Drink Calculator
-       Version: 1.002.000  |  Soli Deo Gloria ✝️
+       Version: 1.003.000  |  Soli Deo Gloria ✝️
        "I was eyes to the blind and feet to the lame" - Job 29:15
        "Whatever you do, work heartily, as for the Lord" - Colossians 3:23
        
@@ -11,6 +11,15 @@
        This calculator serves ALL travelers - regardless of ability,
        age, or circumstance. Every feature is keyboard accessible,
        screen reader compatible, and designed with care.
+       
+       CHANGELOG v1.003.000:
+       - CRITICAL FIX: Minors forced to Refreshment when adults buy Deluxe
+       - CRITICAL FIX: Clarified "per adult" in daily drinks section
+       - CRITICAL FIX: Updated policy warning (absolute NO EXCEPTIONS)
+       - FIX: Pinnacle vouchers corrected (6/day not 5)
+       - FEATURE: Clickable package selection cards
+       - FEATURE: Pre-cruise vs onboard pricing toggle
+       - FEATURE: Recovery-sensitive view (hide alcohol option)
        ====================================================== -->
   
   <!-- Core -->
@@ -24,7 +33,7 @@
   <meta name="robots" content="index,follow,max-image-preview:large"/>
   <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="1.002.000"/>
+  <meta name="version" content="1.003.000"/>
   <meta name="author" content="In the Wake"/>
   
   <!-- Title & SEO -->
@@ -71,7 +80,7 @@
       if (!window.Chart) {
         console.warn('[HTML] Chart.js CDN failed, loading fallback');
         const fallback = document.createElement('script');
-        fallback.src = '/assets/vendor/chart.umd.min.js?v=1.002.000';
+        fallback.src = '/assets/vendor/chart.umd.min.js?v=1.003.000';
         fallback.defer = true;
         document.head.appendChild(fallback);
       }
@@ -80,7 +89,7 @@
   </script>
   
   <!-- Styles -->
-  <link rel="stylesheet" href="/assets/css/calculator.css?v=1.002.000"/>
+  <link rel="stylesheet" href="/assets/css/calculator.css?v=1.003.000"/>
   
   <!-- ✅ Accessibility Styles -->
   <style>
@@ -206,8 +215,8 @@
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=1.002.000" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge">v1.002.000</span>
+        <img src="/assets/logo_wake.png?v=1.003.000" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge">v1.003.000</span>
       </div>
       <nav class="nav pill-nav" aria-label="Primary">
         <a href="/">Home</a>
@@ -239,9 +248,9 @@
       </nav>
     </div>
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=1.002.000" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=1.003.000" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=1.002.000" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake.png?v=1.003.000" width="560" height="144" alt="In the Wake" decoding="async"/>
         <div class="tagline">A Cruise Traveler's Logbook</div>
       </div>
       <div class="hero-credit">
@@ -269,6 +278,11 @@
           <span id="best-text" class="small"></span>
         </div>
         
+        <!-- ✅ NEW: Package Selection Status Banner -->
+        <div id="package-selector-status" class="selector-status" role="status" aria-live="polite" style="display:none;">
+          <!-- JavaScript will populate this -->
+        </div>
+        
         <!-- Offline Banners -->
         <p id="fallback-banner" hidden class="banner-warn">⚠️ Live prices unavailable; using defaults</p>
         <p id="offline-rates-chip" hidden class="banner-warn">⚠️ Offline exchange rates (may be stale)</p>
@@ -286,6 +300,24 @@
             <span id="totals" aria-live="polite">Calculating...</span>
             <small class="tiny"> — includes 18% gratuity</small>
           </h2>
+          
+          <!-- ✅ NEW: Recovery-Sensitive View Toggle -->
+          <div class="view-options" style="background:#f5f5f5;border:2px solid #e0e0e0;border-radius:8px;padding:1rem;margin:1rem 0;">
+            <label class="toggle-switch" style="display:flex;align-items:center;gap:0.75rem;cursor:pointer;user-select:none;">
+              <input type="checkbox" id="non-alcohol-view" aria-label="Show only non-alcoholic options" style="position:absolute;opacity:0;width:0;height:0;">
+              <span class="toggle-slider" style="position:relative;width:52px;height:28px;background:#ccc;border-radius:28px;transition:background 0.3s;">
+                <span style="position:absolute;width:22px;height:22px;left:3px;top:3px;background:white;border-radius:50%;transition:transform 0.3s;box-shadow:0 2px 4px rgba(0,0,0,0.2);"></span>
+              </span>
+              <span class="toggle-label" style="font-weight:500;color:#212121;">Non-alcoholic beverages only</span>
+            </label>
+          </div>
+          
+          <!-- ✅ NEW: Recovery Affirmation Message (hidden by default) -->
+          <div id="recovery-affirmation" class="recovery-affirmation" style="display:none;background:linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);border:2px solid #4caf50;border-radius:8px;padding:1.25rem;margin:1rem 0;">
+            <p style="margin:0.5rem 0;color:#1b5e20;line-height:1.6;">
+              <strong>We support your journey.</strong> This view focuses on non-alcoholic beverages to help you plan a fulfilling cruise experience.
+            </p>
+          </div>
           
           <!-- Currency & Brand Selectors -->
           <div class="controls-inline">
@@ -311,6 +343,18 @@
               <option value="msc" disabled>🌍 MSC Cruises (coming soon)</option>
             </select>
             <span id="brand-note" class="tiny muted"></span>
+          </div>
+          
+          <!-- ✅ NEW: Pre-Cruise Pricing Toggle -->
+          <div class="pricing-context" style="background:#e3f2fd;border:2px solid #2196f3;border-radius:8px;padding:1rem;margin:1rem 0;">
+            <label for="pricing-type" style="display:block;font-weight:600;color:#0d47a1;margin-bottom:0.5rem;">When are you buying packages?</label>
+            <select id="pricing-type" style="width:100%;padding:0.625rem;font-size:1rem;border:2px solid #2196f3;border-radius:6px;background:white;cursor:pointer;">
+              <option value="pre" selected>Pre-cruise (cheapest - recommended)</option>
+              <option value="onboard">Onboard (typically 20-30% higher)</option>
+            </select>
+            <p class="helper" style="margin-top:0.75rem;font-size:0.9375rem;color:#0d47a1;line-height:1.5;">
+              💡 <strong>Pro tip:</strong> Always buy packages pre-cruise for significant savings!
+            </p>
           </div>
           
           <!-- ✅ NEW: Quick Presets with Dynamic Rendering -->
@@ -377,7 +421,7 @@
             </div>
           </details>
           
-          <!-- Crown & Anchor Vouchers -->
+          <!-- ✅ UPDATED: Crown & Anchor Vouchers (Pinnacle fixed to 6/day) -->
           <details id="cna-vouchers">
             <summary style="cursor:pointer;font-weight:700;margin:12px 0">
               👑 Crown & Anchor Vouchers
@@ -415,8 +459,8 @@
                     <strong>Pinnacle</strong>
                     <span class="tiny muted">(700+ nights)</span>
                   </div>
-                  <p class="small"><strong>5 drink vouchers per day</strong>, loaded on your SeaPass</p>
-                  <p class="tiny muted">= $70/day in free drinks ($490/week cruise)</p>
+                  <p class="small"><strong>6 drink vouchers per day</strong>, loaded on your SeaPass</p>
+                  <p class="tiny muted">= $84/day in free drinks ($588/week cruise)</p>
                 </div>
               </div>
               
@@ -429,9 +473,9 @@
             <div class="row">
               <label for="input-voucher-adult">
                 Adult vouchers/day
-                <span class="tiny muted">(4 for Diamond, 5 for Diamond+/Pinnacle)</span>
+                <span class="tiny muted">(4 for Diamond, 5 for Diamond+, 6 for Pinnacle)</span>
               </label>
-              <input id="input-voucher-adult" type="text" inputmode="numeric" value="0" data-input="voucher-adult" min="0" max="10" placeholder="0-5" aria-label="Adult vouchers per day"/>
+              <input id="input-voucher-adult" type="text" inputmode="numeric" value="0" data-input="voucher-adult" min="0" max="10" placeholder="0-6" aria-label="Adult vouchers per day"/>
             </div>
             
             <div class="row">
@@ -471,7 +515,12 @@
                 </div>
               </div>
               
-              <p class="tiny muted"><strong>Note:</strong> Card can be shared among cabin guests. Not valid at licensed Starbucks stores but works at "We Proudly Serve" Starbucks locations. Unused punches roll over to future cruises. Can save up to 50% vs. paying individually.</p>
+              <!-- ✅ NEW: Coffee Card Expiration Notice -->
+              <p class="coffee-card-note" style="background:#fff9e6;border-left:4px solid #ffc107;padding:0.75rem;margin:0.75rem 0;border-radius:4px;font-size:0.9375rem;color:#424242;">
+                ⏰ <strong style="color:#f57c00;">Note:</strong> Unused punches expire at cruise end. Check with Royal Caribbean if rollovers to future cruises are still allowed (policy varies—verify in Cruise Planner).
+              </p>
+              
+              <p class="tiny muted"><strong>Sharing:</strong> Card can be shared among cabin guests. Not valid at licensed Starbucks stores but works at "We Proudly Serve" Starbucks locations. Can save up to 50% vs. paying individually.</p>
             </div>
             
             <div class="row">
@@ -485,9 +534,25 @@
             </div>
           </details>
           
-          <!-- Drinks -->
+          <!-- ✅ UPDATED: Daily drinks (clarified as "per adult") -->
           <details open>
-            <summary style="cursor:pointer;font-weight:700;margin:12px 0">Daily drinks (average)</summary>
+            <summary style="cursor:pointer;font-weight:700;margin:12px 0">Daily drinks (average <strong style="color:#1976d2;">per adult</strong>)</summary>
+            
+            <!-- ✅ NEW: Helper text for clarity -->
+            <div class="input-helper" style="background:#e3f2fd;border-left:4px solid #2196f3;padding:1rem;margin:1rem 0;border-radius:6px;">
+              <p style="margin:0.5rem 0;color:#212121;">
+                ℹ️ <strong style="color:#0d47a1;">Important:</strong> Enter drinks <strong style="color:#0d47a1;">per adult</strong> in your group, not the total for everyone.
+              </p>
+              <p class="helper-example" style="background:#fff;padding:0.75rem;border-radius:4px;margin-top:0.75rem;border-left:3px solid #4caf50;margin:0.5rem 0;color:#212121;">
+                <strong style="color:#2e7d32;">Example:</strong> If you're 2 adults and each drinks 3 beers per day, enter <strong style="color:#2e7d32;">3</strong> (not 6). The calculator will multiply by your group size.
+              </p>
+            </div>
+            
+            <p class="preset-tip" style="font-size:0.9375rem;color:#616161;font-style:italic;margin-top:0.5rem;">
+              💡 Tip: These are daily averages. Use the sea/port weighting above if your drinking varies by day type.
+            </p>
+            
+            <!-- Drink inputs with data-category for recovery view -->
             <div class="row"><label for="drink-soda">Soda</label><input id="drink-soda" data-input="soda" type="text" inputmode="decimal" value="0" aria-label="Sodas per day"/></div>
             <div class="row"><label for="drink-coffee">Specialty coffee</label><input id="drink-coffee" data-input="coffee" type="text" inputmode="decimal" value="0" aria-label="Specialty coffees per day"/></div>
             <div class="row"><label for="drink-teaprem">Premium tea</label><input id="drink-teaprem" data-input="teaprem" type="text" inputmode="decimal" value="0" aria-label="Premium teas per day"/></div>
@@ -496,10 +561,12 @@
             <div class="row"><label for="drink-energy">Energy drink</label><input id="drink-energy" data-input="energy" type="text" inputmode="decimal" value="0" aria-label="Energy drinks per day"/></div>
             <div class="row"><label for="drink-milkshake">Milkshake</label><input id="drink-milkshake" data-input="milkshake" type="text" inputmode="decimal" value="0" aria-label="Milkshakes per day"/></div>
             <div class="row"><label for="drink-bottledwater">Bottled water</label><input id="drink-bottledwater" data-input="bottledwater" type="text" inputmode="decimal" value="0" aria-label="Bottled waters per day"/></div>
-            <div class="row"><label for="drink-beer">Beer</label><input id="drink-beer" data-input="beer" type="text" inputmode="decimal" value="0" aria-label="Beers per day"/></div>
-            <div class="row"><label for="drink-wine">Wine</label><input id="drink-wine" data-input="wine" type="text" inputmode="decimal" value="0" aria-label="Wines per day"/></div>
-            <div class="row"><label for="drink-cocktail">Cocktail</label><input id="drink-cocktail" data-input="cocktail" type="text" inputmode="decimal" value="0" aria-label="Cocktails per day"/></div>
-            <div class="row"><label for="drink-spirits">Spirits</label><input id="drink-spirits" data-input="spirits" type="text" inputmode="decimal" value="0" aria-label="Spirits per day"/></div>
+            
+            <!-- Alcoholic drinks with data-category="alcohol" for recovery view -->
+            <div class="row" data-category="alcohol"><label for="drink-beer">Beer</label><input id="drink-beer" data-input="beer" type="text" inputmode="decimal" value="0" aria-label="Beers per day"/></div>
+            <div class="row" data-category="alcohol"><label for="drink-wine">Wine</label><input id="drink-wine" data-input="wine" type="text" inputmode="decimal" value="0" aria-label="Wines per day"/></div>
+            <div class="row" data-category="alcohol"><label for="drink-cocktail">Cocktail</label><input id="drink-cocktail" data-input="cocktail" type="text" inputmode="decimal" value="0" aria-label="Cocktails per day"/></div>
+            <div class="row" data-category="alcohol"><label for="drink-spirits">Spirits</label><input id="drink-spirits" data-input="spirits" type="text" inputmode="decimal" value="0" aria-label="Spirits per day"/></div>
           </details>
           
           <!-- Chart -->
@@ -542,10 +609,86 @@
             <!-- JavaScript will populate health notes here -->
           </div>
           
-          <!-- Policy Note -->
-          <div id="policy-note" class="banner-warn" role="alert" hidden>
-            <strong>⚠️ Royal Caribbean Policy:</strong>
-            <span id="policy-text"></span>
+          <!-- ✅ UPDATED: Absolute Policy Warning -->
+          <div id="policy-note" class="policy-alert critical" role="alert" aria-live="assertive" style="display:none;background:linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);border:3px solid #f57c00;border-radius:12px;padding:1.5rem;margin:2rem 0;box-shadow:0 4px 12px rgba(245, 124, 0, 0.2);">
+            <h3 style="color:#e65100;margin-top:0;font-size:1.25rem;display:flex;align-items:center;gap:0.5rem;">🚨 Royal Caribbean Policy (No Exceptions Since August 1, 2025)</h3>
+            
+            <div class="policy-mandate" style="background:#fff;border-left:5px solid #ff5722;padding:1.25rem;margin:1rem 0;border-radius:4px;">
+              <p class="policy-rule" style="font-size:1.125rem;line-height:1.7;margin:0;color:#212121;">
+                If <strong style="color:#d84315;font-weight:700;">ANY adult (21+)</strong> in your stateroom purchases the 
+                <strong style="color:#d84315;font-weight:700;">Deluxe Beverage Package</strong>, <strong style="color:#d84315;font-weight:700;">ALL adults</strong> 
+                in that stateroom <strong style="color:#d84315;font-weight:700;">MUST purchase it.</strong>
+              </p>
+            </div>
+            
+            <details class="policy-details" open style="margin:1.5rem 0;border:2px solid #ff9800;border-radius:8px;overflow:hidden;">
+              <summary style="cursor:pointer;font-weight:700;color:#e65100;padding:1rem;background:#fff3e0;border-bottom:2px solid #ff9800;user-select:none;"><strong>NO EXCEPTIONS</strong> — Click to see what's NOT exempt ▼</summary>
+              <div class="exceptions-content" style="padding:1.25rem;background:#fff;">
+                <p class="exceptions-intro" style="font-weight:600;color:#212121;margin-bottom:0.75rem;">
+                  Royal Caribbean does <strong>NOT</strong> grant exceptions for:
+                </p>
+                <ul class="no-exceptions-list" style="list-style:none;padding-left:0;margin:1rem 0;">
+                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ Pregnant women</li>
+                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ Medical conditions or medications</li>
+                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ Religious reasons</li>
+                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ Recovery from addiction</li>
+                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ Personal preference ("I don't drink alcohol")</li>
+                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ One person "doesn't want it"</li>
+                </ul>
+                <p class="policy-consequence" style="background:#ffebee;border:2px solid #f44336;border-radius:6px;padding:1rem;margin-top:1rem;color:#212121;">
+                  <strong style="color:#c62828;">If you cannot afford packages for all adults:</strong><br>
+                  Your only option is to <strong>skip drink packages entirely</strong> and pay per drink à la carte.
+                </p>
+              </div>
+            </details>
+            
+            <div class="policy-enforcement" style="background:#fff;border-radius:6px;padding:1rem;margin:1rem 0;border-left:4px solid #ff9800;">
+              <p style="margin:0;color:#212121;">
+                <strong style="color:#e65100;">⚖️ Strictly Enforced:</strong> This policy is enforced by Royal Caribbean at booking and <strong>cannot be changed onboard</strong>.
+              </p>
+            </div>
+            
+            <p class="policy-source" style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(0,0,0,0.1);color:#757575;font-size:0.875rem;">
+              Policy change effective August 1, 2025. 
+              <a href="https://www.royalcaribbeanblog.com/2025/08/02/royal-caribbean-drops-drink-package-exception-rule" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 style="color:#ff5722;text-decoration:none;font-weight:600;">
+                Source: Royal Caribbean Blog ↗
+              </a>
+            </p>
+          </div>
+          
+          <!-- ✅ NEW: Family Policy Note (Minors + Deluxe) -->
+          <div class="policy-alert family-note" role="region" aria-labelledby="family-policy-title" style="display:none;background:linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);border:3px solid #4caf50;border-radius:12px;padding:1.5rem;margin:2rem 0;">
+            <h4 id="family-policy-title" style="color:#2e7d32;margin-top:0;display:flex;align-items:center;gap:0.5rem;">👨‍👩‍👧‍👦 Important for Families with Minors</h4>
+            
+            <div class="family-rule" style="background:#fff;border-left:5px solid #4caf50;padding:1.25rem;margin:1rem 0;border-radius:4px;">
+              <p style="margin:0;font-size:1.0625rem;line-height:1.6;color:#212121;">
+                When adults purchase the <strong style="color:#2e7d32;">Deluxe Beverage Package</strong>, 
+                Royal Caribbean <strong style="color:#2e7d32;">requires all minors</strong> (under 21) in the 
+                stateroom to purchase the <strong style="color:#2e7d32;">Refreshment Package</strong>.
+              </p>
+            </div>
+            
+            <div class="family-details" style="background:#fff;padding:1rem;border-radius:6px;margin:1rem 0;">
+              <p style="margin:0.5rem 0;color:#212121;"><strong style="color:#2e7d32;">Example:</strong> If 2 adults + 1 teen (age 16):</p>
+              <ul style="margin:0.75rem 0;padding-left:1.5rem;">
+                <li style="padding:0.25rem 0;color:#424242;">2 adults × Deluxe Package = <strong>2 Deluxe packages required</strong></li>
+                <li style="padding:0.25rem 0;color:#424242;">1 minor × Refreshment Package = <strong>1 Refreshment package required</strong></li>
+              </ul>
+              <p class="family-note" style="font-weight:600;color:#1b5e20;margin-top:0.75rem;">
+                This applies even if the minor doesn't plan to use the package. <strong>Factor this into your total cost calculation.</strong>
+              </p>
+            </div>
+            
+            <div class="family-usa-rule" style="background:#e3f2fd;border-left:3px solid #1976d2;padding:0.75rem;margin-top:1rem;border-radius:4px;">
+              <p style="margin:0;color:#0d47a1;">
+                <small>
+                  🇺🇸 <strong>USA Departures:</strong> Minors under 21 cannot purchase or consume alcoholic beverages on cruises departing from US ports, regardless of package type.
+                </small>
+              </p>
+            </div>
           </div>
           
           <!-- Category Breakdown -->
@@ -603,7 +746,7 @@
       <section>
         <h3>Package Comparison</h3>
         
-        <div class="package-card" data-card="coffee">
+        <div class="package-card" data-card="coffee" data-package="coffee">
           <h4>☕ Coffee Card</h4>
           <div class="price">
             <span data-pkg-price="coffee" data-edit-price="coffee" tabindex="0" role="button" aria-label="Edit coffee card price. Current value: $31.00">$31.00</span>
@@ -612,7 +755,7 @@
           <p class="tiny muted">Specialty coffees, sharable</p>
         </div>
         
-        <div class="package-card" data-card="soda">
+        <div class="package-card" data-card="soda" data-package="soda">
           <h4>Classic Soda</h4>
           <div class="price">
             <span data-pkg-price="soda" data-edit-price="soda" tabindex="0" role="button" aria-label="Edit soda package price. Current value: $13.99">$13.99</span>
@@ -622,7 +765,7 @@
           <div class="tiny" data-inc="soda">Includes: $0/day</div>
         </div>
         
-        <div class="package-card" data-card="refresh">
+        <div class="package-card" data-card="refresh" data-package="refresh">
           <h4>Refreshment</h4>
           <div class="price">
             <span data-pkg-price="refresh" data-edit-price="refresh" tabindex="0" role="button" aria-label="Edit refreshment package price. Current value: $34.00">$34.00</span>
@@ -632,7 +775,7 @@
           <div class="tiny" data-inc="refresh">Includes: $0/day</div>
         </div>
         
-        <div class="package-card" data-card="deluxe">
+        <div class="package-card" data-card="deluxe" data-package="deluxe">
           <h4>Deluxe (Alcoholic)</h4>
           <div class="price">
             <span data-pkg-price="deluxe" data-edit-price="deluxe" tabindex="0" role="button" aria-label="Edit deluxe package price. Current value: $85.00">$85.00</span>
@@ -650,8 +793,8 @@
         <div class="author-info">
           <a href="/authors/ken-baker.html" class="author-link">
             <picture>
-              <source srcset="/authors/img/ken1.webp?v=1.002.000" type="image/webp"/>
-              <img class="author-avatar" src="/authors/img/ken1.jpg?v=1.002.000" width="96" height="96" alt="Ken Baker" decoding="async"/>
+              <source srcset="/authors/img/ken1.webp?v=1.003.000" type="image/webp"/>
+              <img class="author-avatar" src="/authors/img/ken1.jpg?v=1.003.000" width="96" height="96" alt="Ken Baker" decoding="async"/>
             </picture>
           </a>
           <div>
@@ -801,7 +944,7 @@
   
   <!-- JAVASCRIPT - LOAD ORDER CRITICAL -->
   <!-- Math engine FIRST -->
-  <script src="/assets/js/calculator-math.js?v=1.002.000"></script>
+  <script src="/assets/js/calculator-math.js?v=1.003.000"></script>
   
   <!-- Verify math loaded -->
   <script>
@@ -813,12 +956,15 @@
   </script>
   
   <!-- Core engine SECOND -->
-  <script src="/assets/js/calculator.js?v=1.002.000" defer></script>
+  <script src="/assets/js/calculator.js?v=1.003.000" defer></script>
   
   <!-- UI layer THIRD -->
-  <script src="/assets/js/calculator-ui.js?v=1.002.000" defer></script>
+  <script src="/assets/js/calculator-ui.js?v=1.003.000" defer></script>
+  
+  <!-- ✅ NEW: Package Selection Feature -->
+  <script src="/assets/js/package-selection-feature.js?v=1.003.000" defer></script>
   
   <!-- Optional: Share bar -->
-  <script src="/assets/js/share-bar.js?v=1.002.000" defer></script>
+  <script src="/assets/js/share-bar.js?v=1.003.000" defer></script>
 </body>
 </html>
