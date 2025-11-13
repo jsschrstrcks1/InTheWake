@@ -2,22 +2,49 @@
 <html lang="en">
 <head>
   <!-- ======================================================
-       In the Wake — Index (standalone)
-       Version: 3.010.039  |  Standards baseline: 3.010.x
+       In the Wake — Home
+       Version: 3.010.100  |  Soli Deo Gloria ✝️
+       Applied normalized page shell template
        ====================================================== -->
+
+  <!-- Core -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="referrer" content="no-referrer"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="robots" content="index,follow,max-image-preview:large"/>
-  <meta name="color-scheme" content="light dark"/>
+  <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.039"/>
-  <title>In the Wake — A Cruise Traveler’s Logbook</title>
-  <meta name="description" content="Planning tools, travel tips, and faith-scented reflections for smoother sailings."/>
-  <link rel="canonical" href="https://www.cruisinginthewake.com/"/>
+  <meta name="version" content="3.010.100"/>
+  <meta name="author" content="In the Wake"/>
 
+  <!-- Title & SEO -->
+  <title>In the Wake — A Cruise Traveler's Logbook</title>
+  <meta name="description" content="Planning tools, travel tips, and faith-scented reflections for smoother sailings."/>
+  <link rel="canonical" href="https://cruisinginthewake.com/"/>
+
+  <!-- OpenGraph / Twitter -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:title" content="In the Wake — A Cruise Traveler's Logbook"/>
+  <meta property="og:description" content="Planning tools, travel tips, and faith-scented reflections for smoother sailings."/>
+  <meta property="og:url" content="https://cruisinginthewake.com/"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/home-hero.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Breadcrumb JSON-LD -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"}
+  ]}
+  </script>
+
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <!-- Styles -->
   <style>
-  /* ===== Index Styles v3.010.039 ===== */
+  /* ===== Normalized Index Styles v3.010.100 ===== */
   :root{
     --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
     --shadow:0 6px 22px rgba(8,48,65,.08);
@@ -32,9 +59,53 @@
   .card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08)}
   h1,h2,h3{color:var(--sea)} .tiny{font-size:.88rem;color:#456}
 
-  /* Skip link */
-  .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-  .skip-link:focus{left:.75rem;top:.5rem;width:auto;height:auto;background:#0e6e8e;color:#fff;border-radius:10px;padding:.35rem .6rem;z-index:2000;outline:0}
+  /* Skip link (WCAG 2.4.1) */
+  .skip-link{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+  .skip-link:focus{
+    position:static;width:auto;height:auto;left:0;background:#0e6e8e;color:white;
+    padding:12px 24px;text-decoration:none;font-weight:700;z-index:10000;display:block;
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute !important;
+    left: -10000px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+  }
+
+  /* Focus indicators (WCAG 2.1 AA required) */
+  *:focus {
+    outline: 2px solid #0e6e8e;
+    outline-offset: 2px;
+  }
+
+  button:focus,
+  a:focus,
+  [tabindex="0"]:focus {
+    outline: 3px solid #0e6e8e;
+    outline-offset: 3px;
+  }
+
+  /* Reduced motion (accessibility requirement) */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    button, a {
+      border: 2px solid currentColor;
+    }
+  }
 
   /* Header / hero */
   .hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6;z-index:0}
@@ -46,30 +117,18 @@
   .brand img{height:28px;width:auto}
   .version-badge{font-size:.72rem;opacity:.8}
 
-  /* NAV (pills only on top-level) */
+  /* Comprehensive Navigation */
   .pill-nav{
     flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
-    gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem;
+    gap:.45rem;white-space:nowrap;flex-wrap:wrap;overflow:visible;padding-inline:.75rem;
   }
-  .pill-nav > a,
-  .pill-nav > .nav-group > .nav-disclosure{
+  .pill-nav > a{
     display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:10px;background:#fff;
     border:1px solid var(--rope);color:#0e6e8e;font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
   }
-  .nav-group{position:relative;display:inline-block}
-  .submenu{
-    position:absolute !important;left:0;top:calc(100% + 8px);
-    min-width:220px;background:#fff;border:1px solid var(--rope);
-    border-radius:12px;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
-    display:none !important;opacity:0 !important;visibility:hidden !important;pointer-events:none !important;z-index:2100;
+  .pill-nav > a[aria-current="page"]{
+    background:#0e6e8e;color:#fff;font-weight:600;
   }
-  .nav-group[data-open="true"] > .submenu,
-  .nav-group.open > .submenu{display:block !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;}
-  .nav-group:hover > .submenu,
-  .nav-group:focus-within > .submenu{display:block !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;}
-  .submenu a{display:block;width:100%;margin:0;padding:.5rem .65rem;border-radius:.65rem;border:0;background:transparent;color:var(--ink);text-decoration:none}
-  .submenu a:hover,.submenu a:focus{background:#f2f7fa;outline:2px solid transparent}
-  header,.hero-header,.navbar,.pill-nav,.nav-group{overflow:visible}
 
   .hero{
     position:relative;width:100%;min-height:clamp(200px,24vw,340px);
@@ -131,61 +190,74 @@
 
   /* Rail bits */
   .rail-list{display:grid;gap:1rem}
-  .author-avatar{display:block;width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center;flex:0 0 48px}
-  .author-card picture{display:block;flex:0 0 48px}
-  .toc a.active{font-weight:700;text-decoration:underline}
+
+  /* Vertical author card layout */
+  .author-card-vertical {
+    text-align: center;
+  }
+
+  .author-card-vertical .author-avatar {
+    display: block;
+    width: 96px;
+    height: 96px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin: 0 auto 1rem;
+  }
+
+  .author-card-vertical h4 {
+    margin: 0.5rem 0 0.25rem;
+  }
+
+  .author-card-vertical p {
+    margin: 0.25rem 0;
+  }
 
   footer .version-badge{font-size:.8rem;opacity:.75;margin-left:.5rem}
   </style>
 </head>
 <body class="page">
+  <!-- Skip Link (WCAG 2.4.1) -->
   <a href="#content" class="skip-link">Skip to main content</a>
 
+  <!-- ARIA Live Regions (WCAG 4.1.3) -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
   <!-- =========================== HEADER ============================ -->
-  <header class="hero-header">
+  <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.039" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
-        <span class="tiny version-badge">v3.010.039</span>
+        <img src="/assets/logo_wake.png?v=3.010.100" alt="In the Wake wordmark" width="256" height="64" decoding="async"/>
+        <span class="tiny version-badge">v3.010.100</span>
       </div>
 
-      <!-- Simplified nav: Home · Planning (dropdown) · Travel (dropdown) · About -->
+      <!-- Comprehensive Navigation (from template) -->
       <nav class="nav pill-nav" aria-label="Primary">
-        <a href="/">Home</a>
-
-        <div class="nav-item nav-group" id="nav-planning" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
-          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
-            <a role="menuitem" href="/planning.html">Planning (overview)</a>
-            <a role="menuitem" href="/ships.html">Ships</a>
-            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a role="menuitem" href="/ports.html">Ports</a>
-            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-            <a role="menuitem" href="/accessibility.html">Accessibility</a>
-          </div>
-        </div>
-
-        <div class="nav-item nav-group" id="nav-travel" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">Travel ▾</button>
-          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
-            <a role="menuitem" href="/travel.html">Travel (overview)</a>
-            <a role="menuitem" href="/solo.html">Solo</a>
-          </div>
-        </div>
-
+        <a href="/" aria-current="page">Home</a>
+        <a href="/ships/">Ships</a>
+        <a href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/drink-packages.html">Drink Packages</a>
+        <a href="/drink-calculator.html">Drink Calculator</a>
+        <a href="/cruise-lines.html">Cruise Lines</a>
+        <a href="/packing-lists.html">Packing Lists</a>
+        <a href="/accessibility.html">Accessibility</a>
+        <a href="/planning.html">Planning</a>
+        <a href="/solo.html">Solo</a>
+        <a href="/travel.html">Travel</a>
         <a href="/about-us.html">About</a>
       </nav>
     </div>
 
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.039" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.100" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.039" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.100" width="560" height="144" alt="In the Wake" decoding="async"/>
       </div>
-      <div class="tagline">A Cruise Traveler’s Logbook</div>
+      <div class="tagline">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
-        <span class="pill long">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span>
+        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
     </div>
   </header>
@@ -196,18 +268,18 @@
     <section aria-label="Welcome and explore">
       <article class="card welcome">
         <h1>Welcome aboard</h1>
-       <p class="motto"><em>The calmest seas are found in another’s wake.</em></p>
-          <p>
-            <h2>Mariners know a small truth with big comfort</h2>: the calmest water lies in the wake of another boat.
-            Tuck in behind a steady hull and the chop softens, the course steadies, and the hard parts feel easier.
-            <em>In the Wake</em> exists to be that smooth water for your cruise planning.
-          </p><p></p>
-          <p>
-            We sail ahead—collecting real-world details from actual voyages—so you can follow with confidence.
-            Compare ships and classes, scan menus and prices, scout cabins, and spot accessibility notes without all the whitecaps.
-            The goal isn’t to sell you anything; it’s to take the friction out of decisions so your trip feels effortless.
-            Fair winds—and gentler seas—in our wake.
-          </p>
+        <p class="motto"><em>The calmest seas are found in another's wake.</em></p>
+        <p>
+          <h2>Mariners know a small truth with big comfort</h2>: the calmest water lies in the wake of another boat.
+          Tuck in behind a steady hull and the chop softens, the course steadies, and the hard parts feel easier.
+          <em>In the Wake</em> exists to be that smooth water for your cruise planning.
+        </p>
+        <p>
+          We sail ahead—collecting real-world details from actual voyages—so you can follow with confidence.
+          Compare ships and classes, scan menus and prices, scout cabins, and spot accessibility notes without all the whitecaps.
+          The goal isn't to sell you anything; it's to take the friction out of decisions so your trip feels effortless.
+          Fair winds—and gentler seas—in our wake.
+        </p>
       </article>
 
       <section class="explore-grid top" aria-label="Explore the site (primary)">
@@ -237,18 +309,27 @@
 
     <!-- RIGHT RAIL -->
     <aside class="rail" role="complementary" aria-label="Author & articles">
-      <!-- Author card -->
-      <section id="author-rail" class="card" aria-label="Author information">
-        <h2 class="tiny" style="margin-bottom:.25rem;color:#0a3d62">About the author</h2>
-        <div class="author-card" style="display:flex;gap:.75rem;align-items:center;">
-          <!-- populated by JS (Ken as default author for index) -->
-        </div>
+      <!-- Author card (Vertical Layout) -->
+      <section id="author-rail" class="card author-card-vertical" aria-label="Author information">
+        <h3>About the Author</h3>
+        <a href="/authors/ken-baker.html">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.100" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1.jpg?v=3.010.100" width="96" height="96" alt="Ken Baker" decoding="async"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
       </section>
 
       <!-- Recent Articles rail -->
       <section class="card" aria-labelledby="recent-rail-title">
-        <h2 id="recent-rail-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">Recent Articles</h2>
+        <h3 id="recent-rail-title">Recent Articles</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     </aside>
   </main>
@@ -259,7 +340,7 @@
       <!-- Solo -->
       <article class="card feature-card">
         <h3><a href="/solo.html">Solo Travel</a></h3>
-        <p>Courage, safety, and joy when sailing on your own terms — including Tina’s story and a growing community.</p>
+        <p>Courage, safety, and joy when sailing on your own terms — including Tina's story and a growing community.</p>
         <div class="actions">
           <a class="pill" href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a>
         </div>
@@ -296,7 +377,7 @@
       <!-- Drink Packages -->
       <article class="card feature-card">
         <h3><a href="/drink-packages.html">Drink Packages</a></h3>
-        <p>When they’re worth it (and when they’re not), plus water, coffee, and non-alcoholic options that save real money.</p>
+        <p>When they're worth it (and when they're not), plus water, coffee, and non-alcoholic options that save real money.</p>
         <div class="actions">
           <a class="pill" href="/restaurants.html">Restaurants</a>
         </div>
@@ -323,7 +404,7 @@
       <!-- About -->
       <article class="card feature-card">
         <h3><a href="/about-us.html">About</a></h3>
-        <p>Who we are and why we sail: the people behind the logbook, and how to get in touch when you’re planning your voyage.</p>
+        <p>Who we are and why we sail: the people behind the logbook, and how to get in touch when you're planning your voyage.</p>
         <div class="actions">
           <a class="pill" href="/solo.html">Solo</a>
           <a class="pill" href="/travel.html">Travel</a>
@@ -334,57 +415,22 @@
 
   <!-- =========================== FOOTER ============================ -->
   <footer class="wrap" role="contentinfo">
-    © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.010.039</span>
+    <p>© 2025 In the Wake. All rights reserved.</p>
+    <p class="tiny">
+      <a href="/terms.html">Terms</a> |
+      <a href="/privacy.html">Privacy</a> |
+      <a href="/accessibility.html">Accessibility</a>
+    </p>
+    <p class="tiny center">
+      Soli Deo Gloria — Every pixel and part of this project is offered as worship to God,
+      in gratitude for the beautiful things He has created for us to enjoy. ✝️
+    </p>
   </footer>
 
   <!-- =========================== JS ================================ -->
   <script>
   (function(){
     "use strict";
-
-    /* Accessible dropdown nav */
-    (function(){
-      const groups = Array.from(document.querySelectorAll('.nav-group'));
-      if(!groups.length) return;
-
-      const setOpen = (g,on)=>{
-        g.dataset.open = on ? "true" : "false";
-        g.classList.toggle('open', !!on);
-        const b = g.querySelector('.nav-disclosure');
-        if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
-      };
-      const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
-
-      groups.forEach(g=>{
-        const btn  = g.querySelector('.nav-disclosure');
-        const menu = g.querySelector('.submenu');
-        if(!btn || !menu) return;
-
-        btn.addEventListener('click',(e)=>{
-          e.preventDefault();
-          e.stopPropagation();
-          const open = g.dataset.open === "true";
-          closeAll(g);
-          setOpen(g, !open);
-        });
-
-        g.addEventListener('keydown',(e)=>{
-          if(e.key==='Escape'){ setOpen(g,false); btn && btn.focus(); }
-          if(e.key==='ArrowDown' && document.activeElement===btn){
-            e.preventDefault();
-            setOpen(g,true);
-            const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-            first && first.focus();
-          }
-        });
-
-        menu.addEventListener('focusout',()=>{ setTimeout(()=>{ if(!g.contains(document.activeElement)) setOpen(g,false); },0); });
-      });
-
-      document.addEventListener('click', (e)=>{ if(!e.target.closest('.nav-group')) closeAll(); });
-      window.addEventListener('blur', ()=> closeAll());
-    })();
 
     /* Normalizer: /solo/articles/<slug>.html → /solo/<slug>.html */
     (function normalizeSoloArticleLinks(){
@@ -396,29 +442,11 @@
       });
     })();
 
-    /* Right-rail: Author (Ken by default for index) */
-    (async function authorRail(){
-      const rail = document.getElementById('author-rail');
-      if(!rail) return;
-      const host = rail.querySelector('.author-card');
-      if(!host) return;
-      // Hard-code Ken as index author; avoids accidental Tina attribution
-      host.innerHTML = `
-        <picture>
-          <source type="image/webp" srcset="/authors/img/ken1.webp">
-          <img class="author-avatar" src="/authors/img/ken1.jpg" width="48" height="48" alt="Author — Ken Baker">
-        </picture>
-        <div>
-          <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
-          Founder of In the Wake; writer and editor of the logbook.<br/>
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
-          <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
-        </div>`;
-    })();
-
     /* Right-rail: Recent Articles (with Top-20 image override) */
     (async function recentRail(){
       const rail = document.getElementById('recent-rail'); if(!rail) return;
+      const fallback = document.getElementById('recent-rail-fallback');
+      if(fallback) fallback.style.display = '';
 
       async function fetchJSONWithFallback(urls){
         for (const u of urls){
@@ -431,14 +459,17 @@
       }
       const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
       function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return; const stamp='v=3.010.039';
+        if(!imgEl) return; const stamp='v=3.010.100';
         const tried=new Set(); const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
         function tryNext(){ const next=queue.shift(); if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; } if(tried.has(next)) return tryNext(); tried.add(next); imgEl.src=next; }
         imgEl.onerror=tryNext; tryNext();
       }
 
       const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) return;
+      if(!raw) {
+        if(fallback) fallback.textContent = 'Unable to load articles';
+        return;
+      }
       const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
       if(!items.length) return;
 
@@ -450,7 +481,7 @@
 
       rail.innerHTML = view.map(p=>{
         const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');  // must already be /solo/<slug>.html etc.
+        const href  = pick(p,['url','path'],'#');
         return `
           <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
             <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
@@ -498,6 +529,8 @@
         }
         setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
       });
+
+      if(fallback) fallback.style.display = 'none';
     })();
   })();
   </script>
