@@ -1,11 +1,16 @@
- <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <!-- ======================================================
        In the Wake — Royal Caribbean Drink Calculator
-       Version: 1.001.001  |  Soli Deo Gloria ✝️
-       "Whatever you do, work heartily, as for the Lord"
-       Colossians 3:23
+       Version: 1.002.000  |  Soli Deo Gloria ✝️
+       "I was eyes to the blind and feet to the lame" - Job 29:15
+       "Whatever you do, work heartily, as for the Lord" - Colossians 3:23
+       
+       ACCESSIBILITY COMMITMENT:
+       This calculator serves ALL travelers - regardless of ability,
+       age, or circumstance. Every feature is keyboard accessible,
+       screen reader compatible, and designed with care.
        ====================================================== -->
   
   <!-- Core -->
@@ -14,13 +19,12 @@
   <!-- ✅ PHASE 2: Content Security Policy -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.frankfurter.app; worker-src 'self';">
   
-  <!-- Note: 'unsafe-inline' for styles is temporary. Remove once you extract inline styles to CSS file -->
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="robots" content="index,follow,max-image-preview:large"/>
   <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="1.001.001"/>
+  <meta name="version" content="1.002.000"/>
   <meta name="author" content="In the Wake"/>
   
   <!-- Title & SEO -->
@@ -53,44 +57,157 @@
   <link rel="preconnect" href="https://api.frankfurter.app"/>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
   
-  <!-- ✅ Chart.js with Fallback (Clean, No Inline Handlers) -->
+  <!-- ✅ Chart.js with Fallback -->
   <script 
     src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" 
     defer
     id="chartjs-cdn"
   ></script>
   
-  <!-- Fallback loader (event listener, not inline) -->
+  <!-- Fallback loader -->
   <script>
   window.addEventListener('DOMContentLoaded', () => {
-    // Give CDN a moment to load
     setTimeout(() => {
       if (!window.Chart) {
         console.warn('[HTML] Chart.js CDN failed, loading fallback');
         const fallback = document.createElement('script');
-        fallback.src = '/assets/vendor/chart.umd.min.js?v=1.001.001';
+        fallback.src = '/assets/vendor/chart.umd.min.js?v=1.002.000';
         fallback.defer = true;
         document.head.appendChild(fallback);
       }
-    }, 100); // 100ms grace period for CDN
+    }, 100);
   });
   </script>
   
   <!-- Styles -->
-  <link rel="stylesheet" href="/assets/css/calculator.css?v=1.001.001"/>
+  <link rel="stylesheet" href="/assets/css/calculator.css?v=1.002.000"/>
+  
+  <!-- ✅ Accessibility Styles -->
+  <style>
+    /* Screen reader only content */
+    .sr-only {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+    }
+    
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    
+    .skip-link:focus {
+      position: static;
+      width: auto;
+      height: auto;
+      left: 0;
+      background: #0e6e8e;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-weight: 700;
+      z-index: 10000;
+      display: block;
+    }
+    
+    /* Winner highlighting */
+    .package-card.winner {
+      background: linear-gradient(135deg, #e6f4f8 0%, #d4f1e8 100%);
+      border: 3px solid #10b981;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+    
+    .winner-badge {
+      background: #10b981;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    
+    .winner-badge-minors {
+      background: #8b5cf6;
+    }
+    
+    /* Focus indicators (WCAG 2.1 AA required) */
+    *:focus {
+      outline: 2px solid #0e6e8e;
+      outline-offset: 2px;
+    }
+    
+    button:focus,
+    a:focus,
+    [tabindex="0"]:focus {
+      outline: 3px solid #0e6e8e;
+      outline-offset: 3px;
+    }
+    
+    /* Reduced motion (accessibility requirement) */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      .winner-badge {
+        border: 2px solid currentColor;
+      }
+    }
+    
+    /* Preset buttons */
+    .preset-btn {
+      margin: 4px;
+      padding: 8px 16px;
+      background: white;
+      border: 2px solid #cbd5e1;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    
+    .preset-btn:hover {
+      background: #f1f5f9;
+      border-color: #0e6e8e;
+      transform: translateY(-1px);
+    }
+    
+    .preset-btn:active {
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
-  <!-- Skip Link -->
+  <!-- ✅ Skip Link (WCAG 2.4.1) -->
   <a href="#content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
+  
+  <!-- ✅ ARIA Live Regions (WCAG 4.1.3) -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+  <div id="aria-live-region" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  
   <!-- HEADER -->
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=1.001.001" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge">v1.001.001</span>
+        <img src="/assets/logo_wake.png?v=1.002.000" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge">v1.002.000</span>
       </div>
       <nav class="nav pill-nav" aria-label="Primary">
         <a href="/">Home</a>
@@ -122,9 +239,9 @@
       </nav>
     </div>
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=1.001.001" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=1.002.000" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=1.001.001" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake.png?v=1.002.000" width="560" height="144" alt="In the Wake" decoding="async"/>
         <div class="tagline">A Cruise Traveler's Logbook</div>
       </div>
       <div class="hero-credit">
@@ -132,6 +249,7 @@
       </div>
     </div>
   </header>
+  
   <!-- MAIN CONTENT -->
   <main class="wrap calculator-grid" id="content">
     <!-- LEFT COLUMN -->
@@ -159,17 +277,17 @@
         <div class="card quiz-cta">
           <h3 style="margin-top:0">🎯 Not sure what you drink?</h3>
           <p class="small">Take our 60-second quiz to get personalized recommendations.</p>
-          <button class="btn" type="button" id="quiz-open-btn">Start Quiz</button>
+          <button class="btn" type="button" id="quiz-open-btn" aria-label="Start drink preference quiz">Start Quiz</button>
         </div>
         
         <!-- Calculator Inputs -->
         <section class="card inputs">
           <h2>
-            <span id="totals">Calculating...</span>
+            <span id="totals" aria-live="polite">Calculating...</span>
             <small class="tiny"> — includes 18% gratuity</small>
           </h2>
           
-<!-- Currency & Brand Selectors -->
+          <!-- Currency & Brand Selectors -->
           <div class="controls-inline">
             <label for="currency-select">Display currency</label>
             <select id="currency-select" aria-label="Select display currency">
@@ -195,14 +313,12 @@
             <span id="brand-note" class="tiny muted"></span>
           </div>
           
-          <!-- Quick Presets -->
+          <!-- ✅ NEW: Quick Presets with Dynamic Rendering -->
           <div class="controls-inline" style="margin-bottom:12px">
             <strong class="small">Quick presets:</strong>
-            <button class="btn ghost" data-preset="light">🧘 Light Drinker</button>
-            <button class="btn ghost" data-preset="moderate">🥂 Moderate</button>
-            <button class="btn ghost" data-preset="party">🎉 Party Mode</button>
-            <button class="btn ghost" data-preset="coffee">☕ Coffee Lover</button>
-            <button class="btn ghost" data-preset="nonalc">🚫🍺 Non-Alcoholic</button>
+            <div id="preset-buttons" role="group" aria-label="Drinking habit presets">
+              <!-- JavaScript will render all 7 preset buttons here -->
+            </div>
           </div>
           
           <!-- Preset Explanation -->
@@ -280,7 +396,7 @@
                     <span class="tiny muted">(80-174 nights)</span>
                   </div>
                   <p class="small"><strong>4 drink vouchers per day</strong>, loaded on your SeaPass</p>
-                  <p class="tiny muted">= $32/day in free drinks ($224/week cruise)</p>
+                  <p class="tiny muted">= $56/day in free drinks ($392/week cruise)</p>
                 </div>
                 
                 <div class="cna-tier">
@@ -290,7 +406,7 @@
                     <span class="tiny muted">(175-699 nights)</span>
                   </div>
                   <p class="small"><strong>5 drink vouchers per day</strong>, loaded on your SeaPass</p>
-                  <p class="tiny muted">= $40/day in free drinks ($280/week cruise)</p>
+                  <p class="tiny muted">= $70/day in free drinks ($490/week cruise)</p>
                 </div>
                 
                 <div class="cna-tier">
@@ -300,13 +416,13 @@
                     <span class="tiny muted">(700+ nights)</span>
                   </div>
                   <p class="small"><strong>5 drink vouchers per day</strong>, loaded on your SeaPass</p>
-                  <p class="tiny muted">= $40/day in free drinks ($280/week cruise)</p>
+                  <p class="tiny muted">= $70/day in free drinks ($490/week cruise)</p>
                 </div>
               </div>
               
               <div class="cna-tip">
                 <p class="small"><strong>💡 Pro tip:</strong> If you're not sure whether you're Diamond, you're probably not (yet!). Check your Crown & Anchor number on royalcaribbean.com or the app.</p>
-                <p class="tiny muted">Each voucher = <strong>$8.00</strong> toward any beverage (alcoholic or non-alcoholic).</p>
+                <p class="tiny muted">Each voucher = <strong>$14.00</strong> toward any beverage (alcoholic or non-alcoholic). Vouchers work as FREE DRINKS, not dollar credits.</p>
               </div>
             </div>
             
@@ -321,6 +437,7 @@
             <div class="row">
               <label for="input-voucher-minor">
                 Minor vouchers/day
+                <span class="tiny muted">(Great for specialty drinks, juices, mocktails!)</span>
               </label>
               <input id="input-voucher-minor" type="text" inputmode="numeric" value="0" data-input="voucher-minor" min="0" max="10" placeholder="0" aria-label="Minor vouchers per day"/>
             </div>
@@ -388,18 +505,20 @@
           <!-- Chart -->
           <div id="breakeven-wrap">
             <div id="best-stamp" aria-hidden="true">Best value</div>
-            <canvas id="breakeven-chart" aria-describedby="chart-desc"></canvas>
+            <canvas id="breakeven-chart" role="img" aria-label="Package cost comparison chart" aria-describedby="chart-desc"></canvas>
             
-            <!-- Screen Reader Table -->
-            <table id="chart-desc" class="sr-only">
-              <caption>Daily cost comparison</caption>
-              <thead><tr><th>Option</th><th>Cost per day</th></tr></thead>
-              <tbody>
-                <tr><td>À-la-carte</td><td id="sr-alc">$0.00</td></tr>
-                <tr><td>Coffee Card</td><td id="sr-coffee">$0.00</td></tr>
-                <tr><td>Soda</td><td id="sr-soda">$0.00</td></tr>
-                <tr><td>Refreshment</td><td id="sr-refresh">$0.00</td></tr>
-                <tr><td>Deluxe</td><td id="sr-deluxe">$0.00</td></tr>
+            <!-- ✅ Screen Reader Table (WCAG 2.1 AA Required) -->
+            <table id="chart-desc" class="sr-only" aria-label="Package cost comparison data">
+              <caption>Package cost comparison</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Package Option</th>
+                  <th scope="col">Total Cost</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody id="chart-sr-table">
+                <!-- JavaScript will populate this -->
               </tbody>
             </table>
             
@@ -413,8 +532,18 @@
             Hover over bars to see exact dollar amounts.
           </div>
           
+          <!-- ✅ NEW: Nudges Container (dynamically populated) -->
+          <div id="nudges-container" role="region" aria-label="Breakeven tips" style="display:none;">
+            <!-- JavaScript will populate nudges here -->
+          </div>
+          
+          <!-- ✅ NEW: Health Note Container (dynamically populated) -->
+          <div id="health-note-container" role="region" aria-label="Health advisory" style="display:none;">
+            <!-- JavaScript will populate health notes here -->
+          </div>
+          
           <!-- Policy Note -->
-          <div id="policy-note" class="banner-warn" hidden>
+          <div id="policy-note" class="banner-warn" role="alert" hidden>
             <strong>⚠️ Royal Caribbean Policy:</strong>
             <span id="policy-text"></span>
           </div>
@@ -427,9 +556,9 @@
           
           <!-- Actions -->
           <div class="controls-inline action-buttons">
-            <button class="btn" type="button" onclick="window.print()">Print Results</button>
-            <button class="btn ghost" type="button" id="share-btn">Share</button>
-            <button class="btn" type="button" id="reset-btn">Reset</button>
+            <button class="btn" type="button" onclick="window.print()" aria-label="Print calculator results">Print Results</button>
+            <button class="btn ghost" type="button" id="share-btn" aria-label="Copy link to share">Copy Link</button>
+            <button class="btn" type="button" id="reset-btn" aria-label="Reset calculator to defaults">Reset</button>
           </div>
         </section>
         
@@ -438,7 +567,7 @@
           <h2>Group Breakdown (Per Person)</h2>
           <table class="group-table">
             <thead>
-              <tr><th>Traveler</th><th>Package</th><th>Daily</th><th>Trip</th></tr>
+              <tr><th scope="col">Traveler</th><th scope="col">Package</th><th scope="col">Daily</th><th scope="col">Trip</th></tr>
             </thead>
             <tbody id="group-table-body"></tbody>
           </table>
@@ -467,6 +596,7 @@
         </section>
       </section>
     </div>
+    
     <!-- RIGHT RAIL -->
     <aside class="rail" role="complementary" aria-label="Package comparison and additional information">
       <!-- Package Cards -->
@@ -475,14 +605,18 @@
         
         <div class="package-card" data-card="coffee">
           <h4>☕ Coffee Card</h4>
-          <div class="price" data-pkg-price="coffee">$31.00</div>
+          <div class="price">
+            <span data-pkg-price="coffee" data-edit-price="coffee" tabindex="0" role="button" aria-label="Edit coffee card price. Current value: $31.00">$31.00</span>
+          </div>
           <p class="small">15 punches (~$2.07/punch)</p>
           <p class="tiny muted">Specialty coffees, sharable</p>
         </div>
         
         <div class="package-card" data-card="soda">
           <h4>Classic Soda</h4>
-          <div class="price" data-pkg-price="soda">$13.99</div>
+          <div class="price">
+            <span data-pkg-price="soda" data-edit-price="soda" tabindex="0" role="button" aria-label="Edit soda package price. Current value: $13.99">$13.99</span>
+          </div>
           <p class="small">per person, per day</p>
           <p class="tiny muted">Fountain soda, Coca-Cola Freestyle</p>
           <div class="tiny" data-inc="soda">Includes: $0/day</div>
@@ -490,7 +624,9 @@
         
         <div class="package-card" data-card="refresh">
           <h4>Refreshment</h4>
-          <div class="price" data-pkg-price="refresh">$34.00</div>
+          <div class="price">
+            <span data-pkg-price="refresh" data-edit-price="refresh" tabindex="0" role="button" aria-label="Edit refreshment package price. Current value: $34.00">$34.00</span>
+          </div>
           <p class="small">per person, per day</p>
           <p class="tiny muted">Non-alcoholic specialty drinks</p>
           <div class="tiny" data-inc="refresh">Includes: $0/day</div>
@@ -498,7 +634,9 @@
         
         <div class="package-card" data-card="deluxe">
           <h4>Deluxe (Alcoholic)</h4>
-          <div class="price" data-pkg-price="deluxe">$85.00</div>
+          <div class="price">
+            <span data-pkg-price="deluxe" data-edit-price="deluxe" tabindex="0" role="button" aria-label="Edit deluxe package price. Current value: $85.00">$85.00</span>
+          </div>
           <p class="small">per person, per day</p>
           <p class="tiny muted">Cocktails, beer, wine up to $14/drink</p>
           <div class="tiny" data-inc="deluxe">Includes: $0/day</div>
@@ -512,8 +650,8 @@
         <div class="author-info">
           <a href="/authors/ken-baker.html" class="author-link">
             <picture>
-              <source srcset="/authors/img/ken1.webp?v=1.001.001" type="image/webp"/>
-              <img class="author-avatar" src="/authors/img/ken1.jpg?v=1.001.001" width="96" height="96" alt="Ken Baker" decoding="async"/>
+              <source srcset="/authors/img/ken1.webp?v=1.002.000" type="image/webp"/>
+              <img class="author-avatar" src="/authors/img/ken1.jpg?v=1.002.000" width="96" height="96" alt="Ken Baker" decoding="async"/>
             </picture>
           </a>
           <div>
@@ -525,6 +663,7 @@
           </div>
         </div>
       </section>
+      
       <!-- Recent Articles -->
       <section class="card">
         <h3>Recent Articles</h3>
@@ -533,32 +672,42 @@
       </section>
     </aside>
   </main>
-  <!-- Quiz Modal -->
-  <div id="quiz-modal" class="modal" aria-hidden="true">
+  
+  <!-- ✅ Quiz Modal with Full Accessibility -->
+  <div id="quiz-modal" 
+       class="modal" 
+       role="dialog" 
+       aria-modal="true" 
+       aria-labelledby="quiz-title"
+       aria-hidden="true" 
+       style="display:none;">
     <div class="modal-content">
-      <button class="modal-close" id="quiz-close-btn" aria-label="Close quiz">&times;</button>
+      <button class="modal-close" 
+              id="quiz-close-btn" 
+              type="button"
+              aria-label="Close quiz">&times;</button>
       
       <div id="quiz-content">
-        <h2 style="margin-top:0;">Find Your Perfect Package 🎯</h2>
+        <h2 id="quiz-title" style="margin-top:0;">Find Your Perfect Package 🎯</h2>
         <p class="small modal-intro">Answer 3 quick questions to get a personalized recommendation</p>
         
         <!-- Step 1 -->
         <div id="quiz-step-1" class="quiz-step">
           <p><strong>Question 1 of 3:</strong> What type of cruise are you taking?</p>
           <div class="quiz-buttons">
-            <button class="btn ghost quiz-answer" data-quiz-answer="family">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="family">
               <strong>👨‍👩‍👧‍👦 Family Vacation</strong><br/>
               <span class="tiny">Traveling with kids and family</span>
             </button>
-            <button class="btn ghost quiz-answer" data-quiz-answer="party">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="party">
               <strong>🎉 Party / Celebration</strong><br/>
               <span class="tiny">Bachelor/bachelorette, birthday, or friends trip</span>
             </button>
-            <button class="btn ghost quiz-answer" data-quiz-answer="romantic">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="romantic">
               <strong>💑 Romantic Getaway</strong><br/>
               <span class="tiny">Couples cruise, honeymoon, or anniversary</span>
             </button>
-            <button class="btn ghost quiz-answer" data-quiz-answer="solo">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="solo">
               <strong>🧳 Solo Adventure</strong><br/>
               <span class="tiny">Traveling alone and meeting new people</span>
             </button>
@@ -569,15 +718,15 @@
         <div id="quiz-step-2" class="quiz-step" style="display:none;">
           <p><strong>Question 2 of 3:</strong> How much do you typically drink per day?</p>
           <div class="quiz-buttons">
-            <button class="btn ghost quiz-answer" data-quiz-answer="light">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="light">
               <strong>🥤 Light (1-2 drinks)</strong><br/>
               <span class="tiny">Occasional sipper, mostly water/soda</span>
             </button>
-            <button class="btn ghost quiz-answer" data-quiz-answer="moderate">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="moderate">
               <strong>🍷 Moderate (3-4 drinks)</strong><br/>
               <span class="tiny">Social drinker, wine with dinner</span>
             </button>
-            <button class="btn ghost quiz-answer" data-quiz-answer="heavy">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="heavy">
               <strong>🍻 Heavy (5+ drinks)</strong><br/>
               <span class="tiny">Party mode, multiple drinks per day</span>
             </button>
@@ -588,19 +737,23 @@
         <div id="quiz-step-3" class="quiz-step" style="display:none;">
           <p><strong>Question 3 of 3:</strong> What's your beverage preference?</p>
           <div class="quiz-buttons">
-            <button class="btn ghost quiz-answer" data-quiz-answer="cocktails">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="cocktails">
               <strong>🍹 Cocktails</strong><br/>
               <span class="tiny">Margaritas, piña coladas, mixed drinks</span>
             </button>
-            <button class="btn ghost quiz-answer" data-quiz-answer="beer-wine">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="beer-wine">
               <strong>🍺 Beer & Wine</strong><br/>
               <span class="tiny">Casual drinks, not fancy cocktails</span>
             </button>
-            <button class="btn ghost quiz-answer" data-quiz-answer="coffee">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="coffee">
               <strong>☕ Coffee & Specialty Drinks</strong><br/>
               <span class="tiny">Lattes, cappuccinos, mocktails</span>
             </button>
-            <button class="btn ghost quiz-answer" data-quiz-answer="nonalc">
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="soda">
+              <strong>🥤 Soda & Soft Drinks</strong><br/>
+              <span class="tiny">Fountain sodas, juice, no alcohol</span>
+            </button>
+            <button class="btn ghost quiz-answer" type="button" data-quiz-answer="nonalc">
               <strong>🚫 Non-Alcoholic Only</strong><br/>
               <span class="tiny">Soda, juice, mocktails, no alcohol</span>
             </button>
@@ -611,19 +764,27 @@
         <div id="quiz-result" class="quiz-step" style="display:none;">
           <div class="quiz-result-box">
             <h3 style="margin-top:0;">✨ Your Recommendation</h3>
-            <p id="quiz-recommendation"></p>
+            <p id="quiz-recommendation" role="status" aria-live="polite"></p>
           </div>
-          <button class="btn" id="quiz-apply-btn" style="width:100%;margin-top:1rem;">Apply These Settings & Calculate</button>
+          <button class="btn" 
+                  type="button"
+                  id="quiz-apply-btn" 
+                  style="width:100%;margin-top:1rem;"
+                  aria-label="Apply recommended settings and calculate">Apply These Settings & Calculate</button>
         </div>
         
         <div class="quiz-footer">
-          <button class="btn ghost quiz-skip" id="quiz-skip-btn">
+          <button class="btn ghost quiz-skip" 
+                  type="button"
+                  id="quiz-skip-btn"
+                  aria-label="Skip quiz and enter drinks manually">
             Skip quiz — I'll enter my own drinks
           </button>
         </div>
       </div>
     </div>
   </div>
+  
   <!-- FOOTER -->
   <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake. All rights reserved.</p>
@@ -632,27 +793,32 @@
       <a href="/privacy.html">Privacy</a> | 
       <a href="/accessibility.html">Accessibility</a>
     </p>
-    <p class="tiny center">Soli Deo Gloria — every pixel offered in worship to God. ✝️</p>
+    <p class="tiny center">
+      Soli Deo Gloria — Every pixel and part of this project is offered as worship to God,
+      in gratitude for the beautiful things He has created for us to enjoy. ✝️
+    </p>
   </footer>
- <!-- JAVASCRIPT - LOAD ORDER CRITICAL -->
-<!-- Math engine FIRST (traditional global) -->
-<script src="/assets/js/calculator-math.js?v=1.001.001"></script>
-<!-- Verify math loaded -->
-<script>
-  if (window.ITW_MATH?.compute) {
-    console.log('[HTML] ✓ Math engine ready');
-  } else {
-    console.error('[HTML] ✗ Math engine failed to load!');
-  }
-</script>
-
-<!-- Core engine SECOND -->
-<script src="/assets/js/calculator.js?v=1.001.001" defer></script>
-
-<!-- UI layer THIRD -->
-<script src="/assets/js/calculator-ui.js?v=1.001.001" defer></script>
-
-<!-- Optional: Share bar -->
-<script src="/assets/js/share-bar.js?v=1.001.001" defer></script>
+  
+  <!-- JAVASCRIPT - LOAD ORDER CRITICAL -->
+  <!-- Math engine FIRST -->
+  <script src="/assets/js/calculator-math.js?v=1.002.000"></script>
+  
+  <!-- Verify math loaded -->
+  <script>
+    if (window.ITW_MATH?.compute) {
+      console.log('[HTML] ✓ Math engine v' + window.ITW_MATH.version + ' ready');
+    } else {
+      console.error('[HTML] ✗ Math engine failed to load!');
+    }
+  </script>
+  
+  <!-- Core engine SECOND -->
+  <script src="/assets/js/calculator.js?v=1.002.000" defer></script>
+  
+  <!-- UI layer THIRD -->
+  <script src="/assets/js/calculator-ui.js?v=1.002.000" defer></script>
+  
+  <!-- Optional: Share bar -->
+  <script src="/assets/js/share-bar.js?v=1.002.000" defer></script>
 </body>
 </html>
