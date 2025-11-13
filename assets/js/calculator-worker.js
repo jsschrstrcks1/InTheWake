@@ -1,21 +1,39 @@
 /**
- * Royal Caribbean Drink Calculator — Worker Updates
+ * Royal Caribbean Drink Calculator — Web Worker
  * Version: 1.003.000
  * 
- * UPDATES for calculator-worker.js:
+ * COMPLETE PRODUCTION-READY WORKER
+ * 
+ * In the name of the Father, and of the Son, and of the Holy Spirit. Amen.
+ * "Whatever you do, work at it with all your heart, as working for the Lord"
+ * — Colossians 3:23
+ * 
+ * CHANGES in v1.003.000:
  * - Support for forcedPackage parameter (clickable package selection)
  * - Enhanced validation
  * - Minors + Deluxe policy enforcement
- * 
- * These code snippets should be integrated into your existing calculator-worker.js
+ * - Fixed Pinnacle vouchers (6/day)
  */
 
-/* ==========================================
-   UPDATE 1: Message Handler with Forced Package Support
-   
-   Location: Replace existing message event listener
-   ========================================== */
+'use strict';
 
+// Import math engine
+importScripts('/assets/js/calculator-math.js?v=1.003.000');
+
+// Log ready state
+console.log('[Worker] v1.003.000 initializing...');
+
+// Verify math engine loaded
+if (typeof ITW_MATH === 'undefined' || !ITW_MATH.compute) {
+  console.error('[Worker] FATAL: ITW_MATH not loaded!');
+  throw new Error('Math engine failed to load');
+}
+
+console.log('[Worker] Math engine loaded:', ITW_MATH.version);
+
+/**
+ * Message handler - receives compute requests from main thread
+ */
 self.addEventListener('message', (e) => {
   const { type, id, payload } = e.data;
   
@@ -34,6 +52,11 @@ self.addEventListener('message', (e) => {
         results = applyForcedPackage(results, forcedPackage, inputs, economics, vouchers);
       }
       
+      // Validate results before sending
+      if (!results || typeof results !== 'object') {
+        throw new Error('Invalid results from compute');
+      }
+      
       // Post results back to main thread
       self.postMessage({ 
         type: 'result', 
@@ -42,27 +65,25 @@ self.addEventListener('message', (e) => {
       });
       
     } catch (err) {
+      console.error('[Worker] Compute error:', err);
+      
       // Post error back to main thread
       self.postMessage({ 
         type: 'error', 
         id, 
         payload: { 
-          message: err.message, 
-          stack: err.stack 
+          message: err.message || 'Unknown error', 
+          stack: err.stack || ''
         } 
       });
     }
   }
+  
+  // Ignore unknown message types
 });
 
-/* ==========================================
-   UPDATE 2: Apply Forced Package Function (NEW)
-   
-   Location: Add this function to worker
-   ========================================== */
-
 /**
- * Override calculation results with user-selected package
+ * Apply forced package (user clicked a package card)
  * @param {Object} results - Original calculation results
  * @param {string} forcedPkg - User-selected package ('soda'|'refresh'|'deluxe')
  * @param {Object} inputs - User inputs
@@ -102,12 +123,6 @@ function applyForcedPackage(results, forcedPkg, inputs, economics, vouchers) {
   };
 }
 
-/* ==========================================
-   UPDATE 3: Calculate Forced Package Cost (NEW)
-   
-   Location: Add this function to worker
-   ========================================== */
-
 /**
  * Calculate cost for a specific forced package
  * CRITICAL: Enforces minors + Deluxe policy
@@ -138,6 +153,7 @@ function calculateForcedPackageCost(pkg, inputs, economics, vouchers) {
       minorPackage = 'refresh';
       minorCost = economics.pkg.refresh * minors * days;
       minorForced = true;
+      console.log('[Worker] POLICY ENFORCED: Minors forced to Refreshment (', minors, 'minors × $', economics.pkg.refresh, '× ', days, 'days = $', minorCost, ')');
     }
     
   } else if (pkg === 'refresh') {
@@ -174,15 +190,13 @@ function calculateForcedPackageCost(pkg, inputs, economics, vouchers) {
   };
 }
 
-/* ==========================================
-   UPDATE 4: Calculate Voucher Value Helper (NEW)
-   
-   Location: Add this function if not already present
-   ========================================== */
-
 /**
  * Calculate total value of Crown & Anchor vouchers
  * Diamond: 4/day @ $14, Diamond+: 5/day @ $14, Pinnacle: 6/day @ $14
+ * 
+ * @param {Object} inputs - User inputs
+ * @param {Object} vouchers - Voucher data
+ * @returns {number} Total voucher value in dollars
  */
 function calculateVoucherValue(inputs, vouchers) {
   const days = inputs.days || 7;
@@ -196,24 +210,22 @@ function calculateVoucherValue(inputs, vouchers) {
   return adultVouchers + minorVouchers;
 }
 
-/* ==========================================
-   UPDATE 5: Enhanced Payload Validation
-   
-   Location: Update existing validatePayload function
-   ========================================== */
-
 /**
- * Enhanced validation with forcedPackage support
+ * Validate payload structure and security
+ * Blocks prototype pollution and other malicious input
+ * 
+ * @param {Object} payload - Message payload from main thread
+ * @throws {Error} If payload is invalid or dangerous
  */
 function validatePayload(payload) {
-  // Existing validations...
+  // Must be plain object
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
     throw new Error('Payload must be a plain object');
   }
   
   const dangerous = ['__proto__', 'constructor', 'prototype'];
   
-  // Check root
+  // Check root level
   for (let key of dangerous) {
     if (key in payload) {
       throw new Error('Dangerous key detected in payload: ' + key);
@@ -273,7 +285,7 @@ function validatePayload(payload) {
     }
   }
   
-  // NEW: Validate forcedPackage if present
+  // Validate forcedPackage if present
   if (payload.forcedPackage !== undefined && payload.forcedPackage !== null) {
     const validPackages = ['soda', 'refresh', 'deluxe'];
     if (!validPackages.includes(payload.forcedPackage)) {
@@ -284,127 +296,9 @@ function validatePayload(payload) {
   return true;
 }
 
-/* ==========================================
-   INTEGRATION NOTES
-   ========================================== */
-
-/**
- * INTEGRATION CHECKLIST for calculator-worker.js:
- * 
- * 1. Update message event listener to extract forcedPackage from payload
- *    (See UPDATE 1)
- * 
- * 2. Add applyForcedPackage() function
- *    (See UPDATE 2)
- * 
- * 3. Add calculateForcedPackageCost() function
- *    (See UPDATE 3)
- * 
- * 4. Add calculateVoucherValue() helper if not present
- *    (See UPDATE 4)
- * 
- * 5. Update validatePayload() to validate forcedPackage
- *    (See UPDATE 5)
- * 
- * 6. Ensure ITW_MATH.compute is imported correctly:
- *    importScripts('/assets/js/calculator-math.js?v=1.003.000');
- * 
- * 7. Update worker version comment:
- *    // Version: 1.003.000
- * 
- * 8. Test worker with forced packages:
- *    - Send message with forcedPackage: 'soda'
- *    - Send message with forcedPackage: 'refresh'
- *    - Send message with forcedPackage: 'deluxe'
- *    - Verify results.forcedPackage is set
- *    - Verify results.winner.package matches forced
- *    - Verify minors get Refreshment when adults get Deluxe
- * 
- * 9. Test without forcedPackage:
- *    - Send message with forcedPackage: null
- *    - Verify normal calculation (winner is calculated)
- * 
- * 10. Error handling:
- *     - Send invalid forcedPackage value ('invalid')
- *     - Verify error message is returned
- */
-
-/* ==========================================
-   EXAMPLE USAGE FROM MAIN THREAD
-   ========================================== */
-
-/**
- * Example: How to call worker with forced package
- * (This code goes in calculator.js or calculator-ui.js)
- */
-
-// Normal calculation (no forced package)
-worker.postMessage({
-  type: 'compute',
-  id: Date.now(),
-  payload: {
-    inputs: gatherInputs(),
-    economics: currentEconomics,
-    dataset: currentDataset,
-    vouchers: currentVouchers,
-    forcedPackage: null // or omit this property
-  }
-});
-
-// Forced package calculation (user clicked Deluxe card)
-worker.postMessage({
-  type: 'compute',
-  id: Date.now(),
-  payload: {
-    inputs: gatherInputs(),
-    economics: currentEconomics,
-    dataset: currentDataset,
-    vouchers: currentVouchers,
-    forcedPackage: 'deluxe' // <-- Force Deluxe package
-  }
-});
-
-// Handle worker response
-worker.addEventListener('message', (e) => {
-  const { type, id, payload } = e.data;
-  
-  if (type === 'result') {
-    const results = payload;
-    
-    // Check if this was a forced calculation
-    if (results.forcedPackage) {
-      console.log('User selected:', results.forcedPackage);
-      console.log('Would have recommended:', results.recommendedPackage);
-    }
-    
-    // Render results
-    renderResults(results);
-  }
-  
-  if (type === 'error') {
-    console.error('Worker error:', payload.message);
-    showErrorMessage(payload.message);
-  }
-});
-
-/* ==========================================
-   CONSOLE LOGGING (For Debugging)
-   ========================================== */
-
-// Add these console.log statements during development
-// Remove or comment out in production
-
-console.log('[Worker] v1.003.000 loaded');
+// Post ready message
+self.postMessage({ type: 'ready' });
+console.log('[Worker] v1.003.000 ready ✓');
 console.log('[Worker] Forced package support: ENABLED');
 console.log('[Worker] Minors + Deluxe policy: ENFORCED');
-
-// In applyForcedPackage():
-console.log('[Worker] Forcing package:', forcedPkg);
-console.log('[Worker] Forced cost:', forcedCost);
-console.log('[Worker] Original recommendation:', results.winner.package);
-
-// In calculateForcedPackageCost():
-if (pkg === 'deluxe' && minors > 0) {
-  console.log('[Worker] POLICY ENFORCED: Minors forced to Refreshment');
-  console.log('[Worker] Minor cost:', minorCost);
-}
+console.log('[Worker] Pinnacle vouchers: FIXED (6/day)');
