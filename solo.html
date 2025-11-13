@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <!-- ======================================================
-       In the Wake — Solo Cruising Index (v3.010.200)
+       In the Wake — Solo Cruising Index (v3.010.300)
        Standards: Solo_Cruising_Module_Standards_v3.010.solo.003
-       Production Template: v3.010.200 | Soli Deo Gloria ✝️
+       Production Template: v3.010.300 | Soli Deo Gloria ✝️
        ✅ WCAG 2.1 Level AA Compliant
        ✅ SEO Optimized (JSON-LD, OpenGraph, Twitter Cards)
+       ✅ Dropdown Menus with 300ms Hover Delay
        ✅ Performance Optimized (DNS Prefetch, Preconnect)
        ====================================================== -->
 
@@ -23,8 +24,8 @@
   <!-- SEO: Theme & Appearance -->
   <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e">
-  <meta name="page:version" content="v3.010.200">
-  <meta name="version" content="v3.010.200">
+  <meta name="page:version" content="v3.010.300">
+  <meta name="version" content="v3.010.300">
   <meta name="standards:baseline" content="3.010">
   <meta name="author" content="In the Wake"/>
   <meta name="publisher" content="In the Wake"/>
@@ -34,7 +35,7 @@
   <meta name="geo.placename" content="United States"/>
 
   <!-- Title & SEO -->
-  <title>Solo Travel — In the Wake (v3.010.200)</title>
+  <title>Solo Travel — In the Wake (v3.010.300)</title>
   <link rel="canonical" href="https://cruisinginthewake.com/solo.html"/>
   <meta name="description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
 
@@ -48,7 +49,7 @@
   <meta property="og:url" content="https://cruisinginthewake.com/solo.html">
   <meta property="og:title" content="Solo Travel — In the Wake">
   <meta property="og:description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/solo/solo-tranquility.jpg?v=3.010.200">
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/solo/solo-tranquility.jpg?v=3.010.300">
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
   <meta property="og:image:alt" content="Serene cruise ship wake at sunset, symbolizing solo travel tranquility"/>
@@ -58,7 +59,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Solo Travel — In the Wake">
   <meta name="twitter:description" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
-  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/solo/solo-tranquility.jpg?v=3.010.200">
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/solo/solo-tranquility.jpg?v=3.010.300">
   <meta name="twitter:image:alt" content="Serene cruise ship wake at sunset, symbolizing solo travel tranquility"/>
 
   <!-- JSON-LD: Organization -->
@@ -160,7 +161,7 @@
   <link rel="preconnect" href="https://cruisinginthewake.com"/>
 
   <!-- Site bundle -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010.200"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
 
   <!-- SOLO hero + inline-hero card treatment (scoped) -->
   <style id="solo-host-hero-fix">
@@ -202,7 +203,7 @@
   <!-- Header hero (fallback visual) -->
   <style>
     .hero{
-      background:url('https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.200') center/cover no-repeat !important;
+      background:url('https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.300') center/cover no-repeat !important;
       min-height:320px;
     }
     .hero::before,.hero::after{content:none!important}
@@ -231,34 +232,213 @@
     }
   </style>
 
-  <!-- Topbar + compact nav (skip + nav on one line; no overlap) -->
+  <!-- Dropdown Navigation Styles -->
   <style>
-    .topbar{
-      display:flex; align-items:center; gap:.75rem;
-      padding:.4rem .9rem; border-bottom:1px solid rgba(8,48,65,.08);
-      background:#fff; position:relative; z-index:3;
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      background: #005a9c;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 4px;
     }
-    .topbar .skip-link{
-      position:static; clip:auto; width:auto; height:auto; padding:.2rem .5rem;
-      border-radius:6px; background:#0e6e8e; color:#fff; text-decoration:none; font-size:.9rem; line-height:1.2;
-    }
-    .topbar .pill-nav{
-      display:flex; gap:.35rem .45rem; flex-wrap:wrap; margin-left:auto;
-    }
-    .topbar .pill-nav a{
-      padding:.26rem .55rem; border-radius:8px; border:1px solid rgba(217,179,130,.6);
-      background:#fff; font-size:.92rem; line-height:1.2; text-decoration:none;
-    }
-    @media(pointer:fine){ .topbar .pill-nav a:hover{ border-style:dashed; } }
-    @media(max-width:900px){
-      .topbar .pill-nav{flex-wrap:nowrap; overflow:auto; white-space:nowrap; scrollbar-width:thin; -webkit-overflow-scrolling:touch;}
-      .topbar .pill-nav a{flex:0 0 auto;}
+    .skip-link:focus {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: auto;
+      height: auto;
+      z-index: 10000;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
     }
 
-    /* Header brand row (no nav here; prevents overlap with version) */
-    .navbar{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:.5rem; padding:.45rem .9rem;}
-    .brand img{height:24px}
-    .version-badge{font-size:.7rem; opacity:.8; margin-left:.5rem;}
+    /* Header / Hero */
+    .hero-header {
+      position: relative;
+      border-bottom: 6px double #d9b382;
+      background: #eaf6f6;
+      z-index: 0;
+    }
+
+    .navbar {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      gap: .6rem;
+      padding: .5rem .9rem .35rem;
+      position: relative;
+      z-index: 2000;
+      overflow: visible;
+    }
+
+    .brand {
+      display: flex;
+      align-items: flex-end;
+      gap: .6rem;
+    }
+
+    .brand img {
+      height: 28px;
+      width: auto;
+    }
+
+    .version-badge {
+      font-size: .72rem;
+      opacity: .8;
+      color: #2a4a5a;
+    }
+
+    /* Dropdown Navigation (FIXED: 300ms Hover Delay) */
+    .nav {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      overflow: visible;
+      padding-inline: .75rem;
+    }
+
+    .nav-item {
+      position: relative;
+      display: inline-block;
+    }
+
+    .nav-item > a,
+    .nav-item > button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      padding: .65rem 1rem;
+      min-height: 44px;
+      border-radius: 10px;
+      background: #fff;
+      border: 2px solid #d9b382;
+      color: #0e6e8e;
+      font: inherit;
+      font-size: .95rem;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item > a:hover,
+    .nav-item > button:hover {
+      background: #e6f4f8;
+      border-color: #0e6e8e;
+      transform: translateY(-1px);
+    }
+
+    .nav-item > a[aria-current="page"] {
+      background: #0e6e8e;
+      color: #fff;
+      font-weight: 600;
+      border-color: #0e6e8e;
+    }
+
+    .nav-disclosure .caret {
+      display: inline-block;
+      margin-left: .25rem;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-item[data-open="true"] .nav-disclosure .caret {
+      transform: rotate(180deg);
+    }
+
+    /* Dropdown menu with safe zone */
+    .submenu {
+      position: absolute !important;
+      left: 0;
+      top: calc(100% + 4px);
+      min-width: 240px;
+      background: #fff;
+      border: 2px solid #d9b382;
+      border-radius: 12px;
+      padding: .6rem;
+      box-shadow: 0 8px 24px rgba(8,48,65,.15);
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      z-index: 2100;
+    }
+
+    /* Safe zone bridge */
+    .submenu::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: transparent;
+    }
+
+    .nav-item[data-open="true"] > .submenu {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .submenu a {
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: .6rem .75rem;
+      border-radius: .65rem;
+      border: 0;
+      background: transparent;
+      color: #083041;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+
+    .submenu a:hover,
+    .submenu a:focus {
+      background: #f2f7fa;
+      outline: 2px solid transparent;
+    }
+
+    .submenu a[aria-current="page"] {
+      background: #e6f4f8;
+      font-weight: 600;
+      color: #0e6e8e;
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .nav-item > a,
+      .nav-item > button {
+        flex: 0 0 auto;
+      }
+
+      .submenu {
+        left: 0;
+        right: 0;
+        min-width: 100%;
+      }
+    }
 
     /* ===== ACCESSIBILITY: Screen Reader Only ===== */
     .sr-only {
@@ -317,37 +497,60 @@
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-  <!-- Topbar: Skip + Primary Nav on one line -->
-  <div class="topbar">
-    <a href="#content" class="skip-link">Skip to main content</a>
-    <nav class="pill-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/ships/">Ships</a>
-      <a href="/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/disability-at-sea.html">Disability at Sea</a>
-      <a href="/drink-calculator.html">Drink Calculator</a>
-      <a href="/packing-lists.html">Packing Lists</a>
-      <a href="/planning.html">Planning</a>
-      <a href="/solo.html" aria-current="page">Solo</a>
-      <a href="/travel.html">Travel</a>
-      <a href="/cruise-lines.html">Cruise Lines</a>
-      <a href="/about-us.html">About Us</a>
-    </nav>
-  </div>
+  <!-- Skip Link -->
+  <a href="#content" class="skip-link" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">Skip to main content</a>
 
-  <!-- Header (brand + hero only; nav lives in the topbar) -->
-  <header class="hero-header">
+  <!-- Header with Dropdown Navigation -->
+  <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=3.010.200" alt="In the Wake wordmark" width="256" height="64"/>
-        <span class="version-badge">v3.010.200</span>
+        <img src="/assets/logo_wake.png?v=3.010.300" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
       </div>
+
+      <!-- Navigation with Dropdown Menus -->
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+            Planning <span class="caret">▾</span>
+          </button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html" aria-current="page">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
+      </nav>
     </div>
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.200" width="180" height="180" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.200" width="256" height="64" alt="In the Wake">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.300" width="256" height="64" alt="In the Wake">
         <div class="tagline">A Cruise Traveler's Logbook</div>
       </div>
       <div class="hero-credit">
@@ -421,7 +624,7 @@
 
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler's Logbook
-    <span class="version-badge">v3.010.200</span>
+    <span class="version-badge">v3.010.300</span>
     <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
@@ -465,7 +668,7 @@
     var PERMALINK_BASE = ORIGIN + "/solo/";          // full pages for sharing
     var ARTICLE_BASE   = "/solo/articles/";          // fragments folder
     var verMeta = document.querySelector('meta[name="page:version"]');
-    var ver = (verMeta && verMeta.content) || "3.010.200";
+    var ver = (verMeta && verMeta.content) || "3.010.300";
 
     /* --- seeds -------------------------------------------------------- */
     var RAW_AUTHORS = [
@@ -703,9 +906,9 @@
       var mount = document.getElementById("related-rail");
       if(!mount) return;
 
-      var SRC = "/assets/data/articles/index.json?v=3.010.200";
-      var PLACEHOLDER    = "/assets/placeholders/article-thumb.jpg?v=3.010.200";
-      var AV_PLACEHOLDER = "/assets/placeholders/author.jpg?v=3.010.200";
+      var SRC = "/assets/data/articles/index.json?v=3.010.300";
+      var PLACEHOLDER    = "/assets/placeholders/article-thumb.jpg?v=3.010.300";
+      var AV_PLACEHOLDER = "/assets/placeholders/author.jpg?v=3.010.300";
       var CONTEXT_TAGS   = ["solo","royal-caribbean","tips","reflection"];
 
       function normUrl(u){ try { return new URL(u, location.origin).pathname.replace(/\/+$/,''); } catch (e){ return String(u||"").trim(); } }
@@ -841,6 +1044,109 @@
       }
     }
 
+  })();
+  </script>
+
+  <!-- Dropdown Menu with 300ms Hover Delay -->
+  <script>
+  (function(){
+    "use strict";
+
+    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    if (dropdownGroups.length) {
+      const hoverTimeouts = new Map();
+      const HOVER_DELAY = 300;
+
+      function setOpen(group, isOpen) {
+        group.dataset.open = isOpen ? "true" : "false";
+        const button = group.querySelector('.nav-disclosure');
+        if (button) {
+          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+      }
+
+      function closeAll(except = null) {
+        dropdownGroups.forEach(group => {
+          if (group !== except) {
+            setOpen(group, false);
+            if (hoverTimeouts.has(group)) {
+              clearTimeout(hoverTimeouts.get(group));
+              hoverTimeouts.delete(group);
+            }
+          }
+        });
+      }
+
+      dropdownGroups.forEach(group => {
+        const button = group.querySelector('.nav-disclosure');
+        const menu = group.querySelector('.submenu');
+        if (!button || !menu) return;
+
+        // Click to toggle
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const isOpen = group.dataset.open === "true";
+          closeAll(group);
+          setOpen(group, !isOpen);
+        });
+
+        // Mouse enter: Open immediately
+        group.addEventListener('mouseenter', () => {
+          if (hoverTimeouts.has(group)) {
+            clearTimeout(hoverTimeouts.get(group));
+            hoverTimeouts.delete(group);
+          }
+          closeAll(group);
+          setOpen(group, true);
+        });
+
+        // Mouse leave: Close after delay
+        group.addEventListener('mouseleave', () => {
+          const timeoutId = setTimeout(() => {
+            setOpen(group, false);
+            hoverTimeouts.delete(group);
+          }, HOVER_DELAY);
+          hoverTimeouts.set(group, timeoutId);
+        });
+
+        // Keyboard navigation
+        group.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            setOpen(group, false);
+            button && button.focus();
+          }
+          if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
+            e.preventDefault();
+            setOpen(group, true);
+            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            firstLink && firstLink.focus();
+          }
+        });
+
+        // Close when tabbing away
+        menu.addEventListener('focusout', () => {
+          setTimeout(() => {
+            if (!group.contains(document.activeElement)) {
+              setOpen(group, false);
+            }
+          }, 0);
+        });
+      });
+
+      // Close all when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-group')) {
+          closeAll();
+        }
+      });
+
+      // Close all when window loses focus
+      window.addEventListener('blur', () => {
+        closeAll();
+      });
+    }
   })();
   </script>
 </body>
