@@ -9,7 +9,8 @@
  * 
  * CHANGELOG v1.003.000:
  * ✅ CRITICAL FIX: Minors forced to Refreshment when adults buy Deluxe
- * ✅ FIXED: Pinnacle vouchers corrected (6/day not 5, was showing 5)
+ * ✅ FIXED: Pinnacle vouchers corrected (6/day not 5)
+ * ✅ FIXED: Royal Caribbean policy message (package uniformity, not consumption)
  * ✅ Enhanced input validation
  * ✅ Maintained all v1.002.000 structure and features
  * 
@@ -22,6 +23,7 @@
  * ✅ Two-winner system (adults + kids when minors present)
  * ✅ Kids package restrictions (soda/refresh only, never deluxe)
  * ✅ CRITICAL: Minors MUST buy Refreshment when adults buy Deluxe
+ * ✅ CRITICAL: All adults must buy same package (uniformity policy)
  * ✅ Vouchers = FREE DRINKS (count subtraction, not dollar credits)
  * ✅ Gentle nudges (breakeven distance calculations)
  * ✅ Health guidelines (CDC alcohol threshold warnings)
@@ -332,11 +334,6 @@ function compute(inputs, economics, dataset, vouchers = null) {
   
   const totalAlc = Math.max(0, rawTotal - coffeeDiscount);
   
-  const deluxeRequired = adults > 0 && alcTotal > 0;
-  const policyNote = deluxeRequired 
-    ? 'Royal Caribbean requires all adults to purchase the Deluxe package when alcohol is consumed'
-    : null;
-  
   // Package costs - adults only for now
   const sodaPkg = pkgSoda * (1 + grat) * days * adults;
   const refreshPkg = pkgRefresh * (1 + grat) * days * adults;
@@ -364,6 +361,13 @@ function compute(inputs, economics, dataset, vouchers = null) {
     deluxe: deluxePkgWithMinors
   }, minors);
   
+  // FIXED v1.003.000: Correct Royal Caribbean policy messaging
+  // Policy triggers when Deluxe is the winner AND there are multiple adults
+  const showDeluxePolicy = (winners.adultWinner === 'deluxe' && adults > 1);
+  const policyNote = showDeluxePolicy 
+    ? 'Royal Caribbean Policy: If ANY adult in your stateroom purchases Deluxe, ALL adults must purchase it. No exceptions.'
+    : null;
+  
   const voucherSavings = totalVouchersPerDay > 0 
     ? totalVouchersPerDay * days * (prices.cocktail || 13.0)
     : 0;
@@ -384,7 +388,8 @@ function compute(inputs, economics, dataset, vouchers = null) {
       pkg: adultPackageName,
       cost: winners.adultWinner === 'deluxe' ? deluxePkg : 
             winners.adultWinner === 'refresh' ? refreshPkg :
-            winners.adultWinner === 'soda' ? sodaPkg : totalAlc
+            winners.adultWinner === 'soda' ? sodaPkg : totalAlc,
+      policyNote: showDeluxePolicy ? 'All adults must purchase same package' : null
     }
   ];
   
@@ -424,10 +429,16 @@ function compute(inputs, economics, dataset, vouchers = null) {
   let ariaAnnouncement;
   if (!winners.showTwoWinners) {
     ariaAnnouncement = `Calculation complete. Best value: ${adultLabel}. Total cost: $${perDay} per day.`;
+    if (showDeluxePolicy) {
+      ariaAnnouncement += ' Policy reminder: All adults in your stateroom must purchase the same package.';
+    }
   } else {
     const minorLabel = getLabelForPackage(winners.minorWinner);
-    const forcedNote = winners.minorForced ? ' (Minors required to purchase Refreshment)' : '';
-    ariaAnnouncement = `Calculation complete. Best value for adults: ${adultLabel}. Best value for children: ${minorLabel}${forcedNote}. Total cost: $${perDay} per day.`;
+    const forcedNote = winners.minorForced ? ' Minors required to purchase Refreshment.' : '';
+    ariaAnnouncement = `Calculation complete. Best value for adults: ${adultLabel}. Best value for children: ${minorLabel}.${forcedNote} Total cost: $${perDay} per day.`;
+    if (showDeluxePolicy) {
+      ariaAnnouncement += ' Policy reminder: All adults must purchase the same package.';
+    }
   }
   
   return {
@@ -454,7 +465,7 @@ function compute(inputs, economics, dataset, vouchers = null) {
       deluxe: Math.min(alcTotal, cap * days * adults) + refreshTotal + sodaTotal
     },
     overcap: round2(overcap),
-    deluxeRequired,
+    showDeluxePolicy,
     policyNote,
     nudges,
     healthNote,
@@ -474,6 +485,7 @@ if (typeof window !== 'undefined') {
   console.log('[ITW Math Engine] v1.003.000 loaded ✓');
   console.log('[ITW Math Engine] CRITICAL FIX: Minors + Deluxe policy enforced');
   console.log('[ITW Math Engine] FIXED: Pinnacle vouchers (6/day)');
+  console.log('[ITW Math Engine] FIXED: Package uniformity policy messaging');
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
