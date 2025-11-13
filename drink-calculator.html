@@ -342,26 +342,26 @@
       </div>
       <nav class="nav pill-nav" aria-label="Primary">
         <a href="/">Home</a>
-        <div class="nav-item nav-group" id="nav-planning">
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
             Planning <span class="caret">▾</span>
           </button>
-          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
             <a role="menuitem" href="/planning.html">Planning (overview)</a>
-            <a role="menuitem" href="/ports.html">Ports</a>
-            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
             <a role="menuitem" href="/ships.html">Ships</a>
-            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-calculator.html" aria-current="page">Drink Calculator</a>
             <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
             <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
             <a role="menuitem" href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-        <div class="nav-item nav-group" id="nav-travel">
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
             Travel <span class="caret">▾</span>
           </button>
-          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel">
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
             <a role="menuitem" href="/travel.html">Travel (overview)</a>
             <a role="menuitem" href="/solo.html">Solo</a>
           </div>
@@ -1089,110 +1089,106 @@
   <!-- Optional: Share bar -->
   <script src="/assets/js/share-bar.js?v=3.010.300" defer></script>
 
-  <!-- Dropdown nav behavior -->
+  <!-- Dropdown nav behavior (300ms Hover Delay) -->
   <script>
   (function(){
-    const navItems = document.querySelectorAll('.nav-group');
-    const timeouts = new Map();
+    "use strict";
 
-    navItems.forEach(item => {
-      const toggle = item.querySelector('.nav-disclosure');
-      const submenu = item.querySelector('.submenu');
-      if (!toggle || !submenu) return;
+    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    if (dropdownGroups.length) {
+      const hoverTimeouts = new Map();
+      const HOVER_DELAY = 300;
 
-      const delay = parseInt(item.dataset.hoverDelay, 10) || 0;
-      const links = submenu.querySelectorAll('a[role="menuitem"]');
-
-      function open() {
-        const existingTimeout = timeouts.get(item);
-        if (existingTimeout) clearTimeout(existingTimeout);
-
-        const tid = setTimeout(() => {
-          item.classList.add('open');
-          item.setAttribute('data-open', 'true');
-          toggle.setAttribute('aria-expanded', 'true');
-          timeouts.delete(item);
-        }, delay);
-
-        timeouts.set(item, tid);
+      function setOpen(group, isOpen) {
+        group.dataset.open = isOpen ? "true" : "false";
+        const button = group.querySelector('.nav-disclosure');
+        if (button) {
+          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
       }
 
-      function close() {
-        const existingTimeout = timeouts.get(item);
-        if (existingTimeout) {
-          clearTimeout(existingTimeout);
-          timeouts.delete(item);
-        }
-
-        item.classList.remove('open');
-        item.removeAttribute('data-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-
-      item.addEventListener('mouseenter', open);
-      item.addEventListener('mouseleave', close);
-
-      toggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        const isOpen = item.classList.contains('open');
-        if (isOpen) {
-          close();
-        } else {
-          open();
-        }
-      });
-
-      toggle.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const isOpen = item.classList.contains('open');
-          if (isOpen) {
-            close();
-          } else {
-            open();
-            if (links.length > 0) {
-              setTimeout(() => links[0].focus(), 50);
+      function closeAll(except = null) {
+        dropdownGroups.forEach(group => {
+          if (group !== except) {
+            setOpen(group, false);
+            if (hoverTimeouts.has(group)) {
+              clearTimeout(hoverTimeouts.get(group));
+              hoverTimeouts.delete(group);
             }
           }
-        } else if (e.key === 'Escape') {
-          close();
-          toggle.focus();
-        } else if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          if (!item.classList.contains('open')) {
-            open();
-          }
-          if (links.length > 0) {
-            setTimeout(() => links[0].focus(), 50);
-          }
-        }
-      });
+        });
+      }
 
-      submenu.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          e.preventDefault();
-          close();
-          toggle.focus();
-        } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-          e.preventDefault();
-          const current = document.activeElement;
-          const index = Array.from(links).indexOf(current);
-          let next;
-          if (e.key === 'ArrowDown') {
-            next = links[index + 1] || links[0];
-          } else {
-            next = links[index - 1] || links[links.length - 1];
-          }
-          next.focus();
-        }
-      });
+      dropdownGroups.forEach(group => {
+        const button = group.querySelector('.nav-disclosure');
+        const menu = group.querySelector('.submenu');
+        if (!button || !menu) return;
 
-      links.forEach(link => {
-        link.addEventListener('click', () => {
-          close();
+        // Click to toggle
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const isOpen = group.dataset.open === "true";
+          closeAll(group);
+          setOpen(group, !isOpen);
+        });
+
+        // Mouse enter: Open immediately
+        group.addEventListener('mouseenter', () => {
+          if (hoverTimeouts.has(group)) {
+            clearTimeout(hoverTimeouts.get(group));
+            hoverTimeouts.delete(group);
+          }
+          closeAll(group);
+          setOpen(group, true);
+        });
+
+        // Mouse leave: Close after delay
+        group.addEventListener('mouseleave', () => {
+          const timeoutId = setTimeout(() => {
+            setOpen(group, false);
+            hoverTimeouts.delete(group);
+          }, HOVER_DELAY);
+          hoverTimeouts.set(group, timeoutId);
+        });
+
+        // Keyboard navigation
+        group.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            setOpen(group, false);
+            button && button.focus();
+          }
+          if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
+            e.preventDefault();
+            setOpen(group, true);
+            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            firstLink && firstLink.focus();
+          }
+        });
+
+        // Close when tabbing away
+        menu.addEventListener('focusout', () => {
+          setTimeout(() => {
+            if (!group.contains(document.activeElement)) {
+              setOpen(group, false);
+            }
+          }, 0);
         });
       });
-    });
+
+      // Close all when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-group')) {
+          closeAll();
+        }
+      });
+
+      // Close all when window loses focus
+      window.addEventListener('blur', () => {
+        closeAll();
+      });
+    }
   })();
   </script>
 </body>
