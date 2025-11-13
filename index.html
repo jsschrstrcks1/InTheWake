@@ -129,6 +129,18 @@
   <link rel="dns-prefetch" href="https://www.flickersofmajesty.com"/>
   <link rel="preconnect" href="https://cruisinginthewake.com"/>
 
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+  <!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
   <!-- Styles -->
   <style>
   /* ===== Production Index Styles v3.010.200 ===== */
@@ -757,7 +769,8 @@
 
   <!-- MAIN CONTENT -->
   <main id="main-content" class="wrap page-grid" role="main" aria-label="Main content">
-    <!-- LEFT: welcome + top explore -->
+
+    <!-- LEFT SIDE -->
     <section aria-label="Welcome and explore">
       <article class="card welcome">
         <h1>Welcome aboard</h1>
@@ -778,11 +791,24 @@
         </p>
       </article>
 
-      <section class="explore-grid top" aria-label="Explore the site (primary)">
-        <!-- Planning -->
+      <!-- TL;DR -->
+      <section class="card tldr" aria-label="Summary of what you can do here">
+        <h2>At a glance — what you can do from here</h2>
+        <ul class="tools-list">
+          <li>Run a <strong>Royal Caribbean drink package calculator</strong> to see if any package is wise for your habits.</li>
+          <li>Scan <strong>planning guides</strong> for ships, ports, restaurants, and cabins before you book.</li>
+          <li>Use <strong>packing lists</strong> to bring less but have what you need.</li>
+          <li>Check <strong>accessibility notes</strong> for cabins and ports.</li>
+          <li>Read <strong>articles</strong> that treat travel as a gift, not a race.</li>
+        </ul>
+        <p class="tiny">Not a travel agency — just clear tools, honest numbers, and reflections meant to serve you.</p>
+      </section>
+
+      <!-- Explore top -->
+      <section class="explore-grid top">
         <article class="card feature-card">
           <h3><a href="/planning.html">Planning</a></h3>
-          <p>Find your footing fast: itineraries, timing, and budget choices that keep your voyage simple and your days unhurried.</p>
+          <p>Find your footing fast: itineraries, timing, and budget choices.</p>
           <div class="actions">
             <a class="pill" href="/ships.html">Ships</a>
             <a class="pill" href="/restaurants.html">Restaurants</a>
@@ -790,10 +816,9 @@
           </div>
         </article>
 
-        <!-- Travel -->
         <article class="card feature-card">
           <h3><a href="/travel.html">Travel</a></h3>
-          <p>Practical tips for airports, transfers, packing, and sea-day rhythm — from embark to last sunrise at sea.</p>
+          <p>Practical tips for airports, transfers, packing, and sea-day rhythm.</p>
           <div class="actions">
             <a class="pill" href="/solo.html">Solo</a>
             <a class="pill" href="/packing-lists.html">Packing Lists</a>
@@ -801,106 +826,202 @@
           </div>
         </article>
       </section>
+
+      <!-- Tools CTA -->
+      <section class="card">
+        <h2>Start with a tool</h2>
+        <p>Most travelers begin with either the drink calculator or the planning overview.</p>
+        <div class="actions">
+          <a class="pill" href="/drink-calculator.html">Run the Drink Calculator</a>
+          <a class="pill" href="/planning.html">See Planning Overview</a>
+          <a class="pill" href="/packing-lists.html">Grab Packing Lists</a>
+        </div>
+      </section>
+
+      <!-- Beverage Packages (interactive micro-visualizer) -->
+      <section class="card packages-card" aria-labelledby="packages-heading">
+        <h2 id="packages-heading">Beverage packages at a glance</h2>
+        <p class="tiny">These examples match calculator defaults; prices vary by sailing.</p>
+
+        <div class="packages-grid" role="list">
+          <button class="package-card" type="button" data-package="coffee">
+            <div class="package-halo"></div>
+            <div class="package-label">
+              <span>☕ Coffee Card</span>
+              <span class="package-price">$31</span>
+            </div>
+            <p class="package-note">15 specialty coffees; sharable.</p>
+          </button>
+
+          <button class="package-card" type="button" data-package="soda">
+            <div class="package-halo"></div>
+            <div class="package-label">
+              <span>🥤 Classic Soda</span>
+              <span class="package-price">$13.99</span>
+            </div>
+            <p class="package-note">Unlimited fountain soda & Freestyle.</p>
+          </button>
+
+          <button class="package-card" type="button" data-package="refreshment">
+            <div class="package-halo"></div>
+            <div class="package-label">
+              <span>🍹 Refreshment</span>
+              <span class="package-price">$34.00</span>
+            </div>
+            <p class="package-note">Mocktails, coffee, juice, water.</p>
+          </button>
+
+          <button class="package-card" type="button" data-package="deluxe">
+            <div class="package-halo"></div>
+            <div class="package-label">
+              <span>🍾 Deluxe</span>
+              <span class="package-price">$85.00</span>
+            </div>
+            <p class="package-note">Cocktails, beer, wine up to cap.</p>
+          </button>
+        </div>
+
+        <div class="package-detail">
+          <h4 id="package-detail-title">Click a package to see how it behaves in real life</h4>
+          <p id="package-detail-body">
+            Tap or hover to highlight one. The calculator uses these same choices to build break-even charts.
+          </p>
+        </div>
+
+        <p class="tiny">
+          Want full math? <a href="/drink-calculator.html">Open the full Drink Package Calculator</a>.
+        </p>
+      </section>
+
+      <!-- AI Chorus -->
+      <section class="card">
+        <h2>Behind the wake — how these tools are built</h2>
+        <ul class="tools-list">
+          <li><strong>Lived experience:</strong> real sailings & receipts.</li>
+          <li><strong>Community wisdom:</strong> patterns from other cruisers.</li>
+          <li><strong>An AI chorus:</strong> multiple AIs cross-checked & corrected by hand.</li>
+        </ul>
+      </section>
+
+      <!-- FAQ + What's New -->
+      <section class="card">
+        <h2>Questions we keep hearing</h2>
+
+        <h3>Is this a sales site?</h3>
+        <p>No. If affiliate links appear someday, they’ll be clearly marked.</p>
+
+        <h3>Who is this for?</h3>
+        <p>First-timers, solos, families, and accessibility-focused travelers.</p>
+
+        <h3>What’s new?</h3>
+        <ul class="tools-list">
+          <li><strong>Homepage refresh</strong> — TL;DR, beverage section.</li>
+          <li><strong>Drink calculator</strong> — Updated RC policies, vouchers.</li>
+          <li><strong>Solo stories</strong> — Beginning with Tina’s reflection.</li>
+        </ul>
+      </section>
     </section>
 
     <!-- RIGHT RAIL -->
-    <aside class="rail" role="complementary" aria-label="Author & articles">
-      <!-- Author card (Vertical Layout) -->
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
+    <aside class="rail" role="complementary">
+      <!-- Author -->
+      <section class="card author-card-vertical">
         <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <a href="/authors/ken-baker.html">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.200" type="image/webp"/>
             <img class="author-avatar" src="/authors/img/ken1.jpg?v=3.010.200" width="96" height="96" alt="Ken Baker" decoding="async"/>
           </picture>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
+        <p class="tiny">Founder of In the Wake.</p>
+        <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
 
-      <!-- Recent Articles rail -->
-      <section class="card" aria-labelledby="recent-rail-title">
+      <!-- Newsletter -->
+      <section class="card">
+        <h3 id="newsletter-heading">Stay in the wake</h3>
+        <p class="tiny">Occasional updates when new tools or articles launch.</p>
+        <form class="newsletter-form" aria-label="Email updates (placeholder)">
+          <label class="tiny" for="newsletter-email">Email address</label>
+          <input id="newsletter-email" type="email" autocomplete="email" placeholder="you@example.com"/>
+          <button type="button">Get updates</button>
+        </form>
+        <p class="tiny">(Form placeholder — connect when ready.)</p>
+      </section>
+
+      <!-- Recent Articles -->
+      <section class="card">
         <h3 id="recent-rail-title">Recent Articles</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+        <p id="recent-rail-fallback" class="tiny" style="display:none"></p>
       </section>
     </aside>
   </main>
 
-  <!-- FULL-WIDTH UNDER-RAIL: explore more (3-wide) -->
+  <!-- FULL-WIDTH UNDER-RAIL -->
   <section class="wrap" aria-label="Explore more">
     <section class="explore-grid bottom">
-      <!-- Solo -->
       <article class="card feature-card">
         <h3><a href="/solo.html">Solo Travel</a></h3>
-        <p>Courage, safety, and joy when sailing on your own terms — including Tina's story and a growing community.</p>
+        <p>Courage, safety, and joy for sailing on your own terms.</p>
         <div class="actions">
           <a class="pill" href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a>
         </div>
       </article>
 
-      <!-- Ships -->
       <article class="card feature-card">
         <h3><a href="/ships.html">Ships</a></h3>
-        <p>How to choose the right class and layout for your style — quiet corners, promenades, and where to watch the wake roll.</p>
+        <p>How to choose the right class and layout for your style.</p>
         <div class="actions">
           <a class="pill" href="/restaurants.html">Dining</a>
           <a class="pill" href="/accessibility.html">Accessibility</a>
         </div>
       </article>
 
-      <!-- Ports -->
       <article class="card feature-card">
         <h3><a href="/ports.html">Ports</a></h3>
-        <p>What to expect pier-side, easy do-it-yourself plans, and how to make the most of short stays without rushing the day.</p>
+        <p>Expectations, do-it-yourself plans, and slow travel wisdom.</p>
         <div class="actions">
           <a class="pill" href="/planning.html">Planning</a>
         </div>
       </article>
 
-      <!-- Restaurants / Menus -->
       <article class="card feature-card">
         <h3><a href="/restaurants.html">Restaurants &amp; Menus</a></h3>
-        <p>Main dining, casual bites, and specialty rooms — menus, reservations, and how to eat well without over-planning.</p>
+        <p>Main dining, casual bites, and specialty rooms.</p>
         <div class="actions">
           <a class="pill" href="/drink-calculator.html">Drink Calculator</a>
         </div>
       </article>
 
-      <!-- Drink Calculator (FIXED: was "Drink Packages") -->
       <article class="card feature-card">
         <h3><a href="/drink-calculator.html">Drink Calculator</a></h3>
-        <p>When packages are worth it (and when they're not), plus water, coffee, and non-alcoholic options that save real money.</p>
+        <p>When packages are worth it — and when they're not.</p>
         <div class="actions">
           <a class="pill" href="/restaurants.html">Restaurants</a>
         </div>
       </article>
 
-      <!-- Packing Lists -->
       <article class="card feature-card">
         <h3><a href="/packing-lists.html">Packing Lists</a></h3>
-        <p>Bring less, enjoy more. Smart cabin items, formal-night choices, and weather-aware layers for any itinerary.</p>
+        <p>Bring less, enjoy more — smart cabin and weather choices.</p>
         <div class="actions">
           <a class="pill" href="/accessibility.html">Accessibility</a>
         </div>
       </article>
 
-      <!-- Accessibility -->
       <article class="card feature-card">
         <h3><a href="/accessibility.html">Accessibility</a></h3>
-        <p>Mobility, dining, and cabin access tips so every traveler can enjoy the ship with confidence and ease.</p>
+        <p>Mobility, dining, and cabin access tips for confident travel.</p>
         <div class="actions">
           <a class="pill" href="/planning.html">Planning</a>
         </div>
       </article>
 
-      <!-- About -->
       <article class="card feature-card">
         <h3><a href="/about-us.html">About</a></h3>
-        <p>Who we are and why we sail: the people behind the logbook, and how to get in touch when you're planning your voyage.</p>
+        <p>Who we are and why we sail.</p>
         <div class="actions">
           <a class="pill" href="/solo.html">Solo</a>
           <a class="pill" href="/travel.html">Travel</a>
@@ -912,11 +1033,10 @@
   <!-- FOOTER -->
   <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake. All rights reserved.</p>
-
-    <nav aria-label="Footer navigation">
+    <nav>
       <p class="tiny">
-        <a href="/terms.html">Terms</a> |
-        <a href="/privacy.html">Privacy</a> |
+        <a href="/terms.html">Terms</a> | 
+        <a href="/privacy.html">Privacy</a> | 
         <a href="/accessibility.html">Accessibility Statement</a>
       </p>
     </nav>
@@ -932,7 +1052,7 @@
   (function(){
     "use strict";
 
-    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
+    /* ===== Dropdown Menus (300ms delayed hover) ===== */
     const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
     if (dropdownGroups.length) {
       const hoverTimeouts = new Map();
@@ -941,9 +1061,7 @@
       function setOpen(group, isOpen) {
         group.dataset.open = isOpen ? "true" : "false";
         const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
+        if (button) button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       }
 
       function closeAll(except = null) {
@@ -963,7 +1081,6 @@
         const menu = group.querySelector('.submenu');
         if (!button || !menu) return;
 
-        // Click to toggle
         button.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -972,7 +1089,6 @@
           setOpen(group, !isOpen);
         });
 
-        // Mouse enter: Open immediately
         group.addEventListener('mouseenter', () => {
           if (hoverTimeouts.has(group)) {
             clearTimeout(hoverTimeouts.get(group));
@@ -982,7 +1098,6 @@
           setOpen(group, true);
         });
 
-        // Mouse leave: Close after delay
         group.addEventListener('mouseleave', () => {
           const timeoutId = setTimeout(() => {
             setOpen(group, false);
@@ -991,21 +1106,19 @@
           hoverTimeouts.set(group, timeoutId);
         });
 
-        // Keyboard navigation
         group.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
             setOpen(group, false);
-            button && button.focus();
+            button.focus();
           }
           if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
             e.preventDefault();
             setOpen(group, true);
             const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
-            firstLink && firstLink.focus();
+            if (firstLink) firstLink.focus();
           }
         });
 
-        // Close when tabbing away
         menu.addEventListener('focusout', () => {
           setTimeout(() => {
             if (!group.contains(document.activeElement)) {
@@ -1015,20 +1128,14 @@
         });
       });
 
-      // Close all when clicking outside
       document.addEventListener('click', (e) => {
-        if (!e.target.closest('.nav-group')) {
-          closeAll();
-        }
+        if (!e.target.closest('.nav-group')) closeAll();
       });
 
-      // Close all when window loses focus
-      window.addEventListener('blur', () => {
-        closeAll();
-      });
+      window.addEventListener('blur', () => closeAll());
     }
 
-    /* ===== Normalizer: /solo/articles/<slug>.html → /solo/<slug>.html ===== */
+    /* ===== Normalize /solo/articles/<slug>.html links ===== */
     (function normalizeSoloArticleLinks(){
       const fix = href => href ? href.replace(/\/solo\/articles\/([a-z0-9\-]+)\.html(\b|$)/i, '/solo/$1.html') : href;
       document.querySelectorAll('a[href]').forEach(a=>{
@@ -1044,62 +1151,47 @@
       if(!rail) return;
 
       const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
+      fallback.style.display = '';
 
       async function fetchJSONWithFallback(urls){
-        for (const u of urls){
+        for(const u of urls){
           try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
-            console.warn(`Failed to fetch ${u}:`, err);
-          }
+            const res = await fetch(u, { cache: 'no-cache' });
+            if(res.ok) return await res.json();
+          }catch(err){}
         }
         return null;
       }
 
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
+      const raw = await fetchJSONWithFallback([
+        '/assets/data/articles/index.json',
+        '/assets/data/articles.json'
+      ]);
 
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.200';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
+      if(!raw){
+        fallback.textContent = 'Unable to load articles.';
         return;
       }
 
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
+      const items = Array.isArray(raw.articles) ? raw.articles : Array.isArray(raw) ? raw : [];
+      if(!items.length){
+        fallback.textContent = 'No articles found.';
+        return;
+      }
 
       const here = location.pathname.replace(/\/+$/,'');
+      const pick = (obj, keys, fallback=null)=>keys.map(k=>obj[k]).find(v=>v!=null) ?? fallback;
+
       const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
+        const href = pick(p,['url','path'],'');
+        return href && href.replace(/\/+$/,'') !== here;
       }).slice(0,6);
 
       rail.innerHTML = view.map(p=>{
         const title = pick(p,['title','name'],'Article');
         const href  = pick(p,['url','path'],'#');
         return `
-          <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}" aria-label="${title}">
+          <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
             <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
               <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
             </div>
@@ -1107,53 +1199,89 @@
           </a>`;
       }).join('');
 
+      const setImageWithFallback = (img, primary)=>{
+        const stamp = 'v=3.010.300';
+        const alts = primary ? [
+          primary,
+          primary.replace(/\.(jpg|jpeg|png)$/i,'.webp'),
+          primary.replace(/\.(jpg|jpeg|png)$/i,'.png'),
+          '/assets/index_hero.jpg'
+        ] : ['/assets/index_hero.jpg'];
+
+        function tryNext(){
+          if(!alts.length) return;
+          const src = alts.shift();
+          img.onerror = tryNext;
+          img.src = src.includes('?') ? src+'&'+stamp : src+'?'+stamp;
+        }
+
+        tryNext();
+      };
+
       const cards = [...rail.querySelectorAll('a.card')];
       cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
+        const p = view[i];
+        const img = card.querySelector('img.article-thumb');
         let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
 
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/top-20-questions/cover.jpg';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/why-i-started-solo-cruising.jpg';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
         if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
+          const slug = (p.url||p.path||'').split('/').pop().replace('.html','');
+          primary = `/assets/articles/${slug}/cover.jpg`;
         }
 
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
+        setImageWithFallback(img, primary);
       });
 
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
+      fallback.style.display = 'none';
       const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `${view.length} recent articles loaded`;
-      }
+      if(status) status.textContent = `${view.length} recent articles loaded`;
     })();
+
+    /* ===== Packages Interactive Micro-Visualizer ===== */
+    (function setupPackageCards(){
+      const cards = [...document.querySelectorAll('.package-card')];
+      if (!cards.length) return;
+
+      const titleEl = document.getElementById('package-detail-title');
+      const bodyEl  = document.getElementById('package-detail-body');
+
+      const copy = {
+        coffee: {
+          title: 'Coffee Card — best when you love the café more than the bar',
+          body: 'The Coffee Card shines if you actually visit the café. Try 1–2 espresso drinks on sea days in the calculator.'
+        },
+        soda: {
+          title: 'Classic Soda — simple, predictable, kid-friendly',
+          body: 'For soda households, Classic Soda flattens the budget line. Set beer and cocktails to zero in the calculator and compare.'
+        },
+        refreshment: {
+          title: 'Refreshment — mocktails, coffee, juice, and water',
+          body: 'For families and anyone skipping alcohol, Refreshment often beats Deluxe. Add juice, coffee, mocktails, water in the calculator.'
+        },
+        deluxe: {
+          title: 'Deluxe — generous, but bound by rules & caps',
+          body: 'Deluxe feels unlimited until you add real rules: gratuity, drink caps, cabin requirements. Calculator handles these variables.'
+        }
+      };
+
+      function activate(card) {
+        cards.forEach(c => c.classList.remove('is-active'));
+        card.classList.add('is-active');
+        const key = card.dataset.package;
+        const data = copy[key];
+        titleEl.textContent = data.title;
+        bodyEl.textContent = data.body;
+      }
+
+      cards.forEach(card=>{
+        card.addEventListener('click', ()=>activate(card));
+        card.addEventListener('mouseenter', ()=>activate(card));
+        card.addEventListener('focus', ()=>activate(card));
+      });
+
+      activate(cards.find(c=>c.dataset.package==='refreshment') || cards[0]);
+    })();
+
   })();
   </script>
 </body>
