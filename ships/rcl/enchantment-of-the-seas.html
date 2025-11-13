@@ -37,22 +37,24 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="publisher" content="In the Wake"/>
 
   <!-- Title & SEO -->
-  <title>Enchantment of the Seas — Royal Caribbean • In the Wake (v3.010.300)</title>
+  <title>Enchantment of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake (v3.010.300)</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html"/>
-  <meta name="description" content="Enchantment of the Seas — Royal Caribbean ship details, deck plans, dining options, and booking information."/>
+  <meta name="description" content="Enchantment of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."/>
 
   <!-- OpenGraph -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Enchantment of the Seas — Royal Caribbean"/>
-  <meta property="og:description" content="Royal Caribbean ship details, deck plans, and dining options."/>
+  <meta property="og:title" content="Enchantment of the Seas — Deck Plans, Live Tracker, Dining & Videos"/>
+  <meta property="og:description" content="All the essentials for Enchantment of the Seas: live map, dining, stats, and videos."/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html"/>
   <meta property="og:locale" content="en_US"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/ships/enchantment-of-the-seas1.jpeg"/>
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Enchantment of the Seas — Royal Caribbean"/>
-  <meta name="twitter:description" content="Royal Caribbean ship details, deck plans, and dining options."/>
+  <meta name="twitter:title" content="Enchantment of the Seas — Deck Plans, Live Tracker, Dining & Videos"/>
+  <meta name="twitter:description" content="Live tracker, dining, deck plans, and videos for Enchantment of the Seas."/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/ships/enchantment-of-the-seas1.jpeg"/>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -77,6 +79,21 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   }
   </script>
 
+  <!-- JSON-LD: WebSite + SearchAction -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "In the Wake",
+    "url": "https://cruisinginthewake.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://cruisinginthewake.com/search.html?q={query}",
+      "query-input": "required name=query"
+    }
+  }
+  </script>
+
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
   {
@@ -91,18 +108,35 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   }
   </script>
 
-  <!-- JSON-LD: Product (Ship) -->
+  <!-- JSON-LD: Review -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Enchantment of the Seas",
-    "brand": {
-      "@type": "Brand",
-      "name": "Royal Caribbean International"
+    "@type": "Review",
+    "name": "Enchantment of the Seas Overview",
+    "author": {
+      "@type": "Person",
+      "name": "In the Wake Editorial Team"
     },
-    "category": "Cruise Ship",
-    "url": "https://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html"
+    "reviewBody": "Enchantment of the Seas delivers Royal Caribbean's signature ocean-view experience with glass walls, mid-size intimacy, and global itineraries spanning Alaska to Australia.",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "4.6",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "itemReviewed": {
+      "@type": "Cruise",
+      "name": "Enchantment of the Seas",
+      "provider": {
+        "@type": "Organization",
+        "name": "Royal Caribbean International",
+        "url": "https://www.royalcaribbean.com"
+      },
+      "url": "https://cruisinginthewake.com/ships/rcl/enchantment-of-the-seas.html",
+      "description": "A Enchantment-class ship operated by Royal Caribbean International, offering worldwide itineraries and panoramic ocean views.",
+      "image": "https://cruisinginthewake.com/assets/ships/enchantment-of-the-seas1.jpeg"
+    }
   }
   </script>
 
@@ -129,7 +163,100 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Global CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
+
+  <!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+  <script>
+  (function(){
+    // Absolute, same-origin URL builder
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+
+    // Normalize any hard-coded https://www.cruisinginthewake.com/* URLs to current origin (prevents redirects/CORS)
+    document.addEventListener('DOMContentLoaded', function(){
+      const sel=[
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'a[href^="https://cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{
+          const u=new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash);
+        }catch(_){}
+      });
+    },{once:true});
+  })();
+  </script>
+
+  <!-- ===== Swiper (primary + CDN fallback) ===== -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+
+  <!-- ===== Page micro CSS (scoped) ===== -->
+  <style>
+    .hidden{display:none!important}
+    .pills,.class-pills,.related-pills,.button-group{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;text-align:center}
+    body::before{content:"";position:fixed;inset:0;background:url("/assets/watermark.png") center right/420px auto no-repeat;opacity:.06;pointer-events:none;z-index:0}
+    body>*{position:relative;z-index:1}
+
+    /* First Look carousel */
+    .swiper.firstlook{position:relative;overflow:hidden}
+    .swiper.firstlook .swiper-wrapper{display:flex}
+    .swiper.firstlook .swiper-slide{flex:0 0 100%}
+    .swiper.firstlook img{display:block;width:100%;height:auto;border-radius:10px}
+    .swiper.firstlook .swiper-button-prev,.swiper.firstlook .swiper-button-next{
+      position:absolute;top:50%;transform:translateY(-50%);display:flex!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;z-index:7!important;width:44px;height:44px;align-items:center;justify-content:center;color:#0a3d62
+    }
+    .swiper.firstlook .swiper-button-prev{left:8px}
+    .swiper.firstlook .swiper-button-next{right:8px}
+    .swiper.firstlook .swiper-button-prev::after,.swiper.firstlook .swiper-button-next::after{
+      font-size:18px;background:#fff;border-radius:999px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.18)
+    }
+    .swiper.firstlook .swiper-pagination{z-index:7!important}
+    .swiper.firstlook .swiper-pagination-bullet{background:#0a3d62;opacity:.45}
+    .swiper.firstlook .swiper-pagination-bullet-active{opacity:1}
+
+    /* Content + cards */
+    .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
+    .card{background:#fff;border:2px solid var(--rope,#d9b382);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
+    .grid-2{display:grid;gap:1rem;align-items:stretch}
+    .grid-2>.card{display:flex;flex-direction:column}
+    @media (min-width:980px){.grid-2{grid-template-columns:1fr 1fr}}
+
+    .ship-stats.card.mini{margin-top:.6rem}
+    .stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem .8rem;font-size:.95rem}
+    .stat-line{display:flex;gap:.35rem;justify-content:space-between;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
+    .stat-key{color:#355;font-weight:600}.stat-val{color:#024}
+
+    .swiper{width:100%;max-width:820px;margin:0 auto}
+    .swiper-slide iframe{width:100%;aspect-ratio:16/9;display:block;border:0;border-radius:12px}
+    .swiper .swiper-button-prev,.swiper .swiper-button-next,.swiper .swiper-pagination{z-index:4}
+
+    /* Related pair on desktop */
+    @media (min-width:861px){.related-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap,1.25rem)}}
+    figure figcaption{font-size:.8rem;color:#345;margin-top:.35rem}
+    figure figcaption a{color:#064;text-decoration:underline}
+  </style>
 </head>
+
 <body class="page">
   <!-- Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -185,37 +312,256 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </div>
       </nav>
     </div>
+
+    <div class="hero" role="img" aria-label="Enchantment of the Seas hero image">
+      <div class="latlon-grid" aria-hidden="true">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+          <g class="grid-lines" stroke-width="0.35">
+            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+            <line x1="90" y1="0" x2="90" y2="60"/>
+            <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+          </g>
+        </svg>
+      </div>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake"/>
+        <div class="tagline">A Cruise Traveler's Logbook</div>
+      </div>
+      <div class="hero-credit">
+        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo by Flickers of Majesty — Instagram</a>
+      </div>
+    </div>
   </header>
 
   <!-- MAIN CONTENT -->
-  <main id="main-content" class="wrap" role="main" aria-label="Main content">
-    <article>
-      <header>
-        <h1>Enchantment of the Seas</h1>
-        <p class="tiny">Royal Caribbean International</p>
-      </header>
+  <main class="wrap" id="main-content" role="main" tabindex="-1">
+    <!-- Row 1: First Look + Dining -->
+    <section class="grid-2">
+      <!-- First Look + Stats -->
+      <section class="card" aria-labelledby="first-look">
+        <h2 id="first-look">A First Look</h2>
 
-<section id="first-look" class="card"><h2>First look</h2><figure><img src="https://cruisinginthewake.com/assets/img/Cordelia_Empress_Food_Court.jpg" alt="Enchantment of the Seas photo 1" /><figcaption>Image 1 — To Verify</figcaption></figure><figure><img src="https://cruisinginthewake.com/assets/img/Cordelia_Empress_Food_Court.jpg" alt="Enchantment of the Seas photo 2" /><figcaption>Image 2 — To Verify</figcaption></figure><figure><img src="https://cruisinginthewake.com/assets/img/Cordelia_Empress_Food_Court.jpg" alt="Enchantment of the Seas photo 3" /><figcaption>Image 3 — To Verify</figcaption></figure></section>
-<section id="why-book" class="card"><h2>Why book</h2><p class="small">To Verify — curated reasons coming soon.</p></section>
-<section id="personal-review" class="card"><h2>Personal review</h2><p class="small">To Verify — field notes to be added.</p></section>
-<section id="video-highlights" class="card"><h2>Video highlights</h2><p class="small">Video highlights coming soon.</p></section>
+        <div class="swiper firstlook" aria-label="Enchantment of the Seas photo carousel">
+          <div class="swiper-wrapper">
+            <!-- 1 -->
+            <div class="swiper-slide">
+              <figure>
+                <img
+                  src="/assets/ships/enchantment-of-the-seas1.jpeg?v=3.006"
+                  alt="Enchantment of the Seas in Juneau, Alaska"
+                  loading="lazy"
+                  onerror="(function(i){var fb=[_abs('/assets/ships/rcl/enchantment-of-the-seas/enchantment-of-the-seas1.jpeg?v=3.006'),_abs('/assets/ships/enchantment-of-the-seas1.jpg?v=3.006')];i._fbi=(i._fbi||0);if(i._fbi<fb.length){i.src=fb[i._fbi++];}})(this)">
+                <figcaption class="tiny">Photo served locally (attribution in page footer).</figcaption>
+              </figure>
+            </div>
+            <!-- 2 -->
+            <div class="swiper-slide">
+              <figure>
+                <img
+                  src="/assets/ships/enchantment-of-the-seas2.jpg?v=3.006"
+                  alt="Enchantment of the Seas in Queen Charlotte Sound"
+                  loading="lazy"
+                  onerror="(function(i){var fb=[_abs('/assets/ships/rcl/enchantment-of-the-seas/enchantment-of-the-seas2.jpg?v=3.006')];i._fbi=(i._fbi||0);if(i._fbi<fb.length){i.src=fb[i._fbi++];}})(this)">
+                <figcaption class="tiny">Photo served locally (attribution in page footer).</figcaption>
+              </figure>
+            </div>
+            <!-- 3 -->
+            <div class="swiper-slide">
+              <figure>
+                <img
+                  src="/assets/ships/enchantment-of-the-seas3.jpg?v=3.006"
+                  alt="Enchantment of the Seas broadside photo"
+                  loading="lazy"
+                  onerror="(function(i){var fb=[_abs('/assets/ships/rcl/enchantment-of-the-seas/enchantment-of-the-seas3.jpg?v=3.006')];i._fbi=(i._fbi||0);if(i._fbi<fb.length){i.src=fb[i._fbi++];}})(this)">
+                <figcaption class="tiny">Photo served locally (attribution in page footer).</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="swiper-pagination" aria-hidden="true"></div>
+          <div class="swiper-button-prev" aria-label="Previous image"></div>
+          <div class="swiper-button-next" aria-label="Next image"></div>
+        </div>
 
-<section id="dining" class="card">
-  <h2>Dining</h2>
-  <img src="https://cruisinginthewake.com/assets/img/Cordelia_Empress_Food_Court.jpg" alt="Dining area" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;"/>
-  <script type="application/json" id="dining-data-source">{"provider": "rcl", "json": "assets/data/rc-restaurants.json", "ship_slug": "enchantment-of-the-seas"}</script>
-  <p class="small">Dining venues for this ship are sourced from <code>assets/data/rc-restaurants.json</code>.</p>
-</section>
+        <!-- Stats -->
+        <section class="ship-stats card mini" aria-labelledby="statsHeading">
+          <h3 id="statsHeading">Enchantment at a Glance</h3>
+          <div id="ship-stats" class="stats-grid" data-slug="enchantment-of-the-seas"></div>
+          <script type="application/json" id="ship-stats-fallback">
+          {
+  "slug": "enchantment-of-the-seas",
+  "name": "Enchantment of the Seas",
+  "class": "Vision Class",
+  "entered_service": 1997,
+  "gt": "82,910 GT",
+  "guests": "~2,250 (double)",
+  "crew": "~850",
+  "length": "989 ft (301 m)",
+  "beam": "106 ft (32 m)",
+  "registry": "Bahamas"
+}
+          </script>
+        </section>
+      </section>
 
-<section id="deck-plans" class="card"><h2>Deck plans</h2><p class="small">Map placeholder — embed to follow.</p></section>
-<section id="live-tracker" class="card"><h2>Live tracker</h2><p class="small">AIS link placeholder.</p></section>
-<section id="restaurants" class="card"><h2>Restaurants</h2><p class="small">Cross-links from dining data will appear here.</p></section>
-<section id="ports" class="card"><h2>Ports</h2><p class="small">Ports visited list placeholder.</p></section>
-<section id="attribution" class="card">
-  <h2>Attribution</h2>
-  <p class="small">© In The Wake. Some imagery © respective owners (used under license or public domain). All rights reserved.</p>
-</section>
-    </article>
+      <!-- Dining -->
+      <section id="dining-card" class="card" data-ship="Enchantment of the Seas" aria-labelledby="diningHeading">
+        <h2 id="diningHeading">Dining Venues on Enchantment of the Seas</h2>
+
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/rcl/enchantment-of-the-seas/dining-hero.jpg?v=3.006"
+             alt="Enchantment dining venue seating with ocean view" loading="lazy"
+             onerror="(function(img){var fb=[_abs('/assets/ships/enchantment-of-the-seas-dining.jpg?v=3.006'),_abs('/assets/img/Cordelia_Empress_Food_Court.jpg')];img._fbi=(img._fbi||0);if(img._fbi<fb.length){img.src=fb[img._fbi++];}})(this)"/>
+
+        <div class="dining-content" id="dining-content" aria-live="polite"></div>
+
+        <!-- normalize dining data source to venues.json on this origin -->
+        <script type="application/json" id="dining-data-source">{"provider":"rcl","json":"/assets/data/venues.json","ship_slug":"enchantment-of-the-seas","aliases":["Enchantment of the Seas","Enchantment Of The Seas","Enchantment"]}</script>
+        <script>
+        (function fixDiningJSON(){
+          function run(){
+            const el=document.getElementById('dining-data-source'); if(!el) return;
+            try{
+              const obj=JSON.parse(el.textContent||'{}');
+              if(obj){
+                const path='/assets/data/venues.json';
+                obj.json=(typeof _abs==='function')?_abs(path):path;
+                obj.url=obj.json;
+                obj.schema='rc.venues.v1';
+                el.textContent=JSON.stringify(obj);
+              }
+            }catch(_){}
+          }
+          if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run,{once:true});} else { run(); }
+        })();
+        </script>
+
+        <script>
+        // window.getShipVenues(slug) helper
+        (function(){
+          const DATA_PATH='/assets/data/venues.json';
+          const DATA_URL=(typeof _abs==='function')?_abs(DATA_PATH):DATA_PATH;
+          let _cache=null,_pending=null,_venuesIndex=null,_ships=null;
+
+          function load(){
+            if(_cache) return Promise.resolve(_cache);
+            if(_pending) return _pending;
+            _pending=fetch(DATA_URL,{credentials:'omit',referrerPolicy:'no-referrer'}).then(r=>r.json()).then(json=>{
+              if(!json||!Array.isArray(json.venues)||!json.ships) throw new Error('Invalid venues.json shape');
+              _venuesIndex=Object.fromEntries(json.venues.map(v=>[v.slug,v]));
+              _ships=json.ships; _cache=json; return json;
+            }).finally(()=>{_pending=null;});
+            return _pending;
+          }
+          async function getShipVenues(shipSlug){
+            const data=await load(); const ship=_ships[shipSlug];
+            if(!ship) return {meta:data.meta||{},ship:null,venues:[]};
+            const venues=(ship.venues||[]).map(slug=>{
+              const v=_venuesIndex[slug];
+              return v?Object.assign({slug},v):{slug,name:slug,category:'unknown'};
+            });
+            return {meta:data.meta||{},ship,venues};
+          }
+          window.getShipVenues=getShipVenues;
+        })();
+        </script>
+
+        <p class="tiny">Prices can change at any time. These reflect the last sailing captured.</p>
+      </section>
+    </section>
+
+    <!-- Logbook -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">The Logbook — Tales From the Wake</h2>
+      <div id="logbook-stories" class="prose"></div>
+    </section>
+
+    <!-- Videos -->
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Enchantment Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours (including accessible where available).</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
+
+    <!-- Row: Deck Plans + Live Tracker -->
+    <section class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
+        <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/enchantment-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+        <figure>
+          <img src="/assets/ship-map.png" alt="Enchantment of the Seas simplified deck plan preview" loading="lazy"/>
+        </figure>
+      </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="8814744" data-name="ENCHANTMENT-OF-THE-SEAS">
+        <h2 id="liveTrackHeading">Where Is Enchantment Right Now?</h2>
+        <p>See the ship's current position, speed, and next port on a live tracker.</p>
+
+        <div id="vf-map-radiance" class="vf-map" role="region" aria-label="Live ship map for Enchantment of the Seas" style="width:100%;height:300px;background:var(--sky)"></div>
+        <iframe class="live-map hidden" title="Live ship tracker for Enchantment of the Seas" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen aria-label="Live ship tracker for Enchantment of the Seas"></iframe>
+        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
+      </section>
+    </section>
+
+    <!-- Related -->
+    <section class="related-row">
+      <section class="card carousel related-ships" aria-labelledby="related-ships">
+        <h2 id="related-ships" class="card-title">Enchantment Class — Sister Ships</h2>
+        <div class="related-pills" aria-label="Enchantment-class ships">
+          <a class="pill" href="/ships/rcl/brilliance-of-the-seas.html">Brilliance of the Seas</a>
+          <a class="pill" href="/ships/rcl/serenade-of-the-seas.html">Serenade of the Seas</a>
+          <a class="pill" href="/ships/rcl/jewel-of-the-seas.html">Jewel of the Seas</a>
+        </div>
+        <p style="text-align:center"><a href="/ships.html" class="btn">See All Ships</a></p>
+      </section>
+
+      <section class="card carousel related-classes" aria-labelledby="related-classes">
+        <h2 id="related-classes" class="card-title">Explore Royal Caribbean Classes</h2>
+        <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
+        <div class="class-pills">
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Enchantment Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#vision">Vision Class</a>
+        </div>
+        <p style="text-align:center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
+      </section>
+    </section>
+
+    <!-- Attribution -->
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <ul>
+        <li>
+          "Enchantment of the Seas in Ketchikan" by <a href="https://commons.wikimedia.org/wiki/User:Roger_W" target="_blank" rel="noopener">Roger W</a> via
+          <a href="https://commons.wikimedia.org/wiki/File:Enchantment_of_the_Seas_(Ketchikan,_Alaska).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
+          licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
+        </li>
+        <li>
+          "Allure of the Seas" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
+          <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
+        </li>
+        <li>
+          "Royal Caribbean ship at sea" by <a href="https://commons.wikimedia.org/wiki/User:Caleb_Andrews" target="_blank" rel="noopener">Caleb Andrews</a> —
+          <a href="https://commons.wikimedia.org/wiki/File:Royal_Caribbean_at_sea.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
+          <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>.
+        </li>
+      </ul>
+    </section>
   </main>
 
   <!-- FOOTER -->
@@ -238,9 +584,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- JAVASCRIPT -->
   <script>
-  (function(){
-    "use strict";
-
+  (function(){"use strict";
     /* ===== Dropdown Menu with 300ms Hover Delay ===== */
     const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
     if (dropdownGroups.length) {
@@ -336,6 +680,197 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         closeAll();
       });
     }
+  })();
+  </script>
+
+  <!-- ===== First Look init ===== -->
+  <script>
+  (function initFirstLook(){
+    function go(){
+      if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
+      try{
+        new Swiper('.swiper.firstlook',{
+          loop:false,lazy:true,watchOverflow:true,
+          pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
+          navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
+          a11y:{enabled:true}
+        });
+      }catch(_){}
+    }
+    go();
+  })();
+  </script>
+
+  <!-- ===== Logbook loader (safe absolute fetch + a11y carousel) ===== -->
+  <script>
+  (function initShipLogbook(){
+    const mount=document.getElementById('logbook-stories'); if(!mount) return;
+    function norm(s){return String(s||'').toLowerCase().replace(/'/g,"'").trim();}
+    function abs(p){return (window._abs?_abs(p):p);}
+    function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+    function getShipContext(){
+      const stats=document.getElementById('ship-stats');
+      const attrSlug=(stats&&stats.getAttribute('data-slug'))||'';
+      const m=location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)/i);
+      const line=(m&&m[1])||'rcl'; const inferred=(m&&m[2])||'';
+      return {line:line.toLowerCase(),slug:(attrSlug||inferred||'enchantment-of-the-seas').toLowerCase()};
+    }
+    const ctx=getShipContext();
+    const SOURCES=[abs('/ships/'+ctx.line+'/assets/'+ctx.slug+'.json'),abs('/assets/data/logbook/'+ctx.line+'/'+ctx.slug+'.json'),abs('/assets/data/ships/'+ctx.line+'/'+ctx.slug+'.json')];
+    function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
+    function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
+    const state={i:0,items:[]};
+    function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');
+      const body=String(p.markdown||p.body||p.content||p.html||p.text||p.story||p.notes||'').trim(); if(!body) return '';
+      return '<article class="story" aria-live="polite"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';}
+    function ensureNav(){
+      if(document.getElementById('logbook-nav')) return;
+      const nav=document.createElement('nav'); nav.id='logbook-nav'; nav.className='logbook-nav'; nav.setAttribute('aria-label','Logbook navigation');
+      const prev=document.createElement('button'); prev.type='button'; prev.className='logbook-btn logbook-prev'; prev.textContent='‹ Previous'; prev.setAttribute('aria-label','Previous story');
+      const next=document.createElement('button'); next.type='button'; next.className='logbook-btn logbook-next'; next.textContent='Next ›'; next.setAttribute('aria-label','Next story');
+      nav.append(prev,next); mount.before(nav);
+      prev.onclick=()=>{ state.i=clamp(state.i-1,0,state.items.length-1); renderCurrent(); };
+      next.onclick=()=>{ state.i=clamp(state.i+1,0,state.items.length-1); renderCurrent(); };
+    }
+    function renderCurrent(){
+      const i=state.i,arr=state.items; if(!arr.length){mount.innerHTML='<p class="tiny">No logbook entries yet.</p>'; return;}
+      const html=renderOne(arr[i]); mount.innerHTML=html;
+      const nav=document.getElementById('logbook-nav'); if(!nav) return;
+      nav.querySelector('.logbook-prev').disabled=(i===0);
+      nav.querySelector('.logbook-next').disabled=(i===arr.length-1);
+    }
+    fetchFirst().then(data=>{
+      if(!data) return;
+      const arr=data.perspectives||data.logbook||data.stories||data.entries||[];
+      if(!arr.length) return;
+      state.items=arr; state.i=0; ensureNav(); renderCurrent();
+    });
+  })();
+  </script>
+
+  <!-- ===== Video carousel loader ===== -->
+  <script>
+  (function initVideos(){
+    const mount=document.getElementById('featuredVideos'); if(!mount) return;
+    const fallback=document.getElementById('videoFallback');
+    function abs(p){return (window._abs?_abs(p):p);}
+    function getVideoURL(videoId,provider){
+      if(!videoId) return null;
+      if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+videoId+'?rel=0&modestbranding=1';
+      if(provider==='vimeo') return 'https://player.vimeo.com/video/'+videoId+'?title=0&byline=0&portrait=0';
+      return null;
+    }
+    function renderVideos(arr){
+      if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+      mount.innerHTML=arr.map(v=>{
+        const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+        const title=String(v.title||'Enchantment of the Seas').replace(/</g,'&lt;');
+        return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+      }).join('');
+      if(mount.children.length&&window.__swiperReady&&window.Swiper){
+        setTimeout(()=>{
+          try{
+            new Swiper('.swiper.videos',{
+              loop:false,lazy:true,watchOverflow:true,
+              pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+              navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+              a11y:{enabled:true}
+            });
+          }catch(_){}
+        },150);
+      }
+    }
+    function fetchVideoData(){
+      const SOURCES=[abs('/assets/data/videos/enchantment-of-the-seas.json'),abs('/ships/rcl/assets/enchantment-of-the-seas-videos.json')];
+      function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+        return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+      return tryFetch();
+    }
+    fetchVideoData().then(data=>{ if(data) renderVideos(data.videos||data); });
+  })();
+  </script>
+
+  <!-- ===== Ship stats loader ===== -->
+  <script>
+  (function initStats(){
+    const mount=document.getElementById('ship-stats'); if(!mount) return;
+    const fallbackEl=document.getElementById('ship-stats-fallback');
+    function abs(p){return (window._abs?_abs(p):p);}
+    function renderStats(obj){
+      if(!obj) return;
+      const keys=['class','entered_service','gt','guests','crew','length','beam','registry'];
+      const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
+      mount.innerHTML=keys.map(k=>{
+        const val=obj[k]; if(!val) return '';
+        return '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span></div>';
+      }).join('');
+    }
+    if(fallbackEl){
+      try{ const fb=JSON.parse(fallbackEl.textContent||'{}'); if(fb) renderStats(fb); }catch(_){}
+    }
+    const SOURCES=[abs('/assets/data/ships/enchantment-of-the-seas.json'),abs('/ships/rcl/assets/enchantment-of-the-seas.json')];
+    function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+    tryFetch().then(data=>{ if(data) renderStats(data); });
+  })();
+  </script>
+
+  <!-- ===== Dining loader ===== -->
+  <script>
+  (function initDining(){
+    const mount=document.getElementById('dining-content'); if(!mount) return;
+    const sourceEl=document.getElementById('dining-data-source');
+    if(!sourceEl) return;
+    function abs(p){return (window._abs?_abs(p):p);}
+    let config={};
+    try{ config=JSON.parse(sourceEl.textContent||'{}'); }catch(_){}
+    function renderVenues(ship,venues){
+      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
+      const byCategory={};
+      venues.forEach(v=>{
+        const cat=v.category||'other';
+        if(!byCategory[cat]) byCategory[cat]=[];
+        byCategory[cat].push(v);
+      });
+      const catOrder=['mdr','specialty','casual','bar'];
+      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
+      let html='';
+      catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
+        const arr=byCategory[cat]; if(!arr) return;
+        html+='<h3>'+catLabels[cat]+'</h3><ul class="venues-list">';
+        arr.forEach(v=>{
+          const name=String(v.name||v.slug).replace(/</g,'&lt;');
+          const desc=String(v.description||'').replace(/</g,'&lt;');
+          const price=(v.price||v.cost)?'<span class="venue-price">'+(v.price||v.cost)+'</span>':'';
+          html+='<li><strong>'+name+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
+        });
+        html+='</ul>';
+      });
+      mount.innerHTML=html;
+    }
+    if(typeof window.getShipVenues==='function'){
+      const slug=config.ship_slug||'enchantment-of-the-seas';
+      window.getShipVenues(slug).then(result=>{
+        if(result&&result.venues) renderVenues(result.ship,result.venues);
+      }).catch(()=>{});
+    }
+  })();
+  </script>
+
+  <!-- ===== Live tracker ===== -->
+  <script>
+  (function initLiveTracker(){
+    const card=document.querySelector('.card.itinerary[data-imo]');
+    if(!card) return;
+    const imo=card.getAttribute('data-imo');
+    const iframe=card.querySelector('iframe.live-map');
+    if(!imo||!iframe) return;
+    const src='https://www.vesselfinder.com/aismap?imo='+imo+'&width=100%&height=300&zoom=10';
+    iframe.src=src;
+    iframe.classList.remove('hidden');
   })();
   </script>
 </body>
