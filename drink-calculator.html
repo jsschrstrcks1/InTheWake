@@ -3,16 +3,18 @@
 <head>
   <!-- ======================================================
        In the Wake — Royal Caribbean Drink Calculator
-       Version: 1.003.000  |  Soli Deo Gloria ✝️
+       Version: 3.010.300  |  Soli Deo Gloria ✝️
        "I was eyes to the blind and feet to the lame" - Job 29:15
        "Whatever you do, work heartily, as for the Lord" - Colossians 3:23
-       
+
        ACCESSIBILITY COMMITMENT:
        This calculator serves ALL travelers - regardless of ability,
        age, or circumstance. Every feature is keyboard accessible,
        screen reader compatible, and designed with care.
-       
-       CHANGELOG v1.003.000:
+
+       AI-First SEO with E-E-A-T Person Schema
+
+       CHANGELOG v3.010.300 (formerly v1.003.000):
        - CRITICAL FIX: Minors forced to Refreshment when adults buy Deluxe
        - CRITICAL FIX: Clarified "per adult" in daily drinks section
        - CRITICAL FIX: Updated policy warning (absolute NO EXCEPTIONS)
@@ -33,7 +35,7 @@
   <meta name="robots" content="index,follow,max-image-preview:large"/>
   <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="1.003.000"/>
+  <meta name="version" content="3.010.300"/>
   <meta name="author" content="In the Wake"/>
   
   <!-- Title & SEO -->
@@ -57,7 +59,34 @@
     {"@type":"ListItem","position":2,"name":"Drink Calculator","item":"https://cruisinginthewake.com/drink-calculator.html"}
   ]}
   </script>
-  
+
+  <!-- JSON-LD: Person (E-E-A-T) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ken Baker",
+    "url": "https://cruisinginthewake.com/authors/ken-baker.html",
+    "jobTitle": "Founder and Editor",
+    "description": "Traveler, pastor, and storyteller. Founder of In the Wake, a cruise traveler's logbook offering planning tools, travel tips, and faith-scented reflections for smoother sailings.",
+    "image": "https://cruisinginthewake.com/authors/img/ken1.webp",
+    "sameAs": [
+      "https://www.flickersofmajesty.com"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "In the Wake"
+    },
+    "knowsAbout": [
+      "Cruise Planning",
+      "Royal Caribbean",
+      "Cruise Ship Beverage Packages",
+      "Travel Budgeting",
+      "Travel Writing"
+    ]
+  }
+  </script>
+
   <!-- Favicon / PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="manifest" href="/manifest.webmanifest"/>
@@ -80,7 +109,7 @@
       if (!window.Chart) {
         console.warn('[HTML] Chart.js CDN failed, loading fallback');
         const fallback = document.createElement('script');
-        fallback.src = '/assets/vendor/chart.umd.min.js?v=1.003.000';
+        fallback.src = '/assets/vendor/chart.umd.min.js?v=3.010.300';
         fallback.defer = true;
         document.head.appendChild(fallback);
       }
@@ -89,7 +118,7 @@
   </script>
   
   <!-- Styles -->
-  <link rel="stylesheet" href="/assets/css/calculator.css?v=1.003.000"/>
+  <link rel="stylesheet" href="/assets/css/calculator.css?v=3.010.300"/>
   
   <!-- ✅ Accessibility Styles -->
   <style>
@@ -200,6 +229,87 @@
     .preset-btn:active {
       transform: translateY(0);
     }
+
+    /* Dropdown Navigation Styles */
+    .nav-disclosure .caret {
+      display: inline-block;
+      margin-left: .25rem;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-item[data-open="true"] .nav-disclosure .caret {
+      transform: rotate(180deg);
+    }
+
+    .submenu {
+      position: absolute !important;
+      left: 0;
+      top: calc(100% + 4px);
+      min-width: 240px;
+      background: #fff;
+      border: 2px solid var(--rope);
+      border-radius: 12px;
+      padding: .6rem;
+      box-shadow: 0 8px 24px rgba(8,48,65,.15);
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      z-index: 2100;
+    }
+
+    .submenu::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: transparent;
+    }
+
+    .nav-item[data-open="true"] .submenu,
+    .nav-group.open .submenu {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .submenu a {
+      display: block;
+      padding: .5rem .75rem;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .submenu a:hover,
+    .submenu a:focus {
+      background: #eef4f6;
+      outline: none;
+    }
+
+    .submenu a[aria-current="page"] {
+      background: #e6f4f8;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .submenu {
+        position: static !important;
+        min-width: 0;
+        margin-top: .5rem;
+        box-shadow: none;
+        border: 1px solid var(--rope);
+      }
+
+      .submenu::before {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -215,8 +325,8 @@
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png?v=1.003.000" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge">v1.003.000</span>
+        <img src="/assets/logo_wake.png?v=3.010.300" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge">v3.010.300</span>
       </div>
       <nav class="nav pill-nav" aria-label="Primary">
         <a href="/">Home</a>
@@ -248,9 +358,9 @@
       </nav>
     </div>
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=1.003.000" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=1.003.000" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.300" width="560" height="144" alt="In the Wake" decoding="async"/>
         <div class="tagline">A Cruise Traveler's Logbook</div>
       </div>
       <div class="hero-credit">
@@ -793,8 +903,8 @@
         <div class="author-info">
           <a href="/authors/ken-baker.html" class="author-link">
             <picture>
-              <source srcset="/authors/img/ken1.webp?v=1.003.000" type="image/webp"/>
-              <img class="author-avatar" src="/authors/img/ken1.jpg?v=1.003.000" width="96" height="96" alt="Ken Baker" decoding="async"/>
+              <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+              <img class="author-avatar" src="/authors/img/ken1.jpg?v=3.010.300" width="96" height="96" alt="Ken Baker" decoding="async"/>
             </picture>
           </a>
           <div>
@@ -944,7 +1054,7 @@
   
   <!-- JAVASCRIPT - LOAD ORDER CRITICAL -->
   <!-- Math engine FIRST -->
-  <script src="/assets/js/calculator-math.js?v=1.003.000"></script>
+  <script src="/assets/js/calculator-math.js?v=3.010.300"></script>
   
   <!-- Verify math loaded -->
   <script>
@@ -956,15 +1066,122 @@
   </script>
   
   <!-- Core engine SECOND -->
-  <script src="/assets/js/calculator.js?v=1.003.000" defer></script>
+  <script src="/assets/js/calculator.js?v=3.010.300" defer></script>
   
   <!-- UI layer THIRD -->
-  <script src="/assets/js/calculator-ui.js?v=1.003.000" defer></script>
+  <script src="/assets/js/calculator-ui.js?v=3.010.300" defer></script>
   
   <!-- ✅ NEW: Package Selection Feature -->
-  <script src="/assets/js/package-selection-feature.js?v=1.003.000" defer></script>
+  <script src="/assets/js/package-selection-feature.js?v=3.010.300" defer></script>
   
   <!-- Optional: Share bar -->
-  <script src="/assets/js/share-bar.js?v=1.003.000" defer></script>
+  <script src="/assets/js/share-bar.js?v=3.010.300" defer></script>
+
+  <!-- Dropdown nav behavior -->
+  <script>
+  (function(){
+    const navItems = document.querySelectorAll('.nav-group');
+    const timeouts = new Map();
+
+    navItems.forEach(item => {
+      const toggle = item.querySelector('.nav-disclosure');
+      const submenu = item.querySelector('.submenu');
+      if (!toggle || !submenu) return;
+
+      const delay = parseInt(item.dataset.hoverDelay, 10) || 0;
+      const links = submenu.querySelectorAll('a[role="menuitem"]');
+
+      function open() {
+        const existingTimeout = timeouts.get(item);
+        if (existingTimeout) clearTimeout(existingTimeout);
+
+        const tid = setTimeout(() => {
+          item.classList.add('open');
+          item.setAttribute('data-open', 'true');
+          toggle.setAttribute('aria-expanded', 'true');
+          timeouts.delete(item);
+        }, delay);
+
+        timeouts.set(item, tid);
+      }
+
+      function close() {
+        const existingTimeout = timeouts.get(item);
+        if (existingTimeout) {
+          clearTimeout(existingTimeout);
+          timeouts.delete(item);
+        }
+
+        item.classList.remove('open');
+        item.removeAttribute('data-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+
+      item.addEventListener('mouseenter', open);
+      item.addEventListener('mouseleave', close);
+
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isOpen = item.classList.contains('open');
+        if (isOpen) {
+          close();
+        } else {
+          open();
+        }
+      });
+
+      toggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const isOpen = item.classList.contains('open');
+          if (isOpen) {
+            close();
+          } else {
+            open();
+            if (links.length > 0) {
+              setTimeout(() => links[0].focus(), 50);
+            }
+          }
+        } else if (e.key === 'Escape') {
+          close();
+          toggle.focus();
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (!item.classList.contains('open')) {
+            open();
+          }
+          if (links.length > 0) {
+            setTimeout(() => links[0].focus(), 50);
+          }
+        }
+      });
+
+      submenu.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          close();
+          toggle.focus();
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          const current = document.activeElement;
+          const index = Array.from(links).indexOf(current);
+          let next;
+          if (e.key === 'ArrowDown') {
+            next = links[index + 1] || links[0];
+          } else {
+            next = links[index - 1] || links[links.length - 1];
+          }
+          next.focus();
+        }
+      });
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          close();
+        });
+      });
+    });
+  })();
+  </script>
 </body>
 </html>
