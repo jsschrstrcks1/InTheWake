@@ -136,7 +136,59 @@
   async function loadShipData(shipSlug) {
     const slug = normalizeShipSlug(shipSlug);
     const url = DATA_PATH_TEMPLATE.replace('{ship}', slug);
-    return await fetchJSON(url);
+    const rawData = await fetchJSON(url);
+
+    // Handle nested structure: { "radiance-of-the-seas": { exceptions: [...] } }
+    // Extract the ship data from the wrapper object
+    let shipData;
+    if (rawData && rawData[slug]) {
+      shipData = rawData[slug];
+    } else {
+      // Fallback: if data is already in correct format
+      shipData = rawData;
+    }
+
+    // Add ship_name if not present (derive from slug)
+    if (shipData && !shipData.ship_name) {
+      shipData.ship_name = slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
+
+    return shipData;
+  }
+
+  /**
+   * Normalize exception data from JSON format to internal format
+   */
+  function normalizeException(ex) {
+    // Map flag to category and infer severity
+    const flagToCategorySeverity = {
+      'VIEW_PARTIAL_OVERHANG': { category: 'view', severity: 'minor', heading: 'Partial View Obstruction' },
+      'VIEW_OBSTRUCTED_LIFEBOAT': { category: 'view', severity: 'minor', heading: 'View Obstructed by Lifeboat' },
+      'VIEW_OBSTRUCTED_STRUCTURAL': { category: 'view', severity: 'minor', heading: 'Structural View Obstruction' },
+      'NOISE_POOL_ABOVE': { category: 'noise', severity: 'minor', heading: 'Pool Deck Noise Above' },
+      'NOISE_MULTIDECK_ATRIUM': { category: 'noise', severity: 'minor', heading: 'Atrium Noise' },
+      'NOISE_ELEVATOR_TRAFFIC': { category: 'noise', severity: 'minor', heading: 'Elevator Noise' },
+      'NOISE_THEATER_BELOW': { category: 'noise', severity: 'minor', heading: 'Theater Noise Below' },
+      'NOISE_GALLEY_ABOVE': { category: 'noise', severity: 'minor', heading: 'Galley Noise' },
+      'MOTION_FORWARD': { category: 'motion', severity: 'info', heading: 'Forward Motion' },
+      'MOTION_AFT': { category: 'motion', severity: 'info', heading: 'Aft Motion' },
+      'MOTION_HIGH_DECK': { category: 'motion', severity: 'info', heading: 'Higher Deck Motion' },
+      'CONNECTING_DOOR': { category: 'noise', severity: 'info', heading: 'Connecting Door' }
+    };
+
+    const mapping = flagToCategorySeverity[ex.flag] || { category: 'general', severity: 'info', heading: 'Note' };
+
+    return {
+      rooms: ex.rooms,
+      category: mapping.category,
+      severity: mapping.severity,
+      display_heading: mapping.heading,
+      pastoral_description: ex.evidence_summary || ex.description || 'Please note this cabin has a quirk.',
+      description: ex.evidence_summary || ex.description,
+      flag: ex.flag,
+      trust_score: ex.trust_score,
+      report_count: ex.report_count
+    };
   }
 
   /**
@@ -154,7 +206,8 @@
 
     exceptionsData.exceptions.forEach(exception => {
       if (cabinMatchesSpec(cabin, exception.rooms)) {
-        matches.push(exception);
+        // Normalize exception data before adding
+        matches.push(normalizeException(exception));
       }
     });
 
