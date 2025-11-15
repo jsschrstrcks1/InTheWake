@@ -200,10 +200,13 @@ figure figcaption { text-align:inherit; }
         <span class="tiny version-badge">v3.010.022</span>
       </div>
 
-      <!-- De-duplicated, accessible pill nav -->
-      <nav class="nav pill-nav" aria-label="Primary">
-        <a href="/">Home</a>
+      <!-- Navigation with Dropdown Menus -->
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
 
+        <!-- Planning Dropdown -->
         <div class="nav-item nav-group" id="nav-planning" data-open="false">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
           <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
@@ -225,7 +228,9 @@ figure figcaption { text-align:inherit; }
           </div>
         </div>
 
-        <a href="/about-us.html">About</a>
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
       </nav>
     </div>
 
