@@ -822,6 +822,7 @@
         <a class="pill" href="#families">Families</a>
         <a class="pill" href="#tips">Tips</a>
         <button class="pill" onclick="window.print()" style="cursor:pointer;background:var(--foam);border-color:var(--accent);" aria-label="Print packing lists">🖨️ Print</button>
+        <button class="pill" onclick="navigator.share ? navigator.share({title: 'Cruise Packing Lists', text: 'Comprehensive cruise packing checklists from In the Wake', url: window.location.href}) : (navigator.clipboard.writeText(window.location.href) && alert('Link copied to clipboard!'))" style="cursor:pointer;background:var(--foam);border-color:var(--accent);" aria-label="Share packing lists">🔗 Share</button>
       </nav>
 
       <section class="card" aria-labelledby="carryon">
