@@ -1,11 +1,19 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1.004.003 (Coffee Punch System + All Fixes)
+ * Version: 1.005.000 (Kids Package Cost Fix)
  *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  *
  * Soli Deo Gloria ✝️
+ *
+ * CHANGELOG v1.005.000:
+ * ✅ CRITICAL FIX: Package costs now include minors' packages!
+ *    - Soda package: was only counting adults, now includes kids' soda packages
+ *    - Refresh package: was only counting adults, now includes kids' refresh packages
+ *    - Deluxe package: already correct (adults deluxe + kids refresh)
+ *    - This fixes the bug where adding kids caused soda to be incorrectly recommended
+ *    - Example: 2 adults + 2 kids, all drinking soda → soda packages for ALL 4 people, not just adults
  *
  * CHANGELOG v1.004.003:
  * ✅ MAJOR FEATURE: Split coffee into small (1 punch) and large/iced (2 punches)
@@ -129,17 +137,20 @@ function adaptDataset(dataset) {
 function calculateNudges(inputs, economics, dataset, results) {
   const nudges = [];
   const { days, adults, drinks } = inputs;
-  const { pkg } = economics;
-  const { prices } = adaptDataset(dataset);
-  
+  const { pkg, grat } = economics;
+  const { prices, gratuity } = adaptDataset(dataset);
+  const gratuityRate = grat !== undefined ? grat : gratuity;
+
   if (days <= 0 || adults <= 0) return nudges;
-  
+
+  // CRITICAL FIX v1.005.000: Package prices are per-person-per-day, need to add gratuity
+  // NOT divide by days!
   const perPersonDaily = {
-    soda: round2(pkg.soda / days),
-    refresh: round2(pkg.refresh / days),
-    deluxe: round2(pkg.deluxe / days)
+    soda: round2(pkg.soda * (1 + gratuityRate)),
+    refresh: round2(pkg.refresh * (1 + gratuityRate)),
+    deluxe: round2(pkg.deluxe * (1 + gratuityRate))
   };
-  
+
   const currentDaily = round2(results.perDay / Math.max(1, adults));
   
   if (currentDaily < perPersonDaily.soda && currentDaily > 0) {
@@ -159,15 +170,15 @@ function calculateNudges(inputs, economics, dataset, results) {
   
   if (currentDaily < perPersonDaily.refresh && currentDaily >= perPersonDaily.soda) {
     const gap = perPersonDaily.refresh - currentDaily;
-    const coffeePrice = prices.coffee || 4.5;
+    const coffeePrice = prices.coffeeLarge || prices.coffeeSmall || 4.5;
     const drinksNeeded = Math.ceil(gap / coffeePrice);
     if (drinksNeeded > 0 && drinksNeeded <= 5) {
       nudges.push({
         package: 'refresh',
-        message: `Add ${drinksNeeded} premium ${drinksNeeded === 1 ? 'drink' : 'drinks'} per day to break even with Refreshment package`,
+        message: `Add ${drinksNeeded} specialty coffee${drinksNeeded === 1 ? '' : 's'} per day to break even with Refreshment package`,
         icon: '☕',
         priority: 2,
-        ariaLabel: `Breakeven tip: Add ${drinksNeeded} premium drinks per day to reach Refreshment package value`
+        ariaLabel: `Breakeven tip: Add ${drinksNeeded} specialty coffees per day to reach Refreshment package value`
       });
     }
   }
@@ -382,30 +393,35 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // À-la-carte total = raw cost - free coffee discount + coffee card purchase cost
   const totalAlc = Math.max(0, rawTotal - coffeeDiscount + coffeeCardCost);
 
-  // Package costs - adults only for now
+  // Package costs - adults only
   const sodaPkg = pkgSoda * (1 + grat) * days * adults;
   const refreshPkg = pkgRefresh * (1 + grat) * days * adults;
   const deluxePkg = pkgDeluxe * (1 + grat) * days * adults;
-  
-  // CRITICAL v1.003.000: Add minor costs when adults choose Deluxe
-  // Minors MUST buy Refreshment when adults buy Deluxe
+
+  // CRITICAL FIX v1.005.000: Add minors' package costs to all package calculations!
+  // When comparing package options, we must include the cost of packages for minors
+  const sodaPkgWithMinors = sodaPkg + (minors > 0 ? (pkgSoda * (1 + grat) * days * minors) : 0);
+  const refreshPkgWithMinors = refreshPkg + (minors > 0 ? (pkgRefresh * (1 + grat) * days * minors) : 0);
+
+  // CRITICAL v1.003.000: Minors MUST buy Refreshment when adults buy Deluxe (Royal Caribbean policy)
   const deluxePkgWithMinors = deluxePkg + (minors > 0 ? (pkgRefresh * (1 + grat) * days * minors) : 0);
-  
+
   const alcPerDay = alcTotal / days;
   const alcPerPerson = adults > 0 ? alcPerDay / adults : 0;
   const overcap = Math.max(0, alcPerPerson - cap);
-  
-  // CRITICAL FIX v1.003.000: Calculate TRUE total cost for each package option
+
+  // CRITICAL FIX v1.004.000 + v1.005.000: Calculate TRUE total cost for each package option
   // Each package only covers certain drinks - uncovered drinks must be paid à la carte!
-  const sodaTotalCost = sodaPkg + (totalAlc - sodaTotal); // Soda pkg + all non-soda drinks à la carte
-  const refreshTotalCost = refreshPkg + (totalAlc - refreshTotal); // Refresh pkg + alcoholic drinks à la carte
+  // AND include minors' package costs in the total!
+  const sodaTotalCost = sodaPkgWithMinors + (totalAlc - sodaTotal); // Soda pkg (all people) + all non-soda drinks à la carte
+  const refreshTotalCost = refreshPkgWithMinors + (totalAlc - refreshTotal); // Refresh pkg (all people) + alcoholic drinks à la carte
   const deluxeTotalCost = deluxePkgWithMinors + (overcap * days * adults); // Deluxe pkg + over-cap drinks
 
-  console.log('[Math Engine] Package comparison (including uncovered drinks):');
+  console.log('[Math Engine] Package comparison (including uncovered drinks + minors):');
   console.log(`  À la carte: $${totalAlc.toFixed(2)}`);
-  console.log(`  Soda: $${sodaPkg.toFixed(2)} (pkg) + $${(totalAlc - sodaTotal).toFixed(2)} (uncovered) = $${sodaTotalCost.toFixed(2)}`);
-  console.log(`  Refresh: $${refreshPkg.toFixed(2)} (pkg) + $${(totalAlc - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
-  console.log(`  Deluxe: $${deluxePkgWithMinors.toFixed(2)} (pkg) + $${(overcap * days * adults).toFixed(2)} (over-cap) = $${deluxeTotalCost.toFixed(2)}`);
+  console.log(`  Soda: $${sodaPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(totalAlc - sodaTotal).toFixed(2)} (uncovered) = $${sodaTotalCost.toFixed(2)}`);
+  console.log(`  Refresh: $${refreshPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(totalAlc - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
+  console.log(`  Deluxe: $${deluxePkgWithMinors.toFixed(2)} (pkg: adults=${adults} deluxe, minors=${minors} refresh) + $${(overcap * days * adults).toFixed(2)} (over-cap) = $${deluxeTotalCost.toFixed(2)}`);
 
   const bars = {
     alc: { min: totalAlc, mean: totalAlc, max: totalAlc },
@@ -574,15 +590,15 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 if (typeof window !== 'undefined') {
   window.ITW_MATH = Object.freeze({
     compute,
-    version: '1.004.000'
+    version: '1.005.000'
   });
-  console.log('[ITW Math Engine] v1.004.000 loaded ✓');
-  console.log('[ITW Math Engine] CRITICAL FIX: Package recommendations now account for uncovered drinks');
-  console.log('[ITW Math Engine] FIXED: Coffee drinks no longer incorrectly suggest Soda package');
+  console.log('[ITW Math Engine] v1.005.000 loaded ✓');
+  console.log('[ITW Math Engine] CRITICAL FIX: Package costs now include minors\' packages');
+  console.log('[ITW Math Engine] FIXED: Adding kids no longer incorrectly recommends soda package');
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
-    version: '1.004.000'
+    version: '1.005.000'
   });
 }
 

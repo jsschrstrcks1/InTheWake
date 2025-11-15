@@ -1113,23 +1113,75 @@ const debouncedCalc = debounce(scheduleCalculation);
 
 /* ==================== INPUT HANDLING ==================== */
 
+/**
+ * Sync UI inputs with current state
+ * ✅ NEW: Used after loading state from URL or storage
+ */
+function syncUIFromState() {
+  const state = store.get();
+
+  // Map state keys to input data-input attributes
+  const inputMap = {
+    'days': 'days',
+    'adults': 'adults',
+    'minors': 'minors',
+    'seaDays': 'seadays',
+    'seaApply': 'seaapply',
+    'seaWeight': 'seaweight',
+    'coffeeCards': 'coffee-cards',
+    'coffeePunches': 'coffee-punches'
+  };
+
+  // Update core inputs
+  Object.keys(inputMap).forEach(stateKey => {
+    const inputKey = inputMap[stateKey];
+    const input = document.querySelector(`[data-input="${inputKey}"]`);
+    if (input && state.inputs[stateKey] !== undefined) {
+      if (input.type === 'checkbox') {
+        input.checked = Boolean(state.inputs[stateKey]);
+      } else {
+        input.value = state.inputs[stateKey];
+      }
+    }
+  });
+
+  // Update drink inputs
+  const drinks = state.inputs.drinks || {};
+  Object.keys(drinks).forEach(drinkKey => {
+    const input = document.querySelector(`[data-input="${drinkKey}"]`);
+    if (input) {
+      input.value = drinks[drinkKey] || 0;
+    }
+  });
+
+  // Update voucher inputs
+  if (state.inputs.vouchers) {
+    const voucherAdult = document.querySelector('[data-input="voucher-adult"]');
+    const voucherMinor = document.querySelector('[data-input="voucher-minor"]');
+    if (voucherAdult) voucherAdult.value = state.inputs.vouchers.adultCountPerDay || 0;
+    if (voucherMinor) voucherMinor.value = state.inputs.vouchers.minorCountPerDay || 0;
+  }
+
+  console.log('[Core] ✓ UI synced with state');
+}
+
 function wireInputs() {
   $$('[data-input]').forEach((input) => {
     if (input.type === 'text' || input.type === 'email') {
       Security.wireSecureInput(input);
     }
-    
+
     input.addEventListener('input', (e) => {
       const key = input.dataset.input;
       const value = input.type === 'checkbox' ? e.target.checked : e.target.value;
       updateInput(key, value);
       debouncedCalc();
     });
-    
+
     input.addEventListener('change', () => {
       saveToStorage();
     });
-    
+
     if (input.type === 'range') {
       input.addEventListener('input', (e) => {
         const key = input.dataset.input;
@@ -1140,6 +1192,28 @@ function wireInputs() {
       });
     }
   });
+}
+
+/**
+ * Wire up action buttons (share, reset, etc.)
+ * ✅ NEW: Adds click handlers for calculator action buttons
+ */
+function wireButtons() {
+  // Share button
+  const shareBtn = $('#share-btn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      shareScenario();
+    });
+  }
+
+  // Reset button (if not already wired elsewhere)
+  const resetBtn = $('#reset-btn');
+  if (resetBtn && !resetBtn.onclick) {
+    resetBtn.addEventListener('click', () => {
+      resetInputs();
+    });
+  }
 }
 
 function updateInput(key, rawValue) {
@@ -1213,10 +1287,121 @@ function resetInputs() {
   announce('All inputs reset');
 }
 
+/**
+ * Generate shareable URL with current calculator state
+ * ✅ NEW: Encodes drinks, days, adults, etc. as URL parameters
+ */
+function generateShareURL() {
+  const state = store.get();
+  const params = new URLSearchParams();
+
+  // Core inputs
+  if (state.inputs.days !== 7) params.set('days', state.inputs.days);
+  if (state.inputs.adults !== 1) params.set('adults', state.inputs.adults);
+  if (state.inputs.minors !== 0) params.set('minors', state.inputs.minors);
+
+  // Drinks - only include non-zero values
+  const drinks = state.inputs.drinks || {};
+  Object.keys(drinks).forEach(key => {
+    const qty = drinks[key];
+    if (qty > 0) {
+      params.set(key, qty);
+    }
+  });
+
+  // Coffee cards if any
+  if (state.inputs.coffeeCards > 0) params.set('coffeeCards', state.inputs.coffeeCards);
+  if (state.inputs.coffeePunches > 0) params.set('coffeePunches', state.inputs.coffeePunches);
+
+  // Vouchers if any
+  if (state.inputs.vouchers?.adultCountPerDay > 0) {
+    params.set('voucherAdult', state.inputs.vouchers.adultCountPerDay);
+  }
+  if (state.inputs.vouchers?.minorCountPerDay > 0) {
+    params.set('voucherMinor', state.inputs.vouchers.minorCountPerDay);
+  }
+
+  const baseURL = location.origin + location.pathname;
+  const queryString = params.toString();
+
+  return queryString ? `${baseURL}?${queryString}` : baseURL;
+}
+
+/**
+ * Load calculator state from URL parameters
+ * ✅ NEW: Restores shared configuration from URL
+ */
+function loadStateFromURL() {
+  const params = new URLSearchParams(location.search);
+
+  if (params.toString() === '') return false; // No params to load
+
+  const state = safeClone(store.get());
+  let hasChanges = false;
+
+  // Core inputs
+  if (params.has('days')) {
+    state.inputs.days = parseFloat(params.get('days')) || 7;
+    hasChanges = true;
+  }
+  if (params.has('adults')) {
+    state.inputs.adults = parseFloat(params.get('adults')) || 1;
+    hasChanges = true;
+  }
+  if (params.has('minors')) {
+    state.inputs.minors = parseFloat(params.get('minors')) || 0;
+    hasChanges = true;
+  }
+
+  // Drinks
+  const drinkKeys = ['soda', 'coffeeSmall', 'coffeeLarge', 'teaprem', 'freshjuice',
+                     'mocktail', 'energy', 'milkshake', 'bottledwater',
+                     'beer', 'wine', 'cocktail', 'spirits'];
+  drinkKeys.forEach(key => {
+    if (params.has(key)) {
+      state.inputs.drinks[key] = parseFloat(params.get(key)) || 0;
+      hasChanges = true;
+    }
+  });
+
+  // Coffee cards
+  if (params.has('coffeeCards')) {
+    state.inputs.coffeeCards = parseFloat(params.get('coffeeCards')) || 0;
+    hasChanges = true;
+  }
+  if (params.has('coffeePunches')) {
+    state.inputs.coffeePunches = parseFloat(params.get('coffeePunches')) || 0;
+    hasChanges = true;
+  }
+
+  // Vouchers
+  if (params.has('voucherAdult') || params.has('voucherMinor')) {
+    state.inputs.vouchers = state.inputs.vouchers || {};
+    if (params.has('voucherAdult')) {
+      state.inputs.vouchers.adultCountPerDay = parseFloat(params.get('voucherAdult')) || 0;
+      hasChanges = true;
+    }
+    if (params.has('voucherMinor')) {
+      state.inputs.vouchers.minorCountPerDay = parseFloat(params.get('voucherMinor')) || 0;
+      hasChanges = true;
+    }
+  }
+
+  if (hasChanges) {
+    store.patch('inputs', state.inputs);
+    console.log('[Core] ✓ Loaded configuration from share URL');
+    return true;
+  }
+
+  return false;
+}
+
 function shareScenario() {
   try {
-    navigator.clipboard.writeText(location.href);
-    announce('Link copied to clipboard');
+    const shareURL = generateShareURL();
+    navigator.clipboard.writeText(shareURL);
+    announce('Share link copied to clipboard');
+    console.log('[Core] Share URL copied:', shareURL);
   } catch (e) {
     console.error('[Core] Failed to copy link:', e);
     announce('Unable to copy link', 'assertive');
@@ -1276,18 +1461,33 @@ window.ITW = Object.freeze({
 
 async function initialize() {
   console.log(`[Core] Initializing v${VERSION} (Phase 1 Complete)`); // ✅ FIXED: Backtick syntax
-  
+
   loadFromStorage();
+
+  // ✅ NEW: Load state from URL if shared link was used
+  const loadedFromURL = loadStateFromURL();
+  if (loadedFromURL) {
+    // URL params override storage, so update UI after wireInputs()
+    announce('Loaded shared configuration');
+  }
+
   await loadFXRates();
   setupCurrencySelector();
   await loadBrandConfig();
   await loadDataset();
-  
+
   if (CONFIG.WORKER.enabled) {
     initializeWorker();
   }
-  
+
   wireInputs();
+  wireButtons(); // ✅ NEW: Wire up share button and other action buttons
+
+  // ✅ NEW: If loaded from URL, sync UI with URL params
+  if (loadedFromURL) {
+    syncUIFromState();
+  }
+
   scheduleCalculation();
   
   window.addEventListener('beforeunload', saveToStorage);
