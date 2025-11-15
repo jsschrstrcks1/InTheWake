@@ -1,0 +1,328 @@
+/**
+ * Ships Dynamic Styles v1.000.000
+ * Soli Deo Gloria
+ *
+ * Styles for the dynamic, hierarchical ships interface
+ */
+
+/* ===== Cruise Line Section ===== */
+.cruise-line-section {
+  margin-bottom: 3rem;
+}
+
+.cruise-line-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid var(--rope, #8B7355);
+}
+
+.cruise-line-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent, #0e6e8e);
+  margin: 0;
+}
+
+.view-all-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--accent, #0e6e8e);
+  color: white;
+  border: 2px solid var(--accent, #0e6e8e);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+}
+
+.view-all-btn:hover {
+  background: var(--sea, #0a5570);
+  border-color: var(--sea, #0a5570);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(14, 110, 142, 0.2);
+}
+
+.view-all-btn:active {
+  transform: translateY(0);
+}
+
+/* ===== Ship Class Section ===== */
+.ship-class-section {
+  margin-bottom: 2rem;
+  border: 2px solid var(--rope, #8B7355);
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.ship-class-section.collapsed .ship-class-content {
+  max-height: 0 !important;
+  overflow: hidden;
+}
+
+.ship-class-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: var(--foam, #eaf6f6);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  min-height: 64px;
+}
+
+.ship-class-toggle:hover {
+  background: #d4eeee;
+}
+
+.ship-class-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent, #0e6e8e);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ship-count {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-muted, #666);
+  opacity: 0.8;
+}
+
+.toggle-icon {
+  font-size: 1.25rem;
+  color: var(--accent, #0e6e8e);
+  transition: transform 0.3s ease;
+}
+
+.ship-class-toggle[aria-expanded="false"] .toggle-icon {
+  transform: rotate(-90deg);
+}
+
+.ship-class-content {
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 0;
+}
+
+/* ===== Ship Grid ===== */
+.ship-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .ship-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+  }
+}
+
+/* ===== Ship Card ===== */
+.ship-card {
+  position: relative;
+  border: 2px solid var(--rope, #8B7355);
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.ship-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(14, 110, 142, 0.15);
+  border-color: var(--accent, #0e6e8e);
+}
+
+.ship-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.ship-card-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: var(--foam, #eaf6f6);
+}
+
+.ship-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.ship-card:hover .ship-card-image img {
+  transform: scale(1.05);
+}
+
+.image-count-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(14, 110, 142, 0.95);
+  color: white;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ship-card-content {
+  padding: 1.25rem;
+}
+
+.ship-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent, #0e6e8e);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.ship-card-year {
+  font-size: 0.9rem;
+  color: var(--text-muted, #666);
+  margin: 0;
+}
+
+/* ===== Share Button (in hero or top section) ===== */
+.ships-share-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.share-btn {
+  padding: 0.75rem 1.5rem;
+  background: white;
+  color: var(--accent, #0e6e8e);
+  border: 2px solid var(--rope, #8B7355);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.share-btn:hover {
+  background: var(--foam, #eaf6f6);
+  border-color: var(--accent, #0e6e8e);
+  transform: translateY(-1px);
+}
+
+.share-btn::before {
+  content: "📤";
+  font-size: 1.1rem;
+}
+
+/* ===== Accessibility ===== */
+@media (prefers-reduced-motion: reduce) {
+  .ship-card,
+  .ship-class-content,
+  .toggle-icon,
+  .ship-card-image img {
+    transition: none !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .ship-card,
+  .ship-class-section,
+  .view-all-btn,
+  .share-btn {
+    border-width: 3px;
+  }
+
+  .ship-class-toggle:hover {
+    outline: 2px solid currentColor;
+  }
+}
+
+/* ===== Loading State ===== */
+.ships-loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted, #666);
+}
+
+.ships-loading::after {
+  content: "...";
+  animation: loading-dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes loading-dots {
+  0%, 20% { content: "."; }
+  40% { content: ".."; }
+  60%, 100% { content: "..."; }
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 767px) {
+  .cruise-line-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .view-all-btn {
+    width: 100%;
+  }
+
+  .ship-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ship-class-title {
+    font-size: 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .cruise-line-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  .view-all-btn,
+  .share-btn,
+  .toggle-icon {
+    display: none;
+  }
+
+  .ship-class-content {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .ship-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
