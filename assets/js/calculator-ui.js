@@ -1024,38 +1024,46 @@ function renderAll() {
 
 function initializeUI() {
   console.log('[UI] Initializing v1.002.000 (Accessibility Promise Kept)');
-  
+
+  // ✅ CRITICAL: Wait for core to be ready
+  if (!window.ITW_BOOTED || !window.ITW || !window.ITW.store) {
+    console.warn('[UI] Core not ready yet, waiting...');
+    setTimeout(initializeUI, 100);
+    return;
+  }
+
+  console.log('[UI] Core detected, proceeding with UI initialization');
+
   // ✅ CRITICAL FIX: Actually render preset buttons!
   renderPresetButtons();
-  
+
   // Setup all features
   setupInlinePriceEditing();
   setupQuiz();
   fetchArticles();
-  
+
   // Subscribe to store changes (debounced)
-  if (window.ITW && window.ITW.store) {
-    window.ITW.store.subscribe('results', () => {
-      if (window._renderTimeout) clearTimeout(window._renderTimeout);
-      window._renderTimeout = setTimeout(renderAll, 50);
-    });
-  }
-  
+  window.ITW.store.subscribe('results', () => {
+    if (window._renderTimeout) clearTimeout(window._renderTimeout);
+    window._renderTimeout = setTimeout(renderAll, 50);
+  });
+
   // Initial render
   renderAll();
-  
+
   // ✅ Announce ready status
   setTimeout(() => {
     announce('Calculator ready. All features loaded and accessible.');
   }, 1000);
-  
+
   console.log('[UI] ✓ Initialized v1.002.000 - Full accessibility active');
 }
 
-// Auto-initialize
+// Auto-initialize (wait for core to be ready)
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initializeUI);
 } else {
+  // DOM already loaded, start initialization (will wait for ITW_BOOTED)
   initializeUI();
 }
 
