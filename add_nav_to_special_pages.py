@@ -1,77 +1,58 @@
-<!doctype html>
-<html lang="en">
-<head>
-<!-- ai-breadcrumbs
-     entity: Carnival Glory
-     type: Ship Information Page
-     parent: /ships.html
-     category: Carnival Fleet
-     cruise-line: Carnival
-     updated: 2025-11-15
-     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
-     target-audience: Carnival Glory cruisers, ship comparison researchers, first-time cruisers
-     answer-first: Carnival Glory — Carnival Cruise Line (Coming Soon) — placeholder page compliant with In The Wake Standards v2.224.
-     -->
-<meta charset="utf-8">
-<title>Carnival Glory — Carnival Cruise Line — Royal Caribbean | v2.224</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234">
-<link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/carnival/carnival-carnival-glory.html">
-<meta name="description" content="Carnival Glory — Carnival Cruise Line (Coming Soon) — placeholder page compliant with In The Wake Standards v2.224.">
-<meta property="og:title" content="Carnival Glory — Carnival Cruise Line — Royal Caribbean">
-<meta property="og:description" content="Coming soon placeholder.">
-<meta property="og:image" content="https://www.cruisinginthewake.com/assets/images/og-default.jpg">
-<meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/carnival/carnival-carnival-glory.html">
-<meta name="twitter:card" content="summary_large_image">
-<style id="brand-title-hide">.brand-title{display:none!important}</style>
+#!/usr/bin/env python3
+"""Add navigation to special pages that don't have any navbar structure"""
 
-  <style id="hero-credit-css">
-    .hero{ position:relative }
-    .hero-credit{
-      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.12);
-    }
-  </style>
+import re
+from pathlib import Path
 
+# Same nav components from earlier scripts
+NAV_HTML = '''<div class="navbar">
+  <div class="brand">
+    <img src="/assets/logo_wake.png" alt="In the Wake logo" width="116" height="28" decoding="async"/>
+    <span class="tiny version-badge">v3.010.300</span>
+  </div>
+  <nav class="nav" aria-label="Main site navigation">
+    <div class="nav-item">
+      <a href="/">Home</a>
+    </div>
 
-  <style id="card-watermark">
-    .card{ position:relative; overflow:hidden }
-    .card::after{
-      content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://www.cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none;
-    }
-  </style>
+    <!-- Planning Dropdown -->
+    <div class="nav-item nav-group" id="nav-planning" data-open="false">
+      <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+        Planning <span class="caret">▾</span>
+      </button>
+      <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+        <a role="menuitem" href="/planning.html">Planning (overview)</a>
+        <a role="menuitem" href="/ships.html">Ships</a>
+        <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+        <a role="menuitem" href="/ports.html">Ports</a>
+        <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+        <a role="menuitem" href="/stateroom-check.html">Stateroom Check</a>
+        <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+        <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+        <a role="menuitem" href="/accessibility.html">Accessibility</a>
+      </div>
+    </div>
 
+    <!-- Travel Dropdown -->
+    <div class="nav-item nav-group" id="nav-travel" data-open="false">
+      <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+        Travel <span class="caret">▾</span>
+      </button>
+      <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+        <a role="menuitem" href="/travel.html">Travel (overview)</a>
+        <a role="menuitem" href="/solo.html">Solo</a>
+      </div>
+    </div>
 
-  <style id="hero-vibrancy">
-    .hero{ background:url('https://www.cruisinginthewake.com/assets/index_hero.jpg') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
-    .hero::before,.hero::after{ content:none!important }
-  </style>
+    <div class="nav-item">
+      <a href="/about-us.html">About</a>
+    </div>
+  </nav>
+</div>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Ken Baker",
-  "url": "https://inthewake.com/about/ken-baker.html",
-  "jobTitle": "Cruise Research Analyst & Data Specialist",
-  "description": "Cruise industry analyst specializing in ship comparisons, deck plan analysis, and dining venue research.",
-  "knowsAbout": [
-    "Cruise Ship Analysis",
-    "Deck Plans",
-    "Royal Caribbean",
-    "Cruise Dining",
-    "Ship Comparisons",
-    "Ship Reviews",
-    "Deck Plan Analysis"
-  ]
-}
-</script>
+'''
 
+NAV_CSS = '''
   <style>
     /* Navigation */
     .nav {
@@ -236,68 +217,9 @@
       margin-left: .35rem;
     }
   </style>
+'''
 
-</head>
-<body>
-<div class="navbar">
-  <div class="brand">
-    <img src="/assets/logo_wake.png" alt="In the Wake logo" width="116" height="28" decoding="async"/>
-    <span class="tiny version-badge">v3.010.300</span>
-  </div>
-  <nav class="nav" aria-label="Main site navigation">
-    <div class="nav-item">
-      <a href="/">Home</a>
-    </div>
-
-    <!-- Planning Dropdown -->
-    <div class="nav-item nav-group" id="nav-planning" data-open="false">
-      <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
-        Planning <span class="caret">▾</span>
-      </button>
-      <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
-        <a role="menuitem" href="/planning.html">Planning (overview)</a>
-        <a role="menuitem" href="/ships.html">Ships</a>
-        <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a role="menuitem" href="/ports.html">Ports</a>
-        <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
-        <a role="menuitem" href="/stateroom-check.html">Stateroom Check</a>
-        <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
-        <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-        <a role="menuitem" href="/accessibility.html">Accessibility</a>
-      </div>
-    </div>
-
-    <!-- Travel Dropdown -->
-    <div class="nav-item nav-group" id="nav-travel" data-open="false">
-      <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
-        Travel <span class="caret">▾</span>
-      </button>
-      <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
-        <a role="menuitem" href="/travel.html">Travel (overview)</a>
-        <a role="menuitem" href="/solo.html">Solo</a>
-      </div>
-    </div>
-
-    <div class="nav-item">
-      <a href="/about-us.html">About</a>
-    </div>
-  </nav>
-</div>
-
-
-<header class="brand">
-  <a class="logo" href="https://www.cruisinginthewake.com/index.html">In The Wake</a>
-  <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
-  
-</header>
-<main>
-  <h1>Carnival Glory — Carnival Cruise Line</h1>
-  <section id="intro"><p>Coming soon. This page follows the Grandeur gold-standard layout. Content will be added after launch.</p></section>
-  <section id="videos"><h2>Videos</h2><p>Curated videos will appear here.</p></section>
-  <section id="gallery"><h2>Gallery</h2><p>Three images will be added here with attribution.</p></section>
-</main>
-<footer><p>&copy; 2025 In The Wake — all rights reserved.</p><div class="attribution"><strong>Image &amp; Video Credits:</strong> TBD.</div></footer>
-
+NAV_JS = '''
   <!-- Dropdown nav behavior (300ms Hover Delay) -->
   <script>
   (function(){
@@ -400,6 +322,43 @@
     }
   })();
   </script>
+'''
 
-</body>
-</html>
+def main():
+    base = Path('/home/user/InTheWake')
+    
+    files = [
+        'offline.html',
+        'terms.html',
+        'admin/reports/sw-health.html'
+    ]
+    
+    for filename in files:
+        filepath = base / filename
+        if not filepath.exists():
+            print(f"✗ {filename}: Not found")
+            continue
+        
+        content = filepath.read_text(encoding='utf-8')
+        
+        # Skip if already has navbar
+        if '<div class="navbar">' in content:
+            print(f"- {filename}: Already has navbar")
+            continue
+        
+        # 1. Add CSS before </head>
+        if '</head>' in content:
+            content = content.replace('</head>', NAV_CSS + '\n</head>', 1)
+        
+        # 2. Add nav HTML after <body>
+        content = re.sub(r'(<body[^>]*>)', r'\1\n' + NAV_HTML, content, count=1)
+        
+        # 3. Add JavaScript before </body>
+        if '</body>' in content:
+            content = content.replace('</body>', NAV_JS + '\n</body>', 1)
+        
+        filepath.write_text(content, encoding='utf-8')
+        print(f"✓ {filename}: Added complete navigation")
+
+if __name__ == '__main__':
+    main()
