@@ -1,0 +1,100 @@
+================================================================================
+NAVIGATION AUDIT REPORT
+================================================================================
+
+Total pages scanned: 292
+
+Issues Found:
+  - Missing dropdown nav: 197 pages
+  - Has nav but missing CSS: 80 pages
+  - Has nav+CSS but missing JS: 0 pages
+  - Using external CSS (needs verification): 4 pages
+  - Fully correct: 11 pages
+  - Unknown/Other: 0 pages
+
+Breakdown by Directory:
+  admin/reports: 2 pages - 2 need fixes
+  assets/ships: 1 pages - 1 need fixes
+  authors: 2 pages - 2 need fixes
+  cruise-lines: 10 pages - 10 need fixes
+  restaurants: 25 pages - 25 need fixes
+  root: 18 pages - 10 need fixes
+  ships: 4 pages - 4 need fixes
+  ships/carnival: 58 pages - 58 need fixes
+  ships/carnival-cruise-line: 47 pages - 47 need fixes
+  ships/celebrity-cruises: 29 pages - 29 need fixes
+  ships/holland-america-line: 44 pages - 44 need fixes
+  ships/msc: 1 pages - 1 need fixes
+  ships/rcl: 44 pages - 44 need fixes
+  solo: 3 pages - 0 need fixes
+  solo/articles: 3 pages - 3 need fixes
+  standards: 1 pages - 1 need fixes
+
+Specific Issues (sample):
+
+Missing Dropdown Nav (197 pages):
+  - disability-at-sea.html
+  - cruise-lines.html
+  - offline.html
+  - drinks.html
+  - stateroom-check.html
+  - privacy.html
+  - ships/template.html
+  - ships/index.html
+  - ships/rooms.html
+  - ships/carnival-cruise-line/carnival-encounter.html
+  - ships/carnival-cruise-line/carnival-sensation.html
+  - ships/carnival-cruise-line/celebration.html
+  - ships/carnival-cruise-line/carnival-festivale.html
+  - ships/carnival-cruise-line/carnival-horizon.html
+  - ships/carnival-cruise-line/unnamed-project-ace-1.html
+  - ships/carnival-cruise-line/carnival-fantasy.html
+  - ships/carnival-cruise-line/carnival-venezia.html
+  - ships/carnival-cruise-line/unnamed-project-ace-3.html
+  - ships/carnival-cruise-line/carnival-jubilee.html
+  - ships/carnival-cruise-line/carnival-legend.html
+  ... and 177 more
+
+Missing Css (80 pages):
+  - ships/grandeur-of-the-seas.html
+  - ships/rcl/quantum-ultra-class-ship-tbn-2028.html
+  - ships/rcl/enchantment-of-the-seas.html
+  - ships/rcl/icon-class-ship-tbn-2027.html
+  - ships/rcl/legend-of-the-seas-icon-class-entering-service-in-2026.html
+  - ships/rcl/explorer-of-the-seas.html
+  - ships/rcl/quantum-of-the-seas.html
+  - ships/rcl/brilliance-of-the-seas.html
+  - ships/rcl/nordic-empress.html
+  - ships/rcl/harmony-of-the-seas.html
+  - ships/rcl/splendour-of-the-seas.html
+  - ships/rcl/liberty-of-the-seas.html
+  - ships/rcl/voyager-of-the-seas.html
+  - ships/rcl/quantum-ultra-class-ship-tbn-2029.html
+  - ships/rcl/jewel-of-the-seas.html
+  - ships/rcl/anthem-of-the-seas.html
+  - ships/rcl/mariner-of-the-seas.html
+  - ships/rcl/ovation-of-the-seas.html
+  - ships/rcl/spectrum-of-the-seas.html
+  - ships/rcl/rhapsody-of-the-seas.html
+  ... and 60 more
+
+Uses External Css (4 pages):
+  - solo.html
+  - ports.html
+  - travel.html
+  - restaurants.html
+
+================================================================================
+Fix Strategy:
+================================================================================
+
+1. Update /assets/styles.css with dropdown CSS (if missing)
+2. Replace nav HTML on 197 pages
+3. Add CSS to 80 pages with inline styles
+4. Add JavaScript to 281 pages
+
+To fix all issues, run:
+  python3 audit_and_fix_nav.py --fix
+
+To preview fixes without changing files:
+  python3 audit_and_fix_nav.py --dry-run

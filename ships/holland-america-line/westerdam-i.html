@@ -1,6 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
+<!-- ai-breadcrumbs
+     entity: Westerdam (I)Historical
+     type: Ship Information Page
+     parent: /ships.html
+     category: Royal Caribbean Fleet
+     cruise-line: Royal Caribbean
+     updated: 2025-11-15
+     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
+     target-audience: Westerdam (I)Historical cruisers, ship comparison researchers, first-time cruisers
+     answer-first: If a venue list does not appear, it means this ship’s dining has not been verified yet.
+     -->
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Westerdam (I) • Holland America Line • In The Wake</title>
@@ -18,7 +29,165 @@
   .small { color:#475569; font-size:.9rem; }
   footer { margin:40px 0 20px; color:#64748b; font-size:.85rem; }
   .rope { height:8px; background: repeating-linear-gradient(45deg, var(--rope), var(--rope) 8px, #e7d2a9 8px, #e7d2a9 16px); border-top:2px solid #b8863b; border-bottom:2px solid #b8863b; }
-</style>
+
+  /* Dropdown Navigation (FIXED: 300ms Hover Delay) */
+  .nav {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    overflow: visible;
+    padding-inline: .75rem;
+  }
+
+  .nav-item {
+    position: relative;
+    display: inline-block;
+  }
+
+  .nav-item > a,
+  .nav-item > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .35rem;
+    padding: .65rem 1rem;
+    min-height: 44px;
+    border-radius: 10px;
+    background: #fff;
+    border: 2px solid var(--rope);
+    color: var(--accent);
+    font: inherit;
+    font-size: .95rem;
+    line-height: 1.2;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .nav-item > a:hover,
+  .nav-item > button:hover {
+    background: var(--foam);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .nav-item > a[aria-current="page"] {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    border-color: var(--accent);
+  }
+
+  .nav-disclosure .caret {
+    display: inline-block;
+    margin-left: .25rem;
+    transition: transform 0.2s ease;
+  }
+
+  .nav-item[data-open="true"] .nav-disclosure .caret {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown menu with safe zone */
+  .submenu {
+    position: absolute !important;
+    left: 0;
+    top: calc(100% + 4px);
+    min-width: 240px;
+    background: #fff;
+    border: 2px solid var(--rope);
+    border-radius: 12px;
+    padding: .6rem;
+    box-shadow: 0 8px 24px rgba(8,48,65,.15);
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 2100;
+  }
+
+  /* Safe zone bridge */
+  .submenu::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: transparent;
+  }
+
+  .nav-item[data-open="true"] > .submenu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .submenu a {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: .6rem .75rem;
+    border-radius: .65rem;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .submenu a:hover,
+  .submenu a:focus {
+    background: #f2f7fa;
+    outline: 2px solid transparent;
+  }
+
+  @media (max-width: 768px) {
+    .nav {
+      justify-content: flex-start;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-item > a,
+    .nav-item > button {
+      flex: 0 0 auto;
+    }
+
+    .submenu {
+      left: 0;
+      right: 0;
+      min-width: 100%;
+    }
+  }
+  </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ken Baker",
+  "url": "https://inthewake.com/about/ken-baker.html",
+  "jobTitle": "Cruise Research Analyst & Data Specialist",
+  "description": "Cruise industry analyst specializing in ship comparisons, deck plan analysis, and dining venue research.",
+  "knowsAbout": [
+    "Cruise Ship Analysis",
+    "Deck Plans",
+    "Royal Caribbean",
+    "Cruise Dining",
+    "Ship Comparisons",
+    "Ship Reviews",
+    "Deck Plan Analysis"
+  ]
+}
+</script>
 </head>
 <body>
 <header>
