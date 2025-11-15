@@ -1366,8 +1366,26 @@
       ]
     };
 
+    // CRITICAL FIX v3.010.301: Only show ships with images in repository
+    // Ships with confirmed images: radiance, adventure, allure, rhapsody, enchantment, grandeur, vision, sovereign
+    const SHIPS_WITH_IMAGES = [
+      'radiance-of-the-seas',
+      'adventure-of-the-seas',
+      'allure-of-the-seas',
+      'rhapsody-of-the-seas',
+      'enchantment-of-the-seas',
+      'grandeur-of-the-seas',
+      'vision-of-the-seas',
+      'sovereign-of-the-seas'
+    ];
+
+    function hasShipImage(slug) {
+      return SHIPS_WITH_IMAGES.some(s => slug && slug.toLowerCase().includes(s));
+    }
+
     function card(s){
-      const href='/ships/'+(s.slug||'').replace(/^\//,'')+'.html';
+      // CRITICAL FIX v3.010.301: Use /ships/rcl/ path instead of /ships/
+      const href='/ships/rcl/'+(s.slug||'').replace(/^\//,'')+'.html';
       const img= s.image ? abs(s.image) : '/assets/placeholders/ship.jpg?v='+V;
       const gt = (s.gt? s.gt.toLocaleString()+' GT' : '—');
       const cap= (s.capacity? s.capacity.toLocaleString() : '—');
@@ -1406,7 +1424,13 @@
         if(yd!==0) return yd;
         return (a.name||'').localeCompare(b.name||'');
       });
-      grid.innerHTML=ships.map(card).join('');
+
+      // CRITICAL FIX v3.010.301: Filter to only show ships with images in repository
+      const shipsWithImages = ships.filter(s => hasShipImage(s.slug));
+      console.log(`[Ships] Filtered ${ships.length} ships to ${shipsWithImages.length} with images:`,
+                  shipsWithImages.map(s => s.slug));
+
+      grid.innerHTML=shipsWithImages.map(card).join('');
       fallback.style.display='none';
 
       // Announce to screen readers
@@ -1531,8 +1555,7 @@
     const abs=(p)=> (typeof _abs==='function'?_abs(p):p);
     const sources=[
       '/assets/data/articles.json?v='+V,
-      '/assets/data/articles/index.json?v='+V,
-      '/solo/articles/index.json?v='+V
+      '/assets/data/articles/index.json?v='+V
     ];
     const SEED=[
       {
