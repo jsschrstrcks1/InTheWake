@@ -695,7 +695,7 @@ const initialState = {
     }
   },
   economics: {
-    pkg: { soda: 13.99, refresh: 34.0, deluxe: 85.0 },
+    pkg: { soda: 13.99, refresh: 34.0, deluxe: 85.0, coffee: 31.0 },
     grat: 0.18,
     deluxeCap: CONFIG.RULES.DELUXE_CAP_FALLBACK
   },

@@ -1,11 +1,17 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1.004.000 (CRITICAL RECOMMENDATION FIX)
+ * Version: 1.004.002 (Coffee Card Fixes + Recommendations Fix)
  *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  *
  * Soli Deo Gloria ✝️
+ *
+ * CHANGELOG v1.004.002:
+ * ✅ CRITICAL FIX: Coffee Cards now have correct 15 punches (was 10)
+ * ✅ CRITICAL FIX: Coffee Card purchase cost now included in calculations
+ * ✅ FIXED: À-la-carte total = raw cost - discount + coffee card cost
+ * ✅ Coffee Card price now editable and stored in economics.pkg.coffee
  *
  * CHANGELOG v1.004.000:
  * ✅ CRITICAL FIX: Package recommendations now account for uncovered drinks!
@@ -298,6 +304,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const pkgSoda = toNum(economics.pkg?.soda || 13.99);
   const pkgRefresh = toNum(economics.pkg?.refresh || 34.0);
   const pkgDeluxe = toNum(economics.pkg?.deluxe || 85.0);
+  const coffeeCardPrice = toNum(economics.pkg?.coffee || 31.0); // CRITICAL FIX v1.003.002
   const grat = toNum(economics.grat || gratuity);
   const cap = toNum(economics.deluxeCap || deluxeCap);
   
@@ -335,16 +342,22 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   
   const coffeeItems = categoryRows.filter(r => r.id === 'coffee');
   const coffeeQtyTotal = coffeeItems.reduce((s, r) => s + r.qty, 0) * days;
-  const cardsUsed = Math.min(coffeeCards, Math.floor(coffeeQtyTotal / 10));
-  const punchesUsed = Math.min(coffeePunches * days, coffeeQtyTotal - cardsUsed * 10);
-  const coffeeDiscount = (cardsUsed * 10 + punchesUsed) * (prices.coffee || 4.5);
-  
+  // CRITICAL FIX v1.003.002: Coffee Cards have 15 punches, not 10
+  const COFFEE_CARD_PUNCHES = 15;
+  const cardsUsed = Math.min(coffeeCards, Math.floor(coffeeQtyTotal / COFFEE_CARD_PUNCHES));
+  const punchesUsed = Math.min(coffeePunches * days, coffeeQtyTotal - cardsUsed * COFFEE_CARD_PUNCHES);
+  const coffeeDiscount = (cardsUsed * COFFEE_CARD_PUNCHES + punchesUsed) * (prices.coffee || 4.5);
+
+  // CRITICAL FIX v1.003.002: Add cost of purchasing coffee cards
+  const coffeeCardCost = coffeeCards * coffeeCardPrice * (1 + grat);
+
   const alcTotal = sum(categoryRows.filter(r => sets.alcoholic.includes(r.id)).map(r => r.cost));
   const refreshTotal = sum(categoryRows.filter(r => sets.refresh.includes(r.id)).map(r => r.cost));
   const sodaTotal = sum(categoryRows.filter(r => sets.soda.includes(r.id)).map(r => r.cost));
-  
-  const totalAlc = Math.max(0, rawTotal - coffeeDiscount);
-  
+
+  // À-la-carte total = raw cost - free coffee discount + coffee card purchase cost
+  const totalAlc = Math.max(0, rawTotal - coffeeDiscount + coffeeCardCost);
+
   // Package costs - adults only for now
   const sodaPkg = pkgSoda * (1 + grat) * days * adults;
   const refreshPkg = pkgRefresh * (1 + grat) * days * adults;
