@@ -272,7 +272,12 @@ function determineWinners(costs, minors) {
 
 /* ==================== MAIN COMPUTATION ==================== */
 
-function compute(inputs, economics, dataset, vouchers = null) {
+/**
+ * ✅ NEW v1.003.000: Package forcing feature
+ * @param {object} forcedPackage - Optional forced package ('soda'|'refresh'|'deluxe'|null)
+ *                                 When set, skips cost comparison and forces this package as winner
+ */
+function compute(inputs, economics, dataset, vouchers = null, forcedPackage = null) {
   const { prices, sets, gratuity, deluxeCap } = adaptDataset(dataset);
   
   const days = clamp(inputs.days, 1, 365);
@@ -353,13 +358,47 @@ function compute(inputs, economics, dataset, vouchers = null) {
     refresh: { min: refreshPkg, mean: refreshPkg, max: refreshPkg },
     deluxe: { min: deluxePkgWithMinors, mean: deluxePkgWithMinors, max: deluxePkgWithMinors }
   };
-  
-  const winners = determineWinners({
-    alc: totalAlc,
-    soda: sodaPkg,
-    refresh: refreshPkg,
-    deluxe: deluxePkgWithMinors
-  }, minors);
+
+  // ✅ NEW v1.003.000: Package forcing feature
+  let winners;
+
+  if (forcedPackage && ['soda', 'refresh', 'deluxe'].includes(forcedPackage)) {
+    console.log(`[Math Engine] 🎯 FORCED PACKAGE: ${forcedPackage} (user clicked package card)`);
+
+    // Force this package as the adult winner
+    winners = {
+      adultWinner: forcedPackage,
+      minorWinner: null,
+      showTwoWinners: false,
+      minorForced: false
+    };
+
+    // Handle minors with forced package
+    if (minors > 0) {
+      if (forcedPackage === 'deluxe') {
+        // Deluxe policy: minors must have Refreshment
+        winners.minorWinner = 'refresh';
+        winners.showTwoWinners = true;
+        winners.minorForced = true;
+        winners.minorForcedReason = 'Required when adults purchase Deluxe';
+        console.log('[Math Engine] POLICY ENFORCED: Minors forced to Refreshment (adults forced Deluxe)');
+      } else {
+        // Soda or Refresh: minors get same package
+        winners.minorWinner = forcedPackage;
+        winners.showTwoWinners = true;
+        winners.minorForced = false;
+      }
+    }
+  } else {
+    // Normal mode: determine cheapest package
+    console.log('[Math Engine] Auto-recommendation mode (no forced package)');
+    winners = determineWinners({
+      alc: totalAlc,
+      soda: sodaPkg,
+      refresh: refreshPkg,
+      deluxe: deluxePkgWithMinors
+    }, minors);
+  }
   
   // FIXED v1.003.000: Correct Royal Caribbean policy messaging
   // Policy triggers when Deluxe is the winner AND there are multiple adults

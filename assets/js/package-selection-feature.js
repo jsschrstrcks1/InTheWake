@@ -232,41 +232,53 @@
     
     /**
      * Trigger calculation with forced package
-     * This integrates with your existing calculator.js
+     * ✅ NEW v1.003.000: Properly integrated with ITW calculator
      */
     triggerCalculationWithForcedPackage: function(forcedPackage) {
-      // Check if window.CalculatorCore exists (your main calculator object)
-      if (window.CalculatorCore && typeof window.CalculatorCore.calculate === 'function') {
-        window.CalculatorCore.calculate({ forcedPackage: forcedPackage });
+      console.log('[Package Selection] Triggering calculation with forced package:', forcedPackage);
+
+      if (!window.ITW || !window.ITW.store) {
+        console.error('[Package Selection] ITW calculator not available!');
+        return;
       }
-      // Or if you have a global calculate function:
-      else if (typeof window.runCalculation === 'function') {
-        window.runCalculation({ forcedPackage: forcedPackage });
-      }
-      // Or dispatch custom event that your calculator listens for:
-      else {
-        const event = new CustomEvent('calculator:recalculate', {
-          detail: { forcedPackage: forcedPackage }
-        });
-        document.dispatchEvent(event);
+
+      // Set forced package in state using nested path notation
+      window.ITW.store.patch('ui.forcedPackage', forcedPackage);
+
+      console.log('[Package Selection] State updated with forced package');
+
+      // Trigger calculation
+      if (window.ITW.scheduleCalc) {
+        window.ITW.scheduleCalc();
+        console.log('[Package Selection] ✓ Calculation triggered');
+      } else {
+        console.error('[Package Selection] scheduleCalc not available!');
       }
     },
-    
+
     /**
      * Trigger normal calculation (no forced package)
+     * ✅ NEW v1.003.000: Properly integrated with ITW calculator
      */
     triggerNormalCalculation: function() {
-      if (window.CalculatorCore && typeof window.CalculatorCore.calculate === 'function') {
-        window.CalculatorCore.calculate({ forcedPackage: null });
+      console.log('[Package Selection] Resetting to auto-recommendation mode');
+
+      if (!window.ITW || !window.ITW.store) {
+        console.error('[Package Selection] ITW calculator not available!');
+        return;
       }
-      else if (typeof window.runCalculation === 'function') {
-        window.runCalculation({ forcedPackage: null });
-      }
-      else {
-        const event = new CustomEvent('calculator:recalculate', {
-          detail: { forcedPackage: null }
-        });
-        document.dispatchEvent(event);
+
+      // Clear forced package from state using nested path notation
+      window.ITW.store.patch('ui.forcedPackage', null);
+
+      console.log('[Package Selection] State cleared (auto-recommend)');
+
+      // Trigger calculation
+      if (window.ITW.scheduleCalc) {
+        window.ITW.scheduleCalc();
+        console.log('[Package Selection] ✓ Calculation triggered');
+      } else {
+        console.error('[Package Selection] scheduleCalc not available!');
       }
     },
     
