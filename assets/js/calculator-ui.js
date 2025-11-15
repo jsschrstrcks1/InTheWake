@@ -851,6 +851,127 @@ function renderNudges(nudges) {
   console.log(`[UI] ✓ Rendered ${nudges.length} nudges`);
 }
 
+/**
+ * ✅ NEW v1.006.000: Cost Comparison Summary Card
+ * Shows total cost for each package option with savings/overspend
+ */
+function renderCostSummary(results) {
+  const card = document.getElementById('cost-summary-card');
+  const table = document.getElementById('cost-comparison-table');
+
+  if (!card || !table || !results || !results.bars) {
+    return;
+  }
+
+  // Show the card
+  card.style.display = 'block';
+
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+
+  // Get costs from results.bars
+  const alcCost = results.bars.alc?.mean || 0;
+  const sodaCost = results.bars.soda?.mean || 0;
+  const refreshCost = results.bars.refresh?.mean || 0;
+  const deluxeCost = results.bars.deluxe?.mean || 0;
+
+  // Find cheapest option
+  const costs = [
+    { key: 'alc', cost: alcCost },
+    { key: 'soda', cost: sodaCost },
+    { key: 'refresh', cost: refreshCost },
+    { key: 'deluxe', cost: deluxeCost }
+  ];
+  const cheapest = costs.reduce((min, curr) => curr.cost < min.cost ? curr : min, costs[0]);
+
+  // Build options array
+  const options = [
+    {
+      key: 'alc',
+      icon: '💵',
+      title: 'À La Carte',
+      subtitle: 'Pay per drink as you go',
+      cost: alcCost,
+      baseline: true
+    },
+    {
+      key: 'soda',
+      icon: '🥤',
+      title: 'Soda Package',
+      subtitle: 'Fountain sodas & Coca-Cola Freestyle',
+      cost: sodaCost
+    },
+    {
+      key: 'refresh',
+      icon: '☕',
+      title: 'Refreshment Package',
+      subtitle: 'All non-alcoholic specialty drinks',
+      cost: refreshCost
+    },
+    {
+      key: 'deluxe',
+      icon: '🍹',
+      title: 'Deluxe Package',
+      subtitle: 'Everything including alcohol',
+      cost: deluxeCost
+    }
+  ];
+
+  // Clear table
+  table.innerHTML = '';
+
+  options.forEach(option => {
+    const row = document.createElement('div');
+    row.className = 'cost-option-row';
+
+    if (option.baseline) {
+      row.classList.add('baseline');
+    }
+
+    if (option.key === cheapest.key) {
+      row.classList.add('best-value');
+    }
+
+    // Calculate savings
+    const savings = alcCost - option.cost;
+    const savingsPercent = alcCost > 0 ? ((savings / alcCost) * 100) : 0;
+
+    let savingsHTML = '';
+    if (!option.baseline) {
+      if (savings > 0) {
+        savingsHTML = `<div class="cost-option-savings positive">Save ${formatMoney(savings)} (${savingsPercent.toFixed(0)}%)</div>`;
+      } else if (savings < 0) {
+        savingsHTML = `<div class="cost-option-savings negative">+${formatMoney(Math.abs(savings))} more</div>`;
+      } else {
+        savingsHTML = `<div class="cost-option-savings">Same as à la carte</div>`;
+      }
+    }
+
+    row.innerHTML = `
+      <div class="cost-option-left">
+        <div class="cost-option-icon" aria-hidden="true">${option.icon}</div>
+        <div class="cost-option-info">
+          <h4>${option.title}</h4>
+          <p>${option.subtitle}</p>
+        </div>
+      </div>
+      <div class="cost-option-right">
+        <div class="cost-option-price">${formatMoney(option.cost)}</div>
+        ${savingsHTML}
+        ${option.key === cheapest.key ? '<div class="cost-option-badge">✓ Best Value</div>' : ''}
+      </div>
+    `;
+
+    row.setAttribute('role', 'article');
+    row.setAttribute('aria-label',
+      `${option.title}: ${formatMoney(option.cost)} total${option.key === cheapest.key ? '. Best value option' : ''}`
+    );
+
+    table.appendChild(row);
+  });
+
+  console.log('[UI] ✓ Rendered cost summary card');
+}
+
 function renderHealthNote(healthNote) {
   let container = document.getElementById('health-note-container');
   
@@ -1072,6 +1193,9 @@ function renderAll() {
     renderHealthNote(results.healthNote);
     console.log('[UI Render] ✓ Health note rendered');
 
+    renderCostSummary(results);
+    console.log('[UI Render] ✓ Cost summary rendered');
+
     console.log('[UI Render] ✓✓✓ ALL COMPONENTS RENDERED ✓✓✓');
   } catch (error) {
     console.error('[UI Render] ✗ Error during rendering:', error);
@@ -1254,8 +1378,9 @@ window.ITW_UI = Object.freeze({
   renderPackageCards,
   renderNudges,
   renderHealthNote,
+  renderCostSummary,
   announce,
-  version: '1.003.000' // ✅ UPDATED: Matches calculator.js and calculator-math.js
+  version: '1.006.000' // ✅ UPDATED: Added cost summary card
 });
 
 window.applyPreset = applyPreset;
