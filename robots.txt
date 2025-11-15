@@ -7,7 +7,6 @@ User-agent: *
 
 # === Allow key content sections ===
 Allow: /$
-Allow: /ships/
 Allow: /restaurants/
 Allow: /ports/
 Allow: /cruise-lines/
@@ -18,6 +17,7 @@ Allow: /solo/
 Allow: /packing-lists.html
 Allow: /accessibility.html
 Allow: /drink-packages.html
+Allow: /drink-calculator.html
 
 # ✳️ Canonical full article (allow explicitly)
 Allow: /solo/visiting-the-united-states-before-your-cruise.html
@@ -39,6 +39,15 @@ Disallow: /staging/
 Disallow: /tmp/
 Disallow: /solo/articles/    # block article fragments / partial builds
 Disallow: /*.php$            # block dynamic scripts if not used
+
+# === Block incomplete ship pages (no images yet) ===
+Disallow: /ships/carnival-cruise-line/
+Disallow: /ships/carnival/
+Disallow: /ships/celebrity-cruises/
+Disallow: /ships/holland-america-line/
+Disallow: /ships/msc/
+Disallow: /ships/rcl/           # Block all RCL ships for now (only 8 have images)
+# TODO: Selectively allow RCL ships with images once ship pages are complete
 
 # === Sitemap references (canonical host) ===
 Sitemap: https://www.cruisinginthewake.com/sitemap.xml
