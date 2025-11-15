@@ -1,10 +1,11 @@
-/* Service Worker v10.0.0 - Royal Caribbean Drink Calculator
- * Unified caching strategy with offline support /sw.js
+/* Service Worker v11.0.0 - In the Wake
+ * Site-wide unified caching strategy with offline support
+ * Supports: Ships, Ports, Restaurants, Planning Tools, Drink Calculator
  * Soli Deo Gloria ✝️
  */
 
-const VERSION = '10.0.0';
-const CACHE_PREFIX = 'itw-rc-calc';
+const VERSION = '11.0.0';
+const CACHE_PREFIX = 'itw-site';
 
 const CACHES = {
   PRECACHE: `${CACHE_PREFIX}-precache-${VERSION}`,
@@ -17,13 +18,14 @@ const CACHES = {
 };
 
 const CONFIG = {
-  maxPages: 60,
-  maxAssets: 60,
-  maxImages: 360,
-  maxData: 30,
+  maxPages: 100,           // Increased for ships, ports, restaurants pages
+  maxAssets: 100,          // Increased for CSS/JS modules
+  maxImages: 500,          // Increased for ship gallery images
+  maxData: 50,             // Increased for fleet, port, restaurant data
   maxFonts: 30,
   staleMaxAge: 60 * 60 * 1000, // 1 hour
   calcDataMaxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  shipImagesMaxAge: 30 * 24 * 60 * 60 * 1000, // 30 days (ship images rarely change)
   fetchTimeout: 8000
 };
 
@@ -117,6 +119,7 @@ self.addEventListener('fetch', (event) => {
   const destination = request.destination || '';
   
   if (destination === 'document' || isHTMLRequest(request)) {
+    // Ship pages and ships index get network-first with fallback
     event.respondWith(handleHTMLRequest(request, event));
     return;
   }
@@ -127,7 +130,12 @@ self.addEventListener('fetch', (event) => {
   }
   
   if (destination === 'image' || isImageURL(url)) {
-    event.respondWith(staleWhileRevalidate(request, CACHES.IMAGES, CONFIG.maxImages));
+    // Ship images get longer cache with cache-first strategy (they rarely change)
+    if (isShipImage(url)) {
+      event.respondWith(cacheFirstStrategy(request, CACHES.IMAGES, CONFIG.maxImages));
+    } else {
+      event.respondWith(staleWhileRevalidate(request, CACHES.IMAGES, CONFIG.maxImages));
+    }
     return;
   }
   
@@ -719,6 +727,21 @@ function isFontURL(url) {
 
 function isJSONRequest(url) {
   return url.pathname.endsWith('.json');
+}
+
+function isShipImage(url) {
+  // Detect ship images from /ships/ directory and subdirectories
+  return /^\/ships\/.*\.(avif|webp|jpg|jpeg|png)(\?.*)?$/i.test(url.pathname);
+}
+
+function isShipPage(url) {
+  // Detect individual ship pages
+  return /^\/ships\/rcl\/[^/]+\.html$/i.test(url.pathname);
+}
+
+function isShipsIndexPage(url) {
+  // Detect ships.html or ships/ships.html
+  return /^\/ships(\/ships)?\.html$/i.test(url.pathname);
 }
 
 console.log('[SW] v' + VERSION + ' loaded');

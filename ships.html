@@ -632,6 +632,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.010.300">
+  <link rel="stylesheet" href="/assets/css/ships-dynamic.css?v=1.000.000">
 
   <!-- LCP preload -->
   <link rel="preload" as="image" href="https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.300" fetchpriority="high">
@@ -962,13 +963,11 @@
     <section class="card prose" aria-labelledby="ships-intro">
       <h1 id="ships-intro">Royal Caribbean Ships — At a Glance</h1>
 
-      <!-- Under Construction Notice -->
-      <div style="background:linear-gradient(135deg, #fff3e6 0%, #ffe8cc 100%);border-left:5px solid #ff9800;padding:1.25rem;margin:1.5rem 0;border-radius:8px;box-shadow:0 2px 8px rgba(255, 152, 0, 0.15);">
-        <p style="margin:0;font-size:1.1rem;color:#e65100;font-weight:600;">🚧 Under Construction</p>
-        <p style="margin:0.5rem 0 0 0;color:#5d4037;line-height:1.6;">This page is currently being built. Individual ship pages with detailed information, images, and deck plans are being developed.</p>
-      </div>
+      <p>Explore the Royal Caribbean fleet organized by ship class—from the newest Icon-class megaships to the classic Vision-class vessels. Each ship card shows you available images (cycling randomly each visit) and links directly to detailed ship pages.</p>
 
-      <p class="tiny muted">This list renders from a live dataset. If your connection is offline or a cache holds stale JSON, we'll fall back to a small on-page seed until the network returns.</p>
+      <div class="ships-share-section">
+        <button id="shareShipsPage" class="share-btn" type="button" aria-label="Share this page">Share Page</button>
+      </div>
     </section>
 
     <!-- TL;DR: At a Glance -->
@@ -984,8 +983,13 @@
     </section>
 
     <section class="card" aria-labelledby="fleet-list">
-      <h2 id="fleet-list">Fleet</h2>
-      <div id="fleet-grid" class="vx-grid" aria-live="polite"></div>
+      <h2 id="fleet-list">Royal Caribbean Fleet — Organized by Class</h2>
+      <p class="tiny muted">Click any ship class to expand/collapse. Ships with multiple images will cycle randomly on each page load.</p>
+
+      <!-- Dynamic ships container -->
+      <div id="shipsContainer" aria-live="polite" aria-busy="false">
+        <div class="ships-loading">Loading fleet data</div>
+      </div>
 
       <!-- Static HTML fallback for search engines and JavaScript-disabled browsers -->
       <noscript>
@@ -1342,106 +1346,8 @@
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
 
-  <!-- FLEET RUNTIME (JSON fetch + seed fallback) -->
-  <script>
-  (function(){
-    const V='3.010.300';
-    const grid=document.getElementById('fleet-grid');
-    const fallback=document.getElementById('fleet-fallback');
-    const abs=(p)=> (typeof _abs==='function'?_abs(p):p);
-
-    const DATA_URL='/assets/data/rc-fleet-index.json?v='+V;
-
-    const SEED={
-      cruise_line:{name:'Royal Caribbean International',slug:'royal-caribbean'},
-      ships:[
-        {"name":"Icon of the Seas","slug":"icon-of-the-seas","status":"active","class":"Icon","year":2024,"gt":null,"capacity":null,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Utopia of the Seas","slug":"utopia-of-the-seas","status":"active","class":"Oasis","year":2024,"gt":236857,"capacity":null,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Star of the Seas","slug":"star-of-the-seas","status":"active","class":"Icon","year":2025,"gt":null,"capacity":null,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Wonder of the Seas","slug":"wonder-of-the-seas","status":"active","class":"Oasis","year":2022,"gt":null,"capacity":null,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Harmony of the Seas","slug":"harmony-of-the-seas","status":"active","class":"Oasis","year":2016,"gt":226963,"capacity":5479,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Odyssey of the Seas","slug":"odyssey-of-the-seas","status":"active","class":"Quantum Ultra","year":2021,"gt":167704,"capacity":4180,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Freedom of the Seas","slug":"freedom-of-the-seas","status":"active","class":"Freedom","year":2006,"gt":156271,"capacity":3634,"image":"/assets/index_hero.jpg?v="+V},
-        {"name":"Mariner of the Seas","slug":"mariner-of-the-seas","status":"active","class":"Voyager","year":2003,"gt":139863,"capacity":3388,"image":"/assets/index_hero.jpg?v="+V}
-      ]
-    };
-
-    // CRITICAL FIX v3.010.301: Only show ships with images in repository
-    // Ships with confirmed images: radiance, adventure, allure, rhapsody, enchantment, grandeur, vision, sovereign
-    const SHIPS_WITH_IMAGES = [
-      'radiance-of-the-seas',
-      'adventure-of-the-seas',
-      'allure-of-the-seas',
-      'rhapsody-of-the-seas',
-      'enchantment-of-the-seas',
-      'grandeur-of-the-seas',
-      'vision-of-the-seas',
-      'sovereign-of-the-seas'
-    ];
-
-    function hasShipImage(slug) {
-      return SHIPS_WITH_IMAGES.some(s => slug && slug.toLowerCase().includes(s));
-    }
-
-    function card(s){
-      // CRITICAL FIX v3.010.301: Use /ships/rcl/ path instead of /ships/
-      const href='/ships/rcl/'+(s.slug||'').replace(/^\//,'')+'.html';
-      const img= s.image ? abs(s.image) : '/assets/placeholders/ship.jpg?v='+V;
-      const gt = (s.gt? s.gt.toLocaleString()+' GT' : '—');
-      const cap= (s.capacity? s.capacity.toLocaleString() : '—');
-      const klass = s.class||'—';
-      const year  = s.year||'—';
-      return `<a class="ship-card" href="${href}" aria-label="${s.name} — ${klass}, ${year}">
-        <div class="thumb"><img src="${img}" alt=""></div>
-        <div class="body">
-          <strong>${s.name}</strong>
-          <div class="meta">
-            <span class="badge">${klass}</span>
-            <span>• Debut: ${year}</span>
-            <span>• ${gt}</span>
-            <span>• Cap: ${cap}</span>
-          </div>
-        </div>
-      </a>`;
-    }
-
-    async function load(){
-      if(!grid) return;
-      fallback.style.display='';
-      let data=null;
-      try{
-        const r=await fetch(abs(DATA_URL),{cache:'no-store',credentials:'omit'});
-        if(r.ok){
-          data=await r.json();
-        }
-      }catch(_){}
-      const ships=(data&&Array.isArray(data.ships)?data.ships:SEED.ships)||[];
-      // Sort by class then year desc then name
-      ships.sort((a,b)=>{
-        const ac=(a.class||'').localeCompare(b.class||'');
-        if(ac!==0) return ac;
-        const yd=(b.year||0)-(a.year||0);
-        if(yd!==0) return yd;
-        return (a.name||'').localeCompare(b.name||'');
-      });
-
-      // CRITICAL FIX v3.010.301: Filter to only show ships with images in repository
-      const shipsWithImages = ships.filter(s => hasShipImage(s.slug));
-      console.log(`[Ships] Filtered ${ships.length} ships to ${shipsWithImages.length} with images:`,
-                  shipsWithImages.map(s => s.slug));
-
-      grid.innerHTML=shipsWithImages.map(card).join('');
-      fallback.style.display='none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `${ships.length} ships loaded`;
-      }
-    }
-    load();
-  })();
-  </script>
+  <!-- Dynamic Ships Module v1.000.000 -->
+  <script src="/assets/js/ships-dynamic.js?v=1.000.000" defer></script>
 
   <!-- Dropdown Menu with 300ms Hover Delay -->
   <script>
