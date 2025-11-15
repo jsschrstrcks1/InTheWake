@@ -581,34 +581,56 @@ function createStore(initialState) {
     Object.keys(updates).forEach(key => {
       nextState[key] = updates[key];
     });
-    
+
     const changedKeys = Object.keys(nextState).filter(
       key => JSON.stringify(nextState[key]) !== JSON.stringify(state[key])
     );
-    
-    if (changedKeys.length === 0) return;
-    
+
+    // CRITICAL FIX: Always notify 'results' subscribers, even if data appears unchanged
+    // This ensures UI updates after calculations complete
+    const keysToNotify = new Set(changedKeys);
+    Object.keys(updates).forEach(key => {
+      if (key === 'results') {
+        keysToNotify.add(key);
+        console.log('[Store] 🔥 FORCING results notification (bypass change detection)');
+      }
+    });
+
+    const finalKeysToNotify = Array.from(keysToNotify);
+
+    console.log('[Store] Keys changed:', changedKeys);
+    console.log('[Store] Keys to notify:', finalKeysToNotify);
+
+    if (finalKeysToNotify.length === 0) {
+      console.log('[Store] No changes detected, skipping notification');
+      return;
+    }
+
     state = nextState;
-    
-    changedKeys.forEach(key => {
+
+    finalKeysToNotify.forEach(key => {
       const callbacks = subscribers.get(key);
+      console.log(`[Store] Notifying ${callbacks?.size || 0} subscriber(s) for key: ${key}`);
       if (callbacks) callbacks.forEach(cb => {
         try {
           cb(state[key], state);
         } catch (err) {
-          console.error(`[Store] Subscriber error for key "${key}":`, err); // ✅ FIXED: Backtick syntax
+          console.error(`[Store] Subscriber error for key "${key}":`, err);
         }
       });
     });
-    
+
     const globalCallbacks = subscribers.get('*');
-    if (globalCallbacks) globalCallbacks.forEach(cb => {
-      try {
-        cb(state, state);
-      } catch (err) {
-        console.error('[Store] Global subscriber error:', err);
-      }
-    });
+    if (globalCallbacks) {
+      console.log(`[Store] Notifying ${globalCallbacks.size} global subscriber(s)`);
+      globalCallbacks.forEach(cb => {
+        try {
+          cb(state, state);
+        } catch (err) {
+          console.error('[Store] Global subscriber error:', err);
+        }
+      });
+    }
   }
   
   function patch(path, value) {

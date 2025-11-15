@@ -1025,24 +1025,57 @@ function announce(message, priority = 'polite') {
 /* ==================== MAIN RENDER FUNCTION ==================== */
 
 function renderAll() {
+  console.log('[UI Render] ======================================');
+  console.log('[UI Render] renderAll() called');
+  console.log('[UI Render] ======================================');
+
   if (!window.ITW || !window.ITW.store) {
-    console.warn('[UI] ITW core not initialized');
+    console.error('[UI Render] ✗ ITW core not initialized!');
     return;
   }
-  
+
   const state = window.ITW.store.get();
   const { results } = state;
-  
-  if (!results) return;
-  
-  renderBanner(results);
-  renderTotals(results);
-  renderChart(results.bars, results.winnerKey);
-  renderPackageCards(results);
-  renderSummary(results);
-  renderCategoryTable(results.categoryRows || []);
-  renderNudges(results.nudges || []);
-  renderHealthNote(results.healthNote);
+
+  console.log('[UI Render] State retrieved:', state);
+  console.log('[UI Render] Results:', results);
+
+  if (!results) {
+    console.warn('[UI Render] ✗ No results to render');
+    return;
+  }
+
+  console.log('[UI Render] Rendering components...');
+
+  try {
+    renderBanner(results);
+    console.log('[UI Render] ✓ Banner rendered');
+
+    renderTotals(results);
+    console.log('[UI Render] ✓ Totals rendered');
+
+    renderChart(results.bars, results.winnerKey);
+    console.log('[UI Render] ✓ Chart rendered');
+
+    renderPackageCards(results);
+    console.log('[UI Render] ✓ Package cards rendered');
+
+    renderSummary(results);
+    console.log('[UI Render] ✓ Summary rendered');
+
+    renderCategoryTable(results.categoryRows || []);
+    console.log('[UI Render] ✓ Category table rendered');
+
+    renderNudges(results.nudges || []);
+    console.log('[UI Render] ✓ Nudges rendered');
+
+    renderHealthNote(results.healthNote);
+    console.log('[UI Render] ✓ Health note rendered');
+
+    console.log('[UI Render] ✓✓✓ ALL COMPONENTS RENDERED ✓✓✓');
+  } catch (error) {
+    console.error('[UI Render] ✗ Error during rendering:', error);
+  }
 }
 
 /* ==================== INITIALIZATION ==================== */
@@ -1068,9 +1101,23 @@ function initializeUI() {
   fetchArticles();
 
   // Subscribe to store changes (debounced)
-  window.ITW.store.subscribe('results', () => {
-    if (window._renderTimeout) clearTimeout(window._renderTimeout);
-    window._renderTimeout = setTimeout(renderAll, 50);
+  window.ITW.store.subscribe('results', (newResults, fullState) => {
+    console.log('[UI] ======================================');
+    console.log('[UI] 🔔 RESULTS SUBSCRIPTION FIRED!');
+    console.log('[UI] ======================================');
+    console.log('[UI] New results received:', newResults);
+    console.log('[UI] Full state:', fullState);
+
+    if (window._renderTimeout) {
+      console.log('[UI] Clearing previous render timeout');
+      clearTimeout(window._renderTimeout);
+    }
+
+    console.log('[UI] Scheduling renderAll() in 50ms...');
+    window._renderTimeout = setTimeout(() => {
+      console.log('[UI] Executing scheduled renderAll()');
+      renderAll();
+    }, 50);
   });
 
   // Initial render
