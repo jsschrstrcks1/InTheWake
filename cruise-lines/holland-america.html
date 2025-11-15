@@ -48,7 +48,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Holland America Line | In the Wake (v3.007)</title>
-  <meta name="version" content="v3.007"/>
+  <meta name="version" content="3.010.300"/>
   <meta name="description" content="Holland America Line overview: Pinnacle Class, ships A–Z, gallery, and a typo-tolerant ship finder — from In the Wake."/>
   <meta name="robots" content="index,follow"/>
 
@@ -119,18 +119,43 @@
         <img src="/assets/logo_wake.png" alt="In the Wake wordmark" width="256" height="64"/>
         <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
       </div>
-      <nav class="pill-nav pills" aria-label="Main site navigation">
-        <a href="/">Home</a>
-        <a href="/ships/">Ships</a>
-        <a href="/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="/ports.html">Ports</a>
-        <a href="/disability-at-sea.html">Disability at Sea</a>
-        <a href="/drink-calculator.html">Drink Calculator</a>
-        <a href="/packing-lists.html">Packing Lists</a>
-        <a href="/cruise-lines/" aria-current="page">Cruise Lines</a>
-        <a href="/solo.html">Solo</a>
-        <a href="/planning.html">Planning</a>
-        <a href="/travel.html">Travel</a>
+      <!-- Navigation with Dropdown Menus -->
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+            Planning <span class="caret">▾</span>
+          </button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
       </nav>
     </div>
 
