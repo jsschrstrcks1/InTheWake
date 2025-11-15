@@ -1,11 +1,23 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1.004.000 (CRITICAL RECOMMENDATION FIX)
+ * Version: 1.004.003 (Coffee Punch System + All Fixes)
  *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  *
  * Soli Deo Gloria ✝️
+ *
+ * CHANGELOG v1.004.003:
+ * ✅ MAJOR FEATURE: Split coffee into small (1 punch) and large/iced (2 punches)
+ * ✅ CRITICAL FIX: Punch calculation now accurate for mixed coffee types
+ * ✅ SMART OPTIMIZATION: Prioritizes using punches for large coffees first (saves more)
+ * ✅ UI: Separate inputs for "Specialty coffee - small" and "Specialty coffee - large/iced"
+ *
+ * CHANGELOG v1.004.002:
+ * ✅ CRITICAL FIX: Coffee Cards now have correct 15 punches (was 10)
+ * ✅ CRITICAL FIX: Coffee Card purchase cost now included in calculations
+ * ✅ FIXED: À-la-carte total = raw cost - discount + coffee card cost
+ * ✅ Coffee Card price now editable and stored in economics.pkg.coffee
  *
  * CHANGELOG v1.004.000:
  * ✅ CRITICAL FIX: Package recommendations now account for uncovered drinks!
@@ -298,6 +310,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const pkgSoda = toNum(economics.pkg?.soda || 13.99);
   const pkgRefresh = toNum(economics.pkg?.refresh || 34.0);
   const pkgDeluxe = toNum(economics.pkg?.deluxe || 85.0);
+  const coffeeCardPrice = toNum(economics.pkg?.coffee || 31.0); // CRITICAL FIX v1.003.002
   const grat = toNum(economics.grat || gratuity);
   const cap = toNum(economics.deluxeCap || deluxeCap);
   
@@ -333,18 +346,42 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   
   const rawTotal = sum(categoryRows.map(r => r.cost));
   
-  const coffeeItems = categoryRows.filter(r => r.id === 'coffee');
-  const coffeeQtyTotal = coffeeItems.reduce((s, r) => s + r.qty, 0) * days;
-  const cardsUsed = Math.min(coffeeCards, Math.floor(coffeeQtyTotal / 10));
-  const punchesUsed = Math.min(coffeePunches * days, coffeeQtyTotal - cardsUsed * 10);
-  const coffeeDiscount = (cardsUsed * 10 + punchesUsed) * (prices.coffee || 4.5);
-  
+  // CRITICAL FIX v1.003.003: Calculate total coffee punches from small (1 punch) and large (2 punches)
+  const COFFEE_CARD_PUNCHES = 15;
+  const coffeeSmallQty = categoryRows.find(r => r.id === 'coffeeSmall')?.qty || 0;
+  const coffeeLargeQty = categoryRows.find(r => r.id === 'coffeeLarge')?.qty || 0;
+
+  // Total punches needed = (small × 1) + (large × 2)
+  const totalPunchesNeeded = (coffeeSmallQty * 1 + coffeeLargeQty * 2) * days;
+
+  // Calculate how many cards are actually used (can't use more cards than you bought)
+  const cardsUsed = Math.min(coffeeCards, Math.floor(totalPunchesNeeded / COFFEE_CARD_PUNCHES));
+
+  // Manual punches (from "Avg punches/day" field) can supplement cards
+  const punchesUsed = Math.min(coffeePunches * days, Math.max(0, totalPunchesNeeded - cardsUsed * COFFEE_CARD_PUNCHES));
+
+  // Total free coffees from cards and punches (convert back to drinks)
+  const totalFreePunches = cardsUsed * COFFEE_CARD_PUNCHES + punchesUsed;
+
+  // Calculate discount: prioritize covering large coffees first (they save more), then small
+  const largeCoffeesFromPunches = Math.min(coffeeLargeQty * days, Math.floor(totalFreePunches / 2));
+  const remainingPunches = totalFreePunches - (largeCoffeesFromPunches * 2);
+  const smallCoffeesFromPunches = Math.min(coffeeSmallQty * days, remainingPunches);
+
+  const coffeeDiscount =
+    (largeCoffeesFromPunches * (prices.coffeeLarge || 4.5)) +
+    (smallCoffeesFromPunches * (prices.coffeeSmall || 4.5));
+
+  // CRITICAL FIX v1.003.002: Add cost of purchasing coffee cards
+  const coffeeCardCost = coffeeCards * coffeeCardPrice * (1 + grat);
+
   const alcTotal = sum(categoryRows.filter(r => sets.alcoholic.includes(r.id)).map(r => r.cost));
   const refreshTotal = sum(categoryRows.filter(r => sets.refresh.includes(r.id)).map(r => r.cost));
   const sodaTotal = sum(categoryRows.filter(r => sets.soda.includes(r.id)).map(r => r.cost));
-  
-  const totalAlc = Math.max(0, rawTotal - coffeeDiscount);
-  
+
+  // À-la-carte total = raw cost - free coffee discount + coffee card purchase cost
+  const totalAlc = Math.max(0, rawTotal - coffeeDiscount + coffeeCardCost);
+
   // Package costs - adults only for now
   const sodaPkg = pkgSoda * (1 + grat) * days * adults;
   const refreshPkg = pkgRefresh * (1 + grat) * days * adults;
