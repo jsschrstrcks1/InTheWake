@@ -1,13 +1,16 @@
 /**
  * Royal Caribbean Drink Calculator — Web Worker
- * Version: 1.003.000
- * 
+ * Version: 1.004.000
+ *
  * COMPLETE PRODUCTION-READY WORKER
- * 
+ *
  * In the name of the Father, and of the Son, and of the Holy Spirit. Amen.
  * "Whatever you do, work at it with all your heart, as working for the Lord"
  * — Colossians 3:23
- * 
+ *
+ * CHANGES in v1.004.000:
+ * - CRITICAL FIX: Package recommendations now account for uncovered drinks
+ *
  * CHANGES in v1.003.000:
  * - Support for forcedPackage parameter (clickable package selection)
  * - Enhanced validation
@@ -18,10 +21,10 @@
 'use strict';
 
 // Import math engine
-importScripts('/assets/js/calculator-math.js?v=1.003.000');
+importScripts('/assets/js/calculator-math.js?v=1.004.000');
 
 // Log ready state
-console.log('[Worker] v1.003.000 initializing...');
+console.log('[Worker] v1.004.000 initializing...');
 
 // Verify math engine loaded
 if (typeof ITW_MATH === 'undefined' || !ITW_MATH.compute) {
@@ -299,7 +302,7 @@ function validatePayload(payload) {
 
 // Post ready message
 self.postMessage({ type: 'ready' });
-console.log('[Worker] v1.003.000 ready ✓');
+console.log('[Worker] v1.004.000 ready ✓');
+console.log('[Worker] Package recommendations: FIXED (accounts for uncovered drinks)');
 console.log('[Worker] Forced package support: ENABLED');
 console.log('[Worker] Minors + Deluxe policy: ENFORCED');
-console.log('[Worker] Pinnacle vouchers: FIXED (6/day)');

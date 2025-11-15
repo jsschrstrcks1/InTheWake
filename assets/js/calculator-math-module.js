@@ -1,16 +1,16 @@
 /**
  * Royal Caribbean Drink Calculator - ES6 Module Wrapper
- * calculator-math-module.js - Version: 1.003.001
- * 
- * "For just as the body is one and has many members, and all the members 
+ * calculator-math-module.js - Version: 1.004.000
+ *
+ * "For just as the body is one and has many members, and all the members
  *  of the body, though many, are one body, so it is with Christ."
  * - 1 Corinthians 12:12
- * 
+ *
  * Soli Deo Gloria ✝️
  */
 
 // Direct import - the functions are defined at module scope
-import('/assets/js/calculator-math.js?v=1.003.001').then(module => {
+import('/assets/js/calculator-math.js?v=1.004.000').then(module => {
   // For some bundlers/contexts, exports might be on default
   if (module.compute) {
     self.compute = module.compute;

@@ -1,12 +1,18 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1.003.000 (Critical Fixes + Accessibility Promise Kept)
- * 
+ * Version: 1.004.000 (CRITICAL RECOMMENDATION FIX)
+ *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
- * 
+ *
  * Soli Deo Gloria ✝️
- * 
+ *
+ * CHANGELOG v1.004.000:
+ * ✅ CRITICAL FIX: Package recommendations now account for uncovered drinks!
+ *    - Soda package was being recommended for coffee drinks (doesn't cover coffee!)
+ *    - Fixed: Each package cost now includes à la carte cost for uncovered drinks
+ *    - Example: 44 coffees now correctly recommends Refresh ($561) not Soda ($231+$1386=$1617)
+ *
  * CHANGELOG v1.003.000:
  * ✅ CRITICAL FIX: Minors forced to Refreshment when adults buy Deluxe
  * ✅ FIXED: Pinnacle vouchers corrected (6/day not 5)
@@ -352,11 +358,23 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const alcPerPerson = adults > 0 ? alcPerDay / adults : 0;
   const overcap = Math.max(0, alcPerPerson - cap);
   
+  // CRITICAL FIX v1.003.000: Calculate TRUE total cost for each package option
+  // Each package only covers certain drinks - uncovered drinks must be paid à la carte!
+  const sodaTotalCost = sodaPkg + (totalAlc - sodaTotal); // Soda pkg + all non-soda drinks à la carte
+  const refreshTotalCost = refreshPkg + (totalAlc - refreshTotal); // Refresh pkg + alcoholic drinks à la carte
+  const deluxeTotalCost = deluxePkgWithMinors + (overcap * days * adults); // Deluxe pkg + over-cap drinks
+
+  console.log('[Math Engine] Package comparison (including uncovered drinks):');
+  console.log(`  À la carte: $${totalAlc.toFixed(2)}`);
+  console.log(`  Soda: $${sodaPkg.toFixed(2)} (pkg) + $${(totalAlc - sodaTotal).toFixed(2)} (uncovered) = $${sodaTotalCost.toFixed(2)}`);
+  console.log(`  Refresh: $${refreshPkg.toFixed(2)} (pkg) + $${(totalAlc - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
+  console.log(`  Deluxe: $${deluxePkgWithMinors.toFixed(2)} (pkg) + $${(overcap * days * adults).toFixed(2)} (over-cap) = $${deluxeTotalCost.toFixed(2)}`);
+
   const bars = {
     alc: { min: totalAlc, mean: totalAlc, max: totalAlc },
-    soda: { min: sodaPkg, mean: sodaPkg, max: sodaPkg },
-    refresh: { min: refreshPkg, mean: refreshPkg, max: refreshPkg },
-    deluxe: { min: deluxePkgWithMinors, mean: deluxePkgWithMinors, max: deluxePkgWithMinors }
+    soda: { min: sodaTotalCost, mean: sodaTotalCost, max: sodaTotalCost },
+    refresh: { min: refreshTotalCost, mean: refreshTotalCost, max: refreshTotalCost },
+    deluxe: { min: deluxeTotalCost, mean: deluxeTotalCost, max: deluxeTotalCost }
   };
 
   // ✅ NEW v1.003.000: Package forcing feature
@@ -390,13 +408,13 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
       }
     }
   } else {
-    // Normal mode: determine cheapest package
+    // Normal mode: determine cheapest package (using TRUE total costs)
     console.log('[Math Engine] Auto-recommendation mode (no forced package)');
     winners = determineWinners({
       alc: totalAlc,
-      soda: sodaPkg,
-      refresh: refreshPkg,
-      deluxe: deluxePkgWithMinors
+      soda: sodaTotalCost,
+      refresh: refreshTotalCost,
+      deluxe: deluxeTotalCost
     }, minors);
   }
   
@@ -519,16 +537,15 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 if (typeof window !== 'undefined') {
   window.ITW_MATH = Object.freeze({
     compute,
-    version: '1.003.000'
+    version: '1.004.000'
   });
-  console.log('[ITW Math Engine] v1.003.000 loaded ✓');
-  console.log('[ITW Math Engine] CRITICAL FIX: Minors + Deluxe policy enforced');
-  console.log('[ITW Math Engine] FIXED: Pinnacle vouchers (6/day)');
-  console.log('[ITW Math Engine] FIXED: Package uniformity policy messaging');
+  console.log('[ITW Math Engine] v1.004.000 loaded ✓');
+  console.log('[ITW Math Engine] CRITICAL FIX: Package recommendations now account for uncovered drinks');
+  console.log('[ITW Math Engine] FIXED: Coffee drinks no longer incorrectly suggest Soda package');
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
-    version: '1.003.000'
+    version: '1.004.000'
   });
 }
 
