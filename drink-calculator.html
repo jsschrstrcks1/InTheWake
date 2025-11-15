@@ -404,8 +404,51 @@
       font-size: 1rem;
     }
 
+    /* Split row for coffee inputs (small + large on same row) */
+    .row-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 0;
+    }
+
+    .row-split-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .row-split-item label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-weight: 500;
+      color: #1e293b;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .row-split-item input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .row-split-item input:focus {
+      border-color: #0e6e8e;
+      outline: none;
+    }
+
     @media (max-width: 640px) {
       .drink-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Stack coffee inputs vertically on mobile */
+      .row-split {
         grid-template-columns: 1fr;
       }
     }
@@ -1019,20 +1062,23 @@
                 <input id="drink-soda" data-input="soda" type="text" inputmode="decimal" value="0" aria-label="Sodas per day"/>
               </div>
 
-              <!-- ✅ NEW v1.003.003: Split coffee into small (1 punch) and large (2 punches) -->
-              <div class="row">
-                <label for="drink-coffee-small">Specialty coffee - small <span class="tiny muted">(1 punch)</span> <span class="drink-price">$4.50</span></label>
-                <input id="drink-coffee-small" data-input="coffeeSmall" type="text" inputmode="decimal" value="0" aria-label="Small specialty coffees per day (1 punch each)"/>
-              </div>
-
-              <div class="row">
-                <label for="drink-coffee-large">Specialty coffee - large/iced <span class="tiny muted">(2 punches)</span> <span class="drink-price">$4.50</span></label>
-                <input id="drink-coffee-large" data-input="coffeeLarge" type="text" inputmode="decimal" value="0" aria-label="Large or iced specialty coffees per day (2 punches each)"/>
-              </div>
-
               <div class="row">
                 <label for="drink-teaprem">Premium tea <span class="drink-price">$3.50</span></label>
                 <input id="drink-teaprem" data-input="teaprem" type="text" inputmode="decimal" value="0" aria-label="Premium teas per day"/>
+              </div>
+
+              <!-- ✅ NEW v1.003.003: Split coffee into small (1 punch) and large (2 punches) -->
+              <!-- ✅ LAYOUT FIX: Both coffees on same row -->
+              <div class="row-split">
+                <div class="row-split-item">
+                  <label for="drink-coffee-small">Specialty coffee - small <span class="tiny muted">(1 punch)</span> <span class="drink-price">$4.50</span></label>
+                  <input id="drink-coffee-small" data-input="coffeeSmall" type="text" inputmode="decimal" value="0" aria-label="Small specialty coffees per day (1 punch each)"/>
+                </div>
+
+                <div class="row-split-item">
+                  <label for="drink-coffee-large">Specialty coffee - large/iced <span class="tiny muted">(2 punches)</span> <span class="drink-price">$4.50</span></label>
+                  <input id="drink-coffee-large" data-input="coffeeLarge" type="text" inputmode="decimal" value="0" aria-label="Large or iced specialty coffees per day (2 punches each)"/>
+                </div>
               </div>
 
               <div class="row">
