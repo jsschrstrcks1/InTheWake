@@ -8,7 +8,7 @@
   <meta name="description" content="Royal Caribbean’s Solarium Bistro — complimentary adults-only dining with fresh Mediterranean cuisine and ocean-view serenity. Breakfast, lunch, and dinner menus for 2025.">
   <meta name="keywords" content="Solarium Bistro, Royal Caribbean dining, Mediterranean food, healthy cruise restaurant, adults only, Oasis class, Symphony, wellness dining, spa cuisine">
   <meta name="referrer" content="no-referrer">
-  <meta name="version" content="2.257.001">
+  <meta name="version" content="3.010.300">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="In the Wake">
@@ -75,19 +75,44 @@
       <img src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64"/>
       <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
     </div>
-    <nav class="pill-nav pills" aria-label="Main site navigation">
-      <a href="/">Home</a>
-      <a href="/ships/ships.html">Ships</a>
-      <a href="/restaurants.html" aria-current="page">Restaurants &amp; Menus</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/disability.html">Disability at Sea</a>
-      <a href="/drinks.html">Drink Calculator</a>
-      <a href="/packing.html">Packing Lists</a>
-      <a href="/planning.html">Planning</a>
-      <a href="/solo.html">Solo Travel</a>
-      <a href="/travel.html">Travel Tips</a>
-      <a href="/cruise-lines.html">Cruise Lines</a>
-    </nav>
+    <!-- Navigation with Dropdown Menus -->
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning" aria-current="page">
+            Planning <span class="caret">▾</span>
+          </button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html" aria-current="page">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
+      </nav>
   </div>
 
   <div class="hero" role="img" aria-label="Ship wake at sunrise">
@@ -331,5 +356,108 @@
   wireToggles();
 })();
 </script>
+
+  <!-- JAVASCRIPT -->
+  <script>
+  (function(){
+    "use strict";
+
+    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    if (dropdownGroups.length) {
+      const hoverTimeouts = new Map();
+      const HOVER_DELAY = 300;
+
+      function setOpen(group, isOpen) {
+        group.dataset.open = isOpen ? "true" : "false";
+        const button = group.querySelector('.nav-disclosure');
+        if (button) {
+          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+      }
+
+      function closeAll(except = null) {
+        dropdownGroups.forEach(group => {
+          if (group !== except) {
+            setOpen(group, false);
+            if (hoverTimeouts.has(group)) {
+              clearTimeout(hoverTimeouts.get(group));
+              hoverTimeouts.delete(group);
+            }
+          }
+        });
+      }
+
+      dropdownGroups.forEach(group => {
+        const button = group.querySelector('.nav-disclosure');
+        const menu = group.querySelector('.submenu');
+        if (!button || !menu) return;
+
+        // Click to toggle
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const isOpen = group.dataset.open === "true";
+          closeAll(group);
+          setOpen(group, !isOpen);
+        });
+
+        // Mouse enter: Open immediately
+        group.addEventListener('mouseenter', () => {
+          if (hoverTimeouts.has(group)) {
+            clearTimeout(hoverTimeouts.get(group));
+            hoverTimeouts.delete(group);
+          }
+          closeAll(group);
+          setOpen(group, true);
+        });
+
+        // Mouse leave: Close after delay
+        group.addEventListener('mouseleave', () => {
+          const timeoutId = setTimeout(() => {
+            setOpen(group, false);
+            hoverTimeouts.delete(group);
+          }, HOVER_DELAY);
+          hoverTimeouts.set(group, timeoutId);
+        });
+
+        // Keyboard navigation
+        group.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            setOpen(group, false);
+            button && button.focus();
+          }
+          if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
+            e.preventDefault();
+            setOpen(group, true);
+            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            firstLink && firstLink.focus();
+          }
+        });
+
+        // Close when tabbing away
+        menu.addEventListener('focusout', () => {
+          setTimeout(() => {
+            if (!group.contains(document.activeElement)) {
+              setOpen(group, false);
+            }
+          }, 0);
+        });
+      });
+
+      // Close all when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-group')) {
+          closeAll();
+        }
+      });
+
+      // Close all when window loses focus
+      window.addEventListener('blur', () => {
+        closeAll();
+      });
+    }
+  })();
+  </script>
 </body>
 </html>

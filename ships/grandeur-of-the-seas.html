@@ -10,12 +10,12 @@
     gtag('config', 'G-WZP891PZXJ');
   </script>
 
-  <!-- ===== Critical meta (v3.007.010) ===== -->
+  <!-- ===== Critical meta (v3.010.300) ===== -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="referrer" content="no-referrer"/>
   <meta name="robots" content="index, follow"/>
-  <meta name="version" content="3.007.010"/>
+  <meta name="version" content="3.010.300"/>
 
   <title>Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
   <meta name="description" content="Grandeur of the Seas: deck plans, live tracker (auto-refresh), dining venues, stateroom videos, and real guest logbook. Plan your Royal Caribbean cruise with In the Wake."/>
@@ -84,7 +84,7 @@
   <!-- ===== Analytics (Umami) ===== -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- ===== Page micro CSS (scoped, v3.007.010 compliance) ===== -->
+  <!-- ===== Page micro CSS (scoped, v3.010.300 compliance) ===== -->
   <style>
     .hidden{display:none!important}
     .pills,.class-pills,.related-pills,.button-group{
@@ -149,15 +149,43 @@
       </div>
 
       <!-- Primary Navigation (pills) -->
-      <nav class="pill-nav pills" aria-label="Main site navigation">
-        <a href="https://www.cruisinginthewake.com/index.html">Home</a>
-        <a href="https://www.cruisinginthewake.com/ships/ships.html">Ships</a>
-        <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-        <a href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html">Cruise Lines</a>
+      <!-- Navigation with Dropdown Menus -->
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+            Planning <span class="caret">▾</span>
+          </button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
       </nav>
     </div>
 
@@ -697,6 +725,109 @@
       });
     }
     if (document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', upgrade, {once:true}); } else { upgrade(); }
+  })();
+  </script>
+
+  <!-- JAVASCRIPT -->
+  <script>
+  (function(){
+    "use strict";
+
+    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    if (dropdownGroups.length) {
+      const hoverTimeouts = new Map();
+      const HOVER_DELAY = 300;
+
+      function setOpen(group, isOpen) {
+        group.dataset.open = isOpen ? "true" : "false";
+        const button = group.querySelector('.nav-disclosure');
+        if (button) {
+          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+      }
+
+      function closeAll(except = null) {
+        dropdownGroups.forEach(group => {
+          if (group !== except) {
+            setOpen(group, false);
+            if (hoverTimeouts.has(group)) {
+              clearTimeout(hoverTimeouts.get(group));
+              hoverTimeouts.delete(group);
+            }
+          }
+        });
+      }
+
+      dropdownGroups.forEach(group => {
+        const button = group.querySelector('.nav-disclosure');
+        const menu = group.querySelector('.submenu');
+        if (!button || !menu) return;
+
+        // Click to toggle
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const isOpen = group.dataset.open === "true";
+          closeAll(group);
+          setOpen(group, !isOpen);
+        });
+
+        // Mouse enter: Open immediately
+        group.addEventListener('mouseenter', () => {
+          if (hoverTimeouts.has(group)) {
+            clearTimeout(hoverTimeouts.get(group));
+            hoverTimeouts.delete(group);
+          }
+          closeAll(group);
+          setOpen(group, true);
+        });
+
+        // Mouse leave: Close after delay
+        group.addEventListener('mouseleave', () => {
+          const timeoutId = setTimeout(() => {
+            setOpen(group, false);
+            hoverTimeouts.delete(group);
+          }, HOVER_DELAY);
+          hoverTimeouts.set(group, timeoutId);
+        });
+
+        // Keyboard navigation
+        group.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            setOpen(group, false);
+            button && button.focus();
+          }
+          if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
+            e.preventDefault();
+            setOpen(group, true);
+            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            firstLink && firstLink.focus();
+          }
+        });
+
+        // Close when tabbing away
+        menu.addEventListener('focusout', () => {
+          setTimeout(() => {
+            if (!group.contains(document.activeElement)) {
+              setOpen(group, false);
+            }
+          }, 0);
+        });
+      });
+
+      // Close all when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-group')) {
+          closeAll();
+        }
+      });
+
+      // Close all when window loses focus
+      window.addEventListener('blur', () => {
+        closeAll();
+      });
+    }
   })();
   </script>
 </body>
