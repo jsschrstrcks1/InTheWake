@@ -81,7 +81,7 @@ const CONFIG = Object.freeze({
     cocktail: 'Cocktail', spirits: 'Spirits/Shot'
   }),
   WORKER: Object.freeze({
-    enabled: true,
+    enabled: false, // ✅ DISABLED: Worker rejects __proto__ in payload, use main thread
     url: `/assets/js/calculator-worker.js?v=${VERSION}`,
     timeout: 5000
   }),
