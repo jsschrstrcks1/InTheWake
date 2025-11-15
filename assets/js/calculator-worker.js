@@ -222,45 +222,48 @@ function validatePayload(payload) {
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
     throw new Error('Payload must be a plain object');
   }
-  
+
   const dangerous = ['__proto__', 'constructor', 'prototype'];
-  
+
+  // ✅ FIX: Use hasOwnProperty to check only OWN properties, not prototype chain
+  // The 'in' operator checks inherited properties, causing false positives
+
   // Check root level
   for (let key of dangerous) {
-    if (key in payload) {
+    if (Object.prototype.hasOwnProperty.call(payload, key)) {
       throw new Error('Dangerous key detected in payload: ' + key);
     }
   }
-  
+
   // Check inputs
   if (payload.inputs) {
     for (let key of dangerous) {
-      if (key in payload.inputs) {
+      if (Object.prototype.hasOwnProperty.call(payload.inputs, key)) {
         throw new Error('Dangerous key detected in inputs: ' + key);
       }
     }
-    
+
     // Check inputs.drinks
     if (payload.inputs.drinks) {
       for (let key of dangerous) {
-        if (key in payload.inputs.drinks) {
+        if (Object.prototype.hasOwnProperty.call(payload.inputs.drinks, key)) {
           throw new Error('Dangerous key detected in drinks: ' + key);
         }
       }
     }
   }
-  
+
   // Check economics
   if (payload.economics) {
     for (let key of dangerous) {
-      if (key in payload.economics) {
+      if (Object.prototype.hasOwnProperty.call(payload.economics, key)) {
         throw new Error('Dangerous key detected in economics: ' + key);
       }
     }
-    
+
     if (payload.economics.pkg) {
       for (let key of dangerous) {
-        if (key in payload.economics.pkg) {
+        if (Object.prototype.hasOwnProperty.call(payload.economics.pkg, key)) {
           throw new Error('Dangerous key detected in pkg: ' + key);
         }
       }
@@ -270,16 +273,16 @@ function validatePayload(payload) {
   // Check dataset
   if (payload.dataset) {
     for (let key of dangerous) {
-      if (key in payload.dataset) {
+      if (Object.prototype.hasOwnProperty.call(payload.dataset, key)) {
         throw new Error('Dangerous key detected in dataset: ' + key);
       }
     }
   }
-  
+
   // Check vouchers
   if (payload.vouchers) {
     for (let key of dangerous) {
-      if (key in payload.vouchers) {
+      if (Object.prototype.hasOwnProperty.call(payload.vouchers, key)) {
         throw new Error('Dangerous key detected in vouchers: ' + key);
       }
     }
