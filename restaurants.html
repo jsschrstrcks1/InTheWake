@@ -130,6 +130,88 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Global CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
+
+  <!-- Dropdown Navigation Styles -->
+  <style>
+    .nav-disclosure .caret {
+      display: inline-block;
+      margin-left: .25rem;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-item[data-open="true"] .nav-disclosure .caret,
+    .nav-group[data-open="true"] .nav-disclosure .caret {
+      transform: rotate(180deg);
+    }
+
+    .submenu {
+      position: absolute !important;
+      left: 0;
+      top: calc(100% + 4px);
+      min-width: 240px;
+      background: #fff;
+      border: 2px solid var(--rope);
+      border-radius: 12px;
+      padding: .6rem;
+      box-shadow: 0 8px 24px rgba(8,48,65,.15);
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      z-index: 2100;
+    }
+
+    .submenu::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: transparent;
+    }
+
+    .nav-item[data-open="true"] .submenu,
+    .nav-group[data-open="true"] .submenu,
+    .nav-group.open .submenu {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .submenu a {
+      display: block;
+      padding: .5rem .75rem;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .submenu a:hover,
+    .submenu a:focus {
+      background: #eef4f6;
+      outline: none;
+    }
+
+    .submenu a[aria-current="page"] {
+      background: #e6f4f8;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .submenu {
+        position: static !important;
+        width: 100%;
+        max-width: 100%;
+        margin-top: .5rem;
+        box-shadow: none;
+        border: 1px solid var(--rope);
+      }
+    }
+  </style>
 </head>
 
 <body class="page">
