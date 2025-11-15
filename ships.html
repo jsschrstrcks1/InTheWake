@@ -1352,6 +1352,17 @@
           </div>
         </article>
       </section>
+
+      <section id="ship-tracker-rail" class="card" aria-labelledby="tracker-title" style="display:none;position:sticky;top:1rem">
+        <h3 id="tracker-title">Live Ship Location</h3>
+        <p class="tiny muted" id="tracker-ship-name">Hover over a ship to see its live position</p>
+        <div id="tracker-container" style="width:100%;height:280px;background:#f0f4f8;border-radius:8px;overflow:hidden;position:relative">
+          <p class="tiny" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#789">
+            Hover over a ship card<br>to see its live tracker
+          </p>
+        </div>
+        <p class="tiny muted">Updates automatically on hover</p>
+      </section>
     </aside>
   </main>
 
@@ -1555,6 +1566,99 @@
   </script>
 
   
+
+  <!-- Live Ship Tracker (hover-activated) -->
+  <script>
+  (function initHoverTracker(){
+    const trackerRail = document.getElementById('ship-tracker-rail');
+    const trackerContainer = document.getElementById('tracker-container');
+    const trackerShipName = document.getElementById('tracker-ship-name');
+
+    if(!trackerRail || !trackerContainer) return;
+
+    // IMO number database (from rc_ships_meta.json)
+    const SHIP_IMOS = {
+      'grandeur-of-the-seas': '9102978',
+      'allure-of-the-seas': '9383948',
+      'radiance-of-the-seas': '9195195',
+      'adventure-of-the-seas': '9167227',
+      'brilliance-of-the-seas': '9195207',
+      'serenade-of-the-seas': '9228344',
+      'jewel-of-the-seas': '9228356'
+    };
+
+    let currentIframe = null;
+
+    function showTracker(shipName, shipSlug) {
+      const imo = SHIP_IMOS[shipSlug];
+      if (!imo) return; // No IMO data for this ship
+
+      // Show the tracker rail
+      trackerRail.style.display = 'block';
+
+      // Update ship name
+      trackerShipName.textContent = shipName;
+
+      // Create or update iframe
+      if (!currentIframe) {
+        currentIframe = document.createElement('iframe');
+        currentIframe.style.cssText = 'width:100%;height:100%;border:0;';
+        currentIframe.setAttribute('loading', 'lazy');
+        currentIframe.title = 'Live ship tracker for ' + shipName;
+        trackerContainer.innerHTML = '';
+        trackerContainer.appendChild(currentIframe);
+      }
+
+      // Update iframe src with MarineTraffic embed
+      currentIframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:0/centerx:0/maptype:0/shownames:true/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
+    }
+
+    function hideTracker() {
+      // Don't hide immediately - let user move to the tracker if they want
+      setTimeout(() => {
+        const hoveredElement = document.querySelector('.ship-card:hover, #ship-tracker-rail:hover');
+        if (!hoveredElement) {
+          trackerRail.style.display = 'none';
+        }
+      }, 500);
+    }
+
+    // Attach hover listeners when ship cards are rendered
+    function attachHoverListeners() {
+      const shipCards = document.querySelectorAll('.ship-card[data-ship-slug]');
+      shipCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          const shipName = card.querySelector('h3')?.textContent || '';
+          const shipSlug = card.getAttribute('data-ship-slug');
+          if (shipSlug) {
+            showTracker(shipName, shipSlug);
+          }
+        });
+
+        card.addEventListener('mouseleave', hideTracker);
+      });
+    }
+
+    // Wait for dynamic ships to load, then attach listeners
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.addedNodes.length) {
+          attachHoverListeners();
+          observer.disconnect(); // Only need to observe once
+          break;
+        }
+      }
+    });
+
+    const shipsContainer = document.getElementById('shipsContainer');
+    if (shipsContainer) {
+      observer.observe(shipsContainer, { childList: true, subtree: true });
+    }
+
+    // Also try attaching immediately in case ships are already loaded
+    setTimeout(attachHoverListeners, 1000);
+  })();
+  </script>
 
   <!-- Dropdown nav behavior (300ms Hover Delay) -->
   <script>
