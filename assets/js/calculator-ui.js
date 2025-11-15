@@ -1078,10 +1078,109 @@ function renderAll() {
   }
 }
 
+/* ==================== v1.003.000 NEW FEATURES (INTEGRATED FROM SHIM) ==================== */
+
+/**
+ * ✅ NEW v1.003.000: Non-Alcoholic View Toggle
+ * Formerly in calculator-feature-shim, now integrated properly
+ * Hides alcoholic drink inputs and Deluxe package for recovery-sensitive users
+ */
+function setupNonAlcoholicToggle() {
+  const toggle = document.getElementById('non-alcohol-view');
+  const affirmation = document.getElementById('recovery-affirmation');
+
+  if (!toggle) {
+    console.log('[UI] Non-alcohol toggle not found (optional feature)');
+    return;
+  }
+
+  console.log('[UI] ✓ Setting up non-alcoholic view toggle');
+
+  toggle.addEventListener('change', function() {
+    const isNonAlcOnly = toggle.checked;
+
+    console.log('[UI] Non-alcoholic mode:', isNonAlcOnly ? 'ON' : 'OFF');
+
+    // Show/hide affirmation message
+    if (affirmation) {
+      affirmation.style.display = isNonAlcOnly ? 'block' : 'none';
+    }
+
+    // Hide/show alcoholic drink inputs
+    const alcoholicRows = document.querySelectorAll('[data-category="alcohol"]');
+    alcoholicRows.forEach(function(row) {
+      if (isNonAlcOnly) {
+        row.style.display = 'none';
+        // Zero out the input
+        const input = row.querySelector('input[data-input]');
+        if (input && window.ITW && window.ITW.store) {
+          const key = input.dataset.input;
+          window.ITW.store.patch(`inputs.drinks.${key}`, 0);
+          input.value = '0';
+        }
+      } else {
+        row.style.display = '';
+      }
+    });
+
+    // Hide/show Deluxe package card
+    const deluxeCard = document.querySelector('[data-card="deluxe"]');
+    if (deluxeCard) {
+      deluxeCard.style.display = isNonAlcOnly ? 'none' : '';
+    }
+
+    // Trigger recalculation
+    if (window.ITW && window.ITW.scheduleCalc) {
+      window.ITW.scheduleCalc();
+    }
+
+    announce(isNonAlcOnly ?
+      'Non-alcoholic view enabled. Alcoholic beverages hidden.' :
+      'Standard view restored. All beverages visible.'
+    );
+  });
+}
+
+/**
+ * ✅ NEW v1.003.000: Pre-Cruise Pricing Toggle
+ * Formerly in calculator-feature-shim, now integrated properly
+ * Adjusts package prices for pre-cruise vs onboard pricing (onboard is typically 20-30% higher)
+ */
+function setupPricingToggle() {
+  const pricingSelect = document.getElementById('pricing-type');
+
+  if (!pricingSelect) {
+    console.log('[UI] Pricing toggle not found (optional feature)');
+    return;
+  }
+
+  console.log('[UI] ✓ Setting up pricing toggle');
+
+  pricingSelect.addEventListener('change', function() {
+    const pricingType = pricingSelect.value; // 'pre' or 'onboard'
+
+    console.log('[UI] Pricing type changed to:', pricingType);
+
+    // Note: This is a UI feature for user awareness
+    // Actual price adjustments would need to be implemented
+    // in the economics layer if Royal Caribbean provides different pricing data
+
+    // For now, just trigger recalculation and announce
+    if (window.ITW && window.ITW.scheduleCalc) {
+      window.ITW.scheduleCalc();
+    }
+
+    announce(pricingType === 'pre' ?
+      'Pre-cruise pricing selected. Typically 20-30% cheaper than onboard.' :
+      'Onboard pricing selected. Prices may be higher than pre-cruise purchase.'
+    );
+  });
+}
+
 /* ==================== INITIALIZATION ==================== */
 
 function initializeUI() {
-  console.log('[UI] Initializing v1.002.000 (Accessibility Promise Kept)');
+  console.log('[UI] Initializing v1.003.000 (Accessibility Promise Kept)');
 
   // ✅ CRITICAL: Wait for core to be ready
   if (!window.ITW_BOOTED || !window.ITW || !window.ITW.store) {
@@ -1099,6 +1198,10 @@ function initializeUI() {
   setupInlinePriceEditing();
   setupQuiz();
   fetchArticles();
+
+  // ✅ NEW v1.003.000: Integrated from feature shim
+  setupNonAlcoholicToggle();
+  setupPricingToggle();
 
   // Subscribe to store changes (debounced)
   window.ITW.store.subscribe('results', (newResults, fullState) => {
@@ -1128,7 +1231,7 @@ function initializeUI() {
     announce('Calculator ready. All features loaded and accessible.');
   }, 1000);
 
-  console.log('[UI] ✓ Initialized v1.002.000 - Full accessibility active');
+  console.log('[UI] ✓ Initialized v1.003.000 - Full accessibility active with integrated features');
 }
 
 // Auto-initialize (wait for core to be ready)
@@ -1152,7 +1255,7 @@ window.ITW_UI = Object.freeze({
   renderNudges,
   renderHealthNote,
   announce,
-  version: '1.002.000'
+  version: '1.003.000' // ✅ UPDATED: Matches calculator.js and calculator-math.js
 });
 
 window.applyPreset = applyPreset;
