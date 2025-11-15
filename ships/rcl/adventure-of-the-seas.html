@@ -405,6 +405,140 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       min-width: 100%;
     }
   }
+  
+    /* Navigation */
+    .nav {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      overflow: visible;
+      padding-inline: .75rem;
+    }
+
+    .nav-item {
+      position: relative;
+      display: inline-block;
+    }
+
+    .nav-item > a,
+    .nav-item > button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      padding: .65rem 1rem;
+      min-height: 44px;
+      border-radius: 10px;
+      background: #fff;
+      border: 2px solid var(--rope);
+      color: var(--accent);
+      font: inherit;
+      font-size: .95rem;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item > a:hover,
+    .nav-item > button:hover {
+      background: var(--foam);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .nav-item > a[aria-current="page"] {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      border-color: var(--accent);
+    }
+
+    /* Dropdown Navigation Styles */
+    .nav-disclosure .caret {
+      display: inline-block;
+      margin-left: .25rem;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-item[data-open="true"] .nav-disclosure .caret {
+      transform: rotate(180deg);
+    }
+
+    .submenu {
+      position: absolute !important;
+      left: 0;
+      top: calc(100% + 4px);
+      min-width: 240px;
+      background: #fff;
+      border: 2px solid var(--rope);
+      border-radius: 12px;
+      padding: .6rem;
+      box-shadow: 0 8px 24px rgba(8,48,65,.15);
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      z-index: 2100;
+    }
+
+    .submenu::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: transparent;
+    }
+
+    .nav-item[data-open="true"] .submenu,
+    .nav-group.open .submenu {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .submenu a {
+      display: block;
+      padding: .5rem .75rem;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .submenu a:hover,
+    .submenu a:focus {
+      background: #eef4f6;
+      outline: none;
+    }
+
+    .submenu a[aria-current="page"] {
+      background: #e6f4f8;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .submenu {
+        position: static !important;
+        min-width: 0;
+        margin-top: .5rem;
+        box-shadow: none;
+        border: 1px solid var(--rope);
+      }
+
+      .submenu::before {
+        display: none;
+      }
+    }
   </style>
 </head>
 
@@ -423,8 +557,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <img src="/assets/logo_wake.png?v=3.010.300" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
       </div>
-
-      <!-- Navigation with Dropdown Menus -->
       <nav class="nav" aria-label="Main site navigation">
         <div class="nav-item">
           <a href="/">Home</a>
@@ -441,6 +573,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
             <a role="menuitem" href="/ports.html">Ports</a>
             <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/stateroom-check.html">Stateroom Check</a>
             <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
             <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
             <a role="menuitem" href="/accessibility.html">Accessibility</a>
@@ -462,6 +595,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <a href="/about-us.html">About</a>
         </div>
       </nav>
+    <!-- Navigation with Dropdown Menus -->
+      
     </div>
 
     <div class="hero" role="img" aria-label="Adventure of the Seas hero image">
@@ -719,13 +854,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake. All rights reserved.</p>
 
-    <nav aria-label="Footer navigation">
-      <p class="tiny">
-        <a href="/terms.html">Terms</a> |
-        <a href="/privacy.html">Privacy</a> |
-        <a href="/accessibility.html">Accessibility Statement</a>
-      </p>
-    </nav>
+    
 
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
@@ -1019,6 +1148,109 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     const src='https://www.vesselfinder.com/aismap?imo='+imo+'&width=100%&height=300&zoom=10';
     iframe.src=src;
     iframe.classList.remove('hidden');
+  })();
+  </script>
+
+  <!-- Dropdown nav behavior (300ms Hover Delay) -->
+  <script>
+  (function(){
+    "use strict";
+
+    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    if (dropdownGroups.length) {
+      const hoverTimeouts = new Map();
+      const HOVER_DELAY = 300;
+
+      function setOpen(group, isOpen) {
+        group.dataset.open = isOpen ? "true" : "false";
+        const button = group.querySelector('.nav-disclosure');
+        if (button) {
+          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+      }
+
+      function closeAll(except = null) {
+        dropdownGroups.forEach(group => {
+          if (group !== except) {
+            setOpen(group, false);
+            if (hoverTimeouts.has(group)) {
+              clearTimeout(hoverTimeouts.get(group));
+              hoverTimeouts.delete(group);
+            }
+          }
+        });
+      }
+
+      dropdownGroups.forEach(group => {
+        const button = group.querySelector('.nav-disclosure');
+        const menu = group.querySelector('.submenu');
+        if (!button || !menu) return;
+
+        // Click to toggle
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const isOpen = group.dataset.open === "true";
+          closeAll(group);
+          setOpen(group, !isOpen);
+        });
+
+        // Mouse enter: Open immediately
+        group.addEventListener('mouseenter', () => {
+          if (hoverTimeouts.has(group)) {
+            clearTimeout(hoverTimeouts.get(group));
+            hoverTimeouts.delete(group);
+          }
+          closeAll(group);
+          setOpen(group, true);
+        });
+
+        // Mouse leave: Close after delay
+        group.addEventListener('mouseleave', () => {
+          const timeoutId = setTimeout(() => {
+            setOpen(group, false);
+            hoverTimeouts.delete(group);
+          }, HOVER_DELAY);
+          hoverTimeouts.set(group, timeoutId);
+        });
+
+        // Keyboard navigation
+        group.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            setOpen(group, false);
+            button && button.focus();
+          }
+          if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
+            e.preventDefault();
+            setOpen(group, true);
+            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            firstLink && firstLink.focus();
+          }
+        });
+
+        // Close when tabbing away
+        menu.addEventListener('focusout', () => {
+          setTimeout(() => {
+            if (!group.contains(document.activeElement)) {
+              setOpen(group, false);
+            }
+          }, 0);
+        });
+      });
+
+      // Close all when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-group')) {
+          closeAll();
+        }
+      });
+
+      // Close all when window loses focus
+      window.addEventListener('blur', () => {
+        closeAll();
+      });
+    }
   })();
   </script>
 </body>
