@@ -137,17 +137,20 @@ function adaptDataset(dataset) {
 function calculateNudges(inputs, economics, dataset, results) {
   const nudges = [];
   const { days, adults, drinks } = inputs;
-  const { pkg } = economics;
-  const { prices } = adaptDataset(dataset);
-  
+  const { pkg, grat } = economics;
+  const { prices, gratuity } = adaptDataset(dataset);
+  const gratuityRate = grat !== undefined ? grat : gratuity;
+
   if (days <= 0 || adults <= 0) return nudges;
-  
+
+  // CRITICAL FIX v1.005.000: Package prices are per-person-per-day, need to add gratuity
+  // NOT divide by days!
   const perPersonDaily = {
-    soda: round2(pkg.soda / days),
-    refresh: round2(pkg.refresh / days),
-    deluxe: round2(pkg.deluxe / days)
+    soda: round2(pkg.soda * (1 + gratuityRate)),
+    refresh: round2(pkg.refresh * (1 + gratuityRate)),
+    deluxe: round2(pkg.deluxe * (1 + gratuityRate))
   };
-  
+
   const currentDaily = round2(results.perDay / Math.max(1, adults));
   
   if (currentDaily < perPersonDaily.soda && currentDaily > 0) {
@@ -167,15 +170,15 @@ function calculateNudges(inputs, economics, dataset, results) {
   
   if (currentDaily < perPersonDaily.refresh && currentDaily >= perPersonDaily.soda) {
     const gap = perPersonDaily.refresh - currentDaily;
-    const coffeePrice = prices.coffee || 4.5;
+    const coffeePrice = prices.coffeeLarge || prices.coffeeSmall || 4.5;
     const drinksNeeded = Math.ceil(gap / coffeePrice);
     if (drinksNeeded > 0 && drinksNeeded <= 5) {
       nudges.push({
         package: 'refresh',
-        message: `Add ${drinksNeeded} premium ${drinksNeeded === 1 ? 'drink' : 'drinks'} per day to break even with Refreshment package`,
+        message: `Add ${drinksNeeded} specialty coffee${drinksNeeded === 1 ? '' : 's'} per day to break even with Refreshment package`,
         icon: '☕',
         priority: 2,
-        ariaLabel: `Breakeven tip: Add ${drinksNeeded} premium drinks per day to reach Refreshment package value`
+        ariaLabel: `Breakeven tip: Add ${drinksNeeded} specialty coffees per day to reach Refreshment package value`
       });
     }
   }
