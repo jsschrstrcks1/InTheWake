@@ -41,17 +41,15 @@ self.addEventListener('message', (e) => {
     try {
       // Validate payload structure
       validatePayload(payload);
-      
+
       const { inputs, economics, dataset, vouchers, forcedPackage } = payload;
-      
-      // Run main calculation
-      let results = ITW_MATH.compute(inputs, economics, dataset, vouchers);
-      
-      // If user has selected a specific package, override winner
-      if (forcedPackage && ['soda', 'refresh', 'deluxe'].includes(forcedPackage)) {
-        results = applyForcedPackage(results, forcedPackage, inputs, economics, vouchers);
-      }
-      
+
+      console.log('[Worker] Computing with forcedPackage:', forcedPackage || 'null (auto-recommend)');
+
+      // ✅ NEW v1.003.000: Pass forcedPackage directly to compute()
+      // This allows the math engine to handle package forcing natively
+      const results = ITW_MATH.compute(inputs, economics, dataset, vouchers, forcedPackage);
+
       // Validate results before sending
       if (!results || typeof results !== 'object') {
         throw new Error('Invalid results from compute');

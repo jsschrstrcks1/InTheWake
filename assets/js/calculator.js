@@ -722,7 +722,8 @@ const initialState = {
   ui: {
     fallbackBanner: false,
     fxStale: false,
-    chartReady: false
+    chartReady: false,
+    forcedPackage: null // 'soda', 'refresh', 'deluxe', or null for auto-recommendation
   }
 };
 
@@ -1041,10 +1042,11 @@ function scheduleCalculation() {
   console.log('[Calc] Starting calculation...');
 
   const state = store.get();
-  const { inputs, economics, dataset } = state;
+  const { inputs, economics, dataset, ui } = state;
 
   console.log('[Calc] Inputs:', inputs);
   console.log('[Calc] Economics:', economics);
+  console.log('[Calc] Forced package:', ui?.forcedPackage || 'none (auto-recommend)');
 
   const hasVouchers = (inputs.voucherAdult > 0) || (inputs.voucherMinor > 0);
 
@@ -1056,7 +1058,8 @@ function scheduleCalculation() {
       adultCountPerDay: inputs.voucherAdult || 0,
       minorCountPerDay: inputs.voucherMinor || 0,
       perVoucherValue: economics.deluxeCap || 14.0
-    } : null
+    } : null,
+    forcedPackage: ui?.forcedPackage || null  // ✅ NEW: Package forcing feature
   };
 
   const canUseWorker = initializeWorker() && workerReady;
@@ -1085,7 +1088,8 @@ function scheduleCalculation() {
       payload.inputs,
       payload.economics,
       payload.dataset,
-      payload.vouchers
+      payload.vouchers,
+      payload.forcedPackage  // ✅ NEW: Package forcing
     );
 
     console.log('[Calc] Computation complete, results:', results);
