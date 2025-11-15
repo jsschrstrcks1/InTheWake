@@ -630,8 +630,14 @@
   .explore-grid.bottom {
     display: grid;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 0;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Reduce gap between main content and bottom explore grid */
+  .explore-grid.bottom + .wrap,
+  .wrap:has(.explore-grid.bottom) {
+    padding-top: 0;
   }
 
   @media (max-width: 979.98px) {
