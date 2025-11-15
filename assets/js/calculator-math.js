@@ -1,11 +1,35 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1.005.000 (Kids Package Cost Fix)
+ * Version: 1.006.000 (Critical Math Fixes - Coffee Cards & Vouchers)
  *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  *
  * Soli Deo Gloria ✝️
+ *
+ * CHANGELOG v1.006.000:
+ * ✅ CRITICAL BUG FIX #1: Package costs were including coffee card costs!
+ *    - When comparing packages, code was using totalAlc (which includes coffee card cost)
+ *    - But packages COVER coffee, so you don't buy coffee cards with packages!
+ *    - This made packages appear more expensive than they actually are
+ *    - Example: With 2 coffee cards ($73.16 cost - $67.50 discount = $5.66 net)
+ *      * OLD: Refreshment = $280.84 + $5.66 = $286.50 ❌ WRONG!
+ *      * NEW: Refreshment = $280.84 + $0.00 = $280.84 ✓ CORRECT!
+ *    - Fix: Use rawTotal (not totalAlc) when calculating uncovered drink costs for packages
+ *
+ * ✅ CRITICAL BUG FIX #2: Vouchers were applying in random order!
+ *    - Vouchers should apply to MOST EXPENSIVE drinks first (up to $14 cap)
+ *    - Old code applied in arbitrary object iteration order
+ *    - Example: 5 sodas ($2), 3 cocktails ($13), 5 vouchers
+ *      * OLD: If sodas first → save 5 × $2 = $10, pay $39 for cocktails ❌
+ *      * NEW: Cocktails first → save 3 × $13 = $39, pay $4 for sodas ✓
+ *    - Savings difference: $33!
+ *    - Fix: Sort drinks by price descending, apply vouchers in that order
+ *    - Vouchers only work on drinks ≤ $14 (deluxe package cap)
+ *
+ * ✅ FIX #3: Voucher savings calculation now accurate
+ *    - Tracks actual savings based on drinks that received vouchers
+ *    - No longer assumes all vouchers used on cocktails
  *
  * CHANGELOG v1.005.000:
  * ✅ CRITICAL FIX: Package costs now include minors' packages!
@@ -328,27 +352,70 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const drinkList = Object.keys(inputs.drinks || {}).map(key => [key, toNum(inputs.drinks[key])]);
   const weighted = applyWeight(drinkList, days, seaDays, seaApply, seaWeight);
   
-  // ENHANCED v1.003.000: Voucher handling with proper limits
+  // CRITICAL FIX v1.006.000: Voucher application - most expensive drinks first!
   // Pinnacle: 6/day (FIXED from 5), Diamond+: 5/day, Diamond: 4/day
   let totalVouchersPerDay = 0;
+  let actualVoucherSavings = 0; // Track actual savings for accurate reporting
+
   if (vouchers && vouchers.perVoucherValue > 0) {
     const adultVouchers = clamp(vouchers.adultCountPerDay || 0, 0, 6); // Max 6 for Pinnacle
     const minorVouchers = clamp(vouchers.minorCountPerDay || 0, 0, 6);
     totalVouchersPerDay = (adultVouchers * adults) + (minorVouchers * minors);
-    
+
     if (adultVouchers === 6 || minorVouchers === 6) {
       console.log('[Math Engine] Pinnacle vouchers detected (6/day)');
     }
   }
-  
-  let vouchersRemaining = totalVouchersPerDay;
-  const adjustedWeighted = weighted.map(([id, qty]) => {
-    if (vouchersRemaining <= 0) return [id, qty];
-    const vouchersUsed = Math.min(vouchersRemaining, qty);
-    vouchersRemaining -= vouchersUsed;
-    return [id, Math.max(0, qty - vouchersUsed)];
-  });
-  
+
+  let adjustedWeighted = weighted;
+
+  if (totalVouchersPerDay > 0) {
+    // CRITICAL FIX: Apply vouchers to MOST EXPENSIVE drinks first (up to deluxe cap)
+    // Vouchers only work on drinks ≤ $14 (deluxe beverage package cap)
+
+    // Step 1: Add prices to weighted drinks and filter to voucherable drinks only
+    const withPrices = weighted.map(([id, qty]) => {
+      const price = prices[id] || 0;
+      return { id, qty, price };
+    });
+
+    // Step 2: Split into voucherable (≤ cap) and non-voucherable (> cap)
+    const voucherable = withPrices.filter(d => d.price > 0 && d.price <= cap);
+    const nonVoucherable = withPrices.filter(d => d.price > cap);
+
+    // Step 3: Sort voucherable drinks by price DESCENDING (most expensive first)
+    const sortedVoucherable = voucherable.sort((a, b) => b.price - a.price);
+
+    // Step 4: Apply vouchers to sorted drinks
+    let vouchersRemaining = totalVouchersPerDay;
+
+    const voucherApplied = sortedVoucherable.map(drink => {
+      if (vouchersRemaining <= 0) {
+        return { id: drink.id, qty: drink.qty, price: drink.price };
+      }
+
+      const vouchersUsed = Math.min(vouchersRemaining, drink.qty);
+      const qtyAfterVouchers = Math.max(0, drink.qty - vouchersUsed);
+
+      // Track actual savings from this drink type
+      actualVoucherSavings += vouchersUsed * drink.price;
+
+      vouchersRemaining -= vouchersUsed;
+
+      console.log(`[Vouchers] ${drink.id} ($${drink.price}): ${vouchersUsed} vouchers applied, ${qtyAfterVouchers} drinks remain`);
+
+      return { id: drink.id, qty: qtyAfterVouchers, price: drink.price };
+    });
+
+    // Step 5: Combine vouchered drinks with non-voucherable drinks
+    const allDrinks = [...voucherApplied, ...nonVoucherable];
+
+    // Convert back to [id, qty] format
+    adjustedWeighted = allDrinks.map(d => [d.id, d.qty]);
+
+    console.log(`[Vouchers] Total savings: $${actualVoucherSavings.toFixed(2)} (${totalVouchersPerDay - vouchersRemaining} vouchers used)`);
+  }
+
   let categoryRows = adjustedWeighted.map(([id, qty]) => {
     const price = prices[id] || 0;
     const cost = price * qty * days;
@@ -410,17 +477,23 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const alcPerPerson = adults > 0 ? alcPerDay / adults : 0;
   const overcap = Math.max(0, alcPerPerson - cap);
 
-  // CRITICAL FIX v1.004.000 + v1.005.000: Calculate TRUE total cost for each package option
+  // CRITICAL FIX v1.004.000 + v1.005.000 + v1.006.000: Calculate TRUE total cost for each package option
   // Each package only covers certain drinks - uncovered drinks must be paid à la carte!
   // AND include minors' package costs in the total!
-  const sodaTotalCost = sodaPkgWithMinors + (totalAlc - sodaTotal); // Soda pkg (all people) + all non-soda drinks à la carte
-  const refreshTotalCost = refreshPkgWithMinors + (totalAlc - refreshTotal); // Refresh pkg (all people) + alcoholic drinks à la carte
+  //
+  // CRITICAL BUG FIX v1.006.000: Use rawTotal (not totalAlc) for package comparisons!
+  // - totalAlc includes coffee card purchase cost, which is only for à la carte option
+  // - Packages COVER coffee, so you don't buy coffee cards with packages
+  // - Using totalAlc incorrectly added coffee card cost to package totals
+  // - Example: With 2 coffee cards, was adding $73.16 - $67.50 = $5.66 to Refreshment package cost!
+  const sodaTotalCost = sodaPkgWithMinors + (rawTotal - sodaTotal); // Soda pkg (all people) + all non-soda drinks à la carte
+  const refreshTotalCost = refreshPkgWithMinors + (rawTotal - refreshTotal); // Refresh pkg (all people) + alcoholic drinks à la carte
   const deluxeTotalCost = deluxePkgWithMinors + (overcap * days * adults); // Deluxe pkg + over-cap drinks
 
   console.log('[Math Engine] Package comparison (including uncovered drinks + minors):');
-  console.log(`  À la carte: $${totalAlc.toFixed(2)}`);
-  console.log(`  Soda: $${sodaPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(totalAlc - sodaTotal).toFixed(2)} (uncovered) = $${sodaTotalCost.toFixed(2)}`);
-  console.log(`  Refresh: $${refreshPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(totalAlc - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
+  console.log(`  À la carte: $${totalAlc.toFixed(2)} (raw: $${rawTotal.toFixed(2)}, coffee discount: $${coffeeDiscount.toFixed(2)}, coffee cards: $${coffeeCardCost.toFixed(2)})`);
+  console.log(`  Soda: $${sodaPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - sodaTotal).toFixed(2)} (uncovered) = $${sodaTotalCost.toFixed(2)}`);
+  console.log(`  Refresh: $${refreshPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
   console.log(`  Deluxe: $${deluxePkgWithMinors.toFixed(2)} (pkg: adults=${adults} deluxe, minors=${minors} refresh) + $${(overcap * days * adults).toFixed(2)} (over-cap) = $${deluxeTotalCost.toFixed(2)}`);
 
   const bars = {
@@ -478,9 +551,9 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     ? 'Royal Caribbean Policy: If ANY adult in your stateroom purchases Deluxe, ALL adults must purchase it. No exceptions.'
     : null;
   
-  const voucherSavings = totalVouchersPerDay > 0 
-    ? totalVouchersPerDay * days * (prices.cocktail || 13.0)
-    : 0;
+  // CRITICAL FIX v1.006.000: Use actual voucher savings, not assumed cocktail prices
+  // actualVoucherSavings is per-day, multiply by days for total cruise savings
+  const voucherSavings = actualVoucherSavings * days;
   
   // ENHANCED v1.003.000: Group rows show minor forced status
   const adultPackageName = winners.adultWinner === 'deluxe' ? 'Deluxe' : 
@@ -590,15 +663,16 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 if (typeof window !== 'undefined') {
   window.ITW_MATH = Object.freeze({
     compute,
-    version: '1.005.000'
+    version: '1.006.000'
   });
-  console.log('[ITW Math Engine] v1.005.000 loaded ✓');
-  console.log('[ITW Math Engine] CRITICAL FIX: Package costs now include minors\' packages');
-  console.log('[ITW Math Engine] FIXED: Adding kids no longer incorrectly recommends soda package');
+  console.log('[ITW Math Engine] v1.006.000 loaded ✓');
+  console.log('[ITW Math Engine] CRITICAL FIX #1: Package costs no longer include coffee card costs');
+  console.log('[ITW Math Engine] CRITICAL FIX #2: Vouchers now apply to most expensive drinks first');
+  console.log('[ITW Math Engine] FIXED: Vouchers limited to drinks ≤ $14 (deluxe cap)');
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
-    version: '1.005.000'
+    version: '1.006.000'
   });
 }
 
