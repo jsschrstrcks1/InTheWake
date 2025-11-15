@@ -322,6 +322,68 @@
         display: none;
       }
     }
+
+    /* Print Styles */
+    @media print {
+      /* Show header with logo and compass */
+      .hero-header {
+        display: block !important;
+        page-break-after: avoid;
+      }
+
+      .hero {
+        min-height: 120px !important;
+        background: white !important;
+      }
+
+      .hero-compass {
+        opacity: 0.3 !important;
+        filter: grayscale(1) !important;
+      }
+
+      .hero-title .logo {
+        max-width: 300px !important;
+      }
+
+      /* Hide navigation and interactive elements */
+      .navbar nav, .skip-link, .btn, button:not(.print-keep),
+      .quiz-modal, .email-cta, #share-btn, #reset-btn,
+      .preset-btn, .rail, aside {
+        display: none !important;
+      }
+
+      /* Format main content */
+      .wrap {
+        max-width: 100% !important;
+        padding: 0 !important;
+      }
+
+      .page-grid {
+        display: block !important;
+      }
+
+      .card {
+        page-break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+      }
+
+      h1, h2, h3 {
+        page-break-after: avoid;
+      }
+
+      /* Show version and copyright */
+      footer {
+        text-align: center !important;
+        margin-top: 2rem !important;
+        page-break-before: avoid;
+      }
+
+      /* Hide the invisible Soli Deo Gloria */
+      footer p[aria-hidden="true"] {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -340,8 +402,12 @@
         <img src="/assets/logo_wake.png?v=3.010.300" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge">v3.010.300</span>
       </div>
-      <nav class="nav pill-nav" aria-label="Primary">
-        <a href="/">Home</a>
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
+
+        <!-- Planning Dropdown -->
         <div class="nav-item nav-group" id="nav-planning" data-open="false">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
             Planning <span class="caret">▾</span>
@@ -369,7 +435,10 @@
             <a role="menuitem" href="/solo.html">Solo</a>
           </div>
         </div>
-        <a href="/about-us.html">About</a>
+
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
       </nav>
     </div>
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
@@ -1054,17 +1123,15 @@
   </div>
   
   <!-- FOOTER -->
-  <footer class="wrap" role="contentinfo">
+  <footer class="wrap" role="contentinfo" style="text-align:center;">
+    <div class="tiny" style="margin-bottom:.35rem">v3.010.300</div>
     <p>© 2025 In the Wake. All rights reserved.</p>
     <p class="tiny">
-      <a href="/terms.html">Terms</a> | 
-      <a href="/privacy.html">Privacy</a> | 
+      <a href="/terms.html">Terms</a> |
+      <a href="/privacy.html">Privacy</a> |
       <a href="/accessibility.html">Accessibility</a>
     </p>
-    <p class="tiny center">
-      Soli Deo Gloria — Every pixel and part of this project is offered as worship to God,
-      in gratitude for the beautiful things He has created for us to enjoy. ✝️
-    </p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
   
   <!-- JAVASCRIPT - LOAD ORDER CRITICAL -->
@@ -1092,6 +1159,88 @@
   
   <!-- Optional: Share bar -->
   <script src="/assets/js/share-bar.js?v=3.010.300" defer></script>
+
+  <!-- ✅ Reset Button Handler & Ghost Data Fix -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Fix ghost data issue: Force clear of stale localStorage on page load
+    // Check if we need to clear cache (version mismatch or stale data)
+    function clearStaleData() {
+      try {
+        const CURRENT_VERSION = '1.003.000';
+        const STATE_KEY = 'itw:rc:state:v10';
+
+        // Check stored version
+        const rawState = localStorage.getItem(STATE_KEY);
+        if (rawState) {
+          try {
+            const parsed = JSON.parse(rawState);
+            const storedItem = JSON.parse(parsed.value || '{}');
+
+            // If version mismatch, clear everything
+            if (storedItem.version !== CURRENT_VERSION) {
+              console.log('[Fix] Clearing stale calculator data (version mismatch)');
+              localStorage.removeItem(STATE_KEY);
+
+              // Also clear any related keys
+              Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('itw:rc:') || key.startsWith('itw:')) {
+                  // Keep currency and FX rates, clear everything else
+                  if (!key.includes('currency') && !key.includes('fx')) {
+                    localStorage.removeItem(key);
+                  }
+                }
+              });
+            }
+          } catch (e) {
+            // If we can't parse it, it's corrupt - clear it
+            console.log('[Fix] Clearing corrupt calculator data');
+            localStorage.removeItem(STATE_KEY);
+          }
+        }
+      } catch (e) {
+        console.warn('[Fix] Error clearing stale data:', e);
+      }
+    }
+
+    // Run on page load
+    clearStaleData();
+
+    // Wire up reset button
+    window.addEventListener('DOMContentLoaded', function() {
+      const resetBtn = document.getElementById('reset-btn');
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+          console.log('[Fix] Reset button clicked');
+
+          // Clear all calculator data from localStorage
+          try {
+            Object.keys(localStorage).forEach(key => {
+              if (key.startsWith('itw:rc:')) {
+                localStorage.removeItem(key);
+                console.log('[Fix] Cleared:', key);
+              }
+            });
+          } catch (e) {
+            console.warn('[Fix] Error clearing localStorage:', e);
+          }
+
+          // Call the core reset function if available
+          if (window.ITW_API && typeof window.ITW_API.resetInputs === 'function') {
+            window.ITW_API.resetInputs();
+          } else {
+            // Fallback: reload the page to reset
+            console.log('[Fix] Reloading page to reset calculator');
+            window.location.reload();
+          }
+        });
+      }
+    });
+  })();
+  </script>
 
   <!-- Dropdown nav behavior (300ms Hover Delay) -->
   <script>

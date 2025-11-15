@@ -636,14 +636,14 @@
 
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler's Logbook
-    <span class="version-badge">v3.010.300</span>
+    <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
     <div class="tiny center">Soli Deo Gloria — All work on this project is offered to God.</div>
   </footer>
 
   <!-- Primary nav: aria-current -->
   <script>
   (function(){
-    var nav = document.querySelector('.topbar .pill-nav[aria-label="Primary"]') || document.querySelector('.topbar .pill-nav'); if(!nav) return;
+    var nav = document.querySelector('.topbar .pill-nav[aria-label="Main site navigation"]') || document.querySelector('.topbar .pill-nav'); if(!nav) return;
     var here = location.pathname.replace(/\/+$/,'').toLowerCase();
     var links = nav.querySelectorAll('a[href]');
     for (var i=0;i<links.length;i++){

@@ -97,8 +97,8 @@
     .article-card:hover h3{text-decoration:underline}
 
     /* Nav pill safety net */
-    .nav[aria-label="Primary"] a[aria-current="page"],
-    .nav[aria-label="Primary"] a.is-current{
+    .nav[aria-label="Main site navigation"] a[aria-current="page"],
+    .nav[aria-label="Main site navigation"] a.is-current{
       border:2px solid rgba(14,110,142,.35);
       border-radius:999px; padding:.25rem .6rem; background:rgba(14,110,142,.06); font-weight:600;
     }
@@ -112,9 +112,9 @@
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png" alt="In the Wake wordmark"/>
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark" width="256" height="64"/>
       </div>
-      <nav class="nav" aria-label="Primary">
+      <nav class="nav" aria-label="Main site navigation">
         <a href="/">Home</a>
         <a href="/solo.html">Solo Travel</a>
         <a href="/packing.html">Packing Lists</a>
@@ -123,10 +123,12 @@
       </nav>
     </div>
     <div class="hero" role="img" aria-label="Ocean horizon at dusk">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake">
-        <div class="tagline">A Cruise Traveler’s Logbook</div>
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake" width="560" height="144">
+        <div class="tagline">A Cruise Traveler's Logbook</div>
       </div>
+      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
     </div>
   </header>
 
@@ -202,7 +204,7 @@
 
   <footer class="wrap">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.006.authors.002</span>
+    <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
   </footer>
 
   <!-- Small helpers: cache-bust images + nav pill setter -->
@@ -220,7 +222,7 @@
     }
 
     // ensure current nav pill
-    const nav=document.querySelector('.nav[aria-label="Primary"]');
+    const nav=document.querySelector('.nav[aria-label="Main site navigation"]');
     if(nav){
       const here=location.pathname.replace(/\/+$/,'').toLowerCase();
       for(const a of nav.querySelectorAll('a[href]')){

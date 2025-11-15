@@ -261,10 +261,13 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
         <span class="tiny version-badge">v3.010.030</span>
       </div>
 
-      <!-- SAME MENU AS THE WORKING PAGE -->
-      <nav class="nav pill-nav" aria-label="Primary">
-        <a href="/">Home</a>
+      <!-- Navigation with Dropdown Menus -->
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
 
+        <!-- Planning Dropdown -->
         <div class="nav-item nav-group" id="nav-planning" data-open="false">
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">Planning ▾</button>
           <div id="menu-planning" class="submenu" role="menu" aria-label="Planning">
@@ -286,7 +289,9 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
           </div>
         </div>
 
-        <a href="/about-us.html">About</a>
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
       </nav>
     </div>
 
@@ -429,7 +434,7 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
   <!-- =========================== FOOTER ============================ -->
   <footer class="wrap" role="contentinfo">
     © 2025 In the Wake — A Cruise Traveler’s Logbook
-    <span class="version-badge">v3.010.030</span>
+    <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
   </footer>
 
   <!-- =========================== JS ================================ -->
