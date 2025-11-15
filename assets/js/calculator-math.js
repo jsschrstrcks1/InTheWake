@@ -1,11 +1,21 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1.005.000 (Kids Package Cost Fix)
+ * Version: 1.006.000 (Coffee Card Package Comparison Fix)
  *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  *
  * Soli Deo Gloria ✝️
+ *
+ * CHANGELOG v1.006.000:
+ * ✅ CRITICAL MATH BUG FIX: Package costs were including coffee card costs!
+ *    - When comparing packages, code was using totalAlc (which includes coffee card cost)
+ *    - But packages COVER coffee, so you don't buy coffee cards with packages!
+ *    - This made packages appear more expensive than they actually are
+ *    - Example: With 2 coffee cards ($73.16 cost - $67.50 discount = $5.66 net)
+ *      * OLD: Refreshment = $280.84 + $5.66 = $286.50 ❌ WRONG!
+ *      * NEW: Refreshment = $280.84 + $0.00 = $280.84 ✓ CORRECT!
+ *    - Fix: Use rawTotal (not totalAlc) when calculating uncovered drink costs for packages
  *
  * CHANGELOG v1.005.000:
  * ✅ CRITICAL FIX: Package costs now include minors' packages!
@@ -410,17 +420,23 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const alcPerPerson = adults > 0 ? alcPerDay / adults : 0;
   const overcap = Math.max(0, alcPerPerson - cap);
 
-  // CRITICAL FIX v1.004.000 + v1.005.000: Calculate TRUE total cost for each package option
+  // CRITICAL FIX v1.004.000 + v1.005.000 + v1.006.000: Calculate TRUE total cost for each package option
   // Each package only covers certain drinks - uncovered drinks must be paid à la carte!
   // AND include minors' package costs in the total!
-  const sodaTotalCost = sodaPkgWithMinors + (totalAlc - sodaTotal); // Soda pkg (all people) + all non-soda drinks à la carte
-  const refreshTotalCost = refreshPkgWithMinors + (totalAlc - refreshTotal); // Refresh pkg (all people) + alcoholic drinks à la carte
+  //
+  // CRITICAL BUG FIX v1.006.000: Use rawTotal (not totalAlc) for package comparisons!
+  // - totalAlc includes coffee card purchase cost, which is only for à la carte option
+  // - Packages COVER coffee, so you don't buy coffee cards with packages
+  // - Using totalAlc incorrectly added coffee card cost to package totals
+  // - Example: With 2 coffee cards, was adding $73.16 - $67.50 = $5.66 to Refreshment package cost!
+  const sodaTotalCost = sodaPkgWithMinors + (rawTotal - sodaTotal); // Soda pkg (all people) + all non-soda drinks à la carte
+  const refreshTotalCost = refreshPkgWithMinors + (rawTotal - refreshTotal); // Refresh pkg (all people) + alcoholic drinks à la carte
   const deluxeTotalCost = deluxePkgWithMinors + (overcap * days * adults); // Deluxe pkg + over-cap drinks
 
   console.log('[Math Engine] Package comparison (including uncovered drinks + minors):');
-  console.log(`  À la carte: $${totalAlc.toFixed(2)}`);
-  console.log(`  Soda: $${sodaPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(totalAlc - sodaTotal).toFixed(2)} (uncovered) = $${sodaTotalCost.toFixed(2)}`);
-  console.log(`  Refresh: $${refreshPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(totalAlc - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
+  console.log(`  À la carte: $${totalAlc.toFixed(2)} (raw: $${rawTotal.toFixed(2)}, coffee discount: $${coffeeDiscount.toFixed(2)}, coffee cards: $${coffeeCardCost.toFixed(2)})`);
+  console.log(`  Soda: $${sodaPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - sodaTotal).toFixed(2)} (uncovered) = $${sodaTotalCost.toFixed(2)}`);
+  console.log(`  Refresh: $${refreshPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
   console.log(`  Deluxe: $${deluxePkgWithMinors.toFixed(2)} (pkg: adults=${adults} deluxe, minors=${minors} refresh) + $${(overcap * days * adults).toFixed(2)} (over-cap) = $${deluxeTotalCost.toFixed(2)}`);
 
   const bars = {
@@ -590,15 +606,15 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 if (typeof window !== 'undefined') {
   window.ITW_MATH = Object.freeze({
     compute,
-    version: '1.005.000'
+    version: '1.006.000'
   });
-  console.log('[ITW Math Engine] v1.005.000 loaded ✓');
-  console.log('[ITW Math Engine] CRITICAL FIX: Package costs now include minors\' packages');
-  console.log('[ITW Math Engine] FIXED: Adding kids no longer incorrectly recommends soda package');
+  console.log('[ITW Math Engine] v1.006.000 loaded ✓');
+  console.log('[ITW Math Engine] CRITICAL MATH BUG FIX: Package costs no longer include coffee card costs');
+  console.log('[ITW Math Engine] FIXED: Packages now use rawTotal (not totalAlc) for accurate cost comparisons');
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
-    version: '1.005.000'
+    version: '1.006.000'
   });
 }
 
