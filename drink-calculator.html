@@ -1160,85 +1160,130 @@
   <!-- Optional: Share bar -->
   <script src="/assets/js/share-bar.js?v=3.010.300" defer></script>
 
-  <!-- ✅ Reset Button Handler & Ghost Data Fix -->
+  <!-- ✅ CRITICAL: Robust Cache Clearing & Calculation System -->
   <script>
   (function() {
     'use strict';
 
-    // Fix ghost data issue: Force clear of stale localStorage on page load
-    // Check if we need to clear cache (version mismatch or stale data)
-    function clearStaleData() {
+    console.log('[Bootstrap] ======================================');
+    console.log('[Bootstrap] Drink Calculator Initialization');
+    console.log('[Bootstrap] ======================================');
+
+    // AGGRESSIVE cache clearing - clear calculator state on EVERY load
+    function aggressiveCacheClear() {
       try {
-        const CURRENT_VERSION = '1.003.000';
-        const STATE_KEY = 'itw:rc:state:v10';
+        const keysToKeep = ['itw:currency', 'itw:fx:v10']; // Keep only currency and FX rates
+        const allKeys = Object.keys(localStorage);
+        let cleared = 0;
 
-        // Check stored version
-        const rawState = localStorage.getItem(STATE_KEY);
-        if (rawState) {
-          try {
-            const parsed = JSON.parse(rawState);
-            const storedItem = JSON.parse(parsed.value || '{}');
+        console.log('[Bootstrap] Scanning localStorage for calculator data...');
 
-            // If version mismatch, clear everything
-            if (storedItem.version !== CURRENT_VERSION) {
-              console.log('[Fix] Clearing stale calculator data (version mismatch)');
-              localStorage.removeItem(STATE_KEY);
-
-              // Also clear any related keys
-              Object.keys(localStorage).forEach(key => {
-                if (key.startsWith('itw:rc:') || key.startsWith('itw:')) {
-                  // Keep currency and FX rates, clear everything else
-                  if (!key.includes('currency') && !key.includes('fx')) {
-                    localStorage.removeItem(key);
-                  }
-                }
-              });
-            }
-          } catch (e) {
-            // If we can't parse it, it's corrupt - clear it
-            console.log('[Fix] Clearing corrupt calculator data');
-            localStorage.removeItem(STATE_KEY);
+        allKeys.forEach(key => {
+          if (key.startsWith('itw:') && !keysToKeep.includes(key)) {
+            const value = localStorage.getItem(key);
+            localStorage.removeItem(key);
+            cleared++;
+            console.log(`[Bootstrap] ✗ Cleared: ${key} (${value ? value.substring(0, 50) + '...' : 'empty'})`);
           }
+        });
+
+        if (cleared > 0) {
+          console.log(`[Bootstrap] ✓ Cleared ${cleared} calculator cache entries`);
+        } else {
+          console.log('[Bootstrap] ✓ No calculator cache to clear');
         }
       } catch (e) {
-        console.warn('[Fix] Error clearing stale data:', e);
+        console.error('[Bootstrap] Cache clear error:', e);
       }
     }
 
-    // Run on page load
-    clearStaleData();
+    // Run aggressive cache clear IMMEDIATELY
+    aggressiveCacheClear();
+
+    // Global force calculation function
+    window.FORCE_CALCULATE = function() {
+      console.log('[FORCE_CALCULATE] ======================================');
+      console.log('[FORCE_CALCULATE] Manual calculation trigger');
+      console.log('[FORCE_CALCULATE] ======================================');
+
+      if (!window.ITW || !window.ITW.scheduleCalc) {
+        console.warn('[FORCE_CALCULATE] ITW not ready, scheduling retry...');
+        setTimeout(window.FORCE_CALCULATE, 100);
+        return;
+      }
+
+      console.log('[FORCE_CALCULATE] ITW ready, triggering calculation...');
+
+      // Call immediate calculation
+      window.ITW.scheduleCalc();
+
+      // Force UI render
+      if (window.ITW_UI && window.ITW_UI.renderAll) {
+        setTimeout(function() {
+          console.log('[FORCE_CALCULATE] Forcing UI render...');
+          window.ITW_UI.renderAll();
+        }, 100);
+      }
+
+      console.log('[FORCE_CALCULATE] ✓ Calculation triggered');
+    };
 
     // Wire up reset button
     window.addEventListener('DOMContentLoaded', function() {
-      const resetBtn = document.getElementById('reset-btn');
+      console.log('[Bootstrap] DOM loaded, setting up reset button...');
 
+      const resetBtn = document.getElementById('reset-btn');
       if (resetBtn) {
         resetBtn.addEventListener('click', function() {
-          console.log('[Fix] Reset button clicked');
+          console.log('[Reset] ======================================');
+          console.log('[Reset] Reset button clicked');
+          console.log('[Reset] ======================================');
 
-          // Clear all calculator data from localStorage
-          try {
-            Object.keys(localStorage).forEach(key => {
-              if (key.startsWith('itw:rc:')) {
-                localStorage.removeItem(key);
-                console.log('[Fix] Cleared:', key);
-              }
-            });
-          } catch (e) {
-            console.warn('[Fix] Error clearing localStorage:', e);
+          // Clear all calculator localStorage
+          aggressiveCacheClear();
+
+          // Reset inputs through core
+          if (window.ITW && window.ITW.resetInputs) {
+            console.log('[Reset] Calling ITW.resetInputs()...');
+            window.ITW.resetInputs();
           }
 
-          // Call the core reset function if available
-          if (window.ITW_API && typeof window.ITW_API.resetInputs === 'function') {
-            window.ITW_API.resetInputs();
-          } else {
-            // Fallback: reload the page to reset
-            console.log('[Fix] Reloading page to reset calculator');
-            window.location.reload();
-          }
+          // Force recalculation
+          setTimeout(function() {
+            console.log('[Reset] Forcing recalculation...');
+            window.FORCE_CALCULATE();
+          }, 200);
+
+          console.log('[Reset] ✓ Reset complete');
         });
+        console.log('[Bootstrap] ✓ Reset button wired');
+      } else {
+        console.warn('[Bootstrap] Reset button not found!');
       }
     });
+
+    // Auto-trigger calculation after page loads
+    window.addEventListener('load', function() {
+      console.log('[Bootstrap] Window loaded, scheduling auto-calculation...');
+
+      setTimeout(function() {
+        if (window.ITW_BOOTED) {
+          console.log('[Bootstrap] ITW booted, running initial calculation...');
+          window.FORCE_CALCULATE();
+        } else {
+          console.warn('[Bootstrap] ITW not booted yet, waiting 500ms...');
+          setTimeout(function() {
+            if (window.ITW_BOOTED) {
+              window.FORCE_CALCULATE();
+            } else {
+              console.error('[Bootstrap] ITW failed to boot!');
+            }
+          }, 500);
+        }
+      }, 300);
+    });
+
+    console.log('[Bootstrap] ✓ Bootstrap system ready');
   })();
   </script>
 

@@ -109,41 +109,66 @@ let quizState = { step: 1, answers: {}, recommendedPreset: null };
 /* ==================== PRESET APPLICATION ==================== */
 
 function applyPreset(presetKey) {
+  console.log(`[Preset] ======================================`);
+  console.log(`[Preset] Applying preset: ${presetKey}`);
+  console.log(`[Preset] ======================================`);
+
   const preset = PRESETS[presetKey];
   if (!preset) {
-    console.warn(`[UI] Unknown preset: ${presetKey}`);
+    console.warn(`[Preset] Unknown preset: ${presetKey}`);
     return;
   }
-  
+
   if (!window.ITW || !window.ITW.store) {
-    console.error('[UI] ITW core not loaded');
+    console.error('[Preset] ITW core not loaded');
     return;
   }
-  
+
   const store = window.ITW.store;
   const inputs = store.get('inputs');
   const drinks = { ...inputs.drinks };
-  
+
+  console.log('[Preset] Current drinks:', drinks);
+
+  // Update drinks with preset values
   Object.keys(drinks).forEach(key => {
     drinks[key] = preset.drinks[key] !== undefined ? preset.drinks[key] : 0;
   });
-  
+
+  console.log('[Preset] New drinks:', drinks);
+
+  // Update store
   store.patch('inputs', { ...inputs, drinks });
-  
+
+  // Update UI inputs
   Object.keys(drinks).forEach(key => {
     const input = document.querySelector(`[data-input="${key}"]`);
     if (input && typeof drinks[key] === 'number' && drinks[key] >= 0) {
       input.value = drinks[key];
     }
   });
-  
+
+  console.log('[Preset] Store and UI updated, forcing calculation...');
+
+  // Force calculation IMMEDIATELY
   if (window.ITW.scheduleCalc) {
     window.ITW.scheduleCalc();
   }
-  
+
+  // ALSO use force calculate if available
+  if (window.FORCE_CALCULATE) {
+    setTimeout(window.FORCE_CALCULATE, 100);
+  }
+
+  // Force UI render
+  setTimeout(function() {
+    console.log('[Preset] Forcing UI render after preset...');
+    renderAll();
+  }, 150);
+
   announce(`${preset.label} preset applied. ${preset.description}`);
-  
-  console.log(`[UI] Applied preset: ${presetKey}`);
+
+  console.log(`[Preset] ✓ Preset applied: ${presetKey}`);
 }
 
 /* ==================== PRESET BUTTONS RENDERING ==================== */

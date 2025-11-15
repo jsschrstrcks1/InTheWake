@@ -613,13 +613,18 @@ function createStore(initialState) {
   
   function patch(path, value) {
     if (!path) return;
-    
+
+    console.log(`[Store] patch("${path}") called`);
+
     const keys = path.split('.');
     if (keys.length === 1) {
+      if (keys[0] === 'results') {
+        console.log('[Store] ⚡ Patching RESULTS:', value);
+      }
       set({ [keys[0]]: value });
       return;
     }
-    
+
     const nextState = safeClone(state);
     let ref = nextState;
     for (let i = 0; i < keys.length - 1; i++) {
@@ -628,16 +633,21 @@ function createStore(initialState) {
       ref = ref[k];
     }
     ref[keys[keys.length - 1]] = value;
-    
+
     set(nextState);
   }
   
   function subscribe(keys, callback) {
     const list = Array.isArray(keys) ? keys : [keys];
+    console.log('[Store] ✓ New subscription to keys:', list);
+
     list.forEach(key => {
       if (!subscribers.has(key)) subscribers.set(key, new Set());
       subscribers.get(key).add(callback);
     });
+
+    console.log(`[Store] Total subscribers for '${list[0]}':`, subscribers.get(list[0])?.size || 0);
+
     return () => {
       list.forEach(key => subscribers.get(key)?.delete(callback));
     };
@@ -996,14 +1006,26 @@ function initializeWorker() {
  * ✅ PHASE 1 ITEM #3: Unified math API (one compute function)
  */
 function scheduleCalculation() {
-  if (calculationInProgress) return;
+  console.log('[Calc] ======================================');
+  console.log('[Calc] scheduleCalculation() called');
+  console.log('[Calc] ======================================');
+
+  if (calculationInProgress) {
+    console.warn('[Calc] Calculation already in progress, skipping');
+    return;
+  }
+
   calculationInProgress = true;
-  
+  console.log('[Calc] Starting calculation...');
+
   const state = store.get();
   const { inputs, economics, dataset } = state;
-  
+
+  console.log('[Calc] Inputs:', inputs);
+  console.log('[Calc] Economics:', economics);
+
   const hasVouchers = (inputs.voucherAdult > 0) || (inputs.voucherMinor > 0);
-  
+
   const payload = {
     inputs,
     economics,
@@ -1014,23 +1036,28 @@ function scheduleCalculation() {
       perVoucherValue: economics.deluxeCap || 14.0
     } : null
   };
-  
+
   const canUseWorker = initializeWorker() && workerReady;
-  
+
   if (canUseWorker) {
+    console.log('[Calc] Using worker for calculation');
     calcWorker.postMessage({ type: 'compute', payload: payload });
     return;
   }
-  
+
   // Fallback to main thread
+  console.log('[Calc] Using main thread for calculation');
+
   if (!window.ITW_MATH || typeof window.ITW_MATH.compute !== 'function') {
-    console.warn('[Core] Math module not available');
+    console.error('[Calc] Math module not available!');
     store.patch('results', initialState.results);
     calculationInProgress = false;
     return;
   }
-  
+
   try {
+    console.log('[Calc] Calling ITW_MATH.compute()...');
+
     // ✅ PHASE 1 ITEM #3: Unified API - single compute() function
     const results = window.ITW_MATH.compute(
       payload.inputs,
@@ -1038,12 +1065,19 @@ function scheduleCalculation() {
       payload.dataset,
       payload.vouchers
     );
-    
+
+    console.log('[Calc] Computation complete, results:', results);
+    console.log('[Calc] Patching store with results...');
+
     store.patch('results', results);
     calculationInProgress = false;
+
+    console.log('[Calc] ✓ Calculation complete, store updated');
+    console.log('[Calc] Dispatching itw:calc-updated event');
+
     document.dispatchEvent(new CustomEvent('itw:calc-updated'));
   } catch (error) {
-    console.error('[Core] Calculation error:', error);
+    console.error('[Calc] ✗ Calculation error:', error);
     store.patch('results', initialState.results);
     calculationInProgress = false;
   }
