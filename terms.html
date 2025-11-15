@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | In the Wake</title>
+  <meta name="description" content="Terms of Service for In the Wake - cruise planning, travel tips, and Royal Caribbean beverage calculator.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.cruisinginthewake.com/terms.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Terms of Service | In the Wake">
+  <meta property="og:description" content="Terms of Service for In the Wake - cruise planning, travel tips, and Royal Caribbean beverage calculator.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.cruisinginthewake.com/terms.html">
+  <meta property="og:site_name" content="In the Wake">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <style>
+    /* Navigation Dropdown Styles */
+    .nav-group {
+      position: relative;
+    }
+
+    .nav-item > a,
+    .nav-item > button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      padding: .65rem 1rem;
+      min-height: 44px;
+      border-radius: 10px;
+      background: #fff;
+      border: 2px solid var(--rope);
+      color: var(--accent);
+      font: inherit;
+      font-size: .95rem;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item > a:hover,
+    .nav-item > button:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    }
+
+    .submenu {
+      position: absolute !important;
+      left: 0;
+      top: calc(100% + 4px);
+      min-width: 240px;
+      background: #fff;
+      border: 2px solid var(--rope);
+      border-radius: 10px;
+      padding: .5rem 0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      z-index: 1000;
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .nav-group[data-open="true"] .submenu {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .submenu a {
+      display: block;
+      padding: .75rem 1.25rem;
+      color: var(--accent);
+      text-decoration: none;
+      transition: background 0.2s ease;
+      font-size: .95rem;
+    }
+
+    .submenu a:hover {
+      background: #f0f9ff;
+      color: var(--accent);
+    }
+
+    .dropdown-arrow {
+      display: inline-block;
+      margin-left: 0.25rem;
+      transition: transform 0.2s ease;
+      font-size: 0.8rem;
+    }
+
+    .nav-group[data-open="true"] .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Terms Content Styles */
+    .terms-content {
+      max-width: 800px;
+    }
+
+    .terms-content h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .terms-content h2 {
+      font-size: 1.75rem;
+      color: var(--accent);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--rope);
+      padding-bottom: 0.5rem;
+    }
+
+    .terms-content h3 {
+      font-size: 1.25rem;
+      color: var(--dark);
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .terms-content p {
+      margin-bottom: 1rem;
+      line-height: 1.8;
+      color: var(--dark);
+    }
+
+    .terms-content ul, .terms-content ol {
+      margin-bottom: 1.5rem;
+      padding-left: 2rem;
+      line-height: 1.8;
+    }
+
+    .terms-content li {
+      margin-bottom: 0.75rem;
+      color: var(--dark);
+    }
+
+    .terms-content strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .last-updated {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #f0f9ff;
+      border-left: 4px solid var(--accent);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      color: var(--dark);
+    }
+
+    .contact-box {
+      background: #f8f9fa;
+      border: 2px solid var(--rope);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .contact-box h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    .contact-box a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-box a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .terms-content h1 {
+        font-size: 2rem;
+      }
+
+      .terms-content h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="/" aria-label="Home">Home</a></li>
+
+        <li class="nav-item nav-group" data-open="false">
+          <button type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="dropdown-arrow">▼</span>
+          </button>
+          <ul class="submenu" role="menu">
+            <li role="none"><a href="/planning.html" role="menuitem">Planning Overview</a></li>
+            <li role="none"><a href="/drink-packages.html" role="menuitem">Drink Packages</a></li>
+            <li role="none"><a href="/drink-calculator.html" role="menuitem">Beverage Calculator</a></li>
+            <li role="none"><a href="/packing-lists.html" role="menuitem">Packing Lists</a></li>
+            <li role="none"><a href="/accessibility.html" role="menuitem">Accessibility</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a href="/travel.html">Travel</a></li>
+        <li class="nav-item"><a href="/solo.html">Solo</a></li>
+        <li class="nav-item"><a href="/ships.html">Ships</a></li>
+        <li class="nav-item"><a href="/restaurants.html">Restaurants</a></li>
+        <li class="nav-item"><a href="/ports.html">Ports</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero-content">
+      <h1 class="hero-title">Terms of Service</h1>
+      <p class="hero-subtitle">Legal terms and conditions for using In the Wake</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="layout-with-rail">
+      <article class="terms-content">
+        <div class="last-updated">
+          <strong>Last Updated:</strong> November 15, 2025
+        </div>
+
+        <p>Welcome to In the Wake ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website at <a href="https://www.cruisinginthewake.com">www.cruisinginthewake.com</a> (the "Site"), including any content, functionality, and services offered on or through the Site.</p>
+
+        <p><strong>Please read these Terms carefully before using our Site.</strong> By accessing or using the Site, you agree to be bound by these Terms and our Privacy Policy. If you do not agree with these Terms, you must not access or use the Site.</p>
+
+        <h2>1. Acceptance of Terms</h2>
+        <p>By accessing and using this Site, you accept and agree to be bound by these Terms and all applicable laws and regulations. If you do not agree with any of these Terms, you are prohibited from using or accessing this Site.</p>
+
+        <h2>2. Description of Service</h2>
+        <p>In the Wake provides:</p>
+        <ul>
+          <li>Cruise planning information and resources</li>
+          <li>Travel tips and guides for cruise travelers</li>
+          <li>Royal Caribbean beverage package calculator and recommendations</li>
+          <li>Ship reviews and comparisons</li>
+          <li>Port and restaurant information</li>
+          <li>Solo travel advice and resources</li>
+          <li>Packing lists and accessibility guides</li>
+        </ul>
+        <p>The Site is for informational purposes only. We reserve the right to modify, suspend, or discontinue any aspect of the Site at any time without notice.</p>
+
+        <h2>3. Use License and Restrictions</h2>
+
+        <h3>3.1 Permitted Use</h3>
+        <p>Permission is granted to temporarily access and use the Site for personal, non-commercial purposes. You may:</p>
+        <ul>
+          <li>View and read content on the Site</li>
+          <li>Use our beverage calculator for personal cruise planning</li>
+          <li>Share links to our content on social media</li>
+          <li>Print or download content for personal reference</li>
+        </ul>
+
+        <h3>3.2 Prohibited Use</h3>
+        <p>You may NOT:</p>
+        <ul>
+          <li>Modify or copy the materials without express written permission</li>
+          <li>Use the materials for any commercial purpose or public display</li>
+          <li>Attempt to decompile or reverse engineer any software on the Site</li>
+          <li>Remove any copyright or proprietary notations from materials</li>
+          <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
+          <li>Scrape, crawl, or harvest content from the Site using automated means</li>
+          <li>Use the Site in any way that could damage, disable, or impair the Site</li>
+          <li>Attempt to gain unauthorized access to any part of the Site or systems</li>
+          <li>Impersonate any person or entity or misrepresent your affiliation</li>
+          <li>Transmit any viruses, malware, or harmful code</li>
+        </ul>
+
+        <p>This license shall automatically terminate if you violate any of these restrictions and may be terminated by In the Wake at any time.</p>
+
+        <h2>4. User Responsibilities</h2>
+        <p>You are responsible for:</p>
+        <ul>
+          <li>Maintaining the confidentiality of any account credentials</li>
+          <li>All activities that occur under your account</li>
+          <li>Ensuring your use of the Site complies with applicable laws</li>
+          <li>Providing accurate information when using our calculators or tools</li>
+          <li>Verifying all information with official sources before making decisions</li>
+        </ul>
+
+        <h2>5. Intellectual Property Rights</h2>
+
+        <h3>5.1 Our Content</h3>
+        <p>All content on this Site, including but not limited to text, graphics, logos, images, photographs, videos, audio clips, data compilations, software, and the compilation thereof (collectively, the "Content"), is the property of In the Wake or its content suppliers and is protected by United States and international copyright, trademark, and other intellectual property laws.</p>
+
+        <h3>5.2 Trademarks</h3>
+        <p>The In the Wake name, logo, and all related names, logos, product and service names, designs, and slogans are trademarks of In the Wake. You may not use such marks without our prior written permission.</p>
+
+        <h3>5.3 Third-Party Trademarks</h3>
+        <p>Royal Caribbean®, Royal Caribbean International®, and other cruise line names and logos are trademarks of their respective owners. We are not affiliated with, endorsed by, or sponsored by Royal Caribbean International or any other cruise line.</p>
+
+        <h2>6. Disclaimer of Warranties</h2>
+        <p><strong>THE SITE AND ALL CONTENT ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED.</strong></p>
+
+        <p>We disclaim all warranties, including but not limited to:</p>
+        <ul>
+          <li>Warranties of merchantability and fitness for a particular purpose</li>
+          <li>Warranties that the Site will be uninterrupted, error-free, or secure</li>
+          <li>Warranties regarding the accuracy, reliability, or completeness of content</li>
+          <li>Warranties that defects will be corrected</li>
+        </ul>
+
+        <h3>6.1 Calculator Accuracy</h3>
+        <p><strong>Our beverage calculator provides estimates only.</strong> Actual costs, savings, and recommendations may vary based on:</p>
+        <ul>
+          <li>Current cruise line pricing (which changes frequently)</li>
+          <li>Specific ship, sailing, and itinerary</li>
+          <li>Promotional offers and discounts</li>
+          <li>Individual drinking patterns and preferences</li>
+          <li>Menu availability and pricing on board</li>
+        </ul>
+        <p><strong>Always verify current pricing and package details with Royal Caribbean before purchasing.</strong></p>
+
+        <h3>6.2 Travel Information</h3>
+        <p>Travel information, port guides, and recommendations are subject to change. We do not guarantee the accuracy, completeness, or timeliness of any travel information. You are responsible for:</p>
+        <ul>
+          <li>Verifying current travel requirements and restrictions</li>
+          <li>Checking visa, passport, and health requirements</li>
+          <li>Confirming port schedules and excursion availability</li>
+          <li>Researching current conditions at destinations</li>
+        </ul>
+
+        <h2>7. Limitation of Liability</h2>
+        <p><strong>TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL IN THE WAKE, ITS AFFILIATES, LICENSORS, SERVICE PROVIDERS, EMPLOYEES, AGENTS, OFFICERS, OR DIRECTORS BE LIABLE FOR ANY DAMAGES OF ANY KIND ARISING FROM YOUR USE OF THE SITE.</strong></p>
+
+        <p>This includes, but is not limited to:</p>
+        <ul>
+          <li>Direct, indirect, incidental, punitive, and consequential damages</li>
+          <li>Loss of profits, revenue, data, or business opportunities</li>
+          <li>Personal injury or property damage</li>
+          <li>Reliance on information provided on the Site</li>
+          <li>Errors or omissions in content</li>
+          <li>Unauthorized access to or alteration of your transmissions or data</li>
+        </ul>
+
+        <p>Some jurisdictions do not allow limitations on implied warranties or limitation of liability for incidental damages. In such jurisdictions, our liability shall be limited to the maximum extent permitted by law.</p>
+
+        <h2>8. Indemnification</h2>
+        <p>You agree to indemnify, defend, and hold harmless In the Wake, its affiliates, licensors, and service providers, and its and their respective officers, directors, employees, contractors, agents, licensors, suppliers, successors, and assigns from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising out of or relating to:</p>
+        <ul>
+          <li>Your violation of these Terms</li>
+          <li>Your use of the Site</li>
+          <li>Your violation of any third-party rights</li>
+          <li>Any content you submit or transmit through the Site</li>
+        </ul>
+
+        <h2>9. Links to Third-Party Sites</h2>
+        <p>The Site may contain links to third-party websites or services that are not owned or controlled by In the Wake, including:</p>
+        <ul>
+          <li>Royal Caribbean International's official website</li>
+          <li>Cruise booking platforms</li>
+          <li>Travel resources and guides</li>
+          <li>Social media platforms</li>
+        </ul>
+
+        <p>We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You acknowledge and agree that In the Wake shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods, or services available on or through any such websites or services.</p>
+
+        <p><strong>We strongly advise you to read the terms and conditions and privacy policies of any third-party websites or services that you visit.</strong></p>
+
+        <h2>10. User-Generated Content</h2>
+
+        <h3>10.1 Submissions</h3>
+        <p>If you submit comments, feedback, suggestions, or other communications to us (collectively, "Submissions"), you grant In the Wake a non-exclusive, royalty-free, perpetual, irrevocable, and fully sublicensable right to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display such Submissions throughout the world in any media.</p>
+
+        <h3>10.2 Responsibility for Submissions</h3>
+        <p>You are solely responsible for your Submissions and the consequences of posting or publishing them. You represent and warrant that:</p>
+        <ul>
+          <li>You own or have the necessary rights to submit the content</li>
+          <li>The Submissions do not violate any third-party rights</li>
+          <li>The Submissions do not contain unlawful, offensive, or harmful content</li>
+        </ul>
+
+        <h2>11. Privacy</h2>
+        <p>Your use of the Site is also governed by our <a href="/privacy.html">Privacy Policy</a>, which is incorporated into these Terms by reference. Please review our Privacy Policy to understand our practices regarding the collection, use, and disclosure of your personal information.</p>
+
+        <h2>12. Analytics and Cookies</h2>
+        <p>We use Google Analytics and Umami Analytics to understand how visitors use our Site. These services use cookies and collect information such as:</p>
+        <ul>
+          <li>Pages visited and time spent on pages</li>
+          <li>Traffic sources and referrers</li>
+          <li>Device and browser information</li>
+          <li>Anonymized IP addresses (Google Analytics uses IP anonymization)</li>
+        </ul>
+        <p>By using our Site, you consent to the processing of data about you by these analytics providers. For more information, see our <a href="/privacy.html">Privacy Policy</a>.</p>
+
+        <h2>13. Modifications to Terms</h2>
+        <p>We reserve the right to modify these Terms at any time. We will notify you of any changes by:</p>
+        <ul>
+          <li>Posting the new Terms on this page</li>
+          <li>Updating the "Last Updated" date at the top of this page</li>
+          <li>Providing notice on the Site homepage (for material changes)</li>
+        </ul>
+
+        <p>Your continued use of the Site after any changes indicates your acceptance of the new Terms. If you do not agree to the modified Terms, you must stop using the Site.</p>
+
+        <p><strong>You are advised to review these Terms periodically for any changes.</strong></p>
+
+        <h2>14. Modifications to the Site</h2>
+        <p>We reserve the right to:</p>
+        <ul>
+          <li>Modify or discontinue any part of the Site at any time</li>
+          <li>Change pricing information and package calculations</li>
+          <li>Update content, features, and functionality</li>
+          <li>Restrict access to certain features or the entire Site</li>
+        </ul>
+        <p>We shall not be liable to you or any third party for any modification, suspension, or discontinuance of the Site.</p>
+
+        <h2>15. Termination</h2>
+        <p>We may terminate or suspend your access to the Site immediately, without prior notice or liability, for any reason, including but not limited to:</p>
+        <ul>
+          <li>Breach of these Terms</li>
+          <li>Violation of applicable laws</li>
+          <li>Fraudulent or harmful activity</li>
+          <li>At our sole discretion</li>
+        </ul>
+
+        <p>Upon termination, your right to use the Site will immediately cease. All provisions of these Terms which by their nature should survive termination shall survive, including but not limited to ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
+
+        <h2>16. Governing Law and Jurisdiction</h2>
+        <p>These Terms shall be governed by and construed in accordance with the laws of the United States and the State in which In the Wake is registered, without regard to its conflict of law provisions.</p>
+
+        <p>Any legal action or proceeding arising under these Terms will be brought exclusively in the federal or state courts located in the applicable jurisdiction, and the parties hereby consent to personal jurisdiction and venue therein.</p>
+
+        <h2>17. Dispute Resolution</h2>
+
+        <h3>17.1 Informal Resolution</h3>
+        <p>Before filing a claim, you agree to try to resolve the dispute informally by contacting us at the email address provided below. We will attempt to resolve the dispute informally within 60 days.</p>
+
+        <h3>17.2 Arbitration</h3>
+        <p>If we cannot resolve the dispute informally, any dispute arising out of or relating to these Terms or the Site will be resolved through binding arbitration in accordance with the rules of the American Arbitration Association. The arbitration will take place in the jurisdiction where In the Wake is registered.</p>
+
+        <h3>17.3 Class Action Waiver</h3>
+        <p>You agree that any arbitration or proceeding shall be limited to the dispute between you and In the Wake individually. To the full extent permitted by law:</p>
+        <ul>
+          <li>No arbitration or proceeding shall be joined with any other</li>
+          <li>There is no right or authority for any dispute to be arbitrated on a class-action basis</li>
+          <li>There is no right or authority for any dispute to be brought in a purported representative capacity</li>
+        </ul>
+
+        <h2>18. Severability</h2>
+        <p>If any provision of these Terms is held to be invalid, illegal, or unenforceable, the validity, legality, and enforceability of the remaining provisions shall not in any way be affected or impaired. The invalid provision will be modified to the minimum extent necessary to make it valid and enforceable.</p>
+
+        <h2>19. Waiver</h2>
+        <p>No waiver by In the Wake of any term or condition set forth in these Terms shall be deemed a further or continuing waiver of such term or condition or a waiver of any other term or condition. Any failure by In the Wake to assert a right or provision under these Terms shall not constitute a waiver of such right or provision.</p>
+
+        <h2>20. Entire Agreement</h2>
+        <p>These Terms, together with our Privacy Policy and any other legal notices published by us on the Site, constitute the entire agreement between you and In the Wake concerning the Site and supersede all prior or contemporaneous understandings and agreements, whether written or oral, regarding the Site.</p>
+
+        <h2>21. Assignment</h2>
+        <p>You may not assign or transfer these Terms, by operation of law or otherwise, without our prior written consent. We may assign these Terms at any time without notice. Subject to the foregoing, these Terms will bind and inure to the benefit of the parties and their respective successors and permitted assigns.</p>
+
+        <h2>22. Force Majeure</h2>
+        <p>We shall not be liable for any failure or delay in performance under these Terms due to causes beyond our reasonable control, including but not limited to acts of God, war, terrorism, riots, embargoes, acts of civil or military authorities, fire, floods, accidents, network infrastructure failures, strikes, or shortages of transportation facilities, fuel, energy, labor, or materials.</p>
+
+        <h2>23. Export Control</h2>
+        <p>The Site may be subject to U.S. export control laws and may be subject to export or import regulations in other countries. You agree to strictly comply with all applicable export control laws and regulations and acknowledge that you are responsible for obtaining any required authorization to export, re-export, or import the Site or related technical data.</p>
+
+        <h2>24. Children's Privacy</h2>
+        <p>The Site is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13. If you are under 13, do not use or provide any information on this Site. If we learn we have collected or received personal information from a child under 13, we will delete that information.</p>
+
+        <h2>25. Accessibility</h2>
+        <p>We are committed to making our Site accessible to all users. If you experience any difficulty accessing any part of the Site, please contact us at the email address below, and we will work with you to provide the information you need in an alternative format.</p>
+
+        <div class="contact-box">
+          <h3>26. Contact Information</h3>
+          <p>If you have any questions about these Terms, please contact us at:</p>
+          <p><strong>Email:</strong> <a href="mailto:legal@cruisinginthewake.com">legal@cruisinginthewake.com</a></p>
+          <p><strong>Website:</strong> <a href="https://www.cruisinginthewake.com">www.cruisinginthewake.com</a></p>
+        </div>
+
+        <hr style="margin: 3rem 0; border: none; border-top: 2px solid var(--rope);">
+
+        <h2>Acknowledgment</h2>
+        <p><strong>BY USING THE SITE, YOU ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS OF SERVICE AND AGREE TO BE BOUND BY THEM.</strong></p>
+
+        <p style="text-align: center; margin-top: 2rem; color: #6c757d;">
+          <small>Last Updated: November 15, 2025 | Version 1.0</small>
+        </p>
+      </article>
+
+      <aside class="right-rail">
+        <div class="author-card">
+          <img src="./images/author.webp" alt="Jessica Schrstrcks" class="author-photo">
+          <h3 class="author-name">Jessica Schrstrcks</h3>
+          <p class="author-bio">
+            Solo cruise planner helping you navigate the seas with confidence.
+            From beverage packages to accessibility guides, I'm here to make your cruise planning easier.
+          </p>
+          <p class="author-tagline">"Your wake, your way."</p>
+        </div>
+
+        <div class="articles-sidebar">
+          <h3>Recent Articles</h3>
+          <div id="sidebar-articles" class="article-list"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/planning.html">Planning</a></li>
+          <li><a href="/drink-calculator.html">Beverage Calculator</a></li>
+          <li><a href="/solo.html">Solo Travel</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/ships.html">Ships</a></li>
+          <li><a href="/ports.html">Ports</a></li>
+          <li><a href="/restaurants.html">Restaurants</a></li>
+          <li><a href="/accessibility.html">Accessibility</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Connect</h4>
+        <p>Cruise smarter, not harder.</p>
+        <p class="footer-tagline">"In the wake of every voyage, a story unfolds."</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 In the Wake. All rights reserved.</p>
+      <p class="disclaimer">
+        Not affiliated with Royal Caribbean International. Royal Caribbean® and Royal Caribbean International®
+        are registered trademarks of Royal Caribbean Cruises Ltd.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Article Loading Script -->
+  <script>
+    // Load articles into sidebar
+    const SEED = [
+      {
+        url: '/solo/freedom-of-your-own-wake.html',
+        title: 'Freedom of Your Own Wake',
+        date: '2025-10-17',
+        dek: 'On choosing solitude without being alone.',
+        image: '/solo/images/freedom-wake-hero.webp'
+      },
+      {
+        url: '/solo/visiting-the-united-states-before-your-cruise.html',
+        title: 'Visiting the United States Before Your Cruise',
+        date: '2025-10-23',
+        dek: 'Everything international travelers need to know about pre-cruise U.S. visits.',
+        image: '/solo/images/us-visit-hero.webp'
+      }
+    ];
+
+    const sidebarContainer = document.getElementById('sidebar-articles');
+    if (sidebarContainer) {
+      SEED.slice(0, 3).forEach(article => {
+        const articleEl = document.createElement('a');
+        articleEl.href = article.url;
+        articleEl.className = 'article-card-small';
+        articleEl.innerHTML = `
+          <img src="${article.image}" alt="${article.title}" class="article-thumb">
+          <div class="article-info">
+            <h4>${article.title}</h4>
+            <p>${article.dek}</p>
+          </div>
+        `;
+        sidebarContainer.appendChild(articleEl);
+      });
+    }
+  </script>
+
+  <!-- Navigation Dropdown Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navGroups = document.querySelectorAll('.nav-group');
+
+      navGroups.forEach(group => {
+        const button = group.querySelector('button');
+        const submenu = group.querySelector('.submenu');
+        let hoverTimeout;
+        let isOpen = false;
+
+        function openMenu() {
+          clearTimeout(hoverTimeout);
+          isOpen = true;
+          group.setAttribute('data-open', 'true');
+          button.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMenu() {
+          isOpen = false;
+          group.setAttribute('data-open', 'false');
+          button.setAttribute('aria-expanded', 'false');
+        }
+
+        function scheduleClose() {
+          hoverTimeout = setTimeout(() => {
+            closeMenu();
+          }, 300);
+        }
+
+        // Mouse events
+        group.addEventListener('mouseenter', openMenu);
+        group.addEventListener('mouseleave', scheduleClose);
+
+        // Click toggle for mobile
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (isOpen) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        });
+
+        // Keyboard navigation
+        button.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (isOpen) {
+              closeMenu();
+            } else {
+              openMenu();
+            }
+          } else if (e.key === 'Escape') {
+            closeMenu();
+            button.focus();
+          }
+        });
+
+        // Keep menu open when navigating inside it
+        submenu.addEventListener('mouseenter', () => {
+          clearTimeout(hoverTimeout);
+        });
+
+        submenu.addEventListener('mouseleave', scheduleClose);
+      });
+
+      // Close all menus when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-group')) {
+          navGroups.forEach(group => {
+            group.setAttribute('data-open', 'false');
+            const button = group.querySelector('button');
+            if (button) button.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

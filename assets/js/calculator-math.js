@@ -1,11 +1,19 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1.006.000 (Critical Math Fixes - Coffee Cards & Vouchers)
+ * Version: 1.007.000 (Coffee Card Winner + Grid Layout)
  *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  *
  * Soli Deo Gloria ✝️
+ *
+ * CHANGELOG v1.007.000:
+ * ✅ FEATURE: Coffee card can now win as the best option!
+ *    - Previously coffee card was just an alternative, not a competitive winner
+ *    - Now if coffee cards are cheaper than packages, coffee card wins
+ *    - Coffee card is tracked separately in bars and determineWinners
+ *    - Coffee card section becomes clickable like package cards
+ *    - When adults choose coffee cards and minors exist, minors get cheapest package
  *
  * CHANGELOG v1.006.000:
  * ✅ CRITICAL BUG FIX #1: Package costs were including coffee card costs!
@@ -279,8 +287,13 @@ function determineWinners(costs, minors) {
     { key: 'refresh', cost: costs.refresh },
     { key: 'deluxe', cost: costs.deluxe }
   ];
-  
-  const adultWinner = adultOptions.reduce((min, curr) => 
+
+  // NEW v1.007.000: Add coffee card as option if provided
+  if (costs.coffee !== undefined && costs.coffee !== null) {
+    adultOptions.push({ key: 'coffee', cost: costs.coffee });
+  }
+
+  const adultWinner = adultOptions.reduce((min, curr) =>
     curr.cost < min.cost ? curr : min, adultOptions[0]
   );
   
@@ -304,17 +317,37 @@ function determineWinners(costs, minors) {
       minorForcedReason: 'Required when adults purchase Deluxe'
     };
   }
-  
+
+  // NEW v1.007.000: If adults choose Coffee Card, minors choose cheapest package
+  if (adultWinner.key === 'coffee') {
+    const minorOptions = [
+      { key: 'soda', cost: costs.soda },
+      { key: 'refresh', cost: costs.refresh }
+    ];
+
+    const minorWinner = minorOptions.reduce((min, curr) =>
+      curr.cost < min.cost ? curr : min, minorOptions[0]
+    );
+
+    console.log(`[Math Engine] Adults choosing Coffee Card, minors get ${minorWinner.key} package`);
+    return {
+      adultWinner: 'coffee',
+      minorWinner: minorWinner.key,
+      showTwoWinners: true,
+      minorForced: false
+    };
+  }
+
   // Normal case: minors choose cheapest between Soda and Refreshment
   const minorOptions = [
     { key: 'soda', cost: costs.soda },
     { key: 'refresh', cost: costs.refresh }
   ];
-  
-  const minorWinner = minorOptions.reduce((min, curr) => 
+
+  const minorWinner = minorOptions.reduce((min, curr) =>
     curr.cost < min.cost ? curr : min, minorOptions[0]
   );
-  
+
   return {
     adultWinner: adultWinner.key,
     minorWinner: minorWinner.key,
@@ -460,6 +493,11 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // À-la-carte total = raw cost - free coffee discount + coffee card purchase cost
   const totalAlc = Math.max(0, rawTotal - coffeeDiscount + coffeeCardCost);
 
+  // NEW v1.007.000: Separate coffee card option for winner determination
+  // If user is using coffee cards, we want to track it as a distinct clickable option
+  const hasCoffeeCards = coffeeCards > 0 || coffeeDiscount > 0;
+  const coffeeCardTotal = hasCoffeeCards ? totalAlc : null; // Same as totalAlc when coffee cards are used
+
   // Package costs - adults only
   const sodaPkg = pkgSoda * (1 + grat) * days * adults;
   const refreshPkg = pkgRefresh * (1 + grat) * days * adults;
@@ -492,6 +530,9 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
   console.log('[Math Engine] Package comparison (including uncovered drinks + minors):');
   console.log(`  À la carte: $${totalAlc.toFixed(2)} (raw: $${rawTotal.toFixed(2)}, coffee discount: $${coffeeDiscount.toFixed(2)}, coffee cards: $${coffeeCardCost.toFixed(2)})`);
+  if (hasCoffeeCards) {
+    console.log(`  Coffee Card option: $${coffeeCardTotal.toFixed(2)} (can compete as winner)`);
+  }
   console.log(`  Soda: $${sodaPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - sodaTotal).toFixed(2)} (uncovered) = $${sodaTotalCost.toFixed(2)}`);
   console.log(`  Refresh: $${refreshPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
   console.log(`  Deluxe: $${deluxePkgWithMinors.toFixed(2)} (pkg: adults=${adults} deluxe, minors=${minors} refresh) + $${(overcap * days * adults).toFixed(2)} (over-cap) = $${deluxeTotalCost.toFixed(2)}`);
@@ -503,10 +544,16 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     deluxe: { min: deluxeTotalCost, mean: deluxeTotalCost, max: deluxeTotalCost }
   };
 
+  // NEW v1.007.000: Add coffee card to bars if being used
+  if (hasCoffeeCards && coffeeCardTotal !== null) {
+    bars.coffee = { min: coffeeCardTotal, mean: coffeeCardTotal, max: coffeeCardTotal };
+  }
+
   // ✅ NEW v1.003.000: Package forcing feature
+  // ✅ ENHANCED v1.007.000: Coffee card can be forced too
   let winners;
 
-  if (forcedPackage && ['soda', 'refresh', 'deluxe'].includes(forcedPackage)) {
+  if (forcedPackage && ['soda', 'refresh', 'deluxe', 'coffee'].includes(forcedPackage)) {
     console.log(`[Math Engine] 🎯 FORCED PACKAGE: ${forcedPackage} (user clicked package card)`);
 
     // Force this package as the adult winner
@@ -526,6 +573,12 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
         winners.minorForced = true;
         winners.minorForcedReason = 'Required when adults purchase Deluxe';
         console.log('[Math Engine] POLICY ENFORCED: Minors forced to Refreshment (adults forced Deluxe)');
+      } else if (forcedPackage === 'coffee') {
+        // Coffee cards: minors choose cheapest between Soda and Refreshment
+        const minorBestCost = Math.min(sodaTotalCost, refreshTotalCost);
+        winners.minorWinner = minorBestCost === sodaTotalCost ? 'soda' : 'refresh';
+        winners.showTwoWinners = true;
+        winners.minorForced = false;
       } else {
         // Soda or Refresh: minors get same package
         winners.minorWinner = forcedPackage;
@@ -536,12 +589,19 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   } else {
     // Normal mode: determine cheapest package (using TRUE total costs)
     console.log('[Math Engine] Auto-recommendation mode (no forced package)');
-    winners = determineWinners({
+    const costs = {
       alc: totalAlc,
       soda: sodaTotalCost,
       refresh: refreshTotalCost,
       deluxe: deluxeTotalCost
-    }, minors);
+    };
+
+    // NEW v1.007.000: Add coffee card to options if being used
+    if (hasCoffeeCards && coffeeCardTotal !== null) {
+      costs.coffee = coffeeCardTotal;
+    }
+
+    winners = determineWinners(costs, minors);
   }
   
   // FIXED v1.003.000: Correct Royal Caribbean policy messaging
@@ -663,16 +723,15 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 if (typeof window !== 'undefined') {
   window.ITW_MATH = Object.freeze({
     compute,
-    version: '1.006.000'
+    version: '1.007.000'
   });
-  console.log('[ITW Math Engine] v1.006.000 loaded ✓');
-  console.log('[ITW Math Engine] CRITICAL FIX #1: Package costs no longer include coffee card costs');
-  console.log('[ITW Math Engine] CRITICAL FIX #2: Vouchers now apply to most expensive drinks first');
-  console.log('[ITW Math Engine] FIXED: Vouchers limited to drinks ≤ $14 (deluxe cap)');
+  console.log('[ITW Math Engine] v1.007.000 loaded ✓');
+  console.log('[ITW Math Engine] NEW FEATURE: Coffee card can now win as best option!');
+  console.log('[ITW Math Engine] Coffee cards tracked separately and can beat packages');
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
-    version: '1.006.000'
+    version: '1.007.000'
   });
 }
 

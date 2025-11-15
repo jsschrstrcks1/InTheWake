@@ -130,6 +130,123 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Global CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
+
+  <!-- Dropdown Navigation Styles -->
+  <style>
+    /* Navigation button sizing - matches drink-calculator.html */
+    .nav-item > a,
+    .nav-item > button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      padding: .65rem 1rem;
+      min-height: 44px;
+      border-radius: 10px;
+      background: #fff;
+      border: 2px solid var(--rope);
+      color: var(--accent);
+      font: inherit;
+      font-size: .95rem;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item > a:hover,
+    .nav-item > button:hover {
+      background: var(--foam);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .nav-item > a[aria-current="page"] {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      border-color: var(--accent);
+    }
+
+    .nav-disclosure .caret {
+      display: inline-block;
+      margin-left: .25rem;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-item[data-open="true"] .nav-disclosure .caret,
+    .nav-group[data-open="true"] .nav-disclosure .caret {
+      transform: rotate(180deg);
+    }
+
+    .submenu {
+      position: absolute !important;
+      left: 0;
+      top: calc(100% + 4px);
+      min-width: 240px;
+      background: #fff;
+      border: 2px solid var(--rope);
+      border-radius: 12px;
+      padding: .6rem;
+      box-shadow: 0 8px 24px rgba(8,48,65,.15);
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      z-index: 2100;
+    }
+
+    .submenu::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: transparent;
+    }
+
+    .nav-item[data-open="true"] .submenu,
+    .nav-group[data-open="true"] .submenu,
+    .nav-group.open .submenu {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .submenu a {
+      display: block;
+      padding: .5rem .75rem;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .submenu a:hover,
+    .submenu a:focus {
+      background: #eef4f6;
+      outline: none;
+    }
+
+    .submenu a[aria-current="page"] {
+      background: #e6f4f8;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .submenu {
+        position: static !important;
+        width: 100%;
+        max-width: 100%;
+        margin-top: .5rem;
+        box-shadow: none;
+        border: 1px solid var(--rope);
+      }
+    }
+  </style>
 </head>
 
 <body class="page">
@@ -212,6 +329,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <section aria-label="Ports content">
       <article class="card">
         <h1>Ports</h1>
+
+        <!-- Under Construction Notice -->
+        <div style="background:linear-gradient(135deg, #fff3e6 0%, #ffe8cc 100%);border-left:5px solid #ff9800;padding:1.25rem;margin:1.5rem 0;border-radius:8px;box-shadow:0 2px 8px rgba(255, 152, 0, 0.15);">
+          <p style="margin:0;font-size:1.1rem;color:#e65100;font-weight:600;">🚧 Under Construction</p>
+          <p style="margin:0.5rem 0 0 0;color:#5d4037;line-height:1.6;">This page is currently being built. Port guides, accessibility information, and practical travel tips are coming soon.</p>
+        </div>
+
         <p><em>Coming soon — authentic port snapshots and accessibility insights for cruise travelers.</em></p>
 
         <p>We're building comprehensive port guides that focus on what matters most: honest travel insight, accessibility notes, and practical tips for making the most of your time in port.</p>
