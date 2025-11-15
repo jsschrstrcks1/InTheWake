@@ -1,0 +1,287 @@
+<!-- Invocation: Author page — may everything we ship be true, beautiful, and helpful. Soli Deo Gloria. -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0e6e8e">
+  <!-- bump for cache bust -->
+  <meta name="version" content="3.010.300"/>
+
+  <title>Ken Baker — In the Wake</title>
+
+  <!-- Canonical normalizer (choose ONE host; apex here) -->
+  <script>
+  (function(){
+    var wantHost="cruisinginthewake.com";
+    var h=location.hostname.toLowerCase();
+    var isHttps=(location.protocol==="https:");
+    if(h!==wantHost||!isHttps){
+      location.replace("https://"+wantHost+location.pathname+location.search+location.hash);
+    }
+  })();
+  </script>
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://cruisinginthewake.com/authors/ken-baker.html"/>
+
+  <!-- Styles (same-origin so cache-buster can touch it) -->
+  <link rel="stylesheet" href="/assets/styles.css"/>
+
+  <!-- Cache-buster (same-origin CSS/JS only) -->
+  <script>
+  (function(){
+    const VER=(document.querySelector('meta[name="version"]')?.content||new Date().toISOString().slice(0,10).replace(/-/g,""));
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host));
+    function sameOrigin(u){try{return new URL(u,ORIGIN).origin===ORIGIN}catch(_){return false}}
+    for(const el of document.querySelectorAll('link[rel="stylesheet"],script[src]')){
+      const url=el.href||el.src; if(!url||!sameOrigin(url)||url.includes('?v=')) continue;
+      const bust=url+(url.includes('?')?'&':'?')+'v='+VER;
+      if(el.tagName==='LINK') el.href=bust; else el.src=bust;
+    }
+  })();
+  </script>
+
+  <!-- Social/SEO -->
+  <meta name="description" content="Ken Baker — Founder of In the Wake. Pastor, photographer, and cruise enthusiast with 50+ sailings. Expertise in Royal Caribbean, accessibility, and solo cruising.">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Ken Baker — In the Wake">
+  <meta property="og:description" content="Pastor, photographer, and cruise enthusiast. 50+ sailings with expertise in Royal Caribbean, accessibility, and planning tools.">
+  <meta property="og:url" content="https://cruisinginthewake.com/authors/ken-baker.html">
+  <meta property="og:image" content="https://cruisinginthewake.com/authors/img/ken1.webp">
+  <meta property="og:image:type" content="image/webp">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- JSON-LD: ProfilePage + Person -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ProfilePage",
+    "headline":"Ken Baker — Founder & Editor",
+    "url":"https://cruisinginthewake.com/authors/ken-baker.html",
+    "mainEntity":{
+      "@type":"Person",
+      "name":"Ken Baker",
+      "image":"https://cruisinginthewake.com/authors/img/ken1.webp",
+      "jobTitle":"Founder and Editor",
+      "description":"Traveler, pastor, and storyteller. Founder of In the Wake, a cruise traveler's logbook offering planning tools, travel tips, and faith-scented reflections for smoother sailings.",
+      "sameAs":[
+        "https://www.flickersofmajesty.com"
+      ],
+      "worksFor":{
+        "@type":"Organization",
+        "name":"In the Wake"
+      },
+      "knowsAbout":[
+        "Cruise Planning",
+        "Royal Caribbean",
+        "Solo Cruising",
+        "Cruise Ship Accessibility",
+        "Travel Writing",
+        "Faith-Based Travel",
+        "Photography"
+      ]
+    },
+    "isPartOf":{"@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com"}
+  }
+  </script>
+
+  <!-- Local styles for the author page -->
+  <style>
+    .author-hero{display:flex; gap:1rem; align-items:center; padding:1rem}
+    .author-hero .avatar{
+      width:88px; height:88px; border-radius:999px; overflow:hidden; flex:none; background:#e9f3f7
+    }
+    .author-hero .avatar img{width:100%; height:100%; object-fit:cover; display:block}
+    .author-hero .meta{display:flex; flex-direction:column}
+    .author-hero .meta .name{font-size:1.35rem; font-weight:700}
+    .author-hero .links a{margin-right:.5rem}
+
+    .articles{display:grid; grid-template-columns:1fr; gap:1rem}
+    @media (min-width: 820px){ .articles{grid-template-columns:1fr 1fr} }
+
+    .article-card{border:1px solid rgba(0,0,0,.08); border-radius:.9rem; overflow:hidden; background:#fff; display:block; text-decoration:none}
+    .article-card .media{aspect-ratio:16/9; overflow:hidden; display:block; background:#eef6f9}
+    .article-card .media img{width:100%; height:100%; object-fit:cover; display:block}
+    .article-card .pad{padding:.9rem 1rem 1rem}
+    .article-card h3{margin:.2rem 0 .35rem 0; font-size:1.06rem; line-height:1.25; color:#174a5c}
+    .article-card p{margin:0 0 .55rem 0; color:#285e73}
+    .article-card .muted{opacity:.85}
+    .article-card:hover h3{text-decoration:underline}
+
+    /* Nav pill safety net */
+    .nav[aria-label="Main site navigation"] a[aria-current="page"],
+    .nav[aria-label="Main site navigation"] a.is-current{
+      border:2px solid rgba(14,110,142,.35);
+      border-radius:999px; padding:.25rem .6rem; background:rgba(14,110,142,.06); font-weight:600;
+    }
+    .article-card .media { aspect-ratio: 16/9; overflow: hidden; display: block; background: #eef6f9; }
+    .article-card .media img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+  </style>
+</head>
+<body class="page">
+  <!-- ai-breadcrumbs
+       entity: Ken Baker Author Profile
+       type: ProfilePage
+       parent: /about-us.html
+       category: Author Information
+       updated: 2025-11-15
+       version: 3.010.300
+       expertise: Founder, 50+ cruises, Royal Caribbean specialist, pastor, photographer, accessibility advocate
+       target-audience: Users wanting author credentials, E-E-A-T verification
+       answer-first: Ken Baker - Founder of In the Wake with 50+ cruises and expertise in accessibility
+       -->
+
+  <a href="#content" class="skip-link">Skip to main content</a>
+
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark" width="256" height="64"/>
+      </div>
+      <nav class="nav" aria-label="Main site navigation">
+        <a href="/">Home</a>
+        <a href="/solo.html">Solo Travel</a>
+        <a href="/packing.html">Packing Lists</a>
+        <a href="/ports.html">Ports</a>
+        <a href="/about-us.html">About Us</a>
+      </nav>
+    </div>
+    <div class="hero" role="img" aria-label="Ocean horizon at dusk">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake" width="560" height="144">
+        <div class="tagline">A Cruise Traveler's Logbook</div>
+      </div>
+      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
+    </div>
+  </header>
+
+  <main class="wrap" id="content" role="main">
+    <section class="cards stack">
+      <article class="card">
+        <div class="author-hero">
+         <div class="avatar">
+  <picture>
+    <source type="image/webp" srcset="/authors/img/ken1.webp">
+    <img class="cachebust" src="/authors/img/ken1.jpg" width="176" height="176"
+         loading="lazy" decoding="async" alt="Ken Baker">
+  </picture>
+</div>
+          <div class="meta">
+            <div class="name">Ken Baker</div>
+            <div class="blurb">Founder, pastor, photographer, and cruise planning advocate with 50+ sailings across multiple lines.</div>
+            <div class="links">
+              <a href="https://www.flickersofmajesty.com?utm_source=cruisinginthewake&utm_medium=author_page_links&utm_campaign=ken_profile" target="_blank" rel="noopener">Photography Portfolio</a>
+              <a href="/about-us.html">About In the Wake</a>
+            </div>
+          </div>
+        </div>
+        <p><strong>Ken Baker</strong> founded <em>In the Wake</em> to create the planning resources he wished existed—tools that respect your time, clarify confusing policies, and help you make confident decisions. A pastor and photographer by trade, Ken brings both pastoral care and visual storytelling to cruise planning. With 50+ sailings under his belt (specializing in Royal Caribbean), he writes from experience about accessibility, solo travel, and the practical details that make or break a cruise.</p>
+        <p>His motto: <em>"The calmest seas are found in another's wake."</em> Ken sails ahead to smooth the waters for you.</p>
+      </article>
+    </section>
+
+    <section class="cards stack">
+      <article class="card">
+        <h2>Articles by Ken</h2>
+
+        <div class="articles">
+          <!-- Card 1: Freedom of Your Own Wake -->
+          <a class="article-card" href="/solo/freedom-of-your-own-wake.html?utm_source=cruisinginthewake&utm_medium=author_page_card&utm_campaign=ken_profile">
+         <span class="media">
+  <picture>
+    <source type="image/webp" srcset="/assets/articles/freedom-of-your-own-wake.jpg">
+    <img class="cachebust"
+         src="/assets/articles/freedom-of-your-own-wake.jpg"
+         width="1280" height="720" loading="lazy" decoding="async"
+         alt="Peaceful ship wake at sunset representing solo cruise freedom">
+  </picture>
+</span>
+            <div class="pad">
+              <h3>The Freedom of Your Own Wake</h3>
+              <p>A gentle case for sailing alone — rest, rhythm, and room to breathe when the sea becomes both your mirror and your companion.</p>
+              <p class="muted">Read →</p>
+            </div>
+          </a>
+
+          <!-- Card 2: Visiting the United States Before Your Cruise -->
+          <a class="article-card" href="/solo/visiting-the-united-states-before-your-cruise.html?utm_source=cruisinginthewake&utm_medium=author_page_card&utm_campaign=ken_profile">
+         <span class="media">
+  <picture>
+    <source type="image/webp" srcset="/solo/images/flickersofmajesty.jpeg">
+    <img class="cachebust"
+         src="/solo/images/flickersofmajesty.jpeg"
+         width="1280" height="720" loading="lazy" decoding="async"
+         alt="American flag against blue sky">
+  </picture>
+</span>
+            <div class="pad">
+              <h3>Visiting the United States Before Your Cruise</h3>
+              <p>Pre-cruise planning for international travelers: visas, customs, timing, and making the most of your US port city stay.</p>
+              <p class="muted">Read →</p>
+            </div>
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <section class="cards stack">
+      <article class="card">
+        <h2>Planning Tools by Ken</h2>
+        <ul>
+          <li><a href="/drink-calculator.html">Royal Caribbean Drink Package Calculator</a> — Break-even analysis with multi-currency support and Crown & Anchor voucher tracking</li>
+          <li><a href="/ships.html">Ships Database</a> — Fleet-wide comparison tool for Royal Caribbean, Holland America, and MSC</li>
+          <li><a href="/restaurants.html">Restaurant & Menu Guide</a> — Comprehensive dining venue database with pricing and menus</li>
+          <li><a href="/accessibility.html">Accessibility Resources</a> — Disability-focused cruise planning guides</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="cards stack">
+      <article class="card">
+        <h2>Photography</h2>
+        <p>Ken's photography work can be found at <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>, where he explores faith, beauty, and storytelling through the lens.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    © 2025 In the Wake — A Cruise Traveler's Logbook
+    <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
+    <br/>
+    <em>Soli Deo Gloria</em> ✝️
+  </footer>
+
+  <!-- Small helpers: cache-bust images + nav pill setter -->
+  <script>
+  (function(){
+    // cache-bust author images using page version
+    const ver=document.querySelector('meta[name="version"]')?.content;
+    if(ver){
+      for(const img of document.querySelectorAll('.cachebust')){
+        try{
+          const u=new URL(img.getAttribute('src'), location.origin);
+          if(!u.searchParams.has('v')){ u.searchParams.set('v', ver); img.src=u.toString(); }
+        }catch(_){}
+      }
+    }
+
+    // ensure current nav pill
+    const nav=document.querySelector('.nav[aria-label="Main site navigation"]');
+    if(nav){
+      const here=location.pathname.replace(/\/+$/,'').toLowerCase();
+      for(const a of nav.querySelectorAll('a[href]')){
+        try{
+          const u=new URL(a.getAttribute('href'), location.origin);
+          if(u.pathname.replace(/\/+$/,'').toLowerCase()===here){
+            a.setAttribute('aria-current','page'); a.classList.add('is-current');
+          }
+        }catch(_){}
+      }
+    }
+  })();
+  </script>
+</body>
+</html>
