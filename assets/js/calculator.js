@@ -94,12 +94,12 @@ const CONFIG = Object.freeze({
       deluxe: { priceMid: 85.0 }
     },
     prices: {
-      soda: 2.00, coffee: 4.50, teaprem: 3.50, freshjuice: 6.00,
+      soda: 2.00, coffeeSmall: 4.50, coffeeLarge: 4.50, teaprem: 3.50, freshjuice: 6.00,
       mocktail: 6.50, energy: 5.50, milkshake: 6.95, bottledwater: 2.95,
       beer: 8.50, wine: 11.00, cocktail: 13.00, spirits: 10.00
     },
     sets: {
-      refresh: ['soda', 'coffee', 'teaprem', 'freshjuice', 'mocktail',
+      refresh: ['soda', 'coffeeSmall', 'coffeeLarge', 'teaprem', 'freshjuice', 'mocktail',
                 'energy', 'milkshake', 'bottledwater'],
       soda: ['soda'],
       alcoholic: ['beer', 'wine', 'cocktail', 'spirits']
@@ -689,7 +689,7 @@ const initialState = {
     adults: 2, minors: 0, coffeeCards: 0, coffeePunches: 0,
     voucherAdult: 0, voucherMinor: 0,
     drinks: {
-      soda: 0, coffee: 0, teaprem: 0, freshjuice: 0,
+      soda: 0, coffeeSmall: 0, coffeeLarge: 0, teaprem: 0, freshjuice: 0,
       mocktail: 0, energy: 0, milkshake: 0, bottledwater: 0,
       beer: 0, wine: 0, cocktail: 0, spirits: 0
     }
