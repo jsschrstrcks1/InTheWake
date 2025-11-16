@@ -839,27 +839,70 @@ document.addEventListener('DOMContentLoaded', () => {
     tryNext();
   }
 
-  /* 4) Right-rail: Authors */
+      /* 4) Right-rail: Authors - Dynamic detection */
   (async function(){
     const data = await fetchJSONWithFallback(['/data/authors.json','/assets/data/authors.json']);
     const rail = document.getElementById('author-rail');
     if(!rail || !data) return;
 
     const list = Array.isArray(data.authors) ? data.authors : (Array.isArray(data) ? data : []);
-    const ken = list.find(a => /ken\s*baker/i.test(a.name||'')) || list[0];
-    if(!ken) return;
+    if(!list.length) return;
+
+    // Detect author from meta tag or JSON-LD
+    let authorName = '';
+    const metaAuthor = document.querySelector('meta[name="author"]');
+    if(metaAuthor) {
+      authorName = metaAuthor.getAttribute('content') || '';
+    }
+
+    // Fallback: try JSON-LD
+    if(!authorName) {
+      try {
+        const jsonLd = [...document.querySelectorAll('script[type="application/ld+json"]')]
+          .map(s => { try { return JSON.parse(s.textContent); } catch(_){ return null; } })
+          .find(j => j && j.author && j.author.name);
+        if(jsonLd && jsonLd.author) authorName = jsonLd.author.name;
+      } catch(_) {}
+    }
+
+    // Find matching author or default to first
+    let author = null;
+    if(authorName) {
+      author = list.find(a => {
+        const name = (a.name || '').toLowerCase();
+        const search = authorName.toLowerCase();
+        return name === search || name.includes(search) || search.includes(name);
+      });
+    }
+    if(!author) author = list[0]; // Fallback to first author
+    if(!author) return;
 
     const host = rail.querySelector('.author-card');
     if(!host) return;
 
+    // Build author description from available data
+    const name = author.name || 'Author';
+    const url = author.url || '#';
+    const img = author.webp || author.image || '/assets/img/default-author.webp';
+
+    // Construct description based on author
+    let description = '';
+    if(/ken.*baker/i.test(name)) {
+      description = 'Founder of In the Wake and writer of Travel content. Founder of Flickers of Majesty. Pastor at <a href="https://lakeviewfellowshipchurch.com/" target="_blank" rel="noopener">Lakeview Fellowship</a>. Shepherd at Manatee Creek Farms.';
+    } else if(/tina.*maulsby/i.test(name)) {
+      description = 'Contributor to In the Wake, sharing travel experiences and insights. Writer and cruising enthusiast.';
+    } else {
+      description = 'Contributor to In the Wake.';
+    }
+
     host.innerHTML = `
       <picture>
-        <source type="image/webp" srcset="/authors/img/ken1.webp">
-        <img class="author-avatar" src="/authors/img/ken1.webp" width="48" height="48" alt="Author — Ken Baker">
+        <source type="image/webp" srcset="${img}">
+        <img class="author-avatar" src="${img}" width="48" height="48" alt="Author — ${name}" style="border-radius:6px">
       </picture>
       <div>
-        <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
-        Founder of In the Wake and writer of Travel content. Founder of Flickers of Majesty. Pastor at <a href="https://lakeviewfellowshipchurch.com/" target="_blank" rel="noopener">Lakeview Fellowship</a>. Shepherd at Manatee Creek Farms. <br/>
+        <strong><a href="${url}">${name}</a></strong><br/>
+        ${description}<br/>
         <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a> ·
         Instagram <a href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
       </div>`;
