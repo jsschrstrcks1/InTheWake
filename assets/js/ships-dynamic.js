@@ -29,23 +29,43 @@
       '/ships/assets/images/allure3.jpg'
     ],
     'radiance-of-the-seas': [
+      '/assets/ships/thumbs/radiance-of-the-seas.webp',
+      '/assets/ships/thumbs/radiance-of-the-seas.jpg',
       '/ships/radianceots.jpg'
+    ],
+    'brilliance-of-the-seas': [
+      '/assets/ships/thumbs/brilliance-of-the-seas.webp',
+      '/assets/ships/thumbs/brilliance-of-the-seas.jpg'
+    ],
+    'serenade-of-the-seas': [
+      '/assets/ships/thumbs/serenade-of-the-seas.webp',
+      '/assets/ships/thumbs/serenade-of-the-seas.jpg'
+    ],
+    'jewel-of-the-seas': [
+      '/assets/ships/thumbs/jewel-of-the-seas.webp',
+      '/assets/ships/thumbs/jewel-of-the-seas.jpg'
     ],
     'grandeur-of-the-seas': [
       '/ships/assets/grandeur-of-the-seas1.jpg'
     ],
     'enchantment-of-the-seas': [
+      '/assets/ships/thumbs/enchantment-of-the-seas.webp',
+      '/assets/ships/thumbs/enchantment-of-the-seas.jpg',
       '/ships/assets/enchantment-of-the-seas1.jpg',
       '/ships/assets/images/Enchantment_of_the_Seas.jpeg',
       '/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg'
     ],
     'rhapsody-of-the-seas': [
+      '/assets/ships/thumbs/rhapsody-of-the-seas.webp',
+      '/assets/ships/thumbs/rhapsody-of-the-seas.jpg',
       '/ships/assets/rhapsody-of-the-seas1.jpg',
       '/ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg',
       '/ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg',
       '/ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg'
     ],
     'vision-of-the-seas': [
+      '/assets/ships/thumbs/vision-of-the-seas.webp',
+      '/assets/ships/thumbs/vision-of-the-seas.jpg',
       '/ships/assets/vision-of-the-Seas1.jpg',
       '/ships/assets/rcl/vision-of-the-Seas1.jpg'
     ],
@@ -168,18 +188,21 @@
   function createShipCard(ship) {
     const imageUrl = getRandomShipImage(ship.slug);
     const pageUrl = `/ships/rcl/${ship.slug}.html`;
+    const placeholderUrl = '/assets/ship-placeholder.jpg';
 
     return `
       <article class="ship-card" data-ship-slug="${ship.slug}">
         <a href="${pageUrl}" class="ship-card-link">
-          ${imageUrl ? `
-            <div class="ship-card-image">
-              <img src="${imageUrl}" alt="${ship.name}" loading="lazy" decoding="async" />
-              ${SHIP_IMAGES[ship.slug].length > 1 ?
-                `<span class="image-count-badge" aria-label="${SHIP_IMAGES[ship.slug].length} images available">${SHIP_IMAGES[ship.slug].length}</span>`
-                : ''}
-            </div>
-          ` : ''}
+          <div class="ship-card-image">
+            <img src="${imageUrl || placeholderUrl}"
+                 alt="${ship.name}"
+                 loading="lazy"
+                 decoding="async"
+                 onerror="this.onerror=null;this.src='${placeholderUrl}'" />
+            ${imageUrl && SHIP_IMAGES[ship.slug] && SHIP_IMAGES[ship.slug].length > 1 ?
+              `<span class="image-count-badge" aria-label="${SHIP_IMAGES[ship.slug].length} images available">${SHIP_IMAGES[ship.slug].length}</span>`
+              : ''}
+          </div>
           <div class="ship-card-content">
             <h3 class="ship-card-title">${ship.name}</h3>
             <p class="ship-card-year">Launched ${ship.year}</p>
@@ -193,15 +216,15 @@
    * Create ship class section HTML
    */
   function createShipClassSection(className, classData) {
-    // Filter ships to only those with images
-    const shipsWithImages = classData.ships.filter(ship => hasImages(ship.slug));
+    // Show all ships (with or without images)
+    const ships = classData.ships;
 
-    if (shipsWithImages.length === 0) {
+    if (ships.length === 0) {
       return ''; // Don't show empty classes
     }
 
-    const shipsHtml = shipsWithImages.map(ship => createShipCard(ship)).join('');
-    const shipCount = shipsWithImages.length;
+    const shipsHtml = ships.map(ship => createShipCard(ship)).join('');
+    const shipCount = ships.length;
 
     return `
       <section class="ship-class-section" data-class="${className}">
