@@ -819,13 +819,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   "slug": "freedom-of-the-seas",
   "name": "Freedom of the Seas",
   "class": "Freedom Class",
-  "entered_service": "TBD",
-  "gt": "TBD",
-  "guests": "TBD",
-  "crew": "TBD",
-  "length": "TBD",
-  "beam": "TBD",
-  "registry": "TBD"
+  "entered_service": 2006,
+  "gt": "156,271 GT",
+  "guests": "3,634 (double) ~3,782 (max)",
+  "crew": "1,360",
+  "length": "1,112 ft (339 m)",
+  "beam": "184 ft (56 m)",
+  "registry": "Bahamas"
 }
           </script>
         </section>
@@ -930,8 +930,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <h2 id="liveTrackHeading">Where Is Freedom Right Now?</h2>
         <p>See the ship's current position, speed, and next port on a live tracker.</p>
 
-        <div id="vf-map-radiance" class="vf-map" role="region" aria-label="Live ship map for Freedom of the Seas" style="width:100%;height:300px;background:var(--sky)"></div>
-        <iframe class="live-map hidden" title="Live ship tracker for Freedom of the Seas" width="100%" height="300" frameborder="0" loading="lazy" allowfullscreen aria-label="Live ship tracker for Freedom of the Seas"></iframe>
+        <div id="vf-tracker-container" style="width:100%;height:300px;position:relative;"></div>
         <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
       </section>
     </section>
@@ -1283,11 +1282,33 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     const card=document.querySelector('.card.itinerary[data-imo]');
     if(!card) return;
     const imo=card.getAttribute('data-imo');
-    const iframe=card.querySelector('iframe.live-map');
-    if(!imo||!iframe) return;
-    const src='https://www.vesselfinder.com/aismap?imo='+imo+'&width=100%&height=300&zoom=10';
-    iframe.src=src;
-    iframe.classList.remove('hidden');
+    const container=document.getElementById('vf-tracker-container');
+    if(!imo||!container) return;
+
+    // VesselFinder JavaScript embed configuration
+    window.vfTrackerOptions = {
+      imo: imo,
+      width: '100%',
+      height: 300,
+      zoom: 10,
+      showNames: true,
+      showTrack: false
+    };
+
+    // Create wrapper div for VesselFinder embed
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'width:100%;height:300px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
+
+    // VesselFinder requires specific implementation - using MarineTraffic as alternative
+    // MarineTraffic provides better iframe support
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'width:100%;height:100%;border:0;';
+    iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
+    iframe.setAttribute('loading', 'lazy');
+    iframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:0/centerx:0/maptype:0/shownames:false/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
+
+    wrapper.appendChild(iframe);
+    container.appendChild(wrapper);
   })();
   </script>
 
