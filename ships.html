@@ -1609,8 +1609,8 @@
         trackerContainer.appendChild(currentIframe);
       }
 
-      // Update iframe src with MarineTraffic embed
-      currentIframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:0/centerx:0/maptype:0/shownames:true/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
+      // Update iframe src with MarineTraffic embed (auto-centers on ship via IMO)
+      currentIframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/maptype:0/shownames:true/imo:' + imo + '/track:true/showmenu:false/remember:false';
     }
 
     function hideTracker() {
