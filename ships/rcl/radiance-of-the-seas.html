@@ -1198,7 +1198,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-  <!-- ===== Live tracker (VesselFinder: auto-centers on ship by IMO) ===== -->
+  <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->
   <script>
   (function initLiveTracker(){
     const card=document.querySelector('.card.itinerary[data-imo]');
@@ -1207,30 +1207,19 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     const container=document.getElementById('vf-tracker-container');
     if(!imo||!container) return;
 
-    // Create wrapper div with unique ID for VesselFinder
+    // Create wrapper div
     const wrapper = document.createElement('div');
-    wrapper.id = 'vf-map-' + imo;
     wrapper.style.cssText = 'width:100%;height:300px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
+
+    // VesselFinder iframe embed - tracks by IMO
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'width:100%;height:100%;border:0;';
+    iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
+    iframe.setAttribute('loading', 'lazy');
+    iframe.src = 'https://www.vesselfinder.com/aismap?width=100%25&height=300&names=true&imo=' + imo + '&track=true&fleet=&fleet_hide_old_positions=false&clicktoact=false&store_pos=false';
+
+    wrapper.appendChild(iframe);
     container.appendChild(wrapper);
-
-    // VesselFinder embed configuration
-    const script = document.createElement('script');
-    script.textContent = `
-      var width="100%";
-      var height="300";
-      var names=true;
-      var imo="${imo}";
-      var show_track=true;
-      var fleet_id="";
-      var fleet_name="";
-    `;
-    document.head.appendChild(script);
-
-    // Load VesselFinder API
-    const vfScript = document.createElement('script');
-    vfScript.src = 'https://www.vesselfinder.com/aismap.js';
-    vfScript.async = true;
-    document.head.appendChild(vfScript);
   })();
   </script>
 
