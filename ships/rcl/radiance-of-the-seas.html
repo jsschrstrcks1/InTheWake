@@ -1197,7 +1197,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-  <!-- ===== Live tracker ===== -->
+  <!-- ===== Live tracker (ICP-Lite: auto-centers on ship) ===== -->
   <script>
   (function initLiveTracker(){
     const card=document.querySelector('.card.itinerary[data-imo]');
@@ -1206,27 +1206,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     const container=document.getElementById('vf-tracker-container');
     if(!imo||!container) return;
 
-    // VesselFinder JavaScript embed configuration
-    window.vfTrackerOptions = {
-      imo: imo,
-      width: '100%',
-      height: 300,
-      zoom: 10,
-      showNames: true,
-      showTrack: false
-    };
-
-    // Create wrapper div for VesselFinder embed
+    // Create wrapper div
     const wrapper = document.createElement('div');
     wrapper.style.cssText = 'width:100%;height:300px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
 
-    // VesselFinder requires specific implementation - using MarineTraffic as alternative
-    // MarineTraffic provides better iframe support
+    // MarineTraffic embed - removed manual center coordinates to auto-focus on ship
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:0/centerx:0/maptype:0/shownames:false/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
+    // Auto-centers on ship by omitting centerx/centery and using zoom:6 for better context
+    iframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:6/maptype:0/shownames:true/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
 
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
