@@ -166,7 +166,7 @@
 
   .hero{
     position:relative;width:100%;min-height:clamp(200px,24vw,340px);
-    background:url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
+    background:url('/assets/index_hero.webp') 50% 50%/cover no-repeat;
     display:flex;align-items:flex-end;overflow-x:clip;z-index:0;
   }
   .hero *{filter:none!important;mix-blend-mode:normal!important;opacity:1!important}
@@ -855,7 +855,7 @@ document.addEventListener('DOMContentLoaded', () => {
     host.innerHTML = `
       <picture>
         <source type="image/webp" srcset="/authors/img/ken1.webp">
-        <img class="author-avatar" src="/authors/img/ken1.jpg" width="48" height="48" alt="Author — Ken Baker">
+        <img class="author-avatar" src="/authors/img/ken1.webp" width="48" height="48" alt="Author — Ken Baker">
       </picture>
       <div>
         <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
@@ -908,10 +908,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       // Friendly specifics
       if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-        primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
+        primary = '/assets/articles/freedom-of-your-own-wake/cover.webp';
       }
       if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-        primary = '/assets/articles/travel/cover.jpg';
+        primary = '/assets/articles/travel/cover.webp';
       }
       // Heuristic fallback
       if(!primary){
@@ -925,7 +925,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
         alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
       }
-      setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
+      setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
     });
   })();
 

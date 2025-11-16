@@ -176,8 +176,8 @@
   </script>
 
   <!-- Favicon / PWA -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.webp"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.webp"/>
   <link rel="manifest" href="/manifest.webmanifest"/>
 
   <!-- SEO: Sitemap & RSS -->
@@ -1360,14 +1360,14 @@
     rail.innerHTML = view.map(p => {
       const title = p.title || p.name || 'Article';
       const href = p.url || p.path || '#';
-      const image = p.image || p.cover || '/assets/index_hero.jpg';
+      const image = p.image || p.cover || '/assets/index_hero.webp';
       const altText = p.image ? '' : 'Article thumbnail';
 
       return `
         <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}" aria-label="${title}">
           <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
             <img src="${image}" alt="${altText}" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover"
-                 onerror="this.src='/assets/index_hero.jpg';this.alt='Fallback article image'">
+                 onerror="this.src='/assets/index_hero.webp';this.alt='Fallback article image'">
           </div>
           <div class="tiny" style="line-height:1.35">${title}</div>
         </a>`;

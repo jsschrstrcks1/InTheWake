@@ -159,8 +159,8 @@
   </script>
 
   <!-- Favicon / PWA -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.webp"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.webp"/>
   <link rel="manifest" href="/manifest.webmanifest"/>
 
   <!-- SEO: Sitemap & RSS -->
@@ -524,7 +524,7 @@
     position: relative;
     width: 100%;
     min-height: clamp(200px, 24vw, 340px);
-    background: url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
+    background: url('/assets/index_hero.webp') 50% 50%/cover no-repeat;
     display: flex;
     align-items: flex-end;
     overflow-x: clip;
@@ -1438,17 +1438,17 @@
 
         // FORCE override for Top-20
         if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/top-20-questions/cover.jpg';
+          primary = '/assets/articles/top-20-questions/cover.webp';
         }
         // Friendly specifics
         if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
+          primary = '/assets/articles/freedom-of-your-own-wake/cover.webp';
         }
         if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/why-i-started-solo-cruising.jpg';
+          primary = '/assets/articles/why-i-started-solo-cruising.webp';
         }
         if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
+          primary = '/assets/articles/travel/cover.webp';
         }
 
         // Heuristic fallback
@@ -1463,7 +1463,7 @@
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
           alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
         }
-        setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
+        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
 
       if(fallback) fallback.style.display = 'none';
