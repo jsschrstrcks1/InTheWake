@@ -16,6 +16,44 @@ This document contains the **COMPLETE** navigation composite that must appear on
 
 ---
 
+## 🔧 Z-Index Stacking Context Fix (CRITICAL)
+
+**Problem:** Dropdown menus appear UNDER page content cards instead of OVER them.
+
+**Root Cause:** The `.hero-header` parent element creates a z-index stacking context. Even though `.submenu` has `z-index: 2100`, it's confined within the parent's stacking context. When `.hero-header` has `z-index: 0`, all children (including dropdown menus) appear below content cards in `<main>`.
+
+**Solution:** Set `.hero-header` to `z-index: 9000` to ensure the entire header (and its dropdown menus) appear above all page content.
+
+**Required CSS:**
+```css
+.hero-header {
+  position: relative;
+  border-bottom: 6px double var(--rope);
+  background: #eaf6f6;
+  z-index: 9000;  /* CRITICAL: Ensures dropdowns appear OVER content cards */
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: .6rem;
+  padding: .5rem .9rem .35rem;
+  position: relative;
+  z-index: 2000;  /* Relative to header's stacking context */
+  overflow: visible;
+}
+```
+
+**Technical Explanation:**
+- CSS z-index creates stacking contexts when combined with `position: relative/absolute/fixed`
+- Child elements cannot escape their parent's stacking context
+- `.hero-header` (z-index: 9000) > `.navbar` (z-index: 2000) > `.submenu` (z-index: 2100)
+- All three values work together to ensure dropdowns appear over content
+
+---
+
 ## ✅ Complete Navigation Composite
 
 Every page must have these three components:
