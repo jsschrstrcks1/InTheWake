@@ -1087,7 +1087,7 @@
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.webp?v=3.010.300" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
+        <img src="/assets/logo_wake.png?v=3.010.300" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
       </div>
       <nav class="nav" aria-label="Main site navigation">
@@ -1136,7 +1136,7 @@
     <div class="hero">
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.webp?v=3.010.300" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.300" width="560" height="144" alt="In the Wake" decoding="async"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -1149,6 +1149,31 @@
   <main id="main-content" class="wrap page-grid" role="main" aria-label="Main content">
     <!-- LEFT: welcome + top explore -->
     <section aria-label="Welcome and explore">
+      <!-- Duck Spotting Card - Special Callout (Dismissible) -->
+      <article id="duck-card" class="card" style="background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%); border: 3px solid #ffd700; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2); position: relative;">
+        <button onclick="document.getElementById('duck-card').style.display=\'none\'; localStorage.setItem(\'duckCardDismissed\', \'true\');"
+                style="position: absolute; top: 0.75rem; right: 0.75rem; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: #d4a017; padding: 0.25rem; line-height: 1; opacity: 0.6; transition: opacity 0.2s;"
+                onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'"
+                aria-label="Dismiss duck card">×</button>
+        <h2 style="margin: 0 0 0.5rem 0; color: #d4a017; font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          🦆 Found a Duck?
+        </h2>
+        <p style="margin: 0.5rem 0; font-size: 1.05rem; line-height: 1.6;">
+          Spotted one of our signature yellow ducks on your cruise? We'd love to see it!
+          <strong>Send us a picture and be featured on our website and Instagram!</strong>
+        </p>
+        <div class="actions" style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <a class="pill" href="mailto:ken@cruisinginthewake.com?subject=I%20Found%20a%20Duck!&body=Hi!%20I%20found%20a%20duck%20on%20my%20cruise.%20Here's%20my%20photo%20(please%20attach).%0A%0AShip:%20%0ADate:%20%0ALocation%20where%20I%20found%20it:%20%0A%0A"
+             style="background: #ffd700; color: #333; border-color: #d4a017; font-weight: 600; font-size: 1.05rem; padding: 0.75rem 1.5rem;">
+            📧 Send Your Duck Photo!
+          </a>
+          <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener"
+             style="background: #fff; color: #d4a017; border: 2px solid #ffd700; font-weight: 600; font-size: 1.05rem; padding: 0.75rem 1.5rem;">
+            📸 See Featured Ducks on Instagram
+          </a>
+        </div>
+      </article>
+
       <article class="card welcome">
         <h1>Welcome aboard</h1>
         <p class="motto"><em>The calmest seas are found in another's wake.</em></p>
@@ -1171,27 +1196,6 @@
           The goal isn't to sell you anything; it's to take the friction out of decisions so your trip feels effortless.
           Fair winds—and gentler seas—in our wake.
         </p>
-      </article>
-
-      <!-- Duck Spotting Card - Special Callout -->
-      <article class="card" style="background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%); border: 3px solid #ffd700; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);">
-        <h2 style="margin: 0 0 0.5rem 0; color: #d4a017; font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
-          🦆 Found a Duck?
-        </h2>
-        <p style="margin: 0.5rem 0; font-size: 1.05rem; line-height: 1.6;">
-          Spotted one of our signature yellow ducks on your cruise? We'd love to see it!
-          <strong>Send us a picture and be featured on our website and Instagram!</strong>
-        </p>
-        <div class="actions" style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <a class="pill" href="mailto:ken@cruisinginthewake.com?subject=I%20Found%20a%20Duck!&body=Hi!%20I%20found%20a%20duck%20on%20my%20cruise.%20Here's%20my%20photo%20(please%20attach).%0A%0AShip:%20%0ADate:%20%0ALocation%20where%20I%20found%20it:%20%0A%0A"
-             style="background: #ffd700; color: #333; border-color: #d4a017; font-weight: 600; font-size: 1.05rem; padding: 0.75rem 1.5rem;">
-            📧 Send Your Duck Photo!
-          </a>
-          <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener"
-             style="background: #fff; color: #d4a017; border: 2px solid #ffd700; font-weight: 600; font-size: 1.05rem; padding: 0.75rem 1.5rem;">
-            📸 See Featured Ducks on Instagram
-          </a>
-        </div>
       </article>
 
       <section class="explore-grid top" aria-label="Explore the site (primary)">
@@ -1697,6 +1701,14 @@
       window.addEventListener('blur', () => {
         closeAll();
       });
+    }
+  })();
+
+  // Duck card dismissal persistence
+  (function() {
+    const duckCard = document.getElementById('duck-card');
+    if (duckCard && localStorage.getItem('duckCardDismissed') === 'true') {
+      duckCard.style.display = 'none';
     }
   })();
   </script>
