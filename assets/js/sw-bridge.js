@@ -611,9 +611,9 @@
       if(!rail) return;
 
       const fallback = [
-        { title:'Royal Caribbean Drink Packages: 2025 Guide', href:'/drink-packages.html', img:'/assets/ships/thumbs/vision-of-the-seas.jpg' },
-        { title:'Solo Cruising: How to Plan Well', href:'/solo.html', img:'/assets/ships/thumbs/radiance-of-the-seas.jpg' },
-        { title:'Packing Smarter: Embarkation Day', href:'/packing-lists.html', img:'/assets/ships/thumbs/brilliance-of-the-seas.jpg' }
+        { title:'Royal Caribbean Drink Packages: 2025 Guide', href:'/drink-packages.html', img:'/assets/ships/thumbs/vision-of-the-seas.webp' },
+        { title:'Solo Cruising: How to Plan Well', href:'/solo.html', img:'/assets/ships/thumbs/radiance-of-the-seas.webp' },
+        { title:'Packing Smarter: Embarkation Day', href:'/packing-lists.html', img:'/assets/ships/thumbs/brilliance-of-the-seas.webp' }
       ];
 
       function render(list){
