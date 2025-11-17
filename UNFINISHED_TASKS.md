@@ -288,6 +288,40 @@ All 50 ships should have stats JSON at:
 
 ## 🔧 TECHNICAL TASKS
 
+### CRITICAL: WebP Image References Update (Uncommitted Work from WebP Thread)
+**Status:** Images converted (commit cff215b) but code NEVER updated to use them
+**Impact:** Site not benefiting from 77% file size reduction (15.8MB → 4.9MB)
+
+**Work needed:**
+- [ ] Update 9 ship HTML files (~54 references total)
+  - brilliance-of-the-seas.html (6 refs)
+  - enchantment-of-the-seas.html (6 refs)
+  - jewel-of-the-seas.html (6 refs)
+  - majesty-of-the-seas.html (5 refs)
+  - radiance-of-the-seas.html (7 refs)
+  - rhapsody-of-the-seas.html (6 refs)
+  - serenade-of-the-seas.html (6 refs)
+  - vision-of-the-seas.html (6 refs)
+  - grandeur-of-the-seas.html (6 refs)
+
+- [ ] Update JavaScript files (~74 references total)
+  - assets/js/ships-dynamic.js (~67 refs) - ship image arrays
+  - assets/js/rcl.page.js (~4 refs) - placeholder images
+  - assets/js/sw-bridge.js (~3 refs) - service worker cache
+
+**Types of changes needed in each HTML file:**
+- Meta tags: `og:image` and `twitter:image` (.jpeg → .webp)
+- JSON-LD schema: `"image"` property (.jpeg → .webp)
+- Swiper `<img src>` tags (.jpeg/.jpg → .webp)
+- `onerror` fallback paths (.jpeg/.jpg → .webp)
+
+**Available WebP images to reference:**
+- 82 main images in `/assets/ships/`
+- 8 thumbnails in `/assets/ships/thumbs/`
+- All FOM (Flickers of Majesty) images converted
+
+**Estimated effort:** 2-3 hours for careful find/replace across all files
+
 ### Bulk Updates
 - [ ] Run `add_phase1_bulk.py` script if AI breadcrumbs/Person schema not yet applied to all pages
 - [ ] Verify breadcrumbs are correct on all 289+ HTML files
@@ -311,10 +345,11 @@ All 50 ships should have stats JSON at:
 
 ### P0 - Critical (User-facing issues)
 1. **CRITICAL: Fix navigation on 281 pages (96% of site)** - Missing dropdown CSS/JS
-2. **Ship cards redesign** - Add CTAs, better space utilization, make cards compelling
-3. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
-4. Download Wiki Commons images for top 5 most-visited ships
-5. Apply production template if not done (dropdown menu fix)
+2. **CRITICAL: Update code to use WebP images** - ~128 references across 12 files (77% size reduction not realized)
+3. **Ship cards redesign** - Add CTAs, better space utilization, make cards compelling
+4. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
+5. Download Wiki Commons images for top 5 most-visited ships
+6. Apply production template if not done (dropdown menu fix)
 
 ### P1 - High (Content completeness)
 4. Create logbooks for active ships without them (6 ships)
