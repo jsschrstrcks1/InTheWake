@@ -155,6 +155,7 @@
 
     // Vision Class
     'grandeur-of-the-seas': [
+      '/assets/ships/thumbs/grandeur-of-the-seas.webp',
       '/ships/assets/grandeur-of-the-seas1.jpg'
     ],
     'enchantment-of-the-seas': [
@@ -190,6 +191,7 @@
       '/assets/ships/rcl/monarch-of-the-seas-2.jpg'
     ],
     'majesty-of-the-seas': [
+      '/assets/ships/majesty-of-the-seas1.webp',
       '/assets/ships/rcl/majesty-of-the-seas-1.jpg',
       '/assets/ships/rcl/majesty-of-the-seas-2.jpg'
     ]
