@@ -15,6 +15,106 @@
 
   // Ship image database - maps ship slugs to available images
   const SHIP_IMAGES = {
+    // Icon Class
+    'icon-of-the-seas': [
+      '/assets/ships/rcl/icon-of-the-seas-1.jpg',
+      '/assets/ships/rcl/icon-of-the-seas-2.jpg',
+      '/assets/ships/rcl/icon-of-the-seas-aerial.jpg'
+    ],
+    'star-of-the-seas': [
+      '/assets/ships/rcl/star-of-the-seas-1.jpg',
+      '/assets/ships/rcl/star-of-the-seas-2.jpg'
+    ],
+
+    // Oasis Class
+    'oasis-of-the-seas': [
+      '/assets/ships/rcl/oasis-of-the-seas-1.jpg',
+      '/assets/ships/rcl/oasis-of-the-seas-2.jpg',
+      '/assets/ships/rcl/oasis-of-the-seas-aerial.jpg'
+    ],
+    'allure-of-the-seas': [
+      '/ships/assets/images/allure-of-the-seas-3.jpg',
+      '/ships/assets/images/allure2.jpg',
+      '/ships/assets/images/allure3.jpg'
+    ],
+    'harmony-of-the-seas': [
+      '/assets/ships/rcl/harmony-of-the-seas-1.jpg',
+      '/assets/ships/rcl/harmony-of-the-seas-2.jpg',
+      '/assets/ships/rcl/harmony-of-the-seas-aerial.jpg'
+    ],
+    'symphony-of-the-seas': [
+      '/assets/ships/rcl/symphony-of-the-seas-1.jpg',
+      '/assets/ships/rcl/symphony-of-the-seas-2.jpg',
+      '/assets/ships/rcl/symphony-of-the-seas-aerial.jpg'
+    ],
+    'wonder-of-the-seas': [
+      '/assets/ships/rcl/wonder-of-the-seas-1.jpg',
+      '/assets/ships/rcl/wonder-of-the-seas-2.jpg',
+      '/assets/ships/rcl/wonder-of-the-seas-aerial.jpg'
+    ],
+    'utopia-of-the-seas': [
+      '/assets/ships/rcl/utopia-of-the-seas-1.jpg',
+      '/assets/ships/rcl/utopia-of-the-seas-2.jpg',
+      '/assets/ships/rcl/utopia-of-the-seas-aerial.jpg'
+    ],
+
+    // Quantum Ultra Class
+    'spectrum-of-the-seas': [
+      '/assets/ships/rcl/spectrum-of-the-seas-1.jpg',
+      '/assets/ships/rcl/spectrum-of-the-seas-2.jpg',
+      '/assets/ships/rcl/spectrum-of-the-seas-north-star.jpg'
+    ],
+    'odyssey-of-the-seas': [
+      '/assets/ships/rcl/odyssey-of-the-seas-1.jpg',
+      '/assets/ships/rcl/odyssey-of-the-seas-2.jpg',
+      '/assets/ships/rcl/odyssey-of-the-seas-seaplex.jpg'
+    ],
+
+    // Quantum Class
+    'quantum-of-the-seas': [
+      '/assets/ships/rcl/quantum-of-the-seas-1.jpg',
+      '/assets/ships/rcl/quantum-of-the-seas-2.jpg',
+      '/assets/ships/rcl/quantum-of-the-seas-north-star.jpg'
+    ],
+    'anthem-of-the-seas': [
+      '/assets/ships/rcl/anthem-of-the-seas-1.jpg',
+      '/assets/ships/rcl/anthem-of-the-seas-2.jpg',
+      '/assets/ships/rcl/anthem-of-the-seas-two70.jpg'
+    ],
+    'ovation-of-the-seas': [
+      '/assets/ships/rcl/ovation-of-the-seas-1.jpg',
+      '/assets/ships/rcl/ovation-of-the-seas-2.jpg',
+      '/assets/ships/rcl/ovation-of-the-seas-alaska.jpg'
+    ],
+
+    // Freedom Class
+    'freedom-of-the-seas': [
+      '/assets/ships/rcl/freedom-of-the-seas-1.jpg',
+      '/assets/ships/rcl/freedom-of-the-seas-2.jpg',
+      '/assets/ships/rcl/freedom-of-the-seas-flowrider.jpg'
+    ],
+    'liberty-of-the-seas': [
+      '/assets/ships/rcl/liberty-of-the-seas-1.jpg',
+      '/assets/ships/rcl/liberty-of-the-seas-2.jpg',
+      '/assets/ships/rcl/liberty-of-the-seas-pool.jpg'
+    ],
+    'independence-of-the-seas': [
+      '/assets/ships/rcl/independence-of-the-seas-1.jpg',
+      '/assets/ships/rcl/independence-of-the-seas-2.jpg',
+      '/assets/ships/rcl/independence-of-the-seas-flowrider.jpg'
+    ],
+
+    // Voyager Class
+    'voyager-of-the-seas': [
+      '/assets/ships/rcl/voyager-of-the-seas-1.jpg',
+      '/assets/ships/rcl/voyager-of-the-seas-2.jpg',
+      '/assets/ships/rcl/voyager-of-the-seas-promenade.jpg'
+    ],
+    'explorer-of-the-seas': [
+      '/assets/ships/rcl/explorer-of-the-seas-1.jpg',
+      '/assets/ships/rcl/explorer-of-the-seas-2.jpg',
+      '/assets/ships/rcl/explorer-of-the-seas-ice-rink.jpg'
+    ],
     'adventure-of-the-seas': [
       '/ships/rcl/images/Adventure_of_the_Seas1.jpeg',
       '/ships/rcl/images/Adventure_of_the_Seas2.jpg',
@@ -23,11 +123,18 @@
       '/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg',
       '/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg'
     ],
-    'allure-of-the-seas': [
-      '/ships/assets/images/allure-of-the-seas-3.jpg',
-      '/ships/assets/images/allure2.jpg',
-      '/ships/assets/images/allure3.jpg'
+    'navigator-of-the-seas': [
+      '/assets/ships/rcl/navigator-of-the-seas-1.jpg',
+      '/assets/ships/rcl/navigator-of-the-seas-2.jpg',
+      '/assets/ships/rcl/navigator-of-the-seas-ice-rink.jpg'
     ],
+    'mariner-of-the-seas': [
+      '/assets/ships/rcl/mariner-of-the-seas-1.jpg',
+      '/assets/ships/rcl/mariner-of-the-seas-2.jpg',
+      '/assets/ships/rcl/mariner-of-the-seas-promenade.jpg'
+    ],
+
+    // Radiance Class
     'radiance-of-the-seas': [
       '/assets/ships/thumbs/radiance-of-the-seas.webp',
       '/assets/ships/thumbs/radiance-of-the-seas.jpg',
@@ -45,6 +152,8 @@
       '/assets/ships/thumbs/jewel-of-the-seas.webp',
       '/assets/ships/thumbs/jewel-of-the-seas.jpg'
     ],
+
+    // Vision Class
     'grandeur-of-the-seas': [
       '/ships/assets/grandeur-of-the-seas1.jpg'
     ],
@@ -55,6 +164,12 @@
       '/ships/assets/images/Enchantment_of_the_Seas.jpeg',
       '/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg'
     ],
+    'vision-of-the-seas': [
+      '/assets/ships/thumbs/vision-of-the-seas.webp',
+      '/assets/ships/thumbs/vision-of-the-seas.jpg',
+      '/ships/assets/vision-of-the-Seas1.jpg',
+      '/ships/assets/rcl/vision-of-the-Seas1.jpg'
+    ],
     'rhapsody-of-the-seas': [
       '/assets/ships/thumbs/rhapsody-of-the-seas.webp',
       '/assets/ships/thumbs/rhapsody-of-the-seas.jpg',
@@ -63,16 +178,20 @@
       '/ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg',
       '/ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg'
     ],
-    'vision-of-the-seas': [
-      '/assets/ships/thumbs/vision-of-the-seas.webp',
-      '/assets/ships/thumbs/vision-of-the-seas.jpg',
-      '/ships/assets/vision-of-the-Seas1.jpg',
-      '/ships/assets/rcl/vision-of-the-Seas1.jpg'
-    ],
+
+    // Sovereign Class
     'sovereign-of-the-seas': [
       '/ships/assets/sovereign-of-the-seas1.jpg',
       '/ships/assets/sovereign-of-the-seas2.jpg',
       '/ships/assets/sovereign-of-the-seas3.jpg'
+    ],
+    'monarch-of-the-seas': [
+      '/assets/ships/rcl/monarch-of-the-seas-1.jpg',
+      '/assets/ships/rcl/monarch-of-the-seas-2.jpg'
+    ],
+    'majesty-of-the-seas': [
+      '/assets/ships/rcl/majesty-of-the-seas-1.jpg',
+      '/assets/ships/rcl/majesty-of-the-seas-2.jpg'
     ]
   };
 
