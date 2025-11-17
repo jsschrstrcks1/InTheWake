@@ -202,6 +202,13 @@ All 50 ships should have stats JSON at:
 - [ ] Create full article page for "Cruising After Loss"
 - [ ] Create cruising-after-loss.html fragment for article rail
 - [ ] Write content for "Cruising After Loss" article
+  - **Content guidance available:** ICP-Lite v1.0 logbook stories contain widow/widower narratives
+  - **Key stories to reference:**
+    - "The Widow Who Learned to Laugh Again" (Radiance logbook)
+    - "The Widower's First Christmas Without Her" (Grandeur logbook)
+    - "The FlowRider Widow" (Independence logbook)
+  - **Topics to cover:** Timing after loss, ship size selection, finding community, first holidays, Scripture/faith integration, permission to grieve, practical tips
+  - **Cross-link to:** Solo guide, accessibility resources, packing lists, ship logbooks
 
 **Potential new articles:**
 - [ ] Identify additional solo travel topics based on user research
