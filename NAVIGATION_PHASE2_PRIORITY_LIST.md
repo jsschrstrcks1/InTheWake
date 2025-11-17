@@ -58,50 +58,50 @@ All RCL ships, restaurants, core pages, authors - **DONE**
 
 ---
 
-### 📊 Tier 3: MEDIUM - Popular Ships (30 files)
-**Impact:** Solid traffic, good ROI  
-**Status:** Not started
+### 📊 Tier 3: MEDIUM - Popular Ships (35 files)
+**Impact:** Solid traffic, good ROI
+**Status:** ✅ COMPLETE - 2025-11-17 (33/35 - 2 files don't exist)
 
-**Carnival (15 more popular ships):**
-- [ ] ships/carnival/carnival-horizon.html
-- [ ] ships/carnival/carnival-panorama.html
-- [ ] ships/carnival/carnival-dream.html
-- [ ] ships/carnival/carnival-breeze.html
-- [ ] ships/carnival/carnival-magic.html
-- [ ] ships/carnival/carnival-conquest.html
-- [ ] ships/carnival/carnival-glory.html
-- [ ] ships/carnival/carnival-liberty.html
-- [ ] ships/carnival/carnival-valor.html
-- [ ] ships/carnival/carnival-freedom.html
-- [ ] ships/carnival/carnival-miracle.html
-- [ ] ships/carnival/carnival-splendor.html
-- [ ] ships/carnival/carnival-legend.html
-- [ ] ships/carnival/carnival-pride.html
-- [ ] ships/carnival/carnival-spirit.html
+**Carnival (15 popular ships):**
+- [x] ships/carnival/carnival-horizon.html
+- [x] ships/carnival/carnival-panorama.html
+- [x] ships/carnival/carnival-dream.html
+- [x] ships/carnival/carnival-breeze.html
+- [x] ships/carnival/carnival-magic.html
+- [x] ships/carnival/carnival-conquest.html
+- [x] ships/carnival/carnival-glory.html
+- [x] ships/carnival/carnival-liberty.html
+- [x] ships/carnival/carnival-valor.html
+- [x] ships/carnival/carnival-freedom.html
+- [x] ships/carnival/carnival-miracle.html
+- [x] ships/carnival/carnival-splendor.html
+- [x] ships/carnival/carnival-legend.html
+- [x] ships/carnival/carnival-pride.html
+- [x] ships/carnival/carnival-spirit.html
 
-**Holland America (10 more):**
-- [ ] ships/holland-america-line/westerdam.html
-- [ ] ships/holland-america-line/oosterdam.html
-- [ ] ships/holland-america-line/zuiderdam.html
-- [ ] ships/holland-america-line/volendam.html
-- [ ] ships/holland-america-line/zaandam.html
-- [ ] ships/holland-america-line/amsterdam.html
-- [ ] ships/holland-america-line/maasdam.html
-- [ ] ships/holland-america-line/veendam.html
-- [ ] ships/holland-america-line/ryndam.html
-- [ ] ships/holland-america-line/statendam.html
+**Holland America (8 of 10):**
+- ~~ships/holland-america-line/westerdam.html~~ (Not found)
+- [x] ships/holland-america-line/oosterdam.html
+- ~~ships/holland-america-line/zuiderdam.html~~ (Not found)
+- [x] ships/holland-america-line/volendam.html
+- [x] ships/holland-america-line/zaandam.html
+- [x] ships/holland-america-line/amsterdam.html
+- [x] ships/holland-america-line/maasdam.html
+- [x] ships/holland-america-line/veendam.html
+- [x] ships/holland-america-line/ryndam.html
+- [x] ships/holland-america-line/statendam.html
 
-**Celebrity (10 more):**
-- [ ] ships/celebrity-cruises/celebrity-equinox.html
-- [ ] ships/celebrity-cruises/celebrity-solstice.html
-- [ ] ships/celebrity-cruises/celebrity-reflection.html
-- [ ] ships/celebrity-cruises/celebrity-silhouette.html
-- [ ] ships/celebrity-cruises/celebrity-eclipse.html
-- [ ] ships/celebrity-cruises/celebrity-millennium.html
-- [ ] ships/celebrity-cruises/celebrity-summit.html
-- [ ] ships/celebrity-cruises/celebrity-constellation.html
-- [ ] ships/celebrity-cruises/celebrity-infinity.html
-- [ ] ships/celebrity-cruises/celebrity-flora.html
+**Celebrity (10 ships):**
+- [x] ships/celebrity-cruises/celebrity-equinox.html
+- [x] ships/celebrity-cruises/celebrity-solstice.html
+- [x] ships/celebrity-cruises/celebrity-reflection.html
+- [x] ships/celebrity-cruises/celebrity-silhouette.html
+- [x] ships/celebrity-cruises/celebrity-eclipse.html
+- [x] ships/celebrity-cruises/celebrity-millennium.html
+- [x] ships/celebrity-cruises/celebrity-summit.html
+- [x] ships/celebrity-cruises/celebrity-constellation.html
+- [x] ships/celebrity-cruises/celebrity-infinity.html
+- [x] ships/celebrity-cruises/celebrity-flora.html
 
 ---
 
@@ -135,12 +135,12 @@ All RCL ships, restaurants, core pages, authors - **DONE**
 - ✅ **Tier 0:** 104/104 files complete (100%)
 - ✅ **Tier 1:** 5/5 files complete (100%) - CRITICAL hubs ✅
 - ✅ **Tier 2:** 15/17 files complete (88%) - HIGH priority ships ✅
-- 📊 **Tier 3:** 0/35 files complete (0%) - MEDIUM priority ships
+- ✅ **Tier 3:** 33/35 files complete (94%) - MEDIUM priority ships ✅
 - 📦 **Tier 4:** 0/142 files complete (0%) - LOW priority ships
 
 ### Overall:
-- **Total:** 124/303 files complete (41%)
-- **Remaining:** 179 files to fix
+- **Total:** 157/303 files complete (52%)
+- **Remaining:** 146 files to fix
 
 ---
 
