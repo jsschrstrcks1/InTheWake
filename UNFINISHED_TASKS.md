@@ -402,25 +402,25 @@ All 50 ships should have stats JSON at:
 6. Apply production template if not done (dropdown menu fix)
 
 ### P1 - High (Content completeness)
-4. **CRITICAL: Create search functionality** - Schema exists but no actual search page/implementation
-5. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html, restaurants.html (all "coming soon")
-6. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL and STANDARDS_INDEX_33.md
-7. Create logbooks for active ships without them (6 ships)
-8. Download remaining Wiki Commons images (19 ships) + attribution workflow
-9. Complete venues.json with all dining data
-10. SEO setup (sitemap, Google Search Console)
+7. **CRITICAL: Create search functionality** - Schema exists but no actual search page/implementation
+8. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html, restaurants.html (all "coming soon")
+9. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL and STANDARDS_INDEX_33.md
+10. Create logbooks for active ships without them (6 ships)
+11. Download remaining Wiki Commons images (19 ships) + attribution workflow
+12. Complete venues.json with all dining data
+13. SEO setup (sitemap, Google Search Console)
 
 ### P2 - Medium (Enhancement)
-8. ICP-Lite & ITW-Lite rollout (see dedicated section below)
-9. Create logbooks for historic ships (8 ships)
-10. Add video data for ships without videos
-11. Cross-linking improvements
-12. Performance optimization
+14. ICP-Lite & ITW-Lite rollout (see dedicated section below)
+15. Create logbooks for historic ships (8 ships)
+16. Add video data for ships without videos
+17. Cross-linking improvements
+18. Performance optimization
 
 ### P3 - Low (Nice to have)
-13. Create logbooks for future ships (TBN)
-14. New solo travel articles
-15. Advanced analytics and monitoring
+19. Create logbooks for future ships (TBN)
+20. New solo travel articles
+21. Advanced analytics and monitoring
 
 ---
 
