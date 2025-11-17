@@ -47,6 +47,12 @@ After downloading each set of images:
 - [ ] Verify duplicate ships: Legend of the Seas variants (legend-of-the-seas.html vs legend-of-the-seas-1995-built.html vs legend-of-the-seas-icon-class-entering-service-in-2026.html)
 - [ ] Verify duplicate ships: Star of the Seas variants (star-of-the-seas.html vs star-of-the-seas-aug-2025-debut.html)
 
+### Ships Page Image Audit
+- [ ] Audit ships page - ensure all ships in repository have images (check Google/Wikimedia Commons for identification)
+- [ ] Verify all 50 RCL ships have proper images in swipers
+- [ ] Check Carnival ships for image coverage
+- [ ] Check Celebrity ships for image coverage
+
 ---
 
 ## 📝 IMAGE ATTRIBUTION TASKS
@@ -192,6 +198,11 @@ All 50 ships should have stats JSON at:
 - ✅ visiting-the-united-states-before-your-cruise.html
 - ✅ why-i-started-solo-cruising.html
 
+**New articles in progress:**
+- [ ] Create full article page for "Cruising After Loss"
+- [ ] Create cruising-after-loss.html fragment for article rail
+- [ ] Write content for "Cruising After Loss" article
+
 **Potential new articles:**
 - [ ] Identify additional solo travel topics based on user research
 - [ ] Consider accessibility guides for specific ship classes
@@ -201,6 +212,59 @@ All 50 ships should have stats JSON at:
 - [ ] Review and fix any remaining restaurant URL cross-links in logbooks (recent fix completed for some)
 - [ ] Add cross-links between related ship pages (same class)
 - [ ] Add cross-links from solo articles to relevant ship pages
+
+---
+
+## 🎨 UI/UX TASKS
+
+### CRITICAL: Dropdown Navigation Site-wide Fix
+**Status:** 281 out of 292 pages (96.2%) have navigation issues
+**Impact:** Critical - Users see broken vertical navigation instead of styled horizontal dropdowns
+
+**Pages affected:**
+- 197 pages - Missing dropdown nav HTML entirely
+- 80 pages - Have nav HTML but MISSING CSS (appears as vertical list)
+- 4 pages - Using external `/assets/styles.css` which lacks dropdown CSS
+
+**Fix required:**
+- [ ] Option 1: Run automated fix script `python3 audit_and_fix_nav.py --fix`
+- [ ] Option 2: Manually add complete Nav CSS to all 281 pages
+- [ ] Add dropdown JavaScript to all pages missing it
+- [ ] Update `/assets/styles.css` with dropdown CSS for external CSS pages
+- [ ] Test horizontal styled navigation on all 292 pages
+- [ ] Verify 300ms hover delay works across all pages
+- [ ] Verify keyboard navigation (Tab, Arrow keys, Escape) works
+- [ ] Test mobile responsive horizontal scrolling
+
+**Breakdown by directory:**
+- ships/rcl: 44 pages need fixes
+- ships/carnival-cruise-line: 47 pages need fixes
+- ships/carnival: 58 pages need fixes
+- ships/holland-america-line: 44 pages need fixes
+- ships/celebrity-cruises: 29 pages need fixes
+- restaurants: 25 pages need fixes
+- cruise-lines: 10 pages need fixes
+- root: 10 pages need fixes
+- solo/articles: 3 pages need fixes
+- authors: 2 pages need fixes
+
+**Reference files:**
+- Perfect examples: index.html, about-us.html, solo.html, travel.html
+- Complete nav composite: NAVIGATION_COMPOSITE.md
+- Audit script: audit_and_fix_nav.py
+- Audit report: nav_audit_report.txt
+
+### Article Rail Navigation
+- [ ] Design article rail navigation pattern for solo travel section
+- [ ] Implement article rail site-wide (all solo articles)
+- [ ] Test article rail on mobile devices
+- [ ] Ensure article rail is accessible (keyboard navigation, screen readers)
+- [ ] Style article rail to match site design (v3.010.300)
+
+### Navigation Improvements
+- [ ] Review intelligent breadcrumbs implementation across all pages
+- [ ] Test navigation composite on different page types
+- [ ] Ensure consistent navigation patterns site-wide
 
 ---
 
@@ -228,9 +292,10 @@ All 50 ships should have stats JSON at:
 ## 🚀 PRIORITY RANKING
 
 ### P0 - Critical (User-facing issues)
-1. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
-2. Download Wiki Commons images for top 5 most-visited ships
-3. Apply production template if not done (dropdown menu fix)
+1. **CRITICAL: Fix navigation on 281 pages (96% of site)** - Missing dropdown CSS/JS
+2. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
+3. Download Wiki Commons images for top 5 most-visited ships
+4. Apply production template if not done (dropdown menu fix)
 
 ### P1 - High (Content completeness)
 4. Create logbooks for active ships without them (6 ships)
