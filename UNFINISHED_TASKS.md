@@ -72,6 +72,33 @@ After downloading each set of images:
 - [ ] Nordic Prince - Add attribution section when images are uploaded
 - [ ] Sun Viking - Add attribution section when images are uploaded
 
+### CRITICAL: Attribution for 19 Ships Getting Wiki Commons Images
+**Status:** After downloading images from Wiki Commons, MUST get attribution details and add to HTML
+**This is a required follow-up to the image download tasks above**
+
+For EACH of the 19 ships getting Wiki Commons images, must:
+- [ ] Get Wiki Commons details for each image:
+  - Image file URL (e.g., `https://commons.wikimedia.org/wiki/File:Ship_Name.jpg`)
+  - Author name and user URL
+  - License type (CC BY, CC BY-SA, CC BY 2.0, etc.)
+  - License URL
+- [ ] Add attribution section to ship HTML page (before closing `</main>`)
+- [ ] Add figcaption to each swiper image: "Photo served locally (attribution in page footer)."
+- [ ] Verify attribution section renders correctly
+
+**Ships requiring this workflow (19 total):**
+- All 10 active ships (Allure, Anthem, Icon, Independence, Navigator, Odyssey, Quantum, Spectrum, Voyager, Wonder)
+- All 9 historic ships (Sovereign, Monarch, Legend, Splendour, Nordic Empress, Song of Norway, Song of America, Viking Serenade, Sun Viking)
+
+### Attribution for Cruise Line Hub Pages
+**Status:** 5 cruise line pages need credited media attribution
+
+- [ ] Carnival.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+- [ ] Celebrity.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+- [ ] Disney.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+- [ ] Holland America.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+- [ ] MSC.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+
 ---
 
 ## 📚 SHIP LOGBOOK TASKS
@@ -189,6 +216,18 @@ All 50 ships should have stats JSON at:
 
 ## ✍️ CONTENT TASKS
 
+### CRITICAL: Placeholder Content Pages Need Completion
+**Status:** Pages exist but contain placeholder/"coming soon" content only
+
+- [ ] `/drinks.html` - Complete content (currently just "coming soon" meta description)
+  - Content needed: Drink packages overview, beverage policies, price calculator intro
+- [ ] `/ports.html` - Remove "Under Construction" notice and add real content
+  - Content needed: Port guides, accessibility information, practical travel tips
+- [ ] `/restaurants.html` - Replace "This page is currently being built" with actual content
+  - Content needed: Dining guides, menus, restaurant recommendations
+- [ ] Disability-at-Sea articles - JavaScript shows "coming soon", needs actual content
+  - Content needed: Disability-focused travel articles
+
 ### Solo Travel Articles
 **Status:** 4 articles complete
 
@@ -202,6 +241,13 @@ All 50 ships should have stats JSON at:
 - [ ] Create full article page for "Cruising After Loss"
 - [ ] Create cruising-after-loss.html fragment for article rail
 - [ ] Write content for "Cruising After Loss" article
+  - **Content guidance available:** ICP-Lite v1.0 logbook stories contain widow/widower narratives
+  - **Key stories to reference:**
+    - "The Widow Who Learned to Laugh Again" (Radiance logbook)
+    - "The Widower's First Christmas Without Her" (Grandeur logbook)
+    - "The FlowRider Widow" (Independence logbook)
+  - **Topics to cover:** Timing after loss, ship size selection, finding community, first holidays, Scripture/faith integration, permission to grieve, practical tips
+  - **Cross-link to:** Solo guide, accessibility resources, packing lists, ship logbooks
 
 **Potential new articles:**
 - [ ] Identify additional solo travel topics based on user research
@@ -254,6 +300,17 @@ All 50 ships should have stats JSON at:
 - Audit script: audit_and_fix_nav.py
 - Audit report: nav_audit_report.txt
 
+### Ship Cards Redesign (ships.html and ship index pages)
+- [ ] Add compelling CTA text to each ship card explaining WHY users should click
+- [ ] Include WHO would want this ship (target audience/use case)
+- [ ] Examples of CTA text:
+  - Radiance: "Check out this ship if million dollar views through glass windows is important to you"
+  - Each ship needs unique, value-focused CTA based on its strengths
+- [ ] Better utilize card space - image and text currently too small relative to card size
+- [ ] Shrink cards down to only needed space after adding CTA content
+- [ ] Ensure cards remain responsive and accessible
+- [ ] Test across different screen sizes
+
 ### Article Rail Navigation
 - [ ] Design article rail navigation pattern for solo travel section
 - [ ] Implement article rail site-wide (all solo articles)
@@ -269,6 +326,51 @@ All 50 ships should have stats JSON at:
 ---
 
 ## 🔧 TECHNICAL TASKS
+
+### CRITICAL: Search Functionality Implementation
+**Status:** SearchAction schema exists but NO actual search page or functionality
+**Impact:** Schema points to non-existent `/search.html` - broken promise to search engines
+
+- [ ] Create `/search.html` page
+- [ ] Implement search backend/functionality
+- [ ] Add site-wide search UI component
+- [ ] Wire SearchAction schema target (`https://cruisinginthewake.com/search?q={search_term_string}`) to working search
+- [ ] Test search across ships, restaurants, articles, cruise lines
+- [ ] Add search indexing for JSON data (logbooks, venues, stats)
+
+### CRITICAL: WebP Image References Update (Uncommitted Work from WebP Thread)
+**Status:** Images converted (commit cff215b) but code NEVER updated to use them
+**Impact:** Site not benefiting from 77% file size reduction (15.8MB → 4.9MB)
+
+**Work needed:**
+- [ ] Update 9 ship HTML files (~54 references total)
+  - brilliance-of-the-seas.html (6 refs)
+  - enchantment-of-the-seas.html (6 refs)
+  - jewel-of-the-seas.html (6 refs)
+  - majesty-of-the-seas.html (5 refs)
+  - radiance-of-the-seas.html (7 refs)
+  - rhapsody-of-the-seas.html (6 refs)
+  - serenade-of-the-seas.html (6 refs)
+  - vision-of-the-seas.html (6 refs)
+  - grandeur-of-the-seas.html (6 refs)
+
+- [ ] Update JavaScript files (~74 references total)
+  - assets/js/ships-dynamic.js (~67 refs) - ship image arrays
+  - assets/js/rcl.page.js (~4 refs) - placeholder images
+  - assets/js/sw-bridge.js (~3 refs) - service worker cache
+
+**Types of changes needed in each HTML file:**
+- Meta tags: `og:image` and `twitter:image` (.jpeg → .webp)
+- JSON-LD schema: `"image"` property (.jpeg → .webp)
+- Swiper `<img src>` tags (.jpeg/.jpg → .webp)
+- `onerror` fallback paths (.jpeg/.jpg → .webp)
+
+**Available WebP images to reference:**
+- 82 main images in `/assets/ships/`
+- 8 thumbnails in `/assets/ships/thumbs/`
+- All FOM (Flickers of Majesty) images converted
+
+**Estimated effort:** 2-3 hours for careful find/replace across all files
 
 ### Bulk Updates
 - [ ] Run `add_phase1_bulk.py` script if AI breadcrumbs/Person schema not yet applied to all pages
@@ -293,26 +395,128 @@ All 50 ships should have stats JSON at:
 
 ### P0 - Critical (User-facing issues)
 1. **CRITICAL: Fix navigation on 281 pages (96% of site)** - Missing dropdown CSS/JS
-2. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
-3. Download Wiki Commons images for top 5 most-visited ships
-4. Apply production template if not done (dropdown menu fix)
+2. **CRITICAL: Update code to use WebP images** - ~128 references across 12 files (77% size reduction not realized)
+3. **Ship cards redesign** - Add CTAs, better space utilization, make cards compelling
+4. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
+5. Download Wiki Commons images for top 5 most-visited ships
+6. Apply production template if not done (dropdown menu fix)
 
 ### P1 - High (Content completeness)
-4. Create logbooks for active ships without them (6 ships)
-5. Download remaining Wiki Commons images (19 ships)
-6. Complete venues.json with all dining data
-7. SEO setup (sitemap, Google Search Console)
+7. **CRITICAL: Create search functionality** - Schema exists but no actual search page/implementation
+8. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html, restaurants.html (all "coming soon")
+9. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL and STANDARDS_INDEX_33.md
+10. Create logbooks for active ships without them (6 ships)
+11. Download remaining Wiki Commons images (19 ships) + attribution workflow
+12. Complete venues.json with all dining data
+13. SEO setup (sitemap, Google Search Console)
 
 ### P2 - Medium (Enhancement)
-8. Create logbooks for historic ships (8 ships)
-9. Add video data for ships without videos
-10. Cross-linking improvements
-11. Performance optimization
+14. ICP-Lite & ITW-Lite rollout (see dedicated section below)
+15. Create logbooks for historic ships (8 ships)
+16. Add video data for ships without videos
+17. Cross-linking improvements
+18. Performance optimization
 
 ### P3 - Low (Nice to have)
-12. Create logbooks for future ships (TBN)
-13. New solo travel articles
-14. Advanced analytics and monitoring
+19. Create logbooks for future ships (TBN)
+20. New solo travel articles
+21. Advanced analytics and monitoring
+
+---
+
+## 🤖 ICP-LITE & ITW-LITE ROLLOUT
+
+> **Strategy:** Keep v3 architecture and progressive enhancement.
+> **Protocol:** `standards/ITW-LITE_PROTOCOL_v3.010.lite.md` (AI-first, human-first).
+
+### Protocol & Documentation Setup
+
+- [ ] Create `standards/ITW-LITE_PROTOCOL_v3.010.lite.md`
+  - [ ] Write protocol document (< 500 lines)
+  - [ ] Ensure matches current v3.010 standards
+  - [ ] Document AI-first, human-first strategy
+
+- [ ] Create `STANDARDS_INDEX_33.md` master index
+  - [ ] Link all protocol documents
+  - [ ] Link ITW-LITE_PROTOCOL
+  - [ ] Create navigation for standards directory
+
+- [ ] Root `CLAUDE.md` + AI wiring
+  - [ ] Create or trim `CLAUDE.md` at repo root
+  - [ ] Point to:
+    - `standards/ITW-LITE_PROTOCOL_v3.010.lite.md`
+    - `STANDARDS_INDEX_33.md`
+    - `/dev/active/` dev-docs folder
+  - [ ] Instruct any AI tools to read ITW-Lite + module specs before editing
+
+### Phase 1 — ICP-Lite on Core Pages
+
+**Ship pages (pilot: Radiance of the Seas)**
+
+- [ ] `/ships/rcl/radiance-of-the-seas.html`
+  - [ ] Add single `<h1>` in main content
+  - [ ] Add "answer line" under H1 (what this page covers)
+  - [ ] Add "fit-guidance" card (Who this ship tends to fit / who should look elsewhere)
+  - [ ] Add 3–5 question FAQ block near bottom (+ ensure FAQ schema wired)
+  - [ ] Add meta tags:
+    - [ ] `meta name="ai:summary"`
+    - [ ] `meta name="content-protocol" content="ICP-Lite v1.0"`
+    - [ ] `meta name="last-reviewed"`
+  - [ ] Update `<!-- ai-breadcrumbs ... -->` to reflect answer & fit-guidance
+
+- [ ] Roll out same pattern (H1 + answer line + FAQ + fit-guidance + ai:summary) to:
+  - [ ] `/ships/` other Royal pages
+  - [ ] High-traffic or "anchor" ship pages (top 5–10)
+
+**Hub pages**
+
+- [ ] `/index.html` (Home)
+  - [ ] Add H1 + answer line for the whole site
+  - [ ] Add small fit-guidance/prose section (who this site helps most)
+  - [ ] Add 3–5 FAQ entries about In the Wake
+
+- [ ] `/solo.html`
+  - [ ] Add H1 + answer line
+  - [ ] Add solo-specific fit-guidance (who solo content is for)
+  - [ ] Add solo FAQ block
+
+- [ ] `/drinks-calculator.html` or `/planning/drink-packages.html` (wherever canonical lives)
+  - [ ] Add H1 + answer line (what the calculator helps answer)
+  - [ ] Add FAQ (break-even, port days, skipping packages, etc.)
+
+### Phase 2 — JS Failure & Progressive Enhancement
+
+- [ ] Implement `.no-js` baseline globally
+  - [ ] Add `class="no-js"` to `<html>`
+  - [ ] Add early script to remove `no-js`
+  - [ ] Add CSS:
+    - [ ] `.no-js .fallback { display:block; }`
+    - [ ] `.no-js .js-only { display:none; }`
+
+- [ ] Add HTML fallbacks + graceful failure wrappers for:
+  - [ ] Ship stats blocks (static snapshot when JSON/JS fails)
+  - [ ] Dining venues lists (basic HTML list + JS enhancement)
+  - [ ] Logbook/story blocks (static story or "Stories coming soon")
+  - [ ] Video/Swiper sections (stacked figures when JS fails)
+  - [ ] Live tracker/map modules (friendly "map temporarily unavailable" text)
+
+- [ ] Verify pages with JS disabled:
+  - [ ] Radiance ship page is fully readable and honest
+  - [ ] Solo hub remains usable
+  - [ ] Home page remains usable
+  - [ ] Drink calculator falls back gracefully where possible
+
+### Phase 3 — Optional Deep ICP (Only If ROI Justifies)
+
+- [ ] Monitor:
+  - [ ] AI citations (ChatGPT / Perplexity / Gemini referencing ITW)
+  - [ ] Search referral traffic to ship pages
+  - [ ] Engagement with new sections (FAQ, fit-guidance)
+
+- [ ] If clear uplift:
+  - [ ] Consider selective static pre-rendering of heavy JSON-driven sections
+  - [ ] Add more fine-grained section/entity annotations (comments or JSON-LD)
+  - [ ] Keep *all* AI-facing constructs hidden (comments/meta/JSON-LD), never visible UI
 
 ---
 
