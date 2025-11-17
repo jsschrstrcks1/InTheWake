@@ -97,6 +97,44 @@
 
   <!-- Page-specific polish (uses global hero from styles.css; no duplicate hero) -->
   <style>
+  /* Header / Hero - Override external styles.css with correct z-index */
+  .hero-header {
+    position: relative;
+    border-bottom: 6px double var(--rope);
+    background: #eaf6f6;
+    z-index: 9000 !important;
+  }
+
+  .navbar {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    gap: .6rem;
+    padding: .5rem .9rem .35rem;
+    position: relative;
+    z-index: 2000 !important;
+    overflow: visible;
+  }
+
+  .brand {
+    display: flex;
+    align-items: flex-end;
+    gap: .6rem;
+  }
+
+  .brand img {
+    height: 28px;
+    width: auto;
+  }
+
+  .version-badge {
+    font-size: .72rem;
+    opacity: .8;
+    color: var(--text-muted);
+  }
+
+
     :root { --rope:#D9B382; --ink:#083041; --foam:#e6f4f8; --accent:#0e6e8e; }
     body.page{ background:linear-gradient(var(--foam),#fff 240px); color:var(--ink); }
     .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
