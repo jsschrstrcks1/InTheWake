@@ -358,15 +358,106 @@ All 50 ships should have stats JSON at:
 7. SEO setup (sitemap, Google Search Console)
 
 ### P2 - Medium (Enhancement)
-8. Create logbooks for historic ships (8 ships)
-9. Add video data for ships without videos
-10. Cross-linking improvements
-11. Performance optimization
+8. ICP-Lite & ITW-Lite rollout (see dedicated section below)
+9. Create logbooks for historic ships (8 ships)
+10. Add video data for ships without videos
+11. Cross-linking improvements
+12. Performance optimization
 
 ### P3 - Low (Nice to have)
-12. Create logbooks for future ships (TBN)
-13. New solo travel articles
-14. Advanced analytics and monitoring
+13. Create logbooks for future ships (TBN)
+14. New solo travel articles
+15. Advanced analytics and monitoring
+
+---
+
+## 🤖 ICP-LITE & ITW-LITE ROLLOUT
+
+> **Strategy:** Keep v3 architecture and progressive enhancement.
+> **Protocol:** `standards/ITW-LITE_PROTOCOL_v3.010.lite.md` (AI-first, human-first).
+
+### Protocol & Documentation Setup
+
+- [ ] Add `standards/ITW-LITE_PROTOCOL_v3.010.lite.md`
+  - [ ] Commit protocol file and link it from `STANDARDS_INDEX_33.md`
+  - [ ] Ensure it stays < 500 lines and matches current v3.010 standards
+
+- [ ] Root `CLAUDE.md` + AI wiring
+  - [ ] Create or trim `CLAUDE.md` at repo root
+  - [ ] Point to:
+    - `standards/ITW-LITE_PROTOCOL_v3.010.lite.md`
+    - `STANDARDS_INDEX_33.md`
+    - `/dev/active/` dev-docs folder
+  - [ ] Instruct any AI tools to read ITW-Lite + module specs before editing
+
+### Phase 1 — ICP-Lite on Core Pages
+
+**Ship pages (pilot: Radiance of the Seas)**
+
+- [ ] `/ships/rcl/radiance-of-the-seas.html`
+  - [ ] Add single `<h1>` in main content
+  - [ ] Add "answer line" under H1 (what this page covers)
+  - [ ] Add "fit-guidance" card (Who this ship tends to fit / who should look elsewhere)
+  - [ ] Add 3–5 question FAQ block near bottom (+ ensure FAQ schema wired)
+  - [ ] Add meta tags:
+    - [ ] `meta name="ai:summary"`
+    - [ ] `meta name="content-protocol" content="ICP-Lite v1.0"`
+    - [ ] `meta name="last-reviewed"`
+  - [ ] Update `<!-- ai-breadcrumbs ... -->` to reflect answer & fit-guidance
+
+- [ ] Roll out same pattern (H1 + answer line + FAQ + fit-guidance + ai:summary) to:
+  - [ ] `/ships/` other Royal pages
+  - [ ] High-traffic or "anchor" ship pages (top 5–10)
+
+**Hub pages**
+
+- [ ] `/index.html` (Home)
+  - [ ] Add H1 + answer line for the whole site
+  - [ ] Add small fit-guidance/prose section (who this site helps most)
+  - [ ] Add 3–5 FAQ entries about In the Wake
+
+- [ ] `/solo.html`
+  - [ ] Add H1 + answer line
+  - [ ] Add solo-specific fit-guidance (who solo content is for)
+  - [ ] Add solo FAQ block
+
+- [ ] `/drinks-calculator.html` or `/planning/drink-packages.html` (wherever canonical lives)
+  - [ ] Add H1 + answer line (what the calculator helps answer)
+  - [ ] Add FAQ (break-even, port days, skipping packages, etc.)
+
+### Phase 2 — JS Failure & Progressive Enhancement
+
+- [ ] Implement `.no-js` baseline globally
+  - [ ] Add `class="no-js"` to `<html>`
+  - [ ] Add early script to remove `no-js`
+  - [ ] Add CSS:
+    - [ ] `.no-js .fallback { display:block; }`
+    - [ ] `.no-js .js-only { display:none; }`
+
+- [ ] Add HTML fallbacks + graceful failure wrappers for:
+  - [ ] Ship stats blocks (static snapshot when JSON/JS fails)
+  - [ ] Dining venues lists (basic HTML list + JS enhancement)
+  - [ ] Logbook/story blocks (static story or "Stories coming soon")
+  - [ ] Video/Swiper sections (stacked figures when JS fails)
+  - [ ] Live tracker/map modules (friendly "map temporarily unavailable" text)
+
+- [ ] Verify pages with JS disabled:
+  - [ ] Radiance ship page is fully readable and honest
+  - [ ] Solo hub remains usable
+  - [ ] Home page remains usable
+  - [ ] Drink calculator falls back gracefully where possible
+
+### Phase 3 — Optional Deep ICP (Only If ROI Justifies)
+
+- [ ] Monitor:
+  - [ ] AI citations (ChatGPT / Perplexity / Gemini referencing ITW)
+  - [ ] Search referral traffic to ship pages
+  - [ ] Engagement with new sections (FAQ, fit-guidance)
+
+- [ ] If clear uplift:
+  - [ ] Consider selective static pre-rendering of heavy JSON-driven sections
+  - [ ] Add more fine-grained section/entity annotations (comments or JSON-LD)
+  - [ ] Keep *all* AI-facing constructs hidden (comments/meta/JSON-LD), never visible UI
 
 ---
 
