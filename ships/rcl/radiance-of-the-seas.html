@@ -327,6 +327,44 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     @media (min-width:861px){.related-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap,1.25rem)}}
     figure figcaption{font-size:.8rem;color:#345;margin-top:.35rem}
     figure figcaption a{color:#064;text-decoration:underline}
+  /* Header / Hero */
+  .hero-header {
+    position: relative;
+    border-bottom: 6px double var(--rope);
+    background: #eaf6f6;
+    z-index: 9000;
+  }
+
+  .navbar {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    gap: .6rem;
+    padding: .5rem .9rem .35rem;
+    position: relative;
+    z-index: 2000;
+    overflow: visible;
+  }
+
+  .brand {
+    display: flex;
+    align-items: flex-end;
+    gap: .6rem;
+  }
+
+  .brand img {
+    height: 28px;
+    width: auto;
+  }
+
+  .version-badge {
+    font-size: .72rem;
+    opacity: .8;
+    color: var(--text-muted);
+  }
+
+
 
   /* Dropdown Navigation (FIXED: 300ms Hover Delay) */
   .nav {
