@@ -216,6 +216,18 @@ All 50 ships should have stats JSON at:
 
 ## ✍️ CONTENT TASKS
 
+### CRITICAL: Placeholder Content Pages Need Completion
+**Status:** Pages exist but contain placeholder/"coming soon" content only
+
+- [ ] `/drinks.html` - Complete content (currently just "coming soon" meta description)
+  - Content needed: Drink packages overview, beverage policies, price calculator intro
+- [ ] `/ports.html` - Remove "Under Construction" notice and add real content
+  - Content needed: Port guides, accessibility information, practical travel tips
+- [ ] `/restaurants.html` - Replace "This page is currently being built" with actual content
+  - Content needed: Dining guides, menus, restaurant recommendations
+- [ ] Disability-at-Sea articles - JavaScript shows "coming soon", needs actual content
+  - Content needed: Disability-focused travel articles
+
 ### Solo Travel Articles
 **Status:** 4 articles complete
 
@@ -315,6 +327,17 @@ All 50 ships should have stats JSON at:
 
 ## 🔧 TECHNICAL TASKS
 
+### CRITICAL: Search Functionality Implementation
+**Status:** SearchAction schema exists but NO actual search page or functionality
+**Impact:** Schema points to non-existent `/search.html` - broken promise to search engines
+
+- [ ] Create `/search.html` page
+- [ ] Implement search backend/functionality
+- [ ] Add site-wide search UI component
+- [ ] Wire SearchAction schema target (`https://cruisinginthewake.com/search?q={search_term_string}`) to working search
+- [ ] Test search across ships, restaurants, articles, cruise lines
+- [ ] Add search indexing for JSON data (logbooks, venues, stats)
+
 ### CRITICAL: WebP Image References Update (Uncommitted Work from WebP Thread)
 **Status:** Images converted (commit cff215b) but code NEVER updated to use them
 **Impact:** Site not benefiting from 77% file size reduction (15.8MB → 4.9MB)
@@ -379,10 +402,13 @@ All 50 ships should have stats JSON at:
 6. Apply production template if not done (dropdown menu fix)
 
 ### P1 - High (Content completeness)
-4. Create logbooks for active ships without them (6 ships)
-5. Download remaining Wiki Commons images (19 ships)
-6. Complete venues.json with all dining data
-7. SEO setup (sitemap, Google Search Console)
+4. **CRITICAL: Create search functionality** - Schema exists but no actual search page/implementation
+5. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html, restaurants.html (all "coming soon")
+6. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL and STANDARDS_INDEX_33.md
+7. Create logbooks for active ships without them (6 ships)
+8. Download remaining Wiki Commons images (19 ships) + attribution workflow
+9. Complete venues.json with all dining data
+10. SEO setup (sitemap, Google Search Console)
 
 ### P2 - Medium (Enhancement)
 8. ICP-Lite & ITW-Lite rollout (see dedicated section below)
@@ -405,9 +431,15 @@ All 50 ships should have stats JSON at:
 
 ### Protocol & Documentation Setup
 
-- [ ] Add `standards/ITW-LITE_PROTOCOL_v3.010.lite.md`
-  - [ ] Commit protocol file and link it from `STANDARDS_INDEX_33.md`
-  - [ ] Ensure it stays < 500 lines and matches current v3.010 standards
+- [ ] Create `standards/ITW-LITE_PROTOCOL_v3.010.lite.md`
+  - [ ] Write protocol document (< 500 lines)
+  - [ ] Ensure matches current v3.010 standards
+  - [ ] Document AI-first, human-first strategy
+
+- [ ] Create `STANDARDS_INDEX_33.md` master index
+  - [ ] Link all protocol documents
+  - [ ] Link ITW-LITE_PROTOCOL
+  - [ ] Create navigation for standards directory
 
 - [ ] Root `CLAUDE.md` + AI wiring
   - [ ] Create or trim `CLAUDE.md` at repo root
