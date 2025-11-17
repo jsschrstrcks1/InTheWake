@@ -72,6 +72,33 @@ After downloading each set of images:
 - [ ] Nordic Prince - Add attribution section when images are uploaded
 - [ ] Sun Viking - Add attribution section when images are uploaded
 
+### CRITICAL: Attribution for 19 Ships Getting Wiki Commons Images
+**Status:** After downloading images from Wiki Commons, MUST get attribution details and add to HTML
+**This is a required follow-up to the image download tasks above**
+
+For EACH of the 19 ships getting Wiki Commons images, must:
+- [ ] Get Wiki Commons details for each image:
+  - Image file URL (e.g., `https://commons.wikimedia.org/wiki/File:Ship_Name.jpg`)
+  - Author name and user URL
+  - License type (CC BY, CC BY-SA, CC BY 2.0, etc.)
+  - License URL
+- [ ] Add attribution section to ship HTML page (before closing `</main>`)
+- [ ] Add figcaption to each swiper image: "Photo served locally (attribution in page footer)."
+- [ ] Verify attribution section renders correctly
+
+**Ships requiring this workflow (19 total):**
+- All 10 active ships (Allure, Anthem, Icon, Independence, Navigator, Odyssey, Quantum, Spectrum, Voyager, Wonder)
+- All 9 historic ships (Sovereign, Monarch, Legend, Splendour, Nordic Empress, Song of Norway, Song of America, Viking Serenade, Sun Viking)
+
+### Attribution for Cruise Line Hub Pages
+**Status:** 5 cruise line pages need credited media attribution
+
+- [ ] Carnival.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+- [ ] Celebrity.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+- [ ] Disney.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+- [ ] Holland America.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+- [ ] MSC.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+
 ---
 
 ## 📚 SHIP LOGBOOK TASKS
