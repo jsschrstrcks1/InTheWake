@@ -14,47 +14,47 @@ All RCL ships, restaurants, core pages, authors - **DONE**
 ---
 
 ### 🔥 Tier 1: CRITICAL - Cruise Line Hub Pages (5 files)
-**Impact:** Gateway pages users hit first  
-**Status:** Not started
+**Impact:** Gateway pages users hit first
+**Status:** ✅ COMPLETE - 2025-11-17
 
-- [ ] cruise-lines/carnival.html
-- [ ] cruise-lines/celebrity.html  
-- [ ] cruise-lines/disney.html
-- [ ] cruise-lines/holland-america.html
-- [ ] cruise-lines/msc.html
+- [x] cruise-lines/carnival.html
+- [x] cruise-lines/celebrity.html
+- [x] cruise-lines/disney.html
+- [x] cruise-lines/holland-america.html
+- [x] cruise-lines/msc.html
 
 ---
 
 ### ⭐ Tier 2: HIGH - Newest/Flagship Ships (15 files)
-**Impact:** Newest ships get the most traffic  
-**Status:** Not started
+**Impact:** Newest ships get the most traffic
+**Status:** ✅ COMPLETE - 2025-11-17 (15/17 - 2 were already done)
 
-**Carnival (Top 6):**
-- [ ] ships/carnival/carnival-mardi-gras.html (Flagship - 2020)
-- [ ] ships/carnival/carnival-celebration.html (New - 2022)
-- [ ] ships/carnival/carnival-jubilee.html (New - 2023)
-- [ ] ships/carnival/carnival-venezia.html (New - 2024)
-- [ ] ships/carnival/carnival-firenze.html (Rebranded - 2024)
-- [ ] ships/carnival/carnival-vista.html (Vista-class lead - 2016)
+**Carnival (Top 4 - 2 don't exist):**
+- [x] ships/carnival/carnival-mardi-gras.html (Flagship - 2020)
+- [x] ships/carnival/carnival-celebration.html (New - 2022)
+- [x] ships/carnival/carnival-jubilee.html (New - 2023)
+- [x] ships/carnival/carnival-vista.html (Vista-class lead - 2016)
+- ~~ships/carnival/carnival-venezia.html~~ (File not found)
+- ~~ships/carnival/carnival-firenze.html~~ (File not found)
 
 **Holland America (Top 6):**
-- [ ] ships/holland-america-line/rotterdam.html (Newest - 2021)
-- [ ] ships/holland-america-line/nieuw-statendam.html (2018)
-- [ ] ships/holland-america-line/koningsdam.html (2016)
-- [ ] ships/holland-america-line/eurodam.html (Popular)
-- [ ] ships/holland-america-line/noordam.html (Popular)
-- [ ] ships/holland-america-line/nieuw-amsterdam.html (Popular)
+- [x] ships/holland-america-line/rotterdam.html (Newest - 2021)
+- [x] ships/holland-america-line/nieuw-statendam.html (2018)
+- [x] ships/holland-america-line/koningsdam.html (2016)
+- [x] ships/holland-america-line/eurodam.html (Popular)
+- [x] ships/holland-america-line/noordam.html (Popular)
+- [x] ships/holland-america-line/nieuw-amsterdam.html (Popular)
 
 **Celebrity (Top 5):**
-- [ ] ships/celebrity-cruises/celebrity-edge.html (Edge-class lead - 2018)
-- [ ] ships/celebrity-cruises/celebrity-apex.html (2020)
-- [ ] ships/celebrity-cruises/celebrity-beyond.html (2022)
-- [ ] ships/celebrity-cruises/celebrity-ascent.html (Newest - 2023)
-- [ ] ships/celebrity-cruises/celebrity-xcel.html (Coming 2025)
+- [x] ships/celebrity-cruises/celebrity-edge.html (Edge-class lead - 2018)
+- [x] ships/celebrity-cruises/celebrity-apex.html (2020)
+- [x] ships/celebrity-cruises/celebrity-beyond.html (2022)
+- [x] ships/celebrity-cruises/celebrity-ascent.html (Newest - 2023)
+- [x] ships/celebrity-cruises/celebrity-xcel.html (Coming 2025)
 
 **Other:**
-- [ ] ships/msc/msc-world-america.html (MSC newest)
-- [ ] stateroom-check.html (Tool page)
+- [x] ships/msc/msc-world-america.html (Already had hero-header)
+- [x] stateroom-check.html (Already had hero-header)
 
 ---
 
@@ -132,15 +132,15 @@ All RCL ships, restaurants, core pages, authors - **DONE**
 ## 📈 Progress Tracker
 
 ### Summary:
-- ✅ **Tier 0:** 104/104 files complete (100%) 
-- 🔥 **Tier 1:** 0/5 files complete (0%) - CRITICAL hubs
-- ⭐ **Tier 2:** 0/17 files complete (0%) - HIGH priority ships
+- ✅ **Tier 0:** 104/104 files complete (100%)
+- ✅ **Tier 1:** 5/5 files complete (100%) - CRITICAL hubs ✅
+- ✅ **Tier 2:** 15/17 files complete (88%) - HIGH priority ships ✅
 - 📊 **Tier 3:** 0/35 files complete (0%) - MEDIUM priority ships
 - 📦 **Tier 4:** 0/142 files complete (0%) - LOW priority ships
 
 ### Overall:
-- **Total:** 104/303 files complete (34%)
-- **Remaining:** 199 files to fix
+- **Total:** 124/303 files complete (41%)
+- **Remaining:** 179 files to fix
 
 ---
 
