@@ -261,6 +261,17 @@ All 50 ships should have stats JSON at:
 - Audit script: audit_and_fix_nav.py
 - Audit report: nav_audit_report.txt
 
+### Ship Cards Redesign (ships.html and ship index pages)
+- [ ] Add compelling CTA text to each ship card explaining WHY users should click
+- [ ] Include WHO would want this ship (target audience/use case)
+- [ ] Examples of CTA text:
+  - Radiance: "Check out this ship if million dollar views through glass windows is important to you"
+  - Each ship needs unique, value-focused CTA based on its strengths
+- [ ] Better utilize card space - image and text currently too small relative to card size
+- [ ] Shrink cards down to only needed space after adding CTA content
+- [ ] Ensure cards remain responsive and accessible
+- [ ] Test across different screen sizes
+
 ### Article Rail Navigation
 - [ ] Design article rail navigation pattern for solo travel section
 - [ ] Implement article rail site-wide (all solo articles)
@@ -300,9 +311,10 @@ All 50 ships should have stats JSON at:
 
 ### P0 - Critical (User-facing issues)
 1. **CRITICAL: Fix navigation on 281 pages (96% of site)** - Missing dropdown CSS/JS
-2. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
-3. Download Wiki Commons images for top 5 most-visited ships
-4. Apply production template if not done (dropdown menu fix)
+2. **Ship cards redesign** - Add CTAs, better space utilization, make cards compelling
+3. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
+4. Download Wiki Commons images for top 5 most-visited ships
+5. Apply production template if not done (dropdown menu fix)
 
 ### P1 - High (Content completeness)
 4. Create logbooks for active ships without them (6 ships)
