@@ -1135,7 +1135,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       return {line:line.toLowerCase(),slug:(attrSlug||inferred||'icon-class-ship-tbn-2027').toLowerCase()};
     }
     const ctx=getShipContext();
-    const SOURCES=[abs('/ships/'+ctx.line+'/assets/'+ctx.slug+'.json'),abs('/assets/data/logbook/'+ctx.line+'/'+ctx.slug+'.json'),abs('/assets/data/ships/'+ctx.line+'/'+ctx.slug+'.json')];
+    const shortSlug=ctx.slug.split('-of-the-')[0]; const SOURCES=[abs('/ships/'+ctx.line+'/assets/'+ctx.slug+'.json'),abs('/ships/'+ctx.line+'/assets/'+shortSlug+'.json'),abs('/assets/data/logbook/'+ctx.line+'/'+ctx.slug+'.json'),abs('/assets/data/ships/'+ctx.line+'/'+ctx.slug+'.json')];
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
@@ -1163,7 +1163,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     }
     fetchFirst().then(data=>{
       if(!data) return;
-      const arr=data.perspectives||data.logbook||data.stories||data.entries||[];
+      const arr=data.personas||data.perspectives||data.logbook||data.stories||data.entries||[];
       if(!arr.length) return;
       state.items=arr; state.i=0; ensureNav(); renderCurrent();
     });
