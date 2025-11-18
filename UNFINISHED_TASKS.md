@@ -1,6 +1,7 @@
 # Unfinished Tasks - Both Threads
 
 **Generated:** 2025-11-17
+**Last Updated:** 2025-11-18 (Added 5 article categories from logbook analysis)
 **Threads Tracked:**
 - Thread 1: `claude/evaluate-ai-human-strategy-01L5apYYXXKEUVyhFbyhAgZs`
 - Thread 3: `claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9` (current)
@@ -228,31 +229,66 @@ All 50 ships should have stats JSON at:
 - [ ] Disability-at-Sea articles - JavaScript shows "coming soon", needs actual content
   - Content needed: Disability-focused travel articles
 
-### Solo Travel Articles
-**Status:** 4 articles complete
+### Solo Travel & Life Journey Articles
+**Status:** Analyzed all 32 logbooks - identified 5 core article categories (159 references, 180 themes)
+**Analysis Document:** `admin/FIVE_ARTICLE_CATEGORIES.md`
 
-**Existing articles (COMPLETE):**
-- ✅ accessible-cruising.html
+**THE 5 ARTICLE CATEGORIES:**
+
+#### 1. Cruising After Loss: Guide for Widows, Widowers, and the Bereaved
+**Status:** ❌ NOT CREATED (highest priority - 20+ logbook references)
+- [ ] Write full article page (~3,000 words)
+- [ ] Create article fragment for rail navigation
+- [ ] Add FAQ schema and ICP-Lite v1.0 formatting
+- **Topics:** Timing after loss, solo after being a couple, first holidays, finding widow community, permission to feel joy, Scripture/faith integration, practical booking tips
+- **Key logbook stories:** "The Widow Who Learned to Laugh Again" (Radiance), "Widower's First Christmas" (Grandeur, Jewel), "The FlowRider Widow" (Independence), "First Voyage After Loss" (Brilliance)
+- **Cross-links:** Solo travel guide, accessibility, packing lists for bereaved travelers, ship logbooks
+
+#### 2. Accessible Cruising: Complete Guide for Travelers with Disabilities
+**Status:** ✅ COMPLETE (solo/articles/accessible-cruising.html) - 26 logbook references
+- [x] Full article exists with 5 universal principles
+- [ ] Consider minor expansion: medical equipment, service animals, dietary restrictions, cruise line comparison
+- **Topics covered:** Wheelchair, autism, stroke recovery, deaf/hard-of-hearing, chronic illness, PTSD, invisible disabilities
+- **Key logbook stories:** "The Wheelchair Dance" (Brilliance), "Autistic Boy Who Found His Voice" (Radiance), "Stroke Survivor Who Walked Again" (Radiance), "Deaf Family's Inclusive Experience" (Explorer)
+
+#### 3. Solo Cruising: Your Complete Guide to Traveling Alone at Sea
+**Status:** ⚠️ PARTIAL (why-i-started-solo-cruising.html exists but not comprehensive) - 20 logbook references
+- [ ] Expand existing article OR create new comprehensive-solo-cruising.html
+- [ ] Cover all solo personas: grief, anxiety, introverts, by-choice, first-time solo
+- [ ] Add ship size recommendations for solo travelers
+- [ ] FAQ: dining alone, safety, meeting people, solo supplements, shore excursions
+- **Topics needed:** Transitioning from couple to solo travel, anxiety/introvert accommodation, widow/widower solo travel, choosing ships
+- **Key logbook stories:** "The Widow Who Learned to Laugh Again" (Radiance), "Single Mom's First Solo Trip" (Grandeur), "Introvert's Forced Vacation" (Independence), "Anxiety Sufferer's Controlled Exposure" (Explorer)
+- **Cross-links:** Cruising After Loss, accessibility (many disabled cruise solo), packing lists
+
+#### 4. Healing Relationships at Sea: Marriage, Family, and Reconciliation
+**Status:** ❌ NOT CREATED (15+ logbook references)
+- [ ] Write full article page (~3,000 words)
+- [ ] Create article fragment for rail navigation
+- [ ] Separate sections: marriage restoration, family reconciliation, blended families, empty nest
+- **Topics:** Marriage crisis/infidelity recovery, estranged parent-child relationships, prodigal situations, blended family dynamics, empty nest reconnection, faith-based reconciliation, when NOT to cruise together
+- **Key logbook stories:** "The Glacier That Healed a Marriage" (Radiance), "Balcony That Saved Us" (Brilliance), "Couple Who Renewed Vows After Infidelity" (Grandeur), "Prodigal Son Returns" (Radiance, Explorer, Navigator, Serenade), "Blended Family's First Vacation" (Explorer, Jewel), "Empty Nest Reconnection" (Explorer, Serenade)
+- **Cross-links:** Couples packing list, ship selection guides, marriage enrichment resources, solo travel (if not ready to travel together)
+
+#### 5. Rest for Wounded Healers: Travel for Pastors, Caregivers, and the Burned-Out
+**Status:** ❌ NOT CREATED (10+ logbook references)
+- [ ] Write full article page (~2,500 words)
+- [ ] Create article fragment for rail navigation
+- [ ] Sabbath theology section, guilt management, Scripture integration
+- **Topics:** Pastoral/ministry burnout, missionary sabbatical, teacher/helping professional exhaustion, caregiver fatigue, single parent burnout, seminary student rest, retired minister transition, rest as spiritual discipline, unplugging from ministry
+- **Key logbook stories:** "Learning to Sabbath" (Radiance), "Learning to Rest" (Brilliance), "Retired Pastor's Sabbath" (Grandeur), "Seminary Student's Sabbath" (Jewel), "Teacher's First Summer Break in Years" (Liberty), "Single Mom's First Solo Trip" (Grandeur)
+- **Cross-links:** Solo travel, mental health resources, pastoral sabbatical packing, anxiety travel
+
+**Existing support articles (COMPLETE):**
 - ✅ freedom-of-your-own-wake.html
 - ✅ visiting-the-united-states-before-your-cruise.html
-- ✅ why-i-started-solo-cruising.html
 
-**New articles in progress:**
-- [ ] Create full article page for "Cruising After Loss"
-- [ ] Create cruising-after-loss.html fragment for article rail
-- [ ] Write content for "Cruising After Loss" article
-  - **Content guidance available:** ICP-Lite v1.0 logbook stories contain widow/widower narratives
-  - **Key stories to reference:**
-    - "The Widow Who Learned to Laugh Again" (Radiance logbook)
-    - "The Widower's First Christmas Without Her" (Grandeur logbook)
-    - "The FlowRider Widow" (Independence logbook)
-  - **Topics to cover:** Timing after loss, ship size selection, finding community, first holidays, Scripture/faith integration, permission to grieve, practical tips
-  - **Cross-link to:** Solo guide, accessibility resources, packing lists, ship logbooks
-
-**Potential new articles:**
-- [ ] Identify additional solo travel topics based on user research
-- [ ] Consider accessibility guides for specific ship classes
-- [ ] Consider port accessibility guides
+**Additional themes for future articles (2-10 references each):**
+- Medical recovery: post-cancer travel, post-stroke travel, chronic illness, eating disorder recovery
+- Mental health: anxiety travel, PTSD/veteran travel, bipolar/depression
+- Family situations: infertility grief, adoption/adoptee identity, homeschool family socialization, kinship care
+- Specific demographics: senior travel, neurodiversity, deaf/HOH travel, burn survivors
+- Life transitions: retirement, second marriage/stepfamily, work-life balance
 
 ### Cross-linking
 - [ ] Review and fix any remaining restaurant URL cross-links in logbooks (recent fix completed for some)
@@ -394,33 +430,37 @@ All 50 ships should have stats JSON at:
 ## 🚀 PRIORITY RANKING
 
 ### P0 - Critical (User-facing issues)
-1. **CRITICAL: Fix navigation on 281 pages (96% of site)** - Missing dropdown CSS/JS
-2. **CRITICAL: Update code to use WebP images** - ~128 references across 12 files (77% size reduction not realized)
+1. ~~**CRITICAL: Fix navigation on 281 pages (96% of site)**~~ - ✅ COMPLETE (done in main)
+2. ~~**CRITICAL: Update code to use WebP images**~~ - ✅ COMPLETE (done in main, commit ecdb983)
 3. **Ship cards redesign** - Add CTAs, better space utilization, make cards compelling
 4. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
 5. Download Wiki Commons images for top 5 most-visited ships
-6. Apply production template if not done (dropdown menu fix)
 
 ### P1 - High (Content completeness)
-7. **CRITICAL: Create search functionality** - Schema exists but no actual search page/implementation
-8. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html, restaurants.html (all "coming soon")
-9. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL and STANDARDS_INDEX_33.md
-10. Create logbooks for active ships without them (6 ships)
-11. Download remaining Wiki Commons images (19 ships) + attribution workflow
-12. Complete venues.json with all dining data
-13. SEO setup (sitemap, Google Search Console)
+6. **CRITICAL: Write "Cruising After Loss" article** - 20+ logbook references, highest demand
+7. **CRITICAL: Expand "Solo Cruising" article** - 20 logbook references, current article too narrow
+8. **CRITICAL: Write "Healing Relationships at Sea" article** - 15+ logbook references, unique positioning
+9. **CRITICAL: Create search functionality** - Schema exists but no actual search page/implementation
+10. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html, restaurants.html (all "coming soon")
+11. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL and STANDARDS_INDEX_33.md
+12. Create logbooks for active ships without them (6 ships)
+13. Download remaining Wiki Commons images (19 ships) + attribution workflow
+14. Complete venues.json with all dining data
+15. SEO setup (sitemap, Google Search Console)
 
 ### P2 - Medium (Enhancement)
-14. ICP-Lite & ITW-Lite rollout (see dedicated section below)
-15. Create logbooks for historic ships (8 ships)
-16. Add video data for ships without videos
-17. Cross-linking improvements
-18. Performance optimization
+16. **Write "Rest for Wounded Healers" article** - 10+ logbook references, pastoral/caregiver burnout
+17. Expand "Accessible Cruising" article (optional) - Article exists but could add: medical equipment, service animals, dietary, cruise line comparison
+18. ICP-Lite & ITW-Lite rollout (see dedicated section below)
+19. Create logbooks for historic ships (8 ships)
+20. Add video data for ships without videos
+21. Cross-linking improvements
+22. Performance optimization
 
 ### P3 - Low (Nice to have)
-19. Create logbooks for future ships (TBN)
-20. New solo travel articles
-21. Advanced analytics and monitoring
+23. Create logbooks for future ships (TBN)
+24. Additional themed articles (medical recovery, mental health, family situations, life transitions)
+25. Advanced analytics and monitoring
 
 ---
 
@@ -570,5 +610,5 @@ All 50 ships should have stats JSON at:
 
 ---
 
-**Last Updated:** 2025-11-17
+**Last Updated:** 2025-11-18 (Added 5 article categories from logbook analysis)
 **Maintained by:** Claude AI (Thread tracking)
