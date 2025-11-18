@@ -1,7 +1,7 @@
 # Unfinished Tasks - Both Threads
 
 **Generated:** 2025-11-17
-**Last Updated:** 2025-11-18 (Added 5 article categories from logbook analysis)
+**Last Updated:** 2025-11-18 (Article #1 "In the Wake of Grief" COMPLETE - Grade A+)
 **Threads Tracked:**
 - Thread 1: `claude/evaluate-ai-human-strategy-01L5apYYXXKEUVyhFbyhAgZs`
 - Thread 3: `claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9` (current)
@@ -235,14 +235,28 @@ All 50 ships should have stats JSON at:
 
 **THE 5 ARTICLE CATEGORIES:**
 
-#### 1. Cruising After Loss: Guide for Widows, Widowers, and the Bereaved
-**Status:** ❌ NOT CREATED (highest priority - 20+ logbook references)
-- [ ] Write full article page (~3,000 words)
-- [ ] Create article fragment for rail navigation
-- [ ] Add FAQ schema and ICP-Lite v1.0 formatting
-- **Topics:** Timing after loss, solo after being a couple, first holidays, finding widow community, permission to feel joy, Scripture/faith integration, practical booking tips
-- **Key logbook stories:** "The Widow Who Learned to Laugh Again" (Radiance), "Widower's First Christmas" (Grandeur, Jewel), "The FlowRider Widow" (Independence), "First Voyage After Loss" (Brilliance)
-- **Cross-links:** Solo travel guide, accessibility, packing lists for bereaved travelers, ship logbooks
+#### 1. In the Wake of Grief: When Loss Needs Water
+**Status:** ✅ COMPLETE - Grade A+ (722 lines, ~6,000 words)
+**Location:** `/solo/in-the-wake-of-grief.html`
+**Meta tags:** `/solo/in-the-wake-of-grief-meta.html`
+
+- [x] Write full article page (~6,000 words with all enhancements)
+- [x] H1 with dek + fit-guidance section
+- [x] FAQ section (5 comprehensive questions with structured data)
+- [x] Ship size recommendations (Option A: smaller/longer vs Option B: larger/shorter)
+- [x] Anticipatory grief section ("Final Cruises: When the Journey Is About Legacy")
+- [x] Cross-links throughout to solo guide, accessibility guide, ship logbooks
+- [x] Back-links added to 7 logbook stories → article
+- [x] Meta tags with JSON-LD Article and FAQ schemas
+- [ ] Optional: Expand suicide loss and dating again sections (from original outline)
+
+**Topics covered:** Timing after loss, solo after being a couple, first holidays (Margaret's Christmas), finding widow community, permission to feel joy, Scripture/faith integration, practical booking tips, ship size by grief need, anticipatory grief/final cruises, trigger management, anonymous community
+
+**Key logbook stories referenced:** "The Widow Who Learned to Laugh Again" (Radiance), "Widower's First Christmas" (Grandeur, Jewel), "The FlowRider Widow" (Independence), "First Voyage After Loss" (Brilliance), "Grandpa's Last Alaska" (Radiance), "Grandmother's Last Gift" (Jewel)
+
+**Cross-links implemented:** Solo travel guide (3x), accessibility guide (2x), Grandeur logbook, 5 widow/widower logbook stories, /solo/ hub, /ships/ index
+
+**Back-links from logbooks:** Radiance (2), Brilliance (1), Grandeur (1), Jewel (2), Independence (1)
 
 #### 2. Accessible Cruising: Complete Guide for Travelers with Disabilities
 **Status:** ✅ COMPLETE (solo/articles/accessible-cruising.html) - 26 logbook references
@@ -437,30 +451,31 @@ All 50 ships should have stats JSON at:
 5. Download Wiki Commons images for top 5 most-visited ships
 
 ### P1 - High (Content completeness)
-6. **CRITICAL: Write "Cruising After Loss" article** - 20+ logbook references, highest demand
+6. ~~**CRITICAL: Write "Cruising After Loss" article**~~ - ✅ COMPLETE as "In the Wake of Grief" (722 lines, Grade A+)
 7. **CRITICAL: Expand "Solo Cruising" article** - 20 logbook references, current article too narrow
 8. **CRITICAL: Write "Healing Relationships at Sea" article** - 15+ logbook references, unique positioning
-9. **CRITICAL: Create search functionality** - Schema exists but no actual search page/implementation
-10. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html, restaurants.html (all "coming soon")
-11. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL and STANDARDS_INDEX_33.md
-12. Create logbooks for active ships without them (6 ships)
-13. Download remaining Wiki Commons images (19 ships) + attribution workflow
-14. Complete venues.json with all dining data
-15. SEO setup (sitemap, Google Search Console)
+9. **CRITICAL: Write "Cruising for Rest & Recovery" article** - 25 logbook references, burnout/mental health
+10. **CRITICAL: Write "Family Cruising Challenges" article** - 20 logbook references, blended/adoptive families
+11. **CRITICAL: Create search functionality** - Schema exists but no actual search page/implementation
+12. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html, restaurants.html (all "coming soon")
+13. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL and STANDARDS_INDEX_33.md
+14. Create logbooks for active ships without them (6 ships)
+15. Download remaining Wiki Commons images (19 ships) + attribution workflow
+16. Complete venues.json with all dining data
+17. SEO setup (sitemap, Google Search Console)
 
 ### P2 - Medium (Enhancement)
-16. **Write "Rest for Wounded Healers" article** - 10+ logbook references, pastoral/caregiver burnout
-17. Expand "Accessible Cruising" article (optional) - Article exists but could add: medical equipment, service animals, dietary, cruise line comparison
-18. ICP-Lite & ITW-Lite rollout (see dedicated section below)
-19. Create logbooks for historic ships (8 ships)
-20. Add video data for ships without videos
-21. Cross-linking improvements
-22. Performance optimization
+18. Expand "Accessible Cruising" article (optional) - Article exists but could add: medical equipment, service animals, dietary, cruise line comparison
+19. ICP-Lite & ITW-Lite rollout (see dedicated section below)
+20. Create logbooks for historic ships (8 ships)
+21. Add video data for ships without videos
+22. Cross-linking improvements
+23. Performance optimization
 
 ### P3 - Low (Nice to have)
-23. Create logbooks for future ships (TBN)
-24. Additional themed articles (medical recovery, mental health, family situations, life transitions)
-25. Advanced analytics and monitoring
+24. Create logbooks for future ships (TBN)
+25. Additional themed articles (medical recovery, mental health, family situations, life transitions)
+26. Advanced analytics and monitoring
 
 ---
 
@@ -610,5 +625,5 @@ All 50 ships should have stats JSON at:
 
 ---
 
-**Last Updated:** 2025-11-18 (Added 5 article categories from logbook analysis)
+**Last Updated:** 2025-11-18 (Article #1 "In the Wake of Grief" COMPLETE - all remaining articles prioritized)
 **Maintained by:** Claude AI (Thread tracking)
