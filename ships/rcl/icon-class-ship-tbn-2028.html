@@ -1061,7 +1061,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
         <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/icon-class-ship-tbn-2028/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
         <figure>
-          <img src="/assets/ship-map.webp" alt="Icon Class Ship (TBN 2028) simplified deck plan preview" loading="lazy"/>
+          <img src="/assets/ship-map.png" alt="Icon Class Ship (TBN 2028) simplified deck plan preview" loading="lazy"/>
         </figure>
       </section>
 
@@ -1396,7 +1396,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           const name=String(v.name||v.slug).replace(/</g,'&lt;');
           const desc=String(v.description||'').replace(/</g,'&lt;');
           const price=(v.price||v.cost)?'<span class="venue-price">'+(v.price||v.cost)+'</span>':'';
-          html+='<li><strong>'+name+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
+          const slug=v.slug?String(v.slug).replace(/</g,'&lt;'):'';
+          const nameLink=slug?'<a href="'+abs('/restaurants/'+slug)+'.html">'+name+'</a>':name;
+          html+='<li><strong>'+nameLink+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
         });
         html+='</ul>';
       });

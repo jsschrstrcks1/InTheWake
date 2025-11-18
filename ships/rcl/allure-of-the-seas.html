@@ -1410,7 +1410,9 @@ updated: 2025-11-18
           const name=String(v.name||v.slug).replace(/</g,'&lt;');
           const desc=String(v.description||'').replace(/</g,'&lt;');
           const price=(v.price||v.cost)?'<span class="venue-price">'+(v.price||v.cost)+'</span>':'';
-          html+='<li><strong>'+name+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
+          const slug=v.slug?String(v.slug).replace(/</g,'&lt;'):'';
+          const nameLink=slug?'<a href="'+abs('/restaurants/'+slug)+'.html">'+name+'</a>':name;
+          html+='<li><strong>'+nameLink+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
         });
         html+='</ul>';
       });
