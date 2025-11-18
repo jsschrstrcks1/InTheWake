@@ -387,9 +387,15 @@
 **Gap Identified:**
 
 ❌ **Ship size recommendations** - Not addressed
-- Which ships are better for widows/widowers?
-- Smaller/mid-size for intimacy? Larger for anonymity?
-- This would strengthen practical guidance
+- **Critical insight:** There is no one-size-fits-all answer
+- **Option A:** Smaller ships (Radiance, Brilliance, Grandeur class) + longer itineraries (7-14 nights) = intimacy, people their age, quiet reflection
+- **Option B:** Larger ships (Oasis, Quantum class) + shorter itineraries (3-5 nights) = surrounded by happy younger people, joyful energy, revisit days when life felt vibrant
+- **Key question:** What does your grief need right now?
+  - Some widows need the wisdom of their peers
+  - Others need the hope of children playing
+  - Both are valid, both are healing
+- **This would significantly strengthen practical guidance** - addresses real emotional need, not just logistics
+- **Suggested section created:** See `admin/SUGGESTED_ARTICLE_SECTION_SHIP_SIZE.md`
 
 **Score Justification:** -1 for missing ship size recommendations. Otherwise comprehensive and actionable.
 
@@ -660,14 +666,41 @@ The low score is driven by missing ICP-Lite protocol elements (FAQ, fit-guidance
    - Content: permission to create memories, sacredness of final journeys, making peace with goodbye
    - Place: After "Grief and Joy Can Coexist" or in new section
 
-9. **Add Ship Size Recommendations (200-300 words)**
-   - Add section or subsection: "Choosing the Right Ship Size"
-   - Content:
-     - Smaller ships (1,000-2,500 passengers): More intimate, easier to make connections, less overwhelming
-     - Mid-size ships (2,500-3,500): Balance of intimacy and anonymity
-     - Larger ships (3,500+): More anonymity, easier to be alone without being noticed
-   - Recommendation: Most widows/widowers prefer smaller to mid-size for first cruise
-   - Place: In "Practical Tools" or "Booking & Preparation" section
+9. **Add Ship Size Recommendations (300-400 words)**
+   - Add section or subsection: "Choosing the Right Ship and Itinerary for Your Grief"
+   - **Key Insight:** There is no one-size-fits-all. Different grief needs call for different ship experiences.
+
+   - **Option A: Smaller Ships + Longer Itineraries**
+     - Ship size: 1,000-2,500 passengers (Radiance, Brilliance, Jewel, Grandeur class)
+     - Itinerary: 7-14+ nights, often to Alaska, Europe, repositioning cruises
+     - **Best for:** Widows/widowers seeking intimacy, quiet reflection, people closer to their age
+     - **Benefits:**
+       - More likely to encounter peers and other solo travelers their age
+       - Fewer crowds, less stimulation
+       - Easier to form meaningful connections over longer voyages
+       - More time to process grief without rushing port to port
+     - **Consider if:** You want gentle community, quieter spaces, deeper conversations
+
+   - **Option B: Larger Ships + Shorter Itineraries**
+     - Ship size: 3,500-6,000+ passengers (Oasis, Quantum, Freedom, Voyager class)
+     - Itinerary: 3-5 nights, often Bahamas, Caribbean, weekend getaways
+     - **Best for:** Widows/widowers who need energy, want to be around happy younger people, revisit days when life felt vibrant
+     - **Benefits:**
+       - Surrounded by families, children, joyful energy
+       - More anonymity (easier to cry without being noticed)
+       - More activities, stimulation, distraction when needed
+       - Short commitment if you're unsure
+       - Can remind you what joy looks like (without requiring you to perform it)
+     - **Consider if:** You feel suffocated by quiet, need life and laughter around you, want to remember what "normal" felt like
+
+   - **Mid-Size Ships (2,500-3,500):** Balance of both - good "middle ground" option
+
+   - **The Real Question:** What does your grief need right now?
+     - Some widows need the wisdom of their peers
+     - Others need the hope of children playing
+     - Both are valid. Both are healing.
+
+   - **Placement:** In "Practical Tools" or after "Signs You Might Be Ready" section
 
 10. **Create "Read More Stories" Section (100 words)**
     - Add before "Final Pastoral Word"
