@@ -46,16 +46,50 @@
 
 ### 3. Logbook Story Integration
 
-**Key Stories to Reference (lines 54-60):**
+**ACTUAL GRIEF STORIES IN LOGBOOKS (20 stories across 10 ships):**
 
-- [ ] "The Widow Who Learned to Laugh Again" (Radiance)
-- [ ] "The Widower's First Christmas Without Her" (Grandeur, Jewel)
-- [ ] "The FlowRider Widow" (Independence)
-- [ ] "First Voyage After Loss" (Brilliance)
-- [ ] "Grandpa's Last Alaska" (Radiance) - anticipatory grief
-- [ ] "The Grandmother's Last Gift" (Jewel) - legacy planning
+**Priority Stories (Core to "Cruising After Loss" theme):**
 
-**Note:** Article doesn't need to reference all, but should reference at least 2-3 and align with themes.
+- [ ] "The Widow Who Learned to Laugh Again" (Radiance) - Permission to feel joy
+- [ ] "The FlowRider Widow" (Independence) - Rediscovering playfulness after loss
+- [ ] "First Voyage After Loss" (Brilliance) - First trip after losing spouse
+- [ ] "The Widower's First Christmas Without Her" (Grandeur, Jewel) - First holidays
+- [ ] "The Widower Who Rode the North Star Alone" (Anthem) - Solo travel after loss
+
+**Anticipatory Grief Stories:**
+
+- [ ] "Grandpa's Last Alaska" (Radiance) - Final journey with terminally ill loved one
+- [ ] "The Grandmother's Last Gift" (Jewel) - Creating legacy before death
+- [ ] "Grandma's Last Cruise" (Brilliance) - Last family memories
+
+**New Life After Loss:**
+
+- [ ] "The Widower's First Romance After Loss" (Odyssey) - Moving forward
+- [ ] "The Single Mom's First Solo Trip" (Grandeur) - Caregiver exhaustion/solo rest
+
+**Grief + Other Themes:**
+
+- [ ] "The Alaska Glacier Healing" (Ovation) - Nature-based grief processing
+- [ ] "The Infertility Couple Who Stopped Trying" (Jewel) - Non-death loss/grief
+- [ ] "The IVF Warrior's Child-Free Cruise" (Navigator) - Fertility loss grief
+- [ ] "The Cancer-Free Celebration Cruise" (Grandeur) - Post-medical trauma celebration
+- [ ] "The Cancer Survivor's Victory Lap" (Radiance) - Medical recovery celebration
+
+**Other Related Stories:**
+
+- [ ] "The Retired Teacher Who Learned Again" (Jewel) - Identity loss after career ends
+- [ ] "The Figure Skater Who Returned to Ice" (Explorer) - Rediscovering former passions
+- [ ] "The Amputee Who Surfed" (Independence) - Adaptive athletics after loss
+- [ ] "The Scientist's Climate Anxiety Reset" (Ovation) - Eco-grief processing
+
+**Evaluation Criteria:**
+
+- Article should **reference or align with at least 5-7 of the priority/anticipatory stories**
+- Should address **core themes** present across stories: first voyage, first holidays, permission to laugh, solo after couple, anticipatory grief, finding community
+- May reference cross-theme stories (infertility, medical recovery) as related types of loss
+- Story references can be **explicit** (named) or **thematic** (addresses same need without naming specific story)
+
+**Full inventory:** See `admin/GRIEF_STORIES_LOGBOOK_INVENTORY.md` for complete story details
 
 ---
 
