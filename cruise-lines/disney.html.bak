@@ -2,68 +2,107 @@
 <html lang="en">
 <head>
 <!-- ai-breadcrumbs
-     entity: Dining Activities & Classes
-     type: Restaurant/Dining Venue
-     parent: /restaurants.html
-     category: Bar/Lounge
-     cruise-line: Royal Caribbean
+     entity: Disney Cruise Line
+     type: Cruise Line Comparison
+     parent: /cruise-lines.html
+     category: Cruise Line Information
      updated: 2025-11-15
-     expertise: Royal Caribbean dining, menu analysis, restaurant reviews, specialty dining
-     target-audience: Cruise dining planners, families, specialty dining seekers
-     answer-first: Royal Caribbean offers a rotating schedule of culinary workshops and dessert classes. Each class includes hands-on instruction and ingredients.
-     --><!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+     expertise: Cruise line comparisons, fleet analysis, policy research, cruise planning
+     target-audience: Cruise line comparison shoppers, first-time cruisers, travel planners
+     answer-first: Disney Cruise Line overview: Triton Class, ships A–Z, gallery, and a typo-tolerant ship finder — from In the Wake.
+     -->
+  <!--
+    In the Wake — Cruise Line: Disney (v3.007)
+    “Soli Deo Gloria.” 1 Cor 10:31 · Prov 3:5–6
+  -->
 
-  gtag('config', 'G-WZP891PZXJ');
-</script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dining Activities &amp; Classes | In the Wake</title>
-  <meta name="referrer" content="no-referrer">
-  <meta name="version" content="3.010.300">
-  <meta name="author" content="In the Wake">
-  <meta name="publisher" content="In the Wake">
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js"
+          data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
-  <!-- ICP-Lite v1.0: AI-First Metadata -->
-  <meta name="ai-summary" content="Royal Caribbean dining activities and classes: Candy Sushi, On a Roll Sushi, Cupcake Decorating, Taste of Royal lunch, Sushi & Sake lunch. Typical prices, pre-cruise savings, guest soundings, and booking tips.">
-  <meta name="last-reviewed" content="2025-11-18">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
+  <!-- Standards: absolute URL + origin normalizer -->
+  <script>
+  (function () {
+    const ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+    window._abs = p => { p = String(p || ''); if (!p.startsWith('/')) p = '/' + p; return ORIGIN + p; };
+    document.addEventListener('DOMContentLoaded', () => {
+      const sel = [
+        'a[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://www.cruisinginthewake.com/"]',
+        'script[src^="https://www.cruisinginthewake.com/"]'
+      ].join(',');
+      document.querySelectorAll(sel).forEach(el => {
+        const attr = el.hasAttribute('href') ? 'href' : 'src';
+        try {
+          const u = new URL(el.getAttribute(attr));
+          el.setAttribute(attr, ORIGIN + u.pathname + u.search + u.hash);
+        } catch(_){}
+      });
+    }, { once:true });
+  })();
+  </script>
 
-  <meta property="og:site_name" content="In the Wake">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="Dining Activities &amp; Classes">
-  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants/dining-activities.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/dining-activities.html">
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.235">
+  <!-- External link hardening -->
+  <script>
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    try {
+      const u = new URL(a.href, location.href);
+      if (u.origin !== location.origin) { a.target = '_blank'; a.rel = 'noopener'; }
+    } catch(_){}
+  }, { capture:true });
+  </script>
+
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Disney Cruise Line | In the Wake (v3.007)</title>
+  <meta name="version" content="3.010.300"/>
+  <meta name="description" content="Disney Cruise Line overview: Triton Class, ships A–Z, gallery, and a typo-tolerant ship finder — from In the Wake."/>
+  <meta name="robots" content="index,follow"/>
+
+  <!-- Canonical / Social -->
+  <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/disney.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://www.cruisinginthewake.com/cruise-lines/disney.html"/>
+  <meta property="og:title" content="Disney Cruise Line | In the Wake"/>
+  <meta property="og:description" content="Triton Class details, ships A–Z, photos, and a typo-tolerant ship finder."/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/social/cruise-lines-hero.jpg?v=3.007"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org",
+   "@type":"BreadcrumbList",
+   "itemListElement":[
+     {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
+     {"@type":"ListItem","position":2,"name":"Cruise Lines","item":"https://www.cruisinginthewake.com/cruise-lines/"},
+     {"@type":"ListItem","position":3,"name":"Disney","item":"https://www.cruisinginthewake.com/cruise-lines/disney.html"}
+   ]}
+  </script>
+
+  <!-- SiteCache + Service Worker -->
+  <script src="/assets/js/site-cache.js" defer></script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.007"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
+
+  <!-- Page polish (uses global hero; no duplicate hero markup) -->
   <style>
-    :root{--rope:#D9B382}
-    .hero--wake{background:url('https://www.cruisinginthewake.com/assets/wake-hero.jpg') center/cover no-repeat;padding:3.5rem 1rem;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.55)}
-    .version-badge{display:inline-block;background:#0d3b66;color:#fff;padding:.25rem .5rem;border-radius:.5rem;font-size:.85rem}
-    .card{position:relative;border-radius:14px;background:#fff;box-shadow:0 6px 24px rgba(0,0,0,.08);margin:1rem auto;overflow:hidden}
-    .card__content{padding:1.25rem 1.25rem;position:relative}
-    .grid{display:grid;gap:1rem}
-    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    @media (max-width:960px){.grid-3{grid-template-columns:1fr 1fr}}
-    @media (max-width:640px){.grid-3{grid-template-columns:1fr}}
-    .activities-grid .card.activity{display:flex}
-    .activity__media{padding:1rem}
-    .activity__media img{width:420px;height:315px;object-fit:cover;border:12px solid var(--rope);box-shadow:0 4px 12px rgba(0,0,0,.12);outline:3px solid #fff}
-    .activity__body{padding:1rem}
-    .muted{color:#6b7280}
-    .pill{background:#f1f5f9;border-left:4px solid #0d3b66;padding:.75rem 1rem;border-radius:.5rem}
-    footer{color:#6b7280;font-size:.9rem;text-align:center;padding:1.5rem 0}
-    .wm{position:absolute;inset:0;margin:auto;opacity:.08;max-width:60%;pointer-events:none}
-  /* Header / Hero */
+  /* Header / Hero - Override external styles.css with correct z-index */
   .hero-header {
     position: relative;
     border-bottom: 6px double var(--rope);
     background: #eaf6f6;
-    z-index: 9000;
+    z-index: 9000 !important;
   }
 
   .navbar {
@@ -74,7 +113,7 @@
     gap: .6rem;
     padding: .5rem .9rem .35rem;
     position: relative;
-    z-index: 2000;
+    z-index: 2000 !important;
     overflow: visible;
   }
 
@@ -96,6 +135,26 @@
   }
 
 
+    :root { --rope:#D9B382; --ink:#083041; --foam:#e6f4f8; --accent:#0e6e8e; }
+    body.page{ background:linear-gradient(var(--foam),#fff 240px); color:var(--ink); }
+
+    /* Skip link */
+    .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip-link:focus{ position:fixed; left:12px; top:12px; width:auto; height:auto; padding:.45rem .7rem;
+      background:#fff; border:2px solid var(--accent); border-radius:10px; z-index:10000; }
+
+    /* Card watermark */
+    .card{ position:relative; overflow:hidden }
+    .card::after{
+      content:""; position:absolute; inset:0; margin:auto; width:min(58%,360px); height:min(58%,360px);
+      background:url('/assets/watermark.png') center/contain no-repeat; opacity:.06; pointer-events:none;
+    }
+
+    .grid{ display:grid; gap:1rem; }
+    .grid.two{ grid-template-columns:1fr; }
+    @media (min-width:760px){ .grid.two{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+    .badge{ font-size:.75rem; background:#eef7fb; border:1px solid var(--rope); border-radius:999px; padding:.1rem .5rem }
   
   /* Dropdown Navigation (FIXED: 300ms Hover Delay) */
   .nav {
@@ -517,19 +576,21 @@
     "Deck Plans",
     "Royal Caribbean",
     "Cruise Dining",
-    "Ship Comparisons",
-    "Menu Analysis"
+    "Ship Comparisons"
   ]
 }
 </script>
 </head>
-<body>
-<header class="hero-header">
-  <div class="navbar">
-    <div class="brand">
-      <img src="/assets/logo_wake.png" alt="In the Wake" width="256" height="64"/>
-      <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
-    </div>
+
+<body class="page">
+  <a class="skip-link" href="#content">Skip to main content</a>
+
+  <header class="site-header hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake.png" alt="In the Wake wordmark" width="256" height="64"/>
+        <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
+      </div>
       <nav class="nav" aria-label="Main site navigation">
         <div class="nav-item">
           <a href="/">Home</a>
@@ -570,174 +631,156 @@
       </nav>
     <!-- Navigation with Dropdown Menus -->
       
-  </div>
-
-  <div class="hero" role="img" aria-label="Ship wake at sunrise">
-    <div class="latlon-grid" aria-hidden="true"></div>
-    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
-    <div class="hero-title">
-      <img class="logo" src="/assets/logo_wake.png?v=3.010.300" width="560" height="144" alt="In the Wake" decoding="async"/>
-    </div>
-    <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-    <div class="hero-credit">
-      <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-    </div>
-  </div>
-</header>
-
-<main>
-
-  <!-- ICP-Lite v1.0: Answer-First Content -->
-  <section class="icp-header" aria-labelledby="page-title">
-    <h1 id="page-title">Dining Activities &amp; Classes</h1>
-    <p class="answer-line"><strong>Quick Answer:</strong> Royal Caribbean offers rotating culinary workshops and specialty dining experiences across the fleet — Candy Sushi Making ($35), On a Roll Sushi Making ($40), Sprinkle Time Cupcake Decorating ($35), Taste of Royal lunch ($45), and Sushi & Sake lunch ($45). Pre-cruise discounts vary by sailing; classes often sell out, so book early.</p>
-
-    <div class="fit-guidance">
-      <h2>How to Use This Guide</h2>
-      <p>This guide details Royal Caribbean's hands-on dining activities and exclusive tasting experiences. Whether you're planning family fun with Candy Sushi or exploring chef-curated lunches, you'll find typical pricing, pre-cruise savings examples, and guest soundings to help you decide which activities to book.</p>
-      <p>Review each activity's description and pricing, note that offerings vary by ship and itinerary, then check your Cruise Planner for sailing-specific availability and discounts. Guest soundings provide real feedback on energy levels, portions, and what to expect.</p>
     </div>
 
-    <div class="key-facts">
-      <h2>Key Facts at a Glance</h2>
+    <!-- Global hero from styles.css (single instance) -->
+    <div class="hero" role="img" aria-label="Open ocean at sunrise">
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.300" width="560" height="144" alt="In the Wake" decoding="async"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <!-- Intro -->
+    <section class="card" aria-labelledby="intro-h">
+      <h1 id="intro-h">Disney Cruise Line</h1>
+      <p><strong>Magic at sea.</strong> Beloved characters, Broadway-caliber shows, and imaginative dining that turns meals into memories. Private-island days and attentive service wrap the voyage in storybook warmth.</p>
+      <p>Below you’ll find classes, ships A–Z, a gallery, and a typo-tolerant ship finder so you can jump straight to a profile even if your spelling is a little… wish-ful.</p>
+    </section>
+
+    <!-- Coming Soon (depth sounding) -->
+    <section class="card" aria-labelledby="coming-h">
+      <h2 id="coming-h">Coming Soon: A Deep Sounding of Disney’s Fleet</h2>
+      <p>We’re charting a full guide to the Disney experience—meticulous breakdowns of ship classes from Triton to classic refits, what each class gets right, and how those differences shape your days on board. Think clear comparisons of stateroom layouts, family spaces, adult-only escapes, and motion/quiet zones for sensitive sailors.</p>
+      <p>You’ll also get venue-by-venue notes (menus, pricing context, and accessibility observations), embarkation tips tailored to Disney’s terminals, and practical strategies for snagging show reservations, character meets, and Castaway Cay day plans. Our aim is simple: fewer surprises, more delight.</p>
+      <p>As we complete each section, we’ll knit it into ship pages and class overviews so everything stays discoverable and up to date. Until then, enjoy the quick links below and the ship finder if you’re sailing soon.</p>
+    </section>
+
+    <!-- Gallery -->
+    <section class="card" aria-labelledby="gallery-h">
+      <h2 id="gallery-h">Gallery</h2>
+      <div class="grid two">
+        <figure>
+          <img src="/assets/cruise-lines/disney-hero-1.jpg" alt="Disney Cruise Line ship under way at sea">
+          <figcaption class="tiny">Image: Wikimedia Commons — add specific attribution.</figcaption>
+        </figure>
+        <figure>
+          <img src="/assets/cruise-lines/disney-hero-2.jpg" alt="Topside deck view on a Disney Cruise Line ship">
+          <figcaption class="tiny">Image: Wikimedia Commons — add specific attribution.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Classes -->
+    <section id="classes" class="card" aria-labelledby="classes-h">
+      <h2 id="classes-h">Ship Classes</h2>
+      <div class="grid two">
+        <article class="card" aria-labelledby="triton-h">
+          <h3 id="triton-h">Triton Class <span class="badge">launched 2022</span></h3>
+          <ul>
+            <li><a href="/ships/disney-destiny.html">Disney Destiny</a></li>
+            <li><a href="/ships/disney-treasure.html">Disney Treasure</a></li>
+            <li><a href="/ships/disney-wish.html">Disney Wish</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Ships A–Z -->
+    <section id="ships" class="card" aria-labelledby="ships-h">
+      <h2 id="ships-h">Ships A–Z</h2>
       <ul>
-        <li><strong>Activities Covered:</strong> 5 experiences (3 hands-on classes, 2 specialty lunches)</li>
-        <li><strong>Typical Price Range:</strong> $35–$45 per person</li>
-        <li><strong>Pre-Cruise Savings:</strong> Often $27.99–$30.99 (varies by sailing)</li>
-        <li><strong>Availability:</strong> Not all activities offered on all ships or sailings</li>
-        <li><strong>Booking Tip:</strong> Pre-book via Cruise Planner — classes sell out</li>
-        <li><strong>Best For:</strong> Families, foodies, hands-on experiences, specialty tastings</li>
+        <li><a href="/ships/disney-destiny.html">Disney Destiny</a></li>
+        <li><a href="/ships/disney-treasure.html">Disney Treasure</a></li>
+        <li><a href="/ships/disney-wish.html">Disney Wish</a></li>
       </ul>
-    </div>
-  </section>
+    </section>
 
-  <!-- Overview -->
-  <section class="card">
-    <img class="wm" src="https://www.cruisinginthewake.com/assets/watermark.png" alt="">
-    <div class="card__content">
-      <h2>Overview</h2>
-      <p>Royal Caribbean offers a rotating schedule of culinary workshops and dessert classes. Each class includes hands-on instruction and ingredients.</p>
-      <p><strong>Availability:</strong> Not all experiences are available on all ships or sailings. Offerings and prices vary by itinerary.</p>
-    </div>
-  </section>
-
-  <!-- Unified 3-column grid (all activities & exclusive experiences) -->
-  <section class="grid grid-3 activities-grid">
-
-    <!-- Candy Sushi -->
-    <article class="card activity">
-      <img class="wm" src="https://www.cruisinginthewake.com/assets/watermark.png" alt="">
-      <div class="activity__media">
-        <img src="https://www.cruisinginthewake.com/assets/restaurants/activities/candy-sushi_thumb.jpg" alt="Candy Sushi Making Class" loading="lazy" width="420" height="315">
+    <!-- Search -->
+    <section id="search" class="card" aria-labelledby="search-h">
+      <h2 id="search-h">Search Ships</h2>
+      <div class="search" role="search">
+        <label for="shipSearch" class="tiny" style="display:block;margin-bottom:.25rem">Type a ship name (tolerates typos)</label>
+        <input id="shipSearch" type="search" placeholder="e.g., disny → Disney" aria-controls="searchResults">
+        <button id="btnSearch" type="button">Search</button>
       </div>
-      <div class="activity__body">
-        <h3>Candy Sushi Making Class</h3>
-        <ul>
-          <li><strong>Typical Price (pp):</strong> $35</li>
-          <li><strong>Pre-Cruise Savings (Radiance example):</strong> $27.99 <span class="muted">(lowest this editor has ever seen)</span></li>
-        </ul>
-        <p class="muted">Pre-cruise discounts vary by sailing. Book early — classes often sell out.</p>
-      </div>
-    </article>
+      <div id="searchResults" class="grid two" aria-live="polite" aria-busy="false"></div>
+    </section>
 
-    <!-- On a Roll Sushi -->
-    <article class="card activity">
-      <img class="wm" src="https://www.cruisinginthewake.com/assets/watermark.png" alt="">
-      <div class="activity__media">
-        <img src="https://www.cruisinginthewake.com/assets/restaurants/activities/on-a-roll_thumb.jpg" alt="On a Roll Sushi Making Class" loading="lazy" width="420" height="315">
-      </div>
-      <div class="activity__body">
-        <h3>On a Roll Sushi Making Class</h3>
-        <ul>
-          <li><strong>Typical Price (pp):</strong> $40</li>
-          <li><strong>Pre-Cruise Savings (Radiance example):</strong> $30.99 <span class="muted">(lowest this editor has ever seen)</span></li>
-        </ul>
-        <p class="muted">Pre-cruise discounts vary by sailing. Book early — classes often sell out.</p>
-      </div>
-    </article>
+    <section class="card" aria-labelledby="credits-h">
+      <h3 id="credits-h">Image Credits</h3>
+      <p class="tiny">Hero and supplemental images sourced from Wikimedia Commons. Replace placeholders with final credited media.</p>
+    </section>
+  </main>
 
-    <!-- Cupcake Decorating -->
-    <article class="card activity">
-      <img class="wm" src="https://www.cruisinginthewake.com/assets/watermark.png" alt="">
-      <div class="activity__media">
-        <img src="https://www.cruisinginthewake.com/assets/restaurants/activities/cupcake-class_thumb.jpg" alt="Sprinkle Time Cupcake Decorating Class" loading="lazy" width="420" height="315">
-      </div>
-      <div class="activity__body">
-        <h3>Sprinkle Time Cupcake Decorating Class</h3>
-        <ul>
-          <li><strong>Typical Price (pp):</strong> $35</li>
-          <li><strong>Pre-Cruise Savings (Radiance example):</strong> $27.99 <span class="muted">(lowest this editor has ever seen)</span></li>
-        </ul>
-        <p class="muted">Pre-cruise discounts vary by sailing. Book early — classes often sell out.</p>
-      </div>
-    </article>
+  <footer class="wrap" role="contentinfo">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+  </footer>
 
-    <!-- Taste of Royal — Lunch -->
-    <article class="card activity">
-      <img class="wm" src="https://www.cruisinginthewake.com/assets/watermark.png" alt="">
-      <div class="activity__media">
-        <img src="https://www.cruisinginthewake.com/assets/restaurants/activities/taste-of-royal_thumb.jpg" alt="Taste of Royal — Lunch" loading="lazy" width="420" height="315">
-      </div>
-      <div class="activity__body">
-        <h3>Taste of Royal — Lunch</h3>
-        <ul>
-          <li><strong>Typical Price (pp):</strong> $45</li>
-          <li><strong>Pre-Cruise Savings (Radiance example):</strong> $30.99 <span class="muted">(lowest this editor has ever seen)</span></li>
-        </ul>
-        <p class="muted">Chef-curated tasting menu; selections vary.</p>
-      </div>
-    </article>
+  <!-- Dataset + Search logic (typo-tolerant) -->
+  <script>
+  const SHIPS = [
+    { name:"Disney Wish",     url:"/ships/disney-wish.html",     aliases:["Disny Wish","Diznee Wish"] },
+    { name:"Disney Treasure", url:"/ships/disney-treasure.html", aliases:["Disny Treasure","Disney Tresure"] },
+    { name:"Disney Destiny",  url:"/ships/disney-destiny.html",  aliases:["Disny Destiny","Disney Destiney"] }
+  ];
 
-    <!-- Sushi & Sake — Lunch -->
-    <article class="card activity">
-      <img class="wm" src="https://www.cruisinginthewake.com/assets/watermark.png" alt="">
-      <div class="activity__media">
-        <img src="https://www.cruisinginthewake.com/assets/restaurants/activities/sushi-and-sake-lunch_thumb.jpg" alt="Sushi &amp; Sake — Lunch" loading="lazy" width="420" height="315">
-      </div>
-      <div class="activity__body">
-        <h3>Sushi &amp; Sake — Lunch</h3>
-        <ul>
-          <li><strong>Typical Price (pp):</strong> $45</li>
-          <li><strong>Pre-Cruise Savings (Radiance example):</strong> $30.99 <span class="muted">(lowest this editor has ever seen)</span></li>
-        </ul>
-        <p class="muted">Guided tasting with paired pours; offerings may differ by ship.</p>
-      </div>
-    </article>
+  const $ = s => document.querySelector(s);
+  const norm = s => String(s||'').toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[’‘]/g,"'").trim();
 
-    <!-- Placeholders for future adds (keep in grid flow) -->
-    <!-- Chef’s Table — Dinner -->
-    <!-- Sip • Tour • Brunch -->
-  </section>
+  function near(a,b){
+    if(a===b) return true;
+    if(!a||!b) return false;
+    const la=a.length, lb=b.length;
+    if(Math.abs(la-lb)>1) return false;
+    let i=0,j=0,e=0;
+    while(i<la && j<lb){
+      if(a[i]===b[j]){ i++; j++; continue; }
+      if(++e>1) return false;
+      if(la>lb) i++; else if(lb>la) j++; else { i++; j++; }
+    }
+    return true;
+  }
 
-  <!-- Logbook -->
-  <section class="card">
-    <img class="wm" src="https://www.cruisinginthewake.com/assets/watermark.png" alt="">
-    <div class="card__content">
-      <h2>Logbook — Guest Soundings</h2>
-      <p class="pill"><strong>Full disclosure:</strong> I have not yet attended every activity fleetwide. Until I do, this Logbook is an aggregate of vetted guest soundings, taken in their own wake, trimmed and edited to our dining standards.</p>
-      <blockquote>“Candy Sushi was a hit with the kids — high-energy and sweet fun.”</blockquote>
-      <blockquote>“On a Roll teaches real sushi-rolling basics; come hungry.”</blockquote>
-      <blockquote>“Cupcake Decorating sells out fast. Pre-book.”</blockquote>
-    </div>
-  </section>
+  function searchShips(q){
+    const t = norm(q);
+    if(!t) return SHIPS;
+    return SHIPS.filter(s=>{
+      const hay = [s.name, ...(s.aliases||[])].map(norm);
+      return hay.some(h => h.includes(t) || near(t,h) || h.split(/\s+/).some(w => w.startsWith(t) || near(t,w)));
+    });
+  }
 
-  <!-- Sources -->
-  <section class="card">
-    <img class="wm" src="https://www.cruisinginthewake.com/assets/watermark.png" alt="">
-    <div class="card__content">
-      <h2>Sources &amp; Attribution</h2>
-      <ul><li>Royal Caribbean Cruise Planner (screenshots) — Radiance of the Seas</li></ul>
-    </div>
-  </section>
+  function renderResults(list){
+    const root = $('#searchResults'); if(!root) return;
+    root.setAttribute('aria-busy','true');
+    root.innerHTML = list.map(s => `
+      <a class="card" href="${s.url}" aria-label="${s.name}">
+        <strong>${s.name}</strong><br><small>Open ship profile</small>
+      </a>
+    `).join('');
+    root.setAttribute('aria-busy','false');
+  }
 
-  <p class="disclaimer" style="text-align:center;margin-top:2rem">
-    <strong>Note:</strong> Prices are subject to change at any time without notice. These represent typical fleetwide baselines; your Radiance pre-cruise rates were the lowest this editor has observed.
-  </p>
-</main>
+  function wireSearch(){
+    const input = $('#shipSearch'), btn = $('#btnSearch');
+    const go = ()=> renderResults(searchShips(input.value||''));
+    input?.addEventListener('input', ()=>{ clearTimeout(input._t); input._t = setTimeout(go, 90); });
+    btn?.addEventListener('click', go);
+    go();
+  }
 
-<footer class="site-footer">
-  <p>© 2025 In the Wake — A Cruise Traveler’s Logbook</p>
-</footer>
+  document.addEventListener('DOMContentLoaded', wireSearch, { once:true });
+  </script>
 
   <!-- JAVASCRIPT -->
   <script>
