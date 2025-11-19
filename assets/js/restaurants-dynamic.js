@@ -82,6 +82,64 @@
   let currentFilter = 'all';
 
   /**
+   * Fuzzy matching using Levenshtein distance
+   */
+  function levenshteinDistance(str1, str2) {
+    const m = str1.length;
+    const n = str2.length;
+    const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+
+    for (let i = 0; i <= m; i++) dp[i][0] = i;
+    for (let j = 0; j <= n; j++) dp[0][j] = j;
+
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        if (str1[i - 1] === str2[j - 1]) {
+          dp[i][j] = dp[i - 1][j - 1];
+        } else {
+          dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+        }
+      }
+    }
+    return dp[m][n];
+  }
+
+  /**
+   * Check if query fuzzy-matches target
+   */
+  function fuzzyMatch(query, target, threshold = 0.3) {
+    if (!query || !target) return false;
+
+    const q = query.toLowerCase().trim();
+    const t = target.toLowerCase();
+
+    // Exact substring match
+    if (t.includes(q)) return true;
+
+    // Word-by-word matching
+    const targetWords = t.split(/[\s\-]+/);
+    for (const word of targetWords) {
+      if (word.startsWith(q)) return true;
+      if (word.includes(q)) return true;
+    }
+
+    // Fuzzy match using Levenshtein for short queries
+    if (q.length >= 3) {
+      for (const word of targetWords) {
+        const distance = levenshteinDistance(q, word.substring(0, q.length + 2));
+        const maxLen = Math.max(q.length, word.length);
+        if (distance / maxLen <= threshold) return true;
+      }
+
+      // Also check against full target
+      const distance = levenshteinDistance(q, t.substring(0, q.length + 3));
+      if (distance <= Math.ceil(q.length * threshold)) return true;
+    }
+
+    return false;
+  }
+
+  /**
    * Get image for a venue
    */
   function getVenueImage(slug) {
@@ -258,6 +316,7 @@
     // Initialize interactions
     initializeFilters();
     initializeCollapsibles();
+    initializeSearch();
     announceLoaded(venuesArray.length);
   }
 
@@ -335,6 +394,130 @@
     if (status) {
       status.textContent = `${count} venues loaded across dining and bar categories`;
     }
+  }
+
+  /**
+   * Initialize search functionality
+   */
+  function initializeSearch() {
+    const searchInput = document.getElementById('venueSearch');
+    const clearBtn = document.getElementById('clearVenueSearch');
+    const resultsInfo = document.getElementById('venueSearchResults');
+
+    if (!searchInput) return;
+
+    let debounceTimer;
+
+    function performSearch(query) {
+      const trimmedQuery = query.trim();
+      const venueCards = document.querySelectorAll('.item-card[data-venue]');
+      const categorySections = document.querySelectorAll('.category-section');
+
+      // Clear button visibility
+      if (clearBtn) {
+        clearBtn.style.display = trimmedQuery ? 'block' : 'none';
+      }
+
+      // If no query, show everything
+      if (!trimmedQuery) {
+        venueCards.forEach(card => card.classList.remove('search-hidden'));
+        categorySections.forEach(section => {
+          section.classList.remove('search-empty');
+        });
+        if (resultsInfo) resultsInfo.textContent = '';
+        return;
+      }
+
+      let matchCount = 0;
+      const matchedCategories = new Set();
+
+      // Check each venue
+      venueCards.forEach(card => {
+        const venueSlug = card.getAttribute('data-venue');
+        const category = card.getAttribute('data-category');
+
+        // Build search text from venue data
+        const titleEl = card.querySelector('.item-card-title');
+        const ctaEl = card.querySelector('.item-card-cta');
+        const shipsEl = card.querySelector('.ships-available');
+
+        const searchParts = [
+          titleEl ? titleEl.textContent : '',
+          venueSlug ? venueSlug.replace(/-/g, ' ') : '',
+          category || '',
+          ctaEl ? ctaEl.textContent : '',
+          shipsEl ? shipsEl.textContent : ''
+        ];
+        const searchText = searchParts.join(' ').toLowerCase();
+
+        const isMatch = fuzzyMatch(trimmedQuery, searchText);
+
+        if (isMatch) {
+          card.classList.remove('search-hidden');
+          matchCount++;
+          if (category) matchedCategories.add(category);
+        } else {
+          card.classList.add('search-hidden');
+        }
+      });
+
+      // Hide/show category sections based on visible venues
+      categorySections.forEach(section => {
+        const visibleVenues = section.querySelectorAll('.item-card:not(.search-hidden)');
+
+        if (visibleVenues.length === 0) {
+          section.classList.add('search-empty');
+        } else {
+          section.classList.remove('search-empty');
+        }
+      });
+
+      // Update results info
+      if (resultsInfo) {
+        if (matchCount === 0) {
+          resultsInfo.innerHTML = `<strong>No venues found for "${trimmedQuery.replace(/</g, '&lt;')}"</strong> — try a different spelling`;
+        } else {
+          const catNames = {
+            'dining': 'Dining',
+            'bars': 'Bars & Lounges'
+          };
+          const categoryText = matchedCategories.size === 1
+            ? `in ${catNames[Array.from(matchedCategories)[0]] || Array.from(matchedCategories)[0]}`
+            : matchedCategories.size > 1
+              ? `across ${matchedCategories.size} categories`
+              : '';
+          resultsInfo.textContent = `Found ${matchCount} venue${matchCount !== 1 ? 's' : ''} ${categoryText}`;
+        }
+      }
+    }
+
+    // Debounced search on input
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        performSearch(e.target.value);
+      }, 150);
+    });
+
+    // Clear button
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        performSearch('');
+        searchInput.focus();
+      });
+    }
+
+    // Handle Enter key (prevent form submission if in form)
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        performSearch('');
+      }
+    });
   }
 
   /**
