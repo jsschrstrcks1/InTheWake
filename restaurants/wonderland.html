@@ -50,6 +50,46 @@
     .card{position:relative;overflow:hidden}
     .card>img[aria-hidden]{position:absolute;inset:0;margin:auto;opacity:.08;max-width:60%;pointer-events:none;z-index:0}
     .card .card__content{position:relative;z-index:1}
+  
+    /* Navigation horizontal layout */
+    .navbar {
+      display: flex;
+      align-items: flex-end;
+      gap: .6rem;
+      flex-wrap: nowrap;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: nowrap;
+    }
+    .nav-item {
+      display: inline-block;
+    }
+    .nav-item > a {
+      display: inline-flex;
+      align-items: center;
+      padding: .5rem .75rem;
+      border-radius: 8px;
+      background: #fff;
+      border: 2px solid var(--rope, #8B7355);
+      color: var(--accent, #0e6e8e);
+      font-size: .9rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-item > a:hover {
+      background: var(--foam, #eaf6f6);
+      border-color: var(--accent, #0e6e8e);
+    }
+    .nav-item > a[aria-current="page"] {
+      background: var(--accent, #0e6e8e);
+      color: #fff;
+      font-weight: 600;
+    }
+  
   </style>
 
 <script type="application/ld+json">
@@ -92,8 +132,8 @@
     <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
     <div class="hero-title">
       <img class="logo" src="/assets/logo_wake.png?v=3.010.300" width="560" height="144" alt="In the Wake" decoding="async"/>
+      <div class="tagline">A Cruise Traveler\'s Logbook</div>
     </div>
-    <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
   </div>
 </header>
 
@@ -139,7 +179,12 @@
     <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content">
       <h2>Where You'll Find It</h2>
-      <p>Wonderland is available on select Royal Caribbean ships. Check your ship's deck plan for exact location.</p>
+      <p>Available on the following Royal Caribbean ships:</p>
+      <ul class="ship-availability-list" style="list-style: none; padding: 0; margin: 1rem 0;">
+        <li style="margin-bottom: 0.5rem;"><strong>Oasis Class:</strong> <a href="/ships/rcl/allure-of-the-seas.html">Allure</a>, <a href="/ships/rcl/harmony-of-the-seas.html">Harmony</a>, <a href="/ships/rcl/symphony-of-the-seas.html">Symphony</a>, <a href="/ships/rcl/wonder-of-the-seas.html">Wonder</a></li>
+        <li style="margin-bottom: 0.5rem;"><strong>Quantum Ultra Class:</strong> <a href="/ships/rcl/odyssey-of-the-seas.html">Odyssey</a>, <a href="/ships/rcl/spectrum-of-the-seas.html">Spectrum</a></li>
+        <li style="margin-bottom: 0.5rem;"><strong>Quantum Class:</strong> <a href="/ships/rcl/anthem-of-the-seas.html">Anthem</a>, <a href="/ships/rcl/ovation-of-the-seas.html">Ovation</a>, <a href="/ships/rcl/quantum-of-the-seas.html">Quantum</a></li>
+      </ul>
     </div>
   </section>
 
