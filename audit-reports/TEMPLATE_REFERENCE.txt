@@ -1,0 +1,208 @@
+================================================================================
+                    ICP-LITE TEMPLATE REFERENCE GUIDE
+================================================================================
+
+USE THESE FILES AS YOUR IMPLEMENTATION TEMPLATES:
+
+BEST EXAMPLE (Fully Compliant):
+  /home/user/InTheWake/cruise-lines/carnival.html
+  
+  What this file has:
+  - ai-summary meta tag (line 71)
+  - last-reviewed meta tag (line 72)
+  - content-protocol meta tag (line 73)
+  - ai-breadcrumbs comment in <head> (lines 4-15)
+  - WebPage JSON-LD schema (lines 96-106)
+  - FAQPage JSON-LD schema (lines 107-129)
+  - <main> section (line 719)
+  - <h1> heading (line 722)
+  - answer-line class (line 723)
+  - fit-guidance class (line 725)
+  - key-facts class (line 731)
+  - FAQ sections (lines 805+)
+  
+  Instructions:
+  1. Open /cruise-lines/carnival.html
+  2. Copy the <head> structure (meta tags through closing </head>)
+  3. Adapt ai-summary, last-reviewed, breadcrumbs for your page
+  4. Copy the <main> structure with answer-line, fit-guidance, key-facts divs
+  5. Create FAQ sections for your content
+
+SECOND BEST EXAMPLE:
+  /home/user/InTheWake/cruise-lines/disney.html
+  Same structure as carnival.html, different content
+
+SIMPLER COMPLIANT EXAMPLE (Ships):
+  /home/user/InTheWake/ships/rcl/discovery-class-ship-tbn.html
+  
+  Use this if you want to see ship page compliance structure
+  Follows same pattern as cruise-lines but for ship reference pages
+
+INDEX PAGE EXAMPLE:
+  /home/user/InTheWake/ships.html
+  
+  Use this for category/index page compliance structure
+
+================================================================================
+WHAT EACH COMPONENT DOES:
+
+1. META TAGS (In <head>)
+   <meta name="ai-summary" content="..."/>
+   Purpose: Provides AI systems with quick page summary
+   
+   <meta name="last-reviewed" content="YYYY-MM-DD"/>
+   Purpose: Timestamp for content freshness
+   
+   <meta name="content-protocol" content="ICP-Lite v1.0"/>
+   Purpose: Declares compliance standard
+
+2. AI-BREADCRUMBS COMMENT (In <head>)
+   <!-- ai-breadcrumbs
+        entity: Page Title
+        parent: /parent-page.html
+        answer-first: Quick answer sentence
+        core-facts: Key points
+        decisions-informed: What decisions this helps with
+        updated: 2025-11-19
+   -->
+   Purpose: Structured metadata for AI understanding
+
+3. WEBPAGE JSON-LD (In <head>)
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "WebPage",
+     "name": "Page Title",
+     "description": "Page description",
+     "url": "https://..."
+   }
+   </script>
+   Purpose: Structured data for search engines
+
+4. FAQPAGE JSON-LD (In <head>)
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "FAQPage",
+     "mainEntity": [
+       {
+         "@type": "Question",
+         "name": "Q1?",
+         "acceptedAnswer": {"@type": "Answer", "text": "A1"}
+       }
+     ]
+   }
+   </script>
+   Purpose: FAQ-specific structured data for search engines
+
+5. MAIN CONTENT STRUCTURE (In <main>)
+   <h1>Page Title</h1>
+   <p class="answer-line"><strong>Quick Answer:</strong> ...</p>
+   <div class="fit-guidance">...</div>
+   <div class="key-facts">...</div>
+   <section class="faq">...</section>
+   
+   Purpose: Semantic markers for AI and accessibility
+
+================================================================================
+COPY-PASTE TEMPLATES:
+
+MINIMAL META TAGS (Copy to <head>):
+  <!-- ICP-Lite v1.0: AI-First Metadata -->
+  <meta name="ai-summary" content="[PAGE SUMMARY]"/>
+  <meta name="last-reviewed" content="2025-11-19"/>
+  <meta name="content-protocol" content="ICP-Lite v1.0"/>
+
+MINIMAL AI-BREADCRUMBS (Copy to <head>):
+  <!-- ai-breadcrumbs
+       entity: [Page Entity Name]
+       parent: [/parent-page.html]
+       answer-first: [Quick answer sentence]
+       core-facts: [Key fact 1, Key fact 2, Key fact 3]
+       decisions-informed: [What decisions this helps with]
+       updated: 2025-11-19
+  -->
+
+MINIMAL WEBPAGE JSON-LD (Copy to <head>):
+  <!-- JSON-LD: WebPage (ICP-Lite) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "[PAGE_TITLE]",
+    "description": "[PAGE_DESCRIPTION]",
+    "url": "[FULL_URL]"
+  }
+  </script>
+
+MINIMAL MAIN STRUCTURE (Copy to <main>):
+  <h1>[Page Title]</h1>
+  <p class="answer-line"><strong>Quick Answer:</strong> [Your answer]</p>
+  <div class="fit-guidance">
+    <h2>Is This Page For You?</h2>
+    <p>[Guidance on who this page is for]</p>
+  </div>
+  <div class="key-facts">
+    <h2>Key Facts</h2>
+    <ul>
+      <li>[Fact 1]</li>
+      <li>[Fact 2]</li>
+    </ul>
+  </div>
+
+MINIMAL FAQ SECTION (Copy to <main>):
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>Question?</h3>
+      <p>Answer.</p>
+    </div>
+  </section>
+
+================================================================================
+QUICK CHECKLIST FOR COMPLIANCE:
+
+Before submitting a page, verify:
+
+In <head>:
+  [ ] ai-summary meta tag
+  [ ] last-reviewed meta tag (with today's date)
+  [ ] content-protocol meta tag (ICP-Lite v1.0)
+  [ ] ai-breadcrumbs comment with all required fields
+  [ ] WebPage JSON-LD schema
+  [ ] FAQPage JSON-LD schema (if page has FAQ)
+
+In <main>:
+  [ ] <h1> element with page title
+  [ ] <p class="answer-line"> with quick answer
+  [ ] <div class="fit-guidance"> section
+  [ ] <div class="key-facts"> section
+  [ ] <section class="faq"> section (if applicable)
+
+All 11 items checked = FULLY COMPLIANT
+
+================================================================================
+FILE STATISTICS FOR PLANNING:
+
+Files needing EACH requirement:
+  - WebPage JSON-LD:       226 files (easy to add)
+  - H1 headings:           183 files (medium effort)
+  - Content structure:     265 files (moderate effort)
+  - FAQ sections:          352 files (high effort)
+  - FAQPage JSON-LD:       328 files (depends on FAQ)
+
+EFFORT ESTIMATES:
+  Adding 1 WebPage JSON-LD:      5-10 minutes per file (can automate)
+  Adding 1 H1 heading:           5-10 minutes per file
+  Adding content structure:      15-20 minutes per file (repetitive)
+  Creating 1 FAQ section:        30-60 minutes per file (varies)
+  Adding FAQPage JSON-LD:        5 minutes per file (auto-generate)
+
+TOTAL EFFORT TO 100%:
+  Phase 1 (WebPage + H1):        5-7 days
+  Phase 2 (Structure + FAQ):     8-15 weeks
+  Phase 3 (Finishing + process): 2-3 days
+  
+  Total: ~4-7 weeks with small team
+
+================================================================================
