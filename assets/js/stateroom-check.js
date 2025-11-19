@@ -114,7 +114,7 @@
 
       return await response.json();
     } catch (error) {
-      console.error('Failed to fetch stateroom data:', error);
+
       return null;
     }
   }

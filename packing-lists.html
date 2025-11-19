@@ -1430,7 +1430,7 @@
           const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
           if (res.ok) return await res.json();
         }catch(err){
-          console.warn(`Failed to fetch ${u}:`, err);
+
         }
       }
       return null;

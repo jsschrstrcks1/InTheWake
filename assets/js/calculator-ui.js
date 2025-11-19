@@ -109,18 +109,17 @@ let quizState = { step: 1, answers: {}, recommendedPreset: null };
 /* ==================== PRESET APPLICATION ==================== */
 
 function applyPreset(presetKey) {
-  console.log(`[Preset] ======================================`);
-  console.log(`[Preset] Applying preset: ${presetKey}`);
-  console.log(`[Preset] ======================================`);
+
+
 
   const preset = PRESETS[presetKey];
   if (!preset) {
-    console.warn(`[Preset] Unknown preset: ${presetKey}`);
+
     return;
   }
 
   if (!window.ITW || !window.ITW.store) {
-    console.error('[Preset] ITW core not loaded');
+
     return;
   }
 
@@ -128,14 +127,10 @@ function applyPreset(presetKey) {
   const inputs = store.get('inputs');
   const drinks = { ...inputs.drinks };
 
-  console.log('[Preset] Current drinks:', drinks);
-
   // Update drinks with preset values
   Object.keys(drinks).forEach(key => {
     drinks[key] = preset.drinks[key] !== undefined ? preset.drinks[key] : 0;
   });
-
-  console.log('[Preset] New drinks:', drinks);
 
   // Update store
   store.patch('inputs', { ...inputs, drinks });
@@ -147,8 +142,6 @@ function applyPreset(presetKey) {
       input.value = drinks[key];
     }
   });
-
-  console.log('[Preset] Store and UI updated, forcing calculation...');
 
   // Force calculation IMMEDIATELY
   if (window.ITW.scheduleCalc) {
@@ -162,13 +155,12 @@ function applyPreset(presetKey) {
 
   // Force UI render
   setTimeout(function() {
-    console.log('[Preset] Forcing UI render after preset...');
+
     renderAll();
   }, 150);
 
   announce(`${preset.label} preset applied. ${preset.description}`);
 
-  console.log(`[Preset] ✓ Preset applied: ${presetKey}`);
 }
 
 /* ==================== PRESET BUTTONS RENDERING ==================== */
@@ -176,7 +168,7 @@ function applyPreset(presetKey) {
 function renderPresetButtons() {
   const container = document.getElementById('preset-buttons');
   if (!container) {
-    console.warn('[UI] Preset buttons container not found');
+
     return;
   }
   
@@ -206,8 +198,7 @@ function renderPresetButtons() {
     
     container.appendChild(button);
   });
-  
-  console.log('[UI] ✓ Rendered 7 preset buttons with accessibility');
+
 }
 
 /* ==================== BANNER & TOTALS ==================== */
@@ -256,7 +247,7 @@ function renderChart(bars, winnerKey) {
   if (!canvas) canvas = document.getElementById('breakeven-chart');
   
   if (!canvas) {
-    console.warn('[UI] Chart canvas not found');
+
     return;
   }
   
@@ -334,7 +325,7 @@ function renderChart(bars, winnerKey) {
     renderChartTable(chartData, winnerKey);
     
   } catch (error) {
-    console.error('[UI] Chart creation failed:', error);
+
   }
 }
 
@@ -347,7 +338,7 @@ function renderChart(bars, winnerKey) {
 function renderChartTable(chartData, winnerKey) {
   const table = document.getElementById('chart-sr-table');
   if (!table) {
-    console.warn('[UI] Screen reader chart table not found - accessibility gap!');
+
     return;
   }
   
@@ -412,8 +403,7 @@ function renderChartTable(chartData, winnerKey) {
   });
   
   table.appendChild(tbody);
-  
-  console.log('[UI] ✓ Updated screen reader chart table');
+
 }
 
 /* ==================== PACKAGE CARDS (TWO-WINNER SYSTEM) ==================== */
@@ -582,7 +572,7 @@ function setupQuiz() {
   const skipBtn = document.getElementById('quiz-skip-btn');
   
   if (!modal) {
-    console.warn('[UI] Quiz modal not found');
+
     return;
   }
   
@@ -648,8 +638,7 @@ function setupQuiz() {
       closeQuiz();
     });
   }
-  
-  console.log('[UI] ✓ Quiz modal configured with keyboard accessibility');
+
 }
 
 /**
@@ -784,8 +773,7 @@ function fetchArticles() {
   }).join('');
   
   if (fallback) fallback.style.display = 'none';
-  
-  console.log('[UI] ✓ Articles populated');
+
 }
 
 /* ==================== NUDGES & HEALTH NOTES ==================== */
@@ -847,8 +835,7 @@ function renderNudges(nudges) {
     div.appendChild(message);
     container.appendChild(div);
   });
-  
-  console.log(`[UI] ✓ Rendered ${nudges.length} nudges`);
+
 }
 
 /**
@@ -969,7 +956,6 @@ function renderCostSummary(results) {
     table.appendChild(row);
   });
 
-  console.log('[UI] ✓ Rendered cost summary card');
 }
 
 function renderHealthNote(healthNote) {
@@ -1040,8 +1026,7 @@ function renderHealthNote(healthNote) {
   wrapper.appendChild(contentDiv);
   
   container.appendChild(wrapper);
-  
-  console.log('[UI] ✓ Rendered health note');
+
 }
 
 /* ==================== SUMMARY & TABLES ==================== */
@@ -1146,59 +1131,44 @@ function announce(message, priority = 'polite') {
 /* ==================== MAIN RENDER FUNCTION ==================== */
 
 function renderAll() {
-  console.log('[UI Render] ======================================');
+
   console.log('[UI Render] renderAll() called');
-  console.log('[UI Render] ======================================');
 
   if (!window.ITW || !window.ITW.store) {
-    console.error('[UI Render] ✗ ITW core not initialized!');
+
     return;
   }
 
   const state = window.ITW.store.get();
   const { results } = state;
 
-  console.log('[UI Render] State retrieved:', state);
-  console.log('[UI Render] Results:', results);
 
   if (!results) {
-    console.warn('[UI Render] ✗ No results to render');
+
     return;
   }
 
-  console.log('[UI Render] Rendering components...');
-
   try {
     renderBanner(results);
-    console.log('[UI Render] ✓ Banner rendered');
 
     renderTotals(results);
-    console.log('[UI Render] ✓ Totals rendered');
 
     renderChart(results.bars, results.winnerKey);
-    console.log('[UI Render] ✓ Chart rendered');
 
     renderPackageCards(results);
-    console.log('[UI Render] ✓ Package cards rendered');
 
     renderSummary(results);
-    console.log('[UI Render] ✓ Summary rendered');
 
     renderCategoryTable(results.categoryRows || []);
-    console.log('[UI Render] ✓ Category table rendered');
 
     renderNudges(results.nudges || []);
-    console.log('[UI Render] ✓ Nudges rendered');
 
     renderHealthNote(results.healthNote);
-    console.log('[UI Render] ✓ Health note rendered');
 
     renderCostSummary(results);
-    console.log('[UI Render] ✓ Cost summary rendered');
 
-    console.log('[UI Render] ✓✓✓ ALL COMPONENTS RENDERED ✓✓✓');
   } catch (error) {
-    console.error('[UI Render] ✗ Error during rendering:', error);
+
   }
 }
 
@@ -1218,12 +1188,8 @@ function setupNonAlcoholicToggle() {
     return;
   }
 
-  console.log('[UI] ✓ Setting up non-alcoholic view toggle');
-
   toggle.addEventListener('change', function() {
     const isNonAlcOnly = toggle.checked;
-
-    console.log('[UI] Non-alcoholic mode:', isNonAlcOnly ? 'ON' : 'OFF');
 
     // Show/hide affirmation message
     if (affirmation) {
@@ -1278,12 +1244,8 @@ function setupPricingToggle() {
     return;
   }
 
-  console.log('[UI] ✓ Setting up pricing toggle');
-
   pricingSelect.addEventListener('change', function() {
     const pricingType = pricingSelect.value; // 'pre' or 'onboard'
-
-    console.log('[UI] Pricing type changed to:', pricingType);
 
     // Note: This is a UI feature for user awareness
     // Actual price adjustments would need to be implemented
@@ -1308,12 +1270,10 @@ function initializeUI() {
 
   // ✅ CRITICAL: Wait for core to be ready
   if (!window.ITW_BOOTED || !window.ITW || !window.ITW.store) {
-    console.warn('[UI] Core not ready yet, waiting...');
+
     setTimeout(initializeUI, 100);
     return;
   }
-
-  console.log('[UI] Core detected, proceeding with UI initialization');
 
   // ✅ CRITICAL FIX: Actually render preset buttons!
   renderPresetButtons();
@@ -1329,14 +1289,13 @@ function initializeUI() {
 
   // Subscribe to store changes (debounced)
   window.ITW.store.subscribe('results', (newResults, fullState) => {
-    console.log('[UI] ======================================');
-    console.log('[UI] 🔔 RESULTS SUBSCRIPTION FIRED!');
-    console.log('[UI] ======================================');
-    console.log('[UI] New results received:', newResults);
-    console.log('[UI] Full state:', fullState);
+
+
+
+
 
     if (window._renderTimeout) {
-      console.log('[UI] Clearing previous render timeout');
+
       clearTimeout(window._renderTimeout);
     }
 
@@ -1355,7 +1314,6 @@ function initializeUI() {
     announce('Calculator ready. All features loaded and accessible.');
   }, 1000);
 
-  console.log('[UI] ✓ Initialized v1.003.000 - Full accessibility active with integrated features');
 }
 
 // Auto-initialize (wait for core to be ready)

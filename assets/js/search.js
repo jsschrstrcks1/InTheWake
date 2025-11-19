@@ -58,10 +58,8 @@ async function initSearch() {
       });
     }
 
-    console.log(`Search initialized with ${searchIndex.length} items`);
-
   } catch (error) {
-    console.error('Search initialization error:', error);
+
     showError('Unable to load search. Please try refreshing the page.');
   }
 }

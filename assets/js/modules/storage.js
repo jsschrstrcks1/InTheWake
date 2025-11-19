@@ -28,8 +28,7 @@ export class SafeStorage {
       return true;
     } catch (err) {
       // QuotaExceededError or other
-      console.error('[Storage] Write error:', err);
-      
+
       // Try to clear old items
       this.clearExpired();
       
@@ -72,7 +71,7 @@ export class SafeStorage {
       
       return JSON.parse(item.value);
     } catch (err) {
-      console.error('[Storage] Read error:', err);
+
       return null;
     }
   }
@@ -127,7 +126,7 @@ export class SafeStorage {
       }
       
       if (cleared > 0) {
-        console.log(`[Storage] Cleared ${cleared} expired items`);
+
       }
       
       return cleared;

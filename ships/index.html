@@ -747,7 +747,7 @@
         if(!ct.includes('application/json')) throw new Error('Not JSON: '+ct);
         return await r.json();
       }catch(e){
-        console.error('[fleet] load failed:', e);
+
         return null;
       }
     }

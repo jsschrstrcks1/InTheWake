@@ -26,12 +26,10 @@
      * Call this after DOM is ready and packages are rendered
      */
     init: function() {
-      console.log('[Package Selection] Initializing interactive cards...');
-      
+
       this.attachCardListeners();
       this.attachResetListener();
-      
-      console.log('[Package Selection] Ready ✓');
+
     },
     
     /**
@@ -92,8 +90,7 @@
      * User selects a specific package to view
      */
     selectPackage: function(packageType) {
-      console.log('[Package Selection] User selected:', packageType);
-      
+
       this.userSelectedPackage = packageType;
       
       // Update visual state
@@ -115,8 +112,7 @@
      * Reset to recommendation
      */
     resetToRecommendation: function() {
-      console.log('[Package Selection] Resetting to recommendation');
-      
+
       this.userSelectedPackage = null;
       
       // Clear visual state
@@ -235,24 +231,21 @@
      * ✅ NEW v1.003.000: Properly integrated with ITW calculator
      */
     triggerCalculationWithForcedPackage: function(forcedPackage) {
-      console.log('[Package Selection] Triggering calculation with forced package:', forcedPackage);
 
       if (!window.ITW || !window.ITW.store) {
-        console.error('[Package Selection] ITW calculator not available!');
+
         return;
       }
 
       // Set forced package in state using nested path notation
       window.ITW.store.patch('ui.forcedPackage', forcedPackage);
 
-      console.log('[Package Selection] State updated with forced package');
-
       // Trigger calculation
       if (window.ITW.scheduleCalc) {
         window.ITW.scheduleCalc();
-        console.log('[Package Selection] ✓ Calculation triggered');
+
       } else {
-        console.error('[Package Selection] scheduleCalc not available!');
+
       }
     },
 
@@ -261,10 +254,9 @@
      * ✅ NEW v1.003.000: Properly integrated with ITW calculator
      */
     triggerNormalCalculation: function() {
-      console.log('[Package Selection] Resetting to auto-recommendation mode');
 
       if (!window.ITW || !window.ITW.store) {
-        console.error('[Package Selection] ITW calculator not available!');
+
         return;
       }
 
@@ -276,9 +268,9 @@
       // Trigger calculation
       if (window.ITW.scheduleCalc) {
         window.ITW.scheduleCalc();
-        console.log('[Package Selection] ✓ Calculation triggered');
+
       } else {
-        console.error('[Package Selection] scheduleCalc not available!');
+
       }
     },
     

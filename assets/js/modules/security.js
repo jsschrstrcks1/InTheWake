@@ -115,7 +115,7 @@ export class Security {
       }
       
       if (calls >= limit) {
-        console.warn('[Security] Rate limit exceeded');
+
         return;
       }
       
@@ -143,7 +143,7 @@ export class Security {
         
         return true;
       } catch (err) {
-        console.error('[Security] Storage error:', err);
+
         return false;
       }
     },
@@ -163,7 +163,7 @@ export class Security {
         
         return JSON.parse(item.value);
       } catch (err) {
-        console.error('[Security] Storage read error:', err);
+
         return null;
       }
     },
@@ -239,12 +239,7 @@ export class Security {
    * Content Security Policy helper
    */
   static reportCSPViolation(violation) {
-    console.warn('[CSP Violation]', {
-      blockedURI: violation.blockedURI,
-      violatedDirective: violation.violatedDirective,
-      originalPolicy: violation.originalPolicy
-    });
-    
+
     // Report to analytics if enabled
     if (window.itwTrack) {
       window.itwTrack('csp_violation', {
@@ -272,8 +267,7 @@ export class Security {
     document.querySelectorAll('input[type="text"], input[type="email"]').forEach(input => {
       this.wireSecureInput(input);
     });
-    
-    console.log('[Security] Initialized');
+
   }
 }
 

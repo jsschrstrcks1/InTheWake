@@ -180,7 +180,7 @@
         if (live) live.textContent = 'Security tab selected';
       });
     }
-    console.log('[SW-Health] Security tab ready v' + VER);
+
   }
 
   if (document.readyState === 'loading') {

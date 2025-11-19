@@ -53,7 +53,7 @@
       }
     } catch (e) {
       // Venue data loading is optional - page works without it
-      console.debug('[venue-boot] Venue data not loaded:', e.message);
+
     }
   }
 

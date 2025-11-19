@@ -35,7 +35,7 @@
 
     const groups = qsa('.nav-group');
     if(!groups.length){
-      console.warn('[In the Wake] newnav.js: no .nav-group elements found.');
+
       return;
     }
 

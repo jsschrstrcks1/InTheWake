@@ -35,7 +35,7 @@
 const VERSION = '1.003.000'; // ✅ FIXED: Removed 'v' prefix
 
 if (window.ITW_BOOTED) {
-  console.warn('[Core] Already initialized, skipping duplicate init');
+
   return;
 }
 
@@ -351,7 +351,7 @@ const SafeStorage = {
       localStorage.setItem(sanitizedKey, JSON.stringify(item));
       return true;
     } catch (err) {
-      console.error('[Storage] Write error:', err);
+
       this.clearExpired();
       try {
         const item = { value: JSON.stringify(value), timestamp: Date.now(), ttl: ttl, version: VERSION };
@@ -375,7 +375,7 @@ const SafeStorage = {
       
       // Reject future timestamps
       if (item.timestamp > now) {
-        console.warn('[Storage] Rejecting future timestamp');
+
         this.remove(key);
         return null;
       }
@@ -395,7 +395,7 @@ const SafeStorage = {
       
       return JSON.parse(item.value);
     } catch (err) {
-      console.error('[Storage] Read error:', err);
+
       return null;
     }
   },
@@ -598,11 +598,9 @@ function createStore(initialState) {
 
     const finalKeysToNotify = Array.from(keysToNotify);
 
-    console.log('[Store] Keys changed:', changedKeys);
-    console.log('[Store] Keys to notify:', finalKeysToNotify);
 
     if (finalKeysToNotify.length === 0) {
-      console.log('[Store] No changes detected, skipping notification');
+
       return;
     }
 
@@ -615,7 +613,7 @@ function createStore(initialState) {
         try {
           cb(state[key], state);
         } catch (err) {
-          console.error(`[Store] Subscriber error for key "${key}":`, err);
+
         }
       });
     });
@@ -627,7 +625,7 @@ function createStore(initialState) {
         try {
           cb(state, state);
         } catch (err) {
-          console.error('[Store] Global subscriber error:', err);
+
         }
       });
     }
@@ -641,7 +639,7 @@ function createStore(initialState) {
     const keys = path.split('.');
     if (keys.length === 1) {
       if (keys[0] === 'results') {
-        console.log('[Store] ⚡ Patching RESULTS:', value);
+
       }
       set({ [keys[0]]: value });
       return;
@@ -661,7 +659,6 @@ function createStore(initialState) {
   
   function subscribe(keys, callback) {
     const list = Array.isArray(keys) ? keys : [keys];
-    console.log('[Store] ✓ New subscription to keys:', list);
 
     list.forEach(key => {
       if (!subscribers.has(key)) subscribers.set(key, new Set());
@@ -767,7 +764,7 @@ function loadFromStorage() {
     
     console.log('[Core] State loaded from storage (protected by allowlist)');
   } catch (e) {
-    console.warn('[Core] Failed to load from storage:', e);
+
   }
 }
 
@@ -777,7 +774,7 @@ function saveToStorage() {
     const { inputs, economics } = state;
     SafeStorage.set(CONFIG.STORAGE_KEYS.state, { inputs, economics, version: VERSION });
   } catch (e) {
-    console.warn('[Core] Failed to save to storage:', e);
+
   }
 }
 
@@ -801,7 +798,7 @@ async function loadFXRates() {
       const maxAgeMs = CONFIG.CACHE.FX_REFRESH_HOURS * 60 * 60 * 1000;
       if (ageMs < maxAgeMs) {
         fxRates = cached;
-        console.log('[Core] Using cached FX rates');
+
         return;
       }
     }
@@ -823,13 +820,13 @@ async function loadFXRates() {
         timestamp: Date.now()
       };
       SafeStorage.set(CONFIG.STORAGE_KEYS.fx, fxRates);
-      console.log('[Core] FX rates refreshed');
+
     } catch (error) {
-      console.warn('[Core] FX fetch failed, using cached or defaults:', error);
+
       store.patch('ui.fxStale', true);
     }
   } else {
-    console.log('[Core] Offline, using cached FX rates');
+
     store.patch('ui.fxStale', true);
   }
 }
@@ -900,7 +897,7 @@ async function loadBrandConfig() {
       return brand;
     }
   } catch (error) {
-    console.warn('[Core] Failed to load brand config:', error);
+
   }
   return null;
 }
@@ -950,9 +947,9 @@ async function loadDataset() {
     
     store.patch('economics', economics);
     announce('Pricing data loaded');
-    console.log('[Core] Dataset loaded successfully');
+
   } catch (error) {
-    console.warn('[Core] Dataset load failed, using fallback:', error);
+
     const fallback = CONFIG.FALLBACK_DATASET;
     store.patch('dataset', fallback);
     
@@ -995,7 +992,7 @@ function initializeWorker() {
       
       if (type === 'ready') {
         workerReady = true;
-        console.log('[Core] Worker ready');
+
         return;
       }
       
@@ -1007,7 +1004,7 @@ function initializeWorker() {
     };
     
     calcWorker.onerror = (error) => {
-      console.error('[Core] Worker error:', error);
+
       workerReady = false;
       calculationInProgress = false;
       if (calcWorker) {
@@ -1018,7 +1015,7 @@ function initializeWorker() {
     
     return true;
   } catch (error) {
-    console.warn('[Core] Worker initialization failed:', error);
+
     return false;
   }
 }
@@ -1029,23 +1026,20 @@ function initializeWorker() {
  * ✅ PHASE 1 ITEM #3: Unified math API (one compute function)
  */
 function scheduleCalculation() {
-  console.log('[Calc] ======================================');
+
   console.log('[Calc] scheduleCalculation() called');
-  console.log('[Calc] ======================================');
 
   if (calculationInProgress) {
-    console.warn('[Calc] Calculation already in progress, skipping');
+
     return;
   }
 
   calculationInProgress = true;
-  console.log('[Calc] Starting calculation...');
 
   const state = store.get();
   const { inputs, economics, dataset, ui } = state;
 
-  console.log('[Calc] Inputs:', inputs);
-  console.log('[Calc] Economics:', economics);
+
   console.log('[Calc] Forced package:', ui?.forcedPackage || 'none (auto-recommend)');
 
   const hasVouchers = (inputs.voucherAdult > 0) || (inputs.voucherMinor > 0);
@@ -1065,16 +1059,15 @@ function scheduleCalculation() {
   const canUseWorker = initializeWorker() && workerReady;
 
   if (canUseWorker) {
-    console.log('[Calc] Using worker for calculation');
+
     calcWorker.postMessage({ type: 'compute', payload: payload });
     return;
   }
 
   // Fallback to main thread
-  console.log('[Calc] Using main thread for calculation');
 
   if (!window.ITW_MATH || typeof window.ITW_MATH.compute !== 'function') {
-    console.error('[Calc] Math module not available!');
+
     store.patch('results', initialState.results);
     calculationInProgress = false;
     return;
@@ -1092,18 +1085,14 @@ function scheduleCalculation() {
       payload.forcedPackage  // ✅ NEW: Package forcing
     );
 
-    console.log('[Calc] Computation complete, results:', results);
-    console.log('[Calc] Patching store with results...');
 
     store.patch('results', results);
     calculationInProgress = false;
 
-    console.log('[Calc] ✓ Calculation complete, store updated');
-    console.log('[Calc] Dispatching itw:calc-updated event');
 
     document.dispatchEvent(new CustomEvent('itw:calc-updated'));
   } catch (error) {
-    console.error('[Calc] ✗ Calculation error:', error);
+
     store.patch('results', initialState.results);
     calculationInProgress = false;
   }
@@ -1162,7 +1151,6 @@ function syncUIFromState() {
     if (voucherMinor) voucherMinor.value = state.inputs.vouchers.minorCountPerDay || 0;
   }
 
-  console.log('[Core] ✓ UI synced with state');
 }
 
 function wireInputs() {
@@ -1389,7 +1377,7 @@ function loadStateFromURL() {
 
   if (hasChanges) {
     store.patch('inputs', state.inputs);
-    console.log('[Core] ✓ Loaded configuration from share URL');
+
     return true;
   }
 
@@ -1401,9 +1389,9 @@ function shareScenario() {
     const shareURL = generateShareURL();
     navigator.clipboard.writeText(shareURL);
     announce('Share link copied to clipboard');
-    console.log('[Core] Share URL copied:', shareURL);
+
   } catch (e) {
-    console.error('[Core] Failed to copy link:', e);
+
     announce('Unable to copy link', 'assertive');
   }
 }

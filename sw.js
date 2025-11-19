@@ -39,7 +39,7 @@ const MAX_ERRORS = 50;
 /* ==================== LIFECYCLE ==================== */
 
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing v' + VERSION);
+
   event.waitUntil(
     (async () => {
       await self.skipWaiting();
@@ -52,7 +52,7 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating v' + VERSION);
+
   event.waitUntil(
     (async () => {
       await self.clients.claim();
@@ -743,5 +743,3 @@ function isShipsIndexPage(url) {
   // Detect ships.html or ships/ships.html
   return /^\/ships(\/ships)?\.html$/i.test(url.pathname);
 }
-
-console.log('[SW] v' + VERSION + ' loaded');
