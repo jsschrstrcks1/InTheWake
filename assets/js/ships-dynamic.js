@@ -584,6 +584,219 @@
   }
 
   /**
+   * Fuzzy matching using Levenshtein distance
+   */
+  function levenshteinDistance(str1, str2) {
+    const m = str1.length;
+    const n = str2.length;
+    const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+
+    for (let i = 0; i <= m; i++) dp[i][0] = i;
+    for (let j = 0; j <= n; j++) dp[0][j] = j;
+
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        if (str1[i - 1] === str2[j - 1]) {
+          dp[i][j] = dp[i - 1][j - 1];
+        } else {
+          dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+        }
+      }
+    }
+    return dp[m][n];
+  }
+
+  /**
+   * Check if query fuzzy-matches target
+   */
+  function fuzzyMatch(query, target, threshold = 0.3) {
+    if (!query || !target) return false;
+
+    const q = query.toLowerCase().trim();
+    const t = target.toLowerCase();
+
+    // Exact substring match
+    if (t.includes(q)) return true;
+
+    // Word-by-word matching
+    const targetWords = t.split(/[\s\-]+/);
+    for (const word of targetWords) {
+      if (word.startsWith(q)) return true;
+      if (word.includes(q)) return true;
+    }
+
+    // Fuzzy match using Levenshtein for short queries
+    if (q.length >= 3) {
+      for (const word of targetWords) {
+        const distance = levenshteinDistance(q, word.substring(0, q.length + 2));
+        const maxLen = Math.max(q.length, word.length);
+        if (distance / maxLen <= threshold) return true;
+      }
+
+      // Also check against full target
+      const distance = levenshteinDistance(q, t.substring(0, q.length + 3));
+      if (distance <= Math.ceil(q.length * threshold)) return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Get all searchable text for a ship
+   */
+  function getShipSearchText(ship, className) {
+    const parts = [
+      ship.name,
+      ship.slug.replace(/-/g, ' '),
+      className,
+      String(ship.year),
+      ship.gt || '',
+      SHIP_CTAS[ship.slug] || ''
+    ];
+    return parts.join(' ').toLowerCase();
+  }
+
+  /**
+   * Initialize search functionality
+   */
+  function initializeSearch() {
+    const searchInput = document.getElementById('shipSearch');
+    const clearBtn = document.getElementById('clearSearch');
+    const resultsInfo = document.getElementById('searchResults');
+
+    if (!searchInput) return;
+
+    let debounceTimer;
+
+    function performSearch(query) {
+      const trimmedQuery = query.trim();
+      const shipCards = document.querySelectorAll('.ship-card');
+      const classSections = document.querySelectorAll('.ship-class-section');
+
+      // Clear button visibility
+      if (clearBtn) {
+        clearBtn.style.display = trimmedQuery ? 'block' : 'none';
+      }
+
+      // If no query, show everything
+      if (!trimmedQuery) {
+        shipCards.forEach(card => card.classList.remove('search-hidden'));
+        classSections.forEach(section => {
+          section.classList.remove('search-empty');
+          // Expand all sections when clearing search
+          const toggle = section.querySelector('.ship-class-toggle');
+          const content = section.querySelector('.ship-class-content');
+          if (toggle && content) {
+            toggle.setAttribute('aria-expanded', 'true');
+            section.classList.remove('collapsed');
+            content.style.maxHeight = content.scrollHeight + 'px';
+          }
+        });
+        if (resultsInfo) resultsInfo.textContent = '';
+        return;
+      }
+
+      let matchCount = 0;
+      const matchedClasses = new Set();
+
+      // Check each ship
+      shipCards.forEach(card => {
+        const slug = card.getAttribute('data-ship-slug');
+        const section = card.closest('.ship-class-section');
+        const className = section ? section.getAttribute('data-class') : '';
+
+        // Find ship data
+        let ship = null;
+        for (const [cls, data] of Object.entries(RC_FLEET)) {
+          const found = data.ships.find(s => s.slug === slug);
+          if (found) {
+            ship = found;
+            break;
+          }
+        }
+
+        if (!ship) {
+          card.classList.add('search-hidden');
+          return;
+        }
+
+        const searchText = getShipSearchText(ship, className);
+        const isMatch = fuzzyMatch(trimmedQuery, searchText);
+
+        if (isMatch) {
+          card.classList.remove('search-hidden');
+          matchCount++;
+          if (className) matchedClasses.add(className);
+        } else {
+          card.classList.add('search-hidden');
+        }
+      });
+
+      // Hide/show class sections based on visible ships
+      classSections.forEach(section => {
+        const className = section.getAttribute('data-class');
+        const visibleShips = section.querySelectorAll('.ship-card:not(.search-hidden)');
+
+        if (visibleShips.length === 0) {
+          section.classList.add('search-empty');
+        } else {
+          section.classList.remove('search-empty');
+          // Expand sections with matches
+          const toggle = section.querySelector('.ship-class-toggle');
+          const content = section.querySelector('.ship-class-content');
+          if (toggle && content) {
+            toggle.setAttribute('aria-expanded', 'true');
+            section.classList.remove('collapsed');
+            content.style.maxHeight = content.scrollHeight + 'px';
+          }
+        }
+      });
+
+      // Update results info
+      if (resultsInfo) {
+        if (matchCount === 0) {
+          resultsInfo.innerHTML = `<strong>No ships found for "${trimmedQuery.replace(/</g, '&lt;')}"</strong> — try a different spelling or search for a class name`;
+        } else {
+          const classText = matchedClasses.size === 1
+            ? `in ${Array.from(matchedClasses)[0]}`
+            : matchedClasses.size > 1
+              ? `across ${matchedClasses.size} classes`
+              : '';
+          resultsInfo.textContent = `Found ${matchCount} ship${matchCount !== 1 ? 's' : ''} ${classText}`;
+        }
+      }
+    }
+
+    // Debounced search on input
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        performSearch(e.target.value);
+      }, 150);
+    });
+
+    // Clear button
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        performSearch('');
+        searchInput.focus();
+      });
+    }
+
+    // Handle Enter key (prevent form submission if in form)
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        performSearch('');
+      }
+    });
+  }
+
+  /**
    * Initialize the ships page
    */
   function init() {
@@ -597,6 +810,7 @@
     initializeCollapsibles();
     initializeExpandAll();
     initializeShare();
+    initializeSearch();
 
     // Set initial state for all content sections
     requestAnimationFrame(() => {
