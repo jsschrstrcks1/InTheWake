@@ -17,7 +17,8 @@ const CATEGORY_LABELS = {
   'cruise-line': 'Cruise Line',
   'hub': 'Hub',
   'tool': 'Tool',
-  'about': 'About'
+  'about': 'About',
+  'port': 'Port'
 };
 
 // Initialize search
