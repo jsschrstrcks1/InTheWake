@@ -197,6 +197,59 @@
     ]
   };
 
+  // Ship CTA/pitch text - WHY choose this ship and WHO it's for
+  const SHIP_CTAS = {
+    // Icon Class
+    'icon-of-the-seas': 'The biggest, newest ship with every innovation. Perfect for first-timers who want to experience everything Royal Caribbean offers in one sailing.',
+    'star-of-the-seas': 'Icon-class with all the latest features. Ideal for families and thrill-seekers who want cutting-edge amenities and maximum variety.',
+
+    // Oasis Class
+    'oasis-of-the-seas': 'The original neighborhood ship that started a revolution. Great value for Oasis-class experience at a lower price point.',
+    'allure-of-the-seas': 'Freshly refurbished with new venues. Excellent choice for families wanting the classic Oasis experience with modern updates.',
+    'harmony-of-the-seas': 'First Oasis ship with waterslides and virtual balconies. Perfect for families with kids who love water thrills.',
+    'symphony-of-the-seas': 'Refined Oasis-class with Ultimate Abyss slide. Great for groups wanting diverse dining and entertainment options.',
+    'wonder-of-the-seas': 'The most refined Oasis ship before Icon. Ideal for those wanting newer amenities without the highest price tag.',
+    'utopia-of-the-seas': 'Short Caribbean sailings from Florida. Perfect for quick getaways and first-time cruisers testing the waters.',
+
+    // Quantum Ultra Class
+    'spectrum-of-the-seas': 'Designed for Asian markets with unique venues. Great for foodies seeking diverse Asian cuisine options.',
+    'odyssey-of-the-seas': 'Quantum innovation with Caribbean itineraries. Perfect for tech enthusiasts who want North Star and SeaPlex.',
+
+    // Quantum Class
+    'quantum-of-the-seas': 'The original smart ship with groundbreaking tech. Great for cruisers who prioritize innovation over traditional amenities.',
+    'anthem-of-the-seas': 'Year-round from New Jersey. Ideal for East Coast cruisers who want to avoid flying to a homeport.',
+    'ovation-of-the-seas': 'The Alaska specialist with incredible viewing. Perfect for those prioritizing scenery and destination immersion.',
+
+    // Freedom Class
+    'freedom-of-the-seas': 'Classic Royal Caribbean with FlowRider and H2O Zone. Great value for families with a mix of kids ages.',
+    'liberty-of-the-seas': 'Popular Galveston homeport. Perfect for Texas cruisers wanting short Caribbean getaways.',
+    'independence-of-the-seas': 'UK sailings and European itineraries. Ideal for European cruisers or those wanting to explore the continent.',
+
+    // Voyager Class
+    'voyager-of-the-seas': 'The ship that introduced the Royal Promenade. Great for nostalgia and excellent value.',
+    'explorer-of-the-seas': 'Ice rink and rock climbing pioneer. Good for families wanting classic amenities at budget-friendly prices.',
+    'adventure-of-the-seas': 'Shorter Caribbean sailings. Perfect for quick getaways or testing if cruising is for you.',
+    'navigator-of-the-seas': 'LA homeport with Mexican Riviera. Ideal for West Coast cruisers wanting easy embarkation.',
+    'mariner-of-the-seas': 'Short Bahamas sailings from Florida. Great for weekend cruises and Perfect Day at CocoCay access.',
+
+    // Radiance Class
+    'radiance-of-the-seas': 'Floor-to-ceiling windows throughout. Check out this ship if million-dollar views through glass walls matter to you.',
+    'brilliance-of-the-seas': 'Intimate ship with elegant design. Perfect for couples and adults who prefer a quieter, refined experience.',
+    'serenade-of-the-seas': 'Alaska and Panama Canal specialist. Ideal for destination-focused cruisers who want scenery over crowds.',
+    'jewel-of-the-seas': 'European and exotic itineraries. Great for experienced cruisers seeking unique ports and longer voyages.',
+
+    // Vision Class
+    'grandeur-of-the-seas': 'Classic and intimate experience. Perfect for cruisers who prefer smaller ships and easier navigation.',
+    'enchantment-of-the-seas': 'Budget-friendly with solid amenities. Great for value-seekers and those prioritizing itinerary over ship.',
+    'vision-of-the-seas': 'The smallest active Royal ship. Ideal for those who want fewer crowds and a more traditional cruise feel.',
+    'rhapsody-of-the-seas': 'Affordable exotic itineraries. Perfect for budget-conscious travelers wanting unique destinations.',
+
+    // Sovereign Class (retired/sold but may have images)
+    'sovereign-of-the-seas': 'Historic first megaship. For cruise history enthusiasts.',
+    'monarch-of-the-seas': 'Classic 1990s cruise experience. For nostalgia.',
+    'majesty-of-the-seas': 'Budget Bahamas sailings. Great value for quick getaways.'
+  };
+
   // Royal Caribbean fleet data organized by class
   const RC_FLEET = {
     'Icon Class': {
@@ -310,23 +363,25 @@
     const imageUrl = getRandomShipImage(ship.slug);
     const pageUrl = `/ships/rcl/${ship.slug}.html`;
     const placeholderUrl = '/assets/ship-placeholder.jpg';
+    const cta = SHIP_CTAS[ship.slug] || 'Explore this ship to discover what makes it special for your cruise.';
 
     return `
-      <article class="ship-card" data-ship-slug="${ship.slug}">
-        <a href="${pageUrl}" class="ship-card-link">
-          <div class="ship-card-image">
+      <article class="ship-card item-card" data-ship-slug="${ship.slug}">
+        <a href="${pageUrl}" class="ship-card-link item-card-link">
+          <div class="ship-card-image item-card-image">
             <img src="${imageUrl || placeholderUrl}"
                  alt="${ship.name}"
                  loading="lazy"
                  decoding="async"
                  onerror="this.onerror=null;this.src='${placeholderUrl}'" />
             ${imageUrl && SHIP_IMAGES[ship.slug] && SHIP_IMAGES[ship.slug].length > 1 ?
-              `<span class="image-count-badge" aria-label="${SHIP_IMAGES[ship.slug].length} images available">${SHIP_IMAGES[ship.slug].length}</span>`
+              `<span class="image-count-badge item-card-badge" aria-label="${SHIP_IMAGES[ship.slug].length} images available">${SHIP_IMAGES[ship.slug].length}</span>`
               : ''}
           </div>
-          <div class="ship-card-content">
-            <h3 class="ship-card-title">${ship.name}</h3>
-            <p class="ship-card-year">Launched ${ship.year}</p>
+          <div class="ship-card-content item-card-content">
+            <h3 class="ship-card-title item-card-title">${ship.name}</h3>
+            <p class="ship-card-year item-card-meta">Launched ${ship.year}</p>
+            <p class="item-card-cta">${cta}</p>
           </div>
         </a>
       </article>
