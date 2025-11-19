@@ -920,14 +920,8 @@
     @media (min-width:720px) and (max-width:979.98px){.vx-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
     @media (min-width:980px){.vx-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
 
-    /* ship cards - FIXED: use contain instead of cover to prevent vertical image cropping */
-    .ship-card{display:grid;grid-template-columns:96px 1fr;gap:.6rem;align-items:center;padding:.6rem;border:2px solid var(--rope);border-radius:14px;background:#fff;text-decoration:none;color:inherit}
-    .ship-card .thumb{width:96px;height:64px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea;display:flex;align-items:center;justify-content:center}
-    .ship-card .thumb img{width:100%;height:100%;object-fit:contain;display:block}
-    .ship-card .body{display:flex;flex-direction:column;gap:.25rem;min-width:0}
-    .ship-card .body h3{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .ship-card .meta{display:flex;gap:.35rem;flex-wrap:wrap;font-size:.86rem;color:#456}
-    .badge{font-size:.72rem;background:#e6f4f8;border:1px solid var(--rope);border-radius:999px;padding:.05rem .45rem}
+    /* ship cards - now using item-cards.css for vertical card layout */
+    /* Removed old horizontal thumbnail layout that conflicted with item-card styles */
     .muted{color:#456}
   </style>
 </head>
@@ -1040,18 +1034,6 @@
       <div class="ships-share-section">
         <button id="shareShipsPage" class="share-btn" type="button" aria-label="Share this page">Share Page</button>
       </div>
-    </section>
-
-    <!-- TL;DR: At a Glance -->
-    <section class="card" aria-labelledby="tldr-heading">
-      <h2 id="tldr-heading">At a glance — what you can do from here</h2>
-      <ul style="line-height: 1.75; margin: 0.75rem 0;">
-        <li><strong>Browse all 28 Royal Caribbean ships</strong> organized by class and debut year</li>
-        <li><strong>View official deck plans</strong> to study ship layouts before you sail</li>
-        <li><strong>Track ships live</strong> on the map to see where vessels are right now</li>
-        <li><strong>Compare ships by size, capacity, and amenities</strong> to find the right fit for your cruise</li>
-        <li><strong>Learn about ship classes</strong> from newest Icon-class to classic Vision-class vessels</li>
-      </ul>
     </section>
 
     <section class="card" aria-labelledby="fleet-list">

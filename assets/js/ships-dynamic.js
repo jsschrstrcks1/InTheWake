@@ -340,9 +340,19 @@
     'Sovereign Class': {
       order: 9,
       ships: [
-        { name: 'Sovereign of the Seas', slug: 'sovereign-of-the-seas', year: 1988, gt: '73,192', capacity: 2852 },
-        { name: 'Monarch of the Seas', slug: 'monarch-of-the-seas', year: 1991, gt: '73,937', capacity: 2764 },
-        { name: 'Majesty of the Seas', slug: 'majesty-of-the-seas', year: 1992, gt: '74,077', capacity: 2767 }
+        { name: 'Sovereign of the Seas', slug: 'sovereign-of-the-seas', year: 1988, gt: '73,192', capacity: 2852, retired: true },
+        { name: 'Monarch of the Seas', slug: 'monarch-of-the-seas', year: 1991, gt: '73,937', capacity: 2764, retired: true },
+        { name: 'Majesty of the Seas', slug: 'majesty-of-the-seas', year: 1992, gt: '74,077', capacity: 2767, retired: true }
+      ]
+    },
+    'Historic Fleet': {
+      order: 10,
+      ships: [
+        { name: 'Splendour of the Seas', slug: 'splendour-of-the-seas', year: 1996, gt: '69,130', capacity: 2076, retired: true },
+        { name: 'Song of Norway', slug: 'song-of-norway', year: 1970, gt: '23,005', capacity: 1040, retired: true },
+        { name: 'Song of America', slug: 'song-of-america', year: 1982, gt: '37,584', capacity: 1575, retired: true },
+        { name: 'Sun Viking', slug: 'sun-viking', year: 1972, gt: '18,559', capacity: 726, retired: true },
+        { name: 'Nordic Empress', slug: 'nordic-empress', year: 1990, gt: '48,563', capacity: 1606, retired: true }
       ]
     }
   };
@@ -385,7 +395,7 @@
     const formattedCapacity = ship.capacity ? ship.capacity.toLocaleString() : '';
 
     return `
-      <article class="ship-card item-card" data-ship-slug="${ship.slug}">
+      <article class="ship-card item-card${ship.retired ? ' retired' : ''}" data-ship-slug="${ship.slug}">
         <a href="${pageUrl}" class="ship-card-link item-card-link">
           <div class="ship-card-image item-card-image">
             <img src="${imageUrl || placeholderUrl}"
@@ -396,6 +406,7 @@
             ${imageUrl && SHIP_IMAGES[ship.slug] && SHIP_IMAGES[ship.slug].length > 1 ?
               `<span class="image-count-badge item-card-badge" aria-label="${SHIP_IMAGES[ship.slug].length} images available">${SHIP_IMAGES[ship.slug].length}</span>`
               : ''}
+            ${ship.retired ? `<span class="retired-badge item-card-badge" aria-label="Retired from fleet">Retired</span>` : ''}
           </div>
           <div class="ship-card-content item-card-content">
             <h3 class="ship-card-title item-card-title">${ship.name}</h3>
@@ -405,7 +416,7 @@
               ${formattedCapacity ? `<span class="badge">${formattedCapacity} guests</span>` : ''}
             </div>
             <p class="item-card-cta">${cta}</p>
-            <span class="ship-card-cta-btn">Explore Ship</span>
+            <span class="ship-card-cta-btn">${ship.retired ? 'View History' : 'Explore Ship'}</span>
           </div>
         </a>
       </article>
