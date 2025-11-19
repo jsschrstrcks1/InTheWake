@@ -1,54 +1,255 @@
+/**
+ * In the Wake - Dynamic Search
+ * Soli Deo Gloria
+ *
+ * Instant fuzzy search across all site content using Fuse.js
+ */
 
-/* search.js — line-specific fuzzy search with aliases (no external deps) */
-function dlDistance(a, b) {
-  a = a.toLowerCase(); b = b.toLowerCase();
-  const m = [];
-  for (let i=0; i<=a.length; i++){ m[i]=[i]; }
-  for (let j=0; j<=b.length; j++){ m[0][j]=j; }
-  for (let i=1; i<=a.length; i++){
-    for (let j=1; j<=b.length; j++){
-      const cost = a[i-1] === b[j-1] ? 0 : 1;
-      m[i][j] = Math.min(m[i-1][j] + 1, m[i][j-1] + 1, m[i-1][j-1] + cost);
-      if (i>1 && j>1 && a[i-1]===b[j-2] && a[i-2]===b[j-1]){
-        m[i][j] = Math.min(m[i][j], m[i-2][j-2] + 1);
-      }
+// Global variables
+let searchIndex = [];
+let fuse = null;
+
+// Category display names
+const CATEGORY_LABELS = {
+  'restaurant': 'Restaurant',
+  'ship': 'Ship',
+  'article': 'Article',
+  'cruise-line': 'Cruise Line',
+  'hub': 'Hub',
+  'tool': 'Tool',
+  'about': 'About'
+};
+
+// Initialize search
+async function initSearch() {
+  try {
+    const response = await fetch('/assets/data/search-index.json');
+    if (!response.ok) throw new Error('Failed to load search index');
+
+    searchIndex = await response.json();
+
+    // Configure Fuse.js for fuzzy search
+    fuse = new Fuse(searchIndex, {
+      keys: [
+        { name: 'title', weight: 0.4 },
+        { name: 'keywords', weight: 0.3 },
+        { name: 'description', weight: 0.2 },
+        { name: 'cta', weight: 0.1 }
+      ],
+      threshold: 0.4,          // Lower = stricter matching
+      distance: 100,           // How far to search in string
+      includeScore: true,
+      ignoreLocation: true,    // Search entire string
+      minMatchCharLength: 2,
+      findAllMatches: true
+    });
+
+    // Set up input listener
+    const input = document.getElementById('searchInput');
+    if (input) {
+      input.addEventListener('input', debounce(handleSearch, 150));
+
+      // Handle Enter key for accessibility
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleSearch();
+        }
+      });
     }
+
+    console.log(`Search initialized with ${searchIndex.length} items`);
+
+  } catch (error) {
+    console.error('Search initialization error:', error);
+    showError('Unable to load search. Please try refreshing the page.');
   }
-  return m[a.length][b.length];
 }
-function normalize(s){ return (s||"").toLowerCase().replace(/[^a-z0-9\s\-]/g,'').trim(); }
-function scoreQuery(name, q){
-  name = normalize(name); q = normalize(q);
-  if (!q) return 0;
-  if (name.includes(q)) return 1;
-  const d = dlDistance(name, q);
-  const maxLen = Math.max(name.length, q.length);
-  return 1 - (d / (maxLen || 1));
+
+// Debounce function for performance
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
 }
-function setupShipSearch(dataset){
-  const input = document.getElementById('shipSearch');
-  const btn = document.getElementById('btnSearch');
-  const out = document.getElementById('searchResults');
-  function renderResults(results){
-    out.innerHTML = results.slice(0, 24).map(r => `
-      <div class="card">
-        <h3><a href="../ships/${r.url}">${r.name}</a></h3>
-        <p class="small">Match: ${(r._score*100|0)}%</p>
-      </div>`).join('') || '<p class="small">No results yet. Try a different spelling.</p>';
+
+// Handle search input
+function handleSearch() {
+  const input = document.getElementById('searchInput');
+  const query = input ? input.value.trim() : '';
+
+  if (query.length === 0) {
+    showInitialState();
+    return;
   }
-  function run(){
-    const q = input.value || '';
-    const scored = dataset.map(item => {
-      const names = [item.name].concat(item.aliases||[]);
-      let s = 0;
-      for (const n of names){
-        s = Math.max(s, scoreQuery(n, q));
-      }
-      return Object.assign({_score:s}, item);
-    }).filter(x => x._score > 0.35)
-      .sort((a,b)=> b._score - a._score || a.name.localeCompare(b.name));
-    renderResults(scored);
+
+  if (query.length < 2) {
+    updateStatus('Type at least 2 characters to search...');
+    return;
   }
-  input.addEventListener('input', run);
-  btn.addEventListener('click', run);
+
+  performSearch(query);
+}
+
+// Perform the search
+function performSearch(query) {
+  if (!fuse) {
+    showError('Search not ready. Please wait...');
+    return;
+  }
+
+  const results = fuse.search(query);
+  displayResults(results, query);
+}
+
+// Public function for popular search buttons
+function doSearch(query) {
+  const input = document.getElementById('searchInput');
+  if (input) {
+    input.value = query;
+    performSearch(query);
+    input.focus();
+  }
+}
+
+// Display search results
+function displayResults(results, query) {
+  const container = document.getElementById('resultsContainer');
+  const statusEl = document.getElementById('searchStatus');
+
+  if (!container) return;
+
+  // No results
+  if (results.length === 0) {
+    container.innerHTML = `
+      <div class="no-results">
+        <h2>No results found</h2>
+        <p>Try different keywords or check your spelling.</p>
+        <p>Examples: "chops", "icon", "solo cruising", "drink calculator"</p>
+      </div>
+    `;
+    if (statusEl) statusEl.textContent = `No results for "${query}"`;
+    return;
+  }
+
+  // Limit results for performance
+  const maxResults = 50;
+  const displayResults = results.slice(0, maxResults);
+
+  // Group by category for better display
+  const grouped = {};
+  displayResults.forEach(result => {
+    const cat = result.item.category;
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(result.item);
+  });
+
+  // Build results HTML
+  let html = '<div class="results-grid">';
+
+  displayResults.forEach(result => {
+    const item = result.item;
+    const categoryLabel = CATEGORY_LABELS[item.category] || item.category;
+
+    html += `
+      <article class="result-card">
+        <a href="${item.url}">
+          <span class="result-category">${categoryLabel}</span>
+          <h3 class="result-title">${escapeHtml(item.title)}</h3>
+        </a>
+        <p class="result-description">${escapeHtml(truncate(item.description, 100))}</p>
+        <p class="result-cta">${escapeHtml(item.cta)}</p>
+      </article>
+    `;
+  });
+
+  html += '</div>';
+
+  // Show category summary
+  const categoryCounts = Object.entries(grouped)
+    .map(([cat, items]) => `${items.length} ${CATEGORY_LABELS[cat] || cat}${items.length !== 1 ? 's' : ''}`)
+    .join(', ');
+
+  container.innerHTML = html;
+
+  if (statusEl) {
+    const totalText = results.length > maxResults
+      ? `Showing ${maxResults} of ${results.length} results`
+      : `${results.length} result${results.length !== 1 ? 's' : ''}`;
+    statusEl.textContent = `${totalText} for "${query}" (${categoryCounts})`;
+  }
+}
+
+// Show initial state with popular searches
+function showInitialState() {
+  const container = document.getElementById('resultsContainer');
+  const statusEl = document.getElementById('searchStatus');
+
+  if (container) {
+    container.innerHTML = `
+      <div class="initial-state" id="initialState">
+        <p>Start typing to search across ${searchIndex.length} pages including ships, restaurants, articles, and tools.</p>
+        <div class="popular-searches">
+          <h3>Popular Searches</h3>
+          <div class="popular-tags">
+            <button class="popular-tag" onclick="doSearch('chops')">Chops Grille</button>
+            <button class="popular-tag" onclick="doSearch('icon')">Icon of the Seas</button>
+            <button class="popular-tag" onclick="doSearch('solo')">Solo Cruising</button>
+            <button class="popular-tag" onclick="doSearch('drink')">Drink Calculator</button>
+            <button class="popular-tag" onclick="doSearch('sushi')">Sushi</button>
+            <button class="popular-tag" onclick="doSearch('grief')">Cruising After Loss</button>
+            <button class="popular-tag" onclick="doSearch('wheelchair')">Accessibility</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  if (statusEl) statusEl.textContent = '';
+}
+
+// Show error message
+function showError(message) {
+  const container = document.getElementById('resultsContainer');
+  if (container) {
+    container.innerHTML = `
+      <div class="no-results">
+        <h2>Search Error</h2>
+        <p>${escapeHtml(message)}</p>
+      </div>
+    `;
+  }
+}
+
+// Update status text
+function updateStatus(message) {
+  const statusEl = document.getElementById('searchStatus');
+  if (statusEl) statusEl.textContent = message;
+}
+
+// Utility: Escape HTML
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Utility: Truncate text
+function truncate(text, maxLength) {
+  if (!text || text.length <= maxLength) return text;
+  return text.substring(0, maxLength).trim() + '...';
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initSearch);
+} else {
+  initSearch();
 }
