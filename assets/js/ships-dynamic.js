@@ -153,9 +153,9 @@
       '/assets/ships/Grandeur-of-the-seas-FOM- - 3.webp'
     ],
     'enchantment-of-the-seas': [
-      '/assets/ships/enchantment-of-the-seas1.webp',
-      '/assets/ships/enchantment-of-the-seas2.webp',
-      '/assets/ships/Enchantment_of_the_Seas.webp'
+      '/assets/ships/enchantment-halifax-2011.webp',
+      '/assets/ships/enchantment-labadee-2013.webp',
+      '/assets/ships/enchantment-tampa-2025.webp'
     ],
     'rhapsody-of-the-seas': [
       '/assets/ships/2560px-Kobe_Rhapsody_of_the_Seas01n4592.webp',
