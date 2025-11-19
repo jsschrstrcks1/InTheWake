@@ -1,9 +1,12 @@
-/* site-cache.js — SW helpers + intelligent prefetch (articles & cruise-line data) */
+/* site-cache.js v12.0.0 — SW helpers + intelligent prefetch
+ * Handles prefetching, seeding, and adaptive caching strategies
+ * Soli Deo Gloria ✝️
+ */
 
 (function () {
   "use strict";
 
-  const VERSION = "v3.010.102";
+  const VERSION = "12.0.0";
 
   /* ------------ SW Messaging (robust) ------------ */
 
