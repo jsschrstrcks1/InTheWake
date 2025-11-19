@@ -887,7 +887,7 @@ updated: 2025-11-18
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Oasis of the Seas tends to suit travelers who prefer mega-ship variety with seven distinct neighborhoods offering something for everyone — from Central Park's tranquil tree-lined paths to the Boardwalk's carousel and outdoor AquaTheater.
         It's ideal if you want maximum dining, entertainment, and activity options in one sailing, with space for 5,400+ guests without feeling crowded.
-        If you're looking for a more intimate, quiet ship experience or prefer classic ocean-view focused design, you may want to explore Radiance or Voyager class instead.
+        If you're looking for a more intimate, quiet ship experience or prefer classic ocean-view focused design, you may want to explore Radiance or <a href="/ships.html#voyager-class">Voyager class</a> instead.
       </p>
     </section>
 
@@ -1143,12 +1143,12 @@ updated: 2025-11-18
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships are in the same class as Oasis of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Oasis of the Seas is the first ship of the Oasis Class, which includes <a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>, <a href="/ships/rcl/harmony-of-the-seas.html">Harmony of the Seas</a>, <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>, <a href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a>, and <a href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>. All share the signature neighborhood design with variations in venues and features.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Oasis of the Seas is the first ship of the <a href="/ships.html#oasis-class">Oasis Class</a>, which includes <a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>, <a href="/ships/rcl/harmony-of-the-seas.html">Harmony of the Seas</a>, <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>, <a href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a>, and <a href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>. All share the signature neighborhood design with variations in venues and features.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Oasis of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Oasis offers multiple main dining rooms, Windjammer Café (buffet), Central Park's specialty restaurants like 150 Central Park and Chops Grille, Boardwalk Doghouse, Johnny Rockets, and numerous bars and lounges across all neighborhoods. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Oasis offers multiple main dining rooms, <a href="/restaurants/windjammer.html">Windjammer</a> Café (buffet), Central Park's specialty restaurants like <a href="/restaurants/150-central-park.html">150 Central Park</a> and <a href="/restaurants/chops.html">Chops Grille</a>, Boardwalk Doghouse, <a href="/restaurants/johnny-rockets.html">Johnny Rockets</a>, and numerous bars and lounges across all neighborhoods. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
@@ -1200,7 +1200,7 @@ updated: 2025-11-18
           licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
         <li>
-          "Allure of the Seas" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
           <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
           <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
@@ -1364,7 +1364,7 @@ updated: 2025-11-18
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
     function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');

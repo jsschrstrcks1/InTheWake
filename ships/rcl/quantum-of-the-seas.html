@@ -819,7 +819,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Quantum of the Seas tends to suit tech-savvy cruisers and families seeking innovation with cutting-edge technology including North Star observation capsule, RipCord by iFLY skydiving simulator, Two70 transforming venue, and robot bartenders.
         It's ideal if you want Royal Caribbean's signature entertainment and service with groundbreaking experiences like virtual balconies and SeaPlex indoor sports complex.
-        If you're looking for the absolute newest Icon class innovations or the massive scale of Oasis class, you may want to explore those classes instead.
+        If you're looking for the absolute newest Icon class innovations or the massive scale of <a href="/ships.html#oasis-class">Oasis class</a>, you may want to explore those classes instead.
       </p>
     </section>
 
@@ -864,7 +864,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <!-- Sister Ships -->
         <section class="ship-stats card mini" aria-labelledby="sister-ships">
           <h3 id="sister-ships">Quantum Class — Sister Ships</h3>
-          <p class="small" style="margin-bottom: 0.5rem;">Explore other ships in the Quantum Class family:</p>
+          <p class="small" style="margin-bottom: 0.5rem;">Explore other ships in the <a href="/ships.html#quantum-class">Quantum Class</a> family:</p>
           <div class="related-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
             <a class="pill" href="/ships/rcl/anthem-of-the-seas.html">Anthem of the Seas</a>
             <a class="pill" href="/ships/rcl/ovation-of-the-seas.html">Ovation of the Seas</a>
@@ -1031,7 +1031,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
         <li>
-          "Allure of the Seas" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
           <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
           <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
@@ -1191,7 +1191,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
     function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');

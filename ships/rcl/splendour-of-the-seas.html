@@ -1074,7 +1074,7 @@ updated: 2025-11-18
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships are in the same class as Splendour of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Splendour of the Seas was part of the Vision Class, which includes <a href="/ships/rcl/grandeur-of-the-seas.html">Grandeur of the Seas</a>, <a href="/ships/rcl/rhapsody-of-the-seas.html">Rhapsody of the Seas</a>, <a href="/ships/rcl/vision-of-the-seas.html">Vision of the Seas</a>, and <a href="/ships/rcl/enchantment-of-the-seas.html">Enchantment of the Seas</a>. All share the signature glass-wrapped design with floor-to-ceiling windows throughout.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Splendour of the Seas was part of the <a href="/ships.html#vision-class">Vision Class</a>, which includes <a href="/ships/rcl/grandeur-of-the-seas.html">Grandeur of the Seas</a>, <a href="/ships/rcl/rhapsody-of-the-seas.html">Rhapsody of the Seas</a>, <a href="/ships/rcl/vision-of-the-seas.html">Vision of the Seas</a>, and <a href="/ships/rcl/enchantment-of-the-seas.html">Enchantment of the Seas</a>. All share the signature glass-wrapped design with floor-to-ceiling windows throughout.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
@@ -1084,7 +1084,7 @@ updated: 2025-11-18
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What were the key features of Splendour of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Splendour of the Seas featured the signature Vision-class glass-wrapped design with panoramic ocean views, main dining room, Windjammer Café, Chops Grille, and multiple bars and lounges. The 69,130 GT vessel offered an intimate, view-focused cruising experience.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Splendour of the Seas featured the signature Vision-class glass-wrapped design with panoramic ocean views, <a href="/restaurants/mdr.html">main dining room</a>, <a href="/restaurants/windjammer.html">Windjammer</a> Café, <a href="/restaurants/chops.html">Chops Grille</a>, and multiple bars and lounges. The 69,130 GT vessel offered an intimate, view-focused cruising experience.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
@@ -1131,7 +1131,7 @@ updated: 2025-11-18
           licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
         <li>
-          "Allure of the Seas" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
           <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
           <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
@@ -1291,7 +1291,7 @@ updated: 2025-11-18
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
     function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');
