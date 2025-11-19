@@ -119,40 +119,58 @@
 
   /* Header */
   .hero-header {
-    background: var(--sea);
-    color: white;
-    padding: 1rem;
+    position: relative;
+    border-bottom: 6px double var(--rope);
+    background: #eaf6f6;
+    z-index: 9000;
   }
 
   .navbar {
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
+    align-items: flex-end;
+    gap: .6rem;
+    padding: .5rem .9rem .35rem;
+    position: relative;
+    z-index: 2000;
+    overflow: visible;
+  }
+
+  .brand {
+    display: flex;
+    align-items: flex-end;
+    gap: .6rem;
   }
 
   .brand img {
-    height: 48px;
+    height: 28px;
     width: auto;
   }
 
   .nav {
+    flex: 1 1 auto;
+    min-width: 0;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
+    justify-content: center;
+    gap: .5rem;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    overflow: visible;
+  }
+
+  .nav-item {
+    display: inline-block;
   }
 
   .nav-item a,
   .nav-disclosure {
-    color: white;
+    color: var(--ink);
     text-decoration: none;
-    padding: 0.5rem 0.75rem;
+    padding: 0.4rem 0.6rem;
     border-radius: 4px;
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -161,7 +179,8 @@
 
   .nav-item a:hover,
   .nav-disclosure:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(14, 110, 142, 0.1);
+    color: var(--accent);
   }
 
   .nav-group {
@@ -356,15 +375,17 @@
 
   /* Footer */
   footer {
-    background: var(--sea);
-    color: white;
-    padding: 2rem 1rem;
+    max-width: 900px;
+    margin: 3rem auto 0;
+    padding: 1.5rem 14px;
     text-align: center;
-    margin-top: 3rem;
+    border-top: 1px solid var(--foam);
+    color: var(--text-muted);
+    font-size: 0.9rem;
   }
 
   footer a {
-    color: var(--rope);
+    color: var(--accent);
   }
 
   /* Responsive */
@@ -480,30 +501,65 @@
 
   <script src="/assets/js/search.js"></script>
   <script>
-  // Dropdown menu toggle
-  document.querySelectorAll('.nav-group').forEach(group => {
-    const btn = group.querySelector('.nav-disclosure');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const isOpen = group.dataset.open === 'true';
-        // Close all others
-        document.querySelectorAll('.nav-group').forEach(g => g.dataset.open = 'false');
-        group.dataset.open = isOpen ? 'false' : 'true';
-        btn.setAttribute('aria-expanded', !isOpen);
-      });
-    }
-  });
+  (function(){"use strict";
+    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    if (dropdownGroups.length) {
+      const hoverTimeouts = new Map();
+      const HOVER_DELAY = 300;
 
-  // Close dropdowns when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav-group')) {
-      document.querySelectorAll('.nav-group').forEach(g => {
-        g.dataset.open = 'false';
-        const btn = g.querySelector('.nav-disclosure');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
+      function setOpen(group, isOpen) {
+        group.dataset.open = isOpen ? "true" : "false";
+        const button = group.querySelector('.nav-disclosure');
+        if (button) {
+          button.setAttribute('aria-expanded', isOpen ? "true" : "false");
+        }
+      }
+
+      function closeAllExcept(exceptGroup) {
+        dropdownGroups.forEach(g => {
+          if (g !== exceptGroup) {
+            clearTimeout(hoverTimeouts.get(g));
+            hoverTimeouts.delete(g);
+            setOpen(g, false);
+          }
+        });
+      }
+
+      dropdownGroups.forEach(group => {
+        group.addEventListener('mouseenter', () => {
+          clearTimeout(hoverTimeouts.get(group));
+          hoverTimeouts.set(group, setTimeout(() => {
+            closeAllExcept(group);
+            setOpen(group, true);
+          }, HOVER_DELAY));
+        });
+
+        group.addEventListener('mouseleave', () => {
+          clearTimeout(hoverTimeouts.get(group));
+          hoverTimeouts.set(group, setTimeout(() => {
+            setOpen(group, false);
+          }, HOVER_DELAY));
+        });
+
+        const button = group.querySelector('.nav-disclosure');
+        if (button) {
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isOpen = group.dataset.open === "true";
+            closeAllExcept(group);
+            setOpen(group, !isOpen);
+          });
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-group')) {
+          dropdownGroups.forEach(g => setOpen(g, false));
+        }
       });
     }
-  });
+  })();
 
   // Handle URL query parameter
   const urlParams = new URLSearchParams(window.location.search);
