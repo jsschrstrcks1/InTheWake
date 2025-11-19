@@ -667,6 +667,79 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         display: none;
       }
     }
+
+    /* Venue Search Styles */
+    .venue-search-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: #f7fdff;
+      border-radius: 12px;
+      border: 2px solid #e0f0f5;
+    }
+
+    .venue-search-input {
+      width: 100%;
+      padding: 0.85rem 2.5rem 0.85rem 1rem;
+      font-size: 1.1rem;
+      border: 2px solid var(--rope, #d9b382);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink, #134);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .venue-search-input:focus {
+      outline: none;
+      border-color: var(--accent, #0e6e8e);
+      box-shadow: 0 0 0 3px rgba(14, 110, 142, 0.15);
+    }
+
+    .venue-search-input::placeholder {
+      color: #789;
+      font-size: 0.95rem;
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 1.5rem;
+      top: 1.85rem;
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: #dfe7ea;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      line-height: 1;
+      color: #567;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .search-clear-btn:hover {
+      background: #cdd5d8;
+    }
+
+    .search-results-info {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--sea, #0a3d62);
+      min-height: 1.4em;
+    }
+
+    .search-results-info:empty {
+      display: none;
+    }
+
+    /* Hide non-matching venues */
+    .item-card.search-hidden {
+      display: none !important;
+    }
+
+    /* Hide empty category sections during search */
+    .category-section.search-empty {
+      display: none !important;
+    }
   </style>
 </head>
 
@@ -804,6 +877,20 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <li><strong>Click through</strong> for menus, pricing, and reservation tips</li>
         </ul>
       </article>
+
+      <!-- Venue Search -->
+      <div class="venue-search-container">
+        <label for="venueSearch" class="sr-only">Search venues by name, type, or ship</label>
+        <input type="search"
+               id="venueSearch"
+               class="venue-search-input"
+               placeholder="Search venues... (e.g., 'Chops', 'sushi', 'bar', 'Oasis')"
+               autocomplete="off"
+               aria-describedby="venueSearchHelp">
+        <button type="button" id="clearVenueSearch" class="search-clear-btn" aria-label="Clear search" style="display:none">×</button>
+        <p id="venueSearchHelp" class="tiny muted">Type venue name, category, or ship name. Tolerant of typos!</p>
+        <div id="venueSearchResults" class="search-results-info" aria-live="polite"></div>
+      </div>
 
       <!-- Dynamic venues container -->
       <div id="venuesContainer" aria-live="polite" aria-busy="false">
