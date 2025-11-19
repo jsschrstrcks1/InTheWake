@@ -735,6 +735,27 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <strong>Best For:</strong> Cruisers researching Royal Caribbean itineraries, comparing regions, and planning which ports to prioritize on their voyage.
       </p>
 
+      <!-- Port Search -->
+      <div class="port-search-container" style="margin: 1.25rem 0; padding: 1rem; background: #fff; border-radius: 12px; border: 2px solid var(--rope, #d9b382); box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+        <label for="port-search" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #134;">
+          Search Ports & Regions
+        </label>
+        <div style="position: relative;">
+          <input
+            type="search"
+            id="port-search"
+            placeholder="Try 'Cozumel', 'western caribbean', 'Alaska'..."
+            autocomplete="off"
+            style="width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; font-size: 1rem; border: 2px solid #e0e8f0; border-radius: 8px; transition: border-color 0.2s ease;"
+            aria-describedby="search-status"
+          />
+          <svg style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); width: 1.25rem; height: 1.25rem; fill: #666; pointer-events: none;" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+        </div>
+        <div id="search-status" role="status" aria-live="polite" style="margin-top: 0.5rem; font-size: 0.85rem; color: #666; min-height: 1.25rem;"></div>
+      </div>
+
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
         <ul style="margin: 0; padding-left: 1.25rem;">
@@ -1546,6 +1567,210 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         closeAll();
       });
     }
+  })();
+  </script>
+
+  <!-- Port Search with Fuzzy Matching -->
+  <script>
+  (function() {
+    "use strict";
+
+    const searchInput = document.getElementById('port-search');
+    const searchStatus = document.getElementById('search-status');
+    const portsSection = document.querySelector('section[aria-label="Ports content"]');
+
+    if (!searchInput || !portsSection) return;
+
+    // Get all searchable cards (port sections)
+    const cards = Array.from(portsSection.querySelectorAll('article.card'));
+
+    // Build search index with keywords for each card
+    const searchIndex = cards.map(card => {
+      const text = card.textContent.toLowerCase();
+      const id = card.id || '';
+      const headings = Array.from(card.querySelectorAll('h2, h3')).map(h => h.textContent.toLowerCase());
+
+      // Extract port names from list items
+      const portNames = Array.from(card.querySelectorAll('li strong')).map(s => s.textContent.toLowerCase());
+
+      // Add region keywords
+      const regionKeywords = [];
+      if (id === 'caribbean' || text.includes('caribbean')) {
+        regionKeywords.push('caribbean', 'bahamas', 'eastern caribbean', 'western caribbean', 'southern caribbean');
+      }
+      if (id === 'alaska' || text.includes('alaska')) {
+        regionKeywords.push('alaska', 'glacier', 'juneau', 'ketchikan', 'skagway');
+      }
+      if (id === 'mediterranean' || text.includes('mediterranean')) {
+        regionKeywords.push('mediterranean', 'med', 'greece', 'greek', 'italy', 'italian', 'spain', 'spanish', 'croatia');
+      }
+      if (id === 'northern-europe' || text.includes('northern europe')) {
+        regionKeywords.push('northern europe', 'scandinavia', 'baltic', 'norway', 'norwegian', 'fjords', 'british isles', 'iceland');
+      }
+      if (id === 'private-destinations') {
+        regionKeywords.push('private', 'cococay', 'labadee', 'perfect day', 'beach club');
+      }
+
+      return {
+        element: card,
+        id: id,
+        text: text,
+        headings: headings,
+        portNames: portNames,
+        keywords: regionKeywords,
+        allSearchable: [...headings, ...portNames, ...regionKeywords, text].join(' ')
+      };
+    });
+
+    // Fuzzy match function using Levenshtein distance
+    function levenshteinDistance(str1, str2) {
+      const m = str1.length;
+      const n = str2.length;
+      const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+
+      for (let i = 0; i <= m; i++) dp[i][0] = i;
+      for (let j = 0; j <= n; j++) dp[0][j] = j;
+
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          if (str1[i - 1] === str2[j - 1]) {
+            dp[i][j] = dp[i - 1][j - 1];
+          } else {
+            dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+          }
+        }
+      }
+      return dp[m][n];
+    }
+
+    // Check if a word fuzzy matches any word in text
+    function fuzzyMatch(searchTerm, text, threshold = 2) {
+      const searchWords = searchTerm.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+      const textWords = text.toLowerCase().split(/\s+/);
+
+      return searchWords.every(searchWord => {
+        // Exact substring match
+        if (text.includes(searchWord)) return true;
+
+        // Fuzzy match against individual words
+        return textWords.some(textWord => {
+          if (textWord.includes(searchWord) || searchWord.includes(textWord)) return true;
+
+          // Only fuzzy match words of similar length
+          if (Math.abs(textWord.length - searchWord.length) > threshold) return false;
+
+          const distance = levenshteinDistance(searchWord, textWord);
+          const maxLen = Math.max(searchWord.length, textWord.length);
+
+          // Allow more tolerance for longer words
+          const allowedDistance = searchWord.length <= 4 ? 1 : threshold;
+          return distance <= allowedDistance;
+        });
+      });
+    }
+
+    // Perform search
+    function performSearch(query) {
+      const trimmedQuery = query.trim().toLowerCase();
+
+      if (!trimmedQuery) {
+        // Show all cards
+        cards.forEach(card => {
+          card.style.display = '';
+          card.style.order = '';
+        });
+        searchStatus.textContent = '';
+        return;
+      }
+
+      let matchCount = 0;
+      const results = [];
+
+      searchIndex.forEach((item, index) => {
+        const isMatch = fuzzyMatch(trimmedQuery, item.allSearchable);
+
+        if (isMatch) {
+          matchCount++;
+          item.element.style.display = '';
+
+          // Calculate relevance score for sorting
+          let score = 0;
+
+          // Exact match in headings = highest score
+          if (item.headings.some(h => h.includes(trimmedQuery))) score += 100;
+
+          // Exact match in port names
+          if (item.portNames.some(p => p.includes(trimmedQuery))) score += 80;
+
+          // Match in keywords
+          if (item.keywords.some(k => k.includes(trimmedQuery))) score += 60;
+
+          // Fuzzy match bonus
+          if (item.text.includes(trimmedQuery)) score += 40;
+
+          results.push({ element: item.element, score: score });
+        } else {
+          item.element.style.display = 'none';
+        }
+      });
+
+      // Sort by relevance (optional: reorder DOM)
+      results.sort((a, b) => b.score - a.score);
+
+      // Update status
+      if (matchCount === 0) {
+        searchStatus.textContent = `No ports found for "${query}". Try a different spelling or region name.`;
+        searchStatus.style.color = '#c00';
+      } else {
+        searchStatus.textContent = `Found ${matchCount} section${matchCount === 1 ? '' : 's'} matching "${query}"`;
+        searchStatus.style.color = '#666';
+      }
+    }
+
+    // Debounce function for performance
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    // Event listener with debounce
+    const debouncedSearch = debounce(performSearch, 150);
+
+    searchInput.addEventListener('input', (e) => {
+      debouncedSearch(e.target.value);
+    });
+
+    // Handle clear button (X) in search input
+    searchInput.addEventListener('search', (e) => {
+      if (e.target.value === '') {
+        performSearch('');
+      }
+    });
+
+    // Keyboard shortcut: Escape clears search
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        performSearch('');
+        searchInput.blur();
+      }
+    });
+
+    // Focus search with / key (common convention)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== searchInput &&
+          !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
   })();
   </script>
 </body>
