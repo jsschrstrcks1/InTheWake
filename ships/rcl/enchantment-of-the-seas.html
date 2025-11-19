@@ -937,7 +937,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
                 <img
                   src="/assets/ships/enchantment-halifax-2011.webp"
                   alt="Enchantment of the Seas in Halifax, Nova Scotia, 2011"
-                  loading="lazy">
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='/assets/ships/enchantment-of-the-seas1.webp'">
                 <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/18018528@N03/" target="_blank" rel="noopener">ctgreybeard</a> via <a href="https://commons.wikimedia.org/wiki/File:Enchantment_of_the_Seas_Halifax_2011.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> — <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a></figcaption>
               </figure>
             </div>
@@ -947,7 +948,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
                 <img
                   src="/assets/ships/enchantment-labadee-2013.webp"
                   alt="Enchantment of the Seas docked in Labadee, Haiti, 2013"
-                  loading="lazy">
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='/assets/ships/enchantment-of-the-seas2.webp'">
                 <figcaption class="tiny">Photo: <a href="https://commons.wikimedia.org/wiki/User:Farragutful" target="_blank" rel="noopener">Farragutful</a> via <a href="https://commons.wikimedia.org/wiki/File:Enchantment_of_the_Seas,_Labadee.JPG" target="_blank" rel="noopener">Wikimedia Commons</a> — <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></figcaption>
               </figure>
             </div>
@@ -957,7 +959,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
                 <img
                   src="/assets/ships/enchantment-tampa-2025.webp"
                   alt="Enchantment of the Seas at Port Tampa Bay, January 2025"
-                  loading="lazy">
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='/assets/ships/Enchantment_of_the_Seas.webp'">
                 <figcaption class="tiny">Photo: <a href="https://commons.wikimedia.org/wiki/User:MatthewHoobin" target="_blank" rel="noopener">MatthewHoobin</a> via <a href="https://commons.wikimedia.org/wiki/File:Enchantment_of_the_Seas_cruise_ship_(exterior)_docked_at_Port_Tampa_Bay_in_Tampa,_Florida,_on_13_January_2025_(02).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> — <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0</a></figcaption>
               </figure>
             </div>
@@ -1471,7 +1474,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           const desc=String(v.description||'').replace(/</g,'&lt;');
           const price=(v.price||v.cost)?'<span class="venue-price">'+(v.price||v.cost)+'</span>':'';
           const slug=v.slug?String(v.slug).replace(/</g,'&lt;'):'';
-          const nameLink=slug?'<a href="#"+abs('/restaurants/'+slug)+'.html">'+name+'</a>':name;
+          const nameLink=slug?'<a href="'+abs('/restaurants/'+slug+'.html')+'">'+name+'</a>':name;
           html+='<li><strong>'+nameLink+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
         });
         html+='</ul>';
