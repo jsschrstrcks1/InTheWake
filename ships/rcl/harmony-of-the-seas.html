@@ -885,9 +885,9 @@ updated: 2025-11-18
       </p>
 
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        Harmony of the Seas tends to suit travelers who appreciate grand-scale cruising with seven distinct neighborhoods including Central Park, the Ultimate Abyss slide, and the Bionic Bar.
+        Harmony of the Seas tends to suit travelers who appreciate grand-scale cruising with seven distinct neighborhoods including Central Park, the Ultimate Abyss slide, and the <a href="/restaurants/bionic-bar.html">Bionic Bar</a>.
         It's ideal if you want one of the world's largest cruise ships with up to 6,780 guests and extensive dining and entertainment options.
-        If you're seeking a more intimate ship or prefer Icon-class innovations, you may want to explore Quantum-class or Icon of the Seas instead.
+        If you're seeking a more intimate ship or prefer Icon-class innovations, you may want to explore Quantum-class or <a href="/ships/rcl/icon-of-the-seas.html">Icon of the Seas</a> instead.
       </p>
     </section>
 
@@ -1095,12 +1095,12 @@ updated: 2025-11-18
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships are in the same class as Harmony of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Harmony of the Seas is part of the Oasis Class, which includes Oasis of the Seas, Allure of the Seas, Symphony of the Seas, Wonder of the Seas, and Utopia of the Seas: <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>, <a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>, <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>, <a href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a>, and <a href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>. All share similar features and layouts.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Harmony of the Seas is part of the <a href="/ships.html#oasis-class">Oasis Class</a>, which includes <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>, <a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>, <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>, <a href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a>, and <a href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>: <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>, <a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>, <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>, <a href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a>, and <a href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>. All share similar features and layouts.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Harmony of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Harmony of the Seas offers the main dining room, Windjammer Café (buffet), specialty dining including Chops Grille, Giovanni's Table, Izumi, 150 Central Park, and Johnny Rockets, plus numerous bars and lounges throughout the ship's seven neighborhoods. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Harmony of the Seas offers the <a href="/restaurants/mdr.html">main dining room</a>, <a href="/restaurants/windjammer.html">Windjammer</a> Café (buffet), specialty dining including <a href="/restaurants/chops.html">Chops Grille</a>, <a href="/restaurants/giovannis.html">Giovanni's Table</a>, <a href="/restaurants/izumi.html">Izumi</a>, <a href="/restaurants/150-central-park.html">150 Central Park</a>, and <a href="/restaurants/johnny-rockets.html">Johnny Rockets</a>, plus numerous bars and lounges throughout the ship's seven neighborhoods. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
@@ -1315,7 +1315,7 @@ updated: 2025-11-18
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
     function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');

@@ -861,7 +861,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <section class="page-intro" style="background: linear-gradient(135deg, #d1ecf1 0%, #c3e6ec 100%); border: 2px solid #17a2b8; border-radius: 16px; padding: 1.5rem 1.75rem; margin: 1.5rem 0; box-shadow: 0 4px 12px rgba(8, 48, 65, 0.08);">
       <h1 style="color: #0c5460; font-size: 2rem; margin: 0 0 0.75rem 0; font-weight: 700;">Legend of the Seas (1995 Built)</h1>
       <p style="color: #0c5460; font-size: 1.05rem; line-height: 1.6; margin: 0;">
-        Legend of the Seas (built 1995) is a Vision Class ship offering mid-sized intimacy with panoramic glass-wrapped views, perfect for travelers who want Royal Caribbean quality without mega-ship crowds. With Viking Crown Lounge and signature Vision Class design, she accommodates about 1,804 guests at double occupancy.
+        Legend of the Seas (built 1995) is a <a href="/ships.html#vision-class">Vision Class</a> ship offering mid-sized intimacy with panoramic glass-wrapped views, perfect for travelers who want Royal Caribbean quality without mega-ship crowds. With Viking Crown Lounge and signature <a href="/ships.html#vision-class">Vision Class</a> design, she accommodates about 1,804 guests at double occupancy.
       </p>
     </section>
 
@@ -1094,7 +1094,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
         <li>
-          "Allure of the Seas" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
           <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
           <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
@@ -1254,7 +1254,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
     function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');

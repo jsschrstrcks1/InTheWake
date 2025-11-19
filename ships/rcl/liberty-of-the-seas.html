@@ -886,7 +886,7 @@ updated: 2025-11-18
 
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Liberty of the Seas tends to suit travelers who appreciate active amenities like the FlowRider surf simulator and H2O Zone water park alongside classic Royal Caribbean features.
-        It's ideal if you want a Freedom-class experience with around 4,960 guests — larger than Voyager class but more intimate than Oasis or Icon class.
+        It's ideal if you want a Freedom-class experience with around 4,960 guests — larger than <a href="/ships.html#voyager-class">Voyager class</a> but more intimate than Oasis or Icon class.
         If you're seeking seven neighborhoods or the absolute newest innovations, you may want to explore Quantum, Oasis, or Icon class instead.
       </p>
     </section>
@@ -1136,17 +1136,17 @@ updated: 2025-11-18
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What makes Liberty of the Seas unique compared to other Royal Caribbean ships?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty features the FlowRider surf simulator, H2O Zone water park with slides, and an expanded Royal Promenade. At 154,407 GT with up to 4,960 guests, it's larger than Voyager class while maintaining a manageable feel compared to Oasis and Icon class ships.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty features the FlowRider surf simulator, H2O Zone water park with slides, and an expanded Royal Promenade. At 154,407 GT with up to 4,960 guests, it's larger than <a href="/ships.html#voyager-class">Voyager class</a> while maintaining a manageable feel compared to Oasis and Icon class ships.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships are in the same class as Liberty of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty of the Seas is part of the Freedom Class, which includes Freedom of the Seas and Independence of the Seas: <a href="/ships/rcl/freedom-of-the-seas.html">Freedom of the Seas</a> and <a href="/ships/rcl/independence-of-the-seas.html">Independence of the Seas</a>. All share similar features and layouts.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty of the Seas is part of the <a href="/ships.html#freedom-class">Freedom Class</a>, which includes <a href="/ships/rcl/freedom-of-the-seas.html">Freedom of the Seas</a> and <a href="/ships/rcl/independence-of-the-seas.html">Independence of the Seas</a>: <a href="/ships/rcl/freedom-of-the-seas.html">Freedom of the Seas</a> and <a href="/ships/rcl/independence-of-the-seas.html">Independence of the Seas</a>. All share similar features and layouts.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Liberty of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty of the Seas offers the main dining room, Windjammer Café (buffet), and specialty dining including Chops Grille, Giovanni's Italian Kitchen, and Johnny Rockets. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty of the Seas offers the <a href="/restaurants/mdr.html">main dining room</a>, <a href="/restaurants/windjammer.html">Windjammer</a> Café (buffet), and specialty dining including <a href="/restaurants/chops.html">Chops Grille</a>, <a href="/restaurants/giovannis.html">Giovanni's</a> Italian Kitchen, and <a href="/restaurants/johnny-rockets.html">Johnny Rockets</a>. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
@@ -1198,7 +1198,7 @@ updated: 2025-11-18
           licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
         <li>
-          "Allure of the Seas" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
           <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
           <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
@@ -1362,7 +1362,7 @@ updated: 2025-11-18
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
     function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');

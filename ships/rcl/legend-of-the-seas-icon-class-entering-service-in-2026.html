@@ -887,7 +887,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h1 id="ship-name">Legend of the Seas (Icon Class 2026)</h1>
       <p class="answer-line">
       <span class="answer-q">What this page covers</span>
-      <span class="answer-a">Legend of the Seas (Icon Class 2026) is Royal Caribbean's next Icon Class ship, expected to enter service in 2026 with cutting-edge amenities, expanded neighborhoods, Thrill Island aqua park, and revolutionary design features building on Icon of the Seas' success.</span>
+      <span class="answer-a">Legend of the Seas (Icon Class 2026) is Royal Caribbean's next Icon Class ship, expected to enter service in 2026 with cutting-edge amenities, expanded neighborhoods, Thrill Island aqua park, and revolutionary design features building on <a href="/ships/rcl/icon-of-the-seas.html">Icon of the Seas</a>' success.</span>
     </p>
 
       <section class="fit-guidance">
@@ -1140,7 +1140,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
         <li>
-          "Allure of the Seas" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
           <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
           <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
@@ -1300,7 +1300,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
     function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');

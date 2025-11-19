@@ -886,7 +886,7 @@ updated: 2025-11-18
 
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Ovation of the Seas tends to suit travelers who appreciate modern technology and innovative features like the North Star capsule rising 300 feet above sea level, SeaPlex (bumper cars and sports), and Two70's transforming entertainment space.
-        It's ideal if you want Quantum-class innovations with about 4,180 guests at double occupancy — more intimate than Oasis class yet packed with high-tech experiences.
+        It's ideal if you want Quantum-class innovations with about 4,180 guests at double occupancy — more intimate than <a href="/ships.html#oasis-class">Oasis class</a> yet packed with high-tech experiences.
         If you're looking for the classic neighborhood layout or the largest ships afloat, you may want to explore Oasis or Icon class instead.
       </p>
     </section>
@@ -1190,12 +1190,12 @@ updated: 2025-11-18
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships are in the same class as Ovation of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ovation of the Seas is part of the Quantum Class, which includes <a href="/ships/rcl/quantum-of-the-seas.html">Quantum of the Seas</a>, <a href="/ships/rcl/anthem-of-the-seas.html">Anthem of the Seas</a>, <a href="/ships/rcl/spectrum-of-the-seas.html">Spectrum of the Seas</a>, and <a href="/ships/rcl/odyssey-of-the-seas.html">Odyssey of the Seas</a> (Quantum Ultra). All share similar high-tech features and layouts.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ovation of the Seas is part of the <a href="/ships.html#quantum-class">Quantum Class</a>, which includes <a href="/ships/rcl/quantum-of-the-seas.html">Quantum of the Seas</a>, <a href="/ships/rcl/anthem-of-the-seas.html">Anthem of the Seas</a>, <a href="/ships/rcl/spectrum-of-the-seas.html">Spectrum of the Seas</a>, and <a href="/ships/rcl/odyssey-of-the-seas.html">Odyssey of the Seas</a> (Quantum Ultra). All share similar high-tech features and layouts.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Ovation of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ovation offers the main dining room, Windjammer Café (buffet), specialty dining like Chops Grille, Jamie's Italian, Wonderland, and Teppanyaki, plus the Bionic Bar with robot bartenders. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ovation offers the <a href="/restaurants/mdr.html">main dining room</a>, <a href="/restaurants/windjammer.html">Windjammer</a> Café (buffet), specialty dining like <a href="/restaurants/chops.html">Chops Grille</a>, <a href="/restaurants/jamies-italian.html">Jamie's Italian</a>, <a href="/restaurants/wonderland.html">Wonderland</a>, and Teppanyaki, plus the <a href="/restaurants/bionic-bar.html">Bionic Bar</a> with robot bartenders. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
@@ -1247,7 +1247,7 @@ updated: 2025-11-18
           licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
         <li>
-          "Allure of the Seas" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
           <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
           <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
@@ -1410,7 +1410,7 @@ updated: 2025-11-18
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
     function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');

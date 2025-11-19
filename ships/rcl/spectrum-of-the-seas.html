@@ -1005,12 +1005,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships are in the same class as Spectrum of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Spectrum of the Seas is part of the Quantum Class, which includes <a href="/ships/rcl/quantum-of-the-seas.html">Quantum of the Seas</a>, <a href="/ships/rcl/anthem-of-the-seas.html">Anthem of the Seas</a>, <a href="/ships/rcl/ovation-of-the-seas.html">Ovation of the Seas</a>, and <a href="/ships/rcl/odyssey-of-the-seas.html">Odyssey of the Seas</a>. All share innovative features like North Star, Two70, and virtual balconies.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Spectrum of the Seas is part of the <a href="/ships.html#quantum-class">Quantum Class</a>, which includes <a href="/ships/rcl/quantum-of-the-seas.html">Quantum of the Seas</a>, <a href="/ships/rcl/anthem-of-the-seas.html">Anthem of the Seas</a>, <a href="/ships/rcl/ovation-of-the-seas.html">Ovation of the Seas</a>, and <a href="/ships/rcl/odyssey-of-the-seas.html">Odyssey of the Seas</a>. All share innovative features like North Star, Two70, and virtual balconies.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Spectrum of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Spectrum offers the main dining room, Windjammer Café (buffet), specialty restaurants including Wonderland, Chef's Table, and Izumi, plus bars and lounges. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Spectrum offers the <a href="/restaurants/mdr.html">main dining room</a>, <a href="/restaurants/windjammer.html">Windjammer</a> Café (buffet), specialty restaurants including <a href="/restaurants/wonderland.html">Wonderland</a>, <a href="/restaurants/chefs-table.html">Chef's Table</a>, and <a href="/restaurants/izumi.html">Izumi</a>, plus bars and lounges. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
@@ -1062,7 +1062,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
         <li>
-          "Allure of the Seas" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
           <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
           <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
@@ -1222,7 +1222,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
     function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');

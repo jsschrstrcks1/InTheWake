@@ -894,7 +894,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </p>
 
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        Enchantment of the Seas welcomes cruisers seeking a mid-sized ship with an intimate atmosphere and beautiful ocean views. Her Vision Class design features floor-to-ceiling glass walls throughout public spaces, bringing the sea and sky into your cruise experience in a way larger ships simply can't match.
+        Enchantment of the Seas welcomes cruisers seeking a mid-sized ship with an intimate atmosphere and beautiful ocean views. Her <a href="/ships.html#vision-class">Vision Class</a> design features floor-to-ceiling glass walls throughout public spaces, bringing the sea and sky into your cruise experience in a way larger ships simply can't match.
         Perfect for first-time cruisers and families who want the Royal Caribbean experience without feeling overwhelmed, Enchantment offers enough activities and dining to keep everyone happy while maintaining an easier-to-navigate layout. If you're drawn to shorter cruise getaways or worldwide adventures with a more relaxed, less-crowded vibe, Enchantment could be your ideal match.
       </p>
     </section>
@@ -1096,7 +1096,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <details>
         <summary>What class is Enchantment of the Seas?</summary>
-        <p>Enchantment of the Seas is a Vision Class ship, one of Royal Caribbean's mid-sized vessels featuring signature glass walls for panoramic ocean views.</p>
+        <p>Enchantment of the Seas is a <a href="/ships.html#vision-class">Vision Class</a> ship, one of Royal Caribbean's mid-sized vessels featuring signature glass walls for panoramic ocean views.</p>
       </details>
 
       <details>
@@ -1153,7 +1153,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
         <li>
-          "Allure of the Seas" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
           <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
           <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
         </li>
@@ -1313,7 +1313,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
     function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
     function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');
