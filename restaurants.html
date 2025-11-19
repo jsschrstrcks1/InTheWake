@@ -144,6 +144,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Global CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
+  <link rel="stylesheet" href="/assets/css/item-cards.css?v=1.0.0"/>
 
   <!-- Dropdown Navigation Styles -->
   <style>
@@ -682,30 +683,28 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
     <section aria-label="Restaurants content">
       <article class="card">
-        <h1>Restaurants & Menus</h1>
+        <h1>Restaurants & Bars</h1>
 
-        <!-- Under Construction Notice -->
-        <div style="background:linear-gradient(135deg, #fff3e6 0%, #ffe8cc 100%);border-left:5px solid #ff9800;padding:1.25rem;margin:1.5rem 0;border-radius:8px;box-shadow:0 2px 8px rgba(255, 152, 0, 0.15);">
-          <p style="margin:0;font-size:1.1rem;color:#e65100;font-weight:600;">🚧 Under Construction</p>
-          <p style="margin:0.5rem 0 0 0;color:#5d4037;line-height:1.6;">This page is currently being built. Dining guides, menus, and restaurant recommendations are coming soon.</p>
-        </div>
+        <!-- Answer Line -->
+        <p class="answer-line" style="font-size: 1.1rem; color: var(--accent); margin-bottom: 1.5rem;">
+          <strong>Explore cruise ship dining and bars</strong> — from complimentary buffets to premium steakhouses, find the venues that match your taste and budget.
+        </p>
 
-        <p><em>Coming soon — complete dining guides, menus, and honest insights for cruise ship restaurants.</em></p>
+        <p>Royal Caribbean ships offer dozens of dining and bar options. Use this guide to discover what's included, what costs extra, and which venues are worth your time based on your preferences.</p>
 
-        <p>We're building comprehensive restaurant guides that focus on what matters most: menus, reservations, pricing, and practical tips for eating well without over-planning your voyage.</p>
-
-        <h2>What to Expect</h2>
-        <p>Our restaurant guides will include:</p>
-        <ul>
-          <li>Main dining room menus and rotation schedules</li>
-          <li>Casual dining options and hours</li>
-          <li>Specialty restaurant reviews and pricing</li>
-          <li>Reservation tips and timing strategies</li>
-          <li>Dietary accommodation information</li>
+        <h2>How to Use This Guide</h2>
+        <ul style="line-height: 1.75; margin: 0.75rem 0 1.5rem;">
+          <li><strong>Filter by category</strong> to focus on dining or bars</li>
+          <li><strong>Check which ships</strong> have each venue before you book</li>
+          <li><strong>Read the pitch</strong> to see if a venue matches your style</li>
+          <li><strong>Click through</strong> for menus, pricing, and reservation tips</li>
         </ul>
-
-        <p class="tiny muted">Check back soon for detailed restaurant guides. In the meantime, explore our other planning tools.</p>
       </article>
+
+      <!-- Dynamic venues container -->
+      <div id="venuesContainer" aria-live="polite" aria-busy="false">
+        <div class="items-loading">Loading venue data</div>
+      </div>
     </section>
 
     <!-- RIGHT RAIL -->
@@ -942,5 +941,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     }
   })();
   </script>
+
+  <!-- Restaurants Dynamic Module -->
+  <script src="/assets/js/restaurants-dynamic.js?v=1.0.0" defer></script>
 </body>
 </html>
