@@ -227,6 +227,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
+  <!-- ===== Swiper Loader (dynamic load with CDN fallback) ===== -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+
   <!-- ===== Page micro CSS (scoped) ===== -->
   <style>
     .hidden{display:none!important}
@@ -245,6 +261,24 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     .stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem .8rem;font-size:.95rem}
     .stat-line{display:flex;gap:.35rem;justify-content:space-between;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
     .stat-key{color:#355;font-weight:600}.stat-val{color:#024}
+
+    /* First Look carousel */
+    .swiper.firstlook{position:relative;overflow:hidden}
+    .swiper.firstlook .swiper-wrapper{display:flex}
+    .swiper.firstlook .swiper-slide{flex:0 0 100%}
+    .swiper.firstlook img{display:block;width:100%;height:auto;border-radius:10px}
+    .swiper.firstlook .swiper-button-prev,.swiper.firstlook .swiper-button-next{
+      position:absolute;top:50%;transform:translateY(-50%);display:flex!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;z-index:7!important;width:44px;height:44px;align-items:center;justify-content:center;color:#0a3d62
+    }
+    .swiper.firstlook .swiper-button-prev{left:8px}
+    .swiper.firstlook .swiper-button-next{right:8px}
+    .swiper.firstlook .swiper-button-prev::after,.swiper.firstlook .swiper-button-next::after{
+      font-size:18px;background:#fff;border-radius:999px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.18)
+    }
+    .swiper.firstlook .swiper-pagination{z-index:7!important}
+    .swiper.firstlook .swiper-pagination-bullet{background:#0a3d62;opacity:.45}
+    .swiper.firstlook .swiper-pagination-bullet-active{opacity:1}
+    figure figcaption{font-size:.8rem;color:#345;margin-top:.35rem}
 
     /* Related pair on desktop */
     @media (min-width:861px){.related-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap,1.25rem)}}
@@ -560,9 +594,35 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p>Sun Viking was retired from Royal Caribbean service in 2004, marking the end of an era for one of the cruise line's most beloved vessels.</p>
       </section>
 
-      <!-- Stats -->
+      <!-- First Look + Stats -->
       <section class="card" aria-labelledby="first-look">
-        <h2 id="first-look">Sun Viking at a Glance</h2>
+        <h2 id="first-look">A First Look</h2>
+
+        <div class="swiper firstlook" aria-label="Sun Viking photo carousel">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <figure>
+                <img src="/assets/ships/1996_Sun_Viking_RCL_CRPgf527.webp" alt="Sun Viking at sea in 1996" loading="lazy">
+                <figcaption class="tiny">Photo: Wikimedia Commons</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/assets/ships/Sun_Viking_in_Vancouver,_Canada_1990.webp" alt="Sun Viking in Vancouver, Canada 1990" loading="lazy">
+                <figcaption class="tiny">Photo: Wikimedia Commons</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/assets/ships/Sun_Viking_at_Ocean_Terminal,_Hong_Kong.webp" alt="Sun Viking at Ocean Terminal, Hong Kong" loading="lazy">
+                <figcaption class="tiny">Photo: Wikimedia Commons</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="swiper-pagination" aria-hidden="true"></div>
+          <div class="swiper-button-prev" aria-label="Previous image"></div>
+          <div class="swiper-button-next" aria-label="Next image"></div>
+        </div>
 
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
           <h3 id="statsHeading">Ship Information</h3>
@@ -763,6 +823,27 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     if(fallbackEl){
       try{ const fb=JSON.parse(fallbackEl.textContent||'{}'); if(fb) renderStats(fb); }catch(_){}
     }
+  })();
+  </script>
+
+  <!-- ===== Swiper Initialization ===== -->
+  <script>
+  (function initFirstLookSwiper(){
+    function go(){
+      if(typeof Swiper==='undefined'){
+        if(window.__swiperReady) return setTimeout(go,50);
+        return setTimeout(go,100);
+      }
+      try{
+        new Swiper('.swiper.firstlook',{
+          loop:false,lazy:true,watchOverflow:true,
+          pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
+          navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
+          a11y:{enabled:true}
+        });
+      }catch(_){}
+    }
+    go();
   })();
   </script>
 </body>

@@ -272,6 +272,23 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     .stat-line{display:flex;gap:.35rem;justify-content:space-between;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
     .stat-key{color:#355;font-weight:600}.stat-val{color:#024}
 
+    /* First Look carousel */
+    .swiper.firstlook{position:relative;overflow:hidden}
+    .swiper.firstlook .swiper-wrapper{display:flex}
+    .swiper.firstlook .swiper-slide{flex:0 0 100%}
+    .swiper.firstlook img{display:block;width:100%;height:auto;border-radius:10px}
+    .swiper.firstlook .swiper-button-prev,.swiper.firstlook .swiper-button-next{
+      position:absolute;top:50%;transform:translateY(-50%);display:flex!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;z-index:7!important;width:44px;height:44px;align-items:center;justify-content:center;color:#0a3d62
+    }
+    .swiper.firstlook .swiper-button-prev{left:8px}
+    .swiper.firstlook .swiper-button-next{right:8px}
+    .swiper.firstlook .swiper-button-prev::after,.swiper.firstlook .swiper-button-next::after{
+      font-size:18px;background:#fff;border-radius:999px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.18)
+    }
+    .swiper.firstlook .swiper-pagination{z-index:7!important}
+    .swiper.firstlook .swiper-pagination-bullet{background:#0a3d62;opacity:.45}
+    .swiper.firstlook .swiper-pagination-bullet-active{opacity:1}
+
     /* Related pair on desktop */
     @media (min-width:861px){.related-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap,1.25rem)}}
     figure figcaption{font-size:.8rem;color:#345;margin-top:.35rem}
@@ -575,6 +592,26 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <!-- Ship Overview -->
       <section class="card" aria-labelledby="ship-overview">
         <h2 id="ship-overview">Historical Overview</h2>
+
+        <div class="swiper firstlook" aria-label="Song of America photo carousel">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <figure>
+                <img src="/assets/ships/Song_of_America,_1983.webp" alt="Song of America in 1983" loading="lazy">
+                <figcaption class="tiny">Photo: Wikimedia Commons</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/assets/ships/Song_of_America_1982.webp" alt="Song of America in 1982" loading="lazy">
+                <figcaption class="tiny">Photo: Wikimedia Commons</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="swiper-pagination" aria-hidden="true"></div>
+          <div class="swiper-button-prev" aria-label="Previous image"></div>
+          <div class="swiper-button-next" aria-label="Next image"></div>
+        </div>
 
         <p>Song of America was a Royal Caribbean ship that served from 1982 to 1999. At over 37,700 gross tons, she was one of the largest cruise ships in the world when built. The ship featured modern amenities for its era and helped establish Royal Caribbean as a major cruise line during the industry's growth period in the 1980s and 1990s.</p>
 
@@ -923,6 +960,27 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         closeAll();
       });
     }
+  })();
+  </script>
+
+  <!-- ===== Swiper Initialization ===== -->
+  <script>
+  (function initFirstLookSwiper(){
+    function go(){
+      if(typeof Swiper==='undefined'){
+        if(window.__swiperReady) return setTimeout(go,50);
+        return setTimeout(go,100);
+      }
+      try{
+        new Swiper('.swiper.firstlook',{
+          loop:false,lazy:true,watchOverflow:true,
+          pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
+          navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
+          a11y:{enabled:true}
+        });
+      }catch(_){}
+    }
+    go();
   })();
   </script>
 </body>
