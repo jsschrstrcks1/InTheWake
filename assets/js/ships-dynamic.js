@@ -17,184 +17,200 @@
   const SHIP_IMAGES = {
     // Icon Class
     'icon-of-the-seas': [
-      '/assets/ships/rcl/icon-of-the-seas-1.jpg',
-      '/assets/ships/rcl/icon-of-the-seas-2.jpg',
-      '/assets/ships/rcl/icon-of-the-seas-aerial.jpg'
+      '/assets/ships/Icon_of_the_Seas_(cropped).webp',
+      '/assets/ships/Icon_of_the_Seas_(kahunapulej).webp',
+      '/assets/ships/Icon_of_the_Seas_stern_in_Philipsburg,_Sint_Maarten.webp'
     ],
     'star-of-the-seas': [
-      '/assets/ships/rcl/star-of-the-seas-1.jpg',
-      '/assets/ships/rcl/star-of-the-seas-2.jpg'
+      '/assets/ships/Cádiz_-_Crucero_Star_of_the_Seas,_atracado_en_el_puerto_de_Cádiz_(25_julio_2025)_01.webp'
     ],
 
     // Oasis Class
     'oasis-of-the-seas': [
-      '/assets/ships/rcl/oasis-of-the-seas-1.jpg',
-      '/assets/ships/rcl/oasis-of-the-seas-2.jpg',
-      '/assets/ships/rcl/oasis-of-the-seas-aerial.jpg'
+      '/assets/ships/Oasis-of-the-seas-FOM- - 1.webp',
+      '/assets/ships/Oasis-of-the-seas-FOM- - 2.webp',
+      '/assets/ships/Oasis-of-the-seas-FOM- - 3.webp'
     ],
     'allure-of-the-seas': [
-      '/ships/assets/images/allure-of-the-seas-3.jpg',
-      '/ships/assets/images/allure2.jpg',
-      '/ships/assets/images/allure3.jpg'
+      '/assets/ships/Allure_of_the_Seas_(ship,_2009)_001.webp',
+      '/assets/ships/Allure_of_the_Seas_(ship,_2009)_001_(cropped).webp',
+      '/assets/ships/Allure_of_the_Seas_(31597720550).webp'
     ],
     'harmony-of-the-seas': [
-      '/assets/ships/rcl/harmony-of-the-seas-1.jpg',
-      '/assets/ships/rcl/harmony-of-the-seas-2.jpg',
-      '/assets/ships/rcl/harmony-of-the-seas-aerial.jpg'
+      '/assets/ships/Harmony-of-the-seas-FOM- - 1.webp',
+      '/assets/ships/Harmony-of-the-seas-FOM- - 2.webp'
     ],
     'symphony-of-the-seas': [
-      '/assets/ships/rcl/symphony-of-the-seas-1.jpg',
-      '/assets/ships/rcl/symphony-of-the-seas-2.jpg',
-      '/assets/ships/rcl/symphony-of-the-seas-aerial.jpg'
+      '/assets/ships/SymphonyOfTheSeas_(cropped)_02-2.webp',
+      '/assets/ships/SymphonyOfTheSeas_(cropped)_02.webp',
+      '/assets/ships/Mein_Schiff_2_&_Symphony_of_the_Seas.webp'
     ],
     'wonder-of-the-seas': [
-      '/assets/ships/rcl/wonder-of-the-seas-1.jpg',
-      '/assets/ships/rcl/wonder-of-the-seas-2.jpg',
-      '/assets/ships/rcl/wonder-of-the-seas-aerial.jpg'
+      '/assets/ships/Wonder_of_the_Seas_-_August_2021.webp',
+      '/assets/ships/Wonder_of_the_Seas_Jan_30_2025.webp',
+      '/assets/ships/Wonder_of_the_Seas_atracando_en_Cartagena-España-.webp'
     ],
     'utopia-of-the-seas': [
-      '/assets/ships/rcl/utopia-of-the-seas-1.jpg',
-      '/assets/ships/rcl/utopia-of-the-seas-2.jpg',
-      '/assets/ships/rcl/utopia-of-the-seas-aerial.jpg'
+      '/assets/ships/Utopia-of-the-seas-FOM- - 1.webp',
+      '/assets/ships/Utopia-of-the-seas-FOM- - 2.webp'
     ],
 
     // Quantum Ultra Class
     'spectrum-of-the-seas': [
-      '/assets/ships/rcl/spectrum-of-the-seas-1.jpg',
-      '/assets/ships/rcl/spectrum-of-the-seas-2.jpg',
-      '/assets/ships/rcl/spectrum-of-the-seas-north-star.jpg'
+      '/assets/ships/Spectrum_of_the_Seas_01.webp',
+      '/assets/ships/Royal_Caribbean_Spectrum_of_the_Seas_19-08-2023(2).webp',
+      '/assets/ships/Royal_Caribbean_Spectrum_of_the_Seas_19-08-2023(4).webp'
     ],
     'odyssey-of-the-seas': [
-      '/assets/ships/rcl/odyssey-of-the-seas-1.jpg',
-      '/assets/ships/rcl/odyssey-of-the-seas-2.jpg',
-      '/assets/ships/rcl/odyssey-of-the-seas-seaplex.jpg'
+      '/assets/ships/Odyssey_of_the_Seas.webp',
+      '/assets/ships/Odyssey_of_the_Seas_(53429955475).webp',
+      '/assets/ships/Odyssey_of_the_Seas_Abends.webp'
     ],
 
     // Quantum Class
     'quantum-of-the-seas': [
-      '/assets/ships/rcl/quantum-of-the-seas-1.jpg',
-      '/assets/ships/rcl/quantum-of-the-seas-2.jpg',
-      '/assets/ships/rcl/quantum-of-the-seas-north-star.jpg'
+      '/assets/ships/Quantum_of_the_Seas_-_Wedel_04.webp',
+      '/assets/ships/"Quantum_of_the_Seas".webp',
+      '/assets/ships/0016_Quantum_of_the_Seas.webp'
     ],
     'anthem-of-the-seas': [
-      '/assets/ships/rcl/anthem-of-the-seas-1.jpg',
-      '/assets/ships/rcl/anthem-of-the-seas-2.jpg',
-      '/assets/ships/rcl/anthem-of-the-seas-two70.jpg'
+      '/assets/ships/ANTHEM_OF_THE_SEAS_0310.webp',
+      '/assets/ships/Anthem_of_the_Seas,_docked_at_Nassau_Cruise_Port,_Bahamas_(March_14,_2024)_16-9.webp',
+      '/assets/ships/Anthem_of_the_Seas_(ship,_2015)_001.webp'
     ],
     'ovation-of-the-seas': [
-      '/assets/ships/rcl/ovation-of-the-seas-1.jpg',
-      '/assets/ships/rcl/ovation-of-the-seas-2.jpg',
-      '/assets/ships/rcl/ovation-of-the-seas-alaska.jpg'
+      '/assets/ships/ovation-of-the-seas-FOM-1.webp',
+      '/assets/ships/ovation-of-the-seas-FOM-10.webp',
+      '/assets/ships/ovation-of-the-seas-FOM-11.webp'
     ],
 
     // Freedom Class
     'freedom-of-the-seas': [
-      '/assets/ships/rcl/freedom-of-the-seas-1.jpg',
-      '/assets/ships/rcl/freedom-of-the-seas-2.jpg',
-      '/assets/ships/rcl/freedom-of-the-seas-flowrider.jpg'
+      '/assets/ships/freedom-of-the-seas-FOM- - 1.webp',
+      '/assets/ships/freedom-of-the-seas-FOM- - 2.webp',
+      '/assets/ships/freedom-of-the-seas-FOM- - 3.webp'
     ],
     'liberty-of-the-seas': [
-      '/assets/ships/rcl/liberty-of-the-seas-1.jpg',
-      '/assets/ships/rcl/liberty-of-the-seas-2.jpg',
-      '/assets/ships/rcl/liberty-of-the-seas-pool.jpg'
+      '/assets/ships/Liberty-of-the-seas-FOM- - 1.webp',
+      '/assets/ships/Liberty-of-the-seas-FOM- - 2.webp',
+      '/assets/ships/Liberty-of-the-seas-FOM- - 3.webp'
     ],
     'independence-of-the-seas': [
-      '/assets/ships/rcl/independence-of-the-seas-1.jpg',
-      '/assets/ships/rcl/independence-of-the-seas-2.jpg',
-      '/assets/ships/rcl/independence-of-the-seas-flowrider.jpg'
+      '/assets/ships/Cruise_ship_Independence_of_the_Seas_R01.webp',
+      '/assets/ships/1993-Independence_of_the_seas_na_Coruña.webp'
     ],
 
     // Voyager Class
     'voyager-of-the-seas': [
-      '/assets/ships/rcl/voyager-of-the-seas-1.jpg',
-      '/assets/ships/rcl/voyager-of-the-seas-2.jpg',
-      '/assets/ships/rcl/voyager-of-the-seas-promenade.jpg'
-    ],
-    'explorer-of-the-seas': [
-      '/assets/ships/rcl/explorer-of-the-seas-1.jpg',
-      '/assets/ships/rcl/explorer-of-the-seas-2.jpg',
-      '/assets/ships/rcl/explorer-of-the-seas-ice-rink.jpg'
-    ],
-    'adventure-of-the-seas': [
-      '/ships/rcl/images/Adventure_of_the_Seas1.jpeg',
-      '/ships/rcl/images/Adventure_of_the_Seas2.jpg',
-      '/ships/rcl/images/Adventure_of_the_Seas3.jpg',
-      '/ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg',
-      '/ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg',
-      '/ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg'
-    ],
-    'navigator-of-the-seas': [
-      '/assets/ships/rcl/navigator-of-the-seas-1.jpg',
-      '/assets/ships/rcl/navigator-of-the-seas-2.jpg',
-      '/assets/ships/rcl/navigator-of-the-seas-ice-rink.jpg'
+      '/assets/ships/"Voyager_of_the_Seas"_(8194516843).webp',
+      '/assets/ships/Voyageroftheseas.webp'
     ],
     'mariner-of-the-seas': [
-      '/assets/ships/rcl/mariner-of-the-seas-1.jpg',
-      '/assets/ships/rcl/mariner-of-the-seas-2.jpg',
-      '/assets/ships/rcl/mariner-of-the-seas-promenade.jpg'
+      '/assets/ships/mariner-of-the-seas-FOM- - 1.webp',
+      '/assets/ships/mariner-of-the-seas-FOM- - 2.webp',
+      '/assets/ships/mariner-of-the-seas-FOM- - 3.webp'
+    ],
+    'navigator-of-the-seas': [
+      '/assets/ships/Navigator_of_the_Seas_(Grand_Cayman)_001.webp',
+      '/assets/ships/Navigator_of_the_Seas_(ship,_2002)_in_Ensenada,_Mexico_(August_2024)_1.webp',
+      '/assets/ships/Navigator_of_the_Seas,_Puerto_de_la_Bahía_de_Cádiz.webp'
+    ],
+    'adventure-of-the-seas': [
+      '/assets/ships/Adventure_of_the_Seas_5.webp',
+      '/assets/ships/Adventure_of_the_Seas_7.webp',
+      '/assets/ships/Adventure_of_the_Seas_(ship,_2001)_comes_back_to_Grand_Cayman_(April_2025).webp'
+    ],
+    'explorer-of-the-seas': [
+      '/assets/ships/Explorer_of_the_Seas,_Fremantle,_2015_(03).webp'
     ],
 
     // Radiance Class
     'radiance-of-the-seas': [
-      '/assets/ships/thumbs/radiance-of-the-seas.webp',
-      '/assets/ships/thumbs/radiance-of-the-seas.jpg',
-      '/ships/radianceots.jpg'
+      '/assets/ships/Radiance-of-the-seas-FOM- - 1.webp',
+      '/assets/ships/Radiance-of-the-seas-FOM- - 2.webp',
+      '/assets/ships/Radiance-of-the-seas-FOM- - 3.webp'
     ],
     'brilliance-of-the-seas': [
-      '/assets/ships/thumbs/brilliance-of-the-seas.webp',
-      '/assets/ships/thumbs/brilliance-of-the-seas.jpg'
+      '/assets/ships/brilliance-of-the-seas1.webp',
+      '/assets/ships/brilliance-of-the-seas2.webp',
+      '/assets/ships/Brilliance_of_the_Seas_Boston_2014_02_(cropped).webp'
     ],
     'serenade-of-the-seas': [
-      '/assets/ships/thumbs/serenade-of-the-seas.webp',
-      '/assets/ships/thumbs/serenade-of-the-seas.jpg'
+      '/assets/ships/serenade-of-the-seas-FOM- - 1.webp',
+      '/assets/ships/serenade-of-the-seas-FOM- - 2.webp',
+      '/assets/ships/serenade-of-the-seas-FOM- - 3.webp'
     ],
     'jewel-of-the-seas': [
-      '/assets/ships/thumbs/jewel-of-the-seas.webp',
-      '/assets/ships/thumbs/jewel-of-the-seas.jpg'
+      '/assets/ships/Jewel-of-the-seas-FOM- - 1 (1).webp',
+      '/assets/ships/Jewel-of-the-seas-FOM- - 1.webp',
+      '/assets/ships/jewel-of-the-seas1.webp'
     ],
 
     // Vision Class
     'grandeur-of-the-seas': [
-      '/assets/ships/thumbs/grandeur-of-the-seas.webp',
-      '/ships/assets/grandeur-of-the-seas1.jpg'
+      '/assets/ships/Grandeur-of-the-seas-FOM- - 1.webp',
+      '/assets/ships/Grandeur-of-the-seas-FOM- - 2.webp',
+      '/assets/ships/Grandeur-of-the-seas-FOM- - 3.webp'
     ],
     'enchantment-of-the-seas': [
-      '/assets/ships/thumbs/enchantment-of-the-seas.webp',
-      '/assets/ships/thumbs/enchantment-of-the-seas.jpg',
-      '/ships/assets/enchantment-of-the-seas1.jpg',
-      '/ships/assets/images/Enchantment_of_the_Seas.jpeg',
-      '/ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg'
-    ],
-    'vision-of-the-seas': [
-      '/assets/ships/thumbs/vision-of-the-seas.webp',
-      '/assets/ships/thumbs/vision-of-the-seas.jpg',
-      '/ships/assets/vision-of-the-Seas1.jpg',
-      '/ships/assets/rcl/vision-of-the-Seas1.jpg'
+      '/assets/ships/enchantment-of-the-seas1.webp',
+      '/assets/ships/enchantment-of-the-seas2.webp',
+      '/assets/ships/Enchantment_of_the_Seas.webp'
     ],
     'rhapsody-of-the-seas': [
-      '/assets/ships/thumbs/rhapsody-of-the-seas.webp',
-      '/assets/ships/thumbs/rhapsody-of-the-seas.jpg',
-      '/ships/assets/rhapsody-of-the-seas1.jpg',
-      '/ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg',
-      '/ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg',
-      '/ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg'
+      '/assets/ships/2560px-Kobe_Rhapsody_of_the_Seas01n4592.webp',
+      '/assets/ships/2560px-Kobe_Rhapsody_of_the_Seas03n4592.webp',
+      '/assets/ships/rhapsody-of-the-seas1.webp'
+    ],
+    'vision-of-the-seas': [
+      '/assets/ships/vision-of-the-seas1.webp',
+      '/assets/ships/vision-of-the-seas2.webp'
     ],
 
     // Sovereign Class
+    'majesty-of-the-seas': [
+      '/assets/ships/MSMajestyOfTheSeasEdit1.webp',
+      '/assets/ships/Majesty_of_the_Seas_(ship,_1992)_002.webp',
+      '/assets/ships/majesty-of-the-seas1.webp'
+    ],
     'sovereign-of-the-seas': [
-      '/ships/assets/sovereign-of-the-seas1.jpg',
-      '/ships/assets/sovereign-of-the-seas2.jpg',
-      '/ships/assets/sovereign-of-the-seas3.jpg'
+      '/assets/ships/Sovereign_of_the_Seas_Nassau_Bahamas_(244161813)_(cropped)_(cropped).webp',
+      '/assets/ships/MS_Sovereign_of_the_Seas.webp',
+      '/assets/ships/Sovereign_of_the_Seas_Nassau_Bahamas_(244161813).webp'
     ],
     'monarch-of-the-seas': [
-      '/assets/ships/rcl/monarch-of-the-seas-1.jpg',
-      '/assets/ships/rcl/monarch-of-the-seas-2.jpg'
+      '/assets/ships/2560px-Monarch_of_the_seas_(2707258203).webp',
+      '/assets/ships/Monarch_of_the_Seas.webp'
     ],
-    'majesty-of-the-seas': [
-      '/assets/ships/majesty-of-the-seas1.webp',
-      '/assets/ships/rcl/majesty-of-the-seas-1.jpg',
-      '/assets/ships/rcl/majesty-of-the-seas-2.jpg'
-    ]
+
+    // Legend Class
+    'splendour-of-the-seas': [
+      '/assets/ships/Fotos_del_crucero_"Splendour_of_the_Seas"_de_Royal_Caribbean_en_el_muelle_de_Santa_Catalina_del_Puerto_de_Las_Palmas_de_Gran_Canaria_Islas_Canarias_(6424810807).webp',
+      '/assets/ships/Fotos_del_crucero_"Splendour_of_the_Seas"_de_Royal_Caribbean_en_el_muelle_de_Santa_Catalina_del_Puerto_de_Las_Palmas_de_Gran_Canaria_Islas_Canarias_(6424818065).webp',
+      '/assets/ships/Splendour_of_the_Seas_(at_Split_on_2011-0716).webp'
+    ],
+
+    // Historic Ships
+    'song-of-norway': [
+      '/assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped)-2.webp',
+      '/assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped).webp',
+      '/assets/ships/2560px-Song_of_Norway_Vigo.webp'
+    ],
+    'song-of-america': [
+      '/assets/ships/Song_of_America,_1983.webp',
+      '/assets/ships/Song_of_America_1982.webp'
+    ],
+    'sun-viking': [
+      '/assets/ships/1996_Sun_Viking_RCL_CRPgf527.webp',
+      '/assets/ships/Sun_Viking_in_Vancouver,_Canada_1990.webp',
+      '/assets/ships/Sun_Viking_at_Ocean_Terminal,_Hong_Kong.webp'
+    ],
+    'nordic-empress': [
+      '/assets/ships/NordicEmpress1.webp',
+      '/assets/ships/NordicEmpress1_(cropped)_(cropped).webp',
+      '/assets/ships/MS_Nordic_Empress_in_Miami_(bigger).webp'
+    ],
+
   };
 
   // Ship CTA/pitch text - WHY choose this ship and WHO it's for
