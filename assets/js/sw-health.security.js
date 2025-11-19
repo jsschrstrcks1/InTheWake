@@ -1,6 +1,10 @@
-// /assets/js/sw-health.security.js
+/* sw-health.security.js v12.0.0 — Security & Health Diagnostics
+ * Displays browser security context and SW status
+ * Soli Deo Gloria ✝️
+ */
+
 (function () {
-  const VER = '10.0.0';
+  const VER = '12.0.0';
 
   // ---------- Small helpers ----------
   const $ = (sel, root = document) => root.querySelector(sel);
@@ -68,7 +72,7 @@
 
     // Passive header-ish signals we can infer client-side
     const https = location.protocol === 'https:';
-    const hstsLikely: string | boolean = https ? 'Unknown (header not readable client-side)' : false;
+    const hstsLikely = https ? 'Unknown (header not readable client-side)' : false;
 
     return {
       basics: { isSecure, crossOriginIso, https, hstsLikely, referrerPolicy, hasNonce, cspMeta },

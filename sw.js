@@ -4,8 +4,15 @@
  * Soli Deo Gloria ✝️
  */
 
-const VERSION = '11.0.0';
+const VERSION = '12.0.0';
 const CACHE_PREFIX = 'itw-site';
+
+/* Network state (updated by client via NETWORK_INFO message) */
+let networkInfo = {
+  effectiveType: '4g',
+  downlink: 10,
+  saveData: false
+};
 
 const CACHES = {
   PRECACHE: `${CACHE_PREFIX}-precache-${VERSION}`,
@@ -153,33 +160,48 @@ self.addEventListener('fetch', (event) => {
 /* ==================== MESSAGING ==================== */
 
 self.addEventListener('message', (event) => {
-  const { type, data } = event.data || {};
-  
+  const { type, data, urls, priority } = event.data || {};
+
   switch (type) {
     case 'SKIP_WAITING':
       self.skipWaiting();
       break;
-      
+
     case 'CLAIM_CLIENTS':
       self.clients.claim();
       break;
-      
+
     case 'GET_VERSION':
       event.ports[0]?.postMessage({ version: VERSION });
       break;
-      
+
     case 'GET_CACHE_STATS':
       getCacheStats().then(stats => {
         event.ports[0]?.postMessage({ type: 'CACHE_STATS', stats });
       });
       break;
-      
+
     case 'FORCE_REFRESH_DATA':
       event.waitUntil(refreshCalculatorData());
       break;
-      
+
     case 'CLEAR_CACHES':
       event.waitUntil(clearAllCaches());
+      break;
+
+    case 'SEED_URLS':
+      // Prefetch URLs sent from client (site-cache.js)
+      event.waitUntil(seedUrls(urls || [], priority || 'normal'));
+      break;
+
+    case 'NETWORK_INFO':
+      // Update network state for adaptive caching strategies
+      networkInfo = {
+        effectiveType: event.data.effectiveType || '4g',
+        downlink: event.data.downlink || 10,
+        saveData: !!event.data.saveData
+      };
+      console.log('[SW] Network info updated:', networkInfo);
       break;
   }
 });
@@ -506,6 +528,90 @@ async function refreshCalculatorData() {
 async function clearAllCaches() {
   const names = await caches.keys();
   await Promise.all(names.map(name => caches.delete(name)));
+}
+
+async function seedUrls(urls, priority = 'normal') {
+  if (!urls || !urls.length) return;
+
+  // Skip seeding on slow/metered connections unless priority is critical
+  if (networkInfo.saveData && priority !== 'critical') {
+    console.log('[SW] Skipping seed - save data mode');
+    return;
+  }
+
+  if (networkInfo.effectiveType === '2g' && priority === 'low') {
+    console.log('[SW] Skipping low-priority seed - slow connection');
+    return;
+  }
+
+  // Limit concurrent fetches based on priority
+  const concurrency = priority === 'critical' ? 6 : priority === 'high' ? 4 : 2;
+  const chunks = [];
+  for (let i = 0; i < urls.length; i += concurrency) {
+    chunks.push(urls.slice(i, i + concurrency));
+  }
+
+  for (const chunk of chunks) {
+    await Promise.all(
+      chunk.map(async url => {
+        try {
+          const fullUrl = new URL(url, location.origin).href;
+
+          // Skip cross-origin unless it's allowed
+          if (!isSameOrigin(fullUrl)) return;
+
+          // Determine cache based on URL type
+          const parsedUrl = new URL(fullUrl);
+          let cacheName, maxItems;
+
+          if (parsedUrl.pathname.endsWith('.html') || parsedUrl.pathname === '/' || parsedUrl.pathname.endsWith('/')) {
+            cacheName = CACHES.PAGES;
+            maxItems = CONFIG.maxPages;
+          } else if (isImageURL(parsedUrl)) {
+            cacheName = CACHES.IMAGES;
+            maxItems = CONFIG.maxImages;
+          } else if (parsedUrl.pathname.endsWith('.json')) {
+            cacheName = CACHES.DATA;
+            maxItems = CONFIG.maxData;
+          } else if (isVersionedAsset(parsedUrl) || parsedUrl.pathname.match(/\.(css|js)$/i)) {
+            cacheName = CACHES.ASSETS;
+            maxItems = CONFIG.maxAssets;
+          } else if (isFontURL(parsedUrl)) {
+            cacheName = CACHES.FONTS;
+            maxItems = CONFIG.maxFonts;
+          } else {
+            // Default to assets
+            cacheName = CACHES.ASSETS;
+            maxItems = CONFIG.maxAssets;
+          }
+
+          // Check if already cached
+          const cache = await caches.open(cacheName);
+          const existing = await cache.match(fullUrl);
+          if (existing) {
+            updateLRU(cacheName, fullUrl);
+            return;
+          }
+
+          // Fetch and cache
+          const response = await fetchWithTimeout(new Request(fullUrl), CONFIG.fetchTimeout);
+          if (response && (response.ok || response.type === 'opaque')) {
+            await cache.put(fullUrl, response);
+            updateLRU(cacheName, fullUrl);
+            pruneCache(cacheName, maxItems);
+            console.log('[SW] Seeded:', fullUrl);
+          }
+        } catch (e) {
+          // Silently skip failed seeds
+        }
+      })
+    );
+
+    // Small delay between chunks for low priority
+    if (priority === 'low') {
+      await new Promise(r => setTimeout(r, 100));
+    }
+  }
 }
 
 function normalizeRequest(request) {
