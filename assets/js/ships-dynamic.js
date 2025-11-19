@@ -271,78 +271,78 @@
     'Icon Class': {
       order: 1,
       ships: [
-        { name: 'Icon of the Seas', slug: 'icon-of-the-seas', year: 2024 },
-        { name: 'Star of the Seas', slug: 'star-of-the-seas', year: 2025 }
+        { name: 'Icon of the Seas', slug: 'icon-of-the-seas', year: 2024, gt: '250,800', capacity: 7600 },
+        { name: 'Star of the Seas', slug: 'star-of-the-seas', year: 2025, gt: '250,800', capacity: 7600 }
       ]
     },
     'Oasis Class': {
       order: 2,
       ships: [
-        { name: 'Oasis of the Seas', slug: 'oasis-of-the-seas', year: 2009 },
-        { name: 'Allure of the Seas', slug: 'allure-of-the-seas', year: 2010 },
-        { name: 'Harmony of the Seas', slug: 'harmony-of-the-seas', year: 2016 },
-        { name: 'Symphony of the Seas', slug: 'symphony-of-the-seas', year: 2018 },
-        { name: 'Wonder of the Seas', slug: 'wonder-of-the-seas', year: 2022 },
-        { name: 'Utopia of the Seas', slug: 'utopia-of-the-seas', year: 2024 }
+        { name: 'Oasis of the Seas', slug: 'oasis-of-the-seas', year: 2009, gt: '225,282', capacity: 6771 },
+        { name: 'Allure of the Seas', slug: 'allure-of-the-seas', year: 2010, gt: '225,282', capacity: 6780 },
+        { name: 'Harmony of the Seas', slug: 'harmony-of-the-seas', year: 2016, gt: '226,963', capacity: 6687 },
+        { name: 'Symphony of the Seas', slug: 'symphony-of-the-seas', year: 2018, gt: '228,081', capacity: 6680 },
+        { name: 'Wonder of the Seas', slug: 'wonder-of-the-seas', year: 2022, gt: '236,857', capacity: 6988 },
+        { name: 'Utopia of the Seas', slug: 'utopia-of-the-seas', year: 2024, gt: '236,857', capacity: 5668 }
       ]
     },
     'Quantum Ultra Class': {
       order: 3,
       ships: [
-        { name: 'Spectrum of the Seas', slug: 'spectrum-of-the-seas', year: 2019 },
-        { name: 'Odyssey of the Seas', slug: 'odyssey-of-the-seas', year: 2021 }
+        { name: 'Spectrum of the Seas', slug: 'spectrum-of-the-seas', year: 2019, gt: '169,379', capacity: 5622 },
+        { name: 'Odyssey of the Seas', slug: 'odyssey-of-the-seas', year: 2021, gt: '169,379', capacity: 5510 }
       ]
     },
     'Quantum Class': {
       order: 4,
       ships: [
-        { name: 'Quantum of the Seas', slug: 'quantum-of-the-seas', year: 2014 },
-        { name: 'Anthem of the Seas', slug: 'anthem-of-the-seas', year: 2015 },
-        { name: 'Ovation of the Seas', slug: 'ovation-of-the-seas', year: 2016 }
+        { name: 'Quantum of the Seas', slug: 'quantum-of-the-seas', year: 2014, gt: '168,666', capacity: 4905 },
+        { name: 'Anthem of the Seas', slug: 'anthem-of-the-seas', year: 2015, gt: '168,666', capacity: 4905 },
+        { name: 'Ovation of the Seas', slug: 'ovation-of-the-seas', year: 2016, gt: '168,666', capacity: 4905 }
       ]
     },
     'Freedom Class': {
       order: 5,
       ships: [
-        { name: 'Freedom of the Seas', slug: 'freedom-of-the-seas', year: 2006 },
-        { name: 'Liberty of the Seas', slug: 'liberty-of-the-seas', year: 2007 },
-        { name: 'Independence of the Seas', slug: 'independence-of-the-seas', year: 2008 }
+        { name: 'Freedom of the Seas', slug: 'freedom-of-the-seas', year: 2006, gt: '156,271', capacity: 4515 },
+        { name: 'Liberty of the Seas', slug: 'liberty-of-the-seas', year: 2007, gt: '156,271', capacity: 4960 },
+        { name: 'Independence of the Seas', slug: 'independence-of-the-seas', year: 2008, gt: '156,271', capacity: 4370 }
       ]
     },
     'Voyager Class': {
       order: 6,
       ships: [
-        { name: 'Voyager of the Seas', slug: 'voyager-of-the-seas', year: 1999 },
-        { name: 'Explorer of the Seas', slug: 'explorer-of-the-seas', year: 2000 },
-        { name: 'Adventure of the Seas', slug: 'adventure-of-the-seas', year: 2001 },
-        { name: 'Navigator of the Seas', slug: 'navigator-of-the-seas', year: 2002 },
-        { name: 'Mariner of the Seas', slug: 'mariner-of-the-seas', year: 2003 }
+        { name: 'Voyager of the Seas', slug: 'voyager-of-the-seas', year: 1999, gt: '137,276', capacity: 3807 },
+        { name: 'Explorer of the Seas', slug: 'explorer-of-the-seas', year: 2000, gt: '137,308', capacity: 3840 },
+        { name: 'Adventure of the Seas', slug: 'adventure-of-the-seas', year: 2001, gt: '137,276', capacity: 3807 },
+        { name: 'Navigator of the Seas', slug: 'navigator-of-the-seas', year: 2002, gt: '139,999', capacity: 3807 },
+        { name: 'Mariner of the Seas', slug: 'mariner-of-the-seas', year: 2003, gt: '139,863', capacity: 3807 }
       ]
     },
     'Radiance Class': {
       order: 7,
       ships: [
-        { name: 'Radiance of the Seas', slug: 'radiance-of-the-seas', year: 2001 },
-        { name: 'Brilliance of the Seas', slug: 'brilliance-of-the-seas', year: 2002 },
-        { name: 'Serenade of the Seas', slug: 'serenade-of-the-seas', year: 2003 },
-        { name: 'Jewel of the Seas', slug: 'jewel-of-the-seas', year: 2004 }
+        { name: 'Radiance of the Seas', slug: 'radiance-of-the-seas', year: 2001, gt: '90,090', capacity: 2501 },
+        { name: 'Brilliance of the Seas', slug: 'brilliance-of-the-seas', year: 2002, gt: '90,090', capacity: 2543 },
+        { name: 'Serenade of the Seas', slug: 'serenade-of-the-seas', year: 2003, gt: '90,090', capacity: 2476 },
+        { name: 'Jewel of the Seas', slug: 'jewel-of-the-seas', year: 2004, gt: '90,090', capacity: 2501 }
       ]
     },
     'Vision Class': {
       order: 8,
       ships: [
-        { name: 'Grandeur of the Seas', slug: 'grandeur-of-the-seas', year: 1996 },
-        { name: 'Enchantment of the Seas', slug: 'enchantment-of-the-seas', year: 1997 },
-        { name: 'Vision of the Seas', slug: 'vision-of-the-seas', year: 1998 },
-        { name: 'Rhapsody of the Seas', slug: 'rhapsody-of-the-seas', year: 1997 }
+        { name: 'Grandeur of the Seas', slug: 'grandeur-of-the-seas', year: 1996, gt: '74,137', capacity: 2440 },
+        { name: 'Enchantment of the Seas', slug: 'enchantment-of-the-seas', year: 1997, gt: '82,910', capacity: 2252 },
+        { name: 'Vision of the Seas', slug: 'vision-of-the-seas', year: 1998, gt: '78,491', capacity: 2435 },
+        { name: 'Rhapsody of the Seas', slug: 'rhapsody-of-the-seas', year: 1997, gt: '78,491', capacity: 2435 }
       ]
     },
     'Sovereign Class': {
       order: 9,
       ships: [
-        { name: 'Sovereign of the Seas', slug: 'sovereign-of-the-seas', year: 1988 },
-        { name: 'Monarch of the Seas', slug: 'monarch-of-the-seas', year: 1991 },
-        { name: 'Majesty of the Seas', slug: 'majesty-of-the-seas', year: 1992 }
+        { name: 'Sovereign of the Seas', slug: 'sovereign-of-the-seas', year: 1988, gt: '73,192', capacity: 2852 },
+        { name: 'Monarch of the Seas', slug: 'monarch-of-the-seas', year: 1991, gt: '73,937', capacity: 2764 },
+        { name: 'Majesty of the Seas', slug: 'majesty-of-the-seas', year: 1992, gt: '74,077', capacity: 2767 }
       ]
     }
   };
@@ -381,6 +381,9 @@
     const placeholderUrl = '/assets/ship-placeholder.jpg';
     const cta = SHIP_CTAS[ship.slug] || 'Explore this ship to discover what makes it special for your cruise.';
 
+    // Format capacity with commas
+    const formattedCapacity = ship.capacity ? ship.capacity.toLocaleString() : '';
+
     return `
       <article class="ship-card item-card" data-ship-slug="${ship.slug}">
         <a href="${pageUrl}" class="ship-card-link item-card-link">
@@ -396,8 +399,13 @@
           </div>
           <div class="ship-card-content item-card-content">
             <h3 class="ship-card-title item-card-title">${ship.name}</h3>
-            <p class="ship-card-year item-card-meta">Launched ${ship.year}</p>
+            <div class="ship-card-stats item-card-meta">
+              <span class="badge">${ship.year}</span>
+              ${ship.gt ? `<span class="badge">${ship.gt} GT</span>` : ''}
+              ${formattedCapacity ? `<span class="badge">${formattedCapacity} guests</span>` : ''}
+            </div>
             <p class="item-card-cta">${cta}</p>
+            <span class="ship-card-cta-btn">Explore Ship</span>
           </div>
         </a>
       </article>
