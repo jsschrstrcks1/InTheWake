@@ -1092,7 +1092,7 @@ document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.r
         }
         if(tried.has(next)) return tryNext();
         tried.add(next);
-        console.debug('[recent-rail] trying', next);
+
         imgEl.src = next;
       }
       imgEl.onerror = tryNext;

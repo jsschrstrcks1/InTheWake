@@ -354,7 +354,7 @@
 
       renderVenues(filteredVenues, venuesData.ships);
     } catch (error) {
-      console.error('Error loading venues:', error);
+
       showError();
     }
   }

@@ -24,15 +24,12 @@
 importScripts('/assets/js/calculator-math.js?v=1.004.000');
 
 // Log ready state
-console.log('[Worker] v1.004.000 initializing...');
 
 // Verify math engine loaded
 if (typeof ITW_MATH === 'undefined' || !ITW_MATH.compute) {
-  console.error('[Worker] FATAL: ITW_MATH not loaded!');
+
   throw new Error('Math engine failed to load');
 }
-
-console.log('[Worker] Math engine loaded:', ITW_MATH.version);
 
 /**
  * Message handler - receives compute requests from main thread
@@ -66,8 +63,7 @@ self.addEventListener('message', (e) => {
       });
       
     } catch (err) {
-      console.error('[Worker] Compute error:', err);
-      
+
       // Post error back to main thread
       self.postMessage({ 
         type: 'error', 
@@ -93,8 +89,7 @@ self.addEventListener('message', (e) => {
  * @returns {Object} Modified results with forced package as winner
  */
 function applyForcedPackage(results, forcedPkg, inputs, economics, vouchers) {
-  console.log('[Worker] Applying forced package:', forcedPkg);
-  
+
   // Calculate cost for this specific package
   const forcedCost = calculateForcedPackageCost(forcedPkg, inputs, economics, vouchers);
   
@@ -302,7 +297,6 @@ function validatePayload(payload) {
 
 // Post ready message
 self.postMessage({ type: 'ready' });
-console.log('[Worker] v1.004.000 ready ✓');
+
 console.log('[Worker] Package recommendations: FIXED (accounts for uncovered drinks)');
-console.log('[Worker] Forced package support: ENABLED');
-console.log('[Worker] Minors + Deluxe policy: ENFORCED');
+

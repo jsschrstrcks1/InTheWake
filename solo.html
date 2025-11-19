@@ -1214,10 +1214,10 @@
           }
         })
         .catch(function(err){
-          console.error("[solo] Failed to mount", article.slug, err);
+
           host.innerHTML =
             '<h2>We hit rough seas loading this article.</h2>'+
-            '<p>Try refreshing or <a href="'+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
+            '<p>Try refreshing or <a href="#"+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
           host.setAttribute('aria-busy','false');
 
           // Announce error to screen readers
@@ -1255,7 +1255,7 @@
             '</picture>'+
           '</div>'+
           '<div class="meta">'+
-            '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(a.name)+'</a>'+
+            '<a href="#"+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(a.name)+'</a>'+
           '</div>';
 
         rail.appendChild(div);
@@ -1347,12 +1347,12 @@
         var to = a.url && /\/solo\/articles\//.test(a.url) ? a.url.replace('/solo/articles/','/solo/').replace(/\.html$/,'') + '.html' : (a.url||'#');
 
         return '<article class="rail-item">\
-          <a class="thumb" href="'+to+'">\
+          <a class="thumb" href="#"+to+'">\
             <img src="'+img+'" alt="'+escapeHtml(imgAlt)+'" width="112" height="72" style="width:112px;height:72px;object-fit:cover;border-radius:.5rem;display:block;">\
           </a>\
           <div class="meta">\
-            <h4><a href="'+to+'">'+escapeHtml(a.title||"")+'</a></h4>\
-            <p class="tiny muted">'+escapeHtml(d)+(author.name ? ' · <img class="avatar" src="'+avatarSrc+'" alt="'+escapeHtml(avatarAlt)+'" width="18" height="18"><a class="author" href="'+(author.url||'#')+'">'+escapeHtml(author.name)+'</a>' : '')+'</p>\
+            <h4><a href="#"+to+'">'+escapeHtml(a.title||"")+'</a></h4>\
+            <p class="tiny muted">'+escapeHtml(d)+(author.name ? ' · <img class="avatar" src="'+avatarSrc+'" alt="'+escapeHtml(avatarAlt)+'" width="18" height="18"><a class="author" href="#"+(author.url||'#')+'">'+escapeHtml(author.name)+'</a>' : '')+'</p>\
             <p class="tiny">'+escapeHtml(a.excerpt||"")+'</p>\
           </div>\
         </article>';
@@ -1422,7 +1422,7 @@
           '</picture>'+
         '</div>'+
         '<div style="margin-left:.5rem">'+
-          '<strong><a href="'+(auth.url||'#')+'"'+(auth.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(auth.name)+'</a></strong>'+
+          '<strong><a href="#"+(auth.url||'#')+'"'+(auth.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(auth.name)+'</a></strong>'+
           '<a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>'+
         '</div>';
       mounted.appendChild(footer);

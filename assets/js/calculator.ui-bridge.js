@@ -21,26 +21,23 @@
  */
 (function() {
   'use strict';
-  
-  console.log('[ITW Bridge] Initializing...');
-  
+
   // Wait for store to exist (check every 50ms, max 2.5 seconds)
   function waitForStore(attempts = 0) {
     if (window.__itwStore && window.ITW) {
-      console.log('[ITW Bridge] ✓ Store found');
+
       initBridge();
     } else if (attempts < 50) {
       setTimeout(() => waitForStore(attempts + 1), 50);
     } else {
-      console.error('[ITW Bridge] ❌ Store not found after 2.5 seconds');
-      console.error('[ITW Bridge] Make sure drink-calculator.app.js loads before this file');
+
+
     }
   }
   
   function initBridge() {
-    console.log('[ITW Bridge] ✓ Initialized v10.0.0');
-    console.log('[ITW Bridge] ✓ Exports available: store, money, getCurrency, fxApproxPrefix');
-    
+
+
     // Console shortcuts for debugging
     if (typeof window.storeGet === 'undefined') {
       window.storeGet = window.ITW.store.get;

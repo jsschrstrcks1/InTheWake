@@ -1,3 +1,4 @@
+<!doctype html>
 <!--
 Soli Deo Gloria
 All work on this project is offered as a gift to God.
@@ -1751,12 +1752,12 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
       const avatarSrc = author.image || AV_PLACEHOLDER;
       const avatarAlt = author.name ? author.name : 'Author';
       return '<article class="rail-item">\
-        <a class="thumb" href="'+a.url+'">\
+        <a class="thumb" href="#"+a.url+'">\
           <img src="'+img+'" alt="'+(a.title||'Article image')+'" onerror="this.onerror=null;this.src=\''+PLACEHOLDER+'\'">\
         </a>\
         <div class="meta">\
-          <h4><a href="'+a.url+'">'+(a.title||'')+'</a></h4>\
-          <p class="tiny muted">'+(d||'')+(author.name ? ' · <img class="avatar" src="'+avatarSrc+'" alt="'+avatarAlt+'" onerror="this.onerror=null;this.src=\''+AV_PLACEHOLDER+'\'"><a class="author" href="'+(author.url||'#')+'">'+author.name+'</a>' : '')+'</p>\
+          <h4><a href="#"+a.url+'">'+(a.title||'')+'</a></h4>\
+          <p class="tiny muted">'+(d||'')+(author.name ? ' · <img class="avatar" src="'+avatarSrc+'" alt="'+avatarAlt+'" onerror="this.onerror=null;this.src=\''+AV_PLACEHOLDER+'\'"><a class="author" href="#"+(author.url||'#')+'">'+author.name+'</a>' : '')+'</p>\
           <p class="tiny">'+(a.excerpt||'')+'</p>\
         </div>\
       </article>';

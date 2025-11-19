@@ -1,3 +1,4 @@
+<!doctype html>
 <!--
 Soli Deo Gloria
 All work on this project is offered as a gift to God.
@@ -1415,7 +1416,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           const desc=String(v.description||'').replace(/</g,'&lt;');
           const price=(v.price||v.cost)?'<span class="venue-price">'+(v.price||v.cost)+'</span>':'';
           const slug=v.slug?String(v.slug).replace(/</g,'&lt;'):'';
-          const nameLink=slug?'<a href="'+abs('/restaurants/'+slug)+'.html">'+name+'</a>':name;
+          const nameLink=slug?'<a href="#"+abs('/restaurants/'+slug)+'.html">'+name+'</a>':name;
           html+='<li><strong>'+nameLink+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
         });
         html+='</ul>';

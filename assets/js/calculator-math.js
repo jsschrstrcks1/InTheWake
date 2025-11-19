@@ -329,7 +329,6 @@ function determineWinners(costs, minors) {
       curr.cost < min.cost ? curr : min, minorOptions[0]
     );
 
-    console.log(`[Math Engine] Adults choosing Coffee Card, minors get ${minorWinner.key} package`);
     return {
       adultWinner: 'coffee',
       minorWinner: minorWinner.key,
@@ -725,9 +724,9 @@ if (typeof window !== 'undefined') {
     compute,
     version: '1.007.000'
   });
-  console.log('[ITW Math Engine] v1.007.000 loaded ✓');
-  console.log('[ITW Math Engine] NEW FEATURE: Coffee card can now win as best option!');
-  console.log('[ITW Math Engine] Coffee cards tracked separately and can beat packages');
+
+
+
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,

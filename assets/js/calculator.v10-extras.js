@@ -10,7 +10,7 @@
 
   // ---- Guard (requires v10 app) ----
   if (!window.ITW || !window.ITW.store || !window.ITW.money) {
-    console.error('[v10-extras] ITW bridge missing. Load after drink-calculator.app.v10.x.');
+
     return;
   }
 
@@ -329,7 +329,7 @@
     form.addEventListener('submit',(e)=>{
       e.preventDefault();
       // You can wire your Brevo/Formspree endpoint here:
-      console.log('[email] configure action url & backend before enabling submission');
+
       alert('Email capture is not configured in this demo.');
     });
     card.appendChild(form);

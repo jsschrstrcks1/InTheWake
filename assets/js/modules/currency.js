@@ -48,7 +48,7 @@ export class Currency {
    */
   async refresh() {
     if (navigator.onLine === false) {
-      console.log('[Currency] Offline, using cached rates');
+
       return false;
     }
     
@@ -74,8 +74,7 @@ export class Currency {
       
       return true;
     } catch (err) {
-      console.warn('[Currency] Frankfurter failed, trying fallback');
-      
+
       try {
         // Try exchangerate.host
         const data = await this.fetchExchangeRateHost();
@@ -97,7 +96,7 @@ export class Currency {
         
         return true;
       } catch {
-        console.error('[Currency] All FX APIs failed');
+
         return false;
       }
     }
@@ -169,7 +168,7 @@ export class Currency {
     const upper = code.toUpperCase();
     
     if (!CONFIG.CURRENCIES.includes(upper)) {
-      console.warn(`[Currency] Unsupported currency: ${code}`);
+
       return false;
     }
     
