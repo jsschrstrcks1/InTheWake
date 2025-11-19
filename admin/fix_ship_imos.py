@@ -51,9 +51,9 @@ CORRECT_IMOS = {
 
     # Vision Class
     'grandeur-of-the-seas': '9102978',
-    'enchantment-of-the-seas': '9102979',
-    'vision-of-the-seas': '9102990',
-    'rhapsody-of-the-seas': '9116876',
+    'enchantment-of-the-seas': '9111802',
+    'vision-of-the-seas': '9116876',
+    'rhapsody-of-the-seas': '9116864',
 
     # Sovereign Class (retired)
     'sovereign-of-the-seas': '8707509',
