@@ -28,7 +28,7 @@ CORRECT_IMOS = {
 
     # Quantum Class
     'quantum-of-the-seas': '9656100',
-    'anthem-of-the-seas': '9656112',
+    'anthem-of-the-seas': '9656101',
     'ovation-of-the-seas': '9697753',
 
     # Freedom Class
