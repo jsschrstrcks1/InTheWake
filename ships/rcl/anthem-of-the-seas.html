@@ -923,9 +923,18 @@ updated: 2025-11-18
 
         <div class="swiper firstlook" aria-label="Anthem of the Seas photo carousel">
           <div class="swiper-wrapper">
-            
-            
-            
+            <div class="swiper-slide">
+              <img src="/assets/ships/Anthem_of_the_Seas_(ship,_2015)_001.webp" alt="Anthem of the Seas at sea" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/Anthem_of_the_Seas_(ship,_2015)_001.jpg'"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/Anthem_of_the_Seas_(cropped).webp" alt="Anthem of the Seas exterior view" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/Anthem_of_the_Seas_(cropped).jpg'"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/Anthem_of_the_Seas,_docked_at_Nassau_Cruise_Port,_Bahamas_(March_14,_2024)_16-9.webp" alt="Anthem of the Seas docked at Nassau, Bahamas" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/Anthem_of_the_Seas,_docked_at_Nassau_Cruise_Port,_Bahamas_(March_14,_2024)_16-9.jpg'"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/ANTHEM_OF_THE_SEAS_0310.webp" alt="Anthem of the Seas cruise ship" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/ANTHEM_OF_THE_SEAS_0310.JPG'"/>
+            </div>
           </div>
           <div class="swiper-pagination" aria-hidden="true"></div>
           <div class="swiper-button-prev" aria-label="Previous image"></div>
@@ -1439,7 +1448,7 @@ updated: 2025-11-18
           const desc=String(v.description||'').replace(/</g,'&lt;');
           const price=(v.price||v.cost)?'<span class="venue-price">'+(v.price||v.cost)+'</span>':'';
           const slug=v.slug?String(v.slug).replace(/</g,'&lt;'):'';
-          const nameLink=slug?'<a href="#"+abs('/restaurants/'+slug)+'.html">'+name+'</a>':name;
+          const nameLink=slug?'<a href="'+abs('/restaurants/'+slug+'.html')+'">'+name+'</a>':name;
           html+='<li><strong>'+nameLink+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
         });
         html+='</ul>';
