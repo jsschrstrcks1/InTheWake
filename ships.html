@@ -923,6 +923,100 @@
     /* ship cards - now using item-cards.css for vertical card layout */
     /* Removed old horizontal thumbnail layout that conflicted with item-card styles */
     .muted{color:#456}
+
+    /* Ship Search Styles */
+    .ship-search-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: #f7fdff;
+      border-radius: 12px;
+      border: 2px solid #e0f0f5;
+    }
+
+    .ship-search-input {
+      width: 100%;
+      padding: 0.85rem 2.5rem 0.85rem 1rem;
+      font-size: 1.1rem;
+      border: 2px solid var(--rope, #d9b382);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink, #134);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .ship-search-input:focus {
+      outline: none;
+      border-color: var(--accent, #0e6e8e);
+      box-shadow: 0 0 0 3px rgba(14, 110, 142, 0.15);
+    }
+
+    .ship-search-input::placeholder {
+      color: #789;
+      font-size: 0.95rem;
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 1.5rem;
+      top: 1.85rem;
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: #dfe7ea;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      line-height: 1;
+      color: #567;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .search-clear-btn:hover {
+      background: #cdd5d8;
+    }
+
+    .search-results-info {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--sea, #0a3d62);
+      min-height: 1.4em;
+    }
+
+    .search-results-info:empty {
+      display: none;
+    }
+
+    .search-highlight {
+      background: #fff3cd;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    /* Hide non-matching ships */
+    .ship-card.search-hidden {
+      display: none !important;
+    }
+
+    /* Hide empty class sections during search */
+    .ship-class-section.search-empty {
+      display: none !important;
+    }
+
+    /* No results message */
+    .no-search-results {
+      text-align: center;
+      padding: 2rem;
+      color: #567;
+      font-size: 1.1rem;
+    }
+
+    .no-search-results strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--sea, #0a3d62);
+    }
   </style>
 </head>
 
@@ -1038,6 +1132,21 @@
 
     <section class="card" aria-labelledby="fleet-list">
       <h2 id="fleet-list">Royal Caribbean Fleet — Organized by Class</h2>
+
+      <!-- Ship Search -->
+      <div class="ship-search-container">
+        <label for="shipSearch" class="sr-only">Search ships by name or class</label>
+        <input type="search"
+               id="shipSearch"
+               class="ship-search-input"
+               placeholder="Search ships... (e.g., 'Symphony', 'Oasis Class', 'Alaska')"
+               autocomplete="off"
+               aria-describedby="searchHelp">
+        <button type="button" id="clearSearch" class="search-clear-btn" aria-label="Clear search" style="display:none">×</button>
+        <p id="searchHelp" class="tiny muted">Type ship name, class, or feature. Tolerant of typos!</p>
+        <div id="searchResults" class="search-results-info" aria-live="polite"></div>
+      </div>
+
       <p class="tiny muted">Click any ship class to expand/collapse. Ships with multiple images will cycle randomly on each page load.</p>
 
       <!-- Dynamic ships container -->
