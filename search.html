@@ -390,33 +390,44 @@
           <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake" decoding="async"/>
         </a>
       </div>
-      <nav class="nav" aria-label="Main navigation">
+      <nav class="nav" aria-label="Main site navigation">
         <div class="nav-item">
           <a href="/">Home</a>
         </div>
-        <div class="nav-item nav-group" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false">
+
+        <!-- Planning Dropdown -->
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
             Planning <span class="caret">▾</span>
           </button>
-          <div class="submenu" role="menu">
-            <a role="menuitem" href="/planning.html">Planning</a>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
             <a role="menuitem" href="/ships.html">Ships</a>
-            <a role="menuitem" href="/restaurants.html">Restaurants</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
             <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/stateroom-check.html">Stateroom Check</a>
             <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
             <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-          </div>
-        </div>
-        <div class="nav-item nav-group" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false">
-            Travel <span class="caret">▾</span>
-          </button>
-          <div class="submenu" role="menu">
-            <a role="menuitem" href="/travel.html">Travel</a>
-            <a role="menuitem" href="/solo.html">Solo</a>
             <a role="menuitem" href="/accessibility.html">Accessibility</a>
           </div>
         </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/search.html" aria-current="page">Search</a>
+        </div>
+
         <div class="nav-item">
           <a href="/about-us.html">About</a>
         </div>
