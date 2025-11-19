@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- ======================================================
+       In the Wake — Search
+       Version: 3.010.300  |  Soli Deo Gloria
+
+       Dynamic instant search across all site content
+       ====================================================== -->
+
+  <!-- Core -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots -->
+  <meta name="robots" content="index,follow"/>
+  <meta name="googlebot" content="index,follow"/>
+
+  <!-- SEO: Theme -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="author" content="In the Wake"/>
+
+  <!-- ICP-Lite v1.0 -->
+  <meta name="ai-summary" content="Search In the Wake for ships, restaurants, articles, cruise lines, and planning tools. Instant results as you type with fuzzy matching."/>
+  <meta name="last-reviewed" content="2025-11-19"/>
+  <meta name="content-protocol" content="ICP-Lite v1.0"/>
+
+  <!-- Title & SEO -->
+  <title>Search | In the Wake</title>
+  <meta name="description" content="Search In the Wake for ships, restaurants, articles, cruise lines, and planning tools. Find exactly what you need for your cruise."/>
+  <link rel="canonical" href="https://cruisinginthewake.com/search.html"/>
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:title" content="Search | In the Wake"/>
+  <meta property="og:description" content="Search for ships, restaurants, articles, and cruise planning tools."/>
+  <meta property="og:url" content="https://cruisinginthewake.com/search.html"/>
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Search | In the Wake"/>
+  <meta name="twitter:description" content="Search for ships, restaurants, articles, and cruise planning tools."/>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+
+  <!-- Fuse.js for fuzzy search -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+
+  <style>
+  /* ===== Search Page Styles ===== */
+  :root {
+    --sea: #0a3d62;
+    --foam: #e6f4f8;
+    --rope: #d9b382;
+    --ink: #083041;
+    --sky: #f7fdff;
+    --accent: #0e6e8e;
+    --accent-dark: #005a9c;
+    --text-muted: #2a4a5a;
+    --shadow: 0 6px 22px rgba(8,48,65,.08);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--sky);
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  a:hover { text-decoration-thickness: 2px; }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 14px 36px;
+  }
+
+  h1 {
+    color: var(--sea);
+    font-size: 2rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .search-intro {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    left: -10000px;
+    background: var(--accent-dark);
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 4px;
+  }
+  .skip-link:focus {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 10000;
+  }
+
+  /* Header */
+  .hero-header {
+    background: var(--sea);
+    color: white;
+    padding: 1rem;
+  }
+
+  .navbar {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .brand img {
+    height: 48px;
+    width: auto;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-item a,
+  .nav-disclosure {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .nav-item a:hover,
+  .nav-disclosure:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+  .nav-group {
+    position: relative;
+  }
+
+  .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid var(--rope);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    min-width: 200px;
+    z-index: 1000;
+  }
+
+  .nav-group[data-open="true"] .submenu {
+    display: block;
+  }
+
+  .submenu a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--foam);
+  }
+
+  .submenu a:last-child {
+    border-bottom: none;
+  }
+
+  .submenu a:hover {
+    background: var(--foam);
+  }
+
+  .caret {
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+  }
+
+  /* Search Input */
+  .search-container {
+    margin-bottom: 2rem;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1.25rem;
+    border: 3px solid var(--rope);
+    border-radius: 12px;
+    background: white;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(14, 110, 142, 0.2);
+  }
+
+  .search-input::placeholder {
+    color: #999;
+  }
+
+  .search-status {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* Results Grid */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  /* Result Cards */
+  .result-card {
+    background: white;
+    border: 2px solid var(--rope);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(8,48,65,.12);
+  }
+
+  .result-card a {
+    text-decoration: none;
+  }
+
+  .result-title {
+    color: var(--sea);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+  }
+
+  .result-category {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    background: var(--foam);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-description {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 0.75rem;
+    line-height: 1.4;
+  }
+
+  .result-cta {
+    font-size: 0.9rem;
+    color: var(--ink);
+    margin: 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--foam);
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  /* No Results */
+  .no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+  }
+
+  .no-results h2 {
+    color: var(--sea);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Initial State */
+  .initial-state {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .popular-searches {
+    margin-top: 1.5rem;
+  }
+
+  .popular-searches h3 {
+    color: var(--sea);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .popular-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .popular-tag {
+    background: var(--foam);
+    color: var(--accent);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .popular-tag:hover {
+    background: var(--accent);
+    color: white;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--sea);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  footer a {
+    color: var(--rope);
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .search-input {
+      font-size: 1rem;
+      padding: 0.875rem 1rem;
+    }
+    .results-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- HEADER -->
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <a href="/">
+          <img src="/assets/logo_wake.png" width="256" height="64" alt="In the Wake" decoding="async"/>
+        </a>
+      </div>
+      <nav class="nav" aria-label="Main navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
+        <div class="nav-item nav-group" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false">
+            Planning <span class="caret">▾</span>
+          </button>
+          <div class="submenu" role="menu">
+            <a role="menuitem" href="/planning.html">Planning</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants</a>
+            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+          </div>
+        </div>
+        <div class="nav-item nav-group" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div class="submenu" role="menu">
+            <a role="menuitem" href="/travel.html">Travel</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main-content" class="wrap" role="main">
+    <h1>Search In the Wake</h1>
+    <p class="search-intro">Find ships, restaurants, articles, cruise lines, and planning tools. Results appear as you type.</p>
+
+    <div class="search-container">
+      <input
+        type="search"
+        id="searchInput"
+        class="search-input"
+        placeholder="Type to search... (e.g., chops, radiance, solo, drink)"
+        autocomplete="off"
+        autofocus
+        aria-label="Search the site"
+      />
+      <div id="searchStatus" class="search-status" aria-live="polite"></div>
+    </div>
+
+    <div id="resultsContainer">
+      <!-- Initial state with popular searches -->
+      <div class="initial-state" id="initialState">
+        <p>Start typing to search across 274 pages including ships, restaurants, articles, and tools.</p>
+        <div class="popular-searches">
+          <h3>Popular Searches</h3>
+          <div class="popular-tags">
+            <button class="popular-tag" onclick="doSearch('chops')">Chops Grille</button>
+            <button class="popular-tag" onclick="doSearch('icon')">Icon of the Seas</button>
+            <button class="popular-tag" onclick="doSearch('solo')">Solo Cruising</button>
+            <button class="popular-tag" onclick="doSearch('drink')">Drink Calculator</button>
+            <button class="popular-tag" onclick="doSearch('sushi')">Sushi</button>
+            <button class="popular-tag" onclick="doSearch('grief')">Cruising After Loss</button>
+            <button class="popular-tag" onclick="doSearch('wheelchair')">Accessibility</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 In the Wake. <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/about-us.html">About</a></p>
+  </footer>
+
+  <script src="/assets/js/search.js"></script>
+  <script>
+  // Dropdown menu toggle
+  document.querySelectorAll('.nav-group').forEach(group => {
+    const btn = group.querySelector('.nav-disclosure');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const isOpen = group.dataset.open === 'true';
+        // Close all others
+        document.querySelectorAll('.nav-group').forEach(g => g.dataset.open = 'false');
+        group.dataset.open = isOpen ? 'false' : 'true';
+        btn.setAttribute('aria-expanded', !isOpen);
+      });
+    }
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-group')) {
+      document.querySelectorAll('.nav-group').forEach(g => {
+        g.dataset.open = 'false';
+        const btn = g.querySelector('.nav-disclosure');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  // Handle URL query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const q = urlParams.get('q');
+  if (q) {
+    document.getElementById('searchInput').value = q;
+    // Wait for search index to load
+    setTimeout(() => doSearch(q), 100);
+  }
+  </script>
+</body>
+</html>
