@@ -58,7 +58,7 @@ CORRECT_IMOS = {
     # Sovereign Class (retired)
     'sovereign-of-the-seas': '8707509',
     'monarch-of-the-seas': '8717862',
-    'majesty-of-the-seas': '8819500',
+    'majesty-of-the-seas': '8819512',
 
     # Historic ships
     'splendour-of-the-seas': '9070632',
