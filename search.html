@@ -225,6 +225,84 @@
     margin-left: 0.25rem;
   }
 
+  /* Hero Section */
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: clamp(200px, 24vw, 340px);
+    background: url('/assets/index_hero.jpg') 50% 50%/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+    overflow-x: clip;
+    z-index: 0;
+  }
+
+  .hero * {
+    filter: none !important;
+    mix-blend-mode: normal !important;
+    opacity: 1 !important;
+  }
+
+  .hero-compass {
+    position: absolute;
+    right: min(3vw, 1rem);
+    top: 0.5rem;
+    width: 86px;
+    opacity: 0.95;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .hero-title {
+    position: absolute;
+    left: min(3vw, 1rem);
+    bottom: clamp(0.6rem, 2vw, 1.4rem);
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.6rem;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  }
+
+  .hero-title .logo {
+    display: block;
+    width: clamp(189px, 23.1vw, 378px);
+    max-width: min(45vw, 520px);
+  }
+
+  .tagline {
+    position: absolute;
+    left: min(3vw, 1rem);
+    bottom: clamp(0.55rem, 1.6vw, 1.1rem);
+    transform: none;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: #e6f4f8;
+    font-size: clamp(0.9rem, 1.5vw, 1.35rem);
+    white-space: nowrap;
+    z-index: 3;
+  }
+
+  .hero-credit {
+    position: absolute;
+    right: 0.85rem;
+    bottom: 0.85rem;
+    z-index: 4;
+  }
+
+  .hero-credit .pill {
+    display: inline-block;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--rope);
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--sea);
+    box-shadow: 0 1.5px 6px rgba(8, 48, 65, 0.15);
+    text-decoration: none;
+  }
+
   /* Search Input */
   .search-container {
     margin-bottom: 2rem;
@@ -453,6 +531,17 @@
           <a href="/about-us.html">About</a>
         </div>
       </nav>
+    </div>
+
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake.png?v=3.010.300" width="560" height="144" alt="In the Wake" decoding="async"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
     </div>
   </header>
 
