@@ -79,7 +79,7 @@ function bindSearch(){
   try {
     const [A,B,C]=await Promise.all([
       loadJSON('https://www.cruisinginthewake.com/assets/data/ships.json'),
-      loadJSON('https://www.cruisinginthewake.com/assets/data/venues.json'),
+      loadJSON('https://www.cruisinginthewake.com/assets/data/venues-v2.json'),
       loadJSON('https://www.cruisinginthewake.com/assets/data/experiences.json')
     ]);
     SHIPS=A; VENUES=B; EXPS=C;

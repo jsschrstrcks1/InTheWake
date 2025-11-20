@@ -1,5 +1,5 @@
-/* dining-card.js — Dining Venues card (v2.246, repaired)
-   - Supports new rc.venues.v1: /assets/data/venues.json { venues[], ships{} }
+/* dining-card.js — Dining Venues card (v2.247)
+   - Supports new rc.venues.v2: /assets/data/venues-v2.json { venues[], ships{} }
    - Back-compat with legacy rc/msc restaurants JSON
    - Auto ship detection (inline JSON or URL)
    - Venue names link to pretty URLs: /restaurants/<slug>.html
@@ -40,8 +40,10 @@
   }
   const shipSlug = detectSlug();
 
-  // Data sources (venues.json first; legacy files as fallbacks)
+  // Data sources (venues-v2.json first; legacy files as fallbacks)
   const SOURCES = [
+    abs('/assets/data/venues-v2.json'),
+    'https://www.cruisinginthewake.com/assets/data/venues-v2.json',
     abs('/assets/data/venues.json'),
     'https://www.cruisinginthewake.com/assets/data/venues.json',
     'https://www.cruisinginthewake.com/assets/data/rc-restaurants.json',
@@ -143,7 +145,7 @@
       return v ? { ...v, slug } : { slug, name: slug, category: 'unknown' };
     });
 
-    // Partition by category
+    // Partition by category/subcategory (supports both v1 and v2 structures)
     const incObjs = [], preObjs = [];
     const seen = new Set();
 
@@ -154,9 +156,25 @@
       if (seen.has(key)) continue; seen.add(key);
 
       const cat = (v.category || '').toLowerCase();
-      if (cat === 'complimentary' || cat === 'included') incObjs.push({ name, slug: v.slug });
-      else if (cat === 'premium' || cat === 'specialty' || cat === 'extra') preObjs.push({ name, slug: v.slug });
-      else incObjs.push({ name, slug: v.slug }); // default to included if unknown
+      const subcat = (v.subcategory || '').toLowerCase();
+      const isPremium = v.premium === true;
+
+      // Only include dining and bars in the dining card (skip activities, entertainment, neighborhoods)
+      if (cat !== 'dining' && cat !== 'bars' && cat !== 'mdr' && cat !== 'specialty' &&
+          cat !== 'casual' && cat !== 'bar' && cat !== 'complimentary' && cat !== 'included' &&
+          cat !== 'premium' && cat !== 'extra') {
+        continue;
+      }
+
+      // Check subcategory first (v2), then category (v1), then premium field
+      if (subcat === 'specialty' || cat === 'specialty' || cat === 'premium' || cat === 'extra' || isPremium) {
+        preObjs.push({ name, slug: v.slug });
+      } else if (subcat === 'complimentary' || cat === 'complimentary' || cat === 'included' || cat === 'mdr' || cat === 'casual') {
+        incObjs.push({ name, slug: v.slug });
+      } else {
+        // Default bars to included unless marked premium
+        incObjs.push({ name, slug: v.slug });
+      }
     }
 
     // Sort by name
