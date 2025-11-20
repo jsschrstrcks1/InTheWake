@@ -935,7 +935,7 @@
 
   async function hydrateShipList(listEl){
     try{
-      const DATA_URL=(location.origin||'').replace(/\/$/,'')+'/assets/data/venues.json';
+      const DATA_URL=(location.origin||'').replace(/\/$/,'')+'/assets/data/venues-v2.json';
       const res=await fetch(DATA_URL,{cache:'no-store'});
       if(!res.ok) throw new Error('HTTP '+res.status);
       const db=await res.json();

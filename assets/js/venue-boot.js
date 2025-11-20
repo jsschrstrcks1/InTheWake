@@ -9,8 +9,8 @@
 
   // Configuration
   const CONFIG = {
-    version: '2.257',
-    venueDataPath: '/assets/data/venues.json',
+    version: '2.258',
+    venueDataPath: '/assets/data/venues-v2.json',
     shipDataPath: '/assets/data/fleets_index.json'
   };
 

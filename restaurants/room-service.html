@@ -933,7 +933,7 @@
 
   async function hydrateShipList(listEl){
     try{
-      const res=await fetch(`${location.origin}/assets/data/venues.json`,{cache:'no-store'});
+      const res=await fetch(`${location.origin}/assets/data/venues-v2.json`,{cache:'no-store'});
       if(!res.ok)throw new Error(res.status);
       const db=await res.json();
       const ships=Object.entries(db.ships||{}).filter(([slug,p])=>{
