@@ -151,6 +151,56 @@ SHIP_CLASSES = {
     "Vision Class": "/ships.html#vision-class",
 }
 
+# Ports with detailed guides
+PORTS = {
+    # Private Islands
+    "Perfect Day at CocoCay": "/ports/cococay.html",
+    "CocoCay": "/ports/cococay.html",
+    "Labadee": "/ports/labadee.html",
+    # Caribbean
+    "Cozumel": "/ports/cozumel.html",
+    # Alaska
+    "Juneau": "/ports/juneau.html",
+    # Mediterranean
+    "Santorini": "/ports/santorini.html",
+    "Kusadasi": "/ports/kusadasi.html",
+    "Ephesus": "/ports/kusadasi.html",
+    # Asia-Pacific
+    "Singapore": "/ports/singapore.html",
+    "Gardens by the Bay": "/ports/singapore.html",
+    "Sydney": "/ports/sydney.html",
+    "Sydney Harbour": "/ports/sydney.html",
+    "Brisbane": "/ports/brisbane.html",
+    "Lone Pine Koala Sanctuary": "/ports/brisbane.html",
+    "Auckland": "/ports/auckland.html",
+    "Bay of Islands": "/ports/auckland.html",
+    "Waiheke Island": "/ports/auckland.html",
+    "Tokyo": "/ports/tokyo.html",
+    "Yokohama": "/ports/tokyo.html",
+    "TeamLab": "/ports/tokyo.html",
+    "Tsukiji Market": "/ports/tokyo.html",
+    "Hong Kong": "/ports/hong-kong.html",
+    "Victoria Peak": "/ports/hong-kong.html",
+    "Big Buddha": "/ports/hong-kong.html",
+    "Shanghai": "/ports/shanghai.html",
+    "The Bund": "/ports/shanghai.html",
+    "Yu Garden": "/ports/shanghai.html",
+    "Bangkok": "/ports/bangkok.html",
+    "Laem Chabang": "/ports/bangkok.html",
+    "Grand Palace": "/ports/bangkok.html",
+    "Wat Arun": "/ports/bangkok.html",
+    "Bali": "/ports/bali.html",
+    "Benoa": "/ports/bali.html",
+    "Uluwatu": "/ports/bali.html",
+    "Ubud": "/ports/bali.html",
+    # South Pacific
+    "Bora Bora": "/ports/south-pacific.html",
+    "Tahiti": "/ports/south-pacific.html",
+    "Papeete": "/ports/south-pacific.html",
+    "Moorea": "/ports/south-pacific.html",
+    "Fiji": "/ports/south-pacific.html",
+}
+
 def get_page_url(filepath: Path, project_root: Path) -> str:
     """Get the URL path for a file."""
     rel_path = filepath.relative_to(project_root)
@@ -324,14 +374,19 @@ def process_file(filepath: Path, project_root: Path) -> dict:
         content, count = link_entity(content, name, url, page_url)
         total_links += count
 
-    # 4. Articles (except solo - handled separately)
+    # 4. Ports (longer names first)
+    for name, url in sorted(PORTS.items(), key=lambda x: -len(x[0])):
+        content, count = link_entity(content, name, url, page_url)
+        total_links += count
+
+    # 5. Articles (except solo - handled separately)
     for name, url in sorted(ARTICLES.items(), key=lambda x: -len(x[0])):
         if url == "SOLO_SPECIAL":
             continue
         content, count = link_entity(content, name, url, page_url)
         total_links += count
 
-    # 5. Solo special handling
+    # 6. Solo special handling
     content, count = handle_solo_special(content, page_url)
     total_links += count
 
