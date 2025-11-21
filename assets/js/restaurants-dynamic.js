@@ -379,7 +379,9 @@
 
       venueCards.forEach(card => {
         const cardCategory = card.dataset.category;
-        const isPremium = card.querySelector('.badge:not(.item-card-badge)')?.textContent === 'Specialty';
+        // Check all badges for "Specialty" text (not just the first one)
+        const badges = Array.from(card.querySelectorAll('.badge:not(.item-card-badge)'));
+        const isPremium = badges.some(badge => badge.textContent.trim() === 'Specialty');
 
         // Check category filter (mutually exclusive)
         const categoryMatch = activeCategory === 'all' || cardCategory === activeCategory;
