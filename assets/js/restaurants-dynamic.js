@@ -209,7 +209,7 @@
   /**
    * Create venue card HTML
    */
-  function createVenueCard(venue, ships) {
+  function createVenueCard(venue, ships, consolidatedNames = []) {
     const imageUrl = getVenueImage(venue.slug);
     const pageUrl = `/restaurants/${venue.slug}.html`;
     const cta = getVenueCTA(venue.slug, venue.description);
@@ -223,12 +223,17 @@
     const shipsHtml = displayShips.length > 0 ? `
       <div class="ships-available">
         ${displayShips.map(s => `<span class="ship-chip">${formatShipName(s.name)}</span>`).join('')}
-        ${moreCount > 0 ? `<span class="ship-chip more">+${moreCount} more</span>` : ''}
+        ${moreCount > 0 ? `<span class="chip more">+${moreCount} more</span>` : ''}
       </div>
     ` : '';
 
+    // Add consolidated venue names as searchable keywords
+    const searchKeywords = consolidatedNames.length > 0
+      ? `data-search-keywords="${consolidatedNames.join(' ')}"`
+      : '';
+
     return `
-      <article class="item-card" data-venue="${venue.slug}" data-category="${categoryClass}">
+      <article class="item-card" data-venue="${venue.slug}" data-category="${categoryClass}" ${searchKeywords}>
         <a href="${pageUrl}" class="item-card-link">
           <div class="item-card-image">
             <img src="${imageUrl}"
@@ -253,14 +258,25 @@
   }
 
   /**
+   * Get consolidated venue names for a parent venue
+   */
+  function getConsolidatedNames(venueSlug, allVenues) {
+    return allVenues
+      .filter(v => v.consolidate_into === venueSlug)
+      .map(v => v.name)
+      .join(' ');
+  }
+
+  /**
    * Create category section HTML
    */
-  function createCategorySection(categoryKey, venues, shipsData) {
+  function createCategorySection(categoryKey, venues, shipsData, allVenues) {
     const info = CATEGORY_INFO[categoryKey] || { name: categoryKey, icon: '📍', description: '' };
 
     const venueCards = venues.map(venue => {
       const ships = getShipsWithVenue(venue.slug, shipsData);
-      return createVenueCard(venue, ships);
+      const consolidatedNames = getConsolidatedNames(venue.slug, allVenues);
+      return createVenueCard(venue, ships, consolidatedNames ? [consolidatedNames] : []);
     }).join('');
 
     return `
@@ -324,7 +340,7 @@
   /**
    * Render venues to container
    */
-  function renderVenues(venuesArray, shipsData) {
+  function renderVenues(venuesArray, shipsData, allVenues) {
     const container = document.getElementById('venuesContainer');
     if (!container) return;
 
@@ -349,7 +365,7 @@
     const filterBar = createFilterBar(SHOW_CATEGORIES);
     const sections = SHOW_CATEGORIES
       .filter(cat => grouped[cat] && grouped[cat].length > 0)
-      .map(cat => createCategorySection(cat, grouped[cat], shipsData))
+      .map(cat => createCategorySection(cat, grouped[cat], shipsData, allVenues))
       .join('');
 
     container.innerHTML = filterBar + sections;
@@ -536,6 +552,7 @@
       venueCards.forEach(card => {
         const venueSlug = card.getAttribute('data-venue');
         const category = card.getAttribute('data-category');
+        const searchKeywords = card.getAttribute('data-search-keywords') || '';
 
         // Build search text from venue data
         const titleEl = card.querySelector('.item-card-title');
@@ -547,7 +564,8 @@
           venueSlug ? venueSlug.replace(/-/g, ' ') : '',
           category || '',
           ctaEl ? ctaEl.textContent : '',
-          shipsEl ? shipsEl.textContent : ''
+          shipsEl ? shipsEl.textContent : '',
+          searchKeywords  // Include consolidated venue names
         ];
         const searchText = searchParts.join(' ').toLowerCase();
 
@@ -636,7 +654,7 @@
         SHOW_CATEGORIES.includes(v.category) && !v.consolidate_into
       );
 
-      renderVenues(filteredVenues, venuesData.ships);
+      renderVenues(filteredVenues, venuesData.ships, venuesData.venues);
     } catch (error) {
 
       showError();
