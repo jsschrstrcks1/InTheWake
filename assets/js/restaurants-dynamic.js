@@ -40,15 +40,44 @@
   // Only show dining and bars categories for restaurants page
   const SHOW_CATEGORIES = ['dining', 'bars'];
 
-  // Venue images (can be expanded as images are added)
+  // Venue images - using category SVG placeholders
   const VENUE_IMAGES = {
-    'chops': '/assets/venues/chops-grille.jpg',
-    'windjammer': '/assets/venues/windjammer.jpg',
-    'mdr': '/assets/venues/main-dining-room.jpg',
-    'izumi': '/assets/venues/izumi.jpg',
-    'schooner-bar': '/assets/venues/schooner-bar.jpg',
+    // Specialty Dining (fine dining)
+    'wonderland': '/assets/images/restaurants/specialty-dining.svg',
+    '150-central-park': '/assets/images/restaurants/specialty-dining.svg',
+    'chefs-table': '/assets/images/restaurants/specialty-dining.svg',
+    'chic': '/assets/images/restaurants/specialty-dining.svg',
+    
+    // Asian Cuisine
+    'izumi': '/assets/images/restaurants/asian-cuisine.svg',
+    'izumi-in-the-park': '/assets/images/restaurants/asian-cuisine.svg',
+    'sichuan-red': '/assets/images/restaurants/asian-cuisine.svg',
+    'hot-pot': '/assets/images/restaurants/asian-cuisine.svg',
+    
+    // Italian Cuisine
+    'jamies-italian': '/assets/images/restaurants/italian-cuisine.svg',
+    'giovannis': '/assets/images/restaurants/italian-cuisine.svg',
+    'sorrentos': '/assets/images/restaurants/italian-cuisine.svg',
+    
+    // Steakhouse
+    'chops': '/assets/images/restaurants/steakhouse.svg',
+    
+    // Bars & Lounges
+    'schooner-bar': '/assets/images/restaurants/bar-lounge.svg',
+    'vintages': '/assets/images/restaurants/bar-lounge.svg',
+    'bionic-bar': '/assets/images/restaurants/bar-lounge.svg',
+    'boleros': '/assets/images/restaurants/bar-lounge.svg',
+    'playmakers': '/assets/images/restaurants/bar-lounge.svg',
+    'viking-crown-lounge': '/assets/images/restaurants/bar-lounge.svg',
+    'star-lounge': '/assets/images/restaurants/bar-lounge.svg',
+    'sky-bar': '/assets/images/restaurants/bar-lounge.svg',
+    'r-bar': '/assets/images/restaurants/bar-lounge.svg',
+    'olive-or-twist': '/assets/images/restaurants/bar-lounge.svg',
+    'diamond-club': '/assets/images/restaurants/bar-lounge.svg',
+    'globe-and-atlas': '/assets/images/restaurants/bar-lounge.svg',
+    
     // Default placeholder
-    '_default': '/assets/placeholders/restaurant-placeholder.jpg'
+    '_default': '/assets/images/restaurants/specialty-dining.svg'
   };
 
   // CTA/pitch text for venues (what makes this venue special)
