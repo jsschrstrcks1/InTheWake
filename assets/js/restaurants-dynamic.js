@@ -287,24 +287,36 @@
    * Create filter bar HTML
    */
   function createFilterBar(categories) {
-    const buttons = [
-      `<button class="filter-btn active" data-filter="all" type="button">All Venues</button>`
+    const categoryButtons = [
+      `<button class="filter-btn active" data-filter="all" data-filter-type="category" type="button">All Venues</button>`
     ];
 
     for (const categoryKey of categories) {
       const info = CATEGORY_INFO[categoryKey];
       if (info) {
-        buttons.push(
-          `<button class="filter-btn" data-filter="${categoryKey}" type="button">
+        categoryButtons.push(
+          `<button class="filter-btn" data-filter="${categoryKey}" data-filter-type="category" type="button">
             <span aria-hidden="true">${info.icon}</span> ${info.name}
           </button>`
         );
       }
     }
 
+    // Additional filter pills
+    const additionalFilters = [
+      `<button class="filter-pill" data-filter="included" data-filter-type="cost" type="button">✓ Included</button>`,
+      `<button class="filter-pill" data-filter="premium" data-filter-type="cost" type="button">💰 Premium</button>`,
+      `<button class="filter-pill" data-filter="bars-only" data-filter-type="type" type="button">🍸 Bars Only</button>`
+    ];
+
     return `
       <div class="filter-bar" role="group" aria-label="Filter venues by category">
-        ${buttons.join('')}
+        <div class="filter-row primary-filters">
+          ${categoryButtons.join('')}
+        </div>
+        <div class="filter-row secondary-filters">
+          ${additionalFilters.join('')}
+        </div>
       </div>
     `;
   }
@@ -353,27 +365,87 @@
    * Initialize filter buttons
    */
   function initializeFilters() {
-    const buttons = document.querySelectorAll('.filter-btn');
+    const categoryButtons = document.querySelectorAll('.filter-btn[data-filter-type="category"]');
+    const filterPills = document.querySelectorAll('.filter-pill');
+    const venueCards = document.querySelectorAll('.item-card');
     const sections = document.querySelectorAll('.category-section');
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.dataset.filter;
-        currentFilter = filter;
+    let activeCategory = 'all';
+    let activeFilters = new Set(); // Additional filters (included, premium, bars-only)
 
-        // Update button states
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    function applyFilters() {
+      let visibleCount = 0;
+      const categoryCounts = {};
 
-        // Show/hide sections
-        sections.forEach(section => {
-          const category = section.dataset.category;
-          if (filter === 'all' || category === filter) {
-            section.style.display = '';
-          } else {
+      venueCards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        const isPremium = card.querySelector('.badge:not(.item-card-badge)')?.textContent === 'Specialty';
+        const isBar = cardCategory === 'bars';
+
+        // Check category filter
+        const categoryMatch = activeCategory === 'all' || cardCategory === activeCategory;
+
+        // Check additional filters
+        let additionalMatch = true;
+        if (activeFilters.has('included') && isPremium) additionalMatch = false;
+        if (activeFilters.has('premium') && !isPremium) additionalMatch = false;
+        if (activeFilters.has('bars-only') && !isBar) additionalMatch = false;
+
+        const shouldShow = categoryMatch && additionalMatch;
+
+        if (shouldShow) {
+          card.classList.remove('filter-hidden');
+          visibleCount++;
+          categoryCounts[cardCategory] = (categoryCounts[cardCategory] || 0) + 1;
+        } else {
+          card.classList.add('filter-hidden');
+        }
+      });
+
+      // Update section visibility
+      sections.forEach(section => {
+        const category = section.dataset.category;
+        const visibleInSection = categoryCounts[category] || 0;
+
+        if (visibleInSection > 0) {
+          section.style.display = '';
+          section.classList.remove('filter-empty');
+        } else {
+          section.classList.add('filter-empty');
+          if (activeCategory !== 'all' && category !== activeCategory) {
             section.style.display = 'none';
           }
-        });
+        }
+      });
+    }
+
+    // Category button clicks (mutually exclusive)
+    categoryButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCategory = btn.dataset.filter;
+
+        // Update button states
+        categoryButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        applyFilters();
+      });
+    });
+
+    // Filter pill clicks (can stack multiple)
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const filter = pill.dataset.filter;
+
+        if (activeFilters.has(filter)) {
+          activeFilters.delete(filter);
+          pill.classList.remove('active');
+        } else {
+          activeFilters.add(filter);
+          pill.classList.add('active');
+        }
+
+        applyFilters();
       });
     });
   }
@@ -559,9 +631,9 @@
 
       venuesData = await response.json();
 
-      // Filter to only dining and bars
+      // Filter to only dining and bars, exclude consolidated venues
       const filteredVenues = venuesData.venues.filter(v =>
-        SHOW_CATEGORIES.includes(v.category)
+        SHOW_CATEGORIES.includes(v.category) && !v.consolidate_into
       );
 
       renderVenues(filteredVenues, venuesData.ships);
