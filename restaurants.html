@@ -740,6 +740,68 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     .category-section.search-empty {
       display: none !important;
     }
+
+    /* Filter-hidden cards */
+    .item-card.filter-hidden {
+      display: none !important;
+    }
+
+    .category-section.filter-empty {
+      opacity: 0.5;
+    }
+
+    /* Filter bar rows */
+    .filter-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .filter-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .filter-row.secondary-filters {
+      margin-bottom: 1.5rem;
+    }
+
+    /* Filter pills (secondary filters) */
+    .filter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.5rem 1rem;
+      min-height: 38px;
+      border-radius: 20px;
+      background: #fff;
+      border: 2px solid #e0e8f0;
+      color: var(--text);
+      font: inherit;
+      font-size: 0.9rem;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .filter-pill:hover {
+      background: #f7fdff;
+      border-color: var(--rope);
+      transform: translateY(-1px);
+    }
+
+    .filter-pill.active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      border-color: var(--accent);
+    }
+
+    .filter-pill:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
   </style>
 </head>
 
