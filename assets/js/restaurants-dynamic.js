@@ -303,35 +303,19 @@
    * Create filter bar HTML
    */
   function createFilterBar(categories) {
-    const categoryButtons = [
-      `<button class="filter-btn active" data-filter="all" data-filter-type="category" type="button">All Venues</button>`
-    ];
-
-    for (const categoryKey of categories) {
-      const info = CATEGORY_INFO[categoryKey];
-      if (info) {
-        categoryButtons.push(
-          `<button class="filter-btn" data-filter="${categoryKey}" data-filter-type="category" type="button">
-            <span aria-hidden="true">${info.icon}</span> ${info.name}
-          </button>`
-        );
-      }
-    }
-
-    // Additional filter pills
-    const additionalFilters = [
+    // All filters in logical order: All, Dining, Bars, Included, Premium
+    const allFilters = [
+      `<button class="filter-pill active" data-filter="all" data-filter-type="category" type="button">All</button>`,
+      `<button class="filter-pill" data-filter="dining" data-filter-type="category" type="button">🍽️ Dining</button>`,
+      `<button class="filter-pill" data-filter="bars" data-filter-type="category" type="button">🍸 Bars & Lounges</button>`,
       `<button class="filter-pill" data-filter="included" data-filter-type="cost" type="button">✓ Included</button>`,
-      `<button class="filter-pill" data-filter="premium" data-filter-type="cost" type="button">💰 Premium</button>`,
-      `<button class="filter-pill" data-filter="bars-only" data-filter-type="type" type="button">🍸 Bars Only</button>`
+      `<button class="filter-pill" data-filter="premium" data-filter-type="cost" type="button">💰 Premium</button>`
     ];
 
     return `
-      <div class="filter-bar" role="group" aria-label="Filter venues by category">
-        <div class="filter-row primary-filters">
-          ${categoryButtons.join('')}
-        </div>
-        <div class="filter-row secondary-filters">
-          ${additionalFilters.join('')}
+      <div class="filter-bar" role="group" aria-label="Filter venues">
+        <div class="filter-row">
+          ${allFilters.join('')}
         </div>
       </div>
     `;
@@ -381,13 +365,13 @@
    * Initialize filter buttons
    */
   function initializeFilters() {
-    const categoryButtons = document.querySelectorAll('.filter-btn[data-filter-type="category"]');
-    const filterPills = document.querySelectorAll('.filter-pill');
+    const categoryPills = document.querySelectorAll('.filter-pill[data-filter-type="category"]');
+    const costPills = document.querySelectorAll('.filter-pill[data-filter-type="cost"]');
     const venueCards = document.querySelectorAll('.item-card');
     const sections = document.querySelectorAll('.category-section');
 
     let activeCategory = 'all';
-    let activeFilters = new Set(); // Additional filters (included, premium, bars-only)
+    let activeCostFilters = new Set(); // Can have multiple: included, premium
 
     function applyFilters() {
       let visibleCount = 0;
@@ -396,18 +380,24 @@
       venueCards.forEach(card => {
         const cardCategory = card.dataset.category;
         const isPremium = card.querySelector('.badge:not(.item-card-badge)')?.textContent === 'Specialty';
-        const isBar = cardCategory === 'bars';
 
-        // Check category filter
+        // Check category filter (mutually exclusive)
         const categoryMatch = activeCategory === 'all' || cardCategory === activeCategory;
 
-        // Check additional filters
-        let additionalMatch = true;
-        if (activeFilters.has('included') && isPremium) additionalMatch = false;
-        if (activeFilters.has('premium') && !isPremium) additionalMatch = false;
-        if (activeFilters.has('bars-only') && !isBar) additionalMatch = false;
+        // Check cost filters (can stack)
+        let costMatch = true;
+        if (activeCostFilters.size > 0) {
+          // If any cost filters active, must match at least one
+          if (activeCostFilters.has('included') && !isPremium) {
+            costMatch = true;
+          } else if (activeCostFilters.has('premium') && isPremium) {
+            costMatch = true;
+          } else {
+            costMatch = false;
+          }
+        }
 
-        const shouldShow = categoryMatch && additionalMatch;
+        const shouldShow = categoryMatch && costMatch;
 
         if (shouldShow) {
           card.classList.remove('filter-hidden');
@@ -435,29 +425,29 @@
       });
     }
 
-    // Category button clicks (mutually exclusive)
-    categoryButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeCategory = btn.dataset.filter;
+    // Category pill clicks (mutually exclusive)
+    categoryPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        activeCategory = pill.dataset.filter;
 
         // Update button states
-        categoryButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        categoryPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
 
         applyFilters();
       });
     });
 
-    // Filter pill clicks (can stack multiple)
-    filterPills.forEach(pill => {
+    // Cost filter pill clicks (can stack multiple)
+    costPills.forEach(pill => {
       pill.addEventListener('click', () => {
         const filter = pill.dataset.filter;
 
-        if (activeFilters.has(filter)) {
-          activeFilters.delete(filter);
+        if (activeCostFilters.has(filter)) {
+          activeCostFilters.delete(filter);
           pill.classList.remove('active');
         } else {
-          activeFilters.add(filter);
+          activeCostFilters.add(filter);
           pill.classList.add('active');
         }
 
