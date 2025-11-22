@@ -76,6 +76,16 @@ Soli Deo Gloria
     .share-content { background: white; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; }
     .share-canvas { border: 2px solid #ddd; border-radius: 8px; margin: 1rem 0; width: 100%; }
     .social-buttons { display: flex; gap: 1rem; margin-top: 1rem; }
+    
+    .comparison-section { background: linear-gradient(135deg, #f7fdff 0%, #e6f4f8 100%); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; border: 2px solid #0e6e8e; }
+    .comparison-section h2 { margin-top: 0; color: var(--sea); text-align: center; margin-bottom: 1.5rem; }
+    .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .comparison-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .comparison-card h3 { margin-top: 0; font-size: 1rem; color: #666; margin-bottom: 1rem; }
+    .comparison-stat { font-size: 2rem; font-weight: bold; color: var(--sea); margin-bottom: 0.5rem; }
+    .comparison-label { font-size: 0.9rem; color: #666; line-height: 1.5; }
+    .comparison-badge { display: inline-block; padding: 0.5rem 1rem; background: linear-gradient(135deg, #d97706 0%, #b45309 100%); color: white; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-top: 0.5rem; }
+    .comparison-note { text-align: center; margin-top: 1rem; font-size: 0.85rem; color: #666; font-style: italic; }
   </style>
 </head>
 <body class="page">
@@ -106,6 +116,36 @@ Soli Deo Gloria
         <span class="stat-number" id="stat-bingos">0</span>
         <span class="stat-label">Bingos Earned</span>
       </div>
+    </div>
+    
+    
+    <!-- How You Compare Section -->
+    <div class="comparison-section" id="comparison-section">
+      <h2>📊 How You Compare to Other Cruisers</h2>
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <h3>Port Collector Ranking</h3>
+          <div class="comparison-stat" id="compare-percentile">--</div>
+          <div class="comparison-label" id="compare-label">Check some ports to see your ranking!</div>
+          <div id="compare-badge"></div>
+        </div>
+        <div class="comparison-card">
+          <h3>Average Cruiser Stats</h3>
+          <div class="comparison-stat">12 ports</div>
+          <div class="comparison-label">The average cruiser has visited 12 ports across 2-3 cruises. You're at <strong id="compare-vs-avg">0</strong> ports!</div>
+        </div>
+        <div class="comparison-card">
+          <h3>Super Cruiser Club</h3>
+          <div class="comparison-stat" id="compare-club">--</div>
+          <div class="comparison-label" id="compare-club-label">Visit 50+ ports to join the elite Super Cruiser Club (top 5%)</div>
+        </div>
+        <div class="comparison-card">
+          <h3>Country Explorer</h3>
+          <div class="comparison-stat" id="compare-countries-stat">0</div>
+          <div class="comparison-label">Average cruisers visit 6 countries. You've explored <strong id="compare-countries-count">0</strong> countries!</div>
+        </div>
+      </div>
+      <p class="comparison-note">Rankings based on typical Royal Caribbean cruiser statistics and port visit data.</p>
     </div>
     
     <div class="tracker-grid">
@@ -1454,6 +1494,9 @@ Soli Deo Gloria
     document.getElementById('stat-countries').textContent = countries.size;
     document.getElementById('stat-continents').textContent = continents.size;
     document.getElementById('stat-bingos').textContent = completedBingos;
+    
+    // Update comparison stats
+    updateComparisonStats(visited, countries.size);
   }
   
   // Event listeners
@@ -1627,6 +1670,81 @@ Soli Deo Gloria
       }
     };
     reader.readAsText(file);
+  }
+  
+  
+  // Update comparison statistics
+  function updateComparisonStats(portsVisited, countriesVisited) {
+    // Calculate percentile based on typical cruiser distribution
+    // Distribution: Most cruisers (70%) visit 5-20 ports, 20% visit 20-50, 10% visit 50+
+    let percentile;
+    let label;
+    let badge = '';
+    
+    if (portsVisited === 0) {
+      percentile = '--';
+      label = 'Check some ports to see your ranking!';
+    } else if (portsVisited <= 5) {
+      percentile = 'Top 85%';
+      label = 'You\'re just getting started! Keep cruising to climb the ranks.';
+    } else if (portsVisited <= 10) {
+      percentile = 'Top 70%';
+      label = 'You\'ve visited more ports than most first-time cruisers!';
+    } else if (portsVisited <= 15) {
+      percentile = 'Top 50%';
+      label = 'You\'re an average cruiser - right in the middle of the pack!';
+      badge = '<span class="comparison-badge">⭐ Average Cruiser</span>';
+    } else if (portsVisited <= 25) {
+      percentile = 'Top 30%';
+      label = 'You\'ve visited more ports than most cruisers. Well done!';
+      badge = '<span class="comparison-badge">🌟 Enthusiast</span>';
+    } else if (portsVisited <= 35) {
+      percentile = 'Top 20%';
+      label = 'You\'re a serious cruiser! More ports than 80% of travelers.';
+      badge = '<span class="comparison-badge">🏆 Experienced Cruiser</span>';
+    } else if (portsVisited <= 50) {
+      percentile = 'Top 10%';
+      label = 'Impressive! You\'ve visited more ports than 90% of cruisers!';
+      badge = '<span class="comparison-badge">💎 Elite Cruiser</span>';
+    } else if (portsVisited <= 75) {
+      percentile = 'Top 5%';
+      label = 'You\'re in the Super Cruiser Club! Only 5% reach this level.';
+      badge = '<span class="comparison-badge">👑 Super Cruiser</span>';
+    } else if (portsVisited <= 100) {
+      percentile = 'Top 2%';
+      label = 'Legendary! You\'ve explored more ports than 98% of cruisers!';
+      badge = '<span class="comparison-badge">🌟 Port Master</span>';
+    } else {
+      percentile = 'Top 1%';
+      label = 'Ultimate Cruiser! You\'re among the most traveled cruisers in the world!';
+      badge = '<span class="comparison-badge">🏅 Ultimate Cruiser</span>';
+    }
+    
+    document.getElementById('compare-percentile').textContent = percentile;
+    document.getElementById('compare-label').textContent = label;
+    document.getElementById('compare-badge').innerHTML = badge;
+    document.getElementById('compare-vs-avg').textContent = portsVisited;
+    
+    // Super Cruiser Club status
+    if (portsVisited >= 50) {
+      document.getElementById('compare-club').textContent = '✅ Member';
+      document.getElementById('compare-club-label').textContent = 'Welcome to the Super Cruiser Club! You\'re in the top 5% of all cruisers.';
+    } else {
+      const remaining = 50 - portsVisited;
+      document.getElementById('compare-club').textContent = remaining + ' to go';
+      document.getElementById('compare-club-label').textContent = `Visit ${remaining} more port${remaining > 1 ? 's' : ''} to join the elite Super Cruiser Club (top 5%)`;
+    }
+    
+    // Country comparison
+    document.getElementById('compare-countries-stat').textContent = countriesVisited;
+    document.getElementById('compare-countries-count').textContent = countriesVisited;
+    
+    const avgCountries = 6;
+    if (countriesVisited > avgCountries * 2) {
+      document.getElementById('compare-countries-count').textContent = countriesVisited + ' (exceptional!)';
+    } else if (countriesVisited > avgCountries) {
+      document.getElementById('compare-countries-count').textContent = countriesVisited + ' (above average!)';
+    }
   }
   
   // Initialize on load
