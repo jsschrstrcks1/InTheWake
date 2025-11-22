@@ -62,20 +62,77 @@
 
 **Reference:** See PORT_TRACKER_ROADMAP.md for complete specification and timeline
 
+### Multi-Cruise-Line Tracker Enhancement - FUTURE FEATURE
+**Status:** ⏳ PLANNED - Multi-cruise-line support for Port Tracker and Ship Tracker
+**Priority:** P3 - After Carnival port expansion begins
+**Impact:** Allows users to track ports/ships across multiple cruise lines
+
+**Features planned:**
+- [ ] Cruise line selector dropdown on Port Tracker page
+  - [ ] Royal Caribbean (current default)
+  - [ ] Carnival Cruise Line
+  - [ ] Virgin Voyages
+  - [ ] Princess Cruises
+  - [ ] Norwegian Cruise Line
+  - [ ] Celebrity Cruises
+  - [ ] Disney Cruise Line
+  - [ ] MSC Cruises
+  - [ ] Holland America Line
+  - [ ] "All Cruise Lines" mode (cross-line tracking)
+
+- [ ] Enhanced Port Tracker features:
+  - [ ] Show which cruise line(s) visit each port
+  - [ ] Multi-line bingo cards (e.g., "Visit the same port on 3 different cruise lines")
+  - [ ] Cross-cruise-line statistics ("You've visited 47 Royal Caribbean ports and 23 Carnival ports")
+  - [ ] Separate localStorage tracking per cruise line
+  - [ ] Export/import data with cruise line metadata
+
+- [ ] Enhanced Ship Tracker features:
+  - [ ] Separate ship databases per cruise line
+  - [ ] "Ship Brand Loyalty" achievement (sail 5+ ships from same line)
+  - [ ] "Line Hopper" achievement (sail ships from 3+ different lines)
+  - [ ] Cross-line ship class comparisons (Oasis vs Vista vs Edge)
+
+- [ ] UI/UX enhancements:
+  - [ ] Cruise line color coding (Royal: navy, Carnival: red, Virgin: red, etc.)
+  - [ ] Cruise line logos in navigation/headers
+  - [ ] Filter ports/ships by cruise line availability
+  - [ ] "Which cruise line for this port?" comparison tool
+
+- [ ] Analytics tracking:
+  - [ ] cruise_line_selected event
+  - [ ] cross_line_comparison event
+  - [ ] multi_line_achievement event
+
+- [ ] Port page enhancements:
+  - [ ] Show which cruise lines visit each port
+  - [ ] Cruise line-specific tips/notes (e.g., "Carnival tenders here, Royal docks")
+  - [ ] Itinerary length comparison (Carnival: 4-5 day, Royal: 7 day)
+
+**Technical considerations:**
+- Cruise line as metadata field in PORTS_DB array
+- Multi-value support: `cruiseLines: ['royal-caribbean', 'carnival']`
+- Backward compatibility with current Royal-only tracker
+- Default to Royal Caribbean until user selects different line
+- Cookie/localStorage to remember user's preferred cruise line(s)
+
+**Timeline:** Phase 1 after Carnival private islands batch (2026+)
+**Rationale:** Maximize engagement with users who cruise on multiple lines
+
 ---
 
 ## 🌍 PORT EXPANSION TASKS
 
-**Current Coverage:** 142 ports with individual pages (all have under construction notices)
+**Current Coverage:** 147 ports with individual pages (all have under construction notices)
 **Master Reference:** PORT_TRACKER_ROADMAP.md "Missing Ports by Priority" section
 
-### HIGH PRIORITY - Hawaii Batch (5 ports - ZERO coverage currently)
-**Impact:** Major gap - Hawaii is popular Royal Caribbean destination
-- [ ] Honolulu (Oahu) - Create port page
-- [ ] Kona (Big Island) - Create port page
-- [ ] Hilo (Big Island) - Create port page
-- [ ] Maui (Lahaina/Kahului) - Create port page
-- [ ] Nawiliwili (Kauai) - Create port page
+### ~~HIGH PRIORITY - Hawaii Batch (5 ports - ZERO coverage currently)~~ ✅ COMPLETE (2025-11-22)
+**Impact:** Major gap closed - Hawaii is popular Royal Caribbean destination
+- [x] Honolulu (Oahu) - ✅ Created 2025-11-22
+- [x] Kona (Big Island) - ✅ Created 2025-11-22
+- [x] Hilo (Big Island) - ✅ Created 2025-11-22
+- [x] Maui (Lahaina/Kahului) - ✅ Created 2025-11-22
+- [x] Nawiliwili (Kauai) - ✅ Created 2025-11-22
 
 ### HIGH PRIORITY - Middle East Expansion (4 ports)
 - [ ] Dubai, UAE - Create port page
@@ -121,6 +178,144 @@
 - Missing Ports by Priority (HIGH/MEDIUM/LOWER)
 - Recommended Timeline
 - Success Metrics & KPIs
+
+### FUTURE EXPANSION - Carnival Cruise Line Ports (150-200 new ports)
+**Status:** ⏳ PLANNED - Multi-phase expansion for Carnival coverage (29 ships, 320+ unique ports)
+**Priority:** P4 - After Royal Caribbean core coverage complete
+**Impact:** Adds second major cruise line, doubles potential user base
+
+**Carnival-Exclusive/Private Destinations (5 ports - HIGH PRIORITY when starting Carnival):**
+- [ ] Celebration Key (Grand Bahama, Bahamas) - Opening July 2025
+- [ ] Half Moon Cay (Little San Salvador, Bahamas) - Flagship private island
+- [ ] Princess Cays (Eleuthera, Bahamas) - Private beach resort
+- [ ] Amber Cove (Puerto Plata, Dominican Republic) - Private port (may already have Puerto Plata)
+- [ ] Mahogany Bay/Isla Tropicale (Roatan, Honduras) - Private beach club expansion 2026
+
+**Caribbean/Bahamas - Carnival Unique Ports (~15-20 new):**
+- [ ] St. Vincent (Kingstown)
+- [ ] Tobago (Scarborough)
+- [ ] Trinidad (Port of Spain)
+- [ ] La Romana, Dominican Republic
+- [ ] Puerto Limón, Costa Rica
+- [ ] Limón, Costa Rica (verify if duplicate)
+- [ ] Colón, Panama (may already have)
+- [ ] Additional Carnival-specific Caribbean calls
+
+**Alaska - Carnival Unique (~2-3 new):**
+- [ ] Endicott Arm & Dawes Glacier (cruising)
+- [ ] Hubbard Glacier (cruising)
+- [ ] Other Carnival-specific scenic cruising areas
+
+**Europe - Carnival Unique Ports (~40-50 new):**
+
+*Mediterranean:*
+- [ ] Ibiza, Spain
+- [ ] Valencia, Spain
+- [ ] Catania, Sicily, Italy
+- [ ] Cagliari, Sardinia, Italy
+- [ ] Cadiz, Spain
+
+*Northern Europe/Baltic:*
+- [ ] Geiranger, Norway
+- [ ] Olden, Norway
+- [ ] Flam, Norway
+- [ ] Riga, Latvia
+- [ ] Klaipeda, Lithuania
+- [ ] Gdansk/Gdynia, Poland
+- [ ] Kiel, Germany
+- [ ] Hamburg, Germany
+- [ ] Cherbourg, France
+- [ ] Zeebrugge (Bruges), Belgium
+- [ ] Greenock (Glasgow), Scotland
+- [ ] South Queensferry (Edinburgh), Scotland
+- [ ] Dun Laoghaire (Dublin), Ireland
+
+**Australia, New Zealand & South Pacific - ALL NEW (~30-35 ports):**
+
+*Australia:*
+- [ ] Sydney, Australia
+- [ ] Brisbane, Australia
+- [ ] Melbourne, Australia
+- [ ] Adelaide, Australia
+- [ ] Fremantle (Perth), Australia
+- [ ] Hobart, Tasmania
+
+*New Zealand:*
+- [ ] Auckland, New Zealand
+- [ ] Bay of Islands, New Zealand
+- [ ] Wellington, New Zealand
+- [ ] Christchurch (Lyttelton), New Zealand
+- [ ] Dunedin (Port Chalmers), New Zealand
+- [ ] Tauranga, New Zealand
+- [ ] Napier, New Zealand
+- [ ] Picton, New Zealand
+- [ ] Milford Sound (cruising)
+- [ ] Doubtful Sound (cruising)
+
+*South Pacific:*
+- [ ] Nouméa, New Caledonia
+- [ ] Port Vila, Vanuatu
+- [ ] Mystery Island, Vanuatu
+- [ ] Lifou, Loyalty Islands, New Caledonia
+- [ ] Suva, Fiji
+- [ ] Lautoka, Fiji
+- [ ] Dravuni Island, Fiji
+
+**Asia - Carnival Unique (~15-20 new):**
+- [ ] Shanghai (Baoshan), China
+- [ ] Tianjin (Beijing), China
+- [ ] Kobe/Osaka, Japan
+- [ ] Nagasaki, Japan
+- [ ] Jeju, South Korea
+- [ ] Phu My (Ho Chi Minh City), Vietnam
+- [ ] Laem Chabang (Bangkok), Thailand
+- [ ] Chan May (Da Nang/Hue), Vietnam
+- [ ] Bali (Benoa), Indonesia
+- [ ] Additional Asia ports from Carnival world cruises
+
+**South America - ALL NEW (~10-15 ports):**
+- [ ] Buenos Aires, Argentina
+- [ ] Montevideo, Uruguay
+- [ ] Rio de Janeiro, Brazil
+- [ ] Ushuaia, Argentina (Cape Horn/Drake Passage)
+- [ ] Antarctic Peninsula (cruising)
+- [ ] Punta Arenas, Chile
+- [ ] Valparaíso (Santiago), Chile
+- [ ] Callao (Lima), Peru
+- [ ] Manta, Ecuador
+- [ ] Guayaquil, Ecuador
+
+**Africa & Indian Ocean - ALL NEW (~15-20 ports):**
+- [ ] Cape Town, South Africa
+- [ ] Port Elizabeth (Gqeberha), South Africa
+- [ ] Durban, South Africa
+- [ ] Maputo, Mozambique
+- [ ] Nosy Be, Madagascar
+- [ ] Mahé, Seychelles
+- [ ] Mombasa, Kenya
+- [ ] Zanzibar, Tanzania
+- [ ] Walvis Bay, Namibia
+- [ ] Praia, Cape Verde
+
+**Exotic/Rare World Cruise Ports (~10-15 ports):**
+- [ ] Papeete, French Polynesia
+- [ ] Moorea, French Polynesia
+- [ ] Mumbai, India
+- [ ] Pitcairn Island (weather-dependent)
+- [ ] Easter Island, Chile
+- [ ] Otaru, Japan (2026+)
+- [ ] Additional rare repositioning/world cruise calls
+
+**Carnival Expansion Strategy:**
+- **Phase 1:** Carnival private islands + Caribbean unique ports (20-25 ports)
+- **Phase 2:** Europe unique ports (40-50 ports)
+- **Phase 3:** Australia/NZ/Pacific region (30-35 ports)
+- **Phase 4:** Asia expansion (15-20 ports)
+- **Phase 5:** South America/Africa/exotic (40-50 ports)
+
+**Total Carnival Unique Ports:** ~150-200 new port pages
+**Timeline:** Post Royal Caribbean completion (2026-2027+)
+**Reference:** Carnival operates 29 ships with 320+ unique ports (2022-2028 data)
 
 ---
 
@@ -571,7 +766,7 @@ All 50 ships should have stats JSON at:
 
 ### P1 - High (Content completeness)
 8. ~~**CRITICAL: Write "Cruising After Loss" article**~~ - ✅ COMPLETE as "In the Wake of Grief" (722 lines, Grade A+)
-9. **CRITICAL: Create Hawaii port batch** - 5 ports (ZERO coverage currently - major gap)
+9. ~~**CRITICAL: Create Hawaii port batch**~~ - ✅ COMPLETE (2025-11-22, 5 ports: Honolulu, Kona, Hilo, Maui, Nawiliwili)
 10. **CRITICAL: Expand "Solo Cruising" article** - 20 logbook references, current article too narrow
 11. **CRITICAL: Write "Healing Relationships at Sea" article** - 15+ logbook references, unique positioning
 12. **CRITICAL: Write "Cruising for Rest & Recovery" article** - 25 logbook references, burnout/mental health
@@ -595,11 +790,28 @@ All 50 ships should have stats JSON at:
 28. Performance optimization
 
 ### P3 - Low (Nice to have)
-29. Asia expansion batch (10-15 ports - see roadmap)
-30. Australia & Pacific batch (15-20 ports - see roadmap)
-31. Create logbooks for future ships (TBN)
-32. Additional themed articles (medical recovery, mental health, family situations, life transitions)
-33. Advanced analytics and monitoring
+29. Multi-cruise-line tracker enhancement - Cruise line selector on Port Tracker/Ship Tracker
+30. Asia expansion batch (10-15 ports - see roadmap)
+31. Australia & Pacific batch (15-20 ports - see roadmap)
+32. Create logbooks for future ships (TBN)
+33. Additional themed articles (medical recovery, mental health, family situations, life transitions)
+34. Advanced analytics and monitoring
+
+### P4 - Future Expansion (Post Royal Caribbean completion)
+35. **Carnival Cruise Line expansion** - 150-200 new unique ports (29 ships, 320+ total ports)
+    - Phase 1: Carnival private islands + Caribbean unique (20-25 ports)
+    - Phase 2: Europe unique ports (40-50 ports)
+    - Phase 3: Australia/NZ/Pacific region (30-35 ports)
+    - Phase 4: Asia expansion (15-20 ports)
+    - Phase 5: South America/Africa/exotic (40-50 ports)
+36. **Virgin Voyages expansion** - Adult-only luxury line
+37. **Princess Cruises expansion** - Sister brand to Royal Caribbean
+38. **Norwegian Cruise Line expansion** - Freestyle cruising competitor
+39. **Celebrity Cruises expansion** - Premium Royal Caribbean sister brand
+40. **Multi-cruise-line ship trackers** - Separate ship databases per cruise line
+
+**Timeline:** 2026-2027+ (after Royal Caribbean core coverage complete)
+**Rationale:** Maximize TAM (Total Addressable Market) by serving all major cruise lines
 
 ---
 
@@ -708,18 +920,19 @@ All 50 ships should have stats JSON at:
 ## 📈 PROGRESS SUMMARY
 
 **Engagement Tools (NEW 2025-11-22):**
-- ✅ Port Tracker COMPLETE - /tools/port-tracker.html with 142 ports, analytics, social comparison
+- ✅ Port Tracker COMPLETE - /tools/port-tracker.html with 147 ports, analytics, social comparison
 - ⏳ Ship Tracker PLANNED - Full spec in PORT_TRACKER_ROADMAP.md (HIGH PRIORITY NEXT)
 
 **Port Pages (UPDATED 2025-11-22):**
-- ✅ Complete: 142 individual port pages with ICP-Lite v1.0 format
-- ✅ Under construction notices added to all 142 ports (2025-11-22)
+- ✅ Complete: 147 individual port pages with ICP-Lite v1.0 format
+- ✅ Under construction notices added to all 147 ports (2025-11-22)
 - ✅ British Isles batch complete (10 ports: Liverpool, Cork, Invergordon, Kirkwall, Lerwick, Dover, Portland, Newcastle, Holyhead, Waterford)
+- ✅ Hawaii batch complete (5 ports: Honolulu, Kona, Hilo, Maui, Nawiliwili) - 2025-11-22
 - ✅ Portland duplicate fixed (portland.html = Dorset, portland-maine.html = Maine)
 - ✅ Navigation updated: Port Tracker link added to 18 main pages
-- ⏳ HIGH PRIORITY: Hawaii batch (5 ports - ZERO coverage)
 - ⏳ HIGH PRIORITY: Middle East (4 ports), Caribbean completion (8-10 ports)
 - ⏳ MEDIUM PRIORITY: Asia (10-15 ports), Australia/Pacific (15-20 ports)
+- ⏳ FUTURE EXPANSION: Carnival Cruise Line (150-200 new ports across all regions)
 
 **Images:**
 - ✅ Complete: 11 ships (FOM images)
@@ -769,7 +982,7 @@ All 50 ships should have stats JSON at:
    - Cross-reference with Port Tracker data
    - Analytics tracking (7 event types)
    - Share card generator with ship silhouettes
-2. **CRITICAL: Create Hawaii port batch** - 5 ports (Honolulu, Kona, Hilo, Maui, Nawiliwili) - ZERO coverage currently
+2. ~~**CRITICAL: Create Hawaii port batch**~~ - ✅ COMPLETE (2025-11-22, 5 ports: Honolulu, Kona, Hilo, Maui, Nawiliwili)
 3. **CRITICAL: Create protocol docs** - ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md all missing
 4. **Write remaining 3 articles** - Rest & Recovery, Family Challenges, Healing Relationships
 5. **Complete placeholder pages** - drinks.html, ports.html hub, restaurants.html need real content
@@ -803,5 +1016,5 @@ All 50 ships should have stats JSON at:
 
 ---
 
-**Last Updated:** 2025-11-22 (Port Tracker COMPLETE, Ship Tracker planned, 142 ports with under construction notices, British Isles batch complete)
+**Last Updated:** 2025-11-22 (Port Tracker COMPLETE with 147 ports, Hawaii batch COMPLETE, Carnival expansion planned 150-200 ports, Multi-cruise-line tracker planned)
 **Maintained by:** Claude AI (Thread tracking)
