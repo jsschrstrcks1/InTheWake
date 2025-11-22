@@ -705,27 +705,29 @@
     </div>
   </header>
 
-  <main class="wrap" id="content" role="main">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;">
+  <main class="wrap page-grid" id="content" role="main">
+    <!-- ICP-Lite Content Structure - Right Rail -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 0 0 1.5rem;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> This page provides cruise planning resources for Ken Baker. Use the information below to help plan your cruise vacation.
+        <strong>Quick Answer:</strong> Ken Baker is the founder of In the Wake, a cruise planning resource. This page features his bio, social links, and articles.
       </p>
 
       <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching ken baker, comparing options, and gathering information for trip planning.
+        <strong>Best For:</strong> Cruisers wanting to connect with Ken, learn about his cruising experience, or read his articles on solo travel, accessibility, and planning.
       </p>
 
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
         <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Topic:</strong> Ken Baker</li>
-          <li><strong>Purpose:</strong> Cruise planning resource</li>
+          <li><strong>Experience:</strong> 50+ sailings</li>
+          <li><strong>Specialty:</strong> Royal Caribbean, accessibility, solo cruising</li>
+          <li><strong>Role:</strong> Founder & Editor of In the Wake</li>
         </ul>
       </div>
     </section>
 
-    <section class="cards stack">
+    <div style="grid-column: 1; grid-row: 1 / span 999;">
+      <section class="cards stack">
       <article class="card">
         <div class="author-hero">
          <div class="avatar">
@@ -854,7 +856,62 @@
         <p style="margin: 0.5rem 0; padding-left: 1rem;">For additional assistance, contact your cruise line directly or work with a travel advisor who specializes in cruises.</p>
       </details>
     </section>
+    </div>
 
+    <!-- RIGHT RAIL -->
+    <aside class="rail" role="complementary" aria-label="Recent articles" style="grid-column: 2; grid-row: 2;">
+      <section class="card" aria-labelledby="recent-articles-heading">
+        <h3 id="recent-articles-heading">Recent from the Site</h3>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    </aside>
+  </main>
+
+  <script>
+  // Load recent articles
+  (async function(){
+    const rail = document.getElementById('recent-rail');
+    if(!rail) return;
+
+    const fallback = document.getElementById('recent-rail-fallback');
+    if(fallback) fallback.style.display = '';
+
+    try {
+      const res = await fetch('/assets/data/articles/index.json', { credentials: 'omit', cache: 'no-cache' });
+      if (!res.ok) throw new Error('Failed to load');
+
+      const raw = await res.json();
+      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+
+      const here = location.pathname.replace(/\/+$/,'');
+      const view = items.filter(p => {
+        const href = (p.url || p.path || '#').replace(/\/+$/,'');
+        return href && href !== here;
+      }).slice(0,5);
+
+      rail.innerHTML = view.map(p => {
+        const title = p.title || p.name || 'Article';
+        const href = p.url || p.path || '#';
+        const image = p.image || p.cover || '/assets/index_hero.jpg';
+        return `
+          <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
+            <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
+              <img src="${image}" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+            </div>
+            <div class="tiny" style="line-height:1.35">${title}</div>
+          </a>`;
+      }).join('');
+
+      if(fallback) fallback.style.display = 'none';
+    } catch(err) {
+      if(fallback) {
+        fallback.textContent = 'Unable to load articles';
+        fallback.style.display = '';
+      }
+    }
+  })();
+  </script>
 </main>
 
   <footer class="wrap">
