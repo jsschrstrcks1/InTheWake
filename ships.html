@@ -1095,9 +1095,10 @@
     </div>
   </header>
 
-  <main id="content" class="wrap" role="main" style="display:block">
-    <section class="card prose" aria-labelledby="ships-intro">
-      <h1 id="ships-intro">Royal Caribbean Ships — At a Glance</h1>
+  <main id="content" class="wrap page-grid" role="main">
+    <!-- Quick Answer / At a Glance - Early in HTML for SEO/AI, visually in right rail -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 0 0 1.5rem;">
+      <h2 style="font-size: 1.1rem; margin: 0 0 0.5rem;">At a Glance</h2>
 
       <!-- ICP-Lite: Answer Line -->
       <p class="answer-line">
@@ -1107,21 +1108,25 @@
 
       <!-- ICP-Lite: Fit Guidance -->
       <section class="fit-guidance">
-        <h2 class="sr-only">Who This Page Is For</h2>
-        <p>This page welcomes cruisers researching ship options, comparing classes, or planning their first (or fiftieth) sailing. Whether you're drawn to Icon-class innovation or Vision-class intimacy, you'll find the fleet organized to help you choose the vessel that matches your travel rhythm.</p>
+        <h3 class="sr-only">Who This Page Is For</h3>
+        <p style="font-size: 0.9rem;">This page welcomes cruisers researching ship options, comparing classes, or planning their first (or fiftieth) sailing. Whether you're drawn to Icon-class innovation or Vision-class intimacy, you'll find the fleet organized to help you choose the vessel that matches your travel rhythm.</p>
       </section>
 
       <!-- ICP-Lite: Key Facts -->
-      <section class="key-facts card">
-        <h2>Key Facts About Royal Caribbean's Fleet</h2>
-        <ul>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem;">
           <li>Fleet size: 28 ships across 7 ship classes</li>
           <li>Newest ships: <a href="/ships/rcl/icon-of-the-seas.html">Icon of the Seas</a> (2024), Star of the Seas (2025)</li>
           <li>Largest ships: Icon class at 250,800 GT with 7,600 guest capacity</li>
           <li>Ship classes: Icon, Oasis, Quantum Ultra, Quantum, Freedom, Voyager, Radiance, Vision</li>
           <li>Interactive features: Official deck plans, live ship trackers, class comparisons</li>
         </ul>
-      </section>
+      </div>
+    </section>
+
+    <section style="grid-column: 1; grid-row: 1 / span 999;" class="card prose" aria-labelledby="ships-intro">
+      <h1 id="ships-intro">Royal Caribbean Ships — Organized by Class</h1>
 
       <p>Explore the Royal Caribbean fleet organized by ship class—from the newest Icon-class megaships to the classic Vision-class vessels. Each ship card shows you available images (cycling randomly each visit) and links directly to detailed ship pages.</p>
 
@@ -1474,7 +1479,7 @@
     </section>
 
     <!-- RIGHT RAIL -->
-    <aside class="rail" aria-label="Right rail">
+    <aside class="rail" aria-label="Right rail" style="grid-column: 2; grid-row: 2;">
       <section class="card" aria-labelledby="jr-title">
         <h3 id="jr-title">From the Journal</h3>
         <p class="tiny muted">Articles from our writers' wakes.</p>
