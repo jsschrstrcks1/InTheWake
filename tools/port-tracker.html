@@ -6,8 +6,8 @@ Soli Deo Gloria
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Where I've Been: Port Tracker | In the Wake</title>
-  <meta name="description" content="Track your cruise port visits, earn bingo cards, and see how many Royal Caribbean ports you've conquered!"/>
+  <title>Port Logbook | In the Wake</title>
+  <meta name="description" content="Track your cruise port visits across all cruise lines, earn achievement badges, and build your personal port collection!"/>
   <link rel="canonical" href="https://cruisinginthewake.com/tools/port-tracker.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="stylesheet" href="/assets/styles.css"/>
@@ -169,8 +169,8 @@ Soli Deo Gloria
   <main class="wrap" id="content" tabindex="-1">
     <div class="tracker-container">
     <header class="tracker-header">
-      <h1>🌍 Where I've Been: Port Tracker</h1>
-      <p>Track your cruise adventures, earn bingo cards, and share your bragging rights!</p>
+      <h1>🌍 Port Logbook</h1>
+      <p>Track your cruise port visits across all lines, earn achievement badges, and build your collection!</p>
     </header>
     
     <div class="stats-bar">
@@ -1573,11 +1573,12 @@ Soli Deo Gloria
   function renderBingoCards() {
     const container = document.getElementById('bingo-cards');
     container.innerHTML = '';
-    
-    BINGO_CARDS.forEach(card => {
+
+    // Calculate completion for all cards first for sorting
+    const cardsWithCompletion = BINGO_CARDS.map(card => {
       let completed = 0;
       let total = 0;
-      
+
       if (card.min) {
         total = card.min;
         completed = Math.min(visitedPorts.size, total);
@@ -1585,9 +1586,21 @@ Soli Deo Gloria
         total = card.ports.length;
         completed = card.ports.filter(p => visitedPorts.has(p)).length;
       }
-      
+
       const percentage = total > 0 ? (completed / total * 100) : 0;
       const isCompleted = completed >= total;
+
+      return { card, completed, total, percentage, isCompleted };
+    });
+
+    // Sort: completed first, then by percentage descending
+    cardsWithCompletion.sort((a, b) => {
+      if (a.isCompleted && !b.isCompleted) return -1;
+      if (!a.isCompleted && b.isCompleted) return 1;
+      return b.percentage - a.percentage;
+    });
+
+    cardsWithCompletion.forEach(({ card, completed, total, percentage, isCompleted }) => {
       
       // Track bingo completion (only track once per bingo)
       const wasCompleted = sessionStorage.getItem(`bingo_${card.id}_completed`);
