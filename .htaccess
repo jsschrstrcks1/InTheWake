@@ -1,0 +1,69 @@
+# Apache Cache Headers Configuration
+# Long-term cache for versioned assets (1 year)
+# Soli Deo Gloria
+
+<IfModule mod_headers.c>
+  # Versioned CSS and JS files - cache for 1 year
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Image files - cache for 1 year
+  <FilesMatch "\.(webp|png|jpg|jpeg|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # JSON data files - cache for 1 day with revalidation
+  <FilesMatch "\.json$">
+    Header set Cache-Control "public, max-age=86400, must-revalidate"
+  </FilesMatch>
+
+  # HTML files - cache for 1 hour with revalidation
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+
+  # Manifest files - cache for 30 days
+  <FilesMatch "\.(webmanifest|manifest)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+
+  # Security headers
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Default expiration: 1 year
+  ExpiresDefault "access plus 1 year"
+
+  # CSS and JS
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+
+  # Images
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # JSON data
+  ExpiresByType application/json "access plus 1 day"
+
+  # HTML
+  ExpiresByType text/html "access plus 1 hour"
+
+  # Manifest
+  ExpiresByType application/manifest+json "access plus 30 days"
+</IfModule>
+
+# Enable compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>

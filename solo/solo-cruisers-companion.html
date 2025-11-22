@@ -335,6 +335,10 @@
   /* Footer */
   footer{max-width:900px;margin:3rem auto 0;padding:1.5rem 14px;text-align:center;border-top:1px solid var(--foam);color:#456}
   </style>
+
+  <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 <body class="page">
   <a href="#content" class="skip-link">Skip to main content</a>
@@ -394,7 +398,7 @@
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.032" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="144" alt="In the Wake" decoding="async" fetchpriority="high"/>
       </div>
       <div class="tagline">A Cruise Traveler's Logbook</div>
     

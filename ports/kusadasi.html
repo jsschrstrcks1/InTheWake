@@ -139,6 +139,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       color: var(--accent, #0e6e8e);
     }
   </style>
+
+  <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 
 <body class="page">
@@ -201,7 +205,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <div class="hero">
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="144" alt="In the Wake" decoding="async" fetchpriority="high"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -314,7 +318,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h3>About the Author</h3>
       <div class="author-info" style="display: flex; gap: 1rem; align-items: flex-start;">
         <a href="/authors/ken-baker.html" style="flex-shrink: 0;">
-          <img src="/authors/img/ken1_96_96.webp" srcset="/authors/img/ken1_96_96.webp 1x, /authors/img/ken1_96_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          <img src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
         </a>
         <div>
           <h4 style="margin: 0 0 0.25rem;"><a href="/authors/ken-baker.html">Ken Baker</a></h4>
