@@ -1,10 +1,36 @@
 # Unfinished Tasks - Both Threads
 
 **Generated:** 2025-11-17
-**Last Updated:** 2025-11-22 (Port Tracker COMPLETE, Ship Tracker planned, 142 ports with under construction notices)
+**Last Updated:** 2025-11-22 (COMPREHENSIVE AUDIT - Ship Tracker COMPLETE, ICP-Lite 97% coverage)
 **Threads Tracked:**
 - Thread 1: `claude/evaluate-ai-human-strategy-01L5apYYXXKEUVyhFbyhAgZs`
-- Thread 3: `claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9` (current)
+- Thread 3: `claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9`
+- Current: `claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW`
+
+---
+
+## 🔍 COMPREHENSIVE AUDIT FINDINGS (2025-11-22)
+
+**Major Corrections from Audit:**
+
+| Item | Previous Claim | Actual State | Status |
+|------|---------------|--------------|---------|
+| **Ship Tracker** | ⏳ PLANNED (HIGH PRIORITY NEXT) | ✅ COMPLETE (42KB, 1132 lines) | DONE |
+| **ICP-Lite Coverage** | ~20/409 pages (5%) | 544/561 pages (97%) | MOSTLY COMPLETE |
+| **Total HTML Pages** | 409 pages | 561 pages | +152 pages |
+| **Template v3.010.300** | Deployment unknown | 478 files (85%+) | DEPLOYED |
+| **Port Tracker** | ✅ COMPLETE | ✅ COMPLETE | Accurate ✓ |
+| **Hawaii Port Batch** | ✅ COMPLETE | ✅ COMPLETE | Accurate ✓ |
+
+**Key Takeaways:**
+- Ship Tracker was completed but not documented as such
+- ICP-Lite meta tags nearly site-wide (97%), not 5%
+- Content-level ICP enhancements still pending (expansion plans)
+- 17 pages still need ICP-Lite meta tags
+- WebP images converted but HTML meta tags still reference .jpeg
+- Protocol docs (ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md) still missing
+
+**New Baseline:** This audit serves as the corrected baseline for all future task tracking.
 
 ---
 
@@ -36,31 +62,26 @@
 8. achievement_level_reached, 9. share_stats_opened
 10. share_image_downloaded (VIRALITY), 11. data_exported, 12. data_imported, 13. data_reset
 
-### Ship Tracker Tool - HIGH PRIORITY NEXT
-**Status:** ⏳ PLANNED - Full specification in PORT_TRACKER_ROADMAP.md
-**Planned location:** /tools/ship-tracker.html
+### ✅ Ship Tracker Tool - COMPLETE (2025-11-22)
+**Status:** ✅ COMPLETE - Fully functional at `/tools/ship-tracker.html`
+**Location:** /tools/ship-tracker.html (42KB, 1132 lines)
+**Rebranded as:** "Ship Logbook" in UI
 
-**Features planned:**
-- [ ] Interactive checklist of 27-28 Royal Caribbean ships
-- [ ] Ship class grouping (Oasis, Quantum, Freedom, Voyager, Vision, Radiance, Sovereign)
-- [ ] Statistics dashboard (ships sailed, classes completed, total passenger capacity experienced)
-- [ ] 10 achievement bingo cards:
-  - [ ] 🌊 Oasis Class Collector (5 ships)
-  - [ ] ⚡ Quantum Leap (7 ships)
-  - [ ] 🎡 Freedom Fighter (6 ships)
-  - [ ] 🚀 Voyager Veteran (5 ships)
-  - [ ] 👑 Radiance Romance (5 ships)
-  - [ ] 🎪 Vision Quest (6 ships)
-  - [ ] 🏆 Fleet Master (10+ ships)
-  - [ ] ⚓ Class Completionist (sail every ship in a class)
-  - [ ] 🌟 Icon Explorer (Icon + Star of the Seas)
-  - [ ] 🔥 Newest Ships (ships <5 years old)
-- [ ] Cross-reference with Port Tracker ("show ports visited on this ship")
-- [ ] Share card with ship silhouettes
-- [ ] Analytics tracking (7 event types)
-- [ ] Integration with existing port tracker data
+**Features implemented:**
+- [x] Interactive checklist of Royal Caribbean ships
+- [x] Ship class grouping with collapsible sections
+- [x] Statistics dashboard (ships sailed, percentage of fleet, classes completed, capacity, bingos)
+- [x] Achievement bingo cards with progress tracking
+- [x] Filter/search functionality
+- [x] Export/import data (JSON)
+- [x] Share stats card generator (Canvas API)
+- [x] localStorage persistence
+- [x] Analytics tracking integrated
+- [x] Dynamic badge sorting
+- [x] Collapsible sections with smooth animations
+- [x] Added to main site navigation
 
-**Reference:** See PORT_TRACKER_ROADMAP.md for complete specification and timeline
+**Reference:** See PORT_TRACKER_ROADMAP.md for future multi-cruise-line expansion plans
 
 ### Multi-Cruise-Line Tracker Enhancement - FUTURE FEATURE
 **Status:** ⏳ PLANNED - Multi-cruise-line support for Port Tracker and Ship Tracker
@@ -813,10 +834,11 @@ All 50 ships should have stats JSON at:
 1. ~~**CRITICAL: Fix navigation on 281 pages (96% of site)**~~ - ✅ COMPLETE (done in main)
 2. ~~**CRITICAL: Update code to use WebP images**~~ - ✅ COMPLETE (done in main, commit ecdb983)
 3. ~~**CRITICAL: Create Port Tracker tool**~~ - ✅ COMPLETE (2025-11-22, /tools/port-tracker.html with analytics)
-4. **CRITICAL: Create Ship Tracker tool** - HIGH PRIORITY NEXT (full spec in PORT_TRACKER_ROADMAP.md)
+4. ~~**CRITICAL: Create Ship Tracker tool**~~ - ✅ COMPLETE (2025-11-22, /tools/ship-tracker.html, rebranded as "Ship Logbook")
 5. **Ship cards redesign** - Add CTAs, better space utilization, make cards compelling
-6. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
-7. Download Wiki Commons images for top 5 most-visited ships
+6. **Update WebP references in HTML meta tags** - Ship pages still use .jpeg in og:image, twitter:image, JSON-LD (54+ files)
+7. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer) - Symphony appears complete
+8. Download Wiki Commons images for 19 ships still needing images
 
 ### P1 - High (Content completeness)
 8. ~~**CRITICAL: Write "Cruising After Loss" article**~~ - ✅ COMPLETE as "In the Wake of Grief" (722 lines, Grade A+)
@@ -874,11 +896,13 @@ All 50 ships should have stats JSON at:
 > **Strategy:** Keep v3 architecture and progressive enhancement.
 > **Protocol:** `standards/ITW-LITE_PROTOCOL_v3.010.lite.md` (AI-first, human-first).
 >
-> **CURRENT STATUS (verified 2025-11-19):**
-> - Only ~20 pages have ICP-Lite meta tags (content-protocol, ai-summary)
-> - 409 total HTML pages in repository
-> - **Coverage: ~5%** - NOT site-wide, hub pages only
-> - Protocol docs still missing (ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md)
+> **CURRENT STATUS (verified 2025-11-22 - COMPREHENSIVE AUDIT):**
+> - **544/561 pages have ICP-Lite meta tags** (content-protocol, ai-summary)
+> - **561 total HTML pages** in repository (updated count)
+> - **Coverage: 97%** - Near-complete site-wide deployment of meta tags ✅
+> - **17 pages still need meta tags:** Asia/Pacific ports (10), solo/articles (4), solo/in-the-wake-of-grief.html (1), tracker tools (2)
+> - **Protocol docs still missing:** ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md ❌
+> - **Content-level enhancements pending:** H1+answer lines, fit-guidance cards, FAQ blocks, progressive enhancement
 
 ### Protocol & Documentation Setup
 
@@ -973,9 +997,10 @@ All 50 ships should have stats JSON at:
 
 ## 📈 PROGRESS SUMMARY
 
-**Engagement Tools (NEW 2025-11-22):**
-- ✅ Port Tracker COMPLETE - /tools/port-tracker.html with 147 ports, analytics, social comparison
-- ⏳ Ship Tracker PLANNED - Full spec in PORT_TRACKER_ROADMAP.md (HIGH PRIORITY NEXT)
+**Engagement Tools (UPDATED 2025-11-22):**
+- ✅ Port Tracker COMPLETE - /tools/port-tracker.html (65KB, 2071 lines) with 147 ports, analytics, social comparison
+- ✅ Ship Tracker COMPLETE - /tools/ship-tracker.html (42KB, 1132 lines) with bingo cards, share modal, collapsible sections
+- Both rebranded as "Logbooks" in UI (Port Logbook, Ship Logbook)
 
 **Port Pages (UPDATED 2025-11-22):**
 - ✅ Complete: 147 individual port pages with ICP-Lite v1.0 format
@@ -1005,10 +1030,11 @@ All 50 ships should have stats JSON at:
 - ✅ search.html EXISTS
 - ⏳ Need to set up external tools (GSC, Bing)
 
-**ICP-Lite (VERIFIED 2025-11-19):**
-- ⏳ Only ~20/409 pages (~5%) have ICP-Lite meta tags
+**ICP-Lite (COMPREHENSIVE AUDIT 2025-11-22):**
+- ✅ 544/561 pages (97%) have ICP-Lite meta tags - Near-complete site-wide deployment
+- ⏳ 17 pages still need meta tags (Asia/Pacific ports, solo/articles, tracker tools)
 - ❌ Protocol docs missing (ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md)
-- ⏳ Site-wide rollout NOT complete
+- ⏳ Content-level enhancements pending (H1+answer lines, fit-guidance, FAQ blocks, progressive enhancement)
 
 **Templates:**
 - ✅ v3.010.300 production-ready template created
@@ -1070,5 +1096,6 @@ All 50 ships should have stats JSON at:
 
 ---
 
-**Last Updated:** 2025-11-22 (Port Tracker COMPLETE with 147 ports, Hawaii batch COMPLETE, Carnival expansion planned 150-200 ports, Multi-cruise-line tracker planned)
+**Last Updated:** 2025-11-22 (COMPREHENSIVE AUDIT - Ship Tracker COMPLETE, ICP-Lite 97% coverage, 561 total pages, WebP HTML updates needed)
 **Maintained by:** Claude AI (Thread tracking)
+**Audit Thread:** claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW
