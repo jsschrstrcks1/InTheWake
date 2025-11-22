@@ -317,6 +317,60 @@
 **Timeline:** Post Royal Caribbean completion (2026-2027+)
 **Reference:** Carnival operates 29 ships with 320+ unique ports (2022-2028 data)
 
+### FUTURE EXPANSION - Virgin Voyages Ports (15-20 unique ports)
+**Status:** ⏳ PLANNED - Premium/experiential alternative to mass-market focus
+**Priority:** P4 - After Royal Caribbean core coverage, parallel with Carnival
+**Impact:** Adds adults-only premium segment, targets experiential travelers
+**Fleet:** 4 ships (Scarlet Lady, Valiant Lady, Resilient Lady, Brilliant Lady debut Sep 2025)
+**Total Ports:** ~120 ports (curated, quality over quantity)
+
+**Virgin-Exclusive/Unique Ports (~15-20 new ports not in Royal Caribbean):**
+
+**Virgin Private Destination:**
+- [ ] The Beach Club at Bimini (Bahamas) - Virgin's signature private beach club
+
+**Caribbean/Atlantic Unique:**
+- [ ] St. Croix, USVI (Frederiksted)
+- [ ] King's Wharf, Bermuda (NYC roundtrips)
+
+**Europe/Atlantic Coast Unique:**
+- [ ] Bodrum, Turkey (NEW 2026 Med)
+- [ ] Casablanca, Morocco (transatlantic)
+- [ ] Vigo, Spain (transatlantic/Bay of Biscay)
+- [ ] Le Verdon (Bordeaux), France (Bay of Biscay 2025)
+- [ ] La Coruña, Spain (Bay of Biscay)
+- [ ] Bilbao, Spain (Bay of Biscay)
+- [ ] Ponta Delgada (Azores), Portugal (transatlantic)
+
+**Iceland/Greenland Unique:**
+- [ ] Nuuk, Greenland (NEW 2026 Arctic expansion)
+- [ ] Isafjordur, Iceland (NEW 2026)
+
+**Pacific/Central America Unique:**
+- [ ] Puntarenas, Costa Rica (Panama Canal)
+- [ ] Cabo San Lucas, Mexico (West Coast/Panama)
+
+**Australia/NZ Unique:**
+- [ ] Timaru, New Zealand (when/if Australia/NZ resumes post-2026)
+- [ ] Burnie, Tasmania (when/if Australia/NZ resumes post-2026)
+
+**Virgin Voyages Unique Features to Highlight:**
+- Late-night stays: Ships stay until 10pm-midnight for nightlife (Ibiza, Mykonos, San Juan, Cozumel)
+- Overnight stays: Ibiza and Mykonos regular overnights
+- Adults-only (18+): Different port experience focus
+- "Shore Things" curated excursions
+- Premium/experiential vs mass-market
+
+**Virgin Expansion Strategy:**
+- **Phase 1:** Virgin-exclusive ports + premium Caribbean/Atlantic (10-12 ports)
+- **Phase 2:** Virgin signature late-night/overnight experiences (highlight in existing port pages)
+- **Phase 3:** Adults-only content angle for existing shared ports
+
+**Total Virgin Unique Ports:** ~15-20 new port pages (many ports overlap with Royal/Carnival)
+**Timeline:** Post Royal Caribbean core + Carnival Phase 1 (2027+)
+**Reference:** Virgin operates 4 ships with ~120 curated ports (2022-2028 data)
+**Market Position:** Premium/adults-only alternative, experiential focus vs volume
+
 ---
 
 ## 🖼️ IMAGE TASKS
