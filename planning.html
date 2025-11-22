@@ -744,6 +744,36 @@
       font-weight: 600;
     }
 
+    /* State and Port Selection Buttons */
+    #state-buttons a,
+    #port-buttons a {
+      display: inline-block;
+      padding: .5rem 1rem;
+      border: 2px solid var(--rope);
+      border-radius: 20px;
+      background: #fff;
+      color: var(--accent);
+      font-size: .9rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    #state-buttons a:hover,
+    #port-buttons a:hover {
+      background: var(--foam);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    #state-buttons a[aria-current="true"],
+    #port-buttons a[aria-current="true"] {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      border-color: var(--accent);
+    }
+
     .grid-airports {
       display: grid;
       gap: .75rem;
@@ -1208,8 +1238,8 @@
         <h2 id="state-port-selector">Find Your Departure</h2>
         <p class="tiny muted">Click a <strong>button</strong> for your state or country, then pick your port. We'll show nearby airports, typical drives, and gentle cautions. Once you know your port, explore our <a href="/ships.html">ship reviews</a> and <a href="/restaurants.html">dining guides</a> to plan your voyage.</p>
 
-        
-        
+        <div id="state-buttons" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem"></div>
+        <div id="port-buttons" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem"></div>
 
         <div id="port-panel" style="margin-top:1rem">
           <section class="prose" id="port-blurb"></section>
