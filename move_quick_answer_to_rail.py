@@ -40,9 +40,10 @@ def update_page_grid_html(file_path):
 
     content = re.sub(intro_pattern, update_intro, content)
 
-    # 2. Find first element after page-intro and add grid positioning
+    # 2. Find first NON-page-intro element after page-intro and add grid positioning
     # Match: page-intro closing tag, followed by optional comments/whitespace, then next tag
-    first_elem_pattern = r'(</section>\s*(?:<!--[^>]*?-->\s*)?<)(div|section|article)(\s+)'
+    # BUT exclude if next tag is another page-intro (some pages have multiple page-intros)
+    first_elem_pattern = r'(</section>\s*(?:<!--[^>]*?-->\s*)?<)(div|section|article)(\s+)(?!class="page-intro")'
 
     def update_first_element(match):
         before = match.group(1)
@@ -94,7 +95,7 @@ def update_page_grid_html(file_path):
         return None, []
 
 def process_files():
-    """Process all HTML files with page-grid class"""
+    """Process all HTML files with page-intro and aside (two-column layout)"""
     html_files = []
 
     # Find all HTML files
@@ -103,15 +104,16 @@ def process_files():
         if 'vendors' in str(html_file) or 'solo/articles' in str(html_file):
             continue
 
-        # Check if file contains page-grid class
+        # Check if file contains both page-intro AND aside (indicating two-column layout with right rail)
         try:
             with open(html_file, 'r', encoding='utf-8') as f:
-                if 'class="wrap page-grid"' in f.read():
+                content = f.read()
+                if 'class="page-intro"' in content and '<aside' in content:
                     html_files.append(html_file)
         except:
             continue
 
-    print(f"\nFound {len(html_files)} files with page-grid class\n")
+    print(f"\nFound {len(html_files)} files with page-intro + aside (two-column layout)\n")
 
     updated_count = 0
     for file_path in html_files:
