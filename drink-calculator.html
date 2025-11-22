@@ -1148,7 +1148,7 @@
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
             Planning <span class="caret">▾</span>
           </button>
-          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+                              <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
             <a role="menuitem" href="/planning.html">Planning (overview)</a>
             <a role="menuitem" href="/ships.html">Ships</a>
             <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
@@ -1167,7 +1167,7 @@
           <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
             Travel <span class="caret">▾</span>
           </button>
-          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+                              <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
             <a role="menuitem" href="/travel.html">Travel (overview)</a>
             <a role="menuitem" href="/solo.html">Solo</a>
           </div>
@@ -1214,6 +1214,16 @@
           <li><strong>Purpose:</strong> Cruise planning resource</li>
         </ul>
       </div>
+
+      <!-- ✅ Cost Comparison Summary Card (positioned near top of right rail) -->
+      <section class="card" id="cost-summary-card" style="display:none; margin-top: 1rem;">
+        <h3>💰 Your Total Cost Comparison</h3>
+        <p class="small muted" style="margin-bottom: 1rem;">Based on your drink selections for the entire cruise</p>
+
+        <div id="cost-comparison-table">
+          <!-- JavaScript will populate this -->
+        </div>
+      </section>
     </section>
 
     <!-- LEFT COLUMN -->
@@ -1814,16 +1824,6 @@
           <p class="tiny muted">Cocktails, beer, wine up to $14/drink</p>
           <div class="tiny" data-inc="deluxe">Includes: $0/day</div>
           <div class="tiny overcap-note" id="overcap-est">Over-cap: $0/day</div>
-        </div>
-      </section>
-
-      <!-- ✅ NEW: Cost Comparison Summary Card -->
-      <section class="card" id="cost-summary-card" style="display:none;">
-        <h3>💰 Your Total Cost Comparison</h3>
-        <p class="small muted" style="margin-bottom: 1rem;">Based on your drink selections for the entire cruise</p>
-
-        <div id="cost-comparison-table">
-          <!-- JavaScript will populate this -->
         </div>
       </section>
 
