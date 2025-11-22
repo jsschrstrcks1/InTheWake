@@ -90,7 +90,85 @@ Soli Deo Gloria
   </style>
 </head>
 <body class="page">
-  <div class="tracker-container">
+  <!-- Skip link -->
+  <a class="visually-hidden" href="#content">Skip to content</a>
+
+  <!-- Header / Hero (standard unified header) -->
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <a href="/">
+          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        </a>
+        <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
+      </div>
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
+
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+            Planning <span class="caret">▾</span>
+          </button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/stateroom-check.html">Stateroom Check</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/tools/port-tracker.html">Port Tracker</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/tools/ship-tracker.html" aria-current="page">Ship Tracker</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/search.html">Search</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <p class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</p>
+      <div class="hero-credit">
+        <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty — Instagram</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="wrap" id="content" tabindex="-1">
+    <div class="tracker-container">
     <header class="tracker-header">
       <h1>⚓ Ships I've Sailed: Fleet Tracker</h1>
       <p>Track your Royal Caribbean fleet adventures, earn achievement badges, and share your sailing history!</p>
@@ -938,5 +1016,7 @@ Soli Deo Gloria
   init();
 })();
   </script>
+  </div><!-- /.tracker-container -->
+  </main><!-- /#content -->
 </body>
 </html>
