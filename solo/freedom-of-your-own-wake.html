@@ -738,7 +738,7 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
     </article>
   </section>
 </article>  <!-- ===================== RIGHT-SIDE RAIL ========================== -->
-  <aside class="rail" role="complementary" aria-label="Author & articles">
+  <aside class="rail" role="complementary" aria-label="Author & articles" style="grid-column: 2; grid-row: 2;">
     <!-- On this page -->
     <section class="card toc-card" aria-labelledby="toc-title">
       <h2 id="toc-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">On this page</h2>
@@ -746,7 +746,7 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
     </section>
 
     <!-- Author card -->
-    <section id="author-rail" class="card" aria-label="Author information">
+    <section style="grid-column: 1; grid-row: 1 / span 999;" id="author-rail" class="card" aria-label="Author information">
       <h2 class="tiny" style="margin-bottom:.25rem;color:#0a3d62">About the author</h2>
       <div class="author-card" style="display:flex;gap:.75rem;align-items:center;">
         <!-- populated by JS -->
@@ -754,7 +754,7 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
     </section>
 
     <!-- Recent Articles rail -->
-    <section class="card" aria-labelledby="recent-rail-title">
+    <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
       <h2 id="recent-rail-title" class="tiny" style="margin:.25rem 0 .5rem;color:#0a3d62">Recent Articles</h2>
       <div id="recent-rail" class="rail-list" aria-live="polite"></div>
     </section>

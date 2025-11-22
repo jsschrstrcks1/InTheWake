@@ -1163,7 +1163,7 @@
   <!-- MAIN CONTENT -->
   <main id="main-content" class="wrap page-grid" role="main" aria-label="Main content">
     <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;">
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> This page provides cruise planning resources for In the Wake. Use the information below to help plan your cruise vacation.
       </p>
@@ -1182,7 +1182,7 @@
     </section>
 
     <!-- LEFT: welcome + top explore -->
-    <section aria-label="Welcome and explore">
+    <section style="grid-column: 1; grid-row: 1 / span 999;" aria-label="Welcome and explore">
       <!-- Duck Spotting Card - Special Callout (Dismissible) -->
       <article id="duck-card" class="card" style="background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%); border: 3px solid #ffd700; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2); position: relative;">
         <button onclick="document.getElementById('duck-card').style.display=\'none\'; localStorage.setItem(\'duckCardDismissed\', \'true\');"
@@ -1258,7 +1258,7 @@
     </section>
 
     <!-- RIGHT RAIL -->
-    <aside class="rail" role="complementary" aria-label="Author & articles">
+    <aside class="rail" role="complementary" aria-label="Author & articles" style="grid-column: 2; grid-row: 2;">
       <!-- Author card (Vertical Layout) -->
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
@@ -1276,7 +1276,7 @@
       </section>
 
       <!-- Recent Articles rail -->
-      <section class="card" aria-labelledby="recent-rail-title">
+      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Articles</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
@@ -1385,7 +1385,7 @@
   </section>
 
   <!-- FAQ Section (ICP-Lite) -->
-  <section class="wrap" style="margin-top: 2rem;" aria-labelledby="faq-heading">
+  <section style="grid-column: 1; grid-row: 1 / span 999;" class="wrap" style="margin-top: 2rem;" aria-labelledby="faq-heading">
     <div class="card">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
