@@ -6,8 +6,8 @@ Soli Deo Gloria
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Ships I've Sailed: Ship Tracker | In the Wake</title>
-  <meta name="description" content="Track which Royal Caribbean ships you've sailed on, earn fleet achievement badges, and share your Royal Caribbean journey!"/>
+  <title>Ship Logbook | In the Wake</title>
+  <meta name="description" content="Track which cruise ships you've sailed on across all lines, earn fleet achievement badges, and build your sailing history!"/>
   <link rel="canonical" href="https://cruisinginthewake.com/tools/ship-tracker.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="stylesheet" href="/assets/styles.css"/>
@@ -170,8 +170,8 @@ Soli Deo Gloria
   <main class="wrap" id="content" tabindex="-1">
     <div class="tracker-container">
     <header class="tracker-header">
-      <h1>⚓ Ships I've Sailed: Fleet Tracker</h1>
-      <p>Track your Royal Caribbean fleet adventures, earn achievement badges, and share your sailing history!</p>
+      <h1>⚓ Ship Logbook</h1>
+      <p>Track your cruise ship adventures across all lines, earn achievement badges, and build your sailing history!</p>
     </header>
 
     <div class="stats-bar">
@@ -747,7 +747,8 @@ Soli Deo Gloria
     const container = document.getElementById('bingo-cards');
     let html = '';
 
-    BADGES.forEach(badge => {
+    // Calculate completion for all badges first for sorting
+    const badgesWithCompletion = BADGES.map(badge => {
       const isComplete = checkBadgeComplete(badge);
       let progress = 0;
       let progressText = '';
@@ -762,6 +763,18 @@ Soli Deo Gloria
         progress = (count / badge.ships.length) * 100;
         progressText = `${count}/${badge.ships.length} ships`;
       }
+
+      return { badge, isComplete, progress, progressText };
+    });
+
+    // Sort: completed first, then by progress percentage descending
+    badgesWithCompletion.sort((a, b) => {
+      if (a.isComplete && !b.isComplete) return -1;
+      if (!a.isComplete && b.isComplete) return 1;
+      return b.progress - a.progress;
+    });
+
+    badgesWithCompletion.forEach(({ badge, isComplete, progress, progressText }) => {
 
       html += `
         <div class="bingo-card ${isComplete ? 'completed' : ''}">
