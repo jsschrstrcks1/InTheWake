@@ -1,0 +1,1755 @@
+<!--
+Soli Deo Gloria
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Where I've Been: Port Tracker | In the Wake</title>
+  <meta name="description" content="Track your cruise port visits, earn bingo cards, and see how many Royal Caribbean ports you've conquered!"/>
+  <link rel="canonical" href="https://cruisinginthewake.com/tools/port-tracker.html"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="stylesheet" href="/assets/styles.css"/>
+  <style>
+    .tracker-container { max-width: 1400px; margin: 2rem auto; padding: 0 1rem; }
+    .tracker-header { text-align: center; margin-bottom: 2rem; }
+    .tracker-header h1 { font-size: 2.5rem; color: var(--sea, #0a3d62); margin-bottom: 0.5rem; }
+    .tracker-header p { font-size: 1.1rem; color: #666; }
+    
+    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .stat-number { font-size: 2.5rem; font-weight: bold; display: block; margin-bottom: 0.25rem; }
+    .stat-label { font-size: 0.9rem; opacity: 0.9; }
+    
+    .tracker-grid { display: grid; grid-template-columns: 250px 1fr 320px; gap: 2rem; }
+    
+    @media (max-width: 1024px) {
+      .tracker-grid { grid-template-columns: 1fr; }
+    }
+    
+    .filter-panel { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
+    .filter-panel h3 { margin-top: 0; font-size: 1.1rem; color: var(--sea); }
+    .filter-button { display: block; width: 100%; text-align: left; padding: 0.75rem 1rem; margin-bottom: 0.5rem; background: #f7fdff; border: 1px solid #e0f0f5; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .filter-button:hover { background: #e0f0f5; }
+    .filter-button.active { background: var(--sea); color: white; border-color: var(--sea); }
+    
+    .search-box { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+    
+    .port-list { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .region-section { margin-bottom: 2rem; }
+    .region-title { font-size: 1.3rem; color: var(--sea); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--sea); }
+    .region-progress { font-size: 0.9rem; color: #666; margin-left: 1rem; }
+    
+    .port-item { display: flex; align-items: center; padding: 0.75rem; margin-bottom: 0.5rem; background: #f7fdff; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .port-item:hover { background: #e0f0f5; }
+    .port-item.visited { background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; }
+    
+    .port-checkbox { width: 24px; height: 24px; margin-right: 1rem; cursor: pointer; flex-shrink: 0; }
+    .port-name { flex: 1; font-size: 1rem; color: var(--sea); text-decoration: none; font-weight: 500; }
+    .port-name:hover { text-decoration: underline; }
+    .port-country { font-size: 0.85rem; color: #666; margin-left: auto; }
+    
+    .bingo-panel { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
+    .bingo-panel h3 { margin-top: 0; font-size: 1.1rem; color: var(--sea); }
+    
+    .bingo-card { margin-bottom: 1.5rem; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 2px solid #e0f0f5; }
+    .bingo-card.completed { background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%); border-color: #d97706; }
+    .bingo-card.completed .bingo-icon { display: inline; }
+    
+    .bingo-title { font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem; color: #134; }
+    .bingo-icon { display: none; margin-right: 0.5rem; }
+    .bingo-progress { font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
+    .progress-bar { height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #0e6e8e 0%, #0a3d62 100%); transition: width 0.3s; }
+    .bingo-card.completed .progress-fill { background: linear-gradient(90deg, #d97706 0%, #b45309 100%); }
+    
+    .action-buttons { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+    .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
+    .btn-primary { background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%); color: white; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    .btn-secondary { background: white; color: var(--sea); border: 2px solid var(--sea); }
+    .btn-secondary:hover { background: #f7fdff; }
+    
+    .share-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+    .share-modal.active { display: flex; }
+    .share-content { background: white; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; }
+    .share-canvas { border: 2px solid #ddd; border-radius: 8px; margin: 1rem 0; width: 100%; }
+    .social-buttons { display: flex; gap: 1rem; margin-top: 1rem; }
+    
+    .comparison-section { background: linear-gradient(135deg, #f7fdff 0%, #e6f4f8 100%); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; border: 2px solid #0e6e8e; }
+    .comparison-section h2 { margin-top: 0; color: var(--sea); text-align: center; margin-bottom: 1.5rem; }
+    .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .comparison-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .comparison-card h3 { margin-top: 0; font-size: 1rem; color: #666; margin-bottom: 1rem; }
+    .comparison-stat { font-size: 2rem; font-weight: bold; color: var(--sea); margin-bottom: 0.5rem; }
+    .comparison-label { font-size: 0.9rem; color: #666; line-height: 1.5; }
+    .comparison-badge { display: inline-block; padding: 0.5rem 1rem; background: linear-gradient(135deg, #d97706 0%, #b45309 100%); color: white; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-top: 0.5rem; }
+    .comparison-note { text-align: center; margin-top: 1rem; font-size: 0.85rem; color: #666; font-style: italic; }
+  </style>
+</head>
+<body class="page">
+  <div class="tracker-container">
+    <header class="tracker-header">
+      <h1>🌍 Where I've Been: Port Tracker</h1>
+      <p>Track your cruise adventures, earn bingo cards, and share your bragging rights!</p>
+    </header>
+    
+    <div class="stats-bar">
+      <div class="stat-card">
+        <span class="stat-number" id="stat-ports">0</span>
+        <span class="stat-label">Ports Visited</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-percentage">0%</span>
+        <span class="stat-label">of RC Ports</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-countries">0</span>
+        <span class="stat-label">Countries</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-continents">0</span>
+        <span class="stat-label">Continents</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-bingos">0</span>
+        <span class="stat-label">Bingos Earned</span>
+      </div>
+    </div>
+    
+    
+    <!-- How You Compare Section -->
+    <div class="comparison-section" id="comparison-section">
+      <h2>📊 How You Compare to Other Cruisers</h2>
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <h3>Port Collector Ranking</h3>
+          <div class="comparison-stat" id="compare-percentile">--</div>
+          <div class="comparison-label" id="compare-label">Check some ports to see your ranking!</div>
+          <div id="compare-badge"></div>
+        </div>
+        <div class="comparison-card">
+          <h3>Average Cruiser Stats</h3>
+          <div class="comparison-stat">12 ports</div>
+          <div class="comparison-label">The average cruiser has visited 12 ports across 2-3 cruises. You're at <strong id="compare-vs-avg">0</strong> ports!</div>
+        </div>
+        <div class="comparison-card">
+          <h3>Super Cruiser Club</h3>
+          <div class="comparison-stat" id="compare-club">--</div>
+          <div class="comparison-label" id="compare-club-label">Visit 50+ ports to join the elite Super Cruiser Club (top 5%)</div>
+        </div>
+        <div class="comparison-card">
+          <h3>Country Explorer</h3>
+          <div class="comparison-stat" id="compare-countries-stat">0</div>
+          <div class="comparison-label">Average cruisers visit 6 countries. You've explored <strong id="compare-countries-count">0</strong> countries!</div>
+        </div>
+      </div>
+      <p class="comparison-note">Rankings based on typical Royal Caribbean cruiser statistics and port visit data.</p>
+    </div>
+    
+    <div class="tracker-grid">
+      <!-- Left Sidebar: Filters -->
+      <aside class="filter-panel">
+        <h3>Filter by Region</h3>
+        <input type="text" class="search-box" id="search-box" placeholder="Search ports...">
+        <button class="filter-button active" data-region="all">📍 All Ports</button>
+        <button class="filter-button" data-region="Caribbean">🏝️ Caribbean</button>
+        <button class="filter-button" data-region="Alaska">❄️ Alaska</button>
+        <button class="filter-button" data-region="Canada & New England">🍁 Canada/New England</button>
+        <button class="filter-button" data-region="Mediterranean">🏛️ Mediterranean</button>
+        <button class="filter-button" data-region="Northern Europe">🛡️ Northern Europe</button>
+        <button class="filter-button" data-region="Asia">🌏 Asia</button>
+        <button class="filter-button" data-region="Australia & Pacific">🦘 Australia/Pacific</button>
+        <button class="filter-button" data-region="Other">🌍 Other</button>
+      </aside>
+      
+      <!-- Center: Port List -->
+      <main class="port-list" id="port-list">
+        <!-- Dynamically populated -->
+      </main>
+      
+      <!-- Right Sidebar: Bingo Cards -->
+      <aside class="bingo-panel">
+        <h3>🏆 Achievement Bingos</h3>
+        <div id="bingo-cards">
+          <!-- Dynamically populated -->
+        </div>
+      </aside>
+    </div>
+    
+    <div class="action-buttons">
+      <button class="btn btn-primary" id="share-btn">📤 Share My Stats</button>
+      <button class="btn btn-secondary" id="export-btn">💾 Export Data</button>
+      <button class="btn btn-secondary" id="import-btn">📥 Import Data</button>
+      <button class="btn btn-secondary" id="reset-btn">🔄 Reset All</button>
+    </div>
+  </div>
+  
+  <!-- Share Modal -->
+  <div class="share-modal" id="share-modal">
+    <div class="share-content">
+      <h2>Share Your Cruise Stats</h2>
+      <canvas id="share-canvas" class="share-canvas" width="600" height="400"></canvas>
+      <div class="social-buttons">
+        <button class="btn btn-primary" id="download-btn">Download Image</button>
+        <button class="btn btn-secondary" id="close-modal-btn">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <input type="file" id="import-file" accept=".json" style="display:none;">
+  
+  <script>
+// Port Tracker App
+(function() {
+  'use strict';
+  
+  // Port database - all 142 ports with metadata and URLs
+  const PORTS_DB = [
+  {
+    "id": "ajaccio",
+    "name": "Ajaccio",
+    "country": "France",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/ajaccio.html"
+  },
+  {
+    "id": "alesund",
+    "name": "\u00c5lesund",
+    "country": "Norway",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/alesund.html"
+  },
+  {
+    "id": "amalfi",
+    "name": "Amalfi",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/amalfi.html"
+  },
+  {
+    "id": "amsterdam",
+    "name": "Amsterdam",
+    "country": "Netherlands",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/amsterdam.html"
+  },
+  {
+    "id": "aruba",
+    "name": "Aruba",
+    "country": "Aruba",
+    "region": "Caribbean",
+    "continent": "South America",
+    "url": "/ports/aruba.html"
+  },
+  {
+    "id": "athens",
+    "name": "Athens",
+    "country": "Greece",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/athens.html"
+  },
+  {
+    "id": "auckland",
+    "name": "Auckland",
+    "country": "New Zealand",
+    "region": "Australia & Pacific",
+    "continent": "Oceania",
+    "url": "/ports/auckland.html"
+  },
+  {
+    "id": "bali",
+    "name": "Bali",
+    "country": "Indonesia",
+    "region": "Asia",
+    "continent": "Asia",
+    "url": "/ports/bali.html"
+  },
+  {
+    "id": "bangkok",
+    "name": "Bangkok",
+    "country": "Thailand",
+    "region": "Asia",
+    "continent": "Asia",
+    "url": "/ports/bangkok.html"
+  },
+  {
+    "id": "bar-harbor",
+    "name": "Bar Harbor",
+    "country": "United States",
+    "region": "Canada & New England",
+    "continent": "North America",
+    "url": "/ports/bar-harbor.html"
+  },
+  {
+    "id": "barcelona",
+    "name": "Barcelona",
+    "country": "Spain",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/barcelona.html"
+  },
+  {
+    "id": "belfast",
+    "name": "Belfast",
+    "country": "Northern Ireland",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/belfast.html"
+  },
+  {
+    "id": "belize",
+    "name": "Belize City",
+    "country": "Belize",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/belize.html"
+  },
+  {
+    "id": "bergen",
+    "name": "Bergen",
+    "country": "Norway",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/bergen.html"
+  },
+  {
+    "id": "bermuda",
+    "name": "Bermuda",
+    "country": "Bermuda",
+    "region": "Other",
+    "continent": "North America",
+    "url": "/ports/bermuda.html"
+  },
+  {
+    "id": "bilbao",
+    "name": "Bilbao",
+    "country": "Spain",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/bilbao.html"
+  },
+  {
+    "id": "bonaire",
+    "name": "Bonaire",
+    "country": "Bonaire",
+    "region": "Caribbean",
+    "continent": "South America",
+    "url": "/ports/bonaire.html"
+  },
+  {
+    "id": "bordeaux",
+    "name": "Bordeaux",
+    "country": "France",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/bordeaux.html"
+  },
+  {
+    "id": "boston",
+    "name": "Boston",
+    "country": "United States",
+    "region": "Canada & New England",
+    "continent": "North America",
+    "url": "/ports/boston.html"
+  },
+  {
+    "id": "brisbane",
+    "name": "Brisbane",
+    "country": "Australia",
+    "region": "Australia & Pacific",
+    "continent": "Oceania",
+    "url": "/ports/brisbane.html"
+  },
+  {
+    "id": "cadiz",
+    "name": "C\u00e1diz",
+    "country": "Spain",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/cadiz.html"
+  },
+  {
+    "id": "cagliari",
+    "name": "Cagliari",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/cagliari.html"
+  },
+  {
+    "id": "cannes",
+    "name": "Cannes",
+    "country": "France",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/cannes.html"
+  },
+  {
+    "id": "cartagena-spain",
+    "name": "Cartagena",
+    "country": "Spain",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/cartagena-spain.html"
+  },
+  {
+    "id": "cartagena",
+    "name": "Cartagena",
+    "country": "Colombia",
+    "region": "Caribbean",
+    "continent": "South America",
+    "url": "/ports/cartagena.html"
+  },
+  {
+    "id": "casablanca",
+    "name": "Casablanca",
+    "country": "Morocco",
+    "region": "Other",
+    "continent": "Africa",
+    "url": "/ports/casablanca.html"
+  },
+  {
+    "id": "charlottetown",
+    "name": "Charlottetown",
+    "country": "Canada",
+    "region": "Canada & New England",
+    "continent": "North America",
+    "url": "/ports/charlottetown.html"
+  },
+  {
+    "id": "cherbourg",
+    "name": "Cherbourg",
+    "country": "France",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/cherbourg.html"
+  },
+  {
+    "id": "civitavecchia",
+    "name": "Rome (Civitavecchia)",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/civitavecchia.html"
+  },
+  {
+    "id": "cococay",
+    "name": "Perfect Day at CocoCay",
+    "country": "Bahamas",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/cococay.html"
+  },
+  {
+    "id": "copenhagen",
+    "name": "Copenhagen",
+    "country": "Denmark",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/copenhagen.html"
+  },
+  {
+    "id": "corfu",
+    "name": "Corfu",
+    "country": "Greece",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/corfu.html"
+  },
+  {
+    "id": "cork",
+    "name": "Cork (Cobh)",
+    "country": "Ireland",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/cork.html"
+  },
+  {
+    "id": "costa-maya",
+    "name": "Costa Maya",
+    "country": "Mexico",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/costa-maya.html"
+  },
+  {
+    "id": "cozumel",
+    "name": "Cozumel",
+    "country": "Mexico",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/cozumel.html"
+  },
+  {
+    "id": "curacao",
+    "name": "Cura\u00e7ao",
+    "country": "Cura\u00e7ao",
+    "region": "Caribbean",
+    "continent": "South America",
+    "url": "/ports/curacao.html"
+  },
+  {
+    "id": "dominica",
+    "name": "Dominica",
+    "country": "Dominica",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/dominica.html"
+  },
+  {
+    "id": "dover",
+    "name": "Dover",
+    "country": "England",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/dover.html"
+  },
+  {
+    "id": "dublin",
+    "name": "Dublin",
+    "country": "Ireland",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/dublin.html"
+  },
+  {
+    "id": "dubrovnik",
+    "name": "Dubrovnik",
+    "country": "Croatia",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/dubrovnik.html"
+  },
+  {
+    "id": "gdansk",
+    "name": "Gdansk",
+    "country": "Poland",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/gdansk.html"
+  },
+  {
+    "id": "genoa",
+    "name": "Genoa",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/genoa.html"
+  },
+  {
+    "id": "gibraltar",
+    "name": "Gibraltar",
+    "country": "UK",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/gibraltar.html"
+  },
+  {
+    "id": "glacier-bay",
+    "name": "Glacier Bay",
+    "country": "United States",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/glacier-bay.html"
+  },
+  {
+    "id": "gothenburg",
+    "name": "Gothenburg",
+    "country": "Sweden",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/gothenburg.html"
+  },
+  {
+    "id": "grand-cayman",
+    "name": "Grand Cayman",
+    "country": "Cayman Islands",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/grand-cayman.html"
+  },
+  {
+    "id": "grand-turk",
+    "name": "Grand Turk",
+    "country": "Turks & Caicos",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/grand-turk.html"
+  },
+  {
+    "id": "grenada",
+    "name": "Grenada",
+    "country": "Grenada",
+    "region": "Caribbean",
+    "continent": "South America",
+    "url": "/ports/grenada.html"
+  },
+  {
+    "id": "guadeloupe",
+    "name": "Guadeloupe",
+    "country": "Guadeloupe",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/guadeloupe.html"
+  },
+  {
+    "id": "haines",
+    "name": "Haines",
+    "country": "United States",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/haines.html"
+  },
+  {
+    "id": "halifax",
+    "name": "Halifax",
+    "country": "Canada",
+    "region": "Canada & New England",
+    "continent": "North America",
+    "url": "/ports/halifax.html"
+  },
+  {
+    "id": "helsinki",
+    "name": "Helsinki",
+    "country": "Finland",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/helsinki.html"
+  },
+  {
+    "id": "heraklion",
+    "name": "Heraklion (Crete)",
+    "country": "Greece",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/heraklion.html"
+  },
+  {
+    "id": "holyhead",
+    "name": "Holyhead",
+    "country": "Wales",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/holyhead.html"
+  },
+  {
+    "id": "honfleur",
+    "name": "Honfleur",
+    "country": "France",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/honfleur.html"
+  },
+  {
+    "id": "hong-kong",
+    "name": "Hong Kong",
+    "country": "Hong Kong",
+    "region": "Asia",
+    "continent": "Asia",
+    "url": "/ports/hong-kong.html"
+  },
+  {
+    "id": "ibiza",
+    "name": "Ibiza",
+    "country": "Spain",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/ibiza.html"
+  },
+  {
+    "id": "icy-strait-point",
+    "name": "Icy Strait Point",
+    "country": "United States",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/icy-strait-point.html"
+  },
+  {
+    "id": "invergordon",
+    "name": "Invergordon",
+    "country": "Scotland",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/invergordon.html"
+  },
+  {
+    "id": "jamaica",
+    "name": "Jamaica",
+    "country": "Jamaica",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/jamaica.html"
+  },
+  {
+    "id": "juneau",
+    "name": "Juneau",
+    "country": "United States",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/juneau.html"
+  },
+  {
+    "id": "ketchikan",
+    "name": "Ketchikan",
+    "country": "United States",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/ketchikan.html"
+  },
+  {
+    "id": "key-west",
+    "name": "Key West",
+    "country": "United States",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/key-west.html"
+  },
+  {
+    "id": "kiel",
+    "name": "Kiel",
+    "country": "Germany",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/kiel.html"
+  },
+  {
+    "id": "kirkwall",
+    "name": "Kirkwall",
+    "country": "Scotland",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/kirkwall.html"
+  },
+  {
+    "id": "koper",
+    "name": "Koper",
+    "country": "Slovenia",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/koper.html"
+  },
+  {
+    "id": "kotor",
+    "name": "Kotor",
+    "country": "Montenegro",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/kotor.html"
+  },
+  {
+    "id": "kusadasi",
+    "name": "Kusadasi (Ephesus)",
+    "country": "Turkey",
+    "region": "Mediterranean",
+    "continent": "Asia",
+    "url": "/ports/kusadasi.html"
+  },
+  {
+    "id": "la-coruna",
+    "name": "La Coru\u00f1a",
+    "country": "Spain",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/la-coruna.html"
+  },
+  {
+    "id": "labadee",
+    "name": "Labadee",
+    "country": "Haiti",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/labadee.html"
+  },
+  {
+    "id": "le-havre",
+    "name": "Le Havre (Paris)",
+    "country": "France",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/le-havre.html"
+  },
+  {
+    "id": "lerwick",
+    "name": "Lerwick",
+    "country": "Scotland",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/lerwick.html"
+  },
+  {
+    "id": "lisbon",
+    "name": "Lisbon",
+    "country": "Portugal",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/lisbon.html"
+  },
+  {
+    "id": "liverpool",
+    "name": "Liverpool",
+    "country": "England",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/liverpool.html"
+  },
+  {
+    "id": "livorno",
+    "name": "Livorno (Florence)",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/livorno.html"
+  },
+  {
+    "id": "malaga",
+    "name": "M\u00e1laga",
+    "country": "Spain",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/malaga.html"
+  },
+  {
+    "id": "marseille",
+    "name": "Marseille",
+    "country": "France",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/marseille.html"
+  },
+  {
+    "id": "martinique",
+    "name": "Martinique",
+    "country": "Martinique",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/martinique.html"
+  },
+  {
+    "id": "messina",
+    "name": "Messina",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/messina.html"
+  },
+  {
+    "id": "monte-carlo",
+    "name": "Monte Carlo",
+    "country": "Monaco",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/monte-carlo.html"
+  },
+  {
+    "id": "mykonos",
+    "name": "Mykonos",
+    "country": "Greece",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/mykonos.html"
+  },
+  {
+    "id": "naples",
+    "name": "Naples",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/naples.html"
+  },
+  {
+    "id": "nassau",
+    "name": "Nassau",
+    "country": "Bahamas",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/nassau.html"
+  },
+  {
+    "id": "newcastle",
+    "name": "Newcastle",
+    "country": "England",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/newcastle.html"
+  },
+  {
+    "id": "newport",
+    "name": "Newport",
+    "country": "United States",
+    "region": "Canada & New England",
+    "continent": "North America",
+    "url": "/ports/newport.html"
+  },
+  {
+    "id": "norwegian-fjords",
+    "name": "Norwegian Fjords",
+    "country": "Norway",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/norwegian-fjords.html"
+  },
+  {
+    "id": "oslo",
+    "name": "Oslo",
+    "country": "Norway",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/oslo.html"
+  },
+  {
+    "id": "palma",
+    "name": "Palma de Mallorca",
+    "country": "Spain",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/palma.html"
+  },
+  {
+    "id": "panama-canal",
+    "name": "Panama Canal",
+    "country": "Panama",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/panama-canal.html"
+  },
+  {
+    "id": "portland-maine",
+    "name": "Portland, Maine",
+    "country": "United States",
+    "region": "Canada & New England",
+    "continent": "North America",
+    "url": "/ports/portland-maine.html"
+  },
+  {
+    "id": "portland",
+    "name": "Portland (Dorset)",
+    "country": "England",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/portland.html"
+  },
+  {
+    "id": "porto",
+    "name": "Porto",
+    "country": "Portugal",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/porto.html"
+  },
+  {
+    "id": "progreso",
+    "name": "Progreso",
+    "country": "Mexico",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/progreso.html"
+  },
+  {
+    "id": "quebec-city",
+    "name": "Quebec City",
+    "country": "Canada",
+    "region": "Canada & New England",
+    "continent": "North America",
+    "url": "/ports/quebec-city.html"
+  },
+  {
+    "id": "ravenna",
+    "name": "Ravenna",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/ravenna.html"
+  },
+  {
+    "id": "reykjavik",
+    "name": "Reykjavik",
+    "country": "Iceland",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/reykjavik.html"
+  },
+  {
+    "id": "rhodes",
+    "name": "Rhodes",
+    "country": "Greece",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/rhodes.html"
+  },
+  {
+    "id": "riga",
+    "name": "Riga",
+    "country": "Latvia",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/riga.html"
+  },
+  {
+    "id": "roatan",
+    "name": "Roatan",
+    "country": "Honduras",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/roatan.html"
+  },
+  {
+    "id": "saguenay",
+    "name": "Saguenay",
+    "country": "Canada",
+    "region": "Canada & New England",
+    "continent": "North America",
+    "url": "/ports/saguenay.html"
+  },
+  {
+    "id": "saint-john",
+    "name": "Saint John",
+    "country": "Canada",
+    "region": "Canada & New England",
+    "continent": "North America",
+    "url": "/ports/saint-john.html"
+  },
+  {
+    "id": "samana",
+    "name": "Saman\u00e1",
+    "country": "Dominican Republic",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/samana.html"
+  },
+  {
+    "id": "san-juan",
+    "name": "San Juan",
+    "country": "Puerto Rico",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/san-juan.html"
+  },
+  {
+    "id": "santorini",
+    "name": "Santorini",
+    "country": "Greece",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/santorini.html"
+  },
+  {
+    "id": "scotland",
+    "name": "Scotland",
+    "country": "UK",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/scotland.html"
+  },
+  {
+    "id": "seward",
+    "name": "Seward",
+    "country": "United States",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/seward.html"
+  },
+  {
+    "id": "shanghai",
+    "name": "Shanghai",
+    "country": "China",
+    "region": "Asia",
+    "continent": "Asia",
+    "url": "/ports/shanghai.html"
+  },
+  {
+    "id": "singapore",
+    "name": "Singapore",
+    "country": "Singapore",
+    "region": "Asia",
+    "continent": "Asia",
+    "url": "/ports/singapore.html"
+  },
+  {
+    "id": "sitka",
+    "name": "Sitka",
+    "country": "United States",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/sitka.html"
+  },
+  {
+    "id": "skagway",
+    "name": "Skagway",
+    "country": "United States",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/skagway.html"
+  },
+  {
+    "id": "south-pacific",
+    "name": "South Pacific",
+    "country": "Pacific Islands",
+    "region": "Australia & Pacific",
+    "continent": "Oceania",
+    "url": "/ports/south-pacific.html"
+  },
+  {
+    "id": "southampton",
+    "name": "Southampton",
+    "country": "UK",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/southampton.html"
+  },
+  {
+    "id": "split",
+    "name": "Split",
+    "country": "Croatia",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/split.html"
+  },
+  {
+    "id": "st-kitts",
+    "name": "St. Kitts",
+    "country": "St. Kitts & Nevis",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/st-kitts.html"
+  },
+  {
+    "id": "st-maarten",
+    "name": "Sint Maarten",
+    "country": "Sint Maarten",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/st-maarten.html"
+  },
+  {
+    "id": "st-petersburg",
+    "name": "St. Petersburg",
+    "country": "Russia",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/st-petersburg.html"
+  },
+  {
+    "id": "st-thomas",
+    "name": "St. Thomas",
+    "country": "US Virgin Islands",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/st-thomas.html"
+  },
+  {
+    "id": "stavanger",
+    "name": "Stavanger",
+    "country": "Norway",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/stavanger.html"
+  },
+  {
+    "id": "stockholm",
+    "name": "Stockholm",
+    "country": "Sweden",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/stockholm.html"
+  },
+  {
+    "id": "sydney-ns",
+    "name": "Sydney, Nova Scotia",
+    "country": "Canada",
+    "region": "Canada & New England",
+    "continent": "North America",
+    "url": "/ports/sydney-ns.html"
+  },
+  {
+    "id": "sydney",
+    "name": "Sydney",
+    "country": "Australia",
+    "region": "Australia & Pacific",
+    "continent": "Oceania",
+    "url": "/ports/sydney.html"
+  },
+  {
+    "id": "tallinn",
+    "name": "Tallinn",
+    "country": "Estonia",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/tallinn.html"
+  },
+  {
+    "id": "tangier",
+    "name": "Tangier",
+    "country": "Morocco",
+    "region": "Other",
+    "continent": "Africa",
+    "url": "/ports/tangier.html"
+  },
+  {
+    "id": "taormina",
+    "name": "Taormina",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/taormina.html"
+  },
+  {
+    "id": "tokyo",
+    "name": "Tokyo",
+    "country": "Japan",
+    "region": "Asia",
+    "continent": "Asia",
+    "url": "/ports/tokyo.html"
+  },
+  {
+    "id": "tortola",
+    "name": "Tortola",
+    "country": "British Virgin Islands",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/tortola.html"
+  },
+  {
+    "id": "tracy-arm",
+    "name": "Tracy Arm Fjord",
+    "country": "United States",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/tracy-arm.html"
+  },
+  {
+    "id": "trieste",
+    "name": "Trieste",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/trieste.html"
+  },
+  {
+    "id": "tromso",
+    "name": "Troms\u00f8",
+    "country": "Norway",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/tromso.html"
+  },
+  {
+    "id": "tunis",
+    "name": "Tunis",
+    "country": "Tunisia",
+    "region": "Other",
+    "continent": "Africa",
+    "url": "/ports/tunis.html"
+  },
+  {
+    "id": "valencia",
+    "name": "Valencia",
+    "country": "Spain",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/valencia.html"
+  },
+  {
+    "id": "valletta",
+    "name": "Valletta",
+    "country": "Malta",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/valletta.html"
+  },
+  {
+    "id": "venice",
+    "name": "Venice",
+    "country": "Italy",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/venice.html"
+  },
+  {
+    "id": "victoria-bc",
+    "name": "Victoria, BC",
+    "country": "Canada",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/victoria-bc.html"
+  },
+  {
+    "id": "vigo",
+    "name": "Vigo",
+    "country": "Spain",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/vigo.html"
+  },
+  {
+    "id": "villefranche",
+    "name": "Villefranche (Nice)",
+    "country": "France",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/villefranche.html"
+  },
+  {
+    "id": "virgin-gorda",
+    "name": "Virgin Gorda",
+    "country": "British Virgin Islands",
+    "region": "Caribbean",
+    "continent": "North America",
+    "url": "/ports/virgin-gorda.html"
+  },
+  {
+    "id": "warnemunde",
+    "name": "Warnem\u00fcnde (Berlin)",
+    "country": "Germany",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/warnemunde.html"
+  },
+  {
+    "id": "waterford",
+    "name": "Waterford",
+    "country": "Ireland",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/waterford.html"
+  },
+  {
+    "id": "whittier",
+    "name": "Whittier",
+    "country": "United States",
+    "region": "Alaska",
+    "continent": "North America",
+    "url": "/ports/whittier.html"
+  },
+  {
+    "id": "zadar",
+    "name": "Zadar",
+    "country": "Croatia",
+    "region": "Mediterranean",
+    "continent": "Europe",
+    "url": "/ports/zadar.html"
+  },
+  {
+    "id": "zeebrugge",
+    "name": "Zeebrugge (Brussels)",
+    "country": "Belgium",
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "url": "/ports/zeebrugge.html"
+  }
+];
+  
+  // Bingo card definitions
+  const BINGO_CARDS = [
+    { id: 'abc-islands', name: '🎨 ABC Islands', ports: ['aruba', 'bonaire', 'curacao'] },
+    { id: 'western-caribbean', name: '🌴 Western Caribbean', ports: ['cozumel', 'costa-maya', 'roatan', 'belize', 'grand-cayman', 'jamaica', 'progreso', 'grand-turk'] },
+    { id: 'eastern-caribbean', name: '⛵ Eastern Caribbean', ports: ['st-thomas', 'st-maarten', 'san-juan', 'st-kitts', 'tortola', 'dominica', 'samana', 'martinique'] },
+    { id: 'southern-caribbean', name: '🌊 Southern Caribbean', ports: ['aruba', 'curacao', 'grenada', 'bonaire', 'cartagena', 'guadeloupe'] },
+    { id: 'private-islands', name: '🏖️ Private Islands', ports: ['cococay', 'labadee'] },
+    { id: 'alaska', name: '❄️ Alaska Complete', ports: ['juneau', 'skagway', 'sitka', 'ketchikan', 'icy-strait-point', 'haines', 'seward', 'whittier', 'glacier-bay', 'tracy-arm', 'victoria-bc'] },
+    { id: 'canada-ne', name: '🍁 Canada/New England', ports: ['bar-harbor', 'portland-maine', 'boston', 'newport', 'quebec-city', 'halifax', 'charlottetown', 'saint-john', 'saguenay', 'sydney-ns'] },
+    { id: 'greek-isles', name: '🗿 Greek Isles Master', ports: ['santorini', 'mykonos', 'rhodes', 'corfu', 'heraklion'] },
+    { id: 'italian-coast', name: '🍕 Italian Coastline', ports: ['venice', 'civitavecchia', 'naples', 'livorno', 'messina', 'taormina', 'ravenna', 'trieste'] },
+    { id: 'norwegian-fjords', name: '🌉 Norwegian Fjords', ports: ['bergen', 'alesund', 'stavanger', 'norwegian-fjords'] },
+    { id: 'british-isles', name: '🏰 British Isles', ports: ['liverpool', 'dublin', 'cork', 'belfast', 'scotland', 'invergordon', 'kirkwall', 'lerwick', 'holyhead', 'waterford', 'newcastle', 'dover', 'portland'] },
+    { id: 'port-hopper', name: '🗽 Port Hopper (25 ports)', ports: [], min: 25 },
+    { id: 'world-cruiser', name: '🌍 World Cruiser (50 ports)', ports: [], min: 50 },
+    { id: 'ultimate', name: '👑 Ultimate Cruiser (100 ports)', ports: [], min: 100 }
+  ];
+  
+  // App state
+  let visitedPorts = new Set(JSON.parse(localStorage.getItem('visited-ports') || '[]'));
+  let currentFilter = 'all';
+  
+  // Initialize app
+  function init() {
+    renderPortList();
+    renderBingoCards();
+    updateStats();
+    attachEventListeners();
+  }
+  
+  // Render port list with CLICKABLE LINKS
+  function renderPortList() {
+    const portList = document.getElementById('port-list');
+    const searchTerm = document.getElementById('search-box').value.toLowerCase();
+    
+    // Group ports by region
+    const regions = {};
+    PORTS_DB.forEach(port => {
+      if (!regions[port.region]) regions[port.region] = [];
+      regions[port.region].push(port);
+    });
+    
+    portList.innerHTML = '';
+    
+    Object.keys(regions).sort().forEach(region => {
+      if (currentFilter !== 'all' && currentFilter !== region) return;
+      
+      const ports = regions[region].filter(p => 
+        p.name.toLowerCase().includes(searchTerm) ||
+        p.country.toLowerCase().includes(searchTerm)
+      );
+      
+      if (ports.length === 0) return;
+      
+      const visited = ports.filter(p => visitedPorts.has(p.id)).length;
+      const total = ports.length;
+      
+      const section = document.createElement('div');
+      section.className = 'region-section';
+      section.innerHTML = `
+        <h2 class="region-title">
+          ${region}
+          <span class="region-progress">${visited}/${total} visited</span>
+        </h2>
+      `;
+      
+      ports.forEach(port => {
+        const item = document.createElement('div');
+        item.className = 'port-item' + (visitedPorts.has(port.id) ? ' visited' : '');
+        item.innerHTML = `
+          <input type="checkbox" class="port-checkbox" data-port="${port.id}" 
+                 ${visitedPorts.has(port.id) ? 'checked' : ''}>
+          <a href="${port.url}" class="port-name" target="_blank">${port.name}</a>
+          <span class="port-country">${port.country}</span>
+        `;
+        section.appendChild(item);
+      });
+      
+      portList.appendChild(section);
+    });
+  }
+  
+  // Render bingo cards
+  function renderBingoCards() {
+    const container = document.getElementById('bingo-cards');
+    container.innerHTML = '';
+    
+    BINGO_CARDS.forEach(card => {
+      let completed = 0;
+      let total = 0;
+      
+      if (card.min) {
+        total = card.min;
+        completed = Math.min(visitedPorts.size, total);
+      } else {
+        total = card.ports.length;
+        completed = card.ports.filter(p => visitedPorts.has(p)).length;
+      }
+      
+      const percentage = total > 0 ? (completed / total * 100) : 0;
+      const isCompleted = completed >= total;
+      
+      const cardEl = document.createElement('div');
+      cardEl.className = 'bingo-card' + (isCompleted ? ' completed' : '');
+      cardEl.innerHTML = `
+        <div class="bingo-title">
+          <span class="bingo-icon">${isCompleted ? '✅' : ''}</span>
+          ${card.name}
+        </div>
+        <div class="bingo-progress">${completed}/${total} ports</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: ${percentage}%"></div>
+        </div>
+      `;
+      container.appendChild(cardEl);
+    });
+  }
+  
+  // Update statistics
+  function updateStats() {
+    const visited = visitedPorts.size;
+    const total = PORTS_DB.length;
+    const percentage = total > 0 ? Math.round(visited / total * 100) : 0;
+    
+    const countries = new Set();
+    visitedPorts.forEach(portId => {
+      const port = PORTS_DB.find(p => p.id === portId);
+      if (port) countries.add(port.country);
+    });
+    
+    const continents = new Set();
+    visitedPorts.forEach(portId => {
+      const port = PORTS_DB.find(p => p.id === portId);
+      if (port) continents.add(port.continent);
+    });
+    
+    const completedBingos = BINGO_CARDS.filter(card => {
+      if (card.min) {
+        return visitedPorts.size >= card.min;
+      } else {
+        return card.ports.every(p => visitedPorts.has(p));
+      }
+    }).length;
+    
+    document.getElementById('stat-ports').textContent = visited;
+    document.getElementById('stat-percentage').textContent = percentage + '%';
+    document.getElementById('stat-countries').textContent = countries.size;
+    document.getElementById('stat-continents').textContent = continents.size;
+    document.getElementById('stat-bingos').textContent = completedBingos;
+    
+    // Update comparison stats
+    updateComparisonStats(visited, countries.size);
+  }
+  
+  // Event listeners
+  function attachEventListeners() {
+    // Port checkboxes
+    document.addEventListener('change', (e) => {
+      if (e.target.classList.contains('port-checkbox')) {
+        const portId = e.target.dataset.port;
+        if (e.target.checked) {
+          visitedPorts.add(portId);
+        } else {
+          visitedPorts.delete(portId);
+        }
+        saveData();
+        renderPortList();
+        renderBingoCards();
+        updateStats();
+      }
+    });
+    
+    // Filter buttons
+    document.querySelectorAll('.filter-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.region;
+        renderPortList();
+      });
+    });
+    
+    // Search box
+    document.getElementById('search-box').addEventListener('input', renderPortList);
+    
+    // Share button
+    document.getElementById('share-btn').addEventListener('click', generateShareImage);
+    
+    // Export button
+    document.getElementById('export-btn').addEventListener('click', exportData);
+    
+    // Import button
+    document.getElementById('import-btn').addEventListener('click', () => {
+      document.getElementById('import-file').click();
+    });
+    
+    document.getElementById('import-file').addEventListener('change', importData);
+    
+    // Reset button
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to reset all your port visits? This cannot be undone.')) {
+        visitedPorts.clear();
+        saveData();
+        renderPortList();
+        renderBingoCards();
+        updateStats();
+      }
+    });
+    
+    // Close modal
+    document.getElementById('close-modal-btn').addEventListener('click', () => {
+      document.getElementById('share-modal').classList.remove('active');
+    });
+    
+    // Download share image
+    document.getElementById('download-btn').addEventListener('click', downloadShareImage);
+  }
+  
+  // Save data to localStorage
+  function saveData() {
+    localStorage.setItem('visited-ports', JSON.stringify([...visitedPorts]));
+  }
+  
+  // Generate shareable image
+  function generateShareImage() {
+    const canvas = document.getElementById('share-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Background gradient
+    const gradient = ctx.createLinearGradient(0, 0, 600, 400);
+    gradient.addColorStop(0, '#0e6e8e');
+    gradient.addColorStop(1, '#0a3d62');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 600, 400);
+    
+    // Title
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 36px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('My Cruise Port Adventures', 300, 60);
+    
+    // Stats
+    ctx.font = 'bold 48px Arial';
+    ctx.fillText(`${visitedPorts.size} Ports`, 300, 140);
+    
+    const countries = new Set();
+    visitedPorts.forEach(portId => {
+      const port = PORTS_DB.find(p => p.id === portId);
+      if (port) countries.add(port.country);
+    });
+    
+    ctx.font = 'bold 32px Arial';
+    ctx.fillText(`${countries.size} Countries`, 300, 200);
+    
+    const percentage = Math.round(visitedPorts.size / PORTS_DB.length * 100);
+    ctx.fillText(`${percentage}% of RC Ports`, 300, 260);
+    
+    const completedBingos = BINGO_CARDS.filter(card => {
+      if (card.min) {
+        return visitedPorts.size >= card.min;
+      } else {
+        return card.ports.every(p => visitedPorts.has(p));
+      }
+    }).length;
+    
+    ctx.fillText(`${completedBingos} Bingo Cards Earned`, 300, 320);
+    
+    // Website attribution
+    ctx.font = '20px Arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.fillText('cruisinginthewake.com/tools/port-tracker', 300, 370);
+    
+    // Show modal
+    document.getElementById('share-modal').classList.add('active');
+  }
+  
+  // Download share image
+  function downloadShareImage() {
+    const canvas = document.getElementById('share-canvas');
+    const link = document.createElement('a');
+    link.download = 'my-cruise-ports.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+  
+  // Export data as JSON
+  function exportData() {
+    const data = {
+      visited: [...visitedPorts],
+      exportDate: new Date().toISOString()
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'cruise-port-tracker-data.json';
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+  
+  // Import data from JSON
+  function importData(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const data = JSON.parse(event.target.result);
+        if (data.visited && Array.isArray(data.visited)) {
+          visitedPorts = new Set(data.visited);
+          saveData();
+          renderPortList();
+          renderBingoCards();
+          updateStats();
+          alert('Data imported successfully!');
+        } else {
+          alert('Invalid data format');
+        }
+      } catch (err) {
+        alert('Error importing data: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  }
+  
+  
+  // Update comparison statistics
+  function updateComparisonStats(portsVisited, countriesVisited) {
+    // Calculate percentile based on typical cruiser distribution
+    // Distribution: Most cruisers (70%) visit 5-20 ports, 20% visit 20-50, 10% visit 50+
+    let percentile;
+    let label;
+    let badge = '';
+    
+    if (portsVisited === 0) {
+      percentile = '--';
+      label = 'Check some ports to see your ranking!';
+    } else if (portsVisited <= 5) {
+      percentile = 'Top 85%';
+      label = 'You\'re just getting started! Keep cruising to climb the ranks.';
+    } else if (portsVisited <= 10) {
+      percentile = 'Top 70%';
+      label = 'You\'ve visited more ports than most first-time cruisers!';
+    } else if (portsVisited <= 15) {
+      percentile = 'Top 50%';
+      label = 'You\'re an average cruiser - right in the middle of the pack!';
+      badge = '<span class="comparison-badge">⭐ Average Cruiser</span>';
+    } else if (portsVisited <= 25) {
+      percentile = 'Top 30%';
+      label = 'You\'ve visited more ports than most cruisers. Well done!';
+      badge = '<span class="comparison-badge">🌟 Enthusiast</span>';
+    } else if (portsVisited <= 35) {
+      percentile = 'Top 20%';
+      label = 'You\'re a serious cruiser! More ports than 80% of travelers.';
+      badge = '<span class="comparison-badge">🏆 Experienced Cruiser</span>';
+    } else if (portsVisited <= 50) {
+      percentile = 'Top 10%';
+      label = 'Impressive! You\'ve visited more ports than 90% of cruisers!';
+      badge = '<span class="comparison-badge">💎 Elite Cruiser</span>';
+    } else if (portsVisited <= 75) {
+      percentile = 'Top 5%';
+      label = 'You\'re in the Super Cruiser Club! Only 5% reach this level.';
+      badge = '<span class="comparison-badge">👑 Super Cruiser</span>';
+    } else if (portsVisited <= 100) {
+      percentile = 'Top 2%';
+      label = 'Legendary! You\'ve explored more ports than 98% of cruisers!';
+      badge = '<span class="comparison-badge">🌟 Port Master</span>';
+    } else {
+      percentile = 'Top 1%';
+      label = 'Ultimate Cruiser! You\'re among the most traveled cruisers in the world!';
+      badge = '<span class="comparison-badge">🏅 Ultimate Cruiser</span>';
+    }
+    
+    document.getElementById('compare-percentile').textContent = percentile;
+    document.getElementById('compare-label').textContent = label;
+    document.getElementById('compare-badge').innerHTML = badge;
+    document.getElementById('compare-vs-avg').textContent = portsVisited;
+    
+    // Super Cruiser Club status
+    if (portsVisited >= 50) {
+      document.getElementById('compare-club').textContent = '✅ Member';
+      document.getElementById('compare-club-label').textContent = 'Welcome to the Super Cruiser Club! You\'re in the top 5% of all cruisers.';
+    } else {
+      const remaining = 50 - portsVisited;
+      document.getElementById('compare-club').textContent = remaining + ' to go';
+      document.getElementById('compare-club-label').textContent = `Visit ${remaining} more port${remaining > 1 ? 's' : ''} to join the elite Super Cruiser Club (top 5%)`;
+    }
+    
+    // Country comparison
+    document.getElementById('compare-countries-stat').textContent = countriesVisited;
+    document.getElementById('compare-countries-count').textContent = countriesVisited;
+    
+    const avgCountries = 6;
+    if (countriesVisited > avgCountries * 2) {
+      document.getElementById('compare-countries-count').textContent = countriesVisited + ' (exceptional!)';
+    } else if (countriesVisited > avgCountries) {
+      document.getElementById('compare-countries-count').textContent = countriesVisited + ' (above average!)';
+    }
+  }
+  
+  // Initialize on load
+  init();
+})();
+  </script>
+</body>
+</html>
