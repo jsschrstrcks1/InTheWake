@@ -258,7 +258,7 @@
     'grandeur-of-the-seas': 'Classic and intimate experience. Perfect for cruisers who prefer smaller ships and easier navigation.',
     'enchantment-of-the-seas': 'Budget-friendly with solid amenities. Great for value-seekers and those prioritizing itinerary over ship.',
     'vision-of-the-seas': 'The smallest active Royal ship. Ideal for those who want fewer crowds and a more traditional cruise feel.',
-    'rhapsody-of-the-seas': 'Retired Vision-class ship with rich history. For cruise history enthusiasts.',
+    'rhapsody-of-the-seas': 'Affordable exotic itineraries. Perfect for budget-conscious travelers wanting unique destinations.',
 
     // Sovereign Class (retired/sold but may have images)
     'sovereign-of-the-seas': 'Historic first megaship. For cruise history enthusiasts.',
@@ -334,7 +334,7 @@
         { name: 'Grandeur of the Seas', slug: 'grandeur-of-the-seas', year: 1996, gt: '74,137', capacity: 2440 },
         { name: 'Enchantment of the Seas', slug: 'enchantment-of-the-seas', year: 1997, gt: '82,910', capacity: 2252 },
         { name: 'Vision of the Seas', slug: 'vision-of-the-seas', year: 1998, gt: '78,491', capacity: 2435 },
-        { name: 'Rhapsody of the Seas', slug: 'rhapsody-of-the-seas', year: 1997, gt: '78,491', capacity: 2435, retired: true }
+        { name: 'Rhapsody of the Seas', slug: 'rhapsody-of-the-seas', year: 1997, gt: '78,491', capacity: 2435 }
       ]
     },
     'Sovereign Class': {
