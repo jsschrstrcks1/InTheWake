@@ -17,10 +17,16 @@ Soli Deo Gloria
     .tracker-header h1 { font-size: 2.5rem; color: var(--sea, #0a3d62); margin-bottom: 0.5rem; }
     .tracker-header p { font-size: 1.1rem; color: #666; }
     
-    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .stat-card { background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    .stat-number { font-size: 2.5rem; font-weight: bold; display: block; margin-bottom: 0.25rem; }
-    .stat-label { font-size: 0.9rem; opacity: 0.9; }
+    .stats-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; margin-bottom: 2rem; }
+    .stat-card { background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%); color: white; padding: 1rem; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .stat-number { font-size: 1.75rem; font-weight: bold; display: block; margin-bottom: 0.25rem; }
+    .stat-label { font-size: 0.8rem; opacity: 0.9; line-height: 1.2; }
+
+    @media (max-width: 768px) {
+      .stats-bar { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; }
+      .stat-number { font-size: 1.5rem; }
+      .stat-label { font-size: 0.75rem; }
+    }
     
     .tracker-grid { display: grid; grid-template-columns: 250px 1fr 320px; gap: 2rem; }
     
@@ -37,9 +43,15 @@ Soli Deo Gloria
     .search-box { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
     
     .port-list { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .region-section { margin-bottom: 2rem; }
-    .region-title { font-size: 1.3rem; color: var(--sea); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--sea); }
+    .region-section { margin-bottom: 2rem; border: 1px solid #e0f0f5; border-radius: 8px; overflow: hidden; }
+    .region-title { font-size: 1.3rem; color: var(--sea); margin-bottom: 0; padding: 1rem; background: linear-gradient(135deg, #f7fdff 0%, #e6f4f8 100%); cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; transition: background 0.3s; }
+    .region-title:hover { background: linear-gradient(135deg, #e0f0f5 0%, #d4e8ee 100%); }
+    .region-title-text { flex: 1; }
     .region-progress { font-size: 0.9rem; color: #666; margin-left: 1rem; }
+    .region-toggle { font-size: 1.5rem; transition: transform 0.3s; }
+    .region-section.collapsed .region-toggle { transform: rotate(-90deg); }
+    .region-ports { padding: 1rem; max-height: 2000px; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s; }
+    .region-section.collapsed .region-ports { max-height: 0; padding: 0 1rem; }
     
     .port-item { display: flex; align-items: center; padding: 0.75rem; margin-bottom: 0.5rem; background: #f7fdff; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
     .port-item:hover { background: #e0f0f5; }
@@ -53,16 +65,20 @@ Soli Deo Gloria
     .bingo-panel { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
     .bingo-panel h3 { margin-top: 0; font-size: 1.1rem; color: var(--sea); }
     
-    .bingo-card { margin-bottom: 1.5rem; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 2px solid #e0f0f5; }
+    .bingo-card { margin-bottom: 1.5rem; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 2px solid #e0f0f5; position: relative; cursor: help; transition: all 0.3s; }
+    .bingo-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .bingo-card.completed { background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%); border-color: #d97706; }
     .bingo-card.completed .bingo-icon { display: inline; }
-    
+
     .bingo-title { font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem; color: #134; }
     .bingo-icon { display: none; margin-right: 0.5rem; }
     .bingo-progress { font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
     .progress-bar { height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, #0e6e8e 0%, #0a3d62 100%); transition: width 0.3s; }
     .bingo-card.completed .progress-fill { background: linear-gradient(90deg, #d97706 0%, #b45309 100%); }
+
+    .bingo-tooltip { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: rgba(10, 61, 98, 0.95); color: white; margin-top: 0.5rem; padding: 0; border-radius: 6px; font-size: 0.8rem; line-height: 1.4; }
+    .bingo-card:hover .bingo-tooltip { max-height: 200px; padding: 0.75rem; }
     
     .action-buttons { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
     .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
@@ -258,7 +274,8 @@ Soli Deo Gloria
     </div>
     
     <div class="action-buttons">
-      <button class="btn btn-primary" id="share-btn">📤 Share My Stats</button>
+      <button class="btn btn-primary" id="share-btn">📤 Share Image</button>
+      <button class="btn btn-primary" id="copy-link-btn">🔗 Copy Share Link</button>
       <button class="btn btn-secondary" id="export-btn">💾 Export Data</button>
       <button class="btn btn-secondary" id="import-btn">📥 Import Data</button>
       <button class="btn btn-secondary" id="reset-btn">🔄 Reset All</button>
@@ -1471,21 +1488,21 @@ Soli Deo Gloria
   
   // Bingo card definitions
   const BINGO_CARDS = [
-    { id: 'abc-islands', name: '🎨 ABC Islands', ports: ['aruba', 'bonaire', 'curacao'] },
-    { id: 'western-caribbean', name: '🌴 Western Caribbean', ports: ['cozumel', 'costa-maya', 'roatan', 'belize', 'grand-cayman', 'jamaica', 'progreso', 'grand-turk'] },
-    { id: 'eastern-caribbean', name: '⛵ Eastern Caribbean', ports: ['st-thomas', 'st-maarten', 'san-juan', 'st-kitts', 'tortola', 'dominica', 'samana', 'martinique'] },
-    { id: 'southern-caribbean', name: '🌊 Southern Caribbean', ports: ['aruba', 'curacao', 'grenada', 'bonaire', 'cartagena', 'guadeloupe'] },
-    { id: 'private-islands', name: '🏖️ Private Islands', ports: ['cococay', 'labadee'] },
-    { id: 'alaska', name: '❄️ Alaska Complete', ports: ['juneau', 'skagway', 'sitka', 'ketchikan', 'icy-strait-point', 'haines', 'seward', 'whittier', 'glacier-bay', 'tracy-arm', 'victoria-bc'] },
-    { id: 'hawaii', name: '🌺 Hawaiian Islands', ports: ['honolulu', 'kona', 'hilo', 'maui', 'nawiliwili'] },
-    { id: 'canada-ne', name: '🍁 Canada/New England', ports: ['bar-harbor', 'portland-maine', 'boston', 'newport', 'quebec-city', 'halifax', 'charlottetown', 'saint-john', 'saguenay', 'sydney-ns'] },
-    { id: 'greek-isles', name: '🗿 Greek Isles Master', ports: ['santorini', 'mykonos', 'rhodes', 'corfu', 'heraklion'] },
-    { id: 'italian-coast', name: '🍕 Italian Coastline', ports: ['venice', 'civitavecchia', 'naples', 'livorno', 'messina', 'taormina', 'ravenna', 'trieste'] },
-    { id: 'norwegian-fjords', name: '🌉 Norwegian Fjords', ports: ['bergen', 'alesund', 'stavanger', 'norwegian-fjords'] },
-    { id: 'british-isles', name: '🏰 British Isles', ports: ['liverpool', 'dublin', 'cork', 'belfast', 'scotland', 'invergordon', 'kirkwall', 'lerwick', 'holyhead', 'waterford', 'newcastle', 'dover', 'portland'] },
-    { id: 'port-hopper', name: '🗽 Port Hopper (25 ports)', ports: [], min: 25 },
-    { id: 'world-cruiser', name: '🌍 World Cruiser (50 ports)', ports: [], min: 50 },
-    { id: 'ultimate', name: '👑 Ultimate Cruiser (100 ports)', ports: [], min: 100 }
+    { id: 'abc-islands', name: '🎨 ABC Islands', ports: ['aruba', 'bonaire', 'curacao'], howTo: 'Collect this badge by visiting all 3 ABC Islands (Aruba, Bonaire, and Curaçao)!' },
+    { id: 'western-caribbean', name: '🌴 Western Caribbean', ports: ['cozumel', 'costa-maya', 'roatan', 'belize', 'grand-cayman', 'jamaica', 'progreso', 'grand-turk'], howTo: 'Collect this badge by visiting all major Western Caribbean ports!' },
+    { id: 'eastern-caribbean', name: '⛵ Eastern Caribbean', ports: ['st-thomas', 'st-maarten', 'san-juan', 'st-kitts', 'tortola', 'dominica', 'samana', 'martinique'], howTo: 'Collect this badge by visiting all major Eastern Caribbean ports!' },
+    { id: 'southern-caribbean', name: '🌊 Southern Caribbean', ports: ['aruba', 'curacao', 'grenada', 'bonaire', 'cartagena', 'guadeloupe'], howTo: 'Collect this badge by visiting all Southern Caribbean gems!' },
+    { id: 'private-islands', name: '🏖️ Private Islands', ports: ['cococay', 'labadee'], howTo: 'Collect this badge by visiting both Royal Caribbean private islands!' },
+    { id: 'alaska', name: '❄️ Alaska Complete', ports: ['juneau', 'skagway', 'sitka', 'ketchikan', 'icy-strait-point', 'haines', 'seward', 'whittier', 'glacier-bay', 'tracy-arm', 'victoria-bc'], howTo: 'Collect this badge by visiting all major Alaskan ports and scenic cruising areas!' },
+    { id: 'hawaii', name: '🌺 Hawaiian Islands', ports: ['honolulu', 'kona', 'hilo', 'maui', 'nawiliwili'], howTo: 'Collect this badge by visiting all Hawaiian island ports!' },
+    { id: 'canada-ne', name: '🍁 Canada/New England', ports: ['bar-harbor', 'portland-maine', 'boston', 'newport', 'quebec-city', 'halifax', 'charlottetown', 'saint-john', 'saguenay', 'sydney-ns'], howTo: 'Collect this badge by visiting all Canada & New England ports!' },
+    { id: 'greek-isles', name: '🗿 Greek Isles Master', ports: ['santorini', 'mykonos', 'rhodes', 'corfu', 'heraklion'], howTo: 'Collect this badge by visiting all major Greek island ports!' },
+    { id: 'italian-coast', name: '🍕 Italian Coastline', ports: ['venice', 'civitavecchia', 'naples', 'livorno', 'messina', 'taormina', 'ravenna', 'trieste'], howTo: 'Collect this badge by visiting all major Italian coastal ports!' },
+    { id: 'norwegian-fjords', name: '🌉 Norwegian Fjords', ports: ['bergen', 'alesund', 'stavanger', 'norwegian-fjords'], howTo: 'Collect this badge by visiting all Norwegian fjord ports!' },
+    { id: 'british-isles', name: '🏰 British Isles', ports: ['liverpool', 'dublin', 'cork', 'belfast', 'scotland', 'invergordon', 'kirkwall', 'lerwick', 'holyhead', 'waterford', 'newcastle', 'dover', 'portland'], howTo: 'Collect this badge by visiting all British Isles ports!' },
+    { id: 'port-hopper', name: '🗽 Port Hopper (25 ports)', ports: [], min: 25, howTo: 'Collect this badge by visiting any 25 ports!' },
+    { id: 'world-cruiser', name: '🌍 World Cruiser (50 ports)', ports: [], min: 50, howTo: 'Collect this badge by visiting any 50 ports!' },
+    { id: 'ultimate', name: '👑 Ultimate Cruiser (100 ports)', ports: [], min: 100, howTo: 'Collect this badge by visiting 100 or more ports - the ultimate achievement!' }
   ];
   
   // App state
@@ -1545,12 +1562,16 @@ Soli Deo Gloria
       const total = ports.length;
       
       const section = document.createElement('div');
-      section.className = 'region-section';
+      section.className = 'region-section collapsed';
       section.innerHTML = `
-        <h2 class="region-title">
-          ${region}
-          <span class="region-progress">${visited}/${total} visited</span>
-        </h2>
+        <div class="region-title" onclick="toggleSection(this)">
+          <div class="region-title-text">
+            ${region}
+            <span class="region-progress">${visited}/${total} visited</span>
+          </div>
+          <span class="region-toggle">▼</span>
+        </div>
+        <div class="region-ports">
       `;
       
       ports.forEach(port => {
@@ -1562,9 +1583,10 @@ Soli Deo Gloria
           <a href="${port.url}" class="port-name" target="_blank" onclick="trackEvent('port_link_clicked', {port_id: '${port.id}', port_name: '${port.name}'})">${port.name}</a>
           <span class="port-country">${port.country}</span>
         `;
-        section.appendChild(item);
+        section.querySelector('.region-ports').appendChild(item);
       });
-      
+
+      section.innerHTML += '</div>';
       portList.appendChild(section);
     });
   }
@@ -1629,6 +1651,7 @@ Soli Deo Gloria
         <div class="progress-bar">
           <div class="progress-fill" style="width: ${percentage}%"></div>
         </div>
+        <div class="bingo-tooltip">${card.howTo}</div>
       `;
       container.appendChild(cardEl);
     });
@@ -1731,6 +1754,11 @@ Soli Deo Gloria
       });
       generateShareImage();
     });
+
+    // Copy share link button
+    document.getElementById('copy-link-btn').addEventListener('click', () => {
+      copyShareURL();
+    });
     
     // Export button
     document.getElementById('export-btn').addEventListener('click', () => {
@@ -1779,51 +1807,65 @@ Soli Deo Gloria
   function generateShareImage() {
     const canvas = document.getElementById('share-canvas');
     const ctx = canvas.getContext('2d');
-    
+
     // Background gradient
     const gradient = ctx.createLinearGradient(0, 0, 600, 400);
     gradient.addColorStop(0, '#0e6e8e');
     gradient.addColorStop(1, '#0a3d62');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 600, 400);
-    
-    // Title
+
+    // Branding header
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.fillRect(0, 0, 600, 80);
+
+    // Title with branding
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 36px Arial';
+    ctx.font = 'bold 28px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText('My Cruise Port Adventures', 300, 60);
-    
-    // Stats
-    ctx.font = 'bold 48px Arial';
-    ctx.fillText(`${visitedPorts.size} Ports`, 300, 140);
-    
+    ctx.fillText('⚓ Cruising In The Wake', 300, 35);
+    ctx.font = 'bold 20px Arial';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.fillText('Port Logbook', 300, 60);
+
+    // Stats section
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 24px Arial';
+    ctx.fillText('My Port Collection', 300, 110);
+
     const countries = new Set();
     visitedPorts.forEach(portId => {
       const port = PORTS_DB.find(p => p.id === portId);
       if (port) countries.add(port.country);
     });
-    
-    ctx.font = 'bold 32px Arial';
-    ctx.fillText(`${countries.size} Countries`, 300, 200);
-    
-    const percentage = Math.round(visitedPorts.size / PORTS_DB.length * 100);
-    ctx.fillText(`${percentage}% of RC Ports`, 300, 260);
-    
-    const completedBingos = BINGO_CARDS.filter(card => {
-      if (card.min) {
-        return visitedPorts.size >= card.min;
-      } else {
+
+    const stats = [
+      { label: 'Ports Visited', value: visitedPorts.size },
+      { label: 'Countries', value: countries.size },
+      { label: 'Badges Earned', value: BINGO_CARDS.filter(card => {
+        if (card.min) return visitedPorts.size >= card.min;
         return card.ports.every(p => visitedPorts.has(p));
-      }
-    }).length;
-    
-    ctx.fillText(`${completedBingos} Bingo Cards Earned`, 300, 320);
-    
-    // Website attribution
-    ctx.font = '20px Arial';
-    ctx.fillStyle = 'rgba(255,255,255,0.8)';
-    ctx.fillText('cruisinginthewake.com/tools/port-tracker', 300, 370);
-    
+      }).length }
+    ];
+
+    ctx.font = 'bold 48px Arial';
+    let y = 170;
+    stats.forEach(stat => {
+      ctx.fillText(stat.value.toString(), 300, y);
+      ctx.font = '20px Arial';
+      ctx.fillText(stat.label, 300, y + 30);
+      ctx.font = 'bold 48px Arial';
+      y += 80;
+    });
+
+    // Footer with URL
+    ctx.font = 'bold 18px Arial';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('Track your ports at:', 300, 360);
+    ctx.font = '16px Arial';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.fillText('cruisinginthewake.com/tools/port-tracker', 300, 385);
+
     // Show modal
     document.getElementById('share-modal').classList.add('active');
   }
@@ -1972,6 +2014,53 @@ Soli Deo Gloria
     }
   }
   
+  // Toggle collapsible sections
+  window.toggleSection = function(element) {
+    const section = element.closest('.region-section');
+    section.classList.toggle('collapsed');
+  };
+
+  // URL State Sharing
+  function loadStateFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const portsParam = params.get('ports');
+    if (portsParam) {
+      try {
+        // Decode base64 encoded port list
+        const decoded = atob(portsParam);
+        const portIds = decoded.split(',');
+        visitedPorts = new Set(portIds.filter(id => PORTS_DB.some(p => p.id === id)));
+        saveData();
+      } catch (e) {
+        console.error('Error loading state from URL:', e);
+      }
+    }
+  }
+
+  function generateShareURL() {
+    const portIds = Array.from(visitedPorts).join(',');
+    const encoded = btoa(portIds);
+    const url = new URL(window.location.href);
+    url.searchParams.set('ports', encoded);
+    return url.toString();
+  }
+
+  function copyShareURL() {
+    const url = generateShareURL();
+    navigator.clipboard.writeText(url).then(() => {
+      alert('Share link copied to clipboard! Send it to your friends to compare port collections.');
+      trackEvent('share_url_copied', {
+        ports_visited: visitedPorts.size
+      });
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+      prompt('Copy this link to share:', url);
+    });
+  }
+
+  // Load state from URL on init
+  loadStateFromURL();
+
   // Initialize on load
   init();
 })();
