@@ -1367,8 +1367,25 @@ Soli Deo Gloria
   let visitedPorts = new Set(JSON.parse(localStorage.getItem('visited-ports') || '[]'));
   let currentFilter = 'all';
   
+  
+  // Analytics tracking helper
+  function trackEvent(eventName, params = {}) {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', eventName, params);
+    }
+    // Also log to console in development
+    console.log('[Analytics]', eventName, params);
+  }
+  
   // Initialize app
   function init() {
+    // Track page view
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'page_view', {
+        page_title: 'Port Tracker',
+        page_location: window.location.href
+      });
+    }
     renderPortList();
     renderBingoCards();
     updateStats();
@@ -1417,7 +1434,7 @@ Soli Deo Gloria
         item.innerHTML = `
           <input type="checkbox" class="port-checkbox" data-port="${port.id}" 
                  ${visitedPorts.has(port.id) ? 'checked' : ''}>
-          <a href="${port.url}" class="port-name" target="_blank">${port.name}</a>
+          <a href="${port.url}" class="port-name" target="_blank" onclick="trackEvent('port_link_clicked', {port_id: '${port.id}', port_name: '${port.name}'})">${port.name}</a>
           <span class="port-country">${port.country}</span>
         `;
         section.appendChild(item);
@@ -1446,6 +1463,22 @@ Soli Deo Gloria
       
       const percentage = total > 0 ? (completed / total * 100) : 0;
       const isCompleted = completed >= total;
+      
+      // Track bingo completion (only track once per bingo)
+      const wasCompleted = sessionStorage.getItem(`bingo_${card.id}_completed`);
+      if (isCompleted && !wasCompleted) {
+        trackEvent('bingo_completed', {
+          bingo_id: card.id,
+          bingo_name: card.name,
+          total_bingos: BINGO_CARDS.filter(c => {
+            if (c.min) return visitedPorts.size >= c.min;
+            return c.ports.every(p => visitedPorts.has(p));
+          }).length
+        });
+        sessionStorage.setItem(`bingo_${card.id}_completed`, 'true');
+      } else if (!isCompleted && wasCompleted) {
+        sessionStorage.removeItem(`bingo_${card.id}_completed`);
+      }
       
       const cardEl = document.createElement('div');
       cardEl.className = 'bingo-card' + (isCompleted ? ' completed' : '');
@@ -1507,8 +1540,16 @@ Soli Deo Gloria
         const portId = e.target.dataset.port;
         if (e.target.checked) {
           visitedPorts.add(portId);
+          trackEvent('port_checked', {
+            port_id: portId,
+            total_ports: visitedPorts.size
+          });
         } else {
           visitedPorts.delete(portId);
+          trackEvent('port_unchecked', {
+            port_id: portId,
+            total_ports: visitedPorts.size
+          });
         }
         saveData();
         renderPortList();
@@ -1523,18 +1564,43 @@ Soli Deo Gloria
         document.querySelectorAll('.filter-button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentFilter = btn.dataset.region;
+        trackEvent('filter_changed', {
+          region: currentFilter
+        });
         renderPortList();
       });
     });
     
-    // Search box
-    document.getElementById('search-box').addEventListener('input', renderPortList);
+    // Search box with debounced analytics tracking
+    let searchTimeout;
+    document.getElementById('search-box').addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        if (e.target.value.length > 2) {
+          trackEvent('port_search', {
+            search_term: e.target.value,
+            results_count: document.querySelectorAll('.port-item').length
+          });
+        }
+      }, 1000);
+      renderPortList();
+    });
     
     // Share button
-    document.getElementById('share-btn').addEventListener('click', generateShareImage);
+    document.getElementById('share-btn').addEventListener('click', () => {
+      trackEvent('share_stats_opened', {
+        ports_visited: visitedPorts.size
+      });
+      generateShareImage();
+    });
     
     // Export button
-    document.getElementById('export-btn').addEventListener('click', exportData);
+    document.getElementById('export-btn').addEventListener('click', () => {
+      trackEvent('data_exported', {
+        ports_visited: visitedPorts.size
+      });
+      exportData();
+    });
     
     // Import button
     document.getElementById('import-btn').addEventListener('click', () => {
@@ -1546,6 +1612,9 @@ Soli Deo Gloria
     // Reset button
     document.getElementById('reset-btn').addEventListener('click', () => {
       if (confirm('Are you sure you want to reset all your port visits? This cannot be undone.')) {
+        trackEvent('data_reset', {
+          ports_cleared: visitedPorts.size
+        });
         visitedPorts.clear();
         saveData();
         renderPortList();
@@ -1623,6 +1692,9 @@ Soli Deo Gloria
   
   // Download share image
   function downloadShareImage() {
+    trackEvent('share_image_downloaded', {
+      ports_visited: visitedPorts.size
+    });
     const canvas = document.getElementById('share-canvas');
     const link = document.createElement('a');
     link.download = 'my-cruise-ports.png';
@@ -1661,6 +1733,9 @@ Soli Deo Gloria
           renderPortList();
           renderBingoCards();
           updateStats();
+          trackEvent('data_imported', {
+            ports_imported: data.visited.length
+          });
           alert('Data imported successfully!');
         } else {
           alert('Invalid data format');
@@ -1720,7 +1795,19 @@ Soli Deo Gloria
       badge = '<span class="comparison-badge">🏅 Ultimate Cruiser</span>';
     }
     
-    document.getElementById('compare-percentile').textContent = percentile;
+    document.getElementById('compare-percentile').textContent = percentile;    
+    // Track achievement level changes
+    const currentLevel = localStorage.getItem('last_achievement_level');
+    const newLevel = percentile;
+    if (currentLevel !== newLevel && percentile !== '--') {
+      trackEvent('achievement_level_reached', {
+        level: percentile,
+        ports_visited: portsVisited,
+        badge: badge.replace(/<[^>]*>/g, '').trim() // Remove HTML tags
+      });
+      localStorage.setItem('last_achievement_level', newLevel);
+    }
+    
     document.getElementById('compare-label').textContent = label;
     document.getElementById('compare-badge').innerHTML = badge;
     document.getElementById('compare-vs-avg').textContent = portsVisited;
