@@ -49,7 +49,7 @@
   <meta property="og:title" content="The Freedom of Your Own Wake"/>
   <meta property="og:description" content="A gentle case for sailing alone — rest, rhythm, and room to breathe at sea."/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/solo/freedom-of-your-own-wake.html"/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/thumbs/freedom-of-your-own-wake.webp?v=3.008.017"/>
   <meta property="og:image:width" content="1600"/>
   <meta property="og:image:height" content="900"/>
   <meta property="article:section" content="Solo Travel"/>
@@ -58,7 +58,7 @@
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Preload LCP hero -->
-  <link rel="preload" as="image" href="/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/articles/thumbs/freedom-of-your-own-wake.webp?v=3.008.017" fetchpriority="high"/>
 
 
 
@@ -71,7 +71,7 @@
     "description":"A gentle case for sailing alone — rest, rhythm, and room to breathe when the sea becomes both your mirror and your companion.",
     "author":{"@type":"Person","name":"Ken Baker","url":"https://www.cruisinginthewake.com/authors/ken-baker.html"},
     "publisher":{"@type":"Organization","name":"In the Wake","logo":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/logo_wake.png"}},
-    "image":"https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017",
+    "image":"https://www.cruisinginthewake.com/assets/articles/thumbs/freedom-of-your-own-wake.webp?v=3.008.017",
     "mainEntityOfPage":"https://www.cruisinginthewake.com/solo/freedom-of-your-own-wake.html",
     "datePublished":"2025-10-22",
     "dateModified":"2025-10-22",
@@ -229,7 +229,7 @@
 
   /* Author avatar */
   .author-avatar{
-    display:block;width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center;flex:0 0 48px;
+    display:block;width:48px;height:48px;border-radius: 12px;object-fit:cover;object-position:center;flex:0 0 48px;
   }
   .author-card picture{ display:block; flex:0 0 48px; }
 
@@ -583,7 +583,6 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
-        </picture>
         <span class="tiny version-badge">v3.010.030</span>
       </div>
       <nav class="nav" aria-label="Main site navigation">
@@ -638,7 +637,6 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.030" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="144" alt="In the Wake" decoding="async"/>
-        </picture>
       </div>
       <div class="tagline">A Cruise Traveler’s Logbook</div>
       <div class="hero-credit">
@@ -663,7 +661,7 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
   <!-- TOP HERO -->
   <figure class="article-hero">
     <img
-      src="https://www.cruisinginthewake.com/assets/articles/freedom-of-your-own-wake.jpg?v=3.008.017"
+      src="https://www.cruisinginthewake.com/assets/articles/thumbs/freedom-of-your-own-wake.webp?v=3.008.017"
       width="1600" height="900"
       loading="eager" decoding="async" fetchpriority="high"
       alt="Sunrise over a calm sea">
@@ -720,7 +718,6 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
           src="https://www.cruisinginthewake.com/authors/img/ken1.jpg?v=3.008.017"
           alt="Ken Baker" width="48" height="48"
           loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
-      </picture>
     </div>
     <div style="margin-left:.5rem">
       <strong><a href="https://ken-baker.com?utm_source=solo_article&utm_medium=byline_link&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Ken Baker</a></strong>
@@ -882,7 +879,7 @@ document.addEventListener('DOMContentLoaded', () => {
     host.innerHTML = `
       <picture>
         <source type="image/webp" srcset="/authors/img/ken1.webp">
-        <img class="author-avatar" src="/authors/img/ken1.webp" width="48" height="48" alt="Author — Ken Baker">
+        <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
       </picture>
       <div>
         <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong><br/>
@@ -927,15 +924,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const href  = (pick(p,['url','path'],'')||'').toLowerCase();
       const title = (pick(p,['title','name'],'')||'').toLowerCase();
 
-      let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
+      let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
 
       // FORCE override for Top-20 regardless of existing image
       if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-        primary = 'https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg';
+        primary = 'https://cruisinginthewake.com/assets/articles/thumbs/top-20-questions/cover.webp';
       }
       // Friendly specifics
       if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-        primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
+        primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
       }
       if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
         primary = '/assets/articles/travel/cover.jpg';
