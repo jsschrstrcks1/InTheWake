@@ -38,11 +38,11 @@
   <meta property="og:title" content="Ships — In the Wake">
   <meta property="og:description" content="Verified ship cards with quick stats. Explore by cruise line.">
   <meta property="og:url" content="https://www.cruisinginthewake.com/ships/index.html">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/index_hero.jpg">
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/index_hero.webp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ships — In the Wake">
   <meta name="twitter:description" content="Verified ship cards with quick stats. Explore by cruise line.">
-  <meta name="twitter:image" content="https://www.cruisinginthewake.com/assets/index_hero.jpg">
+  <meta name="twitter:image" content="https://www.cruisinginthewake.com/assets/index_hero.webp">
 
   <!-- PWA / icons -->
   <link rel="manifest" href="/site.webmanifest">
@@ -76,7 +76,7 @@
     .rail-item{display:grid;grid-template-columns:56px 1fr;gap:.75rem;align-items:center}
     .rail-item .avatar-wrap{width:56px;height:56px;border-radius:50%;overflow:hidden;border:1px solid #dfe7ea;background:#f7fafb}
     .rail-item .avatar-wrap img{width:100%;height:100%;object-fit:cover;display:block}
-    .hero{position:relative;background:url('/assets/index_hero.jpg') center/cover no-repeat;min-height:240px}
+    .hero{position:relative;background:url('/assets/index_hero.webp') center/cover no-repeat;min-height:240px}
     .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
     .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600}
     /* Skip link focus */
@@ -574,7 +574,8 @@
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake.png" alt="In the Wake logo" width="116" height="28" decoding="async"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
+        </picture>
         <span class="tiny version-badge">v3.010.300</span>
       </div>
       <nav class="nav" aria-label="Main site navigation">
@@ -626,7 +627,8 @@
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png?v=3.010.300" width="560" height="144" alt="In the Wake" decoding="async"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="144" alt="In the Wake" decoding="async"/>
+        </picture>
         <div class="tagline">A Cruise Traveler's Logbook</div>
       </div>
       <div class="hero-credit"><a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener noreferrer">Photo © Flickers of Majesty</a></div>
@@ -821,9 +823,9 @@
     (function journalRail(){
       const mount=document.getElementById('journal-rail');
       const sources=[ '/assets/data/articles/index.json?v='+VER, '/solo/articles/index.json?v='+VER, '/travel/articles/index.json?v='+VER ];
-      const SEED=[{url:'/travel.html#top-20-questions',title:'Top 20 First-Cruise Questions (Answered)',date:'2025-10-16',dek:'Planning, packing, ports, ship life.',image:'/assets/articles/top-20-questions/cover.jpg',fallback:'/assets/index_hero.jpg',author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp'}}];
+      const SEED=[{url:'/travel.html#top-20-questions',title:'Top 20 First-Cruise Questions (Answered)',date:'2025-10-16',dek:'Planning, packing, ports, ship life.',image:'/assets/articles/top-20-questions/cover.jpg',fallback:'/assets/index_hero.webp',author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp'}}];
       const norm=(x)=>(Array.isArray(x?.articles)?x.articles:(Array.isArray(x)?x:[]))
-        .map(y=>({url:y.url||y.permalink||'#',title:y.title||'Article',dek:y.dek||y.description||y.excerpt||'',date:y.date||y.datePublished||'',image:y.image||y.cover||'',fallback:'/assets/index_hero.jpg',author:y.author||null}))
+        .map(y=>({url:y.url||y.permalink||'#',title:y.title||'Article',dek:y.dek||y.description||y.excerpt||'',date:y.date||y.datePublished||'',image:y.image||y.cover||'',fallback:'/assets/index_hero.webp',author:y.author||null}))
         .filter(z=>z.url&&z.url!=='#');
       const get=async(u)=>{try{const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw 0; return norm(await r.json());}catch(_){return [];}}
       const fmtDate=(d)=>{const t=Date.parse(d||'');return isNaN(t)?'':new Date(t).toLocaleDateString();}

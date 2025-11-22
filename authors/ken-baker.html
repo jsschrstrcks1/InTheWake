@@ -648,7 +648,9 @@
       
 
       <div class="brand">
-        <img src="/assets/logo_wake.png" alt="In the Wake wordmark" width="256" height="64"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
+        </picture>
+        </picture>
       </div>
       <nav class="nav" aria-label="Main site navigation">
         <div class="nav-item">
@@ -698,7 +700,9 @@
     <div class="hero" role="img" aria-label="Ocean horizon at dusk">
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake.png" alt="In the Wake" width="560" height="144">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="144" alt="In the Wake" decoding="async"/>
+        </picture>
+        </picture>
         <div class="tagline">A Cruise Traveler's Logbook</div>
       </div>
       <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
@@ -893,7 +897,7 @@
       rail.innerHTML = view.map(p => {
         const title = p.title || p.name || 'Article';
         const href = p.url || p.path || '#';
-        const image = p.image || p.cover || '/assets/index_hero.jpg';
+        const image = p.image || p.cover || '/assets/index_hero.webp';
         return `
           <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
             <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
