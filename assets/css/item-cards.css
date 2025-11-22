@@ -9,22 +9,29 @@
 /* ===== Card Grid Container ===== */
 .item-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
   padding: 1.5rem 0;
 }
 
 @media (min-width: 768px) {
   .item-grid {
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 2.25rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .item-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .item-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 }
 
@@ -33,17 +40,17 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 2px solid var(--rope, #8B7355);
-  border-radius: 12px;
+  border: 2px solid #d4eeee;
+  border-radius: 14px;
   overflow: hidden;
   background: white;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .item-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(14, 110, 142, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(14, 110, 142, 0.18), 0 4px 12px rgba(14, 110, 142, 0.12);
   border-color: var(--accent, #0e6e8e);
 }
 
@@ -59,9 +66,9 @@
 .item-card-image {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: var(--foam, #eaf6f6);
+  background: linear-gradient(135deg, #eaf6f6 0%, #d4eeee 100%);
 }
 
 .item-card-image img {
@@ -69,27 +76,29 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .item-card:hover .item-card-image img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 /* Image badge (count, category, etc.) */
 .item-card-badge {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  background: rgba(14, 110, 142, 0.95);
+  top: 0.875rem;
+  right: 0.875rem;
+  background: linear-gradient(135deg, rgba(14, 110, 142, 0.97) 0%, rgba(10, 61, 62, 0.97) 100%);
   color: white;
-  padding: 0.35rem 0.75rem;
+  padding: 0.4rem 0.85rem;
   border-radius: 20px;
   font-size: 0.75rem;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .item-card-badge.dining {
@@ -113,15 +122,17 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 1rem 1.25rem 1.25rem;
+  padding: 1.25rem;
+  gap: 1rem;
 }
 
 .item-card-title {
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 700;
   color: var(--accent, #0e6e8e);
-  margin: 0 0 0.5rem 0;
-  line-height: 1.3;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 /* Meta info row (year, class, ships available) */
@@ -129,41 +140,45 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  margin: 0;
   font-size: 0.85rem;
   color: var(--text-muted, #666);
 }
 
 .item-card-meta .badge {
   display: inline-block;
-  padding: 0.2rem 0.6rem;
-  background: #e6f4f8;
-  border: 1px solid var(--rope, #8B7355);
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: var(--accent, #0e6e8e);
+  padding: 0.25rem 0.65rem;
+  background: linear-gradient(135deg, #e6f4f8 0%, #d4eeee 100%);
+  border: 1px solid #b8d8dc;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--sea, #0a3d62);
+  letter-spacing: 0.02em;
 }
 
 /* ===== CTA/Pitch Text (KEY FEATURE) ===== */
 .item-card-cta {
   flex: 1;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: var(--ink, #333);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #333;
   margin: 0;
-  padding-top: 0.5rem;
-  border-top: 1px solid #eee;
+  padding: 0.875rem 1rem;
+  background: linear-gradient(135deg, #fafcfc 0%, #f5f9fa 100%);
+  border-left: 3px solid var(--accent, #0e6e8e);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .item-card-cta strong {
   color: var(--accent, #0e6e8e);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Shorter CTA for compact view */
 .item-card-cta.compact {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   -webkit-line-clamp: 3;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -172,21 +187,43 @@
 
 /* ===== CTA Button ===== */
 .ship-card-cta-btn {
-  display: inline-block;
-  margin-top: 0.75rem;
-  padding: 0.5rem 1rem;
-  background: var(--accent, #0e6e8e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, var(--accent, #0e6e8e) 0%, var(--sea, #0a3d62) 100%);
   color: white;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 700;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   border-radius: 8px;
-  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(14, 110, 142, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.ship-card-cta-btn::after {
+  content: '→';
+  font-size: 1.1rem;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .item-card:hover .ship-card-cta-btn {
-  background: var(--sea, #0a3d62);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, var(--sea, #0a3d62) 0%, #083049 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(14, 110, 142, 0.35);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.item-card:hover .ship-card-cta-btn::after {
+  transform: translateX(4px);
 }
 
 /* Stats badges */
@@ -210,17 +247,19 @@
 /* Retired badge */
 .retired-badge {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  background: rgba(128, 128, 128, 0.9);
+  top: 0.875rem;
+  left: 0.875rem;
+  background: linear-gradient(135deg, rgba(90, 90, 90, 0.97) 0%, rgba(60, 60, 60, 0.97) 100%);
   color: white;
-  padding: 0.35rem 0.75rem;
+  padding: 0.4rem 0.85rem;
   border-radius: 20px;
   font-size: 0.75rem;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Retired card styling */
