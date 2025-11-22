@@ -1,10 +1,126 @@
 # Unfinished Tasks - Both Threads
 
 **Generated:** 2025-11-17
-**Last Updated:** 2025-11-19 (Verified completion status - search.html EXISTS, 38/50 logbooks complete)
+**Last Updated:** 2025-11-22 (Port Tracker COMPLETE, Ship Tracker planned, 142 ports with under construction notices)
 **Threads Tracked:**
 - Thread 1: `claude/evaluate-ai-human-strategy-01L5apYYXXKEUVyhFbyhAgZs`
 - Thread 3: `claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9` (current)
+
+---
+
+## 🎯 ENGAGEMENT & TRACKING TOOLS
+
+### ✅ Port Tracker Tool - COMPLETE (2025-11-22)
+**Status:** ✅ COMPLETE - Fully functional at `/tools/port-tracker.html`
+**Location:** /tools/port-tracker.html
+
+**Features implemented:**
+- [x] Interactive checklist of all 142 Royal Caribbean ports
+- [x] Clickable links to individual port pages
+- [x] Statistics dashboard (ports visited, %, countries, continents)
+- [x] 14 achievement bingo cards (ABC Islands, Western Caribbean, Alaska, Mediterranean, etc.)
+- [x] "How You Compare to Other Cruisers" social comparison section
+  - [x] 9 percentile ranking tiers (Top 85% → Top 1%)
+  - [x] Achievement badges (Getting Started → Ultimate Cruiser)
+  - [x] Super Cruiser Club status (50+ ports)
+- [x] Filter/search functionality
+- [x] Export/import data (JSON)
+- [x] Share stats card generator (Canvas API)
+- [x] localStorage persistence
+- [x] Comprehensive Google Analytics tracking (13 event types)
+- [x] Added to main site navigation (18 pages updated)
+
+**Analytics events tracked:**
+1. page_view, 2. port_checked, 3. port_unchecked, 4. port_link_clicked (CONVERSION)
+5. filter_changed, 6. port_search, 7. bingo_completed
+8. achievement_level_reached, 9. share_stats_opened
+10. share_image_downloaded (VIRALITY), 11. data_exported, 12. data_imported, 13. data_reset
+
+### Ship Tracker Tool - HIGH PRIORITY NEXT
+**Status:** ⏳ PLANNED - Full specification in PORT_TRACKER_ROADMAP.md
+**Planned location:** /tools/ship-tracker.html
+
+**Features planned:**
+- [ ] Interactive checklist of 27-28 Royal Caribbean ships
+- [ ] Ship class grouping (Oasis, Quantum, Freedom, Voyager, Vision, Radiance, Sovereign)
+- [ ] Statistics dashboard (ships sailed, classes completed, total passenger capacity experienced)
+- [ ] 10 achievement bingo cards:
+  - [ ] 🌊 Oasis Class Collector (5 ships)
+  - [ ] ⚡ Quantum Leap (7 ships)
+  - [ ] 🎡 Freedom Fighter (6 ships)
+  - [ ] 🚀 Voyager Veteran (5 ships)
+  - [ ] 👑 Radiance Romance (5 ships)
+  - [ ] 🎪 Vision Quest (6 ships)
+  - [ ] 🏆 Fleet Master (10+ ships)
+  - [ ] ⚓ Class Completionist (sail every ship in a class)
+  - [ ] 🌟 Icon Explorer (Icon + Star of the Seas)
+  - [ ] 🔥 Newest Ships (ships <5 years old)
+- [ ] Cross-reference with Port Tracker ("show ports visited on this ship")
+- [ ] Share card with ship silhouettes
+- [ ] Analytics tracking (7 event types)
+- [ ] Integration with existing port tracker data
+
+**Reference:** See PORT_TRACKER_ROADMAP.md for complete specification and timeline
+
+---
+
+## 🌍 PORT EXPANSION TASKS
+
+**Current Coverage:** 142 ports with individual pages (all have under construction notices)
+**Master Reference:** PORT_TRACKER_ROADMAP.md "Missing Ports by Priority" section
+
+### HIGH PRIORITY - Hawaii Batch (5 ports - ZERO coverage currently)
+**Impact:** Major gap - Hawaii is popular Royal Caribbean destination
+- [ ] Honolulu (Oahu) - Create port page
+- [ ] Kona (Big Island) - Create port page
+- [ ] Hilo (Big Island) - Create port page
+- [ ] Maui (Lahaina/Kahului) - Create port page
+- [ ] Nawiliwili (Kauai) - Create port page
+
+### HIGH PRIORITY - Middle East Expansion (4 ports)
+- [ ] Dubai, UAE - Create port page
+- [ ] Abu Dhabi, UAE - Create port page
+- [ ] Muscat, Oman - Create port page
+- [ ] Salalah, Oman - Create port page
+
+### HIGH PRIORITY - Caribbean Completion (8-10 ports)
+**Impact:** Complete coverage of most popular cruise region
+- [ ] Antigua (St. John's)
+- [ ] St. Lucia (Castries)
+- [ ] Barbados (Bridgetown)
+- [ ] St. Kitts
+- [ ] Grenada (St. George's)
+- [ ] Martinique (Fort-de-France)
+- [ ] Guadeloupe (Pointe-à-Pitre)
+- [ ] Dominica (Roseau)
+
+### MEDIUM PRIORITY - Asia Expansion (10-15 ports)
+- [ ] Osaka, Japan
+- [ ] Busan, South Korea
+- [ ] Taipei, Taiwan
+- [ ] Phuket, Thailand
+- [ ] Manila, Philippines
+- [ ] Ho Chi Minh City, Vietnam
+- [ ] Halong Bay, Vietnam
+- [ ] Penang, Malaysia
+- [ ] Colombo, Sri Lanka
+- [ ] Additional Asia ports (see roadmap)
+
+### MEDIUM PRIORITY - Australia & South Pacific (15-20 ports)
+- [ ] Sydney, Australia
+- [ ] Melbourne, Australia
+- [ ] Brisbane, Australia
+- [ ] Auckland, New Zealand
+- [ ] Wellington, New Zealand
+- [ ] Fiji ports
+- [ ] New Caledonia
+- [ ] Vanuatu
+- [ ] Additional Pacific ports (see roadmap)
+
+**For complete port expansion roadmap:** See PORT_TRACKER_ROADMAP.md sections:
+- Missing Ports by Priority (HIGH/MEDIUM/LOWER)
+- Recommended Timeline
+- Success Metrics & KPIs
 
 ---
 
@@ -222,8 +338,9 @@ All 50 ships should have stats JSON at:
 
 - [ ] `/drinks.html` - Complete content (currently just "coming soon" meta description)
   - Content needed: Drink packages overview, beverage policies, price calculator intro
-- [ ] `/ports.html` - Remove "Under Construction" notice and add real content
-  - Content needed: Port guides, accessibility information, practical travel tips
+- [ ] `/ports.html` - Complete main hub page content (142 individual port pages exist with under construction notices)
+  - Current: Individual port pages exist for 142 ports (all have under construction notices added 2025-11-22)
+  - Content needed: Main hub page with port overview, search/filter, regional breakdowns
 - [ ] `/restaurants.html` - Replace "This page is currently being built" with actual content
   - Content needed: Dining guides, menus, restaurant recommendations
 - [ ] Disability-at-Sea articles - JavaScript shows "coming soon", needs actual content
@@ -443,39 +560,46 @@ All 50 ships should have stats JSON at:
 
 ## 🚀 PRIORITY RANKING
 
-### P0 - Critical (User-facing issues)
+### P0 - Critical (User-facing issues & engagement)
 1. ~~**CRITICAL: Fix navigation on 281 pages (96% of site)**~~ - ✅ COMPLETE (done in main)
 2. ~~**CRITICAL: Update code to use WebP images**~~ - ✅ COMPLETE (done in main, commit ecdb983)
-3. **Ship cards redesign** - Add CTAs, better space utilization, make cards compelling
-4. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
-5. Download Wiki Commons images for top 5 most-visited ships
+3. ~~**CRITICAL: Create Port Tracker tool**~~ - ✅ COMPLETE (2025-11-22, /tools/port-tracker.html with analytics)
+4. **CRITICAL: Create Ship Tracker tool** - HIGH PRIORITY NEXT (full spec in PORT_TRACKER_ROADMAP.md)
+5. **Ship cards redesign** - Add CTAs, better space utilization, make cards compelling
+6. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
+7. Download Wiki Commons images for top 5 most-visited ships
 
 ### P1 - High (Content completeness)
-6. ~~**CRITICAL: Write "Cruising After Loss" article**~~ - ✅ COMPLETE as "In the Wake of Grief" (722 lines, Grade A+)
-7. **CRITICAL: Expand "Solo Cruising" article** - 20 logbook references, current article too narrow
-8. **CRITICAL: Write "Healing Relationships at Sea" article** - 15+ logbook references, unique positioning
-9. **CRITICAL: Write "Cruising for Rest & Recovery" article** - 25 logbook references, burnout/mental health
-10. **CRITICAL: Write "Family Cruising Challenges" article** - 20 logbook references, blended/adoptive families
-11. ~~**CRITICAL: Create search functionality**~~ - ✅ search.html EXISTS
-12. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html, restaurants.html (all "coming soon")
-13. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md (all missing)
-14. ~~Create logbooks for active ships without them~~ - ✅ All active ships have logbooks (only 2 historic missing: nordic-prince, sun-viking)
-15. Download remaining Wiki Commons images (19 ships) + attribution workflow
-16. Complete venues.json with all dining data
-17. ~~SEO setup (sitemap)~~ - ✅ sitemap.xml EXISTS; still need Google Search Console setup
+8. ~~**CRITICAL: Write "Cruising After Loss" article**~~ - ✅ COMPLETE as "In the Wake of Grief" (722 lines, Grade A+)
+9. **CRITICAL: Create Hawaii port batch** - 5 ports (ZERO coverage currently - major gap)
+10. **CRITICAL: Expand "Solo Cruising" article** - 20 logbook references, current article too narrow
+11. **CRITICAL: Write "Healing Relationships at Sea" article** - 15+ logbook references, unique positioning
+12. **CRITICAL: Write "Cruising for Rest & Recovery" article** - 25 logbook references, burnout/mental health
+13. **CRITICAL: Write "Family Cruising Challenges" article** - 20 logbook references, blended/adoptive families
+14. ~~**CRITICAL: Create search functionality**~~ - ✅ search.html EXISTS
+15. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html hub, restaurants.html (all "coming soon")
+16. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md (all missing)
+17. ~~Create logbooks for active ships without them~~ - ✅ All active ships have logbooks (only 2 historic missing: nordic-prince, sun-viking)
+18. Download remaining Wiki Commons images (19 ships) + attribution workflow
+19. Complete venues.json with all dining data
+20. ~~SEO setup (sitemap)~~ - ✅ sitemap.xml EXISTS; still need Google Search Console setup
 
 ### P2 - Medium (Enhancement)
-18. Expand "Accessible Cruising" article (optional) - Article exists but could add: medical equipment, service animals, dietary, cruise line comparison
-19. ICP-Lite & ITW-Lite rollout (see dedicated section below)
-20. Create logbooks for historic ships (8 ships)
-21. Add video data for ships without videos
-22. Cross-linking improvements
-23. Performance optimization
+21. Expand "Accessible Cruising" article (optional) - Article exists but could add: medical equipment, service animals, dietary, cruise line comparison
+22. Middle East port batch (4 ports - Dubai, Abu Dhabi, Muscat, Salalah)
+23. Caribbean completion batch (8-10 ports - Antigua, St. Lucia, Barbados, etc.)
+24. ICP-Lite & ITW-Lite rollout (see dedicated section below)
+25. Create logbooks for historic ships (2 ships: Nordic Prince, Sun Viking)
+26. Add video data for ships without videos
+27. Cross-linking improvements
+28. Performance optimization
 
 ### P3 - Low (Nice to have)
-24. Create logbooks for future ships (TBN)
-25. Additional themed articles (medical recovery, mental health, family situations, life transitions)
-26. Advanced analytics and monitoring
+29. Asia expansion batch (10-15 ports - see roadmap)
+30. Australia & Pacific batch (15-20 ports - see roadmap)
+31. Create logbooks for future ships (TBN)
+32. Additional themed articles (medical recovery, mental health, family situations, life transitions)
+33. Advanced analytics and monitoring
 
 ---
 
@@ -583,6 +707,20 @@ All 50 ships should have stats JSON at:
 
 ## 📈 PROGRESS SUMMARY
 
+**Engagement Tools (NEW 2025-11-22):**
+- ✅ Port Tracker COMPLETE - /tools/port-tracker.html with 142 ports, analytics, social comparison
+- ⏳ Ship Tracker PLANNED - Full spec in PORT_TRACKER_ROADMAP.md (HIGH PRIORITY NEXT)
+
+**Port Pages (UPDATED 2025-11-22):**
+- ✅ Complete: 142 individual port pages with ICP-Lite v1.0 format
+- ✅ Under construction notices added to all 142 ports (2025-11-22)
+- ✅ British Isles batch complete (10 ports: Liverpool, Cork, Invergordon, Kirkwall, Lerwick, Dover, Portland, Newcastle, Holyhead, Waterford)
+- ✅ Portland duplicate fixed (portland.html = Dorset, portland-maine.html = Maine)
+- ✅ Navigation updated: Port Tracker link added to 18 main pages
+- ⏳ HIGH PRIORITY: Hawaii batch (5 ports - ZERO coverage)
+- ⏳ HIGH PRIORITY: Middle East (4 ports), Caribbean completion (8-10 ports)
+- ⏳ MEDIUM PRIORITY: Asia (10-15 ports), Australia/Pacific (15-20 ports)
+
 **Images:**
 - ✅ Complete: 11 ships (FOM images)
 - ✅ Complete: 8 ships (user uploaded)
@@ -614,29 +752,56 @@ All 50 ships should have stats JSON at:
 - ⏳ 4 ships need attribution fixes
 - ⏳ 2 ships need attribution sections when images added
 
+**Analytics (NEW 2025-11-22):**
+- ✅ Port Tracker: 13 event types tracked (page_view, port_checked, port_link_clicked, bingo_completed, share_image_downloaded, etc.)
+- ⏳ Ship Tracker: 7 event types planned (see roadmap)
+- ⏳ Google Analytics dashboard setup needed
+- ⏳ Conversion tracking and funnel analysis needed
+
 ---
 
 ## 📋 NEXT STEPS
 
 **Immediate actions (verified priorities):**
-1. **CRITICAL: Create protocol docs** - ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md all missing
-2. **Write remaining 3 articles** - Rest & Recovery, Family Challenges, Healing Relationships
-3. **Complete placeholder pages** - drinks.html, ports.html, restaurants.html need real content
-4. Fix attribution for Symphony, Adventure, Enchantment, Explorer
+1. **CRITICAL: Create Ship Tracker tool** - HIGH PRIORITY NEXT (full spec ready in PORT_TRACKER_ROADMAP.md)
+   - Interactive checklist of 27-28 Royal Caribbean ships
+   - 10 achievement bingo cards with ship class progression
+   - Cross-reference with Port Tracker data
+   - Analytics tracking (7 event types)
+   - Share card generator with ship silhouettes
+2. **CRITICAL: Create Hawaii port batch** - 5 ports (Honolulu, Kona, Hilo, Maui, Nawiliwili) - ZERO coverage currently
+3. **CRITICAL: Create protocol docs** - ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md all missing
+4. **Write remaining 3 articles** - Rest & Recovery, Family Challenges, Healing Relationships
+5. **Complete placeholder pages** - drinks.html, ports.html hub, restaurants.html need real content
+6. Fix attribution for Symphony, Adventure, Enchantment, Explorer
 
 **This week:**
-5. ~~Create sitemap.xml~~ - ✅ Already exists
-6. ~~Create search.html~~ - ✅ Already exists
-7. Set up Google Search Console and Bing Webmaster Tools
-8. Create 2 historic ship logbooks (nordic-prince, sun-viking)
+7. ~~Create Port Tracker~~ - ✅ COMPLETE (2025-11-22)
+8. ~~Create sitemap.xml~~ - ✅ Already exists
+9. ~~Create search.html~~ - ✅ Already exists
+10. Set up Google Search Console and Bing Webmaster Tools
+11. Set up Google Analytics dashboard for Port Tracker monitoring
+12. Create 2 historic ship logbooks (nordic-prince, sun-viking)
 
 **This month:**
-9. ICP-Lite site-wide rollout (currently only ~5%)
-10. Download Wiki Commons images for 19 ships
-11. Performance optimization pass
-12. Analytics and monitoring setup
+13. Middle East port batch (4 ports - Dubai, Abu Dhabi, Muscat, Salalah)
+14. Caribbean completion batch (8-10 ports - Antigua, St. Lucia, Barbados, etc.)
+15. ICP-Lite site-wide rollout (currently only ~5%)
+16. Download Wiki Commons images for 19 ships
+17. Performance optimization pass
+18. Ship cards redesign (add CTAs, better space utilization)
+
+**Next quarter:**
+19. Asia expansion batch (10-15 ports - see roadmap)
+20. Australia & Pacific batch (15-20 ports - see roadmap)
+21. Additional solo travel articles based on logbook references
+22. Advanced analytics: conversion tracking, funnel analysis, A/B testing
+
+**Strategic reference documents:**
+- PORT_TRACKER_ROADMAP.md - Complete specification for Ship Tracker and port expansion priorities
+- FIVE_ARTICLE_CATEGORIES.md - Solo travel article categories with logbook references
 
 ---
 
-**Last Updated:** 2025-11-19 (Verified completion: search.html EXISTS, sitemap EXISTS, 38/50 logbooks complete, ICP-Lite only 5% complete)
+**Last Updated:** 2025-11-22 (Port Tracker COMPLETE, Ship Tracker planned, 142 ports with under construction notices, British Isles batch complete)
 **Maintained by:** Claude AI (Thread tracking)
