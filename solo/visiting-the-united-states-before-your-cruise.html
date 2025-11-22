@@ -523,7 +523,6 @@ figure figcaption { text-align:inherit; }
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
-        </picture>
         <span class="tiny version-badge">v3.010.022</span>
       </div>
       <nav class="nav" aria-label="Main site navigation">
@@ -578,7 +577,6 @@ figure figcaption { text-align:inherit; }
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.022" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="144" alt="In the Wake" decoding="async"/>
-        </picture>
       </div>
       <div class="tagline">A Cruise Traveler’s Logbook</div>
       <div class="hero-credit">
@@ -1031,18 +1029,18 @@ document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.r
     const title = (pick(p,['title','name'],'') || '').toLowerCase();
 
     // (1) direct image from data
-    let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
+    let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
 
     // (2) slug-specific overrides
     if(!primary && (/(top-20|first-cruise-questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title))){
-      primary = '/assets/articles/top-20-questions/cover.jpg';
+      primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
     }
     if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-      primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
+      primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
     }
     // *** travel.html override (this is the one you needed) ***
     if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-      primary = 'https://cruisinginthewake.com/assets/articles/top-20-questions/cover.jpg';
+      primary = 'https://cruisinginthewake.com/assets/articles/thumbs/top-20-questions/cover.webp';
     }
 
     // (3) heuristic guess if still missing
@@ -1069,7 +1067,7 @@ document.querySelectorAll('figure.article-hero.hero').forEach(f => f.classList.r
     // Extra explicit tries per known slug
     if(/\/travel(\.html)?$/.test(href)){
       alts.push(
-        '/assets/articles/top-20-questions/cover.jpg',
+        '/assets/articles/thumbs/top-20-questions/cover.webp',
         '/assets/articles/travel/cover.JPG',
         '/assets/articles/travel/cover.webp',
         '/assets/articles/travel/cover.png'

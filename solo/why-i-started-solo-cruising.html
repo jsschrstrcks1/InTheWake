@@ -50,14 +50,14 @@
   <meta property="og:title" content="Why I Started Solo Cruising (and Built a Community)"/>
   <meta property="og:description" content="From that first solo gangway to a thriving community — lessons, courage, and the joy of sailing on your own terms."/>
   <meta property="og:url" content="https://www.cruisinginthewake.com/solo/why-i-started-solo-cruising.html"/>
-  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/why-i-started-solo-cruising.jpg?v=3.008.014"/>
+  <meta property="og:image" content="https://www.cruisinginthewake.com/assets/articles/thumbs/why-i-started-solo-cruising.webp?v=3.008.014"/>
   <meta property="og:image:width" content="1600"/>
   <meta property="og:image:height" content="900"/>
   <meta property="article:section" content="Solo Travel"/>
   <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Preload LCP hero -->
-  <link rel="preload" as="image" href="/assets/articles/why-i-started-solo-cruising.jpg?v=3.008.014" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/articles/thumbs/why-i-started-solo-cruising.webp?v=3.008.014" fetchpriority="high"/>
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -68,7 +68,7 @@
     "description":"From that first solo gangway to a thriving community — lessons, courage, and the unexpected joy of sailing on your own terms.",
     "author":{"@type":"Person","name":"Tina Maulsby","url":"https://www.cruisinginthewake.com/authors/tina-maulsby.html"},
     "publisher":{"@type":"Organization","name":"In the Wake","logo":{"@type":"ImageObject","url":"https://www.cruisinginthewake.com/assets/logo_wake.png"}},
-    "image":"https://www.cruisinginthewake.com/assets/articles/why-i-started-solo-cruising.jpg?v=3.008.014",
+    "image":"https://www.cruisinginthewake.com/assets/articles/thumbs/why-i-started-solo-cruising.webp?v=3.008.014",
     "mainEntityOfPage":"https://www.cruisinginthewake.com/solo/why-i-started-solo-cruising.html",
     "articleSection":"Solo Travel"
   }
@@ -484,7 +484,6 @@
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
-        </picture>
         <span class="tiny version-badge">v3.010.031</span>
       </div>
       <nav class="nav" aria-label="Main site navigation">
@@ -539,7 +538,6 @@
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.031" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="144" alt="In the Wake" decoding="async"/>
-        </picture>
       </div>
       <div class="tagline">A Cruise Traveler’s Logbook</div>
       <div class="hero-credit">
@@ -560,12 +558,11 @@
       <!-- HERO MEDIA -->
       <figure class="article-hero">
         <picture>
-          <source type="image/webp" srcset="/assets/articles/why-i-started-solo-cruising.jpg?v=3.008.014" sizes="(min-width:980px) 860px, 92vw">
+          <source type="image/webp" srcset="/assets/articles/thumbs/why-i-started-solo-cruising.webp?v=3.008.014" sizes="(min-width:980px) 860px, 92vw">
           <img
             src="/assets/articles/why-i-started-solo-cruising.webp?v=3.008.014"
             alt="Norwegian Jade docked in Alaska beneath misty mountains — the inspiration behind Tina Maulsby’s solo cruising story."
             width="1600" height="900" loading="eager" decoding="async" fetchpriority="high">
-        </picture>
         <figcaption>
           Photo ©
           <a href="/authors/tina-maulsby.html?utm_source=solo_article&utm_medium=figcaption&utm_campaign=tina_profile">Tina Maulsby</a>
@@ -602,7 +599,6 @@
             loading="lazy" decoding="async"
             alt="Tina standing in the Centrum aboard ship"
             style="max-width:50%;height:auto;">
-        </picture>
         <figcaption>
           Photo ©
           <a href="/authors/tina-maulsby.html?utm_source=solo_article&utm_medium=figcaption&utm_campaign=tina_profile">Tina Maulsby</a>
@@ -788,19 +784,19 @@
         const href  = (pick(p,['url','path'],'')||'').toLowerCase();
         const title = (pick(p,['title','name'],'')||'').toLowerCase();
 
-        let primary = pick(p,['image','cover','img','thumb','thumbnail'], null);
+        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
 
         // ***** FORCE override for Top-20 regardless of existing image *****
         if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/top-20-questions/cover.jpg';
+          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
         }
 
         // Friendly specifics
         if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/why-i-started-solo-cruising.jpg';
+          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
         }
         if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/freedom-of-your-own-wake/cover.jpg';
+          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
         }
         if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
           primary = '/assets/articles/travel/cover.jpg';
