@@ -157,7 +157,7 @@ All work on this project is offered as a gift to God.
     </div>
   </header>
 
-  <main class="wrap" id="main-content" role="main">
+  <main class="wrap page-grid" id="main-content" role="main">
     <!-- Breadcrumb -->
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
       <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
@@ -168,12 +168,13 @@ All work on this project is offered as a gift to God.
     </nav>
 
     <!-- ICP-Lite Quick Answer -->
-    <section class="page-intro" style="grid-column: 1 / -1; margin-bottom: 1.5rem;">
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Marseille is France's oldest city (founded 600 BCE) and a gritty, authentic Mediterranean port. The Old Port (Vieux-Port), Notre-Dame de la Garde basilica, and authentic bouillabaisse are highlights. Day trips to Aix-en-Provence, lavender fields, and the Calanques are possible.
       </p>
     </section>
 
+    <div style="grid-column: 1; grid-row: 1 / span 999;">
     <article class="card">
       <h1>Marseille: France's Oldest, Most Authentic City</h1>
 
@@ -286,11 +287,59 @@ All work on this project is offered as a gift to God.
     </script>
 
     <!-- Back to Ports -->
+  <aside class="rail" style="grid-column: 2; grid-row: 2;">
+    <section class="card">
+      <h3>About the Author</h3>
+      <div class="author-info" style="display: flex; gap: 1rem; align-items: flex-start;">
+        <a href="/authors/ken-baker.html" style="flex-shrink: 0;">
+          <picture>
+            <source srcset="/authors/img/ken1.webp" type="image/webp"/>
+            <img src="/authors/img/ken1.webp" width="80" height="80" alt="Ken Baker" style="border-radius: 50%;" decoding="async"/>
+          </picture>
+        </a>
+        <div>
+          <h4 style="margin: 0 0 0.25rem;"><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+          <p style="margin: 0; font-size: 0.85rem; color: #666;">Founder of In the Wake. 50+ sailings and counting.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Recent Articles</h3>
+      <div id="recent-rail"></div>
+    </section>
+  </aside>
+
+
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   </main>
 
   <footer class="wrap" role="contentinfo" style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e0e8f0;">
     <p style="text-align: center; color: #666;">&copy; 2025 In the Wake. All rights reserved.</p>
   </footer>
+
+  <script>
+    // Load recent articles
+    (async function() {
+      try {
+        const response = await fetch('/assets/data/articles/index.json');
+        const articles = await response.json();
+        const rail = document.getElementById('recent-rail');
+
+        if (rail && articles && articles.length > 0) {
+          rail.innerHTML = articles.slice(0, 5).map(article => `
+            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
+                <a href="${article.url}">${article.title}</a>
+              </h4>
+              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.log('Could not load articles:', err);
+      }
+    })();
+  </script>
 </body>
 </html>
