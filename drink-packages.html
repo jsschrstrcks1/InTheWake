@@ -175,6 +175,10 @@
     align-items: center;
     gap: .5rem;
   }
+  .brand img {
+    height: 28px;
+    width: auto;
+  }
 
   .nav {
     display: flex;
@@ -513,21 +517,26 @@
           <button class="nav-disclosure" type="button" aria-expanded="false">
             Planning <span class="caret">▾</span>
           </button>
-          <div class="submenu">
-            <a href="/planning.html">Planning</a>
-            <a href="/ships.html">Ships</a>
-            <a href="/restaurants.html">Restaurants</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/drink-packages.html" aria-current="page">Drink Packages</a>
+                              <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/stateroom-check.html">Stateroom Check</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
           </div>
         </div>
         <div class="nav-item nav-group" id="nav-travel" data-open="false">
           <button class="nav-disclosure" type="button" aria-expanded="false">
             Travel <span class="caret">▾</span>
           </button>
-          <div class="submenu">
-            <a href="/travel.html">Travel</a>
-            <a href="/solo.html">Solo</a>
+                              <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
           </div>
         </div>
         <div class="nav-item">
