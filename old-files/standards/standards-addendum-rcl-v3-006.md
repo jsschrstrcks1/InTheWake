@@ -1,3 +1,10 @@
+---
+title: "STANDARDS_ADDENDUM_RCL_v3.006.md"
+source_file: "STANDARDS_ADDENDUM_RCL_v3.006.md"
+generated: "2025-10-17T13:14:33.913903Z"
+note: "Verbatim import (lightly normalized). Newer addenda may supersede specific clauses; see supersets."
+---
+
 # Cruise Line Page — Superset Addendum (Royal Caribbean Reference) v3.006.006
 
 - **Invocation:** UTF‑8 invocation comment at top + visible invocation near footer (Soli Deo Gloria).

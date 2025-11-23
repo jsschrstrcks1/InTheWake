@@ -1,0 +1,137 @@
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+“Trust in the LORD with all your heart, and do not lean on your own understanding.” — Proverbs 3:5
+“Whatever you do, work heartily, as for the Lord and not for men.” — Colossians 3:23
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Royal Caribbean — In the Wake (v3.006.006)</title>
+  <meta name="version" content="v3.006.006"/>
+  <meta name="description" content="Royal Caribbean, class-by-class and ship-by-ship: venues, shows, packing, and planning."/>
+  <link rel="canonical" href="https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html"/>
+
+  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.006.006"/>
+  <link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/compass_rose.svg"/>
+
+  <style>
+    .brand-title{display:none!important}
+    .grid{display:grid;gap:1rem}
+    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media (max-width:1100px){.grid.cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:800px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}}
+    .pillbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+    .pillbtn{padding:.35rem .7rem;border:1px dashed var(--rope);border-radius:999px;background:#fff;cursor:pointer}
+    .pillbtn.active{background:#f9fdfd}
+    .side-panel{display:grid; gap:.6rem}
+    .two-col{display:grid; grid-template-columns:2fr 1fr; gap:1rem}
+    @media (max-width:1024px){.two-col{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="page">
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="hero-header">
+    <div class="navbar">
+      <div class="brand">
+        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake"/>
+        <span class="version-badge">v3.006.006</span>
+      </div>
+      <nav class="pill-nav.pills pill-nav pills" aria-label="Primary">
+        <a href="https://www.cruisinginthewake.com/">Home</a>
+        <a href="https://www.cruisinginthewake.com/ships/">Ships</a>
+        <a href="https://www.cruisinginthewake.com/restaurants/">Restaurants &amp; Menus</a>
+        <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+        <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+        <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+        <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+        <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
+        <a href="https://www.cruisinginthewake.com/solo.html">Solo Travel</a>
+        <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
+        <a href="https://www.cruisinginthewake.com/cruise-lines.html" aria-current="page">Cruise Lines</a>
+      </nav>
+    </div>
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="https://www.cruisinginthewake.com/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <div class="hero-title">
+        <img class="logo" src="https://www.cruisinginthewake.com/assets/logo_wake.png" alt="In the Wake">
+        <div class="tagline">A Cruise Traveler’s Logbook</div>
+      </div>
+      <div class="hero-credit">
+        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <section class="card">
+      <h1>Royal Caribbean</h1>
+      <p>Neighborhood-style ships and Broadway-bold nights; surf, slides, and quiet corners for catching breath. We chart the classes from Icon down to Vision, then point you toward the ship—and supper—that suits your crew. We do this plainly, gratefully, and with care. <strong>Soli Deo Gloria.</strong></p>
+    </section>
+
+    <section class="card" role="search">
+      <label class="tiny" for="shipSearch">Search ships, venues, and experiences</label>
+      <input id="shipSearch" type="search" placeholder="Type a ship (e.g., Oasis), venue (e.g., Chops), or experience (e.g., Chef’s Table)…" autocomplete="off" inputmode="search" aria-controls="searchResults">
+      <div id="searchResults" style="margin-top:.75rem"></div>
+    </section>
+
+    <section class="card">
+      <h2>Filters</h2>
+      <div class="pillbar">
+        <label><input id="toggle-unfinished" type="checkbox"> Show unfinished ships</label>
+        <span style="margin-left:1rem;font-weight:600">Venues:</span>
+        <label><input type="radio" name="venueFilter" value="all" checked> All</label>
+        <label><input type="radio" name="venueFilter" value="premium"> Premium</label>
+        <label><input type="radio" name="venueFilter" value="included"> Included</label>
+        <span style="margin-left:1rem;font-weight:600">Experiences:</span>
+        <label><input type="radio" name="expFilter" value="all" checked> All</label>
+        <label><input type="radio" name="expFilter" value="premium"> Premium</label>
+        <label><input type="radio" name="expFilter" value="included"> Included</label>
+      </div>
+    </section>
+
+    <section class="card" id="dress-code">
+      <h2>Dress Code Aboard</h2>
+      <p><strong>Casual:</strong> Jeans, polos, sundresses, blouses. Swimwear stays poolside; shorts welcome at breakfast and lunch.</p>
+      <p><strong>Smart Casual:</strong> Collared shirts, dresses, skirts, blouses, pantsuits; jackets welcome.</p>
+      <p><strong>Formal (Dress Your Best):</strong> Suits and ties, tuxedos, or evening gowns. 5-night: one · 6–10: two · 11–14: three · 15+: up to four (captain’s discretion). No one is turned away for wearing smart casual on Dress Your Best nights.</p>
+      <p class="tiny">Chef’s Table observes formal; most venues are smart casual.</p>
+      <p class="tiny">Shore calls: modest attire for churches and sacred sites; customs vary—see <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>.</p>
+    </section>
+
+    <section class="two-col">
+      <div>
+        <section class="card">
+          <h2>Class → Ships</h2>
+          <div id="class-pills" class="pillbar" aria-label="Ship classes"></div>
+          <p id="class-note" class="tiny"></p>
+          <div id="class-grid" class="grid cols-3" style="margin-top:.75rem"></div>
+        </section>
+      </div>
+      <aside>
+        <section class="card">
+          <h2>Venues</h2>
+          <div id="venues-panel" class="side-panel"></div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>Attributions</h2>
+      <p class="tiny">Images are credited per-file in the attribution ledger. This page uses placeholders until final media is attached.</p>
+    </section>
+  </main>
+
+  <footer class="wrap" role="contentinfo" style="text-align:center">
+    © 2025 In the Wake — A Cruise Traveler’s Logbook · Soli Deo Gloria.
+  </footer>
+
+  <script src="https://www.cruisinginthewake.com/assets/js/rcl.page.js?v=3.006.006" defer></script>
+</body>
+</html>
