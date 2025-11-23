@@ -112,9 +112,15 @@ Lost most current standards. Have 220+ fragments across versions v2.245 - v3.009
 - Documentation (.md, .txt, .doc, .docx)
 - Archived zip files with nested standards
 
+**CRITICAL:** Current `/standards/` directory also must be included - it contains outdated standards created before 90% of the codebase was written.
+
 ### Objective
 
-Create consolidated master standards in `/new-standards/` that represent a **superset of all rules** without losing any information, grounded in **current working implementation** (561 HTML files).
+Create consolidated master standards in `/new-standards/` that:
+1. Represent a **superset of all rules** without losing any information
+2. Are grounded in **current working implementation** (561 HTML files)
+3. Document **EVERYTHING the website does** (even if no fragment mentions it)
+4. Are comprehensive enough to **DELETE /old-files/ and /standards/ directories**
 
 ### Preservation Doctrine: "Verified Superset, Reality-Grounded"
 
@@ -160,7 +166,7 @@ When fragments contradict:
 
 ### Rebuild Process (10 Tasks)
 
-- [ ] **Task 1:** Inventory all fragments (find, count, categorize all files in old-files/)
+- [ ] **Task 1:** Inventory all fragments (find, count, categorize all files in old-files/ AND /standards/)
 - [ ] **Task 2:** Extract .zip files recursively
 - [ ] **Task 3:** Convert/handle .doc/.docx files
 - [ ] **Task 4:** Create FRAGMENT_INVENTORY.md (complete manifest with metadata)
@@ -220,7 +226,12 @@ When fragments contradict:
       ├── fragment-sources.json   # Machine-readable map
       └── [all 220+ original fragments unchanged]
   ```
-- [ ] **Task 10:** Update admin/claude/STANDARDS_INDEX.md to reference new standards locations
+- [ ] **Task 10:** Update admin/claude/ documentation to reference /new-standards/
+  - Update STANDARDS_INDEX.md
+  - Update CLAUDE.md
+  - Update CODEBASE_GUIDE.md
+  - Update ITW-LITE_PROTOCOL.md
+  - Prepare for deletion of /old-files/ and /standards/ directories
 
 ### Documentation Requirements
 
