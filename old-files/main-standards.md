@@ -1,71 +1,68 @@
+# Main Page Standards — v2.4
 
-# In the Wake — Main Standards (v3.001)
+## Required `<head>` Items (exact order)
+1. `<!doctype html>` and `<html lang="en">`
+2. `<meta charset="utf-8">`
+3. `<meta name="viewport" content="width=device-width, initial-scale=1">`
+4. **Umami analytics snippet** (see root standards)
+5. `_abs()` helper (absolute paths)
+6. Canonicalization script (GitHub Pages–safe)
+7. `<title>` — `__PAGE_TITLE__ — In the Wake (v__VERSION__)`
+8. Canonical & SEO:
+```html
+<link rel="canonical" href="https://www.cruisinginthewake.com/__CANONICAL_PATH__"/>
+<meta name="description" content="__PAGE_DESCRIPTION__"/>
+<meta name="version" content="__VERSION__"/>
+```
+9. Social Open Graph + Twitter card (site-level image allowed)
+10. Site CSS: `<link rel="stylesheet" href="_abs('/assets/styles.css?v=__VERSION__')">`
+11. Swiper loader block (root standards §4)
 
-**Principles**
-- Canonical production domain: **https://www.cruisinginthewake.com**.
-- Absolute URLs only (no relatives) on production.
-- Modular standards: this Main doc + Root + Ships + Cruise-Lines.
-- No regressions; additive improvements only.
+## Navbar Pills (single line w/ scroll on mobile)
+Use this CSS (or include it once site-wide):
+```html
+<style>
+.pills{ display:flex; flex-wrap:nowrap; gap:.6rem; white-space:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.pills::-webkit-scrollbar{ display:none; }
+.pills a{ flex:0 0 auto; }
+@media (min-width:980px){ .pills{ justify-content:center; overflow:visible; } }
+</style>
+```
 
-## Global
-- Stylesheet must use version query **v3.0**: `/assets/styles.css?v=3.0`
-- Primary nav (absolute URLs) — note **Ships hub is `/ships/index.html`**:
-  - https://www.cruisinginthewake.com/index.html
-  - https://www.cruisinginthewake.com/ships/index.html
-  - https://www.cruisinginthewake.com/restaurants.html
-  - https://www.cruisinginthewake.com/ports.html
-  - https://www.cruisinginthewake.com/disability-at-sea.html
-  - https://www.cruisinginthewake.com/drink-packages.html
-  - https://www.cruisinginthewake.com/packing-lists.html
-  - https://www.cruisinginthewake.com/cruise-lines/royal-caribbean.html
-  - https://www.cruisinginthewake.com/solo.html
-  - https://www.cruisinginthewake.com/travel.html
+## Image Fallback Pattern
+Use an `onerror` inline handler with a list of same-origin fallbacks:
+```html
+<img src="_abs('/assets/ships/__SHIP_SLUG__1.jpg?v=__VERSION__')" alt="__ALT__" loading="lazy"
+     onerror="(function(i){var fb=[_abs('/assets/ships/rcl/__SHIP_SLUG__/__SHIP_SLUG__1.jpg?v=__VERSION__')];i._fbi=(i._fbi||0);if(i._fbi<fb.length){i.src=fb[i._fbi++];}})(this)">
+```
 
-## Repository & Paths
-- Ships hub: **/ships/index.html** (not `/ships/ships.html`).
-- Ship detail pages: `/ships/<line>/<slug>.html`.
-- Global data:
-  - `/assets/data/fleet_index.json`
-  - `/assets/data/venues.json`
-  - `/assets/data/personas.json`
-  - `/assets/videos/rc_ship_videos.json`
+## YouTube ID Normalizer (shared)
+```html
+<script>
+window._ytId = function(v){
+  if (v && typeof v==='object'){
+    if (v.video_id) return String(v.video_id);
+    if (v.youtube_id) return String(v.youtube_id);
+    if (v.id && /^[A-Za-z0-9_-]{6,}$/.test(v.id)) return String(v.id);
+  }
+  var u = String((v && (v.video_url||v.url||v.embed_url))||'');
+  var m = u.match(/(?:\?|&)v=([A-Za-z0-9_-]{6,})/)||u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/)||u.match(/\/embed\/([A-Za-z0-9_-]{6,})/);
+  return m?m[1]:'';
+};
+</script>
+```
 
-## Caching & Performance (NEW in v3.001)
-### JSON cache (client-side, weekly TTL + version awareness)
-- Include once (in `<head>`):
-  ```html
-  <script src="/assets/js/site-cache.js" defer></script>
-  ```
-- Warm cache on **every page** (near `</body>`):
-  ```html
-  <script>
-  (function(){{async function warm(){{try{{await Promise.all([
-    SiteCache.getJSON('/assets/data/fleet_index.json',{{ttlDays:7,versionPath:['version']}}),
-    SiteCache.getJSON('/assets/data/venues.json',     {{ttlDays:7,versionPath:['version']}}),
-    SiteCache.getJSON('/assets/data/personas.json',   {{ttlDays:7,versionPath:['version']}}),
-    SiteCache.getJSON('/assets/videos/rc_ship_videos.json', {{ttlDays:7,versionPath:['version']}})
-  ]);}}catch(e){{}}}} if(document.readyState==='loading'){{document.addEventListener('DOMContentLoaded',warm,{{once:true}});} else {{warm();}}}})();
-  </script>
-  ```
+## Markdown-to-HTML Mini (for logbook)
+```html
+<script>
+window._mdToHtml = function(src){
+  var html = String(src||'').trim(); if(!html) return '';
+  html = html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>')
+             .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+             .replace(/\*(.+?)\*/g,'<em>$1</em>');
+  html = '<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>';
+  return html.replace(/^<p>\s*<\/p>/,'');
+};
+</script>
+```
 
-### Images (Service Worker cache-first)
-- Put **`/sw.js`** at site root.
-- Register on all pages (right before `</body>`):
-  ```html
-  <script>
-    if('serviceWorker' in navigator){{navigator.serviceWorker.register('/sw.js').catch(()=>{{}});}}
-  </script>
-  ```
-
-### Lazy Loading
-- Keep `loading="lazy"` on non-hero images; use explicit `width/height` or `aspect-ratio` in CSS.
-
-## CI Checks
-- Ensure `/ships/index.html` exists and is used in nav.
-- Ensure `site-cache.js` is present and pre-warm snippet exists.
-- Ensure SW registration snippet present; `/sw.js` deployed.
-- Absolute URL validation against https://www.cruisinginthewake.com.
-
-## Future-proofing
-- Maintain version fields (`"version"`) in JSON payloads to trigger cache invalidation.
-- Keep per-ship video manifests and personas structure stable.
