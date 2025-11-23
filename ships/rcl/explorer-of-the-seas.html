@@ -1399,6 +1399,9 @@ updated: 2025-11-18
   })();
   </script>
 
+  <!-- ===== Fun Distance Units Converter ===== -->
+  <script src="/assets/js/fun-distance-units.js" defer></script>
+
   <!-- ===== Ship stats loader ===== -->
   <script>
   (function initStats(){
@@ -1411,7 +1414,27 @@ updated: 2025-11-18
       const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
       mount.innerHTML=keys.map(k=>{
         const val=obj[k]; if(!val) return '';
-        return '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span></div>';
+        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span>';
+
+        // Add fun distance conversions for length and beam
+        if((k==='length'||k==='beam') && window.funDistance){
+          const feetMatch = String(val).match(/(\d+(?:,\d+)?)\s*(?:ft|feet)/i);
+          if(feetMatch){
+            const feet = parseInt(feetMatch[1].replace(/,/g,''));
+            const conversion = k==='length' ? window.funDistance.shipLength(feet) : window.funDistance.shipBeam(feet);
+            if(conversion && (conversion.practical || conversion.absurd)){
+              const parts = [];
+              if(conversion.practical) parts.push(conversion.practical);
+              if(conversion.absurd) parts.push(conversion.absurd);
+              if(parts.length > 0){
+                statHtml += '<span class="stat-fun tiny" style="display:block;margin-top:.25rem;color:var(--ink-mid,#3d5a6a);font-style:italic">('+parts.join(', or ')+')</span>';
+              }
+            }
+          }
+        }
+
+        statHtml += '</div>';
+        return statHtml;
       }).join('');
     }
     if(fallbackEl){
@@ -1639,107 +1662,6 @@ updated: 2025-11-18
   })();
   </script>
 
-<!-- Dropdown nav behavior (300ms Hover Delay) -->
-  <script>
-  (function(){
-    "use strict";
 
-    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
-    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
-    if (dropdownGroups.length) {
-      const hoverTimeouts = new Map();
-      const HOVER_DELAY = 300;
-
-      function setOpen(group, isOpen) {
-        group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
-      }
-
-      function closeAll(except = null) {
-        dropdownGroups.forEach(group => {
-          if (group !== except) {
-            setOpen(group, false);
-            if (hoverTimeouts.has(group)) {
-              clearTimeout(hoverTimeouts.get(group));
-              hoverTimeouts.delete(group);
-            }
-          }
-        });
-      }
-
-      dropdownGroups.forEach(group => {
-        const button = group.querySelector('.nav-disclosure');
-        const menu = group.querySelector('.submenu');
-        if (!button || !menu) return;
-
-        // Click to toggle
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isOpen = group.dataset.open === "true";
-          closeAll(group);
-          setOpen(group, !isOpen);
-        });
-
-        // Mouse enter: Open immediately
-        group.addEventListener('mouseenter', () => {
-          if (hoverTimeouts.has(group)) {
-            clearTimeout(hoverTimeouts.get(group));
-            hoverTimeouts.delete(group);
-          }
-          closeAll(group);
-          setOpen(group, true);
-        });
-
-        // Mouse leave: Close after delay
-        group.addEventListener('mouseleave', () => {
-          const timeoutId = setTimeout(() => {
-            setOpen(group, false);
-            hoverTimeouts.delete(group);
-          }, HOVER_DELAY);
-          hoverTimeouts.set(group, timeoutId);
-        });
-
-        // Keyboard navigation
-        group.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            setOpen(group, false);
-            button && button.focus();
-          }
-          if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
-            e.preventDefault();
-            setOpen(group, true);
-            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
-            firstLink && firstLink.focus();
-          }
-        });
-
-        // Close when tabbing away
-        menu.addEventListener('focusout', () => {
-          setTimeout(() => {
-            if (!group.contains(document.activeElement)) {
-              setOpen(group, false);
-            }
-          }, 0);
-        });
-      });
-
-      // Close all when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('.nav-group')) {
-          closeAll();
-        }
-      });
-
-      // Close all when window loses focus
-      window.addEventListener('blur', () => {
-        closeAll();
-      });
-    }
-  })();
-  </script>
 </body>
 </html>
