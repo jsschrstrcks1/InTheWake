@@ -228,6 +228,8 @@ All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, 
 | `verify_actual_state.py` | 327 lines | State verification script | ✅ EXISTS |
 | `admin/VERIFICATION_REPORT_2025_11_19.json` | Machine-readable | Verification data | ✅ EXISTS |
 | `admin/THREAD_AUDIT_2025_11_19.md` | 172 lines | Thread audit report | ✅ EXISTS |
+| `assets/data/logbook/rcl/nordic-prince.json` | 5.8KB | Historic ship logbook (1971-1995) | ✅ EXISTS (2025-11-23) |
+| `assets/data/logbook/rcl/sun-viking.json` | 6.0KB | Historic ship logbook (1972-1998) | ✅ EXISTS (2025-11-23) |
 
 ### ✅ P0 Critical Fixes (195 Issues Resolved)
 
@@ -274,11 +276,11 @@ All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, 
 - ✅ Replaced placeholder text with "Ship details coming soon"
 - ✅ All `ships/carnival/*.html` files cleaned
 
-### Verified State (2025-11-19)
+### Verified State (2025-11-19, updated 2025-11-23)
 
 **Logbooks:**
-- ✅ 38 ships have complete logbooks
-- ❌ 2 historic ships need logbooks (nordic-prince, sun-viking)
+- ✅ 40 ships have complete logbooks (38 active/retired + 2 historic added 2025-11-23)
+- ✅ 2 historic ships COMPLETE (nordic-prince, sun-viking) - Added 2025-11-23
 - ❌ 8 future ships (TBN) cannot create until announced
 - ❌ 2 duplicate pages to consolidate
 
@@ -315,7 +317,7 @@ All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, 
 **Medium Priority (P2):**
 - 50 pages with "coming soon" text
 - 3 articles to write (Rest & Recovery, Family Challenges, Healing Relationships)
-- 2 historic logbooks (nordic-prince, sun-viking)
+- ~~2 historic logbooks (nordic-prince, sun-viking)~~ ✅ COMPLETE 2025-11-23
 
 **Last Verified:** 2025-11-19
 **Verification Method:** File-by-file check via verify_actual_state.py
@@ -688,8 +690,8 @@ For EACH of the 19 ships getting Wiki Commons images, must:
 - [ ] star-of-the-seas-aug-2025-debut - Duplicate of star-of-the-seas.html
 
 **Historic Ships Actually Needing Logbooks (2 ships):**
-- [ ] Nordic Prince - Create historic logbook
-- [ ] Sun Viking - Create historic logbook
+- [x] Nordic Prince - ✅ Historic logbook created 2025-11-23 (5.8KB, 2 memorial stories)
+- [x] Sun Viking - ✅ Historic logbook created 2025-11-23 (6.0KB, 2 memorial stories)
 
 **Current Ships with Logbooks (38 ships - VERIFIED COMPLETE):**
 - ✅ Adventure of the Seas
@@ -1044,7 +1046,7 @@ All 50 ships should have stats JSON at:
 22. Middle East port batch (4 ports - Dubai, Abu Dhabi, Muscat, Salalah)
 23. Caribbean completion batch (8-10 ports - Antigua, St. Lucia, Barbados, etc.)
 24. ICP-Lite & ITW-Lite rollout (see dedicated section below)
-25. Create logbooks for historic ships (2 ships: Nordic Prince, Sun Viking)
+25. ~~Create logbooks for historic ships (2 ships: Nordic Prince, Sun Viking)~~ ✅ COMPLETE 2025-11-23
 26. Add video data for ships without videos
 27. Cross-linking improvements
 28. Performance optimization
