@@ -29,10 +29,16 @@ Soli Deo Gloria
     .tracker-header h1 { font-size: 2.5rem; color: var(--sea, #0a3d62); margin-bottom: 0.5rem; }
     .tracker-header p { font-size: 1.1rem; color: #666; }
 
-    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .stat-card { background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    .stat-number { font-size: 2.5rem; font-weight: bold; display: block; margin-bottom: 0.25rem; }
-    .stat-label { font-size: 0.9rem; opacity: 0.9; }
+    .stats-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; margin-bottom: 2rem; }
+    .stat-card { background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%); color: white; padding: 1rem; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .stat-number { font-size: 1.75rem; font-weight: bold; display: block; margin-bottom: 0.25rem; }
+    .stat-label { font-size: 0.8rem; opacity: 0.9; line-height: 1.2; }
+
+    @media (max-width: 768px) {
+      .stats-bar { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; }
+      .stat-number { font-size: 1.5rem; }
+      .stat-label { font-size: 0.75rem; }
+    }
 
     .tracker-grid { display: grid; grid-template-columns: 250px 1fr 320px; gap: 2rem; }
 
@@ -49,9 +55,15 @@ Soli Deo Gloria
     .search-box { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
 
     .ship-list { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .class-section { margin-bottom: 2rem; }
-    .class-title { font-size: 1.3rem; color: var(--sea); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--sea); }
+    .class-section { margin-bottom: 2rem; border: 1px solid #e0f0f5; border-radius: 8px; overflow: hidden; }
+    .class-title { font-size: 1.3rem; color: var(--sea); margin-bottom: 0; padding: 1rem; background: linear-gradient(135deg, #f7fdff 0%, #e6f4f8 100%); cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; transition: background 0.3s; }
+    .class-title:hover { background: linear-gradient(135deg, #e0f0f5 0%, #d4e8ee 100%); }
+    .class-title-text { flex: 1; }
     .class-progress { font-size: 0.9rem; color: #666; margin-left: 1rem; }
+    .class-toggle { font-size: 1.5rem; transition: transform 0.3s; }
+    .class-section.collapsed .class-toggle { transform: rotate(-90deg); }
+    .class-ships { padding: 1rem; max-height: 2000px; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s; }
+    .class-section.collapsed .class-ships { max-height: 0; padding: 0 1rem; }
 
     .ship-item { display: flex; align-items: center; padding: 0.75rem; margin-bottom: 0.5rem; background: #f7fdff; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
     .ship-item:hover { background: #e0f0f5; }
@@ -65,7 +77,8 @@ Soli Deo Gloria
     .bingo-panel { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
     .bingo-panel h3 { margin-top: 0; font-size: 1.1rem; color: var(--sea); }
 
-    .bingo-card { margin-bottom: 1.5rem; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 2px solid #e0f0f5; }
+    .bingo-card { margin-bottom: 1.5rem; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 2px solid #e0f0f5; position: relative; cursor: help; transition: all 0.3s; }
+    .bingo-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .bingo-card.completed { background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%); border-color: #d97706; }
     .bingo-card.completed .bingo-icon { display: inline; }
 
@@ -75,6 +88,9 @@ Soli Deo Gloria
     .progress-bar { height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, #0e6e8e 0%, #0a3d62 100%); transition: width 0.3s; }
     .bingo-card.completed .progress-fill { background: linear-gradient(90deg, #d97706 0%, #b45309 100%); }
+
+    .bingo-tooltip { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: rgba(10, 61, 98, 0.95); color: white; margin-top: 0.5rem; padding: 0; border-radius: 6px; font-size: 0.8rem; line-height: 1.4; }
+    .bingo-card:hover .bingo-tooltip { max-height: 200px; padding: 0.75rem; }
 
     .action-buttons { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
     .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
@@ -228,7 +244,8 @@ Soli Deo Gloria
     </div>
 
     <div class="action-buttons">
-      <button class="btn btn-primary" id="share-btn">📤 Share My Fleet</button>
+      <button class="btn btn-primary" id="share-btn">📤 Share Image</button>
+      <button class="btn btn-primary" id="copy-link-btn">🔗 Copy Share Link</button>
       <button class="btn btn-secondary" id="export-btn">💾 Export Data</button>
       <button class="btn btn-secondary" id="import-btn">📥 Import Data</button>
       <button class="btn btn-secondary" id="reset-btn">🔄 Reset All</button>
@@ -512,16 +529,22 @@ Soli Deo Gloria
 
   // Achievement badges configuration
   const BADGES = [
-    { id: 'oasis-collector', name: '🌊 Oasis Class Collector', ships: ['icon-of-the-seas', 'star-of-the-seas', 'utopia-of-the-seas', 'wonder-of-the-seas', 'symphony-of-the-seas', 'harmony-of-the-seas', 'allure-of-the-seas', 'oasis-of-the-seas'], description: 'Sail all Oasis-class ships' },
-    { id: 'quantum-leap', name: '⚡ Quantum Leap', ships: ['odyssey-of-the-seas', 'spectrum-of-the-seas', 'ovation-of-the-seas', 'anthem-of-the-seas', 'quantum-of-the-seas'], description: 'Sail all Quantum-class ships' },
-    { id: 'freedom-fighter', name: '🗽 Freedom Fighter', ships: ['freedom-of-the-seas', 'liberty-of-the-seas', 'independence-of-the-seas'], description: 'Sail all Freedom-class ships' },
-    { id: 'voyager-veteran', name: '🧭 Voyager Veteran', ships: ['mariner-of-the-seas', 'navigator-of-the-seas', 'explorer-of-the-seas', 'adventure-of-the-seas', 'voyager-of-the-seas'], description: 'Sail all Voyager-class ships' },
-    { id: 'radiance-romance', name: '✨ Radiance Romance', ships: ['brilliance-of-the-seas', 'serenade-of-the-seas', 'jewel-of-the-seas', 'radiance-of-the-seas'], description: 'Sail all Radiance-class ships' },
-    { id: 'vision-quest', name: '👁️ Vision Quest', ships: ['vision-of-the-seas', 'enchantment-of-the-seas', 'grandeur-of-the-seas'], description: 'Sail all Vision-class ships' },
-    { id: 'icon-explorer', name: '🌟 Icon Explorer', ships: ['icon-of-the-seas'], description: 'Sail Icon of the Seas (world\'s largest)' },
-    { id: 'newest-ships', name: '🔥 Newest Ships', ships: ['icon-of-the-seas', 'star-of-the-seas', 'utopia-of-the-seas', 'wonder-of-the-seas', 'odyssey-of-the-seas'], description: 'Sail ships launched 2020+' },
-    { id: 'fleet-master', name: '🏆 Fleet Master', threshold: 10, description: 'Sail 10+ ships' },
-    { id: 'class-completionist', name: '⚓ Class Completionist', description: 'Complete any ship class', special: 'class-complete' }
+    { id: 'oasis-collector', name: '🌊 Oasis Class Collector', ships: ['icon-of-the-seas', 'star-of-the-seas', 'utopia-of-the-seas', 'wonder-of-the-seas', 'symphony-of-the-seas', 'harmony-of-the-seas', 'allure-of-the-seas', 'oasis-of-the-seas'], description: 'Sail all Oasis-class ships', howTo: 'Collect this badge by sailing on all 8 Oasis-class ships, the largest cruise ships in the world!' },
+    { id: 'quantum-leap', name: '⚡ Quantum Leap', ships: ['odyssey-of-the-seas', 'spectrum-of-the-seas', 'ovation-of-the-seas', 'anthem-of-the-seas', 'quantum-of-the-seas'], description: 'Sail all Quantum-class ships', howTo: 'Collect this badge by sailing on all 5 Quantum-class ships, featuring cutting-edge technology and innovation!' },
+    { id: 'freedom-fighter', name: '🗽 Freedom Fighter', ships: ['freedom-of-the-seas', 'liberty-of-the-seas', 'independence-of-the-seas'], description: 'Sail all Freedom-class ships', howTo: 'Collect this badge by sailing on all 3 Freedom-class ships, the perfect mid-size adventure vessels!' },
+    { id: 'voyager-veteran', name: '🧭 Voyager Veteran', ships: ['mariner-of-the-seas', 'navigator-of-the-seas', 'explorer-of-the-seas', 'adventure-of-the-seas', 'voyager-of-the-seas'], description: 'Sail all Voyager-class ships', howTo: 'Collect this badge by sailing on all 5 Voyager-class ships, the iconic ships that revolutionized cruising!' },
+    { id: 'radiance-romance', name: '✨ Radiance Romance', ships: ['brilliance-of-the-seas', 'serenade-of-the-seas', 'jewel-of-the-seas', 'radiance-of-the-seas'], description: 'Sail all Radiance-class ships', howTo: 'Collect this badge by sailing on all 4 Radiance-class ships, known for their elegant glass elevators and panoramic views!' },
+    { id: 'vision-quest', name: '👁️ Vision Quest', ships: ['vision-of-the-seas', 'enchantment-of-the-seas', 'grandeur-of-the-seas'], description: 'Sail all Vision-class ships', howTo: 'Collect this badge by sailing on all 3 Vision-class ships, the classic smaller vessels perfect for intimate cruising!' },
+    { id: 'icon-explorer', name: '🌟 Icon Explorer', ships: ['icon-of-the-seas'], description: 'Sail Icon of the Seas (world\'s largest)', howTo: 'Collect this badge by sailing on Icon of the Seas, the world\'s largest cruise ship!' },
+    { id: 'newest-ships', name: '🔥 Newest Ships', ships: ['icon-of-the-seas', 'star-of-the-seas', 'utopia-of-the-seas', 'wonder-of-the-seas', 'odyssey-of-the-seas'], description: 'Sail ships launched 2020+', howTo: 'Collect this badge by sailing on all ships launched in 2020 or later - the newest additions to the fleet!' },
+    { id: 'fleet-master', name: '🏆 Fleet Master', threshold: 10, description: 'Sail 10+ ships', howTo: 'Collect this badge by sailing on any 10 or more Royal Caribbean ships!' },
+    { id: 'class-completionist', name: '⚓ Class Completionist', description: 'Complete any ship class', special: 'class-complete', howTo: 'Collect this badge by completing all ships in any one ship class!' }
+  ];
+
+  // Historic/retired ships (ships no longer in the RC fleet)
+  const HISTORIC_SHIPS = [
+    // Note: Add any retired ships here when they leave the fleet
+    // Currently all 28 ships are in active service
   ];
 
   // State
@@ -604,11 +627,15 @@ Soli Deo Gloria
       const total = filteredShips.length;
 
       html += `
-        <div class="class-section">
-          <h2 class="class-title">
-            ${className} Class
-            <span class="class-progress">${sailed}/${total}</span>
-          </h2>
+        <div class="class-section collapsed">
+          <div class="class-title" onclick="toggleSection(this)">
+            <div class="class-title-text">
+              ${className} Class
+              <span class="class-progress">${sailed}/${total}</span>
+            </div>
+            <span class="class-toggle">▼</span>
+          </div>
+          <div class="class-ships">
       `;
 
       filteredShips.forEach(ship => {
@@ -625,7 +652,7 @@ Soli Deo Gloria
         `;
       });
 
-      html += '</div>';
+      html += '</div></div>';
     });
 
     if (html === '') {
@@ -786,6 +813,7 @@ Soli Deo Gloria
           <div class="progress-bar">
             <div class="progress-fill" style="width: ${progress}%"></div>
           </div>
+          <div class="bingo-tooltip">${badge.howTo || badge.description}</div>
         </div>
       `;
 
@@ -849,6 +877,11 @@ Soli Deo Gloria
           ships_sailed: sailedShips.size
         });
       }
+    });
+
+    // Copy share link button
+    document.getElementById('copy-link-btn').addEventListener('click', () => {
+      copyShareURL();
     });
 
     // Export button
@@ -985,13 +1018,24 @@ Soli Deo Gloria
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 600, 400);
 
-    // Title
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 32px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('My Royal Caribbean Fleet', 300, 60);
+    // Branding header
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.fillRect(0, 0, 600, 80);
 
-    // Stats
+    // Title with branding
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 28px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('⚓ Cruising In The Wake', 300, 35);
+    ctx.font = 'bold 20px Arial';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.fillText('Ship Logbook', 300, 60);
+
+    // Stats section
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 24px Arial';
+    ctx.fillText('My Royal Caribbean Fleet', 300, 110);
+
     const stats = [
       { label: 'Ships Sailed', value: sailedShips.size },
       { label: 'Ship Classes', value: new Set(Array.from(sailedShips).map(id => SHIPS_DB.find(s => s.id === id)?.class).filter(Boolean)).size },
@@ -999,7 +1043,7 @@ Soli Deo Gloria
     ];
 
     ctx.font = 'bold 48px Arial';
-    let y = 150;
+    let y = 170;
     stats.forEach(stat => {
       ctx.fillText(stat.value.toString(), 300, y);
       ctx.font = '20px Arial';
@@ -1008,9 +1052,13 @@ Soli Deo Gloria
       y += 80;
     });
 
-    // Footer
+    // Footer with URL
+    ctx.font = 'bold 18px Arial';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('Track your fleet at:', 300, 360);
     ctx.font = '16px Arial';
-    ctx.fillText('In the Wake - cruisinginthewake.com', 300, 370);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.fillText('cruisinginthewake.com/tools/ship-tracker', 300, 385);
   }
 
   // Download share image
@@ -1024,6 +1072,55 @@ Soli Deo Gloria
     a.click();
     document.body.removeChild(a);
   }
+
+  // Toggle collapsible sections
+  window.toggleSection = function(element) {
+    const section = element.closest('.class-section');
+    section.classList.toggle('collapsed');
+  };
+
+  // URL State Sharing
+  function loadStateFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const shipsParam = params.get('ships');
+    if (shipsParam) {
+      try {
+        // Decode base64 encoded ship list
+        const decoded = atob(shipsParam);
+        const shipIds = decoded.split(',');
+        sailedShips = new Set(shipIds.filter(id => SHIPS_DB.some(s => s.id === id)));
+        saveData();
+      } catch (e) {
+        console.error('Error loading state from URL:', e);
+      }
+    }
+  }
+
+  function generateShareURL() {
+    const shipIds = Array.from(sailedShips).join(',');
+    const encoded = btoa(shipIds);
+    const url = new URL(window.location.href);
+    url.searchParams.set('ships', encoded);
+    return url.toString();
+  }
+
+  function copyShareURL() {
+    const url = generateShareURL();
+    navigator.clipboard.writeText(url).then(() => {
+      alert('Share link copied to clipboard! Send it to your friends to compare fleets.');
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'share_url_copied', {
+          ships_sailed: sailedShips.size
+        });
+      }
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+      prompt('Copy this link to share:', url);
+    });
+  }
+
+  // Load state from URL on init
+  loadStateFromURL();
 
   // Start app
   init();
