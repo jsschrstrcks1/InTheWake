@@ -38,6 +38,73 @@ Soli Deo Gloria
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 <body class="page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
+      </div>
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+            Planning <span class="caret">▾</span>
+          </button>
+                              <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/stateroom-check.html">Stateroom Check</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+                              <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/search.html">Search</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
   <main class="wrap page-grid" id="main-content" role="main">
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Trieste</li></ol></nav>
     <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
@@ -127,5 +194,107 @@ Soli Deo Gloria
       }
     })();
   </script>
+
+  <!-- Dropdown nav behavior (300ms Hover Delay) -->
+  <script>
+  (function(){"use strict";
+    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    if (dropdownGroups.length) {
+      const hoverTimeouts = new Map();
+      const HOVER_DELAY = 300;
+
+      function setOpen(group, isOpen) {
+        group.dataset.open = isOpen ? "true" : "false";
+        const button = group.querySelector('.nav-disclosure');
+        if (button) {
+          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+      }
+
+      function closeAll(except = null) {
+        dropdownGroups.forEach(group => {
+          if (group !== except) {
+            setOpen(group, false);
+            if (hoverTimeouts.has(group)) {
+              clearTimeout(hoverTimeouts.get(group));
+              hoverTimeouts.delete(group);
+            }
+          }
+        });
+      }
+
+      dropdownGroups.forEach(group => {
+        const button = group.querySelector('.nav-disclosure');
+        const menu = group.querySelector('.submenu');
+        if (!button || !menu) return;
+
+        // Click to toggle
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const isOpen = group.dataset.open === "true";
+          closeAll(group);
+          setOpen(group, !isOpen);
+        });
+
+        // Mouse enter: Open immediately
+        group.addEventListener('mouseenter', () => {
+          if (hoverTimeouts.has(group)) {
+            clearTimeout(hoverTimeouts.get(group));
+            hoverTimeouts.delete(group);
+          }
+          closeAll(group);
+          setOpen(group, true);
+        });
+
+        // Mouse leave: Close after delay
+        group.addEventListener('mouseleave', () => {
+          const timeoutId = setTimeout(() => {
+            setOpen(group, false);
+            hoverTimeouts.delete(group);
+          }, HOVER_DELAY);
+          hoverTimeouts.set(group, timeoutId);
+        });
+
+        // Keyboard navigation
+        group.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            setOpen(group, false);
+            button && button.focus();
+          }
+          if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
+            e.preventDefault();
+            setOpen(group, true);
+            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            firstLink && firstLink.focus();
+          }
+        });
+
+        // Close when tabbing away
+        menu.addEventListener('focusout', () => {
+          setTimeout(() => {
+            if (!group.contains(document.activeElement)) {
+              setOpen(group, false);
+            }
+          }, 0);
+        });
+      });
+
+      // Close all when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-group')) {
+          closeAll();
+        }
+      });
+
+      // Close all when window loses focus
+      window.addEventListener('blur', () => {
+        closeAll();
+      });
+    }
+  })();
+  </script>
+
 </body>
 </html>
