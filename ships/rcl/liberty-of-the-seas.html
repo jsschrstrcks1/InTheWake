@@ -1472,6 +1472,9 @@ updated: 2025-11-18
   })();
   </script>
 
+  <!-- ===== Fun Distance Units Converter ===== -->
+  <script src="/assets/js/fun-distance-units.js" defer></script>
+
   <!-- ===== Ship stats loader ===== -->
   <script>
   (function initStats(){
@@ -1484,7 +1487,27 @@ updated: 2025-11-18
       const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
       mount.innerHTML=keys.map(k=>{
         const val=obj[k]; if(!val) return '';
-        return '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span></div>';
+        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span>';
+
+        // Add fun distance conversions for length and beam
+        if((k==='length'||k==='beam') && window.funDistance){
+          const feetMatch = String(val).match(/(\d+(?:,\d+)?)\s*(?:ft|feet)/i);
+          if(feetMatch){
+            const feet = parseInt(feetMatch[1].replace(/,/g,''));
+            const conversion = k==='length' ? window.funDistance.shipLength(feet) : window.funDistance.shipBeam(feet);
+            if(conversion && (conversion.practical || conversion.absurd)){
+              const parts = [];
+              if(conversion.practical) parts.push(conversion.practical);
+              if(conversion.absurd) parts.push(conversion.absurd);
+              if(parts.length > 0){
+                statHtml += '<span class="stat-fun tiny" style="display:block;margin-top:.25rem;color:var(--ink-mid,#3d5a6a);font-style:italic">('+parts.join(', or ')+')</span>';
+              }
+            }
+          }
+        }
+
+        statHtml += '</div>';
+        return statHtml;
       }).join('');
     }
     if(fallbackEl){
