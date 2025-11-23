@@ -273,6 +273,8 @@ Before finalizing:
 8. **Archive everything:** Even discarded fragments stay in archive/ for reference
 9. **Cross-validation:** Standards must match what scripts enforce
 10. **Template canonicalization:** Complete working examples become primary docs
+11. **Comprehensive documentation:** Document EVERYTHING the website does (even if no fragment mentions it)
+12. **Deletion readiness:** New standards must allow deletion of /old-files/ and /standards/
 
 ### Timeline
 
