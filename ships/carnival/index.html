@@ -355,7 +355,140 @@
 </div>
 
 <h1>Carnival Fleet Pages</h1><ol><li><a href="/ships/carnival/carnival-adventure.html" target="_blank" rel="noopener">Carnival Adventure</a></li><li><a href="/ships/carnival/carnival-breeze.html" target="_blank" rel="noopener">Carnival Breeze</a></li><li><a href="/ships/carnival/carnival-celebration.html" target="_blank" rel="noopener">Carnival Celebration</a></li><li><a href="/ships/carnival/carnival-conquest.html" target="_blank" rel="noopener">Carnival Conquest</a></li><li><a href="/ships/carnival/carnival-dream.html" target="_blank" rel="noopener">Carnival Dream</a></li><li><a href="/ships/carnival/carnival-elation.html" target="_blank" rel="noopener">Carnival Elation</a></li><li><a href="/ships/carnival/carnival-encounter.html" target="_blank" rel="noopener">Carnival Encounter</a></li><li><a href="/ships/carnival/carnival-firenze.html" target="_blank" rel="noopener">Carnival Firenze</a></li><li><a href="/ships/carnival/carnival-freedom.html" target="_blank" rel="noopener">Carnival Freedom</a></li><li><a href="/ships/carnival/carnival-glory.html" target="_blank" rel="noopener">Carnival Glory</a></li><li><a href="/ships/carnival/carnival-horizon.html" target="_blank" rel="noopener">Carnival Horizon</a></li><li><a href="/ships/carnival/carnival-jubilee.html" target="_blank" rel="noopener">Carnival Jubilee</a></li><li><a href="/ships/carnival/carnival-legend.html" target="_blank" rel="noopener">Carnival Legend</a></li><li><a href="/ships/carnival/carnival-liberty.html" target="_blank" rel="noopener">Carnival Liberty</a></li><li><a href="/ships/carnival/carnival-luminosa.html" target="_blank" rel="noopener">Carnival Luminosa</a></li><li><a href="/ships/carnival/carnival-magic.html" target="_blank" rel="noopener">Carnival Magic</a></li><li><a href="/ships/carnival/carnival-mardi-gras.html" target="_blank" rel="noopener">Carnival Mardi Gras</a></li><li><a href="/ships/carnival/carnival-miracle.html" target="_blank" rel="noopener">Carnival Miracle</a></li><li><a href="/ships/carnival/carnival-panorama.html" target="_blank" rel="noopener">Carnival Panorama</a></li><li><a href="/ships/carnival/carnival-paradise.html" target="_blank" rel="noopener">Carnival Paradise</a></li><li><a href="/ships/carnival/carnival-pride.html" target="_blank" rel="noopener">Carnival Pride</a></li><li><a href="/ships/carnival/carnival-radiance.html" target="_blank" rel="noopener">Carnival Radiance</a></li><li><a href="/ships/carnival/carnival-spirit.html" target="_blank" rel="noopener">Carnival Spirit</a></li><li><a href="/ships/carnival/carnival-splendor.html" target="_blank" rel="noopener">Carnival Splendor</a></li><li><a href="/ships/carnival/carnival-sunrise.html" target="_blank" rel="noopener">Carnival Sunrise</a></li><li><a href="/ships/carnival/carnival-sunshine.html" target="_blank" rel="noopener">Carnival Sunshine</a></li><li><a href="/ships/carnival/carnival-valor.html" target="_blank" rel="noopener">Carnival Valor</a></li><li><a href="/ships/carnival/carnival-venezia.html" target="_blank" rel="noopener">Carnival Venezia</a></li><li><a href="/ships/carnival/carnival-vista.html" target="_blank" rel="noopener">Carnival Vista</a></li></ol>
-  <!-- Dropdown nav behavior (300ms Hover Delay) -->
+  
+  <script>
+  (function(){
+    "use strict";
+
+    /* ===== Recent Articles Rail ===== */
+    (async function recentRail(){
+      const rail = document.getElementById('recent-rail');
+      if(!rail) return;
+
+      const fallback = document.getElementById('recent-rail-fallback');
+      if(fallback) fallback.style.display = '';
+
+      async function fetchJSONWithFallback(urls){
+        for (const u of urls){
+          try{
+            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+            if (res.ok) return await res.json();
+          }catch(err){
+
+          }
+        }
+        return null;
+      }
+
+      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
+
+      function setImageWithFallback(imgEl, primary, altPaths=[]){
+        if(!imgEl) return;
+        const stamp='v=3.010.300';
+        const tried=new Set();
+        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
+        function tryNext(){
+          const next=queue.shift();
+          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
+          if(tried.has(next)) return tryNext();
+          tried.add(next);
+          imgEl.src=next;
+        }
+        imgEl.onerror=tryNext;
+        tryNext();
+      }
+
+      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
+      if(!raw) {
+        if(fallback) {
+          fallback.textContent = 'Unable to load articles';
+          fallback.style.display = '';
+        }
+        return;
+      }
+
+      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+      if(!items.length) return;
+
+      const here = location.pathname.replace(/\/+$/,'');
+      const view = items.filter(p=>{
+        const href = pick(p,['url','path'],'#');
+        const norm = (href||'').replace(/\/+$/,'');
+        return norm && norm !== here;
+      }).slice(0,6);
+
+      rail.innerHTML = view.map(p=>{
+        const title = pick(p,['title','name'],'Article');
+        const href  = pick(p,['url','path'],'#');
+        const excerpt = pick(p,['excerpt','description'],'');
+        return `
+          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
+            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
+              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
+                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div>
+                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
+                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
+                </h4>
+                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
+              </div>
+            </div>
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
+          </article>`;
+      }).join('');
+
+      const cards = [...rail.querySelectorAll('article.card')];
+      cards.forEach((card,i)=>{
+        const p = view[i] || {};
+        const el = card.querySelector('img.article-thumb');
+        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
+        const title = (pick(p,['title','name'],'')||'').toLowerCase();
+
+        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
+
+        // FORCE override for Top-20
+        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
+          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
+        }
+        // Friendly specifics
+        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
+          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
+        }
+        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
+          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
+        }
+        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
+          primary = '/assets/articles/travel/cover.jpg';
+        }
+
+        // Heuristic fallback
+        if(!primary){
+          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
+          const guess = slugify(href) || slugify(title);
+          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+        }
+
+        const alts = [];
+        if(primary){
+          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+        }
+        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
+      });
+
+      if(fallback) fallback.style.display = 'none';
+
+      // Announce to screen readers
+      const status = document.getElementById('a11y-status');
+      if(status) {
+        status.textContent = `\${view.length} recent articles loaded`;
+      }
+    })();
+  })();
+  </script>
+
+<!-- Dropdown nav behavior (300ms Hover Delay) -->
   <script>
   (function(){
     "use strict";
