@@ -1,7 +1,7 @@
 ---
-title: "root-standards.md"
-source_file: "root-standards.md"
-generated: "2025-10-17T13:14:33.915634Z"
+title: "root-standards copy 3.md"
+source_file: "root-standards copy 3.md"
+generated: "2025-10-17T13:14:33.915953Z"
 note: "Verbatim import (lightly normalized). Newer addenda may supersede specific clauses; see supersets."
 ---
 

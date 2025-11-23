@@ -1,7 +1,7 @@
 ---
-title: "ships-standards.md"
-source_file: "ships-standards.md"
-generated: "2025-10-17T13:14:33.916601Z"
+title: "ships-standards copy 3.md"
+source_file: "ships-standards copy 3.md"
+generated: "2025-10-17T13:14:33.916920Z"
 note: "Verbatim import (lightly normalized). Newer addenda may supersede specific clauses; see supersets."
 ---
 

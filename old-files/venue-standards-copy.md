@@ -1,7 +1,7 @@
 ---
-title: "venue-standards.md"
-source_file: "venue-standards.md"
-generated: "2025-10-17T13:14:33.916060Z"
+title: "venue-standards copy.md"
+source_file: "venue-standards copy.md"
+generated: "2025-10-17T13:14:33.916192Z"
 note: "Verbatim import (lightly normalized). Newer addenda may supersede specific clauses; see supersets."
 ---
 
