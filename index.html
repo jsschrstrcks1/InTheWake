@@ -1678,14 +1678,16 @@
         status.textContent = `${view.length} recent articles loaded`;
       }
     })();
+  })();
+  </script>
 
-  // Duck card dismissal persistence
+  <!-- Duck card dismissal persistence -->
+  <script>
   (function() {
     const duckCard = document.getElementById('duck-card');
     if (duckCard && localStorage.getItem('duckCardDismissed') === 'true') {
       duckCard.style.display = 'none';
     }
-  })();
   })();
   </script>
 </body>
