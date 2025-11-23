@@ -234,8 +234,10 @@
   <!-- Performance: DNS Prefetch & Preconnect -->
   <link rel="dns-prefetch" href="https://www.flickersofmajesty.com"/>
   <link rel="preconnect" href="https://cruisinginthewake.com"/>
+  <link rel="preload" as="image" href="/assets/index_hero.webp?v=3.010.300" imagesrcset="/assets/index_hero.webp?v=3.010.300" fetchpriority="high"/>
 
   <!-- Styles -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
   <style>
   /* ===== Production Index Styles v3.010.300 ===== */
   :root {
@@ -589,7 +591,7 @@
     position: relative;
     width: 100%;
     min-height: clamp(200px, 24vw, 340px);
-    background: url('/assets/index_hero.webp') 50% 50%/cover no-repeat;
+    background: url('/assets/index_hero.webp?v=3.010.300') 50% 50%/cover no-repeat;
     display: flex;
     align-items: flex-end;
     overflow-x: clip;
@@ -1101,7 +1103,7 @@
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="64" alt="In the Wake wordmark" decoding="async"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
       </div>
       <nav class="nav" aria-label="Main site navigation">
@@ -1140,6 +1142,14 @@
         </div>
 
         <div class="nav-item">
+          <a href="/tools/port-tracker.html">Port Tracker</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/tools/ship-tracker.html">Ship Tracker</a>
+        </div>
+
+        <div class="nav-item">
           <a href="/search.html">Search</a>
         </div>
 
@@ -1155,7 +1165,7 @@
     <div class="hero">
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="567" alt="In the Wake" decoding="async" fetchpriority="high"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">

@@ -1,0 +1,1132 @@
+<!--
+Soli Deo Gloria
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Ship Logbook | In the Wake</title>
+  <meta name="description" content="Track which cruise ships you've sailed on across all lines, earn fleet achievement badges, and build your sailing history!"/>
+  <link rel="canonical" href="https://cruisinginthewake.com/tools/ship-tracker.html"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="stylesheet" href="/assets/styles.css"/>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WZP891PZXJ', {
+      anonymize_ip: true
+    });
+  </script>
+
+  <style>
+    .tracker-container { max-width: 1400px; margin: 2rem auto; padding: 0 1rem; }
+    .tracker-header { text-align: center; margin-bottom: 2rem; }
+    .tracker-header h1 { font-size: 2.5rem; color: var(--sea, #0a3d62); margin-bottom: 0.5rem; }
+    .tracker-header p { font-size: 1.1rem; color: #666; }
+
+    .stats-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; margin-bottom: 2rem; }
+    .stat-card { background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%); color: white; padding: 1rem; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .stat-number { font-size: 1.75rem; font-weight: bold; display: block; margin-bottom: 0.25rem; }
+    .stat-label { font-size: 0.8rem; opacity: 0.9; line-height: 1.2; }
+
+    @media (max-width: 768px) {
+      .stats-bar { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; }
+      .stat-number { font-size: 1.5rem; }
+      .stat-label { font-size: 0.75rem; }
+    }
+
+    .tracker-grid { display: grid; grid-template-columns: 250px 1fr 320px; gap: 2rem; }
+
+    @media (max-width: 1024px) {
+      .tracker-grid { grid-template-columns: 1fr; }
+    }
+
+    .filter-panel { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
+    .filter-panel h3 { margin-top: 0; font-size: 1.1rem; color: var(--sea); }
+    .filter-button { display: block; width: 100%; text-align: left; padding: 0.75rem 1rem; margin-bottom: 0.5rem; background: #f7fdff; border: 1px solid #e0f0f5; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .filter-button:hover { background: #e0f0f5; }
+    .filter-button.active { background: var(--sea); color: white; border-color: var(--sea); }
+
+    .search-box { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+
+    .ship-list { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .class-section { margin-bottom: 2rem; border: 1px solid #e0f0f5; border-radius: 8px; overflow: hidden; }
+    .class-title { font-size: 1.3rem; color: var(--sea); margin-bottom: 0; padding: 1rem; background: linear-gradient(135deg, #f7fdff 0%, #e6f4f8 100%); cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; transition: background 0.3s; }
+    .class-title:hover { background: linear-gradient(135deg, #e0f0f5 0%, #d4e8ee 100%); }
+    .class-title-text { flex: 1; }
+    .class-progress { font-size: 0.9rem; color: #666; margin-left: 1rem; }
+    .class-toggle { font-size: 1.5rem; transition: transform 0.3s; }
+    .class-section.collapsed .class-toggle { transform: rotate(-90deg); }
+    .class-ships { padding: 1rem; max-height: 2000px; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s; }
+    .class-section.collapsed .class-ships { max-height: 0; padding: 0 1rem; }
+
+    .ship-item { display: flex; align-items: center; padding: 0.75rem; margin-bottom: 0.5rem; background: #f7fdff; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .ship-item:hover { background: #e0f0f5; }
+    .ship-item.sailed { background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; }
+
+    .ship-checkbox { width: 24px; height: 24px; margin-right: 1rem; cursor: pointer; flex-shrink: 0; }
+    .ship-name { flex: 1; font-size: 1rem; color: var(--sea); text-decoration: none; font-weight: 500; }
+    .ship-name:hover { text-decoration: underline; }
+    .ship-meta { font-size: 0.85rem; color: #666; margin-left: auto; display: flex; gap: 1rem; }
+
+    .bingo-panel { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
+    .bingo-panel h3 { margin-top: 0; font-size: 1.1rem; color: var(--sea); }
+
+    .bingo-card { margin-bottom: 1.5rem; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 2px solid #e0f0f5; position: relative; cursor: help; transition: all 0.3s; }
+    .bingo-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .bingo-card.completed { background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%); border-color: #d97706; }
+    .bingo-card.completed .bingo-icon { display: inline; }
+
+    .bingo-title { font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem; color: #134; }
+    .bingo-icon { display: none; margin-right: 0.5rem; }
+    .bingo-progress { font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
+    .progress-bar { height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #0e6e8e 0%, #0a3d62 100%); transition: width 0.3s; }
+    .bingo-card.completed .progress-fill { background: linear-gradient(90deg, #d97706 0%, #b45309 100%); }
+
+    .bingo-tooltip { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: rgba(10, 61, 98, 0.95); color: white; margin-top: 0.5rem; padding: 0; border-radius: 6px; font-size: 0.8rem; line-height: 1.4; }
+    .bingo-card:hover .bingo-tooltip { max-height: 200px; padding: 0.75rem; }
+
+    .action-buttons { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+    .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
+    .btn-primary { background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%); color: white; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    .btn-secondary { background: white; color: var(--sea); border: 2px solid var(--sea); }
+    .btn-secondary:hover { background: #f7fdff; }
+
+    .share-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+    .share-modal.active { display: flex; }
+    .share-content { background: white; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; }
+    .share-canvas { border: 2px solid #ddd; border-radius: 8px; margin: 1rem 0; width: 100%; }
+  </style>
+</head>
+<body class="page">
+  <!-- Skip link -->
+  <a class="visually-hidden" href="#content">Skip to content</a>
+
+  <!-- Header / Hero (standard unified header) -->
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <a href="/">
+          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        </a>
+        <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
+      </div>
+      <nav class="nav" aria-label="Main site navigation">
+        <div class="nav-item">
+          <a href="/">Home</a>
+        </div>
+
+        <div class="nav-item nav-group" id="nav-planning" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+            Planning <span class="caret">▾</span>
+          </button>
+          <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
+            <a role="menuitem" href="/planning.html">Planning (overview)</a>
+            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a role="menuitem" href="/ports.html">Ports</a>
+            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
+            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
+            <a role="menuitem" href="/stateroom-check.html">Stateroom Check</a>
+            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
+            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
+            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <div class="nav-item nav-group" id="nav-travel" data-open="false">
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+            Travel <span class="caret">▾</span>
+          </button>
+          <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
+            <a role="menuitem" href="/travel.html">Travel (overview)</a>
+            <a role="menuitem" href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/tools/port-tracker.html">Port Tracker</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/tools/ship-tracker.html" aria-current="page">Ship Tracker</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/search.html">Search</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/about-us.html">About</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <p class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</p>
+      <div class="hero-credit">
+        <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty — Instagram</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="wrap" id="content" tabindex="-1">
+    <div class="tracker-container">
+    <header class="tracker-header">
+      <h1>⚓ Ship Logbook</h1>
+      <p>Track your cruise ship adventures across all lines, earn achievement badges, and build your sailing history!</p>
+    </header>
+
+    <div class="stats-bar">
+      <div class="stat-card">
+        <span class="stat-number" id="stat-ships">0</span>
+        <span class="stat-label">Ships Sailed</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-percentage">0%</span>
+        <span class="stat-label">of RC Fleet</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-classes">0</span>
+        <span class="stat-label">Ship Classes</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-capacity">0</span>
+        <span class="stat-label">Total Guest Capacity</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-badges">0</span>
+        <span class="stat-label">Badges Earned</span>
+      </div>
+    </div>
+
+    <div class="tracker-grid">
+      <!-- Left Sidebar: Filters -->
+      <aside class="filter-panel">
+        <h3>Filter by Class</h3>
+        <input type="text" class="search-box" id="search-box" placeholder="Search ships...">
+        <button class="filter-button active" data-class="all">🚢 All Ships</button>
+        <button class="filter-button" data-class="Icon">🌟 Icon Class</button>
+        <button class="filter-button" data-class="Oasis">⚡ Oasis Class</button>
+        <button class="filter-button" data-class="Quantum Ultra">🔮 Quantum Ultra</button>
+        <button class="filter-button" data-class="Quantum">💎 Quantum Class</button>
+        <button class="filter-button" data-class="Freedom">🗽 Freedom Class</button>
+        <button class="filter-button" data-class="Voyager">🧭 Voyager Class</button>
+        <button class="filter-button" data-class="Radiance">✨ Radiance Class</button>
+        <button class="filter-button" data-class="Vision">👁️ Vision Class</button>
+      </aside>
+
+      <!-- Center: Ship List -->
+      <main class="ship-list" id="ship-list">
+        <!-- Dynamically populated -->
+      </main>
+
+      <!-- Right Sidebar: Achievement Badges -->
+      <aside class="bingo-panel">
+        <h3>🏆 Fleet Achievements</h3>
+        <div id="bingo-cards">
+          <!-- Dynamically populated -->
+        </div>
+      </aside>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn btn-primary" id="share-btn">📤 Share Image</button>
+      <button class="btn btn-primary" id="copy-link-btn">🔗 Copy Share Link</button>
+      <button class="btn btn-secondary" id="export-btn">💾 Export Data</button>
+      <button class="btn btn-secondary" id="import-btn">📥 Import Data</button>
+      <button class="btn btn-secondary" id="reset-btn">🔄 Reset All</button>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div class="share-modal" id="share-modal">
+    <div class="share-content">
+      <h2>Share Your Fleet Stats</h2>
+      <canvas id="share-canvas" class="share-canvas" width="600" height="400"></canvas>
+      <div class="social-buttons">
+        <button class="btn btn-primary" id="download-btn">Download Image</button>
+        <button class="btn btn-secondary" id="close-modal-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="import-file" accept=".json" style="display:none;">
+
+  <script>
+// Ship Tracker App
+(function() {
+  'use strict';
+
+  // Ship database - all 28 Royal Caribbean ships with metadata
+  const SHIPS_DB = [
+    {
+      "id": "icon-of-the-seas",
+      "name": "Icon of the Seas",
+      "class": "Icon",
+      "year": 2024,
+      "tonnage": 250800,
+      "capacity": 7600,
+      "url": "/ships/rcl/icon-of-the-seas.html"
+    },
+    {
+      "id": "star-of-the-seas",
+      "name": "Star of the Seas",
+      "class": "Icon",
+      "year": 2025,
+      "tonnage": 250800,
+      "capacity": 7600,
+      "url": "/ships/rcl/star-of-the-seas.html"
+    },
+    {
+      "id": "utopia-of-the-seas",
+      "name": "Utopia of the Seas",
+      "class": "Oasis",
+      "year": 2024,
+      "tonnage": 236857,
+      "capacity": 5668,
+      "url": "/ships/rcl/utopia-of-the-seas.html"
+    },
+    {
+      "id": "wonder-of-the-seas",
+      "name": "Wonder of the Seas",
+      "class": "Oasis",
+      "year": 2022,
+      "tonnage": 236857,
+      "capacity": 6988,
+      "url": "/ships/rcl/wonder-of-the-seas.html"
+    },
+    {
+      "id": "symphony-of-the-seas",
+      "name": "Symphony of the Seas",
+      "class": "Oasis",
+      "year": 2018,
+      "tonnage": 228081,
+      "capacity": 6680,
+      "url": "/ships/rcl/symphony-of-the-seas.html"
+    },
+    {
+      "id": "harmony-of-the-seas",
+      "name": "Harmony of the Seas",
+      "class": "Oasis",
+      "year": 2016,
+      "tonnage": 226963,
+      "capacity": 6687,
+      "url": "/ships/rcl/harmony-of-the-seas.html"
+    },
+    {
+      "id": "allure-of-the-seas",
+      "name": "Allure of the Seas",
+      "class": "Oasis",
+      "year": 2010,
+      "tonnage": 225282,
+      "capacity": 6780,
+      "url": "/ships/rcl/allure-of-the-seas.html"
+    },
+    {
+      "id": "oasis-of-the-seas",
+      "name": "Oasis of the Seas",
+      "class": "Oasis",
+      "year": 2009,
+      "tonnage": 225282,
+      "capacity": 6771,
+      "url": "/ships/rcl/oasis-of-the-seas.html"
+    },
+    {
+      "id": "odyssey-of-the-seas",
+      "name": "Odyssey of the Seas",
+      "class": "Quantum Ultra",
+      "year": 2021,
+      "tonnage": 169379,
+      "capacity": 5510,
+      "url": "/ships/rcl/odyssey-of-the-seas.html"
+    },
+    {
+      "id": "spectrum-of-the-seas",
+      "name": "Spectrum of the Seas",
+      "class": "Quantum Ultra",
+      "year": 2019,
+      "tonnage": 169379,
+      "capacity": 5622,
+      "url": "/ships/rcl/spectrum-of-the-seas.html"
+    },
+    {
+      "id": "ovation-of-the-seas",
+      "name": "Ovation of the Seas",
+      "class": "Quantum",
+      "year": 2016,
+      "tonnage": 168666,
+      "capacity": 4905,
+      "url": "/ships/rcl/ovation-of-the-seas.html"
+    },
+    {
+      "id": "anthem-of-the-seas",
+      "name": "Anthem of the Seas",
+      "class": "Quantum",
+      "year": 2015,
+      "tonnage": 168666,
+      "capacity": 4905,
+      "url": "/ships/rcl/anthem-of-the-seas.html"
+    },
+    {
+      "id": "quantum-of-the-seas",
+      "name": "Quantum of the Seas",
+      "class": "Quantum",
+      "year": 2014,
+      "tonnage": 168666,
+      "capacity": 4905,
+      "url": "/ships/rcl/quantum-of-the-seas.html"
+    },
+    {
+      "id": "freedom-of-the-seas",
+      "name": "Freedom of the Seas",
+      "class": "Freedom",
+      "year": 2006,
+      "tonnage": 156271,
+      "capacity": 4515,
+      "url": "/ships/rcl/freedom-of-the-seas.html"
+    },
+    {
+      "id": "liberty-of-the-seas",
+      "name": "Liberty of the Seas",
+      "class": "Freedom",
+      "year": 2007,
+      "tonnage": 156271,
+      "capacity": 4960,
+      "url": "/ships/rcl/liberty-of-the-seas.html"
+    },
+    {
+      "id": "independence-of-the-seas",
+      "name": "Independence of the Seas",
+      "class": "Freedom",
+      "year": 2008,
+      "tonnage": 156271,
+      "capacity": 4370,
+      "url": "/ships/rcl/independence-of-the-seas.html"
+    },
+    {
+      "id": "mariner-of-the-seas",
+      "name": "Mariner of the Seas",
+      "class": "Voyager",
+      "year": 2003,
+      "tonnage": 139863,
+      "capacity": 3807,
+      "url": "/ships/rcl/mariner-of-the-seas.html"
+    },
+    {
+      "id": "navigator-of-the-seas",
+      "name": "Navigator of the Seas",
+      "class": "Voyager",
+      "year": 2002,
+      "tonnage": 139999,
+      "capacity": 3807,
+      "url": "/ships/rcl/navigator-of-the-seas.html"
+    },
+    {
+      "id": "explorer-of-the-seas",
+      "name": "Explorer of the Seas",
+      "class": "Voyager",
+      "year": 2000,
+      "tonnage": 137308,
+      "capacity": 3840,
+      "url": "/ships/rcl/explorer-of-the-seas.html"
+    },
+    {
+      "id": "adventure-of-the-seas",
+      "name": "Adventure of the Seas",
+      "class": "Voyager",
+      "year": 2001,
+      "tonnage": 137276,
+      "capacity": 3807,
+      "url": "/ships/rcl/adventure-of-the-seas.html"
+    },
+    {
+      "id": "voyager-of-the-seas",
+      "name": "Voyager of the Seas",
+      "class": "Voyager",
+      "year": 1999,
+      "tonnage": 137276,
+      "capacity": 3807,
+      "url": "/ships/rcl/voyager-of-the-seas.html"
+    },
+    {
+      "id": "brilliance-of-the-seas",
+      "name": "Brilliance of the Seas",
+      "class": "Radiance",
+      "year": 2002,
+      "tonnage": 90090,
+      "capacity": 2543,
+      "url": "/ships/rcl/brilliance-of-the-seas.html"
+    },
+    {
+      "id": "serenade-of-the-seas",
+      "name": "Serenade of the Seas",
+      "class": "Radiance",
+      "year": 2003,
+      "tonnage": 90090,
+      "capacity": 2476,
+      "url": "/ships/rcl/serenade-of-the-seas.html"
+    },
+    {
+      "id": "jewel-of-the-seas",
+      "name": "Jewel of the Seas",
+      "class": "Radiance",
+      "year": 2004,
+      "tonnage": 90090,
+      "capacity": 2501,
+      "url": "/ships/rcl/jewel-of-the-seas.html"
+    },
+    {
+      "id": "radiance-of-the-seas",
+      "name": "Radiance of the Seas",
+      "class": "Radiance",
+      "year": 2001,
+      "tonnage": 90090,
+      "capacity": 2501,
+      "url": "/ships/rcl/radiance-of-the-seas.html"
+    },
+    {
+      "id": "vision-of-the-seas",
+      "name": "Vision of the Seas",
+      "class": "Vision",
+      "year": 1998,
+      "tonnage": 78491,
+      "capacity": 2435,
+      "url": "/ships/rcl/vision-of-the-seas.html"
+    },
+    {
+      "id": "enchantment-of-the-seas",
+      "name": "Enchantment of the Seas",
+      "class": "Vision",
+      "year": 1997,
+      "tonnage": 82910,
+      "capacity": 2252,
+      "url": "/ships/rcl/enchantment-of-the-seas.html"
+    },
+    {
+      "id": "grandeur-of-the-seas",
+      "name": "Grandeur of the Seas",
+      "class": "Vision",
+      "year": 1996,
+      "tonnage": 74137,
+      "capacity": 2440,
+      "url": "/ships/rcl/grandeur-of-the-seas.html"
+    }
+  ];
+
+  // Achievement badges configuration
+  const BADGES = [
+    { id: 'oasis-collector', name: '🌊 Oasis Class Collector', ships: ['icon-of-the-seas', 'star-of-the-seas', 'utopia-of-the-seas', 'wonder-of-the-seas', 'symphony-of-the-seas', 'harmony-of-the-seas', 'allure-of-the-seas', 'oasis-of-the-seas'], description: 'Sail all Oasis-class ships', howTo: 'Collect this badge by sailing on all 8 Oasis-class ships, the largest cruise ships in the world!' },
+    { id: 'quantum-leap', name: '⚡ Quantum Leap', ships: ['odyssey-of-the-seas', 'spectrum-of-the-seas', 'ovation-of-the-seas', 'anthem-of-the-seas', 'quantum-of-the-seas'], description: 'Sail all Quantum-class ships', howTo: 'Collect this badge by sailing on all 5 Quantum-class ships, featuring cutting-edge technology and innovation!' },
+    { id: 'freedom-fighter', name: '🗽 Freedom Fighter', ships: ['freedom-of-the-seas', 'liberty-of-the-seas', 'independence-of-the-seas'], description: 'Sail all Freedom-class ships', howTo: 'Collect this badge by sailing on all 3 Freedom-class ships, the perfect mid-size adventure vessels!' },
+    { id: 'voyager-veteran', name: '🧭 Voyager Veteran', ships: ['mariner-of-the-seas', 'navigator-of-the-seas', 'explorer-of-the-seas', 'adventure-of-the-seas', 'voyager-of-the-seas'], description: 'Sail all Voyager-class ships', howTo: 'Collect this badge by sailing on all 5 Voyager-class ships, the iconic ships that revolutionized cruising!' },
+    { id: 'radiance-romance', name: '✨ Radiance Romance', ships: ['brilliance-of-the-seas', 'serenade-of-the-seas', 'jewel-of-the-seas', 'radiance-of-the-seas'], description: 'Sail all Radiance-class ships', howTo: 'Collect this badge by sailing on all 4 Radiance-class ships, known for their elegant glass elevators and panoramic views!' },
+    { id: 'vision-quest', name: '👁️ Vision Quest', ships: ['vision-of-the-seas', 'enchantment-of-the-seas', 'grandeur-of-the-seas'], description: 'Sail all Vision-class ships', howTo: 'Collect this badge by sailing on all 3 Vision-class ships, the classic smaller vessels perfect for intimate cruising!' },
+    { id: 'icon-explorer', name: '🌟 Icon Explorer', ships: ['icon-of-the-seas'], description: 'Sail Icon of the Seas (world\'s largest)', howTo: 'Collect this badge by sailing on Icon of the Seas, the world\'s largest cruise ship!' },
+    { id: 'newest-ships', name: '🔥 Newest Ships', ships: ['icon-of-the-seas', 'star-of-the-seas', 'utopia-of-the-seas', 'wonder-of-the-seas', 'odyssey-of-the-seas'], description: 'Sail ships launched 2020+', howTo: 'Collect this badge by sailing on all ships launched in 2020 or later - the newest additions to the fleet!' },
+    { id: 'fleet-master', name: '🏆 Fleet Master', threshold: 10, description: 'Sail 10+ ships', howTo: 'Collect this badge by sailing on any 10 or more Royal Caribbean ships!' },
+    { id: 'class-completionist', name: '⚓ Class Completionist', description: 'Complete any ship class', special: 'class-complete', howTo: 'Collect this badge by completing all ships in any one ship class!' }
+  ];
+
+  // Historic/retired ships (ships no longer in the RC fleet)
+  const HISTORIC_SHIPS = [
+    // Note: Add any retired ships here when they leave the fleet
+    // Currently all 28 ships are in active service
+  ];
+
+  // State
+  let sailedShips = new Set();
+
+  // Initialize
+  function init() {
+    loadData();
+    renderShips();
+    renderBadges();
+    updateStats();
+    setupEventListeners();
+
+    // Track page view
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'page_view', {
+        page_title: 'Ship Tracker',
+        page_location: window.location.href
+      });
+    }
+  }
+
+  // Load data from localStorage
+  function loadData() {
+    const saved = localStorage.getItem('rcl-ship-tracker');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        sailedShips = new Set(data.ships || []);
+      } catch (e) {
+        console.error('Error loading data:', e);
+      }
+    }
+  }
+
+  // Save data to localStorage
+  function saveData() {
+    const data = {
+      ships: Array.from(sailedShips),
+      lastUpdated: new Date().toISOString()
+    };
+    localStorage.setItem('rcl-ship-tracker', JSON.stringify(data));
+  }
+
+  // Render ships grouped by class
+  function renderShips(filterClass = 'all', searchTerm = '') {
+    const container = document.getElementById('ship-list');
+    const classes = {};
+
+    // Group ships by class
+    SHIPS_DB.forEach(ship => {
+      if (!classes[ship.class]) {
+        classes[ship.class] = [];
+      }
+      classes[ship.class].push(ship);
+    });
+
+    // Order classes
+    const classOrder = ['Icon', 'Oasis', 'Quantum Ultra', 'Quantum', 'Freedom', 'Voyager', 'Radiance', 'Vision'];
+
+    let html = '';
+    classOrder.forEach(className => {
+      const classShips = classes[className] || [];
+      if (classShips.length === 0) return;
+
+      // Filter ships
+      let filteredShips = classShips;
+      if (filterClass !== 'all' && className !== filterClass) {
+        return;
+      }
+      if (searchTerm) {
+        filteredShips = classShips.filter(ship =>
+          ship.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          ship.class.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        if (filteredShips.length === 0) return;
+      }
+
+      const sailed = filteredShips.filter(s => sailedShips.has(s.id)).length;
+      const total = filteredShips.length;
+
+      html += `
+        <div class="class-section collapsed">
+          <div class="class-title" onclick="toggleSection(this)">
+            <div class="class-title-text">
+              ${className} Class
+              <span class="class-progress">${sailed}/${total}</span>
+            </div>
+            <span class="class-toggle">▼</span>
+          </div>
+          <div class="class-ships">
+      `;
+
+      filteredShips.forEach(ship => {
+        const isSailed = sailedShips.has(ship.id);
+        html += `
+          <div class="ship-item ${isSailed ? 'sailed' : ''}" data-ship-id="${ship.id}">
+            <input type="checkbox" class="ship-checkbox" ${isSailed ? 'checked' : ''} data-ship-id="${ship.id}">
+            <a href="${ship.url}" class="ship-name" onclick="trackShipLinkClick(event, '${ship.id}', '${ship.name}')">${ship.name}</a>
+            <div class="ship-meta">
+              <span>${ship.year}</span>
+              <span>${ship.tonnage.toLocaleString()} GT</span>
+            </div>
+          </div>
+        `;
+      });
+
+      html += '</div></div>';
+    });
+
+    if (html === '') {
+      html = '<p>No ships match your search.</p>';
+    }
+
+    container.innerHTML = html;
+
+    // Attach checkbox listeners
+    document.querySelectorAll('.ship-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('change', handleShipToggle);
+    });
+  }
+
+  // Handle ship checkbox toggle
+  function handleShipToggle(e) {
+    e.stopPropagation();
+    const shipId = e.target.dataset.shipId;
+    const isChecked = e.target.checked;
+
+    if (isChecked) {
+      sailedShips.add(shipId);
+      // Track ship checked
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'ship_checked', {
+          ship_id: shipId,
+          total_ships: sailedShips.size
+        });
+      }
+    } else {
+      sailedShips.delete(shipId);
+      // Track ship unchecked
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'ship_unchecked', {
+          ship_id: shipId,
+          total_ships: sailedShips.size
+        });
+      }
+    }
+
+    saveData();
+    updateStats();
+    renderBadges();
+
+    // Update ship item styling
+    const shipItem = e.target.closest('.ship-item');
+    if (isChecked) {
+      shipItem.classList.add('sailed');
+    } else {
+      shipItem.classList.remove('sailed');
+    }
+  }
+
+  // Track ship link click for analytics
+  window.trackShipLinkClick = function(e, shipId, shipName) {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'ship_link_clicked', {
+        ship_id: shipId,
+        ship_name: shipName
+      });
+    }
+  };
+
+  // Update statistics
+  function updateStats() {
+    const totalShips = SHIPS_DB.length;
+    const sailedCount = sailedShips.size;
+    const percentage = Math.round((sailedCount / totalShips) * 100);
+
+    // Classes sailed
+    const classesSet = new Set();
+    sailedShips.forEach(shipId => {
+      const ship = SHIPS_DB.find(s => s.id === shipId);
+      if (ship) classesSet.add(ship.class);
+    });
+
+    // Total guest capacity
+    let totalCapacity = 0;
+    sailedShips.forEach(shipId => {
+      const ship = SHIPS_DB.find(s => s.id === shipId);
+      if (ship) totalCapacity += ship.capacity;
+    });
+
+    // Badges earned
+    const badgesEarned = BADGES.filter(badge => checkBadgeComplete(badge)).length;
+
+    // Update DOM
+    document.getElementById('stat-ships').textContent = sailedCount;
+    document.getElementById('stat-percentage').textContent = `${percentage}%`;
+    document.getElementById('stat-classes').textContent = classesSet.size;
+    document.getElementById('stat-capacity').textContent = totalCapacity.toLocaleString();
+    document.getElementById('stat-badges').textContent = badgesEarned;
+  }
+
+  // Check if badge is complete
+  function checkBadgeComplete(badge) {
+    if (badge.threshold) {
+      return sailedShips.size >= badge.threshold;
+    }
+    if (badge.special === 'class-complete') {
+      // Check if any class is complete
+      const classes = {};
+      SHIPS_DB.forEach(ship => {
+        if (!classes[ship.class]) classes[ship.class] = [];
+        classes[ship.class].push(ship.id);
+      });
+      return Object.values(classes).some(classShips =>
+        classShips.every(shipId => sailedShips.has(shipId))
+      );
+    }
+    if (badge.ships) {
+      return badge.ships.every(shipId => sailedShips.has(shipId));
+    }
+    return false;
+  }
+
+  // Render achievement badges
+  function renderBadges() {
+    const container = document.getElementById('bingo-cards');
+    let html = '';
+
+    // Calculate completion for all badges first for sorting
+    const badgesWithCompletion = BADGES.map(badge => {
+      const isComplete = checkBadgeComplete(badge);
+      let progress = 0;
+      let progressText = '';
+
+      if (badge.threshold) {
+        progress = (sailedShips.size / badge.threshold) * 100;
+        progressText = `${sailedShips.size}/${badge.threshold} ships`;
+      } else if (badge.special === 'class-complete') {
+        progressText = isComplete ? 'Complete!' : 'Complete any ship class';
+      } else if (badge.ships) {
+        const count = badge.ships.filter(shipId => sailedShips.has(shipId)).length;
+        progress = (count / badge.ships.length) * 100;
+        progressText = `${count}/${badge.ships.length} ships`;
+      }
+
+      return { badge, isComplete, progress, progressText };
+    });
+
+    // Sort: completed first, then by progress percentage descending
+    badgesWithCompletion.sort((a, b) => {
+      if (a.isComplete && !b.isComplete) return -1;
+      if (!a.isComplete && b.isComplete) return 1;
+      return b.progress - a.progress;
+    });
+
+    badgesWithCompletion.forEach(({ badge, isComplete, progress, progressText }) => {
+
+      html += `
+        <div class="bingo-card ${isComplete ? 'completed' : ''}">
+          <div class="bingo-title">
+            <span class="bingo-icon">✓</span>
+            ${badge.name}
+          </div>
+          <div class="bingo-progress">${progressText}</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: ${progress}%"></div>
+          </div>
+          <div class="bingo-tooltip">${badge.howTo || badge.description}</div>
+        </div>
+      `;
+
+      // Track badge completion
+      if (isComplete) {
+        const badgeKey = `badge-${badge.id}-completed`;
+        if (!sessionStorage.getItem(badgeKey)) {
+          sessionStorage.setItem(badgeKey, 'true');
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'ship_badge_completed', {
+              badge_id: badge.id,
+              badge_name: badge.name,
+              total_badges: BADGES.filter(b => checkBadgeComplete(b)).length
+            });
+          }
+        }
+      }
+    });
+
+    container.innerHTML = html;
+  }
+
+  // Setup event listeners
+  function setupEventListeners() {
+    // Filter buttons
+    document.querySelectorAll('.filter-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filterClass = btn.dataset.class;
+        const searchTerm = document.getElementById('search-box').value;
+        renderShips(filterClass, searchTerm);
+
+        // Track filter change
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'filter_changed', {
+            filter_class: filterClass
+          });
+        }
+      });
+    });
+
+    // Search
+    document.getElementById('search-box').addEventListener('input', (e) => {
+      const activeFilter = document.querySelector('.filter-button.active').dataset.class;
+      renderShips(activeFilter, e.target.value);
+
+      // Track search
+      if (typeof gtag !== 'undefined' && e.target.value) {
+        gtag('event', 'ship_search', {
+          search_term: e.target.value
+        });
+      }
+    });
+
+    // Share button
+    document.getElementById('share-btn').addEventListener('click', () => {
+      openShareModal();
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'share_stats_opened', {
+          ships_sailed: sailedShips.size
+        });
+      }
+    });
+
+    // Copy share link button
+    document.getElementById('copy-link-btn').addEventListener('click', () => {
+      copyShareURL();
+    });
+
+    // Export button
+    document.getElementById('export-btn').addEventListener('click', () => {
+      exportData();
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'data_exported', {
+          ships_sailed: sailedShips.size
+        });
+      }
+    });
+
+    // Import button
+    document.getElementById('import-btn').addEventListener('click', () => {
+      document.getElementById('import-file').click();
+    });
+
+    document.getElementById('import-file').addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        importData(e.target.files[0]);
+      }
+    });
+
+    // Reset button
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to reset all your data? This cannot be undone.')) {
+        const clearedCount = sailedShips.size;
+        sailedShips.clear();
+        saveData();
+        renderShips();
+        renderBadges();
+        updateStats();
+
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'data_reset', {
+            ships_cleared: clearedCount
+          });
+        }
+      }
+    });
+
+    // Close modal button
+    document.getElementById('close-modal-btn').addEventListener('click', closeShareModal);
+
+    // Download image button
+    document.getElementById('download-btn').addEventListener('click', () => {
+      downloadShareImage();
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'share_image_downloaded', {
+          ships_sailed: sailedShips.size
+        });
+      }
+    });
+
+    // Close modal on background click
+    document.getElementById('share-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'share-modal') {
+        closeShareModal();
+      }
+    });
+  }
+
+  // Export data
+  function exportData() {
+    const data = {
+      ships: Array.from(sailedShips),
+      exportDate: new Date().toISOString(),
+      version: '1.0'
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `rcl-ship-tracker-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // Import data
+  function importData(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (data.ships && Array.isArray(data.ships)) {
+          sailedShips = new Set(data.ships);
+          saveData();
+          renderShips();
+          renderBadges();
+          updateStats();
+          alert('Data imported successfully!');
+
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'data_imported', {
+              ships_imported: sailedShips.size
+            });
+          }
+        } else {
+          alert('Invalid data format.');
+        }
+      } catch (err) {
+        alert('Error importing data. Please check the file format.');
+        console.error(err);
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  // Open share modal
+  function openShareModal() {
+    const modal = document.getElementById('share-modal');
+    modal.classList.add('active');
+    drawShareCanvas();
+  }
+
+  // Close share modal
+  function closeShareModal() {
+    const modal = document.getElementById('share-modal');
+    modal.classList.remove('active');
+  }
+
+  // Draw share canvas
+  function drawShareCanvas() {
+    const canvas = document.getElementById('share-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Background gradient
+    const gradient = ctx.createLinearGradient(0, 0, 600, 400);
+    gradient.addColorStop(0, '#0e6e8e');
+    gradient.addColorStop(1, '#0a3d62');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 600, 400);
+
+    // Branding header
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.fillRect(0, 0, 600, 80);
+
+    // Title with branding
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 28px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('⚓ Cruising In The Wake', 300, 35);
+    ctx.font = 'bold 20px Arial';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.fillText('Ship Logbook', 300, 60);
+
+    // Stats section
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 24px Arial';
+    ctx.fillText('My Royal Caribbean Fleet', 300, 110);
+
+    const stats = [
+      { label: 'Ships Sailed', value: sailedShips.size },
+      { label: 'Ship Classes', value: new Set(Array.from(sailedShips).map(id => SHIPS_DB.find(s => s.id === id)?.class).filter(Boolean)).size },
+      { label: 'Badges Earned', value: BADGES.filter(badge => checkBadgeComplete(badge)).length }
+    ];
+
+    ctx.font = 'bold 48px Arial';
+    let y = 170;
+    stats.forEach(stat => {
+      ctx.fillText(stat.value.toString(), 300, y);
+      ctx.font = '20px Arial';
+      ctx.fillText(stat.label, 300, y + 30);
+      ctx.font = 'bold 48px Arial';
+      y += 80;
+    });
+
+    // Footer with URL
+    ctx.font = 'bold 18px Arial';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('Track your fleet at:', 300, 360);
+    ctx.font = '16px Arial';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.fillText('cruisinginthewake.com/tools/ship-tracker', 300, 385);
+  }
+
+  // Download share image
+  function downloadShareImage() {
+    const canvas = document.getElementById('share-canvas');
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'my-rcl-fleet.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  // Toggle collapsible sections
+  window.toggleSection = function(element) {
+    const section = element.closest('.class-section');
+    section.classList.toggle('collapsed');
+  };
+
+  // URL State Sharing
+  function loadStateFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const shipsParam = params.get('ships');
+    if (shipsParam) {
+      try {
+        // Decode base64 encoded ship list
+        const decoded = atob(shipsParam);
+        const shipIds = decoded.split(',');
+        sailedShips = new Set(shipIds.filter(id => SHIPS_DB.some(s => s.id === id)));
+        saveData();
+      } catch (e) {
+        console.error('Error loading state from URL:', e);
+      }
+    }
+  }
+
+  function generateShareURL() {
+    const shipIds = Array.from(sailedShips).join(',');
+    const encoded = btoa(shipIds);
+    const url = new URL(window.location.href);
+    url.searchParams.set('ships', encoded);
+    return url.toString();
+  }
+
+  function copyShareURL() {
+    const url = generateShareURL();
+    navigator.clipboard.writeText(url).then(() => {
+      alert('Share link copied to clipboard! Send it to your friends to compare fleets.');
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'share_url_copied', {
+          ships_sailed: sailedShips.size
+        });
+      }
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+      prompt('Copy this link to share:', url);
+    });
+  }
+
+  // Load state from URL on init
+  loadStateFromURL();
+
+  // Start app
+  init();
+})();
+  </script>
+  </div><!-- /.tracker-container -->
+  </main><!-- /#content -->
+</body>
+</html>
