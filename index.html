@@ -1291,7 +1291,10 @@
 
       <!-- Recent Articles rail -->
       <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Articles</h3>
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
@@ -1610,16 +1613,25 @@
       rail.innerHTML = view.map(p=>{
         const title = pick(p,['title','name'],'Article');
         const href  = pick(p,['url','path'],'#');
+        const excerpt = pick(p,['excerpt','description'],'');
         return `
-          <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}" aria-label="${title}">
-            <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
-              <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
+            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
+              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
+                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div>
+                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
+                  <a href="${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">${title}</a>
+                </h4>
+                ${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">${excerpt}</p>` : ''}
+              </div>
             </div>
-            <div class="tiny" style="line-height:1.35">${title}</div>
-          </a>`;
+            <a href="${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
+          </article>`;
       }).join('');
 
-      const cards = [...rail.querySelectorAll('a.card')];
+      const cards = [...rail.querySelectorAll('article.card')];
       cards.forEach((card,i)=>{
         const p = view[i] || {};
         const el = card.querySelector('img.article-thumb');
