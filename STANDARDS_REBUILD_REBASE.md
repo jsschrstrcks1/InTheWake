@@ -10,6 +10,12 @@
 
 We are rebuilding the site standards from 220+ fragments after losing the most current versions. This document consolidates all planning discussions and establishes the doctrine for the rebuild process.
 
+**CRITICAL REQUIREMENTS:**
+1. **Include /standards/ directory** - Current standards are outdated (created before 90% of codebase), but must be analyzed as historical fragments
+2. **Document everything** - If the website does it but no standard describes it, create a NEW standard for it
+3. **Deletion goal** - New standards must be comprehensive enough to DELETE /old-files/ and /standards/ directories entirely
+4. **Update admin/claude/** - All Claude documentation must reference /new-standards/ where relevant
+
 ---
 
 ## Preservation Doctrine: "Verified Superset, Reality-Grounded"
@@ -143,6 +149,8 @@ When fragments contradict, apply this hierarchy:
 8. **Archive everything** - Even discarded fragments stay in archive/
 9. **Cross-validation** - Standards must match what scripts enforce
 10. **Template canonicalization** - Complete working examples become primary docs
+11. **Comprehensive documentation** - Document EVERYTHING the website does, even if no fragment mentions it
+12. **Deletion readiness** - New standards must be complete enough to delete /old-files/ and /standards/ entirely
 
 ---
 
@@ -150,7 +158,8 @@ When fragments contradict, apply this hierarchy:
 
 ### Phase 1: Discovery & Inventory
 - [ ] **Task 1:** Inventory all fragments
-  - Find and count all files in old-files/
+  - Find and count all files in old-files/ AND /standards/
+  - **CRITICAL:** Include current /standards/ directory (outdated, pre-90% of codebase)
   - Categorize by type (.md, .txt, .doc, .html, .js, .css, .json, .py, .zip)
   - Count by subdirectory depth
   - Note file sizes and modification dates
@@ -187,6 +196,8 @@ When fragments contradict, apply this hierarchy:
   - Test JSON schemas against actual data files
   - Confirm meta tag patterns
   - Validate what Python scripts enforce
+  - **CRITICAL:** Identify patterns in website that NO fragment documents
+  - Create NEW standards for undocumented implementations
 
 - [ ] **Task 8:** Create CONFLICT_RESOLUTIONS.md
   - Document every contradiction found
@@ -205,10 +216,13 @@ When fragments contradict, apply this hierarchy:
 
 ### Phase 5: Integration
 - [ ] **Task 10:** Update references
-  - Update admin/claude/STANDARDS_INDEX.md
-  - Point to new /new-standards/ locations
+  - Update admin/claude/STANDARDS_INDEX.md to reference /new-standards/
+  - Update admin/claude/CLAUDE.md to reference /new-standards/ where relevant
+  - Update admin/claude/CODEBASE_GUIDE.md to reference /new-standards/ where relevant
+  - Update admin/claude/ITW-LITE_PROTOCOL.md to reference /new-standards/ where relevant
   - Create deprecation notices for old /standards/ directory
   - Update cross-references in documentation
+  - **GOAL:** Prepare for deletion of /old-files/ and /standards/ directories
 
 ---
 
@@ -408,9 +422,42 @@ For each piece of information found:
 
 ---
 
+## Completion Criteria
+
+Before marking rebuild as complete, verify:
+
+- [ ] All fragments from /old-files/ analyzed and incorporated
+- [ ] All standards from /standards/ analyzed and incorporated
+- [ ] Every pattern in 561 HTML files is documented
+- [ ] Every CSS class used is documented
+- [ ] Every JS pattern is documented
+- [ ] Every JSON schema is documented
+- [ ] Every Python script expectation is documented
+- [ ] New standards comprehensive enough to delete /old-files/
+- [ ] New standards comprehensive enough to delete /standards/
+- [ ] All admin/claude/ files reference /new-standards/ appropriately
+- [ ] FRAGMENT_INVENTORY.md accounts for every source file
+- [ ] No information lost (all unique content preserved)
+
+## Final Deliverables
+
+1. **Complete /new-standards/ directory** - Comprehensive, reality-grounded standards
+2. **Updated /admin/claude/ documentation** - All references point to /new-standards/
+3. **FRAGMENT_INVENTORY.md** - Every source file cataloged
+4. **REBUILD_AUDIT.md** - Every decision documented
+5. **CONFLICT_RESOLUTIONS.md** - Every contradiction resolved
+6. **VALIDATION_REPORT.md** - Proof that standards match reality
+7. **DELETION_READINESS_CHECKLIST.md** - Confirms safe to delete /old-files/ and /standards/
+
 ## Status
 
 ✅ **PLANNING COMPLETE** - Doctrine established, process defined, added to UNFINISHED_TASKS.md
+
+✅ **REQUIREMENTS CLARIFIED:**
+- Include current /standards/ directory (outdated, pre-90% of codebase)
+- Document everything the website does (even if no fragment mentions it)
+- Goal: Delete /old-files/ and /standards/ when complete
+- Update all /admin/claude/ files to reference /new-standards/
 
 ⏳ **WAITING** - User to complete uploading all fragments to old-files/
 
@@ -419,4 +466,4 @@ For each piece of information found:
 ---
 
 **Last Updated:** 2025-11-23
-**Next Step:** User completes uploads and signals "ready to proceed"
+**Next Step:** User completes uploads, rebases one more time, and signals "ready to proceed"
