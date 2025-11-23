@@ -203,6 +203,17 @@ All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, 
 **Current Coverage:** 147 ports with individual pages (all have under construction notices)
 **Master Reference:** PORT_TRACKER_ROADMAP.md "Missing Ports by Priority" section
 
+### 📚 Port Master List References
+
+Comprehensive port lists by cruise line (use these for planning future expansion):
+- **Royal Caribbean International**: [assets/data/ports/royal-caribbean-ports-master-list.md](assets/data/ports/royal-caribbean-ports-master-list.md) - 350+ ports, 147 created (42% complete)
+- **Carnival Cruise Line**: [assets/data/ports/carnival-cruise-line-ports-master-list.md](assets/data/ports/carnival-cruise-line-ports-master-list.md) - 320+ ports (future expansion Phase 1-5)
+- **Virgin Voyages**: [assets/data/ports/virgin-voyages-ports-master-list.md](assets/data/ports/virgin-voyages-ports-master-list.md) - ~120 ports (adults-only premium positioning)
+- **MSC Cruises**: [assets/data/ports/msc-cruises-ports-master-list.md](assets/data/ports/msc-cruises-ports-master-list.md) - 380+ ports (European-based, family-friendly)
+- **Norwegian Cruise Line**: [assets/data/ports/norwegian-cruise-line-ports-master-list.md](assets/data/ports/norwegian-cruise-line-ports-master-list.md) - 420+ ports (Freestyle Cruising, port-intensive)
+
+**Cross-reference note:** When creating new port pages, check ALL cruise line lists to identify which lines visit each port. This data will be valuable for the future "Multi-Cruise-Line Tracker Enhancement" (P3 task, see line 143).
+
 ### ~~HIGH PRIORITY - Hawaii Batch (5 ports - ZERO coverage currently)~~ ✅ COMPLETE (2025-11-22)
 **Impact:** Major gap closed - Hawaii is popular Royal Caribbean destination
 - [x] Honolulu (Oahu) - ✅ Created 2025-11-22
@@ -1162,6 +1173,109 @@ All 50 ships should have stats JSON at:
 **Maintained by:** Claude AI (Thread tracking)
 **Current Thread:** claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW (rebased on main)
 **Previous Audit Thread:** claude/normalize-shell-thread-safety-01GkL7yZ6U6k7fE5xy13cFiw
+
+---
+
+## 📜 HISTORICAL TASK ARCHIVE (Completed & Removed)
+
+This section preserves tasks that were completed and subsequently removed from the active task list. Maintained as a historical record per user request to "make a superset of tasks finished/unfinished going back to its first push."
+
+### ✅ Completed Ship Logbooks (Previously Listed as Missing)
+
+**Originally tracked as "Ships Missing Logbooks (22 ships)"** - Now completed:
+- ✅ Enchantment of the Seas - Logbook created with diverse perspectives (completed before 2025-11-19)
+- ✅ Legend of the Seas - Logbook created with diverse perspectives (completed before 2025-11-19)
+- ✅ Majesty of the Seas - Logbook created with diverse perspectives (completed before 2025-11-19)
+- ✅ Rhapsody of the Seas - Logbook created with diverse perspectives (completed before 2025-11-19)
+- ✅ Vision of the Seas - Logbook created with diverse perspectives (completed before 2025-11-19)
+- ✅ Monarch of the Seas - Historic logbook created (completed before 2025-11-19)
+- ✅ Nordic Empress - Historic logbook created (completed before 2025-11-19)
+- ✅ Splendour of the Seas - Historic logbook created (completed before 2025-11-19)
+- ✅ Viking Serenade - Historic logbook created (completed before 2025-11-19)
+
+**Still pending (2 ships):**
+- [ ] Nordic Prince - Historic logbook needed (see current task list line 566)
+- [ ] Sun Viking - Historic logbook needed (see current task list line 567)
+
+### ✅ Completed SEO & Search Tasks
+
+**Originally tracked as pending:**
+- ✅ sitemap.xml - Created (verified exists 2025-11-19, see line 620)
+- ✅ search.html - Search functionality created (verified exists 2025-11-19, see line 823)
+
+### ✅ Completed Solo Travel Articles
+
+**Originally tracked with different categorization:**
+- ✅ accessible-cruising.html - Completed (see line 704)
+- ✅ why-i-started-solo-cruising.html - Completed (see line 712)
+- ✅ freedom-of-your-own-wake.html - Completed (see line 740)
+- ✅ visiting-the-united-states-before-your-cruise.html - Completed (see line 741)
+
+### ✅ Completed Engagement Tools (P0 Tasks)
+
+**Originally tracked as "CRITICAL" priorities:**
+- ✅ Port Tracker tool - COMPLETE (completed 2025-11-22, see line 95)
+  - Location: /tools/port-tracker.html (65KB, 2071 lines)
+  - Features: 147 ports, 14 bingo cards, social comparison, share modal, analytics
+- ✅ Ship Tracker tool - COMPLETE (completed 2025-11-22, see line 121)
+  - Location: /tools/ship-tracker.html (42KB, 1132 lines)
+  - Features: Ship checklist, class grouping, bingo cards, share modal
+- ✅ Ship cards redesign - COMPLETE (completed 2025-11-22, commit c09b4e0, see line 895)
+  - Enhanced CTAs, gradients, hover animations
+  - File: /assets/css/item-cards.css v1.0.0
+
+### ✅ Completed WebP Image Tasks (P0 Task)
+
+**Originally tracked as critical:**
+- ✅ Update WebP references in HTML meta tags - COMPLETE (all 50 ship pages, see line 895)
+  - All ship pages now use .webp in og:image, twitter:image, JSON-LD schema
+  - Previously listed as P0 #6 priority
+
+### ✅ Completed Port Expansion
+
+**Originally tracked with different status:**
+- ✅ Hawaii port batch - COMPLETE (5 ports created 2025-11-22, see line 206)
+  - Honolulu, Kona, Hilo, Maui, Nawiliwili
+  - Previously HIGH PRIORITY
+
+### ✅ Completed Navigation & UI Tasks (P0 Task)
+
+**Originally tracked as "CRITICAL: Fix navigation on 281 pages (96% of site)"**
+- ✅ Navigation dropdown fix - COMPLETE (done in main, see line 890)
+  - Previously: 281/292 pages had navigation issues
+  - Now: Site-wide horizontal dropdown navigation functional
+
+### ✅ Completed Article: "In the Wake of Grief"
+
+**Originally tracked as "CRITICAL: Write 'Cruising After Loss' article"**
+- ✅ Full article complete - Grade A+ (722 lines, ~6,000 words, completed 2025-11-17+, see line 681)
+  - Location: /solo/in-the-wake-of-grief.html
+  - Includes: H1+dek, FAQ section, ship size recommendations, anticipatory grief section
+  - Cross-links: 7 logbook back-links added
+  - Listed as P1 #8 priority (now complete)
+
+### 📊 Completion Statistics Since File Creation (2025-11-17)
+
+**Major completions (6 days of tracking):**
+- 4 P0 critical tasks completed (Navigation, WebP, Ship Cards, Port/Ship Trackers)
+- 9 ship logbooks completed (was 22 missing, now 2 missing)
+- 1 major article completed (In the Wake of Grief)
+- 5 port batch completed (Hawaii - 5 ports)
+- 2 SEO/search tasks completed (sitemap.xml, search.html)
+- 141 port pages received LCP preload hints (vs documented 30)
+- 0 ports with under construction notices (vs documented 6)
+
+**Historical context:**
+- File created: 2025-11-17 (commit 7bc8504)
+- Total commits: 18 updates across 6 days
+- Original file: 305 lines
+- Current file: 1190+ lines (growth reflects comprehensive auditing)
+
+---
+
+**END OF HISTORICAL TASK ARCHIVE**
+
+This archive is maintained additively - tasks are never removed from this section, only marked as complete. New completed tasks will be added as they are verified and removed from the active task list above.
 
 ## AUDIT #2 SUMMARY (2025-11-23)
 
