@@ -632,6 +632,13 @@
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 <body class="page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+
+
   <!-- ai-breadcrumbs
        entity: Ken Baker Author Profile
        type: ProfilePage
@@ -644,9 +651,8 @@
        answer-first: Ken Baker - Founder of In the Wake with 50+ cruises and expertise in accessibility
        -->
 
-  <a href="#content" class="skip-link">Skip to main content</a>
 
-  <header class="hero-header">
+  <header class="hero-header" role="banner">
     <div class="navbar">
       <!-- Navigation with Dropdown Menus -->
       
@@ -706,6 +712,18 @@
         <div class="tagline">A Cruise Traveler's Logbook</div>
       </div>
       <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
+    </div>
+  
+    <!-- Hero -->
+    <div class="hero">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
     </div>
   </header>
 

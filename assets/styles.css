@@ -784,7 +784,8 @@ html, body{ overflow-x:hidden }
   width:100% !important; margin-left:0 !important; overflow-x:clip !important;
 }
 
-/* Pill row: single-line with scroll & soft edges */
+/* Navigation row: single-line with scroll & soft edges */
+.nav,
 .pill-nav{
   flex:1 1 auto; min-width:0; display:flex; align-items:center; justify-content:center;
   gap:.45rem; white-space:nowrap; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
@@ -792,6 +793,63 @@ html, body{ overflow-x:hidden }
   scroll-padding-inline:.75rem;
   mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
   -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
+}
+
+/* Navigation items - pill-style buttons */
+.nav-item {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-item > a,
+.nav-item > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  padding: .65rem 1rem;
+  min-height: 44px;
+  border-radius: 20px;
+  background: #fff;
+  border: 2px solid var(--rope, #d9b382);
+  color: var(--accent, #0e6e8e);
+  font: inherit;
+  font-size: .95rem;
+  line-height: 1.2;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-item > a:hover,
+.nav-item > button:hover {
+  background: var(--foam, #e6f4f8);
+  border-color: var(--accent, #0e6e8e);
+  transform: translateY(-1px);
+}
+
+.nav-item > a[aria-current="page"] {
+  background: var(--accent, #0e6e8e);
+  color: #fff;
+  font-weight: 600;
+  border-color: var(--accent, #0e6e8e);
+}
+
+.nav-item > a:focus-visible,
+.nav-item > button:focus-visible {
+  outline: 3px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+}
+
+/* Dropdown caret */
+.nav-disclosure .caret {
+  display: inline-block;
+  margin-left: .25rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-item[data-open="true"] .nav-disclosure .caret {
+  transform: rotate(180deg);
 }
 /* === Unified Nav: click-to-open dropdowns (v3.009.018) ================== */
 /* Base: keep menus hidden by default */
