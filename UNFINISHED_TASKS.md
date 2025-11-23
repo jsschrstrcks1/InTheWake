@@ -1,11 +1,67 @@
 # Unfinished Tasks - Both Threads
 
 **Generated:** 2025-11-17
-**Last Updated:** 2025-11-22 (COMPREHENSIVE AUDIT - Ship Tracker COMPLETE, ICP-Lite 97% coverage)
+**Last Updated:** 2025-11-23 (COMPREHENSIVE AUDIT #2 - Major progressions verified, 4 P0 tasks completed)
 **Threads Tracked:**
 - Thread 1: `claude/evaluate-ai-human-strategy-01L5apYYXXKEUVyhFbyhAgZs`
 - Thread 3: `claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9`
-- Current: `claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW`
+- Previous: `claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW`
+- Current: `claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW` (rebased on main)
+
+---
+
+## 🔍 COMPREHENSIVE AUDIT #2 (2025-11-23)
+
+**Status:** Full file-by-file verification after rebase and recent PR merges (#172, #171, #170, #169, #168)
+
+### ✅ VERIFIED ACCURATE (No Changes Needed):
+
+| Item | Claimed Status | Actual State | Verification |
+|------|---------------|--------------|--------------|
+| **Service Worker** | v13.0.0 with updated CONFIG | ✅ v13.0.0 (maxPages: 400, maxAssets: 150, maxImages: 600, maxData: 100) | sw.js:1-37 |
+| **Precache Manifest** | v13.0.0 with 52 resources | ✅ v13.0.0 (16 pages, 17 assets, 3 images, 16 data) | precache-manifest.json:1-74 |
+| **Total Port Pages** | 147 ports | ✅ 147 HTML files in /ports/ | Verified |
+| **Hawaii Ports** | 5 ports created 2025-11-22 | ✅ All exist (honolulu, kona, hilo, maui, nawiliwili) | Verified |
+| **ICP-Lite Coverage** | 544/561 pages (97%) | ✅ 544 pages with content-protocol meta tag | Grep verified |
+| **Port Tracker** | 65KB, 2071 lines - COMPLETE | ✅ Matches exactly | tools/port-tracker.html |
+| **Ship Tracker** | 42KB, 1132 lines - COMPLETE | ✅ Matches exactly | tools/ship-tracker.html |
+| **Rhapsody of the Seas** | Still in active service | ✅ Correctly shows "entered service 1997" (no retirement) | Verified revert (354b9c5) |
+| **Hero Logo Normalization** | 50 ship pages updated | ✅ All 50 /ships/rcl/*.html use responsive srcset | Grep verified |
+| **Total HTML Files** | 561 pages | ✅ 561 HTML files | Find verified |
+
+### 🎉 MAJOR PROGRESSIONS (Better than Documented):
+
+| Item | Previous Claim | Actual Current State | Impact |
+|------|---------------|----------------------|--------|
+| **Under Construction Notices** | 6 ports have them (Hawaii + portland-maine) | ✅ **0 ports** have them - ALL REMOVED | PROGRESSION: Clean user experience |
+| **LCP Preload Hints** | "30 Northern Europe port pages" | ✅ **141 port pages** have preload hints | PROGRESSION: 4.7x more coverage than documented |
+| **WebP Image References** | P0 #6 "Update WebP references in HTML meta tags" | ✅ **ALL 50 ship pages** use .webp in og:image/twitter:image | PROGRESSION: Task COMPLETE |
+| **Ship Cards Redesign** | P0 #5 "Ship cards redesign" | ✅ **COMPLETE** (commit c09b4e0, item-cards.css v1.0.0) | PROGRESSION: Enhanced CTAs, gradients, hover animations |
+
+### 📊 Ship Cards Redesign Details (COMPLETE):
+
+**Commit:** c09b4e0 "REDESIGN: Ship cards with prominent CTAs and better space utilization"
+**CSS File:** /assets/css/item-cards.css (467 lines, 9.5KB)
+
+**Features Implemented:**
+- ✅ Enhanced CTA text: Gradient background, 3px left border accent, subtle shadow
+- ✅ Improved CTA button: Full-width, gradient background, uppercase text, animated arrow (→) on hover
+- ✅ Better visual hierarchy: Larger title (1.2rem, 700 weight), improved spacing with gap property
+- ✅ Enhanced badges: Gradient backgrounds, box-shadows, backdrop blur for modern feel
+- ✅ Improved grid layout: Responsive breakpoints (320px → 360px → 3-col at 1400px), better gaps (1.75-2.5rem)
+- ✅ Better cards: Softer borders (#d4eeee), layered shadows, enhanced hover lift (6px)
+- ✅ Enhanced images: 16:9 aspect ratio, stronger zoom effect (1.08x on hover)
+- ✅ Retired badge styling: Grayscale filter (30%) on images, recolors on hover
+
+**Visual Enhancements:**
+- CTA text: 0.92rem, 1.55 line-height, gradient background (#fafcfc → #f5f9fa), 3px left border
+- CTA button: Gradient from accent to sea, box-shadow, arrow icon slides right 4px on hover
+- Card hover: translateY(-6px), enhanced shadow with accent color tint
+- Image hover: scale(1.08) with smooth cubic-bezier easing
+
+### ❌ REGRESSIONS FOUND: None
+
+All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, #170, #169 ship-cards-redesign) represent **progressions** or **accurate implementations** of planned work.
 
 ---
 
@@ -835,8 +891,8 @@ All 50 ships should have stats JSON at:
 2. ~~**CRITICAL: Update code to use WebP images**~~ - ✅ COMPLETE (done in main, commit ecdb983)
 3. ~~**CRITICAL: Create Port Tracker tool**~~ - ✅ COMPLETE (2025-11-22, /tools/port-tracker.html with analytics)
 4. ~~**CRITICAL: Create Ship Tracker tool**~~ - ✅ COMPLETE (2025-11-22, /tools/ship-tracker.html, rebranded as "Ship Logbook")
-5. **Ship cards redesign** - Add CTAs, better space utilization, make cards compelling
-6. **Update WebP references in HTML meta tags** - Ship pages still use .jpeg in og:image, twitter:image, JSON-LD (54+ files)
+5. ~~**Ship cards redesign**~~ - ✅ COMPLETE (2025-11-22, commit c09b4e0, item-cards.css with CTAs, gradients, hover animations)
+6. ~~**Update WebP references in HTML meta tags**~~ - ✅ COMPLETE (All 50 ship pages use .webp in og:image/twitter:image/JSON-LD)
 7. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer) - Symphony appears complete
 8. Download Wiki Commons images for 19 ships still needing images
 
@@ -1002,10 +1058,11 @@ All 50 ships should have stats JSON at:
 - ✅ Ship Tracker COMPLETE - /tools/ship-tracker.html (42KB, 1132 lines) with bingo cards, share modal, collapsible sections
 - Both rebranded as "Logbooks" in UI (Port Logbook, Ship Logbook)
 
-**Port Pages (VERIFIED 2025-11-22):**
+**Port Pages (VERIFIED 2025-11-23):**
 - ✅ Complete: 147 individual port HTML pages exist in /ports/ directory
 - ✅ Port Tracker database: 147 ports tracked in /tools/port-tracker.html
-- ⚠️ Under construction notices: Only 6 ports have them (5 Hawaii ports: Honolulu, Kona, Hilo, Maui, Nawiliwili + portland-maine.html)
+- ✅ Under construction notices: ALL REMOVED (0 ports have them) - Clean user experience ✨
+- ✅ LCP preload hints: 141 port pages have fetchpriority="high" preload (96% coverage)
 - ✅ British Isles batch complete (10 ports: Liverpool, Cork, Invergordon, Kirkwall, Lerwick, Dover, Portland, Newcastle, Holyhead, Waterford)
 - ✅ Hawaii batch complete (5 ports: Honolulu, Kona, Hilo, Maui, Nawiliwili) - 2025-11-22
 - ✅ Portland duplicate fixed (portland.html = Dorset, portland-maine.html = Maine)
@@ -1098,20 +1155,39 @@ All 50 ships should have stats JSON at:
 
 ---
 
-**Last Updated:** 2025-11-22 (FILE-BY-FILE AUDIT - Shell normalization verified, SW v13.0.0 confirmed, 147 ports verified)
+**Last Updated:** 2025-11-23 (AUDIT #2 - Major progressions verified: WebP complete, ship cards complete, under construction removed)
 **Maintained by:** Claude AI (Thread tracking)
-**Current Thread:** claude/normalize-shell-thread-safety-01GkL7yZ6U6k7fE5xy13cFiw
-**Previous Audit Thread:** claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW
+**Current Thread:** claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW (rebased on main)
+**Previous Audit Thread:** claude/normalize-shell-thread-safety-01GkL7yZ6U6k7fE5xy13cFiw
+
+## AUDIT #2 SUMMARY (2025-11-23)
+
+**Verified After Rebase:**
+- ✅ Service Worker v13.0.0 (maxPages: 400, maxAssets: 150, maxImages: 600, maxData: 100)
+- ✅ Precache Manifest v13.0.0 (52 resources precached)
+- ✅ ICP-Lite: 544/561 pages (97% coverage)
+- ✅ Port pages: 147 total, 141 with LCP preload hints, 0 with under construction notices
+- ✅ Ship pages: 50 total, all with responsive hero logo, all using WebP in meta tags
+- ✅ Ship cards redesign COMPLETE (item-cards.css v1.0.0)
+- ✅ Port Tracker & Ship Tracker COMPLETE
+- ✅ Hawaii port batch COMPLETE (5 ports)
+- ❌ REGRESSIONS: None found
+
+**Major Progressions Documented:**
+1. Under construction notices ALL REMOVED (was 6, now 0)
+2. LCP preload hints on 141 pages (was documented as 30)
+3. WebP meta tags COMPLETE on all 50 ship pages (was listed as P0 pending)
+4. Ship cards redesign COMPLETE with enhanced CTAs (was P0 pending)
 
 ## THREAD-SAFETY WORK COMPLETED (claude/normalize-shell-thread-safety-01GkL7yZ6U6k7fE5xy13cFiw)
 
-**Verified Complete 2025-11-22:**
+**Verified Complete 2025-11-22 (Merged to main in PR #172):**
 - ✅ Service Worker updated to v13.0.0
-  - maxPages: 100 → 400 (site has 553+ pages)
+  - maxPages: 100 → 400 (site has 561 pages)
   - maxData: 50 → 100 (was over limit at 76 JSON files)
   - maxImages: 500 → 600 (currently 285 ship images)
   - maxAssets: 100 → 150
 - ✅ Precache Manifest updated to v13.0.0 (52 resources precached, was 25)
-- ✅ Shell normalization: 141+ port pages cleaned (under construction notices removed from inside navbar divs)
+- ✅ Shell normalization: 141+ port pages cleaned (under construction notices removed)
 - ✅ Hero logo normalization: 50 ship pages updated to responsive srcset format with fetchpriority="high"
-- ✅ LCP preload hints: Added to 30 Northern Europe port pages
+- ✅ LCP preload hints: Added to 141 port pages (96% of all port pages)
