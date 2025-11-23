@@ -1,65 +1,15 @@
-<!-- HEAD_SNIPPET.html (v3.009) — canonical head boilerplate -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="referrer" content="no-referrer">
-  <meta name="theme-color" content="#083041">
-  <meta name="page:version" content="__VERSION__">
-  <meta name="version" content="__VERSION__">
-  <meta name="standards:baseline" content="3.008">
+<!-- HEAD_SNIPPET.html — v3.006 -->
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+<link rel="preload" href="/assets/js/site-cache.js?v=3.006" as="script">
+<link rel="stylesheet" href="/assets/styles.css?v=3.006"/>
 
-  <!-- Umami Analytics (place immediately after viewport) -->
-  <!-- Replace __UMAMI_SRC__ and __UMAMI_WEBSITE_ID__ with your values -->
-  <script async defer data-website-id="__UMAMI_WEBSITE_ID__" src="https://__UMAMI_SRC__/script.js"></script>
+<!-- Social/OG defaults (override per page) -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="In the Wake"/>
+<meta name="twitter:card" content="summary_large_image"/>
 
-  <!-- _abs() absolute-path helper -->
-  <script>
-    (function(){
-      var ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
-      window._abs=function(p){ p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p; };
-    })();
-  </script>
-
-  <!-- Canonicalization (apex → www), session-guarded for GitHub Pages -->
-  <script>
-    (function(){
-      try{
-        var host = location.host;
-        if (/^cruisinginthewake\.github\.io$/i.test(host)) return; // GH Pages custom host flow
-        if (/^cruisinginthewake\.com$/i.test(host)) {
-          // avoid infinite loops within a session
-          if (!sessionStorage.getItem('redirect_www')){
-            sessionStorage.setItem('redirect_www','1');
-            location.replace(location.href.replace('//cruisinginthewake.com', '//www.cruisinginthewake.com'));
-          }
-        }
-      }catch(e){}
-    })();
-  </script>
-
-  <title>__PAGE_TITLE__ — In the Wake (v__VERSION__)</title>
-  <link rel="canonical" href="https://www.cruisinginthewake.com/__CANONICAL_PATH__">
-  <meta name="description" content="__DESCRIPTION__">
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="__PAGE_TITLE__ — In the Wake">
-  <meta property="og:description" content="__DESCRIPTION__">
-  <meta property="og:url" content="https://www.cruisinginthewake.com/__CANONICAL_PATH__">
-  <meta property="og:image" content="https://www.cruisinginthewake.com/__OG_IMAGE_PATH__?v=__VERSION__">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="__PAGE_TITLE__ — In the Wake">
-  <meta name="twitter:description" content="__DESCRIPTION__">
-  <meta name="twitter:image" content="https://www.cruisinginthewake.com/__OG_IMAGE_PATH__?v=__VERSION__">
-
-  <!-- Site CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=__VERSION__">
-  <style>
-    html, body { overflow-x:hidden; }
-  </style>
-</head>
-<body>
-  <!-- include a visible Skip link in your `.topbar` -->
-  <!-- <div class="topbar"><a class="skip-link" href="#content">Skip to main content</a> … </div> -->
+<!-- Analytics (Umami) -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>

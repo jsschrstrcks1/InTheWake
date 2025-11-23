@@ -1,18 +1,14 @@
-# SEO_STRUCTURED_DATA.md (v3.009)
+# SEO & Structured Data — v3.006
 
-Use **exact** Schema.org types and keep values concrete. Prefer one primary JSON-LD block per page.
-- **WebPage** for standard pages, **Article/BlogPosting** for articles, **CollectionPage** for indexes.
-- Always use **absolute** URLs.
-- Dates: ISO `YYYY-MM-DD` (or full ISO timestamps), ensure `dateModified` updates on edits.
-- Images: use JPG fallback URL; WebP is handled in `<picture>` in HTML.
+## Principles
+- Use **JSON‑LD** (`application/ld+json`) for all structured data.
+- Only one primary `WebPage` node per page.
+- Ships hub pages: use `ItemList` with **each** `itemListElement` containing a `ListItem` with `position` (1‑based).
+- Reviews/AggregateRating: ensure `itemReviewed` is a **valid type** for the content (e.g., `Product`, `CreativeWork`, `Place`, `Organization`).
 
-## Do
-- Validate with `https://validator.schema.org/`.
-- Match `<title>`/meta description with JSON-LD `headline`/`description`.
-- Use the site’s canonical host `https://www.cruisinginthewake.com/`.
+## Google Search Console Issues Addressed
+- **Missing field "position" (in "itemListElement")** — fixed in ItemList template.
+- **Invalid object type for field "itemReviewed"** — templates provide valid examples and notes.
 
-## Don’t
-- Don’t rely on JS-injected metas for crawlers; ship static `<title>`/description.
-- Don’t include placeholder text (replace all `__PLACEHOLDER__`).
-
-See `JSONLD_TEMPLATES/*.jsonld` for drop-in templates.
+## Testing
+- Validate with Rich Results Test and Schema.org validator before release.

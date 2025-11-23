@@ -1,49 +1,20 @@
-# EVERY-PAGE_STANDARDS.md (v3.009)
+# Every Page Standards — v3.006
 
-This universal checklist applies to **every page** on cruisinginthewake.com and mirrors the v3.001+ superset with v3.009 CI addenda.
+## Non‑negotiables (apply to **every** page)
+- Canonical charset, viewport, title, description, canonical URL.
+- Open Graph + Twitter summary_large_image.
+- Versioned CSS/JS includes (e.g., `?v=3.006`).
+- Invocation: include hidden HTML dedication (see `HIDDEN_INVOCATION_COMMENTS.html`) and place the invocation banner (optional per page type).
+- CSS: Load global `styles.css` (unified tokens: `--sea`, `--foam`, `--rope`, `--ink`, `--sky`, `--accent`) and maintain the hero layout rules.
+- Accessibility: `aria-label`s on carousels, regions, and maps; keyboardable nav.
+- Service Worker: register `/sw.js` with scoped, image‑first caching (cache name versioned). Do not cache JSON by SW; app‑level site cache handles JSON with TTL.
+- External link hygiene: `rel="noopener"` on `target="_blank"`; **do not** rewrite external attribution links.
 
-## Meta & Versioning
-- `<meta name="page:version" content="vX.YYY.ZZZ">` present and matches **all** `?v=` querystrings.
-- `<meta name="version" content="vX.YYY.ZZZ">` present and matches `page:version`.
-- `<meta name="standards:baseline" content="3.008">` (or newer) when applicable.
-- `<meta name="referrer" content="no-referrer">`.
-- `<meta name="theme-color" content="#083041">` (brand navy).
+## Head boilerplate
+Use `HEAD_SNIPPET.html` verbatim, then add page‑specific tags.
 
-## Head Order (required)
-1. `<!doctype html>` + `<html lang="en">`
-2. `<meta charset="utf-8">`
-3. `<meta name="viewport" content="width=device-width, initial-scale=1">`
-4. **Umami analytics** (immediately after viewport)
-5. `_abs()` helper
-6. Canonicalization script (apex → www, session-guarded)
-7. `<title>__PAGE_TITLE__ — In the Wake (v__VERSION__)</title>`
-8. Canonical `<link rel="canonical">` absolute URL
-9. Description meta (≤160 chars)
-10. OG/Twitter metas (absolute URLs)
-11. Site CSS: `/_abs('/assets/styles.css?v=__VERSION__')`
+## Footer
+Use `FOOTER_SNIPPET.html` verbatim. Keep per‑page scripts `defer` where possible.
 
-## Accessibility
-- Visible **Skip to main content** link in `.topbar` (or equivalent).
-- Keyboard reachable nav with ARIA contracts; dropdowns use button + menu roles.
-- Focus styles visible, color contrast ≥AA (text 4.5:1, large text 3:1).
-- All non-hero images `loading="lazy"`; decorative images `alt=""` + `aria-hidden="true"`.
-
-## Layout & Overflow
-- No `100vw` in header/hero containers (use `width:100%`).
-- `html, body { overflow-x:hidden }` to guard sub-pixel scroll bleed.
-- At ≥980px, pages with rails render two-column grid; rail is sticky right.
-
-## Fetch & Caching
-- Only same-origin fetches; use `_abs()`; append `?v={page:version}`.
-- Service Worker registered; update prompt on new build.
-
-## SEO
-- Unique title & meta description; canonical link set.
-- OG/Twitter complete set; images absolute.
-- JSON-LD present where applicable (Article/WebPage/CollectionPage).
-
-## CI / QA
-- Playwright nav tests pass (dropdown contract & keyboardability).
-- Schema validation passes for `/data/authors.json` when used.
-- Version-coupling check passes (every `?v=` == `page:version`).
-- Lighthouse CI Accessibility ≥95.
+## Structured Data
+Follow `SEO_STRUCTURED_DATA.md` and the templates in `00-core/JSONLD_TEMPLATES`.
