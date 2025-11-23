@@ -21,11 +21,26 @@
   - Article thumbnails: 1,862 KB → 60 KB (97% reduction)
   - Author avatars: 252 KB → 8-15 KB (94% reduction)
 - ✅ **Cache Headers** - 1-year caching for versioned assets (was 10 minutes)
+  - Files: `_headers` (Netlify), `.htaccess` (Apache), `nginx-cache-headers.conf` (nginx)
+  - Documentation: `CACHE_HEADERS_README.md`
 - ✅ **LCP Optimizations** - fetchpriority + preload hints (479 files)
+  - Script: `optimize_lcp.py`
+  - Added fetchpriority="high" to all hero logos
+  - Added preload hints for critical images
 - ✅ **Restaurant Filter Z-Index** - Fixed pills opening behind content
+  - Files: `assets/css/item-cards.css`, `restaurants.html`
+  - Added z-index: 100 to `.filter-bar` and `.filter-row`
 - ✅ **Avatar Filename Fixes** - Corrected malformed names (108 files)
+  - Script: `fix_author_avatar_filenames.py`
+  - Fixed ken1_96_96_96.webp → ken1_96.webp pattern
 - ✅ **Hero Logo Sizing** - Restored responsive CSS (451 files)
+  - Script: `fix_hero_logo_sizing.py`
+  - Removed inline width/height to restore clamp(189px, 23.1vw, 378px)
 - ✅ **Solo Article Loader** - Fixed missing </picture> tags (2 files)
+  - Files: `solo/articles/freedom-of-your-own-wake.html`, `solo/articles/why-i-started-solo-cruising.html`
+  - Issue: cleanup_picture_tags.py removed legitimate closing tags
+  - Fix: Restored proper picture element balance (3 opening = 3 closing)
+  - Impact: Articles now load correctly on solo.html (See Solo Travel & Life Journey Articles section below)
 
 ### Remaining Performance Tasks
 - [ ] Verify cache headers work after deployment
@@ -286,6 +301,7 @@ All 50 ships should have stats JSON at:
 
 #### 2. Accessible Cruising: Complete Guide for Travelers with Disabilities
 **Status:** ✅ COMPLETE (solo/articles/accessible-cruising.html) - 26 logbook references
+**Note:** Picture tags verified balanced 2025-11-23
 - [x] Full article exists with 5 universal principles
 - [ ] Consider minor expansion: medical equipment, service animals, dietary restrictions, cruise line comparison
 - **Topics covered:** Wheelchair, autism, stroke recovery, deaf/hard-of-hearing, chronic illness, PTSD, invisible disabilities
@@ -293,6 +309,7 @@ All 50 ships should have stats JSON at:
 
 #### 3. Solo Cruising: Your Complete Guide to Traveling Alone at Sea
 **Status:** ⚠️ PARTIAL (why-i-started-solo-cruising.html exists but not comprehensive) - 20 logbook references
+**Note:** Article loads correctly on solo.html (picture tags fixed 2025-11-23 - see Performance Optimizations above)
 - [ ] Expand existing article OR create new comprehensive-solo-cruising.html
 - [ ] Cover all solo personas: grief, anxiety, introverts, by-choice, first-time solo
 - [ ] Add ship size recommendations for solo travelers
@@ -320,7 +337,8 @@ All 50 ships should have stats JSON at:
 - **Cross-links:** Solo travel, mental health resources, pastoral sabbatical packing, anxiety travel
 
 **Existing support articles (COMPLETE):**
-- ✅ freedom-of-your-own-wake.html
+- ✅ freedom-of-your-own-wake.html (Picture tags fixed 2025-11-23 - see Performance Optimizations above)
+- ✅ why-i-started-solo-cruising.html (Picture tags fixed 2025-11-23 - see Performance Optimizations above)
 - ✅ visiting-the-united-states-before-your-cruise.html
 
 **Additional themes for future articles (2-10 references each):**
