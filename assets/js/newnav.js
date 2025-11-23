@@ -2,7 +2,7 @@
 (function(){
   'use strict';
 
- 
+
   const on = (el, evt, fn, opts) => el && el.addEventListener(evt, fn, opts || false);
   const qs = (sel, root=document) => root.querySelector(sel);
   const qsa = (sel, root=document) => Array.from(root.querySelectorAll(sel));
@@ -28,7 +28,7 @@
     (isOpen ? closeGroup : openGroup)(group);
   }
 
- 
+
   function wireNav(){
 
     qsa('.navbar').forEach(n=>{ n.style.overflow = 'visible'; });
@@ -47,12 +47,12 @@
 
       let menuId = menu.id || `menu-${ix+1}`;
       menu.id = menuId;
-      btn.setAttribute('type','button');         
+      btn.setAttribute('type','button');
       btn.setAttribute('aria-controls', menuId);
       btn.setAttribute('aria-expanded','false');
       group.dataset.open = 'false';
 
-    
+
       on(btn, 'click', (e)=>{ e.preventDefault(); e.stopPropagation(); toggleGroup(group); });
 
 

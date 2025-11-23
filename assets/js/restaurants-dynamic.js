@@ -47,21 +47,21 @@
     '150-central-park': '/assets/images/restaurants/specialty-dining.svg',
     'chefs-table': '/assets/images/restaurants/specialty-dining.svg',
     'chic': '/assets/images/restaurants/specialty-dining.svg',
-    
+
     // Asian Cuisine
     'izumi': '/assets/images/restaurants/asian-cuisine.svg',
     'izumi-in-the-park': '/assets/images/restaurants/asian-cuisine.svg',
     'sichuan-red': '/assets/images/restaurants/asian-cuisine.svg',
     'hot-pot': '/assets/images/restaurants/asian-cuisine.svg',
-    
+
     // Italian Cuisine
     'jamies-italian': '/assets/images/restaurants/italian-cuisine.svg',
     'giovannis': '/assets/images/restaurants/italian-cuisine.svg',
     'sorrentos': '/assets/images/restaurants/italian-cuisine.svg',
-    
+
     // Steakhouse
     'chops': '/assets/images/restaurants/steakhouse.svg',
-    
+
     // Bars & Lounges
     'schooner-bar': '/assets/images/restaurants/bar-lounge.svg',
     'vintages': '/assets/images/restaurants/bar-lounge.svg',
@@ -75,7 +75,7 @@
     'olive-or-twist': '/assets/images/restaurants/bar-lounge.svg',
     'diamond-club': '/assets/images/restaurants/bar-lounge.svg',
     'globe-and-atlas': '/assets/images/restaurants/bar-lounge.svg',
-    
+
     // Default placeholder
     '_default': '/assets/images/restaurants/specialty-dining.svg'
   };

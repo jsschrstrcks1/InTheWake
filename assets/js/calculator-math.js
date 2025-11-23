@@ -71,12 +71,12 @@
  * ✅ FIXED: Royal Caribbean policy message (package uniformity, not consumption)
  * ✅ Enhanced input validation
  * ✅ Maintained all v1.002.000 structure and features
- * 
+ *
  * ACCESSIBILITY COMMITMENT:
  * This calculator serves ALL travelers - regardless of ability.
  * Every calculation is designed to be understood by screen readers,
  * keyboard navigators, and visual users alike.
- * 
+ *
  * FEATURES:
  * ✅ Two-winner system (adults + kids when minors present)
  * ✅ Kids package restrictions (soda/refresh only, never deluxe)
@@ -108,7 +108,7 @@ function scalarize(val, mode = 'mean') {
     const mx = toNum(val.max);
     const lo = Math.max(0, Math.min(mn, mx));
     const hi = Math.max(lo, Math.max(mn, mx));
-    
+
     if (mode === 'min') return lo;
     if (mode === 'max') return hi;
     return (lo + hi) / 2;
@@ -118,16 +118,16 @@ function scalarize(val, mode = 'mean') {
 
 function applyWeight(list, days, seaDays, seaApply, seaWeight) {
   if (!seaApply) return list;
-  
+
   const D = clamp(days, 0, 365);
   const S = clamp(seaDays, 0, D);
   if (D <= 0) return list;
-  
+
   const w = clamp(seaWeight, 0, 40) / 100;
   const seaFactor = 1 + w;
   const portFactor = 1 - w;
   const portDays = Math.max(0, D - S);
-  
+
   return list.map(([id, qty]) => {
     const q = toNum(qty);
     const weighted = ((q * seaFactor * S) + (q * portFactor * portDays)) / D;
@@ -148,19 +148,19 @@ function adaptDataset(dataset) {
     }
   }
   prices = prices || {};
-  
+
   const sets = Object.assign(
     { soda: [], refresh: [], alcoholic: [] },
     dataset?.sets || {}
   );
   const alcoholic = Array.isArray(sets.alcohol) ? sets.alcohol : (sets.alcoholic || []);
-  
+
   const rules = dataset?.rules || {};
   const gratuity = Number.isFinite(rules.gratuity) ? rules.gratuity : 0.18;
-  const deluxeCap = Number.isFinite(rules.caps?.deluxeAlcohol) 
-    ? rules.caps.deluxeAlcohol 
+  const deluxeCap = Number.isFinite(rules.caps?.deluxeAlcohol)
+    ? rules.caps.deluxeAlcohol
     : (Number.isFinite(rules.deluxeCap) ? rules.deluxeCap : 14.0);
-  
+
   return { prices, sets: { ...sets, alcoholic }, gratuity, deluxeCap };
 }
 
@@ -184,7 +184,7 @@ function calculateNudges(inputs, economics, dataset, results) {
   };
 
   const currentDaily = round2(results.perDay / Math.max(1, adults));
-  
+
   if (currentDaily < perPersonDaily.soda && currentDaily > 0) {
     const gap = perPersonDaily.soda - currentDaily;
     const sodaPrice = prices.soda || 2.0;
@@ -199,7 +199,7 @@ function calculateNudges(inputs, economics, dataset, results) {
       });
     }
   }
-  
+
   if (currentDaily < perPersonDaily.refresh && currentDaily >= perPersonDaily.soda) {
     const gap = perPersonDaily.refresh - currentDaily;
     const coffeePrice = prices.coffeeLarge || prices.coffeeSmall || 4.5;
@@ -214,7 +214,7 @@ function calculateNudges(inputs, economics, dataset, results) {
       });
     }
   }
-  
+
   if (currentDaily < perPersonDaily.deluxe && currentDaily >= perPersonDaily.refresh) {
     const gap = perPersonDaily.deluxe - currentDaily;
     const cocktailPrice = prices.cocktail || 13.0;
@@ -229,7 +229,7 @@ function calculateNudges(inputs, economics, dataset, results) {
       });
     }
   }
-  
+
   return nudges.sort((a, b) => a.priority - b.priority);
 }
 
@@ -237,21 +237,21 @@ function calculateNudges(inputs, economics, dataset, results) {
 
 function calculateHealthNote(inputs, results) {
   const { days, adults, drinks } = inputs;
-  
+
   if (days <= 0 || adults <= 0) return null;
-  
+
   const alcoholicDrinks = ['beer', 'wine', 'cocktail', 'spirits'];
   const totalAlcoholPerDay = alcoholicDrinks.reduce((sum, key) => {
     return sum + toNum(drinks[key]);
   }, 0);
-  
+
   if (totalAlcoholPerDay === 0) return null;
-  
+
   const perPerson = totalAlcoholPerDay / adults;
-  
+
   const moderateLimit = 2;
   const highLimit = 4;
-  
+
   if (perPerson > highLimit) {
     return {
       level: 'high',
@@ -267,7 +267,7 @@ function calculateHealthNote(inputs, results) {
       ariaLabel: 'Health reminder: CDC recommends moderate alcohol consumption'
     };
   }
-  
+
   return null;
 }
 
@@ -275,7 +275,7 @@ function calculateHealthNote(inputs, results) {
 
 /**
  * Determine winning packages for adults and minors
- * 
+ *
  * CRITICAL FIX v1.003.000:
  * When adults choose Deluxe, minors are FORCED to Refreshment (Royal Caribbean policy)
  * This is enforced even if Soda would be cheaper for minors
@@ -296,7 +296,7 @@ function determineWinners(costs, minors) {
   const adultWinner = adultOptions.reduce((min, curr) =>
     curr.cost < min.cost ? curr : min, adultOptions[0]
   );
-  
+
   if (minors === 0) {
     return {
       adultWinner: adultWinner.key,
@@ -305,7 +305,7 @@ function determineWinners(costs, minors) {
       minorForced: false
     };
   }
-  
+
   // CRITICAL FIX: If adults choose Deluxe, minors MUST choose Refreshment
   if (adultWinner.key === 'deluxe') {
     console.log('[Math Engine] POLICY ENFORCED: Minors forced to Refreshment (adults buying Deluxe)');
@@ -364,7 +364,7 @@ function determineWinners(costs, minors) {
  */
 function compute(inputs, economics, dataset, vouchers = null, forcedPackage = null) {
   const { prices, sets, gratuity, deluxeCap } = adaptDataset(dataset);
-  
+
   const days = clamp(inputs.days, 1, 365);
   const seaDays = clamp(inputs.seaDays, 0, days);
   const seaApply = Boolean(inputs.seaApply);
@@ -373,17 +373,17 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const minors = clamp(inputs.minors, 0, 20);
   const coffeeCards = clamp(inputs.coffeeCards || 0, 0, 10);
   const coffeePunches = clamp(inputs.coffeePunches || 0, 0, 5);
-  
+
   const pkgSoda = toNum(economics.pkg?.soda || 13.99);
   const pkgRefresh = toNum(economics.pkg?.refresh || 34.0);
   const pkgDeluxe = toNum(economics.pkg?.deluxe || 85.0);
   const coffeeCardPrice = toNum(economics.pkg?.coffee || 31.0); // CRITICAL FIX v1.003.002
   const grat = toNum(economics.grat || gratuity);
   const cap = toNum(economics.deluxeCap || deluxeCap);
-  
+
   const drinkList = Object.keys(inputs.drinks || {}).map(key => [key, toNum(inputs.drinks[key])]);
   const weighted = applyWeight(drinkList, days, seaDays, seaApply, seaWeight);
-  
+
   // CRITICAL FIX v1.006.000: Voucher application - most expensive drinks first!
   // Pinnacle: 6/day (FIXED from 5), Diamond+: 5/day, Diamond: 4/day
   let totalVouchersPerDay = 0;
@@ -453,9 +453,9 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     const cost = price * qty * days;
     return { id, qty, price, cost };
   });
-  
+
   const rawTotal = sum(categoryRows.map(r => r.cost));
-  
+
   // CRITICAL FIX v1.003.003: Calculate total coffee punches from small (1 punch) and large (2 punches)
   const COFFEE_CARD_PUNCHES = 15;
   const coffeeSmallQty = categoryRows.find(r => r.id === 'coffeeSmall')?.qty || 0;
@@ -602,59 +602,59 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
     winners = determineWinners(costs, minors);
   }
-  
+
   // FIXED v1.003.000: Correct Royal Caribbean policy messaging
   // Policy triggers when Deluxe is the winner AND there are multiple adults
   const showDeluxePolicy = (winners.adultWinner === 'deluxe' && adults > 1);
-  const policyNote = showDeluxePolicy 
+  const policyNote = showDeluxePolicy
     ? 'Royal Caribbean Policy: If ANY adult in your stateroom purchases Deluxe, ALL adults must purchase it. No exceptions.'
     : null;
-  
+
   // CRITICAL FIX v1.006.000: Use actual voucher savings, not assumed cocktail prices
   // actualVoucherSavings is per-day, multiply by days for total cruise savings
   const voucherSavings = actualVoucherSavings * days;
-  
+
   // ENHANCED v1.003.000: Group rows show minor forced status
-  const adultPackageName = winners.adultWinner === 'deluxe' ? 'Deluxe' : 
-                           winners.adultWinner === 'refresh' ? 'Refreshment' :
-                           winners.adultWinner === 'soda' ? 'Soda' : 'À la carte';
-  
+  const adultPackageName = winners.adultWinner === 'deluxe' ? 'Deluxe' :
+    winners.adultWinner === 'refresh' ? 'Refreshment' :
+      winners.adultWinner === 'soda' ? 'Soda' : 'À la carte';
+
   const minorPackageName = winners.minorForced ? 'Refreshment (Required)' :
-                           winners.minorWinner === 'refresh' ? 'Refreshment' :
-                           winners.minorWinner === 'soda' ? 'Soda' : 'À la carte';
-  
+    winners.minorWinner === 'refresh' ? 'Refreshment' :
+      winners.minorWinner === 'soda' ? 'Soda' : 'À la carte';
+
   const groupRows = [
-    { 
-      label: 'Adults', 
-      count: adults, 
+    {
+      label: 'Adults',
+      count: adults,
       pkg: adultPackageName,
-      cost: winners.adultWinner === 'deluxe' ? deluxePkg : 
-            winners.adultWinner === 'refresh' ? refreshPkg :
-            winners.adultWinner === 'soda' ? sodaPkg : totalAlc,
+      cost: winners.adultWinner === 'deluxe' ? deluxePkg :
+        winners.adultWinner === 'refresh' ? refreshPkg :
+          winners.adultWinner === 'soda' ? sodaPkg : totalAlc,
       policyNote: showDeluxePolicy ? 'All adults must purchase same package' : null
     }
   ];
-  
+
   if (minors > 0) {
     groupRows.push({
       label: 'Minors',
       count: minors,
       pkg: minorPackageName,
       cost: winners.minorWinner === 'refresh' ? (pkgRefresh * (1 + grat) * days * minors) :
-            winners.minorWinner === 'soda' ? (pkgSoda * (1 + grat) * days * minors) : 0,
+        winners.minorWinner === 'soda' ? (pkgSoda * (1 + grat) * days * minors) : 0,
       forced: winners.minorForced,
       forcedReason: winners.minorForcedReason
     });
   }
-  
+
   const nudges = calculateNudges(inputs, economics, dataset, {
     perDay: totalAlc / days,
     trip: totalAlc,
     bars
   });
-  
+
   const healthNote = calculateHealthNote(inputs, {});
-  
+
   const getLabelForPackage = (key) => {
     const labels = {
       alc: 'À la carte',
@@ -664,10 +664,10 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     };
     return labels[key] || 'À la carte';
   };
-  
+
   const adultLabel = getLabelForPackage(winners.adultWinner);
   const perDay = round2(totalAlc / days);
-  
+
   let ariaAnnouncement;
   if (!winners.showTwoWinners) {
     ariaAnnouncement = `Calculation complete. Best value: ${adultLabel}. Total cost: $${perDay} per day.`;
@@ -682,7 +682,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
       ariaAnnouncement += ' Policy reminder: All adults must purchase the same package.';
     }
   }
-  
+
   return {
     hasRange: false,
     bars,

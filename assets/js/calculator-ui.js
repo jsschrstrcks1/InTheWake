@@ -1,17 +1,17 @@
 /**
  * Royal Caribbean Drink Calculator - UI Layer
  * Version: 1.003.000 (Accessibility Promise Kept)
- * 
+ *
  * "Let your light so shine before men" - Matthew 5:16
  * "I was eyes to the blind and feet to the lame" - Job 29:15
- * 
+ *
  * Soli Deo Gloria ✝️
- * 
+ *
  * ACCESSIBILITY COMMITMENT:
  * This UI serves ALL travelers - regardless of ability, age, or circumstance.
  * Every interaction is accessible via keyboard, screen reader, and mouse.
  * Dynamic updates are announced. Focus is managed. Context is preserved.
- * 
+ *
  * v1.002.000 COMPLETE FEATURES:
  * ✅ Preset buttons (all 7 presets including Solo & Soda Drinker)
  * ✅ Two-winner highlighting (adults + kids when minors present)
@@ -171,9 +171,9 @@ function renderPresetButtons() {
 
     return;
   }
-  
+
   container.innerHTML = '';
-  
+
   Object.keys(PRESETS).forEach(key => {
     const preset = PRESETS[key];
     const button = document.createElement('button');
@@ -181,13 +181,13 @@ function renderPresetButtons() {
     button.type = 'button';
     button.textContent = `${preset.emoji} ${preset.label}`;
     button.setAttribute('data-preset', key);
-    
+
     // ✅ Accessibility: Full context for screen readers
     button.setAttribute('aria-label', `Apply ${preset.label} preset: ${preset.description}`);
-    
+
     // ✅ Event listener (not inline)
     button.addEventListener('click', () => applyPreset(key));
-    
+
     // ✅ Keyboard accessibility
     button.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -195,7 +195,7 @@ function renderPresetButtons() {
         applyPreset(key);
       }
     });
-    
+
     container.appendChild(button);
   });
 
@@ -206,19 +206,19 @@ function renderPresetButtons() {
 function renderBanner(results) {
   const chipEl = document.getElementById('best-chip');
   const textEl = document.getElementById('best-text');
-  
+
   if (!chipEl || !textEl || !results) return;
-  
+
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
-  
+
   const winnerLabel = results.winnerLabel || 'À la carte';
   const winnerCost = results.bars[results.winnerKey]?.mean || 0;
   const alcCost = results.bars.alc?.mean || 0;
   const savings = alcCost - winnerCost;
-  
+
   chipEl.textContent = `Best Value: ${winnerLabel}`;
   chipEl.className = 'badge';
-  
+
   if (results.winnerKey === 'alc') {
     textEl.textContent = 'Paying as you go is your best option';
   } else if (savings > 0) {
@@ -231,12 +231,12 @@ function renderBanner(results) {
 function renderTotals(results) {
   const totalsEl = document.getElementById('totals');
   if (!totalsEl || !results) return;
-  
+
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
-  
+
   const perDay = formatMoney(results.perDay);
   const trip = formatMoney(results.trip);
-  
+
   totalsEl.textContent = `${perDay}/day • ${trip} total`;
 }
 
@@ -245,30 +245,30 @@ function renderTotals(results) {
 function renderChart(bars, winnerKey) {
   let canvas = document.getElementById('results-chart');
   if (!canvas) canvas = document.getElementById('breakeven-chart');
-  
+
   if (!canvas) {
 
     return;
   }
-  
+
   const container = canvas.parentElement;
   if (container && !container.style.maxHeight) {
     container.style.maxHeight = '400px';
     container.style.position = 'relative';
   }
-  
+
   const ctx = canvas.getContext('2d');
   if (!ctx || !window.Chart) return;
-  
+
   if (chartInstance) {
     chartInstance.destroy();
     chartInstance = null;
   }
-  
+
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
-  
+
   if (!bars || typeof bars !== 'object') return;
-  
+
   const chartData = {
     labels: ['À la carte', 'Soda', 'Refreshment', 'Deluxe'],
     datasets: [{
@@ -294,7 +294,7 @@ function renderChart(bars, winnerKey) {
       borderWidth: 2
     }]
   };
-  
+
   try {
     chartInstance = new Chart(ctx, {
       type: 'bar',
@@ -320,10 +320,10 @@ function renderChart(bars, winnerKey) {
         }
       }
     });
-    
+
     // ✅ NEW: Update screen reader table
     renderChartTable(chartData, winnerKey);
-    
+
   } catch (error) {
 
   }
@@ -341,17 +341,17 @@ function renderChartTable(chartData, winnerKey) {
 
     return;
   }
-  
+
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
-  
+
   // Clear existing
   table.innerHTML = '';
-  
+
   // Create caption
   const caption = document.createElement('caption');
   caption.textContent = 'Package Cost Comparison';
   table.appendChild(caption);
-  
+
   // Create header
   const thead = document.createElement('thead');
   const headerRow = document.createElement('tr');
@@ -369,39 +369,39 @@ function renderChartTable(chartData, winnerKey) {
   headerRow.appendChild(th3);
   thead.appendChild(headerRow);
   table.appendChild(thead);
-  
+
   // Create body
   const tbody = document.createElement('tbody');
-  
+
   chartData.labels.forEach((label, idx) => {
     const cost = chartData.datasets[0].data[idx];
     const packageKeys = ['alc', 'soda', 'refresh', 'deluxe'];
     const isWinner = packageKeys[idx] === winnerKey;
-    
+
     const row = document.createElement('tr');
     if (isWinner) {
       row.setAttribute('aria-label', `${label}: ${formatMoney(cost)} - Best value`);
     }
-    
+
     const td1 = document.createElement('td');
     td1.textContent = label;
-    
+
     const td2 = document.createElement('td');
     td2.textContent = formatMoney(cost);
-    
+
     const td3 = document.createElement('td');
     td3.textContent = isWinner ? '✓ Best Value' : '';
     if (isWinner) {
       td3.style.fontWeight = 'bold';
       td3.style.color = '#10b981';
     }
-    
+
     row.appendChild(td1);
     row.appendChild(td2);
     row.appendChild(td3);
     tbody.appendChild(row);
   });
-  
+
   table.appendChild(tbody);
 
 }
@@ -414,15 +414,15 @@ function renderChartTable(chartData, winnerKey) {
  */
 function renderPackageCards(results) {
   if (!results) return;
-  
+
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
-  
+
   const cards = {
     soda: document.querySelector('[data-card="soda"]'),
     refresh: document.querySelector('[data-card="refresh"]'),
     deluxe: document.querySelector('[data-card="deluxe"]')
   };
-  
+
   // Reset all cards
   Object.values(cards).forEach(card => {
     if (card) {
@@ -431,7 +431,7 @@ function renderPackageCards(results) {
       if (badge) badge.remove();
     }
   });
-  
+
   // ✅ Adult winner
   const adultCard = cards[results.winnerKey];
   if (adultCard) {
@@ -439,34 +439,34 @@ function renderPackageCards(results) {
     if (results.showTwoWinners) {
       adultCard.classList.add('winner-adults');
     }
-    
+
     const badge = document.createElement('div');
     badge.className = 'winner-badge';
     badge.textContent = results.showTwoWinners ? '✓ Best for Adults' : '✓ Best Value';
     badge.setAttribute('role', 'status');
-    badge.setAttribute('aria-label', results.showTwoWinners 
-      ? `${results.winnerLabel} is best value for adults` 
+    badge.setAttribute('aria-label', results.showTwoWinners
+      ? `${results.winnerLabel} is best value for adults`
       : `${results.winnerLabel} is best value overall`);
-    
+
     adultCard.insertBefore(badge, adultCard.firstChild);
   }
-  
+
   // ✅ Minor winner (if applicable)
   if (results.showTwoWinners && results.minorWinnerKey) {
     const minorCard = cards[results.minorWinnerKey];
     if (minorCard && minorCard !== adultCard) {
       minorCard.classList.add('winner', 'winner-minors');
-      
+
       const badge = document.createElement('div');
       badge.className = 'winner-badge winner-badge-minors';
       badge.textContent = '✓ Best for Kids';
       badge.setAttribute('role', 'status');
       badge.setAttribute('aria-label', `${results.minorWinnerLabel} is best value for children under 21`);
-      
+
       minorCard.insertBefore(badge, minorCard.firstChild);
     }
   }
-  
+
   // Update package prices
   const economics = window.ITW?.store?.get('economics');
   if (economics && economics.pkg) {
@@ -475,12 +475,12 @@ function renderPackageCards(results) {
       refresh: document.querySelector('[data-pkg-price="refresh"]'),
       deluxe: document.querySelector('[data-pkg-price="deluxe"]')
     };
-    
+
     if (priceElements.soda) priceElements.soda.textContent = formatMoney(economics.pkg.soda);
     if (priceElements.refresh) priceElements.refresh.textContent = formatMoney(economics.pkg.refresh);
     if (priceElements.deluxe) priceElements.deluxe.textContent = formatMoney(economics.pkg.deluxe);
   }
-  
+
   // ✅ Announce winners to screen readers
   if (results.ariaAnnouncement) {
     announce(results.ariaAnnouncement);
@@ -494,21 +494,21 @@ function renderPackageCards(results) {
  */
 function setupInlinePriceEditing() {
   const priceElements = document.querySelectorAll('[data-edit-price]');
-  
+
   priceElements.forEach(element => {
     const packageKey = element.dataset.editPrice;
-    
+
     element.style.cursor = 'pointer';
     element.style.borderBottom = '1px dashed rgba(0,0,0,0.3)';
     element.title = 'Click or press Enter to edit price';
     element.tabIndex = 0; // ✅ Make keyboard focusable
     element.setAttribute('role', 'button');
     element.setAttribute('aria-label', `Edit ${packageKey} package price. Current value: ${element.textContent}`);
-    
+
     const activateEdit = () => {
       const currentText = element.textContent;
       const currentValue = parseFloat(currentText.replace(/[^0-9.]/g, ''));
-      
+
       const input = document.createElement('input');
       input.type = 'text';
       input.value = currentValue;
@@ -519,7 +519,7 @@ function setupInlinePriceEditing() {
       input.style.borderRadius = '4px';
       input.style.padding = '2px 6px';
       input.setAttribute('aria-label', `Edit ${packageKey} package price`);
-      
+
       const save = () => {
         const newValue = input.value;
         if (window.ITW && window.ITW.updatePackagePrice) {
@@ -532,22 +532,22 @@ function setupInlinePriceEditing() {
           }
         }
       };
-      
+
       input.addEventListener('blur', save);
       input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') save();
         else if (e.key === 'Escape') element.textContent = currentText;
       });
-      
+
       element.textContent = '';
       element.appendChild(input);
       input.focus();
       input.select();
     };
-    
+
     // ✅ Click handler
     element.addEventListener('click', activateEdit);
-    
+
     // ✅ Keyboard handler
     element.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -556,7 +556,7 @@ function setupInlinePriceEditing() {
       }
     });
   });
-  
+
   console.log('[UI] ✓ Inline price editing enabled (keyboard accessible)');
 }
 
@@ -570,58 +570,58 @@ function setupQuiz() {
   const openBtn = document.getElementById('quiz-open-btn') || document.querySelector('[onclick*="openQuiz"]');
   const closeBtn = document.getElementById('quiz-close-btn');
   const skipBtn = document.getElementById('quiz-skip-btn');
-  
+
   if (!modal) {
 
     return;
   }
-  
+
   // ✅ Open quiz
   const openQuiz = () => {
     modal.style.display = 'block';
     modal.setAttribute('aria-hidden', 'false');
     quizState = { step: 1, answers: {}, recommendedPreset: null };
     showQuizStep(1);
-    
+
     // ✅ Focus first interactive element
     const firstButton = modal.querySelector('button, [tabindex="0"]');
     if (firstButton) {
       setTimeout(() => firstButton.focus(), 100);
     }
-    
+
     // ✅ Trap focus in modal
     trapFocus(modal);
   };
-  
+
   if (openBtn) {
     openBtn.addEventListener('click', openQuiz);
   }
-  
+
   // ✅ Close quiz
   const closeQuiz = () => {
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
     quizState = { step: 1, answers: {}, recommendedPreset: null };
-    
+
     // ✅ Return focus to open button
     if (openBtn) openBtn.focus();
   };
-  
+
   if (closeBtn) closeBtn.addEventListener('click', closeQuiz);
   if (skipBtn) skipBtn.addEventListener('click', closeQuiz);
-  
+
   // ✅ ESC key to close
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.style.display === 'block') {
       closeQuiz();
     }
   });
-  
+
   // Background click closes
   modal.addEventListener('click', (e) => {
     if (e.target === modal) closeQuiz();
   });
-  
+
   // Quiz answer buttons
   document.querySelectorAll('.quiz-answer').forEach(btn => {
     btn.addEventListener('click', function() {
@@ -629,7 +629,7 @@ function setupQuiz() {
       handleQuizAnswer(answer);
     });
   });
-  
+
   // Apply button
   const applyBtn = document.getElementById('quiz-apply-btn');
   if (applyBtn) {
@@ -650,7 +650,7 @@ function trapFocus(element) {
   );
   const firstFocusable = focusableElements[0];
   const lastFocusable = focusableElements[focusableElements.length - 1];
-  
+
   element.addEventListener('keydown', function(e) {
     if (e.key === 'Tab') {
       if (e.shiftKey && document.activeElement === firstFocusable) {
@@ -669,7 +669,7 @@ function showQuizStep(step) {
     const el = document.getElementById(`quiz-step-${s}`);
     if (el) el.style.display = s === step ? 'block' : 'none';
   });
-  
+
   const resultEl = document.getElementById('quiz-result');
   if (resultEl) resultEl.style.display = 'none';
 }
@@ -677,7 +677,7 @@ function showQuizStep(step) {
 function handleQuizAnswer(answer) {
   const currentStep = quizState.step;
   quizState.answers[`step${currentStep}`] = answer;
-  
+
   if (currentStep < 3) {
     quizState.step++;
     showQuizStep(quizState.step);
@@ -691,17 +691,17 @@ function showQuizResult() {
     const el = document.getElementById(`quiz-step-${s}`);
     if (el) el.style.display = 'none';
   });
-  
+
   const resultEl = document.getElementById('quiz-result');
   const recEl = document.getElementById('quiz-recommendation');
-  
+
   if (!resultEl || !recEl) return;
-  
+
   const { step1, step2, step3 } = quizState.answers;
-  
+
   let preset = 'moderate';
   let message = '';
-  
+
   // ✅ v1.002.000: Fixed quiz logic
   if (step3 === 'nonalc') {
     preset = 'nonalc';
@@ -722,12 +722,12 @@ function showQuizResult() {
     preset = 'solo';
     message = '🧳 Solo Traveler Package! Balanced drinks for one.';
   }
-  
+
   recEl.textContent = message;
   quizState.recommendedPreset = preset;
-  
+
   resultEl.style.display = 'block';
-  
+
   // ✅ Announce result to screen readers
   announce(`Quiz complete. ${message}`);
 }
@@ -743,9 +743,9 @@ function applyQuizResult() {
 function fetchArticles() {
   const container = document.getElementById('recent-rail');
   const fallback = document.getElementById('recent-rail-fallback');
-  
+
   if (!container) return;
-  
+
   const articles = [
     {
       title: 'Royal Caribbean Drink Packages Explained',
@@ -763,7 +763,7 @@ function fetchArticles() {
       ariaLabel: 'Read article: How to Save Money on Your Cruise'
     }
   ];
-  
+
   container.innerHTML = articles.map(article => {
     return `
       <a href="${article.url}" class="rail-article" aria-label="${article.ariaLabel}">
@@ -771,7 +771,7 @@ function fetchArticles() {
       </a>
     `;
   }).join('');
-  
+
   if (fallback) fallback.style.display = 'none';
 
 }
@@ -780,32 +780,32 @@ function fetchArticles() {
 
 function renderNudges(nudges) {
   let container = document.getElementById('nudges-container');
-  
+
   // ✅ Create container if missing
   if (!container) {
     container = document.createElement('div');
     container.id = 'nudges-container';
     container.setAttribute('role', 'region');
     container.setAttribute('aria-label', 'Breakeven tips');
-    
+
     const resultsSection = document.querySelector('#results, main');
     if (resultsSection) {
       resultsSection.appendChild(container);
     }
   }
-  
+
   if (!nudges || nudges.length === 0) {
     container.innerHTML = '';
     container.style.display = 'none';
     return;
   }
-  
+
   container.style.display = 'block';
   container.innerHTML = '';
-  
+
   nudges.forEach(nudge => {
     if (!nudge || typeof nudge.message !== 'string') return;
-    
+
     const div = document.createElement('div');
     div.className = 'nudge-item';
     div.setAttribute('role', 'status');
@@ -822,15 +822,15 @@ function renderNudges(nudges) {
       gap: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     `;
-    
+
     const icon = document.createElement('span');
     icon.textContent = nudge.icon || '💡';
     icon.style.fontSize = '24px';
     icon.setAttribute('aria-hidden', 'true');
-    
+
     const message = document.createElement('span');
     message.textContent = nudge.message;
-    
+
     div.appendChild(icon);
     div.appendChild(message);
     container.appendChild(div);
@@ -960,36 +960,36 @@ function renderCostSummary(results) {
 
 function renderHealthNote(healthNote) {
   let container = document.getElementById('health-note-container');
-  
+
   // ✅ Create container if missing
   if (!container) {
     container = document.createElement('div');
     container.id = 'health-note-container';
     container.setAttribute('role', 'region');
     container.setAttribute('aria-label', 'Health advisory');
-    
+
     const resultsSection = document.querySelector('#results, main');
     if (resultsSection) {
       resultsSection.appendChild(container);
     }
   }
-  
+
   if (!healthNote || typeof healthNote.message !== 'string') {
     container.innerHTML = '';
     container.style.display = 'none';
     return;
   }
-  
+
   container.style.display = 'block';
   container.innerHTML = '';
-  
+
   const colors = {
     moderate: { bg: '#fff3cd', border: '#ffc107', text: '#856404' },
     high: { bg: '#f8d7da', border: '#dc3545', text: '#721c24' }
   };
-  
+
   const color = colors[healthNote.level] || colors.moderate;
-  
+
   const wrapper = document.createElement('div');
   wrapper.setAttribute('role', 'alert');
   wrapper.setAttribute('aria-label', healthNote.ariaLabel || healthNote.message);
@@ -1006,25 +1006,25 @@ function renderHealthNote(healthNote) {
     font-size: 14px;
     line-height: 1.6;
   `;
-  
+
   const iconSpan = document.createElement('span');
   iconSpan.textContent = healthNote.icon || '⚕️';
   iconSpan.style.cssText = 'font-size: 24px; flex-shrink: 0;';
   iconSpan.setAttribute('aria-hidden', 'true');
-  
+
   const contentDiv = document.createElement('div');
-  
+
   const strongLabel = document.createElement('strong');
   strongLabel.textContent = 'Health Note: ';
-  
+
   const messageText = document.createTextNode(healthNote.message);
-  
+
   contentDiv.appendChild(strongLabel);
   contentDiv.appendChild(messageText);
-  
+
   wrapper.appendChild(iconSpan);
   wrapper.appendChild(contentDiv);
-  
+
   container.appendChild(wrapper);
 
 }
@@ -1033,22 +1033,22 @@ function renderHealthNote(healthNote) {
 
 function renderSummary(results) {
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
-  
+
   const perDayEl = document.getElementById('summary-per-day');
   if (perDayEl && typeof results.perDay === 'number') {
     perDayEl.textContent = formatMoney(results.perDay);
   }
-  
+
   const tripEl = document.getElementById('summary-trip');
   if (tripEl && typeof results.trip === 'number') {
     tripEl.textContent = formatMoney(results.trip);
   }
-  
+
   const winnerEl = document.getElementById('winner-badge');
   if (winnerEl) {
     winnerEl.textContent = results.winnerLabel || 'À la carte';
   }
-  
+
   const policyEl = document.getElementById('policy-note');
   if (policyEl) {
     if (results.policyNote && typeof results.policyNote === 'string') {
@@ -1063,36 +1063,36 @@ function renderSummary(results) {
 function renderCategoryTable(categoryRows) {
   const tbody = document.querySelector('#category-table tbody');
   if (!tbody) return;
-  
+
   tbody.innerHTML = '';
-  
+
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
   const labels = window.ITW_CONFIG?.DRINK_LABELS || {};
-  
+
   if (!Array.isArray(categoryRows)) return;
-  
+
   categoryRows.forEach(row => {
     if (!row || typeof row.qty !== 'number' || row.qty === 0) return;
-    
+
     const tr = document.createElement('tr');
-    
+
     const tdDrink = document.createElement('td');
     tdDrink.textContent = labels[row.id] || row.id;
-    
+
     const tdQty = document.createElement('td');
     tdQty.textContent = row.qty.toFixed(1);
-    
+
     const tdPrice = document.createElement('td');
     tdPrice.textContent = formatMoney(row.price);
-    
+
     const tdCost = document.createElement('td');
     tdCost.textContent = formatMoney(row.cost);
-    
+
     tr.appendChild(tdDrink);
     tr.appendChild(tdQty);
     tr.appendChild(tdPrice);
     tr.appendChild(tdCost);
-    
+
     tbody.appendChild(tr);
   });
 }
@@ -1104,7 +1104,7 @@ function renderCategoryTable(categoryRows) {
  */
 function announce(message, priority = 'polite') {
   let liveRegion = document.getElementById('aria-live-region');
-  
+
   if (!liveRegion) {
     liveRegion = document.createElement('div');
     liveRegion.id = 'aria-live-region';
@@ -1120,7 +1120,7 @@ function announce(message, priority = 'polite') {
     `;
     document.body.appendChild(liveRegion);
   }
-  
+
   // Clear then announce (ensures screen reader picks up change)
   liveRegion.textContent = '';
   setTimeout(() => {
