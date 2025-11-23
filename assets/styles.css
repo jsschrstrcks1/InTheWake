@@ -826,4 +826,74 @@ html, body{ overflow-x:hidden }
 .navbar{ position:relative; z-index:6; overflow:visible; }
 .nav-group{ position:relative; }        /* anchor for absolute submenu */
 .hero-header, header{ overflow:visible; }
+
+/* ===== Logbook Navigation (carousel controls) ===== */
+.logbook-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  margin: 1rem 0;
+  padding: .5rem 0;
+}
+
+.logbook-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  padding: .65rem 1.25rem;
+  min-height: 44px;
+  min-width: 120px;
+  border-radius: 20px;
+  background: #fff;
+  border: 2px solid var(--rope, #d9b382);
+  color: var(--accent, #0e6e8e);
+  font: inherit;
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(8,48,65,.08);
+}
+
+.logbook-btn:hover:not(:disabled) {
+  background: var(--foam, #e6f4f8);
+  border-color: var(--accent, #0e6e8e);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(8,48,65,.12);
+}
+
+.logbook-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(8,48,65,.08);
+}
+
+.logbook-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+  background: #f5f5f5;
+  border-color: #ddd;
+  color: #999;
+}
+
+.logbook-btn:focus-visible {
+  outline: 3px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+}
+
+/* Mobile responsive */
+@media (max-width: 520px) {
+  .logbook-nav {
+    gap: .5rem;
+  }
+  .logbook-btn {
+    min-width: 100px;
+    padding: .55rem 1rem;
+    font-size: .9rem;
+  }
+}
+
 /* ======================================================================== */
