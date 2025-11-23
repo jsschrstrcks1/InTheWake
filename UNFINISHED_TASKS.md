@@ -647,6 +647,7 @@ All 50 ships should have stats JSON at:
 
 #### 2. Accessible Cruising: Complete Guide for Travelers with Disabilities
 **Status:** ✅ COMPLETE (solo/articles/accessible-cruising.html) - 26 logbook references
+**Note:** Picture tags verified balanced 2025-11-23
 - [x] Full article exists with 5 universal principles
 - [ ] Consider minor expansion: medical equipment, service animals, dietary restrictions, cruise line comparison
 - **Topics covered:** Wheelchair, autism, stroke recovery, deaf/hard-of-hearing, chronic illness, PTSD, invisible disabilities
@@ -654,6 +655,7 @@ All 50 ships should have stats JSON at:
 
 #### 3. Solo Cruising: Your Complete Guide to Traveling Alone at Sea
 **Status:** ⚠️ PARTIAL (why-i-started-solo-cruising.html exists but not comprehensive) - 20 logbook references
+**Note:** Article loads correctly on solo.html (picture tags fixed 2025-11-23 - see Performance Optimizations above)
 - [ ] Expand existing article OR create new comprehensive-solo-cruising.html
 - [ ] Cover all solo personas: grief, anxiety, introverts, by-choice, first-time solo
 - [ ] Add ship size recommendations for solo travelers
@@ -681,7 +683,8 @@ All 50 ships should have stats JSON at:
 - **Cross-links:** Solo travel, mental health resources, pastoral sabbatical packing, anxiety travel
 
 **Existing support articles (COMPLETE):**
-- ✅ freedom-of-your-own-wake.html
+- ✅ freedom-of-your-own-wake.html (Picture tags fixed 2025-11-23 - see Performance Optimizations above)
+- ✅ why-i-started-solo-cruising.html (Picture tags fixed 2025-11-23 - see Performance Optimizations above)
 - ✅ visiting-the-united-states-before-your-cruise.html
 
 **Additional themes for future articles (2-10 references each):**
