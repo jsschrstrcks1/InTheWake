@@ -1,0 +1,3 @@
+# STANDARDS_ADDENDUM__CACHING_v3.007.md
+
+Merged into Superset v3.008.010
