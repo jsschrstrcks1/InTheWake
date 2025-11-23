@@ -97,6 +97,205 @@ All files claimed to exist do exist. All claimed completions are accurate. No ha
 
 ---
 
+## 🚨 STANDARDS CATASTROPHE & REBUILD (2025-11-23)
+
+**Status:** ⏳ PENDING USER UPLOAD - Comprehensive standards rebuild from 220+ fragments
+**Priority:** P0 - CRITICAL INFRASTRUCTURE
+**Branch:** `claude/repair-and-update-013wGA1z6bayMEXdJTzqU3kc`
+
+### Situation
+
+Lost most current standards. Have 220+ fragments across versions v2.245 - v3.009+ in `/old-files/` directory including:
+- Multiple versions of core standards (main, root, ships, ports, cruise-lines)
+- Specialized standards (articles, solo, restaurants, venues, logbooks, personas, navigation, accessibility, SEO, analytics, attribution, caching, swiper, dining cards)
+- Code examples (.html, .js, .css, .json, .py)
+- Documentation (.md, .txt, .doc, .docx)
+- Archived zip files with nested standards
+
+**CRITICAL:** Current `/standards/` directory also must be included - it contains outdated standards created before 90% of the codebase was written.
+
+### Objective
+
+Create consolidated master standards in `/new-standards/` that:
+1. Represent a **superset of all rules** without losing any information
+2. Are grounded in **current working implementation** (561 HTML files)
+3. Document **EVERYTHING the website does** (even if no fragment mentions it)
+4. Are comprehensive enough to **DELETE /old-files/ and /standards/ directories**
+
+### Preservation Doctrine: "Verified Superset, Reality-Grounded"
+
+**TIER 1 - ALWAYS KEEP:**
+- Current working implementation (what's in 561 HTML files NOW)
+- ITW-Lite Protocol requirements (supersedes contradictory older rules)
+- Unique rules (if appears in any fragment and doesn't conflict)
+- Working code examples (demonstrates patterns, prevents ambiguity)
+
+**TIER 2 - KEEP WITH CONTEXT:**
+- Deprecated rules that explain migration path [DEPRECATED]
+- Pilot/experimental features [PILOT]
+- Version-specific rules (explains why old pages differ)
+- Conflict resolutions (documents decision rationale)
+
+**TIER 3 - DISCARD:**
+- Exact duplicates (byte-for-byte identical)
+- Contradicts current reality with no historical value
+- Vague/incomplete without context ("TBD", orphaned fragments)
+- Dilutes ITW-Lite Protocol
+- Packaging metadata (READMEs about zip files, not standards)
+
+### File Types to Process
+
+- **.md, .txt:** Standards documentation
+- **.doc, .docx:** May need special handling/conversion
+- **.html:** Template examples (canonical implementations)
+- **.js:** Implementation patterns, version numbers, API usage
+- **.css:** Version strings, class conventions, component patterns
+- **.json:** Schema examples, data structures
+- **.py:** Automation expectations, validation logic
+- **.zip:** Extract and examine contents recursively
+
+### Conflict Resolution Priority
+
+When fragments contradict:
+1. **Current Implementation** = truth (verify in 561 HTML files)
+2. **ITW-Lite Protocol** = future direction (supersedes old standards)
+3. **Newest Version** = assumed best (if chronology clear)
+4. **Most Complete** = detailed beats vague
+5. **Most Specific** = ship-specific beats generic
+6. **User Decision** = flag for review if major architectural choice
+
+### Rebuild Process (10 Tasks)
+
+- [ ] **Task 1:** Inventory all fragments (find, count, categorize all files in old-files/ AND /standards/)
+- [ ] **Task 2:** Extract .zip files recursively
+- [ ] **Task 3:** Convert/handle .doc/.docx files
+- [ ] **Task 4:** Create FRAGMENT_INVENTORY.md (complete manifest with metadata)
+- [ ] **Task 5:** Perform line-by-line comparison, identify exact duplicates
+- [ ] **Task 6:** Extract unique rules from each fragment
+- [ ] **Task 7:** Verify standards against current implementation (grep 561 HTML files)
+- [ ] **Task 8:** Create CONFLICT_RESOLUTIONS.md (document all contradictions and decisions)
+- [ ] **Task 9:** Build consolidated standards in /new-standards/ with structure:
+  ```
+  /new-standards/
+  ├── README.md                    # Master overview
+  ├── CHANGELOG.md                 # What changed from fragments
+  ├── REBUILD_AUDIT.md            # All decisions documented
+  ├── FRAGMENT_INVENTORY.md       # Complete source manifest
+  ├── CONFLICT_RESOLUTIONS.md     # Contradictions resolved
+  ├── MIGRATION_GUIDE.md          # Breaking changes guide
+  ├── DEPRECATIONS.md             # Old rules no longer valid
+  ├── VALIDATION_REPORT.md        # Examples tested, cross-refs verified
+  ├── CURRENT_STATE_AUDIT.md      # What's actually implemented
+  ├── VERSION_HISTORY.md          # Version timeline
+  │
+  ├── core/                        # Core global standards
+  │   ├── main-standards.md       # Consolidated global
+  │   ├── versioning-standards.md
+  │   └── url-standards.md
+  │
+  ├── content/                     # Content-specific
+  │   ├── ships-standards.md
+  │   ├── ports-standards.md
+  │   ├── articles-standards.md
+  │   ├── solo-standards.md
+  │   ├── cruise-lines-standards.md
+  │   ├── restaurants-standards.md
+  │   └── venues-standards.md
+  │
+  ├── technical/                   # Technical implementation
+  │   ├── performance-standards.md
+  │   ├── accessibility-standards.md
+  │   ├── seo-standards.md
+  │   ├── image-standards.md
+  │   ├── analytics-standards.md
+  │   └── caching-standards.md
+  │
+  ├── protocols/                   # Content protocols
+  │   ├── ITW-LITE_PROTOCOL.md   # (link to admin/claude/)
+  │   ├── ICP-LITE_PROTOCOL.md
+  │   └── attribution-protocol.md
+  │
+  ├── examples/                    # Canonical code examples
+  │   ├── ship-page-canonical.html
+  │   ├── port-page-canonical.html
+  │   ├── cache-warming-snippet.js
+  │   └── sw-registration.js
+  │
+  └── archive/                     # ALL original fragments preserved
+      ├── README.md               # "How to find original fragments"
+      ├── fragment-sources.json   # Machine-readable map
+      └── [all 220+ original fragments unchanged]
+  ```
+- [ ] **Task 10:** Update admin/claude/ documentation to reference /new-standards/
+  - Update STANDARDS_INDEX.md
+  - Update CLAUDE.md
+  - Update CODEBASE_GUIDE.md
+  - Update ITW-LITE_PROTOCOL.md
+  - Prepare for deletion of /old-files/ and /standards/ directories
+
+### Documentation Requirements
+
+For EVERY rule kept, document:
+- **SOURCE:** Which fragment(s) contributed this
+- **STATUS:** [PRODUCTION] / [PILOT] / [DEPRECATED] / [ROADMAP]
+- **VERSION:** When introduced/changed
+- **VERIFIED:** Yes/No - confirmed in current implementation
+- **EXAMPLES:** Link to working code if applicable
+
+For EVERY rule discarded, document in REBUILD_AUDIT.md:
+- **WHAT:** What was discarded
+- **WHY:** Reason (duplicate, contradicts reality, etc.)
+- **WHERE:** Which fragment it came from
+- **WHEN:** Version/date
+
+### Validation Checklist
+
+Before finalizing:
+- [ ] No contradictions within new standards
+- [ ] All cross-references resolve
+- [ ] All code examples validate (URLs resolve, JSON validates, HTML parses)
+- [ ] Version numbers consistent
+- [ ] Current implementation matches documented standards
+- [ ] All fragments accounted for (nothing lost)
+- [ ] Conflicts documented with resolutions
+- [ ] Migration guide created for breaking changes
+- [ ] Standards match automation script expectations
+
+### Key Considerations
+
+1. **Every file matters:** Even .py scripts reveal what automation expects
+2. **Code is truth:** Working HTML/JS/CSS shows actual patterns, trumps written docs
+3. **Version archaeology:** Extract version numbers from all file types to establish chronology
+4. **ITW-Lite supremacy:** Supersedes anything that contradicts or dilutes it
+5. **Current implementation wins:** What's working in 561 HTML files is canonical
+6. **Superset approach:** If unique and doesn't conflict, keep it
+7. **Context preservation:** Deprecated rules help understand migration path
+8. **Archive everything:** Even discarded fragments stay in archive/ for reference
+9. **Cross-validation:** Standards must match what scripts enforce
+10. **Template canonicalization:** Complete working examples become primary docs
+11. **Comprehensive documentation:** Document EVERYTHING the website does (even if no fragment mentions it)
+12. **Deletion readiness:** New standards must allow deletion of /old-files/ and /standards/
+
+### Timeline
+
+- **Phase 1:** User finishes uploading fragments (PENDING)
+- **Phase 2:** Claude performs comprehensive inventory and analysis (2-3 hours)
+- **Phase 3:** User reviews conflict resolutions and makes architectural decisions (1-2 hours)
+- **Phase 4:** Claude builds consolidated standards (2-3 hours)
+- **Phase 5:** Validation and documentation (1 hour)
+- **Phase 6:** Commit and push to branch
+
+### Related Documentation
+
+- [admin/claude/CLAUDE.md](admin/claude/CLAUDE.md) - Claude onboarding guide (created 2025-11-23)
+- [admin/claude/ITW-LITE_PROTOCOL.md](admin/claude/ITW-LITE_PROTOCOL.md) - Content protocol spec
+- [admin/claude/STANDARDS_INDEX.md](admin/claude/STANDARDS_INDEX.md) - Current standards index
+- [admin/claude/CODEBASE_GUIDE.md](admin/claude/CODEBASE_GUIDE.md) - Repository structure
+
+**APPEND-ONLY RULE:** This task will be updated as work progresses. Completed subtasks marked ✅. Archive to Historical Tasks section when complete.
+
+---
+
 ## 🔍 COMPREHENSIVE AUDIT #2 (2025-11-23)
 
 **Status:** Full file-by-file verification after rebase and recent PR merges (#172, #171, #170, #169, #168)
