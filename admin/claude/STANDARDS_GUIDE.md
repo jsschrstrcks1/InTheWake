@@ -114,6 +114,7 @@ Complete caching strategy with:
 
 ICP-Lite v1.0: AI-first metadata protocol
 AI-Breadcrumbs: Structured context comments
+Fun Distance Units v1.0: Whimsical distance comparisons
 Multi-Brand: RC/Carnival/MSC data structures
 ```
 

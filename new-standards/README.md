@@ -32,8 +32,7 @@ new-standards/
 ├── v3.010/                             (current version innovations)
 │   ├── ICP_LITE_v1.0_PROTOCOL.md
 │   ├── AI_BREADCRUMBS_SPECIFICATION.md
-│   ├── EEAT_PERSON_SCHEMA.md
-│   ├── PRECACHE_PRIORITY_SYSTEM.md
+│   ├── FUN_DISTANCE_UNITS_STANDARDS_v1.0.md
 │   └── MULTI_BRAND_DATA_CONTRACTS.md
 └── addenda/                            (supplemental standards)
     ├── INVOCATION_REQUIREMENTS.md
