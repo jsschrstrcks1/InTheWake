@@ -755,9 +755,161 @@ v2.233 → v2.245 → v2.256(.003/.022) → v2.4 → v2.257 → v3.001 → v3.00
 
 ---
 
-## 10. ANALYSIS STATUS
+## 10. LOGBOOK PERSONAS SYSTEM (v2.257)
 
-### Files Read (19 total):
+**Source:** ships-logbook-personas-standards-v2.257.md
+
+**10 Persona Archetypes:**
+| Persona | Core Concept | Emotional Arc |
+|----------|---------------|----------------|
+| P1-Elmer | Grandfather rediscovering joy with family | Nostalgic, thankful, tearful at reconnection |
+| P2-Marissa | Solo woman rediscovering confidence | Independence, peace, renewal |
+| P3-Lydia | Single mom finding rest and family unity | Healing, bonding, laughter |
+| P4-Tom & Jean | Empty nesters | Romance reborn at sea |
+| P5-Nathan | Workaholic learning to disconnect | Conviction → calm |
+| P6-Maya & Jordan | Young newlyweds | Wonder, humor, shared faith |
+| P7-Carlos | Disabled veteran | Reflection, healing, belonging |
+| P8-Grace | Mission trip return | Purpose, gratitude, closure |
+| P9-Danielle & Friends | Girl's getaway | Joy, laughter, community |
+| P10-Ezekiel | Pastor on sabbatical | Quiet renewal, faith restored |
+
+**Required Metadata:**
+- `id`: Unique lowercase identifier (e.g., `p1-elmer`)
+- `persona_label`: Short editorial note (1-2 sentences max)
+- `title`: Compelling, headline-quality title
+- `markdown`: Full logbook entry (rich Markdown format)
+- `nav_port / nav_starboard`: Links to next/previous persona entries
+
+**Mandatory Disclosure (v2.257):**
+```
+Full disclosure: I have not yet sailed [Ship Name]. Until I do, this Logbook
+is an aggregate of vetted guest soundings, taken in their own wake, trimmed
+and edited to our standards.
+```
+
+**Tone Guidance:**
+- Prioritize heartwarming, with occasional bittersweet moments
+- Avoid cynicism or overt salesmanship — sincerity first
+- Integrate nautical language naturally ("wake," "helm," "port," "starboard," "deck")
+- Optionally include subtle faith references (answered prayers, gratitude, sunsets, fellowship)
+
+**Validation Checklist:**
+- [ ] JSON validates against schema v2.257
+- [ ] All dates and itineraries match real 2024-2025 RCL deployments
+- [ ] Disclosure text exact and unmodified
+- [ ] Markdown under 1200 words (excluding disclosure)
+- [ ] Each persona includes a "tear-jerker" moment
+- [ ] No duplicate names or story templates reused
+- [ ] Language: warm, nautical, faith-compatible
+
+---
+
+## 11. VENUE/RESTAURANT SYSTEM (v2.256-v2.257)
+
+### 11.1 Canonical Venue Pages (v2.256.003)
+
+**Source:** restaurants-standards_v2.256_maritime-dining.md
+
+**R-1 Canonical Venue Pages:**
+- One canonical page per venue: `/restaurants/<slug>.html`
+- Ship pages link to canonical venue page
+- Venue page links back to ship pages where available
+
+**R-2 Variants & One-Off Menus:**
+- Ship/class-specific items live within canonical page under "Ship-Specific Variants"
+- Receive stable anchor (e.g., `#icon-class-variant`)
+- Ship dining cards may deep-link to variant anchor
+
+**R-3 Menus & Prices:**
+- Include "Core Menu (Fleetwide Standard)" with prices when verified
+- Unverified entries labeled and placed behind "To Verify" note
+- Global price disclaimer: "Prices are subject to change at any time without notice. These represent what they were the last time I sailed."
+
+**R-4 Special Accommodations:**
+- Dedicated card for gluten-free, vegetarian, and allergy protocols
+- Include pre-sailing notification guidance and onboard confirmation
+
+**R-5 Logbook — Dining Disclosures:**
+- Use adapted Logbook disclosures (A/B/C) for dining
+- Example B: "Aggregate of vetted guest soundings… trimmed and edited to our dining standards."
+- Place immediately under Logbook header, inside `.pill` element
+
+**R-6 Styling & Compliance:**
+- Absolute URLs everywhere
+- `<meta name="referrer" content="no-referrer">`
+- Watermark at ~0.08 opacity on cards
+- Version badge present on every restaurant page
+
+### 11.2 Comprehensive Venue Standards (v2.257)
+
+**Source:** venue-standards.md (424 lines)
+
+**Price Governance (Bands by Class):**
+- Lunch: $21–$25 typical
+- Dinner: $39–$65 typical (+18% gratuity)
+- Add-ons: Lobster tail ~$21
+- Children 6–12: ~50% for fixed-price venues
+- Display format: "Lunch $21–25 · Dinner $39–65 (varies by ship/class)"
+
+**Allergen Micro-Component:**
+```html
+<div class="allergen-micro" role="note">
+  <p class="pill"><strong>Allergen & Dietary Notes:</strong>
+  Royal Caribbean follows SAFE Food Policy...</p>
+</div>
+```
+
+**Persona Review Policy:**
+- Exactly one persona review block per venue page
+- Must include "Depth Soundings" disclaimer pill
+- Tone: candid, descriptive, avoids absolutes, 90–130 words
+- Never quote private groups; prefer public forums (Reddit, CC, RCBlog, X)
+
+---
+
+## 12. MODULAR STANDARDS FOUNDATION (v2.245)
+
+**Source:** in-the-wake-modular-standards-v2-245.md
+
+**FORCE-WWW POLICY:**
+```javascript
+(function enforceWWW(){
+  try{
+    var h = location.hostname;
+    if (h === 'cruisinginthewake.com'){
+      location.replace('https://www.'+h+location.pathname+location.search+location.hash);
+    }
+  }catch(e){}
+})();
+```
+
+**CSS Variables Required:**
+`--sea, --foam, --rope, --ink, --sky, --accent`
+
+**Navigation Bar (v2.245):**
+- Use `.pills` horizontal nav
+- Links: Home, Ships, Restaurants & Menus, Ports, Disability at Sea, Drink Packages, Packing Lists, Cruise Lines, Solo, Travel
+- Must remain one line on desktop
+- Horizontal scroll on mobile with hidden scrollbar
+
+---
+
+## 13. CRUISE LINES PAGE (v2.4)
+
+**Source:** cruise-lines-standards.md
+
+**Class Pill Reorder Script:**
+```javascript
+const CLASS_RANK = {
+  icon:1, oasis:2, quantum:3, freedom:4, voyager:5, radiance:6, vision:7
+};
+```
+
+---
+
+## 14. ANALYSIS STATUS
+
+### Files Read (35 total):
 
 **v3.009 (3 files):**
 - ✅ in-the-wake-standards-v3.009.md (184 lines)
@@ -784,7 +936,30 @@ v2.233 → v2.245 → v2.256(.003/.022) → v2.4 → v2.257 → v3.001 → v3.00
 - ✅ STANDARDS_ADDENDUM__CACHING_v3.007.md (193 lines)
 - ✅ InTheWake_Ship_Standards_v3.007.070.md (131 lines)
 
-### Remaining Files to Analyze: ~101 files
+**v3.006 (8 files):**
+- ✅ INDEX-HUB_STANDARDS.md (15 lines)
+- ✅ SHIP-PAGE_STANDARDS.md (11 lines)
+- ✅ SWIPER_STANDARDS.md (5 lines)
+- ✅ CADENCE_STANDARDS.md (5 lines)
+- ✅ DINING-CARD_STANDARDS.md (6 lines)
+- ✅ VIDEO-SOURCES_STANDARDS.md (5 lines)
+- ✅ ATTRIBUTION_STANDARDS.md (7 lines)
+- ✅ ANALYTICS_STANDARDS.md (4 lines)
+
+**v3.009 Encyclopedia (2 files):**
+- ✅ w templates.../EVERY-PAGE_STANDARDS.md (50 lines - v3.009 version)
+- ✅ w templates.../SEO_STRUCTURED_DATA.md (19 lines)
+
+**v2.x Historical (9 files):**
+- ✅ venue-standards.md v2.257 (424 lines - comprehensive)
+- ✅ restaurants-standards-v2-256-maritime-dining.md (33 lines)
+- ✅ ships-logbook-personas-standards-v2-257.md (57 lines)
+- ✅ in-the-wake-modular-standards-v2-245.md (100 lines read)
+- ✅ cruise-lines-standards.md v2.4 (42 lines)
+- ✅ every-page-standards.md (28 lines - v3.006 verbatim import)
+- ✅ STANDARDS_INDEX.md (31 lines - directory structure)
+
+### Remaining Files to Analyze: ~102 files
 
 **Priority Categories:**
 1. Specialized standards (SEO, analytics, accessibility)
@@ -806,6 +981,21 @@ v2.233 → v2.245 → v2.256(.003/.022) → v2.4 → v2.257 → v3.001 → v3.00
 
 ---
 
-**Document Status:** In Progress (19 of 137 files analyzed)
+**Document Status:** In Progress (35 of 137 files analyzed - 25.5% complete)
 **Last Updated:** 2025-11-23
-**Next Update:** After analyzing specialized standards files
+**Next Update:** After analyzing remaining v2.x historical files and templates
+
+**Major Systems Documented:**
+- ✅ Navigation (v3.008-v3.009 with conflicts noted)
+- ✅ Right Rail System (v3.008-v3.009)
+- ✅ Solo Module (v3.008)
+- ✅ Caching System (v3.007)
+- ✅ CI/CD Gates (v3.008-v3.009)
+- ✅ Article Production (v3.008)
+- ✅ Ship Page Standards (v3.007.010, v3.007.070)
+- ✅ Logbook Personas (v2.257)
+- ✅ Venue/Restaurant System (v2.256-v2.257)
+- ✅ Modular Foundation (v2.245)
+- ✅ Cruise Lines Pages (v2.4)
+
+**Next Priority:** Complete v2.x analysis, then templates/examples, then move to Task 7 (verify against implementation)
