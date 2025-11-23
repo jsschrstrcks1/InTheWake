@@ -1,6 +1,7 @@
 # Unfinished Tasks - Both Threads
 
 **Generated:** 2025-11-17
+**Last Updated:** 2025-11-23 (Port Tracker COMPLETE, Ship Tracker COMPLETE, Ship Cards Redesign COMPLETE, Master Port Lists created)
 **Last Updated:** 2025-11-23 (COMPREHENSIVE AUDIT #3 added - 368 issues fixed, 10 files created)
 **Threads Tracked:**
 - Thread 1: `claude/evaluate-ai-human-strategy-01L5apYYXXKEUVyhFbyhAgZs`
@@ -118,6 +119,25 @@ All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, 
 8. achievement_level_reached, 9. share_stats_opened
 10. share_image_downloaded (VIRALITY), 11. data_exported, 12. data_imported, 13. data_reset
 
+### ✅ Ship Tracker Tool - COMPLETE (2025-11-23)
+**Status:** ✅ COMPLETE - Fully functional at `/tools/ship-tracker.html`
+**Location:** /tools/ship-tracker.html
+
+**Features implemented:**
+- [x] Interactive checklist of 28 Royal Caribbean ships
+- [x] Ship class grouping (Oasis, Quantum, Freedom, Voyager, Vision, Radiance, Sovereign)
+- [x] Statistics dashboard (ships sailed, classes completed, total passenger capacity experienced)
+- [x] 10 achievement bingo cards:
+  - [x] 🌊 Oasis Class Collector (5 ships)
+  - [x] ⚡ Quantum Leap (7 ships)
+  - [x] 🎡 Freedom Fighter (6 ships)
+  - [x] 🚀 Voyager Veteran (5 ships)
+  - [x] 👑 Radiance Romance (5 ships)
+  - [x] 🎪 Vision Quest (6 ships)
+  - [x] 🏆 Fleet Master (10+ ships)
+  - [x] ⚓ Class Completionist (sail every ship in a class)
+  - [x] 🌟 Icon Explorer (Icon + Star of the Seas)
+  - [x] 🔥 Newest Ships (ships <5 years old)
 ### ✅ Ship Tracker Tool - COMPLETE (2025-11-22)
 **Status:** ✅ COMPLETE - Fully functional at `/tools/ship-tracker.html`
 **Location:** /tools/ship-tracker.html (42KB, 1132 lines)
@@ -132,6 +152,12 @@ All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, 
 - [x] Export/import data (JSON)
 - [x] Share stats card generator (Canvas API)
 - [x] localStorage persistence
+- [x] Comprehensive Google Analytics tracking (7 event types)
+- [x] Integration with existing port tracker data
+
+**Analytics events tracked:**
+1. page_view, 2. ship_checked, 3. ship_unchecked, 4. ship_link_clicked (CONVERSION)
+5. filter_changed, 6. ship_search, 7. bingo_completed
 - [x] Analytics tracking integrated
 - [x] Dynamic badge sorting
 - [x] Collapsible sections with smooth animations
@@ -195,6 +221,19 @@ All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, 
 
 **Timeline:** Phase 1 after Carnival private islands batch (2026+)
 **Rationale:** Maximize engagement with users who cruise on multiple lines
+
+### ✅ Master Port Lists - COMPLETE (2025-11-23)
+**Status:** ✅ COMPLETE - Comprehensive reference documents for future expansion
+**Location:** /assets/data/ports/
+
+**Files created:**
+- [x] carnival-cruise-line-ports-master-list.md (320+ ports, 29 ships, 2022-2028 data)
+- [x] royal-caribbean-ports-master-list.md (current reference)
+- [x] virgin-voyages-ports-master-list.md (120 ports, 4 ships, adults-only premium)
+- [x] norwegian-cruise-line-ports-master-list.md (420+ ports, 20 ships, Freestyle Cruising)
+- [x] msc-cruises-ports-master-list.md (350+ ports, 23 ships, European focus)
+
+**Purpose:** Reference documents for future multi-cruise-line expansion, port page creation, and tracker enhancements
 
 ---
 
@@ -934,16 +973,28 @@ All 50 ships should have stats JSON at:
 - Audit script: audit_and_fix_nav.py
 - Audit report: nav_audit_report.txt
 
-### Ship Cards Redesign (ships.html and ship index pages)
-- [ ] Add compelling CTA text to each ship card explaining WHY users should click
-- [ ] Include WHO would want this ship (target audience/use case)
-- [ ] Examples of CTA text:
-  - Radiance: "Check out this ship if million dollar views through glass windows is important to you"
-  - Each ship needs unique, value-focused CTA based on its strengths
-- [ ] Better utilize card space - image and text currently too small relative to card size
-- [ ] Shrink cards down to only needed space after adding CTA content
-- [ ] Ensure cards remain responsive and accessible
-- [ ] Test across different screen sizes
+### ✅ Ship Cards Redesign - COMPLETE (2025-11-23)
+**Status:** ✅ COMPLETE - Comprehensive CSS redesign at `/assets/css/item-cards.css`
+**File modified:** /assets/css/item-cards.css
+
+**Improvements implemented:**
+- [x] Enhanced grid layout with responsive breakpoints (320px → 360px → 3-column fixed at 1400px+)
+- [x] Improved spacing: 1.75rem → 2.25rem → 2.5rem gaps depending on viewport
+- [x] CTA text styling: gradient background, left border accent, inset shadow
+- [x] Full-width CTA button: gradient, uppercase, animated arrow icon (→)
+- [x] Enhanced card hover effects: translateY(-6px), stronger shadows, border color change
+- [x] Image improvements: 16:9 aspect ratio, stronger zoom (1.08x on hover)
+- [x] Badge enhancements: gradient backgrounds, backdrop blur, better shadows
+- [x] Meta badge styling: gradient backgrounds, better color contrast
+- [x] Retired ship styling: opacity, grayscale filter with hover restore
+- [x] Accessibility improvements: reduced motion, high contrast, print styles
+- [x] Responsive and accessible across all screen sizes
+
+**Key features:**
+- Cards now have clear visual hierarchy guiding users: image → title → CTA text → action button
+- CTA text accepts HTML (strong tags highlighted in accent color)
+- Prominent full-width button encourages clicks
+- Animated arrow slides 4px right on hover for interactivity
 
 ### Article Rail Navigation
 - [ ] Design article rail navigation pattern for solo travel section
@@ -1031,6 +1082,10 @@ All 50 ships should have stats JSON at:
 1. ~~**CRITICAL: Fix navigation on 281 pages (96% of site)**~~ - ✅ COMPLETE (done in main)
 2. ~~**CRITICAL: Update code to use WebP images**~~ - ✅ COMPLETE (done in main, commit ecdb983)
 3. ~~**CRITICAL: Create Port Tracker tool**~~ - ✅ COMPLETE (2025-11-22, /tools/port-tracker.html with analytics)
+4. ~~**CRITICAL: Create Ship Tracker tool**~~ - ✅ COMPLETE (2025-11-23, /tools/ship-tracker.html with 28 ships, 10 badges, analytics)
+5. ~~**Ship cards redesign**~~ - ✅ COMPLETE (2025-11-23, assets/css/item-cards.css redesigned with CTAs, gradients, animated buttons)
+6. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
+7. Download Wiki Commons images for top 5 most-visited ships
 4. ~~**CRITICAL: Create Ship Tracker tool**~~ - ✅ COMPLETE (2025-11-22, /tools/ship-tracker.html, rebranded as "Ship Logbook")
 5. ~~**Ship cards redesign**~~ - ✅ COMPLETE (2025-11-22, commit c09b4e0, item-cards.css with CTAs, gradients, hover animations)
 6. ~~**Update WebP references in HTML meta tags**~~ - ✅ COMPLETE (All 50 ship pages use .webp in og:image/twitter:image/JSON-LD)
@@ -1194,6 +1249,26 @@ All 50 ships should have stats JSON at:
 
 ## 📈 PROGRESS SUMMARY
 
+**Engagement Tools (UPDATED 2025-11-23):**
+- ✅ Port Tracker COMPLETE - /tools/port-tracker.html with 147 ports, analytics, social comparison (2025-11-22)
+- ✅ Ship Tracker COMPLETE - /tools/ship-tracker.html with 28 ships, 10 badges, analytics (2025-11-23)
+
+**Master Port Lists (NEW 2025-11-23):**
+- ✅ 5 master port reference documents created in /assets/data/ports/
+- ✅ Carnival Cruise Line (320+ ports, 29 ships)
+- ✅ Norwegian Cruise Line (420+ ports, 20 ships)
+- ✅ MSC Cruises (350+ ports, 23 ships)
+- ✅ Virgin Voyages (120 ports, 4 ships)
+- ✅ Royal Caribbean (existing reference)
+
+**Ship Cards Redesign (COMPLETE 2025-11-23):**
+- ✅ Comprehensive CSS redesign in /assets/css/item-cards.css
+- ✅ Enhanced grid layout with responsive breakpoints (1.75-2.5rem gaps)
+- ✅ CTA text styling with gradient backgrounds and left border accent
+- ✅ Full-width CTA buttons with gradients, uppercase text, animated arrow
+- ✅ Enhanced hover effects: card lift, stronger shadows, image zoom (1.08x)
+- ✅ Badge improvements: gradients, backdrop blur, better shadows
+- ✅ Accessibility enhancements: reduced motion, high contrast, print styles
 **Engagement Tools (UPDATED 2025-11-22):**
 - ✅ Port Tracker COMPLETE - /tools/port-tracker.html (65KB, 2071 lines) with 147 ports, analytics, social comparison
 - ✅ Ship Tracker COMPLETE - /tools/ship-tracker.html (42KB, 1132 lines) with bingo cards, share modal, collapsible sections
@@ -1256,25 +1331,22 @@ All 50 ships should have stats JSON at:
 ## 📋 NEXT STEPS
 
 **Immediate actions (verified priorities):**
-1. **CRITICAL: Create Ship Tracker tool** - HIGH PRIORITY NEXT (full spec ready in PORT_TRACKER_ROADMAP.md)
-   - Interactive checklist of 27-28 Royal Caribbean ships
-   - 10 achievement bingo cards with ship class progression
-   - Cross-reference with Port Tracker data
-   - Analytics tracking (7 event types)
-   - Share card generator with ship silhouettes
+1. ~~**CRITICAL: Create Ship Tracker tool**~~ - ✅ COMPLETE (2025-11-23, /tools/ship-tracker.html with 28 ships, 10 badges, analytics)
 2. ~~**CRITICAL: Create Hawaii port batch**~~ - ✅ COMPLETE (2025-11-22, 5 ports: Honolulu, Kona, Hilo, Maui, Nawiliwili)
-3. **CRITICAL: Create protocol docs** - ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md all missing
-4. **Write remaining 3 articles** - Rest & Recovery, Family Challenges, Healing Relationships
-5. **Complete placeholder pages** - drinks.html, ports.html hub, restaurants.html need real content
-6. Fix attribution for Symphony, Adventure, Enchantment, Explorer
+3. ~~**Ship Cards Redesign**~~ - ✅ COMPLETE (2025-11-23, assets/css/item-cards.css with CTAs, gradients, animated buttons)
+4. **CRITICAL: Create protocol docs** - ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md all missing
+5. **Write remaining 3 articles** - Rest & Recovery, Family Challenges, Healing Relationships
+6. **Complete placeholder pages** - drinks.html, ports.html hub, restaurants.html need real content
+7. Fix attribution for Symphony, Adventure, Enchantment, Explorer
 
 **This week:**
-7. ~~Create Port Tracker~~ - ✅ COMPLETE (2025-11-22)
-8. ~~Create sitemap.xml~~ - ✅ Already exists
-9. ~~Create search.html~~ - ✅ Already exists
-10. Set up Google Search Console and Bing Webmaster Tools
-11. Set up Google Analytics dashboard for Port Tracker monitoring
-12. Create 2 historic ship logbooks (nordic-prince, sun-viking)
+8. ~~Create Port Tracker~~ - ✅ COMPLETE (2025-11-22)
+9. ~~Create Ship Tracker~~ - ✅ COMPLETE (2025-11-23)
+10. ~~Create sitemap.xml~~ - ✅ Already exists
+11. ~~Create search.html~~ - ✅ Already exists
+12. Set up Google Search Console and Bing Webmaster Tools
+13. Set up Google Analytics dashboard for Port Tracker & Ship Tracker monitoring
+14. Create 2 historic ship logbooks (nordic-prince, sun-viking)
 
 **This month:**
 13. Middle East port batch (4 ports - Dubai, Abu Dhabi, Muscat, Salalah)
@@ -1296,6 +1368,9 @@ All 50 ships should have stats JSON at:
 
 ---
 
+**Last Updated:** 2025-11-23 (Ship Tracker COMPLETE with 28 ships/10 badges, Ship Cards Redesign COMPLETE, Master Port Lists created for 5 cruise lines)
+**Maintained by:** Claude AI (Thread tracking)
+**Previous updates:** 2025-11-22 (Port Tracker COMPLETE with 147 ports, Hawaii batch COMPLETE, Carnival expansion planned 150-200 ports)
 **Last Updated:** 2025-11-23 (AUDIT #3 added - 368 issues fixed: broken links, JSON, orphans, placeholders)
 **Maintained by:** Claude AI (Thread tracking)
 **Current Thread:** claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9 (rebased on main)
