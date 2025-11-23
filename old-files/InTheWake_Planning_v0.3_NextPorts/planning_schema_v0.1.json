@@ -1,0 +1,78 @@
+{
+  "version": "v0.1-draft",
+  "about": "Ports & Airports planning dataset for In the Wake — structured for pill-based UI. Deduped facts from Grok DOCX.",
+  "tone_guidance": {
+    "blurb": "calm, helpful, succinct",
+    "tips": "practical, confident, encouraging, compassionate",
+    "warnings": "gentle cautions (rush hour, tolls, bridge lifts, fog)"
+  },
+  "schema": {
+    "general": {
+      "blurb": "string",
+      "tips": [
+        "string"
+      ],
+      "warnings": [
+        "string"
+      ]
+    },
+    "regions": [
+      {
+        "name": "string",
+        "states": [
+          {
+            "name": "string",
+            "ports": [
+              {
+                "slug": "string",
+                "name": "string",
+                "city": "string",
+                "rcl_served": "boolean",
+                "primary_airports": [
+                  {
+                    "iata": "string",
+                    "name": "string",
+                    "distance_miles": "number|null",
+                    "typical_time_min": "number|null",
+                    "notes": [
+                      "string"
+                    ]
+                  }
+                ],
+                "secondary_airports": [
+                  "IATA",
+                  "..."
+                ],
+                "rideshare_zones": [
+                  "string"
+                ],
+                "parking": {
+                  "cruise_terminal": "string",
+                  "offsite": [
+                    "string"
+                  ]
+                },
+                "warnings": [
+                  "string"
+                ],
+                "tips": [
+                  "string"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "airports_index": {
+      "IATA": {
+        "name": "string",
+        "city": "string",
+        "state": "string",
+        "likely_ports": [
+          "string"
+        ]
+      }
+    }
+  }
+}

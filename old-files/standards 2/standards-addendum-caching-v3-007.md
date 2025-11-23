@@ -1,3 +1,10 @@
+---
+title: "STANDARDS_ADDENDUM__CACHING_v3.007.md"
+source_file: "STANDARDS_ADDENDUM__CACHING_v3.007.md"
+generated: "2025-10-17T13:14:33.913741Z"
+note: "Verbatim import (lightly normalized). Newer addenda may supersede specific clauses; see supersets."
+---
+
 # In the Wake — Caching Standards Addendum (v3.007)
 
 **Purpose:** Make pages fast and resilient (even offline) without wrecking batteries, data plans, or SEO. This augments our global standards; anything here wins when there’s a conflict.
