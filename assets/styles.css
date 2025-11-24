@@ -720,7 +720,7 @@ html, body { overflow-x: hidden; }
   display:none !important;
   z-index:10000 !important;
 }
-.nav-group[data-open="true"] .submenu{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
+.nav-item[data-open="true"] .submenu{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
 
 /* Submenu items */
 .submenu a{
@@ -771,7 +771,7 @@ html, body{ overflow-x:hidden }
   border-radius:12px; padding:.35rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
   display:none !important; z-index:10000 !important;
 }
-.nav-group[data-open="true"] .submenu{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
+.nav-item[data-open="true"] .submenu{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
 
 /* Hover fallback (works even if JS fails) */
 @media (hover:hover){
@@ -863,8 +863,8 @@ html, body{ overflow-x:hidden }
 }
 
 /* JS toggles this; this rule MUST be present and later in cascade */
-.nav-group[data-open="true"] > .submenu,
-.nav-group[data-open="true"] .submenu{
+.nav-item[data-open="true"] > .submenu,
+.nav-item[data-open="true"] .submenu{
   display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
 }
 
