@@ -10,7 +10,7 @@
 
   <!-- ======================================================
        In the Wake — Home
-       Version: 3.010.306  |  Soli Deo Gloria ✝️
+       Version: 3.010.400  |  Soli Deo Gloria ✝️
 
        ✅ Production-Ready Template Applied
        ✅ WCAG 2.1 Level AA Compliant
@@ -32,7 +32,7 @@
   <!-- SEO: Theme & Appearance -->
   <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.306"/>
+  <meta name="version" content="3.010.400"/>
   <meta name="author" content="In the Wake"/>
   <meta name="publisher" content="In the Wake"/>
 
@@ -241,12 +241,12 @@
   <!-- Performance: DNS Prefetch & Preconnect -->
   <link rel="dns-prefetch" href="https://www.flickersofmajesty.com"/>
   <link rel="preconnect" href="https://cruisinginthewake.com"/>
-  <link rel="preload" as="image" href="/assets/index_hero.webp?v=3.010.306" imagesrcset="/assets/index_hero.webp?v=3.010.306" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/index_hero.webp?v=3.010.400" imagesrcset="/assets/index_hero.webp?v=3.010.400" fetchpriority="high"/>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010.306"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <style>
-  /* ===== Production Index Styles v3.010.306 ===== */
+  /* ===== Production Index Styles v3.010.400 ===== */
   :root {
     --sea: #0a3d62;
     --foam: #e6f4f8;
@@ -454,67 +454,112 @@
     color: var(--text-muted);
   }
 
-  /* Dropdown Navigation (FIXED: 300ms Hover Delay) */
-  .nav {
-    flex: 1 1 auto;
-    min-width: 0;
+  /* ===== NEW NAVIGATION SYSTEM (Clean Rebuild) ===== */
+  .site-nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .5rem;
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    overflow: visible;
-    padding-inline: .75rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 0 0.5rem;
   }
 
-  .nav-item {
-    position: relative;
-    display: inline-block;
-  }
-
-  .nav-item > a,
-  .nav-item > button {
+  .nav-pill {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: .35rem;
-    padding: .65rem 1rem;
+    gap: 0.3rem;
+    padding: 0.6rem 1rem;
     min-height: 44px;
     border-radius: 20px;
     background: #fff;
     border: 2px solid var(--rope);
     color: var(--accent);
     font: inherit;
-    font-size: .95rem;
-    line-height: 1.2;
+    font-size: 0.95rem;
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: background 0.15s, border-color 0.15s;
   }
 
-  .nav-item > a:hover,
-  .nav-item > button:hover {
+  .nav-pill:hover {
     background: var(--foam);
     border-color: var(--accent);
-    transform: translateY(-1px);
   }
 
-  .nav-item > a[aria-current="page"] {
+  .nav-pill[aria-current="page"] {
     background: var(--accent);
     color: #fff;
     font-weight: 600;
     border-color: var(--accent);
   }
 
-  /* Dropdown styles moved to end of style block - see "DROPDOWN NAVIGATION" section */
+  /* Dropdown container */
+  .nav-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .nav-dropdown .caret {
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+
+  .nav-dropdown.open .caret {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown menu */
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 220px;
+    background: #fff;
+    border: 2px solid var(--rope);
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 8px 24px rgba(8,48,65,0.15);
+    z-index: 9999;
+    display: none;
+  }
+
+  .nav-dropdown.open .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-menu a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.1s;
+  }
+
+  .dropdown-menu a:hover,
+  .dropdown-menu a:focus {
+    background: #eef4f6;
+    outline: none;
+  }
+
+  @media (max-width: 768px) {
+    .site-nav {
+      justify-content: flex-start;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+    }
+    .dropdown-menu {
+      min-width: 200px;
+    }
+  }
+  /* ===== END NEW NAVIGATION ===== */
 
   /* Hero */
   .hero {
     position: relative;
     width: 100%;
     min-height: clamp(200px, 24vw, 340px);
-    background: url('/assets/index_hero.webp?v=3.010.306') 50% 50%/cover no-repeat;
+    background: url('/assets/index_hero.webp?v=3.010.400') 50% 50%/cover no-repeat;
     display: flex;
     align-items: flex-end;
     overflow-x: clip;
@@ -721,116 +766,12 @@
     max-width: 70ch;
   }
 
-  /* ========== DROPDOWN NAVIGATION - SINGLE AUTHORITATIVE BLOCK ========== */
-  /* JS sets data-open="true" on .nav-group elements */
-
-  .nav-group,
-  .nav-item {
-    position: relative;
-    display: inline-block;
-  }
-
-  .nav-disclosure .caret {
-    display: inline-block;
-    margin-left: .25rem;
-    transition: transform 0.2s ease;
-  }
-
-  /* Caret rotation when open - target BOTH selectors */
-  .nav-group[data-open="true"] .nav-disclosure .caret,
-  .nav-item[data-open="true"] .nav-disclosure .caret {
-    transform: rotate(180deg);
-  }
-
-  /* Submenu - HIDDEN by default */
-  .submenu {
-    position: absolute;
-    left: 0;
-    top: calc(100% + 4px);
-    min-width: 240px;
-    background: #fff;
-    border: 2px solid var(--rope);
-    border-radius: 12px;
-    padding: .6rem;
-    box-shadow: 0 8px 24px rgba(8,48,65,.15);
-    z-index: 10000;
-    /* Hidden state */
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-  }
-
-  /* Safe zone bridge for mouse movement */
-  .submenu::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: transparent;
-  }
-
-  /* SHOW submenu when data-open="true" - MUST come AFTER hide rules */
-  /* Target .nav-group since that's what JS actually sets */
-  .nav-group[data-open="true"] > .submenu,
-  .nav-group[data-open="true"] .submenu,
-  .nav-item[data-open="true"] > .submenu,
-  .nav-item[data-open="true"] .submenu {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-  }
-
-  /* Submenu items */
-  .submenu a {
-    display: block;
-    padding: .5rem .75rem;
-    color: var(--ink);
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.15s ease;
-  }
-
-  .submenu a:hover,
-  .submenu a:focus {
-    background: #eef4f6;
-    outline: none;
-  }
-
-  .submenu a[aria-current="page"] {
-    background: #e6f4f8;
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    .nav {
-      justify-content: flex-start;
-      overflow-x: auto;
-      scrollbar-width: thin;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .nav-item > a,
-    .nav-item > button {
-      flex: 0 0 auto;
-    }
-
-    .submenu {
-      left: 0;
-      right: 0;
-      min-width: 100%;
-    }
-  }
-  /* ========== END DROPDOWN NAVIGATION ========== */
+  /* Old dropdown CSS removed - using NEW NAVIGATION SYSTEM above */
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.306" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
 </head>
 <body class="page">
   <!-- ai-breadcrumbs
@@ -838,7 +779,7 @@
        type: Website Homepage
        category: Cruise Planning Hub
        updated: 2025-11-15
-       version: 3.010.306
+       version: 3.010.400
        expertise: Royal Caribbean specialist, 50+ cruises, accessibility advocate, pastor, photographer
        primary-tools: Drink Calculator, Ships Database, Restaurant Guide, Stateroom Check
        target-audience: Cruise planners, Royal Caribbean travelers, solo cruisers, accessibility-focused travelers
@@ -864,66 +805,52 @@
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge" aria-label="Site version 3.010.306">v3.010.306</span>
+        <span class="tiny version-badge" aria-label="Site version 3.010.400">v3.010.400</span>
       </div>
-      <nav class="nav" aria-label="Main site navigation">
-        <div class="nav-item">
-          <a href="/">Home</a>
-        </div>
+      <nav class="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
 
         <!-- Planning Dropdown -->
-        <div class="nav-item nav-group" id="nav-planning" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Planning <span class="caret">▾</span>
           </button>
-                              <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
-            <a role="menuitem" href="/planning.html">Planning (overview)</a>
-            <a role="menuitem" href="/ships.html">Ships</a>
-            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a role="menuitem" href="/ports.html">Ports</a>
-            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
-            <a role="menuitem" href="/stateroom-check.html">Stateroom Check</a>
-            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
-            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
 
         <!-- Travel Dropdown -->
-        <div class="nav-item nav-group" id="nav-travel" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Travel <span class="caret">▾</span>
           </button>
-                              <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
-            <a role="menuitem" href="/travel.html">Travel (overview)</a>
-            <a role="menuitem" href="/solo.html">Solo</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
           </div>
         </div>
 
-        <div class="nav-item">
-          <a href="/tools/port-tracker.html">Port Tracker</a>
-        </div>
-
-        <div class="nav-item">
-          <a href="/tools/ship-tracker.html">Ship Tracker</a>
-        </div>
-
-        <div class="nav-item">
-          <a href="/search.html">Search</a>
-        </div>
-
-        <div class="nav-item">
-          <a href="/about-us.html">About</a>
-        </div>
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Tracker</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Tracker</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
-    <!-- Navigation with Dropdown Menus -->
       
     </div>
 
     <!-- Hero -->
     <div class="hero">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.306" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="567" alt="In the Wake" decoding="async" fetchpriority="high"/>
         <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
@@ -1010,6 +937,83 @@
           </div>
         </article>
       </section>
+
+      <!-- More explore cards (continues from Planning/Travel above) -->
+      <section class="explore-grid bottom" aria-label="Explore the site (more)">
+        <!-- Solo -->
+        <article class="card feature-card">
+          <h3><a href="/solo.html">Solo Travel</a></h3>
+          <p>Courage, safety, and joy when sailing on your own terms — including Tina's story and a growing community.</p>
+          <div class="actions">
+            <a class="pill" href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a>
+          </div>
+        </article>
+
+        <!-- Ships -->
+        <article class="card feature-card">
+          <h3><a href="/ships.html">Ships</a></h3>
+          <p>How to choose the right class and layout for your style — quiet corners, promenades, and where to watch the wake roll.</p>
+          <div class="actions">
+            <a class="pill" href="/restaurants.html">Dining</a>
+            <a class="pill" href="/accessibility.html">Accessibility</a>
+          </div>
+        </article>
+
+        <!-- Ports -->
+        <article class="card feature-card">
+          <h3><a href="/ports.html">Ports</a></h3>
+          <p>What to expect pier-side, easy do-it-yourself plans, and how to make the most of short stays without rushing the day.</p>
+          <div class="actions">
+            <a class="pill" href="/planning.html">Planning</a>
+          </div>
+        </article>
+
+        <!-- Restaurants / Menus -->
+        <article class="card feature-card">
+          <h3><a href="/restaurants.html">Restaurants &amp; Menus</a></h3>
+          <p>Main <a href="/restaurants.html">dining</a>, casual bites, and specialty rooms — menus, reservations, and how to eat well without over-planning.</p>
+          <div class="actions">
+            <a class="pill" href="/drink-calculator.html">Drink Calculator</a>
+          </div>
+        </article>
+
+        <!-- Drink Calculator -->
+        <article class="card feature-card">
+          <h3><a href="/drink-calculator.html">Drink Calculator</a></h3>
+          <p>When <a href="/drink-calculator.html">packages</a> are worth it (and when they're not), plus water, coffee, and non-alcoholic options that save real money.</p>
+          <div class="actions">
+            <a class="pill" href="/restaurants.html">Restaurants</a>
+          </div>
+        </article>
+
+        <!-- Packing Lists -->
+        <article class="card feature-card">
+          <h3><a href="/packing-lists.html">Packing Lists</a></h3>
+          <p>Bring less, enjoy more. Smart cabin items, <a href="/travel.html">formal-night</a> choices, and weather-aware layers for any itinerary.</p>
+          <div class="actions">
+            <a class="pill" href="/accessibility.html">Accessibility</a>
+          </div>
+        </article>
+
+        <!-- Accessibility -->
+        <article class="card feature-card">
+          <h3><a href="/accessibility.html">Accessibility</a></h3>
+          <p>Mobility, <a href="/restaurants.html">dining</a>, and cabin access tips so every traveler can enjoy the ship with confidence and ease.</p>
+          <div class="actions">
+            <a class="pill" href="/planning.html">Planning</a>
+          </div>
+        </article>
+
+        <!-- About -->
+        <article class="card feature-card">
+          <h3><a href="/about-us.html">About</a></h3>
+          <p>Who we are and why we sail: the people behind the logbook, and how to get in touch when you're planning your voyage.</p>
+          <div class="actions">
+            <a class="pill" href="/solo.html">Solo</a>
+            <a class="pill" href="/travel.html">Travel</a>
+          </div>
+        </article>
+      </section>
     </section>
 
     <!-- RIGHT COLUMN: Key Facts + Author + Articles -->
@@ -1037,7 +1041,7 @@
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.306" type="image/webp"/>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
             <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
           </picture>
         </a>
@@ -1060,85 +1064,6 @@
     </aside>
 
 </main>
-
-  <!-- FULL-WIDTH: explore more (3-wide) -->
-  <section class="wrap" aria-label="Explore more">
-    <section class="explore-grid bottom">
-      <!-- Solo -->
-      <article class="card feature-card">
-        <h3><a href="/solo.html">Solo Travel</a></h3>
-        <p>Courage, safety, and joy when sailing on your own terms — including Tina's story and a growing community.</p>
-        <div class="actions">
-          <a class="pill" href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a>
-        </div>
-      </article>
-
-      <!-- Ships -->
-      <article class="card feature-card">
-        <h3><a href="/ships.html">Ships</a></h3>
-        <p>How to choose the right class and layout for your style — quiet corners, promenades, and where to watch the wake roll.</p>
-        <div class="actions">
-          <a class="pill" href="/restaurants.html">Dining</a>
-          <a class="pill" href="/accessibility.html">Accessibility</a>
-        </div>
-      </article>
-
-      <!-- Ports -->
-      <article class="card feature-card">
-        <h3><a href="/ports.html">Ports</a></h3>
-        <p>What to expect pier-side, easy do-it-yourself plans, and how to make the most of short stays without rushing the day.</p>
-        <div class="actions">
-          <a class="pill" href="/planning.html">Planning</a>
-        </div>
-      </article>
-
-      <!-- Restaurants / Menus -->
-      <article class="card feature-card">
-        <h3><a href="/restaurants.html">Restaurants &amp; Menus</a></h3>
-        <p>Main <a href="/restaurants.html">dining</a>, casual bites, and specialty rooms — menus, reservations, and how to eat well without over-planning.</p>
-        <div class="actions">
-          <a class="pill" href="/drink-calculator.html">Drink Calculator</a>
-        </div>
-      </article>
-
-      <!-- Drink Calculator (FIXED: was "Drink Packages") -->
-      <article class="card feature-card">
-        <h3><a href="/drink-calculator.html">Drink Calculator</a></h3>
-        <p>When <a href="/drink-calculator.html">packages</a> are worth it (and when they're not), plus water, coffee, and non-alcoholic options that save real money.</p>
-        <div class="actions">
-          <a class="pill" href="/restaurants.html">Restaurants</a>
-        </div>
-      </article>
-
-      <!-- Packing Lists -->
-      <article class="card feature-card">
-        <h3><a href="/packing-lists.html">Packing Lists</a></h3>
-        <p>Bring less, enjoy more. Smart cabin items, <a href="/travel.html">formal-night</a> choices, and weather-aware layers for any itinerary.</p>
-        <div class="actions">
-          <a class="pill" href="/accessibility.html">Accessibility</a>
-        </div>
-      </article>
-
-      <!-- Accessibility -->
-      <article class="card feature-card">
-        <h3><a href="/accessibility.html">Accessibility</a></h3>
-        <p>Mobility, <a href="/restaurants.html">dining</a>, and cabin access tips so every traveler can enjoy the ship with confidence and ease.</p>
-        <div class="actions">
-          <a class="pill" href="/planning.html">Planning</a>
-        </div>
-      </article>
-
-      <!-- About -->
-      <article class="card feature-card">
-        <h3><a href="/about-us.html">About</a></h3>
-        <p>Who we are and why we sail: the people behind the logbook, and how to get in touch when you're planning your voyage.</p>
-        <div class="actions">
-          <a class="pill" href="/solo.html">Solo</a>
-          <a class="pill" href="/travel.html">Travel</a>
-        </div>
-      </article>
-    </section>
-  </section>
 
   <!-- FAQ Section (ICP-Lite) -->
   <section class="wrap" style="margin-top: 2rem;" aria-labelledby="faq-heading">
@@ -1220,7 +1145,7 @@
 
       function setImageWithFallback(imgEl, primary, altPaths=[]){
         if(!imgEl) return;
-        const stamp='v=3.010.306';
+        const stamp='v=3.010.400';
         const tried=new Set();
         const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
         function tryNext(){
@@ -1333,7 +1258,91 @@
     }
   })();
   </script>
-  <!-- Navigation dropdown functionality -->
-  <script src="/assets/js/newnav.js"></script>
+  <!-- Navigation dropdown functionality (New Clean Implementation) -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Get all dropdowns
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+
+    // Toggle dropdown
+    function toggleDropdown(dropdown) {
+      var isOpen = dropdown.classList.contains('open');
+
+      // Close all dropdowns first
+      closeAllDropdowns();
+
+      // Open this one if it was closed
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        var btn = dropdown.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    // Close all dropdowns
+    function closeAllDropdowns() {
+      dropdowns.forEach(function(dd) {
+        dd.classList.remove('open');
+        var btn = dd.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    // Wire up each dropdown
+    dropdowns.forEach(function(dropdown) {
+      var btn = dropdown.querySelector('button');
+
+      if (btn) {
+        // Click to toggle
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDropdown(dropdown);
+        });
+
+        // Keyboard support
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeAllDropdowns();
+            btn.focus();
+          }
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            dropdown.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            var firstLink = dropdown.querySelector('.dropdown-menu a');
+            if (firstLink) firstLink.focus();
+          }
+        });
+      }
+
+      // Keyboard support inside menu
+      var menu = dropdown.querySelector('.dropdown-menu');
+      if (menu) {
+        menu.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeAllDropdowns();
+            if (btn) btn.focus();
+          }
+        });
+      }
+    });
+
+    // Click outside to close
+    document.addEventListener('click', function(e) {
+      var isInsideDropdown = false;
+      dropdowns.forEach(function(dd) {
+        if (dd.contains(e.target)) isInsideDropdown = true;
+      });
+      if (!isInsideDropdown) {
+        closeAllDropdowns();
+      }
+    });
+
+    console.log('[In the Wake] New nav system loaded: ' + dropdowns.length + ' dropdowns');
+  })();
+  </script>
 </body>
 </html>
