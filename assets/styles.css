@@ -717,10 +717,10 @@ html, body { overflow-x: hidden; }
   border-radius:12px;
   padding:.35rem;
   box-shadow:0 8px 24px rgba(8,48,65,.12);
-  display:none;
-  z-index:10000;
+  display:none !important;
+  z-index:10000 !important;
 }
-.nav-group[data-open="true"] .submenu{ display:block; }
+.nav-group[data-open="true"] .submenu{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
 
 /* Submenu items */
 .submenu a{
@@ -769,13 +769,13 @@ html, body{ overflow-x:hidden }
   position:absolute; left:0; top:calc(100% + 6px);
   min-width:220px; background:#fff; border:1px solid var(--rope);
   border-radius:12px; padding:.35rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
-  display:none; z-index:10000;
+  display:none !important; z-index:10000 !important;
 }
-.nav-group[data-open="true"] .submenu{ display:block; }
+.nav-group[data-open="true"] .submenu{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
 
 /* Hover fallback (works even if JS fails) */
 @media (hover:hover){
-  .nav-group:hover .submenu{ display:block; }
+  .nav-group:hover .submenu{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
 }
 
 /* Keep hero from covering the nav row on full-bleed headers */
