@@ -1196,27 +1196,51 @@
 
   <!-- MAIN CONTENT -->
   <main class="wrap page-grid" id="main-content">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> This page provides cruise planning resources for Planning. Use the information below to help plan your cruise vacation.
-      </p>
+    <!-- RIGHT RAIL (column 2) -->
+    <aside class="rail" role="complementary" aria-label="Additional resources" style="grid-column: 2; grid-row: 1 / span 999;">
+      <!-- ICP-Lite Content Structure -->
+      <section class="page-intro" style="margin: 1rem auto 1.5rem;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> This page provides cruise planning resources for Planning. Use the information below to help plan your cruise vacation.
+        </p>
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching planning, comparing options, and gathering information for trip planning.
-      </p>
+        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+          <strong>Best For:</strong> Cruisers researching planning, comparing options, and gathering information for trip planning.
+        </p>
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Topic:</strong> Planning</li>
-          <li><strong>Purpose:</strong> Cruise planning resource</li>
-        </ul>
-      </div>
-    </section>
+        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li><strong>Topic:</strong> Planning</li>
+            <li><strong>Purpose:</strong> Cruise planning resource</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Author Card -->
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
+        <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a> · <a href="/packing-lists.html">Packing</a> · <a href="/drink-calculator.html">Drink Calculator</a></p>
+      </section>
+
+      <!-- Recent Articles -->
+      <section class="card" aria-labelledby="recent-articles-heading">
+        <h3 id="recent-articles-heading">Recent Articles</h3>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    </aside>
 
     <!-- Left Column -->
-    <div>
+    <div style="grid-column: 1; grid-row: 1 / span 999;">
       <section class="card prose" aria-labelledby="planning-intro">
         <h1 id="planning-intro">Planning That Feels Like Smooth Water</h1>
         <p class="motto"><em>The calmest seas are found in another's wake.</em></p>
@@ -1260,9 +1284,9 @@
         <div class="banner tiny" id="school-breaks"></div>
       </section>
 
-      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="space-launch">
+      <section id="space-coast-section" style="grid-column: 1; grid-row: 1 / span 999; display: none;" class="card" aria-labelledby="space-launch">
         <h2 id="space-launch">Space Coast Launches</h2>
-        <p class="tiny muted">Sailing from Port Canaveral? You might catch a rocket. Check the live schedule:</p>
+        <p class="tiny muted">Near a spaceport? You might catch a rocket! Check the live schedule:</p>
         <p><a class="pill" href="https://spaceflightnow.com/launch-schedule/" rel="noopener external">Spaceflight Now — Launch Schedule</a></p>
         <p class="tiny muted">Planning your cabin choice? Our <a href="/ships.html">ship reviews</a> include port-side vs. starboard recommendations for launch viewing on select sailings.</p>
       </section>
@@ -1287,30 +1311,6 @@
         </details>
       </section>
     </div>
-
-    <!-- RIGHT RAIL -->
-    <aside class="rail" role="complementary" aria-label="Additional resources" style="grid-column: 2; grid-row: 2;">
-      <!-- Author Card -->
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
-        <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a> · <a href="/packing-lists.html">Packing</a> · <a href="/drink-calculator.html">Drink Calculator</a></p>
-      </section>
-
-      <!-- Recent Articles -->
-      <section class="card" aria-labelledby="recent-articles-heading">
-        <h3 id="recent-articles-heading">Recent Articles</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    </aside>
   </main>
 
   <!-- FOOTER -->
@@ -1574,7 +1574,24 @@
       blurb.innerHTML=(p.blurb||[]).map(par=>`<p>${E(par)}</p>`).join('') || `<p>${E(p.name)} — ${E(p.city)}</p>`;
       const sig=data.signals||{};
       seasonal.style.display='';
-      seasonal.innerHTML=`<strong>Heads-up:</strong> Spring Break (${E(sig.spring_break?.window||'varies')}) and Fall Break (${E(sig.fall_break?.window||'varies')}). ${E(sig.spring_break?.notes||'')}`;
+
+      // Build seasonal message
+      let seasonalMsg = `<strong>Heads-up:</strong> Spring Break (${E(sig.spring_break?.window||'varies')}) and Fall Break (${E(sig.fall_break?.window||'varies')}). ${E(sig.spring_break?.notes||'')}`;
+
+      // World Cup 2026 message for Seattle (expires after July 19, 2026)
+      const worldCupEnd = new Date('2026-07-20');
+      if (p.slug === 'seattle' && new Date() < worldCupEnd) {
+        seasonalMsg += `<br><strong>⚽ FIFA World Cup 2026:</strong> Seattle hosts matches June 11 – July 19, 2026. Expect surging hotel rates, downtown traffic, and packed flights. Book early or consider sailing before/after the tournament.`;
+      }
+
+      seasonal.innerHTML = seasonalMsg;
+
+      // Show Space Coast section only for ports near spaceports (FL, TX, CA)
+      const spaceSection = document.getElementById('space-coast-section');
+      if (spaceSection) {
+        const spaceportStates = ['FL', 'TX', 'CA'];
+        spaceSection.style.display = spaceportStates.includes(p.state) ? '' : 'none';
+      }
 
       airports.innerHTML=(p.airports||[]).map(a=>`
         <div class="airport">
