@@ -1,0 +1,127 @@
+# Theological Standards - Machine-Readable Configuration
+# Version: 1.0.0
+# Last Updated: 2025-11-24
+# Purpose: Define immutable theological requirements for all code
+
+version: "1.0.0"
+last_updated: "2025-11-24"
+category: "theological"
+
+# Core theological foundation
+foundation:
+  scripture_primary:
+    reference: "Colossians 3:23-24"
+    text: "Whatever you do, work heartily, as for the Lord and not for men, knowing that from the Lord you will receive the inheritance as your reward. You are serving the Lord Christ."
+
+  scripture_secondary:
+    reference: "Proverbs 3:5-6"
+    text: "Trust in the LORD with all your heart, and do not lean on your own understanding. In all your ways acknowledge him, and he will make straight your paths."
+
+  principle: "Soli Deo Gloria"
+  translation: "To God alone be the glory"
+
+  purpose: |
+    All work on this project is offered as worship to God.
+    Every line of code, every design decision, every commit is an act of service
+    to the Lord Jesus Christ. Standards exist to honor Him through excellence.
+
+# Invocation requirement (applies to HTML files)
+invocation:
+  required: true
+  immutable: true  # Cannot be disabled or overridden
+  severity: error
+  priority: 1  # Highest priority
+  applies_to:
+    - "*.html"
+
+  description: "Theological invocation required at top of every HTML file"
+
+  check:
+    type: "grep"
+    pattern: "Soli Deo Gloria"
+    location: "top_comment"
+    must_appear_before_line: 20
+
+  template: |
+    <!--
+    Soli Deo Gloria
+    All work on this project is offered as a gift to God.
+    "Trust in the LORD with all your heart..." — Proverbs 3:5
+    "Whatever you do, work heartily..." — Colossians 3:23
+    -->
+
+  rationale: |
+    This invocation is IMMUTABLE and represents the theological foundation
+    of the entire project. It cannot be disabled, relaxed, or made optional
+    under any circumstances. Every HTML page is a public testimony of our
+    commitment to honor God through our work.
+
+# Scripture references requirement
+scripture_references:
+  required: true
+  immutable: true
+  severity: error
+  priority: 2
+  applies_to:
+    - "*.html"
+
+  description: "Scripture references must be present in HTML invocation"
+
+  check:
+    type: "grep_multi"
+    patterns:
+      - "Proverbs 3:5"
+      - "Colossians 3:23"
+    operator: "OR"  # At least one must be present
+    location: "top_comment"
+
+  rationale: |
+    Scripture grounds our work in biblical truth. At least one of the
+    foundational verses must be present to remind us why we pursue excellence.
+
+# Excellence as worship
+excellence:
+  principle: "Excellence as Worship"
+  description: |
+    God deserves our best work, not our leftovers. Excellence in code is
+    an expression of love for God and neighbor.
+
+  manifestations:
+    accessibility: "Love for neighbor includes ALL neighbors (disabled users)"
+    security: "Stewardship of user trust and data"
+    quality: "Offering our best, not mediocre work"
+    consistency: "Integrity and reliability in all things"
+
+# Witness through code
+witness:
+  principle: "Public Testimony"
+  description: |
+    Our code is public. It testifies to our values, our care, our attention
+    to detail. It is a witness to the world of what it means to work heartily
+    for the Lord.
+
+  implications:
+    - "Code quality reflects on our testimony"
+    - "Comments and documentation show thoughtfulness"
+    - "Accessibility shows love for all people"
+    - "Security shows respect for user trust"
+    - "Invocations make our foundation explicit"
+
+# Immutability rationale
+immutability:
+  reason: "Foundation for all other standards"
+  explanation: |
+    Theological requirements are immutable because they are the foundation
+    upon which all other standards rest. Without this foundation, standards
+    become arbitrary preferences. With it, they become expressions of worship.
+
+  cannot_be:
+    - "Disabled in configuration"
+    - "Overridden by user preference"
+    - "Relaxed for convenience"
+    - "Made optional for any reason"
+
+  enforcement: |
+    Scripts must ALWAYS check theological requirements first.
+    They must NEVER provide options to skip or bypass these checks.
+    Validation failures on theological standards are ALWAYS errors, never warnings.

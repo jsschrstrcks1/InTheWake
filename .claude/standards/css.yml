@@ -1,0 +1,192 @@
+# CSS Standards - Machine-Readable Configuration
+# Version: 1.0.0
+# Last Updated: 2025-11-24
+# Purpose: Define CSS validation rules and accessibility requirements
+
+version: "1.0.0"
+last_updated: "2025-11-24"
+category: "css"
+
+# Syntax validation
+syntax:
+  balanced_braces:
+    required: true
+    severity: error
+    priority: 1
+    check:
+      type: "count_balance"
+      open: "{"
+      close: "}"
+    description: "Opening and closing braces must match"
+
+# Accessibility requirements
+accessibility:
+  focus_visible:
+    required: true
+    severity: warning
+    priority: 2
+    check:
+      type: "grep_multi"
+      patterns:
+        - ":focus"
+        - ":focus-visible"
+      operator: "OR"
+    description: "Focus styles required for keyboard navigation"
+    rationale: "Keyboard users need visible focus indicators"
+
+  reduced_motion:
+    required: true
+    severity: warning
+    priority: 2
+    check:
+      type: "grep"
+      pattern: "@media \\(prefers-reduced-motion"
+    description: "Respect prefers-reduced-motion for animations"
+    rationale: "Users with vestibular disorders need reduced motion"
+    example: |
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+  color_contrast:
+    required: true
+    severity: info
+    description: "Ensure WCAG AA color contrast (4.5:1 for text)"
+    rationale: "Users with low vision need sufficient contrast"
+    check_method: "manual"
+
+  font_size_minimum:
+    min_size: "16px"
+    severity: warning
+    description: "Base font size should be at least 16px"
+    rationale: "Smaller text is harder to read"
+
+# Responsive design
+responsive:
+  mobile_first:
+    recommended: true
+    description: "Consider mobile-first approach"
+    rationale: "Mobile-first is easier to scale up than desktop-first down"
+
+  viewport_units:
+    use_with_caution: true
+    severity: info
+    description: "Viewport units (vw, vh) can cause accessibility issues"
+    rationale: "Text sized with viewport units doesn't scale with zoom"
+
+  media_queries:
+    required: true
+    severity: info
+    description: "Responsive design requires media queries"
+    check:
+      type: "grep"
+      pattern: "@media"
+
+# Layout best practices
+layout:
+  flexbox:
+    preferred: true
+    description: "Flexbox is modern and well-supported"
+
+  grid:
+    preferred: true
+    description: "CSS Grid for two-dimensional layouts"
+
+  floats:
+    legacy: true
+    severity: info
+    description: "Consider modern alternatives to floats"
+
+# Performance
+performance:
+  avoid_universal_selector:
+    severity: warning
+    check:
+      type: "grep"
+      pattern: "^\\s*\\*\\s*{"
+    description: "Avoid universal selector (*) for performance"
+    rationale: "Universal selector matches every element"
+
+  minimize_reflow:
+    severity: info
+    description: "Avoid properties that trigger layout reflows frequently"
+    properties_to_watch:
+      - "width"
+      - "height"
+      - "margin"
+      - "padding"
+      - "border"
+      - "position"
+      - "top"
+      - "left"
+
+# Code quality
+code_quality:
+  no_important:
+    severity: warning
+    check:
+      type: "grep"
+      pattern: "!important"
+    description: "Avoid !important when possible"
+    rationale: "!important makes styles harder to override"
+    exceptions:
+      - "Utility classes"
+      - "Overriding third-party styles"
+
+  consistent_units:
+    severity: info
+    description: "Use consistent units throughout"
+    recommended: "rem for spacing, px for borders, % for widths"
+
+  vendor_prefixes:
+    severity: info
+    description: "Use autoprefixer instead of manual prefixes"
+    rationale: "Autoprefixer keeps prefixes up-to-date"
+
+# Naming conventions
+naming:
+  kebab_case:
+    preferred: true
+    description: "Use kebab-case for class names"
+    example: ".nav-group, .skip-link, .submenu"
+
+  bem_consideration:
+    severity: info
+    description: "Consider BEM methodology for complex components"
+    example: ".block__element--modifier"
+
+# Organization
+organization:
+  logical_grouping:
+    recommended: true
+    description: "Group related styles together"
+    order:
+      - "Layout (display, position, float)"
+      - "Box model (width, height, margin, padding)"
+      - "Typography (font, line-height, color)"
+      - "Visual (background, border, box-shadow)"
+      - "Other (cursor, overflow, z-index)"
+
+  comments:
+    recommended: true
+    description: "Comment complex or non-obvious CSS"
+    rationale: "Comments help maintainers understand intent"
+
+# Browser compatibility
+compatibility:
+  autoprefixer:
+    recommended: true
+    description: "Use autoprefixer for vendor prefixes"
+
+  feature_queries:
+    use_for_progressive_enhancement: true
+    description: "Use @supports for progressive enhancement"
+    example: |
+      @supports (display: grid) {
+        .container {
+          display: grid;
+        }
+      }

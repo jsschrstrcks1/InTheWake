@@ -1,0 +1,289 @@
+# HTML Standards - Machine-Readable Configuration
+# Version: 1.0.0
+# Last Updated: 2025-11-24
+# Purpose: Define HTML validation rules and requirements
+
+version: "1.0.0"
+last_updated: "2025-11-24"
+category: "html"
+extends: "theological.yml"  # Inherits theological requirements
+
+# Basic structure requirements
+structure:
+  doctype:
+    required: true
+    severity: error
+    priority: 3
+    check:
+      type: "grep"
+      pattern: "<!doctype html>"
+      case_insensitive: true
+    description: "HTML5 DOCTYPE declaration required"
+
+  language:
+    required: true
+    severity: error
+    priority: 3
+    check:
+      type: "grep"
+      pattern: '<html lang="en">'
+    description: "Language attribute required on html element"
+
+  charset:
+    required: true
+    severity: error
+    priority: 3
+    check:
+      type: "grep"
+      pattern: '<meta charset="utf-8"'
+    description: "UTF-8 character encoding required"
+
+  viewport:
+    required: true
+    severity: error
+    priority: 3
+    check:
+      type: "grep"
+      pattern: '<meta name="viewport"'
+    description: "Viewport meta tag required for responsive design"
+
+# ICP-Lite v1.0 Protocol
+icp_lite:
+  required: true
+  severity: error
+  priority: 4
+  protocol_version: "1.0"
+
+  description: "ICP-Lite v1.0 protocol metadata for AI-first content"
+
+  meta_tags:
+    ai_summary:
+      required: true
+      severity: error
+      check:
+        type: "grep"
+        pattern: '<meta name="ai-summary"'
+      description: "Brief description for AI consumption"
+
+    last_reviewed:
+      required: true
+      severity: error
+      check:
+        type: "grep"
+        pattern: '<meta name="last-reviewed"'
+      description: "Last review date in YYYY-MM-DD format"
+      format: "YYYY-MM-DD"
+
+    content_protocol:
+      required: true
+      severity: error
+      check:
+        type: "grep"
+        pattern: '<meta name="content-protocol" content="ICP-Lite v1.0"'
+      description: "Protocol version declaration"
+      expected_value: "ICP-Lite v1.0"
+
+  rationale: |
+    ICP-Lite helps AI systems understand content structure and freshness.
+    Required on all HTML pages to ensure AI-friendly content delivery.
+
+# AI-Breadcrumbs specification
+ai_breadcrumbs:
+  required: conditional
+  severity: warning
+  priority: 5
+
+  description: "AI-Breadcrumbs for entity pages (ships, ports, restaurants)"
+
+  condition:
+    type: "file_pattern"
+    patterns:
+      - "ships/*.html"
+      - "ports/*.html"
+      - "restaurants/*.html"
+    exclude:
+      - "index.html"
+      - "**/index.html"
+
+  required_fields:
+    - "entity"      # Ship|Port|Restaurant
+    - "name"        # Entity name
+    - "parent"      # Parent page URL
+    - "subject"     # What this page is about
+    - "intended-reader"  # Who should read this
+    - "updated"     # YYYY-MM-DD
+
+  optional_fields:
+    - "siblings"    # Related entities
+    - "core-facts"  # Key information
+    - "decisions-informed"  # What users can decide
+
+  check:
+    type: "comment_block"
+    marker: "<!-- ai-breadcrumbs"
+
+  rationale: |
+    AI-Breadcrumbs provide structured navigation and context for AI systems.
+    Required only on entity pages to avoid bloat on general pages.
+
+# WCAG 2.1 Level AA Accessibility
+accessibility:
+  required: true
+  severity: error
+  priority: 6
+  standard: "WCAG 2.1 Level AA"
+
+  skip_links:
+    required: true
+    severity: error
+    check:
+      type: "grep"
+      pattern: 'class="skip-link"'
+    description: "Skip link required for keyboard navigation"
+    example: '<a href="#main" class="skip-link">Skip to main content</a>'
+
+  aria_landmarks:
+    required: true
+    severity: warning
+    description: "ARIA landmarks help screen readers navigate"
+    landmarks:
+      - role: "banner"
+        description: "Site header"
+      - role: "main"
+        description: "Main content"
+      - role: "navigation"
+        description: "Navigation menus"
+      - role: "contentinfo"
+        description: "Site footer"
+
+  heading_hierarchy:
+    required: true
+    severity: warning
+    description: "Proper heading hierarchy (h1 → h2 → h3, no skipping)"
+    check:
+      type: "custom"
+      script: "check_heading_order"
+
+  alt_text:
+    required: true
+    severity: error
+    description: "All images must have alt attributes"
+    check:
+      type: "grep"
+      pattern: '<img [^>]*alt='
+    rationale: "Screen readers need alt text to describe images"
+
+  form_labels:
+    required: true
+    severity: error
+    description: "All form inputs must have associated labels"
+    check:
+      type: "custom"
+      script: "check_form_labels"
+
+  focus_visible:
+    required: true
+    severity: warning
+    description: "Focus-visible styles required on interactive elements"
+
+# Navigation pattern (dropdown menus)
+navigation:
+  dropdown_pattern:
+    required: conditional
+    severity: error
+    applies_when:
+      has_element: "nav"
+
+    requirements:
+      nav_group_class:
+        required: true
+        check:
+          type: "grep"
+          pattern: 'class="[^"]*nav-group[^"]*"'
+        description: "Dropdown containers must have .nav-group class"
+
+      data_open_attribute:
+        required: true
+        check:
+          type: "grep"
+          pattern: 'data-open="false"'
+        description: "Dropdowns must have data-open='false' initial state"
+
+      submenu_class:
+        required: true
+        check:
+          type: "grep"
+          pattern: 'class="[^"]*submenu[^"]*"'
+        description: "Dropdown menus must have .submenu class"
+
+      z_index:
+        required: true
+        severity: warning
+        description: "Submenu must have z-index: 10000 to appear above content"
+        check:
+          type: "css_property"
+          selector: ".submenu"
+          property: "z-index"
+          min_value: 10000
+
+    rationale: |
+      Consistent navigation pattern ensures dropdowns work site-wide.
+      High z-index prevents content from overlapping dropdown menus.
+
+# Tag balance checking
+tag_balance:
+  required: true
+  severity: error
+  priority: 7
+
+  tags_to_check:
+    - tag: "div"
+      open: "<div"
+      close: "</div>"
+    - tag: "section"
+      open: "<section"
+      close: "</section>"
+    - tag: "article"
+      open: "<article"
+      close: "</article>"
+    - tag: "header"
+      open: "<header"
+      close: "</header>"
+    - tag: "footer"
+      open: "<footer"
+      close: "</footer>"
+    - tag: "nav"
+      open: "<nav"
+      close: "</nav>"
+
+  check:
+    type: "count_balance"
+    description: "Opening and closing tags must match"
+
+# Debugging code detection
+debugging:
+  console_log:
+    allowed: false
+    severity: warning
+    check:
+      type: "grep"
+      pattern: "console\\.log"
+    description: "Remove console.log statements before production"
+
+  debugger:
+    allowed: false
+    severity: error
+    check:
+      type: "grep"
+      pattern: "debugger"
+    description: "Remove debugger statements before production"
+
+# Version tracking
+version_tracking:
+  required: true
+  severity: warning
+  description: "Version number should be present in HTML"
+  check:
+    type: "grep"
+    pattern: 'Version:|version=|content="[0-9]+\\.[0-9]+'
+  rationale: "Version tracking helps with debugging and cache management"
