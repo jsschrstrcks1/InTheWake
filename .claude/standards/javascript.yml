@@ -1,0 +1,256 @@
+# JavaScript Standards - Machine-Readable Configuration
+# Version: 1.0.0
+# Last Updated: 2025-11-24
+# Purpose: Define JavaScript validation rules and best practices
+
+version: "1.0.0"
+last_updated: "2025-11-24"
+category: "javascript"
+
+# Syntax validation
+syntax:
+  required: true
+  severity: error
+  priority: 1
+
+  node_check:
+    enabled: true
+    command: "node --check"
+    description: "Node.js syntax validation"
+    check:
+      type: "command"
+      cmd: "node --check ${file}"
+
+  rationale: "Catch syntax errors before runtime"
+
+# ESLint integration
+eslint:
+  required: true
+  severity: error
+  priority: 2
+
+  search_paths:
+    - "which eslint"
+    - "/opt/node22/bin/eslint"
+    - "node_modules/.bin/eslint"
+
+  check:
+    type: "command"
+    cmd: "${eslint_bin} ${file}"
+    parse_output: true
+
+  error_patterns:
+    - pattern: "error"
+      severity: error
+      count_matches: true
+    - pattern: "warning"
+      severity: warning
+      count_matches: true
+
+  description: "ESLint for code quality and consistency"
+
+  rationale: |
+    ESLint catches potential bugs, enforces consistent style,
+    and promotes best practices across the codebase.
+
+# Security requirements
+security:
+  console_log:
+    allowed_in_dev: true
+    allowed_in_production: false
+    severity: warning
+    check:
+      type: "grep"
+      pattern: "console\\.log\\("
+    description: "Avoid console.log in production code"
+    exceptions:
+      - "admin/*.js"
+      - "dev/*.js"
+      - "**/test/**/*.js"
+
+  debugger:
+    allowed: false
+    severity: error
+    check:
+      type: "grep"
+      pattern: "\\bdebugger\\b"
+    description: "Remove debugger statements"
+    rationale: "Debugger statements can expose code flow and pause execution"
+
+  eval:
+    allowed: false
+    severity: error
+    check:
+      type: "grep"
+      pattern: "\\beval\\("
+    description: "Avoid eval() - security risk"
+    rationale: "eval() executes arbitrary code and is a major security vulnerability"
+
+  inner_html:
+    requires_sanitization: true
+    severity: warning
+    check:
+      type: "grep"
+      pattern: "\\.innerHTML\\s*="
+    description: "innerHTML requires XSS sanitization"
+    rationale: "Direct innerHTML assignment can lead to XSS attacks"
+
+  api_keys:
+    allowed: false
+    severity: error
+    check:
+      type: "grep_multi"
+      patterns:
+        - "api[_-]?key"
+        - "apiKey"
+        - "API_KEY"
+        - "secret"
+        - "password"
+        - "token"
+    description: "No hardcoded API keys or secrets"
+    rationale: "Secrets in code can be exposed in version control"
+
+# Code quality
+code_quality:
+  strict_mode:
+    recommended: true
+    severity: warning
+    check:
+      type: "grep"
+      pattern: "^['\"]use strict['\"]"
+    description: "Consider using strict mode"
+    rationale: "Strict mode catches common coding errors"
+
+  const_let_preference:
+    severity: info
+    description: "Prefer const/let over var"
+    check:
+      type: "grep"
+      pattern: "\\bvar\\s+"
+    rationale: "const/let have block scope and prevent accidental reassignment"
+
+  function_complexity:
+    max_length: 50
+    severity: warning
+    description: "Functions should be under 50 lines"
+    rationale: "Long functions are harder to understand and test"
+
+  magic_numbers:
+    severity: info
+    description: "Avoid magic numbers, use named constants"
+    rationale: "Named constants are self-documenting"
+
+# DOM Manipulation
+dom:
+  query_selector:
+    preferred: true
+    description: "Use querySelector/querySelectorAll for DOM selection"
+
+  event_listeners:
+    remove_on_cleanup: true
+    severity: warning
+    description: "Remove event listeners when no longer needed"
+    rationale: "Prevents memory leaks"
+
+  avoid_document_write:
+    severity: error
+    check:
+      type: "grep"
+      pattern: "document\\.write\\("
+    description: "Avoid document.write()"
+    rationale: "document.write() can overwrite entire document"
+
+# Async patterns
+async_patterns:
+  prefer_async_await:
+    severity: info
+    description: "Prefer async/await over raw Promises when possible"
+    rationale: "async/await is more readable"
+
+  catch_errors:
+    required: true
+    severity: warning
+    description: "Always catch errors in async functions"
+    rationale: "Unhandled promise rejections can crash applications"
+
+# Comments and documentation
+documentation:
+  todo_comments:
+    requires_issue_reference: true
+    severity: warning
+    check:
+      type: "grep"
+      pattern: "// TODO(?! #\\d)"
+    description: "TODO comments should reference issue numbers"
+    rationale: "Links TODOs to tracking system"
+
+  function_comments:
+    recommended: true
+    severity: info
+    description: "Document complex functions"
+    rationale: "Comments help future maintainers"
+
+  commented_code:
+    allowed: false
+    severity: warning
+    check:
+      type: "grep"
+      pattern: "^\\s*//\\s*[a-zA-Z]+.*[;{]"
+    description: "Remove commented-out code"
+    rationale: "Use version control, not comments, for code history"
+
+# Service Worker specific (sw.js files only)
+service_worker:
+  applies_to:
+    - "**/sw.js"
+    - "**/service-worker.js"
+
+  cache_versioning:
+    required: true
+    severity: error
+    description: "Cache must have version number"
+    check:
+      type: "grep"
+      pattern: "const CACHE_VERSION = ['\"].*['\"]"
+    rationale: "Cache versioning enables proper cache invalidation"
+
+  fetch_handler:
+    required: true
+    severity: error
+    description: "Service worker must handle fetch events"
+    check:
+      type: "grep"
+      pattern: "self\\.addEventListener\\(['\"]fetch['\"]"
+
+  install_handler:
+    required: true
+    severity: error
+    description: "Service worker must handle install events"
+    check:
+      type: "grep"
+      pattern: "self\\.addEventListener\\(['\"]install['\"]"
+
+# Performance
+performance:
+  avoid_sync_xhr:
+    severity: error
+    description: "Avoid synchronous XMLHttpRequest"
+    check:
+      type: "grep"
+      pattern: "new XMLHttpRequest\\(\\)[^;]*\\.open\\([^,]*,[^,]*,\\s*false"
+    rationale: "Sync XHR blocks the main thread"
+
+  debounce_scroll:
+    severity: info
+    description: "Debounce scroll/resize handlers"
+    rationale: "Frequent event handlers can impact performance"
+
+# Testing
+testing:
+  test_files:
+    naming_pattern: "*.test.js or *.spec.js"
+    description: "Test files should follow naming convention"
+
+  assertions:
+    required_in_tests: true
+    description: "Test files must contain assertions"

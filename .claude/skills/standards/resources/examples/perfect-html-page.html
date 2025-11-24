@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!--
+  Soli Deo Gloria
+  All work on this project is offered as a gift to God.
+  "Trust in the LORD with all your heart..." — Proverbs 3:5
+  "Whatever you do, work heartily..." — Colossians 3:23
+  -->
+
+  <!-- Core Meta Tags -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- ICP-Lite v1.0 Protocol (Required) -->
+  <meta name="ai-summary" content="Example of a perfectly compliant HTML page following all In the Wake standards"/>
+  <meta name="last-reviewed" content="2025-11-24"/>
+  <meta name="content-protocol" content="ICP-Lite v1.0"/>
+
+  <!-- Page Title -->
+  <title>Perfect HTML Example | In the Wake</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Reference implementation of HTML standards for In the Wake project"/>
+  <meta name="robots" content="index,follow"/>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Perfect HTML Example"/>
+  <meta property="og:description" content="Reference implementation of HTML standards"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://cruisinginthewake.com/examples/perfect.html"/>
+
+  <!-- Theme & Appearance -->
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="color-scheme" content="light"/>
+
+  <!-- Version Tracking -->
+  <meta name="version" content="1.0.0"/>
+
+  <!-- Styles -->
+  <style>
+    /* Skip Link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Focus Visible Styles (Required for accessibility) */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid #0e6e8e;
+      outline-offset: 2px;
+    }
+
+    /* Navigation Pattern */
+    .nav-group {
+      position: relative;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      border: 1px solid #ccc;
+      z-index: 10000; /* Required: High z-index prevents overlap */
+    }
+
+    .nav-group[data-open="true"] > .submenu {
+      display: block;
+    }
+
+    /* Reduced Motion Support (Required for accessibility) */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Basic Styling */
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #0e6e8e;
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip Link (Required for accessibility) -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Header with ARIA landmark (banner) -->
+  <header role="banner">
+    <h1>Perfect HTML Example</h1>
+    <p>Reference implementation of all HTML standards</p>
+  </header>
+
+  <!-- Navigation with ARIA landmark -->
+  <nav role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li class="nav-group" data-open="false">
+        <button type="button" aria-expanded="false">Resources</button>
+        <ul class="submenu">
+          <li><a href="/standards/">Standards</a></li>
+          <li><a href="/examples/">Examples</a></li>
+        </ul>
+      </li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content with ARIA landmark and ID for skip link -->
+  <main role="main" id="main">
+    <!-- Proper Heading Hierarchy (h1 → h2 → h3, no skipping) -->
+    <h2>Standards Demonstrated</h2>
+
+    <h3>Theological Foundation</h3>
+    <p>
+      Soli Deo Gloria invocation present at top of file.
+      Scripture references included (Proverbs 3:5, Colossians 3:23).
+    </p>
+
+    <h3>ICP-Lite v1.0 Protocol</h3>
+    <p>
+      All three required meta tags present:
+      ai-summary, last-reviewed, and content-protocol.
+    </p>
+
+    <h3>WCAG 2.1 Level AA Accessibility</h3>
+    <ul>
+      <li>Skip link for keyboard navigation</li>
+      <li>ARIA landmarks (banner, main, navigation, contentinfo)</li>
+      <li>Proper heading hierarchy (h1 → h2 → h3)</li>
+      <li>All images have alt text (see below)</li>
+      <li>All form inputs have labels (see below)</li>
+      <li>Focus-visible styles on interactive elements</li>
+      <li>Reduced motion support via media query</li>
+    </ul>
+
+    <h3>Images with Alt Text</h3>
+    <figure>
+      <img src="/images/example.jpg" alt="Example image showing compliant HTML structure" width="400" height="300"/>
+      <figcaption>Every image must have descriptive alt text</figcaption>
+    </figure>
+
+    <h3>Accessible Form Example</h3>
+    <form>
+      <!-- Label associated with input (required for accessibility) -->
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required/>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required/>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <h3>Proper Structure</h3>
+    <ul>
+      <li>DOCTYPE declaration: <code>&lt;!doctype html&gt;</code></li>
+      <li>Language attribute: <code>&lt;html lang="en"&gt;</code></li>
+      <li>UTF-8 charset</li>
+      <li>Viewport meta tag</li>
+      <li>Semantic HTML5 elements</li>
+    </ul>
+
+    <h3>Tag Balance</h3>
+    <p>
+      All opening and closing tags are balanced. This includes:
+    </p>
+    <div>
+      <section>
+        <article>
+          <p>Nested elements properly closed in reverse order</p>
+        </article>
+      </section>
+    </div>
+
+    <h2>What This Page Demonstrates</h2>
+    <ol>
+      <li><strong>Theological invocation</strong> - Soli Deo Gloria at top</li>
+      <li><strong>ICP-Lite Protocol</strong> - All required meta tags</li>
+      <li><strong>WCAG 2.1 AA</strong> - Skip links, ARIA, alt text, labels, focus styles</li>
+      <li><strong>Navigation pattern</strong> - .nav-group, data-open, .submenu with z-index</li>
+      <li><strong>Semantic HTML</strong> - header, nav, main, footer, section, article</li>
+      <li><strong>Proper hierarchy</strong> - h1 → h2 → h3 (no skipping)</li>
+      <li><strong>Balanced tags</strong> - All opening tags have closing tags</li>
+      <li><strong>Version tracking</strong> - Version meta tag present</li>
+    </ol>
+  </main>
+
+  <!-- Footer with ARIA landmark (contentinfo) -->
+  <footer role="contentinfo">
+    <p>&copy; 2025 In the Wake. All work offered <em>Soli Deo Gloria</em>.</p>
+    <p>
+      <small>
+        "Whatever you do, work heartily, as for the Lord and not for men."
+        — Colossians 3:23
+      </small>
+    </p>
+  </footer>
+
+  <!-- Minimal JavaScript for dropdown (if needed) -->
+  <script>
+    "use strict";
+
+    // Toggle dropdown on button click
+    document.querySelectorAll('.nav-group button').forEach(button => {
+      button.addEventListener('click', function() {
+        const navGroup = this.closest('.nav-group');
+        const isOpen = navGroup.getAttribute('data-open') === 'true';
+
+        // Close all dropdowns first
+        document.querySelectorAll('.nav-group').forEach(ng => {
+          ng.setAttribute('data-open', 'false');
+          const btn = ng.querySelector('button');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+
+        // Toggle this dropdown
+        if (!isOpen) {
+          navGroup.setAttribute('data-open', 'true');
+          this.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-group')) {
+        document.querySelectorAll('.nav-group').forEach(ng => {
+          ng.setAttribute('data-open', 'false');
+          const btn = ng.querySelector('button');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+
+    // Close dropdowns on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.nav-group').forEach(ng => {
+          ng.setAttribute('data-open', 'false');
+          const btn = ng.querySelector('button');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

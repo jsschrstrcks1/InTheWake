@@ -1,0 +1,101 @@
+{
+  "version": "1.0.0",
+  "description": "Auto-activation rules for Claude Code skills",
+  "skills": {
+    "standards": {
+      "enabled": true,
+      "description": "Standards enforcement system - auto-activates when modifying code files",
+      "priority": "high",
+
+      "fileTriggers": {
+        "pathPatterns": [
+          "*.html",
+          "**/*.html",
+          "*.js",
+          "**/*.js",
+          "*.css",
+          "**/*.css",
+          "*.json",
+          "**/*.json",
+          "*.md",
+          "**/*.md"
+        ],
+        "exclude": [
+          "node_modules/**",
+          ".git/**",
+          "dist/**",
+          "build/**",
+          "*.min.js",
+          "*.min.css"
+        ]
+      },
+
+      "keywords": [
+        "fix",
+        "update",
+        "modify",
+        "create",
+        "add",
+        "write",
+        "edit",
+        "change",
+        "standards",
+        "validate",
+        "check",
+        "compliance",
+        "accessibility",
+        "wcag",
+        "invocation",
+        "icp-lite",
+        "breadcrumbs",
+        "security",
+        "lint",
+        "eslint"
+      ],
+
+      "toolTriggers": [
+        "Edit",
+        "Write",
+        "MultiEdit"
+      ],
+
+      "autoLoad": {
+        "mainFile": ".claude/skills/standards/STANDARDS.md",
+        "maxLines": 500,
+        "loadOnFirstFileEdit": true
+      },
+
+      "contextualResources": {
+        "html": ".claude/skills/standards/resources/html-standards.md",
+        "javascript": ".claude/skills/standards/resources/javascript-standards.md",
+        "css": ".claude/skills/standards/resources/css-standards.md",
+        "theological": ".claude/skills/standards/resources/theological-foundation.md",
+        "security": ".claude/skills/standards/resources/security-requirements.md",
+        "icp-lite": ".claude/skills/standards/resources/icp-lite-protocol.md",
+        "ai-breadcrumbs": ".claude/skills/standards/resources/ai-breadcrumbs-spec.md",
+        "wcag": ".claude/skills/standards/resources/wcag-aa-checklist.md"
+      },
+
+      "activationMessage": "📋 Standards skill activated. Review standards before writing code.",
+
+      "preWriteAction": {
+        "script": "./admin/pre-write-standards.sh",
+        "runAutomatically": false,
+        "description": "Show relevant standards before modifying files"
+      },
+
+      "postWriteAction": {
+        "script": "./admin/post-write-validate.sh",
+        "runAutomatically": false,
+        "description": "Validate files after modifications"
+      }
+    }
+  },
+
+  "globalSettings": {
+    "enableAutoActivation": true,
+    "verboseLogging": false,
+    "cacheSkillContext": true,
+    "maxConcurrentSkills": 3
+  }
+}
