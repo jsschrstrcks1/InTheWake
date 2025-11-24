@@ -636,265 +636,130 @@ html, body { overflow-x: hidden; }
 .pill-nav.pills a:first-child{ margin-left: .15rem; }   /* micro guard rails */
 .pill-nav.pills a:last-child { margin-right:.15rem; }
 
-/* Ensure nav row sits above hero and never gets clipped by a parent */
-.navbar{ z-index: 6; overflow: visible; }
-/* ===== Unified Nav v3.009.002 — grouped pills + disclosure submenus ===== */
+/* ===== NEW NAVIGATION SYSTEM v3.010.400 (Clean Rebuild) ===== */
+.navbar{ position:relative; z-index:6; overflow:visible; }
+.hero-header, header{ overflow:visible; }
 
-/* Container row */
-.navbar{
-  display:flex;
-  align-items:flex-end;
-  gap:.6rem;
-  max-width:1100px;
-  margin:0 auto;
-  padding:.5rem .9rem .35rem;
-  position:relative;
-  z-index:6;                /* float above hero */
-}
-.navbar .brand{flex:0 0 auto}
-.navbar .pill-nav{
-  flex:1 1 auto;
-  min-width:0;              /* critical so row can shrink */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:.45rem;
-  white-space:nowrap;
-  flex-wrap:nowrap;         /* single line */
-  overflow-x:auto;          /* scroll when crowded */
-  overflow-y:hidden;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:thin;
-  padding-inline:.75rem;    /* breathing room at edges */
-  scroll-padding-inline:.75rem;
-  /* soft fade at edges (safe no-op outside WebKit) */
-  mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-  -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-}
-
-/* Pill chips (links AND buttons share styling) */
-.pill-nav a,
-.pill-nav button.nav-disclosure{
-  display:inline-flex;
-  align-items:center;
-  gap:.35rem;
-  padding:.35rem .7rem;
-  border-radius:10px;
-  background:#fff;
-  border:1px solid var(--rope, #d9b382);
-  color:var(--accent, #0e6e8e);
-  font:inherit;
-  font-size:.9rem;
-  line-height:1.2;
-  cursor:pointer;
-  text-decoration:none;
-}
-.pill-nav a:hover,
-.pill-nav button.nav-disclosure:hover{
-  background:#f9fdfd;
-  text-decoration:none;
-}
-
-/* Current page chip */
-.pill-nav a[aria-current="page"]{
-  outline:3px dashed var(--rope, #d9b382);
-  outline-offset:2px;
-  box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
-}
-
-/* Group wrapper + submenu */
-.nav-group{position:relative;display:inline-block}
-.nav-disclosure svg{width:14px;height:14px}
-
-/* Hidden by default; toggled via [data-open="true"] from a tiny JS helper */
-.submenu{
-  position:absolute;
-  left:0;
-  top:calc(100% + 6px);
-  min-width:220px;
-  background:#fff;
-  border:1px solid var(--rope, #d9b382);
-  border-radius:12px;
-  padding:.35rem;
-  box-shadow:0 8px 24px rgba(8,48,65,.12);
-  display:none !important;
-  z-index:10000 !important;
-}
-.nav-item[data-open="true"] .submenu{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
-
-/* Submenu items */
-.submenu a{
-  display:block;
-  padding:.35rem .6rem;
-  border-radius:8px;
-  border:1px solid transparent;
-  color:inherit;
-  white-space:nowrap;
-}
-.submenu a:hover{
-  background:#f9fdfd;
-  border-color:#ecd7b7;
-  text-decoration:none;
-}
-
-/* Focus visibility (keyboard a11y) */
-.pill-nav a:focus-visible,
-.pill-nav button.nav-disclosure:focus-visible,
-.submenu a:focus-visible{
-  outline:3px solid #0e6e8e;
-  outline-offset:2px;
-}
-
-/* Hover-only fallback (no JS): show menus on hover for pointer devices */
-@media (hover:hover){
-  .nav-group:hover .submenu{ display:block; }
-}
-
-/* Reduced motion: stop dropdown fades/animations if you later add them */
-@media (prefers-reduced-motion: reduce){
-  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
-}
-
-/* Safety: hero overflow (keeps chips from being clipped by full-bleed images) */
-html, body{ overflow-x:hidden }
-.hero-header > .hero{
-  width:100% !important;
-  margin-left:0 !important;
-  overflow-x:clip !important;
-}
-/* Unified Nav essentials (keep/ensure these exist) */
-.navbar{ z-index:6; overflow:visible; }            /* chips & menus never clipped */
-.nav-group{ position:relative; display:inline-block; }
-.submenu{
-  position:absolute; left:0; top:calc(100% + 6px);
-  min-width:220px; background:#fff; border:1px solid var(--rope);
-  border-radius:12px; padding:.35rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
-  display:none !important; z-index:10000 !important;
-}
-.nav-item[data-open="true"] .submenu{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
-
-/* Hover fallback (works even if JS fails) */
-@media (hover:hover){
-  .nav-group:hover .submenu{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
-}
-
-/* Keep hero from covering the nav row on full-bleed headers */
-.hero-header > .hero{
-  position:relative; z-index:-1;
-  width:100% !important; margin-left:0 !important; overflow-x:clip !important;
-}
-
-/* Navigation row: single-line with scroll & soft edges */
-.nav,
-.pill-nav{
-  flex:1 1 auto; min-width:0; display:flex; align-items:center; justify-content:center;
-  gap:.45rem; white-space:nowrap; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
-  -webkit-overflow-scrolling:touch; scrollbar-width:thin; padding-inline:.75rem;
-  scroll-padding-inline:.75rem;
-  mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-  -webkit-mask-image:linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-}
-
-/* Navigation items - pill-style buttons */
-.nav-item {
-  position: relative;
-  display: inline-block;
-}
-
-.nav-item > a,
-.nav-item > button {
-  display: inline-flex;
+/* Site navigation container */
+.site-nav {
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: .35rem;
-  padding: .65rem 1rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0 0.5rem;
+}
+
+/* Navigation pill buttons */
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.6rem 1rem;
   min-height: 44px;
   border-radius: 20px;
   background: #fff;
   border: 2px solid var(--rope, #d9b382);
   color: var(--accent, #0e6e8e);
   font: inherit;
-  font-size: .95rem;
-  line-height: 1.2;
+  font-size: 0.95rem;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: background 0.15s, border-color 0.15s;
 }
 
-.nav-item > a:hover,
-.nav-item > button:hover {
+.nav-pill:hover {
   background: var(--foam, #e6f4f8);
   border-color: var(--accent, #0e6e8e);
-  transform: translateY(-1px);
 }
 
-.nav-item > a[aria-current="page"] {
+.nav-pill[aria-current="page"] {
   background: var(--accent, #0e6e8e);
   color: #fff;
   font-weight: 600;
   border-color: var(--accent, #0e6e8e);
 }
 
-.nav-item > a:focus-visible,
-.nav-item > button:focus-visible {
+.nav-pill:focus-visible {
   outline: 3px solid var(--accent, #0e6e8e);
   outline-offset: 2px;
 }
 
-/* Dropdown caret */
-.nav-disclosure .caret {
+/* Dropdown container */
+.nav-dropdown {
+  position: relative;
   display: inline-block;
-  margin-left: .25rem;
-  transition: transform 0.2s ease;
 }
 
-.nav-item[data-open="true"] .nav-disclosure .caret {
-  transform: rotate(180deg);
-}
-/* === Unified Nav: click-to-open dropdowns (v3.009.018 - FIXED) ================== */
-/* Base: keep menus hidden by default */
-.submenu{
-  position:absolute !important; left:0; top:calc(100% + 8px);
-  min-width:220px; background:#fff; border:1px solid var(--rope,#d9b382);
-  border-radius:12px; padding:.4rem; box-shadow:0 8px 24px rgba(8,48,65,.12);
-  z-index:10000;
-  display:none; opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .15s ease;
+.nav-dropdown .caret {
+  display: inline-block;
+  transition: transform 0.2s;
 }
 
-/* JS toggles data-open="true"; these rules MUST be present and later in cascade */
-/* Support both .nav-item and .nav-group since elements may have either or both classes */
-.nav-item[data-open="true"] > .submenu,
-.nav-item[data-open="true"] .submenu,
-.nav-group[data-open="true"] > .submenu,
-.nav-group[data-open="true"] .submenu{
-  display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
-}
-
-/* Caret rotation for both .nav-item and .nav-group */
-.nav-group[data-open="true"] .nav-disclosure .caret{
+.nav-dropdown.open .caret {
   transform: rotate(180deg);
 }
 
-/* Optional assist so hover/focus still works without JS */
-.nav-group:hover > .submenu,
-.nav-group:focus-within > .submenu,
-.nav-item:hover > .submenu,
-.nav-item:focus-within > .submenu{
-  display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
+/* Dropdown menu - hidden by default */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 220px;
+  background: #fff;
+  border: 2px solid var(--rope, #d9b382);
+  border-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0 8px 24px rgba(8,48,65,0.15);
+  z-index: 9999;
+  display: none;
 }
 
-/* Ensure vertical, single-column menu items (no side-by-side pills) */
-.submenu a,
-.submenu button{
-  display:block; width:100%; margin:0; padding:.5rem .65rem;
-  border-radius:.65rem; text-decoration:none;
+/* Show dropdown when .open class is added */
+.nav-dropdown.open .dropdown-menu {
+  display: block;
 }
 
-/* Stacking + clipping safety */
-.navbar{ position:relative; z-index:6; overflow:visible; }
-.nav-group{ position:relative; }        /* anchor for absolute submenu */
-.hero-header, header{ overflow:visible; }
+/* Dropdown menu items */
+.dropdown-menu a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: var(--ink, #083041);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.1s;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu a:focus {
+  background: #eef4f6;
+  outline: none;
+}
+
+.dropdown-menu a:focus-visible {
+  outline: 3px solid var(--accent, #0e6e8e);
+  outline-offset: -2px;
+}
+
+@media (max-width: 768px) {
+  .site-nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dropdown-menu {
+    min-width: 200px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .nav-pill, .dropdown-menu, .caret {
+    transition: none;
+  }
+}
+/* ===== END NEW NAVIGATION SYSTEM ===== */
 
 /* ===== Logbook Navigation (carousel controls) ===== */
 .logbook-nav {
