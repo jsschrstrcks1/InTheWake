@@ -862,15 +862,25 @@ html, body{ overflow-x:hidden }
   transition:opacity .15s ease;
 }
 
-/* JS toggles this; this rule MUST be present and later in cascade */
+/* JS toggles data-open="true"; these rules MUST be present and later in cascade */
+/* Support both .nav-item and .nav-group since elements may have either or both classes */
 .nav-item[data-open="true"] > .submenu,
-.nav-item[data-open="true"] .submenu{
+.nav-item[data-open="true"] .submenu,
+.nav-group[data-open="true"] > .submenu,
+.nav-group[data-open="true"] .submenu{
   display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
+}
+
+/* Caret rotation for both .nav-item and .nav-group */
+.nav-group[data-open="true"] .nav-disclosure .caret{
+  transform: rotate(180deg);
 }
 
 /* Optional assist so hover/focus still works without JS */
 .nav-group:hover > .submenu,
-.nav-group:focus-within > .submenu{
+.nav-group:focus-within > .submenu,
+.nav-item:hover > .submenu,
+.nav-item:focus-within > .submenu{
   display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
 }
 
