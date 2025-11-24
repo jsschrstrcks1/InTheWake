@@ -1260,9 +1260,9 @@
         <div class="banner tiny" id="school-breaks"></div>
       </section>
 
-      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="space-launch">
+      <section id="space-coast-section" style="grid-column: 1; grid-row: 1 / span 999; display: none;" class="card" aria-labelledby="space-launch">
         <h2 id="space-launch">Space Coast Launches</h2>
-        <p class="tiny muted">Sailing from Port Canaveral? You might catch a rocket. Check the live schedule:</p>
+        <p class="tiny muted">Near a spaceport? You might catch a rocket! Check the live schedule:</p>
         <p><a class="pill" href="https://spaceflightnow.com/launch-schedule/" rel="noopener external">Spaceflight Now — Launch Schedule</a></p>
         <p class="tiny muted">Planning your cabin choice? Our <a href="/ships.html">ship reviews</a> include port-side vs. starboard recommendations for launch viewing on select sailings.</p>
       </section>
@@ -1574,7 +1574,24 @@
       blurb.innerHTML=(p.blurb||[]).map(par=>`<p>${E(par)}</p>`).join('') || `<p>${E(p.name)} — ${E(p.city)}</p>`;
       const sig=data.signals||{};
       seasonal.style.display='';
-      seasonal.innerHTML=`<strong>Heads-up:</strong> Spring Break (${E(sig.spring_break?.window||'varies')}) and Fall Break (${E(sig.fall_break?.window||'varies')}). ${E(sig.spring_break?.notes||'')}`;
+
+      // Build seasonal message
+      let seasonalMsg = `<strong>Heads-up:</strong> Spring Break (${E(sig.spring_break?.window||'varies')}) and Fall Break (${E(sig.fall_break?.window||'varies')}). ${E(sig.spring_break?.notes||'')}`;
+
+      // World Cup 2026 message for Seattle (expires after July 19, 2026)
+      const worldCupEnd = new Date('2026-07-20');
+      if (p.slug === 'seattle' && new Date() < worldCupEnd) {
+        seasonalMsg += `<br><strong>⚽ FIFA World Cup 2026:</strong> Seattle hosts matches June 11 – July 19, 2026. Expect surging hotel rates, downtown traffic, and packed flights. Book early or consider sailing before/after the tournament.`;
+      }
+
+      seasonal.innerHTML = seasonalMsg;
+
+      // Show Space Coast section only for ports near spaceports (FL, TX, CA)
+      const spaceSection = document.getElementById('space-coast-section');
+      if (spaceSection) {
+        const spaceportStates = ['FL', 'TX', 'CA'];
+        spaceSection.style.display = spaceportStates.includes(p.state) ? '' : 'none';
+      }
 
       airports.innerHTML=(p.airports||[]).map(a=>`
         <div class="airport">
