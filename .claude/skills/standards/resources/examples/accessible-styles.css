@@ -1,0 +1,466 @@
+/**
+ * Accessible Styles Example
+ * Demonstrates CSS accessibility standards for In the Wake project
+ * Version: 1.0.0
+ *
+ * Standards demonstrated:
+ * - Focus-visible styles for keyboard navigation
+ * - Reduced motion support
+ * - Sufficient color contrast (WCAG AA: 4.5:1)
+ * - Minimum 16px base font size
+ * - Responsive design
+ * - Logical property order
+ * - No !important (except for utilities)
+ * - Semantic naming (kebab-case)
+ */
+
+/* ============================================================================
+   RESET & BASE STYLES
+   ============================================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Color palette (WCAG AA compliant contrast ratios) */
+  --color-primary: #0e6e8e; /* Blue - 4.5:1 on white */
+  --color-primary-dark: #094a5e; /* Darker blue - 7:1 on white */
+  --color-text: #222222; /* Dark gray - 14:1 on white */
+  --color-text-light: #666666; /* Light gray - 5.7:1 on white */
+  --color-background: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-error: #c82333; /* Red - 5.6:1 on white */
+  --color-success: #218838; /* Green - 4.6:1 on white */
+  --color-focus: #0e6e8e;
+
+  /* Spacing (consistent scale) */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.5rem; /* 24px */
+  --spacing-xl: 2rem; /* 32px */
+
+  /* Typography */
+  --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-family-mono: 'Courier New', Courier, monospace;
+
+  /* Minimum 16px base (required for accessibility) */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-xxl: 1.5rem; /* 24px */
+
+  --line-height-base: 1.5;
+  --line-height-tight: 1.25;
+
+  /* Z-index scale */
+  --z-index-dropdown: 10000;
+  --z-index-modal: 10001;
+  --z-index-tooltip: 10002;
+
+  /* Transitions (respects prefers-reduced-motion) */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+}
+
+/* ============================================================================
+   TYPOGRAPHY
+   ============================================================================ */
+
+body {
+  /* Layout */
+  margin: 0;
+  padding: 0;
+
+  /* Typography */
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base); /* 16px minimum */
+  line-height: var(--line-height-base);
+  color: var(--color-text); /* 14:1 contrast on white */
+
+  /* Visual */
+  background-color: var(--color-background);
+
+  /* Other */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /* Box model */
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+
+  /* Typography */
+  line-height: var(--line-height-tight);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+h1 {
+  font-size: var(--font-size-xxl);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ============================================================================
+   FOCUS STYLES (REQUIRED for accessibility)
+   ============================================================================ */
+
+/* Remove default outline, add custom focus-visible */
+*:focus {
+  outline: none;
+}
+
+/* Focus-visible for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Skip link (appears on focus) */
+.skip-link {
+  /* Position */
+  position: absolute;
+  top: -40px;
+  left: 0;
+  z-index: 10000;
+
+  /* Box model */
+  padding: var(--spacing-sm) var(--spacing-md);
+
+  /* Typography */
+  font-size: var(--font-size-base);
+  text-decoration: none;
+  color: var(--color-background);
+
+  /* Visual */
+  background: var(--color-text);
+
+  /* Other */
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ============================================================================
+   LINKS
+   ============================================================================ */
+
+a {
+  /* Typography */
+  color: var(--color-primary); /* 4.5:1 contrast */
+  text-decoration: underline;
+
+  /* Other */
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-dark); /* 7:1 contrast */
+  text-decoration: none;
+}
+
+a:visited {
+  color: #5a0a7c; /* Purple with 5:1 contrast */
+}
+
+/* ============================================================================
+   BUTTONS
+   ============================================================================ */
+
+button,
+.button {
+  /* Display */
+  display: inline-block;
+
+  /* Box model */
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid transparent;
+  border-radius: 4px;
+
+  /* Typography */
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  color: var(--color-background);
+
+  /* Visual */
+  background-color: var(--color-primary);
+
+  /* Other */
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+button:hover,
+.button:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+button:active,
+.button:active {
+  transform: translateY(0);
+}
+
+button:disabled,
+.button:disabled {
+  background-color: var(--color-text-light);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ============================================================================
+   FORMS
+   ============================================================================ */
+
+label {
+  /* Display */
+  display: block;
+
+  /* Box model */
+  margin-bottom: var(--spacing-xs);
+
+  /* Typography */
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+textarea,
+select {
+  /* Display */
+  display: block;
+
+  /* Box model */
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 2px solid #cccccc;
+  border-radius: 4px;
+
+  /* Typography */
+  font-family: inherit;
+  font-size: var(--font-size-base); /* Minimum 16px */
+  color: var(--color-text);
+
+  /* Visual */
+  background-color: var(--color-background);
+
+  /* Other */
+  transition: border-color var(--transition-fast);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-focus);
+}
+
+/* Error state */
+input.has-error,
+textarea.has-error,
+select.has-error {
+  border-color: var(--color-error);
+}
+
+.error-message {
+  /* Box model */
+  margin-top: var(--spacing-xs);
+
+  /* Typography */
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+}
+
+/* ============================================================================
+   NAVIGATION
+   ============================================================================ */
+
+nav {
+  /* Box model */
+  padding: var(--spacing-md);
+
+  /* Visual */
+  background-color: var(--color-surface);
+}
+
+nav ul {
+  /* Display */
+  display: flex;
+  gap: var(--spacing-md);
+
+  /* Box model */
+  margin: 0;
+  padding: 0;
+
+  /* Other */
+  list-style: none;
+}
+
+/* Dropdown container */
+.nav-group {
+  position: relative;
+}
+
+/* Dropdown menu */
+.submenu {
+  /* Display */
+  display: none;
+
+  /* Position */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: var(--z-index-dropdown); /* High z-index required */
+
+  /* Box model */
+  min-width: 200px;
+  padding: var(--spacing-sm);
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+
+  /* Visual */
+  background-color: var(--color-background);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+  /* Other */
+  list-style: none;
+}
+
+/* Show submenu when open */
+.nav-group[data-open="true"] > .submenu {
+  display: block;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+/* Mobile-first approach */
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+  }
+
+  .submenu {
+    position: static;
+    box-shadow: none;
+    border: none;
+  }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  body {
+    font-size: 1.125rem; /* 18px on larger screens */
+  }
+}
+
+/* ============================================================================
+   REDUCED MOTION (REQUIRED for accessibility)
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================================
+   UTILITY CLASSES (Only place where !important is acceptable)
+   ============================================================================ */
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border-width: 0 !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ============================================================================
+   PRINT STYLES
+   ============================================================================ */
+
+@media print {
+  * {
+    background-color: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  nav,
+  .skip-link {
+    display: none;
+  }
+}

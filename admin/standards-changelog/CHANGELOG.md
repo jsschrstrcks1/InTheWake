@@ -117,6 +117,88 @@ Helps AI tailor content summarization to appropriate audience level.
 
 ---
 
+## [1.1.0] - 2025-11-24
+
+### Added - Phase 2: YAML-Driven Validation
+
+**YAML-Driven Scripts**:
+- Completely rewrote `pre-write-standards.sh` to parse YAML standards dynamically
+- Completely rewrote `post-write-validate.sh` to execute checks from YAML config
+- Backed up v1 scripts as `.bak` files for reference
+- Scripts now use `yq` to read standards from `.claude/standards/*.yml`
+
+**Dynamic Validation**:
+- Checks are executed based on YAML configuration, not hardcoded logic
+- Check types: `grep`, `grep_multi`, `count_balance`, `command`
+- Severity levels: `error` (must fix), `warning` (should fix), `info` (FYI)
+- Priority levels: Defines execution order
+- Exit codes: 0 (success/warnings), 1 (errors found)
+
+**Additional Example Files**:
+- `compliant-script.js` (~350 lines) - Complete JavaScript example
+  - Demonstrates: strict mode, no console.log, accessibility, error handling
+  - Shows: dropdown navigation, form validation, debouncing, security
+  - Includes: comprehensive comments explaining standards
+- `accessible-styles.css` (~350 lines) - Complete CSS example
+  - Demonstrates: focus-visible styles, reduced motion, WCAG contrast
+  - Shows: responsive design, logical property order, utility classes
+  - Includes: comprehensive variable system, print styles
+
+**Benefits**:
+- ✨ Edit YAML once → Scripts update everywhere (true single source of truth)
+- 🔄 Add new checks without modifying script logic
+- 📊 Change severity/priority levels in YAML config
+- 🎯 Consistent validation across all tools
+- 🧪 Easier to test (YAML is data, not code)
+
+**Example: Adding a New Check**:
+```yaml
+# In .claude/standards/html.yml
+new_check:
+  required: true
+  severity: warning
+  check:
+    type: "grep"
+    pattern: '<meta name="new-tag"'
+  description: "New meta tag should be present"
+```
+
+Scripts automatically enforce this check. No code changes needed!
+
+### Changed
+
+**Script Behavior**:
+- Pre-write script now shows standards based on YAML config
+- Post-write script dynamically executes checks from YAML
+- Both scripts detect check types and execute appropriate logic
+- Error counting and reporting improved
+
+**Developer Experience**:
+- Standards changes are now instantaneous (edit YAML, done)
+- No need to hunt through bash code
+- Clear separation: data (YAML) vs. logic (scripts)
+- Version control shows exactly what standard changed
+
+### Technical Details
+
+**YAML Parser**:
+- Using `yq` (jq-style syntax)
+- Tested with `.version`, nested properties, keys iteration
+- Handles complex nested structures
+
+**Check Type Implementations**:
+- `grep`: Simple pattern matching
+- `grep_multi`: Multiple patterns with OR logic
+- `count_balance`: Tag/brace balancing
+- `command`: Execute shell commands for validation
+
+**Error Handling**:
+- Scripts use `set +e` to collect all errors
+- Separate counters for errors vs. warnings
+- Final summary with counts and recommendations
+
+---
+
 ## [Unreleased]
 
 ### Planned
