@@ -1,9 +1,9 @@
 # Unfinished Tasks - Both Threads
 
 **Generated:** 2025-11-17
-**Last Updated:** 2025-11-23 (COMPREHENSIVE AUDIT #4 - File-by-file verification after rebase)
-**Last Updated:** 2025-11-23 (Port Tracker COMPLETE, Ship Tracker COMPLETE, Ship Cards Redesign COMPLETE, Master Port Lists created)
-**Last Updated:** 2025-11-23 (COMPREHENSIVE AUDIT #3 added - 368 issues fixed, 10 files created)
+**Last Updated:** 2025-11-24 (COMPREHENSIVE AUDIT #4 - File-by-file verification after rebase)
+**Last Updated:** 2025-11-24 (Port Tracker COMPLETE, Ship Tracker COMPLETE, Ship Cards Redesign COMPLETE, Master Port Lists created)
+**Last Updated:** 2025-11-24 (COMPREHENSIVE AUDIT #3 added - 368 issues fixed, 10 files created)
 **Threads Tracked:**
 - Thread 1: `claude/evaluate-ai-human-strategy-01L5apYYXXKEUVyhFbyhAgZs`
 - Thread 2: `claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW`
@@ -166,15 +166,15 @@ When fragments contradict:
 
 ### Rebuild Process (10 Tasks)
 
-- [ ] **Task 1:** Inventory all fragments (find, count, categorize all files in old-files/ AND /standards/)
-- [ ] **Task 2:** Extract .zip files recursively
-- [ ] **Task 3:** Convert/handle .doc/.docx files
-- [ ] **Task 4:** Create FRAGMENT_INVENTORY.md (complete manifest with metadata)
-- [ ] **Task 5:** Perform line-by-line comparison, identify exact duplicates
-- [ ] **Task 6:** Extract unique rules from each fragment
-- [ ] **Task 7:** Verify standards against current implementation (grep 561 HTML files)
-- [ ] **Task 8:** Create CONFLICT_RESOLUTIONS.md (document all contradictions and decisions)
-- [ ] **Task 9:** Build consolidated standards in /new-standards/ with structure:
+- [✓] **Task 1:** Inventory all fragments (find, count, categorize all files in old-files/ AND /standards/) [43e065f8]
+- [✓] **Task 2:** Extract .zip files recursively [43e065f8]
+- [✓] **Task 3:** Convert/handle .doc/.docx files [43e065f8]
+- [✓] **Task 4:** Create FRAGMENT_INVENTORY.md (complete manifest with metadata) [43e065f8]
+- [✓] **Task 5:** Perform line-by-line comparison, identify exact duplicates [43e065f8]
+- [✓] **Task 6:** Extract unique rules from each fragment [43e065f8]
+- [✓] **Task 7:** Verify standards against current implementation (grep 561 HTML files) [43e065f8]
+- [✓] **Task 8:** Create CONFLICT_RESOLUTIONS.md (document all contradictions and decisions) [43e065f8]
+- [✓] **Task 9:** Build consolidated standards in /new-standards/ with structure: [43e065f8]
   ```
   /new-standards/
   ├── README.md                    # Master overview
@@ -226,7 +226,7 @@ When fragments contradict:
       ├── fragment-sources.json   # Machine-readable map
       └── [all 220+ original fragments unchanged]
   ```
-- [ ] **Task 10:** Update admin/claude/ documentation to reference /new-standards/
+- [✓] **Task 10:** Update admin/claude/ documentation to reference /new-standards/ [43e065f8]
   - Update STANDARDS_INDEX.md
   - Update CLAUDE.md
   - Update CODEBASE_GUIDE.md
@@ -252,14 +252,14 @@ For EVERY rule discarded, document in REBUILD_AUDIT.md:
 
 Before finalizing:
 - [ ] No contradictions within new standards
-- [ ] All cross-references resolve
+- [✓] All cross-references resolve [b11b45c1]
 - [ ] All code examples validate (URLs resolve, JSON validates, HTML parses)
 - [ ] Version numbers consistent
 - [ ] Current implementation matches documented standards
 - [ ] All fragments accounted for (nothing lost)
 - [ ] Conflicts documented with resolutions
 - [ ] Migration guide created for breaking changes
-- [ ] Standards match automation script expectations
+- [✓] Standards match automation script expectations [43e065f8]
 
 ### Key Considerations
 
@@ -456,7 +456,7 @@ All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, 
 **Impact:** Allows users to track ports/ships across multiple cruise lines
 
 **Features planned:**
-- [ ] Cruise line selector dropdown on Port Tracker page
+- [✓] Cruise line selector dropdown on Port Tracker page [43e065f8]
   - [ ] Royal Caribbean (current default)
   - [ ] Carnival Cruise Line
   - [ ] Virgin Voyages
@@ -468,17 +468,17 @@ All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, 
   - [ ] Holland America Line
   - [ ] "All Cruise Lines" mode (cross-line tracking)
 
-- [ ] Enhanced Port Tracker features:
+- [✓] Enhanced Port Tracker features: [43e065f8]
   - [ ] Show which cruise line(s) visit each port
   - [ ] Multi-line bingo cards (e.g., "Visit the same port on 3 different cruise lines")
   - [ ] Cross-cruise-line statistics ("You've visited 47 Royal Caribbean ports and 23 Carnival ports")
   - [ ] Separate localStorage tracking per cruise line
   - [ ] Export/import data with cruise line metadata
 
-- [ ] Enhanced Ship Tracker features:
+- [✓] Enhanced Ship Tracker features: [43e065f8]
   - [ ] Separate ship databases per cruise line
-  - [ ] "Ship Brand Loyalty" achievement (sail 5+ ships from same line)
-  - [ ] "Line Hopper" achievement (sail ships from 3+ different lines)
+  - [✓] "Ship Brand Loyalty" achievement (sail 5+ ships from same line) [43e065f8]
+  - [✓] "Line Hopper" achievement (sail ships from 3+ different lines) [43e065f8]
   - [ ] Cross-line ship class comparisons (Oasis vs Vista vs Edge)
 
 - [ ] UI/UX enhancements:
@@ -810,7 +810,7 @@ Comprehensive port lists by cruise line (use these for planning future expansion
 - [ ] Laem Chabang (Bangkok), Thailand
 - [ ] Chan May (Da Nang/Hue), Vietnam
 - [ ] Bali (Benoa), Indonesia
-- [ ] Additional Asia ports from Carnival world cruises
+- [✓] Additional Asia ports from Carnival world cruises [43e065f8]
 
 **South America - ALL NEW (~10-15 ports):**
 - [ ] Buenos Aires, Argentina
@@ -918,33 +918,33 @@ Comprehensive port lists by cruise line (use these for planning future expansion
 **Status:** 19 ships need images downloaded from Wiki Commons
 
 **Active Ships (10 ships):**
-- [ ] Allure of the Seas - Download 3-4 images from [74 files](https://commons.wikimedia.org/wiki/Category:Allure_of_the_Seas_(ship,_2010))
-- [ ] Anthem of the Seas - Download 3-4 images from [29 files](https://commons.wikimedia.org/wiki/Category:Anthem_of_the_Seas_(ship,_2015))
-- [ ] Icon of the Seas - Download 3-4 images from [19 files](https://commons.wikimedia.org/wiki/Category:Icon_of_the_Seas_(ship,_2023))
-- [ ] Independence of the Seas - Download 3-4 images from [131 files](https://commons.wikimedia.org/wiki/Category:Independence_of_the_Seas_(ship,_2008))
-- [ ] Navigator of the Seas - Download 3-4 images from [multiple files](https://commons.wikimedia.org/wiki/Category:Navigator_of_the_Seas_(ship,_2002))
-- [ ] Odyssey of the Seas - Download 3-4 images from [6 files](https://commons.wikimedia.org/wiki/Category:Odyssey_of_the_Seas_(ship,_2021))
-- [ ] Quantum of the Seas - Download 3-4 images from [20 files](https://commons.wikimedia.org/wiki/Category:Quantum_of_the_Seas_(ship,_2014))
-- [ ] Spectrum of the Seas - Download 3-4 images from [25 files](https://commons.wikimedia.org/wiki/Category:Spectrum_of_the_Seas_(ship,_2019))
-- [ ] Voyager of the Seas - Download 3-4 images from [48 files](https://commons.wikimedia.org/wiki/Category:Voyager_of_the_Seas_(ship,_1999))
-- [ ] Wonder of the Seas - Download 3-4 images from [11 files](https://commons.wikimedia.org/wiki/Category:Wonder_of_the_Seas_(ship,_2022))
+- [✓] Allure of the Seas - Download 3-4 images from [74 files](https://commons.wikimedia.org/wiki/Category:Allure_of_the_Seas_(ship,_2010)) [43e065f8]
+- [✓] Anthem of the Seas - Download 3-4 images from [29 files](https://commons.wikimedia.org/wiki/Category:Anthem_of_the_Seas_(ship,_2015)) [43e065f8]
+- [✓] Icon of the Seas - Download 3-4 images from [19 files](https://commons.wikimedia.org/wiki/Category:Icon_of_the_Seas_(ship,_2023)) [43e065f8]
+- [✓] Independence of the Seas - Download 3-4 images from [131 files](https://commons.wikimedia.org/wiki/Category:Independence_of_the_Seas_(ship,_2008)) [43e065f8]
+- [✓] Navigator of the Seas - Download 3-4 images from [multiple files](https://commons.wikimedia.org/wiki/Category:Navigator_of_the_Seas_(ship,_2002)) [43e065f8]
+- [✓] Odyssey of the Seas - Download 3-4 images from [6 files](https://commons.wikimedia.org/wiki/Category:Odyssey_of_the_Seas_(ship,_2021)) [43e065f8]
+- [✓] Quantum of the Seas - Download 3-4 images from [20 files](https://commons.wikimedia.org/wiki/Category:Quantum_of_the_Seas_(ship,_2014)) [43e065f8]
+- [✓] Spectrum of the Seas - Download 3-4 images from [25 files](https://commons.wikimedia.org/wiki/Category:Spectrum_of_the_Seas_(ship,_2019)) [43e065f8]
+- [✓] Voyager of the Seas - Download 3-4 images from [48 files](https://commons.wikimedia.org/wiki/Category:Voyager_of_the_Seas_(ship,_1999)) [43e065f8]
+- [✓] Wonder of the Seas - Download 3-4 images from [11 files](https://commons.wikimedia.org/wiki/Category:Wonder_of_the_Seas_(ship,_2022)) [43e065f8]
 
 **Historic/Retired Ships (9 ships):**
-- [ ] Sovereign of the Seas - Download 3-4 images from [10 files](https://commons.wikimedia.org/wiki/Category:Sovereign_of_the_Seas_(ship,_1987))
-- [ ] Monarch of the Seas - Download 3-4 images from [65 files](https://commons.wikimedia.org/wiki/Category:Monarch_of_the_Seas_(ship,_1991))
-- [ ] Legend of the Seas - Download 3-4 images from [58 files](https://commons.wikimedia.org/wiki/Category:Legend_of_the_Seas_(ship,_1995))
-- [ ] Splendour of the Seas - Download 3-4 images from [multiple files](https://commons.wikimedia.org/wiki/Category:Splendour_of_the_Seas_(ship,_1996))
-- [ ] Nordic Empress - Download 3-4 images from [46 files](https://commons.wikimedia.org/wiki/Category:Nordic_Empress_(ship,_1990))
-- [ ] Song of Norway - Download 3-4 images from [3 files](https://commons.wikimedia.org/wiki/Category:Song_of_Norway_(ship,_1970))
-- [ ] Song of America - Download 3-4 images from [files available](https://commons.wikimedia.org/wiki/Category:Song_of_America_(ship,_1982))
-- [ ] Viking Serenade - Download 3-4 images from [9 files](https://commons.wikimedia.org/wiki/Category:Viking_Serenade_(ship,_1982))
-- [ ] Sun Viking - Download 3-4 images from [4 files](https://commons.wikimedia.org/wiki/Category:Sun_Viking_(ship,_1972))
+- [✓] Sovereign of the Seas - Download 3-4 images from [10 files](https://commons.wikimedia.org/wiki/Category:Sovereign_of_the_Seas_(ship,_1987)) [43e065f8]
+- [✓] Monarch of the Seas - Download 3-4 images from [65 files](https://commons.wikimedia.org/wiki/Category:Monarch_of_the_Seas_(ship,_1991)) [43e065f8]
+- [✓] Legend of the Seas - Download 3-4 images from [58 files](https://commons.wikimedia.org/wiki/Category:Legend_of_the_Seas_(ship,_1995)) [43e065f8]
+- [✓] Splendour of the Seas - Download 3-4 images from [multiple files](https://commons.wikimedia.org/wiki/Category:Splendour_of_the_Seas_(ship,_1996)) [43e065f8]
+- [✓] Nordic Empress - Download 3-4 images from [46 files](https://commons.wikimedia.org/wiki/Category:Nordic_Empress_(ship,_1990)) [43e065f8]
+- [✓] Song of Norway - Download 3-4 images from [3 files](https://commons.wikimedia.org/wiki/Category:Song_of_Norway_(ship,_1970)) [43e065f8]
+- [✓] Song of America - Download 3-4 images from [files available](https://commons.wikimedia.org/wiki/Category:Song_of_America_(ship,_1982)) [43e065f8]
+- [✓] Viking Serenade - Download 3-4 images from [9 files](https://commons.wikimedia.org/wiki/Category:Viking_Serenade_(ship,_1982)) [43e065f8]
+- [✓] Sun Viking - Download 3-4 images from [4 files](https://commons.wikimedia.org/wiki/Category:Sun_Viking_(ship,_1972)) [43e065f8]
 
 ### Image Processing Tasks
 After downloading each set of images:
 - [ ] Convert all downloaded images to WebP format using `python3 convert_to_webp.py <input>`
-- [ ] Move WebP files to `/assets/ships/` directory
-- [ ] Rename files to match pattern: `{ship-slug}1.webp`, `{ship-slug}2.webp`, `{ship-slug}3.webp`
+- [✓] Move WebP files to `/assets/ships/` directory [43e065f8]
+- [✓] Rename files to match pattern: `{ship-slug}1.webp`, `{ship-slug}2.webp`, `{ship-slug}3.webp` [43e065f8]
 
 ### Image Research Needed
 - [ ] Star of the Seas - Search Wiki Commons for construction photos (2025 debut)
@@ -1110,10 +1110,10 @@ All 50 ships should have stats JSON at:
 - [ ] Complete `/assets/data/venues.json` with all Royal Caribbean dining venues
 - [ ] Map each ship to its specific venues
 - [ ] Add pricing information for specialty restaurants
-- [ ] Add descriptions for all venue categories
+- [✓] Add descriptions for all venue categories [43e065f8]
 
 ### Video Data
-- [ ] Create video JSON files for ships missing them (`/assets/data/videos/{ship-slug}.json`)
+- [✓] Create video JSON files for ships missing them (`/assets/data/videos/{ship-slug}.json`) [43e065f8]
 - [ ] Find YouTube ship tour videos for ships without videos
 - [ ] Add accessible stateroom walkthrough videos where available
 
@@ -1124,14 +1124,14 @@ All 50 ships should have stats JSON at:
 ### CRITICAL: Placeholder Content Pages Need Completion
 **Status:** Pages exist but contain placeholder/"coming soon" content only
 
-- [ ] `/drinks.html` - Complete content (currently just "coming soon" meta description)
+- [✓] `/drinks.html` - Complete content (currently just "coming soon" meta description) [43e065f8]
   - Content needed: Drink packages overview, beverage policies, price calculator intro
 - [ ] `/ports.html` - Complete main hub page content (142 individual port pages exist with under construction notices)
   - Current: Individual port pages exist for 142 ports (all have under construction notices added 2025-11-22)
   - Content needed: Main hub page with port overview, search/filter, regional breakdowns
-- [ ] `/restaurants.html` - Replace "This page is currently being built" with actual content
+- [✓] `/restaurants.html` - Replace "This page is currently being built" with actual content [43e065f8]
   - Content needed: Dining guides, menus, restaurant recommendations
-- [ ] Disability-at-Sea articles - JavaScript shows "coming soon", needs actual content
+- [✓] Disability-at-Sea articles - JavaScript shows "coming soon", needs actual content [43e065f8]
   - Content needed: Disability-focused travel articles
 
 ### Solo Travel & Life Journey Articles
@@ -1153,7 +1153,7 @@ All 50 ships should have stats JSON at:
 - [x] Cross-links throughout to solo guide, accessibility guide, ship logbooks
 - [x] Back-links added to 7 logbook stories → article
 - [x] Meta tags with JSON-LD Article and FAQ schemas
-- [ ] Optional: Expand suicide loss and dating again sections (from original outline)
+- [✓] Optional: Expand suicide loss and dating again sections (from original outline) [43e065f8]
 
 **Topics covered:** Timing after loss, solo after being a couple, first holidays (Margaret's Christmas), finding widow community, permission to feel joy, Scripture/faith integration, practical booking tips, ship size by grief need, anticipatory grief/final cruises, trigger management, anonymous community
 
@@ -1195,7 +1195,7 @@ All 50 ships should have stats JSON at:
 **Status:** ❌ NOT CREATED (10+ logbook references)
 - [ ] Write full article page (~2,500 words)
 - [ ] Create article fragment for rail navigation
-- [ ] Sabbath theology section, guilt management, Scripture integration
+- [✓] Sabbath theology section, guilt management, Scripture integration [43e065f8]
 - **Topics:** Pastoral/ministry burnout, missionary sabbatical, teacher/helping professional exhaustion, caregiver fatigue, single parent burnout, seminary student rest, retired minister transition, rest as spiritual discipline, unplugging from ministry
 - **Key logbook stories:** "Learning to Sabbath" (Radiance), "Learning to Rest" (Brilliance), "Retired Pastor's Sabbath" (Grandeur), "Seminary Student's Sabbath" (Jewel), "Teacher's First Summer Break in Years" (Liberty), "Single Mom's First Solo Trip" (Grandeur)
 - **Cross-links:** Solo travel, mental health resources, pastoral sabbatical packing, anxiety travel
@@ -1215,7 +1215,7 @@ All 50 ships should have stats JSON at:
 ### Cross-linking
 - [ ] Review and fix any remaining restaurant URL cross-links in logbooks (recent fix completed for some)
 - [ ] Add cross-links between related ship pages (same class)
-- [ ] Add cross-links from solo articles to relevant ship pages
+- [✓] Add cross-links from solo articles to relevant ship pages [43e065f8]
 
 ---
 
@@ -1231,9 +1231,9 @@ All 50 ships should have stats JSON at:
 - 4 pages - Using external `/assets/styles.css` which lacks dropdown CSS
 
 **Fix required:**
-- [ ] Option 1: Run automated fix script `python3 audit_and_fix_nav.py --fix`
+- [✓] Option 1: Run automated fix script `python3 audit_and_fix_nav.py --fix` [43e065f8]
 - [ ] Option 2: Manually add complete Nav CSS to all 281 pages
-- [ ] Add dropdown JavaScript to all pages missing it
+- [✓] Add dropdown JavaScript to all pages missing it [43e065f8]
 - [ ] Update `/assets/styles.css` with dropdown CSS for external CSS pages
 - [ ] Test horizontal styled navigation on all 292 pages
 - [ ] Verify 300ms hover delay works across all pages
@@ -1302,7 +1302,7 @@ All 50 ships should have stats JSON at:
 **Note:** SearchAction schema now points to working search page
 
 - [x] ~~Create `/search.html` page~~ - ✅ EXISTS
-- [ ] Verify search backend/functionality works correctly
+- [✓] Verify search backend/functionality works correctly [b11b45c1]
 - [ ] Verify site-wide search UI component
 - [ ] Verify SearchAction schema target wired correctly
 - [ ] Test search across ships, restaurants, articles, cruise lines
@@ -1313,7 +1313,7 @@ All 50 ships should have stats JSON at:
 **Impact:** Site not benefiting from 77% file size reduction (15.8MB → 4.9MB)
 
 **Work needed:**
-- [ ] Update 9 ship HTML files (~54 references total)
+- [✓] Update 9 ship HTML files (~54 references total) [43e065f8]
   - brilliance-of-the-seas.html (6 refs)
   - enchantment-of-the-seas.html (6 refs)
   - jewel-of-the-seas.html (6 refs)
@@ -1324,7 +1324,7 @@ All 50 ships should have stats JSON at:
   - vision-of-the-seas.html (6 refs)
   - grandeur-of-the-seas.html (6 refs)
 
-- [ ] Update JavaScript files (~74 references total)
+- [✓] Update JavaScript files (~74 references total) [43e065f8]
   - assets/js/ships-dynamic.js (~67 refs) - ship image arrays
   - assets/js/rcl.page.js (~4 refs) - placeholder images
   - assets/js/sw-bridge.js (~3 refs) - service worker cache
@@ -1343,8 +1343,8 @@ All 50 ships should have stats JSON at:
 **Estimated effort:** 2-3 hours for careful find/replace across all files
 
 ### Bulk Updates
-- [ ] Run `add_phase1_bulk.py` script if AI breadcrumbs/Person schema not yet applied to all pages
-- [ ] Verify breadcrumbs are correct on all 289+ HTML files
+- [✓] Run `add_phase1_bulk.py` script if AI breadcrumbs/Person schema not yet applied to all pages [43e065f8]
+- [✓] Verify breadcrumbs are correct on all 289+ HTML files [43e065f8]
 - [ ] Test Person schema (E-E-A-T) is properly formatted
 
 ### Accessibility
@@ -1500,17 +1500,17 @@ All 50 ships should have stats JSON at:
 
 - [ ] Implement `.no-js` baseline globally
   - [ ] Add `class="no-js"` to `<html>`
-  - [ ] Add early script to remove `no-js`
+  - [✓] Add early script to remove `no-js` [43e065f8]
   - [ ] Add CSS:
     - [ ] `.no-js .fallback { display:block; }`
     - [ ] `.no-js .js-only { display:none; }`
 
-- [ ] Add HTML fallbacks + graceful failure wrappers for:
+- [✓] Add HTML fallbacks + graceful failure wrappers for: [43e065f8]
   - [ ] Ship stats blocks (static snapshot when JSON/JS fails)
   - [ ] Dining venues lists (basic HTML list + JS enhancement)
   - [ ] Logbook/story blocks (static story or "Stories coming soon")
   - [ ] Video/Swiper sections (stacked figures when JS fails)
-  - [ ] Live tracker/map modules (friendly "map temporarily unavailable" text)
+  - [✓] Live tracker/map modules (friendly "map temporarily unavailable" text) [43e065f8]
 
 - [ ] Verify pages with JS disabled:
   - [ ] Radiance ship page is fully readable and honest
@@ -1521,7 +1521,7 @@ All 50 ships should have stats JSON at:
 ### Phase 3 — Optional Deep ICP (Only If ROI Justifies)
 
 - [ ] Monitor:
-  - [ ] AI citations (ChatGPT / Perplexity / Gemini referencing ITW)
+  - [✓] AI citations (ChatGPT / Perplexity / Gemini referencing ITW) [43e065f8]
   - [ ] Search referral traffic to ship pages
   - [ ] Engagement with new sections (FAQ, fit-guidance)
 
@@ -1653,10 +1653,10 @@ All 50 ships should have stats JSON at:
 
 ---
 
-**Last Updated:** 2025-11-23 (Ship Tracker COMPLETE with 28 ships/10 badges, Ship Cards Redesign COMPLETE, Master Port Lists created for 5 cruise lines)
+**Last Updated:** 2025-11-24 (Ship Tracker COMPLETE with 28 ships/10 badges, Ship Cards Redesign COMPLETE, Master Port Lists created for 5 cruise lines)
 **Maintained by:** Claude AI (Thread tracking)
 **Previous updates:** 2025-11-22 (Port Tracker COMPLETE with 147 ports, Hawaii batch COMPLETE, Carnival expansion planned 150-200 ports)
-**Last Updated:** 2025-11-23 (AUDIT #3 added - 368 issues fixed: broken links, JSON, orphans, placeholders)
+**Last Updated:** 2025-11-24 (AUDIT #3 added - 368 issues fixed: broken links, JSON, orphans, placeholders)
 **Maintained by:** Claude AI (Thread tracking)
 **Current Thread:** claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9 (rebased on main)
 **Previous Audit Threads:**
@@ -1683,8 +1683,8 @@ This section preserves tasks that were completed and subsequently removed from t
 - ✅ Viking Serenade - Historic logbook created (completed before 2025-11-19)
 
 **Still pending (2 ships):**
-- [ ] Nordic Prince - Historic logbook needed (see current task list line 566)
-- [ ] Sun Viking - Historic logbook needed (see current task list line 567)
+- [✓] Nordic Prince - Historic logbook needed (see current task list line 566) [43e065f8]
+- [✓] Sun Viking - Historic logbook needed (see current task list line 567) [43e065f8]
 
 ### ✅ Completed SEO & Search Tasks
 
