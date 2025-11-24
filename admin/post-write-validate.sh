@@ -1,7 +1,10 @@
 #!/bin/bash
-# Post-write validation for Claude
+# Post-write validation script (YAML-Driven v2.0)
 # Usage: ./post-write-validate.sh <file1> <file2> ...
-# Validates files after writing/modifying them
+# Validates files after modifications using YAML standards
+# Reads from .claude/standards/*.yml (single source of truth)
+
+set +e  # Don't exit on first error - collect all results
 
 # Colors
 RED='\033[0;31m'
@@ -12,6 +15,16 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 NC='\033[0m'
 
+# Standards directory
+STANDARDS_DIR=".claude/standards"
+
+# Check if yq is available
+if ! command -v yq &> /dev/null; then
+  echo -e "${RED}Error: yq is required but not installed.${NC}"
+  echo "Install yq to parse YAML standards files."
+  exit 1
+fi
+
 if [ $# -eq 0 ]; then
   echo "Usage: $0 <file1> <file2> ..."
   exit 1
@@ -21,311 +34,391 @@ FILES="$@"
 TOTAL_ERRORS=0
 TOTAL_WARNINGS=0
 
-# Detect file types
-HTML_FILES=$(echo "$FILES" | tr ' ' '\n' | grep '\.html$' || true)
-JS_FILES=$(echo "$FILES" | tr ' ' '\n' | grep '\.js$' || true)
-CSS_FILES=$(echo "$FILES" | tr ' ' '\n' | grep '\.css$' || true)
-JSON_FILES=$(echo "$FILES" | tr ' ' '\n' | grep '\.json$' || true)
+# Function to show section header
+show_section() {
+  local title="$1"
+  echo ""
+  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo -e "${BOLD}${title}${NC}"
+  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+}
+
+# Function to execute a check based on type
+execute_check() {
+  local file="$1"
+  local check_type="$2"
+  local check_pattern="$3"
+  local check_cmd="$4"
+  local description="$5"
+
+  case "$check_type" in
+    grep)
+      if grep -q "$check_pattern" "$file" 2>/dev/null; then
+        echo -e "   ${GREEN}✓${NC} $description"
+        return 0
+      else
+        echo -e "   ${RED}✗${NC} $description"
+        return 1
+      fi
+      ;;
+
+    grep_multi)
+      # For OR operations with multiple patterns
+      local found=false
+      for pattern in $check_pattern; do
+        if grep -q "$pattern" "$file" 2>/dev/null; then
+          found=true
+          break
+        fi
+      done
+
+      if $found; then
+        echo -e "   ${GREEN}✓${NC} $description"
+        return 0
+      else
+        echo -e "   ${RED}✗${NC} $description"
+        return 1
+      fi
+      ;;
+
+    count_balance)
+      # Balance checking for tags/braces
+      local open_count=$(grep -o "$check_pattern" "$file" 2>/dev/null | wc -l || echo 0)
+      local close_pattern="${check_pattern//</</}"  # Simple replacement
+      close_pattern="${close_pattern//>/</}"
+
+      # For HTML tags
+      if [[ "$check_pattern" == *"<"* ]]; then
+        local tag=$(echo "$check_pattern" | sed 's/<\([^>]*\).*/\1/')
+        open_count=$(grep -o "<${tag}" "$file" 2>/dev/null | wc -l || echo 0)
+        local close_count=$(grep -o "</${tag}>" "$file" 2>/dev/null | wc -l || echo 0)
+
+        if [ "$open_count" -eq "$close_count" ]; then
+          echo -e "   ${GREEN}✓${NC} Balanced <${tag}> tags ($open_count opening, $close_count closing)"
+          return 0
+        else
+          echo -e "   ${RED}✗${NC} Unbalanced <${tag}> tags ($open_count opening, $close_count closing)"
+          return 1
+        fi
+      else
+        # For braces
+        local open_count=$(grep -o "{" "$file" 2>/dev/null | wc -l || echo 0)
+        local close_count=$(grep -o "}" "$file" 2>/dev/null | wc -l || echo 0)
+
+        if [ "$open_count" -eq "$close_count" ]; then
+          echo -e "   ${GREEN}✓${NC} Balanced braces ($open_count opening, $close_count closing)"
+          return 0
+        else
+          echo -e "   ${RED}✗${NC} Unbalanced braces ($open_count opening, $close_count closing)"
+          return 1
+        fi
+      fi
+      ;;
+
+    command)
+      # Execute a command
+      if eval "$check_cmd" > /dev/null 2>&1; then
+        echo -e "   ${GREEN}✓${NC} $description"
+        return 0
+      else
+        echo -e "   ${RED}✗${NC} $description"
+        return 1
+      fi
+      ;;
+
+    *)
+      echo -e "   ${YELLOW}⚠${NC}  Unknown check type: $check_type"
+      return 2
+      ;;
+  esac
+}
+
+# Function to validate a file against YAML standards
+validate_file() {
+  local file="$1"
+  local standards_file="$2"
+  local file_errors=0
+  local file_warnings=0
+
+  if [ ! -f "$file" ]; then
+    echo -e "   ${RED}✗${NC} File not found: $file"
+    return 1
+  fi
+
+  if [ ! -f "$standards_file" ]; then
+    echo -e "   ${YELLOW}⚠${NC}  Standards file not found: $standards_file"
+    return 0
+  fi
+
+  echo ""
+  echo -e "${BOLD}Checking: $file${NC}"
+
+  # Get all sections from YAML
+  SECTIONS=$(yq 'keys | .[] | select(. != "version" and . != "last_updated" and . != "category" and . != "extends")' "$standards_file")
+
+  for SECTION in $SECTIONS; do
+    # Get check configuration
+    CHECK_TYPE=$(yq -r ".${SECTION}.check.type // empty" "$standards_file")
+
+    if [ -z "$CHECK_TYPE" ] || [ "$CHECK_TYPE" = "null" ]; then
+      continue
+    fi
+
+    REQUIRED=$(yq -r ".${SECTION}.required // false" "$standards_file")
+    SEVERITY=$(yq -r ".${SECTION}.severity // \"info\"" "$standards_file")
+    DESCRIPTION=$(yq -r ".${SECTION}.description // empty" "$standards_file")
+    PATTERN=$(yq -r ".${SECTION}.check.pattern // empty" "$standards_file")
+    CMD=$(yq -r ".${SECTION}.check.cmd // empty" "$standards_file")
+
+    # Execute the check
+    if execute_check "$file" "$CHECK_TYPE" "$PATTERN" "$CMD" "$DESCRIPTION"; then
+      # Check passed
+      :
+    else
+      # Check failed
+      if [ "$SEVERITY" = "error" ]; then
+        ((file_errors++))
+      elif [ "$SEVERITY" = "warning" ]; then
+        ((file_warnings++))
+      fi
+    fi
+  done
+
+  echo ""
+  return 0
+}
 
 # Header
 echo ""
 echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
-echo -e "${BOLD}🔍 POST-WRITE VALIDATION${NC}"
+echo -e "${BOLD}🔍 POST-WRITE VALIDATION (YAML-Driven)${NC}"
 echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
-echo ""
 
-# Validate HTML Files
-if [ -n "$HTML_FILES" ]; then
-  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "${BOLD}🌐 HTML VALIDATION${NC}"
-  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo ""
+# Validate each file based on type
+for file in $FILES; do
+  case "$file" in
+    *.html|*.htm)
+      show_section "🌐 HTML VALIDATION"
 
-  for file in $HTML_FILES; do
-    if [ ! -f "$file" ]; then
-      echo -e "   ${RED}✗${NC} $file (not found)"
-      TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-      continue
-    fi
+      # Check theological standards first (IMMUTABLE)
+      if [ -f "$STANDARDS_DIR/theological.yml" ]; then
+        echo ""
+        echo -e "${BOLD}Checking: $file (Theological Requirements)${NC}"
 
-    echo -e "${BOLD}Checking: $file${NC}"
-
-    # Check invocation
-    if grep -q "Soli Deo Gloria" "$file"; then
-      echo -e "   ${GREEN}✓${NC} Soli Deo Gloria invocation present"
-    else
-      echo -e "   ${RED}✗${NC} Missing Soli Deo Gloria invocation"
-      TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-    fi
-
-    if grep -q "Proverbs 3:5" "$file" || grep -q "Colossians 3:23" "$file"; then
-      echo -e "   ${GREEN}✓${NC} Scripture references present"
-    else
-      echo -e "   ${RED}✗${NC} Missing scripture references"
-      TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-    fi
-
-    # Check DOCTYPE
-    if grep -iq "<!doctype html>" "$file"; then
-      echo -e "   ${GREEN}✓${NC} DOCTYPE declaration"
-    else
-      echo -e "   ${RED}✗${NC} Missing DOCTYPE"
-      TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-    fi
-
-    # Check lang attribute
-    if grep -q 'lang="en"' "$file"; then
-      echo -e "   ${GREEN}✓${NC} Language attribute"
-    else
-      echo -e "   ${YELLOW}⚠${NC}  Missing language attribute"
-      TOTAL_WARNINGS=$((TOTAL_WARNINGS + 1))
-    fi
-
-    # Check viewport
-    if grep -q 'name="viewport"' "$file"; then
-      echo -e "   ${GREEN}✓${NC} Viewport meta tag"
-    else
-      echo -e "   ${YELLOW}⚠${NC}  Missing viewport meta tag"
-      TOTAL_WARNINGS=$((TOTAL_WARNINGS + 1))
-    fi
-
-    # Check ICP-Lite
-    if grep -q 'name="ai-summary"' "$file"; then
-      echo -e "   ${GREEN}✓${NC} ICP-Lite ai-summary"
-    else
-      echo -e "   ${YELLOW}⚠${NC}  Missing ICP-Lite ai-summary"
-      TOTAL_WARNINGS=$((TOTAL_WARNINGS + 1))
-    fi
-
-    # Check for unclosed tags (simple check)
-    OPEN_DIVS=$(grep -o "<div" "$file" | wc -l)
-    CLOSE_DIVS=$(grep -o "</div>" "$file" | wc -l)
-    if [ $OPEN_DIVS -eq $CLOSE_DIVS ]; then
-      echo -e "   ${GREEN}✓${NC} Balanced <div> tags ($OPEN_DIVS opening, $CLOSE_DIVS closing)"
-    else
-      echo -e "   ${RED}✗${NC} Unbalanced <div> tags ($OPEN_DIVS opening, $CLOSE_DIVS closing)"
-      TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-    fi
-
-    # Check for common mistakes
-    if grep -q "console\.log" "$file"; then
-      echo -e "   ${YELLOW}⚠${NC}  Found console.log in HTML"
-      TOTAL_WARNINGS=$((TOTAL_WARNINGS + 1))
-    fi
-
-    if grep -q "debugger" "$file"; then
-      echo -e "   ${RED}✗${NC} Found debugger statement"
-      TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-    fi
-
-    echo ""
-  done
-fi
-
-# Validate JavaScript Files
-if [ -n "$JS_FILES" ]; then
-  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "${BOLD}⚙️  JAVASCRIPT VALIDATION${NC}"
-  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo ""
-
-  # Try to find ESLint
-  ESLINT_BIN=""
-  for eslint_path in "$(which eslint 2>/dev/null)" "/opt/node22/bin/eslint" "node_modules/.bin/eslint"; do
-    if [ -x "$eslint_path" ]; then
-      ESLINT_BIN="$eslint_path"
-      break
-    fi
-  done
-
-  if [ -n "$ESLINT_BIN" ]; then
-    echo -e "Using ESLint: ${CYAN}$ESLINT_BIN${NC}"
-    echo ""
-
-    for file in $JS_FILES; do
-      if [ ! -f "$file" ]; then
-        echo -e "   ${RED}✗${NC} $file (not found)"
-        TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-        continue
-      fi
-
-      echo -e "${BOLD}Linting: $file${NC}"
-
-      # Run ESLint
-      ESLINT_OUTPUT=$($ESLINT_BIN "$file" 2>&1 || true)
-
-      if echo "$ESLINT_OUTPUT" | grep -q "error"; then
-        FILE_ERRORS=$(echo "$ESLINT_OUTPUT" | grep -c "error" || echo "0")
-        echo -e "   ${RED}✗${NC} ESLint found $FILE_ERRORS error(s)"
-        echo "$ESLINT_OUTPUT" | head -20
-        TOTAL_ERRORS=$((TOTAL_ERRORS + FILE_ERRORS))
-      elif echo "$ESLINT_OUTPUT" | grep -q "warning"; then
-        FILE_WARNINGS=$(echo "$ESLINT_OUTPUT" | grep -c "warning" || echo "0")
-        echo -e "   ${YELLOW}⚠${NC}  ESLint found $FILE_WARNINGS warning(s)"
-        TOTAL_WARNINGS=$((TOTAL_WARNINGS + FILE_WARNINGS))
-      else
-        echo -e "   ${GREEN}✓${NC} No ESLint issues"
-      fi
-
-      # Check for debugging code
-      if grep -q "console\.log" "$file"; then
-        echo -e "   ${YELLOW}⚠${NC}  Found console.log"
-        TOTAL_WARNINGS=$((TOTAL_WARNINGS + 1))
-      fi
-
-      if grep -q "debugger" "$file"; then
-        echo -e "   ${RED}✗${NC} Found debugger statement"
-        TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-      fi
-
-      # Check strict mode
-      if grep -q '"use strict"' "$file" || grep -q "'use strict'" "$file"; then
-        echo -e "   ${GREEN}✓${NC} Strict mode enabled"
-      else
-        echo -e "   ${YELLOW}⚠${NC}  No strict mode declaration"
-        TOTAL_WARNINGS=$((TOTAL_WARNINGS + 1))
-      fi
-
-      # Check syntax with Node
-      NODE_BIN=$(which node 2>/dev/null || echo "")
-      if [ -n "$NODE_BIN" ]; then
-        if $NODE_BIN --check "$file" 2>&1 >/dev/null; then
-          echo -e "   ${GREEN}✓${NC} Syntax valid (Node.js check)"
+        # Invocation check
+        if grep -q "Soli Deo Gloria" "$file"; then
+          echo -e "   ${GREEN}✓${NC} Soli Deo Gloria invocation present"
         else
-          echo -e "   ${RED}✗${NC} Syntax error detected"
-          $NODE_BIN --check "$file" 2>&1 | head -5
-          TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
+          echo -e "   ${RED}✗${NC} Missing Soli Deo Gloria invocation"
+          ((TOTAL_ERRORS++))
+        fi
+
+        # Scripture check (at least one)
+        if grep -q "Proverbs 3:5\|Colossians 3:23" "$file"; then
+          echo -e "   ${GREEN}✓${NC} Scripture references present"
+        else
+          echo -e "   ${RED}✗${NC} Missing scripture references"
+          ((TOTAL_ERRORS++))
         fi
       fi
 
+      # Check HTML standards
+      validate_file "$file" "$STANDARDS_DIR/html.yml"
+
+      # Check basic HTML structure
+      if grep -q "<!doctype html>" "$file" 2>/dev/null || grep -q "<!DOCTYPE html>" "$file" 2>/dev/null; then
+        echo -e "   ${GREEN}✓${NC} DOCTYPE declaration"
+      else
+        echo -e "   ${RED}✗${NC} Missing DOCTYPE"
+        ((TOTAL_ERRORS++))
+      fi
+
+      if grep -q 'lang="en"' "$file" 2>/dev/null; then
+        echo -e "   ${GREEN}✓${NC} Language attribute"
+      else
+        echo -e "   ${YELLOW}⚠${NC}  Missing language attribute"
+        ((TOTAL_WARNINGS++))
+      fi
+
+      if grep -q 'name="viewport"' "$file" 2>/dev/null; then
+        echo -e "   ${GREEN}✓${NC} Viewport meta tag"
+      else
+        echo -e "   ${YELLOW}⚠${NC}  Missing viewport meta tag"
+        ((TOTAL_WARNINGS++))
+      fi
+
+      # ICP-Lite checks
+      if grep -q 'name="ai-summary"' "$file" 2>/dev/null; then
+        echo -e "   ${GREEN}✓${NC} ICP-Lite ai-summary"
+      else
+        echo -e "   ${RED}✗${NC} Missing ICP-Lite ai-summary"
+        ((TOTAL_ERRORS++))
+      fi
+
+      # Div balance
+      OPEN_DIVS=$(grep -o "<div" "$file" | wc -l || echo 0)
+      CLOSE_DIVS=$(grep -o "</div>" "$file" | wc -l || echo 0)
+      if [ "$OPEN_DIVS" -eq "$CLOSE_DIVS" ]; then
+        echo -e "   ${GREEN}✓${NC} Balanced <div> tags ($OPEN_DIVS opening, $CLOSE_DIVS closing)"
+      else
+        echo -e "   ${RED}✗${NC} Unbalanced <div> tags ($OPEN_DIVS opening, $CLOSE_DIVS closing)"
+        ((TOTAL_ERRORS++))
+      fi
+      ;;
+
+    *.js)
+      show_section "⚙️ JAVASCRIPT VALIDATION"
       echo ""
-    done
-  else
-    echo -e "${YELLOW}⚠  ESLint not found, running basic checks only${NC}"
-    echo ""
-
-    for file in $JS_FILES; do
-      if [ ! -f "$file" ]; then continue; fi
-
       echo -e "${BOLD}Checking: $file${NC}"
 
-      # Basic checks
-      if grep -q "console\.log" "$file"; then
-        echo -e "   ${YELLOW}⚠${NC}  Found console.log"
-        TOTAL_WARNINGS=$((TOTAL_WARNINGS + 1))
+      # Try ESLint
+      ESLINT_BIN=""
+      for eslint_path in "$(which eslint 2>/dev/null)" "/opt/node22/bin/eslint" "node_modules/.bin/eslint"; do
+        if [ -x "$eslint_path" ]; then
+          ESLINT_BIN="$eslint_path"
+          break
+        fi
+      done
+
+      if [ -n "$ESLINT_BIN" ]; then
+        ESLINT_OUTPUT=$($ESLINT_BIN "$file" 2>&1 || true)
+
+        if echo "$ESLINT_OUTPUT" | grep -q "error"; then
+          FILE_ERRORS=$(echo "$ESLINT_OUTPUT" | grep -c "error" || echo "0")
+          echo -e "   ${RED}✗${NC} ESLint found $FILE_ERRORS error(s)"
+          ((TOTAL_ERRORS+=FILE_ERRORS))
+        else
+          echo -e "   ${GREEN}✓${NC} ESLint passed"
+        fi
+
+        if echo "$ESLINT_OUTPUT" | grep -q "warning"; then
+          FILE_WARNINGS=$(echo "$ESLINT_OUTPUT" | grep -c "warning" || echo "0")
+          echo -e "   ${YELLOW}⚠${NC}  ESLint found $FILE_WARNINGS warning(s)"
+          ((TOTAL_WARNINGS+=FILE_WARNINGS))
+        fi
+      else
+        echo -e "   ${YELLOW}⚠${NC}  ESLint not found, skipping linting"
       fi
 
+      # Node syntax check
+      if command -v node &> /dev/null; then
+        if node --check "$file" 2>/dev/null; then
+          echo -e "   ${GREEN}✓${NC} Valid JavaScript syntax"
+        else
+          echo -e "   ${RED}✗${NC} Syntax error"
+          ((TOTAL_ERRORS++))
+        fi
+      fi
+
+      # Security checks
       if grep -q "debugger" "$file"; then
         echo -e "   ${RED}✗${NC} Found debugger statement"
-        TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-      fi
-
-      echo ""
-    done
-  fi
-fi
-
-# Validate CSS Files
-if [ -n "$CSS_FILES" ]; then
-  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "${BOLD}🎨 CSS VALIDATION${NC}"
-  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo ""
-
-  for file in $CSS_FILES; do
-    if [ ! -f "$file" ]; then
-      echo -e "   ${RED}✗${NC} $file (not found)"
-      TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-      continue
-    fi
-
-    echo -e "${BOLD}Checking: $file${NC}"
-
-    # Check for focus-visible
-    if grep -q ":focus-visible" "$file" || grep -q ":focus" "$file"; then
-      echo -e "   ${GREEN}✓${NC} Focus styles present"
-    else
-      echo -e "   ${YELLOW}⚠${NC}  No focus styles found"
-      TOTAL_WARNINGS=$((TOTAL_WARNINGS + 1))
-    fi
-
-    # Check for reduced-motion
-    if grep -q "prefers-reduced-motion" "$file"; then
-      echo -e "   ${GREEN}✓${NC} Reduced motion support"
-    else
-      echo -e "   ${YELLOW}⚠${NC}  No reduced motion support"
-      TOTAL_WARNINGS=$((TOTAL_WARNINGS + 1))
-    fi
-
-    # Check for balanced braces
-    OPEN_BRACES=$(grep -o "{" "$file" | wc -l)
-    CLOSE_BRACES=$(grep -o "}" "$file" | wc -l)
-    if [ $OPEN_BRACES -eq $CLOSE_BRACES ]; then
-      echo -e "   ${GREEN}✓${NC} Balanced braces ($OPEN_BRACES opening, $CLOSE_BRACES closing)"
-    else
-      echo -e "   ${RED}✗${NC} Unbalanced braces ($OPEN_BRACES opening, $CLOSE_BRACES closing)"
-      TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-    fi
-
-    echo ""
-  done
-fi
-
-# Validate JSON Files
-if [ -n "$JSON_FILES" ]; then
-  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "${BOLD}📊 JSON VALIDATION${NC}"
-  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo ""
-
-  JQ_BIN=$(which jq 2>/dev/null || echo "")
-
-  if [ -n "$JQ_BIN" ]; then
-    for file in $JSON_FILES; do
-      if [ ! -f "$file" ]; then
-        echo -e "   ${RED}✗${NC} $file (not found)"
-        TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
-        continue
-      fi
-
-      echo -e "${BOLD}Validating: $file${NC}"
-
-      if $JQ_BIN empty "$file" 2>/dev/null; then
-        echo -e "   ${GREEN}✓${NC} Valid JSON syntax"
+        ((TOTAL_ERRORS++))
       else
-        echo -e "   ${RED}✗${NC} Invalid JSON syntax"
-        $JQ_BIN empty "$file" 2>&1 | head -5
-        TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
+        echo -e "   ${GREEN}✓${NC} No debugger statements"
       fi
 
+      if grep -q "console\.log" "$file"; then
+        echo -e "   ${YELLOW}⚠${NC}  Found console.log statement(s)"
+        ((TOTAL_WARNINGS++))
+      else
+        echo -e "   ${GREEN}✓${NC} No console.log statements"
+      fi
+
+      # Check for eval
+      if grep -q "\\beval(" "$file"; then
+        echo -e "   ${RED}✗${NC} Found eval() - security risk"
+        ((TOTAL_ERRORS++))
+      fi
+
+      # Check for hardcoded secrets
+      if grep -Eq "(api[_-]?key|apiKey|API_KEY|secret|SECRET|password|PASSWORD|token|TOKEN)" "$file"; then
+        echo -e "   ${RED}✗${NC} Possible hardcoded secret detected"
+        ((TOTAL_ERRORS++))
+      fi
+      ;;
+
+    *.css)
+      show_section "🎨 CSS VALIDATION"
       echo ""
-    done
-  else
-    echo -e "${YELLOW}⚠  jq not found, skipping JSON validation${NC}"
-    echo ""
-  fi
-fi
+      echo -e "${BOLD}Checking: $file${NC}"
+
+      # Balanced braces
+      OPEN_BRACES=$(grep -o "{" "$file" | wc -l || echo 0)
+      CLOSE_BRACES=$(grep -o "}" "$file" | wc -l || echo 0)
+      if [ "$OPEN_BRACES" -eq "$CLOSE_BRACES" ]; then
+        echo -e "   ${GREEN}✓${NC} Balanced braces"
+      else
+        echo -e "   ${RED}✗${NC} Unbalanced braces"
+        ((TOTAL_ERRORS++))
+      fi
+
+      # Focus styles
+      if grep -Eq ":focus|:focus-visible" "$file"; then
+        echo -e "   ${GREEN}✓${NC} Focus styles present"
+      else
+        echo -e "   ${YELLOW}⚠${NC}  No focus styles found"
+        ((TOTAL_WARNINGS++))
+      fi
+
+      # Reduced motion
+      if grep -q "prefers-reduced-motion" "$file"; then
+        echo -e "   ${GREEN}✓${NC} Reduced motion support"
+      else
+        echo -e "   ${YELLOW}⚠${NC}  No reduced motion support"
+        ((TOTAL_WARNINGS++))
+      fi
+      ;;
+
+    *.json)
+      show_section "📋 JSON VALIDATION"
+      echo ""
+      echo -e "${BOLD}Checking: $file${NC}"
+
+      # JSON syntax check with jq
+      if command -v jq &> /dev/null; then
+        if jq empty "$file" 2>/dev/null; then
+          echo -e "   ${GREEN}✓${NC} Valid JSON syntax"
+        else
+          echo -e "   ${RED}✗${NC} Invalid JSON syntax"
+          ((TOTAL_ERRORS++))
+        fi
+      else
+        echo -e "   ${YELLOW}⚠${NC}  jq not found, skipping JSON validation"
+      fi
+      ;;
+
+    *)
+      echo -e "${YELLOW}⚠${NC}  Unknown file type: $file"
+      ;;
+  esac
+done
 
 # Summary
-echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
-echo -e "${BOLD}📊 VALIDATION SUMMARY${NC}"
-echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
+echo ""
+show_section "📊 VALIDATION SUMMARY"
 echo ""
 
-if [ $TOTAL_ERRORS -eq 0 ] && [ $TOTAL_WARNINGS -eq 0 ]; then
-  echo -e "   ${GREEN}✓ All validation checks passed!${NC}"
-  echo ""
-  exit 0
-elif [ $TOTAL_ERRORS -eq 0 ]; then
-  echo -e "   ${YELLOW}⚠${NC}  $TOTAL_WARNINGS warning(s) found"
-  echo -e "   ${GREEN}✓${NC} No critical errors"
-  echo ""
-  exit 0
-else
+if [ $TOTAL_ERRORS -gt 0 ]; then
   echo -e "   ${RED}✗${NC} $TOTAL_ERRORS error(s) found"
+else
+  echo -e "   ${GREEN}✓${NC} No errors found"
+fi
+
+if [ $TOTAL_WARNINGS -gt 0 ]; then
   echo -e "   ${YELLOW}⚠${NC}  $TOTAL_WARNINGS warning(s) found"
-  echo ""
+fi
+
+echo ""
+
+if [ $TOTAL_ERRORS -gt 0 ]; then
   echo -e "   ${RED}Please fix errors before committing${NC}"
   echo ""
+  echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
   exit 1
+else
+  echo -e "   ${GREEN}Validation passed!${NC}"
+  echo ""
+  echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
+  exit 0
 fi

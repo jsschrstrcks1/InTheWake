@@ -1,7 +1,10 @@
 #!/bin/bash
-# Pre-write standards checker for Claude
+# Pre-write standards checker for Claude (YAML-Driven v2.0)
 # Usage: ./pre-write-standards.sh <file1> <file2> ...
 # Shows relevant standards before modifying files
+# Reads from .claude/standards/*.yml (single source of truth)
+
+set -e
 
 # Colors
 RED='\033[0;31m'
@@ -12,6 +15,16 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 NC='\033[0m'
 
+# Standards directory
+STANDARDS_DIR=".claude/standards"
+
+# Check if yq is available
+if ! command -v yq &> /dev/null; then
+  echo -e "${RED}Error: yq is required but not installed.${NC}"
+  echo "Install yq to parse YAML standards files."
+  exit 1
+fi
+
 if [ $# -eq 0 ]; then
   echo "Usage: $0 <file1> <file2> ..."
   exit 1
@@ -20,239 +33,231 @@ fi
 FILES="$@"
 
 # Detect file types
-HTML_FILES=$(echo "$FILES" | tr ' ' '\n' | grep '\.html$' || true)
+HTML_FILES=$(echo "$FILES" | tr ' ' '\n' | grep -E '\.html?$' || true)
 JS_FILES=$(echo "$FILES" | tr ' ' '\n' | grep '\.js$' || true)
 CSS_FILES=$(echo "$FILES" | tr ' ' '\n' | grep '\.css$' || true)
 JSON_FILES=$(echo "$FILES" | tr ' ' '\n' | grep '\.json$' || true)
 MD_FILES=$(echo "$FILES" | tr ' ' '\n' | grep '\.md$' || true)
 
-# Function to show a standard
-show_standard() {
+# Function to display section header
+show_section() {
   local title="$1"
-  local content="$2"
-
-  echo -e "\n${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo ""
+  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
   echo -e "${BOLD}${BLUE}${title}${NC}"
   echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "${content}"
+}
+
+# Function to display a requirement
+show_requirement() {
+  local name="$1"
+  local priority="$2"
+  local severity="$3"
+  local description="$4"
+  local required="$5"
+
+  # Icon based on severity
+  local icon="ℹ️"
+  if [ "$severity" = "error" ]; then
+    icon="❌"
+  elif [ "$severity" = "warning" ]; then
+    icon="⚠️"
+  fi
+
+  # Priority indicator
+  local priority_text=""
+  if [ -n "$priority" ] && [ "$priority" != "null" ]; then
+    priority_text=" [Priority: $priority]"
+  fi
+
+  # Required/Optional indicator
+  local req_text="Optional"
+  if [ "$required" = "true" ]; then
+    req_text="Required"
+  fi
+
+  echo -e "${icon} ${BOLD}${name}${NC}${priority_text}"
+  echo -e "   ${req_text} | Severity: ${severity}"
+  if [ -n "$description" ] && [ "$description" != "null" ]; then
+    echo -e "   ${description}"
+  fi
+  echo ""
 }
 
 # Header
 echo ""
 echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
-echo -e "${BOLD}📋 PRE-WRITE STANDARDS REFERENCE${NC}"
+echo -e "${BOLD}📋 PRE-WRITE STANDARDS REFERENCE (YAML-Driven)${NC}"
 echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
 
-# HTML Files Standards
+# Load and display theological standards (ALWAYS shown - IMMUTABLE)
+show_section "✝️ THEOLOGICAL FOUNDATION (IMMUTABLE)"
+
+if [ -f "$STANDARDS_DIR/theological.yml" ]; then
+  echo -e "${BOLD}Soli Deo Gloria${NC}"
+  FOUNDATION=$(yq -r '.foundation.purpose // empty' "$STANDARDS_DIR/theological.yml")
+  if [ -n "$FOUNDATION" ]; then
+    echo "$FOUNDATION" | sed 's/^/   /'
+  fi
+  echo ""
+
+  # Show scripture
+  echo -e "${BOLD}Scripture Foundation:${NC}"
+  PRIMARY=$(yq -r '.foundation.scripture_primary.reference // empty' "$STANDARDS_DIR/theological.yml")
+  PRIMARY_TEXT=$(yq -r '.foundation.scripture_primary.text // empty' "$STANDARDS_DIR/theological.yml")
+  if [ -n "$PRIMARY" ]; then
+    echo -e "   ${GREEN}${PRIMARY}${NC}"
+    echo "   \"$PRIMARY_TEXT\""
+  fi
+  echo ""
+
+  # Invocation requirement
+  if yq -e '.invocation' "$STANDARDS_DIR/theological.yml" > /dev/null 2>&1; then
+    INV_DESC=$(yq -r '.invocation.description // empty' "$STANDARDS_DIR/theological.yml")
+    INV_IMMUTABLE=$(yq -r '.invocation.immutable // false' "$STANDARDS_DIR/theological.yml")
+
+    echo -e "${RED}❌${NC} ${BOLD}Invocation Required (IMMUTABLE)${NC}"
+    echo -e "   $INV_DESC"
+    echo -e "   ${YELLOW}Cannot be disabled or overridden${NC}"
+    echo ""
+
+    # Show template
+    TEMPLATE=$(yq -r '.invocation.template // empty' "$STANDARDS_DIR/theological.yml")
+    if [ -n "$TEMPLATE" ]; then
+      echo -e "${BOLD}Template:${NC}"
+      echo "$TEMPLATE" | sed 's/^/   /'
+    fi
+  fi
+fi
+
+# HTML Standards
 if [ -n "$HTML_FILES" ]; then
-  show_standard "🌐 HTML FILES STANDARDS" "$(cat << 'EOF'
-✝️ Invocation (IMMUTABLE - Top Priority)
-   Required comment at top of every HTML file:
-   <!--
-   Soli Deo Gloria
-   All work on this project is offered as a gift to God.
-   "Trust in the LORD with all your heart..." — Proverbs 3:5
-   "Whatever you do, work heartily..." — Colossians 3:23
-   -->
+  show_section "🌐 HTML STANDARDS"
 
-📝 ICP-Lite v1.0 Protocol (Required)
-   <meta name="ai-summary" content="Brief description"/>
-   <meta name="last-reviewed" content="YYYY-MM-DD"/>
-   <meta name="content-protocol" content="ICP-Lite v1.0"/>
+  if [ -f "$STANDARDS_DIR/html.yml" ]; then
+    # Get all top-level keys except metadata
+    SECTIONS=$(yq 'keys | .[] | select(. != "version" and . != "last_updated" and . != "category" and . != "extends")' "$STANDARDS_DIR/html.yml")
 
-🎯 AI-Breadcrumbs (Entity pages only)
-   <!-- ai-breadcrumbs
-   entity: Ship|Port|Restaurant
-   name: Entity Name
-   parent: /parent-url.html
-   siblings: Related entities
-   subject: What this page is about
-   intended-reader: Who should read this
-   core-facts: Key information
-   decisions-informed: What users can decide
-   updated: YYYY-MM-DD
-   -->
+    for SECTION in $SECTIONS; do
+      # Get section name and details
+      REQUIRED=$(yq -r ".${SECTION}.required // false" "$STANDARDS_DIR/html.yml")
+      SEVERITY=$(yq -r ".${SECTION}.severity // \"info\"" "$STANDARDS_DIR/html.yml")
+      PRIORITY=$(yq -r ".${SECTION}.priority // null" "$STANDARDS_DIR/html.yml")
+      DESC=$(yq -r ".${SECTION}.description // empty" "$STANDARDS_DIR/html.yml")
 
-♿ WCAG 2.1 AA Accessibility (Required)
-   • Skip links: <a href="#main" class="skip-link">Skip to main content</a>
-   • ARIA landmarks: role="banner", role="main", role="navigation"
-   • Heading hierarchy: h1 → h2 → h3 (no skipping)
-   • Alt text on ALL images
-   • Form labels associated with inputs
-   • Focus-visible styles on interactive elements
+      # Format section name (replace underscores with spaces, title case)
+      DISPLAY_NAME=$(echo "$SECTION" | tr '_' ' ' | sed 's/\b\(.\)/\u\1/g')
 
-🏗️ Structure (Required)
-   • <!doctype html>
-   • <html lang="en">
-   • Viewport meta tag
-   • Canonical URL
-   • Version number in comments or meta tag
+      show_requirement "$DISPLAY_NAME" "$PRIORITY" "$SEVERITY" "$DESC" "$REQUIRED"
+    done
 
-🎨 Navigation Pattern (If nav present)
-   • .nav-group class for dropdowns
-   • data-open="false" attribute
-   • .submenu with z-index: 10000
-   • CSS selector: .nav-group[data-open="true"] > .submenu
-EOF
-)"
+    # Special note about ICP-Lite
+    echo -e "${BOLD}ICP-Lite v1.0 Required Meta Tags:${NC}"
+    echo -e "   <meta name=\"ai-summary\" content=\"...\" />"
+    echo -e "   <meta name=\"last-reviewed\" content=\"YYYY-MM-DD\" />"
+    echo -e "   <meta name=\"content-protocol\" content=\"ICP-Lite v1.0\" />"
+    echo ""
+  fi
 fi
 
-# JavaScript Files Standards
+# JavaScript Standards
 if [ -n "$JS_FILES" ]; then
-  show_standard "⚙️ JAVASCRIPT FILES STANDARDS" "$(cat << 'EOF'
-📐 Code Quality (Required)
-   • "use strict"; at top of functions
-   • Single quotes for strings
-   • 2-space indentation
-   • Semicolons required
-   • No trailing commas
+  show_section "⚙️ JAVASCRIPT STANDARDS"
 
-🔒 Security (Critical)
-   • NO console.log in production code
-   • NO debugger statements
-   • NO eval() or Function()
-   • NO credentials, API keys, tokens
-   • NO commented-out code blocks
+  if [ -f "$STANDARDS_DIR/javascript.yml" ]; then
+    SECTIONS=$(yq 'keys | .[] | select(. != "version" and . != "last_updated" and . != "category")' "$STANDARDS_DIR/javascript.yml")
 
-🎯 Best Practices
-   • const/let (not var)
-   • Arrow functions where appropriate
-   • Descriptive variable names
-   • Comments for complex logic only
-   • Error handling for async operations
+    for SECTION in $SECTIONS; do
+      REQUIRED=$(yq -r ".${SECTION}.required // false" "$STANDARDS_DIR/javascript.yml")
+      SEVERITY=$(yq -r ".${SECTION}.severity // \"info\"" "$STANDARDS_DIR/javascript.yml")
+      PRIORITY=$(yq -r ".${SECTION}.priority // null" "$STANDARDS_DIR/javascript.yml")
+      DESC=$(yq -r ".${SECTION}.description // empty" "$STANDARDS_DIR/javascript.yml")
 
-📱 DOM Manipulation
-   • Check element exists before accessing
-   • Use querySelector/querySelectorAll
-   • Event delegation for dynamic content
-   • Remove event listeners when done
+      DISPLAY_NAME=$(echo "$SECTION" | tr '_' ' ' | sed 's/\b\(.\)/\u\1/g')
 
-🔄 Service Worker (sw.js only)
-   • Update VERSION constant
-   • Test offline functionality
-   • Clear old caches if structure changed
-   • Document breaking changes
-EOF
-)"
+      show_requirement "$DISPLAY_NAME" "$PRIORITY" "$SEVERITY" "$DESC" "$REQUIRED"
+    done
+
+    # Security reminders
+    echo -e "${BOLD}Security Checklist:${NC}"
+    echo -e "   ${RED}✗${NC} No eval() or new Function() with user input"
+    echo -e "   ${RED}✗${NC} No debugger statements"
+    echo -e "   ${YELLOW}⚠${NC}  No console.log in production code"
+    echo -e "   ${RED}✗${NC} No hardcoded API keys or secrets"
+    echo -e "   ${YELLOW}⚠${NC}  Sanitize innerHTML before use"
+    echo ""
+  fi
 fi
 
-# CSS Files Standards
+# CSS Standards
 if [ -n "$CSS_FILES" ]; then
-  show_standard "🎨 CSS FILES STANDARDS" "$(cat << 'EOF'
-♿ Accessibility (Required)
-   • WCAG 2.1 AA contrast: 4.5:1 for text, 3:1 for large text
-   • Focus-visible on ALL interactive elements
-   • :focus-visible { outline: 2px solid; }
-   • Respect prefers-reduced-motion
-   • NO content via CSS (use aria-label)
+  show_section "🎨 CSS STANDARDS"
 
-📱 Responsive Design
-   • Mobile-first approach
-   • Flexible units: rem, em, %, vh/vw
-   • Avoid fixed pixel widths
-   • Min tap target: 44px
-   • Media queries for breakpoints
+  if [ -f "$STANDARDS_DIR/css.yml" ]; then
+    SECTIONS=$(yq 'keys | .[] | select(. != "version" and . != "last_updated" and . != "category")' "$STANDARDS_DIR/css.yml")
 
-🎯 Best Practices
-   • Use CSS custom properties (--var-name)
-   • Logical properties (margin-inline, padding-block)
-   • Avoid !important unless absolutely necessary
-   • z-index scale: 0 (base) → 10000 (skip link/dropdowns)
-   • Comments for complex selectors
-EOF
-)"
+    for SECTION in $SECTIONS; do
+      REQUIRED=$(yq -r ".${SECTION}.required // false" "$STANDARDS_DIR/css.yml")
+      SEVERITY=$(yq -r ".${SECTION}.severity // \"info\"" "$STANDARDS_DIR/css.yml")
+      PRIORITY=$(yq -r ".${SECTION}.priority // null" "$STANDARDS_DIR/css.yml")
+      DESC=$(yq -r ".${SECTION}.description // empty" "$STANDARDS_DIR/css.yml")
+
+      DISPLAY_NAME=$(echo "$SECTION" | tr '_' ' ' | sed 's/\b\(.\)/\u\1/g')
+
+      show_requirement "$DISPLAY_NAME" "$PRIORITY" "$SEVERITY" "$DESC" "$REQUIRED"
+    done
+
+    # Accessibility reminders
+    echo -e "${BOLD}Accessibility Checklist:${NC}"
+    echo -e "   ${GREEN}✓${NC} Focus styles (:focus, :focus-visible)"
+    echo -e "   ${GREEN}✓${NC} Reduced motion (@media prefers-reduced-motion)"
+    echo -e "   ${GREEN}✓${NC} Sufficient color contrast (WCAG AA: 4.5:1)"
+    echo -e "   ${GREEN}✓${NC} Minimum 16px base font size"
+    echo ""
+  fi
 fi
 
-# JSON Files Standards
+# JSON Standards
 if [ -n "$JSON_FILES" ]; then
-  show_standard "📊 JSON FILES STANDARDS" "$(cat << 'EOF'
-📋 Data Contract
-   • Valid JSON syntax (no trailing commas)
-   • Consistent key naming: camelCase
-   • Version field for schemas
-   • Required fields documented
-
-🔍 Validation
-   • Use jq to validate before committing
-   • Proper escaping of special characters
-   • UTF-8 encoding
-   • No comments (use separate docs)
-
-🎯 Structure
-   • Arrays for ordered data
-   • Objects for key-value pairs
-   • Null for missing values (not empty string)
-   • ISO 8601 for dates: "YYYY-MM-DD"
-EOF
-)"
+  show_section "📋 JSON STANDARDS"
+  echo -e "${GREEN}✓${NC} Valid JSON syntax (will be validated with jq)"
+  echo -e "${GREEN}✓${NC} Proper indentation (2 spaces recommended)"
+  echo ""
 fi
 
-# Markdown Files Standards
+# Markdown Standards
 if [ -n "$MD_FILES" ]; then
-  show_standard "📚 MARKDOWN FILES STANDARDS" "$(cat << 'EOF'
-📝 Documentation
-   • Clear, concise language
-   • Active voice preferred
-   • Code blocks with language tags
-   • Table of contents for >200 lines
-
-🎯 Structure
-   • # Title (one H1 only)
-   • ## Sections
-   • ### Subsections
-   • Lists for related items
-   • Tables for structured data
-EOF
-)"
+  show_section "📝 MARKDOWN/DOCUMENTATION STANDARDS"
+  echo -e "${GREEN}✓${NC} Clear, concise language"
+  echo -e "${GREEN}✓${NC} Table of contents for long docs"
+  echo -e "${GREEN}✓${NC} Code examples where applicable"
+  echo -e "${GREEN}✓${NC} Version numbers documented"
+  echo ""
 fi
 
-# Universal Standards
-show_standard "🌟 UNIVERSAL STANDARDS (ALL FILES)" "$(cat << 'EOF'
-✝️ Theological Foundation
-   "Whatever you do, work heartily, as for the Lord and not for men."
-   - Colossians 3:23
-
-   All work offered as worship to God.
-   Standards exist to honor Him through excellence.
-
-🔒 Security Checklist
-   ❌ NO API keys, tokens, credentials
-   ❌ NO console.log, debugger in production
-   ❌ NO commented-out code
-   ❌ NO TODO without issue reference
-   ❌ NO hardcoded secrets
-
-🎯 Code Philosophy
-   • Simple over clever
-   • Readable over compact
-   • Explicit over implicit
-   • Consistent over custom
-   • Accessible over flashy
-
-📏 Formatting
-   • 2-space indentation (JS, CSS, HTML)
-   • UTF-8 encoding
-   • Unix line endings (LF)
-   • No trailing whitespace
-   • Newline at end of file
-EOF
-)"
-
-# Show files about to be modified
+# Universal reminders
+show_section "🔒 UNIVERSAL SECURITY & QUALITY"
+echo -e "${RED}✗${NC} No API keys, tokens, or credentials in code"
+echo -e "${RED}✗${NC} No TODO without issue reference (// TODO #123)"
+echo -e "${RED}✗${NC} No commented-out code blocks"
+echo -e "${GREEN}✓${NC} Code is your best work, worthy of offering to God"
 echo ""
-echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
-echo -e "${BOLD}📝 FILES TO BE MODIFIED${NC}"
-echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
-echo ""
+
+# Files to be modified
+show_section "📝 FILES TO BE MODIFIED"
 for file in $FILES; do
   if [ -f "$file" ]; then
-    echo -e "   ${GREEN}✓${NC} $file (exists)"
+    echo -e "   ${GREEN}✓${NC} $file ${CYAN}(exists)${NC}"
   else
-    echo -e "   ${YELLOW}+${NC} $file (new file)"
+    echo -e "   ${YELLOW}⚠${NC}  $file ${YELLOW}(will be created)${NC}"
   fi
 done
+
 echo ""
 echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
+echo -e "${CYAN}Review standards above before writing code${NC}"
+echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
 echo ""
-
-exit 0
+echo -e "${ITALIC}\"Whatever you do, work heartily, as for the Lord and not for men.\"${NC}"
+echo -e "${ITALIC}— Colossians 3:23${NC}"
+echo ""
