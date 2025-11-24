@@ -1,9 +1,11 @@
 {
-  "version": "1.0.0",
-  "description": "Auto-activation rules for Claude Code skills",
+  "version": "1.1.0",
+  "description": "Auto-activation rules for Claude Code skills - CITW + FOM merged system",
   "skills": {
     "standards": {
       "enabled": true,
+      "type": "guardrail",
+      "enforcement": "suggest",
       "description": "Standards enforcement system - auto-activates when modifying code files",
       "priority": "high",
 
@@ -89,6 +91,268 @@
         "runAutomatically": false,
         "description": "Validate files after modifications"
       }
+    },
+
+    "skill-developer": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Meta-skill for creating and managing Claude Code skills",
+      "promptTriggers": {
+        "keywords": [
+          "skill system",
+          "create skill",
+          "add skill",
+          "skill triggers",
+          "skill rules",
+          "hook system",
+          "skill development",
+          "skill-rules.json"
+        ],
+        "intentPatterns": [
+          "(how do|how does|explain).*?skill",
+          "(create|add|modify|build).*?skill",
+          "skill.*?(work|trigger|activate|system)"
+        ]
+      }
+    },
+
+    "frontend-dev-guidelines": {
+      "enabled": true,
+      "type": "guardrail",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "HTML/CSS/JavaScript best practices for static cruise planning site",
+      "promptTriggers": {
+        "keywords": [
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "page",
+          "layout",
+          "styling",
+          "responsive",
+          "mobile-first",
+          "accessibility",
+          "WCAG",
+          "semantic HTML"
+        ],
+        "intentPatterns": [
+          "(create|add|make|build|update|modify|edit).*?(page|HTML|CSS|layout)",
+          "(how to|best practice).*?(HTML|CSS|accessibility)",
+          "(style|design|layout).*?(page|component)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "*.html",
+          "**/*.html",
+          "assets/css/*.css",
+          "**/*.css",
+          "assets/js/*.js",
+          "**/*.js"
+        ],
+        "contentPatterns": [
+          "<html",
+          "<!DOCTYPE",
+          "@media",
+          "var\\(--"
+        ]
+      }
+    },
+
+    "seo-optimizer": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "SEO optimization that SUPPORTS ITW-Lite v3.010 philosophy: AI-first, Human-first, Google second. Focuses on technical SEO (schema.org, semantic HTML, meta tags) that benefits AI + humans + search engines simultaneously. MUST NOT suggest keyword stuffing, readability compromises, or removal of AI-helpful elements.",
+      "guardrails": {
+        "must_reject": [
+          "Keyword stuffing or unnatural keyword density",
+          "Compromising human readability for SEO",
+          "Removing or discouraging AI-first meta tags (ai:summary, ai:*, content-protocol, etc)",
+          "Hidden text or deceptive practices",
+          "Sacrificing UX for search ranking"
+        ],
+        "must_accept": [
+          "Schema.org structured data (Article, Place, TravelAction, Organization, etc)",
+          "Semantic HTML that helps AI comprehension AND accessibility",
+          "Descriptive, natural meta descriptions",
+          "Meaningful alt text for accessibility AND SEO",
+          "OpenGraph tags for social sharing",
+          "ICP-Lite / ITW-Lite protocol compliance"
+        ],
+        "philosophy": "Technical SEO that serves all three audiences: AI understanding, human experience, search discoverability"
+      },
+      "promptTriggers": {
+        "keywords": [
+          "SEO",
+          "meta tags",
+          "metadata",
+          "schema.org",
+          "structured data",
+          "OpenGraph",
+          "og:image",
+          "title tag",
+          "description",
+          "canonical",
+          "sitemap",
+          "robots.txt",
+          "ICP-Lite",
+          "ITW-Lite"
+        ],
+        "intentPatterns": [
+          "(add|create|optimize|improve).*?(SEO|metadata|schema)",
+          "(how to|best practice).*?(SEO|meta tags|structured data)",
+          "optimize.*?(search|ranking|visibility)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "*.html",
+          "ships/**/*.html",
+          "ports/**/*.html",
+          "restaurants/**/*.html",
+          "cruise-lines/**/*.html",
+          "tools/**/*.html"
+        ],
+        "contentPatterns": [
+          "<meta name=",
+          "schema.org",
+          "application/ld\\+json",
+          "og:"
+        ]
+      }
+    },
+
+    "accessibility-auditor": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Web accessibility compliance (WCAG AA) for cruise planning site",
+      "promptTriggers": {
+        "keywords": [
+          "accessibility",
+          "a11y",
+          "WCAG",
+          "aria",
+          "alt text",
+          "screen reader",
+          "keyboard navigation",
+          "color contrast",
+          "semantic HTML"
+        ],
+        "intentPatterns": [
+          "(check|audit|verify|test).*?(accessibility|a11y|WCAG)",
+          "(add|improve).*?(alt text|aria|accessibility)",
+          "(how to|best practice).*?(accessibility|WCAG)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "*.html",
+          "**/*.html"
+        ],
+        "contentPatterns": [
+          "<img",
+          "aria-",
+          "role=",
+          "<button",
+          "<a "
+        ]
+      }
+    },
+
+    "content-strategy": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Content strategy for cruise planning content aligned with ITW-Lite v3.010 philosophy. Prioritizes authentic, natural language that serves humans first while maintaining AI comprehension. Travel storytelling over marketing-speak.",
+      "guardrails": {
+        "must_reject": [
+          "Keyword-stuffed descriptions",
+          "Unnatural, robotic copy optimized only for search",
+          "Removing planning guidance sections for brevity",
+          "Generic, template-based descriptions",
+          "Sales-heavy language that sacrifices authenticity"
+        ],
+        "must_accept": [
+          "Natural, conversational descriptions",
+          "Travel storytelling that connects emotionally",
+          "Planning guidance sections that help travelers make decisions",
+          "Authentic voice that prioritizes human reader",
+          "Structured content that AI can parse (headings, lists, schema)",
+          "Faith-scented reflections when appropriate"
+        ],
+        "philosophy": "Write for humans first. Make AI comprehension easy through structure, not through robotic language. Tell stories, don't just list features."
+      },
+      "promptTriggers": {
+        "keywords": [
+          "content",
+          "description",
+          "cruise",
+          "ship",
+          "port",
+          "restaurant",
+          "storytelling",
+          "copywriting",
+          "travel writing",
+          "planning guidance"
+        ],
+        "intentPatterns": [
+          "(write|create|improve).*?(description|content|copy)",
+          "(how to|best practice).*?(travel writing|copywriting)",
+          "content.*?(strategy|planning|creation)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "ships/**/*.html",
+          "ports/**/*.html",
+          "restaurants/**/*.html",
+          "cruise-lines/**/*.html",
+          "solo/**/*.html",
+          "index.html"
+        ],
+        "contentPatterns": [
+          "class=\"description\"",
+          "class=\"planning-guidance\"",
+          "<meta name=\"ai:summary\"",
+          "<meta name=\"content-protocol\""
+        ]
+      }
+    },
+
+    "performance-analyzer": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Web performance optimization (Core Web Vitals, Lighthouse) for cruise planning site",
+      "promptTriggers": {
+        "keywords": [
+          "performance",
+          "optimize",
+          "lighthouse",
+          "core web vitals",
+          "LCP",
+          "FID",
+          "CLS",
+          "page speed",
+          "loading time",
+          "image optimization",
+          "fetchpriority"
+        ],
+        "intentPatterns": [
+          "(optimize|improve|test).*?(performance|speed|loading)",
+          "(how to|best practice).*?(performance|optimization)",
+          "lighthouse.*?(score|audit)"
+        ]
+      }
     }
   },
 
@@ -97,5 +361,48 @@
     "verboseLogging": false,
     "cacheSkillContext": true,
     "maxConcurrentSkills": 3
+  },
+
+  "notes": {
+    "project": "In the Wake - Cruise planning site (merged with FOM enhancements)",
+    "protocol": "ITW-Lite v3.010 (adapted from FOM-Lite v1.0)",
+    "total_skills": 7,
+    "skill_sources": {
+      "citw_original": ["standards"],
+      "fom_adapted": [
+        "skill-developer",
+        "frontend-dev-guidelines",
+        "seo-optimizer",
+        "accessibility-auditor",
+        "content-strategy",
+        "performance-analyzer"
+      ]
+    },
+    "itw_lite_philosophy": {
+      "priority_order": [
+        "1. AI-First: Structure content so AI can accurately understand",
+        "2. Human-First: NEVER compromise user experience",
+        "3. Google Second: SEO is tertiary, not primary"
+      ],
+      "guardrail_principles": {
+        "seo": "SEO skills must focus on technical SEO (schema.org, semantic HTML, meta tags) that benefits AI + humans + search engines simultaneously. Reject keyword stuffing, readability compromises, or removal of AI-helpful elements.",
+        "content": "Content skills must prioritize authentic, natural language for humans while maintaining AI comprehension through structure. Reject robotic, keyword-optimized copy.",
+        "accessibility": "Accessibility benefits all audiences (humans, AI, assistive tech, search engines). Always prioritize.",
+        "performance": "Performance improves human experience and supports all other goals. Always prioritize.",
+        "theological": "Faith-scented reflections are core to CITW identity. Never compromise theological foundation for secular optimization."
+      },
+      "skill_filtering": "All skill suggestions must pass through ITW-Lite lens: Does it help AI? Does it maintain/improve human experience? Does it happen to help SEO? (Bonus!) Does it sacrifice human/AI for SEO? (Reject!)"
+    },
+    "enforcement_types": {
+      "suggest": "Skill suggestion appears but doesn't block execution",
+      "block": "Requires skill to be used before proceeding (guardrail)",
+      "warn": "Shows warning but allows proceeding"
+    },
+    "priority_levels": {
+      "critical": "Highest - Always trigger when matched",
+      "high": "Important - Trigger for most matches",
+      "medium": "Moderate - Trigger for clear matches",
+      "low": "Optional - Trigger only for explicit matches"
+    }
   }
 }
