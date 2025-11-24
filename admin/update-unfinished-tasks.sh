@@ -6,12 +6,6 @@
 
 set -e
 
-# Cleanup trap for temp files
-cleanup() {
-  rm -f "${TASKS_FILE}.tmp" "${TASKS_FILE}.tmp.2" 2>/dev/null || true
-}
-trap cleanup EXIT
-
 # Colors for output
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -22,6 +16,12 @@ BOLD='\033[1m'
 NC='\033[0m' # No Color
 
 TASKS_FILE="UNFINISHED_TASKS.md"
+
+# Cleanup trap for temp files
+cleanup() {
+  rm -f "UNFINISHED_TASKS.md.tmp" "UNFINISHED_TASKS.md.tmp.2" 2>/dev/null || true
+}
+trap cleanup EXIT
 
 # Check if we're in a git repo
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
