@@ -10,7 +10,7 @@
 
   <!-- ======================================================
        In the Wake — Home
-       Version: 3.010.305  |  Soli Deo Gloria ✝️
+       Version: 3.010.306  |  Soli Deo Gloria ✝️
 
        ✅ Production-Ready Template Applied
        ✅ WCAG 2.1 Level AA Compliant
@@ -32,7 +32,7 @@
   <!-- SEO: Theme & Appearance -->
   <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.305"/>
+  <meta name="version" content="3.010.306"/>
   <meta name="author" content="In the Wake"/>
   <meta name="publisher" content="In the Wake"/>
 
@@ -241,12 +241,12 @@
   <!-- Performance: DNS Prefetch & Preconnect -->
   <link rel="dns-prefetch" href="https://www.flickersofmajesty.com"/>
   <link rel="preconnect" href="https://cruisinginthewake.com"/>
-  <link rel="preload" as="image" href="/assets/index_hero.webp?v=3.010.305" imagesrcset="/assets/index_hero.webp?v=3.010.305" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/index_hero.webp?v=3.010.306" imagesrcset="/assets/index_hero.webp?v=3.010.306" fetchpriority="high"/>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010.305"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.306"/>
   <style>
-  /* ===== Production Index Styles v3.010.305 ===== */
+  /* ===== Production Index Styles v3.010.306 ===== */
   :root {
     --sea: #0a3d62;
     --foam: #e6f4f8;
@@ -514,7 +514,7 @@
     position: relative;
     width: 100%;
     min-height: clamp(200px, 24vw, 340px);
-    background: url('/assets/index_hero.webp?v=3.010.305') 50% 50%/cover no-repeat;
+    background: url('/assets/index_hero.webp?v=3.010.306') 50% 50%/cover no-repeat;
     display: flex;
     align-items: flex-end;
     overflow-x: clip;
@@ -543,8 +543,9 @@
     bottom: clamp(.6rem, 2vw, 1.4rem);
     z-index: 3;
     display: flex;
-    align-items: flex-end;
-    gap: .6rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .3rem;
     text-shadow: 0 2px 6px rgba(0,0,0,.45);
   }
 
@@ -554,17 +555,15 @@
     max-width: min(45vw, 520px);
   }
 
-  .tagline {
-    position: absolute;
-    left: min(3vw, 1rem);
-    bottom: clamp(.55rem, 1.6vw, 1.1rem);
-    transform: none;
+  .hero-title .tagline {
+    position: relative;
     font-weight: 700;
     letter-spacing: .2px;
     color: #e6f4f8;
     font-size: clamp(.9rem, 1.5vw, 1.35rem);
     white-space: nowrap;
-    z-index: 3;
+    margin: 0;
+    padding: 0;
   }
 
   .hero-credit {
@@ -831,7 +830,7 @@
 
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.305" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.306" fetchpriority="high"/>
 </head>
 <body class="page">
   <!-- ai-breadcrumbs
@@ -839,7 +838,7 @@
        type: Website Homepage
        category: Cruise Planning Hub
        updated: 2025-11-15
-       version: 3.010.305
+       version: 3.010.306
        expertise: Royal Caribbean specialist, 50+ cruises, accessibility advocate, pastor, photographer
        primary-tools: Drink Calculator, Ships Database, Restaurant Guide, Stateroom Check
        target-audience: Cruise planners, Royal Caribbean travelers, solo cruisers, accessibility-focused travelers
@@ -865,7 +864,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge" aria-label="Site version 3.010.305">v3.010.305</span>
+        <span class="tiny version-badge" aria-label="Site version 3.010.306">v3.010.306</span>
       </div>
       <nav class="nav" aria-label="Main site navigation">
         <div class="nav-item">
@@ -924,11 +923,11 @@
 
     <!-- Hero -->
     <div class="hero">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.305" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.306" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" width="560" height="567" alt="In the Wake" decoding="async" fetchpriority="high"/>
+        <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       </div>
-      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
         <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
       </div>
@@ -1038,7 +1037,7 @@
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.305" type="image/webp"/>
+            <source srcset="/authors/img/ken1.webp?v=3.010.306" type="image/webp"/>
             <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
           </picture>
         </a>
@@ -1059,30 +1058,10 @@
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     </aside>
-  
-    <!-- ICP-Lite FAQ Section -->
-    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
-      <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What information does this page provide?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and information about in the wake. Use it alongside official cruise line resources when planning your trip.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides community insights and planning resources. Always confirm details with your cruise line or travel advisor before making final decisions.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I get more help?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">For additional assistance, contact your cruise line directly or work with a travel advisor who specializes in cruises.</p>
-      </details>
-    </section>
 
 </main>
 
-  <!-- FULL-WIDTH UNDER-RAIL: explore more (3-wide) -->
+  <!-- FULL-WIDTH: explore more (3-wide) -->
   <section class="wrap" aria-label="Explore more">
     <section class="explore-grid bottom">
       <!-- Solo -->
@@ -1241,7 +1220,7 @@
 
       function setImageWithFallback(imgEl, primary, altPaths=[]){
         if(!imgEl) return;
-        const stamp='v=3.010.305';
+        const stamp='v=3.010.306';
         const tried=new Set();
         const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
         function tryNext(){
