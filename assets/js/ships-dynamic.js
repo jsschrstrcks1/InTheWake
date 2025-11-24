@@ -404,8 +404,8 @@
                  decoding="async"
                  onerror="this.onerror=null;this.src='${placeholderUrl}'" />
             ${imageUrl && SHIP_IMAGES[ship.slug] && SHIP_IMAGES[ship.slug].length > 1 ?
-              `<span class="image-count-badge item-card-badge" aria-label="${SHIP_IMAGES[ship.slug].length} images available">${SHIP_IMAGES[ship.slug].length}</span>`
-              : ''}
+    `<span class="image-count-badge item-card-badge" aria-label="${SHIP_IMAGES[ship.slug].length} images available">${SHIP_IMAGES[ship.slug].length}</span>`
+    : ''}
             ${ship.retired ? `<span class="retired-badge item-card-badge" aria-label="Retired from fleet">Retired</span>` : ''}
           </div>
           <div class="ship-card-content item-card-content">

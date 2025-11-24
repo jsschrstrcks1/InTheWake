@@ -50,7 +50,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
       await self.skipWaiting();
-      
+
       // Precache offline page
       const cache = await caches.open(CACHES.PRECACHE);
       await cache.add(new Request(OFFLINE_URL, { cache: 'reload' })).catch(() => {});
@@ -63,20 +63,20 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
       await self.clients.claim();
-      
+
       // Enable navigation preload if available
       if (self.registration.navigationPreload) {
         try {
           await self.registration.navigationPreload.enable();
         } catch (e) {}
       }
-      
+
       // Clean up old caches
       await cleanupOldCaches();
-      
+
       // Load configuration
       await loadConfiguration();
-      
+
       // Warm up precache
       await warmPrecache().catch(() => {});
     })()
@@ -88,54 +88,54 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
-  
+
   // Only handle GET requests
   if (request.method !== 'GET') return;
-  
+
   // Health check endpoint
   if (url.pathname === '/__sw_health') {
     event.respondWith(handleHealthCheck());
     return;
   }
-  
+
   // Same-origin only (with specific cross-origin exceptions)
   if (url.origin !== location.origin) {
     // Allow FX APIs
-    if (url.hostname.includes('frankfurter.app') || 
+    if (url.hostname.includes('frankfurter.app') ||
         url.hostname.includes('exchangerate.host')) {
       event.respondWith(handleFXRequest(request));
       return;
     }
-    
+
     // Allow CDN assets
     if (url.hostname.includes('cdn.jsdelivr.net')) {
       event.respondWith(cacheFirstStrategy(request, CACHES.ASSETS, CONFIG.maxAssets));
       return;
     }
-    
+
     return; // Block other cross-origin requests
   }
-  
+
   // Calculator data - network first with bounded stale
   if (isCalculatorData(url)) {
     event.respondWith(handleCalculatorData(request, event));
     return;
   }
-  
+
   // Route by request type
   const destination = request.destination || '';
-  
+
   if (destination === 'document' || isHTMLRequest(request)) {
     // Ship pages and ships index get network-first with fallback
     event.respondWith(handleHTMLRequest(request, event));
     return;
   }
-  
+
   if (destination === 'script' || destination === 'style' || isVersionedAsset(url)) {
     event.respondWith(cacheFirstStrategy(request, CACHES.ASSETS, CONFIG.maxAssets));
     return;
   }
-  
+
   if (destination === 'image' || isImageURL(url)) {
     // Ship images get longer cache with cache-first strategy (they rarely change)
     if (isShipImage(url)) {
@@ -145,12 +145,12 @@ self.addEventListener('fetch', (event) => {
     }
     return;
   }
-  
+
   if (destination === 'font' || isFontURL(url)) {
     event.respondWith(cacheFirstStrategy(request, CACHES.FONTS, CONFIG.maxFonts));
     return;
   }
-  
+
   if (isJSONRequest(url)) {
     event.respondWith(staleIfError(request, CACHES.DATA, CONFIG.maxData));
     return;
@@ -211,13 +211,13 @@ self.addEventListener('message', (event) => {
 async function cacheFirstStrategy(request, cacheName, maxItems) {
   const cache = await caches.open(cacheName);
   const key = normalizeRequest(request);
-  
+
   const cached = await cache.match(key);
   if (cached) {
     updateLRU(cacheName, key.url);
     return cached;
   }
-  
+
   try {
     const response = await fetchWithTimeout(request, CONFIG.fetchTimeout);
     if (response && (response.ok || response.type === 'opaque')) {
@@ -235,7 +235,7 @@ async function cacheFirstStrategy(request, cacheName, maxItems) {
 async function staleWhileRevalidate(request, cacheName, maxItems) {
   const cache = await caches.open(cacheName);
   const key = normalizeRequest(request);
-  
+
   const cachedPromise = cache.match(key);
   const fetchPromise = fetchWithTimeout(request, CONFIG.fetchTimeout)
     .then(response => {
@@ -247,20 +247,20 @@ async function staleWhileRevalidate(request, cacheName, maxItems) {
       return response;
     })
     .catch(() => null);
-  
+
   const cached = await cachedPromise;
   if (cached) {
     updateLRU(cacheName, key.url);
     return cached;
   }
-  
+
   return (await fetchPromise) || new Response('', { status: 504 });
 }
 
 async function staleIfError(request, cacheName, maxItems) {
   const cache = await caches.open(cacheName);
   const key = normalizeRequest(request);
-  
+
   try {
     const response = await fetchWithTimeout(request, CONFIG.fetchTimeout);
     if (response && (response.ok || response.type === 'opaque')) {
@@ -288,7 +288,7 @@ async function staleIfError(request, cacheName, maxItems) {
 async function handleHTMLRequest(request, event) {
   const cache = await caches.open(CACHES.PAGES);
   const key = normalizeRequest(request);
-  
+
   try {
     // Try preload response first
     const preload = event.preloadResponse ? await event.preloadResponse : null;
@@ -298,7 +298,7 @@ async function handleHTMLRequest(request, event) {
       pruneCache(CACHES.PAGES, CONFIG.maxPages);
       return preload;
     }
-    
+
     // Fetch from network
     const response = await fetchWithTimeout(request, CONFIG.fetchTimeout);
     if (response && (response.ok || response.type === 'opaque')) {
@@ -309,14 +309,14 @@ async function handleHTMLRequest(request, event) {
     return response;
   } catch (error) {
     logError('handleHTML', error, request.url);
-    
+
     // Try cache
     const cached = await cache.match(key);
     if (cached) return cached;
-    
+
     // Fall back to offline page
     const precache = await caches.open(CACHES.PRECACHE);
-    return (await precache.match(OFFLINE_URL)) || 
+    return (await precache.match(OFFLINE_URL)) ||
            new Response('Offline', { status: 503 });
   }
 }
@@ -324,7 +324,7 @@ async function handleHTMLRequest(request, event) {
 async function handleCalculatorData(request, event) {
   const cache = await caches.open(CACHES.DATA);
   const key = normalizeRequest(request);
-  
+
   try {
     const response = await fetchWithTimeout(request, CONFIG.fetchTimeout);
     if (response && (response.ok || response.type === 'opaque')) {
@@ -332,7 +332,7 @@ async function handleCalculatorData(request, event) {
       cache.put(key, timestamped);
       updateLRU(CACHES.DATA, key.url);
       pruneCache(CACHES.DATA, CONFIG.maxData);
-      
+
       // Notify clients of fresh data
       notifyClients({ type: 'DATA_REFRESHED', resource: 'calculator', url: request.url });
     }
@@ -344,15 +344,15 @@ async function handleCalculatorData(request, event) {
       if (age < CONFIG.calcDataMaxAge) {
         // Add headers to indicate stale data
         const decorated = await addStaleHeaders(cached, age, CONFIG.calcDataMaxAge);
-        
+
         // Try to refresh in background
         event.waitUntil(refreshCalculatorData());
-        
+
         updateLRU(CACHES.DATA, key.url);
         return decorated;
       }
     }
-    
+
     logError('handleCalculatorData', error, request.url);
     throw error;
   }
@@ -365,7 +365,7 @@ async function handleFXRequest(request) {
 async function handleHealthCheck() {
   const stats = await getCacheStats();
   const calcFreshness = await getCalculatorDataFreshness();
-  
+
   const health = {
     version: VERSION,
     timestamp: new Date().toISOString(),
@@ -373,7 +373,7 @@ async function handleHealthCheck() {
     calculator: calcFreshness,
     errorCount: errorLog.length
   };
-  
+
   return new Response(JSON.stringify(health, null, 2), {
     headers: {
       'Content-Type': 'application/json',
@@ -387,7 +387,7 @@ async function handleHealthCheck() {
 async function cleanupOldCaches() {
   const keep = new Set(Object.values(CACHES));
   const names = await caches.keys();
-  
+
   await Promise.all(
     names
       .filter(name => name.startsWith(CACHE_PREFIX) && !keep.has(name))
@@ -397,11 +397,11 @@ async function cleanupOldCaches() {
 
 async function loadConfiguration() {
   try {
-    const response = await fetch(MANIFEST_URL, { 
-      cache: 'no-store', 
-      credentials: 'omit' 
+    const response = await fetch(MANIFEST_URL, {
+      cache: 'no-store',
+      credentials: 'omit'
     });
-    
+
     if (response.ok) {
       const data = await response.json();
       if (data && data.config) {
@@ -415,13 +415,13 @@ async function loadConfiguration() {
 
 async function warmPrecache() {
   try {
-    const response = await fetch(MANIFEST_URL, { 
-      cache: 'no-store', 
-      credentials: 'omit' 
+    const response = await fetch(MANIFEST_URL, {
+      cache: 'no-store',
+      credentials: 'omit'
     });
-    
+
     if (!response.ok) return;
-    
+
     const manifest = await response.json();
     const urls = [
       ...(manifest.pages || []),
@@ -429,18 +429,18 @@ async function warmPrecache() {
       ...(manifest.images || []),
       ...(manifest.data || [])
     ].filter(url => isSameOrigin(url));
-    
+
     const precache = await caches.open(CACHES.PRECACHE);
-    
+
     await Promise.all(
       urls.map(async url => {
         try {
           const fullUrl = new URL(url, location.origin).href;
-          const response = await fetch(fullUrl, { 
-            cache: 'no-store', 
-            credentials: 'omit' 
+          const response = await fetch(fullUrl, {
+            cache: 'no-store',
+            credentials: 'omit'
           });
-          
+
           if (response && (response.ok || response.type === 'opaque')) {
             await precache.put(fullUrl, response);
           }
@@ -449,7 +449,7 @@ async function warmPrecache() {
         }
       })
     );
-    
+
     // Copy precache to runtime caches
     await copyPrecacheToRuntime();
   } catch (e) {
@@ -460,7 +460,7 @@ async function warmPrecache() {
 async function copyPrecacheToRuntime() {
   const precache = await caches.open(CACHES.PRECACHE);
   const keys = await precache.keys();
-  
+
   const runtimeCaches = {
     [CACHES.PAGES]: [],
     [CACHES.ASSETS]: [],
@@ -468,13 +468,13 @@ async function copyPrecacheToRuntime() {
     [CACHES.DATA]: [],
     [CACHES.FONTS]: []
   };
-  
+
   for (const request of keys) {
     const response = await precache.match(request);
     if (!response) continue;
-    
+
     const url = new URL(request.url);
-    
+
     let targetCache;
     if (url.pathname.endsWith('.html') || url.pathname === '/') {
       targetCache = CACHES.PAGES;
@@ -487,16 +487,16 @@ async function copyPrecacheToRuntime() {
     } else if (url.pathname.endsWith('.json')) {
       targetCache = CACHES.DATA;
     }
-    
+
     if (targetCache) {
       runtimeCaches[targetCache].push({ request, response: response.clone() });
     }
   }
-  
+
   // Write to runtime caches
   for (const [cacheName, items] of Object.entries(runtimeCaches)) {
     if (items.length === 0) continue;
-    
+
     const cache = await caches.open(cacheName);
     await Promise.all(
       items.map(({ request, response }) => cache.put(request, response))
@@ -508,16 +508,16 @@ async function refreshCalculatorData() {
   try {
     const url = new URL(CALC_DATA_PATH, location.origin).href;
     const response = await fetch(url, { cache: 'no-store', credentials: 'omit' });
-    
+
     if (response.ok) {
       const timestamped = await addTimestamp(response.clone());
       const cache = await caches.open(CACHES.DATA);
       await cache.put(url, timestamped);
-      
-      notifyClients({ 
-        type: 'DATA_REFRESHED', 
-        resource: 'calculator', 
-        url 
+
+      notifyClients({
+        type: 'DATA_REFRESHED',
+        resource: 'calculator',
+        url
       });
     }
   } catch (e) {
@@ -616,17 +616,17 @@ async function seedUrls(urls, priority = 'normal') {
 
 function normalizeRequest(request) {
   const url = new URL(request.url);
-  
+
   // Remove tracking parameters
   const trackingParams = [
     'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
     'fbclid', 'gclid', 'mc_cid', 'mc_eid'
   ];
   trackingParams.forEach(param => url.searchParams.delete(param));
-  
+
   // Remove hash
   url.hash = '';
-  
+
   return new Request(url.href, { method: 'GET' });
 }
 
@@ -648,9 +648,9 @@ async function pruneCache(cacheName, maxItems) {
   try {
     const cache = await caches.open(cacheName);
     const keys = await cache.keys();
-    
+
     if (keys.length <= maxItems) return;
-    
+
     const metaCache = await caches.open(CACHES.META);
     const entries = await Promise.all(
       keys.map(async key => {
@@ -659,12 +659,12 @@ async function pruneCache(cacheName, maxItems) {
         return { key, lastAccess: meta.lastAccess || 0 };
       })
     );
-    
+
     entries.sort((a, b) => a.lastAccess - b.lastAccess);
-    
+
     const toRemove = entries.slice(0, entries.length - maxItems);
     await Promise.all(
-      toRemove.map(({ key }) => 
+      toRemove.map(({ key }) =>
         Promise.all([
           cache.delete(key),
           metaCache.delete(`${key.url}:lru`)
@@ -677,7 +677,7 @@ async function pruneCache(cacheName, maxItems) {
 async function addTimestamp(response) {
   const headers = new Headers(response.headers);
   headers.set('Date', new Date().toUTCString());
-  
+
   const body = await response.clone().arrayBuffer();
   return new Response(body, {
     status: response.status,
@@ -691,7 +691,7 @@ async function addStaleHeaders(response, ageMs, maxAgeMs) {
   headers.set('X-SW-Fallback', '1');
   headers.set('X-SW-Age-MS', String(ageMs));
   headers.set('X-SW-Confidence', calculateConfidence(ageMs, maxAgeMs));
-  
+
   const body = await response.clone().arrayBuffer();
   return new Response(body, {
     status: response.status,
@@ -711,7 +711,7 @@ async function getAge(response) {
   try {
     const dateHeader = response.headers.get('Date');
     if (!dateHeader) return 0;
-    
+
     const date = new Date(dateHeader);
     return Date.now() - date.getTime();
   } catch (e) {
@@ -721,7 +721,7 @@ async function getAge(response) {
 
 async function getCacheStats() {
   const stats = {};
-  
+
   for (const [key, name] of Object.entries(CACHES)) {
     try {
       const cache = await caches.open(name);
@@ -734,7 +734,7 @@ async function getCacheStats() {
       stats[key] = { name, count: 0, error: e.message };
     }
   }
-  
+
   return stats;
 }
 
@@ -743,11 +743,11 @@ async function getCalculatorDataFreshness() {
     const cache = await caches.open(CACHES.DATA);
     const url = new URL(CALC_DATA_PATH, location.origin).href;
     const response = await cache.match(url);
-    
+
     if (!response) {
       return { cached: false };
     }
-    
+
     const ageMs = await getAge(response);
     return {
       cached: true,
@@ -763,7 +763,7 @@ async function getCalculatorDataFreshness() {
 async function fetchWithTimeout(request, timeout) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
-  
+
   try {
     const response = await fetch(request, { signal: controller.signal });
     clearTimeout(timeoutId);
@@ -790,7 +790,7 @@ function logError(context, error, url = '') {
       url,
       version: VERSION
     });
-    
+
     if (errorLog.length > MAX_ERRORS) {
       errorLog.shift();
     }
@@ -809,8 +809,8 @@ function isSameOrigin(url) {
 
 function isHTMLRequest(request) {
   const url = new URL(request.url);
-  return request.destination === 'document' || 
-         url.pathname.endsWith('.html') || 
+  return request.destination === 'document' ||
+         url.pathname.endsWith('.html') ||
          url.pathname === '/';
 }
 

@@ -36,7 +36,7 @@ if (typeof ITW_MATH === 'undefined' || !ITW_MATH.compute) {
  */
 self.addEventListener('message', (e) => {
   const { type, id, payload } = e.data;
-  
+
   if (type === 'compute') {
     try {
       // Validate payload structure
@@ -54,28 +54,28 @@ self.addEventListener('message', (e) => {
       if (!results || typeof results !== 'object') {
         throw new Error('Invalid results from compute');
       }
-      
+
       // Post results back to main thread
-      self.postMessage({ 
-        type: 'result', 
-        id, 
-        payload: results 
+      self.postMessage({
+        type: 'result',
+        id,
+        payload: results
       });
-      
+
     } catch (err) {
 
       // Post error back to main thread
-      self.postMessage({ 
-        type: 'error', 
-        id, 
-        payload: { 
-          message: err.message || 'Unknown error', 
+      self.postMessage({
+        type: 'error',
+        id,
+        payload: {
+          message: err.message || 'Unknown error',
           stack: err.stack || ''
-        } 
+        }
       });
     }
   }
-  
+
   // Ignore unknown message types
 });
 
@@ -92,14 +92,14 @@ function applyForcedPackage(results, forcedPkg, inputs, economics, vouchers) {
 
   // Calculate cost for this specific package
   const forcedCost = calculateForcedPackageCost(forcedPkg, inputs, economics, vouchers);
-  
+
   // Calculate savings vs à la carte
   const savings = results.alacarte.afterVouchers - forcedCost.total;
-  
+
   // Return modified results
   return {
     ...results,
-    
+
     // Override winner
     winner: {
       package: forcedPkg,
@@ -108,11 +108,11 @@ function applyForcedPackage(results, forcedPkg, inputs, economics, vouchers) {
       costs: results.winner.costs,
       forced: true // Flag that this is user-selected, not calculated
     },
-    
+
     // Store forced package details
     forcedPackage: forcedPkg,
     forcedCost: forcedCost,
-    
+
     // Keep original recommendation for comparison
     recommendedPackage: results.winner.package,
     recommendedCost: results.winner.cost
@@ -122,7 +122,7 @@ function applyForcedPackage(results, forcedPkg, inputs, economics, vouchers) {
 /**
  * Calculate cost for a specific forced package
  * CRITICAL: Enforces minors + Deluxe policy
- * 
+ *
  * @param {string} pkg - Package type ('soda'|'refresh'|'deluxe')
  * @param {Object} inputs - User inputs
  * @param {Object} economics - Package economics
@@ -134,16 +134,16 @@ function calculateForcedPackageCost(pkg, inputs, economics, vouchers) {
   const adults = inputs.adults || 1;
   const minors = inputs.minors || 0;
   const totalPeople = adults + minors;
-  
+
   let adultCost = 0;
   let minorCost = 0;
   let minorPackage = pkg; // What package minors get
   let minorForced = false; // Is minor package forced by policy?
-  
+
   if (pkg === 'deluxe') {
     // Adults: Deluxe package
     adultCost = economics.pkg.deluxe * adults * days;
-    
+
     // CRITICAL POLICY: Minors MUST buy Refreshment when adults buy Deluxe
     if (minors > 0) {
       minorPackage = 'refresh';
@@ -151,28 +151,28 @@ function calculateForcedPackageCost(pkg, inputs, economics, vouchers) {
       minorForced = true;
       console.log('[Worker] POLICY ENFORCED: Minors forced to Refreshment (', minors, 'minors × $', economics.pkg.refresh, '× ', days, 'days = $', minorCost, ')');
     }
-    
+
   } else if (pkg === 'refresh') {
     // Everyone gets Refreshment
     adultCost = economics.pkg.refresh * adults * days;
     minorCost = economics.pkg.refresh * minors * days;
     minorPackage = 'refresh';
-    
+
   } else if (pkg === 'soda') {
     // Everyone gets Soda
     adultCost = economics.pkg.soda * adults * days;
     minorCost = economics.pkg.soda * minors * days;
     minorPackage = 'soda';
   }
-  
+
   const total = adultCost + minorCost;
   const perPerson = totalPeople > 0 ? total / totalPeople : 0;
   const perDay = days > 0 ? total / days : 0;
-  
+
   // Vouchers create conflict (can't use with packages)
   const hasVouchers = (inputs.voucherAdult > 0 || inputs.voucherMinor > 0);
   const voucherValue = hasVouchers ? calculateVoucherValue(inputs, vouchers) : 0;
-  
+
   return {
     total: total,
     perPerson: perPerson,
@@ -189,7 +189,7 @@ function calculateForcedPackageCost(pkg, inputs, economics, vouchers) {
 /**
  * Calculate total value of Crown & Anchor vouchers
  * Diamond: 4/day @ $14, Diamond+: 5/day @ $14, Pinnacle: 6/day @ $14
- * 
+ *
  * @param {Object} inputs - User inputs
  * @param {Object} vouchers - Voucher data
  * @returns {number} Total voucher value in dollars
@@ -199,17 +199,17 @@ function calculateVoucherValue(inputs, vouchers) {
   const adults = inputs.adults || 1;
   const minors = inputs.minors || 0;
   const voucherValue = vouchers.value || 14;
-  
+
   const adultVouchers = (inputs.voucherAdult || 0) * adults * days * voucherValue;
   const minorVouchers = (inputs.voucherMinor || 0) * minors * days * voucherValue;
-  
+
   return adultVouchers + minorVouchers;
 }
 
 /**
  * Validate payload structure and security
  * Blocks prototype pollution and other malicious input
- * 
+ *
  * @param {Object} payload - Message payload from main thread
  * @throws {Error} If payload is invalid or dangerous
  */
@@ -265,7 +265,7 @@ function validatePayload(payload) {
       }
     }
   }
-  
+
   // Check dataset
   if (payload.dataset) {
     for (let key of dangerous) {
@@ -283,7 +283,7 @@ function validatePayload(payload) {
       }
     }
   }
-  
+
   // Validate forcedPackage if present
   if (payload.forcedPackage !== undefined && payload.forcedPackage !== null) {
     const validPackages = ['soda', 'refresh', 'deluxe'];
@@ -291,7 +291,7 @@ function validatePayload(payload) {
       throw new Error('Invalid forcedPackage value: ' + payload.forcedPackage);
     }
   }
-  
+
   return true;
 }
 

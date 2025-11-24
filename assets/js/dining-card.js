@@ -26,7 +26,7 @@
   const norm   = s => String(s || '').toLowerCase().replace(/’/g, "'").trim();
   const normShip = s => norm(s).replace(/\s+of the seas$/, ''); // RC tolerance
   const slugify = s => String(s || '').toLowerCase().replace(/&/g, 'and')
-                    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
   // Absolute helper if present
   const abs = (p) => (typeof window._abs === 'function' ? window._abs(p) : p);
@@ -90,8 +90,8 @@
       <section class="venue-block" aria-labelledby="${id}">
         <h3 id="${id}">${title} <span class="count" aria-hidden="true">(${items.length})</span></h3>
         ${items.length
-          ? `<ul class="venue-list">${linkifyNames(items).map(a => `<li>${a}</li>`).join('')}</ul>`
-          : `<p class="tiny">No ${title.toLowerCase()} listed yet.</p>`}
+    ? `<ul class="venue-list">${linkifyNames(items).map(a => `<li>${a}</li>`).join('')}</ul>`
+    : `<p class="tiny">No ${title.toLowerCase()} listed yet.</p>`}
       </section>`;
 
     const mount = document.getElementById('dining-content');
@@ -262,7 +262,7 @@
         const nSlug = norm(slug);
         const score =
           (shipSlug && nSlug && nSlug === shipSlug) ? 3 :
-          (DISPLAY_N && nName && (nName === normShip(DISPLAY_N) || aliases.includes(nName))) ? 2 : 0;
+            (DISPLAY_N && nName && (nName === normShip(DISPLAY_N) || aliases.includes(nName))) ? 2 : 0;
         if (score > bestScore) { best = cand; bestScore = score; if (score === 3) break; }
       }
 

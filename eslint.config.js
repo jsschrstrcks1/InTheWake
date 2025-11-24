@@ -38,12 +38,32 @@ export default [
         AbortController: "readonly",
         // Browser APIs
         screen: "readonly",
+        alert: "readonly",
+        confirm: "readonly",
+        prompt: "readonly",
+        Event: "readonly",
+        CustomEvent: "readonly",
+        MessageChannel: "readonly",
+        queueMicrotask: "readonly",
+        Worker: "readonly",
+        IntersectionObserver: "readonly",
+        ResizeObserver: "readonly",
+        requestIdleCallback: "readonly",
+        requestAnimationFrame: "readonly",
+        cancelAnimationFrame: "readonly",
+        // Web Worker APIs
+        importScripts: "readonly",
+        postMessage: "readonly",
+        onmessage: "writable",
         // Third-party libraries
         Swiper: "readonly",
         Fuse: "readonly",
+        Chart: "readonly",
         // Custom globals
         SiteCache: "writable",
-        FunDistance: "writable"
+        FunDistance: "writable",
+        ITW: "writable",
+        ITW_MATH: "readonly"
       }
     },
     rules: {

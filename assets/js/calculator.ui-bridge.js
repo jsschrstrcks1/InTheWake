@@ -2,16 +2,16 @@
  * Royal Caribbean Drink Calculator - UI Bridge
  * Version: 10.0.0 assets/js/calculator.ui-bridge.js
  * Soli Deo Gloria ✝️
- * 
+ *
  * PURPOSE:
  * Provides clean API boundary between calculator core and UI layer
- * 
+ *
  * EXPORTS:
  * - window.ITW.store: {get, subscribe, patch}
  * - window.ITW.money: (amount, opts) => string
  * - window.ITW.getCurrency: () => string
  * - window.ITW.fxApproxPrefix: () => string
- * 
+ *
  * LOAD ORDER:
  * 1. drink-math.js
  * 2. drink-worker.js (loaded by app)
@@ -34,7 +34,7 @@
 
     }
   }
-  
+
   function initBridge() {
 
 
@@ -43,18 +43,18 @@
       window.storeGet = window.ITW.store.get;
       console.log('[ITW Bridge] 💡 Console shortcut: storeGet("inputs")');
     }
-    
+
     // Dispatch ready event
     if (typeof CustomEvent !== 'undefined') {
       document.dispatchEvent(new CustomEvent('itw:bridge-ready'));
     }
   }
-  
+
   // Start checking for store
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => waitForStore());
   } else {
     waitForStore();
   }
-  
+
 })();

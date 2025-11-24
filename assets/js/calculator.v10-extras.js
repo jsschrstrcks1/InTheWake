@@ -43,7 +43,7 @@
     let s = String(input).trim().replace(/[\u2012-\u2015\u2212]/g,'-').replace(/\s+/g,' ');
     const m = s.match(/^(\d*\.?\d+)\s*-\s*(\d*\.?\d+)$/);
     if (m) {
-      const a = +m[1], b = +m[2]; 
+      const a = +m[1], b = +m[2];
       return (isFinite(a)&&isFinite(b)) ? Math.max(0,(a+b)/2) : 0;
     }
     const cleaned = s.replace(/[,\u00a0\u202f]/g,'');
@@ -139,7 +139,7 @@
     Object.entries(preset.drinks).forEach(([k,v])=>{
       if (v>0) ul.appendChild(el('li',{},`${DRINK_LABELS[k]||k}: ${v}/day`));
     });
-    const hostD = byId('itw-preset-details'); hostD.innerHTML=''; 
+    const hostD = byId('itw-preset-details'); hostD.innerHTML='';
     hostD.appendChild(el('div',{class:'itw-note'},'Preset loaded — feel free to tweak below.'));
     hostD.appendChild(ul);
   }
@@ -192,7 +192,7 @@
     }, 'itw-simple-seadays');
     const adults = elInputNumber('Adults (21+)', i.adults, 1, 20, v=> patchInputs({ adults: asInt(v,1,20) }));
     const minors = elInputNumber('Minors (<21)', i.minors, 0, 20, v=> patchInputs({ minors: asInt(v,0,20) }));
-    wrap.appendChild(days); wrap.appendChild(sea); 
+    wrap.appendChild(days); wrap.appendChild(sea);
     wrap.appendChild(adults); wrap.appendChild(minors);
 
     // Averages block with steppers (range-aware)
@@ -219,7 +219,7 @@
     const inputs = store.get('inputs');
     const wrap = el('div',{class:'itw-card'});
     wrap.appendChild(el('h4',{},'Sea-Day Weighting'));
-    wrap.appendChild(el('p',{style:'color:#64748b;'}, 
+    wrap.appendChild(el('p',{style:'color:#64748b;'},
       'This slider shows how your drinking may vary on sea days. We project slightly higher consumption on sea days for many cruisers — but port days can be big fun too. (Easy does it; hangovers can make port days less magical.)'
     ));
 
@@ -259,7 +259,7 @@
     for (let d=1; d<=Math.min(days, 14); d++){ // show first 14 days (common cruise lengths)
       const tr = el('tr',{}); tr.appendChild(el('td',{}, String(d)));
       DRINK_KEYS.forEach(k=>{
-        const td = el('td',{}); 
+        const td = el('td',{});
         const inp = el('input',{type:'text', inputmode:'numeric', pattern:'[0-9.\\- ]*', 'data-day':String(d), 'data-key':k, style:'width:70px;'});
         sanitizeWires(inp);
         td.appendChild(inp);
@@ -340,7 +340,7 @@
   function stepperRow(key){
     const row = el('div',{class:'itw-row', style:'grid-template-columns:1fr auto auto; align-items:center; gap:.75rem; border-bottom:1px solid #e5e7eb; padding:.5rem 0;'});
     row.appendChild(el('div',{}, DRINK_LABELS[key] || key));
-    row.appendChild(el('div',{class:'itw-stepper'}, 
+    row.appendChild(el('div',{class:'itw-stepper'},
       (()=>{
         const minus = el('button',{type:'button', class:'itw-pill', style:'width:44px; text-align:center;'},'−');
         const input = el('input',{type:'text', id:`itw-step-${key}`, value: String(store.get('inputs')?.drinks?.[key] ?? 0), 'aria-label':`${DRINK_LABELS[key]||key} per day`});
@@ -358,7 +358,7 @@
         minus.addEventListener('click', ()=>{ input.value = String(Math.max(0, Math.round(parseQty(input.value))-1)); apply(); });
         plus.addEventListener('click', ()=>{ input.value = String(Math.min(99, Math.round(parseQty(input.value))+1)); apply(); });
 
-        const wrap = el('div',{}); 
+        const wrap = el('div',{});
         wrap.appendChild(minus); wrap.appendChild(input); wrap.appendChild(plus);
         return wrap;
       })()
@@ -414,7 +414,7 @@
 
     // Find winner by lowest trip
     let winnerKey = (results.winnerKey && pkgs.find(p=>p.key===results.winnerKey)) ? results.winnerKey
-                   : rows.reduce((min, r)=> r.trip < (rows.find(x=>x.key===min)?.trip ?? Infinity) ? r.key : min, 'alc');
+      : rows.reduce((min, r)=> r.trip < (rows.find(x=>x.key===min)?.trip ?? Infinity) ? r.key : min, 'alc');
 
     const alcTrip = rows.find(r=>r.key==='alc')?.trip ?? 0;
 
@@ -427,7 +427,7 @@
       if (r.key!=='alc'){
         const savings = alcTrip - r.trip;
         const note = savings >= 0 ? `✓ You’d save ${fxApproxPrefix()}${money(savings,{currency:getCurrency()})} vs à-la-carte`
-                                  : `You’d overspend ${fxApproxPrefix()}${money(Math.abs(savings),{currency:getCurrency()})} vs à-la-carte`;
+          : `You’d overspend ${fxApproxPrefix()}${money(Math.abs(savings),{currency:getCurrency()})} vs à-la-carte`;
         bd.appendChild(el('div',{class:'itw-note', style:`border-left-color:${savings>=0?'#10b981':'#ef4444'}; background:${savings>=0?'rgba(16,185,129,.08)':'rgba(239,68,68,.08)'};`}, note));
       } else {
         bd.appendChild(el('div',{class:'itw-note'}, 'Pay only for what you drink — most flexible.'));
@@ -505,6 +505,23 @@
   }
   function byId(id){ return document.getElementById(id); }
   function labelStrong(txt){ const s=el('strong',{},txt); return s; }
+
+  // Helper to create labeled number input
+  function elInputNumber(labelText, value, min, max, onChange, inputId){
+    const wrapper = el('div', {class: 'itw-input-group'});
+    const label = el('label', {}, labelText);
+    const input = el('input', {
+      type: 'number',
+      value: String(value),
+      min: String(min),
+      max: String(max),
+      ...(inputId ? {id: inputId} : {})
+    });
+    input.addEventListener('input', (e) => onChange(e.target.value));
+    wrapper.appendChild(label);
+    wrapper.appendChild(input);
+    return wrapper;
+  }
 
   // Write inputs patch safely (keeps other fields)
   function patchInputs(partial){

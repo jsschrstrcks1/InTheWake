@@ -351,33 +351,33 @@
     const cabin = String(cabinNum);
 
     return {
-      "@context": "https://schema.org",
-      "@type": "Accommodation",
-      "name": `Stateroom ${cabin} on ${shipName}`,
-      "description": verdict.summary,
-      "identifier": {
-        "@type": "PropertyValue",
-        "name": "Cabin Number",
-        "value": cabin
+      '@context': 'https://schema.org',
+      '@type': 'Accommodation',
+      'name': `Stateroom ${cabin} on ${shipName}`,
+      'description': verdict.summary,
+      'identifier': {
+        '@type': 'PropertyValue',
+        'name': 'Cabin Number',
+        'value': cabin
       },
-      "isRelatedTo": {
-        "@type": "Product",
-        "name": shipName,
-        "category": "Cruise Ship"
+      'isRelatedTo': {
+        '@type': 'Product',
+        'name': shipName,
+        'category': 'Cruise Ship'
       },
-      "review": {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": verdict.verdict === 'great' ? '5' : (verdict.verdict === 'note' ? '4' : '3'),
-          "bestRating": "5",
-          "worstRating": "1"
+      'review': {
+        '@type': 'Review',
+        'reviewRating': {
+          '@type': 'Rating',
+          'ratingValue': verdict.verdict === 'great' ? '5' : (verdict.verdict === 'note' ? '4' : '3'),
+          'bestRating': '5',
+          'worstRating': '1'
         },
-        "author": {
-          "@type": "Organization",
-          "name": "In the Wake"
+        'author': {
+          '@type': 'Organization',
+          'name': 'In the Wake'
         },
-        "reviewBody": verdict.summary + ' ' + verdict.encouragement
+        'reviewBody': verdict.summary + ' ' + verdict.encouragement
       }
     };
   }
@@ -392,57 +392,57 @@
 
     const faqs = [
       {
-        "@type": "Question",
-        "name": `Is stateroom ${cabin} on ${shipName} a good choice?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": verdict.summary
+        '@type': 'Question',
+        'name': `Is stateroom ${cabin} on ${shipName} a good choice?`,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': verdict.summary
         }
       },
       {
-        "@type": "Question",
-        "name": `Is this cabin noisy?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": hasNoiseIssue
+        '@type': 'Question',
+        'name': `Is this cabin noisy?`,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': hasNoiseIssue
             ? verdict.issues.find(i => i.category === 'noise').description
             : `Stateroom ${cabin} is not known for noise issues. Most travelers rest comfortably.`
         }
       },
       {
-        "@type": "Question",
-        "name": `Is this cabin good for light sleepers?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": hasNoiseIssue
+        '@type': 'Question',
+        'name': `Is this cabin good for light sleepers?`,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': hasNoiseIssue
             ? `Light sleepers may want to bring earplugs. ${verdict.issues.find(i => i.category === 'noise')?.description || ''}`
             : `This cabin should be fine for light sleepers.`
         }
       },
       {
-        "@type": "Question",
-        "name": `Will this cabin feel motion?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": hasMotionIssue
+        '@type': 'Question',
+        'name': `Will this cabin feel motion?`,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': hasMotionIssue
             ? `${verdict.issues.find(i => i.category === 'motion' || i.category === 'location')?.description || 'Some motion may be noticeable.'}`
             : `Motion should be typical for this location. Midship cabins on lower decks generally feel the most stable.`
         }
       },
       {
-        "@type": "Question",
-        "name": `Is this a good cabin for families?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `Stateroom ${cabin} is a ${verdict.category} cabin. Families often appreciate proximity to activities and dining. ${verdict.encouragement}`
+        '@type': 'Question',
+        'name': `Is this a good cabin for families?`,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': `Stateroom ${cabin} is a ${verdict.category} cabin. Families often appreciate proximity to activities and dining. ${verdict.encouragement}`
         }
       }
     ];
 
     return {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': faqs
     };
   }
 
@@ -456,9 +456,9 @@
   function renderResultCard(verdict, cabinNum, shipName) {
     const cabin = String(cabinNum);
     const verdictClass = verdict.verdict === 'great' ? 'verdict-great' :
-                         verdict.verdict === 'note' ? 'verdict-note' : 'verdict-caution';
+      verdict.verdict === 'note' ? 'verdict-note' : 'verdict-caution';
     const verdictIcon = verdict.verdict === 'great' ? '✅' :
-                        verdict.verdict === 'note' ? '📝' : '⚠️';
+      verdict.verdict === 'note' ? '📝' : '⚠️';
 
     let issuesHTML = '';
     if (verdict.issues.length > 0) {
