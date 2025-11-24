@@ -2,7 +2,6 @@
 (function(){
   'use strict';
 
-
   const on = (el, evt, fn, opts) => el && el.addEventListener(evt, fn, opts || false);
   const qs = (sel, root=document) => root.querySelector(sel);
   const qsa = (sel, root=document) => Array.from(root.querySelectorAll(sel));
@@ -10,18 +9,35 @@
     ? document.addEventListener('DOMContentLoaded', fn, {once:true})
     : fn();
 
+  // DIRECT STYLE MANIPULATION - bypasses all CSS cascade conflicts
+  function showSubmenu(menu) {
+    if (!menu) return;
+    menu.style.cssText = 'display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important;';
+  }
+
+  function hideSubmenu(menu) {
+    if (!menu) return;
+    menu.style.cssText = 'display:none; opacity:0; visibility:hidden; pointer-events:none;';
+  }
+
   function closeGroup(group){
     if(!group) return;
     group.dataset.open = 'false';
     const btn = qs('.nav-disclosure', group);
+    const menu = qs('.submenu', group);
     btn && btn.setAttribute('aria-expanded', 'false');
+    hideSubmenu(menu);
   }
+
   function openGroup(group){
     if(!group) return;
     group.dataset.open = 'true';
     const btn = qs('.nav-disclosure', group);
+    const menu = qs('.submenu', group);
     btn && btn.setAttribute('aria-expanded', 'true');
+    showSubmenu(menu);
   }
+
   function toggleGroup(group){
     if(!group) return;
     const isOpen = group.dataset.open === 'true';
