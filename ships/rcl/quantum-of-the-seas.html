@@ -1663,13 +1663,13 @@ STANDARDS: Every Page v3.010.301 · Production Template · Unified Nav v3.010.30
         if(!primary){
           const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
           const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
         }
 
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
@@ -1679,17 +1679,12 @@ STANDARDS: Every Page v3.010.301 · Production Template · Unified Nav v3.010.30
       // Announce to screen readers
       const status = document.getElementById('a11y-status');
       if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
+        status.textContent = `${view.length} recent articles loaded`;
       }
     })();
   })();
   </script>
-<<<<<<< HEAD
-
-
-=======
-  <!-- Navigation dropdown functionality -->
-    <!-- Navigation dropdown functionality (New Clean Implementation) -->
+  <!-- Navigation dropdown functionality (New Clean Implementation) -->
   <script>
   (function() {
     'use strict';
@@ -1743,6 +1738,5 @@ STANDARDS: Every Page v3.010.301 · Production Template · Unified Nav v3.010.30
     });
   })();
   </script>
->>>>>>> 4aa11716 (FIX: Add missing navigation script to 477 HTML pages)
 </body>
 </html>
