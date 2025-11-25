@@ -725,6 +725,49 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         display: none;
       }
     }
+
+    /* Hero section */
+    .hero {
+      position: relative;
+      min-height: 320px;
+      max-height: 520px;
+      background: url('/assets/index_hero.webp') center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+
+    .hero-title {
+      position: absolute;
+      left: min(3vw, 1rem);
+      bottom: clamp(.6rem, 2vw, 1.4rem);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .3rem;
+      text-shadow: 0 2px 6px rgba(0,0,0,.45);
+    }
+
+    .hero-title .logo {
+      display: block;
+      width: clamp(189px, 23.1vw, 378px);
+      max-width: min(45vw, 520px);
+      max-height: clamp(180px, 22vw, 320px);
+      height: auto;
+      object-fit: contain;
+    }
+
+    .hero-title .tagline {
+      position: relative;
+      font-weight: 700;
+      letter-spacing: .2px;
+      color: #e6f4f8;
+      font-size: clamp(.9rem, 1.5vw, 1.35rem);
+      white-space: nowrap;
+      margin: 0;
+      padding: 0;
+    }
   </style>
 
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
@@ -896,9 +939,18 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <div class="swiper firstlook" aria-label="Quantum of the Seas photo carousel">
           <div class="swiper-wrapper">
-            
-            
-            
+            <div class="swiper-slide">
+              <img src="/assets/ships/Quantum_of_the_Seas.webp" alt="Quantum of the Seas at sea" loading="lazy" decoding="async"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/0016_Quantum_of_the_Seas.webp" alt="Quantum of the Seas exterior view" loading="lazy" decoding="async"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/0018_Quantum_of_the_Seas_(2).webp" alt="Quantum of the Seas profile" loading="lazy" decoding="async"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/Quantum_of_the_Seas_-_Wedel_04.webp" alt="Quantum of the Seas in port" loading="lazy" decoding="async"/>
+            </div>
           </div>
           <div class="swiper-pagination" aria-hidden="true"></div>
           <div class="swiper-button-prev" aria-label="Previous image"></div>
