@@ -890,49 +890,104 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap" id="main-content" role="main" tabindex="-1">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
-      
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
+  <style>
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 360px !important;
+      }
+    }
 
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Quantum of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-      </p>
+    /* Vertical author card */
+    .author-card-vertical {
+      text-align: center;
+    }
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching Quantum of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-      </p>
+    .author-card-vertical .author-avatar {
+      display: block;
+      width: 96px;
+      height: 96px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+    }
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Cruise Line:</strong> Royal Caribbean</li>
-          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
-        </ul>
-      </div>
-    </section>
+    .author-card-vertical h4 {
+      margin: 0.5rem 0 0.25rem;
+    }
 
+    .author-card-vertical p {
+      margin: 0.25rem 0;
+    }
 
-    <!-- ICP-Lite: Page Intro -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;" aria-label="Quantum of the Seas overview">
+    /* Rail list */
+    .rail-list {
+      display: grid;
+      gap: 1rem;
+    }
+  </style>
+
+    <!-- Right Rail -->
+    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
+      <!-- Quick Answer / Best For / Key Facts -->
+      <section class="page-intro" style="margin: 0 0 1rem 0;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Quantum of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
+        </p>
+
+        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+          <strong>Best For:</strong> Cruisers researching Quantum of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
+        </p>
+
+        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li><strong>Cruise Line:</strong> Royal Caribbean</li>
+            <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
+            <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Author card (Vertical Layout) -->
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </section>
+
+      <!-- Recent Articles rail -->
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    </aside>
+
+    <!-- Main Content Column -->
+    <div style="grid-column: 1; grid-row: 1 / span 999;">
       <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Quantum of the Seas — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
-
-      <p style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope); background: #f7fdff; border-radius: 8px; font-size: 0.95rem; color: #134;">
-        <strong style="display: block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #567; margin-bottom: 0.15rem;">Looking for Quantum of the Seas planning info?</strong>
-        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Royal Caribbean cruise aboard Quantum of the Seas.</span>
-      </p>
 
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Quantum of the Seas tends to suit tech-savvy cruisers and families seeking innovation with cutting-edge technology including North Star observation capsule, RipCord by iFLY skydiving simulator, Two70 transforming venue, and robot bartenders.
         It's ideal if you want Royal Caribbean's signature entertainment and service with groundbreaking experiences like virtual balconies and SeaPlex indoor sports complex.
         If you're looking for the absolute newest Icon class innovations or the massive scale of <a href="/ships.html#oasis-class">Oasis class</a>, you may want to explore those classes instead.
       </p>
-    </section>
-
 
   <!-- Row 1: First Look + Dining -->
-    <section style="grid-column: 1; grid-row: 1 / span 999;" class="grid-2">
+    <section class="grid-2">
       <!-- First Look + Stats -->
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
@@ -1134,33 +1189,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </details>
     </section>
 
-    <!-- Author & Articles -->
-    <section class="grid-2">
-      <aside class="card author-card-vertical" aria-labelledby="author-info" style="text-align: center;">
-        <h2 id="author-info">About the Author</h2>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px; margin: 0 auto 1rem;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h3><a href="/authors/ken-baker.html">Ken Baker</a></h3>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </aside>
-
-      <aside class="card" aria-labelledby="recent-rail-title">
-        <h2 id="recent-rail-title">Recent Stories</h2>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </aside>
-    </section>
-
     <!-- Attribution -->
     <section class="card attributions">
       <h2>Image Attributions</h2>
@@ -1207,6 +1235,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with Royal Caribbean or your travel advisor before booking.</p>
       </details>
     </section>
+
+    </div><!-- Close main content column -->
 
 </main>
 
