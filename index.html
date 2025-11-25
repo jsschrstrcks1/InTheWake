@@ -588,9 +588,8 @@
     bottom: clamp(.6rem, 2vw, 1.4rem);
     z-index: 3;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: .3rem;
+    align-items: flex-end;
+    gap: .6rem;
     text-shadow: 0 2px 6px rgba(0,0,0,.45);
   }
 
@@ -598,10 +597,16 @@
     display: block;
     width: clamp(189px, 23.1vw, 378px);
     max-width: min(45vw, 520px);
+    max-height: clamp(180px, 22vw, 320px);
+    height: auto;
+    object-fit: contain;
   }
 
-  .hero-title .tagline {
-    position: relative;
+  .tagline {
+    position: absolute;
+    left: min(3vw, 1rem);
+    bottom: clamp(.55rem, 1.6vw, 1.1rem);
+    transform: none;
     font-weight: 700;
     letter-spacing: .2px;
     color: #e6f4f8;
@@ -1052,6 +1057,36 @@
         </p>
       </section>
 
+      <!-- FAQ Section (ICP-Lite) -->
+      <section class="card" aria-labelledby="faq-heading">
+        <h3 id="faq-heading">Frequently Asked Questions</h3>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What is In the Wake?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">In the Wake is a cruise planning resource offering free tools, ship comparisons, dining guides, and <a href="/accessibility.html">accessibility</a> information — primarily focused on Royal Caribbean but expanding to other lines. Created by cruisers, for cruisers, with no affiliate sales.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is In the Wake affiliated with any cruise line?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">No. We're independent travelers sharing real-voyage insights. We don't sell cruises, earn commissions, or represent any cruise line. Our goal is honest, helpful information.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What tools does In the Wake offer?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">We provide a drink package calculator, ship comparison database, restaurant menus and pricing, <a href="/stateroom-check.html">stateroom check</a> tool, <a href="/packing-lists.html">packing lists</a>, and <a href="/accessibility.html">accessibility</a> guides — all free and constantly updated from real cruises.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How current is the information?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">We update pages after each sailing and review all content quarterly. Ship details, menus, and prices can change—always verify critical information with your cruise line before booking.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Who runs In the Wake?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">In the Wake is founded and maintained by Ken Baker, a pastor, photographer, and cruise enthusiast with 50+ sailings. Learn more on our <a href="/about-us.html">About page</a>.</p>
+        </details>
+      </section>
+
       <!-- Recent Articles rail -->
       <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
@@ -1064,38 +1099,6 @@
     </aside>
 
 </main>
-
-  <!-- FAQ Section (ICP-Lite) -->
-  <section class="wrap" style="margin-top: 2rem;" aria-labelledby="faq-heading">
-    <div class="card">
-      <h2 id="faq-heading">Frequently Asked Questions</h2>
-
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What is In the Wake?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">In the Wake is a cruise planning resource offering free tools, ship comparisons, dining guides, and <a href="/accessibility.html">accessibility</a> information — primarily focused on Royal Caribbean but expanding to other lines. Created by cruisers, for cruisers, with no affiliate sales.</p>
-      </details>
-
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is In the Wake affiliated with any cruise line?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">No. We're independent travelers sharing real-voyage insights. We don't sell cruises, earn commissions, or represent any cruise line. Our goal is honest, helpful information.</p>
-      </details>
-
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What tools does In the Wake offer?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">We provide a drink package calculator, ship comparison database, restaurant menus and pricing, <a href="/stateroom-check.html">stateroom check</a> tool, <a href="/packing-lists.html">packing lists</a>, and <a href="/accessibility.html">accessibility</a> guides — all free and constantly updated from real cruises.</p>
-      </details>
-
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How current is the information?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">We update pages after each sailing and review all content quarterly. Ship details, menus, and prices can change—always verify critical information with your cruise line before booking.</p>
-      </details>
-
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Who runs In the Wake?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">In the Wake is founded and maintained by Ken Baker, a pastor, photographer, and cruise enthusiast with 50+ sailings. Learn more on our <a href="/about-us.html">About page</a>.</p>
-      </details>
-    </div>
-  </section>
 
   <!-- FOOTER -->
   <footer class="wrap" role="contentinfo">

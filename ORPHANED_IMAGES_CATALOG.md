@@ -1,0 +1,524 @@
+# Orphaned Images Catalog
+
+**Total:** 491 images
+**Estimated Size:** ~276 MB
+
+## By Directory
+
+- **assets/ships/** - 295 images
+- **assets/icons/** - 25 images
+- **ships/assets/images/** - 18 images
+- **assets/** - 17 images
+- **assets/ships/thumbs/** - 16 images
+- **authors/tinas-images/** - 15 images
+- **authors/img/** - 14 images
+- **ships/assets/** - 14 images
+- **ships/rcl/images/** - 14 images
+- **images/** - 12 images
+- **solo/images/** - 11 images
+- **assets/images/restaurants/** - 9 images
+- **assets/articles/** - 8 images
+- **assets/articles/thumbs/** - 4 images
+- **authors/img/ico/** - 4 images
+- **authors/ico/** - 3 images
+- **assets/articles/top-20-questions/** - 2 images
+- **assets/brand/** - 2 images
+- **authors/** - 2 images
+- **ships/assets/img/** - 2 images
+- **ships/** - 2 images
+- **assets/img/** - 1 images
+- **ships/assets/rcl/** - 1 images
+
+## Full List
+
+- assets/Enchantment_of_the_Seas.jpg
+- assets/Enchantment_of_the_Seas.webp
+- assets/Ocean_Liner_MS__Rhapsody_of_the_Seas__(12865387674).jpg
+- assets/Ocean_Liner_MS__Rhapsody_of_the_Seas__(12865387674).webp
+- assets/Vision_of_the_Seas_and_Emerald_Princess.jpg
+- assets/Vision_of_the_Seas_and_Emerald_Princess.webp
+- assets/articles/freedom-of-your-own-wake.jpg
+- assets/articles/ken1.jpg
+- assets/articles/ken1.png
+- assets/articles/ken1.webp
+- assets/articles/ncl-jade.png
+- assets/articles/ncl-jade.webp
+- assets/articles/thumbs/freedom-of-your-own-wake.webp
+- assets/articles/thumbs/ken1.webp
+- assets/articles/thumbs/ncl-jade.webp
+- assets/articles/thumbs/why-i-started-solo-cruising.webp
+- assets/articles/top-20-questions/cover.jpg
+- assets/articles/top-20-questions/cover.webp
+- assets/articles/why-i-started-solo-cruising.jpg
+- assets/articles/why-i-started-solo-cruising.webp
+- assets/brand/logo.png
+- assets/brand/logo.webp
+- assets/grandeur-of-the-seas.jpg
+- assets/grandeur-of-the-seas.webp
+- assets/icons/in_the_wake_icon_128x128.png
+- assets/icons/in_the_wake_icon_128x128.webp
+- assets/icons/in_the_wake_icon_152x152.png
+- assets/icons/in_the_wake_icon_152x152.webp
+- assets/icons/in_the_wake_icon_16x16.png
+- assets/icons/in_the_wake_icon_16x16.webp
+- assets/icons/in_the_wake_icon_180x180.png
+- assets/icons/in_the_wake_icon_180x180.webp
+- assets/icons/in_the_wake_icon_192x192.png
+- assets/icons/in_the_wake_icon_192x192.webp
+- assets/icons/in_the_wake_icon_24x24.png
+- assets/icons/in_the_wake_icon_24x24.webp
+- assets/icons/in_the_wake_icon_256x256.png
+- assets/icons/in_the_wake_icon_256x256.webp
+- assets/icons/in_the_wake_icon_32x32.webp
+- assets/icons/in_the_wake_icon_48x48.png
+- assets/icons/in_the_wake_icon_48x48.webp
+- assets/icons/in_the_wake_icon_512x512.png
+- assets/icons/in_the_wake_icon_512x512.webp
+- assets/icons/in_the_wake_icon_64x64.png
+- assets/icons/in_the_wake_icon_64x64.webp
+- assets/icons/in_the_wake_icon_72x72.png
+- assets/icons/in_the_wake_icon_72x72.webp
+- assets/icons/in_the_wake_icon_96x96.png
+- assets/icons/in_the_wake_icon_96x96.webp
+- assets/images/restaurants/asian-cuisine.svg
+- assets/images/restaurants/bbq-grill.svg
+- assets/images/restaurants/buffet.svg
+- assets/images/restaurants/coffee-shop.svg
+- assets/images/restaurants/desserts.svg
+- assets/images/restaurants/mexican-cuisine.svg
+- assets/images/restaurants/pizza.svg
+- assets/images/restaurants/seafood.svg
+- assets/images/restaurants/steakhouse.svg
+- assets/img/Cordelia_Empress_Food_Court.jpg
+- assets/logo_wake.webp
+- assets/logo_wake_1120.png
+- assets/logo_wake_1120.webp
+- assets/logo_wake_256.webp
+- assets/logo_wake_512.png
+- assets/logo_wake_512.webp
+- assets/logo_wake_560.webp
+- assets/ship-map.jpg
+- assets/ship-map.webp
+- assets/ships/"Explorer_of_the_Seas"_in_Ålesund,_Norwegen.jpg
+- assets/ships/"Quantum_of_the_Seas".jpg
+- assets/ships/"Quantum_of_the_Seas".webp
+- assets/ships/"Rhapsody_of_the_Seas"_in_Queen_Charlotte_Sound_(6256235927).jpg
+- assets/ships/"Rhapsody_of_the_Seas"_in_Queen_Charlotte_Sound_(6256235927).webp
+- assets/ships/"Voyager_of_the_Seas"_(8194516843).jpg
+- assets/ships/"Voyager_of_the_Seas"_(8194516843).webp
+- assets/ships/0016_Quantum_of_the_Seas.webp
+- assets/ships/0018_Quantum_of_the_Seas_(2).webp
+- assets/ships/14-09-02-oslo-RalfR-205.jpg
+- assets/ships/14-09-02-oslo-RalfR-205.webp
+- assets/ships/1993-Independence_of_the_seas_na_Coruña.jpg
+- assets/ships/1993-Independence_of_the_seas_na_Coruña.webp
+- assets/ships/1996_Sun_Viking_RCL_CRPgf527.jpg
+- assets/ships/2009_05_09_Kirchdorf.webp
+- assets/ships/2560px-14-09-02-oslo-RalfR-187.jpg
+- assets/ships/2560px-14-09-02-oslo-RalfR-187.webp
+- assets/ships/2560px-14-09-02-oslo-RalfR-241.jpg
+- assets/ships/2560px-14-09-02-oslo-RalfR-241.webp
+- assets/ships/2560px-14-09-02-oslo-RalfR-341.jpg
+- assets/ships/2560px-14-09-02-oslo-RalfR-341.webp
+- assets/ships/2560px-BOS_at_Valetta_121410.webp
+- assets/ships/2560px-Bahamas_Cruise_-_CocoCay_-_June_2018_(3390).jpg
+- assets/ships/2560px-Bahamas_Cruise_-_CocoCay_-_June_2018_(3390).webp
+- assets/ships/2560px-Cruise_ship_and_Labadee_beach.jpg
+- assets/ships/2560px-Cruise_ship_and_Labadee_beach.webp
+- assets/ships/2560px-Kobe_Rhapsody_of_the_Seas01n4592.jpg
+- assets/ships/2560px-Kobe_Rhapsody_of_the_Seas01n4592.webp
+- assets/ships/2560px-Kobe_Rhapsody_of_the_Seas03n4592.jpg
+- assets/ships/2560px-Kobe_Rhapsody_of_the_Seas03n4592.webp
+- assets/ships/2560px-Monarch_of_the_seas_(2707258203).jpg
+- assets/ships/2560px-Monarch_of_the_seas_(2707258203).webp
+- assets/ships/2560px-Song_of_Norway_Vigo.jpg
+- assets/ships/Adventure_of_the_Seas_(ship,_2001)_comes_back_to_Grand_Cayman_(April_2025).jpg
+- assets/ships/Adventure_of_the_Seas_(ship,_2001)_comes_back_to_Grand_Cayman_(April_2025).webp
+- assets/ships/Adventure_of_the_Seas_5.jpg
+- assets/ships/Adventure_of_the_Seas_5.webp
+- assets/ships/Adventure_of_the_Seas_7.jpg
+- assets/ships/Adventure_of_the_Seas_7.webp
+- assets/ships/Allure_of_the_Seas_(31597720550).jpg
+- assets/ships/Allure_of_the_Seas_(31597720550).webp
+- assets/ships/Allure_of_the_Seas_(32012231395).jpg
+- assets/ships/Allure_of_the_Seas_(32012231395).webp
+- assets/ships/Allure_of_the_Seas_(7706990924)_(restored).jpg
+- assets/ships/Allure_of_the_Seas_(7706990924)_(restored).webp
+- assets/ships/Allure_of_the_Seas_(ship,_2009)_001.jpg
+- assets/ships/Allure_of_the_Seas_(ship,_2009)_001.webp
+- assets/ships/Allure_of_the_Seas_(ship,_2009)_001_(cropped).jpg
+- assets/ships/Allure_of_the_Seas_(ship,_2009)_001_(cropped).webp
+- assets/ships/Avenida_do_Mar,_Funchal_-_29_Jan_2012_-_SDC15832.webp
+- assets/ships/Bahamas_Cruise_-_ship_exterior_-_June_2018_(2140).jpg
+- assets/ships/Bahamas_Cruise_-_ship_exterior_-_June_2018_(2140).webp
+- assets/ships/Bahamas_Cruise_-_ship_exterior_-_June_2018_(3251).jpg
+- assets/ships/Bahamas_Cruise_-_ship_exterior_-_June_2018_(3251).webp
+- assets/ships/Barbados_Port.jpg
+- assets/ships/Barbados_Port.webp
+- assets/ships/Barco_Pasajeros_en_Progreso_-_panoramio.jpg
+- assets/ships/Barco_Pasajeros_en_Progreso_-_panoramio.webp
+- assets/ships/Brillance_of_the_Seas_passing_Aurland_(17413746643).jpg
+- assets/ships/Brillance_of_the_Seas_passing_Aurland_(17413746643).webp
+- assets/ships/Brilliance_of_the_Seas_Boston_2014_02_(cropped).webp
+- assets/ships/Brilliance_of_the_seas_(2).webp
+- assets/ships/Cádiz_-_Crucero_Star_of_the_Seas,_atracado_en_el_puerto_de_Cádiz_(25_julio_2025)_01.jpg
+- assets/ships/Cádiz_-_Crucero_Star_of_the_Seas,_atracado_en_el_puerto_de_Cádiz_(25_julio_2025)_01.webp
+- assets/ships/Celestyal_Olympia_at_quay_in_Port_of_Rhodes_23_August_2023.jpg
+- assets/ships/Celestyal_Olympia_at_quay_in_Port_of_Rhodes_23_August_2023.webp
+- assets/ships/Cruise_ship_Independence_of_the_Seas_R01.jpg
+- assets/ships/Cruise_ship_Independence_of_the_Seas_R01.webp
+- assets/ships/Cruise_ship_Majesty_of_the_Seas_-_Bahamas_-_Caribbean_Sea_-_Atlantic_Ocean_-_13_May_2009_(cropped)_(cropped).jpg
+- assets/ships/Cruise_ship_Majesty_of_the_Seas_-_Bahamas_-_Caribbean_Sea_-_Atlantic_Ocean_-_13_May_2009_(cropped)_(cropped).webp
+- assets/ships/Enchantment_of_the_Seas.jpg
+- assets/ships/Explorer_of_the_Sea_in_Ålesund.jpg
+- assets/ships/Explorer_of_the_Sea_in_Ålesund.webp
+- assets/ships/Explorer_of_the_Seas,_Fremantle,_2015_(03).webp
+- assets/ships/Forte_do_Pico,_Funchal_-_2012-03-13_-_DSC05607.jpg
+- assets/ships/Forte_do_Pico,_Funchal_-_2012-03-13_-_DSC05607.webp
+- assets/ships/Fotos_del_crucero_"Splendour_of_the_Seas"_de_Royal_Caribbean_en_el_muelle_de_Santa_Catalina_del_Puerto_de_Las_Palmas_de_Gran_Canaria_Islas_Canarias_(6424810807).jpg
+- assets/ships/Fotos_del_crucero_"Splendour_of_the_Seas"_de_Royal_Caribbean_en_el_muelle_de_Santa_Catalina_del_Puerto_de_Las_Palmas_de_Gran_Canaria_Islas_Canarias_(6424810807).webp
+- assets/ships/Fotos_del_crucero_"Splendour_of_the_Seas"_de_Royal_Caribbean_en_el_muelle_de_Santa_Catalina_del_Puerto_de_Las_Palmas_de_Gran_Canaria_Islas_Canarias_(6424818065).jpg
+- assets/ships/Fotos_del_crucero_"Splendour_of_the_Seas"_de_Royal_Caribbean_en_el_muelle_de_Santa_Catalina_del_Puerto_de_Las_Palmas_de_Gran_Canaria_Islas_Canarias_(6424818065).webp
+- assets/ships/Grandeur-of-the-seas-FOM- - 1.jpeg
+- assets/ships/Grandeur-of-the-seas-FOM- - 1.webp
+- assets/ships/Grandeur-of-the-seas-FOM- - 2.jpeg
+- assets/ships/Grandeur-of-the-seas-FOM- - 2.webp
+- assets/ships/Grandeur-of-the-seas-FOM- - 3.jpeg
+- assets/ships/Grandeur-of-the-seas-FOM- - 3.webp
+- assets/ships/Grandeur-of-the-seas-FOM- - 4.jpeg
+- assets/ships/Grandeur-of-the-seas-FOM- - 4.webp
+- assets/ships/Grandeur-of-the-seas-FOM- - 5.jpeg
+- assets/ships/Grandeur-of-the-seas-FOM- - 5.webp
+- assets/ships/Grandeur-of-the-seas-FOM- - 6.jpeg
+- assets/ships/Grandeur-of-the-seas-FOM- - 6.webp
+- assets/ships/Grandeur-of-the-seas-FOM- - 7.jpeg
+- assets/ships/Grandeur-of-the-seas-FOM- - 7.webp
+- assets/ships/Grandeur_of_the_Seas_at_Coco_Cay,_Bahamas.jpg
+- assets/ships/Grandeur_of_the_Seas_at_Coco_Cay,_Bahamas.webp
+- assets/ships/Hafen_von_Piräus_-_panoramio.jpg
+- assets/ships/Hafen_von_Piräus_-_panoramio.webp
+- assets/ships/Harmony-of-the-seas-FOM- - 1.jpeg
+- assets/ships/Harmony-of-the-seas-FOM- - 2.jpeg
+- assets/ships/Icon_and_Mariner_Cozumel_Mexico_2024.webp
+- assets/ships/Icon_of_the_Seas_(cropped).webp
+- assets/ships/Icon_of_the_Seas_(kahunapulej).webp
+- assets/ships/Icon_of_the_Seas_stern_in_Philipsburg,_Sint_Maarten.webp
+- assets/ships/Jewel-of-the-seas-FOM- - 1 (1).jpeg
+- assets/ships/Jewel-of-the-seas-FOM- - 1.jpeg
+- assets/ships/Liberty-of-the-seas-FOM- - 1.jpeg
+- assets/ships/Liberty-of-the-seas-FOM- - 1.webp
+- assets/ships/Liberty-of-the-seas-FOM- - 2.jpeg
+- assets/ships/Liberty-of-the-seas-FOM- - 2.webp
+- assets/ships/Liberty-of-the-seas-FOM- - 3.jpeg
+- assets/ships/Liberty-of-the-seas-FOM- - 3.webp
+- assets/ships/Liberty-of-the-seas-FOM- - 4.jpeg
+- assets/ships/Liberty-of-the-seas-FOM- - 4.webp
+- assets/ships/Liberty-of-the-seas-FOM- - 5.jpeg
+- assets/ships/Liberty-of-the-seas-FOM- - 5.webp
+- assets/ships/Liberty-of-the-seas-FOM- - 6.jpeg
+- assets/ships/Liberty-of-the-seas-FOM- - 6.webp
+- assets/ships/Liberty-of-the-seas-FOM- - 7.jpeg
+- assets/ships/Liberty-of-the-seas-FOM- - 7.webp
+- assets/ships/MSMajestyOfTheSeasEdit1.webp
+- assets/ships/MS_Nordic_Empress_in_Miami_(bigger).jpg
+- assets/ships/MS_Nordic_Empress_in_Miami_(bigger).webp
+- assets/ships/MS_Sovereign_of_the_Seas.jpg
+- assets/ships/MS_Sovereign_of_the_Seas.webp
+- assets/ships/Majesty_of_the_Seas_(ship,_1992)_002.jpg
+- assets/ships/Majesty_of_the_Seas_(ship,_1992)_002.webp
+- assets/ships/Mein_Schiff_2_&_Symphony_of_the_Seas.jpg
+- assets/ships/Mein_Schiff_2_&_Symphony_of_the_Seas.webp
+- assets/ships/Monarch_and_Majesty_in_Nassau,_Bahamas_(cropped).jpg
+- assets/ships/Monarch_and_Majesty_in_Nassau,_Bahamas_(cropped).webp
+- assets/ships/Monarch_of_the_Seas.webp
+- assets/ships/Navigator_of_the_Seas,_Puerto_de_la_Bahía_de_Cádiz.jpg
+- assets/ships/Navigator_of_the_Seas,_Puerto_de_la_Bahía_de_Cádiz.webp
+- assets/ships/Navigator_of_the_Seas_(Grand_Cayman)_001.jpg
+- assets/ships/Navigator_of_the_Seas_(Grand_Cayman)_001.webp
+- assets/ships/Navigator_of_the_Seas_(ship,_2002)_in_Ensenada,_Mexico_(August_2024)_1.jpg
+- assets/ships/Navigator_of_the_Seas_(ship,_2002)_in_Ensenada,_Mexico_(August_2024)_1.webp
+- assets/ships/Navigator_of_the_Seas_arrives_in_Messina.webp
+- assets/ships/NordicEmpress1.jpg
+- assets/ships/NordicEmpress1.webp
+- assets/ships/NordicEmpress1_(cropped)_(cropped).jpg
+- assets/ships/NordicEmpress1_(cropped)_(cropped).webp
+- assets/ships/Oasis-of-the-seas-FOM- - 1.jpeg
+- assets/ships/Oasis-of-the-seas-FOM- - 1.webp
+- assets/ships/Oasis-of-the-seas-FOM- - 2.jpeg
+- assets/ships/Oasis-of-the-seas-FOM- - 2.webp
+- assets/ships/Oasis-of-the-seas-FOM- - 3.jpeg
+- assets/ships/Oasis-of-the-seas-FOM- - 3.webp
+- assets/ships/Oasis-of-the-seas-FOM- - 4.jpeg
+- assets/ships/Oasis-of-the-seas-FOM- - 4.webp
+- assets/ships/Oasis-of-the-seas-FOM- - 5.jpeg
+- assets/ships/Oasis-of-the-seas-FOM- - 5.webp
+- assets/ships/Oasis-of-the-seas-FOM- - 6.jpeg
+- assets/ships/Oasis-of-the-seas-FOM- - 6.webp
+- assets/ships/Oasis-of-the-seas-FOM- - 7.jpeg
+- assets/ships/Oasis-of-the-seas-FOM- - 7.webp
+- assets/ships/Odyssey_of_the_Seas.jpg
+- assets/ships/Odyssey_of_the_Seas.webp
+- assets/ships/Odyssey_of_the_Seas_(53429955475).jpg
+- assets/ships/Odyssey_of_the_Seas_(53429955475).webp
+- assets/ships/Odyssey_of_the_Seas_Abends.jpg
+- assets/ships/Odyssey_of_the_Seas_Abends.webp
+- assets/ships/Quantum_of_the_Seas_-_Wedel_04.jpg
+- assets/ships/Quantum_of_the_Seas_-_Wedel_04.webp
+- assets/ships/RCCL_Symphony_Of_The_Seas_(46801899181).jpg
+- assets/ships/RCCL_Symphony_Of_The_Seas_(46801899181).webp
+- assets/ships/Radiance-of-the-seas-FOM- - 1.jpeg
+- assets/ships/Radiance-of-the-seas-FOM- - 1.webp
+- assets/ships/Radiance-of-the-seas-FOM- - 2.jpeg
+- assets/ships/Radiance-of-the-seas-FOM- - 2.webp
+- assets/ships/Radiance-of-the-seas-FOM- - 3.jpeg
+- assets/ships/Radiance-of-the-seas-FOM- - 3.webp
+- assets/ships/Radiance-of-the-seas-FOM- - 4.jpeg
+- assets/ships/Radiance-of-the-seas-FOM- - 4.webp
+- assets/ships/Radiance-of-the-seas-FOM- - 5.jpeg
+- assets/ships/Radiance-of-the-seas-FOM- - 5.webp
+- assets/ships/Radiance-of-the-seas-FOM- - 6.jpeg
+- assets/ships/Radiance-of-the-seas-FOM- - 6.webp
+- assets/ships/Radiance-of-the-seas-FOM- - 7.jpeg
+- assets/ships/Radiance-of-the-seas-FOM- - 7.webp
+- assets/ships/Radiance-of-the-seas-FOM- - 8.jpeg
+- assets/ships/Radiance-of-the-seas-FOM- - 8.webp
+- assets/ships/Royal_Caribbean_Spectrum_of_the_Seas_19-08-2023(2).jpg
+- assets/ships/Royal_Caribbean_Spectrum_of_the_Seas_19-08-2023(2).webp
+- assets/ships/Royal_Caribbean_Spectrum_of_the_Seas_19-08-2023(4).jpg
+- assets/ships/Royal_Caribbean_Spectrum_of_the_Seas_19-08-2023(4).webp
+- assets/ships/Royal_Caribbean_Spectrum_of_the_Seas_19-08-2023(5).jpg
+- assets/ships/Royal_Caribbean_Spectrum_of_the_Seas_19-08-2023(5).webp
+- assets/ships/Salvador_-_Turismo_no_Carnaval_2010.jpg
+- assets/ships/Salvador_-_Turismo_no_Carnaval_2010.webp
+- assets/ships/Song_of_America,_1983.jpg
+- assets/ships/Song_of_America_1982.jpg
+- assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped)-2.jpg
+- assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped).jpg
+- assets/ships/Sovereign_of_the_Seas_Nassau_Bahamas_(244161813).jpg
+- assets/ships/Sovereign_of_the_Seas_Nassau_Bahamas_(244161813).webp
+- assets/ships/Sovereign_of_the_Seas_Nassau_Bahamas_(244161813)_(cropped)_(cropped).jpg
+- assets/ships/Sovereign_of_the_Seas_Nassau_Bahamas_(244161813)_(cropped)_(cropped).webp
+- assets/ships/Spectrum_of_the_Seas_01.jpg
+- assets/ships/Spectrum_of_the_Seas_01.webp
+- assets/ships/Splendour_of_the_Seas_(at_Split_on_2011-0716).jpg
+- assets/ships/Splendour_of_the_Seas_(at_Split_on_2011-0716).webp
+- assets/ships/Sun_Viking_at_Ocean_Terminal,_Hong_Kong.jpg
+- assets/ships/Sun_Viking_in_Vancouver,_Canada_1990.jpg
+- assets/ships/SymphonyOfTheSeas_(cropped)_02-2.jpg
+- assets/ships/SymphonyOfTheSeas_(cropped)_02-2.webp
+- assets/ships/SymphonyOfTheSeas_(cropped)_02.jpg
+- assets/ships/SymphonyOfTheSeas_(cropped)_02.webp
+- assets/ships/Utopia-of-the-seas-FOM- - 1.jpeg
+- assets/ships/Utopia-of-the-seas-FOM- - 1.webp
+- assets/ships/Utopia-of-the-seas-FOM- - 2.jpeg
+- assets/ships/Utopia-of-the-seas-FOM- - 2.webp
+- assets/ships/Voyageroftheseas.webp
+- assets/ships/Wonder_of_the_Seas_-_August_2021.png
+- assets/ships/Wonder_of_the_Seas_-_August_2021.webp
+- assets/ships/Wonder_of_the_Seas_Jan_30_2025.jpg
+- assets/ships/Wonder_of_the_Seas_Jan_30_2025.webp
+- assets/ships/Wonder_of_the_Seas_atracando_en_Cartagena-España-.jpg
+- assets/ships/Wonder_of_the_Seas_atracando_en_Cartagena-España-.webp
+- assets/ships/brilliance-of-the-seas1.jpeg
+- assets/ships/brilliance-of-the-seas1.webp
+- assets/ships/brilliance-of-the-seas2.jpg
+- assets/ships/brilliance-of-the-seas2.webp
+- assets/ships/enchantment-of-the-seas1.jpeg
+- assets/ships/enchantment-of-the-seas2.jpg
+- assets/ships/freedom-of-the-seas-FOM- - 1.jpeg
+- assets/ships/freedom-of-the-seas-FOM- - 2.jpeg
+- assets/ships/freedom-of-the-seas-FOM- - 3.jpeg
+- assets/ships/grandeur-of-the-seas-1.jpeg
+- assets/ships/grandeur-of-the-seas-1.webp
+- assets/ships/grandeur-of-the-seas-2.jpeg
+- assets/ships/grandeur-of-the-seas-2.webp
+- assets/ships/grandeur-of-the-seas-3.jpeg
+- assets/ships/grandeur-of-the-seas-3.webp
+- assets/ships/jewel-of-the-seas1.jpeg
+- assets/ships/jewel-of-the-seas1.webp
+- assets/ships/jewel-of-the-seas2.jpg
+- assets/ships/jewel-of-the-seas2.webp
+- assets/ships/liberty-radiance-wonder - 1.jpeg
+- assets/ships/liberty-radiance-wonder - 1.webp
+- assets/ships/majesty-of-the-seas1.jpg
+- assets/ships/majesty-of-the-seas1.webp
+- assets/ships/mariner-of-the-seas-FOM- - 1.jpeg
+- assets/ships/mariner-of-the-seas-FOM- - 2.jpeg
+- assets/ships/mariner-of-the-seas-FOM- - 3.jpeg
+- assets/ships/msc-world-america.jpg
+- assets/ships/msc-world-america.webp
+- assets/ships/msc-world-america1.jpeg
+- assets/ships/msc-world-america1.webp
+- assets/ships/ovation-of-the-seas-FOM-1.jpeg
+- assets/ships/ovation-of-the-seas-FOM-10.jpeg
+- assets/ships/ovation-of-the-seas-FOM-11.jpeg
+- assets/ships/ovation-of-the-seas-FOM-2.jpeg
+- assets/ships/ovation-of-the-seas-FOM-3.jpeg
+- assets/ships/ovation-of-the-seas-FOM-4.jpeg
+- assets/ships/ovation-of-the-seas-FOM-5.jpeg
+- assets/ships/ovation-of-the-seas-FOM-6.jpeg
+- assets/ships/ovation-of-the-seas-FOM-7.jpeg
+- assets/ships/ovation-of-the-seas-FOM-8.jpeg
+- assets/ships/ovation-of-the-seas-FOM-9.jpeg
+- assets/ships/radiance-of-the-seas1.jpeg
+- assets/ships/radiance-of-the-seas1.webp
+- assets/ships/radiance-of-the-seas2.jpg
+- assets/ships/radiance-of-the-seas2.webp
+- assets/ships/radiance-of-the-seas3.jpg
+- assets/ships/radiance-of-the-seas3.webp
+- assets/ships/rhapsody-of-the-seas1.jpeg
+- assets/ships/rhapsody-of-the-seas1.webp
+- assets/ships/rhapsody-of-the-seas2.jpg
+- assets/ships/rhapsody-of-the-seas2.webp
+- assets/ships/serenade-of-the-seas-FOM- - 1.jpeg
+- assets/ships/serenade-of-the-seas-FOM- - 1.webp
+- assets/ships/serenade-of-the-seas-FOM- - 2.jpeg
+- assets/ships/serenade-of-the-seas-FOM- - 2.webp
+- assets/ships/serenade-of-the-seas-FOM- - 3.jpeg
+- assets/ships/serenade-of-the-seas-FOM- - 3.webp
+- assets/ships/serenade-of-the-seas-FOM- - 4.jpeg
+- assets/ships/serenade-of-the-seas-FOM- - 4.webp
+- assets/ships/serenade-of-the-seas-FOM- - 5.jpeg
+- assets/ships/serenade-of-the-seas-FOM- - 5.webp
+- assets/ships/serenade-of-the-seas-FOM- - 6.jpeg
+- assets/ships/serenade-of-the-seas-FOM- - 6.webp
+- assets/ships/serenade-of-the-seas-FOM- - 7.jpeg
+- assets/ships/serenade-of-the-seas-FOM- - 7.webp
+- assets/ships/serenade-of-the-seas-FOM- - 8.jpeg
+- assets/ships/serenade-of-the-seas-FOM- - 8.webp
+- assets/ships/serenade-of-the-seas1.jpeg
+- assets/ships/serenade-of-the-seas1.webp
+- assets/ships/serenade-of-the-seas2.jpg
+- assets/ships/serenade-of-the-seas2.webp
+- assets/ships/thumbs/brilliance-of-the-seas.jpg
+- assets/ships/thumbs/brilliance-of-the-seas.webp
+- assets/ships/thumbs/enchantment-of-the-seas.jpg
+- assets/ships/thumbs/enchantment-of-the-seas.webp
+- assets/ships/thumbs/jewel-of-the-seas.jpg
+- assets/ships/thumbs/jewel-of-the-seas.webp
+- assets/ships/thumbs/msc-world-america.jpg
+- assets/ships/thumbs/msc-world-america.webp
+- assets/ships/thumbs/radiance-of-the-seas.jpg
+- assets/ships/thumbs/radiance-of-the-seas.webp
+- assets/ships/thumbs/rhapsody-of-the-seas.jpg
+- assets/ships/thumbs/rhapsody-of-the-seas.webp
+- assets/ships/thumbs/serenade-of-the-seas.jpg
+- assets/ships/thumbs/serenade-of-the-seas.webp
+- assets/ships/thumbs/vision-of-the-seas.jpg
+- assets/ships/thumbs/vision-of-the-seas.webp
+- assets/ships/vision-of-the-seas1.jpeg
+- assets/ships/vision-of-the-seas1.webp
+- assets/ships/vision-of-the-seas2.jpg
+- assets/ships/vision-of-the-seas2.webp
+- authors/ico/tina1ico.webp
+- authors/ico/tina2ico.webp
+- authors/ico/tina3ico.webp
+- authors/img/author_192.webp
+- authors/img/author_96.webp
+- authors/img/ico/ken1ico.webp
+- authors/img/ico/tina1ico.webp
+- authors/img/ico/tina2ico.webp
+- authors/img/ico/tina3ico.webp
+- authors/img/ken1.jpg
+- authors/img/ken1.png
+- authors/img/ken1_192.webp
+- authors/img/tina1.png
+- authors/img/tina1_192.webp
+- authors/img/tina1_96.webp
+- authors/img/tina2.png
+- authors/img/tina2.webp
+- authors/img/tina2_192.webp
+- authors/img/tina2_96.webp
+- authors/img/tina3.png
+- authors/img/tina3_192.webp
+- authors/tina2.webp
+- authors/tina3.webp
+- authors/tinas-images/ncl-jade.png
+- authors/tinas-images/ncl-jade.webp
+- authors/tinas-images/shirt1.png
+- authors/tinas-images/shirt2.png
+- authors/tinas-images/shirt2.webp
+- authors/tinas-images/shirt3.png
+- authors/tinas-images/shirt3.webp
+- authors/tinas-images/shirt4.png
+- authors/tinas-images/shirt4.webp
+- authors/tinas-images/shirt5.png
+- authors/tinas-images/shirt5.webp
+- authors/tinas-images/shirt6.png
+- authors/tinas-images/shirt6.webp
+- authors/tinas-images/tinastanding.png
+- authors/tinas-images/tinastanding.webp
+- images/Bahamas_Cruise_-_ship_interior_-_June_2018_(2224) Medium.jpeg
+- images/Bahamas_Cruise_-_ship_interior_-_June_2018_(2224) Medium.webp
+- images/Enchantment_of_the_Seas.jpeg
+- images/Enchantment_of_the_Seas.webp
+- images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg
+- images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.webp
+- images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg
+- images/Rhapsody_of_the_Seas_(3731959629) Medium.webp
+- images/Rhapsody_of_the_Seas_2 Medium.jpeg
+- images/Rhapsody_of_the_Seas_2 Medium.webp
+- images/enchantment-of-the-seas2.jpeg
+- images/enchantment-of-the-seas2.webp
+- ships/assets/enchantment-of-the-seas1.jpg
+- ships/assets/enchantment-of-the-seas1.webp
+- ships/assets/grandeur-of-the-seas1.jpg
+- ships/assets/grandeur-of-the-seas1.webp
+- ships/assets/images/Bahamas_Cruise_-_ship_interior_-_June_2018_(2224) Medium.jpeg
+- ships/assets/images/Bahamas_Cruise_-_ship_interior_-_June_2018_(2224) Medium.webp
+- ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.jpeg
+- ships/assets/images/Enchantment_of_the_Seas,_San_Juan Medium.webp
+- ships/assets/images/Enchantment_of_the_Seas.jpeg
+- ships/assets/images/Enchantment_of_the_Seas.webp
+- ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.jpeg
+- ships/assets/images/Rhapsody_of_the_Seas_(2)_(6451158929) Medium.webp
+- ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.jpeg
+- ships/assets/images/Rhapsody_of_the_Seas_(3731959629) Medium.webp
+- ships/assets/images/Rhapsody_of_the_Seas_2 Medium.jpeg
+- ships/assets/images/Rhapsody_of_the_Seas_2 Medium.webp
+- ships/assets/images/allure-of-the-seas-3.jpg
+- ships/assets/images/allure-of-the-seas-3.webp
+- ships/assets/images/allure2.jpg
+- ships/assets/images/allure2.webp
+- ships/assets/images/allure3.jpg
+- ships/assets/images/allure3.webp
+- ships/assets/img/Cordelia_Empress_Food_Court.jpg
+- ships/assets/img/Cordelia_Empress_Food_Court.webp
+- ships/assets/rcl/vision-of-the-Seas1.jpg
+- ships/assets/rhapsody-of-the-seas1.jpg
+- ships/assets/rhapsody-of-the-seas1.webp
+- ships/assets/sovereign-of-the-seas1.jpg
+- ships/assets/sovereign-of-the-seas1.webp
+- ships/assets/sovereign-of-the-seas2.jpg
+- ships/assets/sovereign-of-the-seas2.webp
+- ships/assets/sovereign-of-the-seas3.jpg
+- ships/assets/sovereign-of-the-seas3.webp
+- ships/assets/vision-of-the-Seas1.jpg
+- ships/assets/vision-of-the-Seas1.webp
+- ships/radianceots.jpg
+- ships/radianceots.webp
+- ships/rcl/images/Adventure_of_the_Seas1.jpeg
+- ships/rcl/images/Adventure_of_the_Seas1.webp
+- ships/rcl/images/Adventure_of_the_Seas2.jpg
+- ships/rcl/images/Adventure_of_the_Seas2.webp
+- ships/rcl/images/Adventure_of_the_Seas3.jpg
+- ships/rcl/images/Adventure_of_the_Seas3.webp
+- ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg
+- ships/rcl/images/Adventure_of_the_Seas_docked_in_Aruba_2024.webp
+- ships/rcl/images/Adventure_of_the_Seas_pool_area.jpg
+- ships/rcl/images/Adventure_of_the_Seas_pool_area.webp
+- ships/rcl/images/Adventure_of_the_seas_in_Willemstad.jpg
+- ships/rcl/images/Adventure_of_the_seas_in_Willemstad.webp
+- ships/rcl/images/deckplanshero.png
+- ships/rcl/images/deckplanshero.webp
+- solo/images/1024px-American_street_corner_in_suburbia.jpg
+- solo/images/1024px-American_street_corner_in_suburbia.webp
+- solo/images/American_street_corner_in_suburbia.jpg
+- solo/images/Block_party_(Manhattan,_October_4_2008).jpg
+- solo/images/Busy_Waiter.jpg
+- solo/images/Grand_Canyon_National_Park_Visitor_Center_4016_(6971295030).jpg
+- solo/images/High_School_Football_Game_at_New_Canaan_High_School,_CT.jpg
+- solo/images/Restaurant_Bill_1_2013-07-08.jpg
+- solo/images/The_American_Flag_Composed_of_Cupcakes.jpg
+- solo/images/The_American_Flag_Composed_of_Cupcakes.webp
+- solo/images/Valley_View_Yosemite_August_2013_002.jpg
