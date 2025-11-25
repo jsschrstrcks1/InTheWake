@@ -1538,12 +1538,12 @@ STANDARDS: Every Page v3.010.301 · Production Template · Unified Nav v3.010.30
     const wrapper = document.createElement('div');
     wrapper.style.cssText = 'width:100%;height:300px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
 
-    // VesselFinder iframe embed - tracks by IMO
+    // CruiseMapper iframe embed - better for cruise ships
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.vesselfinder.com/ais-map?imo=' + imo + '&zoom=10&width=100%&height=300';
+    iframe.src = 'https://www.cruisemapper.com/ship-tracker/quantum-of-the-seas-802';
 
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
