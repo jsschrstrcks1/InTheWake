@@ -589,14 +589,16 @@
       pointer-events: none;
     }
 
+    /* Hero title and logo positioning (matches index.html pattern) */
     .hero-title {
       position: absolute;
       left: min(3vw, 1rem);
       bottom: clamp(.6rem, 2vw, 1.4rem);
       z-index: 3;
       display: flex;
-      align-items: flex-end;
-      gap: .6rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .3rem;
       text-shadow: 0 2px 6px rgba(0,0,0,.45);
     }
 
@@ -604,13 +606,13 @@
       display: block;
       width: clamp(189px, 23.1vw, 378px);
       max-width: min(45vw, 520px);
+      max-height: clamp(180px, 22vw, 320px);
+      height: auto;
+      object-fit: contain;
     }
 
-    .tagline {
-      position: absolute;
-      left: min(3vw, 1rem);
-      bottom: clamp(.55rem, 1.6vw, 1.1rem);
-      transform: none;
+    .hero-title .tagline {
+      position: relative;
       font-weight: 700;
       letter-spacing: .2px;
       color: #e6f4f8;
@@ -1344,33 +1346,36 @@
         </p>
       </section>
 
-      <!-- Recent Articles -->
-      <section class="card" aria-labelledby="recent-articles-heading">
-        <h3 id="recent-articles-heading">Recent Articles</h3>
+      <!-- FAQ Section (ICP-Lite, matches index.html pattern) -->
+      <section class="card" aria-labelledby="faq-heading">
+        <h3 id="faq-heading">Frequently Asked Questions</h3>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What information does this page provide?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and information about packing lists. Use it alongside official cruise line resources when planning your trip.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides community insights and planning resources. Always confirm details with your cruise line or travel advisor before making final decisions.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I get more help?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">For additional assistance, contact your cruise line or work with a travel advisor who specializes in cruises.</p>
+        </details>
+      </section>
+
+      <!-- Recent Articles rail (matches index.html pattern) -->
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     </aside>
-  
-    <!-- ICP-Lite FAQ Section -->
-    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
-      <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What information does this page provide?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and information about packing lists. Use it alongside official cruise line resources when planning your trip.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides community insights and planning resources. Always confirm details with your cruise line or travel advisor before making final decisions.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I get more help?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">For additional assistance, contact your cruise line directly or work with a travel advisor who specializes in cruises.</p>
-      </details>
-    </section>
 
 </main>
 
