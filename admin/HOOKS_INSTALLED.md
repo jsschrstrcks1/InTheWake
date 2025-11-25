@@ -12,8 +12,14 @@
 
 ### Post-commit Hook
 - **Location:** `.git/hooks/post-commit`
-- **Purpose:** Audit compliance after commit, generate reports
+- **Purpose:** Update task management files (timestamps, thread history)
+- **Script:** Runs `admin/update-unfinished-tasks.sh`
 - **Blocking:** No (informational only)
+
+**Task files updated:**
+- `UNFINISHED_TASKS.md` - Queue of pending tasks
+- `IN_PROGRESS_TASKS.md` - Thread coordination
+- `COMPLETED_TASKS.md` - Archive of finished work
 
 ## Generated Files
 
