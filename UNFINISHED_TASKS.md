@@ -1797,3 +1797,213 @@ This archive is maintained additively - tasks are never removed from this sectio
 - ✅ Shell normalization: 141+ port pages cleaned (under construction notices removed)
 - ✅ Hero logo normalization: 50 ship pages updated to responsive srcset format with fetchpriority="high"
 - ✅ LCP preload hints: Added to 141 port pages (96% of all port pages)
+
+---
+
+## 📋 NEW TASK LIST - Site-Wide Pattern Standardization (2025-11-25)
+
+**Context:** Comprehensive site-wide audit revealed inconsistent patterns across pages. Need to standardize all pages to match `index.html` reference pattern for right rail, author cards, article cards, hero sizing, and footer text.
+
+**Reference Pattern:** `index.html` established as canonical pattern for:
+- Right rail structure (Quick Answer, Best For, Key Facts, Author Card, Article Card)
+- Hero sizing and logo placement
+- Footer text format
+- FAQ placement
+
+### P0 - Critical (Design System Compliance)
+
+#### index.html
+- [ ] Move FAQ beneath cards for accessibility and About Us (not beneath article rail)
+- [ ] Fix "in the wake" → "cruising in the wake" in FAQ section (manual, not script)
+- [ ] Lower logo to match planning.html placement (currently goes outside viewable area)
+
+#### planning.html
+- [ ] Link travel advisor reference to Tina
+- [ ] Update article rails to match index.html pattern (currently outdated with just image + title, missing CTA and Read Article button)
+
+#### ships.html
+- [ ] Add right rail: At a Glance, Key Facts (above Author Card and Article Card)
+- [ ] Use index.html pattern for Author and Article cards
+- [ ] Combine duplicate "Royal Caribbean ships organized by class" cards (one with search, one without)
+- [ ] Set all class sections to start closed EXCEPT Icon class
+- [ ] Hide/comment out "Ship layout" and "Where is the ship" sections
+- [ ] Remove "Recent Stories" and "From the Journal" duplication
+- [ ] Rebuild author/article section based on index.html pattern
+- [ ] Fix logo sticking off top of viewable area
+
+#### restaurants-and-menus.html
+- [ ] Add right rail: Quick Answer, Key Facts, Best For
+- [ ] Add Author and Article cards below (index.html style)
+- [ ] Vary images (currently generic cloche on everything)
+- [ ] Standardize FAQ to match other pages' pattern
+- [ ] Cross-reference pass: ensure every venue links to page, mark missing pages
+- [ ] Move "114 venues loaded" message to beneath header hero OR beneath footer (current placement wrong)
+- [ ] Shred/replace article and author cards with index.html pattern
+- [ ] Fix logo sticking above viewable area (match planning pattern)
+
+#### ports.html (Port Index)
+- [ ] Add right rail: Quick Answer, Key Facts, Best For, etc
+- [ ] Add Author Card and Article Card beneath
+- [ ] Shred/replace existing author/article cards with index.html pattern
+- [ ] Cross-linking pass: link ports with HTML pages that aren't currently linked
+- [ ] Document ports mentioned but lacking pages → add to tasks
+- [ ] Fix logo sticking outside viewable area (match planning)
+
+#### drink-packages.html
+- [ ] Add right rail: Quick Answer, Best For, Key Facts
+- [ ] Add Author Card and Article Card below
+- [ ] Add content: Crown and Anchor loyalty status grants 4-6 free beverages/day
+- [ ] Investigate: logo well-placed here but lower than planning, viewable area bigger
+
+#### stateroom-check.html
+- [ ] Add remaining ships to stateroom check tool
+- [ ] Add right rail: Quick Answer, Best For, Key Facts, Author Card, Article Card (index style)
+- [ ] Standardize header hero size (currently bigger than planning)
+- [ ] Resize hero while keeping horizon centered in viewport
+- [ ] Ensure logo stays within frame (all pages should match)
+
+#### cruise-lines.html
+- [ ] Fix divergent header hero structure (replicate packing pattern)
+- [ ] Add right rail: Quick Answer, How to Use, Key Facts, Author Card, Article Card
+- [ ] Standardize FAQ section to match other pages
+
+#### packing-lists.html
+- [ ] FIX: Infinite scroll bug
+- [ ] Move author/article rails up (currently way far down)
+- [ ] Shred/replace with index.html pattern
+
+#### accessibility.html
+- [ ] Move author card right beneath Key Facts (not down by FAQ)
+- [ ] Standardize header hero and logo to match planning page
+
+#### travel.html
+- [ ] Fix divergent header hero shape (replicate planning)
+- [ ] Update author/article cards to match index.html pattern
+- [ ] FIX: Hundreds of pages of dead space before footer
+
+#### solo.html (Solo Cruising Index)
+- [ ] INVESTIGATE: Article fragments not loading - propose fix
+- [ ] PREFER: Fix solo page frag loader (not the frags)
+- [ ] IF frags carelessly altered: restore to frag format
+- [ ] Update author card to index.html pattern, add Tina after Ken
+- [ ] Article rail should call fragments (not full articles)
+- [ ] SEO: Direct to full articles in /solo/ (not frags in /solo/articles/)
+- [ ] FIX: Thousands of pages of blank space
+- [ ] FIX: Find and kill CSS filter making hero muted colors (want vibrant like index.html)
+- [ ] Move FAQ under main content (not on right rail)
+
+#### port-logbook.html (Port Tracker)
+- [ ] FIX BROKEN: No ports populate regardless of click
+- [ ] Expand to encompass all RCL ports
+- [ ] Add wiring for future cruise line expansion
+
+#### Ship Tracker / Port Tracker (Navigation)
+- [ ] SITE-WIDE: Rename "Ship Tracker" → "Ship Logbook" in nav
+- [ ] SITE-WIDE: Rename "Port Tracker" → "Port Logbook" in nav
+
+#### ship-tracker.html
+- [ ] Add Author, Article, and ICP-Lite elements
+- [ ] Fix hero section divergent pattern
+- [ ] Add "A Cruise Traveler's Logbook" tagline beneath logo (white text)
+- [ ] Standardize hero size (currently larger than most)
+- [ ] Keep horizon centered in viewport
+- [ ] ADD MISSING FOOTER
+
+#### about.html (About Us)
+- [ ] Update article rail to match index.html pattern
+
+### P0 - Individual Ship Pages (ships/rcl/*.html)
+
+**Reference:** Icon of the Seas as example
+
+#### All 50 RCL Ship Pages
+- [ ] Add right rail: Quick Answer, Best For, Key Facts
+- [ ] Add Author and Article cards (index.html pattern) below
+- [ ] Shred "Recent Stories," "Related Articles and Resources" → replace with index.html pattern
+
+#### icon-of-the-seas.html (Specific)
+- [ ] FIX: Map centered on Africa coordinates (should center on actual ship)
+- [ ] FIX: Image attribution cites "Allure of the Seas" but photo shows Icon (verify all attributions)
+
+#### star-of-the-seas.html (Specific)
+- [ ] FIX: No images showing in swiper despite attributions existing
+- [ ] FIX: Allure image in attribution but not displayed on page
+- [ ] FIX: Live tracker works, but apply all Icon page fixes here too
+- [ ] FIX: Some videos marked "private," others NOT for Star of the Seas
+
+#### All Ship Pages - Distance Feature
+- [ ] Integrate fun-distance-units.json feature on ships pages
+- [ ] Review documentation for this feature
+
+### P0 - Individual Port Pages (ports/*.html)
+
+#### All Port Pages
+- [ ] Add right rail: Quick Answer, Key Facts, Best For, etc
+- [ ] Add Author and Article cards (index.html pattern)
+- [ ] Change "A Positively Worded Word of Warning" to better heading
+- [ ] Give "Getting Around" its own card (honor design language)
+- [ ] Give renamed warning section its own card
+- [ ] Shred/replace "About the Author," "Recent Articles," "Recent Stories" with index.html pattern
+
+### P1 - Site-Wide Issues
+
+#### Git Merge Conflicts
+- [ ] SITE-WIDE: Find and remove all instances of:
+  ```
+  <<<<<<< HEAD
+  =======
+  >>>>>>> 4aa11716 (FIX: Add missing navigation script to 477 HTML pages)
+  ```
+
+#### Footer Text Standardization
+- [ ] SITE-WIDE: Current footer varies: `© 2025 In the Wake — A Cruise Traveler's Logbook · Accessibility & WCAG 2.1 AA Commitment`
+- [ ] SITE-WIDE: Replace with standard:
+  ```
+  © 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.
+  Privacy · Terms · About · Accessibility & WCAG 2.1 AA Commitment
+  Soli Deo Gloria
+  ```
+- [ ] Position: Centered under page left column content (not precise center)
+
+#### ICP-Lite Compliance Audit
+- [ ] Run site-wide ICP-Lite audit for full compliance
+- [ ] Document findings
+
+### P2 - Content & Feature Work
+
+#### Orphaned Articles (From Orphan Analysis)
+- [ ] Add 3 orphaned articles to sitemap.xml:
+  - solo/articles/accessible-cruising.html
+  - solo/articles/freedom-of-your-own-wake.html
+  - solo/articles/visiting-the-united-states-before-your-cruise.html
+- [ ] Link from appropriate index pages
+
+#### Orphaned Images Audit
+- [ ] Review ORPHANED_IMAGES_CATALOG.md (491 images, ~276 MB)
+- [ ] Sample 20-30 images to verify usage
+- [ ] Wire orphaned images to appropriate endpoints (per user: "all images are used somewhere")
+- [ ] Document any truly orphaned images for deletion
+
+#### cruise-lines/royal-caribbean.html#vision
+- [ ] Evaluate: Does this page justify existence?
+- [ ] Currently rehashes data from other pages less attractively
+- [ ] Decision needed: Refactor, repurpose, or recycle
+
+### P3 - Investigation & Documentation
+
+#### Distance Units Feature
+- [ ] Locate documentation for fun-distance-units.json
+- [ ] Plan attractive integration on ship pages
+
+#### Logbook JSON Orphans
+- [ ] Verify if assets/data/logbook/rcl/*.json files are dynamically loaded
+- [ ] 50+ ship data files appear orphaned in analysis but may be used
+
+---
+
+**Task Count:** 80+ discrete tasks
+**Estimated Effort:** 60-80 hours for complete standardization
+**Priority:** Design system compliance critical for user trust
+
+**Note:** This list created from comprehensive user audit on 2025-11-25. All tasks require matching reference pattern from index.html.
+
