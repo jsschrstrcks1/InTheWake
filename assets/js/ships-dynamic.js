@@ -437,11 +437,16 @@
     const shipsHtml = ships.map(ship => createShipCard(ship)).join('');
     const shipCount = ships.length;
 
+    // Default to collapsed for all classes EXCEPT Icon Class
+    const isIconClass = className === 'Icon Class';
+    const expandedState = isIconClass ? 'true' : 'false';
+    const collapsedClass = isIconClass ? '' : ' collapsed';
+
     return `
-      <section class="ship-class-section" data-class="${className}">
+      <section class="ship-class-section${collapsedClass}" data-class="${className}">
         <button class="ship-class-toggle"
                 type="button"
-                aria-expanded="true"
+                aria-expanded="${expandedState}"
                 aria-controls="ships-${className.replace(/\s+/g, '-').toLowerCase()}">
           <h2 class="ship-class-title">
             ${className}
@@ -520,7 +525,8 @@
     const toggleAllBtn = document.getElementById('toggleAllClasses');
     if (!toggleAllBtn) return;
 
-    let allExpanded = true;
+    // Start with allExpanded = false since only Icon Class is initially expanded
+    let allExpanded = false;
 
     toggleAllBtn.addEventListener('click', () => {
       const sections = document.querySelectorAll('.ship-class-section');
