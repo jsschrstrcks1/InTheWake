@@ -924,6 +924,36 @@
     /* Removed old horizontal thumbnail layout that conflicted with item-card styles */
     .muted{color:#456}
 
+    /* Hero title and logo positioning (index.html pattern) */
+    .hero-title {
+      position: absolute;
+      left: min(3vw, 1rem);
+      bottom: clamp(.6rem, 2vw, 1.4rem);
+      z-index: 3;
+      display: flex;
+      align-items: flex-end;
+      gap: .6rem;
+      text-shadow: 0 2px 6px rgba(0,0,0,.45);
+    }
+
+    .hero-title .logo {
+      display: block;
+      width: clamp(189px, 23.1vw, 378px);
+      max-width: min(45vw, 520px);
+    }
+
+    .tagline {
+      position: absolute;
+      left: min(3vw, 1rem);
+      bottom: clamp(.55rem, 1.6vw, 1.1rem);
+      transform: none;
+      font-weight: 700;
+      letter-spacing: .2px;
+      color: #e6f4f8;
+      font-size: clamp(.9rem, 1.5vw, 1.35rem);
+      white-space: nowrap;
+    }
+
     /* Ship Search Styles */
     .ship-search-container {
       position: relative;
@@ -1036,62 +1066,44 @@
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
       </div>
-      <nav class="nav" aria-label="Main site navigation">
-        <div class="nav-item">
-          <a href="/">Home</a>
-        </div>
+            <nav class="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
 
         <!-- Planning Dropdown -->
-        <div class="nav-item nav-group" id="nav-planning" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-planning">
-            Planning <span class="caret">▾</span>
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
           </button>
-                    <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
-            <a role="menuitem" href="/planning.html">Planning (overview)</a>
-            <a role="menuitem" href="/ships.html">Ships</a>
-            <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a role="menuitem" href="/ports.html">Ports</a>
-            <a role="menuitem" href="/drink-packages.html">Drink Packages</a>
-            <a role="menuitem" href="/drink-calculator.html">Drink Calculator</a>
-            <a role="menuitem" href="/stateroom-check.html">Stateroom Check</a>
-            <a role="menuitem" href="/cruise-lines.html">Cruise Lines</a>
-            <a role="menuitem" href="/packing-lists.html">Packing Lists</a>
-            <a role="menuitem" href="/accessibility.html">Accessibility</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
 
         <!-- Travel Dropdown -->
-        <div class="nav-item nav-group" id="nav-travel" data-open="false">
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="menu-travel">
-            Travel <span class="caret">▾</span>
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
           </button>
-                    <div id="menu-travel" class="submenu" role="menu" aria-label="Travel submenu">
-            <a role="menuitem" href="/travel.html">Travel (overview)</a>
-            <a role="menuitem" href="/solo.html">Solo</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
           </div>
         </div>
 
-        
-        <div class="nav-item">
-          <a href="/tools/port-tracker.html">Port Tracker</a>
-        </div>
-
-        <div class="nav-item">
-          <a href="/tools/ship-tracker.html">Ship Tracker</a>
-        </div>
-
-
-
-        
-        <div class="nav-item">
-          <a href="/search.html">Search</a>
-        </div>
-
-        <div class="nav-item">
-          <a href="/about-us.html">About</a>
-        </div>
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Tracker</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Tracker</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
-    <!-- Navigation with Dropdown Menus -->
       
     </div>
 
@@ -1396,6 +1408,8 @@
       <p id="fleet-fallback" class="tiny muted" aria-live="polite" style="display:none">Loading ships…</p>
     </section>
 
+    <!-- Removed per P0 standardization: Ship layout and tracker sections moved to individual ship pages -->
+    <!--
     <section class="card" aria-labelledby="deck-plans">
       <h2 id="deck-plans">Ship Layout (Deck Plans)</h2>
       <p>Study the ship's layout—pin your stateroom, elevators, dining, and venues before you sail.</p>
@@ -1407,6 +1421,7 @@
       <p class="tiny muted">Opens in a new tab so you can keep this page handy.</p>
       <p><a class="pill" href="https://www.cruisemapper.com/?live" rel="noopener external">Open Live Ship Tracker</a></p>
     </section>
+    -->
 
     <!-- ICP-Lite v1.0: FAQ Section -->
     <section class="card faq prose" aria-labelledby="faq-heading">
@@ -1492,13 +1507,7 @@
 
     <!-- RIGHT RAIL -->
     <aside class="rail" aria-label="Right rail" style="grid-column: 2; grid-row: 2;">
-      <section class="card" aria-labelledby="jr-title">
-        <h3 id="jr-title">From the Journal</h3>
-        <p class="tiny muted">Articles from our writers' wakes.</p>
-        <div class="rail" id="journal-rail"></div>
-        <p id="journal-rail-fallback" class="tiny" aria-live="polite" style="display:none">Loading articles…</p>
-      </section>
-
+      <!-- Author card (matches index.html pattern) -->
       <section class="card" aria-labelledby="author-title">
         <h3 id="author-title">About the Author</h3>
         <article class="rail-item" role="article" style="display:grid;grid-template-columns:96px 1fr;gap:.75rem;align-items:start">
@@ -1513,6 +1522,7 @@
         </article>
       </section>
 
+      <!-- Ship tracker rail (feature-specific, display:none by default) -->
       <section id="ship-tracker-rail" class="card" aria-labelledby="tracker-title" style="display:none;position:sticky;top:1rem">
         <h3 id="tracker-title">Live Ship Location</h3>
         <p class="tiny muted" id="tracker-ship-name">Hover over a ship to see its live position</p>
@@ -1523,8 +1533,9 @@
         </div>
         <p class="tiny muted">Updates automatically on hover</p>
       </section>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
+
+      <!-- Recent Articles rail (matches index.html pattern) -->
+      <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
@@ -1532,7 +1543,7 @@
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
-    
+
     </aside>
   </main>
 
@@ -1967,7 +1978,60 @@
 
 =======
   <!-- Navigation dropdown functionality -->
-  <script src="/assets/js/newnav.js"></script>
+    <!-- Navigation dropdown functionality (New Clean Implementation) -->
+  <script>
+  (function() {
+    'use strict';
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+    function toggleDropdown(dropdown) {
+      var isOpen = dropdown.classList.contains('open');
+      closeAllDropdowns();
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        var btn = dropdown.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+    function closeAllDropdowns() {
+      dropdowns.forEach(function(dd) {
+        dd.classList.remove('open');
+        var btn = dd.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+    dropdowns.forEach(function(dropdown) {
+      var btn = dropdown.querySelector('button');
+      if (btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDropdown(dropdown);
+        });
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            dropdown.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            var firstLink = dropdown.querySelector('.dropdown-menu a');
+            if (firstLink) firstLink.focus();
+          }
+        });
+      }
+      var menu = dropdown.querySelector('.dropdown-menu');
+      if (menu) {
+        menu.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
+        });
+      }
+    });
+    document.addEventListener('click', function(e) {
+      var isInsideDropdown = false;
+      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
+      if (!isInsideDropdown) closeAllDropdowns();
+    });
+  })();
+  </script>
 >>>>>>> 4aa11716 (FIX: Add missing navigation script to 477 HTML pages)
 </body>
 </html>

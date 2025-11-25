@@ -1,8 +1,8 @@
 #!/bin/bash
-# Intelligent task tracker for UNFINISHED_TASKS.md
-# Automatically marks tasks complete/incomplete based on commits
+# Intelligent task tracker for the three-file task management system
+# Updates UNFINISHED_TASKS.md, IN_PROGRESS_TASKS.md, and COMPLETED_TASKS.md
 # Part of the modular standards system
-# Created: 2025-11-24
+# Updated: 2025-11-25
 
 set -e
 
@@ -15,11 +15,14 @@ YELLOW='\033[1;33m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
 
-TASKS_FILE="UNFINISHED_TASKS.md"
+# Task files
+UNFINISHED_FILE="UNFINISHED_TASKS.md"
+IN_PROGRESS_FILE="IN_PROGRESS_TASKS.md"
+COMPLETED_FILE="COMPLETED_TASKS.md"
 
 # Cleanup trap for temp files
 cleanup() {
-  rm -f "UNFINISHED_TASKS.md.tmp" "UNFINISHED_TASKS.md.tmp.2" 2>/dev/null || true
+  rm -f "${UNFINISHED_FILE}.tmp" "${IN_PROGRESS_FILE}.tmp" "${COMPLETED_FILE}.tmp" 2>/dev/null || true
 }
 trap cleanup EXIT
 
@@ -35,33 +38,8 @@ COMMIT_DATE=$(git log -1 --format='%ci' | cut -d' ' -f1)
 COMMIT_MSG=$(git log -1 --format='%s')
 COMMIT_BODY=$(git log -1 --format='%b')
 BRANCH=$(git branch --show-current)
-FILES_CHANGED=$(git diff-tree --no-commit-id --name-only -r HEAD)
-FILES_COUNT=$(echo "$FILES_CHANGED" | wc -l)
-
-# Check if UNFINISHED_TASKS.md exists
-if [ ! -f "$TASKS_FILE" ]; then
-  echo -e "${YELLOW}⚠️  $TASKS_FILE not found, creating new file${NC}"
-  cat > "$TASKS_FILE" <<EOF
-# Unfinished Tasks
-
-**Generated:** $(date +%Y-%m-%d)
-**Last Updated:** $(date +%Y-%m-%d)
-**Branch:** \`$BRANCH\`
-
----
-
-## 📋 Active Tasks
-
-<!-- Tasks will be automatically tracked here -->
-
----
-
-## 📜 Recent Changes Log
-
-<!-- Commit history will be automatically added here -->
-
-EOF
-fi
+FILES_CHANGED=$(git diff-tree --no-commit-id --name-only -r HEAD 2>/dev/null || echo "")
+FILES_COUNT=$(echo "$FILES_CHANGED" | grep -c . || echo "0")
 
 # Extract commit type from message
 COMMIT_TYPE=$(echo "$COMMIT_MSG" | grep -oE '^[A-Z]+' || echo "CHANGE")
@@ -79,154 +57,65 @@ case "$COMMIT_TYPE" in
   ADMIN)    EMOJI="🔑"; ACTION="configured" ;;
   LINT)     EMOJI="🧹"; ACTION="cleaned" ;;
   STANDARDS) EMOJI="📏"; ACTION="standardized" ;;
+  TASK)     EMOJI="📋"; ACTION="task management" ;;
   *)        EMOJI="📦"; ACTION="changed" ;;
 esac
 
 echo ""
 echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
-echo -e "${BOLD}📋 INTELLIGENT TASK TRACKER${NC}"
+echo -e "${BOLD}📋 THREE-FILE TASK TRACKER${NC}"
 echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
 echo ""
 echo -e "   Commit: ${CYAN}$COMMIT_HASH${NC}"
 echo -e "   Type: ${BLUE}$COMMIT_TYPE${NC} ($ACTION)"
 echo -e "   Message: $EMOJI $COMMIT_MSG"
+echo -e "   Branch: ${CYAN}$BRANCH${NC}"
 echo ""
 
-# Extract keywords from commit message and files changed
-KEYWORDS=$(echo "$COMMIT_MSG $COMMIT_BODY" | tr '[:upper:]' '[:lower:]' | grep -oE '\b[a-z]{4,}\b' | sort -u)
-FILE_KEYWORDS=$(echo "$FILES_CHANGED" | tr '/' '\n' | grep -oE '^[a-z-]+' | sort -u)
-ALL_KEYWORDS=$(echo -e "$KEYWORDS\n$FILE_KEYWORDS" | sort -u)
+# Check if task files exist
+if [ ! -f "$UNFINISHED_FILE" ]; then
+  echo -e "${YELLOW}⚠️  $UNFINISHED_FILE not found${NC}"
+fi
 
-# Function to check if a task matches the current commit
-task_matches_commit() {
-  local task_line="$1"
-  local task_lower=$(echo "$task_line" | tr '[:upper:]' '[:lower:]')
+if [ ! -f "$IN_PROGRESS_FILE" ]; then
+  echo -e "${YELLOW}⚠️  $IN_PROGRESS_FILE not found${NC}"
+fi
 
-  # Check for keyword matches
-  for keyword in $ALL_KEYWORDS; do
-    if echo "$task_lower" | grep -q "$keyword"; then
-      return 0  # Match found
-    fi
-  done
+if [ ! -f "$COMPLETED_FILE" ]; then
+  echo -e "${YELLOW}⚠️  $COMPLETED_FILE not found${NC}"
+fi
 
-  # Check for file name matches
-  for file in $FILES_CHANGED; do
-    local filename=$(basename "$file" | sed 's/\.[^.]*$//')
-    if echo "$task_lower" | grep -q "$filename"; then
-      return 0  # Match found
-    fi
-  done
+# Update timestamps in all files that exist
+for FILE in "$UNFINISHED_FILE" "$IN_PROGRESS_FILE" "$COMPLETED_FILE"; do
+  if [ -f "$FILE" ]; then
+    # Update the "Last Updated" timestamp
+    sed -i "s|\*\*Last Updated:\*\* [0-9-]*|\*\*Last Updated:\*\* $COMMIT_DATE|" "$FILE"
+    echo -e "   ${GREEN}✓${NC} Updated timestamp in $FILE"
+  fi
+done
 
-  return 1  # No match
-}
+# Update IN_PROGRESS_TASKS.md with thread history if it exists
+if [ -f "$IN_PROGRESS_FILE" ]; then
+  # Check if this branch is already in the thread history
+  if ! grep -q "$BRANCH" "$IN_PROGRESS_FILE" 2>/dev/null; then
+    # Add to thread history table if not present
+    HISTORY_LINE="| $BRANCH | $COMMIT_MSG | ACTIVE | $COMMIT_DATE |"
 
-# Function to mark tasks complete or incomplete
-TASKS_COMPLETED=0
-TASKS_REOPENED=0
-TEMP_FILE="${TASKS_FILE}.tmp"
-cp "$TASKS_FILE" "$TEMP_FILE"
-
-# Process tasks based on commit type
-if [ "$COMMIT_TYPE" = "FIX" ] || [ "$COMMIT_TYPE" = "FEAT" ]; then
-  echo -e "${BLUE}🔍 Scanning for matching tasks...${NC}"
-  echo ""
-
-  while IFS= read -r line; do
-    # Check if line is a task (starts with - [ ] or - [x])
-    if echo "$line" | grep -qE '^\s*-\s+\[([ x✓✗])\]'; then
-      TASK_STATUS=$(echo "$line" | grep -oE '\[([ x✓✗])\]' | tr -d '[]')
-      TASK_TEXT=$(echo "$line" | sed -E 's/^\s*-\s+\[[^]]+\]\s*//')
-
-      # Check if this task matches our commit
-      if task_matches_commit "$TASK_TEXT"; then
-        if [ "$TASK_STATUS" = " " ] || [ "$TASK_STATUS" = "✗" ]; then
-          # Mark incomplete task as complete
-          NEW_LINE=$(echo "$line" | sed -E 's/\[([ ✗])\]/[✓]/')
-          sed -i "s|$(echo "$line" | sed 's/[]\/$*.^[]/\\&/g')|$NEW_LINE [$COMMIT_HASH]|" "$TEMP_FILE"
-          echo -e "   ${GREEN}✓${NC} Marked complete: $TASK_TEXT"
-          TASKS_COMPLETED=$((TASKS_COMPLETED + 1))
-        fi
-      fi
-    fi
-  done < "$TASKS_FILE"
-
-  # If this is a FIX but the issue was previously completed, reopen it
-  if [ "$COMMIT_TYPE" = "FIX" ]; then
-    # Check if commit message mentions "still broken" or "not working"
-    if echo "$COMMIT_MSG $COMMIT_BODY" | grep -qiE '(still|broken|not working|failed|error)'; then
-      echo -e "${YELLOW}⚠️  Fix indicates ongoing issue, checking for false completions...${NC}"
-      # This would mark previously completed tasks as incomplete again
+    # Find the thread history section and add entry
+    if grep -q "## Thread History" "$IN_PROGRESS_FILE"; then
+      # Add after the header row
+      sed -i "/^| Thread ID | Task | Status | Date |$/a\\$HISTORY_LINE" "$IN_PROGRESS_FILE" 2>/dev/null || true
+      echo -e "   ${GREEN}✓${NC} Added branch to thread history"
     fi
   fi
 fi
 
-# Add entry to Recent Changes Log
-CHANGELOG_ENTRY="
-### $EMOJI $COMMIT_MSG [\`$COMMIT_HASH\`]
-
-**Date:** $COMMIT_DATE | **Branch:** \`$BRANCH\` | **Files:** $FILES_COUNT
-
-"
-
-# Add details if body exists
-if [ -n "$COMMIT_BODY" ]; then
-  CHANGELOG_ENTRY+="<details>
-<summary>View details</summary>
-
-\`\`\`
-$COMMIT_BODY
-\`\`\`
-</details>
-
-"
-fi
-
-# Add files changed
-if [ $FILES_COUNT -lt 10 ]; then
-  CHANGELOG_ENTRY+="**Files changed:**
-"
-  for file in $FILES_CHANGED; do
-    CHANGELOG_ENTRY+="- \`$file\`
-"
-  done
-  CHANGELOG_ENTRY+="
-"
-fi
-
-CHANGELOG_ENTRY+="---
-"
-
-# Insert changelog entry after "## 📜 Recent Changes Log"
-if grep -q "## 📜 Recent Changes Log" "$TEMP_FILE"; then
-  awk -v entry="$CHANGELOG_ENTRY" '
-    /## 📜 Recent Changes Log/ {
-      print $0
-      print ""
-      print entry
-      skip=1
-      next
-    }
-    { print }
-  ' "$TEMP_FILE" > "${TEMP_FILE}.2"
-  mv "${TEMP_FILE}.2" "$TEMP_FILE"
-fi
-
-# Update the "Last Updated" timestamp
-sed -i "s|\*\*Last Updated:\*\* [0-9-]*|\*\*Last Updated:\*\* $COMMIT_DATE|" "$TEMP_FILE"
-
-# Move temp file to final location
-mv "$TEMP_FILE" "$TASKS_FILE"
-
-# Summary
 echo ""
-if [ $TASKS_COMPLETED -gt 0 ]; then
-  echo -e "   ${GREEN}✓${NC} Marked $TASKS_COMPLETED task(s) as complete"
-fi
-if [ $TASKS_REOPENED -gt 0 ]; then
-  echo -e "   ${YELLOW}↻${NC} Reopened $TASKS_REOPENED task(s) as incomplete"
-fi
-echo -e "   ${CYAN}📝${NC} Added changelog entry to $TASKS_FILE"
-echo ""
+echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
+echo -e "${BOLD}📁 Task Files:${NC}"
+echo -e "   • ${CYAN}$UNFINISHED_FILE${NC} - Queue of pending tasks"
+echo -e "   • ${CYAN}$IN_PROGRESS_FILE${NC} - Thread coordination"
+echo -e "   • ${CYAN}$COMPLETED_FILE${NC} - Archive of finished work"
 echo -e "${BOLD}═══════════════════════════════════════════════════════${NC}"
 echo ""
 

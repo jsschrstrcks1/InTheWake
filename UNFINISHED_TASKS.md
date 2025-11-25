@@ -1,686 +1,100 @@
-# Unfinished Tasks - Both Threads
+# Unfinished Tasks
 
-**Generated:** 2025-11-17
-**Last Updated:** 2025-11-24 (COMPREHENSIVE AUDIT #4 - File-by-file verification after rebase)
-**Last Updated:** 2025-11-24 (Port Tracker COMPLETE, Ship Tracker COMPLETE, Ship Cards Redesign COMPLETE, Master Port Lists created)
-**Last Updated:** 2025-11-24 (COMPREHENSIVE AUDIT #3 added - 368 issues fixed, 10 files created)
-**Threads Tracked:**
-- Thread 1: `claude/evaluate-ai-human-strategy-01L5apYYXXKEUVyhFbyhAgZs`
-- Thread 2: `claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW`
-- Thread 3: `claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9` (AUDIT #3)
-- Thread 4: `claude/thread-safety-fixes-01KFuH1Z9NuXijFsaLjXEJNn` (Performance Optimizations)
-- Current: `claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW` (AUDIT #4 - rebased on main)
+**Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
+**Last Updated:** 2025-11-25
+**Maintained by:** Claude AI (Thread tracking)
 
 ---
 
-## 🔍 COMPREHENSIVE AUDIT #4 (2025-11-23)
+## How This File Works
 
-**Status:** Full file-by-file verification after rebase to latest main
-**Method:** Direct file system checks, git log analysis, pattern matching verification
-**Branch:** `claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW` (after rebase)
-
-### ✅ VERIFIED ACCURATE - All Claims Validated:
-
-| Item | Claimed Status | Actual State | Verification Method |
-|------|---------------|--------------|---------------------|
-| **Total HTML Pages** | 561 pages | ✅ 561 HTML files | `find . -name "*.html" -type f \| wc -l` |
-| **Port Pages** | 147 ports | ✅ 147 HTML files in /ports/ | `find ports -name "*.html" -type f \| wc -l` |
-| **RCL Ship Pages** | 50 ships | ✅ 50 HTML files in /ships/rcl/ | `find ships/rcl -name "*.html" -type f \| wc -l` |
-| **Service Worker** | v13.0.0 | ✅ v13.0.0 (maxPages: 400, maxAssets: 150, maxImages: 600, maxData: 100) | sw.js:1-37 |
-| **Ship Logbooks** | 40 ships (38 active + 2 historic) | ✅ 40 JSON files in /assets/data/logbook/rcl/ | File count verified |
-| **Nordic Prince Logbook** | Created 2025-11-23 | ✅ EXISTS | assets/data/logbook/rcl/nordic-prince.json |
-| **Sun Viking Logbook** | Created 2025-11-23 | ✅ EXISTS | assets/data/logbook/rcl/sun-viking.json |
-| **Port Tracker** | COMPLETE | ✅ EXISTS | tools/port-tracker.html |
-| **Ship Tracker** | COMPLETE | ✅ EXISTS | tools/ship-tracker.html |
-| **Search Page** | EXISTS | ✅ EXISTS | search.html |
-| **Sitemap** | EXISTS | ✅ EXISTS | sitemap.xml |
-| **ICP-Lite Coverage** | 544/561 pages (97%) | ✅ 544 pages with content-protocol meta | `find . -name "*.html" -exec grep -l "content-protocol" {} \; \| wc -l` |
-| **Hawaii Ports** | 5 ports created 2025-11-22 | ✅ All 5 exist | ports/{honolulu,kona,hilo,maui,nawiliwili}.html |
-| **Protocol Docs** | MISSING | ✅ Correctly marked as MISSING | ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md not found |
-| **In the Wake of Grief Article** | COMPLETE | ✅ EXISTS | solo/in-the-wake-of-grief.html |
-| **Accessible Cruising Article** | COMPLETE | ✅ EXISTS | solo/articles/accessible-cruising.html |
-| **Ship Cards CSS** | v1.0.0 COMPLETE | ✅ EXISTS (466 lines) | assets/css/item-cards.css |
-
-### 📄 NEW FILES DISCOVERED (Not Yet Documented):
-
-| File | Size | Purpose | Created | Status |
-|------|------|---------|---------|--------|
-| `PERFORMANCE_OPTIMIZATIONS_COMPLETED.md` | 8.5KB | Performance optimization documentation | 2025-11-23 | ✅ COMPLETE |
-| `SESSION_AUDIT_2025_11_23.md` | 5.8KB | File-by-file verification audit | 2025-11-23 | ✅ COMPLETE |
-| `CACHE_HEADERS_README.md` | 2.7KB | Cache configuration docs | 2025-11-23 | ✅ COMPLETE |
-| `_headers` | 1.6KB | Netlify cache headers | 2025-11-23 | ✅ COMPLETE |
-| `.htaccess` | 2.2KB | Apache cache headers | 2025-11-23 | ✅ COMPLETE |
-| `nginx-cache-headers.conf` | 1.4KB | nginx cache headers | 2025-11-23 | ✅ COMPLETE |
-
-### 🎉 ADDITIONAL DISCOVERIES:
-
-**Performance Optimization Work (Thread 4):**
-- ✅ Cache headers configured for 1-year asset caching
-- ✅ LCP optimizations: fetchpriority="high" added to 479 HTML files
-- ✅ Hero logo responsive sizing fixed across 451 files
-- ✅ Author avatar filenames corrected across 108 files
-- ✅ Restaurant filter bar z-index fix
-- ✅ Solo article loader picture tag fixes
-- **Impact:** 64% reduction in page load size (4,167 KB → ~1,500 KB)
-
-**All AUDIT #3 Files Verified:**
-- ✅ comprehensive_site_audit.py (23KB)
-- ✅ verify_actual_state.py (12KB)
-- ✅ admin/COMPREHENSIVE_SITE_AUDIT_2025_11_19.md (13KB)
-- ✅ admin/THREAD_AUDIT_2025_11_19.md (5.8KB)
-- ✅ admin/VERIFICATION_REPORT_2025_11_19.json
-- ✅ assets/js/venue-boot.js (86 lines)
-- ✅ ships/carnival-cruise-line/index.html
-- ✅ ships/celebrity-cruises/index.html
-- ✅ ships/holland-america-line/index.html
-
-### ❌ NO REGRESSIONS FOUND
-
-All files claimed to exist do exist. All claimed completions are accurate. No hallucinations detected.
-
-### 📋 Documentation Links
-
-**Performance Optimization Documentation:**
-- [PERFORMANCE_OPTIMIZATIONS_COMPLETED.md](PERFORMANCE_OPTIMIZATIONS_COMPLETED.md) - Complete performance work summary
-- [SESSION_AUDIT_2025_11_23.md](SESSION_AUDIT_2025_11_23.md) - File-by-file verification audit
-- [CACHE_HEADERS_README.md](CACHE_HEADERS_README.md) - Cache configuration documentation
-
-**AUDIT #3 Documentation:**
-- [admin/COMPREHENSIVE_SITE_AUDIT_2025_11_19.md](admin/COMPREHENSIVE_SITE_AUDIT_2025_11_19.md) - Full site audit report
-- [admin/THREAD_AUDIT_2025_11_19.md](admin/THREAD_AUDIT_2025_11_19.md) - Thread audit report
-
-**AUDIT #4 Documentation (NEW):**
-- [CONSOLIDATED_TASK_LIST_2025_11_23.md](CONSOLIDATED_TASK_LIST_2025_11_23.md) - **Priority-sorted task list** (Finished/In Progress/Unfinished)
-
-**Historical Task Archive:**
-- See line 1308 below for completed tasks removed from active list
+1. Tasks are organized by priority (P0 = Critical, P1 = High, P2 = Medium, P3 = Low, P4 = Future)
+2. Before starting a task, check IN_PROGRESS_TASKS.md for conflicts
+3. When starting, move the task to IN_PROGRESS_TASKS.md
+4. When complete (user confirmed), move to COMPLETED_TASKS.md
 
 ---
 
-## 🚨 STANDARDS CATASTROPHE & REBUILD (2025-11-23)
+## P0 - Critical (User-facing issues)
 
-**Status:** ⏳ PENDING USER UPLOAD - Comprehensive standards rebuild from 220+ fragments
-**Priority:** P0 - CRITICAL INFRASTRUCTURE
-**Branch:** `claude/repair-and-update-013wGA1z6bayMEXdJTzqU3kc`
+### Fix Duplicate Dropdown JavaScript (15 files)
+**Status:** IN PROGRESS - See IN_PROGRESS_TASKS.md
+**Impact:** Duplicate JS causing potential issues
 
-### Situation
+Files affected:
+- [ ] about-us.html
+- [ ] accessibility.html
+- [ ] cruise-lines.html
+- [ ] offline.html
+- [ ] packing-lists.html
+- [ ] planning.html
+- [ ] admin/reports/articles.html
+- [ ] cruise-lines/carnival.html
+- [ ] cruise-lines/celebrity.html
+- [ ] cruise-lines/disney.html
+- [ ] cruise-lines/msc.html
+- [ ] cruise-lines/norwegian.html
+- [ ] cruise-lines/princess.html
+- [ ] cruise-lines/viking.html
+- [ ] cruise-lines/virgin.html
 
-Lost most current standards. Have 220+ fragments across versions v2.245 - v3.009+ in `/old-files/` directory including:
-- Multiple versions of core standards (main, root, ships, ports, cruise-lines)
-- Specialized standards (articles, solo, restaurants, venues, logbooks, personas, navigation, accessibility, SEO, analytics, attribution, caching, swiper, dining cards)
-- Code examples (.html, .js, .css, .json, .py)
-- Documentation (.md, .txt, .doc, .docx)
-- Archived zip files with nested standards
-
-**CRITICAL:** Current `/standards/` directory also must be included - it contains outdated standards created before 90% of the codebase was written.
-
-### Objective
-
-Create consolidated master standards in `/new-standards/` that:
-1. Represent a **superset of all rules** without losing any information
-2. Are grounded in **current working implementation** (561 HTML files)
-3. Document **EVERYTHING the website does** (even if no fragment mentions it)
-4. Are comprehensive enough to **DELETE /old-files/ and /standards/ directories**
-
-### Preservation Doctrine: "Verified Superset, Reality-Grounded"
-
-**TIER 1 - ALWAYS KEEP:**
-- Current working implementation (what's in 561 HTML files NOW)
-- ITW-Lite Protocol requirements (supersedes contradictory older rules)
-- Unique rules (if appears in any fragment and doesn't conflict)
-- Working code examples (demonstrates patterns, prevents ambiguity)
-
-**TIER 2 - KEEP WITH CONTEXT:**
-- Deprecated rules that explain migration path [DEPRECATED]
-- Pilot/experimental features [PILOT]
-- Version-specific rules (explains why old pages differ)
-- Conflict resolutions (documents decision rationale)
-
-**TIER 3 - DISCARD:**
-- Exact duplicates (byte-for-byte identical)
-- Contradicts current reality with no historical value
-- Vague/incomplete without context ("TBD", orphaned fragments)
-- Dilutes ITW-Lite Protocol
-- Packaging metadata (READMEs about zip files, not standards)
-
-### File Types to Process
-
-- **.md, .txt:** Standards documentation
-- **.doc, .docx:** May need special handling/conversion
-- **.html:** Template examples (canonical implementations)
-- **.js:** Implementation patterns, version numbers, API usage
-- **.css:** Version strings, class conventions, component patterns
-- **.json:** Schema examples, data structures
-- **.py:** Automation expectations, validation logic
-- **.zip:** Extract and examine contents recursively
-
-### Conflict Resolution Priority
-
-When fragments contradict:
-1. **Current Implementation** = truth (verify in 561 HTML files)
-2. **ITW-Lite Protocol** = future direction (supersedes old standards)
-3. **Newest Version** = assumed best (if chronology clear)
-4. **Most Complete** = detailed beats vague
-5. **Most Specific** = ship-specific beats generic
-6. **User Decision** = flag for review if major architectural choice
-
-### Rebuild Process (10 Tasks)
-
-- [✓] **Task 1:** Inventory all fragments (find, count, categorize all files in old-files/ AND /standards/) [43e065f8]
-- [✓] **Task 2:** Extract .zip files recursively [43e065f8]
-- [✓] **Task 3:** Convert/handle .doc/.docx files [43e065f8]
-- [✓] **Task 4:** Create FRAGMENT_INVENTORY.md (complete manifest with metadata) [43e065f8]
-- [✓] **Task 5:** Perform line-by-line comparison, identify exact duplicates [43e065f8]
-- [✓] **Task 6:** Extract unique rules from each fragment [43e065f8]
-- [✓] **Task 7:** Verify standards against current implementation (grep 561 HTML files) [43e065f8]
-- [✓] **Task 8:** Create CONFLICT_RESOLUTIONS.md (document all contradictions and decisions) [43e065f8]
-- [✓] **Task 9:** Build consolidated standards in /new-standards/ with structure: [43e065f8]
-  ```
-  /new-standards/
-  ├── README.md                    # Master overview
-  ├── CHANGELOG.md                 # What changed from fragments
-  ├── REBUILD_AUDIT.md            # All decisions documented
-  ├── FRAGMENT_INVENTORY.md       # Complete source manifest
-  ├── CONFLICT_RESOLUTIONS.md     # Contradictions resolved
-  ├── MIGRATION_GUIDE.md          # Breaking changes guide
-  ├── DEPRECATIONS.md             # Old rules no longer valid
-  ├── VALIDATION_REPORT.md        # Examples tested, cross-refs verified
-  ├── CURRENT_STATE_AUDIT.md      # What's actually implemented
-  ├── VERSION_HISTORY.md          # Version timeline
-  │
-  ├── core/                        # Core global standards
-  │   ├── main-standards.md       # Consolidated global
-  │   ├── versioning-standards.md
-  │   └── url-standards.md
-  │
-  ├── content/                     # Content-specific
-  │   ├── ships-standards.md
-  │   ├── ports-standards.md
-  │   ├── articles-standards.md
-  │   ├── solo-standards.md
-  │   ├── cruise-lines-standards.md
-  │   ├── restaurants-standards.md
-  │   └── venues-standards.md
-  │
-  ├── technical/                   # Technical implementation
-  │   ├── performance-standards.md
-  │   ├── accessibility-standards.md
-  │   ├── seo-standards.md
-  │   ├── image-standards.md
-  │   ├── analytics-standards.md
-  │   └── caching-standards.md
-  │
-  ├── protocols/                   # Content protocols
-  │   ├── ITW-LITE_PROTOCOL.md   # (link to admin/claude/)
-  │   ├── ICP-LITE_PROTOCOL.md
-  │   └── attribution-protocol.md
-  │
-  ├── examples/                    # Canonical code examples
-  │   ├── ship-page-canonical.html
-  │   ├── port-page-canonical.html
-  │   ├── cache-warming-snippet.js
-  │   └── sw-registration.js
-  │
-  └── archive/                     # ALL original fragments preserved
-      ├── README.md               # "How to find original fragments"
-      ├── fragment-sources.json   # Machine-readable map
-      └── [all 220+ original fragments unchanged]
-  ```
-- [✓] **Task 10:** Update admin/claude/ documentation to reference /new-standards/ [43e065f8]
-  - Update STANDARDS_INDEX.md
-  - Update CLAUDE.md
-  - Update CODEBASE_GUIDE.md
-  - Update ITW-LITE_PROTOCOL.md
-  - Prepare for deletion of /old-files/ and /standards/ directories
-
-### Documentation Requirements
-
-For EVERY rule kept, document:
-- **SOURCE:** Which fragment(s) contributed this
-- **STATUS:** [PRODUCTION] / [PILOT] / [DEPRECATED] / [ROADMAP]
-- **VERSION:** When introduced/changed
-- **VERIFIED:** Yes/No - confirmed in current implementation
-- **EXAMPLES:** Link to working code if applicable
-
-For EVERY rule discarded, document in REBUILD_AUDIT.md:
-- **WHAT:** What was discarded
-- **WHY:** Reason (duplicate, contradicts reality, etc.)
-- **WHERE:** Which fragment it came from
-- **WHEN:** Version/date
-
-### Validation Checklist
-
-Before finalizing:
-- [ ] No contradictions within new standards
-- [✓] All cross-references resolve [b11b45c1]
-- [ ] All code examples validate (URLs resolve, JSON validates, HTML parses)
-- [ ] Version numbers consistent
-- [ ] Current implementation matches documented standards
-- [ ] All fragments accounted for (nothing lost)
-- [ ] Conflicts documented with resolutions
-- [ ] Migration guide created for breaking changes
-- [✓] Standards match automation script expectations [43e065f8]
-
-### Key Considerations
-
-1. **Every file matters:** Even .py scripts reveal what automation expects
-2. **Code is truth:** Working HTML/JS/CSS shows actual patterns, trumps written docs
-3. **Version archaeology:** Extract version numbers from all file types to establish chronology
-4. **ITW-Lite supremacy:** Supersedes anything that contradicts or dilutes it
-5. **Current implementation wins:** What's working in 561 HTML files is canonical
-6. **Superset approach:** If unique and doesn't conflict, keep it
-7. **Context preservation:** Deprecated rules help understand migration path
-8. **Archive everything:** Even discarded fragments stay in archive/ for reference
-9. **Cross-validation:** Standards must match what scripts enforce
-10. **Template canonicalization:** Complete working examples become primary docs
-11. **Comprehensive documentation:** Document EVERYTHING the website does (even if no fragment mentions it)
-12. **Deletion readiness:** New standards must allow deletion of /old-files/ and /standards/
-
-### Timeline
-
-- **Phase 1:** User finishes uploading fragments (PENDING)
-- **Phase 2:** Claude performs comprehensive inventory and analysis (2-3 hours)
-- **Phase 3:** User reviews conflict resolutions and makes architectural decisions (1-2 hours)
-- **Phase 4:** Claude builds consolidated standards (2-3 hours)
-- **Phase 5:** Validation and documentation (1 hour)
-- **Phase 6:** Commit and push to branch
-
-### Related Documentation
-
-- [admin/claude/CLAUDE.md](admin/claude/CLAUDE.md) - Claude onboarding guide (created 2025-11-23)
-- [admin/claude/ITW-LITE_PROTOCOL.md](admin/claude/ITW-LITE_PROTOCOL.md) - Content protocol spec
-- [admin/claude/STANDARDS_INDEX.md](admin/claude/STANDARDS_INDEX.md) - Current standards index
-- [admin/claude/CODEBASE_GUIDE.md](admin/claude/CODEBASE_GUIDE.md) - Repository structure
-
-**APPEND-ONLY RULE:** This task will be updated as work progresses. Completed subtasks marked ✅. Archive to Historical Tasks section when complete.
+### Fix Placeholder Image Attributions (4 ships)
+- [ ] Symphony of the Seas - Get proper Wiki Commons URLs
+- [ ] Adventure of the Seas - Get proper Wiki Commons URLs
+- [ ] Enchantment of the Seas - Add proper attributions for 5 images
+- [ ] Explorer of the Seas - Get proper Wiki Commons URLs
 
 ---
 
-## 🔍 COMPREHENSIVE AUDIT #2 (2025-11-23)
+## P1 - High (Content completeness)
 
-**Status:** Full file-by-file verification after rebase and recent PR merges (#172, #171, #170, #169, #168)
+### Articles to Write (3 remaining)
 
-### ✅ VERIFIED ACCURATE (No Changes Needed):
+#### Solo Cruising Expansion
+**Status:** Partial - why-i-started-solo-cruising.html exists but not comprehensive
+- [ ] Expand existing article OR create comprehensive-solo-cruising.html
+- [ ] Cover all solo personas: grief, anxiety, introverts, by-choice, first-time
+- [ ] Add ship size recommendations for solo travelers
+- [ ] FAQ: dining alone, safety, meeting people, solo supplements
 
-| Item | Claimed Status | Actual State | Verification |
-|------|---------------|--------------|--------------|
-| **Service Worker** | v13.0.0 with updated CONFIG | ✅ v13.0.0 (maxPages: 400, maxAssets: 150, maxImages: 600, maxData: 100) | sw.js:1-37 |
-| **Precache Manifest** | v13.0.0 with 52 resources | ✅ v13.0.0 (16 pages, 17 assets, 3 images, 16 data) | precache-manifest.json:1-74 |
-| **Total Port Pages** | 147 ports | ✅ 147 HTML files in /ports/ | Verified |
-| **Hawaii Ports** | 5 ports created 2025-11-22 | ✅ All exist (honolulu, kona, hilo, maui, nawiliwili) | Verified |
-| **ICP-Lite Coverage** | 544/561 pages (97%) | ✅ 544 pages with content-protocol meta tag | Grep verified |
-| **Port Tracker** | 65KB, 2071 lines - COMPLETE | ✅ Matches exactly | tools/port-tracker.html |
-| **Ship Tracker** | 42KB, 1132 lines - COMPLETE | ✅ Matches exactly | tools/ship-tracker.html |
-| **Rhapsody of the Seas** | Still in active service | ✅ Correctly shows "entered service 1997" (no retirement) | Verified revert (354b9c5) |
-| **Hero Logo Normalization** | 50 ship pages updated | ✅ All 50 /ships/rcl/*.html use responsive srcset | Grep verified |
-| **Total HTML Files** | 561 pages | ✅ 561 HTML files | Find verified |
+#### Healing Relationships at Sea
+**Status:** Not created (15+ logbook references)
+- [ ] Write full article page (~3,000 words)
+- [ ] Sections: marriage restoration, family reconciliation, blended families, empty nest
+- [ ] Topics: marriage crisis recovery, estranged relationships, prodigal situations
 
-### 🎉 MAJOR PROGRESSIONS (Better than Documented):
+#### Rest for Wounded Healers
+**Status:** Not created (10+ logbook references)
+- [ ] Write full article page (~2,500 words)
+- [ ] Topics: pastoral burnout, caregiver fatigue, single parent burnout
+- [ ] Sabbath theology section, guilt management, Scripture integration
 
-| Item | Previous Claim | Actual Current State | Impact |
-|------|---------------|----------------------|--------|
-| **Under Construction Notices** | 6 ports have them (Hawaii + portland-maine) | ✅ **0 ports** have them - ALL REMOVED | PROGRESSION: Clean user experience |
-| **LCP Preload Hints** | "30 Northern Europe port pages" | ✅ **141 port pages** have preload hints | PROGRESSION: 4.7x more coverage than documented |
-| **WebP Image References** | P0 #6 "Update WebP references in HTML meta tags" | ✅ **ALL 50 ship pages** use .webp in og:image/twitter:image | PROGRESSION: Task COMPLETE |
-| **Ship Cards Redesign** | P0 #5 "Ship cards redesign" | ✅ **COMPLETE** (commit c09b4e0, item-cards.css v1.0.0) | PROGRESSION: Enhanced CTAs, gradients, hover animations |
+### Protocol Documentation (Missing)
+- [ ] Create standards/ITW-LITE_PROTOCOL_v3.010.lite.md
+- [ ] Create STANDARDS_INDEX_33.md master index
+- [ ] Create/update root CLAUDE.md with AI wiring
 
-### 📊 Ship Cards Redesign Details (COMPLETE):
+### Complete Placeholder Content Pages
+- [ ] /ports.html - Main hub page content (142 individual pages exist)
+- [ ] /drinks.html - Drink packages overview, beverage policies
+- [ ] /restaurants.html - Replace "being built" with actual content
 
-**Commit:** c09b4e0 "REDESIGN: Ship cards with prominent CTAs and better space utilization"
-**CSS File:** /assets/css/item-cards.css (467 lines, 9.5KB)
-
-**Features Implemented:**
-- ✅ Enhanced CTA text: Gradient background, 3px left border accent, subtle shadow
-- ✅ Improved CTA button: Full-width, gradient background, uppercase text, animated arrow (→) on hover
-- ✅ Better visual hierarchy: Larger title (1.2rem, 700 weight), improved spacing with gap property
-- ✅ Enhanced badges: Gradient backgrounds, box-shadows, backdrop blur for modern feel
-- ✅ Improved grid layout: Responsive breakpoints (320px → 360px → 3-col at 1400px), better gaps (1.75-2.5rem)
-- ✅ Better cards: Softer borders (#d4eeee), layered shadows, enhanced hover lift (6px)
-- ✅ Enhanced images: 16:9 aspect ratio, stronger zoom effect (1.08x on hover)
-- ✅ Retired badge styling: Grayscale filter (30%) on images, recolors on hover
-
-**Visual Enhancements:**
-- CTA text: 0.92rem, 1.55 line-height, gradient background (#fafcfc → #f5f9fa), 3px left border
-- CTA button: Gradient from accent to sea, box-shadow, arrow icon slides right 4px on hover
-- Card hover: translateY(-6px), enhanced shadow with accent color tint
-- Image hover: scale(1.08) with smooth cubic-bezier easing
-
-### ❌ REGRESSIONS FOUND: None
-
-All recent PRs (#172 normalize-shell-thread-safety, #171 fix-logo-aspect-ratio, #170, #169 ship-cards-redesign) represent **progressions** or **accurate implementations** of planned work.
+### SEO External Tools Setup
+- [ ] Set up Google Search Console
+- [ ] Set up Bing Webmaster Tools
+- [ ] Set up Google Analytics dashboard for trackers
 
 ---
 
-## 🔍 COMPREHENSIVE AUDIT FINDINGS (2025-11-22)
+## P2 - Medium (Enhancement)
 
-**Major Corrections from Audit:**
+### Port Expansion - Middle East (4 ports)
+- [ ] Dubai, UAE
+- [ ] Abu Dhabi, UAE
+- [ ] Muscat, Oman
+- [ ] Salalah, Oman
 
-| Item | Previous Claim | Actual State | Status |
-|------|---------------|--------------|---------|
-| **Ship Tracker** | ⏳ PLANNED (HIGH PRIORITY NEXT) | ✅ COMPLETE (42KB, 1132 lines) | DONE |
-| **ICP-Lite Coverage** | ~20/409 pages (5%) | 544/561 pages (97%) | MOSTLY COMPLETE |
-| **Total HTML Pages** | 409 pages | 561 pages | +152 pages |
-| **Template v3.010.300** | Deployment unknown | 478 files (85%+) | DEPLOYED |
-| **Port Tracker** | ✅ COMPLETE | ✅ COMPLETE | Accurate ✓ |
-| **Hawaii Port Batch** | ✅ COMPLETE | ✅ COMPLETE | Accurate ✓ |
-
-**Key Takeaways:**
-- Ship Tracker was completed but not documented as such
-- ICP-Lite meta tags nearly site-wide (97%), not 5%
-- Content-level ICP enhancements still pending (expansion plans)
-- 17 pages still need ICP-Lite meta tags
-- WebP images converted but HTML meta tags still reference .jpeg
-- Protocol docs (ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md) still missing
-
-**New Baseline:** This audit serves as the corrected baseline for all future task tracking.
-
----
-
-## 🎯 ENGAGEMENT & TRACKING TOOLS
-
-### ✅ Port Tracker Tool - COMPLETE (2025-11-22)
-**Status:** ✅ COMPLETE - Fully functional at `/tools/port-tracker.html`
-**Location:** /tools/port-tracker.html
-
-**Features implemented:**
-- [x] Interactive checklist of all 142 Royal Caribbean ports
-- [x] Clickable links to individual port pages
-- [x] Statistics dashboard (ports visited, %, countries, continents)
-- [x] 14 achievement bingo cards (ABC Islands, Western Caribbean, Alaska, Mediterranean, etc.)
-- [x] "How You Compare to Other Cruisers" social comparison section
-  - [x] 9 percentile ranking tiers (Top 85% → Top 1%)
-  - [x] Achievement badges (Getting Started → Ultimate Cruiser)
-  - [x] Super Cruiser Club status (50+ ports)
-- [x] Filter/search functionality
-- [x] Export/import data (JSON)
-- [x] Share stats card generator (Canvas API)
-- [x] localStorage persistence
-- [x] Comprehensive Google Analytics tracking (13 event types)
-- [x] Added to main site navigation (18 pages updated)
-
-**Analytics events tracked:**
-1. page_view, 2. port_checked, 3. port_unchecked, 4. port_link_clicked (CONVERSION)
-5. filter_changed, 6. port_search, 7. bingo_completed
-8. achievement_level_reached, 9. share_stats_opened
-10. share_image_downloaded (VIRALITY), 11. data_exported, 12. data_imported, 13. data_reset
-
-### ✅ Ship Tracker Tool - COMPLETE (2025-11-23)
-**Status:** ✅ COMPLETE - Fully functional at `/tools/ship-tracker.html`
-**Location:** /tools/ship-tracker.html
-
-**Features implemented:**
-- [x] Interactive checklist of 28 Royal Caribbean ships
-- [x] Ship class grouping (Oasis, Quantum, Freedom, Voyager, Vision, Radiance, Sovereign)
-- [x] Statistics dashboard (ships sailed, classes completed, total passenger capacity experienced)
-- [x] 10 achievement bingo cards:
-  - [x] 🌊 Oasis Class Collector (5 ships)
-  - [x] ⚡ Quantum Leap (7 ships)
-  - [x] 🎡 Freedom Fighter (6 ships)
-  - [x] 🚀 Voyager Veteran (5 ships)
-  - [x] 👑 Radiance Romance (5 ships)
-  - [x] 🎪 Vision Quest (6 ships)
-  - [x] 🏆 Fleet Master (10+ ships)
-  - [x] ⚓ Class Completionist (sail every ship in a class)
-  - [x] 🌟 Icon Explorer (Icon + Star of the Seas)
-  - [x] 🔥 Newest Ships (ships <5 years old)
-### ✅ Ship Tracker Tool - COMPLETE (2025-11-22)
-**Status:** ✅ COMPLETE - Fully functional at `/tools/ship-tracker.html`
-**Location:** /tools/ship-tracker.html (42KB, 1132 lines)
-**Rebranded as:** "Ship Logbook" in UI
-
-**Features implemented:**
-- [x] Interactive checklist of Royal Caribbean ships
-- [x] Ship class grouping with collapsible sections
-- [x] Statistics dashboard (ships sailed, percentage of fleet, classes completed, capacity, bingos)
-- [x] Achievement bingo cards with progress tracking
-- [x] Filter/search functionality
-- [x] Export/import data (JSON)
-- [x] Share stats card generator (Canvas API)
-- [x] localStorage persistence
-- [x] Comprehensive Google Analytics tracking (7 event types)
-- [x] Integration with existing port tracker data
-
-**Analytics events tracked:**
-1. page_view, 2. ship_checked, 3. ship_unchecked, 4. ship_link_clicked (CONVERSION)
-5. filter_changed, 6. ship_search, 7. bingo_completed
-- [x] Analytics tracking integrated
-- [x] Dynamic badge sorting
-- [x] Collapsible sections with smooth animations
-- [x] Added to main site navigation
-
-**Reference:** See PORT_TRACKER_ROADMAP.md for future multi-cruise-line expansion plans
-
-### Multi-Cruise-Line Tracker Enhancement - FUTURE FEATURE
-**Status:** ⏳ PLANNED - Multi-cruise-line support for Port Tracker and Ship Tracker
-**Priority:** P3 - After Carnival port expansion begins
-**Impact:** Allows users to track ports/ships across multiple cruise lines
-
-**Features planned:**
-- [✓] Cruise line selector dropdown on Port Tracker page [43e065f8]
-  - [ ] Royal Caribbean (current default)
-  - [ ] Carnival Cruise Line
-  - [ ] Virgin Voyages
-  - [ ] Princess Cruises
-  - [ ] Norwegian Cruise Line
-  - [ ] Celebrity Cruises
-  - [ ] Disney Cruise Line
-  - [ ] MSC Cruises
-  - [ ] Holland America Line
-  - [ ] "All Cruise Lines" mode (cross-line tracking)
-
-- [✓] Enhanced Port Tracker features: [43e065f8]
-  - [ ] Show which cruise line(s) visit each port
-  - [ ] Multi-line bingo cards (e.g., "Visit the same port on 3 different cruise lines")
-  - [ ] Cross-cruise-line statistics ("You've visited 47 Royal Caribbean ports and 23 Carnival ports")
-  - [ ] Separate localStorage tracking per cruise line
-  - [ ] Export/import data with cruise line metadata
-
-- [✓] Enhanced Ship Tracker features: [43e065f8]
-  - [ ] Separate ship databases per cruise line
-  - [✓] "Ship Brand Loyalty" achievement (sail 5+ ships from same line) [43e065f8]
-  - [✓] "Line Hopper" achievement (sail ships from 3+ different lines) [43e065f8]
-  - [ ] Cross-line ship class comparisons (Oasis vs Vista vs Edge)
-
-- [ ] UI/UX enhancements:
-  - [ ] Cruise line color coding (Royal: navy, Carnival: red, Virgin: red, etc.)
-  - [ ] Cruise line logos in navigation/headers
-  - [ ] Filter ports/ships by cruise line availability
-  - [ ] "Which cruise line for this port?" comparison tool
-
-- [ ] Analytics tracking:
-  - [ ] cruise_line_selected event
-  - [ ] cross_line_comparison event
-  - [ ] multi_line_achievement event
-
-- [ ] Port page enhancements:
-  - [ ] Show which cruise lines visit each port
-  - [ ] Cruise line-specific tips/notes (e.g., "Carnival tenders here, Royal docks")
-  - [ ] Itinerary length comparison (Carnival: 4-5 day, Royal: 7 day)
-
-**Technical considerations:**
-- Cruise line as metadata field in PORTS_DB array
-- Multi-value support: `cruiseLines: ['royal-caribbean', 'carnival']`
-- Backward compatibility with current Royal-only tracker
-- Default to Royal Caribbean until user selects different line
-- Cookie/localStorage to remember user's preferred cruise line(s)
-
-**Timeline:** Phase 1 after Carnival private islands batch (2026+)
-**Rationale:** Maximize engagement with users who cruise on multiple lines
-
-### ✅ Master Port Lists - COMPLETE (2025-11-23)
-**Status:** ✅ COMPLETE - Comprehensive reference documents for future expansion
-**Location:** /assets/data/ports/
-
-**Files created:**
-- [x] carnival-cruise-line-ports-master-list.md (320+ ports, 29 ships, 2022-2028 data)
-- [x] royal-caribbean-ports-master-list.md (current reference)
-- [x] virgin-voyages-ports-master-list.md (120 ports, 4 ships, adults-only premium)
-- [x] norwegian-cruise-line-ports-master-list.md (420+ ports, 20 ships, Freestyle Cruising)
-- [x] msc-cruises-ports-master-list.md (350+ ports, 23 ships, European focus)
-
-**Purpose:** Reference documents for future multi-cruise-line expansion, port page creation, and tracker enhancements
-
----
-
-## 🔍 COMPREHENSIVE AUDIT #3 (2025-11-19)
-
-**Thread:** `claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9`
-**Branch Status:** Rebased onto main (6d6a531)
-**Verification Scripts:** `comprehensive_site_audit.py`, `verify_actual_state.py`
-**Reports:** `admin/COMPREHENSIVE_AUDIT_2025_11_19.json`, `admin/THREAD_AUDIT_2025_11_19.md`
-
-### Summary
-
-**Total Issues Found:** 1,730 (comprehensive site audit)
-**Issues Fixed:** 368 (195 P0 + 173 P2)
-**Files Created:** 10
-**Files Modified:** 173
-**Lines Removed:** 36,509 (orphan cleanup)
-**Lines Added:** 8,492
-
-### ✅ Files Created This Thread
-
-| File | Size | Purpose | Status |
-|------|------|---------|--------|
-| `comprehensive_site_audit.py` | 22,837 bytes | Site audit script | ✅ EXISTS |
-| `admin/COMPREHENSIVE_AUDIT_2025_11_19.json` | 234,309 bytes | Audit data (1730 issues) | ✅ EXISTS |
-| `admin/COMPREHENSIVE_SITE_AUDIT_2025_11_19.md` | 12,717 bytes | Audit report | ✅ EXISTS |
-| `assets/js/venue-boot.js` | 2,217 bytes | Restaurant page functionality | ✅ EXISTS |
-| `ships/carnival-cruise-line/index.html` | 10,805 bytes | Carnival fleet index (47 ships) | ✅ EXISTS |
-| `ships/celebrity-cruises/index.html` | 8,973 bytes | Celebrity fleet index (29 ships) | ✅ EXISTS |
-| `ships/holland-america-line/index.html` | 10,074 bytes | HAL fleet index (44 ships) | ✅ EXISTS |
-| `verify_actual_state.py` | 327 lines | State verification script | ✅ EXISTS |
-| `admin/VERIFICATION_REPORT_2025_11_19.json` | Machine-readable | Verification data | ✅ EXISTS |
-| `admin/THREAD_AUDIT_2025_11_19.md` | 172 lines | Thread audit report | ✅ EXISTS |
-| `assets/data/logbook/rcl/nordic-prince.json` | 5.8KB | Historic ship logbook (1971-1995) | ✅ EXISTS (2025-11-23) |
-| `assets/data/logbook/rcl/sun-viking.json` | 6.0KB | Historic ship logbook (1972-1998) | ✅ EXISTS (2025-11-23) |
-
-### ✅ P0 Critical Fixes (195 Issues Resolved)
-
-**1. Created 3 Missing Index Files (120 broken links fixed)**
-- ✅ `/ships/carnival-cruise-line/index.html` - 47 ships
-- ✅ `/ships/celebrity-cruises/index.html` - 29 ships
-- ✅ `/ships/holland-america-line/index.html` - 44 ships
-- **Impact:** All ship pages in these 3 directories now have working breadcrumb navigation
-
-**2. Fixed search-index.json (72 broken refs removed)**
-- ✅ Removed 72 non-existent restaurant pages from search index
-- ✅ Kept 204 valid entries
-- ✅ Search functionality no longer returns 404s
-
-**3. Created venue-boot.js (3 restaurant pages fixed)**
-- ✅ `/assets/js/venue-boot.js` (2,217 bytes)
-- ✅ Initializes ship pills
-- ✅ Loads venue data
-- ✅ Fixes: chefs-table.html, chops.html, samba-grill.html
-
-**4. Fixed 3 Invalid JSON Files**
-- ✅ `assets/data/rc_bars_by_class.json` - Removed JS comments
-- ✅ `assets/data/rc_ships_meta.json` - Restructured corrupted data
-- ✅ `assets/data/logbook/rcl/spectrum-of-the-seas.json` - Fixed control characters
-- **Note:** 8 JSON files still need manual review (complex corruption)
-
-### ✅ P2 Medium Fixes (173 Issues Resolved)
-
-**1. Orphan File Cleanup (41 files deleted)**
-- ✅ Deleted `__pycache__/` directory (2 files)
-- ✅ Deleted `vendor/` directory (39 swiper files)
-- ✅ Deleted `cruise-lines/disney.html.bak`
-- **Impact:** 35,709 lines removed, repo cleaned
-
-**2. Added DOCTYPE to 60 Pages**
-- ✅ Fixed browser rendering issues
-- ✅ Affects: disability-at-sea, ports, restaurants, authors, cruise-lines
-
-**3. Removed Console Statements (25 files)**
-- ✅ Cleaned production JavaScript
-- ✅ Removed console.log/warn/error from HTML and JS files
-
-**4. Fixed Lorem Ipsum (47 Carnival ship pages)**
-- ✅ Replaced placeholder text with "Ship details coming soon"
-- ✅ All `ships/carnival/*.html` files cleaned
-
-### Verified State (2025-11-19, updated 2025-11-23)
-
-**Logbooks:**
-- ✅ 40 ships have complete logbooks (38 active/retired + 2 historic added 2025-11-23)
-- ✅ 2 historic ships COMPLETE (nordic-prince, sun-viking) - Added 2025-11-23
-- ❌ 8 future ships (TBN) cannot create until announced
-- ❌ 2 duplicate pages to consolidate
-
-**ICP-Lite Coverage:**
-- ✅ 544 of 561 pages (97.0%) have ICP-Lite meta tags
-- **CORRECTION:** Previous claim of 5% was incorrect
-- ❌ 17 pages still need ICP-Lite meta tags
-
-**SEO Files:**
-- ✅ `search.html` exists (23,688 bytes)
-- ✅ `sitemap.xml` exists (108,035 bytes)
-
-**Protocol Docs:**
-- ❌ `standards/ITW-LITE_PROTOCOL_v3.010.lite.md` - MISSING
-- ❌ `STANDARDS_INDEX_33.md` - MISSING
-- ❌ `CLAUDE.md` - MISSING
-
-### Commits Created This Thread
-
-1. `344768b` - VERIFY: Update task list with confirmed completion status
-2. `9b81da1` - AUDIT: Comprehensive site audit - 1730 issues found
-3. `883e7fd` - FIX: P0 critical fixes - 195 issues resolved
-4. `6d6a531` - FIX: P2 medium priority fixes - 162 files updated
-
-### Remaining Work from Audit
-
-**High Priority (P1):**
-- 8 corrupted JSON files (manual review needed)
-- 401 missing alt attributes (accessibility)
-- 44 dining hero images (all RCL ships)
-- 12 Disney/MSC ship pages (broken links)
-- 3 protocol docs (ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md)
-
-**Medium Priority (P2):**
-- 50 pages with "coming soon" text
-- 3 articles to write (Rest & Recovery, Family Challenges, Healing Relationships)
-- ~~2 historic logbooks (nordic-prince, sun-viking)~~ ✅ COMPLETE 2025-11-23
-
-**Last Verified:** 2025-11-19
-**Verification Method:** File-by-file check via verify_actual_state.py
-**Data Integrity:** No hallucinations - all findings from actual file system checks
-
----
-
-## 🌍 PORT EXPANSION TASKS
-
-**Current Coverage:** 147 ports with individual pages (all have under construction notices)
-**Master Reference:** PORT_TRACKER_ROADMAP.md "Missing Ports by Priority" section
-
-### 📚 Port Master List References
-
-Comprehensive port lists by cruise line (use these for planning future expansion):
-- **Royal Caribbean International**: [assets/data/ports/royal-caribbean-ports-master-list.md](assets/data/ports/royal-caribbean-ports-master-list.md) - 350+ ports, 147 created (42% complete)
-- **Carnival Cruise Line**: [assets/data/ports/carnival-cruise-line-ports-master-list.md](assets/data/ports/carnival-cruise-line-ports-master-list.md) - 320+ ports (future expansion Phase 1-5)
-- **Virgin Voyages**: [assets/data/ports/virgin-voyages-ports-master-list.md](assets/data/ports/virgin-voyages-ports-master-list.md) - ~120 ports (adults-only premium positioning)
-- **MSC Cruises**: [assets/data/ports/msc-cruises-ports-master-list.md](assets/data/ports/msc-cruises-ports-master-list.md) - 380+ ports (European-based, family-friendly)
-- **Norwegian Cruise Line**: [assets/data/ports/norwegian-cruise-line-ports-master-list.md](assets/data/ports/norwegian-cruise-line-ports-master-list.md) - 420+ ports (Freestyle Cruising, port-intensive)
-
-**Cross-reference note:** When creating new port pages, check ALL cruise line lists to identify which lines visit each port. This data will be valuable for the future "Multi-Cruise-Line Tracker Enhancement" (P3 task, see line 143).
-
-### ~~HIGH PRIORITY - Hawaii Batch (5 ports - ZERO coverage currently)~~ ✅ COMPLETE (2025-11-22)
-**Impact:** Major gap closed - Hawaii is popular Royal Caribbean destination
-- [x] Honolulu (Oahu) - ✅ Created 2025-11-22
-- [x] Kona (Big Island) - ✅ Created 2025-11-22
-- [x] Hilo (Big Island) - ✅ Created 2025-11-22
-- [x] Maui (Lahaina/Kahului) - ✅ Created 2025-11-22
-- [x] Nawiliwili (Kauai) - ✅ Created 2025-11-22
-
-### HIGH PRIORITY - Middle East Expansion (4 ports)
-- [ ] Dubai, UAE - Create port page
-- [ ] Abu Dhabi, UAE - Create port page
-- [ ] Muscat, Oman - Create port page
-- [ ] Salalah, Oman - Create port page
-
-### HIGH PRIORITY - Caribbean Completion (8-10 ports)
-**Impact:** Complete coverage of most popular cruise region
+### Port Expansion - Caribbean Completion (8-10 ports)
 - [ ] Antigua (St. John's)
 - [ ] St. Lucia (Castries)
 - [ ] Barbados (Bridgetown)
@@ -690,7 +104,76 @@ Comprehensive port lists by cruise line (use these for planning future expansion
 - [ ] Guadeloupe (Pointe-à-Pitre)
 - [ ] Dominica (Roseau)
 
-### MEDIUM PRIORITY - Asia Expansion (10-15 ports)
+### Image Tasks
+
+#### Download Wiki Commons Images (19 ships)
+After downloading, must add attribution sections to HTML.
+
+**Active Ships (10):**
+- [ ] Allure of the Seas
+- [ ] Anthem of the Seas
+- [ ] Icon of the Seas
+- [ ] Independence of the Seas
+- [ ] Navigator of the Seas
+- [ ] Odyssey of the Seas
+- [ ] Quantum of the Seas
+- [ ] Spectrum of the Seas
+- [ ] Voyager of the Seas
+- [ ] Wonder of the Seas
+
+**Historic/Retired Ships (9):**
+- [ ] Sovereign of the Seas
+- [ ] Monarch of the Seas
+- [ ] Legend of the Seas
+- [ ] Splendour of the Seas
+- [ ] Nordic Empress
+- [ ] Song of Norway
+- [ ] Song of America
+- [ ] Viking Serenade
+- [ ] Sun Viking
+
+#### Image Processing
+- [ ] Convert downloaded images to WebP format
+- [ ] Move to /assets/ships/ directory
+- [ ] Rename to pattern: {ship-slug}1.webp, etc.
+
+#### Image Research
+- [ ] Star of the Seas - Search for construction photos
+- [ ] Nordic Prince - Search for historic ship images
+- [ ] Verify duplicate ships (Legend, Star variants)
+
+### Cruise Line Hub Page Attributions
+- [ ] Carnival.html - Replace placeholders with credited media
+- [ ] Celebrity.html - Replace placeholders with credited media
+- [ ] Disney.html - Replace placeholders with credited media
+- [ ] Holland America.html - Replace placeholders with credited media
+- [ ] MSC.html - Replace placeholders with credited media
+
+### Data Completion
+- [ ] Complete /assets/data/venues.json with all dining venues
+- [ ] Map each ship to its specific venues
+- [ ] Add pricing information for specialty restaurants
+- [ ] Find YouTube ship tour videos for ships without videos
+
+### Technical Tasks
+- [ ] Verify WCAG 2.1 AA compliance across new pages
+- [ ] Test keyboard navigation on dropdown menus
+- [ ] Test screen reader compatibility
+- [ ] Verify all images have proper alt text
+- [ ] Run Google PageSpeed Insights on key pages
+- [ ] Verify lazy loading for all images
+
+### ICP-Lite Content Enhancements
+- [ ] Add H1 + answer line to pilot ship pages
+- [ ] Add fit-guidance cards to ship pages
+- [ ] Add FAQ blocks with structured data
+- [ ] Implement .no-js baseline globally
+
+---
+
+## P3 - Low (Nice to have)
+
+### Port Expansion - Asia (10-15 ports)
 - [ ] Osaka, Japan
 - [ ] Busan, South Korea
 - [ ] Taipei, Taiwan
@@ -700,9 +183,8 @@ Comprehensive port lists by cruise line (use these for planning future expansion
 - [ ] Halong Bay, Vietnam
 - [ ] Penang, Malaysia
 - [ ] Colombo, Sri Lanka
-- [ ] Additional Asia ports (see roadmap)
 
-### MEDIUM PRIORITY - Australia & South Pacific (15-20 ports)
+### Port Expansion - Australia & South Pacific (15-20 ports)
 - [ ] Sydney, Australia
 - [ ] Melbourne, Australia
 - [ ] Brisbane, Australia
@@ -711,1057 +193,85 @@ Comprehensive port lists by cruise line (use these for planning future expansion
 - [ ] Fiji ports
 - [ ] New Caledonia
 - [ ] Vanuatu
-- [ ] Additional Pacific ports (see roadmap)
 
-**For complete port expansion roadmap:** See PORT_TRACKER_ROADMAP.md sections:
-- Missing Ports by Priority (HIGH/MEDIUM/LOWER)
-- Recommended Timeline
-- Success Metrics & KPIs
+### Multi-Cruise-Line Tracker Enhancement
+- [ ] Cruise line selector dropdown on Port/Ship Tracker
+- [ ] Separate ship databases per cruise line
+- [ ] Cross-line tracking and achievements
 
-### FUTURE EXPANSION - Carnival Cruise Line Ports (150-200 new ports)
-**Status:** ⏳ PLANNED - Multi-phase expansion for Carnival coverage (29 ships, 320+ unique ports)
-**Priority:** P4 - After Royal Caribbean core coverage complete
-**Impact:** Adds second major cruise line, doubles potential user base
+### UI/UX Enhancements
+- [ ] Design article rail navigation pattern
+- [ ] Implement article rail site-wide
+- [ ] Review intelligent breadcrumbs implementation
 
-**Carnival-Exclusive/Private Destinations (5 ports - HIGH PRIORITY when starting Carnival):**
-- [ ] Celebration Key (Grand Bahama, Bahamas) - Opening July 2025
-- [ ] Half Moon Cay (Little San Salvador, Bahamas) - Flagship private island
-- [ ] Princess Cays (Eleuthera, Bahamas) - Private beach resort
-- [ ] Amber Cove (Puerto Plata, Dominican Republic) - Private port (may already have Puerto Plata)
-- [ ] Mahogany Bay/Isla Tropicale (Roatan, Honduras) - Private beach club expansion 2026
-
-**Caribbean/Bahamas - Carnival Unique Ports (~15-20 new):**
-- [ ] St. Vincent (Kingstown)
-- [ ] Tobago (Scarborough)
-- [ ] Trinidad (Port of Spain)
-- [ ] La Romana, Dominican Republic
-- [ ] Puerto Limón, Costa Rica
-- [ ] Limón, Costa Rica (verify if duplicate)
-- [ ] Colón, Panama (may already have)
-- [ ] Additional Carnival-specific Caribbean calls
-
-**Alaska - Carnival Unique (~2-3 new):**
-- [ ] Endicott Arm & Dawes Glacier (cruising)
-- [ ] Hubbard Glacier (cruising)
-- [ ] Other Carnival-specific scenic cruising areas
-
-**Europe - Carnival Unique Ports (~40-50 new):**
-
-*Mediterranean:*
-- [ ] Ibiza, Spain
-- [ ] Valencia, Spain
-- [ ] Catania, Sicily, Italy
-- [ ] Cagliari, Sardinia, Italy
-- [ ] Cadiz, Spain
-
-*Northern Europe/Baltic:*
-- [ ] Geiranger, Norway
-- [ ] Olden, Norway
-- [ ] Flam, Norway
-- [ ] Riga, Latvia
-- [ ] Klaipeda, Lithuania
-- [ ] Gdansk/Gdynia, Poland
-- [ ] Kiel, Germany
-- [ ] Hamburg, Germany
-- [ ] Cherbourg, France
-- [ ] Zeebrugge (Bruges), Belgium
-- [ ] Greenock (Glasgow), Scotland
-- [ ] South Queensferry (Edinburgh), Scotland
-- [ ] Dun Laoghaire (Dublin), Ireland
-
-**Australia, New Zealand & South Pacific - ALL NEW (~30-35 ports):**
-
-*Australia:*
-- [ ] Sydney, Australia
-- [ ] Brisbane, Australia
-- [ ] Melbourne, Australia
-- [ ] Adelaide, Australia
-- [ ] Fremantle (Perth), Australia
-- [ ] Hobart, Tasmania
-
-*New Zealand:*
-- [ ] Auckland, New Zealand
-- [ ] Bay of Islands, New Zealand
-- [ ] Wellington, New Zealand
-- [ ] Christchurch (Lyttelton), New Zealand
-- [ ] Dunedin (Port Chalmers), New Zealand
-- [ ] Tauranga, New Zealand
-- [ ] Napier, New Zealand
-- [ ] Picton, New Zealand
-- [ ] Milford Sound (cruising)
-- [ ] Doubtful Sound (cruising)
-
-*South Pacific:*
-- [ ] Nouméa, New Caledonia
-- [ ] Port Vila, Vanuatu
-- [ ] Mystery Island, Vanuatu
-- [ ] Lifou, Loyalty Islands, New Caledonia
-- [ ] Suva, Fiji
-- [ ] Lautoka, Fiji
-- [ ] Dravuni Island, Fiji
-
-**Asia - Carnival Unique (~15-20 new):**
-- [ ] Shanghai (Baoshan), China
-- [ ] Tianjin (Beijing), China
-- [ ] Kobe/Osaka, Japan
-- [ ] Nagasaki, Japan
-- [ ] Jeju, South Korea
-- [ ] Phu My (Ho Chi Minh City), Vietnam
-- [ ] Laem Chabang (Bangkok), Thailand
-- [ ] Chan May (Da Nang/Hue), Vietnam
-- [ ] Bali (Benoa), Indonesia
-- [✓] Additional Asia ports from Carnival world cruises [43e065f8]
-
-**South America - ALL NEW (~10-15 ports):**
-- [ ] Buenos Aires, Argentina
-- [ ] Montevideo, Uruguay
-- [ ] Rio de Janeiro, Brazil
-- [ ] Ushuaia, Argentina (Cape Horn/Drake Passage)
-- [ ] Antarctic Peninsula (cruising)
-- [ ] Punta Arenas, Chile
-- [ ] Valparaíso (Santiago), Chile
-- [ ] Callao (Lima), Peru
-- [ ] Manta, Ecuador
-- [ ] Guayaquil, Ecuador
-
-**Africa & Indian Ocean - ALL NEW (~15-20 ports):**
-- [ ] Cape Town, South Africa
-- [ ] Port Elizabeth (Gqeberha), South Africa
-- [ ] Durban, South Africa
-- [ ] Maputo, Mozambique
-- [ ] Nosy Be, Madagascar
-- [ ] Mahé, Seychelles
-- [ ] Mombasa, Kenya
-- [ ] Zanzibar, Tanzania
-- [ ] Walvis Bay, Namibia
-- [ ] Praia, Cape Verde
-
-**Exotic/Rare World Cruise Ports (~10-15 ports):**
-- [ ] Papeete, French Polynesia
-- [ ] Moorea, French Polynesia
-- [ ] Mumbai, India
-- [ ] Pitcairn Island (weather-dependent)
-- [ ] Easter Island, Chile
-- [ ] Otaru, Japan (2026+)
-- [ ] Additional rare repositioning/world cruise calls
-
-**Carnival Expansion Strategy:**
-- **Phase 1:** Carnival private islands + Caribbean unique ports (20-25 ports)
-- **Phase 2:** Europe unique ports (40-50 ports)
-- **Phase 3:** Australia/NZ/Pacific region (30-35 ports)
-- **Phase 4:** Asia expansion (15-20 ports)
-- **Phase 5:** South America/Africa/exotic (40-50 ports)
-
-**Total Carnival Unique Ports:** ~150-200 new port pages
-**Timeline:** Post Royal Caribbean completion (2026-2027+)
-**Reference:** Carnival operates 29 ships with 320+ unique ports (2022-2028 data)
-
-### FUTURE EXPANSION - Virgin Voyages Ports (15-20 unique ports)
-**Status:** ⏳ PLANNED - Premium/experiential alternative to mass-market focus
-**Priority:** P4 - After Royal Caribbean core coverage, parallel with Carnival
-**Impact:** Adds adults-only premium segment, targets experiential travelers
-**Fleet:** 4 ships (Scarlet Lady, Valiant Lady, Resilient Lady, Brilliant Lady debut Sep 2025)
-**Total Ports:** ~120 ports (curated, quality over quantity)
-
-**Virgin-Exclusive/Unique Ports (~15-20 new ports not in Royal Caribbean):**
-
-**Virgin Private Destination:**
-- [ ] The Beach Club at Bimini (Bahamas) - Virgin's signature private beach club
-
-**Caribbean/Atlantic Unique:**
-- [ ] St. Croix, USVI (Frederiksted)
-- [ ] King's Wharf, Bermuda (NYC roundtrips)
-
-**Europe/Atlantic Coast Unique:**
-- [ ] Bodrum, Turkey (NEW 2026 Med)
-- [ ] Casablanca, Morocco (transatlantic)
-- [ ] Vigo, Spain (transatlantic/Bay of Biscay)
-- [ ] Le Verdon (Bordeaux), France (Bay of Biscay 2025)
-- [ ] La Coruña, Spain (Bay of Biscay)
-- [ ] Bilbao, Spain (Bay of Biscay)
-- [ ] Ponta Delgada (Azores), Portugal (transatlantic)
-
-**Iceland/Greenland Unique:**
-- [ ] Nuuk, Greenland (NEW 2026 Arctic expansion)
-- [ ] Isafjordur, Iceland (NEW 2026)
-
-**Pacific/Central America Unique:**
-- [ ] Puntarenas, Costa Rica (Panama Canal)
-- [ ] Cabo San Lucas, Mexico (West Coast/Panama)
-
-**Australia/NZ Unique:**
-- [ ] Timaru, New Zealand (when/if Australia/NZ resumes post-2026)
-- [ ] Burnie, Tasmania (when/if Australia/NZ resumes post-2026)
-
-**Virgin Voyages Unique Features to Highlight:**
-- Late-night stays: Ships stay until 10pm-midnight for nightlife (Ibiza, Mykonos, San Juan, Cozumel)
-- Overnight stays: Ibiza and Mykonos regular overnights
-- Adults-only (18+): Different port experience focus
-- "Shore Things" curated excursions
-- Premium/experiential vs mass-market
-
-**Virgin Expansion Strategy:**
-- **Phase 1:** Virgin-exclusive ports + premium Caribbean/Atlantic (10-12 ports)
-- **Phase 2:** Virgin signature late-night/overnight experiences (highlight in existing port pages)
-- **Phase 3:** Adults-only content angle for existing shared ports
-
-**Total Virgin Unique Ports:** ~15-20 new port pages (many ports overlap with Royal/Carnival)
-**Timeline:** Post Royal Caribbean core + Carnival Phase 1 (2027+)
-**Reference:** Virgin operates 4 ships with ~120 curated ports (2022-2028 data)
-**Market Position:** Premium/adults-only alternative, experiential focus vs volume
+### Additional Themed Articles
+- [ ] Medical recovery articles (post-cancer, post-stroke, chronic illness)
+- [ ] Mental health articles (anxiety, PTSD/veteran, bipolar/depression)
+- [ ] Family situation articles (infertility grief, adoption, homeschool)
+- [ ] Demographic articles (senior travel, neurodiversity, burn survivors)
+- [ ] Life transition articles (retirement, second marriage, work-life balance)
 
 ---
 
-## 🖼️ IMAGE TASKS
+## P4 - Future Expansion (Post Royal Caribbean completion)
 
-### High Priority: Wiki Commons Image Downloads
-**Status:** 19 ships need images downloaded from Wiki Commons
+### Carnival Cruise Line Expansion (150-200 ports)
+**Timeline:** 2026-2027+ (after Royal Caribbean core complete)
+**Fleet:** 29 ships, 320+ unique ports
 
-**Active Ships (10 ships):**
-- [✓] Allure of the Seas - Download 3-4 images from [74 files](https://commons.wikimedia.org/wiki/Category:Allure_of_the_Seas_(ship,_2010)) [43e065f8]
-- [✓] Anthem of the Seas - Download 3-4 images from [29 files](https://commons.wikimedia.org/wiki/Category:Anthem_of_the_Seas_(ship,_2015)) [43e065f8]
-- [✓] Icon of the Seas - Download 3-4 images from [19 files](https://commons.wikimedia.org/wiki/Category:Icon_of_the_Seas_(ship,_2023)) [43e065f8]
-- [✓] Independence of the Seas - Download 3-4 images from [131 files](https://commons.wikimedia.org/wiki/Category:Independence_of_the_Seas_(ship,_2008)) [43e065f8]
-- [✓] Navigator of the Seas - Download 3-4 images from [multiple files](https://commons.wikimedia.org/wiki/Category:Navigator_of_the_Seas_(ship,_2002)) [43e065f8]
-- [✓] Odyssey of the Seas - Download 3-4 images from [6 files](https://commons.wikimedia.org/wiki/Category:Odyssey_of_the_Seas_(ship,_2021)) [43e065f8]
-- [✓] Quantum of the Seas - Download 3-4 images from [20 files](https://commons.wikimedia.org/wiki/Category:Quantum_of_the_Seas_(ship,_2014)) [43e065f8]
-- [✓] Spectrum of the Seas - Download 3-4 images from [25 files](https://commons.wikimedia.org/wiki/Category:Spectrum_of_the_Seas_(ship,_2019)) [43e065f8]
-- [✓] Voyager of the Seas - Download 3-4 images from [48 files](https://commons.wikimedia.org/wiki/Category:Voyager_of_the_Seas_(ship,_1999)) [43e065f8]
-- [✓] Wonder of the Seas - Download 3-4 images from [11 files](https://commons.wikimedia.org/wiki/Category:Wonder_of_the_Seas_(ship,_2022)) [43e065f8]
+Phases:
+- Phase 1: Carnival private islands + Caribbean unique (20-25 ports)
+- Phase 2: Europe unique ports (40-50 ports)
+- Phase 3: Australia/NZ/Pacific region (30-35 ports)
+- Phase 4: Asia expansion (15-20 ports)
+- Phase 5: South America/Africa/exotic (40-50 ports)
 
-**Historic/Retired Ships (9 ships):**
-- [✓] Sovereign of the Seas - Download 3-4 images from [10 files](https://commons.wikimedia.org/wiki/Category:Sovereign_of_the_Seas_(ship,_1987)) [43e065f8]
-- [✓] Monarch of the Seas - Download 3-4 images from [65 files](https://commons.wikimedia.org/wiki/Category:Monarch_of_the_Seas_(ship,_1991)) [43e065f8]
-- [✓] Legend of the Seas - Download 3-4 images from [58 files](https://commons.wikimedia.org/wiki/Category:Legend_of_the_Seas_(ship,_1995)) [43e065f8]
-- [✓] Splendour of the Seas - Download 3-4 images from [multiple files](https://commons.wikimedia.org/wiki/Category:Splendour_of_the_Seas_(ship,_1996)) [43e065f8]
-- [✓] Nordic Empress - Download 3-4 images from [46 files](https://commons.wikimedia.org/wiki/Category:Nordic_Empress_(ship,_1990)) [43e065f8]
-- [✓] Song of Norway - Download 3-4 images from [3 files](https://commons.wikimedia.org/wiki/Category:Song_of_Norway_(ship,_1970)) [43e065f8]
-- [✓] Song of America - Download 3-4 images from [files available](https://commons.wikimedia.org/wiki/Category:Song_of_America_(ship,_1982)) [43e065f8]
-- [✓] Viking Serenade - Download 3-4 images from [9 files](https://commons.wikimedia.org/wiki/Category:Viking_Serenade_(ship,_1982)) [43e065f8]
-- [✓] Sun Viking - Download 3-4 images from [4 files](https://commons.wikimedia.org/wiki/Category:Sun_Viking_(ship,_1972)) [43e065f8]
+### Virgin Voyages Expansion (15-20 ports)
+**Timeline:** 2027+
+**Fleet:** 4 ships, ~120 curated ports
 
-### Image Processing Tasks
-After downloading each set of images:
-- [ ] Convert all downloaded images to WebP format using `python3 convert_to_webp.py <input>`
-- [✓] Move WebP files to `/assets/ships/` directory [43e065f8]
-- [✓] Rename files to match pattern: `{ship-slug}1.webp`, `{ship-slug}2.webp`, `{ship-slug}3.webp` [43e065f8]
-
-### Image Research Needed
-- [ ] Star of the Seas - Search Wiki Commons for construction photos (2025 debut)
-- [ ] Nordic Prince - Search Wiki Commons for historic ship images
-- [ ] Verify duplicate ships: Legend of the Seas variants (legend-of-the-seas.html vs legend-of-the-seas-1995-built.html vs legend-of-the-seas-icon-class-entering-service-in-2026.html)
-- [ ] Verify duplicate ships: Star of the Seas variants (star-of-the-seas.html vs star-of-the-seas-aug-2025-debut.html)
-
-### Ships Page Image Audit
-- [ ] Audit ships page - ensure all ships in repository have images (check Google/Wikimedia Commons for identification)
-- [ ] Verify all 50 RCL ships have proper images in swipers
-- [ ] Check Carnival ships for image coverage
-- [ ] Check Celebrity ships for image coverage
+### Other Cruise Line Expansions
+- [ ] Princess Cruises
+- [ ] Norwegian Cruise Line
+- [ ] Celebrity Cruises
+- [ ] MSC Cruises
+- [ ] Holland America Line
 
 ---
 
-## 📝 IMAGE ATTRIBUTION TASKS
+## Ship Logbooks - Future Ships (Cannot create yet)
 
-### Fix Placeholder Attributions (4 ships)
-- [ ] Symphony of the Seas - Get proper Wiki Commons URLs for 3 uploaded images (symphony-of-the-seas1.jpeg, symphony-of-the-seas2.jpg, symphony-of-the-seas3.jpg)
-- [ ] Adventure of the Seas - Get proper Wiki Commons URLs and create attribution section
-- [ ] Enchantment of the Seas - Add proper Wiki Commons attributions for 5 images:
-  - 2560px-Bahamas_Cruise_-_CocoCay_-_June_2018_(3390).jpg
-  - 2560px-BOS_at_Valetta_121410.JPG
-  - Bahamas_Cruise_-_ship_exterior_-_June_2018_(2140).jpg
-  - Bahamas_Cruise_-_ship_exterior_-_June_2018_(3251).jpg
-  - Enchantment_of_the_Seas.jpg
-- [ ] Explorer of the Seas - Get proper Wiki Commons URLs and create attribution section
-
-### Add Attribution Sections (When Images Added)
-- [ ] Nordic Prince - Add attribution section when images are uploaded
-- [ ] Sun Viking - Add attribution section when images are uploaded
-
-### CRITICAL: Attribution for 19 Ships Getting Wiki Commons Images
-**Status:** After downloading images from Wiki Commons, MUST get attribution details and add to HTML
-**This is a required follow-up to the image download tasks above**
-
-For EACH of the 19 ships getting Wiki Commons images, must:
-- [ ] Get Wiki Commons details for each image:
-  - Image file URL (e.g., `https://commons.wikimedia.org/wiki/File:Ship_Name.jpg`)
-  - Author name and user URL
-  - License type (CC BY, CC BY-SA, CC BY 2.0, etc.)
-  - License URL
-- [ ] Add attribution section to ship HTML page (before closing `</main>`)
-- [ ] Add figcaption to each swiper image: "Photo served locally (attribution in page footer)."
-- [ ] Verify attribution section renders correctly
-
-**Ships requiring this workflow (19 total):**
-- All 10 active ships (Allure, Anthem, Icon, Independence, Navigator, Odyssey, Quantum, Spectrum, Voyager, Wonder)
-- All 9 historic ships (Sovereign, Monarch, Legend, Splendour, Nordic Empress, Song of Norway, Song of America, Viking Serenade, Sun Viking)
-
-### Attribution for Cruise Line Hub Pages
-**Status:** 5 cruise line pages need credited media attribution
-
-- [ ] Carnival.html - Replace Wikimedia Commons placeholders with final credited media + attribution
-- [ ] Celebrity.html - Replace Wikimedia Commons placeholders with final credited media + attribution
-- [ ] Disney.html - Replace Wikimedia Commons placeholders with final credited media + attribution
-- [ ] Holland America.html - Replace Wikimedia Commons placeholders with final credited media + attribution
-- [ ] MSC.html - Replace Wikimedia Commons placeholders with final credited media + attribution
+These require ship names to be announced:
+- [ ] Discovery-class ship TBN
+- [ ] Icon-class ship TBN 2027
+- [ ] Icon-class ship TBN 2028
+- [ ] Oasis-class ship TBN 2028
+- [ ] Quantum Ultra-class ship TBN 2028
+- [ ] Quantum Ultra-class ship TBN 2029
+- [ ] Star-class ship TBN 2028
+- [ ] Legend of the Seas Icon-class 2026
 
 ---
 
-## 📚 SHIP LOGBOOK TASKS
+## Duplicate Pages to Consolidate
 
-### Ships Missing Logbooks (12 ships - VERIFIED 2025-11-19)
-
-**Future Ships (8 ships - cannot create content yet):**
-- [ ] Discovery-class ship TBN - Create placeholder logbook (when ship announced)
-- [ ] Icon-class ship TBN 2027 - Create placeholder logbook (when ship announced)
-- [ ] Icon-class ship TBN 2028 - Create placeholder logbook (when ship announced)
-- [ ] Oasis-class ship TBN 2028 - Create placeholder logbook (when ship announced)
-- [ ] Quantum Ultra-class ship TBN 2028 - Create placeholder logbook (when ship announced)
-- [ ] Quantum Ultra-class ship TBN 2029 - Create placeholder logbook (when ship announced)
-- [ ] Star-class ship TBN 2028 - Create placeholder logbook (when ship announced)
-- [ ] Legend of the Seas Icon-class 2026 - Create placeholder logbook (when ship announced)
-
-**Duplicate Pages (2 pages - consider consolidation instead):**
-- [ ] legend-of-the-seas-1995-built - Duplicate of legend-of-the-seas.html
-- [ ] star-of-the-seas-aug-2025-debut - Duplicate of star-of-the-seas.html
-
-**Historic Ships Actually Needing Logbooks (2 ships):**
-- [x] Nordic Prince - ✅ Historic logbook created 2025-11-23 (5.8KB, 2 memorial stories)
-- [x] Sun Viking - ✅ Historic logbook created 2025-11-23 (6.0KB, 2 memorial stories)
-
-**Current Ships with Logbooks (38 ships - VERIFIED COMPLETE):**
-- ✅ Adventure of the Seas
-- ✅ Allure of the Seas
-- ✅ Anthem of the Seas
-- ✅ Brilliance of the Seas
-- ✅ Enchantment of the Seas
-- ✅ Explorer of the Seas
-- ✅ Freedom of the Seas
-- ✅ Grandeur of the Seas
-- ✅ Harmony of the Seas
-- ✅ Icon of the Seas
-- ✅ Independence of the Seas
-- ✅ Jewel of the Seas
-- ✅ Legend of the Seas
-- ✅ Liberty of the Seas
-- ✅ Majesty of the Seas
-- ✅ Mariner of the Seas
-- ✅ Monarch of the Seas
-- ✅ Navigator of the Seas
-- ✅ Nordic Empress
-- ✅ Oasis of the Seas
-- ✅ Odyssey of the Seas
-- ✅ Ovation of the Seas
-- ✅ Quantum of the Seas
-- ✅ Radiance of the Seas
-- ✅ Rhapsody of the Seas
-- ✅ Serenade of the Seas
-- ✅ Song of America
-- ✅ Song of Norway
-- ✅ Sovereign of the Seas
-- ✅ Spectrum of the Seas
-- ✅ Splendour of the Seas
-- ✅ Star of the Seas
-- ✅ Symphony of the Seas
-- ✅ Utopia of the Seas
-- ✅ Viking Serenade
-- ✅ Vision of the Seas
-- ✅ Voyager of the Seas
-- ✅ Wonder of the Seas
+- [ ] legend-of-the-seas-1995-built.html (duplicate of legend-of-the-seas.html)
+- [ ] star-of-the-seas-aug-2025-debut.html (duplicate of star-of-the-seas.html)
 
 ---
 
-## 🎨 TEMPLATE & SEO TASKS
+## Reference Documents
 
-### Production Template Deployment
-- [ ] Apply production template (v3.010.300) to all pages if not already done
-- [ ] Test dropdown menus across devices (300ms hover delay)
-- [ ] Verify structured data in Google Rich Results Test
-- [ ] Submit sitemap to Google Search Console
-
-### Short-term SEO Setup (This Week)
-- [x] ~~Create sitemap.xml~~ - ✅ EXISTS (11,112 bytes at /sitemap.xml, also /solo/sitemap.xml)
-- [ ] Set up Google Search Console
-- [ ] Set up Bing Webmaster Tools
-- [x] ~~Add search functionality for SearchAction schema~~ - ✅ search.html EXISTS
-
-### Long-term SEO (This Month)
-- [ ] Monitor search performance in Google Search Console
-- [ ] Track rich snippet appearance in search results
-- [ ] Analyze social sharing metrics
-- [ ] Optimize based on search queries
+For detailed planning, see:
+- PORT_TRACKER_ROADMAP.md - Port expansion priorities and timeline
+- admin/FIVE_ARTICLE_CATEGORIES.md - Article categories with logbook references
+- assets/data/ports/*-master-list.md - Cruise line port inventories
 
 ---
 
-## 📊 SHIP DATA TASKS
-
-### Ship Stats JSON Files
-**Status:** Need to verify which ships are missing stats JSON files
-
-All 50 ships should have stats JSON at:
-- `/assets/data/ships/{ship-slug}.json` OR
-- `/ships/rcl/assets/{ship-slug}.json`
-
-**Priority ships needing verification:**
-- [ ] Verify all future ships (TBN) have placeholder stats
-- [ ] Verify all historic ships have accurate stats
-- [ ] Verify duplicate ships (Legend, Star variants) have correct data
-
-### Dining Venues Data
-- [ ] Complete `/assets/data/venues.json` with all Royal Caribbean dining venues
-- [ ] Map each ship to its specific venues
-- [ ] Add pricing information for specialty restaurants
-- [✓] Add descriptions for all venue categories [43e065f8]
-
-### Video Data
-- [✓] Create video JSON files for ships missing them (`/assets/data/videos/{ship-slug}.json`) [43e065f8]
-- [ ] Find YouTube ship tour videos for ships without videos
-- [ ] Add accessible stateroom walkthrough videos where available
-
----
-
-## ✍️ CONTENT TASKS
-
-### CRITICAL: Placeholder Content Pages Need Completion
-**Status:** Pages exist but contain placeholder/"coming soon" content only
-
-- [✓] `/drinks.html` - Complete content (currently just "coming soon" meta description) [43e065f8]
-  - Content needed: Drink packages overview, beverage policies, price calculator intro
-- [ ] `/ports.html` - Complete main hub page content (142 individual port pages exist with under construction notices)
-  - Current: Individual port pages exist for 142 ports (all have under construction notices added 2025-11-22)
-  - Content needed: Main hub page with port overview, search/filter, regional breakdowns
-- [✓] `/restaurants.html` - Replace "This page is currently being built" with actual content [43e065f8]
-  - Content needed: Dining guides, menus, restaurant recommendations
-- [✓] Disability-at-Sea articles - JavaScript shows "coming soon", needs actual content [43e065f8]
-  - Content needed: Disability-focused travel articles
-
-### Solo Travel & Life Journey Articles
-**Status:** Analyzed all 32 logbooks - identified 5 core article categories (159 references, 180 themes)
-**Analysis Document:** `admin/FIVE_ARTICLE_CATEGORIES.md`
-
-**THE 5 ARTICLE CATEGORIES:**
-
-#### 1. In the Wake of Grief: When Loss Needs Water
-**Status:** ✅ COMPLETE - Grade A+ (722 lines, ~6,000 words)
-**Location:** `/solo/in-the-wake-of-grief.html`
-**Meta tags:** `/solo/in-the-wake-of-grief-meta.html`
-
-- [x] Write full article page (~6,000 words with all enhancements)
-- [x] H1 with dek + fit-guidance section
-- [x] FAQ section (5 comprehensive questions with structured data)
-- [x] Ship size recommendations (Option A: smaller/longer vs Option B: larger/shorter)
-- [x] Anticipatory grief section ("Final Cruises: When the Journey Is About Legacy")
-- [x] Cross-links throughout to solo guide, accessibility guide, ship logbooks
-- [x] Back-links added to 7 logbook stories → article
-- [x] Meta tags with JSON-LD Article and FAQ schemas
-- [✓] Optional: Expand suicide loss and dating again sections (from original outline) [43e065f8]
-
-**Topics covered:** Timing after loss, solo after being a couple, first holidays (Margaret's Christmas), finding widow community, permission to feel joy, Scripture/faith integration, practical booking tips, ship size by grief need, anticipatory grief/final cruises, trigger management, anonymous community
-
-**Key logbook stories referenced:** "The Widow Who Learned to Laugh Again" (Radiance), "Widower's First Christmas" (Grandeur, Jewel), "The FlowRider Widow" (Independence), "First Voyage After Loss" (Brilliance), "Grandpa's Last Alaska" (Radiance), "Grandmother's Last Gift" (Jewel)
-
-**Cross-links implemented:** Solo travel guide (3x), accessibility guide (2x), Grandeur logbook, 5 widow/widower logbook stories, /solo/ hub, /ships/ index
-
-**Back-links from logbooks:** Radiance (2), Brilliance (1), Grandeur (1), Jewel (2), Independence (1)
-
-#### 2. Accessible Cruising: Complete Guide for Travelers with Disabilities
-**Status:** ✅ COMPLETE (solo/articles/accessible-cruising.html) - 26 logbook references
-**Note:** Picture tags verified balanced 2025-11-23
-- [x] Full article exists with 5 universal principles
-- [ ] Consider minor expansion: medical equipment, service animals, dietary restrictions, cruise line comparison
-- **Topics covered:** Wheelchair, autism, stroke recovery, deaf/hard-of-hearing, chronic illness, PTSD, invisible disabilities
-- **Key logbook stories:** "The Wheelchair Dance" (Brilliance), "Autistic Boy Who Found His Voice" (Radiance), "Stroke Survivor Who Walked Again" (Radiance), "Deaf Family's Inclusive Experience" (Explorer)
-
-#### 3. Solo Cruising: Your Complete Guide to Traveling Alone at Sea
-**Status:** ⚠️ PARTIAL (why-i-started-solo-cruising.html exists but not comprehensive) - 20 logbook references
-**Note:** Article loads correctly on solo.html (picture tags fixed 2025-11-23 - see Performance Optimizations above)
-- [ ] Expand existing article OR create new comprehensive-solo-cruising.html
-- [ ] Cover all solo personas: grief, anxiety, introverts, by-choice, first-time solo
-- [ ] Add ship size recommendations for solo travelers
-- [ ] FAQ: dining alone, safety, meeting people, solo supplements, shore excursions
-- **Topics needed:** Transitioning from couple to solo travel, anxiety/introvert accommodation, widow/widower solo travel, choosing ships
-- **Key logbook stories:** "The Widow Who Learned to Laugh Again" (Radiance), "Single Mom's First Solo Trip" (Grandeur), "Introvert's Forced Vacation" (Independence), "Anxiety Sufferer's Controlled Exposure" (Explorer)
-- **Cross-links:** Cruising After Loss, accessibility (many disabled cruise solo), packing lists
-
-#### 4. Healing Relationships at Sea: Marriage, Family, and Reconciliation
-**Status:** ❌ NOT CREATED (15+ logbook references)
-- [ ] Write full article page (~3,000 words)
-- [ ] Create article fragment for rail navigation
-- [ ] Separate sections: marriage restoration, family reconciliation, blended families, empty nest
-- **Topics:** Marriage crisis/infidelity recovery, estranged parent-child relationships, prodigal situations, blended family dynamics, empty nest reconnection, faith-based reconciliation, when NOT to cruise together
-- **Key logbook stories:** "The Glacier That Healed a Marriage" (Radiance), "Balcony That Saved Us" (Brilliance), "Couple Who Renewed Vows After Infidelity" (Grandeur), "Prodigal Son Returns" (Radiance, Explorer, Navigator, Serenade), "Blended Family's First Vacation" (Explorer, Jewel), "Empty Nest Reconnection" (Explorer, Serenade)
-- **Cross-links:** Couples packing list, ship selection guides, marriage enrichment resources, solo travel (if not ready to travel together)
-
-#### 5. Rest for Wounded Healers: Travel for Pastors, Caregivers, and the Burned-Out
-**Status:** ❌ NOT CREATED (10+ logbook references)
-- [ ] Write full article page (~2,500 words)
-- [ ] Create article fragment for rail navigation
-- [✓] Sabbath theology section, guilt management, Scripture integration [43e065f8]
-- **Topics:** Pastoral/ministry burnout, missionary sabbatical, teacher/helping professional exhaustion, caregiver fatigue, single parent burnout, seminary student rest, retired minister transition, rest as spiritual discipline, unplugging from ministry
-- **Key logbook stories:** "Learning to Sabbath" (Radiance), "Learning to Rest" (Brilliance), "Retired Pastor's Sabbath" (Grandeur), "Seminary Student's Sabbath" (Jewel), "Teacher's First Summer Break in Years" (Liberty), "Single Mom's First Solo Trip" (Grandeur)
-- **Cross-links:** Solo travel, mental health resources, pastoral sabbatical packing, anxiety travel
-
-**Existing support articles (COMPLETE):**
-- ✅ freedom-of-your-own-wake.html (Picture tags fixed 2025-11-23 - see Performance Optimizations above)
-- ✅ why-i-started-solo-cruising.html (Picture tags fixed 2025-11-23 - see Performance Optimizations above)
-- ✅ visiting-the-united-states-before-your-cruise.html
-
-**Additional themes for future articles (2-10 references each):**
-- Medical recovery: post-cancer travel, post-stroke travel, chronic illness, eating disorder recovery
-- Mental health: anxiety travel, PTSD/veteran travel, bipolar/depression
-- Family situations: infertility grief, adoption/adoptee identity, homeschool family socialization, kinship care
-- Specific demographics: senior travel, neurodiversity, deaf/HOH travel, burn survivors
-- Life transitions: retirement, second marriage/stepfamily, work-life balance
-
-### Cross-linking
-- [ ] Review and fix any remaining restaurant URL cross-links in logbooks (recent fix completed for some)
-- [ ] Add cross-links between related ship pages (same class)
-- [✓] Add cross-links from solo articles to relevant ship pages [43e065f8]
-
----
-
-## 🎨 UI/UX TASKS
-
-### CRITICAL: Dropdown Navigation Site-wide Fix
-**Status:** 281 out of 292 pages (96.2%) have navigation issues
-**Impact:** Critical - Users see broken vertical navigation instead of styled horizontal dropdowns
-
-**Pages affected:**
-- 197 pages - Missing dropdown nav HTML entirely
-- 80 pages - Have nav HTML but MISSING CSS (appears as vertical list)
-- 4 pages - Using external `/assets/styles.css` which lacks dropdown CSS
-
-**Fix required:**
-- [✓] Option 1: Run automated fix script `python3 audit_and_fix_nav.py --fix` [43e065f8]
-- [ ] Option 2: Manually add complete Nav CSS to all 281 pages
-- [✓] Add dropdown JavaScript to all pages missing it [43e065f8]
-- [ ] Update `/assets/styles.css` with dropdown CSS for external CSS pages
-- [ ] Test horizontal styled navigation on all 292 pages
-- [ ] Verify 300ms hover delay works across all pages
-- [ ] Verify keyboard navigation (Tab, Arrow keys, Escape) works
-- [ ] Test mobile responsive horizontal scrolling
-
-**Breakdown by directory:**
-- ships/rcl: 44 pages need fixes
-- ships/carnival-cruise-line: 47 pages need fixes
-- ships/carnival: 58 pages need fixes
-- ships/holland-america-line: 44 pages need fixes
-- ships/celebrity-cruises: 29 pages need fixes
-- restaurants: 25 pages need fixes
-- cruise-lines: 10 pages need fixes
-- root: 10 pages need fixes
-- solo/articles: 3 pages need fixes
-- authors: 2 pages need fixes
-
-**Reference files:**
-- Perfect examples: index.html, about-us.html, solo.html, travel.html
-- Complete nav composite: NAVIGATION_COMPOSITE.md
-- Audit script: audit_and_fix_nav.py
-- Audit report: nav_audit_report.txt
-
-### ✅ Ship Cards Redesign - COMPLETE (2025-11-23)
-**Status:** ✅ COMPLETE - Comprehensive CSS redesign at `/assets/css/item-cards.css`
-**File modified:** /assets/css/item-cards.css
-
-**Improvements implemented:**
-- [x] Enhanced grid layout with responsive breakpoints (320px → 360px → 3-column fixed at 1400px+)
-- [x] Improved spacing: 1.75rem → 2.25rem → 2.5rem gaps depending on viewport
-- [x] CTA text styling: gradient background, left border accent, inset shadow
-- [x] Full-width CTA button: gradient, uppercase, animated arrow icon (→)
-- [x] Enhanced card hover effects: translateY(-6px), stronger shadows, border color change
-- [x] Image improvements: 16:9 aspect ratio, stronger zoom (1.08x on hover)
-- [x] Badge enhancements: gradient backgrounds, backdrop blur, better shadows
-- [x] Meta badge styling: gradient backgrounds, better color contrast
-- [x] Retired ship styling: opacity, grayscale filter with hover restore
-- [x] Accessibility improvements: reduced motion, high contrast, print styles
-- [x] Responsive and accessible across all screen sizes
-
-**Key features:**
-- Cards now have clear visual hierarchy guiding users: image → title → CTA text → action button
-- CTA text accepts HTML (strong tags highlighted in accent color)
-- Prominent full-width button encourages clicks
-- Animated arrow slides 4px right on hover for interactivity
-
-### Article Rail Navigation
-- [ ] Design article rail navigation pattern for solo travel section
-- [ ] Implement article rail site-wide (all solo articles)
-- [ ] Test article rail on mobile devices
-- [ ] Ensure article rail is accessible (keyboard navigation, screen readers)
-- [ ] Style article rail to match site design (v3.010.300)
-
-### Navigation Improvements
-- [ ] Review intelligent breadcrumbs implementation across all pages
-- [ ] Test navigation composite on different page types
-- [ ] Ensure consistent navigation patterns site-wide
-
----
-
-## 🔧 TECHNICAL TASKS
-
-### ~~CRITICAL: Search Functionality Implementation~~ ✅ COMPLETE
-**Status:** ✅ search.html EXISTS (verified 2025-11-19)
-**Note:** SearchAction schema now points to working search page
-
-- [x] ~~Create `/search.html` page~~ - ✅ EXISTS
-- [✓] Verify search backend/functionality works correctly [b11b45c1]
-- [ ] Verify site-wide search UI component
-- [ ] Verify SearchAction schema target wired correctly
-- [ ] Test search across ships, restaurants, articles, cruise lines
-- [ ] Add search indexing for JSON data (logbooks, venues, stats)
-
-### CRITICAL: WebP Image References Update (Uncommitted Work from WebP Thread)
-**Status:** Images converted (commit cff215b) but code NEVER updated to use them
-**Impact:** Site not benefiting from 77% file size reduction (15.8MB → 4.9MB)
-
-**Work needed:**
-- [✓] Update 9 ship HTML files (~54 references total) [43e065f8]
-  - brilliance-of-the-seas.html (6 refs)
-  - enchantment-of-the-seas.html (6 refs)
-  - jewel-of-the-seas.html (6 refs)
-  - majesty-of-the-seas.html (5 refs)
-  - radiance-of-the-seas.html (7 refs)
-  - rhapsody-of-the-seas.html (6 refs)
-  - serenade-of-the-seas.html (6 refs)
-  - vision-of-the-seas.html (6 refs)
-  - grandeur-of-the-seas.html (6 refs)
-
-- [✓] Update JavaScript files (~74 references total) [43e065f8]
-  - assets/js/ships-dynamic.js (~67 refs) - ship image arrays
-  - assets/js/rcl.page.js (~4 refs) - placeholder images
-  - assets/js/sw-bridge.js (~3 refs) - service worker cache
-
-**Types of changes needed in each HTML file:**
-- Meta tags: `og:image` and `twitter:image` (.jpeg → .webp)
-- JSON-LD schema: `"image"` property (.jpeg → .webp)
-- Swiper `<img src>` tags (.jpeg/.jpg → .webp)
-- `onerror` fallback paths (.jpeg/.jpg → .webp)
-
-**Available WebP images to reference:**
-- 82 main images in `/assets/ships/`
-- 8 thumbnails in `/assets/ships/thumbs/`
-- All FOM (Flickers of Majesty) images converted
-
-**Estimated effort:** 2-3 hours for careful find/replace across all files
-
-### Bulk Updates
-- [✓] Run `add_phase1_bulk.py` script if AI breadcrumbs/Person schema not yet applied to all pages [43e065f8]
-- [✓] Verify breadcrumbs are correct on all 289+ HTML files [43e065f8]
-- [ ] Test Person schema (E-E-A-T) is properly formatted
-
-### Accessibility
-- [ ] Verify WCAG 2.1 AA compliance across all new pages
-- [ ] Test keyboard navigation on dropdown menus
-- [ ] Test screen reader compatibility with new structured data
-- [ ] Verify all images have proper alt text
-
-### Performance
-- [ ] Optimize WebP image sizes for faster loading
-- [ ] Test DNS prefetch effectiveness
-- [ ] Run Google PageSpeed Insights on key pages
-- [ ] Verify lazy loading is working for all images
-
----
-
-## 🚀 PRIORITY RANKING
-
-### P0 - Critical (User-facing issues & engagement)
-1. ~~**CRITICAL: Fix navigation on 281 pages (96% of site)**~~ - ✅ COMPLETE (done in main)
-2. ~~**CRITICAL: Update code to use WebP images**~~ - ✅ COMPLETE (done in main, commit ecdb983)
-3. ~~**CRITICAL: Create Port Tracker tool**~~ - ✅ COMPLETE (2025-11-22, /tools/port-tracker.html with analytics)
-4. ~~**CRITICAL: Create Ship Tracker tool**~~ - ✅ COMPLETE (2025-11-23, /tools/ship-tracker.html with 28 ships, 10 badges, analytics)
-5. ~~**Ship cards redesign**~~ - ✅ COMPLETE (2025-11-23, assets/css/item-cards.css redesigned with CTAs, gradients, animated buttons)
-6. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer)
-7. Download Wiki Commons images for top 5 most-visited ships
-4. ~~**CRITICAL: Create Ship Tracker tool**~~ - ✅ COMPLETE (2025-11-22, /tools/ship-tracker.html, rebranded as "Ship Logbook")
-5. ~~**Ship cards redesign**~~ - ✅ COMPLETE (2025-11-22, commit c09b4e0, item-cards.css with CTAs, gradients, hover animations)
-6. ~~**Update WebP references in HTML meta tags**~~ - ✅ COMPLETE (All 50 ship pages use .webp in og:image/twitter:image/JSON-LD)
-7. Fix placeholder attributions (Symphony, Adventure, Enchantment, Explorer) - Symphony appears complete
-8. Download Wiki Commons images for 19 ships still needing images
-
-### P1 - High (Content completeness)
-8. ~~**CRITICAL: Write "Cruising After Loss" article**~~ - ✅ COMPLETE as "In the Wake of Grief" (722 lines, Grade A+)
-9. ~~**CRITICAL: Create Hawaii port batch**~~ - ✅ COMPLETE (2025-11-22, 5 ports: Honolulu, Kona, Hilo, Maui, Nawiliwili)
-10. **CRITICAL: Expand "Solo Cruising" article** - 20 logbook references, current article too narrow
-11. **CRITICAL: Write "Healing Relationships at Sea" article** - 15+ logbook references, unique positioning
-12. **CRITICAL: Write "Cruising for Rest & Recovery" article** - 25 logbook references, burnout/mental health
-13. **CRITICAL: Write "Family Cruising Challenges" article** - 20 logbook references, blended/adoptive families
-14. ~~**CRITICAL: Create search functionality**~~ - ✅ search.html EXISTS
-15. **CRITICAL: Complete placeholder content pages** - drinks.html, ports.html hub, restaurants.html (all "coming soon")
-16. **CRITICAL: Create missing protocol docs** - ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md (all missing)
-17. ~~Create logbooks for active ships without them~~ - ✅ All active ships have logbooks (only 2 historic missing: nordic-prince, sun-viking)
-18. Download remaining Wiki Commons images (19 ships) + attribution workflow
-19. Complete venues.json with all dining data
-20. ~~SEO setup (sitemap)~~ - ✅ sitemap.xml EXISTS; still need Google Search Console setup
-
-### P2 - Medium (Enhancement)
-21. Expand "Accessible Cruising" article (optional) - Article exists but could add: medical equipment, service animals, dietary, cruise line comparison
-22. Middle East port batch (4 ports - Dubai, Abu Dhabi, Muscat, Salalah)
-23. Caribbean completion batch (8-10 ports - Antigua, St. Lucia, Barbados, etc.)
-24. ICP-Lite & ITW-Lite rollout (see dedicated section below)
-25. ~~Create logbooks for historic ships (2 ships: Nordic Prince, Sun Viking)~~ ✅ COMPLETE 2025-11-23
-26. Add video data for ships without videos
-27. Cross-linking improvements
-28. Performance optimization
-
-### P3 - Low (Nice to have)
-29. Multi-cruise-line tracker enhancement - Cruise line selector on Port Tracker/Ship Tracker
-30. Asia expansion batch (10-15 ports - see roadmap)
-31. Australia & Pacific batch (15-20 ports - see roadmap)
-32. Create logbooks for future ships (TBN)
-33. Additional themed articles (medical recovery, mental health, family situations, life transitions)
-34. Advanced analytics and monitoring
-
-### P4 - Future Expansion (Post Royal Caribbean completion)
-35. **Carnival Cruise Line expansion** - 150-200 new unique ports (29 ships, 320+ total ports)
-    - Phase 1: Carnival private islands + Caribbean unique (20-25 ports)
-    - Phase 2: Europe unique ports (40-50 ports)
-    - Phase 3: Australia/NZ/Pacific region (30-35 ports)
-    - Phase 4: Asia expansion (15-20 ports)
-    - Phase 5: South America/Africa/exotic (40-50 ports)
-36. **Virgin Voyages expansion** - Adult-only luxury line
-37. **Princess Cruises expansion** - Sister brand to Royal Caribbean
-38. **Norwegian Cruise Line expansion** - Freestyle cruising competitor
-39. **Celebrity Cruises expansion** - Premium Royal Caribbean sister brand
-40. **Multi-cruise-line ship trackers** - Separate ship databases per cruise line
-
-**Timeline:** 2026-2027+ (after Royal Caribbean core coverage complete)
-**Rationale:** Maximize TAM (Total Addressable Market) by serving all major cruise lines
-
----
-
-## 🤖 ICP-LITE & ITW-LITE ROLLOUT
-
-> **Strategy:** Keep v3 architecture and progressive enhancement.
-> **Protocol:** `standards/ITW-LITE_PROTOCOL_v3.010.lite.md` (AI-first, human-first).
->
-> **CURRENT STATUS (verified 2025-11-22 - COMPREHENSIVE AUDIT):**
-> - **544/561 pages have ICP-Lite meta tags** (content-protocol, ai-summary)
-> - **561 total HTML pages** in repository (updated count)
-> - **Coverage: 97%** - Near-complete site-wide deployment of meta tags ✅
-> - **17 pages still need meta tags:** Asia/Pacific ports (10), solo/articles (4), solo/in-the-wake-of-grief.html (1), tracker tools (2)
-> - **Protocol docs still missing:** ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md ❌
-> - **Content-level enhancements pending:** H1+answer lines, fit-guidance cards, FAQ blocks, progressive enhancement
-
-### Protocol & Documentation Setup
-
-- [ ] Create `standards/ITW-LITE_PROTOCOL_v3.010.lite.md`
-  - [ ] Write protocol document (< 500 lines)
-  - [ ] Ensure matches current v3.010 standards
-  - [ ] Document AI-first, human-first strategy
-
-- [ ] Create `STANDARDS_INDEX_33.md` master index
-  - [ ] Link all protocol documents
-  - [ ] Link ITW-LITE_PROTOCOL
-  - [ ] Create navigation for standards directory
-
-- [ ] Root `CLAUDE.md` + AI wiring
-  - [ ] Create or trim `CLAUDE.md` at repo root
-  - [ ] Point to:
-    - `standards/ITW-LITE_PROTOCOL_v3.010.lite.md`
-    - `STANDARDS_INDEX_33.md`
-    - `/dev/active/` dev-docs folder
-  - [ ] Instruct any AI tools to read ITW-Lite + module specs before editing
-
-### Phase 1 — ICP-Lite on Core Pages
-
-**Ship pages (pilot: Radiance of the Seas)**
-
-- [ ] `/ships/rcl/radiance-of-the-seas.html`
-  - [ ] Add single `<h1>` in main content
-  - [ ] Add "answer line" under H1 (what this page covers)
-  - [ ] Add "fit-guidance" card (Who this ship tends to fit / who should look elsewhere)
-  - [ ] Add 3–5 question FAQ block near bottom (+ ensure FAQ schema wired)
-  - [ ] Add meta tags:
-    - [ ] `meta name="ai:summary"`
-    - [ ] `meta name="content-protocol" content="ICP-Lite v1.0"`
-    - [ ] `meta name="last-reviewed"`
-  - [ ] Update `<!-- ai-breadcrumbs ... -->` to reflect answer & fit-guidance
-
-- [ ] Roll out same pattern (H1 + answer line + FAQ + fit-guidance + ai:summary) to:
-  - [ ] `/ships/` other Royal pages
-  - [ ] High-traffic or "anchor" ship pages (top 5–10)
-
-**Hub pages**
-
-- [ ] `/index.html` (Home)
-  - [ ] Add H1 + answer line for the whole site
-  - [ ] Add small fit-guidance/prose section (who this site helps most)
-  - [ ] Add 3–5 FAQ entries about In the Wake
-
-- [ ] `/solo.html`
-  - [ ] Add H1 + answer line
-  - [ ] Add solo-specific fit-guidance (who solo content is for)
-  - [ ] Add solo FAQ block
-
-- [ ] `/drinks-calculator.html` or `/planning/drink-packages.html` (wherever canonical lives)
-  - [ ] Add H1 + answer line (what the calculator helps answer)
-  - [ ] Add FAQ (break-even, port days, skipping packages, etc.)
-
-### Phase 2 — JS Failure & Progressive Enhancement
-
-- [ ] Implement `.no-js` baseline globally
-  - [ ] Add `class="no-js"` to `<html>`
-  - [✓] Add early script to remove `no-js` [43e065f8]
-  - [ ] Add CSS:
-    - [ ] `.no-js .fallback { display:block; }`
-    - [ ] `.no-js .js-only { display:none; }`
-
-- [✓] Add HTML fallbacks + graceful failure wrappers for: [43e065f8]
-  - [ ] Ship stats blocks (static snapshot when JSON/JS fails)
-  - [ ] Dining venues lists (basic HTML list + JS enhancement)
-  - [ ] Logbook/story blocks (static story or "Stories coming soon")
-  - [ ] Video/Swiper sections (stacked figures when JS fails)
-  - [✓] Live tracker/map modules (friendly "map temporarily unavailable" text) [43e065f8]
-
-- [ ] Verify pages with JS disabled:
-  - [ ] Radiance ship page is fully readable and honest
-  - [ ] Solo hub remains usable
-  - [ ] Home page remains usable
-  - [ ] Drink calculator falls back gracefully where possible
-
-### Phase 3 — Optional Deep ICP (Only If ROI Justifies)
-
-- [ ] Monitor:
-  - [✓] AI citations (ChatGPT / Perplexity / Gemini referencing ITW) [43e065f8]
-  - [ ] Search referral traffic to ship pages
-  - [ ] Engagement with new sections (FAQ, fit-guidance)
-
-- [ ] If clear uplift:
-  - [ ] Consider selective static pre-rendering of heavy JSON-driven sections
-  - [ ] Add more fine-grained section/entity annotations (comments or JSON-LD)
-  - [ ] Keep *all* AI-facing constructs hidden (comments/meta/JSON-LD), never visible UI
-
----
-
-## 📈 PROGRESS SUMMARY
-
-**Engagement Tools (UPDATED 2025-11-23):**
-- ✅ Port Tracker COMPLETE - /tools/port-tracker.html with 147 ports, analytics, social comparison (2025-11-22)
-- ✅ Ship Tracker COMPLETE - /tools/ship-tracker.html with 28 ships, 10 badges, analytics (2025-11-23)
-
-**Master Port Lists (NEW 2025-11-23):**
-- ✅ 5 master port reference documents created in /assets/data/ports/
-- ✅ Carnival Cruise Line (320+ ports, 29 ships)
-- ✅ Norwegian Cruise Line (420+ ports, 20 ships)
-- ✅ MSC Cruises (350+ ports, 23 ships)
-- ✅ Virgin Voyages (120 ports, 4 ships)
-- ✅ Royal Caribbean (existing reference)
-
-**Ship Cards Redesign (COMPLETE 2025-11-23):**
-- ✅ Comprehensive CSS redesign in /assets/css/item-cards.css
-- ✅ Enhanced grid layout with responsive breakpoints (1.75-2.5rem gaps)
-- ✅ CTA text styling with gradient backgrounds and left border accent
-- ✅ Full-width CTA buttons with gradients, uppercase text, animated arrow
-- ✅ Enhanced hover effects: card lift, stronger shadows, image zoom (1.08x)
-- ✅ Badge improvements: gradients, backdrop blur, better shadows
-- ✅ Accessibility enhancements: reduced motion, high contrast, print styles
-**Engagement Tools (UPDATED 2025-11-22):**
-- ✅ Port Tracker COMPLETE - /tools/port-tracker.html (65KB, 2071 lines) with 147 ports, analytics, social comparison
-- ✅ Ship Tracker COMPLETE - /tools/ship-tracker.html (42KB, 1132 lines) with bingo cards, share modal, collapsible sections
-- Both rebranded as "Logbooks" in UI (Port Logbook, Ship Logbook)
-
-**Port Pages (VERIFIED 2025-11-23):**
-- ✅ Complete: 147 individual port HTML pages exist in /ports/ directory
-- ✅ Port Tracker database: 147 ports tracked in /tools/port-tracker.html
-- ✅ Under construction notices: ALL REMOVED (0 ports have them) - Clean user experience ✨
-- ✅ LCP preload hints: 141 port pages have fetchpriority="high" preload (96% coverage)
-- ✅ British Isles batch complete (10 ports: Liverpool, Cork, Invergordon, Kirkwall, Lerwick, Dover, Portland, Newcastle, Holyhead, Waterford)
-- ✅ Hawaii batch complete (5 ports: Honolulu, Kona, Hilo, Maui, Nawiliwili) - 2025-11-22
-- ✅ Portland duplicate fixed (portland.html = Dorset, portland-maine.html = Maine)
-- ✅ Navigation updated: Port Tracker link added to 18 main pages
-- ✅ Shell normalization complete: Navbar structure cleaned across port pages
-- ⏳ HIGH PRIORITY: Middle East (4 ports), Caribbean completion (8-10 ports)
-- ⏳ MEDIUM PRIORITY: Asia (10-15 ports), Australia/Pacific (15-20 ports)
-- ⏳ FUTURE EXPANSION: Carnival Cruise Line (150-200 new ports across all regions)
-
-**Images:**
-- ✅ Complete: 11 ships (FOM images)
-- ✅ Complete: 8 ships (user uploaded)
-- ⏳ In Progress: 19 ships (Wiki Commons categories found, need download)
-- ❓ Research: 2-5 ships (Star of the Seas, Nordic Prince, duplicates)
-- ⏭️ Future: 7 ships (TBN - no photos yet)
-
-**Logbooks (VERIFIED 2025-11-19):**
-- ✅ Complete: 38 ships
-- ⏳ Needed: 12 ships (2 historic, 8 future/TBN, 2 duplicates)
-- 🎯 Actual work: Only nordic-prince and sun-viking need new logbooks
-
-**SEO (VERIFIED 2025-11-19):**
-- ✅ sitemap.xml EXISTS (11KB)
-- ✅ search.html EXISTS
-- ⏳ Need to set up external tools (GSC, Bing)
-
-**ICP-Lite (COMPREHENSIVE AUDIT 2025-11-22):**
-- ✅ 544/561 pages (97%) have ICP-Lite meta tags - Near-complete site-wide deployment
-- ⏳ 17 pages still need meta tags (Asia/Pacific ports, solo/articles, tracker tools)
-- ❌ Protocol docs missing (ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md)
-- ⏳ Content-level enhancements pending (H1+answer lines, fit-guidance, FAQ blocks, progressive enhancement)
-
-**Templates:**
-- ✅ v3.010.300 production-ready template created
-- ⏳ Deployment status unknown (may be complete)
-
-**Attribution:**
-- ✅ Template and process documented
-- ⏳ 4 ships need attribution fixes
-- ⏳ 2 ships need attribution sections when images added
-
-**Analytics (NEW 2025-11-22):**
-- ✅ Port Tracker: 13 event types tracked (page_view, port_checked, port_link_clicked, bingo_completed, share_image_downloaded, etc.)
-- ⏳ Ship Tracker: 7 event types planned (see roadmap)
-- ⏳ Google Analytics dashboard setup needed
-- ⏳ Conversion tracking and funnel analysis needed
-
----
-
-## 📋 NEXT STEPS
-
-**Immediate actions (verified priorities):**
-1. ~~**CRITICAL: Create Ship Tracker tool**~~ - ✅ COMPLETE (2025-11-23, /tools/ship-tracker.html with 28 ships, 10 badges, analytics)
-2. ~~**CRITICAL: Create Hawaii port batch**~~ - ✅ COMPLETE (2025-11-22, 5 ports: Honolulu, Kona, Hilo, Maui, Nawiliwili)
-3. ~~**Ship Cards Redesign**~~ - ✅ COMPLETE (2025-11-23, assets/css/item-cards.css with CTAs, gradients, animated buttons)
-4. **CRITICAL: Create protocol docs** - ITW-LITE_PROTOCOL, STANDARDS_INDEX_33.md, CLAUDE.md all missing
-5. **Write remaining 3 articles** - Rest & Recovery, Family Challenges, Healing Relationships
-6. **Complete placeholder pages** - drinks.html, ports.html hub, restaurants.html need real content
-7. Fix attribution for Symphony, Adventure, Enchantment, Explorer
-
-**This week:**
-8. ~~Create Port Tracker~~ - ✅ COMPLETE (2025-11-22)
-9. ~~Create Ship Tracker~~ - ✅ COMPLETE (2025-11-23)
-10. ~~Create sitemap.xml~~ - ✅ Already exists
-11. ~~Create search.html~~ - ✅ Already exists
-12. Set up Google Search Console and Bing Webmaster Tools
-13. Set up Google Analytics dashboard for Port Tracker & Ship Tracker monitoring
-14. Create 2 historic ship logbooks (nordic-prince, sun-viking)
-
-**This month:**
-13. Middle East port batch (4 ports - Dubai, Abu Dhabi, Muscat, Salalah)
-14. Caribbean completion batch (8-10 ports - Antigua, St. Lucia, Barbados, etc.)
-15. ICP-Lite site-wide rollout (currently only ~5%)
-16. Download Wiki Commons images for 19 ships
-17. Performance optimization pass
-18. Ship cards redesign (add CTAs, better space utilization)
-
-**Next quarter:**
-19. Asia expansion batch (10-15 ports - see roadmap)
-20. Australia & Pacific batch (15-20 ports - see roadmap)
-21. Additional solo travel articles based on logbook references
-22. Advanced analytics: conversion tracking, funnel analysis, A/B testing
-
-**Strategic reference documents:**
-- PORT_TRACKER_ROADMAP.md - Complete specification for Ship Tracker and port expansion priorities
-- FIVE_ARTICLE_CATEGORIES.md - Solo travel article categories with logbook references
-
----
-
-**Last Updated:** 2025-11-24 (Ship Tracker COMPLETE with 28 ships/10 badges, Ship Cards Redesign COMPLETE, Master Port Lists created for 5 cruise lines)
-**Maintained by:** Claude AI (Thread tracking)
-**Previous updates:** 2025-11-22 (Port Tracker COMPLETE with 147 ports, Hawaii batch COMPLETE, Carnival expansion planned 150-200 ports)
-**Last Updated:** 2025-11-24 (AUDIT #3 added - 368 issues fixed: broken links, JSON, orphans, placeholders)
-**Maintained by:** Claude AI (Thread tracking)
-**Current Thread:** claude/track-thread-status-01VdXW51MuvV3Vpa9UBrH2n9 (rebased on main)
-**Previous Audit Threads:**
-- AUDIT #2: claude/fix-logo-aspect-ratio-01JY4eRGk3Kd3vaBjbtQUukW
-- AUDIT #1: claude/normalize-shell-thread-safety-01GkL7yZ6U6k7fE5xy13cFiw
-
----
-
-## 📜 HISTORICAL TASK ARCHIVE (Completed & Removed)
-
-This section preserves tasks that were completed and subsequently removed from the active task list. Maintained as a historical record per user request to "make a superset of tasks finished/unfinished going back to its first push."
-
-### ✅ Completed Ship Logbooks (Previously Listed as Missing)
-
-**Originally tracked as "Ships Missing Logbooks (22 ships)"** - Now completed:
-- ✅ Enchantment of the Seas - Logbook created with diverse perspectives (completed before 2025-11-19)
-- ✅ Legend of the Seas - Logbook created with diverse perspectives (completed before 2025-11-19)
-- ✅ Majesty of the Seas - Logbook created with diverse perspectives (completed before 2025-11-19)
-- ✅ Rhapsody of the Seas - Logbook created with diverse perspectives (completed before 2025-11-19)
-- ✅ Vision of the Seas - Logbook created with diverse perspectives (completed before 2025-11-19)
-- ✅ Monarch of the Seas - Historic logbook created (completed before 2025-11-19)
-- ✅ Nordic Empress - Historic logbook created (completed before 2025-11-19)
-- ✅ Splendour of the Seas - Historic logbook created (completed before 2025-11-19)
-- ✅ Viking Serenade - Historic logbook created (completed before 2025-11-19)
-
-**Still pending (2 ships):**
-- [✓] Nordic Prince - Historic logbook needed (see current task list line 566) [43e065f8]
-- [✓] Sun Viking - Historic logbook needed (see current task list line 567) [43e065f8]
-
-### ✅ Completed SEO & Search Tasks
-
-**Originally tracked as pending:**
-- ✅ sitemap.xml - Created (verified exists 2025-11-19, see line 620)
-- ✅ search.html - Search functionality created (verified exists 2025-11-19, see line 823)
-
-### ✅ Completed Solo Travel Articles
-
-**Originally tracked with different categorization:**
-- ✅ accessible-cruising.html - Completed (see line 704)
-- ✅ why-i-started-solo-cruising.html - Completed (see line 712)
-- ✅ freedom-of-your-own-wake.html - Completed (see line 740)
-- ✅ visiting-the-united-states-before-your-cruise.html - Completed (see line 741)
-
-### ✅ Completed Engagement Tools (P0 Tasks)
-
-**Originally tracked as "CRITICAL" priorities:**
-- ✅ Port Tracker tool - COMPLETE (completed 2025-11-22, see line 95)
-  - Location: /tools/port-tracker.html (65KB, 2071 lines)
-  - Features: 147 ports, 14 bingo cards, social comparison, share modal, analytics
-- ✅ Ship Tracker tool - COMPLETE (completed 2025-11-22, see line 121)
-  - Location: /tools/ship-tracker.html (42KB, 1132 lines)
-  - Features: Ship checklist, class grouping, bingo cards, share modal
-- ✅ Ship cards redesign - COMPLETE (completed 2025-11-22, commit c09b4e0, see line 895)
-  - Enhanced CTAs, gradients, hover animations
-  - File: /assets/css/item-cards.css v1.0.0
-
-### ✅ Completed WebP Image Tasks (P0 Task)
-
-**Originally tracked as critical:**
-- ✅ Update WebP references in HTML meta tags - COMPLETE (all 50 ship pages, see line 895)
-  - All ship pages now use .webp in og:image, twitter:image, JSON-LD schema
-  - Previously listed as P0 #6 priority
-
-### ✅ Completed Port Expansion
-
-**Originally tracked with different status:**
-- ✅ Hawaii port batch - COMPLETE (5 ports created 2025-11-22, see line 206)
-  - Honolulu, Kona, Hilo, Maui, Nawiliwili
-  - Previously HIGH PRIORITY
-
-### ✅ Completed Navigation & UI Tasks (P0 Task)
-
-**Originally tracked as "CRITICAL: Fix navigation on 281 pages (96% of site)"**
-- ✅ Navigation dropdown fix - COMPLETE (done in main, see line 890)
-  - Previously: 281/292 pages had navigation issues
-  - Now: Site-wide horizontal dropdown navigation functional
-
-### ✅ Completed Article: "In the Wake of Grief"
-
-**Originally tracked as "CRITICAL: Write 'Cruising After Loss' article"**
-- ✅ Full article complete - Grade A+ (722 lines, ~6,000 words, completed 2025-11-17+, see line 681)
-  - Location: /solo/in-the-wake-of-grief.html
-  - Includes: H1+dek, FAQ section, ship size recommendations, anticipatory grief section
-  - Cross-links: 7 logbook back-links added
-  - Listed as P1 #8 priority (now complete)
-
-### 📊 Completion Statistics Since File Creation (2025-11-17)
-
-**Major completions (6 days of tracking):**
-- 4 P0 critical tasks completed (Navigation, WebP, Ship Cards, Port/Ship Trackers)
-- 9 ship logbooks completed (was 22 missing, now 2 missing)
-- 1 major article completed (In the Wake of Grief)
-- 5 port batch completed (Hawaii - 5 ports)
-- 2 SEO/search tasks completed (sitemap.xml, search.html)
-- 141 port pages received LCP preload hints (vs documented 30)
-- 0 ports with under construction notices (vs documented 6)
-
-**Historical context:**
-- File created: 2025-11-17 (commit 7bc8504)
-- Total commits: 18 updates across 6 days
-- Original file: 305 lines
-- Current file: 1190+ lines (growth reflects comprehensive auditing)
-
----
-
+**Related Files:**
+- `IN_PROGRESS_TASKS.md` - Tasks currently being worked on
+- `COMPLETED_TASKS.md` - Archive of finished work
 **END OF HISTORICAL TASK ARCHIVE**
 
 This archive is maintained additively - tasks are never removed from this section, only marked as complete. New completed tasks will be added as they are verified and removed from the active task list above.
@@ -1797,3 +307,213 @@ This archive is maintained additively - tasks are never removed from this sectio
 - ✅ Shell normalization: 141+ port pages cleaned (under construction notices removed)
 - ✅ Hero logo normalization: 50 ship pages updated to responsive srcset format with fetchpriority="high"
 - ✅ LCP preload hints: Added to 141 port pages (96% of all port pages)
+
+---
+
+## 📋 NEW TASK LIST - Site-Wide Pattern Standardization (2025-11-25)
+
+**Context:** Comprehensive site-wide audit revealed inconsistent patterns across pages. Need to standardize all pages to match `index.html` reference pattern for right rail, author cards, article cards, hero sizing, and footer text.
+
+**Reference Pattern:** `index.html` established as canonical pattern for:
+- Right rail structure (Quick Answer, Best For, Key Facts, Author Card, Article Card)
+- Hero sizing and logo placement
+- Footer text format
+- FAQ placement
+
+### P0 - Critical (Design System Compliance)
+
+#### index.html
+- [ ] Move FAQ beneath cards for accessibility and About Us (not beneath article rail)
+- [ ] Fix "in the wake" → "cruising in the wake" in FAQ section (manual, not script)
+- [ ] Lower logo to match planning.html placement (currently goes outside viewable area)
+
+#### planning.html
+- [ ] Link travel advisor reference to Tina
+- [ ] Update article rails to match index.html pattern (currently outdated with just image + title, missing CTA and Read Article button)
+
+#### ships.html
+- [ ] Add right rail: At a Glance, Key Facts (above Author Card and Article Card)
+- [ ] Use index.html pattern for Author and Article cards
+- [ ] Combine duplicate "Royal Caribbean ships organized by class" cards (one with search, one without)
+- [ ] Set all class sections to start closed EXCEPT Icon class
+- [ ] Hide/comment out "Ship layout" and "Where is the ship" sections
+- [ ] Remove "Recent Stories" and "From the Journal" duplication
+- [ ] Rebuild author/article section based on index.html pattern
+- [ ] Fix logo sticking off top of viewable area
+
+#### restaurants-and-menus.html
+- [ ] Add right rail: Quick Answer, Key Facts, Best For
+- [ ] Add Author and Article cards below (index.html style)
+- [ ] Vary images (currently generic cloche on everything)
+- [ ] Standardize FAQ to match other pages' pattern
+- [ ] Cross-reference pass: ensure every venue links to page, mark missing pages
+- [ ] Move "114 venues loaded" message to beneath header hero OR beneath footer (current placement wrong)
+- [ ] Shred/replace article and author cards with index.html pattern
+- [ ] Fix logo sticking above viewable area (match planning pattern)
+
+#### ports.html (Port Index)
+- [ ] Add right rail: Quick Answer, Key Facts, Best For, etc
+- [ ] Add Author Card and Article Card beneath
+- [ ] Shred/replace existing author/article cards with index.html pattern
+- [ ] Cross-linking pass: link ports with HTML pages that aren't currently linked
+- [ ] Document ports mentioned but lacking pages → add to tasks
+- [ ] Fix logo sticking outside viewable area (match planning)
+
+#### drink-packages.html
+- [ ] Add right rail: Quick Answer, Best For, Key Facts
+- [ ] Add Author Card and Article Card below
+- [ ] Add content: Crown and Anchor loyalty status grants 4-6 free beverages/day
+- [ ] Investigate: logo well-placed here but lower than planning, viewable area bigger
+
+#### stateroom-check.html
+- [ ] Add remaining ships to stateroom check tool
+- [ ] Add right rail: Quick Answer, Best For, Key Facts, Author Card, Article Card (index style)
+- [ ] Standardize header hero size (currently bigger than planning)
+- [ ] Resize hero while keeping horizon centered in viewport
+- [ ] Ensure logo stays within frame (all pages should match)
+
+#### cruise-lines.html
+- [ ] Fix divergent header hero structure (replicate packing pattern)
+- [ ] Add right rail: Quick Answer, How to Use, Key Facts, Author Card, Article Card
+- [ ] Standardize FAQ section to match other pages
+
+#### packing-lists.html
+- [ ] FIX: Infinite scroll bug
+- [ ] Move author/article rails up (currently way far down)
+- [ ] Shred/replace with index.html pattern
+
+#### accessibility.html
+- [ ] Move author card right beneath Key Facts (not down by FAQ)
+- [ ] Standardize header hero and logo to match planning page
+
+#### travel.html
+- [ ] Fix divergent header hero shape (replicate planning)
+- [ ] Update author/article cards to match index.html pattern
+- [ ] FIX: Hundreds of pages of dead space before footer
+
+#### solo.html (Solo Cruising Index)
+- [ ] INVESTIGATE: Article fragments not loading - propose fix
+- [ ] PREFER: Fix solo page frag loader (not the frags)
+- [ ] IF frags carelessly altered: restore to frag format
+- [ ] Update author card to index.html pattern, add Tina after Ken
+- [ ] Article rail should call fragments (not full articles)
+- [ ] SEO: Direct to full articles in /solo/ (not frags in /solo/articles/)
+- [ ] FIX: Thousands of pages of blank space
+- [ ] FIX: Find and kill CSS filter making hero muted colors (want vibrant like index.html)
+- [ ] Move FAQ under main content (not on right rail)
+
+#### port-logbook.html (Port Tracker)
+- [ ] FIX BROKEN: No ports populate regardless of click
+- [ ] Expand to encompass all RCL ports
+- [ ] Add wiring for future cruise line expansion
+
+#### Ship Tracker / Port Tracker (Navigation)
+- [ ] SITE-WIDE: Rename "Ship Tracker" → "Ship Logbook" in nav
+- [ ] SITE-WIDE: Rename "Port Tracker" → "Port Logbook" in nav
+
+#### ship-tracker.html
+- [ ] Add Author, Article, and ICP-Lite elements
+- [ ] Fix hero section divergent pattern
+- [ ] Add "A Cruise Traveler's Logbook" tagline beneath logo (white text)
+- [ ] Standardize hero size (currently larger than most)
+- [ ] Keep horizon centered in viewport
+- [ ] ADD MISSING FOOTER
+
+#### about.html (About Us)
+- [ ] Update article rail to match index.html pattern
+
+### P0 - Individual Ship Pages (ships/rcl/*.html)
+
+**Reference:** Icon of the Seas as example
+
+#### All 50 RCL Ship Pages
+- [ ] Add right rail: Quick Answer, Best For, Key Facts
+- [ ] Add Author and Article cards (index.html pattern) below
+- [ ] Shred "Recent Stories," "Related Articles and Resources" → replace with index.html pattern
+
+#### icon-of-the-seas.html (Specific)
+- [ ] FIX: Map centered on Africa coordinates (should center on actual ship)
+- [ ] FIX: Image attribution cites "Allure of the Seas" but photo shows Icon (verify all attributions)
+
+#### star-of-the-seas.html (Specific)
+- [ ] FIX: No images showing in swiper despite attributions existing
+- [ ] FIX: Allure image in attribution but not displayed on page
+- [ ] FIX: Live tracker works, but apply all Icon page fixes here too
+- [ ] FIX: Some videos marked "private," others NOT for Star of the Seas
+
+#### All Ship Pages - Distance Feature
+- [ ] Integrate fun-distance-units.json feature on ships pages
+- [ ] Review documentation for this feature
+
+### P0 - Individual Port Pages (ports/*.html)
+
+#### All Port Pages
+- [ ] Add right rail: Quick Answer, Key Facts, Best For, etc
+- [ ] Add Author and Article cards (index.html pattern)
+- [ ] Change "A Positively Worded Word of Warning" to better heading
+- [ ] Give "Getting Around" its own card (honor design language)
+- [ ] Give renamed warning section its own card
+- [ ] Shred/replace "About the Author," "Recent Articles," "Recent Stories" with index.html pattern
+
+### P1 - Site-Wide Issues
+
+#### Git Merge Conflicts
+- [ ] SITE-WIDE: Find and remove all instances of:
+  ```
+  <<<<<<< HEAD
+  =======
+  >>>>>>> 4aa11716 (FIX: Add missing navigation script to 477 HTML pages)
+  ```
+
+#### Footer Text Standardization
+- [ ] SITE-WIDE: Current footer varies: `© 2025 In the Wake — A Cruise Traveler's Logbook · Accessibility & WCAG 2.1 AA Commitment`
+- [ ] SITE-WIDE: Replace with standard:
+  ```
+  © 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.
+  Privacy · Terms · About · Accessibility & WCAG 2.1 AA Commitment
+  Soli Deo Gloria
+  ```
+- [ ] Position: Centered under page left column content (not precise center)
+
+#### ICP-Lite Compliance Audit
+- [ ] Run site-wide ICP-Lite audit for full compliance
+- [ ] Document findings
+
+### P2 - Content & Feature Work
+
+#### Orphaned Articles (From Orphan Analysis)
+- [ ] Add 3 orphaned articles to sitemap.xml:
+  - solo/articles/accessible-cruising.html
+  - solo/articles/freedom-of-your-own-wake.html
+  - solo/articles/visiting-the-united-states-before-your-cruise.html
+- [ ] Link from appropriate index pages
+
+#### Orphaned Images Audit
+- [ ] Review ORPHANED_IMAGES_CATALOG.md (491 images, ~276 MB)
+- [ ] Sample 20-30 images to verify usage
+- [ ] Wire orphaned images to appropriate endpoints (per user: "all images are used somewhere")
+- [ ] Document any truly orphaned images for deletion
+
+#### cruise-lines/royal-caribbean.html#vision
+- [ ] Evaluate: Does this page justify existence?
+- [ ] Currently rehashes data from other pages less attractively
+- [ ] Decision needed: Refactor, repurpose, or recycle
+
+### P3 - Investigation & Documentation
+
+#### Distance Units Feature
+- [ ] Locate documentation for fun-distance-units.json
+- [ ] Plan attractive integration on ship pages
+
+#### Logbook JSON Orphans
+- [ ] Verify if assets/data/logbook/rcl/*.json files are dynamically loaded
+- [ ] 50+ ship data files appear orphaned in analysis but may be used
+
+---
+
+**Task Count:** 80+ discrete tasks
+**Estimated Effort:** 60-80 hours for complete standardization
+**Priority:** Design system compliance critical for user trust
+
+**Note:** This list created from comprehensive user audit on 2025-11-25. All tasks require matching reference pattern from index.html.
+
