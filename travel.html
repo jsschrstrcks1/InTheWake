@@ -683,14 +683,16 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
       pointer-events: none;
     }
 
+    /* Hero title and logo positioning (matches index.html pattern) */
     .hero-title {
       position: absolute;
       left: min(3vw, 1rem);
       bottom: clamp(.6rem, 2vw, 1.4rem);
       z-index: 3;
       display: flex;
-      align-items: flex-end;
-      gap: .6rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .3rem;
       text-shadow: 0 2px 6px rgba(0,0,0,.45);
     }
 
@@ -698,13 +700,13 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
       display: block;
       width: clamp(189px, 23.1vw, 378px);
       max-width: min(45vw, 520px);
+      max-height: clamp(180px, 22vw, 320px);
+      height: auto;
+      object-fit: contain;
     }
 
-    .tagline {
-      position: absolute;
-      left: min(3vw, 1rem);
-      bottom: clamp(.55rem, 1.6vw, 1.1rem);
-      transform: none;
+    .hero-title .tagline {
+      position: relative;
       font-weight: 700;
       letter-spacing: .2px;
       color: #e6f4f8;
@@ -1653,7 +1655,8 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
 
       <!-- Quick Chart -->
       <!-- Recent Articles rail -->
-      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
+      <!-- Recent Articles rail (matches index.html pattern) -->
+      <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
