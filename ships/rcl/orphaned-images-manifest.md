@@ -20,7 +20,7 @@
 | 4 | `2560px-14-09-02-oslo-RalfR-187.webp` | | Oslo, Sept 2, 2014 (related to #1) | pending |
 | 5 | `2560px-14-09-02-oslo-RalfR-241.webp` | | Oslo, Sept 2, 2014 (related to #1) | pending |
 | 6 | `2560px-14-09-02-oslo-RalfR-341.webp` | | Oslo, Sept 2, 2014 (related to #1) | pending |
-| 7 | `2560px-BOS_at_Valetta_121410.webp` | Brilliance of the Seas? | BOS = Brilliance? Valletta, Malta, Dec 14, 2010 | pending |
+| 7 | `2560px-BOS_at_Valetta_121410.webp` | **Brilliance of the Seas** | Confirmed - BOS = Brilliance of the Seas, Valletta Malta Dec 14, 2010 | identified |
 | 8 | `2560px-Bahamas_Cruise_-_CocoCay_-_June_2018_(3390).webp` | | CocoCay (RCL private island), June 2018 - multiple ships possible | pending |
 | 9 | `2560px-Cruise_ship_and_Labadee_beach.webp` | | Labadee (RCL private island) - which ship? | pending |
 | 10 | *(Add more from full list)* | | | pending |
