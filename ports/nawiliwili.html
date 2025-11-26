@@ -39,9 +39,6 @@ Soli Deo Gloria
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-
-
-
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
@@ -109,7 +106,6 @@ Soli Deo Gloria
       </p>
     </div>
     <!-- UNDER CONSTRUCTION NOTICE - END -->
-
 
     <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
@@ -247,7 +243,6 @@ Soli Deo Gloria
     gtag('config', 'G-46VTE168NP');
   </script>
 
-  
   <script>
   (function(){
     "use strict";
@@ -391,10 +386,7 @@ Soli Deo Gloria
 
       function setOpen(group, isOpen) {
         group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
+        const button = group.querySelector('
       }
 
       function closeAll(except = null) {
@@ -410,18 +402,7 @@ Soli Deo Gloria
       }
 
       dropdownGroups.forEach(group => {
-        const button = group.querySelector('.nav-disclosure');
-        const menu = group.querySelector('.submenu');
-        if (!button || !menu) return;
-
-        // Click to toggle
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isOpen = group.dataset.open === "true";
-          closeAll(group);
-          setOpen(group, !isOpen);
-        });
+        const button = group.querySelector(');
 
         // Mouse enter: Open immediately
         group.addEventListener('mouseenter', () => {

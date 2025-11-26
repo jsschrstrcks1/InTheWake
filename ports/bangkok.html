@@ -46,9 +46,6 @@ All work on this project is offered as a gift to God.
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-
-
-  
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
@@ -222,7 +219,6 @@ All work on this project is offered as a gift to God.
   </script>
 <<<<<<< HEAD
 
-  
   <script>
   (function(){
     "use strict";
@@ -366,10 +362,7 @@ All work on this project is offered as a gift to God.
 
       function setOpen(group, isOpen) {
         group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
+        const button = group.querySelector('
       }
 
       function closeAll(except = null) {
@@ -385,18 +378,7 @@ All work on this project is offered as a gift to God.
       }
 
       dropdownGroups.forEach(group => {
-        const button = group.querySelector('.nav-disclosure');
-        const menu = group.querySelector('.submenu');
-        if (!button || !menu) return;
-
-        // Click to toggle
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isOpen = group.dataset.open === "true";
-          closeAll(group);
-          setOpen(group, !isOpen);
-        });
+        const button = group.querySelector(');
 
         // Mouse enter: Open immediately
         group.addEventListener('mouseenter', () => {

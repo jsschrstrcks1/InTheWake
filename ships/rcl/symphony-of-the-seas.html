@@ -5,7 +5,7 @@ All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart, and do not lean on your own understanding." — Proverbs 3:5
 "Whatever you do, work heartily, as for the Lord and not for men." — Colossians 3:23
 
-STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.302 · A11y/WCAG 2.1 AA Compliant
+STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.300 · A11y/WCAG 2.1 AA Compliant
 -->
 <!doctype html>
 <html lang="en">
@@ -24,7 +24,7 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
      -->
   <!-- ======================================================
        In the Wake — Symphony of the Seas • Royal Caribbean
-       Version: 3.010.302  |  Soli Deo Gloria ✝️
+       Version: 3.010.300  |  Soli Deo Gloria ✝️
 
        ✅ WCAG 2.1 Level AA Compliant
        ✅ SEO Optimized (JSON-LD, OpenGraph, Twitter Cards)
@@ -48,12 +48,12 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
   <!-- SEO: Theme & Appearance -->
   <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.302"/>
+  <meta name="version" content="3.010.300"/>
   <meta name="author" content="In the Wake"/>
   <meta name="publisher" content="In the Wake"/>
 
   <!-- Title & SEO -->
-  <title>Symphony of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake (v3.010.302)</title>
+  <title>Symphony of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake (v3.010.300)</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/rcl/symphony-of-the-seas.html"/>
   <meta name="description" content="Symphony of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."/>
 
@@ -226,7 +226,6 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-  
   <!-- JSON-LD: WebPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -317,9 +316,6 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
     color: var(--text-muted);
   }
 
-
-  
-  /* Dropdown Navigation (FIXED: 300ms Hover Delay) */
   .nav {
     flex: 1 1 auto;
     min-width: 0;
@@ -333,111 +329,6 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
     padding-inline: .75rem;
   }
 
-  .nav-item {
-    position: relative;
-    display: inline-block;
-  }
-
-  .nav-item > a,
-  .nav-item > button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: .35rem;
-    padding: .65rem 1rem;
-    min-height: 44px;
-    border-radius: 20px;
-    background: #fff;
-    border: 2px solid var(--rope);
-    color: var(--accent);
-    font: inherit;
-    font-size: .95rem;
-    line-height: 1.2;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  .nav-item > a:hover,
-  .nav-item > button:hover {
-    background: var(--foam);
-    border-color: var(--accent);
-    transform: translateY(-1px);
-  }
-
-  .nav-item > a[aria-current="page"] {
-    background: var(--accent);
-    color: #fff;
-    font-weight: 600;
-    border-color: var(--accent);
-  }
-
-  .nav-disclosure .caret {
-    display: inline-block;
-    margin-left: .25rem;
-    transition: transform 0.2s ease;
-  }
-
-  .nav-item[data-open="true"] .nav-disclosure .caret {
-    transform: rotate(180deg);
-  }
-
-  /* Dropdown menu with safe zone */
-  .submenu {
-    position: absolute !important;
-    left: 0;
-    top: calc(100% + 4px);
-    min-width: 240px;
-    background: #fff;
-    border: 2px solid var(--rope);
-    border-radius: 12px;
-    padding: .6rem;
-    box-shadow: 0 8px 24px rgba(8,48,65,.15);
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-    z-index: 2100;
-  }
-
-  /* Safe zone bridge */
-  .submenu::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: transparent;
-  }
-
-  .nav-item[data-open="true"] > .submenu {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .submenu a {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: .6rem .75rem;
-    border-radius: .65rem;
-    border: 0;
-    background: transparent;
-    color: var(--ink);
-    text-decoration: none;
-    transition: background 0.15s ease;
-  }
-
-  .submenu a:hover,
-  .submenu a:focus {
-    background: #f2f7fa;
-    outline: 2px solid transparent;
-  }
-
   @media (max-width: 768px) {
     .nav {
       justify-content: flex-start;
@@ -446,16 +337,6 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
       -webkit-overflow-scrolling: touch;
     }
 
-    .nav-item > a,
-    .nav-item > button {
-      flex: 0 0 auto;
-    }
-
-    .submenu {
-      left: 0;
-      right: 0;
-      min-width: 100%;
-    }
   }
   
     /* Navigation */
@@ -472,124 +353,8 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
       padding-inline: .75rem;
     }
 
-    .nav-item {
-      position: relative;
-      display: inline-block;
-    }
-
-    .nav-item > a,
-    .nav-item > button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      padding: .65rem 1rem;
-      min-height: 44px;
-      border-radius: 20px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      color: var(--accent);
-      font: inherit;
-      font-size: .95rem;
-      line-height: 1.2;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item > a:hover,
-    .nav-item > button:hover {
-      background: var(--foam);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .nav-item > a[aria-current="page"] {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      border-color: var(--accent);
-    }
-
-    /* Dropdown Navigation Styles */
-    .nav-disclosure .caret {
-      display: inline-block;
-      margin-left: .25rem;
-      transition: transform 0.2s ease;
-    }
-
-    .nav-item[data-open="true"] .nav-disclosure .caret {
-      transform: rotate(180deg);
-    }
-
-    .submenu {
-      position: absolute !important;
-      left: 0;
-      top: calc(100% + 4px);
-      min-width: 240px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      border-radius: 12px;
-      padding: .6rem;
-      box-shadow: 0 8px 24px rgba(8,48,65,.15);
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-      z-index: 2100;
-    }
-
-    .submenu::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: transparent;
-    }
-
-    .nav-item[data-open="true"] .submenu,
-    .nav-group[data-open="true"] .submenu {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .submenu a {
-      display: block;
-      padding: .5rem .75rem;
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.15s ease;
-    }
-
-    .submenu a:hover,
-    .submenu a:focus {
-      background: #eef4f6;
-      outline: none;
-    }
-
-    .submenu a[aria-current="page"] {
-      background: #e6f4f8;
-      font-weight: 600;
-    }
-
     @media (max-width: 768px) {
-      .submenu {
-        position: static !important;
-        min-width: 0;
-        margin-top: .5rem;
-        box-shadow: none;
-        border: 1px solid var(--rope);
-      }
 
-      .submenu::before {
-        display: none;
-      }
     }
   
     /* Navigation */
@@ -606,124 +371,8 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
       padding-inline: .75rem;
     }
 
-    .nav-item {
-      position: relative;
-      display: inline-block;
-    }
-
-    .nav-item > a,
-    .nav-item > button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      padding: .65rem 1rem;
-      min-height: 44px;
-      border-radius: 20px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      color: var(--accent);
-      font: inherit;
-      font-size: .95rem;
-      line-height: 1.2;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item > a:hover,
-    .nav-item > button:hover {
-      background: var(--foam);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .nav-item > a[aria-current="page"] {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      border-color: var(--accent);
-    }
-
-    /* Dropdown Navigation Styles */
-    .nav-disclosure .caret {
-      display: inline-block;
-      margin-left: .25rem;
-      transition: transform 0.2s ease;
-    }
-
-    .nav-item[data-open="true"] .nav-disclosure .caret {
-      transform: rotate(180deg);
-    }
-
-    .submenu {
-      position: absolute !important;
-      left: 0;
-      top: calc(100% + 4px);
-      min-width: 240px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      border-radius: 12px;
-      padding: .6rem;
-      box-shadow: 0 8px 24px rgba(8,48,65,.15);
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-      z-index: 2100;
-    }
-
-    .submenu::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: transparent;
-    }
-
-    .nav-item[data-open="true"] .submenu,
-    .nav-group[data-open="true"] .submenu {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .submenu a {
-      display: block;
-      padding: .5rem .75rem;
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.15s ease;
-    }
-
-    .submenu a:hover,
-    .submenu a:focus {
-      background: #eef4f6;
-      outline: none;
-    }
-
-    .submenu a[aria-current="page"] {
-      background: #e6f4f8;
-      font-weight: 600;
-    }
-
     @media (max-width: 768px) {
-      .submenu {
-        position: static !important;
-        min-width: 0;
-        margin-top: .5rem;
-        box-shadow: none;
-        border: 1px solid var(--rope);
-      }
 
-      .submenu::before {
-        display: none;
-      }
     }
   </style>
 
@@ -763,7 +412,7 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
 
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.302" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 
 <body class="page">
@@ -779,7 +428,7 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge" aria-label="Site version 3.010.302">v3.010.302</span>
+        <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
       </div>
             <nav class="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
@@ -847,122 +496,53 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
     </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
-  <style>
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 360px !important;
-      }
-    }
+  <main class="wrap" id="main-content" role="main" tabindex="-1">
+    <!-- ICP-Lite Content Structure -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
 
-    /* Vertical author card */
-    .author-card-vertical {
-      text-align: center;
-    }
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> Symphony of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
+      </p>
 
-    .author-card-vertical .author-avatar {
-      display: block;
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
+      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <strong>Best For:</strong> Cruisers researching Symphony of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
+      </p>
 
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Cruise Line:</strong> Royal Caribbean</li>
+          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
+          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
+        </ul>
+      </div>
+    </section>
 
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-
-    /* Rail list */
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-  </style>
-
-    <!-- Right Rail -->
-    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
-      <!-- Quick Answer / Best For / Key Facts -->
-      <section class="page-intro" style="margin: 0 0 1rem 0;">
-        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-          <strong>Quick Answer:</strong> Symphony of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-        </p>
-
-        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-          <strong>Best For:</strong> Cruisers researching Symphony of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-        </p>
-
-        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-          <ul style="margin: 0; padding-left: 1.25rem;">
-            <li><strong>Cruise Line:</strong> Royal Caribbean</li>
-            <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-            <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Author card (Vertical Layout) -->
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.302" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
-
-      <!-- Recent Articles rail -->
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    </aside>
-
-    <!-- Main Content Column -->
-    <div style="grid-column: 1; grid-row: 1;">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;" aria-label="Symphony of the Seas overview">
       <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Symphony of the Seas — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
+
+      <p style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope); background: #f7fdff; border-radius: 8px; font-size: 0.95rem; color: #134;">
+        <strong style="display: block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #567; margin-bottom: 0.15rem;">Looking for Symphony of the Seas planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Royal Caribbean cruise aboard Symphony of the Seas.</span>
+      </p>
 
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Symphony of the Seas tends to suit travelers who appreciate grand-scale cruising with seven distinct neighborhoods including Central Park (featuring over 12,000 live plants and trees), the Boardwalk with its hand-carved carousel, and the dramatic AquaTheater.
         It's ideal if you want one of the world's largest cruise ships with space for ~5,518 guests, extensive dining and entertainment options, and the 7-neighborhood layout.
         If you're seeking a more intimate ship or prefer the newest Icon-class innovations, you may want to explore Quantum-class or <a href="/ships/rcl/icon-of-the-seas.html">Icon of the Seas</a> instead.
       </p>
+    </section>
 
   <!-- Row 1: First Look + Dining -->
-    <section class="grid-2">
+    <section style="grid-column: 1; grid-row: 1 / span 999;" class="grid-2">
       <!-- First Look + Stats -->
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
 
         <div class="swiper firstlook" aria-label="Symphony of the Seas photo carousel">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="/assets/ships/Mein_Schiff_2_&_Symphony_of_the_Seas.webp" alt="Symphony of the Seas at sea" loading="lazy" decoding="async"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/assets/ships/RCCL_Symphony_Of_The_Seas_(46801899181).webp" alt="Symphony of the Seas exterior view" loading="lazy" decoding="async"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/assets/ships/SymphonyOfTheSeas_(cropped)_02-2.webp" alt="Symphony of the Seas profile" loading="lazy" decoding="async"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/assets/ships/SymphonyOfTheSeas_(cropped)_02.webp" alt="Symphony of the Seas in port" loading="lazy" decoding="async"/>
-            </div>
+
           </div>
           <div class="swiper-pagination" aria-hidden="true"></div>
           <div class="swiper-button-prev" aria-label="Previous image"></div>
@@ -971,7 +551,7 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
 
         <!-- Stats -->
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
-          <h3 id="statsHeading">Symphony at a Glance</h3>
+          <h3 id="statsHeading">Key Facts About Symphony of the Seas</h3>
           <div id="ship-stats" class="stats-grid" data-slug="symphony-of-the-seas"></div>
           <script type="application/json" id="ship-stats-fallback">
           {
@@ -990,23 +570,23 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
         </section>
 
         <!-- Sister Ships -->
-        <section class="ship-stats card mini" aria-labelledby="sister-ships">
-          <h3 id="sister-ships">Oasis Class — Sister Ships</h3>
-          <p class="small" style="margin-bottom: 0.5rem;">Explore other ships in the <a href="/ships.html#oasis-class">Oasis Class</a> family:</p>
-          <div class="related-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+        <section class="card mini carousel related-ships" aria-labelledby="related-ships">
+          <h3 id="related-ships" class="card-title">Oasis Class — Sister Ships</h3>
+          <div class="related-pills" aria-label="Oasis-class ships">
             <a class="pill" href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>
             <a class="pill" href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>
             <a class="pill" href="/ships/rcl/harmony-of-the-seas.html">Harmony of the Seas</a>
             <a class="pill" href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a>
             <a class="pill" href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>
           </div>
+          <p style="text-align:center"><a href="/ships.html" class="btn">See All Ships</a></p>
         </section>
 
         <!-- Ship Classes -->
-        <section class="ship-stats card mini" aria-labelledby="ship-classes">
-          <h3 id="ship-classes">Explore Royal Caribbean Ship Classes</h3>
-          <p class="small" style="margin-bottom: 0.5rem;">Compare Symphony with other Royal Caribbean classes:</p>
-          <div class="class-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+        <section class="card mini carousel related-classes" aria-labelledby="related-classes">
+          <h3 id="related-classes" class="card-title">Explore Royal Caribbean Classes</h3>
+          <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
+          <div class="class-pills">
             <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
@@ -1015,6 +595,7 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
             <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#vision">Vision Class</a>
           </div>
+          <p style="text-align:center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
         </section>
       </section>
 
@@ -1103,72 +684,119 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
-    <!-- Live Ship Tracker -->
-    <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9744001" data-name="SYMPHONY-OF-THE-SEAS">
-      <h2 id="liveTrackHeading">Where Is Symphony Right Now?</h2>
-      <p>See the ship's current position, speed, and next port on a live tracker.</p>
+    <!-- Row: Deck Plans + Live Tracker -->
+    <section class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
+        <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/symphony-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+        <figure>
+          <img src="/assets/ship-map.png" alt="Symphony of the Seas simplified deck plan preview" loading="lazy"/>
+        </figure>
+      </section>
 
-      <div id="vf-tracker-container" style="width:100%;height:500px;position:relative;"></div>
-      <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9744001" data-name="SYMPHONY-OF-THE-SEAS">
+        <h2 id="liveTrackHeading">Where Is Symphony Right Now?</h2>
+        <p>See the ship's current position, speed, and next port on a live tracker.</p>
+
+        <div id="vf-tracker-container" style="width:100%;height:300px;position:relative;"></div>
+        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
+      </section>
     </section>
 
-    <!-- Deck Plans -->
-    <section class="card" aria-labelledby="deck-plans">
-      <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
-      <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/symphony-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
-      <figure>
-        <img src="/assets/ship-map.png" alt="Symphony of the Seas simplified deck plan preview" loading="lazy"/>
-      </figure>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="card" aria-labelledby="faq-heading">
+    <!-- FAQ Section (ICP-Lite) -->
+    <section class="card faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What makes Symphony of the Seas unique?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Symphony of the Seas features Royal Caribbean's signature seven-neighborhood layout including Central Park (with over 12,000 live plants and trees), Boardwalk with a hand-carved carousel, and the AquaTheater with high-diving shows. At 228,081 GT with space for ~5,518 guests (double occupancy), it's one of the largest cruise ships in the world.</p>
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What makes Symphony of the Seas unique compared to other Royal Caribbean ships?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Symphony of the Seas features Royal Caribbean's signature seven-neighborhood layout including Central Park (with over 12,000 live plants and trees), Boardwalk with a hand-carved carousel, and the AquaTheater with high-diving shows. At 228,081 GT with space for ~5,518 guests (double occupancy), it's one of the largest cruise ships in the world, offering extensive dining, entertainment, and activities across its multiple decks.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How many passengers does Symphony of the Seas hold?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Symphony of the Seas accommodates 5,518 guests at double occupancy, with a maximum capacity of approximately 6,680 passengers. The ship has a crew of 2,200.</p>
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships are in the same class as Symphony of the Seas?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Symphony of the Seas is part of the <a href="/ships.html#oasis-class">Oasis Class</a>, which includes <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>, <a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>, <a href="/ships/rcl/harmony-of-the-seas.html">Harmony of the Seas</a>, <a href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a>, and <a href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>. All share the iconic seven-neighborhood design and massive scale.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">The ship offers complimentary dining including the Main Dining Room and Windjammer Marketplace buffet. Specialty dining venues require additional fees. Check the dining section above for current menus and pricing.</p>
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Symphony of the Seas?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Symphony offers the <a href="/restaurants/mdr.html">main dining room</a>, <a href="/restaurants/windjammer.html">Windjammer</a> Café (buffet), specialty dining including <a href="/restaurants/chops.html">Chops Grille</a>, <a href="/restaurants/giovannis.html">Giovanni's Table</a>, <a href="/restaurants/izumi.html">Izumi</a>, <a href="/restaurants/150-central-park.html">150 Central Park</a>, and <a href="/restaurants/johnny-rockets.html">Johnny Rockets</a>, plus numerous bars and lounges throughout the ship's seven neighborhoods. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
+      </details>
+
+      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Symphony of the Seas typically sail?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Symphony typically sails Caribbean itineraries from Miami and other Florida ports. Deployments vary by season — check the live tracker on this page or Royal Caribbean's official site for current and upcoming voyages.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Symphony of the Seas sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Symphony of the Seas typically sails Caribbean itineraries from Miami and other Florida ports. Check the live tracker above for current position and Royal Caribbean's website for upcoming deployment schedules.</p>
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I see Symphony of the Seas' current location?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Use the <a href="#liveTrackHeading">live ship tracker</a> on this page (in the "Where Is Symphony Right Now?" section) to see the ship's current position, speed, and next port in real-time.</p>
       </details>
     </section>
 
-    <!-- Image Attributions -->
-    <section class="card attributions">
-      <h2>Image Attributions</h2>
-      <p class="tiny" style="margin-bottom: 1rem;">Photos used on this page are from Wikimedia Commons and are licensed under Creative Commons licenses.</p>
-      <ul style="font-size: 0.9rem; line-height: 1.6;">
-        <li style="margin-bottom: 0.75rem;">
-          <strong>Symphony of the Seas images</strong><br/>
-          Images from <a href="https://commons.wikimedia.org/wiki/Category:Symphony_of_the_Seas_(ship,_2018)" target="_blank" rel="noopener">Wikimedia Commons - Symphony of the Seas category</a><br/>
-          Licenses: CC BY-SA 4.0 or similar (specific attributions need to be added for each image)
-        </li>
-      </ul>
-      <p class="tiny" style="margin-top: 1rem; font-style: italic;">Note: Detailed attribution information for each image is being compiled. All images are from Wikimedia Commons and comply with Creative Commons licensing.</p>
+    <!-- Author & Articles -->
+    <section class="grid-2">
+      <aside class="card" aria-labelledby="author-info">
+        <h2 id="author-info">About the Author</h2>
+        <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <picture>
+            <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.300">
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+          <div>
+            <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong>
+            <p class="tiny">Pastor, cruise writer, and founder of In the Wake. Creating resources for smoother sailings and faithful reflections at sea.</p>
+          </div>
+        </div>
+      <!-- Recent Articles rail -->
+      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    
+      </aside>
+
+      <aside class="card" aria-labelledby="related-articles">
+        <h2 id="related-articles">Related Articles &amp; Resources</h2>
+        <ul style="list-style:none;padding:0;display:grid;gap:0.5rem;">
+          <li><a href="/solo/accessible-cruising.html">Accessible Cruising — Complete Guide</a></li>
+          <li><a href="/solo/freedom-of-your-own-wake.html">Freedom of Your Own Wake — Solo Cruising</a></li>
+          <li><a href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a></li>
+          <li><a href="/planning.html">Planning Your Cruise — Overview</a></li>
+          <li><a href="/articles.html">Browse All Articles</a></li>
+        </ul>
+      </aside>
     </section>
 
-    </div><!-- Close main content column -->
-
-</main>
+    <!-- Attribution -->
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <ul>
+        <li>
+          "Symphony of the Seas in Ketchikan" by <a href="https://commons.wikimedia.org/wiki/User:Roger_W" target="_blank" rel="noopener">Roger W</a> via
+          <a href="https://commons.wikimedia.org/wiki/File:Symphony_of_the_Seas_(Ketchikan,_Alaska).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
+          licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
+        </li>
+        <li>
+          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
+          <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
+          <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
+        </li>
+        <li>
+          "Royal Caribbean ship at sea" by <a href="https://commons.wikimedia.org/wiki/User:Caleb_Andrews" target="_blank" rel="noopener">Caleb Andrews</a> —
+          <a href="https://commons.wikimedia.org/wiki/File:Royal_Caribbean_at_sea.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
+          <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>.
+        </li>
+      </ul>
+    </section>
+  </main>
 
   <!-- FOOTER -->
   <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake. All rights reserved.</p>
-
-    
 
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
@@ -1184,10 +812,7 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
 
       function setOpen(group, isOpen) {
         group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
+        const button = group.querySelector('
       }
 
       function closeAll(except = null) {
@@ -1203,18 +828,7 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
       }
 
       dropdownGroups.forEach(group => {
-        const button = group.querySelector('.nav-disclosure');
-        const menu = group.querySelector('.submenu');
-        if (!button || !menu) return;
-
-        // Click to toggle
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isOpen = group.dataset.open === "true";
-          closeAll(group);
-          setOpen(group, !isOpen);
-        });
+        const button = group.querySelector(');
 
         // Mouse enter: Open immediately
         group.addEventListener('mouseenter', () => {
@@ -1476,7 +1090,7 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-    <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->
+  <!-- ===== Live tracker ===== -->
   <script>
   (function initLiveTracker(){
     const card=document.querySelector('.card.itinerary[data-imo]');
@@ -1485,25 +1099,33 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
     const container=document.getElementById('vf-tracker-container');
     if(!imo||!container) return;
 
-    // Create wrapper div
-    const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
+    // VesselFinder JavaScript embed configuration
+    window.vfTrackerOptions = {
+      imo: imo,
+      width: '100%',
+      height: 300,
+      zoom: 10,
+      showNames: true,
+      showTrack: false
+    };
 
-    // CruiseMapper iframe embed using IMO
+    // Create wrapper div for VesselFinder embed
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'width:100%;height:300px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
+
+    // VesselFinder requires specific implementation - using MarineTraffic as alternative
+    // MarineTraffic provides better iframe support
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.cruisemapper.com/?imo=' + imo;
+    iframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:0/centerx:0/maptype:0/shownames:false/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
 
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
   })();
   </script>
 
-  
-
-  
   <script>
   (function(){
     "use strict";
@@ -1577,12 +1199,12 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
               </div>
               <div>
                 <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">${title}</a>
+                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
                 </h4>
-                ${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">${excerpt}</p>` : ''}
+                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
           </article>`;
       }).join('');
 
@@ -1620,7 +1242,7 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
+          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
@@ -1630,12 +1252,16 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
       // Announce to screen readers
       const status = document.getElementById('a11y-status');
       if(status) {
-        status.textContent = `${view.length} recent articles loaded`;
+        status.textContent = `\${view.length} recent articles loaded`;
       }
     })();
   })();
   </script>
-  <!-- Navigation dropdown functionality (New Clean Implementation) -->
+<<<<<<< HEAD
+
+=======
+  <!-- Navigation dropdown functionality -->
+    <!-- Navigation dropdown functionality (New Clean Implementation) -->
   <script>
   (function() {
     'use strict';
@@ -1689,5 +1315,6 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
     });
   })();
   </script>
+>>>>>>> 4aa11716 (FIX: Add missing navigation script to 477 HTML pages)
 </body>
 </html>

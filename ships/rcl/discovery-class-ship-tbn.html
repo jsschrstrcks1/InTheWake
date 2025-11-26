@@ -264,18 +264,76 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     /* Content + cards */
     .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
     .card{background:#fff;border:2px solid var(--rope,#d9b382);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
+    .grid-2{display:grid;gap:1rem;align-items:stretch}
+    .grid-2>.card{display:flex;flex-direction:column}
+    @media (min-width:980px){.grid-2{grid-template-columns:1fr 1fr}}
 
-    /* Page grid layout */
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 360px 1fr !important;
-      }
-    }
+    /* Related pair on desktop */
+    @media (min-width:861px){.related-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap,1.25rem)}}
 
     /* Future ship notice */
     .future-notice{background:#d1ecf1;border:2px solid #17a2b8;border-radius:12px;padding:1.25rem;margin:1rem 0;text-align:center}
     .future-notice h3{color:#0c5460;margin:0 0 .5rem 0;font-size:1.1rem}
     .future-notice p{color:#0c5460;margin:.25rem 0}
+  /* Header / Hero */
+  .hero-header {
+    position: relative;
+    border-bottom: 6px double var(--rope);
+    background: #eaf6f6;
+    z-index: 9000;
+  }
+
+  .navbar {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    gap: .6rem;
+    padding: .5rem .9rem .35rem;
+    position: relative;
+    z-index: 2000;
+    overflow: visible;
+  }
+
+  .brand {
+    display: flex;
+    align-items: flex-end;
+    gap: .6rem;
+  }
+
+  .brand img {
+    height: 28px;
+    width: auto;
+  }
+
+  .version-badge {
+    font-size: .72rem;
+    opacity: .8;
+    color: var(--text-muted);
+  }
+
+  .nav {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    overflow: visible;
+    padding-inline: .75rem;
+  }
+
+  @media (max-width: 768px) {
+    .nav {
+      justify-content: flex-start;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+
+  }
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -294,11 +352,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- HEADER -->
   <header class="hero-header" role="banner">
     <div class="navbar">
+      <!-- Navigation with Dropdown Menus -->
+
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
       </div>
-      <nav class="site-nav" aria-label="Main site navigation">
+            <nav class="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
 
         <!-- Planning Dropdown -->
@@ -336,6 +396,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
+
     </div>
 
     <div class="hero" role="img" aria-label="Royal Caribbean ship hero image">
@@ -360,134 +421,208 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <div class="hero-credit">
         <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo by Flickers of Majesty — Instagram</a>
       </div>
-    </div>
-  </header>
+    </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
+  <main class="wrap" id="main-content" role="main" tabindex="-1">
+    <!-- ICP-Lite v1.0: Answer-First Content -->
+    <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;" aria-label="Discovery Class Ship TBN overview">
+      <h1 id="ship-name">Discovery Class Ship (TBN)</h1>
+      <p class="answer-line">
+      <span class="answer-q">What this page covers</span>
+      <span class="answer-a">The Discovery Class Ship (TBN) is an upcoming Royal Caribbean vessel representing a new ship class. Details about capacity, features, and debut date will be announced as the ship design is finalized.</span>
+    </p>
 
-    <!-- Right Rail: Recent Articles -->
-    <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
-      <h3 id="recent-rail-title">Recent Stories</h3>
-      <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-        Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-      </p>
-      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-      <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      <section class="fit-guidance">
+      <h2 class="sr-only">Who This Page Is For</h2>
+      <h2>What We Know About the Discovery Class</h2>
+        <p>Royal Caribbean's Discovery Class represents a new chapter in the cruise line's innovative fleet expansion. While specific details remain under wraps, this new class signals Royal Caribbean's ongoing commitment to pushing boundaries and creating extraordinary experiences at sea.</p>
+        <p>As a future-focused ship class, the Discovery Class will likely incorporate lessons learned from Royal Caribbean's newest vessels while introducing fresh innovations tailored to evolving guest preferences. We'll update this page with deck plans, dining options, and amenities as soon as Royal Caribbean makes official announcements.</p>
+      </section>
+
+    <section class="key-facts card">
+        <h2>Key Facts at a Glance</h2>
+        <ul>
+          <li><strong>Class:</strong> Discovery Class (new class)</li>
+          <li><strong>Status:</strong> To Be Named (TBN) - details pending</li>
+          <li><strong>Debut Date:</strong> Not yet announced</li>
+          <li><strong>Size:</strong> To be announced</li>
+          <li><strong>Capacity:</strong> To be announced</li>
+          <li><strong>Updates:</strong> Check this page for the latest Royal Caribbean announcements</li>
+        </ul>
+      </div>
     </section>
 
-    <!-- Main Content Area -->
-    <div style="grid-column: 2;">
-
-      <!-- ICP-Lite v1.0: Answer-First Content -->
-      <section class="page-intro" aria-label="Discovery Class Ship TBN overview">
-        <h1 id="ship-name">Discovery Class Ship (TBN)</h1>
-        <p class="answer-line">
-        <span class="answer-q">What this page covers</span>
-        <span class="answer-a">The Discovery Class Ship (TBN) is an upcoming Royal Caribbean vessel representing a new ship class. Details about capacity, features, and debut date will be announced as the ship design is finalized.</span>
-      </p>
-
-        <section class="fit-guidance">
-        <h2 class="sr-only">Who This Page Is For</h2>
-        <h2>What We Know About the Discovery Class</h2>
-          <p>Royal Caribbean's Discovery Class represents a new chapter in the cruise line's innovative fleet expansion. While specific details remain under wraps, this new class signals Royal Caribbean's ongoing commitment to pushing boundaries and creating extraordinary experiences at sea.</p>
-          <p>As a future-focused ship class, the Discovery Class will likely incorporate lessons learned from Royal Caribbean's newest vessels while introducing fresh innovations tailored to evolving guest preferences. We'll update this page with deck plans, dining options, and amenities as soon as Royal Caribbean makes official announcements.</p>
-        </section>
-
-      <section class="key-facts card">
-          <h2>Key Facts at a Glance</h2>
-          <ul>
-            <li><strong>Class:</strong> Discovery Class (new class)</li>
-            <li><strong>Status:</strong> To Be Named (TBN) - details pending</li>
-            <li><strong>Debut Date:</strong> Not yet announced</li>
-            <li><strong>Size:</strong> To be announced</li>
-            <li><strong>Capacity:</strong> To be announced</li>
-            <li><strong>Updates:</strong> Check this page for the latest Royal Caribbean announcements</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Future Ship Notice -->
-      <div class="future-notice" role="alert">
-        <h3>⚓ New Ship Class — Limited Information Available</h3>
-        <p>This is a new Discovery-class ship announced by Royal Caribbean.</p>
-        <p>Details are limited at this time and will be updated as they become available.</p>
-      </div>
-
-      <!-- About -->
-      <section class="card" aria-labelledby="about-ship">
-        <h2 id="about-ship">More About Discovery Class</h2>
-        <p>Royal Caribbean has announced a new Discovery-class ship, representing an exciting addition to their fleet. At this time, limited public details are available about this vessel.</p>
-        <p>The Discovery Class is expected to introduce innovative features and design elements that build on Royal Caribbean's legacy of groundbreaking cruise ship architecture.</p>
-        <p>This page will be updated with additional information as Royal Caribbean releases more details about the ship's name, specifications, features, and itineraries.</p>
-        <p><strong>Note:</strong> TBN stands for "To Be Named" - the ship's official name has not yet been announced.</p>
-      </section>
-
-      <!-- Stay Updated -->
-      <section class="card" aria-labelledby="updates">
-        <h2 id="updates">Stay Updated</h2>
-        <p>Check back regularly for the latest information about the Discovery Class ship, including:</p>
-        <ul>
-          <li>Official ship name announcement</li>
-          <li>Delivery date and timeline</li>
-          <li>Technical specifications (tonnage, capacity, dimensions)</li>
-          <li>Deck plans and stateroom categories</li>
-          <li>Dining venues and entertainment options</li>
-          <li>Inaugural itineraries and deployment</li>
-        </ul>
-        <p><a class="btn" href="/ships.html">Browse All Ships</a></p>
-      </section>
-
-      <!-- Related -->
-      <section class="card carousel related-classes" aria-labelledby="related-classes">
-        <h2 id="related-classes" class="card-title">Explore Royal Caribbean Classes</h2>
-        <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
-        <div class="class-pills">
-          <a class="pill" href="/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
-          <a class="pill" href="/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
-          <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
-          <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
-          <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
-          <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
-        </div>
-        <p style="text-align:center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
-      </section>
-
-      <!-- ICP-Lite v1.0: FAQ Section -->
-      <section class="card faq" aria-labelledby="faq-heading">
-        <h2 id="faq-heading">Frequently Asked Questions</h2>
-
-        <details>
-          <summary>What is the Discovery Class?</summary>
-          <p>The Discovery Class represents a new ship class in Royal Caribbean's fleet. Details will be announced by Royal Caribbean as the ship design is finalized.</p>
-        </details>
-
-        <details>
-          <summary>When will the Discovery Class ship enter service?</summary>
-          <p>The service date for the Discovery Class ship has not yet been publicly announced. Check back for updates as Royal Caribbean releases more information.</p>
-        </details>
-
-        <details>
-          <summary>What features will the Discovery Class have?</summary>
-          <p>Specific features have not been announced yet. This page will be updated with deck plans, dining venues, and amenities as Royal Caribbean reveals the ship's design.</p>
-        </details>
-
-        <details>
-          <summary>How can I stay updated on Discovery Class news?</summary>
-          <p>Bookmark this page and check Royal Caribbean's official announcements. In the Wake will update this page as soon as new details become available.</p>
-        </details>
-      </section>
-
+    <!-- Future Ship Notice -->
+    <div class="future-notice" role="alert">
+      <h3>⚓ New Ship Class — Limited Information Available</h3>
+      <p>This is a new Discovery-class ship announced by Royal Caribbean.</p>
+      <p>Details are limited at this time and will be updated as they become available.</p>
     </div>
+
+    <!-- About -->
+    <section class="card" aria-labelledby="about-ship">
+      <h2 id="about-ship">More About Discovery Class</h2>
+      <p>Royal Caribbean has announced a new Discovery-class ship, representing an exciting addition to their fleet. At this time, limited public details are available about this vessel.</p>
+      <p>The Discovery Class is expected to introduce innovative features and design elements that build on Royal Caribbean's legacy of groundbreaking cruise ship architecture.</p>
+      <p>This page will be updated with additional information as Royal Caribbean releases more details about the ship's name, specifications, features, and itineraries.</p>
+      <p><strong>Note:</strong> TBN stands for "To Be Named" - the ship's official name has not yet been announced.</p>
+    </section>
+
+    <!-- Stay Updated -->
+    <section class="card" aria-labelledby="updates">
+      <h2 id="updates">Stay Updated</h2>
+      <p>Check back regularly for the latest information about the Discovery Class ship, including:</p>
+      <ul>
+        <li>Official ship name announcement</li>
+        <li>Delivery date and timeline</li>
+        <li>Technical specifications (tonnage, capacity, dimensions)</li>
+        <li>Deck plans and stateroom categories</li>
+        <li>Dining venues and entertainment options</li>
+        <li>Inaugural itineraries and deployment</li>
+      </ul>
+      <p><a class="btn" href="/ships.html">Browse All Ships</a></p>
+    </section>
+
+    <!-- Related -->
+    <section class="card carousel related-classes" aria-labelledby="related-classes">
+      <h2 id="related-classes" class="card-title">Explore Royal Caribbean Classes</h2>
+      <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
+      <div class="class-pills">
+        <a class="pill" href="/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
+        <a class="pill" href="/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
+        <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
+        <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
+        <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
+        <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
+      </div>
+      <p style="text-align:center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
+    </section>
+
+    <!-- ICP-Lite v1.0: FAQ Section -->
+    <section class="card faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>What is the Discovery Class?</summary>
+        <p>The Discovery Class represents a new ship class in Royal Caribbean's fleet. Details will be announced by Royal Caribbean as the ship design is finalized.</p>
+      </details>
+
+      <details>
+        <summary>When will the Discovery Class ship enter service?</summary>
+        <p>The service date for the Discovery Class ship has not yet been publicly announced. Check back for updates as Royal Caribbean releases more information.</p>
+      </details>
+
+      <details>
+        <summary>What features will the Discovery Class have?</summary>
+        <p>Specific features have not been announced yet. This page will be updated with deck plans, dining venues, and amenities as Royal Caribbean reveals the ship's design.</p>
+      </details>
+
+      <details>
+        <summary>How can I stay updated on Discovery Class news?</summary>
+        <p>Bookmark this page and check Royal Caribbean's official announcements. In the Wake will update this page as soon as new details become available.</p>
+      </details>
+    </section>
+      <!-- Recent Articles rail -->
+      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    
   </main>
 
   <!-- FOOTER -->
   <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake. All rights reserved.</p>
+
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
 
   <!-- JAVASCRIPT -->
+  <script>
+  (function(){"use strict";
+    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    if (dropdownGroups.length) {
+      const hoverTimeouts = new Map();
+      const HOVER_DELAY = 300;
+
+      function setOpen(group, isOpen) {
+        group.dataset.open = isOpen ? "true" : "false";
+        const button = group.querySelector('
+      }
+
+      function closeAll(except = null) {
+        dropdownGroups.forEach(group => {
+          if (group !== except) {
+            setOpen(group, false);
+            if (hoverTimeouts.has(group)) {
+              clearTimeout(hoverTimeouts.get(group));
+              hoverTimeouts.delete(group);
+            }
+          }
+        });
+      }
+
+      dropdownGroups.forEach(group => {
+        const button = group.querySelector(');
+
+        group.addEventListener('mouseenter', () => {
+          if (hoverTimeouts.has(group)) {
+            clearTimeout(hoverTimeouts.get(group));
+            hoverTimeouts.delete(group);
+          }
+          closeAll(group);
+          setOpen(group, true);
+        });
+
+        group.addEventListener('mouseleave', () => {
+          const timeoutId = setTimeout(() => {
+            setOpen(group, false);
+            hoverTimeouts.delete(group);
+          }, HOVER_DELAY);
+          hoverTimeouts.set(group, timeoutId);
+        });
+
+        group.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            setOpen(group, false);
+            button && button.focus();
+          }
+          if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
+            e.preventDefault();
+            setOpen(group, true);
+            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            firstLink && firstLink.focus();
+          }
+        });
+
+        menu.addEventListener('focusout', () => {
+          setTimeout(() => {
+            if (!group.contains(document.activeElement)) {
+              setOpen(group, false);
+            }
+          }, 0);
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-group')) {
+          closeAll();
+        }
+      });
+
+      window.addEventListener('blur', () => {
+        closeAll();
+      });
+    }
+  })();
+  </script>
+<<<<<<< HEAD
   <script>
   (function(){
     "use strict";
@@ -505,7 +640,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           try{
             const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
             if (res.ok) return await res.json();
-          }catch(err){}
+          }catch(err){
+
+          }
         }
         return null;
       }
@@ -559,12 +696,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
               </div>
               <div>
                 <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">${title}</a>
+                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
                 </h4>
-                ${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">${excerpt}</p>` : ''}
+                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
           </article>`;
       }).join('');
 
@@ -596,13 +733,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         if(!primary){
           const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
           const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
+          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
         }
 
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
+          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
@@ -612,13 +749,15 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       // Announce to screen readers
       const status = document.getElementById('a11y-status');
       if(status) {
-        status.textContent = `${view.length} recent articles loaded`;
+        status.textContent = `\${view.length} recent articles loaded`;
       }
     })();
   })();
   </script>
 
+=======
   <!-- Navigation dropdown functionality -->
+    <!-- Navigation dropdown functionality (New Clean Implementation) -->
   <script>
   (function() {
     'use strict';
@@ -672,5 +811,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     });
   })();
   </script>
+>>>>>>> 4aa11716 (FIX: Add missing navigation script to 477 HTML pages)
 </body>
 </html>
