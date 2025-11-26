@@ -179,67 +179,6 @@ updated: 2025-11-18
   }
   </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Liberty of the Seas — Deck Plans, Live Tracker, Dining & Videos",
-    "url": "https://cruisinginthewake.com/ships/rcl/liberty-of-the-seas.html",
-    "description": "Liberty of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."
-  }
-  </script>
-
-  <!-- JSON-LD: FAQPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What makes Liberty of the Seas unique compared to other Royal Caribbean ships?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Liberty features the FlowRider surf simulator, H2O Zone water park with slides, and an expanded Royal Promenade. At 154,407 GT with up to 4,960 guests, it's larger than Voyager class while maintaining a manageable feel compared to Oasis and Icon class ships."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which ships are in the same class as Liberty of the Seas?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Liberty of the Seas is part of the Freedom Class, which includes Freedom of the Seas and Independence of the Seas. All share similar features and layouts."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What dining options are available on Liberty of the Seas?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Liberty of the Seas offers the main dining room, Windjammer Café (buffet), and specialty dining including Chops Grille, Giovanni's Italian Kitchen, and Johnny Rockets."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Where does Liberty of the Seas typically sail?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Liberty of the Seas typically sails Caribbean itineraries. Deployments vary by season."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How can I see Liberty of the Seas' current location?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the live ship tracker on this page to see the ship's current position, speed, and next port in real-time."
-        }
-      }
-    ]
-  }
-  </script>
-
   <!-- Favicon / PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
@@ -294,7 +233,17 @@ updated: 2025-11-18
   })();
   </script>
 
-  <!-- ===== Page micro CSS (scoped) ===== -->
+
+  <!-- JSON-LD: WebPage (ICP-Lite) -->
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Liberty of the Seas",
+  "url": "https://www.cruisinginthewake.com/ships/rcl/liberty-of-the-seas.html",
+  "description": "Liberty of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."
+}
+  </script><!-- ===== Page micro CSS (scoped) ===== -->
   <style>
     .hidden{display:none!important}
     .pills,.class-pills,.related-pills,.button-group{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;text-align:center}
@@ -783,7 +732,100 @@ updated: 2025-11-18
         display: none;
       }
     }
+
+    /* Hero section */
+    .hero {
+      position: relative;
+      min-height: 320px;
+      max-height: 520px;
+      background: url('/assets/index_hero.webp') center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+
+    .hero-title {
+      position: absolute;
+      left: min(3vw, 1rem);
+      bottom: clamp(.6rem, 2vw, 1.4rem);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .3rem;
+      text-shadow: 0 2px 6px rgba(0,0,0,.45);
+    }
+
+    .hero-title .logo {
+      display: block;
+      width: clamp(189px, 23.1vw, 378px);
+      max-width: min(45vw, 520px);
+      max-height: clamp(180px, 22vw, 320px);
+      height: auto;
+      object-fit: contain;
+    }
+
+    .hero-title .tagline {
+      position: relative;
+      font-weight: 700;
+      letter-spacing: .2px;
+      color: #e6f4f8;
+      font-size: clamp(.9rem, 1.5vw, 1.35rem);
+      white-space: nowrap;
+      margin: 0;
+      padding: 0;
+    }
   </style>
+
+  <!-- JSON-LD: FAQPage (ICP-Lite) -->
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What makes Liberty of the Seas unique compared to other Royal Caribbean ships?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Liberty features the FlowRider surf simulator, H2O Zone water park with slides, and an expanded Royal Promenade. At 154,407 GT with up to 4,960 guests, it's larger than Voyager class while maintaining a manageable feel compared to Oasis and Icon class ships."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which ships are in the same class as Liberty of the Seas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Liberty of the Seas is part of the Freedom Class, which includes Freedom of the Seas and Independence of the Seas. All share similar features and layouts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What dining options are available on Liberty of the Seas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Liberty of the Seas offers the main dining room, Windjammer Café (buffet), and specialty dining including Chops Grille, Giovanni's Italian Kitchen, and Johnny Rockets."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where does Liberty of the Seas typically sail?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Liberty of the Seas typically sails Caribbean itineraries. Deployments vary by season."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I see Liberty of the Seas' current location?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the live ship tracker on this page to see the ship's current position, speed, and next port in real-time."
+      }
+    }
+  ]
+}
+  </script>
 
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
@@ -871,126 +913,133 @@ updated: 2025-11-18
     </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap" id="main-content" role="main" tabindex="-1">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
-      
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
+  <style>
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 360px !important;
+      }
+    }
 
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Liberty of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-      </p>
+    /* Vertical author card */
+    .author-card-vertical {
+      text-align: center;
+    }
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching Liberty of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-      </p>
+    .author-card-vertical .author-avatar {
+      display: block;
+      width: 96px;
+      height: 96px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+    }
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Cruise Line:</strong> Royal Caribbean</li>
-          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
-        </ul>
-      </div>
-    </section>
+    .author-card-vertical h4 {
+      margin: 0.5rem 0 0.25rem;
+    }
 
+    .author-card-vertical p {
+      margin: 0.25rem 0;
+    }
 
-    <!-- ICP-Lite: Page Intro -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;" aria-label="Liberty of the Seas overview">
+    /* Rail list */
+    .rail-list {
+      display: grid;
+      gap: 1rem;
+    }
+  </style>
+
+    <!-- Right Rail -->
+    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
+      <!-- Quick Answer / Best For / Key Facts -->
+      <section class="page-intro" style="margin: 0 0 1rem 0;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Liberty of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
+        </p>
+
+        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+          <strong>Best For:</strong> Cruisers researching Liberty of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
+        </p>
+
+        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li><strong>Cruise Line:</strong> Royal Caribbean</li>
+            <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
+            <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Author card (Vertical Layout) -->
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </section>
+
+      <!-- Recent Articles rail -->
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    </aside>
+
+    <!-- Main Content Column -->
+    <div style="grid-column: 1; grid-row: 1;">
       <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Liberty of the Seas — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
-
-      <p style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope); background: #f7fdff; border-radius: 8px; font-size: 0.95rem; color: #134;">
-        <strong style="display: block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #567; margin-bottom: 0.15rem;">Looking for Liberty of the Seas planning info?</strong>
-        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Royal Caribbean cruise aboard Liberty of the Seas.</span>
-      </p>
 
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Liberty of the Seas tends to suit travelers who appreciate active amenities like the FlowRider surf simulator and H2O Zone water park alongside classic Royal Caribbean features.
         It's ideal if you want a Freedom-class experience with around 4,960 guests — larger than <a href="/ships.html#voyager-class">Voyager class</a> but more intimate than Oasis or Icon class.
         If you're seeking seven neighborhoods or the absolute newest innovations, you may want to explore Quantum, Oasis, or Icon class instead.
       </p>
-    </section>
 
   <!-- Row 1: First Look + Dining -->
-    <section style="grid-column: 1; grid-row: 1 / span 999;" class="grid-2">
+    <section class="grid-2">
       <!-- First Look + Stats -->
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
 
         <div class="swiper firstlook" aria-label="Liberty of the Seas photo carousel">
           <div class="swiper-wrapper">
-            
-            
-            
-            <!-- 4 - FOM -->
             <div class="swiper-slide">
-              <figure>
-                <img
-                  src="/assets/ships/Liberty-of-the-seas-FOM- - 1.webp?v=3.010.300"
-                  alt="Liberty of the Seas - FOM Photo 1"
-                  loading="lazy">
-                <figcaption class="tiny">Licensed from <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>.</figcaption>
-              </figure>
+              <img src="/assets/ships/Liberty-of-the-seas-FOM- - 1.webp" alt="Liberty of the Seas at sea" loading="lazy" decoding="async"/>
             </div>
-            <!-- 5 - FOM -->
             <div class="swiper-slide">
-              <figure>
-                <img
-                  src="/assets/ships/Liberty-of-the-seas-FOM- - 2.webp?v=3.010.300"
-                  alt="Liberty of the Seas - FOM Photo 2"
-                  loading="lazy">
-                <figcaption class="tiny">Licensed from <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>.</figcaption>
-              </figure>
+              <img src="/assets/ships/Liberty-of-the-seas-FOM- - 2.webp" alt="Liberty of the Seas exterior view" loading="lazy" decoding="async"/>
             </div>
-            <!-- 6 - FOM -->
             <div class="swiper-slide">
-              <figure>
-                <img
-                  src="/assets/ships/Liberty-of-the-seas-FOM- - 3.webp?v=3.010.300"
-                  alt="Liberty of the Seas - FOM Photo 3"
-                  loading="lazy">
-                <figcaption class="tiny">Licensed from <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>.</figcaption>
-              </figure>
+              <img src="/assets/ships/Liberty-of-the-seas-FOM- - 3.webp" alt="Liberty of the Seas profile" loading="lazy" decoding="async"/>
             </div>
-            <!-- 7 - FOM -->
             <div class="swiper-slide">
-              <figure>
-                <img
-                  src="/assets/ships/Liberty-of-the-seas-FOM- - 4.webp?v=3.010.300"
-                  alt="Liberty of the Seas - FOM Photo 4"
-                  loading="lazy">
-                <figcaption class="tiny">Licensed from <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>.</figcaption>
-              </figure>
+              <img src="/assets/ships/Liberty-of-the-seas-FOM- - 4.webp" alt="Liberty of the Seas in port" loading="lazy" decoding="async"/>
             </div>
-            <!-- 8 - FOM -->
             <div class="swiper-slide">
-              <figure>
-                <img
-                  src="/assets/ships/Liberty-of-the-seas-FOM- - 5.webp?v=3.010.300"
-                  alt="Liberty of the Seas - FOM Photo 5"
-                  loading="lazy">
-                <figcaption class="tiny">Licensed from <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>.</figcaption>
-              </figure>
+              <img src="/assets/ships/Liberty-of-the-seas-FOM- - 5.webp" alt="Liberty of the Seas deck view" loading="lazy" decoding="async"/>
             </div>
-            <!-- 9 - FOM -->
             <div class="swiper-slide">
-              <figure>
-                <img
-                  src="/assets/ships/Liberty-of-the-seas-FOM- - 6.webp?v=3.010.300"
-                  alt="Liberty of the Seas - FOM Photo 6"
-                  loading="lazy">
-                <figcaption class="tiny">Licensed from <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>.</figcaption>
-              </figure>
+              <img src="/assets/ships/Liberty-of-the-seas-FOM- - 6.webp" alt="Liberty of the Seas bow view" loading="lazy" decoding="async"/>
             </div>
-            <!-- 10 - FOM -->
             <div class="swiper-slide">
-              <figure>
-                <img
-                  src="/assets/ships/Liberty-of-the-seas-FOM- - 7.webp?v=3.010.300"
-                  alt="Liberty of the Seas - FOM Photo 7"
-                  loading="lazy">
-                <figcaption class="tiny">Licensed from <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>.</figcaption>
-              </figure>
+              <img src="/assets/ships/Liberty-of-the-seas-FOM- - 7.webp" alt="Liberty of the Seas stern view" loading="lazy" decoding="async"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/liberty-radiance-wonder - 1.webp" alt="Liberty of the Seas aerial view" loading="lazy" decoding="async"/>
             </div>
           </div>
           <div class="swiper-pagination" aria-hidden="true"></div>
@@ -1000,7 +1049,7 @@ updated: 2025-11-18
 
         <!-- Stats -->
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
-          <h3 id="statsHeading">Key Facts About Liberty of the Seas</h3>
+          <h3 id="statsHeading">Liberty at a Glance</h3>
           <div id="ship-stats" class="stats-grid" data-slug="liberty-of-the-seas"></div>
           <script type="application/json" id="ship-stats-fallback">
           {
@@ -1019,20 +1068,20 @@ updated: 2025-11-18
         </section>
 
         <!-- Sister Ships -->
-        <section class="card mini carousel related-ships" aria-labelledby="related-ships">
-          <h3 id="related-ships" class="card-title">Freedom Class — Sister Ships</h3>
-          <div class="related-pills" aria-label="Freedom-class ships">
+        <section class="ship-stats card mini" aria-labelledby="sister-ships">
+          <h3 id="sister-ships">Freedom Class — Sister Ships</h3>
+          <p class="small" style="margin-bottom: 0.5rem;">Explore other ships in the <a href="/ships.html#freedom-class">Freedom Class</a> family:</p>
+          <div class="related-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
             <a class="pill" href="/ships/rcl/freedom-of-the-seas.html">Freedom of the Seas</a>
             <a class="pill" href="/ships/rcl/independence-of-the-seas.html">Independence of the Seas</a>
           </div>
-          <p style="text-align:center"><a href="/ships.html" class="btn">See All Ships</a></p>
         </section>
 
         <!-- Ship Classes -->
-        <section class="card mini carousel related-classes" aria-labelledby="related-classes">
-          <h3 id="related-classes" class="card-title">Explore Royal Caribbean Classes</h3>
-          <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
-          <div class="class-pills">
+        <section class="ship-stats card mini" aria-labelledby="ship-classes">
+          <h3 id="ship-classes">Explore Royal Caribbean Ship Classes</h3>
+          <p class="small" style="margin-bottom: 0.5rem;">Compare Liberty with other Royal Caribbean classes:</p>
+          <div class="class-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
             <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
@@ -1041,7 +1090,6 @@ updated: 2025-11-18
             <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#vision">Vision Class</a>
           </div>
-          <p style="text-align:center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
         </section>
       </section>
 
@@ -1130,119 +1178,70 @@ updated: 2025-11-18
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
-    <!-- Row: Deck Plans + Live Tracker -->
-    <section class="grid-2">
-      <section class="card" aria-labelledby="deck-plans">
-        <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
-        <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/liberty-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Liberty of the Seas simplified deck plan preview" loading="lazy"/>
-        </figure>
-      </section>
+    <!-- Live Ship Tracker -->
+    <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9330032" data-name="LIBERTY-OF-THE-SEAS">
+      <h2 id="liveTrackHeading">Where Is Liberty Right Now?</h2>
+      <p>See the ship's current position, speed, and next port on a live tracker.</p>
 
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9330032" data-name="LIBERTY-OF-THE-SEAS">
-        <h2 id="liveTrackHeading">Where Is Liberty Right Now?</h2>
-        <p>See the ship's current position, speed, and next port on a live tracker.</p>
+      <div id="vf-tracker-container" style="width:100%;height:500px;position:relative;"></div>
+      <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
+    </section>
 
-        <div id="vf-tracker-container" style="width:100%;height:300px;position:relative;"></div>
-        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
-      </section>
+    <!-- Deck Plans -->
+    <section class="card" aria-labelledby="deck-plans">
+      <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
+      <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/liberty-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+      <figure>
+        <img src="/assets/ship-map.png" alt="Liberty of the Seas simplified deck plan preview" loading="lazy"/>
+      </figure>
     </section>
 
 
-    <!-- FAQ Section (ICP-Lite) -->
-    <section class="card faq" aria-labelledby="faq-heading">
+    <!-- FAQ Section -->
+    <section class="card" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What makes Liberty of the Seas unique compared to other Royal Caribbean ships?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty features the FlowRider surf simulator, H2O Zone water park with slides, and an expanded Royal Promenade. At 154,407 GT with up to 4,960 guests, it's larger than <a href="/ships.html#voyager-class">Voyager class</a> while maintaining a manageable feel compared to Oasis and Icon class ships.</p>
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What makes Liberty of the Seas unique?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty of the Seas features the FlowRider surf simulator, H2O Zone water park with slides, and an expanded Royal Promenade. At 154,407 GT with up to 4,960 guests, it's larger than Voyager class while maintaining a manageable feel compared to Oasis and Icon class ships.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships are in the same class as Liberty of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty of the Seas is part of the <a href="/ships.html#freedom-class">Freedom Class</a>, which includes <a href="/ships/rcl/freedom-of-the-seas.html">Freedom of the Seas</a> and <a href="/ships/rcl/independence-of-the-seas.html">Independence of the Seas</a>: <a href="/ships/rcl/freedom-of-the-seas.html">Freedom of the Seas</a> and <a href="/ships/rcl/independence-of-the-seas.html">Independence of the Seas</a>. All share similar features and layouts.</p>
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How many passengers does Liberty of the Seas hold?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty of the Seas accommodates 3,634 guests at double occupancy, with a maximum capacity of approximately 4,375 passengers. The ship has a crew of 1,360.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Liberty of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty of the Seas offers the <a href="/restaurants/mdr.html">main dining room</a>, <a href="/restaurants/windjammer.html">Windjammer</a> Café (buffet), and specialty dining including <a href="/restaurants/chops.html">Chops Grille</a>, <a href="/restaurants/giovannis.html">Giovanni's</a> Italian Kitchen, and <a href="/restaurants/johnny-rockets.html">Johnny Rockets</a>. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
-      </details>
-
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Liberty of the Seas typically sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty of the Seas typically sails Caribbean itineraries — check the live tracker on this page or Royal Caribbean's official site for current and upcoming voyages.</p>
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">The ship offers complimentary dining including the Main Dining Room and Windjammer Marketplace buffet. Specialty dining venues require additional fees. Check the dining section above for current menus and pricing.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I see Liberty of the Seas' current location?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Use the <a href="#liveTrackHeading">live ship tracker</a> on this page (in the "Where Is Liberty Right Now?" section) to see the ship's current position, speed, and next port in real-time.</p>
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Liberty of the Seas sail?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Liberty of the Seas typically sails Caribbean itineraries. Check the live tracker above for current position and Royal Caribbean's website for upcoming deployment schedules.</p>
       </details>
     </section>
 
-    <!-- Author & Articles -->
-    <section class="grid-2">
-      <aside class="card" aria-labelledby="author-info">
-        <h2 id="author-info">About the Author</h2>
-        <div style="display:flex;gap:1rem;align-items:flex-start;">
-          <picture>
-            <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.300">
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-          <div>
-            <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong>
-            <p class="tiny">Pastor, cruise writer, and founder of In the Wake. Creating resources for smoother sailings and faithful reflections at sea.</p>
-          </div>
-        </div>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-      </aside>
-
-      <aside class="card" aria-labelledby="related-articles">
-        <h2 id="related-articles">Related Articles &amp; Resources</h2>
-        <ul style="list-style:none;padding:0;display:grid;gap:0.5rem;">
-          <li><a href="/solo/accessible-cruising.html">Accessible Cruising — Complete Guide</a></li>
-          <li><a href="/solo/freedom-of-your-own-wake.html">Freedom of Your Own Wake — Solo Cruising</a></li>
-          <li><a href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a></li>
-          <li><a href="/planning.html">Planning Your Cruise — Overview</a></li>
-          <li><a href="/articles.html">Browse All Articles</a></li>
-        </ul>
-      </aside>
-    </section>
-
-    <!-- Attribution -->
+    <!-- Image Attributions -->
     <section class="card attributions">
       <h2>Image Attributions</h2>
-      <ul>
-        <li>
-          "Liberty of the Seas in Ketchikan" by <a href="https://commons.wikimedia.org/wiki/User:Roger_W" target="_blank" rel="noopener">Roger W</a> via
-          <a href="https://commons.wikimedia.org/wiki/File:Liberty_of_the_Seas_(Ketchikan,_Alaska).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
-          licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
+      <p class="tiny" style="margin-bottom: 1rem;">Photos used on this page are from Wikimedia Commons and are licensed under Creative Commons licenses.</p>
+      <ul style="font-size: 0.9rem; line-height: 1.6;">
+        <li style="margin-bottom: 0.75rem;">
+          <strong>Liberty of the Seas in Ketchikan</strong><br/>
+          Author: <a href="https://commons.wikimedia.org/wiki/User:Roger_W" target="_blank" rel="noopener">Roger W</a><br/>
+          Source: <a href="https://commons.wikimedia.org/wiki/File:Liberty_of_the_Seas_(Ketchikan,_Alaska).jpg" target="_blank" rel="noopener">Wikimedia Commons</a><br/>
+          License: <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>
         </li>
-        <li>
-          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
-          <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
-          <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
-        </li>
-        <li>
-          "Royal Caribbean ship at sea" by <a href="https://commons.wikimedia.org/wiki/User:Caleb_Andrews" target="_blank" rel="noopener">Caleb Andrews</a> —
-          <a href="https://commons.wikimedia.org/wiki/File:Royal_Caribbean_at_sea.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
-          <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>.
-        </li>
-        <li>
+        <li style="margin-bottom: 0.75rem;">
+          <strong>Additional Liberty of the Seas images</strong><br/>
           Ship photography licensed from <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-          (<a href="https://www.instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>).
         </li>
       </ul>
+      <p class="tiny" style="margin-top: 1rem; font-style: italic;">Note: Detailed attribution information for each image is being compiled. All images are from Wikimedia Commons and comply with Creative Commons licensing.</p>
     </section>
+
+    </div><!-- Close main content column -->
   </main>
 
   <!-- FOOTER -->
@@ -1557,7 +1556,7 @@ updated: 2025-11-18
   })();
   </script>
 
-  <!-- ===== Live tracker ===== -->
+    <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->
   <script>
   (function initLiveTracker(){
     const card=document.querySelector('.card.itinerary[data-imo]');
@@ -1566,27 +1565,16 @@ updated: 2025-11-18
     const container=document.getElementById('vf-tracker-container');
     if(!imo||!container) return;
 
-    // VesselFinder JavaScript embed configuration
-    window.vfTrackerOptions = {
-      imo: imo,
-      width: '100%',
-      height: 300,
-      zoom: 10,
-      showNames: true,
-      showTrack: false
-    };
-
-    // Create wrapper div for VesselFinder embed
+    // Create wrapper div
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'width:100%;height:300px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
+    wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
 
-    // VesselFinder requires specific implementation - using MarineTraffic as alternative
-    // MarineTraffic provides better iframe support
+    // CruiseMapper iframe embed using IMO
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:0/centerx:0/maptype:0/shownames:false/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
+    iframe.src = 'https://www.cruisemapper.com/?imo=' + imo;
 
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
@@ -1727,12 +1715,7 @@ updated: 2025-11-18
     })();
   })();
   </script>
-<<<<<<< HEAD
-
-
-=======
-  <!-- Navigation dropdown functionality -->
-    <!-- Navigation dropdown functionality (New Clean Implementation) -->
+  <!-- Navigation dropdown functionality (New Clean Implementation) -->
   <script>
   (function() {
     'use strict';
@@ -1786,6 +1769,5 @@ updated: 2025-11-18
     });
   })();
   </script>
->>>>>>> 4aa11716 (FIX: Add missing navigation script to 477 HTML pages)
 </body>
 </html>
