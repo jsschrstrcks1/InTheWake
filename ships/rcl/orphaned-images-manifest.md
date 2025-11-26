@@ -15,7 +15,7 @@
 | # | Filename | Ship Identified | Notes | Status |
 |---|----------|----------------|-------|--------|
 | 1 | `14-09-02-oslo-RalfR-205.webp` | | Oslo, Sept 2, 2014 - research which RCL ship was there | pending |
-| 2 | `1993-Independence_of_the_seas_na_Coruña.webp` | Independence of the Seas? | Already used on Independence page? Check if duplicate | pending |
+| 2 | `1993-Independence_of_the_seas_na_Coruña.webp` | **Independence of the Seas** | ✅ ALREADY IN USE on Independence page - not orphaned | in-use |
 | 3 | `2009_05_09_Kirchdorf.webp` | | Kirchdorf, May 9, 2009 - research ship | pending |
 | 4 | `2560px-14-09-02-oslo-RalfR-187.webp` | | Oslo, Sept 2, 2014 (related to #1) | pending |
 | 5 | `2560px-14-09-02-oslo-RalfR-241.webp` | | Oslo, Sept 2, 2014 (related to #1) | pending |
