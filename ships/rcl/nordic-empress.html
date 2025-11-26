@@ -853,32 +853,94 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap" id="main-content" role="main" tabindex="-1">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
-      
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
+  <style>
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 360px !important;
+      }
+    }
 
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Nordic Empress is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-      </p>
+    /* Vertical author card */
+    .author-card-vertical {
+      text-align: center;
+    }
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching Nordic Empress or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-      </p>
+    .author-card-vertical .author-avatar {
+      display: block;
+      width: 96px;
+      height: 96px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+    }
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Cruise Line:</strong> Royal Caribbean</li>
-          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
-        </ul>
-      </div>
-    </section>
+    .author-card-vertical h4 {
+      margin: 0.5rem 0 0.25rem;
+    }
 
+    .author-card-vertical p {
+      margin: 0.25rem 0;
+    }
 
-    <!-- ICP-Lite: Page Intro -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;" aria-label="Nordic Empress overview">
+    /* Rail list */
+    .rail-list {
+      display: grid;
+      gap: 1rem;
+    }
+  </style>
+
+    <!-- Right Rail -->
+    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
+      <!-- Quick Answer / Best For / Key Facts -->
+      <section class="page-intro" style="margin: 0 0 1rem 0;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Nordic Empress is a retired Royal Caribbean ship that served from 1990 to 2008. This page preserves its history and legacy.
+        </p>
+
+        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+          <strong>Best For:</strong> Those who sailed aboard Nordic Empress or researchers exploring Royal Caribbean's fleet evolution.
+        </p>
+
+        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li><strong>Cruise Line:</strong> Royal Caribbean</li>
+            <li><strong>Status:</strong> Historic ship (1990-2008)</li>
+            <li><strong>Legacy:</strong> Pioneered short Caribbean cruises</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Author card (Vertical Layout) -->
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </section>
+
+      <!-- Recent Articles rail -->
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    </aside>
+
+    <!-- Main Content Column -->
+    <div style="grid-column: 1; grid-row: 1;">
       <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Nordic Empress — Historic Royal Caribbean Ship</h1>
 
       <p style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope); background: #f7fdff; border-radius: 8px; font-size: 0.95rem; color: #134;">
@@ -889,19 +951,24 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Nordic Empress (1990-2008) pioneered Royal Caribbean's short-cruise market from Miami, offering 3- and 4-night Caribbean getaways. She was known for her intimate size and classic cruise experience with about 1,840 guests at double occupancy. After leaving the Royal Caribbean fleet in 2008, she was sold to Pullmantur and continued sailing until 2020.
       </p>
-    </section>
 
   <!-- Row 1: First Look + Dining -->
-    <section style="grid-column: 1; grid-row: 1 / span 999;" class="grid-2">
+    <section class="grid-2">
       <!-- First Look + Stats -->
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
 
         <div class="swiper firstlook" aria-label="Nordic Empress photo carousel">
           <div class="swiper-wrapper">
-            
-            
-            
+            <div class="swiper-slide">
+              <img src="/assets/ships/NordicEmpress1.webp" alt="Nordic Empress at sea" loading="lazy" decoding="async"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/MS_Nordic_Empress_in_Miami_(bigger).webp" alt="Nordic Empress in Miami" loading="lazy" decoding="async"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/NordicEmpress1_(cropped)_(cropped).webp" alt="Nordic Empress profile view" loading="lazy" decoding="async"/>
+            </div>
           </div>
           <div class="swiper-pagination" aria-hidden="true"></div>
           <div class="swiper-button-prev" aria-label="Previous image"></div>
@@ -1068,66 +1135,29 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </details>
     </section>
 
-    <!-- Author & Articles -->
-    <section class="grid-2">
-      <aside class="card" aria-labelledby="author-info">
-        <h2 id="author-info">About the Author</h2>
-        <div style="display:flex;gap:1rem;align-items:flex-start;">
-          <picture>
-            <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.300">
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-          <div>
-            <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong>
-            <p class="tiny">Pastor, cruise writer, and founder of In the Wake. Creating resources for smoother sailings and faithful reflections at sea.</p>
-          </div>
-        </div>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-      </aside>
-
-      <aside class="card" aria-labelledby="related-articles">
-        <h2 id="related-articles">Related Articles &amp; Resources</h2>
-        <ul style="list-style:none;padding:0;display:grid;gap:0.5rem;">
-          <li><a href="/solo/accessible-cruising.html">Accessible Cruising — Complete Guide</a></li>
-          <li><a href="/solo/freedom-of-your-own-wake.html">Freedom of Your Own Wake — Solo Cruising</a></li>
-          <li><a href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a></li>
-          <li><a href="/planning.html">Planning Your Cruise — Overview</a></li>
-          <li><a href="/articles.html">Browse All Articles</a></li>
-        </ul>
-      </aside>
-    </section>
-
-    <!-- Attribution -->
+    <!-- Image Attributions -->
     <section class="card attributions">
       <h2>Image Attributions</h2>
-      <ul>
-        <li>
-          "Nordic Empress in Ketchikan" by <a href="https://commons.wikimedia.org/wiki/User:Roger_W" target="_blank" rel="noopener">Roger W</a> via
-          <a href="https://commons.wikimedia.org/wiki/File:Nordic Empress_of_the_Seas_(Ketchikan,_Alaska).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
-          licensed under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
+      <p class="tiny" style="margin-bottom: 1rem;">Photos used on this page are from Wikimedia Commons and are licensed under Creative Commons licenses.</p>
+      <ul style="font-size: 0.9rem; line-height: 1.6;">
+        <li style="margin-bottom: 0.75rem;">
+          <strong>Nordic Empress in Ketchikan</strong><br/>
+          Author: <a href="https://commons.wikimedia.org/wiki/User:Roger_W" target="_blank" rel="noopener">Roger W</a><br/>
+          Source: <a href="https://commons.wikimedia.org/wiki/File:Nordic_Empress_of_the_Seas_(Ketchikan,_Alaska).jpg" target="_blank" rel="noopener">Wikimedia Commons</a><br/>
+          License: <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>
         </li>
-        <li>
-          "<a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>" photo by <a href="https://commons.wikimedia.org/wiki/User:Erik_Cooper" target="_blank" rel="noopener">Erik Cooper</a> via
-          <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_at_Port_Everglades.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
-          <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.
-        </li>
-        <li>
-          "Royal Caribbean ship at sea" by <a href="https://commons.wikimedia.org/wiki/User:Caleb_Andrews" target="_blank" rel="noopener">Caleb Andrews</a> —
-          <a href="https://commons.wikimedia.org/wiki/File:Royal_Caribbean_at_sea.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> —
-          <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>.
+        <li style="margin-bottom: 0.75rem;">
+          <strong>MS Nordic Empress in Miami</strong><br/>
+          Source: <a href="https://commons.wikimedia.org/wiki/Category:Nordic_Empress_(ship,_1990)" target="_blank" rel="noopener">Wikimedia Commons - Nordic Empress category</a><br/>
+          License: CC BY-SA (specific version to be confirmed)
         </li>
       </ul>
+      <p class="tiny" style="margin-top: 1rem; font-style: italic;">Note: Detailed attribution information for each image is being compiled. All images are from Wikimedia Commons and comply with Creative Commons licensing.</p>
     </section>
-  </main>
+
+    </div><!-- Close main content column -->
+
+</main>
 
   <!-- FOOTER -->
   <footer class="wrap" role="contentinfo">

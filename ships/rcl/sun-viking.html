@@ -5,7 +5,7 @@ All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart, and do not lean on your own understanding." — Proverbs 3:5
 "Whatever you do, work heartily, as for the Lord and not for men." — Colossians 3:23
 
-STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.300 · A11y/WCAG 2.1 AA Compliant
+STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.302 · A11y/WCAG 2.1 AA Compliant
 -->
 <!doctype html>
 <html lang="en" class="no-js">
@@ -24,7 +24,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
      -->
   <!-- ======================================================
        In the Wake — Sun Viking • Royal Caribbean
-       Version: 3.010.300  |  Soli Deo Gloria ✝️
+       Version: 3.010.302  |  Soli Deo Gloria ✝️
 
        ✅ WCAG 2.1 Level AA Compliant
        ✅ SEO Optimized (JSON-LD, OpenGraph, Twitter Cards)
@@ -48,7 +48,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- SEO: Theme & Appearance -->
   <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.300"/>
+  <meta name="version" content="3.010.302"/>
   <meta name="author" content="In the Wake"/>
   <meta name="publisher" content="In the Wake"/>
 
@@ -58,7 +58,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="content-protocol" content="ICP-Lite v1.0"/>
 
   <!-- Title & SEO -->
-  <title>Sun Viking (1972-2004) — Historic Royal Caribbean Ship | In the Wake (v3.010.300)</title>
+  <title>Sun Viking (1972-2004) — Historic Royal Caribbean Ship | In the Wake (v3.010.302)</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/rcl/sun-viking.html"/>
   <meta name="description" content="Sun Viking: Third ship of Royal Caribbean's original fleet. Retired in 2004."/>
 
@@ -196,7 +196,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <link rel="manifest" href="/manifest.webmanifest"/>
 
   <!-- Global CSS -->
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.302"/>
 
   <!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
   <script>
@@ -288,6 +288,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     .retired-notice{background:#f8d7da;border:2px solid #dc3545;border-radius:12px;padding:1.25rem;margin:1rem 0;text-align:center}
     .retired-notice h3{color:#721c24;margin:0 0 .5rem 0;font-size:1.1rem}
     .retired-notice p{color:#721c24;margin:.25rem 0}
+
+    /* Page Grid Layout */
+    @media (min-width:861px){
+      .page-grid{display:grid;grid-template-columns:1fr 340px;gap:1.25rem;align-items:start}
+      .page-grid>.main-col{grid-column:1;grid-row:1}
+      .page-grid>.rail{grid-column:2;grid-row:1;position:sticky;top:1rem}
+    }
+
+    /* Rail list */
+    .rail-list{display:grid;gap:1rem}
+
+    /* Vertical author card */
+    .author-card-vertical{text-align:center}
+    .author-card-vertical .author-avatar{display:block;width:96px;height:96px;border-radius:12px;object-fit:cover;margin:0 auto 1rem}
+    .author-card-vertical h4{margin:0.5rem 0 0.25rem}
+    .author-card-vertical p{margin:0.25rem 0}
   /* Header / Hero */
   .hero-header {
     position: relative;
@@ -469,7 +485,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.302" fetchpriority="high"/>
 </head>
 
 <body class="page">
@@ -488,7 +504,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
+        <span class="tiny version-badge" aria-label="Site version 3.010.302">v3.010.302</span>
       </div>
             <nav class="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
@@ -556,51 +572,72 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap" id="main-content" role="main" tabindex="-1">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;">
-      
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <!-- Right Rail -->
+    <aside class="rail" role="complementary" aria-label="Key facts, author & articles">
+      <!-- Quick Answer / Best For / Key Facts -->
+      <section class="page-intro" style="margin: 0 0 1rem 0;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Sun Viking (1972-2004) was Royal Caribbean's third ship. This historic vessel served for 32 years before being sold in 1998 and ultimately scrapped in 2022.
+        </p>
 
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Sun Viking (1972-2004) is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-      </p>
+        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+          <strong>Best For:</strong> Cruise historians and former passengers researching Sun Viking's legacy. This page preserves the ship's history and significance in Royal Caribbean's founding fleet.
+        </p>
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching Sun Viking (1972-2004) or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-      </p>
+        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li><strong>Cruise Line:</strong> Royal Caribbean (1972-1998)</li>
+            <li><strong>Status:</strong> Retired & Scrapped (2022)</li>
+            <li><strong>Legacy:</strong> Founding fleet member</li>
+          </ul>
+        </div>
+      </section>
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Cruise Line:</strong> Royal Caribbean</li>
-          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
-        </ul>
-      </div>
-    </section>
+      <!-- Author card (Vertical Layout) -->
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.302" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </section>
 
+      <!-- Recent Articles rail -->
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    </aside>
 
-    <!-- ICP-Lite: Page Intro -->
-    <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;" aria-label="Sun Viking overview">
+    <!-- Main Content Column -->
+    <div class="main-col">
       <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Sun Viking — Historical Information &amp; Legacy</h1>
-
-      <p style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope); background: #f7fdff; border-radius: 8px; font-size: 0.95rem; color: #134;">
-        <strong style="display: block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #567; margin-bottom: 0.15rem;">Looking for Sun Viking information?</strong>
-        <span>This page covers the history, legacy, and details of Sun Viking, one of Royal Caribbean's early ships from 1972.</span>
-      </p>
 
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Sun Viking was one of Royal Caribbean's early ships, serving from 1972 to 1998.
         The vessel offered classic Caribbean cruising with about 714 guests at double occupancy, representing the intimate cruising style of Royal Caribbean's founding era.
         Though long retired, Sun Viking helped establish Royal Caribbean's reputation for Caribbean voyages.
       </p>
-    </section>
 
     <!-- Retired Ship Notice -->
     <div class="retired-notice" role="alert">
       <h3>⚓ RETIRED — Ship No Longer in Service</h3>
-      <p>Sun Viking served Royal Caribbean from 1972 to 2004.</p>
-      <p>This ship is no longer in operation and is preserved here for historical reference.</p>
+      <p>Sun Viking served Royal Caribbean from 1972 to 1998 before being sold.</p>
+      <p>After sailing under various names, the ship was scrapped in Pakistan in 2022, ending nearly 50 years of service.</p>
+      <p>This page preserves the ship's history for former passengers and maritime historians.</p>
     </div>
 
     <!-- Row 1: Info + Stats -->
@@ -698,37 +735,27 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p style="text-align:center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
       </section>
     </section>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-  </main>
 
-    <!-- FAQ Section (ICP-Lite) -->
-    <section class="card faq" aria-labelledby="faq-heading">
+    <!-- FAQ Section -->
+    <section class="card" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What happened to Sun Viking?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Sun Viking joined Royal Caribbean in 1972 and served until 1998, when it was sold. The ship was one of Royal Caribbean's early vessels that helped establish the line's reputation. This page preserves the ship's history and legacy for those who sailed aboard or are researching Royal Caribbean's fleet evolution.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Sun Viking joined Royal Caribbean in 1972 and served until 1998, when it was sold. The ship was one of Royal Caribbean's early vessels that helped establish the line's reputation. After sailing under various names and operators, Sun Viking was ultimately beached and scrapped in Pakistan in 2022, ending nearly 50 years of service.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">When did Sun Viking sail for Royal Caribbean?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Sun Viking was part of Royal Caribbean's fleet from 1972 to 1998. The ship represented a chapter in the cruise line's development during its formative years.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Sun Viking was part of Royal Caribbean's fleet from 1972 to 1998. The ship represented a chapter in the cruise line's development during its formative years as the third vessel in the original Song of Norway Class.</p>
       </details>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Can I still cruise on Sun Viking?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">No, Sun Viking is no longer in service. This page preserves its Royal Caribbean history for research and nostalgia.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">No, Sun Viking is no longer in service. The ship was scrapped in 2022. This page preserves its Royal Caribbean history for research and nostalgia.</p>
       </details>
     </section>
+    </div>
   </main>
 
   <!-- FOOTER -->
@@ -927,7 +954,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       function setImageWithFallback(imgEl, primary, altPaths=[]){
         if(!imgEl) return;
-        const stamp='v=3.010.300';
+        const stamp='v=3.010.302';
         const tried=new Set();
         const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
         function tryNext(){
