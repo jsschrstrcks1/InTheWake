@@ -880,34 +880,125 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap" id="main-content" role="main" tabindex="-1">
-    <!-- ICP-Lite v1.0: Answer-First Content -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;" aria-label="Star Class Ship TBN 2028 overview">
-      <h1 id="ship-name">Star Class Ship TBN 2028</h1>
-      <p class="answer-line">
-      <span class="answer-q">What this page covers</span>
-      <span class="answer-a">Star Class Ship TBN 2028 is an upcoming Star Class vessel expected to debut in 2028, featuring Details to be announced.</span>
-    </p>
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
+  <style>
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 360px !important;
+      }
+    }
 
-      <section class="fit-guidance">
-      <h2 class="sr-only">Who This Page Is For</h2>
-      <h2>Is Star Class Ship TBN 2028 Right for You?</h2>
-        <p>As a Star Class ship, Star Class Ship TBN 2028 will build on Royal Caribbean's proven design while incorporating the latest innovations. With an expected debut in 2028, this vessel promises to deliver the signature Star Class experience that cruisers have come to love.</p>
-        <p>Perfect for travelers seeking Royal Caribbean's proven Star Class design with modern updates. Details will be announced as the ship nears completion.</p>
+    /* Vertical author card */
+    .author-card-vertical {
+      text-align: center;
+    }
+
+    .author-card-vertical .author-avatar {
+      display: block;
+      width: 96px;
+      height: 96px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+    }
+
+    .author-card-vertical h4 {
+      margin: 0.5rem 0 0.25rem;
+    }
+
+    .author-card-vertical p {
+      margin: 0.25rem 0;
+    }
+
+    /* Rail list */
+    .rail-list {
+      display: grid;
+      gap: 1rem;
+    }
+  </style>
+
+    <!-- Right Rail -->
+    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
+      <!-- Quick Answer / Best For / Key Facts -->
+      <section class="page-intro" style="margin: 0 0 1rem 0;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Star Class Ship TBN 2028 is an upcoming Royal Caribbean ship expected to debut in 2028. This page covers what we know so far about deck plans, dining venues, and features to help you plan ahead.
+        </p>
+
+        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+          <strong>Best For:</strong> Cruisers researching Royal Caribbean's upcoming Star Class ships. Use this page to learn about expected features and stay updated as more details are announced.
+        </p>
+
+        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li><strong>Cruise Line:</strong> Royal Caribbean</li>
+            <li><strong>Class:</strong> Star Class</li>
+            <li><strong>Expected Debut:</strong> 2028</li>
+            <li><strong>Status:</strong> To Be Named (TBN)</li>
+            <li><strong>Details:</strong> Forthcoming as ship nears completion</li>
+          </ul>
+        </div>
       </section>
 
-    <section style="grid-column: 1; grid-row: 1 / span 999;" class="key-facts card">
-        <h2>Key Facts at a Glance</h2>
-        <ul>
-          <li><strong>Class:</strong> Star Class</li>
-          <li><strong>Expected Debut:</strong> 2028</li>
-          <li><strong>Size:</strong> TBA</li>
-          <li><strong>Capacity:</strong> TBA</li>
-          <li><strong>Signature Features:</strong> Details to be announced</li>
-          <li><strong>Status:</strong> To Be Named - details forthcoming</li>
-        </ul>
+      <!-- Author card (Vertical Layout) -->
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </section>
+
+      <!-- Recent Articles rail -->
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    </aside>
+
+    <!-- Main Content Column -->
+    <div style="grid-column: 1; grid-row: 1;">
+      <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Star Class Ship TBN 2028 — Coming in 2028</h1>
+
+      <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        Star Class Ship TBN 2028 is an upcoming Royal Caribbean vessel expected to debut in 2028. As a Star Class ship, it will build on Royal Caribbean's proven design philosophy while incorporating the latest innovations and guest experience enhancements. Details about specific features, amenities, and deployment will be announced by Royal Caribbean as the ship nears completion.
+      </p>
+
+    <!-- About Section -->
+    <section class="card" aria-labelledby="about-heading">
+      <h2 id="about-heading">About Star Class Ship TBN 2028</h2>
+      <p style="margin: 0.75rem 0; line-height: 1.6;">
+        As Royal Caribbean continues to expand its fleet, the Star Class represents the next generation of cruise ship design. Star Class Ship TBN 2028 will join the Royal Caribbean fleet in 2028, offering guests the latest in onboard innovations, entertainment, and dining experiences.
+      </p>
+      <p style="margin: 0.75rem 0; line-height: 1.6;">
+        While specific details about features and amenities are still forthcoming, you can expect this vessel to include Royal Caribbean's signature experiences adapted for modern cruising. Check back regularly for updates as more information becomes available.
+      </p>
     </section>
-  </section>
+
+    <!-- Stay Updated Section -->
+    <section class="card" aria-labelledby="stay-updated-heading">
+      <h2 id="stay-updated-heading">Stay Updated</h2>
+      <p style="margin: 0.75rem 0; line-height: 1.6;">
+        Details about Star Class Ship TBN 2028 will be announced by Royal Caribbean as construction progresses and the ship nears completion. For the most current information:
+      </p>
+      <ul style="margin: 0.75rem 0; padding-left: 1.5rem; line-height: 1.8;">
+        <li>Visit <a href="https://www.royalcaribbean.com" target="_blank" rel="noopener">Royal Caribbean's official website</a> for announcements</li>
+        <li>Check back on this page for updates as details become available</li>
+        <li>Subscribe to Royal Caribbean newsletters for fleet updates and booking information</li>
+      </ul>
+    </section>
 
   <!-- Row 1: First Look + Dining -->
     <section class="grid-2">
@@ -947,28 +1038,27 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </section>
       
         <!-- Sister Ships -->
-        <section class="card mini carousel related-ships" aria-labelledby="related-ships">
-          <h3 id="related-ships" class="card-title">Star Class — Sister Ships</h3>
-          <div class="related-pills" aria-label="Star Class-class ships">
-            <p class="tiny">Details TBA</p>
+        <section class="ship-stats card mini" aria-labelledby="sister-ships">
+          <h3 id="sister-ships">Star Class — Sister Ships</h3>
+          <p class="small" style="margin-bottom: 0.5rem;">Additional Star Class ships will be announced by Royal Caribbean as construction plans are finalized.</p>
+          <div class="related-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+            <p class="tiny" style="text-align: center; color: var(--ink-mid, #3d5a6a);">More ships to be announced</p>
           </div>
-          <p style="text-align:center"><a href="/ships.html" class="btn">See All Ships</a></p>
         </section>
 
         <!-- Ship Classes -->
-        <section class="card mini carousel related-classes" aria-labelledby="related-classes">
-          <h3 id="related-classes" class="card-title">Explore Royal Caribbean Classes</h3>
-          <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
-          <div class="class-pills">
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#vision">Vision Class</a>
+        <section class="ship-stats card mini" aria-labelledby="ship-classes">
+          <h3 id="ship-classes">Explore Royal Caribbean Ship Classes</h3>
+          <p class="small" style="margin-bottom: 0.5rem;">Compare Star Class with other Royal Caribbean classes:</p>
+          <div class="class-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+            <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
+            <a class="pill" href="/cruise-lines/royal-caribbean.html#vision">Vision Class</a>
           </div>
-          <p style="text-align:center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
         </section>
       </section>
 
@@ -1057,60 +1147,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
-    <!-- Row: Deck Plans + Live Tracker -->
-    <section class="grid-2">
-      <section class="card" aria-labelledby="deck-plans">
-        <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
-        <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/star-class-ship-tbn-2028/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Star Class Ship (TBN 2028) simplified deck plan preview" loading="lazy"/>
-        </figure>
-      </section>
-
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="RADIANCE-OF-THE-SEAS">
-        <h2 id="liveTrackHeading">Where Is Radiance Right Now?</h2>
-        <p>See the ship's current position, speed, and next port on a live tracker.</p>
-
-        <div id="vf-tracker-container" style="width:100%;height:300px;position:relative;"></div>
-        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
-      </section>
-    </section>
-        <!-- Author & Articles -->
-    <section class="grid-2">
-      <aside class="card" aria-labelledby="author-info">
-        <h2 id="author-info">About the Author</h2>
-        <div style="display:flex;gap:1rem;align-items:flex-start;">
-          <picture>
-            <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.300">
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-          <div>
-            <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong>
-            <p class="tiny">Pastor, cruise writer, and founder of In the Wake. Creating resources for smoother sailings and faithful reflections at sea.</p>
-          </div>
-        </div>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-      </aside>
-
-      <aside class="card" aria-labelledby="related-articles">
-        <h2 id="related-articles">Related Articles &amp; Resources</h2>
-        <ul style="list-style:none;padding:0;display:grid;gap:0.5rem;">
-          <li><a href="/solo/accessible-cruising.html">Accessible Cruising — Complete Guide</a></li>
-          <li><a href="/solo/freedom-of-your-own-wake.html">Freedom of Your Own Wake — Solo Cruising</a></li>
-          <li><a href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a></li>
-          <li><a href="/planning.html">Planning Your Cruise — Overview</a></li>
-          <li><a href="/articles.html">Browse All Articles</a></li>
-        </ul>
-      </aside>
+    <!-- Deck Plans -->
+    <section class="card" aria-labelledby="deck-plans">
+      <h2 id="deck-plans">Deck Plans</h2>
+      <p style="margin: 0.75rem 0; line-height: 1.6;">
+        Deck plans for Star Class Ship TBN 2028 will be released by Royal Caribbean as the ship nears completion. Check back for updates or visit <a href="https://www.royalcaribbean.com" target="_blank" rel="noopener">Royal Caribbean's official website</a> for the latest information.
+      </p>
+      <figure>
+        <img src="/assets/ship-map.png" alt="Deck plan placeholder - details coming soon" loading="lazy" style="opacity: 0.5;"/>
+        <figcaption class="tiny" style="text-align: center; margin-top: 0.5rem;">Official deck plans will be available as ship construction progresses</figcaption>
+      </figure>
     </section>
 
 <!-- Attribution -->
@@ -1134,31 +1180,33 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </li>
       </ul>
     </section>
-  
-    <!-- ICP-Lite FAQ Section -->
-    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
-      <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Star Class Ship (TBN 2028)?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Star Class Ship (TBN 2028) offers complimentary dining including the <a href="/restaurants/mdr.html">main dining room</a> and buffet. Specialty restaurants vary by ship class. Check the dining section above for specific venues.</p>
+    <!-- FAQ Section -->
+    <section class="card" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+
+      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What class is Star Class Ship TBN 2028?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Star Class Ship TBN 2028 is a Star Class ship from Royal Caribbean, representing the next generation of Star Class vessel design expected to debut in 2028.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How do I find the deck plans for Star Class Ship (TBN 2028)?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Deck plans are available through the links on this page. You can also find official deck plans on the Royal Caribbean website or in the cruise planner app.</p>
+      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">When will Star Class Ship TBN 2028 debut?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">This vessel is expected to enter service in 2028. Specific dates and detailed information will be announced by Royal Caribbean as the ship nears completion and construction progresses.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Star Class Ship (TBN 2028) sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ship deployments vary by season. Check the Royal Caribbean website for current itineraries and departure ports for Star Class Ship (TBN 2028).</p>
+      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What features will Star Class Ship TBN 2028 have?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">As a Star Class ship, it is expected to feature the latest innovations in cruise ship design along with Royal Caribbean's signature experiences. Specific amenities and features will be announced as details become available.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with Royal Caribbean or your travel advisor before booking.</p>
+      <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">When can I book a cruise on Star Class Ship TBN 2028?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Booking information and itinerary details will be announced by Royal Caribbean as the ship's construction progresses. Check Royal Caribbean's website or contact your travel advisor for the latest booking availability.</p>
       </details>
     </section>
+
+    </div><!-- Close main content column -->
 
 </main>
 
@@ -1474,32 +1522,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-    <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->
-  <script>
-  (function initLiveTracker(){
-    const card=document.querySelector('.card.itinerary[data-imo]');
-    if(!card) return;
-    const imo=card.getAttribute('data-imo');
-    const container=document.getElementById('vf-tracker-container');
-    if(!imo||!container) return;
 
-    // Create wrapper div
-    const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'width:100%;height:300px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
-
-    // VesselFinder iframe embed - tracks by IMO
-    const iframe = document.createElement('iframe');
-    iframe.style.cssText = 'width:100%;height:100%;border:0;';
-    iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
-    iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.vesselfinder.com/aismap?width=100%25&height=300&names=true&imo=' + imo + '&track=true&fleet=&fleet_hide_old_positions=false&clicktoact=false&store_pos=false';
-
-    wrapper.appendChild(iframe);
-    container.appendChild(wrapper);
-  })();
-  </script>
-
-  
 
   
   <script>
