@@ -161,9 +161,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-
-
-  
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
@@ -355,7 +352,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     
   </aside>
 
-
     <!-- Back to Ports -->
     <nav style="margin-top: 2rem; text-align: center;">
       <a href="/ports.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--accent, #0e6e8e); color: #fff; border-radius: 8px; text-decoration: none;">← Back to All Ports</a>
@@ -393,7 +389,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </script>
 <<<<<<< HEAD
 
-  
   <script>
   (function(){
     "use strict";
@@ -537,10 +532,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       function setOpen(group, isOpen) {
         group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
+        const button = group.querySelector('
       }
 
       function closeAll(except = null) {
@@ -556,18 +548,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
 
       dropdownGroups.forEach(group => {
-        const button = group.querySelector('.nav-disclosure');
-        const menu = group.querySelector('.submenu');
-        if (!button || !menu) return;
-
-        // Click to toggle
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isOpen = group.dataset.open === "true";
-          closeAll(group);
-          setOpen(group, !isOpen);
-        });
+        const button = group.querySelector(');
 
         // Mouse enter: Open immediately
         group.addEventListener('mouseenter', () => {

@@ -375,9 +375,6 @@ updated: 2025-11-18
     color: var(--text-muted);
   }
 
-
-  
-  /* Dropdown Navigation (FIXED: 300ms Hover Delay) */
   .nav {
     flex: 1 1 auto;
     min-width: 0;
@@ -391,111 +388,6 @@ updated: 2025-11-18
     padding-inline: .75rem;
   }
 
-  .nav-item {
-    position: relative;
-    display: inline-block;
-  }
-
-  .nav-item > a,
-  .nav-item > button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: .35rem;
-    padding: .65rem 1rem;
-    min-height: 44px;
-    border-radius: 20px;
-    background: #fff;
-    border: 2px solid var(--rope);
-    color: var(--accent);
-    font: inherit;
-    font-size: .95rem;
-    line-height: 1.2;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  .nav-item > a:hover,
-  .nav-item > button:hover {
-    background: var(--foam);
-    border-color: var(--accent);
-    transform: translateY(-1px);
-  }
-
-  .nav-item > a[aria-current="page"] {
-    background: var(--accent);
-    color: #fff;
-    font-weight: 600;
-    border-color: var(--accent);
-  }
-
-  .nav-disclosure .caret {
-    display: inline-block;
-    margin-left: .25rem;
-    transition: transform 0.2s ease;
-  }
-
-  .nav-item[data-open="true"] .nav-disclosure .caret {
-    transform: rotate(180deg);
-  }
-
-  /* Dropdown menu with safe zone */
-  .submenu {
-    position: absolute !important;
-    left: 0;
-    top: calc(100% + 4px);
-    min-width: 240px;
-    background: #fff;
-    border: 2px solid var(--rope);
-    border-radius: 12px;
-    padding: .6rem;
-    box-shadow: 0 8px 24px rgba(8,48,65,.15);
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-    z-index: 2100;
-  }
-
-  /* Safe zone bridge */
-  .submenu::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: transparent;
-  }
-
-  .nav-item[data-open="true"] > .submenu {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .submenu a {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: .6rem .75rem;
-    border-radius: .65rem;
-    border: 0;
-    background: transparent;
-    color: var(--ink);
-    text-decoration: none;
-    transition: background 0.15s ease;
-  }
-
-  .submenu a:hover,
-  .submenu a:focus {
-    background: #f2f7fa;
-    outline: 2px solid transparent;
-  }
-
   @media (max-width: 768px) {
     .nav {
       justify-content: flex-start;
@@ -504,16 +396,6 @@ updated: 2025-11-18
       -webkit-overflow-scrolling: touch;
     }
 
-    .nav-item > a,
-    .nav-item > button {
-      flex: 0 0 auto;
-    }
-
-    .submenu {
-      left: 0;
-      right: 0;
-      min-width: 100%;
-    }
   }
   
     /* Navigation */
@@ -530,124 +412,8 @@ updated: 2025-11-18
       padding-inline: .75rem;
     }
 
-    .nav-item {
-      position: relative;
-      display: inline-block;
-    }
-
-    .nav-item > a,
-    .nav-item > button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      padding: .65rem 1rem;
-      min-height: 44px;
-      border-radius: 20px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      color: var(--accent);
-      font: inherit;
-      font-size: .95rem;
-      line-height: 1.2;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item > a:hover,
-    .nav-item > button:hover {
-      background: var(--foam);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .nav-item > a[aria-current="page"] {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      border-color: var(--accent);
-    }
-
-    /* Dropdown Navigation Styles */
-    .nav-disclosure .caret {
-      display: inline-block;
-      margin-left: .25rem;
-      transition: transform 0.2s ease;
-    }
-
-    .nav-item[data-open="true"] .nav-disclosure .caret {
-      transform: rotate(180deg);
-    }
-
-    .submenu {
-      position: absolute !important;
-      left: 0;
-      top: calc(100% + 4px);
-      min-width: 240px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      border-radius: 12px;
-      padding: .6rem;
-      box-shadow: 0 8px 24px rgba(8,48,65,.15);
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-      z-index: 2100;
-    }
-
-    .submenu::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: transparent;
-    }
-
-    .nav-item[data-open="true"] .submenu,
-    .nav-group[data-open="true"] .submenu {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .submenu a {
-      display: block;
-      padding: .5rem .75rem;
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.15s ease;
-    }
-
-    .submenu a:hover,
-    .submenu a:focus {
-      background: #eef4f6;
-      outline: none;
-    }
-
-    .submenu a[aria-current="page"] {
-      background: #e6f4f8;
-      font-weight: 600;
-    }
-
     @media (max-width: 768px) {
-      .submenu {
-        position: static !important;
-        min-width: 0;
-        margin-top: .5rem;
-        box-shadow: none;
-        border: 1px solid var(--rope);
-      }
 
-      .submenu::before {
-        display: none;
-      }
     }
   
     /* Navigation */
@@ -664,124 +430,8 @@ updated: 2025-11-18
       padding-inline: .75rem;
     }
 
-    .nav-item {
-      position: relative;
-      display: inline-block;
-    }
-
-    .nav-item > a,
-    .nav-item > button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      padding: .65rem 1rem;
-      min-height: 44px;
-      border-radius: 20px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      color: var(--accent);
-      font: inherit;
-      font-size: .95rem;
-      line-height: 1.2;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item > a:hover,
-    .nav-item > button:hover {
-      background: var(--foam);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .nav-item > a[aria-current="page"] {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      border-color: var(--accent);
-    }
-
-    /* Dropdown Navigation Styles */
-    .nav-disclosure .caret {
-      display: inline-block;
-      margin-left: .25rem;
-      transition: transform 0.2s ease;
-    }
-
-    .nav-item[data-open="true"] .nav-disclosure .caret {
-      transform: rotate(180deg);
-    }
-
-    .submenu {
-      position: absolute !important;
-      left: 0;
-      top: calc(100% + 4px);
-      min-width: 240px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      border-radius: 12px;
-      padding: .6rem;
-      box-shadow: 0 8px 24px rgba(8,48,65,.15);
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-      z-index: 2100;
-    }
-
-    .submenu::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: transparent;
-    }
-
-    .nav-item[data-open="true"] .submenu,
-    .nav-group[data-open="true"] .submenu {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .submenu a {
-      display: block;
-      padding: .5rem .75rem;
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.15s ease;
-    }
-
-    .submenu a:hover,
-    .submenu a:focus {
-      background: #eef4f6;
-      outline: none;
-    }
-
-    .submenu a[aria-current="page"] {
-      background: #e6f4f8;
-      font-weight: 600;
-    }
-
     @media (max-width: 768px) {
-      .submenu {
-        position: static !important;
-        min-width: 0;
-        margin-top: .5rem;
-        box-shadow: none;
-        border: 1px solid var(--rope);
-      }
 
-      .submenu::before {
-        display: none;
-      }
     }
   </style>
 
@@ -871,113 +521,53 @@ updated: 2025-11-18
     </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
-  <style>
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 360px !important;
-      }
-    }
+  <main class="wrap" id="main-content" role="main" tabindex="-1">
+    <!-- ICP-Lite Content Structure -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
 
-    /* Vertical author card */
-    .author-card-vertical {
-      text-align: center;
-    }
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> Oasis of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
+      </p>
 
-    .author-card-vertical .author-avatar {
-      display: block;
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
+      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <strong>Best For:</strong> Cruisers researching Oasis of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
+      </p>
 
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Cruise Line:</strong> Royal Caribbean</li>
+          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
+          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
+        </ul>
+      </div>
+    </section>
 
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-
-    /* Rail list */
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-  </style>
-
-    <!-- Right Rail -->
-    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
-      <!-- Quick Answer / Best For / Key Facts -->
-      <section class="page-intro" style="margin: 0 0 1rem 0;">
-        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-          <strong>Quick Answer:</strong> Oasis of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-        </p>
-
-        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-          <strong>Best For:</strong> Cruisers researching Oasis of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-        </p>
-
-        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-          <ul style="margin: 0; padding-left: 1.25rem;">
-            <li><strong>Cruise Line:</strong> Royal Caribbean</li>
-            <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-            <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Author card (Vertical Layout) -->
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
-
-      <!-- Recent Articles rail -->
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    </aside>
-
-    <!-- Main Content Column -->
-    <div style="grid-column: 1; grid-row: 1;">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;" aria-label="Oasis of the Seas overview">
       <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Oasis of the Seas — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
+
+      <p style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope); background: #f7fdff; border-radius: 8px; font-size: 0.95rem; color: #134;">
+        <strong style="display: block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #567; margin-bottom: 0.15rem;">Looking for Oasis of the Seas planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Royal Caribbean cruise aboard Oasis of the Seas.</span>
+      </p>
 
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Oasis of the Seas tends to suit travelers who prefer mega-ship variety with seven distinct neighborhoods offering something for everyone — from Central Park's tranquil tree-lined paths to the Boardwalk's carousel and outdoor AquaTheater.
         It's ideal if you want maximum dining, entertainment, and activity options in one sailing, with space for 5,400+ guests without feeling crowded.
         If you're looking for a more intimate, quiet ship experience or prefer classic ocean-view focused design, you may want to explore Radiance or <a href="/ships.html#voyager-class">Voyager class</a> instead.
       </p>
+    </section>
 
   <!-- Row 1: First Look + Dining -->
-    <section class="grid-2">
+    <section style="grid-column: 1; grid-row: 1 / span 999;" class="grid-2">
       <!-- First Look + Stats -->
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look</h2>
 
         <div class="swiper firstlook" aria-label="Oasis of the Seas photo carousel">
           <div class="swiper-wrapper">
-            
-            
-            
+
             <!-- FOM 1 -->
             <div class="swiper-slide">
               <figure>
@@ -1189,22 +779,23 @@ updated: 2025-11-18
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
-    <!-- Live Ship Tracker -->
-    <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9383936" data-name="OASIS-OF-THE-SEAS">
-      <h2 id="liveTrackHeading">Where Is Oasis Right Now?</h2>
-      <p>See the ship's current position, speed, and next port on a live tracker.</p>
+    <!-- Row: Deck Plans + Live Tracker -->
+    <section class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
+        <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/oasis-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+        <figure>
+          <img src="/assets/ship-map.png" alt="Oasis of the Seas simplified deck plan preview" loading="lazy"/>
+        </figure>
+      </section>
 
-      <div id="vf-tracker-container" style="width:100%;height:500px;position:relative;"></div>
-      <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
-    </section>
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9383936" data-name="OASIS-OF-THE-SEAS">
+        <h2 id="liveTrackHeading">Where Is Oasis Right Now?</h2>
+        <p>See the ship's current position, speed, and next port on a live tracker.</p>
 
-    <!-- Deck Plans -->
-    <section class="card" aria-labelledby="deck-plans">
-      <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
-      <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/oasis-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
-      <figure>
-        <img src="/assets/ship-map.png" alt="Oasis of the Seas simplified deck plan preview" loading="lazy"/>
-      </figure>
+        <div id="vf-tracker-container" style="width:100%;height:300px;position:relative;"></div>
+        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
+      </section>
     </section>
 
     <!-- FAQ Section (ICP-Lite) -->
@@ -1237,6 +828,44 @@ updated: 2025-11-18
       </details>
     </section>
 
+    <!-- Author & Articles -->
+    <section class="grid-2">
+      <aside class="card" aria-labelledby="author-info">
+        <h2 id="author-info">About the Author</h2>
+        <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <picture>
+            <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.300">
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+          <div>
+            <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong>
+            <p class="tiny">Pastor, cruise writer, and founder of In the Wake. Creating resources for smoother sailings and faithful reflections at sea.</p>
+          </div>
+        </div>
+      <!-- Recent Articles rail -->
+      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    
+      </aside>
+
+      <aside class="card" aria-labelledby="related-articles">
+        <h2 id="related-articles">Related Articles &amp; Resources</h2>
+        <ul style="list-style:none;padding:0;display:grid;gap:0.5rem;">
+          <li><a href="/solo/accessible-cruising.html">Accessible Cruising — Complete Guide</a></li>
+          <li><a href="/solo/freedom-of-your-own-wake.html">Freedom of Your Own Wake — Solo Cruising</a></li>
+          <li><a href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a></li>
+          <li><a href="/planning.html">Planning Your Cruise — Overview</a></li>
+          <li><a href="/articles.html">Browse All Articles</a></li>
+        </ul>
+      </aside>
+    </section>
+
     <!-- Attribution -->
     <section class="card attributions">
       <h2>Image Attributions</h2>
@@ -1262,16 +891,11 @@ updated: 2025-11-18
         </li>
       </ul>
     </section>
-
-    </div><!-- Close main content column -->
-
-</main>
+  </main>
 
   <!-- FOOTER -->
   <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake. All rights reserved.</p>
-
-    
 
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
@@ -1287,10 +911,7 @@ updated: 2025-11-18
 
       function setOpen(group, isOpen) {
         group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
+        const button = group.querySelector('
       }
 
       function closeAll(except = null) {
@@ -1306,18 +927,7 @@ updated: 2025-11-18
       }
 
       dropdownGroups.forEach(group => {
-        const button = group.querySelector('.nav-disclosure');
-        const menu = group.querySelector('.submenu');
-        if (!button || !menu) return;
-
-        // Click to toggle
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isOpen = group.dataset.open === "true";
-          closeAll(group);
-          setOpen(group, !isOpen);
-        });
+        const button = group.querySelector(');
 
         // Mouse enter: Open immediately
         group.addEventListener('mouseenter', () => {
@@ -1590,23 +1200,20 @@ updated: 2025-11-18
 
     // Create wrapper div
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
+    wrapper.style.cssText = 'width:100%;height:300px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
 
-    // CruiseMapper iframe embed using IMO
+    // VesselFinder iframe embed - tracks by IMO
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.cruisemapper.com/?imo=' + imo;
+    iframe.src = 'https://www.vesselfinder.com/aismap?width=100%25&height=300&names=true&imo=' + imo + '&track=true&fleet=&fleet_hide_old_positions=false&clicktoact=false&store_pos=false';
 
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
   })();
   </script>
 
-  
-
-  
   <script>
   (function(){
     "use strict";
@@ -1739,7 +1346,6 @@ updated: 2025-11-18
   })();
   </script>
 <<<<<<< HEAD
-
 
 =======
   <!-- Navigation dropdown functionality -->

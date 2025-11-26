@@ -116,8 +116,6 @@ Soli Deo Gloria
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-
-
   <!-- Skip link -->
   <a class="visually-hidden" href="#content">Skip to content</a>
 
@@ -211,8 +209,7 @@ Soli Deo Gloria
         <span class="stat-label">Bingos Earned</span>
       </div>
     </div>
-    
-    
+
     <!-- How You Compare Section -->
     <div class="comparison-section" id="comparison-section">
       <h2>📊 How You Compare to Other Cruisers</h2>
@@ -1518,8 +1515,7 @@ Soli Deo Gloria
   // App state
   let visitedPorts = new Set(JSON.parse(localStorage.getItem('visited-ports') || '[]'));
   let currentFilter = 'all';
-  
-  
+
   // Analytics tracking helper
   function trackEvent(eventName, params = {}) {
     if (typeof gtag !== 'undefined') {
@@ -1936,8 +1932,7 @@ Soli Deo Gloria
     };
     reader.readAsText(file);
   }
-  
-  
+
   // Update comparison statistics
   function updateComparisonStats(portsVisited, countriesVisited) {
     // Calculate percentile based on typical cruiser distribution
@@ -2134,7 +2129,6 @@ Soli Deo Gloria
   </div><!-- /.tracker-container -->
   </main><!-- /#content -->
 
-  
   <script>
   (function(){
     "use strict";
@@ -2278,10 +2272,7 @@ Soli Deo Gloria
 
       function setOpen(group, isOpen) {
         group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
+        const button = group.querySelector('
       }
 
       function closeAll(except = null) {
@@ -2297,17 +2288,7 @@ Soli Deo Gloria
       }
 
       dropdownGroups.forEach(group => {
-        const button = group.querySelector('.nav-disclosure');
-        const menu = group.querySelector('.submenu');
-        if (!button || !menu) return;
-
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isOpen = group.dataset.open === "true";
-          closeAll(group);
-          setOpen(group, !isOpen);
-        });
+        const button = group.querySelector(');
 
         group.addEventListener('mouseenter', () => {
           if (hoverTimeouts.has(group)) {
