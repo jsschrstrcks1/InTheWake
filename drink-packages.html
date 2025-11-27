@@ -446,9 +446,9 @@
     </div></header>
 
   <!-- MAIN -->
-  <main id="main-content" class="wrap" role="main">
+  <main id="main-content" class="wrap page-grid" role="main">
     <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;">
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 0 0 1.5rem;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> This page provides cruise planning resources for Royal Caribbean Drink Packages Guide 2025. Use the information below to help plan your cruise vacation.
       </p>
@@ -466,6 +466,8 @@
       </div>
     </section>
 
+    <!-- Main Content -->
+    <section style="grid-column: 1;">
     <h1>Royal Caribbean Drink Packages</h1>
     <p class="intro">Everything you need to know about Royal Caribbean's beverage options — from the Coffee Card to the Deluxe <a href="/drink-calculator.html">Beverage Package</a>. Understand what's included, current pricing, and which package fits your cruise style.</p>
 
@@ -745,8 +747,28 @@
         <p style="margin: 0.5rem 0; padding-left: 1rem;">For additional assistance, contact your cruise line directly or work with a travel advisor who specializes in cruises.</p>
       </details>
     </section>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
+    </section>
+
+    <!-- RIGHT RAIL -->
+    <aside class="rail" role="complementary" aria-label="Author & articles" style="grid-column: 2;">
+      <!-- Author card -->
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </section>
+
+      <!-- Recent Stories rail -->
+      <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
@@ -754,6 +776,7 @@
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
+    </aside>
 
 </main>
 
