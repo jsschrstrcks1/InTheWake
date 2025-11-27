@@ -68,6 +68,13 @@ All work on this project is offered as a gift to God.
   </script>
 
   <!-- Global CSS -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.245"/>
 
   <!-- Swiper CSS -->

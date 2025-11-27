@@ -16,6 +16,13 @@ Soli Deo Gloria
   <meta name="description" content="Track which cruise ships you've sailed on across all lines, earn fleet achievement badges, and build your sailing history!"/>
   <link rel="canonical" href="https://cruisinginthewake.com/tools/ship-tracker.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css"/>
 
   <!-- Google Analytics -->

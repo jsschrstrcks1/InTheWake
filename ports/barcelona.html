@@ -33,6 +33,13 @@ All work on this project is offered as a gift to God.
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
 
   <!-- Global CSS -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css"/>
 
   <!-- JSON-LD: BreadcrumbList -->

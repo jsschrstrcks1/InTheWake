@@ -40,6 +40,13 @@ All work on this project is offered as a gift to God.
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Site CSS -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
 
   <!-- Analytics -->

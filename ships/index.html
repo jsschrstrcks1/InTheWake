@@ -65,6 +65,13 @@ All work on this project is offered as a gift to God.
   <meta name="page:version" content="3.008.032"/>
 
   <!-- CSS (site-wide) -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css?v=3.008.032"/>
 
   <!-- Page styles -->

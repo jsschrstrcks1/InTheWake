@@ -223,6 +223,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <link rel="manifest" href="/manifest.webmanifest"/>
 
   <!-- Global CSS -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
 
   <!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->

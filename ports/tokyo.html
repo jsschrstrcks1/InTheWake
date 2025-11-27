@@ -18,6 +18,13 @@ All work on this project is offered as a gift to God.
   <title>Tokyo / Yokohama Cruise Port Guide – In the Wake</title>
   <meta name="description" content="First-person guide to Tokyo and Yokohama cruise ports: Tsukiji Market, TeamLab, Shibuya Crossing, Senso-ji temple, and Japanese efficiency." />
   <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/css/common.css" />
   <link rel="stylesheet" href="/assets/css/articles.css" />
     <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>

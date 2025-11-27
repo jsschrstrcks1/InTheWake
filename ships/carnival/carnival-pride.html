@@ -291,6 +291,13 @@ figcaption{font-size:.85rem;color:#555;margin-top:4px}
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>

@@ -41,6 +41,13 @@
   <link rel="canonical" href="https://cruisinginthewake.com/authors/tina-maulsby.html"/>
 
   <!-- Styles (same-origin so cache-buster can touch it) -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css"/>
 
   <!-- Cache-buster (same-origin CSS/JS only) -->

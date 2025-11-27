@@ -34,6 +34,13 @@ All work on this project is offered as a gift to God.
   <meta name="last-reviewed" content="2025-11-19">
   <meta name="content-protocol" content="ICP-Lite v1.0">
   <title>Rooms — In the Wake (v2.201)</title>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.201"/>
   
   <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/vendor/swiper-bundle.min.css?v=2.201"/>

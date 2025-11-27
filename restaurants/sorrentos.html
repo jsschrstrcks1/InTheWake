@@ -50,6 +50,13 @@ All work on this project is offered as a gift to God.
   <meta name="venue-tags" content="sorrentos, sorrento's, pizza, complimentary, royal promenade, late night, pepperoni, cheese, margherita, bbq chicken, veggie, garlic knots">
 
   <!-- Site CSS (unified) -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
 
   <!-- Analytics -->
