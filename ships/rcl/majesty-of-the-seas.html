@@ -384,9 +384,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     color: var(--text-muted);
   }
 
-
-  
-  /* Dropdown Navigation (FIXED: 300ms Hover Delay) */
   .nav {
     flex: 1 1 auto;
     min-width: 0;
@@ -400,111 +397,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     padding-inline: .75rem;
   }
 
-  .nav-item {
-    position: relative;
-    display: inline-block;
-  }
-
-  .nav-item > a,
-  .nav-item > button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: .35rem;
-    padding: .65rem 1rem;
-    min-height: 44px;
-    border-radius: 20px;
-    background: #fff;
-    border: 2px solid var(--rope);
-    color: var(--accent);
-    font: inherit;
-    font-size: .95rem;
-    line-height: 1.2;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  .nav-item > a:hover,
-  .nav-item > button:hover {
-    background: var(--foam);
-    border-color: var(--accent);
-    transform: translateY(-1px);
-  }
-
-  .nav-item > a[aria-current="page"] {
-    background: var(--accent);
-    color: #fff;
-    font-weight: 600;
-    border-color: var(--accent);
-  }
-
-  .nav-disclosure .caret {
-    display: inline-block;
-    margin-left: .25rem;
-    transition: transform 0.2s ease;
-  }
-
-  .nav-item[data-open="true"] .nav-disclosure .caret {
-    transform: rotate(180deg);
-  }
-
-  /* Dropdown menu with safe zone */
-  .submenu {
-    position: absolute !important;
-    left: 0;
-    top: calc(100% + 4px);
-    min-width: 240px;
-    background: #fff;
-    border: 2px solid var(--rope);
-    border-radius: 12px;
-    padding: .6rem;
-    box-shadow: 0 8px 24px rgba(8,48,65,.15);
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-    z-index: 2100;
-  }
-
-  /* Safe zone bridge */
-  .submenu::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: transparent;
-  }
-
-  .nav-item[data-open="true"] > .submenu {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .submenu a {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: .6rem .75rem;
-    border-radius: .65rem;
-    border: 0;
-    background: transparent;
-    color: var(--ink);
-    text-decoration: none;
-    transition: background 0.15s ease;
-  }
-
-  .submenu a:hover,
-  .submenu a:focus {
-    background: #f2f7fa;
-    outline: 2px solid transparent;
-  }
-
   @media (max-width: 768px) {
     .nav {
       justify-content: flex-start;
@@ -513,16 +405,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       -webkit-overflow-scrolling: touch;
     }
 
-    .nav-item > a,
-    .nav-item > button {
-      flex: 0 0 auto;
-    }
-
-    .submenu {
-      left: 0;
-      right: 0;
-      min-width: 100%;
-    }
   }
   
     /* Navigation */
@@ -539,124 +421,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       padding-inline: .75rem;
     }
 
-    .nav-item {
-      position: relative;
-      display: inline-block;
-    }
-
-    .nav-item > a,
-    .nav-item > button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      padding: .65rem 1rem;
-      min-height: 44px;
-      border-radius: 20px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      color: var(--accent);
-      font: inherit;
-      font-size: .95rem;
-      line-height: 1.2;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item > a:hover,
-    .nav-item > button:hover {
-      background: var(--foam);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .nav-item > a[aria-current="page"] {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      border-color: var(--accent);
-    }
-
-    /* Dropdown Navigation Styles */
-    .nav-disclosure .caret {
-      display: inline-block;
-      margin-left: .25rem;
-      transition: transform 0.2s ease;
-    }
-
-    .nav-item[data-open="true"] .nav-disclosure .caret {
-      transform: rotate(180deg);
-    }
-
-    .submenu {
-      position: absolute !important;
-      left: 0;
-      top: calc(100% + 4px);
-      min-width: 240px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      border-radius: 12px;
-      padding: .6rem;
-      box-shadow: 0 8px 24px rgba(8,48,65,.15);
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-      z-index: 2100;
-    }
-
-    .submenu::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: transparent;
-    }
-
-    .nav-item[data-open="true"] .submenu,
-    .nav-group[data-open="true"] .submenu {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .submenu a {
-      display: block;
-      padding: .5rem .75rem;
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.15s ease;
-    }
-
-    .submenu a:hover,
-    .submenu a:focus {
-      background: #eef4f6;
-      outline: none;
-    }
-
-    .submenu a[aria-current="page"] {
-      background: #e6f4f8;
-      font-weight: 600;
-    }
-
     @media (max-width: 768px) {
-      .submenu {
-        position: static !important;
-        min-width: 0;
-        margin-top: .5rem;
-        box-shadow: none;
-        border: 1px solid var(--rope);
-      }
 
-      .submenu::before {
-        display: none;
-      }
     }
   
     /* Navigation */
@@ -673,124 +439,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       padding-inline: .75rem;
     }
 
-    .nav-item {
-      position: relative;
-      display: inline-block;
-    }
-
-    .nav-item > a,
-    .nav-item > button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      padding: .65rem 1rem;
-      min-height: 44px;
-      border-radius: 20px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      color: var(--accent);
-      font: inherit;
-      font-size: .95rem;
-      line-height: 1.2;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item > a:hover,
-    .nav-item > button:hover {
-      background: var(--foam);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .nav-item > a[aria-current="page"] {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      border-color: var(--accent);
-    }
-
-    /* Dropdown Navigation Styles */
-    .nav-disclosure .caret {
-      display: inline-block;
-      margin-left: .25rem;
-      transition: transform 0.2s ease;
-    }
-
-    .nav-item[data-open="true"] .nav-disclosure .caret {
-      transform: rotate(180deg);
-    }
-
-    .submenu {
-      position: absolute !important;
-      left: 0;
-      top: calc(100% + 4px);
-      min-width: 240px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      border-radius: 12px;
-      padding: .6rem;
-      box-shadow: 0 8px 24px rgba(8,48,65,.15);
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-      z-index: 2100;
-    }
-
-    .submenu::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: transparent;
-    }
-
-    .nav-item[data-open="true"] .submenu,
-    .nav-group[data-open="true"] .submenu {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .submenu a {
-      display: block;
-      padding: .5rem .75rem;
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.15s ease;
-    }
-
-    .submenu a:hover,
-    .submenu a:focus {
-      background: #eef4f6;
-      outline: none;
-    }
-
-    .submenu a[aria-current="page"] {
-      background: #e6f4f8;
-      font-weight: 600;
-    }
-
     @media (max-width: 768px) {
-      .submenu {
-        position: static !important;
-        min-width: 0;
-        margin-top: .5rem;
-        box-shadow: none;
-        border: 1px solid var(--rope);
-      }
 
-      .submenu::before {
-        display: none;
-      }
     }
   </style>
 
@@ -880,99 +530,41 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
-  <style>
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 360px !important;
-      }
-    }
+  <main class="wrap" id="main-content" role="main" tabindex="-1">
+    <!-- ICP-Lite Content Structure -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
 
-    /* Vertical author card */
-    .author-card-vertical {
-      text-align: center;
-    }
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> Majesty of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
+      </p>
 
-    .author-card-vertical .author-avatar {
-      display: block;
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
+      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <strong>Best For:</strong> Cruisers researching Majesty of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
+      </p>
 
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Cruise Line:</strong> Royal Caribbean</li>
+          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
+          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
+        </ul>
+      </div>
+    </section>
 
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-
-    /* Rail list */
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-  </style>
-
-    <!-- Right Rail -->
-    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
-      <!-- Quick Answer / Best For / Key Facts -->
-      <section class="page-intro" style="margin: 0 0 1rem 0;">
-        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-          <strong>Quick Answer:</strong> Majesty of the Seas is a historic Royal Caribbean ship. This page covers deck plans, ship history, dining venues, and legacy information for this retired Sovereign Class vessel.
-        </p>
-
-        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-          <strong>Best For:</strong> Cruisers researching Majesty of the Seas history or comparing Royal Caribbean's classic ships. Explore the ship's legacy and contributions to Royal Caribbean's fleet evolution.
-        </p>
-
-        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-          <ul style="margin: 0; padding-left: 1.25rem;">
-            <li><strong>Cruise Line:</strong> Royal Caribbean (1992-2020)</li>
-            <li><strong>Status:</strong> Retired/Scrapped 2020</li>
-            <li><strong>Class:</strong> Sovereign Class</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Author card (Vertical Layout) -->
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
-
-      <!-- Recent Articles rail -->
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    </aside>
-
-    <!-- Main Content Column -->
-    <div style="grid-column: 1; grid-row: 1;">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;" aria-label="Majesty of the Seas overview">
       <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Majesty of the Seas — Historic Sovereign Class Ship</h1>
 
-      <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        Majesty of the Seas (1992-2020) represented Royal Caribbean's Sovereign Class era, offering classic cruise experiences with 2,744 guests at double occupancy. As the third and final Sovereign Class ship, she helped establish Royal Caribbean's reputation for Caribbean short cruises. After leaving the Royal Caribbean fleet, Majesty was sold and later scrapped in 2020. This page preserves her history and legacy for those who sailed aboard or are researching Royal Caribbean's fleet evolution.
+      <p style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope); background: #f7fdff; border-radius: 8px; font-size: 0.95rem; color: #134;">
+        <strong style="display: block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #567; margin-bottom: 0.15rem;">Looking for Majesty of the Seas info?</strong>
+        <span>Majesty of the Seas is a retired Sovereign Class ship that served Royal Caribbean from 1992 to 2020. This page preserves its history, deck plans, and legacy for those who sailed aboard or are researching Royal Caribbean's fleet evolution.</span>
       </p>
+
+      <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        Majesty of the Seas (1992-2020) represented Royal Caribbean's Sovereign Class era, offering classic cruise experiences with 2,744 guests at double occupancy. As the third and final Sovereign Class ship, she helped establish Royal Caribbean's reputation for Caribbean short cruises. After leaving the Royal Caribbean fleet, Majesty was sold to Pullmantur and later scrapped in 2020.
+      </p>
+    </section>
 
   <!-- Row 1: First Look + Dining -->
     <section style="grid-column: 1; grid-row: 1 / span 999;" class="grid-2">
@@ -982,18 +574,18 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <div class="swiper firstlook" aria-label="Majesty of the Seas photo carousel">
           <div class="swiper-wrapper">
+            <!-- 1 -->
             <div class="swiper-slide">
-              <img src="/assets/ships/Cruise_ship_Majesty_of_the_Seas_-_Bahamas_-_Caribbean_Sea_-_Atlantic_Ocean_-_13_May_2009_(cropped)_(cropped).webp" alt="Majesty of the Seas in the Caribbean" loading="lazy" decoding="async"/>
+              <figure>
+                <img
+                  src="/assets/ships/majesty-of-the-seas1.webp?v=3.006"
+                  alt="Majesty of the Seas in Juneau, Alaska"
+                  loading="lazy"
+                  onerror="(function(i){var fb=[_abs('/assets/ships/rcl/majesty-of-the-seas/majesty-of-the-seas1.webp?v=3.006'),_abs('/assets/ships/majesty-of-the-seas1.webp?v=3.006')];i._fbi=(i._fbi||0);if(i._fbi<fb.length){i.src=fb[i._fbi++];}})(this)">
+                <figcaption class="tiny">Photo served locally (attribution in page footer).</figcaption>
+              </figure>
             </div>
-            <div class="swiper-slide">
-              <img src="/assets/ships/MSMajestyOfTheSeasEdit1.webp" alt="Majesty of the Seas exterior view" loading="lazy" decoding="async"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/assets/ships/Majesty_of_the_Seas_(ship,_1992)_002.webp" alt="Majesty of the Seas profile" loading="lazy" decoding="async"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/assets/ships/majesty-of-the-seas1.webp" alt="Majesty of the Seas at sea" loading="lazy" decoding="async"/>
-            </div>
+
           </div>
           <div class="swiper-pagination" aria-hidden="true"></div>
           <div class="swiper-button-prev" aria-label="Previous image"></div>
@@ -1021,27 +613,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </section>
 
         <!-- Sister Ships -->
-        <section class="ship-stats card mini" aria-labelledby="sister-ships">
-          <h3 id="sister-ships">Sovereign Class — Sister Ships</h3>
-          <p class="small" style="margin-bottom: 0.5rem;">Explore other ships in the <a href="/ships.html#sovereign-class">Sovereign Class</a> family:</p>
-          <div class="related-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+        <section class="card mini carousel related-ships" aria-labelledby="related-ships">
+          <h3 id="related-ships" class="card-title">Sovereign Class — Sister Ships</h3>
+          <div class="related-pills" aria-label="Sovereign-class ships">
             <a class="pill" href="/ships/rcl/sovereign-of-the-seas.html">Sovereign of the Seas</a>
             <a class="pill" href="/ships/rcl/monarch-of-the-seas.html">Monarch of the Seas</a>
           </div>
-        </section>
-
-        <!-- Ship Classes -->
-        <section class="ship-stats card mini" aria-labelledby="ship-classes">
-          <h3 id="ship-classes">Explore Royal Caribbean Ship Classes</h3>
-          <p class="small" style="margin-bottom: 0.5rem;">Compare Majesty with other Royal Caribbean classes:</p>
-          <div class="class-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#sovereign">Sovereign Class</a>
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
-          </div>
+          <p style="text-align:center"><a href="/ships.html" class="btn">See All Ships</a></p>
         </section>
       </section>
 
@@ -1130,79 +708,112 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
-    <!-- Live Ship Tracker -->
-    <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="8819512" data-name="MAJESTY-OF-THE-SEAS">
-      <h2 id="liveTrackHeading">Where Is Majesty Right Now?</h2>
-      <p>Track the current position of this historic vessel (now operating as Majesty of the Oceans).</p>
+    <!-- Row: Deck Plans + Live Tracker -->
+    <section class="grid-2">
+      <!-- HIDDEN: Deck plans not available for historic ships
+<section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
+        <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/majesty-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+        <figure>
+          <img src="/assets/ship-map.png" alt="Majesty of the Seas simplified deck plan preview" loading="lazy"/>
+        </figure>
+      </section>
+-->
 
-      <div id="vf-tracker-container" style="width:100%;height:500px;position:relative;"></div>
-      <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
+      <!-- HIDDEN: Live tracker not available for historic ships
+<section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="8819512" data-name="MAJESTY-OF-THE-SEAS">
+        <h2 id="liveTrackHeading">Where Is Majesty Right Now?</h2>
+        <p>See the ship's current position, speed, and next port on a live tracker.</p>
+
+        <div id="vf-tracker-container" style="width:100%;height:500px;position:relative;"></div>
+        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
+      </section>
+-->
     </section>
 
-    <!-- Deck Plans -->
-    <section class="card" aria-labelledby="deck-plans">
-      <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
-      <p>Deck plans for this historic ship are archived. Visit the Royal Caribbean website for historical information.</p>
-      <figure>
-        <img src="/assets/ship-map.png" alt="Majesty of the Seas simplified deck plan preview" loading="lazy"/>
-      </figure>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="card" aria-labelledby="faq-heading">
+    <!-- ICP-Lite v1.0: FAQ Section -->
+    <section class="card faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What class is Majesty of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Majesty of the Seas was a Sovereign Class ship, one of Royal Caribbean's classic vessels that offered traditional cruise experiences with mid-sized intimacy from 1992 to 2020.</p>
+      <details>
+        <summary>What class is Majesty of the Seas?</summary>
+        <p>Majesty of the Seas is a Sovereign Class ship, one of Royal Caribbean's classic vessels offering traditional cruise experiences with mid-sized intimacy.</p>
       </details>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How many passengers did Majesty of the Seas hold?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Majesty of the Seas held 2,744 guests at double occupancy, offering a more intimate cruising experience compared to modern mega-ships.</p>
+      <details>
+        <summary>How many passengers does Majesty of the Seas hold?</summary>
+        <p>Majesty of the Seas holds 2,350 guests at double occupancy, offering a more intimate cruising experience perfect for first-timers and those seeking classic cruise charm.</p>
       </details>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">When was Majesty of the Seas built?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Majesty of the Seas entered service in 1992 as the third and final Sovereign Class ship. She served Royal Caribbean until 2020 before being sold and eventually scrapped.</p>
+      <details>
+        <summary>When was Majesty of the Seas built?</summary>
+        <p>Majesty of the Seas entered service in 1992 and has been refurbished to maintain modern amenities while preserving her classic charm.</p>
       </details>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What happened to Majesty of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">After serving Royal Caribbean from 1992 to 2020, Majesty of the Seas was sold and renamed Majesty of the Oceans. The ship was later scrapped in 2020, marking the end of an era for this classic Sovereign Class vessel.</p>
+      <details>
+        <summary>What kind of cruises does Majesty of the Seas offer?</summary>
+        <p>Majesty specializes in short Caribbean getaways, making her perfect for quick escapes, first-time cruisers, and those who prefer traditional cruise experiences over mega-ship energy.</p>
       </details>
     </section>
 
-    <!-- Image Attributions -->
+    <!-- Author & Articles -->
+    <section class="grid-2">
+      <aside class="card" aria-labelledby="author-info">
+        <h2 id="author-info">About the Author</h2>
+        <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <picture>
+            <source type="image/webp" srcset="/authors/img/ken1.webp?v=3.010.300">
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+          <div>
+            <strong><a href="/authors/ken-baker.html">Ken Baker</a></strong>
+            <p class="tiny">Pastor, cruise writer, and founder of In the Wake. Creating resources for smoother sailings and faithful reflections at sea.</p>
+          </div>
+        </div>
+      <!-- Recent Articles rail -->
+      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    
+      </aside>
+
+      <aside class="card" aria-labelledby="related-articles">
+        <h2 id="related-articles">Related Articles &amp; Resources</h2>
+        <ul style="list-style:none;padding:0;display:grid;gap:0.5rem;">
+          <li><a href="/solo/accessible-cruising.html">Accessible Cruising — Complete Guide</a></li>
+          <li><a href="/solo/freedom-of-your-own-wake.html">Freedom of Your Own Wake — Solo Cruising</a></li>
+          <li><a href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a></li>
+          <li><a href="/planning.html">Planning Your Cruise — Overview</a></li>
+          <li><a href="/articles.html">Browse All Articles</a></li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Attribution -->
     <section class="card attributions">
       <h2>Image Attributions</h2>
-      <p class="tiny" style="margin-bottom: 1rem;">Photos used on this page are from Wikimedia Commons and are licensed under Creative Commons licenses.</p>
-      <ul style="font-size: 0.9rem; line-height: 1.6;">
-        <li style="margin-bottom: 0.75rem;">
-          <strong>Cruise ship Majesty of the Seas - Bahamas</strong><br/>
-          Author: <a href="https://commons.wikimedia.org/wiki/Category:Majesty_of_the_Seas_(ship,_1992)" target="_blank" rel="noopener">Wikimedia Commons contributor</a><br/>
-          Source: <a href="https://commons.wikimedia.org/wiki/File:Cruise_ship_Majesty_of_the_Seas_-_Bahamas_-_Caribbean_Sea_-_Atlantic_Ocean_-_13_May_2009_(cropped)_(cropped).jpg" target="_blank" rel="noopener">Wikimedia Commons</a><br/>
-          License: CC BY-SA (specific version to be confirmed)
-        </li>
-        <li style="margin-bottom: 0.75rem;">
-          <strong>Additional Majesty of the Seas images</strong><br/>
-          Images from <a href="https://commons.wikimedia.org/wiki/Category:Majesty_of_the_Seas_(ship,_1992)" target="_blank" rel="noopener">Wikimedia Commons - Majesty of the Seas category</a><br/>
-          Licenses: CC BY-SA 4.0 or similar (specific attributions for each image as listed)
+      <ul>
+        <li>
+          Images sourced from Wikimedia Commons under Creative Commons licenses.
         </li>
       </ul>
-      <p class="tiny" style="margin-top: 1rem; font-style: italic;">Note: Detailed attribution information for each image is being compiled. All images are from Wikimedia Commons and comply with Creative Commons licensing.</p>
     </section>
-
-    </div><!-- Close main content column -->
-
-</main>
+  </main>
 
   <!-- FOOTER -->
-  <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake. All rights reserved.</p>
-
-    
-
+    <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
 
@@ -1217,10 +828,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       function setOpen(group, isOpen) {
         group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
+        const button = group.querySelector('
       }
 
       function closeAll(except = null) {
@@ -1236,18 +844,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
 
       dropdownGroups.forEach(group => {
-        const button = group.querySelector('.nav-disclosure');
-        const menu = group.querySelector('.submenu');
-        if (!button || !menu) return;
-
-        // Click to toggle
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isOpen = group.dataset.open === "true";
-          closeAll(group);
-          setOpen(group, !isOpen);
-        });
+        const button = group.querySelector(');
 
         // Mouse enter: Open immediately
         group.addEventListener('mouseenter', () => {
@@ -1534,9 +1131,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-  
-
-  
   <script>
   (function(){
     "use strict";
@@ -1668,59 +1262,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     })();
   })();
   </script>
-  <!-- Navigation dropdown functionality (New Clean Implementation) -->
-  <script>
-  (function() {
-    'use strict';
-    var dropdowns = document.querySelectorAll('.nav-dropdown');
-    function toggleDropdown(dropdown) {
-      var isOpen = dropdown.classList.contains('open');
-      closeAllDropdowns();
-      if (!isOpen) {
-        dropdown.classList.add('open');
-        var btn = dropdown.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-      }
-    }
-    function closeAllDropdowns() {
-      dropdowns.forEach(function(dd) {
-        dd.classList.remove('open');
-        var btn = dd.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
-      });
-    }
-    dropdowns.forEach(function(dropdown) {
-      var btn = dropdown.querySelector('button');
-      if (btn) {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleDropdown(dropdown);
-        });
-        btn.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            dropdown.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-            var firstLink = dropdown.querySelector('.dropdown-menu a');
-            if (firstLink) firstLink.focus();
-          }
-        });
-      }
-      var menu = dropdown.querySelector('.dropdown-menu');
-      if (menu) {
-        menu.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
-        });
-      }
-    });
-    document.addEventListener('click', function(e) {
-      var isInsideDropdown = false;
-      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
-      if (!isInsideDropdown) closeAllDropdowns();
-    });
-  })();
-  </script>
+
 </body>
 </html>

@@ -67,8 +67,6 @@ All work on this project is offered as a gift to God.
   <!-- Preload LCP hero -->
   <link rel="preload" as="image" href="/assets/articles/thumbs/freedom-of-your-own-wake.webp?v=3.008.017" fetchpriority="high"/>
 
-
-
   <!-- Structured data -->
   <script type="application/ld+json">
   {
@@ -114,7 +112,6 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
- 
   <!-- JSON-LD: WebPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -159,36 +156,16 @@ All work on this project is offered as a gift to God.
     flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;
     gap:.45rem;white-space:nowrap;flex-wrap:nowrap;overflow:visible;padding-inline:.75rem;
   }
-  .pill-nav a,.pill-nav button.nav-disclosure{
-    display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:20px;background:#fff;
-    border:1px solid var(--rope);color:#0e6e8e;font:inherit;font-size:.9rem;line-height:1.2;cursor:pointer;text-decoration:none
-  }
+  .pill-nav a,.pill-nav button
   .nav-group{position:relative;display:inline-block}
 
   /* Dropdown – default hidden */
-  .submenu{
-    position:absolute;left:0;top:calc(100% + 8px);
-    min-width:220px;background:#fff;border:1px solid var(--rope);
-    border-radius:12px;padding:.4rem;box-shadow:0 8px 24px rgba(8,48,65,.12);
-    display:none;opacity:0;visibility:hidden;pointer-events:none;
-    transition:opacity .15s ease;z-index:2100;
-  }
+  
   /* Programmatic open (JS) */
-  .nav-group[data-open="true"] > .submenu,
-  .nav-group[data-open="true"] > .submenu{
-    display:block !important;
-    opacity:1 !important;
-    visibility:visible !important;
-    pointer-events:auto !important;
-  }
+  
   /* CSS fallback: open on hover and keyboard focus */
   .nav-group:hover > .submenu,
-  .nav-group:focus-within > .submenu{
-    display:block !important;
-    opacity:1 !important;
-    visibility:visible !important;
-    pointer-events:auto !important;
-  }
+  .nav-group:focus-within > 
   header,.hero-header,.navbar,.pill-nav{ overflow:visible; }
 
   .hero{
@@ -252,48 +229,13 @@ All work on this project is offered as a gift to God.
 
 /* Only top-level links/buttons get pill styling */
 .pill-nav > a,
-.pill-nav > .nav-group > .nav-disclosure {
-  display: inline-flex; align-items: center; gap: .35rem;
-  padding: .35rem .7rem; border-radius: 20px; background: #fff;
-  border: 1px solid var(--rope); color: #0e6e8e;
-  font: inherit; font-size: .9rem; line-height: 1.2;
-  cursor: pointer; text-decoration: none;
-}
+.pill-nav > .nav-group > 
 
 /* Submenu container: baseline hidden (wins over any global) */
-.submenu{
-  position: absolute !important;
-  left: 0; top: calc(100% + 8px);
-  min-width: 220px; background: #fff; border: 1px solid var(--rope);
-  border-radius: 12px; padding: .4rem;
-  box-shadow: 0 8px 24px rgba(8,48,65,.12);
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  z-index: 1100;
-}
 
 /* Reveal when the group is “open” (dataset or class) */
-.nav-group[data-open="true"] > .submenu,
-.nav-group[data-open="true"] > .submenu{
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
 
 /* Submenu links look like menu items, not pills */
-.submenu a{
-  display: block; width: 100%;
-  margin: 0; padding: .5rem .65rem;
-  border-radius: .65rem; border: 0;
-  background: transparent; color: var(--ink); text-decoration: none;
-}
-.submenu a:hover, .submenu a:focus{
-  background: #f2f7fa;
-  outline: 2px solid transparent;
-}
 
 /* Keep the popover visible (no clipping) */
 header, .hero-header, .navbar, .pill-nav, .nav-group { overflow: visible; }
@@ -328,124 +270,8 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
       padding-inline: .75rem;
     }
 
-    .nav-item {
-      position: relative;
-      display: inline-block;
-    }
-
-    .nav-item > a,
-    .nav-item > button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      padding: .65rem 1rem;
-      min-height: 44px;
-      border-radius: 20px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      color: var(--accent);
-      font: inherit;
-      font-size: .95rem;
-      line-height: 1.2;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item > a:hover,
-    .nav-item > button:hover {
-      background: var(--foam);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .nav-item > a[aria-current="page"] {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      border-color: var(--accent);
-    }
-
-    /* Dropdown Navigation Styles */
-    .nav-disclosure .caret {
-      display: inline-block;
-      margin-left: .25rem;
-      transition: transform 0.2s ease;
-    }
-
-    .nav-item[data-open="true"] .nav-disclosure .caret {
-      transform: rotate(180deg);
-    }
-
-    .submenu {
-      position: absolute !important;
-      left: 0;
-      top: calc(100% + 4px);
-      min-width: 240px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      border-radius: 12px;
-      padding: .6rem;
-      box-shadow: 0 8px 24px rgba(8,48,65,.15);
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-      z-index: 2100;
-    }
-
-    .submenu::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: transparent;
-    }
-
-    .nav-item[data-open="true"] .submenu,
-    .nav-group[data-open="true"] .submenu {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .submenu a {
-      display: block;
-      padding: .5rem .75rem;
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.15s ease;
-    }
-
-    .submenu a:hover,
-    .submenu a:focus {
-      background: #eef4f6;
-      outline: none;
-    }
-
-    .submenu a[aria-current="page"] {
-      background: #e6f4f8;
-      font-weight: 600;
-    }
-
     @media (max-width: 768px) {
-      .submenu {
-        position: static !important;
-        min-width: 0;
-        margin-top: .5rem;
-        box-shadow: none;
-        border: 1px solid var(--rope);
-      }
 
-      .submenu::before {
-        display: none;
-      }
     }
   
     /* Navigation */
@@ -462,124 +288,8 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
       padding-inline: .75rem;
     }
 
-    .nav-item {
-      position: relative;
-      display: inline-block;
-    }
-
-    .nav-item > a,
-    .nav-item > button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      padding: .65rem 1rem;
-      min-height: 44px;
-      border-radius: 20px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      color: var(--accent);
-      font: inherit;
-      font-size: .95rem;
-      line-height: 1.2;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item > a:hover,
-    .nav-item > button:hover {
-      background: var(--foam);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    .nav-item > a[aria-current="page"] {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      border-color: var(--accent);
-    }
-
-    /* Dropdown Navigation Styles */
-    .nav-disclosure .caret {
-      display: inline-block;
-      margin-left: .25rem;
-      transition: transform 0.2s ease;
-    }
-
-    .nav-item[data-open="true"] .nav-disclosure .caret {
-      transform: rotate(180deg);
-    }
-
-    .submenu {
-      position: absolute !important;
-      left: 0;
-      top: calc(100% + 4px);
-      min-width: 240px;
-      background: #fff;
-      border: 2px solid var(--rope);
-      border-radius: 12px;
-      padding: .6rem;
-      box-shadow: 0 8px 24px rgba(8,48,65,.15);
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-      z-index: 2100;
-    }
-
-    .submenu::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: transparent;
-    }
-
-    .nav-item[data-open="true"] .submenu,
-    .nav-group[data-open="true"] .submenu {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .submenu a {
-      display: block;
-      padding: .5rem .75rem;
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.15s ease;
-    }
-
-    .submenu a:hover,
-    .submenu a:focus {
-      background: #eef4f6;
-      outline: none;
-    }
-
-    .submenu a[aria-current="page"] {
-      background: #e6f4f8;
-      font-weight: 600;
-    }
-
     @media (max-width: 768px) {
-      .submenu {
-        position: static !important;
-        min-width: 0;
-        margin-top: .5rem;
-        box-shadow: none;
-        border: 1px solid var(--rope);
-      }
 
-      .submenu::before {
-        display: none;
-      }
     }
   </style>
 </head>
@@ -588,9 +298,6 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
-
-
-
 
   <!-- =========================== HEADER ============================ -->
   <header class="hero-header" role="banner">
@@ -716,24 +423,15 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
 
   <p>So go. Go in faith. Take a journey not to get away from the world, but to see it again through grateful eyes. The ocean may not answer your questions, but it will make you quiet enough to hear when God does.</p>
 
-  <footer class="byline">
-    <div class="avatar" style="width:48px;height:48px;border-radius:999px;overflow:hidden;flex:none">
-      <picture>
-        <source type="image/webp" srcset="https://www.cruisinginthewake.com/authors/img/ken1.webp?v=3.008.017">
-        <img
-          src="https://www.cruisinginthewake.com/authors/img/ken1.jpg?v=3.008.017"
-          alt="Ken Baker" width="48" height="48"
-          loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
-    </div>
-    <div style="margin-left:.5rem">
-      <strong><a href="https://ken-baker.com?utm_source=solo_article&utm_medium=byline_link&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Ken Baker</a></strong>
-      <a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>
-      <div class="author-links" style="margin-top:.35rem; font-size:.95rem; opacity:.9">
-        <a href="https://instagram.com/flickersofmajesty?utm_source=cruisinginthewake&utm_medium=byline_social&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Instagram</a> ·
-        <a href="https://flickersofmajesty.com?utm_source=cruisinginthewake&utm_medium=byline_social&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a> ·
-        <a href="https://ken-baker.com?utm_source=cruisinginthewake&utm_medium=byline_social&utm_campaign=ken_profile" target="_blank" rel="noopener noreferrer">Personal Site</a>
-      </div>
-    </div>
+    <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
 
   <section class="cards stack" id="solo-disclosure">
@@ -766,9 +464,7 @@ header, .hero-header, .navbar { position: relative; z-index: 1000; }
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
-    
 
-    
   </aside>
 </main>
 
@@ -795,24 +491,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const setOpen = (g,on)=>{
       g.dataset.open = on ? 'true' : 'false';
       g.classList.toggle('open', !!on); // extra class in case CSS targets .open
-      const b = g.querySelector('.nav-disclosure');
-      if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
-    };
-    const closeAll = (except=null)=> groups.forEach(g=>{ if(g!==except) setOpen(g,false); });
+      const b = g.querySelector(');
 
     groups.forEach(g=>{
-      const btn  = g.querySelector('.nav-disclosure');
-      const menu = g.querySelector('.submenu');
-      if(!btn || !menu) return;
-
-      // Toggle on click
-      btn.addEventListener('click', (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
-        const open = g.dataset.open === 'true';
-        closeAll(g);
-        setOpen(g, !open);
-      });
+      const btn  = g.querySelector(');
 
       // Keyboard support on the group (Esc + ArrowDown from button)
       g.addEventListener('keydown', (e)=>{
@@ -1066,9 +748,6 @@ document.addEventListener('DOMContentLoaded', () => {
   <script defer src="/assets/js/share-bar.js?v=3.010.004"></script>
   <script defer src="/assets/js/sw-register.js?v=3.010.004"></script>
 
-  
-
-  
   <script>
   (function(){
     "use strict";
@@ -1214,10 +893,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       function setOpen(group, isOpen) {
         group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
+        const button = group.querySelector('
       }
 
       function closeAll(except = null) {
@@ -1233,18 +909,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       dropdownGroups.forEach(group => {
-        const button = group.querySelector('.nav-disclosure');
-        const menu = group.querySelector('.submenu');
-        if (!button || !menu) return;
-
-        // Click to toggle
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isOpen = group.dataset.open === "true";
-          closeAll(group);
-          setOpen(group, !isOpen);
-        });
+        const button = group.querySelector(');
 
         // Mouse enter: Open immediately
         group.addEventListener('mouseenter', () => {

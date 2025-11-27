@@ -291,9 +291,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     color: var(--text-muted);
   }
 
-
-
-  /* Dropdown Navigation (FIXED: 300ms Hover Delay) */
   .nav {
     flex: 1 1 auto;
     min-width: 0;
@@ -307,111 +304,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     padding-inline: .75rem;
   }
 
-  .nav-item {
-    position: relative;
-    display: inline-block;
-  }
-
-  .nav-item > a,
-  .nav-item > button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: .35rem;
-    padding: .65rem 1rem;
-    min-height: 44px;
-    border-radius: 20px;
-    background: #fff;
-    border: 2px solid var(--rope);
-    color: var(--accent);
-    font: inherit;
-    font-size: .95rem;
-    line-height: 1.2;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  .nav-item > a:hover,
-  .nav-item > button:hover {
-    background: var(--foam);
-    border-color: var(--accent);
-    transform: translateY(-1px);
-  }
-
-  .nav-item > a[aria-current="page"] {
-    background: var(--accent);
-    color: #fff;
-    font-weight: 600;
-    border-color: var(--accent);
-  }
-
-  .nav-disclosure .caret {
-    display: inline-block;
-    margin-left: .25rem;
-    transition: transform 0.2s ease;
-  }
-
-  .nav-item[data-open="true"] .nav-disclosure .caret {
-    transform: rotate(180deg);
-  }
-
-  /* Dropdown menu with safe zone */
-  .submenu {
-    position: absolute !important;
-    left: 0;
-    top: calc(100% + 4px);
-    min-width: 240px;
-    background: #fff;
-    border: 2px solid var(--rope);
-    border-radius: 12px;
-    padding: .6rem;
-    box-shadow: 0 8px 24px rgba(8,48,65,.15);
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-    z-index: 2100;
-  }
-
-  /* Safe zone bridge */
-  .submenu::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: transparent;
-  }
-
-  .nav-item[data-open="true"] > .submenu {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .submenu a {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: .6rem .75rem;
-    border-radius: .65rem;
-    border: 0;
-    background: transparent;
-    color: var(--ink);
-    text-decoration: none;
-    transition: background 0.15s ease;
-  }
-
-  .submenu a:hover,
-  .submenu a:focus {
-    background: #f2f7fa;
-    outline: 2px solid transparent;
-  }
-
   @media (max-width: 768px) {
     .nav {
       justify-content: flex-start;
@@ -420,16 +312,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       -webkit-overflow-scrolling: touch;
     }
 
-    .nav-item > a,
-    .nav-item > button {
-      flex: 0 0 auto;
-    }
-
-    .submenu {
-      left: 0;
-      right: 0;
-      min-width: 100%;
-    }
   }
   </style>
 
@@ -450,7 +332,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <header class="hero-header" role="banner">
     <div class="navbar">
       <!-- Navigation with Dropdown Menus -->
-
 
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
@@ -522,101 +403,43 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
-  <style>
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 360px !important;
-      }
-    }
+  <main class="wrap" id="main-content" role="main" tabindex="-1">
+    <!-- ICP-Lite Content Structure -->
+    <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;">
 
-    /* Vertical author card */
-    .author-card-vertical {
-      text-align: center;
-    }
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> Nordic Prince (1971-1995) is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
+      </p>
 
-    .author-card-vertical .author-avatar {
-      display: block;
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
+      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <strong>Best For:</strong> Cruisers researching Nordic Prince (1971-1995) or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
+      </p>
 
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Cruise Line:</strong> Royal Caribbean</li>
+          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
+          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
+        </ul>
+      </div>
+    </section>
 
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-
-    /* Rail list */
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-  </style>
-
-    <!-- Right Rail -->
-    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
-      <!-- Quick Answer / Best For / Key Facts -->
-      <section class="page-intro" style="margin: 0 0 1rem 0;">
-        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-          <strong>Quick Answer:</strong> Nordic Prince (1971-1995) was a historic Royal Caribbean ship, part of the original fleet alongside Song of Norway and Sun Viking. Retired in 1995.
-        </p>
-
-        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-          <strong>Best For:</strong> Royal Caribbean historians, cruise enthusiasts researching the line's founding fleet, and those who sailed aboard Nordic Prince.
-        </p>
-
-        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-          <ul style="margin: 0; padding-left: 1.25rem;">
-            <li><strong>Cruise Line:</strong> Royal Caribbean</li>
-            <li><strong>Service Years:</strong> 1971-1995</li>
-            <li><strong>Status:</strong> Retired/Scrapped</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Author card (Vertical Layout) -->
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
-
-      <!-- Recent Articles rail -->
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    </aside>
-
-    <!-- Main Content Column -->
-    <div style="grid-column: 1; grid-row: 1;">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;" aria-label="Nordic Prince overview">
       <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Nordic Prince — Historical Information &amp; Legacy</h1>
+
+      <p style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope); background: #f7fdff; border-radius: 8px; font-size: 0.95rem; color: #134;">
+        <strong style="display: block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #567; margin-bottom: 0.15rem;">Looking for Nordic Prince information?</strong>
+        <span>This page covers the history, legacy, and details of Nordic Prince, one of Royal Caribbean's founding vessels from 1971.</span>
+      </p>
 
       <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
         Nordic Prince was one of Royal Caribbean's founding vessels, serving from 1971 to 1995.
         The ship offered classic Caribbean cruising with about 876 guests at double occupancy, embodying the pioneering spirit of Royal Caribbean's early years.
         Though retired decades ago, Nordic Prince holds historical significance as part of the line's original fleet.
       </p>
+    </section>
 
     <!-- Retired Ship Notice -->
     <div class="retired-notice" role="alert">
@@ -669,31 +492,45 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p>After her retirement from Royal Caribbean service, Nordic Prince sailed under different names and operators before ultimately being scrapped.</p>
     </section>
 
-    <!-- Sister Ships & Related Classes -->
-    <section class="card" aria-labelledby="sister-ships">
-      <h3 id="sister-ships">Song of Norway Class — Sister Ships</h3>
-      <p class="small" style="margin-bottom: 0.5rem;">Explore other ships in the Song of Norway Class family:</p>
-      <div class="related-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
-        <a class="pill" href="/ships/rcl/song-of-norway.html">Song of Norway</a>
-        <a class="pill" href="/ships/rcl/sun-viking.html">Sun Viking</a>
-      </div>
-    </section>
+    <!-- Related -->
+    <section class="related-row">
+      <section class="card carousel related-ships" aria-labelledby="related-ships">
+        <h2 id="related-ships" class="card-title">Song of Norway Class — Sister Ships</h2>
+        <div class="related-pills" aria-label="Song of Norway Class ships">
+          <a class="pill" href="/ships/rcl/song-of-norway.html">Song of Norway</a>
+          <a class="pill" href="/ships/rcl/sun-viking.html">Sun Viking</a>
+        </div>
+        <p style="text-align:center"><a href="/ships.html" class="btn">See All Ships</a></p>
+      </section>
 
-    <section class="card" aria-labelledby="ship-classes">
-      <h3 id="ship-classes">Explore Royal Caribbean Ship Classes</h3>
-      <p class="small" style="margin-bottom: 0.5rem;">Compare Nordic Prince with modern Royal Caribbean classes:</p>
-      <div class="class-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
-        <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
-        <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
-        <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
-        <a class="pill" href="/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
-        <a class="pill" href="/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
-        <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
-      </div>
+      <section class="card carousel related-classes" aria-labelledby="related-classes">
+        <h2 id="related-classes" class="card-title">Explore Royal Caribbean Classes</h2>
+        <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
+        <div class="class-pills">
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
+          <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
+        </div>
+        <p style="text-align:center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
+      </section>
     </section>
+      <!-- Recent Articles rail -->
+      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    
+  </main>
 
-    <!-- FAQ Section -->
-    <section class="card" aria-labelledby="faq-heading">
+    <!-- FAQ Section (ICP-Lite) -->
+    <section class="card faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
@@ -711,17 +548,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p style="margin: 0.5rem 0; padding-left: 1rem;">No, Nordic Prince is no longer in service. This page preserves its Royal Caribbean history for research and nostalgia, honoring one of the ships that helped start the Royal Caribbean story.</p>
       </details>
     </section>
-
-    </div><!-- Close main content column -->
-
-</main>
+  </main>
 
   <!-- FOOTER -->
-  <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake. All rights reserved.</p>
-
-
-
+    <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
 
@@ -736,10 +573,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       function setOpen(group, isOpen) {
         group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('.nav-disclosure');
-        if (button) {
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
+        const button = group.querySelector('
       }
 
       function closeAll(except = null) {
@@ -755,17 +589,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
 
       dropdownGroups.forEach(group => {
-        const button = group.querySelector('.nav-disclosure');
-        const menu = group.querySelector('.submenu');
-        if (!button || !menu) return;
-
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isOpen = group.dataset.open === "true";
-          closeAll(group);
-          setOpen(group, !isOpen);
-        });
+        const button = group.querySelector(');
 
         group.addEventListener('mouseenter', () => {
           if (hoverTimeouts.has(group)) {
@@ -862,12 +686,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     }
   })();
   </script>
-
-  <!-- ===== Recent Articles Rail ===== -->
   <script>
   (function(){
     "use strict";
 
+    /* ===== Recent Articles Rail ===== */
     (async function recentRail(){
       const rail = document.getElementById('recent-rail');
       if(!rail) return;
@@ -936,12 +759,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
               </div>
               <div>
                 <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">${title}</a>
+                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
                 </h4>
-                ${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">${excerpt}</p>` : ''}
+                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
           </article>`;
       }).join('');
 
@@ -973,13 +796,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         if(!primary){
           const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
           const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
+          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
         }
 
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
+          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
@@ -989,65 +812,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       // Announce to screen readers
       const status = document.getElementById('a11y-status');
       if(status) {
-        status.textContent = `${view.length} recent articles loaded`;
+        status.textContent = `\${view.length} recent articles loaded`;
       }
     })();
   })();
   </script>
 
-  <!-- Navigation dropdown functionality -->
-  <script>
-  (function() {
-    'use strict';
-    var dropdowns = document.querySelectorAll('.nav-dropdown');
-    function toggleDropdown(dropdown) {
-      var isOpen = dropdown.classList.contains('open');
-      closeAllDropdowns();
-      if (!isOpen) {
-        dropdown.classList.add('open');
-        var btn = dropdown.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-      }
-    }
-    function closeAllDropdowns() {
-      dropdowns.forEach(function(dd) {
-        dd.classList.remove('open');
-        var btn = dd.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
-      });
-    }
-    dropdowns.forEach(function(dropdown) {
-      var btn = dropdown.querySelector('button');
-      if (btn) {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleDropdown(dropdown);
-        });
-        btn.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            dropdown.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-            var firstLink = dropdown.querySelector('.dropdown-menu a');
-            if (firstLink) firstLink.focus();
-          }
-        });
-      }
-      var menu = dropdown.querySelector('.dropdown-menu');
-      if (menu) {
-        menu.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
-        });
-      }
-    });
-    document.addEventListener('click', function(e) {
-      var isInsideDropdown = false;
-      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
-      if (!isInsideDropdown) closeAllDropdowns();
-    });
-  })();
-  </script>
 </body>
 </html>
