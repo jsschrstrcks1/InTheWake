@@ -1,0 +1,53 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a365d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2c5282;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGradient)"/>
+
+  <!-- Decorative wave pattern -->
+  <path d="M0,400 Q300,350 600,400 T1200,400 L1200,800 L0,800 Z" fill="#1e3a5f" opacity="0.3"/>
+  <path d="M0,450 Q300,400 600,450 T1200,450 L1200,800 L0,800 Z" fill="#1e3a5f" opacity="0.2"/>
+
+  <!-- Logo -->
+  <image href="/assets/logo_wake_512.png" x="350" y="200" width="500" height="auto" opacity="0.9"/>
+
+  <!-- Coming Soon text -->
+  <text x="600" y="580" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="bold"
+        text-anchor="middle" fill="url(#textGradient)" filter="url(#glow)">
+    COMING SOON
+  </text>
+
+  <!-- Ship name -->
+  <text x="600" y="650" font-family="Georgia, serif" font-size="36" font-weight="300"
+        text-anchor="middle" fill="#cbd5e1" opacity="0.9">
+    Nordic Prince
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="690" font-family="Arial, sans-serif" font-size="20" font-style="italic"
+        text-anchor="middle" fill="#94a3b8" opacity="0.8">
+    Historic Royal Caribbean Ship • 1971-1995
+  </text>
+
+  <!-- Decorative line -->
+  <line x1="400" y1="530" x2="800" y2="530" stroke="#3b82f6" stroke-width="2" opacity="0.6"/>
+</svg>
