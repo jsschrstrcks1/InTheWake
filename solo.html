@@ -227,6 +227,13 @@
   <link rel="preconnect" href="https://cruisinginthewake.com"/>
 
   <!-- Site bundle -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
 
   <!-- SOLO hero + inline-hero card treatment (scoped) -->

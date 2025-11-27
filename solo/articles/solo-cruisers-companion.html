@@ -1,5 +1,12 @@
 <article id="solo-cruisers-companion" data-slug="solo-cruisers-companion" class="solo-article" itemscope itemtype="https://schema.org/Article">
   <header>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
     <h1 itemprop="headline">The Solo Cruiser's Companion</h1>
     <p class="dek" itemprop="description">A Practical Guide for Traveling Alone at Sea</p>
     <p class="byline">by Ken Baker</p>

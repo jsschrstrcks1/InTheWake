@@ -46,6 +46,13 @@ All work on this project is offered as a gift to God.
   <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/chefs-table.html">
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#0a3d62">
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
 
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>

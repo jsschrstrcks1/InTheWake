@@ -13,6 +13,13 @@ Soli Deo Gloria
   <meta name="description" content="First-person logbook guide to Tracy Arm Fjord, Alaska — 30-mile narrow fjord, twin Sawyer Glaciers, 4,000-foot granite walls, icebergs with harbor seals, and stunning Alaska scenery."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/tracy-arm.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css"/>
   <script type="application/ld+json">
   {

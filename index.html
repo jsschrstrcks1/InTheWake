@@ -243,6 +243,13 @@
   <link rel="preload" as="image" href="/assets/index_hero.webp?v=3.010.400" imagesrcset="/assets/index_hero.webp?v=3.010.400" fetchpriority="high"/>
 
   <!-- Styles -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <style>
   /* ===== Production Index Styles v3.010.400 ===== */

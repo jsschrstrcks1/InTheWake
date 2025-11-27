@@ -13,6 +13,13 @@ Soli Deo Gloria
   <meta name="description" content="First-person logbook guide to Dubrovnik, Croatia — medieval city walls, red roofs, marble streets, and breathtaking Adriatic beauty."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/dubrovnik.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css"/>
   <script type="application/ld+json">
   {

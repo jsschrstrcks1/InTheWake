@@ -36,6 +36,13 @@ All work on this project is offered as a gift to God.
   <meta property="og:site_name" content="In the Wake">
 
   <!-- Styles -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="./assets/css/styles.css">
 
     <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>

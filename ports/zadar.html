@@ -13,6 +13,13 @@ Soli Deo Gloria
   <meta name="description" content="First-person logbook guide to Zadar, Croatia — Roman ruins, Sea Organ playing wave music, Greeting to the Sun light show, coolest small Adriatic city."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/zadar.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css"/>
   <script type="application/ld+json">
   {

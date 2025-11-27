@@ -230,6 +230,13 @@ All work on this project is offered as a gift to God.
     .toc-sticky{position:static;margin-bottom:1rem}
   }
   </style>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>

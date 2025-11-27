@@ -277,6 +277,13 @@
   "description": "Compare Soda, Refreshment, Deluxe, and Coffee Card vs \u00e0-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support."
 }
   </script><!-- Styles -->
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
   <link rel="stylesheet" href="/assets/css/calculator.css?v=3.010.300"/>
   

@@ -22,6 +22,13 @@ All work on this project is offered as a gift to God.
 <meta charset="utf-8">
 <title>Carnival Horizon — Carnival Cruise Line — Royal Caribbean | v2.224</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
 <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234">
 <link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/carnival/carnival-carnival-horizon.html">
 <meta name="description" content="Carnival Horizon — Carnival Cruise Line (Coming Soon) — placeholder page compliant with In The Wake Standards v2.224.">

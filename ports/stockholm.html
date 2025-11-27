@@ -14,6 +14,13 @@ Soli Deo Gloria
   <meta name="description" content="First-person logbook guide to Stockholm — Vasa Museum, Gamla Stan old town, ABBA Museum, and the stunning 14-island archipelago sail-in."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/stockholm.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="/assets/styles.css"/>
   <style>
     /* Page Grid Layout (2-column with right rail) */

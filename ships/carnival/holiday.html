@@ -109,6 +109,13 @@ figcaption{font-size:.85rem;color:#555;margin-top:4px}
 
   }
   </style>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
   <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.234"/>
 <style id="brand-title-hide">.brand-title{display:none!important}</style>
 

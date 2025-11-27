@@ -98,6 +98,13 @@
       color: #0e6e8e;
     }
   </style>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
 </head>
 <body>
   <!-- Skip Link (Required for accessibility) -->
