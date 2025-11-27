@@ -11,7 +11,7 @@ from pathlib import Path
 # Correct IMO numbers for Royal Caribbean ships
 CORRECT_IMOS = {
     # Icon Class
-    'icon-of-the-seas': '9931046',
+    'icon-of-the-seas': '9829930',
     'star-of-the-seas': '9829942',
 
     # Oasis Class
