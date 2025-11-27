@@ -44,6 +44,49 @@ Files affected:
 - [ ] Enchantment of the Seas - Add proper attributions for 5 images
 - [ ] Explorer of the Seas - Get proper Wiki Commons URLs
 
+### Stateroom Checker Tool - RCL Fleet Expansion
+**Status:** Currently supports 2 ships (Quantum of the Seas, Radiance of the Seas)
+**Impact:** Major user engagement feature - expand to all 28 active RCL ships
+**Data Required:** Cabin exception data for each ship (view obstructions, noise issues, motion sensitivity, connecting doors)
+
+**Ships Needing Data (26 ships):**
+- [ ] Adventure of the Seas
+- [ ] Allure of the Seas
+- [ ] Anthem of the Seas
+- [ ] Brilliance of the Seas
+- [ ] Enchantment of the Seas
+- [ ] Explorer of the Seas
+- [ ] Freedom of the Seas
+- [ ] Grandeur of the Seas
+- [ ] Harmony of the Seas
+- [ ] Icon of the Seas
+- [ ] Independence of the Seas
+- [ ] Jewel of the Seas
+- [ ] Liberty of the Seas
+- [ ] Mariner of the Seas
+- [ ] Navigator of the Seas
+- [ ] Oasis of the Seas
+- [ ] Odyssey of the Seas
+- [ ] Ovation of the Seas
+- [x] Quantum of the Seas ✅
+- [ ] Serenade of the Seas
+- [ ] Spectrum of the Seas
+- [ ] Star of the Seas
+- [ ] Symphony of the Seas
+- [ ] Utopia of the Seas
+- [ ] Vision of the Seas
+- [ ] Voyager of the Seas
+- [ ] Wonder of the Seas
+
+**Data Structure:** JSON file per ship at `/assets/data/staterooms/stateroom-exceptions.{ship-slug}.v2.json`
+**Exception Flags:** VIEW_PARTIAL_OVERHANG, VIEW_OBSTRUCTED_LIFEBOAT, VIEW_OBSTRUCTED_STRUCTURAL, NOISE_POOL_ABOVE, NOISE_MULTIDECK_ATRIUM, NOISE_ELEVATOR_TRAFFIC, NOISE_THEATER_BELOW, NOISE_GALLEY_ABOVE, MOTION_FORWARD, MOTION_AFT, MOTION_HIGH_DECK, CONNECTING_DOOR
+
+**Process per Ship:**
+1. Research cabin quirks from CruiseCritic, CruiseMummy, Reddit, DeckPlans
+2. Generate JSON with cabin ranges, flags, evidence summaries, trust scores
+3. Test on stateroom-check.html (update ship dropdown)
+4. Document sources and verification
+
 ---
 
 ## P1 - High (Content completeness)
