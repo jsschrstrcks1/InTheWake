@@ -45,11 +45,11 @@ Files affected:
 - [ ] Explorer of the Seas - Get proper Wiki Commons URLs
 
 ### Stateroom Checker Tool - RCL Fleet Expansion
-**Status:** Currently supports 6 ships (Harmony of the Seas, Icon of the Seas, Quantum of the Seas, Radiance of the Seas, Star of the Seas, Symphony of the Seas)
+**Status:** Currently supports 7 ships (Harmony of the Seas, Icon of the Seas, Oasis of the Seas, Quantum of the Seas, Radiance of the Seas, Star of the Seas, Symphony of the Seas)
 **Impact:** Major user engagement feature - expand to all 28 active RCL ships
 **Data Required:** Cabin exception data for each ship (view obstructions, noise issues, motion sensitivity, connecting doors)
 
-**Ships Needing Data (22 ships):**
+**Ships Needing Data (21 ships):**
 - [ ] Adventure of the Seas
 - [ ] Allure of the Seas
 - [ ] Anthem of the Seas
@@ -65,7 +65,7 @@ Files affected:
 - [ ] Liberty of the Seas
 - [ ] Mariner of the Seas
 - [ ] Navigator of the Seas
-- [ ] Oasis of the Seas
+- [x] Oasis of the Seas ✅
 - [ ] Odyssey of the Seas
 - [ ] Ovation of the Seas
 - [x] Quantum of the Seas ✅
