@@ -54,6 +54,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="author" content="In the Wake"/>
   <meta name="publisher" content="In the Wake"/>
 
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="apple-mobile-web-app-title" content="Stateroom Check"/>
+
   <!-- Title & SEO -->
   <title>Stateroom Sanity Check — Is Your Cabin Choice a Good One? | In the Wake</title>
   <link rel="canonical" href="https://cruisinginthewake.com/stateroom-check.html"/>
@@ -645,29 +651,61 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </p>
     </section>
 
+    <!-- PWA Install Prompt (Offline Mode) -->
+    <section id="pwa-install-banner" class="intro-section" style="background: #fff8e1; border-color: #ffa000; display: none;">
+      <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--navy, #0a3d62);">📱 Use This Tool Onboard Without WiFi</h2>
+      <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem;">
+        Planning to check cabins while onboard ship with no internet? Install this tool as an app on your phone. It will work completely offline—no WiFi or data needed.
+      </p>
+      <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.75rem; color: #555;">
+        <strong>What happens when you install:</strong> Your phone will download this page and all ship cabin data (about 500KB). You'll get an app icon on your home screen. Everything works offline. No tracking, no permissions needed—just the cabin checker, available anytime.
+      </p>
+      <button id="pwa-install-button" style="background: #ffa000; color: #fff; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; border-radius: 4px; cursor: pointer; margin-bottom: 0.5rem;">
+        Install Offline App
+      </button>
+      <p id="pwa-status" style="font-size: 0.85rem; color: #666; margin: 0.5rem 0 0;"></p>
+    </section>
+
+    <!-- Offline Status Indicator -->
+    <div id="offline-indicator" style="display: none; background: #ff6b6b; color: #fff; padding: 0.75rem; text-align: center; font-weight: 600; margin-bottom: 1rem; border-radius: 4px;">
+      📵 You're offline – but this tool still works! All ship data is cached on your device.
+    </div>
+
     <!-- Check Form -->
     <section class="check-form" aria-labelledby="form-heading">
       <h2 id="form-heading" class="sr-only">Check Your Stateroom</h2>
 
       <form id="stateroom-form" novalidate>
+        <!-- Cruise Line Selection (locked to Royal Caribbean) -->
+        <div class="form-group">
+          <label for="cruise-line-select">Cruise Line</label>
+          <select id="cruise-line-select" name="cruise-line" required disabled style="background-color: #f5f5f5; cursor: not-allowed;">
+            <option value="royal-caribbean" selected>Royal Caribbean</option>
+          </select>
+          <p class="help-text">Currently supporting Royal Caribbean ships. More cruise lines coming soon!</p>
+        </div>
+
+        <!-- Ship Class Selection -->
+        <div class="form-group">
+          <label for="ship-class-select">Ship Class</label>
+          <select id="ship-class-select" name="ship-class" required>
+            <option value="">Choose a ship class...</option>
+            <option value="icon-class">Icon Class (Newest - 2024+)</option>
+            <option value="oasis-class">Oasis Class (Largest - 2009-2024)</option>
+            <option value="quantum-class">Quantum Class (High-Tech - 2014-2020)</option>
+            <option value="radiance-class">Radiance Class (Scenic Views - 2001-2004)</option>
+            <option value="vision-class">Vision Class (Classic - 1995-1998)</option>
+          </select>
+          <p class="help-text">Select your ship's class to filter available ships</p>
+        </div>
+
+        <!-- Ship Selection (filtered by class) -->
         <div class="form-group">
           <label for="ship-select">Select Your Ship</label>
-          <select id="ship-select" name="ship" required>
-            <option value="">Choose a ship...</option>
-            <option value="allure-of-the-seas">Allure of the Seas</option>
-            <option value="anthem-of-the-seas">Anthem of the Seas</option>
-            <option value="harmony-of-the-seas">Harmony of the Seas</option>
-            <option value="icon-of-the-seas">Icon of the Seas</option>
-            <option value="oasis-of-the-seas">Oasis of the Seas</option>
-            <option value="quantum-of-the-seas">Quantum of the Seas</option>
-            <option value="radiance-of-the-seas">Radiance of the Seas</option>
-            <option value="star-of-the-seas" selected>Star of the Seas</option>
-            <option value="symphony-of-the-seas">Symphony of the Seas</option>
-            <option value="utopia-of-the-seas">Utopia of the Seas</option>
-            <option value="wonder-of-the-seas">Wonder of the Seas</option>
-            <!-- More ships will be added as data becomes available -->
+          <select id="ship-select" name="ship" required disabled>
+            <option value="">Select a class first...</option>
           </select>
-          <p class="help-text">Currently supporting Allure of the Seas, Anthem of the Seas, Harmony of the Seas, Icon of the Seas, Oasis of the Seas, Quantum of the Seas, Radiance of the Seas, Star of the Seas, Symphony of the Seas, Utopia of the Seas, and Wonder of the Seas. More ships coming soon!</p>
+          <p class="help-text" id="ship-help-text">Choose a ship class above to see available ships</p>
         </div>
 
         <div class="form-group">
@@ -1041,6 +1079,165 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         status.textContent = `\${view.length} recent articles loaded`;
       }
     })();
+  })();
+  </script>
+
+  <!-- PWA & Cascading Dropdowns -->
+  <script>
+  (function() {
+    'use strict';
+
+    // ===== SHIP CLASS MAPPING =====
+    const SHIP_CLASSES = {
+      'icon-class': [
+        { value: 'icon-of-the-seas', label: 'Icon of the Seas' },
+        { value: 'star-of-the-seas', label: 'Star of the Seas' }
+      ],
+      'oasis-class': [
+        { value: 'allure-of-the-seas', label: 'Allure of the Seas' },
+        { value: 'harmony-of-the-seas', label: 'Harmony of the Seas' },
+        { value: 'oasis-of-the-seas', label: 'Oasis of the Seas' },
+        { value: 'symphony-of-the-seas', label: 'Symphony of the Seas' },
+        { value: 'utopia-of-the-seas', label: 'Utopia of the Seas' },
+        { value: 'wonder-of-the-seas', label: 'Wonder of the Seas' }
+      ],
+      'quantum-class': [
+        { value: 'anthem-of-the-seas', label: 'Anthem of the Seas' },
+        { value: 'quantum-of-the-seas', label: 'Quantum of the Seas' }
+      ],
+      'radiance-class': [
+        { value: 'radiance-of-the-seas', label: 'Radiance of the Seas' }
+      ],
+      'vision-class': [
+        { value: 'enchantment-of-the-seas', label: 'Enchantment of the Seas' }
+      ]
+    };
+
+    // ===== CASCADING DROPDOWNS =====
+    const classSelect = document.getElementById('ship-class-select');
+    const shipSelect = document.getElementById('ship-select');
+    const shipHelpText = document.getElementById('ship-help-text');
+
+    classSelect.addEventListener('change', function() {
+      const selectedClass = this.value;
+
+      // Clear existing ship options
+      shipSelect.innerHTML = '<option value="">Choose a ship...</option>';
+
+      if (!selectedClass) {
+        shipSelect.disabled = true;
+        shipHelpText.textContent = 'Choose a ship class above to see available ships';
+        return;
+      }
+
+      // Populate ships for selected class
+      const ships = SHIP_CLASSES[selectedClass] || [];
+      ships.forEach(ship => {
+        const option = document.createElement('option');
+        option.value = ship.value;
+        option.textContent = ship.label;
+        shipSelect.appendChild(option);
+      });
+
+      shipSelect.disabled = false;
+      shipHelpText.textContent = `${ships.length} ship${ships.length !== 1 ? 's' : ''} in this class`;
+    });
+
+    // ===== SERVICE WORKER REGISTRATION =====
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('[PWA] Service Worker registered:', registration.scope);
+          })
+          .catch(error => {
+            console.log('[PWA] Service Worker registration failed:', error);
+          });
+      });
+    }
+
+    // ===== PWA INSTALL PROMPT =====
+    let deferredPrompt = null;
+    const installBanner = document.getElementById('pwa-install-banner');
+    const installButton = document.getElementById('pwa-install-button');
+    const pwaStatus = document.getElementById('pwa-status');
+
+    // Listen for beforeinstallprompt event
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      // Show install banner
+      if (installBanner) {
+        installBanner.style.display = 'block';
+      }
+    });
+
+    // Handle install button click
+    if (installButton) {
+      installButton.addEventListener('click', async () => {
+        if (!deferredPrompt) {
+          pwaStatus.textContent = 'App already installed or not available for installation.';
+          return;
+        }
+
+        // Show install prompt
+        deferredPrompt.prompt();
+
+        // Wait for user response
+        const { outcome } = await deferredPrompt.userChoice;
+
+        if (outcome === 'accepted') {
+          pwaStatus.textContent = '✅ Installing... You\'ll see an app icon shortly!';
+          pwaStatus.style.color = '#2d7a3d';
+        } else {
+          pwaStatus.textContent = 'Installation cancelled. You can install later from your browser menu.';
+        }
+
+        // Clear the prompt
+        deferredPrompt = null;
+
+        // Hide banner after 3 seconds
+        setTimeout(() => {
+          if (installBanner) {
+            installBanner.style.display = 'none';
+          }
+        }, 3000);
+      });
+    }
+
+    // ===== OFFLINE DETECTION =====
+    const offlineIndicator = document.getElementById('offline-indicator');
+
+    function updateOnlineStatus() {
+      if (!navigator.onLine && offlineIndicator) {
+        offlineIndicator.style.display = 'block';
+      } else if (offlineIndicator) {
+        offlineIndicator.style.display = 'none';
+      }
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+
+    // Check initial status
+    updateOnlineStatus();
+
+    // ===== APP INSTALLED DETECTION =====
+    window.addEventListener('appinstalled', () => {
+      console.log('[PWA] App installed successfully');
+      if (installBanner) {
+        installBanner.style.display = 'none';
+      }
+    });
+
+    // Hide banner if already in standalone mode (already installed)
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+      if (installBanner) {
+        installBanner.style.display = 'none';
+      }
+    }
+
   })();
   </script>
 
