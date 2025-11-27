@@ -60,6 +60,31 @@ All work on this project is offered as a gift to God.
   </script>
 
   <style>
+    /* Page Grid Layout (2-column with right rail) */
+    .page-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 360px;
+      }
+    }
+
+    .rail {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .rail-list {
+      display: grid;
+      gap: 1rem;
+    }
+
     .logbook-entry {
       font-size: 1.05rem;
       line-height: 1.8;
