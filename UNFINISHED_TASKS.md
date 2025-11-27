@@ -45,7 +45,7 @@ Files affected:
 - [ ] Explorer of the Seas - Get proper Wiki Commons URLs
 
 ### Stateroom Checker Tool - RCL Fleet Expansion
-**Status:** Currently supports 21 ships (Allure of the Seas, Anthem of the Seas, Enchantment of the Seas, Freedom of the Seas, Grandeur of the Seas, Harmony of the Seas, Icon of the Seas, Mariner of the Seas, Oasis of the Seas, Odyssey of the Seas, Ovation of the Seas, Quantum of the Seas, Radiance of the Seas, Serenade of the Seas, Spectrum of the Seas, Star of the Seas, Symphony of the Seas, Utopia of the Seas, Vision of the Seas, Voyager of the Seas, Wonder of the Seas)
+**Status:** Currently supports 22 ships (Allure of the Seas, Anthem of the Seas, Enchantment of the Seas, Freedom of the Seas, Grandeur of the Seas, Harmony of the Seas, Icon of the Seas, Liberty of the Seas, Mariner of the Seas, Oasis of the Seas, Odyssey of the Seas, Ovation of the Seas, Quantum of the Seas, Radiance of the Seas, Serenade of the Seas, Spectrum of the Seas, Star of the Seas, Symphony of the Seas, Utopia of the Seas, Vision of the Seas, Voyager of the Seas, Wonder of the Seas)
 **Impact:** Major user engagement feature - expand to all 28 active RCL ships
 **Data Required:** Cabin exception data for each ship (view obstructions, noise issues, motion sensitivity, connecting doors)
 
@@ -56,7 +56,7 @@ Files affected:
 - ✅ Correct icon paths from /assets/icons/ (not redundant paths)
 - ✅ Service worker caches all ship data for offline access (~500KB)
 
-**Ships Needing Data (7 ships):**
+**Ships Needing Data (6 ships):**
 - [ ] Adventure of the Seas
 - [x] Allure of the Seas ✅
 - [x] Anthem of the Seas ✅
@@ -69,7 +69,7 @@ Files affected:
 - [x] Icon of the Seas ✅
 - [ ] Independence of the Seas
 - [ ] Jewel of the Seas
-- [ ] Liberty of the Seas
+- [x] Liberty of the Seas ✅
 - [x] Mariner of the Seas ✅
 - [ ] Navigator of the Seas
 - [x] Oasis of the Seas ✅
