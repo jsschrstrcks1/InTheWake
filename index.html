@@ -597,7 +597,6 @@
     display: block;
     width: clamp(189px, 23.1vw, 378px);
     max-width: min(45vw, 520px);
-    max-height: clamp(180px, 22vw, 320px);
     height: auto;
     object-fit: contain;
   }
@@ -1016,47 +1015,10 @@
           </div>
         </article>
       </section>
-    </section>
 
-    <!-- RIGHT COLUMN: Key Facts + Author + Articles -->
-    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2;">
-      <!-- Key Facts -->
-      <section class="page-intro" style="margin: 0 0 1rem 0;">
-        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-          <strong>Quick Answer:</strong> This page provides cruise planning resources for In the Wake. Use the information below to help plan your cruise vacation.
-        </p>
-
-        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-          <strong>Best For:</strong> Cruisers researching in the wake, comparing options, and gathering information for trip planning.
-        </p>
-
-        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-          <ul style="margin: 0; padding-left: 1.25rem;">
-            <li><strong>Topic:</strong> In the Wake</li>
-            <li><strong>Purpose:</strong> Cruise planning resource</li>
-          </ul>
-        </div>
-      </section>
-      <!-- Author card (Vertical Layout) -->
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
-
-      <!-- FAQ Section (ICP-Lite) -->
-      <section class="card" aria-labelledby="faq-heading">
-        <h3 id="faq-heading">Frequently Asked Questions</h3>
+      <!-- FAQ Section (ICP-Lite) - Moved from right rail for better accessibility -->
+      <section class="card" aria-labelledby="faq-heading" style="margin-top: 1.5rem;">
+        <h2 id="faq-heading">Frequently Asked Questions</h2>
 
         <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
           <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What is In the Wake?</summary>
@@ -1082,6 +1044,43 @@
           <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Who runs In the Wake?</summary>
           <p style="margin: 0.5rem 0; padding-left: 1rem;">In the Wake is founded and maintained by Ken Baker, a pastor, photographer, and cruise enthusiast with 50+ sailings. Learn more on our <a href="/about-us.html">About page</a>.</p>
         </details>
+      </section>
+    </section>
+
+    <!-- RIGHT COLUMN: Key Facts + Author + Articles -->
+    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2;">
+      <!-- Key Facts -->
+      <section class="page-intro" style="margin: 0 0 1rem 0;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> This page provides cruise planning resources for In the Wake. Use the information below to help plan your cruise vacation.
+        </p>
+
+        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+          <strong>Best For:</strong> Cruisers researching cruising in the wake, comparing options, and gathering information for trip planning.
+        </p>
+
+        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li><strong>Topic:</strong> In the Wake</li>
+            <li><strong>Purpose:</strong> Cruise planning resource</li>
+          </ul>
+        </div>
+      </section>
+      <!-- Author card (Vertical Layout) -->
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
       </section>
 
       <!-- Recent Articles rail -->
