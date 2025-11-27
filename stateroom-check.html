@@ -653,12 +653,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
     <!-- PWA Install Prompt (Offline Mode) -->
     <section id="pwa-install-banner" class="intro-section" style="background: #fff8e1; border-color: #ffa000; display: none;">
-      <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--navy, #0a3d62);">📱 Use This Tool Onboard Without WiFi</h2>
+      <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--navy, #0a3d62);">📱 Planning to Book Onboard?</h2>
       <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem;">
-        Planning to check cabins while onboard ship with no internet? Install this tool as an app on your phone. It will work completely offline—no WiFi or data needed.
+        Take this tool with you offline! When you book your next cruise at the Excursions Desk or Guest Services, you'll have instant cabin insights—no WiFi or ship internet needed.
       </p>
       <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.75rem; color: #555;">
-        <strong>What happens when you install:</strong> Your phone will download this page and all ship cabin data (about 500KB). You'll get an app icon on your home screen. Everything works offline. No tracking, no permissions needed—just the cabin checker, available anytime.
+        <strong>What happens when you install:</strong> Your phone downloads this page and all ship cabin data (~500KB total). You get an app icon on your home screen that works completely offline. No tracking, no permissions, no internet required—just instant cabin checking whenever you need it.
       </p>
       <button id="pwa-install-button" style="background: #ffa000; color: #fff; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; border-radius: 4px; cursor: pointer; margin-bottom: 0.5rem;">
         Install Offline App
@@ -1103,6 +1103,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       ],
       'quantum-class': [
         { value: 'anthem-of-the-seas', label: 'Anthem of the Seas' },
+        { value: 'odyssey-of-the-seas', label: 'Odyssey of the Seas' },
         { value: 'quantum-of-the-seas', label: 'Quantum of the Seas' }
       ],
       'radiance-class': [
@@ -1146,7 +1147,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     // ===== SERVICE WORKER REGISTRATION =====
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
+        navigator.serviceWorker.register('/sw.js')
           .then(registration => {
             console.log('[PWA] Service Worker registered:', registration.scope);
           })
