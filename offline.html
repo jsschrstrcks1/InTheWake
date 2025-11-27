@@ -4,67 +4,51 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
--->
 
+STANDARDS: Every Page v3.010.300 · Offline Fallback · A11y/WCAG 2.1 AA Compliant
+-->
 <html lang="en" class="no-js">
 <head>
+  <script>(function(h){h.className=h.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
 <!-- ai-breadcrumbs
-     entity: You’re offline
-     type: Information Page
+     entity: Offline
+     type: System Page
      parent: /
-     category: General Information
-     updated: 2025-11-15
-     expertise: Cruise travel, planning, research
-     target-audience: Cruise travelers, vacation planners, research-oriented cruisers
-     answer-first: We can’t reachIn the Wakeright now. Some pages are available offline—try again when you’re back online.
+     category: Utility
+     updated: 2025-11-27
+     expertise: Site functionality
+     target-audience: Users without internet connection
+     answer-first: You're currently offline. Some cached pages are still available, and you can search them below.
      -->
-  <meta charset="utf-8" />
-  <title>Offline • In the Wake</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="ai-summary" content="Offline • In the Wake">
-  <meta name="last-reviewed" content="2025-11-19">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
-  <meta name="color-scheme" content="light dark" />
-    <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO -->
+  <meta name="robots" content="noindex,nofollow"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.300"/>
+  <meta name="author" content="In the Wake"/>
+
+  <!-- ICP-Lite v1.0 -->
+  <meta name="ai-summary" content="Offline fallback page for In the Wake. Search cached content and access previously visited pages."/>
+  <meta name="last-reviewed" content="2025-11-27"/>
+  <meta name="content-protocol" content="ICP-Lite v1.0"/>
+
+  <title>You're Offline | In the Wake</title>
+  <meta name="description" content="You're currently offline. Search cached content and access previously visited pages."/>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
+
   <style>
-  /* Header / Hero */
-  .hero-header {
-    position: relative;
-    border-bottom: 6px double var(--rope);
-    background: #eaf6f6;
-    z-index: 9000;
-  }
-
-  .navbar {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-    padding: .5rem .9rem .35rem;
-    position: relative;
-    z-index: 2000;
-    overflow: visible;
-  }
-
-  .brand {
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-  }
-
-  .brand img {
-    height: 28px;
-    width: auto;
-  }
-
-  .version-badge {
-    font-size: .72rem;
-    opacity: .8;
-    color: var(--text-muted);
-  }
-
-    :root{
+    /* ===== Offline Page Styles ===== */
+    :root {
       --bg: #f7fafc;
       --card: #ffffff;
       --text: #0b1f2a;
@@ -75,9 +59,12 @@ All work on this project is offered as a gift to God.
       --warn: #a85612;
       --shadow: 0 6px 24px rgba(0,0,0,.08);
       --radius: 16px;
+      --rope: #d9b382;
+      --foam: #e6f4f8;
     }
-    @media (prefers-color-scheme: dark){
-      :root{
+
+    @media (prefers-color-scheme: dark) {
+      :root {
         --bg: #0b1216;
         --card: #0f171c;
         --text: #e7eef2;
@@ -85,377 +72,673 @@ All work on this project is offered as a gift to God.
         --brand: #56b6d5;
         --brand-2: #6fc3dc;
         --shadow: 0 10px 30px rgba(0,0,0,.4);
+        --foam: #1a2a32;
       }
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 600px at 20% -10%, rgba(14,110,142,.05), transparent 60%),
-                  radial-gradient(1000px 500px at 110% 10%, rgba(10,61,98,.05), transparent 60%),
-                  var(--bg);
-      color:var(--text);
-      display:grid;
-      place-items:center;
-      padding:2rem 1rem;
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    body {
+      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
     }
-    .wrap{
-      width:min(720px, 100%);
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:clamp(1rem, 2vw + 1rem, 2rem);
+
+    .sr-only {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -10000px;
+      background: var(--brand-2);
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 4px;
+      z-index: 10001;
+    }
+    .skip-link:focus {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+    }
+
+    /* Header */
+    .hero-header {
+      position: relative;
+      border-bottom: 6px double var(--rope);
+      background: #eaf6f6;
+      z-index: 9000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .hero-header { background: #0f171c; }
+    }
+
+    .navbar {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .75rem .9rem;
+    }
+
+    .brand img {
+      height: 40px;
+      width: auto;
+    }
+
+    .brand-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brand-2);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .brand-text { color: var(--brand); }
+    }
+
+    /* Main content */
+    .wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .offline-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(1.5rem, 3vw, 2.5rem);
       border: 1px solid color-mix(in oklab, var(--brand) 12%, transparent);
     }
-    header{
-      display:flex; gap:1rem; align-items:flex-start; margin-bottom:1rem;
+
+    .offline-header {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
     }
-    .logo{
-      width:52px; height:52px; border-radius: 12px;
-      display:grid; place-items:center;
-      background: radial-gradient(100% 100% at 50% 35%, var(--brand-2), var(--brand));
-      color:#fff; box-shadow: var(--shadow);
+
+    .offline-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--brand-2), var(--brand));
+      color: #fff;
+      flex-shrink: 0;
     }
-    .logo svg{ width:28px; height:28px; opacity:.95; }
-    h1{ font-size:clamp(1.25rem, 1rem + 1.2vw, 1.75rem); margin:.15rem 0 .35rem; letter-spacing:.2px }
-    .muted{ color:var(--muted) }
-    p{ margin:.5rem 0 0 }
-    .card{
-      background: color-mix(in oklab, var(--card) 92%, var(--bg));
-      border:1px dashed color-mix(in oklab, var(--brand) 20%, transparent);
-      border-radius:12px;
-      padding: .9rem 1rem;
-      margin:.75rem 0 0;
+
+    .offline-icon svg {
+      width: 28px;
+      height: 28px;
     }
-    .btns{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem }
-    .btn{
-      appearance:none; border:0; cursor:pointer;
-      border-radius:999px; padding:.6rem 1rem; font-weight:600;
-      background:var(--brand); color:#fff; box-shadow: var(--shadow);
-      transition: transform .12s ease, filter .12s ease;
+
+    h1 {
+      font-size: clamp(1.25rem, 1rem + 1.2vw, 1.75rem);
+      margin: 0 0 0.35rem;
+      color: var(--brand-2);
     }
-    .btn:active{ transform: translateY(1px) }
-    .btn.secondary{ background:transparent; color:var(--brand); border:1px solid color-mix(in oklab, var(--brand) 65%, transparent) }
-    .tiny{ font-size:.9rem }
-    ul{ margin:.5rem 0 0 1.25rem }
-    code{
-      background: color-mix(in oklab, var(--brand) 6%, transparent);
-      padding:.1rem .35rem; border-radius:6px; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    @media (prefers-color-scheme: dark) {
+      h1 { color: var(--brand); }
     }
-    footer{
-      margin-top:1.25rem; display:flex; justify-content:space-between; gap:1rem; align-items:center;
-      color:var(--muted); font-size:.9rem
+
+    .subtitle {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Status */
+    .status-card {
+      background: var(--foam);
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--warn);
+      flex-shrink: 0;
+    }
+
+    .status-dot.online {
+      background: var(--ok);
+    }
+
+    .status-text {
+      font-size: 0.95rem;
+    }
+
+    /* Buttons */
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 0.7rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: var(--brand);
+      color: #fff;
+      box-shadow: var(--shadow);
+      transition: transform 0.12s ease, filter 0.12s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      filter: brightness(1.1);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--brand);
+      border: 2px solid var(--brand);
+    }
+
+    /* Search */
+    .search-section {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--foam);
+    }
+
+    .search-section h2 {
+      font-size: 1.1rem;
+      margin: 0 0 1rem;
+      color: var(--brand-2);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .search-section h2 { color: var(--brand); }
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      font-size: 1rem;
+      border: 2px solid var(--rope);
+      border-radius: 10px;
+      background: var(--card);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--brand);
+    }
+
+    .search-input::placeholder {
+      color: var(--muted);
+    }
+
+    .search-status {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Results */
+    .results-grid {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .result-item {
+      background: var(--foam);
+      border-radius: 10px;
+      padding: 0.875rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .result-item:hover {
+      background: color-mix(in oklab, var(--brand) 15%, var(--foam));
+    }
+
+    .result-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .result-title {
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .result-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .result-title a:hover {
+      color: var(--brand);
+    }
+
+    .result-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .result-arrow {
+      color: var(--brand);
+      font-size: 1.1rem;
+    }
+
+    /* Quick Links */
+    .quick-links {
+      margin-top: 1.5rem;
+    }
+
+    .quick-links h3 {
+      font-size: 0.95rem;
+      margin: 0 0 0.75rem;
+      color: var(--muted);
+    }
+
+    .link-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .link-pill {
+      background: var(--foam);
+      color: var(--brand);
+      padding: 0.5rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .link-pill:hover {
+      background: var(--brand);
+      color: white;
+    }
+
+    /* Keyboard hints */
+    .keyboard-hints {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    kbd {
+      background: var(--foam);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      border: 1px solid color-mix(in oklab, var(--brand) 20%, transparent);
     }
   </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Ken Baker",
-  "url": "https://inthewake.com/about/ken-baker.html",
-  "jobTitle": "Cruise Research Analyst & Data Specialist",
-  "description": "Cruise industry analyst specializing in ship comparisons, deck plan analysis, and dining venue research.",
-  "knowsAbout": [
-    "Cruise Ship Analysis",
-    "Deck Plans",
-    "Royal Caribbean",
-    "Cruise Dining",
-    "Ship Comparisons"
-  ]
-}
-</script>
-
-  <!-- JSON-LD: WebPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Offline \u2022 In the Wake",
-  "url": "https://www.cruisinginthewake.com/offline.html",
-  "description": "Information about Offline \u2022 In the Wake"
-}
-  </script>
-
-  <!-- JSON-LD: FAQPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What information does this page provide?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "This page provides planning resources and information about offline."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is this information official?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "This page provides community insights. Always confirm with your cruise line before making decisions."
-      }
-    }
-  ]
-}
-  </script>
-
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 <body>
-<header class="site-header hero-header" role="banner">
-<div class="navbar">
-  <div class="brand">
-    <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-    <span class="tiny version-badge">v3.010.300</span>
-  </div>
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Hero section -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true"/>
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
-      </div>
-      <div class="tagline">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill long" href="https://instagram.com/flickersofmajesty">Photo © Flickers of Majesty</a>
-      </div>
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+  <!-- HEADER -->
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <a href="/" class="brand" aria-label="In the Wake home">
+        <img src="/assets/logo_wake_256.png" width="40" height="40" alt="" decoding="async"/>
+      </a>
+      <span class="brand-text">In the Wake</span>
     </div>
-</header>
+  </header>
 
-        <nav class="site-nav" aria-label="Main site navigation">
-        <a class="nav-pill" href="/">Home</a>
-
-        <!-- Planning Dropdown -->
-        <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Planning <span class="caret">&#9662;</span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
-            <a href="/ships.html">Ships</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom Check</a>
-            <a href="/cruise-lines.html">Cruise Lines</a>
-            <a href="/packing-lists.html">Packing Lists</a>
-            <a href="/accessibility.html">Accessibility</a>
-          </div>
+  <!-- MAIN -->
+  <main id="main-content" class="wrap" role="main" tabindex="-1">
+    <div class="offline-card">
+      <div class="offline-header">
+        <div class="offline-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="1" y1="1" x2="23" y2="23"/>
+            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+            <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <line x1="12" y1="20" x2="12.01" y2="20"/>
+          </svg>
         </div>
-
-        <!-- Travel Dropdown -->
-        <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Travel <span class="caret">&#9662;</span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <a href="/travel.html">Travel (overview)</a>
-            <a href="/solo.html">Solo</a>
-          </div>
+        <div>
+          <h1>You're Offline</h1>
+          <p class="subtitle">Some pages you've visited are still available.</p>
         </div>
-
-        <a class="nav-pill" href="/tools/port-tracker.html">Port Tracker</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Tracker</a>
-        <a class="nav-pill" href="/search.html">Search</a>
-        <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-  <main class="wrap" role="main" aria-labelledby="title">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> This page provides cruise planning resources for Offline. Use the information below to help plan your cruise vacation.
-      </p>
-
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching offline, comparing options, and gathering information for trip planning.
-      </p>
-
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Topic:</strong> Offline</li>
-          <li><strong>Purpose:</strong> Cruise planning resource</li>
-        </ul>
       </div>
-    </section>
 
-    <header>
-      <div class="logo" aria-hidden="true">
-        <!-- Inline compass-rose icon -->
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-          <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
-          <path d="M12 6l3.5 7.5L8 12l4-6z"/>
-          <circle cx="12" cy="12" r="1.25" />
-        </svg>
+      <!-- Connection Status -->
+      <div class="status-card" aria-live="polite">
+        <div class="status-dot" id="statusDot"></div>
+        <span class="status-text">Status: <strong id="statusText">checking...</strong></span>
       </div>
-      <div>
-        <h1 id="title">You’re offline</h1>
-        <p class="muted">We can’t reach <strong>In the Wake</strong> right now. Some pages are available offline—try again when you’re back online.</p>
-      </div>
-    </header>
 
-    <section class="card" aria-live="polite">
-      <p class="tiny">Status: <span id="net-status" data-online="unknown">checking…</span></p>
+      <!-- Action Buttons -->
       <div class="btns">
-        <button class="btn" id="retry">Try again</button>
-        <a class="btn secondary" href="/" id="home">Go to Home</a>
+        <button class="btn" id="retryBtn" type="button">Try Again</button>
+        <a class="btn secondary" href="/" id="homeLink">Go to Home</a>
       </div>
-    </section>
 
-    <section class="card">
-      <p><strong>What you can try</strong></p>
-      <ul class="tiny">
-        <li>Check your Wi-Fi or cellular connection.</li>
-        <li>Use the <em>Try again</em> button to reload this page.</li>
-        <li>Open a page that’s cached for offline use:
-          <ul style="margin-top:.3rem">
-            <li><a href="/drink-packages.html">Beverage Packages Calculator</a></li>
-            <li><a href="/planning.html">Cruise Planning</a></li>
-            <li><a href="/ports.html">Ports</a></li>
-            <li><a href="/restaurants.html">Restaurants</a></li>
-            <li><a href="/solo.html">Solo Cruising</a></li>
-          </ul>
-        </li>
-      </ul>
-    </section>
+      <!-- Offline Search -->
+      <section class="search-section" aria-labelledby="search-heading">
+        <h2 id="search-heading">Search Cached Pages</h2>
+        <input
+          type="search"
+          id="searchInput"
+          class="search-input"
+          placeholder="Search ships, ports, restaurants..."
+          autocomplete="off"
+          aria-label="Search cached pages"
+        />
+        <div id="searchStatus" class="search-status" aria-live="polite"></div>
+        <div id="resultsContainer" class="results-grid" role="list"></div>
+      </section>
 
-      <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
-      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+      <!-- Quick Links -->
+      <div class="quick-links">
+        <h3>Quick Links (may be cached)</h3>
+        <div class="link-pills">
+          <a class="link-pill" href="/">Home</a>
+          <a class="link-pill" href="/ships.html">Ships</a>
+          <a class="link-pill" href="/ports.html">Ports</a>
+          <a class="link-pill" href="/restaurants.html">Restaurants</a>
+          <a class="link-pill" href="/planning.html">Planning</a>
+          <a class="link-pill" href="/drink-calculator.html">Drink Calculator</a>
+          <a class="link-pill" href="/solo.html">Solo Cruising</a>
+          <a class="link-pill" href="/accessibility.html">Accessibility</a>
+        </div>
+      </div>
+
+      <!-- Keyboard Hints -->
+      <p class="keyboard-hints">
+        Keyboard: <kbd>R</kbd> retry &middot; <kbd>H</kbd> home &middot; <kbd>/</kbd> search
+      </p>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="wrap" role="contentinfo" style="text-align:center;padding:1.5rem 1rem;color:var(--muted);font-size:0.9rem;">
+    <p style="margin:0;">© <span id="year">2025</span> In the Wake · A Cruise Traveler's Logbook</p>
+    <p class="tiny" style="margin-top:0.5rem;opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria</p>
   </footer>
-  
-    <!-- ICP-Lite FAQ Section -->
-    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
-      <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What information does this page provide?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and information about offline. Use it alongside official cruise line resources when planning your trip.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides community insights and planning resources. Always confirm details with your cruise line or travel advisor before making final decisions.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I get more help?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">For additional assistance, contact your cruise line directly or work with a travel advisor who specializes in cruises.</p>
-      </details>
-    </section>
-
-</main>
-
-  <script>
-    (function(){
-      "use strict";
-
-      const $ = (sel)=>document.querySelector(sel);
-      const statusEl = $("#net-status");
-      const retryBtn = $("#retry");
-      const yearEl = $("#year");
-      yearEl.textContent = new Date().getFullYear();
-
-      function paintStatus(){
-        const ok = navigator.onLine;
-        statusEl.textContent = ok ? "online" : "offline";
-        statusEl.style.color = ok ? "var(--ok)" : "var(--warn)";
-        statusEl.setAttribute("data-online", ok ? "true" : "false");
-      }
-
-      // Initial & reactive status
-      paintStatus();
-      window.addEventListener("online", paintStatus);
-      window.addEventListener("offline", paintStatus);
-
-      retryBtn.addEventListener("click", ()=>{
-        // Try a quick HEAD ping to the homepage; if it works, reload this doc
-        const ctrl = new AbortController();
-        setTimeout(()=>ctrl.abort(), 3500);
-        fetch("/", { method:"HEAD", cache:"no-store", signal:ctrl.signal }).then(()=>{
-          location.reload();
-        }).catch(()=>{
-          // If still offline, give subtle feedback
-          retryBtn.animate([{ transform:"none" },{ transform:"translateY(2px)" },{ transform:"none" }], { duration: 240 });
-        });
-      });
-
-      // Keyboard a11y: press "r" to retry, "h" for home
-      window.addEventListener("keydown", (e)=>{
-        if (e.key === "r" || e.key === "R"){ e.preventDefault(); retryBtn.click(); }
-        if (e.key === "h" || e.key === "H"){ e.preventDefault(); $("#home").click(); }
-      });
-    })();
-  </script>
-
-  <!-- Navigation dropdown functionality (New Clean Implementation) -->
   <script>
   (function() {
-    'use strict';
-    var dropdowns = document.querySelectorAll('.nav-dropdown');
-    function toggleDropdown(dropdown) {
-      var isOpen = dropdown.classList.contains('open');
-      closeAllDropdowns();
-      if (!isOpen) {
-        dropdown.classList.add('open');
-        var btn = dropdown.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-      }
+    "use strict";
+
+    // ===== Embedded Offline Search Index =====
+    // Core pages likely to be cached by service worker
+    const OFFLINE_INDEX = [
+      // Ships (Icon Class)
+      { title: "Icon of the Seas", url: "/ships/rcl/icon-of-the-seas.html", category: "ship", keywords: "icon class largest newest 2024" },
+      { title: "Star of the Seas", url: "/ships/rcl/star-of-the-seas.html", category: "ship", keywords: "icon class 2025 newest" },
+      // Ships (Oasis Class)
+      { title: "Oasis of the Seas", url: "/ships/rcl/oasis-of-the-seas.html", category: "ship", keywords: "oasis class mega" },
+      { title: "Allure of the Seas", url: "/ships/rcl/allure-of-the-seas.html", category: "ship", keywords: "oasis class" },
+      { title: "Harmony of the Seas", url: "/ships/rcl/harmony-of-the-seas.html", category: "ship", keywords: "oasis class" },
+      { title: "Symphony of the Seas", url: "/ships/rcl/symphony-of-the-seas.html", category: "ship", keywords: "oasis class" },
+      { title: "Wonder of the Seas", url: "/ships/rcl/wonder-of-the-seas.html", category: "ship", keywords: "oasis class largest" },
+      { title: "Utopia of the Seas", url: "/ships/rcl/utopia-of-the-seas.html", category: "ship", keywords: "oasis class 2024" },
+      // Ships (Quantum Class)
+      { title: "Quantum of the Seas", url: "/ships/rcl/quantum-of-the-seas.html", category: "ship", keywords: "quantum class north star" },
+      { title: "Anthem of the Seas", url: "/ships/rcl/anthem-of-the-seas.html", category: "ship", keywords: "quantum class" },
+      { title: "Ovation of the Seas", url: "/ships/rcl/ovation-of-the-seas.html", category: "ship", keywords: "quantum class" },
+      { title: "Odyssey of the Seas", url: "/ships/rcl/odyssey-of-the-seas.html", category: "ship", keywords: "quantum class" },
+      // Ships (Freedom Class)
+      { title: "Freedom of the Seas", url: "/ships/rcl/freedom-of-the-seas.html", category: "ship", keywords: "freedom class flowrider" },
+      { title: "Liberty of the Seas", url: "/ships/rcl/liberty-of-the-seas.html", category: "ship", keywords: "freedom class" },
+      { title: "Independence of the Seas", url: "/ships/rcl/independence-of-the-seas.html", category: "ship", keywords: "freedom class" },
+      // Ships (Voyager Class)
+      { title: "Voyager of the Seas", url: "/ships/rcl/voyager-of-the-seas.html", category: "ship", keywords: "voyager class" },
+      { title: "Explorer of the Seas", url: "/ships/rcl/explorer-of-the-seas.html", category: "ship", keywords: "voyager class" },
+      { title: "Adventure of the Seas", url: "/ships/rcl/adventure-of-the-seas.html", category: "ship", keywords: "voyager class" },
+      { title: "Navigator of the Seas", url: "/ships/rcl/navigator-of-the-seas.html", category: "ship", keywords: "voyager class" },
+      { title: "Mariner of the Seas", url: "/ships/rcl/mariner-of-the-seas.html", category: "ship", keywords: "voyager class" },
+      // Hub Pages
+      { title: "All Ships", url: "/ships.html", category: "hub", keywords: "fleet royal caribbean rcl" },
+      { title: "All Ports", url: "/ports.html", category: "hub", keywords: "destinations cruise ports" },
+      { title: "All Restaurants", url: "/restaurants.html", category: "hub", keywords: "dining food menus" },
+      { title: "Planning Guide", url: "/planning.html", category: "hub", keywords: "cruise planning tips" },
+      { title: "Cruise Lines", url: "/cruise-lines.html", category: "hub", keywords: "royal caribbean carnival norwegian" },
+      // Tools
+      { title: "Drink Calculator", url: "/drink-calculator.html", category: "tool", keywords: "beverage package alcohol worth" },
+      { title: "Drink Packages", url: "/drink-packages.html", category: "tool", keywords: "deluxe refreshment beverage" },
+      { title: "Stateroom Checker", url: "/stateroom-check.html", category: "tool", keywords: "cabin room obstructed view" },
+      { title: "Packing Lists", url: "/packing-lists.html", category: "tool", keywords: "what to pack bring" },
+      { title: "Ship Tracker", url: "/tools/ship-tracker.html", category: "tool", keywords: "live location map" },
+      { title: "Port Tracker", url: "/tools/port-tracker.html", category: "tool", keywords: "arrivals departures schedule" },
+      // Articles
+      { title: "Solo Cruising", url: "/solo.html", category: "article", keywords: "alone single traveler" },
+      { title: "Accessible Cruising", url: "/accessibility.html", category: "article", keywords: "wheelchair disability mobility" },
+      { title: "Travel Tips", url: "/travel.html", category: "article", keywords: "tips advice first time" },
+      // Restaurants
+      { title: "Chops Grille", url: "/restaurants/chops.html", category: "restaurant", keywords: "steakhouse beef specialty" },
+      { title: "Izumi", url: "/restaurants/izumi.html", category: "restaurant", keywords: "sushi japanese asian" },
+      { title: "Giovanni's Table", url: "/restaurants/giovannis-table.html", category: "restaurant", keywords: "italian pasta specialty" },
+      { title: "Wonderland", url: "/restaurants/wonderland.html", category: "restaurant", keywords: "imaginative molecular specialty" },
+      { title: "150 Central Park", url: "/restaurants/150-central-park.html", category: "restaurant", keywords: "fine dining upscale" },
+      // Popular Ports
+      { title: "Cozumel", url: "/ports/cozumel.html", category: "port", keywords: "mexico caribbean snorkeling" },
+      { title: "Nassau", url: "/ports/nassau.html", category: "port", keywords: "bahamas caribbean beach" },
+      { title: "St. Thomas", url: "/ports/st-thomas.html", category: "port", keywords: "usvi caribbean shopping" },
+      { title: "CocoCay", url: "/ports/cococay.html", category: "port", keywords: "perfect day bahamas private island" },
+      { title: "Labadee", url: "/ports/labadee.html", category: "port", keywords: "haiti private destination" },
+      { title: "Juneau", url: "/ports/juneau.html", category: "port", keywords: "alaska glacier" },
+      { title: "Barcelona", url: "/ports/barcelona.html", category: "port", keywords: "spain europe mediterranean" },
+      // About
+      { title: "About Us", url: "/about-us.html", category: "about", keywords: "team contact" },
+      { title: "Search", url: "/search.html", category: "tool", keywords: "find lookup" }
+    ];
+
+    const CATEGORY_LABELS = {
+      ship: "Ship",
+      hub: "Hub",
+      tool: "Tool",
+      article: "Article",
+      restaurant: "Restaurant",
+      port: "Port",
+      about: "About"
+    };
+
+    // ===== DOM Elements =====
+    const statusDot = document.getElementById("statusDot");
+    const statusText = document.getElementById("statusText");
+    const retryBtn = document.getElementById("retryBtn");
+    const searchInput = document.getElementById("searchInput");
+    const searchStatus = document.getElementById("searchStatus");
+    const resultsContainer = document.getElementById("resultsContainer");
+    const yearEl = document.getElementById("year");
+
+    // Set year
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // ===== Network Status =====
+    function updateNetworkStatus() {
+      const online = navigator.onLine;
+      if (statusDot) statusDot.classList.toggle("online", online);
+      if (statusText) statusText.textContent = online ? "Back online!" : "No connection";
     }
-    function closeAllDropdowns() {
-      dropdowns.forEach(function(dd) {
-        dd.classList.remove('open');
-        var btn = dd.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
+
+    updateNetworkStatus();
+    window.addEventListener("online", updateNetworkStatus);
+    window.addEventListener("offline", updateNetworkStatus);
+
+    // ===== Retry Button =====
+    if (retryBtn) {
+      retryBtn.addEventListener("click", function() {
+        const ctrl = new AbortController();
+        setTimeout(() => ctrl.abort(), 3500);
+
+        retryBtn.textContent = "Checking...";
+        retryBtn.disabled = true;
+
+        fetch("/", { method: "HEAD", cache: "no-store", signal: ctrl.signal })
+          .then(() => location.reload())
+          .catch(() => {
+            retryBtn.textContent = "Try Again";
+            retryBtn.disabled = false;
+            retryBtn.animate([
+              { transform: "translateX(0)" },
+              { transform: "translateX(-4px)" },
+              { transform: "translateX(4px)" },
+              { transform: "translateX(0)" }
+            ], { duration: 200 });
+          });
       });
     }
-    dropdowns.forEach(function(dropdown) {
-      var btn = dropdown.querySelector('button');
-      if (btn) {
-        btn.addEventListener('click', function(e) {
+
+    // ===== Offline Search =====
+    function escapeHtml(text) {
+      if (!text) return "";
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function simpleMatch(query, item) {
+      const q = query.toLowerCase();
+      const searchable = (item.title + " " + (item.keywords || "")).toLowerCase();
+
+      // Exact substring match
+      if (searchable.includes(q)) return 2;
+
+      // Word start match
+      const words = searchable.split(/\s+/);
+      for (const word of words) {
+        if (word.startsWith(q)) return 1.5;
+      }
+
+      // Fuzzy: all query chars appear in order
+      let pos = 0;
+      for (const char of q) {
+        pos = searchable.indexOf(char, pos);
+        if (pos === -1) return 0;
+        pos++;
+      }
+      return 1;
+    }
+
+    function performSearch(query) {
+      if (!query || query.length < 2) {
+        if (resultsContainer) resultsContainer.innerHTML = "";
+        if (searchStatus) searchStatus.textContent = query ? "Type at least 2 characters" : "";
+        return;
+      }
+
+      const scored = OFFLINE_INDEX
+        .map(item => ({ item, score: simpleMatch(query, item) }))
+        .filter(r => r.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 15);
+
+      if (scored.length === 0) {
+        if (resultsContainer) {
+          resultsContainer.innerHTML = '<div class="result-item"><span class="result-info"><p class="result-title">No cached pages match your search</p></span></div>';
+        }
+        if (searchStatus) searchStatus.textContent = 'No results for "' + escapeHtml(query) + '"';
+        return;
+      }
+
+      const html = scored.map(r => {
+        const cat = CATEGORY_LABELS[r.item.category] || r.item.category;
+        return '<div class="result-item" role="listitem">' +
+          '<div class="result-info">' +
+          '<p class="result-title"><a href="' + escapeHtml(r.item.url) + '">' + escapeHtml(r.item.title) + '</a></p>' +
+          '<p class="result-category">' + escapeHtml(cat) + '</p>' +
+          '</div>' +
+          '<span class="result-arrow" aria-hidden="true">→</span>' +
+          '</div>';
+      }).join("");
+
+      if (resultsContainer) resultsContainer.innerHTML = html;
+      if (searchStatus) searchStatus.textContent = scored.length + ' result' + (scored.length !== 1 ? 's' : '') + ' for "' + escapeHtml(query) + '"';
+    }
+
+    // Debounce
+    let searchTimeout;
+    if (searchInput) {
+      searchInput.addEventListener("input", function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => performSearch(this.value.trim()), 150);
+      });
+
+      searchInput.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
           e.preventDefault();
-          e.stopPropagation();
-          toggleDropdown(dropdown);
-        });
-        btn.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            dropdown.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-            var firstLink = dropdown.querySelector('.dropdown-menu a');
-            if (firstLink) firstLink.focus();
-          }
-        });
+          performSearch(this.value.trim());
+        }
+      });
+    }
+
+    // ===== Keyboard Shortcuts =====
+    window.addEventListener("keydown", function(e) {
+      // Don't trigger if typing in search
+      if (document.activeElement === searchInput) return;
+
+      if (e.key === "r" || e.key === "R") {
+        e.preventDefault();
+        if (retryBtn) retryBtn.click();
       }
-      var menu = dropdown.querySelector('.dropdown-menu');
-      if (menu) {
-        menu.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
-        });
+      if (e.key === "h" || e.key === "H") {
+        e.preventDefault();
+        window.location.href = "/";
+      }
+      if (e.key === "/") {
+        e.preventDefault();
+        if (searchInput) searchInput.focus();
       }
     });
-    document.addEventListener('click', function(e) {
-      var isInsideDropdown = false;
-      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
-      if (!isInsideDropdown) closeAllDropdowns();
-    });
+
+    // ===== Announce to Screen Readers =====
+    const a11yStatus = document.getElementById("a11y-status");
+    if (a11yStatus) {
+      a11yStatus.textContent = "You are viewing the offline page. " + OFFLINE_INDEX.length + " cached pages are searchable.";
+    }
+
   })();
   </script>
 </body>
