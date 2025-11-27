@@ -1410,19 +1410,20 @@
 
     <!-- RIGHT RAIL -->
     <aside class="rail" aria-label="Right rail" style="grid-column: 2; grid-row: 2;">
-      <!-- Author card (matches index.html pattern) -->
-      <section class="card" aria-labelledby="author-title">
-        <h3 id="author-title">About the Author</h3>
-        <article class="rail-item" role="article" style="display:grid;grid-template-columns:96px 1fr;gap:.75rem;align-items:start">
-          <a class="thumb" href="/authors/ken-baker.html" style="display:block;width:96px;height:96px;border-radius:12px;overflow:hidden">
-            <img src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </a>
-          <div class="meta">
-            <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-            <p class="tiny">Traveler, pastor, storyteller. Writing toward calmer seas for every cruiser.</p>
-            <p class="tiny"><a href="/solo.html">Solo</a> · <a href="/travel.html">Travel</a></p>
-          </div>
-        </article>
+      <!-- Author card (vertical pattern matching index.html) -->
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
       </section>
 
       <!-- Ship tracker rail (feature-specific, display:none by default) -->
