@@ -45,11 +45,11 @@ Files affected:
 - [ ] Explorer of the Seas - Get proper Wiki Commons URLs
 
 ### Stateroom Checker Tool - RCL Fleet Expansion
-**Status:** Currently supports 9 ships (Anthem of the Seas, Harmony of the Seas, Icon of the Seas, Oasis of the Seas, Quantum of the Seas, Radiance of the Seas, Star of the Seas, Symphony of the Seas, Utopia of the Seas)
+**Status:** Currently supports 10 ships (Anthem of the Seas, Harmony of the Seas, Icon of the Seas, Oasis of the Seas, Quantum of the Seas, Radiance of the Seas, Star of the Seas, Symphony of the Seas, Utopia of the Seas, Wonder of the Seas)
 **Impact:** Major user engagement feature - expand to all 28 active RCL ships
 **Data Required:** Cabin exception data for each ship (view obstructions, noise issues, motion sensitivity, connecting doors)
 
-**Ships Needing Data (19 ships):**
+**Ships Needing Data (18 ships):**
 - [ ] Adventure of the Seas
 - [ ] Allure of the Seas
 - [x] Anthem of the Seas ✅
@@ -76,7 +76,7 @@ Files affected:
 - [x] Utopia of the Seas ✅
 - [ ] Vision of the Seas
 - [ ] Voyager of the Seas
-- [ ] Wonder of the Seas
+- [x] Wonder of the Seas ✅
 
 **Data Structure:** JSON file per ship at `/assets/data/staterooms/stateroom-exceptions.{ship-slug}.v2.json`
 **Exception Flags:** VIEW_PARTIAL_OVERHANG, VIEW_OBSTRUCTED_LIFEBOAT, VIEW_OBSTRUCTED_STRUCTURAL, NOISE_POOL_ABOVE, NOISE_MULTIDECK_ATRIUM, NOISE_ELEVATOR_TRAFFIC, NOISE_THEATER_BELOW, NOISE_GALLEY_ABOVE, MOTION_FORWARD, MOTION_AFT, MOTION_HIGH_DECK, CONNECTING_DOOR
