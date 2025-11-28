@@ -581,7 +581,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </div>
 
         <a class="nav-pill" href="/tools/port-tracker.html">Port Tracker</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Tracker</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
@@ -708,6 +708,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <option value="">Select a class first...</option>
           </select>
           <p class="help-text" id="ship-help-text">Choose a ship class above to see available ships</p>
+          <p class="help-text" style="font-style: italic; margin-top: 0.5rem; color: var(--ink-mid, #5a7a8a);">
+            <strong>Sailing on a brand-new ship?</strong> Cabin feedback takes time to gather—usually 6-12 months after a ship's debut.
+            Until then, choose a sister ship in the same class for guidance. Ships within a class share nearly identical layouts.
+          </p>
         </div>
 
         <div class="form-group">
@@ -796,87 +800,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <script src="/assets/js/stateroom-check.js?v=1.000.alpha"></script>
 
   <!-- Dropdown Navigation -->
-  <script>
-  (function(){"use strict";
-    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
-    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
-    if (dropdownGroups.length) {
-      const hoverTimeouts = new Map();
-      const HOVER_DELAY = 300;
-
-      function setOpen(group, isOpen) {
-        group.dataset.open = isOpen ? "true" : "false";
-        const button = group.querySelector('
-      }
-
-      function closeAll(except = null) {
-        dropdownGroups.forEach(group => {
-          if (group !== except) {
-            setOpen(group, false);
-            if (hoverTimeouts.has(group)) {
-              clearTimeout(hoverTimeouts.get(group));
-              hoverTimeouts.delete(group);
-            }
-          }
-        });
-      }
-
-      dropdownGroups.forEach(group => {
-        const button = group.querySelector(');
-
-        group.addEventListener('mouseenter', () => {
-          if (hoverTimeouts.has(group)) {
-            clearTimeout(hoverTimeouts.get(group));
-            hoverTimeouts.delete(group);
-          }
-          closeAll(group);
-          setOpen(group, true);
-        });
-
-        group.addEventListener('mouseleave', () => {
-          const timeoutId = setTimeout(() => {
-            setOpen(group, false);
-            hoverTimeouts.delete(group);
-          }, HOVER_DELAY);
-          hoverTimeouts.set(group, timeoutId);
-        });
-
-        group.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            setOpen(group, false);
-            button && button.focus();
-          }
-          if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
-            e.preventDefault();
-            setOpen(group, true);
-            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
-            firstLink && firstLink.focus();
-          }
-        });
-
-        menu.addEventListener('focusout', () => {
-          setTimeout(() => {
-            if (!group.contains(document.activeElement)) {
-              setOpen(group, false);
-            }
-          }, 0);
-        });
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('.nav-group')) {
-          closeAll();
-        }
-      });
-
-      window.addEventListener('blur', () => {
-        closeAll();
-      });
-    }
-  })();
-  </script>
-
-  <!-- Form Handler -->
+  
+<!-- Form Handler -->
   <script>
   (function() {
     'use strict';
