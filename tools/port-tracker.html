@@ -108,7 +108,13 @@ Soli Deo Gloria
     
     .comparison-section { background: linear-gradient(135deg, #f7fdff 0%, #e6f4f8 100%); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; border: 2px solid #0e6e8e; }
     .comparison-section h2 { margin-top: 0; color: var(--sea); text-align: center; margin-bottom: 1.5rem; }
-    .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .comparison-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; }
+    @media (max-width: 1200px) {
+      .comparison-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .comparison-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     .comparison-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     .comparison-card h3 { margin-top: 0; font-size: 1rem; color: #666; margin-bottom: 1rem; }
     .comparison-stat { font-size: 2rem; font-weight: bold; color: var(--sea); margin-bottom: 0.5rem; }
@@ -261,16 +267,6 @@ Soli Deo Gloria
         <button class="filter-button" data-region="Asia">🌏 Asia</button>
         <button class="filter-button" data-region="Australia & Pacific">🦘 Australia/Pacific</button>
         <button class="filter-button" data-region="Other">🌍 Other</button>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1; grid-row: 1 / span 999;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
       </aside>
       
       <!-- Center: Port List -->
