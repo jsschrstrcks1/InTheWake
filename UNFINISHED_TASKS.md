@@ -21,8 +21,8 @@
 - ✅ Orphaned articles in sitemap (all 3 added)
 
 **Still TODO:**
-- ship-tracker.html missing footer
-- Nav rename: "Ship Tracker" → "Ship Logbook"
+- ~~ship-tracker.html missing footer~~ ✅ DONE
+- ~~Nav rename: "Ship Tracker" → "Ship Logbook"~~ ✅ DONE (504 files updated)
 - Articles: Healing Relationships, Wounded Healers
 - Protocol documentation
 
@@ -49,16 +49,13 @@
 **Status:** COMPLETE - All ships have Wikimedia attributions (generic text)
 **Verified:** 2025-11-28
 
-### ship-tracker.html - MISSING FOOTER
-**Status:** NOT STARTED
-**Impact:** Page has no footer element - only tool page without one
-- [ ] Add standard footer matching site pattern
+### ✅ DONE: ship-tracker.html Footer
+**Status:** COMPLETE - Footer added matching site pattern
+**Verified:** 2025-11-28
 
-### Nav Rename: "Ship Tracker" → "Ship Logbook"
-**Status:** NOT STARTED
-**Impact:** Site-wide nav text update needed
-- [ ] Update all nav references to use "Ship Logbook" instead of "Ship Tracker"
-- [ ] Update all nav references to use "Port Logbook" instead of "Port Tracker"
+### ✅ DONE: Nav Rename "Ship Tracker" → "Ship Logbook"
+**Status:** COMPLETE - 504 files updated with new nav text
+**Verified:** 2025-11-28
 
 ### Stateroom Checker Tool - RCL Fleet Expansion
 **Status:** ✅ COMPLETE! All 28 active RCL ships supported! (Adventure of the Seas, Allure of the Seas, Anthem of the Seas, Brilliance of the Seas, Enchantment of the Seas, Explorer of the Seas, Freedom of the Seas, Grandeur of the Seas, Harmony of the Seas, Icon of the Seas, Independence of the Seas, Jewel of the Seas, Liberty of the Seas, Mariner of the Seas, Navigator of the Seas, Oasis of the Seas, Odyssey of the Seas, Ovation of the Seas, Quantum of the Seas, Radiance of the Seas, Serenade of the Seas, Spectrum of the Seas, Star of the Seas, Symphony of the Seas, Utopia of the Seas, Vision of the Seas, Voyager of the Seas, Wonder of the Seas)
@@ -474,7 +471,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Add wiring for future cruise line expansion
 
 #### Ship Tracker / Port Tracker (Navigation)
-- [ ] SITE-WIDE: Rename "Ship Tracker" → "Ship Logbook" in nav
+- [x] SITE-WIDE: Rename "Ship Tracker" → "Ship Logbook" in nav ✅ DONE 2025-11-28
 - [ ] SITE-WIDE: Rename "Port Tracker" → "Port Logbook" in nav
 
 #### ship-tracker.html
@@ -483,7 +480,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Add "A Cruise Traveler's Logbook" tagline beneath logo (white text)
 - [ ] Standardize hero size (currently larger than most)
 - [ ] Keep horizon centered in viewport
-- [ ] ADD MISSING FOOTER
+- [x] ADD MISSING FOOTER ✅ DONE 2025-11-28
 
 #### about.html (About Us)
 - [ ] Update article rail to match index.html pattern
