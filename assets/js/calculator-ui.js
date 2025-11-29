@@ -471,11 +471,13 @@ function renderPackageCards(results) {
   const economics = window.ITW?.store?.get('economics');
   if (economics && economics.pkg) {
     const priceElements = {
+      coffee: document.querySelector('[data-pkg-price="coffee"]'),
       soda: document.querySelector('[data-pkg-price="soda"]'),
       refresh: document.querySelector('[data-pkg-price="refresh"]'),
       deluxe: document.querySelector('[data-pkg-price="deluxe"]')
     };
 
+    if (priceElements.coffee) priceElements.coffee.textContent = formatMoney(economics.pkg.coffee);
     if (priceElements.soda) priceElements.soda.textContent = formatMoney(economics.pkg.soda);
     if (priceElements.refresh) priceElements.refresh.textContent = formatMoney(economics.pkg.refresh);
     if (priceElements.deluxe) priceElements.deluxe.textContent = formatMoney(economics.pkg.deluxe);
@@ -527,6 +529,8 @@ function setupInlinePriceEditing() {
           if (success && window.renderAll) {
             announce(`${packageKey} package price updated to $${newValue}`);
             renderAll();
+            // Update aria-label with new value
+            element.setAttribute('aria-label', `Edit ${packageKey} package price. Current value: $${newValue}`);
           } else {
             element.textContent = currentText;
           }
