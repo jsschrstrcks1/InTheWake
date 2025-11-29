@@ -4,7 +4,7 @@
 > **Merge Policy (Golden Merge):** Newer wins · Additive only · No regressions · Explicit supersession notes  
 > **Canonical Host:** https://www.cruisinginthewake.com/
 
-This superset integrates the Perplexity modular taxonomy, the historical v2.4 bundle, and the **Frontend Standards v3.007.010 (Grandeur template baseline)**. It is the single source of truth for structure, contracts, accessibility, performance, PWA, JSON‑LD, and CI.
+This superset integrates the modular taxonomy, the historical v2.4 bundle, and the **Frontend Standards v3.007.010 (Grandeur template baseline)**. It is the single source of truth for structure, contracts, accessibility, performance, PWA, JSON‑LD, content, and CI.
 
 ---
 
@@ -178,6 +178,7 @@ Embed, near `</html>`:
 
 - Ten archetypes with disclosure rules; JSON contract `/assets/data/personas.json`.  
 - Each logbook entry must include ≥1 persona label.
+- Each Logbook entry is subject to the pastoral guard rails in Apendix C
 
 ---
 
@@ -291,6 +292,131 @@ Provide the schema snippets for: Ship Stats, Videos, Logbook Personas, Entertain
 - `/examples/cruise-lines/template.html`
 
 ## Appendix B — Change Ledger (Δ v3.003 → v3.007.010)
+
+## APpendix C - Pastoral Witness Guardrail
+
+(Applies to all articles, logs, personas, captions, and marketing blurbs.)
+
+1. No First-Person Alcohol Consumption by “Ken”
+
+Rule:
+The site must never depict you (by name, by clear persona, or by obvious implication including pages where Ken is listed as author, and no persona named) as:
+	•	Drinking alcohol (beer, wine, cocktails, shots, etc.).
+	•	“Sampling” or “tasting” alcoholic drinks.
+	•	Ordering alcoholic packages, buckets, or bar flights.
+	•	Getting tipsy, buzzed, or drunk.
+	•	Overindulging in obviously alcoholic desserts.
+
+Practically, that means:
+	•	No lines like:
+	•	“I enjoyed a bucket of beer by myself on the balcony.”
+	•	“I spent the afternoon consuming endless free samples of rum cake.”
+	•	Replace with:
+	•	“Many guests enjoy buckets of beer out on the pool deck; if you don’t drink, you’ll find plenty of mocktails and non-alcoholic options.”
+	•	“On some ships, there are rum-cake stands and dessert stations that can be very tempting—if you avoid alcohol, ask about ingredients or choose one of the many alcohol-free desserts instead.”
+
+Standard:
+If a reasonable reader could point to a sentence and say, “That pastor had a beer, so I can have X,” that sentence fails the guardrail and must be rewritten.
+
+⸻
+
+2. Neutral, Descriptive Treatment of Alcohol
+
+We still have to acknowledge reality: cruises serve alcohol; bars and drink packages exist. But we do it in a neutral, factual, and pastoral way.
+
+Allowed (and encouraged) pattern:
+	•	Describe what’s available, not what you consume.
+	•	Example wording:
+	•	“Royal Caribbean offers several drink options: soda, mocktail, refreshment, and alcoholic ‘Deluxe’ packages. If you choose to abstain from alcohol, the Refreshment and complimentary options still give you plenty of variety.”
+	•	“Most pool bars serve both cocktails and zero-proof mocktails; it’s normal to ask for non-alcoholic versions.”
+
+Avoid:
+	•	Romanticizing alcohol:
+	•	“Signature cocktails you have to try.”
+	•	“Iconic bar crawls you don’t want to miss.”
+	•	Jokes that make light of drunkenness or loss of self-control:
+	•	“If you remember sailaway, you didn’t do it right.”
+
+⸻
+
+3. Desserts that Contain Alcohol (like Rum Cake)
+
+Rum cakes and similar desserts are a special case.
+
+Standards:
+	•	Treat them as desserts, not “safe loopholes” for alcohol.
+	•	Always note clearly if they contain alcohol:
+	•	“Many Caribbean rum cakes are made with real rum; if you avoid alcohol for personal, medical, or spiritual reasons, ask whether it is baked long enough to remove most of the alcohol or choose an alcohol-free dessert instead.”
+	•	No language of “endless,” “non-stop,” “stuffing myself,” or “consuming” tied to you personally - neither directly no implied.
+
+Not okay:
+	•	“I parked myself at the rum cake stand and ate endless free samples all afternoon.”
+
+Okay:
+	•	“You’ll see rum cake samples offered at some port shops. It’s easy to overdo it—for those who abstain, stick with the vanilla or chocolate cakes and skip the rum-infused ones.”
+
+⸻
+
+4. Gluttony / Overindulgence Language
+
+Even apart from alcohol, we don’t want to present overindulgence by you as cute or aspirational.
+
+Guardrail:
+	•	Avoid “I stuffed myself,” “I ate until I couldn’t move,” “endless plates,” etc. when written in your voice.
+	•	You can still:
+	•	Note that cruises offer more food than most people need.
+	•	Warn readers that it’s easy to overeat.
+	•	Encourage wise, thankful enjoyment: “sample widely, eat reasonably, and remember you don’t have to try everything in one night.”
+
+Examples:
+	•	Prefer:
+	•	“There is enough food on a ship to make self-control a spiritual discipline.”
+	•	Over:
+	•	“I made it my mission to try three entrées every night and waddle out of the dining room.”
+
+⸻
+
+5. Persona Separation (If We Ever Use Drinking Personas)
+
+If you ever decide to have guest personas or third-party stories where alcohol shows up:
+	•	They must not be you, your pastoral persona, or a stand-in for you.
+	•	Their stories should:
+	•	Not glamorize drunkenness.
+	•	Not portray overdrinking as the “goal” of the vacation.
+	•	Ideally model wisdom, moderation, or lessons learned.
+
+If there’s any doubt a persona could be read as “Ken but with a different name,” alcohol consumption doesn’t belong in their story either.
+
+⸻
+
+6. Default Copy Rules (Concrete “Find and Replace” Style)
+
+When writing or editing, default to these rules:
+	•	Ban these patterns in your voice:
+	•	“I enjoyed a bucket of beer…”
+	•	“I lost track of how many rum cakes I ate…”
+	•	“We drank all afternoon…”
+	•	“We were pretty tipsy by dinner…”
+	•	Preferred phrasing:
+	•	“Many guests spend the afternoon at the pool bars; if you prefer to avoid alcohol, there are usually free water, tea, and flavored drinks nearby.”
+	•	“It’s easy to overdo both food and drink on a cruise; plan ahead for how you want to honor your conscience and your health.”
+
+⸻
+
+7. The Theological / Pastoral Footing (For Your Eyes, and Maybe a Sidebar)
+
+Under the hood, this guardrail is really about:
+	•	Protecting weaker brothers and sisters from stumbling.
+	•	Guarding your public witness as a pastor.
+	•	Keeping the project’s posture in line with:
+	•	Gratitude for good things.
+	•	Clear avoidance of what Scripture calls sin (drunkenness, lack of self-control).
+	•	Refusing to be the excuse someone uses: “He did it, so I can.”
+
+You don’t have to preach that in every article, but the standard is:
+
+This site must never give someone plausible cover to justify drunkenness or gluttony by pointing at the pastor who built it.
+--------------------
 
 | Area | Change |
 |------|--------|
