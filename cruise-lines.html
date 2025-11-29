@@ -374,6 +374,44 @@
     .hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
     .hero .tagline{font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap}
     .hero .hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;filter:invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);pointer-events:none}
+
+    /* Page Grid Layout */
+    .page-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 360px;
+      }
+    }
+    .rail {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .author-card-vertical {
+      text-align: center;
+    }
+    .author-card-vertical .author-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+    }
+    .author-card-vertical h4 {
+      margin: 0.5rem 0 0.25rem;
+    }
+    .author-card-vertical p {
+      margin: 0.25rem 0;
+    }
+    .rail-list {
+      display: grid;
+      gap: 1rem;
+    }
   </style>
 </head>
 
@@ -457,7 +495,8 @@
     </div>
   </header>
 
-  <main id="content" class="wrap">
+  <main id="content" class="wrap page-grid">
+    <div>
     <!-- ICP-Lite v1.0: Answer-First Content -->
     <section class="icp-header" aria-labelledby="page-title">
       <h1 id="page-title">Cruise Lines</h1>
@@ -522,6 +561,35 @@
         <p>Yes! Each cruise line guide helps you understand the line's character, ship offerings, and what to expect. Use these guides to compare cruise lines and find the one that matches your travel style.</p>
       </div>
     </section>
+    </div>
+
+    <!-- RIGHT RAIL -->
+    <aside class="rail" role="complementary" aria-label="Author & articles">
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </section>
+
+      <!-- Recent Stories rail -->
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    </aside>
   </main>
 
     <footer class="wrap" role="contentinfo">
@@ -644,6 +712,33 @@
       dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
       if (!isInsideDropdown) closeAllDropdowns();
     });
+  })();
+  </script>
+
+  <!-- Recent Articles Rail -->
+  <script>
+  (function(){
+    "use strict";
+    (async function recentRail(){
+      const rail = document.getElementById('recent-rail');
+      if(!rail) return;
+      const fallback = document.getElementById('recent-rail-fallback');
+      if(fallback) fallback.style.display = '';
+      try {
+        const res = await fetch('/assets/data/articles/index.json', { credentials: 'omit', cache: 'no-cache' });
+        if(!res.ok) throw new Error('Failed to load articles');
+        const articles = await res.json();
+        if(fallback) fallback.style.display = 'none';
+        rail.innerHTML = articles.slice(0, 5).map(a => `
+          <div class="rail-item" style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+            <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url}">${a.title}</a></h4>
+            <p style="margin: 0; font-size: 0.8rem; color: #666;">${a.date || ''}</p>
+          </div>
+        `).join('');
+      } catch(err) {
+        if(fallback) fallback.textContent = 'Unable to load articles';
+      }
+    })();
   })();
   </script>
 </body>
