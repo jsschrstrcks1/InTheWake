@@ -16,7 +16,7 @@ This addendum supersedes any page-specific or legacy nav variations from earlier
 ## 1️⃣ Canonical Navigation Contract
 
 ### Required Structure
-Every public page **MUST** include a `<header>` with the following pattern:
+Every public page **MUST** include a `<header>` with the following pattern (Only once - this pattern replaces existing nav patterns, and NEVER duplicates):
 
 ```html
 <header class="site-header">
