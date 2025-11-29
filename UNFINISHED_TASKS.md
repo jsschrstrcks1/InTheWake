@@ -565,6 +565,13 @@ This archive is maintained additively - tasks are never removed from this sectio
 
 ### P1 - Site-Wide Issues
 
+#### Logo Size Standardization
+**Status:** TODO
+**Issue:** Logo renders as different sizes on different pages
+**Reference:** Prefer the size on index.html (home page) as the standard site-wide
+**Affected:** Multiple hub pages have inconsistent logo sizing
+**Action:** Audit logo CSS across all pages, standardize to index.html dimensions
+
 #### ✅ DONE: Git Merge Conflicts
 **Status:** COMPLETE - 0 instances found site-wide (verified 2025-11-29)
 
