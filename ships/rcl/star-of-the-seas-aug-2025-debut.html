@@ -537,6 +537,48 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- MAIN CONTENT -->
   <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
+  <style>
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 360px !important;
+      }
+    }
+  </style>
+
+    <!-- Right Rail -->
+    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
+      <!-- Quick Answer / Best For / Key Facts -->
+      <section class="page-intro" style="margin: 0 0 1rem 0;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Star of the Seas is a Royal Caribbean Icon Class ship that debuted in August 2025. This page covers deck plans, live ship tracking, dining venues, and planning resources for your cruise.
+        </p>
+
+        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+          <strong>Best For:</strong> Cruisers researching Star of the Seas, planning 2025+ sailings, or comparing Icon Class ships to explore deck layouts, dining options, and onboard features before booking.
+        </p>
+
+        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li><strong>Class:</strong> Icon Class</li>
+            <li><strong>Debut Date:</strong> August 2025</li>
+            <li><strong>Cruise Line:</strong> Royal Caribbean International</li>
+            <li><strong>Sister Ship:</strong> Icon of the Seas</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Recent Articles rail -->
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    </aside>
+
     <!-- ICP-Lite v1.0: Answer-First Content -->
     <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;" aria-label="Star of the Seas August 2025 Debut overview">
       <h1 id="ship-name">Star of the Seas (August 2025 Debut)</h1>
