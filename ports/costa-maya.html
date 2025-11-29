@@ -1,24 +1,29 @@
 <!--
 Soli Deo Gloria
+All work on this project is offered as a gift to God.
+"Trust in the LORD with all your heart..." — Proverbs 3:5
+"Whatever you do, work heartily..." — Colossians 3:23
+-->
+<!-- ai-breadcrumbs
+     entity: Costa Maya
+     type: Port Information Page
+     parent: /ports.html
+     category: Caribbean Ports
+     cruise-line: Royal Caribbean
+     updated: 2025-11-29
 -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="ai-summary" content="First-person logbook guide to Costa Maya with tips for Mahahual beach, Maya Chan snorkeling, and Chacchoben ruins."/>
-  <meta name="last-reviewed" content="2025-11-21"/>
+  <meta name="ai-summary" content="First-person logbook guide to Costa Maya, Mexico with tips for Mahahual beach town, Maya Chan snorkeling on the Mesoamerican Reef, and the authentic Chacchoben Mayan ruins."/>
+  <meta name="last-reviewed" content="2025-11-29"/>
   <meta name="content-protocol" content="ICP-Lite v1.0"/>
   <title>Costa Maya Port Guide — Mahahual Beach & Chacchoben Ruins | In the Wake</title>
-  <meta name="description" content="First-person logbook guide to Costa Maya — Mahahual beach town, Maya Chan snorkeling on the Mesoamerican Reef, and authentic Chacchoben Mayan ruins."/>
+  <meta name="description" content="First-person logbook guide to Costa Maya — Mahahual beach town, Maya Chan snorkeling on the Mesoamerican Reef, and authentic Chacchoben Mayan ruins in Mexico's Quintana Roo."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/costa-maya.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <!-- Service Worker Registration -->
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-  }
-  </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
   <script type="application/ld+json">
@@ -32,63 +37,187 @@ Soli Deo Gloria
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Costa Maya worth visiting on a cruise?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely! Costa Maya offers world-class snorkeling on the Mesoamerican Reef, the authentic Chacchoben Mayan ruins, and the charming beach town of Mahahual. It's less crowded than Cozumel and offers better value with a more authentic Mexican experience."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I stay at the cruise port or go to Mahahual?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Go to Mahahual! The cruise port is purpose-built with pools and shops, but the real Costa Maya experience is in Mahahual — a 10-minute taxi ride south with authentic beach bars, incredible ceviche, and beautiful swimming beaches."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does the Chacchoben ruins tour take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Plan for about 4-4.5 hours round trip, including approximately 45 minutes of travel each way and 1.5-2 hours exploring the ruins. It's a full morning or afternoon excursion."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you walk from the Costa Maya cruise port to the beach?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The port has its own beach area, but the better beaches in Mahahual require a short taxi ride (about 10 minutes, very affordable). The walk would be about 30-40 minutes in tropical heat — not recommended."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
-    /* Page Grid Layout (2-column with right rail) */
     .page-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
       align-items: start;
     }
-
     @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 360px;
-      }
+      .page-grid { grid-template-columns: 1fr 360px; }
     }
-
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
+    .rail { display: flex; flex-direction: column; gap: 1rem; }
+    .rail-list { display: grid; gap: 1rem; }
     .logbook-entry { font-size: 1.05rem; line-height: 1.8; color: #134; }
     .logbook-entry p { margin-bottom: 1.25rem; }
     .poignant-highlight { background: linear-gradient(135deg, #f0f9ff 0%, #e6f4f8 100%); border-left: 4px solid var(--accent, #0e6e8e); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; font-style: italic; }
     .port-section { margin: 2rem 0; padding: 1.25rem; background: #f7fdff; border-radius: 12px; border: 1px solid #e0f0f5; }
     .port-section h3 { margin-top: 0; color: var(--sea, #0a3d62); }
-  
-    .author-card-vertical {
+    .author-card-vertical { text-align: center; }
+    .author-card-vertical .author-avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; }
+    .author-card-vertical h4 { margin: 0.5rem 0 0.25rem; }
+    .author-card-vertical p { margin: 0.25rem 0; }
+
+    /* Port Hero Section */
+    .port-hero {
+      position: relative;
+      height: 280px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .port-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .port-hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      padding: 2rem;
       text-align: center;
     }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 1rem;
+    .port-hero-title {
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      margin: 0;
+      font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+      letter-spacing: 0.02em;
     }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-  </style>
 
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
+    /* Inline Images */
+    .inline-image {
+      float: right;
+      width: 45%;
+      max-width: 320px;
+      margin: 0 0 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+    .inline-image-left {
+      float: left;
+      width: 45%;
+      max-width: 320px;
+      margin: 0 1.5rem 1rem 0;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    @media (max-width: 768px) {
+      .inline-image, .inline-image-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
+    /* At a Glance Card */
+    .at-a-glance-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .at-a-glance-item {
+      background: #f7fdff;
+      padding: 0.75rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #e0f0f5;
+    }
+    .at-a-glance-item strong {
+      display: block;
+      font-size: 0.75rem;
+      color: #0a3d62;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    .at-a-glance-item span {
+      font-size: 0.95rem;
+      color: #134;
+    }
+
+    /* Collapsible Rail Cards */
+    .rail details.card {
+      border: 1px solid #e0f0f5;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .rail details.card summary {
+      cursor: pointer;
+      padding: 1rem;
+      font-weight: 600;
+      background: #f7fdff;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .rail details.card summary::-webkit-details-marker { display: none; }
+    .rail details.card summary::after {
+      content: "▼";
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+      color: #0a3d62;
+    }
+    .rail details.card[open] summary::after { transform: rotate(180deg); }
+    .rail details.card .card-content { padding: 1rem; }
+  </style>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
@@ -96,12 +225,10 @@ Soli Deo Gloria
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
+        <span class="tiny version-badge" aria-label="Site version 3.010.305">v3.010.305</span>
       </div>
-            <nav class="site-nav" aria-label="Main site navigation">
+      <nav class="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-
-        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Planning <span class="caret">&#9662;</span>
@@ -119,8 +246,6 @@ Soli Deo Gloria
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-
-        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Travel <span class="caret">&#9662;</span>
@@ -130,112 +255,193 @@ Soli Deo Gloria
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-
         <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
         <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-    <!-- Hero -->
+      </nav>
+    </div>
     <div class="hero">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Costa Maya</li></ol></nav>
-
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Costa Maya is the perfect "Mayan Riviera meets chill beach town" day. Crystal-clear snorkeling on the Mesoamerican Reef, authentic (less-touristy) ruins at Chacchoben, and the laid-back fishing village of Mahahual make it one of my absolute favorite Mexico stops.
-      </p>
-    </section>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;">
+      <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
+        <li style="display: inline;"><a href="/">Home</a> &rsaquo; </li>
+        <li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li>
+        <li style="display: inline;" aria-current="page">Costa Maya</li>
+      </ol>
+    </nav>
 
     <div style="grid-column: 1;">
-    <article class="card">
-      <h1>Costa Maya: My Mayan Riviera Escape</h1>
-      <div class="logbook-entry">
-        <p>We woke up to turquoise water so bright it looked Photoshopped. The ship docks literally inside a purpose-built cruise village (pool, flamingos, dolphin tanks, the works), but the second we hopped in a shared taxi to Mahahual (10 minutes south) the real Costa Maya appeared — colorful palapa restaurants lining a perfect strip of powdery sand, mariachi drifting on the breeze, and barely another cruiser in sight.</p>
-
-        <p>We spent the morning snorkeling straight off the beach at Maya Chan. Within five minutes I was floating above brain coral the size of coffee tables, schools of electric-blue tangs, and a curious 3-foot barracuda that shadowed us like a bodyguard. A hawksbill turtle (shell easily 3 ft across) cruised underneath me so slowly I could count the barnacles. The reef here is stupidly healthy — purple sea fans waving like flags, giant parrotfish crunching coral with audible crunching sounds.</p>
-
-        <p>Lunch was the freshest ceviche of my life at a beach shack — grouper caught that morning, mixed with lime, cilantro, and enough habanero to make my lips tingle for an hour. Washed it down with ice-cold micheladas served in cups rimmed with tajín. Then we claimed a palapa for the afternoon and did absolutely nothing except float, read, and watch pelicans dive-bomb the shallows.</p>
-
-        <p>(On a different visit we skipped the beach entirely and did Chacchoben ruins — 45 minutes inland, climbing pyramids with howler monkeys roaring in the canopy. The original red paint still visible under the moss on Temple 24 is 1,400 years old and properly Indiana Jones. Both options are magic — just pick your vibe.)</p>
-
-        <p>The pros: way less crowded than Cozumel or Playa del Carmen, genuinely friendly locals, and incredible value.</p>
-        <p>The cons: the cruise-port village itself is a soulless trap — skip it completely and head straight to Mahahual.</p>
-
-        <p>Practical tips: Pre-book a shared taxi or golf-cart rental in the port; the drivers are honest and waiting right outside. Bring reef-safe sunscreen and water shoes — sea urchins hide in the seagrass.</p>
-
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Floating face-down, totally alone above that hawksbill turtle while it grazed, and realizing the only sound in my ears was my own breathing through the snorkel and the distant crunch-crunch of parrotfish. Absolute peace.
+      <div class="port-hero">
+        <img src="/ports/img/costamaya/port-signpost.jpg" alt="Costa Maya port signpost with colorful direction signs pointing to Miami, Cuba, Roatan, Belize, and other Caribbean destinations" loading="eager"/>
+        <div class="port-hero-overlay">
+          <h1 class="port-hero-title">Costa Maya</h1>
         </div>
       </div>
 
-      <section class="port-section">
-        <h3>Getting Around Costa Maya</h3>
-        <p>Shared taxis to Mahahual are affordable and waiting at the port exit, or rent a golf cart for the day (super fun). Taxis to Chacchoben are easy to arrange.</p>
-      </section>
+      <article class="card">
+        <h2>Costa Maya: My Mayan Riviera Escape</h2>
 
-      <section class="port-section">
-        <h3>Depth Soundings Ashore</h3>
-        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>The sun here is nuclear strength — hydrate like your vacation depends on it and reapply sunscreen every single time you get out of the water.</p>
-      </section>
-
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: Is Costa Maya worth visiting on a cruise?</strong><br/>A: 110% yes — one of the best Mexico ports I actually get excited for.</p>
-        <p><strong>Q: Best beach/attraction?</strong><br/>A: Mahahual + Maya Chan snorkeling beats the cruise-port pool fantasy any day.</p>
-        <p><strong>Q: How long does Chacchoben take?</strong><br/>A: About 4–4.5 hours round-trip including transport.</p>
-        <p><strong>Q: Can you walk from the cruise port?</strong><br/>A: Not to the good stuff — take a quick taxi.</p>
-      </section>
-    </article>
-  </div>
-  <aside class="rail" style="grid-column: 2;">
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
-      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-        <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-        </picture>
-      </a>
-      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-      <p class="tiny">
-        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-      </p>
-    </section>
-
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        <p class="answer-line" style="margin: 0.75rem 0 1.5rem; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Costa Maya is the perfect "Mayan Riviera meets chill beach town" day — crystal-clear snorkeling on the Mesoamerican Reef, authentic (less-touristy) ruins at Chacchoben, and the laid-back fishing village of Mahahual make it one of my absolute favorite Mexico stops.
         </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-  </aside>
 
-    <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+        <div class="logbook-entry">
+          <p>We woke up to turquoise water so bright it looked Photoshopped. The ship docks at a purpose-built cruise village on the southern coast of Mexico's Quintana Roo state — far from the tourist madness of Cancun and even calmer than Cozumel. This is the "other" Mexican Riviera, and it's become one of my favorite Western Caribbean stops.</p>
+
+          <div class="clearfix">
+            <img class="inline-image" src="/ports/img/costamaya/harp-musician.jpg" alt="Local harp musician in white traditional clothing playing on the Costa Maya pier with palm trees and turquoise water behind him" loading="lazy"/>
+            <p>The cruise port itself is impressive in a Vegas-on-the-beach kind of way: swimming pools, artificial islands, a dolphin encounter, flamingos wandering the grounds, and more jewelry shops than you could visit in a week. What I love most about the welcome here is the music — you might find a traditional harpist in white guayabera playing jarocho melodies right on the pier, palm trees swaying behind him and that impossible turquoise water sparkling in the sun. It's the kind of authentic Mexican moment that reminds you this isn't just another port.</p>
+          </div>
+
+          <p>But here's the secret — <strong>skip the port complex</strong>. The real Costa Maya is a 10-minute taxi ride south in the fishing village of <strong>Mahahual</strong> (pronounced mah-hah-WAHL).</p>
+
+          <div class="poignant-highlight">
+            <strong>The Moment That Stays With Me:</strong> Floating face-down above a hawksbill turtle the size of a coffee table, watching it graze on seagrass in absolute silence — the only sound my own breath through the snorkel and the distant crunch-crunch of parrotfish biting coral. This was 50 feet from shore, no boat required, and it felt like I'd slipped into a nature documentary.
+          </div>
+
+          <p>The second we hopped in a shared taxi to Mahahual, the real Mexico appeared — colorful palapa restaurants lining a perfect strip of powdery sand, mariachi drifting on the breeze, and barely another cruiser in sight. This is a working fishing village that happens to have one of the healthiest sections of the <strong>Mesoamerican Barrier Reef</strong> right offshore.</p>
+
+          <p>We spent the morning snorkeling at <strong>Maya Chan</strong>, one of several beach clubs that offer all-inclusive packages. Within five minutes of wading in, I was floating above brain coral the size of dining tables, schools of electric-blue tangs, and a curious 3-foot barracuda that shadowed us like a bodyguard. The reef here is stupidly healthy — purple sea fans waving like flags, giant parrotfish crunching coral with audible bites, and visibility that stretched 80+ feet on a calm day.</p>
+
+          <div class="clearfix">
+            <img class="inline-image-left" src="/ports/img/costamaya/krazy-lobster.jpg" alt="The Krazy Lobster Restaurant Bar and Grill sign in Mahahual with a cartoon lobster mascot welcoming visitors" loading="lazy"/>
+            <p>Lunch in Mahahual is where the magic happens. Skip the cruise port restaurants and head to local spots like <strong>The Krazy Lobster</strong> — a no-frills beach bar that serves some of the best lobster I've had in the Caribbean. The hand-painted sign says "Bienvenidos Welcome" and they mean it. Order the whole grilled lobster with garlic butter, or try the freshest <strong>ceviche</strong> of your life — grouper caught that morning, mixed with lime, cilantro, jalapeño, and enough habanero to make your lips tingle for an hour. Wash it down with ice-cold <strong>micheladas</strong> rimmed with tajín (that magical Mexican chili-lime salt). Then claim a palapa for the afternoon and do absolutely nothing except float, read, and watch pelicans dive-bomb the shallows.</p>
+          </div>
+
+          <p>On a different visit, we skipped the beach entirely and headed inland to <strong>Chacchoben</strong> (pronounced cha-CHO-ben), a Mayan archaeological site about 45 minutes away. Unlike the massive crowds at Tulum or Chichen Itza, Chacchoben feels like a secret. We climbed pyramids with howler monkeys roaring in the jungle canopy above us. The original red paint is still visible under the moss on Temple 24 — 1,400 years old and properly Indiana Jones. Our guide explained the astronomical alignments while spider monkeys swung through the trees overhead.</p>
+
+          <p>The pros: way less crowded than Cozumel or Playa del Carmen, genuinely friendly locals, incredible food value, and snorkeling that rivals anywhere in the Caribbean. The cons: the cruise-port village itself is a soulless trap — avoid it and head straight to Mahahual.</p>
+        </div>
+
+        <section class="port-section">
+          <h3>Getting Around Costa Maya</h3>
+          <p>The port is purpose-built and walkable within the terminal area, but you'll need transport to reach the good stuff:</p>
+          <ul>
+            <li><strong>Mahahual:</strong> Shared taxis wait just outside the port exit. About $8–10 per person each way (10 minutes). Negotiate before getting in.</li>
+            <li><strong>Golf Cart Rental:</strong> Super fun option — rent for the day and explore at your own pace. Available at the port.</li>
+            <li><strong>Chacchoben Ruins:</strong> Book through the ship or arrange a taxi at the port. About 45 minutes each way, plan 4+ hours total.</li>
+            <li><strong>Maya Chan Beach Club:</strong> They offer shuttle pickup from the port if you pre-book their all-inclusive package.</li>
+          </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>Depth Soundings Ashore</h3>
+          <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
+          <ul>
+            <li><strong>Sun Intensity:</strong> Nuclear-strength tropical sun. Reapply sunscreen every time you get out of the water. Seriously.</li>
+            <li><strong>Water Shoes:</strong> Sea urchins hide in the seagrass near shore. Reef-safe shoes are worth the suitcase space.</li>
+            <li><strong>Currency:</strong> Mexican pesos are preferred but USD widely accepted. ATMs available at the port.</li>
+            <li><strong>Reef-Safe Sunscreen:</strong> Required by Mexican law in many areas. The reef is protected — be a good visitor.</li>
+            <li><strong>Hydration:</strong> Drink twice as much water as you think you need. The heat and sun are deceptively intense.</li>
+            <li><strong>Bug Spray:</strong> If visiting Chacchoben, bring it. The jungle has mosquitoes.</li>
+          </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>Frequently Asked Questions</h3>
+
+          <p><strong>Q: Is Costa Maya worth visiting on a cruise?</strong><br/>
+          A: 110% yes — one of the best Mexico ports I actually get excited for. Less crowded than Cozumel with better snorkeling and more authentic vibes.</p>
+
+          <p><strong>Q: Should I stay at the cruise port or go to Mahahual?</strong><br/>
+          A: Go to Mahahual! The port is fine for a drink by the pool, but the real experience — beach bars, incredible ceviche, snorkeling — is in the village.</p>
+
+          <p><strong>Q: How long does the Chacchoben ruins tour take?</strong><br/>
+          A: About 4–4.5 hours round-trip including transport. It's a full morning or afternoon excursion, but worth every minute.</p>
+
+          <p><strong>Q: Can you walk from the cruise port to the beach?</strong><br/>
+          A: Not really — Mahahual is about 10 minutes by taxi. Walking would take 30–40 minutes in tropical heat. Just grab a cab.</p>
+        </section>
+
+        <p class="tiny" style="margin-top: 1rem; color: #678; font-style: italic;">
+          Photos: © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </article>
+
+      <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+    </div>
+
+    <aside class="rail" style="grid-column: 2;">
+      <details class="card" open>
+        <summary>At a Glance</summary>
+        <div class="card-content">
+          <div class="at-a-glance-grid">
+            <div class="at-a-glance-item">
+              <strong>Country</strong>
+              <span>Mexico</span>
+            </div>
+            <div class="at-a-glance-item">
+              <strong>Language</strong>
+              <span>Spanish / English</span>
+            </div>
+            <div class="at-a-glance-item">
+              <strong>Currency</strong>
+              <span>MXN / USD</span>
+            </div>
+            <div class="at-a-glance-item">
+              <strong>Port Type</strong>
+              <span>Purpose-Built</span>
+            </div>
+            <div class="at-a-glance-item">
+              <strong>Best For</strong>
+              <span>Snorkeling, Ruins</span>
+            </div>
+            <div class="at-a-glance-item">
+              <strong>Walking</strong>
+              <span>Taxi to Mahahual</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="card" open>
+        <summary>About the Author</summary>
+        <div class="card-content author-card-vertical">
+          <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+            <picture>
+              <source srcset="/authors/img/ken1.webp?v=3.010.305" type="image/webp"/>
+              <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+            </picture>
+          </a>
+          <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+          <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+          <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+        </div>
+      </details>
+
+      <details class="card" open>
+        <summary>Nearby Ports</summary>
+        <div class="card-content">
+          <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+            Other Caribbean ports near Costa Maya:
+          </p>
+          <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+        </div>
+      </details>
+
+      <details class="card" open>
+        <summary>Recent Stories</summary>
+        <div class="card-content">
+          <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+            Real cruising experiences, practical guides, and heartfelt reflections from our community.
+          </p>
+          <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+          <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+        </div>
+      </details>
+    </aside>
   </main>
-    <footer class="wrap" role="contentinfo">
+
+  <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny" style="margin-top: 0.5rem;">
       <a href="/privacy.html">Privacy</a> ·
@@ -243,161 +449,85 @@ Soli Deo Gloria
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria</p>
   </footer>
-
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        console.log('Could not load articles:', err);
-      }
-    })();
-  </script>
 
   <script>
   (function(){
     "use strict";
-
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
-      if(!rail) return;
-
-      const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
-
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
-
-          }
-        }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.300';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
-        return;
-      }
-
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
-            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
-              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div>
-                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
-                </h4>
-                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
-      }).join('');
-
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
+    /* Dropdown Navigation */
+    document.querySelectorAll('.nav-dropdown').forEach(function(dropdown){
+      var btn = dropdown.querySelector('button');
+      var menu = dropdown.querySelector('.dropdown-menu');
+      if(!btn || !menu) return;
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        menu.style.display = expanded ? 'none' : 'block';
       });
+    });
+    document.addEventListener('click', function(){
+      document.querySelectorAll('.nav-dropdown').forEach(function(dropdown){
+        var btn = dropdown.querySelector('button');
+        var menu = dropdown.querySelector('.dropdown-menu');
+        if(btn) btn.setAttribute('aria-expanded', 'false');
+        if(menu) menu.style.display = 'none';
+      });
+    });
 
-      if(fallback) fallback.style.display = 'none';
+    /* Recent Articles Rail */
+    (async function(){
+      var rail = document.getElementById('recent-rail');
+      if(!rail) return;
+      try {
+        var res = await fetch('/assets/data/articles/index.json');
+        var articles = await res.json();
+        if(articles && articles.length){
+          rail.innerHTML = articles.slice(0,5).map(function(a){
+            return '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e0e8f0;"><h4 style="margin:0 0 .25rem;font-size:.95rem;"><a href="'+a.url+'">'+a.title+'</a></h4><p style="margin:0;font-size:.8rem;color:#666;">'+a.date+'</p></div>';
+          }).join('');
+        }
+      } catch(e){}
+    })();
 
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
+    /* Nearby Ports Rail */
+    (async function(){
+      var rail = document.getElementById('nearby-ports');
+      if(!rail) return;
+      var currentPortId = 'costa-maya';
+
+      function haversineDistance(lat1, lon1, lat2, lon2) {
+        var R = 3440.065; // Earth radius in nautical miles
+        var dLat = (lat2 - lat1) * Math.PI / 180;
+        var dLon = (lon2 - lon1) * Math.PI / 180;
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
       }
+
+      try {
+        var res = await fetch('/assets/data/ports/ports-geo.json');
+        var data = await res.json();
+        var currentPort = data.ports.find(function(p){ return p.id === currentPortId; });
+        if(!currentPort) return;
+
+        var nearby = data.ports
+          .filter(function(p){ return p.id !== currentPortId; })
+          .map(function(p){
+            p.distance = haversineDistance(currentPort.lat, currentPort.lon, p.lat, p.lon);
+            return p;
+          })
+          .sort(function(a,b){ return a.distance - b.distance; })
+          .slice(0, 10);
+
+        rail.innerHTML = nearby.map(function(p){
+          var distLabel = p.distance < 100 ? Math.round(p.distance) + ' nm' : Math.round(p.distance) + ' nm';
+          return '<a href="'+p.url+'" style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;"><span style="font-size:0.9rem;">'+p.name+'</span><span style="font-size:0.75rem;color:#678;">'+distLabel+'</span></a>';
+        }).join('');
+      } catch(e){ console.log('Nearby ports error:', e); }
     })();
   })();
   </script>
