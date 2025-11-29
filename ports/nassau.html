@@ -256,7 +256,7 @@ Soli Deo Gloria
   <main class="wrap page-grid" id="main-content" role="main">
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Nassau</li></ol></nav>
 
-    <section class="page-intro" style="grid-column: 2; grid-row: 2; margin-bottom: 1rem; align-self: start;">
+    <section class="page-intro" style="grid-column: 2; margin-bottom: 1rem; align-self: start;">
       <details open style="background: #f7fdff; border: 1px solid #e0f0f5; border-radius: 8px; padding: 0;">
         <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">At a Glance</summary>
         <div style="padding: 0.5rem 0.75rem 0.75rem;">
@@ -265,7 +265,7 @@ Soli Deo Gloria
       </details>
     </section>
 
-    <div style="grid-column: 1; grid-row: 2 / span 10;">
+    <div style="grid-column: 1;">
     <article class="card">
       <!-- Hero Image with Port Name Overlay -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem;">
@@ -415,31 +415,36 @@ Soli Deo Gloria
       </section>
     </article>
   </div>
-  <aside class="rail" style="grid-column: 2; grid-row: 3 / span 8; align-self: start;">
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
-      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-        <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-        </picture>
-      </a>
-      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-      <p class="tiny">
-        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-      </p>
-    </section>
+  <aside class="rail" style="grid-column: 2; align-self: start;">
+    <!-- Author Card (collapsible) -->
+    <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px;">
+      <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">About the Author</summary>
+      <div class="author-card-vertical" style="padding: 1rem; text-align: center;">
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4 style="margin: 0.5rem 0 0.25rem;"><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny" style="margin: 0.25rem 0;">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny" style="margin: 0.25rem 0;">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </div>
+    </details>
 
-    <!-- Recent Articles rail -->
-    <section class="card" aria-labelledby="recent-rail-title">
-      <h3 id="recent-rail-title">Recent Stories</h3>
-      <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-        Real cruising experiences, practical guides, and heartfelt reflections from our community.
-      </p>
-      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-      <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-    </section>
+    <!-- Recent Articles rail (collapsible) -->
+    <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px;">
+      <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Recent Stories</summary>
+      <div style="padding: 1rem;">
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </div>
+    </details>
 
   </aside>
 
