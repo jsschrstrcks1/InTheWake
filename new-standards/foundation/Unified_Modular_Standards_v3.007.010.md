@@ -30,6 +30,7 @@ This superset integrates the modular taxonomy, the historical v2.4 bundle, and t
 - Watermark background with low opacity (.06–.08).  
 - Persona disclosure pill when first-person narrative is present.  
 - Referrer policy: `<meta name="referrer" content="no-referrer">`.
+- Appendix C & D - pastoral Guard Rails, and content guidelines.
 
 ### 00.2 HEAD_SNIPPET.html (Canonical Head Insert)
 Order:
@@ -428,7 +429,115 @@ You don’t have to preach that in every article, but the standard is:
 This site must never give someone plausible cover to justify drunkenness or gluttony by pointing at the pastor who built it.
 
 ⸻
+## Appendix D — Persona Uniqueness & Story Separation
 
+(This applies to all logbook entries, persona JSON, articles that use personas, captions, and marketing blurbs.)
+
+1. Persona Names Must Be Unique
+
+- Each persona name in `/assets/data/personas.json` must be globally unique.  
+- Do not reuse a persona name for:
+  - A different archetype, or
+  - A different “voice” with a new backstory.
+- Do not use a real person’s full name as a persona name (first name only is allowed if not uniquely identifying someone in your life or church).
+
+If a persona needs to be significantly changed (tone, backstory, or theology), retire the old persona and create a new one with a different name and version note.
+
+⸻
+
+2. No Story Duplication Across Personas
+
+- A single real-world sailing, day, or event must not be told as if it happened to multiple personas.  
+- You may have multiple **angles** on one sailing (e.g., Ken plus Harper, or Ken plus “Solo Introvert”) **only if**:
+  - It is clearly disclosed in the copy that this is the *same sailing* seen from different perspectives, and
+  - Ken’s portions still obey Appendix C (Pastoral Witness Guardrail).
+
+Not allowed:
+- Copying one logbook entry, changing the persona name, and publishing as if it were a separate traveler.  
+- Moving a story from “Ken” into a persona with minimal edits in order to bypass Appendix C.
+
+Allowed:
+- One persona describing a sailing they took, while Ken’s ship page summarizes that sailing more factually, as long as this is disclosed and consistent.
+
+⸻
+
+3. No Persona as a Stand-In for Ken
+
+- Personas must not be used as a “mask” for Ken’s own actions, convictions, or behaviors.
+- If the underlying story is **Ken’s real experience**, it must either:
+  - Be told honestly as Ken (and therefore obey Appendix C), or
+  - Be omitted from first-person narrative entirely.
+
+You may not:
+- Take a story that would violate Appendix C (e.g., “I had a bucket of beer on the balcony”) and assign it to a persona instead to soften the optics.
+- Make a persona whose backstory or life situation obviously *is* Ken with the serial numbers filed off (same church role, same family configuration, same biographical details).
+
+If a reasonable reader could say, “That’s obviously just Ken under a different name,” then the persona is too close and must be revised.
+
+⸻
+
+4. Persona JSON Integrity
+
+In `/assets/data/personas.json`:
+
+- Each persona entry must include:
+  - `name` (unique),
+  - `archetype` (e.g., “Solo Introvert,” “Mobility Scooter User,” “Budget Family”),
+  - A short, stable backstory summary,
+  - Disclosure flags (e.g., “fictional composite,” “guest soundings,” “Ken-adjacent but not Ken”).
+- Once a persona is live, only additive changes are allowed without a version bump:
+  - Clarifying language,
+  - Extra examples,
+  - Accessibility notes.
+
+If you materially change:
+- Their theology,
+- Their family status (married vs widowed),
+- Their disability/health profile,
+- Or their relationship to cruising (first-timer vs veteran),
+
+…you must treat that as a new persona with a **new name** and a note in the change ledger.
+
+⸻
+
+5. Linking Real Guests vs Personas
+
+- Real guests or friends who contribute stories should be clearly identified as real (with their permission) and must not share a name with any persona.  
+- Personas are always tagged or labeled as such (in JSON and, where appropriate, in copy), so readers are not misled.
+
+You may:
+- Blend multiple guest experiences into a **fictional composite persona**, but you must not:
+  - Attribute specific quotes or precise stories from a real person to a persona name without disclosure,
+  - Present a persona as a real, single historical individual.
+
+⸻
+
+6. Interaction With Appendix C (Pastoral Witness Guardrail)
+
+The following are explicitly forbidden:
+
+- Reassigning any story that would violate Appendix C for Ken (alcohol, gluttony, etc.) to a persona in order to publish it.  
+- Duplicating Ken’s story under a persona name with “softened” or “spiced up” details that change how it lands on witness.
+
+If the lived experience is Ken’s, Appendix C governs *even if* you try to tell it through a persona. You may still use personas to:
+- Show how **others** might think or feel on a similar sailing,  
+- Model wise or unwise choices, with clear pastoral commentary.
+
+But you may not use personas to **sanitize**, disguise, or amplify Ken’s actions.
+
+⸻
+
+7. QA Checklist Hook
+
+When reviewing any page or JSON that uses personas, verify:
+
+- [ ] Persona names are unique and not reused for different archetypes.  
+- [ ] No single sailing/event is being represented as if it happened to multiple distinct personas without disclosure.  
+- [ ] No persona is functioning as a stand-in for Ken’s own story.  
+- [ ] Real guest names and persona names do not collide.  
+- [ ] Any persona story that clearly mirrors Ken’s life still respects Appendix C.
+
+If any of these fail, the page or JSON must be corrected before publishing.
 
 Area	Change
 Versioning	Bumped baseline to v3.007.010 (Grandeur template).
