@@ -521,6 +521,14 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
 - [ ] Update article rail to match index.html pattern
 
+#### drink-calculator.html (Drink Calculator Enhancement)
+- [ ] Make package prices editable (user can input actual prices they're paying)
+- [ ] Clicking a package card updates the total to show what they would pay
+- [ ] Show price two ways: per day (editable) + per week (calculated from days × daily)
+- [ ] Verify/update default package prices (current defaults may be outdated)
+  - Current defaults: Soda $13.99/day, Refreshment $34.00/day, Deluxe $85.00/day, Coffee Card $31 (15 punches)
+  - FAQ mentions Deluxe at $89/day pre-cruise - verify which is correct
+
 ### P0 - Individual Ship Pages (ships/rcl/*.html)
 
 **Reference:** Icon of the Seas as example

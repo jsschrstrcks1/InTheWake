@@ -121,6 +121,27 @@ Soli Deo Gloria
     .comparison-label { font-size: 0.9rem; color: #666; line-height: 1.5; }
     .comparison-badge { display: inline-block; padding: 0.5rem 1rem; background: linear-gradient(135deg, #d97706 0%, #b45309 100%); color: white; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-top: 0.5rem; }
     .comparison-note { text-align: center; margin-top: 1rem; font-size: 0.85rem; color: #666; font-style: italic; }
+
+    /* Author Card Vertical */
+    .author-card-vertical {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e0f0f5;
+    }
+    .author-card-vertical .author-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+    }
+    .author-card-vertical h4 {
+      margin: 0.5rem 0 0.25rem;
+    }
+    .author-card-vertical p {
+      margin: 0.25rem 0;
+    }
   </style>
 </head>
 <body class="page">
@@ -301,6 +322,22 @@ Soli Deo Gloria
         <div id="bingo-cards">
           <!-- Dynamically populated -->
         </div>
+
+        <!-- Author Card -->
+        <section class="author-card-vertical" aria-labelledby="author-heading">
+          <h3 id="author-heading">About the Author</h3>
+          <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+            <picture>
+              <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+              <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+            </picture>
+          </a>
+          <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+          <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+          <p class="tiny">
+            <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+          </p>
+        </section>
       </aside>
     </div>
     
