@@ -142,6 +142,70 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+
+    /* Collapsible Sections */
+    .collapsible-section { margin-bottom: 1rem; }
+    .collapsible-header {
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; padding: 0.75rem; background: #f7fdff; border-radius: 8px;
+      border: 1px solid #e0f0f5; user-select: none; transition: background 0.2s;
+    }
+    .collapsible-header:hover { background: #e6f4f8; }
+    .collapsible-header h3 { margin: 0; font-size: 1rem; color: var(--sea); }
+    .collapsible-toggle { font-size: 1.2rem; transition: transform 0.3s; color: #666; }
+    .collapsible-section.collapsed .collapsible-toggle { transform: rotate(-90deg); }
+    .collapsible-content { max-height: 2000px; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s; padding: 0.75rem 0; }
+    .collapsible-section.collapsed .collapsible-content { max-height: 0; padding: 0; }
+
+    /* Achievement Collections (renamed from Bingo) */
+    .achievement-section { margin-bottom: 1.5rem; }
+    .achievement-section-title {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 1rem; font-weight: 600; color: var(--sea);
+      margin: 0 0 0.75rem 0; padding-bottom: 0.5rem; border-bottom: 2px solid #e0f0f5;
+    }
+    .achievement-count {
+      background: var(--sea); color: white;
+      padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.8rem;
+    }
+    .achievement-card {
+      margin-bottom: 1rem; padding: 1rem; background: #f7fdff;
+      border-radius: 8px; border: 2px solid #e0f0f5;
+      position: relative; cursor: help; transition: all 0.3s;
+    }
+    .achievement-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .achievement-card.completed {
+      background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+      border-color: #28a745;
+    }
+    .achievement-card.completed .achievement-icon { display: inline; }
+    .achievement-title { font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem; color: #134; }
+    .achievement-icon { display: none; margin-right: 0.5rem; }
+    .achievement-progress { font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
+    .achievement-celebration {
+      background: linear-gradient(135deg, #ffd700 0%, #ffb700 100%);
+      color: #5c4003; padding: 0.5rem 0.75rem; border-radius: 6px;
+      font-size: 0.85rem; font-weight: 600; margin-top: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    /* Homeports Section */
+    .homeports-section {
+      background: linear-gradient(135deg, #e8f4fd 0%, #d6ebf8 100%);
+      padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;
+      border: 2px solid #0e6e8e;
+    }
+    .homeports-section h2 { margin: 0 0 1rem 0; color: var(--sea); display: flex; align-items: center; gap: 0.5rem; }
+    .homeports-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
+    .homeport-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem; background: white; border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s;
+    }
+    .homeport-item:hover { background: #f0f9ff; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .homeport-item.visited { background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 3px solid #28a745; }
+    .homeport-checkbox { width: 18px; height: 18px; cursor: pointer; }
+    .homeport-name { font-size: 0.9rem; color: var(--sea); font-weight: 500; }
   </style>
 </head>
 <body class="page">
@@ -272,7 +336,19 @@ Soli Deo Gloria
       </div>
       <p class="comparison-note">Rankings based on typical Royal Caribbean cruiser statistics and port visit data.</p>
     </div>
-    
+
+    <!-- Homeports / Embarkation Ports Section -->
+    <div class="homeports-section" id="homeports-section">
+      <h2>🚢 Homeports (Embarkation/Disembarkation)</h2>
+      <p style="margin: 0 0 1rem 0; font-size: 0.9rem; color: #134;">Track which cruise terminals you've departed from or arrived at. These are separate from port visits!</p>
+      <div class="homeports-grid" id="homeports-grid">
+        <!-- Dynamically populated -->
+      </div>
+      <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+        <span id="homeport-stats" style="font-size: 0.9rem; color: #666;"></span>
+      </div>
+    </div>
+
     <div class="tracker-grid">
       <!-- Left Sidebar: Filters -->
       <aside class="filter-panel">
@@ -280,6 +356,7 @@ Soli Deo Gloria
         <input type="text" class="search-box" id="search-box" placeholder="Search ports...">
         <button class="filter-button active" data-region="all">📍 All Ports</button>
         <button class="filter-button" data-region="Caribbean">🏝️ Caribbean</button>
+        <button class="filter-button" data-region="Atlantic Islands">🌊 Atlantic Islands</button>
         <button class="filter-button" data-region="Alaska">❄️ Alaska</button>
         <button class="filter-button" data-region="Hawaii">🌺 Hawaii</button>
         <button class="filter-button" data-region="Canada & New England">🍁 Canada/New England</button>
@@ -287,7 +364,7 @@ Soli Deo Gloria
         <button class="filter-button" data-region="Northern Europe">🛡️ Northern Europe</button>
         <button class="filter-button" data-region="Asia">🌏 Asia</button>
         <button class="filter-button" data-region="Australia & Pacific">🦘 Australia/Pacific</button>
-        <button class="filter-button" data-region="Other">🌍 Other</button>
+        <button class="filter-button" data-region="Africa & Morocco">🌍 Africa</button>
       </aside>
       
       <!-- Center: Port List -->
@@ -295,32 +372,56 @@ Soli Deo Gloria
         <!-- Dynamically populated -->
       </main>
       
-      <!-- Right Sidebar: ICP-Lite + Bingo Cards -->
+      <!-- Right Sidebar: ICP-Lite + Achievement Collections -->
       <aside class="bingo-panel">
-        <!-- ICP-Lite: Quick Answer, Best For, Key Facts -->
-        <section class="page-intro" style="margin: 0 0 1.5rem 0;">
-          <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-            <strong>Quick Answer:</strong> Track which cruise ports you've visited across all lines, earn achievement bingo badges, and visualize your global cruising footprint. Mark ports to calculate visit percentages, country counts, and continental coverage.
-          </p>
-
-          <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-            <strong>Best For:</strong> Cruisers who want to track their port history, collect regional achievement badges, compare against other cruisers, and share their travel accomplishments.
-          </p>
-
-          <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-            <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-            <ul style="margin: 0; padding-left: 1.25rem;">
-              <li><strong>Tracks:</strong> 147+ cruise ports across all continents</li>
-              <li><strong>Features:</strong> Achievement bingos, ranking system, country/continent counters</li>
-              <li><strong>Data:</strong> Saves automatically to your browser (offline-capable)</li>
-              <li><strong>Sharing:</strong> Export/import capability, compare against average cruiser</li>
-            </ul>
+        <!-- ICP-Lite: Collapsible Quick Guide -->
+        <div class="collapsible-section" id="icp-section">
+          <div class="collapsible-header" onclick="toggleCollapsible('icp-section')">
+            <h3>📖 Quick Guide</h3>
+            <span class="collapsible-toggle">▼</span>
           </div>
-        </section>
+          <div class="collapsible-content">
+            <p class="answer-line" style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px; font-size: 0.9rem;">
+              <strong>Quick Answer:</strong> Track your cruise port visits, earn regional collection badges, and visualize your global cruising footprint.
+            </p>
+            <p style="margin: 0.5rem 0; font-size: 0.85rem; color: #134; line-height: 1.5;">
+              <strong>Best For:</strong> Cruisers tracking their port history, collecting regional badges, and comparing travel accomplishments.
+            </p>
+            <div style="margin: 0.5rem 0; padding: 0.75rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5; font-size: 0.85rem;">
+              <ul style="margin: 0; padding-left: 1rem; line-height: 1.5;">
+                <li><strong>147+ ports</strong> across all continents</li>
+                <li><strong>Auto-saves</strong> to your browser</li>
+                <li><strong>Export/import</strong> your data</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-        <h3>🏆 Achievement Bingos</h3>
-        <div id="bingo-cards">
-          <!-- Dynamically populated -->
+        <!-- Completed Collections (open by default) -->
+        <div class="collapsible-section" id="completed-collections">
+          <div class="collapsible-header" onclick="toggleCollapsible('completed-collections')">
+            <h3>🏆 Completed Collections</h3>
+            <span class="collapsible-toggle">▼</span>
+          </div>
+          <div class="collapsible-content">
+            <div id="completed-achievements">
+              <!-- Dynamically populated -->
+              <p class="tiny" style="color:#666;text-align:center;">Complete a regional collection to see it here!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- In Progress Collections (collapsible) -->
+        <div class="collapsible-section" id="progress-collections">
+          <div class="collapsible-header" onclick="toggleCollapsible('progress-collections')">
+            <h3>📊 In Progress</h3>
+            <span class="collapsible-toggle">▼</span>
+          </div>
+          <div class="collapsible-content">
+            <div id="progress-achievements">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
         </div>
 
         <!-- Author Card -->
@@ -487,7 +588,7 @@ Soli Deo Gloria
     "id": "bermuda",
     "name": "Bermuda",
     "country": "Bermuda",
-    "region": "Other",
+    "region": "Atlantic Islands",
     "continent": "North America",
     "url": "/ports/bermuda.html"
   },
@@ -575,7 +676,7 @@ Soli Deo Gloria
     "id": "casablanca",
     "name": "Casablanca",
     "country": "Morocco",
-    "region": "Other",
+    "region": "Africa & Morocco",
     "continent": "Africa",
     "url": "/ports/casablanca.html"
   },
@@ -1391,7 +1492,7 @@ Soli Deo Gloria
     "id": "tangier",
     "name": "Tangier",
     "country": "Morocco",
-    "region": "Other",
+    "region": "Africa & Morocco",
     "continent": "Africa",
     "url": "/ports/tangier.html"
   },
@@ -1447,7 +1548,7 @@ Soli Deo Gloria
     "id": "tunis",
     "name": "Tunis",
     "country": "Tunisia",
-    "region": "Other",
+    "region": "Africa & Morocco",
     "continent": "Africa",
     "url": "/ports/tunis.html"
   },
@@ -1567,9 +1668,48 @@ Soli Deo Gloria
     { id: 'world-cruiser', name: '🌍 World Cruiser (50 ports)', ports: [], min: 50, howTo: 'Collect this badge by visiting any 50 ports!' },
     { id: 'ultimate', name: '👑 Ultimate Cruiser (100 ports)', ports: [], min: 100, howTo: 'Collect this badge by visiting 100 or more ports - the ultimate achievement!' }
   ];
-  
+
+  // Homeports database - cruise embarkation/disembarkation ports
+  const HOMEPORTS_DB = [
+    // Florida
+    { id: 'miami', name: 'Miami', region: 'Florida' },
+    { id: 'fort-lauderdale', name: 'Fort Lauderdale', region: 'Florida' },
+    { id: 'tampa', name: 'Tampa', region: 'Florida' },
+    { id: 'port-canaveral', name: 'Port Canaveral', region: 'Florida' },
+    { id: 'jacksonville', name: 'Jacksonville', region: 'Florida' },
+    // Gulf Coast
+    { id: 'galveston', name: 'Galveston', region: 'Gulf Coast' },
+    { id: 'new-orleans', name: 'New Orleans', region: 'Gulf Coast' },
+    { id: 'mobile', name: 'Mobile', region: 'Gulf Coast' },
+    // East Coast
+    { id: 'new-york', name: 'New York', region: 'East Coast' },
+    { id: 'baltimore', name: 'Baltimore', region: 'East Coast' },
+    { id: 'boston-home', name: 'Boston', region: 'East Coast' },
+    { id: 'charleston', name: 'Charleston', region: 'East Coast' },
+    // West Coast
+    { id: 'seattle', name: 'Seattle', region: 'West Coast' },
+    { id: 'san-francisco', name: 'San Francisco', region: 'West Coast' },
+    { id: 'los-angeles', name: 'Los Angeles', region: 'West Coast' },
+    { id: 'san-diego', name: 'San Diego', region: 'West Coast' },
+    // Canada
+    { id: 'vancouver', name: 'Vancouver', region: 'Canada' },
+    { id: 'quebec-home', name: 'Quebec City', region: 'Canada' },
+    // Australia & NZ
+    { id: 'sydney-home', name: 'Sydney', region: 'Australia' },
+    { id: 'brisbane-home', name: 'Brisbane', region: 'Australia' },
+    { id: 'auckland-home', name: 'Auckland', region: 'Australia' },
+    // Europe
+    { id: 'southampton-home', name: 'Southampton', region: 'UK' },
+    { id: 'barcelona-home', name: 'Barcelona', region: 'Mediterranean' },
+    { id: 'rome-home', name: 'Rome (Civitavecchia)', region: 'Mediterranean' },
+    { id: 'venice-home', name: 'Venice', region: 'Mediterranean' },
+    { id: 'copenhagen-home', name: 'Copenhagen', region: 'Northern Europe' },
+    { id: 'amsterdam-home', name: 'Amsterdam', region: 'Northern Europe' }
+  ];
+
   // App state
   let visitedPorts = new Set(JSON.parse(localStorage.getItem('visited-ports') || '[]'));
+  let visitedHomeports = new Set(JSON.parse(localStorage.getItem('visited-homeports') || '[]'));
   let currentFilter = 'all';
 
   // Analytics tracking helper
@@ -1591,9 +1731,58 @@ Soli Deo Gloria
       });
     }
     renderPortList();
-    renderBingoCards();
+    renderHomeports();
+    renderAchievementCollections();
     updateStats();
     attachEventListeners();
+  }
+
+  // Toggle collapsible sections
+  window.toggleCollapsible = function(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.classList.toggle('collapsed');
+    }
+  };
+
+  // Render homeports grid
+  function renderHomeports() {
+    const grid = document.getElementById('homeports-grid');
+    if (!grid) return;
+
+    // Group by region
+    const regions = {};
+    HOMEPORTS_DB.forEach(port => {
+      if (!regions[port.region]) regions[port.region] = [];
+      regions[port.region].push(port);
+    });
+
+    grid.innerHTML = '';
+    Object.keys(regions).forEach(region => {
+      const regionDiv = document.createElement('div');
+      regionDiv.style.cssText = 'grid-column: 1 / -1; margin-top: 0.5rem;';
+      regionDiv.innerHTML = `<strong style="font-size:0.85rem;color:#666;">${region}</strong>`;
+      grid.appendChild(regionDiv);
+
+      regions[region].forEach(port => {
+        const item = document.createElement('div');
+        item.className = 'homeport-item' + (visitedHomeports.has(port.id) ? ' visited' : '');
+        item.innerHTML = `
+          <input type="checkbox" class="homeport-checkbox" data-homeport="${port.id}"
+                 ${visitedHomeports.has(port.id) ? 'checked' : ''}>
+          <span class="homeport-name">${port.name}</span>
+        `;
+        grid.appendChild(item);
+      });
+    });
+
+    // Update stats
+    const statsEl = document.getElementById('homeport-stats');
+    if (statsEl) {
+      const visited = visitedHomeports.size;
+      const total = HOMEPORTS_DB.length;
+      statsEl.textContent = `${visited} of ${total} homeports visited`;
+    }
   }
   
   // Render port list with CLICKABLE LINKS
@@ -1668,12 +1857,13 @@ Soli Deo Gloria
     });
   }
   
-  // Render bingo cards
-  function renderBingoCards() {
-    const container = document.getElementById('bingo-cards');
-    container.innerHTML = '';
+  // Render achievement collections (split into completed/in-progress)
+  function renderAchievementCollections() {
+    const completedContainer = document.getElementById('completed-achievements');
+    const progressContainer = document.getElementById('progress-achievements');
+    if (!completedContainer || !progressContainer) return;
 
-    // Calculate completion for all cards first for sorting
+    // Calculate completion for all cards
     const cardsWithCompletion = BINGO_CARDS.map(card => {
       let completed = 0;
       let total = 0;
@@ -1692,46 +1882,76 @@ Soli Deo Gloria
       return { card, completed, total, percentage, isCompleted };
     });
 
-    // Sort: completed first, then by percentage descending
-    cardsWithCompletion.sort((a, b) => {
-      if (a.isCompleted && !b.isCompleted) return -1;
-      if (!a.isCompleted && b.isCompleted) return 1;
-      return b.percentage - a.percentage;
-    });
-
-    cardsWithCompletion.forEach(({ card, completed, total, percentage, isCompleted }) => {
-      
-      // Track bingo completion (only track once per bingo)
+    // Track completions
+    cardsWithCompletion.forEach(({ card, isCompleted }) => {
       const wasCompleted = sessionStorage.getItem(`bingo_${card.id}_completed`);
       if (isCompleted && !wasCompleted) {
-        trackEvent('bingo_completed', {
-          bingo_id: card.id,
-          bingo_name: card.name,
-          total_bingos: BINGO_CARDS.filter(c => {
-            if (c.min) return visitedPorts.size >= c.min;
-            return c.ports.every(p => visitedPorts.has(p));
-          }).length
+        trackEvent('collection_completed', {
+          collection_id: card.id,
+          collection_name: card.name
         });
         sessionStorage.setItem(`bingo_${card.id}_completed`, 'true');
       } else if (!isCompleted && wasCompleted) {
         sessionStorage.removeItem(`bingo_${card.id}_completed`);
       }
-      
-      const cardEl = document.createElement('div');
-      cardEl.className = 'bingo-card' + (isCompleted ? ' completed' : '');
-      cardEl.innerHTML = `
-        <div class="bingo-title">
-          <span class="bingo-icon">${isCompleted ? '✅' : ''}</span>
-          ${card.name}
+    });
+
+    // Split into completed and in-progress
+    const completedCards = cardsWithCompletion.filter(c => c.isCompleted);
+    const progressCards = cardsWithCompletion.filter(c => !c.isCompleted);
+
+    // Sort in-progress by percentage descending
+    progressCards.sort((a, b) => b.percentage - a.percentage);
+
+    // Render completed collections
+    if (completedCards.length > 0) {
+      completedContainer.innerHTML = completedCards.map(({ card, completed, total }) => `
+        <div class="achievement-card completed">
+          <div class="achievement-title">
+            <span class="achievement-icon">✅</span>
+            ${card.name}
+          </div>
+          <div class="achievement-progress">${completed}/${total} ports</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%"></div>
+          </div>
+          <div class="achievement-celebration">
+            🎉 Collection Complete!
+          </div>
         </div>
-        <div class="bingo-progress">${completed}/${total} ports</div>
+      `).join('');
+
+      // Update header count
+      const header = document.querySelector('#completed-collections .collapsible-header h3');
+      if (header) {
+        header.innerHTML = `🏆 Completed Collections <span class="achievement-count">${completedCards.length}</span>`;
+      }
+    } else {
+      completedContainer.innerHTML = '<p class="tiny" style="color:#666;text-align:center;">Complete a regional collection to see it here!</p>';
+    }
+
+    // Render in-progress collections
+    progressContainer.innerHTML = progressCards.map(({ card, completed, total, percentage }) => `
+      <div class="achievement-card">
+        <div class="achievement-title">${card.name}</div>
+        <div class="achievement-progress">${completed}/${total} ports (${Math.round(percentage)}%)</div>
         <div class="progress-bar">
           <div class="progress-fill" style="width: ${percentage}%"></div>
         </div>
         <div class="bingo-tooltip">${card.howTo}</div>
-      `;
-      container.appendChild(cardEl);
-    });
+      </div>
+    `).join('');
+
+    // Update header count
+    const progressHeader = document.querySelector('#progress-collections .collapsible-header h3');
+    if (progressHeader) {
+      progressHeader.innerHTML = `📊 In Progress <span class="achievement-count">${progressCards.length}</span>`;
+    }
+  }
+
+  // Legacy function for backwards compatibility
+  function renderBingoCards() {
+    renderAchievementCollections();
   }
   
   // Update statistics
@@ -1791,8 +2011,28 @@ Soli Deo Gloria
         }
         saveData();
         renderPortList();
-        renderBingoCards();
+        renderAchievementCollections();
         updateStats();
+      }
+
+      // Homeport checkboxes
+      if (e.target.classList.contains('homeport-checkbox')) {
+        const homeportId = e.target.dataset.homeport;
+        if (e.target.checked) {
+          visitedHomeports.add(homeportId);
+          trackEvent('homeport_checked', {
+            homeport_id: homeportId,
+            total_homeports: visitedHomeports.size
+          });
+        } else {
+          visitedHomeports.delete(homeportId);
+          trackEvent('homeport_unchecked', {
+            homeport_id: homeportId,
+            total_homeports: visitedHomeports.size
+          });
+        }
+        saveData();
+        renderHomeports();
       }
     });
     
@@ -1878,6 +2118,7 @@ Soli Deo Gloria
   // Save data to localStorage
   function saveData() {
     localStorage.setItem('visited-ports', JSON.stringify([...visitedPorts]));
+    localStorage.setItem('visited-homeports', JSON.stringify([...visitedHomeports]));
   }
   
   // Generate shareable image
