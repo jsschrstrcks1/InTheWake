@@ -35,7 +35,7 @@
 - **Files Modified:** 9 ship HTML files, 3 JavaScript files
 - **Reference:** UNFINISHED_TASKS.md line 890
 
-### P0-3: ✅ COMPLETE - Create Port Tracker tool
+### P0-3: ✅ COMPLETE - Create Port Logbook tool
 - **Status:** ✅ COMPLETE (2025-11-22)
 - **Location:** /tools/port-tracker.html (65KB, 2071 lines)
 - **Features:** 147 ports, 14 bingo cards, social comparison, share modal, analytics (13 event types)
@@ -382,7 +382,7 @@ _All P0 critical tasks are complete! 🎉_
 - **Status:** ❌ PLANNED - Future feature after Carnival port expansion begins
 - **Priority:** P3 - FUTURE FEATURE
 - **Work Needed:**
-  - Cruise line selector dropdown on Port Tracker and Ship Tracker
+  - Cruise line selector dropdown on Port Logbook and Ship Tracker
   - Multi-line bingo cards, cross-cruise-line statistics
   - Cruise line color coding, logos, filter enhancements
 - **Reference:** UNFINISHED_TASKS.md line 142

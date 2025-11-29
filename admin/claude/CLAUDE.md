@@ -127,7 +127,7 @@ Located in `/admin/` directory:
 - Ship logbooks: `/assets/data/logbook/rcl/<slug>.json`
 
 **Tools:**
-- Port Tracker: `/tools/port-tracker.html` (147 Royal Caribbean ports)
+- Port Logbook: `/tools/port-tracker.html` (147 Royal Caribbean ports)
 - Ship Tracker: `/tools/ship-tracker.html` (50+ ships)
 
 ---
@@ -504,7 +504,7 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 ## 🎯 Current Priorities (Updated 2025-11-23)
 
 ### P0 - Critical (Do These First)
-1. ✅ ~~Port Tracker~~ COMPLETE
+1. ✅ ~~Port Logbook~~ COMPLETE
 2. ✅ ~~Ship Tracker~~ COMPLETE
 3. ✅ ~~Ship Cards Redesign~~ COMPLETE
 4. ⏳ **Fix placeholder attributions** (Symphony, Adventure, Enchantment, Explorer)

@@ -36,7 +36,7 @@ When a task is completed:
 
 ## Engagement Tools - COMPLETE
 
-### Port Tracker Tool - COMPLETE (2025-11-22)
+### Port Logbook Tool - COMPLETE (2025-11-22)
 **Location:** /tools/port-tracker.html (65KB, 2071 lines)
 
 Features implemented:

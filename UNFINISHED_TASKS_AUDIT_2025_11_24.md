@@ -27,7 +27,7 @@
 ### Completed P0 Tasks
 - ✅ Navigation fixed (281 pages) - Verified in main
 - ✅ WebP images updated - Verified in main
-- ✅ Port Tracker created - EXISTS at tools/port-tracker.html
+- ✅ Port Logbook created - EXISTS at tools/port-tracker.html
 - ✅ Ship Tracker created - EXISTS at tools/ship-tracker.html
 - ✅ Ship cards redesigned - Verified (assets/css/item-cards.css)
 - ✅ Search functionality - search.html EXISTS

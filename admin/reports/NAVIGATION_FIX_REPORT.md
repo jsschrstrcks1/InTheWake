@@ -130,7 +130,7 @@ After deployment, test dropdown navigation on:
 4. **Sample pages to test:**
    - Homepage: https://cruisinginthewake.com/
    - Ships: https://cruisinginthewake.com/ships.html
-   - Port Tracker: https://cruisinginthewake.com/tools/port-tracker.html
+   - Port Logbook: https://cruisinginthewake.com/tools/port-tracker.html
    - Any restaurant page: https://cruisinginthewake.com/restaurants/windjammer.html
    - Any port page: https://cruisinginthewake.com/ports/cozumel.html
 

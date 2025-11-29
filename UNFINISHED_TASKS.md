@@ -348,7 +348,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 - ✅ Port pages: 147 total, 141 with LCP preload hints, 0 with under construction notices
 - ✅ Ship pages: 50 total, all with responsive hero logo, all using WebP in meta tags
 - ✅ Ship cards redesign COMPLETE (item-cards.css v1.0.0)
-- ✅ Port Tracker & Ship Tracker COMPLETE
+- ✅ Port Logbook & Ship Tracker COMPLETE
 - ✅ Hawaii port batch COMPLETE (5 ports)
 - ❌ REGRESSIONS: None found
 
@@ -465,14 +465,14 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] FIX: Find and kill CSS filter making hero muted colors (want vibrant like index.html)
 - [ ] Move FAQ under main content (not on right rail)
 
-#### port-logbook.html (Port Tracker)
-- [ ] FIX BROKEN: No ports populate regardless of click
+#### port-logbook.html (Port Logbook)
+- [x] FIX BROKEN: No ports populate regardless of click ✅ DONE 2025-11-29 (fixed JSON syntax errors in PORTS_DB)
 - [ ] Expand to encompass all RCL ports
 - [ ] Add wiring for future cruise line expansion
 
-#### Ship Tracker / Port Tracker (Navigation)
+#### Ship Tracker / Port Logbook (Navigation)
 - [x] SITE-WIDE: Rename "Ship Tracker" → "Ship Logbook" in nav ✅ DONE 2025-11-28
-- [ ] SITE-WIDE: Rename "Port Tracker" → "Port Logbook" in nav
+- [x] SITE-WIDE: Rename "Port Tracker" → "Port Logbook" in nav ✅ DONE 2025-11-29
 
 #### ship-tracker.html
 - [ ] Add Author, Article, and ICP-Lite elements
