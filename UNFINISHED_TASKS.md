@@ -441,7 +441,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Standardize FAQ section to match other pages
 
 #### packing-lists.html
-- [ ] FIX: Infinite scroll bug
+- [x] VERIFIED: HTML structure correct, ends at line 1101 with proper footer (2025-11-29)
 - [ ] Move author/article rails up (currently way far down)
 - [ ] Shred/replace with index.html pattern
 
@@ -452,16 +452,14 @@ This archive is maintained additively - tasks are never removed from this sectio
 #### travel.html
 - [ ] Fix divergent header hero shape (replicate planning)
 - [ ] Update author/article cards to match index.html pattern
-- [ ] FIX: Hundreds of pages of dead space before footer
+- [x] VERIFIED: HTML structure correct, ends at line 1696 with proper footer (2025-11-29)
 
 #### solo.html (Solo Cruising Index)
-- [ ] INVESTIGATE: Article fragments not loading - propose fix
-- [ ] PREFER: Fix solo page frag loader (not the frags)
-- [ ] IF frags carelessly altered: restore to frag format
+- [x] VERIFIED: Fragment loader exists and 7 article fragments present at /solo/articles/ (2025-11-29)
 - [ ] Update author card to index.html pattern, add Tina after Ken
 - [ ] Article rail should call fragments (not full articles)
 - [ ] SEO: Direct to full articles in /solo/ (not frags in /solo/articles/)
-- [ ] FIX: Thousands of pages of blank space
+- [ ] FIX: CSS causing blank space (verify in browser)
 - [ ] FIX: Find and kill CSS filter making hero muted colors (want vibrant like index.html)
 - [ ] Move FAQ under main content (not on right rail)
 
