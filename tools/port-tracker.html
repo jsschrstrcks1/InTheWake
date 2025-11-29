@@ -1564,10 +1564,10 @@ Soli Deo Gloria
     const portList = document.getElementById('port-list');
     const searchTerm = document.getElementById('search-box').value.toLowerCase();
 
-    // Save current expanded/collapsed state
+    // Save current expanded/collapsed state by data attribute
     const expandedSections = new Set();
     portList.querySelectorAll('.region-section:not(.collapsed)').forEach(section => {
-      const regionName = section.querySelector('.region-title-text')?.textContent.split('(')[0].trim();
+      const regionName = section.dataset.region;
       if (regionName) expandedSections.add(regionName);
     });
 
@@ -1602,6 +1602,7 @@ Soli Deo Gloria
 
       const section = document.createElement('div');
       section.className = wasExpanded ? 'region-section' : 'region-section collapsed';
+      section.dataset.region = region;
       section.innerHTML = `
         <div class="region-title" onclick="toggleSection(this)">
           <div class="region-title-text">
