@@ -395,29 +395,26 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Update article rails to match index.html pattern (currently outdated with just image + title, missing CTA and Read Article button)
 
 #### ships.html
-- [ ] Add right rail: At a Glance, Key Facts (above Author Card and Article Card)
-- [ ] Use index.html pattern for Author and Article cards
+- [x] VERIFIED: Has page-grid layout, right rail with Author Card + Recent Stories (2025-11-29)
+- [ ] Add At a Glance, Key Facts above Author Card
 - [ ] Combine duplicate "Royal Caribbean ships organized by class" cards (one with search, one without)
 - [ ] Set all class sections to start closed EXCEPT Icon class
 - [ ] Hide/comment out "Ship layout" and "Where is the ship" sections
 - [ ] Remove "Recent Stories" and "From the Journal" duplication
-- [ ] Rebuild author/article section based on index.html pattern
 - [ ] Fix logo sticking off top of viewable area
 
 #### restaurants-and-menus.html
-- [ ] Add right rail: Quick Answer, Key Facts, Best For
-- [ ] Add Author and Article cards below (index.html style)
+- [x] VERIFIED: Has page-grid layout, right rail with Author Card + Recent Stories (2025-11-29)
+- [ ] Add Quick Answer, Key Facts, Best For above Author Card
 - [ ] Vary images (currently generic cloche on everything)
 - [ ] Standardize FAQ to match other pages' pattern
 - [ ] Cross-reference pass: ensure every venue links to page, mark missing pages
 - [ ] Move "114 venues loaded" message to beneath header hero OR beneath footer (current placement wrong)
-- [ ] Shred/replace article and author cards with index.html pattern
 - [ ] Fix logo sticking above viewable area (match planning pattern)
 
 #### ports.html (Port Index)
-- [ ] Add right rail: Quick Answer, Key Facts, Best For, etc
-- [ ] Add Author Card and Article Card beneath
-- [ ] Shred/replace existing author/article cards with index.html pattern
+- [x] VERIFIED: Has page-grid layout, right rail with Author Card + Recent Stories (2025-11-29)
+- [ ] Add Quick Answer, Key Facts, Best For above Author Card
 - [ ] Cross-linking pass: link ports with HTML pages that aren't currently linked
 - [ ] Document ports mentioned but lacking pages → add to tasks
 - [ ] Fix logo sticking outside viewable area (match planning)
@@ -451,12 +448,15 @@ This archive is maintained additively - tasks are never removed from this sectio
 
 #### travel.html
 - [ ] Fix divergent header hero shape (replicate planning)
-- [ ] Update author/article cards to match index.html pattern
+- [x] STANDARDIZED: CSS classes updated to page-grid/rail pattern (2025-11-29)
 - [x] VERIFIED: HTML structure correct, ends at line 1696 with proper footer (2025-11-29)
+- [x] VERIFIED: Author card and Recent Stories rail present (2025-11-29)
 
 #### solo.html (Solo Cruising Index)
 - [x] VERIFIED: Fragment loader exists and 7 article fragments present at /solo/articles/ (2025-11-29)
-- [ ] Update author card to index.html pattern, add Tina after Ken
+- [x] ADDED: Author card with Ken Baker (index.html pattern) to right rail (2025-11-29)
+- [x] ADDED: author-card-vertical CSS styles (2025-11-29)
+- [ ] Add Tina to author card after Ken
 - [ ] Article rail should call fragments (not full articles)
 - [ ] SEO: Direct to full articles in /solo/ (not frags in /solo/articles/)
 - [ ] FIX: CSS causing blank space (verify in browser)
