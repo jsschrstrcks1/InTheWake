@@ -419,6 +419,16 @@ All work on this project is offered as a gift to God.
       </details>
 
       <details class="card" open>
+        <summary>Nearby Ports</summary>
+        <div class="card-content">
+          <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+            Other Caribbean ports near Costa Maya:
+          </p>
+          <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+        </div>
+      </details>
+
+      <details class="card" open>
         <summary>Recent Stories</summary>
         <div class="card-content">
           <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
@@ -479,6 +489,45 @@ All work on this project is offered as a gift to God.
           }).join('');
         }
       } catch(e){}
+    })();
+
+    /* Nearby Ports Rail */
+    (async function(){
+      var rail = document.getElementById('nearby-ports');
+      if(!rail) return;
+      var currentPortId = 'costa-maya';
+
+      function haversineDistance(lat1, lon1, lat2, lon2) {
+        var R = 3440.065; // Earth radius in nautical miles
+        var dLat = (lat2 - lat1) * Math.PI / 180;
+        var dLon = (lon2 - lon1) * Math.PI / 180;
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
+      }
+
+      try {
+        var res = await fetch('/assets/data/ports/ports-geo.json');
+        var data = await res.json();
+        var currentPort = data.ports.find(function(p){ return p.id === currentPortId; });
+        if(!currentPort) return;
+
+        var nearby = data.ports
+          .filter(function(p){ return p.id !== currentPortId; })
+          .map(function(p){
+            p.distance = haversineDistance(currentPort.lat, currentPort.lon, p.lat, p.lon);
+            return p;
+          })
+          .sort(function(a,b){ return a.distance - b.distance; })
+          .slice(0, 10);
+
+        rail.innerHTML = nearby.map(function(p){
+          var distLabel = p.distance < 100 ? Math.round(p.distance) + ' nm' : Math.round(p.distance) + ' nm';
+          return '<a href="'+p.url+'" style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;"><span style="font-size:0.9rem;">'+p.name+'</span><span style="font-size:0.75rem;color:#678;">'+distLabel+'</span></a>';
+        }).join('');
+      } catch(e){ console.log('Nearby ports error:', e); }
     })();
   })();
   </script>
