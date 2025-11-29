@@ -501,7 +501,7 @@
   function announceLoaded(count) {
     const status = document.getElementById('a11y-status');
     if (status) {
-      status.textContent = `${count} venues loaded across dining and bar categories`;
+      status.textContent = `${count} venues available`;
     }
   }
 

@@ -726,6 +726,60 @@
       }
     }
 
+    /* Navigation Dropdown Styles */
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .nav-dropdown .caret {
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+
+    .nav-dropdown.open .caret {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      min-width: 220px;
+      background: #fff;
+      padding: 0.5rem;
+      border-radius: 12px;
+      border: 2px solid var(--rope, #d9b382);
+      box-shadow: 0 8px 24px rgba(8,48,65,0.15);
+      z-index: 9999;
+      display: none;
+    }
+
+    .nav-dropdown.open .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      color: var(--ink);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.1s;
+    }
+
+    .dropdown-menu a:hover,
+    .dropdown-menu a:focus {
+      background: #eef4f6;
+      outline: none;
+    }
+
+    @media (max-width: 768px) {
+      .dropdown-menu {
+        min-width: 200px;
+      }
+    }
+
     .visually-hidden-focusable{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .visually-hidden-focusable:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:.45rem .7rem;background:#fff;border:2px solid var(--sea,#0e6e8e);border-radius:10px;z-index:9999}
 
@@ -1786,5 +1840,91 @@
   })();
   </script>
 
+  <!-- Navigation dropdown functionality -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Get all dropdowns
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+
+    // Toggle dropdown
+    function toggleDropdown(dropdown) {
+      var isOpen = dropdown.classList.contains('open');
+
+      // Close all dropdowns first
+      closeAllDropdowns();
+
+      // Open this one if it was closed
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        var btn = dropdown.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    // Close all dropdowns
+    function closeAllDropdowns() {
+      dropdowns.forEach(function(dd) {
+        dd.classList.remove('open');
+        var btn = dd.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    // Wire up each dropdown
+    dropdowns.forEach(function(dropdown) {
+      var btn = dropdown.querySelector('button');
+
+      if (btn) {
+        // Click to toggle
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDropdown(dropdown);
+        });
+
+        // Keyboard support
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeAllDropdowns();
+            btn.focus();
+          }
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            dropdown.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            var firstLink = dropdown.querySelector('.dropdown-menu a');
+            if (firstLink) firstLink.focus();
+          }
+        });
+      }
+
+      // Keyboard support inside menu
+      var menu = dropdown.querySelector('.dropdown-menu');
+      if (menu) {
+        menu.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeAllDropdowns();
+            if (btn) btn.focus();
+          }
+        });
+      }
+    });
+
+    // Click outside to close
+    document.addEventListener('click', function(e) {
+      var isInsideDropdown = false;
+      dropdowns.forEach(function(dd) {
+        if (dd.contains(e.target)) isInsideDropdown = true;
+      });
+      if (!isInsideDropdown) {
+        closeAllDropdowns();
+      }
+    });
+
+    console.log('[In the Wake] Nav dropdown system loaded: ' + dropdowns.length + ' dropdowns');
+  })();
+  </script>
 </body>
 </html>

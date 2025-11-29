@@ -75,7 +75,7 @@ Soli Deo Gloria
     .port-name:hover { text-decoration: underline; }
     .port-country { font-size: 0.85rem; color: #666; margin-left: auto; }
     
-    .bingo-panel { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
+    .bingo-panel { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
     .bingo-panel h3 { margin-top: 0; font-size: 1.1rem; color: var(--sea); }
     
     .bingo-card { margin-bottom: 1.5rem; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 2px solid #e0f0f5; position: relative; cursor: help; transition: all 0.3s; }
@@ -1563,31 +1563,45 @@ Soli Deo Gloria
   function renderPortList() {
     const portList = document.getElementById('port-list');
     const searchTerm = document.getElementById('search-box').value.toLowerCase();
-    
+
+    // Save current expanded/collapsed state
+    const expandedSections = new Set();
+    portList.querySelectorAll('.region-section:not(.collapsed)').forEach(section => {
+      const regionName = section.querySelector('.region-title-text')?.textContent.split('(')[0].trim();
+      if (regionName) expandedSections.add(regionName);
+    });
+
     // Group ports by region
     const regions = {};
     PORTS_DB.forEach(port => {
       if (!regions[port.region]) regions[port.region] = [];
       regions[port.region].push(port);
     });
-    
+
     portList.innerHTML = '';
-    
+
     Object.keys(regions).sort().forEach(region => {
       if (currentFilter !== 'all' && currentFilter !== region) return;
-      
-      const ports = regions[region].filter(p => 
+
+      const ports = regions[region].filter(p =>
         p.name.toLowerCase().includes(searchTerm) ||
         p.country.toLowerCase().includes(searchTerm)
       );
-      
+
       if (ports.length === 0) return;
-      
+
       const visited = ports.filter(p => visitedPorts.has(p.id)).length;
       const total = ports.length;
-      
+
+      // Check if all ports in this region are visited
+      const allVisited = visited === total;
+
+      // Restore previous state, or auto-collapse if all visited
+      const wasExpanded = expandedSections.has(region);
+      const shouldCollapse = allVisited && !wasExpanded;
+
       const section = document.createElement('div');
-      section.className = 'region-section collapsed';
+      section.className = wasExpanded ? 'region-section' : 'region-section collapsed';
       section.innerHTML = `
         <div class="region-title" onclick="toggleSection(this)">
           <div class="region-title-text">
