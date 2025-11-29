@@ -90,7 +90,7 @@ export const CONFIG = {
       deluxeCap: 14.0
     },
     packages: {
-      soda: 13.99,
+      soda: 10.99,
       refresh: 34.0,
       deluxe: 85.0
     },

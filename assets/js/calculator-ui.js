@@ -471,11 +471,13 @@ function renderPackageCards(results) {
   const economics = window.ITW?.store?.get('economics');
   if (economics && economics.pkg) {
     const priceElements = {
+      coffee: document.querySelector('[data-pkg-price="coffee"]'),
       soda: document.querySelector('[data-pkg-price="soda"]'),
       refresh: document.querySelector('[data-pkg-price="refresh"]'),
       deluxe: document.querySelector('[data-pkg-price="deluxe"]')
     };
 
+    if (priceElements.coffee) priceElements.coffee.textContent = formatMoney(economics.pkg.coffee);
     if (priceElements.soda) priceElements.soda.textContent = formatMoney(economics.pkg.soda);
     if (priceElements.refresh) priceElements.refresh.textContent = formatMoney(economics.pkg.refresh);
     if (priceElements.deluxe) priceElements.deluxe.textContent = formatMoney(economics.pkg.deluxe);
@@ -490,43 +492,116 @@ function renderPackageCards(results) {
 /* ==================== INLINE PRICE EDITING ==================== */
 
 /**
- * ✅ v1.002.000: Keyboard accessible inline editing
+ * ✅ v1.003.000: Mobile-friendly stepper buttons + keyboard accessible inline editing
  */
 function setupInlinePriceEditing() {
   const priceElements = document.querySelectorAll('[data-edit-price]');
 
+  // Step increments by package type
+  const stepAmounts = {
+    coffee: 1,    // $1 increments for coffee card (~$31)
+    soda: 1,      // $1 increments for soda (~$14/day)
+    refresh: 2,   // $2 increments for refreshment (~$34/day)
+    deluxe: 5     // $5 increments for deluxe (~$85/day)
+  };
+
   priceElements.forEach(element => {
     const packageKey = element.dataset.editPrice;
+    const step = stepAmounts[packageKey] || 1;
+    const parent = element.parentElement;
 
+    // Skip if already wrapped
+    if (parent.classList.contains('price-stepper')) return;
+
+    // Create stepper wrapper
+    const wrapper = document.createElement('div');
+    wrapper.className = 'price-stepper';
+    wrapper.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;';
+
+    // Create minus button
+    const minusBtn = document.createElement('button');
+    minusBtn.type = 'button';
+    minusBtn.className = 'stepper-btn stepper-minus';
+    minusBtn.innerHTML = '−';
+    minusBtn.style.cssText = 'min-width:44px;min-height:44px;font-size:1.5rem;font-weight:bold;border:2px solid #ccc;border-radius:8px;background:#f5f5f5;color:#333;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;user-select:none;';
+    minusBtn.setAttribute('aria-label', `Decrease ${packageKey} price by $${step}`);
+
+    // Create plus button
+    const plusBtn = document.createElement('button');
+    plusBtn.type = 'button';
+    plusBtn.className = 'stepper-btn stepper-plus';
+    plusBtn.innerHTML = '+';
+    plusBtn.style.cssText = 'min-width:44px;min-height:44px;font-size:1.5rem;font-weight:bold;border:2px solid #ccc;border-radius:8px;background:#f5f5f5;color:#333;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;user-select:none;';
+    plusBtn.setAttribute('aria-label', `Increase ${packageKey} price by $${step}`);
+
+    // Style the price element
     element.style.cursor = 'pointer';
     element.style.borderBottom = '1px dashed rgba(0,0,0,0.3)';
-    element.title = 'Click or press Enter to edit price';
-    element.tabIndex = 0; // ✅ Make keyboard focusable
+    element.style.padding = '4px 8px';
+    element.style.minWidth = '70px';
+    element.style.textAlign = 'center';
+    element.title = 'Tap to edit exact price';
+    element.tabIndex = 0;
     element.setAttribute('role', 'button');
-    element.setAttribute('aria-label', `Edit ${packageKey} package price. Current value: ${element.textContent}`);
+    element.setAttribute('aria-label', `Edit ${packageKey} package price. Current value: ${element.textContent}. Tap to enter exact amount.`);
 
+    // Stepper button handlers
+    const adjustPrice = (delta) => {
+      const currentValue = parseFloat(element.textContent.replace(/[^0-9.]/g, '')) || 0;
+      const newValue = Math.max(5, Math.min(150, currentValue + delta)); // Clamp between $5 and $150
+
+      if (window.ITW && window.ITW.updatePackagePrice) {
+        const success = window.ITW.updatePackagePrice(packageKey, newValue);
+        if (success && window.renderAll) {
+          renderAll();
+          element.setAttribute('aria-label', `Edit ${packageKey} package price. Current value: $${newValue.toFixed(2)}. Tap to enter exact amount.`);
+          announce(`${packageKey} price: $${newValue.toFixed(2)}`);
+        }
+      }
+    };
+
+    minusBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      adjustPrice(-step);
+    });
+
+    plusBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      adjustPrice(step);
+    });
+
+    // Add touch feedback
+    [minusBtn, plusBtn].forEach(btn => {
+      btn.addEventListener('touchstart', () => { btn.style.background = '#e0e0e0'; }, { passive: true });
+      btn.addEventListener('touchend', () => { btn.style.background = '#f5f5f5'; }, { passive: true });
+      btn.addEventListener('mousedown', () => { btn.style.background = '#e0e0e0'; });
+      btn.addEventListener('mouseup', () => { btn.style.background = '#f5f5f5'; });
+      btn.addEventListener('mouseleave', () => { btn.style.background = '#f5f5f5'; });
+    });
+
+    // Click-to-edit for precise values (existing functionality)
     const activateEdit = () => {
       const currentText = element.textContent;
       const currentValue = parseFloat(currentText.replace(/[^0-9.]/g, ''));
 
       const input = document.createElement('input');
-      input.type = 'text';
+      input.type = 'number';
+      input.inputMode = 'decimal';
       input.value = currentValue;
-      input.style.width = '80px';
-      input.style.fontSize = 'inherit';
-      input.style.fontFamily = 'inherit';
-      input.style.border = '2px solid #007bff';
-      input.style.borderRadius = '4px';
-      input.style.padding = '2px 6px';
+      input.min = '5';
+      input.max = '150';
+      input.step = '0.01';
+      input.style.cssText = 'width:80px;font-size:inherit;font-family:inherit;border:2px solid #007bff;border-radius:4px;padding:4px 6px;text-align:center;';
       input.setAttribute('aria-label', `Edit ${packageKey} package price`);
 
       const save = () => {
-        const newValue = input.value;
+        const newValue = parseFloat(input.value) || currentValue;
         if (window.ITW && window.ITW.updatePackagePrice) {
           const success = window.ITW.updatePackagePrice(packageKey, newValue);
           if (success && window.renderAll) {
-            announce(`${packageKey} package price updated to $${newValue}`);
+            announce(`${packageKey} package price updated to $${newValue.toFixed(2)}`);
             renderAll();
+            element.setAttribute('aria-label', `Edit ${packageKey} package price. Current value: $${newValue.toFixed(2)}. Tap to enter exact amount.`);
           } else {
             element.textContent = currentText;
           }
@@ -535,8 +610,8 @@ function setupInlinePriceEditing() {
 
       input.addEventListener('blur', save);
       input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') save();
-        else if (e.key === 'Escape') element.textContent = currentText;
+        if (e.key === 'Enter') { e.preventDefault(); save(); }
+        else if (e.key === 'Escape') { element.textContent = currentText; }
       });
 
       element.textContent = '';
@@ -545,19 +620,26 @@ function setupInlinePriceEditing() {
       input.select();
     };
 
-    // ✅ Click handler
-    element.addEventListener('click', activateEdit);
+    element.addEventListener('click', (e) => {
+      e.stopPropagation();
+      activateEdit();
+    });
 
-    // ✅ Keyboard handler
     element.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         activateEdit();
       }
     });
+
+    // Wrap element with stepper buttons
+    parent.insertBefore(wrapper, element);
+    wrapper.appendChild(minusBtn);
+    wrapper.appendChild(element);
+    wrapper.appendChild(plusBtn);
   });
 
-  console.log('[UI] ✓ Inline price editing enabled (keyboard accessible)');
+  console.log('[UI] ✓ Inline price editing with mobile steppers enabled');
 }
 
 /* ==================== QUIZ MODAL ==================== */

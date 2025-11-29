@@ -374,7 +374,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const coffeeCards = clamp(inputs.coffeeCards || 0, 0, 10);
   const coffeePunches = clamp(inputs.coffeePunches || 0, 0, 5);
 
-  const pkgSoda = toNum(economics.pkg?.soda || 13.99);
+  const pkgSoda = toNum(economics.pkg?.soda || 10.99);
   const pkgRefresh = toNum(economics.pkg?.refresh || 34.0);
   const pkgDeluxe = toNum(economics.pkg?.deluxe || 85.0);
   const coffeeCardPrice = toNum(economics.pkg?.coffee || 31.0); // CRITICAL FIX v1.003.002

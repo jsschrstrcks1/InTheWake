@@ -1,9 +1,11 @@
 /**
  * Royal Caribbean Drink Calculator — Package Selection Feature
- * Version: 1.003.000
+ * Version: 1.004.000
  *
- * NEW FEATURE: Interactive clickable package cards
- * User can click any package to see costs with that specific package
+ * FEATURES:
+ * - Interactive clickable package cards
+ * - Delta comparison vs recommended package
+ * - Break-even drink count messaging
  *
  * "Whatever you do, work at it with all your heart, as working for the Lord"
  * — Colossians 3:23
@@ -21,6 +23,10 @@
     // Current state
     userSelectedPackage: null, // null = show recommendation, 'soda'/'refresh'/'deluxe' = forced
 
+    // Cache recommended results for delta comparison
+    recommendedResults: null,
+    recommendedBars: null,
+
     /**
      * Initialize package selection feature
      * Call this after DOM is ready and packages are rendered
@@ -29,7 +35,30 @@
 
       this.attachCardListeners();
       this.attachResetListener();
+      this.attachResultsListener();
 
+    },
+
+    /**
+     * Listen for calculation results to cache recommended values
+     */
+    attachResultsListener: function() {
+      // Listen for calc updates to cache recommended results
+      document.addEventListener('itw:calc-updated', () => {
+        // Only cache if we're in auto-recommend mode
+        if (!this.userSelectedPackage && window.ITW?.store) {
+          const results = window.ITW.store.get('results');
+          if (results && results.bars) {
+            this.recommendedResults = {
+              winnerKey: results.winnerKey,
+              bars: JSON.parse(JSON.stringify(results.bars)),
+              perDay: results.perDay,
+              trip: results.trip
+            };
+            console.log('[Package Selection] Cached recommended:', this.recommendedResults.winnerKey);
+          }
+        }
+      });
     },
 
     /**
@@ -172,7 +201,7 @@
     },
 
     /**
-     * Show selection status banner
+     * Show selection status banner with delta comparison
      */
     showSelectionStatus: function(packageType) {
       let status = document.getElementById('package-selector-status');
@@ -184,6 +213,7 @@
         status.className = 'selector-status';
         status.setAttribute('role', 'status');
         status.setAttribute('aria-live', 'polite');
+        status.style.cssText = 'background:linear-gradient(135deg,#e3f2fd,#bbdefb);border:2px solid #2196f3;border-radius:12px;padding:1rem 1.25rem;margin:1rem 0;';
 
         // Insert before results or at top of calculator
         const results = document.getElementById('results');
@@ -194,19 +224,26 @@
         }
       }
 
+      // Calculate delta if we have cached recommended results
+      const deltaHTML = this.calculateDeltaHTML(packageType);
+
       // Populate content
       status.innerHTML = `
-        <div class="selector-content">
-          <span class="selector-icon" aria-hidden="true">📊</span>
-          <span class="selector-text">
-            Viewing costs with: <strong id="selected-package-name">${this.formatPackageName(packageType)}</strong>
-          </span>
-          <button id="reset-to-recommendation" 
-                  class="btn-reset"
-                  type="button"
-                  aria-label="Reset to recommended package">
-            ↺ Show Recommendation
-          </button>
+        <div class="selector-content" style="display:flex;flex-direction:column;gap:0.75rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+            <span style="font-size:1rem;">
+              <span aria-hidden="true">📊</span>
+              Viewing: <strong style="color:#1565c0;">${this.formatPackageName(packageType)}</strong>
+            </span>
+            <button id="reset-to-recommendation"
+                    class="btn-reset"
+                    type="button"
+                    style="background:#fff;border:1px solid #1976d2;color:#1976d2;padding:0.4rem 0.75rem;border-radius:6px;cursor:pointer;font-size:0.9rem;"
+                    aria-label="Reset to recommended package">
+              ↺ Show Best Value
+            </button>
+          </div>
+          ${deltaHTML}
         </div>
       `;
 
@@ -214,6 +251,99 @@
 
       // Re-attach reset listener (since we just recreated the button)
       this.attachResetListener();
+    },
+
+    /**
+     * Calculate delta HTML for comparison messaging
+     */
+    calculateDeltaHTML: function(selectedPackage) {
+      if (!this.recommendedResults || !this.recommendedResults.bars) {
+        return '<p style="margin:0;font-size:0.9rem;color:#555;">Calculating comparison...</p>';
+      }
+
+      const recKey = this.recommendedResults.winnerKey;
+      const bars = this.recommendedResults.bars;
+
+      // Get costs for comparison
+      const recCost = bars[recKey]?.mean || 0;
+      const selectedCost = bars[selectedPackage]?.mean || 0;
+      const delta = selectedCost - recCost;
+
+      // Get days from state for per-day calculation
+      const days = window.ITW?.store?.get('inputs')?.days || 7;
+      const deltaPerDay = delta / days;
+
+      // If selected IS the recommended, show that
+      if (selectedPackage === recKey || Math.abs(delta) < 0.01) {
+        return `
+          <div style="background:#e8f5e9;border-radius:8px;padding:0.75rem;border-left:4px solid #4caf50;">
+            <p style="margin:0;font-size:0.95rem;color:#2e7d32;">
+              <strong>✓ This is the best value</strong> based on your drinking habits!
+            </p>
+          </div>
+        `;
+      }
+
+      // Calculate break-even drinks needed
+      const breakEvenHTML = this.calculateBreakEvenHTML(selectedPackage, recKey, delta, days);
+
+      if (delta > 0) {
+        // Selected costs MORE than recommended
+        return `
+          <div style="background:#fff3e0;border-radius:8px;padding:0.75rem;border-left:4px solid #ff9800;">
+            <p style="margin:0 0 0.5rem 0;font-size:0.95rem;color:#e65100;">
+              <strong>+$${delta.toFixed(2)} more</strong> than ${this.formatPackageName(recKey)}
+              <span style="color:#666;">(+$${deltaPerDay.toFixed(2)}/day)</span>
+            </p>
+            ${breakEvenHTML}
+          </div>
+        `;
+      } else {
+        // Selected costs LESS (unusual case - maybe they picked a cheaper option)
+        return `
+          <div style="background:#e8f5e9;border-radius:8px;padding:0.75rem;border-left:4px solid #4caf50;">
+            <p style="margin:0;font-size:0.95rem;color:#2e7d32;">
+              <strong>$${Math.abs(delta).toFixed(2)} less</strong> than ${this.formatPackageName(recKey)}!
+              But the recommended package better matches your drink selections.
+            </p>
+          </div>
+        `;
+      }
+    },
+
+    /**
+     * Calculate break-even drinks needed to justify the more expensive package
+     */
+    calculateBreakEvenHTML: function(selectedPackage, recPackage, delta, days) {
+      // Typical drink prices for break-even calculations
+      const drinkPrices = {
+        'soda': { name: 'sodas', price: 3.50 },
+        'refresh': { name: 'specialty coffees', price: 4.50 },
+        'deluxe': { name: 'cocktails', price: 13.00 }
+      };
+
+      // What drink type would justify upgrading?
+      let upgradeItem = drinkPrices.refresh; // default
+
+      if (selectedPackage === 'deluxe') {
+        upgradeItem = drinkPrices.deluxe;
+      } else if (selectedPackage === 'refresh') {
+        upgradeItem = drinkPrices.refresh;
+      } else if (selectedPackage === 'soda') {
+        upgradeItem = drinkPrices.soda;
+      }
+
+      const drinksNeeded = Math.ceil(delta / upgradeItem.price);
+      const drinksPerDay = (drinksNeeded / days).toFixed(1);
+
+      if (drinksNeeded <= 0) return '';
+
+      return `
+        <p style="margin:0;font-size:0.875rem;color:#666;">
+          💡 <em>To make this worth it, you'd need about <strong>${drinksNeeded} more ${upgradeItem.name}</strong>
+          over your trip (~${drinksPerDay}/day)</em>
+        </p>
+      `;
     },
 
     /**
@@ -286,6 +416,8 @@
      */
     formatPackageName: function(type) {
       const names = {
+        'alc': 'À la carte (no package)',
+        'coffee': 'Coffee Card only',
         'soda': 'Soda Package',
         'refresh': 'Refreshment Package',
         'deluxe': 'Deluxe Beverage Package'
