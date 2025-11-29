@@ -63,6 +63,23 @@ Soli Deo Gloria
     .poignant-highlight { background: linear-gradient(135deg, #f0f9ff 0%, #e6f4f8 100%); border-left: 4px solid var(--accent, #0e6e8e); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; font-style: italic; }
     .port-section { margin: 2rem 0; padding: 1.25rem; background: #f7fdff; border-radius: 12px; border: 1px solid #e0f0f5; }
     .port-section h3 { margin-top: 0; color: var(--sea, #0a3d62); }
+  
+    .author-card-vertical {
+      text-align: center;
+    }
+    .author-card-vertical .author-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+    }
+    .author-card-vertical h4 {
+      margin: 0.5rem 0 0.25rem;
+    }
+    .author-card-vertical p {
+      margin: 0.25rem 0;
+    }
   </style>
 </head>
 <body class="page">
@@ -178,17 +195,19 @@ Soli Deo Gloria
     </article>
   </div>
   <aside class="rail" style="grid-column: 2;">
-    <section class="card">
-      <h3>About the Author</h3>
-      <div class="author-info" style="display: flex; gap: 1rem; align-items: flex-start;">
-        <a href="/authors/ken-baker.html" style="flex-shrink: 0;">
-          <img src="/authors/img/ken1_96_96.webp" srcset="/authors/img/ken1_96_96.webp 1x, /authors/img/ken1_96_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-        </a>
-        <div>
-          <h4 style="margin: 0 0 0.25rem;"><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-          <p style="margin: 0; font-size: 0.85rem; color: #666;">Founder of In the Wake. 50+ sailings and counting.</p>
-        </div>
-      </div>
+        <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
     </section>
 
     <section class="card">
