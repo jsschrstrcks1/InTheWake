@@ -921,8 +921,8 @@ function renderNudges(nudges) {
 }
 
 /**
- * ✅ NEW v1.006.000: Cost Comparison Summary Card
- * Shows total cost for each package option with savings/overspend
+ * ✅ v1.007.000: Cost Comparison Summary Card with Transparent Breakdown
+ * Shows: Package Cost (fixed) + Uncovered Drinks = Total
  */
 function renderCostSummary(results) {
   const card = document.getElementById('cost-summary-card');
@@ -943,6 +943,9 @@ function renderCostSummary(results) {
   const refreshCost = results.bars.refresh?.mean || 0;
   const deluxeCost = results.bars.deluxe?.mean || 0;
 
+  // Get package breakdown (NEW v1.008.000)
+  const breakdown = results.packageBreakdown || {};
+
   // Find cheapest option
   const costs = [
     { key: 'alc', cost: alcCost },
@@ -952,7 +955,7 @@ function renderCostSummary(results) {
   ];
   const cheapest = costs.reduce((min, curr) => curr.cost < min.cost ? curr : min, costs[0]);
 
-  // Build options array
+  // Build options array with breakdown info
   const options = [
     {
       key: 'alc',
@@ -967,21 +970,24 @@ function renderCostSummary(results) {
       icon: '🥤',
       title: 'Soda Package',
       subtitle: 'Fountain sodas & Coca-Cola Freestyle',
-      cost: sodaCost
+      cost: sodaCost,
+      breakdown: breakdown.soda
     },
     {
       key: 'refresh',
       icon: '☕',
       title: 'Refreshment Package',
       subtitle: 'All non-alcoholic specialty drinks',
-      cost: refreshCost
+      cost: refreshCost,
+      breakdown: breakdown.refresh
     },
     {
       key: 'deluxe',
       icon: '🍹',
       title: 'Deluxe Package',
       subtitle: 'Everything including alcohol',
-      cost: deluxeCost
+      cost: deluxeCost,
+      breakdown: breakdown.deluxe
     }
   ];
 
@@ -1015,6 +1021,39 @@ function renderCostSummary(results) {
       }
     }
 
+    // NEW v1.007.000: Transparent breakdown showing fixed vs uncovered costs
+    let breakdownHTML = '';
+    if (option.breakdown && !option.baseline) {
+      const fixed = option.breakdown.fixedCost || 0;
+      const uncovered = option.breakdown.uncoveredCost || 0;
+      const dailyRate = option.breakdown.dailyRate || 0;
+      const days = option.breakdown.days || 7;
+      const people = option.breakdown.people || 1;
+
+      if (uncovered > 0.01) {
+        // Has uncovered drinks - show full breakdown
+        breakdownHTML = `
+          <div class="cost-breakdown" style="font-size:0.8rem;color:#666;margin-top:4px;line-height:1.4;">
+            <div style="display:flex;justify-content:space-between;">
+              <span>Package (${formatMoney(dailyRate)}/day × ${days}d × ${people}p):</span>
+              <span style="font-weight:500;">${formatMoney(fixed)}</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;color:#d32f2f;">
+              <span>+ Uncovered drinks:</span>
+              <span style="font-weight:500;">+${formatMoney(uncovered)}</span>
+            </div>
+          </div>
+        `;
+      } else {
+        // No uncovered drinks - just show package calculation
+        breakdownHTML = `
+          <div class="cost-breakdown" style="font-size:0.8rem;color:#666;margin-top:4px;">
+            <span>${formatMoney(dailyRate)}/day × ${days} days × ${people} ${people === 1 ? 'person' : 'people'}</span>
+          </div>
+        `;
+      }
+    }
+
     row.innerHTML = `
       <div class="cost-option-left">
         <div class="cost-option-icon" aria-hidden="true">${option.icon}</div>
@@ -1025,6 +1064,7 @@ function renderCostSummary(results) {
       </div>
       <div class="cost-option-right">
         <div class="cost-option-price">${formatMoney(option.cost)}</div>
+        ${breakdownHTML}
         ${savingsHTML}
         ${option.key === cheapest.key ? '<div class="cost-option-badge">✓ Best Value</div>' : ''}
       </div>
@@ -1420,7 +1460,7 @@ window.ITW_UI = Object.freeze({
   renderHealthNote,
   renderCostSummary,
   announce,
-  version: '1.006.000' // ✅ UPDATED: Added cost summary card
+  version: '1.007.000' // ✅ UPDATED: Transparent package breakdown
 });
 
 window.applyPreset = applyPreset;
