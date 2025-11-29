@@ -368,7 +368,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 - ✅ Port pages: 147 total, 141 with LCP preload hints, 0 with under construction notices
 - ✅ Ship pages: 50 total, all with responsive hero logo, all using WebP in meta tags
 - ✅ Ship cards redesign COMPLETE (item-cards.css v1.0.0)
-- ✅ Port Tracker & Ship Tracker COMPLETE
+- ✅ Port Logbook & Ship Tracker COMPLETE
 - ✅ Hawaii port batch COMPLETE (5 ports)
 - ❌ REGRESSIONS: None found
 
@@ -416,28 +416,29 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Update article rails to match index.html pattern (currently outdated with just image + title, missing CTA and Read Article button)
 
 #### ships.html
+- [x] ✅ Has page-grid layout, right rail with Author Card + Recent Stories (verified 2025-11-29)
 - [x] ✅ Add right rail: At a Glance, Key Facts (verified present 2025-11-29)
 - [x] ✅ Combine duplicate "Royal Caribbean Fleet" sections (verified fixed 2025-11-29)
 - [x] ✅ Remove "Recent Stories" duplication (verified fixed 2025-11-29)
 - [ ] Use index.html pattern for Author and Article cards
 - [ ] Set all class sections to start closed EXCEPT Icon class
 - [ ] Hide/comment out "Ship layout" and "Where is the ship" sections
-- [ ] Rebuild author/article section based on index.html pattern
 - [ ] Fix logo sticking off top of viewable area
 
 #### restaurants-and-menus.html
+- [x] ✅ Has page-grid layout, right rail with Author Card + Recent Stories (verified 2025-11-29)
 - [x] ✅ Add right rail: Quick Answer, Key Facts, Best For (verified present 2025-11-29)
 - [ ] Use index.html pattern for Author and Article cards
 - [ ] Vary images (currently generic cloche on everything)
 - [ ] Standardize FAQ to match other pages' pattern
 - [ ] Cross-reference pass: ensure every venue links to page, mark missing pages
 - [ ] Move "114 venues loaded" message to beneath header hero OR beneath footer (current placement wrong)
-- [ ] Shred/replace article and author cards with index.html pattern
 - [ ] Fix logo sticking above viewable area (match planning pattern)
 
 #### ports.html (Port Index)
+- [x] ✅ Has page-grid layout, right rail with Author Card + Recent Stories (verified 2025-11-29)
 - [x] ✅ Add right rail: Quick Answer, Key Facts, Best For (verified present 2025-11-29)
-- [ ] Shred/replace existing author/article cards with index.html pattern
+- [ ] Update author/article cards to match index.html pattern
 - [ ] Cross-linking pass: link ports with HTML pages that aren't currently linked
 - [ ] Document ports mentioned but lacking pages → add to tasks
 - [ ] Fix logo sticking outside viewable area (match planning)
@@ -462,6 +463,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Standardize FAQ section to match other pages
 
 #### packing-lists.html
+- [x] ✅ HTML structure correct, ends at line 1101 with proper footer (verified 2025-11-29)
 - [x] ✅ FIX: Infinite scroll bug (fixed 2025-11-29)
 - [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
 - [ ] Update Author/Article cards to match index.html pattern
@@ -474,31 +476,37 @@ This archive is maintained additively - tasks are never removed from this sectio
 #### travel.html
 - [x] ✅ FIX: Hundreds of pages of dead space before footer (fixed 2025-11-29)
 - [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
+- [x] ✅ STANDARDIZED: CSS classes updated to page-grid/rail pattern (2025-11-29)
+- [x] ✅ HTML structure correct, ends at line 1696 with proper footer (verified 2025-11-29)
+- [x] ✅ Author card and Recent Stories rail present (verified 2025-11-29)
 - [ ] Update author/article cards to match index.html pattern
 - [ ] Fix divergent header hero shape (replicate planning)
 
 #### solo.html (Solo Cruising Index)
 - [x] ✅ FIX: Thousands of pages of blank space (fixed 2025-11-29)
 - [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
+- [x] ✅ Fragment loader exists and 7 article fragments present at /solo/articles/ (verified 2025-11-29)
+- [x] ✅ ADDED: Author card with Ken Baker (index.html pattern) to right rail (2025-11-29)
+- [x] ✅ ADDED: author-card-vertical CSS styles (2025-11-29)
 - [ ] INVESTIGATE: Article fragments not loading - propose fix
 - [ ] PREFER: Fix solo page frag loader (not the frags)
 - [ ] IF frags carelessly altered: restore to frag format
-- [ ] Update author card to index.html pattern, add Tina after Ken
+- [ ] Add Tina to author card after Ken
 - [ ] Article rail should call fragments (not full articles)
 - [ ] SEO: Direct to full articles in /solo/ (not frags in /solo/articles/)
 - [ ] FIX: Find and kill CSS filter making hero muted colors (want vibrant like index.html)
 - [ ] Move FAQ under main content (not on right rail)
 
 #### tools/port-tracker.html (Port Tracker)
+- [x] ✅ FIX BROKEN: No ports populate regardless of click (fixed JSON syntax errors in PORTS_DB 2025-11-29)
 - [ ] **ADD ICP-Lite:** Quick Answer, Best For, Key Facts
 - [ ] Add Author and Article cards (index.html pattern)
-- [ ] FIX BROKEN: No ports populate regardless of click
 - [ ] Expand to encompass all RCL ports
 - [ ] Add wiring for future cruise line expansion
 
-#### Ship Tracker / Port Tracker (Navigation)
+#### Ship Tracker / Port Logbook (Navigation)
 - [x] SITE-WIDE: Rename "Ship Tracker" → "Ship Logbook" in nav ✅ DONE 2025-11-28
-- [ ] SITE-WIDE: Rename "Port Tracker" → "Port Logbook" in nav
+- [x] SITE-WIDE: Rename "Port Tracker" → "Port Logbook" in nav ✅ DONE 2025-11-29
 
 #### tools/ship-tracker.html
 - [ ] **ADD ICP-Lite:** Quick Answer, Best For, Key Facts

@@ -1,11 +1,11 @@
-# Port Tracker & Site Expansion Roadmap
+# Port Logbook & Site Expansion Roadmap
 
 **Last Updated:** November 22, 2025  
-**Status:** Port Tracker Complete with Analytics | Ship Tracker & Missing Ports Planned
+**Status:** Port Logbook Complete with Analytics | Ship Tracker & Missing Ports Planned
 
 ---
 
-## ✅ COMPLETED: Port Tracker Tool
+## ✅ COMPLETED: Port Logbook Tool
 
 ### Core Features (Complete)
 - [x] Interactive checklist of all 142 cruise ports
@@ -134,7 +134,7 @@
 ## 🚢 NEXT FEATURE: SHIP TRACKER
 
 ### Concept
-Companion tool to Port Tracker: "Which Royal Caribbean Ships Have You Sailed On?"
+Companion tool to Port Logbook: "Which Royal Caribbean Ships Have You Sailed On?"
 
 ### Features (Planned)
 
@@ -172,7 +172,7 @@ Companion tool to Port Tracker: "Which Royal Caribbean Ships Have You Sailed On?
 - [ ] Search ships by name
 - [ ] Sort by size, capacity, year
 
-#### Integration with Port Tracker
+#### Integration with Port Logbook
 - [ ] **Cross-reference:** "Show ports visited by ships I've sailed"
 - [ ] **Combined stats:** "I've sailed X ships to Y ports across Z countries"
 - [ ] **Mega achievements:** "Complete Caribbean Cruise Master" (sail Caribbean on 3+ ships, visit 15+ Caribbean ports)
@@ -473,7 +473,7 @@ Mostly homeports (less useful for port guides):
 
 ## 🎯 SUCCESS METRICS
 
-### Port Tracker KPIs
+### Port Logbook KPIs
 - **Adoption:** 10%+ of site visitors use tracker
 - **Engagement:** Average 15+ ports checked per user
 - **Conversion:** 20%+ click port links → guide pages
@@ -498,13 +498,13 @@ Mostly homeports (less useful for port guides):
 ## 📅 RECOMMENDED TIMELINE
 
 ### Immediate (Next Session)
-1. **Ship Tracker** - Build companion tool to Port Tracker
+1. **Ship Tracker** - Build companion tool to Port Logbook
 2. **Hawaii Batch** - Create 5 Hawaiian port pages (highest priority gap)
 
 ### Short-term (Next 2-4 weeks)
 3. **Middle East Batch** - 4 Gulf ports
 4. **Caribbean Completion** - 8-10 missing Caribbean ports
-5. **Port Tracker Enhancements** - Based on analytics data
+5. **Port Logbook Enhancements** - Based on analytics data
 
 ### Medium-term (1-3 months)
 6. **Asia Expansion Batch 1** - Major ports (Osaka, Busan, Taipei, etc.)

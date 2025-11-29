@@ -1026,7 +1026,7 @@ python3 comprehensive_site_audit.py
 9. [ ] NO "under construction" notices
 10. [ ] Test HTML validation
 11. [ ] Test accessibility
-12. [ ] Update Port Tracker database (if not already listed)
+12. [ ] Update Port Logbook database (if not already listed)
 13. [ ] Update UNFINISHED_TASKS.md (mark port complete)
 14. [ ] Commit: `FEAT: Add <Port Name> port page`
 
