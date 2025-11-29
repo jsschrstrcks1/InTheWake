@@ -1,14 +1,3 @@
-Here’s the full .md text with the pastoral guardrail tightened the way we discussed, including:
-	•	Stronger “Ken = default I” language
-	•	No alcohol imagery of you
-	•	A calculators/planning-tools clause
-	•	The “neither directly nor implied” fix + extra guidance
-	•	A QA checkbox under §17
-
-You can paste this straight over your existing file.
-
-⸻
-
 
 # In the Wake — Unified Modular Standards (Superset v3.007.010)
 
