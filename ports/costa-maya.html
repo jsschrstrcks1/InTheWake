@@ -99,17 +99,18 @@ All work on this project is offered as a gift to God.
     .author-card-vertical h4 { margin: 0.5rem 0 0.25rem; }
     .author-card-vertical p { margin: 0.25rem 0; }
 
-    /* Port Hero Section - Mexico flag colors */
+    /* Port Hero Section */
     .port-hero {
       position: relative;
       height: 280px;
-      background: linear-gradient(90deg, #006847 0%, #006847 33%, #ffffff 33%, #ffffff 67%, #ce1126 67%, #ce1126 100%);
       border-radius: 16px;
       overflow: hidden;
       margin-bottom: 1.5rem;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
+    }
+    .port-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .port-hero-overlay {
       position: absolute;
@@ -128,6 +129,37 @@ All work on this project is offered as a gift to God.
       margin: 0;
       font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
       letter-spacing: 0.02em;
+    }
+
+    /* Inline Images */
+    .inline-image {
+      float: right;
+      width: 45%;
+      max-width: 320px;
+      margin: 0 0 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+    .inline-image-left {
+      float: left;
+      width: 45%;
+      max-width: 320px;
+      margin: 0 1.5rem 1rem 0;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    @media (max-width: 768px) {
+      .inline-image, .inline-image-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
     }
 
     /* At a Glance Card */
@@ -249,6 +281,7 @@ All work on this project is offered as a gift to God.
 
     <div style="grid-column: 1;">
       <div class="port-hero">
+        <img src="/ports/img/costamaya/port-signpost.jpg" alt="Costa Maya port signpost with colorful direction signs pointing to Miami, Cuba, Roatan, Belize, and other Caribbean destinations" loading="eager"/>
         <div class="port-hero-overlay">
           <h1 class="port-hero-title">Costa Maya</h1>
         </div>
@@ -264,7 +297,12 @@ All work on this project is offered as a gift to God.
         <div class="logbook-entry">
           <p>We woke up to turquoise water so bright it looked Photoshopped. The ship docks at a purpose-built cruise village on the southern coast of Mexico's Quintana Roo state — far from the tourist madness of Cancun and even calmer than Cozumel. This is the "other" Mexican Riviera, and it's become one of my favorite Western Caribbean stops.</p>
 
-          <p>The cruise port itself is impressive in a Vegas-on-the-beach kind of way: swimming pools, artificial islands, a dolphin encounter, flamingos wandering the grounds, and more jewelry shops than you could visit in a week. But here's the secret — <strong>skip all of it</strong>. The real Costa Maya is a 10-minute taxi ride south in the fishing village of <strong>Mahahual</strong> (pronounced mah-hah-WAHL).</p>
+          <div class="clearfix">
+            <img class="inline-image" src="/ports/img/costamaya/harp-musician.jpg" alt="Local harp musician in white traditional clothing playing on the Costa Maya pier with palm trees and turquoise water behind him" loading="lazy"/>
+            <p>The cruise port itself is impressive in a Vegas-on-the-beach kind of way: swimming pools, artificial islands, a dolphin encounter, flamingos wandering the grounds, and more jewelry shops than you could visit in a week. What I love most about the welcome here is the music — you might find a traditional harpist in white guayabera playing jarocho melodies right on the pier, palm trees swaying behind him and that impossible turquoise water sparkling in the sun. It's the kind of authentic Mexican moment that reminds you this isn't just another port.</p>
+          </div>
+
+          <p>But here's the secret — <strong>skip the port complex</strong>. The real Costa Maya is a 10-minute taxi ride south in the fishing village of <strong>Mahahual</strong> (pronounced mah-hah-WAHL).</p>
 
           <div class="poignant-highlight">
             <strong>The Moment That Stays With Me:</strong> Floating face-down above a hawksbill turtle the size of a coffee table, watching it graze on seagrass in absolute silence — the only sound my own breath through the snorkel and the distant crunch-crunch of parrotfish biting coral. This was 50 feet from shore, no boat required, and it felt like I'd slipped into a nature documentary.
@@ -274,7 +312,10 @@ All work on this project is offered as a gift to God.
 
           <p>We spent the morning snorkeling at <strong>Maya Chan</strong>, one of several beach clubs that offer all-inclusive packages. Within five minutes of wading in, I was floating above brain coral the size of dining tables, schools of electric-blue tangs, and a curious 3-foot barracuda that shadowed us like a bodyguard. The reef here is stupidly healthy — purple sea fans waving like flags, giant parrotfish crunching coral with audible bites, and visibility that stretched 80+ feet on a calm day.</p>
 
-          <p>Lunch was the freshest <strong>ceviche</strong> of my life — grouper caught that morning, mixed with lime, cilantro, jalapeño, and enough habanero to make my lips tingle for an hour. We washed it down with ice-cold <strong>micheladas</strong> served in cups rimmed with tajín (that magical Mexican chili-lime salt). Then we claimed a palapa for the afternoon and did absolutely nothing except float, read, and watch pelicans dive-bomb the shallows.</p>
+          <div class="clearfix">
+            <img class="inline-image-left" src="/ports/img/costamaya/krazy-lobster.jpg" alt="The Krazy Lobster Restaurant Bar and Grill sign in Mahahual with a cartoon lobster mascot welcoming visitors" loading="lazy"/>
+            <p>Lunch in Mahahual is where the magic happens. Skip the cruise port restaurants and head to local spots like <strong>The Krazy Lobster</strong> — a no-frills beach bar that serves some of the best lobster I've had in the Caribbean. The hand-painted sign says "Bienvenidos Welcome" and they mean it. Order the whole grilled lobster with garlic butter, or try the freshest <strong>ceviche</strong> of your life — grouper caught that morning, mixed with lime, cilantro, jalapeño, and enough habanero to make your lips tingle for an hour. Wash it down with ice-cold <strong>micheladas</strong> rimmed with tajín (that magical Mexican chili-lime salt). Then claim a palapa for the afternoon and do absolutely nothing except float, read, and watch pelicans dive-bomb the shallows.</p>
+          </div>
 
           <p>On a different visit, we skipped the beach entirely and headed inland to <strong>Chacchoben</strong> (pronounced cha-CHO-ben), a Mayan archaeological site about 45 minutes away. Unlike the massive crowds at Tulum or Chichen Itza, Chacchoben feels like a secret. We climbed pyramids with howler monkeys roaring in the jungle canopy above us. The original red paint is still visible under the moss on Temple 24 — 1,400 years old and properly Indiana Jones. Our guide explained the astronomical alignments while spider monkeys swung through the trees overhead.</p>
 
@@ -320,6 +361,10 @@ All work on this project is offered as a gift to God.
           <p><strong>Q: Can you walk from the cruise port to the beach?</strong><br/>
           A: Not really — Mahahual is about 10 minutes by taxi. Walking would take 30–40 minutes in tropical heat. Just grab a cab.</p>
         </section>
+
+        <p class="tiny" style="margin-top: 1rem; color: #678; font-style: italic;">
+          Photos: © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
       </article>
 
       <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
