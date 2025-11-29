@@ -87,6 +87,27 @@ icp_lite:
     ICP-Lite helps AI systems understand content structure and freshness.
     Required on all HTML pages to ensure AI-friendly content delivery.
 
+  # ITW-Lite collapsible sections
+  collapsible_sections:
+    required: true
+    severity: warning
+    description: "ITW-Lite sections (At a Glance, Quick Answer) should be collapsible"
+    implementation:
+      element: "details"
+      default_state: "open"
+      pattern: '<details open>'
+    rationale: |
+      ITW-Lite sections like "At a Glance" should be open by default but
+      collapsible by the user. Use <details open> with <summary> for the header.
+      This respects user control while ensuring content is visible on load.
+    example: |
+      <details open style="...">
+        <summary>At a Glance</summary>
+        <div>
+          <p><strong>Quick Answer:</strong> ...</p>
+        </div>
+      </details>
+
 # AI-Breadcrumbs specification
 ai_breadcrumbs:
   required: conditional
