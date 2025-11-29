@@ -254,6 +254,26 @@ All work on this project is offered as a gift to God.
     @media (max-width: 768px) {
 
     }
+  
+    /* Page Grid Layout */
+    .page-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 320px;
+      }
+    }
+    .rail { display: flex; flex-direction: column; gap: 1rem; }
+    .author-card-vertical { text-align: center; }
+    .author-card-vertical .author-avatar { width: 96px; height: 96px; border-radius: 12px; object-fit: cover; margin: 0 auto 1rem; }
+    .author-card-vertical h4 { margin: 0.5rem 0 0.25rem; }
+    .author-card-vertical p { margin: 0.25rem 0; }
+    .rail-list { display: grid; gap: 1rem; }
+
   </style>
 <script type="application/ld+json">
 {
@@ -405,7 +425,8 @@ All work on this project is offered as a gift to God.
 </div>
     </div></header>
 
-  <main class="wrap" id="content" tabindex="-1">
+  <main class="wrap page-grid" id="content" tabindex="-1">
+  <div>
     <!-- ICP-Lite Content Structure -->
     <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;">
       <h1>Grandeur Of The Seas</h1>
@@ -736,7 +757,21 @@ All work on this project is offered as a gift to God.
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
 
-</main>
+</div>
+
+    <aside class="rail" role="complementary" aria-label="Author & articles">
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html"><img class="author-avatar" src="/authors/img/ken1_96.webp" width="96" height="96" alt="Ken Baker" loading="lazy"/></a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      </section>
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      </section>
+    </aside>
+  </main>
 
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
@@ -1100,6 +1135,18 @@ All work on this project is offered as a gift to God.
   })();
   </script>
 
+
+  <script>
+  (async function(){
+    const rail = document.getElementById('recent-rail');
+    if(!rail) return;
+    try {
+      const res = await fetch('/assets/data/articles/index.json');
+      const articles = await res.json();
+      rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
+    } catch(e) {}
+  })();
+  </script>
 </body>
 </html>
 // /sw.js — In the Wake image cache (v0.8-stable)
