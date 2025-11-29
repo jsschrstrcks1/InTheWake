@@ -415,6 +415,17 @@ All work on this project is offered as a gift to God.
         </div>
       </details>
 
+    <!-- Nearby Ports Rail -->
+    <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
+      <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
+      <div style="padding: 1rem;">
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Other ports in this region:
+        </p>
+        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+      </div>
+    </details>
+
       <details class="card" open>
         <summary>Recent Stories</summary>
         <div class="card-content">
@@ -479,5 +490,9 @@ All work on this project is offered as a gift to God.
     })();
   })();
   </script>
+
+  <!-- Nearby Ports Script -->
+  <script>window.currentPortId = 'aruba';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
 </body>
 </html>
