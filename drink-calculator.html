@@ -462,6 +462,47 @@
       border: 2px solid #cbd5e1;
     }
 
+    /* Clickable cost comparison cards */
+    .cost-option-row:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-color: #0e6e8e;
+    }
+
+    .cost-option-row:active {
+      transform: translateY(0);
+    }
+
+    .cost-option-row:focus {
+      outline: 3px solid #0e6e8e;
+      outline-offset: 2px;
+    }
+
+    .cost-option-row.best-value:hover {
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Add tap hint */
+    .cost-option-row::after {
+      content: 'Tap to select';
+      display: block;
+      position: absolute;
+      right: 16px;
+      bottom: 4px;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .cost-option-row {
+      position: relative;
+    }
+
+    .cost-option-row:hover::after {
+      opacity: 1;
+    }
+
     .cost-option-left {
       display: flex;
       align-items: center;

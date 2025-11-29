@@ -1,11 +1,22 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1.008.000 (Transparent Package Breakdown)
+ * Version: 1.009.000 (Overcap Calculation Fix)
  *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  *
  * Soli Deo Gloria ✝️
+ *
+ * CHANGELOG v1.009.000:
+ * ✅ CRITICAL BUG FIX: Deluxe package overcap was calculated completely wrong!
+ *    - OLD (WRONG): overcap = (total_daily_alc_spend / adults) - $14
+ *      This treated $14 as a per-DAY cap, not per-DRINK cap!
+ *      With 4444 cocktails at $13: overcap = $57,772 - $14 = $57,758 (INSANE!)
+ *    - NEW (CORRECT): overcap = sum of (drink_price - $14) for drinks where price > $14
+ *      With 4444 cocktails at $13: overcap = $0 (all drinks under $14 cap!)
+ *    - This bug caused Deluxe to show hundreds of thousands of dollars
+ *    - Now correctly: cocktails at $13 are FULLY COVERED, $0 extra charge
+ *    - Premium drinks over $14 (like $18 whiskey) correctly charge the $4 difference
  *
  * CHANGELOG v1.008.000:
  * ✅ FEATURE: Added packageBreakdown to results for transparent cost display
@@ -517,9 +528,30 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // CRITICAL v1.003.000: Minors MUST buy Refreshment when adults buy Deluxe (Royal Caribbean policy)
   const deluxePkgWithMinors = deluxePkg + (minors > 0 ? (pkgRefresh * (1 + grat) * days * minors) : 0);
 
-  const alcPerDay = alcTotal / days;
-  const alcPerPerson = adults > 0 ? alcPerDay / adults : 0;
-  const overcap = Math.max(0, alcPerPerson - cap);
+  // CRITICAL FIX v1.009.000: Calculate overcap correctly per-drink, not per-day total!
+  // The $14 deluxe cap applies to INDIVIDUAL drinks, not daily totals!
+  // - Cocktail at $13 → fully covered by deluxe, $0 out of pocket
+  // - Premium whiskey at $18 → $4 out of pocket (18 - 14)
+  //
+  // OLD BUG: overcap = (total_daily_alc_spend / adults) - $14
+  //   With 4444 cocktails at $13: overcap = $57,772 - $14 = $57,758 (WRONG!)
+  //   This made deluxe package cost $57,858 instead of ~$105
+  //
+  // NEW FIX: overcap = sum of (drink_price - $14) for drinks where price > $14
+  //   With 4444 cocktails at $13: overcap = $0 (all drinks under cap!)
+  let drinkOvercapTotal = 0;
+  for (const row of categoryRows) {
+    if (sets.alcoholic.includes(row.id) && row.price > cap) {
+      // row.qty is drinks per adult per day, row.price is per-drink price
+      // Excess per drink = price - cap ($14)
+      // Total excess = excess_per_drink × qty × days × adults
+      const perDrinkExcess = row.price - cap;
+      drinkOvercapTotal += perDrinkExcess * row.qty * days * adults;
+    }
+  }
+
+  // For backwards compatibility, keep overcap as per-person per-day value for display
+  const overcap = drinkOvercapTotal > 0 ? round2(drinkOvercapTotal / (days * adults)) : 0;
 
   // CRITICAL FIX v1.004.000 + v1.005.000 + v1.006.000: Calculate TRUE total cost for each package option
   // Each package only covers certain drinks - uncovered drinks must be paid à la carte!
@@ -529,10 +561,9 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // - totalAlc includes coffee card purchase cost, which is only for à la carte option
   // - Packages COVER coffee, so you don't buy coffee cards with packages
   // - Using totalAlc incorrectly added coffee card cost to package totals
-  // - Example: With 2 coffee cards, was adding $73.16 - $67.50 = $5.66 to Refreshment package cost!
   const sodaTotalCost = sodaPkgWithMinors + (rawTotal - sodaTotal); // Soda pkg (all people) + all non-soda drinks à la carte
   const refreshTotalCost = refreshPkgWithMinors + (rawTotal - refreshTotal); // Refresh pkg (all people) + alcoholic drinks à la carte
-  const deluxeTotalCost = deluxePkgWithMinors + (overcap * days * adults); // Deluxe pkg + over-cap drinks
+  const deluxeTotalCost = deluxePkgWithMinors + drinkOvercapTotal; // Deluxe pkg + over-cap drinks (FIXED v1.009.000)
 
   console.log('[Math Engine] Package comparison (including uncovered drinks + minors):');
   console.log(`  À la carte: $${totalAlc.toFixed(2)} (raw: $${rawTotal.toFixed(2)}, coffee discount: $${coffeeDiscount.toFixed(2)}, coffee cards: $${coffeeCardCost.toFixed(2)})`);
@@ -541,7 +572,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   }
   console.log(`  Soda: $${sodaPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - sodaTotal).toFixed(2)} (uncovered) = $${sodaTotalCost.toFixed(2)}`);
   console.log(`  Refresh: $${refreshPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
-  console.log(`  Deluxe: $${deluxePkgWithMinors.toFixed(2)} (pkg: adults=${adults} deluxe, minors=${minors} refresh) + $${(overcap * days * adults).toFixed(2)} (over-cap) = $${deluxeTotalCost.toFixed(2)}`);
+  console.log(`  Deluxe: $${deluxePkgWithMinors.toFixed(2)} (pkg: adults=${adults} deluxe, minors=${minors} refresh) + $${drinkOvercapTotal.toFixed(2)} (over-cap) = $${deluxeTotalCost.toFixed(2)}`);
 
   // NEW v1.008.000: Package cost breakdown for transparent display
   // Shows: Fixed Package Cost + Uncovered Drinks = Total
@@ -564,7 +595,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     },
     deluxe: {
       fixedCost: deluxePkgWithMinors,
-      uncoveredCost: overcap * days * adults,
+      uncoveredCost: drinkOvercapTotal, // FIXED v1.009.000: Use correct per-drink overcap
       total: deluxeTotalCost,
       dailyRate: pkgDeluxe,
       days: days,
@@ -759,7 +790,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 if (typeof window !== 'undefined') {
   window.ITW_MATH = Object.freeze({
     compute,
-    version: '1.008.000'
+    version: '1.009.000'
   });
 
 
@@ -767,7 +798,7 @@ if (typeof window !== 'undefined') {
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
-    version: '1.008.000'
+    version: '1.009.000'
   });
 }
 

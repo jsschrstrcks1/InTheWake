@@ -831,3 +831,76 @@ html, body { overflow-x: hidden; }
 }
 
 /* ======================================================================== */
+
+/* ===== Collapsible Sections (Site-wide Component v3.011.000) ===== */
+/* Reusable collapsible panels for sidebars, sections, and accordions */
+
+.collapsible-section {
+  margin-bottom: 1rem;
+}
+
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0.75rem;
+  background: #f7fdff;
+  border-radius: 8px;
+  border: 1px solid #e0f0f5;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.collapsible-header:hover {
+  background: #e6f4f8;
+}
+
+.collapsible-header:focus {
+  outline: 3px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+}
+
+.collapsible-header h3,
+.collapsible-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--sea, #0a3d62);
+}
+
+.collapsible-toggle {
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+  color: #666;
+}
+
+.collapsible-section.collapsed .collapsible-toggle {
+  transform: rotate(-90deg);
+}
+
+.collapsible-content {
+  max-height: 2000px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s;
+  padding: 0.75rem 0;
+}
+
+.collapsible-section.collapsed .collapsible-content {
+  max-height: 0;
+  padding: 0;
+}
+
+/* Accessibility: indicate interactivity */
+.collapsible-header[role="button"] {
+  cursor: pointer;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .collapsible-toggle,
+  .collapsible-content {
+    transition: none;
+  }
+}
+
+/* ===== END Collapsible Sections ===== */
