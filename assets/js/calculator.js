@@ -89,7 +89,7 @@
       version: VERSION,
       rules: { gratuity: 0.18, deluxeCap: 14.0 },
       packages: {
-        soda: { priceMid: 13.99 },
+        soda: { priceMid: 10.99 },
         refreshment: { priceMid: 34.0 },
         deluxe: { priceMid: 85.0 }
       },
@@ -692,7 +692,7 @@
       }
     },
     economics: {
-      pkg: { soda: 13.99, refresh: 34.0, deluxe: 85.0, coffee: 31.0 },
+      pkg: { soda: 10.99, refresh: 34.0, deluxe: 85.0, coffee: 31.0 },
       grat: 0.18,
       deluxeCap: CONFIG.RULES.DELUXE_CAP_FALLBACK
     },
@@ -957,7 +957,7 @@
       if (fallback.packages) {
         const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
         economics.pkg = {
-          soda: getPkgPrice(fallback.packages.soda) || 13.99,
+          soda: getPkgPrice(fallback.packages.soda) || 10.99,
           refresh: getPkgPrice(fallback.packages.refreshment) || 34.0,
           deluxe: getPkgPrice(fallback.packages.deluxe) || 85.0
         };
