@@ -1070,10 +1070,36 @@ function renderCostSummary(results) {
       </div>
     `;
 
-    row.setAttribute('role', 'article');
+    // Make cost comparison cards clickable for package selection
+    row.setAttribute('role', 'button');
+    row.setAttribute('tabindex', '0');
+    row.setAttribute('data-package', option.key);
+    row.style.cursor = 'pointer';
     row.setAttribute('aria-label',
-      `${option.title}: ${formatMoney(option.cost)} total${option.key === cheapest.key ? '. Best value option' : ''}`
+      `${option.title}: ${formatMoney(option.cost)} total${option.key === cheapest.key ? '. Best value option' : ''}. Click to calculate with this option.`
     );
+
+    // Click handler to select this package
+    row.addEventListener('click', () => {
+      if (window.PackageSelection && option.key !== 'alc') {
+        window.PackageSelection.selectPackage(option.key);
+      } else if (option.key === 'alc' && window.PackageSelection) {
+        // Reset to recommendation for à la carte
+        window.PackageSelection.resetToRecommendation();
+      }
+    });
+
+    // Keyboard accessibility
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (window.PackageSelection && option.key !== 'alc') {
+          window.PackageSelection.selectPackage(option.key);
+        } else if (option.key === 'alc' && window.PackageSelection) {
+          window.PackageSelection.resetToRecommendation();
+        }
+      }
+    });
 
     table.appendChild(row);
   });
