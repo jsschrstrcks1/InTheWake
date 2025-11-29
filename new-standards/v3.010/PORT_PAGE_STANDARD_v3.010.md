@@ -294,30 +294,32 @@ Include the standard site header with:
 </nav>
 ```
 
-#### 2.3.3 At a Glance Section (Column 2, Row 2)
-**ITW-Lite Collapsible Section Pattern:**
-```html
-<section class="page-intro" style="grid-column: 2; grid-row: 2; margin-bottom: 1rem; align-self: start;">
-  <details open style="background: #f7fdff; border: 1px solid #e0f0f5; border-radius: 8px; padding: 0;">
-    <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">At a Glance</summary>
-    <div style="padding: 0.5rem 0.75rem 0.75rem;">
-      <p style="margin: 0;"><strong>Quick Answer:</strong> [One-sentence summary of port highlights, local specialties, and must-do experiences]</p>
-    </div>
-  </details>
-</section>
-```
-- **MUST be open by default** (`<details open>`)
-- **MUST be collapsible** by user
-- **Content:** Quick answer format with port highlights
+#### 2.3.3 Two-Column Layout (Main Content + Rail)
 
-#### 2.3.4 Main Article Card (Column 1, Row 2, Spanning Multiple Rows)
+**IMPORTANT:** Both columns start at the same grid row after the breadcrumb. At a Glance is the **first item inside the aside**, not a separate element.
+
+**Main Content (Column 1):**
 ```html
-<div style="grid-column: 1; grid-row: 2 / span 10;">
+<div style="grid-column: 1;">
   <article class="card">
-    <!-- Content here -->
+    <!-- Hero image, H1, logbook content -->
   </article>
 </div>
 ```
+
+**Right Rail (Column 2) — Contains ALL sidebar content including At a Glance:**
+```html
+<aside class="rail" style="grid-column: 2; align-self: start;">
+  <!-- At a Glance (FIRST item in rail) -->
+  <!-- Author Card -->
+  <!-- Recent Stories -->
+</aside>
+```
+
+This structure ensures:
+- Both columns start at the same row (no vertical misalignment)
+- All rail content flows together naturally
+- No need for explicit `grid-row` assignments
 
 ---
 
@@ -440,12 +442,28 @@ Include the standard site header with:
 
 ### 4.1 Rail Container
 ```html
-<aside class="rail" style="grid-column: 2; grid-row: 3 / span 8; align-self: start;">
+<aside class="rail" style="grid-column: 2; align-self: start;">
 ```
-- Starts at row 3 (below At a Glance)
-- Spans 8 rows to accommodate content
+- Starts at same row as main content (after breadcrumb)
+- No explicit grid-row needed — flows naturally
+- Contains: At a Glance → Author Card → Recent Stories
 
-### 4.2 Author Card (Collapsible)
+### 4.2 At a Glance (Collapsible, FIRST in Rail)
+**ITW-Lite Collapsible Section Pattern:**
+```html
+<details open class="card" style="background: #f7fdff; border: 1px solid #e0f0f5; border-radius: 8px;">
+  <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">At a Glance</summary>
+  <div style="padding: 0.5rem 0.75rem 0.75rem;">
+    <p style="margin: 0;"><strong>Quick Answer:</strong> [One-sentence summary of port highlights, local specialties, and must-do experiences]</p>
+  </div>
+</details>
+```
+- **MUST be first item in the aside** (ensures alignment with main content)
+- **MUST be open by default** (`<details open>`)
+- **MUST be collapsible** by user
+- **Content:** Quick answer format with port highlights
+
+### 4.3 Author Card (Collapsible)
 **All rail cards MUST be collapsible using `<details open>`**
 
 ```html
@@ -473,7 +491,7 @@ Include the standard site header with:
 </details>
 ```
 
-### 4.3 Recent Articles Rail (Collapsible)
+### 4.4 Recent Articles Rail (Collapsible)
 ```html
 <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px;">
   <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Recent Stories</summary>
@@ -487,7 +505,7 @@ Include the standard site header with:
 </details>
 ```
 
-### 4.4 Rail Card Collapsibility Rule
+### 4.5 Rail Card Collapsibility Rule
 **IMPORTANT:** Every card in the right rail MUST:
 - Use `<details open>` wrapper (open by default)
 - Have consistent `<summary>` styling with left border accent
