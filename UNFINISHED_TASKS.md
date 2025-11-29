@@ -34,18 +34,19 @@
 - ✅ solo.html infinite scroll (fixed - verified 2025-11-29)
 - ✅ packing-lists.html infinite scroll (fixed - verified 2025-11-29)
 
-**ICP-Lite Coverage Verified (2025-11-29):**
-- ✅ All 147 port pages have Quick Answer, Best For, Key Facts
-- ✅ restaurants.html has Quick Answer, Best For, Key Facts
-- ✅ 42/50 ship pages have ICP-Lite (missing on 8 TBN/duplicate pages only)
+**ICP-Lite Coverage Verified (2025-11-29 - RE-AUDITED):**
+- ✅ **ALL 13 major hub pages** have Quick Answer, Best For, Key Facts
+- ✅ All 147 port pages have ICP-Lite
+- ✅ 42/50 ship pages have ICP-Lite
+- ❌ **ONLY 10 pages missing:** 2 tool pages + 8 TBN ship pages
 
 **Still TODO:**
 - Articles: Healing Relationships, Wounded Healers
 - Protocol documentation
-- 8 ship pages need ICP-Lite elements (TBN ships + duplicates)
+- **ICP-Lite:** 10 pages only (2 tool pages + 8 TBN ship pages)
 - Individual page pattern standardization (author/article cards)
 
-**Realistic remaining task count: ~20-25 items**
+**Realistic remaining task count: ~15-20 items** (revised down after re-audit)
 
 ---
 
@@ -410,6 +411,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Lower logo to match planning.html placement (currently goes outside viewable area)
 
 #### planning.html
+- [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
 - [ ] Link travel advisor reference to Tina
 - [ ] Update article rails to match index.html pattern (currently outdated with just image + title, missing CTA and Read Article button)
 
@@ -441,39 +443,43 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Fix logo sticking outside viewable area (match planning)
 
 #### drink-packages.html
-- [ ] Add right rail: Quick Answer, Best For, Key Facts
-- [ ] Add Author Card and Article Card below
+- [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
 - [ ] Add content: Crown and Anchor loyalty status grants 4-6 free beverages/day
+- [ ] Update Author/Article cards to match index.html pattern
 - [ ] Investigate: logo well-placed here but lower than planning, viewable area bigger
 
 #### stateroom-check.html
-- [ ] Add remaining ships to stateroom check tool
-- [ ] Add right rail: Quick Answer, Best For, Key Facts, Author Card, Article Card (index style)
+- [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
+- [ ] Update Author/Article cards to match index.html pattern
 - [ ] Standardize header hero size (currently bigger than planning)
 - [ ] Resize hero while keeping horizon centered in viewport
 - [ ] Ensure logo stays within frame (all pages should match)
 
 #### cruise-lines.html
+- [x] ✅ Add right rail: Quick Answer, Key Facts, Best For (verified present 2025-11-29)
+- [ ] Update Author/Article cards to match index.html pattern
 - [ ] Fix divergent header hero structure (replicate packing pattern)
-- [ ] Add right rail: Quick Answer, How to Use, Key Facts, Author Card, Article Card
 - [ ] Standardize FAQ section to match other pages
 
 #### packing-lists.html
 - [x] ✅ FIX: Infinite scroll bug (fixed 2025-11-29)
-- [ ] Move author/article rails up (currently way far down)
-- [ ] Shred/replace with index.html pattern
+- [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
+- [ ] Update Author/Article cards to match index.html pattern
 
 #### accessibility.html
-- [ ] Move author card right beneath Key Facts (not down by FAQ)
+- [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
+- [ ] Update Author/Article cards to match index.html pattern
 - [ ] Standardize header hero and logo to match planning page
 
 #### travel.html
 - [x] ✅ FIX: Hundreds of pages of dead space before footer (fixed 2025-11-29)
-- [ ] Fix divergent header hero shape (replicate planning)
+- [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
 - [ ] Update author/article cards to match index.html pattern
+- [ ] Fix divergent header hero shape (replicate planning)
 
 #### solo.html (Solo Cruising Index)
 - [x] ✅ FIX: Thousands of pages of blank space (fixed 2025-11-29)
+- [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
 - [ ] INVESTIGATE: Article fragments not loading - propose fix
 - [ ] PREFER: Fix solo page frag loader (not the frags)
 - [ ] IF frags carelessly altered: restore to frag format
@@ -483,7 +489,9 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] FIX: Find and kill CSS filter making hero muted colors (want vibrant like index.html)
 - [ ] Move FAQ under main content (not on right rail)
 
-#### port-logbook.html (Port Tracker)
+#### tools/port-tracker.html (Port Tracker)
+- [ ] **ADD ICP-Lite:** Quick Answer, Best For, Key Facts
+- [ ] Add Author and Article cards (index.html pattern)
 - [ ] FIX BROKEN: No ports populate regardless of click
 - [ ] Expand to encompass all RCL ports
 - [ ] Add wiring for future cruise line expansion
@@ -492,15 +500,17 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [x] SITE-WIDE: Rename "Ship Tracker" → "Ship Logbook" in nav ✅ DONE 2025-11-28
 - [ ] SITE-WIDE: Rename "Port Tracker" → "Port Logbook" in nav
 
-#### ship-tracker.html
-- [ ] Add Author, Article, and ICP-Lite elements
+#### tools/ship-tracker.html
+- [ ] **ADD ICP-Lite:** Quick Answer, Best For, Key Facts
+- [ ] Add Author and Article cards (index.html pattern)
 - [ ] Fix hero section divergent pattern
 - [ ] Add "A Cruise Traveler's Logbook" tagline beneath logo (white text)
 - [ ] Standardize hero size (currently larger than most)
 - [ ] Keep horizon centered in viewport
-- [x] ADD MISSING FOOTER ✅ DONE 2025-11-28
+- [x] ✅ ADD MISSING FOOTER (done 2025-11-28)
 
-#### about.html (About Us)
+#### about-us.html (About Us)
+- [x] ✅ Add right rail: Quick Answer, Best For, Key Facts (verified present 2025-11-29)
 - [ ] Update article rail to match index.html pattern
 
 ### P0 - Individual Ship Pages (ships/rcl/*.html)
@@ -599,10 +609,13 @@ Soli Deo Gloria
 
 ---
 
-**Task Count:** ~60-70 discrete tasks remaining (down from 80+)
-**Completed Since Last Update:** 15+ major tasks including site-wide grid layout fix (764 instances)
-**Estimated Effort:** 40-50 hours for complete standardization (down from 60-80 hours)
-**Priority:** Design system compliance critical for user trust
+**Task Count:** ~30-40 discrete tasks remaining (down from 80+) **[RE-AUDITED 2025-11-29]**
+**Completed Since Last Update:**
+- 764 grid layout bugs eliminated (PR #283)
+- ALL 13 major hub pages have ICP-Lite ✅
+- Only 10 pages missing ICP-Lite (2 tools + 8 TBN ships)
+**Estimated Effort:** 20-30 hours for complete standardization (down from 60-80 hours)
+**Priority:** Pattern standardization (author/article cards) across all pages
 
-**Note:** This list created from comprehensive user audit on 2025-11-25, updated 2025-11-29 with verified completions. All tasks require matching reference pattern from index.html.
+**Note:** This list created from comprehensive user audit on 2025-11-25, updated and re-audited 2025-11-29. Discovered most hub page ICP-Lite work already complete. All tasks require matching reference pattern from index.html.
 
