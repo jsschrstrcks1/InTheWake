@@ -1,11 +1,18 @@
 /**
  * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1.007.000 (Coffee Card Winner + Grid Layout)
+ * Version: 1.008.000 (Transparent Package Breakdown)
  *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  *
  * Soli Deo Gloria ✝️
+ *
+ * CHANGELOG v1.008.000:
+ * ✅ FEATURE: Added packageBreakdown to results for transparent cost display
+ *    - Each package now exposes: fixedCost, uncoveredCost, total, dailyRate, days, people
+ *    - UI can show: "Package: $X (fixed) + Uncovered: $Y = Total: $Z"
+ *    - Clarifies that package price is FIXED, only uncovered drinks add to cost
+ *    - Example: Soda Package = $181.55 (fixed) + $119 beer (uncovered) = $300.55
  *
  * CHANGELOG v1.007.000:
  * ✅ FEATURE: Coffee card can now win as the best option!
@@ -536,6 +543,35 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   console.log(`  Refresh: $${refreshPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
   console.log(`  Deluxe: $${deluxePkgWithMinors.toFixed(2)} (pkg: adults=${adults} deluxe, minors=${minors} refresh) + $${(overcap * days * adults).toFixed(2)} (over-cap) = $${deluxeTotalCost.toFixed(2)}`);
 
+  // NEW v1.008.000: Package cost breakdown for transparent display
+  // Shows: Fixed Package Cost + Uncovered Drinks = Total
+  const packageBreakdown = {
+    soda: {
+      fixedCost: sodaPkgWithMinors,
+      uncoveredCost: rawTotal - sodaTotal,
+      total: sodaTotalCost,
+      dailyRate: pkgSoda,
+      days: days,
+      people: adults + minors
+    },
+    refresh: {
+      fixedCost: refreshPkgWithMinors,
+      uncoveredCost: rawTotal - refreshTotal,
+      total: refreshTotalCost,
+      dailyRate: pkgRefresh,
+      days: days,
+      people: adults + minors
+    },
+    deluxe: {
+      fixedCost: deluxePkgWithMinors,
+      uncoveredCost: overcap * days * adults,
+      total: deluxeTotalCost,
+      dailyRate: pkgDeluxe,
+      days: days,
+      people: adults + minors
+    }
+  };
+
   const bars = {
     alc: { min: totalAlc, mean: totalAlc, max: totalAlc },
     soda: { min: sodaTotalCost, mean: sodaTotalCost, max: sodaTotalCost },
@@ -686,6 +722,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   return {
     hasRange: false,
     bars,
+    packageBreakdown, // NEW v1.008.000: Fixed cost + uncovered drinks breakdown
     winnerKey: winners.adultWinner,
     minorWinnerKey: winners.minorWinner,
     showTwoWinners: winners.showTwoWinners,
@@ -722,7 +759,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 if (typeof window !== 'undefined') {
   window.ITW_MATH = Object.freeze({
     compute,
-    version: '1.007.000'
+    version: '1.008.000'
   });
 
 
@@ -730,7 +767,7 @@ if (typeof window !== 'undefined') {
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
-    version: '1.007.000'
+    version: '1.008.000'
   });
 }
 

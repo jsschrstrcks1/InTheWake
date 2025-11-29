@@ -1,11 +1,12 @@
 /**
  * Royal Caribbean Drink Calculator — Package Selection Feature
- * Version: 1.004.000
+ * Version: 1.005.000
  *
  * FEATURES:
  * - Interactive clickable package cards
  * - Delta comparison vs recommended package
  * - Break-even drink count messaging
+ * - Transparent cost breakdown (fixed package + uncovered drinks)
  *
  * "Whatever you do, work at it with all your heart, as working for the Lord"
  * — Colossians 3:23
@@ -52,6 +53,7 @@
             this.recommendedResults = {
               winnerKey: results.winnerKey,
               bars: JSON.parse(JSON.stringify(results.bars)),
+              packageBreakdown: results.packageBreakdown ? JSON.parse(JSON.stringify(results.packageBreakdown)) : null,
               perDay: results.perDay,
               trip: results.trip
             };
@@ -255,6 +257,7 @@
 
     /**
      * Calculate delta HTML for comparison messaging
+     * NEW v1.005.000: Shows transparent breakdown (fixed cost + uncovered drinks)
      */
     calculateDeltaHTML: function(selectedPackage) {
       if (!this.recommendedResults || !this.recommendedResults.bars) {
@@ -263,6 +266,7 @@
 
       const recKey = this.recommendedResults.winnerKey;
       const bars = this.recommendedResults.bars;
+      const breakdown = this.recommendedResults.packageBreakdown || {};
 
       // Get costs for comparison
       const recCost = bars[recKey]?.mean || 0;
@@ -273,6 +277,46 @@
       const days = window.ITW?.store?.get('inputs')?.days || 7;
       const deltaPerDay = delta / days;
 
+      // Get breakdown for selected package
+      const pkgBreakdown = breakdown[selectedPackage];
+
+      // Format money helper
+      const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+
+      // Build breakdown display if available
+      let breakdownDisplay = '';
+      if (pkgBreakdown) {
+        const fixed = pkgBreakdown.fixedCost || 0;
+        const uncovered = pkgBreakdown.uncoveredCost || 0;
+        const dailyRate = pkgBreakdown.dailyRate || 0;
+        const people = pkgBreakdown.people || 1;
+
+        if (uncovered > 0.01) {
+          breakdownDisplay = `
+            <div style="background:#f5f5f5;border-radius:6px;padding:0.5rem 0.75rem;margin-top:0.5rem;font-size:0.85rem;">
+              <div style="display:flex;justify-content:space-between;color:#333;">
+                <span>Package (${formatMoney(dailyRate)}/day × ${days}d × ${people}p):</span>
+                <strong>${formatMoney(fixed)}</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;color:#d32f2f;margin-top:2px;">
+                <span>+ Uncovered drinks à la carte:</span>
+                <strong>+${formatMoney(uncovered)}</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;border-top:1px solid #ddd;margin-top:4px;padding-top:4px;font-weight:600;">
+                <span>Total:</span>
+                <span>${formatMoney(fixed + uncovered)}</span>
+              </div>
+            </div>
+          `;
+        } else {
+          breakdownDisplay = `
+            <div style="background:#f5f5f5;border-radius:6px;padding:0.5rem 0.75rem;margin-top:0.5rem;font-size:0.85rem;color:#666;">
+              ${formatMoney(dailyRate)}/day × ${days} days × ${people} ${people === 1 ? 'person' : 'people'} = <strong style="color:#333;">${formatMoney(fixed)}</strong>
+            </div>
+          `;
+        }
+      }
+
       // If selected IS the recommended, show that
       if (selectedPackage === recKey || Math.abs(delta) < 0.01) {
         return `
@@ -280,6 +324,7 @@
             <p style="margin:0;font-size:0.95rem;color:#2e7d32;">
               <strong>✓ This is the best value</strong> based on your drinking habits!
             </p>
+            ${breakdownDisplay}
           </div>
         `;
       }
@@ -292,9 +337,10 @@
         return `
           <div style="background:#fff3e0;border-radius:8px;padding:0.75rem;border-left:4px solid #ff9800;">
             <p style="margin:0 0 0.5rem 0;font-size:0.95rem;color:#e65100;">
-              <strong>+$${delta.toFixed(2)} more</strong> than ${this.formatPackageName(recKey)}
-              <span style="color:#666;">(+$${deltaPerDay.toFixed(2)}/day)</span>
+              <strong>+${formatMoney(delta)} more</strong> than ${this.formatPackageName(recKey)}
+              <span style="color:#666;">(+${formatMoney(deltaPerDay)}/day)</span>
             </p>
+            ${breakdownDisplay}
             ${breakEvenHTML}
           </div>
         `;
@@ -303,9 +349,10 @@
         return `
           <div style="background:#e8f5e9;border-radius:8px;padding:0.75rem;border-left:4px solid #4caf50;">
             <p style="margin:0;font-size:0.95rem;color:#2e7d32;">
-              <strong>$${Math.abs(delta).toFixed(2)} less</strong> than ${this.formatPackageName(recKey)}!
+              <strong>${formatMoney(Math.abs(delta))} less</strong> than ${this.formatPackageName(recKey)}!
               But the recommended package better matches your drink selections.
             </p>
+            ${breakdownDisplay}
           </div>
         `;
       }
