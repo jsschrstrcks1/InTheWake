@@ -30,6 +30,44 @@ All work on this project is offered as a gift to God.
     <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
   <style>
     .poignant-highlight{background:linear-gradient(135deg,#f8f4e9 60%,#e6f0e8 100%);border-left:5px solid #2a9d8f;padding:1.5rem 1.75rem;margin:2rem 0;border-radius:10px;font-size:1.08rem;line-height:1.75}
+
+    /* Page Grid Layout (2-column with right rail) */
+    .page-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 360px;
+      }
+    }
+
+    .rail {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .author-card-vertical {
+      text-align: center;
+    }
+    .author-card-vertical .author-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+    }
+    .author-card-vertical h4 {
+      margin: 0.5rem 0 0.25rem;
+    }
+    .author-card-vertical p {
+      margin: 0.25rem 0;
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -111,24 +149,9 @@ All work on this project is offered as a gift to God.
     </div>
   </header>
 
-  <header>
-    <nav class="navbar">
-      <a href="/" class="logo" aria-label="In the Wake home"><strong>In the Wake</strong></a>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" />
-      <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
-      <ul class="nav-links">
-        <li><a href="/ships.html">Ships</a></li>
-        <li><a href="/cruise-lines.html">Cruise Lines</a></li>
-        <li><a href="/ports.html">Ports</a></li>
-        <li><a href="/planning.html">Planning</a></li>
-        <li><a href="/news.html">News</a></li>
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/search.html" aria-label="Search"><img src="/assets/images/search.svg" alt="Search" style="width:20px;vertical-align:middle;" /></a></li>
-      </ul>
-    </nav>
-  </header>
+  
 
-  <main class="article-container">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
     <nav aria-label="Breadcrumb" class="breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ports.html">Ports</a> &rsaquo;
@@ -192,6 +215,29 @@ All work on this project is offered as a gift to God.
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+  <aside class="rail">
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
+    </section>
+
+    <section class="card">
+      <h3>Recent Articles</h3>
+      <div id="recent-rail"></div>
+    </section>
+  </aside>
+
   </main>
 
     <footer class="wrap" role="contentinfo">
