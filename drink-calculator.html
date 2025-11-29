@@ -342,7 +342,47 @@
     .winner-badge-minors {
       background: #8b5cf6;
     }
-    
+
+    /* User-selected package (manual selection mode) */
+    .package-card.user-selected {
+      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+      border: 3px solid #2196f3;
+      box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+    }
+
+    /* Make package cards look tappable */
+    .package-card[data-package] {
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .package-card[data-package]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .package-card[data-package]:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Tap hint text */
+    .package-card[data-package]::after {
+      content: 'Tap to compare';
+      display: block;
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .package-card[data-package].winner::after,
+    .package-card[data-package].user-selected::after {
+      content: none;
+    }
+
     /* Focus indicators (WCAG 2.1 AA required) */
     *:focus {
       outline: 2px solid #0e6e8e;
