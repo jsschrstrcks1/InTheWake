@@ -212,6 +212,45 @@ All work on this project is offered as a gift to God.
     @media (max-width: 768px) {
 
     }
+  
+    /* Page Grid Layout */
+    .page-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 320px;
+      }
+    }
+    .rail {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .author-card-vertical {
+      text-align: center;
+    }
+    .author-card-vertical .author-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+    }
+    .author-card-vertical h4 {
+      margin: 0.5rem 0 0.25rem;
+    }
+    .author-card-vertical p {
+      margin: 0.25rem 0;
+    }
+    .rail-list {
+      display: grid;
+      gap: 1rem;
+    }
+
   </style>
 <script type="application/ld+json">
 {
@@ -355,7 +394,8 @@ All work on this project is offered as a gift to God.
     </div>
   </div></header>
 
-<main class="wrap">
+<main class="wrap page-grid">
+  <div>
     <!-- ICP-Lite Content Structure -->
     <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
@@ -583,17 +623,35 @@ All work on this project is offered as a gift to God.
         <p style="margin: 0.5rem 0; padding-left: 1rem;">Availability varies by ship and class. Check the ships section on this page or the Royal Caribbean website for current fleet availability.</p>
       </details>
     </section>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+</div>
+
+    <!-- RIGHT RAIL -->
+    <aside class="rail" role="complementary" aria-label="Author & articles">
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+          Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
-
-</main>
+    </aside>
+  </main>
 
   <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
