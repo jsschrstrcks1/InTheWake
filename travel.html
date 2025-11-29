@@ -607,7 +607,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     }
 
     /* Layout: main content + right rail (desktop ≥980px) */
-    .with-right-rail {
+    .page-grid {
       display: grid;
       gap: 1.2rem;
       grid-template-columns: minmax(0,1fr);
@@ -615,10 +615,10 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     }
 
     @media (min-width:980px) {
-      .with-right-rail {
+      .page-grid {
         grid-template-columns: minmax(0,1fr) 320px;
       }
-      .right-rail {
+      aside.rail {
         position: sticky;
         top: 96px;
         align-self: start;
@@ -859,7 +859,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     </div></header>
 
   <!-- Main -->
-  <main class="wrap with-right-rail" id="content" tabindex="-1">
+  <main class="wrap page-grid" id="content" tabindex="-1">
     <!-- ICP-Lite Content Structure -->
     <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
@@ -1264,7 +1264,8 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     </div>
 
     <!-- RIGHT COLUMN -->
-    <aside class="right-rail" role="complementary" aria-label="Additional resources">      <!-- Author Card -->
+    <aside class="rail" role="complementary" aria-label="Additional resources" style="grid-column: 2;">
+      <!-- Author Card -->
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
