@@ -453,29 +453,6 @@ All work on this project is offered as a gift to God.
   </footer>
 
   <script>
-  (function(){
-    "use strict";
-    /* Dropdown Navigation */
-    document.querySelectorAll('.nav-dropdown').forEach(function(dropdown){
-      var btn = dropdown.querySelector('button');
-      var menu = dropdown.querySelector('.dropdown-menu');
-      if(!btn || !menu) return;
-      btn.addEventListener('click', function(e){
-        e.stopPropagation();
-        var expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        menu.style.display = expanded ? 'none' : 'block';
-      });
-    });
-    document.addEventListener('click', function(){
-      document.querySelectorAll('.nav-dropdown').forEach(function(dropdown){
-        var btn = dropdown.querySelector('button');
-        var menu = dropdown.querySelector('.dropdown-menu');
-        if(btn) btn.setAttribute('aria-expanded', 'false');
-        if(menu) menu.style.display = 'none';
-      });
-    });
-
     /* Recent Articles Rail */
     (async function(){
       var rail = document.getElementById('recent-rail');
@@ -491,14 +468,15 @@ All work on this project is offered as a gift to God.
       } catch(e){}
     })();
 
-    /* Nearby Ports Rail */
+    /* Nearby Ports Rail with Whimsical Units */
     (async function(){
       var rail = document.getElementById('nearby-ports');
       if(!rail) return;
       var currentPortId = 'costa-maya';
+      var NM_TO_INCHES = 72913.385827;
 
       function haversineDistance(lat1, lon1, lat2, lon2) {
-        var R = 3440.065; // Earth radius in nautical miles
+        var R = 3440.065;
         var dLat = (lat2 - lat1) * Math.PI / 180;
         var dLon = (lon2 - lon1) * Math.PI / 180;
         var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -508,9 +486,49 @@ All work on this project is offered as a gift to God.
         return R * c;
       }
 
+      function formatNumber(n) {
+        if (n >= 1e9) return (n / 1e9).toFixed(1).replace(/\.0$/, '') + ' billion';
+        if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + ' million';
+        if (n >= 1e3) return Math.round(n).toLocaleString();
+        return Math.round(n).toLocaleString();
+      }
+
+      function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+      function getWhimsicalUnits(distNm, units) {
+        var inches = distNm * NM_TO_INCHES;
+        var byCategory = {};
+        units.forEach(function(u) {
+          if (!byCategory[u.category]) byCategory[u.category] = [];
+          byCategory[u.category].push(u);
+        });
+        var reasonable = pickRandom(byCategory.massive || byCategory.large || []);
+        var medium = pickRandom(byCategory.medium || []);
+        var ridiculous = pickRandom(byCategory.tiny || []);
+        var results = [];
+        if (reasonable) {
+          var count = inches / reasonable.approx_length_in_inches;
+          results.push({ count: count, label: count === 1 ? reasonable.label_singular : reasonable.label_plural, note: reasonable.notes });
+        }
+        if (medium) {
+          var count2 = inches / medium.approx_length_in_inches;
+          results.push({ count: count2, label: count2 === 1 ? medium.label_singular : medium.label_plural, note: medium.notes });
+        }
+        if (ridiculous) {
+          var count3 = inches / ridiculous.approx_length_in_inches;
+          results.push({ count: count3, label: count3 === 1 ? ridiculous.label_singular : ridiculous.label_plural, note: ridiculous.notes });
+        }
+        return results;
+      }
+
       try {
-        var res = await fetch('/assets/data/ports/ports-geo.json');
-        var data = await res.json();
+        var [portsRes, unitsRes] = await Promise.all([
+          fetch('/assets/data/ports/ports-geo.json'),
+          fetch('/assets/data/fun-distance-units.json')
+        ]);
+        var data = await portsRes.json();
+        var unitsData = await unitsRes.json();
+        var funUnits = unitsData.units || [];
         var currentPort = data.ports.find(function(p){ return p.id === currentPortId; });
         if(!currentPort) return;
 
@@ -523,13 +541,33 @@ All work on this project is offered as a gift to God.
           .sort(function(a,b){ return a.distance - b.distance; })
           .slice(0, 10);
 
-        rail.innerHTML = nearby.map(function(p){
-          var distLabel = p.distance < 100 ? Math.round(p.distance) + ' nm' : Math.round(p.distance) + ' nm';
-          return '<a href="'+p.url+'" style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;"><span style="font-size:0.9rem;">'+p.name+'</span><span style="font-size:0.75rem;color:#678;">'+distLabel+'</span></a>';
+        rail.innerHTML = nearby.map(function(p, idx){
+          var distLabel = Math.round(p.distance) + ' nm';
+          var whimsy = getWhimsicalUnits(p.distance, funUnits);
+          var whimsyHtml = whimsy.length ? '<div class="whimsy-units" id="whimsy-'+idx+'" style="display:none;margin-top:0.5rem;padding:0.5rem;background:#f9fafb;border-radius:6px;font-size:0.75rem;color:#556;line-height:1.6;">' +
+            '<span style="font-style:italic;color:#789;">That\'s roughly...</span><br>' +
+            whimsy.map(function(w){ return '• <strong>' + formatNumber(w.count) + '</strong> ' + w.label; }).join('<br>') +
+            '</div>' : '';
+          return '<div style="border-bottom:1px solid #e0e8f0;">' +
+            '<div class="port-row" data-whimsy="whimsy-'+idx+'" style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;cursor:pointer;">' +
+            '<a href="'+p.url+'" style="font-size:0.9rem;text-decoration:none;color:inherit;" onclick="event.stopPropagation();">'+p.name+'</a>' +
+            '<span style="font-size:0.75rem;color:#678;display:flex;align-items:center;gap:4px;">'+distLabel+' <span style="font-size:0.6rem;opacity:0.6;">▼</span></span>' +
+            '</div>' + whimsyHtml + '</div>';
         }).join('');
+
+        rail.querySelectorAll('.port-row').forEach(function(row){
+          row.addEventListener('click', function(e){
+            if(e.target.tagName === 'A') return;
+            var whimsyId = row.getAttribute('data-whimsy');
+            var whimsyEl = document.getElementById(whimsyId);
+            if(whimsyEl) whimsyEl.style.display = whimsyEl.style.display === 'none' ? 'block' : 'none';
+          });
+        });
       } catch(e){ console.log('Nearby ports error:', e); }
     })();
-  })();
   </script>
+
+  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
 </body>
 </html>

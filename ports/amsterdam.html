@@ -255,6 +255,15 @@ Soli Deo Gloria
       </p>
     </section>
 
+    <!-- Nearby Ports Rail -->
+    <section class="card">
+      <h3>Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
     <section class="card">
       <h3>Recent Articles</h3>
       <div id="recent-rail"></div>
@@ -353,5 +362,9 @@ Soli Deo Gloria
     });
   })();
   </script>
+
+  <!-- Nearby Ports Script -->
+  <script>window.currentPortId = 'amsterdam';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
 </body>
 </html>
