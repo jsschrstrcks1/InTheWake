@@ -280,6 +280,23 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     .stat-line{display:flex;gap:.35rem;justify-content:space-between;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
     .stat-key{color:#355;font-weight:600}.stat-val{color:#024}
 
+    /* First Look carousel */
+    .swiper.firstlook{position:relative;overflow:hidden}
+    .swiper.firstlook .swiper-wrapper{display:flex}
+    .swiper.firstlook .swiper-slide{flex:0 0 100%}
+    .swiper.firstlook img{display:block;width:100%;height:auto;border-radius:10px}
+    .swiper.firstlook .swiper-button-prev,.swiper.firstlook .swiper-button-next{
+      position:absolute;top:50%;transform:translateY(-50%);display:flex!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;z-index:7!important;width:44px;height:44px;align-items:center;justify-content:center;color:#0a3d62
+    }
+    .swiper.firstlook .swiper-button-prev{left:8px}
+    .swiper.firstlook .swiper-button-next{right:8px}
+    .swiper.firstlook .swiper-button-prev::after,.swiper.firstlook .swiper-button-next::after{
+      font-size:18px;background:#fff;border-radius:999px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.18)
+    }
+    .swiper.firstlook .swiper-pagination{z-index:7!important}
+    .swiper.firstlook .swiper-pagination-bullet{background:#0a3d62;opacity:.45}
+    .swiper.firstlook .swiper-pagination-bullet-active{opacity:1}
+
     /* Related pair on desktop */
     @media (min-width:861px){.related-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap,1.25rem)}}
     figure figcaption{font-size:.8rem;color:#345;margin-top:.35rem}
@@ -547,6 +564,38 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <section class="card" aria-labelledby="ship-overview">
         <h2 id="ship-overview">Historical Overview</h2>
 
+        <div class="swiper firstlook" aria-label="Viking Serenade photo carousel">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <figure>
+                <img src="/assets/ships/Viking_Serenade_Mexico_1.webp" alt="Viking Serenade in Mexico" loading="lazy">
+                <figcaption class="tiny">Photo: Wikimedia Commons</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/assets/ships/Viking_Serenade_Mexico_2.webp" alt="Viking Serenade at port" loading="lazy">
+                <figcaption class="tiny">Photo: Wikimedia Commons</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/assets/ships/Viking_Serenade_Mexico_3.webp" alt="Viking Serenade cruise ship" loading="lazy">
+                <figcaption class="tiny">Photo: Wikimedia Commons</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/assets/ships/Viking_serenade_san_diego_2.webp" alt="Viking Serenade in San Diego" loading="lazy">
+                <figcaption class="tiny">Photo: Wikimedia Commons</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="swiper-pagination" aria-hidden="true"></div>
+          <div class="swiper-button-prev" aria-label="Previous image"></div>
+          <div class="swiper-button-next" aria-label="Next image"></div>
+        </div>
+
         <p>Viking Serenade was a Royal Caribbean ship that operated from 1990 to 2002. The ship was originally built in 1982 as Scandinavian Star and underwent conversion for Royal Caribbean cruise service in 1991.</p>
 
         <p>The ship represented Royal Caribbean's expansion during the 1990s, offering passengers a comfortable mid-sized cruise experience. After leaving the Royal Caribbean fleet in 2002, the vessel was renamed Island Escape and continued sailing under different operators.</p>
@@ -631,10 +680,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <!-- Attribution -->
     <section class="card attributions">
       <h2>Image Attributions</h2>
-      <ul>
-        <li>
-          Images sourced from Wikimedia Commons under Creative Commons licenses.
-        </li>
+      <ul class="tiny">
+        <li><strong>Viking Serenade in Mexico:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Viking_Serenade_(ship,_1982)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
+        <li><strong>Viking Serenade at port:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Viking_Serenade_(ship,_1982)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
+        <li><strong>Viking Serenade cruise ship:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Viking_Serenade_(ship,_1982)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
+        <li><strong>Viking Serenade in San Diego:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Viking_Serenade_(ship,_1982)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
       </ul>
     </section>
   </main>
@@ -825,6 +875,27 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         status.textContent = `\${view.length} recent articles loaded`;
       }
     })();
+  })();
+  </script>
+
+  <!-- ===== Swiper Initialization ===== -->
+  <script>
+  (function initFirstLookSwiper(){
+    function go(){
+      if(typeof Swiper==='undefined'){
+        if(window.__swiperReady) return setTimeout(go,50);
+        return setTimeout(go,100);
+      }
+      try{
+        new Swiper('.swiper.firstlook',{
+          loop:false,lazy:true,watchOverflow:true,
+          pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
+          navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
+          a11y:{enabled:true}
+        });
+      }catch(_){}
+    }
+    go();
   })();
   </script>
 
