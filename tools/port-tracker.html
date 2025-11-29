@@ -189,23 +189,32 @@ Soli Deo Gloria
       display: flex; align-items: center; gap: 0.5rem;
     }
 
-    /* Homeports Section */
+    /* Homeports Section - matches region-section style */
     .homeports-section {
-      background: linear-gradient(135deg, #e8f4fd 0%, #d6ebf8 100%);
-      padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;
-      border: 2px solid #0e6e8e;
+      margin-bottom: 2rem; border: 1px solid #e0f0f5; border-radius: 8px; overflow: hidden;
     }
-    .homeports-section h2 { margin: 0 0 1rem 0; color: var(--sea); display: flex; align-items: center; gap: 0.5rem; }
-    .homeports-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
+    .homeports-title {
+      font-size: 1.3rem; color: var(--sea); margin: 0; padding: 1rem;
+      background: linear-gradient(135deg, #f7fdff 0%, #e6f4f8 100%);
+      cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; transition: background 0.3s;
+    }
+    .homeports-title:hover { background: linear-gradient(135deg, #e0f0f5 0%, #d4e8ee 100%); }
+    .homeports-title-text { flex: 1; display: flex; align-items: center; gap: 0.5rem; }
+    .homeports-progress { font-size: 0.9rem; color: #666; margin-left: 1rem; }
+    .homeports-toggle { font-size: 1.5rem; transition: transform 0.3s; }
+    .homeports-section.collapsed .homeports-toggle { transform: rotate(-90deg); }
+    .homeports-content { padding: 1rem; max-height: 2000px; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s; }
+    .homeports-section.collapsed .homeports-content { max-height: 0; padding: 0 1rem; }
+    .homeports-desc { margin: 0 0 1rem 0; font-size: 0.9rem; color: #666; }
     .homeport-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem; background: white; border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; padding: 0.75rem; margin-bottom: 0.5rem;
+      background: #f7fdff; border-radius: 8px; cursor: pointer; transition: all 0.2s;
     }
-    .homeport-item:hover { background: #f0f9ff; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
-    .homeport-item.visited { background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 3px solid #28a745; }
-    .homeport-checkbox { width: 18px; height: 18px; cursor: pointer; }
-    .homeport-name { font-size: 0.9rem; color: var(--sea); font-weight: 500; }
+    .homeport-item:hover { background: #e0f0f5; }
+    .homeport-item.visited { background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; }
+    .homeport-checkbox { width: 24px; height: 24px; margin-right: 1rem; cursor: pointer; flex-shrink: 0; }
+    .homeport-name { flex: 1; font-size: 1rem; color: var(--sea); font-weight: 500; }
+    .homeport-country { font-size: 0.85rem; color: #666; margin-left: auto; }
   </style>
 </head>
 <body class="page">
@@ -339,13 +348,16 @@ Soli Deo Gloria
 
     <!-- Homeports / Embarkation Ports Section -->
     <div class="homeports-section" id="homeports-section">
-      <h2>🚢 Homeports (Embarkation/Disembarkation)</h2>
-      <p style="margin: 0 0 1rem 0; font-size: 0.9rem; color: #134;">Track which cruise terminals you've departed from or arrived at. These are separate from port visits!</p>
-      <div class="homeports-grid" id="homeports-grid">
-        <!-- Dynamically populated -->
+      <div class="homeports-title" onclick="toggleHomeports()">
+        <span class="homeports-title-text">🚢 Homeports (Embarkation/Disembarkation)</span>
+        <span class="homeports-progress" id="homeport-stats"></span>
+        <span class="homeports-toggle">▼</span>
       </div>
-      <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-        <span id="homeport-stats" style="font-size: 0.9rem; color: #666;"></span>
+      <div class="homeports-content">
+        <p class="homeports-desc">Track which cruise terminals you've departed from or arrived at. These are separate from port visits!</p>
+        <div class="homeports-grid" id="homeports-grid">
+          <!-- Dynamically populated -->
+        </div>
       </div>
     </div>
 
@@ -1740,6 +1752,14 @@ Soli Deo Gloria
   // Toggle collapsible sections
   window.toggleCollapsible = function(sectionId) {
     const section = document.getElementById(sectionId);
+    if (section) {
+      section.classList.toggle('collapsed');
+    }
+  };
+
+  // Toggle homeports section
+  window.toggleHomeports = function() {
+    const section = document.getElementById('homeports-section');
     if (section) {
       section.classList.toggle('collapsed');
     }

@@ -406,29 +406,6 @@ All work on this project is offered as a gift to God.
   </footer>
 
   <script>
-  (function(){
-    "use strict";
-    /* Dropdown Navigation */
-    document.querySelectorAll('.nav-dropdown').forEach(function(dropdown){
-      var btn = dropdown.querySelector('button');
-      var menu = dropdown.querySelector('.dropdown-menu');
-      if(!btn || !menu) return;
-      btn.addEventListener('click', function(e){
-        e.stopPropagation();
-        var expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        menu.style.display = expanded ? 'none' : 'block';
-      });
-    });
-    document.addEventListener('click', function(){
-      document.querySelectorAll('.nav-dropdown').forEach(function(dropdown){
-        var btn = dropdown.querySelector('button');
-        var menu = dropdown.querySelector('.dropdown-menu');
-        if(btn) btn.setAttribute('aria-expanded', 'false');
-        if(menu) menu.style.display = 'none';
-      });
-    });
-
     /* Recent Articles Rail */
     (async function(){
       var rail = document.getElementById('recent-rail');
@@ -443,11 +420,13 @@ All work on this project is offered as a gift to God.
         }
       } catch(e){}
     })();
-  })();
   </script>
 
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'st-maarten';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
 </body>
 </html>
