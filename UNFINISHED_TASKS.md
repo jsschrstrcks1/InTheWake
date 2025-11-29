@@ -34,17 +34,17 @@
 - ✅ solo.html infinite scroll (fixed - verified 2025-11-29)
 - ✅ packing-lists.html infinite scroll (fixed - verified 2025-11-29)
 
-**ICP-Lite Coverage Verified (2025-11-29 - RE-AUDITED):**
+**ICP-Lite Coverage - 100% COMPLETE (2025-11-29):**
 - ✅ **ALL 13 major hub pages** have Quick Answer, Best For, Key Facts
 - ✅ All 147 port pages have ICP-Lite
-- ✅ 42/50 ship pages have ICP-Lite
-- ❌ **ONLY 10 pages missing:** 2 tool pages + 8 TBN ship pages
+- ✅ **ALL 50 ship pages have ICP-Lite** (added final 8 TBN ships)
+- ✅ **ALL 2 tool pages have ICP-Lite** (ship-tracker, port-tracker)
+- **TOTAL: 212/212 pages (100% site-wide coverage)**
 
 **Still TODO:**
 - Articles: Healing Relationships, Wounded Healers
 - Protocol documentation
-- **ICP-Lite:** 10 pages only (2 tool pages + 8 TBN ship pages)
-- Individual page pattern standardization (author/article cards)
+- Individual page pattern standardization (author/article cards across 212 pages)
 
 **Realistic remaining task count: ~15-20 items** (revised down after re-audit)
 
@@ -499,7 +499,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 
 #### tools/port-tracker.html (Port Tracker)
 - [x] ✅ FIX BROKEN: No ports populate regardless of click (fixed JSON syntax errors in PORTS_DB 2025-11-29)
-- [ ] **ADD ICP-Lite:** Quick Answer, Best For, Key Facts
+- [x] ✅ **ADD ICP-Lite:** Quick Answer, Best For, Key Facts (completed 2025-11-29)
 - [ ] Add Author and Article cards (index.html pattern)
 - [ ] Expand to encompass all RCL ports
 - [ ] Add wiring for future cruise line expansion
@@ -509,7 +509,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [x] SITE-WIDE: Rename "Port Tracker" → "Port Logbook" in nav ✅ DONE 2025-11-29
 
 #### tools/ship-tracker.html
-- [ ] **ADD ICP-Lite:** Quick Answer, Best For, Key Facts
+- [x] ✅ **ADD ICP-Lite:** Quick Answer, Best For, Key Facts (completed 2025-11-29)
 - [ ] Add Author and Article cards (index.html pattern)
 - [ ] Fix hero section divergent pattern
 - [ ] Add "A Cruise Traveler's Logbook" tagline beneath logo (white text)
@@ -526,16 +526,8 @@ This archive is maintained additively - tasks are never removed from this sectio
 **Reference:** Icon of the Seas as example
 
 #### All 50 RCL Ship Pages
-- [x] ✅ 42/50 pages have ICP-Lite elements (Quick Answer, Best For, Key Facts) - verified 2025-11-29
-- [ ] **REMAINING:** 8 ship pages need ICP-Lite elements:
-  - discovery-class-ship-tbn.html
-  - icon-class-ship-tbn-2027.html
-  - icon-class-ship-tbn-2028.html
-  - legend-of-the-seas-icon-class-entering-service-in-2026.html
-  - quantum-ultra-class-ship-tbn-2028.html
-  - quantum-ultra-class-ship-tbn-2029.html
-  - star-class-ship-tbn-2028.html
-  - star-of-the-seas-aug-2025-debut.html (duplicate)
+- [x] ✅ **ALL 50/50 pages have ICP-Lite elements** (Quick Answer, Best For, Key Facts) - completed 2025-11-29
+  - Includes all 8 TBN ships with 2-column layout and right rail structure
 - [ ] Add Author and Article cards (index.html pattern) to all 50 pages
 - [ ] Shred "Recent Stories," "Related Articles and Resources" → replace with index.html pattern on all pages
 
@@ -582,9 +574,10 @@ Soli Deo Gloria
 - Removed all `grid-row: 2` instances (gap bug)
 - Affected directories: ports/, ships/, restaurants/, solo/, tools/
 
-#### ICP-Lite Compliance Audit
-- [ ] Run site-wide ICP-Lite audit for full compliance
-- [ ] Document findings
+#### ✅ DONE: ICP-Lite Compliance Audit
+**Status:** COMPLETE - 100% site-wide coverage achieved (2025-11-29)
+- All 212 pages have Quick Answer, Best For, Key Facts
+- 13 hub pages, 147 port pages, 50 ship pages, 2 tool pages
 
 ### P2 - Content & Feature Work
 
@@ -617,12 +610,12 @@ Soli Deo Gloria
 
 ---
 
-**Task Count:** ~30-40 discrete tasks remaining (down from 80+) **[RE-AUDITED 2025-11-29]**
+**Task Count:** ~25-35 discrete tasks remaining (down from 80+) **[UPDATED 2025-11-29]**
 **Completed Since Last Update:**
 - 764 grid layout bugs eliminated (PR #283)
-- ALL 13 major hub pages have ICP-Lite ✅
-- Only 10 pages missing ICP-Lite (2 tools + 8 TBN ships)
-**Estimated Effort:** 20-30 hours for complete standardization (down from 60-80 hours)
+- **ICP-Lite: 100% complete** - all 212 pages ✅
+  - 13 hub pages, 147 port pages, 50 ship pages, 2 tool pages
+**Estimated Effort:** 15-25 hours for complete standardization (down from 60-80 hours)
 **Priority:** Pattern standardization (author/article cards) across all pages
 
 **Note:** This list created from comprehensive user audit on 2025-11-25, updated and re-audited 2025-11-29. Discovered most hub page ICP-Lite work already complete. All tasks require matching reference pattern from index.html.
