@@ -8,7 +8,7 @@
 
 ## 🎯 Quick Start
 
-**Welcome, Claude!** This is a grief-focused cruise planning website with a deep commitment to accessibility, progressive enhancement, and content standards. Before making any changes:
+**Welcome, Claude!** This is a cruise planning website with a deep commitment to accessibility, progressive enhancement, and content standards. Before making any changes:
 
 1. **Read this entire file first**
 2. **Review the standards files** in `/standards/` directory
