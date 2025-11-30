@@ -220,6 +220,30 @@ These standards apply to **every page** on the site.
 - Adding ICP-Lite meta tags to pages
 - Checking implementation status
 
+### 8.5 Logbook Entry Standards
+**File:** `/admin/claude/LOGBOOK_ENTRY_STANDARDS_v2.300.md`
+**Version:** v2.300
+**Scope:** Story-first logbook entries for ships, ports, and venues
+
+**Key Topics:**
+- ✅ Story-first approach (not brochures/feature lists)
+- ✅ Narrative anatomy: hook → tension → action → pivot → reflection
+- ✅ Positive emphasis with negatives redeemed
+- ✅ Tear-jerker moments (emotional pivot, mostly happy)
+- ✅ Voice & tone requirements (warm, honest, not clinical)
+- ✅ Spiritual content guidelines
+- ✅ 600–1,200 word target length
+- ✅ Model checklist for pre-publish verification
+- ✅ Cross-reference: Appendix C (Pastoral Witness Guardrail)
+- ✅ Cross-reference: Appendix D (Persona Uniqueness)
+
+**When to Reference:**
+- Writing new logbook entries
+- Auditing existing logbook entries
+- Understanding voice and tone for In the Wake content
+- Checking emotional arc requirements
+- Ensuring compliance with pastoral guardrails
+
 ---
 
 ## 🧭 Claude AI Documentation
