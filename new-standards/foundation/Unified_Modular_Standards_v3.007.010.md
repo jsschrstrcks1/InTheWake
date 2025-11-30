@@ -429,6 +429,37 @@ You don’t have to preach that in every article, but the standard is:
 This site must never give someone plausible cover to justify drunkenness or gluttony by pointing at the pastor who built it.
 
 ⸻
+	8.	Suicide, Self-Harm, and Crisis Language
+
+Rule:
+The site must never include content that:
+	•	Romanticizes, jokes about, or makes light of suicide or self-harm.
+	•	Uses casual suicide references ("I'm dying," "I could just die," "kill me now," "I wanted to jump overboard").
+	•	Describes methods of self-harm, even in jest.
+	•	Uses language that could be triggering to those struggling with mental health crises.
+
+Guardrail:
+	•	No phrases like:
+	•	"The line was so long I wanted to die."
+	•	"I could have thrown myself overboard waiting for that tender."
+	•	"The prices will kill you."
+	•	Replace with neutral alternatives:
+	•	"The line was painfully long."
+	•	"The wait for the tender felt endless."
+	•	"The prices are steep."
+
+Standard:
+If a reasonable reader who is struggling with suicidal thoughts could be triggered or find their pain minimized by casual language, that language fails the guardrail and must be rewritten.
+
+Theological Footing:
+Every person is made in the image of God (Genesis 1:27). Life is sacred. Language that treats death casually—even in jest—dishonors the gift of life and may wound those who are silently struggling. As a pastoral site, we choose words that honor the dignity of every reader.
+
+Crisis Resources:
+If any content addresses mental health struggles directly, it should include appropriate resources:
+	•	National Suicide Prevention Lifeline: 988 (US)
+	•	Crisis Text Line: Text HOME to 741741
+
+⸻
 ## Appendix D — Persona Uniqueness & Story Separation
 
 (This applies to all logbook entries, persona JSON, articles that use personas, captions, and marketing blurbs.)
