@@ -163,7 +163,7 @@ Soli Deo Gloria
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/ports/img/bergen/bergen-1.jpeg" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/ports/img/bergen/bergen-1.webp" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
 </head>
 <body class="page">
@@ -241,14 +241,14 @@ Soli Deo Gloria
     <div style="grid-column: 1;">
     <article class="card">
       <!-- Port Hero Image -->
-      <img class="port-hero" src="/ports/img/bergen/bergen-1.jpeg" alt="Bergen - Heart of the Fjords with colorful waterfront" fetchpriority="high"/>
+      <img class="port-hero" src="/ports/img/bergen/bergen-1.webp" alt="Bergen - Heart of the Fjords with colorful waterfront" fetchpriority="high"/>
 
       <h1>Bergen: My Gateway to the Fjords</h1>
       <div class="logbook-entry">
-        <img class="inline-image" src="/ports/img/bergen/bergen-2.jpeg" alt="View over Store Lungegårdsvann in Bergen" loading="lazy"/>
+        <img class="inline-image" src="/ports/img/bergen/bergen-2.webp" alt="View over Store Lungegårdsvann in Bergen" loading="lazy"/>
         <p>We sailed into the harbor at dawn with Bryggen's crooked wooden façades glowing like gingerbread against the mist. The funicular up Mount Fløyen was waiting – ten minutes later we stood above the cloud layer watching the city sparkle below while goats grazed on the roof of the station restaurant. Back down we wandered the UNESCO-listed Bryggen alleys – timber beams creaking, the smell of tar and salt, tiny galleries tucked between 300-year-old warehouses.</p>
 
-        <img class="inline-image-left" src="/ports/img/bergen/bergen-3.jpeg" alt="Bergen panorama from the mountains" loading="lazy"/>
+        <img class="inline-image-left" src="/ports/img/bergen/bergen-3.webp" alt="Bergen panorama from the mountains" loading="lazy"/>
         <p>We had lunch at the fish market – the freshest salmon sashimi of my life eaten standing up, washed down with Aquavit that tasted like Christmas. In the afternoon we went back to the Fløibanen because we couldn't resist, this time hiking the ridge trail through pine forest that smelled like gin. Bergen rains a lot (it did, three times), but every shower left rainbows over the fjord and made the colors pop even more. The pros: compact, ridiculously pretty, and genuinely Norwegian. The cons: that rain is real, but Norwegians just smile and keep walking.</p>
 
         <div class="poignant-highlight">
@@ -280,28 +280,28 @@ Soli Deo Gloria
         <h3>Bergen Gallery</h3>
         <div class="gallery-grid">
           <figure class="gallery-item">
-            <img src="/ports/img/bergen/bergen-5.jpeg" alt="Bergen waterfront view" loading="lazy"/>
+            <img src="/ports/img/bergen/bergen-5.webp" alt="Bergen waterfront view" loading="lazy"/>
             <figcaption>
               Bergen's iconic waterfront where colorful wooden houses meet the harbor.
               <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Bergen_(24654157362).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
             </figcaption>
           </figure>
           <figure class="gallery-item">
-            <img src="/ports/img/bergen/bergen-6.jpeg" alt="Bergen harbor panorama" loading="lazy"/>
+            <img src="/ports/img/bergen/bergen-6.webp" alt="Bergen harbor panorama" loading="lazy"/>
             <figcaption>
               Seven mountains surround Bergen, earning it the nickname "City Between Seven Mountains."
               <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Bergen_(24654170912).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
             </figcaption>
           </figure>
           <figure class="gallery-item">
-            <img src="/ports/img/bergen/bergen-7.jpeg" alt="Bergen fjord islands" loading="lazy"/>
+            <img src="/ports/img/bergen/bergen-7.webp" alt="Bergen fjord islands" loading="lazy"/>
             <figcaption>
               The fjords and islands around Bergen offer endless natural beauty.
               <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:2010-08-06_-_Bergen_-_Panoramafahrt_-_Inseln_und_Fjorde_-_panoramio_(1).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
             </figcaption>
           </figure>
           <figure class="gallery-item">
-            <img src="/ports/img/bergen/bergen-8.jpeg" alt="Bergen coastal panorama" loading="lazy"/>
+            <img src="/ports/img/bergen/bergen-8.webp" alt="Bergen coastal panorama" loading="lazy"/>
             <figcaption>
               Cruising the waters around Bergen reveals Norway's stunning coastal landscape.
               <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:2010-08-06_-_Bergen_-_Panoramafahrt_-_Inseln_und_Fjorde_-_panoramio.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
@@ -520,7 +520,7 @@ Soli Deo Gloria
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+          alts.push(`\${base}.webp`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
