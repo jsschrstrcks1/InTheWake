@@ -217,6 +217,48 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
     }
 
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
     /* Clear floats */
     .clearfix::after {
       content: "";
@@ -243,7 +285,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/ports/img/grand-cayman/seven-mile-beach-view.jpg" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/ports/img/grand-cayman/seven-mile-beach-view.webp" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/brand/compassrose.png" fetchpriority="high"/>
 </head>
@@ -321,7 +363,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <article class="card">
       <!-- Hero Image with Port Name Overlay -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem;">
-        <img class="port-hero" src="/ports/img/grand-cayman/seven-mile-beach-view.jpg" alt="Seven Mile Beach panoramic view with crystal clear Caribbean water and white sand stretching into the distance" fetchpriority="high" style="margin-bottom: 0;"/>
+        <img class="port-hero" src="/ports/img/grand-cayman/seven-mile-beach-view.webp" alt="Seven Mile Beach panoramic view with crystal clear Caribbean water and white sand stretching into the distance" fetchpriority="high" style="margin-bottom: 0;"/>
         <div class="port-name-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 7vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; text-align: center; line-height: 1.2;">Grand<br/>Cayman</div>
       </div>
 
@@ -338,7 +380,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <div class="clearfix">
         <p>Sailing into George Town with that ridiculous seven-shades-of-blue water makes everyone abandon breakfast and run to the bow. Grand Cayman is a tender port — but don't groan, because the 10-minute ride to shore through water so clear you can count fish from the boat is part of the magic. This is the Caribbean as postcards promised: impossible turquoise, white sand, and that offshore finance vibe that means everything runs smoothly and looks pristine.</p>
 
-        <img class="inline-image" src="/ports/img/grand-cayman/stingray-city.jpg" alt="Swimming with wild southern stingrays at Stingray City sandbar" loading="lazy"/>
+        <img class="inline-image" src="/ports/img/grand-cayman/stingray-city.webp" alt="Swimming with wild southern stingrays at Stingray City sandbar" loading="lazy"/>
 
         <p>My perfect Grand Cayman day starts with the earliest <strong>Stingray City Sandbar</strong> tour I can book — I'm talking 8 a.m. departure with Captain Marvin's or Native Way Water Sports. This is the bucket-list experience everyone talks about, and it lives up to every bit of hype. A shallow sandbar in the North Sound where dozens of wild southern stingrays congregate, drawn by decades of fishermen cleaning their catches here. By 9 a.m. I'm standing waist-deep in bathtub-warm water while these velvet-soft creatures glide around me, brushing against my legs, looking for squid handouts.</p>
       </div>
@@ -350,7 +392,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <div class="clearfix">
         <p>After Stingray City, most tours continue to <strong>Starfish Point</strong>, a protected marine area on the north shore where red cushion starfish gather in the shallows. You can hold them gently (keeping them underwater), take photos, and just marvel at these prehistoric-looking creatures in crystal-clear water. The setting is stunning — mangroves, white sand, and water in impossible shades of green and blue.</p>
 
-        <img class="inline-image-left" src="/ports/img/grand-cayman/waterfront.jpg" alt="George Town waterfront with colorful buildings and cruise tender dock" loading="lazy"/>
+        <img class="inline-image-left" src="/ports/img/grand-cayman/waterfront.webp" alt="George Town waterfront with colorful buildings and cruise tender dock" loading="lazy"/>
 
         <p>Back in <strong>George Town</strong>, the waterfront is a compact grid of duty-free shops, jewelry stores, and the inevitable Hard Rock Cafe. The Cayman Islands are famous for duty-free shopping — jewelry, watches, rum, and cigars are popular — and the quality is genuinely high (this is a major financial center, after all). I usually grab lunch at one of the waterfront restaurants — conch fritters and fish tacos are the local favorites, washed down with Caybrew, the island's own beer.</p>
       </div>
@@ -381,6 +423,34 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
       <p>Tendering just means you get a free scenic boat ride through water so clear you can see fish from the top deck! The stingrays are wild animals who choose to be at the sandbar — they can leave anytime — so follow guide instructions and they'll reward you with an unforgettable encounter. USD is accepted everywhere (you'll often get change in CI$ which is worth more, 1 CI$ = $1.25 USD). Water shoes help on the sandbar.</p>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="port-section" style="background: transparent; border: none; padding: 0;">
+      <h3>Grand Cayman Gallery</h3>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/grand-cayman/seven-mile-beach-view.webp" alt="Seven Mile Beach panoramic view with crystal clear Caribbean water" loading="lazy"/>
+          <figcaption>
+            Seven Mile Beach is consistently rated one of the top beaches in the world — and the view lives up to the hype.
+            <div class="photo-credit">Photo: © Flickers of Majesty</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/grand-cayman/stingray-city.webp" alt="Swimming with wild southern stingrays at Stingray City sandbar" loading="lazy"/>
+          <figcaption>
+            Stingray City sandbar — where wild southern stingrays wrap their velvet wings around you.
+            <div class="photo-credit">Photo: © Flickers of Majesty</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/grand-cayman/waterfront.webp" alt="George Town waterfront with colorful buildings" loading="lazy"/>
+          <figcaption>
+            George Town waterfront — compact, colorful, and full of duty-free shopping.
+            <div class="photo-credit">Photo: © Flickers of Majesty</div>
+          </figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- FAQ Section -->
@@ -462,6 +532,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">All images on this page are used with permission:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Seven Mile Beach View:</strong> Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>, used with permission</li>
+        <li><strong>Stingray City:</strong> Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>, used with permission</li>
+        <li><strong>George Town Waterfront:</strong> Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>, used with permission</li>
+      </ul>
+    </section>
   </main>
 
   <!-- FOOTER -->
