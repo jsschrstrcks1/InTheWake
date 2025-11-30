@@ -105,6 +105,48 @@ All work on this project is offered as a gift to God.
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -204,6 +246,11 @@ All work on this project is offered as a gift to God.
       <!-- Quick Answer -->
       <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
         <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Hong Kong scores a perfect 5.0 with the most jaw-dropping night harbour entrance after <a href="/ports/sydney.html">Sydney</a>. Must-dos: Star Ferry, Ngong Ping 360 to Big Buddha, Victoria Peak tram at sunset, and dim sum at Tim Ho Wan.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/hong-kong/hong-kong-1.webp" alt="Hong Kong harbor view" loading="lazy">
+        <figcaption>Hong Kong — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <!-- Logbook Entry -->
@@ -212,6 +259,11 @@ All work on this project is offered as a gift to God.
         <p>Sailing into Victoria Harbour at night with the Symphony of Lights laser show exploding across a thousand skyscrapers is hands-down the most jaw-dropping port entrance after Sydney. Hong Kong scores perfect 5.0.</p>
 
         <p>My perfect day: Star Ferry across the harbour (best 50 cents ever), Ngong Ping 360 cable car to the Big Buddha and Po Lin Monastery, then Victoria Peak tram at sunset for the iconic skyline view. Dim sum lunch at Tim Ho Wan (Michelin-starred and cheap!), Mong Kok street markets for gadgets and sneaker street, then the Temple Street Night Market for stinky tofu and clay-pot rice.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/hong-kong/hong-kong-2.webp" alt="Hong Kong waterfront" loading="lazy">
+        <figcaption>Hong Kong scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The moment that stays with me:</strong> Standing at the Victoria Peak viewing platform as the sun sets and a thousand skyscrapers switch on their lights one by one – Hong Kong doesn't just have a skyline, it has a heartbeat, and in that moment you can feel the whole city pulse beneath you.

@@ -105,6 +105,48 @@ All work on this project is offered as a gift to God.
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -204,6 +246,11 @@ All work on this project is offered as a gift to God.
       <!-- Quick Answer -->
       <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
         <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Bangkok via Laem Chabang scores 4.8–5.0 stars for its mix of temples, street food, and rooftop bars. Must-dos: Grand Palace at opening, Wat Arun by long-tail boat, Chinatown street food crawl, and Sky Bar sunset drinks.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/bangkok/bangkok-1.webp" alt="Bangkok, Thailand harbor view" loading="lazy">
+        <figcaption>Bangkok, Thailand — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <!-- Logbook Entry -->
@@ -212,6 +259,11 @@ All work on this project is offered as a gift to God.
         <p>Sailing into Laem Chabang and knowing Bangkok's madness and magic are just two hours away is always exciting – cruisers rate it 4.8–5.0 because nowhere else delivers that mix of temples, street food, and rooftop bars.</p>
 
         <p>My perfect day: private van or ship shuttle straight to the Grand Palace and Wat Phra Kaew (Emerald Buddha) at opening – the golden stupas and intricate mosaics are overwhelming in the best way. Then a long-tail boat through the khlongs (canals) to Wat Arun at sunrise or sunset (climb the steep steps for insane views).</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/bangkok/bangkok-2.webp" alt="Bangkok, Thailand waterfront" loading="lazy">
+        <figcaption>Bangkok, Thailand scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The moment that stays with me:</strong> Climbing the steep steps of Wat Arun as the sun sets behind me, then turning around to see Bangkok's skyline glittering across the Chao Phraya River – Thailand doesn't just show you beauty, it makes you work for it, and the reward is a view that burns itself into your memory forever.

@@ -105,6 +105,48 @@ All work on this project is offered as a gift to God.
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -200,6 +242,11 @@ All work on this project is offered as a gift to God.
       <!-- Quick Answer -->
       <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
         <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Bali via Benoa scores 4.8–5.0 stars for its spiritual atmosphere and natural beauty. Must-dos: Uluwatu temple kecak fire dance, Ubud monkey forest and rice terraces, Tirta Empul purification, and Jimbaran beach sunset seafood.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/bali/bali-1.webp" alt="Bali, Indonesia harbor view" loading="lazy">
+        <figcaption>Bali, Indonesia — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <!-- Logbook Entry -->
@@ -208,6 +255,11 @@ All work on this project is offered as a gift to God.
         <p>Docking in Benoa and seeing the volcanoes in the distance with offerings of flowers floating past the ship is pure magic – Bali ports score 4.8–5.0 because it really does feel spiritual.</p>
 
         <p>My perfect day: early start to Tanah Lot or Uluwatu temple at sunset with the kecak fire dance against crashing waves. Then Ubud for the monkey forest (cheeky but adorable), Tegalalang rice terraces swinging on those giant swings, and a purification ritual at Tirta Empul holy springs.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/bali/bali-2.webp" alt="Bali, Indonesia waterfront" loading="lazy">
+        <figcaption>Bali, Indonesia scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The moment that stays with me:</strong> Standing in the sacred springs of Tirta Empul as Balinese families pray beside me, water pouring over my head from ancient stone spouts – Bali doesn't just show you spirituality, it invites you in, and in that moment I understood why they call it the Island of the Gods.

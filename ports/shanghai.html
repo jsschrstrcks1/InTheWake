@@ -105,6 +105,48 @@ All work on this project is offered as a gift to God.
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -204,6 +246,11 @@ All work on this project is offered as a gift to God.
       <!-- Quick Answer -->
       <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
         <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Shanghai scores 4.8–5.0 stars as the perfect marriage of 1930s Art Deco glamour and futurism. Must-dos: The Bund at sunrise, Shanghai Tower observatory, Yu Garden, xiaolongbao dumplings, and French Concession.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/shanghai/shanghai-1.webp" alt="Shanghai, China harbor view" loading="lazy">
+        <figcaption>Shanghai, China — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <!-- Logbook Entry -->
@@ -212,6 +259,11 @@ All work on this project is offered as a gift to God.
         <p>Every time our Royal Caribbean ship sails up the Huangpu River at dawn and the skyscrapers of the Bund and Pudong appear like a scene from Blade Runner, I honestly pinch myself. Shanghai is one of the most mind-blowing Asian ports (4.8–5.0 average 2023–2025) because it's the perfect marriage of 1930s Art Deco glamour and 22nd-century futurism.</p>
 
         <p>My perfect day starts early: I'm off the ship and straight to The Bund for that iconic sunrise photo with the colonial buildings on one side and the rocket-ship skyline on the other. Then across on the ferry (50 cents!) to Pudong and up the Shanghai Tower (world's second-tallest building) to the 118th-floor observatory – on a clear day you can see for 50 km. Breakfast is always xiaolongbao soup dumplings at Din Tai Fung or street jianbing crepes.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/shanghai/shanghai-2.webp" alt="Shanghai, China waterfront" loading="lazy">
+        <figcaption>Shanghai, China scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The moment that stays with me:</strong> Standing on The Bund at sunrise with the colonial buildings behind me and Pudong's rocket-ship skyline ahead – Shanghai doesn't just bridge past and future, it makes you feel like you're standing in both at once, and somehow that's exactly where you were always meant to be.
