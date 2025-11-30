@@ -197,7 +197,7 @@ Soli Deo Gloria
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/ports/img/copenhagen/copenhagen-1.jpeg" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/ports/img/copenhagen/copenhagen-1.webp" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
 </head>
 <body class="page">
@@ -282,17 +282,17 @@ Soli Deo Gloria
     <div style="grid-column: 1;">
     <article class="card">
       <!-- Port Hero Image -->
-      <img class="port-hero" src="/ports/img/copenhagen/copenhagen-1.jpeg" alt="Colorful Nyhavn harbor in Copenhagen with historic buildings and boats" fetchpriority="high"/>
+      <img class="port-hero" src="/ports/img/copenhagen/copenhagen-1.webp" alt="Colorful Nyhavn harbor in Copenhagen with historic buildings and boats" fetchpriority="high"/>
 
       <h1>Copenhagen: My Scandinavian Dream Come True</h1>
 
       <div class="logbook-entry">
-        <img class="inline-image" src="/ports/img/copenhagen/copenhagen-4.jpeg" alt="Nyhavn waterfront with colorful buildings" loading="lazy"/>
+        <img class="inline-image" src="/ports/img/copenhagen/copenhagen-4.webp" alt="Nyhavn waterfront with colorful buildings" loading="lazy"/>
         <p>Every single time our Royal Caribbean ship sails up the Øresund and Tivoli's rollercoasters appear on the horizon next to pastel-colored Nyhavn, I feel like I've entered a real-life fairy tale. Copenhagen is consistently voted the #1 or #2 Northern Europe port by Royal passengers (4.9–5.0 average on 2023–2025 reviews), and I completely understand why.</p>
 
         <p>My perfect day starts the moment we dock: I'm off the ship and on a free bike from the port (or just a 15-minute walk) straight to Nyhavn for that iconic colorful photo with a morning pastry and coffee canal-side. Then I rent a GoBoat (electric picnic boat — no license needed) and cruise the canals myself, waving at the Little Mermaid and passing under the low bridges. The Tivoli Gardens at opening time is pure magic — rides, flowers, peacocks strutting around, and the best people-watching on earth.</p>
 
-        <img class="inline-image-left" src="/ports/img/copenhagen/copenhagen-3.jpeg" alt="Copenhagen harbor in summer sunshine" loading="lazy"/>
+        <img class="inline-image-left" src="/ports/img/copenhagen/copenhagen-3.webp" alt="Copenhagen harbor in summer sunshine" loading="lazy"/>
         <p>Lunch is always smørrebrød (open-faced sandwiches) at Aamanns or the Torvehallerne food market — pickled herring, roast pork, and aquavit shots. In the afternoon I do the Rundetårn (Round Tower) for panoramic views, then Freetown Christiania for its quirky vibe and street art (respect the "no photos" in Green Light District rule). A canal tour with Hey Captain (small boats, live guide) or visiting the Design Museum if it's rainy are both fantastic. Sunset at the King's Garden or a craft beer at Mikkeller rounds it out perfectly.</p>
 
         <div class="poignant-highlight">
@@ -324,28 +324,28 @@ Soli Deo Gloria
         <h3>Copenhagen Gallery</h3>
         <div class="gallery-grid">
           <figure class="gallery-item">
-            <img src="/ports/img/copenhagen/copenhagen-2.jpeg" alt="Nyhavn with colorful historic buildings" loading="lazy"/>
+            <img src="/ports/img/copenhagen/copenhagen-2.webp" alt="Nyhavn with colorful historic buildings" loading="lazy"/>
             <figcaption>
               The iconic colorful facades of Nyhavn create Copenhagen's most photographed scene.
               <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:20200314_Nyhavn_Kobenhavn_0373_(49660723258).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
             </figcaption>
           </figure>
           <figure class="gallery-item">
-            <img src="/ports/img/copenhagen/copenhagen-5.jpeg" alt="Nyhavn canal boats" loading="lazy"/>
+            <img src="/ports/img/copenhagen/copenhagen-5.webp" alt="Nyhavn canal boats" loading="lazy"/>
             <figcaption>
               Historic boats line the canal where Hans Christian Andersen once lived.
               <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:20200327_KBH_Nyhavn_3_50A3944_(49720348422).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
             </figcaption>
           </figure>
           <figure class="gallery-item">
-            <img src="/ports/img/copenhagen/copenhagen-7.jpeg" alt="Ship arriving at Copenhagen harbor" loading="lazy"/>
+            <img src="/ports/img/copenhagen/copenhagen-7.webp" alt="Ship arriving at Copenhagen harbor" loading="lazy"/>
             <figcaption>
               The approach to Copenhagen by sea reveals the city's maritime heritage.
               <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:2015-06-29_ALEXANDER_B_erreicht_den_Hafen_von_Kopenhagen.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
             </figcaption>
           </figure>
           <figure class="gallery-item">
-            <img src="/ports/img/copenhagen/copenhagen-6.jpeg" alt="Copenhagen cityscape" loading="lazy"/>
+            <img src="/ports/img/copenhagen/copenhagen-6.webp" alt="Copenhagen cityscape" loading="lazy"/>
             <figcaption>
               Copenhagen's blend of historic charm and modern design is visible everywhere.
               <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:0122_Kopenhagen_(36).JPG" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
@@ -584,7 +584,7 @@ Soli Deo Gloria
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+          alts.push(`\${base}.webp`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
