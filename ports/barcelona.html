@@ -136,11 +136,98 @@ All work on this project is offered as a gift to God.
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+
+    /* Hero image for port page */
+    .port-hero {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Inline images in text */
+    .inline-image {
+      float: right;
+      width: 45%;
+      max-width: 320px;
+      margin: 0 0 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+
+    .inline-image-left {
+      float: left;
+      width: 45%;
+      max-width: 320px;
+      margin: 0 1.5rem 1rem 0;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+
+    @media (max-width: 680px) {
+      .inline-image, .inline-image-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+    /* Clear floats */
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/ports/img/barcelona/barcelona-4.jpeg" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -225,20 +312,20 @@ All work on this project is offered as a gift to God.
 
     <div style="grid-column: 1;">
     <article class="card">
-      <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #c60b1e 0%, #ffc400 35%, #0077b6 70%, #00b4d8 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Barcelona</div>
-      </div>
+      <!-- Port Hero Image -->
+      <img class="port-hero" src="/ports/img/barcelona/barcelona-4.jpeg" alt="Panoramic view of Barcelona from Montjuïc Castle with the city skyline and Collserola mountains" fetchpriority="high"/>
 
       <h1>Barcelona: Where Gaudí Meets the Mediterranean</h1>
 
       <div class="logbook-entry">
+        <img class="inline-image" src="/ports/img/barcelona/barcelona-1.jpeg" alt="Barcelona port waterfront with Mediterranean waters" loading="lazy"/>
         <p>Barcelona is one of those cities that could easily consume a week, yet we often try to see it in a day. I've visited on three cruises — once as an embarkation port where I arrived two days early, once as a port of call with only seven hours, and once as a quick transit where I barely left the port area. Each visit taught me something different about this city, but they all confirmed one thing: Barcelona deserves your time.</p>
 
         <p>The cruise port sits at the base of La Rambla, Barcelona's famous tree-lined pedestrian boulevard that runs from the waterfront up to Plaça de Catalunya. From the World Trade Center terminal, you can walk onto La Rambla in ten minutes. This is both a blessing and a trap — La Rambla is crowded, touristy, and has unfortunately become known for pickpockets. But it's also still charming: the flower stalls, the human statues, the energy of a city that lives outdoors. Just keep your wallet secure and don't linger too long. The real Barcelona waits elsewhere.</p>
 
         <p>On my longest visit, I went straight to La Sagrada Familia, and I'll tell you now: book your tickets online weeks in advance. Gaudí's unfinished basilica is Barcelona's most visited site, and the timed-entry tickets sell out fast. But this is not just tourist hype — La Sagrada Familia is genuinely one of the most astonishing buildings on Earth. Construction began in 1882 and won't be complete until 2026 (maybe), and every surface is a prayer in stone. The interior is a forest of columns that branch like trees, light streaming through stained glass in impossible colors, the whole space designed to make you look up. I'm not Catholic, and I wept.</p>
 
+        <img class="inline-image-left" src="/ports/img/barcelona/barcelona-3.jpeg" alt="Cruise ship docked at Port of Barcelona" loading="lazy"/>
         <p>Park Güell is Gaudí's other essential work in Barcelona — a public park originally planned as an exclusive residential development, now filled with mosaic sculptures, undulating benches, and views over the city to the sea. The famous terrace with the serpentine bench requires a timed ticket, but even the free areas of the park are beautiful. Casa Batlló and Casa Milà (La Pedrera) on Passeig de Gràcia are two more Gaudí masterpieces; I'd recommend picking one if time is short. Casa Batlló has the better interior; La Pedrera has the better rooftop.</p>
 
         <p>The Gothic Quarter (Barri Gòtic) is where Barcelona feels most medieval — narrow streets, hidden plazas, the cathedral with its cloister full of geese. I got deliberately lost here for an afternoon, finding tiny bars serving vermouth, shops selling handmade espadrilles, and churches where locals actually pray. The El Born neighborhood next door is trendier, with boutiques and cocktail bars in medieval buildings. And the Barceloneta beach, a short walk from the port, offers a chance to actually touch the Mediterranean — though don't expect pristine sand; it's a city beach.</p>
@@ -247,6 +334,7 @@ All work on this project is offered as a gift to God.
           <strong>The Moment That Stays With Me:</strong> Late afternoon light inside La Sagrada Familia, the sun pouring through the western windows, turning the interior into a kaleidoscope of reds, oranges, and yellows. I stood in the nave and watched the light move across the columns like a living thing. Gaudí designed this intentionally — every window, every angle calculated to make light itself part of the worship. A hundred years after his death, his building still catches God's light and scatters it like glory.
         </div>
 
+        <img class="inline-image" src="/ports/img/barcelona/barcelona-7.jpeg" alt="Barcelona cityscape with Mediterranean views" loading="lazy"/>
         <p>For food, Barcelona offers tapas, but it's not the tapas capital — that's actually San Sebastián or Madrid. What Barcelona does supremely well is seafood, especially at the market restaurants. La Boqueria, the famous market off La Rambla, has counters serving fresh-shucked oysters, jamón ibérico, and whatever came in that morning. The prices at the front are tourist-inflated; walk deeper in for better value. For a sit-down meal, try the neighborhood restaurants in Gràcia or Poble Sec where locals actually eat.</p>
 
         <p>If Barcelona is your embarkation port, I strongly recommend arriving at least one night early (two is better). The city's architecture, food, and neighborhoods simply cannot be appreciated in a few hours between ship and airport. And if it's a port call, make choices: Sagrada Familia and Gothic Quarter is a realistic half-day; add Park Güell only if you have 8+ hours and want to move fast. Don't try to see everything. Barcelona will still be here next time.</p>
@@ -270,6 +358,41 @@ All work on this project is offered as a gift to God.
       <section class="port-section">
         <h3>Positively Framed Word of Warning</h3>
         <p>Barcelona's popularity means you need to plan ahead. Book La Sagrada Familia tickets weeks in advance — same-day entry is nearly impossible in high season. Pickpockets are unfortunately common on La Rambla, in the Metro, and in crowded tourist areas; wear a money belt and keep bags secured in front of you. These are crimes of opportunity, not violence. Stay alert, and you'll be fine. Most visitors experience only the city's tremendous hospitality and beauty — the problems are real but manageable with basic awareness.</p>
+      </section>
+
+      <!-- Photo Gallery -->
+      <section class="port-section" style="background: transparent; border: none; padding: 0;">
+        <h3>Barcelona Gallery</h3>
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="/ports/img/barcelona/barcelona-6.jpeg" alt="Vista from edifici Colom showing Port of Barcelona harbor" loading="lazy"/>
+            <figcaption>
+              The harbor view from Columbus Monument reveals Barcelona's intimate relationship with the Mediterranean.
+              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:018_Vista_des_de_l%27edifici_Colom,_amb_la_d%C3%A0rsena_de_Sant_Bertran_(Port_de_Barcelona).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/barcelona/barcelona-2.jpeg" alt="Ship at Port of Barcelona with city skyline" loading="lazy"/>
+            <figcaption>
+              Vessels of all sizes share Barcelona's bustling port facilities against the city backdrop.
+              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Port_of_Barcelona_-_Esence_(ship,_2006)_04.JPG" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/barcelona/barcelona-5.jpeg" alt="Aerial view of Barcelona" loading="lazy"/>
+            <figcaption>
+              From above, Barcelona's grid pattern of the Eixample district contrasts with the winding streets of the old town.
+              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Area_View_Barcelona.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/barcelona/barcelona-8.jpeg" alt="Barcelona street scene" loading="lazy"/>
+            <figcaption>
+              The streets of Barcelona reveal layers of history at every turn, from Roman walls to modernist facades.
+              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Barcelona_(4624904973).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</div>
+            </figcaption>
+          </figure>
+        </div>
       </section>
     </article>
 
@@ -385,6 +508,22 @@ All work on this project is offered as a gift to God.
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">The following images are used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Barcelona Port View:</strong> Photo by <a href="https://commons.wikimedia.org/wiki/File:Barcelona-port.JPG" target="_blank" rel="noopener">Wikimedia Commons contributor</a>, used under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
+        <li><strong>Port of Barcelona Ship:</strong> Photo by <a href="https://commons.wikimedia.org/wiki/File:Port_of_Barcelona_-_Esence_(ship,_2006)_04.JPG" target="_blank" rel="noopener">Wikimedia Commons contributor</a>, used under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
+        <li><strong>Cruise Ship at Barcelona:</strong> Photo by Ank Kumar, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
+        <li><strong>Barcelona Panorama:</strong> Photo by <a href="https://commons.wikimedia.org/wiki/File:A_view_of_Barcelona_from_Montju%C3%AFc_Castle_with_Collserola_in_the_background.jpg" target="_blank" rel="noopener">Wikimedia Commons contributor</a>, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
+        <li><strong>Area View:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:Area_View_Barcelona.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
+        <li><strong>Columbus Monument View:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:018_Vista_des_de_l%27edifici_Colom,_amb_la_d%C3%A0rsena_de_Sant_Bertran_(Port_de_Barcelona).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
+        <li><strong>Barcelona Cityscape:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:Barcelona_(25886526888).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a></li>
+        <li><strong>Barcelona Street:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:Barcelona_(4624904973).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a></li>
+      </ul>
+    </section>
   </main>
 
     <footer class="wrap" role="contentinfo">
