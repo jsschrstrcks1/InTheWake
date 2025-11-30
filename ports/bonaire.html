@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -212,6 +259,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Sailing into Kralendijk with flamingos flying past the ship is unreal – Bonaire is the snorkeler's paradise. My perfect day: off the ship and straight to Klein Bonaire by water taxi (affordable round-trip) – the deserted island with No Name Beach and snorkeling that rivals the Great Barrier Reef right off the sand.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/bonaire/bonaire-1.webp" alt="Bonaire harbor view" loading="lazy">
+        <figcaption>Bonaire — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Lunch back in town at Karel's Beach Bar – lionfish burger and Bonaire Blonde beer on the pier. Afternoon drive-around with a rented golf cart (great all-day value) stopping at salt pyramids, flamingo sanctuary, and 1000 Steps beach. Sunset from the slave hut ruins with a Polar beer.</p>
 
         <div class="poignant-highlight">
@@ -222,6 +274,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Bonaire</h3>
         <p>North or South Pier – literally walk off into town. Water taxis to Klein leave every 30 min. Golf carts or scooters are the fun way.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/bonaire/bonaire-2.webp" alt="Bonaire waterfront" loading="lazy">
+        <figcaption>Bonaire scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
         <ul>
           <li><strong>Klein Bonaire:</strong> Affordable round-trip water taxi</li>
           <li><strong>1000 Steps Beach:</strong> North coast, 15-min drive</li>
@@ -276,7 +333,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/bonaire/bonaire-1.webp" alt="Harbor view of Bonaire" loading="lazy">
+          <figcaption>
+            Harbor view of Bonaire
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bonaire/bonaire-2.webp" alt="Waterfront of Bonaire" loading="lazy">
+          <figcaption>
+            Waterfront of Bonaire
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bonaire/bonaire-3.webp" alt="Port panorama of Bonaire" loading="lazy">
+          <figcaption>
+            Port panorama of Bonaire
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bonaire/bonaire-4.webp" alt="Coastal landscape of Bonaire" loading="lazy">
+          <figcaption>
+            Coastal landscape of Bonaire
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>bonaire-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bonaire-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bonaire-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bonaire-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

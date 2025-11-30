@@ -106,6 +106,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -196,9 +243,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Docking in Reykjavik and seeing the colorful tin roofs and Hallgrímskirkja church rising like a basalt column is pure magic — Iceland ports have exploded in popularity and average 4.9–5.0.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/reykjavik/reykjavik-1.webp" alt="Reykjavik harbor view" loading="lazy">
+        <figcaption>Reykjavik — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>My perfect day: early Golden Circle tour (Þingvellir rift valley, Geysir erupting every 8 minutes, and Gullfoss waterfall so powerful you feel it in your chest). Then the Blue Lagoon on the way back (book the latest slot so you arrive with the midnight sun glowing).</p>
 
         <p>In town: the Sun Voyager sculpture, Harpa concert hall's glass honeycomb, Hallgrímskirkja tower views, and Icelandic hot dogs with everything at Bæjarins Beztu. Puffin tours, lava tunnel walks, or helicopter to a glacier are all easy adds.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/reykjavik/reykjavik-2.webp" alt="Reykjavik waterfront" loading="lazy">
+        <figcaption>Reykjavik scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Standing at Gullfoss watching the Hvítá river plunge into a 32-meter canyon with such force the ground trembled beneath my feet. Mist rainbowed in the Iceland sun. It felt like standing at the edge of the world — which, in a way, you are.
@@ -426,53 +483,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/reykjavik/reykjavik-1.webp" alt="Harbor view of Reykjavik, Iceland" loading="lazy">
-          <figcaption>
-            Harbor view of Reykjavik, Iceland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/reykjavik/reykjavik-2.webp" alt="Waterfront scenery of Reykjavik, Iceland" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Reykjavik, Iceland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/reykjavik/reykjavik-3.webp" alt="Port panorama of Reykjavik, Iceland" loading="lazy">
-          <figcaption>
-            Port panorama of Reykjavik, Iceland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/reykjavik/reykjavik-4.webp" alt="Coastal landscape of Reykjavik, Iceland" loading="lazy">
-          <figcaption>
-            Coastal landscape of Reykjavik, Iceland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>reykjavik-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>reykjavik-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>reykjavik-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>reykjavik-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

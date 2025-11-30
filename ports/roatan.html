@@ -224,6 +224,53 @@ All work on this project is offered as a gift to God.
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 </head>
 <body class="page">
@@ -306,6 +353,11 @@ All work on this project is offered as a gift to God.
         <div class="logbook-entry">
           <p>The approach to Roatán is one of my favorites in the Western Caribbean. Dense jungle tumbles down volcanic hillsides straight into impossibly clear water. This is Honduras's Bay Islands, part of the Mesoamerican Barrier Reef — the second largest reef system on Earth — and the snorkeling here rivals anything I've seen in the Caribbean.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/roatan/roatan-1.webp" alt="Roatan harbor view" loading="lazy">
+        <figcaption>Roatan — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
           <p>We dock at <strong>Mahogany Bay</strong>, Royal Caribbean's beautifully maintained port facility. The terminal is modern and shaded, with a welcome center that includes shops and an air-conditioned area. But the real attraction is just outside: a complimentary chairlift that carries you up and over the jungle canopy to a private beach. It's genuinely fun — soaring above the palm trees with views of the harbor, spotting toucans in the treetops below.</p>
 
           <div class="poignant-highlight">
@@ -321,6 +373,11 @@ All work on this project is offered as a gift to God.
           <p>For those wanting a break from the beach, <strong>Gumbalimba Park</strong> is just up the road. It's a wildlife sanctuary with capuchin monkeys, sloths, and parrots. The highlight is the monkey encounter — these capuchins are social creatures who'll climb onto your shoulders, inspect your pockets, and pose for photos. It's touristy in the best possible way, and the kids (and adults) in my family always beg to go back.</p>
 
           <p>Back at Mahogany Bay by late afternoon, I grab a final drink at the beach bar, watch the sun drop behind the hills, and ride the chairlift back to the ship. The golden hour light filtering through the jungle canopy is worth the price of admission alone — which is to say, it's free.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/roatan/roatan-2.webp" alt="Roatan waterfront" loading="lazy">
+        <figcaption>Roatan scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
         </div>
 
         <section class="port-section">
@@ -397,7 +454,52 @@ All work on this project is offered as a gift to God.
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/roatan/roatan-1.webp" alt="Harbor view of Roatan" loading="lazy">
+          <figcaption>
+            Harbor view of Roatan
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/roatan/roatan-2.webp" alt="Waterfront of Roatan" loading="lazy">
+          <figcaption>
+            Waterfront of Roatan
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/roatan/roatan-3.webp" alt="Port panorama of Roatan" loading="lazy">
+          <figcaption>
+            Port panorama of Roatan
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/roatan/roatan-4.webp" alt="Coastal landscape of Roatan" loading="lazy">
+          <figcaption>
+            Coastal landscape of Roatan
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>roatan-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>roatan-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>roatan-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>roatan-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
 
       <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
     </div>

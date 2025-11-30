@@ -150,6 +150,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -242,9 +289,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Every time our Royal Caribbean ship sails into the enormous Bay of Palma and the golden Cathedral de Mallorca rises dramatically against the turquoise water, I actually gasp out loud. Palma has skyrocketed to become one of the top three most-loved European ports for Royal passengers in 2023–2025, consistently scoring 4.8–5.0 across thousands of reviews. My perfect day starts the second we're cleared: I'm off the ship and on the 8-minute walk into the old town, straight to the cathedral (La Seu) for the morning light streaming through Gaudí's wild canopy inside.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/palma/palma-1.webp" alt="Palma harbor view" loading="lazy">
+        <figcaption>Palma — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Then I wander the Arab Baths, the almond-tree-shaded Passeig des Born for people-watching and café con leche, and the massive circular Castell de Bellver for 360° views that make you feel like you're floating above the entire island. Lunch is always pa amb oli and fresh prawns at the Mercat de l'Olivar, followed by ensaïmada pastry from Forn des Teatre that ruins all other pastries forever.</p>
 
         <p>In the afternoon I either hop the vintage wooden train to Sóller (one of the most beautiful train rides in Europe through orange groves and mountains) or rent a car/scooter for the 45-minute drive to the stunning beaches of Es Trenc or Cala Deià. Sunset drinks on the rooftop of Nakar Hotel or a catamaran sail around the bay are pure magic.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/palma/palma-2.webp" alt="Palma waterfront" loading="lazy">
+        <figcaption>Palma scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Standing inside La Seu cathedral when the morning sun streams through Gaudí's crown of thorns window, casting thousands of colored shapes across the stone floor like a divine kaleidoscope. The entire interior transforms into a light show that Gaudí designed a century ago and that still stops visitors in their tracks every single morning.
@@ -491,53 +548,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/palma/palma-1.webp" alt="Harbor view of Palma de Mallorca, Spain" loading="lazy">
-          <figcaption>
-            Harbor view of Palma de Mallorca, Spain
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/palma/palma-2.webp" alt="Waterfront scenery of Palma de Mallorca, Spain" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Palma de Mallorca, Spain
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/palma/palma-3.webp" alt="Port panorama of Palma de Mallorca, Spain" loading="lazy">
-          <figcaption>
-            Port panorama of Palma de Mallorca, Spain
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/palma/palma-4.webp" alt="Coastal landscape of Palma de Mallorca, Spain" loading="lazy">
-          <figcaption>
-            Coastal landscape of Palma de Mallorca, Spain
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>palma-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>palma-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>palma-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>palma-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

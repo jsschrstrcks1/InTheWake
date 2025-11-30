@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -212,6 +259,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>The sail-in through the Carenage horseshoe harbor with colorful houses stacked up the hills is one of the prettiest in the Caribbean. My perfect day: off the ship and straight to Grand Anse Beach (quick 15-min taxi) – two miles of perfect white sand and calm water.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/grenada/grenada-1.webp" alt="Grenada harbor view" loading="lazy">
+        <figcaption>Grenada — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Lunch at Umbrellas Beach Bar – best fish roti and rum punch on the island. Afternoon is the Concord Falls hike and chocolate tour at Belmont Estate (Grenada is the "Spice Isle" – nutmeg ice cream is life). Sunset at BBC Beach with a Carib and steel pan music.</p>
 
         <div class="poignant-highlight">
@@ -222,6 +274,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Grenada</h3>
         <p>Melville Street Cruise Terminal – 10-min walk to town. Taxis to Grand Anse are great value.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/grenada/grenada-2.webp" alt="Grenada waterfront" loading="lazy">
+        <figcaption>Grenada scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
         <ul>
           <li><strong>Grand Anse Beach:</strong> Short taxi ride (surprisingly affordable)</li>
           <li><strong>Concord Falls:</strong> 30-min drive, combine with spice tour</li>
@@ -276,7 +333,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/grenada/grenada-1.webp" alt="Harbor view of Grenada" loading="lazy">
+          <figcaption>
+            Harbor view of Grenada
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/grenada/grenada-2.webp" alt="Waterfront of Grenada" loading="lazy">
+          <figcaption>
+            Waterfront of Grenada
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/grenada/grenada-3.webp" alt="Port panorama of Grenada" loading="lazy">
+          <figcaption>
+            Port panorama of Grenada
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/grenada/grenada-4.webp" alt="Coastal landscape of Grenada" loading="lazy">
+          <figcaption>
+            Coastal landscape of Grenada
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>grenada-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>grenada-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>grenada-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>grenada-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

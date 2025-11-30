@@ -117,6 +117,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -201,6 +248,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We sailed in under the White Cliffs at sunrise – they really do glow. Dover Castle is enormous – Henry II's great tower, Roman lighthouse, WWII underground hospital tunnels where you can still smell the disinfectant. The Secret Wartime Tunnels tour gave us chills – Operation Dynamo planned here, voices echoing exactly like 1940.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/dover/dover-1.webp" alt="Dover harbor view" loading="lazy">
+        <figcaption>Dover — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We took the train to London (1 hour) or Canterbury (30 min) – we chose Canterbury and wandered the medieval streets to the cathedral where Thomas Becket was murdered in 1170. We had lunch – proper fish & chips at The Old Buttermarket pub under the cathedral's shadow. The pros: real English history without London crowds. The cons: Dover town itself is underwhelming, but the castle and cliffs make up for everything.</p>
 
         <div class="poignant-highlight">
@@ -211,6 +263,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Dover</h3>
         <p>Ship docks under the cliffs – shuttle to castle or train station for London/Canterbury.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/dover/dover-2.webp" alt="Dover waterfront" loading="lazy">
+        <figcaption>Dover scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <section class="port-section">
@@ -431,53 +488,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/dover/dover-1.webp" alt="Harbor view of Dover, England" loading="lazy">
-          <figcaption>
-            Harbor view of Dover, England
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/dover/dover-2.webp" alt="Waterfront scenery of Dover, England" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Dover, England
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/dover/dover-3.webp" alt="Port panorama of Dover, England" loading="lazy">
-          <figcaption>
-            Port panorama of Dover, England
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/dover/dover-4.webp" alt="Coastal landscape of Dover, England" loading="lazy">
-          <figcaption>
-            Coastal landscape of Dover, England
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>dover-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dover-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dover-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dover-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

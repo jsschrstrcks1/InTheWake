@@ -117,6 +117,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -206,9 +253,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We docked in Piraeus at dawn and the Acropolis was already lit up like a crown above the city haze. The metro ride into Athens took exactly 19 minutes and dropped us at the foot of the Acropolis hill just as the gates opened. We beat most of the crowds and walked the Panathenaic Way alone for twenty glorious minutes, marble warm under our hands, cicadas screaming, the Parthenon suddenly right there, scarred but standing proud. I actually got goosebumps when the first rays of sun hit the columns and turned them honey-gold.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/athens/athens-1.webp" alt="Athens harbor view" loading="lazy">
+        <figcaption>Athens — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We wandered down through the Ancient Agora, bought sour cherry juice from a street cart, then spent the afternoon in Plaka getting happily lost in bougainvillea tunnels and tiny churches. Lunch was at Scholarhio in Psyrri — octopus slow-cooked until it tasted like the sea concentrated, washed down with cold Mythos while the waiter argued passionately about football. The heat was brutal by 2 p.m., but the narrow shaded alleys and occasional breeze off the Saronic Gulf saved us.</p>
 
         <p>The pros: you are literally walking through the birthplace of democracy, philosophy, and theater — nowhere else on Earth does that. The cons: summer crowds are intense and the city is chaotic, but the chaos is part of the soul.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/athens/athens-2.webp" alt="Athens waterfront" loading="lazy">
+        <figcaption>Athens scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Standing alone on the Belvedere overlook at sunrise with the entire city still asleep below, the Parthenon glowing pink, and realizing Socrates, Plato, and Pericles once looked at this exact same view and argued about truth and beauty.
@@ -438,53 +495,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/athens/athens-1.webp" alt="Port of Piraeus, Athens" loading="lazy">
-          <figcaption>
-            Port of Piraeus, Athens
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/athens/athens-2.webp" alt="Athens harbor and waterfront" loading="lazy">
-          <figcaption>
-            Athens harbor and waterfront
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/athens/athens-3.webp" alt="Piraeus cruise terminal" loading="lazy">
-          <figcaption>
-            Piraeus cruise terminal
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/athens/athens-4.webp" alt="Athens port panorama" loading="lazy">
-          <figcaption>
-            Athens port panorama
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>athens-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>athens-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>athens-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>athens-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

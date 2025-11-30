@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -212,9 +259,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>The ship docks inside a fortress — actual 19th-century stone walls and cannons everywhere. The Dockyard has great museums and shops, but we hopped the ferry to Hamilton first for pastel buildings and Front Street vibes, then public bus #7 straight to Horseshoe Bay.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/bermuda/bermuda-1.webp" alt="Bermuda harbor view" loading="lazy">
+        <figcaption>Bermuda — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Nothing prepares you for that first sight of the beach — the sand is actually pink (crushed shells + coral), and the water is the color of a Tiffany box. We tucked ourselves into a cove between limestone rocks and spent hours floating in bath-warm water so clear we watched baby sergeant major fish nibble algae off our fingers.</p>
 
         <p>Afternoon rum swizzle at Swizzle Inn (yes, "Swizzle Inn, swagger out") — Bermuda's dangerously drinkable rum, dark rum, Gosling's Black Seal ginger beer, fruit juices. Paired with shark hash — minced shark meat on toast — sounds weird, tastes amazing.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/bermuda/bermuda-2.webp" alt="Bermuda waterfront" loading="lazy">
+        <figcaption>Bermuda scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>We took the ferry back at golden hour; the Great Sound looked like liquid gold with sailboats racing.</p>
 
@@ -278,7 +335,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/bermuda/bermuda-1.webp" alt="Harbor view of Bermuda" loading="lazy">
+          <figcaption>
+            Harbor view of Bermuda
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bermuda/bermuda-2.webp" alt="Waterfront of Bermuda" loading="lazy">
+          <figcaption>
+            Waterfront of Bermuda
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bermuda/bermuda-3.webp" alt="Port panorama of Bermuda" loading="lazy">
+          <figcaption>
+            Port panorama of Bermuda
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bermuda/bermuda-4.webp" alt="Coastal landscape of Bermuda" loading="lazy">
+          <figcaption>
+            Coastal landscape of Bermuda
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>bermuda-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bermuda-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bermuda-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bermuda-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

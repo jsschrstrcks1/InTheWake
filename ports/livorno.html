@@ -117,6 +117,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -201,6 +248,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We docked in industrial Livorno at sunrise and were on the first express coach to Florence – exactly one hour door-to-door. We stepped into Piazza del Duomo just as the morning light hit Brunelleschi's dome and turned it rose-gold. The line for the Accademia was already long, but seeing Michelangelo's David in person is one of those moments that actually stops your heart – he's enormous, impossibly alive, veins bulging in marble arms. We wandered to the Uffizi next (pre-booked tickets are non-negotiable) and stood in front of Botticelli's Birth of Venus while tears rolled down my face – the colors are so much more vivid in real life.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/livorno/livorno-1.webp" alt="Livorno harbor view" loading="lazy">
+        <figcaption>Livorno — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We had lunch at Trattoria Mario near the Mercato Centrale – bistecca alla fiorentina cooked rare, Chianti in carafes, waiters yelling orders like family. In the afternoon we went to Pisa (30 minutes by train) – the Leaning Tower is even more ridiculous and beautiful in person, and climbing it feels wonderfully wrong. The pros: you get Florence, the most perfect Renaissance city on Earth, in a single cruise day. The cons: it's a full day with a lot of walking and zero downtime, but every exhausted step is worth it.</p>
 
         <div class="poignant-highlight">
@@ -211,6 +263,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Florence & Pisa</h3>
         <p>Ship-organized transfers or the excellent "Pisa Mover + train" combo to Florence are fast and reliable. Private driver if you want zero stress.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/livorno/livorno-2.webp" alt="Livorno waterfront" loading="lazy">
+        <figcaption>Livorno scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <section class="port-section">
@@ -431,53 +488,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/livorno/livorno-1.webp" alt="Harbor view of Livorno, Italy" loading="lazy">
-          <figcaption>
-            Harbor view of Livorno, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/livorno/livorno-2.webp" alt="Waterfront scenery of Livorno, Italy" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Livorno, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/livorno/livorno-3.webp" alt="Port panorama of Livorno, Italy" loading="lazy">
-          <figcaption>
-            Port panorama of Livorno, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/livorno/livorno-4.webp" alt="Coastal landscape of Livorno, Italy" loading="lazy">
-          <figcaption>
-            Coastal landscape of Livorno, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>livorno-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>livorno-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>livorno-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>livorno-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

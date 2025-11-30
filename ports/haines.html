@@ -117,6 +117,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -201,9 +248,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We docked in tiny Haines — population 2,500 — and immediately felt the difference from busier ports. No jewelry stores, no T-shirt mobs. Just a real Alaska town with a hardware store, a brewery, and people who actually live here year-round.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/haines/haines-1.webp" alt="Haines harbor view" loading="lazy">
+        <figcaption>Haines — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We booked the Chilkat River float through the Bald Eagle Preserve and it was magical. The guide launched the raft in calm, glacier-fed water and within 10 minutes we counted our first dozen eagles. By the end of the 3-hour float we'd seen over 50 bald eagles — perched in cottonwoods, swooping for salmon, fighting over scraps on gravel bars. The guide kept respectful distance (eagles don't like boats closer than 100 feet to active fishing spots) but we got incredible views.</p>
 
         <p>Halfway through the float, the guide pointed upstream — a brown bear sow with two cubs, maybe 300 yards away, fishing in the shallows. We drifted quietly, watched them for 15 minutes, then floated on. No drama, no crowding, just wild Alaska.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/haines/haines-2.webp" alt="Haines waterfront" loading="lazy">
+        <figcaption>Haines scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>Back in town we hit the salmon bake at the fairgrounds — all you can eat wild salmon grilled over alder, plus ribs, cornbread, and coleslaw. Locals ate alongside cruise passengers, chatting about fishing and the upcoming winter. Felt like a real community dinner.</p>
 
@@ -437,53 +494,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/haines/haines-1.webp" alt="Scenic harbor view of Haines, Alaska" loading="lazy">
-          <figcaption>
-            Scenic harbor view of Haines, Alaska
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/haines/haines-2.webp" alt="Waterfront scenery of Haines, Alaska" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Haines, Alaska
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/haines/haines-3.webp" alt="Port panorama of Haines, Alaska" loading="lazy">
-          <figcaption>
-            Port panorama of Haines, Alaska
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/haines/haines-4.webp" alt="Coastal landscape of Haines, Alaska" loading="lazy">
-          <figcaption>
-            Coastal landscape of Haines, Alaska
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>haines-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>haines-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>haines-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>haines-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

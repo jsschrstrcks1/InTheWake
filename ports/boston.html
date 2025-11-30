@@ -117,6 +117,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -202,9 +249,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We docked at Black Falcon and were on the Silver Line bus to downtown in 15 minutes — easiest port ever. Started at Boston Common, grabbed coffee, and walked the entire Freedom Trail (red brick line — impossible to get lost). Paul Revere's house, Old North Church, USS Constitution — every stop is the real thing.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/boston/boston-1.webp" alt="Boston harbor view" loading="lazy">
+        <figcaption>Boston — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Lunch in the North End at Giacomo's — line out the door but worth it for lobster ravioli in pink sauce. Then Mike's Pastry for cannoli showdown (ricotta filling still warm). Afternoon was Quincy Market — street performers, lobster rolls at Boston Chowda Co, and people-watching perfection.</p>
 
         <p>We took the T to Fenway for a tour (even non-baseball people love it) and ended with sunset beers at the Bleacher Bar — literally looking into the park from center field.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/boston/boston-2.webp" alt="Boston waterfront" loading="lazy">
+        <figcaption>Boston scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>The pros: so much to do and excellent public transit.</p>
         <p>The cons: it can feel rushed if your ship time is short.</p>
@@ -437,53 +494,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/boston/boston-1.webp" alt="Harbor view of Boston, Massachusetts" loading="lazy">
-          <figcaption>
-            Harbor view of Boston, Massachusetts
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/boston/boston-2.webp" alt="Waterfront scenery of Boston, Massachusetts" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Boston, Massachusetts
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/boston/boston-3.webp" alt="Port panorama of Boston, Massachusetts" loading="lazy">
-          <figcaption>
-            Port panorama of Boston, Massachusetts
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/boston/boston-4.webp" alt="Coastal landscape of Boston, Massachusetts" loading="lazy">
-          <figcaption>
-            Coastal landscape of Boston, Massachusetts
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>boston-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>boston-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>boston-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>boston-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

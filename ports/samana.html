@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -212,9 +259,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We were in Samaná in peak whale season (February) and I still get emotional thinking about it. The ship anchors and tenders us to the dock; we walked straight onto a waiting catamaran with maybe 40 other people — perfect size. Within 30 minutes we were in the bay and the captain cut the engine because we were surrounded.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/samana/samana-1.webp" alt="Samana harbor view" loading="lazy">
+        <figcaption>Samana — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>A mother humpback (45 ft easy) and her calf (already 18–20 ft) were breaching in perfect synchrony — slamming down with explosions of white water that drenched us even 100 yards away. Then a male escort started singing — this deep, haunting, vibrating moan we could hear through the hull. The naturalist had a hydrophone and played it over the speakers; grown adults were openly weeping. We saw pec-slaps, tail lobs, spy-hops — at one point the mom lifted her entire head out of the water like she was checking us out. Easily a dozen different whales, all within a mile radius.</p>
 
         <p>Back on land we had time for Cayo Levantado (Bacardi Island) — postcard-perfect with palm trees leaning over white sand and beach bars grilling lobster. The water was warm as bath and so clear I watched permit fish follow my fins hoping for food. Lunch was whole grilled snapper with tostones and ice-cold Presidente beer while a merengue band played.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/samana/samana-2.webp" alt="Samana waterfront" loading="lazy">
+        <figcaption>Samana scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>The pros: whale encounter of a lifetime, and the Dominican people are some of the warmest on the planet.</p>
         <p>The cons: outside January–March it's "just" a pretty beach day (still great, but the whales are the main event).</p>
@@ -279,7 +336,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/samana/samana-1.webp" alt="Harbor view of Samana" loading="lazy">
+          <figcaption>
+            Harbor view of Samana
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/samana/samana-2.webp" alt="Waterfront of Samana" loading="lazy">
+          <figcaption>
+            Waterfront of Samana
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/samana/samana-3.webp" alt="Port panorama of Samana" loading="lazy">
+          <figcaption>
+            Port panorama of Samana
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/samana/samana-4.webp" alt="Coastal landscape of Samana" loading="lazy">
+          <figcaption>
+            Coastal landscape of Samana
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>samana-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>samana-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>samana-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>samana-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -212,6 +259,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Sailing into Basseterre with Brimstone Hill Fortress looming on the hill feels like entering a pirate movie. My perfect day: shared taxi straight to Cockleshell Beach (great value) – two miles of golden sand, Carambola Beach Club, and the best grilled mahi tacos with Killer Bee rum punch at Reggae Beach Bar.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/st-kitts/st-kitts-1.webp" alt="St. Kitts harbor view" loading="lazy">
+        <figcaption>St. Kitts — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>After lunch we do the scenic train ride around the island (the "last railway in the West Indies") with unlimited rum punch and choir singing. Then Brimstone Hill Fortress at golden hour – UNESCO site with insane views. Sunset back at the Port Zante bars with Carib beers watching the ship lights come on.</p>
 
         <div class="poignant-highlight">
@@ -222,6 +274,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around St. Kitts</h3>
         <p>Port Zante – literally walk off into town. Shared taxis everywhere to beaches (great value).</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/st-kitts/st-kitts-2.webp" alt="St. Kitts waterfront" loading="lazy">
+        <figcaption>St. Kitts scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
         <ul>
           <li><strong>Cockleshell Beach:</strong> Shared taxi (won't break the bank)</li>
           <li><strong>Brimstone Hill Fortress:</strong> Taxi or tour (worth every penny)</li>
@@ -276,7 +333,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/st-kitts/st-kitts-1.webp" alt="Harbor view of St. Kitts" loading="lazy">
+          <figcaption>
+            Harbor view of St. Kitts
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/st-kitts/st-kitts-2.webp" alt="Waterfront of St. Kitts" loading="lazy">
+          <figcaption>
+            Waterfront of St. Kitts
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/st-kitts/st-kitts-3.webp" alt="Port panorama of St. Kitts" loading="lazy">
+          <figcaption>
+            Port panorama of St. Kitts
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/st-kitts/st-kitts-4.webp" alt="Coastal landscape of St. Kitts" loading="lazy">
+          <figcaption>
+            Coastal landscape of St. Kitts
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>st-kitts-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>st-kitts-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>st-kitts-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>st-kitts-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

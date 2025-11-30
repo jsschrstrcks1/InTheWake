@@ -117,6 +117,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -201,6 +248,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We walked off into Vecrīga and the cobblestones immediately started singing – every building a different pastel color, church spires competing for attention. Alberta iela at 9 a.m. was pure Art Nouveau porn – facades covered in screaming faces, naked ladies, and mythical beasts. The Central Market inside five zeppelin hangars was sensory overload – black balsamic vinegar aged 25 years, smoked sprats, and hemp butter that tastes like nostalgia.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/riga/riga-1.webp" alt="Riga harbor view" loading="lazy">
+        <figcaption>Riga — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We had lunch at a milk bar – Soviet-era canteen serving cold beet soup and piragi bacon buns for pocket change. House of the Blackheads rebuilt perfectly after WWII – the detail is insane. The pros: beautiful, affordable, and genuinely friendly. The cons: some Soviet concrete on the outskirts, but the old town is perfect.</p>
 
         <div class="poignant-highlight">
@@ -211,6 +263,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Riga</h3>
         <p>Ship docks 15-minute walk or quick tram to old town <span class="distance-fun">roughly 13 football fields, 48 blue whales in a row, or 1,056 emperor penguins forming an improbable stack</span>.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/riga/riga-2.webp" alt="Riga waterfront" loading="lazy">
+        <figcaption>Riga scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <section class="port-section">
@@ -431,53 +488,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/riga/riga-1.webp" alt="Harbor view of Riga, Latvia" loading="lazy">
-          <figcaption>
-            Harbor view of Riga, Latvia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/riga/riga-2.webp" alt="Waterfront scenery of Riga, Latvia" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Riga, Latvia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/riga/riga-3.webp" alt="Port panorama of Riga, Latvia" loading="lazy">
-          <figcaption>
-            Port panorama of Riga, Latvia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/riga/riga-4.webp" alt="Coastal landscape of Riga, Latvia" loading="lazy">
-          <figcaption>
-            Coastal landscape of Riga, Latvia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>riga-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>riga-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>riga-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>riga-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

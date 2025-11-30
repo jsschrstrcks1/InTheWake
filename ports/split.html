@@ -117,6 +117,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -206,6 +253,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We walked off the ship and straight into the Peristyle while a klapa group sang under the sphinx. Had the square almost to ourselves at 8 a.m. Climbed the bell tower (terrifying open stairs) for 360° views over red roofs and the Adriatic.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/split/split-1.webp" alt="Split harbor view" loading="lazy">
+        <figcaption>Split — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We strolled the Riva promenade for coffee, then took the ferry to Hvar for the day — swam at Pokonji Dol beach in water so clear I could see my toes at 10 m depth. Back in Split at sunset, the palace glowed orange.</p>
 
         <div class="poignant-highlight">
@@ -222,6 +274,11 @@ Soli Deo Gloria
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>The bell tower stairs are steep and open — not for vertigo sufferers, but the view rewards the courage.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/split/split-2.webp" alt="Split waterfront" loading="lazy">
+        <figcaption>Split scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <section class="port-section">
@@ -436,53 +493,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/split/split-1.webp" alt="Harbor view of Split, Croatia" loading="lazy">
-          <figcaption>
-            Harbor view of Split, Croatia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/split/split-2.webp" alt="Waterfront scenery of Split, Croatia" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Split, Croatia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/split/split-3.webp" alt="Port panorama of Split, Croatia" loading="lazy">
-          <figcaption>
-            Port panorama of Split, Croatia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/split/split-4.webp" alt="Coastal landscape of Split, Croatia" loading="lazy">
-          <figcaption>
-            Coastal landscape of Split, Croatia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>split-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>split-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>split-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>split-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

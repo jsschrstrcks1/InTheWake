@@ -106,6 +106,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -196,6 +243,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Helsinki is the underrated gem that keeps climbing the rankings — 4.8 average lately because it's clean, friendly, and packed with design. My perfect day: 10-minute tram to Senate Square and Helsinki Cathedral, then the ferry to Suomenlinna sea fortress (UNESCO, gorgeous island walks). Market Square for salmon soup in a bread bowl, then the Löyly public sauna right on the Baltic (sauna — cold plunge — beer on the terrace is life-changing).</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/helsinki/helsinki-1.webp" alt="Helsinki harbor view" loading="lazy">
+        <figcaption>Helsinki — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Oodi Library (the coolest modern library ever), Temppeliaukio rock church, and Sibelius Monument round it out.</p>
 
         <div class="poignant-highlight">
@@ -206,6 +258,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Helsinki</h3>
         <p>Ships dock at Hernesaari or West Harbour — free shuttle or 15–20 minute scenic walk/tram to center.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/helsinki/helsinki-2.webp" alt="Helsinki waterfront" loading="lazy">
+        <figcaption>Helsinki scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
         <ul>
           <li><strong>Senate Square/Cathedral:</strong> Tram or 15 min walk <span class="distance-fun">approximately 13 football fields, 48 blue whales in a row, or 1,056 emperor penguins stacked skyward</span></li>
           <li><strong>Suomenlinna:</strong> Ferry from Market Square (15 min, €5 round trip)</li>
@@ -422,53 +479,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/helsinki/helsinki-1.webp" alt="Harbor view of Helsinki, Finland" loading="lazy">
-          <figcaption>
-            Harbor view of Helsinki, Finland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/helsinki/helsinki-2.webp" alt="Waterfront scenery of Helsinki, Finland" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Helsinki, Finland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/helsinki/helsinki-3.webp" alt="Port panorama of Helsinki, Finland" loading="lazy">
-          <figcaption>
-            Port panorama of Helsinki, Finland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/helsinki/helsinki-4.webp" alt="Coastal landscape of Helsinki, Finland" loading="lazy">
-          <figcaption>
-            Coastal landscape of Helsinki, Finland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>helsinki-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>helsinki-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>helsinki-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>helsinki-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

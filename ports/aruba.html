@@ -253,6 +253,53 @@ All work on this project is offered as a gift to God.
       color: #678;
       margin-top: 0.25rem;
     }
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -341,6 +388,11 @@ All work on this project is offered as a gift to God.
         <div class="logbook-entry">
           <p>Sailing into Oranjestad feels like entering a Caribbean postcard painted by someone who really, really loves color. The Dutch colonial buildings pop in every shade of coral, yellow, and turquoise. Flamingos dot the horizon. And those famous trade winds — the ones that keep this desert island comfortable year-round — are already ruffling my hair before I'm off the gangway.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/aruba/aruba-FOM - 1.webp" alt="Aruba harbor view" loading="lazy">
+        <figcaption>Aruba — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
           <div class="clearfix">
             <figure class="inline-image" style="float: right; width: 45%; max-width: 320px; margin: 0 0 1rem 1.5rem;">
               <img src="/ports/img/aruba/aruba-FOM - 8.webp" alt="Steel pan band and carnival dancer in colorful costume welcoming cruise passengers at Aruba's port" style="width: 100%; border-radius: 10px; box-shadow: 0 3px 12px rgba(0,0,0,0.12);" loading="lazy"/>
@@ -408,7 +460,129 @@ All work on this project is offered as a gift to God.
           A: The Old Cunucu House in the countryside serves the most authentic version of this stuffed-cheese national dish. It's a proper Aruban experience.</p>
         </section>
 
-      </article>
+      
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 1.webp" alt="Harbor view of Aruba" loading="lazy">
+          <figcaption>
+            Harbor view of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 10.webp" alt="Waterfront of Aruba" loading="lazy">
+          <figcaption>
+            Waterfront of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 11.webp" alt="Port panorama of Aruba" loading="lazy">
+          <figcaption>
+            Port panorama of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 12.webp" alt="Coastal landscape of Aruba" loading="lazy">
+          <figcaption>
+            Coastal landscape of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 2.webp" alt="Harbor view of Aruba" loading="lazy">
+          <figcaption>
+            Harbor view of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 3.webp" alt="Waterfront of Aruba" loading="lazy">
+          <figcaption>
+            Waterfront of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 4.webp" alt="Port panorama of Aruba" loading="lazy">
+          <figcaption>
+            Port panorama of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 5.webp" alt="Coastal landscape of Aruba" loading="lazy">
+          <figcaption>
+            Coastal landscape of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 6.webp" alt="Harbor view of Aruba" loading="lazy">
+          <figcaption>
+            Harbor view of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 7.webp" alt="Waterfront of Aruba" loading="lazy">
+          <figcaption>
+            Waterfront of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 8.webp" alt="Port panorama of Aruba" loading="lazy">
+          <figcaption>
+            Port panorama of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/aruba-FOM - 9.webp" alt="Coastal landscape of Aruba" loading="lazy">
+          <figcaption>
+            Coastal landscape of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/california-lighthouse.webp" alt="Harbor view of Aruba" loading="lazy">
+          <figcaption>
+            Harbor view of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/henriquez-building.webp" alt="Waterfront of Aruba" loading="lazy">
+          <figcaption>
+            Waterfront of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/aruba/oranjestad-school.webp" alt="Port panorama of Aruba" loading="lazy">
+          <figcaption>
+            Port panorama of Aruba
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>aruba-FOM - 1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 10.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 11.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 12.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 4.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 5.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 6.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 7.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 8.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 9.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>california-lighthouse.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>henriquez-building.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>oranjestad-school.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
 
       <!-- Port Images Gallery -->
       <div style="margin: 2rem 0;">

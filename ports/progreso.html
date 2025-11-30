@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -212,9 +259,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>The longest pier in the world (8 km!) means you wake up staring at an endless stretch of beige beach and emerald shallows. Progreso town itself is charmingly sleepy — men playing dominoes, street dogs napping in shade, smell of marquesitas (crispy sweet crepes) everywhere — but we came for Chichen Itzá and it did not disappoint.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/progreso/progreso-1.webp" alt="Progreso harbor view" loading="lazy">
+        <figcaption>Progreso — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>The 2-hour air-conditioned bus ride flies by with our guide's stories. Then you round a corner in the jungle and BAM — El Castillo pyramid rises above the trees like a Maya spaceship. Standing in the plaza hearing 90,000 invisible people cheer when the equinox serpent appears (clap at the base of the staircase and the echo sounds exactly like a rattlesnake — still gives me chills).</p>
 
         <p>We wandered the Great Ball Court (longest in Mesoamerica — 545 ft!), imagined players being sacrificed (winners or losers, depending who you ask), and climbed the smaller Temple of the Jaguars for panoramic views. The Observatory (El Caracol) looks like a steampunk telescope tower — these people were tracking Venus 1,000 years ago!</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/progreso/progreso-2.webp" alt="Progreso waterfront" loading="lazy">
+        <figcaption>Progreso scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>By the time we got back to Progreso we were hot, dusty, and deliriously happy. Rewarded ourselves with cochinita pibil tacos at a beach palapa — slow-roasted pork in achiote so tender it fell apart, wrapped in banana leaves, served with pickled red onions that cut through the richness perfectly.</p>
 
@@ -281,7 +338,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/progreso/progreso-1.webp" alt="Harbor view of Progreso" loading="lazy">
+          <figcaption>
+            Harbor view of Progreso
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/progreso/progreso-2.webp" alt="Waterfront of Progreso" loading="lazy">
+          <figcaption>
+            Waterfront of Progreso
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/progreso/progreso-3.webp" alt="Port panorama of Progreso" loading="lazy">
+          <figcaption>
+            Port panorama of Progreso
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/progreso/progreso-4.webp" alt="Coastal landscape of Progreso" loading="lazy">
+          <figcaption>
+            Coastal landscape of Progreso
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>progreso-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>progreso-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>progreso-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>progreso-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -212,9 +259,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>The tender ride from the ship to Spanish Town already had us grinning — water so clear we could see starfish on the bottom. We shared a safari taxi with six other excited cruisers up to The Baths and arrived just after opening (another pro move). The trail down is short but the second you step into the boulder field your jaw drops — house-sized granite spheres scattered like a giant's marbles, forming cathedral-like grottos with shafts of sunlight piercing turquoise pools.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/virgin-gorda/virgin-gorda-1.webp" alt="Virgin Gorda harbor view" loading="lazy">
+        <figcaption>Virgin Gorda — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We waded waist-deep through the caverns, climbing wooden ladders, ducking under boulders, sometimes swimming short stretches where the water fills the passages. The sound is incredible — waves echoing off stone like distant thunder. Emerged at Devil's Bay and honestly lost the ability to speak: pure white sand, water every shade of blue, and only a handful of early birds sharing it with us. Snorkeled around the boulders and saw huge tarpon (easily 4–5 ft) patrolling the shadows, blue tangs in swirling schools, and a spotted eagle ray (6-ft wingspan) that ghosted past so gracefully I forgot to breathe.</p>
 
         <p>By noon more people arrived, but it never felt overcrowded — there's plenty of space if you explore.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/virgin-gorda/virgin-gorda-2.webp" alt="Virgin Gorda waterfront" loading="lazy">
+        <figcaption>Virgin Gorda scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>Lunch was back at Top of the Baths restaurant — conch fritters and the strongest painkillers I've ever had (BVI recipe with nutmeg on top — dangerous). The view from the pool there is ridiculous; I could have stayed all day.</p>
 
@@ -281,7 +338,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/virgin-gorda/virgin-gorda-1.webp" alt="Harbor view of Virgin Gorda" loading="lazy">
+          <figcaption>
+            Harbor view of Virgin Gorda
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/virgin-gorda/virgin-gorda-2.webp" alt="Waterfront of Virgin Gorda" loading="lazy">
+          <figcaption>
+            Waterfront of Virgin Gorda
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/virgin-gorda/virgin-gorda-3.webp" alt="Port panorama of Virgin Gorda" loading="lazy">
+          <figcaption>
+            Port panorama of Virgin Gorda
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/virgin-gorda/virgin-gorda-4.webp" alt="Coastal landscape of Virgin Gorda" loading="lazy">
+          <figcaption>
+            Coastal landscape of Virgin Gorda
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>virgin-gorda-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>virgin-gorda-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>virgin-gorda-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>virgin-gorda-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

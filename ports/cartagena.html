@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -207,9 +254,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We sailed in past the modern skyline and suddenly the old fortifications appeared like something from Pirates of the Caribbean. The cruise terminal is a 10-minute taxi into the walled city, and the second we passed through the clock tower gate I knew this day would rank top-five ever. The streets are a maze of mustard-yellow churches, emerald-green balconies, and palenqueras in fruit-bowl hats offering photos (tip them!).</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/cartagena/cartagena-1.webp" alt="Cartagena harbor view" loading="lazy">
+        <figcaption>Cartagena — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We walked the walls at golden hour first — 500-year-old ramparts with cannons still pointing at the sea, breeze carrying arepa smells and salsa music. Then wandered Getsemaní neighborhood — street art exploding on every wall, locals playing dominoes on plastic chairs, kids kicking soccer balls. Plaza de la Trinidad at dusk was pure joy: food carts, dancers, and a 10-year-old who schooled everyone at breakdancing.</p>
 
         <p>Lunch was at La Cevicheria (Anthony Bourdain's favorite) — octopus ceviche so fresh it tasted like the ocean, coconut lemonade that should be illegal. Afternoon was the Gold Museum (free!) and then the Inquisition Palace — creepy instruments but fascinating history. Ended with sunset from Café del Mar on the walls — passionfruit mojitos while the sky turned neon over the Caribbean.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/cartagena/cartagena-2.webp" alt="Cartagena waterfront" loading="lazy">
+        <figcaption>Cartagena scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>The pros: insanely photogenic, incredible food, and locals who are proud and welcoming.</p>
         <p>The cons: hot and humid weather, and street vendors can be persistent (though a polite "no gracias" works well).</p>
@@ -274,7 +331,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/cartagena/cartagena-1.webp" alt="Harbor view of Cartagena" loading="lazy">
+          <figcaption>
+            Harbor view of Cartagena
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cartagena/cartagena-2.webp" alt="Waterfront of Cartagena" loading="lazy">
+          <figcaption>
+            Waterfront of Cartagena
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cartagena/cartagena-3.webp" alt="Port panorama of Cartagena" loading="lazy">
+          <figcaption>
+            Port panorama of Cartagena
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cartagena/cartagena-4.webp" alt="Coastal landscape of Cartagena" loading="lazy">
+          <figcaption>
+            Coastal landscape of Cartagena
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>cartagena-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cartagena-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cartagena-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cartagena-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

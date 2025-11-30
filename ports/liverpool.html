@@ -117,6 +117,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -201,6 +248,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We walked off the ship straight into the Three Graces and the Mersey smelled exactly like history and salt. The Beatles Story at the Albert Dock had us tearing up at John's round spectacles and the Cavern Club (the real rebuilt one) still smells of beer and 1962. We did the Magical Mystery Tour bus – driving past Penny Lane, Strawberry Field, and the childhood homes felt like trespassing on sacred ground.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/liverpool/liverpool-1.webp" alt="Liverpool harbor view" loading="lazy">
+        <figcaption>Liverpool — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We had lunch at proper Scouse stew at The Philharmonic Dining Rooms – a Victorian palace of marble and mosaics where John Lennon once said the only problem was "the men's toilet is too beautiful to use." In the afternoon we went to the Merseyside Maritime Museum and the heart-breaking International Slavery Museum on the same site – the contrast is brutal and necessary. The pros: genuinely warm Scousers who talk to you like family. The cons: some areas still rough around the edges, but the city wears its scars proudly.</p>
 
         <div class="poignant-highlight">
@@ -211,6 +263,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Liverpool</h3>
         <p>Ship docks at the Pier Head – 2-minute walk to Albert Dock and city center <span class="distance-fun">approximately 13 school buses, 6 blue whales nose-to-tail, or 141 emperor penguins stacked skyward</span>.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/liverpool/liverpool-2.webp" alt="Liverpool waterfront" loading="lazy">
+        <figcaption>Liverpool scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <section class="port-section">
@@ -431,53 +488,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/liverpool/liverpool-1.webp" alt="Harbor view of Liverpool, England" loading="lazy">
-          <figcaption>
-            Harbor view of Liverpool, England
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/liverpool/liverpool-2.webp" alt="Waterfront scenery of Liverpool, England" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Liverpool, England
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/liverpool/liverpool-3.webp" alt="Port panorama of Liverpool, England" loading="lazy">
-          <figcaption>
-            Port panorama of Liverpool, England
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/liverpool/liverpool-4.webp" alt="Coastal landscape of Liverpool, England" loading="lazy">
-          <figcaption>
-            Coastal landscape of Liverpool, England
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>liverpool-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>liverpool-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>liverpool-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>liverpool-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

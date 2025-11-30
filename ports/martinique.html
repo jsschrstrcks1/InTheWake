@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -212,6 +259,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Sailing into Fort-de-France with Le Carbet mountains behind feels like France dropped a city in the Caribbean. My perfect day: off the ship and straight to Les Salines beach (40-min taxi south) – the most beautiful beach I've ever seen with coconut palms and calm water.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/martinique/martinique-1.webp" alt="Martinique harbor view" loading="lazy">
+        <figcaption>Martinique — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Lunch at Chez Carole – lobster grillé and accras (worth every euro). Afternoon wandering St-Pierre (the "Pompeii of the Caribbean") ruins from the 1902 volcano. Back in town for rhum agricole tasting at Depaz and pain au chocolat that rivals Paris.</p>
 
         <div class="poignant-highlight">
@@ -222,6 +274,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Martinique</h3>
         <p>Pointe Simon pier – 5-min walk to town. Taxis for beach day are shareable with others (great way to split costs).</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/martinique/martinique-2.webp" alt="Martinique waterfront" loading="lazy">
+        <figcaption>Martinique scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
         <ul>
           <li><strong>Les Salines Beach:</strong> 40-min taxi south (share with others for great value)</li>
           <li><strong>St-Pierre Ruins:</strong> 30-min north, combine with Depaz distillery</li>
@@ -276,7 +333,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/martinique/martinique-1.webp" alt="Harbor view of Martinique" loading="lazy">
+          <figcaption>
+            Harbor view of Martinique
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/martinique/martinique-2.webp" alt="Waterfront of Martinique" loading="lazy">
+          <figcaption>
+            Waterfront of Martinique
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/martinique/martinique-3.webp" alt="Port panorama of Martinique" loading="lazy">
+          <figcaption>
+            Port panorama of Martinique
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/martinique/martinique-4.webp" alt="Coastal landscape of Martinique" loading="lazy">
+          <figcaption>
+            Coastal landscape of Martinique
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>martinique-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>martinique-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>martinique-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>martinique-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

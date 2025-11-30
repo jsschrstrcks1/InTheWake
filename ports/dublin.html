@@ -106,6 +106,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -196,9 +243,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Every single time our Royal Caribbean ship sails into Dublin Port or down in Cobh for Cork, I feel an instant warmth — Ireland is the port where cruisers consistently report the friendliest people on the planet (4.9–5.0 average 2023–2025).</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/dublin/dublin-1.webp" alt="Dublin harbor view" loading="lazy">
+        <figcaption>Dublin — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>In Dublin my perfect day starts early: 10-minute taxi to Trinity College for the Book of Kells and the breathtaking Long Room library, then a stroll across to Temple Bar for live trad music and a proper pint of Guinness at the Oliver St. John Gogarty (yes, at 10 a.m. — when in Ireland!). Then the Guinness Storehouse — the gravity bar view over the city with a complimentary pint is one of cruising's great moments. EPIC The Irish Emigration Museum is surprisingly emotional and interactive, and Kilmainham Gaol tour is haunting but essential. Lunch is always fish & chips or Irish stew, followed by a hop-on-hop-off bus to Phoenix Park to see the deer.</p>
 
         <p>Down in Cobh (for Cork city or Blarney/Kinsale trips) the colorful houses stacked up the hill and the Titanic Experience museum (Cobh was her last port of call) are beautiful and moving. Kissing the Blarney Stone or a day trip to Cork's English Market for drisheen and blaas is pure joy.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/dublin/dublin-2.webp" alt="Dublin waterfront" loading="lazy">
+        <figcaption>Dublin scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Sitting in a Temple Bar pub at 11 a.m., the only tourists there, when three old men with fiddles and a bodhrán started playing. Within minutes the entire bar was singing along, strangers arm-in-arm, the bartender dancing behind the taps. That's Ireland — the craic finds you whether you're looking for it or not.
@@ -426,53 +483,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/dublin/dublin-1.webp" alt="Harbor view of Dublin, Ireland" loading="lazy">
-          <figcaption>
-            Harbor view of Dublin, Ireland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/dublin/dublin-2.webp" alt="Waterfront scenery of Dublin, Ireland" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Dublin, Ireland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/dublin/dublin-3.webp" alt="Port panorama of Dublin, Ireland" loading="lazy">
-          <figcaption>
-            Port panorama of Dublin, Ireland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/dublin/dublin-4.webp" alt="Coastal landscape of Dublin, Ireland" loading="lazy">
-          <figcaption>
-            Coastal landscape of Dublin, Ireland
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>dublin-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dublin-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dublin-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dublin-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

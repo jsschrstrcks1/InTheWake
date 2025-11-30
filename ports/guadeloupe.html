@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -212,9 +259,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We sailed into Pointe-à-Pitre at sunrise and the first thing that hit me was the smell — fresh baguettes and diesel mixed with frangipani. The cruise terminal is modern but the second we stepped outside we were in proper France: gendarmes in kepis, women on scooters with actual baguettes in their baskets, and every second shop a patisserie. I almost cried when I bit into a still-warm pain au chocolat before 8 a.m.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/guadeloupe/guadeloupe-1.webp" alt="Guadeloupe harbor view" loading="lazy">
+        <figcaption>Guadeloupe — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We grabbed a taxi straight to Sainte-Anne beach and I'm not exaggerating when I say it's one of the prettiest beaches I've ever seen — swaying palms, powder-white sand, and water shading from turquoise to sapphire. The beach was lively with French families and a few cruisers, kids building sandcastles, old guys playing dominoes under coconut trees. We rented loungers under a sea-grape tree and snorkeled right off the shore: massive brain coral heads, schools of sergeant majors darting around like yellow bullets, a 3-foot porcupinefish that puffed up when I got too close, and a small hawksbill turtle (maybe 2.5 ft shell) the color of mahogany gliding through the seagrass.</p>
 
         <p>Lunch was at a beachside bokit stand — fried dough pockets stuffed with codfish accras, spicy sauce, and lettuce that somehow stays crisp in 90° heat. Then the best ti' punch of my life: agricole rum, lime, and just enough cane syrup to make you forgive every bad decision you've ever made. Afternoon we drove to Pointe des Châteaux — the wild eastern tip where the Atlantic smashes against red cliffs and the wind tries to blow your soul clean. The cross at the top has insane 360° views; I stood there watching waves explode 50 ft into the air and felt ridiculously small.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/guadeloupe/guadeloupe-2.webp" alt="Guadeloupe waterfront" loading="lazy">
+        <figcaption>Guadeloupe scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>Back in Pointe-à-Pitre we wandered Marché Saint-Antoine for spices in rainbow piles and bought a jar of colombo powder that still makes my kitchen smell like vacation.</p>
 
@@ -281,7 +338,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/guadeloupe/guadeloupe-1.webp" alt="Harbor view of Guadeloupe" loading="lazy">
+          <figcaption>
+            Harbor view of Guadeloupe
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/guadeloupe/guadeloupe-2.webp" alt="Waterfront of Guadeloupe" loading="lazy">
+          <figcaption>
+            Waterfront of Guadeloupe
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/guadeloupe/guadeloupe-3.webp" alt="Port panorama of Guadeloupe" loading="lazy">
+          <figcaption>
+            Port panorama of Guadeloupe
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/guadeloupe/guadeloupe-4.webp" alt="Coastal landscape of Guadeloupe" loading="lazy">
+          <figcaption>
+            Coastal landscape of Guadeloupe
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>guadeloupe-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>guadeloupe-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>guadeloupe-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>guadeloupe-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

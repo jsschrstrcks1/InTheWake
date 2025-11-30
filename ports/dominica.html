@@ -122,6 +122,53 @@ Soli Deo Gloria
       margin-top: 0.5rem;
     }
 
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -212,6 +259,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Sailing into Roseau with mountains dropping straight into the sea feels like entering Jurassic Park. Dominica is the nature island and I go full adventure: Trafalgar Falls first (short taxi), then the Ti Tou Gorge swim through the narrow canyon to the waterfall (cold but incredible).</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/dominica/dominica-1.webp" alt="Dominica harbor view" loading="lazy">
+        <figcaption>Dominica — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Lunch is fresh callaloo soup and fried plantains at a roadside stand (you might see 'mountain chicken' on old menus, but this local frog is now protected). Afternoon is the Champagne Reef snorkel – bubbles rising from volcanic vents like you're swimming in champagne. Sunset at Mero Beach with a Kubuli beer.</p>
 
         <div class="poignant-highlight">
@@ -222,6 +274,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Dominica</h3>
         <p>Roseau pier – 5-min walk to town. Taxis offer affordable shared rates for full-day tours.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/dominica/dominica-2.webp" alt="Dominica waterfront" loading="lazy">
+        <figcaption>Dominica scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
         <ul>
           <li><strong>Trafalgar Falls:</strong> 20-min taxi from pier</li>
           <li><strong>Ti Tou Gorge:</strong> Near Trafalgar, combine them</li>
@@ -276,7 +333,52 @@ Soli Deo Gloria
         </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/dominica/dominica-1.webp" alt="Harbor view of Dominica" loading="lazy">
+          <figcaption>
+            Harbor view of Dominica
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/dominica/dominica-2.webp" alt="Waterfront of Dominica" loading="lazy">
+          <figcaption>
+            Waterfront of Dominica
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/dominica/dominica-3.webp" alt="Port panorama of Dominica" loading="lazy">
+          <figcaption>
+            Port panorama of Dominica
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/dominica/dominica-4.webp" alt="Coastal landscape of Dominica" loading="lazy">
+          <figcaption>
+            Coastal landscape of Dominica
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>dominica-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dominica-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dominica-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dominica-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
