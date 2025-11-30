@@ -182,6 +182,48 @@ All work on this project is offered as a gift to God.
     }
     .rail details.card[open] summary::after { transform: rotate(180deg); }
     .rail details.card .card-content { padding: 1rem; }
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
   </style>
 </head>
 <body class="page">
@@ -320,7 +362,42 @@ All work on this project is offered as a gift to God.
           <p><strong>Q: What is the Mahogany Bay chairlift?</strong><br/>
           A: Royal Caribbean's Mahogany Bay terminal features a free chairlift that carries passengers from the cruise pier over the jungle canopy to a private beach. It's a scenic 5-minute ride with great photo opportunities.</p>
         </section>
-      </article>
+      
+      <!-- Photo Gallery -->
+      <section class="port-section" style="background: transparent; border: none; padding: 0;">
+        <h3>Roatan Gallery</h3>
+        <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/roatan/roatan-1.webp" alt="NCL Jewel at Roatan" loading="lazy"/>
+          <figcaption>
+            NCL Jewel at Roatan
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/roatan/roatan-2.webp" alt="Isla Roatan cruise port" loading="lazy"/>
+          <figcaption>
+            Isla Roatan cruise port
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/roatan/roatan-3.webp" alt="Honduras Roatan port" loading="lazy"/>
+          <figcaption>
+            Honduras Roatan port
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/roatan/roatan-4.webp" alt="Port of Roatan" loading="lazy"/>
+          <figcaption>
+            Port of Roatan
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
+          </figcaption>
+        </figure>
+        </div>
+      </section>
+    </article>
 
       <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
     </div>
@@ -395,6 +472,18 @@ All work on this project is offered as a gift to God.
         </div>
       </details>
     </aside>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">Images from Wikimedia Commons, used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>NCL Jewel at Roatan:</strong> Photo by Cynthisa, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</li>
+        <li><strong>Isla Roatan cruise port:</strong> Photo by Prayitno, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</li>
+        <li><strong>Honduras Roatan port:</strong> Photo by Georg Karl Ell, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+        <li><strong>Port of Roatan:</strong> Photo by Prayitno, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</li>
+      </ul>
+    </section>
   </main>
 
   <footer class="wrap" role="contentinfo">

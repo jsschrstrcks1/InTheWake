@@ -182,6 +182,48 @@ All work on this project is offered as a gift to God.
     }
     .rail details.card[open] summary::after { transform: rotate(180deg); }
     .rail details.card .card-content { padding: 1rem; }
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
   </style>
 </head>
 <body class="page">
@@ -317,7 +359,42 @@ All work on this project is offered as a gift to God.
           <p><strong>Q: Is Maho Beach safe during plane landings?</strong><br/>
           A: While watching is a major attraction, you need to exercise caution. The jet blast from departing large aircraft is extremely powerful and has caused injuries. Stay behind the fence during takeoffs and never hold onto it.</p>
         </section>
-      </article>
+      
+      <!-- Photo Gallery -->
+      <section class="port-section" style="background: transparent; border: none; padding: 0;">
+        <h3>St. Maarten Gallery</h3>
+        <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/st-maarten/st-maarten-1.webp" alt="Cruise ship in Philipsburg harbor" loading="lazy"/>
+          <figcaption>
+            Cruise ship in Philipsburg harbor
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-maarten/st-maarten-2.webp" alt="Giant cruise ship arriving" loading="lazy"/>
+          <figcaption>
+            Giant cruise ship arriving
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-maarten/st-maarten-3.webp" alt="Harmony of the Seas in port" loading="lazy"/>
+          <figcaption>
+            Harmony of the Seas in port
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-maarten/st-maarten-4.webp" alt="Philipsburg waterfront" loading="lazy"/>
+          <figcaption>
+            Philipsburg waterfront
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 3.0)</div>
+          </figcaption>
+        </figure>
+        </div>
+      </section>
+    </article>
 
       <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
     </div>
@@ -392,6 +469,18 @@ All work on this project is offered as a gift to God.
         </div>
       </details>
     </aside>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">Images from Wikimedia Commons, used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Cruise ship in Philipsburg harbor:</strong> Photo by MDCXLVI, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+        <li><strong>Giant cruise ship arriving:</strong> Photo by Richie Diesterheft, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</li>
+        <li><strong>Harmony of the Seas in port:</strong> Photo by Kiwi05, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+        <li><strong>Philipsburg waterfront:</strong> Photo by MARELBU, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 3.0)</li>
+      </ul>
+    </section>
   </main>
 
   <footer class="wrap" role="contentinfo">

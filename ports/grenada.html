@@ -80,6 +80,48 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -199,6 +241,41 @@ Soli Deo Gloria
         <p><strong>Q: Nutmeg ice cream?</strong><br/>A: House of Chocolate in town – try it!</p>
         <p><strong>Q: Safe?</strong><br/>A: Very – friendliest island in the Caribbean.</p>
       </section>
+    
+      <!-- Photo Gallery -->
+      <section class="port-section" style="background: transparent; border: none; padding: 0;">
+        <h3>Grenada Gallery</h3>
+        <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/grenada/grenada-1.webp" alt="Carnival Breeze in Grenada" loading="lazy"/>
+          <figcaption>
+            Carnival Breeze in Grenada
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/grenada/grenada-2.webp" alt="Cruise ship quay" loading="lazy"/>
+          <figcaption>
+            Cruise ship quay
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/grenada/grenada-3.webp" alt="Historic St. George's" loading="lazy"/>
+          <figcaption>
+            Historic St. George's
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/grenada/grenada-4.webp" alt="Mein Schiff in Grenada" loading="lazy"/>
+          <figcaption>
+            Mein Schiff in Grenada
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</div>
+          </figcaption>
+        </figure>
+        </div>
+      </section>
     </article>
   </div>
   <aside class="rail" style="grid-column: 2;">
@@ -245,6 +322,18 @@ Soli Deo Gloria
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">Images from Wikimedia Commons, used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Carnival Breeze in Grenada:</strong> Photo by Stabbur's Master, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</li>
+        <li><strong>Cruise ship quay:</strong> Photo by madmack66, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</li>
+        <li><strong>Historic St. George's:</strong> Photo by Unknown, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</li>
+        <li><strong>Mein Schiff in Grenada:</strong> Photo by Caribbeanyachtbroker, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</li>
+      </ul>
+    </section>
   </main>
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
