@@ -307,6 +307,15 @@ AI-first content protocol that helps AI assistants understand and cite content c
 
 **Purpose:** Real, authentic stories from cruise passengers processing grief, disability, solo travel, relationships
 
+**CRITICAL:** All logbook entries must follow `/admin/claude/LOGBOOK_ENTRY_STANDARDS_v2.300.md`:
+- Story-first approach (not brochures/feature lists)
+- Positive emphasis with negatives redeemed into blessings
+- One emotional pivot moment (tear-jerker, mostly happy)
+- Grounded in real review signals
+- No invented guides/calculators/resources
+- No sales pitch language
+- Subject to Appendix C (Pastoral Witness Guardrail) and Appendix D (Persona Uniqueness)
+
 **Structure:**
 ```json
 {

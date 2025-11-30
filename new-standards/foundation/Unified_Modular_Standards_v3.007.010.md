@@ -177,6 +177,14 @@ Embed, near `</html>`:
 	•	Ten archetypes with disclosure rules; JSON contract /assets/data/personas.json.
 	•	Each logbook entry must include ≥1 persona label.
 	•	Each Logbook entry is subject to the pastoral guard rails in Appendix C.
+	•	**All logbook entries must follow LOGBOOK_ENTRY_STANDARDS_v2.300** (`/admin/claude/LOGBOOK_ENTRY_STANDARDS_v2.300.md`):
+		- Story-first approach (not brochure/feature lists)
+		- Positive emphasis with negatives redeemed into blessings
+		- One emotional pivot moment (tear-jerker, mostly happy)
+		- Grounded in real review signals
+		- No invented guides/calculators/resources
+		- No sales pitch language
+		- 600–1,200 words target length
 
 ⸻
 
@@ -458,6 +466,16 @@ Crisis Resources:
 If any content addresses mental health struggles directly, it should include appropriate resources:
 	•	National Suicide Prevention Lifeline: 988 (US)
 	•	Crisis Text Line: Text HOME to 741741
+
+### Cross-Reference: LOGBOOK_ENTRY_STANDARDS_v2.300
+
+When writing or auditing logbook entries, **always** consult `/admin/claude/LOGBOOK_ENTRY_STANDARDS_v2.300.md` in addition to this appendix. That document defines:
+- Story-first narrative structure (not brochures/feature lists)
+- Emotional arc requirements (tension → pivot → reflection)
+- Voice and tone guidelines
+- Handling positives and negatives
+- Spiritual content guidelines
+- Model checklist for pre-publish verification
 
 ⸻
 ## Appendix D — Persona Uniqueness & Story Separation
