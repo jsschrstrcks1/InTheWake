@@ -303,8 +303,8 @@ When a ship, port, or venue is missing an image, follow this order of operations
 1. **Check local assets first**
    - `/assets/ships/thumbs/`
    - `/assets/ships/`
-   - `/assets/ports/` (if present)
-   - `/assets/restaurants/` (if present)
+   - `/ports/img/` 
+   - `*.jpg, or *.jpeg, or *.png, or *.webp` (if present)
 
 2. **If no suitable local image exists, ALWAYS try the WikiMedia API**
    - Use the Wikimedia API to search for a properly licensed image:
