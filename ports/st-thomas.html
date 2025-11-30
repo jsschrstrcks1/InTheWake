@@ -217,6 +217,48 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
     }
 
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
     /* Clear floats */
     .clearfix::after {
       content: "";
@@ -243,7 +285,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/ports/img/st-thomas/city-view.jpg" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/ports/img/st-thomas/city-view.webp" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/brand/compassrose.png" fetchpriority="high"/>
 </head>
@@ -321,7 +363,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <article class="card">
       <!-- Hero Image with Port Name Overlay -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem;">
-        <img class="port-hero" src="/ports/img/st-thomas/city-view.jpg" alt="Charlotte Amalie city view from hillside showing colorful buildings cascading down to the harbor" fetchpriority="high" style="margin-bottom: 0;"/>
+        <img class="port-hero" src="/ports/img/st-thomas/city-view.webp" alt="Charlotte Amalie city view from hillside showing colorful buildings cascading down to the harbor" fetchpriority="high" style="margin-bottom: 0;"/>
         <div class="port-name-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase;">St. Thomas</div>
       </div>
 
@@ -338,7 +380,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <div class="clearfix">
         <p>Sailing into Charlotte Amalie harbor surrounded by emerald hills dotted with rainbow-colored houses is pure magic — there's a reason this view has graced a thousand postcards. The buildings cascade down the steep hillsides like stacked Lego blocks painted in every shade of coral, yellow, and seafoam, centuries of Danish colonial architecture blending with Caribbean vibrancy. I'm always on the top deck screaming when Magens Bay appears around the bend, that heart-shaped beach backed by palm groves that consistently lands in "World's Best" lists.</p>
 
-        <img class="inline-image" src="/ports/img/st-thomas/fort-christian.jpg" alt="Fort Christian, the oldest standing structure in the US Virgin Islands, with its distinctive red brick tower" loading="lazy"/>
+        <img class="inline-image" src="/ports/img/st-thomas/fort-christian.webp" alt="Fort Christian, the oldest standing structure in the US Virgin Islands, with its distinctive red brick tower" loading="lazy"/>
 
         <p>But before I chase the beach, I usually spend an hour exploring Charlotte Amalie's historic heart. <strong>Fort Christian</strong> is impossible to miss — that distinctive brick-red tower has stood guard over the harbor since 1680, making it the oldest standing structure in the US Virgin Islands. The Danes built it when this was their Caribbean colony, and it's served as a church, courthouse, governor's mansion, and jail over the centuries. The small museum inside offers a fascinating window into the island's complex history, from the Taino people through Danish rule to American acquisition in 1917. Standing on those ramparts looking out at your cruise ship, you're literally standing where pirates once surveyed their targets.</p>
       </div>
@@ -354,7 +396,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </div>
 
       <div class="clearfix">
-        <img class="inline-image-left" src="/ports/img/st-thomas/blackbeard-castle.jpg" alt="Blackbeard Castle watchtower perched on a hilltop with panoramic harbor views" loading="lazy"/>
+        <img class="inline-image-left" src="/ports/img/st-thomas/blackbeard-castle.webp" alt="Blackbeard Castle watchtower perched on a hilltop with panoramic harbor views" loading="lazy"/>
 
         <p>Around noon I head to Paradise Point, taking the skyride tram from Havensight — a scenic seven-minute ascent 700 feet up Flag Hill. The views from the top are insane: 360-degree panoramas of the harbor, neighboring islands, and your ship looking like a toy in the water below. The bar up top is famous for the Bushwacker — a frozen concoction (rum, Kahlúa, cream, and secret magic) that's become a St. Thomas institution. The combination of those views and that signature drink is why Paradise Point stays packed with cruisers.</p>
 
@@ -388,6 +430,34 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
       <p>The steep hills and open-air safari trucks are St. Thomas's way of giving you a free roller-coaster ride with million-dollar views! Wear comfortable shoes if you're exploring downtown — those historic streets are hilly. Everything is in USD, cell service works normally, and it feels remarkably like home despite the palm trees. The only "warning" is that you'll want to move here.</p>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="port-section" style="background: transparent; border: none; padding: 0;">
+      <h3>St. Thomas Gallery</h3>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/st-thomas/city-view.webp" alt="Charlotte Amalie city view from hillside showing colorful buildings cascading to the harbor" loading="lazy"/>
+          <figcaption>
+            Charlotte Amalie's colorful buildings cascade down the hillside to the harbor — the view that greets every cruise arrival.
+            <div class="photo-credit">Photo: © Flickers of Majesty</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-thomas/fort-christian.webp" alt="Fort Christian, the oldest standing structure in the US Virgin Islands" loading="lazy"/>
+          <figcaption>
+            Fort Christian — built in 1680, it's the oldest standing structure in the USVI and a window into Danish colonial history.
+            <div class="photo-credit">Photo: © Flickers of Majesty</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-thomas/blackbeard-castle.webp" alt="Blackbeard Castle watchtower with panoramic harbor views" loading="lazy"/>
+          <figcaption>
+            Blackbeard's Castle watchtower — allegedly once belonging to the infamous pirate, now offering spectacular views.
+            <div class="photo-credit">Photo: © Flickers of Majesty</div>
+          </figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- FAQ Section -->
@@ -469,6 +539,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">All images on this page are used with permission:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Charlotte Amalie City View:</strong> Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>, used with permission</li>
+        <li><strong>Fort Christian:</strong> Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>, used with permission</li>
+        <li><strong>Blackbeard's Castle:</strong> Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>, used with permission</li>
+      </ul>
+    </section>
   </main>
 
   <!-- FOOTER -->
