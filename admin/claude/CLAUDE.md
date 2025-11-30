@@ -296,7 +296,43 @@ All pages should include:
      width="1200"
      height="675">
 ```
+### Image Sourcing Workflow (WikiMedia First)
 
+When a ship, port, or venue is missing an image, follow this order of operations:
+
+1. **Check local assets first**
+   - `/assets/ships/thumbs/`
+   - `/assets/ships/`
+   - `/ports/img/` 
+   - `*.jpg, or *.jpeg, or *.png, or *.webp` (if present)
+
+2. **If no suitable local image exists, ALWAYS try the WikiMedia API**
+   - Use the Wikimedia API to search for a properly licensed image:
+     - Prefer recent, high-resolution photos of the correct ship/port/venue
+     - License must allow reuse with attribution (e.g., CC BY, CC BY-SA)
+   - Download the image locally (do not hotlink WikiMedia URLs in production HTML)
+
+3. **Convert and store**
+   - Convert downloaded images to **WebP** (unless transparency is required → then PNG)
+   - Save to the appropriate folder:
+     - Ships → `/assets/ships/`
+     - Ship thumbnails → `/assets/ships/thumbs/`
+     - Ports → `/assets/ports/`
+     - Venues → `/assets/restaurants/`
+
+4. **Add attribution**
+   - Add/update the attribution block on the relevant page
+   - Append a row to `/attributions/attributions.csv` with:
+     - Page/slug
+     - File name
+     - Author name and URL
+     - License name and URL
+     - Source (WikiMedia)
+
+5. **Only if WikiMedia has nothing usable**
+   - Fall back to an internal placeholder image that follows standards
+   - Mark this in `UNFINISHED_TASKS.md` or the appropriate tracking file as
+     “NEEDS REAL IMAGE – WikiMedia search found nothing.”
 ### 2. Accessibility (WCAG 2.1 AA)
 
 **Required Elements:**
