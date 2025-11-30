@@ -107,11 +107,91 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+
+    /* Hero image for port page */
+    .port-hero {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Inline images in text */
+    .inline-image {
+      float: right;
+      width: 45%;
+      max-width: 320px;
+      margin: 0 0 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+
+    .inline-image-left {
+      float: left;
+      width: 45%;
+      max-width: 320px;
+      margin: 0 1.5rem 1rem 0;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+
+    @media (max-width: 680px) {
+      .inline-image, .inline-image-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/ports/img/amsterdam/amsterdam-1.jpeg" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -191,16 +271,16 @@ Soli Deo Gloria
 
     <div style="grid-column: 1;">
     <article class="card">
-      <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ff6b00 0%, #ff8c00 35%, #0077b6 70%, #00b4d8 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Amsterdam</div>
-      </div>
+      <!-- Port Hero Image -->
+      <img class="port-hero" src="/ports/img/amsterdam/amsterdam-1.jpeg" alt="Sailing ships in Amsterdam's Oosterdok harbor with the city beyond" fetchpriority="high"/>
 
       <h1>Amsterdam: My Canal City That Feels Like a Fairy Tale</h1>
 
       <div class="logbook-entry">
+        <img class="inline-image" src="/ports/img/amsterdam/amsterdam-2.jpeg" alt="Amsterdam cityscape panorama" loading="lazy"/>
         <p>Gliding into the Passenger Terminal Amsterdam right in the heart of the city is one of cruising's great thrills — you're literally docked behind Centraal Station with canal views everywhere. Cruisers give it a perfect 4.9–5.0 because you step off and you're instantly in one of the most beautiful cities on earth.</p>
 
+        <img class="inline-image-left" src="/ports/img/amsterdam/amsterdam-3.jpeg" alt="Port of Amsterdam harbor facilities" loading="lazy"/>
         <p>My perfect day: Anne Frank House first thing (book months ahead), then the Van Gogh Museum and Rijksmuseum (the Night Watch is overwhelming in person), a canal cruise (the smaller open boats are best), and biking like a local through Vondelpark. Stroopwafels from the Albert Cuyp market, herring from a street stand, and bitterballen with mustard are non-negotiable. The Jordaan neighborhood's cute cafés and houseboats feel like real Amsterdam life.</p>
 
         <div class="poignant-highlight">
@@ -225,6 +305,41 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Positively Framed Word of Warning</h3>
         <p>The joyful chaos of bikes and trams is Amsterdam's charming heartbeat — embrace the flow and you'll feel like a local in no time.</p>
+      </section>
+
+      <!-- Photo Gallery -->
+      <section class="port-section" style="background: transparent; border: none; padding: 0;">
+        <h3>Amsterdam Gallery</h3>
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="/ports/img/amsterdam/amsterdam-4.jpeg" alt="Port of Amsterdam harbor view" loading="lazy"/>
+            <figcaption>
+              Amsterdam's port facilities blend modern commerce with centuries of maritime heritage.
+              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:20220525.Port_of_Amsterdam.-012.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/amsterdam/amsterdam-5.jpeg" alt="Port of Amsterdam waterfront" loading="lazy"/>
+            <figcaption>
+              Ships of all sizes pass through one of Europe's busiest and most historic ports.
+              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:20220525.Port_of_Amsterdam.-013.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/amsterdam/amsterdam-6.jpeg" alt="Amsterdam port infrastructure" loading="lazy"/>
+            <figcaption>
+              Modern port operations coexist with Amsterdam's timeless waterfront character.
+              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:20220525.Port_of_Amsterdam.-014.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/amsterdam/amsterdam-7.jpeg" alt="Amsterdam winter view" loading="lazy"/>
+            <figcaption>
+              Every season brings a different kind of magic to Amsterdam's iconic waterways.
+              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Amsterdam_13._velja%C4%8De_2025.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+            </figcaption>
+          </figure>
+        </div>
       </section>
     </article>
   </div>
@@ -276,6 +391,19 @@ Soli Deo Gloria
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">The following images are used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Harbor Ships:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:0_Sailing_ships_in_the_harbor_water_of_the_Oosterdok_in_Amsterdam_city,_Netherlands.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
+        <li><strong>City Panorama:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:Amsterdam_cityscape_southwest_view.JPG" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
+        <li><strong>Port Views (3-6):</strong> Photos from <a href="https://commons.wikimedia.org/wiki/Category:Port_of_Amsterdam" target="_blank" rel="noopener">Wikimedia Commons Port of Amsterdam</a>, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
+        <li><strong>Winter View:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:Amsterdam_13._velja%C4%8De_2025.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
+        <li><strong>Historic Port:</strong> Painting by Hendrik Jacobsz Dubbels (1621-1707), from <a href="https://commons.wikimedia.org/wiki/File:Dubbels-puerto_de_amsterdam.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, public domain</li>
+      </ul>
+    </section>
   </main>
 
     <footer class="wrap" role="contentinfo">
