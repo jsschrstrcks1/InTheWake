@@ -8,11 +8,11 @@
 
 ## 🎯 Quick Start
 
-**Welcome, Claude!** This is a grief-focused cruise planning website with a deep commitment to accessibility, progressive enhancement, and content standards. Before making any changes:
+**Welcome, Claude!** This is a cruise planning website with a deep commitment to accessibility, progressive enhancement, and content standards. Before making any changes:
 
 1. **Read this entire file first**
 2. **Review the standards files** in `/standards/` directory
-3. **Understand the site's mission**: Helping people process grief and loss through cruise travel
+	3.	Understand the site’s mission: A Christ-shaped cruise logbook and planning guide that serves ordinary planners and people in hard seasons.
 4. **Check UNFINISHED_TASKS.md** for current priorities
 
 ---
@@ -54,22 +54,112 @@ Located in `/admin/` directory:
 ## 🌐 Site Mission & Philosophy
 
 ### Core Mission
-**"In the Wake"** helps people process grief and loss through cruise travel. The site focuses on:
 
-- **Grief travel**: Widows/widowers, anticipatory grief, memorial cruises
-- **Accessibility**: Physical disabilities, autism, invisible disabilities, PTSD
-- **Solo travel**: First-time solo, anxiety, introverts, forced solo after loss
-- **Healing relationships**: Marriage restoration, family reconciliation
-- **Rest for caregivers**: Pastors, teachers, medical professionals, burnout recovery
+**In the Wake** is a Christ-shaped cruise logbook and planning guide.
+
+The project exists to:
+- Do everything — code, content, and craft — **to the glory of God**.
+- Offer **honest, human-first cruise guidance** that people can actually use.
+- Treat every page, image, and story as an **act of stewardship and care**.
+
+Cruise travel is the canvas, not the point. We use ships, ports, and itineraries as the backdrop for:
+- Ordinary trip planning and “which ship/port fits me?”
+- Moments of **unexpected kindness and beauty** at sea
+- Seasons of **grief and loss** (widows, memorial cruises, anticipatory grief)
+- **Accessibility journeys** (mobility, autism, invisible disabilities, PTSD)
+- **Solo travel** (by choice and by circumstance)
+- **Healing relationships** (marriages, families, friendships)
+- **Rest for the worn-out** (pastors, teachers, medical staff, caregivers)
+
+Grief and loss matter here — but they are one of several places where this mission shows up, not the only one.
 
 ### Content Principles
 
-1. **Compassionate & Authentic**: Real stories from ship logbooks, no platitudes
-2. **Accessible First**: WCAG 2.1 AA compliance, progressive enhancement
-3. **AI-First, Human-First**: ICP-Lite meta tags for AI, but humans come first in UX
-4. **No Regressions**: Only additive improvements, never break existing functionality
-5. **Evidence-Based**: Cross-reference logbook stories, verify facts
+1. **Compassionate & Authentic:** Real stories and practical guidance, told with honesty and reverence, not hype.
+2. **Accessible First:** WCAG 2.1 AA compliance, progressive enhancement, and real-world disability awareness.
+3. **AI-First, Human-First:** ICP-Lite meta tags for AI, but humans (especially the vulnerable) always win if there’s a conflict.
+4. **No Regressions:** Only additive improvements; never break existing functionality or undercut existing care.
+5. **Evidence-Based:** Cross-reference logbook stories and review signals; verify facts instead of guessing.
 
+
+### Pastoral & Care Guardrails (Non-Negotiable)
+
+This site is read by people who are tired, grieving, anxious, disabled, or barely holding things together. Every assistant must treat it as **pastoral space first, technical space second**.
+
+**People Before Platform**
+
+- When there is any tension between technical neatness, SEO/AI optimization, or clever UX and **reader care**, the reader wins.
+- If a change would make content feel less human, less gentle, or less safe for the hurting reader, **do not make that change.**
+
+**Handling Grief, Loss, and Trauma**
+
+- Never turn someone’s pain into a hook, gimmick, or marketing angle.
+- Do not “tidy up” grief. It is okay for stories to carry sadness, lament, and unfinished edges.
+- Do not add “everything happens for a reason” language or quick-fix spiritual clichés.
+- If you are editing a grief or memorial story, preserve:
+  - The narrator’s vulnerability
+  - Their words for the person they lost
+  - The emotional shape of the story (where the weight sits, where the hope appears)
+
+**Disability, Neurodivergence, and Accessibility**
+
+- Never minimize the realities of disability or neurodivergence.
+- Avoid “inspiration porn” (framing disabled people primarily as objects of inspiration or pity).
+- Emphasize **practical help and dignity**: what made this ship/port more navigable, what helped them be included.
+- When in doubt, assume the reader is exhausted by being disbelieved or dismissed elsewhere. This is not another place that does that.
+
+**Relationships, Marriage, and Family**
+
+- Do not mock or belittle struggling marriages, estranged family, or complex family systems.
+- When editing reconciliation stories, protect the honesty of the struggle as much as the joy of “after.”
+- Never imply that one cruise, ship, or product can “fix” a marriage or family. Cruises create space; they are not sacraments.
+
+**Solo Travelers and Anxiety**
+
+- Respect that some people are solo by grief, some by choice, some by circumstance.
+- Do not frame solo travelers as “less than” or assume they are only in search of romance.
+- Speak to anxious travelers with **clarity, not hype**: specific, practical reassurance beats big promises.
+
+**Voice & Tone in Sensitive Content**
+
+- House voice: patient, practical, grief-aware, never salesy.
+- No travel-agent hype in grief, disability, or healing articles/logbooks. Avoid words like “perfect,” “must-do,” “bucket list,” “life-changing” in these contexts.
+- It is acceptable to name God’s kindness, beauty in creation, or quiet spiritual moments. It is not acceptable to use someone’s suffering to “sell” anything.
+
+**Edits That Are Not Allowed**
+
+- Removing or flattening the emotional pivot in a logbook story (the moment where grace lands).
+- Cutting details that make a story feel specific and real, just to make it shorter or more “generic SEO.”
+- Rewriting a hard story so it becomes chipper, glib, or “inspirational” at the expense of honesty.
+- Adding jokes or sarcasm into grief, disability, or trauma narratives.
+
+**When in Doubt**
+
+- If you are not sure whether an edit is pastorally safe, **do less, not more**:
+  - Prefer copy-editing over restructuring.
+  - Prefer clarifying what’s already there over adding new emotional claims.
+- Leave a note in the task/commit message if you backed off a change for pastoral reasons.
+- It is always acceptable to stop and ask for human review rather than push through a change that feels wrong.
+
+We are intentionally picky.
+
+These standards aren’t here to make your life miserable; they exist because the people reading this site are often tired, grieving, disabled, or overwhelmed. Strict, predictable patterns mean:
+
+- Fewer invisible failures for vulnerable readers
+- Less thrash between different AIs and contributors
+- More time spent on human, pastoral decisions instead of fixing broken plumbing
+
+If you ever wonder “Why is this so strict?”, assume the answer is: “Because someone on the other side of the screen needs it to be.”
+
+### Architectural Fit
+
+Think harder and thoroughly examine similar areas of the codebase to ensure your proposed approach fits seamlessly with the established patterns and architecture.
+
+Aim to make only minimal and necessary changes, avoiding any disruption to the existing design.
+
+Whenever possible, take advantage of components, utilities, or logic that have already been implemented to maintain consistency, reduce duplication, and streamline integration with the current system.
+
+These guardrails override all optimization concerns. A technically imperfect page that is safe for a grieving widow or exhausted caregiver is better than a perfectly tuned page that quietly harms them.
 ---
 
 ## 🏗️ Site Architecture
@@ -128,7 +218,7 @@ Located in `/admin/` directory:
 
 **Tools:**
 - Port Logbook: `/tools/port-tracker.html` (147 Royal Caribbean ports)
-- Ship Tracker: `/tools/ship-tracker.html` (50+ ships)
+- Ship Logbook: `/tools/ship-tracker.html` (50+ ships)
 
 ---
 
@@ -145,8 +235,8 @@ Located in `/admin/` directory:
 
 ### Version Increments
 - **Major changes (3.0 → 4.0):** Complete redesigns
-- **Minor changes (3.006 → 3.007):** Per-batch updates (increment by .001)
-- **Patch (template versions):** Template iterations (v3.010.300)
+- **Minor changes (3.006 → 3.007):** Per-batch updates (increment by 0.001.000)
+- **Patch (template versions):** Template iterations (v3.010.300 increment by 0.000.001)
 
 ### Meta Version Tag
 All pages should include:
@@ -196,7 +286,7 @@ All pages should include:
 - **LCP optimization:** `fetchpriority="high"` on hero images
 - **Responsive:** Explicit `width/height` or `aspect-ratio` in CSS
 - **Hero logo:** Responsive srcset format (see Performance Optimizations doc)
-
+- ## Do NOT optimize .png images - those require transparencies. 
 **Example hero image:**
 ```html
 <img src="/assets/ships/radiance-of-the-seas.webp"
@@ -514,7 +604,7 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 
 ### P0 - Critical (Do These First)
 1. ✅ ~~Port Logbook~~ COMPLETE
-2. ✅ ~~Ship Tracker~~ COMPLETE
+2. ✅ ~~Ship Logbook~~ COMPLETE
 3. ✅ ~~Ship Cards Redesign~~ COMPLETE
 4. ⏳ **Fix placeholder attributions** (Symphony, Adventure, Enchantment, Explorer)
 5. ⏳ **Download Wiki Commons images** for 19 ships
