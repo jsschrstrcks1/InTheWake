@@ -1,18 +1,32 @@
 <!--
 Soli Deo Gloria
+All work on this project is offered as a gift to God.
+"Trust in the LORD with all your heart..." — Proverbs 3:5
+"Whatever you do, work heartily..." — Colossians 3:23
+-->
+<!-- ai-breadcrumbs
+     entity: Curaçao
+     type: Port Information Page
+     parent: /ports.html
+     category: Caribbean Ports
+     cruise-line: Royal Caribbean
+     updated: 2025-11-30
 -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="ai-summary" content="First-person logbook guide to Curaçao with tips for Willemstad's rainbow buildings, Porto Marie snorkeling, and swimming pigs."/>
-  <meta name="last-reviewed" content="2025-11-20"/>
+  <meta name="ai-summary" content="First-person logbook guide to Curaçao with tips for Willemstad's rainbow Handelskade buildings, Hato Caves bat colony, world-class diving, the historic Curaçao Museum, Blue Curaçao liqueur tasting, and the floating Queen Emma pontoon bridge."/>
+  <meta name="last-reviewed" content="2025-11-30"/>
   <meta name="content-protocol" content="ICP-Lite v1.0"/>
   <title>Curaçao Port Guide — Willemstad & Colorful Dutch Caribbean | In the Wake</title>
-  <meta name="description" content="First-person logbook guide to Curaçao — Handelskade rainbow buildings, Porto Marie beach snorkeling, and the famous swimming pigs."/>
+  <meta name="description" content="First-person logbook guide to Curaçao — Handelskade rainbow buildings, Hato Caves bat colony, world-class diving, the historic Curaçao Museum, and the famous Blue Curaçao liqueur."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/curacao.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
   <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
@@ -20,7 +34,7 @@ Soli Deo Gloria
   }
   </script>
 
-  <link rel="stylesheet" href="/assets/styles.css"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.305"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -32,63 +46,221 @@ Soli Deo Gloria
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best beach for snorkeling in Curaçao?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Porto Marie and Cas Abao offer the best shore snorkeling in Curaçao. Porto Marie includes chair and shade with entry and features healthy coral reefs right off the beach. For serious divers, Curaçao is considered one of the best dive destinations in the Caribbean."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I taste Blue Curaçao liqueur?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Landhuis Chobolobo offers free tours and tastings of the famous Blue Curaçao liqueur. This historic estate is where the original liqueur is still produced using the dried peels of the Laraha citrus fruit native to the island."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far is the cruise port from Willemstad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The cruise terminal at Mega Pier or Mathey Wharf is a 10-15 minute walk to the Queen Emma Bridge and Handelskade's rainbow buildings. It's one of the most walkable ports in the Caribbean."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does everyone speak English in Curaçao?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! While Papiamentu is the local language and Dutch is official, everyone speaks excellent English. You'll have no communication issues anywhere on the island."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
-    /* Page Grid Layout (2-column with right rail) */
     .page-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
       align-items: start;
     }
-
     @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 360px;
-      }
+      .page-grid { grid-template-columns: 1fr 360px; }
     }
-
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
+    .rail { display: flex; flex-direction: column; gap: 1rem; }
+    .rail-list { display: grid; gap: 1rem; }
     .logbook-entry { font-size: 1.05rem; line-height: 1.8; color: #134; }
     .logbook-entry p { margin-bottom: 1.25rem; }
     .poignant-highlight { background: linear-gradient(135deg, #f0f9ff 0%, #e6f4f8 100%); border-left: 4px solid var(--accent, #0e6e8e); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; font-style: italic; }
     .port-section { margin: 2rem 0; padding: 1.25rem; background: #f7fdff; border-radius: 12px; border: 1px solid #e0f0f5; }
     .port-section h3 { margin-top: 0; color: var(--sea, #0a3d62); }
-  
-    .author-card-vertical {
+    .author-card-vertical { text-align: center; }
+    .author-card-vertical .author-avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; }
+    .author-card-vertical h4 { margin: 0.5rem 0 0.25rem; }
+    .author-card-vertical p { margin: 0.25rem 0; }
+
+    /* Port Hero Section */
+    .port-hero {
+      position: relative;
+      height: 280px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .port-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .port-hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      padding: 2rem;
       text-align: center;
     }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
+    .port-hero-title {
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      margin: 0;
+      font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+      letter-spacing: 0.02em;
+    }
+
+    /* Inline Images */
+    .inline-image {
+      float: right;
+      width: 45%;
+      max-width: 320px;
+      margin: 0 0 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+    .inline-image-left {
+      float: left;
+      width: 45%;
+      max-width: 320px;
+      margin: 0 1.5rem 1rem 0;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* At a Glance Card */
+    .at-a-glance-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .at-a-glance-item {
+      background: #f7fdff;
+      padding: 0.75rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #e0f0f5;
+    }
+    .at-a-glance-item strong {
+      display: block;
+      font-size: 0.75rem;
+      color: #0a3d62;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    .at-a-glance-item span {
+      font-size: 0.95rem;
+      color: #134;
+    }
+
+    /* Collapsible Rail Cards */
+    .rail details.card {
+      border: 1px solid #e0f0f5;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .rail details.card summary {
+      cursor: pointer;
+      padding: 1rem;
+      font-weight: 600;
+      background: #f7fdff;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .rail details.card summary::-webkit-details-marker { display: none; }
+    .rail details.card summary::after {
+      content: "▼";
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+      color: #0a3d62;
+    }
+    .rail details.card[open] summary::after { transform: rotate(180deg); }
+    .rail details.card .card-content { padding: 1rem; }
+
+    @media (max-width: 768px) {
+      .inline-image, .inline-image-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 180px;
       object-fit: cover;
-      margin: 0 auto 1rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
     }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
+    .gallery-item figcaption {
+      font-size: 0.8rem;
+      color: #456;
+      margin-top: 0.5rem;
+      line-height: 1.4;
     }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
+    .photo-credit {
+      font-size: 0.7rem;
+      color: #678;
+      margin-top: 0.25rem;
     }
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/ports/img/curacao/Curacao-FOM - 1.jpeg" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
@@ -96,12 +268,10 @@ Soli Deo Gloria
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
+        <span class="tiny version-badge" aria-label="Site version 3.010.305">v3.010.305</span>
       </div>
-            <nav class="site-nav" aria-label="Main site navigation">
+      <nav class="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-
-        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Planning <span class="caret">&#9662;</span>
@@ -119,8 +289,6 @@ Soli Deo Gloria
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-
-        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Travel <span class="caret">&#9662;</span>
@@ -130,123 +298,254 @@ Soli Deo Gloria
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-
         <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
         <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-    <!-- Hero -->
+      </nav>
+    </div>
     <div class="hero">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Curaçao</li></ol></nav>
-
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Curaçao has the prettiest port entrance in the Caribbean with Handelskade's rainbow buildings. Porto Marie has swimming pigs, world-class snorkeling, and the famous Blue Curaçao liqueur.
-      </p>
-    </section>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;">
+      <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
+        <li style="display: inline;"><a href="/">Home</a> &rsaquo; </li>
+        <li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li>
+        <li style="display: inline;" aria-current="page">Curaçao</li>
+      </ol>
+    </nav>
 
     <div style="grid-column: 1;">
-    <article class="card">
-      <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #00b4d8 60%, #0077b6 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Curaçao</div>
+      <div class="port-hero">
+        <img src="/ports/img/curacao/Curacao-FOM - 1.jpeg" alt="Colorful Handelskade waterfront buildings in Willemstad, Curaçao with their iconic Dutch colonial architecture" loading="eager" fetchpriority="high"/>
+        <div class="port-hero-overlay">
+          <h1 class="port-hero-title">Curaçao</h1>
+        </div>
+        <p style="font-size: 0.75rem; color: #678; margin-top: 0.5rem; text-align: right;">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </div>
 
-      <h1>Curaçao: My Colorful Dutch Caribbean Love</h1>
-      <div class="logbook-entry">
-        <p>The sail-in through the narrow channel into Willemstad with Handelskade's rainbow buildings reflecting in the water is hands-down the prettiest port entrance in the Caribbean. My perfect day: off the ship and across the swinging Queen Emma pontoon bridge (it actually floats and swings open – so cool) into Punda for photos, then a free ferry to Otrobanda for the Kura Hulanda slavery museum (powerful and beautifully done).</p>
+      <article class="card">
+        <h2>Curaçao: My Colorful Dutch Caribbean Love</h2>
 
-        <p>Lunch is keshi yena (stuffed cheese) and funchi at Plasa Bieu market with the local ladies – incredibly affordable and delicious. Afternoon is a taxi to Playa Porto Marie (entry includes chair and shade) for the best snorkeling right off the beach – I feed the pigs that swim out to you! Sunset at Mambo Beach with happy-hour cocktails watching the lights come on across the city.</p>
+        <p class="answer-line" style="margin: 0.75rem 0 1.5rem; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Curaçao has the prettiest port entrance in the Caribbean with Handelskade's rainbow buildings reflecting in the water. World-class diving, a warm bat cave at Hato, the oldest museum in Curaçao, and you can taste the famous Blue Curaçao liqueur at Landhuis Chobolobo.
+        </p>
 
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Snorkeling at Porto Marie when a curious pig swam right under me – I popped up laughing so hard I nearly choked on seawater.
+        <div class="logbook-entry">
+          <p>The sail-in through the narrow channel into Willemstad with Handelskade's rainbow buildings reflecting in the water is hands-down the prettiest port entrance in the Caribbean. The Dutch colonial architecture pops in every shade imaginable — coral, yellow, turquoise, pink — a visual feast that makes you understand why UNESCO named this a World Heritage Site.</p>
+
+          <div class="clearfix">
+            <figure class="inline-image" style="float: right; width: 45%; max-width: 320px; margin: 0 0 1rem 1.5rem;">
+              <img src="/ports/img/curacao/Curacao-FOM - 2.jpeg" alt="Queen Emma pontoon bridge in Willemstad, the famous floating pedestrian bridge" style="width: 100%; border-radius: 10px; box-shadow: 0 3px 12px rgba(0,0,0,0.12);" loading="lazy"/>
+              <figcaption style="font-size: 0.75rem; color: #678; margin-top: 0.5rem;">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+            </figure>
+            <p>My perfect day starts right off the ship and across the swinging <strong>Queen Emma pontoon bridge</strong> — it actually floats and swings open for boat traffic, which is endlessly entertaining to watch. Cross into Punda for the iconic Handelskade photos, then take the free ferry to Otrobanda for the <strong>Kura Hulanda Museum</strong> (a powerful and beautifully done exploration of the African slave trade).</p>
+          </div>
+
+          <p>Lunch is <strong>keshi yena</strong> (stuffed cheese) and funchi at <strong>Plasa Bieu</strong> market with the local ladies — incredibly affordable, delicious, and authentic. This is where the locals eat, and the homestyle cooking is some of the best food you'll find in the Caribbean. Don't miss the stobá (stew) or the fresh fruit juices.</p>
+
+          <div class="poignant-highlight">
+            <strong>The Moment That Stays With Me:</strong> Walking into the warm darkness of Hato Caves as hundreds of long-nosed bats swirled overhead — an otherworldly experience. The cave formations are spectacular, but those bats make it feel like stepping into another world entirely.
+          </div>
+
+          <div class="clearfix">
+            <figure class="inline-image-left" style="float: left; width: 45%; max-width: 320px; margin: 0 1.5rem 1rem 0;">
+              <img src="/ports/img/curacao/Curacao-FOM - 6.jpeg" alt="Crystal clear turquoise water at one of Curaçao's famous beaches" style="width: 100%; border-radius: 10px; box-shadow: 0 3px 12px rgba(0,0,0,0.12);" loading="lazy"/>
+              <figcaption style="font-size: 0.75rem; color: #678; margin-top: 0.5rem;">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+            </figure>
+            <p>Afternoon is a taxi to <strong>Playa Porto Marie</strong> (entry includes chair and shade) for the best snorkeling right off the beach. The reef is healthy and the fish are abundant. Curaçao is also a world-class dive destination — the visibility is phenomenal, the walls dramatic, and the marine life diverse. For a quieter beach experience, <strong>Cas Abao</strong> is equally stunning with excellent snorkeling and fewer crowds.</p>
+          </div>
+
+          <p>No visit to Curaçao is complete without stopping at <strong>Landhuis Chobolobo</strong> for a free tour and tasting of the famous Blue Curaçao liqueur. The historic estate is beautiful, and you'll learn how the dried peels of the Laraha citrus (native only to Curaçao) create that distinctive flavor.</p>
+
+          <p>For something completely different, head to <strong>Hato Caves</strong> — a warm limestone cave system home to a colony of long-nosed fruit bats. The guided tour takes you past stunning stalactites and stalagmites while bats swoop overhead. It's one of those experiences you won't find anywhere else. Then there's the <strong>Curaçao Museum</strong>, the oldest museum on the island (founded 1948), housed in a beautiful 1853 military hospital. The collection includes everything from Amerindian artifacts to the cockpit of the Snip — the first plane to cross the Atlantic from Holland to Curaçao in 1932. It's a fascinating window into the island's history.</p>
+
+          <p>Sunset is best enjoyed at <strong>Mambo Beach</strong> with happy-hour mocktails watching the lights come on across the city.</p>
+        </div>
+
+        <section class="port-section">
+          <h3>Getting Around Curaçao</h3>
+          <p>The cruise terminal at Mega Pier or Mathey Wharf is a 10–15 minute walk to the Rif Fort and Queen Emma Bridge. From there:</p>
+          <ul>
+            <li><strong>Punda/Handelskade:</strong> 10–15 min walk across Queen Emma Bridge — completely walkable from the port.</li>
+            <li><strong>Otrobanda:</strong> Free ferry across St. Anna Bay, or walk across the bridge.</li>
+            <li><strong>Hato Caves:</strong> 15–20 minute taxi ride north of Willemstad. Guided tours run regularly.</li>
+            <li><strong>Curaçao Museum:</strong> Located in Otrobanda, about a 10-minute walk from the port or a short taxi.</li>
+            <li><strong>Porto Marie Beach:</strong> About 30-minute taxi ride. Entry fee includes chair and shade.</li>
+            <li><strong>Mambo Beach:</strong> Short affordable taxi ride, or around $8–10.</li>
+            <li><strong>Landhuis Chobolobo:</strong> 15-minute taxi from port for Blue Curaçao tour.</li>
+          </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>Depth Soundings Ashore</h3>
+          <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
+          <ul>
+            <li><strong>Currency:</strong> Netherlands Antillean Guilder (ANG), but USD is accepted everywhere. Credit cards widely accepted.</li>
+            <li><strong>Language:</strong> Papiamentu is local, Dutch is official, but everyone speaks excellent English.</li>
+            <li><strong>Walking:</strong> Willemstad is extremely walkable — one of the best ports for exploring on foot.</li>
+            <li><strong>Queen Emma Bridge:</strong> The floating bridge swings open for boats — watch for announcements and enjoy the show!</li>
+            <li><strong>Sunscreen:</strong> The sun is intense. Reapply constantly, especially at the beaches.</li>
+            <li><strong>Safety:</strong> Willemstad is safe for tourists. Use normal precautions in less-traveled areas.</li>
+          </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>Frequently Asked Questions</h3>
+
+          <p><strong>Q: What is the best beach for snorkeling?</strong><br/>
+          A: Porto Marie and Cas Abao both offer excellent shore snorkeling with healthy reefs. Curaçao is also one of the Caribbean's top dive destinations with phenomenal visibility and dramatic wall dives.</p>
+
+          <p><strong>Q: What are Hato Caves like?</strong><br/>
+          A: A warm limestone cave with impressive formations and a colony of long-nosed bats. The guided tour is fascinating, and it's a 15–20 minute taxi from the port.</p>
+
+          <p><strong>Q: Is the Curaçao Museum worth visiting?</strong><br/>
+          A: Absolutely — it's the oldest museum on the island, housed in an 1853 military hospital. Highlights include Amerindian artifacts and the cockpit of the Snip, the first plane to fly from Holland to Curaçao.</p>
+
+          <p><strong>Q: Where can I taste Blue Curaçao?</strong><br/>
+          A: Landhuis Chobolobo offers free tours and tastings. It's a 15-minute taxi from the port and worth the trip.</p>
+
+          <p><strong>Q: Does everyone speak English?</strong><br/>
+          A: Yes! While Papiamentu is the local language, everyone speaks excellent English. You'll have no communication issues.</p>
+
+          <p><strong>Q: What is keshi yena?</strong><br/>
+          A: It's Curaçao's national dish — a hollowed-out cheese ball stuffed with spiced meat. Try it at Plasa Bieu market for the authentic experience.</p>
+        </section>
+
+      </article>
+
+      <!-- Port Images Gallery -->
+      <div style="margin: 2rem 0;">
+        <h3>More Curaçao Moments</h3>
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="/ports/img/curacao/Curacao-FOM - 3.jpeg" alt="Colorful Dutch colonial architecture in Willemstad" loading="lazy"/>
+            <figcaption>
+              Rainbow buildings that define the Caribbean's most colorful port
+              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/curacao/Curacao-FOM - 7.jpeg" alt="Historic buildings and waterfront in Curaçao" loading="lazy"/>
+            <figcaption>
+              UNESCO World Heritage beauty at every turn
+              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/curacao/Curacao-FOM - 10.jpeg" alt="Beach scene in Curaçao with crystal clear water" loading="lazy"/>
+            <figcaption>
+              Crystal-clear waters perfect for snorkeling
+              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/curacao/Curacao-FOM - 14.jpeg" alt="Scenic view of Curaçao coastline" loading="lazy"/>
+            <figcaption>
+              The stunning coastline that makes this island unforgettable
+              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/curacao/Curacao-FOM - 18.jpeg" alt="Vibrant street scene in Willemstad" loading="lazy"/>
+            <figcaption>
+              Dutch Caribbean charm around every corner
+              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
+            </figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/curacao/Curacao-FOM - 22.jpeg" alt="Sunset or scenic view in Curaçao" loading="lazy"/>
+            <figcaption>
+              Why Curaçao is the Dutch Caribbean's crown jewel
+              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
+            </figcaption>
+          </figure>
         </div>
       </div>
 
-      <section class="port-section">
-        <h3>Getting Around Curaçao</h3>
-        <p>Mega Pier or Mathey Wharf – 10–15 minute walk to the rif fort and bridge. Taxis to beaches are shareable for groups. Many beaches include transport in the entry fee.</p>
-        <ul>
-          <li><strong>Punda/Handelskade:</strong> 10–15 min walk across Queen Emma Bridge</li>
-          <li><strong>Porto Marie Beach:</strong> Entry includes chair and shade</li>
-          <li><strong>Mambo Beach:</strong> Short affordable taxi</li>
-        </ul>
-      </section>
+      <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+    </div>
 
-      <section class="port-section">
-        <h3>Depth Soundings Ashore</h3>
-        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>Curaçao's charmingly narrow streets and swinging bridge are the island's way of giving you a free adventure – hold on tight and enjoy the ride!</p>
-      </section>
+    <aside class="rail" style="grid-column: 2;">
+      <details class="card" open>
+        <summary>At a Glance</summary>
+        <div class="card-content">
+          <div class="at-a-glance-grid">
+            <div class="at-a-glance-item">
+              <strong>Country</strong>
+              <span>Netherlands (ABC)</span>
+            </div>
+            <div class="at-a-glance-item">
+              <strong>Language</strong>
+              <span>Papiamentu / English</span>
+            </div>
+            <div class="at-a-glance-item">
+              <strong>Currency</strong>
+              <span>ANG / USD</span>
+            </div>
+            <div class="at-a-glance-item">
+              <strong>Pier</strong>
+              <span>Mega Pier / Mathey</span>
+            </div>
+            <div class="at-a-glance-item">
+              <strong>Best For</strong>
+              <span>Diving, Architecture</span>
+            </div>
+            <div class="at-a-glance-item">
+              <strong>Walking</strong>
+              <span>Easy to Downtown</span>
+            </div>
+          </div>
+        </div>
+      </details>
 
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: Best beach for snorkeling from shore?</strong><br/>A: Porto Marie or Cas Abao.</p>
-        <p><strong>Q: Blue Curaçao liqueur tasting?</strong><br/>A: Landhuis Chobolobo – free tour!</p>
-        <p><strong>Q: Language?</strong><br/>A: Everyone speaks perfect English.</p>
-      </section>
-    </article>
-  </div>
-  <aside class="rail" style="grid-column: 2;">
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
-      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-        <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-        </picture>
-      </a>
-      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-      <p class="tiny">
-        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-      </p>
-    </section>
+      <details class="card" open>
+        <summary>About the Author</summary>
+        <div class="card-content author-card-vertical">
+          <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+            <picture>
+              <source srcset="/authors/img/ken1.webp?v=3.010.305" type="image/webp"/>
+              <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+            </picture>
+          </a>
+          <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+          <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+          <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+        </div>
+      </details>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
-    <!-- Nearby Ports Rail -->
-    <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
-      <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
-      <div style="padding: 1rem;">
-        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Other ports in this region:
-        </p>
-        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
-      </div>
-    </details>
+      <!-- Nearby Ports Rail -->
+      <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
+        <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
+        <div style="padding: 1rem;">
+          <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+            Other ports in this region:
+          </p>
+          <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+        </div>
+      </details>
 
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-  </aside>
-
-    <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+      <details class="card" open>
+        <summary>Recent Stories</summary>
+        <div class="card-content">
+          <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+            Real cruising experiences, practical guides, and heartfelt reflections from our community.
+          </p>
+          <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+          <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+        </div>
+      </details>
+    </aside>
   </main>
-    <footer class="wrap" role="contentinfo">
+
+  <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny" style="margin-top: 0.5rem;">
       <a href="/privacy.html">Privacy</a> ·
@@ -258,159 +557,20 @@ Soli Deo Gloria
   </footer>
 
   <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        console.log('Could not load articles:', err);
-      }
-    })();
-  </script>
-
-  <script>
-  (function(){
-    "use strict";
-
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
+    /* Recent Articles Rail */
+    (async function(){
+      var rail = document.getElementById('recent-rail');
       if(!rail) return;
-
-      const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
-
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
-
-          }
+      try {
+        var res = await fetch('/assets/data/articles/index.json');
+        var articles = await res.json();
+        if(articles && articles.length){
+          rail.innerHTML = articles.slice(0,5).map(function(a){
+            return '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e0e8f0;"><h4 style="margin:0 0 .25rem;font-size:.95rem;"><a href="'+a.url+'">'+a.title+'</a></h4><p style="margin:0;font-size:.8rem;color:#666;">'+a.date+'</p></div>';
+          }).join('');
         }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.300';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
-        return;
-      }
-
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
-            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
-              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div>
-                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
-                </h4>
-                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
-      }).join('');
-
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
-      });
-
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
-      }
+      } catch(e){}
     })();
-  })();
   </script>
 
   <!-- Nearby Ports Script -->
