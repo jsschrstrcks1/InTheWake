@@ -24,8 +24,17 @@ All work on this project is offered as a gift to God.
   <meta name="description" content="First-person logbook guide to Aruba — Eagle Beach fofoti trees, Baby Beach snorkeling, colorful Dutch architecture, and sunset catamaran adventures on One Happy Island."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/aruba.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
 
-  <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.305"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -216,6 +225,10 @@ All work on this project is offered as a gift to God.
       }
     }
   </style>
+
+  <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/ports/img/aruba/california-lighthouse.jpg" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -282,10 +295,11 @@ All work on this project is offered as a gift to God.
 
     <div style="grid-column: 1;">
       <div class="port-hero">
-        <img src="/ports/img/aruba/california-lighthouse.jpg" alt="California Lighthouse on Aruba's northern coast with sweeping views of the coastline" loading="eager"/>
+        <img src="/ports/img/aruba/california-lighthouse.jpg" alt="California Lighthouse on Aruba's northern coast with sweeping views of the coastline" loading="eager" fetchpriority="high"/>
         <div class="port-hero-overlay">
           <h1 class="port-hero-title">Aruba</h1>
         </div>
+        <p style="font-size: 0.75rem; color: #678; margin-top: 0.5rem; text-align: right;">Photo: <a href="https://commons.wikimedia.org/wiki/File:California_Lighthouse_Aruba.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> · CC BY-SA 4.0</p>
       </div>
 
       <article class="card">
@@ -299,7 +313,10 @@ All work on this project is offered as a gift to God.
           <p>Sailing into Oranjestad feels like entering a Caribbean postcard painted by someone who really, really loves color. The Dutch colonial buildings pop in every shade of coral, yellow, and turquoise. Flamingos dot the horizon. And those famous trade winds — the ones that keep this desert island comfortable year-round — are already ruffling my hair before I'm off the gangway.</p>
 
           <div class="clearfix">
-            <img class="inline-image" src="/ports/img/aruba/oranjestad-school.jpg" alt="Historic 1888 school building in Oranjestad showing colorful Dutch colonial architecture" loading="lazy"/>
+            <figure class="inline-image" style="float: right; width: 45%; max-width: 320px; margin: 0 0 1rem 1.5rem;">
+              <img src="/ports/img/aruba/oranjestad-school.jpg" alt="Historic 1888 school building in Oranjestad showing colorful Dutch colonial architecture" style="width: 100%; border-radius: 10px; box-shadow: 0 3px 12px rgba(0,0,0,0.12);" loading="lazy"/>
+              <figcaption style="font-size: 0.75rem; color: #678; margin-top: 0.5rem;">Photo: <a href="https://commons.wikimedia.org/wiki/File:Oranjestad_school_1888.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> · CC BY-SA 4.0</figcaption>
+            </figure>
             <p>The first thing that strikes you about <strong>Oranjestad</strong> is the architecture. Walking through the capital feels like wandering through a living museum of Dutch colonial design — but painted in Caribbean pastels instead of Amsterdam browns. Historic buildings like this 1888 schoolhouse have been lovingly preserved, their bright facades a reminder that this island has been welcoming visitors for centuries. The main shopping district along Caya G.F. Betico Croes is pedestrian-friendly and shaded, perfect for an morning wander before the sun gets too intense.</p>
           </div>
 
@@ -310,7 +327,10 @@ All work on this project is offered as a gift to God.
           </div>
 
           <div class="clearfix">
-            <img class="inline-image-left" src="/ports/img/aruba/henriquez-building.jpg" alt="Henriquez Building with vibrant Caribbean pastel colors in downtown Oranjestad" loading="lazy"/>
+            <figure class="inline-image-left" style="float: left; width: 45%; max-width: 320px; margin: 0 1.5rem 1rem 0;">
+              <img src="/ports/img/aruba/henriquez-building.jpg" alt="Henriquez Building with vibrant Caribbean pastel colors in downtown Oranjestad" style="width: 100%; border-radius: 10px; box-shadow: 0 3px 12px rgba(0,0,0,0.12);" loading="lazy"/>
+              <figcaption style="font-size: 0.75rem; color: #678; margin-top: 0.5rem;">Photo: <a href="https://commons.wikimedia.org/wiki/File:Henriquez_Building_Oranjestad.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> · CC BY-SA 4.0</figcaption>
+            </figure>
             <p>Around noon, I usually taxi to <strong>Palm Beach</strong> for the high-rise hotel energy and lunch at <strong>Eduardo's Beach Shack</strong> — their truffle tuna poke bowl has ruined all other poke bowls for me forever. The acai bowls are equally insane. Palm Beach is more developed than Eagle, with beach bars and water sports rentals lining the shore, but it has its own kind of fun, especially if you're traveling with kids who want jet skis and banana boats.</p>
           </div>
 
@@ -359,9 +379,6 @@ All work on this project is offered as a gift to God.
           A: The Old Cunucu House in the countryside serves the most authentic version of this stuffed-cheese national dish. It's a proper Aruban experience.</p>
         </section>
 
-        <p class="tiny" style="margin-top: 1rem; color: #678; font-style: italic;">
-          Photos: <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a> · CC BY-SA
-        </p>
       </article>
 
       <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -447,7 +464,7 @@ All work on this project is offered as a gift to God.
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria</p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
 
   <script>
