@@ -136,6 +136,43 @@ All work on this project is offered as a gift to God.
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -270,7 +307,52 @@ All work on this project is offered as a gift to God.
         <h3>Positively Framed Word of Warning</h3>
         <p>The biggest risk in Rome from Civitavecchia is running out of time. Build in buffers — trains can be delayed, Roman traffic is legendary, and the Vatican security line alone can take 30+ minutes even with skip-the-line tickets. Don't schedule yourself so tightly that a small delay becomes a disaster. Leave Rome with time to spare. The peace of mind is worth missing one more gelato. Also: book Vatican tickets at the official website (museivaticani.va) months ahead. Third-party resellers charge double and sometimes don't deliver.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-1.webp" alt="Harbor view of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Harbor view of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-2.webp" alt="Waterfront scenery of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-3.webp" alt="Port panorama of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Port panorama of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-4.webp" alt="Coastal landscape of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Coastal landscape of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>civitavecchia-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
 
     <!-- FAQ Section -->
     <section class="card" id="faq" style="margin-top: 2rem;">
@@ -500,7 +582,52 @@ All work on this project is offered as a gift to God.
               </div>
             </div>
             <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+          
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-1.webp" alt="Harbor view of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Harbor view of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-2.webp" alt="Waterfront scenery of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-3.webp" alt="Port panorama of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Port panorama of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-4.webp" alt="Coastal landscape of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Coastal landscape of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>civitavecchia-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

@@ -80,6 +80,43 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -189,7 +226,52 @@ Soli Deo Gloria
         <p><strong>Q: How long for Poetto?</strong><br/>A: Half day is heaven.</p>
         <p><strong>Q: Walk from port?</strong><br/>A: Yes – right into the action.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-1.webp" alt="Cagliari harbor, Sardinia" loading="lazy">
+          <figcaption>
+            Cagliari harbor, Sardinia
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-2.webp" alt="Port of Cagliari" loading="lazy">
+          <figcaption>
+            Port of Cagliari
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-3.webp" alt="Cagliari waterfront" loading="lazy">
+          <figcaption>
+            Cagliari waterfront
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-4.webp" alt="Cagliari coastal view" loading="lazy">
+          <figcaption>
+            Cagliari coastal view
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>cagliari-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cagliari-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cagliari-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cagliari-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -350,7 +432,52 @@ Soli Deo Gloria
               </div>
             </div>
             <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+          
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-1.webp" alt="Cagliari harbor, Sardinia" loading="lazy">
+          <figcaption>
+            Cagliari harbor, Sardinia
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-2.webp" alt="Port of Cagliari" loading="lazy">
+          <figcaption>
+            Port of Cagliari
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-3.webp" alt="Cagliari waterfront" loading="lazy">
+          <figcaption>
+            Cagliari waterfront
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-4.webp" alt="Cagliari coastal view" loading="lazy">
+          <figcaption>
+            Cagliari coastal view
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>cagliari-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cagliari-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cagliari-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cagliari-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
